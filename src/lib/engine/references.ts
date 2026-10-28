@@ -1,7 +1,7 @@
 /**
  * Reference images (#172, spec #165 §4, §5): Classical reference sheets for entries that recur
  * in two or more story sections, one per stage a cast uses, and one style reference per work and
- * non-Classical style. Both are made on Nano Banana 2 Lite from fixed templates, checked by a
+ * style, Classical included. Both are made on Nano Banana 2 Lite from fixed templates, checked by a
  * cheap vision model for hard faults only (text, border, extra figures, missing view, different
  * subjects), retried at most three times with the reasons fed back, and stored as JPEG blobs
  * with the exact input versions they were made from. Subjective canon notes become attention
@@ -94,7 +94,8 @@ export const styleCheckSchema = z.object({
   people_present: z.boolean(), frame_present: z.boolean(), text_present: z.boolean(), full_bleed: z.boolean(), verdict: z.enum(["pass", "fail"]), reasons: z.array(z.string()),
 }).strict();
 export const STYLE_CHECK_QUESTION = `You look-check a style reference image before an illustration engine uses it. Judge strictly from the image. Return only JSON.
-Fail if it contains any people, any frame or border (including window shapes, paper margins or vignettes), any text, or does not run to all four edges. Otherwise pass.`;
+Inspect the entire perimeter, including all four corners, before deciding full_bleed. The depicted scene must continue to every edge. A mostly painted image still fails if scenery or pigment fades into bare white or cream paper at any edge or corner; irregular washed-out edges and partial paper margins count as a vignette/frame, even without a straight border. Set full_bleed=false and frame_present=true for those faults. Pale sky, clouds or a light-coloured object within a continuous scene are not by themselves paper margins.
+Fail if there are any people, any text, any frame/border/margin/vignette, or full_bleed is false. A window within the depicted scene is not itself a frame around the image. Pass only when all four conditions are satisfied. Give only observed faults in reasons on a fail; do not ask the generator to fix absent people or absent text.`;
 
 /** The inputs a reference is made from; their fingerprint decides staleness. */
 export function sheetInputs(subject: SheetSubject, classical: ArtStyle, classicalVersion: string) {

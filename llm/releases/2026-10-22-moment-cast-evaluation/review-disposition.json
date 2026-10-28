@@ -1,0 +1,18 @@
+{
+  "review": "CodeRabbit CLI 0.9.1, uncommitted, AGENTS.md",
+  "issuesRaised": 1,
+  "actionableIssues": 0,
+  "dispositions": [
+    {
+      "severity": "major",
+      "file": "verify.mts",
+      "title": "Include rehearsal.json.gz with the audit.",
+      "status": "not-reproduced-excluded-binary",
+      "evidence": "The 8,390-byte archive exists and is included in git intent-to-add. CodeRabbit completion explicitly lists it in excludedBinaryFiles. Offline verification reads its manifest hash and decompresses the report successfully: 146 tests passed, zero failures. The commit archive is checked before push."
+    }
+  ],
+  "reviewedTextFiles": 21,
+  "excludedBinaryFiles": [
+    "llm/releases/2026-10-22-moment-cast-evaluation/rehearsal.json.gz"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "at": "2026-10-23T21:29:31.671906+00:00",
+  "by": "operator",
+  "summary": "4 of 168 replies differed on one flag each. Decided from blind-replies.json before reading blind-key.json, matching the baseline's decisions on identical cases.",
+  "decisions": [
+    {
+      "blindId": "4b69a3c9",
+      "flag": "X",
+      "decided": true,
+      "flags": {
+        "U": false,
+        "X": true,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false,
+        "N": false
+      },
+      "rationale": "Pharaoh Necoh is selected, so his canon reaches rendering, but the verse has him send ambassadors; he is not at the delivery."
+    },
+    {
+      "blindId": "3b05cadb",
+      "flag": "X",
+      "decided": true,
+      "flags": {
+        "U": false,
+        "X": true,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false,
+        "N": false
+      },
+      "rationale": "Necoh is shown delivering his message on the battlefield; the verse has him send ambassadors."
+    },
+    {
+      "blindId": "993ce63c",
+      "flag": "X",
+      "decided": true,
+      "flags": {
+        "U": false,
+        "X": true,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false,
+        "N": false
+      },
+      "rationale": "'There you shall eat' is set on the selected plains of Moab; the verse means the future chosen place. The baseline's identical case was flagged X by both scorers."
+    },
+    {
+      "blindId": "99a7535b",
+      "flag": "M",
+      "decided": false,
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false,
+        "N": false
+      },
+      "rationale": "The verse states the guards' positions; showing them illustrates its content. Same decision as the baseline's identical scene."
+    }
+  ],
+  "keyReadBeforeThis": false
+}

@@ -1,0 +1,981 @@
+{
+ "entries": [
+  {
+   "key": "genesis-1-3-light/generic:classical/1",
+   "caseId": "genesis-1-3-light",
+   "reference": "Genesis 1:3",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "genesis-1-3-light/generic:classical/2",
+   "caseId": "genesis-1-3-light",
+   "reference": "Genesis 1:3",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "genesis-1-3-light/generic:classical/3",
+   "caseId": "genesis-1-3-light",
+   "reference": "Genesis 1:3",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "genesis-5-5-adam-days/generic:classical/1",
+   "caseId": "genesis-5-5-adam-days",
+   "reference": "Genesis 5:5",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "genesis-5-5-adam-days/generic:classical/2",
+   "caseId": "genesis-5-5-adam-days",
+   "reference": "Genesis 5:5",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "genesis-5-5-adam-days/generic:classical/3",
+   "caseId": "genesis-5-5-adam-days",
+   "reference": "Genesis 5:5",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "genesis-19-24-sodom/generic:classical/1",
+   "caseId": "genesis-19-24-sodom",
+   "reference": "Genesis 19:24",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "genesis-19-24-sodom/generic:classical/2",
+   "caseId": "genesis-19-24-sodom",
+   "reference": "Genesis 19:24",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "genesis-19-24-sodom/generic:classical/3",
+   "caseId": "genesis-19-24-sodom",
+   "reference": "Genesis 19:24",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "genesis-22-10-abraham-knife/generic:classical/1",
+   "caseId": "genesis-22-10-abraham-knife",
+   "reference": "Genesis 22:10",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "genesis-22-10-abraham-knife/generic:classical/2",
+   "caseId": "genesis-22-10-abraham-knife",
+   "reference": "Genesis 22:10",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "genesis-22-10-abraham-knife/generic:classical/3",
+   "caseId": "genesis-22-10-abraham-knife",
+   "reference": "Genesis 22:10",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "exodus-14-21-sea-parts/generic:classical/1",
+   "caseId": "exodus-14-21-sea-parts",
+   "reference": "Exodus 14:21",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "exodus-14-21-sea-parts/generic:classical/2",
+   "caseId": "exodus-14-21-sea-parts",
+   "reference": "Exodus 14:21",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "exodus-14-21-sea-parts/generic:classical/3",
+   "caseId": "exodus-14-21-sea-parts",
+   "reference": "Exodus 14:21",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "exodus-14-22-sea-walls/generic:classical/1",
+   "caseId": "exodus-14-22-sea-walls",
+   "reference": "Exodus 14:22",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "exodus-14-22-sea-walls/generic:classical/2",
+   "caseId": "exodus-14-22-sea-walls",
+   "reference": "Exodus 14:22",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "exodus-14-22-sea-walls/generic:classical/3",
+   "caseId": "exodus-14-22-sea-walls",
+   "reference": "Exodus 14:22",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "leviticus-11-7-pig/generic:classical/1",
+   "caseId": "leviticus-11-7-pig",
+   "reference": "Leviticus 11:7",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "leviticus-11-7-pig/generic:classical/2",
+   "caseId": "leviticus-11-7-pig",
+   "reference": "Leviticus 11:7",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "leviticus-11-7-pig/generic:classical/3",
+   "caseId": "leviticus-11-7-pig",
+   "reference": "Leviticus 11:7",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "joshua-6-20-jericho/generic:classical/1",
+   "caseId": "joshua-6-20-jericho",
+   "reference": "Joshua 6:20",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "joshua-6-20-jericho/generic:classical/2",
+   "caseId": "joshua-6-20-jericho",
+   "reference": "Joshua 6:20",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "joshua-6-20-jericho/generic:classical/3",
+   "caseId": "joshua-6-20-jericho",
+   "reference": "Joshua 6:20",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "judges-19-29-concubine/generic:classical/1",
+   "caseId": "judges-19-29-concubine",
+   "reference": "Judges 19:29",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "judges-19-29-concubine/generic:classical/2",
+   "caseId": "judges-19-29-concubine",
+   "reference": "Judges 19:29",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "judges-19-29-concubine/generic:classical/3",
+   "caseId": "judges-19-29-concubine",
+   "reference": "Judges 19:29",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "ruth-4-22-genealogy/generic:classical/1",
+   "caseId": "ruth-4-22-genealogy",
+   "reference": "Ruth 4:22",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "ruth-4-22-genealogy/generic:classical/2",
+   "caseId": "ruth-4-22-genealogy",
+   "reference": "Ruth 4:22",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "ruth-4-22-genealogy/generic:classical/3",
+   "caseId": "ruth-4-22-genealogy",
+   "reference": "Ruth 4:22",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "1-samuel-17-49-sling/generic:classical/1",
+   "caseId": "1-samuel-17-49-sling",
+   "reference": "1 Samuel 17:49",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "1-samuel-17-49-sling/generic:classical/2",
+   "caseId": "1-samuel-17-49-sling",
+   "reference": "1 Samuel 17:49",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "1-samuel-17-49-sling/generic:classical/3",
+   "caseId": "1-samuel-17-49-sling",
+   "reference": "1 Samuel 17:49",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "2-kings-2-23-bears/generic:classical/1",
+   "caseId": "2-kings-2-23-bears",
+   "reference": "2 Kings 2:23",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "2-kings-2-23-bears/generic:classical/2",
+   "caseId": "2-kings-2-23-bears",
+   "reference": "2 Kings 2:23",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "2-kings-2-23-bears/generic:classical/3",
+   "caseId": "2-kings-2-23-bears",
+   "reference": "2 Kings 2:23",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "job-38-4-foundations/generic:classical/1",
+   "caseId": "job-38-4-foundations",
+   "reference": "Job 38:4",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "job-38-4-foundations/generic:classical/2",
+   "caseId": "job-38-4-foundations",
+   "reference": "Job 38:4",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "job-38-4-foundations/generic:classical/3",
+   "caseId": "job-38-4-foundations",
+   "reference": "Job 38:4",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "psalms-23-2-pastures/generic:classical/1",
+   "caseId": "psalms-23-2-pastures",
+   "reference": "Psalms 23:2",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "psalms-23-2-pastures/generic:classical/2",
+   "caseId": "psalms-23-2-pastures",
+   "reference": "Psalms 23:2",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "psalms-23-2-pastures/generic:classical/3",
+   "caseId": "psalms-23-2-pastures",
+   "reference": "Psalms 23:2",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "psalms-137-1-babylon/generic:classical/1",
+   "caseId": "psalms-137-1-babylon",
+   "reference": "Psalms 137:1",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "psalms-137-1-babylon/generic:classical/2",
+   "caseId": "psalms-137-1-babylon",
+   "reference": "Psalms 137:1",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "psalms-137-1-babylon/generic:classical/3",
+   "caseId": "psalms-137-1-babylon",
+   "reference": "Psalms 137:1",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "song-of-solomon-2-1-rose/generic:classical/1",
+   "caseId": "song-of-solomon-2-1-rose",
+   "reference": "Song of Solomon 2:1",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "song-of-solomon-2-1-rose/generic:classical/2",
+   "caseId": "song-of-solomon-2-1-rose",
+   "reference": "Song of Solomon 2:1",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "song-of-solomon-2-1-rose/generic:classical/3",
+   "caseId": "song-of-solomon-2-1-rose",
+   "reference": "Song of Solomon 2:1",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "isaiah-6-2-seraphim/generic:classical/1",
+   "caseId": "isaiah-6-2-seraphim",
+   "reference": "Isaiah 6:2",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "isaiah-6-2-seraphim/generic:classical/2",
+   "caseId": "isaiah-6-2-seraphim",
+   "reference": "Isaiah 6:2",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "isaiah-6-2-seraphim/generic:classical/3",
+   "caseId": "isaiah-6-2-seraphim",
+   "reference": "Isaiah 6:2",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "isaiah-11-6-wolf-lamb/generic:classical/1",
+   "caseId": "isaiah-11-6-wolf-lamb",
+   "reference": "Isaiah 11:6",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "isaiah-11-6-wolf-lamb/generic:classical/2",
+   "caseId": "isaiah-11-6-wolf-lamb",
+   "reference": "Isaiah 11:6",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "isaiah-11-6-wolf-lamb/generic:classical/3",
+   "caseId": "isaiah-11-6-wolf-lamb",
+   "reference": "Isaiah 11:6",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "ezekiel-37-4-dry-bones/generic:classical/1",
+   "caseId": "ezekiel-37-4-dry-bones",
+   "reference": "Ezekiel 37:4",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "ezekiel-37-4-dry-bones/generic:classical/2",
+   "caseId": "ezekiel-37-4-dry-bones",
+   "reference": "Ezekiel 37:4",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "ezekiel-37-4-dry-bones/generic:classical/3",
+   "caseId": "ezekiel-37-4-dry-bones",
+   "reference": "Ezekiel 37:4",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-6-22-lions/generic:classical/1",
+   "caseId": "daniel-6-22-lions",
+   "reference": "Daniel 6:22",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-6-22-lions/generic:classical/2",
+   "caseId": "daniel-6-22-lions",
+   "reference": "Daniel 6:22",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-6-22-lions/generic:classical/3",
+   "caseId": "daniel-6-22-lions",
+   "reference": "Daniel 6:22",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:classical/1",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:classical/2",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:classical/3",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "jonah-1-17-fish/generic:classical/1",
+   "caseId": "jonah-1-17-fish",
+   "reference": "Jonah 1:17",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "jonah-1-17-fish/generic:classical/2",
+   "caseId": "jonah-1-17-fish",
+   "reference": "Jonah 1:17",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "jonah-1-17-fish/generic:classical/3",
+   "caseId": "jonah-1-17-fish",
+   "reference": "Jonah 1:17",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "matthew-1-1-genealogy/generic:classical/1",
+   "caseId": "matthew-1-1-genealogy",
+   "reference": "Matthew 1:1",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "matthew-1-1-genealogy/generic:classical/2",
+   "caseId": "matthew-1-1-genealogy",
+   "reference": "Matthew 1:1",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "matthew-1-1-genealogy/generic:classical/3",
+   "caseId": "matthew-1-1-genealogy",
+   "reference": "Matthew 1:1",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "matthew-14-29-peter-water/generic:classical/1",
+   "caseId": "matthew-14-29-peter-water",
+   "reference": "Matthew 14:29",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "matthew-14-29-peter-water/generic:classical/2",
+   "caseId": "matthew-14-29-peter-water",
+   "reference": "Matthew 14:29",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "matthew-14-29-peter-water/generic:classical/3",
+   "caseId": "matthew-14-29-peter-water",
+   "reference": "Matthew 14:29",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "john-21-7-peter-sea/generic:classical/1",
+   "caseId": "john-21-7-peter-sea",
+   "reference": "John 21:7",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "john-21-7-peter-sea/generic:classical/2",
+   "caseId": "john-21-7-peter-sea",
+   "reference": "John 21:7",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "john-21-7-peter-sea/generic:classical/3",
+   "caseId": "john-21-7-peter-sea",
+   "reference": "John 21:7",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "mark-4-39-storm/generic:classical/1",
+   "caseId": "mark-4-39-storm",
+   "reference": "Mark 4:39",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "mark-4-39-storm/generic:classical/2",
+   "caseId": "mark-4-39-storm",
+   "reference": "Mark 4:39",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "mark-4-39-storm/generic:classical/3",
+   "caseId": "mark-4-39-storm",
+   "reference": "Mark 4:39",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "luke-15-20-prodigal/generic:classical/1",
+   "caseId": "luke-15-20-prodigal",
+   "reference": "Luke 15:20",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "luke-15-20-prodigal/generic:classical/2",
+   "caseId": "luke-15-20-prodigal",
+   "reference": "Luke 15:20",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "luke-15-20-prodigal/generic:classical/3",
+   "caseId": "luke-15-20-prodigal",
+   "reference": "Luke 15:20",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "john-11-43-lazarus/generic:classical/1",
+   "caseId": "john-11-43-lazarus",
+   "reference": "John 11:43",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "john-11-43-lazarus/generic:classical/2",
+   "caseId": "john-11-43-lazarus",
+   "reference": "John 11:43",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "john-11-43-lazarus/generic:classical/3",
+   "caseId": "john-11-43-lazarus",
+   "reference": "John 11:43",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "acts-9-3-damascus/generic:classical/1",
+   "caseId": "acts-9-3-damascus",
+   "reference": "Acts 9:3",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "acts-9-3-damascus/generic:classical/2",
+   "caseId": "acts-9-3-damascus",
+   "reference": "Acts 9:3",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "acts-9-3-damascus/generic:classical/3",
+   "caseId": "acts-9-3-damascus",
+   "reference": "Acts 9:3",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "romans-8-28-all-things/generic:classical/1",
+   "caseId": "romans-8-28-all-things",
+   "reference": "Romans 8:28",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "romans-8-28-all-things/generic:classical/2",
+   "caseId": "romans-8-28-all-things",
+   "reference": "Romans 8:28",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "romans-8-28-all-things/generic:classical/3",
+   "caseId": "romans-8-28-all-things",
+   "reference": "Romans 8:28",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "matthew-27-35-crucified/generic:classical/1",
+   "caseId": "matthew-27-35-crucified",
+   "reference": "Matthew 27:35",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "matthew-27-35-crucified/generic:classical/2",
+   "caseId": "matthew-27-35-crucified",
+   "reference": "Matthew 27:35",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "matthew-27-35-crucified/generic:classical/3",
+   "caseId": "matthew-27-35-crucified",
+   "reference": "Matthew 27:35",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "revelation-4-6-living-creatures/generic:classical/1",
+   "caseId": "revelation-4-6-living-creatures",
+   "reference": "Revelation 4:6",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "revelation-4-6-living-creatures/generic:classical/2",
+   "caseId": "revelation-4-6-living-creatures",
+   "reference": "Revelation 4:6",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "revelation-4-6-living-creatures/generic:classical/3",
+   "caseId": "revelation-4-6-living-creatures",
+   "reference": "Revelation 4:6",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "revelation-21-1-new-heaven/generic:classical/1",
+   "caseId": "revelation-21-1-new-heaven",
+   "reference": "Revelation 21:1",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "revelation-21-1-new-heaven/generic:classical/2",
+   "caseId": "revelation-21-1-new-heaven",
+   "reference": "Revelation 21:1",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "revelation-21-1-new-heaven/generic:classical/3",
+   "caseId": "revelation-21-1-new-heaven",
+   "reference": "Revelation 21:1",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "holmes-scandal-the-woman/generic:classical/1",
+   "caseId": "holmes-scandal-the-woman",
+   "reference": "A Scandal in Bohemia, Part I ¶1",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0,
+   "status": "done"
+  },
+  {
+   "key": "holmes-scandal-the-woman/generic:classical/2",
+   "caseId": "holmes-scandal-the-woman",
+   "reference": "A Scandal in Bohemia, Part I ¶1",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0,
+   "status": "done"
+  },
+  {
+   "key": "holmes-scandal-the-woman/generic:classical/3",
+   "caseId": "holmes-scandal-the-woman",
+   "reference": "A Scandal in Bohemia, Part I ¶1",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0,
+   "status": "done"
+  },
+  {
+   "key": "holmes-scandal-king-arrives/generic:classical/1",
+   "caseId": "holmes-scandal-king-arrives",
+   "reference": "A Scandal in Bohemia, Part I ¶42",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0,
+   "status": "done"
+  },
+  {
+   "key": "holmes-scandal-king-arrives/generic:classical/2",
+   "caseId": "holmes-scandal-king-arrives",
+   "reference": "A Scandal in Bohemia, Part I ¶42",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0,
+   "status": "done"
+  },
+  {
+   "key": "holmes-scandal-king-arrives/generic:classical/3",
+   "caseId": "holmes-scandal-king-arrives",
+   "reference": "A Scandal in Bohemia, Part I ¶42",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0,
+   "status": "done"
+  },
+  {
+   "key": "holmes-red-headed-league/generic:classical/1",
+   "caseId": "holmes-red-headed-league",
+   "reference": "The Red-Headed League ¶1",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0,
+   "status": "done"
+  },
+  {
+   "key": "holmes-red-headed-league/generic:classical/2",
+   "caseId": "holmes-red-headed-league",
+   "reference": "The Red-Headed League ¶1",
+   "arm": "generic:classical",
+   "n": 2,
+   "estimatedUsd": 0,
+   "status": "done"
+  },
+  {
+   "key": "holmes-red-headed-league/generic:classical/3",
+   "caseId": "holmes-red-headed-league",
+   "reference": "The Red-Headed League ¶1",
+   "arm": "generic:classical",
+   "n": 3,
+   "estimatedUsd": 0,
+   "status": "done"
+  }
+ ],
+ "plannedCalls": 99,
+ "doneCalls": 9,
+ "estimatedUsd": 3.5640000000000027,
+ "budgetUsd": 3.78135925,
+ "withinBudget": false
+}

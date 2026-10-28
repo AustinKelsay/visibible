@@ -1,0 +1,1166 @@
+{
+  "at": "2026-10-23T17:38:16.609Z",
+  "rubric": {
+    "source": "Identical to ../2026-10-23-grounding-rate-check/plan.json rubric (U, X, I, F blockers; N note).",
+    "scoredText": "For a stored sample, the stored plan's scene fields and present ids (what reaches rendering). For a refused sample, the last plan reply's fields, for diagnosis only. The outcome, number of rounds, review problems and grounding audit are withheld.",
+    "pass": "The sample stored a plan and that plan has none of U, X, I or F.",
+    "scorers": "A fresh subagent and the operator, each scoring all 20 blind before the key is read. Disagreements resolved by the operator with a recorded rationale before unblinding."
+  },
+  "replies": [
+    {
+      "blindId": "88c48274",
+      "moment": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "previous": "(section starts here)",
+      "next": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "sectionCast": [
+        {
+          "id": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)"
+        },
+        {
+          "id": "the_ancient_of_days",
+          "name": "The Ancient of Days"
+        },
+        {
+          "id": "one_like_a_son_of_man",
+          "name": "One like a son of man"
+        },
+        {
+          "id": "babylon",
+          "name": "Babylon"
+        },
+        {
+          "id": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision"
+        }
+      ],
+      "present": [
+        "the_ancient_of_days",
+        "ministering_assembly_in_daniels_vision"
+      ],
+      "scene": {
+        "primarySubject": "radiance above an unoccupied seat of fire and cloud, its presence placed at the centre of the hall",
+        "action": "Fire and radiance gather and settle around the empty central seat as thrones are set in place; the ministering assembly stands in ranks before it, unmoving.",
+        "setting": "Vision-space of a heavenly throne hall open to a vast dark expanse, a river of fire flowing before the central seat, thrones set in rows, drifting cloud banks and rising mist.",
+        "secondaryElements": "Ranks of formed attendants in white priestly linen or court robes standing before the seat; cloud diffusing glow across the hall; fire along the base of the seat and at the thrones' edges.",
+        "mood": "Awed stillness and solemn expectancy, reverent and vast, with no spectacle beyond the quiet weight of the gathered presence.",
+        "timeOfDay": "Night vision, unchanging, lit only by the radiance and fire around the central seat.",
+        "composition": "Wide view across the hall, the central radiant seat dominant at the centre, ranks of thrones and attendants receding on either side toward the dark expanse."
+      }
+    },
+    {
+      "blindId": "8ca5e73e",
+      "moment": "luke-10-34",
+      "reference": "Luke 10:34",
+      "text": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.",
+      "previous": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,",
+      "next": "On the next day, when he departed, he took out two denarii, gave them to the host, and said to him, ‘Take care of him. Whatever you spend beyond that, I will repay you when I return.’",
+      "sectionCast": [
+        {
+          "id": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)"
+        },
+        {
+          "id": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord"
+        },
+        {
+          "id": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)"
+        },
+        {
+          "id": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable"
+        },
+        {
+          "id": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable"
+        },
+        {
+          "id": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable"
+        },
+        {
+          "id": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable"
+        },
+        {
+          "id": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable"
+        },
+        {
+          "id": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable"
+        },
+        {
+          "id": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable"
+        },
+        {
+          "id": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable"
+        },
+        {
+          "id": "the_samaritan",
+          "name": "the Samaritan"
+        }
+      ],
+      "present": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "jerusalem_to_jericho_road"
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling beside the wounded traveler, pouring oil and wine onto his wounds.",
+        "action": "The Samaritan binds the traveler's wounds on the open road, pouring oil and wine from a flask.",
+        "setting": "Rocky, dusty Jerusalem–Jericho road in Judea, stony hills and thorn scrub under a clear, hot sky.",
+        "secondaryElements": "The traveler lies partly propped on the roadside; the Samaritan's animal stands waiting nearby; a flask of oil and a wineskin lie open on the ground; strips of cloth are at hand.",
+        "mood": "Tender, urgent compassion amid harsh emptiness.",
+        "timeOfDay": "Midday heat under harsh, bright sunlight.",
+        "composition": "Low side view at road level, the kneeling Samaritan and the wounded traveler centered, the animal and open road receding behind, the hills in the distance."
+      }
+    },
+    {
+      "blindId": "03ac7627",
+      "moment": "luke-10-34",
+      "reference": "Luke 10:34",
+      "text": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.",
+      "previous": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,",
+      "next": "On the next day, when he departed, he took out two denarii, gave them to the host, and said to him, ‘Take care of him. Whatever you spend beyond that, I will repay you when I return.’",
+      "sectionCast": [
+        {
+          "id": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)"
+        },
+        {
+          "id": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord"
+        },
+        {
+          "id": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)"
+        },
+        {
+          "id": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable"
+        },
+        {
+          "id": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable"
+        },
+        {
+          "id": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable"
+        },
+        {
+          "id": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable"
+        },
+        {
+          "id": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable"
+        },
+        {
+          "id": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable"
+        },
+        {
+          "id": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable"
+        },
+        {
+          "id": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable"
+        },
+        {
+          "id": "the_samaritan",
+          "name": "the Samaritan"
+        }
+      ],
+      "present": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "samaritans_mount_in_parable",
+        "inn_in_samaritan_parable"
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling beside the wounded traveler, tending his wounds",
+        "action": "The Samaritan binds the traveler's wounds with strips of cloth, pouring oil and wine onto them, while the traveler lies still on the road.",
+        "setting": "The rocky, dusty Jerusalem–Jericho road in Judea, with stony hills and scattered thorn scrub, the inn visible in the distance.",
+        "secondaryElements": "The Samaritan's mount stands nearby with its reins loose; a flask of oil and wine rests on the ground; the inn's walls glow faintly at the road's edge.",
+        "mood": "Tender, compassionate and quietly urgent, with human dignity in the act of care.",
+        "timeOfDay": "Late afternoon, with harsh sunlight softening toward warm golden evening light.",
+        "composition": "Medium-wide view from slightly above road level, the kneeling Samaritan and traveler centered, the mount beside them, the inn small in the far distance."
+      }
+    },
+    {
+      "blindId": "6b1c55af",
+      "moment": "luke-10-33",
+      "reference": "Luke 10:33",
+      "text": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,",
+      "previous": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side.",
+      "next": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.",
+      "sectionCast": [
+        {
+          "id": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)"
+        },
+        {
+          "id": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord"
+        },
+        {
+          "id": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)"
+        },
+        {
+          "id": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable"
+        },
+        {
+          "id": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable"
+        },
+        {
+          "id": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable"
+        },
+        {
+          "id": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable"
+        },
+        {
+          "id": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable"
+        },
+        {
+          "id": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable"
+        },
+        {
+          "id": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable"
+        },
+        {
+          "id": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable"
+        },
+        {
+          "id": "the_samaritan",
+          "name": "the Samaritan"
+        }
+      ],
+      "present": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "jerusalem_to_jericho_road"
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling beside the wounded traveler on the road, moved with compassion.",
+        "action": "The Samaritan, having come upon the wounded man, kneels down and looks at him with compassion.",
+        "setting": "A rocky, dusty stretch of the Jerusalem–Jericho road in Judea, with stony hills and scattered thorn scrub under a clear, hot sky.",
+        "secondaryElements": "The wounded traveler lies on the roadside in a plain tunic and cloak; the Samaritan wears a practical traveling cloak, with his animal and oil and wine kept nearby on the road.",
+        "mood": "Quiet compassion and dignity amid grief and hardship.",
+        "timeOfDay": "Midday, under harsh bright sunlight on the road.",
+        "composition": "Medium-wide view from the roadside at ground level, the kneeling Samaritan and the wounded man placed together in the foreground with the winding road stretching into the stony hills behind them."
+      }
+    },
+    {
+      "blindId": "cd9b8fd2",
+      "moment": "daniel-7-10",
+      "reference": "Daniel 7:10",
+      "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "previous": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "next": "“I watched at that time because of the voice of the arrogant words which the horn spoke. I watched even until the animal was slain, and its body destroyed, and it was given to be burned with fire.",
+      "sectionCast": [
+        {
+          "id": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)"
+        },
+        {
+          "id": "the_ancient_of_days",
+          "name": "The Ancient of Days"
+        },
+        {
+          "id": "one_like_a_son_of_man",
+          "name": "One like a son of man"
+        },
+        {
+          "id": "babylon",
+          "name": "Babylon"
+        },
+        {
+          "id": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision"
+        }
+      ],
+      "present": [
+        "the_ancient_of_days",
+        "ministering_assembly_in_daniels_vision"
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire issuing from before an unoccupied seat of cloud, with a stream of fire flowing outward",
+        "action": "The ranks of attendants stand in vast order before the seat; the fiery stream pours forth and spreads across the hall; open books rest ready",
+        "setting": "Vision-space of a heavenly throne hall, an unoccupied seat of fire and cloud with a river of fire flowing before it, thrones set in ranks, opening onto a vast dark expanse",
+        "secondaryElements": "Countless attendants in priestly linen or white court robes standing in tiers; open books placed on a table before the seat; drifting cloud banks and rising mist",
+        "mood": "Solemn, awe-filled and still, with a sense of impending judgment and human dignity before the holy",
+        "timeOfDay": "Unchanging night vision, lit only by the radiance and fire around the central seat",
+        "composition": "Wide frontal view of the hall; the central seat and fire stream at the center, the ranked attendants arrayed in rows receding to either side"
+      }
+    },
+    {
+      "blindId": "9a0ac8ca",
+      "moment": "luke-10-33",
+      "reference": "Luke 10:33",
+      "text": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,",
+      "previous": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side.",
+      "next": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.",
+      "sectionCast": [
+        {
+          "id": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)"
+        },
+        {
+          "id": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord"
+        },
+        {
+          "id": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)"
+        },
+        {
+          "id": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable"
+        },
+        {
+          "id": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable"
+        },
+        {
+          "id": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable"
+        },
+        {
+          "id": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable"
+        },
+        {
+          "id": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable"
+        },
+        {
+          "id": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable"
+        },
+        {
+          "id": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable"
+        },
+        {
+          "id": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable"
+        },
+        {
+          "id": "the_samaritan",
+          "name": "the Samaritan"
+        }
+      ],
+      "present": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "samaritans_mount_in_parable",
+        "jerusalem_to_jericho_road"
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan, halted in the road and turned toward the wounded traveler, his face open with compassion.",
+        "action": "He has just come upon the wounded man and stops, moved to pity, before he kneels to help.",
+        "setting": "The rocky, dusty Jerusalem–Jericho road in Judea, stony hills and scattered thorn scrub under a clear, hot sky.",
+        "secondaryElements": "The wounded traveler lies at the roadside in plain tunic, half-raised on one elbow. The Samaritan's mount stands calmly on the road behind him, his practical traveling cloak and flask of oil and wine at his side.",
+        "mood": "Reverent, tender and grave, with a quiet turning toward mercy.",
+        "timeOfDay": "Midday heat, harsh bright sunlight on the road.",
+        "composition": "Medium-wide view along the road, the Samaritan standing in the foreground turned toward the wounded traveler, the mount behind, stony hills receding in the distance."
+      }
+    },
+    {
+      "blindId": "7638f648",
+      "moment": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "previous": "(section starts here)",
+      "next": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "sectionCast": [
+        {
+          "id": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)"
+        },
+        {
+          "id": "the_ancient_of_days",
+          "name": "The Ancient of Days"
+        },
+        {
+          "id": "one_like_a_son_of_man",
+          "name": "One like a son of man"
+        },
+        {
+          "id": "babylon",
+          "name": "Babylon"
+        },
+        {
+          "id": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision"
+        }
+      ],
+      "present": [
+        "the_ancient_of_days",
+        "ministering_assembly_in_daniels_vision"
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above a seat of flame and cloud, the Ancient of Days now seated; a fiery wheel burning at its base",
+        "action": "Thrones are being set in ranks; the ministering assembly stands before the seat, attentive and still",
+        "setting": "Vision-space of a heavenly throne hall, open to a vast dark expanse with drifting cloud banks and rising mist",
+        "secondaryElements": "Ranks of thrones set in order; a river of fire flowing before the central seat; attendants in white priestly linen or white court robes",
+        "mood": "Awe, stillness and solemn expectancy",
+        "timeOfDay": "Unchanging night vision with glowing radiance as the sole source of light",
+        "composition": "Central seat of fire and cloud at the focal point; thrones receding in ranks on either side; attendants arranged in tiers before it; Daniel small at the edge"
+      }
+    },
+    {
+      "blindId": "2f414023",
+      "moment": "daniel-7-10",
+      "reference": "Daniel 7:10",
+      "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "previous": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "next": "“I watched at that time because of the voice of the arrogant words which the horn spoke. I watched even until the animal was slain, and its body destroyed, and it was given to be burned with fire.",
+      "sectionCast": [
+        {
+          "id": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)"
+        },
+        {
+          "id": "the_ancient_of_days",
+          "name": "The Ancient of Days"
+        },
+        {
+          "id": "one_like_a_son_of_man",
+          "name": "One like a son of man"
+        },
+        {
+          "id": "babylon",
+          "name": "Babylon"
+        },
+        {
+          "id": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision"
+        }
+      ],
+      "present": [
+        "the_ancient_of_days",
+        "ministering_assembly_in_daniels_vision"
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above an unoccupied seat, a river of fire flowing forth before it",
+        "action": "A fiery stream pours out from before the seat; the vast assembly stands in ranks facing it, attending in stillness.",
+        "setting": "Vision-space of a heavenly throne hall, open to a vast dark expanse, with drifting cloud banks and rising mist; thrones set in ranks around the central seat.",
+        "secondaryElements": "Countless attendants in priestly linen and white court robes in ordered rows; open books or scrolls placed before the seat; cloud diffusing the glow across the hall.",
+        "mood": "Reverent, solemn and expectant, with awe and stillness before the judgment.",
+        "timeOfDay": "Night vision, unchanging; illumination comes only from the radiance and fire around the central seat.",
+        "composition": "Wide frontal view of the hall, the central seat and river of fire at the centre, the assembly in ranks receding on either side into the dark expanse."
+      }
+    },
+    {
+      "blindId": "d49d9f12",
+      "moment": "daniel-7-10",
+      "reference": "Daniel 7:10",
+      "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "previous": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "next": "“I watched at that time because of the voice of the arrogant words which the horn spoke. I watched even until the animal was slain, and its body destroyed, and it was given to be burned with fire.",
+      "sectionCast": [
+        {
+          "id": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)"
+        },
+        {
+          "id": "the_ancient_of_days",
+          "name": "The Ancient of Days"
+        },
+        {
+          "id": "one_like_a_son_of_man",
+          "name": "One like a son of man"
+        },
+        {
+          "id": "babylon",
+          "name": "Babylon"
+        },
+        {
+          "id": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision"
+        }
+      ],
+      "present": [
+        "the_ancient_of_days",
+        "ministering_assembly_in_daniels_vision"
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above an unoccupied seat, a fiery stream flowing out from before it",
+        "action": "The fiery stream pours forth from before the central seat; the assembly stands in ordered ranks before it, facing the throne",
+        "setting": "A vast throne hall in heaven opening into a dark expanse, thrones set in ranks, a river of fire flowing before the central seat",
+        "secondaryElements": "Cloud banks and rising mist drifting through the hall; ranks of attendants in priestly linen and white court robes standing before the throne",
+        "mood": "Awe, solemn and reverent, the vast assembly held in stillness before the presence",
+        "timeOfDay": "Unchanging night vision, lit only by the radiance and fire around the central seat",
+        "composition": "Wide view of the hall with the central seat at the focal point, the fiery stream flowing toward the viewer and the assembly ranked in depth"
+      }
+    },
+    {
+      "blindId": "d99763bb",
+      "moment": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "previous": "(section starts here)",
+      "next": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "sectionCast": [
+        {
+          "id": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)"
+        },
+        {
+          "id": "the_ancient_of_days",
+          "name": "The Ancient of Days"
+        },
+        {
+          "id": "one_like_a_son_of_man",
+          "name": "One like a son of man"
+        },
+        {
+          "id": "babylon",
+          "name": "Babylon"
+        },
+        {
+          "id": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision"
+        }
+      ],
+      "present": [
+        "the_ancient_of_days"
+      ],
+      "scene": {
+        "primarySubject": "Radiance and cloud gathered above a fiery seat, with the Ancient of Days enthroned at its center",
+        "action": "The Ancient of Days is seated while thrones are set in ranks around him; fire moves along the wheels and base of the throne",
+        "setting": "Vision-space of a heavenly throne hall, open to a vast dark expanse with drifting cloud banks and rising mist",
+        "secondaryElements": "Fire at the base of the throne and along its wheels; radiance spreading outward; thrones placed in ranks across the hall",
+        "mood": "Solemn, awe-filled stillness with a sense of holy authority",
+        "timeOfDay": "Night vision, unchanging; illumination comes only from the radiance and fire",
+        "composition": "Wide view of the hall with the central fiery seat as focal point, thrones receding in ranks into the dark expanse"
+      }
+    },
+    {
+      "blindId": "dbfd4a65",
+      "moment": "luke-10-33",
+      "reference": "Luke 10:33",
+      "text": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,",
+      "previous": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side.",
+      "next": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.",
+      "sectionCast": [
+        {
+          "id": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)"
+        },
+        {
+          "id": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord"
+        },
+        {
+          "id": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)"
+        },
+        {
+          "id": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable"
+        },
+        {
+          "id": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable"
+        },
+        {
+          "id": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable"
+        },
+        {
+          "id": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable"
+        },
+        {
+          "id": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable"
+        },
+        {
+          "id": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable"
+        },
+        {
+          "id": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable"
+        },
+        {
+          "id": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable"
+        },
+        {
+          "id": "the_samaritan",
+          "name": "the Samaritan"
+        }
+      ],
+      "present": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "jerusalem_to_jericho_road"
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan, standing still on the road and gazing at the wounded traveler.",
+        "action": "In a single frozen moment, the Samaritan has just noticed the injured man and stops, his face softening with compassion.",
+        "setting": "A rocky, dusty stretch of the Jerusalem–Jericho road in Judea, with stony hills and scattered thorn scrub under a clear, dry sky.",
+        "secondaryElements": "The wounded traveler lies at the roadside in a plain tunic, his body still and his posture slack. The Samaritan wears a practical traveling cloak and carries a flask of oil and wine at his side.",
+        "mood": "Quiet, tender and grave, with a sense of sudden compassion breaking into a lonely place.",
+        "timeOfDay": "Midday heat with harsh, bright sunlight on the road.",
+        "composition": "Eye-level view from slightly behind the Samaritan, framing him in the foreground with the wounded traveler lower and to the side on the roadside, the empty road receding into the hills."
+      }
+    },
+    {
+      "blindId": "51f332bc",
+      "moment": "luke-10-34",
+      "reference": "Luke 10:34",
+      "text": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.",
+      "previous": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,",
+      "next": "On the next day, when he departed, he took out two denarii, gave them to the host, and said to him, ‘Take care of him. Whatever you spend beyond that, I will repay you when I return.’",
+      "sectionCast": [
+        {
+          "id": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)"
+        },
+        {
+          "id": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord"
+        },
+        {
+          "id": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)"
+        },
+        {
+          "id": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable"
+        },
+        {
+          "id": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable"
+        },
+        {
+          "id": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable"
+        },
+        {
+          "id": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable"
+        },
+        {
+          "id": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable"
+        },
+        {
+          "id": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable"
+        },
+        {
+          "id": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable"
+        },
+        {
+          "id": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable"
+        },
+        {
+          "id": "the_samaritan",
+          "name": "the Samaritan"
+        }
+      ],
+      "present": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "jerusalem_to_jericho_road"
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling beside the wounded traveler on the road, tending his wounds",
+        "action": "The Samaritan kneels and pours oil and wine onto the traveler's wounds while binding them with strips of cloth.",
+        "setting": "Rocky, dusty Jerusalem–Jericho road in Judea, with stony hills and scattered thorn scrub under a clear, hot sky.",
+        "secondaryElements": "The traveler lies on the dusty ground; the Samaritan's animal stands close by on the road; an oil flask and wine vessel rest in the dust beside them.",
+        "mood": "Reverent, tender compassion amid the harshness of the road, with quiet human dignity.",
+        "timeOfDay": "Midday heat with harsh, bright sunlight on the road.",
+        "composition": "Eye-level view from the roadside, the kneeling Samaritan and the prone traveler at the center, the road and stony hills receding behind them."
+      }
+    },
+    {
+      "blindId": "1eb23f8c",
+      "moment": "luke-10-34",
+      "reference": "Luke 10:34",
+      "text": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.",
+      "previous": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,",
+      "next": "On the next day, when he departed, he took out two denarii, gave them to the host, and said to him, ‘Take care of him. Whatever you spend beyond that, I will repay you when I return.’",
+      "sectionCast": [
+        {
+          "id": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)"
+        },
+        {
+          "id": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord"
+        },
+        {
+          "id": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)"
+        },
+        {
+          "id": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable"
+        },
+        {
+          "id": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable"
+        },
+        {
+          "id": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable"
+        },
+        {
+          "id": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable"
+        },
+        {
+          "id": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable"
+        },
+        {
+          "id": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable"
+        },
+        {
+          "id": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable"
+        },
+        {
+          "id": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable"
+        },
+        {
+          "id": "the_samaritan",
+          "name": "the Samaritan"
+        }
+      ],
+      "present": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "samaritans_mount_in_parable",
+        "jerusalem_to_jericho_road"
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling beside the wounded traveler, tending his wounds",
+        "action": "The Samaritan binds the traveler's wounds, pouring oil and wine on them, as the traveler lies half-raised against the road.",
+        "setting": "A rocky, dusty stretch of the Jerusalem–Jericho road in Judea, with stony hills and thorn scrub under a harsh midday sky.",
+        "secondaryElements": "The Samaritan's mount standing close by on the road; strips of cloth and small clay flasks of oil and wine at the Samaritan's side.",
+        "mood": "Compassionate, tender and urgent, with quiet human dignity.",
+        "timeOfDay": "Midday heat, with bright harsh sunlight on the road.",
+        "composition": "Medium shot from slightly above and to the side, the Samaritan and traveler central, the mount at the edge, the stony road receding toward the hills."
+      }
+    },
+    {
+      "blindId": "cb86a1b8",
+      "moment": "luke-10-33",
+      "reference": "Luke 10:33",
+      "text": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,",
+      "previous": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side.",
+      "next": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.",
+      "sectionCast": [
+        {
+          "id": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)"
+        },
+        {
+          "id": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord"
+        },
+        {
+          "id": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)"
+        },
+        {
+          "id": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable"
+        },
+        {
+          "id": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable"
+        },
+        {
+          "id": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable"
+        },
+        {
+          "id": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable"
+        },
+        {
+          "id": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable"
+        },
+        {
+          "id": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable"
+        },
+        {
+          "id": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable"
+        },
+        {
+          "id": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable"
+        },
+        {
+          "id": "the_samaritan",
+          "name": "the Samaritan"
+        }
+      ],
+      "present": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "jerusalem_to_jericho_road",
+        "samaritans_mount_in_parable"
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan, halted on the road and turning toward the wounded man, moved to compassion.",
+        "action": "He has just come upon the wounded traveler and stops, looking down at him with pity as he kneels or leans toward him.",
+        "setting": "The rocky, dusty Jerusalem–Jericho road in Judea, with stony hills and scattered thorn scrub under a hot midday sky.",
+        "secondaryElements": "The wounded traveler lies at the roadside in plain tunic, still in the dust. The Samaritan's mount stands nearby on the road, his practical traveling cloak and the oil and wine he carries visible.",
+        "mood": "Reverent compassion and quiet grief, with a sense of human dignity meeting need.",
+        "timeOfDay": "Midday, under harsh, bright sunlight on the road.",
+        "composition": "Medium shot from the roadside, the Samaritan and the wounded man in the foreground, the stony road receding toward the hills, the mount behind."
+      }
+    },
+    {
+      "blindId": "300ef9ba",
+      "moment": "daniel-7-10",
+      "reference": "Daniel 7:10",
+      "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "previous": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "next": "“I watched at that time because of the voice of the arrogant words which the horn spoke. I watched even until the animal was slain, and its body destroyed, and it was given to be burned with fire.",
+      "sectionCast": [
+        {
+          "id": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)"
+        },
+        {
+          "id": "the_ancient_of_days",
+          "name": "The Ancient of Days"
+        },
+        {
+          "id": "one_like_a_son_of_man",
+          "name": "One like a son of man"
+        },
+        {
+          "id": "babylon",
+          "name": "Babylon"
+        },
+        {
+          "id": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision"
+        }
+      ],
+      "present": [
+        "the_ancient_of_days",
+        "ministering_assembly_in_daniels_vision"
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above an unoccupied seat of cloud, a stream of fire flowing out from before it",
+        "action": "The stream of fire pours forward from the throne; the attendants stand in vast ranks, facing the seat in reverent attention",
+        "setting": "Vision-space of a heavenly throne hall open to a vast dark expanse, thrones set in ranks, drifting cloud banks and rising mist",
+        "secondaryElements": "Countless attendants in priestly linen and white court robes stand in ranks; a river of fire flows before the seat; the dark expanse beyond holds distant thrones",
+        "mood": "Awe, reverence and solemn expectancy in the still heavenly hall",
+        "timeOfDay": "Night vision, unchanging, lit by the radiance and fire around the central seat",
+        "composition": "Wide frontal view; the central seat and radiance dominate the upper center, with attendant ranks receding in rows toward the viewer and the fiery stream running forward"
+      }
+    },
+    {
+      "blindId": "6bcbb814",
+      "moment": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "previous": "(section starts here)",
+      "next": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "sectionCast": [
+        {
+          "id": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)"
+        },
+        {
+          "id": "the_ancient_of_days",
+          "name": "The Ancient of Days"
+        },
+        {
+          "id": "one_like_a_son_of_man",
+          "name": "One like a son of man"
+        },
+        {
+          "id": "babylon",
+          "name": "Babylon"
+        },
+        {
+          "id": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision"
+        }
+      ],
+      "present": [
+        "the_ancient_of_days",
+        "daniel_prophet_of_babylon"
+      ],
+      "scene": {
+        "primarySubject": "radiance and fire gathered above an unoccupied central seat of flame and cloud; Daniel watches at a distance",
+        "action": "Thrones stand set in ranks; radiance and fire settle over the central seat, which holds no formed figure; Daniel looks up in stillness",
+        "setting": "Vision-space of a heavenly throne hall open to a vast dark expanse, with thrones in ranks and drifting cloud banks",
+        "secondaryElements": "Fire and cloud around the central seat; a river of fire flowing before it; ranks of thrones; Daniel in ordinary tunic and cloak",
+        "mood": "Awe, stillness and reverent expectancy",
+        "timeOfDay": "Night vision, unchanging, lit by the radiance and fire around the central seat",
+        "composition": "Wide view from below the ranks of thrones; the central seat and its radiance at the centre; Daniel small at the lower edge"
+      }
+    },
+    {
+      "blindId": "c01ddd68",
+      "moment": "luke-10-33",
+      "reference": "Luke 10:33",
+      "text": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,",
+      "previous": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side.",
+      "next": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.",
+      "sectionCast": [
+        {
+          "id": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)"
+        },
+        {
+          "id": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord"
+        },
+        {
+          "id": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)"
+        },
+        {
+          "id": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable"
+        },
+        {
+          "id": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable"
+        },
+        {
+          "id": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable"
+        },
+        {
+          "id": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable"
+        },
+        {
+          "id": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable"
+        },
+        {
+          "id": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable"
+        },
+        {
+          "id": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable"
+        },
+        {
+          "id": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable"
+        },
+        {
+          "id": "the_samaritan",
+          "name": "the Samaritan"
+        }
+      ],
+      "present": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "jerusalem_to_jericho_road",
+        "samaritans_mount_in_parable"
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan standing still on the road, turning toward the wounded man lying in the dust, moved with compassion.",
+        "action": "The Samaritan halts at the sight of the wounded traveler and is stirred with compassion; he has not yet knelt or touched him.",
+        "setting": "The rocky, dusty Jerusalem–Jericho road in Judea, with stony hills and scattered thorn scrub under a clear hot sky.",
+        "secondaryElements": "The wounded traveler lies still on the road's edge in a plain tunic; the Samaritan's mount stands nearby with its reins held loosely; the Samaritan's practical traveling cloak and the oil and wine he carries are visible but unused.",
+        "mood": "Quiet, sudden tenderness in the midst of heat and desolation; a turning of the heart.",
+        "timeOfDay": "Midday, harsh bright sunlight on the open road.",
+        "composition": "Medium-wide view along the road, the Samaritan standing at mid-frame and turning toward the wounded man lying at his feet on the roadside, the mount behind them, the hills receding in the distance."
+      }
+    },
+    {
+      "blindId": "afa17945",
+      "moment": "daniel-7-10",
+      "reference": "Daniel 7:10",
+      "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "previous": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "next": "“I watched at that time because of the voice of the arrogant words which the horn spoke. I watched even until the animal was slain, and its body destroyed, and it was given to be burned with fire.",
+      "sectionCast": [
+        {
+          "id": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)"
+        },
+        {
+          "id": "the_ancient_of_days",
+          "name": "The Ancient of Days"
+        },
+        {
+          "id": "one_like_a_son_of_man",
+          "name": "One like a son of man"
+        },
+        {
+          "id": "babylon",
+          "name": "Babylon"
+        },
+        {
+          "id": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision"
+        }
+      ],
+      "present": [
+        "the_ancient_of_days",
+        "ministering_assembly_in_daniels_vision"
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above an unoccupied seat, with a river of fire pouring out from before it",
+        "action": "A stream of fire flows forward from the seat across the hall; attendants in ranks stand before it as the books are opened",
+        "setting": "Vision-space of a heavenly throne hall, thrones set in ranks, a vast dark expanse beyond, drifting cloud banks and rising mist",
+        "secondaryElements": "Ranks of attendants in white linen and court robes standing in tiers; open scrolls and books held in view; cloud diffusing the glow",
+        "mood": "Solemn, awe-filled and still, with a sense of weighty judgment about to be rendered",
+        "timeOfDay": "Unchanging night vision with light coming only from the fire and radiance around the central seat",
+        "composition": "Wide frontal view from below the thrones; the central seat and fiery stream at the centre, attendant ranks receding in tiers toward the viewer"
+      }
+    },
+    {
+      "blindId": "b57df2af",
+      "moment": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "previous": "(section starts here)",
+      "next": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "sectionCast": [
+        {
+          "id": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)"
+        },
+        {
+          "id": "the_ancient_of_days",
+          "name": "The Ancient of Days"
+        },
+        {
+          "id": "one_like_a_son_of_man",
+          "name": "One like a son of man"
+        },
+        {
+          "id": "babylon",
+          "name": "Babylon"
+        },
+        {
+          "id": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision"
+        }
+      ],
+      "present": [
+        "the_ancient_of_days",
+        "ministering_assembly_in_daniels_vision"
+      ],
+      "scene": {
+        "primarySubject": "radiance and fire rising above an unoccupied central seat set among ranks of thrones",
+        "action": "Radiance and fire gather and rise above the empty seat while the ranks of thrones are set in place; cloud drifts slowly through the hall",
+        "setting": "Vision-space of a heavenly throne hall open to a vast dark expanse, with ranks of thrones and a river of fire flowing before the central seat",
+        "secondaryElements": "Formed attendants in priestly linen or white court robes stand in ranks beside the thrones; Daniel watches from the edge of the hall, in his ordinary tunic and cloak",
+        "mood": "Awe and stillness, reverent and grounded",
+        "timeOfDay": "Unchanging night vision, lit only by the radiance and fire around the central seat",
+        "composition": "Wide view across the hall with the unoccupied seat at center, thrones in receding ranks, Daniel small at the edge"
+      }
+    },
+    {
+      "blindId": "d5672c5d",
+      "moment": "luke-10-34",
+      "reference": "Luke 10:34",
+      "text": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.",
+      "previous": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,",
+      "next": "On the next day, when he departed, he took out two denarii, gave them to the host, and said to him, ‘Take care of him. Whatever you spend beyond that, I will repay you when I return.’",
+      "sectionCast": [
+        {
+          "id": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)"
+        },
+        {
+          "id": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord"
+        },
+        {
+          "id": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)"
+        },
+        {
+          "id": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable"
+        },
+        {
+          "id": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable"
+        },
+        {
+          "id": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable"
+        },
+        {
+          "id": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable"
+        },
+        {
+          "id": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable"
+        },
+        {
+          "id": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable"
+        },
+        {
+          "id": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable"
+        },
+        {
+          "id": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable"
+        },
+        {
+          "id": "the_samaritan",
+          "name": "the Samaritan"
+        }
+      ],
+      "present": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "jerusalem_to_jericho_road",
+        "samaritans_mount_in_parable"
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling beside the wounded traveler, tending his injuries with oil and wine and strips of cloth.",
+        "action": "The Samaritan binds the traveler's wounds, pouring oil and wine onto them while the traveler lies still on the road.",
+        "setting": "A rocky, dusty stretch of the Jerusalem–Jericho road in Judea, with stony hills and scattered thorn scrub under a clear, hot sky.",
+        "secondaryElements": "The Samaritan's mount stands close by on the road, its saddle and gear visible; a flask of oil and a wine skin rest on the ground beside the Samaritan; torn strips of cloth lie near the traveler.",
+        "mood": "Quiet compassion and urgency amid harshness; tender, grounded care.",
+        "timeOfDay": "Midday heat with harsh, bright sunlight falling on the road.",
+        "composition": "Medium-wide view from the roadside, the kneeling Samaritan and wounded traveler at center, the mount beside them, and the rocky road stretching into the distance."
+      }
+    }
+  ]
+}

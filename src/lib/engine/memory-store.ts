@@ -8,21 +8,21 @@ import { contentVersion } from "../../../convex/_helpers/contentVersion";
 import type { AnalysisRecord, InputRef, PreparationStore } from "./preparation";
 import type { MomentRange } from "./work-inputs";
 
-export type MemoryRecordInput = { kind: string; recordId: string; payload: Record<string, unknown> & { kind: string } };
+export type MemoryRecordInput = { source?: "generated" | "owner"; kind: string; recordId: string; payload: Record<string, unknown> & { kind: string } };
 export type SpendEntry = { kind: string; recordId: string; model: string; outcome: string; costUsd: number | null; promptTokens: number | null; completionTokens: number | null; elapsedMs: number; at: number };
 
 export function createMemoryPreparationStore(records: readonly MemoryRecordInput[], options: { now?: () => number } = {}) {
   const now = options.now ?? Date.now;
   const current = new Map<string, AnalysisRecord>();
   const key = (kind: string, recordId: string) => `${kind}/${recordId}`;
-  for (const r of records) current.set(key(r.kind, r.recordId), { kind: r.kind, recordId: r.recordId, version: contentVersion(r.payload), inputs: [], payload: r.payload });
+  for (const r of records) current.set(key(r.kind, r.recordId), { kind: r.kind, recordId: r.recordId, version: contentVersion(r.payload), inputs: [], source: r.source, payload: r.payload });
   const claims = new Map<string, { holder: string; expiresAt: number }>();
   const ledger: SpendEntry[] = [];
   const store: PreparationStore = {
     async getActiveRecord(kind, recordId) { return current.get(key(kind, recordId)) ?? null; },
     async putDerivedRecord(args) {
       const version = contentVersion(args.payload);
-      current.set(key(args.kind, args.recordId), { kind: args.kind, recordId: args.recordId, version, inputs: args.inputs as InputRef[], payload: args.payload });
+      current.set(key(args.kind, args.recordId), { kind: args.kind, recordId: args.recordId, version, inputs: args.inputs as InputRef[], source: "generated", payload: args.payload });
       return { version };
     },
     async claim(kind, recordId, holder, ttlMs) {

@@ -1,7 +1,7 @@
 ---
 status: accepted
 date: 2026-10-17
-updated: 2026-10-19
+updated: 2026-10-23
 ---
 
 # A generic image engine uses shared canon and optional reference images
@@ -12,7 +12,7 @@ Visibible needs consistent characters, locations and story sections across three
 
 - **Work boundary:** import a work's reference text once. An automatic reading pass derives its story sections, moments, cast and canon. The owner approves one work brief containing tone, depiction rules, eras and the style set. The Bible reader, translations, URLs, chat and Nostr remain Bible-shaped.
 - **Consistency:** canon text fixes identity; section looks describe episode-specific conditions; one style-neutral scene plan describes each moment. Those inputs are shared across art styles and reader translations. Every image can be generated independently and in any order, without using a previous moment image as input.
-- **Rendering:** work-neutral art styles are repo data. The prompt carries the brief, canon and plan plus up to three optional references: sheets for selected canon entries and a style reference for a non-Classical style. The work brief owns content and depiction; the art style owns rendering. Entries forbidden a form retain their text constraints but get no sheet.
+- **Rendering:** work-neutral art styles are repo data. The prompt carries the brief, canon and plan plus up to three optional references: sheets for selected canon entries and a style reference for the chosen style (non-Classical only until [ADR 0004](0004-forgiving-scene-preparation.md) added Classical). The work brief owns content and depiction; the art style owns rendering. Entries forbidden a form retain their text constraints but get no sheet.
 - **Ownership:** imported text, approved briefs and style files live in the repo. Generated analysis and reference blobs live in each deployment's Convex storage. Generated records have content versions; owner corrections survive rereads. Saved images retain their original provenance and are never regenerated automatically.
 - **Preparation:** recurring entries get Lite reference sheets in the background, checked for hard faults. Missing sheets do not delay images. Required section looks and scene plans are prepared on demand and cached. Canon and individual sheets need no human approval; system changes still receive release review.
 - **Models and cost:** the accepted defaults are Claude Haiku 5.5 for text preparation and Nano Banana 2 Lite for moment images and sheets. Visibible pays for shared preparation, including looks and plans; the image's Lite target remains five credits. Quotes and fallback settlement account for prompt length and supplied reference images.
@@ -35,3 +35,23 @@ Automatic analysis replaces the earlier proposal to approve every canon entry an
 - Quality remains evidence-driven: the selected proof was accepted, but it was not exhaustive. Icon borders remain a known limitation. Automatic no-form exclusion, actor/public-figure likeness restrictions and coarser retry after empty reading results are approved follow-ups, not demonstrated fixes in that run. Use [How are quality problems noticed and corrected after launch?](https://github.com/AustinKelsay/visibible/issues/163#issuecomment-6275088126) for release evaluation and reader-report handling.
 
 This amendment replaces the earlier manual-approval, repo-sheet and free-planner assumptions in this unmerged ADR. The [archived experiment](https://github.com/AustinKelsay/visibible/blob/82591cf926e2872d789a85f7fbf86e050529e55b/src/lib/engine.prototype/README.md) remains evidence, never production code to merge wholesale.
+
+## Amendment: plan review before storage (23 October 2026)
+
+Single-reply prompt contracts did not make scene plans reliable. [Blind-scored repeated samples](../../llm/releases/2026-10-23-grounding-rate-check/README.md) found 10/20 and 8/20 acceptable plans across two contract versions on the retained Luke and Daniel moments. The owner therefore approved a semantic plan check, replacing the earlier "no semantic validator or retry" rule for plans:
+
+- **Check:** each new plan is reviewed against its moment by a second Claude Haiku 5.5 call with low reasoning. The review sees only rendering-bound plan text, moment context, the cast and depiction rules. Code accepts its report only when each problem quotes the plan and names a fitting cast ID.
+- **Re-plan:** a plan rejected by the evidence checks or the review gets exactly one re-plan with the problems as feedback. A second rejection stops preparation as a retryable error before any image cost. Source gaps (`missingCast`) are never re-planned.
+- **Evidence list:** the planner may document excluded cast; order is free. An unselected entry claimed `in_scene` is still refused.
+- **Cost and latency:** about $0.0005 and 4.7 s median per review call; a plan and its review took 8.3 s median in the held-out run. Cold preparation gains one call, two after a re-plan. This likely exceeds the 20 s cold full-request target, which needs re-measurement and an owner decision at release.
+
+The checker configuration was selected on a [pre-declared benchmark](../../llm/releases/2026-10-23-plan-review-check/README.md) (13/15 defective plans caught, 3/25 false alarms after two rejected arms). The [held-out run](../../llm/releases/2026-10-23-reviewed-plan-check/README.md) of the full pipeline stored 1 flawed plan in 20 and refused no clean plan, but produced 10 acceptable stored plans (Daniel 7:9 refused 5/5): safer, not yet more available, with a pre-declared "not converging" verdict. The review is a model judgment, not a guarantee; visual evaluation and human acceptance remain release gates.
+
+## Amendment: incidental figures and continuing places (23 October 2026)
+
+A [random sample of 100 verses](../../llm/releases/2026-10-23-random-verse-check/README.md) stored acceptable plans for 53. Most refusals were policy, not quality: 23 verses were refused because the planner reported a required figure without a cast entry, usually a generic role. The owner approved two rule changes:
+
+- **Incidental figures:** plans may describe people, crowds, roles and animals with no cast entry as unnamed incidental figures without fixed appearance. `missingCast` is reserved for a named character or group the story follows beyond the moment. Rendering (prompt `generic-v5`) gives fixed canon only to selected characters and no longer forbids the plan's incidental figures.
+- **Continuing places:** a selected location or object may be anchored by an exact quote from a same-section neighbor. Characters and groups keep the current-moment anchor, because groups are stored as characters. Quote matching also ignores letter case.
+
+Consistency still applies to every cast entry. Incidental figures may vary between images, which is acceptable for one-off roles. A paired re-run of the same 100 verses measures the effect.

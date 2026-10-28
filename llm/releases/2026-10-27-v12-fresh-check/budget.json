@@ -1,0 +1,15 @@
+{
+  "allowance": "evaluation",
+  "authorizedUsd": 23,
+  "increaseUsd": 1,
+  "increaseNote": "One $1.00 increase shared with ../2026-10-27-v12-image-check, decided by the operator under the owner delegation recorded in funding.json.",
+  "measuredBeforeUsd": 21.7333918,
+  "operationMeasuredUsd": 0.0475861,
+  "operationUncertainUsd": 0,
+  "measuredAfterUsd": 21.7809779,
+  "retainedUncertaintyUsd": 0.045,
+  "operationCapUsd": 0.15,
+  "calls": 113,
+  "note": "The paired image check ran concurrently; ../2026-10-27-v12-image-check/budget.json holds the combined total.",
+  "transfers": 0
+}

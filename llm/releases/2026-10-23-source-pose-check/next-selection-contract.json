@@ -1,0 +1,43 @@
+{
+  "status": "proposed next implementation; no paid authorization or execution follows from this file",
+  "problem": "The model independently emits selected IDs and classified evidence; four of nine final refusals contradict those two declarations.",
+  "proposal": "Ask for one explicit list of selected cast records, each containing its ID and mandatory source evidence. Derive the existing internal present IDs and grounding audit from that same explicit selection, with no prose parsing or silently dropping a selected entry. Keep optional considered-but-excluded entries separate from selected records.",
+  "preserve": [
+    "Reject unknown IDs, duplicate entries, invalid quotes and a scene requiring successive instants.",
+    "Keep semantic review, exactly one re-plan, canon/stage validation, and the stop before references or image charges.",
+    "Preserve the internal stored plan/audit shape, source text, owner canon and lazy cache invalidation.",
+    "A scene describing an unselected cast member still fails semantic review; changing the selection format is not semantic acceptance."
+  ],
+  "verification": [
+    "Reproduce the four contradictory replies at the schema/adapter seam.",
+    "Prove IDs and evidence cannot diverge under the new response shape, and malformed/unsupported selections still fail.",
+    "Freeze a new bounded paid protocol before evaluating; retain this failed operation unchanged.",
+    "Check fresh ordinary verses and hard moments before image work; a selected diagnostic alone cannot establish release readiness."
+  ],
+  "remainingEvaluationUsd": 0.03326439999999907,
+  "visualPilot": "Blocked by failed text pipeline gate; the proposed $2 image operation needs its own later budget increase.",
+  "proposedModelEnvelope": {
+    "selectedCast": [
+      {
+        "entryId": "one available canon ID",
+        "momentQuote": "exact current-moment participation quote; continuing locations/objects may use context as before",
+        "contextSource": "none | previous | next",
+        "contextQuote": "exact neighbor quote when used"
+      }
+    ],
+    "consideredCast": "Optional separate excluded entries, with framing/mentioned/separate_event/uncertain classification; never a selected ID.",
+    "grounding": {
+      "focusQuote": "exact quote",
+      "instant": "one stated instant",
+      "singleInstant": "boolean"
+    },
+    "missingCast": "same existing required-canon report",
+    "sceneFields": "same seven scene fields; no separate present array"
+  },
+  "internalMapping": [
+    "Every selectedCast record becomes one present ID and one in_scene grounding.cast record, preserving the exact evidence; no selected record is dropped.",
+    "Considered-but-excluded records remain non-in_scene audit entries and select nobody.",
+    "The existing source validator and semantic reviewer run on the assembled internal payload; persisted shape, review feedback and image prompt remain unchanged."
+  ],
+  "implementationBoundary": "New model response shape and adapter only. This is a proposal, not shipped code. Keep unknown/duplicate ID and quote validation; do not interpret free text to choose cast or relax the release criteria."
+}

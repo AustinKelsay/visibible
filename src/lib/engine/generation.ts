@@ -5,9 +5,11 @@
  * (lazy, owner-funded) → selected canon stages → current reference blobs, sent inline as JPEGs
  * → the rendering packet, rejected before any paid call when over budget → a prompt-aware quote
  * → the request record with its engine commitments and the exact packet snapshot → guest
- * reservation → one provider call → settlement from actual usage or the packet-aware fallback →
- * the saved image with WEB text and full provenance. There is no fallback to the legacy engine or
- * an unplanned prompt after admission, and a replayed request never pays twice.
+ * reservation → one provider call → the finished-image check, with one owner-funded retry of a faulty image (ADR 0007)
+ * → settlement for the image shown, from actual usage or the packet-aware fallback →
+ * the saved image with WEB text and full provenance. A scene that cannot be prepared or packed is
+ * declined as `sceneUnavailable` before any request record exists, so the route may serve the legacy
+ * engine instead; after admission there is no fallback or unplanned prompt, and a replay never pays twice.
  */
 import { api } from "../../../convex/_generated/api";
 import { fetchImageModels, CREDIT_USD, DEFAULT_IMAGE_MODEL, IMAGE_RESERVATION_HEADROOM_MULTIPLIER, canAffordImageGeneration, getProviderName } from "../image-models";
@@ -19,6 +21,8 @@ import { createConvexPreparationStore, type PreparationStore } from "./preparati
 import { GENERIC_PROMPT_VERSION } from "./prompt";
 import { quoteGenericImage } from "./quote";
 import { createReferenceBlobCache } from "./references";
+import { createOpenRouterVisionChecker } from "./reference-adapters";
+import { checkAndRetry, checkScene, SCENE_CHECK_VERSION, SOFT_EDGE_STYLES, type SceneChecker } from "./scene-check";
 import { assembleRendering, type ReferenceRecord } from "./assemble";
 import { loadWorkInputs, type MomentRange, type WorkInputs } from "./work-inputs";
 import type { ConvexClient, GenericEngine, GenericGenerationInput, GenericGenerationOutcome } from "./dispatch";
@@ -40,6 +44,11 @@ export type GenericEngineDeps = {
   modelId?: string;
   imageTimeoutMs?: () => number;
   now?: () => number;
+  /**
+   * The finished-image check (ADR 0007). Claude Haiku 5.5 through OpenRouter by default; null turns it off.
+   * GENERIC_SCENE_CHECK=off also turns it off.
+   */
+  sceneChecker?: (apiKey: string, fetchImpl: FetchLike) => SceneChecker | null;
 };
 
 const DEFAULT_COST_MARKUP_MULTIPLIER = 1.25;
@@ -47,6 +56,8 @@ const COST_EVENT_PERSIST_TIMEOUT_MS = 1500;
 const TIMEOUT_PREFIX = "Image generation timed out after";
 const BIBLE_REFERENCE_TRANSLATION = "web";
 const REFERENCE_FETCH_TIMEOUT_MS = 10_000;
+/** Both check questions run in parallel; a slower check is skipped and the image is shown unchecked. */
+const SCENE_CHECK_TIMEOUT_MS = 30_000;
 
 function imageTimeoutMsFromEnv() {
   const parsed = Number.parseInt(process.env.OPENROUTER_IMAGE_TIMEOUT_MS || "45000", 10);
@@ -85,6 +96,8 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
   const modelId = deps.modelId ?? DEFAULT_IMAGE_MODEL;
   const imageTimeoutMs = deps.imageTimeoutMs ?? imageTimeoutMsFromEnv;
   const now = deps.now ?? Date.now;
+  const sceneChecker = deps.sceneChecker ?? ((apiKey: string, fetchImpl: FetchLike) => process.env.GENERIC_SCENE_CHECK === "off" ? null
+    : createOpenRouterVisionChecker({ apiKey, fetch: fetchImpl, reasoningEffort: "low", maxTokens: 1500, timeoutMs: SCENE_CHECK_TIMEOUT_MS }));
   // One bounded JPEG cache per Convex client (one per server instance in production).
   const caches = new WeakMap<object, ReturnType<typeof createReferenceBlobCache>>();
   const cacheFor = (runtime: Runtime) => {
@@ -118,7 +131,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
     async execute(input): Promise<GenericGenerationOutcome> {
       const { runtime, workId, sid } = input;
       const { convex, serverSecret, requestContext } = runtime;
-      const decline = (status: number, error: string, message: string, retryable: boolean, details?: Record<string, unknown>): GenericGenerationOutcome =>
+      const decline = (status: number, error: string, message: string, retryable: boolean, details?: Record<string, unknown>): Extract<GenericGenerationOutcome, { kind: "declined" }> =>
         ({ kind: "declined", status, error, message, retryable, ...(details ? { details } : {}) });
       const preparing = (message: string, details?: Record<string, unknown>) => decline(503, "Preparing scene", message, true, details);
       const respond = (status: number, body: Record<string, unknown>): GenericGenerationOutcome => ({ kind: "response", status, body });
@@ -179,12 +192,12 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
             } else {
               logApiFailure({ context: requestContext, stage: "generic_preparation", error: assembled.error, statusCode: 503, sid });
             }
-            return preparing(assembled.message, { preparation: status });
+            return { ...preparing(assembled.message, { preparation: status }), sceneUnavailable: true };
           }
           case "packet":
             await convex.mutation(api.analysis.noteAttention, { serverSecret, workId, reason: "prompt_over_budget", kind: "moment", recordId: assembled.momentId, detail: assembled.message }).catch(() => {});
             logWarn("generic.prompt_over_budget", { requestId: input.requestId, workId, momentId: assembled.momentId, finalChars: assembled.finalChars });
-            return decline(503, "Scene unavailable", assembled.message, false);
+            return { ...decline(503, "Scene unavailable", assembled.message, false), sceneUnavailable: true };
         }
       }
       const { momentId, sectionId, context, prepared, prompt, packet, sentReferences, styleEntry } = assembled;
@@ -293,13 +306,11 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       // 12. One provider call, references inline after the prompt in packet order.
       const started = now();
       const timeoutMs = imageTimeoutMs();
-      let data: Record<string, unknown>;
-      try {
+      const callProvider = async (): Promise<Record<string, unknown>> => {
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), timeoutMs);
-        let response: Response;
         try {
-          response = await fetchImpl("https://openrouter.ai/api/v1/chat/completions", {
+          const response = await fetchImpl("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: { Authorization: `Bearer ${runtime.openRouterApiKey}`, "Content-Type": "application/json", "HTTP-Referer": process.env.OPENROUTER_REFERRER || "http://localhost:3000", "X-Title": process.env.OPENROUTER_TITLE || "visibible" },
             body: JSON.stringify({
@@ -315,10 +326,22 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
             signal: controller.signal,
           });
           if (!response.ok) throw new Error(`OpenRouter API error: ${response.status}`);
-          data = (await response.json()) as Record<string, unknown>;
+          return (await response.json()) as Record<string, unknown>;
         } finally {
           clearTimeout(timer);
         }
+      };
+      type ImageAttempt = { data: Record<string, unknown>; imageUrl: string; providerRequestId: string | undefined };
+      const toAttempt = (data: Record<string, unknown>): ImageAttempt | { noImage: string } => {
+        const choices = Array.isArray(data.choices) ? data.choices : [];
+        const message = choices[0] && typeof choices[0] === "object" ? (choices[0] as { message?: unknown }).message : undefined;
+        const imageUrl = findResponseImageUrl(message);
+        if (!imageUrl) return { noImage: extractNoImageText(message) ?? "Model returned no image output." };
+        return { data, imageUrl, providerRequestId: typeof data.id === "string" ? data.id : undefined };
+      };
+      let firstData: Record<string, unknown>;
+      try {
+        firstData = await callProvider();
       } catch (error) {
         const timedOut = error instanceof Error && error.name === "AbortError";
         if (timedOut) {
@@ -328,15 +351,43 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         logApiFailure({ context: requestContext, stage: "generate_image_handler", error, statusCode: 500, sid, generationId });
         return fail(500, "Failed to generate image", error instanceof Error ? error.message : "Failed to generate image");
       }
-      const choices = Array.isArray(data.choices) ? data.choices : [];
-      const message = choices[0] && typeof choices[0] === "object" ? (choices[0] as { message?: unknown }).message : undefined;
-      const providerRequestId = typeof data.id === "string" ? data.id : undefined;
-      const imageUrl = findResponseImageUrl(message);
-      if (!imageUrl) {
-        const noImageMessage = extractNoImageText(message) ?? "Model returned no image output.";
-        logWarn("generic.no_image", { requestId, generationId, ...summarizeNoImageResponse(data) });
-        return fail(500, "Model returned no image output", noImageMessage);
+      const first = toAttempt(firstData);
+      if ("noImage" in first) {
+        logWarn("generic.no_image", { requestId, generationId, ...summarizeNoImageResponse(firstData) });
+        return fail(500, "Model returned no image output", first.noImage);
       }
+
+      // 12b. The scene check (ADR 0007): a faulty first image gets one owner-funded retry, and the better one is shown.
+      // The reader pays for the image shown; the owner pays for the checks and the image not shown.
+      let shown = first;
+      const checker = sceneChecker(runtime.openRouterApiKey, fetchImpl);
+      if (checker) {
+        const checkContext = { people: assembled.canon.filter((c) => c.hasForm && c.kind === "character").map((c) => c.name),
+          description: `${prepared.plan.payload.primarySubject}; ${prepared.plan.payload.secondaryElements}`, softEdges: SOFT_EDGE_STYLES.includes(style.id) };
+        const checked = await checkAndRetry<ImageAttempt>(first, {
+          check: (attempt, n) => {
+            const match = attempt.imageUrl.match(/^data:(image\/[a-z+]+);base64,(.+)$/);
+            if (!match) return Promise.reject(new Error("The image is not an inline data URL"));
+            return withTimeout(checkScene(checker, { bytes: Uint8Array.from(Buffer.from(match[2], "base64")), mimeType: match[1] }, checkContext, `${momentId}:${n}`), SCENE_CHECK_TIMEOUT_MS, "Scene check timeout");
+          },
+          retry: async () => {
+            const data = await callProvider();
+            const attempt = toAttempt(data);
+            if ("noImage" in attempt) throw new Error(attempt.noImage);
+            return attempt;
+          },
+        });
+        shown = checked.attempts[checked.chosen].image;
+        const ownerUsd = checked.attempts.reduce((sum, a, i) => sum + (a.check?.costUsd ?? 0) + (i === checked.chosen ? 0 : extractOpenRouterUsageUsd(a.image.data) ?? 0), 0);
+        const outcome = checked.attempts[0].checkError ? `check unavailable: ${checked.attempts[0].checkError.slice(0, 80)}`
+          : checked.attempts.length === 1 ? (checked.retryError ? `faults ${checked.attempts[0].check!.faults.join(",")}; retry failed` : "clean")
+          : `faults ${checked.attempts[0].check!.faults.join(",")}; retry ${checked.attempts[1].check?.faults.join(",") || (checked.attempts[1].checkError ? "unchecked" : "clean")}; showed ${checked.chosen + 1}`;
+        await store.recordSpend({ kind: "check", recordId: momentId, model: checker.id, outcome: `${SCENE_CHECK_VERSION}: ${outcome}`, costUsd: ownerUsd, promptTokens: null, completionTokens: null, elapsedMs: now() - started })
+          .catch((error) => logWarn("generic.scene_check_spend_failed", { requestId, error: error instanceof Error ? error.message : String(error) }));
+        logInfo("generic.scene_check", { requestId, generationId, momentId, styleId: style.id, outcome, attempts: checked.attempts.length, chosen: checked.chosen + 1, ownerUsd });
+        incrementMetricCounter("generic_scene_check", { outcome: checked.attempts[0].checkError ? "unavailable" : checked.attempts.length === 1 ? (checked.retryError ? "retry_failed" : "clean") : "retried" });
+      }
+      const { data, imageUrl, providerRequestId } = shown;
       const durationMs = now() - started;
 
       // 13. Settlement from actual usage, or from the quote that described the request actually made.

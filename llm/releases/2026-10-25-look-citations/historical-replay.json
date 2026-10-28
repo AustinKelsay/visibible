@@ -1,0 +1,14 @@
+{
+  "evidenceCommit": "5baafe69cc53c7fd46701360aec39ff2b0b02c20",
+  "method": "Disposable shared local clone checked out at the unchanged evidence commit; existing dependencies/generated work copied locally; audit forbids network. Removed after verification.",
+  "dryRunVerified": true,
+  "scoredReplayVerified": true,
+  "operations": 3,
+  "calls": 4,
+  "measuredUsd": 0.0014870999999999999,
+  "uncertainUsd": 0,
+  "gatePass": false,
+  "paidCalls": 0,
+  "productionMutations": 0,
+  "newCandidateRejectsHistoricalFreeze": true
+}

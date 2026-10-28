@@ -11,6 +11,9 @@ import { armsFor, caseUnitId, caseWork, type EvalArm, type EvalCase } from "./ca
 import { assembleForEval, genericStyleOf, isGenericArm, type GenericEvalProvider } from "./generic";
 import type { RenderingPacket } from "../engine/prompt";
 
+/** A cold generic moment makes a look, a plan and its review; a re-plan adds two calls, settled from actual usage. */
+export const COLD_PREPARATION_CALLS = 3;
+
 export type EvalPassage = {
   reference: string;
   verseText: string;
@@ -26,6 +29,13 @@ export interface EvalImageProvider {
 export interface EvalPlannerProvider {
   readonly id: string;
   plan(request: { label: string; prompt: string }): Promise<{ content: string | null; costUsd: number | null; elapsedMs: number }>;
+}
+/** Keep the HTTP status so funding failures never depend on matching provider error text. */
+export class EvalProviderError extends Error {
+  constructor(readonly status: number, message: string) {
+    super(message);
+    this.name = "EvalProviderError";
+  }
 }
 export interface EvalOutputSink {
   /** Store the bytes and return the stable reference (a path or URL) the report will cite. */
@@ -62,6 +72,7 @@ export type EvalSample = {
   preparationUsageMissing?: boolean;
   packet?: RenderingPacket;
   referencesSent?: number;
+  omitStyleReference?: boolean;
   quote?: { credits: number; providerUsd: number; promptTokens: number; referenceImages: number } | null;
   /** Reported usage minus the quoted provider cost; absent when usage was missing or the quote unpriced. */
   varianceUsd?: number;
@@ -90,12 +101,14 @@ export type EvalRunState = {
   plannerModel: string | null;
   promptVersion: string;
   samples: Record<string, EvalSample>;
+  /** Missing in historical runs means normal reference selection. Immutable once configured or attempted. */
+  omitStyleReference?: boolean;
   spentUsd: number;
-  stopped?: { reason: "budget_exhausted" | "cancelled"; at: number; detail: string };
+  stopped?: { reason: "budget_exhausted" | "provider_funding" | "cancelled"; at: number; detail: string };
 };
 
 export type EvalManifestEntry = { key: string; caseId: string; reference: string; arm: EvalArm; n: number; estimatedUsd: number; status: "planned" | "done" };
-export type EvalManifest = { entries: EvalManifestEntry[]; plannedCalls: number; doneCalls: number; estimatedUsd: number; budgetUsd: number; withinBudget: boolean };
+export type EvalManifest = { entries: EvalManifestEntry[]; plannedCalls: number; doneCalls: number; estimatedUsd: number; budgetUsd: number; withinBudget: boolean; omitStyleReference?: boolean };
 
 export type RunImageEvalOptions = {
   cases: readonly EvalCase[];
@@ -105,6 +118,8 @@ export type RunImageEvalOptions = {
   /** What one call is assumed to cost before usage is known, and what a missing usage is charged as. */
   estimateUsd: { image: number; planner: number; /** One look or plan call; charged when a generic sample has to prepare. */ preparation?: number };
   dryRun?: boolean;
+  /** Generic evaluation only; production callers retain normal reference selection. */
+  omitStyleReference?: boolean;
   providers: EvalProviders;
   state: EvalRunState;
   saveState: (state: EvalRunState) => Promise<void>;
@@ -120,6 +135,15 @@ export function emptyEvalState(run: string, imageModel: string, plannerModel: st
   return { schemaVersion: 1, run, createdAt: now, imageModel, plannerModel, promptVersion: PROMPT_VERSION, samples: {}, spentUsd: 0 };
 }
 
+/** A new trial needs a new run: never mix controls with completed or failed paid samples. */
+export function bindStyleReferenceControl(state: EvalRunState, omitStyleReference: boolean) {
+  const configured = state.omitStyleReference !== undefined || Object.keys(state.samples).length > 0 || state.spentUsd > 0;
+  if (configured && (state.omitStyleReference ?? false) !== omitStyleReference) {
+    throw new Error(`Run "${state.run}" uses ${state.omitStyleReference ? "omitted" : "normal"} style references; use a new --run to change --omit-style-reference`);
+  }
+  state.omitStyleReference = omitStyleReference;
+}
+
 /** Every sample the run still owes, with the cost assumed for it, and what has already been done. */
 export function buildManifest(options: Pick<RunImageEvalOptions, "cases" | "arms" | "repeats" | "budgetUsd" | "estimateUsd" | "state">): EvalManifest {
   const entries: EvalManifestEntry[] = [];
@@ -130,20 +154,22 @@ export function buildManifest(options: Pick<RunImageEvalOptions, "cases" | "arms
         // Only a completed sample is done; a rerun retries failed ones (transient provider, passage or store errors).
         const done = options.state.samples[key]?.status === "completed";
         // A generic sample may have to prepare its look and plan (two owner-funded calls) before the image.
-        const estimatedUsd = options.estimateUsd.image + (arm === "planner" ? options.estimateUsd.planner : 0) + (arm.startsWith("generic:") ? 2 * (options.estimateUsd.preparation ?? 0) : 0);
+        const estimatedUsd = options.estimateUsd.image + (arm === "planner" ? options.estimateUsd.planner : 0) + (arm.startsWith("generic:") ? COLD_PREPARATION_CALLS * (options.estimateUsd.preparation ?? 0) : 0);
         entries.push({ key, caseId: c.id, reference: c.reference, arm, n, estimatedUsd: done ? 0 : estimatedUsd, status: done ? "done" : "planned" });
       }
     }
   }
   const planned = entries.filter((e) => e.status === "planned");
   const estimatedUsd = planned.reduce((sum, e) => sum + e.estimatedUsd, 0);
-  return { entries, plannedCalls: planned.length, doneCalls: entries.length - planned.length, estimatedUsd, budgetUsd: options.budgetUsd, withinBudget: options.state.spentUsd + estimatedUsd <= options.budgetUsd };
+  return { entries, plannedCalls: planned.length, doneCalls: entries.length - planned.length, estimatedUsd, budgetUsd: options.budgetUsd, withinBudget: options.state.spentUsd + estimatedUsd <= options.budgetUsd, omitStyleReference: options.state.omitStyleReference };
 }
 
 const toVerseId = (reference: string) => reference.toLowerCase().replace(/:/g, "-").replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 const message = (error: unknown) => (error instanceof Error ? error.message : String(error));
 
 export async function runImageEval(options: RunImageEvalOptions): Promise<{ state: EvalRunState; manifest: EvalManifest }> {
+  if (options.omitStyleReference && !options.arms.some(isGenericArm)) throw new Error("--omit-style-reference requires a generic arm");
+  bindStyleReferenceControl(options.state, options.omitStyleReference ?? false);
   const { providers, estimateUsd } = options;
   const now = options.now ?? Date.now;
   const log = options.log ?? (() => {});
@@ -152,6 +178,13 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
   const state = options.state;
   delete state.stopped;
   const passages = new Map<string, EvalPassage | null>();
+  // Persist the stop with the failed sample and its paid work via finish(), before leaving the run.
+  const stopForFunding = (error: unknown) => {
+    if (!(error instanceof EvalProviderError) || error.status !== 402) return false;
+    state.stopped = { reason: "provider_funding", at: now(), detail: message(error) };
+    log(`Stopping: ${state.stopped.detail}`);
+    return true;
+  };
 
   for (const entry of manifest.entries) {
     if (entry.status === "done") continue;
@@ -159,7 +192,7 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
     const style = STYLE_PROFILES[c.style ?? "classical"] ?? STYLE_PROFILES.classical;
     const { model, aspectRatio, resolution, translation } = c.resolvedSettings;
     const generic = isGenericArm(entry.arm);
-    const estimate = estimateUsd.image + (entry.arm === "planner" && providers.planner ? estimateUsd.planner : 0) + (generic ? 2 * (estimateUsd.preparation ?? 0) : 0);
+    const estimate = estimateUsd.image + (entry.arm === "planner" && providers.planner ? estimateUsd.planner : 0) + (generic ? COLD_PREPARATION_CALLS * (estimateUsd.preparation ?? 0) : 0);
     if (state.spentUsd + estimate > options.budgetUsd) {
       state.stopped = { reason: "budget_exhausted", at: now(), detail: `spent $${state.spentUsd.toFixed(4)}, next call about $${estimate.toFixed(4)}, budget $${options.budgetUsd.toFixed(2)}` };
       log(`Stopping: ${state.stopped.detail}`);
@@ -192,11 +225,11 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
       const styleId = genericStyleOf(entry.arm)!;
       const workId = caseWork(c);
       const unitId = caseUnitId(c);
-      sample.work = workId; sample.unitId = unitId;
+      sample.work = workId; sample.unitId = unitId; sample.omitStyleReference = options.omitStyleReference ?? false;
       let assembly;
       try {
         const ctx = await providers.generic.context(workId);
-        assembly = await assembleForEval(providers.generic, ctx, { workId, unitId, styleId, variationNumber: entry.n > 1 ? entry.n : null, aspectRatio: aspectRatio as "16:9" | "21:9" | "3:2", modelId: model, resolution: resolution as "1K" | "2K" | "4K", preparationEstimateUsd: estimateUsd.preparation ?? 0, now });
+        assembly = await assembleForEval(providers.generic, ctx, { workId, unitId, styleId, variationNumber: entry.n > 1 ? entry.n : null, aspectRatio: aspectRatio as "16:9" | "21:9" | "3:2", modelId: model, resolution: resolution as "1K" | "2K" | "4K", preparationEstimateUsd: estimateUsd.preparation ?? 0, omitStyleReference: options.omitStyleReference, now });
       } catch (error) {
         await finish({ status: "failed", stage: "assemble", error: message(error) });
         continue;
@@ -213,7 +246,9 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
       try {
         image = await providers.image.generate({ label: entry.key, prompt: assembled.prompt, model, aspectRatio, resolution, references: assembled.sentReferences.map((r) => ({ bytes: r.bytes, mimeType: "image/jpeg" })) });
       } catch (error) {
+        const funding = stopForFunding(error);
         await finish({ status: "failed", stage: "image", error: message(error) });
+        if (funding) break;
         continue;
       }
       sample.latencyMs.image = image.elapsedMs;
@@ -239,7 +274,7 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
     }
     if (!passage) { await finish({ status: "failed", stage: "passage", error: sample.error ?? `No single verse for ${c.reference} in ${translation}` }); continue; }
 
-    // 2. The planner arm: one planner call, parsed like the route parses it; a failure continues without a plan, recorded.
+    // 2. The planner arm: ordinary failures continue without a plan; funding rejection stops the run.
     let scenePlan: ScenePlan | null = null;
     let plannerOutcome: EvalSample["plannerOutcome"] = "not_used";
     if (entry.arm === "planner" && providers.planner) {
@@ -258,6 +293,10 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
       } catch (error) {
         plannerOutcome = "failed";
         sample.error = `planner: ${message(error)}`;
+        if (stopForFunding(error)) {
+          await finish({ status: "failed", stage: "planner", plannerOutcome });
+          break;
+        }
       }
     }
 
@@ -273,7 +312,9 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
     try {
       image = await providers.image.generate({ label: entry.key, prompt, model, aspectRatio, resolution });
     } catch (error) {
+      const funding = stopForFunding(error);
       await finish({ status: "failed", stage: "image", error: message(error) });
+      if (funding) break;
       continue;
     }
     sample.latencyMs.image = image.elapsedMs;

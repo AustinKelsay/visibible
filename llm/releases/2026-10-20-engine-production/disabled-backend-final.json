@@ -1,0 +1,66 @@
+{
+  "at": "2026-10-20T23:44:14.855Z",
+  "deployment": "unique-impala-244",
+  "app": "https://visibible.com",
+  "mode": "disabled",
+  "bound": {
+    "bound": 0,
+    "jobs": 1
+  },
+  "readiness": {
+    "activeGeneration": 1,
+    "activeVersions": {
+      "activatedAt": 1792538171849,
+      "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+    },
+    "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "candidateGeneration": null,
+    "exists": true,
+    "ready": true,
+    "reasons": [],
+    "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+  },
+  "requests": {
+    "generic": {
+      "failed": 2,
+      "generating": 0,
+      "planning": 0,
+      "queued": 0,
+      "succeeded": 2
+    },
+    "legacy": {
+      "failed": 16,
+      "generating": 0,
+      "planning": 0,
+      "queued": 0,
+      "succeeded": 166
+    }
+  },
+  "bulk": {
+    "byEngine": {
+      "generic": {
+        "accepted": 0,
+        "failed": 0,
+        "jobs": 0,
+        "succeeded": 0,
+        "unstarted": 0
+      },
+      "legacy": {
+        "accepted": 0,
+        "failed": 0,
+        "jobs": 0,
+        "succeeded": 0,
+        "unstarted": 0
+      },
+      "unbound": {
+        "accepted": 0,
+        "failed": 0,
+        "jobs": 0,
+        "succeeded": 0,
+        "unstarted": 0
+      }
+    },
+    "pausedForEngine": 0
+  }
+}

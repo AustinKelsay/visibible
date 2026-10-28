@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-26T18:10:32.732Z",
+  "commit": "9fc48c26d999e3f4b880c2e4bf2be2370514f614",
+  "grant": {
+    "authorizedAt": "2026-10-26T18:10:20Z",
+    "authorization": "Owner replied 'Ok do 1 and 2 now! Reloading budget' to the proposed re-measurement with a budget increase of up to $4. The $2.00 increase to $21.50 is recorded in ../2026-10-27-forgiving-fresh-check/funding.json; this image check uses it with a $2.00 cap.",
+    "increaseUsd": 0,
+    "authorizedUsd": 21.5,
+    "operationCapUsd": 2,
+    "scope": "One execution of the frozen forgiving-pipeline image check in this directory: at most 45 images and 60 text calls. No paid restart, tuning, production writes, deployment or public activation."
+  }
+}

@@ -1,0 +1,3 @@
+{"type":"review_context","reviewType":"all","currentBranch":"eval/source-first-check","baseBranch":"origin/dev","baseCommit":"95e583f3512869afbeb4b44fe27627455deb801a","workingDirectory":"/Users/plebdev/.t3/worktrees/visibible/feat-work-reference-imports","expectedDuration":"Reviews usually take 2-6 minutes and can take up to 15. Keep this command running for at least 15 minutes or run it in the background; stopping it early discards the review."}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"complete","status":"review_completed","findings":0,"outcome":"completed_with_warnings","message":"Review completed with warnings","unreviewedFileCount":1}

@@ -1,0 +1,4 @@
+{
+  "at": "2026-10-23T20:53:21.305Z",
+  "retryPolicy": "As in the baseline: one ordinary prepareMoment per sample, no reruns or edits. A provider error, missing usage, uncertain outcome, unexpected request or exhausted reserve stops the run; a sample is not started unless the cap leaves $0.012 of headroom. Untaken samples are excluded from the paired comparison and reported."
+}

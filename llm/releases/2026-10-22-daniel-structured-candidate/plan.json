@@ -1,0 +1,50 @@
+{
+  "issue": 183,
+  "baseCommit": "444a231d1ef90470715d65d463b9aa87909a008a",
+  "purpose": "Inspect one structured no-form Ancient of Days canon; only if acceptable, inspect one style-neutral Daniel 7:9 scene plan with the owner look frozen in an isolated overlay. Text only; no images, production writes or public activation.",
+  "authorization": "Continuation under the owner's existing $43 preparation and $16.50 evaluation allowances; these artifacts are not authorization to replay.",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "textModel": "anthropic/claude-haiku-5.5",
+  "canonPromptVersion": "2026-10-22-canon-showing-v3",
+  "planPromptVersion": "2026-10-21-formless-presence-v3",
+  "renderingPromptVersion": "2026-10-21-generic-v3",
+  "unitId": "daniel-7-9",
+  "styles": [
+    "classical",
+    "watercolor",
+    "icon"
+  ],
+  "preparation": {
+    "authorizedUsd": 43,
+    "measuredBeforeUsd": 3.6362951,
+    "uncertaintyBeforeUsd": 0.03,
+    "capUsd": 0.02,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 4,
+    "maximumCanonCalls": 2,
+    "maximumPlanCalls": 2
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredBeforeUsd": 16.2980069,
+    "uncertaintyBeforeUsd": 0.045,
+    "remainingAfterReserveBeforeUsd": 0.1569931,
+    "capUsd": 0,
+    "reservePerCallUsd": 0.05,
+    "maximumCalls": 0,
+    "estimatedUsd": 0
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.0685215,
+    "unchanged": true
+  },
+  "stopConditions": [
+    "At most two calls for one canon and two for one plan, using only the normal structural retries; never retry a structurally valid semantic failure.",
+    "Missing usage, unknown outcome, provider failure or exhausted reserve blocks every subsequent paid call; retain all results.",
+    "No plan until the exact canon passes agent inspection. No images in this run, even if the plan passes.",
+    "Preserve the owner look payload and version. An isolated overlay may explicitly rebind its input versions only to freeze that experimental control; this is not a live correction or evidence of deployed cache behavior.",
+    "No reading pass, vision checker, reference generation, model substitution, production mutation, source rewrite or public activation."
+  ]
+}

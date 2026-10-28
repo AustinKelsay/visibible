@@ -1,0 +1,63 @@
+{
+  "at": "2026-10-24T00:02:44.059Z",
+  "sources": {
+    "src/lib/engine/preparation.ts": "6dda8ea04ff93581c5f42fcdcfa85067ef151439bfca2586a839057868ab5303",
+    "convex/_helpers/contentVersion.ts": "c34546acd74b8f3081a3f73a2e922ba30732ed21f26f6e75688a3b8ac3ed2a32",
+    "src/lib/image-response.ts": "07b5092d1795db69bbd4cfa41c5a25691277ff9a982884118fc1658881a9bba6",
+    "src/lib/engine/scene-grounding.ts": "fb20e4778239fc734c0ed5b6098b11474bb6a98d20c21c05d26865596c79eed5",
+    "src/lib/engine/plan-review.ts": "d41363ac7b2fa896faa95513e14f1e1532f5c8ced1dc99d3a0ae60d9946f7ff1",
+    "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+    "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/canon-showing.ts": "2bfb6fa9aa29d366ab741981627f65b0b3425ee065ea3c163caca889bfbdee0b",
+    "convex/analysis.ts": "b48c562a90ad56a0eed4e386f47d1fa4d1f68008a5102f0e59a3e198d98b466c",
+    "convex/schema.ts": "25f083a5715887aebbd7d1827fda13dc7d96ef96a4c275bd00b849d41d82d0e7",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "common.mts": "ce5f6e0dde792e56063db8caa71f280ab04fd7d622befbb3c43241636579cb71",
+    "model.mts": "8e0fb61670a423ec7c1ebd38d9145b65674137d2c597a0f9e4f3b99f94d2b712",
+    "scenarios.mts": "5b54fa749d9429a7b1ee4f4b18d691fa0cfa3d5fe1281909cc493a546d54e72f",
+    "run.mts": "31d92618b68d247d2eafed250a2e91df35ac378683da8c184da6c9ae9c7dc51c",
+    "verify.mts": "689da4b96a6e35c0a559ae73a29534c0f7547c016ec454889948840271a9c76c",
+    "plan.json": "1e075a445573b8734320b8e99b04281d9cf1e8dc943b5768d5b5ec343508c3cd",
+    "../2026-10-23-cast-policy-check/sample-set.json": "4f36d97f4949659b630ab52fe6e9e39bfedbbd727df9f4cd4273166f47d5cf24",
+    "../2026-10-23-cast-policy-check/samples.ndjson": "33dd66cc89664ad61c2a246a88a615bca5cb7a27deb7d4d4bf292dc80b5a4903",
+    "../2026-10-23-formless-selection-check/scenarios.mts": "5ed4fcb1eb47fc395a4b98aa9d633a58f70841ca1f13f604e13302b25f422e8e",
+    "../2026-10-23-formless-selection-check/common.mts": "a85e83e3bd35e8a1d32c63d7f0b828cd6de6c8992cf68c16410169c50b01d4c7",
+    "../2026-10-23-formless-selection-check/plan.json": "4f40695d62bcfb6ac706afed4f04e5f2074127589073191ea3996b33fd5fb12c"
+  },
+  "first": {
+    "selection-s001-1": {
+      "sha256": "aadb142f1cce1857f6f611a1ddfd30f69039ff2b86be602a97d44bd93843df15",
+      "estimatedUsd": 0.00032255555555555553,
+      "schemaName": "section_look"
+    },
+    "selection-s027-1": {
+      "sha256": "7ff3b6ea464dc205d77fbbaa933cc8cee44d6883a5422e0e62cb92df1f92c33f",
+      "estimatedUsd": 0.000328962962962963,
+      "schemaName": "section_look"
+    },
+    "selection-s034-1": {
+      "sha256": "d2ad685f2491bbecc34316d1f45bda5c7be3e0b41e3955ca97fad4165b8685ca",
+      "estimatedUsd": 0.000335,
+      "schemaName": "section_look"
+    },
+    "selection-s001-2": {
+      "sha256": "aadb142f1cce1857f6f611a1ddfd30f69039ff2b86be602a97d44bd93843df15",
+      "estimatedUsd": 0.00032255555555555553,
+      "schemaName": "section_look"
+    },
+    "selection-s027-2": {
+      "sha256": "7ff3b6ea464dc205d77fbbaa933cc8cee44d6883a5422e0e62cb92df1f92c33f",
+      "estimatedUsd": 0.000328962962962963,
+      "schemaName": "section_look"
+    },
+    "selection-s034-2": {
+      "sha256": "d2ad685f2491bbecc34316d1f45bda5c7be3e0b41e3955ca97fad4165b8685ca",
+      "estimatedUsd": 0.000335,
+      "schemaName": "section_look"
+    }
+  },
+  "paidCalls": 0,
+  "productionMutations": 0
+}

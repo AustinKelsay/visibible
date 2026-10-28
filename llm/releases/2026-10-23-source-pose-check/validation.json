@@ -1,0 +1,44 @@
+{
+  "lint": {
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "tests": {
+    "command": "npm test -- --run",
+    "exitCode": 0,
+    "passed": 967,
+    "skipped": 1,
+    "filesPassed": 100,
+    "filesSkipped": 1
+  },
+  "focusedTests": {
+    "passed": 29,
+    "filesPassed": 4
+  },
+  "diffCheck": {
+    "command": "git diff --check",
+    "exitCode": 0
+  },
+  "paidCallsAtFreeze": 0,
+  "finalLint": {
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  "finalTypecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "offlineReplay": {
+    "command": "npx tsx llm/releases/2026-10-23-source-pose-check/verify.mts",
+    "exitCode": 0,
+    "calls": 115
+  },
+  "finalAudit": {
+    "command": "npx tsx llm/releases/2026-10-23-source-pose-check/audit.mts",
+    "exitCode": 0
+  }
+}

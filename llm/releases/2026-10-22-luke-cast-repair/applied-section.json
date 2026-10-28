@@ -1,0 +1,88 @@
+{
+  "at": "2026-10-23T00:45:21.147Z",
+  "result": {
+    "changed": true,
+    "previousVersion": "9f1b9d0a7866f02f587421125feef376",
+    "version": "30addabc87a1da6195912e64d9fc4038"
+  },
+  "readBack": {
+    "createdAt": 1792716321061,
+    "generation": 1,
+    "inputs": [],
+    "kind": "section",
+    "payload": {
+      "cast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "named": true,
+          "stageId": "lawyer_who_tests_jesus_luke_10-s1"
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "named": true,
+          "stageId": "adult"
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "stageId": "judea_main"
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "named": false,
+          "stageId": "wounded_traveler_main"
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "named": false,
+          "stageId": "robbers_in_samaritan_parable-s1"
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "named": false,
+          "stageId": "priest_in_samaritan_parable-1"
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "named": false,
+          "stageId": "levite-main"
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "named": false,
+          "stageId": "innkeeper_main"
+        },
+        {
+          "entryId": "samaritans_mount_in_parable",
+          "named": false,
+          "stageId": "samaritans_mount_in_parable-main"
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "named": false,
+          "stageId": "jerusalem_to_jericho_road_main"
+        },
+        {
+          "entryId": "inn_in_samaritan_parable",
+          "named": false,
+          "stageId": "inn_stage_1"
+        },
+        {
+          "entryId": "the_samaritan",
+          "named": false,
+          "stageId": "the_samaritan-main"
+        }
+      ],
+      "era": "roman-era-judea-galilee-and-the-early-church",
+      "firstUnit": "luke-10-25",
+      "kind": "section",
+      "lastUnit": "luke-10-37",
+      "mentionedOnly": [],
+      "title": "Good Samaritan"
+    },
+    "recordId": "luke-10-25",
+    "source": "owner",
+    "status": "current",
+    "version": "30addabc87a1da6195912e64d9fc4038",
+    "workId": "bible-web"
+  }
+}

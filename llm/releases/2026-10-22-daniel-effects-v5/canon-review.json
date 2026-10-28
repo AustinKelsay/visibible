@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-22T16:28:28.583787+00:00",
+  "reviewer": "agent",
+  "humanAccepted": false,
+  "verdict": "accept-for-isolated-plan",
+  "canonArtifactSha256": "e6ce282e2de64edc86f17452ef65df51fd13d70381c1162b6aa5f7f14dffbb53",
+  "stageTextSha256": "208992c48d165c625af0e1ca0bc09f888a89b91bae0ab84d662c2103d6159ed0",
+  "reusedFrom": "../2026-10-22-daniel-placement-v4/canon.json",
+  "priorReviewSha256": "f0838b74c982683127121860e801cb4f8816e4c34023b166072dc90cdf1e8f03",
+  "reason": "The exact accepted canon and structured choices remain permitted by the unchanged brief. Reuse without redrafting or editing for this separately capped v5 plan. Retain showing in the new local staged shape; this is agent text acceptance, not visual or release acceptance.",
+  "decision": {
+    "canonCalls": 0,
+    "maximumPlanCalls": 2,
+    "semanticRetries": 0,
+    "imageCalls": 0,
+    "productionMutations": 0,
+    "publicActivation": false
+  }
+}

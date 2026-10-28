@@ -1,0 +1,118 @@
+{
+  "note": "Post-hoc, not pre-declared. passLooseRubric clears only the borderline flags listed in adjudication.json. passEvidenceRule counts a refused reply as stored when its only refusal is an evidence-list mismatch that an order-insensitive rule accepting non-in_scene records for unselected entries would allow; its scene flags still apply.",
+  "cells": {
+    "v3": {
+      "luke-10-33": {
+        "pass": 2,
+        "passLooseRubric": 3,
+        "passEvidenceRule": 2,
+        "defectStored": 3,
+        "correctRefusal": 0,
+        "falseRefusal": 0
+      },
+      "luke-10-34": {
+        "pass": 1,
+        "passLooseRubric": 1,
+        "passEvidenceRule": 1,
+        "defectStored": 1,
+        "correctRefusal": 1,
+        "falseRefusal": 2
+      },
+      "daniel-7-9": {
+        "pass": 4,
+        "passLooseRubric": 4,
+        "passEvidenceRule": 4,
+        "defectStored": 1,
+        "correctRefusal": 0,
+        "falseRefusal": 0
+      },
+      "daniel-7-10": {
+        "pass": 3,
+        "passLooseRubric": 5,
+        "passEvidenceRule": 3,
+        "defectStored": 2,
+        "correctRefusal": 0,
+        "falseRefusal": 0
+      },
+      "total": {
+        "pass": 10,
+        "passLooseRubric": 13,
+        "passEvidenceRule": 10,
+        "defectStored": 7,
+        "correctRefusal": 1,
+        "falseRefusal": 2
+      }
+    },
+    "v4": {
+      "luke-10-33": {
+        "pass": 2,
+        "passLooseRubric": 2,
+        "passEvidenceRule": 2,
+        "defectStored": 3,
+        "correctRefusal": 0,
+        "falseRefusal": 0
+      },
+      "luke-10-34": {
+        "pass": 1,
+        "passLooseRubric": 1,
+        "passEvidenceRule": 1,
+        "defectStored": 0,
+        "correctRefusal": 2,
+        "falseRefusal": 2
+      },
+      "daniel-7-9": {
+        "pass": 1,
+        "passLooseRubric": 1,
+        "passEvidenceRule": 3,
+        "defectStored": 0,
+        "correctRefusal": 2,
+        "falseRefusal": 2
+      },
+      "daniel-7-10": {
+        "pass": 4,
+        "passLooseRubric": 4,
+        "passEvidenceRule": 4,
+        "defectStored": 0,
+        "correctRefusal": 0,
+        "falseRefusal": 1
+      },
+      "total": {
+        "pass": 8,
+        "passLooseRubric": 8,
+        "passEvidenceRule": 10,
+        "defectStored": 3,
+        "correctRefusal": 4,
+        "falseRefusal": 5
+      }
+    }
+  },
+  "at": "2026-10-23T16:08:43.973071+00:00",
+  "refusalReasons": [
+    {
+      "contract": "v3",
+      "reason": "scene evidence must match the selected cast exactly",
+      "count": 2
+    },
+    {
+      "contract": "v3",
+      "reason": "scene requires successive instants",
+      "count": 1
+    },
+    {
+      "contract": "v4",
+      "reason": "cast ministering_assembly_in_daniels_vision is mentioned, not participating in the chosen instant",
+      "count": 1
+    },
+    {
+      "contract": "v4",
+      "reason": "scene evidence must match the selected cast exactly",
+      "count": 7
+    },
+    {
+      "contract": "v4",
+      "reason": "scene focus is not quoted from the current moment",
+      "count": 1
+    }
+  ],
+  "verdictUnderEach": "notConverging under the primary count and both sensitivity counts: Luke 10:34 passes at most 1 of 5 for both contracts in every count."
+}

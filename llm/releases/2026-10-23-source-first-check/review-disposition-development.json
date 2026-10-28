@@ -1,0 +1,14 @@
+{
+  "round1": {
+    "issues": 1,
+    "severity": "major",
+    "title": "Handle unavailable positive review controls before reading problems.",
+    "response": "The current nonempty unavailable string already short-circuited the expression; the synthetic unavailable-positive-control rehearsal verified this. Added an explicit unavailable branch that also retains the reason in the audit report. The same rehearsal passes after the change.",
+    "status": "explicit handling and evidence added"
+  },
+  "otherFix": "Offline rehearsal independently caught the run-started/frozen-commit timestamp ordering error; fixed and all four synthetic scenarios replay.",
+  "finalReview": {
+    "issues": 0,
+    "evidence": "coderabbit-final.ndjson"
+  }
+}

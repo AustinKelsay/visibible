@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-22T02:06:42.228316+00:00",
+  "outcome": "canon-rejected-before-plan",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "canonCalls": 1,
+  "planCalls": 0,
+  "imageCalls": 0,
+  "productionMutations": 0,
+  "semanticRetries": 0,
+  "preparation": {
+    "authorizedUsd": 43,
+    "previousMeasuredUsd": 3.635684,
+    "measuredThisRunUsd": 0.0006111,
+    "measuredUsd": 3.6362951,
+    "uncertaintyUsd": 0.03,
+    "remainingAfterReserveUsd": 39.3337049,
+    "subcapUsd": 0.02,
+    "unusedSubcapUsd": 0.0193889
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredUsd": 16.2980069,
+    "uncertaintyUsd": 0.045,
+    "remainingAfterReserveUsd": 0.1569931,
+    "unchanged": true
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.0685215,
+    "uncertaintyUsd": 0,
+    "remainingAfterReserveUsd": 0.9314785,
+    "unchanged": true
+  },
+  "originalMatrix": {
+    "completed": 236,
+    "planned": 324,
+    "missing": 88,
+    "unchanged": true
+  },
+  "balanceObservation": {
+    "beforeUsd": 10.899586892000002,
+    "afterUsd": 10.899586892000002,
+    "observedDeltaUsd": 0.0,
+    "reconciledToThisCall": false,
+    "note": "Credit snapshots may lag individual calls. Use the explicit provider response cost for this run; these balance observations are not a completed per-call reconciliation."
+  },
+  "conclusion": "The new context fixes the verified Daniel 7:9 omission and the candidate now uses exact appearance quotations. This one draft still violates the no-form stage instructions. Retain production canon and the existing visual failures; no plan, image, live correction or release acceptance follows.",
+  "limits": [
+    "One fresh text draft, not a paired causal experiment or an image/repeatability test.",
+    "Quote and structural checks pass while depiction semantics fail agent inspection.",
+    "Neither the previous omission nor this noncompliance establishes the cause of image-model failures.",
+    "Human visual/likeness acceptance, original matrix completion and actual-app accounting/latency gates remain open."
+  ]
+}

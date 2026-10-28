@@ -1,0 +1,14 @@
+[
+  {
+    "id": "retained-priest-2",
+    "problemSha256": "cc5e6d61c554148c43ea6e0105139a79503502bbee39c70b845f342b68886ff4",
+    "acceptable": true,
+    "reason": "The setting explicitly depicts the ruined walls of Jerusalem. Jerusalem is an available cast entry, but the supplied selected list contains only the priests. This is a depicted available location omitted from selection, rather than a mere origin, destination or comparison."
+  },
+  {
+    "id": "retained-priest-2",
+    "problemSha256": "1b12b6e17ed84b721a10801756ebe89b878f246993c8d68fe90823a70e6c6bc3",
+    "acceptable": true,
+    "reason": "The setting and action place the priests in a scorched city street. The streets of the city is an available cast entry, but only the priests are selected. This is the actual depicted setting, so the omitted-location report is justified independently of the incorrect priest identity."
+  }
+]

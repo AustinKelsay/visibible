@@ -1,0 +1,433 @@
+{
+  "calls": [
+    {
+      "phase": "look-place-baseline",
+      "startedAt": "2026-10-26T15:59:29.044Z",
+      "status": "200",
+      "measuredUsd": 0.0004556
+    },
+    {
+      "phase": "look-place-candidate",
+      "startedAt": "2026-10-26T15:59:33.480Z",
+      "status": "200",
+      "measuredUsd": 0.0004038
+    },
+    {
+      "phase": "look-time-candidate",
+      "startedAt": "2026-10-26T15:59:35.424Z",
+      "status": "200",
+      "measuredUsd": 0.0005166
+    },
+    {
+      "phase": "look-time-baseline",
+      "startedAt": "2026-10-26T15:59:40.205Z",
+      "status": "200",
+      "measuredUsd": 0.0003689
+    },
+    {
+      "phase": "look-unselected-effect-baseline",
+      "startedAt": "2026-10-26T15:59:42.193Z",
+      "status": "200",
+      "measuredUsd": 0.0005414
+    },
+    {
+      "phase": "look-unselected-effect-candidate",
+      "startedAt": "2026-10-26T15:59:46.452Z",
+      "status": "200",
+      "measuredUsd": 0.0005346
+    },
+    {
+      "phase": "canon-robe-candidate",
+      "startedAt": "2026-10-26T15:59:50.076Z",
+      "status": "200",
+      "measuredUsd": 0.000601
+    },
+    {
+      "phase": "canon-robe-baseline",
+      "startedAt": "2026-10-26T15:59:53.342Z",
+      "status": "200",
+      "measuredUsd": 0.0006798
+    },
+    {
+      "phase": "missing-canon-baseline",
+      "startedAt": "2026-10-26T15:59:57.402Z",
+      "status": "200",
+      "measuredUsd": 0.0004957
+    },
+    {
+      "phase": "missing-canon-candidate",
+      "startedAt": "2026-10-26T16:00:00.650Z",
+      "status": "200",
+      "measuredUsd": 0.0004869
+    },
+    {
+      "phase": "unsupported-aaron-candidate",
+      "startedAt": "2026-10-26T16:00:05.227Z",
+      "status": "200",
+      "measuredUsd": 0.0005899
+    },
+    {
+      "phase": "unsupported-aaron-baseline",
+      "startedAt": "2026-10-26T16:00:09.825Z",
+      "status": "200",
+      "measuredUsd": 0.0006502
+    },
+    {
+      "phase": "unsupported-moses-baseline",
+      "startedAt": "2026-10-26T16:00:14.875Z",
+      "status": "200",
+      "measuredUsd": 0.0005836
+    },
+    {
+      "phase": "unsupported-moses-candidate",
+      "startedAt": "2026-10-26T16:00:20.367Z",
+      "status": "200",
+      "measuredUsd": 0.0005913
+    },
+    {
+      "phase": "object-state-candidate",
+      "startedAt": "2026-10-26T16:00:25.172Z",
+      "status": "200",
+      "measuredUsd": 0.000518
+    },
+    {
+      "phase": "object-state-baseline",
+      "startedAt": "2026-10-26T16:00:29.483Z",
+      "status": "200",
+      "measuredUsd": 0.0005118
+    },
+    {
+      "phase": "look-embodiment-baseline",
+      "startedAt": "2026-10-26T16:00:34.052Z",
+      "status": "200",
+      "measuredUsd": 0.0004366
+    },
+    {
+      "phase": "look-embodiment-candidate",
+      "startedAt": "2026-10-26T16:00:36.250Z",
+      "status": "200",
+      "measuredUsd": 0.0004473
+    },
+    {
+      "phase": "ordinary-light-candidate",
+      "startedAt": "2026-10-26T16:00:38.242Z",
+      "status": "200",
+      "measuredUsd": 0.0003495
+    },
+    {
+      "phase": "ordinary-light-baseline",
+      "startedAt": "2026-10-26T16:00:39.456Z",
+      "status": "200",
+      "measuredUsd": 0.0003303
+    },
+    {
+      "phase": "section-range-baseline",
+      "startedAt": "2026-10-26T16:00:40.740Z",
+      "status": "200",
+      "measuredUsd": 0.0003305
+    },
+    {
+      "phase": "section-range-candidate",
+      "startedAt": "2026-10-26T16:00:41.943Z",
+      "status": "200",
+      "measuredUsd": 0.0004087
+    },
+    {
+      "phase": "selected-effects-candidate",
+      "startedAt": "2026-10-26T16:00:45.210Z",
+      "status": "200",
+      "measuredUsd": 0.0004565
+    },
+    {
+      "phase": "selected-effects-baseline",
+      "startedAt": "2026-10-26T16:00:48.074Z",
+      "status": "200",
+      "measuredUsd": 0.0004453
+    },
+    {
+      "phase": "situational-pose-baseline",
+      "startedAt": "2026-10-26T16:00:51.188Z",
+      "status": "200",
+      "measuredUsd": 0.0003356
+    },
+    {
+      "phase": "situational-pose-candidate",
+      "startedAt": "2026-10-26T16:00:52.152Z",
+      "status": "200",
+      "measuredUsd": 0.0003548
+    },
+    {
+      "phase": "wardrobe-inventory-candidate",
+      "startedAt": "2026-10-26T16:00:53.589Z",
+      "status": "200",
+      "measuredUsd": 0.0004239
+    },
+    {
+      "phase": "wardrobe-inventory-baseline",
+      "startedAt": "2026-10-26T16:00:55.059Z",
+      "status": "200",
+      "measuredUsd": 0.0003382
+    },
+    {
+      "phase": "incidental-roles-baseline",
+      "startedAt": "2026-10-26T16:00:56.421Z",
+      "status": "200",
+      "measuredUsd": 0.0004205
+    },
+    {
+      "phase": "incidental-roles-candidate",
+      "startedAt": "2026-10-26T16:00:59.858Z",
+      "status": "200",
+      "measuredUsd": 0.0003502
+    },
+    {
+      "phase": "compatible-object-candidate",
+      "startedAt": "2026-10-26T16:01:02.195Z",
+      "status": "200",
+      "measuredUsd": 0.0003515
+    },
+    {
+      "phase": "compatible-object-baseline",
+      "startedAt": "2026-10-26T16:01:03.239Z",
+      "status": "200",
+      "measuredUsd": 0.0003323
+    },
+    {
+      "phase": "f019-baseline",
+      "startedAt": "2026-10-26T16:01:04.193Z",
+      "status": "200",
+      "measuredUsd": 0.0001843
+    },
+    {
+      "phase": "f019-baseline",
+      "startedAt": "2026-10-26T16:01:06.236Z",
+      "status": "200",
+      "measuredUsd": 0.0005196
+    },
+    {
+      "phase": "f019-baseline",
+      "startedAt": "2026-10-26T16:01:08.809Z",
+      "status": "200",
+      "measuredUsd": 0.0006986
+    },
+    {
+      "phase": "f019-baseline",
+      "startedAt": "2026-10-26T16:01:12.936Z",
+      "status": "200",
+      "measuredUsd": 0.0008265
+    },
+    {
+      "phase": "f019-candidate",
+      "startedAt": "2026-10-26T16:01:19.297Z",
+      "status": "200",
+      "measuredUsd": 0.0001878
+    },
+    {
+      "phase": "f019-candidate",
+      "startedAt": "2026-10-26T16:01:21.343Z",
+      "status": "200",
+      "measuredUsd": 0.0008908
+    },
+    {
+      "phase": "f019-candidate",
+      "startedAt": "2026-10-26T16:01:29.212Z",
+      "status": "200",
+      "measuredUsd": 0.0008152
+    },
+    {
+      "phase": "f019-candidate",
+      "startedAt": "2026-10-26T16:01:35.196Z",
+      "status": "200",
+      "measuredUsd": 0.0009489
+    },
+    {
+      "phase": "f022-candidate",
+      "startedAt": "2026-10-26T16:01:40.721Z",
+      "status": "200",
+      "measuredUsd": 0.0001702
+    },
+    {
+      "phase": "f022-candidate",
+      "startedAt": "2026-10-26T16:01:42.462Z",
+      "status": "200",
+      "measuredUsd": 0.000803
+    },
+    {
+      "phase": "f022-candidate",
+      "startedAt": "2026-10-26T16:01:49.175Z",
+      "status": "200",
+      "measuredUsd": 0.0007621
+    },
+    {
+      "phase": "f022-candidate",
+      "startedAt": "2026-10-26T16:01:54.693Z",
+      "status": "200",
+      "measuredUsd": 0.0008652
+    },
+    {
+      "phase": "f022-candidate",
+      "startedAt": "2026-10-26T16:01:59.333Z",
+      "status": "200",
+      "measuredUsd": 0.0008026
+    },
+    {
+      "phase": "f022-baseline",
+      "startedAt": "2026-10-26T16:02:04.516Z",
+      "status": "200",
+      "measuredUsd": 0.0001737
+    },
+    {
+      "phase": "f022-baseline",
+      "startedAt": "2026-10-26T16:02:06.474Z",
+      "status": "200",
+      "measuredUsd": 0.000704
+    },
+    {
+      "phase": "f022-baseline",
+      "startedAt": "2026-10-26T16:02:10.602Z",
+      "status": "200",
+      "measuredUsd": 0.0006869
+    },
+    {
+      "phase": "f006-baseline",
+      "startedAt": "2026-10-26T16:02:16.255Z",
+      "status": "200",
+      "measuredUsd": 0.0001923
+    },
+    {
+      "phase": "f006-baseline",
+      "startedAt": "2026-10-26T16:02:18.322Z",
+      "status": "200",
+      "measuredUsd": 0.0008608
+    },
+    {
+      "phase": "f006-baseline",
+      "startedAt": "2026-10-26T16:02:23.014Z",
+      "status": "200",
+      "measuredUsd": 0.0008808
+    },
+    {
+      "phase": "f006-candidate",
+      "startedAt": "2026-10-26T16:02:29.302Z",
+      "status": "200",
+      "measuredUsd": 0.0001888
+    },
+    {
+      "phase": "f006-candidate",
+      "startedAt": "2026-10-26T16:02:31.442Z",
+      "status": "200",
+      "measuredUsd": 0.0009088
+    },
+    {
+      "phase": "f006-candidate",
+      "startedAt": "2026-10-26T16:02:38.621Z",
+      "status": "200",
+      "measuredUsd": 0.0008143
+    },
+    {
+      "phase": "f006-candidate",
+      "startedAt": "2026-10-26T16:02:42.506Z",
+      "status": "200",
+      "measuredUsd": 0.0010392
+    },
+    {
+      "phase": "f006-candidate",
+      "startedAt": "2026-10-26T16:02:48.868Z",
+      "status": "200",
+      "measuredUsd": 0.0009788
+    },
+    {
+      "phase": "r027-candidate",
+      "startedAt": "2026-10-26T16:02:56.122Z",
+      "status": "200",
+      "measuredUsd": 0.0003457
+    },
+    {
+      "phase": "r027-candidate",
+      "startedAt": "2026-10-26T16:02:59.099Z",
+      "status": "200",
+      "measuredUsd": 0.0011975
+    },
+    {
+      "phase": "r027-candidate",
+      "startedAt": "2026-10-26T16:03:07.771Z",
+      "status": "200",
+      "measuredUsd": 0.0009788
+    },
+    {
+      "phase": "r027-candidate",
+      "startedAt": "2026-10-26T16:03:15.066Z",
+      "status": "200",
+      "measuredUsd": 0.001228
+    },
+    {
+      "phase": "r027-candidate",
+      "startedAt": "2026-10-26T16:03:20.251Z",
+      "status": "200",
+      "measuredUsd": 0.0007458
+    },
+    {
+      "phase": "r027-baseline",
+      "startedAt": "2026-10-26T16:03:25.669Z",
+      "status": "200",
+      "measuredUsd": 0.0003322
+    },
+    {
+      "phase": "r027-baseline",
+      "startedAt": "2026-10-26T16:03:28.345Z",
+      "status": "200",
+      "measuredUsd": 0.0010058
+    },
+    {
+      "phase": "r027-baseline",
+      "startedAt": "2026-10-26T16:03:32.786Z",
+      "status": "200",
+      "measuredUsd": 0.0010758
+    },
+    {
+      "phase": "r027-baseline",
+      "startedAt": "2026-10-26T16:03:38.948Z",
+      "status": "200",
+      "measuredUsd": 0.0010106
+    },
+    {
+      "phase": "f015-baseline",
+      "startedAt": "2026-10-26T16:03:45.752Z",
+      "status": "200",
+      "measuredUsd": 0.0001742
+    },
+    {
+      "phase": "f015-baseline",
+      "startedAt": "2026-10-26T16:03:48.181Z",
+      "status": "200",
+      "measuredUsd": 0.0007429
+    },
+    {
+      "phase": "f015-baseline",
+      "startedAt": "2026-10-26T16:03:52.722Z",
+      "status": "200",
+      "measuredUsd": 0.0007228
+    },
+    {
+      "phase": "f015-candidate",
+      "startedAt": "2026-10-26T16:03:58.237Z",
+      "status": "200",
+      "measuredUsd": 0.0001802
+    },
+    {
+      "phase": "f015-candidate",
+      "startedAt": "2026-10-26T16:04:00.613Z",
+      "status": "200",
+      "measuredUsd": 0.0008952
+    },
+    {
+      "phase": "f015-candidate",
+      "startedAt": "2026-10-26T16:04:07.872Z",
+      "status": "200",
+      "measuredUsd": 0.000777
+    }
+  ],
+  "measuredUsd": 0.041956499999999994,
+  "uncertainUsd": 0,
+  "blocked": null
+}

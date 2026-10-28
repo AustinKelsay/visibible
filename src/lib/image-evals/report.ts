@@ -48,7 +48,7 @@ export type CaseReport = {
 };
 export type EvalReport = {
   run: string; createdAt: number; reportedAt: number;
-  reproducibility: { promptVersion: string; imageModel: string; plannerModel: string | null; arms: string[]; repeats: number; sampleFloor: number };
+  reproducibility: { promptVersion: string; imageModel: string; plannerModel: string | null; arms: string[]; repeats: number; sampleFloor: number; omitStyleReference?: boolean };
   stopped: EvalRunState["stopped"] | null;
   spentUsd: number;
   arms: Record<string, ArmSummary>;
@@ -131,7 +131,7 @@ export function buildReport(state: EvalRunState, cases: readonly EvalCase[], opt
     const incomplete = attempted.some((n) => n < options.repeats);
     const undersampled = caseArms.some((arm) => perArm[arm].completed < floor);
     const comparison = incomplete ? "incomplete" : undersampled ? "inconclusive" : "ready";
-    const reason = comparison === "incomplete" ? "not every arm ran its repeats (budget stop or interrupted run); retain the baseline"
+    const reason = comparison === "incomplete" ? "not every arm ran its repeats (stopped or interrupted run); retain the baseline"
       : comparison === "inconclusive" ? `fewer than ${floor} completed samples in an arm; retain the baseline` : null;
     return { id: c.id, reference: c.reference, genre: c.genre, expected: c.expected, arms: perArm, comparison, reason };
   });
@@ -139,7 +139,7 @@ export function buildReport(state: EvalRunState, cases: readonly EvalCase[], opt
   for (const c of caseReports) comparisons[c.comparison]++;
   return {
     run: state.run, createdAt: state.createdAt, reportedAt: (options.now ?? Date.now)(),
-    reproducibility: { promptVersion: state.promptVersion, imageModel: state.imageModel, plannerModel: state.plannerModel, arms: [...options.arms], repeats: options.repeats, sampleFloor: floor },
+    reproducibility: { promptVersion: state.promptVersion, imageModel: state.imageModel, plannerModel: state.plannerModel, arms: [...options.arms], repeats: options.repeats, sampleFloor: floor, omitStyleReference: state.omitStyleReference },
     stopped: state.stopped ?? null, spentUsd: state.spentUsd, arms, cases: caseReports, comparisons, styleMatrix,
   };
 }
@@ -191,7 +191,7 @@ export function renderComparisonSheet(baseline: EvalReport, candidate: EvalRepor
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${escape(baseline.run)} vs ${escape(candidate.run)}</title>
 <style>body{font:14px/1.4 system-ui,sans-serif;margin:24px;color:#222}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;vertical-align:top;padding:8px}th{text-align:left;width:16%;background:#fafafa}img{width:100%;max-width:240px;display:block;margin-bottom:6px;border-radius:4px}.side{display:grid;grid-template-columns:1fr 1fr;gap:8px}.label{font-size:12px;color:#555;margin-bottom:4px}.box{max-width:240px;aspect-ratio:16/9;background:#fee;border:1px dashed #c66;color:#a00;display:flex;align-items:center;justify-content:center;margin-bottom:6px}.review{background:#fff4f4}.flag{color:#a00;font-weight:600;font-size:12px}.genre{font-size:12px;color:#777;text-transform:uppercase}.verdict{font-size:12px}.ready{color:#060}.inconclusive,.incomplete{color:#a60}</style></head><body>
 <h1>${escape(baseline.run)} (baseline) vs ${escape(candidate.run)} (candidate)</h1>
-<p>Baseline: prompt ${escape(baseline.reproducibility.promptVersion)}, image ${escape(baseline.reproducibility.imageModel)}, planner ${escape(baseline.reproducibility.plannerModel ?? "none")}. Candidate: prompt ${escape(candidate.reproducibility.promptVersion)}, image ${escape(candidate.reproducibility.imageModel)}, planner ${escape(candidate.reproducibility.plannerModel ?? "none")}. ${review} cell(s) need review; inconclusive or incomplete candidate cases retain the baseline.</p>
+<p>Baseline: prompt ${escape(baseline.reproducibility.promptVersion)}, image ${escape(baseline.reproducibility.imageModel)}, planner ${escape(baseline.reproducibility.plannerModel ?? "none")}, style reference ${baseline.reproducibility.omitStyleReference ? "omitted by evaluation control" : "normal selection"}. Candidate: prompt ${escape(candidate.reproducibility.promptVersion)}, image ${escape(candidate.reproducibility.imageModel)}, planner ${escape(candidate.reproducibility.plannerModel ?? "none")}, style reference ${candidate.reproducibility.omitStyleReference ? "omitted by evaluation control" : "normal selection"}. ${review} cell(s) need review; inconclusive or incomplete candidate cases retain the baseline.</p>
 <table><thead><tr><th>Case</th>${arms.map((a) => `<th>${escape(a)}</th>`).join("")}</tr></thead><tbody>
 ${rows}
 </tbody></table></body></html>`;
@@ -217,7 +217,7 @@ export function renderContactSheet(report: EvalReport, options: { title?: string
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${escape(options.title ?? `Image evaluation ${report.run}`)}</title>
 <style>body{font:14px/1.4 system-ui,sans-serif;margin:24px;color:#222}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;vertical-align:top;padding:8px}th{text-align:left;width:22%;background:#fafafa}img{width:100%;max-width:360px;display:block;border-radius:4px}figure{margin:0 0 10px}figcaption{font-size:12px;color:#555}.genre{font-size:12px;color:#777;text-transform:uppercase}.arm{font-weight:600;margin-bottom:6px}.box{width:100%;max-width:360px;aspect-ratio:16/9;background:#fee;border:1px dashed #c66;display:flex;align-items:center;justify-content:center;color:#a00}.verdict{font-size:12px;margin-top:6px}.ready{color:#060}.inconclusive{color:#a60}.incomplete{color:#a00}</style></head><body>
 <h1>${escape(options.title ?? `Image evaluation ${report.run}`)}</h1>
-<p>Prompt ${escape(report.reproducibility.promptVersion)} · image model ${escape(report.reproducibility.imageModel)} · planner ${escape(report.reproducibility.plannerModel ?? "none")} · ${report.reproducibility.repeats} repeat(s) per arm · sample floor ${report.reproducibility.sampleFloor} · spent $${report.spentUsd.toFixed(4)}${report.stopped ? ` · <strong>stopped: ${escape(report.stopped.reason)}</strong> (${escape(report.stopped.detail)})` : ""}</p>
+<p>Prompt ${escape(report.reproducibility.promptVersion)} · image model ${escape(report.reproducibility.imageModel)} · planner ${escape(report.reproducibility.plannerModel ?? "none")} · style reference ${report.reproducibility.omitStyleReference ? "omitted by evaluation control" : "normal selection"} · ${report.reproducibility.repeats} repeat(s) per arm · sample floor ${report.reproducibility.sampleFloor} · spent $${report.spentUsd.toFixed(4)}${report.stopped ? ` · <strong>stopped: ${escape(report.stopped.reason)}</strong> (${escape(report.stopped.detail)})` : ""}</p>
 <ul>${armSummary}</ul>
 <p>Comparisons: ${report.comparisons.ready} ready, ${report.comparisons.inconclusive} inconclusive, ${report.comparisons.incomplete} incomplete. Score every row in scores.json; an observed depiction-rule or likeness violation fails the release regardless of averages.</p>
 <table><thead><tr><th>Case</th>${arms.map((a) => `<th>${escape(a)}</th>`).join("")}</tr></thead><tbody>

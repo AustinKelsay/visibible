@@ -1,0 +1,396 @@
+[
+  {
+    "id": "retained-priest-1",
+    "provenance": "../2026-10-23-single-selection-check/results.ndjson#selection-s034-1",
+    "required": [
+      {
+        "kind": "outside_instant",
+        "entryId": "the_priests_of_jerusalem"
+      }
+    ],
+    "input": {
+      "rules": "- God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\n- Treat battles, death and crucifixion seriously; avoid lingering gore.\n- No sexually explicit content; non-sexual nudity may follow the text.\n- Show all peoples with dignity, without ethnic or religious caricature.\n- Visionary creatures follow the text, strange and fearsome rather than comic.",
+      "context": {
+        "moment": {
+          "id": "lamentations-4-7",
+          "reference": "Lamentations 4:7",
+          "text": "Her nobles were purer than snow. They were whiter than milk. They were more ruddy in body than rubies. Their polishing was like sapphire."
+        },
+        "previous": {
+          "text": "For the iniquity of the daughter of my people is greater than the sin of Sodom, which was overthrown as in a moment. No hands were laid on her."
+        },
+        "next": {
+          "text": "Their appearance is blacker than a coal. They are not known in the streets. Their skin clings to their bones. It is withered. It has become like wood."
+        }
+      },
+      "sectionTitle": "The city's ruin, the priests' guilt and Edom's doom",
+      "cast": [
+        {
+          "entryId": "zion",
+          "name": "Zion",
+          "hasForm": true
+        },
+        {
+          "entryId": "children_of_zion_lamentations",
+          "name": "Children of Zion (Lamentations)",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_priests_of_jerusalem",
+          "name": "The priests of Jerusalem",
+          "hasForm": true
+        },
+        {
+          "entryId": "prophets_of_jerusalem",
+          "name": "Prophets of Jerusalem",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_enemies_jerusalem_s_foreign_adversaries",
+          "name": "The enemies (Jerusalem's foreign adversaries)",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "hasForm": false
+        },
+        {
+          "entryId": "jerusalem",
+          "name": "Jerusalem",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_streets_of_the_city",
+          "name": "The streets of the city",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_wilderness_and_exile",
+          "name": "The wilderness and exile",
+          "hasForm": true
+        }
+      ],
+      "present": [
+        "the_priests_of_jerusalem"
+      ],
+      "fields": {
+        "primarySubject": "The priests of Jerusalem standing still in the temple court, their linen pale among the ash.",
+        "action": "The priests stand motionless, faces turned downward toward the scattered stones, neither speaking nor moving.",
+        "setting": "The smoking temple court of ruined Jerusalem, broken stone steps and dust-strewn flagstones beneath a heavy overcast sky.",
+        "secondaryElements": "Scattered broken weapons and torn sackcloth among the ruins; drifting ash in the air; no radiance or manifestation of God in the scene.",
+        "mood": "Stunned, hollow silence and guilt-heavy stillness.",
+        "timeOfDay": "Dim ashen daylight at the grey edge of dawn.",
+        "composition": "Medium-wide view from the court's edge, priests placed centrally among the ruined stones, the temple walls receding behind them."
+      }
+    }
+  },
+  {
+    "id": "retained-priest-2",
+    "provenance": "../2026-10-23-single-selection-check/results.ndjson#selection-s034-2",
+    "required": [
+      {
+        "kind": "outside_instant",
+        "entryId": "the_priests_of_jerusalem"
+      }
+    ],
+    "input": {
+      "rules": "- God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\n- Treat battles, death and crucifixion seriously; avoid lingering gore.\n- No sexually explicit content; non-sexual nudity may follow the text.\n- Show all peoples with dignity, without ethnic or religious caricature.\n- Visionary creatures follow the text, strange and fearsome rather than comic.",
+      "context": {
+        "moment": {
+          "id": "lamentations-4-7",
+          "reference": "Lamentations 4:7",
+          "text": "Her nobles were purer than snow. They were whiter than milk. They were more ruddy in body than rubies. Their polishing was like sapphire."
+        },
+        "previous": {
+          "text": "For the iniquity of the daughter of my people is greater than the sin of Sodom, which was overthrown as in a moment. No hands were laid on her."
+        },
+        "next": {
+          "text": "Their appearance is blacker than a coal. They are not known in the streets. Their skin clings to their bones. It is withered. It has become like wood."
+        }
+      },
+      "sectionTitle": "The city's ruin, the priests' guilt and Edom's doom",
+      "cast": [
+        {
+          "entryId": "zion",
+          "name": "Zion",
+          "hasForm": true
+        },
+        {
+          "entryId": "children_of_zion_lamentations",
+          "name": "Children of Zion (Lamentations)",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_priests_of_jerusalem",
+          "name": "The priests of Jerusalem",
+          "hasForm": true
+        },
+        {
+          "entryId": "prophets_of_jerusalem",
+          "name": "Prophets of Jerusalem",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_enemies_jerusalem_s_foreign_adversaries",
+          "name": "The enemies (Jerusalem's foreign adversaries)",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "hasForm": false
+        },
+        {
+          "entryId": "jerusalem",
+          "name": "Jerusalem",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_streets_of_the_city",
+          "name": "The streets of the city",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_wilderness_and_exile",
+          "name": "The wilderness and exile",
+          "hasForm": true
+        }
+      ],
+      "present": [
+        "the_priests_of_jerusalem"
+      ],
+      "fields": {
+        "primarySubject": "Two priests standing upright in clean white linen, their robes untouched by the ash around them.",
+        "action": "They stand still in the scorched street, gazing forward with composed, guarded bearing.",
+        "setting": "A scorched street inside the ruined walls of Jerusalem, with broken gates and fallen stones.",
+        "secondaryElements": "Scattered broken temple vessels and fragments of armor on the ground; smoke drifting low.",
+        "mood": "Stark, sorrowful irony in the stillness of those who seem unharmed.",
+        "timeOfDay": "Dim, dying late-afternoon sunlight fading toward dusk.",
+        "composition": "Medium shot from a low angle, the pale figures set against dark smoke and rubble."
+      }
+    }
+  },
+  {
+    "id": "supported-group-members",
+    "provenance": "../2026-10-23-single-selection-check/results.ndjson#selection-s027-2; prior operator acceptance permits incidental court details",
+    "required": [],
+    "input": {
+      "rules": "- God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\n- Treat battles, death and crucifixion seriously; avoid lingering gore.\n- No sexually explicit content; non-sexual nudity may follow the text.\n- Show all peoples with dignity, without ethnic or religious caricature.\n- Visionary creatures follow the text, strange and fearsome rather than comic.",
+      "context": {
+        "moment": {
+          "id": "exodus-14-5",
+          "reference": "Exodus 14:5",
+          "text": "The king of Egypt was told that the people had fled; and the heart of Pharaoh and of his servants was changed toward the people, and they said, “What is this we have done, that we have let Israel go from serving us?”"
+        },
+        "previous": {
+          "text": "I will harden Pharaoh’s heart, and he will follow after them; and I will get honor over Pharaoh, and over all his armies; and the Egyptians shall know that I am Yahweh.” They did so."
+        },
+        "next": {
+          "text": "He prepared his chariot, and took his army with him;"
+        }
+      },
+      "sectionTitle": "Israel encamps by the sea; Pharaoh pursues; fear",
+      "cast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "hasForm": true
+        },
+        {
+          "entryId": "pharaoh_of_the_exodus_oppressor_of_israel",
+          "name": "Pharaoh of the Exodus (oppressor of Israel)",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_wilderness_exodus_route",
+          "name": "The wilderness (Exodus route)",
+          "hasForm": true
+        }
+      ],
+      "present": [
+        "pharaoh_of_the_exodus_oppressor_of_israel",
+        "the_egyptians"
+      ],
+      "fields": {
+        "primarySubject": "Pharaoh standing in the Egyptian court, turned toward the empty road, his face shifting to doubt and regret.",
+        "action": "Pharaoh and his servants react to the news of the departed people; their posture turns from command to unease.",
+        "setting": "Egyptian royal court of stone and linen hangings, with a distant view through an open doorway toward the dusk road beyond the dunes.",
+        "secondaryElements": "Several Egyptian servants in linen standing near Pharaoh, looking back at him; no visible divine presence in this scene.",
+        "mood": "Sudden unease and reflection, quiet and heavy.",
+        "timeOfDay": "Late dusk light entering the court, fading toward night.",
+        "composition": "Pharaoh centered in mid-ground, servants arranged around him, the open doorway and road visible at the edge of the frame."
+      }
+    }
+  },
+  {
+    "id": "incidental-roles",
+    "provenance": "Synthetic neutral control; source-supported unnamed people need no canon; guards are a different role",
+    "required": [],
+    "input": {
+      "rules": "- none",
+      "sectionTitle": "The letter",
+      "context": {
+        "moment": {
+          "id": "letter",
+          "reference": "Letter 1",
+          "text": "A messenger gave the travelers a sealed letter."
+        },
+        "previous": null,
+        "next": null
+      },
+      "cast": [
+        {
+          "entryId": "guards",
+          "name": "The harbor guards",
+          "hasForm": true
+        }
+      ],
+      "present": [],
+      "fields": {
+        "primarySubject": "A messenger facing two travelers",
+        "action": "The messenger hands a sealed letter to one traveler",
+        "setting": "a roadside stopping place",
+        "secondaryElements": "a plain satchel at the messenger's side",
+        "mood": "attentive",
+        "timeOfDay": "day",
+        "composition": "the three people gathered around the letter"
+      }
+    }
+  },
+  {
+    "id": "unselected-place-object",
+    "provenance": "Synthetic neutral negative; two available depicted cast entries are omitted",
+    "required": [
+      {
+        "kind": "unselected_figure",
+        "entryId": "eastport"
+      },
+      {
+        "kind": "unselected_figure",
+        "entryId": "compass"
+      }
+    ],
+    "input": {
+      "rules": "- none",
+      "sectionTitle": "The compass",
+      "context": {
+        "moment": {
+          "id": "compass",
+          "reference": "Harbor 1",
+          "text": "Mara set the brass compass on the quay in Eastport."
+        },
+        "previous": null,
+        "next": null
+      },
+      "cast": [
+        {
+          "entryId": "mara",
+          "name": "Mara",
+          "hasForm": true
+        },
+        {
+          "entryId": "eastport",
+          "name": "Eastport",
+          "hasForm": true
+        },
+        {
+          "entryId": "compass",
+          "name": "The brass compass",
+          "hasForm": true
+        }
+      ],
+      "present": [
+        "mara"
+      ],
+      "fields": {
+        "primarySubject": "Mara beside the quay",
+        "action": "Mara sets the brass compass on the quay",
+        "setting": "Eastport harbor",
+        "secondaryElements": "coiled rope and wooden crates",
+        "mood": "quiet",
+        "timeOfDay": "day",
+        "composition": "Mara's hand touching the compass as it rests on the quay"
+      }
+    }
+  },
+  {
+    "id": "selected-place-object",
+    "provenance": "Exact paired control; only selection differs, ordinary rope/crates remain incidental",
+    "required": [],
+    "input": {
+      "rules": "- none",
+      "sectionTitle": "The compass",
+      "context": {
+        "moment": {
+          "id": "compass",
+          "reference": "Harbor 1",
+          "text": "Mara set the brass compass on the quay in Eastport."
+        },
+        "previous": null,
+        "next": null
+      },
+      "cast": [
+        {
+          "entryId": "mara",
+          "name": "Mara",
+          "hasForm": true
+        },
+        {
+          "entryId": "eastport",
+          "name": "Eastport",
+          "hasForm": true
+        },
+        {
+          "entryId": "compass",
+          "name": "The brass compass",
+          "hasForm": true
+        }
+      ],
+      "present": [
+        "mara",
+        "eastport",
+        "compass"
+      ],
+      "fields": {
+        "primarySubject": "Mara beside the quay",
+        "action": "Mara sets the brass compass on the quay",
+        "setting": "Eastport harbor",
+        "secondaryElements": "coiled rope and wooden crates",
+        "mood": "quiet",
+        "timeOfDay": "day",
+        "composition": "Mara's hand touching the compass as it rests on the quay"
+      }
+    }
+  }
+]

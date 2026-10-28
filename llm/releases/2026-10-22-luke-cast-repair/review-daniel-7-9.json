@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-23T00:48:08.657381+00:00",
+  "artifactSha256": "84ecd7a3d6d64fcfada0b9b5be169d8ae55a300185507456772ef9126245e973",
+  "reviewer": "Agent text inspection within authorized preparation; not human release acceptance",
+  "verdict": "hold-for-moment-presence",
+  "humanAccepted": false,
+  "publicActivation": false,
+  "observations": [
+    {
+      "severity": "blocker",
+      "topic": "Narrator presence",
+      "evidence": "Daniel stands at the threshold looking up",
+      "assessment": "The first valid v2 plan still places narrator Daniel visibly inside the vision, including a foreground viewpoint behind him, without current-scene participation beyond I watched. This fails the declared criterion and explicit framing/narrator instruction."
+    },
+    {
+      "severity": "blocker",
+      "topic": "Assembly presence",
+      "evidence": "attendants in white priestly linen and court robes standing in ordered rows",
+      "assessment": "The shared look and next verse describe attendants. The reply does not establish current 7:9 presence independently of those inputs; it repeats their shared wardrobe into this scene. As in the retained prior check, a possible continuous-vision reading is not sufficient to pass the predeclared criterion."
+    },
+    {
+      "severity": "instruction-gap",
+      "topic": "No-form wording",
+      "evidence": "with no figure seated",
+      "assessment": "The seat is explicitly unoccupied and the plan does not assign anatomy or fixed canon colours to the Ancient of Days, but it still repeats a prohibited figure as a denial. No image was generated, so this is a text instruction gap, not an observed new bodily rendering."
+    }
+  ],
+  "decision": {
+    "nextTextCheckAllowed": false,
+    "imageCallsAllowed": false,
+    "semanticRetryAllowed": false,
+    "responseEditingAllowed": false,
+    "releaseAccepted": false
+  }
+}

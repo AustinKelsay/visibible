@@ -1,0 +1,128 @@
+{
+  "at": "2026-10-23T19:42:10.271417+00:00",
+  "by": "operator",
+  "summary": "8 of 137 replies differed on one flag each (2 only on notes). Decided from blind-replies.json before reading blind-key.json.",
+  "decisions": [
+    {
+      "blindId": "47ea1cd5",
+      "flag": "N",
+      "decided": false,
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false,
+        "N": false
+      },
+      "rationale": "'no human figures in the foreground' denies ordinary people, not a prohibited figure."
+    },
+    {
+      "blindId": "2b58c5f0",
+      "flag": "N",
+      "decided": false,
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false,
+        "N": false
+      },
+      "rationale": "'no servants or soldier present' denies unselected cast, not a prohibited figure."
+    },
+    {
+      "blindId": "cb8fb737",
+      "flag": "X",
+      "decided": true,
+      "flags": {
+        "U": false,
+        "X": true,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false,
+        "N": false
+      },
+      "rationale": "The hypothetical field fire is placed at Horeb/Sinai, where the law is given: the framing place inside the told content, the same pattern both scorers flagged for the dream statue in the throne hall."
+    },
+    {
+      "blindId": "ae6a6a22",
+      "flag": "X",
+      "decided": true,
+      "flags": {
+        "U": true,
+        "X": true,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false,
+        "N": false
+      },
+      "rationale": "The letter's recipients, a cast entry, stand with the earthly Jesus; they belong to the letter's frame, not this instant. Already a blocker through U."
+    },
+    {
+      "blindId": "da86cc36",
+      "flag": "I",
+      "decided": true,
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": true,
+        "F": false,
+        "R": false,
+        "M": false,
+        "N": false
+      },
+      "rationale": "Jesus is 'seated' in two fields and 'reclining' in another: two incompatible poses, as with 'kneels or leans' in earlier runs."
+    },
+    {
+      "blindId": "1c5a7b45",
+      "flag": "F",
+      "decided": true,
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": true,
+        "R": false,
+        "M": false,
+        "N": false
+      },
+      "rationale": "Satan's entry has hasForm false; a red serpentine body with scales, coils and a head is a bodily figure that the no-form canon forbids."
+    },
+    {
+      "blindId": "f9666147",
+      "flag": "F",
+      "decided": true,
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": true,
+        "R": false,
+        "M": false,
+        "N": false
+      },
+      "rationale": "Same as 1c5a7b45: a serpentine body with coils for a no-form entry."
+    },
+    {
+      "blindId": "f3bd238e",
+      "flag": "M",
+      "decided": false,
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false,
+        "N": false
+      },
+      "rationale": "The verse states the guards' positions; showing them at the gates illustrates its content and contradicts nothing."
+    }
+  ],
+  "keyReadBeforeThis": false
+}

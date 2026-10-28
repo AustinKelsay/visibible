@@ -136,11 +136,14 @@ export function canonRecords(reading: ReadingPassState, state: CanonState): Anal
   const records: AnalysisRecordInput[] = [];
   for (const e of merge.entries) {
     const canon = state.entries[e.id];
-    records.push({ kind: "entry", recordId: e.id, payload: {
-      kind: "entry", name: e.name, entryKind: e.kind, aliases: e.aliases, note: e.note, members: e.members,
-      ...(canon ? { hasForm: canon.hasForm } : {}),
-      stages: canon ? canon.stages.map((s) => ({ id: s.id, label: s.label, text: s.text, quotes: s.quotes })) : [],
-    } });
+    records.push({ kind: "entry", recordId: e.id,
+      ...(canon?.promptVersion ? { inputs: [{ kind: "prompt", recordId: "canon", version: canon.promptVersion }] } : {}),
+      payload: {
+        kind: "entry", name: e.name, entryKind: e.kind, aliases: e.aliases, note: e.note, members: e.members,
+        ...(canon ? { hasForm: canon.hasForm } : {}),
+        stages: canon ? canon.stages.map((s) => ({ id: s.id, label: s.label, text: s.text, quotes: s.quotes,
+          ...(!canon.hasForm && s.showing ? { showing: s.showing } : {}) })) : [],
+      } });
   }
   const stageFor = (entryId: string, sectionId: string) => state.entries[entryId]?.sectionStages[sectionId] ?? state.entries[entryId]?.stages[0]?.id ?? "main";
   for (const s of merge.sections) {

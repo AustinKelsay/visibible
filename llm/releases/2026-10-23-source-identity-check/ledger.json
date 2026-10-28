@@ -1,0 +1,103 @@
+{
+  "calls": [
+    {
+      "phase": "retained-priest-1",
+      "startedAt": "2026-10-24T00:31:42.416Z",
+      "status": "200",
+      "measuredUsd": 0.0007998
+    },
+    {
+      "phase": "retained-priest-2",
+      "startedAt": "2026-10-24T00:31:47.898Z",
+      "status": "200",
+      "measuredUsd": 0.0008049
+    },
+    {
+      "phase": "supported-group-members",
+      "startedAt": "2026-10-24T00:31:53.044Z",
+      "status": "200",
+      "measuredUsd": 0.0005177
+    },
+    {
+      "phase": "incidental-roles",
+      "startedAt": "2026-10-24T00:31:58.460Z",
+      "status": "200",
+      "measuredUsd": 0.0003028
+    },
+    {
+      "phase": "unselected-place-object",
+      "startedAt": "2026-10-24T00:31:59.692Z",
+      "status": "200",
+      "measuredUsd": 0.0004199
+    },
+    {
+      "phase": "selected-place-object",
+      "startedAt": "2026-10-24T00:32:03.244Z",
+      "status": "200",
+      "measuredUsd": 0.0002511
+    },
+    {
+      "phase": "identity-s034-1",
+      "startedAt": "2026-10-24T00:32:03.985Z",
+      "status": "200",
+      "measuredUsd": 0.0003504
+    },
+    {
+      "phase": "identity-s034-1",
+      "startedAt": "2026-10-24T00:32:06.877Z",
+      "status": "200",
+      "measuredUsd": 0.0009663
+    },
+    {
+      "phase": "identity-s034-1",
+      "startedAt": "2026-10-24T00:32:11.727Z",
+      "status": "200",
+      "measuredUsd": 0.0007956
+    },
+    {
+      "phase": "identity-s034-1",
+      "startedAt": "2026-10-24T00:32:19.777Z",
+      "status": "200",
+      "measuredUsd": 0.0010545
+    },
+    {
+      "phase": "identity-s034-1",
+      "startedAt": "2026-10-24T00:32:23.268Z",
+      "status": "200",
+      "measuredUsd": 0.0006235
+    },
+    {
+      "phase": "identity-s034-2",
+      "startedAt": "2026-10-24T00:32:27.403Z",
+      "status": "200",
+      "measuredUsd": 0.0003259
+    },
+    {
+      "phase": "identity-s034-2",
+      "startedAt": "2026-10-24T00:32:29.886Z",
+      "status": "200",
+      "measuredUsd": 0.0009944
+    },
+    {
+      "phase": "identity-s034-2",
+      "startedAt": "2026-10-24T00:32:33.776Z",
+      "status": "200",
+      "measuredUsd": 0.0009466
+    },
+    {
+      "phase": "identity-s034-2",
+      "startedAt": "2026-10-24T00:32:40.369Z",
+      "status": "200",
+      "measuredUsd": 0.0012508
+    },
+    {
+      "phase": "identity-s034-2",
+      "startedAt": "2026-10-24T00:32:45.323Z",
+      "status": "200",
+      "measuredUsd": 0.0008733
+    }
+  ],
+  "measuredUsd": 0.0112775,
+  "uncertainUsd": 0,
+  "blocked": null
+}

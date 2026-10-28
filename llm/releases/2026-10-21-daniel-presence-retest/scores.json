@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "run": "release-2026-10-21-v3-daniel-presence-images",
+  "reviewer": "agent; provisional visual assessment, not human release acceptance",
+  "humanAccepted": false,
+  "rows": [
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:classical",
+      "outputs": [
+        "outputs/daniel-7-9-ancient-of-days/generic-classical-1.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-classical-2.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-classical-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 0,
+      "continuity": 1,
+      "style": 2,
+      "artifacts": 0,
+      "verdict": "fail",
+      "notes": "Two clear no-body failures and one ambiguous depiction; repeat 1 has a signature-like mark."
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:watercolor",
+      "outputs": [
+        "outputs/daniel-7-9-ancient-of-days/generic-watercolor-1.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-watercolor-2.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-watercolor-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 0,
+      "continuity": 1,
+      "style": 1,
+      "artifacts": 0,
+      "verdict": "fail",
+      "notes": "Repeat 3 fails no-body; repeats 2 and 3 retain paper margins. Narrow no-body passes in 1 and 2 do not make the row acceptable."
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-1.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-2.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 0,
+      "continuity": 1,
+      "style": 2,
+      "artifacts": 1,
+      "verdict": "fail",
+      "notes": "Repeats 2 and 3 fail no-body; repeat 1 alone passes that narrow criterion."
+    }
+  ]
+}

@@ -6,6 +6,14 @@
  * overwrites an owner version. Saved images are never touched.
  */
 import type { FunctionReference } from "convex/server";
+import type { Doc } from "../../../convex/_generated/dataModel";
+import type { WorkInputs } from "./work-inputs";
+
+export type CastEntryAddition = {
+  workVersion: string; expectedGeneration: number; sectionId: string; expectedSectionVersion: string;
+  entryId: string; stageId: string; named?: boolean;
+  entry: Extract<Doc<"analysisRecords">["payload"], { kind: "entry" }>;
+};
 
 export type CorrectionClient = {
   query: (ref: FunctionReference<"query">, args: Record<string, unknown>) => Promise<unknown>;
@@ -16,6 +24,7 @@ type AnalysisApi = {
   getWorkStatus: FunctionReference<"query">; getActiveRecord: FunctionReference<"query">; listRecordHistory: FunctionReference<"query">;
   listStaleDependents: FunctionReference<"query">; getReference: FunctionReference<"query">; listAttention: FunctionReference<"query">;
   correctRecord: FunctionReference<"mutation">; clearRecord: FunctionReference<"mutation">; pinReference: FunctionReference<"mutation">;
+  addCastEntry: FunctionReference<"mutation">;
   closeAttention: FunctionReference<"mutation">; closeAttentionFor: FunctionReference<"mutation">; wipeWork: FunctionReference<"mutation">;
   /** Reader image reports (#180): one item with its messages and history. */
   getAttentionItem: FunctionReference<"query">;
@@ -45,6 +54,26 @@ export function createCorrections(client: CorrectionClient, api: AnalysisApi, wo
   type Record_ = { kind: string; recordId: string; version: string; source: string; generation: number; payload: Record<string, unknown> };
 
   return {
+    /** Source-check a missing entry before adding its canon and section assignment atomically. No model calls. */
+    async addCastEntry(addition: CastEntryAddition, inputs: Pick<WorkInputs, "work" | "workVersion">) {
+      if (inputs.work.work.id !== workId || inputs.workVersion !== addition.workVersion) throw new Error("Correction must use this work's exact imported reference text");
+      const section = await query<Record_ | null>(api.getActiveRecord, { kind: "section", recordId: addition.sectionId });
+      if (!section || section.payload.kind !== "section") throw new Error(`No current section ${addition.sectionId}`);
+      const first = inputs.work.getUnit(String(section.payload.firstUnit)).position;
+      const last = inputs.work.getUnit(String(section.payload.lastUnit)).position;
+      let assignedStageHasSectionQuote = false;
+      for (const stage of addition.entry.stages) {
+        if (!stage.quotes?.length) throw new Error(`Stage ${stage.id} needs supporting reference-text quotes`);
+        for (const q of stage.quotes) {
+          const unit = inputs.work.getUnit(q.unit);
+          if (!q.quote.trim() || !unit.text.includes(q.quote)) throw new Error(`Quote does not match reference unit ${q.unit}`);
+          if (stage.id === addition.stageId && unit.position >= first && unit.position <= last) assignedStageHasSectionQuote = true;
+        }
+      }
+      if (!assignedStageHasSectionQuote) throw new Error("The assigned stage needs a supporting quote inside this section");
+      return mutate<{ changed: boolean; entryVersion: string; sectionVersion: string }>(api.addCastEntry, addition);
+    },
+
     /** Open attention items with reason, state, latest activity and image links, checker items apart from reader reports. */
     async attention(status: "open" | "closed" = "open") {
       const items = await query<Array<{ id: string; reason: string; kind?: string; recordId?: string; count: number; status: string; detail?: string; lastActivityAt: number; disposition?: string }>>(api.listAttention, { status });

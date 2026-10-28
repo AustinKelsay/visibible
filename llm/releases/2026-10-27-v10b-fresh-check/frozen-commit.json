@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-26T19:18:59.339Z",
+  "commit": "3d719b75da6864d3a9dafb1a0fa950ce5e089832",
+  "grant": {
+    "authorizedAt": "2026-10-26T19:18:54Z",
+    "authorization": "Same owner approval as 2026-10-27-v10-fresh-check ('yes continue' to re-running both tests within the remaining $1.86). The first attempt stopped on a renderer bug after $0.002635 with no outcomes; this re-run on the same draw has a $0.15 cap within the existing $21.50 evaluation allowance, with no increase.",
+    "increaseUsd": 0,
+    "authorizedUsd": 21.5,
+    "operationCapUsd": 0.15,
+    "scope": "One execution of the frozen 30-case v10 fresh measurement re-run in this directory. No further paid restart, tuning, images, production writes, deployment or public activation.",
+    "proposalCommit": "9cd4f559627a887bf08080d6c5cfa5f3e7214c48"
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "at": "2026-10-23T17:40:11.753Z",
+  "scorerAgreement": {
+    "scope": "all flags, including notes",
+    "scorable": 20,
+    "agreed": 20,
+    "blockerAgreed": 20,
+    "noteAgreed": 20,
+    "adjudicated": 0
+  },
+  "cells": {
+    "daniel-7-9": {
+      "taken": 5,
+      "stored": 0,
+      "refused": 5,
+      "invalid": 0,
+      "replanned": 5,
+      "pass": 0,
+      "cleanButRefused": 0,
+      "defectStored": 0,
+      "correctRefusal": 5,
+      "flags": {
+        "U": 2,
+        "X": 4,
+        "I": 0,
+        "F": 2,
+        "N": 1
+      }
+    },
+    "luke-10-34": {
+      "taken": 5,
+      "stored": 2,
+      "refused": 3,
+      "invalid": 0,
+      "replanned": 4,
+      "pass": 2,
+      "cleanButRefused": 0,
+      "defectStored": 0,
+      "correctRefusal": 3,
+      "flags": {
+        "U": 2,
+        "X": 1,
+        "I": 0,
+        "F": 0,
+        "N": 0
+      }
+    },
+    "luke-10-33": {
+      "taken": 5,
+      "stored": 4,
+      "refused": 1,
+      "invalid": 0,
+      "replanned": 4,
+      "pass": 3,
+      "cleanButRefused": 0,
+      "defectStored": 1,
+      "correctRefusal": 1,
+      "flags": {
+        "U": 1,
+        "X": 0,
+        "I": 1,
+        "F": 0,
+        "N": 0
+      }
+    },
+    "daniel-7-10": {
+      "taken": 5,
+      "stored": 5,
+      "refused": 0,
+      "invalid": 0,
+      "replanned": 0,
+      "pass": 5,
+      "cleanButRefused": 0,
+      "defectStored": 0,
+      "correctRefusal": 0,
+      "flags": {
+        "U": 0,
+        "X": 0,
+        "I": 0,
+        "F": 0,
+        "N": 0
+      }
+    }
+  },
+  "total": {
+    "pass": 10,
+    "taken": 20
+  },
+  "baselines": {
+    "source": "../2026-10-23-grounding-rate-check/tally.json",
+    "v3": "10/20",
+    "v4": "8/20",
+    "perMoment": {
+      "luke-10-33": {
+        "v3": 2,
+        "v4": 2
+      },
+      "luke-10-34": {
+        "v3": 1,
+        "v4": 1
+      },
+      "daniel-7-9": {
+        "v3": 4,
+        "v4": 1
+      },
+      "daniel-7-10": {
+        "v3": 3,
+        "v4": 4
+      }
+    }
+  },
+  "comparison": {
+    "luke-10-33": {
+      "reviewed": 3,
+      "v3": 2,
+      "v4": 2
+    },
+    "luke-10-34": {
+      "reviewed": 2,
+      "v3": 1,
+      "v4": 1
+    },
+    "daniel-7-9": {
+      "reviewed": 0,
+      "v3": 4,
+      "v4": 1
+    },
+    "daniel-7-10": {
+      "reviewed": 5,
+      "v3": 3,
+      "v4": 4
+    }
+  },
+  "verdict": "notConverging",
+  "interpretation": "At most 2 of 5 on some moment: the reviewed pipeline still cannot plan that moment reliably; report for the owner."
+}

@@ -1,0 +1,109 @@
+{
+  "at": "2026-10-26T03:21:35.638527+00:00",
+  "scorer": "Codex; one operator, not independent adjudication",
+  "scoredBeforeUnblinding": true,
+  "method": "Read the 11 complete opaque packets before opening blind-key.json or scored audit. Run progress and previously familiar retained cases limit masking. Frozen role/range allowances applied; no paid rechecks or score tuning.",
+  "scores": [
+    {
+      "id": "p001",
+      "verdict": "acceptable",
+      "reason": "One representative movement of the bronze altar by the source's agent Ahaz. Ahaz and the depicted temple receive their available stages; Urijah and Damascus are absent. Standing/pushing and an altar shifted toward its new position can be simultaneous. Shared morning court light is compatible; section wardrobe is an inventory. Direct physical agency is an interpretive choice, retained as a sensitivity.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p002",
+      "verdict": "uncertain",
+      "reason": "The seven fields choose an abandoned Ramah aftermath without a visible Baasha, yet the complete packet selects Baasha as present. The source permits a cessation-of-work illustration, but does not clearly establish him in that deserted aftermath after residence in Tirzah. It is uncertain whether rendering would insert the selected king into a scene otherwise presented as empty; do not count this as accepted.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "no builders are at work, and the site lies silent with tools set aside",
+          "reason": "Selection declares Baasha present, while the chosen scene is an abandoned fortification with departure traces. His participation in this specific aftermath is unresolved."
+        }
+      ]
+    },
+    {
+      "id": "p003",
+      "verdict": "acceptable",
+      "reason": "Illustrates the reported inner incident in MOMENT: the king summons Vashti and the doorway remains empty. It does not import Memucan or his listening princes into that incident. Ahasuerus and the palace have their available stages; anonymous attendants are source-compatible incidental roles. Shared palace/day context and wardrobe inventory do not force an additional cast member or location.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p004",
+      "verdict": "acceptable",
+      "reason": "One threshold invitation illustrates 'I would lead you' with the Shulammite and mother's-house stages selected. The unnamed beloved is described by a source-supported relationship, not substituted with an available named identity; the frozen incidental-role allowance applies. A free hand holding fruit and a cup on the ledge can coexist with hand-leading. Afternoon lies within the explicit section range.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p005",
+      "verdict": "acceptable",
+      "reason": "One threshold invitation, with both depicted available identities selected. The beloved remains an unnamed source-supported companion, allowed under the frozen role policy. Hand-guiding, partly visible companion and stationary wine/fruit are simultaneous. Plain house scenery and the afternoon-to-evening look do not conflict with the supplied canon.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p006",
+      "verdict": "acceptable",
+      "reason": "Ahaz moving the altar is the representative source action; the king and temple receive exact available stages. Bending to set the altar down, gripping it and its already having moved aside can describe the same endpoint of the relocation. No separate actor is imported from the adjacent command. Morning court context is compatible. Physical agency and the endpoint reading are retained as sensitivities.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p007",
+      "verdict": "acceptable",
+      "reason": "Illustrates the promised overcomer/pillar and inscribed names in a heavenly temple with the descending city described by MOMENT. No named figure is explicitly embodied or identified as the light; the overcomer is an unnamed role and no available earthly-assembly location is depicted. Unmatched scenery needs no invented cast ID. Heavenly light and architecture are compatible. A stricter interpretation of the implied writer is retained as a sensitivity.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p008",
+      "verdict": "uncertain",
+      "reason": "The governor, Ishmael and Mizpah receive all matching available stages; other captains and men are permitted generic roles for the list of arrivals. The plan fixes midday, whereas the shared light specifies low sun and long shadows 'toward evening'. The section time explicitly ranges across the day, so the light might describe only its later portion, but applying that field to the midday image could contradict it. This conditional-reading ambiguity prevents acceptance, without asserting a definite look contradiction.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Warm, low sun with long shadows toward evening",
+          "reason": "Potentially incompatible with the plan's fixed 'Midday'; uncertain whether 'toward evening' conditions the field to another part of the explicit section range."
+        }
+      ]
+    },
+    {
+      "id": "p009",
+      "verdict": "acceptable",
+      "reason": "Deborah and Barak are named participants in the moment's call and both have their assigned stages. Song-beginning and readiness to lead captives are compatible; unnamed captives and battlefield props are allowed. The plan does not require the separately listed section locations to appear as distinct scenes. The look explicitly ranges across section places/times, and its wardrobe list alone does not add Jael or Sisera.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p010",
+      "verdict": "flawed",
+      "reason": "The illustration replaces the blessing's subjects with framing author Paul delivering it. The supplied previous verse attributes the quotation to David; it does not establish this invented courtyard declaration by Paul. The look additionally places Roman military clothing in the background of an otherwise unsupported speaking scene, and the fields call Paul the only formed figure while also adding edge listeners.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Paul the apostle, standing and lifting one hand in blessing as he speaks.",
+          "reason": "A framing author is made the visible actor of an invented declaration, instead of illustrating those whose sins are forgiven. Author identity supplies no participation evidence for the chosen incident."
+        },
+        {
+          "quote": "a few Roman soldiers' leather and bronze in the background",
+          "reason": "This is active background placement, unlike a neutral section wardrobe inventory; neither MOMENT nor its bounded neighbors establishes Roman soldiers in the blessing illustration."
+        }
+      ]
+    },
+    {
+      "id": "p011",
+      "verdict": "flawed",
+      "reason": "The packet selects the supplied formed adult-Jesus stage, but explicitly forbids a human figure and replaces the Son's selected identity/appearance with radiance. The fixed human canon and a wholly bodyless depiction are incompatible instructions in the same complete packet. The promised pillar itself is source-supported; the selected-stage mismatch is the defect, with an alternative off-frame-agency reading preserved as a sensitivity.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "No human figure is depicted; the Son is present only as radiance inscribing light upon the pillar.",
+          "reason": "The selected stage supplies a specific formed adult Jesus. The scene instead mandates no human and represents that selected identity solely as light, leaving incompatible selected-canon and scene instructions."
+        }
+      ]
+    }
+  ]
+}

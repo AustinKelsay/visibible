@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-22T19:44:38.587114+00:00",
+  "artifact": "scene-9.json",
+  "artifactSha256": "c6a35b8db3abfe79205b91fa4a6761f91a7bdc24bf0309ada3ebe4e521c7ceff",
+  "reviewer": "agent text inspection",
+  "verdict": "accept-for-next-text-check",
+  "humanAccepted": false,
+  "publicActivation": false,
+  "findings": [
+    {
+      "criterion": "No-form look and plan",
+      "result": "pass-narrow-text",
+      "evidence": [
+        "The look describes an unoccupied seat; radiance and fire around it with cloud diffusing illumination.",
+        "Only formed attendants and Daniel receive clothing. No no-form anatomy, hair, robes, silhouette or prohibited-feature denial appears in either result.",
+        "Neither result copies the assigned canon phrases brilliant white radiance, bright orange fire, soft white cloud or brilliant white light."
+      ]
+    },
+    {
+      "criterion": "Selected canon and source/context",
+      "result": "pass-narrow-text",
+      "evidence": [
+        "Daniel, the Ancient of Days and the ministering assembly are selected with their actual assigned stages and versions.",
+        "The assembly is supported by the unchanged Daniel 7:10 neighbor and now has matching canon. The source text remains unchanged.",
+        "The son of man and Babylon are left out of this moment selection."
+      ]
+    }
+  ],
+  "decision": {
+    "nextMoment": "daniel-7-10",
+    "retryMoment": false,
+    "imageCalls": 0,
+    "canonEdits": 0
+  },
+  "limits": [
+    "One fresh look and plan do not establish repeatability, visual quality, likeness compliance, human acceptance or full-request latency.",
+    "The look adds illustration details such as priestly linen or white court robes, drifting mist and ranked thrones. These are not claims that the quoted source specifies them, and visual/source fidelity remains open.",
+    "This is the reviewed local preparation code using live production analysis/functions; the app deployment is unchanged."
+  ]
+}

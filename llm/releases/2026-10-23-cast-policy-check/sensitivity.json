@@ -1,0 +1,45 @@
+{
+  "at": "2026-10-23T21:30:32.917877+00:00",
+  "note": "Post hoc, not pre-declared. The 3 calibration disagreements all went baseline-flawed to now-clean: two 'God's radiance described while the no-form God entry is unselected' (the baseline scorers counted U; this round's did not) and one law scene at Sinai. This applies the baseline's stricter U reading to this round: any accepted plan whose scene mentions radiance, glow, divine light, fire-like or veiled while a no-form God or Spirit entry sits unselected in the cast is counted flawed. Keyword matching makes this an upper bound on the effect.",
+  "calibration": {
+    "replies": 40,
+    "samePassFail": 37,
+    "disagreements": [
+      {
+        "baseline": "cb8fb737",
+        "now": "5a45e859",
+        "baselineFlags": "X",
+        "nowFlags": "clean"
+      },
+      {
+        "baseline": "19a087c9",
+        "now": "6ce1aa2b",
+        "baselineFlags": "U",
+        "nowFlags": "clean"
+      },
+      {
+        "baseline": "cbd35939",
+        "now": "d931d746",
+        "baselineFlags": "U",
+        "nowFlags": "clean"
+      }
+    ]
+  },
+  "strictReading": {
+    "reclassified": [
+      "s001",
+      "s027",
+      "s034",
+      "s035",
+      "s059",
+      "s067",
+      "s074"
+    ],
+    "accepted": 67,
+    "of": 98,
+    "baselineAccepted": 52,
+    "improved": 26,
+    "regressed": 11,
+    "mcnemarExactP": 0.02007
+  }
+}

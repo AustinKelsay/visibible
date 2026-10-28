@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-24T00:28:34.190Z",
+  "sources": {
+    "src/lib/engine/preparation.ts": "6dda8ea04ff93581c5f42fcdcfa85067ef151439bfca2586a839057868ab5303",
+    "convex/_helpers/contentVersion.ts": "c34546acd74b8f3081a3f73a2e922ba30732ed21f26f6e75688a3b8ac3ed2a32",
+    "src/lib/image-response.ts": "07b5092d1795db69bbd4cfa41c5a25691277ff9a982884118fc1658881a9bba6",
+    "src/lib/engine/scene-grounding.ts": "fb20e4778239fc734c0ed5b6098b11474bb6a98d20c21c05d26865596c79eed5",
+    "src/lib/engine/plan-review.ts": "420b3da788b949aa397e291ad1d84fb33b5937a013889437c2007eec095286da",
+    "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+    "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/canon-showing.ts": "2bfb6fa9aa29d366ab741981627f65b0b3425ee065ea3c163caca889bfbdee0b",
+    "convex/analysis.ts": "b48c562a90ad56a0eed4e386f47d1fa4d1f68008a5102f0e59a3e198d98b466c",
+    "convex/schema.ts": "25f083a5715887aebbd7d1827fda13dc7d96ef96a4c275bd00b849d41d82d0e7",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "common.mts": "ce5f6e0dde792e56063db8caa71f280ab04fd7d622befbb3c43241636579cb71",
+    "model.mts": "2d1bf74df3ee06ef3bdd7eefbcc554e3a4ee91f019777468ec5ab28729ba374e",
+    "scenarios.mts": "763d7ab1c806bd5bd51c01df50243187010bed5297dba61a9fb79c01a3833a55",
+    "run.mts": "edb775195740493a4a516e74b471de7ee5280686638c504a168dc24776b8b18a",
+    "audit.mts": "e855d0022872cab38a1c13c4e78fa5c1b628df57e9a5b478de1e9d575b05257d",
+    "plan.json": "42dae251b0dd817f98b0ddbecf241d9c81c41ad859f520119fba9cf695f6bdbe",
+    "review-cases.json": "7ddb438171c8f8ac55c9e4ba19cacb7da1851f2c035bed28c80796419a2c870d",
+    "../2026-10-23-single-selection-check/results.ndjson": "a65003bb006e0d851cfe754b0099174833468712e725ac3c44ab3edeee77a3c6",
+    "../2026-10-23-cast-policy-check/sample-set.json": "4f36d97f4949659b630ab52fe6e9e39bfedbbd727df9f4cd4273166f47d5cf24",
+    "../2026-10-23-cast-policy-check/samples.ndjson": "33dd66cc89664ad61c2a246a88a615bca5cb7a27deb7d4d4bf292dc80b5a4903",
+    "../2026-10-23-formless-selection-check/scenarios.mts": "5ed4fcb1eb47fc395a4b98aa9d633a58f70841ca1f13f604e13302b25f422e8e",
+    "../2026-10-23-formless-selection-check/common.mts": "a85e83e3bd35e8a1d32c63d7f0b828cd6de6c8992cf68c16410169c50b01d4c7",
+    "../2026-10-23-formless-selection-check/plan.json": "4f40695d62bcfb6ac706afed4f04e5f2074127589073191ea3996b33fd5fb12c"
+  },
+  "first": {
+    "retained-priest-1": {
+      "sha256": "dc8d8d8f4ee2356dc91d14086dd00a2f801733089788e292b0748082c0927e85",
+      "estimatedUsd": 0.0005617037037037037,
+      "schemaName": "plan_review"
+    },
+    "retained-priest-2": {
+      "sha256": "192d43ab3ff662b4446036b42882b68063a640936aa2f1512313282bd5376a9e",
+      "estimatedUsd": 0.0005575185185185184,
+      "schemaName": "plan_review"
+    },
+    "supported-group-members": {
+      "sha256": "d52a2e1ede132e94ccb785cc293e5cd925ce1b8953753a57b9708caa52426848",
+      "estimatedUsd": 0.0005556666666666667,
+      "schemaName": "plan_review"
+    },
+    "incidental-roles": {
+      "sha256": "cfc9ef874bbf508055a103257362d409112be37313177db5ab1f04ce81366c4b",
+      "estimatedUsd": 0.00048792592592592594,
+      "schemaName": "plan_review"
+    },
+    "unselected-place-object": {
+      "sha256": "e8d38b7a0e249a927c5b73b9d36817dec87c792ac0a8336167686dec8f4adaa4",
+      "estimatedUsd": 0.0004892222222222223,
+      "schemaName": "plan_review"
+    },
+    "selected-place-object": {
+      "sha256": "8672fafd6440b0067f9059483aa5a043b5dc5c8946f1205603eab4f00ee507a8",
+      "estimatedUsd": 0.0004899259259259259,
+      "schemaName": "plan_review"
+    },
+    "identity-s034-1": {
+      "sha256": "d2ad685f2491bbecc34316d1f45bda5c7be3e0b41e3955ca97fad4165b8685ca",
+      "estimatedUsd": 0.000335,
+      "schemaName": "section_look"
+    },
+    "identity-s034-2": {
+      "sha256": "d2ad685f2491bbecc34316d1f45bda5c7be3e0b41e3955ca97fad4165b8685ca",
+      "estimatedUsd": 0.000335,
+      "schemaName": "section_look"
+    }
+  },
+  "paidCalls": 0,
+  "productionMutations": 0
+}

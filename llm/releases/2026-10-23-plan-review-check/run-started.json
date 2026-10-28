@@ -1,0 +1,4 @@
+{
+  "at": "2026-10-23T16:39:16.911Z",
+  "retryPolicy": "One review per reply, with reviewPlan's own single retry for a malformed or invalid report. No other rerun. A provider error, missing usage, uncertain outcome or exhausted reserve stops the run."
+}

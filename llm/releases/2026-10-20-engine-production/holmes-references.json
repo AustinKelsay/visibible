@@ -1,0 +1,63 @@
+{
+ "schemaVersion": 1,
+ "workId": "holmes-adventures",
+ "done": {
+  "sheet:sherlock_holmes:sherlock_holmes": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03406435,
+   "at": "2026-10-20T20:22:50.870Z",
+   "fingerprint": "5deeca4df0bf88ae15936ba5c803cb79"
+  },
+  "sheet:dr_watson:dr_watson": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340746,
+   "at": "2026-10-20T20:23:00.207Z",
+   "fingerprint": "c774094a856ccc250f32181234dacd76"
+  },
+  "sheet:holmes_s_rooms_baker_street:holmes_s_rooms_baker_street": {
+   "ok": false,
+   "attempts": 3,
+   "costUsd": 0.1022041,
+   "at": "2026-10-20T20:23:27.132Z",
+   "fingerprint": "32adc4408f974e2f4f6f78a85d766b24"
+  },
+  "sheet:wilhelm_gottsreich_sigismond_von_ormstein_king_of_bohemia:wilhelm_gottsreich_sigismond_von_ormstein_king_of_bohemia": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034047100000000004,
+   "at": "2026-10-20T20:23:35.971Z",
+   "fingerprint": "3735f96cb650b83b4f371cb4996bfb28"
+  },
+  "sheet:irene_adler:irene_adler": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034060150000000004,
+   "at": "2026-10-20T20:23:43.483Z",
+   "fingerprint": "6d1001abfbcc5178defdfbf3a0d04e27"
+  },
+  "sheet:jabez_wilson:jabez_wilson": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034035699999999995,
+   "at": "2026-10-20T20:23:51.364Z",
+   "fingerprint": "8456437c60240e052c0639141705e930"
+  },
+  "styleReference:watercolor": {
+   "ok": true,
+   "attempts": 2,
+   "costUsd": 0.06789285,
+   "at": "2026-10-20T20:24:10.702Z",
+   "fingerprint": "3eda749bc6991072eba06b73136d75af"
+  },
+  "styleReference:icon": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0339408,
+   "at": "2026-10-20T20:24:18.966Z",
+   "fingerprint": "ca4b97b994ea1284b4b34731122c8965"
+  }
+ },
+ "spentUsd": 0.37431965
+}

@@ -1,0 +1,28 @@
+{
+  "baseline": {
+    "defects": 6,
+    "allTargetsCaught": 1,
+    "controls": 10,
+    "controlFalseAlarms": 0,
+    "unavailable": 0
+  },
+  "candidate": {
+    "defects": 6,
+    "allTargetsCaught": 6,
+    "controls": 10,
+    "controlFalseAlarms": 0,
+    "unavailable": 0
+  },
+  "reviewGate": true,
+  "pipelines": 21,
+  "stored": 12,
+  "scoring": {
+    "acceptable": 10,
+    "flawedStored": 2,
+    "refused": 9,
+    "pipelineGate": false
+  },
+  "calls": 115,
+  "measuredUsd": 0.06880009999999998,
+  "remainingEvaluationUsd": 0.03326439999999907
+}

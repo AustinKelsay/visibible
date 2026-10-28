@@ -1,0 +1,48 @@
+{
+  "at": "2026-10-22T22:32:27.380Z",
+  "entry": {
+    "id": "innkeeper_in_samaritan_parable",
+    "kind": "character",
+    "readingKind": "person",
+    "name": "Innkeeper in the Samaritan parable",
+    "aliases": [
+      "the host"
+    ],
+    "note": "Unnamed host of the inn inside the story in Luke 10:35, entrusted with the injured traveler’s care and given two denarii. Distinct from the Samaritan, injured traveler and framing speakers.",
+    "members": [],
+    "support": [
+      "luke-10-35"
+    ]
+  },
+  "result": {
+    "entryId": "innkeeper_in_samaritan_parable",
+    "kind": "character",
+    "hasForm": true,
+    "appearanceFromText": "The text fixes only that the host is an innkeeper who receives the injured traveler and is given two denarii; no physical appearance is described, so the look is supplied from the Roman-era Judean setting of the brief.",
+    "stages": [
+      {
+        "id": "innkeeper_main",
+        "label": "Innkeeper",
+        "when": "Roman Judea, first century, the inn on the road from Jerusalem to Jericho",
+        "source": "mixed",
+        "quotes": [
+          {
+            "unit": "luke-10-35",
+            "quote": "he took out two denarii, gave them to the host, and said to him"
+          },
+          {
+            "unit": "luke-10-34",
+            "quote": "He set him on his own animal, brought him to an inn, and took care of him."
+          }
+        ],
+        "text": "Innkeeper: a man of middle years, forties, sturdy and weathered from the roadside trade; medium build with broad, work-worn hands; olive skin, dark hair cropped short with a close-trimmed beard shot with grey; lined, steady face with an honest, practical bearing. Signature outfit: a plain undyed linen tunic belted at the waist with a dull brown wool cloak; earth-brown and ochre tones. Signature prop: a small leather purse at his belt holding coins."
+      }
+    ],
+    "sectionStages": {
+      "luke-10-25": "innkeeper_main"
+    },
+    "problems": [],
+    "promptVersion": "2026-10-22-canon-showing-v3",
+    "attempts": 1
+  }
+}

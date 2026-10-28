@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-22T15:41:58.927092+00:00",
+  "outcome": "v4-plan-rejected-for-canon-restatement",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "canonCalls": 0,
+  "planCalls": 1,
+  "imageCalls": 0,
+  "productionMutations": 0,
+  "semanticRetries": 0,
+  "preparation": {
+    "authorizedUsd": 43,
+    "previousMeasuredUsd": 3.6374523,
+    "measuredThisRunUsd": 0.0004537,
+    "measuredUsd": 3.637906,
+    "uncertaintyUsd": 0.03,
+    "remainingAfterReserveUsd": 39.332094,
+    "subcapUsd": 0.01,
+    "unusedSubcapUsd": 0.0095463
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredUsd": 16.2980069,
+    "uncertaintyUsd": 0.045,
+    "remainingAfterReserveUsd": 0.1569931,
+    "unchanged": true
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.0685215,
+    "uncertaintyUsd": 0,
+    "remainingAfterReserveUsd": 0.9314785,
+    "unchanged": true
+  },
+  "originalMatrix": {
+    "completed": 236,
+    "planned": 324,
+    "missing": 88,
+    "unchanged": true
+  },
+  "balanceObservation": {
+    "beforeUsd": 10.897818591999993,
+    "afterUsd": 10.897818591999993,
+    "observedDeltaUsd": 0.0,
+    "reconciledToThisRun": false,
+    "note": "Use explicit provider response usage; snapshots may lag individual calls and no per-call credit reconciliation is claimed."
+  },
+  "conclusion": "The exact v4 primary subject is cleaner, but fixed canon qualifiers are repeated in secondaryElements. Retain this semantic failure without a retry, images or production correction. Current guidance has not demonstrated whole-plan appearance separation.",
+  "limits": [
+    "Agent inspection of one fresh text response, not visual or likeness acceptance or a repeatability test.",
+    "The previous v3 response is a retained comparison, not a newly randomized paired control. Exact user inputs are held fixed while system/schema guidance changes.",
+    "The frozen owner look and WEB source still contain bodily wording/denials. This result does not establish the cause of prior image failures.",
+    "Prompt guidance was insufficient for this response; no heuristic cleanup, extra semantic retry or accepted rendering candidate follows.",
+    "Original matrix completion, human visual review, full-request app accounting/latency and explicit activation gates remain open."
+  ]
+}

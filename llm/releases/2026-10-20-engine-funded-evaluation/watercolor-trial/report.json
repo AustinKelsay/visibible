@@ -1,0 +1,652 @@
+{
+  "run": "release-2026-10-20-watercolor-underwash",
+  "createdAt": 1792544927222,
+  "reportedAt": 1792544980728,
+  "reproducibility": {
+    "promptVersion": "2026-10-20-generic-v2",
+    "imageModel": "google/gemini-3.1-flash-lite-image",
+    "plannerModel": null,
+    "arms": [
+      "generic:watercolor"
+    ],
+    "repeats": 3,
+    "sampleFloor": 3,
+    "source": "Every retained sample packet; the raw run-level header is stale. Native report and measurements are unchanged.",
+    "rawPromptVersion": "2026-09-08-canonical"
+  },
+  "stopped": null,
+  "spentUsd": 0.30738975,
+  "arms": {
+    "generic:watercolor": {
+      "completed": 9,
+      "failed": 0,
+      "notRun": 0,
+      "failureRate": 0,
+      "latencyMs": {
+        "image": {
+          "p50": 3856,
+          "p90": 6878,
+          "max": 6878,
+          "n": 9
+        },
+        "planner": {
+          "p50": 0,
+          "p90": 0,
+          "max": 0,
+          "n": 0
+        },
+        "total": {
+          "p50": 5494,
+          "p90": 8521,
+          "max": 8521,
+          "n": 9
+        }
+      },
+      "spendUsd": {
+        "image": 0.30738975,
+        "planner": 0,
+        "total": 0.30738975
+      },
+      "usageMissing": 0,
+      "plannerOutcomes": {
+        "not_used": 9
+      },
+      "failuresByStage": {},
+      "preparation": {
+        "prepared": 9,
+        "cold": 0,
+        "calls": 0,
+        "spendUsd": 0,
+        "usageMissing": 0,
+        "latencyMs": {
+          "prepared": {
+            "p50": 5494,
+            "p90": 8521,
+            "max": 8521,
+            "n": 9
+          },
+          "cold": {
+            "p50": 0,
+            "p90": 0,
+            "max": 0,
+            "n": 0
+          }
+        }
+      },
+      "quoteVariance": {
+        "samples": 9,
+        "meanUsd": -0.0001986666666666672,
+        "maxUsd": 0.00020900000000000085,
+        "meanQuotedCredits": 5,
+        "meanActualCredits": 5,
+        "withinLiteTarget": true,
+        "unpriced": 0
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "genesis-1-3-light",
+      "reference": "Genesis 1:3",
+      "genre": "narrative",
+      "expected": "Light breaking over formless dark waters; no human figure for God; no text.",
+      "arms": {
+        "generic:watercolor": {
+          "completed": 3,
+          "failed": 0,
+          "outputs": [
+            "outputs/genesis-1-3-light/generic-watercolor-1.jpg",
+            "outputs/genesis-1-3-light/generic-watercolor-2.jpg",
+            "outputs/genesis-1-3-light/generic-watercolor-3.jpg"
+          ],
+          "samples": [
+            {
+              "n": 1,
+              "status": "completed",
+              "output": "outputs/genesis-1-3-light/generic-watercolor-1.jpg",
+              "costUsd": 0.03391325,
+              "latencyMs": 4699,
+              "promptChars": 5631,
+              "plannerOutcome": "not_used",
+              "prepared": true,
+              "preparationCostUsd": 0,
+              "referencesSent": 0,
+              "quotedCredits": 5,
+              "varianceUsd": -0.00018875000000000142,
+              "packet": {
+                "promptVersion": "2026-10-20-generic-v2",
+                "workId": "bible-web",
+                "momentId": "genesis-1-3",
+                "sectionId": "genesis-1-1",
+                "eraId": "primeval-and-patriarchal-ancient-near-east",
+                "styleId": "watercolor",
+                "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+                "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+                "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+                "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+                "canon": [
+                  {
+                    "entryId": "god_yahweh_the_father_and_god_of_israel",
+                    "stageId": "god_yahweh_the_father_stage_1",
+                    "version": "0f49ada61c15185ddb3913aecc959f8a"
+                  }
+                ],
+                "references": [],
+                "flags": {
+                  "variationIncluded": false,
+                  "neighborsIncluded": true,
+                  "styleDetailIncluded": true,
+                  "lookDetailIncluded": true
+                },
+                "budget": {
+                  "maxChars": 8000,
+                  "finalChars": 5631
+                }
+              }
+            },
+            {
+              "n": 2,
+              "status": "completed",
+              "output": "outputs/genesis-1-3-light/generic-watercolor-2.jpg",
+              "costUsd": 0.03391975,
+              "latencyMs": 4249,
+              "promptChars": 5749,
+              "plannerOutcome": "not_used",
+              "prepared": true,
+              "preparationCostUsd": 0,
+              "referencesSent": 0,
+              "quotedCredits": 5,
+              "varianceUsd": -0.00018975000000000242,
+              "packet": {
+                "promptVersion": "2026-10-20-generic-v2",
+                "workId": "bible-web",
+                "momentId": "genesis-1-3",
+                "sectionId": "genesis-1-1",
+                "eraId": "primeval-and-patriarchal-ancient-near-east",
+                "styleId": "watercolor",
+                "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+                "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+                "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+                "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+                "canon": [
+                  {
+                    "entryId": "god_yahweh_the_father_and_god_of_israel",
+                    "stageId": "god_yahweh_the_father_stage_1",
+                    "version": "0f49ada61c15185ddb3913aecc959f8a"
+                  }
+                ],
+                "references": [],
+                "flags": {
+                  "variationIncluded": true,
+                  "neighborsIncluded": true,
+                  "styleDetailIncluded": true,
+                  "lookDetailIncluded": true
+                },
+                "budget": {
+                  "maxChars": 8000,
+                  "finalChars": 5749
+                }
+              }
+            },
+            {
+              "n": 3,
+              "status": "completed",
+              "output": "outputs/genesis-1-3-light/generic-watercolor-3.jpg",
+              "costUsd": 0.03391975,
+              "latencyMs": 6371,
+              "promptChars": 5749,
+              "plannerOutcome": "not_used",
+              "prepared": true,
+              "preparationCostUsd": 0,
+              "referencesSent": 0,
+              "quotedCredits": 5,
+              "varianceUsd": -0.00018975000000000242,
+              "packet": {
+                "promptVersion": "2026-10-20-generic-v2",
+                "workId": "bible-web",
+                "momentId": "genesis-1-3",
+                "sectionId": "genesis-1-1",
+                "eraId": "primeval-and-patriarchal-ancient-near-east",
+                "styleId": "watercolor",
+                "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+                "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+                "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+                "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+                "canon": [
+                  {
+                    "entryId": "god_yahweh_the_father_and_god_of_israel",
+                    "stageId": "god_yahweh_the_father_stage_1",
+                    "version": "0f49ada61c15185ddb3913aecc959f8a"
+                  }
+                ],
+                "references": [],
+                "flags": {
+                  "variationIncluded": true,
+                  "neighborsIncluded": true,
+                  "styleDetailIncluded": true,
+                  "lookDetailIncluded": true
+                },
+                "budget": {
+                  "maxChars": 8000,
+                  "finalChars": 5749
+                }
+              }
+            }
+          ]
+        }
+      },
+      "comparison": "ready",
+      "reason": null
+    },
+    {
+      "id": "job-38-4-foundations",
+      "reference": "Job 38:4",
+      "genre": "poetry",
+      "expected": "A storm-voice over cosmic foundations being laid; Job small before it; no literal bearded deity.",
+      "arms": {
+        "generic:watercolor": {
+          "completed": 3,
+          "failed": 0,
+          "outputs": [
+            "outputs/job-38-4-foundations/generic-watercolor-1.jpg",
+            "outputs/job-38-4-foundations/generic-watercolor-2.jpg",
+            "outputs/job-38-4-foundations/generic-watercolor-3.jpg"
+          ],
+          "samples": [
+            {
+              "n": 1,
+              "status": "completed",
+              "output": "outputs/job-38-4-foundations/generic-watercolor-1.jpg",
+              "costUsd": 0.0339525,
+              "latencyMs": 4557,
+              "promptChars": 6395,
+              "plannerOutcome": "not_used",
+              "prepared": true,
+              "preparationCostUsd": 0,
+              "referencesSent": 0,
+              "quotedCredits": 5,
+              "varianceUsd": -0.00019725000000000298,
+              "packet": {
+                "promptVersion": "2026-10-20-generic-v2",
+                "workId": "bible-web",
+                "momentId": "job-38-4",
+                "sectionId": "job-38-1",
+                "eraId": "monarchy-of-israel-and-judah",
+                "styleId": "watercolor",
+                "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+                "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+                "lookVersion": "340b060d6fa52782261325a5b368df19",
+                "planVersion": "df160f3865081f5b2b018c702a8005b4",
+                "canon": [
+                  {
+                    "entryId": "god_yahweh_the_father_and_god_of_israel",
+                    "stageId": "god_yahweh_the_father_stage_1",
+                    "version": "0f49ada61c15185ddb3913aecc959f8a"
+                  },
+                  {
+                    "entryId": "job",
+                    "stageId": "job-main",
+                    "version": "99bfbafebcaa299dfe95e056b07ff992"
+                  },
+                  {
+                    "entryId": "the_whirlwind",
+                    "stageId": "the_whirlwind",
+                    "version": "921b66091c54ad4e5debe6b1b6b5e9cd"
+                  }
+                ],
+                "references": [],
+                "flags": {
+                  "variationIncluded": false,
+                  "neighborsIncluded": true,
+                  "styleDetailIncluded": true,
+                  "lookDetailIncluded": true
+                },
+                "budget": {
+                  "maxChars": 8000,
+                  "finalChars": 6395
+                }
+              }
+            },
+            {
+              "n": 2,
+              "status": "completed",
+              "output": "outputs/job-38-4-foundations/generic-watercolor-2.jpg",
+              "costUsd": 0.033959,
+              "latencyMs": 7554,
+              "promptChars": 6513,
+              "plannerOutcome": "not_used",
+              "prepared": true,
+              "preparationCostUsd": 0,
+              "referencesSent": 0,
+              "quotedCredits": 5,
+              "varianceUsd": -0.00019824999999999704,
+              "packet": {
+                "promptVersion": "2026-10-20-generic-v2",
+                "workId": "bible-web",
+                "momentId": "job-38-4",
+                "sectionId": "job-38-1",
+                "eraId": "monarchy-of-israel-and-judah",
+                "styleId": "watercolor",
+                "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+                "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+                "lookVersion": "340b060d6fa52782261325a5b368df19",
+                "planVersion": "df160f3865081f5b2b018c702a8005b4",
+                "canon": [
+                  {
+                    "entryId": "god_yahweh_the_father_and_god_of_israel",
+                    "stageId": "god_yahweh_the_father_stage_1",
+                    "version": "0f49ada61c15185ddb3913aecc959f8a"
+                  },
+                  {
+                    "entryId": "job",
+                    "stageId": "job-main",
+                    "version": "99bfbafebcaa299dfe95e056b07ff992"
+                  },
+                  {
+                    "entryId": "the_whirlwind",
+                    "stageId": "the_whirlwind",
+                    "version": "921b66091c54ad4e5debe6b1b6b5e9cd"
+                  }
+                ],
+                "references": [],
+                "flags": {
+                  "variationIncluded": true,
+                  "neighborsIncluded": true,
+                  "styleDetailIncluded": true,
+                  "lookDetailIncluded": true
+                },
+                "budget": {
+                  "maxChars": 8000,
+                  "finalChars": 6513
+                }
+              }
+            },
+            {
+              "n": 3,
+              "status": "completed",
+              "output": "outputs/job-38-4-foundations/generic-watercolor-3.jpg",
+              "costUsd": 0.033959,
+              "latencyMs": 4795,
+              "promptChars": 6513,
+              "plannerOutcome": "not_used",
+              "prepared": true,
+              "preparationCostUsd": 0,
+              "referencesSent": 0,
+              "quotedCredits": 5,
+              "varianceUsd": -0.00019824999999999704,
+              "packet": {
+                "promptVersion": "2026-10-20-generic-v2",
+                "workId": "bible-web",
+                "momentId": "job-38-4",
+                "sectionId": "job-38-1",
+                "eraId": "monarchy-of-israel-and-judah",
+                "styleId": "watercolor",
+                "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+                "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+                "lookVersion": "340b060d6fa52782261325a5b368df19",
+                "planVersion": "df160f3865081f5b2b018c702a8005b4",
+                "canon": [
+                  {
+                    "entryId": "god_yahweh_the_father_and_god_of_israel",
+                    "stageId": "god_yahweh_the_father_stage_1",
+                    "version": "0f49ada61c15185ddb3913aecc959f8a"
+                  },
+                  {
+                    "entryId": "job",
+                    "stageId": "job-main",
+                    "version": "99bfbafebcaa299dfe95e056b07ff992"
+                  },
+                  {
+                    "entryId": "the_whirlwind",
+                    "stageId": "the_whirlwind",
+                    "version": "921b66091c54ad4e5debe6b1b6b5e9cd"
+                  }
+                ],
+                "references": [],
+                "flags": {
+                  "variationIncluded": true,
+                  "neighborsIncluded": true,
+                  "styleDetailIncluded": true,
+                  "lookDetailIncluded": true
+                },
+                "budget": {
+                  "maxChars": 8000,
+                  "finalChars": 6513
+                }
+              }
+            }
+          ]
+        }
+      },
+      "comparison": "ready",
+      "reason": null
+    },
+    {
+      "id": "holmes-scandal-the-woman",
+      "reference": "A Scandal in Bohemia, Part I \u00b61",
+      "genre": "narrative",
+      "expected": "Holmes in his Baker Street rooms, late Victorian; the same lean, hawk-faced figure as in every other Holmes case; no deerstalker clich\u00e9 unless the text has it.",
+      "arms": {
+        "generic:watercolor": {
+          "completed": 3,
+          "failed": 0,
+          "outputs": [
+            "outputs/holmes-scandal-the-woman/generic-watercolor-1.jpg",
+            "outputs/holmes-scandal-the-woman/generic-watercolor-2.jpg",
+            "outputs/holmes-scandal-the-woman/generic-watercolor-3.jpg"
+          ],
+          "samples": [
+            {
+              "n": 1,
+              "status": "completed",
+              "output": "outputs/holmes-scandal-the-woman/generic-watercolor-1.jpg",
+              "costUsd": 0.0345845,
+              "latencyMs": 8521,
+              "promptChars": 7719,
+              "plannerOutcome": "not_used",
+              "prepared": true,
+              "preparationCostUsd": 0,
+              "referencesSent": 2,
+              "quotedCredits": 5,
+              "varianceUsd": -0.00020799999999999985,
+              "packet": {
+                "promptVersion": "2026-10-20-generic-v2",
+                "workId": "holmes-adventures",
+                "momentId": "a-scandal-in-bohemia-1-1",
+                "sectionId": "a-scandal-in-bohemia-1-1",
+                "eraId": "late-victorian-england-1880s-to-1890s",
+                "styleId": "watercolor",
+                "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+                "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+                "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+                "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+                "canon": [
+                  {
+                    "entryId": "sherlock_holmes",
+                    "stageId": "sherlock_holmes",
+                    "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+                  },
+                  {
+                    "entryId": "dr_watson",
+                    "stageId": "dr_watson",
+                    "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+                  }
+                ],
+                "references": [
+                  {
+                    "kind": "sheet",
+                    "id": "sherlock_holmes:sherlock_holmes",
+                    "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+                    "version": "5deeca4df0bf88ae15936ba5c803cb79",
+                    "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+                  },
+                  {
+                    "kind": "sheet",
+                    "id": "dr_watson:dr_watson",
+                    "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+                    "version": "c774094a856ccc250f32181234dacd76",
+                    "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+                  }
+                ],
+                "flags": {
+                  "variationIncluded": false,
+                  "neighborsIncluded": true,
+                  "styleDetailIncluded": true,
+                  "lookDetailIncluded": true
+                },
+                "budget": {
+                  "maxChars": 8000,
+                  "finalChars": 7719
+                }
+              }
+            },
+            {
+              "n": 2,
+              "status": "completed",
+              "output": "outputs/holmes-scandal-the-woman/generic-watercolor-2.jpg",
+              "costUsd": 0.034591,
+              "latencyMs": 6660,
+              "promptChars": 7837,
+              "plannerOutcome": "not_used",
+              "prepared": true,
+              "preparationCostUsd": 0,
+              "referencesSent": 2,
+              "quotedCredits": 5,
+              "varianceUsd": -0.00020900000000000085,
+              "packet": {
+                "promptVersion": "2026-10-20-generic-v2",
+                "workId": "holmes-adventures",
+                "momentId": "a-scandal-in-bohemia-1-1",
+                "sectionId": "a-scandal-in-bohemia-1-1",
+                "eraId": "late-victorian-england-1880s-to-1890s",
+                "styleId": "watercolor",
+                "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+                "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+                "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+                "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+                "canon": [
+                  {
+                    "entryId": "sherlock_holmes",
+                    "stageId": "sherlock_holmes",
+                    "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+                  },
+                  {
+                    "entryId": "dr_watson",
+                    "stageId": "dr_watson",
+                    "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+                  }
+                ],
+                "references": [
+                  {
+                    "kind": "sheet",
+                    "id": "sherlock_holmes:sherlock_holmes",
+                    "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+                    "version": "5deeca4df0bf88ae15936ba5c803cb79",
+                    "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+                  },
+                  {
+                    "kind": "sheet",
+                    "id": "dr_watson:dr_watson",
+                    "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+                    "version": "c774094a856ccc250f32181234dacd76",
+                    "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+                  }
+                ],
+                "flags": {
+                  "variationIncluded": true,
+                  "neighborsIncluded": true,
+                  "styleDetailIncluded": true,
+                  "lookDetailIncluded": true
+                },
+                "budget": {
+                  "maxChars": 8000,
+                  "finalChars": 7837
+                }
+              }
+            },
+            {
+              "n": 3,
+              "status": "completed",
+              "output": "outputs/holmes-scandal-the-woman/generic-watercolor-3.jpg",
+              "costUsd": 0.034591,
+              "latencyMs": 5494,
+              "promptChars": 7837,
+              "plannerOutcome": "not_used",
+              "prepared": true,
+              "preparationCostUsd": 0,
+              "referencesSent": 2,
+              "quotedCredits": 5,
+              "varianceUsd": -0.00020900000000000085,
+              "packet": {
+                "promptVersion": "2026-10-20-generic-v2",
+                "workId": "holmes-adventures",
+                "momentId": "a-scandal-in-bohemia-1-1",
+                "sectionId": "a-scandal-in-bohemia-1-1",
+                "eraId": "late-victorian-england-1880s-to-1890s",
+                "styleId": "watercolor",
+                "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+                "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+                "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+                "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+                "canon": [
+                  {
+                    "entryId": "sherlock_holmes",
+                    "stageId": "sherlock_holmes",
+                    "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+                  },
+                  {
+                    "entryId": "dr_watson",
+                    "stageId": "dr_watson",
+                    "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+                  }
+                ],
+                "references": [
+                  {
+                    "kind": "sheet",
+                    "id": "sherlock_holmes:sherlock_holmes",
+                    "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+                    "version": "5deeca4df0bf88ae15936ba5c803cb79",
+                    "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+                  },
+                  {
+                    "kind": "sheet",
+                    "id": "dr_watson:dr_watson",
+                    "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+                    "version": "c774094a856ccc250f32181234dacd76",
+                    "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+                  }
+                ],
+                "flags": {
+                  "variationIncluded": true,
+                  "neighborsIncluded": true,
+                  "styleDetailIncluded": true,
+                  "lookDetailIncluded": true
+                },
+                "budget": {
+                  "maxChars": 8000,
+                  "finalChars": 7837
+                }
+              }
+            }
+          ]
+        }
+      },
+      "comparison": "ready",
+      "reason": null
+    }
+  ],
+  "comparisons": {
+    "ready": 3,
+    "inconclusive": 0,
+    "incomplete": 0
+  },
+  "styleMatrix": {
+    "watercolor": {
+      "cases": 3,
+      "completed": 9,
+      "failed": 0,
+      "notRun": 0,
+      "complete": true
+    }
+  }
+}

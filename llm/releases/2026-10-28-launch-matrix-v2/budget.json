@@ -1,0 +1,28 @@
+{
+  "allowance": "evaluation",
+  "authorizedUsd": 34,
+  "increaseUsd": 5,
+  "measuredBeforeUsd": 27.1742485,
+  "operationCapUsd": 6,
+  "byKind": {
+    "text": {
+      "calls": 120,
+      "measuredUsd": 0.0502098
+    },
+    "image": {
+      "calls": 103,
+      "measuredUsd": 3.5269393
+    },
+    "check": {
+      "calls": 206,
+      "measuredUsd": 0.0648297
+    }
+  },
+  "operationMeasuredUsd": 3.6419788,
+  "operationUncertainUsd": 0,
+  "measuredAfterUsd": 30.8162273,
+  "retainedUncertaintyUsd": 0.045,
+  "remainingUsd": 3.1387727,
+  "transfers": 0,
+  "notes": "Scorer agents are not OpenRouter spend. In production the reader pays only for the shown image ($3.2854 here); the owner share is the checks plus unshown retries ($0.3064)."
+}

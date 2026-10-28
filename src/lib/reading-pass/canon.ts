@@ -9,36 +9,53 @@
  * them while their constrained canon stays.
  */
 import { z } from "zod";
-import type { WorkReader } from "../work-input";
+import { canonShowingSchema, compileCanonShowing, type CanonShowing } from "../canon-showing";
+import type { ReferenceUnit, WorkReader } from "../work-input";
 import type { WorkBrief, CanonHint } from "../work-preparation";
 import type { MergedEntry, MergedSection } from "./merge";
 import { parseModelJson, type TextModel } from "./model";
 
 const text = z.string();
+const stageFields = {
+  id: text, label: text, when: text, source: z.enum(["text", "tradition", "invention", "mixed"]),
+  quotes: z.array(z.object({ unit: text, quote: text }).strict()),
+};
 export const canonOutputSchema = z.object({
   kind: z.enum(["character", "location", "object"]),
   has_form: z.boolean(),
   appearance_from_text: text,
-  stages: z.array(z.object({
-    id: text, label: text, when: text, text, source: z.enum(["text", "tradition", "invention", "mixed"]),
-    quotes: z.array(z.object({ unit: text, quote: text }).strict()),
-  }).strict()),
+  stages: z.array(z.union([
+    z.object({ ...stageFields, text }).strict(),
+    z.object({ ...stageFields, showing: canonShowingSchema }).strict(),
+  ])),
   section_stages: z.array(z.object({ section: text, stage: text }).strict()),
-}).strict();
+}).strict().superRefine((output, context) => {
+  output.stages.forEach((stage, index) => {
+    if (output.has_form !== ("text" in stage)) {
+      context.addIssue({ code: "custom", path: ["stages", index], message: output.has_form
+        ? "has_form true requires stage text, not showing"
+        : "has_form false requires structured showing, not stage text" });
+    }
+  });
+});
 export type CanonOutput = z.infer<typeof canonOutputSchema>;
+
+/** Wording of new canon drafts; saved entries are reused until explicitly redrafted. */
+export const CANON_PROMPT_VERSION = "2026-10-22-canon-showing-v3";
 
 export const CANON_SYSTEM = `You write CANON ENTRIES for an illustrated edition of a work of literature. A canon entry fixes the identity of one character, location or object so that independently generated images agree with each other. Return only JSON matching the schema.
 
 Rules:
-- The work's text is binding: anything it says about appearance must be in the entry.
-- Where the text is silent, follow the work's own illustrative tradition if one exists (the way the work itself has been drawn and painted), never film or television adaptations; otherwise invent a look that fits the era and the work brief. Never give anyone the likeness of a real actor or public figure. Never contradict the text.
-- Each stage's \`text\` is one prompt-ready paragraph of at most 500 characters, starting with the name and a colon.
+- Depiction rules govern the rendered appearance, including when the source uses bodily imagery. Apply only the brief's unconditional rules to this shared canon; style-specific rules belong to final rendering. If an unconditional rule forbids giving this entry a body or face, set has_form to false; otherwise has_form is true.
+- Within those depiction limits, the work's text is binding: preserve what it fixes about appearance. Where the text is silent, follow the work's own illustrative tradition if one exists (the way the work itself has been drawn and painted), never film or television adaptations; otherwise invent a look that fits the era and the work brief. Never give anyone the likeness of a real actor or public figure.
+- When has_form is true, each stage returns \`text\`: one prompt-ready paragraph of at most 500 characters, starting with the name and a colon. Do not return \`showing\` for these stages.
+- The appearance fields below apply only when has_form is true:
   - character (people, beings, animals, groups): age range; build; skin; hair and beard; facial notes; one signature outfit (the one worn most often) and its colours; signature props the figure carries alone. For a group, describe a typical member.
   - location: terrain; architecture; vegetation; landmarks. No people.
   - object: form; material; colour.
+- When has_form is false, each stage returns \`showing\` INSTEAD OF \`text\`: one to five positive effects selected from the schema. Code builds the prompt-ready description from these selections; there is no free-prose stage field. Select only effects permitted by the unconditional brief and supported by this entry's constrained interpretation. Visual effects (light, radiance, cloud, mist, fire) take a literal colour and brightness, or "unspecified"; wind, voice and unseen presence take only an effect. Never invent an effect just to use the vocabulary. For example, white source imagery may become {"effect":"radiance","colour":"white","brightness":"brilliant"} when permitted. Render source metaphors as permitted qualities, not physical anatomy, clothing, pose or material cues. Do not repeat prohibited features as denials, similes or substitute shapes. Keep the exact source wording in supporting quotes for audit; \`appearance_from_text\` may explain the source imagery and its constrained interpretation.
 - Fix only identity. Leave out poses, expressions, actions, weather, time of day, other people (attendants, companions, crowds) and anything that compares the figure with someone else or depends on another person.
 - STAGES: almost every entry has exactly ONE stage. A character gets another stage only when the text itself says they have aged from child to adult or adult to elder across the work; a location only when the text says it was built, destroyed or rebuilt. Different scenes, days, rooms, moods or events are NOT stages. At most three. Objects always have exactly one stage. Each stage is a complete entry on its own.
-- Obey the work brief's depiction rules. If a rule forbids giving this entry a body or face, set has_form to false and write only the permitted showing (light, cloud, fire, a voice, an effect); otherwise has_form is true.
 - \`quotes\`: short passages (under 120 characters, copied exactly) the stage relied on, each with the id of the unit it comes from. Only quote units you were given; give none if nothing in the text describes appearance.
 - \`section_stages\`: for every story section listed, the id of the stage present in it. With one stage, every section uses it.
 - \`source\`: text, tradition, invention, or mixed. \`appearance_from_text\`: one sentence saying what the text fixes and what you supplied.`;
@@ -48,8 +65,10 @@ const CANON_TEXT_TOLERANCE = 560;
 const MAX_STAGES = { character: 3, location: 3, object: 1 } as const;
 const MENTION_CAP_CHARS = 14_000;
 
-export type CanonStage = { id: string; label: string; when: string; text: string; source: string; quotes: Array<{ unit: string; quote: string }> };
+export type CanonStage = { id: string; label: string; when: string; text: string; source: string; quotes: Array<{ unit: string; quote: string }>; showing?: CanonShowing };
 export type CanonEntryResult = {
+  /** Absent on historical drafts; never infer the current version for saved results. */
+  promptVersion?: string;
   entryId: string;
   kind: MergedEntry["kind"];
   hasForm: boolean;
@@ -83,6 +102,55 @@ export function mentionUnits(work: WorkReader, entry: MergedEntry, capChars = ME
   return kept;
 }
 
+/** Visit the ends, then bisect the remaining intervals so a capped selection spans the work. */
+function* spreadUnits(units: readonly ReferenceUnit[]) {
+  if (!units.length) return;
+  yield units[0];
+  if (units.length > 1) yield units[units.length - 1];
+  const ranges = [[1, units.length - 2]];
+  for (let i = 0; i < ranges.length; i++) {
+    const [first, last] = ranges[i];
+    if (first > last) continue;
+    const middle = Math.floor((first + last) / 2);
+    yield units[middle];
+    ranges.push([first, middle - 1], [middle + 1, last]);
+  }
+}
+
+const sourceLine = (unit: ReferenceUnit) => `[${unit.id}] ${unit.text.replace(/\s+/g, " ").trim()}`;
+
+/** Whole source units, alternating on-stage context and name matches under one formatted-text cap. */
+export function canonSourceUnits(work: WorkReader, entry: MergedEntry, sections: MergedSection[], capChars = MENTION_CAP_CHARS): ReferenceUnit[] {
+  const context = new Map<string, ReferenceUnit>();
+  for (const section of sections) {
+    if (!(entry.kind === "location" ? section.setting.includes(entry.id) : section.onStage.some((o) => o.id === entry.id))) continue;
+    const first = work.getUnit(section.firstUnitId), last = work.getUnit(section.lastUnitId);
+    if (first.position > last.position || first.rootDivisionId !== section.divisionId || last.rootDivisionId !== section.divisionId) {
+      throw new Error(`Invalid canon source section: ${section.firstUnitId}–${section.lastUnitId}`);
+    }
+    for (const unit of work.units.slice(first.position, last.position + 1)) context.set(unit.id, unit);
+  }
+  const lanes = [spreadUnits([...context.values()].sort((a, b) => a.position - b.position)), spreadUnits(mentionUnits(work, entry, Infinity))];
+  const selected = new Map<string, ReferenceUnit>();
+  let used = 0;
+  let pending = true;
+  while (pending) {
+    pending = false;
+    for (const lane of lanes) {
+      const next = lane.next();
+      if (next.done) continue;
+      pending = true;
+      const unit = next.value;
+      const cost = sourceLine(unit).length + (selected.size ? 1 : 0);
+      if (!selected.has(unit.id) && used + cost <= capChars) {
+        selected.set(unit.id, unit);
+        used += cost;
+      }
+    }
+  }
+  return [...selected.values()].sort((a, b) => a.position - b.position);
+}
+
 export function canonUserPrompt(options: {
   work: WorkReader; entry: MergedEntry; brief: WorkBrief; sections: MergedSection[]; sectionEras: Record<string, string>; hints: CanonHint[];
 }): { user: string; sectionIds: string[] } {
@@ -90,12 +158,12 @@ export function canonUserPrompt(options: {
   const onStage = options.sections.filter((s) => entry.kind === "location" ? s.setting.includes(entry.id) : s.onStage.some((o) => o.id === entry.id));
   const eraIds = new Set(onStage.map((s) => options.sectionEras[s.firstUnitId]).filter(Boolean));
   const eras = brief.eras.filter((e) => eraIds.has(e.id));
-  const units = mentionUnits(work, entry);
-  const hints = options.hints.filter((h) => h.entryId === entry.id);
+  const units = canonSourceUnits(work, entry, onStage);
+  const hints = options.hints.filter((h) => h.entryId === entry.id && !h.styleIds);
   const user = `WORK: ${work.work.title} (${work.work.author})
 TONE: ${brief.tone}
-DEPICTION RULES:
-${brief.depictionRules.map((r) => `- ${r.text}${r.styleIds ? ` [styles: ${r.styleIds.join(", ")}]` : ""}`).join("\n") || "- none"}
+DEPICTION RULES (unconditional; style-specific rules are reserved for final rendering):
+${brief.depictionRules.filter((r) => !r.styleIds).map((r) => `- ${r.text}`).join("\n") || "- none"}
 ERAS THIS ENTRY APPEARS IN:
 ${(eras.length ? eras : brief.eras.slice(0, 1)).map((e) => `- ${e.label}: people: ${e.people} Dress: ${e.dress} Buildings and objects: ${e.buildingsAndObjects}`).join("\n")}
 HINTS FROM THE OWNER'S BRIEF REVIEW (lines moved out of the brief because they concern this entry alone; use them):
@@ -110,15 +178,18 @@ reading-pass note: ${entry.note}
 on stage in ${onStage.length} story sections (id: title):
 ${onStage.slice(0, 40).map((s) => `- ${s.firstUnitId}: ${s.title}`).join("\n")}${onStage.length > 40 ? `\n- … and ${onStage.length - 40} more` : ""}
 
-UNITS OF THE TEXT THAT NAME THIS ENTRY (unit id in brackets; quote only from these):
-${units.map((u) => `[${u.id}] ${u.text.replace(/\s+/g, " ").trim()}`).join("\n") || "(none found)"}`;
+SELECTED SOURCE UNITS (name matches and on-stage section context; unit id in brackets; quote only from these):
+Context may describe other subjects. Attribute appearance only to this entry when supported by the passage; section membership alone does not identify who a description belongs to. Whole units are sampled under a 14,000-character source limit; omitted passages are not evidence of absence.
+${units.map(sourceLine).join("\n") || "(no whole source unit fits the selection limit)"}`;
   return { user, sectionIds: onStage.map((s) => s.firstUnitId) };
 }
 
 /** Apply the code rules to a drafted entry: quote checks, stage caps, assignment validity. */
 export function checkCanon(work: WorkReader, entry: MergedEntry, output: CanonOutput, sectionIds: string[]): Omit<CanonEntryResult, "attempts"> {
+  // Enforce the representation even for direct callers; old saved canon never passes here.
+  output = canonOutputSchema.parse(output);
   const problems: string[] = [];
-  let stages = output.stages.map((s) => ({ ...s }));
+  let stages: CanonStage[] = output.stages.map((s) => ({ ...s, text: "text" in s ? s.text : compileCanonShowing(entry.name, s.showing) }));
   const cap = MAX_STAGES[entry.kind];
   if (stages.length === 0) problems.push("no stages drafted");
   if (stages.length > cap) {
@@ -162,10 +233,10 @@ export async function draftCanonEntry(options: {
     if ("error" in parsed) { feedback = `\n\nThe previous answer was not valid JSON for the schema (${parsed.error}). Return a corrected answer.`; continue; }
     last = checkCanon(options.work, options.entry, parsed.value, sectionIds);
     const overCap = last.problems.filter((p) => p.includes("characters (cap"));
-    if (!overCap.length || attempt === 2) return { ...last, attempts: attempt };
+    if (!overCap.length || attempt === 2) return { ...last, promptVersion: CANON_PROMPT_VERSION, attempts: attempt };
     feedback = `\n\nThe previous answer was rejected: ${overCap.join("; ")}. Shorten every stage text to at most ${CANON_TEXT_CAP} characters and return the corrected answer.`;
   }
-  if (last) return { ...last, attempts: 2 };
+  if (last) return { ...last, promptVersion: CANON_PROMPT_VERSION, attempts: 2 };
   throw new Error(`Canon for ${options.entry.id} could not be drafted`);
 }
 

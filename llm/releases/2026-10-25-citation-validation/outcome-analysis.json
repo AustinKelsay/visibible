@@ -1,0 +1,342 @@
+{
+  "operations": 92,
+  "calls": 233,
+  "offlineReplay": true,
+  "overall": [
+    {
+      "arm": "baseline",
+      "planned": 30,
+      "stored": 5,
+      "acceptable": 4,
+      "flawed": 0,
+      "uncertain": 1,
+      "refused": 25,
+      "freshAcceptable": 4,
+      "retainedAcceptable": 0,
+      "lookContradictions": 0,
+      "acceptableRateWilson95": [
+        0.05309655484054873,
+        0.2968132668203576
+      ]
+    },
+    {
+      "arm": "candidate",
+      "planned": 30,
+      "stored": 6,
+      "acceptable": 3,
+      "flawed": 2,
+      "uncertain": 1,
+      "refused": 24,
+      "freshAcceptable": 3,
+      "retainedAcceptable": 0,
+      "lookContradictions": 1,
+      "acceptableRateWilson95": [
+        0.03459988874733512,
+        0.25621082579183546
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "arm": "baseline",
+      "passed": 12,
+      "planned": 16,
+      "cleanCases": 7,
+      "cleanFalseAlarms": 0,
+      "unavailable": 1,
+      "failed": [
+        "look-time-baseline",
+        "unsupported-aaron-baseline",
+        "unsupported-moses-baseline",
+        "look-embodiment-baseline"
+      ]
+    },
+    {
+      "arm": "candidate",
+      "passed": 14,
+      "planned": 16,
+      "cleanCases": 7,
+      "cleanFalseAlarms": 0,
+      "unavailable": 0,
+      "failed": [
+        "unsupported-moses-candidate",
+        "look-embodiment-candidate"
+      ]
+    }
+  ],
+  "refusals": [
+    {
+      "arm": "baseline",
+      "cases": [
+        {
+          "id": "f009-baseline",
+          "stratum": "fresh",
+          "category": "grounding_rejection"
+        },
+        {
+          "id": "f003-baseline",
+          "stratum": "fresh",
+          "category": "reported_missing_canon"
+        },
+        {
+          "id": "r027-baseline",
+          "stratum": "retained",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "r034-baseline",
+          "stratum": "retained",
+          "category": "plan_review_rejection"
+        },
+        {
+          "id": "f008-baseline",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f004-baseline",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f006-baseline",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f018-baseline",
+          "stratum": "fresh",
+          "category": "review_unavailable"
+        },
+        {
+          "id": "f014-baseline",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f002-baseline",
+          "stratum": "fresh",
+          "category": "plan_review_rejection"
+        },
+        {
+          "id": "f001-baseline",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f010-baseline",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "r035-baseline",
+          "stratum": "retained",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "r001-baseline",
+          "stratum": "retained",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "r074-baseline",
+          "stratum": "retained",
+          "category": "look_schema"
+        },
+        {
+          "id": "f013-baseline",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f011-baseline",
+          "stratum": "fresh",
+          "category": "reported_missing_canon"
+        },
+        {
+          "id": "r067-baseline",
+          "stratum": "retained",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f012-baseline",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f020-baseline",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "r059-baseline",
+          "stratum": "retained",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f007-baseline",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f017-baseline",
+          "stratum": "fresh",
+          "category": "reported_missing_canon"
+        },
+        {
+          "id": "f019-baseline",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f022-baseline",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        }
+      ],
+      "categories": {
+        "grounding_rejection": 1,
+        "reported_missing_canon": 3,
+        "reported_look_conflict": 17,
+        "plan_review_rejection": 2,
+        "review_unavailable": 1,
+        "look_schema": 1
+      }
+    },
+    {
+      "arm": "candidate",
+      "cases": [
+        {
+          "id": "f009-candidate",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f003-candidate",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "r027-candidate",
+          "stratum": "retained",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "r034-candidate",
+          "stratum": "retained",
+          "category": "reported_missing_canon"
+        },
+        {
+          "id": "f008-candidate",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f004-candidate",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f021-candidate",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f018-candidate",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f014-candidate",
+          "stratum": "fresh",
+          "category": "reported_missing_canon"
+        },
+        {
+          "id": "f002-candidate",
+          "stratum": "fresh",
+          "category": "plan_review_rejection"
+        },
+        {
+          "id": "f001-candidate",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f010-candidate",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "r035-candidate",
+          "stratum": "retained",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "r001-candidate",
+          "stratum": "retained",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "r074-candidate",
+          "stratum": "retained",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f011-candidate",
+          "stratum": "fresh",
+          "category": "reported_missing_canon"
+        },
+        {
+          "id": "r067-candidate",
+          "stratum": "retained",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f012-candidate",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f020-candidate",
+          "stratum": "fresh",
+          "category": "plan_review_rejection"
+        },
+        {
+          "id": "r059-candidate",
+          "stratum": "retained",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f023-candidate",
+          "stratum": "fresh",
+          "category": "reported_missing_canon"
+        },
+        {
+          "id": "f007-candidate",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        },
+        {
+          "id": "f017-candidate",
+          "stratum": "fresh",
+          "category": "reported_missing_canon"
+        },
+        {
+          "id": "f019-candidate",
+          "stratum": "fresh",
+          "category": "reported_look_conflict"
+        }
+      ],
+      "categories": {
+        "reported_look_conflict": 17,
+        "reported_missing_canon": 5,
+        "plan_review_rejection": 2
+      }
+    }
+  ],
+  "reviewGate": false,
+  "pipelineGate": false,
+  "pass": false,
+  "releaseHold": true,
+  "limitation": "Terminal refusal categories are reported reasons, not adjudicated valid refusals. Same semantic prompts and independent look/plan draws prevent attributing semantic differences to citation handling."
+}

@@ -1,0 +1,29 @@
+{
+  "reviewCommand": "coderabbit review --agent -t uncommitted -c AGENTS.md",
+  "outcome": "completed",
+  "issues": 2,
+  "reviewedTextFiles": 37,
+  "excludedBinaryFiles": 5,
+  "dispositions": [
+    {
+      "severity": "major",
+      "path": "browser-harness-used.txt",
+      "verdict": "valid historical defect; executable artifact retired",
+      "detail": "Admission limit checks precede serialized starts and do not reserve pending capacity. Preserve exact executed bytes as historical text rather than silently rewriting past evidence. Do not reuse this guard. Actual batch requests awaited each preceding response; offline timestamps verify all 17 requests did not overlap and observed totals stayed inside both caps. No general concurrency-safety claim is made."
+    },
+    {
+      "severity": "minor",
+      "path": "README.md",
+      "verdict": "excluded-binary false alarm",
+      "detail": "Both screenshots and all three contact sheets exist. CLI complete event explicitly excludes these five binaries. Offline sha256 audit checks their bytes; committed-archive verification confirms each asset before push."
+    }
+  ],
+  "verificationFixes": [
+    "Remove unsupported .ts import suffixes from the read-only collector.",
+    "Annotate the collector lookup to avoid recursive implicit-any inference.",
+    "Import Sharp OverlayOptions as a named type."
+  ],
+  "historicalHarnessSha256": "cbbb158c64a7545d74f84c7495ee4818073a33a290f7d02354383ad3536fc50b",
+  "paidCallsForReview": 0,
+  "publicActivation": false
+}

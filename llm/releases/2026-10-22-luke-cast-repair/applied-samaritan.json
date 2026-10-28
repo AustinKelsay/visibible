@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-23T00:45:18.341Z",
+  "result": {
+    "changed": true,
+    "previousVersion": "58735115867b1dc088d7ab5d9f568a91",
+    "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+  },
+  "readBack": {
+    "createdAt": 1792716318205,
+    "generation": 1,
+    "inputs": [],
+    "kind": "entry",
+    "payload": {
+      "aliases": [
+        "the good Samaritan"
+      ],
+      "entryKind": "character",
+      "hasForm": true,
+      "kind": "entry",
+      "members": [
+        "luke:character:good_samaritan"
+      ],
+      "name": "the Samaritan",
+      "note": "Traveler in the parable who tends a robbery victim (ch. 10).",
+      "stages": [
+        {
+          "id": "the_samaritan-main",
+          "label": "the Samaritan",
+          "quotes": [
+            {
+              "quote": "a certain Samaritan, as he traveled, came where he was",
+              "unit": "luke-10-33"
+            },
+            {
+              "quote": "He set him on his own animal, brought him to an inn",
+              "unit": "luke-10-34"
+            }
+          ],
+          "text": "the Samaritan: adult man of middle age, sturdy and weathered build, olive-brown skin, short dark hair and a close-cropped beard, plain lined face with steady eyes. Signature outfit worn on the road: undyed linen tunic in earth tones of ochre and brown with a dusty woollen cloak in deep blue-grey, sandals and a leather belt bearing a small pouch of coins. Carries alone a water skin and a folded cloth for binding wounds."
+        }
+      ]
+    },
+    "recordId": "the_samaritan",
+    "source": "owner",
+    "status": "current",
+    "version": "cbb241bdc2bacc4c5cee5db55c797e29",
+    "workId": "bible-web"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-21T21:59:13.956Z",
+  "outcome": "canon-rejected-before-plan",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "canonCalls": 1,
+  "planCalls": 0,
+  "imageCalls": 0,
+  "productionMutations": 0,
+  "semanticRetries": 0,
+  "preparation": {
+    "authorizedUsd": 43,
+    "previousMeasuredUsd": 3.6351192,
+    "measuredThisRunUsd": 0.0005648,
+    "measuredUsd": 3.635684,
+    "uncertaintyUsd": 0.03,
+    "remainingAfterReserveUsd": 39.334316,
+    "subcapUsd": 0.02,
+    "unusedSubcapUsd": 0.0194352
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredUsd": 16.2980069,
+    "uncertaintyUsd": 0.045,
+    "remainingAfterReserveUsd": 0.1569931,
+    "unchanged": true
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.0685215,
+    "unchanged": true,
+    "uncertaintyUsd": 0,
+    "remainingAfterReserveUsd": 0.9314785
+  },
+  "originalMatrix": {
+    "completed": 236,
+    "planned": 324,
+    "missing": 88,
+    "unchanged": true
+  },
+  "balanceObservation": {
+    "beforeUsd": 10.900151692000009,
+    "afterUsd": 10.900151692000009,
+    "observedDeltaUsd": 0,
+    "reconciledToThisCall": false,
+    "note": "Both credit snapshots report the same balance. This is not a completed balance reconciliation or proof of free usage; accounting uses the explicit provider response cost."
+  },
+  "conclusion": "The corrected drafting instructions did not produce a semantically acceptable no-form canon in this one attempt. Retain the production canon and all existing failures; no candidate plan, rendering, live correction or release acceptance follows from this run.",
+  "limits": [
+    "One text draft, not an image or repeatability test.",
+    "Structural and quote validation pass while depiction semantics fail agent inspection.",
+    "Daniel 7:9 is absent from mention-only context; its impact on this output is unproven.",
+    "Human visual/likeness acceptance, original matrix completion and actual-app accounting/latency gates remain open."
+  ]
+}

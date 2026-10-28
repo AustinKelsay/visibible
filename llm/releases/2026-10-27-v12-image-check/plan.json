@@ -1,0 +1,122 @@
+{
+  "issue": 183,
+  "status": "Operator-decided check (27 October 2026) under the owner's delegation \"ok continue. Your call on all of these\", of planner v14, look v2, review v12 and renderer v12 (ADR 0006 amendment). Measurement only.",
+  "purpose": "Check whether God is still drawn as a figure once the section look and planner receive no canon for a no-form subject. Three cases repeat the v11 figures, Sinai checks for regression, and four God-appearance scenes were never used for tuning.",
+  "candidateCommit": "af2abbbd0ec5aa854310ef41f3f91309d5bd555c",
+  "pipeline": {
+    "momentCast": "2026-10-27-moment-cast-v14",
+    "formlessPlan": "2026-10-27-formless-effects-v14",
+    "review": "2026-10-27-plan-review-v12",
+    "rendering": "2026-10-27-generic-v12"
+  },
+  "image": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "cases": [
+    {
+      "id": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "why": "Ancient of Days enthroned; a figure in 1 of 3 v11 images (Classical).",
+      "tags": [
+        "no-form-present",
+        "tuned"
+      ]
+    },
+    {
+      "id": "ezekiel-1-26",
+      "reference": "Ezekiel 1:26",
+      "why": "Sapphire throne with the likeness of a man; a figure in 1 of 3 v11 images (Classical).",
+      "tags": [
+        "no-form-present",
+        "tuned"
+      ]
+    },
+    {
+      "id": "isaiah-6-1",
+      "reference": "Isaiah 6:1",
+      "why": "The Lord on a throne; a faint hand in 1 of 3 v11 images (Watercolor).",
+      "tags": [
+        "no-form-present",
+        "tuned"
+      ]
+    },
+    {
+      "id": "exodus-19-18",
+      "reference": "Exodus 19:18",
+      "why": "Sinai smoke and fire; no figure in v11 (regression check).",
+      "tags": [
+        "no-form-present",
+        "tuned"
+      ]
+    },
+    {
+      "id": "revelation-4-2",
+      "reference": "Revelation 4:2",
+      "why": "A throne set in heaven and one sitting on it; not used for tuning.",
+      "tags": [
+        "no-form-present",
+        "unseen"
+      ]
+    },
+    {
+      "id": "exodus-33-22",
+      "reference": "Exodus 33:22",
+      "why": "Moses in the cleft while God's glory passes and his hand covers; not used for tuning.",
+      "tags": [
+        "no-form-present",
+        "unseen"
+      ]
+    },
+    {
+      "id": "exodus-34-5",
+      "reference": "Exodus 34:5",
+      "why": "Yahweh descends in the cloud and stands with Moses; not used for tuning.",
+      "tags": [
+        "no-form-present",
+        "unseen"
+      ]
+    },
+    {
+      "id": "numbers-12-5",
+      "reference": "Numbers 12:5",
+      "why": "Yahweh comes down in a pillar of cloud and stands at the Tent door; not used for tuning.",
+      "tags": [
+        "no-form-present",
+        "unseen"
+      ]
+    }
+  ],
+  "controlCases": [],
+  "design": "Eight cases, each prepared once, cold, in a memory store seeded from a read-only production snapshot. A refused preparation stops that case before any image. Each stored case renders classical, watercolor and icon once each, with the references production would send (Classical and Icon style references; the Watercolor reference is stale against the revised style and is skipped). At most 24 images. Later assemblies must reuse the stored plan with zero text calls.",
+  "scoring": {
+    "method": "Images are copied under opaque shuffled names without case or style labels beyond what the image shows. Two independent model scorers inspect every image at full resolution; the operator adjudicates and commits before unblinding. Not human acceptance.",
+    "perImage": [
+      "noFormFigure: any face, body, hair, clothing, silhouette or human-shaped figure for God or another no-form subject (yes/no/na)",
+      "edges: all four edges painted to the border (full) or any white/unpainted margin or vignette (margin)",
+      "extraFigures: framing or unsupported named figures present (yes/no)",
+      "coherence: one instant, coherent poses and object states (yes/no)",
+      "text: any lettering or writing (yes/no)",
+      "overall: acceptable/flawed/uncertain"
+    ],
+    "gate": "Predeclared before any paid call. Every case's production section cast has a God entry. The fix passes if God is drawn as a figure in at most 1 of the 24 images (ADR 0006 launch bar: at most 1 in 20), and in none of the four unseen cases (Revelation 4:2, Exodus 33:22, Exodus 34:5, Numbers 12:5). Refused cases are reported separately: a refusal is an availability cost for Watercolor and Icon, not a pass. No outcome authorizes activation."
+  },
+  "evaluation": {
+    "authorizedBeforeUsd": 22.0,
+    "measuredBeforeUsd": 21.8833918,
+    "measuredBeforeNote": "21.7333918 measured before this pair, plus the full $0.15 cap of the concurrent v12 fresh text check, reserved conservatively.",
+    "uncertaintyBeforeUsd": 0.045,
+    "proposedIncreaseUsd": 1.0,
+    "proposedAuthorizedUsd": 23.0,
+    "proposedOperationCapUsd": 0.94,
+    "textReserveUsd": 0.005,
+    "imageReserveUsd": 0.06,
+    "maximumImages": 24,
+    "maximumTextCalls": 60
+  },
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "knownLimitation": "Eight chosen God-appearance cases and one image per style are descriptive only; this does not replace the fixed visual matrix or owner sign-off. Model scorers can miss subtle figures in light or cloud."
+}

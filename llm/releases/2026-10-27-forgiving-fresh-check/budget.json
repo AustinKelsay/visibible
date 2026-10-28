@@ -1,0 +1,15 @@
+{
+  "allowance": "evaluation",
+  "authorizedBeforeUsd": 19.5,
+  "increaseUsd": 2,
+  "authorizedUsd": 21.5,
+  "measuredBeforeUsd": 17.9781125,
+  "operationMeasuredUsd": 0.0506315,
+  "operationUncertainUsd": 0,
+  "measuredAfterUsd": 18.028744,
+  "retainedUncertaintyUsd": 0.045,
+  "operationCapUsd": 0.25,
+  "calls": 104,
+  "note": "The paired image check ran concurrently; ../2026-10-27-forgiving-image-check/budget.json holds the combined total. The run used the owner's working local OpenRouter key because the production key returned 401.",
+  "transfers": 0
+}

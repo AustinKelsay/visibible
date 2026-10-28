@@ -3,6 +3,7 @@
  *
  *   npm run works:correct -- <work-id> attention [--closed]
  *   npm run works:correct -- <work-id> inspect <entryId>
+ *   npm run works:correct -- <work-id> add-cast --file <correction.json>
  *   npm run works:correct -- <work-id> edit-stage <entryId> <stageId> --text "..." [--expect <version>]
  *   npm run works:correct -- <work-id> edit-look <sectionId> [--place ..] [--time ..] [--weather ..] [--light ..] [--clothing ..] [--expect <version>]
  *   npm run works:correct -- <work-id> pin|unpin sheet|style <recordId>
@@ -30,6 +31,7 @@ import { parseArgs } from "node:util";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../convex/_generated/api";
 import { createCorrections, parseCorrectionLink } from "@/lib/engine/corrections";
+import { readWorkInputs } from "@/lib/engine/work-inputs";
 import { validateWorkBrief, SHARED_STYLES } from "@/lib/work-preparation";
 import { createOpenRouterImageMaker, createOpenRouterVisionChecker } from "@/lib/engine/reference-adapters";
 import { emptyReferenceState, runReferences, type ReferenceRunState, type ReferenceStore } from "@/lib/engine/references-run";
@@ -38,6 +40,7 @@ const { values, positionals } = parseArgs({ allowPositionals: true, options: {
   text: { type: "string" }, expect: { type: "string" }, place: { type: "string" }, time: { type: "string" }, weather: { type: "string" }, light: { type: "string" }, clothing: { type: "string" },
   disposition: { type: "string" }, correction: { type: "string" }, check: { type: "string" }, closed: { type: "boolean", default: false }, "including-owner": { type: "boolean", default: false }, "confirm-production": { type: "boolean", default: false },
   budget: { type: "string", default: "1.00" }, run: { type: "string", default: "latest" },
+  file: { type: "string" },
 } });
 const [workId, command, ...rest] = positionals;
 if (!workId || !command) throw new Error("Usage: npm run works:correct -- <work-id> <command> …");
@@ -67,6 +70,12 @@ switch (command) {
     break;
   }
   case "inspect": print(await corrections.inspect(rest[0])); break;
+  case "add-cast": {
+    if (!values.file) throw new Error("--file is required");
+    const addition = JSON.parse(await readFile(values.file, "utf8"));
+    print(await corrections.addCastEntry(addition, await readWorkInputs(workId, root)));
+    break;
+  }
   case "edit-stage": {
     if (!values.text) throw new Error("--text is required");
     print(await corrections.editStage(rest[0], rest[1], values.text, values.expect));

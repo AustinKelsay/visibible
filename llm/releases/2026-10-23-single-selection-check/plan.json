@@ -1,0 +1,37 @@
+{
+  "issue": 183,
+  "purpose": "Single explicit cast selection with mandatory evidence. Six cold text preparations over three retained refusal-heavy verses. No production access or images.",
+  "authorization": "Owner said ok continue. Uses only the existing evaluation allowance; no increase or transfer from preparation/smoke.",
+  "pipeline": {
+    "momentCast": "2026-10-23-moment-cast-v8",
+    "formlessPlan": "2026-10-23-formless-effects-v8",
+    "review": "2026-10-23-plan-review-v4"
+  },
+  "cases": {
+    "samples": [
+      "s001",
+      "s027",
+      "s034"
+    ],
+    "repeats": 2
+  },
+  "method": "Candidate only, interleaved by repeat then sample. Fresh memory store for each operation with ordinary look invalidation, production adapter/settings, malformed retry and one re-plan. Uses the exact retained source/cast records from the v6 paired sample. All first outcomes retained; no tuning or rerun once frozen.",
+  "acceptance": {
+    "diagnostic": "All six operations complete without unavailable review or uncertain usage; at least four acceptable stored scenes, zero flawed or uncertain stores. Refusals are not repairs. Structural contradictions are impossible in a schema-valid new response; their absence alone does not prove semantic improvement.",
+    "scoring": "Unblinded operator scores every stored field against source/cast, explicitly retaining ambiguous or subjective calls. Offline replay verifies mechanics, not semantic verdicts.",
+    "release": "This selected six-run diagnostic cannot establish population improvement or satisfy the failed 21-run pipeline gate. Broader ordinary/hard-moment text checks, image comparison and current full-request latency still need evidence before human release acceptance."
+  },
+  "evaluation": {
+    "authorizedUsd": 16.95,
+    "measuredBeforeUsd": 16.8717356,
+    "uncertaintyBeforeUsd": 0.045,
+    "capUsd": 0.028,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 60,
+    "stopBeforeSampleHeadroomUsd": 0.01
+  },
+  "retryPolicy": "One-shot. Reserve before every actual request. Stop on unknown cost, provider error, request drift, unavailable review or cap. No operation starts without $0.010 headroom; no new sample after a stop. No extra retries beyond ordinary preparation behavior.",
+  "audit": "Commit source, protocol, fixture hashes and first-request dry-run hashes before paid calls. Record the exact frozen commit. Fresh provider pricing and balance preflight. Replay all requests/results offline and verify per-call costs against the ledger; account balance is shared with unrelated live traffic.",
+  "publicActivation": false,
+  "humanAccepted": false
+}

@@ -1,0 +1,339 @@
+{
+  "scorer": "Independent model scorer A",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "p001",
+      "verdict": "acceptable",
+      "reason": "A representative registration scene for a list verse: temple servants step forward while a Levite reads family names in the rebuilt temple court. The selected Levites and priests appear only as officiants, and the scene fits the Nehemiah 7 genealogy context.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p002",
+      "verdict": "uncertain",
+      "reason": "Asaph as the watching psalmist fits Psalm 73's first-person account of seeing the wicked prosper. But the plan puts the wicked man reclining among coin chests in the temple's outer court, which borrows the sanctuary from v17 and makes an odd setting the verse does not support. A reader could accept it as symbolic or reject it as incoherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p003",
+      "verdict": "flawed",
+      "reason": "Pharaoh and his servants receiving the news and turning against Israel is faithful, but the plan copies God's fixed canon appearance almost word for word.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a faint radiance of white-gold light and dense slowly moving cloud over the eastern horizon, with a fire-like glow at its heart",
+          "reason": "Restates the fixed canon appearance of God's presence (white-gold light, dense slowly moving cloud, fire-like glow at its heart) instead of just placing it."
+        }
+      ]
+    },
+    {
+      "id": "p004",
+      "verdict": "flawed",
+      "reason": "Moses pleading on the mountain for the people is faithful, but the plan restates the canon appearance of God's presence.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a veiled white-gold radiance with fire-like glow in dense slow cloud above",
+          "reason": "Restates God's fixed canon appearance (white-gold radiance, fire-like glow, dense slow cloud)."
+        }
+      ]
+    },
+    {
+      "id": "p005",
+      "verdict": "flawed",
+      "reason": "Eliphaz is the speaker describing the fate of the generic wicked man. The plan makes Eliphaz an armed attacker taking the simile's 'king ready to the battle' literally, and casts Job as the wicked man.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Eliphaz looms over Job like an armored king about to strike",
+          "reason": "Shows the speaker, who only reports, as a participant, and turns the simile for distress into Eliphaz physically attacking Job."
+        },
+        {
+          "quote": "Eliphaz in a traveling cloak with a drawn sword or spear",
+          "reason": "Arms the framing speaker for a fight the verse does not describe, and leaves the weapon undecided between sword and spear."
+        },
+        {
+          "quote": "Job crouched low on the ash heap",
+          "reason": "Puts the named Job in place of the generic wicked man the verse describes."
+        }
+      ]
+    },
+    {
+      "id": "p006",
+      "verdict": "flawed",
+      "reason": "The verse is Yahweh telling Haggai to speak to Zerubbabel. The plan instead has Zerubbabel receive the word directly from the cloud, and it restates God's canon appearance.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "He receives the word as the cloud above the temple shifts",
+          "reason": "The source has the word come to Haggai, who is to speak to Zerubbabel. A direct revelation to Zerubbabel from the cloud is an unsupported instant."
+        },
+        {
+          "quote": "a veiled white-gold radiance with a fire-like glow",
+          "reason": "Restates God's fixed canon appearance."
+        }
+      ]
+    },
+    {
+      "id": "p007",
+      "verdict": "acceptable",
+      "reason": "A representative scene for the camp-order instruction: Gad's prince Eliasaph, named in the verse, at the head of his division around the tabernacle. The cloud reference is minimal and the scene is coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p008",
+      "verdict": "acceptable",
+      "reason": "The guide in linen measures the south gate's posts and arches with Ezekiel beside him. Ezekiel is led through the vision ('He led me'), so his presence is supported. The scene is coherent and stays on a single instant.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p009",
+      "verdict": "acceptable",
+      "reason": "Villagers of Madmenah and Gebim fleeing along a Judean hill track toward Jerusalem faithfully illustrates the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p010",
+      "verdict": "acceptable",
+      "reason": "Joram and Ahaziah ride out in separate chariots toward Jehu on Naboth's land, which matches the verse. The cast and setting are correct.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p011",
+      "verdict": "acceptable",
+      "reason": "Wisdom appears only as radiance at an empty raised seat while princes and nobles attend. This is a faithful, figureless symbolic rendering of rulers reigning by Wisdom.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p012",
+      "verdict": "flawed",
+      "reason": "The plan puts the exiled prophet Ezekiel at Tyre's quay, shows Jerusalem's ruins from Tyre in one view, and restates God's canon appearance.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Ezekiel in a plain prophetic cloak at the shore's edge",
+          "reason": "Ezekiel receives this oracle in exile. He is a framing prophet who only reports Tyre's taunt, but the plan shows him present at Tyre as a listener."
+        },
+        {
+          "quote": "Jerusalem's ruins far off",
+          "reason": "Jerusalem cannot be seen from Tyre's harbour, so the setting combines two distant places in one view."
+        },
+        {
+          "quote": "a faint veiled radiance of white-gold cloud with fire at its heart",
+          "reason": "Restates God's fixed canon appearance."
+        }
+      ]
+    },
+    {
+      "id": "p013",
+      "verdict": "flawed",
+      "reason": "Isaiah delivering the oracle to Jerusalem's scoffing rulers is a faithful representative scene, but the plan copies God's canon appearance text.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a brilliant white-gold radiance, veiled by slow cloud with a fire-like glow at its heart",
+          "reason": "Restates God's fixed canon appearance almost word for word."
+        }
+      ]
+    },
+    {
+      "id": "p014",
+      "verdict": "flawed",
+      "reason": "The radiance speaking from above an empty throne while John prepares to write is faithful, but the plan restates both John's canon outfit and God's canon appearance.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "John in an undyed ochre-brown linen tunic under a dark brown wool mantle",
+          "reason": "Restates John's fixed canon outfit almost word for word."
+        },
+        {
+          "quote": "brilliant white-gold radiance with a fire-like glow, veiled by slow cloud",
+          "reason": "Restates God's fixed canon appearance."
+        }
+      ]
+    },
+    {
+      "id": "p015",
+      "verdict": "flawed",
+      "reason": "Adam among thistles at the garden's edge is a reasonable symbolic image of the curse. But it adds a settlement when no other people exist yet, and it restates God's canon appearance.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "distant mud-brick settlement",
+          "reason": "No other people or towns exist at Genesis 3, so a settlement contradicts the source."
+        },
+        {
+          "quote": "a brilliant white-gold radiance with fire-like glow veiled by slow cloud above, no visible source",
+          "reason": "Restates God's fixed canon appearance."
+        }
+      ]
+    },
+    {
+      "id": "p016",
+      "verdict": "flawed",
+      "reason": "The law speaks of a generic priest, but the plan names Aaron. It also veils the woman, although the rite uncovers her head.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Aaron in linen priestly garments holding a cup of water",
+          "reason": "Puts the named Aaron in place of the generic 'priest' who administers the ordeal under this law."
+        },
+        {
+          "quote": "a veiled Israelite woman",
+          "reason": "Numbers 5:18 has the priest let down or uncover the woman's hair for the ordeal, so a veil contradicts the rite."
+        }
+      ]
+    },
+    {
+      "id": "p017",
+      "verdict": "acceptable",
+      "reason": "Laban confronts Jacob among the tents in Gilead, with Rachel nearby. This matches the verse and its context.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p018",
+      "verdict": "flawed",
+      "reason": "Moses and Aaron counting the Levite families is faithful, but the clothing description contradicts itself.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Moses and Aaron in plain linen robes, Aaron wearing his priestly garments with the gold-thread breastplate",
+          "reason": "Puts Aaron in plain linen robes and in high-priestly garments with a breastplate at once, which is a contradictory object state that also restates his canon outfit."
+        }
+      ]
+    },
+    {
+      "id": "p019",
+      "verdict": "acceptable",
+      "reason": "Jesus, half-turned toward the seated eleven in the night olive grove, tells them to sit while he goes on to pray. The scene is faithful and coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p020",
+      "verdict": "flawed",
+      "reason": "God says he sought a man to stand in the gap and found no one. The plan instead shows Ezekiel standing in the gap doing God's searching, and restates God's canon appearance.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Ezekiel standing in the gap of the broken wall",
+          "reason": "Shows a man in the gap when the verse says no one was found. It also places the exiled prophet, who only reports the oracle, in Jerusalem as a participant."
+        },
+        {
+          "quote": "Ezekiel scans the city and its people for a man willing to stand in the breach",
+          "reason": "Gives Ezekiel the search that the verse attributes to God."
+        },
+        {
+          "quote": "a distant radiance veiled in slowly moving cloud, its fire-like glow at the heart",
+          "reason": "Restates God's fixed canon appearance."
+        }
+      ]
+    },
+    {
+      "id": "p021",
+      "verdict": "acceptable",
+      "reason": "David takes Gath, with Israelite troops at the gate and the selected Joab at his side. The scene is faithful and coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p022",
+      "verdict": "acceptable",
+      "reason": "Hail and lightning strike Egyptian fields while a spared Israelite settlement sits at the edge. This faithfully illustrates the psalm's recital of the plague.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p023",
+      "verdict": "acceptable",
+      "reason": "A Levite proclaims the curse between Ebal and Gerizim while the crowd answers Amen, with a widow and a foreigner among them. This is a coherent representative scene for the commanded ceremony.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p024",
+      "verdict": "flawed",
+      "reason": "The Preacher concluding his teaching to listeners is a reasonable representative scene, but the plan restates his canon outfit word for word.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "wearing a long undyed linen undertunic beneath a deep blue royal court robe with a gold border",
+          "reason": "Restates the Preacher's fixed canon outfit."
+        }
+      ]
+    },
+    {
+      "id": "p025",
+      "verdict": "acceptable",
+      "reason": "Jesus seated with a little child among the attentive disciples in a Capernaum house is a faithful image of receiving a child in his name.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p026",
+      "verdict": "flawed",
+      "reason": "The disappointed goldsmith fits the verse, but the plan adds Jeremiah watching from the doorway and gives the goldsmith two conflicting poses.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "as Jeremiah stands in the doorway",
+          "reason": "Jeremiah is the prophet speaking a general oracle against idols. Placing him in the goldsmith's workshop shows a framing figure as a participant."
+        },
+        {
+          "quote": "The goldsmith turns away from his failed image",
+          "reason": "Contradicts the primary subject, who is 'staring at a lifeless molten idol'. The two poses conflict."
+        }
+      ]
+    },
+    {
+      "id": "p027",
+      "verdict": "acceptable",
+      "reason": "Agrippa on the raised seat answers Paul, who stands in chains, with Bernice and Festus present in the Caesarea audience hall. The scene is faithful and coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p028",
+      "verdict": "flawed",
+      "reason": "Assyrian counselors plotting in Nineveh beneath God's gathering presence is a fair symbolic scene, but the plan restates God's canon appearance.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a fire-like glow at the heart of the radiance, with the cloud-veiled presence of God above the city",
+          "reason": "Restates God's fixed canon appearance (fire-like glow at its heart, cloud veil)."
+        }
+      ]
+    },
+    {
+      "id": "p029",
+      "verdict": "acceptable",
+      "reason": "Benjamite warriors halt and look back at Gibeah going up in a pillar of smoke, which matches the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p030",
+      "verdict": "flawed",
+      "reason": "The verse describes the nobles' former purity and ruddy splendour, but the plan shows them in the ruined present, closer to v8. It also adds a restated God radiance that the verse does not mention.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Nobles of Jerusalem standing upright in worn but once-fine court robes",
+          "reason": "Shows the nobles in their ruined present state rather than the former splendour that v7 describes ('purer than snow', 'ruddy', polished like sapphire)."
+        },
+        {
+          "quote": "radiance without source veiled by cloud above the scene",
+          "reason": "Restates God's fixed canon appearance ('without a source', 'veiled by cloud'), and the verse gives no basis for God's presence."
+        }
+      ]
+    }
+  ]
+}

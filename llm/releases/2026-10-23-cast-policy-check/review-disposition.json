@@ -1,0 +1,58 @@
+{
+  "at": "2026-10-23T21:52:45.737863+00:00",
+  "rounds": [
+    {
+      "review": "coderabbit-round-1.ndjson",
+      "unreviewedFiles": 1,
+      "findings": [
+        {
+          "severity": "major",
+          "title": "Stop on provider errors and keep them out of refusal counts",
+          "disposition": "Declined for sample.mts: it is the one-shot script that ran, committed and hash-pinned before any paid call, so changing it would misdescribe the run. The retained run has no such rows: all 98 outcomes are stored or refused, and run-finished.json records no ledger block and no unexpected request. The refusal-count half is covered by the tally guard below."
+        },
+        {
+          "severity": "minor",
+          "title": "Keep operational outcomes out of plan-refusal metrics",
+          "disposition": "Accepted as a guard: tally.mts now fails on any outcome other than stored or refused instead of counting it as a refusal. Regenerating the tally with the guard reproduced tally.json exactly apart from its timestamp; the retained tally.json is unchanged and the manifest hash for tally.mts was refreshed."
+        }
+      ]
+    },
+    {
+      "review": "coderabbit-round-2.ndjson",
+      "unreviewedFiles": 1,
+      "findings": [
+        {
+          "severity": "major",
+          "title": "Check the complete paired row set",
+          "disposition": "Accepted. tally.mts --check recomputes the whole tally from both score files, the adjudication and the samples, and requires tally.json exactly apart from its timestamp; verify.mts runs it. Both now require unique row ids, every sample to pair with one baseline row (the baseline's two extra verses stay unpaired) and paired.verses to equal the sample count. A tampered tally fails the check. The retained tally.json is unchanged; manifest hashes for tally.mts and verify.mts were refreshed."
+        },
+        {
+          "severity": "major",
+          "title": "Reconcile the scores with the tally",
+          "disposition": "Accepted. tally.mts --check recomputes the whole tally from both score files, the adjudication and the samples, and requires tally.json exactly apart from its timestamp; verify.mts runs it. Both now require unique row ids, every sample to pair with one baseline row (the baseline's two extra verses stay unpaired) and paired.verses to equal the sample count. A tampered tally fails the check. The retained tally.json is unchanged; manifest hashes for tally.mts and verify.mts were refreshed."
+        },
+        {
+          "severity": "major",
+          "title": "Validate the exact 98-row paired set",
+          "disposition": "Accepted. tally.mts --check recomputes the whole tally from both score files, the adjudication and the samples, and requires tally.json exactly apart from its timestamp; verify.mts runs it. Both now require unique row ids, every sample to pair with one baseline row (the baseline's two extra verses stay unpaired) and paired.verses to equal the sample count. A tampered tally fails the check. The retained tally.json is unchanged; manifest hashes for tally.mts and verify.mts were refreshed."
+        }
+      ]
+    },
+    {
+      "review": "coderabbit-round-3.ndjson",
+      "unreviewedFiles": 1,
+      "findings": [
+        {
+          "severity": "minor",
+          "title": "Disclose that one calibration agreement depends on the baseline decision",
+          "disposition": "Accepted. The README's scoring-drift section now says one of the 37 agreements (99a7535b, baseline f3bd238e) was settled by the operator to match the baseline decision, and reports 36 of 39 for replies the scorers agreed on themselves. No score or retained data changed; the three other decisions were on new replies and are already disclosed as matching identical baseline cases."
+        }
+      ]
+    },
+    {
+      "review": "coderabbit-final.ndjson",
+      "unreviewedFiles": 1,
+      "findings": []
+    }
+  ]
+}

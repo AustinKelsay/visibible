@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-20T23:19:55.271217+00:00",
+  "mode": "owner",
+  "deployment": {
+    "id": "dpl_AtLZn639vnVjiciNUvumGtuHnMu6",
+    "url": "visibible-d69hu3aqi-austin-kelsays-projects.vercel.app",
+    "readyState": "READY",
+    "target": "production"
+  },
+  "publicStyles": [
+    {
+      "id": "classical",
+      "label": "Classical",
+      "description": "Expansive painterly scenes with dramatic light and restrained color; suited to epic narratives.",
+      "available": true,
+      "reason": null
+    },
+    {
+      "id": "watercolor",
+      "label": "Ink & Watercolor",
+      "description": "Expressive ink lines and transparent washes; suited to atmospheric journeys and intimate observation.",
+      "available": false,
+      "reason": "The watercolor art style is temporarily unavailable"
+    },
+    {
+      "id": "icon",
+      "label": "Byzantine Icon",
+      "description": "Flat gold-ground painting with inverse perspective and stylized figures; suited to sacred and symbolic narratives.",
+      "available": false,
+      "reason": "The icon art style is temporarily unavailable"
+    }
+  ],
+  "controlledSessionSha256": "c032800339ce38c2f0377aff01520d7471a18c80f643d154f06bb1f9856375b4",
+  "note": "Public request carries no cookie. Controlled paid guest API separately verified all three styles available at five credits; no public activation."
+}

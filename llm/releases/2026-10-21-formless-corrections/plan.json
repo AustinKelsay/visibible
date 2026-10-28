@@ -1,0 +1,146 @@
+{
+  "at": "2026-10-21T16:59:05.040523+00:00",
+  "issue": 183,
+  "publicActivation": false,
+  "purpose": "Targeted correction study only; no full-matrix or human release acceptance. Preserve all previous paid artifacts.",
+  "run": "release-2026-10-21-v3-formless",
+  "promptVersion": "2026-10-21-generic-v3",
+  "caseIds": [
+    "2-kings-2-23-bears",
+    "isaiah-6-2-seraphim",
+    "daniel-7-9-ancient-of-days",
+    "revelation-4-6-living-creatures",
+    "genesis-1-3-light",
+    "exodus-14-22-sea-walls",
+    "matthew-14-29-peter-water",
+    "holmes-scandal-the-woman"
+  ],
+  "styles": [
+    "classical",
+    "watercolor",
+    "icon"
+  ],
+  "repeats": 3,
+  "maximumImageCalls": 72,
+  "maximumPreparationCalls": 8,
+  "expectedPreparationCalls": 3,
+  "preparationScope": "Elisha look and plan; Daniel plan; at most one retry each within eight-call bound. No reading pass, checker or reference generation.",
+  "imageModel": "google/gemini-3.1-flash-lite-image",
+  "textModel": "anthropic/claude-haiku-5.5",
+  "subcapUsd": 2.7,
+  "imageReserveUsd": 0.04,
+  "preparationReserveUsd": 0.005,
+  "unknownUsagePolicy": "Stop all further paid calls until reconciled; reserve the full per-call bound for uncertain responses.",
+  "evaluationAuthorizedUsd": 16,
+  "evaluationMeasuredBeforeUsd": 13.0042488,
+  "evaluationUncertaintyBeforeUsd": 0.045,
+  "evaluationRemainingBeforeUsd": 2.9507512,
+  "maximumEvaluationWithSubcapAndPriorUncertaintyUsd": 15.7492488,
+  "preparationAuthorizedUsd": 43,
+  "preparationMeasuredUsd": 3.6351192,
+  "preparationUncertaintyUsd": 0.03,
+  "smokeAuthorizedUsd": 1,
+  "smokeMeasuredUsd": 0.0685215,
+  "note": "All new usage, including preparation, belongs only to the $16 evaluation bucket. Account funds are separate; no purchase or model substitution. Registered style files unchanged; rejected underwash trial not used. Worst-case per-request reserves are admission guards, not a promise that all72 requests fit. Stop at the subcap even if incomplete.",
+  "preflightPacketCount": 54,
+  "preflightColdPacketCount": 18,
+  "unchangedControlPromptParity": [
+    {
+      "key": "exodus-14-22-sea-walls/generic:classical/1",
+      "exactPromptUnchanged": true,
+      "sha256": "c78488e5bb46bc0802753a5d2925fc9cd7e9626787a80ee71a8d255d040e9896"
+    },
+    {
+      "key": "exodus-14-22-sea-walls/generic:classical/2",
+      "exactPromptUnchanged": true,
+      "sha256": "b416e88b856c19d0e51ccdc2054afdfe154a5d5e0b7bd41066ec916762d23ccd"
+    },
+    {
+      "key": "exodus-14-22-sea-walls/generic:classical/3",
+      "exactPromptUnchanged": true,
+      "sha256": "3879276a3f444f4d765dae613cd054b2754b892bb2e48b8ad5956511e5fb91c4"
+    },
+    {
+      "key": "matthew-14-29-peter-water/generic:classical/1",
+      "exactPromptUnchanged": true,
+      "sha256": "39723079e312a2821cbb632e2b8868601ae5bb212ed3821e944afb9391dbd34b"
+    },
+    {
+      "key": "matthew-14-29-peter-water/generic:classical/2",
+      "exactPromptUnchanged": true,
+      "sha256": "01dd6c43221b1655023253e5b2333e1b8c6b11b0cdbec7ba30470317620b6270"
+    },
+    {
+      "key": "matthew-14-29-peter-water/generic:classical/3",
+      "exactPromptUnchanged": true,
+      "sha256": "3f54385eb4cb92300d029f971ae59f3acf83ba354642d0acfa231988f031b9b1"
+    },
+    {
+      "key": "holmes-scandal-the-woman/generic:classical/1",
+      "exactPromptUnchanged": true,
+      "sha256": "4174befacd6210595714556f3254202763c6b682e7f15a0ee783a308ce86506d"
+    },
+    {
+      "key": "holmes-scandal-the-woman/generic:classical/2",
+      "exactPromptUnchanged": true,
+      "sha256": "f52033d92593f56367bd842bcd135466a704cd071e7f4a5ed96b9dc117a1fd5c"
+    },
+    {
+      "key": "holmes-scandal-the-woman/generic:classical/3",
+      "exactPromptUnchanged": true,
+      "sha256": "3ea798bfe0588bf86e5811d86fffb0077dcb93769bc397da1759109e0d4e98e6"
+    },
+    {
+      "key": "exodus-14-22-sea-walls/generic:icon/1",
+      "exactPromptUnchanged": true,
+      "sha256": "4986978fe8a7ffa8cb09e13162b9fc0a8dc67b42df782feaf7b359f98a1f576f"
+    },
+    {
+      "key": "exodus-14-22-sea-walls/generic:icon/2",
+      "exactPromptUnchanged": true,
+      "sha256": "bd38f72e06301eaaf156c548735e96c0efdd3701a96cb7e7772ba454b6013601"
+    },
+    {
+      "key": "exodus-14-22-sea-walls/generic:icon/3",
+      "exactPromptUnchanged": true,
+      "sha256": "98728cbcf65a2a5fbc02bf1b92af46f4ea17c65e3a3c835168e373bd0d26d871"
+    },
+    {
+      "key": "matthew-14-29-peter-water/generic:icon/1",
+      "exactPromptUnchanged": true,
+      "sha256": "edbeeb081f34b3d3c39e4a168208d4b8f192b6cff2a342bca5fa82a19bf307d9"
+    },
+    {
+      "key": "matthew-14-29-peter-water/generic:icon/2",
+      "exactPromptUnchanged": true,
+      "sha256": "33012d49557a1029bd98808ca9f7fd36baf8b8b466f84f869f1c7f6d01c011a9"
+    },
+    {
+      "key": "matthew-14-29-peter-water/generic:icon/3",
+      "exactPromptUnchanged": true,
+      "sha256": "e8431fff4c98c82db58544ef6a7c564a506a83ab1885b75328e4ce168f8ac302"
+    },
+    {
+      "key": "holmes-scandal-the-woman/generic:icon/1",
+      "exactPromptUnchanged": true,
+      "sha256": "b85af3ab2fbf7a225251ffd4a9534f3811788bd7b368bd013db0bcfe1b23f5e0"
+    },
+    {
+      "key": "holmes-scandal-the-woman/generic:icon/2",
+      "exactPromptUnchanged": true,
+      "sha256": "901287d5fc7c5457fb70a56cc606820f62827a77fd8ec3f8f665028e3b8b5a47"
+    },
+    {
+      "key": "holmes-scandal-the-woman/generic:icon/3",
+      "exactPromptUnchanged": true,
+      "sha256": "32fdbf7a56835abfb5a3d8a265e768d7a8ed3a97e50a0fc723919374bb815d0e"
+    }
+  ],
+  "sourceFiles": {
+    "src/lib/engine/prompt.ts": "1e6904d6762715016e567691ead5a152ffa6f7716d2eed91c44ec61ad48968f8",
+    "evals/images/cases.json": "1b387f6549c797402a4a3620b7a7e3254df2bcc7c63bd6675647483247b2cdc5",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760"
+  }
+}

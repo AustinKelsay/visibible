@@ -1,0 +1,35 @@
+{
+  "firstScoresUnchanged": true,
+  "alternativesFrozenBeforeUnblinding": true,
+  "combinations": 486,
+  "ranges": [
+    {
+      "arm": "baseline",
+      "acceptableMinimum": 2,
+      "acceptableMaximum": 5
+    },
+    {
+      "arm": "candidate",
+      "acceptableMinimum": 2,
+      "acceptableMaximum": 5
+    }
+  ],
+  "differenceMinimum": -3,
+  "differenceMaximum": 3,
+  "pipelineGatePasses": 0,
+  "allStoresAcceptedUpperBound": [
+    {
+      "arm": "baseline",
+      "acceptable": 5,
+      "freshAcceptable": 5,
+      "retainedAcceptable": 0
+    },
+    {
+      "arm": "candidate",
+      "acceptable": 6,
+      "freshAcceptable": 6,
+      "retainedAcceptable": 0
+    }
+  ],
+  "limitation": "Explicit disputed readings only, not independent rescoring or a population interval. Even accepting every stored packet cannot pass availability."
+}

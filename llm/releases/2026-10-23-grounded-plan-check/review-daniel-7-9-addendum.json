@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-23T14:18:40.306173+00:00",
+  "supplements": "review-daniel-7-9.json",
+  "reviewSha256": "2d21a935d196173f99f8c149c807614fab4dccb5d5f32aee0cfa8fdbc21f21ca",
+  "artifactSha256": "167faf853533513104c6eb2cb7902f1db63c24acd0faaf7f46c0828a75ffd638",
+  "reason": "Post-operation CodeRabbit review of the evidence noted seated-presence wording in the refused Daniel 7:10 reply; rereading the accepted 7:9 plan found the same wording, which the original review missed.",
+  "reviewer": "Agent text re-inspection; not human release acceptance",
+  "originalVerdict": "accept-for-next-text-check",
+  "revisedVerdict": "hold-for-no-form-wording",
+  "observations": [
+    {
+      "severity": "blocker",
+      "topic": "Seated presence",
+      "evidence": "Radiance and fire gathered into an unoccupied central seat, the presence seated there by its placement; the seat is empty of any figure",
+      "assessment": "The no-form planning instruction requires an unoccupied seat with surrounding effects rather than a seated presence. The plan calls the seat unoccupied and empty, yet also describes the presence as seated there. That leaves occupancy ambiguous, the same failure for which the retained v2 Daniel canon pilot was rejected. Combined with the denial wording already recorded, the plan invites a seated figure from an image model. Held before images."
+    },
+    {
+      "severity": "note",
+      "topic": "Effect on this operation",
+      "assessment": "The original verdict permitted the conditional Daniel 7:10 call, which then ran once and was refused by the evidence check. That call stays recorded as made under the original verdict; it is not repeated or reinterpreted. The improvements in narrator and assembly presence stand."
+    }
+  ],
+  "decision": {
+    "textInputForVisualStep": false,
+    "imageCallsAllowed": false,
+    "semanticRetryAllowed": false,
+    "responseEditingAllowed": false,
+    "releaseAccepted": false
+  }
+}

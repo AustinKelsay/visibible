@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-20T23:16:44.227Z",
+  "deployment": "unique-impala-244",
+  "publicMode": "disabled",
+  "status": {
+    "activeGeneration": 1,
+    "activeVersions": {
+      "activatedAt": 1792538171849,
+      "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+    },
+    "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "candidateGeneration": null,
+    "exists": true,
+    "ready": true,
+    "reasons": [],
+    "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+  },
+  "generation": {
+    "activatedAt": 1792538171849,
+    "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "counts": {
+      "entry": 1569,
+      "moment": 31102,
+      "section": 2790
+    },
+    "createdAt": 1792535223334,
+    "generation": 1,
+    "note": "release-2026-10-20 complete WEB reading and canon; original model versions",
+    "recordCounts": {
+      "entry": 1569,
+      "moment": 31102,
+      "section": 2790
+    },
+    "status": "active",
+    "workId": "bible-web",
+    "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+  },
+  "ownerCorrections": 165,
+  "modelCalls": 0
+}

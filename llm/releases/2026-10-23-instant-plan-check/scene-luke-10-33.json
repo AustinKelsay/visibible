@@ -1,0 +1,219 @@
+{
+  "at": "2026-10-23T15:44:07.842Z",
+  "elapsedMs": 8477,
+  "snapshot": "pre-luke-10-33",
+  "context": {
+    "moment": {
+      "id": "luke-10-33",
+      "reference": "Luke 10:33",
+      "text": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,"
+    },
+    "previous": {
+      "text": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side."
+    },
+    "next": {
+      "text": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him."
+    }
+  },
+  "result": {
+    "sectionId": "luke-10-25",
+    "era": "roman-era-judea-galilee-and-the-early-church",
+    "look": {
+      "version": "9cb58359fa22fb6e3931fff1bf133a1d",
+      "payload": {
+        "place": "Rocky, dusty Jerusalem–Jericho road in Judea, with stony hills and scattered thorn scrub, leading toward a roadside inn",
+        "timeOfDay": "Midday heat, shifting to late afternoon and evening at the inn",
+        "weather": "Clear, dry, hot sky with no rain",
+        "light": "Harsh, bright sunlight on the road, softening to warm golden evening light at the inn",
+        "clothing": "Travelers in plain tunics and cloaks suited to dusty desert roads; the Samaritan wears a practical traveling cloak and carries oil and wine"
+      }
+    },
+    "plan": {
+      "version": "83dd3e8b01d215daccf70f8321764b37",
+      "payload": {
+        "primarySubject": "The Samaritan standing still on the road, gazing down at the wounded traveler.",
+        "action": "The Samaritan halts and looks down at the injured man lying by the roadside, his face softened with compassion.",
+        "setting": "Rocky, dusty Jerusalem–Jericho road in Judea, stony hills and thorn scrub stretching around.",
+        "secondaryElements": "The wounded traveler lies in the dust, half-clothed and bruised, his plain tunic torn. The Samaritan's donkey stands nearby, and his oil and wine jars are slung at his side.",
+        "mood": "Reverent, tender and compassionate, with quiet grief and human dignity.",
+        "timeOfDay": "Midday heat with harsh, bright sunlight on the road.",
+        "composition": "Medium-wide view from slightly above the roadside, the Samaritan standing and the wounded man low in the dust, the stony hills behind them.",
+        "present": [
+          "the_samaritan",
+          "wounded_traveler_in_samaritan_parable",
+          "jerusalem_to_jericho_road"
+        ]
+      }
+    },
+    "present": [
+      {
+        "entryId": "the_samaritan",
+        "stageId": "the_samaritan-main",
+        "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+      },
+      {
+        "entryId": "wounded_traveler_in_samaritan_parable",
+        "stageId": "wounded_traveler_main",
+        "version": "4d9d8a0161d3304a3b11c8b914159215"
+      },
+      {
+        "entryId": "jerusalem_to_jericho_road",
+        "stageId": "jerusalem_to_jericho_road_main",
+        "version": "29f520702292f19b67186f38b0bdca4c"
+      }
+    ],
+    "calls": 1
+  },
+  "stored": {
+    "createdAt": 1792770247464,
+    "generation": 1,
+    "inputs": [
+      {
+        "kind": "moment",
+        "recordId": "luke-10-33",
+        "version": "06c6fc10b9d746536f8f23b8020bf41c"
+      },
+      {
+        "kind": "section",
+        "recordId": "luke-10-25",
+        "version": "30addabc87a1da6195912e64d9fc4038"
+      },
+      {
+        "kind": "look",
+        "recordId": "luke-10-25",
+        "version": "9cb58359fa22fb6e3931fff1bf133a1d"
+      },
+      {
+        "kind": "brief",
+        "recordId": "bible-web",
+        "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+      },
+      {
+        "kind": "entry",
+        "recordId": "lawyer_who_tests_jesus_luke_10",
+        "version": "432a31ff7a59cb7aa1ae2e37bf87adbb"
+      },
+      {
+        "kind": "entry",
+        "recordId": "jesus_christ_the_son_of_god_and_lord",
+        "version": "0610430f0f21f266bc5852671492395b"
+      },
+      {
+        "kind": "entry",
+        "recordId": "judea_gospel_region_around_jerusalem",
+        "version": "5c5ceb023c289235bb1999caa547dfee"
+      },
+      {
+        "kind": "entry",
+        "recordId": "wounded_traveler_in_samaritan_parable",
+        "version": "4d9d8a0161d3304a3b11c8b914159215"
+      },
+      {
+        "kind": "entry",
+        "recordId": "robbers_in_samaritan_parable",
+        "version": "f28e5c54eaa8f701fba1401ce96b83f0"
+      },
+      {
+        "kind": "entry",
+        "recordId": "priest_in_samaritan_parable",
+        "version": "0a03afc2196bfdb1afb6747ad9c73a86"
+      },
+      {
+        "kind": "entry",
+        "recordId": "levite_in_samaritan_parable",
+        "version": "f916bafa12d638d3d26d1f42b3b079c6"
+      },
+      {
+        "kind": "entry",
+        "recordId": "innkeeper_in_samaritan_parable",
+        "version": "6682f845b5861d549bb8840dde1ad7e9"
+      },
+      {
+        "kind": "entry",
+        "recordId": "samaritans_mount_in_parable",
+        "version": "ee1dd25ba71166387cf6e4c3c393893f"
+      },
+      {
+        "kind": "entry",
+        "recordId": "jerusalem_to_jericho_road",
+        "version": "29f520702292f19b67186f38b0bdca4c"
+      },
+      {
+        "kind": "entry",
+        "recordId": "inn_in_samaritan_parable",
+        "version": "79696bd3b4de4fdc426365cb1368848f"
+      },
+      {
+        "kind": "entry",
+        "recordId": "the_samaritan",
+        "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+      },
+      {
+        "kind": "prompt",
+        "recordId": "scene_plan_moment_cast",
+        "version": "2026-10-23-moment-cast-v4"
+      }
+    ],
+    "kind": "plan",
+    "payload": {
+      "entries": [
+        {
+          "entryId": "the_samaritan",
+          "stageId": "the_samaritan-main"
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "stageId": "wounded_traveler_main"
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "stageId": "jerusalem_to_jericho_road_main"
+        }
+      ],
+      "grounding": {
+        "cast": [
+          {
+            "contextQuote": "",
+            "contextSource": "none",
+            "entryId": "the_samaritan",
+            "momentQuote": "a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion",
+            "participation": "in_scene"
+          },
+          {
+            "contextQuote": "passed by on the other side",
+            "contextSource": "previous",
+            "entryId": "wounded_traveler_in_samaritan_parable",
+            "momentQuote": "came where he was. When he saw him",
+            "participation": "in_scene"
+          },
+          {
+            "contextQuote": "",
+            "contextSource": "none",
+            "entryId": "jerusalem_to_jericho_road",
+            "momentQuote": "as he traveled, came where he was",
+            "participation": "in_scene"
+          }
+        ],
+        "focusQuote": "he was moved with compassion",
+        "instant": "The Samaritan, on foot in a practical traveling cloak, stops on the rocky Jerusalem–Jericho road beside the wounded traveler lying in the dust, and is moved with compassion as he looks down at him.",
+        "singleInstant": true
+      },
+      "kind": "plan",
+      "momentId": "luke-10-33",
+      "plan": {
+        "action": "The Samaritan halts and looks down at the injured man lying by the roadside, his face softened with compassion.",
+        "composition": "Medium-wide view from slightly above the roadside, the Samaritan standing and the wounded man low in the dust, the stony hills behind them.",
+        "mood": "Reverent, tender and compassionate, with quiet grief and human dignity.",
+        "primarySubject": "The Samaritan standing still on the road, gazing down at the wounded traveler.",
+        "secondaryElements": "The wounded traveler lies in the dust, half-clothed and bruised, his plain tunic torn. The Samaritan's donkey stands nearby, and his oil and wine jars are slung at his side.",
+        "setting": "Rocky, dusty Jerusalem–Jericho road in Judea, stony hills and thorn scrub stretching around.",
+        "timeOfDay": "Midday heat with harsh, bright sunlight on the road."
+      }
+    },
+    "recordId": "luke-10-33",
+    "source": "generated",
+    "status": "current",
+    "version": "83dd3e8b01d215daccf70f8321764b37",
+    "workId": "bible-web"
+  }
+}

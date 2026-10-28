@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-21T00:34:13.644Z",
+  "modelCalls": 0,
+  "referenceMutations": 0,
+  "rows": [
+    {
+      "workId": "bible-web",
+      "kind": "styleReference",
+      "recordId": "watercolor",
+      "fingerprint": "fa549f4888d199a3c3fd94209103e214",
+      "pinned": false,
+      "noted": {
+        "id": "mh746c466z10962zmcyem7z57n8gph9b"
+      },
+      "detail": "Release #183 edge audit: the current Watercolor style reference has visible unpainted paper at the perimeter despite its original checker pass. Retained original image and original answer are unchanged. The revised perimeter/corner checker classified this exact image as non-full-bleed in all 3 repeats (2026-10-21); see llm/releases/2026-10-20-watercolor-edge-check. Regenerate or omit the faulty optional reference before evaluating the corrected style. This attention note does not invalidate, unpin, replace or delete the reference; public generic admission remains disabled."
+    },
+    {
+      "workId": "holmes-adventures",
+      "kind": "styleReference",
+      "recordId": "watercolor",
+      "fingerprint": "3eda749bc6991072eba06b73136d75af",
+      "pinned": false,
+      "noted": {
+        "id": "mh76y9qbh9ktv8xasebh0nqg798gqazs"
+      },
+      "detail": "Release #183 edge audit: the current Watercolor style reference has visible unpainted paper at the perimeter despite its original checker pass. Retained original image and original answer are unchanged. The revised perimeter/corner checker classified this exact image as non-full-bleed in all 3 repeats (2026-10-21); see llm/releases/2026-10-20-watercolor-edge-check. Regenerate or omit the faulty optional reference before evaluating the corrected style. This attention note does not invalidate, unpin, replace or delete the reference; public generic admission remains disabled."
+    }
+  ]
+}

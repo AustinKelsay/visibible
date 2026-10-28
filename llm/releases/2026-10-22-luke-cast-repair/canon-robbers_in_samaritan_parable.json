@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-22T22:32:05.134Z",
+  "entry": {
+    "id": "robbers_in_samaritan_parable",
+    "kind": "character",
+    "readingKind": "group",
+    "name": "Robbers in the Samaritan parable",
+    "aliases": [
+      "the robbers in the story"
+    ],
+    "note": "Unnamed group inside Jesus’s story in Luke 10:30 who attack the traveler and depart. Distinct from the men crucified with Jesus and all other robbery groups. Describe a typical member.",
+    "members": [],
+    "support": [
+      "luke-10-30"
+    ]
+  },
+  "result": {
+    "entryId": "robbers_in_samaritan_parable",
+    "kind": "character",
+    "hasForm": true,
+    "appearanceFromText": "The text names only 'robbers' who stripped and beat the traveler and departed; it fixes no physical features, so the look is supplied from the Roman-era Judean roadside setting, with rough tunics and cloaks typical of the period.",
+    "stages": [
+      {
+        "id": "robbers_in_samaritan_parable-s1",
+        "label": "Robbers (typical member)",
+        "when": "Roman Judea, the road from Jerusalem down to Jericho",
+        "source": "mixed",
+        "quotes": [
+          {
+            "unit": "luke-10-30",
+            "quote": "he fell among robbers, who both stripped him and beat him, and departed"
+          }
+        ],
+        "text": "Robbers: a typical member is a lean adult man, aged late twenties to forties, of wiry build with weathered olive skin, dark hair and short beard. He wears a faded earth-brown tunic belted at the waist with a dusty cloak of undyed wool and sandals or bare feet. Signature props carried alone: a short knife at the belt and a rough wooden cudgel."
+      }
+    ],
+    "sectionStages": {
+      "luke-10-25": "robbers_in_samaritan_parable-s1"
+    },
+    "problems": [],
+    "promptVersion": "2026-10-22-canon-showing-v3",
+    "attempts": 1
+  }
+}

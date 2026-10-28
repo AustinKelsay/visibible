@@ -1,0 +1,16 @@
+{
+  "actualPromptVersion": "2026-10-20-generic-v2",
+  "imageModel": "google/gemini-3.1-flash-lite-image",
+  "source": "Every generic sample packet in all three native states; report.raw.json and state.json.gz retain original bytes. Derived report.json corrects only the reproducibility prompt header.",
+  "rawRunHeaderPromptVersion": "2026-09-08-canonical",
+  "styles": [
+    "classical",
+    "watercolor",
+    "icon"
+  ],
+  "requiredRepeats": 3,
+  "retainedBaseline": true,
+  "caseFile": "cases.json",
+  "stylesDirectory": "styles/",
+  "reportStatus": "partial; 54 completed images and 270 provider 402 failures; no release acceptance"
+}

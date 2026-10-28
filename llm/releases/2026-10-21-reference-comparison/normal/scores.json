@@ -1,0 +1,60 @@
+{
+  "run": "release-2026-10-21-reference-comparison-normal",
+  "dimensions": {
+    "legacy": [
+      "relevance",
+      "clarity",
+      "artifacts_style"
+    ],
+    "generic": [
+      "relevance",
+      "identity",
+      "continuity",
+      "style",
+      "artifacts"
+    ]
+  },
+  "scale": "0 materially fails, 1 incomplete or mildly off, 2 meets",
+  "verdicts": [
+    "pass",
+    "accepted limitation",
+    "fail"
+  ],
+  "rules": "An observed depiction-rule or prohibited-likeness violation is a fail whatever the scores. A known Icon border may be recorded as an accepted limitation, never averaged away.",
+  "rows": [
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:watercolor",
+      "outputs": [
+        "outputs/daniel-7-9-ancient-of-days/generic-watercolor-1.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-watercolor-2.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-watercolor-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 1,
+      "continuity": null,
+      "style": 1,
+      "artifacts": 0,
+      "verdict": "fail",
+      "notes": "Repeat 1: Bright radiance above the chair forms draped, robe-like folds and an occupied-looking central mass. No distinct face or limbs are resolved, so this remains ambiguous rather than a confident no-body pass or a confirmed bodily depiction. The painted scene reaches the frame edges; pale rocks in the foreground are scene content, with no exposed white paper margin visible.; Repeat 2: The fiery seat is visibly empty beneath a column and streams of radiance; no human-form divine occupant is visible. Irregular exposed white corners remain at the bottom, outside the painted wash. This independently fails full-frame presentation.; Repeat 3: An empty fiery chair sits amid radiance and cloud; no human-form divine occupant is visible. The painted scene fills the frame. The scene adds winged attendants and other onlookers. Daniel has longer curly gray hair than the cropped hair described by his canon; identity fidelity needs further review. A narrow presentation/no-body pass does not establish release or likeness acceptance."
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-1.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-2.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 0,
+      "continuity": null,
+      "style": 2,
+      "artifacts": 0,
+      "verdict": "fail",
+      "notes": "Repeat 1: White radiance forms a faceless seated human silhouette on the throne, with an oval head, torso, arm-like extensions and draped lower body. This is a clear violation of the named no-form constraint, even though no face is drawn. The image is one continuous scene and fills the frame; those presentation passes cannot override a depiction failure.; Repeat 2: The fiery throne is unoccupied and a long stream of radiance crosses it without a human silhouette. The foreground city includes domed church-like buildings and visible cross-shaped finials. These conflict with the exile-era setting and the no-symbols priority rule. This is an observed output problem; direct copying or causation from the style reference is not established.; Repeat 3: An empty fiery throne sits in continuous cloud and streaming light with Daniel below. No human-form divine occupant, split panels or exposed frame is visible. Decorative geometric throne patterning is not classified as writing. This passes only the assessed visual criteria; human likeness and release acceptance remain pending."
+    }
+  ],
+  "reviewer": "agent; provisional visual assessment, not human release acceptance",
+  "humanAccepted": false
+}

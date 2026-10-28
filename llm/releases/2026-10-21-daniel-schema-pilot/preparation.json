@@ -1,0 +1,130 @@
+{
+  "at": "2026-10-21T19:46:39.211Z",
+  "packet": {
+    "styleId": "classical",
+    "n": 1,
+    "preparationCalls": 1,
+    "preparationCostUsd": 0.0004693,
+    "preparationUsageMissing": false,
+    "quote": {
+      "providerUsd": 0.03416225,
+      "credits": 5,
+      "promptTokens": 1649,
+      "referenceImages": 0,
+      "outputTokens": 1120,
+      "withinEnvelope": true
+    },
+    "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Daniel 7:9: \"“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nFORMLESS SUBJECTS (binding depiction constraints, including when the source uses bodily metaphors):\n- The Ancient of Days: represent only through the non-figurative presence allowed by its canon and the work brief. No head, face, torso, limbs, hands, human silhouette or garment-shaped body, even faceless or made of light. Do not represent this subject as a figure occupying a seat.\nThese constraints apply only to the named subjects; other characters retain their own canon forms.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- The Ancient of Days: no human face or body; a presence of white radiance and cloud over a throne of fiery flame, the light pure and unbroken, the glow like white wool and burning fire rising in streams from before him, the seat of judgment set in brilliant cloud under the open sky.\n- Daniel: a lean, dignified Judean man in his youth grown to a grave, graying elder; olive-brown skin; dark hair cropped close and a short trimmed beard flecked with grey; deep-set, steady eyes and a calm, thoughtful face. Signature outfit: a long undyed linen tunic under a plain indigo wool cloak with a blue fringed hem. Props: a small leather scroll case slung at the hip.\n- Only Daniel (prophet of Babylon) has this canon look; any other people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Heavenly court above Babylon, vast open expanse of cloud and radiant fire\nTime of day: Night vision, sky of unbroken darkness\nWeather: Stormy air with drifting clouds and fire\nLight: Radiant fiery glow from the throne and wheels, no visible sun\nClothing: Daniel in a simple Babylonian-era tunic and cloak; court attendants in plain robes. The formless divine presence has no body, hair or garments.\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Pure white radiance and cloud gathered over an unoccupied seat of fiery flame, the seat of judgment, with wheels of burning fire beneath it; Daniel stands at a distance below, gazing upward.\nAction: Thrones are being set in place as the seat of judgment settles under the open sky; flames curl slowly outward from the seat while Daniel lifts his eyes and stands still in awe.\nSetting: Vast open heavenly expanse of drifting cloud and radiant fire above Babylon, no ground in sight except the dim distant city glow below.\nSecondary elements: Wheels of burning fire rolling beneath the fiery seat; streams of white radiance pouring like wool across the cloud; Daniel in a simple Babylonian tunic and cloak at the lower edge.\nMood: Reverent, awe-struck and solemn, with a quiet expectation of judgment.\nTime of day: Night vision under an unbroken sky of darkness, lit only by the fiery glow of throne and wheels.\nComposition: Wide view from below, seat and radiance rising high at center, Daniel small in the lower foreground looking up, wheels and cloud spreading across the frame.\n\nART STYLE: Classical\nRendering: Stylized, painterly, mysterious and expansive. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nNegatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, fresco, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nPalette: Mature, grounded color; rich but restrained contrast.\nLighting: Luminous, dramatic lighting.\nMaterials and texture: Gritty, raw texture; avoid polished digital smoothness.\nComposition: Cinematic, immersive viewpoint; heroic but grounded.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+    "promptSha256": "8aea1ada26095bb3e21878249c899a93905a38955123f81e3cdeae8fd78ec5ba",
+    "packet": {
+      "promptVersion": "2026-10-21-generic-v3",
+      "workId": "bible-web",
+      "momentId": "daniel-7-9",
+      "sectionId": "daniel-7-9",
+      "eraId": "monarchy-of-israel-and-judah",
+      "styleId": "classical",
+      "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+      "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+      "lookVersion": "1469b2542a3afbf77ed9921c8f727f20",
+      "planVersion": "8cd89ee4aad16a597882ff9ccf05f0f0",
+      "canon": [
+        {
+          "entryId": "the_ancient_of_days",
+          "stageId": "ancient-of-days-light",
+          "version": "ae42fd28206e5e83b5529fd0ebf9112c"
+        },
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "stageId": "daniel_main",
+          "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+        }
+      ],
+      "references": [],
+      "flags": {
+        "variationIncluded": false,
+        "neighborsIncluded": true,
+        "styleDetailIncluded": true,
+        "lookDetailIncluded": true
+      },
+      "budget": {
+        "maxChars": 8000,
+        "finalChars": 6594
+      }
+    },
+    "context": {
+      "moment": {
+        "id": "daniel-7-9",
+        "reference": "Daniel 7:9",
+        "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire."
+      },
+      "previous": null,
+      "next": {
+        "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened."
+      }
+    },
+    "prepared": {
+      "sectionId": "daniel-7-9",
+      "era": "monarchy-of-israel-and-judah",
+      "look": {
+        "version": "1469b2542a3afbf77ed9921c8f727f20",
+        "payload": {
+          "place": "Heavenly court above Babylon, vast open expanse of cloud and radiant fire",
+          "timeOfDay": "Night vision, sky of unbroken darkness",
+          "weather": "Stormy air with drifting clouds and fire",
+          "light": "Radiant fiery glow from the throne and wheels, no visible sun",
+          "clothing": "Daniel in a simple Babylonian-era tunic and cloak; court attendants in plain robes. The formless divine presence has no body, hair or garments."
+        }
+      },
+      "plan": {
+        "version": "8cd89ee4aad16a597882ff9ccf05f0f0",
+        "payload": {
+          "primarySubject": "Pure white radiance and cloud gathered over an unoccupied seat of fiery flame, the seat of judgment, with wheels of burning fire beneath it; Daniel stands at a distance below, gazing upward.",
+          "action": "Thrones are being set in place as the seat of judgment settles under the open sky; flames curl slowly outward from the seat while Daniel lifts his eyes and stands still in awe.",
+          "setting": "Vast open heavenly expanse of drifting cloud and radiant fire above Babylon, no ground in sight except the dim distant city glow below.",
+          "secondaryElements": "Wheels of burning fire rolling beneath the fiery seat; streams of white radiance pouring like wool across the cloud; Daniel in a simple Babylonian tunic and cloak at the lower edge.",
+          "mood": "Reverent, awe-struck and solemn, with a quiet expectation of judgment.",
+          "timeOfDay": "Night vision under an unbroken sky of darkness, lit only by the fiery glow of throne and wheels.",
+          "composition": "Wide view from below, seat and radiance rising high at center, Daniel small in the lower foreground looking up, wheels and cloud spreading across the frame.",
+          "present": [
+            "the_ancient_of_days",
+            "daniel_prophet_of_babylon"
+          ]
+        }
+      },
+      "present": [
+        {
+          "entryId": "the_ancient_of_days",
+          "stageId": "ancient-of-days-light",
+          "version": "ae42fd28206e5e83b5529fd0ebf9112c"
+        },
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "stageId": "daniel_main",
+          "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+        }
+      ],
+      "calls": 1
+    },
+    "canon": [
+      {
+        "entryId": "the_ancient_of_days",
+        "stageId": "ancient-of-days-light",
+        "kind": "character",
+        "name": "The Ancient of Days",
+        "text": "The Ancient of Days: no human face or body; a presence of white radiance and cloud over a throne of fiery flame, the light pure and unbroken, the glow like white wool and burning fire rising in streams from before him, the seat of judgment set in brilliant cloud under the open sky.",
+        "hasForm": false,
+        "version": "ae42fd28206e5e83b5529fd0ebf9112c"
+      },
+      {
+        "entryId": "daniel_prophet_of_babylon",
+        "stageId": "daniel_main",
+        "kind": "character",
+        "name": "Daniel (prophet of Babylon)",
+        "text": "Daniel: a lean, dignified Judean man in his youth grown to a grave, graying elder; olive-brown skin; dark hair cropped close and a short trimmed beard flecked with grey; deep-set, steady eyes and a calm, thoughtful face. Signature outfit: a long undyed linen tunic under a plain indigo wool cloak with a blue fringed hem. Props: a small leather scroll case slung at the hip.",
+        "hasForm": true,
+        "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+      }
+    ],
+    "references": []
+  }
+}

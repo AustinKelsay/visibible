@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-23T13:59:17.214870+00:00",
+  "artifactSha256": "b84eb7f0d4a94710026b0f938e4cfba60a67e74b2844a88852304e6a2b0a5bc1",
+  "reviewer": "Agent text inspection within authorized preparation; not human release acceptance",
+  "verdict": "hold-for-single-instant",
+  "humanAccepted": false,
+  "publicActivation": false,
+  "observations": [
+    {
+      "severity": "blocker",
+      "topic": "Single instant",
+      "evidence": "primarySubject: \"kneeling beside a wounded man\"; action: \"halting his steps and turning toward him\"",
+      "assessment": "The subject and composition place the Samaritan kneeling close beside the traveler, while the action has him still arriving, halting and turning. These are successive poses, not one instant. The reply still reported singleInstant true. This fails the declared single-instant criterion and is the documented limit that a model can misreport a sequence as simultaneous."
+    },
+    {
+      "severity": "improvement",
+      "topic": "Inner-story cast",
+      "assessment": "Selected cast is the Samaritan, the wounded traveler and the road, each classified in_scene with a current-verse quote. Jesus, the lawyer, priest, Levite, robbers, innkeeper, inn and mount are absent from roster and prose. Every described actor is selected."
+    },
+    {
+      "severity": "audit-quality",
+      "topic": "Neighbor evidence",
+      "evidence": "the_samaritan contextQuote: \"In the same way a Levite also, when he came to the place and saw him, passed by on the other side.\"",
+      "assessment": "The quoted previous verse is about the Levite, not the Samaritan's identity or continuity. It passes the exact-quote check, illustrating that quote membership does not establish relevance. It is audit data only and does not reach the rendering prompt."
+    },
+    {
+      "severity": "note",
+      "topic": "Canon separation",
+      "assessment": "No fixed age, anatomy, hair or canon colour is copied into the plan; the cloak comes from the shared look's situational clothing."
+    }
+  ],
+  "decision": {
+    "nextTextCheckAllowed": false,
+    "independentDanielCheckAllowed": true,
+    "imageCallsAllowed": false,
+    "semanticRetryAllowed": false,
+    "responseEditingAllowed": false,
+    "releaseAccepted": false
+  }
+}

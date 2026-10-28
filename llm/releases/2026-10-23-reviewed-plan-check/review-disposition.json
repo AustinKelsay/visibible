@@ -1,0 +1,65 @@
+{
+  "at": "2026-10-23T18:43:45.828461+00:00",
+  "rounds": [
+    {
+      "review": "coderabbit-round-1.ndjson",
+      "findings": [
+        {
+          "severity": "major",
+          "title": "Prevent a second run from appending samples",
+          "disposition": "Already prevented by exclusive-create run-started.json and the one-shot ledger; an explicit refusal before paid calls was added."
+        },
+        {
+          "severity": "minor",
+          "title": "Use adjudicated flags when verifying passes",
+          "disposition": "Accepted; verify.mts counts the same final flags as tally.mts."
+        }
+      ]
+    },
+    {
+      "review": "coderabbit-round-2.ndjson",
+      "findings": [
+        {
+          "severity": "minor",
+          "title": "Separate review-call latency from plan-plus-review",
+          "disposition": "Accepted in the guide and ADR."
+        },
+        {
+          "severity": "minor",
+          "title": "Attribute the 9 refusals",
+          "disposition": "Accepted; refined again in round 3."
+        }
+      ]
+    },
+    {
+      "review": "coderabbit-round-3.ndjson",
+      "findings": [
+        {
+          "severity": "minor",
+          "title": "Latency scope, ADR held-out statement, refusal attribution (three findings)",
+          "disposition": "Accepted after checking the ledger: 6 refusals when the review rejected the re-plan, 3 when the re-plan failed the evidence checks."
+        }
+      ]
+    },
+    {
+      "review": "coderabbit-round-4.ndjson",
+      "findings": [
+        {
+          "severity": "minor",
+          "title": "Stop sampling after an unexpected request",
+          "disposition": "Accepted as a guard; the recorded run had no unexpected request."
+        }
+      ]
+    },
+    {
+      "review": "coderabbit-final.ndjson",
+      "findings": [
+        {
+          "severity": "minor",
+          "title": "Make run-finished.json match the run script",
+          "disposition": "Declined. The artifact is what the script wrote during the run, before the guard was added; rewriting it would misstate the run. The README records the later script change."
+        }
+      ]
+    }
+  ]
+}

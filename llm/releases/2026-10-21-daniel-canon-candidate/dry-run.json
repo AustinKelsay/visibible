@@ -1,0 +1,69 @@
+{
+  "at": "2026-10-21T21:57:34.661Z",
+  "paidCalls": 0,
+  "productionMutations": 0,
+  "canonEstimatedUsd": 0.000885111111111111,
+  "preparationCapUsd": 0.02,
+  "maximumPreparationCalls": 4,
+  "images": {
+    "estimatedUsd": 0.105,
+    "capUsd": 0.15,
+    "maximumCalls": 3,
+    "onePerStyle": true
+  },
+  "baseline": [
+    {
+      "styleId": "classical",
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03416225,
+        "credits": 5,
+        "promptTokens": 1649,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "references": []
+    },
+    {
+      "styleId": "watercolor",
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03446575,
+        "credits": 5,
+        "promptTokens": 1743,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        }
+      ]
+    },
+    {
+      "styleId": "icon",
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0344625,
+        "credits": 5,
+        "promptTokens": 1730,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        }
+      ]
+    }
+  ],
+  "requiresExactCanonAndPlanInspectionBeforeImages": true,
+  "publicActivation": false
+}

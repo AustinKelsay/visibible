@@ -1,0 +1,93 @@
+{
+  "at": "2026-10-20T23:17:17.589Z",
+  "workId": "bible-web",
+  "targetedRecords": [
+    "moses:moses-elder",
+    "david_son_of_jesse_king_of_israel:david_youth",
+    "jesus_christ_the_son_of_god_and_lord:infant",
+    "jesus_christ_the_son_of_god_and_lord:adult",
+    "simon_peter:simon_peter",
+    "jesus_christ_the_son_of_god_and_lord:child",
+    "icon",
+    "watercolor"
+  ],
+  "budgetUsd": 1,
+  "imageModel": "google/gemini-3.1-flash-lite-image",
+  "checkerModel": "anthropic/claude-haiku-5.5",
+  "estimateUsd": 0.36,
+  "maxAttemptsPerReference": 3,
+  "plan": {
+    "sheets": [
+      {
+        "recordId": "moses:moses-adult",
+        "name": "Moses",
+        "kind": "character",
+        "status": "missing"
+      },
+      {
+        "recordId": "moses:moses-elder",
+        "name": "Moses",
+        "kind": "character",
+        "status": "missing"
+      },
+      {
+        "recordId": "david_son_of_jesse_king_of_israel:david_youth",
+        "name": "David son of Jesse (king of Israel)",
+        "kind": "character",
+        "status": "missing"
+      },
+      {
+        "recordId": "david_son_of_jesse_king_of_israel:david_elder",
+        "name": "David son of Jesse (king of Israel)",
+        "kind": "character",
+        "status": "missing"
+      },
+      {
+        "recordId": "jesus_christ_the_son_of_god_and_lord:infant",
+        "name": "Jesus Christ, the Son of God and Lord",
+        "kind": "character",
+        "status": "missing"
+      },
+      {
+        "recordId": "jesus_christ_the_son_of_god_and_lord:adult",
+        "name": "Jesus Christ, the Son of God and Lord",
+        "kind": "character",
+        "status": "missing"
+      },
+      {
+        "recordId": "simon_peter:simon_peter",
+        "name": "Simon Peter",
+        "kind": "character",
+        "status": "missing"
+      },
+      {
+        "recordId": "moses:moses-infant",
+        "name": "Moses",
+        "kind": "character",
+        "status": "missing"
+      },
+      {
+        "recordId": "david_son_of_jesse_king_of_israel:david_king",
+        "name": "David son of Jesse (king of Israel)",
+        "kind": "character",
+        "status": "missing"
+      },
+      {
+        "recordId": "jesus_christ_the_son_of_god_and_lord:child",
+        "name": "Jesus Christ, the Son of God and Lord",
+        "kind": "character",
+        "status": "missing"
+      }
+    ],
+    "styles": [
+      {
+        "styleId": "icon",
+        "status": "missing"
+      },
+      {
+        "styleId": "watercolor",
+        "status": "missing"
+      }
+    ]
+  }
+}

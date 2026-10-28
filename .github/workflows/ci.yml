@@ -30,6 +30,9 @@ jobs:
       - name: Run type check
         run: npm run typecheck
 
+      - name: Import works (tests read the generated work files)
+        run: npm run works:import
+
       - name: Run tests with coverage thresholds
         run: npm run test:coverage
 

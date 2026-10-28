@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-23T14:19:38.461232+00:00",
+  "review": "coderabbit-round-1.ndjson",
+  "findings": [
+    {
+      "severity": "minor",
+      "file": "llm/releases/STATUS.md",
+      "title": "Reword \"a sound plan refused\"",
+      "disposition": "Accepted. Reworded; the refused 7:10 fields repeat seated-presence wording and were never reviewed. Rereading found the same wording in the accepted 7:9 plan, now held by review-daniel-7-9-addendum.json; README, STATUS, guide and index updated."
+    },
+    {
+      "severity": "minor",
+      "file": "llm/releases/2026-10-23-grounded-plan-check/verify.mts",
+      "title": "Document the pinned base worktree and generated manifest input",
+      "disposition": "Accepted. README gives worktree-at-296df42 overlay, npm ci and works:import steps before the audit."
+    }
+  ],
+  "round2": {
+    "review": "coderabbit-round-2.ndjson",
+    "findings": [
+      {
+        "severity": "minor",
+        "file": "coderabbit-round-1.ndjson",
+        "title": "Remove the local filesystem path (reported twice)",
+        "disposition": "Accepted. The local worktree path is REDACTED in both retained review logs, including quotations inside finding text."
+      },
+      {
+        "severity": "minor",
+        "file": "packets.mts",
+        "title": "Packet textVerdict for Daniel 7:9 ignores the later hold",
+        "disposition": "Accepted. packets.mts derives the effective verdict from an addendum. The three retained Daniel 7:9 packet labels were patched to the addendum verdict with textVerdictSource; packet content was not regenerated. verify.mts asserts every packet label matches the effective verdict."
+      }
+    ]
+  }
+}

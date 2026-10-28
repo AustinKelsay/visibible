@@ -1,0 +1,168 @@
+{
+  "scorer": "Operator adjudication (Claude Opus 5.5) of scorers A and B before unblinding. The scorers agree on 13 of 14 verdicts; disputed p003 (an unselected cast location, Timnah, named as the setting) is adjudicated uncertain. p009 and p014 stay uncertain for near-verbatim restatement of fixed no-form canon, which both scorers flagged.",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "p001",
+      "verdict": "flawed",
+      "reason": "Abram before God's veiled radiance fits Genesis 17:20, but the plan places an empty seat or throne in the sky that the verse doesn't support, and it describes the tents as mud-brick.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "above an unoccupied seat-like space",
+          "reason": "Turns the canon's implied throne-light into a literal empty seat floating over Abram's camp; nothing in Genesis 17 supports it, and the renderer is likely to draw a throne object."
+        },
+        {
+          "quote": "near a mud-brick tent encampment",
+          "reason": "Contradictory object: tents aren't mud-brick, and the patriarch lives in tents, so the renderer may draw brick huts."
+        }
+      ]
+    },
+    {
+      "id": "p002",
+      "verdict": "flawed",
+      "reason": "Abram seated in the tent door at Mamre with the formless presence nearby is faithful, but the time of day mixes midday heat with late-afternoon long shadows, which contradicts 'heat of the day' and the 'Strong midday sun' light.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Midday heat, bright and still, with long shadows softening toward late afternoon.",
+          "reason": "Midday and long late-afternoon shadows contradict each other, and the conditions light also says strong midday sun. The verse specifies the heat of the day."
+        }
+      ]
+    },
+    {
+      "id": "p003",
+      "verdict": "uncertain",
+      "reason": "A lone Samson at dusk is a reasonable representative image for a summary verse, but the scene is anchored 'near Timnah', an unselected cast location tied to earlier episodes, and set in Philistine territory for a verse about judging Israel. A reader could accept that as background or count it as depicting an unselected location.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Philistine-controlled hill country near Timnah",
+          "reason": "References Timnah, an unselected cast location from the earlier wedding and foxes episodes; the renderer may draw the Philistine town."
+        }
+      ]
+    },
+    {
+      "id": "p004",
+      "verdict": "flawed",
+      "reason": "The verse is Sennacherib's envoys taunting Jerusalem's people about what Hezekiah told them, but the plan shows Hezekiah himself on the wall urging the people. That depicts the reported, earlier speech instead of the instant of the Assyrian taunt. The light also contradicts the time of day.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Hezekiah addresses the people of Jerusalem gathered below, one arm lifted toward the city, urging them to trust in their God for deliverance.",
+          "reason": "Shows the content quoted by the Assyrian speaker, Hezekiah's earlier exhortation, as the present action. At this instant Sennacherib's servants are speaking and Hezekiah isn't addressing the crowd."
+        },
+        {
+          "quote": "Hezekiah, king of Judah, standing on the city wall above the gate.",
+          "reason": "Puts Hezekiah at the centre of an instant where the source has the Assyrian envoys addressing the people."
+        },
+        {
+          "quote": "Harsh bright sunlight with long shadows at the edges, warm and clear",
+          "reason": "Long shadows contradict the stated midday time of day."
+        }
+      ]
+    },
+    {
+      "id": "p005",
+      "verdict": "acceptable",
+      "reason": "A courtier standing silent before a palace gate while the king's command goes unchallenged is a coherent representative image for this wisdom verse, and the conditions are consistent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p006",
+      "verdict": "acceptable",
+      "reason": "The famished Egyptians coming to Joseph at the granary with empty hands asking for bread matches the verse. Pharaoh is correctly left out, and the conditions are consistent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p007",
+      "verdict": "flawed",
+      "reason": "Showing Paul preaching in the Antioch synagogue is a sound treatment of his historical recital, but the clothing conditions add Roman soldiers who appear nowhere in the source or the scene fields.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Roman soldiers in red-trimmed military dress at the edge of the street",
+          "reason": "Introduces figures absent from the source and from all scene fields, so the conditions contradict the scene."
+        }
+      ]
+    },
+    {
+      "id": "p008",
+      "verdict": "acceptable",
+      "reason": "Pharaoh and his servants reacting in the palace hall as a messenger brings word that Israel has fled is the verse's instant. The army is correctly held back for the next verse, and the conditions are consistent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p009",
+      "verdict": "uncertain",
+      "reason": "Moses bowing in worship on Sinai beneath the veiled presence is a faithful image. The only question is that the fields and light copy God's fixed canon wording nearly verbatim, which is either restating fixed canon appearance or a legitimate way to place a formless presence's permitted light and cloud.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "radiance veiled by a slowly moving cloud, with a fire-like glow at its heart",
+          "reason": "Near-verbatim restatement of God's fixed canon appearance."
+        },
+        {
+          "quote": "brilliant white-gold radiance from the cloud veil and a fire-like glow at its heart",
+          "reason": "Repeats the canon description in the light conditions."
+        }
+      ]
+    },
+    {
+      "id": "p010",
+      "verdict": "acceptable",
+      "reason": "A figureless image of Zion's restored walls and gate with rebuilding around it is a faithful symbolic image for this poetic promise. The clothing line explicitly notes no figures.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p011",
+      "verdict": "acceptable",
+      "reason": "Solomon before a very great assembly in the temple court with the bronze altar smoking fits the seven-day feast, and the conditions are consistent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p012",
+      "verdict": "acceptable",
+      "reason": "The young Jotham at the Jerusalem palace threshold as his reign begins is a coherent representative image for this regnal summary, and the conditions are consistent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p013",
+      "verdict": "flawed",
+      "reason": "The guide measuring the south gate with Ezekiel beside him fits the verse, but the plan adds a radiant cloud veil, which is the unselected God's permitted effect and isn't present in this vision yet. It also sets the scene in Ezekiel's temple without selecting that location.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "a faint radiant cloud veil at the edge of the scene",
+          "reason": "Depicts the unselected God entry's radiance-and-cloud presence, which the verse doesn't mention."
+        },
+        {
+          "quote": "a soft radiant glow from the cloud veil at the edges of the scene",
+          "reason": "The light conditions add the same unsupported divine radiance."
+        },
+        {
+          "quote": "set within an austere stone temple court",
+          "reason": "The scene is in Ezekiel's temple, an available cast location that isn't selected, and 'austere' departs from its canon of cedar panelling and carvings."
+        }
+      ]
+    },
+    {
+      "id": "p014",
+      "verdict": "uncertain",
+      "reason": "Israel gathered at Horeb before the fire and cloud is a faithful representative scene for this commandment, and the narrator Moses is correctly omitted. The only question is that the primary subject copies God's fixed canon wording nearly verbatim.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Veiled brilliant white-gold radiance with a fire-like glow at its heart, hanging above the summit of Horeb within a slowly moving dense cloud",
+          "reason": "Near-verbatim restatement of God's fixed canon appearance."
+        }
+      ]
+    }
+  ]
+}

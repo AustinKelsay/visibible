@@ -1,0 +1,124 @@
+{
+  "issue": 183,
+  "status": "Operator-decided check (27 October 2026) under the owner's delegation \"ok continue. Your call on all of these\", of planner v13, review v11 and renderer v11 (ADR 0006). Measurement only.",
+  "purpose": "Check whether God is still drawn as a figure in God-appearance scenes after the subject's canon left the image prompt and plans show only witnesses, the place and plain effects. Four cases repeat the v10 failures; four were never used for tuning.",
+  "candidateCommit": "10565b6d62a756a21ff84e7ebd73a1414ba80c82",
+  "pipeline": {
+    "momentCast": "2026-10-27-moment-cast-v13",
+    "formlessPlan": "2026-10-27-formless-effects-v13",
+    "review": "2026-10-27-plan-review-v11",
+    "rendering": "2026-10-27-generic-v11"
+  },
+  "image": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "cases": [
+    {
+      "id": "exodus-19-18",
+      "reference": "Exodus 19:18",
+      "why": "Sinai smoke and fire as Yahweh descends; a figure in 3 of 5 v10 images.",
+      "tags": [
+        "no-form-present",
+        "tuned"
+      ]
+    },
+    {
+      "id": "isaiah-6-1",
+      "reference": "Isaiah 6:1",
+      "why": "The Lord on a throne, his train filling the temple; a figure in 3 of 5 v10 images.",
+      "tags": [
+        "no-form-present",
+        "tuned"
+      ]
+    },
+    {
+      "id": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "why": "Ancient of Days with clothing and hair; refused preparation in v10.",
+      "tags": [
+        "no-form-present",
+        "tuned"
+      ]
+    },
+    {
+      "id": "exodus-14-22",
+      "reference": "Exodus 14:22",
+      "why": "Israel between walls of water; a figure in 1 of 5 v10 images.",
+      "tags": [
+        "no-form-present",
+        "tuned"
+      ]
+    },
+    {
+      "id": "ezekiel-1-26",
+      "reference": "Ezekiel 1:26",
+      "why": "A sapphire throne with the likeness of a man on it; not used for tuning.",
+      "tags": [
+        "no-form-present",
+        "unseen"
+      ]
+    },
+    {
+      "id": "1-kings-22-19",
+      "reference": "1 Kings 22:19",
+      "why": "Micaiah tells his vision of Yahweh enthroned with the army of heaven; a speaker and a throne; not used for tuning. Its production section cast has no no-form entry, so the no-form rules cannot apply: it measures a cast gap, reported separately.",
+      "tags": [
+        "speaker",
+        "cast-gap",
+        "unseen"
+      ]
+    },
+    {
+      "id": "exodus-24-10",
+      "reference": "Exodus 24:10",
+      "why": "The elders see the God of Israel with sapphire pavement under his feet; not used for tuning.",
+      "tags": [
+        "no-form-present",
+        "unseen"
+      ]
+    },
+    {
+      "id": "genesis-28-13",
+      "reference": "Genesis 28:13",
+      "why": "Yahweh stands above the ladder and speaks to Jacob; not used for tuning.",
+      "tags": [
+        "no-form-present",
+        "speaker",
+        "unseen"
+      ]
+    }
+  ],
+  "controlCases": [],
+  "design": "Eight cases, each prepared once, cold, in a memory store seeded from a read-only production snapshot. A refused preparation stops that case before any image. Each stored case renders classical, watercolor and icon once each, with the references production would send (Classical and Icon style references; the Watercolor reference is stale against the revised style and is skipped). At most 24 images. Later assemblies must reuse the stored plan with zero text calls.",
+  "scoring": {
+    "method": "Images are copied under opaque shuffled names without case or style labels beyond what the image shows. Two independent model scorers inspect every image at full resolution; the operator adjudicates and commits before unblinding. Not human acceptance.",
+    "perImage": [
+      "noFormFigure: any face, body, hair, clothing, silhouette or human-shaped figure for God or another no-form subject (yes/no/na)",
+      "edges: all four edges painted to the border (full) or any white/unpainted margin or vignette (margin)",
+      "extraFigures: framing or unsupported named figures present (yes/no)",
+      "coherence: one instant, coherent poses and object states (yes/no)",
+      "text: any lettering or writing (yes/no)",
+      "overall: acceptable/flawed/uncertain"
+    ],
+    "gate": "Predeclared before any paid call, over the seven cases whose production section cast has a no-form entry (21 images at most). The no-form fix passes if a figure appears in at most 1 of their rendered images (ADR 0006 launch bar: at most 1 in 20), and in none of the three unseen such cases (Ezekiel 1:26, Exodus 24:10, Genesis 28:13). 1 Kings 22:19 has no no-form cast entry, so it is reported separately as a cast gap. Refused cases are reported separately: a refusal is an availability cost for Watercolor and Icon, not a pass. No outcome authorizes activation."
+  },
+  "evaluation": {
+    "authorizedBeforeUsd": 21.5,
+    "measuredBeforeUsd": 21.0050026,
+    "measuredBeforeNote": "20.8550026 measured before this pair, plus the full $0.15 cap of the concurrent v11 fresh text check, reserved conservatively.",
+    "uncertaintyBeforeUsd": 0.045,
+    "proposedIncreaseUsd": 0.5,
+    "proposedAuthorizedUsd": 22.0,
+    "proposedOperationCapUsd": 0.94,
+    "textReserveUsd": 0.005,
+    "imageReserveUsd": 0.06,
+    "maximumImages": 24,
+    "maximumTextCalls": 60
+  },
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "knownLimitation": "Eight chosen God-appearance cases and one image per style are descriptive only; this does not replace the fixed visual matrix or owner sign-off. Model scorers can miss subtle figures in light or cloud."
+}

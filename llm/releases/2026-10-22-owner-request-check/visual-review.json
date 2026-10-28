@@ -1,0 +1,58 @@
+{
+  "at": "2026-10-22T20:59:37.839987+00:00",
+  "inspection": "All 18 images viewed in three contact sheets; prepared Exodus additionally viewed at native resolution.",
+  "humanAccepted": false,
+  "fixedMatrixSlotsFilled": 0,
+  "wholeReleaseVerdict": "hold",
+  "failures": [
+    {
+      "unitId": "exodus-16-15",
+      "imageIds": [
+        "kh75f62e6bzfe937rn3cxr9t8h8grvm5",
+        "kh716zcd1b23m4c83m7rct622h8gsxbg"
+      ],
+      "rule": "No physical form for God; only selected cast.",
+      "verdict": "fail",
+      "observation": "Both outputs place a robed human-shaped being in the luminous cloud above the camp. God is selected with hasForm false, and no formed sky figure is selected. The prepared output clearly shows a human head, arms and robe at native resolution."
+    },
+    {
+      "unitId": "luke-10-33",
+      "imageIds": [
+        "kh7dsvkbc1d6kyxjqg2w38d2ts8gssy3",
+        "kh747w4krjv9sxknrgnk5s5xex8gshtd"
+      ],
+      "rule": "Depict this moment and supply canon for selected scene cast.",
+      "verdict": "fail",
+      "observation": "Both outputs put Jesus and the lawyer beside the wounded man in the parable. The plan selects only Jesus and the lawyer while describing a Samaritan and wounded man; those subjects receive no selected canon. The section cast omits the parable participants, with the_samaritan in mentionedOnly. This is an embedded-story source/cast gap, not cured by selected-roster instructions."
+    },
+    {
+      "styleId": "watercolor",
+      "imageIds": [
+        "kh7dsvkbc1d6kyxjqg2w38d2ts8gssy3",
+        "kh75p3njfxcn4tfm7k9z95mr558grgrb",
+        "kh7635keypcve4j6cjcbs16tts8grdc4",
+        "kh747w4krjv9sxknrgnk5s5xex8gshtd",
+        "kh7ccetkztgw665fyc6qrwqqd18gr4a6",
+        "kh702eb44pjayrx7zvav4hfdfh8gs6qp"
+      ],
+      "rule": "Full-bleed frame without white paper margins.",
+      "verdict": "fail",
+      "observation": "All six Watercolor outputs have obvious white or unpainted paper at multiple image edges; contact-sheet labels/gutters are separate from these native margins."
+    }
+  ],
+  "otherObservations": [
+    {
+      "styleId": "icon",
+      "observation": "Six outputs show gold backgrounds and one broad scene each. This limited observation does not certify source grounding, era, likeness or all release criteria."
+    },
+    {
+      "scope": "latency/accounting",
+      "observation": "Visual failures do not negate successfully measured request latency, saving or settlement. They prevent a visual release pass."
+    }
+  ],
+  "limits": [
+    "One image per cold/prepared execution is not three repeated image-evaluation samples per fixed case.",
+    "No human likeness acceptance or visual approval is inferred.",
+    "The original fixed matrix remains 236/324 complete at its historical prompt; these v4 smoke images fill no historical slots."
+  ]
+}

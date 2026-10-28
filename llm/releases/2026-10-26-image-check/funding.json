@@ -1,0 +1,8 @@
+{
+  "authorizedAt": "2026-10-26T16:12:39Z",
+  "authorization": "Owner replied 'Ok do 1-3 end to end' to a plan whose step 3 was: 'An image check, about $2, which needs a budget increase. Two visual flaws still block release: God appears as a human figure in the sky, and Watercolor images have white margins.' This grant raises the evaluation allowance by $2.00 to $19.50 with a $2.00 operation cap.",
+  "increaseUsd": 2,
+  "authorizedUsd": 19.5,
+  "operationCapUsd": 2,
+  "scope": "One execution of the frozen image check in this directory: at most 40 images and 60 text calls. No paid restart, tuning, production writes, deployment or public activation. Preparation and smoke allowances stay separate."
+}

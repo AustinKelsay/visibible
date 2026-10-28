@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-23T00:47:05.086378+00:00",
+  "artifactSha256": "46a1a33761b26f9ff1d57a3b350cd62743c8a5ebf01c08735cf545ed4b7bc5f2",
+  "reviewer": "Agent text inspection within authorized preparation; not human release acceptance",
+  "verdict": "hold-for-single-scene-and-moment-presence",
+  "humanAccepted": false,
+  "publicActivation": false,
+  "observations": [
+    {
+      "severity": "blocker",
+      "topic": "Single scene",
+      "evidence": "The Samaritan pours oil and wine on the traveler's wounds and wraps them with cloth; then he lifts the injured man onto his own animal",
+      "assessment": "The action narrates treating wounds, then lifting the traveler onto the animal. These are sequential poses; composition still centers a kneeling Samaritan. The first valid reply does not choose one coherent single-scene instant from this multi-action unit."
+    },
+    {
+      "severity": "blocker",
+      "topic": "Neighbor cast",
+      "evidence": "innkeeper_in_samaritan_parable",
+      "assessment": "The selected host has no depicted role or placement in the roadside scene and is directly introduced only in the next unit\u2019s separate transaction (10:35). The new canon makes the ID available but does not establish current-scene presence. A selected rendering roster would carry this extra actor."
+    },
+    {
+      "severity": "improvement",
+      "topic": "Parable framing",
+      "assessment": "The selected roster includes the actual Samaritan and injured traveler and excludes Jesus/lawyer. This narrow improvement does not waive the sequential-action and innkeeper-presence failures."
+    }
+  ],
+  "decision": {
+    "nextTextCheckAllowed": false,
+    "independentDanielCheckAllowed": true,
+    "imageCallsAllowed": false,
+    "semanticRetryAllowed": false,
+    "responseEditingAllowed": false,
+    "releaseAccepted": false
+  }
+}

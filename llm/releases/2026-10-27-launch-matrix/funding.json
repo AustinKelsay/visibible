@@ -1,0 +1,8 @@
+{
+  "authorizedAt": "2026-10-27T02:13:25Z",
+  "authorization": "Owner replied 'continue' to 'Should I build and test the image check?', after a report naming the launch test next (33 Bible scenes in three styles, about $3.50 before retries), and earlier delegated budget choices ('ok continue. Your call on all of these'). Operator decision: raise evaluation by $6.00 to $29.00 for this matrix, capped at $6.00 (expected about $4.30-4.90 with checks and retries).",
+  "increaseUsd": 6.0,
+  "authorizedUsd": 29.0,
+  "operationCapUsd": 6.0,
+  "scope": "One execution of the frozen launch matrix in this directory: 33 cases, three styles, one shown image each, at most 198 images, 200 text calls and 400 check calls. No paid restart, tuning, production writes, deployment or public activation."
+}

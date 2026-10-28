@@ -1,0 +1,28 @@
+{
+  "status": "proposed; unfunded; no images generated",
+  "dependency": "Candidate text gate and a reviewed frozen candidate must pass first. Freeze actual canon/look/plan/reference inputs and provider pricing before execution.",
+  "purpose": "Small image diagnostic before the full release matrix.",
+  "design": "Four fixed cases, three styles, two repeats (24 normal outputs), plus eight Watercolor outputs with only the selected style reference and caption omitted. Normal and control use identical frozen scene packets, remaining reference bytes, trim decisions and image settings.",
+  "imageCount": 32,
+  "imageEstimateUsd": 0.036,
+  "perSampleConservativePreparationEstimateUsd": 0.015,
+  "estimatedTotalUsd": 1.632,
+  "proposedOperationCapUsd": 2.0,
+  "authorization": "Needs an explicit evaluation budget increase; existing evaluation funds cannot cover it. Separate preparation/smoke headroom is not transferred. This file authorizes no paid run.",
+  "preflight": [
+    "Source code and every case input/version are frozen and reviewed.",
+    "The normal Watercolor packet actually contains a style reference; control differs only by its removal and caption renumbering.",
+    "Do not regenerate or silently replace text plans between paired images. Missing/failed required preparation stops the case before images.",
+    "Serialize admission and reserve pending budget before calls; persistent ledger; stop on unknown cost/provider failure/cap.",
+    "Fresh live price/availability check; update estimate before asking for execution approval."
+  ],
+  "scoring": [
+    "No prohibited no-form anatomy or silhouette in any output.",
+    "No unselected/no-source divine effect in the census case.",
+    "Watercolor full bleed: inspect all four edges; report normal/control individually. Icon borders remain the documented accepted limitation.",
+    "No extra framing figures; correct selected/incidental figures and a single coherent pose.",
+    "Keep every first output, failure and ambiguous result; no paid reruns or prompt tuning inside the operation."
+  ],
+  "limits": "Diagnostic only; does not replace the full 324-sample current-candidate release matrix or human acceptance.",
+  "dryRunNotes": "Manifest uses COLD_PREPARATION_CALLS=3 (look, plan, review); current CLI prose incorrectly prints 2. Retained manifests are the cost evidence. Estimates do not establish actual prepared inputs or a complete execution preflight."
+}

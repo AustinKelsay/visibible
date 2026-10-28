@@ -1,8 +1,10 @@
 /**
  * Lazy looks and plans (#171) over the real Convex analysis module with a scripted model:
  * reuse across styles and translations, section boundaries, selected cast and stages, targeted
- * invalidation, concurrent misses, failures without fallback, and recorded owner spend.
+ * invalidation, concurrent misses, retryable failures (the route, not preparation, may fall back),
+ * recorded owner spend, and forgiving plan review stored through the real payload validator.
  */
+import { reviewReply, withCleanReview } from "../../../tests/fixtures/plan-review";
 import { describe, it, expect, beforeEach } from "vitest";
 import { convexTest } from "convex-test";
 import schema from "../../../convex/schema";
@@ -11,6 +13,7 @@ import { modules } from "../../../tests/convex/modules";
 import { prepareMoment, createConvexPreparationStore, PreparationUnavailableError, type MomentContext } from "../engine/preparation";
 import type { TextModel, TextModelRequest, TextModelResult } from "../reading-pass/model";
 import type { WorkBrief } from "../work-preparation";
+import { withGrounding } from "../../../tests/fixtures/scene-grounding";
 
 const SECRET = "s".repeat(40);
 process.env.CONVEX_SERVER_SECRET = SECRET;
@@ -22,7 +25,7 @@ const brief: WorkBrief = {
 
 function scriptedModel(answer: (request: TextModelRequest) => unknown, costUsd = 0.0005) {
   const calls: TextModelRequest[] = [];
-  const model: TextModel & { calls: TextModelRequest[] } = {
+  const model: TextModel & { calls: TextModelRequest[] } = withCleanReview({
     id: "scripted", calls,
     async complete(request): Promise<TextModelResult> {
       calls.push(request);
@@ -30,12 +33,12 @@ function scriptedModel(answer: (request: TextModelRequest) => unknown, costUsd =
       if (value instanceof Error) throw value;
       return { content: typeof value === "string" ? value : JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd }, elapsedMs: 2 };
     },
-  };
+  });
   return model;
 }
 const lookAnswer = { place: "Lakeshore with two boats", timeOfDay: "dawn", weather: "calm", light: "low sun", clothing: "wool tunics" };
 const planAnswer = (present: string[]) => ({ present, primarySubject: "Jonah kneeling", action: "mends nets", setting: "shore", secondaryElements: "boats", mood: "quiet", timeOfDay: "dawn", composition: "wide" });
-const defaultAnswer = (request: TextModelRequest) => request.label.startsWith("look:") ? lookAnswer : planAnswer(["jonah", "ghost"]);
+const defaultAnswer = (request: TextModelRequest) => request.label.startsWith("look:") ? lookAnswer : withGrounding(planAnswer(["jonah"]), `Text of ${request.label.split(":")[1]}.`);
 
 const records = [
   { kind: "entry" as const, recordId: "jonah", payload: { kind: "entry" as const, name: "Jonah", entryKind: "character" as const, hasForm: true, stages: [{ id: "young", text: "Jonah: young fisherman." }, { id: "old", text: "Jonah: weathered sailor." }] } },
@@ -65,18 +68,22 @@ describe("lazy looks and plans", () => {
   it("makes the look once per section and the plan once per moment, shared by every style and translation", async () => {
     const model = scriptedModel(defaultAnswer);
     const first = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, "Text of alpha-1-2."), ...fast });
-    expect(first.calls).toBe(2);
+    expect(first.calls).toBe(3); // look, plan and its review
     expect(first.look.payload).toEqual(lookAnswer);
     // The planner chose Jonah only; the stage comes from the section's assignment, not the first stage.
     expect(first.present).toEqual([{ entryId: "jonah", stageId: "old", version: expect.any(String) }]);
     expect(first.plan.payload.present).toEqual(["jonah"]);
+    const saved = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "alpha-1-1" });
+    if (saved?.payload.kind !== "plan") throw new Error("Missing stored plan");
+    expect(saved.payload.grounding).toEqual(withGrounding(planAnswer(["jonah"]), "Text of alpha-1-1.").grounding);
+    expect(saved.payload.plan).not.toHaveProperty("grounding");
     expect(model.calls[1].user).toContain("NEXT: Text of alpha-1-2.");
     expect(model.calls[1].user).toContain("PREVIOUS: (section starts here)");
     expect(model.calls[1].user).not.toMatch(/style|classical/i);
 
     // Second moment of the same section: the look is reused, only a plan is made.
     const second = await prepareMoment({ workId: WORK, momentId: "alpha-1-2", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-2", "Text of alpha-1-1.", null), ...fast });
-    expect(second.calls).toBe(1);
+    expect(second.calls).toBe(2); // plan and review
     expect(second.look.version).toBe(first.look.version);
     // Any later request for the first moment, whatever the style or translation, makes no call.
     const again = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
@@ -84,11 +91,26 @@ describe("lazy looks and plans", () => {
     expect(again.plan.version).toBe(first.plan.version);
     // A moment in the next section gets its own look and the section's own stage for Jonah.
     const third = await prepareMoment({ workId: WORK, momentId: "alpha-1-4", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-4", null, null), ...fast });
-    expect(third.calls).toBe(2);
+    expect(third.calls).toBe(3);
     expect(third.present).toEqual([{ entryId: "jonah", stageId: "young", version: expect.any(String) }]);
     const spend = await t.query(api.analysis.getPreparationSpend, { workId: WORK });
-    expect(spend.calls).toBe(5);
-    expect(spend.costUsd).toBeCloseTo(0.0025, 6);
+    expect(spend.calls).toBe(8); // five look/plan calls and three reviews
+    expect(spend.costUsd).toBeCloseTo(0.0025 + 3 * 0.0001, 6);
+  });
+
+  it("uses a reassigned canon stage even when the refreshed look has identical content", async () => {
+    const model = scriptedModel(defaultAnswer);
+    const options = { workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast };
+    const first = await prepareMoment(options);
+    const section = records.find((record) => record.kind === "section" && record.recordId === "alpha-1-1")!;
+    if (section.payload.kind !== "section") throw new Error("Missing section fixture");
+    await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "section", recordId: section.recordId,
+      payload: { ...section.payload, cast: [{ entryId: "jonah", stageId: "young" }, { entryId: "amos", stageId: "main" }] } });
+    const changed = await prepareMoment(options);
+    expect(changed.look.version).toBe(first.look.version);
+    expect(changed.present).toEqual([{ entryId: "jonah", stageId: "young", version: expect.any(String) }]);
+    expect(changed.calls).toBe(3);
+    expect(model.calls.map((call) => call.schemaName)).toEqual(["section_look", "scene_plan", "section_look", "scene_plan"]);
   });
 
   it("remakes only what an owner edit or a cleared plan invalidates", async () => {
@@ -97,21 +119,22 @@ describe("lazy looks and plans", () => {
     // Owner edits the look: the plan named the old look version, so only the plan is remade.
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", payload: { kind: "look", sectionId: "alpha-1-1", ...lookAnswer, weather: "storm" } });
     const afterLookEdit = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
-    expect(afterLookEdit.calls).toBe(1);
+    expect(afterLookEdit.calls).toBe(2);
     expect(afterLookEdit.look.payload.weather).toBe("storm");
     expect(afterLookEdit.look.version).not.toBe(first.look.version);
-    expect(model.calls[model.calls.length - 1].user).toContain("weather: storm");
+    expect(model.calls[model.calls.length - 1].user).not.toContain("weather: storm");
     // The owner's look version is kept, never overwritten by a remake.
     const stored = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "alpha-1-1" });
     expect(stored?.source).toBe("owner");
-    // A canon edit to Jonah invalidates both the look and the plan of his section.
+    // A canon edit refreshes the plan but retains the owner-authored look constraint.
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah", payload: { kind: "entry", name: "Jonah", entryKind: "character", hasForm: true, stages: [{ id: "young", text: "Jonah: edited." }, { id: "old", text: "Jonah: edited, older." }] } });
     const afterCanonEdit = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
     expect(afterCanonEdit.calls).toBe(2);
+    expect(afterCanonEdit.look.version).toBe(afterLookEdit.look.version);
     // Clearing the plan creates a future replan and leaves the look alone.
     await t.mutation(api.analysis.clearRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "alpha-1-1" });
     const afterClear = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
-    expect(afterClear.calls).toBe(1);
+    expect(afterClear.calls).toBe(2);
     expect(afterClear.look.version).toBe(afterCanonEdit.look.version);
     // A brief version change invalidates too, and the legacy scene plan cache is untouched throughout.
     const afterBrief = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv2", context: context("alpha-1-1", null, null), ...fast });
@@ -132,7 +155,7 @@ describe("lazy looks and plans", () => {
     const [ra, rb] = await Promise.all([a, b]);
     expect(model.calls).toHaveLength(2);
     expect(ra.plan.version).toBe(rb.plan.version);
-    expect(ra.calls + rb.calls).toBe(2);
+    expect(ra.calls + rb.calls).toBe(3);
     expect(await t.query(api.analysis.getPreparationStatus, { workId: WORK, momentId: "alpha-1-1" })).toMatchObject({ ready: true, look: "ready", plan: "ready" });
   });
 
@@ -172,7 +195,7 @@ describe("lazy looks and plans", () => {
       }
     } };
     const result = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "me", ...sleepThenWrite });
-    expect(result.calls).toBe(1); // only the plan
+    expect(result.calls).toBe(2); // only the plan and its review
     expect(result.look.payload).toEqual(lookAnswer);
   });
 
@@ -193,7 +216,137 @@ describe("lazy looks and plans", () => {
       return base.claim(kind, recordId, holder, ttlMs);
     } };
     const result = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: racing, model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
-    expect(result.calls).toBe(1); // the plan only; the look was found after the claim
+    expect(result.calls).toBe(2); // the plan and its review; the look was found after the claim
     expect(model.calls.map((c) => c.label.split(":")[0])).toEqual(["plan"]);
+  });
+});
+
+describe("forgiving plan review through the real payload validator", () => {
+  let t: ReturnType<typeof convexTest>;
+  let client: { query: (ref: unknown, args: unknown) => Promise<unknown>; mutation: (ref: unknown, args: unknown) => Promise<unknown> };
+  const text = "Noa heard the voice at the harbor.";
+  const harborRecords = [
+    { kind: "entry" as const, recordId: "noa", payload: { kind: "entry" as const, name: "Noa", entryKind: "character" as const, hasForm: true, stages: [{ id: "main", text: "Noa: a young fisher." }] } },
+    { kind: "entry" as const, recordId: "voice", payload: { kind: "entry" as const, name: "Voice", entryKind: "character" as const, hasForm: false, stages: [{ id: "main", text: "Voice: a warm light without a body." }] } },
+    { kind: "entry" as const, recordId: "harbor", payload: { kind: "entry" as const, name: "Harbor", entryKind: "location" as const, hasForm: true, stages: [{ id: "quay", text: "Harbor: a stone quay." }] } },
+    { kind: "section" as const, recordId: "gamma-1-1", payload: { kind: "section" as const, title: "The voice at the harbor", firstUnit: "gamma-1-1", lastUnit: "gamma-1-1", era: "lakeside",
+      cast: [{ entryId: "noa", stageId: "main" }, { entryId: "voice", stageId: "main" }, { entryId: "harbor", stageId: "quay" }] } },
+    { kind: "moment" as const, recordId: "gamma-1-1", payload: { kind: "moment" as const, sectionId: "gamma-1-1", firstUnit: "gamma-1-1", lastUnit: "gamma-1-1" } },
+  ];
+  const scene = { primarySubject: "Noa standing on the harbor quay", action: "turns toward the sound", setting: "the harbor quay at dawn", secondaryElements: "moored boats",
+    mood: "awe", timeOfDay: "dawn", composition: "Noa small against the water" };
+  const reply = (overrides: Record<string, unknown> = {}) => ({ focusQuote: "Noa heard the voice", instant: "Noa turns on the quay toward the voice.",
+    selectedCast: [{ entryId: "noa", evidence: "Noa heard" }], ...scene, ...overrides });
+  beforeEach(async () => {
+    t = convexTest(schema, modules);
+    client = { query: (ref, args) => t.query(ref as never, args as never), mutation: (ref, args) => t.mutation(ref as never, args as never) };
+    await t.mutation(api.analysis.registerWork, { serverSecret: SECRET, workId: WORK, workVersion: "wv", briefVersion: "bv" });
+    const { generation } = await t.mutation(api.analysis.stageGeneration, { serverSecret: SECRET, workId: WORK, workVersion: "wv", briefVersion: "bv" });
+    await t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation, records: harborRecords });
+    await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
+  });
+  /** Plans and reviews in the planner's actual reply format; later rounds repeat the last entry. */
+  const prepare = (plans: unknown[], reviews: unknown[][]) => {
+    const calls: TextModelRequest[] = [];
+    let p = 0, r = 0;
+    const model: TextModel = { id: "scripted", complete: async (request) => {
+      calls.push(request);
+      if (request.schemaName === "plan_review") return reviewReply(reviews[Math.min(r++, reviews.length - 1)] ?? []);
+      const value = request.schemaName === "section_look" ? lookAnswer : plans[Math.min(p++, plans.length - 1)];
+      return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 10, completionTokens: 10, costUsd: 0.0005 }, elapsedMs: 1 };
+    } };
+    const run = () => prepareMoment({ workId: WORK, momentId: "gamma-1-1", store: createConvexPreparationStore(client, api.analysis as unknown as Record<string, unknown>, WORK, SECRET),
+      model, brief, briefVersion: "bv", context: { moment: { id: "gamma-1-1", reference: "Gamma 1:1", text }, previous: null, next: null }, now: () => Date.now(), sleep: async () => {} });
+    return { run, calls };
+  };
+  const storedPlan = async () => (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "gamma-1-1" }) as { payload: Record<string, unknown> } | null)?.payload;
+
+  it("selects a depicted location with its assigned stage, drops a repeated ID, trims a long field and stores the audit", async () => {
+    const quay = { kind: "unselected_figure", entryId: "harbor", planQuote: "the harbor quay at dawn", reason: "The harbor is the depicted setting but is not selected." };
+    const long = `turns toward the sound ${"while the tide moves ".repeat(30)}`;
+    const { run, calls } = prepare([reply({ action: long, selectedCast: [{ entryId: "noa", evidence: "Noa heard" }, { entryId: "noa", evidence: "Noa" }] })], [[quay]]);
+    const result = await run();
+    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review"]);
+    expect(result.present.map((p) => [p.entryId, p.stageId])).toEqual([["noa", "main"], ["harbor", "quay"]]);
+    expect(result.plan.payload.action).toHaveLength(400);
+    expect(result.plan.payload.action.endsWith("…")).toBe(true);
+    // Since moment-cast v12 the scene fields carry setting and time: a generated guide renders no separate conditions.
+    expect(result.situation).toBeNull();
+    expect(calls[2].user).not.toContain("MOMENT CONDITIONS");
+    expect(calls[2].user).not.toContain("OWNER LOOK CONSTRAINTS");
+    expect(await storedPlan()).not.toHaveProperty("situation");
+    expect(await storedPlan()).toMatchObject({
+      entries: [{ entryId: "noa", stageId: "main" }, { entryId: "harbor", stageId: "quay" }],
+      grounding: { focusQuote: "Noa heard the voice", instant: "Noa turns on the quay toward the voice.", singleInstant: true,
+        cast: [{ entryId: "noa", momentQuote: "Noa heard", contextSource: "none", contextQuote: "", participation: "in_scene" }] },
+      review: { rounds: 1, notes: ["selected harbor: depicted but not selected"] } });
+  });
+
+  it("refuses an old reply that still carries situation, after the malformed-reply retry", async () => {
+    const { run, calls } = prepare([reply({ situation: { place: "harbor quay", timeOfDay: "dawn", weather: "calm", light: "low sun", clothing: "wool tunic" } })], [[]]);
+    await expect(run()).rejects.toMatchObject({ stage: "plan", message: expect.stringContaining("Unrecognized key") });
+    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "scene_plan"]);
+    expect(await storedPlan()).toBeUndefined();
+  });
+
+  it("reviews and returns owner look constraints verbatim without asking the planner for conditions", async () => {
+    const owner = { place: "an owner harbor", timeOfDay: "owner dusk", weather: "owner fog", light: "owner lamps", clothing: "owner oilskins" };
+    const { run, calls } = prepare([reply()], [[]]);
+    expect((await run()).situation).toBeNull();
+    // The owner then corrects the section look; the plan refreshes against the literal constraints.
+    await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "gamma-1-1", payload: { kind: "look", sectionId: "gamma-1-1", ...owner } });
+    const before = calls.length;
+    const result = await run();
+    const after = calls.slice(before);
+    expect(after.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
+    expect(after[0].user).toContain(`OWNER LOOK CONSTRAINTS (copy all values exactly):\n${JSON.stringify(owner)}`);
+    expect(after[1].user).toContain(`OWNER LOOK CONSTRAINTS (binding verbatim rendering input):\n${JSON.stringify(owner)}`);
+    expect(result.situation).toEqual(owner);
+    expect(await storedPlan()).not.toHaveProperty("situation");
+  });
+
+  it("notes a reported canon gap without a re-plan", async () => {
+    const gap = { kind: "missing_canon", entryId: "", planQuote: "a fisherman named Tobit", reason: "Tobit is a named recurring character without canon." };
+    const { run, calls } = prepare([reply({ secondaryElements: "a fisherman named Tobit mends a net" })], [[gap]]);
+    await run();
+    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review"]);
+    expect(await storedPlan()).toMatchObject({ review: { rounds: 1, notes: [`noted: missing_canon: ${gap.reason}`] } });
+  });
+
+  it("keeps the re-planned plan with a note when a problem remains", async () => {
+    const outside = { kind: "outside_instant", entryId: "noa", planQuote: "Noa standing on the harbor quay", reason: "Noa only reports the voice later." };
+    const { run, calls } = prepare([reply()], [[outside], [outside]]);
+    await run();
+    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "scene_plan", "plan_review"]);
+    expect(calls[3].user).toContain(`- outside_instant: ${outside.reason}`);
+    expect(await storedPlan()).toMatchObject({ review: { rounds: 2, problems: [outside], notes: ["kept with: outside_instant noa"] } });
+  });
+
+  it("keeps the plan with a note when the review is unavailable", async () => {
+    const invented = { kind: "outside_instant", entryId: "", planQuote: "a camel kneels", reason: "Invented." };
+    const { run, calls } = prepare([reply()], [[invented], [invented]]);
+    await run();
+    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "plan_review"]);
+    expect(await storedPlan()).toMatchObject({ review: { rounds: 1, notes: ["plan review unavailable: outside_instant quote is not in the plan"] } });
+  });
+
+  it("refuses only when a no-form subject is still drawn as a body after the single re-plan, storing nothing", async () => {
+    const bodily = reply({ selectedCast: [{ entryId: "noa", evidence: "Noa heard" }, { entryId: "voice", evidence: "the voice" }], primarySubject: "a robed figure of light beside Noa" });
+    const embodied = { kind: "embodied_formless", entryId: "voice", planQuote: "a robed figure of light", reason: "The voice is given a robed body." };
+    const { run, calls } = prepare([bodily], [[embodied], [embodied]]);
+    await expect(run()).rejects.toMatchObject({ stage: "plan", retryable: true, message: expect.stringContaining("a subject without form is still drawn as a figure: voice") });
+    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "scene_plan", "plan_review"]);
+    expect(await storedPlan()).toBeUndefined();
+    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(5);
+  });
+
+  it("stores the corrected plan when the re-plan removes the body", async () => {
+    const bodily = reply({ selectedCast: [{ entryId: "noa", evidence: "Noa heard" }, { entryId: "voice", evidence: "the voice" }], primarySubject: "a robed figure of light beside Noa" });
+    const fixed = reply({ selectedCast: [{ entryId: "noa", evidence: "Noa heard" }, { entryId: "voice", evidence: "the voice" }], primarySubject: "warm light above the quay; Noa looks up" });
+    const embodied = { kind: "embodied_formless", entryId: "voice", planQuote: "a robed figure of light", reason: "The voice is given a robed body." };
+    const { run } = prepare([bodily, fixed], [[embodied], []]);
+    const result = await run();
+    expect(result.plan.payload.primarySubject).toBe("warm light above the quay; Noa looks up");
+    expect(await storedPlan()).toMatchObject({ review: { rounds: 2, problems: [embodied] } });
   });
 });

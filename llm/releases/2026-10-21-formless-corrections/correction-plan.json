@@ -1,0 +1,136 @@
+{
+  "at": "2026-10-21T16:57:25.120Z",
+  "workId": "bible-web",
+  "source": "owner",
+  "publicMode": "disabled",
+  "generation": 1,
+  "paidCalls": 0,
+  "sources": [
+    {
+      "unit": "2-kings-2-23",
+      "quote": "He went up from there to Bethel. As he was going up by the way, some youths came out of the city and mocked him, and said to him, “Go up, you baldy! Go up, you baldy!”"
+    },
+    {
+      "unit": "daniel-7-9",
+      "quote": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire."
+    }
+  ],
+  "corrections": [
+    {
+      "kind": "entry",
+      "recordId": "elisha_son_of_shaphat",
+      "expectedVersion": "cba77de5165f13308e2cc03d132f0621",
+      "before": {
+        "aliases": [
+          "Elisha",
+          "Elisha the son of Shaphat",
+          "the man of God",
+          "the prophet",
+          "my father (Joash's cry)",
+          "the prophet Elisha"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-kings:character:elisha",
+          "2-kings:character:elisha",
+          "luke:character:elisha"
+        ],
+        "name": "Elisha son of Shaphat",
+        "note": "Prophet, Elijah's successor, who first appears as a farmer plowing with twelve yoke of oxen in 1 Kings and is later named in 2 Kings and Luke; the same prophet in all three entries.",
+        "stages": [
+          {
+            "id": "elisha_main",
+            "label": "Elisha son of Shaphat",
+            "quotes": [
+              {
+                "quote": "found Elisha the son of Shaphat, who was plowing with twelve yoke of oxen before him",
+                "unit": "1-kings-19-19"
+              },
+              {
+                "quote": "Elijah went over to him and put his mantle on him.",
+                "unit": "1-kings-19-19"
+              },
+              {
+                "quote": "He took Elijah’s mantle that fell from him",
+                "unit": "2-kings-2-14"
+              }
+            ],
+            "text": "Elisha son of Shaphat: a man in his middle years, broad-shouldered and sun-browned from working the fields, lean and steady in build. Dark skin, short dark hair, and a close-cut beard with some grey at the chin. Calm, weathered face with deep-set eyes. Signature outfit: a plain undyed linen tunic belted at the waist with a cloak of rough brown wool. Signature prop: Elijah's mantle, a dark sheepskin cloak he wears over his shoulders."
+          }
+        ]
+      },
+      "payload": {
+        "aliases": [
+          "Elisha",
+          "Elisha the son of Shaphat",
+          "the man of God",
+          "the prophet",
+          "my father (Joash's cry)",
+          "the prophet Elisha"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-kings:character:elisha",
+          "2-kings:character:elisha",
+          "luke:character:elisha"
+        ],
+        "name": "Elisha son of Shaphat",
+        "note": "Prophet, Elijah's successor, who first appears as a farmer plowing with twelve yoke of oxen in 1 Kings and is later named in 2 Kings and Luke; the same prophet in all three entries.",
+        "stages": [
+          {
+            "id": "elisha_main",
+            "label": "Elisha son of Shaphat",
+            "quotes": [
+              {
+                "quote": "found Elisha the son of Shaphat, who was plowing with twelve yoke of oxen before him",
+                "unit": "1-kings-19-19"
+              },
+              {
+                "quote": "Elijah went over to him and put his mantle on him.",
+                "unit": "1-kings-19-19"
+              },
+              {
+                "quote": "He took Elijah’s mantle that fell from him",
+                "unit": "2-kings-2-14"
+              },
+              {
+                "unit": "2-kings-2-23",
+                "quote": "He went up from there to Bethel. As he was going up by the way, some youths came out of the city and mocked him, and said to him, “Go up, you baldy! Go up, you baldy!”"
+              }
+            ],
+            "text": "Elisha son of Shaphat: a man in his middle years, broad-shouldered and sun-browned from working the fields, lean and steady in build. Dark skin, a bald head, and a close-cut beard with some grey at the chin. Calm, weathered face with deep-set eyes. Signature outfit: a plain undyed linen tunic belted at the waist with a cloak of rough brown wool. Signature prop: Elijah's mantle, a dark sheepskin cloak he wears over his shoulders."
+          }
+        ]
+      },
+      "reason": "WEB 2 Kings 2:23 identifies Elisha as bald; replace the contradictory short-hair detail and add the exact source quotation. Preserve the other canon details and historical versions."
+    },
+    {
+      "kind": "look",
+      "recordId": "daniel-7-9",
+      "expectedVersion": "12d398821f2ecb47f9edf7ea075349b6",
+      "before": {
+        "clothing": "White garments and pure white hair; attendants in plain court robes, Daniel in simple Babylonian-era tunic and cloak",
+        "kind": "look",
+        "light": "Radiant fiery glow from the throne and wheels, no visible sun",
+        "place": "Heavenly court above Babylon, vast open expanse of cloud and radiant fire",
+        "sectionId": "daniel-7-9",
+        "timeOfDay": "Night vision, sky of unbroken darkness",
+        "weather": "Stormy air with drifting clouds and fire"
+      },
+      "payload": {
+        "clothing": "Daniel in a simple Babylonian-era tunic and cloak; court attendants in plain robes. The formless divine presence has no body, hair or garments.",
+        "kind": "look",
+        "light": "Radiant fiery glow from the throne and wheels, no visible sun",
+        "place": "Heavenly court above Babylon, vast open expanse of cloud and radiant fire",
+        "sectionId": "daniel-7-9",
+        "timeOfDay": "Night vision, sky of unbroken darkness",
+        "weather": "Stormy air with drifting clouds and fire"
+      },
+      "reason": "Remove hair and garments assigned to the formless divine presence; retain the clothing of Daniel and the attendants. The source quotation and canon remain unchanged."
+    }
+  ]
+}

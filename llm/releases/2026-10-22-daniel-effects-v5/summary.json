@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-22T16:31:33.643733+00:00",
+  "outcome": "v5-no-form-text-improvement-held-for-cast-review",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "canonCalls": 0,
+  "planCalls": 1,
+  "imageCalls": 0,
+  "productionMutations": 0,
+  "semanticRetries": 0,
+  "preparation": {
+    "authorizedUsd": 43,
+    "previousMeasuredUsd": 3.637906,
+    "measuredThisRunUsd": 0.0004794,
+    "measuredUsd": 3.6383854,
+    "uncertaintyUsd": 0.03,
+    "remainingAfterReserveUsd": 39.3316146,
+    "subcapUsd": 0.01,
+    "unusedSubcapUsd": 0.0095206
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredUsd": 16.2980069,
+    "uncertaintyUsd": 0.045,
+    "remainingAfterReserveUsd": 0.1569931,
+    "unchanged": true
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.0685215,
+    "uncertaintyUsd": 0,
+    "remainingAfterReserveUsd": 0.9314785,
+    "unchanged": true
+  },
+  "originalMatrix": {
+    "completed": 236,
+    "planned": 324,
+    "missing": 88,
+    "unchanged": true
+  },
+  "balanceObservation": {
+    "beforeUsd": 10.897364892000013,
+    "afterUsd": 10.897364892000013,
+    "observedDeltaUsd": 0.0,
+    "reconciledToThisRun": false,
+    "note": "Use explicit provider response usage; snapshots may lag individual calls and no per-call credit reconciliation is claimed."
+  },
+  "conclusion": "The first v5 response passes narrow agent text inspection for no-form depiction and fixed-appearance separation. It still describes unlisted attendants without matching cast/canon, so hold whole-plan/image acceptance for source/cast review. Retain the first valid response without a semantic retry or production correction.",
+  "limits": [
+    "One fresh plan with a deliberately frozen look, not a repeatability study, randomized paired comparison or visual/likeness acceptance.",
+    "System guidance, no-form constraint projection and local entry/look dependency records differ from v4. The source, brief, canon wording/choices, owner look payload/version, context and response schema are unchanged.",
+    "The source and look still include bodily wording/denials. This run does not establish the cause of prior image failures.",
+    "The attendants are visible in the plan and unrepresented in the cast; their appearance in the look/next unit is context, not a complete canon assignment. No new manual approval requirement is introduced.",
+    "Original matrix completion, human visual review, full-request app accounting/latency and explicit activation gates remain open."
+  ]
+}

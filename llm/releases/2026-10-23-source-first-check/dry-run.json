@@ -1,0 +1,1177 @@
+{
+  "at": "2026-10-24T01:01:58.166Z",
+  "baselineCommit": "b8b41bd6871d3679b04c05cf61c3d99507ee4dd4",
+  "baselineSha256": "6dda8ea04ff93581c5f42fcdcfa85067ef151439bfca2586a839057868ab5303",
+  "sources": {
+    "src/lib/engine/preparation.ts": "cf5366037be51c200c9e029549380764f701ba4b4048c47960f231e1bee588e3",
+    "convex/_helpers/contentVersion.ts": "c34546acd74b8f3081a3f73a2e922ba30732ed21f26f6e75688a3b8ac3ed2a32",
+    "src/lib/engine/scene-grounding.ts": "fb20e4778239fc734c0ed5b6098b11474bb6a98d20c21c05d26865596c79eed5",
+    "src/lib/engine/plan-review.ts": "420b3da788b949aa397e291ad1d84fb33b5937a013889437c2007eec095286da",
+    "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+    "src/lib/engine/memory-store.ts": "2d05890efcee72971a78cd50b94de0aab4653c253b3505e78ed4c222b03c76ad",
+    "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/image-response.ts": "07b5092d1795db69bbd4cfa41c5a25691277ff9a982884118fc1658881a9bba6",
+    "src/lib/image-prompts.ts": "fb4f04b8d98a2f32ceac40f4e854a1499ed8aaeaa7031b7e2212dbad515dfc6a",
+    "src/lib/canon-showing.ts": "2bfb6fa9aa29d366ab741981627f65b0b3425ee065ea3c163caca889bfbdee0b",
+    "src/lib/work-input.ts": "e43bddfa5b9a1e2f8065c42f6f99baba98d359f3a996efaca3d30aafb1d13590",
+    "src/lib/work-preparation.ts": "34ae8097b4eb351115bb7f5a77e8d63b59da40ec0d9891e0874f323fe88262ea",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "llm/releases/2026-10-23-source-first-check/common.mts": "72a810015d9c423763563932f544e407eaa9924bc8d771d7c7a6473ec6349588",
+    "llm/releases/2026-10-23-source-first-check/baseline.mts": "7af1c2836a39a5062861899f5a6e960e1f02f97e9b583ce0b7cd2eb03026621c",
+    "llm/releases/2026-10-23-source-first-check/snapshot.mts": "34b65a38ac39a5e0960e1924f3fe01d0d90ec3cc431c2b5a3d083d345f247ff5",
+    "llm/releases/2026-10-23-source-first-check/scenarios.mts": "e1dec547726fe73b4c04e0f3ec3aa10781048503db1fabed971dc837dcb2ba40",
+    "llm/releases/2026-10-23-source-first-check/dry-run.mts": "ad89375209596dc3e14ee984dc498c98425aa27308b260c4c7a13a30402ad761",
+    "llm/releases/2026-10-23-source-first-check/model.mts": "736c121b65b1ae0f16bfc3b0fbe797f25271c10ba1731787ff1a70e55e8e0e03",
+    "llm/releases/2026-10-23-source-first-check/run.mts": "8085ed20052078735e5c70b663472e617998b04452a923c21036090bace4e9ae",
+    "llm/releases/2026-10-23-source-first-check/audit.mts": "153950917076d5d4f442a933f24742f7bf13460c79fe542025e7c2eb8c04501e",
+    "llm/releases/2026-10-23-source-first-check/score.mts": "d38dd73bc26729689da202d741e11d67cefa4e3242c90c9988d2b491f5aed498",
+    "llm/releases/2026-10-23-source-first-check/plan.json": "487366b9158a1bfee0ab9de21417f61e444988ecbc77f4cb6f6f37cb4304a4b5",
+    "llm/releases/2026-10-23-source-first-check/sample-set.json": "6daa2c17632faf8750eca9fd2d4996159ef5003925eea05657edd51774971cfc",
+    "llm/releases/2026-10-23-source-first-check/README.md": "53d1d5a16d8f65dd522c1bf76f1e651885c562ce3ee8003b6d1e31b84660888c",
+    "llm/releases/2026-10-23-source-identity-check/review-cases.json": "7ddb438171c8f8ac55c9e4ba19cacb7da1851f2c035bed28c80796419a2c870d",
+    "package.json": "3fdf0f945c802fbc8de81b21b777dde45b600caec4843b581992a1883e43ffa9",
+    "package-lock.json": "d9cff4d52431f7ad6d3eb6f9c1b025bfbfc74be703fe6d55010abb0b6abd326c"
+  },
+  "operations": [
+    {
+      "id": "retained-priest-1",
+      "kind": "review",
+      "sample": "retained-priest-1",
+      "arm": "shared",
+      "stratum": "control"
+    },
+    {
+      "id": "retained-priest-2",
+      "kind": "review",
+      "sample": "retained-priest-2",
+      "arm": "shared",
+      "stratum": "control"
+    },
+    {
+      "id": "supported-group-members",
+      "kind": "review",
+      "sample": "supported-group-members",
+      "arm": "shared",
+      "stratum": "control"
+    },
+    {
+      "id": "incidental-roles",
+      "kind": "review",
+      "sample": "incidental-roles",
+      "arm": "shared",
+      "stratum": "control"
+    },
+    {
+      "id": "unselected-place-object",
+      "kind": "review",
+      "sample": "unselected-place-object",
+      "arm": "shared",
+      "stratum": "control"
+    },
+    {
+      "id": "selected-place-object",
+      "kind": "review",
+      "sample": "selected-place-object",
+      "arm": "shared",
+      "stratum": "control"
+    },
+    {
+      "id": "r034-baseline",
+      "kind": "pipeline",
+      "sample": "r034",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "r034-candidate",
+      "kind": "pipeline",
+      "sample": "r034",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "r035-candidate",
+      "kind": "pipeline",
+      "sample": "r035",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "r035-baseline",
+      "kind": "pipeline",
+      "sample": "r035",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "f006-baseline",
+      "kind": "pipeline",
+      "sample": "f006",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f006-candidate",
+      "kind": "pipeline",
+      "sample": "f006",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f005-candidate",
+      "kind": "pipeline",
+      "sample": "f005",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f005-baseline",
+      "kind": "pipeline",
+      "sample": "f005",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f010-baseline",
+      "kind": "pipeline",
+      "sample": "f010",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f010-candidate",
+      "kind": "pipeline",
+      "sample": "f010",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f011-candidate",
+      "kind": "pipeline",
+      "sample": "f011",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f011-baseline",
+      "kind": "pipeline",
+      "sample": "f011",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f015-baseline",
+      "kind": "pipeline",
+      "sample": "f015",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f015-candidate",
+      "kind": "pipeline",
+      "sample": "f015",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f008-candidate",
+      "kind": "pipeline",
+      "sample": "f008",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f008-baseline",
+      "kind": "pipeline",
+      "sample": "f008",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f014-baseline",
+      "kind": "pipeline",
+      "sample": "f014",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f014-candidate",
+      "kind": "pipeline",
+      "sample": "f014",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f001-candidate",
+      "kind": "pipeline",
+      "sample": "f001",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f001-baseline",
+      "kind": "pipeline",
+      "sample": "f001",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r067-baseline",
+      "kind": "pipeline",
+      "sample": "r067",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "r067-candidate",
+      "kind": "pipeline",
+      "sample": "r067",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "f003-candidate",
+      "kind": "pipeline",
+      "sample": "f003",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f003-baseline",
+      "kind": "pipeline",
+      "sample": "f003",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f004-baseline",
+      "kind": "pipeline",
+      "sample": "f004",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f004-candidate",
+      "kind": "pipeline",
+      "sample": "f004",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f022-candidate",
+      "kind": "pipeline",
+      "sample": "f022",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f022-baseline",
+      "kind": "pipeline",
+      "sample": "f022",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f019-baseline",
+      "kind": "pipeline",
+      "sample": "f019",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f019-candidate",
+      "kind": "pipeline",
+      "sample": "f019",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f021-candidate",
+      "kind": "pipeline",
+      "sample": "f021",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f021-baseline",
+      "kind": "pipeline",
+      "sample": "f021",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r001-baseline",
+      "kind": "pipeline",
+      "sample": "r001",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "r001-candidate",
+      "kind": "pipeline",
+      "sample": "r001",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "r074-candidate",
+      "kind": "pipeline",
+      "sample": "r074",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "r074-baseline",
+      "kind": "pipeline",
+      "sample": "r074",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "f020-baseline",
+      "kind": "pipeline",
+      "sample": "f020",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f020-candidate",
+      "kind": "pipeline",
+      "sample": "f020",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r059-candidate",
+      "kind": "pipeline",
+      "sample": "r059",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "r059-baseline",
+      "kind": "pipeline",
+      "sample": "r059",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "f013-baseline",
+      "kind": "pipeline",
+      "sample": "f013",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f013-candidate",
+      "kind": "pipeline",
+      "sample": "f013",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f009-candidate",
+      "kind": "pipeline",
+      "sample": "f009",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f009-baseline",
+      "kind": "pipeline",
+      "sample": "f009",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f017-baseline",
+      "kind": "pipeline",
+      "sample": "f017",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f017-candidate",
+      "kind": "pipeline",
+      "sample": "f017",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r027-candidate",
+      "kind": "pipeline",
+      "sample": "r027",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "r027-baseline",
+      "kind": "pipeline",
+      "sample": "r027",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "f007-baseline",
+      "kind": "pipeline",
+      "sample": "f007",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f007-candidate",
+      "kind": "pipeline",
+      "sample": "f007",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f023-candidate",
+      "kind": "pipeline",
+      "sample": "f023",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f023-baseline",
+      "kind": "pipeline",
+      "sample": "f023",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f012-baseline",
+      "kind": "pipeline",
+      "sample": "f012",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f012-candidate",
+      "kind": "pipeline",
+      "sample": "f012",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f016-candidate",
+      "kind": "pipeline",
+      "sample": "f016",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f016-baseline",
+      "kind": "pipeline",
+      "sample": "f016",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f018-baseline",
+      "kind": "pipeline",
+      "sample": "f018",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f018-candidate",
+      "kind": "pipeline",
+      "sample": "f018",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f002-candidate",
+      "kind": "pipeline",
+      "sample": "f002",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f002-baseline",
+      "kind": "pipeline",
+      "sample": "f002",
+      "arm": "baseline",
+      "stratum": "fresh"
+    }
+  ],
+  "first": {
+    "retained-priest-1": {
+      "sha256": "dc8d8d8f4ee2356dc91d14086dd00a2f801733089788e292b0748082c0927e85",
+      "schemaName": "plan_review"
+    },
+    "retained-priest-2": {
+      "sha256": "192d43ab3ff662b4446036b42882b68063a640936aa2f1512313282bd5376a9e",
+      "schemaName": "plan_review"
+    },
+    "supported-group-members": {
+      "sha256": "d52a2e1ede132e94ccb785cc293e5cd925ce1b8953753a57b9708caa52426848",
+      "schemaName": "plan_review"
+    },
+    "incidental-roles": {
+      "sha256": "cfc9ef874bbf508055a103257362d409112be37313177db5ab1f04ce81366c4b",
+      "schemaName": "plan_review"
+    },
+    "unselected-place-object": {
+      "sha256": "e8d38b7a0e249a927c5b73b9d36817dec87c792ac0a8336167686dec8f4adaa4",
+      "schemaName": "plan_review"
+    },
+    "selected-place-object": {
+      "sha256": "8672fafd6440b0067f9059483aa5a043b5dc5c8946f1205603eab4f00ee507a8",
+      "schemaName": "plan_review"
+    },
+    "r034-baseline": {
+      "sha256": "d2ad685f2491bbecc34316d1f45bda5c7be3e0b41e3955ca97fad4165b8685ca",
+      "schemaName": "section_look"
+    },
+    "r034-candidate": {
+      "sha256": "d2ad685f2491bbecc34316d1f45bda5c7be3e0b41e3955ca97fad4165b8685ca",
+      "schemaName": "section_look"
+    },
+    "r035-candidate": {
+      "sha256": "6200a02f5e1aa2e05b211acd1191d093d6d47e018166a82f49fda55a91161e37",
+      "schemaName": "section_look"
+    },
+    "r035-baseline": {
+      "sha256": "6200a02f5e1aa2e05b211acd1191d093d6d47e018166a82f49fda55a91161e37",
+      "schemaName": "section_look"
+    },
+    "f006-baseline": {
+      "sha256": "66fd519f8bffc6cb380c3ce9976cf077da4e7a8e19c54e8290e9ca90687a70f1",
+      "schemaName": "section_look"
+    },
+    "f006-candidate": {
+      "sha256": "66fd519f8bffc6cb380c3ce9976cf077da4e7a8e19c54e8290e9ca90687a70f1",
+      "schemaName": "section_look"
+    },
+    "f005-candidate": {
+      "sha256": "f801d9df86ae1ae80c4a625948cc5c9202ef0b1a102cc700ba9767fe6504637e",
+      "schemaName": "section_look"
+    },
+    "f005-baseline": {
+      "sha256": "f801d9df86ae1ae80c4a625948cc5c9202ef0b1a102cc700ba9767fe6504637e",
+      "schemaName": "section_look"
+    },
+    "f010-baseline": {
+      "sha256": "cdc24564ba7dd7143bef3a7800f99f8becbf1cb44aafebf2802d1deeb537cb52",
+      "schemaName": "section_look"
+    },
+    "f010-candidate": {
+      "sha256": "cdc24564ba7dd7143bef3a7800f99f8becbf1cb44aafebf2802d1deeb537cb52",
+      "schemaName": "section_look"
+    },
+    "f011-candidate": {
+      "sha256": "541a8635db8c1db18ffca92e7b18c1489fbc001ff462d4c7923f4961cdc84c38",
+      "schemaName": "section_look"
+    },
+    "f011-baseline": {
+      "sha256": "541a8635db8c1db18ffca92e7b18c1489fbc001ff462d4c7923f4961cdc84c38",
+      "schemaName": "section_look"
+    },
+    "f015-baseline": {
+      "sha256": "35619cc22c6ad6b5ff99a432d37056f7bbccd6799590ea6ede9bfc4f4d735b0e",
+      "schemaName": "section_look"
+    },
+    "f015-candidate": {
+      "sha256": "35619cc22c6ad6b5ff99a432d37056f7bbccd6799590ea6ede9bfc4f4d735b0e",
+      "schemaName": "section_look"
+    },
+    "f008-candidate": {
+      "sha256": "4aa01a97589a49ec6ea0ef9171a6e2ae87141a1557600fb50f65709a8f93f96e",
+      "schemaName": "section_look"
+    },
+    "f008-baseline": {
+      "sha256": "4aa01a97589a49ec6ea0ef9171a6e2ae87141a1557600fb50f65709a8f93f96e",
+      "schemaName": "section_look"
+    },
+    "f014-baseline": {
+      "sha256": "c8fe62bdc8daef294c26830b35ec348334d3f16d916ef0f43fcb186b8ca65236",
+      "schemaName": "section_look"
+    },
+    "f014-candidate": {
+      "sha256": "c8fe62bdc8daef294c26830b35ec348334d3f16d916ef0f43fcb186b8ca65236",
+      "schemaName": "section_look"
+    },
+    "f001-candidate": {
+      "sha256": "5d10053c8d07acf87b301808cf728af563c7e93866f9669da52af3393cd92f29",
+      "schemaName": "section_look"
+    },
+    "f001-baseline": {
+      "sha256": "5d10053c8d07acf87b301808cf728af563c7e93866f9669da52af3393cd92f29",
+      "schemaName": "section_look"
+    },
+    "r067-baseline": {
+      "sha256": "5ce60638058a7957f101081687829dc4ecd411d5b48d839c10bf847f31f558f3",
+      "schemaName": "section_look"
+    },
+    "r067-candidate": {
+      "sha256": "5ce60638058a7957f101081687829dc4ecd411d5b48d839c10bf847f31f558f3",
+      "schemaName": "section_look"
+    },
+    "f003-candidate": {
+      "sha256": "aecdb15ee350894e44d096ced4877ae33630f7b474b818ddd377388994f00ad7",
+      "schemaName": "section_look"
+    },
+    "f003-baseline": {
+      "sha256": "aecdb15ee350894e44d096ced4877ae33630f7b474b818ddd377388994f00ad7",
+      "schemaName": "section_look"
+    },
+    "f004-baseline": {
+      "sha256": "b525a0c3b869eb7b30d1294245ebf7ea86c167697fccb74f09605cccd5753365",
+      "schemaName": "section_look"
+    },
+    "f004-candidate": {
+      "sha256": "b525a0c3b869eb7b30d1294245ebf7ea86c167697fccb74f09605cccd5753365",
+      "schemaName": "section_look"
+    },
+    "f022-candidate": {
+      "sha256": "eab5fcba8b6774f90a2fe75bd9aa9d76c5d17d748554c4897c407b7bb605ec25",
+      "schemaName": "section_look"
+    },
+    "f022-baseline": {
+      "sha256": "eab5fcba8b6774f90a2fe75bd9aa9d76c5d17d748554c4897c407b7bb605ec25",
+      "schemaName": "section_look"
+    },
+    "f019-baseline": {
+      "sha256": "1d1ff3c2f7a8ea7ee60c0fc18e43d8628ce2a06094e07b39dad396c8bd3cebb5",
+      "schemaName": "section_look"
+    },
+    "f019-candidate": {
+      "sha256": "1d1ff3c2f7a8ea7ee60c0fc18e43d8628ce2a06094e07b39dad396c8bd3cebb5",
+      "schemaName": "section_look"
+    },
+    "f021-candidate": {
+      "sha256": "bd0055a126dc5df5528b9108c7db1eb5f520cee1b4679b8e88154f054b30e4ea",
+      "schemaName": "section_look"
+    },
+    "f021-baseline": {
+      "sha256": "bd0055a126dc5df5528b9108c7db1eb5f520cee1b4679b8e88154f054b30e4ea",
+      "schemaName": "section_look"
+    },
+    "r001-baseline": {
+      "sha256": "aadb142f1cce1857f6f611a1ddfd30f69039ff2b86be602a97d44bd93843df15",
+      "schemaName": "section_look"
+    },
+    "r001-candidate": {
+      "sha256": "aadb142f1cce1857f6f611a1ddfd30f69039ff2b86be602a97d44bd93843df15",
+      "schemaName": "section_look"
+    },
+    "r074-candidate": {
+      "sha256": "42d3a41335ceeb6f6f99ae5a702e4ca57a5a1b5072395cae46f080b1e3b7d1fa",
+      "schemaName": "section_look"
+    },
+    "r074-baseline": {
+      "sha256": "42d3a41335ceeb6f6f99ae5a702e4ca57a5a1b5072395cae46f080b1e3b7d1fa",
+      "schemaName": "section_look"
+    },
+    "f020-baseline": {
+      "sha256": "c019711dec3e1df5121e3164ccd31e88ab1e4932e9071c8fbffef0e471c4ac8a",
+      "schemaName": "section_look"
+    },
+    "f020-candidate": {
+      "sha256": "c019711dec3e1df5121e3164ccd31e88ab1e4932e9071c8fbffef0e471c4ac8a",
+      "schemaName": "section_look"
+    },
+    "r059-candidate": {
+      "sha256": "ea134f3be0f419d5e39355a202e5f8838b1c37b4e19255b7b0ccc9ffae677257",
+      "schemaName": "section_look"
+    },
+    "r059-baseline": {
+      "sha256": "ea134f3be0f419d5e39355a202e5f8838b1c37b4e19255b7b0ccc9ffae677257",
+      "schemaName": "section_look"
+    },
+    "f013-baseline": {
+      "sha256": "8b037d07d3b1dafd8acd3987f2b223a38be3ba2de6ccb56f33a2285c2c5eebdd",
+      "schemaName": "section_look"
+    },
+    "f013-candidate": {
+      "sha256": "8b037d07d3b1dafd8acd3987f2b223a38be3ba2de6ccb56f33a2285c2c5eebdd",
+      "schemaName": "section_look"
+    },
+    "f009-candidate": {
+      "sha256": "c0d14ef95925a2f8c5249cec06202272587a210121ef8b924c378e414d6b0b54",
+      "schemaName": "section_look"
+    },
+    "f009-baseline": {
+      "sha256": "c0d14ef95925a2f8c5249cec06202272587a210121ef8b924c378e414d6b0b54",
+      "schemaName": "section_look"
+    },
+    "f017-baseline": {
+      "sha256": "88928447e4e3a82ccb51c33827e5c3c231ecab5096a38d9ea48896527fe53e36",
+      "schemaName": "section_look"
+    },
+    "f017-candidate": {
+      "sha256": "88928447e4e3a82ccb51c33827e5c3c231ecab5096a38d9ea48896527fe53e36",
+      "schemaName": "section_look"
+    },
+    "r027-candidate": {
+      "sha256": "7ff3b6ea464dc205d77fbbaa933cc8cee44d6883a5422e0e62cb92df1f92c33f",
+      "schemaName": "section_look"
+    },
+    "r027-baseline": {
+      "sha256": "7ff3b6ea464dc205d77fbbaa933cc8cee44d6883a5422e0e62cb92df1f92c33f",
+      "schemaName": "section_look"
+    },
+    "f007-baseline": {
+      "sha256": "16a66a32cd33f99f41a502a8180ef74659ad1e55ae1d6431652c10e54ecf9d4a",
+      "schemaName": "section_look"
+    },
+    "f007-candidate": {
+      "sha256": "16a66a32cd33f99f41a502a8180ef74659ad1e55ae1d6431652c10e54ecf9d4a",
+      "schemaName": "section_look"
+    },
+    "f023-candidate": {
+      "sha256": "b787da9397458d9a3abed4203a967709bd9208540e12c59aa293ea5a970b2777",
+      "schemaName": "section_look"
+    },
+    "f023-baseline": {
+      "sha256": "b787da9397458d9a3abed4203a967709bd9208540e12c59aa293ea5a970b2777",
+      "schemaName": "section_look"
+    },
+    "f012-baseline": {
+      "sha256": "aedab76864c2befa119cb11c14acaab3cd5c095aa2dda144e021afe08996ddcb",
+      "schemaName": "section_look"
+    },
+    "f012-candidate": {
+      "sha256": "aedab76864c2befa119cb11c14acaab3cd5c095aa2dda144e021afe08996ddcb",
+      "schemaName": "section_look"
+    },
+    "f016-candidate": {
+      "sha256": "db4c0adb27f5152ddd21eb5daa6072d18cad4fb411415055221f7b81266107a5",
+      "schemaName": "section_look"
+    },
+    "f016-baseline": {
+      "sha256": "db4c0adb27f5152ddd21eb5daa6072d18cad4fb411415055221f7b81266107a5",
+      "schemaName": "section_look"
+    },
+    "f018-baseline": {
+      "sha256": "d104a163946d9f215f6dab40f8cb07430878e24dc89b1555fca7c57815f15b27",
+      "schemaName": "section_look"
+    },
+    "f018-candidate": {
+      "sha256": "d104a163946d9f215f6dab40f8cb07430878e24dc89b1555fca7c57815f15b27",
+      "schemaName": "section_look"
+    },
+    "f002-candidate": {
+      "sha256": "375dfb2f48da8abd3b9e1038c176032497d613c877cc95bdaa91cd5ab526bb03",
+      "schemaName": "section_look"
+    },
+    "f002-baseline": {
+      "sha256": "375dfb2f48da8abd3b9e1038c176032497d613c877cc95bdaa91cd5ab526bb03",
+      "schemaName": "section_look"
+    }
+  },
+  "estimates": [
+    {
+      "id": "retained-priest-1",
+      "firstPassUsd": 0.0006760740740740741,
+      "withOneReplanUsd": 0.0006760740740740741,
+      "maximumCompletionFirstPassUsd": 0.002426074074074074
+    },
+    {
+      "id": "retained-priest-2",
+      "firstPassUsd": 0.0006718888888888889,
+      "withOneReplanUsd": 0.0006718888888888889,
+      "maximumCompletionFirstPassUsd": 0.002421888888888889
+    },
+    {
+      "id": "supported-group-members",
+      "firstPassUsd": 0.000670037037037037,
+      "withOneReplanUsd": 0.000670037037037037,
+      "maximumCompletionFirstPassUsd": 0.002420037037037037
+    },
+    {
+      "id": "incidental-roles",
+      "firstPassUsd": 0.0006022962962962963,
+      "withOneReplanUsd": 0.0006022962962962963,
+      "maximumCompletionFirstPassUsd": 0.0023522962962962963
+    },
+    {
+      "id": "unselected-place-object",
+      "firstPassUsd": 0.0006035925925925925,
+      "withOneReplanUsd": 0.0006035925925925925,
+      "maximumCompletionFirstPassUsd": 0.0023535925925925925
+    },
+    {
+      "id": "selected-place-object",
+      "firstPassUsd": 0.0006042962962962962,
+      "withOneReplanUsd": 0.0006042962962962962,
+      "maximumCompletionFirstPassUsd": 0.002354296296296296
+    },
+    {
+      "id": "r034-baseline",
+      "firstPassUsd": 0.002305333333333333,
+      "withOneReplanUsd": 0.004229037037037036,
+      "maximumCompletionFirstPassUsd": 0.0050803333333333325
+    },
+    {
+      "id": "r034-candidate",
+      "firstPassUsd": 0.002156,
+      "withOneReplanUsd": 0.0039303703703703705,
+      "maximumCompletionFirstPassUsd": 0.004931
+    },
+    {
+      "id": "r035-candidate",
+      "firstPassUsd": 0.0020745555555555556,
+      "withOneReplanUsd": 0.0037876666666666666,
+      "maximumCompletionFirstPassUsd": 0.004849555555555555
+    },
+    {
+      "id": "r035-baseline",
+      "firstPassUsd": 0.0022238888888888885,
+      "withOneReplanUsd": 0.0040863333333333324,
+      "maximumCompletionFirstPassUsd": 0.0049988888888888895
+    },
+    {
+      "id": "f006-baseline",
+      "firstPassUsd": 0.0022319259259259263,
+      "withOneReplanUsd": 0.004098962962962963,
+      "maximumCompletionFirstPassUsd": 0.005006925925925925
+    },
+    {
+      "id": "f006-candidate",
+      "firstPassUsd": 0.0020825925925925925,
+      "withOneReplanUsd": 0.0038002962962962964,
+      "maximumCompletionFirstPassUsd": 0.004857592592592592
+    },
+    {
+      "id": "f005-candidate",
+      "firstPassUsd": 0.0017973703703703704,
+      "withOneReplanUsd": 0.0033422962962962963,
+      "maximumCompletionFirstPassUsd": 0.00457237037037037
+    },
+    {
+      "id": "f005-baseline",
+      "firstPassUsd": 0.0019427407407407405,
+      "withOneReplanUsd": 0.0036330370370370366,
+      "maximumCompletionFirstPassUsd": 0.00471774074074074
+    },
+    {
+      "id": "f010-baseline",
+      "firstPassUsd": 0.0019345555555555552,
+      "withOneReplanUsd": 0.003616481481481481,
+      "maximumCompletionFirstPassUsd": 0.004709555555555555
+    },
+    {
+      "id": "f010-candidate",
+      "firstPassUsd": 0.0017891851851851849,
+      "withOneReplanUsd": 0.0033257407407407402,
+      "maximumCompletionFirstPassUsd": 0.004564185185185185
+    },
+    {
+      "id": "f011-candidate",
+      "firstPassUsd": 0.002066555555555556,
+      "withOneReplanUsd": 0.0037752962962962966,
+      "maximumCompletionFirstPassUsd": 0.0048415555555555555
+    },
+    {
+      "id": "f011-baseline",
+      "firstPassUsd": 0.0022158888888888888,
+      "withOneReplanUsd": 0.004073962962962963,
+      "maximumCompletionFirstPassUsd": 0.0049908888888888885
+    },
+    {
+      "id": "f015-baseline",
+      "firstPassUsd": 0.0019387037037037036,
+      "withOneReplanUsd": 0.003627296296296296,
+      "maximumCompletionFirstPassUsd": 0.004713703703703704
+    },
+    {
+      "id": "f015-candidate",
+      "firstPassUsd": 0.0017933333333333332,
+      "withOneReplanUsd": 0.0033365555555555553,
+      "maximumCompletionFirstPassUsd": 0.004568333333333333
+    },
+    {
+      "id": "f008-candidate",
+      "firstPassUsd": 0.0017974814814814815,
+      "withOneReplanUsd": 0.0033405555555555554,
+      "maximumCompletionFirstPassUsd": 0.004572481481481481
+    },
+    {
+      "id": "f008-baseline",
+      "firstPassUsd": 0.0019428518518518519,
+      "withOneReplanUsd": 0.003631296296296296,
+      "maximumCompletionFirstPassUsd": 0.0047178518518518515
+    },
+    {
+      "id": "f014-baseline",
+      "firstPassUsd": 0.0019184444444444444,
+      "withOneReplanUsd": 0.0035867777777777777,
+      "maximumCompletionFirstPassUsd": 0.0046934444444444445
+    },
+    {
+      "id": "f014-candidate",
+      "firstPassUsd": 0.001773074074074074,
+      "withOneReplanUsd": 0.003296037037037037,
+      "maximumCompletionFirstPassUsd": 0.004548074074074074
+    },
+    {
+      "id": "f001-candidate",
+      "firstPassUsd": 0.0018304074074074073,
+      "withOneReplanUsd": 0.003401333333333333,
+      "maximumCompletionFirstPassUsd": 0.004605407407407407
+    },
+    {
+      "id": "f001-baseline",
+      "firstPassUsd": 0.0019757777777777777,
+      "withOneReplanUsd": 0.0036920740740740737,
+      "maximumCompletionFirstPassUsd": 0.004750777777777777
+    },
+    {
+      "id": "r067-baseline",
+      "firstPassUsd": 0.002252074074074074,
+      "withOneReplanUsd": 0.004136074074074074,
+      "maximumCompletionFirstPassUsd": 0.005027074074074074
+    },
+    {
+      "id": "r067-candidate",
+      "firstPassUsd": 0.002102740740740741,
+      "withOneReplanUsd": 0.0038374074074074074,
+      "maximumCompletionFirstPassUsd": 0.004877740740740741
+    },
+    {
+      "id": "f003-candidate",
+      "firstPassUsd": 0.0017758148148148147,
+      "withOneReplanUsd": 0.0033025185185185184,
+      "maximumCompletionFirstPassUsd": 0.004550814814814815
+    },
+    {
+      "id": "f003-baseline",
+      "firstPassUsd": 0.001921185185185185,
+      "withOneReplanUsd": 0.003593259259259259,
+      "maximumCompletionFirstPassUsd": 0.004696185185185185
+    },
+    {
+      "id": "f004-baseline",
+      "firstPassUsd": 0.0019477407407407406,
+      "withOneReplanUsd": 0.0036411481481481477,
+      "maximumCompletionFirstPassUsd": 0.004722740740740741
+    },
+    {
+      "id": "f004-candidate",
+      "firstPassUsd": 0.0018023703703703702,
+      "withOneReplanUsd": 0.003350407407407407,
+      "maximumCompletionFirstPassUsd": 0.0045773703703703705
+    },
+    {
+      "id": "f022-candidate",
+      "firstPassUsd": 0.0018037407407407407,
+      "withOneReplanUsd": 0.0033545185185185184,
+      "maximumCompletionFirstPassUsd": 0.004578740740740741
+    },
+    {
+      "id": "f022-baseline",
+      "firstPassUsd": 0.001949111111111111,
+      "withOneReplanUsd": 0.003645259259259259,
+      "maximumCompletionFirstPassUsd": 0.004724111111111111
+    },
+    {
+      "id": "f019-baseline",
+      "firstPassUsd": 0.0022471111111111108,
+      "withOneReplanUsd": 0.0041279259259259255,
+      "maximumCompletionFirstPassUsd": 0.005022111111111111
+    },
+    {
+      "id": "f019-candidate",
+      "firstPassUsd": 0.0020977777777777774,
+      "withOneReplanUsd": 0.003829259259259259,
+      "maximumCompletionFirstPassUsd": 0.004872777777777778
+    },
+    {
+      "id": "f021-candidate",
+      "firstPassUsd": 0.002082148148148148,
+      "withOneReplanUsd": 0.003801037037037037,
+      "maximumCompletionFirstPassUsd": 0.004857148148148148
+    },
+    {
+      "id": "f021-baseline",
+      "firstPassUsd": 0.0022314814814814814,
+      "withOneReplanUsd": 0.0040997037037037035,
+      "maximumCompletionFirstPassUsd": 0.005006481481481481
+    },
+    {
+      "id": "r001-baseline",
+      "firstPassUsd": 0.002257555555555555,
+      "withOneReplanUsd": 0.004145925925925925,
+      "maximumCompletionFirstPassUsd": 0.005032555555555556
+    },
+    {
+      "id": "r001-candidate",
+      "firstPassUsd": 0.002108222222222222,
+      "withOneReplanUsd": 0.0038472592592592586,
+      "maximumCompletionFirstPassUsd": 0.004883222222222222
+    },
+    {
+      "id": "r074-candidate",
+      "firstPassUsd": 0.0020844444444444443,
+      "withOneReplanUsd": 0.0038057777777777777,
+      "maximumCompletionFirstPassUsd": 0.004859444444444444
+    },
+    {
+      "id": "r074-baseline",
+      "firstPassUsd": 0.0022337777777777777,
+      "withOneReplanUsd": 0.004104444444444444,
+      "maximumCompletionFirstPassUsd": 0.005008777777777777
+    },
+    {
+      "id": "f020-baseline",
+      "firstPassUsd": 0.0019377037037037034,
+      "withOneReplanUsd": 0.003624444444444444,
+      "maximumCompletionFirstPassUsd": 0.004712703703703703
+    },
+    {
+      "id": "f020-candidate",
+      "firstPassUsd": 0.001792333333333333,
+      "withOneReplanUsd": 0.0033337037037037033,
+      "maximumCompletionFirstPassUsd": 0.004567333333333333
+    },
+    {
+      "id": "r059-candidate",
+      "firstPassUsd": 0.00209,
+      "withOneReplanUsd": 0.0038155555555555555,
+      "maximumCompletionFirstPassUsd": 0.0048649999999999995
+    },
+    {
+      "id": "r059-baseline",
+      "firstPassUsd": 0.002239333333333333,
+      "withOneReplanUsd": 0.004114222222222222,
+      "maximumCompletionFirstPassUsd": 0.0050143333333333324
+    },
+    {
+      "id": "f013-baseline",
+      "firstPassUsd": 0.0019369259259259257,
+      "withOneReplanUsd": 0.003619518518518518,
+      "maximumCompletionFirstPassUsd": 0.004711925925925926
+    },
+    {
+      "id": "f013-candidate",
+      "firstPassUsd": 0.0017915555555555553,
+      "withOneReplanUsd": 0.0033287777777777773,
+      "maximumCompletionFirstPassUsd": 0.0045665555555555555
+    },
+    {
+      "id": "f009-candidate",
+      "firstPassUsd": 0.0017707037037037036,
+      "withOneReplanUsd": 0.003293962962962963,
+      "maximumCompletionFirstPassUsd": 0.004545703703703703
+    },
+    {
+      "id": "f009-baseline",
+      "firstPassUsd": 0.0019160740740740742,
+      "withOneReplanUsd": 0.0035847037037037037,
+      "maximumCompletionFirstPassUsd": 0.004691074074074073
+    },
+    {
+      "id": "f017-baseline",
+      "firstPassUsd": 0.001938296296296296,
+      "withOneReplanUsd": 0.0036268148148148145,
+      "maximumCompletionFirstPassUsd": 0.004713296296296296
+    },
+    {
+      "id": "f017-candidate",
+      "firstPassUsd": 0.0017929259259259257,
+      "withOneReplanUsd": 0.0033360740740740738,
+      "maximumCompletionFirstPassUsd": 0.004567925925925926
+    },
+    {
+      "id": "r027-candidate",
+      "firstPassUsd": 0.0021267777777777778,
+      "withOneReplanUsd": 0.003877962962962963,
+      "maximumCompletionFirstPassUsd": 0.0049017777777777775
+    },
+    {
+      "id": "r027-baseline",
+      "firstPassUsd": 0.0022761111111111107,
+      "withOneReplanUsd": 0.004176629629629629,
+      "maximumCompletionFirstPassUsd": 0.005051111111111111
+    },
+    {
+      "id": "f007-baseline",
+      "firstPassUsd": 0.001904037037037037,
+      "withOneReplanUsd": 0.003560296296296296,
+      "maximumCompletionFirstPassUsd": 0.004679037037037037
+    },
+    {
+      "id": "f007-candidate",
+      "firstPassUsd": 0.0017586666666666666,
+      "withOneReplanUsd": 0.0032695555555555555,
+      "maximumCompletionFirstPassUsd": 0.004533666666666667
+    },
+    {
+      "id": "f023-candidate",
+      "firstPassUsd": 0.0017807777777777776,
+      "withOneReplanUsd": 0.003309481481481481,
+      "maximumCompletionFirstPassUsd": 0.0045557777777777775
+    },
+    {
+      "id": "f023-baseline",
+      "firstPassUsd": 0.001926148148148148,
+      "withOneReplanUsd": 0.0036002222222222217,
+      "maximumCompletionFirstPassUsd": 0.004701148148148148
+    },
+    {
+      "id": "f012-baseline",
+      "firstPassUsd": 0.0019570740740740738,
+      "withOneReplanUsd": 0.003658629629629629,
+      "maximumCompletionFirstPassUsd": 0.004732074074074074
+    },
+    {
+      "id": "f012-candidate",
+      "firstPassUsd": 0.0018117037037037036,
+      "withOneReplanUsd": 0.0033678888888888886,
+      "maximumCompletionFirstPassUsd": 0.004586703703703704
+    },
+    {
+      "id": "f016-candidate",
+      "firstPassUsd": 0.0017741481481481482,
+      "withOneReplanUsd": 0.003298703703703704,
+      "maximumCompletionFirstPassUsd": 0.004549148148148148
+    },
+    {
+      "id": "f016-baseline",
+      "firstPassUsd": 0.0019195185185185185,
+      "withOneReplanUsd": 0.0035894444444444446,
+      "maximumCompletionFirstPassUsd": 0.004694518518518518
+    },
+    {
+      "id": "f018-baseline",
+      "firstPassUsd": 0.001945185185185185,
+      "withOneReplanUsd": 0.0036376296296296295,
+      "maximumCompletionFirstPassUsd": 0.004720185185185185
+    },
+    {
+      "id": "f018-candidate",
+      "firstPassUsd": 0.0017998148148148146,
+      "withOneReplanUsd": 0.003346888888888889,
+      "maximumCompletionFirstPassUsd": 0.0045748148148148145
+    },
+    {
+      "id": "f002-candidate",
+      "firstPassUsd": 0.0018009259259259257,
+      "withOneReplanUsd": 0.0033477037037037034,
+      "maximumCompletionFirstPassUsd": 0.004575925925925926
+    },
+    {
+      "id": "f002-baseline",
+      "firstPassUsd": 0.0019462962962962962,
+      "withOneReplanUsd": 0.003638444444444444,
+      "maximumCompletionFirstPassUsd": 0.004721296296296296
+    }
+  ],
+  "costEstimate": {
+    "firstPassUsd": 0.12244918518518517,
+    "oneReplanEveryPipelineUsd": 0.22341877777777772,
+    "maximumCompletionFirstPassUsd": 0.2994491851851852,
+    "maximumCallEstimateUsd": 0.002426074074074074,
+    "method": "Offline scripted mechanics only; source-specific requests, current catalog prices, output-schema characters and generous generated-input padding at 2.7 characters/token. Expected production completion tokens; second scenario adds one full plan/review round to every pipeline. These are estimates, not token or total cost guarantees; malformed retries and stochastic lengths can exhaust the cap before completion."
+  },
+  "paidCalls": 0,
+  "productionMutations": 0
+}

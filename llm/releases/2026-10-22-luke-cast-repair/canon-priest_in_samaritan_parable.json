@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-22T22:32:08.688Z",
+  "entry": {
+    "id": "priest_in_samaritan_parable",
+    "kind": "character",
+    "readingKind": "person",
+    "name": "Priest in the Samaritan parable",
+    "aliases": [
+      "a certain priest"
+    ],
+    "note": "Unnamed priest inside the narrated story in Luke 10:31, who sees the traveler and passes on the other side. Distinct from every named priest elsewhere and from the framing speakers.",
+    "members": [],
+    "support": [
+      "luke-10-31"
+    ]
+  },
+  "result": {
+    "entryId": "priest_in_samaritan_parable",
+    "kind": "character",
+    "hasForm": true,
+    "appearanceFromText": "The text fixes only that he is a priest traveling down the road from Jerusalem to Jericho who passes by on the other side; no physical features are given, so the priestly dress follows the brief's Roman Judea clothing (priestly robes) and the age, build and features are invented in a plain, era-appropriate way.",
+    "stages": [
+      {
+        "id": "priest_in_samaritan_parable-1",
+        "label": "Priest in the Samaritan parable",
+        "when": "Roman Judea, the road from Jerusalem to Jericho",
+        "source": "mixed",
+        "quotes": [
+          {
+            "unit": "luke-10-31",
+            "quote": "By chance a certain priest was going down that way."
+          }
+        ],
+        "text": "Priest in the Samaritan parable: a man of middle years with a lean, weathered build and dark, short-cropped hair and a close-trimmed beard streaked with grey. Sun-browned skin and a serious, careful face. He wears a long priestly robe of undyed linen with a dark woven sash and a fringed prayer shawl over the shoulders, in muted ochre and off-white. He carries nothing in his hands but a small leather scrip at his side."
+      }
+    ],
+    "sectionStages": {
+      "luke-10-25": "priest_in_samaritan_parable-1"
+    },
+    "problems": [],
+    "promptVersion": "2026-10-22-canon-showing-v3",
+    "attempts": 1
+  }
+}

@@ -5,6 +5,7 @@
  * engine maps the failures to responses; the evaluation harness records them. Nothing here is
  * paid except the owner-funded look and plan.
  */
+import { lookPolicy } from "./situation";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
 import type { TextModel } from "../reading-pass/model";
 import type { ArtStyle } from "../work-preparation";
@@ -35,6 +36,8 @@ export type AssembleDeps = {
   onReferenceUnavailable?: (kind: string, id: string, error: unknown) => void;
   /** An owner-authored style trial: used instead of the brief's style entry of that id (#181). */
   styleOverride?: { style: ArtStyle; version: string };
+  /** Evaluation-only omission after normal reference selection and prompt trimming. */
+  omitStyleReference?: boolean;
 };
 
 export type AssembleInput = { workId: string; unitId: string; styleId: string; variationNumber: number | null; aspectRatio: "16:9" | "21:9" | "3:2" };
@@ -102,26 +105,42 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     return { ok: false, reason: "preparation", message: "Scene preparation failed.", retryable: true, stage: null, error };
   }
 
+  // A concurrent section correction can reassign a stage without changing its entry's version.
+  const activeSection = await store.getActiveRecord("section", sectionId);
+  const assignments = activeSection?.payload.cast as Array<{ entryId: string; stageId: string }> | undefined;
+  if (!activeSection || activeSection.payload.kind !== "section" || activeSection.version !== section.version || prepared.sectionId !== sectionId ||
+    !assignments || prepared.present.some((present) => !assignments.some((member) => member.entryId === present.entryId && member.stageId === present.stageId))) {
+    return { ok: false, reason: "preparation", message: "Preparing scene: section cast changed.", retryable: true, stage: "plan", error: null };
+  }
+
   // The canon stages of the entries the plan marked present.
   const canon: SelectedCanon[] = [];
   for (const present of prepared.present) {
     const entry = await store.getActiveRecord("entry", present.entryId);
-    if (!entry || entry.payload.kind !== "entry") continue;
+    if (!entry || entry.payload.kind !== "entry" || entry.version !== present.version) {
+      return { ok: false, reason: "preparation", message: `Preparing scene: canon changed for ${present.entryId}.`, retryable: true, stage: "plan", error: null };
+    }
     const payload = entry.payload as unknown as { name: string; entryKind: SelectedCanon["kind"]; hasForm?: boolean; stages: Array<{ id: string; text: string }> };
-    const stage = payload.stages.find((s) => s.id === present.stageId) ?? payload.stages[0];
-    if (!stage) continue;
+    const stage = payload.stages.find((s) => s.id === present.stageId);
+    if (!stage || !stage.text.trim()) {
+      return { ok: false, reason: "preparation", message: `Preparing scene: missing canon stage ${present.entryId}:${present.stageId}.`, retryable: true, stage: "plan", error: null };
+    }
     canon.push({ entryId: present.entryId, stageId: stage.id, kind: payload.entryKind, name: payload.name, text: stage.text, hasForm: payload.hasForm !== false, version: entry.version });
   }
+
+  const lookCurrent = async () => {
+    const active = await store.getActiveRecord("look", sectionId);
+    return active?.version === prepared.look.version && lookPolicy(active) === prepared.look.policy;
+  };
+  if (!await lookCurrent()) return { ok: false, reason: "preparation", message: "Preparing scene: section look changed.", retryable: true, stage: "look", error: null };
 
   // Optional references: only the ones the packet could select, only when current, only when their bytes load.
   const available: AvailableReference[] = [];
   const inline = new Map<string, Uint8Array>();
   type Required = Array<{ kind: string; recordId: string; version: string }>;
   const candidates: Array<{ kind: "sheet" | "styleReference"; id: string; reference: (storageId: string, version: string) => AvailableReference; required: Required }> = [];
-  if (input.styleId !== "classical") {
-    candidates.push({ kind: "styleReference", id: input.styleId, reference: (storageId, version) => ({ kind: "styleReference", styleId: input.styleId, storageId, version }),
-      required: [{ kind: "style", recordId: input.styleId, version: styleEntry.version }] });
-  }
+  candidates.push({ kind: "styleReference", id: input.styleId, reference: (storageId, version) => ({ kind: "styleReference", styleId: input.styleId, storageId, version }),
+    required: [{ kind: "style", recordId: input.styleId, version: styleEntry.version }] });
   const eligible = canon.filter((c) => c.hasForm);
   const characters = eligible.filter((c) => c.kind === "character");
   const locations = eligible.filter((c) => c.kind === "location");
@@ -147,6 +166,8 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     }
   }
 
+  if (!await lookCurrent()) return { ok: false, reason: "preparation", message: "Preparing scene: section look changed.", retryable: true, stage: "look", error: null };
+
   // The rendering packet, validated before any paid call.
   const rendering = buildRenderingPacket({
     work: { id: input.workId, title: inputs.work.work.title },
@@ -155,8 +176,9 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     brief: inputs.brief, briefVersion: inputs.briefVersion, eraId: prepared.era ?? inputs.brief.eras[0].id,
     style: styleEntry.style, styleVersion: styleEntry.version,
     look: { version: prepared.look.version, ...prepared.look.payload },
+    situation: prepared.situation,
     plan: { version: prepared.plan.version, primarySubject: prepared.plan.payload.primarySubject, action: prepared.plan.payload.action, setting: prepared.plan.payload.setting, secondaryElements: prepared.plan.payload.secondaryElements, mood: prepared.plan.payload.mood, timeOfDay: prepared.plan.payload.timeOfDay, composition: prepared.plan.payload.composition },
-    canon, references: available, variationNumber: input.variationNumber, aspectRatio: input.aspectRatio,
+    canon, references: available, omitStyleReference: deps.omitStyleReference, variationNumber: input.variationNumber, aspectRatio: input.aspectRatio,
   });
   if (!rendering.ok) return { ok: false, reason: "packet", message: rendering.error, finalChars: rendering.finalChars, momentId };
   return {

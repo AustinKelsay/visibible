@@ -1,0 +1,204 @@
+{
+  "scorer": "Operator adjudication (Claude Opus 5.5) of scorers A and B; disputed images img05, img12 and img13 viewed directly before unblinding.",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "img01",
+      "noFormFigure": "yes",
+      "edges": "margin",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "no",
+      "matchesScene": "partly",
+      "overall": "flawed",
+      "notes": "Both independent scorers agree on every field. A: In the white light column directly above the fiery throne (top center), faint ink contours draw a standing robed human silhouette with head and shoulders, which is a figure for the Ancient of Days. The watercolor wash also breaks to bare cream paper along the bottom of the left border and the bottom-left corner (lowest ~100 px)."
+    },
+    {
+      "id": "img02",
+      "noFormFigure": "no",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "no",
+      "matchesScene": "yes",
+      "overall": "acceptable",
+      "notes": "Both independent scorers agree on every field. A: God is shown only as a flame-like glow veiled in cloud (upper center), with no shape inside it. Israelite families with bundles, a carried child and an elder with a staff walk between water walls toward a dawn horizon, and the painting reaches all four edges."
+    },
+    {
+      "id": "img03",
+      "noFormFigure": "na",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "no",
+      "matchesScene": "yes",
+      "overall": "acceptable",
+      "notes": "Both independent scorers agree on every field. A: The Samaritan kneels at center pouring red wine onto the traveler's bandaged arm, with the saddled donkey at left, a flask and linen strips at lower right, and the stone inn with the road behind under a low sun. The paint reaches every edge and there is no lettering."
+    },
+    {
+      "id": "img04",
+      "noFormFigure": "yes",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "no",
+      "matchesScene": "partly",
+      "overall": "flawed",
+      "notes": "Both independent scorers agree on every field. A: Above the flaming throne (top center), the light forms a clear luminous human figure with a head, a robed torso and both hands spread outward. That figure contradicts the request for no formed presence, although the burning wheels, empty thrones and cloud banks match."
+    },
+    {
+      "id": "img05",
+      "noFormFigure": "no",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "yes",
+      "matchesScene": "partly",
+      "overall": "uncertain",
+      "notes": "Operator viewed: two generic figures in the tabernacle doorway are plausible attendants rather than unsupported named figures; Moses reads a scroll with faint script-like marks instead of counting. Uncertain, not a blocker."
+    },
+    {
+      "id": "img06",
+      "noFormFigure": "no",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "no",
+      "matchesScene": "yes",
+      "overall": "acceptable",
+      "notes": "Both independent scorers agree on every field. A: Above the burning wheeled throne the light is only a vertical beam with streaks; contrast checks show no head, body or robe in it. The watercolor clouds and chairs are painted out to all four borders, and the white at bottom center is cloud floor, not margin."
+    },
+    {
+      "id": "img07",
+      "noFormFigure": "no",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "no",
+      "matchesScene": "yes",
+      "overall": "acceptable",
+      "notes": "Both independent scorers agree on every field. A: In this gold-ground icon style, light rays and white cloud rise above a flaming throne on four burning wheels, with a fiery river flowing down and empty thrones on both sides. There is no figure in the light, and the cloud and gold reach every edge."
+    },
+    {
+      "id": "img08",
+      "noFormFigure": "yes",
+      "edges": "margin",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "no",
+      "matchesScene": "partly",
+      "overall": "flawed",
+      "notes": "Both independent scorers agree on every field. A: The white core of the flame column above the throne (top center) forms a faint standing silhouette with a rounded head, shoulders and body flanked by flames, which is clearest when blurred. The watercolor fades to bare white paper at the bottom-left and bottom-right corners, along the lower left and right borders and the ends of the bottom edge."
+    },
+    {
+      "id": "img09",
+      "noFormFigure": "no",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "yes",
+      "matchesScene": "yes",
+      "overall": "uncertain",
+      "notes": "Both independent scorers agree on every field. A: In this haloed icon style, Moses (center right) raises his hand and holds a tally stick beside Aaron, with Levites holding staffs and mothers with infants at the edges. The tally carries a column of letter-like glyphs, so text is flagged; God is absent."
+    },
+    {
+      "id": "img10",
+      "noFormFigure": "no",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "no",
+      "matchesScene": "partly",
+      "overall": "flawed",
+      "notes": "Both independent scorers agree on every field. A: God's veiled radiance is drawn as a glowing heart-shaped symbol in the clouds (upper center). It is not a human form, but it literalizes 'glow at its heart' into a valentine heart. The crossing between the water walls, with families, a carried child and elders with staffs, is otherwise correct and full-bleed."
+    },
+    {
+      "id": "img11",
+      "noFormFigure": "no",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "no",
+      "matchesScene": "partly",
+      "overall": "acceptable",
+      "notes": "Both scorers acceptable; scorer A notes no tally in hand."
+    },
+    {
+      "id": "img12",
+      "noFormFigure": "no",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "no",
+      "text": "no",
+      "matchesScene": "partly",
+      "overall": "flawed",
+      "notes": "Operator viewed: the throne is garbled, with extra wheels at two heights and a burning fragment floating at upper right. The radiance has no figure."
+    },
+    {
+      "id": "img13",
+      "noFormFigure": "no",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "no",
+      "text": "no",
+      "matchesScene": "yes",
+      "overall": "flawed",
+      "notes": "Operator viewed: Moses' staff stands diagonally beside him, held by no one, an impossible object state."
+    },
+    {
+      "id": "img14",
+      "noFormFigure": "no",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "yes",
+      "matchesScene": "yes",
+      "overall": "uncertain",
+      "notes": "Not separately viewed by the operator; scorer A reports a short row of glyph-like marks on a throne seat. Scored uncertain conservatively."
+    },
+    {
+      "id": "img15",
+      "noFormFigure": "no",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "no",
+      "matchesScene": "yes",
+      "overall": "acceptable",
+      "notes": "Both independent scorers agree on every field. A: The throne itself is drawn in white flame with armrests and burning wheels (center left); there is no head, limbs or seated figure in the fire. A ring of empty thrones sits in cloud, a fiery river runs at upper right, and the dark oil paint reaches all edges."
+    },
+    {
+      "id": "img16",
+      "noFormFigure": "na",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "no",
+      "matchesScene": "yes",
+      "overall": "acceptable",
+      "notes": "Both independent scorers agree on every field. A: The Samaritan kneels at center pouring from a flask onto the traveler's shoulder, with a jug and linen at lower right, the saddled donkey at left and the stone inn on the road at right. A distant walled town is at upper left. The painting is full-bleed with no lettering."
+    },
+    {
+      "id": "img17",
+      "noFormFigure": "na",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "yes",
+      "matchesScene": "yes",
+      "overall": "flawed",
+      "notes": "Both independent scorers agree on every field. A: The scene matches: the Samaritan tends the wounded traveler with a vessel and cloth, the donkey stands at right, the inn is behind, and a jug and linen lie at lower right. A painted cursive signature is visible on the rock in the bottom-right corner (about x=1250-1340, y=735-750)."
+    },
+    {
+      "id": "img18",
+      "noFormFigure": "na",
+      "edges": "full",
+      "extraFigures": "no",
+      "coherence": "yes",
+      "text": "no",
+      "matchesScene": "yes",
+      "overall": "acceptable",
+      "notes": "Both independent scorers agree on every field. A: In this gold-ground icon style, the Samaritan sits behind the traveler pouring red wine from a flask and holding a cloth, with linen at lower right, the saddled donkey at right and the inn with a trough at left; all four edges are painted. The long-haired traveler is styled much like icon images of Christ, but no extra figure is present."
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "calls": [
+    {
+      "phase": "canon:the_samaritan",
+      "label": "canon_entry",
+      "startedAt": "2026-10-22T22:31:10.274Z",
+      "status": "200",
+      "measuredUsd": 0.0006305
+    },
+    {
+      "phase": "canon:wounded_traveler_in_samaritan_parable",
+      "label": "canon_entry",
+      "startedAt": "2026-10-22T22:31:34.138Z",
+      "status": "200",
+      "measuredUsd": 0.0006324
+    },
+    {
+      "phase": "canon:robbers_in_samaritan_parable",
+      "label": "canon_entry",
+      "startedAt": "2026-10-22T22:32:02.074Z",
+      "status": "200",
+      "measuredUsd": 0.0006037
+    },
+    {
+      "phase": "canon:priest_in_samaritan_parable",
+      "label": "canon_entry",
+      "startedAt": "2026-10-22T22:32:05.764Z",
+      "status": "200",
+      "measuredUsd": 0.0006217
+    },
+    {
+      "phase": "canon:levite_in_samaritan_parable",
+      "label": "canon_entry",
+      "startedAt": "2026-10-22T22:32:09.274Z",
+      "status": "200",
+      "measuredUsd": 0.0005982
+    },
+    {
+      "phase": "canon:innkeeper_in_samaritan_parable",
+      "label": "canon_entry",
+      "startedAt": "2026-10-22T22:32:24.092Z",
+      "status": "200",
+      "measuredUsd": 0.0006307
+    },
+    {
+      "phase": "canon:samaritans_mount_in_parable",
+      "label": "canon_entry",
+      "startedAt": "2026-10-22T22:33:32.240Z",
+      "status": "200",
+      "measuredUsd": 0.0006082
+    },
+    {
+      "phase": "canon:jerusalem_to_jericho_road",
+      "label": "canon_entry",
+      "startedAt": "2026-10-22T22:33:35.922Z",
+      "status": "200",
+      "measuredUsd": 0.00062
+    },
+    {
+      "phase": "canon:inn_in_samaritan_parable",
+      "label": "canon_entry",
+      "startedAt": "2026-10-22T22:36:51.405Z",
+      "status": "200",
+      "measuredUsd": 0.0005976
+    }
+  ],
+  "measuredUsd": 0.005543,
+  "uncertainUsd": 0,
+  "blocked": null
+}

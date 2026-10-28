@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-22T20:45:43.094581+00:00",
+  "deviations": [
+    {
+      "boundary": "guard installation",
+      "error": "Invalid parameters for tool preview_evaluate: Expected a string with no leading or trailing whitespace",
+      "outcome": "First installation was rejected. Owner admission reopened before the corrected trimmed expression was installed. The browser remained on About. A session read confirmed 85 credits and zero new measured rows after successful installation, before the batch. No additional image request resulted from the tool error."
+    },
+    {
+      "boundary": "initial reader navigation",
+      "outcome": "Unexpected automatic Exodus image is accounted and retained without client timing; no replacement cold timing is fabricated."
+    }
+  ],
+  "reviewedApplicationCommit": "ecd58e06537e2a09b97260fee7612c35f0feb879",
+  "textEvidencePR": "https://github.com/AustinKelsay/visibible/pull/251",
+  "publicActivation": false
+}

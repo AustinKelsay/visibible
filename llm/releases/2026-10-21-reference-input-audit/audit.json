@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "paidCalls": 0,
+  "mutations": 0,
+  "newImages": 0,
+  "evidenceBaseCommit": "df49eef3299d70f32956e742875eee044538fbaa",
+  "references": [
+    {
+      "styleId": "watercolor",
+      "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+      "version": "fa549f4888d199a3c3fd94209103e214",
+      "file": "llm/releases/2026-10-20-watercolor-edge-check/fixtures/bible-watercolor-3.jpg",
+      "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5",
+      "bytes": 372434,
+      "width": 1376,
+      "height": 768
+    },
+    {
+      "styleId": "icon",
+      "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+      "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+      "file": "llm/releases/2026-10-20-watercolor-edge-check/fixtures/bible-icon-control.jpg",
+      "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948",
+      "bytes": 340385,
+      "width": 1376,
+      "height": 768
+    }
+  ],
+  "replays": [
+    {
+      "styleId": "classical",
+      "defaultPromptSha256": "8aea1ada26095bb3e21878249c899a93905a38955123f81e3cdeae8fd78ec5ba",
+      "exactDefaultPacket": true,
+      "controlPromptSha256": "8aea1ada26095bb3e21878249c899a93905a38955123f81e3cdeae8fd78ec5ba",
+      "controlPromptChars": 6594,
+      "originalReferenceCount": 0,
+      "controlReferenceCount": 0
+    },
+    {
+      "styleId": "watercolor",
+      "defaultPromptSha256": "cf7194428910650903239ec41a5d8f8fae5e9179e0b69f6fbaba18140bf32488",
+      "exactDefaultPacket": true,
+      "controlPromptSha256": "34fcdc4de7f08cca76a302f85408c61177da565d95189b43ab1063a930172735",
+      "controlPromptChars": 6635,
+      "originalReferenceCount": 1,
+      "controlReferenceCount": 0
+    },
+    {
+      "styleId": "icon",
+      "defaultPromptSha256": "c3b2a2682f34542004cc319af9f9793b1a0edf654f400d393784e8e9eb3f3e4a",
+      "exactDefaultPacket": true,
+      "controlPromptSha256": "81ec2a51c0def3f194abee5036d21dbc2cca39a19cf5eb32a437a58b45de2973",
+      "controlPromptChars": 6582,
+      "originalReferenceCount": 1,
+      "controlReferenceCount": 0
+    }
+  ],
+  "unchangedSemanticInputs": {
+    "source": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+    "canon": "The Ancient of Days: no human face or body; a presence of white radiance and cloud over a throne of fiery flame, the light pure and unbroken, the glow like white wool and burning fire rising in streams from before him, the seat of judgment set in brilliant cloud under the open sky.",
+    "secondaryElements": "Wheels of burning fire rolling beneath the fiery seat; streams of white radiance pouring like wool across the cloud; Daniel in a simple Babylonian tunic and cloak at the lower edge."
+  },
+  "earlierWatercolorTrial": {
+    "samples": 9,
+    "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+    "styleAlsoChanged": true,
+    "styleReferencesOmitted": true,
+    "clearMarginFailures": 8,
+    "ambiguousMargins": 1
+  },
+  "unexecutedComparison": {
+    "plannedImages": 12,
+    "estimatedUsd": 0.43200000000000005,
+    "evaluationRemainingUsd": 0.0664116,
+    "fitsRemainingAllowance": false
+  }
+}

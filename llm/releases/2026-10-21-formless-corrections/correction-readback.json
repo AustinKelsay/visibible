@@ -1,0 +1,163 @@
+{
+  "at": "2026-10-21T16:58:08.655Z",
+  "publicMode": "disabled",
+  "paidCalls": 0,
+  "rows": [
+    {
+      "kind": "entry",
+      "recordId": "elisha_son_of_shaphat",
+      "version": "55d396a737e0eb4a8072cb8f3e3807fb",
+      "source": "owner",
+      "beforeVersion": "cba77de5165f13308e2cc03d132f0621",
+      "originalRetained": true,
+      "record": {
+        "createdAt": 1792601845391,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "Elisha",
+            "Elisha the son of Shaphat",
+            "the man of God",
+            "the prophet",
+            "my father (Joash's cry)",
+            "the prophet Elisha"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [
+            "1-kings:character:elisha",
+            "2-kings:character:elisha",
+            "luke:character:elisha"
+          ],
+          "name": "Elisha son of Shaphat",
+          "note": "Prophet, Elijah's successor, who first appears as a farmer plowing with twelve yoke of oxen in 1 Kings and is later named in 2 Kings and Luke; the same prophet in all three entries.",
+          "stages": [
+            {
+              "id": "elisha_main",
+              "label": "Elisha son of Shaphat",
+              "quotes": [
+                {
+                  "quote": "found Elisha the son of Shaphat, who was plowing with twelve yoke of oxen before him",
+                  "unit": "1-kings-19-19"
+                },
+                {
+                  "quote": "Elijah went over to him and put his mantle on him.",
+                  "unit": "1-kings-19-19"
+                },
+                {
+                  "quote": "He took Elijah’s mantle that fell from him",
+                  "unit": "2-kings-2-14"
+                },
+                {
+                  "quote": "He went up from there to Bethel. As he was going up by the way, some youths came out of the city and mocked him, and said to him, “Go up, you baldy! Go up, you baldy!”",
+                  "unit": "2-kings-2-23"
+                }
+              ],
+              "text": "Elisha son of Shaphat: a man in his middle years, broad-shouldered and sun-browned from working the fields, lean and steady in build. Dark skin, a bald head, and a close-cut beard with some grey at the chin. Calm, weathered face with deep-set eyes. Signature outfit: a plain undyed linen tunic belted at the waist with a cloak of rough brown wool. Signature prop: Elijah's mantle, a dark sheepskin cloak he wears over his shoulders."
+            }
+          ]
+        },
+        "recordId": "elisha_son_of_shaphat",
+        "source": "owner",
+        "status": "current",
+        "version": "55d396a737e0eb4a8072cb8f3e3807fb",
+        "workId": "bible-web"
+      },
+      "history": [
+        {
+          "createdAt": 1792601845391,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "55d396a737e0eb4a8072cb8f3e3807fb"
+        },
+        {
+          "createdAt": 1792535226262,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "cba77de5165f13308e2cc03d132f0621"
+        }
+      ]
+    },
+    {
+      "kind": "look",
+      "recordId": "daniel-7-9",
+      "version": "1469b2542a3afbf77ed9921c8f727f20",
+      "source": "owner",
+      "beforeVersion": "12d398821f2ecb47f9edf7ea075349b6",
+      "originalRetained": true,
+      "record": {
+        "createdAt": 1792601845825,
+        "generation": 1,
+        "inputs": [
+          {
+            "kind": "section",
+            "recordId": "daniel-7-9",
+            "version": "9bfed655c64bcc10b8f74b1d436fb659"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+          },
+          {
+            "kind": "entry",
+            "recordId": "daniel_prophet_of_babylon",
+            "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_ancient_of_days",
+            "version": "ae42fd28206e5e83b5529fd0ebf9112c"
+          },
+          {
+            "kind": "entry",
+            "recordId": "one_like_a_son_of_man",
+            "version": "f0a2429d0ca6ac9657801f25e0921699"
+          },
+          {
+            "kind": "entry",
+            "recordId": "babylon",
+            "version": "de8721810ea07cf6cc361bc90ea0502d"
+          }
+        ],
+        "kind": "look",
+        "payload": {
+          "clothing": "Daniel in a simple Babylonian-era tunic and cloak; court attendants in plain robes. The formless divine presence has no body, hair or garments.",
+          "kind": "look",
+          "light": "Radiant fiery glow from the throne and wheels, no visible sun",
+          "place": "Heavenly court above Babylon, vast open expanse of cloud and radiant fire",
+          "sectionId": "daniel-7-9",
+          "timeOfDay": "Night vision, sky of unbroken darkness",
+          "weather": "Stormy air with drifting clouds and fire"
+        },
+        "recordId": "daniel-7-9",
+        "source": "owner",
+        "status": "current",
+        "version": "1469b2542a3afbf77ed9921c8f727f20",
+        "workId": "bible-web"
+      },
+      "history": [
+        {
+          "createdAt": 1792601845825,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "1469b2542a3afbf77ed9921c8f727f20"
+        },
+        {
+          "createdAt": 1792538588182,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "12d398821f2ecb47f9edf7ea075349b6"
+        }
+      ]
+    }
+  ],
+  "operationNote": "Daniel editLook wrote and closed attention successfully, then listStaleDependents returned Server Error (Request ID 04ec2d66be2b92b6). Read-back confirms the expected owner payload; the mutation was not retried."
+}

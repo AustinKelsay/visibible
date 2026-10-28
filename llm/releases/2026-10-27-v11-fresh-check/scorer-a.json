@@ -1,0 +1,303 @@
+{
+  "scorer": "Independent model scorer A",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "p001",
+      "verdict": "acceptable",
+      "reason": "Peter commanding the lame man at the Beautiful Gate with John beside him in mid-afternoon matches the verse and the ninth-hour context; the onlookers are generic.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p002",
+      "verdict": "acceptable",
+      "reason": "Jesus arriving at Jairus's house and seeing the wailing mourners, with Peter, James and John behind him, is faithful to the verse; the composition is coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p003",
+      "verdict": "acceptable",
+      "reason": "Saul entering Jerusalem with Barnabas and the apostles is a faithful, coherent rendering of the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p004",
+      "verdict": "acceptable",
+      "reason": "Abraham and Ishmael undergoing circumcision on the same day, restrained and non-graphic in the camp, is a faithful representative image of the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p005",
+      "verdict": "acceptable",
+      "reason": "Jesus quoting the psalm while teaching in the temple courts, with disciples, scribes and crowd, is faithful and coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p006",
+      "verdict": "acceptable",
+      "reason": "A generic deceiver feigning innocence before a doubtful neighbour is a faithful representative scene of the proverb; the author is correctly left out.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p007",
+      "verdict": "acceptable",
+      "reason": "The four living creatures' straight legs and burnished-bronze feet beside the Chebar, with the divine presence only as storm-cloud light, is faithful; Ezekiel is correctly left out.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p008",
+      "verdict": "flawed",
+      "reason": "The exchange between Jesus and James and John is rendered faithfully, but the setting depicts Jericho, an available cast entry that is not selected.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Dusty road outside Jericho with stone walls and palm trees in the distance",
+          "reason": "Depicts the Jericho location (walls and palms), a cast entry missing from selected; in Mark the group reaches Jericho only at 10:46."
+        }
+      ]
+    },
+    {
+      "id": "p009",
+      "verdict": "flawed",
+      "reason": "Solomon, the author of the proverb, is placed in the illustrative scene as a seated listener.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Solomon seated calmly to one side, listening with a steady gaze",
+          "reason": "Framing figure: the proverb's author is shown as a participant in the scene that illustrates his saying."
+        },
+        {
+          "quote": "Solomon framed in the background pillars",
+          "reason": "Repeats the framing-figure placement in the composition."
+        }
+      ]
+    },
+    {
+      "id": "p010",
+      "verdict": "acceptable",
+      "reason": "Jesus teaching love of enemies to a crowd near Galilee is a faithful scene (a hillside rise slightly conflates Luke's 'level place' but stays within reason).",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p011",
+      "verdict": "flawed",
+      "reason": "God's veiled white-gold light, which matches the unselected hasForm:false entry's canon, is added to the ruined street even though nothing in the verse calls for it.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a distant veiled light of white-gold behind dense slow cloud",
+          "reason": "Depicts God's presence (an available cast entry that is not selected) and nearly restates that entry's canon of white-gold light veiled by dense slow cloud."
+        },
+        {
+          "quote": "with the veiled light of cloud receding in the background",
+          "reason": "Repeats the unselected divine-presence effect in the composition."
+        }
+      ]
+    },
+    {
+      "id": "p012",
+      "verdict": "acceptable",
+      "reason": "The beloved's hand through the latch at night while the robe-less Shulammite reacts inside is faithful and coherent; showing only the hand is a good choice.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p013",
+      "verdict": "acceptable",
+      "reason": "A representative father-and-son scene in a Judean village suits a genealogy verse that has no cast.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p014",
+      "verdict": "acceptable",
+      "reason": "Moses and Aaron counting the Levite families by the tabernacle, with God shown only as cloud-radiance, is faithful to the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p015",
+      "verdict": "flawed",
+      "reason": "Paul, who writes the request for prayer from elsewhere, is shown in person at Thessalonica leading the believers.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Paul standing near the front, arms slightly raised, facing the gathered believers",
+          "reason": "Framing figure: the letter's author is placed among the recipients as if he made the request in person in Thessalonica, which the epistolary source contradicts."
+        }
+      ]
+    },
+    {
+      "id": "p016",
+      "verdict": "flawed",
+      "reason": "Moses is recast as the officiating priest performing a Sabbath burnt offering that the verse only commands the priests to make.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Moses in priestly linen beside the bronze altar, with two young lambs held forward",
+          "reason": "Moses relays the law and is not a priest; dressing him in priestly linen to perform the future Sabbath offering gives him an identity and role the source does not support."
+        },
+        {
+          "quote": "Moses lifts a hand toward the presented lambs, readying them for the Sabbath burnt offering",
+          "reason": "Shows the law-giver officiating at the offering instead of the priests."
+        }
+      ]
+    },
+    {
+      "id": "p017",
+      "verdict": "acceptable",
+      "reason": "Jesus quoting the psalm to disciples and crowd in the temple court is faithful and coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p018",
+      "verdict": "acceptable",
+      "reason": "The righteous gathered under breaking light, with God implied only as radiance, is a faithful symbolic image for the psalm verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p019",
+      "verdict": "flawed",
+      "reason": "God is still commanding the altar here, yet the scene shows the linen court already standing and has Moses laying out the altar on Horeb's slope; it also restates God's canon almost word for word.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "with a sacred camp of hanging linen visible below",
+          "reason": "The linen-hung court of the sanctuary is only being commanded in this section (Exod 27:9-19) and does not exist yet."
+        },
+        {
+          "quote": "a brilliant white-gold radiance veiled by slowly moving cloud, fire-like glow at its heart",
+          "reason": "Restates the fixed canon of the hasForm:false God entry nearly verbatim."
+        }
+      ]
+    },
+    {
+      "id": "p020",
+      "verdict": "acceptable",
+      "reason": "Gebim's villagers fleeing along a Judean hill road is a faithful, coherent image of the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p021",
+      "verdict": "acceptable",
+      "reason": "Israelite families eating unleavened bread by the tabernacle with Moses present is a faithful representative scene for the feast law.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p022",
+      "verdict": "uncertain",
+      "reason": "The ash-gathering itself is faithful, but two details are doubtful, so a reasonable reader could go either way.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a cedar, hyssop and scarlet thread bundle set aside",
+          "reason": "Numbers 19:6 has the cedar, hyssop and scarlet cast into the burning heifer, so they should already be consumed when the ashes are gathered."
+        },
+        {
+          "quote": "the veiled cloud high above Horeb",
+          "reason": "The phrasing may introduce the unselected divine presence, though Horeb's own cloud-wrapped summit may explain it."
+        }
+      ]
+    },
+    {
+      "id": "p023",
+      "verdict": "uncertain",
+      "reason": "The guide measuring the south gate with Ezekiel led along is faithful, but two details are doubtful, so a reasonable reader could go either way.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a faint veiled cloud-glow at the edge of the scene",
+          "reason": "This may depict the unselected divine presence, whose glory returns to the temple only in Ezekiel 43."
+        },
+        {
+          "quote": "Stone gateway of a vast inner temple court",
+          "reason": "The south gate measured in 40:24 belongs to the outer court; the inner court's south gate comes at 40:27-28."
+        }
+      ]
+    },
+    {
+      "id": "p024",
+      "verdict": "acceptable",
+      "reason": "Pharaoh receiving the news in his palace and recoiling with his servants is faithful to the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p025",
+      "verdict": "acceptable",
+      "reason": "A righteous man giving to a widow while a wicked rich man seethes is a faithful representative contrast for the proverb.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p026",
+      "verdict": "flawed",
+      "reason": "The verse is Belshazzar speaking to Daniel, but the plan makes the queen the speaker recalling Daniel's reputation, which happened earlier (5:10-12).",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "She is speaking, gesturing gently as she recalls Daniel's reputation to the court.",
+          "reason": "Wrong speaker and instant: in 5:13-14 the king addresses Daniel; the queen's speech came before Daniel was brought in."
+        },
+        {
+          "quote": "The queen in court robes, half-turned toward Daniel with a composed, attentive expression.",
+          "reason": "Makes the queen the primary subject of a verse spoken by the king."
+        }
+      ]
+    },
+    {
+      "id": "p027",
+      "verdict": "flawed",
+      "reason": "Jeremiah, the prophet delivering the oracle against idols, is placed inside the goldsmith's workshop that the oracle describes.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Jeremiah standing quietly in the doorway in plain mourning cloak",
+          "reason": "Framing figure: the prophet who speaks the oracle is shown as a participant in the scene it describes."
+        },
+        {
+          "quote": "Jeremiah at the edge of the frame",
+          "reason": "Repeats the framing figure in the composition."
+        }
+      ]
+    },
+    {
+      "id": "p028",
+      "verdict": "acceptable",
+      "reason": "Jeremiah delivering the word about iron bars to Hananiah in the temple court, with the broken yoke as context, is a faithful representative scene.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p029",
+      "verdict": "flawed",
+      "reason": "A named individual, Aaron, is substituted for the generic 'the priest' of this case law.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Aaron in priestly linen, holding a clay cup of water toward the woman",
+          "reason": "The ordeal law names only a generic 'the priest'; casting Aaron replaces the generic role with a named person."
+        }
+      ]
+    },
+    {
+      "id": "p030",
+      "verdict": "acceptable",
+      "reason": "Jeremiah preaching in the temple court while the people turn stiff-necked away fits the temple sermon and 7:27's 'they will not listen to you'.",
+      "lookContradiction": false,
+      "defects": []
+    }
+  ]
+}

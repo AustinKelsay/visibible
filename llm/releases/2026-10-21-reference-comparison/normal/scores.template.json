@@ -1,0 +1,58 @@
+{
+  "run": "release-2026-10-21-reference-comparison-normal",
+  "dimensions": {
+    "legacy": [
+      "relevance",
+      "clarity",
+      "artifacts_style"
+    ],
+    "generic": [
+      "relevance",
+      "identity",
+      "continuity",
+      "style",
+      "artifacts"
+    ]
+  },
+  "scale": "0 materially fails, 1 incomplete or mildly off, 2 meets",
+  "verdicts": [
+    "pass",
+    "accepted limitation",
+    "fail"
+  ],
+  "rules": "An observed depiction-rule or prohibited-likeness violation is a fail whatever the scores. A known Icon border may be recorded as an accepted limitation, never averaged away.",
+  "rows": [
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:watercolor",
+      "outputs": [
+        "outputs/daniel-7-9-ancient-of-days/generic-watercolor-1.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-watercolor-2.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-watercolor-3.jpg"
+      ],
+      "relevance": null,
+      "identity": null,
+      "continuity": null,
+      "style": null,
+      "artifacts": null,
+      "verdict": null,
+      "notes": ""
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-1.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-2.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-3.jpg"
+      ],
+      "relevance": null,
+      "identity": null,
+      "continuity": null,
+      "style": null,
+      "artifacts": null,
+      "verdict": null,
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "at": "2026-10-23T00:46:44.402Z",
+  "snapshot": "after-luke-33",
+  "context": {
+    "moment": {
+      "id": "luke-10-34",
+      "reference": "Luke 10:34",
+      "text": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him."
+    },
+    "previous": {
+      "text": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,"
+    },
+    "next": {
+      "text": "On the next day, when he departed, he took out two denarii, gave them to the host, and said to him, ‘Take care of him. Whatever you spend beyond that, I will repay you when I return.’"
+    }
+  },
+  "result": {
+    "sectionId": "luke-10-25",
+    "era": "roman-era-judea-galilee-and-the-early-church",
+    "look": {
+      "version": "9cb58359fa22fb6e3931fff1bf133a1d",
+      "payload": {
+        "place": "Rocky, dusty Jerusalem–Jericho road in Judea, with stony hills and scattered thorn scrub, leading toward a roadside inn",
+        "timeOfDay": "Midday heat, shifting to late afternoon and evening at the inn",
+        "weather": "Clear, dry, hot sky with no rain",
+        "light": "Harsh, bright sunlight on the road, softening to warm golden evening light at the inn",
+        "clothing": "Travelers in plain tunics and cloaks suited to dusty desert roads; the Samaritan wears a practical traveling cloak and carries oil and wine"
+      }
+    },
+    "plan": {
+      "version": "f1cdc381d9e0b9eea2547b99d1ced975",
+      "payload": {
+        "primarySubject": "The Samaritan kneeling beside the wounded traveler on the road, binding his wounds",
+        "action": "The Samaritan pours oil and wine on the traveler's wounds and wraps them with cloth; then he lifts the injured man onto his own animal",
+        "setting": "Rocky, dusty Jerusalem–Jericho road with stony hills and thorn scrub, leading toward a roadside inn in the distance",
+        "secondaryElements": "Samaritan's practical traveling cloak, oil flask and wine skin set on the ground, the animal standing patiently nearby, the inn's low walls visible ahead",
+        "mood": "Reverent, compassionate, grounded; quiet human dignity and tenderness amid hardship",
+        "timeOfDay": "Late afternoon, with warm golden light beginning to soften the harsh midday sun",
+        "composition": "Medium-wide view with the kneeling Samaritan and wounded traveler centered, the animal and inn receding along the road toward the horizon",
+        "present": [
+          "the_samaritan",
+          "wounded_traveler_in_samaritan_parable",
+          "samaritans_mount_in_parable",
+          "inn_in_samaritan_parable",
+          "innkeeper_in_samaritan_parable",
+          "jerusalem_to_jericho_road"
+        ]
+      }
+    },
+    "present": [
+      {
+        "entryId": "the_samaritan",
+        "stageId": "the_samaritan-main",
+        "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+      },
+      {
+        "entryId": "wounded_traveler_in_samaritan_parable",
+        "stageId": "wounded_traveler_main",
+        "version": "4d9d8a0161d3304a3b11c8b914159215"
+      },
+      {
+        "entryId": "samaritans_mount_in_parable",
+        "stageId": "samaritans_mount_in_parable-main",
+        "version": "ee1dd25ba71166387cf6e4c3c393893f"
+      },
+      {
+        "entryId": "inn_in_samaritan_parable",
+        "stageId": "inn_stage_1",
+        "version": "79696bd3b4de4fdc426365cb1368848f"
+      },
+      {
+        "entryId": "innkeeper_in_samaritan_parable",
+        "stageId": "innkeeper_main",
+        "version": "6682f845b5861d549bb8840dde1ad7e9"
+      },
+      {
+        "entryId": "jerusalem_to_jericho_road",
+        "stageId": "jerusalem_to_jericho_road_main",
+        "version": "29f520702292f19b67186f38b0bdca4c"
+      }
+    ],
+    "calls": 1
+  }
+}

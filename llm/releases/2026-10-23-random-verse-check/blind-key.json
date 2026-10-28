@@ -1,0 +1,1490 @@
+{
+  "at": "2026-10-23T19:29:41.367Z",
+  "key": [
+    {
+      "blindId": "c96933c6",
+      "uses": [
+        {
+          "sample": "s056",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "73554348",
+      "uses": [
+        {
+          "sample": "s013",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "bb9eb8c1",
+      "uses": [
+        {
+          "sample": "s016",
+          "role": "final"
+        },
+        {
+          "sample": "s016",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "51835e10",
+      "uses": [
+        {
+          "sample": "s027",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "0a3ffc42",
+      "uses": [
+        {
+          "sample": "s096",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "ba1703e1",
+      "uses": [
+        {
+          "sample": "s041",
+          "role": "final"
+        },
+        {
+          "sample": "s041",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "f53ba973",
+      "uses": [
+        {
+          "sample": "s097",
+          "role": "final"
+        },
+        {
+          "sample": "s097",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "34634981",
+      "uses": [
+        {
+          "sample": "s087",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "c732166d",
+      "uses": [
+        {
+          "sample": "s064",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "53465398",
+      "uses": [
+        {
+          "sample": "s060",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "97324507",
+      "uses": [
+        {
+          "sample": "s032",
+          "role": "final"
+        },
+        {
+          "sample": "s032",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "45dc613a",
+      "uses": [
+        {
+          "sample": "s081",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "8848d146",
+      "uses": [
+        {
+          "sample": "s043",
+          "role": "final"
+        },
+        {
+          "sample": "s043",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "28b73833",
+      "uses": [
+        {
+          "sample": "s044",
+          "role": "final"
+        },
+        {
+          "sample": "s044",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "d491faa3",
+      "uses": [
+        {
+          "sample": "s028",
+          "role": "final"
+        },
+        {
+          "sample": "s028",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "a8e50cd9",
+      "uses": [
+        {
+          "sample": "s039",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "7cbebd5f",
+      "uses": [
+        {
+          "sample": "s058",
+          "role": "final"
+        },
+        {
+          "sample": "s058",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "d2b06150",
+      "uses": [
+        {
+          "sample": "s081",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "6430bd8b",
+      "uses": [
+        {
+          "sample": "s039",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "9d613f49",
+      "uses": [
+        {
+          "sample": "s022",
+          "role": "final"
+        },
+        {
+          "sample": "s022",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "19b2af07",
+      "uses": [
+        {
+          "sample": "s023",
+          "role": "final"
+        },
+        {
+          "sample": "s023",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "bb211b89",
+      "uses": [
+        {
+          "sample": "s092",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "bce26e95",
+      "uses": [
+        {
+          "sample": "s093",
+          "role": "final"
+        },
+        {
+          "sample": "s093",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "2cabbbc8",
+      "uses": [
+        {
+          "sample": "s068",
+          "role": "final"
+        },
+        {
+          "sample": "s068",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "a30d4e0b",
+      "uses": [
+        {
+          "sample": "s057",
+          "role": "final"
+        },
+        {
+          "sample": "s057",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "1f541030",
+      "uses": [
+        {
+          "sample": "s021",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "e410312a",
+      "uses": [
+        {
+          "sample": "s091",
+          "role": "final"
+        },
+        {
+          "sample": "s091",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "e9c46216",
+      "uses": [
+        {
+          "sample": "s021",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "04833e48",
+      "uses": [
+        {
+          "sample": "s072",
+          "role": "final"
+        },
+        {
+          "sample": "s072",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "7d1ce0a8",
+      "uses": [
+        {
+          "sample": "s063",
+          "role": "final"
+        },
+        {
+          "sample": "s063",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "41591613",
+      "uses": [
+        {
+          "sample": "s011",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "2006ac8a",
+      "uses": [
+        {
+          "sample": "s089",
+          "role": "final"
+        },
+        {
+          "sample": "s089",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "47ea1cd5",
+      "uses": [
+        {
+          "sample": "s031",
+          "role": "final"
+        },
+        {
+          "sample": "s031",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "03d640cc",
+      "uses": [
+        {
+          "sample": "s076",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "2e23c705",
+      "uses": [
+        {
+          "sample": "s080",
+          "role": "final"
+        },
+        {
+          "sample": "s080",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "d65106f2",
+      "uses": [
+        {
+          "sample": "s030",
+          "role": "final"
+        },
+        {
+          "sample": "s030",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "73af659a",
+      "uses": [
+        {
+          "sample": "s085",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "db583ba3",
+      "uses": [
+        {
+          "sample": "s065",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "08a497e4",
+      "uses": [
+        {
+          "sample": "s017",
+          "role": "final"
+        },
+        {
+          "sample": "s017",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "f7242afd",
+      "uses": [
+        {
+          "sample": "s038",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "8491fbff",
+      "uses": [
+        {
+          "sample": "s069",
+          "role": "final"
+        },
+        {
+          "sample": "s069",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "911aa1e0",
+      "uses": [
+        {
+          "sample": "s005",
+          "role": "final"
+        },
+        {
+          "sample": "s005",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "43a16146",
+      "uses": [
+        {
+          "sample": "s014",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "80779e73",
+      "uses": [
+        {
+          "sample": "s056",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "c287e6b3",
+      "uses": [
+        {
+          "sample": "s034",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "b957db5a",
+      "uses": [
+        {
+          "sample": "s024",
+          "role": "final"
+        },
+        {
+          "sample": "s024",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "7f417298",
+      "uses": [
+        {
+          "sample": "s003",
+          "role": "final"
+        },
+        {
+          "sample": "s003",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "b563fdb9",
+      "uses": [
+        {
+          "sample": "s067",
+          "role": "final"
+        },
+        {
+          "sample": "s067",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "2c85be93",
+      "uses": [
+        {
+          "sample": "s085",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "a6ea84f7",
+      "uses": [
+        {
+          "sample": "s094",
+          "role": "final"
+        },
+        {
+          "sample": "s094",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "9ccf8553",
+      "uses": [
+        {
+          "sample": "s026",
+          "role": "final"
+        },
+        {
+          "sample": "s026",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "2993bf66",
+      "uses": [
+        {
+          "sample": "s001",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "0a3516a2",
+      "uses": [
+        {
+          "sample": "s033",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "21f61e7b",
+      "uses": [
+        {
+          "sample": "s049",
+          "role": "final"
+        },
+        {
+          "sample": "s049",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "2cadf178",
+      "uses": [
+        {
+          "sample": "s098",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "61520ba2",
+      "uses": [
+        {
+          "sample": "s025",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "e6b1cda4",
+      "uses": [
+        {
+          "sample": "s078",
+          "role": "final"
+        },
+        {
+          "sample": "s078",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "cb8fb737",
+      "uses": [
+        {
+          "sample": "s060",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "903a95c4",
+      "uses": [
+        {
+          "sample": "s040",
+          "role": "final"
+        },
+        {
+          "sample": "s040",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "df14cb18",
+      "uses": [
+        {
+          "sample": "s064",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "78a81e03",
+      "uses": [
+        {
+          "sample": "s027",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "9655c7df",
+      "uses": [
+        {
+          "sample": "s048",
+          "role": "final"
+        },
+        {
+          "sample": "s048",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "3ed3cfaa",
+      "uses": [
+        {
+          "sample": "s001",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "791a43ba",
+      "uses": [
+        {
+          "sample": "s014",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "a636f21d",
+      "uses": [
+        {
+          "sample": "s052",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "12afa863",
+      "uses": [
+        {
+          "sample": "s053",
+          "role": "final"
+        },
+        {
+          "sample": "s053",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "15b09c68",
+      "uses": [
+        {
+          "sample": "s007",
+          "role": "final"
+        },
+        {
+          "sample": "s007",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "0bd5c3b2",
+      "uses": [
+        {
+          "sample": "s055",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "1bce3374",
+      "uses": [
+        {
+          "sample": "s037",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "86ee11ac",
+      "uses": [
+        {
+          "sample": "s070",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "d201b793",
+      "uses": [
+        {
+          "sample": "s079",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "f3df1e37",
+      "uses": [
+        {
+          "sample": "s042",
+          "role": "final"
+        },
+        {
+          "sample": "s042",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "2b58c5f0",
+      "uses": [
+        {
+          "sample": "s087",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "8db84886",
+      "uses": [
+        {
+          "sample": "s029",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "f44708d3",
+      "uses": [
+        {
+          "sample": "s018",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "11d556b4",
+      "uses": [
+        {
+          "sample": "s065",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "ae6a6a22",
+      "uses": [
+        {
+          "sample": "s046",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "953c41e7",
+      "uses": [
+        {
+          "sample": "s020",
+          "role": "final"
+        },
+        {
+          "sample": "s020",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "f5625014",
+      "uses": [
+        {
+          "sample": "s066",
+          "role": "final"
+        },
+        {
+          "sample": "s066",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "d0ae377d",
+      "uses": [
+        {
+          "sample": "s006",
+          "role": "final"
+        },
+        {
+          "sample": "s006",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "d909b248",
+      "uses": [
+        {
+          "sample": "s008",
+          "role": "final"
+        },
+        {
+          "sample": "s008",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "08f5f8d5",
+      "uses": [
+        {
+          "sample": "s054",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "480e2598",
+      "uses": [
+        {
+          "sample": "s045",
+          "role": "final"
+        },
+        {
+          "sample": "s045",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "d399f89f",
+      "uses": [
+        {
+          "sample": "s070",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "2f344f3f",
+      "uses": [
+        {
+          "sample": "s059",
+          "role": "final"
+        },
+        {
+          "sample": "s059",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "cbd35939",
+      "uses": [
+        {
+          "sample": "s054",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "23660384",
+      "uses": [
+        {
+          "sample": "s013",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "75462adb",
+      "uses": [
+        {
+          "sample": "s079",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "da86cc36",
+      "uses": [
+        {
+          "sample": "s002",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "522fa573",
+      "uses": [
+        {
+          "sample": "s071",
+          "role": "final"
+        },
+        {
+          "sample": "s071",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "2bbb82ca",
+      "uses": [
+        {
+          "sample": "s088",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "cd5dc240",
+      "uses": [
+        {
+          "sample": "s009",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "1ccc0a73",
+      "uses": [
+        {
+          "sample": "s047",
+          "role": "final"
+        },
+        {
+          "sample": "s047",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "8f196135",
+      "uses": [
+        {
+          "sample": "s004",
+          "role": "final"
+        },
+        {
+          "sample": "s004",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "eae9b97f",
+      "uses": [
+        {
+          "sample": "s015",
+          "role": "final"
+        },
+        {
+          "sample": "s015",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "cec9c51b",
+      "uses": [
+        {
+          "sample": "s033",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "1c5a7b45",
+      "uses": [
+        {
+          "sample": "s061",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "965def38",
+      "uses": [
+        {
+          "sample": "s038",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "34fae233",
+      "uses": [
+        {
+          "sample": "s046",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "8edde457",
+      "uses": [
+        {
+          "sample": "s025",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "19a087c9",
+      "uses": [
+        {
+          "sample": "s037",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "001f99ba",
+      "uses": [
+        {
+          "sample": "s083",
+          "role": "final"
+        },
+        {
+          "sample": "s083",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "ed879137",
+      "uses": [
+        {
+          "sample": "s019",
+          "role": "final"
+        },
+        {
+          "sample": "s019",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "e07a6748",
+      "uses": [
+        {
+          "sample": "s092",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "5ba2de5d",
+      "uses": [
+        {
+          "sample": "s002",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "e0084cf8",
+      "uses": [
+        {
+          "sample": "s076",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "235e10fa",
+      "uses": [
+        {
+          "sample": "s088",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "1b3778b2",
+      "uses": [
+        {
+          "sample": "s012",
+          "role": "final"
+        },
+        {
+          "sample": "s012",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "5d5a7ef8",
+      "uses": [
+        {
+          "sample": "s034",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "75710ba7",
+      "uses": [
+        {
+          "sample": "s090",
+          "role": "final"
+        },
+        {
+          "sample": "s090",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "2a892e1d",
+      "uses": [
+        {
+          "sample": "s086",
+          "role": "final"
+        },
+        {
+          "sample": "s086",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "80283a5e",
+      "uses": [
+        {
+          "sample": "s010",
+          "role": "final"
+        },
+        {
+          "sample": "s010",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "ccafe2b2",
+      "uses": [
+        {
+          "sample": "s018",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "593ce1b4",
+      "uses": [
+        {
+          "sample": "s075",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "2bd5be61",
+      "uses": [
+        {
+          "sample": "s035",
+          "role": "final"
+        },
+        {
+          "sample": "s035",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "f9666147",
+      "uses": [
+        {
+          "sample": "s061",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "7834a096",
+      "uses": [
+        {
+          "sample": "s084",
+          "role": "final"
+        },
+        {
+          "sample": "s084",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "cba33ad6",
+      "uses": [
+        {
+          "sample": "s073",
+          "role": "final"
+        },
+        {
+          "sample": "s073",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "f3bd238e",
+      "uses": [
+        {
+          "sample": "s036",
+          "role": "final"
+        },
+        {
+          "sample": "s036",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "bfb64414",
+      "uses": [
+        {
+          "sample": "s011",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "9deb1234",
+      "uses": [
+        {
+          "sample": "s075",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "065203bf",
+      "uses": [
+        {
+          "sample": "s051",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "226f8aaa",
+      "uses": [
+        {
+          "sample": "s096",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "6df4bed5",
+      "uses": [
+        {
+          "sample": "s074",
+          "role": "final"
+        },
+        {
+          "sample": "s074",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "e574226d",
+      "uses": [
+        {
+          "sample": "s062",
+          "role": "final"
+        },
+        {
+          "sample": "s062",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "084fb1e6",
+      "uses": [
+        {
+          "sample": "s098",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "c7492274",
+      "uses": [
+        {
+          "sample": "s100",
+          "role": "final"
+        },
+        {
+          "sample": "s100",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "df53bd02",
+      "uses": [
+        {
+          "sample": "s095",
+          "role": "final"
+        },
+        {
+          "sample": "s095",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "2a84f7d4",
+      "uses": [
+        {
+          "sample": "s082",
+          "role": "final"
+        },
+        {
+          "sample": "s082",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "7368dd70",
+      "uses": [
+        {
+          "sample": "s052",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "0a3278e7",
+      "uses": [
+        {
+          "sample": "s050",
+          "role": "final"
+        },
+        {
+          "sample": "s050",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "ef358d17",
+      "uses": [
+        {
+          "sample": "s055",
+          "role": "final"
+        }
+      ]
+    },
+    {
+      "blindId": "c543bb6d",
+      "uses": [
+        {
+          "sample": "s077",
+          "role": "final"
+        },
+        {
+          "sample": "s077",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "0de62b93",
+      "uses": [
+        {
+          "sample": "s099",
+          "role": "final"
+        },
+        {
+          "sample": "s099",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "869d0cef",
+      "uses": [
+        {
+          "sample": "s051",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "9854c37c",
+      "uses": [
+        {
+          "sample": "s029",
+          "role": "first"
+        }
+      ]
+    },
+    {
+      "blindId": "b2a20851",
+      "uses": [
+        {
+          "sample": "s009",
+          "role": "first"
+        }
+      ]
+    }
+  ]
+}

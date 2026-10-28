@@ -1,0 +1,7 @@
+{
+  "command": "npx tsx llm/releases/2026-10-23-source-pose-check/reproduce.mts",
+  "exitCode": 1,
+  "retainedTargets": 3,
+  "caught": 0,
+  "verdict": "Three retained false-clean replies reproduced; a model semantic change cannot be proven with scripted responses. Candidate requires the frozen live evaluation."
+}

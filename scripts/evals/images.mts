@@ -27,7 +27,7 @@ import { createHash } from "node:crypto";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../convex/_generated/api";
 import { loadEvalCases, describeCoverage, EVAL_ARMS, type EvalArm } from "@/lib/image-evals/cases";
-import { emptyEvalState, runImageEval, type EvalRunState } from "@/lib/image-evals/runner";
+import { bindStyleReferenceControl, emptyEvalState, runImageEval, type EvalRunState } from "@/lib/image-evals/runner";
 import { buildReport, buildScoreTemplate, renderComparisonSheet, renderContactSheet, type EvalReport, type ScoreFile } from "@/lib/image-evals/report";
 import { createOpenRouterEvalImageProvider, createOpenRouterEvalPlannerProvider } from "@/lib/image-evals/adapters";
 import { genericArm, isGenericArm, type GenericEvalContext, type GenericEvalProvider } from "@/lib/image-evals/generic";
@@ -51,6 +51,7 @@ const { values } = parseArgs({ options: {
   repeats: { type: "string", default: "3" }, budget: { type: "string", default: "1.00" }, "estimate-image-usd": { type: "string", default: "0.035" }, "estimate-planner-usd": { type: "string", default: "0" },
   file: { type: "string" }, "planner-model": { type: "string" },
   styles: { type: "string" }, analysis: { type: "string" }, "style-file": { type: "string" }, compare: { type: "string" }, "estimate-preparation-usd": { type: "string", default: "0.0005" },
+  "omit-style-reference": { type: "boolean", default: false },
 } });
 const root = fileURLToPath(new URL("../../", import.meta.url));
 async function loadEnv() {
@@ -103,6 +104,8 @@ for (const arm of arms) {
   if (isGenericArm(arm)) { const id = arm.slice("generic:".length); if (!SHARED_STYLES.styles.some((s) => s.id === id) && !styleTrials[id]) throw new Error(`Unknown art style ${id}; add it to the library or pass --style-file`); continue; }
   if (!(EVAL_ARMS as readonly string[]).includes(arm)) throw new Error(`Unknown arm ${arm}; use direct, planner, generic or generic:<style>`);
 }
+const omitStyleReference = values["omit-style-reference"];
+if (omitStyleReference && !arms.some(isGenericArm)) throw new Error("--omit-style-reference requires a generic arm");
 const repeats = Number.parseInt(values.repeats, 10);
 const budgetUsd = Number(values.budget);
 const estimateUsd = { image: Number(values["estimate-image-usd"]), planner: Number(values["estimate-planner-usd"]), preparation: Number(values["estimate-preparation-usd"]) };
@@ -118,13 +121,15 @@ const imageModel = cases[0]?.resolvedSettings.model ?? "google/gemini-3.1-flash-
 const plannerModel = arms.includes("planner") ? (values["planner-model"] ?? (isScenePlannerEnabled() ? getScenePlannerModelId() : null)) : null;
 const state: EvalRunState = existsSync(statePath) ? JSON.parse(await readFile(statePath, "utf8")) : emptyEvalState(values.run, imageModel, plannerModel);
 if (state.imageModel !== imageModel || state.plannerModel !== plannerModel) throw new Error(`Run "${values.run}" was started with ${state.imageModel} / ${state.plannerModel ?? "no planner"}; use a new --run for ${imageModel} / ${plannerModel ?? "no planner"}`);
+bindStyleReferenceControl(state, omitStyleReference);
 const saveState = async (next: EvalRunState) => { await writeFile(statePath, JSON.stringify(next, null, 1)); };
 
 console.log(`${cases.length} case(s) (${coverage.total} in the file; genres ${Object.entries(coverage.byGenre).map(([g, n]) => `${g} ${n}`).join(", ")}${coverage.missing.length ? `; missing ${coverage.missing.join(", ")}` : ""}), arms ${arms.join("+")}, ${repeats} repeat(s), image ${imageModel}, planner ${plannerModel ?? "none"}`);
 if (arms.includes("planner") && !plannerModel) console.log("Planner arm requested but the scene planner is disabled (ENABLE_SCENE_PLANNER=false) and no --planner-model given: planner samples will run without a plan.");
 
 if (values["dry-run"]) {
-  const { manifest } = await runImageEval({ cases, arms, repeats, budgetUsd, estimateUsd, dryRun: true, providers: { resolvePassage: async () => null, image: { id: "none", generate: async () => { throw new Error("dry run"); } }, planner: null, generic: null, sink: { save: async () => "" } }, state, saveState });
+  const { manifest } = await runImageEval({ cases, arms, repeats, budgetUsd, estimateUsd, omitStyleReference, dryRun: true, providers: { resolvePassage: async () => null, image: { id: "none", generate: async () => { throw new Error("dry run"); } }, planner: null, generic: null, sink: { save: async () => "" } }, state, saveState });
+  await saveState(state);
   await writeFile(path.join(runDir, "manifest.json"), JSON.stringify(manifest, null, 1));
   const genericArms = arms.filter(isGenericArm);
   console.log(`Dry run: ${manifest.plannedCalls} sample(s) to make (${manifest.doneCalls} already done), about $${manifest.estimatedUsd.toFixed(2)} at $${estimateUsd.image} per image${arms.includes("planner") ? ` + $${estimateUsd.planner} per plan` : ""}${genericArms.length ? ` + up to 2 × $${estimateUsd.preparation} preparation per generic sample (${genericArms.join(", ")})` : ""}; budget $${budgetUsd.toFixed(2)} → ${manifest.withinBudget ? "fits" : "DOES NOT FIT; the run would stop at the budget"}. Manifest written to ${path.relative(root, path.join(runDir, "manifest.json"))}.`);
@@ -200,7 +205,8 @@ const providers = {
     return path.relative(runDir, file);
   } },
 };
-const result = await runImageEval({ cases, arms, repeats, budgetUsd, estimateUsd, providers, state, saveState, log: (line) => console.log(line) });
+await saveState(state);
+const result = await runImageEval({ cases, arms, repeats, budgetUsd, estimateUsd, omitStyleReference, providers, state, saveState, log: (line) => console.log(line) });
 const report = buildReport(result.state, cases, { arms, repeats });
 await writeFile(path.join(runDir, "report.json"), JSON.stringify(report, null, 1));
 await writeFile(path.join(runDir, "contact-sheet.html"), renderContactSheet(report));

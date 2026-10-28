@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-24T01:49:55.284715+00:00",
+  "offlineReplayBeforeScoring": {
+    "pass": true,
+    "operations": 66,
+    "calls": 253,
+    "measuredUsd": 0.1540655,
+    "uncertainUsd": 0,
+    "reviewGate": true
+  },
+  "frozenDryRunVerify": "passed before and after paid execution",
+  "restartGuard": {
+    "pass": true,
+    "exitCode": 1,
+    "error": "One-shot artifact exists: run-started.json",
+    "beforeCredentialAccess": true,
+    "artifactsUnchanged": true
+  },
+  "credentialLeakScan": {
+    "pass": true,
+    "credentialPrinted": false
+  },
+  "applicationCodeChanges": 0,
+  "candidateValidation": "validation.json from PR #270: 987 tests passed, one existing skip; lint/typecheck passed. No repeated application test suite for evidence-only changes."
+}

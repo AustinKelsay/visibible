@@ -1,0 +1,13 @@
+{
+  "issues": 1,
+  "unresolved": 0,
+  "reviewedFiles": 20,
+  "resolution": "Replaced the stale present reference in FORMLESS_PLAN_SYSTEM with selectedCast. Regenerated the zero-call dry-run hashes before freezing.",
+  "postFixVerification": "37 affected tests passed; the complete suite before the wording-only fix passed 982 tests, one existing skipped.",
+  "scope": "First review covered candidate implementation, tests and frozen protocol (one minor issue fixed before paid calls). Second review covered retained results, scores, budget, supplemental audit and final release-status changes (zero issues). Review logs and this disposition are metadata, not independently reviewed outcomes.",
+  "resultsReview": {
+    "issues": 0,
+    "reviewedFiles": 17,
+    "log": "coderabbit-results.ndjson"
+  }
+}

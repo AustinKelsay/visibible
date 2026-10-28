@@ -1,0 +1,120 @@
+{
+  "issue": 183,
+  "status": "Owner-approved step 3 of 'do 1-3 end to end' (26 October 2026): an image check of about $2 with a budget increase. Measurement only: no tuning, restart or replacement.",
+  "purpose": "First images from the current pipeline (planner v10, review v8, renderer v8) on the two recorded visual release blockers: no-form God drawn as a figure, and white Watercolor margins. Also check framing figures, poses and selected cast in rendered images.",
+  "candidateCommit": "28b1d6e964ae5d816d151eefc5e4f281b382c96a",
+  "pipeline": {
+    "momentCast": "2026-10-26-moment-cast-v10",
+    "formlessPlan": "2026-10-26-formless-effects-v10",
+    "review": "2026-10-26-rendering-review-v8",
+    "rendering": "2026-10-26-generic-v8"
+  },
+  "image": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "cases": [
+    {
+      "id": "numbers-3-39",
+      "reference": "Numbers 3:39",
+      "why": "Census with God available in the section; no unsupported divine radiance or bodily God.",
+      "tags": [
+        "no-form-absent",
+        "cast"
+      ]
+    },
+    {
+      "id": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "why": "Ancient of Days vision: God has no face, body, hair, clothing, silhouette or figure; permitted effects only.",
+      "tags": [
+        "no-form-present",
+        "symbolic"
+      ]
+    },
+    {
+      "id": "exodus-16-15",
+      "reference": "Exodus 16:15",
+      "why": "Exact verse where both earlier images drew a robed figure in the cloud.",
+      "tags": [
+        "no-form-regression"
+      ]
+    },
+    {
+      "id": "exodus-14-22",
+      "reference": "Exodus 14:22",
+      "why": "Israel between two walls of water on dry ground; continuity and crowd.",
+      "tags": [
+        "narrative",
+        "crowd"
+      ]
+    },
+    {
+      "id": "luke-10-34",
+      "reference": "Luke 10:34",
+      "why": "One instant of care; consistent poses and object states; the mount if depicted.",
+      "tags": [
+        "one-instant",
+        "pose"
+      ]
+    }
+  ],
+  "design": "Prepare the five main cases in order, each once, cold, in a memory store seeded from a read-only production snapshot. A refused preparation stops that case before any image and is retained. When a main case refuses, prepare the next predeclared reserve in order, until five cases are stored or the reserves run out (at most eight preparations). Each stored case renders classical, watercolor and icon twice (variation 1 and 2) with the references production would send, then watercolor twice more with only the style reference removed (control): 8 images per stored case, 40 maximum. Later assemblies must reuse the stored plan with zero text calls.",
+  "scoring": {
+    "method": "Images are copied under opaque shuffled names without case, style-control or variation labels beyond what the image shows. Two independent model scorers inspect every image at full resolution; the operator adjudicates and commits before unblinding. Not human acceptance.",
+    "perImage": [
+      "noFormFigure: any face, body, hair, clothing, silhouette or human-shaped figure for God or another no-form subject (yes/no/na)",
+      "edges: all four edges painted to the border (full) or any white/unpainted margin or vignette (margin)",
+      "extraFigures: framing or unsupported named figures present (yes/no)",
+      "coherence: one instant, coherent poses and object states (yes/no)",
+      "text: any lettering or writing (yes/no)",
+      "overall: acceptable/flawed/uncertain"
+    ],
+    "gate": "Blocker 1 clears only with zero no-form figures in every no-form case image. Blocker 2 clears only if every normal Watercolor image is full-bleed. Results are reported per style and per case; the control shows whether the style reference causes margins. No outcome authorizes activation."
+  },
+  "evaluation": {
+    "authorizedBeforeUsd": 17.5,
+    "measuredBeforeUsd": 17.4435676,
+    "uncertaintyBeforeUsd": 0.045,
+    "proposedIncreaseUsd": 2.0,
+    "proposedAuthorizedUsd": 19.5,
+    "proposedOperationCapUsd": 2.0,
+    "textReserveUsd": 0.005,
+    "imageReserveUsd": 0.06,
+    "maximumImages": 40,
+    "maximumTextCalls": 60,
+    "measuredBeforeNote": "17.2435676 measured after step 1 plus the full $0.20 cap of the concurrently running step 2, reserved conservatively; the final budget settles from both ledgers."
+  },
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "knownLimitation": "Five chosen cases and two repeats per style give descriptive evidence only; this does not replace the full current-candidate visual matrix or human acceptance. Model scorers can miss subtle anatomy or edge artifacts.",
+  "reserves": [
+    {
+      "id": "exodus-40-34",
+      "reference": "Exodus 40:34",
+      "why": "Cloud covers the tent and glory fills the tabernacle; God as permitted effects only.",
+      "tags": [
+        "no-form-present"
+      ]
+    },
+    {
+      "id": "exodus-19-18",
+      "reference": "Exodus 19:18",
+      "why": "Sinai smoke and fire as Yahweh descends; no figure.",
+      "tags": [
+        "no-form-present"
+      ]
+    },
+    {
+      "id": "isaiah-6-1",
+      "reference": "Isaiah 6:1",
+      "why": "The Lord on a throne: an unoccupied seat with effects, never a seated figure.",
+      "tags": [
+        "no-form-present",
+        "symbolic"
+      ]
+    }
+  ]
+}

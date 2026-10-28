@@ -1,6 +1,6 @@
 /** Engine admission policy (#174): switches, owner proof, readiness gate, rollback and accepted requests. */
 import { describe, it, expect } from "vitest";
-import { decideEngine, genericEngineMode } from "../engine/admission";
+import { decideEngine, genericEngineMode, PUBLIC_GENERIC_STYLE_IDS } from "../engine/admission";
 
 const ready = { ready: true, reasons: [], activeGeneration: 3, briefVersion: "bv" };
 const unready = { ready: false, reasons: ["no active analysis generation"], activeGeneration: null, briefVersion: "bv" };
@@ -30,6 +30,14 @@ describe("engine admission", () => {
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "classical", readiness: ready })).toEqual({ engine: "generic", reason: "public" });
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "classical", readiness: unready })).toMatchObject({ engine: null, unavailable: "preparing", retryable: true });
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "classical", readiness: null })).toMatchObject({ engine: null, unavailable: "preparing", reason: expect.stringContaining("not registered") });
+  });
+
+  it("releases only Classical and Watercolor to readers in public mode, and keeps Icon for the owner", () => {
+    expect(PUBLIC_GENERIC_STYLE_IDS).toEqual(["classical", "watercolor"]);
+    expect(decideEngine({ mode: "public", isOwner: false, styleId: "watercolor", readiness: ready })).toEqual({ engine: "generic", reason: "public" });
+    expect(decideEngine({ mode: "public", isOwner: false, styleId: "icon", readiness: ready })).toMatchObject({ engine: null, unavailable: "style", reason: "The icon art style is temporarily unavailable", retryable: true });
+    expect(decideEngine({ mode: "public", isOwner: true, styleId: "icon", readiness: ready })).toEqual({ engine: "generic", reason: "owner-proof" });
+    expect(decideEngine({ mode: "public", isOwner: true, styleId: "classical", readiness: ready })).toEqual({ engine: "generic", reason: "public" });
   });
 
   it("never switches an accepted request, whatever the switches say now", () => {

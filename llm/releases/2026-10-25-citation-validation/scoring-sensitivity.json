@@ -1,0 +1,53 @@
+{
+  "scoredBeforeUnblinding": true,
+  "method": "Opaque-ID alternatives fixed with the first scores before arm-key access. First verdicts are never overwritten; alternatives are reported separately. Even accepting every stored packet cannot overcome the 7/7 retained and 22/23 fresh availability gates.",
+  "alternatives": [
+    {
+      "id": "p001",
+      "verdicts": [
+        "uncertain"
+      ],
+      "reason": "Treat direct handling of the massive altar by the king as over-literal agency rather than an allowed illustration of he brought/put."
+    },
+    {
+      "id": "p006",
+      "verdicts": [
+        "uncertain",
+        "flawed"
+      ],
+      "reason": "Stricter physical-agency or movement-versus-completed-placement reading."
+    },
+    {
+      "id": "p002",
+      "verdicts": [
+        "acceptable",
+        "flawed"
+      ],
+      "reason": "Accept if Baasha remains supportable at the cessation instant; reject if selected presence necessarily inserts him into an abandoned aftermath after departure."
+    },
+    {
+      "id": "p007",
+      "verdicts": [
+        "uncertain",
+        "flawed"
+      ],
+      "reason": "Require canon for an implied divine writer, rather than treating radiant names as a supported unnamed-pillar illustration with no depicted writer."
+    },
+    {
+      "id": "p008",
+      "verdicts": [
+        "acceptable",
+        "flawed"
+      ],
+      "reason": "Accept if the late-day light is conditional to a later part of the explicit range; reject if that low-sun field is active in the fixed midday scene."
+    },
+    {
+      "id": "p011",
+      "verdicts": [
+        "uncertain",
+        "acceptable"
+      ],
+      "reason": "Treat the Son as acting off frame through inscription light, with formed canon applied only if a body is shown, rather than incompatible selected-stage depiction."
+    }
+  ]
+}

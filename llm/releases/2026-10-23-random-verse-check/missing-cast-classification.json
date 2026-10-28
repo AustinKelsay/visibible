@@ -1,0 +1,170 @@
+{
+  "at": "2026-10-23T19:43:31.451071+00:00",
+  "note": "Post-hoc operator classification of the 23 missing-cast refusals; not pre-declared and not part of the pass rule.",
+  "groups": {
+    "genericRole": 13,
+    "namedNotInCast": 4,
+    "speakerInCastButUncertain": 5,
+    "noScene": 1
+  },
+  "rows": [
+    {
+      "sample": "s017",
+      "verse": "romans-2-26",
+      "group": "genericRole",
+      "reported": "uncircumcised Gentile who keeps the law"
+    },
+    {
+      "sample": "s023",
+      "verse": "proverbs-16-22",
+      "group": "genericRole",
+      "reported": "A concrete actor or situation (e.g., a wise person, a fool, or a court scene) is not established by the moment itself; the source is a general maxim without a narrated instant."
+    },
+    {
+      "sample": "s034",
+      "verse": "lamentations-4-7",
+      "group": "genericRole",
+      "reported": "Her nobles (the priests' fine-garbed elders), whose participation in a scene is not established in the moment"
+    },
+    {
+      "sample": "s050",
+      "verse": "romans-13-2",
+      "group": "genericRole",
+      "reported": "Roman authority figure or magistrate, required to depict resistance to authority as an action at this instant"
+    },
+    {
+      "sample": "s057",
+      "verse": "proverbs-3-22",
+      "group": "genericRole",
+      "reported": "father or teacher figure speaking the counsel to a son (the moment is an instruction addressed to 'my son', and no speaker or listener is available as cast)"
+    },
+    {
+      "sample": "s062",
+      "verse": "psalms-37-21",
+      "group": "genericRole",
+      "reported": "A borrower of goods and a lender/giver in an act of lending or giving, as the moment is a general wisdom saying with no named actors in the section cast performing the act"
+    },
+    {
+      "sample": "s066",
+      "verse": "job-39-9",
+      "group": "genericRole",
+      "reported": "wild ox, the speaker's question directed at Job, which requires a wild ox character not in the section cast"
+    },
+    {
+      "sample": "s067",
+      "verse": "numbers-5-24",
+      "group": "genericRole",
+      "reported": "the priest administering the ordeal, the accused woman"
+    },
+    {
+      "sample": "s073",
+      "verse": "ephesians-5-10",
+      "group": "genericRole",
+      "reported": "Cast members needed to depict people proving what is well pleasing to the Lord; no cast is listed in this section."
+    },
+    {
+      "sample": "s074",
+      "verse": "jeremiah-10-14",
+      "group": "genericRole",
+      "reported": "goldsmith"
+    },
+    {
+      "sample": "s080",
+      "verse": "psalms-58-1",
+      "group": "genericRole",
+      "reported": "silent ones (the corrupt rulers and officials being addressed), sons of men (the judges being addressed)"
+    },
+    {
+      "sample": "s086",
+      "verse": "jeremiah-51-27",
+      "group": "genericRole",
+      "reported": "Israelite or Median commander raising the standard, trumpeter sounding the call among the nations, horses and chariots gathering as locusts"
+    },
+    {
+      "sample": "s100",
+      "verse": "john-7-53",
+      "group": "genericRole",
+      "reported": "Crowd of festival-goers returning home (not in section cast)"
+    },
+    {
+      "sample": "s042",
+      "verse": "psalms-135-11",
+      "group": "namedNotInCast",
+      "reported": "Sihon, king of the Amorites, Og, king of Bashan, kings and peoples of Canaan"
+    },
+    {
+      "sample": "s058",
+      "verse": "nehemiah-11-5",
+      "group": "namedNotInCast",
+      "reported": "Maaseiah son of Baruch (a named individual in a genealogical list, not an available section cast member)"
+    },
+    {
+      "sample": "s077",
+      "verse": "matthew-18-27",
+      "group": "namedNotInCast",
+      "reported": "the lord (king) of the parable, a human figure in the story whose compassion releases the servant"
+    },
+    {
+      "sample": "s083",
+      "verse": "nehemiah-12-11",
+      "group": "namedNotInCast",
+      "reported": "Joiada, Jonathan, Jaddua"
+    },
+    {
+      "sample": "s056",
+      "verse": "jeremiah-22-10",
+      "group": "speakerInCastButUncertain",
+      "reported": "Jeremiah son of Hilkiah speaking the lament, and a grieving crowd or Jerusalem's people weeping for Shallum (Jehoahaz) as he leaves the city, none of whom are established as physically present at this instant in the supplied moment text",
+      "sectionCast": [
+        "jeremiah_son_of_hilkiah",
+        "god_yahweh_the_father_and_god_of_israel",
+        "jerusalem"
+      ]
+    },
+    {
+      "sample": "s040",
+      "verse": "psalms-71-3",
+      "group": "speakerInCastButUncertain",
+      "reported": "speaker of Psalms 71:3 (the psalmist, presumed David) is not cleanly established as a visible participant in a depictable instant; the moment is a direct prayer to God, not a visible action, and the available canon does not fix a scene the planner can render without inventing action",
+      "sectionCast": [
+        "david_son_of_jesse_king_of_israel"
+      ]
+    },
+    {
+      "sample": "s041",
+      "verse": "isaiah-64-7",
+      "group": "speakerInCastButUncertain",
+      "reported": "Isaiah son of Amoz is required as the speaker of this prayer, but the moment's participation evidence is uncertain; a source correction is needed to fix his presence in the scene",
+      "sectionCast": [
+        "isaiah_son_of_amoz",
+        "jerusalem"
+      ]
+    },
+    {
+      "sample": "s046",
+      "verse": "1-peter-2-22",
+      "group": "speakerInCastButUncertain",
+      "reported": "Jesus Christ as a participant in a clear, present-tense scene at the instant of 'neither was deceit found in his mouth' (the moment is a theological statement about his character, not a depicted act)",
+      "sectionCast": [
+        "the_chosen_ones_of_the_dispersion",
+        "jesus_christ_the_son_of_god_and_lord"
+      ]
+    },
+    {
+      "sample": "s049",
+      "verse": "hebrews-12-3",
+      "group": "speakerInCastButUncertain",
+      "reported": "Jesus Christ, the Son of God and Lord, as a visible figure (the moment's gaze refers to him as one contemplated, not a figure present in the scene)",
+      "sectionCast": [
+        "jesus_christ_the_son_of_god_and_lord"
+      ]
+    },
+    {
+      "sample": "s020",
+      "verse": "joshua-15-23",
+      "group": "noScene",
+      "reported": "Source reference to the list of towns (Kedesh, Hazor, Ithnan) requires no visible action; no scene can be depicted from this moment alone"
+    }
+  ],
+  "revision": "s056 moved from namedNotInCast to speakerInCastButUncertain after review: Jeremiah is in the section cast."
+}

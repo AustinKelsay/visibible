@@ -1,3 +1,4 @@
+import { lookPolicy } from "../src/lib/engine/situation";
 /**
  * Analysis storage and lifecycle (#168, spec #165 §7 and §9).
  *
@@ -395,6 +396,59 @@ export const abandonGeneration = mutation({
 
 // ---------------------------------------------------------------- owner corrections (server)
 
+/** Add a missing canon entry and assign it to one existing section in the same transaction. */
+export const addCastEntry = mutation({
+  args: {
+    serverSecret: v.string(), workId: v.string(), workVersion: v.string(), expectedGeneration: v.number(),
+    sectionId: v.string(), expectedSectionVersion: v.string(), entryId: v.string(), stageId: v.string(),
+    named: v.optional(v.boolean()), entry: analysisValidators.entry,
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const work = await requireWork(ctx, args.workId);
+    if (work.activeGeneration !== args.expectedGeneration || work.workVersion !== args.workVersion) {
+      throw new Error("Analysis generation or reference text changed; inspect the work again");
+    }
+    const generation = await findGeneration(ctx, args.workId, args.expectedGeneration);
+    if (!generation || generation.status !== "active" || generation.workVersion !== args.workVersion) {
+      throw new Error("An active analysis generation matching the reference text is required");
+    }
+    const section = await findCurrentRecord(ctx, args.workId, args.expectedGeneration, "section", args.sectionId);
+    if (!section || section.payload.kind !== "section") throw new Error(`No current section ${args.sectionId}`);
+    const { entry } = args;
+    const cap = entry.entryKind === "object" ? 1 : MAX_CHARACTER_STAGES;
+    if (!args.entryId.trim() || !entry.name.trim() || entry.stages.length < 1 || entry.stages.length > cap
+      || new Set(entry.stages.map((s) => s.id)).size !== entry.stages.length
+      || entry.stages.some((s) => !s.id.trim() || !s.text.trim() || s.text.length > 500 || !s.quotes?.length
+        || s.quotes.some((q) => !q.unit.trim() || !q.quote.trim()))) {
+      throw new Error("A new cast entry needs a name and complete, distinct canon stages with supporting quotes");
+    }
+    if (!entry.stages.some((s) => s.id === args.stageId)) throw new Error(`Entry has no stage ${args.stageId}`);
+    const member = { entryId: args.entryId, stageId: args.stageId, named: args.named ?? false };
+    const version = contentVersion(entry);
+    const existing = await findCurrentRecord(ctx, args.workId, args.expectedGeneration, "entry", args.entryId);
+    if (existing) {
+      // A response can be lost after commit. Exact retries neither duplicate the entry nor overwrite later edits.
+      if (existing.source === "owner" && existing.version === version && section.source === "owner"
+        && section.payload.cast.some((c) => c.entryId === member.entryId && c.stageId === member.stageId && (c.named ?? false) === member.named)) {
+        return { changed: false, entryVersion: version, sectionVersion: section.version };
+      }
+      throw new Error(`Entry ${args.entryId} already exists; inspect it instead of adding another identity`);
+    }
+    if (section.version !== args.expectedSectionVersion) throw new Error(`Stale edit: section ${args.sectionId} is at version ${section.version}`);
+    if (section.payload.cast.some((c) => c.entryId === args.entryId)) throw new Error(`Section already assigns ${args.entryId}`);
+    const payload = { ...section.payload, cast: [...section.payload.cast, member],
+      ...(section.payload.mentionedOnly ? { mentionedOnly: section.payload.mentionedOnly.filter((id) => id !== args.entryId) } : {}) };
+    const sectionVersion = contentVersion(payload);
+    await writeVersion(ctx, null, { workId: args.workId, generation: args.expectedGeneration, kind: "entry", recordId: args.entryId,
+      version, source: "owner", inputs: [], payload: entry });
+    await writeVersion(ctx, section, { workId: args.workId, generation: args.expectedGeneration, kind: "section", recordId: args.sectionId,
+      version: sectionVersion, source: "owner", inputs: section.inputs, payload });
+    if (generation.recordCounts) await ctx.db.patch(generation._id, { recordCounts: { ...generation.recordCounts, entry: (generation.recordCounts.entry ?? 0) + 1 } });
+    return { changed: true, entryVersion: version, sectionVersion };
+  },
+});
+
 /**
  * Write an owner version of one record in the active generation. Later rereads never overwrite
  * it. Dependents that named the old version show up as stale (see listStaleDependents); nothing
@@ -467,6 +521,13 @@ export const putDerivedRecord = mutation({
     const own = problems.filter((p) => p.startsWith(`${args.kind} ${args.recordId}:`));
     if (own.length) throw new Error(own.join("; "));
     const existing = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
+    if (args.kind === "look" && existing?.source === "owner") throw new Error("Owner look requires explicit correction");
+    const policy = args.inputs.find((input) => input.kind === "prompt" && input.recordId === "scene_plan_look_ownership");
+    if (args.kind === "plan" && policy) {
+      const dependency = args.inputs.find((input) => input.kind === "look");
+      const look = dependency ? await findCurrentRecord(ctx, args.workId, work.activeGeneration, "look", dependency.recordId) : null;
+      if (!look || look.version !== dependency?.version || lookPolicy(look) !== policy.version) throw new Error("Section look changed during preparation");
+    }
     const version = contentVersion(args.payload);
     await writeVersion(ctx, existing, {
       workId: args.workId, generation: work.activeGeneration, kind: args.kind, recordId: args.recordId, version,

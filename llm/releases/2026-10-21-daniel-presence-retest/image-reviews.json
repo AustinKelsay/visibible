@@ -1,0 +1,128 @@
+{
+  "at": "2026-10-21T18:23:40.877756+00:00",
+  "reviewer": "agent; provisional visual assessment, not human release acceptance",
+  "method": "All nine unchanged originals inspected uncropped at full resolution. Narrow criterion passes do not imply whole-case or human likeness acceptance. Ambiguous silhouettes remain review, never promoted to pass.",
+  "humanAccepted": false,
+  "images": [
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "classical",
+      "n": 1,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-classical-1.jpg",
+      "fullResolutionInspected": true,
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "review",
+      "noTextVerdict": "fail",
+      "notes": [
+        "White radiance and spreading cloth-like wisps above an apparently empty throne are ambiguous; no confident no-body pass. A cursive signature-like mark is visible at the lower right."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "classical",
+      "n": 2,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-classical-2.jpg",
+      "fullResolutionInspected": true,
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "noTextVerdict": "pass",
+      "notes": [
+        "A seated, white draped human-shaped body with a luminous head and arms remains on the throne. Hiding the face does not meet the constraint."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "classical",
+      "n": 3,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-classical-3.jpg",
+      "fullResolutionInspected": true,
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "noTextVerdict": "pass",
+      "notes": [
+        "White garment-shaped seated torso/lap and apparent hands on the throne arms remain beneath a luminous head."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "watercolor",
+      "n": 1,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-watercolor-1.jpg",
+      "fullResolutionInspected": true,
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "noTextVerdict": "pass",
+      "notes": [
+        "Empty fiery throne with a non-figurative pillar of fire/radiance; no visible human-form divine subject. Daniel and court figures retain ordinary human forms. No clear exposed presentation margin."
+      ],
+      "paperMarginVerdict": "pass"
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "watercolor",
+      "n": 2,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-watercolor-2.jpg",
+      "fullResolutionInspected": true,
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "noTextVerdict": "pass",
+      "notes": [
+        "Empty burning throne and wheels beneath radiance; no visible human-form divine subject. Large unpainted tan paper margins surround the composition; rural setting is a weaker match for the section look."
+      ],
+      "paperMarginVerdict": "fail"
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "watercolor",
+      "n": 3,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-watercolor-3.jpg",
+      "fullResolutionInspected": true,
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "noTextVerdict": "pass",
+      "notes": [
+        "White draped seated body with apparent hands at the armrests and a luminous head; unpainted paper remains at the lower and side edges."
+      ],
+      "paperMarginVerdict": "fail"
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "icon",
+      "n": 1,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-icon-1.jpg",
+      "fullResolutionInspected": true,
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "noTextVerdict": "pass",
+      "notes": [
+        "Empty flaming throne under cloud/radiance; no visible human-form divine subject. Daniel and attendants remain distinct human figures. No obvious presentation border or text in this sample."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "icon",
+      "n": 2,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-icon-2.jpg",
+      "fullResolutionInspected": true,
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "noTextVerdict": "pass",
+      "notes": [
+        "A fully draped seated human-shaped body, arms/hands and luminous head occupy the throne despite the protected constraint."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "icon",
+      "n": 3,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-icon-3.jpg",
+      "fullResolutionInspected": true,
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "noTextVerdict": "pass",
+      "notes": [
+        "A large glowing human silhouette with a rounded head, torso and projecting arm-like form occupies the central flames; absence of facial detail does not meet the no-body rule."
+      ]
+    }
+  ]
+}

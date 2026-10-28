@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-27T01:56:57.085Z",
+  "method": "Disposable clone, intercepted HTTP, synthetic checker replies. Mechanics, not evidence.",
+  "holdout": {
+    "run": "holdout",
+    "images": 48,
+    "calls": 96,
+    "measuredUsd": 0.03839999999999999,
+    "blocked": null
+  },
+  "score": {
+    "run": "holdout",
+    "figure": "2/9 caught, 7/39 false alarms",
+    "border": "0/7 caught, 7/41 false alarms",
+    "lettering": "1/7 caught, 3/41 false alarms",
+    "retryOnAcceptable": "8/27",
+    "errors": 0,
+    "pass": false
+  },
+  "devRefused": true,
+  "rerunRefused": true,
+  "paidCalls": 0
+}

@@ -1,0 +1,762 @@
+{
+  "reviewer": "Agent visual inspection",
+  "humanAcceptance": "pending",
+  "images": [
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "repeat": 1,
+      "output": "outputs/holmes-scandal-the-woman/generic-icon-1.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "repeat": 2,
+      "output": "outputs/holmes-scandal-the-woman/generic-icon-2.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "repeat": 3,
+      "output": "outputs/holmes-scandal-the-woman/generic-icon-3.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "holmes-scandal-king-arrives",
+      "repeat": 1,
+      "output": "outputs/holmes-scandal-king-arrives/generic-icon-1.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "holmes-scandal-king-arrives",
+      "repeat": 2,
+      "output": "outputs/holmes-scandal-king-arrives/generic-icon-2.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "holmes-scandal-king-arrives",
+      "repeat": 3,
+      "output": "outputs/holmes-scandal-king-arrives/generic-icon-3.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "holmes-red-headed-league",
+      "repeat": 1,
+      "output": "outputs/holmes-red-headed-league/generic-icon-1.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "holmes-red-headed-league",
+      "repeat": 2,
+      "output": "outputs/holmes-red-headed-league/generic-icon-2.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "holmes-red-headed-league",
+      "repeat": 3,
+      "output": "outputs/holmes-red-headed-league/generic-icon-3.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "repeat": 1,
+      "output": "outputs/genesis-1-3-light/generic-icon-1.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "repeat": 2,
+      "output": "outputs/genesis-1-3-light/generic-icon-2.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "repeat": 3,
+      "output": "outputs/genesis-1-3-light/generic-icon-3.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "genesis-5-5-adam-days",
+      "repeat": 1,
+      "output": "outputs/genesis-5-5-adam-days/generic-icon-1.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "genesis-5-5-adam-days",
+      "repeat": 2,
+      "output": "outputs/genesis-5-5-adam-days/generic-icon-2.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "genesis-5-5-adam-days",
+      "repeat": 3,
+      "output": "outputs/genesis-5-5-adam-days/generic-icon-3.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "genesis-19-24-sodom",
+      "repeat": 1,
+      "output": "outputs/genesis-19-24-sodom/generic-icon-1.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "genesis-19-24-sodom",
+      "repeat": 2,
+      "output": "outputs/genesis-19-24-sodom/generic-icon-2.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "genesis-19-24-sodom",
+      "repeat": 3,
+      "output": "outputs/genesis-19-24-sodom/generic-icon-3.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "genesis-22-10-abraham-knife",
+      "repeat": 1,
+      "output": "outputs/genesis-22-10-abraham-knife/generic-icon-1.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "genesis-22-10-abraham-knife",
+      "repeat": 2,
+      "output": "outputs/genesis-22-10-abraham-knife/generic-icon-2.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "genesis-22-10-abraham-knife",
+      "repeat": 3,
+      "output": "outputs/genesis-22-10-abraham-knife/generic-icon-3.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "exodus-14-21-sea-parts",
+      "repeat": 1,
+      "output": "outputs/exodus-14-21-sea-parts/generic-icon-1.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "exodus-14-21-sea-parts",
+      "repeat": 2,
+      "output": "outputs/exodus-14-21-sea-parts/generic-icon-2.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "exodus-14-21-sea-parts",
+      "repeat": 3,
+      "output": "outputs/exodus-14-21-sea-parts/generic-icon-3.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "repeat": 1,
+      "output": "outputs/exodus-14-22-sea-walls/generic-icon-1.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "repeat": 2,
+      "output": "outputs/exodus-14-22-sea-walls/generic-icon-2.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "repeat": 3,
+      "output": "outputs/exodus-14-22-sea-walls/generic-icon-3.jpg",
+      "contactSheet": "contacts/1.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "leviticus-11-7-pig",
+      "repeat": 1,
+      "output": "outputs/leviticus-11-7-pig/generic-icon-1.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "leviticus-11-7-pig",
+      "repeat": 2,
+      "output": "outputs/leviticus-11-7-pig/generic-icon-2.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "leviticus-11-7-pig",
+      "repeat": 3,
+      "output": "outputs/leviticus-11-7-pig/generic-icon-3.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "joshua-6-20-jericho",
+      "repeat": 1,
+      "output": "outputs/joshua-6-20-jericho/generic-icon-1.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "joshua-6-20-jericho",
+      "repeat": 2,
+      "output": "outputs/joshua-6-20-jericho/generic-icon-2.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "joshua-6-20-jericho",
+      "repeat": 3,
+      "output": "outputs/joshua-6-20-jericho/generic-icon-3.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "judges-19-29-concubine",
+      "repeat": 1,
+      "output": "outputs/judges-19-29-concubine/generic-icon-1.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "judges-19-29-concubine",
+      "repeat": 2,
+      "output": "outputs/judges-19-29-concubine/generic-icon-2.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "judges-19-29-concubine",
+      "repeat": 3,
+      "output": "outputs/judges-19-29-concubine/generic-icon-3.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "ruth-4-22-genealogy",
+      "repeat": 1,
+      "output": "outputs/ruth-4-22-genealogy/generic-icon-1.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "ruth-4-22-genealogy",
+      "repeat": 2,
+      "output": "outputs/ruth-4-22-genealogy/generic-icon-2.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "ruth-4-22-genealogy",
+      "repeat": 3,
+      "output": "outputs/ruth-4-22-genealogy/generic-icon-3.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "1-samuel-17-49-sling",
+      "repeat": 1,
+      "output": "outputs/1-samuel-17-49-sling/generic-icon-1.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "1-samuel-17-49-sling",
+      "repeat": 2,
+      "output": "outputs/1-samuel-17-49-sling/generic-icon-2.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "1-samuel-17-49-sling",
+      "repeat": 3,
+      "output": "outputs/1-samuel-17-49-sling/generic-icon-3.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "repeat": 1,
+      "output": "outputs/2-kings-2-23-bears/generic-icon-1.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "repeat": 2,
+      "output": "outputs/2-kings-2-23-bears/generic-icon-2.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "repeat": 3,
+      "output": "outputs/2-kings-2-23-bears/generic-icon-3.jpg",
+      "contactSheet": "contacts/2.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "job-38-4-foundations",
+      "repeat": 1,
+      "output": "outputs/job-38-4-foundations/generic-icon-1.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "job-38-4-foundations",
+      "repeat": 2,
+      "output": "outputs/job-38-4-foundations/generic-icon-2.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "job-38-4-foundations",
+      "repeat": 3,
+      "output": "outputs/job-38-4-foundations/generic-icon-3.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "psalms-23-2-pastures",
+      "repeat": 1,
+      "output": "outputs/psalms-23-2-pastures/generic-icon-1.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "psalms-23-2-pastures",
+      "repeat": 2,
+      "output": "outputs/psalms-23-2-pastures/generic-icon-2.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "psalms-23-2-pastures",
+      "repeat": 3,
+      "output": "outputs/psalms-23-2-pastures/generic-icon-3.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "psalms-137-1-babylon",
+      "repeat": 1,
+      "output": "outputs/psalms-137-1-babylon/generic-icon-1.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "psalms-137-1-babylon",
+      "repeat": 2,
+      "output": "outputs/psalms-137-1-babylon/generic-icon-2.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "psalms-137-1-babylon",
+      "repeat": 3,
+      "output": "outputs/psalms-137-1-babylon/generic-icon-3.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "song-of-solomon-2-1-rose",
+      "repeat": 1,
+      "output": "outputs/song-of-solomon-2-1-rose/generic-icon-1.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "song-of-solomon-2-1-rose",
+      "repeat": 2,
+      "output": "outputs/song-of-solomon-2-1-rose/generic-icon-2.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "song-of-solomon-2-1-rose",
+      "repeat": 3,
+      "output": "outputs/song-of-solomon-2-1-rose/generic-icon-3.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "repeat": 1,
+      "output": "outputs/isaiah-6-2-seraphim/generic-icon-1.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "repeat": 2,
+      "output": "outputs/isaiah-6-2-seraphim/generic-icon-2.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "repeat": 3,
+      "output": "outputs/isaiah-6-2-seraphim/generic-icon-3.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "isaiah-11-6-wolf-lamb",
+      "repeat": 1,
+      "output": "outputs/isaiah-11-6-wolf-lamb/generic-icon-1.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "isaiah-11-6-wolf-lamb",
+      "repeat": 2,
+      "output": "outputs/isaiah-11-6-wolf-lamb/generic-icon-2.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "isaiah-11-6-wolf-lamb",
+      "repeat": 3,
+      "output": "outputs/isaiah-11-6-wolf-lamb/generic-icon-3.jpg",
+      "contactSheet": "contacts/3.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "ezekiel-37-4-dry-bones",
+      "repeat": 1,
+      "output": "outputs/ezekiel-37-4-dry-bones/generic-icon-1.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "ezekiel-37-4-dry-bones",
+      "repeat": 2,
+      "output": "outputs/ezekiel-37-4-dry-bones/generic-icon-2.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "ezekiel-37-4-dry-bones",
+      "repeat": 3,
+      "output": "outputs/ezekiel-37-4-dry-bones/generic-icon-3.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "daniel-6-22-lions",
+      "repeat": 1,
+      "output": "outputs/daniel-6-22-lions/generic-icon-1.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "daniel-6-22-lions",
+      "repeat": 2,
+      "output": "outputs/daniel-6-22-lions/generic-icon-2.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "daniel-6-22-lions",
+      "repeat": 3,
+      "output": "outputs/daniel-6-22-lions/generic-icon-3.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "repeat": 1,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-icon-1.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "repeat": 2,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-icon-2.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "repeat": 3,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-icon-3.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "jonah-1-17-fish",
+      "repeat": 1,
+      "output": "outputs/jonah-1-17-fish/generic-icon-1.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "jonah-1-17-fish",
+      "repeat": 2,
+      "output": "outputs/jonah-1-17-fish/generic-icon-2.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "jonah-1-17-fish",
+      "repeat": 3,
+      "output": "outputs/jonah-1-17-fish/generic-icon-3.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "matthew-1-1-genealogy",
+      "repeat": 1,
+      "output": "outputs/matthew-1-1-genealogy/generic-icon-1.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "matthew-1-1-genealogy",
+      "repeat": 2,
+      "output": "outputs/matthew-1-1-genealogy/generic-icon-2.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "matthew-1-1-genealogy",
+      "repeat": 3,
+      "output": "outputs/matthew-1-1-genealogy/generic-icon-3.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "repeat": 1,
+      "output": "outputs/matthew-14-29-peter-water/generic-icon-1.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "repeat": 2,
+      "output": "outputs/matthew-14-29-peter-water/generic-icon-2.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "repeat": 3,
+      "output": "outputs/matthew-14-29-peter-water/generic-icon-3.jpg",
+      "contactSheet": "contacts/4.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "john-21-7-peter-sea",
+      "repeat": 1,
+      "output": "outputs/john-21-7-peter-sea/generic-icon-1.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "john-21-7-peter-sea",
+      "repeat": 2,
+      "output": "outputs/john-21-7-peter-sea/generic-icon-2.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "john-21-7-peter-sea",
+      "repeat": 3,
+      "output": "outputs/john-21-7-peter-sea/generic-icon-3.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "mark-4-39-storm",
+      "repeat": 1,
+      "output": "outputs/mark-4-39-storm/generic-icon-1.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "mark-4-39-storm",
+      "repeat": 2,
+      "output": "outputs/mark-4-39-storm/generic-icon-2.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "mark-4-39-storm",
+      "repeat": 3,
+      "output": "outputs/mark-4-39-storm/generic-icon-3.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "luke-15-20-prodigal",
+      "repeat": 1,
+      "output": "outputs/luke-15-20-prodigal/generic-icon-1.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "luke-15-20-prodigal",
+      "repeat": 2,
+      "output": "outputs/luke-15-20-prodigal/generic-icon-2.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "luke-15-20-prodigal",
+      "repeat": 3,
+      "output": "outputs/luke-15-20-prodigal/generic-icon-3.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "john-11-43-lazarus",
+      "repeat": 1,
+      "output": "outputs/john-11-43-lazarus/generic-icon-1.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "john-11-43-lazarus",
+      "repeat": 2,
+      "output": "outputs/john-11-43-lazarus/generic-icon-2.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "john-11-43-lazarus",
+      "repeat": 3,
+      "output": "outputs/john-11-43-lazarus/generic-icon-3.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "acts-9-3-damascus",
+      "repeat": 1,
+      "output": "outputs/acts-9-3-damascus/generic-icon-1.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "acts-9-3-damascus",
+      "repeat": 2,
+      "output": "outputs/acts-9-3-damascus/generic-icon-2.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "acts-9-3-damascus",
+      "repeat": 3,
+      "output": "outputs/acts-9-3-damascus/generic-icon-3.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "romans-8-28-all-things",
+      "repeat": 1,
+      "output": "outputs/romans-8-28-all-things/generic-icon-1.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "romans-8-28-all-things",
+      "repeat": 2,
+      "output": "outputs/romans-8-28-all-things/generic-icon-2.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "romans-8-28-all-things",
+      "repeat": 3,
+      "output": "outputs/romans-8-28-all-things/generic-icon-3.jpg",
+      "contactSheet": "contacts/5.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "matthew-27-35-crucified",
+      "repeat": 1,
+      "output": "outputs/matthew-27-35-crucified/generic-icon-1.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "matthew-27-35-crucified",
+      "repeat": 2,
+      "output": "outputs/matthew-27-35-crucified/generic-icon-2.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "matthew-27-35-crucified",
+      "repeat": 3,
+      "output": "outputs/matthew-27-35-crucified/generic-icon-3.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "repeat": 1,
+      "output": "outputs/revelation-4-6-living-creatures/generic-icon-1.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "repeat": 2,
+      "output": "outputs/revelation-4-6-living-creatures/generic-icon-2.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "repeat": 3,
+      "output": "outputs/revelation-4-6-living-creatures/generic-icon-3.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "revelation-21-1-new-heaven",
+      "repeat": 1,
+      "output": "outputs/revelation-21-1-new-heaven/generic-icon-1.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "revelation-21-1-new-heaven",
+      "repeat": 2,
+      "output": "outputs/revelation-21-1-new-heaven/generic-icon-2.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    },
+    {
+      "caseId": "revelation-21-1-new-heaven",
+      "repeat": 3,
+      "output": "outputs/revelation-21-1-new-heaven/generic-icon-3.jpg",
+      "contactSheet": "contacts/6.jpg",
+      "fullResolutionInspected": false
+    }
+  ]
+}

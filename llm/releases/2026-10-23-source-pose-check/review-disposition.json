@@ -1,0 +1,52 @@
+{
+  "reviews": {
+    "coderabbit-before-run.ndjson": {
+      "type": "complete",
+      "status": "review_completed",
+      "findings": 0,
+      "reviewedFiles": [
+        "src/lib/__tests__/cast-policy.test.ts",
+        "src/lib/__tests__/formless-selection.test.ts",
+        "src/lib/engine/plan-review.ts",
+        "src/lib/engine/preparation.ts"
+      ],
+      "outcome": "completed",
+      "message": "Review completed"
+    },
+    "coderabbit-protocol-review.ndjson": {
+      "type": "complete",
+      "status": "review_completed",
+      "findings": 0,
+      "reviewedFiles": [
+        "llm/context/SCENE-PREPARATION.md",
+        "llm/releases/2026-10-23-source-pose-check/README.md",
+        "llm/releases/2026-10-23-source-pose-check/baseline-review-system.txt",
+        "llm/releases/2026-10-23-source-pose-check/coderabbit-before-run.ndjson",
+        "llm/releases/2026-10-23-source-pose-check/common.mts",
+        "llm/releases/2026-10-23-source-pose-check/dry-run.json",
+        "llm/releases/2026-10-23-source-pose-check/make-cases.mts",
+        "llm/releases/2026-10-23-source-pose-check/model.mts",
+        "llm/releases/2026-10-23-source-pose-check/plan.json",
+        "llm/releases/2026-10-23-source-pose-check/reproduce.mts",
+        "llm/releases/2026-10-23-source-pose-check/reproduction.json",
+        "llm/releases/2026-10-23-source-pose-check/review-cases.json",
+        "llm/releases/2026-10-23-source-pose-check/run.mts",
+        "llm/releases/2026-10-23-source-pose-check/scenarios.mts",
+        "llm/releases/2026-10-23-source-pose-check/validation.json",
+        "llm/releases/2026-10-23-source-pose-check/verify.mts",
+        "llm/releases/2026-10-23-source-pose-check/visual-control-dry-run.json",
+        "llm/releases/2026-10-23-source-pose-check/visual-normal-dry-run.json",
+        "llm/releases/2026-10-23-source-pose-check/visual-pilot-cases.json",
+        "llm/releases/2026-10-23-source-pose-check/visual-pilot-plan.json",
+        "src/lib/__tests__/cast-policy.test.ts",
+        "src/lib/__tests__/formless-selection.test.ts",
+        "src/lib/engine/plan-review.ts",
+        "src/lib/engine/preparation.ts"
+      ],
+      "outcome": "completed",
+      "message": "Review completed"
+    }
+  },
+  "issues": 0,
+  "scopeNotes": "Initial uncommitted review covered the four production/test files. Committed review covered all 24 frozen files at b3f623c, including runner and protocol. Post-run results, operator scoring, final docs and supplemental artifact audit were added afterward; they are verified by offline replay/audit and lint/typecheck, not claimed as CodeRabbit-reviewed."
+}

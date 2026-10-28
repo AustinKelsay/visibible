@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-23T16:06:56.205036+00:00",
+  "summary": "Operator and subagent agreed on every blocker flag (U, X, I, F) and every N note for all 40 replies, so no decision was needed.",
+  "decisions": [],
+  "borderline": [
+    {
+      "blindIds": [
+        "874cc171",
+        "5032a4e2",
+        "1ba654d6"
+      ],
+      "flag": "I",
+      "reading": "Kneeling in one field, halting/leaning in another. Both scorers flagged; a looser reading would treat them as one continuous motion."
+    },
+    {
+      "blindIds": [
+        "676010ec",
+        "0b2a5f07",
+        "d4e40801"
+      ],
+      "flag": "F",
+      "reading": "Radiance and fire 'seated above' the throne. Both scorers flagged under the rubric's literal 'seated'; a looser reading would treat it as effect placement."
+    },
+    {
+      "blindIds": [
+        "b63d2f6a"
+      ],
+      "flag": "X",
+      "reading": "Inn doorway behind roadside wound-binding. Both scorers flagged; it could be argued the scene is at the inn."
+    }
+  ],
+  "keyReadBeforeThis": false
+}

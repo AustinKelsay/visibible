@@ -1,0 +1,220 @@
+{
+  "at": "2026-10-20T23:44:42.739Z",
+  "sessionSha256": "c032800339ce38c2f0377aff01520d7471a18c80f643d154f06bb1f9856375b4",
+  "tier": "paid",
+  "credits": 90,
+  "history": [
+    {
+      "createdAt": 1792539585008,
+      "delta": 10,
+      "generationId": "9d62b239-16fb-494a-9624-7bfe99ed8993",
+      "reason": "refund"
+    },
+    {
+      "createdAt": 1792539584850,
+      "delta": -10,
+      "generationId": "9d62b239-16fb-494a-9624-7bfe99ed8993",
+      "modelId": "google/gemini-3.1-flash-lite-image",
+      "reason": "reservation"
+    },
+    {
+      "createdAt": 1792538432311,
+      "delta": 10,
+      "generationId": "c9e4eb36-6b35-4df3-9a0d-5a934fcfd3e4",
+      "reason": "refund"
+    },
+    {
+      "createdAt": 1792538432161,
+      "delta": -10,
+      "generationId": "c9e4eb36-6b35-4df3-9a0d-5a934fcfd3e4",
+      "modelId": "google/gemini-3.1-flash-lite-image",
+      "reason": "reservation"
+    },
+    {
+      "createdAt": 1792538403066,
+      "delta": 10,
+      "generationId": "fc1cd4dc-a218-40c7-a438-4d9a63a959d1",
+      "reason": "refund"
+    },
+    {
+      "createdAt": 1792538403066,
+      "delta": -5,
+      "generationId": "fc1cd4dc-a218-40c7-a438-4d9a63a959d1",
+      "modelId": "google/gemini-3.1-flash-lite-image",
+      "reason": "generation"
+    },
+    {
+      "createdAt": 1792538399632,
+      "delta": -10,
+      "generationId": "fc1cd4dc-a218-40c7-a438-4d9a63a959d1",
+      "modelId": "google/gemini-3.1-flash-lite-image",
+      "reason": "reservation"
+    },
+    {
+      "createdAt": 1792538391690,
+      "delta": 10,
+      "generationId": "9d6d5c08-083f-4f9f-942b-837f90f4e82a",
+      "reason": "refund"
+    },
+    {
+      "createdAt": 1792538391690,
+      "delta": -5,
+      "generationId": "9d6d5c08-083f-4f9f-942b-837f90f4e82a",
+      "modelId": "google/gemini-3.1-flash-lite-image",
+      "reason": "generation"
+    },
+    {
+      "createdAt": 1792538386609,
+      "delta": -10,
+      "generationId": "9d6d5c08-083f-4f9f-942b-837f90f4e82a",
+      "modelId": "google/gemini-3.1-flash-lite-image",
+      "reason": "reservation"
+    },
+    {
+      "createdAt": 1792534368483,
+      "delta": 100,
+      "reason": "release-2026-10-20-owner-smoke-funding"
+    }
+  ],
+  "preparation": {
+    "byKind": {
+      "look": 0.006447400000000001,
+      "plan": 0.0110788
+    },
+    "calls": 73,
+    "costUsd": 0.017526200000000006
+  },
+  "images": [
+    {
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Ruth 1:16",
+        "requestId": "bulk-m17d4v4w826yw59m7fam49c92d8gmegz-0",
+        "resolution": "1K",
+        "style": "icon",
+        "translation": "kjv"
+      },
+      "saved": {
+        "artStyle": "icon",
+        "createdAt": 1792538392529,
+        "engine": "generic",
+        "id": "kh7fwecgw3a9430s6ha8zra37x8gnwac",
+        "imageUrl": "https://unique-impala-244.convex.cloud/api/storage/99cd7f13-9732-4c9a-b00e-97902b2a59ab",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "promptVersion": "2026-10-20-generic-v2",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "naomi",
+              "stageId": "naomi-main",
+              "version": "0987334045de523d6fb26288dbcc9834"
+            },
+            {
+              "entryId": "ruth",
+              "stageId": "ruth",
+              "version": "7116dd65e58db1d2adb6515ddb181821"
+            },
+            {
+              "entryId": "orpah",
+              "stageId": "orpah-main",
+              "version": "d6ef54ccf78dda7538579ad4b4f68048"
+            }
+          ],
+          "eraId": "monarchy-of-israel-and-judah",
+          "lookVersion": "19595b0c8624c11b0fce4e94004f3530",
+          "momentId": "ruth-1-16",
+          "planVersion": "4459b3b0f6d13013335b92e833ae9524",
+          "promptVersion": "2026-10-20-generic-v2",
+          "references": [
+            {
+              "id": "icon",
+              "kind": "styleReference",
+              "version": "1cc16e5294b9e8b1744d73aa01f936e6"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "ruth-1-8",
+          "styleId": "icon",
+          "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+          "workId": "bible-web"
+        },
+        "reference": "Ruth 1:16",
+        "requestTranslationId": "kjv",
+        "translationId": "web",
+        "verseId": "ruth-1-16",
+        "verseText": "Ruth said, “Don’t urge me to leave you, and to return from following you, for where you go, I will go; and where you stay, I will stay. Your people will be my people, and your God my God."
+      },
+      "responseMatchesSaved": true,
+      "matchesImportedWebUnit": true
+    },
+    {
+      "request": {
+        "aspectRatio": "16:9",
+        "engine": "generic",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Ruth 2:8",
+        "requestId": "bulk-m17d4v4w826yw59m7fam49c92d8gmegz-1",
+        "resolution": "1K",
+        "style": "icon",
+        "translation": "kjv"
+      },
+      "saved": {
+        "artStyle": "icon",
+        "createdAt": 1792538403628,
+        "engine": "generic",
+        "id": "kh74hm6jkafrg8f16rhkmyh25n8gmkp1",
+        "imageUrl": "https://unique-impala-244.convex.cloud/api/storage/5458c2de-ea83-4767-bde8-c94b21b9929e",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "promptVersion": "2026-10-20-generic-v2",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "boaz",
+              "stageId": "boaz",
+              "version": "b9de7cdb1e5eaa38d6f8dd43e91c5c77"
+            },
+            {
+              "entryId": "ruth",
+              "stageId": "ruth",
+              "version": "7116dd65e58db1d2adb6515ddb181821"
+            },
+            {
+              "entryId": "reapers_of_boaz_s_field",
+              "stageId": "reapers_of_boaz_s_field-s1",
+              "version": "034070b948f1e47c00550b411b7c376d"
+            }
+          ],
+          "eraId": "monarchy-of-israel-and-judah",
+          "lookVersion": "8cc5465fbeedea6a08d978c72475073b",
+          "momentId": "ruth-2-8",
+          "planVersion": "7122786d5d556202825e6e55569e39d1",
+          "promptVersion": "2026-10-20-generic-v2",
+          "references": [
+            {
+              "id": "icon",
+              "kind": "styleReference",
+              "version": "1cc16e5294b9e8b1744d73aa01f936e6"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "ruth-2-8",
+          "styleId": "icon",
+          "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+          "workId": "bible-web"
+        },
+        "reference": "Ruth 2:8",
+        "requestTranslationId": "kjv",
+        "translationId": "web",
+        "verseId": "ruth-2-8",
+        "verseText": "Then Boaz said to Ruth, “Listen, my daughter. Don’t go to glean in another field, and don’t go from here, but stay here close to my maidens."
+      },
+      "responseMatchesSaved": true,
+      "matchesImportedWebUnit": true
+    }
+  ]
+}

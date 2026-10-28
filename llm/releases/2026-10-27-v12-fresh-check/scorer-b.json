@@ -1,0 +1,300 @@
+{
+  "scorer": "Independent model scorer B",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "p001",
+      "verdict": "acceptable",
+      "reason": "Daniel on his bed considering the vision while the little horn rises and three horns are plucked out matches the verse; the beast's eyes and mouth are confined to the horn, and only the selected cast is used.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p002",
+      "verdict": "flawed",
+      "reason": "Jeremiah is shown as a witness inside his own oracle, and his canon outfit is restated. The rival figures are given contradictory poses. Present covetousness is collaged with future judgment and ruin, and a radiant cloud stands in for the unselected God.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "his plain undyed linen priestly tunic under a long brown wool cloak",
+          "reason": "Restates Jeremiah's fixed canon appearance."
+        },
+        {
+          "quote": "He looks on as a priest and a merchant",
+          "reason": "The prophet who reports the oracle is shown as a participant witnessing what he reports."
+        },
+        {
+          "quote": "exchange sidelong glances and turn their backs on each other",
+          "reason": "Contradictory poses, which also conflict with the composition's 'angled toward each other'."
+        },
+        {
+          "quote": "fields and wives passing to strangers",
+          "reason": "Collages the future punishment onto the present sin; this cannot be shown as a single instant."
+        },
+        {
+          "quote": "radiant cloud high overhead",
+          "reason": "God's presence effect is used although God is not among the selected cast."
+        }
+      ]
+    },
+    {
+      "id": "p003",
+      "verdict": "flawed",
+      "reason": "The legal verse refers to a generic 'the priest', but the plan names Aaron. The fields also contradict each other: Aaron is holding the cup out to the woman while she is already drinking from it.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Aaron in priestly linen, holding a cup toward the woman",
+          "reason": "Substitutes the named Aaron for the generic 'the priest' of this ongoing ordinance."
+        },
+        {
+          "quote": "The woman drinks the bitter water as the priest watches",
+          "reason": "Contradicts primarySubject: the priest cannot be holding the cup out to her while she drinks from it."
+        }
+      ]
+    },
+    {
+      "id": "p004",
+      "verdict": "acceptable",
+      "reason": "The cloud of God's presence over the ark among the cherubim on Zion is a coherent symbolic image of God answering his people, consistent with the section; God appears only as cloud and radiance, with no figures.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p005",
+      "verdict": "acceptable",
+      "reason": "Joshua at the sealed cave of Makkedah, with guards posted, sends his warriors to pursue the enemy; this matches the verse and the preceding command.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p006",
+      "verdict": "flawed",
+      "reason": "The registration scene places the first returnees in a Jerusalem with its walls already rebuilt and a rebuilt court beside an altar. At the time of the Ezra 2 list the walls lay broken until Nehemiah, and the altar and courts came later.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "with the city walls rebuilt and sturdy in the background",
+          "reason": "Anachronistic: Jerusalem's walls were not rebuilt until Nehemiah, long after this list of first returnees."
+        },
+        {
+          "quote": "A rebuilt courtyard in Jerusalem near the altar",
+          "reason": "Assumes a rebuilt temple court and altar, which come later (Ezra 3 onward); the source does not support this instant."
+        }
+      ]
+    },
+    {
+      "id": "p007",
+      "verdict": "acceptable",
+      "reason": "Pharaoh and his court, stunned by a messenger's news that Israel has fled, matches the verse. Israel appears only as a distant road, and the light is consistent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p008",
+      "verdict": "acceptable",
+      "reason": "A potter shaping a vessel from a lump of clay is the verse's own image; Paul is correctly omitted.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p009",
+      "verdict": "acceptable",
+      "reason": "Esau watching Isaac bless Jacob and send him off is a fair way to depict 'Esau saw that Isaac had blessed Jacob'; all three figures are selected and supported by the source.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p010",
+      "verdict": "acceptable",
+      "reason": "Israel mourning on the plains of Moab below Nebo, with Moses absent, is faithful to the verse; only the selected people and places are used.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p011",
+      "verdict": "acceptable",
+      "reason": "Philistine idols burning in the Valley of Rephaim on David's command, with David at a distance, is faithful to the verse and uses the selected cast.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p012",
+      "verdict": "acceptable",
+      "reason": "Moses and Aaron tallying Levite fathers and sons by family before the tabernacle in the wilderness of Sinai matches the census verse and the selected cast.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p013",
+      "verdict": "flawed",
+      "reason": "For an abstract verse the plan chooses a scroll turned to face the viewer with its lines lit, which invites lettering in the scene. The 'unseen force' cannot be drawn, and the image does not convey the flesh's hostility to God.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "its surface turned toward the viewer",
+          "reason": "A scroll facing the viewer with its writing visible would put text or lettering in the scene."
+        },
+        {
+          "quote": "Light falls across the lines of the scroll",
+          "reason": "Calls for visible lines of writing, which is lettering."
+        },
+        {
+          "quote": "a tense, unseen force seems to pull against it",
+          "reason": "An invisible force cannot be rendered, so nothing in the image depicts the mind of the flesh being hostile toward God."
+        }
+      ]
+    },
+    {
+      "id": "p014",
+      "verdict": "acceptable",
+      "reason": "A personified Ephraim mingling with foreign envoys, beside a half-cooked flatbread on a griddle, is a coherent symbolic rendering of both images in the verse; only the selected people and land are used.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p015",
+      "verdict": "acceptable",
+      "reason": "Jeremiah waiting in the court of the guard while smoke rises over the besieged city is faithful to the verse, with only the selected cast and places.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p016",
+      "verdict": "flawed",
+      "reason": "The time of day contradicts itself. The nobles are also shown in their former purity, untouched, inside the present ruin, although the next verse says they are now blackened and withered. This merges two states into one image.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Dusk fading toward dawn",
+          "reason": "Self-contradictory time: dusk is evening, and 'fading toward dawn' spans the whole night."
+        },
+        {
+          "quote": "appearing untouched and radiant amid the destruction around them",
+          "reason": "The verse describes the nobles' former purity, before the fall; placing them unharmed and radiant in the ruined city combines before and after, and contradicts v8."
+        }
+      ]
+    },
+    {
+      "id": "p017",
+      "verdict": "acceptable",
+      "reason": "Benaiah at the head of the Cherethite and Pelethite guard in the palace courtyard is a fair depiction of the officials list; Benaiah is not a cast entry, and David and Joab are correctly left out.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p018",
+      "verdict": "flawed",
+      "reason": "The audience with Pharaoh is set in a royal hall, which is the cast entry Pharaoh's house, yet that entry is not selected. The selected location is Goshen, which is merged in as pastures beyond the palace.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Royal audience hall of mud-brick and stone with a raised dais",
+          "reason": "Depicts Pharaoh's house (court of Pharaoh), an available cast entry that selected does not include."
+        },
+        {
+          "quote": "green Goshen pastures visible beyond the palace",
+          "reason": "Goshen is selected instead of the palace and is pasted in as a view beyond the hall, merging two separate cast places into one frame."
+        }
+      ]
+    },
+    {
+      "id": "p019",
+      "verdict": "acceptable",
+      "reason": "Habakkuk looking out across the nations' roads as radiance gathers is a reasonable image of 'Look among the nations, watch'; God appears only as radiance and cloud. The watchtower is borrowed imagery, but it is coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p020",
+      "verdict": "acceptable",
+      "reason": "The guide measures the south gate while Ezekiel, who is being led within the vision, looks on; this matches the verse and uses only the selected cast and temple.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p021",
+      "verdict": "acceptable",
+      "reason": "Adonijah bowing before the seated Bathsheba, who questions whether he comes peaceably, matches the verse exactly, with only the selected cast and a palace setting.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p022",
+      "verdict": "acceptable",
+      "reason": "Villagers fleeing along a Judean hill road faithfully depict the inhabitants of Gebim fleeing for safety; no cast entries are misused.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p023",
+      "verdict": "uncertain",
+      "reason": "Job alone on the ash heap is a fair image for his speech, but his pose is described inconsistently: a bowed head and a gaze turned out to the horizon. A reader could see this as a mild contradiction or as one natural pose.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Job, standing alone, head bowed",
+          "reason": "A bowed head conflicts with the action field's gaze turned toward the horizon."
+        },
+        {
+          "quote": "turning his gaze toward the empty horizon",
+          "reason": "Requires a raised head, against 'head bowed' in primarySubject."
+        }
+      ]
+    },
+    {
+      "id": "p024",
+      "verdict": "acceptable",
+      "reason": "A disappointed goldsmith standing beside a lifeless cast idol in a Jerusalem workshop illustrates the verse directly; the details are minor and not contradictory.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p025",
+      "verdict": "acceptable",
+      "reason": "Israelites gathering manna at dawn in the wilderness is a faithful representative image of 'man ate the bread of angels'; the selected wilderness matches and the light is consistent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p026",
+      "verdict": "acceptable",
+      "reason": "A symbolic scene of Jerusalem's people looking toward a formless radiance at dawn fits a heading verse in a restoration oracle; God appears only as radiance and cloud, with no prophet shown.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p027",
+      "verdict": "acceptable",
+      "reason": "Jeremiah in Jerusalem receives the word concerning Elam, turning east toward a radiance; he is the recipient named in the verse, not a framing figure, and nothing contradicts the source.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p028",
+      "verdict": "acceptable",
+      "reason": "The elderly Eber at his tent with many sons and daughters fairly represents a genealogy verse; there is no cast, and the dusk and late-day light agree.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p029",
+      "verdict": "uncertain",
+      "reason": "Showing the woman standing apart from the camp is a fair representative scene for this purity law. However, the priest walking past is not in this verse, which mentions no priest, and he could be read as the unselected Aaron, whose canon alias is 'the priest'.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a priest in linen garments walking past at the edge of the frame",
+          "reason": "The verse has no priest; the priest belongs to the cleansing offering later in the section (v29-30), and the figure may be read as the unselected cast entry Aaron ('the priest')."
+        }
+      ]
+    },
+    {
+      "id": "p030",
+      "verdict": "acceptable",
+      "reason": "Abraham laying Sarah's wrapped body in the cave at Machpelah before Mamre matches the verse; the only cast entries shown are the selected Abraham and cave, and place and light are consistent.",
+      "lookContradiction": false,
+      "defects": []
+    }
+  ]
+}

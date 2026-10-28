@@ -1,0 +1,486 @@
+{
+ "run": "release-2026-10-20-v2-watercolor",
+ "dimensions": {
+  "legacy": [
+   "relevance",
+   "clarity",
+   "artifacts_style"
+  ],
+  "generic": [
+   "relevance",
+   "identity",
+   "continuity",
+   "style",
+   "artifacts"
+  ]
+ },
+ "scale": "0 materially fails, 1 incomplete or mildly off, 2 meets",
+ "verdicts": [
+  "pass",
+  "accepted limitation",
+  "fail"
+ ],
+ "rules": "An observed depiction-rule or prohibited-likeness violation is a fail whatever the scores. A known Icon border may be recorded as an accepted limitation, never averaged away.",
+ "rows": [
+  {
+   "caseId": "genesis-1-3-light",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/genesis-1-3-light/generic-watercolor-1.jpg",
+    "outputs/genesis-1-3-light/generic-watercolor-2.jpg",
+    "outputs/genesis-1-3-light/generic-watercolor-3.jpg"
+   ],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "genesis-5-5-adam-days",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/genesis-5-5-adam-days/generic-watercolor-1.jpg",
+    "outputs/genesis-5-5-adam-days/generic-watercolor-2.jpg",
+    "outputs/genesis-5-5-adam-days/generic-watercolor-3.jpg"
+   ],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "genesis-19-24-sodom",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/genesis-19-24-sodom/generic-watercolor-1.jpg"
+   ],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "genesis-22-10-abraham-knife",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/genesis-22-10-abraham-knife/generic-watercolor-3.jpg"
+   ],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "exodus-14-21-sea-parts",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "exodus-14-22-sea-walls",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "leviticus-11-7-pig",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "joshua-6-20-jericho",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "judges-19-29-concubine",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "ruth-4-22-genealogy",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "1-samuel-17-49-sling",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "2-kings-2-23-bears",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "job-38-4-foundations",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/job-38-4-foundations/generic-watercolor-1.jpg",
+    "outputs/job-38-4-foundations/generic-watercolor-2.jpg",
+    "outputs/job-38-4-foundations/generic-watercolor-3.jpg"
+   ],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "psalms-23-2-pastures",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "psalms-137-1-babylon",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "song-of-solomon-2-1-rose",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "isaiah-6-2-seraphim",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "isaiah-11-6-wolf-lamb",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "ezekiel-37-4-dry-bones",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "daniel-6-22-lions",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "daniel-7-9-ancient-of-days",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "jonah-1-17-fish",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "matthew-1-1-genealogy",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "matthew-14-29-peter-water",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "john-21-7-peter-sea",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "mark-4-39-storm",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "luke-15-20-prodigal",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "john-11-43-lazarus",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "acts-9-3-damascus",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "romans-8-28-all-things",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "matthew-27-35-crucified",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "revelation-4-6-living-creatures",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "revelation-21-1-new-heaven",
+   "arm": "generic:watercolor",
+   "outputs": [],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "holmes-scandal-the-woman",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/holmes-scandal-the-woman/generic-watercolor-1.jpg",
+    "outputs/holmes-scandal-the-woman/generic-watercolor-2.jpg",
+    "outputs/holmes-scandal-the-woman/generic-watercolor-3.jpg"
+   ],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "holmes-scandal-king-arrives",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/holmes-scandal-king-arrives/generic-watercolor-1.jpg",
+    "outputs/holmes-scandal-king-arrives/generic-watercolor-2.jpg",
+    "outputs/holmes-scandal-king-arrives/generic-watercolor-3.jpg"
+   ],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  },
+  {
+   "caseId": "holmes-red-headed-league",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/holmes-red-headed-league/generic-watercolor-1.jpg",
+    "outputs/holmes-red-headed-league/generic-watercolor-2.jpg",
+    "outputs/holmes-red-headed-league/generic-watercolor-3.jpg"
+   ],
+   "relevance": null,
+   "identity": null,
+   "continuity": null,
+   "style": null,
+   "artifacts": null,
+   "verdict": null,
+   "notes": ""
+  }
+ ]
+}

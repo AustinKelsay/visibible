@@ -1,0 +1,61 @@
+{
+  "operations": 30,
+  "calls": 104,
+  "measuredUsd": 0.050631500000000024,
+  "uncertainUsd": 0,
+  "stopped": null,
+  "blocked": null,
+  "outcomes": {
+    "fresh": {
+      "stored": 23,
+      "refused": 0
+    },
+    "retained": {
+      "stored": 7,
+      "refused": 0
+    }
+  },
+  "scoring": {
+    "strata": [
+      {
+        "stratum": "fresh",
+        "planned": 23,
+        "complete": 23,
+        "acceptable": 10,
+        "flawed": 11,
+        "uncertain": 2,
+        "refused": 0,
+        "lookContradictions": 7,
+        "acceptableRateWilson95": [
+          0.25634635325674604,
+          0.6318862491498304
+        ]
+      },
+      {
+        "stratum": "retained",
+        "planned": 7,
+        "complete": 7,
+        "acceptable": 0,
+        "flawed": 5,
+        "uncertain": 2,
+        "refused": 0,
+        "lookContradictions": 2,
+        "acceptableRateWilson95": [
+          0,
+          0.35433043506667483
+        ]
+      }
+    ],
+    "independent": {
+      "scorerA": 12,
+      "scorerB": 12,
+      "bothAcceptable": 10,
+      "verdictAgreement": 24,
+      "scored": 30
+    },
+    "pass": false,
+    "limitation": "Thirty cases; wide intervals. Model scorers and one familiar operator are not human adjudication. Refusals and incomplete cases are retained."
+  },
+  "pass": false,
+  "releaseHold": true
+}

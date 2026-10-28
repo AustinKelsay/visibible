@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-22T02:06:42.228316+00:00",
+  "reviewer": "agent",
+  "humanAccepted": false,
+  "canonArtifactSha256": "97bae0c10c5a4070048242d9cf705b6298e4168dc78726af0200065ff782a85a",
+  "stageId": "the_ancient_of_days",
+  "stageTextSha256": "a1bfa2c018149675ae9b55f9fd99d17ce707345d8f747c409c2a8609038d4438",
+  "structuralProblems": [],
+  "hasForm": false,
+  "verdict": "reject",
+  "reasons": [
+    {
+      "exactText": "luminous as snow and wool",
+      "reason": "Retains source material similes instead of expressing only permitted light, cloud, fire or radiance."
+    },
+    {
+      "exactText": "enthroned within a vast seat of fierce flame",
+      "reason": "Assigns a seated/posture cue to the no-form subject; the throne is also situational rather than fixed identity."
+    },
+    {
+      "exactText": "No human face or body",
+      "reason": "Repeats prohibited features as denials in prompt-ready stage text."
+    }
+  ],
+  "supportingQuoteReview": {
+    "quotesVerifiedAgainstImportedWork": true,
+    "quotedUnits": [
+      "daniel-7-9",
+      "daniel-7-9",
+      "daniel-7-10"
+    ],
+    "descriptionUnitPresentInRequest": "daniel-7-9",
+    "note": "All three exact quotes appear in the supplied source context. Two from Daniel 7:9 describe clothing/hair and throne/fire; one from 7:10 describes the fiery stream. Quote grounding improved; the prompt-ready stage still violates the no-form drafting instructions."
+  },
+  "decision": {
+    "retryCanon": false,
+    "planCalls": 0,
+    "imageCalls": 0,
+    "productionMutations": 0,
+    "publicActivation": false,
+    "reason": "Reject the first structurally valid semantic failure. Do not hand-edit or retry the draft to obtain a favorable result."
+  }
+}

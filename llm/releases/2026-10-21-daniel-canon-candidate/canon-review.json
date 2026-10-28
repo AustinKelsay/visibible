@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-21T21:59:13.955Z",
+  "reviewer": "agent",
+  "humanAccepted": false,
+  "canonArtifactSha256": "8b4bd98bf392f69c8f39124dad02564031b7b37a6db565584c82b029fd722fb5",
+  "stageId": "the_ancient_of_days_main",
+  "stageTextSha256": "fe1d1ca3b794be084045eabe7dd571faebd25b4a09a92afa29af35ee73bebe2f",
+  "structuralProblems": [],
+  "hasForm": false,
+  "verdict": "reject",
+  "reasons": [
+    {
+      "exactText": "no human face or body",
+      "reason": "Repeats prohibited features as denials in prompt-ready stage text."
+    },
+    {
+      "exactText": "pure white garments and white wool-like radiance",
+      "reason": "Retains clothing and material similes instead of only permitted light, cloud, fire or radiance."
+    },
+    {
+      "exactText": "enthroned within a fiery flame",
+      "reason": "Assigns a seated/posture cue to the no-form subject."
+    },
+    {
+      "exactText": "no form is shown",
+      "reason": "Repeats a form denial rather than describing only the permitted showing."
+    }
+  ],
+  "supportingQuoteReview": {
+    "quotesVerifiedAgainstImportedWork": true,
+    "quotedUnits": [
+      "daniel-7-13",
+      "daniel-7-22"
+    ],
+    "descriptionUnitAbsentFromRequest": "daniel-7-9",
+    "note": "The returned appearanceFromText attributes imagery to Daniel 7:9, which the exact mention-only request did not supply. Its two valid quotes identify the subject but do not establish those appearance details. The cause of model noncompliance is not established."
+  },
+  "decision": {
+    "retryCanon": false,
+    "planCalls": 0,
+    "imageCalls": 0,
+    "productionMutations": 0,
+    "publicActivation": false,
+    "reason": "The predeclared semantic stop condition failed on the first structurally valid draft; no selection or prompt tuning in this run."
+  }
+}

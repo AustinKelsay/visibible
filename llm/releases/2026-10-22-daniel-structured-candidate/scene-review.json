@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-22T14:55:28.906741+00:00",
+  "reviewer": "agent",
+  "humanAccepted": false,
+  "sceneArtifactSha256": "26b7a7b1b2334ebaf5f0a6e23d00a8be21367120b5f0551311fe5bf1c3ff110d",
+  "verdict": "reject-canon-restatement",
+  "checks": {
+    "structureAndFieldLengths": "pass",
+    "expectedMomentPresence": "pass",
+    "noFormTextDepiction": "pass-agent-inspection",
+    "styleNeutrality": "pass-agent-inspection",
+    "fixedAppearanceSeparation": "fail"
+  },
+  "present": [
+    "daniel_prophet_of_babylon",
+    "the_ancient_of_days"
+  ],
+  "positiveObservations": [
+    "The Ancient of Days remains selected with hasForm false and the new canon stage; Daniel is the only other selected entry.",
+    "The plan uses an unoccupied throne and environmental radiance/cloud/fire, without bodily anatomy, garment substitutes, wool similes or explicit denials for the no-form subject.",
+    "The original owner look payload/version is preserved exactly in the local overlay."
+  ],
+  "reasons": [
+    {
+      "field": "primarySubject",
+      "exactText": "Brilliant white radiance gathered into an unoccupied throne of bright orange fire, with soft white cloud and light spreading above it",
+      "reason": "Repeats the canon's fixed brightness, colors and effects rather than using it solely as constraints for situational placement. This violates the shared plan/canon separation instruction even though no-form text depiction passes this inspection."
+    }
+  ],
+  "decision": {
+    "retryPlan": false,
+    "imageCalls": 0,
+    "productionMutations": 0,
+    "publicActivation": false
+  },
+  "limits": [
+    "This is agent text inspection of one canon and one plan, not a human visual or likeness acceptance.",
+    "Source verse and frozen owner look still carry bodily wording/denials; this experiment does not isolate the cause of any image-model failure.",
+    "Closed-vocabulary canon construction removes free-prose stage cues; it does not guarantee a permitted interpretation or compliant rendering."
+  ]
+}

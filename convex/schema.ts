@@ -163,6 +163,14 @@ const momentPayloadValidator = v.object({
   firstUnit: v.string(),
   lastUnit: v.string(),
 });
+const canonShowingValidator = v.union(
+  v.object({
+    effect: v.union(v.literal("light"), v.literal("radiance"), v.literal("cloud"), v.literal("mist"), v.literal("fire")),
+    colour: v.union(v.literal("unspecified"), v.literal("white"), v.literal("gold"), v.literal("silver"), v.literal("red"), v.literal("orange"), v.literal("yellow"), v.literal("green"), v.literal("blue"), v.literal("violet"), v.literal("black"), v.literal("multicoloured")),
+    brightness: v.union(v.literal("unspecified"), v.literal("faint"), v.literal("soft"), v.literal("bright"), v.literal("brilliant")),
+  }),
+  v.object({ effect: v.union(v.literal("wind"), v.literal("voice"), v.literal("unseen presence")) }),
+);
 const entryPayloadValidator = v.object({
   kind: v.literal("entry"),
   name: v.string(),
@@ -179,6 +187,8 @@ const entryPayloadValidator = v.object({
     text: v.string(),
     label: v.optional(v.string()),
     quotes: v.optional(v.array(v.object({ unit: v.string(), quote: v.string() }))),
+    // Optional on historical/owner prose stages; full text remains the rendering canon.
+    showing: v.optional(v.array(canonShowingValidator)),
   })),
 });
 const lookPayloadValidator = v.object({
@@ -195,6 +205,32 @@ const planPayloadValidator = v.object({
   momentId: v.string(),
   entries: v.array(v.object({ entryId: v.string(), stageId: v.string() })),
   plan: scenePlanValidator,
+  // Optional for historical plans; new preparation requires reviewed moment conditions.
+  situation: v.optional(v.object({ place: v.string(), timeOfDay: v.string(), weather: v.string(), light: v.string(), clothing: v.string() })),
+  // Audit-only source choice; historical plans remain readable and saved prompts are unchanged.
+  grounding: v.optional(v.object({
+    focusQuote: v.string(),
+    cast: v.array(v.object({
+      entryId: v.string(), momentQuote: v.string(),
+      contextSource: v.union(v.literal("none"), v.literal("previous"), v.literal("next")),
+      contextQuote: v.string(),
+      participation: v.union(v.literal("in_scene"), v.literal("framing"), v.literal("mentioned"), v.literal("separate_event"), v.literal("uncertain")),
+    })),
+    // Stated chosen instant (moment-cast v4); stored v3 plans have none.
+    instant: v.optional(v.string()),
+    singleInstant: v.boolean(),
+  })),
+  // Audit-only plan review (plan-review v2): 1 or 2 rounds, why a first plan was re-planned, and notes.
+  review: v.optional(v.object({
+    rounds: v.number(),
+    evidence: v.optional(v.string()),
+    problems: v.optional(v.array(v.object({
+      kind: v.union(v.literal("unselected_figure"), v.literal("outside_instant"), v.literal("not_one_instant"), v.literal("embodied_formless"), v.literal("look_conflict"), v.literal("canon_conflict"), v.literal("missing_canon")),
+      entryId: v.string(), planQuote: v.string(), reason: v.string(),
+    }))),
+    // Forgiving preparation (moment-cast v11): automatic selections and problems kept after the re-plan.
+    notes: v.optional(v.array(v.string())),
+  })),
 });
 export const analysisPayloadValidator = v.union(
   sectionPayloadValidator, momentPayloadValidator, entryPayloadValidator, lookPayloadValidator, planPayloadValidator,
@@ -208,6 +244,7 @@ export const analysisValidators = {
   referenceKind: referenceKindValidator,
   input: analysisInputValidator,
   payload: analysisPayloadValidator,
+  entry: entryPayloadValidator,
 };
 
 export default defineSchema({

@@ -1,0 +1,438 @@
+{
+  "scorer": "Codex single operator",
+  "at": "2026-10-24T01:47:55.452909+00:00",
+  "scoredBeforeUnblinding": true,
+  "maskingLimitations": "Only blind-packet.json scene contents were read before scoring. The execution console exposed operation IDs and stored/refused outcomes; retained cases were familiar and duplicate verses recognizable. Arm, review, grounding and version labels were absent from the scoring packet. No independent adjudication is claimed. Unselected canon names/kinds and selected assigned-stage text were inspected; full available canon remains in the packet.",
+  "interpretation": "verdict grades the complete cold look/plan packet. plannerVerdict separately grades the seven scene fields and selected cast before the shared look. Uncertainty counts against acceptance. Ordinary scenery, incidental roles/props, non-event content/setting illustrations and situational mourning clothes are permitted. A section range may span the chosen time; an explicit conflicting fixed time or active unselected divine manifestation fails the cold packet. Merely listing another section location or clothing for an unselected actor is not by itself a contradiction.",
+  "scores": [
+    {
+      "id": "p001",
+      "verdict": "flawed",
+      "plannerVerdict": "acceptable",
+      "reason": "The goldsmith and lifeless idol illustrate the verse, but the active shared lighting adds an unselected divine effect.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "brilliant white-gold radiance without a source veiled by cloud and a fire-like glow at its heart",
+          "reason": "The look supplies the characteristic no-form presence as active light, whereas no God entry is selected and this verse concerns the lifeless idol. Ordinary warm sunlight would be compatible; this additional cloud/fire manifestation is not established."
+        }
+      ]
+    },
+    {
+      "id": "p002",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "A still-life illustration of the fruit/light language is allowed for non-event text. No available cast is omitted and the natural morning light and courtyard are compatible with the look.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p003",
+      "verdict": "flawed",
+      "plannerVerdict": "acceptable",
+      "reason": "The selected guide, Ezekiel and temple support the measuring instant. The look adds a separate unselected no-form effect.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "a veiled radiance of white-gold and a fire-like glow resting at the edges of the gate",
+          "reason": "Active gate illumination adds a divine manifestation while God is not selected; the bounded measuring text does not establish this manifestation. The outer/inner court wording is imprecise but is not the decisive defect here."
+        }
+      ]
+    },
+    {
+      "id": "p004",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "David mourning alone is one source-supported instant. Both David and the explicitly depicted palace are selected, and dusk is within the look's declared section range.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p005",
+      "verdict": "flawed",
+      "plannerVerdict": "acceptable",
+      "reason": "The workshop plan illustrates the disappointed goldsmith, but its explicit timing and absence of divine presence conflict with the look.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Late afternoon in clear daylight shifting toward dusk across the section.",
+          "reason": "The plan fixes midday; the look fixes late afternoon toward dusk."
+        },
+        {
+          "quote": "brilliant white-gold radiance without source veiled by a slowly moving dense cloud, its fire-like glow at the heart visible at the edges",
+          "reason": "The look adds the no-form manifestation although the plan selects nobody and explicitly excludes divine presence."
+        }
+      ]
+    },
+    {
+      "id": "p006",
+      "verdict": "uncertain",
+      "plannerVerdict": "uncertain",
+      "reason": "The servant's report inside the parable is appropriate and framing cast is excluded. The master's pose is left as an alternative; reclining may be a seated posture, so this is retained as uncertainty rather than a definite contradiction.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "who is reclining or seated at the banquet",
+          "reason": "The seven fields do not unambiguously settle a single pose for the master. A permissive reading could accept this as one relaxed seated posture. Roman Judea versus the Galilean shared setting is also geographically imprecise, not treated as a proved contradiction."
+        }
+      ]
+    },
+    {
+      "id": "p007",
+      "verdict": "flawed",
+      "plannerVerdict": "acceptable",
+      "reason": "The decree-confirmation tableau is a permissible illustration of non-event legal text, with its available figures selected, but its midday timing differs from the look.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Daytime, bright festival morning",
+          "reason": "The plan explicitly fixes midday, whereas the look fixes a bright festival morning. Susa and Shushan are treated as the same city, not a location defect."
+        }
+      ]
+    },
+    {
+      "id": "p008",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "The city remains a city in the concrete composition; its gaze is poetic language. Arriving sons, daughters and nations are supported by the verse and neighbors. The dawn cloud glow can read as ambient light rather than a distinct divine actor; this interpretive boundary is retained for sensitivity.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p009",
+      "verdict": "flawed",
+      "plannerVerdict": "flawed",
+      "reason": "The flight is source-supported, but the named regional setting is not selected and the look introduces a divine manifestation.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "in the Judean highlands",
+          "reason": "The setting explicitly depicts Judah's land, an available location entry, but the selected list is empty. A generic rocky path without this regional identification would not by itself require that entry."
+        },
+        {
+          "quote": "distant unsourced white-gold radiance and fire-like glow veiled within the cloud",
+          "reason": "The look adds characteristic no-form presence without God selected or a source anchor in this flight instant."
+        }
+      ]
+    },
+    {
+      "id": "p010",
+      "verdict": "flawed",
+      "plannerVerdict": "flawed",
+      "reason": "The generic priest is replaced by Aaron, a visible water transformation is invented, the offering moves ahead of its next-unit action, and the look conflicts with daylight and selection.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "The priest Aaron holding a cup of bitter water",
+          "reason": "Neither the moment nor bounded neighbors identifies this generic ritual priest as Aaron; related occupation does not establish identity."
+        },
+        {
+          "quote": "the water in the cup darkens and turns bitter",
+          "reason": "The text says the already-bitter water enters the woman; it does not narrate an observable darkening in the cup."
+        },
+        {
+          "quote": "a meal offering in a bowl set aside on the altar ledge",
+          "reason": "The next unit still has the offering in the woman's hand before the priest takes it and brings it to the altar. This placement imports the later action."
+        },
+        {
+          "quote": "Evening into night, lamps kindled within the tabernacle court",
+          "reason": "The plan specifies daylight, contrary to the look's evening/night."
+        },
+        {
+          "quote": "Brilliant white-gold radiance without visible source, veiled by cloud with a fire-like glow at its heart",
+          "reason": "God is unselected; the shared look supplies a divine manifestation not established in this ritual instant."
+        }
+      ]
+    },
+    {
+      "id": "p011",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "The killing on Joash's bed is a single narrated instant; Joash and the explicit Jerusalem setting are selected. Servants may be represented by role because their named neighbors have no available entries and are passing actors, not invented recurring identities. Look and plan agree on night.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p012",
+      "verdict": "flawed",
+      "plannerVerdict": "flawed",
+      "reason": "The plan imports a visible named instructor from the framing of the law; the shared look adds unselected mountain/divine imagery.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Moses standing at the threshold of the sanctuary court",
+          "reason": "The current text and both neighbors are God's commands; none establishes Moses standing and teaching this assembly. A scene of reverence could illustrate the command without inventing the visible framing speaker."
+        },
+        {
+          "quote": "brilliant white-gold radiance and fire-like glow at the summit, as fixed by canon",
+          "reason": "God and Sinai are unselected, but the look actively depicts the summit manifestation. This is additional visible content, not merely situational clothing for a selected person."
+        }
+      ]
+    },
+    {
+      "id": "p013",
+      "verdict": "flawed",
+      "plannerVerdict": "uncertain",
+      "reason": "The mountain still-life may illustrate a sacred setting, but equating this verse's sanctuary with Sinai is uncertain. The shared light independently adds an unselected divine presence.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "The mountain's slopes at the foot of Horeb/Mount Sinai",
+          "reason": "The bounded text commands reverence for the sanctuary without identifying it as this mountain. A permissive content/setting illustration can allow this; the first score retains that uncertainty."
+        },
+        {
+          "quote": "Brilliant white-gold radiance without visible source, veiled by cloud, with a fire-like glow at the mountain's heart.",
+          "reason": "God is not selected. This manifestation exceeds the mountain stage's ordinary cloud-wrapped summit and is not established by the bounded sanctuary command."
+        }
+      ]
+    },
+    {
+      "id": "p014",
+      "verdict": "flawed",
+      "plannerVerdict": "flawed",
+      "reason": "The floating ark is supported, but the plan makes Noah visibly stand on an exposed deck without a source-supported presence/pose in this instant.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Noah, standing on the deck of the great wooden ark, one hand resting on the rail.",
+          "reason": "The current and bounded neighboring units describe water and the vessel only. Noah's being aboard does not establish his visible on-deck pose; selected fixed cast needs support rather than a section association. The remaining flood look is compatible."
+        }
+      ]
+    },
+    {
+      "id": "p015",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "One bedside attack instant matches the source and Joash is selected. The field mentions a window toward the city without concretely rendering a named city panorama; the chamber remains generic, so no definite omitted Jerusalem depiction is scored. Night agrees with the look.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p016",
+      "verdict": "flawed",
+      "plannerVerdict": "acceptable",
+      "reason": "Solomon's offering is supported by the previous unit and the moment's continuation, with Jerusalem selected. The shared place incorrectly combines the landlocked temple city with the later port setting.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Jerusalem: the temple courts, stone walls, and the harbor port with ships at anchor",
+          "reason": "The look places the harbor under Jerusalem in the same place description, conflicting with the plan's inland temple courts. A permissive reading could treat this as a list of separate section settings; that reading is retained for sensitivity rather than silently substituted."
+        }
+      ]
+    },
+    {
+      "id": "p017",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "A natural sunrise landscape illustrates the non-event light/fruit metaphor without embodying a divine person or selecting unavailable cast. The look and scene agree.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p018",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "Paul and his companions kneel while the local disciples and families stand nearby. The pronouns can restrict the narrated kneeling to the traveling party, so local standing is not scored as a definite contradiction. Paul, disciples and the actual Tyre setting are selected; look agrees.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p019",
+      "verdict": "uncertain",
+      "plannerVerdict": "uncertain",
+      "reason": "The epistle's question does not establish a physical meeting with Paul in Judea. This may be allowed as a representative illustration of didactic speech, so it is retained as uncertainty rather than accepted or labeled a definite wrong identity.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Paul pauses mid-question, leaning toward the listeners",
+          "reason": "Paul's physical presence before these listeners is inferred from authorship, not stated by the bounded verse. Accepting representative author-teaching scenes would change this score. The look itself agrees with the invented meeting setting."
+        }
+      ]
+    },
+    {
+      "id": "p020",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "Paul kneels and the crowd kneels or bows in varied prayer postures in one instant; the plural variation does not require one person to occupy incompatible poses. Paul, disciples and Tyre are selected, with compatible dawn lighting.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p021",
+      "verdict": "flawed",
+      "plannerVerdict": "acceptable",
+      "reason": "The flight and selected Judah setting are supported, but the shared lighting explicitly adds an unselected divine presence.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "the distant radiant glow of divine presence as a fire-like brilliance behind the cloud",
+          "reason": "This is explicitly divine, while God is unselected and the bounded flight text supplies no manifestation. The plan itself keeps the subject to the fleeing villagers and land."
+        }
+      ]
+    },
+    {
+      "id": "p022",
+      "verdict": "flawed",
+      "plannerVerdict": "flawed",
+      "reason": "The decree scene is plausible, but the plan overwrites Esther's fixed crimson outfit with the shared look's royal blue.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Esther seated on a low stool in royal blue robes",
+          "reason": "Her assigned stage specifies a deep crimson silk court robe with gold border. The source supplies no situational wardrobe change; the plan copies a conflicting fixed color from the look."
+        }
+      ]
+    },
+    {
+      "id": "p023",
+      "verdict": "flawed",
+      "plannerVerdict": "acceptable",
+      "reason": "The move to the new house is a source-supported instant. Pharaoh's unnamed daughter and household attendants may be represented as source roles without inventing fixed canon. The look and plan differ on time.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Midday, bright and clear",
+          "reason": "The plan fixes late afternoon and low sunlight; the look fixes midday. Neither declares a temporal range spanning both."
+        }
+      ]
+    },
+    {
+      "id": "p024",
+      "verdict": "uncertain",
+      "plannerVerdict": "uncertain",
+      "reason": "The resurrection argument supports an illustration of preaching, but identifying its physical preacher as Paul addressing this Corinthian agora assembly is not established in the bounded text. A representative author-teaching interpretation could accept it.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Paul addresses the believers, questioning how some among them deny the resurrection of the dead.",
+          "reason": "This turns epistolary framing into a specific visible meeting. Its permissibility as a didactic illustration is uncertain; no omitted Christ is inferred merely from the quoted subject of the speech."
+        }
+      ]
+    },
+    {
+      "id": "p025",
+      "verdict": "flawed",
+      "plannerVerdict": "acceptable",
+      "reason": "The court's regret is supported and both Pharaoh and his Egyptian servants are selected, but the shared sea-camp/pursuit look depicts a different place and time and adds God.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Shore of a wide sea at the edge of a desert wilderness; sand, rock ledges and scattered tents of the Israelite camp",
+          "reason": "The plan is inside the Egyptian royal court, before pursuit; the sea camp is a separate setting."
+        },
+        {
+          "quote": "Late evening turning to pre-dawn across the section",
+          "reason": "The plan explicitly fixes bright late morning in the court."
+        },
+        {
+          "quote": "as the permitted radiance of God's presence",
+          "reason": "God is not selected for the court instant, but the look supplies that manifestation."
+        }
+      ]
+    },
+    {
+      "id": "p026",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "David's mourning is a source-supported single instant with David and the palace selected. Situational mourning sackcloth is allowed; it is not scored like an unexplained fixed color substitution. The look and scene agree on daylight and palace location.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p027",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "A single wide landscape of resettled households illustrates the non-event settlement summary. Unnamed priests and Levites are roles, not substitutions of the available named leaders. Village houses are compatible with the village option in the broader shared look; Jerusalem need not be depicted.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p028",
+      "verdict": "flawed",
+      "plannerVerdict": "acceptable",
+      "reason": "Guide, Ezekiel and temple are selected for the measurement, but the explicit exclusion of cloud/radiance contradicts the shared light.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "a dense veiled cloud glows with a fire-like warmth at its heart beyond the gate",
+          "reason": "The plan explicitly says no veiled cloud or radiance in the scene; God is unselected. The look therefore supplies incompatible visible content."
+        }
+      ]
+    },
+    {
+      "id": "p029",
+      "verdict": "flawed",
+      "plannerVerdict": "acceptable",
+      "reason": "A counting instant of Moses, Aaron and one portion of the Levite families is source-supported, with the tabernacle selected. It need not show every age counted at once. The look introduces an unselected divine effect.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "a dense veiled cloud of white-gold radiance hovering above the tabernacle",
+          "reason": "God is unselected and the census text does not establish this manifestation. The plan itself avoids that presence."
+        }
+      ]
+    },
+    {
+      "id": "p030",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "The servant's report is a single instant inside the parable, with framing Jesus/Pharisees excluded. Empty seats and a discarded roadside cloak are generic incidental props, not invented recurring figures; look and scene are compatible.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p031",
+      "verdict": "flawed",
+      "plannerVerdict": "flawed",
+      "reason": "Unlike poetic gaze language over a cityscape, this plan explicitly transforms the selected location into a visible woman, contradicting its fixed city form. The look also adds an unselected no-form effect.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Jerusalem as a woman standing on the high wall",
+          "reason": "The only selected entry is the location Jerusalem, whose assigned stage is a walled city, not a human character standing on that city. Literal personification is a disputed poetry reading, retained for sensitivity; it still conflicts with the supplied fixed form."
+        },
+        {
+          "quote": "brilliant white-gold radiance veiled by slow-moving cloud above the city and a faint fire-like glow at its heart",
+          "reason": "God is not selected. The shared look adds the characteristic divine manifestation beyond the plan's dawn-lit city and travelers."
+        }
+      ]
+    },
+    {
+      "id": "p032",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "Settled townspeople and named occupational roles illustrate the resettlement summary in a single wide view. No available named leader or named city is visibly substituted. The surrounding-village part of the shared look is compatible.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p033",
+      "verdict": "flawed",
+      "plannerVerdict": "flawed",
+      "reason": "The source names Yahweh, but this section has no available God entry. The plan invents the visible no-form representation without its required canon and also contradicts the shared afternoon time.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "representing the sovereign God",
+          "reason": "God is a named recurring identity required by this chosen representation, absent from the available cast. This should be reported as missing required canon or a different permitted instant chosen, rather than inventing an unbound depiction."
+        },
+        {
+          "quote": "with no human face or body",
+          "reason": "The plan uses prohibited bodily denials as part of the subject instead of a canon-constrained positive effect; no God canon is selected."
+        },
+        {
+          "quote": "Late afternoon shifting toward evening, the same section span",
+          "reason": "The plan fixes early morning, opposite the shared late-afternoon/evening light."
+        }
+      ]
+    },
+    {
+      "id": "p034",
+      "verdict": "acceptable",
+      "plannerVerdict": "acceptable",
+      "reason": "The floating ark and rising water directly illustrate the verse without adding Noah visibly on deck. The ark is selected, and the overcast daylight fits the look's day-to-dusk range.",
+      "lookContradiction": false,
+      "defects": []
+    }
+  ]
+}

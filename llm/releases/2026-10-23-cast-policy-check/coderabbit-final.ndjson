@@ -1,0 +1,5 @@
+{"type":"review_context","reviewType":"committed","currentBranch":"eval/cast-policy-check","baseBranch":"origin/dev","workingDirectory":"REDACTED","expectedDuration":"Reviews usually take 2-6 minutes and can take up to 15. Keep this command running for at least 15 minutes or run it in the background; stopping it early discards the review."}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"complete","status":"review_completed","findings":0,"outcome":"completed_with_warnings","message":"Review completed with warnings","unreviewedFileCount":1}

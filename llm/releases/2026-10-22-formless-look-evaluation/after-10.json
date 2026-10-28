@@ -1,0 +1,1135 @@
+{
+  "at": "2026-10-22T19:46:10.688Z",
+  "phase": "after-10",
+  "sources": {
+    "convex/analysis.ts": "b48c562a90ad56a0eed4e386f47d1fa4d1f68008a5102f0e59a3e198d98b466c",
+    "convex/schema.ts": "14a1d6c4f6419c3dc409c5b3699b3090794e2de723380c77a7014cd182fa7821",
+    "convex/_helpers/contentVersion.ts": "c34546acd74b8f3081a3f73a2e922ba30732ed21f26f6e75688a3b8ac3ed2a32",
+    "src/lib/engine/preparation.ts": "4013204ea901dfab5e842699f2bec63d1ed66d33c4aab05250f8b3023de695c9",
+    "src/lib/engine/assemble.ts": "a702d79e8b3f179db6d9ebdf2931f209c766718d18caf1736e03b015969f1ea0",
+    "src/lib/engine/prompt.ts": "e5a289fe65438d0393be036f52149e2b07416e3424114edcc516aa461f183acc",
+    "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+    "src/lib/reading-pass/model.ts": "41d3568059fd5d4e43d321bc19c418dc27c45a094fd139493ea29295bf12aabd",
+    "src/lib/reading-pass/prompts.ts": "1c9292b93482930b4dd0b5ada6d27598f60b29bd5e099850f1a30842b1ef4032",
+    "src/lib/image-response.ts": "07b5092d1795db69bbd4cfa41c5a25691277ff9a982884118fc1658881a9bba6",
+    "src/lib/canon-showing.ts": "2bfb6fa9aa29d366ab741981627f65b0b3425ee065ea3c163caca889bfbdee0b",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760"
+  },
+  "status": {
+    "activeGeneration": 1,
+    "activeVersions": {
+      "activatedAt": 1792538171849,
+      "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+    },
+    "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "candidateGeneration": null,
+    "exists": true,
+    "ready": true,
+    "reasons": [],
+    "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+  },
+  "records": [
+    {
+      "kind": "section",
+      "recordId": "daniel-7-9",
+      "record": {
+        "createdAt": 1792692142607,
+        "generation": 1,
+        "inputs": [],
+        "kind": "section",
+        "payload": {
+          "cast": [
+            {
+              "entryId": "daniel_prophet_of_babylon",
+              "named": false,
+              "stageId": "daniel_main"
+            },
+            {
+              "entryId": "the_ancient_of_days",
+              "named": true,
+              "stageId": "ancient-of-days-light"
+            },
+            {
+              "entryId": "one_like_a_son_of_man",
+              "named": true,
+              "stageId": "one_like_a_son_of_man"
+            },
+            {
+              "entryId": "babylon",
+              "stageId": "babylon"
+            },
+            {
+              "entryId": "ministering_assembly_in_daniels_vision",
+              "named": false,
+              "stageId": "ministering_assembly-main"
+            }
+          ],
+          "era": "monarchy-of-israel-and-judah",
+          "firstUnit": "daniel-7-9",
+          "kind": "section",
+          "lastUnit": "daniel-7-14",
+          "mentionedOnly": [],
+          "title": "The Ancient of Days and the son of man"
+        },
+        "recordId": "daniel-7-9",
+        "source": "owner",
+        "status": "current",
+        "version": "8573512b6683f0d87a6a3553c7a6b9ef",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "the_ancient_of_days",
+      "record": {
+        "createdAt": 1792692143097,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "the Ancient of Days",
+            "the Most High"
+          ],
+          "entryKind": "character",
+          "hasForm": false,
+          "kind": "entry",
+          "members": [
+            "daniel:character:ancient_of_days"
+          ],
+          "name": "The Ancient of Days",
+          "note": "The divine figure on a fiery throne in Daniel's vision of the beasts; a distinct visionary figure, seen only in Daniel's dream-vision.",
+          "stages": [
+            {
+              "id": "ancient-of-days-light",
+              "label": "The Ancient of Days",
+              "quotes": [
+                {
+                  "quote": "His clothing was white as snow, and the hair of his head like pure wool.",
+                  "unit": "daniel-7-9"
+                },
+                {
+                  "quote": "His throne was fiery flames, and its wheels burning fire.",
+                  "unit": "daniel-7-9"
+                },
+                {
+                  "quote": "A fiery stream issued and came out from before him.",
+                  "unit": "daniel-7-10"
+                }
+              ],
+              "showing": [
+                {
+                  "brightness": "brilliant",
+                  "colour": "white",
+                  "effect": "radiance"
+                },
+                {
+                  "brightness": "bright",
+                  "colour": "orange",
+                  "effect": "fire"
+                },
+                {
+                  "brightness": "soft",
+                  "colour": "white",
+                  "effect": "cloud"
+                },
+                {
+                  "brightness": "brilliant",
+                  "colour": "white",
+                  "effect": "light"
+                }
+              ],
+              "text": "The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light."
+            }
+          ]
+        },
+        "recordId": "the_ancient_of_days",
+        "source": "owner",
+        "status": "current",
+        "version": "2580946090305beb790717b8920e11ec",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "ministering_assembly_in_daniels_vision",
+      "record": {
+        "createdAt": 1792692142607,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "thousands of thousands",
+            "ten thousand times ten thousand"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "name": "Ministering assembly in Daniel's vision",
+          "note": "The unidentified assembly ministering before the Ancient of Days in Daniel 7:10; distinct from earthly Babylonian royal attendants. A group whose canon describes a typical member.",
+          "stages": [
+            {
+              "id": "ministering_assembly-main",
+              "label": "Ministering assembly",
+              "quotes": [
+                {
+                  "quote": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+                  "unit": "daniel-7-10"
+                }
+              ],
+              "text": "Ministering assembly in Daniel's vision: a typical member is an adult of medium height and slim build, with warm brown skin, dark curly hair and a short dark beard, wearing an undyed linen robe, a narrow woven belt and plain sandals."
+            }
+          ]
+        },
+        "recordId": "ministering_assembly_in_daniels_vision",
+        "source": "owner",
+        "status": "current",
+        "version": "4abdbb32cfcaa06d3bc748ea6b88a23e",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "daniel_prophet_of_babylon",
+      "record": {
+        "createdAt": 1792535226262,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "Daniel",
+            "Belteshazzar"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [
+            "daniel:character:daniel"
+          ],
+          "name": "Daniel (prophet of Babylon)",
+          "note": "The Jewish youth taken captive to Babylon, renamed Belteshazzar, who interprets dreams and receives visions; the main entry with many sections in Daniel, distinguished from the prophet named only in Matthew's citation.",
+          "stages": [
+            {
+              "id": "daniel_main",
+              "label": "Daniel (Belteshazzar), prophet of Babylon",
+              "quotes": [
+                {
+                  "quote": "Now among these of the children of Judah were Daniel, Hananiah, Mishael, and Azariah.",
+                  "unit": "daniel-1-6"
+                },
+                {
+                  "quote": "to Daniel he gave the name Belteshazzar",
+                  "unit": "daniel-1-7"
+                },
+                {
+                  "quote": "he went into his house (now his windows were open in his room toward Jerusalem)",
+                  "unit": "daniel-6-10"
+                }
+              ],
+              "text": "Daniel: a lean, dignified Judean man in his youth grown to a grave, graying elder; olive-brown skin; dark hair cropped close and a short trimmed beard flecked with grey; deep-set, steady eyes and a calm, thoughtful face. Signature outfit: a long undyed linen tunic under a plain indigo wool cloak with a blue fringed hem. Props: a small leather scroll case slung at the hip."
+            }
+          ]
+        },
+        "recordId": "daniel_prophet_of_babylon",
+        "source": "generated",
+        "status": "current",
+        "version": "37b250d39c2e45865e8b4dfbc12bf60f",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "one_like_a_son_of_man",
+      "record": {
+        "createdAt": 1792535226262,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "one like a son of man",
+            "the son of man"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [
+            "daniel:character:one_like_son_of_man"
+          ],
+          "name": "One like a son of man",
+          "note": "The figure coming with the clouds of heaven to receive dominion in Daniel's vision; not the Gospel Jesus, but a distinct heavenly figure in Daniel.",
+          "stages": [
+            {
+              "id": "one_like_a_son_of_man",
+              "label": "One like a son of man",
+              "quotes": [
+                {
+                  "quote": "there came with the clouds of the sky one like a son of man, and he came even to the Ancient of Days",
+                  "unit": "daniel-7-13"
+                }
+              ],
+              "text": "One like a son of man: a man in his prime, early thirties, of athletic but dignified build; skin warm olive-brown; short dark hair and a close-cut beard; calm, steady features with a grave, luminous gaze. He wears a long white linen tunic with a deep blue-purple cloak falling from the shoulders, edged with gold thread. He carries no props."
+            }
+          ]
+        },
+        "recordId": "one_like_a_son_of_man",
+        "source": "generated",
+        "status": "current",
+        "version": "f0a2429d0ca6ac9657801f25e0921699",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "babylon",
+      "record": {
+        "createdAt": 1792535226262,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "Babylonia",
+            "the province of Babylon",
+            "the rivers of Babylon",
+            "the land of the Chaldeans",
+            "land of the Chaldeans",
+            "the land of Shinar",
+            "Great Babylon"
+          ],
+          "entryKind": "location",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [
+            "2-chronicles:location:babylon",
+            "ezra:location:babylon",
+            "psalms:location:babylon",
+            "isaiah:location:babylon",
+            "jeremiah:location:babylon",
+            "daniel:location:babylon",
+            "micah:location:babylon"
+          ],
+          "name": "Babylon",
+          "note": "The city and empire of exile and captivity across the prophets, histories and psalms, also called Babylonia, Shinar and the land of the Chaldeans; the same place in every division.",
+          "stages": [
+            {
+              "id": "babylon",
+              "label": "Babylon",
+              "quotes": [
+                {
+                  "quote": "The wide walls of Babylon will be utterly overthrown. Her high gates will be burned with fire.",
+                  "unit": "jeremiah-51-58"
+                },
+                {
+                  "quote": "I will execute judgment on Bel in Babylon, and I will bring out of his mouth that which he has swallowed up.",
+                  "unit": "jeremiah-51-44"
+                },
+                {
+                  "quote": "He brought the vessels into the treasure house of his god.",
+                  "unit": "daniel-1-2"
+                },
+                {
+                  "quote": "I will record Rahab and Babylon among those who acknowledge me.",
+                  "unit": "psalms-87-4"
+                }
+              ],
+              "text": "Babylon: a vast walled city of baked brick on a flat plain watered by broad canals and rivers, its wide walls rising high and its great gates of bronze-banded cedar. Date palms and reed beds line the riverbanks, and ziggurat towers and palace roofs of brick rise above the flat skyline, with the temple of Bel among them."
+            }
+          ]
+        },
+        "recordId": "babylon",
+        "source": "generated",
+        "status": "current",
+        "version": "de8721810ea07cf6cc361bc90ea0502d",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "look",
+      "recordId": "daniel-7-9",
+      "record": {
+        "createdAt": 1792698202947,
+        "generation": 1,
+        "inputs": [
+          {
+            "kind": "section",
+            "recordId": "daniel-7-9",
+            "version": "8573512b6683f0d87a6a3553c7a6b9ef"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+          },
+          {
+            "kind": "entry",
+            "recordId": "daniel_prophet_of_babylon",
+            "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_ancient_of_days",
+            "version": "2580946090305beb790717b8920e11ec"
+          },
+          {
+            "kind": "entry",
+            "recordId": "one_like_a_son_of_man",
+            "version": "f0a2429d0ca6ac9657801f25e0921699"
+          },
+          {
+            "kind": "entry",
+            "recordId": "babylon",
+            "version": "de8721810ea07cf6cc361bc90ea0502d"
+          },
+          {
+            "kind": "entry",
+            "recordId": "ministering_assembly_in_daniels_vision",
+            "version": "4abdbb32cfcaa06d3bc748ea6b88a23e"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "section_look_formless_presence",
+            "version": "2026-10-22-formless-look-v1"
+          }
+        ],
+        "kind": "look",
+        "payload": {
+          "clothing": "Formed attendants wear priestly linen or white court robes; Daniel in his ordinary tunic and cloak, no added props",
+          "kind": "look",
+          "light": "Radiance and fire placed around the central seat as the light source, with cloud diffusing the glow across the hall",
+          "place": "Vision-space of a throne hall in heaven, open to a vast dark expanse; an unoccupied seat of fire and cloud with a river of fire flowing before it, surrounded by thrones set in ranks",
+          "sectionId": "daniel-7-9",
+          "timeOfDay": "Night vision, unchanging, no dawn or dusk across the section",
+          "weather": "Still air over a dark heavenly expanse, with drifting cloud banks and rising mist"
+        },
+        "recordId": "daniel-7-9",
+        "source": "generated",
+        "status": "current",
+        "version": "219208bab707a1b98f813e02b220d45e",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "moment",
+      "recordId": "daniel-7-9",
+      "record": {
+        "createdAt": 1792538123265,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "daniel-7-9",
+          "kind": "moment",
+          "lastUnit": "daniel-7-9",
+          "sectionId": "daniel-7-9"
+        },
+        "recordId": "daniel-7-9",
+        "source": "generated",
+        "status": "current",
+        "version": "42811b767e7aea912528509ebeae351a",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "moment",
+      "recordId": "daniel-7-10",
+      "record": {
+        "createdAt": 1792538123265,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "daniel-7-10",
+          "kind": "moment",
+          "lastUnit": "daniel-7-10",
+          "sectionId": "daniel-7-9"
+        },
+        "recordId": "daniel-7-10",
+        "source": "generated",
+        "status": "current",
+        "version": "707e066801e19bb78e34e730ac9fbaec",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "plan",
+      "recordId": "daniel-7-9",
+      "record": {
+        "createdAt": 1792698207436,
+        "generation": 1,
+        "inputs": [
+          {
+            "kind": "moment",
+            "recordId": "daniel-7-9",
+            "version": "42811b767e7aea912528509ebeae351a"
+          },
+          {
+            "kind": "look",
+            "recordId": "daniel-7-9",
+            "version": "219208bab707a1b98f813e02b220d45e"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+          },
+          {
+            "kind": "entry",
+            "recordId": "daniel_prophet_of_babylon",
+            "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_ancient_of_days",
+            "version": "2580946090305beb790717b8920e11ec"
+          },
+          {
+            "kind": "entry",
+            "recordId": "one_like_a_son_of_man",
+            "version": "f0a2429d0ca6ac9657801f25e0921699"
+          },
+          {
+            "kind": "entry",
+            "recordId": "babylon",
+            "version": "de8721810ea07cf6cc361bc90ea0502d"
+          },
+          {
+            "kind": "entry",
+            "recordId": "ministering_assembly_in_daniels_vision",
+            "version": "4abdbb32cfcaa06d3bc748ea6b88a23e"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_formless_presence",
+            "version": "2026-10-22-formless-effects-v5"
+          }
+        ],
+        "kind": "plan",
+        "payload": {
+          "entries": [
+            {
+              "entryId": "daniel_prophet_of_babylon",
+              "stageId": "daniel_main"
+            },
+            {
+              "entryId": "the_ancient_of_days",
+              "stageId": "ancient-of-days-light"
+            },
+            {
+              "entryId": "ministering_assembly_in_daniels_vision",
+              "stageId": "ministering_assembly-main"
+            }
+          ],
+          "kind": "plan",
+          "momentId": "daniel-7-9",
+          "plan": {
+            "action": "Thrones are being set into ranks while the unoccupied seat is wreathed in fire and radiance; attendants in white linen bow and shift aside; Daniel lifts his gaze, his hands loose at his sides.",
+            "composition": "Wide view from below the tiers, the central seat high and framed by cloud and fire, with Daniel small in the lower foreground and the attendant ranks receding into the dark.",
+            "mood": "Solemn, awestruck and still, with reverent expectation and quiet dignity.",
+            "primarySubject": "Radiance and fire gathered around an unoccupied central seat of cloud and flame; Daniel stands at the edge of the hall, looking up toward it.",
+            "secondaryElements": "Ranks of empty thrones set in tiers; attendants in white court robes and priestly linen; cloud diffusing fire-glow across the floor; radiance rising from the seat's base.",
+            "setting": "Vast throne hall in heaven opening onto a dark expanse, with drifting cloud banks and rising mist; a river of fire flows before the central seat.",
+            "timeOfDay": "Unchanging night vision; radiance and fire serve as the only light source."
+          }
+        },
+        "recordId": "daniel-7-9",
+        "source": "generated",
+        "status": "current",
+        "version": "22ff3b0727462dd0b05ab27f80b420cb",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "plan",
+      "recordId": "daniel-7-10",
+      "record": {
+        "createdAt": 1792698296381,
+        "generation": 1,
+        "inputs": [
+          {
+            "kind": "moment",
+            "recordId": "daniel-7-10",
+            "version": "707e066801e19bb78e34e730ac9fbaec"
+          },
+          {
+            "kind": "look",
+            "recordId": "daniel-7-9",
+            "version": "219208bab707a1b98f813e02b220d45e"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+          },
+          {
+            "kind": "entry",
+            "recordId": "daniel_prophet_of_babylon",
+            "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_ancient_of_days",
+            "version": "2580946090305beb790717b8920e11ec"
+          },
+          {
+            "kind": "entry",
+            "recordId": "one_like_a_son_of_man",
+            "version": "f0a2429d0ca6ac9657801f25e0921699"
+          },
+          {
+            "kind": "entry",
+            "recordId": "babylon",
+            "version": "de8721810ea07cf6cc361bc90ea0502d"
+          },
+          {
+            "kind": "entry",
+            "recordId": "ministering_assembly_in_daniels_vision",
+            "version": "4abdbb32cfcaa06d3bc748ea6b88a23e"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_formless_presence",
+            "version": "2026-10-22-formless-effects-v5"
+          }
+        ],
+        "kind": "plan",
+        "payload": {
+          "entries": [
+            {
+              "entryId": "the_ancient_of_days",
+              "stageId": "ancient-of-days-light"
+            },
+            {
+              "entryId": "ministering_assembly_in_daniels_vision",
+              "stageId": "ministering_assembly-main"
+            }
+          ],
+          "kind": "plan",
+          "momentId": "daniel-7-10",
+          "plan": {
+            "action": "A fiery stream issues outward from before the seat and spreads across the floor; ranks of attendants in white robes stand in vast tiers, turned toward the seat; scrolls lie open before the ranks",
+            "composition": "Wide view from below the ranks, the central seat and fire stream at the center, attendants receding in tiers toward the dark expanse",
+            "mood": "Solemn, awe-filled stillness as judgment is set and the records are opened",
+            "primarySubject": "Radiance and fire pouring forth from the unoccupied central seat of fire and cloud; a river of fire flows out before it across the hall",
+            "secondaryElements": "Ministering assembly in priestly linen or white court robes filling the ranks; open scrolls; cloud diffusing glow across the hall; radiance and fire placed around the central seat",
+            "setting": "Vision-space of a heavenly throne hall open to a vast dark expanse, with thrones set in ranks and drifting cloud banks and rising mist",
+            "timeOfDay": "Unchanging night vision, lit only by the radiance and fire around the central seat"
+          }
+        },
+        "recordId": "daniel-7-10",
+        "source": "generated",
+        "status": "current",
+        "version": "dc23bd8a8ef507fb011227d2dce6dad6",
+        "workId": "bible-web"
+      }
+    }
+  ],
+  "histories": [
+    {
+      "kind": "section",
+      "recordId": "daniel-7-9",
+      "history": [
+        {
+          "createdAt": 1792692142607,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "8573512b6683f0d87a6a3553c7a6b9ef"
+        },
+        {
+          "createdAt": 1792535239756,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "9bfed655c64bcc10b8f74b1d436fb659"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "the_ancient_of_days",
+      "history": [
+        {
+          "createdAt": 1792692143097,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "2580946090305beb790717b8920e11ec"
+        },
+        {
+          "createdAt": 1792535226262,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "ae42fd28206e5e83b5529fd0ebf9112c"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "ministering_assembly_in_daniels_vision",
+      "history": [
+        {
+          "createdAt": 1792692142607,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "4abdbb32cfcaa06d3bc748ea6b88a23e"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "daniel_prophet_of_babylon",
+      "history": [
+        {
+          "createdAt": 1792535226262,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "one_like_a_son_of_man",
+      "history": [
+        {
+          "createdAt": 1792535226262,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "f0a2429d0ca6ac9657801f25e0921699"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "babylon",
+      "history": [
+        {
+          "createdAt": 1792535226262,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "de8721810ea07cf6cc361bc90ea0502d"
+        }
+      ]
+    },
+    {
+      "kind": "look",
+      "recordId": "daniel-7-9",
+      "history": [
+        {
+          "createdAt": 1792698202947,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "219208bab707a1b98f813e02b220d45e"
+        },
+        {
+          "createdAt": 1792692186449,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "d004a4b04921ce39ce1b978879c6cedc"
+        },
+        {
+          "createdAt": 1792601845825,
+          "generation": 1,
+          "source": "owner",
+          "status": "superseded",
+          "version": "1469b2542a3afbf77ed9921c8f727f20"
+        },
+        {
+          "createdAt": 1792538588182,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "12d398821f2ecb47f9edf7ea075349b6"
+        }
+      ]
+    },
+    {
+      "kind": "plan",
+      "recordId": "daniel-7-9",
+      "history": [
+        {
+          "createdAt": 1792698207436,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "22ff3b0727462dd0b05ab27f80b420cb"
+        },
+        {
+          "createdAt": 1792692191524,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "932f8da75d1a121ed0a9e14f92cd47eb"
+        },
+        {
+          "createdAt": 1792611998723,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "8cd89ee4aad16a597882ff9ccf05f0f0"
+        },
+        {
+          "createdAt": 1792609831603,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "575c1a3d622656802a52fa15001b77d9"
+        },
+        {
+          "createdAt": 1792606742560,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "5951003af8b1ab4f397ac57297b9d786"
+        },
+        {
+          "createdAt": 1792602229948,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "dcf9ed4a77ff18ad1f9c3132b0f3641e"
+        },
+        {
+          "createdAt": 1792538591070,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "25f7cd6a45d77ee5b6b94e72718cce36"
+        }
+      ]
+    },
+    {
+      "kind": "plan",
+      "recordId": "daniel-7-10",
+      "history": [
+        {
+          "createdAt": 1792698296381,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "dc23bd8a8ef507fb011227d2dce6dad6"
+        }
+      ]
+    }
+  ],
+  "spend": {
+    "byKind": {
+      "look": 0.007284100000000001,
+      "plan": 0.0146488
+    },
+    "calls": 86,
+    "costUsd": 0.02193290000000001
+  },
+  "catalog": {
+    "models": [
+      {
+        "id": "google/gemini-2.5-flash-image",
+        "name": "Google: Nano Banana (Gemini 2.5 Flash Image)",
+        "provider": "Google",
+        "billing": {
+          "version": "google-input-output-tokens-2026-10-20",
+          "source": "https://openrouter.ai/api/v1/models",
+          "observedAt": 1792698370130,
+          "unit": "token",
+          "textInputUsd": "0.0000003",
+          "textOutputUsd": "0.0000025",
+          "imageOutputUsd": "0.00003",
+          "imageInputUsd": "0.0000003",
+          "estimatedTextInputTokens": 1000,
+          "estimatedTextOutputTokens": 1000
+        },
+        "capabilities": {
+          "resolutions": [
+            "1K"
+          ],
+          "aspectRatios": [
+            "16:9",
+            "21:9",
+            "3:2"
+          ],
+          "outputTokens": {
+            "1K": 1290
+          },
+          "source": "https://ai.google.dev/gemini-api/docs/image-generation",
+          "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing"
+        },
+        "availability": "available",
+        "creditsCost": 6,
+        "reservationCreditsCost": 12,
+        "etaSeconds": 11,
+        "estimatedCreditsByResolution": {
+          "1K": 6
+        }
+      },
+      {
+        "id": "google/gemini-3.1-flash-image",
+        "name": "Google: Nano Banana 2 (Gemini 3.1 Flash Image)",
+        "provider": "Google",
+        "billing": {
+          "version": "google-input-output-tokens-2026-10-20",
+          "source": "https://openrouter.ai/api/v1/models",
+          "observedAt": 1792698370130,
+          "unit": "token",
+          "textInputUsd": "0.0000005",
+          "textOutputUsd": "0.000003",
+          "imageOutputUsd": "0.00006",
+          "imageInputTokens": {
+            "usdPerToken": "0.0000005",
+            "perImage": 1120
+          },
+          "estimatedTextInputTokens": 1000,
+          "estimatedTextOutputTokens": 1000
+        },
+        "capabilities": {
+          "resolutions": [
+            "1K",
+            "2K",
+            "4K"
+          ],
+          "aspectRatios": [
+            "16:9",
+            "21:9",
+            "3:2"
+          ],
+          "outputTokens": {
+            "1K": 1120,
+            "2K": 1680,
+            "4K": 2520
+          },
+          "source": "https://ai.google.dev/gemini-api/docs/image-generation",
+          "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing"
+        },
+        "availability": "available",
+        "creditsCost": 9,
+        "reservationCreditsCost": 18,
+        "etaSeconds": 12,
+        "estimatedCreditsByResolution": {
+          "1K": 9,
+          "2K": 14,
+          "4K": 20
+        }
+      },
+      {
+        "id": "google/gemini-3.1-flash-lite-image",
+        "name": "Google: Nano Banana 2 Lite (Gemini 3.1 Flash Lite Image)",
+        "provider": "Google",
+        "billing": {
+          "version": "google-input-output-tokens-2026-10-20",
+          "source": "https://openrouter.ai/api/v1/models",
+          "observedAt": 1792698370129,
+          "unit": "token",
+          "textInputUsd": "0.00000025",
+          "textOutputUsd": "0.0000015",
+          "imageOutputUsd": "0.00003",
+          "imageInputTokens": {
+            "usdPerToken": "0.00000025",
+            "perImage": 1120
+          },
+          "estimatedTextInputTokens": 1000,
+          "estimatedTextOutputTokens": 1000
+        },
+        "capabilities": {
+          "resolutions": [
+            "1K"
+          ],
+          "aspectRatios": [
+            "16:9",
+            "21:9",
+            "3:2"
+          ],
+          "outputTokens": {
+            "1K": 1120
+          },
+          "source": "https://ai.google.dev/gemini-api/docs/image-generation",
+          "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing"
+        },
+        "availability": "available",
+        "creditsCost": 5,
+        "reservationCreditsCost": 10,
+        "etaSeconds": 5,
+        "estimatedCreditsByResolution": {
+          "1K": 5
+        }
+      }
+    ],
+    "artStyles": [
+      {
+        "id": "classical",
+        "label": "Classical",
+        "description": "Expansive painterly scenes with dramatic light and restrained color; suited to epic narratives.",
+        "available": true,
+        "reason": null
+      },
+      {
+        "id": "watercolor",
+        "label": "Ink & Watercolor",
+        "description": "Expressive ink lines and transparent washes; suited to atmospheric journeys and intimate observation.",
+        "available": false,
+        "reason": "The watercolor art style is temporarily unavailable"
+      },
+      {
+        "id": "icon",
+        "label": "Byzantine Icon",
+        "description": "Flat gold-ground painting with inverse perspective and stylized figures; suited to sacred and symbolic narratives.",
+        "available": false,
+        "reason": "The icon art style is temporarily unavailable"
+      }
+    ],
+    "scenePlannerCreditsCost": 0,
+    "creditRange": {
+      "min": 5,
+      "max": 20
+    }
+  },
+  "pricing": {
+    "id": "anthropic/claude-haiku-5.5",
+    "canonical_slug": "anthropic/claude-haiku-5.5-20261007",
+    "hugging_face_id": null,
+    "name": "Anthropic: Claude Haiku 5.5",
+    "created": 1791397883,
+    "description": "Claude Haiku 5.5 is Anthropic's small, fast model for high-volume, cost-sensitive work such as summarization, subagents, and browser use. It succeeds Claude Haiku 4.5 with stronger coding, computer use, and...",
+    "context_length": 1000000,
+    "architecture": {
+      "modality": "text+image+file->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "file"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Claude",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.0000001",
+      "completion": "0.0000005",
+      "web_search": "0.01",
+      "input_cache_read": "0.00000001",
+      "input_cache_write": "0.000000125",
+      "input_cache_write_1h": "0.0000002",
+      "overrides": [
+        {
+          "min_prompt_tokens": 100000,
+          "prompt": "0.0000005",
+          "completion": "0.0000025",
+          "input_cache_read": "0.00000005",
+          "input_cache_write": "0.000000625",
+          "input_cache_write_1h": "0.000001"
+        }
+      ]
+    },
+    "top_provider": {
+      "context_length": 1000000,
+      "max_completion_tokens": 128000,
+      "is_moderated": true
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "include_reasoning",
+      "max_completion_tokens",
+      "max_tokens",
+      "reasoning",
+      "reasoning_effort",
+      "response_format",
+      "stop",
+      "structured_outputs",
+      "tool_choice",
+      "tools",
+      "verbosity"
+    ],
+    "default_parameters": {},
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/anthropic/claude-haiku-5.5-20261007/endpoints"
+    },
+    "benchmarks": {
+      "design_arena": [
+        {
+          "arena": "models",
+          "category": "3d",
+          "elo": 1342,
+          "win_rate": 58.2,
+          "rank": 10
+        },
+        {
+          "arena": "models",
+          "category": "codecategories",
+          "elo": 1278,
+          "win_rate": 50.1,
+          "rank": 23
+        },
+        {
+          "arena": "models",
+          "category": "dataviz",
+          "elo": 1294,
+          "win_rate": 54.6,
+          "rank": 15
+        },
+        {
+          "arena": "models",
+          "category": "gamedev",
+          "elo": 1314,
+          "win_rate": 53.7,
+          "rank": 13
+        },
+        {
+          "arena": "models",
+          "category": "uicomponent",
+          "elo": 1283,
+          "win_rate": 51.7,
+          "rank": 24
+        },
+        {
+          "arena": "models",
+          "category": "website",
+          "elo": 1263,
+          "win_rate": 48.5,
+          "rank": 35
+        }
+      ],
+      "artificial_analysis": {
+        "intelligence_index": 43.4,
+        "coding_index": null,
+        "agentic_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": false,
+      "supported_efforts": [
+        "max",
+        "xhigh",
+        "high",
+        "medium",
+        "low",
+        "none"
+      ],
+      "default_effort": "medium"
+    }
+  },
+  "balanceUsd": 10.894951292000002,
+  "environment": {
+    "mode": "disabled",
+    "ownerSessionConfigured": false,
+    "convexUrl": "https://api.visibible.com"
+  },
+  "publicActivation": false
+}

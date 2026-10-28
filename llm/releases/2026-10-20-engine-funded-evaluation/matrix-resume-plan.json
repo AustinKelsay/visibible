@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-21T01:15:14.615Z",
+  "source": "Existing independent-style caps retained from llm/releases/2026-10-20-engine-production/candidate-budget-plan.json",
+  "evaluationAuthorizedUsd": 16,
+  "evaluationMeasuredBeforeUsd": 6.7804538999999995,
+  "evaluationUncertaintyUsd": 0.045,
+  "preflightAt": "2026-10-21T01:13:38.939Z",
+  "runs": [
+    {
+      "styleId": "classical",
+      "stateSha256": "24eb7d2ba3c7b82c5d2b0ef446a34e080727e70b25018510a993b6ece7ba58fe",
+      "previousSpentUsd": 0.7326871500000002,
+      "completed": 21,
+      "newSamples": 87,
+      "newQuotedUsd": 2.8759725000000005,
+      "cumulativeCapUsd": 3.78135925,
+      "mismatches": []
+    },
+    {
+      "styleId": "icon",
+      "stateSha256": "93944a93d3d09c51ac682daa04a6cbc2517b8b1d260155cb89d55d4abdba3dfd",
+      "previousSpentUsd": 0.4516184999999999,
+      "completed": 13,
+      "newSamples": 95,
+      "newQuotedUsd": 3.175919250000001,
+      "cumulativeCapUsd": 3.78387625,
+      "mismatches": []
+    }
+  ],
+  "reservedNewCapsUsd": 6.380929849999999,
+  "maximumEvaluationAfterBothCapsAndUncertaintyUsd": 13.206383749999999,
+  "preparation": {
+    "caseId": "2-kings-2-23-bears",
+    "maximumTextCallsPerProcess": 2,
+    "reservePerTextCallUsd": 0.005,
+    "note": "Actual assembly invalidates look/plan after changed cast inputs; style-neutral preparation is shared. Every other selected moment assembled without writes."
+  },
+  "trial": {
+    "status": "rejected by agent inspection; no style promotion",
+    "newMeasuredUsd": 0.30738975
+  },
+  "modelChanges": 0,
+  "publicActivation": false
+}

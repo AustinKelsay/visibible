@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-23T13:56:09.000Z",
+  "purpose": "Deploy the additive optional plan `grounding` audit field before any server stores it (SCENE-PREPARATION.md). Backend only; no frontend build, promotion or admission change.",
+  "sourceCommit": "296df4219e61da29d31052d7d9b348e4c75fd0fd",
+  "sourceTree": "Clean worktree whose tree equals 296df42; no untracked or ignored files under convex/.",
+  "convexTarget": "unique-impala-244",
+  "previousBackendCommit": "66d09cc7ed4221ccf0e5032cb3abc0313be43744",
+  "previousBackendEvidence": "../2026-10-22-daniel-cast-repair/deployment.json",
+  "convexDiffFromPrevious": {
+    "convex/schema.ts": "+11 lines: optional planPayload.grounding object"
+  },
+  "command": "convex deploy -y --codegen disable --typecheck enable (CLI 1.31.2, production deploy key from the production Vercel environment; key not retained)",
+  "dryRun": {
+    "typecheck": "passed",
+    "schemaValidation": "complete",
+    "indexesDeleted": false,
+    "authDiff": {
+      "added": [],
+      "removed": []
+    },
+    "definitionDiffs": {},
+    "componentDiffs": {},
+    "componentPath": "../node_modules/neutral-cost/dist/component",
+    "newFieldPresent": true,
+    "nodeVersionMessage": "Blank 'Change the server's version for Node.js actions' line; the same message appears in the retained Daniel and release dry runs with nodeVersion null.",
+    "discardedAttempt": "A first dry run from a git-archive export with a symlinked node_modules bundled an absolute component path; it was not deployed."
+  },
+  "deployStartedAt": "2026-10-23T13:56:04.000Z",
+  "deployFinishedAt": "2026-10-23T13:56:09.000Z",
+  "result": "Deployed Convex functions; no indexes deleted; schema validation complete.",
+  "frontend": {
+    "alias": "visibible.com",
+    "deployment": "dpl_4FE7JeXKq853nCxsrN2NYZYFdYjj",
+    "readyState": "READY",
+    "changed": false
+  },
+  "readiness": {
+    "before": "ready 2026-10-23T13:55:57.269Z",
+    "after": "ready 2026-10-23T13:56:20.173Z"
+  },
+  "snapshots": {
+    "before": "before-deploy.json",
+    "after": "after-deploy.json",
+    "identical": [
+      "sources",
+      "status",
+      "records",
+      "spend",
+      "catalog.artStyles"
+    ]
+  },
+  "admission": "disabled",
+  "ownerSessionConfigured": false,
+  "publicActivation": false,
+  "rollback": "Redeploy convex/ from 66d09cc only while no stored plan carries `grounding`; afterwards those fields must be removed first. The ecd58e0 frontend never writes the field."
+}

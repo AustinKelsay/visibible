@@ -415,6 +415,21 @@ describe("reading pass", () => {
     expect(result.merge?.reconciliations).toHaveLength(2);
   });
 
+  it("rejects a character marked both on-stage and mentioned-only and carries the conflict into its bounded repair", async () => {
+    const work = createWorkReader(twoBooks);
+    const division = rootDivisions(work)[0];
+    const rejected = { ...alphaReading, sections: alphaReading.sections.map((s, i) => i === 0 ? { ...s, mentioned_only: [...s.mentioned_only, "jonah"] } : s) };
+    const model = scriptedModel({ "read:alpha": (request, calls) => {
+      if (calls.length === 1) return rejected;
+      expect(request.user).toContain("assigns jonah to both on_stage and mentioned_only");
+      return alphaReading;
+    } });
+    const result = await readDivision({ work, division, model });
+    expect(result.attempts).toHaveLength(2);
+    expect(result.sections[0].onStage.map((entry) => entry.id)).toContain("jonah");
+    expect(result.sections[0].mentionedOnly).not.toContain("jonah");
+  });
+
   it("carries the rejected answer into cast repairs and still rejects partial replacement sections", async () => {
     const work = createWorkReader(twoBooks);
     const division = rootDivisions(work)[0];

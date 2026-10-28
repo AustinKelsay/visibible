@@ -1,0 +1,26 @@
+{
+  "allowance": "evaluation",
+  "authorizedUsd": 23,
+  "increaseUsd": 0,
+  "measuredBeforeUsd": 22.6138959,
+  "runs": {
+    "dev": {
+      "measuredUsd": 0.0228899,
+      "calls": 80
+    },
+    "dev-revised": {
+      "measuredUsd": 0.0303614,
+      "calls": 80
+    },
+    "holdout": {
+      "measuredUsd": 0.0316064,
+      "calls": 96
+    }
+  },
+  "operationMeasuredUsd": 0.0848577,
+  "operationUncertainUsd": 0,
+  "measuredAfterUsd": 22.6987536,
+  "retainedUncertaintyUsd": 0.045,
+  "remainingUsd": 0.2562464,
+  "transfers": 0
+}

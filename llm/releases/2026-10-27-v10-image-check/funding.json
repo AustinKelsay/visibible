@@ -1,0 +1,8 @@
+{
+  "authorizedAt": "2026-10-26T19:16:23Z",
+  "authorization": "Owner replied 'yes continue' to: 'Should I make these three fixes and re-run both tests within the $1.86 that's left?' This grant caps this image run at $1.65 within the existing $21.50 evaluation allowance, with no increase.",
+  "increaseUsd": 0,
+  "authorizedUsd": 21.5,
+  "operationCapUsd": 1.65,
+  "scope": "One execution of the frozen v10 image re-check in this directory: at most 40 images and 60 text calls. No paid restart, tuning, production writes, deployment or public activation."
+}

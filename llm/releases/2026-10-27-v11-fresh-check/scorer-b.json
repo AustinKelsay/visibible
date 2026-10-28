@@ -1,0 +1,318 @@
+{
+  "scorer": "Independent model scorer B",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "p001",
+      "verdict": "acceptable",
+      "reason": "Peter commands the lame man to rise at the Beautiful Gate with John beside him at the ninth hour; one coherent instant faithful to Acts 3:6.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p002",
+      "verdict": "acceptable",
+      "reason": "Jesus arrives at Jairus's house with Peter, James and John and takes in the wailing mourners before entering; faithful single instant.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p003",
+      "verdict": "acceptable",
+      "reason": "Saul passes through a Jerusalem gate with Barnabas and the disciples; a faithful rendering of being with them in Jerusalem.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p004",
+      "verdict": "acceptable",
+      "reason": "Abraham and Ishmael circumcised together in the household camp, kept restrained; faithful to the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p005",
+      "verdict": "acceptable",
+      "reason": "Jesus quotes the psalm to the crowd in the temple courts with disciples and scribes present; scribes' long robes are supported by Luke 20:46.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p006",
+      "verdict": "acceptable",
+      "reason": "A deceiver feigning innocence to a doubting neighbor is a faithful representative scene for the proverb; Solomon is not inserted.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p007",
+      "verdict": "acceptable",
+      "reason": "The four living creatures' straight, bronze-gleaming feet by the Chebar under the storm cloud of 1:4; coherent and source-grounded.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p008",
+      "verdict": "flawed",
+      "reason": "The exchange between Jesus and James and John is faithful, but the setting shows Jericho, an available cast location the plan did not select (and which the group reaches only at 10:46).",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Dusty road outside Jericho with stone walls and palm trees in the distance.",
+          "reason": "Depicts the unselected Jericho cast entry (its walls and palms); the request takes place on the way, before they come to Jericho."
+        }
+      ]
+    },
+    {
+      "id": "p009",
+      "verdict": "flawed",
+      "reason": "A man answering before hearing is a good representative scene, but Solomon, the proverb's author, is placed in the scene as a listening participant.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Solomon seated calmly to one side, listening with a steady gaze",
+          "reason": "Framing figure: the author of the proverbs is shown as a participant in the illustrated situation."
+        }
+      ]
+    },
+    {
+      "id": "p010",
+      "verdict": "acceptable",
+      "reason": "Jesus teaches the crowd to love their enemies on the slopes above the lake; faithful to the Sermon on the Plain (a 'rise' on the hillside is a minor liberty against Luke's 'level place').",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p011",
+      "verdict": "flawed",
+      "reason": "The verse describes the nobles' former purity and splendor, but the plan shows their later ruined state, and it adds God's veiled radiance although God is not selected.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a distant veiled light of white-gold behind dense slow cloud",
+          "reason": "Depicts God's no-form presence (and echoes its canon wording) although God is not in the selected list; nothing in the verse calls for it."
+        },
+        {
+          "quote": "their earlier white garments now soiled",
+          "reason": "Shows the nobles' degraded state described in 4:8 rather than the former purity of 4:7, so the instant is not this verse's."
+        }
+      ]
+    },
+    {
+      "id": "p012",
+      "verdict": "acceptable",
+      "reason": "The beloved's hand comes through the latch opening at night as the Shulammite, robe already removed (5:3), turns toward the door; the plain tunic is situational and the scene is faithful.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p013",
+      "verdict": "acceptable",
+      "reason": "An unnamed father and son in a Judahite village is a faithful, restrained representative scene for a genealogy line.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p014",
+      "verdict": "flawed",
+      "reason": "Moses and Aaron counting the Levite families at the Sinai camp is faithful, but the plan restates Aaron's fixed canon clothing.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Aaron in priestly linen",
+          "reason": "Restates Aaron's fixed canon outfit instead of leaving appearance to canon."
+        }
+      ]
+    },
+    {
+      "id": "p015",
+      "verdict": "flawed",
+      "reason": "Paul writes this request by letter from elsewhere, but the plan places him in Thessalonica leading the believers in prayer.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Paul standing near the front, arms slightly raised, facing the gathered believers",
+          "reason": "Framing figure: the letter's author is shown physically present among the recipients."
+        },
+        {
+          "quote": "while Paul makes a humble request",
+          "reason": "Turns the written request into Paul speaking in person to the Thessalonians."
+        }
+      ]
+    },
+    {
+      "id": "p016",
+      "verdict": "flawed",
+      "reason": "The law of Sabbath offerings is shown with Moses officiating at the altar in priestly dress, a role belonging to the priests, and God's canon light is restated.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Moses in priestly linen beside the bronze altar",
+          "reason": "Casts Moses as the officiating priest and dresses him in priestly linen, contradicting his canon clothing and role."
+        },
+        {
+          "quote": "a brilliant veiled radiance of white-gold cloud resting above the mountain",
+          "reason": "Restates God's fixed canon appearance (brilliant white-gold light veiled by cloud)."
+        }
+      ]
+    },
+    {
+      "id": "p017",
+      "verdict": "acceptable",
+      "reason": "Jesus quoting Psalm 110 to disciples and crowd in the temple court is a faithful single instant; generic Roman soldiers and the faint radiance are harmless.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p018",
+      "verdict": "acceptable",
+      "reason": "The righteous gathered under breaking light with a no-form radiance is a faithful symbolic image of Yahweh's compassion on his servants.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p019",
+      "verdict": "flawed",
+      "reason": "God giving Moses the altar plan is turned into Moses laying out the altar beside an already-built linen court, and the plan restates canon appearance for Moses and God.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a sacred camp of hanging linen visible below",
+          "reason": "The linen-hung court is only being planned in this section (27:9-19); showing it already built contradicts the instant."
+        },
+        {
+          "quote": "a brilliant white-gold radiance veiled by slowly moving cloud, fire-like glow at its heart",
+          "reason": "Restates God's fixed canon appearance almost word for word."
+        },
+        {
+          "quote": "in a plain woven tunic and cloak",
+          "reason": "Restates Moses' fixed canon clothing."
+        }
+      ]
+    },
+    {
+      "id": "p020",
+      "verdict": "acceptable",
+      "reason": "Villagers fleeing along a Judean hill road is a faithful rendering of Gebim's inhabitants fleeing for safety.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p021",
+      "verdict": "uncertain",
+      "reason": "Families eating unleavened bread with Moses instructing is a fair representative scene, but Numbers 28 is set after Israel left Sinai (plains of Moab context), and the cloud rests on the mountain although the tabernacle is standing; a reader could accept Sinai as a representative feast setting or reject it.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "The wilderness camp at the foot of Mount Sinai",
+          "reason": "Numbers 28 is given after the departure from Sinai, so the Sinai setting is questionable."
+        }
+      ]
+    },
+    {
+      "id": "p022",
+      "verdict": "flawed",
+      "reason": "The clean man gathering the ashes is right, but the plan adds God's cloud over Horeb although God is not selected and the camp has left Sinai, and it places Eleazar at a step the verse does not give him.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "the veiled cloud high above Horeb",
+          "reason": "Depicts God's no-form presence though God is not selected, and sets the Numbers 19 camp at Horeb after Israel had left Sinai."
+        },
+        {
+          "quote": "Eleazar in priestly linen standing nearby",
+          "reason": "Eleazar's part is the earlier blood-sprinkling and burning (19:3-5); the verse assigns the ash-gathering to an unnamed clean man, and the clothing restates canon."
+        }
+      ]
+    },
+    {
+      "id": "p023",
+      "verdict": "flawed",
+      "reason": "The guide measuring the south gate with Ezekiel watching is faithful, but the gate is placed in the inner court and an unselected divine glow is added.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Stone gateway of a vast inner temple court",
+          "reason": "The south gate of 40:24 belongs to the outer court; the inner court's south gate comes only at 40:27-28."
+        },
+        {
+          "quote": "a faint veiled cloud-glow at the edge of the scene",
+          "reason": "Depicts God's no-form presence though God is not selected; the glory does not return to the temple until chapter 43."
+        }
+      ]
+    },
+    {
+      "id": "p024",
+      "verdict": "acceptable",
+      "reason": "A messenger tells Pharaoh the people have fled while he and his servants react with dawning regret; one coherent instant faithful to the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p025",
+      "verdict": "acceptable",
+      "reason": "A righteous man giving bread while a scowling wealthy man looks on is a faithful representative contrast for the proverb.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p026",
+      "verdict": "flawed",
+      "reason": "In this verse Belshazzar speaks to Daniel, but the plan makes the queen the speaker recalling Daniel's reputation, which she did before Daniel was brought in.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "She is speaking, gesturing gently as she recalls Daniel's reputation to the court.",
+          "reason": "Wrong speaker and instant: 5:14 is the king addressing Daniel; the queen's recollection (5:10-12) precedes Daniel's arrival."
+        },
+        {
+          "quote": "The queen in court robes",
+          "reason": "Makes the queen the primary subject of the king's line and restates her canon clothing."
+        }
+      ]
+    },
+    {
+      "id": "p027",
+      "verdict": "flawed",
+      "reason": "The disappointed goldsmith is a good representative image, but Jeremiah, the prophet who speaks the oracle, is inserted into the workshop as an onlooker.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Jeremiah standing quietly in the doorway in plain mourning cloak",
+          "reason": "Framing figure: the prophet delivering the oracle is shown inside the reported scene, and the clothing overrides his canon cloak."
+        }
+      ]
+    },
+    {
+      "id": "p028",
+      "verdict": "acceptable",
+      "reason": "Jeremiah confronts Hananiah in the temple court with the broken wooden yoke as a symbolic prop; a faithful rendering of the message he is told to deliver.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p029",
+      "verdict": "flawed",
+      "reason": "The ordeal drink is shown, but the law's generic 'the priest' is turned into the named Aaron.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Aaron in priestly linen",
+          "reason": "Substitutes the named Aaron for the generic officiating priest of the law, and restates his canon clothing."
+        }
+      ]
+    },
+    {
+      "id": "p030",
+      "verdict": "flawed",
+      "reason": "Jeremiah preaching in the temple court to people who turn their backs is a faithful representative scene, but the plan restates his canon clothing.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Jeremiah in a plain prophet's cloak",
+          "reason": "Restates Jeremiah's fixed canon clothing instead of leaving appearance to canon."
+        }
+      ]
+    }
+  ]
+}

@@ -2,7 +2,7 @@
  * Unit tests for Convex session credit settlement logic and invariants.
  */
 
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, onTestFinished } from "vitest";
 import {
   computeReservedChargeOutcome,
   deductCreditsInternal,
@@ -663,6 +663,9 @@ describe("internal mutation settlement invariants", () => {
   });
 
   it("reconcileStaleReservations only releases unresolved reservations", async () => {
+    // This case checks a same-day spend refund; one hour ago must stay in that UTC day.
+    const clock = vi.spyOn(Date, "now").mockReturnValue(Date.UTC(2026, 9, 22, 12));
+    onTestFinished(() => clock.mockRestore());
     const { sid, db, ctx, session } = createHarness({
       credits: 30,
       dailySpendUsd: 0,
