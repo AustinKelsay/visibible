@@ -1,3 +1,4 @@
+import { KNOWN_STYLE_IDS } from "./_helpers/styleIds";
 import { lookPolicy } from "../src/lib/engine/situation";
 /**
  * Analysis storage and lifecycle (#168, spec #165 §7 and §9).
@@ -229,6 +230,10 @@ export const amendBriefStyles = mutation({
     if (withoutStyleIds(args.previousBrief) !== withoutStyleIds(args.nextBrief)) throw new Error("The briefs differ in more than their art styles");
     const styleIds = (JSON.parse(args.nextBrief) as { styleIds?: unknown }).styleIds;
     if (!Array.isArray(styleIds) || styleIds.length === 0 || !styleIds.every((id) => typeof id === "string" && id.length > 0)) throw new Error("The new brief must approve at least one art style");
+    // The engine refuses a brief naming a style outside the library, so check before moving any version.
+    const unknown = styleIds.filter((id) => !KNOWN_STYLE_IDS.includes(id));
+    if (unknown.length) throw new Error(`The new brief names unknown art styles: ${unknown.join(", ")}`);
+    if (new Set(styleIds).size !== styleIds.length) throw new Error("The new brief lists an art style twice");
     if (previousVersion === nextVersion) return { previousVersion, nextVersion, styleIds, changed: false };
     const now = Date.now();
     await ctx.db.patch(work._id, { briefVersion: nextVersion, updatedAt: now });

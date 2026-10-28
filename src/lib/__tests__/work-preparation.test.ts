@@ -1,3 +1,4 @@
+import { KNOWN_STYLE_IDS } from "../../../convex/_helpers/styleIds";
 import { describe, expect, it } from "vitest";
 import bible from "../../../tests/fixtures/work-briefs/bible.draft.json";
 import holmes from "../../../tests/fixtures/work-briefs/holmes.draft.json";
@@ -14,6 +15,8 @@ describe("shared art styles", () => {
     expect(SHARED_STYLES.styles.map(({ id, label }) => [id, label])).toEqual([
       ["classical", "Classical"], ["watercolor", "Ink & Watercolor"], ["fresco", "Fresco"], ["icon", "Byzantine Icon"],
     ]);
+    // Convex checks brief styles against this dependency-free copy of the library's ids.
+    expect([...KNOWN_STYLE_IDS].sort()).toEqual(SHARED_STYLES.styles.map(({ id }) => id).sort());
     expect(SHARED_STYLES.get(DEFAULT_STYLE_PROFILE).id).toBe(STYLE_PROFILES.classical.id);
     expect(() => SHARED_STYLES.get("watercolour")).toThrow("Unknown art style");
   });

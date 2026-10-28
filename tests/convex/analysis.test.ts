@@ -369,8 +369,9 @@ describe("analysis generations", () => {
 
 describe("styles-only brief amendment", () => {
   const sha = (text: string) => createHash("sha256").update(text).digest("hex");
-  const briefA = JSON.stringify({ workId: WORK, tone: "Calm", depictionRules: [], eras: [{ id: "victorian" }], styleIds: ["classical", "watercolor"] }, null, 2);
-  const briefB = JSON.stringify({ workId: WORK, tone: "Calm", depictionRules: [], eras: [{ id: "victorian" }], styleIds: ["classical", "watercolor", "fresco"] }, null, 2);
+  const briefWith = (styleIds: string[], tone = "Calm") => JSON.stringify({ workId: WORK, tone, depictionRules: [], eras: [{ id: "victorian" }], styleIds }, null, 2);
+  const briefA = briefWith(["classical", "watercolor"]);
+  const briefB = briefWith(["classical", "watercolor", "fresco"]);
   let t: ReturnType<typeof convexTest>;
   beforeEach(async () => {
     t = convexTest(schema, modules);
@@ -393,10 +394,14 @@ describe("styles-only brief amendment", () => {
   it("refuses a wrong secret, a stale previous brief, any change beyond styles, and an empty style list", async () => {
     await expect(t.mutation(api.analysis.amendBriefStyles, { serverSecret: "wrong", workId: WORK, previousBrief: briefA, nextBrief: briefB })).rejects.toThrow();
     await expect(t.mutation(api.analysis.amendBriefStyles, { serverSecret: SECRET, workId: WORK, previousBrief: briefB, nextBrief: briefA })).rejects.toThrow(/registered brief/);
-    const toneChange = briefB.replace("Calm", "Stormy");
+    const toneChange = briefWith(["classical", "watercolor", "fresco"], "Stormy");
     await expect(t.mutation(api.analysis.amendBriefStyles, { serverSecret: SECRET, workId: WORK, previousBrief: briefA, nextBrief: toneChange })).rejects.toThrow(/more than their art styles/);
-    const noStyles = briefA.replace(/"styleIds": \[[^\]]*\]/, "\"styleIds\": []");
+    const noStyles = briefWith([]);
     await expect(t.mutation(api.analysis.amendBriefStyles, { serverSecret: SECRET, workId: WORK, previousBrief: briefA, nextBrief: noStyles })).rejects.toThrow(/at least one art style/);
+    const unknownStyle = briefWith(["classical", "watercolor", "neon"]);
+    await expect(t.mutation(api.analysis.amendBriefStyles, { serverSecret: SECRET, workId: WORK, previousBrief: briefA, nextBrief: unknownStyle })).rejects.toThrow(/unknown art styles: neon/);
+    const duplicate = briefWith(["classical", "watercolor", "classical"]);
+    await expect(t.mutation(api.analysis.amendBriefStyles, { serverSecret: SECRET, workId: WORK, previousBrief: briefA, nextBrief: duplicate })).rejects.toThrow(/twice/);
     expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).briefVersion).toBe(sha(briefA));
   });
 });

@@ -40,5 +40,5 @@ The choice between them is the owner's, by look. The chosen style then runs the 
 
 - Eight independent model scorers, two per batch of 10–11 images, scored all 42 images (shown and retries) blind to style label, attempt and whether it was shown.
 - They agreed on 38 of 42 overall verdicts.
-- The operator resolved 5 field disputes by viewing the images and detail crops, using the earlier written rules, and committed before unblinding (commit `e01cb7c`).
+- The operator resolved 11 field disputes on 8 images (counting the scene-match field) by viewing the images and detail crops, using the earlier written rules, and committed before unblinding (commit `e01cb7c`).
 - These are model judgments, not human acceptance.
