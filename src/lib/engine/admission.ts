@@ -2,7 +2,7 @@
  * Engine admission (#174, spec #165 §6 and §9): which engine a new image request is bound to,
  * decided once at admission and persisted with the request so a replay never switches engines
  * or reprices. The generic engine is disabled by default; an owner-only mode proves it in
- * production, and one explicit switch sends every new public request to it. Readiness of the
+ * production, and one explicit switch sends every new public request in a released style to it. Readiness of the
  * work's analysis gates generic admission; optional references and attention notes never do.
  */
 
@@ -25,6 +25,12 @@ export type EngineDecision =
 export const LEGACY_STYLE_IDS = Object.freeze(["classical"]);
 
 /**
+ * Styles the public switch releases to every reader. The owner chose to launch Classical and Watercolor first
+ * (28 October 2026), after both met the launch bar on their own; Icon stays owner-only until its style is fixed.
+ */
+export const PUBLIC_GENERIC_STYLE_IDS: readonly string[] = Object.freeze(["classical", "watercolor"]);
+
+/**
  * Decide the engine for a request. An already accepted request keeps its engine whatever the
  * switches say now. Otherwise the mode, the caller's owner status (verified server-side by the
  * caller), the requested style and the work's readiness decide.
@@ -39,13 +45,15 @@ export function decideEngine(input: {
   if (input.existingEngine) return { engine: input.existingEngine, reason: "accepted" };
   const styleId = input.styleId ?? "classical";
   const legacyCanRender = LEGACY_STYLE_IDS.includes(styleId);
-  const genericAllowed = input.mode === "public" || (input.mode === "owner" && input.isOwner);
+  const released = PUBLIC_GENERIC_STYLE_IDS.includes(styleId);
+  // The owner may prove any style in owner or public mode; readers get only released styles.
+  const genericAllowed = (input.mode === "public" && released) || (input.mode !== "disabled" && input.isOwner);
   if (!genericAllowed) {
-    if (legacyCanRender) return { engine: "legacy", reason: input.mode === "owner" ? "not-owner" : "disabled" };
+    if (legacyCanRender) return { engine: "legacy", reason: input.mode === "disabled" ? "disabled" : "not-owner" };
     // Rollback or not yet released: non-Classical styles are unavailable; the saved preference is left alone.
     return { engine: null, unavailable: "style", reason: `The ${styleId} art style is temporarily unavailable`, retryable: true };
   }
-  if (input.readiness?.ready) return { engine: "generic", reason: input.mode === "public" ? "public" : "owner-proof" };
+  if (input.readiness?.ready) return { engine: "generic", reason: input.mode === "public" && released ? "public" : "owner-proof" };
   const why = input.readiness?.reasons.join("; ") || "the work's analysis is not registered";
   return { engine: null, unavailable: "preparing", reason: `The work is still being prepared: ${why}`, retryable: true };
 }
