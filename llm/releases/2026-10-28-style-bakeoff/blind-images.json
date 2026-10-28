@@ -1,0 +1,2108 @@
+{
+  "masking": "Style, attempt and shown labels omitted; style is visible in the image. Batches of about 12 split the images for scorers. Two independent model scorers per batch, operator adjudication; not human acceptance.",
+  "packet": [
+    {
+      "id": "img001",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img001.jpg",
+      "sha256": "1eb19619671127a473cad0b920c83deab19fb0595800d6c4d1e97e3f0bcb0338",
+      "verse": "exodus-14-21",
+      "verseText": "Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.",
+      "selected": [
+        "moses",
+        "the_israelite_people_the_children_of_israel",
+        "red_sea",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses at the shore, arm extended over the parting sea, staff in hand",
+        "action": "The east wind drives the sea back, and the waters stand up on either side as the dry sea floor is revealed",
+        "setting": "Wide sea floor of dry sand and pooled water, walled by high dark water on both sides",
+        "secondaryElements": "Israelites in woven tunics and cloaks gathering at the edge of the dry ground; spray hanging in the wind; a faint pillar of cloud glowing with fire-light above the scene",
+        "mood": "Awe, tense anticipation and quiet trust amid danger",
+        "timeOfDay": "Night, with the wind holding into the first grey of dawn; moonlight broken on the walls of water",
+        "composition": "Wide view from the shore, Moses in the foreground at left with arm raised, the sea walls rising across the middle distance and the dry path opening toward the far shore",
+        "present": [
+          "moses",
+          "the_israelite_people_the_children_of_israel",
+          "red_sea",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img002",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img002.jpg",
+      "sha256": "88a4c51c9bd8a49426222c7cff1b44d219b5b884cb768014d7dfb989cc8eac6e",
+      "verse": "isaiah-6-2",
+      "verseText": "Above him stood the seraphim. Each one had six wings. With two he covered his face. With two he covered his feet. With two he flew.",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "seraphim",
+        "yahweh_s_house_in_jerusalem_the_temple",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah standing low in the temple hall, head bowed",
+        "action": "Two winged seraphim hover above him, each with six wings, two covering the face, two covering the feet, two in flight",
+        "setting": "High temple hall of cedar and stone with a raised sanctuary and columns",
+        "secondaryElements": "Radiant cloud and smoke filling the sanctuary, incense burner and altar fire on the floor, priestly attendants in linen at the edges",
+        "mood": "Awe, reverence and trembling humility",
+        "timeOfDay": "Early morning, light from high openings, still incense-heavy air",
+        "composition": "Low viewpoint from the floor looking up at the seraphim above Isaiah, the sanctuary glowing in the background",
+        "present": [
+          "isaiah_son_of_amoz",
+          "seraphim",
+          "yahweh_s_house_in_jerusalem_the_temple",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img003",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img003.jpg",
+      "sha256": "c231383869437d1cc09bb8b55daa0916f749f0303e34afe31da31240f1a2bad2",
+      "verse": "psalms-23-2",
+      "verseText": "He makes me lie down in green pastures. He leads me beside still waters.",
+      "selected": [],
+      "availableCast": [
+        {
+          "entryId": "david_son_of_jesse_king_of_israel",
+          "name": "David son of Jesse (king of Israel)",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A flock of sheep lying down together on the green grass",
+        "action": "Sheep settling to rest in lush pasture while a shepherd stands watch nearby",
+        "setting": "Green hill pasture near a village in ancient Judah, with a still pool and a low stone enclosure",
+        "secondaryElements": "A shepherd in a simple undyed wool tunic and cloak with a staff, a still pool reflecting the sky, scattered sheep grazing",
+        "mood": "Peaceful, calm and restful, with quiet trust",
+        "timeOfDay": "Early morning, still cool air, light mist over the grass, soft golden sunrise light",
+        "composition": "Wide view from slightly above the hillside, the flock in the foreground and the still water and village beyond",
+        "present": []
+      },
+      "conditions": null
+    },
+    {
+      "id": "img004",
+      "batch": 4,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img004.jpg",
+      "sha256": "5a2ac3b314453b9576d2423ea07d6ba084b19d5aaab6f0b13595136c5304b976",
+      "verse": "daniel-7-9",
+      "verseText": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "selected": [
+        "daniel_prophet_of_babylon",
+        "the_ancient_of_days",
+        "ministering_assembly_in_daniels_vision"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Daniel, a watchful prophet in a plain Babylonian tunic and cloak, gazing upward at the vision",
+        "action": "Thrones are being set into place as white radiance and fire gather at the center of the court, the Ancient of Days shown only as light, cloud and flame",
+        "setting": "A vast open heavenly court above Babylon's plain at night, with a fiery stream and burning wheels suggested in the light",
+        "secondaryElements": "Countless attendants in white linen filling the distant court, drifting cloud and smoke-like mist, rolling fire spread across the sky",
+        "mood": "Awed, reverent, still and expectant",
+        "timeOfDay": "Night vision lit by unearthly radiance, still luminous air",
+        "composition": "Daniel in the lower foreground looking up, the radiant central presence and thrones rising in the middle distance, the attendant host receding to the horizon",
+        "present": [
+          "daniel_prophet_of_babylon",
+          "the_ancient_of_days",
+          "ministering_assembly_in_daniels_vision"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img005",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img005.jpg",
+      "sha256": "aee6d5fb0d39b9f9c3b914a4cf5db9272767b8ff38bfa60de61ccd0fcf4f6a4a",
+      "verse": "revelation-4-6",
+      "verseText": "Before the throne was something like a sea of glass, similar to crystal. In the middle of the throne, and around the throne were four living creatures full of eyes before and behind.",
+      "selected": [
+        "heavenly_throne_room",
+        "four_living_creatures_revelation",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "john_the_seer_revelation",
+          "name": "John the seer (Revelation)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "four_living_creatures_revelation",
+          "name": "Four living creatures (Revelation)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "twenty_four_elders_of_revelation",
+          "name": "Twenty-four elders of Revelation",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "heavenly_throne_room",
+          "name": "Heavenly throne room",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Four living creatures standing around the central throne, their bodies covered in eyes front and back",
+        "action": "Stillness and watchful presence as the creatures surround the throne above the glassy sea",
+        "setting": "Heavenly throne room with a clear sea of crystal-like glass in the foreground",
+        "secondaryElements": "Rings of radiant cloud and light around the throne, faint luminous mist over the glassy sea reflecting the radiance",
+        "mood": "Reverent, awe-filled and still",
+        "timeOfDay": "Timeless heavenly day with unchanging clear light and no wind",
+        "composition": "Low wide view across the glassy sea toward the throne, creatures arranged around and before it, radiance filling the upper frame",
+        "present": [
+          "heavenly_throne_room",
+          "four_living_creatures_revelation",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img006",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img006.jpg",
+      "sha256": "991ff663fa6eeb1ca3488b4130c610a295dafbdcb187f4b43bffc7844ab34a64",
+      "verse": "ruth-4-22",
+      "verseText": "and Obed became the father of Jesse, and Jesse became the father of David.",
+      "selected": [
+        "naomi_s_house_in_bethlehem"
+      ],
+      "availableCast": [
+        {
+          "entryId": "ruth",
+          "name": "Ruth",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "boaz",
+          "name": "Boaz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "naomi",
+          "name": "Naomi",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "women_of_bethlehem",
+          "name": "Women of Bethlehem",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "naomi_s_house_in_bethlehem",
+          "name": "Naomi's house in Bethlehem",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The courtyard and doorway of Naomi's house as a quiet, empty space holding the weight of lineage",
+        "action": "No active event; the still stillness of the house suggests a line being remembered and carried forward",
+        "setting": "Naomi's modest house and courtyard in Bethlehem, mudbrick walls and stone, open doorway",
+        "secondaryElements": "Rolled, closed scrolls resting on a low shelf inside the doorway, a clay jar and woven mat in the courtyard",
+        "mood": "Quiet continuity, reverent and grounded, hope carried through generations",
+        "timeOfDay": "Late afternoon turning to evening, warm golden light through the doorway softening to amber",
+        "composition": "Frontal view through the open doorway into the courtyard, the threshold framing the space, no figures in the foreground",
+        "present": [
+          "naomi_s_house_in_bethlehem"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img007",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img007.jpg",
+      "sha256": "5277a15552ddc86543109effea94e09757870f64282f872288d5bafd3b5b2e69",
+      "verse": "psalms-23-2",
+      "verseText": "He makes me lie down in green pastures. He leads me beside still waters.",
+      "selected": [],
+      "availableCast": [
+        {
+          "entryId": "david_son_of_jesse_king_of_israel",
+          "name": "David son of Jesse (king of Israel)",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A flock of sheep lying down together on the green grass",
+        "action": "Sheep settling to rest in lush pasture while a shepherd stands watch nearby",
+        "setting": "Green hill pasture near a village in ancient Judah, with a still pool and a low stone enclosure",
+        "secondaryElements": "A shepherd in a simple undyed wool tunic and cloak with a staff, a still pool reflecting the sky, scattered sheep grazing",
+        "mood": "Peaceful, calm and restful, with quiet trust",
+        "timeOfDay": "Early morning, still cool air, light mist over the grass, soft golden sunrise light",
+        "composition": "Wide view from slightly above the hillside, the flock in the foreground and the still water and village beyond",
+        "present": []
+      },
+      "conditions": null
+    },
+    {
+      "id": "img008",
+      "batch": 4,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img008.jpg",
+      "sha256": "7f223d4f9008438d49445a33398dacb536705f6d74e4eea88b3cd72cd981114b",
+      "verse": "exodus-14-21",
+      "verseText": "Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.",
+      "selected": [
+        "moses",
+        "the_israelite_people_the_children_of_israel",
+        "red_sea",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses at the shore, arm extended over the parting sea, staff in hand",
+        "action": "The east wind drives the sea back, and the waters stand up on either side as the dry sea floor is revealed",
+        "setting": "Wide sea floor of dry sand and pooled water, walled by high dark water on both sides",
+        "secondaryElements": "Israelites in woven tunics and cloaks gathering at the edge of the dry ground; spray hanging in the wind; a faint pillar of cloud glowing with fire-light above the scene",
+        "mood": "Awe, tense anticipation and quiet trust amid danger",
+        "timeOfDay": "Night, with the wind holding into the first grey of dawn; moonlight broken on the walls of water",
+        "composition": "Wide view from the shore, Moses in the foreground at left with arm raised, the sea walls rising across the middle distance and the dry path opening toward the far shore",
+        "present": [
+          "moses",
+          "the_israelite_people_the_children_of_israel",
+          "red_sea",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img009",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img009.jpg",
+      "sha256": "3ac72621270c08056b48a04cb6c20b58ac5949377f76e4a3440d28c6c59f94fe",
+      "verse": "matthew-1-1",
+      "verseText": "The book of the genealogy of Jesus Christ, the son of David, the son of Abraham.",
+      "selected": [],
+      "availableCast": [],
+      "scene": {
+        "primarySubject": "A closed rolled papyrus scroll held up by a pair of hands at the centre of the square",
+        "action": "The scroll is lifted and set in place, its outer wrapping marked with the title, no one reading or speaking",
+        "setting": "A stone village square in Roman Judea with a synagogue and plain stone houses behind",
+        "secondaryElements": "A few passers-by in plain tunics pause at a distance; a Roman soldier stands far off on the road",
+        "mood": "Quiet, dignified anticipation",
+        "timeOfDay": "Midday, clear and dry with pale sky and light haze",
+        "composition": "Eye-level view across the square, scroll central in the foreground with buildings receding behind",
+        "present": []
+      },
+      "conditions": null
+    },
+    {
+      "id": "img010",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img010.jpg",
+      "sha256": "15093e7197eb3ae425c9d2645907dcc59c1af74415b421bd4c886be5aba84b21",
+      "verse": "matthew-27-35",
+      "verseText": "When they had crucified him, they divided his clothing among them, casting lots,",
+      "selected": [
+        "jesus_christ_the_son_of_god_and_lord",
+        "the_roman_soldiers",
+        "golgotha"
+      ],
+      "availableCast": [
+        {
+          "entryId": "simon_of_cyrene",
+          "name": "Simon of Cyrene",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_roman_soldiers",
+          "name": "The Roman soldiers",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "golgotha",
+          "name": "Golgotha",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Roman soldiers kneeling and crouching around a spread-out undyed tunic on the ground",
+        "action": "Soldiers toss lots and divide the garments among themselves at the base of the cross",
+        "setting": "Rocky hillside of Golgotha outside Jerusalem's walls, with a stone road and the distant city gate",
+        "secondaryElements": "Crosses with the crucified figure of Jesus above in the background, a few cloaks and a bundle of folded cloth on the stones, a soldier's spear leaning against a rock",
+        "mood": "Sober, grim and quietly tense, with detached indifference",
+        "timeOfDay": "Midday, hot clear sky with harsh bright sun beginning to dim",
+        "composition": "Low eye-level view from the ground near the soldiers, cross and figure rising in the upper background, garments in the foreground",
+        "present": [
+          "jesus_christ_the_son_of_god_and_lord",
+          "the_roman_soldiers",
+          "golgotha"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img011",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img011.jpg",
+      "sha256": "cb4a3d539abde362264492b552a992b52623ba1c11b26788d22ea7573c9202da",
+      "verse": "isaiah-6-2",
+      "verseText": "Above him stood the seraphim. Each one had six wings. With two he covered his face. With two he covered his feet. With two he flew.",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "seraphim",
+        "yahweh_s_house_in_jerusalem_the_temple",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah standing low in the temple hall, head bowed",
+        "action": "Two winged seraphim hover above him, each with six wings, two covering the face, two covering the feet, two in flight",
+        "setting": "High temple hall of cedar and stone with a raised sanctuary and columns",
+        "secondaryElements": "Radiant cloud and smoke filling the sanctuary, incense burner and altar fire on the floor, priestly attendants in linen at the edges",
+        "mood": "Awe, reverence and trembling humility",
+        "timeOfDay": "Early morning, light from high openings, still incense-heavy air",
+        "composition": "Low viewpoint from the floor looking up at the seraphim above Isaiah, the sanctuary glowing in the background",
+        "present": [
+          "isaiah_son_of_amoz",
+          "seraphim",
+          "yahweh_s_house_in_jerusalem_the_temple",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img012",
+      "batch": 4,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img012.jpg",
+      "sha256": "db4d472383a51b2d2efc35c9881df8cdbfffe69312e4291862f8f0332c016b0d",
+      "verse": "daniel-7-9",
+      "verseText": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "selected": [
+        "daniel_prophet_of_babylon",
+        "the_ancient_of_days",
+        "ministering_assembly_in_daniels_vision"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Daniel, a watchful prophet in a plain Babylonian tunic and cloak, gazing upward at the vision",
+        "action": "Thrones are being set into place as white radiance and fire gather at the center of the court, the Ancient of Days shown only as light, cloud and flame",
+        "setting": "A vast open heavenly court above Babylon's plain at night, with a fiery stream and burning wheels suggested in the light",
+        "secondaryElements": "Countless attendants in white linen filling the distant court, drifting cloud and smoke-like mist, rolling fire spread across the sky",
+        "mood": "Awed, reverent, still and expectant",
+        "timeOfDay": "Night vision lit by unearthly radiance, still luminous air",
+        "composition": "Daniel in the lower foreground looking up, the radiant central presence and thrones rising in the middle distance, the attendant host receding to the horizon",
+        "present": [
+          "daniel_prophet_of_babylon",
+          "the_ancient_of_days",
+          "ministering_assembly_in_daniels_vision"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img013",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img013.jpg",
+      "sha256": "14bd9e7692d66cf121273ba1add091bc25667f362b451c27d1b397d4deb55ea6",
+      "verse": "john-11-43",
+      "verseText": "When he had said this, he cried with a loud voice, “Lazarus, come out!”",
+      "selected": [
+        "jesus_christ_the_son_of_god_and_lord",
+        "lazarus_of_bethany",
+        "martha",
+        "crowd_in_john",
+        "joseph_of_arimathea_s_new_tomb"
+      ],
+      "availableCast": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "martha",
+          "name": "Martha",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "lazarus_of_bethany",
+          "name": "Lazarus of Bethany",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "crowd_in_john",
+          "name": "Crowd in John",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "joseph_of_arimathea_s_new_tomb",
+          "name": "Joseph of Arimathea's new tomb",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Jesus standing at the tomb entrance, arm lifted, face turned toward the dark opening.",
+        "action": "Jesus cries out in a loud voice, calling Lazarus forth from the tomb.",
+        "setting": "Rock-cut tomb entrance on a hillside outside Bethany, with a stone village beyond.",
+        "secondaryElements": "Martha standing near Jesus with her head bowed in expectation; a crowd of villagers and mourners gathered at a distance on the rocky slope; the dark tomb mouth with a stone rolled aside.",
+        "mood": "Tense, hushed expectancy with reverent awe.",
+        "timeOfDay": "Late afternoon, shifting toward dusk, clear dry air, warm low sunlight slanting across the rocky ground with deep shadow inside the tomb.",
+        "composition": "Wide view from the slope below, Jesus centered before the tomb mouth with Martha beside him and the crowd spread in the middle distance.",
+        "present": [
+          "jesus_christ_the_son_of_god_and_lord",
+          "lazarus_of_bethany",
+          "martha",
+          "crowd_in_john",
+          "joseph_of_arimathea_s_new_tomb"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img014",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img014.jpg",
+      "sha256": "8fe107025fe88924a05730c93093875cd7c9cb99c622128f458b8008efb0c33b",
+      "verse": "revelation-4-6",
+      "verseText": "Before the throne was something like a sea of glass, similar to crystal. In the middle of the throne, and around the throne were four living creatures full of eyes before and behind.",
+      "selected": [
+        "heavenly_throne_room",
+        "four_living_creatures_revelation",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "john_the_seer_revelation",
+          "name": "John the seer (Revelation)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "four_living_creatures_revelation",
+          "name": "Four living creatures (Revelation)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "twenty_four_elders_of_revelation",
+          "name": "Twenty-four elders of Revelation",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "heavenly_throne_room",
+          "name": "Heavenly throne room",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Four living creatures standing around the central throne, their bodies covered in eyes front and back",
+        "action": "Stillness and watchful presence as the creatures surround the throne above the glassy sea",
+        "setting": "Heavenly throne room with a clear sea of crystal-like glass in the foreground",
+        "secondaryElements": "Rings of radiant cloud and light around the throne, faint luminous mist over the glassy sea reflecting the radiance",
+        "mood": "Reverent, awe-filled and still",
+        "timeOfDay": "Timeless heavenly day with unchanging clear light and no wind",
+        "composition": "Low wide view across the glassy sea toward the throne, creatures arranged around and before it, radiance filling the upper frame",
+        "present": [
+          "heavenly_throne_room",
+          "four_living_creatures_revelation",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img015",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img015.jpg",
+      "sha256": "2fb3adf9a3106e697f02a5ec4b3c68c1551235af234ea77513d2c2eec3f7ab1d",
+      "verse": "genesis-1-3",
+      "verseText": "God said, “Let there be light,” and there was light.",
+      "selected": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiance and cloud breaking open over dark, formless waters, with no figure or form shown.",
+        "action": "Light spreading outward from beyond the frame, pushing back the dark over the deep.",
+        "setting": "Formless wild land and an unbounded deep of still waters, with no shape yet to the earth.",
+        "secondaryElements": "Faint glow reflecting on the water's surface; dark, shapeless mass of the deep receding at the edges.",
+        "mood": "Awe, stillness and the hush of a beginning.",
+        "timeOfDay": "Void darkness giving way to the first morning light; still air with no wind.",
+        "composition": "Wide view across the waters, with the light source at the upper edge of the frame and the dark deep filling the lower half.",
+        "present": [
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img016",
+      "batch": 4,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img016.jpg",
+      "sha256": "7e5745828e903b14a5a0369f576835cdf4868c290be1efacb044df9db38520cf",
+      "verse": "luke-15-20",
+      "verseText": "“He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.",
+      "selected": [
+        "the_younger_son",
+        "the_prodigal_s_father",
+        "galilee"
+      ],
+      "availableCast": [
+        {
+          "entryId": "the_younger_son",
+          "name": "the younger son",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_prodigal_s_father",
+          "name": "The prodigal's father",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "galilee",
+          "name": "Galilee",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The father running forward with robe lifted, arms outstretched; the younger son, travel-worn, pausing on the road.",
+        "action": "The father sprints toward his returning son, who has just seen him and stops in disbelief.",
+        "setting": "A dusty stone village road in Galilee leading to a farmstead courtyard, with terraced hills and a low stone wall.",
+        "secondaryElements": "A low stone wall along the road, a few distant farm buildings and an olive tree; no other figures needed.",
+        "mood": "Tender, urgent and overwhelmed with compassion and relief.",
+        "timeOfDay": "Late afternoon sliding into dusk, clear dry air with a light dust haze.",
+        "composition": "Wide view down the road, the father in the mid-foreground moving toward the son small in the distance, the path leading the eye between them.",
+        "present": [
+          "the_younger_son",
+          "the_prodigal_s_father",
+          "galilee"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img017",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img017.jpg",
+      "sha256": "69e1ab29d809616b2bcc908a081e689c7695be862471332475bfcab7b6188415",
+      "verse": "genesis-1-3",
+      "verseText": "God said, “Let there be light,” and there was light.",
+      "selected": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiance and cloud breaking open over dark, formless waters, with no figure or form shown.",
+        "action": "Light spreading outward from beyond the frame, pushing back the dark over the deep.",
+        "setting": "Formless wild land and an unbounded deep of still waters, with no shape yet to the earth.",
+        "secondaryElements": "Faint glow reflecting on the water's surface; dark, shapeless mass of the deep receding at the edges.",
+        "mood": "Awe, stillness and the hush of a beginning.",
+        "timeOfDay": "Void darkness giving way to the first morning light; still air with no wind.",
+        "composition": "Wide view across the waters, with the light source at the upper edge of the frame and the dark deep filling the lower half.",
+        "present": [
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img018",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img018.jpg",
+      "sha256": "a077ad07acba0e63e899da0dbf9f3c36a092d41d59bcc9f211fcb9b17cddb65d",
+      "verse": "john-11-43",
+      "verseText": "When he had said this, he cried with a loud voice, “Lazarus, come out!”",
+      "selected": [
+        "jesus_christ_the_son_of_god_and_lord",
+        "lazarus_of_bethany",
+        "martha",
+        "crowd_in_john",
+        "joseph_of_arimathea_s_new_tomb"
+      ],
+      "availableCast": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "martha",
+          "name": "Martha",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "lazarus_of_bethany",
+          "name": "Lazarus of Bethany",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "crowd_in_john",
+          "name": "Crowd in John",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "joseph_of_arimathea_s_new_tomb",
+          "name": "Joseph of Arimathea's new tomb",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Jesus standing at the tomb entrance, arm lifted, face turned toward the dark opening.",
+        "action": "Jesus cries out in a loud voice, calling Lazarus forth from the tomb.",
+        "setting": "Rock-cut tomb entrance on a hillside outside Bethany, with a stone village beyond.",
+        "secondaryElements": "Martha standing near Jesus with her head bowed in expectation; a crowd of villagers and mourners gathered at a distance on the rocky slope; the dark tomb mouth with a stone rolled aside.",
+        "mood": "Tense, hushed expectancy with reverent awe.",
+        "timeOfDay": "Late afternoon, shifting toward dusk, clear dry air, warm low sunlight slanting across the rocky ground with deep shadow inside the tomb.",
+        "composition": "Wide view from the slope below, Jesus centered before the tomb mouth with Martha beside him and the crowd spread in the middle distance.",
+        "present": [
+          "jesus_christ_the_son_of_god_and_lord",
+          "lazarus_of_bethany",
+          "martha",
+          "crowd_in_john",
+          "joseph_of_arimathea_s_new_tomb"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img019",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img019.jpg",
+      "sha256": "4f25394a6381960d43bd2961e35a9da74003a1ca737aa198093eafc1340445a9",
+      "verse": "genesis-1-3",
+      "verseText": "God said, “Let there be light,” and there was light.",
+      "selected": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiance and cloud breaking open over dark, formless waters, with no figure or form shown.",
+        "action": "Light spreading outward from beyond the frame, pushing back the dark over the deep.",
+        "setting": "Formless wild land and an unbounded deep of still waters, with no shape yet to the earth.",
+        "secondaryElements": "Faint glow reflecting on the water's surface; dark, shapeless mass of the deep receding at the edges.",
+        "mood": "Awe, stillness and the hush of a beginning.",
+        "timeOfDay": "Void darkness giving way to the first morning light; still air with no wind.",
+        "composition": "Wide view across the waters, with the light source at the upper edge of the frame and the dark deep filling the lower half.",
+        "present": [
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img020",
+      "batch": 4,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img020.jpg",
+      "sha256": "27421a233a3cbe1e520a371d3d2903f23eaf12a0283063b947e03580e69f480c",
+      "verse": "luke-15-20",
+      "verseText": "“He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.",
+      "selected": [
+        "the_younger_son",
+        "the_prodigal_s_father",
+        "galilee"
+      ],
+      "availableCast": [
+        {
+          "entryId": "the_younger_son",
+          "name": "the younger son",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_prodigal_s_father",
+          "name": "The prodigal's father",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "galilee",
+          "name": "Galilee",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The father running forward with robe lifted, arms outstretched; the younger son, travel-worn, pausing on the road.",
+        "action": "The father sprints toward his returning son, who has just seen him and stops in disbelief.",
+        "setting": "A dusty stone village road in Galilee leading to a farmstead courtyard, with terraced hills and a low stone wall.",
+        "secondaryElements": "A low stone wall along the road, a few distant farm buildings and an olive tree; no other figures needed.",
+        "mood": "Tender, urgent and overwhelmed with compassion and relief.",
+        "timeOfDay": "Late afternoon sliding into dusk, clear dry air with a light dust haze.",
+        "composition": "Wide view down the road, the father in the mid-foreground moving toward the son small in the distance, the path leading the eye between them.",
+        "present": [
+          "the_younger_son",
+          "the_prodigal_s_father",
+          "galilee"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img021",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img021.jpg",
+      "sha256": "7535b3878c90fd74d95a83875bebfe85235ccdad75848bec9547e538a7b003b5",
+      "verse": "matthew-1-1",
+      "verseText": "The book of the genealogy of Jesus Christ, the son of David, the son of Abraham.",
+      "selected": [],
+      "availableCast": [],
+      "scene": {
+        "primarySubject": "A closed rolled papyrus scroll held up by a pair of hands at the centre of the square",
+        "action": "The scroll is lifted and set in place, its outer wrapping marked with the title, no one reading or speaking",
+        "setting": "A stone village square in Roman Judea with a synagogue and plain stone houses behind",
+        "secondaryElements": "A few passers-by in plain tunics pause at a distance; a Roman soldier stands far off on the road",
+        "mood": "Quiet, dignified anticipation",
+        "timeOfDay": "Midday, clear and dry with pale sky and light haze",
+        "composition": "Eye-level view across the square, scroll central in the foreground with buildings receding behind",
+        "present": []
+      },
+      "conditions": null
+    },
+    {
+      "id": "img022",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img022.jpg",
+      "sha256": "d41a9092e6a15879a11fce6e6f34630376016abf26895bf5ccdd74c782596e50",
+      "verse": "matthew-27-35",
+      "verseText": "When they had crucified him, they divided his clothing among them, casting lots,",
+      "selected": [
+        "jesus_christ_the_son_of_god_and_lord",
+        "the_roman_soldiers",
+        "golgotha"
+      ],
+      "availableCast": [
+        {
+          "entryId": "simon_of_cyrene",
+          "name": "Simon of Cyrene",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_roman_soldiers",
+          "name": "The Roman soldiers",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "golgotha",
+          "name": "Golgotha",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Roman soldiers kneeling and crouching around a spread-out undyed tunic on the ground",
+        "action": "Soldiers toss lots and divide the garments among themselves at the base of the cross",
+        "setting": "Rocky hillside of Golgotha outside Jerusalem's walls, with a stone road and the distant city gate",
+        "secondaryElements": "Crosses with the crucified figure of Jesus above in the background, a few cloaks and a bundle of folded cloth on the stones, a soldier's spear leaning against a rock",
+        "mood": "Sober, grim and quietly tense, with detached indifference",
+        "timeOfDay": "Midday, hot clear sky with harsh bright sun beginning to dim",
+        "composition": "Low eye-level view from the ground near the soldiers, cross and figure rising in the upper background, garments in the foreground",
+        "present": [
+          "jesus_christ_the_son_of_god_and_lord",
+          "the_roman_soldiers",
+          "golgotha"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img023",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img023.jpg",
+      "sha256": "35003592ebb50355c8ef131d8ae8743488453a0418ce6fd7a747a7e3151b01d2",
+      "verse": "isaiah-6-2",
+      "verseText": "Above him stood the seraphim. Each one had six wings. With two he covered his face. With two he covered his feet. With two he flew.",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "seraphim",
+        "yahweh_s_house_in_jerusalem_the_temple",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah standing low in the temple hall, head bowed",
+        "action": "Two winged seraphim hover above him, each with six wings, two covering the face, two covering the feet, two in flight",
+        "setting": "High temple hall of cedar and stone with a raised sanctuary and columns",
+        "secondaryElements": "Radiant cloud and smoke filling the sanctuary, incense burner and altar fire on the floor, priestly attendants in linen at the edges",
+        "mood": "Awe, reverence and trembling humility",
+        "timeOfDay": "Early morning, light from high openings, still incense-heavy air",
+        "composition": "Low viewpoint from the floor looking up at the seraphim above Isaiah, the sanctuary glowing in the background",
+        "present": [
+          "isaiah_son_of_amoz",
+          "seraphim",
+          "yahweh_s_house_in_jerusalem_the_temple",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img024",
+      "batch": 4,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img024.jpg",
+      "sha256": "43f91b4fda2fe86a685d59861df6f8af383a1e97c86f4027deebd13a83b8b4a5",
+      "verse": "daniel-7-9",
+      "verseText": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "selected": [
+        "daniel_prophet_of_babylon",
+        "the_ancient_of_days",
+        "ministering_assembly_in_daniels_vision"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Daniel, a watchful prophet in a plain Babylonian tunic and cloak, gazing upward at the vision",
+        "action": "Thrones are being set into place as white radiance and fire gather at the center of the court, the Ancient of Days shown only as light, cloud and flame",
+        "setting": "A vast open heavenly court above Babylon's plain at night, with a fiery stream and burning wheels suggested in the light",
+        "secondaryElements": "Countless attendants in white linen filling the distant court, drifting cloud and smoke-like mist, rolling fire spread across the sky",
+        "mood": "Awed, reverent, still and expectant",
+        "timeOfDay": "Night vision lit by unearthly radiance, still luminous air",
+        "composition": "Daniel in the lower foreground looking up, the radiant central presence and thrones rising in the middle distance, the attendant host receding to the horizon",
+        "present": [
+          "daniel_prophet_of_babylon",
+          "the_ancient_of_days",
+          "ministering_assembly_in_daniels_vision"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img025",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img025.jpg",
+      "sha256": "281441ba0b3c340c4e1424b6591cfa0abcf08a46173d7d3d5e9c511231a6c35c",
+      "verse": "matthew-27-35",
+      "verseText": "When they had crucified him, they divided his clothing among them, casting lots,",
+      "selected": [
+        "jesus_christ_the_son_of_god_and_lord",
+        "the_roman_soldiers",
+        "golgotha"
+      ],
+      "availableCast": [
+        {
+          "entryId": "simon_of_cyrene",
+          "name": "Simon of Cyrene",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_roman_soldiers",
+          "name": "The Roman soldiers",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "golgotha",
+          "name": "Golgotha",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Roman soldiers kneeling and crouching around a spread-out undyed tunic on the ground",
+        "action": "Soldiers toss lots and divide the garments among themselves at the base of the cross",
+        "setting": "Rocky hillside of Golgotha outside Jerusalem's walls, with a stone road and the distant city gate",
+        "secondaryElements": "Crosses with the crucified figure of Jesus above in the background, a few cloaks and a bundle of folded cloth on the stones, a soldier's spear leaning against a rock",
+        "mood": "Sober, grim and quietly tense, with detached indifference",
+        "timeOfDay": "Midday, hot clear sky with harsh bright sun beginning to dim",
+        "composition": "Low eye-level view from the ground near the soldiers, cross and figure rising in the upper background, garments in the foreground",
+        "present": [
+          "jesus_christ_the_son_of_god_and_lord",
+          "the_roman_soldiers",
+          "golgotha"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img026",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img026.jpg",
+      "sha256": "03521a7f9b963edcc05bfa143ad4bbbd6c0bac15dce65febd73f274f5f2c31e3",
+      "verse": "matthew-27-35",
+      "verseText": "When they had crucified him, they divided his clothing among them, casting lots,",
+      "selected": [
+        "jesus_christ_the_son_of_god_and_lord",
+        "the_roman_soldiers",
+        "golgotha"
+      ],
+      "availableCast": [
+        {
+          "entryId": "simon_of_cyrene",
+          "name": "Simon of Cyrene",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_roman_soldiers",
+          "name": "The Roman soldiers",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "golgotha",
+          "name": "Golgotha",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Roman soldiers kneeling and crouching around a spread-out undyed tunic on the ground",
+        "action": "Soldiers toss lots and divide the garments among themselves at the base of the cross",
+        "setting": "Rocky hillside of Golgotha outside Jerusalem's walls, with a stone road and the distant city gate",
+        "secondaryElements": "Crosses with the crucified figure of Jesus above in the background, a few cloaks and a bundle of folded cloth on the stones, a soldier's spear leaning against a rock",
+        "mood": "Sober, grim and quietly tense, with detached indifference",
+        "timeOfDay": "Midday, hot clear sky with harsh bright sun beginning to dim",
+        "composition": "Low eye-level view from the ground near the soldiers, cross and figure rising in the upper background, garments in the foreground",
+        "present": [
+          "jesus_christ_the_son_of_god_and_lord",
+          "the_roman_soldiers",
+          "golgotha"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img027",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img027.jpg",
+      "sha256": "a236dd7f6e4166f9ca063e39c48370390207ec9c80bcc8af94832a744bd7ca61",
+      "verse": "matthew-1-1",
+      "verseText": "The book of the genealogy of Jesus Christ, the son of David, the son of Abraham.",
+      "selected": [],
+      "availableCast": [],
+      "scene": {
+        "primarySubject": "A closed rolled papyrus scroll held up by a pair of hands at the centre of the square",
+        "action": "The scroll is lifted and set in place, its outer wrapping marked with the title, no one reading or speaking",
+        "setting": "A stone village square in Roman Judea with a synagogue and plain stone houses behind",
+        "secondaryElements": "A few passers-by in plain tunics pause at a distance; a Roman soldier stands far off on the road",
+        "mood": "Quiet, dignified anticipation",
+        "timeOfDay": "Midday, clear and dry with pale sky and light haze",
+        "composition": "Eye-level view across the square, scroll central in the foreground with buildings receding behind",
+        "present": []
+      },
+      "conditions": null
+    },
+    {
+      "id": "img028",
+      "batch": 4,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img028.jpg",
+      "sha256": "95d806063b147563dbf3f93c4d709cdf969002f7c276f409bd137e75b303bc60",
+      "verse": "john-11-43",
+      "verseText": "When he had said this, he cried with a loud voice, “Lazarus, come out!”",
+      "selected": [
+        "jesus_christ_the_son_of_god_and_lord",
+        "lazarus_of_bethany",
+        "martha",
+        "crowd_in_john",
+        "joseph_of_arimathea_s_new_tomb"
+      ],
+      "availableCast": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "martha",
+          "name": "Martha",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "lazarus_of_bethany",
+          "name": "Lazarus of Bethany",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "crowd_in_john",
+          "name": "Crowd in John",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "joseph_of_arimathea_s_new_tomb",
+          "name": "Joseph of Arimathea's new tomb",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Jesus standing at the tomb entrance, arm lifted, face turned toward the dark opening.",
+        "action": "Jesus cries out in a loud voice, calling Lazarus forth from the tomb.",
+        "setting": "Rock-cut tomb entrance on a hillside outside Bethany, with a stone village beyond.",
+        "secondaryElements": "Martha standing near Jesus with her head bowed in expectation; a crowd of villagers and mourners gathered at a distance on the rocky slope; the dark tomb mouth with a stone rolled aside.",
+        "mood": "Tense, hushed expectancy with reverent awe.",
+        "timeOfDay": "Late afternoon, shifting toward dusk, clear dry air, warm low sunlight slanting across the rocky ground with deep shadow inside the tomb.",
+        "composition": "Wide view from the slope below, Jesus centered before the tomb mouth with Martha beside him and the crowd spread in the middle distance.",
+        "present": [
+          "jesus_christ_the_son_of_god_and_lord",
+          "lazarus_of_bethany",
+          "martha",
+          "crowd_in_john",
+          "joseph_of_arimathea_s_new_tomb"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img029",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img029.jpg",
+      "sha256": "e47cc74da972ecea454e44c5f9d4dd179ae1c22547e5cff0fe1834d33700a8f3",
+      "verse": "ruth-4-22",
+      "verseText": "and Obed became the father of Jesse, and Jesse became the father of David.",
+      "selected": [
+        "naomi_s_house_in_bethlehem"
+      ],
+      "availableCast": [
+        {
+          "entryId": "ruth",
+          "name": "Ruth",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "boaz",
+          "name": "Boaz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "naomi",
+          "name": "Naomi",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "women_of_bethlehem",
+          "name": "Women of Bethlehem",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "naomi_s_house_in_bethlehem",
+          "name": "Naomi's house in Bethlehem",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The courtyard and doorway of Naomi's house as a quiet, empty space holding the weight of lineage",
+        "action": "No active event; the still stillness of the house suggests a line being remembered and carried forward",
+        "setting": "Naomi's modest house and courtyard in Bethlehem, mudbrick walls and stone, open doorway",
+        "secondaryElements": "Rolled, closed scrolls resting on a low shelf inside the doorway, a clay jar and woven mat in the courtyard",
+        "mood": "Quiet continuity, reverent and grounded, hope carried through generations",
+        "timeOfDay": "Late afternoon turning to evening, warm golden light through the doorway softening to amber",
+        "composition": "Frontal view through the open doorway into the courtyard, the threshold framing the space, no figures in the foreground",
+        "present": [
+          "naomi_s_house_in_bethlehem"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img030",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img030.jpg",
+      "sha256": "f2216505a8022bb77fb6632c85ea89f236b7d8fea5542c08d8c7e3e26fb92ee7",
+      "verse": "exodus-14-21",
+      "verseText": "Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.",
+      "selected": [
+        "moses",
+        "the_israelite_people_the_children_of_israel",
+        "red_sea",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses at the shore, arm extended over the parting sea, staff in hand",
+        "action": "The east wind drives the sea back, and the waters stand up on either side as the dry sea floor is revealed",
+        "setting": "Wide sea floor of dry sand and pooled water, walled by high dark water on both sides",
+        "secondaryElements": "Israelites in woven tunics and cloaks gathering at the edge of the dry ground; spray hanging in the wind; a faint pillar of cloud glowing with fire-light above the scene",
+        "mood": "Awe, tense anticipation and quiet trust amid danger",
+        "timeOfDay": "Night, with the wind holding into the first grey of dawn; moonlight broken on the walls of water",
+        "composition": "Wide view from the shore, Moses in the foreground at left with arm raised, the sea walls rising across the middle distance and the dry path opening toward the far shore",
+        "present": [
+          "moses",
+          "the_israelite_people_the_children_of_israel",
+          "red_sea",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img031",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img031.jpg",
+      "sha256": "326e7ac882b5721cb8a5cc822b86c2833b08ace8e3a89a6fad8d979e4efd5b9a",
+      "verse": "revelation-4-6",
+      "verseText": "Before the throne was something like a sea of glass, similar to crystal. In the middle of the throne, and around the throne were four living creatures full of eyes before and behind.",
+      "selected": [
+        "heavenly_throne_room",
+        "four_living_creatures_revelation",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "john_the_seer_revelation",
+          "name": "John the seer (Revelation)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "four_living_creatures_revelation",
+          "name": "Four living creatures (Revelation)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "twenty_four_elders_of_revelation",
+          "name": "Twenty-four elders of Revelation",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "heavenly_throne_room",
+          "name": "Heavenly throne room",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Four living creatures standing around the central throne, their bodies covered in eyes front and back",
+        "action": "Stillness and watchful presence as the creatures surround the throne above the glassy sea",
+        "setting": "Heavenly throne room with a clear sea of crystal-like glass in the foreground",
+        "secondaryElements": "Rings of radiant cloud and light around the throne, faint luminous mist over the glassy sea reflecting the radiance",
+        "mood": "Reverent, awe-filled and still",
+        "timeOfDay": "Timeless heavenly day with unchanging clear light and no wind",
+        "composition": "Low wide view across the glassy sea toward the throne, creatures arranged around and before it, radiance filling the upper frame",
+        "present": [
+          "heavenly_throne_room",
+          "four_living_creatures_revelation",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img032",
+      "batch": 4,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img032.jpg",
+      "sha256": "d8cf36449712655373dd524dd08585d9ad52675484f600fbf486059bf4f6adc7",
+      "verse": "matthew-1-1",
+      "verseText": "The book of the genealogy of Jesus Christ, the son of David, the son of Abraham.",
+      "selected": [],
+      "availableCast": [],
+      "scene": {
+        "primarySubject": "A closed rolled papyrus scroll held up by a pair of hands at the centre of the square",
+        "action": "The scroll is lifted and set in place, its outer wrapping marked with the title, no one reading or speaking",
+        "setting": "A stone village square in Roman Judea with a synagogue and plain stone houses behind",
+        "secondaryElements": "A few passers-by in plain tunics pause at a distance; a Roman soldier stands far off on the road",
+        "mood": "Quiet, dignified anticipation",
+        "timeOfDay": "Midday, clear and dry with pale sky and light haze",
+        "composition": "Eye-level view across the square, scroll central in the foreground with buildings receding behind",
+        "present": []
+      },
+      "conditions": null
+    },
+    {
+      "id": "img033",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img033.jpg",
+      "sha256": "d24c5423d9fc0b061cc8f14fac42ecda7774cebca1dd1a167aeab40ef59f9c1f",
+      "verse": "1-samuel-17-49",
+      "verseText": "David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.",
+      "selected": [
+        "david_son_of_jesse_king_of_israel",
+        "goliath",
+        "valley_of_elah",
+        "philistines"
+      ],
+      "availableCast": [
+        {
+          "entryId": "david_son_of_jesse_king_of_israel",
+          "name": "David son of Jesse (king of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "goliath",
+          "name": "Goliath",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "saul",
+          "name": "Saul",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "abner_son_of_ner",
+          "name": "Abner son of Ner",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "philistines",
+          "name": "Philistines",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "valley_of_elah",
+          "name": "Valley of Elah",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "gath_philistine_city",
+          "name": "Gath (Philistine city)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "David, a young shepherd in a tunic, standing with his sling still swinging low at his side after the release.",
+        "action": "The stone has just struck Goliath's forehead, and the giant is toppling forward, face first, toward the dry earth.",
+        "setting": "Dry wadi floor of the Valley of Elah, scattered stones and scrub, open ground between the two battle lines.",
+        "secondaryElements": "Goliath in bronze scale armor and helmet, falling; Philistine soldiers in the distance at a standstill; Israelite soldiers watching from their ridge.",
+        "mood": "Tense, sudden and awe-struck, with grief and hope held in a single breath.",
+        "timeOfDay": "Midday, bright sun, clear dry air, harsh direct light casting short shadows.",
+        "composition": "Wide view from the side at ground level, David small but central on the left, Goliath mid-fall on the right, the valley stretching behind both.",
+        "present": [
+          "david_son_of_jesse_king_of_israel",
+          "goliath",
+          "valley_of_elah",
+          "philistines"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img034",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img034.jpg",
+      "sha256": "1e476ee5188cca32ff4d53bf3b0d34a2e1c46d8068d05e1663edcd2d0e3c84e0",
+      "verse": "ruth-4-22",
+      "verseText": "and Obed became the father of Jesse, and Jesse became the father of David.",
+      "selected": [
+        "naomi_s_house_in_bethlehem"
+      ],
+      "availableCast": [
+        {
+          "entryId": "ruth",
+          "name": "Ruth",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "boaz",
+          "name": "Boaz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "naomi",
+          "name": "Naomi",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "women_of_bethlehem",
+          "name": "Women of Bethlehem",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "naomi_s_house_in_bethlehem",
+          "name": "Naomi's house in Bethlehem",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The courtyard and doorway of Naomi's house as a quiet, empty space holding the weight of lineage",
+        "action": "No active event; the still stillness of the house suggests a line being remembered and carried forward",
+        "setting": "Naomi's modest house and courtyard in Bethlehem, mudbrick walls and stone, open doorway",
+        "secondaryElements": "Rolled, closed scrolls resting on a low shelf inside the doorway, a clay jar and woven mat in the courtyard",
+        "mood": "Quiet continuity, reverent and grounded, hope carried through generations",
+        "timeOfDay": "Late afternoon turning to evening, warm golden light through the doorway softening to amber",
+        "composition": "Frontal view through the open doorway into the courtyard, the threshold framing the space, no figures in the foreground",
+        "present": [
+          "naomi_s_house_in_bethlehem"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img035",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img035.jpg",
+      "sha256": "aa0799ef9e42278000ff9cb5d7420276832d8d1509cb4eda1d6cf7192cf7bd93",
+      "verse": "psalms-23-2",
+      "verseText": "He makes me lie down in green pastures. He leads me beside still waters.",
+      "selected": [],
+      "availableCast": [
+        {
+          "entryId": "david_son_of_jesse_king_of_israel",
+          "name": "David son of Jesse (king of Israel)",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A flock of sheep lying down together on the green grass",
+        "action": "Sheep settling to rest in lush pasture while a shepherd stands watch nearby",
+        "setting": "Green hill pasture near a village in ancient Judah, with a still pool and a low stone enclosure",
+        "secondaryElements": "A shepherd in a simple undyed wool tunic and cloak with a staff, a still pool reflecting the sky, scattered sheep grazing",
+        "mood": "Peaceful, calm and restful, with quiet trust",
+        "timeOfDay": "Early morning, still cool air, light mist over the grass, soft golden sunrise light",
+        "composition": "Wide view from slightly above the hillside, the flock in the foreground and the still water and village beyond",
+        "present": []
+      },
+      "conditions": null
+    },
+    {
+      "id": "img036",
+      "batch": 4,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img036.jpg",
+      "sha256": "77e3cc5877f8be94953c347d1ea05a940ebb94558d8e60d37db274b056376025",
+      "verse": "matthew-1-1",
+      "verseText": "The book of the genealogy of Jesus Christ, the son of David, the son of Abraham.",
+      "selected": [],
+      "availableCast": [],
+      "scene": {
+        "primarySubject": "A closed rolled papyrus scroll held up by a pair of hands at the centre of the square",
+        "action": "The scroll is lifted and set in place, its outer wrapping marked with the title, no one reading or speaking",
+        "setting": "A stone village square in Roman Judea with a synagogue and plain stone houses behind",
+        "secondaryElements": "A few passers-by in plain tunics pause at a distance; a Roman soldier stands far off on the road",
+        "mood": "Quiet, dignified anticipation",
+        "timeOfDay": "Midday, clear and dry with pale sky and light haze",
+        "composition": "Eye-level view across the square, scroll central in the foreground with buildings receding behind",
+        "present": []
+      },
+      "conditions": null
+    },
+    {
+      "id": "img037",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img037.jpg",
+      "sha256": "6270c51ef9c384f10752db21e8e0a2bc4a3400d4e4217a298dd0739c08a72b84",
+      "verse": "1-samuel-17-49",
+      "verseText": "David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.",
+      "selected": [
+        "david_son_of_jesse_king_of_israel",
+        "goliath",
+        "valley_of_elah",
+        "philistines"
+      ],
+      "availableCast": [
+        {
+          "entryId": "david_son_of_jesse_king_of_israel",
+          "name": "David son of Jesse (king of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "goliath",
+          "name": "Goliath",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "saul",
+          "name": "Saul",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "abner_son_of_ner",
+          "name": "Abner son of Ner",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "philistines",
+          "name": "Philistines",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "valley_of_elah",
+          "name": "Valley of Elah",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "gath_philistine_city",
+          "name": "Gath (Philistine city)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "David, a young shepherd in a tunic, standing with his sling still swinging low at his side after the release.",
+        "action": "The stone has just struck Goliath's forehead, and the giant is toppling forward, face first, toward the dry earth.",
+        "setting": "Dry wadi floor of the Valley of Elah, scattered stones and scrub, open ground between the two battle lines.",
+        "secondaryElements": "Goliath in bronze scale armor and helmet, falling; Philistine soldiers in the distance at a standstill; Israelite soldiers watching from their ridge.",
+        "mood": "Tense, sudden and awe-struck, with grief and hope held in a single breath.",
+        "timeOfDay": "Midday, bright sun, clear dry air, harsh direct light casting short shadows.",
+        "composition": "Wide view from the side at ground level, David small but central on the left, Goliath mid-fall on the right, the valley stretching behind both.",
+        "present": [
+          "david_son_of_jesse_king_of_israel",
+          "goliath",
+          "valley_of_elah",
+          "philistines"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img038",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img038.jpg",
+      "sha256": "4fd3c75b58083d7f55de6e9bfc09dd467f50683a5b9f0b32e6c9d6fb8e876ddf",
+      "verse": "luke-15-20",
+      "verseText": "“He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.",
+      "selected": [
+        "the_younger_son",
+        "the_prodigal_s_father",
+        "galilee"
+      ],
+      "availableCast": [
+        {
+          "entryId": "the_younger_son",
+          "name": "the younger son",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_prodigal_s_father",
+          "name": "The prodigal's father",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "galilee",
+          "name": "Galilee",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The father running forward with robe lifted, arms outstretched; the younger son, travel-worn, pausing on the road.",
+        "action": "The father sprints toward his returning son, who has just seen him and stops in disbelief.",
+        "setting": "A dusty stone village road in Galilee leading to a farmstead courtyard, with terraced hills and a low stone wall.",
+        "secondaryElements": "A low stone wall along the road, a few distant farm buildings and an olive tree; no other figures needed.",
+        "mood": "Tender, urgent and overwhelmed with compassion and relief.",
+        "timeOfDay": "Late afternoon sliding into dusk, clear dry air with a light dust haze.",
+        "composition": "Wide view down the road, the father in the mid-foreground moving toward the son small in the distance, the path leading the eye between them.",
+        "present": [
+          "the_younger_son",
+          "the_prodigal_s_father",
+          "galilee"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img039",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img039.jpg",
+      "sha256": "9fd1e930cd9de1801ad807361e482c90cb3d581f3c37fbf135fe718cf328700e",
+      "verse": "1-samuel-17-49",
+      "verseText": "David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.",
+      "selected": [
+        "david_son_of_jesse_king_of_israel",
+        "goliath",
+        "valley_of_elah",
+        "philistines"
+      ],
+      "availableCast": [
+        {
+          "entryId": "david_son_of_jesse_king_of_israel",
+          "name": "David son of Jesse (king of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "goliath",
+          "name": "Goliath",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "saul",
+          "name": "Saul",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "abner_son_of_ner",
+          "name": "Abner son of Ner",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "philistines",
+          "name": "Philistines",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "valley_of_elah",
+          "name": "Valley of Elah",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "gath_philistine_city",
+          "name": "Gath (Philistine city)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "David, a young shepherd in a tunic, standing with his sling still swinging low at his side after the release.",
+        "action": "The stone has just struck Goliath's forehead, and the giant is toppling forward, face first, toward the dry earth.",
+        "setting": "Dry wadi floor of the Valley of Elah, scattered stones and scrub, open ground between the two battle lines.",
+        "secondaryElements": "Goliath in bronze scale armor and helmet, falling; Philistine soldiers in the distance at a standstill; Israelite soldiers watching from their ridge.",
+        "mood": "Tense, sudden and awe-struck, with grief and hope held in a single breath.",
+        "timeOfDay": "Midday, bright sun, clear dry air, harsh direct light casting short shadows.",
+        "composition": "Wide view from the side at ground level, David small but central on the left, Goliath mid-fall on the right, the valley stretching behind both.",
+        "present": [
+          "david_son_of_jesse_king_of_israel",
+          "goliath",
+          "valley_of_elah",
+          "philistines"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img040",
+      "batch": 4,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img040.jpg",
+      "sha256": "3b596dcdef6f0630aaa06175ba6025609aaf3f50e77ca0ff1430524151873e30",
+      "verse": "1-samuel-17-49",
+      "verseText": "David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.",
+      "selected": [
+        "david_son_of_jesse_king_of_israel",
+        "goliath",
+        "valley_of_elah",
+        "philistines"
+      ],
+      "availableCast": [
+        {
+          "entryId": "david_son_of_jesse_king_of_israel",
+          "name": "David son of Jesse (king of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "goliath",
+          "name": "Goliath",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "saul",
+          "name": "Saul",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "abner_son_of_ner",
+          "name": "Abner son of Ner",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "philistines",
+          "name": "Philistines",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "valley_of_elah",
+          "name": "Valley of Elah",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "gath_philistine_city",
+          "name": "Gath (Philistine city)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "David, a young shepherd in a tunic, standing with his sling still swinging low at his side after the release.",
+        "action": "The stone has just struck Goliath's forehead, and the giant is toppling forward, face first, toward the dry earth.",
+        "setting": "Dry wadi floor of the Valley of Elah, scattered stones and scrub, open ground between the two battle lines.",
+        "secondaryElements": "Goliath in bronze scale armor and helmet, falling; Philistine soldiers in the distance at a standstill; Israelite soldiers watching from their ridge.",
+        "mood": "Tense, sudden and awe-struck, with grief and hope held in a single breath.",
+        "timeOfDay": "Midday, bright sun, clear dry air, harsh direct light casting short shadows.",
+        "composition": "Wide view from the side at ground level, David small but central on the left, Goliath mid-fall on the right, the valley stretching behind both.",
+        "present": [
+          "david_son_of_jesse_king_of_israel",
+          "goliath",
+          "valley_of_elah",
+          "philistines"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img041",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img041.jpg",
+      "sha256": "207803a6c333d8c724c255bdb2f59b7c3e50e95eef712fe357f7a47361249b5a",
+      "verse": "ruth-4-22",
+      "verseText": "and Obed became the father of Jesse, and Jesse became the father of David.",
+      "selected": [
+        "naomi_s_house_in_bethlehem"
+      ],
+      "availableCast": [
+        {
+          "entryId": "ruth",
+          "name": "Ruth",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "boaz",
+          "name": "Boaz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "naomi",
+          "name": "Naomi",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "women_of_bethlehem",
+          "name": "Women of Bethlehem",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "naomi_s_house_in_bethlehem",
+          "name": "Naomi's house in Bethlehem",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The courtyard and doorway of Naomi's house as a quiet, empty space holding the weight of lineage",
+        "action": "No active event; the still stillness of the house suggests a line being remembered and carried forward",
+        "setting": "Naomi's modest house and courtyard in Bethlehem, mudbrick walls and stone, open doorway",
+        "secondaryElements": "Rolled, closed scrolls resting on a low shelf inside the doorway, a clay jar and woven mat in the courtyard",
+        "mood": "Quiet continuity, reverent and grounded, hope carried through generations",
+        "timeOfDay": "Late afternoon turning to evening, warm golden light through the doorway softening to amber",
+        "composition": "Frontal view through the open doorway into the courtyard, the threshold framing the space, no figures in the foreground",
+        "present": [
+          "naomi_s_house_in_bethlehem"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img042",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-style-bakeoff/blind/img042.jpg",
+      "sha256": "23691a1b8ac2fa2d7c87305ed71dd72cf7f5891944c106b2fb16c66be017a37b",
+      "verse": "genesis-1-3",
+      "verseText": "God said, “Let there be light,” and there was light.",
+      "selected": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiance and cloud breaking open over dark, formless waters, with no figure or form shown.",
+        "action": "Light spreading outward from beyond the frame, pushing back the dark over the deep.",
+        "setting": "Formless wild land and an unbounded deep of still waters, with no shape yet to the earth.",
+        "secondaryElements": "Faint glow reflecting on the water's surface; dark, shapeless mass of the deep receding at the edges.",
+        "mood": "Awe, stillness and the hush of a beginning.",
+        "timeOfDay": "Void darkness giving way to the first morning light; still air with no wind.",
+        "composition": "Wide view across the waters, with the light source at the upper edge of the frame and the dark deep filling the lower half.",
+        "present": [
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    }
+  ]
+}
