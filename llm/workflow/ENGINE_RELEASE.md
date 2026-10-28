@@ -65,7 +65,7 @@ Before the cutoff:
 1. Run the inventory against production and keep it as evidence ([28 October](../releases/2026-10-28-legacy-retirement/inventory-before-cutoff.json): no accepted legacy obligations, no bulk jobs).
 2. Set the switch and redeploy.
 3. Confirm `/api/image-models` and the logs.
-4. Re-run the inventory to show nothing new was admitted on legacy.
+4. Confirm nothing new was admitted on legacy. After the cutoff time, the production logs must show no `engine_admission` event with `engine: legacy` (`npx vercel logs --environment production --since <cutoff> --json`). The inventory must still show no legacy request in flight or queued. The inventory alone is not proof: it counts current statuses, so a new request that finished would not show.
 
 After the cutoff, `GENERIC_ENGINE_MODE=disabled` is no longer a rollback that keeps Classical working: with both engines closed, no new images are made. The remaining recovery options are:
 - Unset `LEGACY_ENGINE`, which restores the legacy engine while its code still ships.
