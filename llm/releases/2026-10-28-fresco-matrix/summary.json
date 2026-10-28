@@ -1,0 +1,49 @@
+{
+  "fresco": {
+    "shown": 33,
+    "acceptable": 24,
+    "firstAttemptAcceptable": 23,
+    "retries": 3,
+    "faultsInFlawedShown": {
+      "frame": 1,
+      "incoherent": 4,
+      "scene partly": 5,
+      "lettering": 2
+    },
+    "perCase": {
+      "joshua-6-20": "ok",
+      "ezekiel-37-4": "ok",
+      "song-of-solomon-2-1": "ok",
+      "revelation-21-1": "ok",
+      "isaiah-11-6": "ok",
+      "luke-15-20": "ok",
+      "ruth-4-22": "ok",
+      "genesis-19-24": "ok",
+      "mark-4-39": "ok",
+      "matthew-14-29": "uncertain",
+      "john-21-7": "ok",
+      "2-kings-2-23": "ok",
+      "genesis-1-3": "frame",
+      "1-samuel-17-49": "incoherent+scene partly",
+      "daniel-7-9": "ok",
+      "job-38-4": "ok",
+      "psalms-137-1": "ok",
+      "matthew-1-1": "ok",
+      "matthew-27-35": "incoherent+scene partly",
+      "revelation-4-6": "lettering",
+      "isaiah-6-2": "incoherent+scene partly",
+      "romans-8-28": "ok",
+      "exodus-14-22": "ok",
+      "genesis-22-10": "incoherent+scene partly",
+      "leviticus-11-7": "ok",
+      "genesis-5-5": "ok",
+      "jonah-1-17": "ok",
+      "daniel-6-22": "scene partly",
+      "exodus-14-21": "ok",
+      "judges-19-29": "ok",
+      "acts-9-3": "ok",
+      "john-11-43": "ok",
+      "psalms-23-2": "lettering"
+    }
+  }
+}

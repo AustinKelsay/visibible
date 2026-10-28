@@ -12,7 +12,7 @@ import {
 describe("shared art styles", () => {
   it("registers the approved canonical IDs and labels while retaining the legacy default ID", () => {
     expect(SHARED_STYLES.styles.map(({ id, label }) => [id, label])).toEqual([
-      ["classical", "Classical"], ["watercolor", "Ink & Watercolor"], ["icon", "Byzantine Icon"],
+      ["classical", "Classical"], ["watercolor", "Ink & Watercolor"], ["fresco", "Fresco"], ["icon", "Byzantine Icon"],
     ]);
     expect(SHARED_STYLES.get(DEFAULT_STYLE_PROFILE).id).toBe(STYLE_PROFILES.classical.id);
     expect(() => SHARED_STYLES.get("watercolour")).toThrow("Unknown art style");

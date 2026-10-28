@@ -5,7 +5,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
-import { selectionReply, withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { selectionReply, withCurrentLookMarker, withGrounding } from "../../../tests/fixtures/scene-grounding";
 import { reviewReply } from "../../../tests/fixtures/plan-review";
 import { prepareMoment, PreparationUnavailableError, type AnalysisRecord, type PreparationStore } from "../engine/preparation";
 import { invalidReview, type ReviewInput } from "../engine/plan-review";
@@ -16,7 +16,7 @@ import type { TextModel, TextModelRequest } from "../reading-pass/model";
 const repair = new URL("../../../llm/releases/2026-10-22-luke-cast-repair/", import.meta.url);
 const rateCheck = new URL("../../../llm/releases/2026-10-23-grounding-rate-check/", import.meta.url);
 const snapshot = JSON.parse(readFileSync(new URL("final.json", repair), "utf8")) as { records: Array<{ record: AnalysisRecord | null }> };
-const records0 = snapshot.records.flatMap(({ record }) => record ? [record] : []);
+const records0 = snapshot.records.flatMap(({ record }) => record ? [withCurrentLookMarker(record)] : []);
 const find = (kind: string, id: string) => records0.find((r) => r.kind === kind && r.recordId === id)!;
 const lukeCast = (find("section", "luke-10-25").payload as unknown as { cast: Array<{ entryId: string }> }).cast.map((c) => c.entryId);
 const samaritan = "the_samaritan", wounded = "wounded_traveler_in_samaritan_parable", mount = "samaritans_mount_in_parable";

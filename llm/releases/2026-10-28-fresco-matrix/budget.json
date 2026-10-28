@@ -1,0 +1,27 @@
+{
+  "allowance": "evaluation",
+  "authorizedUsd": 39,
+  "increaseUsd": 0,
+  "measuredBeforeUsd": 36.3070088,
+  "operationCapUsd": 1.8,
+  "byKind": {
+    "text": {
+      "calls": 126,
+      "measuredUsd": 0.0532874
+    },
+    "image": {
+      "calls": 36,
+      "measuredUsd": 1.224685
+    },
+    "check": {
+      "calls": 72,
+      "measuredUsd": 0.0223696
+    }
+  },
+  "operationMeasuredUsd": 1.300342,
+  "operationUncertainUsd": 0,
+  "measuredAfterUsd": 37.6073508,
+  "retainedUncertaintyUsd": 0.059,
+  "remainingUsd": 1.3336492,
+  "transfers": 0
+}

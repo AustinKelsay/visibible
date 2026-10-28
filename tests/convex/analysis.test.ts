@@ -3,6 +3,7 @@
  * stale dependents, references and attention, exercised through the Convex handlers.
  */
 import { describe, it, expect, beforeEach, vi } from "vitest";
+import { createHash } from "node:crypto";
 import { convexTest } from "convex-test";
 import type { FunctionArgs } from "convex/server";
 import schema from "../../convex/schema";
@@ -364,4 +365,38 @@ describe("analysis generations", () => {
       vi.useRealTimers();
     }
   }, 240000); // About 40 s locally; CI with coverage took 100 s after the 28 October schema additions.
+});
+
+describe("styles-only brief amendment", () => {
+  const sha = (text: string) => createHash("sha256").update(text).digest("hex");
+  const briefA = JSON.stringify({ workId: WORK, tone: "Calm", depictionRules: [], eras: [{ id: "victorian" }], styleIds: ["classical", "watercolor"] }, null, 2);
+  const briefB = JSON.stringify({ workId: WORK, tone: "Calm", depictionRules: [], eras: [{ id: "victorian" }], styleIds: ["classical", "watercolor", "fresco"] }, null, 2);
+  let t: ReturnType<typeof convexTest>;
+  beforeEach(async () => {
+    t = convexTest(schema, modules);
+    const versions = { workVersion: WORK_V1, briefVersion: sha(briefA) };
+    await t.mutation(api.analysis.registerWork, { serverSecret: SECRET, workId: WORK, ...versions });
+    const { generation } = await t.mutation(api.analysis.stageGeneration, { serverSecret: SECRET, workId: WORK, ...versions });
+    await t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation, records: minimalRecords() });
+    await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
+  });
+
+  it("moves the registered and active brief versions together, keeping the work ready", async () => {
+    const result = await t.mutation(api.analysis.amendBriefStyles, { serverSecret: SECRET, workId: WORK, previousBrief: briefA, nextBrief: briefB });
+    expect(result).toEqual({ previousVersion: sha(briefA), nextVersion: sha(briefB), styleIds: ["classical", "watercolor", "fresco"], changed: true });
+    const status = await t.query(api.analysis.getWorkStatus, { workId: WORK });
+    expect(status).toMatchObject({ ready: true, reasons: [], briefVersion: sha(briefB), activeVersions: { briefVersion: sha(briefB) } });
+    // The active records are untouched: the same generation serves them.
+    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "a-scandal-in-bohemia-1" })).not.toBeNull();
+  });
+
+  it("refuses a wrong secret, a stale previous brief, any change beyond styles, and an empty style list", async () => {
+    await expect(t.mutation(api.analysis.amendBriefStyles, { serverSecret: "wrong", workId: WORK, previousBrief: briefA, nextBrief: briefB })).rejects.toThrow();
+    await expect(t.mutation(api.analysis.amendBriefStyles, { serverSecret: SECRET, workId: WORK, previousBrief: briefB, nextBrief: briefA })).rejects.toThrow(/registered brief/);
+    const toneChange = briefB.replace("Calm", "Stormy");
+    await expect(t.mutation(api.analysis.amendBriefStyles, { serverSecret: SECRET, workId: WORK, previousBrief: briefA, nextBrief: toneChange })).rejects.toThrow(/more than their art styles/);
+    const noStyles = briefA.replace(/"styleIds": \[[^\]]*\]/, "\"styleIds\": []");
+    await expect(t.mutation(api.analysis.amendBriefStyles, { serverSecret: SECRET, workId: WORK, previousBrief: briefA, nextBrief: noStyles })).rejects.toThrow(/at least one art style/);
+    expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).briefVersion).toBe(sha(briefA));
+  });
 });
