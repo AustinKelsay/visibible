@@ -153,7 +153,7 @@ describe("Image Models API", () => {
 });
 
 describe("art style availability", () => {
-  it("reports every style with the admission decision: only Classical while the generic engine is disabled, Classical, Watercolor and Fresco when public and ready", async () => {
+  it("reports every style with the admission decision: none while the generic engine is disabled, Classical, Watercolor and Fresco when public and ready", async () => {
     process.env = { ...originalEnv, OPENROUTER_API_KEY: "test-api-key" };
     delete process.env.GENERIC_ENGINE_MODE;
     mockFetchImageModels.mockResolvedValue({ models: [imageModelFixture()] });
@@ -161,7 +161,8 @@ describe("art style availability", () => {
     mockConvex.query.mockResolvedValue([]);
     const { GET } = await import("../../image-models/route");
     const disabled = await (await GET()).json();
-    expect(disabled.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", true], ["watercolor", false], ["fresco", false], ["icon", false]]);
+    // The legacy engine is removed (#184): with the generic engine disabled no style has an engine, Classical included.
+    expect(disabled.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", false], ["watercolor", false], ["fresco", false], ["icon", false]]);
     expect(disabled.artStyles[1].reason).toMatch(/temporarily unavailable/);
 
     process.env.GENERIC_ENGINE_MODE = "public";
@@ -171,11 +172,5 @@ describe("art style availability", () => {
     // Public mode releases Classical, Watercolor and Fresco; Icon stays owner-only (owner decisions, 28 October).
     expect(publicMode.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", true], ["watercolor", true], ["fresco", true], ["icon", false]]);
     expect(publicMode.artStyles[3].reason).toMatch(/temporarily unavailable/);
-
-    // After the legacy retirement cutoff, disabling the generic engine leaves no engine for any style, Classical included.
-    process.env.GENERIC_ENGINE_MODE = "disabled";
-    process.env.LEGACY_ENGINE = "retired";
-    const retired = await (await GET()).json();
-    expect(retired.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", false], ["watercolor", false], ["fresco", false], ["icon", false]]);
   });
 });

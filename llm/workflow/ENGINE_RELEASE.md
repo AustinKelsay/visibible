@@ -14,7 +14,7 @@ How the generic image engine ([spec #165](https://github.com/AustinKelsay/visibi
 | Reports resolve the exact image; dispositions; edits never close a report | `tests/convex/image-reports.test.ts`, `src/lib/__tests__/corrections.test.ts` |
 | Full reread activates; incomplete or invalid reread keeps the old analysis; brief change makes the work not ready | `tests/convex/analysis.test.ts`, `tests/convex/rehearsal.test.ts` › readiness matrix |
 | Disabled, owner-only and public admission; readiness gates; optional references and attention never gate | `src/lib/__tests__/engine-admission.test.ts`, `credit-flow.test.ts` › engine admission, `rehearsal.test.ts` |
-| Legacy and generic accepted side by side; rollback replays accepted generic work, refuses new Watercolor/Icon, admits Classical on legacy, keeps images | `credit-flow.test.ts` › "rehearsal: legacy and generic…" |
+| Owner mode admits only the owner; rollback replays accepted generic work, refuses new work in every style, keeps images; accepted legacy requests replay | `credit-flow.test.ts` › "rehearsal: owner mode admits only the owner…", › engine admission |
 | Duplicate and concurrent delivery, uncertain provider outcomes, interrupted save, thrown settlement: one paid attempt, one settlement, replay | `credit-flow.test.ts` › generic engine generation, `tests/convex/generation-intent.test.ts` |
 | Bulk jobs bound to style and engine; interrupted items reconciled; rollback pauses generic jobs; legacy backfill; release counts | `tests/convex/bulk-binding.test.ts` |
 | Looks and plans made once, shared, invalidated by their inputs; missing cast, unknown selections or changed canon fail before guest reservation/image calls | `src/lib/__tests__/preparation.test.ts`, `src/lib/__tests__/moment-cast-contract.test.ts`, `credit-flow.test.ts` › missing-cast reply |
@@ -46,7 +46,7 @@ A brief change that only adds or removes art styles (`styleIds`) needs no reread
 
 ## Rollback
 
-Set `GENERIC_ENGINE_MODE=disabled` (or `owner`) and redeploy. Accepted generic requests keep their engine, commitments and billing and replay their saved results; in-flight ones finish or are reconciled by their request records. New Classical requests run on legacy; Watercolor and Icon report unavailable while every saved image and preference stays. Bulk jobs bound to generic pause with `engine_unavailable` before their next item and resume when the engine is admitted again; nothing is charged twice. No data is migrated in either direction.
+Set `GENERIC_ENGINE_MODE=disabled` (or `owner`) and redeploy. Accepted generic requests keep their engine, commitments and billing and replay their saved results; in-flight ones finish or are reconciled by their request records. Since the legacy engine's removal (#184), no new image is made in any style while the generic engine is off (in owner mode, only for the owner); every saved image and preference stays. Bulk jobs bound to generic pause with `engine_unavailable` before their next item and resume when the engine is admitted again; nothing is charged twice. No data is migrated in either direction.
 
 ## Fresh-quote recovery
 
@@ -67,14 +67,19 @@ Before the cutoff:
 3. Confirm `/api/image-models` and the logs.
 4. Confirm nothing new was admitted on legacy. After the cutoff time, the production logs must show no `engine_admission` event with `engine: legacy` (`npx vercel logs --environment production --since <cutoff> --json`). The inventory must still show no legacy request in flight or queued. The inventory alone is not proof: it counts current statuses, so a new request that finished would not show.
 
-After the cutoff, `GENERIC_ENGINE_MODE=disabled` is no longer a rollback that keeps Classical working: with both engines closed, no new images are made. The remaining recovery options are:
-- Unset `LEGACY_ENGINE`, which restores the legacy engine while its code still ships.
-- Redeploy an earlier build.
-- Fix forward.
+After the cutoff, `GENERIC_ENGINE_MODE=disabled` is no longer a rollback that keeps Classical working: with both engines closed, no new images are made.
 
-## Retirement (later ticket)
+The cutoff went live on 28 October 2026 ([record](../releases/2026-10-28-legacy-retirement/README.md)). The legacy engine's route code was then removed, and both image routes now treat legacy as retired, so the `LEGACY_ENGINE` switch no longer exists and unsetting it restores nothing. The recovery options are to redeploy a build from before the removal or to fix forward.
+
+## Retirement (#184)
 
 Legacy execution can be retired only when `npm run engine:retirement-inventory -- --env-file .env.convex.prod` reports no accepted obligations for legacy and nothing unbound. The inventory lists the cancellation candidates (unstarted legacy bulk items) the retirement will close with an explanation to their readers, who may recreate them under a fresh quote. Completed images, metadata, accounting and completed-request replay are kept.
+
+The removal goes in steps:
+1. **Done:** the route's legacy execution and its fallback are removed. The request fingerprint, replay and the `legacy` engine value on records and job bindings stay, because accepted legacy requests replay through them.
+2. The legacy prompt and planner modules, the planner allowance in quotes, and their evaluation arms.
+3. The legacy scene plan cache: its Convex functions, then the `scenePlanCache` table once production holds none of its rows.
+4. Admission's legacy branch (`legacyRetired`, `LEGACY_STYLE_IDS`).
 
 ## Budgets and estimates
 

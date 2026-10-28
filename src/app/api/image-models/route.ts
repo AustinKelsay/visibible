@@ -3,7 +3,7 @@ import { catalogImageQuote, imageCapabilities } from "@/lib/image-catalog";
 import { DEFAULT_ETA_SECONDS, fetchImageModels, unavailableImageModels, type ImageModel } from "@/lib/image-models";
 import { getScenePlannerEstimatedCreditsCost } from "@/lib/scene-planner";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
-import { decideEngine, genericEngineMode, legacyEngineRetired } from "@/lib/engine/admission";
+import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
 import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
 import { ART_STYLES, type ArtStyleAvailability } from "@/lib/art-styles";
 import { api } from "../../../../convex/_generated/api";
@@ -29,7 +29,7 @@ async function styleAvailability(request: Request | undefined, convex: ReturnTyp
     } catch (error) { console.error("Failed to read style availability:", error); }
   }
   return ART_STYLES.map((style) => {
-    const decision = decideEngine({ mode, isOwner, styleId: style.id, readiness, legacyRetired: legacyEngineRetired() });
+    const decision = decideEngine({ mode, isOwner, styleId: style.id, readiness, legacyRetired: true });
     return { ...style, available: decision.engine !== null, reason: decision.engine === null ? decision.reason : null };
   });
 }

@@ -54,16 +54,11 @@ process.env.CONVEX_SERVER_SECRET = "test-server-secret";
 process.env.SESSION_SECRET = "a".repeat(32);
 process.env.IP_HASH_SECRET = "b".repeat(32);
 process.env.ENABLE_IMAGE_GENERATION = "true";
-process.env.ENABLE_SCENE_PLANNER = "false";
 process.env.OPENROUTER_IMAGE_TIMEOUT_MS = "50";
 
 // Store original env AFTER setting test vars
 const originalEnv = { ...process.env };
-let forceQuoteFailure = false;
 let forceRecordImageCostEventFailure = false;
-let mockLearnedEstimate:
-  | { credits: number; source: "model" | "provider" | "global" | "fallback"; sampleCount: number }
-  | null = null;
 const defaultImageCatalogModels = [
   imageModelFixture(),
   imageModelFixture("google/gemini-2.5-flash-image"),
@@ -107,20 +102,7 @@ vi.mock("@/lib/convex-client", () => ({
       if (getFunctionName(_apiPath).startsWith("analysis:")) {
         return requestDb.query(_apiPath as never, args as never);
       }
-      if (getFunctionName(_apiPath) === "verseImages:getScenePlanCache") {
-        return requestDb.query(api.verseImages.getScenePlanCache, args as FunctionArgs<typeof api.verseImages.getScenePlanCache>);
-      }
       if ("inputFingerprint" in args) return requestDb.query(api.verseImages.getGenerationIntent, args as FunctionArgs<typeof api.verseImages.getGenerationIntent>);
-      if ("fallbackCredits" in args && "modelId" in args && "resolution" in args) {
-        mockState.callHistory.push({ action: "getEstimate", args });
-        return (
-          mockLearnedEstimate ?? {
-            credits: args.fallbackCredits as number,
-            source: "fallback",
-            sampleCount: 0,
-          }
-        );
-      }
 
       // Query for session data
       const sid = args.sid as string;
@@ -131,12 +113,6 @@ vi.mock("@/lib/convex-client", () => ({
       if (getFunctionName(_apiPath).startsWith("analysis:")) {
         return requestDb.mutation(_apiPath as never, args as never);
       }
-      switch (getFunctionName(_apiPath)) {
-        case "verseImages:upsertScenePlanCache":
-          return requestDb.mutation(api.verseImages.upsertScenePlanCache, args as FunctionArgs<typeof api.verseImages.upsertScenePlanCache>);
-        case "verseImages:markScenePlanCacheHit":
-          return requestDb.mutation(api.verseImages.markScenePlanCacheHit, args as FunctionArgs<typeof api.verseImages.markScenePlanCacheHit>);
-      }
       if ("inputFingerprint" in args) {
         if (failAdmission) throw new Error("Admission unavailable");
         return requestDb.mutation(api.verseImages.createGenerationRequest, args as FunctionArgs<typeof api.verseImages.createGenerationRequest>);
@@ -144,18 +120,11 @@ vi.mock("@/lib/convex-client", () => ({
       if ("requestId" in args && "status" in args) {
         return requestDb.mutation(api.verseImages.updateGenerationRequest, args as FunctionArgs<typeof api.verseImages.updateGenerationRequest>);
       }
-      if ("actualCredits" in args && "modelId" in args && "resolution" in args) {
-        mockState.callHistory.push({ action: "recordActualCost", args });
-        return null;
-      }
       // Rate limit always passes
       return { allowed: true, retryAfter: 0 };
     }),
     action: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
       if ("usd" in args && !("generationId" in args)) {
-        if (forceQuoteFailure) {
-          throw new Error("quote failure");
-        }
         mockState.callHistory.push({ action: "quoteUsdCost", args });
         const usd = args.usd as number;
         const billedUsd = usd * 1.25;
@@ -339,14 +308,6 @@ vi.mock("@/lib/image-models", async () => ({
   fetchImageModels: fetchImageModelsMock,
 }));
 
-vi.mock("@/lib/chat-models", () => ({
-  DEFAULT_CHAT_MODEL: "test/scene-planner-model",
-  SCENE_PLANNER_ESTIMATED_TOKENS: 300,
-  computeChatCreditsCost: vi.fn(() => 1),
-  getChatModelPricing: vi.fn(async () => ({ prompt: "0.001", completion: "0.002" })),
-  isModelFree: vi.fn(() => false),
-}));
-
 // Mock fetch responses
 type MockFetchResponse = {
   ok: boolean;
@@ -443,9 +404,7 @@ describe("Image Generation API Credit Flow", () => {
     mockFetchResponse = null;
     mockFetchImpl = null;
     resetMockFetchBibleApiBypass();
-    forceQuoteFailure = false;
     forceRecordImageCostEventFailure = false;
-    mockLearnedEstimate = null;
     global.fetch = mockFetch as unknown as typeof fetch;
   });
 
@@ -470,58 +429,60 @@ describe("Image Generation API Credit Flow", () => {
       ] });
       await requestDb.mutation(api.analysis.activateGeneration, { serverSecret: secret, workId: "bible-web", generation });
     };
+    /**
+     * A Classical request accepted on the legacy engine before its code was removed (#184). Its key is the input
+     * fingerprint the route has always computed, so this also pins that fingerprint: changing it would break replays.
+     */
+    const seedLegacyRequest = async () => {
+      const secret = process.env.CONVEX_SERVER_SECRET!;
+      const inputFingerprint = createHash("sha256").update(JSON.stringify({
+        text: body.text, reference: body.reference, translation: "web", model: null, style: null,
+        aspectRatio: "16:9", resolution: "1K", theme: null, generation: null, prevVerse: null, nextVerse: null,
+      })).digest("hex");
+      await requestDb.mutation(api.verseImages.createGenerationRequest, {
+        requestId: body.requestId, inputFingerprint, generationId: "legacy-generation", executorVersion: "next-image-v1", billingPolicyVersion: "legacy-image-v1",
+        engine: "legacy", artStyleId: "classical", sid: "test-session", verseId: "genesis-1-1", translationId: "web", reference: "Genesis 1:1", serverSecret: secret,
+      });
+      await requestDb.mutation(api.verseImages.updateGenerationRequest, { requestId: body.requestId, status: "generating", serverSecret: secret });
+      await requestDb.mutation(internal.verseImages.saveImageWithUrl, {
+        verseId: "genesis-1-1", imageUrl: "https://images.example/legacy.png", model: "google/gemini-2.5-flash-image", generationId: "legacy-generation",
+        engine: "legacy", artStyleId: "classical", reference: "Genesis 1:1", translationId: "web",
+      });
+      await requestDb.mutation(api.verseImages.updateGenerationRequest, { requestId: body.requestId, status: "succeeded", serverSecret: secret });
+    };
 
-    it("disabled by default: Classical runs on legacy and is recorded as such; other styles are unavailable before any reservation", async () => {
+    it("disabled by default: no style has an engine, Classical included, before any reservation; an unregistered style stays a 400", async () => {
       const { POST } = await import("../../generate-image/route");
-      const unavailable = await POST(createGenerateImageRequest({ ...body, style: "watercolor" }));
-      expect(unavailable.status).toBe(503);
-      expect(await unavailable.json()).toMatchObject({ error: "Art style unavailable", retryable: true, style: "watercolor" });
+      for (const [requestId, style] of [["classical-request", undefined], ["watercolor-request", "watercolor"]]) {
+        const unavailable = await POST(createGenerateImageRequest({ ...body, requestId, style }));
+        expect(unavailable.status).toBe(503);
+        expect(await unavailable.json()).toMatchObject({ error: "Art style unavailable", retryable: true, style: style ?? null });
+      }
       expect(getCallCount("reserveCredits")).toBe(0);
       expect(openRouterCalls()).toBe(0);
       expect(await storedRequest()).toBeUndefined();
-      expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
-      expect(await storedRequest()).toMatchObject({ engine: "legacy", artStyleId: "classical" });
-      // An unregistered style stays a non-retryable 400, as before.
       const unknown = await POST(createGenerateImageRequest({ ...body, requestId: "typo-style", style: "watrcolor" }));
       expect(unknown.status).toBe(400);
       expect(await unknown.json()).toMatchObject({ error: "Style profile not available" });
     });
 
-    it("after the retirement cutoff, replays an accepted legacy request but admits no new legacy work", async () => {
+    it("replays an accepted legacy request but admits no new legacy work", async () => {
+      await seedLegacyRequest();
       const { POST } = await import("../../generate-image/route");
-      expect((await POST(createGenerateImageRequest(body))).status).toBe(200); // accepted on legacy before the cutoff
-      process.env.LEGACY_ENGINE = "retired";
       const replay = await POST(createGenerateImageRequest(body));
       expect(replay.status).toBe(200);
-      expect(await replay.json()).toMatchObject({ reused: true, engine: "legacy" });
-      // With the generic engine disabled there is now no engine for a new Classical request, or for a legacy-bound job item.
-      for (const request of [{ ...body, requestId: "after-cutoff" }, { ...body, requestId: "bulk-after-cutoff", engine: "legacy" as const }]) {
+      expect(await replay.json()).toMatchObject({ reused: true, engine: "legacy", imageUrl: "https://images.example/legacy.png", savedImageId: expect.any(String) });
+      // With the generic engine disabled there is no engine for a new Classical request, or for a legacy-bound job item.
+      for (const request of [{ ...body, requestId: "new-classical" }, { ...body, requestId: "bulk-legacy", engine: "legacy" as const }]) {
         const refused = await POST(createGenerateImageRequest(request));
         expect(refused.status).toBe(503);
         expect(await refused.json()).toMatchObject({ error: "Art style unavailable", retryable: true });
       }
-      expect(getCallCount("reserveCredits")).toBe(1);
-      expect(openRouterCalls()).toBe(1);
-    });
-
-    it("refuses a request bound to another engine before any reservation or record, and reports the engine on success and replay", async () => {
-      const { POST } = await import("../../generate-image/route");
-      const bound = await POST(createGenerateImageRequest({ ...body, requestId: "bulk-job-1", engine: "generic" }));
-      expect(bound.status).toBe(409);
-      expect(await bound.json()).toMatchObject({ error: "Engine binding changed", expectedEngine: "generic", engine: "legacy", retryable: true });
       expect(getCallCount("reserveCredits")).toBe(0);
       expect(openRouterCalls()).toBe(0);
-      expect(await storedRequest()).toBeUndefined();
-      // The same request id is still usable once the binding matches; success and replay both say which engine ran.
-      const ok = await POST(createGenerateImageRequest({ ...body, requestId: "bulk-job-1", engine: "legacy" }));
-      expect(ok.status).toBe(200);
-      expect((await ok.json()).engine).toBe("legacy");
-      const replay = await POST(createGenerateImageRequest({ ...body, requestId: "bulk-job-1", engine: "legacy" }));
-      expect(await replay.json()).toMatchObject({ reused: true, engine: "legacy" });
-      expect(getCallCount("reserveCredits")).toBe(1);
     });
 
-    it("public mode with an unready work: retryable preparing error, no reservation, no legacy fallback", async () => {
+    it("public mode with an unready work: retryable preparing error, no reservation", async () => {
       process.env.GENERIC_ENGINE_MODE = "public";
       const { POST } = await import("../../generate-image/route");
       const response = await POST(createGenerateImageRequest(body));
@@ -532,39 +493,37 @@ describe("Image Generation API Credit Flow", () => {
       expect(await storedRequest()).toBeUndefined();
     });
 
-    it("owner mode: a non-owner session stays on legacy; an owner with a ready work reaches the generic engine, which declines without charging when the work's inputs are not deployed", async () => {
+    it("owner mode: a non-owner gets no engine; an owner with a ready work reaches the generic engine, which declines without charging when the work's inputs are not deployed", async () => {
       process.env.GENERIC_ENGINE_MODE = "owner";
       await readyWork();
       const { POST } = await import("../../generate-image/route");
-      expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
-      expect(await storedRequest()).toMatchObject({ engine: "legacy" });
-      expect(getCallCount("reserveCredits")).toBe(1);
-      const providerCallsBefore = openRouterCalls();
+      const guest = await POST(createGenerateImageRequest(body));
+      expect(guest.status).toBe(503);
+      expect(await guest.json()).toMatchObject({ error: "Art style unavailable", retryable: true });
       resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000, tier: "admin" }]); // clears the call history too
       const owner = await POST(createGenerateImageRequest({ ...body, requestId: "owner-request" }));
       expect(owner.status).toBe(503);
       expect(await owner.json()).toMatchObject({ error: "Preparing scene", retryable: true });
       expect(getCallCount("reserveCredits")).toBe(0);
-      expect(openRouterCalls()).toBe(providerCallsBefore);
-      expect(await requestDb.run((ctx) => ctx.db.query("imageGenerationRequests").collect())).toHaveLength(1);
+      expect(openRouterCalls()).toBe(0);
+      expect(await storedRequest()).toBeUndefined();
     });
 
     it("public mode with a ready work dispatches to the installed generic engine and replays an accepted legacy request unchanged", async () => {
-      const { POST } = await import("../../generate-image/route");
-      const { setGenericEngine } = await import("@/lib/engine/dispatch");
-      // Accepted on legacy while disabled.
-      expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
-      // Switch flips to public with a ready work: the same request replays its saved legacy result, no new paid work.
+      await seedLegacyRequest();
       process.env.GENERIC_ENGINE_MODE = "public";
       await readyWork();
-      const replay = await POST(createGenerateImageRequest(body));
-      expect(replay.status).toBe(200);
-      expect(await replay.json()).toMatchObject({ reused: true });
-      expect(getCallCount("reserveCredits")).toBe(1);
-      // A new request goes to the generic engine seam.
+      const { POST } = await import("../../generate-image/route");
+      const { setGenericEngine } = await import("@/lib/engine/dispatch");
       const seen: unknown[] = [];
       setGenericEngine({ id: "fake-generic", async execute(input) { seen.push(input); return { kind: "response", status: 200, body: { requestId: input.requestId, engine: "generic", styleId: input.styleId } }; } });
       try {
+        // The accepted legacy request replays its saved result: no new paid work, and the generic engine is not asked.
+        const replay = await POST(createGenerateImageRequest(body));
+        expect(replay.status).toBe(200);
+        expect(await replay.json()).toMatchObject({ reused: true, engine: "legacy" });
+        expect(seen).toHaveLength(0);
+        // A new request goes to the generic engine seam.
         const generic = await POST(createGenerateImageRequest({ ...body, requestId: "generic-request", style: "watercolor" }));
         expect(generic.status).toBe(200);
         expect(await generic.json()).toEqual({ requestId: "generic-request", engine: "generic", styleId: "watercolor" });
@@ -573,7 +532,7 @@ describe("Image Generation API Credit Flow", () => {
         const icon = await POST(createGenerateImageRequest({ ...body, requestId: "icon-request", style: "icon" }));
         expect(icon.status).toBe(503);
         expect(seen).toHaveLength(1);
-        expect(getCallCount("reserveCredits")).toBe(1);
+        expect(getCallCount("reserveCredits")).toBe(0);
       } finally {
         setGenericEngine(null);
       }
@@ -905,111 +864,20 @@ describe("Image Generation API Credit Flow", () => {
       expect(prompt).not.toContain(lookAnswer.light);
     });
 
-    describe("legacy fallback for a refused scene", () => {
-      const embodied: PlanReviewProblem[] = [{ kind: "embodied_formless", entryId: "god", planQuote: "looks up at the new light", reason: "Scripted figure for a subject without form." }];
-      const classicalBody = { ...body, requestId: "fallback-1", style: "classical" };
-      const isLegacyPrompt = (call: unknown) => !JSON.stringify(call).includes("SELECTED CHARACTERS");
-
-      it("serves an unbound Classical request from the legacy engine after generic preparation refuses, with no generic record or reservation", async () => {
-        await prepareWork();
-        reviewProblems = embodied;
-        const { POST } = await import("../../generate-image/route");
-        const response = await POST(createGenerateImageRequest(classicalBody));
-        expect(response.status).toBe(200);
-        expect(await response.json()).toMatchObject({ engine: "legacy" });
-        // Generic preparation ran (and was refused after its one re-plan) before anything was recorded or reserved.
-        expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1"]);
-        expect(await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" })).toBeNull();
-        const requests = await storedRequests();
-        expect(requests).toHaveLength(1);
-        expect(requests[0]).toMatchObject({ requestId: "fallback-1", engine: "legacy", artStyleId: "classical" });
-        expect(requests[0].renderingPacket).toBeUndefined();
-        expect(getCallCount("reserveCredits")).toBe(1); // the legacy request's own reservation only
-        expect(imageCalls()).toHaveLength(1);
-        expect(isLegacyPrompt(imageCalls()[0])).toBe(true);
-        expect(loadedBlobs).toEqual([]);
-      });
-
-      it("keeps the retryable decline for a non-Classical style, which the legacy engine cannot render", async () => {
-        await prepareWork();
-        reviewProblems = embodied;
-        const { POST } = await import("../../generate-image/route");
-        const response = await POST(createGenerateImageRequest({ ...classicalBody, style: "watercolor" }));
-        expect(response.status).toBe(503);
-        expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true, message: expect.stringContaining("still drawn as a figure: god") });
-        expect(imageCalls()).toHaveLength(0);
-        expect(getCallCount("reserveCredits")).toBe(0);
-        expect(await storedRequests()).toEqual([]);
-      });
-
-      it("never falls back for a request bound to the generic engine", async () => {
-        await prepareWork();
-        reviewProblems = embodied;
-        const { POST } = await import("../../generate-image/route");
-        const response = await POST(createGenerateImageRequest({ ...classicalBody, requestId: "bulk-generic-1", engine: "generic" }));
-        expect(response.status).toBe(503);
-        expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true });
-        expect(imageCalls()).toHaveLength(0);
-        expect(getCallCount("reserveCredits")).toBe(0);
-        expect(await storedRequests()).toEqual([]);
-      });
-
-      it("after the retirement cutoff, keeps the decline for a refused Classical scene and refuses a legacy-bound job item", async () => {
-        process.env.LEGACY_ENGINE = "retired";
-        await prepareWork();
-        reviewProblems = embodied;
-        const { POST } = await import("../../generate-image/route");
-        const refused = await POST(createGenerateImageRequest(classicalBody));
-        expect(refused.status).toBe(503);
-        expect(await refused.json()).toMatchObject({ error: "Preparing scene", retryable: true, message: expect.stringContaining("still drawn as a figure: god") });
-        const bound = await POST(createGenerateImageRequest({ ...classicalBody, requestId: "bulk-legacy-after-cutoff", engine: "legacy" }));
-        expect(bound.status).toBe(409);
-        expect(await bound.json()).toMatchObject({ error: "Engine binding changed", expectedEngine: "legacy", engine: "generic" });
-        expect(imageCalls()).toHaveLength(0);
-        expect(getCallCount("reserveCredits")).toBe(0);
-        expect(await storedRequests()).toEqual([]);
-      });
-
-      it("keeps a bulk job bound to legacy on the legacy engine without generic preparation", async () => {
-        await prepareWork();
-        const { POST } = await import("../../generate-image/route");
-        const response = await POST(createGenerateImageRequest({ ...classicalBody, requestId: "bulk-legacy-2", engine: "legacy" }));
-        expect(response.status).toBe(200);
-        expect(await response.json()).toMatchObject({ engine: "legacy" });
-        expect(modelCalls).toEqual([]);
-        const requests = await storedRequests();
-        expect(requests).toHaveLength(1);
-        expect(requests[0]).toMatchObject({ requestId: "bulk-legacy-2", engine: "legacy", artStyleId: "classical" });
-        expect(imageCalls()).toHaveLength(1);
-        expect(isLegacyPrompt(imageCalls()[0])).toBe(true);
-      });
-
-      it("still refuses a legacy binding for a style the legacy engine cannot render", async () => {
-        await prepareWork();
-        const { POST } = await import("../../generate-image/route");
-        const response = await POST(createGenerateImageRequest({ ...classicalBody, requestId: "bulk-legacy-3", style: "watercolor", engine: "legacy" }));
-        expect(response.status).toBe(409);
-        expect(await response.json()).toMatchObject({ error: "Engine binding changed", expectedEngine: "legacy", engine: "generic" });
-        expect(modelCalls).toEqual([]);
-        expect(await storedRequests()).toEqual([]);
-        expect(imageCalls()).toHaveLength(0);
-      });
-
-      it("serves a Classical request from the legacy engine when the generic packet is over budget, leaving the attention item", async () => {
-        await prepareWork();
-        tone = "x".repeat(13000);
-        const { POST } = await import("../../generate-image/route");
-        const response = await POST(createGenerateImageRequest(classicalBody));
-        expect(response.status).toBe(200);
-        expect(await response.json()).toMatchObject({ engine: "legacy" });
-        expect(await requestDb.query(api.analysis.listAttention, { workId: WORK, status: "open" })).toMatchObject([{ reason: "prompt_over_budget", recordId: "genesis-1-1" }]);
-        const requests = await storedRequests();
-        expect(requests).toHaveLength(1);
-        expect(requests[0]).toMatchObject({ engine: "legacy", artStyleId: "classical" });
-        expect(getCallCount("reserveCredits")).toBe(1);
-        expect(imageCalls()).toHaveLength(1);
-        expect(isLegacyPrompt(imageCalls()[0])).toBe(true);
-      });
+    it("declines a refused Classical scene with no fallback, and refuses a job item bound to the removed legacy engine", async () => {
+      await prepareWork();
+      reviewProblems = [{ kind: "embodied_formless", entryId: "god", planQuote: "looks up at the new light", reason: "Scripted figure for a subject without form." }];
+      const classicalBody = { ...body, requestId: "refused-1", style: "classical" };
+      const { POST } = await import("../../generate-image/route");
+      const refused = await POST(createGenerateImageRequest(classicalBody));
+      expect(refused.status).toBe(503);
+      expect(await refused.json()).toMatchObject({ error: "Preparing scene", retryable: true, message: expect.stringContaining("still drawn as a figure: god") });
+      const bound = await POST(createGenerateImageRequest({ ...classicalBody, requestId: "bulk-legacy", engine: "legacy" }));
+      expect(bound.status).toBe(409);
+      expect(await bound.json()).toMatchObject({ error: "Engine binding changed", expectedEngine: "legacy", engine: "generic", retryable: true });
+      expect(imageCalls()).toHaveLength(0);
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(await storedRequests()).toEqual([]);
     });
 
     it("omits a reference whose blob cannot be loaded or whose inputs changed, and the packet reflects what was actually sent", async () => {
@@ -1143,37 +1011,32 @@ describe("Image Generation API Credit Flow", () => {
       expect(imageCalls()).toHaveLength(1);
     });
 
-    it("rehearsal: legacy and generic requests are accepted side by side in owner mode, and a rollback keeps accepted work replayable while new work follows the switch", async () => {
+    it("rehearsal: owner mode admits only the owner, and a rollback keeps accepted work replayable while refusing new work in every style", async () => {
       process.env.GENERIC_ENGINE_MODE = "owner";
       await prepareWork();
       const { POST } = await import("../../generate-image/route");
-      // A guest's Classical request runs on legacy while the owner's Watercolor request runs on generic, at the same time.
+      // A guest has no engine in owner mode, since the legacy engine is removed; the owner's Watercolor request runs on generic.
       const guestSession = { ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 };
       resetMockState([guestSession]);
-      const guest = POST(createGenerateImageRequest({ ...body, requestId: "rehearsal-guest", style: "classical" }));
-      const guestResponse = await guest;
-      expect(guestResponse.status).toBe(200);
-      expect((await guestResponse.json()).engine).toBe("legacy");
+      const guest = await POST(createGenerateImageRequest({ ...body, requestId: "rehearsal-guest", style: "classical" }));
+      expect(guest.status).toBe(503);
+      expect(await guest.json()).toMatchObject({ error: "Art style unavailable", retryable: true });
       resetMockState([{ ...guestSession, tier: "admin" }]);
       const ownerResponse = await POST(createGenerateImageRequest({ ...body, requestId: "rehearsal-owner" }));
       expect(ownerResponse.status).toBe(200);
       expect((await ownerResponse.json()).engine).toBe("generic");
-      const requests = await storedRequests();
-      expect(requests.map((r) => [r.requestId, r.engine, r.status])).toEqual([["rehearsal-guest", "legacy", "succeeded"], ["rehearsal-owner", "generic", "succeeded"]]);
-      expect(imageCalls()).toHaveLength(2);
-      // Rollback: the switch goes back to disabled. The accepted generic request replays unchanged; a new Watercolor request is refused
-      // before any reservation; a new Classical request runs on legacy; saved images of both engines stay readable.
+      expect((await storedRequests()).map((r) => [r.requestId, r.engine, r.status])).toEqual([["rehearsal-owner", "generic", "succeeded"]]);
+      // Rollback: the switch goes back to disabled. The accepted request replays unchanged; a new request in any style is
+      // refused before any reservation; the saved image stays readable.
       process.env.GENERIC_ENGINE_MODE = "disabled";
       const replay = await POST(createGenerateImageRequest({ ...body, requestId: "rehearsal-owner" }));
       expect(await replay.json()).toMatchObject({ reused: true, engine: "generic", translationId: "web" });
-      const refused = await POST(createGenerateImageRequest({ ...body, requestId: "rehearsal-after", style: "watercolor" }));
-      expect(refused.status).toBe(503);
-      expect(await refused.json()).toMatchObject({ error: "Art style unavailable", retryable: true });
-      const classical = await POST(createGenerateImageRequest({ ...body, requestId: "rehearsal-classical", style: "classical" }));
-      expect(classical.status).toBe(200);
-      expect((await classical.json()).engine).toBe("legacy");
-      expect(imageCalls()).toHaveLength(3);
-      expect((await requestDb.query(api.verseImages.getImageHistory, { verseId: "genesis-1-1" })).map((i) => i.artStyle).sort()).toEqual(["classical", "classical", "watercolor"]);
+      for (const style of ["watercolor", "classical"]) {
+        const refused = await POST(createGenerateImageRequest({ ...body, requestId: `rehearsal-after-${style}`, style }));
+        expect(refused.status).toBe(503);
+        expect(await refused.json()).toMatchObject({ error: "Art style unavailable", retryable: true });
+      }
+      expect(imageCalls()).toHaveLength(1);
       expect((await requestDb.query(api.verseImages.getImageHistory, { verseId: "genesis-1-1", artStyle: "watercolor" }))[0]).toMatchObject({ engine: "generic", translationId: "web", verseText: webText[1] });
     });
 
@@ -1188,133 +1051,113 @@ describe("Image Generation API Credit Flow", () => {
       expect(getCallCount("logAdminUsage")).toBe(1);
       expect((await savedImages())[0]).toMatchObject({ engine: "generic", translationId: "web" });
     });
-  });
 
-  describe("durable HTTP intent admission", () => {
-    const body = { requestId: "stable-request-id", reference: "Genesis 1:1", text: "In the beginning God created." };
-    it("concurrent identical POSTs and a lost-response retry reserve and call the provider once", async () => {
+    it("releases the reservation and fails the request when the provider returns an error", async () => {
+      await prepareWork();
+      mockFetchResponse = { ok: false, status: 500, json: async () => ({ error: { message: "API error" } }) };
       const { POST } = await import("../../generate-image/route");
-      const responses = await Promise.all([POST(createGenerateImageRequest(body)), POST(createGenerateImageRequest(body))]);
-      expect(responses.map((r) => r.status)).toContain(200);
-      expect(responses.every((r) => r.status === 200 || r.status === 202)).toBe(true);
-      const networkCallsBeforeRetry = mockFetch.mock.calls.length;
-      fetchImageModelsMock.mockRejectedValueOnce(new Error("Catalog offline"));
-      const retry = await POST(createGenerateImageRequest(body));
-      expect(mockFetch.mock.calls).toHaveLength(networkCallsBeforeRetry);
-      expect(retry.status).toBe(200);
-      expect(await retry.json()).toMatchObject({ reused: true, savedImageId: expect.any(String) });
-      expect(getCallCount("reserveCredits")).toBe(1);
-      expect(getCallCount("saveImage")).toBe(1);
-      expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("openrouter.ai"))).toHaveLength(1);
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(500);
+      expect(await response.json()).toMatchObject({ error: "Failed to generate image" });
+      expect(getCallCount("releaseReservation")).toBe(1);
+      expect(getCallCount("deductCredits")).toBe(0);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
+      expect((await storedRequests())[0]).toMatchObject({ status: "failed", engine: "generic" });
     });
-    it("rejects changed immutable input without starting a second paid call", async () => {
-      const { POST } = await import("../../generate-image/route");
-      await POST(createGenerateImageRequest(body));
-      const conflict = await POST(createGenerateImageRequest({ ...body, generation: 2 }));
-      expect(conflict.status).toBe(409);
-      expect(getCallCount("reserveCredits")).toBe(1);
-    });
-    it("does not reserve or call the provider when admission cannot be persisted", async () => {
-      const { POST } = await import("../../generate-image/route");
-      failAdmission = true;
-      expect((await POST(createGenerateImageRequest(body))).status).toBe(503);
-      expect(getCallCount("reserveCredits")).toBe(0);
-      expect(getCallCount("saveImage")).toBe(0);
-      expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("openrouter.ai"))).toHaveLength(0);
-    });
-    it.each([
-      ["insufficient credits", { credits: 0 }, 402],
-      ["the daily spend limit", { dailySpendUsd: 4.99 }, 429],
-    ] as const)("admits the same ID after a refusal for %s before paid work", async (_reason, refusal, status) => {
-      const funded = { ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 };
-      resetMockState([{ ...funded, ...refusal }]);
-      const { POST } = await import("../../generate-image/route");
-      expect((await POST(createGenerateImageRequest(body))).status).toBe(status);
-      expect(getCallCount("reserveCredits")).toBe(0);
-      mockState.sessions.set("test-session", funded);
-      expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
-      expect(getCallCount("reserveCredits")).toBe(1);
-    });
-    it("holds the verified quote with bounded headroom", async () => {
-      const { catalogImageQuote, DEFAULT_IMAGE_MODEL, IMAGE_RESERVATION_HEADROOM_MULTIPLIER } =
-        await import("@/lib/image-models");
+
+    it("still delivers the image when its cost event cannot be recorded, and queues the event instead", async () => {
+      await prepareWork();
+      forceRecordImageCostEventFailure = true;
       const { POST } = await import("../../generate-image/route");
       expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
-      const quote = catalogImageQuote(DEFAULT_IMAGE_MODEL, imageModelFixture().billing, "1K");
-      const reserve = mockState.callHistory.find((c) => c.action === "reserveCredits");
-      expect((reserve?.args as { amount: number }).amount)
-        .toBe(quote!.credits * IMAGE_RESERVATION_HEADROOM_MULTIPLIER);
+      expect(getCallCount("enqueueImageCostEventOutbox")).toBe(1);
     });
-  });
 
-  it("keeps retries in progress until the saved result is available", async () => {
-    let finishSave!: () => void;
-    saveBarrier = new Promise<void>((resolve) => { finishSave = resolve; });
-    const { POST } = await import("../../generate-image/route");
-    const body = { requestId: "pending-save-request", reference: "Genesis 1:1" };
-    const first = POST(createGenerateImageRequest(body));
-    await vi.waitFor(() => expect(getCallCount("saveImage")).toBe(1));
-    try {
-      const retry = await POST(createGenerateImageRequest(body));
-      expect(retry.status).toBe(202);
-      expect((await retry.json()).status).toBe("generating");
-    } finally {
-      finishSave();
-      await first;
-    }
-    const recovered = await POST(createGenerateImageRequest(body));
-    expect(recovered.status).toBe(200);
-    expect((await recovered.json()).savedImageId).toBeDefined();
-    expect(getCallCount("sessions:reserveCredits")).toBe(1);
+    describe("durable HTTP intent admission", () => {
+      it("answers a lost-response retry from the saved result, before the catalog and without a second paid call", async () => {
+        await prepareWork();
+        const { POST } = await import("../../generate-image/route");
+        expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
+        const networkCallsBeforeRetry = mockFetch.mock.calls.length;
+        fetchImageModelsMock.mockRejectedValueOnce(new Error("Catalog offline"));
+        const retry = await POST(createGenerateImageRequest(body));
+        expect(mockFetch.mock.calls).toHaveLength(networkCallsBeforeRetry);
+        expect(retry.status).toBe(200);
+        expect(await retry.json()).toMatchObject({ reused: true, savedImageId: expect.any(String) });
+        expect(getCallCount("reserveCredits")).toBe(1);
+        expect(getCallCount("saveImage")).toBe(1);
+        expect(imageCalls()).toHaveLength(1);
+      });
+
+      it("rejects changed immutable input without starting a second paid call", async () => {
+        await prepareWork();
+        const { POST } = await import("../../generate-image/route");
+        expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
+        const conflict = await POST(createGenerateImageRequest({ ...body, generation: 2 }));
+        expect(conflict.status).toBe(409);
+        expect(getCallCount("reserveCredits")).toBe(1);
+        expect(imageCalls()).toHaveLength(1);
+      });
+
+      it("does not reserve or call the provider when admission cannot be persisted", async () => {
+        await prepareWork();
+        const { POST } = await import("../../generate-image/route");
+        failAdmission = true;
+        expect((await POST(createGenerateImageRequest(body))).status).toBe(503);
+        expect(getCallCount("reserveCredits")).toBe(0);
+        expect(getCallCount("saveImage")).toBe(0);
+        expect(imageCalls()).toHaveLength(0);
+      });
+
+      it.each([
+        ["insufficient credits", { credits: 0 }, 402],
+        ["the daily spend limit", { dailySpendUsd: 4.99 }, 429],
+      ] as const)("admits the same ID after a refusal for %s before paid work", async (_reason, refusal, status) => {
+        await prepareWork();
+        const funded = { ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 };
+        resetMockState([{ ...funded, ...refusal }]);
+        const { POST } = await import("../../generate-image/route");
+        expect((await POST(createGenerateImageRequest(body))).status).toBe(status);
+        expect(getCallCount("reserveCredits")).toBe(0);
+        expect(imageCalls()).toHaveLength(0);
+        mockState.sessions.set("test-session", funded);
+        expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
+        expect(getCallCount("reserveCredits")).toBe(1);
+      });
+
+      it("holds the verified quote with bounded headroom", async () => {
+        await prepareWork();
+        const { IMAGE_RESERVATION_HEADROOM_MULTIPLIER } = await import("@/lib/image-models");
+        const { POST } = await import("../../generate-image/route");
+        const result = await (await POST(createGenerateImageRequest(body))).json();
+        const reserve = mockState.callHistory.find((c) => c.action === "reserveCredits");
+        expect((reserve?.args as { amount: number }).amount).toBe(result.estimatedCreditsCost * IMAGE_RESERVATION_HEADROOM_MULTIPLIER);
+      });
+
+      it("keeps retries in progress until the saved result is available", async () => {
+        await prepareWork();
+        let finishSave!: () => void;
+        saveBarrier = new Promise<void>((resolve) => { finishSave = resolve; });
+        const { POST } = await import("../../generate-image/route");
+        const first = POST(createGenerateImageRequest(body));
+        await vi.waitFor(() => expect(getCallCount("saveImage")).toBe(1));
+        try {
+          const retry = await POST(createGenerateImageRequest(body));
+          expect(retry.status).toBe(202);
+          expect(await retry.json()).toMatchObject({ status: "generating", engine: "generic" });
+        } finally {
+          finishSave();
+          await first;
+        }
+        const recovered = await POST(createGenerateImageRequest(body));
+        expect(recovered.status).toBe(200);
+        expect((await recovered.json()).savedImageId).toBeDefined();
+        expect(getCallCount("reserveCredits")).toBe(1);
+      });
+    });
   });
 
   describe("canonical passage authority", () => {
-    it("ignores forged text/context/theme and replaces legacy cached plans", async () => {
-      process.env.ENABLE_SCENE_PLANNER = "true";
-      const legacyPlan = { primarySubject: "FORGED_OLD_PLAN", action: "posing", setting: "studio" };
-      await requestDb.mutation(api.verseImages.upsertScenePlanCache, {
-        verseId: "genesis-1-1", translationId: "web", styleProfileId: "classical",
-        scenePlan: legacyPlan, plannerModel: "old-planner", promptVersion: "2026-03-19", serverSecret: "test-server-secret",
-      });
-      const prompts: string[] = [];
-      mockFetchImpl = async (_input, init) => {
-        const payload = JSON.parse(String(init?.body));
-        prompts.push(JSON.stringify(payload.messages));
-        return {
-          ok: true, status: 200,
-          json: async () => prompts.length === 1 ? {
-            choices: [{ message: { content: JSON.stringify({ primarySubject: "Created world", action: "emerging", setting: "cosmos" }) } }],
-            usage: { cost: 0.001 },
-          } : {
-            choices: [{ message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } }], usage: { cost: 0.01 },
-          },
-        };
-      };
-      const { POST } = await import("../../generate-image/route");
-      const response = await POST(createGenerateImageRequest({
-        reference: "Genesis 1:1", text: "FORGED_CURRENT", prevVerse: { number: 9, text: "FORGED_PREVIOUS" },
-        nextVerse: JSON.stringify({ number: 9, text: "FORGED_NEXT" }),
-        theme: { setting: "FORGED_THEME", palette: "FORGED_PALETTE", elements: "FORGED_ELEMENTS", style: "FORGED_STYLE" },
-      }));
-      expect(response.status).toBe(200);
-      const body = await response.json();
-      expect(body.verseText).toBe("In the beginning God created the heavens and the earth.");
-      expect(body.translationId).toBe("web");
-      expect(body.promptInputs.prevVerse).toBeUndefined();
-      expect(body.promptInputs.nextVerse).toMatchObject({ number: 2, text: "The earth was formless and empty." });
-      expect(body.prompt).toMatchSnapshot("canonical image prompt");
-      expect(prompts).toHaveLength(2);
-      expect(prompts.join(" ")).not.toContain("FORGED");
-      expect(prompts[0]).toContain("In the beginning God created");
-      expect(prompts[0]).toContain("Creation of the cosmos");
-      const saved = await requestDb.query(internal.verseImages.getImageById, { imageId: body.savedImageId });
-      expect(saved).toMatchObject({ verseText: body.verseText, reference: "Genesis 1:1", translationId: "web" });
-      expect(JSON.stringify(saved?.promptInputs)).not.toContain("FORGED");
-      const plans = await requestDb.run((ctx) => ctx.db.query("scenePlanCache").collect());
-      expect(plans).toHaveLength(1);
-      expect(plans[0]).toMatchObject({ promptVersion: "2026-09-08-canonical", scenePlan: { primarySubject: "Created world" } });
-    });
-
     it.each([undefined, "", "Scripture"])("rejects a noncanonical reference (%s) before paid work", async (reference) => {
       mockFetchImpl = async () => ({ ok: false, status: 404, json: async () => ({}) });
       const { POST } = await import("../../generate-image/route");
@@ -1354,292 +1197,7 @@ describe("Image Generation API Credit Flow", () => {
     });
   });
 
-  describe("Happy Path", () => {
-    it("reserve-generate-deduct-actual: uses OpenRouter usage.cost for actual amount", async () => {
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-          usage: { cost: 0.05 },
-        }),
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "In the beginning God created the heaven and the earth.");
-      url.searchParams.set("reference", "Genesis 1:1");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-
-      const body = await response.json();
-      expect(body.imageUrl).toBeDefined();
-      expect(await requestDb.query(internal.verseImages.getImageById, { imageId: body.savedImageId })).toMatchObject({ generationId: body.generationId });
-      expect(getCallCount("sessions:reserveCredits")).toBe(1);
-      expect(getCallCount("sessions:deductCredits")).toBe(1);
-      expect(getCallCount("saveImage")).toBe(1);
-      expect(body.openRouterUsageUsd).toBe(0.05);
-      expect(body.usedActualCost).toBe(true);
-    });
-
-    it("reference-only requests resolve verse text and same-chapter continuity context", async () => {
-      setMockFetchBibleApiBypass((url) => url.pathname === "/data/web/GEN/1");
-      mockFetchImpl = async (input: RequestInfo | URL) => {
-        const url = typeof input === "string"
-          ? input
-          : input instanceof URL
-            ? input.toString()
-            : input.url;
-
-        if (url.includes("bible-api.com/Genesis%201%3A2?translation=web")) {
-          return {
-            ok: true,
-            status: 200,
-            json: async () => ({
-              reference: "Genesis 1:2",
-              verses: [
-                {
-                  book_id: "GEN",
-                  book_name: "Genesis",
-                  chapter: 1,
-                  verse: 2,
-                  text: "The earth was formless and empty.",
-                },
-              ],
-              text: "The earth was formless and empty.",
-              translation_id: "web",
-              translation_name: "World English Bible",
-              translation_note: "",
-            }),
-          };
-        }
-
-        if (url.includes("bible-api.com/data/web/GEN/1")) {
-          return {
-            ok: true,
-            status: 200,
-            json: async () => ({
-              verses: [
-                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 1, text: "In the beginning God created." },
-                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 2, text: "The earth was formless and empty." },
-                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 3, text: "God said, Let there be light." },
-              ],
-              translation: { identifier: "web", name: "World English Bible" },
-            }),
-          };
-        }
-
-        return {
-          ok: true,
-          status: 200,
-          json: async () => ({
-            id: "gen-123",
-            choices: [
-              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-            ],
-            usage: { cost: 0.01 },
-          }),
-        };
-      };
-
-      const { POST } = await import("../../generate-image/route");
-      const request = createGenerateImageRequest({
-        reference: "Genesis 1:2",
-        translation: "web",
-      });
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-
-      const body = await response.json();
-      expect(body.reference).toBe("Genesis 1:2");
-      expect(body.verseText).toBe("The earth was formless and empty.");
-      expect(body.promptInputs.prevVerse.reference).toBe("Genesis 1:1");
-      expect(body.promptInputs.nextVerse.reference).toBe("Genesis 1:3");
-    });
-
-    it("reference-only requests resolve previous-book continuity at book boundaries", async () => {
-      mockFetchImpl = async (input: RequestInfo | URL) => {
-        const url = typeof input === "string"
-          ? input
-          : input instanceof URL
-            ? input.toString()
-            : input.url;
-
-        if (url.includes("bible-api.com/Exodus%201%3A1?translation=web")) {
-          return {
-            ok: true,
-            status: 200,
-            json: async () => ({
-              reference: "Exodus 1:1",
-              verses: [
-                {
-                  book_id: "EXO",
-                  book_name: "Exodus",
-                  chapter: 1,
-                  verse: 1,
-                  text: "Now these are the names of the sons of Israel.",
-                },
-              ],
-              text: "Now these are the names of the sons of Israel.",
-              translation_id: "web",
-              translation_name: "World English Bible",
-              translation_note: "",
-            }),
-          };
-        }
-
-        if (url.includes("bible-api.com/data/web/EXO/1")) {
-          return {
-            ok: true,
-            status: 200,
-            json: async () => ({
-              verses: [
-                { book_id: "EXO", book: "Exodus", chapter: 1, verse: 1, text: "Now these are the names of the sons of Israel." },
-                { book_id: "EXO", book: "Exodus", chapter: 1, verse: 2, text: "Reuben, Simeon, Levi, and Judah," },
-              ],
-              translation: { identifier: "web", name: "World English Bible" },
-            }),
-          };
-        }
-
-        if (url.includes("bible-api.com/data/web/GEN/50")) {
-          return {
-            ok: true,
-            status: 200,
-            json: async () => ({
-              verses: [
-                { book_id: "GEN", book: "Genesis", chapter: 50, verse: 25, text: "Joseph took an oath of the children of Israel." },
-                { book_id: "GEN", book: "Genesis", chapter: 50, verse: 26, text: "So Joseph died, being one hundred ten years old." },
-              ],
-              translation: { identifier: "web", name: "World English Bible" },
-            }),
-          };
-        }
-
-        return {
-          ok: true,
-          status: 200,
-          json: async () => ({
-            id: "gen-123",
-            choices: [
-              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-            ],
-            usage: { cost: 0.01 },
-          }),
-        };
-      };
-
-      const { POST } = await import("../../generate-image/route");
-      const request = createGenerateImageRequest({
-        reference: "Exodus 1:1",
-        translation: "web",
-      });
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-
-      const body = await response.json();
-      expect(body.reference).toBe("Exodus 1:1");
-      expect(body.promptInputs.prevVerse.reference).toBe("Genesis 50:26");
-      expect(body.promptInputs.nextVerse.reference).toBe("Exodus 1:2");
-    });
-
-    it("reference-only requests resolve next-chapter continuity at chapter boundaries", async () => {
-      setMockFetchBibleApiBypass((url) => url.pathname === "/data/web/GEN/1");
-      mockFetchImpl = async (input: RequestInfo | URL) => {
-        const url = typeof input === "string"
-          ? input
-          : input instanceof URL
-            ? input.toString()
-            : input.url;
-
-        if (url.includes("bible-api.com/Genesis%201%3A31?translation=web")) {
-          return {
-            ok: true,
-            status: 200,
-            json: async () => ({
-              reference: "Genesis 1:31",
-              verses: [
-                {
-                  book_id: "GEN",
-                  book_name: "Genesis",
-                  chapter: 1,
-                  verse: 31,
-                  text: "God saw everything that he had made, and, behold, it was very good.",
-                },
-              ],
-              text: "God saw everything that he had made, and, behold, it was very good.",
-              translation_id: "web",
-              translation_name: "World English Bible",
-              translation_note: "",
-            }),
-          };
-        }
-
-        if (url.includes("bible-api.com/data/web/GEN/1")) {
-          return {
-            ok: true,
-            status: 200,
-            json: async () => ({
-              verses: [
-                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 30, text: "To every animal of the earth, and to every bird of the sky..." },
-                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 31, text: "God saw everything that he had made, and, behold, it was very good." },
-              ],
-              translation: { identifier: "web", name: "World English Bible" },
-            }),
-          };
-        }
-
-        if (url.includes("bible-api.com/data/web/GEN/2")) {
-          return {
-            ok: true,
-            status: 200,
-            json: async () => ({
-              verses: [
-                { book_id: "GEN", book: "Genesis", chapter: 2, verse: 1, text: "The heavens, the earth, and all their vast array were finished." },
-                { book_id: "GEN", book: "Genesis", chapter: 2, verse: 2, text: "On the seventh day God finished his work which he had done." },
-              ],
-              translation: { identifier: "web", name: "World English Bible" },
-            }),
-          };
-        }
-
-        return {
-          ok: true,
-          status: 200,
-          json: async () => ({
-            id: "gen-123",
-            choices: [
-              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-            ],
-            usage: { cost: 0.01 },
-          }),
-        };
-      };
-
-      const { POST } = await import("../../generate-image/route");
-      const request = createGenerateImageRequest({
-        reference: "Genesis 1:31",
-        translation: "web",
-      });
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-
-      const body = await response.json();
-      expect(body.reference).toBe("Genesis 1:31");
-      expect(body.promptInputs.prevVerse.reference).toBe("Genesis 1:30");
-      expect(body.promptInputs.nextVerse.reference).toBe("Genesis 2:1");
-    });
-
+  describe("reference lookup", () => {
     it("returns 503 and does not bill when reference lookup is temporarily unavailable", async () => {
       const mockFetchImplSpy = vi.fn(async (input: RequestInfo | URL) => {
         const url = typeof input === "string"
@@ -1756,255 +1314,6 @@ describe("Image Generation API Credit Flow", () => {
         })
       ).toBe(false);
     });
-
-    it("reserve-generate-deduct-fallback: falls back to API estimate when no cost returned", async () => {
-      mockLearnedEstimate = {
-        credits: 7,
-        source: "model",
-        sampleCount: 5,
-      };
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-          // No usage.cost
-        }),
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Test verse");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-
-      const body = await response.json();
-      expect(body.usedFallbackEstimate).toBe(true);
-      expect(body.usedActualCost).toBe(false);
-      expect(body.imageCreditsCost).toBe(2);
-      expect(body.creditsCost).toBe(2);
-      expect(body.estimatedCreditsCost).toBe(2);
-    });
-
-    it.each(["missing-default", "unpriced"])("rejects %s before reserving or calling a paid provider", async kind => {
-      fetchImageModelsMock.mockResolvedValueOnce({ models: kind === "missing-default" ? [] : [{ ...imageModelFixture(), billing: undefined, availability: "unavailable" }] });
-      const { POST } = await import("../../generate-image/route");
-      const response = await POST(createGenerateImageRequest({ reference: "Genesis 1:1" }));
-      expect(response.status).toBe(400);
-      expect(getCallCount("sessions:reserveCredits")).toBe(0);
-      expect(getCallCount("quoteUsdCost")).toBe(0);
-      expect(mockFetch.mock.calls.some(([input]) => String(input).includes("chat/completions"))).toBe(false);
-    });
-
-    it("actual-usage-local-fallback: quote failure still charges from usage.cost", async () => {
-      forceQuoteFailure = true;
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-          usage: { cost: 0.05 },
-        }),
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Fallback usage test");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-      const body = await response.json();
-      expect(body.imageCreditsCost).toBe(7);
-      expect(body.creditsCost).toBe(7);
-      expect(body.usedActualCost).toBe(true);
-      expect(body.neutralCostUsedForActual).toBe(false);
-    });
-
-    it.each(["1K", "2K", "4K"])("uses the same %s quote in discovery and admission", async resolution => {
-      const { GET } = await import("../../image-models/route");
-      const discovery = await (await GET()).json();
-      const model = discovery.models.find((m: { id: string }) => m.id === "google/gemini-3.1-flash-image-preview");
-      const { POST } = await import("../../generate-image/route");
-      const response = await POST(createGenerateImageRequest({ reference: "Genesis 1:1", model: model.id, resolution }));
-      expect(response.status).toBe(200);
-      expect((await response.json()).estimatedCreditsCost).toBe(model.estimatedCreditsByResolution[resolution]);
-    });
-
-    it("quotes documented output tokens for 2K on Gemini 3.1 image preview", async () => {
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-          usage: { cost: 0.02 },
-        }),
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Test verse");
-      url.searchParams.set("model", "google/gemini-3.1-flash-image-preview");
-      url.searchParams.set("resolution", "2K");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-
-      const body = await response.json();
-      expect(body.resolution).toBe("2K");
-      expect(body.catalogEstimatedProviderUsd).toBeCloseTo(0.0252);
-      expect(body.estimatedCreditsCost).toBe(4);
-      expect(body.resolutionSupported).toBe(true);
-    });
-
-    it.each(["4K", "8K"])("rejects unsupported default-model resolution %s before payment", async resolution => {
-      const { POST } = await import("../../generate-image/route");
-      const response = await POST(createGenerateImageRequest({ reference: "Genesis 1:1", resolution }));
-      expect(response.status).toBe(400);
-      expect(getCallCount("sessions:reserveCredits")).toBe(0);
-    });
-
-    it("resolution-ignored-gemini-2-5: omits image_size for Gemini 2.5 Flash Image", async () => {
-      let capturedImageConfig: Record<string, unknown> | null = null;
-
-      mockFetchImpl = async (_input: RequestInfo | URL, init?: RequestInit) => {
-        const requestBody = JSON.parse(String(init?.body ?? "{}")) as {
-          image_config?: Record<string, unknown>;
-        };
-        capturedImageConfig = requestBody.image_config ?? null;
-
-        return {
-          ok: true,
-          status: 200,
-          json: async () => ({
-            id: "gen-123",
-            choices: [
-              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-            ],
-            usage: { cost: 0.02 },
-          }),
-        };
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Test verse");
-      url.searchParams.set("model", "google/gemini-2.5-flash-image");
-      url.searchParams.set("resolution", "1K");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-
-      const body = await response.json();
-      expect(capturedImageConfig).toEqual({
-        aspect_ratio: "16:9",
-      });
-      expect(body.resolution).toBe("1K");
-      expect(body.resolutionSupported).toBe(false);
-    });
-
-    it("low-balance-spend-down: reserves remaining credits and still succeeds within grace", async () => {
-      resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1 }]);
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-          usage: { cost: 0.04 },
-        }),
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Spend down test");
-      url.searchParams.set("model", "google/gemini-2.5-flash-image");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-      const body = await response.json();
-      const reserveCall = mockState.callHistory.find((c) => c.action === "reserveCredits");
-      expect(reserveCall).toBeDefined();
-      expect((reserveCall?.args as { amount: number }).amount).toBe(1);
-      expect(body.chargeShortfall).toEqual({
-        wantedCredits: 5,
-        chargedCredits: 1,
-        shortfall: 4,
-      });
-      expect(body.creditsCost).toBe(1);
-      expect(body.costUsd).toBe(0.01);
-      expect(body.credits).toBe(0);
-      expect(body.usedActualCost).toBe(true);
-      const shortfallEntry = mockState.ledger.find(
-        (entry) => entry.reason === "shortfall"
-      );
-      expect(shortfallEntry).toBeDefined();
-    });
-
-    it("prompt-guardrails: explicitly blocks mockup and blank-white-backdrop presentation", async () => {
-      let capturedPrompt = "";
-      mockFetchImpl = async (_input: RequestInfo | URL, init?: RequestInit) => {
-        const requestBody = JSON.parse(String(init?.body ?? "{}")) as {
-          messages?: Array<{ content?: string }>;
-        };
-        capturedPrompt = requestBody.messages?.[0]?.content ?? "";
-
-        return {
-          ok: true,
-          status: 200,
-          json: async () => ({
-            id: "gen-123",
-            choices: [
-              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-            ],
-            usage: { cost: 0.01 },
-          }),
-        };
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const request = createGenerateImageRequest({
-        text: "And God said, Let there be light.",
-        reference: "Genesis 1:3",
-      });
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-      expect(capturedPrompt).toContain(
-        "not a photo of a painting, fresco, mural, manuscript, print, or gallery installation"
-      );
-      expect(capturedPrompt).toContain(
-        "never a blank white/cream/beige backdrop or studio sweep"
-      );
-      expect(capturedPrompt).toContain("visible paper, matting");
-    });
   });
 
   describe("Error Paths", () => {
@@ -2065,220 +1374,6 @@ describe("Image Generation API Credit Flow", () => {
       const body = await response.json();
       expect(body.error).toBe("Payload too large");
       expect(getCallCount("sessions:reserveCredits")).toBe(0);
-    });
-
-    it("openrouter-api-error: returns 500 and releases reservation", async () => {
-      mockFetchResponse = {
-        ok: false,
-        status: 500,
-        json: async () => ({ error: { message: "API error" } }),
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Test verse");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(500);
-      expect(getCallCount("sessions:releaseReservation")).toBe(1);
-      expect(getCallCount("sessions:deductCredits")).toBe(0);
-    });
-
-    it("openrouter-timeout: returns 504 and releases reservation", async () => {
-      mockFetchImpl = async (_input: RequestInfo | URL, init?: RequestInit) =>
-        await new Promise((_, reject) => {
-          const signal = init?.signal;
-          if (!signal) {
-            reject(new DOMException("No signal provided", "AbortError"));
-            return;
-          }
-          if (signal.aborted) {
-            reject(new Error("aborted", { cause: { name: "AbortError" } }));
-            return;
-          }
-          signal.addEventListener(
-            "abort",
-            () => {
-              reject(new DOMException("Request aborted", "AbortError"));
-            },
-            { once: true }
-          );
-        });
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Timeout test");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(504);
-      const body = await response.json();
-      expect(body.error).toBe("Image generation timed out");
-      expect(getCallCount("sessions:releaseReservation")).toBe(1);
-      expect(getCallCount("sessions:deductCredits")).toBe(0);
-    });
-
-    it("no-image-in-response: returns 500 and releases reservation", async () => {
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { content: [{ type: "text", text: "No image" }] } },
-          ],
-        }),
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Test verse");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(500);
-      const body = await response.json();
-      expect(body.error).toBe("Model returned no image output");
-      expect(body.message).toContain("No image");
-      expect(getCallCount("sessions:releaseReservation")).toBe(1);
-    });
-
-    it("insufficient-credits: returns 402 with credit info", async () => {
-      resetMockState([{ ...fixtures.sessions.insufficientCredits, sid: "test-session" }]);
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Test verse");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(402);
-      const body = await response.json();
-      expect(body.error).toBe("Insufficient credits");
-    });
-
-    it("daily-limit-exceeded: returns 429 with limit details", async () => {
-      resetMockState([{ ...fixtures.sessions.paidAtDailyLimit, sid: "test-session" }]);
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Test verse");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(429);
-      const body = await response.json();
-      expect(body.error).toBe("Daily spending limit exceeded");
-    });
-
-    it("daily-limit-exceeded-low-balance: still uses uncapped reservation usd for guardrail", async () => {
-      resetMockState([
-        {
-          ...fixtures.sessions.paidWithCredits,
-          sid: "test-session",
-          credits: 1,
-          // A one-credit capped hold fits; only the uncapped hold exceeds the limit.
-          dailySpendUsd: 4.99,
-          dailySpendLimitUsd: 5.0,
-        },
-      ]);
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Low balance daily limit test");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(429);
-      const body = await response.json();
-      expect(body.error).toBe("Daily spending limit exceeded");
-    });
-
-    it("cost-event-failure-enqueues-outbox: generation still succeeds", async () => {
-      forceRecordImageCostEventFailure = true;
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-          usage: { cost: 0.05 },
-        }),
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Outbox fallback test");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-      expect(getCallCount("enqueueImageCostEventOutbox")).toBe(1);
-    });
-  });
-
-  describe("Admin Bypass", () => {
-    it("admin user logs audit but no credit operations", async () => {
-      resetMockState([{ ...fixtures.sessions.admin, sid: "test-session" }]);
-
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-          usage: { cost: 0.05 },
-        }),
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Test verse");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-      expect(getCallCount("sessions:reserveCredits")).toBe(0);
-      expect(getCallCount("sessions:logAdminUsage")).toBe(1);
-      expect(mockState.adminAuditLog[0].endpoint).toBe("generate-image");
-    });
-  });
-
-  describe("Model Validation", () => {
-    it("returns 400 for unknown model", async () => {
-      const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Test verse");
-      url.searchParams.set("model", "unknown/model");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(400);
-      const body = await response.json();
-      expect(body.error).toBe("Model or settings unavailable");
     });
   });
 });
