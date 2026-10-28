@@ -1,11 +1,13 @@
-/** Copy every generated image (first attempts and retries) under a shuffled opaque name, in batches for the scorers. */
+/** Bake-off: copy every generated image (first attempts and retries) under a shuffled opaque name, in batches for the scorers. */
 import fs from "node:fs";
 import path from "node:path";
 import { readWorkInputs } from "../../../src/lib/engine/work-inputs";
 import { blobs, dir, hash, json, root, save } from "./common.mjs";
 
 const BATCHES = 4;
-const rows = fs.readFileSync(path.join(dir, "results.ndjson"), "utf8").trim().split("\n").map((l) => JSON.parse(l));
+// The interrupted first run plus its continuation; the first run's Matthew 1:1 Gouache is superseded by the continuation's three styles of one plan.
+const read = (name: string) => fs.readFileSync(path.join(dir, name), "utf8").trim().split("\n").map((l) => JSON.parse(l));
+const rows = [...read("results.ndjson").filter((r) => r.case !== "matthew-1-1"), ...read("continuation-results.ndjson")];
 const prepared = Object.fromEntries(rows.filter((r) => r.prepared).map((r) => [r.case, r.prepared]));
 const snapshot = json("snapshot.json"), inputs = await readWorkInputs("bible-web", root);
 const images = rows.filter((r) => r.outcome === "image").flatMap((r) => r.attempts.map((a: { n: number; file: string }) => ({ row: r, attempt: a })));
