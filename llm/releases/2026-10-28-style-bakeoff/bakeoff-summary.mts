@@ -7,12 +7,13 @@ import { dir, json, root, save } from "./common.mjs";
 
 const committed = (name: string) => JSON.parse(execFileSync("git", ["show", `HEAD:${path.relative(root, path.join(dir, name))}`], { cwd: root, encoding: "utf8" }));
 assert.deepEqual(committed("operator-scores.json"), json("operator-scores.json"), "Commit adjudicated scores before unblinding");
-const scores = json("operator-scores.json").scores as Array<Record<string, string>>;
+type Score = { id: string; noFormFigure: string; edges: string; text: string; extraFigures: string; coherence: string; matchesScene: string; overall: string };
+const scores = json("operator-scores.json").scores as Score[];
 const key = json("blind-key.json") as Record<string, { key: string; attempt: number; shown: boolean }>;
 const read = (name: string) => fs.readFileSync(path.join(dir, name), "utf8").trim().split("\n").map((l) => JSON.parse(l));
 const rows = [...read("results.ndjson").filter((r) => r.case !== "matthew-1-1"), ...read("continuation-results.ndjson")];
 const labelled = scores.map((s) => ({ ...s, ...key[s.id], style: key[s.id].key.split("/")[1], case: key[s.id].key.split("/")[0] }));
-const faults = (s: Record<string, string>) => [s.noFormFigure === "yes" && "noFormFigure", s.edges === "margin" && "margin", s.edges === "frame" && "frame", s.text === "yes" && "lettering",
+const faults = (s: Score) => [s.noFormFigure === "yes" && "noFormFigure", s.edges === "margin" && "margin", s.edges === "frame" && "frame", s.text === "yes" && "lettering",
   s.extraFigures === "yes" && "extraFigures", s.coherence === "no" && "incoherent", s.matchesScene !== "yes" && `scene ${s.matchesScene}`].filter(Boolean) as string[];
 const result: Record<string, unknown> = {};
 for (const style of json("plan.json").styles as string[]) {
