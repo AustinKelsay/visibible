@@ -83,9 +83,6 @@ Server-secret reads are reserved for Next.js after cookie validation and for tru
 | `verseImages:getPublicChapterLatestImages` | query | Server | CONVEX_SERVER_SECRET |
 | `verseImages:getImageHistory` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
 | `verseImages:getGenerationRequestStatus` | query | Guest-owned | Verified subject and current session; explicit server secret for HTTP reads where supported |
-| `verseImages:getScenePlanCache` | query | Server | CONVEX_SERVER_SECRET |
-| `verseImages:markScenePlanCacheHit` | mutation | Server | CONVEX_SERVER_SECRET |
-| `verseImages:upsertScenePlanCache` | mutation | Server | CONVEX_SERVER_SECRET |
 | `verseImages:getGenerationIntent` | query | Server | CONVEX_SERVER_SECRET |
 | `verseImages:createGenerationRequest` | mutation | Server | CONVEX_SERVER_SECRET |
 | `verseImages:updateGenerationRequest` | mutation | Server | CONVEX_SERVER_SECRET |
