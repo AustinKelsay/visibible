@@ -41,3 +41,13 @@ The rest of the bar is unchanged: at least 75% acceptable overall and 65% per st
 ## Amendment 3: Classical and Watercolor launch first
 
 The [rerun](../../llm/releases/2026-10-28-launch-matrix-v2/RESULTS.md) reached 71% overall. Classical (84%) and Watercolor (78%) met the bar on their own, together 81%, while Icon fell to 50% from halo letters, scribbles and gold border bands. On 28 October the owner chose to launch Classical and Watercolor first and fix Icon afterwards. The public switch now releases only the styles in `PUBLIC_GENERIC_STYLE_IDS`. Icon stays available to the owner in owner and public modes and reports temporarily unavailable to readers, as it does today. Icon joins the list after its own measurement meets the per-style bar.
+
+## Amendment 4: Fresco is the third public style
+
+Icon failed two style rounds: 50% in the [rerun](../../llm/releases/2026-10-28-launch-matrix-v2/RESULTS.md) and 44% with rewritten style text in the [third run](../../llm/releases/2026-10-28-launch-matrix-v3/RESULTS.md). The owner asked for another third style.
+- **Bake-off:** Gouache, Engraving and Fresco ran on 12 hard cases ([bake-off](../../llm/releases/2026-10-28-style-bakeoff/RESULTS.md)). Gouache read as another painterly oil style, so Fresco and Engraving were the distinct options, and the owner chose Fresco by its look.
+- **Full matrix:** Fresco reached 24 of 33 acceptable shown images (73%) with no God figure ([Fresco matrix](../../llm/releases/2026-10-28-fresco-matrix/RESULTS.md)). With Classical and Watercolor the three styles reach 78%.
+
+Fresco joins the shared style library, the Bible brief and `PUBLIC_GENERIC_STYLE_IDS`. Icon stays in the library, so saved Icon images keep their label, and remains owner-only.
+
+Adding a style changes the brief file, and its version must match the active analysis. A full reread for a style list is wasteful, because no reading, canon, look or plan uses the list. `analysis.amendBriefStyles` therefore approves a brief change that differs only in `styleIds`. It verifies the old file against the registered and active versions and moves both to the new version. Cached looks and plans still name the old version and refresh lazily, which costs one planner round per moment as readers return. The [runbook](../../llm/workflow/ENGINE_RELEASE.md) gives the order.

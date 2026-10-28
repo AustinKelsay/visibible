@@ -1,3 +1,4 @@
+import { KNOWN_STYLE_IDS } from "./_helpers/styleIds";
 import { lookPolicy } from "../src/lib/engine/situation";
 /**
  * Analysis storage and lifecycle (#168, spec #165 §7 and §9).
@@ -194,6 +195,50 @@ export const registerWork = mutation({
     }
     await ctx.db.insert("works", { workId: args.workId, workVersion: args.workVersion, briefVersion: args.briefVersion, nextGeneration: 1, updatedAt: now });
     return { workId: args.workId, created: true };
+  },
+});
+
+const sha256Hex = async (text: string) =>
+  Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)))).map((b) => b.toString(16).padStart(2, "0")).join("");
+const withoutStyleIds = (text: string) => {
+  const brief = JSON.parse(text) as Record<string, unknown>;
+  delete brief.styleIds;
+  return JSON.stringify(brief);
+};
+
+/**
+ * Approve a brief change that only changes its approved art styles, without a reread (ADR 0006, amendment 4).
+ * Nothing in the analysis reads the style list (readings, canon, looks and plans use the brief's rules and eras),
+ * so the active generation stays valid. Both brief files are sent whole: the previous one must hash to the
+ * registered and active versions, and the two may differ only in `styleIds`. Cached looks and plans name the
+ * brief version, so they refresh lazily afterwards.
+ */
+export const amendBriefStyles = mutation({
+  args: {
+    serverSecret: v.string(),
+    workId: v.string(),
+    previousBrief: v.string(),
+    nextBrief: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const work = await requireWork(ctx, args.workId);
+    const [previousVersion, nextVersion] = await Promise.all([sha256Hex(args.previousBrief), sha256Hex(args.nextBrief)]);
+    if (work.briefVersion !== previousVersion) throw new Error(`The registered brief is ${work.briefVersion}, not the previous brief ${previousVersion}`);
+    const active = work.activeGeneration === undefined ? null : await findGeneration(ctx, args.workId, work.activeGeneration);
+    if (!active || active.briefVersion !== previousVersion) throw new Error("The active generation was not read against the previous brief");
+    if (withoutStyleIds(args.previousBrief) !== withoutStyleIds(args.nextBrief)) throw new Error("The briefs differ in more than their art styles");
+    const styleIds = (JSON.parse(args.nextBrief) as { styleIds?: unknown }).styleIds;
+    if (!Array.isArray(styleIds) || styleIds.length === 0 || !styleIds.every((id) => typeof id === "string" && id.length > 0)) throw new Error("The new brief must approve at least one art style");
+    // The engine refuses a brief naming a style outside the library, so check before moving any version.
+    const unknown = styleIds.filter((id) => !KNOWN_STYLE_IDS.includes(id));
+    if (unknown.length) throw new Error(`The new brief names unknown art styles: ${unknown.join(", ")}`);
+    if (new Set(styleIds).size !== styleIds.length) throw new Error("The new brief lists an art style twice");
+    if (previousVersion === nextVersion) return { previousVersion, nextVersion, styleIds, changed: false };
+    const now = Date.now();
+    await ctx.db.patch(work._id, { briefVersion: nextVersion, updatedAt: now });
+    await ctx.db.patch(active._id, { briefVersion: nextVersion });
+    return { previousVersion, nextVersion, styleIds, changed: true };
   },
 });
 

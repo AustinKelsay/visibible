@@ -1,0 +1,508 @@
+{
+  "calls": [
+    {
+      "phase": "genesis-1-3/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002075
+    },
+    {
+      "phase": "isaiah-6-2/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002557
+    },
+    {
+      "phase": "exodus-14-21/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002636
+    },
+    {
+      "phase": "isaiah-6-2/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005559
+    },
+    {
+      "phase": "genesis-1-3/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004512
+    },
+    {
+      "phase": "exodus-14-21/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005666
+    },
+    {
+      "phase": "genesis-1-3/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000204
+    },
+    {
+      "phase": "isaiah-6-2/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006472
+    },
+    {
+      "phase": "exodus-14-21/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004635
+    },
+    {
+      "phase": "genesis-1-3/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033865
+    },
+    {
+      "phase": "genesis-1-3/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002485
+    },
+    {
+      "phase": "genesis-1-3/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003692
+    },
+    {
+      "phase": "exodus-14-21/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03424675
+    },
+    {
+      "phase": "isaiah-6-2/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033948
+    },
+    {
+      "phase": "genesis-1-3/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033859
+    },
+    {
+      "phase": "isaiah-6-2/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002492
+    },
+    {
+      "phase": "isaiah-6-2/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004084
+    },
+    {
+      "phase": "genesis-1-3/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002715
+    },
+    {
+      "phase": "genesis-1-3/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003882
+    },
+    {
+      "phase": "exodus-14-21/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002517
+    },
+    {
+      "phase": "exodus-14-21/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003624
+    },
+    {
+      "phase": "isaiah-6-2/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033942
+    },
+    {
+      "phase": "genesis-1-3/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033859
+    },
+    {
+      "phase": "exodus-14-21/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03424075
+    },
+    {
+      "phase": "isaiah-6-2/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002492
+    },
+    {
+      "phase": "isaiah-6-2/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003874
+    },
+    {
+      "phase": "genesis-1-3/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000339
+    },
+    {
+      "phase": "genesis-1-3/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003807
+    },
+    {
+      "phase": "exodus-14-21/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002517
+    },
+    {
+      "phase": "exodus-14-21/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003684
+    },
+    {
+      "phase": "isaiah-6-2/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0339425
+    },
+    {
+      "phase": "genesis-1-3/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0338595
+    },
+    {
+      "phase": "exodus-14-21/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03424125
+    },
+    {
+      "phase": "isaiah-6-2/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003532
+    },
+    {
+      "phase": "isaiah-6-2/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004059
+    },
+    {
+      "phase": "exodus-14-21/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002517
+    },
+    {
+      "phase": "exodus-14-21/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003419
+    },
+    {
+      "phase": "genesis-1-3/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002485
+    },
+    {
+      "phase": "genesis-1-3/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003612
+    },
+    {
+      "phase": "daniel-7-9/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002636
+    },
+    {
+      "phase": "revelation-4-6/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002565
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001625
+    },
+    {
+      "phase": "daniel-7-9/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005632
+    },
+    {
+      "phase": "revelation-4-6/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000529
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003893
+    },
+    {
+      "phase": "revelation-4-6/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002551
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005309
+    },
+    {
+      "phase": "daniel-7-9/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002496
+    },
+    {
+      "phase": "revelation-4-6/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03391525
+    },
+    {
+      "phase": "daniel-7-9/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033919
+    },
+    {
+      "phase": "revelation-4-6/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003252
+    },
+    {
+      "phase": "revelation-4-6/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003579
+    },
+    {
+      "phase": "daniel-7-9/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002525
+    },
+    {
+      "phase": "daniel-7-9/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003867
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004116
+    },
+    {
+      "phase": "revelation-4-6/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03390925
+    },
+    {
+      "phase": "daniel-7-9/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033913
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001829
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03386575
+    },
+    {
+      "phase": "revelation-4-6/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002492
+    },
+    {
+      "phase": "revelation-4-6/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003684
+    },
+    {
+      "phase": "daniel-7-9/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000292
+    },
+    {
+      "phase": "daniel-7-9/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003872
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002489
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003216
+    },
+    {
+      "phase": "revelation-4-6/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03390975
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0339135
+    },
+    {
+      "phase": "matthew-1-1/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03385975
+    },
+    {
+      "phase": "revelation-4-6/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003212
+    },
+    {
+      "phase": "revelation-4-6/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003869
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000338
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003687
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00018
+    },
+    {
+      "phase": "matthew-27-35/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001964
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004731
+    },
+    {
+      "phase": "matthew-1-1/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002724
+    },
+    {
+      "phase": "matthew-1-1/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003746
+    },
+    {
+      "phase": "matthew-27-35/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004822
+    },
+    {
+      "phase": "matthew-1-1/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03385975
+    },
+    {
+      "phase": "matthew-27-35/gouache/1",
+      "kind": "text",
+      "status": "in-flight",
+      "measuredUsd": null
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "text",
+      "status": "in-flight",
+      "measuredUsd": null
+    },
+    {
+      "phase": "matthew-1-1/engraving/1",
+      "kind": "check",
+      "status": "in-flight",
+      "measuredUsd": null
+    },
+    {
+      "phase": "matthew-1-1/engraving/1",
+      "kind": "check",
+      "status": "in-flight",
+      "measuredUsd": null
+    }
+  ],
+  "measuredUsd": 0.6655491499999999,
+  "uncertainUsd": 0.014000000000000009,
+  "images": 19,
+  "textCalls": 26,
+  "checkCalls": 38,
+  "blocked": null
+}

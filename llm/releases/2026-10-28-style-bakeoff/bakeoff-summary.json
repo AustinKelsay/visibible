@@ -1,0 +1,81 @@
+{
+  "gouache": {
+    "shown": 12,
+    "acceptable": 5,
+    "firstAttemptAcceptable": 4,
+    "retries": 2,
+    "faultsInFlawedShown": {
+      "scene partly": 5,
+      "incoherent": 4,
+      "lettering": 1,
+      "margin": 1,
+      "extraFigures": 1
+    },
+    "perCase": {
+      "exodus-14-21": "ok",
+      "isaiah-6-2": "scene partly",
+      "psalms-23-2": "ok",
+      "daniel-7-9": "incoherent+scene partly",
+      "genesis-1-3": "ok",
+      "matthew-27-35": "lettering",
+      "matthew-1-1": "margin",
+      "john-11-43": "ok",
+      "revelation-4-6": "incoherent+scene partly",
+      "ruth-4-22": "ok",
+      "luke-15-20": "extraFigures+incoherent+scene partly",
+      "1-samuel-17-49": "incoherent+scene partly"
+    }
+  },
+  "engraving": {
+    "shown": 12,
+    "acceptable": 5,
+    "firstAttemptAcceptable": 5,
+    "retries": 3,
+    "faultsInFlawedShown": {
+      "incoherent": 4,
+      "scene partly": 5,
+      "lettering": 3,
+      "margin": 1
+    },
+    "perCase": {
+      "daniel-7-9": "ok",
+      "isaiah-6-2": "incoherent+scene partly",
+      "revelation-4-6": "incoherent+scene partly",
+      "luke-15-20": "ok",
+      "john-11-43": "ok",
+      "genesis-1-3": "lettering",
+      "matthew-27-35": "margin+lettering",
+      "exodus-14-21": "scene partly",
+      "psalms-23-2": "ok",
+      "matthew-1-1": "lettering+incoherent+scene partly",
+      "1-samuel-17-49": "incoherent+scene partly",
+      "ruth-4-22": "ok"
+    }
+  },
+  "fresco": {
+    "shown": 12,
+    "acceptable": 6,
+    "firstAttemptAcceptable": 6,
+    "retries": 1,
+    "faultsInFlawedShown": {
+      "incoherent": 3,
+      "scene partly": 4,
+      "lettering": 2,
+      "noFormFigure": 1
+    },
+    "perCase": {
+      "revelation-4-6": "ok",
+      "psalms-23-2": "ok",
+      "exodus-14-21": "incoherent+scene partly",
+      "matthew-27-35": "lettering",
+      "john-11-43": "incoherent+scene partly",
+      "luke-15-20": "ok",
+      "matthew-1-1": "ok",
+      "isaiah-6-2": "incoherent+scene partly",
+      "daniel-7-9": "noFormFigure+scene partly",
+      "ruth-4-22": "ok",
+      "1-samuel-17-49": "lettering",
+      "genesis-1-3": "ok"
+    }
+  }
+}

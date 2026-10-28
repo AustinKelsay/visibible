@@ -37,7 +37,7 @@ Naming the faults in the style text may prime them, and losing the style referen
 - Sixteen independent model scorers, two per batch of 13–14 images, scored every image blind to style label, attempt and whether it was shown.
 - Two batches cut off by a usage limit were finished by further independent agents; part names in the scorer files record which.
 - The scorers agreed on 100 of 111 overall verdicts.
-- The operator resolved 22 field disputes by viewing the images and detail crops, using the earlier written rules, and committed before unblinding (commit `a241aa1`).
+- The operator resolved 46 field disputes on 33 images (counting the scene-match field) by viewing the images and detail crops, using the earlier written rules, and committed before unblinding (commit `a241aa1`).
 - **Sensitivity:** if every disputed shown verdict went the other way, all styles would range from 60 to 71 of 96, and Classical with Watercolor from 47 to 55 of 64 (73–86%).
 - [Scorer A](scorer-a.json), [scorer B](scorer-b.json), [adjudicated](operator-scores.json), [key](blind-key.json).
 - These are model judgments, not human acceptance.

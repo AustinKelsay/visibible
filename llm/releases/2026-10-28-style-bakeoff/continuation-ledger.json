@@ -1,0 +1,664 @@
+{
+  "calls": [
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001525
+    },
+    {
+      "phase": "matthew-27-35/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001919
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000182
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003803
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000478
+    },
+    {
+      "phase": "matthew-27-35/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004743
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005027
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007086
+    },
+    {
+      "phase": "matthew-27-35/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004766
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003949
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004763
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002954
+    },
+    {
+      "phase": "matthew-27-35/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03425975
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000287
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03386475
+    },
+    {
+      "phase": "matthew-27-35/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002739
+    },
+    {
+      "phase": "matthew-27-35/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003631
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03389525
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002721
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003758
+    },
+    {
+      "phase": "matthew-27-35/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03425375
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.00033
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003852
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03386475
+    },
+    {
+      "phase": "matthew-27-35/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002759
+    },
+    {
+      "phase": "matthew-27-35/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004126
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03389525
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002686
+    },
+    {
+      "phase": "matthew-1-1/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003968
+    },
+    {
+      "phase": "matthew-27-35/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03425375
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002495
+    },
+    {
+      "phase": "ruth-4-22/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003737
+    },
+    {
+      "phase": "matthew-1-1/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03385875
+    },
+    {
+      "phase": "ruth-4-22/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03388925
+    },
+    {
+      "phase": "matthew-27-35/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003454
+    },
+    {
+      "phase": "matthew-27-35/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003981
+    },
+    {
+      "phase": "matthew-1-1/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002751
+    },
+    {
+      "phase": "matthew-1-1/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003878
+    },
+    {
+      "phase": "ruth-4-22/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002495
+    },
+    {
+      "phase": "ruth-4-22/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003547
+    },
+    {
+      "phase": "matthew-27-35/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03425425
+    },
+    {
+      "phase": "matthew-1-1/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03385875
+    },
+    {
+      "phase": "ruth-4-22/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03388975
+    },
+    {
+      "phase": "matthew-27-35/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002529
+    },
+    {
+      "phase": "matthew-27-35/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003556
+    },
+    {
+      "phase": "matthew-1-1/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002481
+    },
+    {
+      "phase": "matthew-1-1/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003463
+    },
+    {
+      "phase": "ruth-4-22/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002495
+    },
+    {
+      "phase": "ruth-4-22/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003642
+    },
+    {
+      "phase": "matthew-1-1/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03385925
+    },
+    {
+      "phase": "1-samuel-17-49/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001928
+    },
+    {
+      "phase": "john-11-43/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001768
+    },
+    {
+      "phase": "1-samuel-17-49/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005016
+    },
+    {
+      "phase": "john-11-43/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005016
+    },
+    {
+      "phase": "matthew-1-1/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002481
+    },
+    {
+      "phase": "matthew-1-1/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003483
+    },
+    {
+      "phase": "1-samuel-17-49/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006284
+    },
+    {
+      "phase": "john-11-43/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005992
+    },
+    {
+      "phase": "luke-15-20/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001815
+    },
+    {
+      "phase": "luke-15-20/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000462
+    },
+    {
+      "phase": "john-11-43/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00056
+    },
+    {
+      "phase": "1-samuel-17-49/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005423
+    },
+    {
+      "phase": "luke-15-20/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004851
+    },
+    {
+      "phase": "john-11-43/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005691
+    },
+    {
+      "phase": "1-samuel-17-49/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005552
+    },
+    {
+      "phase": "luke-15-20/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0339695
+    },
+    {
+      "phase": "john-11-43/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03432425
+    },
+    {
+      "phase": "1-samuel-17-49/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034307
+    },
+    {
+      "phase": "luke-15-20/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002497
+    },
+    {
+      "phase": "luke-15-20/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003434
+    },
+    {
+      "phase": "john-11-43/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002553
+    },
+    {
+      "phase": "john-11-43/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003555
+    },
+    {
+      "phase": "luke-15-20/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0339635
+    },
+    {
+      "phase": "1-samuel-17-49/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002524
+    },
+    {
+      "phase": "1-samuel-17-49/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003531
+    },
+    {
+      "phase": "john-11-43/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03431825
+    },
+    {
+      "phase": "1-samuel-17-49/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034301
+    },
+    {
+      "phase": "luke-15-20/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002497
+    },
+    {
+      "phase": "luke-15-20/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003164
+    },
+    {
+      "phase": "john-11-43/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002553
+    },
+    {
+      "phase": "john-11-43/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000336
+    },
+    {
+      "phase": "luke-15-20/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033964
+    },
+    {
+      "phase": "1-samuel-17-49/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002524
+    },
+    {
+      "phase": "1-samuel-17-49/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003496
+    },
+    {
+      "phase": "john-11-43/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03431875
+    },
+    {
+      "phase": "luke-15-20/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002497
+    },
+    {
+      "phase": "luke-15-20/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003264
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0343015
+    },
+    {
+      "phase": "psalms-23-2/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001643
+    },
+    {
+      "phase": "john-11-43/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002553
+    },
+    {
+      "phase": "john-11-43/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000371
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002694
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003886
+    },
+    {
+      "phase": "psalms-23-2/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004044
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0343015
+    },
+    {
+      "phase": "psalms-23-2/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006492
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002524
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003491
+    },
+    {
+      "phase": "psalms-23-2/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004033
+    },
+    {
+      "phase": "psalms-23-2/gouache/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005776
+    },
+    {
+      "phase": "psalms-23-2/gouache/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0338685
+    },
+    {
+      "phase": "psalms-23-2/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002482
+    },
+    {
+      "phase": "psalms-23-2/gouache/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003684
+    },
+    {
+      "phase": "psalms-23-2/engraving/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0338625
+    },
+    {
+      "phase": "psalms-23-2/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002482
+    },
+    {
+      "phase": "psalms-23-2/engraving/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003479
+    },
+    {
+      "phase": "psalms-23-2/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033863
+    },
+    {
+      "phase": "psalms-23-2/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002482
+    },
+    {
+      "phase": "psalms-23-2/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003464
+    }
+  ],
+  "measuredUsd": 0.9149541999999997,
+  "uncertainUsd": 6.938893903907228e-18,
+  "images": 26,
+  "textCalls": 31,
+  "checkCalls": 52,
+  "blocked": null
+}

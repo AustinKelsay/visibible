@@ -32,8 +32,11 @@ describe("engine admission", () => {
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "classical", readiness: null })).toMatchObject({ engine: null, unavailable: "preparing", reason: expect.stringContaining("not registered") });
   });
 
-  it("releases only Classical and Watercolor to readers in public mode, and keeps Icon for the owner", () => {
-    expect(PUBLIC_GENERIC_STYLE_IDS).toEqual(["classical", "watercolor"]);
+  it("releases Classical, Watercolor and Fresco to readers in public mode, and keeps Icon for the owner", () => {
+    expect(PUBLIC_GENERIC_STYLE_IDS).toEqual(["classical", "watercolor", "fresco"]);
+    expect(decideEngine({ mode: "public", isOwner: false, styleId: "fresco", readiness: ready })).toEqual({ engine: "generic", reason: "public" });
+    // Disabled: Fresco, like Watercolor, has no legacy engine.
+    expect(decideEngine({ mode: "disabled", isOwner: false, styleId: "fresco", readiness: ready })).toMatchObject({ engine: null, unavailable: "style" });
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "watercolor", readiness: ready })).toEqual({ engine: "generic", reason: "public" });
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "icon", readiness: ready })).toMatchObject({ engine: null, unavailable: "style", reason: "The icon art style is temporarily unavailable", retryable: true });
     expect(decideEngine({ mode: "public", isOwner: true, styleId: "icon", readiness: ready })).toEqual({ engine: "generic", reason: "owner-proof" });

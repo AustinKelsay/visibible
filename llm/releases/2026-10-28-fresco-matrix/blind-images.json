@@ -1,0 +1,1873 @@
+{
+  "masking": "Style, attempt and shown labels omitted; style is visible in the image. Batches of about 12 split the images for scorers. Two independent model scorers per batch, operator adjudication; not human acceptance.",
+  "packet": [
+    {
+      "id": "img001",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img001.jpg",
+      "sha256": "806a879c82f4d1b30caf725893d1e7c1ec441805b98a693f48d6c04043d7c524",
+      "verse": "joshua-6-20",
+      "verseText": "So the people shouted and the priests blew the trumpets. When the people heard the sound of the trumpet, the people shouted with a great shout, and the wall fell down flat, so that the people went up into the city, every man straight in front of him, and they took the city.",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "the_priests_and_levites_deuteronomy",
+        "jericho",
+        "joshua_son_of_nun"
+      ],
+      "availableCast": [
+        {
+          "entryId": "joshua_son_of_nun",
+          "name": "Joshua son of Nun",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_priests_and_levites_deuteronomy",
+          "name": "The priests and Levites (Deuteronomy)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "rahab_of_jericho",
+          "name": "Rahab of Jericho",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_two_spies",
+          "name": "the two spies",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jericho",
+          "name": "Jericho",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A crowd of Israelite warriors and families surging forward over a collapsed section of stone wall",
+        "action": "The wall has just crumbled outward in a heap of stone, and the people rush through the breach into the city",
+        "setting": "The breached walls and gate area of Jericho with the open plain beyond",
+        "secondaryElements": "Priests in linen robes near the front blowing long trumpets; scattered fallen stones and dust; Jericho's mudbrick towers standing at the edges",
+        "mood": "Triumphant, awe-struck and resolute, with reverent gravity rather than spectacle",
+        "timeOfDay": "Midday heat, clear windless sky with haze over the plain",
+        "composition": "Wide view from outside the wall looking inward, the crowd flowing diagonally through the breach toward the city center",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "the_priests_and_levites_deuteronomy",
+          "jericho",
+          "joshua_son_of_nun"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img002",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img002.jpg",
+      "sha256": "e138d102d1ce74bf8e033b0b8520fb9339397e188dd19a0d1f2d9b677ef29437",
+      "verse": "ezekiel-37-4",
+      "verseText": "Again he said to me, “Prophesy over these bones, and tell them, ‘You dry bones, hear Yahweh’s word.",
+      "selected": [
+        "ezekiel_son_of_buzi",
+        "valley_of_dry_bones"
+      ],
+      "availableCast": [
+        {
+          "entryId": "ezekiel_son_of_buzi",
+          "name": "Ezekiel son of Buzi",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "valley_of_dry_bones",
+          "name": "Valley of dry bones",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Ezekiel, a plain exile prophet in a worn tunic and cloak, standing upright amid the bones with one arm raised toward them.",
+        "action": "He speaks the command aloud to the bones, his voice carrying across the still valley.",
+        "setting": "A wide valley of dry bones under open sky, sun-bleached ground strewn with skeletal remains, distant hills of exile country and a dry riverbed below.",
+        "secondaryElements": "Scattered bones across the valley floor, dust lifting slightly in the air, distant hills on the horizon.",
+        "mood": "Solemn, expectant and quietly awe-filled, with grief held under hope.",
+        "timeOfDay": "Midday, bright and still, with hard clear sunlight and a faint shimmer of heat over the ground.",
+        "composition": "Ezekiel placed in the lower middle of the frame, seen from the side at a moderate distance, with the bones spread out across the valley floor and the hills rising behind.",
+        "present": [
+          "ezekiel_son_of_buzi",
+          "valley_of_dry_bones"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img003",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img003.jpg",
+      "sha256": "b607519412b21c5a049801028ca3531005968e0ab9ba9e753d2ed051be1e3769",
+      "verse": "song-of-solomon-2-1",
+      "verseText": "I am a rose of Sharon, a lily of the valleys.",
+      "selected": [
+        "the_shulammite"
+      ],
+      "availableCast": [
+        {
+          "entryId": "the_shulammite",
+          "name": "The Shulammite",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_beloved_shepherd_song_of_solomon",
+          "name": "The beloved shepherd (Song of Solomon)",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Shulammite standing upright, head slightly lifted, arms relaxed at her sides",
+        "action": "She stands still amid blooming roses and lilies, her posture calm and self-assured",
+        "setting": "A shaded valley meadow of the Shephelah with terraced hills, wild flowers and a nearby apple orchard",
+        "secondaryElements": "Clusters of wild roses and white lilies at her feet, a few apple trees behind, a rustic shepherd's staff leaning against a low stone",
+        "mood": "Serene, tender and quietly confident",
+        "timeOfDay": "Late afternoon, clear warm spring air, low amber sunlight slanting through branches",
+        "composition": "Medium shot from slightly below eye level, the woman centred against a background of flowers and terraced hills",
+        "present": [
+          "the_shulammite"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img004",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img004.jpg",
+      "sha256": "8b15fb85e77d8021c2845c7f81bf122e4a9c8be5fe435293dc6a21aee54bc456",
+      "verse": "revelation-21-1",
+      "verseText": "I saw a new heaven and a new earth, for the first heaven and the first earth have passed away, and the sea is no more.",
+      "selected": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "new_jerusalem",
+          "name": "New Jerusalem",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A renewed, dry and fertile earth under a clear new sky, with no sea remaining.",
+        "action": "Radiance and cloud of the throne-glory spread across the new heaven, filling the air with golden light.",
+        "setting": "A renewed landscape of green land and clear water basins where the sea once lay, under a luminous new sky.",
+        "secondaryElements": "Cloud and fire of light hanging over the land from beyond the frame; no figures, no city, no seer.",
+        "mood": "Awe, peace and renewal, reverent and hushed.",
+        "timeOfDay": "Radiant, unending day with no night; clear, still air and golden light.",
+        "composition": "Wide landscape viewed from a low horizon, the new sky filling the upper frame and the expanse of renewed earth below.",
+        "present": [
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img005",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img005.jpg",
+      "sha256": "178bcfe239dce132b95ee23f08f884e4b58efb92938539953bf291e9234d6384",
+      "verse": "isaiah-11-6",
+      "verseText": "The wolf will live with the lamb, and the leopard will lie down with the young goat, the calf, the young lion, and the fattened calf together; and a little child will lead them.",
+      "selected": [
+        "judah_kingdom_and_land"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "judah_kingdom_and_land",
+          "name": "Judah (kingdom and land)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A little child at the center, holding a loose cord or staff, leading the animals forward.",
+        "action": "The wolf and lamb walk side by side and the leopard lies down beside a young goat, calm and unafraid.",
+        "setting": "Terraced hillside of Judah with olive trees, stone walls and a distant view of Jerusalem's walls.",
+        "secondaryElements": "A wolf, lamb, leopard, young goat, calf and young lion grouped around the child; a pastoral staff lying in the grass.",
+        "mood": "Peaceful, hopeful and tender, with a quiet sense of restored harmony.",
+        "timeOfDay": "Early morning sunrise light, clear still air with a few soft clouds.",
+        "composition": "Wide landscape view at the child's eye level, the child centered with the animals spread across the foreground and terraces receding behind.",
+        "present": [
+          "judah_kingdom_and_land"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img006",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img006.jpg",
+      "sha256": "81d7abc579e9317df4c2a12d4ff439d56e998504d04f243660413c1758e62d23",
+      "verse": "luke-15-20",
+      "verseText": "“He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.",
+      "selected": [
+        "the_younger_son",
+        "the_prodigal_s_father",
+        "galilee"
+      ],
+      "availableCast": [
+        {
+          "entryId": "the_younger_son",
+          "name": "the younger son",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_prodigal_s_father",
+          "name": "The prodigal's father",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "galilee",
+          "name": "Galilee",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The younger son walking toward home, and the father breaking into a run toward him",
+        "action": "The father runs down the road with arms open as the son approaches, moment before they meet.",
+        "setting": "Stone village road leading to a low stone farmhouse courtyard in Galilee, terraced hills behind.",
+        "secondaryElements": "Dust rising from the road, a stone wall and olive tree at the courtyard edge, a few distant villagers pausing to watch.",
+        "mood": "Tender, joyful and tense with longing, grounded and reverent.",
+        "timeOfDay": "Late afternoon turning to dusk, warm low golden sunlight from the west, lengthening shadows, clear dry air with a light breeze.",
+        "composition": "Wide view from the courtyard looking down the road, the father in the middle distance running toward the son in the foreground, both figures on the diagonal path.",
+        "present": [
+          "the_younger_son",
+          "the_prodigal_s_father",
+          "galilee"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img007",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img007.jpg",
+      "sha256": "74d1546852ce45d414150cbaba74fb7946f9839da170bdcba4b08d63d9b32fd4",
+      "verse": "ruth-4-22",
+      "verseText": "and Obed became the father of Jesse, and Jesse became the father of David.",
+      "selected": [
+        "naomi_s_house_in_bethlehem",
+        "naomi",
+        "women_of_bethlehem"
+      ],
+      "availableCast": [
+        {
+          "entryId": "ruth",
+          "name": "Ruth",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "boaz",
+          "name": "Boaz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "naomi",
+          "name": "Naomi",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "women_of_bethlehem",
+          "name": "Women of Bethlehem",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "naomi_s_house_in_bethlehem",
+          "name": "Naomi's house in Bethlehem",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Naomi seated within the courtyard, attentive and composed, with the women of Bethlehem gathered close beside her",
+        "action": "The women listen quietly as the line of descent is named, the moment holding the naming of Jesse and David as a family's memory passes on",
+        "setting": "Courtyard of Naomi's house with mud-brick walls and a wooden doorway, in Bethlehem village",
+        "secondaryElements": "Women of Bethlehem in plain linen tunics and head coverings gathered around Naomi, a clay water jar and woven mats in the courtyard",
+        "mood": "Reverent, hushed and hopeful, with a sense of continuity and inheritance",
+        "timeOfDay": "Late afternoon into evening, clear warm air with soft haze over the hills",
+        "composition": "Medium shot from the courtyard entrance, Naomi centred with the women arranged in a gentle arc around her, the doorway framing warm golden light",
+        "present": [
+          "naomi_s_house_in_bethlehem",
+          "naomi",
+          "women_of_bethlehem"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img008",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img008.jpg",
+      "sha256": "0df1309fe4309bdd787fda31454a7e540a6d31210f4b61c58bd0035e266f9b11",
+      "verse": "genesis-19-24",
+      "verseText": "Then Yahweh rained on Sodom and on Gomorrah sulfur and fire from Yahweh out of the sky.",
+      "selected": [
+        "sodom",
+        "gomorrah"
+      ],
+      "availableCast": [
+        {
+          "entryId": "lot_s_wife",
+          "name": "Lot's wife",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "abram",
+          "name": "Abram",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "sodom",
+          "name": "Sodom",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "gomorrah",
+          "name": "Gomorrah",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Burning sulfur and fire streaming downward from a dark sky over the walled city of Sodom",
+        "action": "Blazing sulfur and fire descend in falling streaks upon the cities below as the sun breaks over the hills",
+        "setting": "Well-watered plain of the Jordan with irrigated gardens, green fields and mud-brick walled cities of Sodom and Gomorrah",
+        "secondaryElements": "Smoke rising from distant Gomorrah, sheltering gardens and palm groves catching the glow, a few distant fleeing figures on the road",
+        "mood": "Awe-struck, terrible and solemn, with grief and dread",
+        "timeOfDay": "Dawn breaking into day, still hot air, smoke-dimmed sunrise with fiery orange glow from above",
+        "composition": "Wide view from a high vantage east of the plain, cities in the middle distance, fire falling diagonally from the top of the frame",
+        "present": [
+          "sodom",
+          "gomorrah"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img009",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img009.jpg",
+      "sha256": "e7b1b8f4b5176681924c960faef86313f593eab5669118dc30f33ecdfcd885f6",
+      "verse": "mark-4-39",
+      "verseText": "He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.",
+      "selected": [
+        "jesus_christ_the_son_of_god_and_lord",
+        "the_twelve_disciples_collective",
+        "sea_of_galilee"
+      ],
+      "availableCast": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_twelve_disciples_collective",
+          "name": "The Twelve Disciples (collective)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "sea_of_galilee",
+          "name": "Sea of Galilee",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Jesus standing upright in the bow, arm outstretched toward the sea, calm and commanding",
+        "action": "The storm breaks off at his word; wind ceases and the waves subside into stillness.",
+        "setting": "Open water of the Sea of Galilee around a wooden fishing boat, stone shoreline faint in the distance.",
+        "secondaryElements": "Disciples in tunics and cloaks crouched or clinging to the boat's sides and mast, spray-soaked; ropes and a furled sail; oil lamp in the boat.",
+        "mood": "Awe and sudden peace after terror, reverent and grounded.",
+        "timeOfDay": "Night under storm cloud, with the first pale dawn light spreading across the calming water.",
+        "composition": "Low viewpoint from within the boat, Jesus centered in the bow against the clearing sky, disciples in the foreground framing him.",
+        "present": [
+          "jesus_christ_the_son_of_god_and_lord",
+          "the_twelve_disciples_collective",
+          "sea_of_galilee"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img010",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img010.jpg",
+      "sha256": "a5f5d25d21d44e69bb629774e0712d19279555f4b3b1c8193896ffd548eca2d6",
+      "verse": "matthew-14-29",
+      "verseText": "He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.",
+      "selected": [
+        "simon_peter",
+        "jesus_christ_the_son_of_god_and_lord",
+        "the_boat_matthew_s_sea_boat",
+        "sea_of_galilee",
+        "the_twelve_disciples_collective"
+      ],
+      "availableCast": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "simon_peter",
+          "name": "Simon Peter",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_twelve_disciples_collective",
+          "name": "The Twelve Disciples (collective)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "sea_of_galilee",
+          "name": "Sea of Galilee",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_boat_matthew_s_sea_boat",
+          "name": "the boat (Matthew's sea boat)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Peter, mid-step, one foot on the water's surface, arms partly out for balance",
+        "action": "Peter steps from the boat onto the waves toward Jesus",
+        "setting": "Open Sea of Galilee at night, near a small fishing boat",
+        "secondaryElements": "Jesus standing on the waves in the distance; disciples gathered at the boat's rail watching; spray and wind-torn water",
+        "mood": "Tense, hopeful, awed",
+        "timeOfDay": "Night, dark sky with starlight breaking through clouds, dim lantern glow from the boat",
+        "composition": "Low viewpoint from the boat's side, Peter in the foreground between boat and Jesus, Jesus centered in the distance",
+        "present": [
+          "simon_peter",
+          "jesus_christ_the_son_of_god_and_lord",
+          "the_boat_matthew_s_sea_boat",
+          "sea_of_galilee",
+          "the_twelve_disciples_collective"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img011",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img011.jpg",
+      "sha256": "4023366c1c2059b17bdbb5b8e45551118014af5d1bf09d646625185a77667a56",
+      "verse": "john-21-7",
+      "verseText": "That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.",
+      "selected": [
+        "simon_peter",
+        "the_beloved_disciple",
+        "sea_of_galilee",
+        "the_twelve_disciples_collective",
+        "jesus_christ_the_son_of_god_and_lord"
+      ],
+      "availableCast": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "simon_peter",
+          "name": "Simon Peter",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "thomas_the_apostle",
+          "name": "Thomas the apostle",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "bartholomew",
+          "name": "Bartholomew",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "james_and_john_sons_of_zebedee",
+          "name": "James and John, sons of Zebedee",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_beloved_disciple",
+          "name": "The beloved disciple",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_twelve_disciples_collective",
+          "name": "The Twelve Disciples (collective)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "sea_of_galilee",
+          "name": "Sea of Galilee",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Simon Peter mid-leap, coat clutched around his body, plunging from the boat's edge toward the water.",
+        "action": "Peter throws himself overboard toward the shore while the beloved disciple points toward the figure on the beach.",
+        "setting": "Shallow shore of the Sea of Galilee with a small fishing boat and a distant stone village edge.",
+        "secondaryElements": "Other disciples crowd the stern of the boat, one pointing toward the shore; a net full of fish trails in the water; a charcoal fire glows faintly on the beach.",
+        "mood": "Urgent joy and reverent recognition, with raw human eagerness.",
+        "timeOfDay": "Early morning, pre-dawn grey shifting to golden sunrise, clear still air with light mist lifting off the water.",
+        "composition": "Side view from the lake looking toward the shore, Peter angled diagonally in mid-air above the water with the boat and disciples in the background.",
+        "present": [
+          "simon_peter",
+          "the_beloved_disciple",
+          "sea_of_galilee",
+          "the_twelve_disciples_collective",
+          "jesus_christ_the_son_of_god_and_lord"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img012",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img012.jpg",
+      "sha256": "f916403358b50f3d1087af123484a547e8b26246c0a5cf3a8a86c86186cde763",
+      "verse": "2-kings-2-23",
+      "verseText": "He went up from there to Bethel. As he was going up by the way, some youths came out of the city and mocked him, and said to him, “Go up, you baldy! Go up, you baldy!”",
+      "selected": [
+        "elisha_son_of_shaphat",
+        "bethel_prophets_community_and_calf_shrine_in_kings"
+      ],
+      "availableCast": [
+        {
+          "entryId": "elisha_son_of_shaphat",
+          "name": "Elisha son of Shaphat",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "bethel_prophets_community_and_calf_shrine_in_kings",
+          "name": "Bethel (prophets' community and calf shrine in Kings)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "mount_carmel",
+          "name": "Mount Carmel",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "samaria_city",
+          "name": "Samaria (city)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Elisha, walking up the road, head turned slightly toward the youths",
+        "action": "A band of youths rushes out of the gate, jeering and pointing at Elisha's bald head.",
+        "setting": "A dusty road climbing out of Bethel, past stone houses toward the town gate",
+        "secondaryElements": "Several youths in plain tunics gathered at the gate, one or two gesturing mockingly, dust rising from the road",
+        "mood": "Tense, mocking, with a sense of coming judgment",
+        "timeOfDay": "Late morning, clear dry hot sky, bright even sunlight with short shadows",
+        "composition": "Elisha in the foreground on the climbing road, youths streaming toward him from the gate in the middle distance, distant ridge behind",
+        "present": [
+          "elisha_son_of_shaphat",
+          "bethel_prophets_community_and_calf_shrine_in_kings"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img013",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img013.jpg",
+      "sha256": "f92f5f6cfdc459ce9229553ac6e3012ed8b6395b94313ada30c5fbbbba4bcf52",
+      "verse": "genesis-1-3",
+      "verseText": "God said, “Let there be light,” and there was light.",
+      "selected": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiant light pouring outward across the dark waters, appearing from beyond the frame",
+        "action": "Light breaks through the darkness and spreads over the deep waters, pushing back the shadow",
+        "setting": "Formless wild expanse of dark waters under unbroken darkness, with no tents, altars or towns",
+        "secondaryElements": "Shrouded mist hanging low over the still water surface; faint ripples where the light touches the deep",
+        "mood": "Awe, stillness and quiet wonder at the beginning of all things",
+        "timeOfDay": "Deep darkness giving way to the first pale light of dawn; still, windless air",
+        "composition": "Wide horizontal view over the water, with the light entering from the upper edge and sweeping across the dark mass below",
+        "present": [
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img014",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img014.jpg",
+      "sha256": "c1c71803ad491d9c8bce6b74d5ab18c56cd85195d10bfac8285cebf8b0dc109a",
+      "verse": "1-samuel-17-49",
+      "verseText": "David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.",
+      "selected": [
+        "david_son_of_jesse_king_of_israel",
+        "goliath",
+        "valley_of_elah",
+        "philistines"
+      ],
+      "availableCast": [
+        {
+          "entryId": "david_son_of_jesse_king_of_israel",
+          "name": "David son of Jesse (king of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "goliath",
+          "name": "Goliath",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "saul",
+          "name": "Saul",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "abner_son_of_ner",
+          "name": "Abner son of Ner",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "philistines",
+          "name": "Philistines",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "valley_of_elah",
+          "name": "Valley of Elah",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "gath_philistine_city",
+          "name": "Gath (Philistine city)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Goliath pitching forward, his bronze-helmeted head struck, body collapsing face-down onto the valley floor.",
+        "action": "The instant the stone strikes and Goliath falls; David stands still, sling hanging in his hand, having just released the stone.",
+        "setting": "Open Valley of Elah, a dry stream bed with scattered stones between sloping hillsides.",
+        "secondaryElements": "David in a shepherd's tunic and cloak with leather bag and sling; Philistine soldiers in bronze armor frozen in shock on one slope, Israelite soldiers on the opposite slope; a small cloud of dust rising where Goliath hits the ground.",
+        "mood": "Stunned silence, tense reverence, sudden turning of fortune.",
+        "timeOfDay": "Midday, bright sun, dry clear air with dust hanging still.",
+        "composition": "Wide valley view from the side, Goliath falling in the foreground center, David small and upright at a distance, both armies on the opposing slopes.",
+        "present": [
+          "david_son_of_jesse_king_of_israel",
+          "goliath",
+          "valley_of_elah",
+          "philistines"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img015",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img015.jpg",
+      "sha256": "3475c59cb5d445d86fcf6aededdc8b706bb8dd0a8270737a49002561496d7adf",
+      "verse": "daniel-7-9",
+      "verseText": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "selected": [
+        "daniel_prophet_of_babylon",
+        "the_ancient_of_days",
+        "babylon"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Daniel standing at the edge of the vision, gazing upward; the Ancient of Days shown only as blazing white radiance and wool-white light enthroned in the court",
+        "action": "Thrones being placed as the presence settles within a court of fire, flames forming the seat and burning wheels turning below",
+        "setting": "A visionary hall of fire and cloud above the earth, with rivers of flame flowing across the sky and the exile city of Babylon faintly seen below",
+        "secondaryElements": "Burning wheels rising from the flames, white light spread through the cloud, Daniel in plain exile tunic and cloak",
+        "mood": "Awe, reverence and quiet wonder, with a sense of judgment about to begin",
+        "timeOfDay": "Night vision lit by its own radiance, unchanged by sun or moon, with thick cloud banks parted by fire",
+        "composition": "Wide view from below looking up toward the throne; Daniel small at the lower edge, the radiant court filling the upper frame",
+        "present": [
+          "daniel_prophet_of_babylon",
+          "the_ancient_of_days",
+          "babylon"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img016",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img016.jpg",
+      "sha256": "2575096dc2d906963f1ae34bac2c6218c9d903ac1889023791fc8b6cdf45a986",
+      "verse": "job-38-4",
+      "verseText": "“Where were you when I laid the foundations of the earth? Declare, if you have understanding.",
+      "selected": [
+        "job",
+        "the_whirlwind",
+        "the_ash_heap",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "job",
+          "name": "Job",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_whirlwind",
+          "name": "The whirlwind",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ash_heap",
+          "name": "The ash heap",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Job, seated on the ash heap in a long undyed linen tunic and deep indigo wool cloak, head lifted and body braced against the wind",
+        "action": "A violent whirlwind of dust and wind sweeps across the ground while radiant cloud and fire move through the storm above him",
+        "setting": "Barren ash heap outside the city walls, with distant city walls, gates and brick roofs on the horizon under a storm-darkened sky",
+        "secondaryElements": "Scattered ash and broken pottery shards on the ground, dust lifting in spirals, the divine brilliance spread through the clouds and not gathered into any single shape",
+        "mood": "Awe, tension and solemn dignity amid grief",
+        "timeOfDay": "Dusk under dim storm light, with a glow of fire and cloud spread across the sky",
+        "composition": "Wide view from a low angle, Job placed off-center on the ash heap with the whirlwind sweeping across the frame and the city walls small on the far horizon",
+        "present": [
+          "job",
+          "the_whirlwind",
+          "the_ash_heap",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img017",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img017.jpg",
+      "sha256": "3c64ee724559578abb1a2234a48e72bfdaaa060366aed3ab9e942d3890cc4f12",
+      "verse": "psalms-137-1",
+      "verseText": "By the rivers of Babylon, there we sat down. Yes, we wept, when we remembered Zion.",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "babylon"
+      ],
+      "availableCast": [
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A small group of Israelite exiles seated on the riverbank, heads bowed and shoulders bent in grief.",
+        "action": "They sit down together and weep, turned toward the memory of home.",
+        "setting": "Grassy canal bank beside a slow river, willows along the water, the walls, gates and ziggurat towers of Babylon visible in the distance.",
+        "secondaryElements": "Unstrung harps resting on the grass beside them, a few patched travel bundles, a canal with reed-lined banks.",
+        "mood": "Sorrowful, reflective, quietly dignified.",
+        "timeOfDay": "Evening at dusk, clear sky with a few thin clouds, still air, low golden-amber light fading to blue.",
+        "composition": "Wide view from the river's edge, exiles in the foreground at lower left, Babylon's towers rising across the water on the right, willows framing the middle distance.",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "babylon"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img018",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img018.jpg",
+      "sha256": "cb4458e4bc5edfe3fe7af679b965ddba83b63acd25ce64264d1a99a7954d022a",
+      "verse": "daniel-7-9",
+      "verseText": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "selected": [
+        "daniel_prophet_of_babylon",
+        "the_ancient_of_days",
+        "babylon"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Daniel standing at the edge of the vision, gazing upward; the Ancient of Days shown only as blazing white radiance and wool-white light enthroned in the court",
+        "action": "Thrones being placed as the presence settles within a court of fire, flames forming the seat and burning wheels turning below",
+        "setting": "A visionary hall of fire and cloud above the earth, with rivers of flame flowing across the sky and the exile city of Babylon faintly seen below",
+        "secondaryElements": "Burning wheels rising from the flames, white light spread through the cloud, Daniel in plain exile tunic and cloak",
+        "mood": "Awe, reverence and quiet wonder, with a sense of judgment about to begin",
+        "timeOfDay": "Night vision lit by its own radiance, unchanged by sun or moon, with thick cloud banks parted by fire",
+        "composition": "Wide view from below looking up toward the throne; Daniel small at the lower edge, the radiant court filling the upper frame",
+        "present": [
+          "daniel_prophet_of_babylon",
+          "the_ancient_of_days",
+          "babylon"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img019",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img019.jpg",
+      "sha256": "ca8c5efeecd7592ed1f74afaefc57e78a1e3e52837e063c3998351c83151667b",
+      "verse": "matthew-1-1",
+      "verseText": "The book of the genealogy of Jesus Christ, the son of David, the son of Abraham.",
+      "selected": [],
+      "availableCast": [],
+      "scene": {
+        "primarySubject": "A closed, rolled papyrus scroll resting on a stone ledge in a niche, its surface blank.",
+        "action": "The scroll is quietly set into place in the niche, with no one shown writing or reading it.",
+        "setting": "Stone village street in Roman Judea with a synagogue entrance and scroll-storage niche in the background.",
+        "secondaryElements": "A few villagers in everyday tunics and head coverings pass by at a distance, unaware of the scroll, with dusty stone paving and low walls around.",
+        "mood": "Quiet, reverent and grounded, with an undertone of anticipation.",
+        "timeOfDay": "Bright midday, clear dry warm sky, warm golden Mediterranean sunlight with soft shadows.",
+        "composition": "Eye-level view from the street, scroll in the niche placed in the mid-ground and centred, villagers small and distant on the sides.",
+        "present": []
+      },
+      "conditions": null
+    },
+    {
+      "id": "img020",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img020.jpg",
+      "sha256": "b3c4c9afea801e66ff8e5bb09e771e49d41134c86b568ba90169830f047f40e7",
+      "verse": "psalms-23-2",
+      "verseText": "He makes me lie down in green pastures. He leads me beside still waters.",
+      "selected": [
+        "david_son_of_jesse_king_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "david_son_of_jesse_king_of_israel",
+          "name": "David son of Jesse (king of Israel)",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "David reclining on the grass, relaxed and at rest",
+        "action": "Lying down among the grazing sheep, having been led to the pasture",
+        "setting": "Green hill pasture of Judea beside a still stream, with stone terraces and a distant village",
+        "secondaryElements": "Sheep lying and grazing nearby, a staff and leather sling resting on the grass, water glinting in the stream",
+        "mood": "Peaceful, trusting and restful",
+        "timeOfDay": "Late morning, bright and clear with a few high soft clouds",
+        "composition": "Medium wide view from slightly above, David in the lower middle with the stream curving into the background",
+        "present": [
+          "david_son_of_jesse_king_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img021",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img021.jpg",
+      "sha256": "dd8985d66e99e97f054e89bd0e4da8989171b670945ea984a38af7fffe455eb5",
+      "verse": "matthew-27-35",
+      "verseText": "When they had crucified him, they divided his clothing among them, casting lots,",
+      "selected": [
+        "the_roman_soldiers",
+        "jesus_christ_the_son_of_god_and_lord",
+        "golgotha"
+      ],
+      "availableCast": [
+        {
+          "entryId": "simon_of_cyrene",
+          "name": "Simon of Cyrene",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_roman_soldiers",
+          "name": "The Roman soldiers",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "golgotha",
+          "name": "Golgotha",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Roman soldiers in tunics and cloaks kneeling at the base of a cross",
+        "action": "Soldiers divide garments on the ground, casting lots with dice or tokens.",
+        "setting": "Rocky hill of Golgotha outside Jerusalem's walls, with the city distant.",
+        "secondaryElements": "A crucified figure seen from below, partly veiled by distance; scattered cloth and sandals on stone.",
+        "mood": "Grim, hushed, weighted with grief and restraint.",
+        "timeOfDay": "Afternoon under darkening clouds, dim gloom over the hill.",
+        "composition": "Low viewpoint from the foot of the hill, soldiers in the foreground, cross rising behind them.",
+        "present": [
+          "the_roman_soldiers",
+          "jesus_christ_the_son_of_god_and_lord",
+          "golgotha"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img022",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img022.jpg",
+      "sha256": "d37b2a94f6f827bffacb978d4d5a18f73c6e558154d358cd9e40caec4a0ca814",
+      "verse": "revelation-4-6",
+      "verseText": "Before the throne was something like a sea of glass, similar to crystal. In the middle of the throne, and around the throne were four living creatures full of eyes before and behind.",
+      "selected": [
+        "four_living_creatures_revelation",
+        "heavenly_throne_room",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "john_the_seer_revelation",
+          "name": "John the seer (Revelation)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "four_living_creatures_revelation",
+          "name": "Four living creatures (Revelation)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "twenty_four_elders_of_revelation",
+          "name": "Twenty-four elders of Revelation",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "heavenly_throne_room",
+          "name": "Heavenly throne room",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Four fearsome living creatures standing in the middle of and around the throne, their bodies covered in eyes before and behind",
+        "action": "They stand fixed and watchful, gazing outward in every direction, while radiance flows from the throne.",
+        "setting": "A vast heavenly throne room with a sea of glass like crystal stretching before the throne, glowing with reflected light.",
+        "secondaryElements": "A rim of radiant light and cloud around the throne, faint mist rising from the glassy sea, with lightnings and thunders and a rainbow like an emerald about the throne.",
+        "mood": "Awe, reverence and solemn watchfulness.",
+        "timeOfDay": "Timeless heavenly light, unchanging, with still, clear air and a rainbow arching about the throne.",
+        "composition": "A wide view of the throne room from slightly below, centering the throne and the creatures with the glassy sea spread in the foreground.",
+        "present": [
+          "four_living_creatures_revelation",
+          "heavenly_throne_room",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img023",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img023.jpg",
+      "sha256": "c5bd3257dafc55b0bba5d3291698f50b6c38da237c7a35ff284af6561488c3f5",
+      "verse": "isaiah-6-2",
+      "verseText": "Above him stood the seraphim. Each one had six wings. With two he covered his face. With two he covered his feet. With two he flew.",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "seraphim",
+        "yahweh_s_house_in_jerusalem_the_temple",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah, standing small and reverent in plain linen, gazing upward",
+        "action": "Two fiery winged seraphim hover above him, faces and feet veiled by wings, while the other wings beat the air",
+        "setting": "Inner sanctuary of the Jerusalem temple with cedar-paneled walls and a gold-overlaid floor",
+        "secondaryElements": "Drifting incense smoke and a radiant cloud filling the upper temple, light spreading from beyond the frame, lamps on gold, priests in white linen at the edges",
+        "mood": "Awe, reverence and trembling wonder",
+        "timeOfDay": "Night before dawn, cool dimness lit by lamplight and a faint glow from the eastern gate",
+        "composition": "Low viewpoint from the floor looking up, Isaiah in the lower foreground, seraphim arcing above him, smoke and light filling the upper frame",
+        "present": [
+          "isaiah_son_of_amoz",
+          "seraphim",
+          "yahweh_s_house_in_jerusalem_the_temple",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img024",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img024.jpg",
+      "sha256": "ff7590b8eb32c687c3aa43699c07b11b04eb534bbaaa47ae1a4c342966567df5",
+      "verse": "romans-8-28",
+      "verseText": "We know that all things work together for good for those who love God, for those who are called according to his purpose.",
+      "selected": [
+        "paul_the_apostle"
+      ],
+      "availableCast": [
+        {
+          "entryId": "paul_the_apostle",
+          "name": "Paul the apostle",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Paul standing still, one hand on a weathered stone wall, face lifted in quiet contemplation",
+        "action": "A quiet pause as he considers the hillside, without speaking or writing",
+        "setting": "A narrow stone village street in Roman Judea with a terraced hillside and olive trees beyond, a distant Roman city visible below",
+        "secondaryElements": "A few villagers passing with water jars at a distance, a donkey tethered near a doorway, soldiers' cloaks visible at the city gate far below",
+        "mood": "Reflective, steady and hopeful, with a sense of trust in God's purpose",
+        "timeOfDay": "Late afternoon shifting toward dusk, clear sky with high pale clouds, warm dry air",
+        "composition": "Medium-wide view from slightly below, Paul placed left of center with the terraces rising behind him and the distant city at the lower right",
+        "present": [
+          "paul_the_apostle"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img025",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img025.jpg",
+      "sha256": "6e393ab707bb593e6ef42f9fb6f9c53b46d717ab80c220e71039087b66e81656",
+      "verse": "exodus-14-22",
+      "verseText": "The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "moses",
+        "red_sea",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A long line of Israelite travellers with Moses leading, walking forward across the dry sea floor",
+        "action": "The people advance steadily into the middle of the sea, carrying bundles and leading children and animals",
+        "setting": "The parted Red Sea with towering walls of water on both sides and wet dry ground beneath, wilderness sand at the edges",
+        "secondaryElements": "Dust and spray lifted by the east wind, the walls of water glistening on the right and left, a faint pillar of cloud and fire glowing above the sea",
+        "mood": "Awe, solemn wonder and cautious hope",
+        "timeOfDay": "Night with a strong east wind, the first grey of dawn beginning at the horizon",
+        "composition": "Wide view from the shore looking out along the dry path, the people in the centre, the water walls framing them on either side",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "moses",
+          "red_sea",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img026",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img026.jpg",
+      "sha256": "942f2e26a4ed6036a1a01e7aa9a50ee284c90be23b9b599de7ff14d3fe296098",
+      "verse": "genesis-22-10",
+      "verseText": "Abraham stretched out his hand, and took the knife to kill his son.",
+      "selected": [
+        "abram",
+        "isaac_son_of_abraham_and_sarah",
+        "moriah",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "abram",
+          "name": "Abram",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "isaac_son_of_abraham_and_sarah",
+          "name": "Isaac, son of Abraham and Sarah",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "abraham_s_servant",
+          "name": "Abraham's servant",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "moriah",
+          "name": "Moriah",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Elderly Abraham standing beside the stone altar, arm lifted with the knife in hand, body turned toward the wood.",
+        "action": "Abraham raises the knife over his bound son Isaac, who lies on the laid wood, at the instant before the blow.",
+        "setting": "Wild highland of Moriah, rocky ground with scrub, a stone altar with wood laid in order, a few tents and a distant well far below.",
+        "secondaryElements": "A bundle of firewood and the knife beside the altar; a radiant cloud glowing softly above the altar, the presence of God spread through the air as light.",
+        "mood": "Solemn, tense and reverent, with grief and obedience held in quiet stillness.",
+        "timeOfDay": "Early morning, first pale light of dawn; thin mist in the valley below.",
+        "composition": "Wide view from the side at ground level, the altar in the foreground, Abraham and Isaac centered, the valley and distant well receding behind.",
+        "present": [
+          "abram",
+          "isaac_son_of_abraham_and_sarah",
+          "moriah",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img027",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img027.jpg",
+      "sha256": "46133f719438fcaf30af23a448cffe36f230c7f768766f0511fff4c2da714bbb",
+      "verse": "genesis-22-10",
+      "verseText": "Abraham stretched out his hand, and took the knife to kill his son.",
+      "selected": [
+        "abram",
+        "isaac_son_of_abraham_and_sarah",
+        "moriah",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "abram",
+          "name": "Abram",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "isaac_son_of_abraham_and_sarah",
+          "name": "Isaac, son of Abraham and Sarah",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "abraham_s_servant",
+          "name": "Abraham's servant",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "moriah",
+          "name": "Moriah",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Elderly Abraham standing beside the stone altar, arm lifted with the knife in hand, body turned toward the wood.",
+        "action": "Abraham raises the knife over his bound son Isaac, who lies on the laid wood, at the instant before the blow.",
+        "setting": "Wild highland of Moriah, rocky ground with scrub, a stone altar with wood laid in order, a few tents and a distant well far below.",
+        "secondaryElements": "A bundle of firewood and the knife beside the altar; a radiant cloud glowing softly above the altar, the presence of God spread through the air as light.",
+        "mood": "Solemn, tense and reverent, with grief and obedience held in quiet stillness.",
+        "timeOfDay": "Early morning, first pale light of dawn; thin mist in the valley below.",
+        "composition": "Wide view from the side at ground level, the altar in the foreground, Abraham and Isaac centered, the valley and distant well receding behind.",
+        "present": [
+          "abram",
+          "isaac_son_of_abraham_and_sarah",
+          "moriah",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img028",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img028.jpg",
+      "sha256": "252ff6c83f2d3c8ad1006b6b1880b63296cdb972a110e7723b3f64c9d45e2066",
+      "verse": "leviticus-11-7",
+      "verseText": "The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_camp_of_israel",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses standing, one hand raised in instruction, beside Aaron in plain linen",
+        "action": "Moses teaches the people which animals are clean and unclean, pointing toward a pig set apart from the clean animals",
+        "setting": "Wilderness camp of Israel with tents and the tabernacle among desert rock and dry sand",
+        "secondaryElements": "Israelite families gathered near the tents, a cloth-covered table with food, a pig set apart at the edge, a pillar of cloud above the tabernacle",
+        "mood": "Reverent, attentive and grounded, with a quiet sense of holy distinction",
+        "timeOfDay": "Late afternoon in dry desert heat, warm low sun slanting over the camp",
+        "composition": "Wide view from the camp edge, Moses and Aaron in the foreground, the people and tents receding behind them",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_camp_of_israel",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img029",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img029.jpg",
+      "sha256": "b6f3bc0c0858dbe36f382e8fbfa6f3a56ec8289402f8dc34a5ed73c8966d682a",
+      "verse": "genesis-5-5",
+      "verseText": "All the days that Adam lived were nine hundred thirty years, then he died.",
+      "selected": [],
+      "availableCast": [],
+      "scene": {
+        "primarySubject": "An elderly man lying still on a bed of grass, body calm and at rest",
+        "action": "His death at the end of a long life, with family gathered quietly around him",
+        "setting": "Open wild land with scattered tents and a few stone altars near mud-brick fields",
+        "secondaryElements": "A few mourners in simple wool wraps standing with bowed heads, a shepherd's staff laid beside the bed, a small stone altar nearby",
+        "mood": "Solemn, reverent and tender, with quiet grief and dignity",
+        "timeOfDay": "Early morning light warming toward full day, clear sky with soft drifting clouds",
+        "composition": "Low eye-level view across the resting figure toward the mourners, with open land stretching behind",
+        "present": []
+      },
+      "conditions": null
+    },
+    {
+      "id": "img030",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img030.jpg",
+      "sha256": "f0cf042d9168aade1b67c99490d9c9b604f95a5553629a4c97baadf628f3d005",
+      "verse": "jonah-1-17",
+      "verseText": "Yahweh prepared a huge fish to swallow up Jonah, and Jonah was in the belly of the fish three days and three nights.",
+      "selected": [
+        "jonah_son_of_amittai_2",
+        "the_great_fish",
+        "the_belly_of_the_fish"
+      ],
+      "availableCast": [
+        {
+          "entryId": "jonah_son_of_amittai_2",
+          "name": "Jonah son of Amittai",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "crew_of_the_tarshish_ship_jonah",
+          "name": "Crew of the Tarshish ship (Jonah)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_great_fish",
+          "name": "The great fish",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "stormy_sea_of_jonah",
+          "name": "Stormy sea of Jonah",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_belly_of_the_fish",
+          "name": "The belly of the fish",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Jonah, a solitary man in a plain travel tunic, seated and curled low inside the fish's interior",
+        "action": "He remains still and enclosed within the fish's belly, held in dim dark water, as the three days and nights pass",
+        "setting": "The shadowed inner cavity of a vast fish, its ribbed walls curving around him, lit faintly from within",
+        "secondaryElements": "Dark water pooling around the base of the cavity; the fish's inner walls rising in soft folds above him; no other figures present",
+        "mood": "Solitary, heavy and quietly suspended, with grief and waiting",
+        "timeOfDay": "Unbroken darkness of the belly, lasting through the three days and nights",
+        "composition": "Close, low viewpoint from inside the cavity, with Jonah small and centered and the enclosing walls filling the frame",
+        "present": [
+          "jonah_son_of_amittai_2",
+          "the_great_fish",
+          "the_belly_of_the_fish"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img031",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img031.jpg",
+      "sha256": "ba31c0ceec56b54f625a77d1f66bf05b9f2919ab81e9d699426af0beadb4bf21",
+      "verse": "daniel-6-22",
+      "verseText": "My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”",
+      "selected": [
+        "daniel_prophet_of_babylon",
+        "darius_the_mede",
+        "the_den_of_lions"
+      ],
+      "availableCast": [
+        {
+          "entryId": "darius_the_mede",
+          "name": "Darius the Mede",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_den_of_lions",
+          "name": "the den of lions",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides.",
+        "action": "Lions lie or sit quietly around him, mouths closed, while the king peers down from the rim.",
+        "setting": "A deep dressed grey limestone den beneath a royal palace, with a heavy wooden lid pushed partly aside above.",
+        "secondaryElements": "Several lions with closed jaws near the walls; Darius in royal court robes with signet ring at the rim; a faint radiance or angelic light suggested in the upper air above the opening.",
+        "mood": "Awe, relief and quiet dignity.",
+        "timeOfDay": "Early dawn, pale gray light entering from above, still cool air.",
+        "composition": "Viewed from above the rim, looking down into the den, with Daniel centered and the lions arranged around him.",
+        "present": [
+          "daniel_prophet_of_babylon",
+          "darius_the_mede",
+          "the_den_of_lions"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img032",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img032.jpg",
+      "sha256": "e4918431cb6592139b55aed5f048e7954cb8a8e84304a6d853548016a81709c7",
+      "verse": "exodus-14-21",
+      "verseText": "Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.",
+      "selected": [
+        "moses",
+        "red_sea",
+        "god_yahweh_the_father_and_god_of_israel",
+        "the_israelite_people_the_children_of_israel",
+        "the_egyptians"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses at the shore, arm stretched out over the sea, plain cloak and staff in hand",
+        "action": "Waters pulled back by a strong east wind, sea floor showing dry between two standing walls of water",
+        "setting": "Shore of the Red Sea at night, wilderness sand at the edges, parted waters rising on either side",
+        "secondaryElements": "Israelite people gathered on the sand watching, a few Egyptian figures distant in linen, spray and dust lifted by the wind",
+        "mood": "Awe, tense hope and reverent wonder",
+        "timeOfDay": "Night, toward the first grey of dawn, strong east wind, clouds moving fast",
+        "composition": "Wide view from the shore, Moses in the foreground at the left with arm extended, parted waters receding into the distance, radiance and cloud spread across the sky above the sea",
+        "present": [
+          "moses",
+          "red_sea",
+          "god_yahweh_the_father_and_god_of_israel",
+          "the_israelite_people_the_children_of_israel",
+          "the_egyptians"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img033",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img033.jpg",
+      "sha256": "3fdb65c88bb9f3289946266b4084975791f1f9da48303a8eabe45edbcd5e13ef",
+      "verse": "judges-19-29",
+      "verseText": "When he had come into his house, he took a knife and cut up his concubine, and divided her, limb by limb, into twelve pieces, and sent her throughout all the borders of Israel.",
+      "selected": [
+        "the_levite_husband_of_the_concubine",
+        "the_levite_s_concubine",
+        "gibeah_of_benjamin_judges"
+      ],
+      "availableCast": [
+        {
+          "entryId": "the_levite_husband_of_the_concubine",
+          "name": "The Levite husband of the concubine",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_levite_s_concubine",
+          "name": "The Levite's concubine",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "men_of_gibeah",
+          "name": "Men of Gibeah",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "bethlehem_judah",
+          "name": "Bethlehem Judah",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "gibeah_of_benjamin_judges",
+          "name": "Gibeah of Benjamin (Judges)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "jebus_jebusite_city_before_its_capture",
+          "name": "Jebus (Jebusite city before its capture)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Levite, standing tense and grim, knife in hand, beside the still body of the concubine.",
+        "action": "He is in the act of dividing her body, the knife raised at the moment before the cutting.",
+        "setting": "Interior of a modest stone house in Gibeah of Benjamin, with a clay lamp, low stone bench and bundled travel supplies.",
+        "secondaryElements": "The donkey tethered faintly visible through the open doorway; the walled distant hill of Gibeah beyond the threshold in the dark.",
+        "mood": "Stark horror and grim resolve, restrained rather than gory.",
+        "timeOfDay": "Deep night, dim lamplight and moonlight through the doorway, still dry air.",
+        "composition": "Interior view from the doorway, the Levite placed centrally in lamplight, the concubine's body low in the foreground, the knife as the focal point.",
+        "present": [
+          "the_levite_husband_of_the_concubine",
+          "the_levite_s_concubine",
+          "gibeah_of_benjamin_judges"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img034",
+      "batch": 1,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img034.jpg",
+      "sha256": "57394ce1c766bd1de3633c285fa329546ca938f72392d8ad02b9a3a0868f3224",
+      "verse": "acts-9-3",
+      "verseText": "As he traveled, he got close to Damascus, and suddenly a light from the sky shone around him.",
+      "selected": [
+        "saul_of_tarsus_paul",
+        "the_men_with_saul",
+        "damascus"
+      ],
+      "availableCast": [
+        {
+          "entryId": "saul_of_tarsus_paul",
+          "name": "Saul of Tarsus (Paul)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_men_with_saul",
+          "name": "the men with Saul",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "damascus",
+          "name": "Damascus",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Saul of Tarsus, a traveling Jewish man in a dusty tunic and cloak, halted mid-stride with arm raised against the light",
+        "action": "A sudden radiant light from the sky floods the road around Saul and his companions",
+        "setting": "Dusty desert road approaching Damascus, sun-baked stone and scrub, distant city walls under a cloudless sky",
+        "secondaryElements": "Companions in road-worn tunics and sandals shielding their eyes and staggering back; a dust cloud kicked up along the road; the glowing light as a radiant column from heaven without any visible form",
+        "mood": "Awe, startled reverence and overwhelming shock",
+        "timeOfDay": "Midday turning to blazing noon light, clear cloudless sky",
+        "composition": "Wide view from the roadside, Saul centered in the flood of light with companions arranged around him and Damascus visible on the horizon",
+        "present": [
+          "saul_of_tarsus_paul",
+          "the_men_with_saul",
+          "damascus"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img035",
+      "batch": 2,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img035.jpg",
+      "sha256": "79a1fc9a709c8d9a146ef8444d05970569d8dc0832c1f251c9f559957172372c",
+      "verse": "john-11-43",
+      "verseText": "When he had said this, he cried with a loud voice, “Lazarus, come out!”",
+      "selected": [
+        "jesus_christ_the_son_of_god_and_lord",
+        "lazarus_of_bethany",
+        "martha",
+        "crowd_in_john",
+        "joseph_of_arimathea_s_new_tomb"
+      ],
+      "availableCast": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "martha",
+          "name": "Martha",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "lazarus_of_bethany",
+          "name": "Lazarus of Bethany",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "crowd_in_john",
+          "name": "Crowd in John",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "joseph_of_arimathea_s_new_tomb",
+          "name": "Joseph of Arimathea's new tomb",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Jesus standing at the tomb mouth, arm raised and face lifted in a loud call.",
+        "action": "Lazarus, still bound in grave-cloths, steps forth from the dark cave into the light.",
+        "setting": "A rock-cut tomb in a garden outside Jerusalem, with the great round stone set ready against the entrance.",
+        "secondaryElements": "Martha and onlookers in the crowd stand near, some shielding their eyes, the grave-cloths trailing from Lazarus's hands and feet.",
+        "mood": "Awe, stunned hope and reverent astonishment.",
+        "timeOfDay": "Late afternoon, clear and warm Judean daylight.",
+        "composition": "Tomb opening framed at the center, Jesus in the foreground facing the cave, crowd arranged around the entrance, Lazarus emerging from shadow into light.",
+        "present": [
+          "jesus_christ_the_son_of_god_and_lord",
+          "lazarus_of_bethany",
+          "martha",
+          "crowd_in_john",
+          "joseph_of_arimathea_s_new_tomb"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img036",
+      "batch": 3,
+      "file": "evals/images/runs/2026-10-28-fresco-matrix/blind/img036.jpg",
+      "sha256": "74739dd943e7a2077e399bd1e11bed13250243dc7a89143aa1b50359362b26f0",
+      "verse": "psalms-23-2",
+      "verseText": "He makes me lie down in green pastures. He leads me beside still waters.",
+      "selected": [
+        "david_son_of_jesse_king_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "david_son_of_jesse_king_of_israel",
+          "name": "David son of Jesse (king of Israel)",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "David reclining on the grass, relaxed and at rest",
+        "action": "Lying down among the grazing sheep, having been led to the pasture",
+        "setting": "Green hill pasture of Judea beside a still stream, with stone terraces and a distant village",
+        "secondaryElements": "Sheep lying and grazing nearby, a staff and leather sling resting on the grass, water glinting in the stream",
+        "mood": "Peaceful, trusting and restful",
+        "timeOfDay": "Late morning, bright and clear with a few high soft clouds",
+        "composition": "Medium wide view from slightly above, David in the lower middle with the stream curving into the background",
+        "present": [
+          "david_son_of_jesse_king_of_israel"
+        ]
+      },
+      "conditions": null
+    }
+  ]
+}

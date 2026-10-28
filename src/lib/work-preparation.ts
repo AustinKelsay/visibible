@@ -1,6 +1,7 @@
 import { z } from "zod";
 import classical from "../../styles/classical.json";
 import watercolor from "../../styles/watercolor.json";
+import fresco from "../../styles/fresco.json";
 import icon from "../../styles/icon.json";
 
 const id = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
@@ -40,7 +41,7 @@ export function createStyleLibrary(input: unknown) {
   });
 }
 export type StyleLibrary = ReturnType<typeof createStyleLibrary>;
-export const SHARED_STYLES = createStyleLibrary([classical, watercolor, icon]);
+export const SHARED_STYLES = createStyleLibrary([classical, watercolor, fresco, icon]);
 
 /** Metadata helps selection; only the six rendering parts enter prompts. */
 export function formatStylePrompt(input: unknown): string {

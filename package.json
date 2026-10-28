@@ -29,6 +29,7 @@
     "works:canon": "tsx scripts/works/canon.mts",
     "works:references": "tsx scripts/works/references.mts",
     "works:correct": "tsx scripts/works/correct.mts",
+    "works:amend-brief-styles": "tsx scripts/works/amend-brief-styles.mts",
     "works:bible-hints": "tsx scripts/works/bible-hints.mts",
     "evals:images": "tsx scripts/evals/images.mts",
     "engine:retirement-inventory": "tsx scripts/engine/retirement-inventory.mts",

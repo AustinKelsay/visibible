@@ -1,0 +1,165 @@
+{
+  "issue": 183,
+  "status": "The owner asked to \"find another third style outside of Icon that fits well\" (28 October 2026), after Icon failed two style rounds. Measurement only; nothing is registered or deployed.",
+  "purpose": "Bake-off of three candidate third styles (Gouache, Engraving, Fresco) on 12 launch-matrix cases chosen for the known failure classes: God scenes, writing-prone scenes, crowds and moments. The winner gets the full 33-case matrix before any release.",
+  "candidateCommit": "054f56dd2becad01bd7a223fbba56cfa282953a1",
+  "pipeline": {
+    "momentCast": "2026-10-28-moment-cast-v15",
+    "formlessPlan": "2026-10-28-formless-effects-v16",
+    "review": "2026-10-27-plan-review-v12",
+    "rendering": "2026-10-28-generic-v14",
+    "sceneCheck": "2026-10-28-scene-check-v4"
+  },
+  "image": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "checker": {
+    "model": "anthropic/claude-haiku-5.5",
+    "reasoningEffort": "low",
+    "maxTokens": 1500
+  },
+  "styles": [
+    "gouache",
+    "engraving",
+    "fresco"
+  ],
+  "design": "Each case is prepared once, cold, in one shared memory store seeded from the launch matrix's read-only production snapshot, then rendered in each candidate style through the engine's styleOverride with no style reference. Every first image is checked; a faulty one gets one retry, exactly as the request path does. Cases run three at a time.",
+  "cases": [
+    {
+      "id": "genesis-1-3",
+      "reference": "Genesis 1:3",
+      "fixedCase": "genesis-1-3-light",
+      "expected": "Light breaking over formless dark waters; no human figure for God; no text.",
+      "tags": [
+        "genesis",
+        "continuity"
+      ]
+    },
+    {
+      "id": "exodus-14-21",
+      "reference": "Exodus 14:21",
+      "fixedCase": "exodus-14-21-sea-parts",
+      "expected": "Moses' hand stretched out, a strong east wind, the sea dividing with a dry seabed; night.",
+      "tags": [
+        "red-sea",
+        "continuity"
+      ]
+    },
+    {
+      "id": "isaiah-6-2",
+      "reference": "Isaiah 6:2",
+      "fixedCase": "isaiah-6-2-seraphim",
+      "expected": "Six-winged seraphim above a throne, faces and feet covered; temple smoke.",
+      "tags": [
+        "prophecy",
+        "symbolic"
+      ]
+    },
+    {
+      "id": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "fixedCase": "daniel-7-9-ancient-of-days",
+      "expected": "A throne of flames with burning wheels, white garments, hair like wool; visionary, not a portrait.",
+      "tags": [
+        "symbolic"
+      ]
+    },
+    {
+      "id": "revelation-4-6",
+      "reference": "Revelation 4:6",
+      "fixedCase": "revelation-4-6-living-creatures",
+      "expected": "A sea of glass before the throne and four living creatures full of eyes.",
+      "tags": [
+        "symbolic"
+      ]
+    },
+    {
+      "id": "matthew-1-1",
+      "reference": "Matthew 1:1",
+      "fixedCase": "matthew-1-1-genealogy",
+      "expected": "A scroll or family line from Abraham through David to Jesus, shown without legible writing.",
+      "tags": [
+        "genealogy"
+      ]
+    },
+    {
+      "id": "ruth-4-22",
+      "reference": "Ruth 4:22",
+      "fixedCase": "ruth-4-22-genealogy",
+      "expected": "Three generations of a family line in Bethlehem; no name labels.",
+      "tags": [
+        "genealogy"
+      ]
+    },
+    {
+      "id": "matthew-27-35",
+      "reference": "Matthew 27:35",
+      "fixedCase": "matthew-27-35-crucified",
+      "expected": "Soldiers casting lots for garments beneath the cross; the crucifixion treated seriously, no gratuitous gore.",
+      "tags": [
+        "difficult"
+      ]
+    },
+    {
+      "id": "1-samuel-17-49",
+      "reference": "1 Samuel 17:49",
+      "fixedCase": "1-samuel-17-49-sling",
+      "expected": "A young shepherd's sling stone striking a giant warrior's forehead; valley battlefield.",
+      "tags": [
+        "narrative"
+      ]
+    },
+    {
+      "id": "john-11-43",
+      "reference": "John 11:43",
+      "fixedCase": "john-11-43-lazarus",
+      "expected": "Jesus calling at a tomb's mouth as a wrapped figure emerges; mourners.",
+      "tags": [
+        "narrative"
+      ]
+    },
+    {
+      "id": "luke-15-20",
+      "reference": "Luke 15:20",
+      "fixedCase": "luke-15-20-prodigal",
+      "expected": "A father running to embrace a ragged returning son on the road.",
+      "tags": [
+        "parable"
+      ]
+    },
+    {
+      "id": "psalms-23-2",
+      "reference": "Psalms 23:2",
+      "fixedCase": "psalms-23-2-pastures",
+      "expected": "Green pastures and still waters with sheep and a shepherd; calm.",
+      "tags": [
+        "poetry"
+      ]
+    }
+  ],
+  "scoring": {
+    "method": "As in the launch matrix: shuffled opaque names, two independent blind model scorers per batch of about 12 images, operator adjudication committed before unblinding. Not human acceptance.",
+    "decision": "Pick the candidate with the most acceptable shown images, provided it reaches at least 65% (8 of 12) and draws no no-form figure; ties go to fewer lettering, frame and margin faults. The winner then runs the full 33 cases against the per-style bar, and the owner signs off on its contact sheet."
+  },
+  "evaluation": {
+    "authorizedBeforeUsd": 39,
+    "measuredBeforeUsd": 34.7265055,
+    "uncertaintyBeforeUsd": 0.045,
+    "remainingBeforeUsd": 4.2284945,
+    "proposedIncreaseUsd": 0,
+    "proposedAuthorizedUsd": 39,
+    "proposedOperationCapUsd": 2.2,
+    "textReserveUsd": 0.005,
+    "imageReserveUsd": 0.06,
+    "checkReserveUsd": 0.002,
+    "maximumImages": 72,
+    "maximumTextCalls": 80,
+    "maximumCheckCalls": 144
+  },
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "knownLimitation": "Twelve cases and one image per case and style: a screen, not a release measurement. Candidates run without a style reference."
+}

@@ -1,0 +1,28 @@
+{
+  "allowance": "evaluation",
+  "authorizedUsd": 39,
+  "increaseUsd": 0,
+  "measuredBeforeUsd": 34.7265055,
+  "operations": {
+    "firstRunInterrupted": {
+      "measuredUsd": 0.6655491,
+      "uncertainUsd": 0.014,
+      "images": 19,
+      "textCalls": 26,
+      "checkCalls": 38
+    },
+    "continuation": {
+      "measuredUsd": 0.9149542,
+      "uncertainUsd": 0,
+      "images": 26,
+      "textCalls": 31,
+      "checkCalls": 52
+    }
+  },
+  "operationMeasuredUsd": 1.5805033,
+  "measuredAfterUsd": 36.3070088,
+  "retainedUncertaintyUsd": 0.059,
+  "remainingUsd": 2.6339912,
+  "transfers": 0,
+  "notes": "The interrupted first run had four calls in flight (two text, two check); their $0.014 reserve is kept as uncertainty."
+}
