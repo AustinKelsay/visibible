@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-28T15:55:01.932Z",
+  "commit": "db94ee23effb3e4273e61fe31b1712f33328b0d0",
+  "grant": {
+    "authorizedAt": "2026-10-28T15:53:12Z",
+    "authorization": "Owner replied \"done and done! Why 24 hours? Just continue\" after the launch report, which named the next step: fix Icon's style and the \"seated presence\" wording, then retest (about $1.40). Operator decision under the owner's earlier budget delegation (\"ok continue. Your call on all of these\"): raise evaluation by $5.00 to $39.00 and measure all three styles, capped at $6.00, because the planner change also reaches the live styles.",
+    "increaseUsd": 5,
+    "authorizedUsd": 39,
+    "operationCapUsd": 6,
+    "scope": "One execution of the frozen launch matrix third run in this directory: 33 cases, three styles, one shown image each, at most 198 images, 200 text calls and 400 check calls. No paid restart, tuning, production writes, deployment or public activation."
+  }
+}

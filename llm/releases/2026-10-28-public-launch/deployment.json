@@ -1,0 +1,46 @@
+{
+  "authorization": [
+    "Owner replied \"1\" to: launch Classical and Watercolor now, fix Icon afterwards (28 October 2026).",
+    "Owner replied \"go!\" to the launch plan with the Classical and Watercolor contact sheets, the OpenRouter top-up advice and the rollback note (28 October 2026)."
+  ],
+  "release": { "pullRequest": 287, "mainCommit": "1308580", "devHead": "814460b" },
+  "before": {
+    "deployment": "dpl_4FE7JeXKq853nCxsrN2NYZYFdYjj",
+    "url": "https://visibible-82370erti-austin-kelsays-projects.vercel.app",
+    "commit": "ecd58e0",
+    "GENERIC_ENGINE_MODE": "disabled",
+    "artStyles": [["classical", true], ["watercolor", false], ["icon", false]]
+  },
+  "releaseDeploymentDisabled": {
+    "deployment": "dpl_8ypWSF3y2MSvcRrMAuTAD8PHrsuf",
+    "url": "https://visibible-n93g5yp41-austin-kelsays-projects.vercel.app",
+    "createdAt": "2026-10-28T15:27:07Z",
+    "checks": {
+      "artStyles": [["classical", true], ["watercolor", false], ["icon", false]],
+      "readiness": "ready",
+      "getWorkStatus": { "ready": true, "reasons": [], "activeGeneration": 1, "workVersion": "8d62b9c0471c…", "briefVersion": "1f5f38a72f9e…" },
+      "pages": "200 after redirect to /genesis/1/1"
+    }
+  },
+  "switch": {
+    "change": "Vercel production env GENERIC_ENGINE_MODE: disabled -> public (vercel env update), then vercel redeploy",
+    "at": "2026-10-28T15:38:09Z",
+    "deployment": "dpl_DVtVJqf3iyTTbd5b64VRnqRE1n6h",
+    "url": "https://visibible-b2f4co0f3-austin-kelsays-projects.vercel.app",
+    "aliasedTo": "https://visibible.com",
+    "ownerCheckDigest": "absent",
+    "checks": {
+      "artStyles": [["classical", true], ["watercolor", true], ["icon", false, "The icon art style is temporarily unavailable"]],
+      "readiness": "ready",
+      "pages": "200",
+      "logsFirstMinutes": "no errors"
+    }
+  },
+  "openRouterBalanceUsdAtSwitch": 5.017,
+  "rollback": [
+    "npx vercel env update GENERIC_ENGINE_MODE --environment production --value disabled --yes",
+    "npx vercel redeploy https://visibible-b2f4co0f3-austin-kelsays-projects.vercel.app --environment production",
+    "Accepted generic requests keep their engine and replay; new Classical requests use legacy; Watercolor and Icon report unavailable; saved images stay."
+  ],
+  "followUpOwner": "Austin Kelsay"
+}
