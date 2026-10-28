@@ -12,6 +12,8 @@ Updated 28 October 2026. Canonical release ticket: [#183](https://github.com/Aus
 
 **Fresco (28 October):** the owner asked for another third style. A [bake-off](2026-10-28-style-bakeoff/RESULTS.md) of Gouache, Engraving and Fresco on 12 hard cases ($1.58) left Fresco and Engraving as the distinct options, and the owner chose Fresco. Its [full matrix](2026-10-28-fresco-matrix/RESULTS.md) reached 24/33 acceptable (73%) with no God figure ($1.30); the three public styles together reach 78%. Release: Fresco joins the library, the brief and `PUBLIC_GENERIC_STYLE_IDS`, and production's brief registration moves with `npm run works:amend-brief-styles` right after the deploy (ADR 0006 amendment 4).
 
+**Known analysis error:** John 11:43 (Lazarus) is planned at `joseph_of_arimathea_s_new_tomb`, a Jerusalem tomb from the later burial of Jesus, so its plans move Bethany to Jerusalem (CodeRabbit on #297, from the Fresco matrix log). It needs a canon or cast correction with `works:correct`; it is not caused by the style work.
+
 | Gate | Current evidence |
 | --- | --- |
 | Imported Bible, analysis and canon | Generation 1 ready; 31,102 existing Bible IDs, approved work/brief versions. [Production preparation](2026-10-20-engine-production/README.md) |

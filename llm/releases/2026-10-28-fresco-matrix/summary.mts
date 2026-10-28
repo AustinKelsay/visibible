@@ -20,7 +20,7 @@ for (const style of json("plan.json").styles as string[]) {
   const shown = labelled.filter((s) => s.shown && s.style === style), first = labelled.filter((s) => s.attempt === 1 && s.style === style);
   const byFault: Record<string, number> = {}; for (const s of shown.filter((x) => x.overall !== "acceptable")) for (const f of faults(s)) byFault[f] = (byFault[f] ?? 0) + 1;
   result[style] = { shown: shown.length, acceptable: shown.filter((s) => s.overall === "acceptable").length, firstAttemptAcceptable: first.filter((s) => s.overall === "acceptable").length,
-    retries: rows.filter((r) => r.style === style && r.attempts.length === 2).length, faultsInFlawedShown: byFault,
+    retries: rows.filter((r) => r.outcome === "image" && r.style === style && r.attempts.length === 2).length, faultsInFlawedShown: byFault,
     perCase: Object.fromEntries(shown.map((s) => [s.case, s.overall === "acceptable" ? "ok" : faults(s).join("+") || s.overall])) };
 }
 save("summary.json", result);
