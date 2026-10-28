@@ -37,3 +37,7 @@ The same matrix showed two other fixable causes, and both are now rules:
 - **Nothing unseen, and empty thrones.** "A faint radiance of an unseen angel" was drawn as an angel, and an unselected God sat on Revelation 4:6's throne. Plans now describe only what can be seen. When a plan keeps the light, cloud or fire of a no-form subject, it selects that subject, so the unseen-presence line applies. The no-form addendum also names its hem. The image rules keep a throne or seat empty unless the plan names who sits there.
 
 The rest of the bar is unchanged: at least 75% acceptable overall and 65% per style, a no-form figure in at most 1 in 20, and owner sign-off.
+
+## Amendment 3: Classical and Watercolor launch first
+
+The [rerun](../../llm/releases/2026-10-28-launch-matrix-v2/RESULTS.md) reached 71% overall. Classical (84%) and Watercolor (78%) met the bar on their own, together 81%, while Icon fell to 50% from halo letters, scribbles and gold border bands. On 28 October the owner chose to launch Classical and Watercolor first and fix Icon afterwards. The public switch now releases only the styles in `PUBLIC_GENERIC_STYLE_IDS`. Icon stays available to the owner in owner and public modes and reports temporarily unavailable to readers, as it does today. Icon joins the list after its own measurement meets the per-style bar.

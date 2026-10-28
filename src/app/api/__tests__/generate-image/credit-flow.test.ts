@@ -548,10 +548,14 @@ describe("Image Generation API Credit Flow", () => {
       const seen: unknown[] = [];
       setGenericEngine({ id: "fake-generic", async execute(input) { seen.push(input); return { kind: "response", status: 200, body: { requestId: input.requestId, engine: "generic", styleId: input.styleId } }; } });
       try {
-        const generic = await POST(createGenerateImageRequest({ ...body, requestId: "generic-request", style: "icon" }));
+        const generic = await POST(createGenerateImageRequest({ ...body, requestId: "generic-request", style: "watercolor" }));
         expect(generic.status).toBe(200);
-        expect(await generic.json()).toEqual({ requestId: "generic-request", engine: "generic", styleId: "icon" });
-        expect(seen).toEqual([expect.objectContaining({ requestId: "generic-request", sid: "test-session", isOwner: false, verseId: "genesis-1-1", styleId: "icon", translationId: "web" })]);
+        expect(await generic.json()).toEqual({ requestId: "generic-request", engine: "generic", styleId: "watercolor" });
+        expect(seen).toEqual([expect.objectContaining({ requestId: "generic-request", sid: "test-session", isOwner: false, verseId: "genesis-1-1", styleId: "watercolor", translationId: "web" })]);
+        // Icon is not released to readers yet: unavailable, with no record or reservation.
+        const icon = await POST(createGenerateImageRequest({ ...body, requestId: "icon-request", style: "icon" }));
+        expect(icon.status).toBe(503);
+        expect(seen).toHaveLength(1);
         expect(getCallCount("reserveCredits")).toBe(1);
       } finally {
         setGenericEngine(null);

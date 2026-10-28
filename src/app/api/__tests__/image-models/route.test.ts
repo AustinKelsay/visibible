@@ -153,7 +153,7 @@ describe("Image Models API", () => {
 });
 
 describe("art style availability", () => {
-  it("reports every style with the admission decision: only Classical while the generic engine is disabled, all when public and ready", async () => {
+  it("reports every style with the admission decision: only Classical while the generic engine is disabled, Classical and Watercolor when public and ready", async () => {
     process.env = { ...originalEnv, OPENROUTER_API_KEY: "test-api-key" };
     delete process.env.GENERIC_ENGINE_MODE;
     mockFetchImageModels.mockResolvedValue({ models: [imageModelFixture()] });
@@ -168,6 +168,8 @@ describe("art style availability", () => {
     mockConvex.query.mockImplementation(async (_ref: unknown, args: Record<string, unknown>) =>
       "workId" in args ? { ready: true, reasons: [], activeGeneration: 1, briefVersion: "bv" } : []);
     const publicMode = await (await GET()).json();
-    expect(publicMode.artStyles.every((s: { available: boolean }) => s.available)).toBe(true);
+    // Public mode releases Classical and Watercolor; Icon stays owner-only (owner decision, 28 October).
+    expect(publicMode.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", true], ["watercolor", true], ["icon", false]]);
+    expect(publicMode.artStyles[2].reason).toMatch(/temporarily unavailable/);
   });
 });
