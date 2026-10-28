@@ -1,0 +1,85 @@
+{
+  "at": "2026-10-28T21:28:22.556Z",
+  "deployment": "Deployment api.visibible.com (dry run, nothing changed)",
+  "requests": {
+    "generic": {
+      "failed": 2,
+      "generating": 0,
+      "planning": 0,
+      "queued": 0,
+      "succeeded": 33
+    },
+    "legacy": {
+      "failed": 16,
+      "generating": 0,
+      "planning": 0,
+      "queued": 0,
+      "succeeded": 166
+    }
+  },
+  "bulk": {
+    "byEngine": {
+      "generic": {
+        "accepted": 0,
+        "failed": 0,
+        "jobs": 0,
+        "succeeded": 0,
+        "unstarted": 0
+      },
+      "legacy": {
+        "accepted": 0,
+        "failed": 0,
+        "jobs": 0,
+        "succeeded": 0,
+        "unstarted": 0
+      },
+      "unbound": {
+        "accepted": 0,
+        "failed": 0,
+        "jobs": 0,
+        "succeeded": 0,
+        "unstarted": 0
+      }
+    },
+    "pausedForEngine": 0
+  },
+  "inventory": {
+    "acceptedObligations": {
+      "generic": {
+        "requestsInFlight": 0,
+        "requestsQueued": 0,
+        "bulkItemsAccepted": 0,
+        "total": 0
+      },
+      "legacy": {
+        "requestsInFlight": 0,
+        "requestsQueued": 0,
+        "bulkItemsAccepted": 0,
+        "total": 0
+      },
+      "unbound": {
+        "requestsInFlight": 0,
+        "requestsQueued": 0,
+        "bulkItemsAccepted": 0,
+        "total": 0
+      }
+    },
+    "cancellationCandidates": [
+      {
+        "engine": "legacy",
+        "unstartedBulkItems": 0,
+        "jobs": 0
+      }
+    ],
+    "uncertain": {
+      "generic": 0,
+      "legacy": 0,
+      "unbound": 0
+    },
+    "readyToRetire": {
+      "legacy": true,
+      "reasons": []
+    }
+  },
+  "verdict": "Legacy has no accepted obligations; retirement can close the listed unstarted items (readers may recreate them under a fresh quote)."
+}
