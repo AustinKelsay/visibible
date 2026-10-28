@@ -12,7 +12,8 @@ The run made **111 images (96 shown, 15 retries), 120 text calls and 222 check c
 | Watercolor | 25/32 (78%) | 24/32 (75%) | at least 65% |
 | Classical + Watercolor | 52/64 (81%) | 52/64 (81%) | at least 75% |
 | Icon | 16/32 (50%) | 14/32 (44%) | at least 65% |
-| No-form figure, scenes that select one | 1/18 | 1/18 (Icon) | at most 1 in 20 |
+| No-form figure, scenes that select one: all styles | 1/18 (fails) | 1/18, Icon (fails) | at most 1 in 20 |
+| No-form figure: Classical + Watercolor | 1/12 | 0/12 | at most 1 in 20 |
 
 Across all three runs, Classical and Watercolor drew God as a figure in 1 of the 38 shown images of scenes that select him.
 
