@@ -1,0 +1,22 @@
+{
+  "authorization": "Owner chose \"Turn it on now (Recommended)\" to: release dev to main and set LEGACY_ENGINE=retired, accepting that a refused Classical verse shows a retry message instead of a legacy image and that GENERIC_ENGINE_MODE=disabled would stop all new images (28 October 2026).",
+  "release": { "pullRequest": 304, "mainCommit": "d0f502e", "deployment": "dpl_GyQ1Tfy2qgbhczkdSF6GY5UTkpRu", "aliasedAt": "2026-10-28T21:26:39Z", "legacyEngine": "unset" },
+  "cutoff": {
+    "change": "Vercel production env LEGACY_ENGINE=retired added (config), then vercel redeploy",
+    "envSetAt": "2026-10-28T21:26:52Z",
+    "deployment": "dpl_DdXpgtYvPQnxTTHHzE2HFANMW8n8",
+    "liveAt": "2026-10-28T21:28:02Z",
+    "checks": {
+      "artStyles": [["classical", true], ["watercolor", true], ["fresco", true], ["icon", false]],
+      "page": 200,
+      "engineAdmissionLegacySinceCutoff": 0,
+      "legacyRequests": { "succeeded": 166, "failed": 16, "inFlight": 0, "queued": 0, "unchangedFromBefore": true },
+      "readyToRetire": true
+    }
+  },
+  "rollback": [
+    "npx vercel env rm LEGACY_ENGINE production --yes (or set it to any other value), then redeploy: legacy admission and the refused-Classical fallback return while the legacy code still ships.",
+    "GENERIC_ENGINE_MODE=disabled now stops all new images; it no longer returns Classical to legacy."
+  ],
+  "next": "Remove the legacy route adapter, its Bible-only prompt strings and the disposable legacy plan cache (the rest of #184)."
+}

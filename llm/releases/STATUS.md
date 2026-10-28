@@ -45,7 +45,7 @@ Production `visibible.com` serves `main` with `GENERIC_ENGINE_MODE=public` (Clas
 - [first launch](2026-10-28-public-launch/deployment.json): `1308580`, `dpl_DVtVJqf3iyTTbd5b64VRnqRE1n6h`.
 - the planner release: `0d5e6e5`, `dpl_CiS5RhhoqEyMitujmkfrry5ZsQxc`.
 - [Fresco](2026-10-28-fresco-launch/deployment.json): `af2b4d3`, `dpl_E4Vg2JmUhXkUjXqbVGoSxxS93LUn`.
-- [legacy retirement](2026-10-28-legacy-retirement/README.md).
+- [legacy retirement](2026-10-28-legacy-retirement/deployment.json): `d0f502e`, `dpl_GyQ1Tfy2qgbhczkdSF6GY5UTkpRu`, then `LEGACY_ENGINE=retired` on `dpl_DdXpgtYvPQnxTTHHzE2HFANMW8n8` (live 21:28 UTC). New work runs only on the generic engine, and accepted legacy requests still replay.
 
 Before the launch it served `ecd58e0` on `dpl_4FE7JeXKq853nCxsrN2NYZYFdYjj` with admission disabled.
 
