@@ -1,11 +1,11 @@
 /**
- * Live providers for the evaluation runner (#98): the same OpenRouter chat-completion image
- * request the route makes, with usage included so spend is actual where reported, and the scene
- * planner request with reasoning disabled. The runner never calls them in a dry run.
+ * The live image provider for the evaluation runner (#98): the same OpenRouter chat-completion image
+ * request the generic engine makes, with usage included so spend is actual where reported. The runner
+ * never calls it in a dry run.
  */
 import { extractOpenRouterUsageUsd, findResponseImageUrl } from "../image-response";
 import { supportsResolution } from "../image-models";
-import { EvalProviderError, type EvalImageProvider, type EvalPlannerProvider } from "./runner";
+import { EvalProviderError, type EvalImageProvider } from "./runner";
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
 
@@ -45,24 +45,6 @@ export function createOpenRouterEvalImageProvider(options: { apiKey: string; fet
       const match = url.match(/^data:(image\/[a-z]+);base64,([A-Za-z0-9+/=]+)$/);
       if (!match) throw new Error("OpenRouter returned no image");
       return { bytes: Uint8Array.from(Buffer.from(match[2], "base64")), mimeType: match[1], costUsd: extractOpenRouterUsageUsd(payload), elapsedMs: Date.now() - started, providerRequestId: typeof payload.id === "string" ? payload.id : null };
-    },
-  };
-}
-
-export function createOpenRouterEvalPlannerProvider(options: { apiKey: string; model: string; fetch?: FetchLike; timeoutMs?: number }): EvalPlannerProvider {
-  const fetchImpl = options.fetch ?? ((input, init) => fetch(input, init));
-  return {
-    id: options.model,
-    async plan(request) {
-      const started = Date.now();
-      const { response, payload } = await postJson(fetchImpl, options.apiKey, {
-        model: options.model, messages: [{ role: "user", content: request.prompt }], temperature: 0.2, max_tokens: 220, reasoning: { enabled: false }, usage: { include: true },
-      }, options.timeoutMs ?? 20_000);
-      if (!response.ok) throw new EvalProviderError(response.status, `OpenRouter ${response.status}: ${JSON.stringify(payload.error ?? payload).slice(0, 300)}`);
-      const choices = Array.isArray(payload.choices) ? payload.choices : [];
-      const message = choices[0] && typeof choices[0] === "object" ? (choices[0] as { message?: { content?: unknown } }).message : undefined;
-      const content = typeof message?.content === "string" ? message.content : Array.isArray(message?.content) ? message.content.map((p: { text?: string }) => p.text ?? "").join("") : null;
-      return { content: content || null, costUsd: extractOpenRouterUsageUsd(payload), elapsedMs: Date.now() - started };
     },
   };
 }

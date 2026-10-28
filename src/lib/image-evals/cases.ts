@@ -7,10 +7,8 @@ import { DEFAULT_ASPECT_RATIO, DEFAULT_IMAGE_MODEL, DEFAULT_RESOLUTION, isValidA
 
 export const EVAL_GENRES = ["narrative", "poetry", "prophecy", "genealogy", "symbolic", "difficult", "law", "epistle", "parable"] as const;
 export type EvalGenre = (typeof EVAL_GENRES)[number];
-/** The legacy arms; generic arms are `generic:<styleId>` (#181). */
-export const EVAL_ARMS = ["direct", "planner"] as const;
-export type LegacyEvalArm = (typeof EVAL_ARMS)[number];
-export type EvalArm = LegacyEvalArm | `generic:${string}`;
+/** An arm renders the cases in one art style through the generic engine (#181). The legacy direct and planner arms went with the legacy engine (#184). */
+export type EvalArm = `generic:${string}`;
 
 const settingsSchema = z.object({
   model: z.string().min(1).optional(),
@@ -78,7 +76,7 @@ export function describeCoverage(cases: readonly EvalCase[]) {
 export const toUnitId = (reference: string) => reference.toLowerCase().replace(/:/g, "-").replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 export const caseWork = (c: EvalCase) => c.work ?? "bible-web";
 export const caseUnitId = (c: EvalCase) => c.unitId ?? toUnitId(c.reference);
-/** The arms a case takes part in: every legacy arm, and the generic arms whose style the case allows. */
+/** The arms a case takes part in: those whose style the case allows. */
 export function armsFor(c: EvalCase, arms: readonly EvalArm[]): EvalArm[] {
-  return arms.filter((arm) => !arm.startsWith("generic:") || !c.styles || c.styles.includes(arm.slice("generic:".length)));
+  return arms.filter((arm) => !c.styles || c.styles.includes(arm.slice("generic:".length)));
 }

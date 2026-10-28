@@ -2,7 +2,6 @@ import { KNOWN_STYLE_IDS } from "../../../convex/_helpers/styleIds";
 import { describe, expect, it } from "vitest";
 import bible from "../../../tests/fixtures/work-briefs/bible.draft.json";
 import holmes from "../../../tests/fixtures/work-briefs/holmes.draft.json";
-import { DEFAULT_STYLE_PROFILE, STYLE_PROFILES } from "../image-prompts";
 import {
   COMMON_CONTENT_FLOOR, PROMPT_PRECEDENCE, SHARED_STYLES,
   createStyleLibrary, formatBriefPrompt, formatStylePrompt, inspectStyleScope,
@@ -11,13 +10,12 @@ import {
 } from "../work-preparation";
 
 describe("shared art styles", () => {
-  it("registers the approved canonical IDs and labels while retaining the legacy default ID", () => {
+  it("registers the approved canonical IDs and labels", () => {
     expect(SHARED_STYLES.styles.map(({ id, label }) => [id, label])).toEqual([
       ["classical", "Classical"], ["watercolor", "Ink & Watercolor"], ["fresco", "Fresco"], ["icon", "Byzantine Icon"],
     ]);
     // Convex checks brief styles against this dependency-free copy of the library's ids.
     expect([...KNOWN_STYLE_IDS].sort()).toEqual(SHARED_STYLES.styles.map(({ id }) => id).sort());
-    expect(SHARED_STYLES.get(DEFAULT_STYLE_PROFILE).id).toBe(STYLE_PROFILES.classical.id);
     expect(() => SHARED_STYLES.get("watercolour")).toThrow("Unknown art style");
   });
 
@@ -31,8 +29,6 @@ describe("shared art styles", () => {
     }
     expect(SHARED_STYLES.get("classical").negatives).toMatch(/fresco.*manuscript/);
     expect(SHARED_STYLES.get("watercolor").negatives).toContain("No white or cream paper margins");
-    // The new contracts have not changed the deployed legacy prompt strings.
-    expect(STYLE_PROFILES.classical.rendering).toContain("biblical-era");
   });
 
   it("formats exactly the six parts and keeps descriptions out of prompts", () => {

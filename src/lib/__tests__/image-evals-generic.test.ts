@@ -1,18 +1,20 @@
 /**
- * Generic-engine evaluation arms (#181) with fake providers over an in-memory analysis: the same
- * assembly as the request engine, prepared against cold samples, preparation spend apart from
- * image spend, the quote against reported usage, retained packets and references, the style
- * matrix, prose moments found from a unit, owner style trials, assembly failures as partial
- * results, the dry-run manifest, and the baseline-versus-candidate sheet.
+ * The image evaluation harness (#98, #181) with fake providers over an in-memory analysis: the committed
+ * cases, the same assembly as the request engine, prepared against cold samples, preparation spend apart
+ * from image spend, the quote against reported usage, retained packets and references, the style matrix,
+ * prose moments found from a unit, owner style trials, assembly failures as partial results, the dry-run
+ * manifest, the hard budget and resume, funding told by HTTP status, and the baseline-versus-candidate sheet.
  */
 import { REVIEW_USAGE, reviewReply } from "../../../tests/fixtures/plan-review";
 import { describe, it, expect } from "vitest";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { createWorkReader } from "../work-input";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
 import { normalizeImageBilling } from "../image-catalog";
 import { createMemoryPreparationStore } from "../engine/memory-store";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
-import { loadEvalCases } from "../image-evals/cases";
+import { describeCoverage, loadEvalCases } from "../image-evals/cases";
 import { createOpenRouterEvalImageProvider } from "../image-evals/adapters";
 import { COLD_PREPARATION_CALLS, emptyEvalState, runImageEval, type EvalProviders, type EvalRunState } from "../image-evals/runner";
 import { buildReport, buildScoreTemplate, renderComparisonSheet, renderContactSheet } from "../image-evals/report";
@@ -79,18 +81,17 @@ const cases = loadEvalCases({ schemaVersion: 1, defaults: { translation: "web" }
   { id: "lamp-second", reference: "The Lamp ¶2", genre: "narrative", expected: "The lamplighter in the second paragraph.", work: PROSE, unitId: "lamp-2" },
 ] });
 
-function setup(options: { imageCost?: number | null; failStore?: boolean; trial?: GenericEvalProvider["styleTrials"]; preparationCost?: number | null; references?: boolean } = {}) {
+function setup(options: { imageCost?: number | null; failStore?: boolean; failImageFor?: string[]; trial?: GenericEvalProvider["styleTrials"]; preparationCost?: number | null; references?: boolean } = {}) {
   const memory = createMemoryPreparationStore(records);
   const proseMemory = createMemoryPreparationStore(proseRecords);
   const model = scriptedModel(options.preparationCost === undefined ? 0.0004 : options.preparationCost);
   const imageCalls: Array<{ label: string; references: number; referenceBytes: number[][]; prompt: string }> = [];
   const providers: EvalProviders = {
-    resolvePassage: async () => null,
     image: { id: "fake", async generate(request) {
       imageCalls.push({ label: request.label, references: request.references?.length ?? 0, referenceBytes: (request.references ?? []).map((r) => [...r.bytes]), prompt: request.prompt });
+      if (options.failImageFor?.includes(request.label)) throw new Error("provider 500");
       return { bytes: new Uint8Array([9]), mimeType: "image/png", costUsd: options.imageCost === undefined ? 0.03 : options.imageCost, elapsedMs: 1500, providerRequestId: `gen-${imageCalls.length}` };
     } },
-    planner: null,
     generic: {
       context: async (workId) => workId === PROSE
         ? { inputs: inputsFor(prose, PROSE), store: proseMemory.store, listMoments: proseMemory.listMoments, getReference: async () => null, loadReference: async () => { throw new Error("none"); } }
@@ -104,11 +105,69 @@ function setup(options: { imageCost?: number | null; failStore?: boolean; trial?
   return { providers, imageCalls, model, memory, proseMemory };
 }
 const run = (providers: EvalProviders, extra: Partial<Parameters<typeof runImageEval>[0]> = {}) => {
-  const state: EvalRunState = extra.state ?? emptyEvalState("gen", "google/gemini-3.1-flash-lite-image", null, 1_000);
-  return runImageEval({ cases, arms: ["generic:classical", "generic:watercolor"], repeats: 1, budgetUsd: 1, estimateUsd: { image: 0.035, planner: 0, preparation: 0.0005 }, providers, saveState: async () => {}, now: () => 5_000, ...extra, state });
+  const state: EvalRunState = extra.state ?? emptyEvalState("gen", "google/gemini-3.1-flash-lite-image", 1_000);
+  return runImageEval({ cases, arms: ["generic:classical", "generic:watercolor"], repeats: 1, budgetUsd: 1, estimateUsd: { image: 0.035, preparation: 0.0005 }, providers, saveState: async () => {}, now: () => 5_000, ...extra, state });
 };
 
 describe("generic evaluation arms", () => {
+  it("commits a representative case set with fixed settings", () => {
+    const committed = loadEvalCases(JSON.parse(readFileSync(path.join(process.cwd(), "evals/images/cases.json"), "utf8")));
+    const coverage = describeCoverage(committed);
+    expect(coverage.representative).toBe(true);
+    expect(coverage.total).toBeGreaterThanOrEqual(24);
+    expect(coverage.missing).toEqual([]);
+    expect(committed.every((c) => c.resolvedSettings.model === "google/gemini-3.1-flash-lite-image" && c.resolvedSettings.translation === "web")).toBe(true);
+    expect(committed.filter((c) => c.tags?.includes("continuity")).map((c) => c.id)).toEqual(expect.arrayContaining(["matthew-14-29-peter-water", "john-21-7-peter-sea", "exodus-14-21-sea-parts", "exodus-14-22-sea-walls", "genesis-1-3-light"]));
+    expect(() => loadEvalCases({ schemaVersion: 1, cases: [{ id: "a", reference: "Genesis 1:1", genre: "narrative", expected: "x" }, { id: "a", reference: "Genesis 1:2", genre: "narrative", expected: "y" }] })).toThrow(/Duplicate/);
+  });
+
+  it("stops at the hard budget, leaves the rest not run and incomplete, and resumes without repeating a completed sample", async () => {
+    const two = cases.slice(0, 2);
+    const arms: ["generic:classical"] = ["generic:classical"];
+    const arm = arms[0];
+    const { providers, imageCalls } = setup();
+    const dry = await run(providers, { cases: two, arms, repeats: 3, budgetUsd: 0.07, dryRun: true });
+    expect(dry.manifest.withinBudget).toBe(false);
+    expect(imageCalls).toHaveLength(0);
+    const first = await run(providers, { cases: two, arms, repeats: 3, budgetUsd: 0.07 });
+    // Two samples fit; the third's estimate (an image and three preparation calls) would pass $0.07.
+    expect(imageCalls).toHaveLength(2);
+    expect(first.state.stopped?.reason).toBe("budget_exhausted");
+    const report = buildReport(first.state, two, { arms, repeats: 3 });
+    expect(report.arms[arm]).toMatchObject({ completed: 2, notRun: 4 });
+    expect(report.cases.map((c) => c.comparison)).toEqual(["incomplete", "incomplete"]);
+    expect(renderContactSheet(report)).toContain("stopped: budget_exhausted");
+    // Resume with a larger budget: the two completed samples are not repeated.
+    const second = await run(providers, { cases: two, arms, repeats: 3, state: first.state });
+    expect(imageCalls).toHaveLength(6);
+    expect(second.state.stopped).toBeUndefined();
+    expect(buildReport(second.state, two, { arms, repeats: 3 }).comparisons).toEqual({ ready: 2, inconclusive: 0, incomplete: 0 });
+    // Fewer than the floor is inconclusive even when every repeat ran.
+    expect(buildReport(second.state, two, { arms, repeats: 3, sampleFloor: 4 }).cases[0]).toMatchObject({ comparison: "inconclusive", reason: expect.stringContaining("fewer than 4") });
+    // A failed image leaves its case inconclusive; a rerun retries it, and the failed attempt cost nothing.
+    const under = await run(setup({ failImageFor: [`alpha-one/${arm}/2`] }).providers, { cases: two, arms, repeats: 3 });
+    expect(buildReport(under.state, two, { arms, repeats: 3 }).cases[0]).toMatchObject({ comparison: "inconclusive" });
+    const retried = await run(setup().providers, { cases: two, arms, repeats: 3, state: under.state });
+    expect(retried.state.samples[`alpha-one/${arm}/2`].status).toBe("completed");
+    expect(retried.state.samples[`alpha-one/${arm}/2`].priorCostUsd).toBeUndefined();
+    // An image that could not be stored was paid for: its cost stays on the ledger when the rerun completes.
+    const storeLost = await run(setup({ failStore: true }).providers, { cases: [two[0]], arms });
+    const recovered = await run(setup().providers, { cases: [two[0]], arms, state: storeLost.state });
+    expect(recovered.state.samples[`alpha-one/${arm}/1`]).toMatchObject({ status: "completed", priorCostUsd: 0.03 });
+    const recoveredArm = buildReport(recovered.state, [two[0]], { arms, repeats: 1, sampleFloor: 1 }).arms[arm];
+    expect(recoveredArm.spendUsd.total + recoveredArm.preparation!.spendUsd).toBeCloseTo(recovered.state.spentUsd, 6);
+  });
+
+  it("uses the HTTP status rather than error text to tell funding from ordinary provider failures", async () => {
+    const { providers } = setup();
+    providers.image = createOpenRouterEvalImageProvider({ apiKey: "fake", fetch: async () => Response.json({ error: { message: "Upstream 402 mentioned in diagnostic text" } }, { status: 500 }) });
+    // An ordinary image failure lets later samples run.
+    const { state } = await run(providers, { cases: cases.slice(0, 2), arms: ["generic:classical"] });
+    expect(state.stopped).toBeUndefined();
+    expect(Object.values(state.samples)).toHaveLength(2);
+    expect(Object.values(state.samples).every((s) => s.status === "failed" && s.stage === "image")).toBe(true);
+  });
+
   it("renders through the engine assembly, tells prepared from cold, keeps preparation spend apart and compares quote to usage", async () => {
     const { providers, imageCalls, model } = setup();
     const { state, manifest } = await run(providers);
@@ -187,7 +246,7 @@ describe("generic evaluation arms", () => {
     const { providers, imageCalls, model } = setup({ references: true });
     const scope = { cases: [cases[0]], arms: ["generic:watercolor"] as const };
     const baseline = await run(providers, scope);
-    const trial = await run(providers, { ...scope, omitStyleReference: true, state: emptyEvalState("no-style-reference", "google/gemini-3.1-flash-lite-image", null) });
+    const trial = await run(providers, { ...scope, omitStyleReference: true, state: emptyEvalState("no-style-reference", "google/gemini-3.1-flash-lite-image") });
     expect(model.calls).toHaveLength(2); // One shared look and plan, unchanged for the trial.
     expect(imageCalls.map((c) => c.referenceBytes)).toEqual([[[1, 2], [3, 4]], [[3, 4]]]);
     const normal = baseline.state.samples["alpha-one/generic:watercolor/1"];
@@ -227,7 +286,6 @@ describe("generic evaluation arms", () => {
     const failed = await run(setup({ failStore: true }).providers, { cases: [cases[0]], arms: ["generic:watercolor"] });
     expect(Object.values(failed.state.samples)[0].status).toBe("failed");
     await expect(run(providers, { state: failed.state, omitStyleReference: true })).rejects.toThrow("use a new --run");
-    await expect(run(providers, { dryRun: true, omitStyleReference: true, arms: ["direct"] })).rejects.toThrow("requires a generic arm");
   });
 
   it("preserves paid preparation on a funding stop and resumes unfinished samples without preparing later moments early", async () => {
@@ -267,7 +325,7 @@ describe("generic evaluation arms", () => {
 
   it("compares a baseline and a candidate run, flagging candidate fails and worsening and retaining the baseline otherwise", async () => {
     const base = await run(setup().providers, { arms: ["generic:classical"] });
-    const cand = await run(setup({ imageCost: 0.05 }).providers, { arms: ["generic:classical"], state: emptyEvalState("cand", "google/gemini-3.1-flash-lite-image", null, 2_000) });
+    const cand = await run(setup({ imageCost: 0.05 }).providers, { arms: ["generic:classical"], state: emptyEvalState("cand", "google/gemini-3.1-flash-lite-image", 2_000) });
     const options = { arms: ["generic:classical" as const], repeats: 1, sampleFloor: 1 };
     const baseline = buildReport(base.state, cases, options);
     const candidate = buildReport(cand.state, cases, options);

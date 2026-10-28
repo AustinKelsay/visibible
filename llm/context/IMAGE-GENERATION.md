@@ -20,7 +20,7 @@ Lifecycle states are `queued`, `planning`, `generating`, `succeeded`, and `faile
 ## Configuration and related behavior
 
 - `ENABLE_IMAGE_GENERATION=true` enables the route.
-- The legacy scene planner ([scene-planner.ts](../../src/lib/scene-planner.ts)) and legacy prompts ([image-prompts.ts](../../src/lib/image-prompts.ts)) no longer run in the route. They remain only for the evaluation harness until the rest of #184 removes them, as does the legacy scene plan cache (`scenePlanCache`).
+- The legacy scene planner and prompt builder were removed with the legacy engine (#184). The legacy scene plan cache (`scenePlanCache`) remains until its own removal step.
 - [Prompt specification](../implementation/IMAGE_PROMPT_SPEC.md), [persistence](IMAGE-PERSISTENCE.md), and [bulk generation](BULK-GENERATION.md) cover those separate concerns.
 - [Credit-flow](../../src/app/api/__tests__/generate-image/credit-flow.test.ts) tests cover request behavior.
 
