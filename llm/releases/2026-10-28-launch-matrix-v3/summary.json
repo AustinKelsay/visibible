@@ -1,0 +1,113 @@
+{
+  "shown": {
+    "overall": {
+      "images": 96,
+      "acceptable": 66,
+      "rate": 0.6875
+    },
+    "classical": {
+      "images": 32,
+      "acceptable": 28,
+      "rate": 0.875
+    },
+    "watercolor": {
+      "images": 32,
+      "acceptable": 24,
+      "rate": 0.75
+    },
+    "icon": {
+      "images": 32,
+      "acceptable": 14,
+      "rate": 0.4375
+    },
+    "noFormFigure": {
+      "images": 18,
+      "figures": 1,
+      "anyCaseFigures": 1
+    },
+    "watercolorMargins": {
+      "images": 32,
+      "margins": 18
+    },
+    "frames": 6,
+    "lettering": 10,
+    "extraFigures": 4,
+    "incoherent": 7
+  },
+  "firstAttempt": {
+    "overall": {
+      "images": 96,
+      "acceptable": 64,
+      "rate": 0.6666666666666666
+    },
+    "classical": {
+      "images": 32,
+      "acceptable": 28,
+      "rate": 0.875
+    },
+    "watercolor": {
+      "images": 32,
+      "acceptable": 24,
+      "rate": 0.75
+    },
+    "icon": {
+      "images": 32,
+      "acceptable": 12,
+      "rate": 0.375
+    },
+    "noFormFigure": {
+      "images": 18,
+      "figures": 1,
+      "anyCaseFigures": 1
+    },
+    "watercolorMargins": {
+      "images": 32,
+      "margins": 18
+    },
+    "frames": 9,
+    "lettering": 12,
+    "extraFigures": 4,
+    "incoherent": 6
+  },
+  "bar": {
+    "overall": false,
+    "perStyle": false,
+    "noFormFigure": false
+  },
+  "passes": false,
+  "retries": 15,
+  "retryShown": 9,
+  "samples": 96,
+  "refused": [
+    "daniel-7-9/classical/1"
+  ],
+  "failed": [],
+  "checkAgreementOnFirstAttempts": {
+    "unchecked": 0,
+    "figure": {
+      "positives": 1,
+      "caught": 0,
+      "negatives": 95,
+      "falseAlarms": 0
+    },
+    "border": {
+      "positives": 29,
+      "caught": 10,
+      "negatives": 67,
+      "falseAlarms": 2
+    },
+    "lettering": {
+      "positives": 12,
+      "caught": 4,
+      "negatives": 84,
+      "falseAlarms": 1
+    },
+    "retriedAcceptable": 2,
+    "acceptableFirsts": 64
+  },
+  "latencyMs": {
+    "median": 9396,
+    "p90": 24383,
+    "note": "Harness sample time including preparation on each case's first style; three cases ran concurrently."
+  }
+}
