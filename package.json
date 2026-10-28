@@ -44,7 +44,7 @@
     "light-bolt11-decoder": "^3.2.0",
     "lucide-react": "^0.562.0",
     "neutral-cost": "^0.2.2",
-    "next": "16.4.0",
+    "next": "16.4.3",
     "qrcode": "^1.5.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -54,12 +54,15 @@
     "remark-gfm": "^4.0.1",
     "sharp": "^0.35.5",
     "snstr": "^0.1.10",
-    "zod": "^4.1.12"
+    "zod": "^4.6.7"
   },
   "overrides": {
     "react-markdown": {
       "react": "$react",
       "react-dom": "$react-dom"
+    },
+    "snstr": {
+      "zod": "$zod"
     }
   },
   "devDependencies": {
