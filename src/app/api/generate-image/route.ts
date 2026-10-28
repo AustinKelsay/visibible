@@ -31,7 +31,7 @@ import {
 } from "@/lib/bible-api";
 import { resolveGenerationPassage } from "@/lib/generation-passage";
 import { getScenePlannerEstimatedCreditsCost, getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
-import { decideEngine, genericEngineMode, LEGACY_STYLE_IDS, type EngineId } from "@/lib/engine/admission";
+import { decideEngine, genericEngineMode, legacyEngineRetired, LEGACY_STYLE_IDS, type EngineId } from "@/lib/engine/admission";
 import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
 import { SHARED_STYLES } from "@/lib/work-preparation";
 import { getGenericEngine } from "@/lib/engine/dispatch";
@@ -503,8 +503,9 @@ export async function POST(request: Request) {
   const isAdminForBilling = sessionForAdmission?.tier === "admin";
   const bibleWorkId = "bible-web";
   const readiness = engineMode === "disabled" ? null : await convex.query(api.analysis.getWorkStatus, { workId: bibleWorkId }).catch(() => null);
+  const legacyRetired = legacyEngineRetired();
   const engineDecision = decideEngine({
-    mode: engineMode, isOwner: hasOwnerEngineAccess(sessionForAdmission), styleId: requestedStyleId ?? null,
+    mode: engineMode, isOwner: hasOwnerEngineAccess(sessionForAdmission), styleId: requestedStyleId ?? null, legacyRetired,
     readiness: readiness ? { ready: readiness.ready, reasons: readiness.reasons, activeGeneration: readiness.activeGeneration, briefVersion: readiness.briefVersion } : null,
   });
   logInfo("engine_admission", { requestId: clientRequestId, mode: engineMode, engine: engineDecision.engine, reason: engineDecision.engine ? engineDecision.reason : engineDecision.unavailable });
@@ -514,7 +515,8 @@ export async function POST(request: Request) {
   }
   // A job bound to the legacy engine (its first verse fell back) stays there while legacy can render the style,
   // so one bulk job never mixes engines.
-  const legacyBound = requestBody.engine === "legacy" && engineDecision.engine === "generic" && LEGACY_STYLE_IDS.includes(requestedStyleId ?? "classical");
+  // After the retirement cutoff a legacy-bound job is refused like any other binding change, so the job pauses.
+  const legacyBound = !legacyRetired && requestBody.engine === "legacy" && engineDecision.engine === "generic" && LEGACY_STYLE_IDS.includes(requestedStyleId ?? "classical");
   if (requestBody.engine && requestBody.engine !== engineDecision.engine && !legacyBound) {
     // A bound job never silently continues on another engine; nothing is reserved or recorded.
     incrementMetricCounter("engine_binding_refused", { expected: requestBody.engine, decided: engineDecision.engine });
@@ -536,7 +538,8 @@ export async function POST(request: Request) {
     });
     // A scene the generic engine cannot prepare is refused before any request record or reservation exists.
     // An unbound Classical request is then served by the legacy engine, so readers still get an image.
-    const legacyFallback = outcome.kind === "declined" && outcome.sceneUnavailable === true && !requestBody.engine
+    // After the retirement cutoff the decline stands for every style.
+    const legacyFallback = !legacyRetired && outcome.kind === "declined" && outcome.sceneUnavailable === true && !requestBody.engine
       && LEGACY_STYLE_IDS.includes(requestedStyleId ?? "classical");
     if (!legacyFallback) {
       if (outcome.kind === "declined") return jsonWithSessionRefresh({ error: outcome.error, message: outcome.message, retryable: outcome.retryable, ...outcome.details }, { status: outcome.status });

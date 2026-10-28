@@ -52,6 +52,26 @@ Set `GENERIC_ENGINE_MODE=disabled` (or `owner`) and redeploy. Accepted generic r
 
 An item a retirement closes as unstarted (never admitted) is not lost work: the reader creates a new job for those verses, quoted afresh under the engine admitted at that time. An uncertain paid attempt (a request still `generating`) is never closed as unstarted; it is reconciled from its request record first (`reconcileInterrupted` for bulk, replay for single requests).
 
+## Retirement cutoff (#184)
+
+The first step of retirement is a switch, not a code removal. Setting `LEGACY_ENGINE=retired` in production and redeploying stops every new legacy admission:
+- With the generic engine disabled or owner-only, a reader's new Classical request answers "Art style unavailable" (a retryable 503).
+- A Classical scene the generic engine refuses keeps its retryable decline instead of falling back to legacy.
+- A job item bound to legacy is refused ("Engine binding changed" 409, or 503 when the generic engine is off), so the job pauses.
+
+Accepted legacy requests keep their engine and billing and replay their saved results, because replay is answered before admission. Unsetting `LEGACY_ENGINE` and redeploying undoes the cutoff.
+
+Before the cutoff:
+1. Run the inventory against production and keep it as evidence ([28 October](../releases/2026-10-28-legacy-retirement/inventory-before-cutoff.json): no accepted legacy obligations, no bulk jobs).
+2. Set the switch and redeploy.
+3. Confirm `/api/image-models` and the logs.
+4. Re-run the inventory to show nothing new was admitted on legacy.
+
+After the cutoff, `GENERIC_ENGINE_MODE=disabled` is no longer a rollback that keeps Classical working: with both engines closed, no new images are made. The remaining recovery options are:
+- Unset `LEGACY_ENGINE`, which restores the legacy engine while its code still ships.
+- Redeploy an earlier build.
+- Fix forward.
+
 ## Retirement (later ticket)
 
 Legacy execution can be retired only when `npm run engine:retirement-inventory -- --env-file .env.convex.prod` reports no accepted obligations for legacy and nothing unbound. The inventory lists the cancellation candidates (unstarted legacy bulk items) the retirement will close with an explanation to their readers, who may recreate them under a fresh quote. Completed images, metadata, accounting and completed-request replay are kept.

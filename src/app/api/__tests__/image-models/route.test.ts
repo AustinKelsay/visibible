@@ -171,5 +171,11 @@ describe("art style availability", () => {
     // Public mode releases Classical, Watercolor and Fresco; Icon stays owner-only (owner decisions, 28 October).
     expect(publicMode.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", true], ["watercolor", true], ["fresco", true], ["icon", false]]);
     expect(publicMode.artStyles[3].reason).toMatch(/temporarily unavailable/);
+
+    // After the legacy retirement cutoff, disabling the generic engine leaves no engine for any style, Classical included.
+    process.env.GENERIC_ENGINE_MODE = "disabled";
+    process.env.LEGACY_ENGINE = "retired";
+    const retired = await (await GET()).json();
+    expect(retired.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", false], ["watercolor", false], ["fresco", false], ["icon", false]]);
   });
 });
