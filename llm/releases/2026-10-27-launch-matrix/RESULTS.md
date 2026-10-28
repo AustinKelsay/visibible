@@ -76,7 +76,7 @@ Harness time per sample: median 14.7 s, p90 27.6 s, including preparation on eac
 The engine is not ready for launch at the declared bar. The God-figure work holds at launch scale, and Classical passes on its own. The next changes are:
 
 1. Plans never ask for visible writing (scrolls of names, inscriptions), and the image prompt asks for plain halos and blank title boards.
-2. A decision on watercolor's soft white edges: either a stronger full-bleed instruction for that style, or the owner accepts the vignette as part of the style and the margin bar is revised.
+2. A decision on watercolor's soft white edges ([the 10 shown](watercolor-edges.jpg)): either a stronger full-bleed instruction for that style, or the owner accepts the vignette as part of the style and the margin bar is revised.
 3. Keep a throne empty whenever the section's cast holds a no-form subject, even if the plan does not select it (Revelation 4:6).
 
 A rerun of this matrix after those changes costs about $4.50. The evaluation allowance has $1.78 left, so it needs a new grant.
