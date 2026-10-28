@@ -363,5 +363,5 @@ describe("analysis generations", () => {
     } finally {
       vi.useRealTimers();
     }
-  }, 90000);
+  }, 240000); // About 40 s locally; CI with coverage took 100 s after the 28 October schema additions.
 });
