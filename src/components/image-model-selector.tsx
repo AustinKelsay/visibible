@@ -183,7 +183,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
               ))}
               {/* Refund note */}
               <div className="px-3 py-2 text-[10px] text-[var(--muted)] border-t border-[var(--divider)] bg-[var(--surface)]">
-                Estimates include text and planner allowance. Unused held credits are refunded.
+                Estimates include a text allowance. Unused held credits are refunded.
               </div>
             </>
           )}
