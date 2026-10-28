@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-28T19:37:54.388Z",
+  "commit": "d0a971f9e78c87c5e788ab4df8db1575b0584405",
+  "grant": {
+    "authorizedAt": "2026-10-28T19:36:02Z",
+    "authorization": "Owner replied \"fresco\" to a report that named the next step: the full 33-scene test of the chosen style, about $1.40, within the remaining $2.63 test budget. Operator decision: run it within the existing $39.00 evaluation allowance, capped at $1.80, no increase.",
+    "increaseUsd": 0,
+    "authorizedUsd": 39,
+    "operationCapUsd": 1.8,
+    "scope": "One execution of the frozen Fresco matrix in this directory: 33 cases, one style, at most 66 images, 150 text calls and 132 check calls. No paid restart, production writes, registration or deployment."
+  }
+}

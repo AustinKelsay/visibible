@@ -1,0 +1,1414 @@
+{
+  "calls": [
+    {
+      "phase": "genesis-5-5/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001834
+    },
+    {
+      "phase": "genesis-1-3/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000211
+    },
+    {
+      "phase": "genesis-19-24/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001911
+    },
+    {
+      "phase": "genesis-19-24/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004596
+    },
+    {
+      "phase": "genesis-1-3/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004483
+    },
+    {
+      "phase": "genesis-5-5/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003904
+    },
+    {
+      "phase": "genesis-19-24/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002613
+    },
+    {
+      "phase": "genesis-5-5/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004207
+    },
+    {
+      "phase": "genesis-1-3/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003073
+    },
+    {
+      "phase": "genesis-19-24/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004821
+    },
+    {
+      "phase": "genesis-5-5/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03386625
+    },
+    {
+      "phase": "genesis-1-3/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0338565
+    },
+    {
+      "phase": "genesis-19-24/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000504
+    },
+    {
+      "phase": "genesis-1-3/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002477
+    },
+    {
+      "phase": "genesis-1-3/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003734
+    },
+    {
+      "phase": "genesis-5-5/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002489
+    },
+    {
+      "phase": "genesis-5-5/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003286
+    },
+    {
+      "phase": "genesis-22-10/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002458
+    },
+    {
+      "phase": "exodus-14-21/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002546
+    },
+    {
+      "phase": "genesis-19-24/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0339205
+    },
+    {
+      "phase": "genesis-22-10/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005613
+    },
+    {
+      "phase": "exodus-14-21/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005312
+    },
+    {
+      "phase": "genesis-19-24/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002497
+    },
+    {
+      "phase": "genesis-19-24/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003909
+    },
+    {
+      "phase": "exodus-14-21/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004857
+    },
+    {
+      "phase": "genesis-22-10/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006107
+    },
+    {
+      "phase": "exodus-14-22/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005545
+    },
+    {
+      "phase": "exodus-14-21/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034261
+    },
+    {
+      "phase": "exodus-14-22/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005153
+    },
+    {
+      "phase": "genesis-22-10/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005562
+    },
+    {
+      "phase": "exodus-14-21/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002511
+    },
+    {
+      "phase": "exodus-14-21/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003603
+    },
+    {
+      "phase": "genesis-22-10/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005953
+    },
+    {
+      "phase": "exodus-14-22/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03423725
+    },
+    {
+      "phase": "leviticus-11-7/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00025
+    },
+    {
+      "phase": "leviticus-11-7/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005371
+    },
+    {
+      "phase": "genesis-22-10/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03394825
+    },
+    {
+      "phase": "exodus-14-22/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002511
+    },
+    {
+      "phase": "exodus-14-22/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003363
+    },
+    {
+      "phase": "leviticus-11-7/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0009101
+    },
+    {
+      "phase": "joshua-6-20/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001892
+    },
+    {
+      "phase": "genesis-22-10/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003118
+    },
+    {
+      "phase": "genesis-22-10/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003775
+    },
+    {
+      "phase": "joshua-6-20/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004994
+    },
+    {
+      "phase": "genesis-22-10/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03394825
+    },
+    {
+      "phase": "joshua-6-20/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004847
+    },
+    {
+      "phase": "genesis-22-10/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002523
+    },
+    {
+      "phase": "genesis-22-10/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003655
+    },
+    {
+      "phase": "leviticus-11-7/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03423575
+    },
+    {
+      "phase": "judges-19-29/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001869
+    },
+    {
+      "phase": "joshua-6-20/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03399
+    },
+    {
+      "phase": "judges-19-29/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004773
+    },
+    {
+      "phase": "leviticus-11-7/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002507
+    },
+    {
+      "phase": "leviticus-11-7/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003549
+    },
+    {
+      "phase": "joshua-6-20/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002534
+    },
+    {
+      "phase": "joshua-6-20/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003526
+    },
+    {
+      "phase": "judges-19-29/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005704
+    },
+    {
+      "phase": "ruth-4-22/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001715
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001963
+    },
+    {
+      "phase": "ruth-4-22/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004849
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004943
+    },
+    {
+      "phase": "judges-19-29/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033972
+    },
+    {
+      "phase": "ruth-4-22/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005352
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005749
+    },
+    {
+      "phase": "judges-19-29/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002509
+    },
+    {
+      "phase": "judges-19-29/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003656
+    },
+    {
+      "phase": "2-kings-2-23/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001766
+    },
+    {
+      "phase": "ruth-4-22/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03393275
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005499
+    },
+    {
+      "phase": "2-kings-2-23/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004467
+    },
+    {
+      "phase": "ruth-4-22/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002514
+    },
+    {
+      "phase": "ruth-4-22/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003501
+    },
+    {
+      "phase": "2-kings-2-23/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004071
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006872
+    },
+    {
+      "phase": "job-38-4/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002437
+    },
+    {
+      "phase": "2-kings-2-23/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0339355
+    },
+    {
+      "phase": "job-38-4/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005505
+    },
+    {
+      "phase": "2-kings-2-23/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002485
+    },
+    {
+      "phase": "2-kings-2-23/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003232
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03430175
+    },
+    {
+      "phase": "job-38-4/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005449
+    },
+    {
+      "phase": "psalms-23-2/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001568
+    },
+    {
+      "phase": "psalms-23-2/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003859
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002563
+    },
+    {
+      "phase": "1-samuel-17-49/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000364
+    },
+    {
+      "phase": "job-38-4/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005872
+    },
+    {
+      "phase": "psalms-23-2/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003201
+    },
+    {
+      "phase": "psalms-137-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001632
+    },
+    {
+      "phase": "job-38-4/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000393
+    },
+    {
+      "phase": "psalms-137-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004586
+    },
+    {
+      "phase": "psalms-23-2/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033893
+    },
+    {
+      "phase": "job-38-4/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03393425
+    },
+    {
+      "phase": "psalms-23-2/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002647
+    },
+    {
+      "phase": "psalms-23-2/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003794
+    },
+    {
+      "phase": "psalms-137-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000307
+    },
+    {
+      "phase": "job-38-4/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002516
+    },
+    {
+      "phase": "job-38-4/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003563
+    },
+    {
+      "phase": "psalms-23-2/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033893
+    },
+    {
+      "phase": "psalms-137-1/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0339235
+    },
+    {
+      "phase": "song-of-solomon-2-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001918
+    },
+    {
+      "phase": "psalms-23-2/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002672
+    },
+    {
+      "phase": "psalms-23-2/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003379
+    },
+    {
+      "phase": "song-of-solomon-2-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00043
+    },
+    {
+      "phase": "psalms-137-1/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002503
+    },
+    {
+      "phase": "psalms-137-1/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000341
+    },
+    {
+      "phase": "isaiah-6-2/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002592
+    },
+    {
+      "phase": "isaiah-11-6/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001795
+    },
+    {
+      "phase": "isaiah-6-2/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000589
+    },
+    {
+      "phase": "song-of-solomon-2-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002073
+    },
+    {
+      "phase": "song-of-solomon-2-1/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0338935
+    },
+    {
+      "phase": "isaiah-11-6/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004346
+    },
+    {
+      "phase": "isaiah-6-2/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005775
+    },
+    {
+      "phase": "song-of-solomon-2-1/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002497
+    },
+    {
+      "phase": "song-of-solomon-2-1/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003279
+    },
+    {
+      "phase": "isaiah-11-6/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003365
+    },
+    {
+      "phase": "ezekiel-37-4/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002572
+    },
+    {
+      "phase": "ezekiel-37-4/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005155
+    },
+    {
+      "phase": "isaiah-6-2/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0339495
+    },
+    {
+      "phase": "isaiah-11-6/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033908
+    },
+    {
+      "phase": "ezekiel-37-4/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006091
+    },
+    {
+      "phase": "isaiah-6-2/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002504
+    },
+    {
+      "phase": "isaiah-6-2/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003681
+    },
+    {
+      "phase": "isaiah-11-6/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002489
+    },
+    {
+      "phase": "isaiah-11-6/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003486
+    },
+    {
+      "phase": "daniel-6-22/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001811
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002726
+    },
+    {
+      "phase": "daniel-6-22/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004847
+    },
+    {
+      "phase": "ezekiel-37-4/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005416
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005754
+    },
+    {
+      "phase": "ezekiel-37-4/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000365
+    },
+    {
+      "phase": "daniel-6-22/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007073
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000736
+    },
+    {
+      "phase": "ezekiel-37-4/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03393325
+    },
+    {
+      "phase": "daniel-6-22/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004901
+    },
+    {
+      "phase": "ezekiel-37-4/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002508
+    },
+    {
+      "phase": "ezekiel-37-4/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003375
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005716
+    },
+    {
+      "phase": "jonah-1-17/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002621
+    },
+    {
+      "phase": "daniel-6-22/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004889
+    },
+    {
+      "phase": "jonah-1-17/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005966
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005456
+    },
+    {
+      "phase": "daniel-6-22/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03395925
+    },
+    {
+      "phase": "jonah-1-17/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004785
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03391925
+    },
+    {
+      "phase": "jonah-1-17/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00058
+    },
+    {
+      "phase": "daniel-6-22/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002523
+    },
+    {
+      "phase": "daniel-6-22/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003855
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000324
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004337
+    },
+    {
+      "phase": "matthew-1-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00016
+    },
+    {
+      "phase": "jonah-1-17/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004714
+    },
+    {
+      "phase": "matthew-1-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004018
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03391925
+    },
+    {
+      "phase": "jonah-1-17/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033943
+    },
+    {
+      "phase": "matthew-1-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004812
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000346
+    },
+    {
+      "phase": "daniel-7-9/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003762
+    },
+    {
+      "phase": "jonah-1-17/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002508
+    },
+    {
+      "phase": "jonah-1-17/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003495
+    },
+    {
+      "phase": "matthew-14-29/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001751
+    },
+    {
+      "phase": "matthew-1-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004306
+    },
+    {
+      "phase": "matthew-14-29/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000501
+    },
+    {
+      "phase": "john-21-7/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000184
+    },
+    {
+      "phase": "john-21-7/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005461
+    },
+    {
+      "phase": "matthew-1-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003195
+    },
+    {
+      "phase": "matthew-14-29/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004807
+    },
+    {
+      "phase": "matthew-1-1/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03386825
+    },
+    {
+      "phase": "john-21-7/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006644
+    },
+    {
+      "phase": "matthew-14-29/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03458875
+    },
+    {
+      "phase": "matthew-1-1/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002501
+    },
+    {
+      "phase": "matthew-1-1/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003523
+    },
+    {
+      "phase": "mark-4-39/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001838
+    },
+    {
+      "phase": "john-21-7/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03431775
+    },
+    {
+      "phase": "matthew-14-29/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002519
+    },
+    {
+      "phase": "matthew-14-29/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004181
+    },
+    {
+      "phase": "mark-4-39/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000512
+    },
+    {
+      "phase": "john-21-7/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002551
+    },
+    {
+      "phase": "john-21-7/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003463
+    },
+    {
+      "phase": "luke-15-20/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00017
+    },
+    {
+      "phase": "john-11-43/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001773
+    },
+    {
+      "phase": "luke-15-20/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004587
+    },
+    {
+      "phase": "mark-4-39/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004398
+    },
+    {
+      "phase": "john-11-43/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005477
+    },
+    {
+      "phase": "luke-15-20/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005341
+    },
+    {
+      "phase": "mark-4-39/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03426275
+    },
+    {
+      "phase": "john-11-43/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007624
+    },
+    {
+      "phase": "mark-4-39/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002534
+    },
+    {
+      "phase": "mark-4-39/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003936
+    },
+    {
+      "phase": "luke-15-20/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004844
+    },
+    {
+      "phase": "acts-9-3/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001737
+    },
+    {
+      "phase": "john-11-43/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005486
+    },
+    {
+      "phase": "acts-9-3/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004883
+    },
+    {
+      "phase": "luke-15-20/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004113
+    },
+    {
+      "phase": "john-11-43/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006823
+    },
+    {
+      "phase": "acts-9-3/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005247
+    },
+    {
+      "phase": "luke-15-20/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03396475
+    },
+    {
+      "phase": "luke-15-20/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002491
+    },
+    {
+      "phase": "luke-15-20/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003413
+    },
+    {
+      "phase": "acts-9-3/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0339525
+    },
+    {
+      "phase": "john-11-43/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034315
+    },
+    {
+      "phase": "romans-8-28/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001623
+    },
+    {
+      "phase": "romans-8-28/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004542
+    },
+    {
+      "phase": "john-11-43/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002533
+    },
+    {
+      "phase": "john-11-43/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000357
+    },
+    {
+      "phase": "romans-8-28/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004512
+    },
+    {
+      "phase": "matthew-27-35/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001929
+    },
+    {
+      "phase": "acts-9-3/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002544
+    },
+    {
+      "phase": "acts-9-3/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003676
+    },
+    {
+      "phase": "matthew-27-35/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004525
+    },
+    {
+      "phase": "romans-8-28/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004497
+    },
+    {
+      "phase": "matthew-27-35/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003997
+    },
+    {
+      "phase": "revelation-4-6/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002465
+    },
+    {
+      "phase": "revelation-4-6/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005674
+    },
+    {
+      "phase": "romans-8-28/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002609
+    },
+    {
+      "phase": "romans-8-28/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03391175
+    },
+    {
+      "phase": "matthew-27-35/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0342465
+    },
+    {
+      "phase": "revelation-4-6/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006261
+    },
+    {
+      "phase": "matthew-27-35/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002502
+    },
+    {
+      "phase": "matthew-27-35/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003519
+    },
+    {
+      "phase": "romans-8-28/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002501
+    },
+    {
+      "phase": "romans-8-28/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003858
+    },
+    {
+      "phase": "revelation-21-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002452
+    },
+    {
+      "phase": "revelation-4-6/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005655
+    },
+    {
+      "phase": "revelation-21-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005072
+    },
+    {
+      "phase": "revelation-4-6/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004088
+    },
+    {
+      "phase": "revelation-21-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005142
+    },
+    {
+      "phase": "revelation-4-6/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033921
+    },
+    {
+      "phase": "revelation-21-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000486
+    },
+    {
+      "phase": "revelation-4-6/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002969
+    },
+    {
+      "phase": "revelation-4-6/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003771
+    },
+    {
+      "phase": "revelation-21-1/fresco/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002075
+    },
+    {
+      "phase": "revelation-21-1/fresco/1",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0338615
+    },
+    {
+      "phase": "revelation-21-1/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002482
+    },
+    {
+      "phase": "revelation-21-1/fresco/1",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003509
+    }
+  ],
+  "measuredUsd": 1.300342,
+  "uncertainUsd": -1.3877787807814457e-17,
+  "images": 36,
+  "textCalls": 126,
+  "checkCalls": 72,
+  "blocked": null
+}
