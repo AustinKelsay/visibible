@@ -96,6 +96,18 @@ describe("owner corrections", () => {
     await expect(c.editStage("jonah", "nope", "x")).rejects.toThrow(/no stage nope/);
   });
 
+  it("removes a wrongly assigned cast member as an owner section version, refusing an unassigned entry or a stale edit", async () => {
+    const before = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "s1" });
+    await expect(c.removeCast("s1", "nineveh")).rejects.toThrow(/does not assign nineveh/);
+    await expect(c.removeCast("s1", "jonah", "stale-version")).rejects.toThrow(/Stale edit/);
+    const removed = await c.removeCast("s1", "jonah");
+    expect(removed).toMatchObject({ changed: true, previousVersion: before!.version, removed: "jonah", cast: [] });
+    const after = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "s1" });
+    expect(after).toMatchObject({ source: "owner", payload: { cast: [] } });
+    // The entry itself is untouched.
+    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" })).not.toBeNull();
+  });
+
   it("edits a look, pins and unpins, and clears a plan rather than editing it", async () => {
     await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "s1", payload: { kind: "look", sectionId: "s1", place: "shore", timeOfDay: "dawn", weather: "calm", light: "low", clothing: "wool" }, inputs: [] });
     await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "s1", payload: { kind: "plan", momentId: "s1", entries: [], plan: { primarySubject: "a", action: "b", setting: "c" } }, inputs: [{ kind: "look", recordId: "s1", version: (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "s1" }))!.version }] });
