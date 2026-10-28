@@ -23,7 +23,6 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
   const [models, setModels] = useState<ImageModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [scenePlannerCreditsCost, setScenePlannerCreditsCost] = useState(0);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const hasFetched = useRef(false);
 
@@ -40,11 +39,6 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
         fetch("/api/image-models", { cache: "no-store" })
           .then((res) => res.json())
           .then((data) => {
-            setScenePlannerCreditsCost(
-              typeof data.scenePlannerCreditsCost === "number"
-                ? data.scenePlannerCreditsCost
-                : 0
-            );
             if (data.models) {
               setModels(data.models);
             }
@@ -57,7 +51,6 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
             setError("Failed to load models");
             // Set fallback model with the normal estimated charge
             setModels([]);
-            setScenePlannerCreditsCost(0);
           })
           .finally(() => {
             setIsLoading(false);
@@ -89,8 +82,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
   const getModelDisplayCost = (model: ImageModel) =>
     getEstimatedCreditsCostForResolution(
       model,
-      imageResolution,
-      scenePlannerCreditsCost
+      imageResolution
     ) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
 
   // Group models by provider

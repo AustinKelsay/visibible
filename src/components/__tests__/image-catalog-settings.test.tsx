@@ -7,7 +7,7 @@ import { ImageGenerationSettingsPanel } from "../image-generation-settings-panel
 import { ImageModelSelector } from "../image-model-selector";
 import { PreferencesProvider, usePreferences } from "@/context/preferences-context";
 
-const generationState = { modelId: "google/gemini-2.5-flash-image", baseCost: 0, scenePlannerCreditsCost: 0, showCreditsCost: false,
+const generationState = { modelId: "google/gemini-2.5-flash-image", baseCost: 0, showCreditsCost: false,
   displayCostByResolution: undefined as Partial<Record<"1K" | "2K" | "4K", number>> | undefined };
 const setResolution = vi.fn();
 beforeEach(() => { generationState.modelId = "google/gemini-2.5-flash-image"; generationState.displayCostByResolution = undefined; setResolution.mockClear(); });
@@ -24,7 +24,7 @@ it("labels stale pricing, disables unpriced choices and repairs unsupported save
   vi.stubGlobal("fetch", vi.fn(async () => Response.json({ models: [
     { id: "google/gemini-2.5-flash-image", name: "Default image", provider: "Google", availability: "stale", creditsCost: 6, estimatedCreditsByResolution: { "1K": 7 } },
     { id: "google/gemini-3.1-flash-image", name: "Unpriced", provider: "Google", availability: "unavailable", creditsCost: null, unavailableReason: "Output pricing unavailable" },
-  ], scenePlannerCreditsCost: 1, error: "Using cached image models" })));
+  ], error: "Using cached image models" })));
   let current: ReturnType<typeof usePreferences>;
   function Probe() {
     const preferences = usePreferences();
@@ -58,7 +58,7 @@ it("avoids premature model warnings and renders one catalog failure message", as
   const container = document.createElement("div");
   const root = createRoot(container);
   const render = async (modelsError: string | null) => act(async () => root.render(createElement(PreferencesProvider, null,
-    createElement(ImageGenerationSettingsPanel, { models: [], modelsLoading: false, modelsError, scenePlannerCreditsCost: 0 }))));
+    createElement(ImageGenerationSettingsPanel, { models: [], modelsLoading: false, modelsError }))));
   try {
     await render(null);
     expect(container.textContent).not.toContain("Saved model unavailable");
@@ -102,7 +102,7 @@ it("offers the three art styles in order, keeps an unavailable selection without
   function Probe() {
     const preferences = usePreferences();
     useLayoutEffect(() => { current = preferences; }, [preferences]);
-    return createElement(ImageGenerationSettingsPanel, { models: [], modelsLoading: false, modelsError: null, scenePlannerCreditsCost: 0, artStyles });
+    return createElement(ImageGenerationSettingsPanel, { models: [], modelsLoading: false, modelsError: null, artStyles });
   }
   const container = document.createElement("div");
   const root = createRoot(container);

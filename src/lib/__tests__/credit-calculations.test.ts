@@ -18,7 +18,6 @@ import {
   computeCreditsCost,
   computeCreditsFromActualUsage,
   computeAdjustedCreditsCost,
-  computeEstimatedImageGenerationCreditsCost,
   getEstimatedCreditsCostForResolution,
   normalizeResolutionForModel,
   resolveLearnedImageCreditsEstimate,
@@ -370,41 +369,6 @@ describe("computeAdjustedCreditsCost", () => {
   });
 });
 
-describe("computeEstimatedImageGenerationCreditsCost", () => {
-  it("adds the scene planner surcharge on top of the adjusted image estimate", () => {
-    expect(
-      computeEstimatedImageGenerationCreditsCost(
-        10,
-        "1K",
-        "google/gemini-3.1-flash-image-preview",
-        1
-      )
-    ).toBe(11);
-  });
-
-  it("applies resolution multipliers before adding the planner surcharge", () => {
-    expect(
-      computeEstimatedImageGenerationCreditsCost(
-        10,
-        "2K",
-        "google/gemini-3.1-flash-image-preview",
-        2
-      )
-    ).toBe(17);
-  });
-
-  it("ignores negative planner surcharges", () => {
-    expect(
-      computeEstimatedImageGenerationCreditsCost(
-        10,
-        "1K",
-        "google/gemini-3.1-flash-image-preview",
-        -5
-      )
-    ).toBe(10);
-  });
-});
-
 describe("getDisplayedCreditsCost", () => {
   it("prefers estimated pricing when reservation pricing is also available", () => {
     expect(
@@ -540,13 +504,12 @@ describe("getEstimatedCreditsCostForResolution", () => {
             "2K": 20,
           },
         },
-        "2K",
-        1
+        "2K"
       )
     ).toBe(8);
   });
 
-  it("falls back to computed image plus planner cost when learned totals are unavailable", () => {
+  it("falls back to the computed image cost when learned totals are unavailable", () => {
     expect(
       getEstimatedCreditsCostForResolution(
         {
@@ -554,10 +517,9 @@ describe("getEstimatedCreditsCostForResolution", () => {
           creditsCost: 2,
           reservationCreditsCost: 70,
         },
-        "2K",
-        1
+        "2K"
       )
-    ).toBe(4);
+    ).toBe(3);
   });
 
   it("ignores higher resolutions for models that do not support image_size", () => {
@@ -568,9 +530,8 @@ describe("getEstimatedCreditsCostForResolution", () => {
           creditsCost: 2,
           reservationCreditsCost: 70,
         },
-        "4K",
-        1
+        "4K"
       )
-    ).toBe(3);
+    ).toBe(2);
   });
 });

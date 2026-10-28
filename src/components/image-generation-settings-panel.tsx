@@ -21,7 +21,6 @@ interface ImageGenerationSettingsPanelProps {
   models: ImageModel[];
   modelsLoading: boolean;
   modelsError: string | null;
-  scenePlannerCreditsCost: number;
   /** Which art styles generation admits right now, from the catalog response; null while unknown. */
   artStyles?: ArtStyleAvailability[] | null;
 }
@@ -30,7 +29,6 @@ export function ImageGenerationSettingsPanel({
   models,
   modelsLoading,
   modelsError,
-  scenePlannerCreditsCost,
   artStyles = null,
 }: ImageGenerationSettingsPanelProps) {
   const { state, setAspectRatio, setResolution } = useGeneration();
@@ -48,13 +46,10 @@ export function ImageGenerationSettingsPanel({
     baseCost,
     displayCostByResolution,
     modelId: generationModelId,
-    scenePlannerCreditsCost: generationScenePlannerCreditsCost,
     showCreditsCost,
   } = state;
 
   const selectedModelId = imageModel || generationModelId;
-  const plannerCreditsCost =
-    scenePlannerCreditsCost || generationScenePlannerCreditsCost;
   const modelSupportsResolution = supportsResolution(selectedModelId);
   const selectedModel = useMemo(
     () => models.find((model) => model.id === selectedModelId),
@@ -75,8 +70,7 @@ export function ImageGenerationSettingsPanel({
   const getModelDisplayCost = (model: ImageModel, resolution: ImageResolution) =>
     getEstimatedCreditsCostForResolution(
       model,
-      resolution,
-      plannerCreditsCost
+      resolution
     );
 
   const getResolutionDisplayCost = (resolution: ImageResolution) => {
@@ -94,8 +88,7 @@ export function ImageGenerationSettingsPanel({
           creditsCost: baseCost,
           reservationCreditsCost: null,
         },
-        resolution,
-        plannerCreditsCost
+        resolution
       ) ??
       DEFAULT_IMAGE_ESTIMATED_CREDITS_COST
     );
