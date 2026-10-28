@@ -14,7 +14,7 @@ Updated 28 October 2026. Canonical release ticket: [#183](https://github.com/Aus
 
 **Fresco launch (28 October, 20:31 UTC):** release #298 (`af2b4d3`) deployed `dpl_E4Vg2JmUhXkUjXqbVGoSxxS93LUn`. One second after the alias moved, `works:amend-brief-styles` moved production's registered and active brief from `1f5f38a7…` to `35c6e9a0…`, and the work stayed ready. `/api/image-models` reports Classical, Watercolor and Fresco available and Icon unavailable. [Launch record](2026-10-28-fresco-launch/deployment.json).
 
-**Known analysis error:** John 11:43 (Lazarus) is planned at `joseph_of_arimathea_s_new_tomb`, a Jerusalem tomb from the later burial of Jesus, so its plans move Bethany to Jerusalem (CodeRabbit on #297, from the Fresco matrix log). It needs a canon or cast correction with `works:correct`; it is not caused by the style work.
+**Analysis correction (28 October):** John 11:43 (Lazarus) was planned at Joseph of Arimathea's Jerusalem tomb, a wrong cast assignment CodeRabbit flagged on #297. A scan found the same tomb wrongly cast in Mark 5:1 (the Gerasene tombs). Both sections were corrected in production with the new `works:correct remove-cast` ([record](2026-10-28-cast-corrections/README.md)); the other 11 sections that cast the tomb are correct. The shared dev Convex deployment keeps the old brief registration, which matters only if a preview turns the generic engine on (previews run with it disabled).
 
 | Gate | Current evidence |
 | --- | --- |
