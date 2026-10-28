@@ -1,0 +1,27 @@
+{
+  "purpose": "Finish the interrupted bake-off: the first run completed genesis-1-3, isaiah-6-2, exodus-14-21, revelation-4-6 and daniel-7-9 in all three styles and Matthew 1:1 Gouache before a server restart killed it. The continuation renders the remaining cases in all three styles, Matthew 1:1 included so its three styles share one plan; the first run's Matthew 1:1 Gouache image is excluded from scoring.",
+  "cases": [
+    "matthew-1-1",
+    "ruth-4-22",
+    "matthew-27-35",
+    "1-samuel-17-49",
+    "john-11-43",
+    "luke-15-20",
+    "psalms-23-2"
+  ],
+  "evaluation": {
+    "authorizedBeforeUsd": 39,
+    "measuredBeforeUsd": 35.3920546,
+    "uncertaintyBeforeUsd": 0.059,
+    "remainingBeforeUsd": 3.5489454,
+    "proposedIncreaseUsd": 0,
+    "proposedAuthorizedUsd": 39,
+    "proposedOperationCapUsd": 1.4,
+    "textReserveUsd": 0.005,
+    "imageReserveUsd": 0.06,
+    "checkReserveUsd": 0.002,
+    "maximumImages": 42,
+    "maximumTextCalls": 50,
+    "maximumCheckCalls": 84
+  }
+}
