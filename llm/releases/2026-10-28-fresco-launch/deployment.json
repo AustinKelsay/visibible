@@ -1,0 +1,25 @@
+{
+  "authorization": [
+    "Owner asked to \"find another third style Outside of icon that fits well\" and chose \"fresco\" after the bake-off, replying to a report that said Fresco would ship if its full test reached at least 65%, with one production step to re-approve the brief.",
+    "Fresco matrix: 24/33 acceptable (73%), no God figure (llm/releases/2026-10-28-fresco-matrix/RESULTS.md)."
+  ],
+  "release": { "pullRequest": 298, "mainCommit": "af2b4d3", "devHead": "44d16ca" },
+  "before": { "deployment": "dpl_CiS5RhhoqEyMitujmkfrry5ZsQxc", "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75", "artStyles": [["classical", true], ["watercolor", true], ["icon", false]] },
+  "deploy": { "deployment": "dpl_E4Vg2JmUhXkUjXqbVGoSxxS93LUn", "createdAt": "2026-10-28T20:30:13Z", "aliasedAt": "2026-10-28T20:31:08Z" },
+  "amendment": {
+    "command": "npm run works:amend-brief-styles -- bible-web --previous 0d5e6e5 (production NEXT_PUBLIC_CONVEX_URL and CONVEX_SERVER_SECRET)",
+    "at": "2026-10-28T20:31:09Z",
+    "result": { "changed": true, "previousVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75", "nextVersion": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717", "styleIds": ["icon", "classical", "watercolor", "fresco"] },
+    "after": { "ready": true, "reasons": [] }
+  },
+  "checks": { "artStyles": [["classical", true], ["watercolor", true], ["fresco", true], ["icon", false]], "readiness": "ready", "pages": "200", "logs": "no errors and no generic.inputs_mismatch in the first minutes" },
+  "rollback": [
+    "Remove fresco from PUBLIC_GENERIC_STYLE_IDS and release, or redeploy dpl_CiS5RhhoqEyMitujmkfrry5ZsQxc and run the amendment with the briefs swapped (previous = the Fresco brief at af2b4d3).",
+    "GENERIC_ENGINE_MODE=disabled remains the full engine rollback."
+  ],
+  "followUps": [
+    "The shared dev Convex deployment still has the old brief registered; dev previews answer 'preparing' for generic requests until the same amendment runs there.",
+    "John 11:43 is planned at Joseph of Arimathea's tomb (analysis cast error); correct with works:correct.",
+    "No Fresco style reference exists yet; Fresco renders without one, as measured."
+  ]
+}

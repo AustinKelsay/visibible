@@ -487,6 +487,23 @@ describe("Image Generation API Credit Flow", () => {
       expect(await unknown.json()).toMatchObject({ error: "Style profile not available" });
     });
 
+    it("after the retirement cutoff, replays an accepted legacy request but admits no new legacy work", async () => {
+      const { POST } = await import("../../generate-image/route");
+      expect((await POST(createGenerateImageRequest(body))).status).toBe(200); // accepted on legacy before the cutoff
+      process.env.LEGACY_ENGINE = "retired";
+      const replay = await POST(createGenerateImageRequest(body));
+      expect(replay.status).toBe(200);
+      expect(await replay.json()).toMatchObject({ reused: true, engine: "legacy" });
+      // With the generic engine disabled there is now no engine for a new Classical request, or for a legacy-bound job item.
+      for (const request of [{ ...body, requestId: "after-cutoff" }, { ...body, requestId: "bulk-after-cutoff", engine: "legacy" as const }]) {
+        const refused = await POST(createGenerateImageRequest(request));
+        expect(refused.status).toBe(503);
+        expect(await refused.json()).toMatchObject({ error: "Art style unavailable", retryable: true });
+      }
+      expect(getCallCount("reserveCredits")).toBe(1);
+      expect(openRouterCalls()).toBe(1);
+    });
+
     it("refuses a request bound to another engine before any reservation or record, and reports the engine on success and replay", async () => {
       const { POST } = await import("../../generate-image/route");
       const bound = await POST(createGenerateImageRequest({ ...body, requestId: "bulk-job-1", engine: "generic" }));
@@ -932,6 +949,22 @@ describe("Image Generation API Credit Flow", () => {
         const response = await POST(createGenerateImageRequest({ ...classicalBody, requestId: "bulk-generic-1", engine: "generic" }));
         expect(response.status).toBe(503);
         expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true });
+        expect(imageCalls()).toHaveLength(0);
+        expect(getCallCount("reserveCredits")).toBe(0);
+        expect(await storedRequests()).toEqual([]);
+      });
+
+      it("after the retirement cutoff, keeps the decline for a refused Classical scene and refuses a legacy-bound job item", async () => {
+        process.env.LEGACY_ENGINE = "retired";
+        await prepareWork();
+        reviewProblems = embodied;
+        const { POST } = await import("../../generate-image/route");
+        const refused = await POST(createGenerateImageRequest(classicalBody));
+        expect(refused.status).toBe(503);
+        expect(await refused.json()).toMatchObject({ error: "Preparing scene", retryable: true, message: expect.stringContaining("still drawn as a figure: god") });
+        const bound = await POST(createGenerateImageRequest({ ...classicalBody, requestId: "bulk-legacy-after-cutoff", engine: "legacy" }));
+        expect(bound.status).toBe(409);
+        expect(await bound.json()).toMatchObject({ error: "Engine binding changed", expectedEngine: "legacy", engine: "generic" });
         expect(imageCalls()).toHaveLength(0);
         expect(getCallCount("reserveCredits")).toBe(0);
         expect(await storedRequests()).toEqual([]);

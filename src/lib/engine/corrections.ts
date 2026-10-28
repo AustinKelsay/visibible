@@ -118,6 +118,20 @@ export function createCorrections(client: CorrectionClient, api: AnalysisApi, wo
       return { ...result, closedAttention: closed.closed, staleDependents: stale };
     },
 
+    /**
+     * Remove a wrongly assigned cast member from one section as an owner version of the section. The entry and its
+     * other sections are untouched; the section's looks and plans name the old section version and are remade lazily.
+     */
+    async removeCast(sectionId: string, entryId: string, expectedVersion?: string) {
+      const section = await query<Record_ | null>(api.getActiveRecord, { kind: "section", recordId: sectionId });
+      if (!section || section.payload.kind !== "section") throw new Error(`No current section ${sectionId}`);
+      const cast = section.payload.cast as Array<{ entryId: string; stageId: string; named?: boolean }>;
+      if (!cast.some((member) => member.entryId === entryId)) throw new Error(`Section ${sectionId} does not assign ${entryId}`);
+      const payload = { ...section.payload, cast: cast.filter((member) => member.entryId !== entryId) };
+      const result = await mutate<{ version: string; changed: boolean; previousVersion: string }>(api.correctRecord, { kind: "section", recordId: sectionId, payload, expectedVersion: expectedVersion ?? section.version });
+      return { ...result, removed: entryId, cast: payload.cast.map((member) => member.entryId) };
+    },
+
     /** Replace a section look with an owner version. */
     async editLook(sectionId: string, fields: Partial<{ place: string; timeOfDay: string; weather: string; light: string; clothing: string }>, expectedVersion?: string) {
       const look = await query<Record_ | null>(api.getActiveRecord, { kind: "look", recordId: sectionId });

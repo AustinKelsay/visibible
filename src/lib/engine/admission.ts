@@ -15,6 +15,17 @@ export function genericEngineMode(env: Record<string, string | undefined> = proc
   return raw === "owner" || raw === "public" ? raw : "disabled";
 }
 
+/**
+ * The legacy retirement cutoff (#184). `LEGACY_ENGINE=retired` stops all new legacy admissions: no Classical
+ * admission in disabled or owner mode, no fallback for a refused Classical scene, and no new item for a job bound to
+ * legacy. Accepted legacy requests keep their engine and replay, because replay is answered before admission.
+ * Any other value (or none) keeps legacy available; unsetting it is the rollback.
+ */
+export const LEGACY_ENGINE_ENV = "LEGACY_ENGINE";
+export function legacyEngineRetired(env: Record<string, string | undefined> = process.env): boolean {
+  return (env[LEGACY_ENGINE_ENV] ?? "").trim().toLowerCase() === "retired";
+}
+
 export type WorkReadiness = { ready: boolean; reasons: string[]; activeGeneration: number | null; briefVersion: string | null };
 
 export type EngineDecision =
@@ -42,10 +53,12 @@ export function decideEngine(input: {
   styleId: string | null;
   readiness: WorkReadiness | null;
   existingEngine?: EngineId | null;
+  /** True after the retirement cutoff: legacy admits nothing new. */
+  legacyRetired?: boolean;
 }): EngineDecision {
   if (input.existingEngine) return { engine: input.existingEngine, reason: "accepted" };
   const styleId = input.styleId ?? "classical";
-  const legacyCanRender = LEGACY_STYLE_IDS.includes(styleId);
+  const legacyCanRender = !input.legacyRetired && LEGACY_STYLE_IDS.includes(styleId);
   const released = PUBLIC_GENERIC_STYLE_IDS.includes(styleId);
   // The owner may prove any style in owner or public mode; readers get only released styles.
   const genericAllowed = (input.mode === "public" && released) || (input.mode !== "disabled" && input.isOwner);
