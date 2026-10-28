@@ -56,7 +56,7 @@ It retried 1 of 66 acceptable first images. Every caught Icon frame was retried.
 
 - Sixteen independent model scorers, two per batch of 12–13 images, inspected every image blind to style label, attempt and whether it was shown. Each saved its scores as it went.
 - They agreed on 95 of 103 overall verdicts.
-- The operator resolved 17 field disputes by viewing the images and detail crops, using the first run's written rules, and committed before unblinding (commit `5ee9942`).
+- The operator resolved 32 field disputes on 27 images (counting the scene-match field) by viewing the images and detail crops, using the first run's written rules, and committed before unblinding (commit `5ee9942`).
 - **Sensitivity:** if every disputed shown verdict went the other way, acceptable would range from 64 to 72 of 96, under the bar either way.
 - [Scorer A](scorer-a.json), [scorer B](scorer-b.json), [adjudicated](operator-scores.json), [key](blind-key.json), [instructions](SCORING.md).
 - These are model judgments, not human acceptance.

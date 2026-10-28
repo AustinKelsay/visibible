@@ -62,7 +62,7 @@ Harness time per sample: median 14.7 s, p90 27.6 s, including preparation on eac
 - Two independent model scorers per batch inspected every image (first attempts and retries) blind to style label, attempt and whether it was shown.
 - Three of the eight batch scorers were cut off by network errors and a server restart. Further independent agents finished their images with the unchanged instructions. The part names in the scorer files record who scored what.
 - The scorers agreed on 111 of 127 overall verdicts.
-- The operator resolved 35 field disputes by viewing each image, with border and detail crops, and committed before unblinding (commit `9b92b0c`). The rules are in [operator-scores.json](operator-scores.json):
+- The operator resolved 63 field disputes on 43 images (counting the scene-match field) by viewing each image, with border and detail crops, and committed before unblinding (commit `9b92b0c`). The rules are in [operator-scores.json](operator-scores.json):
   - **Margins:** a margin is unpainted paper that reads as a band, a fade to white or a visibly unpainted corner at normal size. Pale painted sky and flecks seen only on zoom are not margins.
   - **Lettering:** halo and title glyphs and corner scribbles count, even when the plan asks for writing.
 - **Sensitivity:**

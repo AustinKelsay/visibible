@@ -24,7 +24,7 @@ The check retried 3 images.
 
 - Six independent model scorers, two per batch of 12, scored all 36 images blind to attempt and whether each was shown. They saved as they went.
 - They agreed on 34 of 36 overall verdicts.
-- The operator resolved 7 field disputes with the earlier written rules and committed before unblinding (commit `753fe52`).
+- The operator resolved 9 field disputes on 7 images (counting the scene-match field) with the earlier written rules and committed before unblinding (commit `753fe52`).
 - The two disputed shown verdicts (Joshua 6:20 and Exodus 14:21) were both resolved as acceptable. Counting both as flawed still gives 22/33 (67%).
 - [Scorer A](scorer-a.json), [scorer B](scorer-b.json), [adjudicated](operator-scores.json), [key](blind-key.json).
 - These are model judgments, not human acceptance; the owner chose Fresco by its look.
