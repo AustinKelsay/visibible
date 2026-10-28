@@ -1,6 +1,6 @@
 /** The finished-image check (ADR 0007): both questions, which faults count from which reply, and which attempt is shown. */
 import { describe, expect, it } from "vitest";
-import { checkAndRetry, checkScene, edgeCheckQuestion, edgeCheckSchema, figureCheckQuestion, figureCheckSchema, preferredAttempt, sceneCheckFaults } from "../engine/scene-check";
+import { checkAndRetry, checkScene, edgeCheckQuestion, edgeCheckSchema, figureCheckQuestion, figureCheckSchema, preferredAttempt, sceneCheckFaults, SOFT_EDGE_STYLES } from "../engine/scene-check";
 
 const answers = { figure_in_light: false, unpainted_edge: false, painted_frame: false, lettering: false, reasons: [] };
 const described = { edges: "scenery at every edge", bright_areas: "none", marks: "none", ...answers };
@@ -31,6 +31,13 @@ describe("scene check", () => {
     // The direct reply's figure and lettering answers are ignored; so are the describe-first reply's edges.
     expect(sceneCheckFaults({ ...answers, figure_in_light: true, lettering: true }, { ...described, unpainted_edge: true, painted_frame: true })).toEqual([]);
     expect(sceneCheckFaults({ ...answers, unpainted_edge: true, painted_frame: true }, { ...described, figure_in_light: true, lettering: true })).toEqual(["figure", "lettering", "frame", "edge"]);
+  });
+
+  it("accepts soft edges in Watercolor but still reports its painted frames (owner decision, 28 October)", () => {
+    expect(SOFT_EDGE_STYLES).toEqual(["watercolor"]);
+    expect(sceneCheckFaults({ ...answers, unpainted_edge: true }, described, { softEdges: true })).toEqual([]);
+    expect(sceneCheckFaults({ ...answers, unpainted_edge: true, painted_frame: true }, described, { softEdges: true })).toEqual(["frame"]);
+    expect(sceneCheckFaults({ ...answers, unpainted_edge: true }, described, { softEdges: false })).toEqual(["edge"]);
   });
 
   it("shows the attempt whose worst fault is least severe, then the one with fewer faults, then the first", () => {
@@ -87,5 +94,6 @@ describe("checkScene", () => {
     const out = await checkScene(checker as never, { bytes: new Uint8Array([1]), mimeType: "image/png" }, context, "m");
     expect(labels.sort()).toEqual(["m:edge", "m:figure"]);
     expect(out).toEqual({ faults: ["lettering", "edge"], costUsd: 0.0006, elapsedMs: 7 });
+    expect((await checkScene(checker as never, { bytes: new Uint8Array([1]), mimeType: "image/png" }, { ...context, softEdges: true }, "w")).faults).toEqual(["lettering"]);
   });
 });

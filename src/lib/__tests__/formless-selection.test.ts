@@ -75,7 +75,7 @@ describe("no-form cast selection", () => {
     expect(result.prompt).not.toContain(text);
     expect(result.prompt).not.toContain("Presence:");
     // formless-effects v13: the planner is told never to name it or give it a throne, robe or body.
-    expect(calls[0].system).toContain("Never name it, and leave out its throne, seat, chariot, robe or train");
+    expect(calls[0].system).toContain("Never name it, and leave out its throne, seat, chariot, robe, train or hem");
     expect((await store.getActiveRecord("plan", "m-1"))!.payload).toMatchObject({ review: { rounds: 1, notes: ["selected presence: depicted but not selected"] } });
     await render();
     expect(calls).toHaveLength(2);

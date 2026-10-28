@@ -78,7 +78,7 @@ describe("no-form plan and canon separation", () => {
     // Moment-cast v12: no separate conditions reply; the scene fields carry place and time, and owner constraints stay binding.
     expect(request.system).toContain("The scene fields carry this moment's place, time, light and situational clothing.");
     expect(request.system).toContain("OWNER LOOK CONSTRAINTS, when given instead, are binding: keep the setting and time of day consistent with them.");
-    expect(request.system).toContain("Never name it, and leave out its throne, seat, chariot, robe or train");
+    expect(request.system).toContain("Never name it, and leave out its throne, seat, chariot, robe, train or hem");
     expect(input.request.system).not.toContain("effect names for placement");
     const serialized = responseSchema(request.schema);
     const properties = serialized.properties as Record<string, { description: string }>;

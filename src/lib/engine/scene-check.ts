@@ -9,14 +9,22 @@
  */
 import { z } from "zod";
 
-/** Bump for changes to either question, schema or the fault rules. v3 = v1 edges and frames + v2 figures and lettering. */
-export const SCENE_CHECK_VERSION = "2026-10-27-scene-check-v3";
+/** Bump for changes to either question, schema or the fault rules. v3 = v1 edges and frames + v2 figures and lettering; v4 accepts soft edges in Watercolor. */
+export const SCENE_CHECK_VERSION = "2026-10-28-scene-check-v4";
+
+/**
+ * Styles whose soft white edges are part of the look, not a fault (owner decision, 28 October; ADR 0006 amendment 2).
+ * In the launch matrix a retry never fixed them, so they no longer trigger one. Painted frames still count.
+ */
+export const SOFT_EDGE_STYLES: readonly string[] = ["watercolor"];
 
 export type SceneCheckContext = {
   /** The named characters and groups the image should show (selected canon with form). */
   people: string[];
   /** The scene plan's own words for its subjects, so figures it asks for are not reported. */
   description: string;
+  /** The style's soft white edges are accepted, so an unpainted edge is not a fault. */
+  softEdges?: boolean;
 };
 
 const sceneLine = (context: SceneCheckContext) =>
@@ -66,12 +74,12 @@ export type SceneFault = "figure" | "edge" | "frame" | "lettering";
 export const SCENE_FAULT_ORDER: SceneFault[] = ["figure", "lettering", "frame", "edge"];
 
 /** The faults that count, worst first, from the two replies. */
-export function sceneCheckFaults(edge: z.infer<typeof edgeCheckSchema>, figure: z.infer<typeof figureCheckSchema>): SceneFault[] {
+export function sceneCheckFaults(edge: z.infer<typeof edgeCheckSchema>, figure: z.infer<typeof figureCheckSchema>, options: { softEdges?: boolean } = {}): SceneFault[] {
   const faults: SceneFault[] = [];
   if (figure.figure_in_light) faults.push("figure");
   if (figure.lettering) faults.push("lettering");
   if (edge.painted_frame) faults.push("frame");
-  if (edge.unpainted_edge) faults.push("edge");
+  if (edge.unpainted_edge && !options.softEdges) faults.push("edge");
   return faults;
 }
 
@@ -95,7 +103,7 @@ export async function checkScene(checker: SceneChecker, image: { bytes: Uint8Arr
     checker.check({ label: `${label}:edge`, question: edgeCheckQuestion(context), schema: edgeCheckSchema, image }),
     checker.check({ label: `${label}:figure`, question: figureCheckQuestion(context), schema: figureCheckSchema, image }),
   ]);
-  return { faults: sceneCheckFaults(edge.value, figure.value), costUsd: edge.costUsd === null || figure.costUsd === null ? null : edge.costUsd + figure.costUsd, elapsedMs: Math.max(edge.elapsedMs, figure.elapsedMs) };
+  return { faults: sceneCheckFaults(edge.value, figure.value, { softEdges: context.softEdges }), costUsd: edge.costUsd === null || figure.costUsd === null ? null : edge.costUsd + figure.costUsd, elapsedMs: Math.max(edge.elapsedMs, figure.elapsedMs) };
 }
 
 export type CheckedAttempt<T> = { image: T; check: SceneCheckResult | null; checkError: string | null };

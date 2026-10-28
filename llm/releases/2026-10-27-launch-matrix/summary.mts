@@ -23,7 +23,7 @@ const summarize = (list: typeof labelled) => {
     frames: list.filter((s) => s.edges === "frame").length, lettering: list.filter((s) => s.text === "yes").length, extraFigures: list.filter((s) => s.extraFigures === "yes").length, incoherent: list.filter((s) => s.coherence === "no").length };
 };
 const shown = summarize(labelled.filter((s) => s.shown)), first = summarize(labelled.filter((s) => s.attempt === 1));
-const bar = { overall: (shown.overall.rate ?? 0) >= 0.75, perStyle: ["classical", "watercolor", "icon"].every((st) => ((shown as Record<string, { rate: number | null }>)[st].rate ?? 0) >= 0.65),
+const bar = { overall: (shown.overall.rate ?? 0) >= 0.75, perStyle: ["classical", "watercolor", "icon"].every((st) => (shown[st as "classical" | "watercolor" | "icon"].rate ?? 0) >= 0.65),
   noFormFigure: shown.noFormFigure.figures <= shown.noFormFigure.images / 20, watercolorMargins: shown.watercolorMargins.margins <= shown.watercolorMargins.images / 10 };
 // Check agreement on first attempts: new labels for the check, which never saw them.
 const agreement = (() => {
