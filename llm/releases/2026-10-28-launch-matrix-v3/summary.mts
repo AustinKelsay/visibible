@@ -30,7 +30,7 @@ const agreement = (() => {
   const firsts = labelled.filter((s) => s.attempt === 1).map((s) => ({ s, check: byKey.get(s.key)!.attempts[0].check as { faults: string[] } | null }));
   const rate = (label: (s: typeof labelled[number]) => boolean, fault: string[]) => { const known = firsts.filter((f) => f.check); const pos = known.filter((f) => label(f.s)), neg = known.filter((f) => !label(f.s));
     return { positives: pos.length, caught: pos.filter((f) => f.check!.faults.some((x) => fault.includes(x))).length, negatives: neg.length, falseAlarms: neg.filter((f) => f.check!.faults.some((x) => fault.includes(x))).length }; };
-  return { unchecked: firsts.filter((f) => !f.check).length, figure: rate((s) => s.noFormFigure === "yes", ["figure"]), border: rate((s) => s.edges !== "full", ["edge", "frame"]), lettering: rate((s) => s.text === "yes", ["lettering"]),
+  return { unchecked: firsts.filter((f) => !f.check).length, figure: rate((s) => s.noFormFigure === "yes", ["figure"]), border: rate((s) => s.edges !== "full" && !(s.style === "watercolor" && s.edges === "margin"), ["edge", "frame"]) /* soft Watercolor edges are accepted, not border faults */, lettering: rate((s) => s.text === "yes", ["lettering"]),
     retriedAcceptable: firsts.filter((f) => f.s.overall === "acceptable" && f.check && f.check.faults.length).length, acceptableFirsts: firsts.filter((f) => f.s.overall === "acceptable").length };
 })();
 const samples = rows.filter((r) => r.outcome === "image");
