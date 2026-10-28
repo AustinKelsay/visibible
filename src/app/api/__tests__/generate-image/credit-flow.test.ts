@@ -765,7 +765,7 @@ describe("Image Generation API Credit Flow", () => {
         expect(getCallCount("reserveCredits")).toBe(1);
         expect(getCallCount("deductCredits")).toBe(1);
         const [row] = await checkRows();
-        expect(row).toMatchObject({ recordId: "genesis-1-1", model: "scripted-checker", outcome: "2026-10-27-scene-check-v3: faults figure; retry clean; showed 2" });
+        expect(row).toMatchObject({ recordId: "genesis-1-1", model: "scripted-checker", outcome: "2026-10-28-scene-check-v4: faults figure; retry clean; showed 2" });
         expect(row.costUsd).toBeCloseTo(0.01 + 4 * 0.0003, 10); // The unshown image and four check replies.
       });
 
@@ -775,10 +775,19 @@ describe("Image Generation API Credit Flow", () => {
         const { POST } = await import("../../generate-image/route");
         expect(await (await POST(createGenerateImageRequest(body))).json()).toMatchObject({ imageUrl: image("attempt-1") });
         expect(imageCalls()).toHaveLength(1);
-        expect((await checkRows())[0]).toMatchObject({ outcome: "2026-10-27-scene-check-v3: clean" });
+        expect((await checkRows())[0]).toMatchObject({ outcome: "2026-10-28-scene-check-v4: clean" });
         checkScript = { "1": { edge: true }, "2": { figure: true } };
         expect(await (await POST(createGenerateImageRequest({ ...body, requestId: "generic-2", style: "classical" }))).json()).toMatchObject({ imageUrl: image("attempt-2"), providerRequestId: "gen-2" });
-        expect((await checkRows())[1]).toMatchObject({ outcome: "2026-10-27-scene-check-v3: faults edge; retry figure; showed 1" });
+        expect((await checkRows())[1]).toMatchObject({ outcome: "2026-10-28-scene-check-v4: faults edge; retry figure; showed 1" });
+      });
+
+      it("accepts a soft white edge in Watercolor without a retry", async () => {
+        await prepareWork();
+        checkScript = { "1": { edge: true } };
+        const { POST } = await import("../../generate-image/route");
+        expect(await (await POST(createGenerateImageRequest(body))).json()).toMatchObject({ imageUrl: image("attempt-1") });
+        expect(imageCalls()).toHaveLength(1);
+        expect((await checkRows())[0]).toMatchObject({ outcome: "2026-10-28-scene-check-v4: clean" });
       });
 
       it("shows the first image unchecked when the checker fails", async () => {
@@ -789,7 +798,7 @@ describe("Image Generation API Credit Flow", () => {
         expect(response.status).toBe(200);
         expect(await response.json()).toMatchObject({ imageUrl: image("attempt-1"), creditsCost: 2 });
         expect(imageCalls()).toHaveLength(1);
-        expect((await checkRows())[0]).toMatchObject({ outcome: "2026-10-27-scene-check-v3: check unavailable: checker unavailable", costUsd: 0 });
+        expect((await checkRows())[0]).toMatchObject({ outcome: "2026-10-28-scene-check-v4: check unavailable: checker unavailable", costUsd: 0 });
       });
     });
 

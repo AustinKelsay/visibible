@@ -10,20 +10,25 @@ const randomRun = new URL("../../../llm/releases/2026-10-23-random-verse-check/"
 
 describe("cast policy", () => {
   it("lets plans describe uncast incidental figures and never stops for missing canon", () => {
-    expect(MOMENT_CAST_PROMPT_VERSION).toBe("2026-10-27-moment-cast-v14");
+    expect(MOMENT_CAST_PROMPT_VERSION).toBe("2026-10-28-moment-cast-v15");
     expect(PLAN_SYSTEM).not.toContain("omit unselected figures rather than describing them as background");
     expect(PLAN_SYSTEM).toContain("list every section cast entry that will be visible");
     expect(PLAN_SYSTEM).toContain("Anyone without a cast entry may appear as an unnamed role or crowd when the moment needs them.");
-    expect(PLAN_SYSTEM).toContain("If it has no event (a list, law, saying or greeting), illustrate its content or setting.");
+    expect(PLAN_SYSTEM).toContain("If it has no event (a list, genealogy, law, saying or greeting), illustrate its content or setting through people, places and things, never as a written document.");
+    // Launch matrix (28 October): genealogy plans asked for scrolls of names, and "an unseen angel" was drawn.
+    expect(PLAN_SYSTEM).toContain("ask for no visible writing: scrolls, tablets, letters and books stay rolled or closed, and signs and boards are blank.");
+    expect(PLAN_SYSTEM).toContain("leave out unseen or invisible beings, because anything named gets drawn.");
     // The forgiving contract has no missing-cast report: a named person without canon is drawn generically.
     expect(PLAN_SYSTEM).not.toContain("missingCast");
     expect(PLAN_SYSTEM).not.toContain("preparation will stop");
   });
 
   it("tells rendering that only selected characters have fixed canon, without banning the plan's incidental figures", () => {
-    expect(GENERIC_PROMPT_VERSION).toBe("2026-10-27-generic-v13");
+    expect(GENERIC_PROMPT_VERSION).toBe("2026-10-28-generic-v14");
     const rule = ENGINE_RULES.join("\n");
     expect(rule).toContain("Show the SELECTED CHARACTERS with their canon.");
+    expect(rule).toContain("no writing on scrolls, tablets, books, boards or halos");
+    expect(rule).toContain("A throne or seat stays empty unless the scene plan names who sits on it.");
     expect(rule).toContain("Anyone else appears only as an unnamed figure the scene plan describes.");
     expect(rule).not.toContain("Depict only the SELECTED CHARACTERS");
   });

@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-28T14:18:08.723Z",
+  "commit": "1457fe0f14aa869a5da657c00ac97c6b67f42227",
+  "grant": {
+    "authorizedAt": "2026-10-28T14:17:50Z",
+    "authorization": "Owner replied \"yes they are!\" (soft Watercolor edges acceptable) and \"Continue\" to a report that proposed the lettering and throne fixes, then one rerun of the launch test for about $4.50, noting the evaluation allowance had $1.78 left so the rerun needs about $5 more. Operator decision under that approval: raise evaluation by $5.00 to $34.00 for this rerun, capped at $6.00.",
+    "increaseUsd": 5,
+    "authorizedUsd": 34,
+    "operationCapUsd": 6,
+    "scope": "One execution of the frozen launch matrix rerun in this directory: 33 cases, three styles, one shown image each, at most 198 images, 200 text calls and 400 check calls. No paid restart, tuning, production writes, deployment or public activation."
+  }
+}

@@ -13,7 +13,7 @@ import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
 /** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-27-generic-v13";
+export const GENERIC_PROMPT_VERSION = "2026-10-28-generic-v14";
 /** Prompt text is cheap next to the image itself (12,000 characters is about $0.001); the cap only guards runaway input. */
 export const GENERIC_PROMPT_MAX_CHARS = 12000;
 export const MAX_REFERENCE_IMAGES = 3;
@@ -71,14 +71,14 @@ export type RenderingResult =
 
 // Short, general rules: every word here is repeated in every image prompt.
 export const ENGINE_RULES = [
-  "No text or symbols anywhere: no letters, numbers, signage, logos or inscriptions, and no artist's signature or initials in a corner.",
+  "No text or symbols anywhere: no letters, numbers, signage, logos or inscriptions, no writing on scrolls, tablets, books, boards or halos, and no artist's signature or initials in a corner.",
   "One scene painted to every edge of the frame: no panels, collage, border, frame, margin, visible paper or blank backdrop, and never a photographed painting or mockup.",
   "Nothing from outside the moment's era.",
   "Natural anatomy: no extra or malformed limbs, hands or faces.",
   `${COMMON_CONTENT_FLOOR.prohibited.join(" and ").toLowerCase()} are never shown; ${COMMON_CONTENT_FLOOR.permitted.join(" and ").toLowerCase()} may be, treated seriously.`,
   "No likeness of any real actor, performer or public figure.",
   "Show the SELECTED CHARACTERS with their canon. Anyone else appears only as an unnamed figure the scene plan describes.",
-  "A subject without form is never drawn. Only when it is selected may the light, cloud, smoke, fire or wind in the scene plan stand for it, with nobody in them.",
+  "A subject without form is never drawn. Only when it is selected may the light, cloud, smoke, fire or wind in the scene plan stand for it, with nobody in them. A throne or seat stays empty unless the scene plan names who sits on it.",
 ];
 export const CONTENT_OWNERSHIP = "The text decides who is in the scene; canon decides how they look; the scene plan decides this moment's place, time, light, clothing and action. Owner look constraints, when given, are binding.";
 export const PRECEDENCE_LINE = `If instructions conflict, follow these rules, then the work brief, then canon, then the art style, then the scene plan. ${CONTENT_OWNERSHIP}`;

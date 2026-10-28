@@ -22,7 +22,7 @@ import { GENERIC_PROMPT_VERSION } from "./prompt";
 import { quoteGenericImage } from "./quote";
 import { createReferenceBlobCache } from "./references";
 import { createOpenRouterVisionChecker } from "./reference-adapters";
-import { checkAndRetry, checkScene, SCENE_CHECK_VERSION, type SceneChecker } from "./scene-check";
+import { checkAndRetry, checkScene, SCENE_CHECK_VERSION, SOFT_EDGE_STYLES, type SceneChecker } from "./scene-check";
 import { assembleRendering, type ReferenceRecord } from "./assemble";
 import { loadWorkInputs, type MomentRange, type WorkInputs } from "./work-inputs";
 import type { ConvexClient, GenericEngine, GenericGenerationInput, GenericGenerationOutcome } from "./dispatch";
@@ -363,7 +363,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       const checker = sceneChecker(runtime.openRouterApiKey, fetchImpl);
       if (checker) {
         const checkContext = { people: assembled.canon.filter((c) => c.hasForm && c.kind === "character").map((c) => c.name),
-          description: `${prepared.plan.payload.primarySubject}; ${prepared.plan.payload.secondaryElements}` };
+          description: `${prepared.plan.payload.primarySubject}; ${prepared.plan.payload.secondaryElements}`, softEdges: SOFT_EDGE_STYLES.includes(style.id) };
         const checked = await checkAndRetry<ImageAttempt>(first, {
           check: (attempt, n) => {
             const match = attempt.imageUrl.match(/^data:(image\/[a-z+]+);base64,(.+)$/);
