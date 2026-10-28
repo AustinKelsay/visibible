@@ -382,7 +382,8 @@ export default defineSchema({
     .index("by_sid_createdAt", ["sid", "createdAt"])
     .index("by_status_updatedAt", ["status", "updatedAt"]),
 
-  // Cached scene planner outputs keyed by verse/translation/style profile.
+  // Legacy scene planner outputs keyed by verse/translation/style profile. Nothing reads or writes it since the
+  // legacy engine's removal (#184); the table stays until its rows are cleared.
   scenePlanCache: defineTable({
     verseId: v.string(),
     translationId: v.string(),
