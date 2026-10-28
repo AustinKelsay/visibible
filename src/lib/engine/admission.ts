@@ -25,10 +25,11 @@ export type EngineDecision =
 export const LEGACY_STYLE_IDS = Object.freeze(["classical"]);
 
 /**
- * Styles the public switch releases to every reader. The owner chose to launch Classical and Watercolor first
- * (28 October 2026), after both met the launch bar on their own; Icon stays owner-only until its style is fixed.
+ * Styles the public switch releases to every reader. The owner launched Classical and Watercolor first (28 October
+ * 2026) and chose Fresco as the third style after Icon failed two style rounds; Icon stays owner-only (ADR 0006,
+ * amendments 3 and 4).
  */
-export const PUBLIC_GENERIC_STYLE_IDS: readonly string[] = Object.freeze(["classical", "watercolor"]);
+export const PUBLIC_GENERIC_STYLE_IDS: readonly string[] = Object.freeze(["classical", "watercolor", "fresco"]);
 
 /**
  * Decide the engine for a request. An already accepted request keeps its engine whatever the

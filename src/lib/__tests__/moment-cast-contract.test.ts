@@ -13,7 +13,7 @@ import { readWorkInputs, type WorkInputs } from "../engine/work-inputs";
 import { createWorkReader } from "../work-input";
 import { SHARED_STYLES } from "../work-preparation";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
-import { withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { withCurrentLookMarker, withGrounding } from "../../../tests/fixtures/scene-grounding";
 
 const snapshot = JSON.parse(readFileSync(new URL("../../../llm/releases/2026-10-22-owner-request-check/after-prepared.json", import.meta.url), "utf8"));
 const retained = snapshot.rows.find((r: { unitId: string }) => r.unitId === "luke-10-33");
@@ -22,7 +22,7 @@ const grounded = (present: string[]) => withGrounding({ present, ...fields }, "w
 
 async function setup(reply: unknown, correctSource = false) {
   const inputs = await readWorkInputs("bible-web");
-  const records: AnalysisRecord[] = structuredClone(retained.records.map((r: { record: AnalysisRecord }) => r.record));
+  const records: AnalysisRecord[] = structuredClone(retained.records.map((r: { record: AnalysisRecord }) => withCurrentLookMarker(r.record)));
   if (correctSource) {
     // Fixture-only source repair. Production records and retained failure artifacts are untouched.
     const section = records.find((r) => r.kind === "section")!;

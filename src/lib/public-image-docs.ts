@@ -239,7 +239,7 @@ ${formatJson(exampleVerseResponse)}
 
 ## Art styles
 
-Every image reports \`artStyle\`: \`classical\`, \`watercolor\` or \`icon\`. Images saved before art styles existed are reported as \`classical\`. Add \`?style=<id>\` to any endpoint except the index to limit results and counts to one style; omit it for every style. An unknown style returns \`400\`. Responses echo the applied filter as \`artStyle\` beside the data.
+Every image reports \`artStyle\`: \`classical\`, \`watercolor\`, \`fresco\` or \`icon\`. Images saved before art styles existed are reported as \`classical\`. Add \`?style=<id>\` to any endpoint except the index to limit results and counts to one style; omit it for every style. An unknown style returns \`400\`. Responses echo the applied filter as \`artStyle\` beside the data.
 
 \`translationId\` and \`reference\` describe the saved image's own source text (for example \`web\` for images rendered from the World English Bible), not the translation a reader was viewing when the image was requested.
 
