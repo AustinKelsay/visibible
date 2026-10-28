@@ -1,6 +1,6 @@
 # Image prompt construction
 
-Authoritative prompt implementation: [image-prompts.ts](../../src/lib/image-prompts.ts), called by [generate-image/route.ts](../../src/app/api/generate-image/route.ts). It owns `PROMPT_VERSION`, legacy style profiles, scene-plan normalization and prompt assembly. Update the version when changing that prompt contract. [Planner tests](../../src/app/api/__tests__/generate-image/scene-planner.test.ts) exercise this path.
+Legacy prompt implementation: [image-prompts.ts](../../src/lib/image-prompts.ts) owns `PROMPT_VERSION`, legacy style profiles, scene-plan normalization and prompt assembly. The image route no longer calls it since the legacy engine's removal ([#184](https://github.com/AustinKelsay/visibible/issues/184)); only the evaluation harness and its shared `clipText` helper remain in use, until the rest of #184 removes them. The generic engine's prompt is the [rendering packet](#generic-rendering-packet).
 
 ## Generic brief and style contracts
 

@@ -1,6 +1,6 @@
 # Operational visibility
 
-[observability.ts](../../src/lib/observability.ts) supplies structured logs, request IDs, elapsed time and in-process counters. Route instrumentation records errors, throttling, settlement outcomes and scene planner outcomes (`scene_planner_outcomes_total`, plus a `scene_planner.outcome` log at warn level for skips and failures; see [Image generation](IMAGE-GENERATION.md)). Counters are local to the running process and reset with it; they are not a durable aggregate across serverless instances.
+[observability.ts](../../src/lib/observability.ts) supplies structured logs, request IDs, elapsed time and in-process counters. Route instrumentation records errors, throttling and settlement outcomes. The image route stopped recording scene planner outcomes (`scene_planner_outcomes_total`, `scene_planner.outcome`) when the legacy engine was removed ([Image generation](IMAGE-GENERATION.md)). Counters are local to the running process and reset with it; they are not a durable aggregate across serverless instances.
 
 | Endpoint | Behavior |
 | --- | --- |
