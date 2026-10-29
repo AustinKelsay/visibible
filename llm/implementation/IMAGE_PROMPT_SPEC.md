@@ -14,7 +14,7 @@ Canon drafter version `2026-10-21-canon-depiction-v1` explicitly gives unconditi
 
 ## Generic rendering packet
 
-[engine/prompt.ts](../../src/lib/engine/prompt.ts) builds the generic engine's prompt from the moment's prepared inputs; it shares nothing with the legacy builder, whose Bible and Genesis wording stays confined to it. `GENERIC_PROMPT_VERSION` versions the structure and wording; the brief, style, canon, look and plan carry their own content versions in the packet.
+[engine/prompt.ts](../../src/lib/engine/prompt.ts) builds the generic engine's prompt from the moment's prepared inputs; it never shared code with the removed legacy builder or its Bible and Genesis wording. `GENERIC_PROMPT_VERSION` versions the structure and wording; the brief, style, canon, look and plan carry their own content versions in the packet.
 
 Moment planning contract `2026-10-23-moment-cast-v6` adds source-grounding audit data, including a stated instant, to newly prepared analysis plans, and plan review `2026-10-23-plan-review-v2` checks each plan before storage. Assembly continues to project only the existing seven scene fields into rendering; evidence quotes, participation classifications, the stated instant, the single-instant assessment and the review audit are not image instructions. The rendering wording and `GENERIC_PROMPT_VERSION` are unchanged; the plan content version includes its audit. [Scene preparation](../context/SCENE-PREPARATION.md) documents validation, cache refresh and the remaining semantic limits.
 
