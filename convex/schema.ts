@@ -382,24 +382,6 @@ export default defineSchema({
     .index("by_sid_createdAt", ["sid", "createdAt"])
     .index("by_status_updatedAt", ["status", "updatedAt"]),
 
-  // Legacy scene planner outputs keyed by verse/translation/style profile. Nothing reads or writes it since the
-  // legacy engine's removal (#184); the table stays until its rows are cleared.
-  scenePlanCache: defineTable({
-    verseId: v.string(),
-    translationId: v.string(),
-    styleProfileId: v.string(),
-    scenePlan: scenePlanValidator,
-    inputFingerprint: v.optional(v.string()),
-    plannerModel: v.optional(v.string()),
-    promptVersion: v.optional(v.string()),
-    hitCount: v.number(),
-    lastUsedAt: v.number(),
-    createdAt: v.number(),
-    updatedAt: v.number(),
-  })
-    .index("by_key", ["verseId", "translationId", "styleProfileId"])
-    .index("by_lastUsedAt", ["lastUsedAt"]),
-
   // Durable outbox for image cost events that failed to persist in real-time.
   costEventOutbox: defineTable({
     eventType: v.string(), // "image_generation_cost"

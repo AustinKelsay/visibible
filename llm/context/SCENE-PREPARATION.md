@@ -1,6 +1,6 @@
 # Section looks and scene plans
 
-[Lazy preparation](../../src/lib/engine/preparation.ts) makes the two pieces of text the generic engine needs before it can draw a moment. It runs the first time they are needed and stores them in the work's active analysis generation ([Analysis storage](ANALYSIS-STORAGE.md)). The legacy route's scene planner and its `scenePlanCache` are separate and untouched.
+[Lazy preparation](../../src/lib/engine/preparation.ts) makes the two pieces of text the generic engine needs before it can draw a moment. It runs the first time they are needed and stores them in the work's active analysis generation ([Analysis storage](ANALYSIS-STORAGE.md)). The legacy route's scene planner and its plan cache were removed with the legacy engine (#184).
 
 Preparation is **forgiving** (moment-cast v15, formless-effects v17, formless-look v2, plan-review v12, rendering generic-v14; [ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md), [ADR 0005](../../docs/adr/0005-one-scene-description-unnamed-presence.md), [ADR 0006](../../docs/adr/0006-unseen-presence-speakers-and-launch-bar.md)). The plan review advises rather than gates. A usable plan is kept with notes instead of being refused, and only a few hard faults stop a moment. [ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md) records the decision.
 
@@ -96,7 +96,7 @@ For `hasForm: false` cast, neither the look nor the plan request receives canon:
 
 ## In the request path
 
-The generic engine ([generation.ts](../../src/lib/engine/generation.ts)) calls preparation through `assembleRendering` before building the rendering packet. A preparation refusal, or a packet over the prompt budget, is declined as `sceneUnavailable` before any request record exists. For an unbound Classical request the route then serves the legacy engine, so the reader still gets an image. Other styles, and requests bound to the generic engine, get the retryable 503 "Preparing scene" with the moment's preparation status. See [Image generation](IMAGE-GENERATION.md#generic-generation-path).
+The generic engine ([generation.ts](../../src/lib/engine/generation.ts)) calls preparation through `assembleRendering` before building the rendering packet. A preparation refusal, or a packet over the prompt budget, is declined as `sceneUnavailable` before any request record exists. There is no legacy fallback since the legacy engine's removal (#184), in any style. A preparation refusal returns the retryable 503 "Preparing scene" with the moment's preparation status; a packet over the prompt budget returns the non-retryable 503 "Scene unavailable". See [Image generation](IMAGE-GENERATION.md#generic-generation-path).
 
 ## Tests
 
@@ -111,4 +111,4 @@ From 21 to 26 October 2026, preparation used increasingly strict contracts:
 - Separate selected and considered lists.
 - A gating review that refused after one re-plan.
 
-Each round fixed one failure class while others refused. The last measurement of that design stored acceptable plans for only 6 of 30 cases and refused 16 ([fresh measurement](../releases/2026-10-26-fresh-conditions-check/RESULTS.md); [image check](../releases/2026-10-26-image-check/RESULTS.md)). The owner then chose a forgiving, general contract with a legacy fallback ([ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md)). Moment-resolved conditions come from [ADR 0003](../../docs/adr/0003-resolve-conditions-with-each-moment.md). The full evaluation record and the current release gates are in the [release status](../releases/STATUS.md); earlier release folders hold each contract's evidence.
+Each round fixed one failure class while others refused. The last measurement of that design stored acceptable plans for only 6 of 30 cases and refused 16 ([fresh measurement](../releases/2026-10-26-fresh-conditions-check/RESULTS.md); [image check](../releases/2026-10-26-image-check/RESULTS.md)). The owner then chose a forgiving, general contract with a legacy fallback ([ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md)); the fallback ended with the legacy engine (#184). Moment-resolved conditions come from [ADR 0003](../../docs/adr/0003-resolve-conditions-with-each-moment.md). The full evaluation record and the current release gates are in the [release status](../releases/STATUS.md); earlier release folders hold each contract's evidence.

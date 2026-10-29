@@ -2,8 +2,8 @@
  * The generic engine's seam in the request path (#174, #175). Admission decides the engine; the
  * route hands an admitted generic request to the installed engine, which owns preparation, the
  * rendering packet, the quote, the request record, reservation, the paid call, settlement and
- * persistence, using the same Convex functions as the legacy path so one ledger and one request
- * identity serve both engines. Tests substitute a fake or install the real engine with fakes.
+ * persistence, using the same Convex functions that served the removed legacy engine (#184), so one ledger
+ * and one request identity cover both engines' records. Tests substitute a fake or install the real engine with fakes.
  */
 import type { ImageAspectRatio, ImageResolution } from "../image-catalog";
 import type { getConvexClient } from "../convex-client";
@@ -44,8 +44,8 @@ export type ExistingAdmission = {
 };
 
 export type GenericGenerationOutcome =
-  /** `sceneUnavailable`: refused before any request record, reservation or paid call, so the route may serve the legacy engine instead. */
-  | { kind: "declined"; status: number; error: string; message: string; retryable: boolean; details?: Record<string, unknown>; sceneUnavailable?: true }
+  /** Refused before any request record, reservation or paid call; the route returns it as is. */
+  | { kind: "declined"; status: number; error: string; message: string; retryable: boolean; details?: Record<string, unknown> }
   | { kind: "existing"; admission: ExistingAdmission }
   | { kind: "response"; status: number; body: Record<string, unknown> };
 

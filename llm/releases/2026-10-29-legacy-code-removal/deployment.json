@@ -1,0 +1,102 @@
+{
+  "authorization": "Owner chose \"Release now (Recommended)\" to release the legacy code removal (dev to main), and \"Clear and drop (Recommended)\": release first, then delete the 20 production and 1 dev scenePlanCache rows (exported first) and remove the table from the schema in a follow-up PR (28 October 2026, US Central).",
+  "release": {
+    "pullRequest": 312,
+    "includes": [
+      306,
+      307,
+      308,
+      309,
+      310,
+      311,
+      313
+    ],
+    "mainCommit": "41e3698",
+    "mergedAt": "2026-10-29T00:43:15Z",
+    "deployment": "dpl_FK57gdg6XsWGAvDgvHTQPkHkforF",
+    "aliases": [
+      "https://visibible.com",
+      "https://www.visibible.com"
+    ],
+    "checks": {
+      "artStyles": [
+        [
+          "classical",
+          true
+        ],
+        [
+          "watercolor",
+          true
+        ],
+        [
+          "fresco",
+          true
+        ],
+        [
+          "icon",
+          false
+        ]
+      ],
+      "scenePlannerCreditsCostInCatalog": false,
+      "liteQuoteCredits": 5,
+      "readerPage": 200,
+      "generateImageGet": 405,
+      "generateImagePostWithoutOrigin": 403,
+      "generateImagePostWithoutCsrf": 403
+    }
+  },
+  "scenePlanCacheClear": {
+    "method": "npx convex import --deployment-name <name> --table scenePlanCache --replace -y --format jsonLines <empty file>",
+    "dev": {
+      "deployment": "coordinated-shepherd-515",
+      "deleted": 1,
+      "after": 0,
+      "export": "scene-plan-cache-dev.jsonl",
+      "sha256": "5ce8c0a7acd6a4d2cac23f3284f779c3ec5a59d546e22c03fb83fe580c06b68d"
+    },
+    "production": {
+      "deployment": "unique-impala-244",
+      "deleted": 20,
+      "after": 0,
+      "clearedBy": "2026-10-29T00:44:35Z",
+      "export": "scene-plan-cache-production.jsonl",
+      "sha256": "deb8b033e7bf0f1a1ece5304ecdc101cd894fcdc1054c2423aff2519a4a0eaef"
+    },
+    "otherTables": "unchanged; the import replaced only scenePlanCache"
+  },
+  "rollback": [
+    "Promote (Vercel instant rollback) dpl_DdXpgtYvPQnxTTHHzE2HFANMW8n8, the cutoff build. It still ships the legacy route, and a promoted deployment keeps the environment it was built with (LEGACY_ENGINE=retired), so its legacy path stays off. Rebuilding that commit would not: LEGACY_ENGINE is no longer set, so a rebuilt cutoff build would fall back to legacy for refused Classical scenes.",
+    "The cleared plan cache was disposable: a restored legacy build re-plans on a cache miss. The rows are kept in this folder."
+  ],
+  "cleanup": {
+    "authorization": "Owner: \"Just continue with the left for you things now and get these cleaned up.\" (29 October 2026)",
+    "vercelEnvRemoved": {
+      "at": "2026-10-29T01:58:38Z",
+      "variables": {
+        "LEGACY_ENGINE": [
+          "Production"
+        ],
+        "ENABLE_SCENE_PLANNER": [
+          "Production",
+          "Preview",
+          "Development",
+          "dev"
+        ],
+        "OPENROUTER_SCENE_PLANNER_MODEL": [
+          "Production",
+          "Preview",
+          "Development",
+          "dev"
+        ]
+      },
+      "redeployNeeded": false,
+      "reason": "No deployed code reads them; existing deployments keep their build-time environment."
+    },
+    "issuesClosed": [
+      183,
+      184
+    ],
+    "emptyTable": "Convex keeps an empty table after it leaves the schema, and the CLI has no table deletion (import --replace-all would clear every table). scenePlanCache stays listed, empty, on dev and production until it is deleted in the Convex dashboard.",
+    "schemaRelease": "#314 ships with the next release; production's scenePlanCache already holds no rows."
+  }
+}

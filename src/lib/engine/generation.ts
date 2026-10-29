@@ -8,8 +8,8 @@
  * reservation → one provider call → the finished-image check, with one owner-funded retry of a faulty image (ADR 0007)
  * → settlement for the image shown, from actual usage or the packet-aware fallback →
  * the saved image with WEB text and full provenance. A scene that cannot be prepared or packed is
- * declined as `sceneUnavailable` before any request record exists, so the route may serve the legacy
- * engine instead; after admission there is no fallback or unplanned prompt, and a replay never pays twice.
+ * declined before any request record exists, and the route returns that decline; there is no legacy
+ * fallback (#184) and no unplanned prompt, and a replay never pays twice.
  */
 import { api } from "../../../convex/_generated/api";
 import { fetchImageModels, CREDIT_USD, DEFAULT_IMAGE_MODEL, IMAGE_RESERVATION_HEADROOM_MULTIPLIER, canAffordImageGeneration, getProviderName } from "../image-models";
@@ -192,12 +192,12 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
             } else {
               logApiFailure({ context: requestContext, stage: "generic_preparation", error: assembled.error, statusCode: 503, sid });
             }
-            return { ...preparing(assembled.message, { preparation: status }), sceneUnavailable: true };
+            return preparing(assembled.message, { preparation: status });
           }
           case "packet":
             await convex.mutation(api.analysis.noteAttention, { serverSecret, workId, reason: "prompt_over_budget", kind: "moment", recordId: assembled.momentId, detail: assembled.message }).catch(() => {});
             logWarn("generic.prompt_over_budget", { requestId: input.requestId, workId, momentId: assembled.momentId, finalChars: assembled.finalChars });
-            return { ...decline(503, "Scene unavailable", assembled.message, false), sceneUnavailable: true };
+            return decline(503, "Scene unavailable", assembled.message, false);
         }
       }
       const { momentId, sectionId, context, prepared, prompt, packet, sentReferences, styleEntry } = assembled;
@@ -416,7 +416,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         try {
           deduct = await convex.action(api.sessions.deductCredits, { sid, amount: reservedCredits, modelId, generationId, costUsd: reservationCostUsd, actualAmount: actualCredits, actualCostUsd, serverSecret });
         } catch (error) {
-          // As on the legacy path: an image we cannot settle is not charged; the hold is released and the request fails.
+          // An image we cannot settle is not charged: the hold is released and the request fails.
           logApiFailure({ context: requestContext, stage: "generic_settlement", error, statusCode: 500, sid, generationId });
           return fail(500, "Failed to generate image", "Credit settlement failed");
         }
