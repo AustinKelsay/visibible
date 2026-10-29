@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "workId": "bible-web",
+  "groups": [
+    {
+      "id": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "entryId": "jesus_christ_the_son_of_god_and_lord",
+      "units": ["matthew-14-29", "matthew-27-35", "mark-4-39", "john-11-43", "john-21-9"]
+    },
+    {
+      "id": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "entryId": "moses",
+      "units": ["exodus-14-21", "exodus-14-22", "exodus-17-12", "leviticus-11-7", "numbers-20-11"]
+    },
+    {
+      "id": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "entryId": "simon_peter",
+      "units": ["matthew-14-29", "luke-22-61", "john-21-7", "john-21-9", "acts-3-7"]
+    },
+    {
+      "id": "david",
+      "kind": "character",
+      "subject": "David",
+      "entryId": "david_son_of_jesse_king_of_israel",
+      "units": ["1-samuel-16-13", "1-samuel-17-40", "1-samuel-17-49", "1-samuel-18-11"],
+      "note": "David's youth stage; Psalm 23 uses his king stage."
+    },
+    {
+      "id": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "entryId": "daniel_prophet_of_babylon",
+      "units": ["daniel-5-17", "daniel-6-22", "daniel-6-23", "daniel-7-9"]
+    },
+    {
+      "id": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "units": ["exodus-14-21", "exodus-14-22", "exodus-14-23"],
+      "note": "Section exodus-14-21 (14:21-25)."
+    },
+    {
+      "id": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "units": ["mark-4-37", "mark-4-38", "mark-4-39"],
+      "note": "Section mark-4-35 (4:35-41)."
+    },
+    {
+      "id": "breakfast-on-the-shore",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "units": ["john-21-7", "john-21-9"],
+      "note": "Section john-21-1 (21:1-14)."
+    },
+    {
+      "id": "prodigal-son-return",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "units": ["luke-15-20", "luke-15-22"],
+      "note": "Section luke-15-11 (15:11-24)."
+    },
+    {
+      "id": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "units": ["daniel-6-22", "daniel-6-23"],
+      "note": "Section daniel-6-19 (6:19-23)."
+    }
+  ]
+}

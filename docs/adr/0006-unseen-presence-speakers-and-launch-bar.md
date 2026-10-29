@@ -51,3 +51,7 @@ Icon failed two style rounds: 50% in the [rerun](../../llm/releases/2026-10-28-l
 Fresco joins the shared style library, the Bible brief and `PUBLIC_GENERIC_STYLE_IDS`. Icon stays in the library, so saved Icon images keep their label, and remains owner-only.
 
 Adding a style changes the brief file, and its version must match the active analysis. A full reread for a style list is wasteful, because no reading, canon, look or plan uses the list. `analysis.amendBriefStyles` therefore approves a brief change that differs only in `styleIds`. It verifies the old file against the registered and active versions and moves both to the new version. Cached looks and plans still name the old version and refresh lazily, which costs one planner round per moment as readers return. The [runbook](../../llm/workflow/ENGINE_RELEASE.md) gives the order.
+
+## Amendment 5: consistency joins the bar
+
+On 29 October the owner asked for consistency to become a release gate. The launch bar now also requires images that should agree to agree: a recurring character across stories, and the place across neighbouring verses of one section. These are judged in blind pairs from the same launch matrix, against the floors in [ADR 0008](0008-consistency-in-the-launch-bar.md). The matrix must render every verse in [the consistency groups](../../evals/images/consistency.json).
