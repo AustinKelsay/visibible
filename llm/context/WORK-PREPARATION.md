@@ -1,6 +1,6 @@
 # Work briefs and shared art styles
 
-[Work preparation contracts](../../src/lib/work-preparation.ts) validate the repo inputs for the generic image engine. Reading, storage, canon and reference preparation feed the generic request path described in [the accepted engine specification](https://github.com/AustinKelsay/visibible/issues/165). Admission remains controlled by `GENERIC_ENGINE_MODE`; the legacy path keeps its existing prompts while available. Structural validation passing is not production release approval; see [the release workflow](../workflow/ENGINE_RELEASE.md).
+[Work preparation contracts](../../src/lib/work-preparation.ts) validate the repo inputs for the generic image engine. Reading, storage, canon and reference preparation feed the generic request path described in [the accepted engine specification](https://github.com/AustinKelsay/visibible/issues/165). Admission remains controlled by `GENERIC_ENGINE_MODE`; the legacy path and its prompts were removed (#184). Structural validation passing is not production release approval; see [the release workflow](../workflow/ENGINE_RELEASE.md).
 
 ## Shared style library
 
