@@ -6,7 +6,7 @@
  * reused until an input changes. Preparation is forgiving: the plan review advises, depicted cast are
  * selected for their canon, and a plan is kept with notes after one re-plan. A look or plan that
  * still cannot be made (unreadable replies, or a no-form subject drawn as a body) raises a retryable
- * error before any image call; the request route may then fall back to the legacy engine. Concurrent
+ * error before any image call, which the request route returns as is. Concurrent
  * misses take a claim so only one caller funds the call; the others wait for the record. Owner spend
  * is recorded per call and no guest credit is touched.
  */
@@ -293,7 +293,7 @@ export async function prepareMoment(options: {
     const trim = (text: string) => text.length <= PLAN_FIELD_MAX_CHARS ? text : `${text.slice(0, PLAN_FIELD_MAX_CHARS - 1).trimEnd()}…`;
     // Forgiving preparation: the review advises rather than gates. A depicted but unselected cast entry is
     // selected so it gets its canon; other problems get one re-plan, after which the plan is kept with notes.
-    // Only a no-form subject still drawn as a body after the re-plan stops preparation (and the route falls back).
+    // Only a no-form subject still drawn as a body after the re-plan stops preparation.
     let feedback = "", firstProblems: PlanReviewProblem[] | undefined;
     for (let round = 1; round <= 2; round++) {
       const notes: string[] = [];
