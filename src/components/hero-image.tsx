@@ -373,7 +373,6 @@ function HeroImageBase({
     estimatedCreditsByResolution: undefined,
     etaSeconds: 12,
   });
-  const [scenePlannerCreditsCost, setScenePlannerCreditsCost] = useState(0);
   const [pricingLoaded, setPricingLoaded] = useState(false);
   const [styleAvailability, setStyleAvailability] = useState<ArtStyleAvailability[] | null>(null);
 
@@ -386,11 +385,6 @@ function HeroImageBase({
       .then((res) => res.json())
       .then((data) => {
         if (isCancelled) return;
-        setScenePlannerCreditsCost(
-          typeof data.scenePlannerCreditsCost === "number"
-            ? data.scenePlannerCreditsCost
-            : 0
-        );
         if (Array.isArray(data.artStyles)) setStyleAvailability(data.artStyles);
         if (Array.isArray(data.models)) {
           // Set current model pricing
@@ -435,8 +429,7 @@ function HeroImageBase({
         reservationCreditsCost: modelPricing.reservationCreditsCost,
         estimatedCreditsByResolution: modelPricing.estimatedCreditsByResolution,
       },
-      imageResolution,
-      scenePlannerCreditsCost
+      imageResolution
     ) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
   const displayBaseCost =
     modelPricing.estimatedCreditsByResolution?.["1K"] ??
@@ -447,8 +440,7 @@ function HeroImageBase({
         reservationCreditsCost: modelPricing.reservationCreditsCost,
         estimatedCreditsByResolution: modelPricing.estimatedCreditsByResolution,
       },
-      "1K",
-      scenePlannerCreditsCost
+      "1K"
     ) ??
     DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
   const displayCostByResolution = modelPricing.estimatedCreditsByResolution;
@@ -1006,7 +998,6 @@ function HeroImageBase({
       baseCost,
       displayBaseCost,
       displayCostByResolution,
-      scenePlannerCreditsCost,
       modelId: imageModel,
     });
   }, [
@@ -1023,7 +1014,6 @@ function HeroImageBase({
     baseCost,
     displayBaseCost,
     displayCostByResolution,
-    scenePlannerCreditsCost,
     imageModel,
     updateGenerationState,
   ]);

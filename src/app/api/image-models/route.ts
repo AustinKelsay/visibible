@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import { catalogImageQuote, imageCapabilities } from "@/lib/image-catalog";
 import { DEFAULT_ETA_SECONDS, fetchImageModels, unavailableImageModels, type ImageModel } from "@/lib/image-models";
-import { getScenePlannerEstimatedCreditsCost } from "@/lib/scene-planner";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
-import { decideEngine, genericEngineMode, legacyEngineRetired } from "@/lib/engine/admission";
+import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
 import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
 import { ART_STYLES, type ArtStyleAvailability } from "@/lib/art-styles";
 import { api } from "../../../../convex/_generated/api";
@@ -29,17 +28,17 @@ async function styleAvailability(request: Request | undefined, convex: ReturnTyp
     } catch (error) { console.error("Failed to read style availability:", error); }
   }
   return ART_STYLES.map((style) => {
-    const decision = decideEngine({ mode, isOwner, styleId: style.id, readiness, legacyRetired: legacyEngineRetired() });
+    const decision = decideEngine({ mode, isOwner, styleId: style.id, readiness });
     return { ...style, available: decision.engine !== null, reason: decision.engine === null ? decision.reason : null };
   });
 }
 
 /** Quotes match generation admission; unversioned historical samples cannot override them. */
-function quotedSettings(model: ImageModel, plannerCredits: number) {
+function quotedSettings(model: ImageModel) {
   if (model.availability === "unavailable") return {};
   return Object.fromEntries((imageCapabilities(model.id)?.resolutions ?? []).flatMap(resolution => {
     const quote = catalogImageQuote(model.id, model.billing, resolution);
-    return quote ? [[resolution, quote.credits + plannerCredits]] : [];
+    return quote ? [[resolution, quote.credits]] : [];
   }));
 }
 
@@ -49,14 +48,10 @@ export async function GET(request?: Request) {
   const artStyles = await styleAvailability(request, convex);
   if (!key) {
     return NextResponse.json({ models: unavailableImageModels("Image generation is not configured"), artStyles,
-      scenePlannerCreditsCost: 0, creditRange: null, error: "Image generation is not configured" },
+      creditRange: null, error: "Image generation is not configured" },
       { headers: { "Cache-Control": "private, no-store" } });
   }
-  const [result, plannerCredits] = await Promise.all([
-    fetchImageModels(key), getScenePlannerEstimatedCreditsCost(key),
-  ]);
-  // Generation skips a planner with unknown pricing, so it adds nothing to quotes.
-  const scenePlannerCreditsCost = plannerCredits ?? 0;
+  const result = await fetchImageModels(key);
   const etas = new Map<string, number>();
   if (convex) {
     try {
@@ -67,10 +62,10 @@ export async function GET(request?: Request) {
   }
   const models = result.models.map(model => ({ ...model,
     etaSeconds: etas.get(model.id) ?? model.etaSeconds ?? DEFAULT_ETA_SECONDS,
-    estimatedCreditsByResolution: quotedSettings(model, scenePlannerCreditsCost),
+    estimatedCreditsByResolution: quotedSettings(model),
   }));
   const costs = models.flatMap(model => Object.values(model.estimatedCreditsByResolution));
-  return NextResponse.json({ models, artStyles, scenePlannerCreditsCost,
+  return NextResponse.json({ models, artStyles,
     creditRange: costs.length ? { min: Math.min(...costs), max: Math.max(...costs) } : null,
     ...(result.error ? { error: result.error } : {}),
   }, { headers: { "Cache-Control": "private, no-store" } });

@@ -1,5 +1,7 @@
 # Scene planner free models
 
+> Historical. The legacy scene planner was removed with the legacy engine ([#184](https://github.com/AustinKelsay/visibible/issues/184)); the generic engine plans scenes in [scene preparation](../context/SCENE-PREPARATION.md).
+
 Investigated October 14, 2026, against commit `bf318e0`. Measurements cited as "live test, 2026-10-14" come from OpenRouter calls made that day with the real planner prompt. OpenRouter behavior is cited from its documentation and public catalog API, fetched the same day.
 
 **Recommendation**
@@ -12,7 +14,7 @@ The free variant has two costs. OpenRouter caps free-model requests per account,
 
 Production set `OPENROUTER_SCENE_PLANNER_MODEL=openai/gpt-oss-20b:free`. OpenRouter no longer lists that ID. On 2026-10-14 the [models API](https://openrouter.ai/api/v1/models) listed only `openai/gpt-oss-20b`, `openai/gpt-oss-120b`, their `:batch` variants and `openai/gpt-oss-safeguard-20b`. The newest production `scenePlanCache` row before the fix was created 2026-05-20 with that planner model. Cache hits do not create rows, so that date bounds the last successful uncached plan, not the removal date. No primary source gives the date OpenRouter removed the `:free` variant.
 
-Before running the planner, the [image route](../../src/app/api/generate-image/route.ts) asks [`getScenePlannerEstimatedCreditsCost`](../../src/lib/scene-planner.ts) for the per-call credits. [`getChatModelPricing`](../../src/lib/chat-models.ts) returns null for a model missing from the catalog, because only the chat default has emergency pricing. The route then sets `runScenePlanner = false` and uses the direct verse prompt. Skipping unpriced work is deliberate, but that branch writes no log.
+Before running the planner, the [image route](https://github.com/AustinKelsay/visibible/blob/bf318e0/src/app/api/generate-image/route.ts) asks [`getScenePlannerEstimatedCreditsCost`](https://github.com/AustinKelsay/visibible/blob/bf318e0/src/lib/scene-planner.ts) for the per-call credits. [`getChatModelPricing`](../../src/lib/chat-models.ts) returns null for a model missing from the catalog, because only the chat default has emergency pricing. The route then sets `runScenePlanner = false` and uses the direct verse prompt. Skipping unpriced work is deliberate, but that branch writes no log.
 
 The code default at the time, `openai/gpt-oss-120b`, would have failed too. Its reasoning is mandatory, and it spent 217–234 reasoning tokens of the 220-token limit, returning empty content with `finish_reason: "length"` (live test, 2026-10-14). OpenRouter bills those reasoning tokens even when content is empty, while the route charges no planner credits when no plan comes back.
 
@@ -24,7 +26,7 @@ Every planner failure ends the same way: the Generation completes with the direc
 | Pricing lookup throws | Planner skipped | `console.warn` |
 | Non-2xx response (400, 403, 429) | Direct prompt | `console.warn` with status only |
 | Empty content (`finish_reason: "length"`) | Direct prompt | No |
-| JSON without `primarySubject`, `action` or `setting` ([`normalizeScenePlan`](../../src/lib/image-prompts.ts)) | Direct prompt | No |
+| JSON without `primarySubject`, `action` or `setting` ([`normalizeScenePlan`](https://github.com/AustinKelsay/visibible/blob/bf318e0/src/lib/image-prompts.ts)) | Direct prompt | No |
 | Unparseable JSON or network error | Direct prompt | `logApiFailure` |
 | Timeout (`SCENE_PLANNER_TIMEOUT_MS`, default 10 s) | Direct prompt | `logApiTimeout` |
 
@@ -34,7 +36,7 @@ The fix (commit `088b20d`, merged to `dev` in PR #120 as `bf318e0`, released to 
 
 **Method**
 
-- Prompt: [`buildScenePlannerPrompt`](../../src/lib/image-prompts.ts) for Genesis 1:3, John 11:35 and 1 Samuel 17:49.
+- Prompt: [`buildScenePlannerPrompt`](https://github.com/AustinKelsay/visibible/blob/bf318e0/src/lib/image-prompts.ts) for Genesis 1:3, John 11:35 and 1 Samuel 17:49.
 - Settings matching the route: `temperature: 0.2`, `max_tokens: 220`, 10 s timeout. Only `model` and `reasoning` varied.
 - Candidates: the free text models in the 2026-10-14 catalog (17 entries that [`isModelFree`](../../src/lib/chat-models.ts) treats as free), plus the old paid default and `openai/gpt-oss-20b` for comparison. Valid means the response contained a parseable JSON Scene plan.
 - Not tested: `dots-studio/dots-3-note-preview:free`, `liquid/lfm-2.5-2.6b:free`, `poolside/laguna-s-2.1:free`, `poolside/laguna-xs-2.1:free`, `cohere/north-mini-code:free`, `nvidia/nemotron-3.5-content-safety:free`, `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free`, `openrouter/free` and two Lyria music previews (code, safety, small, preview, music or router entries). `openrouter/free` also picks a model at random, while the plan cache is keyed by the configured `plannerModel`.

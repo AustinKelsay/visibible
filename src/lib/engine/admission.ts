@@ -1,11 +1,13 @@
 /**
- * Engine admission (#174, spec #165 §6 and §9): which engine a new image request is bound to,
- * decided once at admission and persisted with the request so a replay never switches engines
- * or reprices. The generic engine is disabled by default; an owner-only mode proves it in
- * production, and one explicit switch sends every new public request in a released style to it. Readiness of the
- * work's analysis gates generic admission; optional references and attention notes never do.
+ * Engine admission (#174, spec #165 §6 and §9): whether a new image request is admitted on the generic engine,
+ * decided once at admission and persisted with the request so a replay never switches engines or reprices. Replay
+ * is answered before admission, so accepted requests, including those of the removed legacy engine (#184), keep
+ * their engine. The generic engine is disabled by default; an owner-only mode proves it in production, and one
+ * explicit switch sends every new public request in a released style to it. Readiness of the work's analysis gates
+ * admission; optional references and attention notes never do.
  */
 
+/** The engine a request was accepted on. New requests are only ever generic; `legacy` remains on historical records. */
 export type EngineId = "legacy" | "generic";
 export type GenericEngineMode = "disabled" | "owner" | "public";
 export const GENERIC_ENGINE_MODE_ENV = "GENERIC_ENGINE_MODE";
@@ -15,25 +17,11 @@ export function genericEngineMode(env: Record<string, string | undefined> = proc
   return raw === "owner" || raw === "public" ? raw : "disabled";
 }
 
-/**
- * The legacy retirement cutoff (#184). `LEGACY_ENGINE=retired` stops all new legacy admissions: no Classical
- * admission in disabled or owner mode, no fallback for a refused Classical scene, and no new item for a job bound to
- * legacy. Accepted legacy requests keep their engine and replay, because replay is answered before admission.
- * Any other value (or none) keeps legacy available; unsetting it is the rollback.
- */
-export const LEGACY_ENGINE_ENV = "LEGACY_ENGINE";
-export function legacyEngineRetired(env: Record<string, string | undefined> = process.env): boolean {
-  return (env[LEGACY_ENGINE_ENV] ?? "").trim().toLowerCase() === "retired";
-}
-
 export type WorkReadiness = { ready: boolean; reasons: string[]; activeGeneration: number | null; briefVersion: string | null };
 
 export type EngineDecision =
-  | { engine: EngineId; reason: "accepted" | "disabled" | "owner-proof" | "public" | "not-owner" }
+  | { engine: "generic"; reason: "owner-proof" | "public" }
   | { engine: null; unavailable: "style" | "preparing"; reason: string; retryable: boolean };
-
-/** Styles the legacy engine can render; any other style needs the generic engine. */
-export const LEGACY_STYLE_IDS = Object.freeze(["classical"]);
 
 /**
  * Styles the public switch releases to every reader. The owner launched Classical and Watercolor first (28 October
@@ -43,8 +31,7 @@ export const LEGACY_STYLE_IDS = Object.freeze(["classical"]);
 export const PUBLIC_GENERIC_STYLE_IDS: readonly string[] = Object.freeze(["classical", "watercolor", "fresco"]);
 
 /**
- * Decide the engine for a request. An already accepted request keeps its engine whatever the
- * switches say now. Otherwise the mode, the caller's owner status (verified server-side by the
+ * Decide whether a new request is admitted. The mode, the caller's owner status (verified server-side by the
  * caller), the requested style and the work's readiness decide.
  */
 export function decideEngine(input: {
@@ -52,19 +39,13 @@ export function decideEngine(input: {
   isOwner: boolean;
   styleId: string | null;
   readiness: WorkReadiness | null;
-  existingEngine?: EngineId | null;
-  /** True after the retirement cutoff: legacy admits nothing new. */
-  legacyRetired?: boolean;
 }): EngineDecision {
-  if (input.existingEngine) return { engine: input.existingEngine, reason: "accepted" };
   const styleId = input.styleId ?? "classical";
-  const legacyCanRender = !input.legacyRetired && LEGACY_STYLE_IDS.includes(styleId);
   const released = PUBLIC_GENERIC_STYLE_IDS.includes(styleId);
   // The owner may prove any style in owner or public mode; readers get only released styles.
   const genericAllowed = (input.mode === "public" && released) || (input.mode !== "disabled" && input.isOwner);
   if (!genericAllowed) {
-    if (legacyCanRender) return { engine: "legacy", reason: input.mode === "disabled" ? "disabled" : "not-owner" };
-    // Rollback or not yet released: non-Classical styles are unavailable; the saved preference is left alone.
+    // Disabled, rolled back or not yet released: the style is unavailable; the saved preference is left alone.
     return { engine: null, unavailable: "style", reason: `The ${styleId} art style is temporarily unavailable`, retryable: true };
   }
   if (input.readiness?.ready) return { engine: "generic", reason: input.mode === "public" && released ? "public" : "owner-proof" };

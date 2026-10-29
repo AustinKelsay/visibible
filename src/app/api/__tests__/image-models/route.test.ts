@@ -3,7 +3,6 @@ import { createHash } from "node:crypto";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mockFetchImageModels = vi.fn();
-const mockGetScenePlannerEstimatedCreditsCost = vi.fn();
 const mockValidateSession = vi.fn();
 const mockConvex = {
   query: vi.fn(),
@@ -19,10 +18,6 @@ vi.mock("@/lib/image-models", async () => {
     fetchImageModels: mockFetchImageModels,
   };
 });
-
-vi.mock("@/lib/scene-planner", () => ({
-  getScenePlannerEstimatedCreditsCost: mockGetScenePlannerEstimatedCreditsCost,
-}));
 
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => mockConvex),
@@ -60,7 +55,6 @@ describe("Image Models API", () => {
         },
       ],
     });
-    mockGetScenePlannerEstimatedCreditsCost.mockResolvedValue(1);
     mockConvex.mutation.mockResolvedValue({ processed: 0, skipped: 0, alreadySeeded: true });
     mockConvex.query.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
       if (!("serverSecret" in args)) {
@@ -122,14 +116,16 @@ describe("Image Models API", () => {
     expect((await (await GET(request)).json()).artStyles.find((style: { id: string }) => style.id === "watercolor").available).toBe(false);
   });
 
-  it("quotes supported settings and ignores unversioned global samples", async () => {
+  it("quotes supported settings at the catalog price alone and ignores unversioned global samples", async () => {
     const { GET } = await import("../../image-models/route");
     const response = await GET();
     expect(response.status).toBe(200);
     const body = await response.json();
-    expect(body.creditRange).toEqual({ min: 3, max: 3 });
+    // The legacy scene planner's allowance is gone with the legacy engine (#184).
+    expect(body).not.toHaveProperty("scenePlannerCreditsCost");
+    expect(body.creditRange).toEqual({ min: 2, max: 2 });
     expect(body.models[0].etaSeconds).toBe(8);
-    expect(body.models[0].estimatedCreditsByResolution).toEqual({ "1K": 3 });
+    expect(body.models[0].estimatedCreditsByResolution).toEqual({ "1K": 2 });
     expect(body.models[1].estimatedCreditsByResolution).toEqual({});
     expect(mockConvex.mutation).not.toHaveBeenCalled();
     expect(mockConvex.query).toHaveBeenCalledTimes(1);
@@ -137,7 +133,6 @@ describe("Image Models API", () => {
 
   it("falls back cleanly when the OpenRouter API key is missing", async () => {
     delete process.env.OPENROUTER_API_KEY;
-    mockGetScenePlannerEstimatedCreditsCost.mockResolvedValue(0);
 
     const { GET } = await import("../../image-models/route");
 
@@ -145,7 +140,7 @@ describe("Image Models API", () => {
     expect(response.status).toBe(200);
 
     const body = await response.json();
-    expect(body.scenePlannerCreditsCost).toBe(0);
+    expect(body).not.toHaveProperty("scenePlannerCreditsCost");
     expect(body.creditRange).toBeNull();
     expect(body.models[0].availability).toBe("unavailable");
     expect(mockFetchImageModels).not.toHaveBeenCalled();
@@ -153,15 +148,15 @@ describe("Image Models API", () => {
 });
 
 describe("art style availability", () => {
-  it("reports every style with the admission decision: only Classical while the generic engine is disabled, Classical, Watercolor and Fresco when public and ready", async () => {
+  it("reports every style with the admission decision: none while the generic engine is disabled, Classical, Watercolor and Fresco when public and ready", async () => {
     process.env = { ...originalEnv, OPENROUTER_API_KEY: "test-api-key" };
     delete process.env.GENERIC_ENGINE_MODE;
     mockFetchImageModels.mockResolvedValue({ models: [imageModelFixture()] });
-    mockGetScenePlannerEstimatedCreditsCost.mockResolvedValue(1);
     mockConvex.query.mockResolvedValue([]);
     const { GET } = await import("../../image-models/route");
     const disabled = await (await GET()).json();
-    expect(disabled.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", true], ["watercolor", false], ["fresco", false], ["icon", false]]);
+    // The legacy engine is removed (#184): with the generic engine disabled no style has an engine, Classical included.
+    expect(disabled.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", false], ["watercolor", false], ["fresco", false], ["icon", false]]);
     expect(disabled.artStyles[1].reason).toMatch(/temporarily unavailable/);
 
     process.env.GENERIC_ENGINE_MODE = "public";
@@ -171,11 +166,5 @@ describe("art style availability", () => {
     // Public mode releases Classical, Watercolor and Fresco; Icon stays owner-only (owner decisions, 28 October).
     expect(publicMode.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", true], ["watercolor", true], ["fresco", true], ["icon", false]]);
     expect(publicMode.artStyles[3].reason).toMatch(/temporarily unavailable/);
-
-    // After the legacy retirement cutoff, disabling the generic engine leaves no engine for any style, Classical included.
-    process.env.GENERIC_ENGINE_MODE = "disabled";
-    process.env.LEGACY_ENGINE = "retired";
-    const retired = await (await GET()).json();
-    expect(retired.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", false], ["watercolor", false], ["fresco", false], ["icon", false]]);
   });
 });

@@ -158,25 +158,12 @@ export function computeAdjustedCreditsCost(
   return Math.ceil(base * ((tokens?.[resolution] ?? tokens?.["1K"] ?? 1) / (tokens?.["1K"] ?? 1)));
 }
 
-export function computeEstimatedImageGenerationCreditsCost(
-  baseCost: number | null | undefined,
-  resolution: ImageResolution,
-  modelId?: string,
-  scenePlannerCreditsCost: number = 0
-): number {
-  return (
-    computeAdjustedCreditsCost(baseCost, resolution, modelId) +
-    Math.max(0, scenePlannerCreditsCost)
-  );
-}
-
 export function getEstimatedCreditsCostForResolution(
   model: Pick<
     ImageModel,
     "id" | "billing" | "availability" | "creditsCost" | "reservationCreditsCost" | "estimatedCreditsByResolution"
   >,
-  resolution: ImageResolution,
-  scenePlannerCreditsCost: number = 0
+  resolution: ImageResolution
 ): number | null {
   if (model.availability === "unavailable") return null;
   const normalized = normalizeResolutionForModel(model.id, resolution);
@@ -187,19 +174,14 @@ export function getEstimatedCreditsCostForResolution(
 
   if (model.billing) {
     const quote = catalogImageQuote(model.id, model.billing, normalized);
-    return quote ? quote.credits + scenePlannerCreditsCost : null;
+    return quote ? quote.credits : null;
   }
   const displayBaseCost = getDisplayedCreditsCost(model);
   if (displayBaseCost === null) {
     return null;
   }
 
-  return computeEstimatedImageGenerationCreditsCost(
-    displayBaseCost,
-    resolution,
-    model.id,
-    scenePlannerCreditsCost
-  );
+  return computeAdjustedCreditsCost(displayBaseCost, resolution, model.id);
 }
 
 export function resolveLearnedImageCreditsEstimate({

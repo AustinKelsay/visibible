@@ -1,9 +1,16 @@
 /**
- * Reading OpenRouter image responses (shared by the legacy route and the generic engine, #175):
+ * Reading OpenRouter image responses (the generic engine and the evaluation adapters, #175):
  * where the image lands in a chat completion, what the model said when it returned none, and
- * where the usage cost sits. Pure functions; the route and the engine decide what to do with them.
+ * where the usage cost sits. Pure functions; the engine and the harness decide what to do with them.
  */
-import { clipText } from "./image-prompts";
+
+/** Collapse whitespace and cut to at most `maxChars`, ending with an ellipsis when cut. */
+function clipText(value: string, maxChars: number): string {
+  if (!value) return "";
+  const normalized = value.replace(/\s+/g, " ").trim();
+  if (normalized.length <= maxChars) return normalized;
+  return `${normalized.slice(0, Math.max(0, maxChars - 1)).trimEnd()}…`;
+}
 
 export function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);

@@ -1,6 +1,6 @@
 # Legacy retirement cutoff (#184)
 
-**The cutoff is built and tested, and production is ready for it.** `LEGACY_ENGINE=retired` stops all new legacy admissions while accepted legacy requests keep replaying. It is a production switch: merging the code changes nothing until the switch is set.
+**The cutoff is live in production since 28 October 2026, 21:28 UTC** ([deployment record](deployment.json), [inventory after](inventory-after-cutoff.json)). No legacy admission has been logged since, and the legacy request counts are unchanged. `LEGACY_ENGINE=retired` stops all new legacy admissions while accepted legacy requests keep replaying. It was a production switch: merging the code changed nothing until the switch was set. The legacy engine's code, and with it the switch, was removed afterwards in #307–#311; unsetting it now has no effect.
 
 ## Production inventory before the cutoff
 
@@ -34,5 +34,5 @@ With the switch logic removed, the three route and style-list tests fail.
 
 ## Next
 
-1. **Turning the cutoff on in production** is an owner decision. It removes the legacy fallback for refused Classical scenes and makes `GENERIC_ENGINE_MODE=disabled` stop all new images.
+1. **Done:** the owner chose to turn the cutoff on, and it is live. The refused-Classical legacy fallback is gone, and `GENERIC_ENGINE_MODE=disabled` would now stop all new images.
 2. **After a quiet period**, re-run the inventory and remove the legacy route adapter, its Bible-only prompt strings and its plan cache. That is the rest of #184.

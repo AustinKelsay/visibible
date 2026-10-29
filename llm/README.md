@@ -75,7 +75,7 @@ Exact dependencies and commands: [package.json](../package.json). Environment te
 
 [Market research query ideas](market-research/visibible-market-research-search-terms.md) is a brainstorming dataset used by its adjacent JSON generator, not current product requirements or validated demand.
 
-[Scene planner free models](research/2026-10-14-scene-planner-free-models.md) records why the planner uses its current model and how to re-run the comparison when that model disappears.
+[Scene planner free models](research/2026-10-14-scene-planner-free-models.md) records why the legacy planner used its last model; the planner was removed with the legacy engine (#184).
 
 [Image models](research/2026-10-14-image-models.md) records why Gemini 3.1 Flash Lite Image is the default image model, what the other candidates measured, and how to re-run the comparison.
 

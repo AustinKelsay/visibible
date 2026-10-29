@@ -142,7 +142,6 @@ describe("HeroImage interactions", () => {
             etaSeconds: 12,
           },
         ],
-        scenePlannerCreditsCost: 0,
       }),
     }));
     vi.stubGlobal("fetch", fetchMock);
@@ -224,7 +223,7 @@ describe("HeroImage interactions", () => {
     const updateState = vi.fn();
     useGenerationMock.mockReturnValue({ registerGenerate, updateState, unregisterGenerate: vi.fn(),
       registerBuyCredits: vi.fn(), registerSettings: vi.fn() } as never);
-    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ models: [], scenePlannerCreditsCost: 0 }) });
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ models: [] }) });
     await renderHeroImage();
     expect(updateState.mock.lastCall?.[0]).toMatchObject({ canGenerate: false, pricingUnavailable: "Saved model unavailable. Choose another model." });
     await act(async () => { registerGenerate.mock.lastCall![0](); });

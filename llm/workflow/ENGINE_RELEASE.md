@@ -14,7 +14,7 @@ How the generic image engine ([spec #165](https://github.com/AustinKelsay/visibi
 | Reports resolve the exact image; dispositions; edits never close a report | `tests/convex/image-reports.test.ts`, `src/lib/__tests__/corrections.test.ts` |
 | Full reread activates; incomplete or invalid reread keeps the old analysis; brief change makes the work not ready | `tests/convex/analysis.test.ts`, `tests/convex/rehearsal.test.ts` › readiness matrix |
 | Disabled, owner-only and public admission; readiness gates; optional references and attention never gate | `src/lib/__tests__/engine-admission.test.ts`, `credit-flow.test.ts` › engine admission, `rehearsal.test.ts` |
-| Legacy and generic accepted side by side; rollback replays accepted generic work, refuses new Watercolor/Icon, admits Classical on legacy, keeps images | `credit-flow.test.ts` › "rehearsal: legacy and generic…" |
+| Owner mode admits only the owner; rollback replays accepted generic work, refuses new work in every style, keeps images; accepted legacy requests replay | `credit-flow.test.ts` › "rehearsal: owner mode admits only the owner…", › engine admission |
 | Duplicate and concurrent delivery, uncertain provider outcomes, interrupted save, thrown settlement: one paid attempt, one settlement, replay | `credit-flow.test.ts` › generic engine generation, `tests/convex/generation-intent.test.ts` |
 | Bulk jobs bound to style and engine; interrupted items reconciled; rollback pauses generic jobs; legacy backfill; release counts | `tests/convex/bulk-binding.test.ts` |
 | Looks and plans made once, shared, invalidated by their inputs; missing cast, unknown selections or changed canon fail before guest reservation/image calls | `src/lib/__tests__/preparation.test.ts`, `src/lib/__tests__/moment-cast-contract.test.ts`, `credit-flow.test.ts` › missing-cast reply |
@@ -25,6 +25,8 @@ Not rehearsed by tests: browser screenshots of the reader's style controls, the 
 
 ## Before any switch
 
+This section records the first rollout (October 2026), when Classical still ran on the legacy engine. Since the legacy engine's removal (#184), disabled mode admits no new image in any style: keep production at `GENERIC_ENGINE_MODE=public`, and never deploy it with the variable unset.
+
 1. Merge the engine PRs in order and deploy with `GENERIC_ENGINE_MODE` unset (disabled). Nothing changes for readers except that Watercolor and Icon answer a retryable 503.
 2. Commit the approved Bible brief at `works/bible-web/brief.json` and deploy it; the route reads `works/bible-web/work.json`, the brief and `styles/*.json` at request time.
 3. Prepare the Bible against the production deployment: `npm run works:read -- bible-web`, `npm run works:canon -- bible-web --activate`, then `npm run works:references -- bible-web --budget <usd>`. Readiness (`getWorkStatus`) requires the registered work and brief versions to match the deployed files and a complete, structurally valid active analysis; failed references and open attention do not block.
@@ -34,7 +36,7 @@ Not rehearsed by tests: browser screenshots of the reader's style controls, the 
 ## Preview → owner production → public
 
 1. **Preview:** set `GENERIC_ENGINE_MODE=public` on a preview deployment whose Convex deployment has the prepared analysis; generate in all three styles; confirm `/api/image-models` reports every style available and the saved images carry `engine: "generic"`, `translationId: "web"` and provenance.
-2. **Owner production check:** set `GENERIC_ENGINE_MODE=owner` in production. Admin sessions reach the generic engine. To exercise real guest reservation and settlement, use one fresh, funded non-admin browser session under the release owner's control; set server-only `GENERIC_ENGINE_OWNER_CHECK_SESSION_SHA256` to the SHA-256 hex digest of that session's SID. Only that exact existing, valid session receives additional owner-mode admission. It keeps its normal tier, credits, spend limits, reservations and settlement; the setting grants no admin billing or other admin access. All other readers stay on legacy for Classical and see the other styles as temporarily unavailable. The setting has no effect when admission is disabled. Do not log or commit the SID or its signed cookie; remove the digest when the check ends.
+2. **Owner production check:** set `GENERIC_ENGINE_MODE=owner` in production. Admin sessions reach the generic engine. To exercise real guest reservation and settlement, use one fresh, funded non-admin browser session under the release owner's control; set server-only `GENERIC_ENGINE_OWNER_CHECK_SESSION_SHA256` to the SHA-256 hex digest of that session's SID. Only that exact existing, valid session receives additional owner-mode admission. It keeps its normal tier, credits, spend limits, reservations and settlement; the setting grants no admin billing or other admin access. All other readers see every style as temporarily unavailable (before #184, Classical stayed on legacy for them). The setting has no effect when admission is disabled. Do not log or commit the SID or its signed cookie; remove the digest when the check ends.
    The reader automatically generates an empty selected style when the session can cover its estimate. Install and verify the recorder/guard before entering such a reader page, or make explicit requests from a page without generation (such as About). Retain and account for any unrecorded automatic request; exclude it from full-request timing rather than inventing latency or silently replacing the sample.
 
    Make actual image requests through the app in that controlled session, across all three styles and both cold and already-prepared moments, within the separate smoke budget. Record wall-clock request latency, sample sizes, five-credit Lite quotes versus actual settlement, saved WEB/provenance, and the reservation/debit records. Replaying a completed request must not pay again. Record any bound bulk-job checks as well. The evaluation command (`npm run evals:images -- --run release --arms generic --analysis convex --budget <usd>`) provides separate visual/provider evidence: it does not exercise HTTP admission, guest billing, saving or settlement, and its timings do not prove the full-request latency gates. Admin audit-only requests also do not prove guest reservation. Disclose any target misses; do not infer human acceptance from a report flag.
@@ -46,7 +48,7 @@ A brief change that only adds or removes art styles (`styleIds`) needs no reread
 
 ## Rollback
 
-Set `GENERIC_ENGINE_MODE=disabled` (or `owner`) and redeploy. Accepted generic requests keep their engine, commitments and billing and replay their saved results; in-flight ones finish or are reconciled by their request records. New Classical requests run on legacy; Watercolor and Icon report unavailable while every saved image and preference stays. Bulk jobs bound to generic pause with `engine_unavailable` before their next item and resume when the engine is admitted again; nothing is charged twice. No data is migrated in either direction.
+Set `GENERIC_ENGINE_MODE=disabled` (or `owner`) and redeploy. Accepted generic requests keep their engine, commitments and billing and replay their saved results; in-flight ones finish or are reconciled by their request records. Since the legacy engine's removal (#184), no new image is made in any style while the generic engine is off (in owner mode, only for the owner); every saved image and preference stays. Bulk jobs bound to generic pause with `engine_unavailable` before their next item and resume when the engine is admitted again; nothing is charged twice. No data is migrated in either direction.
 
 ## Fresh-quote recovery
 
@@ -59,7 +61,7 @@ The first step of retirement is a switch, not a code removal. Setting `LEGACY_EN
 - A Classical scene the generic engine refuses keeps its retryable decline instead of falling back to legacy.
 - A job item bound to legacy is refused ("Engine binding changed" 409, or 503 when the generic engine is off), so the job pauses.
 
-Accepted legacy requests keep their engine and billing and replay their saved results, because replay is answered before admission. Unsetting `LEGACY_ENGINE` and redeploying undoes the cutoff.
+Accepted legacy requests keep their engine and billing and replay their saved results, because replay is answered before admission. Unsetting `LEGACY_ENGINE` and redeploying undid the cutoff only on builds from before the legacy code was removed (below); it now has no effect.
 
 Before the cutoff:
 1. Run the inventory against production and keep it as evidence ([28 October](../releases/2026-10-28-legacy-retirement/inventory-before-cutoff.json): no accepted legacy obligations, no bulk jobs).
@@ -67,14 +69,19 @@ Before the cutoff:
 3. Confirm `/api/image-models` and the logs.
 4. Confirm nothing new was admitted on legacy. After the cutoff time, the production logs must show no `engine_admission` event with `engine: legacy` (`npx vercel logs --environment production --since <cutoff> --json`). The inventory must still show no legacy request in flight or queued. The inventory alone is not proof: it counts current statuses, so a new request that finished would not show.
 
-After the cutoff, `GENERIC_ENGINE_MODE=disabled` is no longer a rollback that keeps Classical working: with both engines closed, no new images are made. The remaining recovery options are:
-- Unset `LEGACY_ENGINE`, which restores the legacy engine while its code still ships.
-- Redeploy an earlier build.
-- Fix forward.
+After the cutoff, `GENERIC_ENGINE_MODE=disabled` is no longer a rollback that keeps Classical working: with both engines closed, no new images are made.
 
-## Retirement (later ticket)
+The cutoff went live on 28 October 2026 ([record](../releases/2026-10-28-legacy-retirement/README.md)). The legacy engine's route code was then removed, and both image routes now treat legacy as retired, so the `LEGACY_ENGINE` switch no longer exists and unsetting it restores nothing. The recovery options are to redeploy a build from before the removal or to fix forward.
+
+## Retirement (#184)
 
 Legacy execution can be retired only when `npm run engine:retirement-inventory -- --env-file .env.convex.prod` reports no accepted obligations for legacy and nothing unbound. The inventory lists the cancellation candidates (unstarted legacy bulk items) the retirement will close with an explanation to their readers, who may recreate them under a fresh quote. Completed images, metadata, accounting and completed-request replay are kept.
+
+The removal goes in steps:
+1. **Done:** the route's legacy execution and its fallback are removed. The request fingerprint, replay and the `legacy` engine value on records and job bindings stay, because accepted legacy requests replay through them.
+2. **Done:** the planner allowance in quotes and the reader's price displays, then the legacy prompt and planner modules and their evaluation arms.
+3. The legacy scene plan cache. **Done:** its Convex functions. Next, the `scenePlanCache` table, once its production rows are cleared (an owner decision: it deletes data).
+4. **Done:** admission's legacy branch. `decideEngine` admits only the generic engine; `legacy` remains only on historical records and bulk bindings.
 
 ## Budgets and estimates
 
