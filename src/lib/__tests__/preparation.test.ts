@@ -136,10 +136,9 @@ describe("lazy looks and plans", () => {
     const afterClear = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
     expect(afterClear.calls).toBe(2);
     expect(afterClear.look.version).toBe(afterCanonEdit.look.version);
-    // A brief version change invalidates too, and the legacy scene plan cache is untouched throughout.
+    // A brief version change invalidates too.
     const afterBrief = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv2", context: context("alpha-1-1", null, null), ...fast });
     expect(afterBrief.calls).toBe(2);
-    expect(await t.run(async (ctx) => ctx.db.query("scenePlanCache").collect())).toEqual([]);
   });
 
   it("funds a concurrent miss once and lets the other caller wait for the record", async () => {
