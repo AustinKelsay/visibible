@@ -1,0 +1,8 @@
+{
+  "authorizedAt": "2026-10-29T23:56:15Z",
+  "authorization": "Owner replied \"1.\" to a report whose step 1 was: generate the 14 missing consistency-group verses (about $1.45) so the check has enough images. Operator decision: the $1.45 counted shown images only; retries, checks and preparation add about $0.25, and the existing allowance has $1.33 left. Raise evaluation by $0.70 to $39.70 and cap this run at $2.00.",
+  "increaseUsd": 0.7,
+  "authorizedUsd": 39.7,
+  "operationCapUsd": 2,
+  "scope": "One execution of the frozen consistency-verse run in this directory: 14 cases in Classical, Watercolor and Fresco, at most 84 images, 200 text calls and 168 check calls. No paid restart, production writes, registration or deployment."
+}
