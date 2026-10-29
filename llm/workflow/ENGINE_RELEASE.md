@@ -71,7 +71,7 @@ Before the cutoff:
 
 After the cutoff, `GENERIC_ENGINE_MODE=disabled` is no longer a rollback that keeps Classical working: with both engines closed, no new images are made.
 
-The cutoff went live on 28 October 2026 ([record](../releases/2026-10-28-legacy-retirement/README.md)). The legacy engine's route code was then removed, and both image routes now treat legacy as retired, so the `LEGACY_ENGINE` switch no longer exists and unsetting it restores nothing. The recovery options are to redeploy a build from before the removal or to fix forward.
+The cutoff went live on 28 October 2026 ([record](../releases/2026-10-28-legacy-retirement/README.md)). The legacy engine's route code was then removed, and both image routes now treat legacy as retired, so the `LEGACY_ENGINE` switch no longer exists and unsetting it restores nothing. The recovery options are to promote a deployment from before the removal (Vercel instant rollback, which keeps that deployment's build-time environment) or to fix forward. Do not rebuild such a commit: `LEGACY_ENGINE` was removed from Vercel on 29 October, so a rebuilt pre-removal build would restore the legacy fallback for refused Classical scenes.
 
 ## Retirement (#184)
 
