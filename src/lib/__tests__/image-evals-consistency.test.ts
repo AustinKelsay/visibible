@@ -9,7 +9,7 @@ import path from "node:path";
 import { BOOK_BY_SLUG, isValidLocation } from "@/data/bible-structure";
 import {
   CONSISTENCY_BAR, blindPairs, buildConsistencyPairs, evaluateConsistencyGate, loadConsistencyGroups, settleVerdicts,
-  shownImagesFromResults, stagesFromSnapshot, summarizeConsistency, type ConsistencyGroup, type PairScoreFile, type ShownImage,
+  shownImagesFromResults, stagesFromSnapshot, summarizeConsistency, versesNotRun, type ConsistencyGroup, type PairScoreFile, type ShownImage,
 } from "../image-evals/consistency";
 
 const groupsFile = JSON.parse(readFileSync(path.join(__dirname, "../../../evals/images/consistency.json"), "utf8"));
@@ -53,6 +53,7 @@ describe("shown images from launch-matrix results", () => {
       { case: "exodus-14-21", style: "classical", outcome: "image", chosen: 2, prepared: { look: {}, plan }, attempts: [attempt(1), attempt(2)] },
       { case: "exodus-14-21", style: "watercolor", outcome: "image", chosen: 1, attempts: [attempt(1)] },
       { case: "daniel-7-9", style: "classical", outcome: "refused" },
+      { key: "isaiah-6-2/*", case: "isaiah-6-2", outcome: "error", message: "provider failed" },
     ];
     const images = shownImagesFromResults(rows, stages);
     expect(images).toHaveLength(2);
@@ -64,7 +65,13 @@ describe("shown images from launch-matrix results", () => {
   it("refuses an image without a plan or without the case's canon stages", () => {
     expect(() => shownImagesFromResults([{ case: "exodus-14-21", style: "icon", outcome: "image", chosen: 1, attempts: [attempt(1)] }], stages)).toThrow("no shown attempt or plan");
     expect(() => shownImagesFromResults([{ case: "exodus-14-22", style: "icon", outcome: "image", chosen: 1, prepared: { plan }, attempts: [attempt(1)] }], stages)).toThrow("no canon stages for exodus-14-22");
+    expect(() => shownImagesFromResults([{ case: "exodus-14-21", outcome: "image", chosen: 1, prepared: { plan }, attempts: [attempt(1)] }], stages)).toThrow("has an image but no style");
     expect(() => stagesFromSnapshot({ cases: [{ id: "x", cast: ["moses"] }] })).toThrow("without a stage");
+  });
+
+  it("lists the group verses no results row names, so a run cannot skip them", () => {
+    expect(versesNotRun([moses, sea], new Set(["exodus-14-21", "leviticus-11-7"]))).toEqual({ character: ["exodus-14-22"], setting: ["exodus-14-22"] });
+    expect(versesNotRun([moses, sea], new Set(["exodus-14-21", "exodus-14-22", "leviticus-11-7"]))).toEqual({ character: [], setting: [] });
   });
 });
 
@@ -113,8 +120,9 @@ describe("settling verdicts", () => {
     expect(() => settleVerdicts(ids, [a, b], scores("operator", { pair001: "different" }))).toThrow("only disputed pairs, not pair001");
   });
 
-  it("needs two scorers who each judge every pair once", () => {
-    expect(() => settleVerdicts(ids, [a])).toThrow("at least two independent scorers");
+  it("needs two distinct scorers who each judge every pair once", () => {
+    expect(() => settleVerdicts(ids, [a])).toThrow("at least two distinct scorers");
+    expect(() => settleVerdicts(ids, [a, a])).toThrow("at least two distinct scorers, not a, a");
     expect(() => settleVerdicts(ids, [a, scores("b", { pair001: "same" })])).toThrow("b did not score pair002, pair003");
     expect(() => settleVerdicts(ids, [a, scores("b", { pair009: "same" })])).toThrow("b scored an unknown pair: pair009");
     const twice: PairScoreFile = { ...a, scorer: "c", scores: [...a.scores, a.scores[0]] };
@@ -147,15 +155,16 @@ describe("summary and gate", () => {
     expect(gate.checks.map((c) => [c.kind, c.tally.pairs, c.pass])).toEqual([["character", 40, true], ["setting", 25, true]]);
   });
 
-  it("fails closed on disputes, too few pairs, too many unclear, a low rate or a drop from the baseline", () => {
+  it("fails closed on unrun verses, disputes, too few pairs, too many unclear, a low rate or a drop from the baseline", () => {
     const pairs = [...many("c", "character", "classical", 40), ...many("s", "setting", "classical", 10)];
-    const check = (verdict: (i: number) => "same" | "different" | "unclear" | "disputed", baseline = {}) =>
-      evaluateConsistencyGate(pairs, verdictsFor(pairs, verdict), ["classical"], baseline).checks.map((c) => c.reasons);
+    const check = (verdict: (i: number) => "same" | "different" | "unclear" | "disputed", context = {}) =>
+      evaluateConsistencyGate(pairs, verdictsFor(pairs, verdict), ["classical"], context).checks.map((c) => c.reasons);
+    expect(check(() => "same", { notRun: { character: ["daniel-5-17", "daniel-6-22"] } })[0]).toEqual(["2 group verses never ran: daniel-5-17, daniel-6-22"]);
     expect(check((i) => (i === 0 ? "disputed" : "same"))[0]).toEqual(["1 pairs still disputed"]);
     expect(check(() => "same")[1]).toEqual(["only 10 pairs judged same or different; needs 20"]);
     expect(check((i) => (i < 20 ? "unclear" : "same"))[0]).toEqual(["only 20 pairs judged same or different; needs 30", "20 of 40 pairs unclear"]);
     expect(check((i) => (i < 12 ? "different" : "same"))[0]).toEqual(["70% judged the same; bar 75%"]);
-    expect(check((i) => (i < 8 ? "different" : "same"), { character: 0.95 })[0]).toEqual(["fell from 95% to 80%"]);
-    expect(check((i) => (i < 8 ? "different" : "same"), { character: 0.85 })[0]).toEqual([]);
+    expect(check((i) => (i < 8 ? "different" : "same"), { baseline: { character: 0.95 } })[0]).toEqual(["fell from 95% to 80%"]);
+    expect(check((i) => (i < 8 ? "different" : "same"), { baseline: { character: 0.85 } })[0]).toEqual([]);
   });
 });

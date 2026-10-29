@@ -20,7 +20,7 @@ import { parseArgs } from "node:util";
 import sharp from "sharp";
 import {
   CONSISTENCY_KINDS, blindPairs, buildConsistencyPairs, evaluateConsistencyGate, loadConsistencyGroups, pairScoreFileSchema,
-  settleVerdicts, shownImagesFromResults, stagesFromSnapshot, summarizeConsistency, type ConsistencyKind, type ConsistencyPair, type GroupCoverage, type Tally,
+  settleVerdicts, shownImagesFromResults, stagesFromSnapshot, summarizeConsistency, versesNotRun, type ConsistencyKind, type ConsistencyPair, type GroupCoverage, type Tally,
 } from "@/lib/image-evals/consistency";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
@@ -37,7 +37,10 @@ const list = (value: string | undefined) => (value ?? "").split(",").map((item) 
 const readJson = async (file: string) => JSON.parse(await readFile(file, "utf8"));
 const write = (file: string, data: unknown) => writeFile(path.join(out, file), `${JSON.stringify(data, null, 2)}\n`);
 
-type Key = { schemaVersion: 1; seed: string; groups: { file: string; sha256: string }; sources: Array<{ file: string; sha256: string }>; coverage: GroupCoverage[]; pairs: ConsistencyPair[] };
+type Key = {
+  schemaVersion: 1; seed: string; groups: { file: string; sha256: string }; sources: Array<{ file: string; sha256: string }>;
+  notRun: Record<ConsistencyKind, string[]>; coverage: GroupCoverage[]; pairs: ConsistencyPair[];
+};
 
 /** Left and right at the same height with a grey gap, so a scorer judges one picture per pair. */
 async function composite(left: Buffer, right: Buffer, file: string) {
@@ -55,12 +58,15 @@ async function pairs() {
   const groups = loadConsistencyGroups(JSON.parse(groupsText));
   const sources: Key["sources"] = [];
   const images = [];
+  const attempted = new Set<string>();
   for (const file of resultFiles) {
     const text = await readFile(file, "utf8");
     const snapshotFile = path.join(path.dirname(file), "snapshot.json");
     const snapshotText = await readFile(snapshotFile, "utf8");
     sources.push({ file: path.relative(root, path.resolve(file)), sha256: sha256(text) }, { file: path.relative(root, path.resolve(snapshotFile)), sha256: sha256(snapshotText) });
-    images.push(...shownImagesFromResults(text.split("\n").filter((line) => line.trim()).map((line) => JSON.parse(line)), stagesFromSnapshot(JSON.parse(snapshotText))));
+    const rows = text.split("\n").filter((line) => line.trim()).map((line) => JSON.parse(line) as { case: string });
+    for (const row of rows) attempted.add(row.case);
+    images.push(...shownImagesFromResults(rows, stagesFromSnapshot(JSON.parse(snapshotText))));
   }
   const built = buildConsistencyPairs(groups, images, values.seed);
   await mkdir(path.join(out, "composites"), { recursive: true });
@@ -74,10 +80,12 @@ async function pairs() {
     return bytes.get(side.file)!;
   };
   for (const pair of built.pairs) await composite(await load(pair.left), await load(pair.right), path.join(out, "composites", `${pair.id}.jpg`));
-  const key: Key = { schemaVersion: 1, seed: values.seed!, groups: { file: path.relative(root, path.resolve(values.groups!)), sha256: sha256(groupsText) }, sources, coverage: built.coverage, pairs: built.pairs };
+  const notRun = versesNotRun(groups, attempted);
+  const key: Key = { schemaVersion: 1, seed: values.seed!, groups: { file: path.relative(root, path.resolve(values.groups!)), sha256: sha256(groupsText) }, sources, notRun, coverage: built.coverage, pairs: built.pairs };
   await write("key.json", key);
   await write("pairs.json", { schemaVersion: 1, instructions: "evals/images/consistency-scoring.md", pairs: blindPairs(built.pairs, (id) => `composites/${id}.jpg`) });
   console.log(`${built.pairs.length} pairs from ${images.length} shown images in ${out}`);
+  for (const kind of CONSISTENCY_KINDS) if (notRun[kind].length) console.log(`  ${kind} verses never run: ${notRun[kind].join(", ")}`);
   for (const row of built.coverage) console.log(`  ${row.groupId.padEnd(24)} ${row.style.padEnd(11)} ${row.imaged}/${row.units} imaged, ${row.eligible.length} eligible, ${row.pairs} pairs${row.otherStage ? `, ${row.otherStage} left out for another stage` : ""}`);
 }
 
@@ -93,11 +101,11 @@ async function report() {
   const previous = values.baseline ? await readJson(values.baseline) as { gate: { checks: Array<{ kind: ConsistencyKind; tally: Tally }> } } : null;
   const baseline = Object.fromEntries((previous?.gate.checks ?? []).map((check) => [check.kind, check.tally.rate]));
   const summary = summarizeConsistency(key.pairs, settled.verdicts);
-  const gate = evaluateConsistencyGate(key.pairs, settled.verdicts, styles, baseline);
+  const gate = evaluateConsistencyGate(key.pairs, settled.verdicts, styles, { baseline, notRun: key.notRun });
   await write("report.json", {
     schemaVersion: 1, groups: key.groups, sources: key.sources, baseline: values.baseline ? path.relative(root, path.resolve(values.baseline)) : null,
     scorers: scorers.map((file) => file.scorer), operator: operator?.scorer ?? null, unanimous: settled.unanimous, disputed: settled.disputed,
-    coverage: key.coverage, verdicts: settled.verdicts, summary, gate,
+    notRun: key.notRun, coverage: key.coverage, verdicts: settled.verdicts, summary, gate,
   });
   console.log(`${key.pairs.length} pairs; ${settled.unanimous} unanimous, ${settled.disputed.length} disputed${operator ? " and settled" : ""}`);
   for (const kind of CONSISTENCY_KINDS) {

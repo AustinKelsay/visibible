@@ -8,8 +8,8 @@ This baseline made no provider calls and cost nothing. It pairs images the launc
 
 | Measure | Released styles | Icon (owner-only) | Gate |
 | --- | --- | --- | --- |
-| Same person | 21 of 25 judged (84%); 6 unclear | 9 of 10 | fail: 25 judged pairs, needs 30 |
-| Same place, neighbouring verses | 1 of 3 | 1 of 1 | fail: 3 judged pairs, needs 20; 33%, bar 50% |
+| Same person | 21 of 25 judged (84%); 6 unclear | 9 of 10 | fail: 10 verses never ran; 25 judged pairs, needs 30 |
+| Same place, neighbouring verses | 1 of 3 | 1 of 1 | fail: 6 verses never ran; 3 judged pairs, needs 20; 33%, bar 50% |
 
 By group, across all four styles:
 

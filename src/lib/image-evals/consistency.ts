@@ -63,7 +63,8 @@ export function stagesFromSnapshot(input: unknown): Map<string, Record<string, s
 
 const resultRowSchema = z.object({
   case: z.string(),
-  style: z.string(),
+  /** A runner error row names only its case. */
+  style: z.string().optional(),
   outcome: z.string(),
   chosen: z.number().int().positive().nullable().optional(),
   prepared: z.object({
@@ -84,6 +85,7 @@ export function shownImagesFromResults(rows: readonly unknown[], stages: Readonl
   const images: ShownImage[] = [];
   for (const row of parsed) {
     if (row.outcome !== "image") continue;
+    if (!row.style) throw new Error(`Result ${row.case} has an image but no style`);
     const attempt = row.attempts?.[(row.chosen ?? 1) - 1];
     const plan = row.prepared?.plan ?? plans.get(row.case);
     if (!attempt || !plan) throw new Error(`Result ${row.case}/${row.style} has an image but no shown attempt or plan`);
@@ -92,6 +94,15 @@ export function shownImagesFromResults(rows: readonly unknown[], stages: Readonl
     images.push({ unitId: row.case, style: row.style, file: attempt.file, sha256: attempt.sha256, present: plan.present, stages: caseStages, scene: `${plan.primarySubject}; ${plan.secondaryElements}` });
   }
   return images;
+}
+
+/** The group verses a run never attempted, by kind: no results row of any outcome names them. */
+export function versesNotRun(groups: readonly ConsistencyGroup[], attempted: ReadonlySet<string>): Record<ConsistencyKind, string[]> {
+  const notRun: Record<ConsistencyKind, string[]> = { character: [], setting: [] };
+  for (const group of groups) {
+    for (const unit of group.units) if (!attempted.has(unit) && !notRun[group.kind].includes(unit)) notRun[group.kind].push(unit);
+  }
+  return notRun;
 }
 
 export type PairSide = { unitId: string; file: string; sha256: string; scene: string };
@@ -193,7 +204,8 @@ export type SettledVerdict = PairVerdict | "disputed";
  * and stays disputed without one. The operator may settle only disputed pairs.
  */
 export function settleVerdicts(pairIds: readonly string[], scorers: readonly PairScoreFile[], operator?: PairScoreFile) {
-  if (scorers.length < 2) throw new Error("Consistency pairs need at least two independent scorers");
+  const names = scorers.map((file) => file.scorer);
+  if (new Set(names).size < 2 || new Set(names).size !== names.length) throw new Error(`Consistency pairs need at least two distinct scorers, not ${names.join(", ") || "none"}`);
   const ids = new Set(pairIds);
   const judged = scorers.map((file) => {
     const verdicts = verdictsOf(file, ids, (id) => `${file.scorer} scored an unknown pair: ${id}`);
@@ -262,21 +274,24 @@ const percent = (rate: number) => `${Math.round(rate * 100)}%`;
 
 /**
  * The gate pools the released styles, because a single style's sample is too small to gate on; the per-style rates
- * are reported beside it. A measure fails closed on unsettled disputes, too few decided pairs or too many unclear ones.
+ * are reported beside it. A measure fails closed on group verses the run never attempted, unsettled disputes, too few
+ * decided pairs or too many unclear ones. `baseline` holds the previous measurement's rates.
  */
 export function evaluateConsistencyGate(
   pairs: readonly ConsistencyPair[],
   verdicts: Readonly<Record<string, SettledVerdict>>,
   styles: readonly string[],
-  baseline: Partial<Record<ConsistencyKind, number | null>> = {},
+  context: { baseline?: Partial<Record<ConsistencyKind, number | null>>; notRun?: Partial<Record<ConsistencyKind, readonly string[]>> } = {},
   bar: ConsistencyBar = CONSISTENCY_BAR,
 ): { pass: boolean; styles: string[]; barVersion: string; checks: GateCheck[] } {
   const pooled = summarizeConsistency(pairs.filter((pair) => styles.includes(pair.style)), verdicts);
   const checks = CONSISTENCY_KINDS.map((kind): GateCheck => {
     const tally = pooled[kind].overall;
     const decided = tally.same + tally.different;
-    const baselineRate = baseline[kind] ?? null;
+    const baselineRate = context.baseline?.[kind] ?? null;
+    const notRun = context.notRun?.[kind] ?? [];
     const reasons: string[] = [];
+    if (notRun.length) reasons.push(`${notRun.length} group verses never ran: ${notRun.slice(0, 5).join(", ")}${notRun.length > 5 ? ", …" : ""}`);
     if (tally.disputed) reasons.push(`${tally.disputed} pairs still disputed`);
     if (decided < bar.minDecided[kind]) reasons.push(`only ${decided} pairs judged same or different; needs ${bar.minDecided[kind]}`);
     if (tally.pairs && tally.unclear / tally.pairs > bar.maxUnclearShare) reasons.push(`${tally.unclear} of ${tally.pairs} pairs unclear`);

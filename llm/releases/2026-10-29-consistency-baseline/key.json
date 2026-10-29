@@ -23,6 +23,28 @@
       "sha256": "55e88a470dc8f95256db57938a13253197d23184f462176492fa292af7ac58c9"
     }
   ],
+  "notRun": {
+    "character": [
+      "john-21-9",
+      "exodus-17-12",
+      "numbers-20-11",
+      "luke-22-61",
+      "acts-3-7",
+      "1-samuel-16-13",
+      "1-samuel-17-40",
+      "1-samuel-18-11",
+      "daniel-5-17",
+      "daniel-6-23"
+    ],
+    "setting": [
+      "exodus-14-23",
+      "mark-4-37",
+      "mark-4-38",
+      "john-21-9",
+      "luke-15-22",
+      "daniel-6-23"
+    ]
+  },
   "coverage": [
     {
       "groupId": "jesus",

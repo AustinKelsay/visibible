@@ -16,6 +16,7 @@ The engine exists to keep a work's images consistent ([ADR 0002](0002-consistent
 
 - At least 75% of judged character pairs show the same person, from at least 30 judged pairs.
 - At least 50% of judged setting pairs show the same place, from at least 20 judged pairs. This floor is provisional until a run measures enough neighbouring verses.
+- Every group verse attempted by the run. A refusal or an unselected subject is reported but does not fail the gate, while a verse with no result fails it.
 - At most a third of either measure's pairs unclear, and no unsettled disagreement.
 - Neither rate falls more than 10 points below the previous release's measurement.
 
