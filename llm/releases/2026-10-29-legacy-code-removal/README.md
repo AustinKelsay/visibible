@@ -9,7 +9,7 @@
 | 3 | #310, this follow-up | The scene plan cache functions, its rows and its table |
 | 4 | #311 | Admission's legacy branch: `decideEngine` admits only the generic engine |
 
-Accepted legacy requests still replay: the request fingerprint, replay, and the `legacy` engine value on records and bulk bindings stay. The `LEGACY_ENGINE` switch no longer exists. The rollback is to redeploy the cutoff build, `dpl_DdXpgtYvPQnxTTHHzE2HFANMW8n8`.
+Accepted legacy requests still replay: the request fingerprint, replay, and the `legacy` engine value on records and bulk bindings stay. The `LEGACY_ENGINE` switch no longer exists. The rollback is to promote the cutoff build, `dpl_DdXpgtYvPQnxTTHHzE2HFANMW8n8` (see the caveat below).
 
 ## Checks after the deploy
 
@@ -28,6 +28,11 @@ The owner chose to clear the disposable legacy plan cache after the release. The
 
 The clear used `convex import --table scenePlanCache --replace` with an empty file, which replaces only that table. The table then left the schema in the follow-up PR.
 
-## Owner follow-ups
+## Cleanup (29 October)
 
-- Remove `LEGACY_ENGINE=retired` and `ENABLE_SCENE_PLANNER=true` from the Vercel environments. Nothing reads them now.
+At the owner's direction ("get these cleaned up"):
+- `LEGACY_ENGINE`, `ENABLE_SCENE_PLANNER` and `OPENROUTER_SCENE_PLANNER_MODEL` were removed from every Vercel environment at 01:58 UTC. No deployed code reads them, so no redeploy was needed.
+- Issues #184 and #183 are closed.
+- The empty `scenePlanCache` table stays listed on dev and production until it is deleted in the Convex dashboard. Convex keeps empty tables after they leave the schema, and the CLI cannot delete one without clearing every table.
+
+**Rollback caveat:** promote the cutoff build (Vercel instant rollback) rather than rebuilding it. A promoted deployment keeps its build-time `LEGACY_ENGINE=retired`; a rebuild would not, because the variable is gone.
