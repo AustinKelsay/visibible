@@ -32,3 +32,13 @@ Score each arm of each case 0–2 on the dimensions above, and record one verdic
 The report carries completions, failures by stage, latency percentiles, image and preparation spend, missing-usage counts and reproducibility metadata (prompt version, models, repeats, sample floor). Attach `report.json`, the scored `scores.json` and the contact sheet to the release PR with the rollback plan and the first-24-hour owner, as the chat process requires.
 
 Nothing here authorizes spend: a paid run is the owner's decision under the `--budget` it names, and the repository tests exercise the harness only with fake providers.
+
+## Consistency
+
+The launch bar also checks that images that should agree do ([ADR 0008](../../docs/adr/0008-consistency-in-the-launch-bar.md)). [evals/images/consistency.json](../../evals/images/consistency.json) names fixed groups. Character groups cover one canon entry across stories; setting groups cover neighbouring verses of one section. A launch matrix must render every verse they name.
+
+- `npm run evals:consistency -- pairs --results <results.ndjson>[,…] --out <dir>` ([scripts/evals/consistency.mts](../../scripts/evals/consistency.mts) over [consistency.ts](../../src/lib/image-evals/consistency.ts)) reads launch-matrix results with the `snapshot.json` beside each. Within each group and style, it pairs the shown images. A character pair needs the entry selected in both plans and the same canon stage. It checks every image against its recorded SHA-256 and writes `pairs.json` for scorers, `key.json` for the operator and one side-by-side picture per pair. `--images-root` finds images kept in another checkout.
+- Two independent scorers judge every pair `same`, `different` or `unclear` from [the instructions](../../evals/images/consistency-scoring.md), blind to the key. The operator settles disagreements in a third file with the same shape, covering only the disputed pairs.
+- `npm run evals:consistency -- report --out <dir> --scores <a>,<b> --operator <file> --styles <released styles> --baseline <previous report.json>` writes `report.json` and prints rates by kind and style, with the gate on the pooled released styles. The gate fails closed on unsettled disputes, too few judged pairs, too many unclear pairs, a rate under its floor, or a fall of more than 10 points from the baseline.
+
+Keep the pairs, key, scorer files, operator file and report in the release record beside the per-image scores. The [baseline](../releases/2026-10-29-consistency-baseline/README.md) shows the layout. Nothing here calls a model or spends.
