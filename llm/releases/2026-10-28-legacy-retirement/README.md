@@ -1,6 +1,6 @@
 # Legacy retirement cutoff (#184)
 
-**The cutoff is live in production since 28 October 2026, 21:28 UTC** ([deployment record](deployment.json), [inventory after](inventory-after-cutoff.json)). No legacy admission has been logged since, and the legacy request counts are unchanged. `LEGACY_ENGINE=retired` stops all new legacy admissions while accepted legacy requests keep replaying. It is a production switch: merging the code changes nothing until the switch is set.
+**The cutoff is live in production since 28 October 2026, 21:28 UTC** ([deployment record](deployment.json), [inventory after](inventory-after-cutoff.json)). No legacy admission has been logged since, and the legacy request counts are unchanged. `LEGACY_ENGINE=retired` stops all new legacy admissions while accepted legacy requests keep replaying. It was a production switch: merging the code changed nothing until the switch was set. The legacy engine's code, and with it the switch, was removed afterwards in #307–#311; unsetting it now has no effect.
 
 ## Production inventory before the cutoff
 
