@@ -1,0 +1,285 @@
+{
+  "note": "Section looks copied from the earlier run's results. The run rebuilds each record's inputs from this snapshot and the current brief; the brief's only change since then adds Fresco to its style list, which no look request reads.",
+  "stores": {
+    "launch-matrix-v3": {
+      "seededFrom": "2026-10-28-launch-matrix-v3",
+      "seeded": {
+        "john-21-1": {
+          "cases": [
+            "john-21-9"
+          ],
+          "payload": {
+            "place": "Shore of the Sea of Galilee with a small fishing boat near the water, stone-and-timber fishing village edge, a charcoal fire on the sand",
+            "timeOfDay": "Early morning, dawn light over the lake",
+            "weather": "Clear, calm morning with light mist lifting off the water",
+            "light": "Soft pale dawn light low from the east, warm glow from the charcoal fire",
+            "clothing": "Tunics and wool cloaks in earth tones, sleeves and hems damp from the sea, fishing nets and oars on the sand"
+          },
+          "fromCases": [
+            "john-21-7"
+          ]
+        },
+        "daniel-6-19": {
+          "cases": [
+            "daniel-6-23"
+          ],
+          "payload": {
+            "place": "Stone den beneath a royal palace in Babylon, sealed with a great stone and royal signet; sandy floor, rough-hewn walls",
+            "timeOfDay": "Night turning to early dawn",
+            "weather": "Still, cool night air, clear sky",
+            "light": "Torchlight and lamp glow at first, then pale grey dawn light entering from above the den opening",
+            "clothing": "Daniel in simple tunic and cloak; Darius in royal court robes with a signet ring; period armor and linen for attendants"
+          },
+          "fromCases": [
+            "daniel-6-22"
+          ]
+        },
+        "exodus-14-21": {
+          "cases": [
+            "exodus-14-23"
+          ],
+          "payload": {
+            "place": "The shore of the Red Sea opening into a dry sea-floor between two walls of standing water, with wilderness sand and rock at the edges",
+            "timeOfDay": "Night, with the strong east wind blowing through until dawn",
+            "weather": "Strong east wind over the sea, dark clouds, sand and spray driven across the open ground",
+            "light": "Radiance and cloud glow through the night air, pillar of fire light lying over the parted waters and the dry path",
+            "clothing": "Israelites in woven tunics and cloaks; Egyptians in Egyptian linen; Moses in plain cloak and staff"
+          },
+          "fromCases": [
+            "exodus-14-21",
+            "exodus-14-22"
+          ]
+        },
+        "mark-4-35": {
+          "cases": [
+            "mark-4-37",
+            "mark-4-38"
+          ],
+          "payload": {
+            "place": "Sea of Galilee, open water near a fishing boat, rocky shore visible in the distance",
+            "timeOfDay": "Night, shifting to first calm dawn light across the section",
+            "weather": "Violent storm with dark churning clouds and driving wind, then sudden stillness and clearing sky",
+            "light": "Dim moonlit darkness with lightning flashes, softening to pale grey-gold dawn light",
+            "clothing": "Fishermen in simple tunics and cloaks soaked by spray; Jesus in plain undyed tunic and cloak"
+          },
+          "fromCases": [
+            "mark-4-39"
+          ]
+        },
+        "luke-15-11": {
+          "cases": [
+            "luke-15-22"
+          ],
+          "payload": {
+            "place": "Stone village road and farmstead courtyard in Galilee, with low stone walls and terraced hills",
+            "timeOfDay": "Late afternoon turning to dusk",
+            "weather": "Clear, dry air with a warm breeze",
+            "light": "Low golden sunlight from the west, lengthening shadows",
+            "clothing": "Simple linen tunics and woolen cloaks; the younger son in worn, travel-stained garments"
+          },
+          "fromCases": [
+            "luke-15-20"
+          ]
+        }
+      },
+      "fresh": [
+        {
+          "sectionId": "exodus-17-8",
+          "cases": [
+            "exodus-17-12"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "numbers-20-1",
+          "cases": [
+            "numbers-20-11"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "luke-22-54",
+          "cases": [
+            "luke-22-61"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "acts-3-1",
+          "cases": [
+            "acts-3-7"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "1-samuel-16-1",
+          "cases": [
+            "1-samuel-16-13"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "1-samuel-17-31",
+          "cases": [
+            "1-samuel-17-40"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "1-samuel-18-10",
+          "cases": [
+            "1-samuel-18-11"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "daniel-5-17",
+          "cases": [
+            "daniel-5-17"
+          ],
+          "reason": "no earlier verse in this section"
+        }
+      ]
+    },
+    "fresco-matrix": {
+      "seededFrom": "2026-10-28-fresco-matrix",
+      "seeded": {
+        "john-21-1": {
+          "cases": [
+            "john-21-9"
+          ],
+          "payload": {
+            "place": "Shore of the Sea of Galilee with a small fishing boat and charcoal fire near stone village",
+            "timeOfDay": "Early morning, shifting from pre-dawn grey to rising daylight",
+            "weather": "Clear, still air with light morning mist lifting off the water",
+            "light": "Soft cool dawn light low over the lake, warming to golden sunrise",
+            "clothing": "Fishermen's tunics and cloaks, damp from the sea; a wet coat drawn around Peter"
+          },
+          "fromCases": [
+            "john-21-7"
+          ]
+        },
+        "daniel-6-19": {
+          "cases": [
+            "daniel-6-23"
+          ],
+          "payload": {
+            "place": "Stone den beneath a royal palace in Babylon, sealed with a great stone and a royal signet; sandy floor, rough-hewn walls",
+            "timeOfDay": "Night into early morning, a change noted once",
+            "weather": "Still, cool night air, dust and faint dawn haze",
+            "light": "Torchlight and lamplight at night, softening to pale gray dawn light entering from above",
+            "clothing": "Daniel in plain tunic and cloak; Darius in royal court robes with signet ring; period armor on guards"
+          },
+          "fromCases": [
+            "daniel-6-22"
+          ]
+        },
+        "exodus-14-21": {
+          "cases": [
+            "exodus-14-23"
+          ],
+          "payload": {
+            "place": "The shore of the Red Sea and the waters parted into walls, with dry sea floor between them, wilderness sand at the edges",
+            "timeOfDay": "Night, through the whole section, toward the first grey of dawn",
+            "weather": "Strong east wind blowing across the sea, dust and spray lifted in the air, clouds moving fast",
+            "light": "Radiance and a pillar of cloud and fire spread across the sky over the sea, lighting the parted waters from above",
+            "clothing": "Woven tunics and cloaks on the Israelites, Egyptian linen on the Egyptians, Moses in a plain cloak with his staff"
+          },
+          "fromCases": [
+            "exodus-14-21",
+            "exodus-14-22"
+          ]
+        },
+        "mark-4-35": {
+          "cases": [
+            "mark-4-37",
+            "mark-4-38"
+          ],
+          "payload": {
+            "place": "Sea of Galilee, open water near a fishing boat, stone shoreline in the distance",
+            "timeOfDay": "Night, shifting to calm dawn light as the storm ends",
+            "weather": "Violent storm with dark churning clouds and driving wind, giving way to still air and clearing sky",
+            "light": "Dim moonlit darkness under storm cloud, then soft pale dawn light spreading across the calm water",
+            "clothing": "Fishermen in tunics and cloaks soaked by spray; wooden fishing boat with rope and sail"
+          },
+          "fromCases": [
+            "mark-4-39"
+          ]
+        },
+        "luke-15-11": {
+          "cases": [
+            "luke-15-22"
+          ],
+          "payload": {
+            "place": "Stone village road and farmstead courtyard in Galilee, with terraced hills and a low stone house",
+            "timeOfDay": "Late afternoon turning to dusk across the section",
+            "weather": "Clear dry air with a light breeze, dust on the road",
+            "light": "Warm low golden sunlight from the west, lengthening shadows",
+            "clothing": "Simple undyed wool tunics and cloaks, sandals; the younger son in worn, dusty travel clothes"
+          },
+          "fromCases": [
+            "luke-15-20"
+          ]
+        }
+      },
+      "fresh": [
+        {
+          "sectionId": "exodus-17-8",
+          "cases": [
+            "exodus-17-12"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "numbers-20-1",
+          "cases": [
+            "numbers-20-11"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "luke-22-54",
+          "cases": [
+            "luke-22-61"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "acts-3-1",
+          "cases": [
+            "acts-3-7"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "1-samuel-16-1",
+          "cases": [
+            "1-samuel-16-13"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "1-samuel-17-31",
+          "cases": [
+            "1-samuel-17-40"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "1-samuel-18-10",
+          "cases": [
+            "1-samuel-18-11"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "daniel-5-17",
+          "cases": [
+            "daniel-5-17"
+          ],
+          "reason": "no earlier verse in this section"
+        }
+      ]
+    }
+  }
+}
