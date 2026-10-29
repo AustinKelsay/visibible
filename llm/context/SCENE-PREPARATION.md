@@ -1,6 +1,6 @@
 # Section looks and scene plans
 
-[Lazy preparation](../../src/lib/engine/preparation.ts) makes the two pieces of text the generic engine needs before it can draw a moment. It runs the first time they are needed and stores them in the work's active analysis generation ([Analysis storage](ANALYSIS-STORAGE.md)). The legacy route's scene planner and its `scenePlanCache` are separate and untouched.
+[Lazy preparation](../../src/lib/engine/preparation.ts) makes the two pieces of text the generic engine needs before it can draw a moment. It runs the first time they are needed and stores them in the work's active analysis generation ([Analysis storage](ANALYSIS-STORAGE.md)). The legacy route's scene planner and its plan cache were removed with the legacy engine (#184).
 
 Preparation is **forgiving** (moment-cast v15, formless-effects v17, formless-look v2, plan-review v12, rendering generic-v14; [ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md), [ADR 0005](../../docs/adr/0005-one-scene-description-unnamed-presence.md), [ADR 0006](../../docs/adr/0006-unseen-presence-speakers-and-launch-bar.md)). The plan review advises rather than gates. A usable plan is kept with notes instead of being refused, and only a few hard faults stop a moment. [ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md) records the decision.
 

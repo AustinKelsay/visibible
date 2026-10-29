@@ -48,7 +48,7 @@ A brief change that only adds or removes art styles (`styleIds`) needs no reread
 
 ## Rollback
 
-Set `GENERIC_ENGINE_MODE=disabled` (or `owner`) and redeploy. Accepted generic requests keep their engine, commitments and billing and replay their saved results; in-flight ones finish or are reconciled by their request records. Since the legacy engine's removal (#184), no new image is made in any style while the generic engine is off (in owner mode, only for the owner); every saved image and preference stays. Bulk jobs bound to generic pause with `engine_unavailable` before their next item and resume when the engine is admitted again; nothing is charged twice. No data is migrated in either direction.
+Set `GENERIC_ENGINE_MODE=disabled` (or `owner`) and redeploy. Accepted generic requests keep their engine, commitments and billing and replay their saved results; in-flight ones finish or are reconciled by their request records. Since the legacy engine's removal (#184), no new request is admitted in any style while the generic engine is off (in owner mode, only the owner's); accepted requests may finish or be reconciled, and every saved image and preference stays. Bulk jobs bound to generic pause with `engine_unavailable` before their next item and resume when the engine is admitted again; nothing is charged twice. No data is migrated in either direction.
 
 ## Fresh-quote recovery
 
@@ -80,7 +80,7 @@ Legacy execution can be retired only when `npm run engine:retirement-inventory -
 The removal goes in steps:
 1. **Done:** the route's legacy execution and its fallback are removed. The request fingerprint, replay and the `legacy` engine value on records and job bindings stay, because accepted legacy requests replay through them.
 2. **Done:** the planner allowance in quotes and the reader's price displays, then the legacy prompt and planner modules and their evaluation arms.
-3. The legacy scene plan cache. **Done:** its Convex functions. Next, the `scenePlanCache` table, once its production rows are cleared (an owner decision: it deletes data).
+3. **Done:** the legacy scene plan cache. Its Convex functions went first; the owner then approved clearing its rows (20 in production, 1 in dev, exported to the [release record](../releases/2026-10-29-legacy-code-removal/README.md)), and the `scenePlanCache` table left the schema.
 4. **Done:** admission's legacy branch. `decideEngine` admits only the generic engine; `legacy` remains only on historical records and bulk bindings.
 
 ## Budgets and estimates
