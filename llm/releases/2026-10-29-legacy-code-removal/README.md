@@ -33,6 +33,7 @@ The clear used `convex import --table scenePlanCache --replace` with an empty fi
 At the owner's direction ("get these cleaned up"):
 - `LEGACY_ENGINE`, `ENABLE_SCENE_PLANNER` and `OPENROUTER_SCENE_PLANNER_MODEL` were removed from every Vercel environment at 01:58 UTC. No deployed code reads them, so no redeploy was needed.
 - Issues #184 and #183 are closed.
+- Release #316 (`2dc34d4`, `dpl_7vNUGwh21qo5cToibBj1vGbEokfb`, 02:34 UTC) shipped the schema without `scenePlanCache` (#314), this record (#315) and the last legacy-fallback doc and comment fixes (#317, #318). Production holds 0 plan cache rows and none of its functions.
 - The empty `scenePlanCache` table stays listed on dev and production until it is deleted in the Convex dashboard. Convex keeps empty tables after they leave the schema, and the CLI cannot delete one without clearing every table.
 
 **Rollback caveat:** promote the cutoff build (Vercel instant rollback) rather than rebuilding it. A promoted deployment keeps its build-time `LEGACY_ENGINE=retired`; a rebuild would not, because the variable is gone.
