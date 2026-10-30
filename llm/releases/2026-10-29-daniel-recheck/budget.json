@@ -1,0 +1,28 @@
+{
+  "allowance": "evaluation",
+  "authorizedUsd": 40.3,
+  "increaseUsd": 0.6,
+  "measuredBeforeUsd": 39.14626355,
+  "operationCapUsd": 0.6,
+  "byKind": {
+    "text": {
+      "calls": 23,
+      "measuredUsd": 0.0109258
+    },
+    "image": {
+      "calls": 10,
+      "measuredUsd": 0.3111925
+    },
+    "check": {
+      "calls": 18,
+      "measuredUsd": 0.0056599
+    }
+  },
+  "operationMeasuredUsd": 0.3277782,
+  "operationUncertainUsd": 0.060000000000000005,
+  "measuredAfterUsd": 39.47404175,
+  "retainedUncertaintyUsd": 0.119,
+  "remainingUsd": 0.70695825,
+  "transfers": 0,
+  "note": "The run stopped when the OpenRouter key reached its $50 spending limit: the first Fresco image was refused with 402 (\"requires at least $1.00 in balance\") and reported no usage, so its $0.06 reserve stays uncertain. OpenRouter does not charge a refused request."
+}

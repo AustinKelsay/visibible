@@ -1,0 +1,517 @@
+{
+  "schemaVersion": 1,
+  "seed": "consistency",
+  "groups": {
+    "file": "evals/images/consistency.json",
+    "sha256": "ea76d7c8780ec8a6ae66dbdc26e7471fc5ff5f0497b52e601770f1b5845ee12f"
+  },
+  "sources": [
+    {
+      "file": "llm/releases/2026-10-29-daniel-recheck/results.ndjson",
+      "sha256": "fd43d312d6a2abb4eb645f0189ae51687010aac21239376910678f26a623d6bf"
+    },
+    {
+      "file": "llm/releases/2026-10-29-daniel-recheck/snapshot.json",
+      "sha256": "1e8b8256146aa76148729546677f756291f25a965a3db16e0aabf7a3767a66a9"
+    }
+  ],
+  "notRun": {
+    "character": [
+      "matthew-14-29",
+      "matthew-27-35",
+      "mark-4-39",
+      "john-11-43",
+      "john-21-9",
+      "exodus-14-21",
+      "exodus-14-22",
+      "exodus-17-12",
+      "leviticus-11-7",
+      "numbers-20-11",
+      "luke-22-61",
+      "john-21-7",
+      "acts-3-7",
+      "1-samuel-16-13",
+      "1-samuel-17-40",
+      "1-samuel-17-49",
+      "1-samuel-18-11"
+    ],
+    "setting": [
+      "exodus-14-21",
+      "exodus-14-22",
+      "exodus-14-23",
+      "mark-4-37",
+      "mark-4-38",
+      "mark-4-39",
+      "john-21-7",
+      "john-21-9",
+      "luke-15-20",
+      "luke-15-22"
+    ]
+  },
+  "coverage": [
+    {
+      "groupId": "jesus",
+      "style": "classical",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "jesus",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "classical",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "classical",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "classical",
+      "units": 4,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "watercolor",
+      "units": 4,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "classical",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "daniel-5-17",
+        "daniel-6-22",
+        "daniel-6-23",
+        "daniel-7-9"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "watercolor",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "daniel-5-17",
+        "daniel-6-22",
+        "daniel-6-23",
+        "daniel-7-9"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "classical",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "classical",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "classical",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "classical",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    }
+  ],
+  "pairs": [
+    {
+      "id": "pair001",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-22__watercolor__1__a1.jpg",
+        "sha256": "d1d3e55ea2c24aeb48f194040a7bb2ea76b565d5e45bd2c61c8e1af491e61da4",
+        "scene": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den."
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-23__watercolor__1__a1.jpg",
+        "sha256": "f7664c79a07b7de25a797b133d952f0d7f73b9c2aab15c9406f548052abef248",
+        "scene": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking"
+      }
+    },
+    {
+      "id": "pair002",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-23__watercolor__1__a1.jpg",
+        "sha256": "f7664c79a07b7de25a797b133d952f0d7f73b9c2aab15c9406f548052abef248",
+        "scene": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking"
+      },
+      "right": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-5-17__watercolor__1__a1.jpg",
+        "sha256": "3a18f25d245c644796295f8989167fb0f473012b9fc428f814e619bf98476be9",
+        "scene": "Daniel standing tall before the king, one hand lifted in refusal; Belshazzar seated on a throne in a deep crimson fringed robe over a white tunic, gold-banded crown; courtiers in jeweled garments at the edges; gold vessels on the tables"
+      }
+    },
+    {
+      "id": "pair003",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-5-17__watercolor__1__a1.jpg",
+        "sha256": "3a18f25d245c644796295f8989167fb0f473012b9fc428f814e619bf98476be9",
+        "scene": "Daniel standing tall before the king, one hand lifted in refusal; Belshazzar seated on a throne in a deep crimson fringed robe over a white tunic, gold-banded crown; courtiers in jeweled garments at the edges; gold vessels on the tables"
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-22__watercolor__1__a1.jpg",
+        "sha256": "d1d3e55ea2c24aeb48f194040a7bb2ea76b565d5e45bd2c61c8e1af491e61da4",
+        "scene": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den."
+      }
+    },
+    {
+      "id": "pair004",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-23__classical__1__a1.jpg",
+        "sha256": "05457dd33c1df5f38646e01a89ecc70e16b095d6e2fa81691b9703b0e4aa60dd",
+        "scene": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking"
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-22__classical__1__a1.jpg",
+        "sha256": "3ae2099f723736815643d17c3081d763500b73031dc1acfaeaaba73f5de145e3",
+        "scene": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den."
+      }
+    },
+    {
+      "id": "pair005",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-22__classical__1__a1.jpg",
+        "sha256": "3ae2099f723736815643d17c3081d763500b73031dc1acfaeaaba73f5de145e3",
+        "scene": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den."
+      },
+      "right": {
+        "unitId": "daniel-7-9",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-7-9__classical__1__a2.jpg",
+        "sha256": "88b9bada6b828b7fd4874d91717b19c829fec33a2ae0983adf54bfb00c12cfe7",
+        "scene": "Daniel in plain linen, gazing forward with awe, and a throne of fire with burning wheels glowing from within a cloud of light; Fire rolling in wheels along the ground, faint Babylonian court outlines at the distant edge, brilliant white light filling the air"
+      }
+    },
+    {
+      "id": "pair006",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-22__classical__1__a1.jpg",
+        "sha256": "3ae2099f723736815643d17c3081d763500b73031dc1acfaeaaba73f5de145e3",
+        "scene": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den."
+      },
+      "right": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-5-17__classical__1__a1.jpg",
+        "sha256": "5169372c385457c52f52c655757d3d15ae257be80b17c0e4c64172bb76c65c5d",
+        "scene": "Daniel standing tall before the king, one hand lifted in refusal; Belshazzar seated on a throne in a deep crimson fringed robe over a white tunic, gold-banded crown; courtiers in jeweled garments at the edges; gold vessels on the tables"
+      }
+    },
+    {
+      "id": "pair007",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-5-17__classical__1__a1.jpg",
+        "sha256": "5169372c385457c52f52c655757d3d15ae257be80b17c0e4c64172bb76c65c5d",
+        "scene": "Daniel standing tall before the king, one hand lifted in refusal; Belshazzar seated on a throne in a deep crimson fringed robe over a white tunic, gold-banded crown; courtiers in jeweled garments at the edges; gold vessels on the tables"
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-23__classical__1__a1.jpg",
+        "sha256": "05457dd33c1df5f38646e01a89ecc70e16b095d6e2fa81691b9703b0e4aa60dd",
+        "scene": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking"
+      }
+    },
+    {
+      "id": "pair008",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-7-9",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-7-9__classical__1__a2.jpg",
+        "sha256": "88b9bada6b828b7fd4874d91717b19c829fec33a2ae0983adf54bfb00c12cfe7",
+        "scene": "Daniel in plain linen, gazing forward with awe, and a throne of fire with burning wheels glowing from within a cloud of light; Fire rolling in wheels along the ground, faint Babylonian court outlines at the distant edge, brilliant white light filling the air"
+      },
+      "right": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-5-17__classical__1__a1.jpg",
+        "sha256": "5169372c385457c52f52c655757d3d15ae257be80b17c0e4c64172bb76c65c5d",
+        "scene": "Daniel standing tall before the king, one hand lifted in refusal; Belshazzar seated on a throne in a deep crimson fringed robe over a white tunic, gold-banded crown; courtiers in jeweled garments at the edges; gold vessels on the tables"
+      }
+    },
+    {
+      "id": "pair009",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-23__classical__1__a1.jpg",
+        "sha256": "05457dd33c1df5f38646e01a89ecc70e16b095d6e2fa81691b9703b0e4aa60dd",
+        "scene": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking"
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-22__classical__1__a1.jpg",
+        "sha256": "3ae2099f723736815643d17c3081d763500b73031dc1acfaeaaba73f5de145e3",
+        "scene": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den."
+      }
+    },
+    {
+      "id": "pair010",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-5-17__watercolor__1__a1.jpg",
+        "sha256": "3a18f25d245c644796295f8989167fb0f473012b9fc428f814e619bf98476be9",
+        "scene": "Daniel standing tall before the king, one hand lifted in refusal; Belshazzar seated on a throne in a deep crimson fringed robe over a white tunic, gold-banded crown; courtiers in jeweled garments at the edges; gold vessels on the tables"
+      },
+      "right": {
+        "unitId": "daniel-7-9",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-7-9__watercolor__1__a1.jpg",
+        "sha256": "e0d6b7c4bf6cb509d946de946d47a59cd430c8f9ecea0f336cbdbdda6faafaac",
+        "scene": "Daniel in plain linen, gazing forward with awe, and a throne of fire with burning wheels glowing from within a cloud of light; Fire rolling in wheels along the ground, faint Babylonian court outlines at the distant edge, brilliant white light filling the air"
+      }
+    },
+    {
+      "id": "pair011",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-7-9",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-7-9__classical__1__a2.jpg",
+        "sha256": "88b9bada6b828b7fd4874d91717b19c829fec33a2ae0983adf54bfb00c12cfe7",
+        "scene": "Daniel in plain linen, gazing forward with awe, and a throne of fire with burning wheels glowing from within a cloud of light; Fire rolling in wheels along the ground, faint Babylonian court outlines at the distant edge, brilliant white light filling the air"
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-23__classical__1__a1.jpg",
+        "sha256": "05457dd33c1df5f38646e01a89ecc70e16b095d6e2fa81691b9703b0e4aa60dd",
+        "scene": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking"
+      }
+    },
+    {
+      "id": "pair012",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-23__watercolor__1__a1.jpg",
+        "sha256": "f7664c79a07b7de25a797b133d952f0d7f73b9c2aab15c9406f548052abef248",
+        "scene": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking"
+      },
+      "right": {
+        "unitId": "daniel-7-9",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-7-9__watercolor__1__a1.jpg",
+        "sha256": "e0d6b7c4bf6cb509d946de946d47a59cd430c8f9ecea0f336cbdbdda6faafaac",
+        "scene": "Daniel in plain linen, gazing forward with awe, and a throne of fire with burning wheels glowing from within a cloud of light; Fire rolling in wheels along the ground, faint Babylonian court outlines at the distant edge, brilliant white light filling the air"
+      }
+    },
+    {
+      "id": "pair013",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-22__watercolor__1__a1.jpg",
+        "sha256": "d1d3e55ea2c24aeb48f194040a7bb2ea76b565d5e45bd2c61c8e1af491e61da4",
+        "scene": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den."
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-23__watercolor__1__a1.jpg",
+        "sha256": "f7664c79a07b7de25a797b133d952f0d7f73b9c2aab15c9406f548052abef248",
+        "scene": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking"
+      }
+    },
+    {
+      "id": "pair014",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-7-9",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-7-9__watercolor__1__a1.jpg",
+        "sha256": "e0d6b7c4bf6cb509d946de946d47a59cd430c8f9ecea0f336cbdbdda6faafaac",
+        "scene": "Daniel in plain linen, gazing forward with awe, and a throne of fire with burning wheels glowing from within a cloud of light; Fire rolling in wheels along the ground, faint Babylonian court outlines at the distant edge, brilliant white light filling the air"
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-29-daniel-recheck/images/daniel-6-22__watercolor__1__a1.jpg",
+        "sha256": "d1d3e55ea2c24aeb48f194040a7bb2ea76b565d5e45bd2c61c8e1af491e61da4",
+        "scene": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den."
+      }
+    }
+  ]
+}
