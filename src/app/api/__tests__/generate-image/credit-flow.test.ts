@@ -659,7 +659,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(getCallCount("reserveCredits")).toBe(1);
       expect(getCallCount("deductCredits")).toBe(1);
       expect(getCallCount("logAdminUsage")).toBe(0);
-      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(3); // look, plan and its review
+      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(2); // look, plan and its review
     });
 
     it("renders a cold moment with references and WEB text, then reuses the look and plan for another style", async () => {
@@ -668,7 +668,7 @@ describe("Image Generation API Credit Flow", () => {
       const response = await POST(createGenerateImageRequest(body));
       expect(response.status).toBe(200);
       const result = await response.json();
-      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1"]);
+      expect(modelCalls).toEqual(["plan:genesis-1-1:1"]);
       // One provider call: the prompt first, then the style reference and Adam's sheet as JPEG data URLs; Eden has no sheet and God has no form.
       const calls = imageCalls();
       expect(calls).toHaveLength(1);
@@ -688,13 +688,13 @@ describe("Image Generation API Credit Flow", () => {
       expect(parts[1].image_url!.url).toBe(`data:image/jpeg;base64,${Buffer.from(`jpeg:${styleBlob}`).toString("base64")}`);
       expect(parts[2].image_url!.url).toBe(`data:image/jpeg;base64,${Buffer.from(`jpeg:${sheetBlob}`).toString("base64")}`);
       // Settled from actual usage ($0.01 → 2 credits) after a headroom reservation; the owner paid for the look and plan separately.
-      expect(result).toMatchObject({ engine: "generic", translationId: "web", requestTranslationId: "web", verseText: webText[1], creditsCost: 2, usedActualCost: true, credits: 998, style: "watercolor", preparation: { calls: 3, referencesSent: 2 } });
+      expect(result).toMatchObject({ engine: "generic", translationId: "web", requestTranslationId: "web", verseText: webText[1], creditsCost: 2, usedActualCost: true, credits: 998, style: "watercolor", preparation: { calls: 2, referencesSent: 2 } });
       expect(result.estimatedCreditsCost).toBeGreaterThanOrEqual(2);
       expect(mockState.sessions.get("test-session")!.credits).toBe(998);
       expect(getCallCount("reserveCredits")).toBe(1);
       expect(getCallCount("recordImageCostEvent")).toBe(1);
       expect(mockState.callHistory.find((c) => c.action === "recordImageCostEvent")!.args).toMatchObject({ styleProfileId: "watercolor", scenePlannerUsed: false, actualCreditsCost: 2 });
-      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(3);
+      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(2);
       // The request record carries the engine, its commitments and the exact packet snapshot.
       const [request] = await storedRequests();
       expect(request).toMatchObject({ engine: "generic", artStyleId: "watercolor", status: "succeeded", engineCommitments: { workId: WORK, momentId: "genesis-1-1", briefVersion: "bv", analysisGeneration: 1 } });
@@ -704,7 +704,7 @@ describe("Image Generation API Credit Flow", () => {
       // The saved image is WEB text with full provenance; the reader's translation is request context only.
       const [image] = await savedImages();
       expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", artStyleId: "watercolor", promptVersion: GENERIC_PROMPT_VERSION });
-      expect(image.provenance).toMatchObject({ workId: WORK, momentId: "genesis-1-1", sectionId: "genesis-1-1", styleId: "watercolor", lookVersion: request.renderingPacket!.lookVersion, planVersion: request.renderingPacket!.planVersion, requestTranslationId: "web" });
+      expect(image.provenance).toMatchObject({ workId: WORK, momentId: "genesis-1-1", sectionId: "genesis-1-1", styleId: "watercolor", planVersion: request.renderingPacket!.planVersion, requestTranslationId: "web" });
       expect(image.provenance!.references).toEqual([{ kind: "styleReference", id: "watercolor", version: expect.any(String) }, { kind: "sheet", id: "adam:main", version: expect.any(String) }]);
       // The work's depiction profile is recorded with the accepted packet and the saved image (ADR 0010).
       expect(request.renderingPacket!.depictionVersion).toBe(testDepiction(brief.workId).version);
@@ -719,7 +719,7 @@ describe("Image Generation API Credit Flow", () => {
       // A second style of the same moment reuses the look and plan: no new preparation call. This work has no Classical style reference, so only the sheet is sent.
       const classical = await POST(createGenerateImageRequest({ ...body, requestId: "generic-2", style: "classical" }));
       expect(classical.status).toBe(200);
-      expect(modelCalls).toHaveLength(2);
+      expect(modelCalls).toHaveLength(1);
       expect(imageCalls()[1].messages[0].content.map((p) => p.type)).toEqual(["text", "image_url"]);
       expect((await savedImages())[1].provenance!.references).toEqual([{ kind: "sheet", id: "adam:main", version: expect.any(String) }]);
     });
@@ -797,7 +797,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(imageCalls()).toHaveLength(1);
       expect((await storedRequests())[0].engineCommitments?.billingVersion).toBe("google-input-output-tokens-2026-10-20");
       expect(mockState.sessions.get("test-session")!.credits).toBe(998);
-      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(3);
+      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(2);
     });
 
     it("returns a retryable preparing error with no charge, no request record and no provider call when the look or plan cannot be made", async () => {
@@ -827,8 +827,8 @@ describe("Image Generation API Credit Flow", () => {
       expect(response.status).toBe(200);
       expect(await response.json()).toMatchObject({ engine: "generic", creditsCost: 2 });
       // A re-plan cannot add canon: one look, one plan, one review.
-      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1"]);
-      expect(await ledgerOutcomes()).toEqual(["ok", "ok", "review problems"]);
+      expect(modelCalls).toEqual(["plan:genesis-1-1:1", "review:genesis-1-1:1"]);
+      expect(await ledgerOutcomes()).toEqual(["ok", "review problems"]);
       expect(await storedPlanPayload()).toMatchObject({ review: { rounds: 1, notes: ["noted: missing_canon: Scripted named actor without canon."] } });
       expect(getCallCount("reserveCredits")).toBe(1);
       expect(imageCalls()).toHaveLength(1);
@@ -840,8 +840,8 @@ describe("Image Generation API Credit Flow", () => {
       const { POST } = await import("../../generate-image/route");
       const response = await POST(createGenerateImageRequest(body));
       expect(response.status).toBe(200);
-      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1"]);
-      expect(await ledgerOutcomes()).toEqual(["ok", "ok", "review problems", "ok", "review problems"]);
+      expect(modelCalls).toEqual(["plan:genesis-1-1:1", "review:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1"]);
+      expect(await ledgerOutcomes()).toEqual(["ok", "review problems", "ok", "review problems"]);
       expect(await storedPlanPayload()).toMatchObject({ grounding: { singleInstant: false },
         review: { rounds: 2, problems: reviewProblems, notes: ["kept with: not_one_instant adam"] } });
       expect(getCallCount("reserveCredits")).toBe(1);
@@ -856,8 +856,8 @@ describe("Image Generation API Credit Flow", () => {
       const { POST } = await import("../../generate-image/route");
       const response = await POST(createGenerateImageRequest(body));
       expect(response.status).toBe(200);
-      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1", "review:genesis-1-1:2"]);
-      expect(await ledgerOutcomes()).toEqual(["ok", "ok", "review invalid", "review invalid"]);
+      expect(modelCalls).toEqual(["plan:genesis-1-1:1", "review:genesis-1-1:1", "review:genesis-1-1:2"]);
+      expect(await ledgerOutcomes()).toEqual(["ok", "review invalid", "review invalid"]);
       const payload = await storedPlanPayload();
       expect(payload).toMatchObject({ review: { rounds: 1, notes: ["plan review unavailable: look_conflict quote is not in the look"] } });
       expect(payload).not.toHaveProperty("situation");
@@ -955,7 +955,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(statuses.every((status) => status === 200 || status === 202)).toBe(true);
       expect(imageCalls()).toHaveLength(1);
       expect(getCallCount("reserveCredits")).toBe(1);
-      expect(modelCalls).toHaveLength(2);
+      expect(modelCalls).toHaveLength(1);
       const replay = await POST(createGenerateImageRequest(body));
       expect(replay.status).toBe(200);
       expect(await replay.json()).toMatchObject({ reused: true, translationId: "web", verseText: webText[1], savedImageId: expect.any(String) });

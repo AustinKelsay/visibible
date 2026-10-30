@@ -77,7 +77,7 @@ describe("one explicit cast selection", () => {
       grounding: { focusQuote: value.grounding.focusQuote, instant: value.grounding.instant, singleInstant: true,
         cast: value.selectedCast.map((entry) => ({ entryId: entry.entryId, momentQuote: entry.momentQuote, contextSource: "none", contextQuote: "", participation: "in_scene" })) },
     });
-    expect(calls.map((request) => request.schemaName)).toEqual(["section_look", "scene_plan", "plan_review"]);
+    expect(calls.map((request) => request.schemaName)).toEqual(["scene_plan", "plan_review"]);
     const review = calls.at(-1)!;
     expect(review.user).toContain("mara");
     expect(review.user).not.toContain("contextQuote");
@@ -123,8 +123,8 @@ describe("one explicit cast selection", () => {
     const { run, calls, store } = setup(value, [problem]);
     const result = await run();
     expect(result.present.map((entry) => entry.entryId)).toEqual(["mara", "lantern", "narrator"]);
-    expect(calls.map((request) => request.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "scene_plan", "plan_review"]);
-    expect(calls[3].user).toContain(problem.reason);
+    expect(calls.map((request) => request.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
+    expect(calls[2].user).toContain(problem.reason);
     expect((await store.getActiveRecord("plan", "m1"))?.payload).toMatchObject({ review: { rounds: 2, problems: [problem], notes: ["kept with: outside_instant narrator"] } });
   });
 });

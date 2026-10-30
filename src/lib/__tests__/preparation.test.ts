@@ -69,8 +69,8 @@ describe("lazy looks and plans", () => {
   it("makes the look once per section and the plan once per moment, shared by every style and translation", async () => {
     const model = scriptedModel(defaultAnswer);
     const first = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, "Text of alpha-1-2."), ...fast });
-    expect(first.calls).toBe(3); // look, plan and its review
-    expect(first.look.payload).toEqual(lookAnswer);
+    expect(first.calls).toBe(2); // look, plan and its review
+    expect(first.look).toBeNull();
     // The planner chose Jonah only; the stage comes from the section's assignment, not the first stage.
     expect(first.present).toEqual([{ entryId: "jonah", stageId: "old", version: expect.any(String) }]);
     expect(first.plan.payload.present).toEqual(["jonah"]);
@@ -78,25 +78,25 @@ describe("lazy looks and plans", () => {
     if (saved?.payload.kind !== "plan") throw new Error("Missing stored plan");
     expect(saved.payload.grounding).toEqual(withGrounding(planAnswer(["jonah"]), "Text of alpha-1-1.").grounding);
     expect(saved.payload.plan).not.toHaveProperty("grounding");
-    expect(model.calls[1].user).toContain("NEXT: Text of alpha-1-2.");
-    expect(model.calls[1].user).toContain("PREVIOUS: (section starts here)");
-    expect(model.calls[1].user).not.toMatch(/style|classical/i);
+    expect(model.calls[0].user).toContain("NEXT: Text of alpha-1-2.");
+    expect(model.calls[0].user).toContain("PREVIOUS: (section starts here)");
+    expect(model.calls[0].user).not.toMatch(/style|classical/i);
 
     // Second moment of the same section: the look is reused, only a plan is made.
     const second = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-2", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-2", "Text of alpha-1-1.", null), ...fast });
     expect(second.calls).toBe(2); // plan and review
-    expect(second.look.version).toBe(first.look.version);
+    expect(second.look?.version).toBe(first.look?.version);
     // Any later request for the first moment, whatever the style or translation, makes no call.
     const again = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
     expect(again.calls).toBe(0);
     expect(again.plan.version).toBe(first.plan.version);
     // A moment in the next section gets its own look and the section's own stage for Jonah.
     const third = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-4", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-4", null, null), ...fast });
-    expect(third.calls).toBe(3);
+    expect(third.calls).toBe(2);
     expect(third.present).toEqual([{ entryId: "jonah", stageId: "young", version: expect.any(String) }]);
     const spend = await t.query(api.analysis.getPreparationSpend, { workId: WORK });
-    expect(spend.calls).toBe(8); // five look/plan calls and three reviews
-    expect(spend.costUsd).toBeCloseTo(0.0025 + 3 * 0.0001, 6);
+    expect(spend.calls).toBe(6); // five look/plan calls and three reviews
+    expect(spend.costUsd).toBeCloseTo(0.0015 + 3 * 0.0001, 6);
   });
 
   it("uses a reassigned canon stage even when the refreshed look has identical content", async () => {
@@ -108,21 +108,22 @@ describe("lazy looks and plans", () => {
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "section", recordId: section.recordId,
       payload: { ...section.payload, cast: [{ entryId: "jonah", stageId: "young" }, { entryId: "amos", stageId: "main" }] } });
     const changed = await prepareMoment(options);
-    expect(changed.look.version).toBe(first.look.version);
+    expect(changed.look?.version).toBe(first.look?.version);
     expect(changed.present).toEqual([{ entryId: "jonah", stageId: "young", version: expect.any(String) }]);
-    expect(changed.calls).toBe(3);
-    expect(model.calls.map((call) => call.schemaName)).toEqual(["section_look", "scene_plan", "section_look", "scene_plan"]);
+    expect(changed.calls).toBe(2);
+    expect(model.calls.map((call) => call.schemaName)).toEqual(["scene_plan", "scene_plan"]);
   });
 
   it("remakes only what an owner edit or a cleared plan invalidates", async () => {
     const model = scriptedModel(defaultAnswer);
     const first = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
+    await store().putDerivedRecord({ kind: "look", recordId: "alpha-1-1", payload: { kind: "look", sectionId: "alpha-1-1", ...lookAnswer }, inputs: [] });
     // Owner edits the look: the plan named the old look version, so only the plan is remade.
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", payload: { kind: "look", sectionId: "alpha-1-1", ...lookAnswer, weather: "storm" } });
     const afterLookEdit = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
     expect(afterLookEdit.calls).toBe(2);
-    expect(afterLookEdit.look.payload.weather).toBe("storm");
-    expect(afterLookEdit.look.version).not.toBe(first.look.version);
+    expect(afterLookEdit.look?.payload.weather).toBe("storm");
+    expect(afterLookEdit.look?.version).not.toBe(first.look?.version);
     expect(model.calls[model.calls.length - 1].user).not.toContain("weather: storm");
     // The owner's look version is kept, never overwritten by a remake.
     const stored = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "alpha-1-1" });
@@ -131,12 +132,12 @@ describe("lazy looks and plans", () => {
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah", payload: { kind: "entry", name: "Jonah", entryKind: "character", hasForm: true, stages: [{ id: "young", text: "Jonah: edited." }, { id: "old", text: "Jonah: edited, older." }] } });
     const afterCanonEdit = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
     expect(afterCanonEdit.calls).toBe(2);
-    expect(afterCanonEdit.look.version).toBe(afterLookEdit.look.version);
+    expect(afterCanonEdit.look?.version).toBe(afterLookEdit.look?.version);
     // Clearing the plan creates a future replan and leaves the look alone.
     await t.mutation(api.analysis.clearRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "alpha-1-1" });
     const afterClear = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
     expect(afterClear.calls).toBe(2);
-    expect(afterClear.look.version).toBe(afterCanonEdit.look.version);
+    expect(afterClear.look?.version).toBe(afterCanonEdit.look?.version);
     // A brief version change invalidates too.
     const afterBrief = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv2", context: context("alpha-1-1", null, null), ...fast });
     expect(afterBrief.calls).toBe(2);
@@ -150,13 +151,13 @@ describe("lazy looks and plans", () => {
     const a = prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model: slow, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "a", ...fast });
     const b = prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model: slow, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "b", ...fast });
     await new Promise((r) => setTimeout(r, 20));
-    expect(await t.query(api.analysis.getPreparationStatus, { workId: WORK, momentId: "alpha-1-1" })).toMatchObject({ ready: false, look: "preparing", plan: "missing" });
+    expect(await t.query(api.analysis.getPreparationStatus, { workId: WORK, momentId: "alpha-1-1" })).toMatchObject({ ready: false, look: "missing", plan: "preparing" });
     release();
     const [ra, rb] = await Promise.all([a, b]);
-    expect(model.calls).toHaveLength(2);
+    expect(model.calls).toHaveLength(1);
     expect(ra.plan.version).toBe(rb.plan.version);
-    expect(ra.calls + rb.calls).toBe(3);
-    expect(await t.query(api.analysis.getPreparationStatus, { workId: WORK, momentId: "alpha-1-1" })).toMatchObject({ ready: true, look: "ready", plan: "ready" });
+    expect(ra.calls + rb.calls).toBe(2);
+    expect(await t.query(api.analysis.getPreparationStatus, { workId: WORK, momentId: "alpha-1-1" })).toMatchObject({ ready: true, look: "missing", plan: "ready" });
   });
 
   it("raises a retryable error when a required look or plan cannot be made, with no fallback and nothing stored", async () => {
@@ -167,58 +168,79 @@ describe("lazy looks and plans", () => {
     await expect(prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model: invalid, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast })).rejects.toMatchObject({ stage: "plan", retryable: true });
     expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "alpha-1-1" })).toBeNull();
     // Spend is recorded for the failed attempts too; the claim is released so a retry can proceed.
-    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(5);
-    expect(await t.query(api.analysis.getPreparationStatus, { workId: WORK, momentId: "alpha-1-1" })).toMatchObject({ look: "ready", plan: "missing" });
+    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK } )).calls).toBe(4);
+    expect(await t.query(api.analysis.getPreparationStatus, { workId: WORK, momentId: "alpha-1-1" })).toMatchObject({ look: "missing", plan: "missing" });
     await expect(prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "nope", store: store(), model: invalid, brief, briefVersion: "bv", context: context("nope", null, null), ...fast })).rejects.toThrow(/unknown moment/);
   });
 
-  it("waits for another instance's claim instead of paying again, and gives up with a retryable error", async () => {
+  it("waits for another instance's plan claim without paying again", async () => {
     const model = scriptedModel(defaultAnswer);
-    let clock = 1_000_000;
-    const fakeClock = { now: () => clock, sleep: async (ms: number) => { clock += ms; } };
-    // Another instance holds the look claim and never finishes: this caller waits out the window, then reports retryable.
-    await t.mutation(api.analysis.claimPreparation, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", holder: "other", ttlMs: 10 * 60_000 });
-    await expect(prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "me", ...fakeClock }))
+    const base = store();
+    const options = { workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: base, model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null) };
+    await prepareMoment(options);
+    const saved = (await base.getActiveRecord("plan", options.momentId))!;
+    await t.mutation(api.analysis.clearRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: options.momentId });
+    model.calls.length = 0;
+    await base.claim("plan", options.momentId, "other", 600_000);
+    let clock = Date.now();
+    await expect(prepareMoment({ ...options, holder: "me", now: () => clock, sleep: async (ms) => { clock += ms; } }))
       .rejects.toThrow(/another request is still preparing/);
     expect(model.calls).toHaveLength(0);
-    // The other instance finishes while this caller waits: the record is picked up and no call is funded here.
-    const sleepThenWrite = { now: () => clock, sleep: async (ms: number) => {
+    const result = await prepareMoment({ ...options, holder: "me", now: () => clock, sleep: async (ms) => {
       clock += ms;
-      const existing = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "alpha-1-1" });
-      if (!existing) {
-        const section = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "alpha-1-1" });
-        const jonah = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" });
-        const amos = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "amos" });
-        await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", payload: { kind: "look", sectionId: "alpha-1-1", ...lookAnswer },
-          inputs: [{ kind: "section", recordId: "alpha-1-1", version: section!.version }, { kind: "brief", recordId: WORK, version: "bv" }, { kind: "entry", recordId: "jonah", version: jonah!.version }, { kind: "entry", recordId: "amos", version: amos!.version }] });
-        await t.mutation(api.analysis.releasePreparation, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", holder: "other" });
-      }
-    } };
-    const result = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "me", ...sleepThenWrite });
-    expect(result.calls).toBe(2); // only the plan and its review
-    expect(result.look.payload).toEqual(lookAnswer);
+      await base.putDerivedRecord({ kind: "plan", recordId: saved.recordId, payload: { ...saved.payload, kind: "plan" }, inputs: saved.inputs });
+      await base.release("plan", saved.recordId, "other");
+    } });
+    expect(result.calls).toBe(0);
+    expect(result.plan.version).toBe(saved.version);
   });
 
-  it("does not pay again when another instance finished between the first read and the claim", async () => {
-    const model = scriptedModel(defaultAnswer);
-    let written = false;
+  it("rechecks a plan after winning its claim", async () => {
     const base = store();
-    // Simulate the race: the other instance's record lands exactly when this caller's claim is taken.
-    const racing = { ...base, claim: async (kind: "look" | "plan", recordId: string, holder: string, ttlMs: number) => {
-      if (kind === "look" && !written) {
-        written = true;
-        const section = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "alpha-1-1" });
-        const jonah = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" });
-        const amos = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "amos" });
-        await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", payload: { kind: "look", sectionId: "alpha-1-1", ...lookAnswer },
-          inputs: [{ kind: "section", recordId: "alpha-1-1", version: section!.version }, { kind: "brief", recordId: WORK, version: "bv" }, { kind: "entry", recordId: "jonah", version: jonah!.version }, { kind: "entry", recordId: "amos", version: amos!.version }] });
-      }
-      return base.claim(kind, recordId, holder, ttlMs);
+    const model = scriptedModel(defaultAnswer);
+    const options = { workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: base, model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null) };
+    await prepareMoment(options);
+    const saved = (await base.getActiveRecord("plan", options.momentId))!;
+    await t.mutation(api.analysis.clearRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: options.momentId });
+    model.calls.length = 0;
+    const racing = { ...base, claim: async (...args: Parameters<typeof base.claim>) => {
+      await base.putDerivedRecord({ kind: "plan", recordId: saved.recordId, payload: { ...saved.payload, kind: "plan" }, inputs: saved.inputs });
+      return base.claim(...args);
     } };
-    const result = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: racing, model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
-    expect(result.calls).toBe(2); // the plan and its review; the look was found after the claim
-    expect(model.calls.map((c) => c.label.split(":")[0])).toEqual(["plan"]);
+    expect((await prepareMoment({ ...options, store: racing })).calls).toBe(0);
+    expect(model.calls).toHaveLength(0);
   });
+
+  it("ignores historical generated looks and their revisions without overwriting them", async () => {
+    const base = store();
+    const model = scriptedModel(defaultAnswer);
+    const options = { workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: base, model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null) };
+    const saveLook = (place: string) => base.putDerivedRecord({ kind: "look", recordId: options.momentId, inputs: [], payload: { kind: "look", sectionId: options.momentId, ...lookAnswer, place } });
+    await saveLook("A generated palace");
+    const first = await prepareMoment(options);
+    expect(first.look).toBeNull();
+    expect(first.situation).toBeNull();
+    expect(model.calls.map((call) => call.schemaName)).toEqual(["scene_plan"]);
+    expect(model.calls[0].user).not.toContain("A generated palace");
+    const saved = await base.getActiveRecord("plan", options.momentId);
+    expect(saved?.inputs.some((input) => input.kind === "look")).toBe(false);
+    const revised = await saveLook("A different generated palace");
+    expect((await prepareMoment(options)).calls).toBe(0);
+    expect((await base.getActiveRecord("look", options.momentId))?.version).toBe(revised.version);
+  });
+
+  it("rejects an owner constraint added between the final check and plan publication", async () => {
+    const base = store();
+    await base.putDerivedRecord({ kind: "look", recordId: "alpha-1-1", payload: { kind: "look", sectionId: "alpha-1-1", ...lookAnswer }, inputs: [] });
+    const racing = { ...base, putDerivedRecord: async (...args: Parameters<typeof base.putDerivedRecord>) => {
+      await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", payload: { kind: "look", sectionId: "alpha-1-1", ...lookAnswer } });
+      return base.putDerivedRecord(...args);
+    } };
+    await expect(prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: racing, model: scriptedModel(defaultAnswer), brief, briefVersion: "bv", context: context("alpha-1-1", null, null) })).rejects.toThrow(/Section look changed/);
+    expect(await base.getActiveRecord("plan", "alpha-1-1")).toBeNull();
+    expect(await t.run(async (ctx) => ctx.db.query("preparationClaims").collect())).toHaveLength(0);
+  });
+
 });
 
 describe("forgiving plan review through the real payload validator", () => {
@@ -266,14 +288,14 @@ describe("forgiving plan review through the real payload validator", () => {
     const long = `turns toward the sound ${"while the tide moves ".repeat(30)}`;
     const { run, calls } = prepare([reply({ action: long, selectedCast: [{ entryId: "noa", evidence: "Noa heard" }, { entryId: "noa", evidence: "Noa" }] })], [[quay]]);
     const result = await run();
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review"]);
+    expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
     expect(result.present.map((p) => [p.entryId, p.stageId])).toEqual([["noa", "main"], ["harbor", "quay"]]);
     expect(result.plan.payload.action).toHaveLength(400);
     expect(result.plan.payload.action.endsWith("…")).toBe(true);
     // Since moment-cast v12 the scene fields carry setting and time: a generated guide renders no separate conditions.
     expect(result.situation).toBeNull();
-    expect(calls[2].user).not.toContain("MOMENT CONDITIONS");
-    expect(calls[2].user).not.toContain("OWNER LOOK CONSTRAINTS");
+    expect(calls[1].user).not.toContain("MOMENT CONDITIONS");
+    expect(calls[1].user).not.toContain("OWNER LOOK CONSTRAINTS");
     expect(await storedPlan()).not.toHaveProperty("situation");
     expect(await storedPlan()).toMatchObject({
       entries: [{ entryId: "noa", stageId: "main" }, { entryId: "harbor", stageId: "quay" }],
@@ -285,7 +307,7 @@ describe("forgiving plan review through the real payload validator", () => {
   it("refuses an old reply that still carries situation, after the malformed-reply retry", async () => {
     const { run, calls } = prepare([reply({ situation: { place: "harbor quay", timeOfDay: "dawn", weather: "calm", light: "low sun", clothing: "wool tunic" } })], [[]]);
     await expect(run()).rejects.toMatchObject({ stage: "plan", message: expect.stringContaining("Unrecognized key") });
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "scene_plan"]);
+    expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "scene_plan"]);
     expect(await storedPlan()).toBeUndefined();
   });
 
@@ -293,6 +315,7 @@ describe("forgiving plan review through the real payload validator", () => {
     const owner = { place: "an owner harbor", timeOfDay: "owner dusk", weather: "owner fog", light: "owner lamps", clothing: "owner oilskins" };
     const { run, calls } = prepare([reply()], [[]]);
     expect((await run()).situation).toBeNull();
+    await createConvexPreparationStore(client, api.analysis as unknown as Record<string, unknown>, WORK, SECRET).putDerivedRecord({ kind: "look", recordId: "gamma-1-1", payload: { kind: "look", sectionId: "gamma-1-1", ...lookAnswer }, inputs: [] });
     // The owner then corrects the section look; the plan refreshes against the literal constraints.
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "gamma-1-1", payload: { kind: "look", sectionId: "gamma-1-1", ...owner } });
     const before = calls.length;
@@ -309,7 +332,7 @@ describe("forgiving plan review through the real payload validator", () => {
     const gap = { kind: "missing_canon", entryId: "", planQuote: "a fisherman named Tobit", reason: "Tobit is a named recurring character without canon." };
     const { run, calls } = prepare([reply({ secondaryElements: "a fisherman named Tobit mends a net" })], [[gap]]);
     await run();
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review"]);
+    expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
     expect(await storedPlan()).toMatchObject({ review: { rounds: 1, notes: [`noted: missing_canon: ${gap.reason}`] } });
   });
 
@@ -317,8 +340,8 @@ describe("forgiving plan review through the real payload validator", () => {
     const outside = { kind: "outside_instant", entryId: "noa", planQuote: "Noa standing on the harbor quay", reason: "Noa only reports the voice later." };
     const { run, calls } = prepare([reply()], [[outside], [outside]]);
     await run();
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "scene_plan", "plan_review"]);
-    expect(calls[3].user).toContain(`- outside_instant: ${outside.reason}`);
+    expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
+    expect(calls[2].user).toContain(`- outside_instant: ${outside.reason}`);
     expect(await storedPlan()).toMatchObject({ review: { rounds: 2, problems: [outside], notes: ["kept with: outside_instant noa"] } });
   });
 
@@ -326,7 +349,7 @@ describe("forgiving plan review through the real payload validator", () => {
     const invented = { kind: "outside_instant", entryId: "", planQuote: "a camel kneels", reason: "Invented." };
     const { run, calls } = prepare([reply()], [[invented], [invented]]);
     await run();
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "plan_review"]);
+    expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review", "plan_review"]);
     expect(await storedPlan()).toMatchObject({ review: { rounds: 1, notes: ["plan review unavailable: outside_instant quote is not in the plan"] } });
   });
 
@@ -335,9 +358,9 @@ describe("forgiving plan review through the real payload validator", () => {
     const embodied = { kind: "embodied_formless", entryId: "voice", planQuote: "a robed figure of light", reason: "The voice is given a robed body." };
     const { run, calls } = prepare([bodily], [[embodied], [embodied]]);
     await expect(run()).rejects.toMatchObject({ stage: "plan", retryable: true, message: expect.stringContaining("a subject without form is still drawn as a figure: voice") });
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "scene_plan", "plan_review"]);
+    expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
     expect(await storedPlan()).toBeUndefined();
-    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(5);
+    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK } )).calls).toBe(4);
   });
 
   it("stores the corrected plan when the re-plan removes the body", async () => {

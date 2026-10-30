@@ -236,7 +236,7 @@ async function runCase(options: SuiteRunOptions, workId: string, work: SuiteWork
   let textCalls = 0;
   let phase = c.caseId;
   const providers = options.providers(() => phase);
-  const seeded = Boolean(work.seeded?.length);
+  const seeded = work.seeded !== undefined;
   // A seeded image run allows no text call, so one here fails the case locally instead of tripping the ledger's
   // call limit, which would stop every other case.
   const drawsSeeds = seeded && options.tier === "image";
@@ -276,11 +276,11 @@ async function runCase(options: SuiteRunOptions, workId: string, work: SuiteWork
       continue;
     }
     if (options.tier === "image" && index > 0 && textCalls > 0) throw new Error(`${key}: a prepared case called the text model again`);
-    const prepared = { look: assembled.prepared.look.payload, situation: assembled.prepared.situation, plan: assembled.prepared.plan.payload, present: assembled.prepared.present };
+    const prepared = { look: assembled.prepared.look?.payload ?? null, situation: assembled.prepared.situation, plan: assembled.prepared.plan.payload, present: assembled.prepared.present };
     const references = assembled.references.map((r) => ({ kind: r.kind, storageId: r.storageId, version: r.version, caption: r.caption }));
     if (options.tier === "text") {
       const [look, plan] = await Promise.all([memory.store.getActiveRecord("look", assembled.sectionId), memory.store.getActiveRecord("plan", assembled.momentId)]);
-      options.record({ ...common, outcome: "planned", momentId: assembled.momentId, sectionId: assembled.sectionId, prepared, records: { look, plan },
+      options.record({ ...common, outcome: "planned", momentId: assembled.momentId, sectionId: assembled.sectionId, prepared, records: { look: assembled.prepared.look ? look : null, plan },
         promptChars: assembled.prompt.length, references, elapsedMs: Date.now() - started });
       log(JSON.stringify({ key, outcome: "planned", textCalls }));
       return;

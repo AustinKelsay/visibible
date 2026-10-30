@@ -72,16 +72,16 @@ describe("combined rendering content review", () => {
     }
     const unselected = sample.keys.map((key: string) => set.records[key]).filter((r: { kind: string; recordId: string }) => r.kind === "entry" && !result.canon.some((c) => c.entryId === r.recordId));
     for (const entry of unselected) for (const stage of entry.payload.stages) expect(review).not.toContain(stage.text);
-    expect(result.prepared.look.payload).toEqual(look);
+    expect(result.prepared.look).toBeNull();
     const saved = await memory.store.getActiveRecord("plan", sample.momentId);
-    expect(saved?.inputs).toContainEqual({ kind: "look", recordId: sample.sectionId, version: result.packet.lookVersion });
+    expect(saved?.inputs.some((input) => input.kind === "look")).toBe(false);
     for (const styleId of ["watercolor", "icon"]) {
       const again = await render(styleId);
       if (!again.ok) throw Error(again.message);
       expect(again.prepared.calls).toBe(0);
-      expect(again.prepared.look.payload).toEqual(look);
+      expect(again.prepared.look).toBeNull();
     }
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review"]);
+    expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
   });
 
   it.each(["place", "timeOfDay", "light"])("treats a retained Exodus %s conflict with the unrendered guide as an invalid citation, keeping the plan without a re-plan or rewriting the guide", async (field) => {
@@ -91,13 +91,13 @@ describe("combined rendering content review", () => {
     const result = await render();
     if (!result.ok) throw Error(result.message);
     // The review is given no generated conditions, so a look citation cannot be valid: the report is retried, then the review is unavailable.
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "plan_review"]);
+    expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review", "plan_review"]);
     expect(getReference).toHaveBeenCalled();
     const saved = await memory.store.getActiveRecord("plan", sample.momentId);
     expect(saved?.payload).toMatchObject({ review: { rounds: 1, notes: ["plan review unavailable: look_conflict quote is not in the look"] } });
     expect((saved?.payload.review as { problems?: unknown }).problems).toBeUndefined();
-    expect((await memory.store.getActiveRecord("look", sample.sectionId))?.payload).toEqual({ kind: "look", sectionId: sample.sectionId, ...look });
-    expect(memory.ledger.map((e) => e.outcome)).toEqual(["ok", "ok", "review invalid", "review invalid"]);
+    expect(await memory.store.getActiveRecord("look", sample.sectionId)).toBeNull();
+    expect(memory.ledger.map((e) => e.outcome)).toEqual(["ok", "review invalid", "review invalid"]);
   });
 
   it("keeps a repeated plan fault after one re-plan, noting it", async () => {
@@ -119,14 +119,14 @@ describe("combined rendering content review", () => {
     const { render, calls, memory, sample } = await setup("f008", "baseline", [[problem], []], replacement);
     const result = await render();
     if (!result.ok) throw Error(result.message);
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "scene_plan", "plan_review"]);
-    expect(calls[3].user).toContain(problem.reason);
+    expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
+    expect(calls[2].user).toContain(problem.reason);
     expect(result.prompt).toContain("crimson robes");
     const canon = result.canon.find((c) => c.entryId === "esther")!;
     expect(canon.text).toContain("crimson");
     for (const review of calls.filter((c) => c.schemaName === "plan_review")) expect(review.user).toContain(canon.text);
     expect((await memory.store.getActiveRecord("plan", sample.momentId))?.payload).toMatchObject({ review: { rounds: 2, problems: [problem] } });
-    expect(memory.ledger).toHaveLength(5);
+    expect(memory.ledger).toHaveLength(4);
   });
 
   it("keeps a repeated canon conflict after one re-plan, with a note", async () => {
@@ -136,7 +136,7 @@ describe("combined rendering content review", () => {
     expect(calls.filter((c) => c.schemaName === "scene_plan")).toHaveLength(2);
     expect(calls.filter((c) => c.schemaName === "plan_review")).toHaveLength(2);
     expect((await memory.store.getActiveRecord("plan", sample.momentId))?.payload).toMatchObject({ review: { rounds: 2, problems: [problem], notes: ["kept with: canon_conflict esther"] } });
-    expect(memory.ledger).toHaveLength(5);
+    expect(memory.ledger).toHaveLength(4);
   });
 
   it("notes the retained Psalms packet's reported required-canon gap without a re-plan or an invented identity", async () => {
@@ -147,7 +147,7 @@ describe("combined rendering content review", () => {
     ]]);
     const result = await render();
     if (!result.ok) throw Error(result.message);
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review"]);
+    expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
     const saved = await memory.store.getActiveRecord("plan", sample.momentId);
     expect(saved?.payload).toMatchObject({ review: { rounds: 1, notes: [`noted: missing_canon: ${reason}`] } });
     expect((saved?.payload.review as { problems?: unknown }).problems).toBeUndefined();
@@ -159,9 +159,9 @@ describe("combined rendering content review", () => {
     const { plan } = captured("r027");
     const { render, calls, memory, getReference, sample } = await setup("r027", "candidate", [[lookProblem(plan.primarySubject)]]);
     expect(await render()).toMatchObject({ ok: true });
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "plan_review"]);
+    expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review", "plan_review"]);
     expect(getReference).toHaveBeenCalled();
-    expect(memory.ledger.map((e) => e.outcome)).toEqual(["ok", "ok", "review invalid", "review invalid"]);
+    expect(memory.ledger.map((e) => e.outcome)).toEqual(["ok", "review invalid", "review invalid"]);
     const saved = await memory.store.getActiveRecord("plan", sample.momentId);
     expect((saved?.payload.review as { notes: string[] }).notes).toEqual(["plan review unavailable: look_conflict quote is not in the look"]);
   });
@@ -176,7 +176,7 @@ describe("combined rendering content review", () => {
     if (!again.ok) throw Error(again.message);
     expect(again.prepared.calls).toBe(2);
     expect(again.packet.lookVersion).toBe(first.packet.lookVersion);
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "scene_plan", "plan_review"]);
+    expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
   });
 
   it("persists the canon rejection audit through the real Convex validator and reuses the approved packet", async () => {
@@ -201,8 +201,9 @@ describe("combined rendering content review", () => {
     expect((await store.getActiveRecord("plan", sample.momentId))?.payload).toMatchObject({ review: { rounds: 2, problems: [problem] } });
     const again = await render("watercolor");
     expect(again).toMatchObject({ ok: true, prepared: { calls: 0 } });
-    expect(calls).toHaveLength(5);
+    expect(calls).toHaveLength(4);
     // An owner taking responsibility for the same prose does not permit a silent rewrite on refusal.
+    await store.putDerivedRecord({ kind: "look", recordId: sample.sectionId, inputs: [], payload: { kind: "look", sectionId: sample.sectionId, place: "owner place", timeOfDay: "day", weather: "clear", light: "owner light", clothing: "owner dress" } });
     const look = await t.query(api.analysis.getActiveRecord, { workId: "bible-web", kind: "look", recordId: sample.sectionId });
     if (!look || look.payload.kind !== "look") throw Error("Missing look");
     await t.mutation(api.analysis.correctRecord, { serverSecret: secret, workId: "bible-web", kind: "look", recordId: sample.sectionId, payload: look.payload, expectedVersion: look.version });
@@ -218,7 +219,7 @@ describe("combined rendering content review", () => {
     reports.push([lookProblem(look.payload.light)]);
     expect(await render()).toMatchObject({ ok: true });
     expect(await t.query(api.analysis.getActiveRecord, { workId: "bible-web", kind: "look", recordId: sample.sectionId })).toEqual(ownerLook);
-    expect(calls.slice(5).map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
+    expect(calls.slice(4).map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
     const noted = await store.getActiveRecord("plan", sample.momentId);
     expect((noted?.payload.review as { rounds: number; notes: string[] })).toMatchObject({ rounds: 1, notes: [expect.stringMatching(/^noted: look_conflict/)] });
   });

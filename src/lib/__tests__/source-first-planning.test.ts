@@ -37,8 +37,8 @@ describe("source-first scene planning", () => {
         getReference: async () => null, loadReference: async () => { throw Error("No reference expected"); } },
       { workId: "bible-web", unitId: "lamentations-4-7", styleId, variationNumber: 1, aspectRatio: "16:9" });
       if (!result.ok) throw Error(result.message);
-      expect(result.prepared.calls).toBe(styleId === "classical" ? 5 : 0);
-      expect(result.prepared.look.payload).toEqual(look);
+      expect(result.prepared.calls).toBe(styleId === "classical" ? 4 : 0);
+      expect(result.prepared.look).toBeNull();
       expect(result.prompt).not.toContain(look.clothing);
       expect(result.prompt).not.toContain(look.light);
       expect(result.prompt).not.toContain(look.place);
@@ -55,11 +55,11 @@ describe("source-first scene planning", () => {
       expect(request.user).toContain("Her nobles were purer than snow.");
       expect(request.user).toContain("CAST ON STAGE IN THIS SECTION");
       expect(request.user).not.toContain("NO-FORM CANON CONSTRAINTS");
-      expect(request.user).toContain("SECTION LOOK GUIDE (a suggestion; keep what fits this moment)");
-      for (const value of Object.values(look)) expect(request.user).toContain(value);
+      expect(request.user).not.toContain("SECTION LOOK GUIDE");
+      for (const value of Object.values(look)) expect(request.user).not.toContain(value);
     }
     expect(plans[1].user).toContain("A PREVIOUS PLAN FOR THIS MOMENT WAS REJECTED");
     expect((await memory.store.getActiveRecord("plan", sample.momentId))?.payload).toMatchObject({ entries: [], plan: fields, review: { rounds: 2 } });
-    expect(memory.ledger).toHaveLength(5);
+    expect(memory.ledger).toHaveLength(4);
   });
 });

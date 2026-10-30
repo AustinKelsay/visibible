@@ -178,18 +178,18 @@ describe("a suite run through the real assembly", () => {
     const { rows, offline } = await run("text");
     expect(rows.map((r) => [r.key, r.outcome]).sort()).toEqual([["holmes-a/text", "planned"], ["holmes-b/text", "planned"]]);
     // One shared look for the section, then a plan and its review per moment.
-    expect(offline.counts.text).toBe(5);
+    expect(offline.counts.text).toBe(4);
     expect(offline.counts.image + offline.counts.check).toBe(0);
     for (const r of rows) {
       expect(r.records.plan.kind).toBe("plan");
-      expect(r.records.look.inputs.length).toBeGreaterThan(0);
+      expect(r.records.look).toBeNull();
       expect(r.context.moment.text.length).toBeGreaterThan(0);
     }
   });
 
   it("draws the text run's plans in the image tier, with no text call, then checks and retries", async () => {
     const text = await run("text");
-    const seeds = [...new Map(text.rows.flatMap((r) => [r.records.look, r.records.plan]).map((r) => [`${r.kind}:${r.recordId}`, r])).values()];
+    const seeds = [...new Map(text.rows.flatMap((r) => [r.records.look, r.records.plan].filter((record) => record !== null)).map((r) => [`${r.kind}:${r.recordId}`, r])).values()];
     const { rows, offline } = await run("image", seeds, { letteringEvery: 2 });
     expect(offline.counts.text).toBe(0);
     expect(rows.map((r) => r.key).sort()).toEqual(["holmes-a/classical", "holmes-a/watercolor", "holmes-b/classical", "holmes-b/watercolor"]);
@@ -209,7 +209,7 @@ describe("a suite run through the real assembly", () => {
       place: "The Baker Street sitting-room", timeOfDay: "Night", weather: "Wet March evening", light: "Lamplight", clothing: "Holmes in a dressing-gown" } };
     const text = await run("text", undefined, {}, [ownerLook]);
     expect(text.rows.every((r) => r.records.look.source === "owner")).toBe(true);
-    const seeds = [...new Map(text.rows.flatMap((r) => [r.records.look, r.records.plan]).map((r) => [`${r.kind}:${r.recordId}`, r])).values()];
+    const seeds = [...new Map(text.rows.flatMap((r) => [r.records.look, r.records.plan].filter((record) => record !== null)).map((r) => [`${r.kind}:${r.recordId}`, r])).values()];
     const image = await run("image", seeds, {}, [ownerLook]);
     expect(image.offline.counts.text).toBe(0);
     expect(image.rows.every((r) => r.outcome === "image")).toBe(true);
@@ -218,7 +218,7 @@ describe("a suite run through the real assembly", () => {
   it("refuses only a case whose seed is stale, without spending the image run's zero text calls", async () => {
     const text = await run("text");
     // The shared look and case A's plan are seeded; case B's plan is missing, so B would have to be planned again.
-    const seeds = [text.rows[0].records.look, text.rows.find((r) => r.caseId === "holmes-a")!.records.plan];
+    const seeds = [text.rows.find((r) => r.caseId === "holmes-a")!.records.plan];
     const { rows, ledger, offline } = await run("image", seeds, {}, [], { limits: { text: 0, image: 100, check: 100 } });
     expect(ledger.state.blocked).toBeNull();
     expect(offline.counts.text).toBe(0);

@@ -62,7 +62,7 @@ export type ReviewInput = {
   present: string[];
   fields: Record<(typeof PLAN_SCENE_FIELDS)[number], string>;
   /** Historical shape: conditions plus selected canon. Omitted only by historical isolated plan-review controls. */
-  rendering?: { look: Omit<RenderingInput["look"], "version">; lookPolicy?: "generated-guide-v1" | "literal-constraint-v1"; canon: SelectedCanon[] };
+  rendering?: { look: Omit<NonNullable<RenderingInput["look"]>, "version">; lookPolicy?: "generated-guide-v1" | "literal-constraint-v1"; canon: SelectedCanon[] };
 };
 /** What the review accepts since v10: owner look constraints only when rendering will use them (none for a generated guide). */
 export type PlanReviewInput = Omit<ReviewInput, "rendering"> & {

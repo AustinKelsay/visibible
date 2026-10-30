@@ -6,7 +6,7 @@
 import type { SceneGrounding } from "../../src/lib/engine/scene-grounding";
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { FORMLESS_LOOK_PROMPT_VERSION } from "../../src/lib/engine/preparation";
+const FORMLESS_LOOK_PROMPT_VERSION = "2026-10-27-formless-look-v2";
 import { loadDepictionProfile } from "../../src/lib/engine/depiction";
 
 /** The deployed Bible brief's version, as the engine computes it from the file. */

@@ -1,5 +1,5 @@
 import { KNOWN_STYLE_IDS } from "./_helpers/styleIds";
-import { lookPolicy } from "../src/lib/engine/situation";
+import { lookPolicy, ownerLookVersion } from "../src/lib/engine/situation";
 /**
  * Analysis storage and lifecycle (#168, spec #165 §7 and §9).
  *
@@ -571,7 +571,14 @@ export const putDerivedRecord = mutation({
     if (args.kind === "plan" && policy) {
       const dependency = args.inputs.find((input) => input.kind === "look");
       const look = dependency ? await findCurrentRecord(ctx, args.workId, work.activeGeneration, "look", dependency.recordId) : null;
-      if (!look || look.version !== dependency?.version || lookPolicy(look) !== policy.version) throw new Error("Section look changed during preparation");
+      if (policy.version === "no-owner-look-v1") {
+        const moment = records.find((record) => record.kind === "moment" && record.recordId === args.recordId);
+        if (moment?.payload.kind !== "moment" || dependency) throw new Error("Invalid owner constraint dependency");
+        const active = await findCurrentRecord(ctx, args.workId, work.activeGeneration, "look", moment.payload.sectionId);
+        if (ownerLookVersion(active) !== null) throw new Error("Section look changed during preparation");
+      } else if (!look || look.version !== dependency?.version || lookPolicy(look) !== policy.version) {
+        throw new Error("Section look changed during preparation");
+      }
     }
     const version = contentVersion(args.payload);
     await writeVersion(ctx, existing, {
@@ -661,7 +668,7 @@ export const getPreparationStatus = query({
     };
     const look = await state("look", sectionId);
     const plan = await state("plan", moment ? args.momentId : null);
-    return { ready: look === "ready" && plan === "ready", look, plan, sectionId };
+    return { ready: plan === "ready", look, plan, sectionId };
   },
 });
 

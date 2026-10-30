@@ -54,7 +54,7 @@ async function setup(reply: unknown, correctSource = false) {
   const calls: TextModelRequest[] = [];
   const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
     calls.push(request);
-    const value = request.schemaName === "section_look" ? retained.prepared.look.payload : reply;
+    const value = request.schemaName === "section_look" ? retained.prepared.look?.payload : reply;
     return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop",
       usage: { promptTokens: 100, completionTokens: 50, costUsd: 0.0004 }, elapsedMs: 1 };
   } });
@@ -115,7 +115,7 @@ describe("required moment cast", () => {
       expect(result.prompt).not.toContain("Jesus: man of about thirty");
     }
     expect(new Set(versions).size).toBe(1);
-    expect(calls.map((r) => r.schemaName)).toEqual(["section_look", "scene_plan"]);
+    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan"]);
   });
 
   it("refuses canon that changes after planning rather than selecting another stage or omitting it", async () => {

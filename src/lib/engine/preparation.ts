@@ -1,10 +1,9 @@
 /**
- * Lazy text preparation for one moment (#171, spec #165 §5): the original section look guide (or binding owner constraints) and the scene plan with
- * resolved moment conditions, shared by every art style and
- * reader translation of a moment. Both are made with Claude Haiku 5.5 the first time they are
- * needed, stored in the active analysis generation with the versions they were made from, and
+ * Lazy text preparation for one moment (#171, spec #165 §5): a scene plan with
+ * resolved moment conditions, shared by every art style and reader translation. It is made with
+ * the configured text model when first needed, stored in the active analysis generation with the versions they were made from, and
  * reused until an input changes. Preparation is forgiving: the plan review advises, depicted cast are
- * selected for their canon, and a plan is kept with notes after one re-plan. A look or plan that
+ * selected for their canon, and a plan is kept with notes after one re-plan. A plan that
  * still cannot be made (unreadable replies, or a no-form subject drawn as a body) raises a retryable
  * error before any image call, which the request route returns as is. Wording that belongs to one work,
  * including everything about subjects without form, comes from its depiction profile (ADR 0010). Concurrent
@@ -18,36 +17,23 @@ import type { WorkBrief } from "../work-preparation";
 import { planningNeighbors } from "./scene-grounding";
 import { PLAN_REVIEW_PROMPT_VERSION, PLAN_SCENE_FIELDS, reviewPlan, type PlanReviewProblem } from "./plan-review";
 import type { SelectedCanon } from "./prompt";
-import { lookPolicy, type Situation } from "./situation";
+import { ownerLookVersion, type Situation } from "./situation";
 import { depictionModeOf, effectsWordingFor, readDepictionProfile, symbolWordingFor, type DepictionMode, type DepictionProfile, type EffectsWording, type SymbolWording } from "./depiction";
 
-export const LOOK_SYSTEM = `You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.
-Rules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments, and do not restate anyone's fixed appearance; canon does that. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.`;
-export const lookOutputSchema = z.object({ place: z.string(), timeOfDay: z.string(), weather: z.string(), light: z.string(), clothing: z.string() }).strict();
-/** Bump for changes to this no-form look contract or its cast format; only affected looks use it. */
-export const FORMLESS_LOOK_PROMPT_VERSION = "2026-10-27-formless-look-v2";
-// Since v2 the look gets no canon text for a no-form subject: a look or plan that never sees "veiled light… throne-light"
-// cannot copy it back into the image prompt (ADR 0006). The work's depiction profile words the contract (ADR 0010).
-const formlessLookSystem = (effects: EffectsWording) => `${LOOK_SYSTEM}\n${effects.lookSystem}`;
-function formlessLookOutputSchema(effects: EffectsWording) {
-  // As with plans, enforce length locally without emitting Anthropic's unsupported maxLength.
-  const field = (description: string) => z.string().refine((text) => text.length <= 200, "Must be at most 200 characters").describe(`${description} At most 200 characters.`);
-  const fields = effects.lookFields;
-  return z.object({ place: field(fields.place), timeOfDay: field(fields.timeOfDay), weather: field(fields.weather), light: field(fields.light), clothing: field(fields.clothing) }).strict();
-}
+const lookOutputSchema = z.object({ place: z.string(), timeOfDay: z.string(), weather: z.string(), light: z.string(), clothing: z.string() }).strict();
 
 /** The planner's general contract; the work names its written objects and examples, and whether it has subjects without form. */
 export function planSystem(depiction: DepictionProfile): string {
-  return `You plan one illustration of one moment of a work's text. You get the moment with its neighbours in the same story section, the work brief, the era, the section cast and a SECTION LOOK GUIDE. Return only JSON.
+  return `You plan one illustration of one moment of a work's text. You get the moment with its neighbours in the same story section, the work brief, the era, the section cast and any owner-authored setting constraints. Return only JSON.
 - Draw one scene at one instant: no collage and no sequence of steps. If the moment recounts several actions, pick one representative instant. If it has no event (a list, genealogy, law, saying or greeting), illustrate its content or setting through people, places and things, never as a written document.
 - Show what the moment is about. When the moment is mostly someone's words (a prophecy, oracle, poem, proverb, prayer, letter, argument or teaching, or a story, parable, vision or memory being told), draw what the words describe and leave the speaker, writer and listeners out, unless the text shows them inside that scene (a visionary within the vision). Never put a speaker, writer or listener into a scene their words only describe, and never make them a figure of their own words${depiction.speakerExamples ? `, such as ${depiction.speakerExamples}` : ""}.
 - In \`selectedCast\`, list every section cast entry that will be visible: ${depiction.modes.effects ? "people, groups, places, objects, and any presence without form shown through its effects" : "people, groups, places and objects"}. Give a few words of the text for each. Leave out cast who are elsewhere or only mentioned. Anyone without a cast entry may appear as an unnamed role or crowd when the moment needs them.
 - Describe pose, action, placement and situational detail. Leave fixed appearance to canon, name no art style, and ask for no visible writing: ${depiction.closedDocuments}, and signs and boards are blank. Describe only what can be seen; leave out unseen or invisible beings, because anything named gets drawn. Keep every depiction rule.
-- The scene fields carry this moment's place, time, light and situational clothing. The SECTION LOOK GUIDE is a suggestion for them: keep what fits this moment and change what does not. OWNER LOOK CONSTRAINTS, when given instead, are binding: keep the setting and time of day consistent with them.
+- The scene fields carry this moment's place, time, light and situational clothing. OWNER LOOK CONSTRAINTS, when given, are binding: keep the setting and time of day consistent with them.
 - Each field is one or two short phrases.`;
 }
-/** All plans use the forgiving general contract; a change refreshes plans lazily, without remaking looks. */
-export const MOMENT_CAST_PROMPT_VERSION = "2026-10-28-moment-cast-v15";
+/** All plans use the forgiving general contract; a change refreshes plans lazily. */
+export const MOMENT_CAST_PROMPT_VERSION = "2026-10-30-moment-cast-v16";
 /** Bump for changes to the no-form planning addendum; only sections with no-form cast use it. */
 export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-28-formless-effects-v17";
 const formlessPlanSystem = (depiction: DepictionProfile, effects: EffectsWording) => `${planSystem(depiction)}\n${effects.planSystem}`;
@@ -119,8 +105,8 @@ export class PreparationUnavailableError extends Error {
 export type PreparedMoment = {
   sectionId: string;
   era: string | null;
-  look: { version: string; payload: z.infer<typeof lookOutputSchema>; policy: ReturnType<typeof lookPolicy> };
-  /** Owner look constraints rendered verbatim; null for a generated guide, whose plan carries its own setting and time. */
+  look: { version: string; payload: z.infer<typeof lookOutputSchema>; policy: "literal-constraint-v1" } | null;
+  /** Owner look constraints rendered verbatim; null when none were selected. */
   situation: Situation | null;
   plan: { version: string; payload: z.infer<typeof planOutputSchema> };
   /** The entries present in the moment with the stage the section assigns them, and their canon versions. */
@@ -142,8 +128,8 @@ const inFlight = new Map<string, Promise<AnalysisRecord>>();
 
 /** Single-flight per instance plus a store claim across instances; waiters poll for the record. */
 async function ensureRecord(
-  store: PreparationStore, workId: string, kind: "look" | "plan", recordId: string, expectedInputs: InputRef[],
-  make: () => Promise<Record<string, unknown> & { kind: "look" | "plan" }>, options: { holder: string; now: () => number; sleep: (ms: number) => Promise<void> },
+  store: PreparationStore, workId: string, kind: "plan", recordId: string, expectedInputs: InputRef[],
+  make: () => Promise<Record<string, unknown> & { kind: "plan" }>, options: { holder: string; now: () => number; sleep: (ms: number) => Promise<void> },
 ): Promise<AnalysisRecord> {
   const existing = await store.getActiveRecord(kind, recordId);
   if (existing && sameInputs(existing, expectedInputs)) return existing;
@@ -182,13 +168,13 @@ async function ensureRecord(
   return task;
 }
 
-async function askOnce<T>(model: TextModel, store: PreparationStore, kind: "look" | "plan", recordId: string, schema: z.ZodType<T>, system: string, user: string, unavailable?: (value: T) => string | null): Promise<T> {
+async function askOnce<T>(model: TextModel, store: PreparationStore, kind: "plan", recordId: string, schema: z.ZodType<T>, system: string, user: string, unavailable?: (value: T) => string | null): Promise<T> {
   let lastError = "";
   for (let attempt = 1; attempt <= 2; attempt++) {
     let result;
     try {
-      result = await model.complete({ label: `${kind}:${recordId}:${attempt}`, system, user, schemaName: kind === "look" ? "section_look" : "scene_plan", schema,
-        maxTokens: kind === "plan" ? 2400 : 900, expectedCompletionTokens: kind === "plan" ? 1200 : 350 });
+      result = await model.complete({ label: `${kind}:${recordId}:${attempt}`, system, user, schemaName: "scene_plan", schema,
+        maxTokens: 2400, expectedCompletionTokens: 1200 });
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
       await store.recordSpend({ kind, recordId, model: model.id, outcome: `error: ${lastError.slice(0, 120)}`, costUsd: null, promptTokens: null, completionTokens: null, elapsedMs: 0 });
@@ -264,34 +250,20 @@ export async function prepareMoment(options: {
     throw new PreparationUnavailableError("look", error instanceof Error ? error.message : String(error));
   }
 
-  // Only affected sections add the no-form look contract; all-formed requests stay unchanged.
-  const lookInputs: InputRef[] = [{ kind: "section", recordId: sectionId, version: section.version }, { kind: "brief", recordId: options.workId, version: options.briefVersion },
-    ...cast.map((c) => ({ kind: "entry", recordId: c.entryId, version: c.version })),
-    ...(effects ? [{ kind: "prompt", recordId: "section_look_formless_presence", version: FORMLESS_LOOK_PROMPT_VERSION },
-      { kind: "prompt", recordId: "depiction_look", version: depiction.lookVersion }] : [])];
+  // Generated section guides are retired. Owner and unknown-provenance constraints remain binding.
   const existingLook = await store.getActiveRecord("look", sectionId);
-  // Owner/unknown looks stay literal even when other dependencies change. Review decides compatibility.
-  const look = existingLook && lookPolicy(existingLook) === "literal-constraint-v1" ? existingLook : await ensureRecord(store, options.workId, "look", sectionId, lookInputs, async () => {
-    // A no-form subject's canon is not given: the look must not describe it (ADR 0006).
-    const castContext = hasFormlessCast
-      ? `CAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name} (hasForm: ${c.hasForm})`).join("\n")}`
-      : `ON STAGE: ${cast.map((c) => c.name).join(", ") || "(no one listed)"}`;
-    const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Buildings and objects: ${era.buildingsAndObjects}\n\nSTORY SECTION: ${sectionPayload.title}\n${castContext}\nTEXT OF THE SECTION'S FIRST MOMENT (the look covers the whole section):\n${options.context.moment.text}`;
-    const value = await askOnce(model, store, "look", sectionId, effects ? formlessLookOutputSchema(effects) : lookOutputSchema, effects ? formlessLookSystem(effects) : LOOK_SYSTEM, user);
-    return { kind: "look" as const, sectionId, ...value };
-  }, timing);
-  const lookPayload = lookOutputSchema.parse(Object.fromEntries(Object.keys(lookOutputSchema.shape).map((field) => [field, look.payload[field]])));
-
-  const policy = lookPolicy(look);
+  const look = ownerLookVersion(existingLook) === null ? null : existingLook;
+  const lookPayload = look ? lookOutputSchema.parse(Object.fromEntries(Object.keys(lookOutputSchema.shape).map((field) => [field, look.payload[field]]))) : null;
+  const policy = look ? "literal-constraint-v1" : "no-owner-look-v1";
   const assertLookCurrent = async () => {
     const current = await store.getActiveRecord("look", sectionId);
-    if (!current || current.version !== look.version || lookPolicy(current) !== policy) throw new PreparationUnavailableError("look", "section look changed during preparation");
+    if (ownerLookVersion(current) !== (look?.version ?? null)) throw new PreparationUnavailableError("look", "owner constraints changed during preparation");
   };
 
-  // Include the section directly: a stage reassignment can leave the regenerated look's content hash unchanged.
+  // Include the section directly so stage reassignments refresh the plan.
   // The plan never depends on a style or translation.
   const planInputs: InputRef[] = [{ kind: "moment", recordId: options.momentId, version: moment.version }, { kind: "section", recordId: sectionId, version: section.version },
-    { kind: "look", recordId: sectionId, version: look.version },
+    ...(look ? [{ kind: "look", recordId: sectionId, version: look.version }] : []),
     { kind: "prompt", recordId: "scene_plan_look_ownership", version: policy },
     { kind: "brief", recordId: options.workId, version: options.briefVersion }, ...cast.map((c) => ({ kind: "entry", recordId: c.entryId, version: c.version })),
     { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION },
@@ -304,7 +276,7 @@ export async function prepareMoment(options: {
     const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Technology: ${era.technology}\nSTORY SECTION: ${sectionPayload.title}\n\nMOMENT (${options.context.moment.reference}): ${options.context.moment.text}\nPREVIOUS: ${neighbors.previous ?? "(section starts here)"}\nNEXT: ${neighbors.next ?? "(section ends here)"}\n\nCAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name}${hasFormlessCast ? ` (hasForm: ${c.hasForm})` : ""}${c.mode === "symbol" ? ` (shown only as its canon form: ${c.text})` : ""}`).join("\n") || "- (no one listed)"}`;
     const castIds = cast.map((c) => c.entryId);
     const schema = planningResponseSchema(castIds, effects, depiction);
-    const lookContext = `\n\n${policy === "generated-guide-v1" ? "SECTION LOOK GUIDE (a suggestion; keep what fits this moment)" : "OWNER LOOK CONSTRAINTS (copy all values exactly)"}:\n${JSON.stringify(lookPayload)}`;
+    const lookContext = lookPayload ? `\n\nOWNER LOOK CONSTRAINTS (copy all values exactly):\n${JSON.stringify(lookPayload)}` : "";
     const reviewCast = cast.map((c) => ({ entryId: c.entryId, name: c.name, hasForm: c.hasForm }));
     const trim = (text: string) => text.length <= PLAN_FIELD_MAX_CHARS ? text : `${text.slice(0, PLAN_FIELD_MAX_CHARS - 1).trimEnd()}…`;
     // Forgiving preparation: the review advises rather than gates. A depicted but unselected cast entry is
@@ -319,10 +291,10 @@ export async function prepareMoment(options: {
       const present = selected.map((entry) => entry.entryId);
       const fields = Object.fromEntries(PLAN_SCENE_FIELDS.map((field) => [field, trim(reply[field])])) as Record<(typeof PLAN_SCENE_FIELDS)[number], string>;
       // Only owner constraints are rendered as conditions; a generated guide was advisory and the plan carries its own.
-      const situation = policy === "literal-constraint-v1" ? { ...lookPayload } : undefined;
+      const situation = lookPayload ?? undefined;
       const review = await reviewPlan(model, (entry) => store.recordSpend({ kind: "plan", recordId: options.momentId, ...entry }), options.momentId,
         { rules, depiction, context: options.context, sectionTitle: sectionPayload.title, cast: reviewCast, present, fields,
-          rendering: { look: situation, lookPolicy: policy, canon: present.map((id) => {
+          rendering: { look: situation, lookPolicy: look ? "literal-constraint-v1" : undefined, canon: present.map((id) => {
             const entry = cast.find((c) => c.entryId === id)!;
             return { entryId: id, stageId: entry.stageId, kind: entry.entryKind, name: entry.name, text: entry.text, hasForm: entry.hasForm, depiction: entry.mode, version: entry.version };
           }) } });
@@ -360,8 +332,8 @@ export async function prepareMoment(options: {
   await assertLookCurrent();
   const planPayload = plan.payload as unknown as { entries: Array<{ entryId: string; stageId: string }>; plan: z.infer<typeof planOutputSchema> };
   return {
-    sectionId, era: era.id, situation: policy === "literal-constraint-v1" ? { ...lookPayload } : null,
-    look: { version: look.version, policy, payload: { place: lookPayload.place, timeOfDay: lookPayload.timeOfDay, weather: lookPayload.weather, light: lookPayload.light, clothing: lookPayload.clothing } },
+    sectionId, era: era.id, situation: lookPayload,
+    look: look && lookPayload ? { version: look.version, policy: "literal-constraint-v1", payload: lookPayload } : null,
     plan: { version: plan.version, payload: { ...planPayload.plan, present: planPayload.entries.map((e) => e.entryId) } },
     present: planPayload.entries.map((e) => ({ entryId: e.entryId, stageId: e.stageId, version: cast.find((c) => c.entryId === e.entryId)?.version ?? "" })),
     calls,

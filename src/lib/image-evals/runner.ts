@@ -10,8 +10,8 @@ import { armsFor, caseUnitId, caseWork, type EvalArm, type EvalCase } from "./ca
 import { assembleForEval, genericStyleOf, type GenericEvalProvider } from "./generic";
 import { GENERIC_PROMPT_VERSION, type RenderingPacket } from "../engine/prompt";
 
-/** A cold generic moment makes a look, a plan and its review; a re-plan adds two calls, settled from actual usage. */
-export const COLD_PREPARATION_CALLS = 3;
+/** A cold generic moment makes a plan and its review; a re-plan adds two calls, settled from actual usage. */
+export const COLD_PREPARATION_CALLS = 2;
 
 export interface EvalImageProvider {
   readonly id: string;

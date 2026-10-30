@@ -101,9 +101,9 @@ describe("moment cast over shared section context", () => {
       const result = await render("daniel-7-10", styleId);
       if (!result.ok) throw new Error(result.message);
       expect(result.prepared.calls).toBe(styleId === "classical" ? 2 : 0); // plan and its review, once
-      expect(result.packet.lookVersion).toBe(oldLook.version);
+      expect(result.packet.lookVersion).toBe(ownerLook ? oldLook.version : undefined);
       expect(result.packet.planVersion).not.toBe(oldPlan.version); // Same scene prose, new grounding audit.
-      expect(result.prepared.look.payload.clothing).toContain("Daniel in his ordinary tunic and cloak");
+      if (ownerLook) expect(result.prepared.look?.payload.clothing).toContain("Daniel in his ordinary tunic and cloak");
       // Only owner constraints are rendered; a generated look stays an unrendered guide.
       if (ownerLook) {
         expect(result.prepared.situation?.clothing).toBe(String(oldLook.payload.clothing));
@@ -160,6 +160,6 @@ describe("moment cast over shared section context", () => {
     expect(saved?.payload).toMatchObject({ entries: expect.arrayContaining([{ entryId: "ministering_assembly_in_daniels_vision", stageId: expect.any(String) }]) });
     expect(saved?.payload).toHaveProperty("grounding");
     expect(saved?.payload).not.toHaveProperty("situation");
-    expect(requests.map((request) => request.schemaName)).toEqual(["section_look", "scene_plan"]); // Scripted clean review is not semantic proof; no silent content trim repairs it.
+    expect(requests.map((request) => request.schemaName)).toEqual(["scene_plan"]); // Scripted clean review is not semantic proof; no silent content trim repairs it.
   });
 });

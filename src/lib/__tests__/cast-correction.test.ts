@@ -133,11 +133,11 @@ describe("missing cast correction", () => {
     calls.length = 0;
     await add(); corrected = true;
     expect(calls).toHaveLength(0);
-    expect(await t.query(api.analysis.getPreparationSpend, { workId: WORK })).toMatchObject({ calls: 8 }); // two looks, three plans and their three reviews
+    expect(await t.query(api.analysis.getPreparationSpend, { workId: WORK })).toMatchObject({ calls: 6 }); // two looks, three plans and their three reviews
     const after = await render(2);
     if (!after.ok) throw new Error(after.message);
-    expect(calls.map((r) => r.schemaName)).toEqual(["section_look", "scene_plan"]);
-    expect(calls[1].user).toContain("- assembly: The assembly");
+    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan"]);
+    expect(calls[0].user).toContain("- assembly: The assembly");
     expect(after.packet.canon.map((c) => c.entryId)).toEqual(["watcher", "assembly"]);
     expect(after.prompt).toContain(addition.entry.stages[0].text);
     calls.length = 0;

@@ -77,7 +77,7 @@ export const renderingPacketValidator = v.object({
   styleId: v.string(),
   styleVersion: v.string(),
   briefVersion: v.string(),
-  lookVersion: v.string(),
+  lookVersion: v.optional(v.string()),
   planVersion: v.string(),
   // The work's depiction profile (ADR 0010); absent on packets accepted before profiles.
   depictionVersion: v.optional(v.string()),
@@ -94,7 +94,7 @@ export const imageProvenanceValidator = v.object({
   styleId: v.string(),
   styleVersion: v.string(),
   briefVersion: v.string(),
-  lookVersion: v.string(),
+  lookVersion: v.optional(v.string()),
   planVersion: v.string(),
   promptVersion: v.string(),
   // The work's depiction profile (ADR 0010); absent on images saved before profiles.

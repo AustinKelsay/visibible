@@ -20,8 +20,8 @@ async function setup(id = "r027", options: { importLook?: "generated" | "owner" 
   const answer = (name: string) => JSON.parse(replies.filter((r) => r.request.response_format.json_schema.name === name).at(-1).response.choices[0].message.content);
   const look = answer("section_look"), plan = answer("scene_plan");
   const records = structuredClone(sample.keys.map((key: string) => set.records[key]));
-  if (options.importLook) records.push({ kind: "look", recordId: sample.sectionId,
-    ...(options.importLook === "unknown" ? {} : { source: options.importLook }), payload: { kind: "look", sectionId: sample.sectionId, ...look } });
+  records.push({ kind: "look", recordId: sample.sectionId,
+    ...(options.importLook === "unknown" ? {} : { source: options.importLook ?? "generated" }), payload: { kind: "look", sectionId: sample.sectionId, ...look } });
   const memory = createMemoryPreparationStore(records);
   const inputs = await readWorkInputs("bible-web");
   const calls: TextModelRequest[] = [];
@@ -52,8 +52,8 @@ describe("section look ownership in rendering", () => {
     for (const style of ["classical", "watercolor", "icon"]) {
       const result = await probe.render(style);
       if (!result.ok) throw Error(result.message);
-      expect(result.prepared.calls).toBe(style === "classical" ? 3 : 0);
-      expect(result.prepared.look.payload).toEqual(probe.look);
+      expect(result.prepared.calls).toBe(style === "classical" ? 2 : 0);
+      expect(result.prepared.look).toBeNull();
       // A generated guide is advisory: the plan carries its own setting and time, and no conditions block is rendered.
       expect(result.prepared.situation).toBeNull();
       expect(result.prompt).not.toContain("MOMENT CONDITIONS");
@@ -64,22 +64,22 @@ describe("section look ownership in rendering", () => {
       for (const entry of result.canon.filter((c) => c.hasForm)) expect(result.prompt).toContain(entry.text);
       const saved = await probe.memory.store.getActiveRecord("plan", probe.sample.momentId);
       expect(saved?.payload.situation).toBeUndefined();
-      expect(saved?.inputs).toContainEqual({ kind: "prompt", recordId: "scene_plan_look_ownership", version: "generated-guide-v1" });
+      expect(saved?.inputs).toContainEqual({ kind: "prompt", recordId: "scene_plan_look_ownership", version: "no-owner-look-v1" });
     }
     const planner = probe.calls.find((c) => c.schemaName === "scene_plan")!;
-    expect(planner.user).toContain("SECTION LOOK GUIDE (a suggestion; keep what fits this moment)");
-    expect(planner.user).toContain(JSON.stringify(probe.look));
+    expect(planner.user).not.toContain("SECTION LOOK GUIDE");
+    expect(planner.user).not.toContain(JSON.stringify(probe.look));
     const review = probe.calls.find((c) => c.schemaName === "plan_review")!;
     expect(review.user).not.toContain("MOMENT CONDITIONS");
     expect(review.user).not.toContain("OWNER LOOK CONSTRAINTS");
     expect(review.user).not.toContain(probe.look.light);
-    expect(probe.memory.ledger).toHaveLength(3);
+    expect(probe.memory.ledger).toHaveLength(2);
   });
 
   it("refuses a reply that still carries the removed situation field after the bounded schema retry, with no review, references or plan store", async () => {
     const p = await setup("r027", { includeSituation: true });
     expect(await p.render()).toMatchObject({ ok: false, stage: "plan", message: expect.stringContaining("situation") });
-    expect(p.calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "scene_plan"]);
+    expect(p.calls.map((c) => c.schemaName)).toEqual(["scene_plan", "scene_plan"]);
     expect(p.memory.has("plan", p.sample.momentId)).toBe(false);
     expect(p.getReference).not.toHaveBeenCalled();
   });
@@ -94,9 +94,9 @@ describe("section look ownership in rendering", () => {
     const again = await p.render();
     if (!again.ok) throw Error(again.message);
     expect(again.prepared.calls).toBe(2);
-    expect(again.packet.lookVersion).toBe(first.packet.lookVersion);
+    expect(again.packet.lookVersion).toBe(record.version);
     expect(again.prepared.situation).toEqual(p.look);
-    expect(again.prepared.look.policy).toBe("literal-constraint-v1");
+    expect(again.prepared.look?.policy).toBe("literal-constraint-v1");
     // The plan is remade for the new ownership even though identical scripted content gives the same content hash.
     const saved = await p.memory.store.getActiveRecord("plan", p.sample.momentId);
     expect(saved?.inputs).toContainEqual({ kind: "prompt", recordId: "scene_plan_look_ownership", version: "literal-constraint-v1" });
@@ -131,7 +131,7 @@ describe("section look ownership in rendering", () => {
     const result = await p.render();
     if (!result.ok) throw Error(result.message);
     expect(result.prepared.calls).toBe(2);
-    expect(result.prepared.look.policy).toBe("literal-constraint-v1");
+    expect(result.prepared.look?.policy).toBe("literal-constraint-v1");
     expect(result.prepared.situation).toEqual(p.look);
     expect(result.prompt).toContain("OWNER LOOK CONSTRAINTS (binding, verbatim)");
     expect(await p.memory.store.getActiveRecord("look", p.sample.sectionId)).toEqual(original);

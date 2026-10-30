@@ -1,5 +1,4 @@
 import { BIBLE_BOOKS, isValidLocation } from "@/data/bible-structure";
-import { genesis1Theme } from "@/data/genesis-1";
 import { getChapter, getVerse, getVerseByReference, type Translation, type VerseData } from "./bible-api";
 import { formatReference, getNextVerse, getPreviousVerse, type VerseLocation } from "./navigation";
 
@@ -30,7 +29,6 @@ export async function resolveGenerationPassage(reference: string, translation: T
     verseText: promptText(current),
     prevVerse,
     nextVerse,
-    chapterTheme: book.id === "GEN" && location.chapter === 1 ? genesis1Theme : null,
   };
 }
 
