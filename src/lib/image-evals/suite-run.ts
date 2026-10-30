@@ -277,7 +277,7 @@ async function runCase(options: SuiteRunOptions, workId: string, work: SuiteWork
     let first: GeneratedImage;
     try { first = await generate(1); }
     catch (error) { options.record({ ...imageRow, outcome: "failed", stage: "image", message: String(error).slice(0, 400), elapsedMs: Date.now() - started }); continue; }
-    const checkContext = { people: assembled.canon.filter((x) => x.hasForm && x.kind === "character").map((x) => x.name),
+    const checkContext = { people: assembled.canon.filter((x) => x.hasForm && x.kind === "character" && x.depiction !== "symbol").map((x) => x.name),
       description: `${assembled.prepared.plan.payload.primarySubject}; ${assembled.prepared.plan.payload.secondaryElements}`,
       softEdges: SOFT_EDGE_STYLES.includes(style), depiction: work.inputs.depiction };
     const checked = await checkAndRetry(first, {
