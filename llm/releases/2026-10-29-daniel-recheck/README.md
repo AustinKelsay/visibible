@@ -18,7 +18,7 @@ The lions' den pairs (Daniel 6:22 and 6:23) matched in Watercolor. In Classical 
 
 The sheet was attached in every image. Daniel 6:22 shows him as a small figure in the middle of the den. His canon stage text, which goes into every prompt, reads "a lean, dignified Judean man in his youth grown to a grave, graying elder; olive-brown skin; dark hair cropped close and a short trimmed beard flecked with grey". The sheet shows close-cropped greying hair and a grey beard. Where the figure is small, the model followed "dark hair" and drew a younger, darker man.
 
-The next step is an owner correction (`npm run works:correct -- bible-web edit-stage`) to make Daniel's stage text agree with his sheet. That edit makes his sheet stale, so the sheet must then be remade (`redo-sheet`, about $0.04), followed by a re-check in all three styles. All of this waits for the key's limit to be raised.
+The owner approved the next step: an owner correction to make Daniel's stage text agree with his sheet, a remade sheet, and a re-check in all three styles. The [second re-check](../2026-10-29-daniel-recheck-2/README.md) did that on the local dev key: 7 of 12 pairs matched across the three styles, and Watercolor's Daniel 6:22 now agrees.
 
 ## Method
 
@@ -29,4 +29,4 @@ The next step is an owner correction (`npm run works:correct -- bible-web edit-s
 ## Limits
 
 - **The sample is tiny.** There is one image per verse and style, and new plans were prepared, so this is a before-and-after on 12 pairs, not a controlled test of the sheet alone.
-- **Fresco wasn't measured.** Finishing it needs a continuation run once the key works.
+- **Fresco wasn't measured here.** The [second re-check](../2026-10-29-daniel-recheck-2/README.md) covers all three styles, after the canon edit.

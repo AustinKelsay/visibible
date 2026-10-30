@@ -27,7 +27,7 @@ The 104 kept include Paul, King David, Aaron, Solomon, Isaiah, Daniel, Jerusalem
 
 ## Limits
 
-- **Sheets and canon text can disagree.** Daniel's sheet shows grey cropped hair. His canon text says "dark hair cropped close" for a man who grows from a youth into a "graying elder", and in Daniel 6:22 the image followed the text ([Daniel re-check](../2026-10-29-daniel-recheck/README.md)).
+- **Sheets and canon text can disagree.** Daniel's sheet shows grey cropped hair. His canon text says "dark hair cropped close" for a man who grows from a youth into a "graying elder", and in Daniel 6:22 the image followed the text ([Daniel re-check](../2026-10-29-daniel-recheck/README.md)). His text was then edited to match, and his sheet remade ([second re-check](../2026-10-29-daniel-recheck-2/README.md)).
 - **One stage spans a lifetime or a history.** Daniel has one stage from youth to old age, and Jerusalem one sheet across a thousand years, so its temple may appear in eras before it was built.
 - **667 subjects still have no sheet.** Making them all at one attempt each would cost about $30.
 - **Sheets are always Classical.** As ADR 0009 keeps them, they serve every style.

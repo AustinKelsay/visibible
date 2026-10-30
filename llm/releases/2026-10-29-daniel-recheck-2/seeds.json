@@ -1,0 +1,61 @@
+{
+  "note": "Section looks copied from the earlier run's results. The run rebuilds each record's inputs from this snapshot and the current brief; the brief's only change since then adds Fresco to its style list, which no look request reads.",
+  "stores": {
+    "launch-matrix-v3": {
+      "seededFrom": "2026-10-28-launch-matrix-v3",
+      "seeded": {},
+      "fresh": [
+        {
+          "sectionId": "daniel-5-17",
+          "cases": [
+            "daniel-5-17"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "daniel-6-19",
+          "cases": [
+            "daniel-6-22",
+            "daniel-6-23"
+          ],
+          "reason": "changed since 2026-10-28-launch-matrix-v3: entry:daniel_prophet_of_babylon"
+        },
+        {
+          "sectionId": "daniel-7-9",
+          "cases": [
+            "daniel-7-9"
+          ],
+          "reason": "no earlier verse in this section"
+        }
+      ]
+    },
+    "fresco-matrix": {
+      "seededFrom": "2026-10-28-fresco-matrix",
+      "seeded": {},
+      "fresh": [
+        {
+          "sectionId": "daniel-5-17",
+          "cases": [
+            "daniel-5-17"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "daniel-6-19",
+          "cases": [
+            "daniel-6-22",
+            "daniel-6-23"
+          ],
+          "reason": "changed since 2026-10-28-fresco-matrix: entry:daniel_prophet_of_babylon"
+        },
+        {
+          "sectionId": "daniel-7-9",
+          "cases": [
+            "daniel-7-9"
+          ],
+          "reason": "changed since 2026-10-28-fresco-matrix: entry:daniel_prophet_of_babylon"
+        }
+      ]
+    }
+  }
+}
