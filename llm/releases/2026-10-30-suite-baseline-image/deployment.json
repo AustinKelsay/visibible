@@ -1,0 +1,24 @@
+{
+  "authorization": "Owner, 30 October 2026, after reading the baseline's results: \"This is good for now. Let's get this shipped and call this a good checkpoint that we will review later\".",
+  "release": {
+    "pullRequest": 345,
+    "includes": [342, 343, 344],
+    "mainCommit": "fd1b071",
+    "mergedAt": "2026-10-30T15:29:46Z",
+    "deployment": "dpl_5uzaKcKYMHNJzwdN3C1UT9dXr8Fq",
+    "aliases": ["https://visibible.com", "https://www.visibible.com"],
+    "rollback": "Promote dpl_EhT97L5VZPv5Q9Eh4QQiSvGdWr79 (1746c20). Nothing reader-facing changed, so a rollback changes only the evaluation runner.",
+    "convexChanges": "None.",
+    "checks": {
+      "checkedAt": "2026-10-30T15:30:28Z",
+      "health": "ok",
+      "readiness": "ready",
+      "artStyles": [["classical", true], ["watercolor", true], ["fresco", true], ["icon", false]],
+      "www": "307 to https://visibible.com/"
+    }
+  },
+  "smokes": "None: the release changes only the evaluation runner, release records and docs, so no reader request changes.",
+  "paidCalls": "None.",
+  "productionMutations": "None.",
+  "checkpoint": "The owner will review the baseline later. Open for that review: remaking the Holmes and Watson reference sheets without an actor likeness (a production write with preparation spend), lettering in busy indoor scenes, and growing the Holmes and Alice consistency groups until their gates can be judged."
+}
