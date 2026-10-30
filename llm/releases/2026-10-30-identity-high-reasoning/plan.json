@@ -1,0 +1,30 @@
+{
+  "purpose": "Test the existing high-reasoning setting with original instructions after low reasoning failed cross-division identities. Same frozen cases and exact-partition gate; no prompt tuning.",
+  "model": "anthropic/claude-haiku-5.5",
+  "reasoning": "high",
+  "repeats": 3,
+  "arms": [
+    "candidate"
+  ],
+  "caseCount": 4,
+  "maximumCalls": 12,
+  "capUsd": 0.5,
+  "readerReserveUsd": 5,
+  "gate": "All 12 trials must match the fixed expected partitions. Distinct-subject controls must not regress. This is a diagnostic, not a broad image-quality claim.",
+  "sources": {
+    "alice": {
+      "work": "alice",
+      "stateSha256": "a5d9375a0c2ebbc91a743fff85e015d4a9e212a1c43c635b24e6db6b877b0d49"
+    },
+    "holmes": {
+      "work": "holmes",
+      "stateSha256": "8ad32609caadc2abd557a235904c14a3016092fcdf8f648914c977d2d8451e3c"
+    },
+    "bible": {
+      "work": "bible",
+      "stateSha256": "59f07939b472aeadee90a03edb56bcc322b6358cf16bed3aad606a6752279171"
+    }
+  },
+  "casesFrom": "2026-10-30-identity-instructions",
+  "baselineFrom": "2026-10-30-identity-instructions"
+}

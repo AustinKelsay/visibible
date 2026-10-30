@@ -1,0 +1,27 @@
+{
+  "trials": 12,
+  "candidatePass": false,
+  "arms": {
+    "candidate": {
+      "rabbit": {
+        "passed": 3,
+        "total": 3
+      },
+      "rooms": {
+        "passed": 3,
+        "total": 3
+      },
+      "marys": {
+        "passed": 1,
+        "total": 3
+      },
+      "successors": {
+        "passed": 3,
+        "total": 3
+      }
+    }
+  },
+  "measuredUsd": 0.005029,
+  "uncertainUsd": 0,
+  "productionMutations": 0
+}
