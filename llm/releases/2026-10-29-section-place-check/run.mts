@@ -30,7 +30,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../.
 const out = path.resolve(values.out!), referencesDir = path.resolve(values.references!), imagesDir = path.resolve(values.images!, values.arm!);
 const hash = (value: string | Uint8Array) => createHash("sha256").update(value).digest("hex");
 const plan = JSON.parse(fs.readFileSync(path.join(out, "plan.json"), "utf8"));
-const arm = Object.values(plan.arms as Record<string, { label: string; commit: string; pipeline: Record<string, string> }>).find((a) => a.label === values.arm);
+const arm = Object.values(plan.arms as Record<string, { label: string; commit: string; capUsd?: number; pipeline: Record<string, string> }>).find((a) => a.label === values.arm);
 assert.ok(arm, `Unknown arm ${values.arm}`);
 // The checkout must be the arm's own commit and run that commit's pipeline.
 const head = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
@@ -54,7 +54,8 @@ const balanceUsd = credits.total_credits - credits.total_usage; assert.ok(balanc
 
 // One ledger for every paid call: reserve before, settle from reported usage, block on any doubt.
 type Kind = "text" | "image";
-const cap = plan.cap;
+// An arm may carry a lower cap than the plan's default (arm-c, to stay within the allowance's remainder).
+const cap = { ...plan.cap, perArmUsd: arm.capUsd ?? plan.cap.perArmUsd };
 const ledger = { arm: arm.label, commit: head, startedAt: new Date().toISOString(), balanceBeforeUsd: balanceUsd, calls: [] as Array<{ phase: string; kind: Kind; status: string; measuredUsd: number | null }>,
   measuredUsd: 0, uncertainUsd: 0, images: 0, textCalls: 0, blocked: null as string | null, finishedAt: null as string | null };
 const flush = () => fs.writeFileSync(ledgerFile, JSON.stringify(ledger, null, 2) + "\n");

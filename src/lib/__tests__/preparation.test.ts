@@ -331,6 +331,8 @@ describe("forgiving plan review through the real payload validator", () => {
     expect(calls[2].user).not.toContain("SECTION PLACE");
     expect(calls[2].user).not.toContain(lookAnswer.place);
     expect(await storedPlan()).toMatchObject({ sectionPlace: "elsewhere", review: { rounds: 1 } });
+    // A look made from the whole section may span a change of time; the plan still names one time (moment-cast v17).
+    expect(calls[1].system).toContain("`timeOfDay` names the one time at this instant, never a change such as night into dawn");
   });
 
   it("re-plans once when the review finds the section place contradicts the moment, then drops the place if it still does", async () => {

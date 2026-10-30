@@ -52,10 +52,10 @@ export const PLAN_SYSTEM = `You plan one illustration of one moment of a work's 
 - In \`selectedCast\`, list every section cast entry that will be visible: people, groups, places, objects, and any presence without form shown through its effects. Give a few words of the text for each. Leave out cast who are elsewhere or only mentioned. Anyone without a cast entry may appear as an unnamed role or crowd when the moment needs them.
 - Describe pose, action, placement and situational detail. Leave fixed appearance to canon, name no art style, and ask for no visible writing: scrolls, tablets, letters and books stay rolled or closed, and signs and boards are blank. Describe only what can be seen; leave out unseen or invisible beings, because anything named gets drawn. Keep every depiction rule.
 - The SECTION LOOK's place is shared: every image of the section that happens there draws it exactly as written, so neighbouring moments show the same place. Set \`sectionPlace\` to "same" when this moment happens there; then \`setting\` says only where in that place the subjects are and which part is in view, without describing the place again. Set it to "elsewhere" only when the text clearly puts this moment somewhere else, and then describe that place in \`setting\`.
-- The scene fields carry this moment's time, light and situational clothing. The look's time of day, weather, light and clothing are suggestions: keep what fits this moment and change what does not. OWNER LOOK CONSTRAINTS, when given instead, are binding: keep the setting and time of day consistent with them.
+- The scene fields carry this moment's time, light and situational clothing. The look's time of day, weather, light and clothing are suggestions: keep what fits this moment and change what does not. \`timeOfDay\` names the one time at this instant, never a change such as night into dawn: when the look spans a change, take the time this moment's text or its neighbours give, and otherwise keep the time the section starts at. OWNER LOOK CONSTRAINTS, when given instead, are binding: keep the setting and time of day consistent with them.
 - Each field is one or two short phrases.`;
 /** All plans use the forgiving general contract; a change refreshes plans lazily, without remaking looks. */
-export const MOMENT_CAST_PROMPT_VERSION = "2026-10-29-moment-cast-v16";
+export const MOMENT_CAST_PROMPT_VERSION = "2026-10-29-moment-cast-v17";
 /** Whether a moment happens at its section look's place, which is then drawn verbatim. */
 export const SECTION_PLACE_CHOICES = ["same", "elsewhere"] as const;
 export type SectionPlace = (typeof SECTION_PLACE_CHOICES)[number];
@@ -99,7 +99,7 @@ function planningResponseSchema(entryIds: string[], hasFormlessCast: boolean) {
     setting: field("With sectionPlace \"same\": where in the section's place the subjects are and which part is in view, without describing the place again. With \"elsewhere\": the physical place and surroundings, consistent with the text and era."),
     secondaryElements: field("Supporting people, props and effects with their placement."),
     mood: field("The emotional atmosphere of the moment."),
-    timeOfDay: field("This moment's time of day, weather and situational light."),
+    timeOfDay: field("This moment's one time of day, weather and situational light at this instant, never a change such as night into dawn."),
     composition: field("Viewpoint, framing and placement of the subjects, independent of art style."),
   }).strict();
 }

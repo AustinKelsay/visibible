@@ -1,0 +1,308 @@
+{
+  "arm": "arm-a",
+  "commit": "fafd43f74033392581b567bc71fe1e1a5c1d445e",
+  "startedAt": "2026-10-30T00:13:17.784Z",
+  "balanceBeforeUsd": 14.104953138000013,
+  "calls": [
+    {
+      "phase": "exodus-14-21",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002531
+    },
+    {
+      "phase": "exodus-14-21",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005584
+    },
+    {
+      "phase": "exodus-14-21",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005016
+    },
+    {
+      "phase": "exodus-14-21",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03452725
+    },
+    {
+      "phase": "exodus-14-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005302
+    },
+    {
+      "phase": "exodus-14-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004488
+    },
+    {
+      "phase": "exodus-14-22",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034549
+    },
+    {
+      "phase": "exodus-14-23",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005389
+    },
+    {
+      "phase": "exodus-14-23",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00069
+    },
+    {
+      "phase": "exodus-14-23",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005365
+    },
+    {
+      "phase": "exodus-14-23",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004806
+    },
+    {
+      "phase": "exodus-14-23",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0342555
+    },
+    {
+      "phase": "mark-4-37",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001625
+    },
+    {
+      "phase": "mark-4-37",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004526
+    },
+    {
+      "phase": "mark-4-37",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004234
+    },
+    {
+      "phase": "mark-4-37",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03454875
+    },
+    {
+      "phase": "mark-4-38",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004755
+    },
+    {
+      "phase": "mark-4-38",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003639
+    },
+    {
+      "phase": "mark-4-38",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03454725
+    },
+    {
+      "phase": "mark-4-39",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004915
+    },
+    {
+      "phase": "mark-4-39",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000446
+    },
+    {
+      "phase": "mark-4-39",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03454575
+    },
+    {
+      "phase": "john-21-7",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00019
+    },
+    {
+      "phase": "john-21-7",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005348
+    },
+    {
+      "phase": "john-21-7",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007227
+    },
+    {
+      "phase": "john-21-7",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03489775
+    },
+    {
+      "phase": "john-21-9",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005045
+    },
+    {
+      "phase": "john-21-9",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004539
+    },
+    {
+      "phase": "john-21-9",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0345445
+    },
+    {
+      "phase": "luke-15-20",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000169
+    },
+    {
+      "phase": "luke-15-20",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000452
+    },
+    {
+      "phase": "luke-15-20",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004205
+    },
+    {
+      "phase": "luke-15-20",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034258
+    },
+    {
+      "phase": "luke-15-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000484
+    },
+    {
+      "phase": "luke-15-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005325
+    },
+    {
+      "phase": "luke-15-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004619
+    },
+    {
+      "phase": "luke-15-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005575
+    },
+    {
+      "phase": "luke-15-22",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03425575
+    },
+    {
+      "phase": "daniel-6-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001596
+    },
+    {
+      "phase": "daniel-6-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004609
+    },
+    {
+      "phase": "daniel-6-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005312
+    },
+    {
+      "phase": "daniel-6-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000527
+    },
+    {
+      "phase": "daniel-6-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006715
+    },
+    {
+      "phase": "daniel-6-22",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03426825
+    },
+    {
+      "phase": "daniel-6-23",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004546
+    },
+    {
+      "phase": "daniel-6-23",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004562
+    },
+    {
+      "phase": "daniel-6-23",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005047
+    },
+    {
+      "phase": "daniel-6-23",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006217
+    },
+    {
+      "phase": "daniel-6-23",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03425675
+    }
+  ],
+  "measuredUsd": 0.4306787,
+  "uncertainUsd": 0,
+  "images": 12,
+  "textCalls": 37,
+  "blocked": null,
+  "finishedAt": "2026-10-30T00:16:53.898Z"
+}
