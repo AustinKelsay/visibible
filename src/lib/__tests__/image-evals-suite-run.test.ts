@@ -63,14 +63,25 @@ describe("call ceilings", () => {
 
   it("bounds a text call by its characters and max_tokens, and an image call by the model's largest output", () => {
     const messages = [{ role: "user", content: "x".repeat(9_990) }];
-    const text = requestCeilingUsd({ model: "anthropic/claude-haiku-5.5", messages, max_tokens: 2400 }, haiku)!;
+    const text = requestCeilingUsd("text", { model: "anthropic/claude-haiku-5.5", messages, max_tokens: 2400 }, haiku)!;
     expect(text).toBeCloseTo((JSON.stringify(messages).length) * 1e-7 + 2400 * 5e-7, 12);
-    const image = requestCeilingUsd({ model: "google/gemini-3.1-flash-lite-image", messages: [{ role: "user", content: [{ type: "image_url", image_url: { url: `data:image/jpeg;base64,${"A".repeat(400_000)}` } }] }] }, lite)!;
+    const image = requestCeilingUsd("image", { model: "google/gemini-3.1-flash-lite-image", messages: [{ role: "user", content: [{ type: "image_url", image_url: { url: `data:image/jpeg;base64,${"A".repeat(400_000)}` } }] }] }, lite)!;
     // The attached image counts as 5,000 tokens, not its base64 length; 1K output is 1,120 image tokens.
     expect(image).toBeGreaterThan(58982 * 1.5e-6 + 1120 * 3e-5 + 5000 * 2.5e-7);
     expect(image).toBeLessThan(0.13);
-    expect(requestCeilingUsd({ model: "x", messages: [] }, undefined)).toBeNull();
-    expect(requestCeilingUsd({ model: "google/unknown-image", messages: [] }, lite)).toBeNull();
+    expect(requestCeilingUsd("text", { model: "x", messages: [] }, undefined)).toBeNull();
+    expect(requestCeilingUsd("image", { model: "google/unknown-image", messages: [] }, lite)).toBeNull();
+  });
+
+  it("gives no ceiling for missing or malformed prices, so such calls are refused", () => {
+    expect(modelPricing({ pricing: {} })).toBeUndefined();
+    expect(modelPricing({ pricing: { prompt: "abc", completion: "0.0000005" } })).toBeUndefined();
+    expect(modelPricing({ pricing: { prompt: "-1", completion: "0.0000005" } })).toBeUndefined();
+    expect(modelPricing({ pricing: { prompt: "0.0000001", completion: "0.0000005", overrides: [{ min_prompt_tokens: "x", prompt: "1", completion: "1" }] } })).toBeUndefined();
+    // An image call needs the model's image price; text calls to it do not.
+    const noImagePrice = modelPricing({ pricing: { prompt: "0.00000025", completion: "0.0000015" }, top_provider: { max_completion_tokens: 58982 } });
+    expect(requestCeilingUsd("image", { model: "google/gemini-3.1-flash-lite-image", messages: [] }, noImagePrice)).toBeNull();
+    expect(requestCeilingUsd("text", { model: "google/gemini-3.1-flash-lite-image", messages: [], max_tokens: 10 }, noImagePrice)).toBeGreaterThan(0);
   });
 
   it("refuses a call before it is sent when its ceiling would pass the cap, and stops if a call costs more than its ceiling", async () => {
@@ -87,6 +98,10 @@ describe("call ceilings", () => {
     const unknown = createLedger({ capUsd: 1, reserves: { text: 0.01, image: 0.05, check: 0.002 }, limits: { text: 10, image: 10, check: 10 }, fetch: counting,
       ceiling: () => null, save: () => {}, log: () => {}, scrub: (v) => v });
     await expect(call(unknown.fetchFor("text", () => "x"))).rejects.toThrow(/No price ceiling/);
+    const notANumber = createLedger({ capUsd: 0.01, reserves: { text: 0.01, image: 0.05, check: 0.002 }, limits: { text: 10, image: 10, check: 10 }, fetch: counting,
+      ceiling: () => Number.NaN, save: () => {}, log: () => {}, scrub: (v) => v });
+    await expect(call(notANumber.fetchFor("image", () => "x"))).rejects.toThrow(/No price ceiling/);
+    expect(sent).toBe(1);
   });
 });
 

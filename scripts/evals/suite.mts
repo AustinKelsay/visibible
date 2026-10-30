@@ -310,7 +310,7 @@ async function run() {
   mkdirSync(imageDir, { recursive: true });
   const ledger = createLedger({
     capUsd: cap, reserves: p.evaluation.reserves, limits: p.evaluation.limits, fetch: fetchImpl,
-    ceiling: pricing ? (_kind, request) => requestCeilingUsd(request, pricing!.get(String(request.model))) : undefined,
+    ceiling: pricing ? (kind, request) => requestCeilingUsd(kind, request, pricing!.get(String(request.model))) : undefined,
     save: (state) => writeFileSync(path.join(outDir, "ledger.json"), `${JSON.stringify(state, null, 2)}\n`),
     log: (entry) => appendFileSync(path.join(outDir, "provider.ndjson"), `${JSON.stringify(entry)}\n`),
     scrub: (value) => scrubForLog(value, apiKey, sha256),

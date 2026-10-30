@@ -43,16 +43,28 @@ export function scrubForLog(value: unknown, secret: string, hash: (text: string)
 }
 
 /** A model's catalog prices (USD per token) and its largest output, from OpenRouter's model list. */
-export type ModelPricing = { prompt: number; completion: number; imageOutput: number; maxCompletionTokens: number | null; overrides: Array<{ minPromptTokens: number; prompt: number; completion: number }> };
+export type ModelPricing = { prompt: number; completion: number; imageOutput: number | null; maxCompletionTokens: number | null; overrides: Array<{ minPromptTokens: number; prompt: number; completion: number }> };
 
-/** Read one model's pricing from an OpenRouter `/models` entry. */
+/** A catalog price as a finite, nonnegative number, or null when it is absent or malformed. */
+const price = (value: unknown): number | null => {
+  if (value === undefined || value === null || value === "") return null;
+  const n = Number(value);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+};
+
+/** One model's pricing from an OpenRouter `/models` entry; undefined unless its prompt and completion rates (and any override's) are valid. */
 export function modelPricing(entry: { pricing?: Record<string, unknown>; top_provider?: { max_completion_tokens?: number | null } } | undefined): ModelPricing | undefined {
   if (!entry?.pricing) return undefined;
-  const n = (value: unknown) => Number(value ?? 0);
-  const overrides = Array.isArray(entry.pricing.overrides) ? entry.pricing.overrides as Array<Record<string, unknown>> : [];
-  return { prompt: n(entry.pricing.prompt), completion: n(entry.pricing.completion), imageOutput: n(entry.pricing.image_output),
-    maxCompletionTokens: entry.top_provider?.max_completion_tokens ?? null,
-    overrides: overrides.map((o) => ({ minPromptTokens: n(o.min_prompt_tokens), prompt: n(o.prompt), completion: n(o.completion) })) };
+  const [prompt, completion] = [price(entry.pricing.prompt), price(entry.pricing.completion)];
+  if (prompt === null || completion === null) return undefined;
+  const overrides: ModelPricing["overrides"] = [];
+  for (const o of Array.isArray(entry.pricing.overrides) ? entry.pricing.overrides as Array<Record<string, unknown>> : []) {
+    const [minPromptTokens, p, c] = [price(o.min_prompt_tokens), price(o.prompt), price(o.completion)];
+    if (minPromptTokens === null || p === null || c === null) return undefined;
+    overrides.push({ minPromptTokens, prompt: p, completion: c });
+  }
+  const max = entry.top_provider?.max_completion_tokens;
+  return { prompt, completion, imageOutput: price(entry.pricing.image_output), maxCompletionTokens: typeof max === "number" && Number.isFinite(max) && max > 0 ? max : null, overrides };
 }
 
 /** Tokens an attached image may count for, above any provider's default media resolution. */
@@ -61,27 +73,27 @@ const IMAGE_INPUT_TOKEN_BOUND = 5000;
 /**
  * The most one request can cost at catalog prices, or null when it cannot be bounded: every character of its text as a
  * token, every attached image at a generous token count, its `max_tokens` (or the model's largest output) as text
- * output, and an image model's output image tokens at the requested resolution. The ledger reserves this before the
- * call, so the cap holds even when every call in flight costs its most.
+ * output, and for an image call the output image tokens at the requested resolution at the model's image price. The
+ * ledger reserves this before the call, so the cap holds even when every call in flight costs its most.
  */
-export function requestCeilingUsd(request: { model?: unknown; messages?: unknown; max_tokens?: unknown; image_config?: { image_size?: unknown } }, pricing: ModelPricing | undefined): number | null {
+export function requestCeilingUsd(kind: CallKind, request: { model?: unknown; messages?: unknown; max_tokens?: unknown; image_config?: { image_size?: unknown } }, pricing: ModelPricing | undefined): number | null {
   if (!pricing || typeof request.model !== "string") return null;
   const text = JSON.stringify(request.messages ?? []);
   const images = (text.match(/data:image\//g) ?? []).length;
   const promptTokens = text.replace(/data:image\/[a-z]+;base64,[A-Za-z0-9+/=]+/g, "").length + images * IMAGE_INPUT_TOKEN_BOUND;
-  const completionTokens = typeof request.max_tokens === "number" ? request.max_tokens : pricing.maxCompletionTokens;
+  const completionTokens = typeof request.max_tokens === "number" && Number.isFinite(request.max_tokens) && request.max_tokens > 0 ? request.max_tokens : pricing.maxCompletionTokens;
   if (completionTokens === null) return null;
-  let imageTokens = 0;
-  if (pricing.imageOutput > 0) {
+  let imageCost = 0;
+  if (kind === "image") {
     const resolution = (typeof request.image_config?.image_size === "string" ? request.image_config.image_size : "1K") as ImageResolution;
     const tokens = imageCapabilities(request.model)?.outputTokens[resolution];
-    if (!tokens) return null;
-    imageTokens = tokens;
+    if (!tokens || pricing.imageOutput === null) return null;
+    imageCost = tokens * pricing.imageOutput;
   }
   // A long prompt may switch to a dearer override; take the dearest price that could apply.
   const rates = [pricing, ...pricing.overrides.filter((o) => promptTokens >= o.minPromptTokens)];
-  const prompt = Math.max(...rates.map((r) => r.prompt)), completion = Math.max(...rates.map((r) => r.completion));
-  return promptTokens * prompt + completionTokens * completion + imageTokens * pricing.imageOutput;
+  const ceiling = promptTokens * Math.max(...rates.map((r) => r.prompt)) + completionTokens * Math.max(...rates.map((r) => r.completion)) + imageCost;
+  return Number.isFinite(ceiling) && ceiling >= 0 ? ceiling : null;
 }
 
 /**
@@ -110,7 +122,7 @@ export function createLedger(options: {
     let request: Record<string, unknown> = {};
     try { request = JSON.parse(String(init.body)); } catch { /* an unreadable body has no ceiling */ }
     const reserve = options.ceiling ? options.ceiling(kind, request) : options.reserves[kind];
-    if (reserve === null) {
+    if (reserve === null || !Number.isFinite(reserve) || reserve < 0) {
       state.blocked = `No price ceiling for ${String(request.model)}`; save();
       throw new Error(`Evaluation stopped: ${state.blocked}`);
     }
