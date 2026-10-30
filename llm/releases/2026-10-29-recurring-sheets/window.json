@@ -1,0 +1,8 @@
+{
+  "productionSheetsChanged": {
+    "from": "2026-10-30T00:47:57Z",
+    "to": "2026-10-30T01:03:48Z"
+  },
+  "command": "npm run works:references -- bible-web --run sheets-2026-10-29 --budget 6.00 --only <selection.json chosen ids>",
+  "allowance": "preparation"
+}

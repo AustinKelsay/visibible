@@ -4,11 +4,16 @@
  * precedence, and quote counts from controlled catalog data.
  */
 import { describe, it, expect } from "vitest";
-import { buildRenderingPacket, rankSheetCandidates, selectReferences, ENGINE_RULES, GENERIC_PROMPT_MAX_CHARS, GENERIC_PROMPT_VERSION, PRECEDENCE_LINE, type RenderingInput, type SelectedCanon, type AvailableReference } from "../engine/prompt";
+import { buildRenderingPacket, rankSheetCandidates, selectReferences, engineRules, GENERIC_PROMPT_MAX_CHARS, GENERIC_PROMPT_VERSION, PRECEDENCE_LINE, type RenderingInput, type SelectedCanon, type AvailableReference } from "../engine/prompt";
 import { quoteGenericImage } from "../engine/quote";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
 import { normalizeImageBilling } from "../image-catalog";
 import referencePricing from "../../../tests/fixtures/lite-reference-pricing.json";
+import { testDepiction } from "../../../tests/fixtures/depiction";
+
+// A Holmes-like fixture with a subject without form: the Bible's wording exercises that contract.
+const depiction = testDepiction("holmes-adventures");
+const ENGINE_RULES = engineRules(depiction);
 
 const brief: WorkBrief = {
   schemaVersion: 1, workId: "holmes-adventures", tone: "Brisk, foggy Victorian detective mood.",
@@ -42,7 +47,7 @@ const base = (styleId: string, extra: Partial<RenderingInput> = {}): RenderingIn
   brief, briefVersion: "bv1", eraId: "victorian", style: SHARED_STYLES.get(styleId), styleVersion: `${styleId}-v1`,
   look: { version: "l1", place: "Baker Street sitting-room", timeOfDay: "night", weather: "fog outside", light: "gaslight and firelight", clothing: "dressing-gown and frock-coat" },
   plan: { version: "p1", primarySubject: "Holmes by the fire", action: "gazes at the fire, pipe in hand", setting: "the sitting-room", secondaryElements: "Watson in the doorway", mood: "pensive", timeOfDay: "night", composition: "medium shot" },
-  canon: formedCanon, references, variationNumber: 2, aspectRatio: "16:9" as const, ...extra,
+  canon: formedCanon, references, variationNumber: 2, aspectRatio: "16:9" as const, depiction, ...extra,
   };
   // A generated look renders no conditions (since generic-v10); tests pass `situation` for owner constraints.
   return { ...input, situation: extra.situation ?? null };

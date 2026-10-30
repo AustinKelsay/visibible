@@ -3,10 +3,14 @@ import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import { readWorkInputs, momentContext } from "../../../src/lib/engine/work-inputs";
-import { PLAN_REVIEW_PROMPT_VERSION, PLAN_REVIEW_SYSTEM, planReviewUser, reviewPlan, type ReviewInput } from "../../../src/lib/engine/plan-review";
+import { PLAN_REVIEW_PROMPT_VERSION, planReviewSystem, planReviewUser, reviewPlan, type ReviewInput } from "../../../src/lib/engine/plan-review";
 import { READING_PASS_MODEL, estimateRequestCostUsd } from "../../../src/lib/reading-pass/model";
 import { root, json, rate, saveOut, readOut, out, environment, row, hash, armConfig } from "./common.mjs";
 import { evaluationModel } from "./model.mjs";
+import { readDepictionProfile } from "../../../src/lib/engine/depiction";
+// The Bible's depiction profile reproduces the wording these runs used (ADR 0010).
+const depiction = readDepictionProfile("bible-web");
+const PLAN_REVIEW_SYSTEM = planReviewSystem(depiction);
 
 const [command] = process.argv.slice(2);
 assert.ok(command === "dry-run" || (command === "run" && process.argv.includes("--execute")));
@@ -24,7 +28,7 @@ function reviewInput(reply: { moment: string; present: string[]; scene: ReviewIn
     const entry = row(snapshot, "entry", entryId)!;
     return { entryId, name: String(entry.payload.name), hasForm: entry.payload.hasForm !== false };
   });
-  return { rules, context, sectionTitle: String(section.payload.title), cast, present: reply.present, fields: reply.scene };
+  return { rules, depiction, context, sectionTitle: String(section.payload.title), cast, present: reply.present, fields: reply.scene };
 }
 
 if (command === "dry-run") {

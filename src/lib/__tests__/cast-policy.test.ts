@@ -1,10 +1,15 @@
 /** Cast policy: uncast incidental figures, no missing-cast stop (moment-cast v11+) and continuing locations. */
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { PLAN_SYSTEM, MOMENT_CAST_PROMPT_VERSION } from "../engine/preparation";
-import { ENGINE_RULES, GENERIC_PROMPT_VERSION } from "../engine/prompt";
+import { planSystem, MOMENT_CAST_PROMPT_VERSION } from "../engine/preparation";
+import { engineRules, GENERIC_PROMPT_VERSION } from "../engine/prompt";
 import { sceneGroundingProblem } from "../engine/scene-grounding";
 import { momentContext, readWorkInputs } from "../engine/work-inputs";
+import { testDepiction } from "../../../tests/fixtures/depiction";
+
+// The Bible's wording, which these contracts were written for.
+const PLAN_SYSTEM = planSystem(testDepiction("bible-web"));
+const ENGINE_RULES = engineRules(testDepiction("bible-web"));
 
 const randomRun = new URL("../../../llm/releases/2026-10-23-random-verse-check/", import.meta.url);
 

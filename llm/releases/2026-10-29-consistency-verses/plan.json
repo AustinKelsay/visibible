@@ -1,0 +1,169 @@
+{
+  "adr": "0008",
+  "status": "Measurement only. The owner chose step 1 (\"1.\", 29 October 2026): render the 14 consistency-group verses the launch matrices never ran, so the consistency gate has enough pairs.",
+  "purpose": "The 14 missing group verses through the live pipeline in each public style, one shown image each with the check and retry, to be paired with the earlier matrices' images for the consistency gate.",
+  "candidateCommit": "2dc34d453cd05a1753b687a89f6f6209bb08c0ea",
+  "pipeline": {
+    "momentCast": "2026-10-28-moment-cast-v15",
+    "formlessPlan": "2026-10-28-formless-effects-v17",
+    "review": "2026-10-27-plan-review-v12",
+    "rendering": "2026-10-28-generic-v14",
+    "sceneCheck": "2026-10-28-scene-check-v4"
+  },
+  "image": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "checker": {
+    "model": "anthropic/claude-haiku-5.5",
+    "reasoningEffort": "low",
+    "maxTokens": 1500
+  },
+  "styles": [
+    "classical",
+    "watercolor",
+    "fresco"
+  ],
+  "stores": [
+    {
+      "id": "launch-matrix-v3",
+      "styles": [
+        "classical",
+        "watercolor"
+      ],
+      "seededFrom": "2026-10-28-launch-matrix-v3"
+    },
+    {
+      "id": "fresco-matrix",
+      "styles": [
+        "fresco"
+      ],
+      "seededFrom": "2026-10-28-fresco-matrix"
+    }
+  ],
+  "design": "Production keeps one look per story section, so a new verse is planned against the look its neighbours were drawn with. Each style family gets its own memory store, seeded from a fresh read-only production snapshot plus the section looks of the earlier run it will be paired with: the third launch matrix for Classical and Watercolor, the Fresco matrix for Fresco. A look is seeded only when its section and cast versions are unchanged. The stores run one after the other, because the engine shares in-flight preparations across a process. Each case is prepared once per store; every first image is checked and a faulty one gets one retry. Cases run three at a time.",
+  "scoring": "Pairs and gate per ADR 0008 with npm run evals:consistency, over this run and the two earlier matrices. Pairs already judged in the baseline keep their verdicts; new pairs get two independent blind model scorers and operator settlement.",
+  "evaluation": {
+    "authorizedBeforeUsd": 39,
+    "measuredBeforeUsd": 37.6073508,
+    "uncertaintyBeforeUsd": 0.059,
+    "remainingBeforeUsd": 1.3336492,
+    "proposedIncreaseUsd": 0.7,
+    "proposedAuthorizedUsd": 39.7,
+    "proposedOperationCapUsd": 2,
+    "textReserveUsd": 0.005,
+    "imageReserveUsd": 0.06,
+    "checkReserveUsd": 0.002,
+    "maximumImages": 84,
+    "maximumTextCalls": 200,
+    "maximumCheckCalls": 168
+  },
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "knownLimitation": "One image per verse and style; model scorers. The paired earlier images were made on 28 October with that day's production references and brief.",
+  "cases": [
+    {
+      "id": "john-21-9",
+      "reference": "John 21:9",
+      "groups": [
+        "jesus",
+        "simon-peter",
+        "breakfast-on-the-shore"
+      ]
+    },
+    {
+      "id": "exodus-17-12",
+      "reference": "Exodus 17:12",
+      "groups": [
+        "moses"
+      ]
+    },
+    {
+      "id": "numbers-20-11",
+      "reference": "Numbers 20:11",
+      "groups": [
+        "moses"
+      ]
+    },
+    {
+      "id": "luke-22-61",
+      "reference": "Luke 22:61",
+      "groups": [
+        "simon-peter"
+      ]
+    },
+    {
+      "id": "acts-3-7",
+      "reference": "Acts 3:7",
+      "groups": [
+        "simon-peter"
+      ]
+    },
+    {
+      "id": "1-samuel-16-13",
+      "reference": "1 Samuel 16:13",
+      "groups": [
+        "david"
+      ]
+    },
+    {
+      "id": "1-samuel-17-40",
+      "reference": "1 Samuel 17:40",
+      "groups": [
+        "david"
+      ]
+    },
+    {
+      "id": "1-samuel-18-11",
+      "reference": "1 Samuel 18:11",
+      "groups": [
+        "david"
+      ]
+    },
+    {
+      "id": "daniel-5-17",
+      "reference": "Daniel 5:17",
+      "groups": [
+        "daniel"
+      ]
+    },
+    {
+      "id": "daniel-6-23",
+      "reference": "Daniel 6:23",
+      "groups": [
+        "daniel",
+        "lions-den"
+      ]
+    },
+    {
+      "id": "exodus-14-23",
+      "reference": "Exodus 14:23",
+      "groups": [
+        "red-sea-crossing"
+      ]
+    },
+    {
+      "id": "mark-4-37",
+      "reference": "Mark 4:37",
+      "groups": [
+        "storm-on-the-lake"
+      ]
+    },
+    {
+      "id": "mark-4-38",
+      "reference": "Mark 4:38",
+      "groups": [
+        "storm-on-the-lake"
+      ]
+    },
+    {
+      "id": "luke-15-22",
+      "reference": "Luke 15:22",
+      "groups": [
+        "prodigal-son-return"
+      ]
+    }
+  ]
+}

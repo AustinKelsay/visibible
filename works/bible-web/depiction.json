@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "workId": "bible-web",
+  "writingSurfaces": "scrolls, tablets, books, boards or halos",
+  "closedDocuments": "scrolls, tablets, letters and books stay rolled or closed",
+  "inscribedObjects": "tablets or scrolls",
+  "seriousSubjects": [
+    "crucifixion"
+  ],
+  "speakerExamples": "the king ready for battle or the man standing in the gap",
+  "modes": {
+    "effects": {
+      "alias": "the presence",
+      "renderRule": "A subject without form is never drawn. Only when it is selected may the light, cloud, smoke, fire or wind in the scene plan stand for it, with nobody in them. A throne or seat stays empty unless the scene plan names who sits on it.",
+      "renderBlock": "UNSEEN PRESENCE (binding): the light, cloud, smoke, fire and wind in the scene plan are light and weather spread through the place, not one glowing shape. Nobody stands, sits or hovers in them.",
+      "lookSystem": "Cast marked hasForm: false have no body and are never drawn. Describe only the shared place, weather and light. Where the section shows one of them, its presence may appear only as smoke, cloud, fire, wind or light spread through the place. Never describe its throne, seat, chariot, robe, train, face, hands, hair, body or silhouette, even as an empty seat, a denial or a figure made of light: bodily words in the text are metaphors. Keep formed characters' own situational clothing and props attached to them. The cast list covers the whole section; do not force every cast member into the shared setting or add individual poses, actions or moments.",
+      "lookFields": {
+        "place": "The shared physical place and surroundings, with no throne or seat for a no-form subject.",
+        "timeOfDay": "The time of day or change in time across the section.",
+        "weather": "Shared environmental conditions, without bodily metaphors.",
+        "light": "Situational illumination shared by the section. A no-form subject's presence may appear only as light, cloud, smoke, fire or wind spread through the place, never as a shape or figure.",
+        "clothing": "Only formed characters' situational clothing and shared props, never a no-form subject's clothing, even as a denial."
+      },
+      "planSystem": "- Cast marked hasForm: false have no body and are never drawn. When the moment shows one of them appearing or acting, select it and show the moment through the place and the people who witness it. In the scene fields, describe in your own plain words only the physical effects the text names, such as smoke, cloud, fire, storm, wind or light filling a place, spread through the scene or coming from beyond the frame rather than gathered into one glowing shape. Never name it or call it seated, standing, enthroned or riding, and leave out its throne, seat, chariot, robe, train or hem and any face, hands, hair or body: bodily words in the text are metaphors. Say only where those effects are. Whenever the scene keeps light, cloud or fire that comes from it, select it. Keep the people and the place as the subject of the image. A command, oath or mention alone is not an appearance, so add no effect for it then.",
+      "planField": "For a cast entry with hasForm false, describe only the smoke, cloud, fire, wind or light the text names, never the entry itself.",
+      "reviewFault": "a hasForm false entry is given a body, face, hands, clothing, a robe or train, a silhouette, a throne or seat of its own, or is described as seated or standing.",
+      "checkFigure": {
+        "direct": "true if any face, head, hands, robe, body or human-shaped silhouette appears inside, made of or emerging from light, radiance, cloud, smoke, fire, a pillar or the sky, or seated or standing on a throne, unless it is clearly one of the beings the description names. Look closely at every bright area, cloud and throne; a faint, translucent or partial figure counts. People standing in the scene, and winged angels or creatures the description names, do not count.",
+        "describe": "true if a head, face, hands, shoulders or a robed or human-shaped body appears inside, made of or emerging from light, radiance, cloud, smoke, fire, a pillar or the sky, or seated or standing on a throne, unless it is clearly one of the beings the description names. A faint or translucent figure counts if you can point to its head, face, hands or body outline. A flame, a heart-shaped glow or billowing cloud is not a figure. People standing in the scene, and winged angels or creatures the description names, do not count.",
+        "brightAreas": "What is inside each bright area, cloud, fire, pillar or throne, or \"none\"."
+      }
+    }
+  }
+}

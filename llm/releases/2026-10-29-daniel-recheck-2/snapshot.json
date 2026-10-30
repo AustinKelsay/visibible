@@ -1,0 +1,866 @@
+{
+  "at": "2026-10-30T01:28:58.858Z",
+  "status": {
+    "activeGeneration": 1,
+    "activeVersions": {
+      "activatedAt": 1792538171849,
+      "briefVersion": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+    },
+    "briefVersion": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+    "candidateGeneration": null,
+    "exists": true,
+    "ready": true,
+    "reasons": [],
+    "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+  },
+  "cases": [
+    {
+      "id": "daniel-5-17",
+      "sectionId": "daniel-5-17",
+      "cast": [
+        "daniel_prophet_of_babylon:daniel_main",
+        "belshazzar:belshazzar",
+        "royal_palace_of_babylon:royal_palace_of_babylon-main"
+      ]
+    },
+    {
+      "id": "daniel-6-22",
+      "sectionId": "daniel-6-19",
+      "cast": [
+        "darius_the_mede:darius_the_mede",
+        "daniel_prophet_of_babylon:daniel_main",
+        "the_den_of_lions:den-of-lions"
+      ]
+    },
+    {
+      "id": "daniel-6-23",
+      "sectionId": "daniel-6-19",
+      "cast": [
+        "darius_the_mede:darius_the_mede",
+        "daniel_prophet_of_babylon:daniel_main",
+        "the_den_of_lions:den-of-lions"
+      ]
+    },
+    {
+      "id": "daniel-7-9",
+      "sectionId": "daniel-7-9",
+      "cast": [
+        "daniel_prophet_of_babylon:daniel_main",
+        "the_ancient_of_days:ancient-of-days-light",
+        "one_like_a_son_of_man:one_like_a_son_of_man",
+        "babylon:babylon",
+        "ministering_assembly_in_daniels_vision:ministering_assembly-main"
+      ]
+    }
+  ],
+  "records": {
+    "moment:daniel-5-17": {
+      "createdAt": 1792538123265,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "daniel-5-17",
+        "kind": "moment",
+        "lastUnit": "daniel-5-17",
+        "sectionId": "daniel-5-17"
+      },
+      "recordId": "daniel-5-17",
+      "source": "generated",
+      "status": "current",
+      "version": "79233203cece4a02646d11abc583eb37",
+      "workId": "bible-web"
+    },
+    "section:daniel-5-17": {
+      "createdAt": 1792535239756,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "daniel_prophet_of_babylon",
+            "named": true,
+            "stageId": "daniel_main"
+          },
+          {
+            "entryId": "belshazzar",
+            "named": true,
+            "stageId": "belshazzar"
+          },
+          {
+            "entryId": "royal_palace_of_babylon",
+            "stageId": "royal_palace_of_babylon-main"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "daniel-5-17",
+        "kind": "section",
+        "lastUnit": "daniel-5-23",
+        "mentionedOnly": [
+          "nebuchadnezzar"
+        ],
+        "title": "Daniel rebukes Belshazzar"
+      },
+      "recordId": "daniel-5-17",
+      "source": "generated",
+      "status": "current",
+      "version": "e861ec633d7124e4a7ccb43b80a036a7",
+      "workId": "bible-web"
+    },
+    "entry:daniel_prophet_of_babylon": {
+      "createdAt": 1793323624649,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Daniel",
+          "Belteshazzar"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "daniel:character:daniel"
+        ],
+        "name": "Daniel (prophet of Babylon)",
+        "note": "The Jewish youth taken captive to Babylon, renamed Belteshazzar, who interprets dreams and receives visions; the main entry with many sections in Daniel, distinguished from the prophet named only in Matthew's citation.",
+        "stages": [
+          {
+            "id": "daniel_main",
+            "label": "Daniel (Belteshazzar), prophet of Babylon",
+            "quotes": [
+              {
+                "quote": "Now among these of the children of Judah were Daniel, Hananiah, Mishael, and Azariah.",
+                "unit": "daniel-1-6"
+              },
+              {
+                "quote": "to Daniel he gave the name Belteshazzar",
+                "unit": "daniel-1-7"
+              },
+              {
+                "quote": "he went into his house (now his windows were open in his room toward Jerusalem)",
+                "unit": "daniel-6-10"
+              }
+            ],
+            "text": "Daniel: a lean, dignified Judean man, grave and greying; olive-brown skin; close-cropped greying hair and a short trimmed grey beard; deep-set, steady eyes and a calm, thoughtful face. Signature outfit: a long undyed linen tunic under a plain indigo wool cloak with a blue fringed hem. Props: a small leather scroll case slung at the hip."
+          }
+        ]
+      },
+      "recordId": "daniel_prophet_of_babylon",
+      "source": "owner",
+      "status": "current",
+      "version": "a9ff9e07f51dfb0e1c2ce6df48f8d113",
+      "workId": "bible-web"
+    },
+    "entry:belshazzar": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the Chaldean king"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "daniel:character:belshazzar"
+        ],
+        "name": "Belshazzar",
+        "note": "King of Babylon during the feast and handwriting on the wall; slain the same night.",
+        "stages": [
+          {
+            "id": "belshazzar",
+            "label": "Belshazzar, king of Babylon",
+            "quotes": [
+              {
+                "quote": "Belshazzar the king made a great feast to a thousand of his lords",
+                "unit": "daniel-5-1"
+              },
+              {
+                "quote": "his face was changed in him",
+                "unit": "daniel-5-9"
+              }
+            ],
+            "text": "Belshazzar: a man in his thirties or early forties, of lean, upright build; olive-bronze skin; short dark hair and a neatly curled beard in the Mesopotamian royal manner; a strong brow and deep-set eyes. Signature outfit: a long fringed royal robe of deep crimson wool over a white linen tunic, with a tall, pleated, gold-banded crown. Carries a gold-hilted ceremonial dagger at the belt."
+          }
+        ]
+      },
+      "recordId": "belshazzar",
+      "source": "generated",
+      "status": "current",
+      "version": "238db12b6241252ee14ae56361446f5f",
+      "workId": "bible-web"
+    },
+    "entry:royal_palace_of_babylon": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the royal palace of Babylon",
+          "the king's palace",
+          "the banquet house",
+          "the king's gate"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "daniel:location:royal_palace_babylon"
+        ],
+        "name": "Royal palace of Babylon",
+        "note": "Babylonian palace where the king receives counsel, sees the handwriting and hears Daniel's interpretations; distinct from the Susa palace.",
+        "stages": [
+          {
+            "id": "royal_palace_of_babylon-main",
+            "label": "Royal palace of Babylon",
+            "quotes": [
+              {
+                "quote": "he was walking in the royal palace of Babylon",
+                "unit": "daniel-4-29"
+              }
+            ],
+            "text": "Royal palace of Babylon: a vast walled complex on the flat alluvial plain of the Euphrates, built of sun-dried and fired brick glazed in deep blue with yellow lion and dragon reliefs. Tiered terraces rise toward a great gate with tall towers; hanging gardens of palms, date trees and climbing vines spill over the walls. Broad courts of pale stone lead to a banquet hall with high cedar-beamed ceilings and a river-facing colonnade."
+          }
+        ]
+      },
+      "recordId": "royal_palace_of_babylon",
+      "source": "generated",
+      "status": "current",
+      "version": "da41681871e0a2d31722a6409a9477cc",
+      "workId": "bible-web"
+    },
+    "moment:daniel-6-22": {
+      "createdAt": 1792538123265,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "daniel-6-22",
+        "kind": "moment",
+        "lastUnit": "daniel-6-22",
+        "sectionId": "daniel-6-19"
+      },
+      "recordId": "daniel-6-22",
+      "source": "generated",
+      "status": "current",
+      "version": "84f0ad24c69993e59e84d0fc6fef9840",
+      "workId": "bible-web"
+    },
+    "section:daniel-6-19": {
+      "createdAt": 1792535239756,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "darius_the_mede",
+            "named": false,
+            "stageId": "darius_the_mede"
+          },
+          {
+            "entryId": "daniel_prophet_of_babylon",
+            "named": true,
+            "stageId": "daniel_main"
+          },
+          {
+            "entryId": "the_den_of_lions",
+            "stageId": "den-of-lions"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "daniel-6-19",
+        "kind": "section",
+        "lastUnit": "daniel-6-23",
+        "mentionedOnly": [
+          "gabriel"
+        ],
+        "title": "Daniel delivered from the lions"
+      },
+      "recordId": "daniel-6-19",
+      "source": "generated",
+      "status": "current",
+      "version": "de676c9d64b7364434cc0c757f047829",
+      "workId": "bible-web"
+    },
+    "entry:darius_the_mede": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "King Darius"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "daniel:character:darius_the_mede"
+        ],
+        "name": "Darius the Mede",
+        "note": "Mede who takes the kingdom after Belshazzar, sets Daniel over his realm and casts him into the lions' den; a different ruler from the Persian king of Ezra.",
+        "stages": [
+          {
+            "id": "darius_the_mede",
+            "label": "Darius the Mede",
+            "quotes": [
+              {
+                "quote": "Darius the Mede received the kingdom, being about sixty-two years old.",
+                "unit": "daniel-5-31"
+              }
+            ],
+            "text": "Darius the Mede: early sixties; broad, settled build; olive-brown skin; short grey-streaked beard and hair under a tall royal cap; lined, steady face with heavy brows. Signature outfit: a long purple court robe over a cream tunic, with a gold-embroidered collar and a deep blue sash. Signature prop: a signet ring of gold on his right hand."
+          }
+        ]
+      },
+      "recordId": "darius_the_mede",
+      "source": "generated",
+      "status": "current",
+      "version": "abbe57d268e495355529de4af6d64166",
+      "workId": "bible-web"
+    },
+    "entry:the_den_of_lions": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "daniel:location:den_of_lions"
+        ],
+        "name": "the den of lions",
+        "note": "Pit into which Daniel is cast and from which he is delivered.",
+        "stages": [
+          {
+            "id": "den-of-lions",
+            "label": "The den of lions",
+            "quotes": [
+              {
+                "quote": "they brought Daniel and cast him into the den of lions",
+                "unit": "daniel-6-16"
+              },
+              {
+                "quote": "went in haste to the den of lions",
+                "unit": "daniel-6-19"
+              }
+            ],
+            "text": "The den of lions: a deep circular stone pit cut into bare earth beside a royal enclosure, its walls of dressed grey limestone rising high above a sandy floor. A heavy wooden lid and an iron-banded gate sit at the rim, reached by a worn stone stair. Dry scrub and a few palms grow at the edge; no plants inside the pit."
+          }
+        ]
+      },
+      "recordId": "the_den_of_lions",
+      "source": "generated",
+      "status": "current",
+      "version": "9a20396bd2a3bd785d69b2135a6380df",
+      "workId": "bible-web"
+    },
+    "moment:daniel-6-23": {
+      "createdAt": 1792538123265,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "daniel-6-23",
+        "kind": "moment",
+        "lastUnit": "daniel-6-23",
+        "sectionId": "daniel-6-19"
+      },
+      "recordId": "daniel-6-23",
+      "source": "generated",
+      "status": "current",
+      "version": "b2e0b6aee18883fbabce5aa6e319278a",
+      "workId": "bible-web"
+    },
+    "moment:daniel-7-9": {
+      "createdAt": 1792538123265,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "daniel-7-9",
+        "kind": "moment",
+        "lastUnit": "daniel-7-9",
+        "sectionId": "daniel-7-9"
+      },
+      "recordId": "daniel-7-9",
+      "source": "generated",
+      "status": "current",
+      "version": "42811b767e7aea912528509ebeae351a",
+      "workId": "bible-web"
+    },
+    "section:daniel-7-9": {
+      "createdAt": 1792692142607,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "daniel_prophet_of_babylon",
+            "named": false,
+            "stageId": "daniel_main"
+          },
+          {
+            "entryId": "the_ancient_of_days",
+            "named": true,
+            "stageId": "ancient-of-days-light"
+          },
+          {
+            "entryId": "one_like_a_son_of_man",
+            "named": true,
+            "stageId": "one_like_a_son_of_man"
+          },
+          {
+            "entryId": "babylon",
+            "stageId": "babylon"
+          },
+          {
+            "entryId": "ministering_assembly_in_daniels_vision",
+            "named": false,
+            "stageId": "ministering_assembly-main"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "daniel-7-9",
+        "kind": "section",
+        "lastUnit": "daniel-7-14",
+        "mentionedOnly": [],
+        "title": "The Ancient of Days and the son of man"
+      },
+      "recordId": "daniel-7-9",
+      "source": "owner",
+      "status": "current",
+      "version": "8573512b6683f0d87a6a3553c7a6b9ef",
+      "workId": "bible-web"
+    },
+    "entry:the_ancient_of_days": {
+      "createdAt": 1792692143097,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the Ancient of Days",
+          "the Most High"
+        ],
+        "entryKind": "character",
+        "hasForm": false,
+        "kind": "entry",
+        "members": [
+          "daniel:character:ancient_of_days"
+        ],
+        "name": "The Ancient of Days",
+        "note": "The divine figure on a fiery throne in Daniel's vision of the beasts; a distinct visionary figure, seen only in Daniel's dream-vision.",
+        "stages": [
+          {
+            "id": "ancient-of-days-light",
+            "label": "The Ancient of Days",
+            "quotes": [
+              {
+                "quote": "His clothing was white as snow, and the hair of his head like pure wool.",
+                "unit": "daniel-7-9"
+              },
+              {
+                "quote": "His throne was fiery flames, and its wheels burning fire.",
+                "unit": "daniel-7-9"
+              },
+              {
+                "quote": "A fiery stream issued and came out from before him.",
+                "unit": "daniel-7-10"
+              }
+            ],
+            "showing": [
+              {
+                "brightness": "brilliant",
+                "colour": "white",
+                "effect": "radiance"
+              },
+              {
+                "brightness": "bright",
+                "colour": "orange",
+                "effect": "fire"
+              },
+              {
+                "brightness": "soft",
+                "colour": "white",
+                "effect": "cloud"
+              },
+              {
+                "brightness": "brilliant",
+                "colour": "white",
+                "effect": "light"
+              }
+            ],
+            "text": "The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light."
+          }
+        ]
+      },
+      "recordId": "the_ancient_of_days",
+      "source": "owner",
+      "status": "current",
+      "version": "2580946090305beb790717b8920e11ec",
+      "workId": "bible-web"
+    },
+    "entry:one_like_a_son_of_man": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "one like a son of man",
+          "the son of man"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "daniel:character:one_like_son_of_man"
+        ],
+        "name": "One like a son of man",
+        "note": "The figure coming with the clouds of heaven to receive dominion in Daniel's vision; not the Gospel Jesus, but a distinct heavenly figure in Daniel.",
+        "stages": [
+          {
+            "id": "one_like_a_son_of_man",
+            "label": "One like a son of man",
+            "quotes": [
+              {
+                "quote": "there came with the clouds of the sky one like a son of man, and he came even to the Ancient of Days",
+                "unit": "daniel-7-13"
+              }
+            ],
+            "text": "One like a son of man: a man in his prime, early thirties, of athletic but dignified build; skin warm olive-brown; short dark hair and a close-cut beard; calm, steady features with a grave, luminous gaze. He wears a long white linen tunic with a deep blue-purple cloak falling from the shoulders, edged with gold thread. He carries no props."
+          }
+        ]
+      },
+      "recordId": "one_like_a_son_of_man",
+      "source": "generated",
+      "status": "current",
+      "version": "f0a2429d0ca6ac9657801f25e0921699",
+      "workId": "bible-web"
+    },
+    "entry:babylon": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Babylonia",
+          "the province of Babylon",
+          "the rivers of Babylon",
+          "the land of the Chaldeans",
+          "land of the Chaldeans",
+          "the land of Shinar",
+          "Great Babylon"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "2-chronicles:location:babylon",
+          "ezra:location:babylon",
+          "psalms:location:babylon",
+          "isaiah:location:babylon",
+          "jeremiah:location:babylon",
+          "daniel:location:babylon",
+          "micah:location:babylon"
+        ],
+        "name": "Babylon",
+        "note": "The city and empire of exile and captivity across the prophets, histories and psalms, also called Babylonia, Shinar and the land of the Chaldeans; the same place in every division.",
+        "stages": [
+          {
+            "id": "babylon",
+            "label": "Babylon",
+            "quotes": [
+              {
+                "quote": "The wide walls of Babylon will be utterly overthrown. Her high gates will be burned with fire.",
+                "unit": "jeremiah-51-58"
+              },
+              {
+                "quote": "I will execute judgment on Bel in Babylon, and I will bring out of his mouth that which he has swallowed up.",
+                "unit": "jeremiah-51-44"
+              },
+              {
+                "quote": "He brought the vessels into the treasure house of his god.",
+                "unit": "daniel-1-2"
+              },
+              {
+                "quote": "I will record Rahab and Babylon among those who acknowledge me.",
+                "unit": "psalms-87-4"
+              }
+            ],
+            "text": "Babylon: a vast walled city of baked brick on a flat plain watered by broad canals and rivers, its wide walls rising high and its great gates of bronze-banded cedar. Date palms and reed beds line the riverbanks, and ziggurat towers and palace roofs of brick rise above the flat skyline, with the temple of Bel among them."
+          }
+        ]
+      },
+      "recordId": "babylon",
+      "source": "generated",
+      "status": "current",
+      "version": "de8721810ea07cf6cc361bc90ea0502d",
+      "workId": "bible-web"
+    },
+    "entry:ministering_assembly_in_daniels_vision": {
+      "createdAt": 1792692142607,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "thousands of thousands",
+          "ten thousand times ten thousand"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "name": "Ministering assembly in Daniel's vision",
+        "note": "The unidentified assembly ministering before the Ancient of Days in Daniel 7:10; distinct from earthly Babylonian royal attendants. A group whose canon describes a typical member.",
+        "stages": [
+          {
+            "id": "ministering_assembly-main",
+            "label": "Ministering assembly",
+            "quotes": [
+              {
+                "quote": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+                "unit": "daniel-7-10"
+              }
+            ],
+            "text": "Ministering assembly in Daniel's vision: a typical member is an adult of medium height and slim build, with warm brown skin, dark curly hair and a short dark beard, wearing an undyed linen robe, a narrow woven belt and plain sandals."
+          }
+        ]
+      },
+      "recordId": "ministering_assembly_in_daniels_vision",
+      "source": "owner",
+      "status": "current",
+      "version": "4abdbb32cfcaa06d3bc748ea6b88a23e",
+      "workId": "bible-web"
+    }
+  },
+  "references": {
+    "styleReference:classical": {
+      "createdAt": 1793038020263,
+      "fingerprint": "56cdda26e88a809fa8bbdebe2cc8ccea",
+      "id": "mx777dy32rnfvxpkrap934178d8h0gmc",
+      "inputs": [
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "be88bfa2cb7f7a9d0eeb899a63a308be"
+        }
+      ],
+      "kind": "styleReference",
+      "notes": [],
+      "pinned": false,
+      "recordId": "classical",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2e99zh3qps4ys5tx6r0jecex8h1tfg",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "styleReference:watercolor": {
+      "createdAt": 1792538338583,
+      "fingerprint": "fa549f4888d199a3c3fd94209103e214",
+      "id": "mx707m2ep4xnbywxw0z0441c9h8gnwms",
+      "inputs": [
+        {
+          "kind": "style",
+          "recordId": "watercolor",
+          "version": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "be88bfa2cb7f7a9d0eeb899a63a308be"
+        }
+      ],
+      "kind": "styleReference",
+      "notes": [],
+      "pinned": false,
+      "recordId": "watercolor",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "styleReference:fresco": null,
+    "sheet:daniel_prophet_of_babylon:daniel_main": {
+      "createdAt": 1793323648751,
+      "fingerprint": "d899053238a1015388f1383ad32de356",
+      "id": "mx79aphxskvyz0y4k34p4b928h8h9nc5",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "daniel_prophet_of_babylon",
+          "version": "a9ff9e07f51dfb0e1c2ce6df48f8d113"
+        },
+        {
+          "kind": "stage",
+          "recordId": "daniel_prophet_of_babylon:daniel_main",
+          "version": "9e186cfd7b808fc4717b3045ce3dc329"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "5d9c203a7885036dfd0954726c62844e"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Lean build, greying close-cropped hair, short trimmed grey beard consistent with canon",
+        "Olive-brown skin tone consistent with canon",
+        "Long undyed linen tunic under indigo cloak with blue fringed hem consistent with canon",
+        "Leather scroll case slung at hip present consistent with canon",
+        "Calm, grave expression consistent with canon"
+      ],
+      "pinned": false,
+      "recordId": "daniel_prophet_of_babylon:daniel_main",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2575h3rz1vtstda30mkqjmn18h8g0a",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:belshazzar:belshazzar": null,
+    "sheet:royal_palace_of_babylon:royal_palace_of_babylon-main": {
+      "createdAt": 1793321953754,
+      "fingerprint": "200696013239987a6f60dca94769ed6d",
+      "id": "mx77g9gwwvv20s9hzn1r6ktfen8h8z0t",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "royal_palace_of_babylon",
+          "version": "da41681871e0a2d31722a6409a9477cc"
+        },
+        {
+          "kind": "stage",
+          "recordId": "royal_palace_of_babylon:royal_palace_of_babylon-main",
+          "version": "5595ee2a94239fff9d4c8b22b2b775be"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "5d9c203a7885036dfd0954726c62844e"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Blue glazed brick walls with yellow lion reliefs match the canon entry",
+        "Tiered terraces and hanging gardens of palms and vines are present",
+        "Grand gate with tall towers is visible in both views",
+        "River and flat plain visible in the wide view matches the Euphrates setting",
+        "Banquet hall and cedar-beamed interior are not visible in either view"
+      ],
+      "pinned": false,
+      "recordId": "royal_palace_of_babylon:royal_palace_of_babylon-main",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2a7naakmqjbswdkx60pwq8h18h8118",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:darius_the_mede:darius_the_mede": null,
+    "sheet:the_den_of_lions:den-of-lions": null,
+    "sheet:the_ancient_of_days:ancient-of-days-light": null,
+    "sheet:one_like_a_son_of_man:one_like_a_son_of_man": null,
+    "sheet:babylon:babylon": {
+      "createdAt": 1793321808953,
+      "fingerprint": "f6b2d8c2e58a596f281cdcaa0666a00e",
+      "id": "mx71e4m12hgr63ted2yvmqv83s8h87af",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "babylon",
+          "version": "de8721810ea07cf6cc361bc90ea0502d"
+        },
+        {
+          "kind": "stage",
+          "recordId": "babylon:babylon",
+          "version": "74fe300a06d1e61964522d128710394e"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "5d9c203a7885036dfd0954726c62844e"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Wide view shows walled brick city on flat plain with canals and palm-lined rivers, ziggurat rising above skyline, consistent with canon.",
+        "Closer view shows blue-glazed gate with bronze-like banding and lion reliefs along a paved processional way, consistent with canon's gate description.",
+        "Date palms and reed-lined waterways appear in the wide view as described in canon."
+      ],
+      "pinned": false,
+      "recordId": "babylon:babylon",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg20fqj8qw4f2rsq7m75r3mj4x8h9wg4",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:ministering_assembly_in_daniels_vision:ministering_assembly-main": null
+  },
+  "files": {
+    "kg2e99zh3qps4ys5tx6r0jecex8h1tfg": {
+      "sha256": "201492ec8ee2388612f06f5caa92b93f789a772211f440df5fa955f890612041",
+      "bytes": 214583,
+      "contentType": "image/jpeg"
+    },
+    "kg28wgdj214z31d65smtrt44ps8gnnm3": {
+      "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5",
+      "bytes": 372434,
+      "contentType": "image/jpeg"
+    },
+    "kg2575h3rz1vtstda30mkqjmn18h8g0a": {
+      "sha256": "f5db6a971c23e993e559705278586d53b9218610bb4f59ade2e8b325db74fe58",
+      "bytes": 103685,
+      "contentType": "image/jpeg"
+    },
+    "kg2a7naakmqjbswdkx60pwq8h18h8118": {
+      "sha256": "0d43884a6393cc9c017a6526c405c6d6e110a2f528492211af54e4f54ea9c7bf",
+      "bytes": 309150,
+      "contentType": "image/jpeg"
+    },
+    "kg20fqj8qw4f2rsq7m75r3mj4x8h9wg4": {
+      "sha256": "2c86f7aef1c6bd7c2447ecd463555ebfdb992c15e496edec22a034c665ff5a74",
+      "bytes": 256299,
+      "contentType": "image/jpeg"
+    }
+  },
+  "readOnlyProductionQueries": 34,
+  "paidCalls": 0,
+  "productionMutations": 0
+}

@@ -11,6 +11,7 @@
 import { SITUATION_FIELDS, type Situation } from "./situation";
 import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
+import { effectsWordingFor, readDepictionProfile, type DepictionProfile } from "./depiction";
 
 /** Structure, wording and reference choice of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. v15 ranks sheet slots (ADR 0009). */
 export const GENERIC_PROMPT_VERSION = "2026-10-29-generic-v15";
@@ -46,6 +47,8 @@ export type RenderingInput = {
   omitStyleReference?: boolean;
   variationNumber?: number | null;
   aspectRatio: "16:9" | "21:9" | "3:2";
+  /** The work's own wording for the rules and for subjects without form (ADR 0010); read from the checkout when omitted. */
+  depiction?: DepictionProfile;
 };
 
 export type RenderingPacket = {
@@ -59,6 +62,8 @@ export type RenderingPacket = {
   briefVersion: string;
   lookVersion: string;
   planVersion: string;
+  /** The work's depiction profile the prompt was built from; absent on packets made before profiles. */
+  depictionVersion: string;
   canon: Array<{ entryId: string; stageId: string; version: string }>;
   references: Array<{ kind: AvailableReference["kind"]; id: string; storageId: string; version: string; caption: string }>;
   flags: { variationIncluded: boolean; neighborsIncluded: boolean; styleDetailIncluded: boolean; lookDetailIncluded: boolean; omitStyleReference?: true };
@@ -69,17 +74,25 @@ export type RenderingResult =
   | { ok: true; prompt: string; references: SelectedReference[]; packet: RenderingPacket }
   | { ok: false; error: string; finalChars: number };
 
-// Short, general rules: every word here is repeated in every image prompt.
-export const ENGINE_RULES = [
-  "No text or symbols anywhere: no letters, numbers, signage, logos or inscriptions, no writing on scrolls, tablets, books, boards or halos, and no artist's signature or initials in a corner.",
-  "One scene painted to every edge of the frame: no panels, collage, border, frame, margin, visible paper or blank backdrop, and never a photographed painting or mockup.",
-  "Nothing from outside the moment's era.",
-  "Natural anatomy: no extra or malformed limbs, hands or faces.",
-  `${COMMON_CONTENT_FLOOR.prohibited.join(" and ").toLowerCase()} are never shown; ${COMMON_CONTENT_FLOOR.permitted.join(" and ").toLowerCase()} may be, treated seriously.`,
-  "No likeness of any real actor, performer or public figure.",
-  "Show the SELECTED CHARACTERS with their canon. Anyone else appears only as an unnamed figure the scene plan describes.",
-  "A subject without form is never drawn. Only when it is selected may the light, cloud, smoke, fire or wind in the scene plan stand for it, with nobody in them. A throne or seat stays empty unless the scene plan names who sits on it.",
-];
+/** "a, b and c", or with another final conjunction. */
+const listed = (items: readonly string[], last = "and") => items.length < 2 ? items.join("") : `${items.slice(0, -1).join(", ")} ${last} ${items[items.length - 1]}`;
+
+/**
+ * Short, general rules: every word here is repeated in every image prompt. The work names where its writing
+ * appears, any serious subjects beyond the engine's floor, and its rule for subjects without form (ADR 0010).
+ */
+export function engineRules(depiction: DepictionProfile): string[] {
+  return [
+    `No text or symbols anywhere: no letters, numbers, signage, logos or inscriptions, no writing on ${depiction.writingSurfaces}, and no artist's signature or initials in a corner.`,
+    "One scene painted to every edge of the frame: no panels, collage, border, frame, margin, visible paper or blank backdrop, and never a photographed painting or mockup.",
+    "Nothing from outside the moment's era.",
+    "Natural anatomy: no extra or malformed limbs, hands or faces.",
+    `${COMMON_CONTENT_FLOOR.prohibited.join(" and ").toLowerCase()} are never shown; serious depictions of ${listed([...COMMON_CONTENT_FLOOR.seriousSubjects, ...depiction.seriousSubjects])} and ${COMMON_CONTENT_FLOOR.permitted.join(" and ").toLowerCase()} may be, treated seriously.`,
+    "No likeness of any real actor, performer or public figure.",
+    "Show the SELECTED CHARACTERS with their canon. Anyone else appears only as an unnamed figure the scene plan describes.",
+    ...(depiction.modes.effects ? [depiction.modes.effects.renderRule] : []),
+  ];
+}
 export const CONTENT_OWNERSHIP = "The text decides who is in the scene; canon decides how they look; the scene plan decides this moment's place, time, light, clothing and action. Owner look constraints, when given, are binding.";
 export const PRECEDENCE_LINE = `If instructions conflict, follow these rules, then the work brief, then canon, then the art style, then the scene plan. ${CONTENT_OWNERSHIP}`;
 
@@ -162,6 +175,8 @@ const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&
 
 export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const { brief, style } = input;
+  const depiction = input.depiction ?? readDepictionProfile(input.work.id);
+  if (depiction.workId !== input.work.id) return { ok: false, error: `The depiction profile of ${depiction.workId} was given for ${input.work.id}.`, finalChars: 0 };
   const owner = input.situation ?? null;
   if (owner && SITUATION_FIELDS.some((field) => typeof owner[field] !== "string")) return { ok: false, error: "Owner look constraints are malformed.", finalChars: 0 };
   let references = selectReferences(input.canon, input.references ?? [], style.id, input.plan);
@@ -170,20 +185,24 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const names = formed.map((c) => c.name);
   // Image models draw a named deity, a quoted bodily metaphor, or a described veiled glow as a figure. When a subject
   // without form is present it is never named or described: the source text, neighbours and its canon are left out,
-  // and only the plan's plain effects (smoke, cloud, fire, light) stand for it.
+  // and only the plan's plain effects stand for it, in the work's own wording. A work with no such wording refuses.
   const presence = formless.length > 0;
+  let effects;
+  try {
+    effects = presence ? effectsWordingFor(depiction, formless.map((c) => c.entryId)) : null;
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : String(error), finalChars: 0 };
+  }
   // A name such as "God / Yahweh, the Father and God of Israel" is also matched by its parts ("God", "Yahweh"), longest first.
   const nameParts = (name: string) => name.split(/\s*\/\s*/).flatMap((part) => [part, part.split(",")[0]]);
   const formlessNames = [...new Set(formless.flatMap((c) => [c.name, ...nameParts(c.name), c.text.match(/^([^:\n]{1,80}):/)?.[1] ?? ""])
     .map((n) => n.trim()).filter((n) => n.length > 2))].sort((x, y) => y.length - x.length);
   // Whole words only, so "Spirit" never rewrites "spiritual".
-  const nameless = (text: string) => formlessNames.reduce((t, name) => t.replace(new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(name)}(?![\\p{L}\\p{N}])`, "giu"), "the presence"), text);
+  const nameless = (text: string) => formlessNames.reduce((t, name) => t.replace(new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(name)}(?![\\p{L}\\p{N}])`, "giu"), effects?.alias ?? name), text);
   // Callers may pass extra plan keys (such as a stored payload's `present` list); only scene text is rewritten.
   const plan = Object.fromEntries(Object.entries(input.plan).map(([key, value]) => [key, key === "version" || typeof value !== "string" ? value : nameless(value)])) as RenderingInput["plan"];
   const selectedCharacters = `SELECTED CHARACTERS: ${formed.filter((c) => c.kind === "character").map((c) => c.name).join("; ") || "(none with fixed canon; show only figures the scene plan describes, or none)"}`;
-  const formlessBlock = presence
-    ? "UNSEEN PRESENCE (binding): the light, cloud, smoke, fire and wind in the scene plan are light and weather spread through the place, not one glowing shape. Nobody stands, sits or hovers in them."
-    : "";
+  const formlessBlock = effects?.renderBlock ?? "";
   const canonBlock = formed.length
     ? ["CANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):",
       ...formed.map((c) => `- ${c.text}`),
@@ -212,7 +231,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const aspect = { "16:9": "WIDESCREEN", "21:9": "ULTRA-WIDE CINEMATIC", "3:2": "CLASSIC WIDE" }[input.aspectRatio];
 
   const assemble = (flags: RenderingPacket["flags"]) => [
-    `PRIORITY RULES:\n${ENGINE_RULES.map((rule, i) => `${i + 1}) ${rule}`).join("\n")}\n${PRECEDENCE_LINE}`,
+    `PRIORITY RULES:\n${engineRules(depiction).map((rule, i) => `${i + 1}) ${rule}`).join("\n")}\n${PRECEDENCE_LINE}`,
     presence ? `SCENE: one moment of ${input.work.title}, described by the scene plan below.` : `SCENE: one moment of ${input.work.title}, ${input.moment.reference}: "${clip(input.moment.text, MOMENT_TEXT_MAX_CHARS)}"`,
     // In a scene with a presence, the brief's own rules name it too ("God the Father has no human face…").
     presence ? nameless(briefBlock(brief, input.eraId, style.id)) : briefBlock(brief, input.eraId, style.id),
@@ -250,7 +269,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     ok: true, prompt, references,
     packet: {
       promptVersion: GENERIC_PROMPT_VERSION, workId: input.work.id, momentId: input.moment.id, sectionId: input.moment.sectionId, eraId: input.eraId,
-      styleId: style.id, styleVersion: input.styleVersion, briefVersion: input.briefVersion, lookVersion: input.look.version, planVersion: plan.version,
+      styleId: style.id, styleVersion: input.styleVersion, briefVersion: input.briefVersion, lookVersion: input.look.version, planVersion: plan.version, depictionVersion: depiction.version,
       canon: input.canon.map((c) => ({ entryId: c.entryId, stageId: c.stageId, version: c.version })),
       references: references.map((r) => ({ kind: r.kind, id: r.kind === "sheet" ? `${r.entryId}:${r.stageId}` : r.styleId, storageId: r.storageId, version: r.version, caption: r.caption })),
       flags: { ...flags, ...(input.omitStyleReference ? { omitStyleReference: true as const } : {}) }, budget: { maxChars: GENERIC_PROMPT_MAX_CHARS, finalChars: prompt.length },

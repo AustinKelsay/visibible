@@ -35,6 +35,35 @@ The brief is a short page, with a hard ceiling of **400 whitespace-delimited wor
 
 Section-to-era assignments are analysis output and are rejected as extra fields in the brief. `selectMainEra(brief, sectionEraIds)` counts those assignments and selects the era with the most sections. Ties use brief order; empty assignments and unknown era IDs fail. It does not guess a main era before sections exist.
 
+## Depiction profile
+
+`works/<work-id>/depiction.json` holds the wording the engine's image instructions and checks need that belongs to one work rather than to the engine ([ADR 0010](../../docs/adr/0010-work-depiction-profiles.md); [depiction.ts](../../src/lib/engine/depiction.ts)). It sits beside the brief but is not part of it: it is deployed with the build, versioned by content, never registered with the analysis, and changing it needs no brief amendment.
+
+```text
+schemaVersion: 1
+workId
+writingSurfaces      where writing appears, named in the no-writing rule ("scrolls, tablets, books, boards or halos")
+closedDocuments      the planner's instruction for written objects ("letters … stay folded or closed")
+inscribedObjects     the image check's examples of inscriptions ("tablets or scrolls")
+seriousSubjects      serious subjects beyond the floor's battles, blood and death (["crucifixion"])
+speakerExamples?     the planner's examples of a speaker drawn as a figure of their own words
+modes: { effects? }  wording for subjects never drawn, only shown through effects
+```
+
+Every canon entry has a **depiction mode**. `form` entries are drawn from their canon. `effects` entries are never drawn, and the profile's `effects` wording covers every stage:
+
+- `alias` replaces their names in the image prompt.
+- `renderRule` and `renderBlock` are the rendering rule and the line added when one is selected.
+- `lookSystem`, `lookFields`, `planSystem` and `planField` are the look and plan instructions.
+- `reviewFault` is the review's `embodied_formless` problem.
+- `checkFigure` is the image check's figure-in-light fault.
+
+A work without `effects` wording has no such subjects: its prompts never mention them, its review cannot report them and its image check asks only about edges, frames and lettering. An `effects` entry in such a work stops preparation and rendering before any model call.
+
+The mode is stored as the entry's `hasForm` (`false` is `effects`; absent or `true` is `form`). `works:correct set-depiction` changes it ([Owner corrections](../workflow/OWNER-CORRECTIONS.md)).
+
+Fields are single-line text and unknown fields fail. Looks and plans record a version of only the wording they read, so a rendering-only change remakes nothing; the rendering packet and saved image record the whole profile's version. The Bible's profile is the engine's former wording verbatim. Holmes has no `effects` wording.
+
 ## Draft scope review and canon hints
 
 `reviewDraftBrief(draft, entries, sectionReferences?, library?)` accepts single-entry IDs, kinds and names/aliases from the reading pass. It validates the draft, then proposes a cleaned brief by routing depiction-rule text that names an entry into `canonHints`. Each hint retains the original rule, condition, entry ID/kind and source path. The input is never mutated.
@@ -49,7 +78,7 @@ These are conservative review suggestions. A real work-wide depiction policy may
 
 `PROMPT_PRECEDENCE` is strongest to weakest: engine rules, brief content/depiction, style rendering, section look, scene plan. Briefs control what may be shown and the world's people/technology; styles control rendering. Thus an Icon gold sky can override literal section lighting without changing the scene's era or granting permission for halos.
 
-`COMMON_CONTENT_FLOOR` belongs to the engine for every work: sexually explicit content and lingering gore are prohibited; serious battles, blood, death, crucifixion and non-sexual nudity are permitted. Provider filters may still refuse an otherwise permitted image. Strict brief/style schemas accept no field that replaces this floor, and engine rules outrank all prose. These validators cannot prove that arbitrary prose is semantically consistent with the floor; owner review and the later prompt assembler must preserve that precedence.
+`COMMON_CONTENT_FLOOR` belongs to the engine for every work: sexually explicit content and lingering gore are prohibited; serious battles, blood, death and non-sexual nudity are permitted. A work's [depiction profile](#depiction-profile) may name further serious subjects (the Bible adds crucifixion); it cannot remove the prohibitions. Provider filters may still refuse an otherwise permitted image. Strict brief/style schemas accept no field that replaces this floor, and engine rules outrank all prose. These validators cannot prove that arbitrary prose is semantically consistent with the floor; owner review and the later prompt assembler must preserve that precedence.
 
 ## Approval and changes
 

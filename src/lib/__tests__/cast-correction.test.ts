@@ -15,6 +15,7 @@ import { assembleRendering } from "../engine/assemble";
 import { readWorkInputs, type WorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { testDepiction } from "../../../tests/fixtures/depiction";
 
 const SECRET = "s".repeat(40), WORK = "cast-fixture";
 process.env.CONVEX_SERVER_SECRET = SECRET;
@@ -27,7 +28,7 @@ const work = createWorkReader({
   ].map((text, i) => ({ number: i + 1, text })) }],
 });
 const inputs: WorkInputs = {
-  work, workVersion: "wv", briefVersion: "bv",
+  work, workVersion: "wv", briefVersion: "bv", depiction: testDepiction(WORK),
   brief: { schemaVersion: 1, workId: WORK, tone: "Quiet", depictionRules: [],
     eras: [{ id: "court", label: "Court", people: "Courtiers", dress: "Robes", buildingsAndObjects: "Stone courts", technology: "Hand tools" }],
     styleIds: ["classical", "watercolor", "icon"] },

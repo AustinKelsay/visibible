@@ -14,6 +14,7 @@ import { prepareMoment, createConvexPreparationStore, PreparationUnavailableErro
 import type { TextModel, TextModelRequest, TextModelResult } from "../reading-pass/model";
 import type { WorkBrief } from "../work-preparation";
 import { withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { testDepiction } from "../../../tests/fixtures/depiction";
 
 const SECRET = "s".repeat(40);
 process.env.CONVEX_SERVER_SECRET = SECRET;
@@ -67,7 +68,7 @@ describe("lazy looks and plans", () => {
 
   it("makes the look once per section and the plan once per moment, shared by every style and translation", async () => {
     const model = scriptedModel(defaultAnswer);
-    const first = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, "Text of alpha-1-2."), ...fast });
+    const first = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, "Text of alpha-1-2."), ...fast });
     expect(first.calls).toBe(3); // look, plan and its review
     expect(first.look.payload).toEqual(lookAnswer);
     // The planner chose Jonah only; the stage comes from the section's assignment, not the first stage.
@@ -82,15 +83,15 @@ describe("lazy looks and plans", () => {
     expect(model.calls[1].user).not.toMatch(/style|classical/i);
 
     // Second moment of the same section: the look is reused, only a plan is made.
-    const second = await prepareMoment({ workId: WORK, momentId: "alpha-1-2", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-2", "Text of alpha-1-1.", null), ...fast });
+    const second = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-2", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-2", "Text of alpha-1-1.", null), ...fast });
     expect(second.calls).toBe(2); // plan and review
     expect(second.look.version).toBe(first.look.version);
     // Any later request for the first moment, whatever the style or translation, makes no call.
-    const again = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
+    const again = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
     expect(again.calls).toBe(0);
     expect(again.plan.version).toBe(first.plan.version);
     // A moment in the next section gets its own look and the section's own stage for Jonah.
-    const third = await prepareMoment({ workId: WORK, momentId: "alpha-1-4", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-4", null, null), ...fast });
+    const third = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-4", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-4", null, null), ...fast });
     expect(third.calls).toBe(3);
     expect(third.present).toEqual([{ entryId: "jonah", stageId: "young", version: expect.any(String) }]);
     const spend = await t.query(api.analysis.getPreparationSpend, { workId: WORK });
@@ -100,7 +101,7 @@ describe("lazy looks and plans", () => {
 
   it("uses a reassigned canon stage even when the refreshed look has identical content", async () => {
     const model = scriptedModel(defaultAnswer);
-    const options = { workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast };
+    const options = { workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast };
     const first = await prepareMoment(options);
     const section = records.find((record) => record.kind === "section" && record.recordId === "alpha-1-1")!;
     if (section.payload.kind !== "section") throw new Error("Missing section fixture");
@@ -115,10 +116,10 @@ describe("lazy looks and plans", () => {
 
   it("remakes only what an owner edit or a cleared plan invalidates", async () => {
     const model = scriptedModel(defaultAnswer);
-    const first = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
+    const first = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
     // Owner edits the look: the plan named the old look version, so only the plan is remade.
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", payload: { kind: "look", sectionId: "alpha-1-1", ...lookAnswer, weather: "storm" } });
-    const afterLookEdit = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
+    const afterLookEdit = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
     expect(afterLookEdit.calls).toBe(2);
     expect(afterLookEdit.look.payload.weather).toBe("storm");
     expect(afterLookEdit.look.version).not.toBe(first.look.version);
@@ -128,16 +129,16 @@ describe("lazy looks and plans", () => {
     expect(stored?.source).toBe("owner");
     // A canon edit refreshes the plan but retains the owner-authored look constraint.
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah", payload: { kind: "entry", name: "Jonah", entryKind: "character", hasForm: true, stages: [{ id: "young", text: "Jonah: edited." }, { id: "old", text: "Jonah: edited, older." }] } });
-    const afterCanonEdit = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
+    const afterCanonEdit = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
     expect(afterCanonEdit.calls).toBe(2);
     expect(afterCanonEdit.look.version).toBe(afterLookEdit.look.version);
     // Clearing the plan creates a future replan and leaves the look alone.
     await t.mutation(api.analysis.clearRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "alpha-1-1" });
-    const afterClear = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
+    const afterClear = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
     expect(afterClear.calls).toBe(2);
     expect(afterClear.look.version).toBe(afterCanonEdit.look.version);
     // A brief version change invalidates too.
-    const afterBrief = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv2", context: context("alpha-1-1", null, null), ...fast });
+    const afterBrief = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv2", context: context("alpha-1-1", null, null), ...fast });
     expect(afterBrief.calls).toBe(2);
   });
 
@@ -146,8 +147,8 @@ describe("lazy looks and plans", () => {
     const gate = new Promise<void>((resolve) => { release = resolve; });
     const model = scriptedModel(defaultAnswer);
     const slow: TextModel = { id: "slow", complete: async (request) => { await gate; return model.complete(request); } };
-    const a = prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model: slow, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "a", ...fast });
-    const b = prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model: slow, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "b", ...fast });
+    const a = prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model: slow, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "a", ...fast });
+    const b = prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model: slow, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "b", ...fast });
     await new Promise((r) => setTimeout(r, 20));
     expect(await t.query(api.analysis.getPreparationStatus, { workId: WORK, momentId: "alpha-1-1" })).toMatchObject({ ready: false, look: "preparing", plan: "missing" });
     release();
@@ -160,15 +161,15 @@ describe("lazy looks and plans", () => {
 
   it("raises a retryable error when a required look or plan cannot be made, with no fallback and nothing stored", async () => {
     const failing = scriptedModel(() => new Error("provider down"));
-    await expect(prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model: failing, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast })).rejects.toThrow(PreparationUnavailableError);
+    await expect(prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model: failing, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast })).rejects.toThrow(PreparationUnavailableError);
     expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "alpha-1-1" })).toBeNull();
     const invalid = scriptedModel((request) => request.label.startsWith("look:") ? lookAnswer : "not json");
-    await expect(prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model: invalid, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast })).rejects.toMatchObject({ stage: "plan", retryable: true });
+    await expect(prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model: invalid, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast })).rejects.toMatchObject({ stage: "plan", retryable: true });
     expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "alpha-1-1" })).toBeNull();
     // Spend is recorded for the failed attempts too; the claim is released so a retry can proceed.
     expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(5);
     expect(await t.query(api.analysis.getPreparationStatus, { workId: WORK, momentId: "alpha-1-1" })).toMatchObject({ look: "ready", plan: "missing" });
-    await expect(prepareMoment({ workId: WORK, momentId: "nope", store: store(), model: invalid, brief, briefVersion: "bv", context: context("nope", null, null), ...fast })).rejects.toThrow(/unknown moment/);
+    await expect(prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "nope", store: store(), model: invalid, brief, briefVersion: "bv", context: context("nope", null, null), ...fast })).rejects.toThrow(/unknown moment/);
   });
 
   it("waits for another instance's claim instead of paying again, and gives up with a retryable error", async () => {
@@ -177,7 +178,7 @@ describe("lazy looks and plans", () => {
     const fakeClock = { now: () => clock, sleep: async (ms: number) => { clock += ms; } };
     // Another instance holds the look claim and never finishes: this caller waits out the window, then reports retryable.
     await t.mutation(api.analysis.claimPreparation, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", holder: "other", ttlMs: 10 * 60_000 });
-    await expect(prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "me", ...fakeClock }))
+    await expect(prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "me", ...fakeClock }))
       .rejects.toThrow(/another request is still preparing/);
     expect(model.calls).toHaveLength(0);
     // The other instance finishes while this caller waits: the record is picked up and no call is funded here.
@@ -193,7 +194,7 @@ describe("lazy looks and plans", () => {
         await t.mutation(api.analysis.releasePreparation, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", holder: "other" });
       }
     } };
-    const result = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "me", ...sleepThenWrite });
+    const result = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "me", ...sleepThenWrite });
     expect(result.calls).toBe(2); // only the plan and its review
     expect(result.look.payload).toEqual(lookAnswer);
   });
@@ -214,7 +215,7 @@ describe("lazy looks and plans", () => {
       }
       return base.claim(kind, recordId, holder, ttlMs);
     } };
-    const result = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: racing, model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
+    const result = await prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "alpha-1-1", store: racing, model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
     expect(result.calls).toBe(2); // the plan and its review; the look was found after the claim
     expect(model.calls.map((c) => c.label.split(":")[0])).toEqual(["plan"]);
   });
@@ -254,7 +255,7 @@ describe("forgiving plan review through the real payload validator", () => {
       const value = request.schemaName === "section_look" ? lookAnswer : plans[Math.min(p++, plans.length - 1)];
       return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 10, completionTokens: 10, costUsd: 0.0005 }, elapsedMs: 1 };
     } };
-    const run = () => prepareMoment({ workId: WORK, momentId: "gamma-1-1", store: createConvexPreparationStore(client, api.analysis as unknown as Record<string, unknown>, WORK, SECRET),
+    const run = () => prepareMoment({ workId: WORK, depiction: testDepiction(WORK), momentId: "gamma-1-1", store: createConvexPreparationStore(client, api.analysis as unknown as Record<string, unknown>, WORK, SECRET),
       model, brief, briefVersion: "bv", context: { moment: { id: "gamma-1-1", reference: "Gamma 1:1", text }, previous: null, next: null }, now: () => Date.now(), sleep: async () => {} });
     return { run, calls };
   };

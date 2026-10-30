@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-30T01:06:28.117Z",
+  "commit": "cc16431b775ba3bb45d92d6c5e83c9eded48b5b7",
+  "grant": {
+    "authorizedAt": "2026-10-30T01:06:19Z",
+    "authorization": "Owner replied \"ok continue with your recs\" to a recommendation that ended: make sheets for the top 100, then re-check Daniel's verses (about $0.50). Operator decision: raise evaluation by $0.60 to $40.30 and cap this run at $0.60, so the re-check does not use the $0.49 left before it.",
+    "increaseUsd": 0.6,
+    "authorizedUsd": 40.3,
+    "operationCapUsd": 0.6,
+    "scope": "One execution of the frozen Daniel re-check in this directory: 4 cases in Classical, Watercolor and Fresco, at most 24 images, 80 text calls and 48 check calls. No paid restart, production writes, registration or deployment."
+  }
+}

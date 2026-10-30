@@ -12,6 +12,7 @@ import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { createWorkReader } from "../work-input";
 import type { WorkInputs } from "../engine/work-inputs";
 import { SHARED_STYLES } from "../work-preparation";
+import { testDepiction } from "../../../tests/fixtures/depiction";
 
 const text = "The Presence shone above the camp as the witness stood nearby.";
 const fields = { primarySubject: "The witness stands in the camp", action: "radiance spreads above the camp",
@@ -26,7 +27,7 @@ async function setup(repair: boolean, invalidation: "both" | "review" | "selecti
       referenceText: { name: "Fixture", source: "https://example.com", credit: "Test", sha256: "0".repeat(64) },
       levels: ["Part", "Line"], referenceFormats: { Part: "{Part} {Line}" }, momentMode: "unit",
       divisions: [{ key: "m", label: "Camp", level: "Part", units: [{ number: 1, text }] }] }),
-    workVersion: "wv", briefVersion: "bv",
+    workVersion: "wv", briefVersion: "bv", depiction: testDepiction("presence-work"),
     brief: { schemaVersion: 1, workId: "presence-work", tone: "Quiet", depictionRules: [], styleIds: ["classical"], eras: [{ id: "camp", label: "Camp", people: "Witness", dress: "plain tunic", buildingsAndObjects: "tents", technology: "None" }] },
     styles: { classical: { style: SHARED_STYLES.get("classical"), version: "sv" } },
   };
@@ -39,7 +40,7 @@ async function setup(repair: boolean, invalidation: "both" | "review" | "selecti
   const completion = (value: unknown) => ({ content: JSON.stringify(selectionReply(value)), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 });
   // Seed a formerly accepted plan with the old dependency versions. Only prompt invalidation
   // can cause assembly to re-review this cached omission; the source and look stay the same.
-  await prepareMoment({ workId: "presence-work", momentId: "m-1", store: memory.store, brief: inputs.brief, briefVersion: inputs.briefVersion,
+  await prepareMoment({ workId: "presence-work", momentId: "m-1", store: memory.store, brief: inputs.brief, briefVersion: inputs.briefVersion, depiction: inputs.depiction,
     context: { moment: { id: "m-1", reference: "1", text }, previous: null, next: null },
     model: { id: "scripted", complete: async (r) => r.schemaName === "plan_review" ? reviewReply([]) : completion(r.schemaName === "section_look" ? { place: "camp", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "plain tunic" } : reply(false)) } });
   const old = (await memory.store.getActiveRecord("plan", "m-1"))!;

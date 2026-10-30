@@ -1,0 +1,28 @@
+{
+  "allowance": "evaluation",
+  "key": "local dev key (…1292), same OpenRouter account",
+  "authorizedUsd": 40.3,
+  "increaseUsd": 0,
+  "measuredBeforeUsd": 39.47404175,
+  "operationCapUsd": 0.6,
+  "byKind": {
+    "text": {
+      "calls": 34,
+      "measuredUsd": 0.0163329
+    },
+    "image": {
+      "calls": 12,
+      "measuredUsd": 0.413672
+    },
+    "check": {
+      "calls": 24,
+      "measuredUsd": 0.0078645
+    }
+  },
+  "operationMeasuredUsd": 0.4378694,
+  "operationUncertainUsd": 0,
+  "measuredAfterUsd": 39.91191115,
+  "retainedUncertaintyUsd": 0.119,
+  "remainingUsd": 0.26908885,
+  "transfers": 0
+}

@@ -4,9 +4,12 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { createOpenRouterVisionChecker } from "../../../src/lib/engine/reference-adapters";
-import { SCENE_CHECK_VERSION, edgeCheckQuestion, edgeCheckSchema, figureCheckQuestion, figureCheckSchema } from "../../../src/lib/engine/scene-check";
+import { SCENE_CHECK_VERSION, edgeCheckQuestion, edgeCheckSchema, figureCheckQuestion, figureCheckSchemaFor } from "../../../src/lib/engine/scene-check";
 import { extractOpenRouterUsageUsd } from "../../../src/lib/image-response";
 import { dir, hash, items, json, readEnvironment, root } from "./common.mjs";
+import { readDepictionProfile } from "../../../src/lib/engine/depiction";
+// The Bible's depiction profile reproduces the wording these runs used (ADR 0010).
+const depiction = readDepictionProfile("bible-web");
 
 const [flag, runName] = process.argv.slice(2);
 assert.equal(flag, "--execute");
@@ -49,10 +52,10 @@ for (const item of list) {
   const mimeType = item.file.endsWith(".png") ? "image/png" : "image/jpeg";
   let row: Record<string, unknown>;
   try {
-    const context = { people: item.people, description: item.description };
+    const context = { people: item.people, description: item.description, depiction };
     const [edge, figure] = await Promise.all([
       checker.check({ label: `${item.key}:edge`, question: edgeCheckQuestion(context), schema: edgeCheckSchema, image: { bytes, mimeType } }),
-      checker.check({ label: `${item.key}:figure`, question: figureCheckQuestion(context), schema: figureCheckSchema, image: { bytes, mimeType } }),
+      checker.check({ label: `${item.key}:figure`, question: figureCheckQuestion(context), schema: figureCheckSchemaFor(depiction), image: { bytes, mimeType } }),
     ]);
     row = { key: item.key, edge: edge.value, figure: figure.value, costUsd: (edge.costUsd ?? 0) + (figure.costUsd ?? 0), elapsedMs: Math.max(edge.elapsedMs, figure.elapsedMs) };
   } catch (error) {

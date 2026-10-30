@@ -6,7 +6,7 @@ import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { assembleRendering } from "../engine/assemble";
-import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION, LOOK_SYSTEM, lookOutputSchema, PLAN_SYSTEM } from "../engine/preparation";
+import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION, LOOK_SYSTEM, lookOutputSchema, planSystem } from "../engine/preparation";
 import { PLAN_REVIEW_PROMPT_VERSION } from "../engine/plan-review";
 import type { WorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
@@ -14,6 +14,9 @@ import { responseSchema } from "../reading-pass/prompts";
 import { createWorkReader } from "../work-input";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
 import { withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { testDepiction } from "../../../tests/fixtures/depiction";
+
+const PLAN_SYSTEM = planSystem(testDepiction("presence-fixture"));
 
 const SECRET = "p".repeat(40);
 const WORK = "presence-fixture";
@@ -32,7 +35,7 @@ const brief: WorkBrief = {
   eras: [{ id: "court", label: "Ancient court", people: "Courtiers.", dress: "Tunics.", buildingsAndObjects: "Stone throne.", technology: "Oil lamps." }],
   styleIds: ["classical", "watercolor", "icon"],
 };
-const inputs: WorkInputs = { work, workVersion: "wv", brief, briefVersion: "bv", styles: Object.fromEntries(
+const inputs: WorkInputs = { work, workVersion: "wv", brief, briefVersion: "bv", depiction: testDepiction(WORK), styles: Object.fromEntries(
   brief.styleIds.map((id) => [id, { style: SHARED_STYLES.get(id), version: `sv-${id}` }]),
 ) };
 const entries = [
@@ -312,7 +315,7 @@ describe("no-form presence selection", () => {
     const first = await render();
     if (!first.ok) throw new Error(first.message);
     const plan = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
-    expect(plan?.inputs.filter((i) => i.kind === "prompt")).toEqual([{ kind: "prompt", recordId: "scene_plan_look_ownership", version: "generated-guide-v1" }, { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION }, { kind: "prompt", recordId: "scene_plan_review", version: PLAN_REVIEW_PROMPT_VERSION }]);
+    expect(plan?.inputs.filter((i) => i.kind === "prompt")).toEqual([{ kind: "prompt", recordId: "scene_plan_look_ownership", version: "generated-guide-v1" }, { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION }, { kind: "prompt", recordId: "scene_plan_review", version: PLAN_REVIEW_PROMPT_VERSION }, { kind: "prompt", recordId: "depiction_plan", version: testDepiction(WORK).planVersion }]);
     const look = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "court-1" });
     expect(look?.inputs.some((i) => i.kind === "prompt")).toBe(false);
     expect(calls[0].system).toBe(LOOK_SYSTEM);

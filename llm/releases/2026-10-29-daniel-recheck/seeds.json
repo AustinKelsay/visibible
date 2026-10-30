@@ -1,0 +1,87 @@
+{
+  "note": "Section looks copied from the earlier run's results. The run rebuilds each record's inputs from this snapshot and the current brief; the brief's only change since then adds Fresco to its style list, which no look request reads.",
+  "stores": {
+    "launch-matrix-v3": {
+      "seededFrom": "2026-10-28-launch-matrix-v3",
+      "seeded": {
+        "daniel-6-19": {
+          "cases": [
+            "daniel-6-22",
+            "daniel-6-23"
+          ],
+          "payload": {
+            "place": "Stone den beneath a royal palace in Babylon, sealed with a great stone and royal signet; sandy floor, rough-hewn walls",
+            "timeOfDay": "Night turning to early dawn",
+            "weather": "Still, cool night air, clear sky",
+            "light": "Torchlight and lamp glow at first, then pale grey dawn light entering from above the den opening",
+            "clothing": "Daniel in simple tunic and cloak; Darius in royal court robes with a signet ring; period armor and linen for attendants"
+          },
+          "fromCases": [
+            "daniel-6-22"
+          ]
+        }
+      },
+      "fresh": [
+        {
+          "sectionId": "daniel-5-17",
+          "cases": [
+            "daniel-5-17"
+          ],
+          "reason": "no earlier verse in this section"
+        },
+        {
+          "sectionId": "daniel-7-9",
+          "cases": [
+            "daniel-7-9"
+          ],
+          "reason": "no earlier verse in this section"
+        }
+      ]
+    },
+    "fresco-matrix": {
+      "seededFrom": "2026-10-28-fresco-matrix",
+      "seeded": {
+        "daniel-6-19": {
+          "cases": [
+            "daniel-6-22",
+            "daniel-6-23"
+          ],
+          "payload": {
+            "place": "Stone den beneath a royal palace in Babylon, sealed with a great stone and a royal signet; sandy floor, rough-hewn walls",
+            "timeOfDay": "Night into early morning, a change noted once",
+            "weather": "Still, cool night air, dust and faint dawn haze",
+            "light": "Torchlight and lamplight at night, softening to pale gray dawn light entering from above",
+            "clothing": "Daniel in plain tunic and cloak; Darius in royal court robes with signet ring; period armor on guards"
+          },
+          "fromCases": [
+            "daniel-6-22"
+          ]
+        },
+        "daniel-7-9": {
+          "cases": [
+            "daniel-7-9"
+          ],
+          "payload": {
+            "place": "A vast visionary hall of fire and cloud above the earth, with rivers of flame flowing from a throne-court; Daniel's vision set against the exile city of Babylon below.",
+            "timeOfDay": "Night vision, unchanging, lit by its own radiance rather than sun or moon.",
+            "weather": "Thick cloud banks parted by fire and wind, with a steady flow of flame across the sky.",
+            "light": "Radiant white and burning gold spread through cloud and smoke, the presence of the Ancient of Days shown only as blazing light filling the court.",
+            "clothing": "Daniel in plain exile tunic and cloak; ministering assembly in simple white linen, with no visible bodily form given to the Ancient of Days."
+          },
+          "fromCases": [
+            "daniel-7-9"
+          ]
+        }
+      },
+      "fresh": [
+        {
+          "sectionId": "daniel-5-17",
+          "cases": [
+            "daniel-5-17"
+          ],
+          "reason": "no earlier verse in this section"
+        }
+      ]
+    }
+  }
+}

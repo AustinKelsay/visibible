@@ -1,0 +1,8 @@
+{
+  "authorizedAt": "2026-10-30T01:31:23Z",
+  "authorization": "Owner replied \"yes continue\" to: once the key limit is raised, edit Daniel's canon text to match his sheet, remake his sheet (about $0.04) and re-check all three styles (about $0.45). The owner then pointed to the local dev OpenRouter key instead (\"I think we have another local dev key that we use for dev tasks. See if you could find that one.\"). Operator decision: run on that dev key within the existing $40.30 evaluation allowance, capped at $0.60, no increase.",
+  "increaseUsd": 0,
+  "authorizedUsd": 40.3,
+  "operationCapUsd": 0.6,
+  "scope": "One execution of the frozen second Daniel re-check in this directory: 4 cases in Classical, Watercolor and Fresco, at most 24 images, 80 text calls and 48 check calls, on the local dev OpenRouter key. No paid restart, production writes, registration or deployment."
+}

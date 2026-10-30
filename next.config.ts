@@ -3,9 +3,9 @@ import type { NextConfig } from "next";
 const isProduction = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
-  // The generic image engine reads the owner-authored work, brief and style files at request time.
+  // The generic image engine reads the owner-authored work, brief, depiction profile and style files at request time.
   outputFileTracingIncludes: {
-    "/api/generate-image": ["./works/*/work.json", "./works/*/brief.json", "./styles/*.json"],
+    "/api/generate-image": ["./works/*/work.json", "./works/*/brief.json", "./works/*/depiction.json", "./styles/*.json"],
   },
   async headers() {
     const cspDirectives = [

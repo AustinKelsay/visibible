@@ -1,0 +1,51 @@
+{
+  "scorer": "operator",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "pair045",
+      "verdict": "different",
+      "notes": "Baseline pair008: Viewed full size and cropped heads: both are elderly with long white beards, but the left Moses has a full head of long white hair while the right Moses has a bald crown with white hair only at the sides. A hair-style conflict, so different."
+    },
+    {
+      "id": "pair065",
+      "verdict": "different",
+      "notes": "Baseline pair019: The left path runs between a single wall of water and desert cliffs and dunes; the right path runs between two walls of water with a pillar of fire ahead. The arrangement of water and land conflicts, so different."
+    },
+    {
+      "id": "pair122",
+      "verdict": "different",
+      "notes": "Baseline pair041: Viewed cropped heads: the left Peter has black curly hair and a black beard and looks younger; the right Peter has grey curly hair and a grey beard and looks older. Night lighting does not explain the grey, so different."
+    },
+    {
+      "id": "pair023",
+      "verdict": "same",
+      "notes": "Viewed full size with both figures cropped: the anointed boy and the youth with the sling both have short dark curly hair, no beard, a slight build, a ragged brown tunic and a shepherd's bag on a strap. The second looks a little older, within one youth stage, so same."
+    },
+    {
+      "id": "pair030",
+      "verdict": "different",
+      "notes": "Viewed full size: on the left the people walk a beach with unparted sea on one side and coastal cliffs with a clifftop town on the other; on the right the floor runs between two towering walls of water. The arrangement conflicts, the same cue as the baseline's Classical Red Sea pair."
+    },
+    {
+      "id": "pair073",
+      "verdict": "different",
+      "notes": "Viewed full size: the courtyard Peter has greying hair and a grey-white beard, while the Peter stepping onto the water has black curly hair and a black beard. A hair and beard colour conflict, so different."
+    },
+    {
+      "id": "pair091",
+      "verdict": "same",
+      "notes": "Viewed full size: the same wooden single-masted boat with a pale sail, crowded with disciples on the same water. The storm on the left and the calm on the right are the change Mark 4:39 describes, not a different place, so same."
+    },
+    {
+      "id": "pair113",
+      "verdict": "same",
+      "notes": "Viewed full size with both faces cropped: both Peters have dark curly hair greying at the temples, a beard greying at the chin and the same lean lined face. The moonlit one only looks greyer, so no identity cue conflicts."
+    },
+    {
+      "id": "pair121",
+      "verdict": "different",
+      "notes": "Viewed full size: the Peter on the water has black curly hair and a black beard, while the Peter at the shore fire has grey hair and a grey beard and looks older. A hair and beard colour conflict, so different."
+    }
+  ]
+}
