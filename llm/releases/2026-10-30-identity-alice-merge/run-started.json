@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-30T21:32:38.019Z",
+  "commit": "381c9f28c784529575b1c80383cb322a89e3cbfb",
+  "sources": {
+    "src/lib/reading-pass/merge.ts": "a0c9cd23c10e39804a5939aa09f9277cd4589e07b2b12b88aa5dc105f8666922",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/reading-pass/model.ts": "d9d579e4b14f3d4140006bad40f8952f2ef679e95d42502373fc697e23ddec08",
+    "src/lib/image-evals/suite-run.ts": "9155bdc9dae42d275e6ecafd6885c3e73a54f241da9b62eb606cb72a305907d1",
+    "llm/releases/2026-10-30-identity-alice-merge/input.json": "79ae6806ccef418c41481e1d4723f7a6deef4e41175614201fd07b8c367b3502",
+    "llm/releases/2026-10-30-identity-alice-merge/plan.json": "003109714d9d684e95df2007d9c9d0159f9a585165529059a4749e809a019b06",
+    "llm/releases/2026-10-30-identity-alice-merge/funding.json": "f189ccc60404dce43f4fdb641f2a5440d941bda65236601dab947a73f906b1fb",
+    "llm/releases/2026-10-30-identity-alice-merge/run.mts": "9323f3d6bef847ec0ac4990c64d66c0e020dbf3326f65e2096a2842b96ef712c"
+  },
+  "pricing": {
+    "prompt": 1e-7,
+    "completion": 5e-7,
+    "imageOutput": null,
+    "maxCompletionTokens": 128000,
+    "overrides": [
+      {
+        "minPromptTokens": 100000,
+        "prompt": 5e-7,
+        "completion": 0.0000025
+      }
+    ]
+  },
+  "balanceUsd": 6.1705842380000036
+}

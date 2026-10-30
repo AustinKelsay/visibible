@@ -1,0 +1,32 @@
+{
+  "pass": true,
+  "failure": null,
+  "calls": 59,
+  "rabbitIdentities": [
+    {
+      "id": "white_rabbit",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "White Rabbit",
+      "aliases": [
+        "the Rabbit",
+        "the White Rabbit with pink eyes",
+        "the White Rabbit",
+        "W. Rabbit",
+        "the herald"
+      ],
+      "note": "The one talking white rabbit with pink eyes and a waistcoat-pocket watch, who hurries Alice down the hole, owns the house, sends for gloves and a fan, and later serves as the court's herald and reader of the verses. All six entries are this same rabbit, so they stay together in this cluster.",
+      "members": [
+        "down-the-rabbit-hole:character:white_rabbit",
+        "the-pool-of-tears:character:white_rabbit",
+        "the-rabbit-sends-in-a-little-bill:character:white_rabbit",
+        "the-queens-croquet-ground:character:white_rabbit",
+        "who-stole-the-tarts:character:the_white_rabbit",
+        "alices-evidence:character:white_rabbit"
+      ]
+    }
+  ],
+  "measuredUsd": 0.0213675,
+  "uncertainUsd": 0,
+  "productionMutations": 0
+}
