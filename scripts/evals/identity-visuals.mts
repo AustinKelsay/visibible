@@ -97,6 +97,7 @@ for (const phase of wanted) {
     for (const file of ["images-ledger.json", "images-results.ndjson", "images-provider.ndjson"]) continuation[file] = hash(readFileSync(path.join(out, file)));
   }
   assert.ok(!existsSync(path.join(out, startedFile)), `${phase} already started; do not reroll`);
+  if (phase !== "canon") assert.ok(existsSync(path.join(out, `${phases[phases.indexOf(phase) - 1]}-finished.json`)), `Complete the prior phase before ${phase}`);
   if (!values.offline) {
     assert.equal(execFileSync("git", ["status", "--porcelain", "--untracked-files=no"], { cwd: root, encoding: "utf8" }).trim(), "", "Commit frozen inputs before spending");
     execFileSync("git", ["ls-files", "--error-unmatch", "scripts/evals/identity-visuals.mts", ...["plan.json", "inputs.json", "reading.json", "bible-snapshot.json", "funding.json"].map(f => path.relative(root, path.join(frozen, f)))], { cwd: root, stdio: "pipe" });
