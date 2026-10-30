@@ -264,8 +264,9 @@ async function runCase(options: SuiteRunOptions, workId: string, work: SuiteWork
     // A refusal on the first style comes from the moment's shared look or plan, so it stands for every style; a later
     // one (a style's prompt over budget) stands for that style only.
     const standsFor = options.tier === "image" ? (index === 0 ? [...styles] : [style]) : null;
-    // A seeded image run must draw the text run's plans; a call here means its inputs moved since that run.
-    if (seeded && textCalls > 0) {
+    // A seeded image run must draw the text run's plans; a text call, or a preparation failure shared from another case's
+    // call, means its inputs moved since that run.
+    if (seeded && (textCalls > 0 || (!assembled.ok && assembled.reason === "preparation"))) {
       options.record({ ...common, standsFor, outcome: "refused", stage: "seed", message: "The text run's look or plan was stale for this checkout, so the case was refused without re-planning; its images were not made.", elapsedMs: Date.now() - started });
       return;
     }

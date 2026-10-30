@@ -224,6 +224,11 @@ describe("a suite run through the real assembly", () => {
     expect(offline.counts.text).toBe(0);
     expect(rows.filter((r) => r.caseId === "holmes-a").map((r) => r.outcome)).toEqual(["image", "image"]);
     expect(rows.filter((r) => r.caseId === "holmes-b")).toMatchObject([{ outcome: "refused", stage: "seed", standsFor: ["classical", "watercolor"] }]);
+    // A stale look shared by two cases running together refuses both as stale seeds, including the one that only waited on it.
+    const together = cases.map((c) => ({ ...c, split: "holdout" as const }));
+    const noLook = await run("image", seeds.slice(1), {}, [], { limits: { text: 0, image: 100, check: 100 }, cases: together, concurrency: 2 });
+    expect(noLook.ledger.state.blocked).toBeNull();
+    expect(noLook.rows.map((r) => [r.caseId, r.outcome, r.stage]).sort()).toEqual([["holmes-a", "refused", "seed"], ["holmes-b", "refused", "seed"]]);
   });
 
   it("runs every work's holdout cases before any dev case", async () => {
