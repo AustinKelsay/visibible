@@ -45,7 +45,6 @@ import { depictionModeOf } from "@/lib/engine/depiction";
 import type { ReferenceRecord } from "@/lib/engine/assemble";
 import type { AnalysisRecord } from "@/lib/engine/preparation";
 import { FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION } from "@/lib/engine/preparation";
-import { PLAN_REVIEW_PROMPT_VERSION } from "@/lib/engine/plan-review";
 import { applicableRules, GENERIC_PROMPT_VERSION } from "@/lib/engine/prompt";
 import { SCENE_CHECK_VERSION } from "@/lib/engine/scene-check";
 import { createOpenRouterVisionChecker } from "@/lib/engine/reference-adapters";
@@ -73,7 +72,7 @@ const config = loadSuiteConfig(readJson(path.join(root, "evals/images/suite.json
 const faults = loadFaults(readJson(path.join(root, "evals/images/faults.json")));
 const allCases = loadEvalCases(readJson(path.join(root, "evals/images/cases.json")));
 const PIPELINE = { momentCast: MOMENT_CAST_PROMPT_VERSION, formlessPlan: FORMLESS_PLAN_PROMPT_VERSION,
-  review: PLAN_REVIEW_PROMPT_VERSION, rendering: GENERIC_PROMPT_VERSION, sceneCheck: SCENE_CHECK_VERSION, textModel: READING_PASS_MODEL };
+  review: "none", rendering: GENERIC_PROMPT_VERSION, sceneCheck: SCENE_CHECK_VERSION, textModel: READING_PASS_MODEL };
 /** Measured on the 28–29 October matrices: text calls, image calls (retries included) and check calls. */
 const ESTIMATE = { textCallUsd: 0.0005, textCallsPerCase: 3.5, imageUsd: 0.0342, retryShare: 0.15, checkUsd: 0.0003 };
 const RESERVE = { text: 0.005, image: 0.06, check: 0.002 };
