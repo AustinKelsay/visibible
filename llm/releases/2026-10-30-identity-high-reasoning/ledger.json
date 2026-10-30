@@ -1,0 +1,85 @@
+{
+  "capUsd": 0.5,
+  "calls": [
+    {
+      "phase": "candidate/rabbit/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004624
+    },
+    {
+      "phase": "candidate/rooms/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0009169
+    },
+    {
+      "phase": "candidate/marys/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004492
+    },
+    {
+      "phase": "candidate/successors/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00032
+    },
+    {
+      "phase": "candidate/rabbit/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004404
+    },
+    {
+      "phase": "candidate/rooms/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0008174
+    },
+    {
+      "phase": "candidate/marys/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005092
+    },
+    {
+      "phase": "candidate/successors/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002625
+    },
+    {
+      "phase": "candidate/rabbit/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004699
+    },
+    {
+      "phase": "candidate/rooms/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0011319
+    },
+    {
+      "phase": "candidate/marys/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004902
+    },
+    {
+      "phase": "candidate/successors/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000266
+    }
+  ],
+  "measuredUsd": 0.006536,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 12,
+    "image": 0,
+    "check": 0
+  },
+  "blocked": null
+}

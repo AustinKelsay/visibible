@@ -16,6 +16,7 @@ import { readDivision, rootDivisions, type DivisionReading } from "../reading-pa
 import { mergeCasts, MAX_MERGE_MEMBERS_PER_CALL } from "../reading-pass/merge";
 import { splitLongRun } from "../reading-pass/moments";
 import { responseSchema } from "../reading-pass/prompts";
+import { contentVersion } from "../../../convex/_helpers/contentVersion";
 
 const twoBooks = JSON.parse(readFileSync(new URL("../../../tests/fixtures/works/two-books.json", import.meta.url), "utf8"));
 const voyage = JSON.parse(readFileSync(new URL("../../../tests/fixtures/nested-work.json", import.meta.url), "utf8"));
@@ -311,6 +312,36 @@ describe("reading pass", () => {
     expect(model.calls.map((c) => c.label)).toEqual(["read:alpha:1", "read:beta:1", "merge:0", "merge:1", "merge:2", "brief"]);
     expect(state.staged?.generation).toBe(1);
     await expect(runReadingPass({ workFile: twoBooks, workVersion: "wv2", model, store: memory.store, state, saveState, budgetUsd: 1 })).rejects.toThrow(/Start a new run/);
+  });
+
+  it("does not reuse identity rulings cached before reasoning was enabled", async () => {
+    const model = scriptedModel(happyScript);
+    const state = emptyState("two-books", "v1");
+    const options = { workFile: twoBooks, workVersion: "v1", store: null, state, saveState: async () => {}, budgetUsd: 1 };
+    await runReadingPass({ ...options, model });
+    const requests = model.calls.filter((request) => request.label.startsWith("merge:"));
+    state.merge = null;
+    state.mergeResponses = Object.fromEntries(requests.map((request, i) => [
+      contentVersion({ model: model.id, system: request.system, user: request.user, schemaName: request.schemaName, schema: responseSchema(request.schema), maxTokens: request.maxTokens }),
+      state.mergeAttempts![i].result,
+    ]));
+    const resumed = scriptedModel({ "merge:": ruling });
+    await runReadingPass({ ...options, model: resumed });
+    expect(resumed.calls.map((request) => request.label)).toEqual(["merge:0", "merge:1", "merge:2"]);
+    expect(resumed.calls.every((request) => request.reasoningEffort === "high")).toBe(true);
+  });
+
+  it("reserves the merge's full output allowance before spending on reasoning", async () => {
+    const work = createWorkReader(twoBooks);
+    const state = emptyState("two-books", "v1");
+    const reader = scriptedModel(happyScript);
+    for (const division of rootDivisions(work)) state.readings[division.id] = await readDivision({ work, division, model: reader });
+    const model = scriptedModel(happyScript);
+    await expect(runReadingPass({ workFile: twoBooks, workVersion: "v1", store: null, state, saveState: async () => {}, model, budgetUsd: 0.01 }))
+      .rejects.toThrow(BudgetExceededError);
+    expect(model.calls).toHaveLength(0);
+    expect(state.ledger).toHaveLength(0);
+    expect(state.merge).toBeNull();
   });
 
   it("resumes an interrupted cast merge from retained responses without repeating completed paid batches", async () => {

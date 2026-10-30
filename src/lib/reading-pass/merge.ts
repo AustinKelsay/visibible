@@ -66,6 +66,8 @@ type Keyed = { key: string; division: string; entry: { id: string; name: string;
 
 export const MAX_MERGE_MEMBERS_PER_CALL = 150;
 const MAX_RULING_ATTEMPTS = 3;
+// Identity decisions need reasoning; reserve its full output allowance, not only the final JSON.
+const RULING_OPTIONS = { reasoningEffort: "high", maxTokens: 30000, expectedCompletionTokens: 30000 } as const;
 
 /** A division-local entry's key: pool-qualified, since a character and a location may share an id. */
 export function memberKey(division: string, pool: "characters" | "locations", id: string) {
@@ -205,9 +207,8 @@ export async function mergeCasts(options: {
       lines.push(...group.members.map(line));
     });
     const user = lines.join("\n");
-    const expectedCompletionTokens = 60 * batch.reduce((n, g) => n + g.members.length, 0) + 200;
     const schema = rulingSchemaForGroups(batch.map((group, i) => ({ group: start + i, members: group.members })));
-    const initialRequest = { label: `merge:${start}`, system: RULING_SYSTEM, user, schemaName: "merge_groups", schema, maxTokens: 30000, expectedCompletionTokens };
+    const initialRequest = { label: `merge:${start}`, system: RULING_SYSTEM, user, schemaName: "merge_groups", schema, ...RULING_OPTIONS };
     const answer = await askRuling(initialRequest, batch.map((group, i) => ({ group: start + i, members: group.members })));
     for (const group of answer.groups) rulings.set(group.group, group.clusters);
     start = end;
@@ -285,7 +286,7 @@ export async function mergeCasts(options: {
       ...(hintLine(members) ? [hintLine(members)!] : []),
       ...members.map(line),
     ].join("\n");
-    const answer = await askRuling({ label: `merge:reconcile:${members[0]}`, system: RULING_SYSTEM, user, schemaName: "merge_reconciliation", schema: rulingSchemaForGroups([{ group: 0, members }]), maxTokens: 30000, expectedCompletionTokens: 60 * members.length + 200 }, [{ group: 0, members }]);
+    const answer = await askRuling({ label: `merge:reconcile:${members[0]}`, system: RULING_SYSTEM, user, schemaName: "merge_reconciliation", schema: rulingSchemaForGroups([{ group: 0, members }]), ...RULING_OPTIONS }, [{ group: 0, members }]);
     const clusters = answer.groups[0].clusters;
     reconciliations.push({ members, clusters });
     // The complete partition is authoritative only inside this component. It cannot join

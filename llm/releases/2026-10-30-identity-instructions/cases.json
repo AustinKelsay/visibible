@@ -1,0 +1,555 @@
+[
+  {
+    "id": "rabbit",
+    "workTitle": "Alice\u2019s Adventures in Wonderland",
+    "workAuthor": "Lewis Carroll",
+    "pool": "characters",
+    "members": [
+      {
+        "key": "down-the-rabbit-hole:character:white_rabbit",
+        "entry": {
+          "id": "white_rabbit",
+          "name": "White Rabbit",
+          "aliases": [
+            "the Rabbit",
+            "the White Rabbit with pink eyes"
+          ],
+          "kind": "animal",
+          "note": "A talking white rabbit with pink eyes and a waistcoat-pocket watch, who runs down a rabbit-hole and is seen hurrying along the passage. Appears in units 2-11.",
+          "same_person_as": ""
+        },
+        "sections": [
+          "Alice on the bank sees the White Rabbit",
+          "Alice runs after the Rabbit into the long hall"
+        ]
+      },
+      {
+        "key": "the-pool-of-tears:character:white_rabbit",
+        "entry": {
+          "id": "white_rabbit",
+          "name": "White Rabbit",
+          "aliases": [
+            "the Rabbit"
+          ],
+          "kind": "animal",
+          "note": "A hurrying rabbit in a splendid waistcoat, dressed for the Duchess; drops his white kid gloves and fan and flees when Alice speaks to him in units 7 to 8.",
+          "same_person_as": ""
+        },
+        "sections": [
+          "Alice grows tall and weeps; the Rabbit flees"
+        ]
+      },
+      {
+        "key": "the-rabbit-sends-in-a-little-bill:character:white_rabbit",
+        "entry": {
+          "id": "white_rabbit",
+          "name": "the White Rabbit",
+          "aliases": [
+            "the Rabbit",
+            "W. Rabbit"
+          ],
+          "kind": "animal",
+          "note": "A anxious white rabbit with a waistcoat-pocket watch, who owns the house and sends Alice to fetch gloves and a fan; he is the one who sends Pat and Bill to deal with Alice.",
+          "same_person_as": ""
+        },
+        "sections": [
+          "Alice Grows Large in the Rabbit's House",
+          "Alice Stuck in the Window",
+          "The Rabbit's Servants Try to Remove Alice"
+        ]
+      },
+      {
+        "key": "the-queens-croquet-ground:character:white_rabbit",
+        "entry": {
+          "id": "white_rabbit",
+          "name": "the White Rabbit",
+          "aliases": [
+            "the Rabbit"
+          ],
+          "kind": "animal",
+          "note": "The nervous rabbit in the procession who whispers to Alice about the Duchess's sentence in units 34-40.",
+          "same_person_as": ""
+        },
+        "sections": [
+          "The gardeners and the royal procession",
+          "The Rabbit's whisper and the game begins"
+        ]
+      },
+      {
+        "key": "who-stole-the-tarts:character:the_white_rabbit",
+        "entry": {
+          "id": "the_white_rabbit",
+          "name": "the White Rabbit",
+          "aliases": [
+            "the Rabbit",
+            "the herald"
+          ],
+          "kind": "animal",
+          "note": "The White Rabbit, herald of the court, who blows the trumpet, reads the accusation and calls the witnesses.",
+          "same_person_as": ""
+        },
+        "sections": [
+          "The court assembles",
+          "The Hatter's evidence",
+          "The cook and the Dormouse",
+          "Alice is called"
+        ]
+      },
+      {
+        "key": "alices-evidence:character:white_rabbit",
+        "entry": {
+          "id": "white_rabbit",
+          "name": "the White Rabbit",
+          "aliases": [
+            "the Rabbit"
+          ],
+          "kind": "animal",
+          "note": "The anxious White Rabbit acting as herald and reader of the verses; present in the court.",
+          "same_person_as": ""
+        },
+        "sections": [
+          "The jury upset and the trial begins",
+          "The verses are read as evidence",
+          "Alice wakes and her sister dreams"
+        ]
+      }
+    ],
+    "expected": [
+      [
+        "down-the-rabbit-hole:character:white_rabbit",
+        "the-pool-of-tears:character:white_rabbit",
+        "the-rabbit-sends-in-a-little-bill:character:white_rabbit",
+        "the-queens-croquet-ground:character:white_rabbit",
+        "who-stole-the-tarts:character:the_white_rabbit",
+        "alices-evidence:character:white_rabbit"
+      ]
+    ]
+  },
+  {
+    "id": "rooms",
+    "workTitle": "The Adventures of Sherlock Holmes",
+    "workAuthor": "Arthur Conan Doyle",
+    "pool": "locations",
+    "members": [
+      {
+        "key": "a-scandal-in-bohemia:location:baker_street_rooms",
+        "entry": {
+          "id": "baker_street_rooms",
+          "name": "Holmes's rooms, Baker Street",
+          "aliases": [
+            "Baker Street",
+            "our lodgings",
+            "his rooms"
+          ],
+          "note": "Holmes and Watson's lodgings where the case is discussed and the King visits."
+        },
+        "sections": [
+          "Holmes's deductions on Watson's marriage",
+          "Watson's deductions challenged; the pink note",
+          "Deducing the paper's origin in Bohemia",
+          "The masked visitor arrives",
+          "The King reveals himself and names Irene Adler",
+          "Questions about the photograph and its recovery"
+        ]
+      },
+      {
+        "key": "the-red-headed-league:location:baker_street",
+        "entry": {
+          "id": "baker_street",
+          "name": "Baker Street",
+          "aliases": [
+            "Baker Street rooms",
+            "Holmes's rooms"
+          ],
+          "note": "Holmes's rooms where the opening consultation and the late-night gathering take place."
+        },
+        "sections": [
+          "Wilson's visit to Holmes",
+          "Holmes reads the client's appearance",
+          "The newspaper advertisement",
+          "The League dissolved",
+          "Holmes questions Wilson about Spaulding",
+          "Holmes examines the pawnshop and the bank"
+        ]
+      },
+      {
+        "key": "a-case-of-identity:location:baker_street_lodgings",
+        "entry": {
+          "id": "baker_street_lodgings",
+          "name": "Holmes's lodgings at Baker Street",
+          "aliases": [
+            "Baker Street",
+            "our lodgings"
+          ],
+          "note": "Holmes's rooms where the consultations and the final confrontation take place."
+        },
+        "sections": [
+          "Holmes and Watson discuss strangeness and the snuffbox",
+          "Miss Sutherland arrives at Baker Street",
+          "Mary's background and her stepfather",
+          "Mary's courtship with Hosmer Angel",
+          "The engagement and the vanishing at the church",
+          "Holmes takes the case and Mary departs"
+        ]
+      },
+      {
+        "key": "the-boscombe-valley-mystery:location:baker_street_breakfast",
+        "entry": {
+          "id": "baker_street_breakfast",
+          "name": "Watson's breakfast room in London",
+          "aliases": [
+            "the breakfast table",
+            "home"
+          ],
+          "note": "Watson's home where the telegram arrives; the setting for the opening exchange."
+        },
+        "sections": [
+          "Telegram and departure"
+        ]
+      },
+      {
+        "key": "the-five-orange-pips:location:baker_street_rooms",
+        "entry": {
+          "id": "baker_street_rooms",
+          "name": "Baker Street rooms",
+          "aliases": [
+            "Baker Street",
+            "our quarters"
+          ],
+          "note": "Holmes and Watson's sitting room, where the visit and the discussions take place."
+        },
+        "sections": [
+          "Opening reflections and the storm",
+          "John Openshaw arrives",
+          "Second warning and the blue paper",
+          "Advice to John and the diary page",
+          "Holmes on reasoning and the Ku Klux Klan",
+          "News of John's death"
+        ]
+      },
+      {
+        "key": "the-adventure-of-the-blue-carbuncle:location:baker_street_rooms",
+        "entry": {
+          "id": "baker_street_rooms",
+          "name": "Baker Street sitting-room",
+          "aliases": [
+            "221B Baker Street",
+            "Baker Street",
+            "the sitting-room"
+          ],
+          "note": "Holmes's rooms, where the hat is examined, the stone kept, and the final confrontation takes place."
+        },
+        "sections": [
+          "The hat and the Christmas goose",
+          "Holmes reads the hat",
+          "Deductions from the hat",
+          "Peterson brings the blue stone",
+          "The stone's history and the advertisement",
+          "Henry Baker collects his hat"
+        ]
+      },
+      {
+        "key": "the-adventure-of-the-speckled-band:location:baker_street_rooms",
+        "entry": {
+          "id": "baker_street_rooms",
+          "name": "Baker Street rooms",
+          "aliases": [
+            "our rooms",
+            "the sitting-room"
+          ],
+          "note": "Holmes and Watson's bachelor lodgings where Helen first consults Holmes."
+        },
+        "sections": [
+          "Holmes wakes Watson; Helen arrives",
+          "Helen's fear and the Farintosh reference",
+          "Helen describes the Roylott family history",
+          "Helen's engagement; the bruises; the plan agreed",
+          "Watson and Holmes theorize",
+          "Roylott storms in and Holmes checks the will"
+        ]
+      },
+      {
+        "key": "the-adventure-of-the-engineers-thumb:location:baker_street_rooms",
+        "entry": {
+          "id": "baker_street_rooms",
+          "name": "Baker Street rooms",
+          "aliases": [
+            "Baker Street",
+            "Holmes' sitting-room",
+            "his sitting-room"
+          ],
+          "note": "Holmes' sitting-room at Baker Street where the story is told and breakfast is eaten."
+        },
+        "sections": [
+          "Breakfast at Baker Street",
+          "The advertisement and plan to go to Scotland Yard"
+        ]
+      },
+      {
+        "key": "the-adventure-of-the-noble-bachelor:location:baker_street",
+        "entry": {
+          "id": "baker_street",
+          "name": "Baker Street lodgings",
+          "aliases": [
+            "Baker Street",
+            "our rooms",
+            "our humble lodging-house"
+          ],
+          "note": "Holmes and Watson's shared rooms in Baker Street, where the client consultation and later supper take place."
+        },
+        "sections": [
+          "The letter and the bridegroom's case",
+          "Holmes reads the client's letter and the press reports",
+          "The newspaper account of the vanished bride",
+          "Press report and the bridegroom's arrival",
+          "Holmes questions Lord St. Simon about the bride",
+          "The bride's character and her maid"
+        ]
+      },
+      {
+        "key": "the-adventure-of-the-beryl-coronet:location:baker_street_rooms",
+        "entry": {
+          "id": "baker_street_rooms",
+          "name": "Baker Street rooms",
+          "aliases": [
+            "our rooms",
+            "Baker Street",
+            "our bow-window"
+          ],
+          "note": "Holmes and Watson's lodgings, where Holder first visits and where Holmes returns."
+        },
+        "sections": [
+          "The distracted visitor arrives",
+          "Holder composes himself",
+          "Holmes questions Holder at Baker Street",
+          "Holmes's disguised expedition",
+          "Mary's note and the payment",
+          "Gems returned and the truth explained"
+        ]
+      },
+      {
+        "key": "the-adventure-of-the-copper-beeches:location:baker_street",
+        "entry": {
+          "id": "baker_street",
+          "name": "Baker Street",
+          "aliases": [
+            "the old room at Baker Street",
+            "our rooms"
+          ],
+          "note": "Holmes and Watson's rooms in London, where the opening conversation and the consultation take place."
+        },
+        "sections": [
+          "Holmes's complaint about the trivial cases",
+          "Holmes reads the letter and Hunter's arrival is expected",
+          "Hunter describes her governess search at Westaway's",
+          "Holmes and Watson weigh Hunter's decision",
+          "Waiting for news; the telegram summons"
+        ]
+      }
+    ],
+    "expected": [
+      [
+        "a-scandal-in-bohemia:location:baker_street_rooms",
+        "the-red-headed-league:location:baker_street",
+        "a-case-of-identity:location:baker_street_lodgings",
+        "the-five-orange-pips:location:baker_street_rooms",
+        "the-adventure-of-the-blue-carbuncle:location:baker_street_rooms",
+        "the-adventure-of-the-speckled-band:location:baker_street_rooms",
+        "the-adventure-of-the-engineers-thumb:location:baker_street_rooms",
+        "the-adventure-of-the-noble-bachelor:location:baker_street",
+        "the-adventure-of-the-beryl-coronet:location:baker_street_rooms",
+        "the-adventure-of-the-copper-beeches:location:baker_street"
+      ],
+      [
+        "the-boscombe-valley-mystery:location:baker_street_breakfast"
+      ]
+    ]
+  },
+  {
+    "id": "marys",
+    "workTitle": "Bible",
+    "workAuthor": "Various",
+    "pool": "characters",
+    "members": [
+      {
+        "key": "john:character:jesus_mother",
+        "entry": {
+          "id": "jesus_mother",
+          "name": "Mary the mother of Jesus",
+          "aliases": [
+            "Jesus' mother",
+            "woman",
+            "his mother"
+          ],
+          "kind": "person",
+          "note": "Mother of Jesus, present at the wedding at Cana and at the cross; not the Mary of Bethany.",
+          "same_person_as": ""
+        },
+        "sections": [
+          "The wedding at Cana",
+          "Journey to Capernaum",
+          "The soldiers divide garments; mother and disciple"
+        ]
+      },
+      {
+        "key": "john:character:mary_of_bethany",
+        "entry": {
+          "id": "mary_of_bethany",
+          "name": "Mary of Bethany",
+          "aliases": [
+            "Mary",
+            "sister of Martha",
+            "the woman who anointed the Lord"
+          ],
+          "kind": "person",
+          "note": "Sister of Martha and Lazarus of Bethany; anoints Jesus' feet with nard; not the mother of Jesus.",
+          "same_person_as": ""
+        },
+        "sections": [
+          "Mary and the Jews weep",
+          "Supper at Bethany; Mary anoints Jesus"
+        ]
+      },
+      {
+        "key": "john:character:mary_magdalene",
+        "entry": {
+          "id": "mary_magdalene",
+          "name": "Mary Magdalene",
+          "aliases": [
+            "Mary"
+          ],
+          "kind": "person",
+          "note": "Woman who stands at the cross, finds the empty tomb, and meets the risen Jesus in the garden.",
+          "same_person_as": ""
+        },
+        "sections": [
+          "The soldiers divide garments; mother and disciple",
+          "Mary Magdalene finds the stone rolled away",
+          "Mary meets the risen Jesus"
+        ]
+      },
+      {
+        "key": "luke:character:mary",
+        "entry": {
+          "id": "mary",
+          "name": "Mary",
+          "aliases": [
+            "the virgin Mary",
+            "mother of Jesus",
+            "Mary the mother of Jesus"
+          ],
+          "kind": "person",
+          "note": "Virgin pledged to Joseph of Nazareth, mother of Jesus (chs. 1-2). Distinct from Mary Magdalene and Mary of Bethany.",
+          "same_person_as": ""
+        },
+        "sections": [
+          "Annunciation to Mary",
+          "Visitation and Magnificat",
+          "Census and birth of Jesus",
+          "Shepherds visit the child",
+          "Circumcision and purification",
+          "Simeon's blessing"
+        ]
+      },
+      {
+        "key": "luke:character:mary_magdalene",
+        "entry": {
+          "id": "mary_magdalene",
+          "name": "Mary Magdalene",
+          "aliases": [
+            "Mary called Magdalene"
+          ],
+          "kind": "person",
+          "note": "Woman from whom seven demons went out; follower of Jesus and witness of the resurrection (chs. 8, 24). Not Mary the mother of Jesus.",
+          "same_person_as": ""
+        },
+        "sections": [
+          "Women who followed Jesus",
+          "Death of Jesus",
+          "Burial of Jesus",
+          "The empty tomb"
+        ]
+      },
+      {
+        "key": "luke:character:mary_of_bethany",
+        "entry": {
+          "id": "mary_of_bethany",
+          "name": "Mary of Bethany",
+          "aliases": [
+            "Mary the sister of Martha"
+          ],
+          "kind": "person",
+          "note": "Sister of Martha who sits at Jesus' feet to listen (ch. 10).",
+          "same_person_as": ""
+        },
+        "sections": [
+          "Martha and Mary"
+        ]
+      }
+    ],
+    "expected": [
+      [
+        "john:character:jesus_mother",
+        "luke:character:mary"
+      ],
+      [
+        "john:character:mary_of_bethany",
+        "luke:character:mary_of_bethany"
+      ],
+      [
+        "john:character:mary_magdalene",
+        "luke:character:mary_magdalene"
+      ]
+    ]
+  },
+  {
+    "id": "successors",
+    "workTitle": "The sailor\u2019s return",
+    "workAuthor": "Synthetic control",
+    "pool": "characters",
+    "members": [
+      {
+        "key": "early:character:king",
+        "entry": {
+          "id": "king",
+          "name": "the king",
+          "aliases": [],
+          "kind": "person",
+          "note": "King who sends the sailor west."
+        },
+        "sections": []
+      },
+      {
+        "key": "late:character:old_king",
+        "entry": {
+          "id": "old_king",
+          "name": "the king",
+          "aliases": [],
+          "kind": "person",
+          "note": "The same king in old age, recalling how he sent the sailor west."
+        },
+        "sections": []
+      },
+      {
+        "key": "late:character:new_king",
+        "entry": {
+          "id": "new_king",
+          "name": "the king",
+          "aliases": [],
+          "kind": "person",
+          "note": "The previous king's son and successor, ruling after his father died."
+        },
+        "sections": []
+      }
+    ],
+    "expected": [
+      [
+        "early:character:king",
+        "late:character:old_king"
+      ],
+      [
+        "late:character:new_king"
+      ]
+    ]
+  }
+]

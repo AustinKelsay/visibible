@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-30T21:21:37.991Z",
+  "commit": "438e3703ef2bc1ec64171d9f0371f6105f79f5bb",
+  "sources": {
+    "src/lib/reading-pass/prompts.ts": "3915c36847d116bee2592966b9b344dea2a3c8b29887b291ea35fddf7284f907",
+    "src/lib/reading-pass/merge.ts": "3a4fc6751a9449712f9b8d1f31c222eabed3e7c9e357e4d297bfb924d5562b2a",
+    "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea",
+    "src/lib/image-evals/suite-run.ts": "9155bdc9dae42d275e6ecafd6885c3e73a54f241da9b62eb606cb72a305907d1",
+    "llm/releases/2026-10-30-identity-instructions/plan.json": "5a7c1ce7f764c85f7fff70842a6744484fd0a1a48f2ab4328b53a0711024706e",
+    "llm/releases/2026-10-30-identity-instructions/prompts.json": "90773fcf86c694871e48b5c58b5dc0c3182b5c9832d6df2b57489e39dfd5c205",
+    "llm/releases/2026-10-30-identity-instructions/cases.json": "6a9153d51ded2c39add00077cdab2bc61410e94e28035816998800ef747352f7",
+    "llm/releases/2026-10-30-identity-instructions/funding.json": "ce6aaf218bdfad90a302f3172fc6fde3839abbe37229e11ca6c313b7fd0c3981"
+  },
+  "harnessSha256": "f0b9eec86c128b9c115128afe377f2a79f00fab88fc62e2c750e827d979dfcb0",
+  "pricing": {
+    "prompt": 1e-7,
+    "completion": 5e-7,
+    "imageOutput": null,
+    "maxCompletionTokens": 128000,
+    "overrides": [
+      {
+        "minPromptTokens": 100000,
+        "prompt": 5e-7,
+        "completion": 0.0000025
+      }
+    ]
+  },
+  "balanceUsd": 8.830749738000009
+}

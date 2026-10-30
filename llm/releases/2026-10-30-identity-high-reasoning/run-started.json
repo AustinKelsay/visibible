@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-30T21:26:14.849Z",
+  "commit": "9e2b3a9f47e01ea3179cbc49bb7e4d7773865df4",
+  "sources": {
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/reading-pass/merge.ts": "3a4fc6751a9449712f9b8d1f31c222eabed3e7c9e357e4d297bfb924d5562b2a",
+    "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea",
+    "src/lib/image-evals/suite-run.ts": "9155bdc9dae42d275e6ecafd6885c3e73a54f241da9b62eb606cb72a305907d1",
+    "llm/releases/2026-10-30-identity-instructions/cases.json": "6a9153d51ded2c39add00077cdab2bc61410e94e28035816998800ef747352f7",
+    "llm/releases/2026-10-30-identity-high-reasoning/plan.json": "1f14b0cb6d5592d5436746dd2d852298c22265ab12e1f2ce7137916b667f3b7a",
+    "llm/releases/2026-10-30-identity-high-reasoning/prompts.json": "0c76b9b4a3ff5efb0d7467225c527ad8a1153415ac19dddb481ac12edaa3f0f4",
+    "llm/releases/2026-10-30-identity-high-reasoning/funding.json": "a2d85ea4aba9831adfca062daac54a42d906d58d2e84ebf20000c965060d70c4"
+  },
+  "harnessSha256": "3c31fecf037de2c321a807a9d6073cf4d25d798984aeb281fa539e3cc5f0bcff",
+  "pricing": {
+    "prompt": 1e-7,
+    "completion": 5e-7,
+    "imageOutput": null,
+    "maxCompletionTokens": 128000,
+    "overrides": [
+      {
+        "minPromptTokens": 100000,
+        "prompt": 5e-7,
+        "completion": 0.0000025
+      }
+    ]
+  },
+  "balanceUsd": 8.817120238000001
+}

@@ -1,0 +1,3945 @@
+{
+  "entries": [
+    {
+      "id": "alice",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Alice",
+      "aliases": [
+        "the little girl",
+        "the child",
+        "the poor child",
+        "the girl",
+        "Mary Ann (mistaken identity)",
+        "the young lady",
+        "this here young lady",
+        "the witness Alice",
+        "little Alice"
+      ],
+      "note": "The young girl protagonist of Wonderland, the dreamer and main witness, present across all twelve divisions under varied aliases (the little girl, the child, the girl, Mary Ann by mistake); her sister is a separate person and is not in this group.",
+      "members": [
+        "down-the-rabbit-hole:character:alice",
+        "the-pool-of-tears:character:alice",
+        "a-caucus-race-and-a-long-tale:character:alice",
+        "the-rabbit-sends-in-a-little-bill:character:alice",
+        "advice-from-a-caterpillar:character:alice",
+        "pig-and-pepper:character:alice",
+        "a-mad-tea-party:character:alice",
+        "the-queens-croquet-ground:character:alice",
+        "the-mock-turtles-story:character:alice",
+        "the-lobster-quadrille:character:alice",
+        "who-stole-the-tarts:character:alice",
+        "alices-evidence:character:alice"
+      ]
+    },
+    {
+      "id": "alice_s_sister",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Alice's sister",
+      "aliases": [
+        "her sister"
+      ],
+      "note": "Alice's unnamed older sister, who sits on the bank with a book, wakes Alice, and dreams of Wonderland; both entries describe the same individual.",
+      "members": [
+        "down-the-rabbit-hole:character:alice_sister",
+        "alices-evidence:character:alice_sister"
+      ]
+    },
+    {
+      "id": "white_rabbit",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "White Rabbit",
+      "aliases": [
+        "the Rabbit",
+        "the White Rabbit with pink eyes",
+        "the White Rabbit",
+        "W. Rabbit",
+        "the herald"
+      ],
+      "note": "The one talking white rabbit with pink eyes and a waistcoat-pocket watch, who hurries Alice down the hole, owns the house, sends for gloves and a fan, and later serves as the court's herald and reader of the verses. All six entries are this same rabbit, so they stay together in this cluster.",
+      "members": [
+        "down-the-rabbit-hole:character:white_rabbit",
+        "the-pool-of-tears:character:white_rabbit",
+        "the-rabbit-sends-in-a-little-bill:character:white_rabbit",
+        "the-queens-croquet-ground:character:white_rabbit",
+        "who-stole-the-tarts:character:the_white_rabbit",
+        "alices-evidence:character:white_rabbit"
+      ]
+    },
+    {
+      "id": "dinah",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "Dinah",
+      "aliases": [
+        "the cat",
+        "our cat"
+      ],
+      "note": "Alice's pet cat, mentioned only and never physically present in any division; all four entries (called the cat or our cat) describe the same animal at home, so they form one cluster.",
+      "members": [
+        "down-the-rabbit-hole:character:dinah",
+        "the-pool-of-tears:character:dinah",
+        "a-caucus-race-and-a-long-tale:character:dinah",
+        "the-rabbit-sends-in-a-little-bill:character:dinah"
+      ]
+    },
+    {
+      "id": "the_riverbank",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "The riverbank",
+      "aliases": [
+        "the bank",
+        "the field",
+        "the riverbank"
+      ],
+      "note": "The grassy bank beside which Alice sits with her sister, where the White Rabbit runs past and where her sister dreams at sunset; both entries describe this same bank, so they form one place.",
+      "members": [
+        "down-the-rabbit-hole:location:riverbank",
+        "alices-evidence:location:riverbank"
+      ]
+    },
+    {
+      "id": "the_rabbit_hole",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "The rabbit-hole",
+      "aliases": [
+        "the large rabbit-hole under the hedge",
+        "the well"
+      ],
+      "note": "A deep tunnel under the hedge that dips into a long, deep well lined with cupboards and shelves. Units 3-10.",
+      "members": [
+        "down-the-rabbit-hole:location:rabbit_hole"
+      ]
+    },
+    {
+      "id": "the_long_low_hall",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "The long low hall",
+      "aliases": [
+        "the hall",
+        "the passage",
+        "Long Hall",
+        "the hall of the house",
+        "Long hall",
+        "the long hall"
+      ],
+      "note": "The single long, low hall with a glass table and a small door behind a curtain, where Alice grows and shrinks; the three entries are different visits to the same hall, not separate places.",
+      "members": [
+        "down-the-rabbit-hole:location:long_hall",
+        "the-pool-of-tears:location:long_hall",
+        "a-mad-tea-party:location:long_hall"
+      ]
+    },
+    {
+      "id": "the_little_door_to_the_garden",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "The little door to the garden",
+      "aliases": [
+        "The little door and passage to the garden",
+        "the small passage",
+        "the garden door",
+        "Garden door",
+        "the little door",
+        "the little golden key door"
+      ],
+      "note": "The small fifteen-inch door in the hall that leads to a passage and the garden, locked with a little golden key on a glass table; both entries describe this same door, so they belong together.",
+      "members": [
+        "down-the-rabbit-hole:location:little_door_garden",
+        "the-pool-of-tears:location:garden_door"
+      ]
+    },
+    {
+      "id": "the_mouse",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "The Mouse",
+      "aliases": [
+        "Mouse",
+        "the Mouse",
+        "O Mouse",
+        "it"
+      ],
+      "note": "The one mouse of the Pool of Tears who swims with Alice, is offended by talk of cats and dogs, lectures on English history, tells the long tale about Fury, and storms off; the same individual in both divisions, so no other mouse in this group needs separating.",
+      "members": [
+        "the-pool-of-tears:character:the_mouse",
+        "a-caucus-race-and-a-long-tale:character:the_mouse"
+      ]
+    },
+    {
+      "id": "ada",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Ada",
+      "aliases": [],
+      "note": "A girl of Alice's age whom Alice considers as a possible identity in unit 10; not present.",
+      "members": [
+        "the-pool-of-tears:character:ada"
+      ]
+    },
+    {
+      "id": "mabel",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Mabel",
+      "aliases": [],
+      "note": "A girl of Alice's age whom Alice considers as a possible identity in units 10 and 13; not present.",
+      "members": [
+        "the-pool-of-tears:character:mabel"
+      ]
+    },
+    {
+      "id": "the_duck",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the Duck",
+      "aliases": [
+        "Duck",
+        "a Duck"
+      ],
+      "note": "The one duck in the wet gathering of birds and animals, first in the Pool of Tears swim to shore and again in the Caucus-Race, where it questions the Mouse. Both entries describe the same duck.",
+      "members": [
+        "the-pool-of-tears:character:the_duck",
+        "a-caucus-race-and-a-long-tale:character:the_duck"
+      ]
+    },
+    {
+      "id": "the_dodo",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the Dodo",
+      "aliases": [
+        "Dodo",
+        "a Dodo",
+        "he"
+      ],
+      "note": "The Dodo, a bird who is among those fallen into the pool, swims ashore with the party, and later proposes the Caucus-race, runs it, awards the prizes and presents Alice's thimble; both entries describe the same bird.",
+      "members": [
+        "the-pool-of-tears:character:the_dodo",
+        "a-caucus-race-and-a-long-tale:character:the_dodo"
+      ]
+    },
+    {
+      "id": "the_lory",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the Lory",
+      "aliases": [
+        "Lory",
+        "a Lory"
+      ],
+      "note": "The Lory, a bird from the caucus gathering who swims ashore from the pool and later argues with Alice about age and laments the Mouse leaving; both divisions describe the same bird.",
+      "members": [
+        "the-pool-of-tears:character:the_lory",
+        "a-caucus-race-and-a-long-tale:character:the_lory"
+      ]
+    },
+    {
+      "id": "the_eaglet",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the Eaglet",
+      "aliases": [
+        "Eaglet",
+        "an Eaglet"
+      ],
+      "note": "A young eaglet among the birds that fell into the Pool of Tears and gathered on the bank for the Caucus-Race; both entries describe this same bird, so they form one cluster.",
+      "members": [
+        "the-pool-of-tears:character:the_eaglet",
+        "a-caucus-race-and-a-long-tale:character:the_eaglet"
+      ]
+    },
+    {
+      "id": "pool_creatures",
+      "kind": "character",
+      "readingKind": "group",
+      "name": "Pool creatures",
+      "aliases": [
+        "the birds and animals that had fallen into it",
+        "several other curious creatures"
+      ],
+      "note": "The crowd of birds and animals that fell into the pool and swim together to the shore in unit 26.",
+      "members": [
+        "the-pool-of-tears:character:the_pool_creatures"
+      ]
+    },
+    {
+      "id": "the_duchess",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "the Duchess",
+      "aliases": [
+        "Duchess"
+      ],
+      "note": "The short-tempered Duchess of the kitchen, who nurses the baby and sings the lullaby, later walks with Alice, is sent away by the Queen, and is named again as the imprisoned Duchess under sentence of execution; the Pool of Tears mention is the Rabbit hurrying to her. Only one Duchess appears in this work's divisions.",
+      "members": [
+        "the-pool-of-tears:character:the_duchess",
+        "pig-and-pepper:character:duchess",
+        "the-queens-croquet-ground:character:duchess",
+        "the-mock-turtles-story:character:the_duchess"
+      ]
+    },
+    {
+      "id": "pool_of_tears",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "Pool of Tears",
+      "aliases": [
+        "the pool",
+        "the pool of tears which she had wept"
+      ],
+      "note": "The body of water formed from Alice's tears, where Alice swims with the Mouse and the birds and animals swim; distinct from the shore, which is the bank.",
+      "members": [
+        "the-pool-of-tears:location:pool_of_tears"
+      ]
+    },
+    {
+      "id": "shore",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "Shore",
+      "aliases": [
+        "the shore of the pool"
+      ],
+      "note": "The shore of the pool to which Alice leads the swimming party in unit 26.",
+      "members": [
+        "the-pool-of-tears:location:shore"
+      ]
+    },
+    {
+      "id": "the_old_magpie",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the old Magpie",
+      "aliases": [],
+      "note": "An old magpie who wraps itself up and leaves after Alice mentions cats.",
+      "members": [
+        "a-caucus-race-and-a-long-tale:character:the_magpie"
+      ]
+    },
+    {
+      "id": "the_canary",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the Canary",
+      "aliases": [],
+      "note": "A canary who calls its children away to bed after Alice mentions cats.",
+      "members": [
+        "a-caucus-race-and-a-long-tale:character:the_canary"
+      ]
+    },
+    {
+      "id": "the_old_crab_mother_of_the_young_crab",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the old Crab (mother of the young Crab)",
+      "aliases": [
+        "the old Crab",
+        "Ma"
+      ],
+      "note": "The old Crab in the Caucus race who scolds her daughter about losing her temper; told apart from the Classics master by being the mother of the young Crab in the Caucus-race section.",
+      "members": [
+        "a-caucus-race-and-a-long-tale:character:the_old_crab"
+      ]
+    },
+    {
+      "id": "the_young_crab",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the young Crab",
+      "aliases": [
+        "daughter"
+      ],
+      "note": "A young crab, daughter of the old Crab, who snaps back at her mother.",
+      "members": [
+        "a-caucus-race-and-a-long-tale:character:the_young_crab"
+      ]
+    },
+    {
+      "id": "the_assembled_birds_and_animals",
+      "kind": "character",
+      "readingKind": "group",
+      "name": "the assembled birds and animals",
+      "aliases": [
+        "the party",
+        "the birds",
+        "the animals",
+        "the others"
+      ],
+      "note": "The wet gathering on the bank who sit in a ring, race, and chorus their requests as one body.",
+      "members": [
+        "a-caucus-race-and-a-long-tale:character:the_birds_and_animals"
+      ]
+    },
+    {
+      "id": "the_bank_of_the_pool_of_tears",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "The bank of the pool of tears",
+      "aliases": [
+        "the bank of the pool of tears",
+        "the bank",
+        "the pool"
+      ],
+      "note": "The shore of the pool of tears where the wet party assembles, dries off, holds the Caucus-Race and the Mouse's tale, and where Alice is left alone; distinct from the opening riverbank.",
+      "members": [
+        "a-caucus-race-and-a-long-tale:location:bank_of_the_pool"
+      ]
+    },
+    {
+      "id": "mary_ann",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Mary Ann",
+      "aliases": [
+        "the housemaid"
+      ],
+      "note": "The Rabbit's housemaid, only named and never seen on stage; a separate person from Alice, whom the Rabbit confuses with her.",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:mary_ann"
+      ]
+    },
+    {
+      "id": "pat",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Pat",
+      "aliases": [
+        "the gardener"
+      ],
+      "note": "The Rabbit's gardener, an Irishman (speaks with an Irish dialect) who is outside the window and handles the arm; he is heard but not seen.",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:pat"
+      ]
+    },
+    {
+      "id": "bill_the_lizard",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "Bill the Lizard",
+      "aliases": [
+        "Bill",
+        "the Lizard",
+        "poor little Lizard",
+        "the little juror",
+        "little Bill"
+      ],
+      "note": "Bill the Lizard, the lizard sent down the chimney by the Rabbit's servants and kicked out by Alice, who later serves as a juror at the trial and writes on a slate; the three entries are one individual across divisions.",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:bill_lizard",
+        "who-stole-the-tarts:character:bill_the_lizard",
+        "alices-evidence:character:the_lizard_bill"
+      ]
+    },
+    {
+      "id": "the_two_guinea_pigs",
+      "kind": "character",
+      "readingKind": "group",
+      "name": "the two guinea-pigs",
+      "aliases": [
+        "the guinea-pigs",
+        "two guinea-pigs",
+        "the guinea-pig"
+      ],
+      "note": "A pair of guinea-pigs who serve the Rabbit, first holding up Bill outside the house and rushing at Alice, then cheering in court until the officers bag them; no note separates them from each other, so they are kept as one pair.",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:guinea_pigs",
+        "who-stole-the-tarts:character:the_guinea_pigs"
+      ]
+    },
+    {
+      "id": "the_puppy",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the puppy",
+      "aliases": [
+        "the enormous puppy"
+      ],
+      "note": "A large puppy in the wood that Alice plays with using a stick.",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:puppy"
+      ]
+    },
+    {
+      "id": "the_caterpillar",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the Caterpillar",
+      "aliases": [
+        "the blue Caterpillar",
+        "the caterpillar",
+        "the Caterpillar on the mushroom"
+      ],
+      "note": "The large blue, languid Caterpillar smoking a hookah on a mushroom, who advises Alice in the Caterpillar sections; both entries describe this same individual, the only Caterpillar in the group.",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:caterpillar",
+        "advice-from-a-caterpillar:character:the_caterpillar"
+      ]
+    },
+    {
+      "id": "the_white_rabbit_s_house",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "the White Rabbit's house",
+      "aliases": [
+        "W. Rabbit's house",
+        "the little house"
+      ],
+      "note": "A neat little house with a brass plate on the door; Alice grows inside its tidy room, with the stairs and window.)",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:location:rabbit_house"
+      ]
+    },
+    {
+      "id": "the_rabbit_s_garden",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "the Rabbit's garden",
+      "aliases": [
+        "the garden outside the window",
+        "the cucumber-frame area"
+      ],
+      "note": "The area outside the Rabbit's house where Pat, Bill and the crowd of animals gather around the window and chimney.",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:location:rabbit_garden"
+      ]
+    },
+    {
+      "id": "the_thick_wood_alice_s_first_wood",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "The thick wood (Alice's first wood)",
+      "aliases": [
+        "the thick wood",
+        "the wood"
+      ],
+      "note": "The wood where Alice wanders after escaping the crowd, meets the puppy and finds the mushroom; distinct from the mushroom clearing within it and from the Duchess's woods.",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:location:wood"
+      ]
+    },
+    {
+      "id": "the_pigeon",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the Pigeon",
+      "aliases": [
+        "the large pigeon"
+      ],
+      "note": "An anxious mother Pigeon in a tree nest who mistakes Alice's long neck for a serpent's and accuses her of hunting eggs.",
+      "members": [
+        "advice-from-a-caterpillar:character:the_pigeon"
+      ]
+    },
+    {
+      "id": "father_william",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Father William",
+      "aliases": [
+        "the sage",
+        "his father"
+      ],
+      "note": "The old man in Alice's recited poem who stands on his head and balances an eel; he speaks with his son, the young man, in the verses.",
+      "members": [
+        "advice-from-a-caterpillar:character:father_william"
+      ]
+    },
+    {
+      "id": "the_young_man",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "the young man",
+      "aliases": [
+        "the youth",
+        "his son"
+      ],
+      "note": "The son of Father William in Alice's recited poem, who questions his father; exists only within the poem's verses.",
+      "members": [
+        "advice-from-a-caterpillar:character:william_son"
+      ]
+    },
+    {
+      "id": "the_mushroom_clearing",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "The mushroom clearing",
+      "aliases": [
+        "the mushroom clearing",
+        "the open place in the wood",
+        "the wood"
+      ],
+      "note": "The open clearing where the Caterpillar sits on a large round mushroom and where Alice nibbles it; a specific spot, not the wood at large.",
+      "members": [
+        "advice-from-a-caterpillar:location:mushroom_clearing"
+      ]
+    },
+    {
+      "id": "the_treetops",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "the treetops",
+      "aliases": [
+        "the tops of the trees"
+      ],
+      "note": "The high tree where the Pigeon has its nest, among the trees under which Alice had been wandering.",
+      "members": [
+        "advice-from-a-caterpillar:location:tall_trees"
+      ]
+    },
+    {
+      "id": "the_open_place_with_the_little_house",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "the open place with the little house",
+      "aliases": [
+        "the little house in the open place"
+      ],
+      "note": "An open place with a small house about four feet high, which Alice approaches once she has shrunk to nine inches.",
+      "members": [
+        "advice-from-a-caterpillar:location:garden_clearing"
+      ]
+    },
+    {
+      "id": "fish_footman",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Fish-Footman",
+      "aliases": [
+        "the footman in livery"
+      ],
+      "note": "A footman, so called by Alice from his face, who delivers the Queen's invitation to the Duchess at the door and then sits staring at the sky; not the Frog-Footman.",
+      "members": [
+        "pig-and-pepper:character:fish_footman"
+      ]
+    },
+    {
+      "id": "frog_footman",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Frog-Footman",
+      "aliases": [
+        "the other footman",
+        "the footman with a round face and frog-like eyes"
+      ],
+      "note": "The footman with a round face and large eyes who opens the door and repeats the invitation message; sits on the ground outside afterward.",
+      "members": [
+        "pig-and-pepper:character:frog_footman"
+      ]
+    },
+    {
+      "id": "the_duchess_s_cook",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "The Duchess's cook",
+      "aliases": [
+        "Cook",
+        "the cook",
+        "the Duchess's cook"
+      ],
+      "note": "The Duchess's kitchen cook with a pepper-box, who stirs peppery soup in the kitchen scene and is later questioned about the tarts before vanishing; both entries are the same cook, linked by the kitchen, the Duchess and the pepper-box.",
+      "members": [
+        "pig-and-pepper:character:cook",
+        "who-stole-the-tarts:character:the_duchess_cook"
+      ]
+    },
+    {
+      "id": "baby",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Baby",
+      "aliases": [
+        "the baby",
+        "the little creature",
+        "the pig"
+      ],
+      "note": "The Duchess's infant, sneezing and howling, which Alice carries outside and which turns into a pig, then runs off into the wood.",
+      "members": [
+        "pig-and-pepper:character:baby"
+      ]
+    },
+    {
+      "id": "cheshire_cat",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "Cheshire Cat",
+      "aliases": [
+        "Cheshire Puss",
+        "the Cat",
+        "the Cheshire Cat"
+      ],
+      "note": "The grinning cat who talks with Alice, appearing in the Duchess's kitchen and in the trees or in the air over the croquet ground and vanishing; not Dinah, who is only mentioned.",
+      "members": [
+        "pig-and-pepper:character:cheshire_cat",
+        "the-queens-croquet-ground:character:cheshire_cat"
+      ]
+    },
+    {
+      "id": "march_hare",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "March Hare",
+      "aliases": [
+        "the Hare",
+        "the March Hare"
+      ],
+      "note": "The one anthropomorphic mad hare of the work, first glimpsed at his large house, then a tea-party host, then a witness at the trial; all three entries are one recurring character, distinguished only by scene.",
+      "members": [
+        "pig-and-pepper:character:march_hare",
+        "a-mad-tea-party:character:march_hare",
+        "who-stole-the-tarts:character:the_march_hare"
+      ]
+    },
+    {
+      "id": "the_hatter",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "The Hatter",
+      "aliases": [
+        "Hatter",
+        "the Hatter",
+        "Mad Hatter",
+        "the poor man",
+        "the first witness"
+      ],
+      "note": "The Mad Hatter, host of the tea-party and later first witness at the Queen's trial; the Cat's mention of a hatter living the other way is the same man, so all three entries join one cluster.",
+      "members": [
+        "pig-and-pepper:character:hatter",
+        "a-mad-tea-party:character:hatter",
+        "who-stole-the-tarts:character:the_hatter"
+      ]
+    },
+    {
+      "id": "queen_of_hearts",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Queen of Hearts",
+      "aliases": [
+        "Queen",
+        "the Queen",
+        "the Queen of Hearts",
+        "her Majesty"
+      ],
+      "note": "The short-tempered Queen of Hearts who orders executions, runs the croquet game and sits beside the King at the trial; all six entries (including the 'Queen' who sends the croquet invitation and the 'Queen' the Hatter recalls) are the same individual, so keep them together.",
+      "members": [
+        "pig-and-pepper:character:queen",
+        "a-mad-tea-party:character:queen_of_hearts",
+        "the-queens-croquet-ground:character:the_queen",
+        "the-mock-turtles-story:character:the_queen",
+        "who-stole-the-tarts:character:the_queen_of_hearts",
+        "alices-evidence:character:the_queen"
+      ]
+    },
+    {
+      "id": "duchess_s_house",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "Duchess's House",
+      "aliases": [
+        "the house",
+        "the house in the wood"
+      ],
+      "note": "A house standing in a wood, with a door opening into a smoky kitchen where the Duchess and cook are.Alice enters the kitchen here.",
+      "members": [
+        "pig-and-pepper:location:duchess_house"
+      ]
+    },
+    {
+      "id": "the_woods_around_the_duchess_s_house",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "The woods around the Duchess's house",
+      "aliases": [
+        "Wood",
+        "the wood"
+      ],
+      "note": "The woods by the Duchess's house where the footmen run out, the pig escapes and the Cheshire Cat sits in a tree; tied to the Duchess's residence.",
+      "members": [
+        "pig-and-pepper:location:wood"
+      ]
+    },
+    {
+      "id": "march_hare_s_house",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "March Hare's House",
+      "aliases": [
+        "the March Hare's house"
+      ],
+      "note": "A large house with ear-shaped chimneys and a fur-thatched roof, where the March Hare is said to live; Alice approaches it at the end.",
+      "members": [
+        "pig-and-pepper:location:march_hare_house"
+      ]
+    },
+    {
+      "id": "the_dormouse",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the Dormouse",
+      "aliases": [
+        "Dormouse",
+        "the sleepy Dormouse",
+        "the sleepy voice"
+      ],
+      "note": "The sleeping Dormouse of the Mad Tea-Party, who tells the treacle-well story and is seated between the Hare and the Hatter, and also the same Dormouse who sits beside Alice and is ordered out of court in the trial; both entries are one character, distinguished only by scene.",
+      "members": [
+        "a-mad-tea-party:character:dormouse",
+        "who-stole-the-tarts:character:the_dormouse"
+      ]
+    },
+    {
+      "id": "time",
+      "kind": "object",
+      "readingKind": "other",
+      "name": "Time",
+      "aliases": [
+        "him"
+      ],
+      "note": "Personified Time, with whom the Hatter has quarrelled; mentioned only and never present on stage.",
+      "members": [
+        "a-mad-tea-party:character:time"
+      ]
+    },
+    {
+      "id": "elsie",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Elsie",
+      "aliases": [
+        "the first little sister"
+      ],
+      "note": "One of the three little sisters in the Dormouse's story, who lived at the bottom of a treacle-well; told of, not present.",
+      "members": [
+        "a-mad-tea-party:character:elsie"
+      ]
+    },
+    {
+      "id": "lacie",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Lacie",
+      "aliases": [
+        "the second little sister"
+      ],
+      "note": "One of the three little sisters in the Dormouse's story, living in the treacle-well; told of, not present.",
+      "members": [
+        "a-mad-tea-party:character:lacie"
+      ]
+    },
+    {
+      "id": "tillie",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "Tillie",
+      "aliases": [
+        "the third little sister"
+      ],
+      "note": "One of the three little sisters in the Dormouse's story, living in the treacle-well; told of, not present.",
+      "members": [
+        "a-mad-tea-party:character:tillie"
+      ]
+    },
+    {
+      "id": "tea_table_under_a_tree",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "Tea-table under a tree",
+      "aliases": [
+        "the table in front of the house",
+        "the tea-party table"
+      ],
+      "note": "A large table set out under a tree in front of a house, where the tea-party takes place.",
+      "members": [
+        "a-mad-tea-party:location:tea_table"
+      ]
+    },
+    {
+      "id": "the_wood_after_the_tea_party",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "The wood after the tea-party",
+      "aliases": [
+        "The wood",
+        "the wood"
+      ],
+      "note": "The wood Alice picks her way through after leaving the March Hare's tea-party and before the tree-door to the garden; tied to the tea-party, not the Duchess's house.",
+      "members": [
+        "a-mad-tea-party:location:wood"
+      ]
+    },
+    {
+      "id": "the_garden",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "The garden",
+      "aliases": [
+        "Garden",
+        "the beautiful garden",
+        "the garden entrance by the rose-tree",
+        "the garden"
+      ],
+      "note": "The beautiful garden of flower-beds and fountains reached through the tree-door, including its entrance by the rose-tree where the card gardeners paint the roses; the entrance is part of this same garden, not a separate place.",
+      "members": [
+        "a-mad-tea-party:location:garden",
+        "the-queens-croquet-ground:location:rose_tree_garden"
+      ]
+    },
+    {
+      "id": "two",
+      "kind": "object",
+      "readingKind": "other",
+      "name": "Two",
+      "aliases": [
+        "one of the gardeners",
+        "the gardener who spoke first"
+      ],
+      "note": "One of the three card gardeners painting roses red; the one who explains the mistake to Alice. Tell him apart by his role as the spokesman; he is a playing card, not a human.",
+      "members": [
+        "the-queens-croquet-ground:character:two"
+      ]
+    },
+    {
+      "id": "five",
+      "kind": "object",
+      "readingKind": "other",
+      "name": "Five",
+      "aliases": [
+        "one of the gardeners"
+      ],
+      "note": "One of the three card gardeners; blames Seven for splashing paint and warns the others of the Queen's approach. Tell him apart by his blaming of Seven and his warning; he is a playing card.",
+      "members": [
+        "the-queens-croquet-ground:character:five"
+      ]
+    },
+    {
+      "id": "seven",
+      "kind": "object",
+      "readingKind": "other",
+      "name": "Seven",
+      "aliases": [
+        "one of the gardeners"
+      ],
+      "note": "One of the three card gardeners; blamed by Five and the one who checks himself on seeing Alice. Tell him apart by being the one blamed by Five; he is a playing card.",
+      "members": [
+        "the-queens-croquet-ground:character:seven"
+      ]
+    },
+    {
+      "id": "king_of_hearts",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "King of Hearts",
+      "aliases": [
+        "the King of Hearts",
+        "the King",
+        "the judge",
+        "His Majesty"
+      ],
+      "note": "The mild, timid husband of the Queen who pardons the condemned, tries to protect Alice, and sits as judge at the trial; told apart from the Queen by his gentle, merciful conduct.",
+      "members": [
+        "the-queens-croquet-ground:character:the_king",
+        "the-mock-turtles-story:character:the_king",
+        "who-stole-the-tarts:character:the_king_of_hearts",
+        "alices-evidence:character:the_king"
+      ]
+    },
+    {
+      "id": "the_knave_of_hearts",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "The Knave of Hearts",
+      "aliases": [
+        "the Knave of Hearts",
+        "the Knave",
+        "the accused",
+        "the Knave made of cardboard"
+      ],
+      "note": "The one playing card called the Knave of Hearts, who carries the King's crown in the procession, is tried for stealing the tarts, and appears as a cardboard figure in Alice's evidence dream; all three entries are the same individual across divisions.",
+      "members": [
+        "the-queens-croquet-ground:character:the_knave_of_hearts",
+        "who-stole-the-tarts:character:the_knave_of_hearts",
+        "alices-evidence:character:the_knave"
+      ]
+    },
+    {
+      "id": "the_queen_s_playing_card_soldiers",
+      "kind": "character",
+      "readingKind": "group",
+      "name": "The Queen's playing-card soldiers",
+      "aliases": [
+        "the soldiers",
+        "the playing-card soldiers",
+        "the ten soldiers",
+        "the officers of the court",
+        "the officers"
+      ],
+      "note": "The ten oblong card soldiers with clubs who march in the procession, form the croquet arches, carry out the Queen's orders, and appear as the court officers who suppress the guinea-pigs and remove the Dormouse; the same card-soldier retinue in each portrayal.",
+      "members": [
+        "the-queens-croquet-ground:character:soldiers",
+        "who-stole-the-tarts:character:the_court_officers"
+      ]
+    },
+    {
+      "id": "the_courtiers",
+      "kind": "character",
+      "readingKind": "group",
+      "name": "the courtiers",
+      "aliases": [
+        "the ten courtiers"
+      ],
+      "note": "Ten diamond-decorated card courtiers who walk two by two in the procession.",
+      "members": [
+        "the-queens-croquet-ground:character:courtiers"
+      ]
+    },
+    {
+      "id": "the_royal_children",
+      "kind": "character",
+      "readingKind": "group",
+      "name": "the royal children",
+      "aliases": [
+        "the Queen's ten children"
+      ],
+      "note": "Ten heart-decorated children who skip hand in hand in the procession.",
+      "members": [
+        "the-queens-croquet-ground:character:royal_children"
+      ]
+    },
+    {
+      "id": "the_executioner",
+      "kind": "character",
+      "readingKind": "person",
+      "name": "the executioner",
+      "aliases": [
+        "the headsman"
+      ],
+      "note": "The Queen's executioner who argues about beheading the Cat and runs to fetch the Duchess in unit 70.",
+      "members": [
+        "the-queens-croquet-ground:character:executioner"
+      ]
+    },
+    {
+      "id": "the_flamingo",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the flamingo",
+      "aliases": [
+        "Alice's flamingo"
+      ],
+      "note": "A live flamingo used as Alice's mallet; it twists its neck and at one point flies off into a tree.",
+      "members": [
+        "the-queens-croquet-ground:character:flamingo"
+      ]
+    },
+    {
+      "id": "the_hedgehogs",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the hedgehogs",
+      "aliases": [
+        "the live hedgehogs"
+      ],
+      "note": "Live hedgehogs used as croquet balls, which roll away and fight one another.",
+      "members": [
+        "the-queens-croquet-ground:character:hedgehogs"
+      ]
+    },
+    {
+      "id": "the_queen_s_croquet_ground",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "the Queen's croquet-ground",
+      "aliases": [
+        "the croquet-ground",
+        "the game",
+        "the croquet lawn"
+      ],
+      "note": "The single walled-garden croquet ground of the Queen, with flamingo mallets and hedgehog balls, where the game and executions take place; both entries describe this same place.",
+      "members": [
+        "the-queens-croquet-ground:location:croquet_ground",
+        "the-mock-turtles-story:location:croquet_ground"
+      ]
+    },
+    {
+      "id": "the_gryphon",
+      "kind": "object",
+      "readingKind": "other",
+      "name": "the Gryphon",
+      "aliases": [
+        "Gryphon"
+      ],
+      "note": "A single mythical Gryphon who guides Alice to the Mock Turtle, interrupts his story, and appears again in the court; the descriptions differ in wording but depict the same creature.",
+      "members": [
+        "the-mock-turtles-story:character:the_gryphon",
+        "the-lobster-quadrille:character:gryphon",
+        "who-stole-the-tarts:character:the_gryphon"
+      ]
+    },
+    {
+      "id": "the_mock_turtle",
+      "kind": "object",
+      "readingKind": "other",
+      "name": "the Mock Turtle",
+      "aliases": [
+        "Mock Turtle"
+      ],
+      "note": "A sorrowful, sobbing creature with a calf's head and a turtle's tail or flappers, who tells of his schooldays in the sea, the Lobster Quadrille and the whiting, and sings 'Beautiful Soup'; the two entries are the same character across divisions, distinguished from other names in the group only by being this single individual.",
+      "members": [
+        "the-mock-turtles-story:character:the_mock_turtle",
+        "the-lobster-quadrille:character:mock_turtle"
+      ]
+    },
+    {
+      "id": "the_old_turtle_master_tortoise",
+      "kind": "object",
+      "readingKind": "other",
+      "name": "the old Turtle master (Tortoise)",
+      "aliases": [
+        "Tortoise",
+        "the master"
+      ],
+      "note": "The old Turtle who taught the Mock Turtle at school under the sea; only recalled in the Mock Turtle's story, not present on stage.",
+      "members": [
+        "the-mock-turtles-story:character:the_master_tortoise"
+      ]
+    },
+    {
+      "id": "the_drawling_master_old_conger_eel",
+      "kind": "object",
+      "readingKind": "other",
+      "name": "the Drawling-master (old conger-eel)",
+      "aliases": [
+        "the Drawling-master",
+        "old conger-eel"
+      ],
+      "note": "The old conger-eel who came once a week to teach Drawling, Stretching and Fainting in Coils; recalled in the Mock Turtle's story only.",
+      "members": [
+        "the-mock-turtles-story:character:the_conger_eel_master"
+      ]
+    },
+    {
+      "id": "the_classics_master_old_crab",
+      "kind": "object",
+      "readingKind": "other",
+      "name": "the Classics master (old crab)",
+      "aliases": [
+        "the Classics master",
+        "old crab"
+      ],
+      "note": "The old crab who taught the Gryphon the Classics, recalled only in the Mock Turtle's story and never present; kept apart from the Caucus-race Crab because the notes give no sign they are the same individual.",
+      "members": [
+        "the-mock-turtles-story:character:the_classics_master_crab"
+      ]
+    },
+    {
+      "id": "the_rock_ledge_by_the_sea",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "the rock ledge by the sea",
+      "aliases": [
+        "the ledge of rock"
+      ],
+      "note": "The lonely rock ledge where the Mock Turtle sits sobbing and tells his story, near the sea.",
+      "members": [
+        "the-mock-turtles-story:location:seashore_ledge"
+      ]
+    },
+    {
+      "id": "the_undersea_school",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "the undersea school",
+      "aliases": [
+        "school in the sea"
+      ],
+      "note": "The school under the sea attended by the Mock Turtle in his youth, existing only in his recollection; not shown on stage.",
+      "members": [
+        "the-mock-turtles-story:location:undersea_school"
+      ]
+    },
+    {
+      "id": "whiting",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "Whiting",
+      "aliases": [
+        "a whiting"
+      ],
+      "note": "A sea fish addressed in the Mock Turtle's song; it urges a snail to join the dance. Described as the subject of the song, not a physical presence on stage.",
+      "members": [
+        "the-lobster-quadrille:character:whiting"
+      ]
+    },
+    {
+      "id": "snail",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "Snail",
+      "aliases": [
+        "a snail"
+      ],
+      "note": "A snail in the Mock Turtle's song who refuses the whiting's invitation to join the dance, saying 'Too far, too far!'.",
+      "members": [
+        "the-lobster-quadrille:character:snail"
+      ]
+    },
+    {
+      "id": "porpoise",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "Porpoise",
+      "aliases": [
+        "a porpoise"
+      ],
+      "note": "A porpoise in the song who treads on the whiting's tail; mentioned in the whiting's explanation and in the Mock Turtle's remark about fish needing a porpoise.",
+      "members": [
+        "the-lobster-quadrille:character:porpoise"
+      ]
+    },
+    {
+      "id": "lobsters",
+      "kind": "character",
+      "readingKind": "group",
+      "name": "Lobsters",
+      "aliases": [
+        "the lobsters",
+        "a lobster"
+      ],
+      "note": "Sea creatures who serve as partners in the Lobster Quadrille; they are thrown out to sea and sing of their dance in the song.",
+      "members": [
+        "the-lobster-quadrille:character:lobsters"
+      ]
+    },
+    {
+      "id": "sea_shore",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "Sea-shore",
+      "aliases": [
+        "the sea-shore",
+        "the sea",
+        "under the sea"
+      ],
+      "note": "The undersea setting where the Lobster Quadrille would be danced along the shore and where the whiting and lobsters are placed.",
+      "members": [
+        "the-lobster-quadrille:location:seashore"
+      ]
+    },
+    {
+      "id": "court_of_justice",
+      "kind": "location",
+      "readingKind": "place",
+      "name": "Court of Justice",
+      "aliases": [
+        "the trial",
+        "the court of justice",
+        "the court",
+        "the courtroom",
+        "the court of the Queen of Hearts"
+      ],
+      "note": "The open court of the Queen of Hearts, with throne, jury-box and table of tarts, where the trial is held; the Lobster Quadrille entry is the same court heard in the distance before it is shown on stage.",
+      "members": [
+        "the-lobster-quadrille:location:court_of_justice",
+        "who-stole-the-tarts:location:the_court",
+        "alices-evidence:location:the_court"
+      ]
+    },
+    {
+      "id": "the_jury",
+      "kind": "character",
+      "readingKind": "group",
+      "name": "the jury",
+      "aliases": [
+        "the jurors",
+        "the twelve creatures",
+        "the pack of cards",
+        "the jurymen"
+      ],
+      "note": "The twelve jurors (birds and beasts writing on slates) who act together as one body in the court; both divisions describe the same jury, so the entries are joined.",
+      "members": [
+        "who-stole-the-tarts:character:the_jury",
+        "alices-evidence:character:the_jury"
+      ]
+    },
+    {
+      "id": "the_pack_of_cards_the_court_s_playing_cards",
+      "kind": "character",
+      "readingKind": "group",
+      "name": "The pack of cards (the court's playing cards)",
+      "aliases": [
+        "the pack of cards",
+        "the cards"
+      ],
+      "note": "The playing cards of the Queen's court who rise up and fly down at Alice, ending the dream; told apart from the jury by being playing cards in the dream rather than jurors in the trial.",
+      "members": [
+        "alices-evidence:character:the_pack_of_cards"
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "firstUnitId": "down-the-rabbit-hole-1",
+      "lastUnitId": "down-the-rabbit-hole-3",
+      "title": "Alice on the bank sees the White Rabbit",
+      "setting": [
+        "the_riverbank"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "alice_s_sister",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "down-the-rabbit-hole"
+    },
+    {
+      "firstUnitId": "down-the-rabbit-hole-4",
+      "lastUnitId": "down-the-rabbit-hole-10",
+      "title": "Alice falls down the rabbit-hole",
+      "setting": [
+        "the_rabbit_hole"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "dinah",
+        "white_rabbit"
+      ],
+      "divisionId": "down-the-rabbit-hole"
+    },
+    {
+      "firstUnitId": "down-the-rabbit-hole-11",
+      "lastUnitId": "down-the-rabbit-hole-12",
+      "title": "Alice runs after the Rabbit into the long hall",
+      "setting": [
+        "the_long_low_hall"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "down-the-rabbit-hole"
+    },
+    {
+      "firstUnitId": "down-the-rabbit-hole-13",
+      "lastUnitId": "down-the-rabbit-hole-17",
+      "title": "The little key, the small door and the bottle marked DRINK ME",
+      "setting": [
+        "the_long_low_hall",
+        "the_little_door_to_the_garden"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "down-the-rabbit-hole"
+    },
+    {
+      "firstUnitId": "down-the-rabbit-hole-18",
+      "lastUnitId": "down-the-rabbit-hole-24",
+      "title": "Alice shrinks, cries and eats the cake marked EAT ME",
+      "setting": [
+        "the_long_low_hall",
+        "the_little_door_to_the_garden"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "down-the-rabbit-hole"
+    },
+    {
+      "firstUnitId": "the-pool-of-tears-1",
+      "lastUnitId": "the-pool-of-tears-8",
+      "title": "Alice grows tall and weeps; the Rabbit flees",
+      "setting": [
+        "the_long_low_hall",
+        "the_little_door_to_the_garden",
+        "pool_of_tears"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "the_duchess"
+      ],
+      "divisionId": "the-pool-of-tears"
+    },
+    {
+      "firstUnitId": "the-pool-of-tears-9",
+      "lastUnitId": "the-pool-of-tears-15",
+      "title": "Alice doubts her identity and shrinks",
+      "setting": [
+        "the_long_low_hall",
+        "the_little_door_to_the_garden"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "ada",
+        "mabel",
+        "white_rabbit"
+      ],
+      "divisionId": "the-pool-of-tears"
+    },
+    {
+      "firstUnitId": "the-pool-of-tears-16",
+      "lastUnitId": "the-pool-of-tears-25",
+      "title": "Alice swims with the Mouse and talks of cats and dogs",
+      "setting": [
+        "pool_of_tears"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_mouse",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "dinah"
+      ],
+      "divisionId": "the-pool-of-tears"
+    },
+    {
+      "firstUnitId": "the-pool-of-tears-26",
+      "lastUnitId": "the-pool-of-tears-26",
+      "title": "The crowd of birds and animals swims to shore",
+      "setting": [
+        "pool_of_tears",
+        "shore"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_mouse",
+          "named": false
+        },
+        {
+          "id": "the_duck",
+          "named": true
+        },
+        {
+          "id": "the_dodo",
+          "named": true
+        },
+        {
+          "id": "the_lory",
+          "named": true
+        },
+        {
+          "id": "the_eaglet",
+          "named": true
+        },
+        {
+          "id": "pool_creatures",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "the-pool-of-tears"
+    },
+    {
+      "firstUnitId": "a-caucus-race-and-a-long-tale-1",
+      "lastUnitId": "a-caucus-race-and-a-long-tale-23",
+      "title": "Dripping on the Bank and the Caucus-Race",
+      "setting": [
+        "the_bank_of_the_pool_of_tears"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_mouse",
+          "named": true
+        },
+        {
+          "id": "the_lory",
+          "named": true
+        },
+        {
+          "id": "the_duck",
+          "named": true
+        },
+        {
+          "id": "the_dodo",
+          "named": true
+        },
+        {
+          "id": "the_eaglet",
+          "named": true
+        },
+        {
+          "id": "the_assembled_birds_and_animals",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "a-caucus-race-and-a-long-tale"
+    },
+    {
+      "firstUnitId": "a-caucus-race-and-a-long-tale-24",
+      "lastUnitId": "a-caucus-race-and-a-long-tale-34",
+      "title": "The Prizes and the Mouse's Tale Begins",
+      "setting": [
+        "the_bank_of_the_pool_of_tears"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_mouse",
+          "named": true
+        },
+        {
+          "id": "the_dodo",
+          "named": true
+        },
+        {
+          "id": "the_assembled_birds_and_animals",
+          "named": false
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "a-caucus-race-and-a-long-tale"
+    },
+    {
+      "firstUnitId": "a-caucus-race-and-a-long-tale-35",
+      "lastUnitId": "a-caucus-race-and-a-long-tale-48",
+      "title": "The Mouse Departs and Alice Mentions Dinah",
+      "setting": [
+        "the_bank_of_the_pool_of_tears"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_mouse",
+          "named": true
+        },
+        {
+          "id": "the_lory",
+          "named": true
+        },
+        {
+          "id": "the_old_crab_mother_of_the_young_crab",
+          "named": false
+        },
+        {
+          "id": "the_young_crab",
+          "named": true
+        },
+        {
+          "id": "the_old_magpie",
+          "named": false
+        },
+        {
+          "id": "the_canary",
+          "named": true
+        },
+        {
+          "id": "the_assembled_birds_and_animals",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "dinah"
+      ],
+      "divisionId": "a-caucus-race-and-a-long-tale"
+    },
+    {
+      "firstUnitId": "the-rabbit-sends-in-a-little-bill-1",
+      "lastUnitId": "the-rabbit-sends-in-a-little-bill-9",
+      "title": "Alice Grows Large in the Rabbit's House",
+      "setting": [
+        "the_white_rabbit_s_house"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "mary_ann",
+        "dinah"
+      ],
+      "divisionId": "the-rabbit-sends-in-a-little-bill"
+    },
+    {
+      "firstUnitId": "the-rabbit-sends-in-a-little-bill-10",
+      "lastUnitId": "the-rabbit-sends-in-a-little-bill-23",
+      "title": "Alice Stuck in the Window",
+      "setting": [
+        "the_white_rabbit_s_house",
+        "the_rabbit_s_garden"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        },
+        {
+          "id": "pat",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "mary_ann",
+        "dinah"
+      ],
+      "divisionId": "the-rabbit-sends-in-a-little-bill"
+    },
+    {
+      "firstUnitId": "the-rabbit-sends-in-a-little-bill-24",
+      "lastUnitId": "the-rabbit-sends-in-a-little-bill-34",
+      "title": "The Rabbit's Servants Try to Remove Alice",
+      "setting": [
+        "the_white_rabbit_s_house",
+        "the_rabbit_s_garden"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        },
+        {
+          "id": "pat",
+          "named": false
+        },
+        {
+          "id": "bill_the_lizard",
+          "named": true
+        },
+        {
+          "id": "the_two_guinea_pigs",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "dinah"
+      ],
+      "divisionId": "the-rabbit-sends-in-a-little-bill"
+    },
+    {
+      "firstUnitId": "the-rabbit-sends-in-a-little-bill-35",
+      "lastUnitId": "the-rabbit-sends-in-a-little-bill-42",
+      "title": "Alice in the Wood and the Caterpillar",
+      "setting": [
+        "the_thick_wood_alice_s_first_wood"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_puppy",
+          "named": true
+        },
+        {
+          "id": "the_caterpillar",
+          "named": false
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "the-rabbit-sends-in-a-little-bill"
+    },
+    {
+      "firstUnitId": "advice-from-a-caterpillar-1",
+      "lastUnitId": "advice-from-a-caterpillar-51",
+      "title": "The Caterpillar's Questions and Advice",
+      "setting": [
+        "the_mushroom_clearing"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_caterpillar",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "father_william",
+        "the_young_man"
+      ],
+      "divisionId": "advice-from-a-caterpillar"
+    },
+    {
+      "firstUnitId": "advice-from-a-caterpillar-52",
+      "lastUnitId": "advice-from-a-caterpillar-56",
+      "title": "Alice Tastes the Mushroom and Grows Tall",
+      "setting": [
+        "the_mushroom_clearing"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "advice-from-a-caterpillar"
+    },
+    {
+      "firstUnitId": "advice-from-a-caterpillar-57",
+      "lastUnitId": "advice-from-a-caterpillar-75",
+      "title": "The Pigeon Mistakes Alice for a Serpent",
+      "setting": [
+        "the_treetops",
+        "the_mushroom_clearing",
+        "the_open_place_with_the_little_house"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_pigeon",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "father_william",
+        "the_young_man"
+      ],
+      "divisionId": "advice-from-a-caterpillar"
+    },
+    {
+      "firstUnitId": "pig-and-pepper-1",
+      "lastUnitId": "pig-and-pepper-4",
+      "title": "The Footman Delivers the Invitation",
+      "setting": [
+        "duchess_s_house",
+        "the_woods_around_the_duchess_s_house"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "fish_footman",
+          "named": true
+        },
+        {
+          "id": "frog_footman",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "queen_of_hearts",
+        "the_duchess"
+      ],
+      "divisionId": "pig-and-pepper"
+    },
+    {
+      "firstUnitId": "pig-and-pepper-5",
+      "lastUnitId": "pig-and-pepper-18",
+      "title": "Refused at the Door",
+      "setting": [
+        "duchess_s_house",
+        "the_woods_around_the_duchess_s_house"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "frog_footman",
+          "named": false
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "pig-and-pepper"
+    },
+    {
+      "firstUnitId": "pig-and-pepper-19",
+      "lastUnitId": "pig-and-pepper-49",
+      "title": "The Kitchen, the Soup and the Pig",
+      "setting": [
+        "duchess_s_house",
+        "the_woods_around_the_duchess_s_house"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_duchess",
+          "named": true
+        },
+        {
+          "id": "the_duchess_s_cook",
+          "named": true
+        },
+        {
+          "id": "baby",
+          "named": true
+        },
+        {
+          "id": "cheshire_cat",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "queen_of_hearts"
+      ],
+      "divisionId": "pig-and-pepper"
+    },
+    {
+      "firstUnitId": "pig-and-pepper-50",
+      "lastUnitId": "pig-and-pepper-80",
+      "title": "Talk with the Cheshire Cat",
+      "setting": [
+        "the_woods_around_the_duchess_s_house",
+        "march_hare_s_house"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "cheshire_cat",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "the_hatter",
+        "march_hare",
+        "queen_of_hearts",
+        "the_duchess"
+      ],
+      "divisionId": "pig-and-pepper"
+    },
+    {
+      "firstUnitId": "a-mad-tea-party-1",
+      "lastUnitId": "a-mad-tea-party-20",
+      "title": "Riddles and the Hatter's silence",
+      "setting": [
+        "tea_table_under_a_tree"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "march_hare",
+          "named": true
+        },
+        {
+          "id": "the_hatter",
+          "named": true
+        },
+        {
+          "id": "the_dormouse",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "a-mad-tea-party"
+    },
+    {
+      "firstUnitId": "a-mad-tea-party-21",
+      "lastUnitId": "a-mad-tea-party-46",
+      "title": "Butter, the watch and Time",
+      "setting": [
+        "tea_table_under_a_tree"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "march_hare",
+          "named": true
+        },
+        {
+          "id": "the_hatter",
+          "named": true
+        },
+        {
+          "id": "the_dormouse",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "time"
+      ],
+      "divisionId": "a-mad-tea-party"
+    },
+    {
+      "firstUnitId": "a-mad-tea-party-47",
+      "lastUnitId": "a-mad-tea-party-62",
+      "title": "The concert and the stopped clock",
+      "setting": [
+        "tea_table_under_a_tree"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "march_hare",
+          "named": true
+        },
+        {
+          "id": "the_hatter",
+          "named": true
+        },
+        {
+          "id": "the_dormouse",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "queen_of_hearts",
+        "time"
+      ],
+      "divisionId": "a-mad-tea-party"
+    },
+    {
+      "firstUnitId": "a-mad-tea-party-63",
+      "lastUnitId": "a-mad-tea-party-89",
+      "title": "The Dormouse's treacle-well story",
+      "setting": [
+        "tea_table_under_a_tree"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "march_hare",
+          "named": true
+        },
+        {
+          "id": "the_hatter",
+          "named": true
+        },
+        {
+          "id": "the_dormouse",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "elsie",
+        "lacie",
+        "tillie"
+      ],
+      "divisionId": "a-mad-tea-party"
+    },
+    {
+      "firstUnitId": "a-mad-tea-party-90",
+      "lastUnitId": "a-mad-tea-party-102",
+      "title": "Drawing treacle and Alice's departure",
+      "setting": [
+        "tea_table_under_a_tree"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "march_hare",
+          "named": true
+        },
+        {
+          "id": "the_hatter",
+          "named": true
+        },
+        {
+          "id": "the_dormouse",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "a-mad-tea-party"
+    },
+    {
+      "firstUnitId": "a-mad-tea-party-103",
+      "lastUnitId": "a-mad-tea-party-105",
+      "title": "Through the tree-door to the garden",
+      "setting": [
+        "the_wood_after_the_tea_party",
+        "the_long_low_hall",
+        "the_garden"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "a-mad-tea-party"
+    },
+    {
+      "firstUnitId": "the-queens-croquet-ground-1",
+      "lastUnitId": "the-queens-croquet-ground-33",
+      "title": "The gardeners and the royal procession",
+      "setting": [
+        "the_garden"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "two",
+          "named": true
+        },
+        {
+          "id": "five",
+          "named": true
+        },
+        {
+          "id": "seven",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        },
+        {
+          "id": "king_of_hearts",
+          "named": true
+        },
+        {
+          "id": "the_knave_of_hearts",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        },
+        {
+          "id": "the_queen_s_playing_card_soldiers",
+          "named": true
+        },
+        {
+          "id": "the_courtiers",
+          "named": true
+        },
+        {
+          "id": "the_royal_children",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "the-queens-croquet-ground"
+    },
+    {
+      "firstUnitId": "the-queens-croquet-ground-34",
+      "lastUnitId": "the-queens-croquet-ground-44",
+      "title": "The Rabbit's whisper and the game begins",
+      "setting": [
+        "the_queen_s_croquet_ground"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        },
+        {
+          "id": "the_flamingo",
+          "named": false
+        },
+        {
+          "id": "the_hedgehogs",
+          "named": true
+        },
+        {
+          "id": "the_queen_s_playing_card_soldiers",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "the_duchess"
+      ],
+      "divisionId": "the-queens-croquet-ground"
+    },
+    {
+      "firstUnitId": "the-queens-croquet-ground-45",
+      "lastUnitId": "the-queens-croquet-ground-61",
+      "title": "Alice and the Cheshire Cat",
+      "setting": [
+        "the_queen_s_croquet_ground"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "cheshire_cat",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        },
+        {
+          "id": "king_of_hearts",
+          "named": true
+        },
+        {
+          "id": "the_flamingo",
+          "named": false
+        },
+        {
+          "id": "the_hedgehogs",
+          "named": false
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "the-queens-croquet-ground"
+    },
+    {
+      "firstUnitId": "the-queens-croquet-ground-62",
+      "lastUnitId": "the-queens-croquet-ground-71",
+      "title": "The dispute over the Cat's head",
+      "setting": [
+        "the_queen_s_croquet_ground"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "king_of_hearts",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        },
+        {
+          "id": "the_executioner",
+          "named": true
+        },
+        {
+          "id": "cheshire_cat",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "the_duchess"
+      ],
+      "divisionId": "the-queens-croquet-ground"
+    },
+    {
+      "firstUnitId": "the-mock-turtles-story-1",
+      "lastUnitId": "the-mock-turtles-story-4",
+      "title": "The Duchess walks arm in arm with Alice",
+      "setting": [
+        "the_queen_s_croquet_ground"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_duchess",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "the-mock-turtles-story"
+    },
+    {
+      "firstUnitId": "the-mock-turtles-story-5",
+      "lastUnitId": "the-mock-turtles-story-30",
+      "title": "The Duchess's morals and the Queen's arrival",
+      "setting": [
+        "the_queen_s_croquet_ground"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_duchess",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "the-mock-turtles-story"
+    },
+    {
+      "firstUnitId": "the-mock-turtles-story-31",
+      "lastUnitId": "the-mock-turtles-story-36",
+      "title": "The Duchess is sent away; the Queen's game of executions",
+      "setting": [
+        "the_queen_s_croquet_ground"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_duchess",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        },
+        {
+          "id": "king_of_hearts",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "the-mock-turtles-story"
+    },
+    {
+      "firstUnitId": "the-mock-turtles-story-37",
+      "lastUnitId": "the-mock-turtles-story-47",
+      "title": "The Queen sends Alice off with the Gryphon",
+      "setting": [
+        "the_queen_s_croquet_ground"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        },
+        {
+          "id": "king_of_hearts",
+          "named": true
+        },
+        {
+          "id": "the_gryphon",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "the_mock_turtle"
+      ],
+      "divisionId": "the-mock-turtles-story"
+    },
+    {
+      "firstUnitId": "the-mock-turtles-story-48",
+      "lastUnitId": "the-mock-turtles-story-70",
+      "title": "The Mock Turtle begins his history: school in the sea",
+      "setting": [
+        "the_rock_ledge_by_the_sea",
+        "the_undersea_school"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_gryphon",
+          "named": true
+        },
+        {
+          "id": "the_mock_turtle",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "the_old_turtle_master_tortoise"
+      ],
+      "divisionId": "the-mock-turtles-story"
+    },
+    {
+      "firstUnitId": "the-mock-turtles-story-71",
+      "lastUnitId": "the-mock-turtles-story-92",
+      "title": "The lessons: Reeling, Writhing and Uglification",
+      "setting": [
+        "the_rock_ledge_by_the_sea",
+        "the_undersea_school"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_gryphon",
+          "named": true
+        },
+        {
+          "id": "the_mock_turtle",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "the_old_turtle_master_tortoise",
+        "the_drawling_master_old_conger_eel",
+        "the_classics_master_old_crab"
+      ],
+      "divisionId": "the-mock-turtles-story"
+    },
+    {
+      "firstUnitId": "the-lobster-quadrille-1",
+      "lastUnitId": "the-lobster-quadrille-17",
+      "title": "The Mock Turtle describes the Lobster Quadrille",
+      "setting": [
+        "sea_shore"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_mock_turtle",
+          "named": true
+        },
+        {
+          "id": "the_gryphon",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "lobsters"
+      ],
+      "divisionId": "the-lobster-quadrille"
+    },
+    {
+      "firstUnitId": "the-lobster-quadrille-18",
+      "lastUnitId": "the-lobster-quadrille-26",
+      "title": "The dance and the whiting's song",
+      "setting": [
+        "sea_shore"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_mock_turtle",
+          "named": true
+        },
+        {
+          "id": "the_gryphon",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "whiting",
+        "snail",
+        "porpoise",
+        "lobsters"
+      ],
+      "divisionId": "the-lobster-quadrille"
+    },
+    {
+      "firstUnitId": "the-lobster-quadrille-27",
+      "lastUnitId": "the-lobster-quadrille-47",
+      "title": "Why whitings have their tails in their mouths",
+      "setting": [
+        "sea_shore"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_mock_turtle",
+          "named": true
+        },
+        {
+          "id": "the_gryphon",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [
+        "whiting",
+        "porpoise",
+        "lobsters"
+      ],
+      "divisionId": "the-lobster-quadrille"
+    },
+    {
+      "firstUnitId": "the-lobster-quadrille-48",
+      "lastUnitId": "the-lobster-quadrille-65",
+      "title": "Alice recites the garbled verses",
+      "setting": [
+        "sea_shore"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_mock_turtle",
+          "named": true
+        },
+        {
+          "id": "the_gryphon",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "the-lobster-quadrille"
+    },
+    {
+      "firstUnitId": "the-lobster-quadrille-66",
+      "lastUnitId": "the-lobster-quadrille-81",
+      "title": "Turtle Soup song and the rush to the trial",
+      "setting": [
+        "sea_shore",
+        "court_of_justice"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "the_mock_turtle",
+          "named": true
+        },
+        {
+          "id": "the_gryphon",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "the-lobster-quadrille"
+    },
+    {
+      "firstUnitId": "who-stole-the-tarts-1",
+      "lastUnitId": "who-stole-the-tarts-15",
+      "title": "The court assembles",
+      "setting": [
+        "court_of_justice"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "king_of_hearts",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        },
+        {
+          "id": "the_knave_of_hearts",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        },
+        {
+          "id": "the_gryphon",
+          "named": true
+        },
+        {
+          "id": "the_jury",
+          "named": true
+        },
+        {
+          "id": "bill_the_lizard",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "who-stole-the-tarts"
+    },
+    {
+      "firstUnitId": "who-stole-the-tarts-16",
+      "lastUnitId": "who-stole-the-tarts-62",
+      "title": "The Hatter's evidence",
+      "setting": [
+        "court_of_justice"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "king_of_hearts",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        },
+        {
+          "id": "the_hatter",
+          "named": true
+        },
+        {
+          "id": "march_hare",
+          "named": true
+        },
+        {
+          "id": "the_dormouse",
+          "named": true
+        },
+        {
+          "id": "the_two_guinea_pigs",
+          "named": true
+        },
+        {
+          "id": "the_queen_s_playing_card_soldiers",
+          "named": true
+        },
+        {
+          "id": "the_jury",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": false
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "who-stole-the-tarts"
+    },
+    {
+      "firstUnitId": "who-stole-the-tarts-63",
+      "lastUnitId": "who-stole-the-tarts-73",
+      "title": "The cook and the Dormouse",
+      "setting": [
+        "court_of_justice"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "king_of_hearts",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        },
+        {
+          "id": "the_duchess_s_cook",
+          "named": true
+        },
+        {
+          "id": "the_dormouse",
+          "named": true
+        },
+        {
+          "id": "the_queen_s_playing_card_soldiers",
+          "named": false
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        },
+        {
+          "id": "the_jury",
+          "named": false
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "who-stole-the-tarts"
+    },
+    {
+      "firstUnitId": "who-stole-the-tarts-74",
+      "lastUnitId": "who-stole-the-tarts-74",
+      "title": "Alice is called",
+      "setting": [
+        "court_of_justice"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "who-stole-the-tarts"
+    },
+    {
+      "firstUnitId": "alices-evidence-1",
+      "lastUnitId": "alices-evidence-15",
+      "title": "The jury upset and the trial begins",
+      "setting": [
+        "court_of_justice"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "king_of_hearts",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": false
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        },
+        {
+          "id": "the_knave_of_hearts",
+          "named": false
+        },
+        {
+          "id": "bill_the_lizard",
+          "named": true
+        },
+        {
+          "id": "the_jury",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "alices-evidence"
+    },
+    {
+      "firstUnitId": "alices-evidence-16",
+      "lastUnitId": "alices-evidence-22",
+      "title": "Alice refuses to leave the court",
+      "setting": [
+        "court_of_justice"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "king_of_hearts",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        },
+        {
+          "id": "the_jury",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "alices-evidence"
+    },
+    {
+      "firstUnitId": "alices-evidence-23",
+      "lastUnitId": "alices-evidence-46",
+      "title": "The verses are read as evidence",
+      "setting": [
+        "court_of_justice"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "king_of_hearts",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        },
+        {
+          "id": "the_knave_of_hearts",
+          "named": true
+        },
+        {
+          "id": "bill_the_lizard",
+          "named": false
+        },
+        {
+          "id": "the_jury",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "alices-evidence"
+    },
+    {
+      "firstUnitId": "alices-evidence-47",
+      "lastUnitId": "alices-evidence-71",
+      "title": "Alice wakes and her sister dreams",
+      "setting": [
+        "court_of_justice",
+        "the_riverbank"
+      ],
+      "onStage": [
+        {
+          "id": "alice",
+          "named": true
+        },
+        {
+          "id": "king_of_hearts",
+          "named": true
+        },
+        {
+          "id": "queen_of_hearts",
+          "named": true
+        },
+        {
+          "id": "white_rabbit",
+          "named": true
+        },
+        {
+          "id": "the_knave_of_hearts",
+          "named": true
+        },
+        {
+          "id": "the_jury",
+          "named": true
+        },
+        {
+          "id": "the_pack_of_cards_the_court_s_playing_cards",
+          "named": false
+        },
+        {
+          "id": "alice_s_sister",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "alices-evidence"
+    }
+  ],
+  "groups": [
+    {
+      "pool": "characters",
+      "members": [
+        "down-the-rabbit-hole:character:alice",
+        "the-pool-of-tears:character:alice",
+        "a-caucus-race-and-a-long-tale:character:alice",
+        "the-rabbit-sends-in-a-little-bill:character:alice",
+        "advice-from-a-caterpillar:character:alice",
+        "pig-and-pepper:character:alice",
+        "a-mad-tea-party:character:alice",
+        "the-queens-croquet-ground:character:alice",
+        "the-mock-turtles-story:character:alice",
+        "the-lobster-quadrille:character:alice",
+        "who-stole-the-tarts:character:alice",
+        "alices-evidence:character:alice"
+      ],
+      "clusters": [
+        {
+          "name": "Alice",
+          "members": [
+            "down-the-rabbit-hole:character:alice",
+            "the-pool-of-tears:character:alice",
+            "a-caucus-race-and-a-long-tale:character:alice",
+            "the-rabbit-sends-in-a-little-bill:character:alice",
+            "advice-from-a-caterpillar:character:alice",
+            "pig-and-pepper:character:alice",
+            "a-mad-tea-party:character:alice",
+            "the-queens-croquet-ground:character:alice",
+            "the-mock-turtles-story:character:alice",
+            "the-lobster-quadrille:character:alice",
+            "who-stole-the-tarts:character:alice",
+            "alices-evidence:character:alice"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "down-the-rabbit-hole:character:alice",
+        "the-rabbit-sends-in-a-little-bill:character:alice",
+        "advice-from-a-caterpillar:character:alice",
+        "who-stole-the-tarts:character:alice"
+      ],
+      "clusters": [
+        {
+          "name": "Alice",
+          "members": [
+            "down-the-rabbit-hole:character:alice",
+            "the-rabbit-sends-in-a-little-bill:character:alice",
+            "advice-from-a-caterpillar:character:alice",
+            "who-stole-the-tarts:character:alice"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "down-the-rabbit-hole:character:alice",
+        "the-pool-of-tears:character:alice",
+        "advice-from-a-caterpillar:character:alice",
+        "the-queens-croquet-ground:character:alice",
+        "the-lobster-quadrille:character:alice"
+      ],
+      "clusters": [
+        {
+          "name": "Alice",
+          "members": [
+            "down-the-rabbit-hole:character:alice",
+            "the-pool-of-tears:character:alice",
+            "advice-from-a-caterpillar:character:alice",
+            "the-queens-croquet-ground:character:alice",
+            "the-lobster-quadrille:character:alice"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "down-the-rabbit-hole:character:alice_sister",
+        "alices-evidence:character:alice_sister"
+      ],
+      "clusters": [
+        {
+          "name": "Alice's sister",
+          "members": [
+            "down-the-rabbit-hole:character:alice_sister",
+            "alices-evidence:character:alice_sister"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "down-the-rabbit-hole:character:white_rabbit",
+        "the-pool-of-tears:character:white_rabbit",
+        "the-rabbit-sends-in-a-little-bill:character:white_rabbit",
+        "the-queens-croquet-ground:character:white_rabbit",
+        "who-stole-the-tarts:character:the_white_rabbit",
+        "alices-evidence:character:white_rabbit"
+      ],
+      "clusters": [
+        {
+          "name": "White Rabbit",
+          "members": [
+            "down-the-rabbit-hole:character:white_rabbit",
+            "the-pool-of-tears:character:white_rabbit",
+            "the-rabbit-sends-in-a-little-bill:character:white_rabbit",
+            "the-queens-croquet-ground:character:white_rabbit",
+            "who-stole-the-tarts:character:the_white_rabbit",
+            "alices-evidence:character:white_rabbit"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "down-the-rabbit-hole:character:white_rabbit",
+        "the-pool-of-tears:character:white_rabbit"
+      ],
+      "clusters": [
+        {
+          "name": "White Rabbit",
+          "members": [
+            "down-the-rabbit-hole:character:white_rabbit",
+            "the-pool-of-tears:character:white_rabbit"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "down-the-rabbit-hole:character:dinah",
+        "the-pool-of-tears:character:dinah",
+        "a-caucus-race-and-a-long-tale:character:dinah",
+        "the-rabbit-sends-in-a-little-bill:character:dinah"
+      ],
+      "clusters": [
+        {
+          "name": "Dinah",
+          "members": [
+            "down-the-rabbit-hole:character:dinah",
+            "the-pool-of-tears:character:dinah",
+            "a-caucus-race-and-a-long-tale:character:dinah",
+            "the-rabbit-sends-in-a-little-bill:character:dinah"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "down-the-rabbit-hole:character:dinah",
+        "the-rabbit-sends-in-a-little-bill:character:dinah",
+        "pig-and-pepper:character:cheshire_cat",
+        "the-queens-croquet-ground:character:cheshire_cat"
+      ],
+      "clusters": [
+        {
+          "name": "Dinah",
+          "members": [
+            "down-the-rabbit-hole:character:dinah",
+            "the-rabbit-sends-in-a-little-bill:character:dinah"
+          ]
+        },
+        {
+          "name": "Cheshire Cat",
+          "members": [
+            "pig-and-pepper:character:cheshire_cat",
+            "the-queens-croquet-ground:character:cheshire_cat"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-pool-of-tears:character:the_mouse",
+        "a-caucus-race-and-a-long-tale:character:the_mouse"
+      ],
+      "clusters": [
+        {
+          "name": "The Mouse",
+          "members": [
+            "the-pool-of-tears:character:the_mouse",
+            "a-caucus-race-and-a-long-tale:character:the_mouse"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-pool-of-tears:character:dinah",
+        "a-caucus-race-and-a-long-tale:character:dinah"
+      ],
+      "clusters": [
+        {
+          "name": "Dinah",
+          "members": [
+            "the-pool-of-tears:character:dinah",
+            "a-caucus-race-and-a-long-tale:character:dinah"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-pool-of-tears:character:the_duck",
+        "a-caucus-race-and-a-long-tale:character:the_duck"
+      ],
+      "clusters": [
+        {
+          "name": "the Duck",
+          "members": [
+            "the-pool-of-tears:character:the_duck",
+            "a-caucus-race-and-a-long-tale:character:the_duck"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-pool-of-tears:character:the_dodo",
+        "a-caucus-race-and-a-long-tale:character:the_dodo"
+      ],
+      "clusters": [
+        {
+          "name": "the Dodo",
+          "members": [
+            "the-pool-of-tears:character:the_dodo",
+            "a-caucus-race-and-a-long-tale:character:the_dodo"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-pool-of-tears:character:the_lory",
+        "a-caucus-race-and-a-long-tale:character:the_lory"
+      ],
+      "clusters": [
+        {
+          "name": "the Lory",
+          "members": [
+            "the-pool-of-tears:character:the_lory",
+            "a-caucus-race-and-a-long-tale:character:the_lory"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-pool-of-tears:character:the_eaglet",
+        "a-caucus-race-and-a-long-tale:character:the_eaglet"
+      ],
+      "clusters": [
+        {
+          "name": "the Eaglet",
+          "members": [
+            "the-pool-of-tears:character:the_eaglet",
+            "a-caucus-race-and-a-long-tale:character:the_eaglet"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-pool-of-tears:character:the_duchess",
+        "pig-and-pepper:character:duchess",
+        "the-queens-croquet-ground:character:duchess",
+        "the-mock-turtles-story:character:the_duchess"
+      ],
+      "clusters": [
+        {
+          "name": "the Duchess",
+          "members": [
+            "the-pool-of-tears:character:the_duchess",
+            "pig-and-pepper:character:duchess",
+            "the-queens-croquet-ground:character:duchess",
+            "the-mock-turtles-story:character:the_duchess"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "a-caucus-race-and-a-long-tale:character:alice",
+        "pig-and-pepper:character:alice",
+        "the-queens-croquet-ground:character:alice",
+        "alices-evidence:character:alice"
+      ],
+      "clusters": [
+        {
+          "name": "Alice",
+          "members": [
+            "a-caucus-race-and-a-long-tale:character:alice",
+            "pig-and-pepper:character:alice",
+            "the-queens-croquet-ground:character:alice",
+            "alices-evidence:character:alice"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "a-caucus-race-and-a-long-tale:character:the_old_crab",
+        "the-mock-turtles-story:character:the_classics_master_crab"
+      ],
+      "clusters": [
+        {
+          "name": "the old Crab (mother of the young Crab)",
+          "members": [
+            "a-caucus-race-and-a-long-tale:character:the_old_crab"
+          ]
+        },
+        {
+          "name": "the Classics master (old crab)",
+          "members": [
+            "the-mock-turtles-story:character:the_classics_master_crab"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:alice",
+        "the-rabbit-sends-in-a-little-bill:character:mary_ann"
+      ],
+      "clusters": [
+        {
+          "name": "Alice",
+          "members": [
+            "the-rabbit-sends-in-a-little-bill:character:alice"
+          ]
+        },
+        {
+          "name": "Mary Ann",
+          "members": [
+            "the-rabbit-sends-in-a-little-bill:character:mary_ann"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:white_rabbit",
+        "the-queens-croquet-ground:character:white_rabbit",
+        "who-stole-the-tarts:character:the_white_rabbit",
+        "alices-evidence:character:white_rabbit"
+      ],
+      "clusters": [
+        {
+          "name": "The White Rabbit",
+          "members": [
+            "the-rabbit-sends-in-a-little-bill:character:white_rabbit",
+            "the-queens-croquet-ground:character:white_rabbit",
+            "who-stole-the-tarts:character:the_white_rabbit",
+            "alices-evidence:character:white_rabbit"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:bill_lizard",
+        "who-stole-the-tarts:character:bill_the_lizard",
+        "alices-evidence:character:the_lizard_bill"
+      ],
+      "clusters": [
+        {
+          "name": "Bill the Lizard",
+          "members": [
+            "the-rabbit-sends-in-a-little-bill:character:bill_lizard",
+            "who-stole-the-tarts:character:bill_the_lizard",
+            "alices-evidence:character:the_lizard_bill"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:bill_lizard",
+        "alices-evidence:character:the_lizard_bill"
+      ],
+      "clusters": [
+        {
+          "name": "Bill the Lizard",
+          "members": [
+            "the-rabbit-sends-in-a-little-bill:character:bill_lizard",
+            "alices-evidence:character:the_lizard_bill"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:guinea_pigs",
+        "who-stole-the-tarts:character:the_guinea_pigs"
+      ],
+      "clusters": [
+        {
+          "name": "the two guinea-pigs",
+          "members": [
+            "the-rabbit-sends-in-a-little-bill:character:guinea_pigs",
+            "who-stole-the-tarts:character:the_guinea_pigs"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:caterpillar",
+        "advice-from-a-caterpillar:character:the_caterpillar"
+      ],
+      "clusters": [
+        {
+          "name": "the Caterpillar",
+          "members": [
+            "the-rabbit-sends-in-a-little-bill:character:caterpillar",
+            "advice-from-a-caterpillar:character:the_caterpillar"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "pig-and-pepper:character:cook",
+        "who-stole-the-tarts:character:the_duchess_cook"
+      ],
+      "clusters": [
+        {
+          "name": "The Duchess's cook",
+          "members": [
+            "pig-and-pepper:character:cook",
+            "who-stole-the-tarts:character:the_duchess_cook"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "pig-and-pepper:character:cheshire_cat",
+        "the-queens-croquet-ground:character:cheshire_cat"
+      ],
+      "clusters": [
+        {
+          "name": "Cheshire Cat",
+          "members": [
+            "pig-and-pepper:character:cheshire_cat",
+            "the-queens-croquet-ground:character:cheshire_cat"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "pig-and-pepper:character:march_hare",
+        "a-mad-tea-party:character:march_hare",
+        "who-stole-the-tarts:character:the_march_hare"
+      ],
+      "clusters": [
+        {
+          "name": "March Hare",
+          "members": [
+            "pig-and-pepper:character:march_hare",
+            "a-mad-tea-party:character:march_hare",
+            "who-stole-the-tarts:character:the_march_hare"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "pig-and-pepper:character:march_hare",
+        "a-mad-tea-party:character:march_hare"
+      ],
+      "clusters": [
+        {
+          "name": "March Hare",
+          "members": [
+            "pig-and-pepper:character:march_hare",
+            "a-mad-tea-party:character:march_hare"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "pig-and-pepper:character:hatter",
+        "a-mad-tea-party:character:hatter",
+        "who-stole-the-tarts:character:the_hatter"
+      ],
+      "clusters": [
+        {
+          "name": "The Hatter",
+          "members": [
+            "pig-and-pepper:character:hatter",
+            "a-mad-tea-party:character:hatter",
+            "who-stole-the-tarts:character:the_hatter"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "pig-and-pepper:character:hatter",
+        "who-stole-the-tarts:character:the_hatter"
+      ],
+      "clusters": [
+        {
+          "name": "The Hatter (the Mad Hatter)",
+          "members": [
+            "pig-and-pepper:character:hatter",
+            "who-stole-the-tarts:character:the_hatter"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "pig-and-pepper:character:queen",
+        "a-mad-tea-party:character:queen_of_hearts",
+        "the-queens-croquet-ground:character:the_queen",
+        "the-mock-turtles-story:character:the_queen",
+        "who-stole-the-tarts:character:the_queen_of_hearts",
+        "alices-evidence:character:the_queen"
+      ],
+      "clusters": [
+        {
+          "name": "Queen of Hearts",
+          "members": [
+            "pig-and-pepper:character:queen",
+            "a-mad-tea-party:character:queen_of_hearts",
+            "the-queens-croquet-ground:character:the_queen",
+            "the-mock-turtles-story:character:the_queen",
+            "who-stole-the-tarts:character:the_queen_of_hearts",
+            "alices-evidence:character:the_queen"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "a-mad-tea-party:character:alice",
+        "the-mock-turtles-story:character:alice"
+      ],
+      "clusters": [
+        {
+          "name": "Alice",
+          "members": [
+            "a-mad-tea-party:character:alice",
+            "the-mock-turtles-story:character:alice"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "a-mad-tea-party:character:dormouse",
+        "who-stole-the-tarts:character:the_dormouse"
+      ],
+      "clusters": [
+        {
+          "name": "the Dormouse",
+          "members": [
+            "a-mad-tea-party:character:dormouse",
+            "who-stole-the-tarts:character:the_dormouse"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "a-mad-tea-party:character:queen_of_hearts",
+        "the-mock-turtles-story:character:the_queen"
+      ],
+      "clusters": [
+        {
+          "name": "Queen of Hearts",
+          "members": [
+            "a-mad-tea-party:character:queen_of_hearts",
+            "the-mock-turtles-story:character:the_queen"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "a-mad-tea-party:character:queen_of_hearts",
+        "the-queens-croquet-ground:character:the_queen",
+        "the-queens-croquet-ground:character:the_king",
+        "the-mock-turtles-story:character:the_queen",
+        "the-mock-turtles-story:character:the_king",
+        "who-stole-the-tarts:character:the_king_of_hearts",
+        "who-stole-the-tarts:character:the_queen_of_hearts",
+        "alices-evidence:character:the_queen"
+      ],
+      "clusters": [
+        {
+          "name": "Queen of Hearts",
+          "members": [
+            "a-mad-tea-party:character:queen_of_hearts",
+            "the-queens-croquet-ground:character:the_queen",
+            "the-mock-turtles-story:character:the_queen",
+            "who-stole-the-tarts:character:the_queen_of_hearts",
+            "alices-evidence:character:the_queen"
+          ]
+        },
+        {
+          "name": "King of Hearts",
+          "members": [
+            "the-queens-croquet-ground:character:the_king",
+            "the-mock-turtles-story:character:the_king",
+            "who-stole-the-tarts:character:the_king_of_hearts"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-queens-croquet-ground:character:two",
+        "the-queens-croquet-ground:character:five",
+        "the-queens-croquet-ground:character:seven"
+      ],
+      "clusters": [
+        {
+          "name": "Two",
+          "members": [
+            "the-queens-croquet-ground:character:two"
+          ]
+        },
+        {
+          "name": "Five",
+          "members": [
+            "the-queens-croquet-ground:character:five"
+          ]
+        },
+        {
+          "name": "Seven",
+          "members": [
+            "the-queens-croquet-ground:character:seven"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-queens-croquet-ground:character:the_queen",
+        "who-stole-the-tarts:character:the_queen_of_hearts",
+        "alices-evidence:character:the_queen"
+      ],
+      "clusters": [
+        {
+          "name": "the Queen of Hearts",
+          "members": [
+            "the-queens-croquet-ground:character:the_queen",
+            "who-stole-the-tarts:character:the_queen_of_hearts",
+            "alices-evidence:character:the_queen"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-queens-croquet-ground:character:the_queen",
+        "the-mock-turtles-story:character:the_queen"
+      ],
+      "clusters": [
+        {
+          "name": "the Queen of Hearts",
+          "members": [
+            "the-queens-croquet-ground:character:the_queen",
+            "the-mock-turtles-story:character:the_queen"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-queens-croquet-ground:character:the_king",
+        "who-stole-the-tarts:character:the_king_of_hearts"
+      ],
+      "clusters": [
+        {
+          "name": "The King of Hearts",
+          "members": [
+            "the-queens-croquet-ground:character:the_king",
+            "who-stole-the-tarts:character:the_king_of_hearts"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-queens-croquet-ground:character:the_king",
+        "the-mock-turtles-story:character:the_king",
+        "who-stole-the-tarts:character:the_king_of_hearts",
+        "alices-evidence:character:the_king"
+      ],
+      "clusters": [
+        {
+          "name": "The King of Hearts",
+          "members": [
+            "the-queens-croquet-ground:character:the_king",
+            "the-mock-turtles-story:character:the_king",
+            "who-stole-the-tarts:character:the_king_of_hearts",
+            "alices-evidence:character:the_king"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-queens-croquet-ground:character:the_knave_of_hearts",
+        "who-stole-the-tarts:character:the_knave_of_hearts",
+        "alices-evidence:character:the_knave"
+      ],
+      "clusters": [
+        {
+          "name": "The Knave of Hearts",
+          "members": [
+            "the-queens-croquet-ground:character:the_knave_of_hearts",
+            "who-stole-the-tarts:character:the_knave_of_hearts",
+            "alices-evidence:character:the_knave"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-queens-croquet-ground:character:soldiers",
+        "who-stole-the-tarts:character:the_court_officers"
+      ],
+      "clusters": [
+        {
+          "name": "The Queen's playing-card soldiers",
+          "members": [
+            "the-queens-croquet-ground:character:soldiers",
+            "who-stole-the-tarts:character:the_court_officers"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-mock-turtles-story:character:the_gryphon",
+        "the-lobster-quadrille:character:gryphon",
+        "who-stole-the-tarts:character:the_gryphon"
+      ],
+      "clusters": [
+        {
+          "name": "the Gryphon",
+          "members": [
+            "the-mock-turtles-story:character:the_gryphon",
+            "the-lobster-quadrille:character:gryphon",
+            "who-stole-the-tarts:character:the_gryphon"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "the-mock-turtles-story:character:the_mock_turtle",
+        "the-lobster-quadrille:character:mock_turtle"
+      ],
+      "clusters": [
+        {
+          "name": "the Mock Turtle",
+          "members": [
+            "the-mock-turtles-story:character:the_mock_turtle",
+            "the-lobster-quadrille:character:mock_turtle"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "who-stole-the-tarts:character:the_jury",
+        "alices-evidence:character:the_jury"
+      ],
+      "clusters": [
+        {
+          "name": "the jury",
+          "members": [
+            "who-stole-the-tarts:character:the_jury",
+            "alices-evidence:character:the_jury"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "who-stole-the-tarts:character:the_jury",
+        "alices-evidence:character:the_pack_of_cards"
+      ],
+      "clusters": [
+        {
+          "name": "The jury (the twelve creatures)",
+          "members": [
+            "who-stole-the-tarts:character:the_jury"
+          ]
+        },
+        {
+          "name": "The pack of cards (the court's playing cards)",
+          "members": [
+            "alices-evidence:character:the_pack_of_cards"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "characters",
+      "members": [
+        "who-stole-the-tarts:character:bill_the_lizard",
+        "alices-evidence:character:the_lizard_bill"
+      ],
+      "clusters": [
+        {
+          "name": "Bill the Lizard",
+          "members": [
+            "who-stole-the-tarts:character:bill_the_lizard",
+            "alices-evidence:character:the_lizard_bill"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "down-the-rabbit-hole:location:riverbank",
+        "alices-evidence:location:riverbank"
+      ],
+      "clusters": [
+        {
+          "name": "The riverbank",
+          "members": [
+            "down-the-rabbit-hole:location:riverbank",
+            "alices-evidence:location:riverbank"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "down-the-rabbit-hole:location:riverbank",
+        "a-caucus-race-and-a-long-tale:location:bank_of_the_pool",
+        "alices-evidence:location:riverbank"
+      ],
+      "clusters": [
+        {
+          "name": "The riverbank (opening bank beside Alice's sister)",
+          "members": [
+            "down-the-rabbit-hole:location:riverbank",
+            "alices-evidence:location:riverbank"
+          ]
+        },
+        {
+          "name": "The bank of the pool of tears",
+          "members": [
+            "a-caucus-race-and-a-long-tale:location:bank_of_the_pool"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "down-the-rabbit-hole:location:long_hall",
+        "the-pool-of-tears:location:long_hall",
+        "a-mad-tea-party:location:long_hall"
+      ],
+      "clusters": [
+        {
+          "name": "The long low hall",
+          "members": [
+            "down-the-rabbit-hole:location:long_hall",
+            "the-pool-of-tears:location:long_hall",
+            "a-mad-tea-party:location:long_hall"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "down-the-rabbit-hole:location:long_hall",
+        "the-pool-of-tears:location:long_hall"
+      ],
+      "clusters": [
+        {
+          "name": "The long low hall",
+          "members": [
+            "down-the-rabbit-hole:location:long_hall",
+            "the-pool-of-tears:location:long_hall"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "down-the-rabbit-hole:location:little_door_garden",
+        "the-pool-of-tears:location:garden_door"
+      ],
+      "clusters": [
+        {
+          "name": "The little door to the garden",
+          "members": [
+            "down-the-rabbit-hole:location:little_door_garden",
+            "the-pool-of-tears:location:garden_door"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "the-pool-of-tears:location:long_hall",
+        "a-mad-tea-party:location:long_hall"
+      ],
+      "clusters": [
+        {
+          "name": "Long Hall",
+          "members": [
+            "the-pool-of-tears:location:long_hall",
+            "a-mad-tea-party:location:long_hall"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "the-pool-of-tears:location:garden_door",
+        "a-mad-tea-party:location:garden",
+        "the-queens-croquet-ground:location:rose_tree_garden"
+      ],
+      "clusters": [
+        {
+          "name": "The little door in the hall",
+          "members": [
+            "the-pool-of-tears:location:garden_door"
+          ]
+        },
+        {
+          "name": "The garden",
+          "members": [
+            "a-mad-tea-party:location:garden",
+            "the-queens-croquet-ground:location:rose_tree_garden"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "the-pool-of-tears:location:pool_of_tears",
+        "a-caucus-race-and-a-long-tale:location:bank_of_the_pool"
+      ],
+      "clusters": [
+        {
+          "name": "Pool of Tears",
+          "members": [
+            "the-pool-of-tears:location:pool_of_tears"
+          ]
+        },
+        {
+          "name": "Bank of the Pool of Tears",
+          "members": [
+            "a-caucus-race-and-a-long-tale:location:bank_of_the_pool"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:location:wood",
+        "advice-from-a-caterpillar:location:mushroom_clearing",
+        "pig-and-pepper:location:wood",
+        "a-mad-tea-party:location:wood"
+      ],
+      "clusters": [
+        {
+          "name": "The thick wood (Alice's first wood)",
+          "members": [
+            "the-rabbit-sends-in-a-little-bill:location:wood"
+          ]
+        },
+        {
+          "name": "The mushroom clearing",
+          "members": [
+            "advice-from-a-caterpillar:location:mushroom_clearing"
+          ]
+        },
+        {
+          "name": "The woods around the Duchess's house",
+          "members": [
+            "pig-and-pepper:location:wood"
+          ]
+        },
+        {
+          "name": "The wood after the tea-party",
+          "members": [
+            "a-mad-tea-party:location:wood"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "the-queens-croquet-ground:location:croquet_ground",
+        "the-mock-turtles-story:location:croquet_ground"
+      ],
+      "clusters": [
+        {
+          "name": "the Queen's croquet-ground",
+          "members": [
+            "the-queens-croquet-ground:location:croquet_ground",
+            "the-mock-turtles-story:location:croquet_ground"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "the-lobster-quadrille:location:court_of_justice",
+        "who-stole-the-tarts:location:the_court"
+      ],
+      "clusters": [
+        {
+          "name": "Court of Justice",
+          "members": [
+            "the-lobster-quadrille:location:court_of_justice",
+            "who-stole-the-tarts:location:the_court"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "the-lobster-quadrille:location:court_of_justice",
+        "who-stole-the-tarts:location:the_court",
+        "alices-evidence:location:the_court"
+      ],
+      "clusters": [
+        {
+          "name": "The Queen of Hearts's court of justice",
+          "members": [
+            "the-lobster-quadrille:location:court_of_justice",
+            "who-stole-the-tarts:location:the_court",
+            "alices-evidence:location:the_court"
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "locations",
+      "members": [
+        "who-stole-the-tarts:location:the_court",
+        "alices-evidence:location:the_court"
+      ],
+      "clusters": [
+        {
+          "name": "The court of the Queen of Hearts",
+          "members": [
+            "who-stole-the-tarts:location:the_court",
+            "alices-evidence:location:the_court"
+          ]
+        }
+      ]
+    }
+  ],
+  "reconciliations": [],
+  "unplaced": [],
+  "calls": 59
+}

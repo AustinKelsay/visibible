@@ -1,0 +1,29 @@
+{
+  "purpose": "Compare existing and shorter identity instructions on frozen recurring-identity and distinct-subject controls, before accepting a prompt change. This does not change production analysis or the image evaluation fixture.",
+  "model": "anthropic/claude-haiku-5.5",
+  "reasoning": "none",
+  "repeats": 3,
+  "arms": [
+    "baseline",
+    "candidate"
+  ],
+  "caseCount": 4,
+  "maximumCalls": 24,
+  "capUsd": 0.5,
+  "readerReserveUsd": 5,
+  "gate": "Candidate must return complete exact expected partitions on all 12 trials, with no structural failures or regression on distinct-subject controls. No prompt tuning within this run.",
+  "sources": {
+    "alice": {
+      "work": "alice",
+      "stateSha256": "a5d9375a0c2ebbc91a743fff85e015d4a9e212a1c43c635b24e6db6b877b0d49"
+    },
+    "holmes": {
+      "work": "holmes",
+      "stateSha256": "8ad32609caadc2abd557a235904c14a3016092fcdf8f648914c977d2d8451e3c"
+    },
+    "bible": {
+      "work": "bible",
+      "stateSha256": "59f07939b472aeadee90a03edb56bcc322b6358cf16bed3aad606a6752279171"
+    }
+  }
+}
