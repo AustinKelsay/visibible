@@ -1,0 +1,1330 @@
+{
+  "scorers": [
+    "model-a",
+    "model-b"
+  ],
+  "operator": "operator",
+  "settled": {
+    "p001": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p002": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p003": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "yes",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p004": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p005": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p006": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p007": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed"
+    },
+    "p008": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p009": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed"
+    },
+    "p010": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p011": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed"
+    },
+    "p012": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed"
+    },
+    "p013": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p014": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p015": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed"
+    },
+    "p016": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p017": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p018": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p019": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p020": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p021": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p022": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p023": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p024": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p025": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p026": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p027": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "yes",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p028": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p029": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p030": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p031": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p032": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p033": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p034": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p035": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p036": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p037": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed"
+    },
+    "p038": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p039": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed"
+    },
+    "p040": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p041": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p042": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p043": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed"
+    },
+    "p044": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p045": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p046": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p047": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p048": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p049": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p050": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p051": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p052": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p053": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed"
+    },
+    "p054": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p055": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p056": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p057": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed"
+    },
+    "p058": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p059": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p060": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p061": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p062": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p063": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p064": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p065": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p066": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p067": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p068": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "uncertain"
+    },
+    "p069": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p070": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p071": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "yes",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p072": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p073": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed"
+    },
+    "p074": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p075": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed"
+    },
+    "p076": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p077": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed"
+    },
+    "p078": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p079": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p080": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p081": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p082": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p083": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p084": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p085": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed"
+    },
+    "p086": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p087": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p088": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p089": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p090": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "yes",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p091": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "uncertain"
+    },
+    "p092": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "yes",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p093": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p094": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "yes",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed"
+    },
+    "p095": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p096": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p097": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p098": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p099": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p100": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p101": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p102": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed"
+    },
+    "p103": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p104": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    },
+    "p105": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p106": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p107": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p108": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed"
+    },
+    "p109": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p110": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "yes",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed"
+    },
+    "p111": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable"
+    },
+    "p112": {
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "yes",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed"
+    },
+    "p113": {
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable"
+    }
+  },
+  "disputes": []
+}

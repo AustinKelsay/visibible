@@ -8,4 +8,10 @@ The $1 text cap is an operator ceiling under the owner's full-send testing grant
 
 The offline rehearsal prepares all 113 cases with 211 scripted text calls and zero production mutations. The three golden tests pass: all 42 retained Bible/Holmes/Alice provider requests are byte-identical to the baseline; only seven review/re-plan requests disappear. Type checking passes. The first offline rehearsal caught the previous arm's owner-only assembly freshness check; restoring baseline assembly fixed it before any paid call.
 
-The live text run prepared all 113 cases using 211 calls for $0.0784557, with no uncertain usage, refusals, budget block or production mutations. Independent blind scoring is pending.
+The live text run prepared all 113 cases using 211 calls for $0.0784557, with no uncertain usage, refusals, budget block or production mutations. Independent blind scoring and adjudication are complete.
+
+## Rejected result
+
+Two independent scorers covered all 113 plans and 755 requested fault judgments each. The parent operator read every disputed source/context/plan packet and settled 26 items before reading the aggregate report. Two location ambiguities remain `uncertain` rather than being resolved from outside knowledge. All individual scores and rulings are retained under `scoring/`.
+
+The [text gate](report.json) fails: missing subjects rise from 2/20 to 5/20 on holdout, exceeding the unchanged allowance of two items. Acceptability is 51/113 overall and 11/20 on holdout. No image tier is warranted, and no further paid arm follows this pass. Retain the production look/planner/review pipeline; ship only the unused Genesis-theme cleanup and clearer context, with these findings.
