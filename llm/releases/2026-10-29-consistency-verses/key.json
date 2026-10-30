@@ -1,0 +1,3333 @@
+{
+  "schemaVersion": 1,
+  "seed": "consistency",
+  "groups": {
+    "file": "evals/images/consistency.json",
+    "sha256": "ea76d7c8780ec8a6ae66dbdc26e7471fc5ff5f0497b52e601770f1b5845ee12f"
+  },
+  "sources": [
+    {
+      "file": "llm/releases/2026-10-28-launch-matrix-v3/results.ndjson",
+      "sha256": "93df9f12eae4ab330b1ea1d16d52716ac28f1be6d5ff9b02beffd0d4a076f729"
+    },
+    {
+      "file": "llm/releases/2026-10-28-launch-matrix-v3/snapshot.json",
+      "sha256": "55e88a470dc8f95256db57938a13253197d23184f462176492fa292af7ac58c9"
+    },
+    {
+      "file": "llm/releases/2026-10-28-fresco-matrix/results.ndjson",
+      "sha256": "10ce1f1688748c8ffbd7f386a8176ce37d7985a2637989dad77a8cabdc35d603"
+    },
+    {
+      "file": "llm/releases/2026-10-28-fresco-matrix/snapshot.json",
+      "sha256": "55e88a470dc8f95256db57938a13253197d23184f462176492fa292af7ac58c9"
+    },
+    {
+      "file": "llm/releases/2026-10-29-consistency-verses/results.ndjson",
+      "sha256": "836c3548951bf203090d24b9c287724f075bd977297b0065ed60e8fea7fc0653"
+    },
+    {
+      "file": "llm/releases/2026-10-29-consistency-verses/snapshot.json",
+      "sha256": "7d602bdac49cb4161fe84377f2c73bb484ad269cc0518e20336712672049d843"
+    }
+  ],
+  "notRun": {
+    "character": [],
+    "setting": []
+  },
+  "coverage": [
+    {
+      "groupId": "jesus",
+      "style": "classical",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "matthew-14-29",
+        "matthew-27-35",
+        "mark-4-39",
+        "john-11-43"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "jesus",
+      "style": "fresco",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "matthew-14-29",
+        "matthew-27-35",
+        "mark-4-39",
+        "john-11-43"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "jesus",
+      "style": "icon",
+      "units": 5,
+      "imaged": 4,
+      "eligible": [
+        "matthew-14-29",
+        "matthew-27-35",
+        "mark-4-39",
+        "john-11-43"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "jesus",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "matthew-14-29",
+        "matthew-27-35",
+        "mark-4-39",
+        "john-11-43"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "classical",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-17-12",
+        "leviticus-11-7",
+        "numbers-20-11"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "fresco",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-17-12",
+        "leviticus-11-7",
+        "numbers-20-11"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "icon",
+      "units": 5,
+      "imaged": 3,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "leviticus-11-7"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-17-12",
+        "leviticus-11-7",
+        "numbers-20-11"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "classical",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "matthew-14-29",
+        "luke-22-61",
+        "john-21-7",
+        "john-21-9",
+        "acts-3-7"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "fresco",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "matthew-14-29",
+        "luke-22-61",
+        "john-21-7",
+        "john-21-9",
+        "acts-3-7"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "icon",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "matthew-14-29",
+        "john-21-7"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "matthew-14-29",
+        "luke-22-61",
+        "john-21-7",
+        "john-21-9",
+        "acts-3-7"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "classical",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "1-samuel-16-13",
+        "1-samuel-17-40",
+        "1-samuel-17-49",
+        "1-samuel-18-11"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "fresco",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "1-samuel-16-13",
+        "1-samuel-17-40",
+        "1-samuel-17-49",
+        "1-samuel-18-11"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "icon",
+      "units": 4,
+      "imaged": 1,
+      "eligible": [
+        "1-samuel-17-49"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "watercolor",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "1-samuel-16-13",
+        "1-samuel-17-40",
+        "1-samuel-17-49",
+        "1-samuel-18-11"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "classical",
+      "units": 4,
+      "imaged": 3,
+      "eligible": [
+        "daniel-5-17",
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "fresco",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "daniel-5-17",
+        "daniel-6-22",
+        "daniel-6-23",
+        "daniel-7-9"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "icon",
+      "units": 4,
+      "imaged": 1,
+      "eligible": [
+        "daniel-6-22"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "watercolor",
+      "units": 4,
+      "imaged": 3,
+      "eligible": [
+        "daniel-5-17",
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-14-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-14-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "icon",
+      "units": 3,
+      "imaged": 2,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-14-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "mark-4-37",
+        "mark-4-38",
+        "mark-4-39"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "mark-4-37",
+        "mark-4-38",
+        "mark-4-39"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "icon",
+      "units": 3,
+      "imaged": 1,
+      "eligible": [
+        "mark-4-39"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "mark-4-37",
+        "mark-4-38",
+        "mark-4-39"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "icon",
+      "units": 2,
+      "imaged": 1,
+      "eligible": [
+        "john-21-7"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "luke-15-20",
+        "luke-15-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "luke-15-20",
+        "luke-15-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "icon",
+      "units": 2,
+      "imaged": 1,
+      "eligible": [
+        "luke-15-20"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "luke-15-20",
+        "luke-15-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "icon",
+      "units": 2,
+      "imaged": 1,
+      "eligible": [
+        "daniel-6-22"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    }
+  ],
+  "pairs": [
+    {
+      "id": "pair001",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/daniel-6-22__watercolor__1__a1.jpg",
+        "sha256": "f23006a2b1904fb76359477f5339e67b320d81d41b84683d219ce458f2e00fb4",
+        "scene": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides.; Lions crouched low in the sand; Darius in royal court robes with a signet ring at the rim; a faint radiance of light from above suggesting the angel's presence without a visible figure."
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-6-23__watercolor__1__a1.jpg",
+        "sha256": "1410c38282a1586c4d41f332a2cd6b3c5ec1c8c18dfe1c2751470994e97e46bf",
+        "scene": "Daniel, unharmed, being lifted up out of the den by attendants; Darius in royal court robes with signet ring at the rim; attendants in linen and period armor; lamp glow on the ropes and stone."
+      }
+    },
+    {
+      "id": "pair002",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-22-61__watercolor__1__a1.jpg",
+        "sha256": "9441df2e3dad90bcbee6272173db6d4fe14060dce67140d60c1c2818bd0f8fb5",
+        "scene": "Peter, standing still near the brazier with his face turned toward Jesus, his expression stricken.; Jesus, bound and guarded by soldiers, visible at the edge of the courtyard; townsfolk and servants around the fire looking away; a Roman soldier in military dress nearby."
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__watercolor__1__a1.jpg",
+        "sha256": "3ee2cdaecd517e4ce0e47f490221e1a8ddd3b2b10bb931f45b5c73d3dae1e677",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      }
+    },
+    {
+      "id": "pair003",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "classical",
+      "left": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/mark-4-38__classical__1__a1.jpg",
+        "sha256": "d97265390539d29fcac125848cf9a79b794cf20b3d6f68f1addbe0c48fca3a85",
+        "scene": "Jesus asleep on a cushion in the stern, head resting, body calm amid chaos; Other disciples bailing water with buckets and hands, rope and sail straining, waves crashing against the hull"
+      },
+      "right": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/mark-4-37__classical__1__a1.jpg",
+        "sha256": "74b7bc7754f2767fb007426fcb743680afdb4a51070a961815d06dae4f85739d",
+        "scene": "Several disciples in a small wooden fishing boat, bailing water with buckets and clinging to the gunwales; Other small boats tossed nearby on the swells, spray hanging in the air, lightning flashing over the water"
+      }
+    },
+    {
+      "id": "pair004",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "classical",
+      "left": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/mark-4-37__classical__1__a1.jpg",
+        "sha256": "74b7bc7754f2767fb007426fcb743680afdb4a51070a961815d06dae4f85739d",
+        "scene": "Several disciples in a small wooden fishing boat, bailing water with buckets and clinging to the gunwales; Other small boats tossed nearby on the swells, spray hanging in the air, lightning flashing over the water"
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__classical__1__a1.jpg",
+        "sha256": "f63ad4b1a1ca9d5ef4ddd5b11be20d08b08ff626cbe40e7724d43f3a33047b82",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      }
+    },
+    {
+      "id": "pair005",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-6-23__watercolor__1__a1.jpg",
+        "sha256": "1410c38282a1586c4d41f332a2cd6b3c5ec1c8c18dfe1c2751470994e97e46bf",
+        "scene": "Daniel, unharmed, being lifted up out of the den by attendants; Darius in royal court robes with signet ring at the rim; attendants in linen and period armor; lamp glow on the ropes and stone."
+      },
+      "right": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-5-17__watercolor__1__a1.jpg",
+        "sha256": "2d7b1a62ef1d4326e9e286fd8494898a9402af69a38871c58e07974dd64eaef6",
+        "scene": "Daniel standing upright before the king, one hand open in refusal, facing the seated Belshazzar.; Belshazzar seated at the feast table with gold cups and goblets; nobles and attendants in the background, a scroll rolled and closed on a side table."
+      }
+    },
+    {
+      "id": "pair006",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-14-23__watercolor__1__a1.jpg",
+        "sha256": "a6dd732d2cc36aaa1c8f3efd43050feae8083fa7be9f2165d9415296f1bdec2c",
+        "scene": "Egyptian chariots and horsemen charging down the dry sea-floor, horses straining forward; Tall walls of water rising on either side, spray blown across the path, a few Egyptian soldiers with spears and shields on foot, the far edge of the path ahead"
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__watercolor__1__a1.jpg",
+        "sha256": "5dbaf4d70cf221215160b06ea4321bb2206cf78a91f53d635e51bae85273d2a6",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      }
+    },
+    {
+      "id": "pair007",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-5-17__watercolor__1__a1.jpg",
+        "sha256": "2d7b1a62ef1d4326e9e286fd8494898a9402af69a38871c58e07974dd64eaef6",
+        "scene": "Daniel standing upright before the king, one hand open in refusal, facing the seated Belshazzar.; Belshazzar seated at the feast table with gold cups and goblets; nobles and attendants in the background, a scroll rolled and closed on a side table."
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/daniel-6-22__watercolor__1__a1.jpg",
+        "sha256": "f23006a2b1904fb76359477f5339e67b320d81d41b84683d219ce458f2e00fb4",
+        "scene": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides.; Lions crouched low in the sand; Darius in royal court robes with a signet ring at the rim; a faint radiance of light from above suggesting the angel's presence without a visible figure."
+      }
+    },
+    {
+      "id": "pair008",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/mark-4-39__fresco__1__a1.jpg",
+        "sha256": "e7b1b8f4b5176681924c960faef86313f593eab5669118dc30f33ecdfcd885f6",
+        "scene": "Jesus standing upright in the bow, arm outstretched toward the sea, calm and commanding; Disciples in tunics and cloaks crouched or clinging to the boat's sides and mast, spray-soaked; ropes and a furled sail; oil lamp in the boat."
+      },
+      "right": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/mark-4-37__fresco__1__a1.jpg",
+        "sha256": "3aab21ad563972547b0ed3623fb593cfedb1edb614146285f05bec1db4b795c3",
+        "scene": "Disciples in tunics and cloaks, soaked and straining, bailing water from a wooden fishing boat; Coiled ropes, a furled sail, wooden oars, other small boats tossed nearby, spray and rain"
+      }
+    },
+    {
+      "id": "pair009",
+      "groupId": "breakfast-on-the-shore",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "style": "watercolor",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__watercolor__1__a1.jpg",
+        "sha256": "67e8ebde2502757299a91ca159cb8e28064c6b0c198c993b12573c9f080659c9",
+        "scene": "The disciples stepping out of a small fishing boat onto the sand, eyes fixed on the fire.; A charcoal fire glowing on the beach, fish and flatbread set on the coals, dragged net and oars beside the boat."
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-21-7__watercolor__1__a1.jpg",
+        "sha256": "ba286171bb326266e656c382d0abb607ad4b1c193b3a32932e201c9beab93b46",
+        "scene": "Simon Peter mid-leap, cloak clutched around his shoulders, body angled forward over the water; Jesus standing on the sand by a charcoal fire; the beloved disciple pointing from the boat; fishing nets and oars in the boat; ripples spreading from the splash"
+      }
+    },
+    {
+      "id": "pair010",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/mark-4-37__fresco__1__a1.jpg",
+        "sha256": "3aab21ad563972547b0ed3623fb593cfedb1edb614146285f05bec1db4b795c3",
+        "scene": "Disciples in tunics and cloaks, soaked and straining, bailing water from a wooden fishing boat; Coiled ropes, a furled sail, wooden oars, other small boats tossed nearby, spray and rain"
+      },
+      "right": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/mark-4-38__fresco__1__a1.jpg",
+        "sha256": "d8d5388675cacad4d15aa27143a3e5516ff215cb8fad4d41c135c9d3816fc37f",
+        "scene": "Jesus, roused from sleep on a cushion in the stern, half-rising and turning toward the disciples.; Several disciples in soaked tunics bailing with baskets, ropes and a torn sail, the dark shore faintly visible through spray."
+      }
+    },
+    {
+      "id": "pair011",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-6-23__fresco__1__a1.jpg",
+        "sha256": "0c7997e65e724381aa9d688d53ceba097c7534049d3cf5026a1e802d643c09f4",
+        "scene": "Daniel, unharmed, being raised up from the pit by ropes and hands; Guards in period armor steady the rope; a few lions visible below in the shadowed pit, calm and not attacking"
+      },
+      "right": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-5-17__fresco__1__a1.jpg",
+        "sha256": "953f5a0e321f08598a118fa39bdd5222da12e1c2397c38cb8c5741534f337a4a",
+        "scene": "Daniel standing firmly before the king, one hand lifted in address, wearing an indigo wool cloak with a blue fringed hem over an undyed linen tunic.; Belshazzar seated on a raised throne in embroidered court robes with gold collar; nobles and courtiers reclining at the feast in the background; faint cold glow of the writing on the wall."
+      }
+    },
+    {
+      "id": "pair012",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-5-17__fresco__1__a1.jpg",
+        "sha256": "953f5a0e321f08598a118fa39bdd5222da12e1c2397c38cb8c5741534f337a4a",
+        "scene": "Daniel standing firmly before the king, one hand lifted in address, wearing an indigo wool cloak with a blue fringed hem over an undyed linen tunic.; Belshazzar seated on a raised throne in embroidered court robes with gold collar; nobles and courtiers reclining at the feast in the background; faint cold glow of the writing on the wall."
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/daniel-6-22__fresco__1__a1.jpg",
+        "sha256": "ba31c0ceec56b54f625a77d1f66bf05b9f2919ab81e9d699426af0beadb4bf21",
+        "scene": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides.; Several lions with closed jaws near the walls; Darius in royal court robes with signet ring at the rim; a faint radiance or angelic light suggested in the upper air above the opening."
+      }
+    },
+    {
+      "id": "pair013",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-22-61__fresco__1__a1.jpg",
+        "sha256": "d65dc6c4321010a064ef9097f99d24cdc794188c1f11cfee2de2f60abb75101c",
+        "scene": "Peter standing near the fire, face turned toward a figure across the courtyard, his expression stricken and wide-eyed.; A few onlookers in tunics and cloaks warming themselves by the fire, a Roman soldier with helmet at the gate, Jesus visible under guard in the passage."
+      },
+      "right": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/acts-3-7__fresco__1__a1.jpg",
+        "sha256": "7a5487771332f43546affe5d4c296eeabb308d86d38f59bccc094946f47c2fab",
+        "scene": "Peter, bending forward, gripping the right hand of the lame man and lifting him upright; Jewish worshippers in tunics and cloaks gathering in astonishment, priests in linen robes at the edges, a few Roman soldiers in military dress nearby."
+      }
+    },
+    {
+      "id": "pair014",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/leviticus-11-7__watercolor__1__a1.jpg",
+        "sha256": "cc3eb2506a3376f200fbeb39f87ac65d2a95653c4fd39e71e176f00da6a41ff3",
+        "scene": "Moses and Aaron standing side by side, facing the camp, attentive and still.; Israelite men and women in woven tunics and cloaks gathered at a respectful distance; a single pig in the sand; Aaron in plain priestly linen and Moses in a simple cloak."
+      },
+      "right": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/numbers-20-11__watercolor__1__a1.jpg",
+        "sha256": "f4c5a84e65716d76e7ff663a100483b57515eebe29252859537bea43221d68f3",
+        "scene": "Moses standing before the rock, rod raised high in a striking pose; Aaron in priestly linen beside Moses, Israelites and livestock gathering at the water's edge, cupped hands and jars"
+      }
+    },
+    {
+      "id": "pair015",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "fresco",
+      "left": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-16-13__fresco__1__a1.jpg",
+        "sha256": "09cc0e962c0fef5d22b70994473191c1e541e57b7ef3fd876baa64a93a8fa125",
+        "scene": "Samuel, an older prophet in a plain cloak, kneeling to anoint the young David's head with oil from a leather horn.; Jesse and several older sons stand at the edge of the courtyard, the leather horn held in Samuel's hand, a shepherd's staff leaning against the wall."
+      },
+      "right": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-18-11__fresco__1__a1.jpg",
+        "sha256": "681eb482d32431b2ef7892775747c0c7b237cc1c0e3b6bf85bf5eeab41bbf9dd",
+        "scene": "Saul, mid-throw, arm drawn back with a bronze spear in his grip, face twisted in rage; A wooden lamp stand, a harp lying near David's feet, faint drifting smoke spread through the room as the evil spirit's effect"
+      }
+    },
+    {
+      "id": "pair016",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/exodus-14-22__fresco__1__a1.jpg",
+        "sha256": "6e393ab707bb593e6ef42f9fb6f9c53b46d717ab80c220e71039087b66e81656",
+        "scene": "A long line of Israelite travellers with Moses leading, walking forward across the dry sea floor; Dust and spray lifted by the east wind, the walls of water glistening on the right and left, a faint pillar of cloud and fire glowing above the sea"
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/exodus-14-21__fresco__1__a1.jpg",
+        "sha256": "e4918431cb6592139b55aed5f048e7954cb8a8e84304a6d853548016a81709c7",
+        "scene": "Moses at the shore, arm stretched out over the sea, plain cloak and staff in hand; Israelite people gathered on the sand watching, a few Egyptian figures distant in linen, spray and dust lifted by the wind"
+      }
+    },
+    {
+      "id": "pair017",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/exodus-14-21__fresco__1__a1.jpg",
+        "sha256": "e4918431cb6592139b55aed5f048e7954cb8a8e84304a6d853548016a81709c7",
+        "scene": "Moses at the shore, arm stretched out over the sea, plain cloak and staff in hand; Israelite people gathered on the sand watching, a few Egyptian figures distant in linen, spray and dust lifted by the wind"
+      },
+      "right": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-14-23__fresco__1__a1.jpg",
+        "sha256": "ddc0768265183e6d76ea5458b279ce510b56f302ce8f1f52468fb7720b01cac7",
+        "scene": "Egyptian chariots and horsemen galloping in pursuit across the dry sea floor; Walls of water gleaming on the right and left, spray and dust lifted by the wind, fleeing Israelite families far ahead on the sand"
+      }
+    },
+    {
+      "id": "pair018",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "icon",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__icon__1__a1.jpg",
+        "sha256": "7dac016f63c20a4eb0666f06b213e7b62a1541896b116f6c1fd50dcc92dea69b",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      },
+      "right": {
+        "unitId": "matthew-27-35",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-27-35__icon__1__a1.jpg",
+        "sha256": "91c97489d52f1ecec5c1e401345b39f921ece65d1907db31355c456db8dc00da",
+        "scene": "Roman soldiers in military tunics and cloaks crouched in a circle around the cloth; Folded clothing spread on the ground, a crucified figure seen high above in the background, a few distant Jewish onlookers at the road's edge"
+      }
+    },
+    {
+      "id": "pair019",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "classical",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__classical__1__a1.jpg",
+        "sha256": "f63ad4b1a1ca9d5ef4ddd5b11be20d08b08ff626cbe40e7724d43f3a33047b82",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      },
+      "right": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/mark-4-38__classical__1__a1.jpg",
+        "sha256": "d97265390539d29fcac125848cf9a79b794cf20b3d6f68f1addbe0c48fca3a85",
+        "scene": "Jesus asleep on a cushion in the stern, head resting, body calm amid chaos; Other disciples bailing water with buckets and hands, rope and sail straining, waves crashing against the hull"
+      }
+    },
+    {
+      "id": "pair020",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/leviticus-11-7__fresco__1__a1.jpg",
+        "sha256": "252ff6c83f2d3c8ad1006b6b1880b63296cdb972a110e7723b3f64c9d45e2066",
+        "scene": "Moses standing, one hand raised in instruction, beside Aaron in plain linen; Israelite families gathered near the tents, a cloth-covered table with food, a pig set apart at the edge, a pillar of cloud above the tabernacle"
+      },
+      "right": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/numbers-20-11__fresco__1__a1.jpg",
+        "sha256": "49191bc42eb84f01b9b0cd0831a8db1ca4950cbbfeaedeecb532f61f103e069d",
+        "scene": "Moses standing at the rock, arm raised with rod in hand; Aaron beside Moses in priestly linen; crowd of Israelites and livestock drinking at the flowing water"
+      }
+    },
+    {
+      "id": "pair021",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-17-12__fresco__1__a1.jpg",
+        "sha256": "d971d687222eeb2d1a750c15085fe194bedae035b0483afeeb779d80f5be2ee5",
+        "scene": "Moses seated on a stone on the hill, arms raised and supported; Aaron on Moses' right and Hur on his left, straining to hold his arms; distant Israelite warriors and Amalekite fighters faintly visible below"
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/exodus-14-22__fresco__1__a1.jpg",
+        "sha256": "6e393ab707bb593e6ef42f9fb6f9c53b46d717ab80c220e71039087b66e81656",
+        "scene": "A long line of Israelite travellers with Moses leading, walking forward across the dry sea floor; Dust and spray lifted by the east wind, the walls of water glistening on the right and left, a faint pillar of cloud and fire glowing above the sea"
+      }
+    },
+    {
+      "id": "pair022",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "fresco",
+      "left": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-17-40__fresco__1__a1.jpg",
+        "sha256": "182caec3aefe6f83156857d1b9bba2885b26a0547ba2f3c36700c6a4c08809bb",
+        "scene": "David, a young shepherd in a plain tunic, bending to choose stones from the stream bed; Staff leaning in his other hand, shepherd's bag open at his hip, Goliath's bronze-armored figure distant on the opposite slope, rising dust"
+      },
+      "right": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-16-13__fresco__1__a1.jpg",
+        "sha256": "09cc0e962c0fef5d22b70994473191c1e541e57b7ef3fd876baa64a93a8fa125",
+        "scene": "Samuel, an older prophet in a plain cloak, kneeling to anoint the young David's head with oil from a leather horn.; Jesse and several older sons stand at the edge of the courtyard, the leather horn held in Samuel's hand, a shepherd's staff leaning against the wall."
+      }
+    },
+    {
+      "id": "pair023",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "fresco",
+      "left": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-16-13__fresco__1__a1.jpg",
+        "sha256": "09cc0e962c0fef5d22b70994473191c1e541e57b7ef3fd876baa64a93a8fa125",
+        "scene": "Samuel, an older prophet in a plain cloak, kneeling to anoint the young David's head with oil from a leather horn.; Jesse and several older sons stand at the edge of the courtyard, the leather horn held in Samuel's hand, a shepherd's staff leaning against the wall."
+      },
+      "right": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/1-samuel-17-49__fresco__1__a1.jpg",
+        "sha256": "c1c71803ad491d9c8bce6b74d5ab18c56cd85195d10bfac8285cebf8b0dc109a",
+        "scene": "Goliath pitching forward, his bronze-helmeted head struck, body collapsing face-down onto the valley floor.; David in a shepherd's tunic and cloak with leather bag and sling; Philistine soldiers in bronze armor frozen in shock on one slope, Israelite soldiers on the opposite slope; a small cloud of dust rising where Goliath hits the ground."
+      }
+    },
+    {
+      "id": "pair024",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/acts-3-7__watercolor__1__a1.jpg",
+        "sha256": "ee95c5db600aeffbb04e1fa4c6c145b3640e4dcf9b4e8e40b2cbd1245d449a7d",
+        "scene": "Peter, mid-stride, bending to grip the lame man's right hand and lift him upright.; John beside Peter; the seated beggar's alms bowl tipped on the steps; a watching crowd in the colonnade in Jewish and Gentile dress; Roman soldiers in plain tunics near the colonnade."
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__watercolor__1__a1.jpg",
+        "sha256": "67e8ebde2502757299a91ca159cb8e28064c6b0c198c993b12573c9f080659c9",
+        "scene": "The disciples stepping out of a small fishing boat onto the sand, eyes fixed on the fire.; A charcoal fire glowing on the beach, fish and flatbread set on the coals, dragged net and oars beside the boat."
+      }
+    },
+    {
+      "id": "pair025",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__classical__1__a1.jpg",
+        "sha256": "35f2d737d049cdadaed902f39d9fda1d9b722c1f6987478b7d6bef180191b250",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      },
+      "right": {
+        "unitId": "matthew-27-35",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-27-35__classical__1__a1.jpg",
+        "sha256": "40cbe12c8c770d06fb6c0ca8fa5b5677c7c896544da3363a55d761e8d890aa28",
+        "scene": "Roman soldiers in military tunics and cloaks crouched in a circle around the cloth; Folded clothing spread on the ground, a crucified figure seen high above in the background, a few distant Jewish onlookers at the road's edge"
+      }
+    },
+    {
+      "id": "pair026",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "matthew-27-35",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/matthew-27-35__fresco__1__a1.jpg",
+        "sha256": "dd8985d66e99e97f054e89bd0e4da8989171b670945ea984a38af7fffe455eb5",
+        "scene": "Roman soldiers in tunics and cloaks kneeling at the base of a cross; A crucified figure seen from below, partly veiled by distance; scattered cloth and sandals on stone."
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/matthew-14-29__fresco__1__a1.jpg",
+        "sha256": "a5f5d25d21d44e69bb629774e0712d19279555f4b3b1c8193896ffd548eca2d6",
+        "scene": "Peter, mid-step, one foot on the water's surface, arms partly out for balance; Jesus standing on the waves in the distance; disciples gathered at the boat's rail watching; spray and wind-torn water"
+      }
+    },
+    {
+      "id": "pair027",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "classical",
+      "left": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/1-samuel-17-49__classical__1__a1.jpg",
+        "sha256": "5547394cc7722a32cf3d45674d4e9e07b4fa0a895d18086da8ecf71a60797137",
+        "scene": "Young David, slight and tunic-clad, arm still extended after the slinging motion, sling taut in his hand.; Goliath's bronze helmet and scale armor and spear trailing from his hand; Philistine ranks watching in shock on one side, Israelite lines on the other; a leather bag at David's hip."
+      },
+      "right": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-16-13__classical__1__a1.jpg",
+        "sha256": "4298e552cbae9f67e01835908a6d975823bdee0d6cc84b7c2a9ecbc3c0a7274b",
+        "scene": "Samuel in a plain prophet's mantle pouring oil from a horn onto the head of a ruddy young David; Jesse and his older sons standing in a loose ring at the edges, a shepherd's leather pouch and staff near David, a faint dove or wind-like shimmer of light above David"
+      }
+    },
+    {
+      "id": "pair028",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/leviticus-11-7__watercolor__1__a1.jpg",
+        "sha256": "cc3eb2506a3376f200fbeb39f87ac65d2a95653c4fd39e71e176f00da6a41ff3",
+        "scene": "Moses and Aaron standing side by side, facing the camp, attentive and still.; Israelite men and women in woven tunics and cloaks gathered at a respectful distance; a single pig in the sand; Aaron in plain priestly linen and Moses in a simple cloak."
+      },
+      "right": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-17-12__watercolor__1__a1.jpg",
+        "sha256": "dcd61fc61e66cf3198b9ba33a3c720ec86a8955fd119c4ea1efb173fd95b4800",
+        "scene": "Moses seated on a rough stone, arms raised and supported by Aaron and Hur; Israelite warriors fighting on the plain below, a distant hint of Amalekite forces, dust rising from the battle"
+      }
+    },
+    {
+      "id": "pair029",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__watercolor__1__a1.jpg",
+        "sha256": "5dbaf4d70cf221215160b06ea4321bb2206cf78a91f53d635e51bae85273d2a6",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__watercolor__1__a1.jpg",
+        "sha256": "cf49ed6bb84817a217b5abaad99defae5a6c5c1d47a9f0fe09e5fbc21def0c9a",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      }
+    },
+    {
+      "id": "pair030",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__watercolor__1__a1.jpg",
+        "sha256": "cf49ed6bb84817a217b5abaad99defae5a6c5c1d47a9f0fe09e5fbc21def0c9a",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      },
+      "right": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-14-23__watercolor__1__a1.jpg",
+        "sha256": "a6dd732d2cc36aaa1c8f3efd43050feae8083fa7be9f2165d9415296f1bdec2c",
+        "scene": "Egyptian chariots and horsemen charging down the dry sea-floor, horses straining forward; Tall walls of water rising on either side, spray blown across the path, a few Egyptian soldiers with spears and shields on foot, the far edge of the path ahead"
+      }
+    },
+    {
+      "id": "pair031",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-6-23__classical__1__a1.jpg",
+        "sha256": "02a3aa3846f99497ac76ada2f9f582bfcbce9e97db0aaa72a887a3f95721bffb",
+        "scene": "Daniel, unharmed, being lifted up out of the den by attendants; Darius in royal court robes with signet ring at the rim; attendants in linen and period armor; lamp glow on the ropes and stone."
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/daniel-6-22__classical__1__a1.jpg",
+        "sha256": "e9bc1b9e97c9676efe9dd117d710904add36ac951211a7f7b5e8f8b9ceff3e4b",
+        "scene": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides.; Lions crouched low in the sand; Darius in royal court robes with a signet ring at the rim; a faint radiance of light from above suggesting the angel's presence without a visible figure."
+      }
+    },
+    {
+      "id": "pair032",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "classical",
+      "left": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-16-13__classical__1__a1.jpg",
+        "sha256": "4298e552cbae9f67e01835908a6d975823bdee0d6cc84b7c2a9ecbc3c0a7274b",
+        "scene": "Samuel in a plain prophet's mantle pouring oil from a horn onto the head of a ruddy young David; Jesse and his older sons standing in a loose ring at the edges, a shepherd's leather pouch and staff near David, a faint dove or wind-like shimmer of light above David"
+      },
+      "right": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-17-40__classical__1__a1.jpg",
+        "sha256": "9cf0feb9b59674232e533054e61becbc732d9037d9c82468330d07c406cd3fae",
+        "scene": "David, a young shepherd in a simple tunic and cloak, standing upright with his staff in one hand and sling in the other.; Distant Israelite and Philistine battle lines on the slopes, with dust rising from the valley floor; the shepherd's leather bag and sling in clear view."
+      }
+    },
+    {
+      "id": "pair033",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-22-61__watercolor__1__a1.jpg",
+        "sha256": "9441df2e3dad90bcbee6272173db6d4fe14060dce67140d60c1c2818bd0f8fb5",
+        "scene": "Peter, standing still near the brazier with his face turned toward Jesus, his expression stricken.; Jesus, bound and guarded by soldiers, visible at the edge of the courtyard; townsfolk and servants around the fire looking away; a Roman soldier in military dress nearby."
+      },
+      "right": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/acts-3-7__watercolor__1__a1.jpg",
+        "sha256": "ee95c5db600aeffbb04e1fa4c6c145b3640e4dcf9b4e8e40b2cbd1245d449a7d",
+        "scene": "Peter, mid-stride, bending to grip the lame man's right hand and lift him upright.; John beside Peter; the seated beggar's alms bowl tipped on the steps; a watching crowd in the colonnade in Jewish and Gentile dress; Roman soldiers in plain tunics near the colonnade."
+      }
+    },
+    {
+      "id": "pair034",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-11-43__watercolor__1__a1.jpg",
+        "sha256": "eddb49699c288adef419b09a2651538a909955a0bb28d489f8d73693daead9b3",
+        "scene": "Jesus standing at the tomb mouth, arm raised toward the entrance, face lifted in a loud call; Crowd of Jewish mourners and onlookers in dusty tunics and cloaks at a distance, Martha near the front in quiet awe, linen wrappings clinging to Lazarus"
+      },
+      "right": {
+        "unitId": "matthew-27-35",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-27-35__watercolor__1__a1.jpg",
+        "sha256": "f64403605f1dc0e21e2d2da87671f84f1bce6ea6ee8c0ffde089bb114d7612d0",
+        "scene": "Roman soldiers in military tunics and cloaks crouched in a circle around the cloth; Folded clothing spread on the ground, a crucified figure seen high above in the background, a few distant Jewish onlookers at the road's edge"
+      }
+    },
+    {
+      "id": "pair035",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/daniel-6-22__classical__1__a1.jpg",
+        "sha256": "e9bc1b9e97c9676efe9dd117d710904add36ac951211a7f7b5e8f8b9ceff3e4b",
+        "scene": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides.; Lions crouched low in the sand; Darius in royal court robes with a signet ring at the rim; a faint radiance of light from above suggesting the angel's presence without a visible figure."
+      },
+      "right": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-5-17__classical__1__a1.jpg",
+        "sha256": "92f2f270d6267ae77401f0e8bf6fc7f4ed29aa45da786b20ca62e67a6c857b76",
+        "scene": "Daniel standing upright before the king, one hand open in refusal, facing the seated Belshazzar.; Belshazzar seated at the feast table with gold cups and goblets; nobles and attendants in the background, a scroll rolled and closed on a side table."
+      }
+    },
+    {
+      "id": "pair036",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "watercolor",
+      "left": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/1-samuel-17-49__watercolor__1__a1.jpg",
+        "sha256": "2f720250e630687440befc63cc2df8cb8c103550f10c70025d700d0632ddbb95",
+        "scene": "Young David, slight and tunic-clad, arm still extended after the slinging motion, sling taut in his hand.; Goliath's bronze helmet and scale armor and spear trailing from his hand; Philistine ranks watching in shock on one side, Israelite lines on the other; a leather bag at David's hip."
+      },
+      "right": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-17-40__watercolor__1__a1.jpg",
+        "sha256": "e1afc5634680205245f7dc920d1dcf3daee627c8a1656627382e995247010862",
+        "scene": "David, a young shepherd in a simple tunic and cloak, standing upright with his staff in one hand and sling in the other.; Distant Israelite and Philistine battle lines on the slopes, with dust rising from the valley floor; the shepherd's leather bag and sling in clear view."
+      }
+    },
+    {
+      "id": "pair037",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-5-17__classical__1__a1.jpg",
+        "sha256": "92f2f270d6267ae77401f0e8bf6fc7f4ed29aa45da786b20ca62e67a6c857b76",
+        "scene": "Daniel standing upright before the king, one hand open in refusal, facing the seated Belshazzar.; Belshazzar seated at the feast table with gold cups and goblets; nobles and attendants in the background, a scroll rolled and closed on a side table."
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-6-23__classical__1__a1.jpg",
+        "sha256": "02a3aa3846f99497ac76ada2f9f582bfcbce9e97db0aaa72a887a3f95721bffb",
+        "scene": "Daniel, unharmed, being lifted up out of the den by attendants; Darius in royal court robes with signet ring at the rim; attendants in linen and period armor; lamp glow on the ropes and stone."
+      }
+    },
+    {
+      "id": "pair038",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "classical",
+      "left": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-17-40__classical__1__a1.jpg",
+        "sha256": "9cf0feb9b59674232e533054e61becbc732d9037d9c82468330d07c406cd3fae",
+        "scene": "David, a young shepherd in a simple tunic and cloak, standing upright with his staff in one hand and sling in the other.; Distant Israelite and Philistine battle lines on the slopes, with dust rising from the valley floor; the shepherd's leather bag and sling in clear view."
+      },
+      "right": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-18-11__classical__1__a1.jpg",
+        "sha256": "7f2b2f7a216c4544cf6f75ad9e71a4ae2153cd81a2948581240355ab6a24e190",
+        "scene": "Saul, mid-throw, arm flung forward with the spear in hand; Clay lamps on the walls, a lyre or harp resting near the floor, dust hanging in the air"
+      }
+    },
+    {
+      "id": "pair039",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/numbers-20-11__fresco__1__a1.jpg",
+        "sha256": "49191bc42eb84f01b9b0cd0831a8db1ca4950cbbfeaedeecb532f61f103e069d",
+        "scene": "Moses standing at the rock, arm raised with rod in hand; Aaron beside Moses in priestly linen; crowd of Israelites and livestock drinking at the flowing water"
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/exodus-14-21__fresco__1__a1.jpg",
+        "sha256": "e4918431cb6592139b55aed5f048e7954cb8a8e84304a6d853548016a81709c7",
+        "scene": "Moses at the shore, arm stretched out over the sea, plain cloak and staff in hand; Israelite people gathered on the sand watching, a few Egyptian figures distant in linen, spray and dust lifted by the wind"
+      }
+    },
+    {
+      "id": "pair040",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/acts-3-7__classical__1__a1.jpg",
+        "sha256": "e4bef1da043ecbf27fbd693673614acada89562ece686199e94284a8aed532e1",
+        "scene": "Peter, mid-stride, bending to grip the lame man's right hand and lift him upright.; John beside Peter; the seated beggar's alms bowl tipped on the steps; a watching crowd in the colonnade in Jewish and Gentile dress; Roman soldiers in plain tunics near the colonnade."
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__classical__1__a1.jpg",
+        "sha256": "35f2d737d049cdadaed902f39d9fda1d9b722c1f6987478b7d6bef180191b250",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      }
+    },
+    {
+      "id": "pair041",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__watercolor__1__a1.jpg",
+        "sha256": "67e8ebde2502757299a91ca159cb8e28064c6b0c198c993b12573c9f080659c9",
+        "scene": "The disciples stepping out of a small fishing boat onto the sand, eyes fixed on the fire.; A charcoal fire glowing on the beach, fish and flatbread set on the coals, dragged net and oars beside the boat."
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-21-7__watercolor__1__a1.jpg",
+        "sha256": "ba286171bb326266e656c382d0abb607ad4b1c193b3a32932e201c9beab93b46",
+        "scene": "Simon Peter mid-leap, cloak clutched around his shoulders, body angled forward over the water; Jesus standing on the sand by a charcoal fire; the beloved disciple pointing from the boat; fishing nets and oars in the boat; ripples spreading from the splash"
+      }
+    },
+    {
+      "id": "pair042",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/matthew-14-29__fresco__1__a1.jpg",
+        "sha256": "a5f5d25d21d44e69bb629774e0712d19279555f4b3b1c8193896ffd548eca2d6",
+        "scene": "Peter, mid-step, one foot on the water's surface, arms partly out for balance; Jesus standing on the waves in the distance; disciples gathered at the boat's rail watching; spray and wind-torn water"
+      },
+      "right": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/john-11-43__fresco__1__a1.jpg",
+        "sha256": "79a1fc9a709c8d9a146ef8444d05970569d8dc0832c1f251c9f559957172372c",
+        "scene": "Jesus standing at the tomb mouth, arm raised and face lifted in a loud call.; Martha and onlookers in the crowd stand near, some shielding their eyes, the grave-cloths trailing from Lazarus's hands and feet."
+      }
+    },
+    {
+      "id": "pair043",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/numbers-20-11__classical__1__a1.jpg",
+        "sha256": "0c0d01f228a4564dc9ddbc49344830a556491d1068c4b73e09cb3b1e682b8100",
+        "scene": "Moses standing before the rock, rod raised high in a striking pose; Aaron in priestly linen beside Moses, Israelites and livestock gathering at the water's edge, cupped hands and jars"
+      },
+      "right": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-17-12__classical__1__a1.jpg",
+        "sha256": "f1b3a2d4452ae1a69337af2f669cade0ab65bd3764af3cd5b8e04f2d144beacb",
+        "scene": "Moses seated on a rough stone, arms raised and supported by Aaron and Hur; Israelite warriors fighting on the plain below, a distant hint of Amalekite forces, dust rising from the battle"
+      }
+    },
+    {
+      "id": "pair044",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-21-7__classical__1__a1.jpg",
+        "sha256": "76e33b76d8e66b7b664ed167fef5906efb2c2291a10ab1d50419e5b0b9725a77",
+        "scene": "Simon Peter mid-leap, cloak clutched around his shoulders, body angled forward over the water; Jesus standing on the sand by a charcoal fire; the beloved disciple pointing from the boat; fishing nets and oars in the boat; ripples spreading from the splash"
+      },
+      "right": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/acts-3-7__classical__1__a1.jpg",
+        "sha256": "e4bef1da043ecbf27fbd693673614acada89562ece686199e94284a8aed532e1",
+        "scene": "Peter, mid-stride, bending to grip the lame man's right hand and lift him upright.; John beside Peter; the seated beggar's alms bowl tipped on the steps; a watching crowd in the colonnade in Jewish and Gentile dress; Roman soldiers in plain tunics near the colonnade."
+      }
+    },
+    {
+      "id": "pair045",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__watercolor__1__a1.jpg",
+        "sha256": "cf49ed6bb84817a217b5abaad99defae5a6c5c1d47a9f0fe09e5fbc21def0c9a",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      },
+      "right": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/leviticus-11-7__watercolor__1__a1.jpg",
+        "sha256": "cc3eb2506a3376f200fbeb39f87ac65d2a95653c4fd39e71e176f00da6a41ff3",
+        "scene": "Moses and Aaron standing side by side, facing the camp, attentive and still.; Israelite men and women in woven tunics and cloaks gathered at a respectful distance; a single pig in the sand; Aaron in plain priestly linen and Moses in a simple cloak."
+      }
+    },
+    {
+      "id": "pair046",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "fresco",
+      "left": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-18-11__fresco__1__a1.jpg",
+        "sha256": "681eb482d32431b2ef7892775747c0c7b237cc1c0e3b6bf85bf5eeab41bbf9dd",
+        "scene": "Saul, mid-throw, arm drawn back with a bronze spear in his grip, face twisted in rage; A wooden lamp stand, a harp lying near David's feet, faint drifting smoke spread through the room as the evil spirit's effect"
+      },
+      "right": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-17-40__fresco__1__a1.jpg",
+        "sha256": "182caec3aefe6f83156857d1b9bba2885b26a0547ba2f3c36700c6a4c08809bb",
+        "scene": "David, a young shepherd in a plain tunic, bending to choose stones from the stream bed; Staff leaning in his other hand, shepherd's bag open at his hip, Goliath's bronze-armored figure distant on the opposite slope, rising dust"
+      }
+    },
+    {
+      "id": "pair047",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "matthew-27-35",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-27-35__classical__1__a1.jpg",
+        "sha256": "40cbe12c8c770d06fb6c0ca8fa5b5677c7c896544da3363a55d761e8d890aa28",
+        "scene": "Roman soldiers in military tunics and cloaks crouched in a circle around the cloth; Folded clothing spread on the ground, a crucified figure seen high above in the background, a few distant Jewish onlookers at the road's edge"
+      },
+      "right": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-11-43__classical__1__a1.jpg",
+        "sha256": "85ae1a6c55790cbd247f9dcb70f838456fc897994a25f8f9cc186e0cd4636d81",
+        "scene": "Jesus standing at the tomb mouth, arm raised toward the entrance, face lifted in a loud call; Crowd of Jewish mourners and onlookers in dusty tunics and cloaks at a distance, Martha near the front in quiet awe, linen wrappings clinging to Lazarus"
+      }
+    },
+    {
+      "id": "pair048",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "icon",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-21-7__icon__1__a2.jpg",
+        "sha256": "a3325cc3c420ff5b412d0f64d062994ea1239c387ebf5eb8a9315d6dea6c0781",
+        "scene": "Simon Peter mid-leap, cloak clutched around his shoulders, body angled forward over the water; Jesus standing on the sand by a charcoal fire; the beloved disciple pointing from the boat; fishing nets and oars in the boat; ripples spreading from the splash"
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__icon__1__a2.jpg",
+        "sha256": "3ee598e42d1cb1770a2bf41d76218ae29ffed4f9be2527074500448c40d82fe9",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      }
+    },
+    {
+      "id": "pair049",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-14-23__fresco__1__a1.jpg",
+        "sha256": "ddc0768265183e6d76ea5458b279ce510b56f302ce8f1f52468fb7720b01cac7",
+        "scene": "Egyptian chariots and horsemen galloping in pursuit across the dry sea floor; Walls of water gleaming on the right and left, spray and dust lifted by the wind, fleeing Israelite families far ahead on the sand"
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/exodus-14-22__fresco__1__a1.jpg",
+        "sha256": "6e393ab707bb593e6ef42f9fb6f9c53b46d717ab80c220e71039087b66e81656",
+        "scene": "A long line of Israelite travellers with Moses leading, walking forward across the dry sea floor; Dust and spray lifted by the east wind, the walls of water glistening on the right and left, a faint pillar of cloud and fire glowing above the sea"
+      }
+    },
+    {
+      "id": "pair050",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/john-11-43__fresco__1__a1.jpg",
+        "sha256": "79a1fc9a709c8d9a146ef8444d05970569d8dc0832c1f251c9f559957172372c",
+        "scene": "Jesus standing at the tomb mouth, arm raised and face lifted in a loud call.; Martha and onlookers in the crowd stand near, some shielding their eyes, the grave-cloths trailing from Lazarus's hands and feet."
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/mark-4-39__fresco__1__a1.jpg",
+        "sha256": "e7b1b8f4b5176681924c960faef86313f593eab5669118dc30f33ecdfcd885f6",
+        "scene": "Jesus standing upright in the bow, arm outstretched toward the sea, calm and commanding; Disciples in tunics and cloaks crouched or clinging to the boat's sides and mast, spray-soaked; ropes and a furled sail; oil lamp in the boat."
+      }
+    },
+    {
+      "id": "pair051",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__classical__1__a1.jpg",
+        "sha256": "cd8997da9ae00715f1779215ca04ee48807baba5ad60d1547115d126deef9a5d",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      },
+      "right": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-14-23__classical__1__a1.jpg",
+        "sha256": "b2458868236734dd68f93807e7f8782fc0917dacf04b4ce3f0ce79df9ef6f55d",
+        "scene": "Egyptian chariots and horsemen charging down the dry sea-floor, horses straining forward; Tall walls of water rising on either side, spray blown across the path, a few Egyptian soldiers with spears and shields on foot, the far edge of the path ahead"
+      }
+    },
+    {
+      "id": "pair052",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-21-7__classical__1__a1.jpg",
+        "sha256": "76e33b76d8e66b7b664ed167fef5906efb2c2291a10ab1d50419e5b0b9725a77",
+        "scene": "Simon Peter mid-leap, cloak clutched around his shoulders, body angled forward over the water; Jesus standing on the sand by a charcoal fire; the beloved disciple pointing from the boat; fishing nets and oars in the boat; ripples spreading from the splash"
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__classical__1__a1.jpg",
+        "sha256": "35f2d737d049cdadaed902f39d9fda1d9b722c1f6987478b7d6bef180191b250",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      }
+    },
+    {
+      "id": "pair053",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "matthew-27-35",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-27-35__watercolor__1__a1.jpg",
+        "sha256": "f64403605f1dc0e21e2d2da87671f84f1bce6ea6ee8c0ffde089bb114d7612d0",
+        "scene": "Roman soldiers in military tunics and cloaks crouched in a circle around the cloth; Folded clothing spread on the ground, a crucified figure seen high above in the background, a few distant Jewish onlookers at the road's edge"
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__watercolor__1__a1.jpg",
+        "sha256": "f2766a334a62d3bafb7d14952621dbc2a443822b253b2c77db2429d7d5e0c493",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      }
+    },
+    {
+      "id": "pair054",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/mark-4-39__fresco__1__a1.jpg",
+        "sha256": "e7b1b8f4b5176681924c960faef86313f593eab5669118dc30f33ecdfcd885f6",
+        "scene": "Jesus standing upright in the bow, arm outstretched toward the sea, calm and commanding; Disciples in tunics and cloaks crouched or clinging to the boat's sides and mast, spray-soaked; ropes and a furled sail; oil lamp in the boat."
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/matthew-14-29__fresco__1__a1.jpg",
+        "sha256": "a5f5d25d21d44e69bb629774e0712d19279555f4b3b1c8193896ffd548eca2d6",
+        "scene": "Peter, mid-step, one foot on the water's surface, arms partly out for balance; Jesus standing on the waves in the distance; disciples gathered at the boat's rail watching; spray and wind-torn water"
+      }
+    },
+    {
+      "id": "pair055",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__classical__1__a1.jpg",
+        "sha256": "907f8617474e24fda47c3a8871f088b7d6095ea4d6655d1df13581a276b3e33f",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      },
+      "right": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/numbers-20-11__classical__1__a1.jpg",
+        "sha256": "0c0d01f228a4564dc9ddbc49344830a556491d1068c4b73e09cb3b1e682b8100",
+        "scene": "Moses standing before the rock, rod raised high in a striking pose; Aaron in priestly linen beside Moses, Israelites and livestock gathering at the water's edge, cupped hands and jars"
+      }
+    },
+    {
+      "id": "pair056",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "icon",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__icon__1__a1.jpg",
+        "sha256": "36c504a1a9b0bfc796de9481cd07bd6b82f9adfb2971fa09c906cf9d23fd0240",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__icon__1__a2.jpg",
+        "sha256": "ad318c70f8bea72680c4c44869d8040d2d3b115d1ea67cf6f7225ea32da2b573",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      }
+    },
+    {
+      "id": "pair057",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__classical__1__a1.jpg",
+        "sha256": "63ad38ad1dabfaf18b6ce74a870fc27331c558ed3dccaf0d9ca429970fc3c09a",
+        "scene": "The disciples stepping out of a small fishing boat onto the sand, eyes fixed on the fire.; A charcoal fire glowing on the beach, fish and flatbread set on the coals, dragged net and oars beside the boat."
+      },
+      "right": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/acts-3-7__classical__1__a1.jpg",
+        "sha256": "e4bef1da043ecbf27fbd693673614acada89562ece686199e94284a8aed532e1",
+        "scene": "Peter, mid-stride, bending to grip the lame man's right hand and lift him upright.; John beside Peter; the seated beggar's alms bowl tipped on the steps; a watching crowd in the colonnade in Jewish and Gentile dress; Roman soldiers in plain tunics near the colonnade."
+      }
+    },
+    {
+      "id": "pair058",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-17-12__classical__1__a1.jpg",
+        "sha256": "f1b3a2d4452ae1a69337af2f669cade0ab65bd3764af3cd5b8e04f2d144beacb",
+        "scene": "Moses seated on a rough stone, arms raised and supported by Aaron and Hur; Israelite warriors fighting on the plain below, a distant hint of Amalekite forces, dust rising from the battle"
+      },
+      "right": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/leviticus-11-7__classical__1__a1.jpg",
+        "sha256": "7504332c63117d204b06c339c2ee85fe43533ad6e5a87285af06a82a1838154e",
+        "scene": "Moses and Aaron standing side by side, facing the camp, attentive and still.; Israelite men and women in woven tunics and cloaks gathered at a respectful distance; a single pig in the sand; Aaron in plain priestly linen and Moses in a simple cloak."
+      }
+    },
+    {
+      "id": "pair059",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__classical__1__a1.jpg",
+        "sha256": "63ad38ad1dabfaf18b6ce74a870fc27331c558ed3dccaf0d9ca429970fc3c09a",
+        "scene": "The disciples stepping out of a small fishing boat onto the sand, eyes fixed on the fire.; A charcoal fire glowing on the beach, fish and flatbread set on the coals, dragged net and oars beside the boat."
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__classical__1__a1.jpg",
+        "sha256": "35f2d737d049cdadaed902f39d9fda1d9b722c1f6987478b7d6bef180191b250",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      }
+    },
+    {
+      "id": "pair060",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-11-43__classical__1__a1.jpg",
+        "sha256": "85ae1a6c55790cbd247f9dcb70f838456fc897994a25f8f9cc186e0cd4636d81",
+        "scene": "Jesus standing at the tomb mouth, arm raised toward the entrance, face lifted in a loud call; Crowd of Jewish mourners and onlookers in dusty tunics and cloaks at a distance, Martha near the front in quiet awe, linen wrappings clinging to Lazarus"
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__classical__1__a1.jpg",
+        "sha256": "35f2d737d049cdadaed902f39d9fda1d9b722c1f6987478b7d6bef180191b250",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      }
+    },
+    {
+      "id": "pair061",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "icon",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__icon__1__a2.jpg",
+        "sha256": "ad318c70f8bea72680c4c44869d8040d2d3b115d1ea67cf6f7225ea32da2b573",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      },
+      "right": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/leviticus-11-7__icon__1__a1.jpg",
+        "sha256": "f0d93960920a0c97cce78b77d5a7190d1a8b669f2678a9d4a0009803222e376a",
+        "scene": "Moses and Aaron standing side by side, facing the camp, attentive and still.; Israelite men and women in woven tunics and cloaks gathered at a respectful distance; a single pig in the sand; Aaron in plain priestly linen and Moses in a simple cloak."
+      }
+    },
+    {
+      "id": "pair062",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/daniel-6-22__fresco__1__a1.jpg",
+        "sha256": "ba31c0ceec56b54f625a77d1f66bf05b9f2919ab81e9d699426af0beadb4bf21",
+        "scene": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides.; Several lions with closed jaws near the walls; Darius in royal court robes with signet ring at the rim; a faint radiance or angelic light suggested in the upper air above the opening."
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-6-23__fresco__1__a1.jpg",
+        "sha256": "0c7997e65e724381aa9d688d53ceba097c7534049d3cf5026a1e802d643c09f4",
+        "scene": "Daniel, unharmed, being raised up from the pit by ropes and hands; Guards in period armor steady the rope; a few lions visible below in the shadowed pit, calm and not attacking"
+      }
+    },
+    {
+      "id": "pair063",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__classical__1__a1.jpg",
+        "sha256": "35f2d737d049cdadaed902f39d9fda1d9b722c1f6987478b7d6bef180191b250",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__classical__1__a1.jpg",
+        "sha256": "f63ad4b1a1ca9d5ef4ddd5b11be20d08b08ff626cbe40e7724d43f3a33047b82",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      }
+    },
+    {
+      "id": "pair064",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-14-23__classical__1__a1.jpg",
+        "sha256": "b2458868236734dd68f93807e7f8782fc0917dacf04b4ce3f0ce79df9ef6f55d",
+        "scene": "Egyptian chariots and horsemen charging down the dry sea-floor, horses straining forward; Tall walls of water rising on either side, spray blown across the path, a few Egyptian soldiers with spears and shields on foot, the far edge of the path ahead"
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__classical__1__a1.jpg",
+        "sha256": "907f8617474e24fda47c3a8871f088b7d6095ea4d6655d1df13581a276b3e33f",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      }
+    },
+    {
+      "id": "pair065",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__classical__1__a1.jpg",
+        "sha256": "907f8617474e24fda47c3a8871f088b7d6095ea4d6655d1df13581a276b3e33f",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__classical__1__a1.jpg",
+        "sha256": "cd8997da9ae00715f1779215ca04ee48807baba5ad60d1547115d126deef9a5d",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      }
+    },
+    {
+      "id": "pair066",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-6-23__classical__1__a1.jpg",
+        "sha256": "02a3aa3846f99497ac76ada2f9f582bfcbce9e97db0aaa72a887a3f95721bffb",
+        "scene": "Daniel, unharmed, being lifted up out of the den by attendants; Darius in royal court robes with signet ring at the rim; attendants in linen and period armor; lamp glow on the ropes and stone."
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/daniel-6-22__classical__1__a1.jpg",
+        "sha256": "e9bc1b9e97c9676efe9dd117d710904add36ac951211a7f7b5e8f8b9ceff3e4b",
+        "scene": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides.; Lions crouched low in the sand; Darius in royal court robes with a signet ring at the rim; a faint radiance of light from above suggesting the angel's presence without a visible figure."
+      }
+    },
+    {
+      "id": "pair067",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "icon",
+      "left": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-11-43__icon__1__a2.jpg",
+        "sha256": "7b29aa042e62f3d1a5be6b594a65d88f62bad793d5381e3cdd2ba5848d0fcbe1",
+        "scene": "Jesus standing at the tomb mouth, arm raised toward the entrance, face lifted in a loud call; Crowd of Jewish mourners and onlookers in dusty tunics and cloaks at a distance, Martha near the front in quiet awe, linen wrappings clinging to Lazarus"
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__icon__1__a2.jpg",
+        "sha256": "3ee598e42d1cb1770a2bf41d76218ae29ffed4f9be2527074500448c40d82fe9",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      }
+    },
+    {
+      "id": "pair068",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-6-23__fresco__1__a1.jpg",
+        "sha256": "0c7997e65e724381aa9d688d53ceba097c7534049d3cf5026a1e802d643c09f4",
+        "scene": "Daniel, unharmed, being raised up from the pit by ropes and hands; Guards in period armor steady the rope; a few lions visible below in the shadowed pit, calm and not attacking"
+      },
+      "right": {
+        "unitId": "daniel-7-9",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/daniel-7-9__fresco__1__a2.jpg",
+        "sha256": "3475c59cb5d445d86fcf6aededdc8b706bb8dd0a8270737a49002561496d7adf",
+        "scene": "Daniel standing at the edge of the vision, gazing upward; the Ancient of Days shown only as blazing white radiance and wool-white light enthroned in the court; Burning wheels rising from the flames, white light spread through the cloud, Daniel in plain exile tunic and cloak"
+      }
+    },
+    {
+      "id": "pair069",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/exodus-14-21__fresco__1__a1.jpg",
+        "sha256": "e4918431cb6592139b55aed5f048e7954cb8a8e84304a6d853548016a81709c7",
+        "scene": "Moses at the shore, arm stretched out over the sea, plain cloak and staff in hand; Israelite people gathered on the sand watching, a few Egyptian figures distant in linen, spray and dust lifted by the wind"
+      },
+      "right": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-17-12__fresco__1__a1.jpg",
+        "sha256": "d971d687222eeb2d1a750c15085fe194bedae035b0483afeeb779d80f5be2ee5",
+        "scene": "Moses seated on a stone on the hill, arms raised and supported; Aaron on Moses' right and Hur on his left, straining to hold his arms; distant Israelite warriors and Amalekite fighters faintly visible below"
+      }
+    },
+    {
+      "id": "pair070",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/matthew-14-29__fresco__1__a1.jpg",
+        "sha256": "a5f5d25d21d44e69bb629774e0712d19279555f4b3b1c8193896ffd548eca2d6",
+        "scene": "Peter, mid-step, one foot on the water's surface, arms partly out for balance; Jesus standing on the waves in the distance; disciples gathered at the boat's rail watching; spray and wind-torn water"
+      },
+      "right": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/acts-3-7__fresco__1__a1.jpg",
+        "sha256": "7a5487771332f43546affe5d4c296eeabb308d86d38f59bccc094946f47c2fab",
+        "scene": "Peter, bending forward, gripping the right hand of the lame man and lifting him upright; Jewish worshippers in tunics and cloaks gathering in astonishment, priests in linen robes at the edges, a few Roman soldiers in military dress nearby."
+      }
+    },
+    {
+      "id": "pair071",
+      "groupId": "prodigal-son-return",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "style": "watercolor",
+      "left": {
+        "unitId": "luke-15-20",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/luke-15-20__watercolor__1__a1.jpg",
+        "sha256": "a0883e00803a777c0c77d349c7aeec89427df8b68606ffddf747fd85d76ca59d",
+        "scene": "The elderly father running with robes lifted, embracing his travel-worn younger son around the neck.; Low stone walls and terraced hills on either side, a distant farmhouse with a courtyard gate, a dusty road with lengthening shadows."
+      },
+      "right": {
+        "unitId": "luke-15-22",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-15-22__watercolor__1__a1.jpg",
+        "sha256": "9c71a3735b58bef18dbc318346ceec3919ed1252116125f30d687597db6d3451",
+        "scene": "The elderly father kneeling before his younger son, fitting a ring on his hand.; Two servants hurrying forward carrying a folded robe and sandals; the son's worn, travel-stained tunic and bare feet."
+      }
+    },
+    {
+      "id": "pair072",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-11-43__watercolor__1__a1.jpg",
+        "sha256": "eddb49699c288adef419b09a2651538a909955a0bb28d489f8d73693daead9b3",
+        "scene": "Jesus standing at the tomb mouth, arm raised toward the entrance, face lifted in a loud call; Crowd of Jewish mourners and onlookers in dusty tunics and cloaks at a distance, Martha near the front in quiet awe, linen wrappings clinging to Lazarus"
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__watercolor__1__a1.jpg",
+        "sha256": "f2766a334a62d3bafb7d14952621dbc2a443822b253b2c77db2429d7d5e0c493",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      }
+    },
+    {
+      "id": "pair073",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-22-61__fresco__1__a1.jpg",
+        "sha256": "d65dc6c4321010a064ef9097f99d24cdc794188c1f11cfee2de2f60abb75101c",
+        "scene": "Peter standing near the fire, face turned toward a figure across the courtyard, his expression stricken and wide-eyed.; A few onlookers in tunics and cloaks warming themselves by the fire, a Roman soldier with helmet at the gate, Jesus visible under guard in the passage."
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/matthew-14-29__fresco__1__a1.jpg",
+        "sha256": "a5f5d25d21d44e69bb629774e0712d19279555f4b3b1c8193896ffd548eca2d6",
+        "scene": "Peter, mid-step, one foot on the water's surface, arms partly out for balance; Jesus standing on the waves in the distance; disciples gathered at the boat's rail watching; spray and wind-torn water"
+      }
+    },
+    {
+      "id": "pair074",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__classical__1__a1.jpg",
+        "sha256": "63ad38ad1dabfaf18b6ce74a870fc27331c558ed3dccaf0d9ca429970fc3c09a",
+        "scene": "The disciples stepping out of a small fishing boat onto the sand, eyes fixed on the fire.; A charcoal fire glowing on the beach, fish and flatbread set on the coals, dragged net and oars beside the boat."
+      },
+      "right": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-22-61__classical__1__a1.jpg",
+        "sha256": "3fe66d11207ab2f2f7626c29b7ea4533e242aa79a7a72640f62d719c979662f2",
+        "scene": "Peter, standing still near the brazier with his face turned toward Jesus, his expression stricken.; Jesus, bound and guarded by soldiers, visible at the edge of the courtyard; townsfolk and servants around the fire looking away; a Roman soldier in military dress nearby."
+      }
+    },
+    {
+      "id": "pair075",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-21-7__classical__1__a1.jpg",
+        "sha256": "76e33b76d8e66b7b664ed167fef5906efb2c2291a10ab1d50419e5b0b9725a77",
+        "scene": "Simon Peter mid-leap, cloak clutched around his shoulders, body angled forward over the water; Jesus standing on the sand by a charcoal fire; the beloved disciple pointing from the boat; fishing nets and oars in the boat; ripples spreading from the splash"
+      },
+      "right": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-22-61__classical__1__a1.jpg",
+        "sha256": "3fe66d11207ab2f2f7626c29b7ea4533e242aa79a7a72640f62d719c979662f2",
+        "scene": "Peter, standing still near the brazier with his face turned toward Jesus, his expression stricken.; Jesus, bound and guarded by soldiers, visible at the edge of the courtyard; townsfolk and servants around the fire looking away; a Roman soldier in military dress nearby."
+      }
+    },
+    {
+      "id": "pair076",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-7-9",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/daniel-7-9__fresco__1__a2.jpg",
+        "sha256": "3475c59cb5d445d86fcf6aededdc8b706bb8dd0a8270737a49002561496d7adf",
+        "scene": "Daniel standing at the edge of the vision, gazing upward; the Ancient of Days shown only as blazing white radiance and wool-white light enthroned in the court; Burning wheels rising from the flames, white light spread through the cloud, Daniel in plain exile tunic and cloak"
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/daniel-6-22__fresco__1__a1.jpg",
+        "sha256": "ba31c0ceec56b54f625a77d1f66bf05b9f2919ab81e9d699426af0beadb4bf21",
+        "scene": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides.; Several lions with closed jaws near the walls; Darius in royal court robes with signet ring at the rim; a faint radiance or angelic light suggested in the upper air above the opening."
+      }
+    },
+    {
+      "id": "pair077",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-17-12__watercolor__1__a1.jpg",
+        "sha256": "dcd61fc61e66cf3198b9ba33a3c720ec86a8955fd119c4ea1efb173fd95b4800",
+        "scene": "Moses seated on a rough stone, arms raised and supported by Aaron and Hur; Israelite warriors fighting on the plain below, a distant hint of Amalekite forces, dust rising from the battle"
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__watercolor__1__a1.jpg",
+        "sha256": "5dbaf4d70cf221215160b06ea4321bb2206cf78a91f53d635e51bae85273d2a6",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      }
+    },
+    {
+      "id": "pair078",
+      "groupId": "prodigal-son-return",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "style": "fresco",
+      "left": {
+        "unitId": "luke-15-20",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/luke-15-20__fresco__1__a1.jpg",
+        "sha256": "81d7abc579e9317df4c2a12d4ff439d56e998504d04f243660413c1758e62d23",
+        "scene": "The younger son walking toward home, and the father breaking into a run toward him; Dust rising from the road, a stone wall and olive tree at the courtyard edge, a few distant villagers pausing to watch."
+      },
+      "right": {
+        "unitId": "luke-15-22",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-15-22__fresco__1__a1.jpg",
+        "sha256": "f99ca2c0a224062879f331f6caad6cda67bdde9f97aeeae2f8c446b9c4081309",
+        "scene": "The father, arms open, standing in the courtyard facing his son.; Two servants carrying a folded robe and a ring and sandals on a cloth; dust rising on the road; a lamp not yet lit."
+      }
+    },
+    {
+      "id": "pair079",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "icon",
+      "left": {
+        "unitId": "matthew-27-35",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-27-35__icon__1__a1.jpg",
+        "sha256": "91c97489d52f1ecec5c1e401345b39f921ece65d1907db31355c456db8dc00da",
+        "scene": "Roman soldiers in military tunics and cloaks crouched in a circle around the cloth; Folded clothing spread on the ground, a crucified figure seen high above in the background, a few distant Jewish onlookers at the road's edge"
+      },
+      "right": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-11-43__icon__1__a2.jpg",
+        "sha256": "7b29aa042e62f3d1a5be6b594a65d88f62bad793d5381e3cdd2ba5848d0fcbe1",
+        "scene": "Jesus standing at the tomb mouth, arm raised toward the entrance, face lifted in a loud call; Crowd of Jewish mourners and onlookers in dusty tunics and cloaks at a distance, Martha near the front in quiet awe, linen wrappings clinging to Lazarus"
+      }
+    },
+    {
+      "id": "pair080",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-22-61__fresco__1__a1.jpg",
+        "sha256": "d65dc6c4321010a064ef9097f99d24cdc794188c1f11cfee2de2f60abb75101c",
+        "scene": "Peter standing near the fire, face turned toward a figure across the courtyard, his expression stricken and wide-eyed.; A few onlookers in tunics and cloaks warming themselves by the fire, a Roman soldier with helmet at the gate, Jesus visible under guard in the passage."
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/john-21-7__fresco__1__a1.jpg",
+        "sha256": "4023366c1c2059b17bdbb5b8e45551118014af5d1bf09d646625185a77667a56",
+        "scene": "Simon Peter mid-leap, coat clutched around his body, plunging from the boat's edge toward the water.; Other disciples crowd the stern of the boat, one pointing toward the shore; a net full of fish trails in the water; a charcoal fire glows faintly on the beach."
+      }
+    },
+    {
+      "id": "pair081",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/leviticus-11-7__fresco__1__a1.jpg",
+        "sha256": "252ff6c83f2d3c8ad1006b6b1880b63296cdb972a110e7723b3f64c9d45e2066",
+        "scene": "Moses standing, one hand raised in instruction, beside Aaron in plain linen; Israelite families gathered near the tents, a cloth-covered table with food, a pig set apart at the edge, a pillar of cloud above the tabernacle"
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/exodus-14-22__fresco__1__a1.jpg",
+        "sha256": "6e393ab707bb593e6ef42f9fb6f9c53b46d717ab80c220e71039087b66e81656",
+        "scene": "A long line of Israelite travellers with Moses leading, walking forward across the dry sea floor; Dust and spray lifted by the east wind, the walls of water glistening on the right and left, a faint pillar of cloud and fire glowing above the sea"
+      }
+    },
+    {
+      "id": "pair082",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-22-61__fresco__1__a1.jpg",
+        "sha256": "d65dc6c4321010a064ef9097f99d24cdc794188c1f11cfee2de2f60abb75101c",
+        "scene": "Peter standing near the fire, face turned toward a figure across the courtyard, his expression stricken and wide-eyed.; A few onlookers in tunics and cloaks warming themselves by the fire, a Roman soldier with helmet at the gate, Jesus visible under guard in the passage."
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__fresco__1__a1.jpg",
+        "sha256": "7bc7707d113ca8b9006cd3249d17f2af06fd6b25f1bcb4bdf6d406a696572f5a",
+        "scene": "A group of fishermen in damp tunics stepping from a small boat onto the stones of the shore, pausing to look toward the fire.; A low charcoal fire on the sand with fish and loaves on the coals; the drag net heaped in the boat; a wet coat drawn around Peter's shoulders."
+      }
+    },
+    {
+      "id": "pair083",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "classical",
+      "left": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-17-40__classical__1__a1.jpg",
+        "sha256": "9cf0feb9b59674232e533054e61becbc732d9037d9c82468330d07c406cd3fae",
+        "scene": "David, a young shepherd in a simple tunic and cloak, standing upright with his staff in one hand and sling in the other.; Distant Israelite and Philistine battle lines on the slopes, with dust rising from the valley floor; the shepherd's leather bag and sling in clear view."
+      },
+      "right": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/1-samuel-17-49__classical__1__a1.jpg",
+        "sha256": "5547394cc7722a32cf3d45674d4e9e07b4fa0a895d18086da8ecf71a60797137",
+        "scene": "Young David, slight and tunic-clad, arm still extended after the slinging motion, sling taut in his hand.; Goliath's bronze helmet and scale armor and spear trailing from his hand; Philistine ranks watching in shock on one side, Israelite lines on the other; a leather bag at David's hip."
+      }
+    },
+    {
+      "id": "pair084",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/exodus-14-21__fresco__1__a1.jpg",
+        "sha256": "e4918431cb6592139b55aed5f048e7954cb8a8e84304a6d853548016a81709c7",
+        "scene": "Moses at the shore, arm stretched out over the sea, plain cloak and staff in hand; Israelite people gathered on the sand watching, a few Egyptian figures distant in linen, spray and dust lifted by the wind"
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/exodus-14-22__fresco__1__a1.jpg",
+        "sha256": "6e393ab707bb593e6ef42f9fb6f9c53b46d717ab80c220e71039087b66e81656",
+        "scene": "A long line of Israelite travellers with Moses leading, walking forward across the dry sea floor; Dust and spray lifted by the east wind, the walls of water glistening on the right and left, a faint pillar of cloud and fire glowing above the sea"
+      }
+    },
+    {
+      "id": "pair085",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "watercolor",
+      "left": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-16-13__watercolor__1__a1.jpg",
+        "sha256": "38ef8929ea8a5218b177944fc24d9f7f0b2da1839ba553bb1c35751919b97b8d",
+        "scene": "Samuel in a plain prophet's mantle pouring oil from a horn onto the head of a ruddy young David; Jesse and his older sons standing in a loose ring at the edges, a shepherd's leather pouch and staff near David, a faint dove or wind-like shimmer of light above David"
+      },
+      "right": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-18-11__watercolor__1__a1.jpg",
+        "sha256": "628444c4c17ace389bdc2f4087ec770e6b25923c6b3e3f759e1a5b56e326ba27",
+        "scene": "Saul, mid-throw, arm flung forward with the spear in hand; Clay lamps on the walls, a lyre or harp resting near the floor, dust hanging in the air"
+      }
+    },
+    {
+      "id": "pair086",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "icon",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__icon__1__a2.jpg",
+        "sha256": "ad318c70f8bea72680c4c44869d8040d2d3b115d1ea67cf6f7225ea32da2b573",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__icon__1__a1.jpg",
+        "sha256": "36c504a1a9b0bfc796de9481cd07bd6b82f9adfb2971fa09c906cf9d23fd0240",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      }
+    },
+    {
+      "id": "pair087",
+      "groupId": "prodigal-son-return",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "style": "classical",
+      "left": {
+        "unitId": "luke-15-22",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-15-22__classical__1__a1.jpg",
+        "sha256": "66fca905d4301073032bf7b4adf933838122443c6a0d514f418467f3d6da8b06",
+        "scene": "The elderly father kneeling before his younger son, fitting a ring on his hand.; Two servants hurrying forward carrying a folded robe and sandals; the son's worn, travel-stained tunic and bare feet."
+      },
+      "right": {
+        "unitId": "luke-15-20",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/luke-15-20__classical__1__a1.jpg",
+        "sha256": "b700ecdc1d87ec74d8e8e59333539f1b94ae32979ce5f47e0a19bf0e123e041e",
+        "scene": "The elderly father running with robes lifted, embracing his travel-worn younger son around the neck.; Low stone walls and terraced hills on either side, a distant farmhouse with a courtyard gate, a dusty road with lengthening shadows."
+      }
+    },
+    {
+      "id": "pair088",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__watercolor__1__a1.jpg",
+        "sha256": "cf49ed6bb84817a217b5abaad99defae5a6c5c1d47a9f0fe09e5fbc21def0c9a",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__watercolor__1__a1.jpg",
+        "sha256": "5dbaf4d70cf221215160b06ea4321bb2206cf78a91f53d635e51bae85273d2a6",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      }
+    },
+    {
+      "id": "pair089",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "fresco",
+      "left": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/1-samuel-17-49__fresco__1__a1.jpg",
+        "sha256": "c1c71803ad491d9c8bce6b74d5ab18c56cd85195d10bfac8285cebf8b0dc109a",
+        "scene": "Goliath pitching forward, his bronze-helmeted head struck, body collapsing face-down onto the valley floor.; David in a shepherd's tunic and cloak with leather bag and sling; Philistine soldiers in bronze armor frozen in shock on one slope, Israelite soldiers on the opposite slope; a small cloud of dust rising where Goliath hits the ground."
+      },
+      "right": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-17-40__fresco__1__a1.jpg",
+        "sha256": "182caec3aefe6f83156857d1b9bba2885b26a0547ba2f3c36700c6a4c08809bb",
+        "scene": "David, a young shepherd in a plain tunic, bending to choose stones from the stream bed; Staff leaning in his other hand, shepherd's bag open at his hip, Goliath's bronze-armored figure distant on the opposite slope, rising dust"
+      }
+    },
+    {
+      "id": "pair090",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "icon",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__icon__1__a2.jpg",
+        "sha256": "3ee598e42d1cb1770a2bf41d76218ae29ffed4f9be2527074500448c40d82fe9",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      },
+      "right": {
+        "unitId": "matthew-27-35",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-27-35__icon__1__a1.jpg",
+        "sha256": "91c97489d52f1ecec5c1e401345b39f921ece65d1907db31355c456db8dc00da",
+        "scene": "Roman soldiers in military tunics and cloaks crouched in a circle around the cloth; Folded clothing spread on the ground, a crucified figure seen high above in the background, a few distant Jewish onlookers at the road's edge"
+      }
+    },
+    {
+      "id": "pair091",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/mark-4-38__watercolor__1__a1.jpg",
+        "sha256": "d42e58c37c99c102d02f255077b909b3ae210a9ef05a5ce1e990b019c948b46a",
+        "scene": "Jesus asleep on a cushion in the stern, head resting, body calm amid chaos; Other disciples bailing water with buckets and hands, rope and sail straining, waves crashing against the hull"
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__watercolor__1__a1.jpg",
+        "sha256": "f2766a334a62d3bafb7d14952621dbc2a443822b253b2c77db2429d7d5e0c493",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      }
+    },
+    {
+      "id": "pair092",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "watercolor",
+      "left": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-18-11__watercolor__1__a1.jpg",
+        "sha256": "628444c4c17ace389bdc2f4087ec770e6b25923c6b3e3f759e1a5b56e326ba27",
+        "scene": "Saul, mid-throw, arm flung forward with the spear in hand; Clay lamps on the walls, a lyre or harp resting near the floor, dust hanging in the air"
+      },
+      "right": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-17-40__watercolor__1__a1.jpg",
+        "sha256": "e1afc5634680205245f7dc920d1dcf3daee627c8a1656627382e995247010862",
+        "scene": "David, a young shepherd in a simple tunic and cloak, standing upright with his staff in one hand and sling in the other.; Distant Israelite and Philistine battle lines on the slopes, with dust rising from the valley floor; the shepherd's leather bag and sling in clear view."
+      }
+    },
+    {
+      "id": "pair093",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "classical",
+      "left": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-18-11__classical__1__a1.jpg",
+        "sha256": "7f2b2f7a216c4544cf6f75ad9e71a4ae2153cd81a2948581240355ab6a24e190",
+        "scene": "Saul, mid-throw, arm flung forward with the spear in hand; Clay lamps on the walls, a lyre or harp resting near the floor, dust hanging in the air"
+      },
+      "right": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/1-samuel-17-49__classical__1__a1.jpg",
+        "sha256": "5547394cc7722a32cf3d45674d4e9e07b4fa0a895d18086da8ecf71a60797137",
+        "scene": "Young David, slight and tunic-clad, arm still extended after the slinging motion, sling taut in his hand.; Goliath's bronze helmet and scale armor and spear trailing from his hand; Philistine ranks watching in shock on one side, Israelite lines on the other; a leather bag at David's hip."
+      }
+    },
+    {
+      "id": "pair094",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__classical__1__a1.jpg",
+        "sha256": "cd8997da9ae00715f1779215ca04ee48807baba5ad60d1547115d126deef9a5d",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      },
+      "right": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-17-12__classical__1__a1.jpg",
+        "sha256": "f1b3a2d4452ae1a69337af2f669cade0ab65bd3764af3cd5b8e04f2d144beacb",
+        "scene": "Moses seated on a rough stone, arms raised and supported by Aaron and Hur; Israelite warriors fighting on the plain below, a distant hint of Amalekite forces, dust rising from the battle"
+      }
+    },
+    {
+      "id": "pair095",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/numbers-20-11__classical__1__a1.jpg",
+        "sha256": "0c0d01f228a4564dc9ddbc49344830a556491d1068c4b73e09cb3b1e682b8100",
+        "scene": "Moses standing before the rock, rod raised high in a striking pose; Aaron in priestly linen beside Moses, Israelites and livestock gathering at the water's edge, cupped hands and jars"
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__classical__1__a1.jpg",
+        "sha256": "cd8997da9ae00715f1779215ca04ee48807baba5ad60d1547115d126deef9a5d",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      }
+    },
+    {
+      "id": "pair096",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/numbers-20-11__classical__1__a1.jpg",
+        "sha256": "0c0d01f228a4564dc9ddbc49344830a556491d1068c4b73e09cb3b1e682b8100",
+        "scene": "Moses standing before the rock, rod raised high in a striking pose; Aaron in priestly linen beside Moses, Israelites and livestock gathering at the water's edge, cupped hands and jars"
+      },
+      "right": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/leviticus-11-7__classical__1__a1.jpg",
+        "sha256": "7504332c63117d204b06c339c2ee85fe43533ad6e5a87285af06a82a1838154e",
+        "scene": "Moses and Aaron standing side by side, facing the camp, attentive and still.; Israelite men and women in woven tunics and cloaks gathered at a respectful distance; a single pig in the sand; Aaron in plain priestly linen and Moses in a simple cloak."
+      }
+    },
+    {
+      "id": "pair097",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__watercolor__1__a1.jpg",
+        "sha256": "f2766a334a62d3bafb7d14952621dbc2a443822b253b2c77db2429d7d5e0c493",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__watercolor__1__a1.jpg",
+        "sha256": "3ee2cdaecd517e4ce0e47f490221e1a8ddd3b2b10bb931f45b5c73d3dae1e677",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      }
+    },
+    {
+      "id": "pair098",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-21-7__classical__1__a1.jpg",
+        "sha256": "76e33b76d8e66b7b664ed167fef5906efb2c2291a10ab1d50419e5b0b9725a77",
+        "scene": "Simon Peter mid-leap, cloak clutched around his shoulders, body angled forward over the water; Jesus standing on the sand by a charcoal fire; the beloved disciple pointing from the boat; fishing nets and oars in the boat; ripples spreading from the splash"
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__classical__1__a1.jpg",
+        "sha256": "63ad38ad1dabfaf18b6ce74a870fc27331c558ed3dccaf0d9ca429970fc3c09a",
+        "scene": "The disciples stepping out of a small fishing boat onto the sand, eyes fixed on the fire.; A charcoal fire glowing on the beach, fish and flatbread set on the coals, dragged net and oars beside the boat."
+      }
+    },
+    {
+      "id": "pair099",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__watercolor__1__a1.jpg",
+        "sha256": "3ee2cdaecd517e4ce0e47f490221e1a8ddd3b2b10bb931f45b5c73d3dae1e677",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      },
+      "right": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-11-43__watercolor__1__a1.jpg",
+        "sha256": "eddb49699c288adef419b09a2651538a909955a0bb28d489f8d73693daead9b3",
+        "scene": "Jesus standing at the tomb mouth, arm raised toward the entrance, face lifted in a loud call; Crowd of Jewish mourners and onlookers in dusty tunics and cloaks at a distance, Martha near the front in quiet awe, linen wrappings clinging to Lazarus"
+      }
+    },
+    {
+      "id": "pair100",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__watercolor__1__a1.jpg",
+        "sha256": "f2766a334a62d3bafb7d14952621dbc2a443822b253b2c77db2429d7d5e0c493",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      },
+      "right": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/mark-4-37__watercolor__1__a1.jpg",
+        "sha256": "9a3c8ee3bc6525ecffaa7ba6c4d510755db4567ed3b90ed2c6f8ff624125bb25",
+        "scene": "Several disciples in a small wooden fishing boat, bailing water with buckets and clinging to the gunwales; Other small boats tossed nearby on the swells, spray hanging in the air, lightning flashing over the water"
+      }
+    },
+    {
+      "id": "pair101",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/mark-4-37__watercolor__1__a1.jpg",
+        "sha256": "9a3c8ee3bc6525ecffaa7ba6c4d510755db4567ed3b90ed2c6f8ff624125bb25",
+        "scene": "Several disciples in a small wooden fishing boat, bailing water with buckets and clinging to the gunwales; Other small boats tossed nearby on the swells, spray hanging in the air, lightning flashing over the water"
+      },
+      "right": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/mark-4-38__watercolor__1__a1.jpg",
+        "sha256": "d42e58c37c99c102d02f255077b909b3ae210a9ef05a5ce1e990b019c948b46a",
+        "scene": "Jesus asleep on a cushion in the stern, head resting, body calm amid chaos; Other disciples bailing water with buckets and hands, rope and sail straining, waves crashing against the hull"
+      }
+    },
+    {
+      "id": "pair102",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__classical__1__a1.jpg",
+        "sha256": "f63ad4b1a1ca9d5ef4ddd5b11be20d08b08ff626cbe40e7724d43f3a33047b82",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      },
+      "right": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-11-43__classical__1__a1.jpg",
+        "sha256": "85ae1a6c55790cbd247f9dcb70f838456fc897994a25f8f9cc186e0cd4636d81",
+        "scene": "Jesus standing at the tomb mouth, arm raised toward the entrance, face lifted in a loud call; Crowd of Jewish mourners and onlookers in dusty tunics and cloaks at a distance, Martha near the front in quiet awe, linen wrappings clinging to Lazarus"
+      }
+    },
+    {
+      "id": "pair103",
+      "groupId": "breakfast-on-the-shore",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-21-7__classical__1__a1.jpg",
+        "sha256": "76e33b76d8e66b7b664ed167fef5906efb2c2291a10ab1d50419e5b0b9725a77",
+        "scene": "Simon Peter mid-leap, cloak clutched around his shoulders, body angled forward over the water; Jesus standing on the sand by a charcoal fire; the beloved disciple pointing from the boat; fishing nets and oars in the boat; ripples spreading from the splash"
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__classical__1__a1.jpg",
+        "sha256": "63ad38ad1dabfaf18b6ce74a870fc27331c558ed3dccaf0d9ca429970fc3c09a",
+        "scene": "The disciples stepping out of a small fishing boat onto the sand, eyes fixed on the fire.; A charcoal fire glowing on the beach, fish and flatbread set on the coals, dragged net and oars beside the boat."
+      }
+    },
+    {
+      "id": "pair104",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__watercolor__1__a1.jpg",
+        "sha256": "3ee2cdaecd517e4ce0e47f490221e1a8ddd3b2b10bb931f45b5c73d3dae1e677",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-21-7__watercolor__1__a1.jpg",
+        "sha256": "ba286171bb326266e656c382d0abb607ad4b1c193b3a32932e201c9beab93b46",
+        "scene": "Simon Peter mid-leap, cloak clutched around his shoulders, body angled forward over the water; Jesus standing on the sand by a charcoal fire; the beloved disciple pointing from the boat; fishing nets and oars in the boat; ripples spreading from the splash"
+      }
+    },
+    {
+      "id": "pair105",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "matthew-27-35",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/matthew-27-35__fresco__1__a1.jpg",
+        "sha256": "dd8985d66e99e97f054e89bd0e4da8989171b670945ea984a38af7fffe455eb5",
+        "scene": "Roman soldiers in tunics and cloaks kneeling at the base of a cross; A crucified figure seen from below, partly veiled by distance; scattered cloth and sandals on stone."
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/mark-4-39__fresco__1__a1.jpg",
+        "sha256": "e7b1b8f4b5176681924c960faef86313f593eab5669118dc30f33ecdfcd885f6",
+        "scene": "Jesus standing upright in the bow, arm outstretched toward the sea, calm and commanding; Disciples in tunics and cloaks crouched or clinging to the boat's sides and mast, spray-soaked; ropes and a furled sail; oil lamp in the boat."
+      }
+    },
+    {
+      "id": "pair106",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-22-61__watercolor__1__a1.jpg",
+        "sha256": "9441df2e3dad90bcbee6272173db6d4fe14060dce67140d60c1c2818bd0f8fb5",
+        "scene": "Peter, standing still near the brazier with his face turned toward Jesus, his expression stricken.; Jesus, bound and guarded by soldiers, visible at the edge of the courtyard; townsfolk and servants around the fire looking away; a Roman soldier in military dress nearby."
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__watercolor__1__a1.jpg",
+        "sha256": "67e8ebde2502757299a91ca159cb8e28064c6b0c198c993b12573c9f080659c9",
+        "scene": "The disciples stepping out of a small fishing boat onto the sand, eyes fixed on the fire.; A charcoal fire glowing on the beach, fish and flatbread set on the coals, dragged net and oars beside the boat."
+      }
+    },
+    {
+      "id": "pair107",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__watercolor__1__a1.jpg",
+        "sha256": "3ee2cdaecd517e4ce0e47f490221e1a8ddd3b2b10bb931f45b5c73d3dae1e677",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__watercolor__1__a1.jpg",
+        "sha256": "67e8ebde2502757299a91ca159cb8e28064c6b0c198c993b12573c9f080659c9",
+        "scene": "The disciples stepping out of a small fishing boat onto the sand, eyes fixed on the fire.; A charcoal fire glowing on the beach, fish and flatbread set on the coals, dragged net and oars beside the boat."
+      }
+    },
+    {
+      "id": "pair108",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__classical__1__a1.jpg",
+        "sha256": "f63ad4b1a1ca9d5ef4ddd5b11be20d08b08ff626cbe40e7724d43f3a33047b82",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      },
+      "right": {
+        "unitId": "matthew-27-35",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-27-35__classical__1__a1.jpg",
+        "sha256": "40cbe12c8c770d06fb6c0ca8fa5b5677c7c896544da3363a55d761e8d890aa28",
+        "scene": "Roman soldiers in military tunics and cloaks crouched in a circle around the cloth; Folded clothing spread on the ground, a crucified figure seen high above in the background, a few distant Jewish onlookers at the road's edge"
+      }
+    },
+    {
+      "id": "pair109",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__watercolor__1__a1.jpg",
+        "sha256": "3ee2cdaecd517e4ce0e47f490221e1a8ddd3b2b10bb931f45b5c73d3dae1e677",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      },
+      "right": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/acts-3-7__watercolor__1__a1.jpg",
+        "sha256": "ee95c5db600aeffbb04e1fa4c6c145b3640e4dcf9b4e8e40b2cbd1245d449a7d",
+        "scene": "Peter, mid-stride, bending to grip the lame man's right hand and lift him upright.; John beside Peter; the seated beggar's alms bowl tipped on the steps; a watching crowd in the colonnade in Jewish and Gentile dress; Roman soldiers in plain tunics near the colonnade."
+      }
+    },
+    {
+      "id": "pair110",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-22-61__watercolor__1__a1.jpg",
+        "sha256": "9441df2e3dad90bcbee6272173db6d4fe14060dce67140d60c1c2818bd0f8fb5",
+        "scene": "Peter, standing still near the brazier with his face turned toward Jesus, his expression stricken.; Jesus, bound and guarded by soldiers, visible at the edge of the courtyard; townsfolk and servants around the fire looking away; a Roman soldier in military dress nearby."
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-21-7__watercolor__1__a1.jpg",
+        "sha256": "ba286171bb326266e656c382d0abb607ad4b1c193b3a32932e201c9beab93b46",
+        "scene": "Simon Peter mid-leap, cloak clutched around his shoulders, body angled forward over the water; Jesus standing on the sand by a charcoal fire; the beloved disciple pointing from the boat; fishing nets and oars in the boat; ripples spreading from the splash"
+      }
+    },
+    {
+      "id": "pair111",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/leviticus-11-7__watercolor__1__a1.jpg",
+        "sha256": "cc3eb2506a3376f200fbeb39f87ac65d2a95653c4fd39e71e176f00da6a41ff3",
+        "scene": "Moses and Aaron standing side by side, facing the camp, attentive and still.; Israelite men and women in woven tunics and cloaks gathered at a respectful distance; a single pig in the sand; Aaron in plain priestly linen and Moses in a simple cloak."
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__watercolor__1__a1.jpg",
+        "sha256": "5dbaf4d70cf221215160b06ea4321bb2206cf78a91f53d635e51bae85273d2a6",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      }
+    },
+    {
+      "id": "pair112",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/acts-3-7__watercolor__1__a1.jpg",
+        "sha256": "ee95c5db600aeffbb04e1fa4c6c145b3640e4dcf9b4e8e40b2cbd1245d449a7d",
+        "scene": "Peter, mid-stride, bending to grip the lame man's right hand and lift him upright.; John beside Peter; the seated beggar's alms bowl tipped on the steps; a watching crowd in the colonnade in Jewish and Gentile dress; Roman soldiers in plain tunics near the colonnade."
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-21-7__watercolor__1__a1.jpg",
+        "sha256": "ba286171bb326266e656c382d0abb607ad4b1c193b3a32932e201c9beab93b46",
+        "scene": "Simon Peter mid-leap, cloak clutched around his shoulders, body angled forward over the water; Jesus standing on the sand by a charcoal fire; the beloved disciple pointing from the boat; fishing nets and oars in the boat; ripples spreading from the splash"
+      }
+    },
+    {
+      "id": "pair113",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__classical__1__a1.jpg",
+        "sha256": "35f2d737d049cdadaed902f39d9fda1d9b722c1f6987478b7d6bef180191b250",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      },
+      "right": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-22-61__classical__1__a1.jpg",
+        "sha256": "3fe66d11207ab2f2f7626c29b7ea4533e242aa79a7a72640f62d719c979662f2",
+        "scene": "Peter, standing still near the brazier with his face turned toward Jesus, his expression stricken.; Jesus, bound and guarded by soldiers, visible at the edge of the courtyard; townsfolk and servants around the fire looking away; a Roman soldier in military dress nearby."
+      }
+    },
+    {
+      "id": "pair114",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/exodus-14-21__fresco__1__a1.jpg",
+        "sha256": "e4918431cb6592139b55aed5f048e7954cb8a8e84304a6d853548016a81709c7",
+        "scene": "Moses at the shore, arm stretched out over the sea, plain cloak and staff in hand; Israelite people gathered on the sand watching, a few Egyptian figures distant in linen, spray and dust lifted by the wind"
+      },
+      "right": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/leviticus-11-7__fresco__1__a1.jpg",
+        "sha256": "252ff6c83f2d3c8ad1006b6b1880b63296cdb972a110e7723b3f64c9d45e2066",
+        "scene": "Moses standing, one hand raised in instruction, beside Aaron in plain linen; Israelite families gathered near the tents, a cloth-covered table with food, a pig set apart at the edge, a pillar of cloud above the tabernacle"
+      }
+    },
+    {
+      "id": "pair115",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-17-12__fresco__1__a1.jpg",
+        "sha256": "d971d687222eeb2d1a750c15085fe194bedae035b0483afeeb779d80f5be2ee5",
+        "scene": "Moses seated on a stone on the hill, arms raised and supported; Aaron on Moses' right and Hur on his left, straining to hold his arms; distant Israelite warriors and Amalekite fighters faintly visible below"
+      },
+      "right": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/numbers-20-11__fresco__1__a1.jpg",
+        "sha256": "49191bc42eb84f01b9b0cd0831a8db1ca4950cbbfeaedeecb532f61f103e069d",
+        "scene": "Moses standing at the rock, arm raised with rod in hand; Aaron beside Moses in priestly linen; crowd of Israelites and livestock drinking at the flowing water"
+      }
+    },
+    {
+      "id": "pair116",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/leviticus-11-7__classical__1__a1.jpg",
+        "sha256": "7504332c63117d204b06c339c2ee85fe43533ad6e5a87285af06a82a1838154e",
+        "scene": "Moses and Aaron standing side by side, facing the camp, attentive and still.; Israelite men and women in woven tunics and cloaks gathered at a respectful distance; a single pig in the sand; Aaron in plain priestly linen and Moses in a simple cloak."
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__classical__1__a1.jpg",
+        "sha256": "907f8617474e24fda47c3a8871f088b7d6095ea4d6655d1df13581a276b3e33f",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      }
+    },
+    {
+      "id": "pair117",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "icon",
+      "left": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/leviticus-11-7__icon__1__a1.jpg",
+        "sha256": "f0d93960920a0c97cce78b77d5a7190d1a8b669f2678a9d4a0009803222e376a",
+        "scene": "Moses and Aaron standing side by side, facing the camp, attentive and still.; Israelite men and women in woven tunics and cloaks gathered at a respectful distance; a single pig in the sand; Aaron in plain priestly linen and Moses in a simple cloak."
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__icon__1__a1.jpg",
+        "sha256": "36c504a1a9b0bfc796de9481cd07bd6b82f9adfb2971fa09c906cf9d23fd0240",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      }
+    },
+    {
+      "id": "pair118",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/daniel-6-22__watercolor__1__a1.jpg",
+        "sha256": "f23006a2b1904fb76359477f5339e67b320d81d41b84683d219ce458f2e00fb4",
+        "scene": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides.; Lions crouched low in the sand; Darius in royal court robes with a signet ring at the rim; a faint radiance of light from above suggesting the angel's presence without a visible figure."
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-6-23__watercolor__1__a1.jpg",
+        "sha256": "1410c38282a1586c4d41f332a2cd6b3c5ec1c8c18dfe1c2751470994e97e46bf",
+        "scene": "Daniel, unharmed, being lifted up out of the den by attendants; Darius in royal court robes with signet ring at the rim; attendants in linen and period armor; lamp glow on the ropes and stone."
+      }
+    },
+    {
+      "id": "pair119",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "icon",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__icon__1__a1.jpg",
+        "sha256": "7dac016f63c20a4eb0666f06b213e7b62a1541896b116f6c1fd50dcc92dea69b",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      },
+      "right": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/john-11-43__icon__1__a2.jpg",
+        "sha256": "7b29aa042e62f3d1a5be6b594a65d88f62bad793d5381e3cdd2ba5848d0fcbe1",
+        "scene": "Jesus standing at the tomb mouth, arm raised toward the entrance, face lifted in a loud call; Crowd of Jewish mourners and onlookers in dusty tunics and cloaks at a distance, Martha near the front in quiet awe, linen wrappings clinging to Lazarus"
+      }
+    },
+    {
+      "id": "pair120",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "john-11-43",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/john-11-43__fresco__1__a1.jpg",
+        "sha256": "79a1fc9a709c8d9a146ef8444d05970569d8dc0832c1f251c9f559957172372c",
+        "scene": "Jesus standing at the tomb mouth, arm raised and face lifted in a loud call.; Martha and onlookers in the crowd stand near, some shielding their eyes, the grave-cloths trailing from Lazarus's hands and feet."
+      },
+      "right": {
+        "unitId": "matthew-27-35",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/matthew-27-35__fresco__1__a1.jpg",
+        "sha256": "dd8985d66e99e97f054e89bd0e4da8989171b670945ea984a38af7fffe455eb5",
+        "scene": "Roman soldiers in tunics and cloaks kneeling at the base of a cross; A crucified figure seen from below, partly veiled by distance; scattered cloth and sandals on stone."
+      }
+    },
+    {
+      "id": "pair121",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/matthew-14-29__fresco__1__a1.jpg",
+        "sha256": "a5f5d25d21d44e69bb629774e0712d19279555f4b3b1c8193896ffd548eca2d6",
+        "scene": "Peter, mid-step, one foot on the water's surface, arms partly out for balance; Jesus standing on the waves in the distance; disciples gathered at the boat's rail watching; spray and wind-torn water"
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__fresco__1__a1.jpg",
+        "sha256": "7bc7707d113ca8b9006cd3249d17f2af06fd6b25f1bcb4bdf6d406a696572f5a",
+        "scene": "A group of fishermen in damp tunics stepping from a small boat onto the stones of the shore, pausing to look toward the fire.; A low charcoal fire on the sand with fish and loaves on the coals; the drag net heaped in the boat; a wet coat drawn around Peter's shoulders."
+      }
+    },
+    {
+      "id": "pair122",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/matthew-14-29__fresco__1__a1.jpg",
+        "sha256": "a5f5d25d21d44e69bb629774e0712d19279555f4b3b1c8193896ffd548eca2d6",
+        "scene": "Peter, mid-step, one foot on the water's surface, arms partly out for balance; Jesus standing on the waves in the distance; disciples gathered at the boat's rail watching; spray and wind-torn water"
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/john-21-7__fresco__1__a1.jpg",
+        "sha256": "4023366c1c2059b17bdbb5b8e45551118014af5d1bf09d646625185a77667a56",
+        "scene": "Simon Peter mid-leap, coat clutched around his body, plunging from the boat's edge toward the water.; Other disciples crowd the stern of the boat, one pointing toward the shore; a net full of fish trails in the water; a charcoal fire glows faintly on the beach."
+      }
+    },
+    {
+      "id": "pair123",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/acts-3-7__fresco__1__a1.jpg",
+        "sha256": "7a5487771332f43546affe5d4c296eeabb308d86d38f59bccc094946f47c2fab",
+        "scene": "Peter, bending forward, gripping the right hand of the lame man and lifting him upright; Jewish worshippers in tunics and cloaks gathering in astonishment, priests in linen robes at the edges, a few Roman soldiers in military dress nearby."
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__fresco__1__a1.jpg",
+        "sha256": "7bc7707d113ca8b9006cd3249d17f2af06fd6b25f1bcb4bdf6d406a696572f5a",
+        "scene": "A group of fishermen in damp tunics stepping from a small boat onto the stones of the shore, pausing to look toward the fire.; A low charcoal fire on the sand with fish and loaves on the coals; the drag net heaped in the boat; a wet coat drawn around Peter's shoulders."
+      }
+    },
+    {
+      "id": "pair124",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/leviticus-11-7__fresco__1__a1.jpg",
+        "sha256": "252ff6c83f2d3c8ad1006b6b1880b63296cdb972a110e7723b3f64c9d45e2066",
+        "scene": "Moses standing, one hand raised in instruction, beside Aaron in plain linen; Israelite families gathered near the tents, a cloth-covered table with food, a pig set apart at the edge, a pillar of cloud above the tabernacle"
+      },
+      "right": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-17-12__fresco__1__a1.jpg",
+        "sha256": "d971d687222eeb2d1a750c15085fe194bedae035b0483afeeb779d80f5be2ee5",
+        "scene": "Moses seated on a stone on the hill, arms raised and supported; Aaron on Moses' right and Hur on his left, straining to hold his arms; distant Israelite warriors and Amalekite fighters faintly visible below"
+      }
+    },
+    {
+      "id": "pair125",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/numbers-20-11__watercolor__1__a1.jpg",
+        "sha256": "f4c5a84e65716d76e7ff663a100483b57515eebe29252859537bea43221d68f3",
+        "scene": "Moses standing before the rock, rod raised high in a striking pose; Aaron in priestly linen beside Moses, Israelites and livestock gathering at the water's edge, cupped hands and jars"
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__watercolor__1__a1.jpg",
+        "sha256": "cf49ed6bb84817a217b5abaad99defae5a6c5c1d47a9f0fe09e5fbc21def0c9a",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      }
+    },
+    {
+      "id": "pair126",
+      "groupId": "breakfast-on-the-shore",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "style": "fresco",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__fresco__1__a1.jpg",
+        "sha256": "7bc7707d113ca8b9006cd3249d17f2af06fd6b25f1bcb4bdf6d406a696572f5a",
+        "scene": "A group of fishermen in damp tunics stepping from a small boat onto the stones of the shore, pausing to look toward the fire.; A low charcoal fire on the sand with fish and loaves on the coals; the drag net heaped in the boat; a wet coat drawn around Peter's shoulders."
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/john-21-7__fresco__1__a1.jpg",
+        "sha256": "4023366c1c2059b17bdbb5b8e45551118014af5d1bf09d646625185a77667a56",
+        "scene": "Simon Peter mid-leap, coat clutched around his body, plunging from the boat's edge toward the water.; Other disciples crowd the stern of the boat, one pointing toward the shore; a net full of fish trails in the water; a charcoal fire glows faintly on the beach."
+      }
+    },
+    {
+      "id": "pair127",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "icon",
+      "left": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__icon__1__a2.jpg",
+        "sha256": "3ee598e42d1cb1770a2bf41d76218ae29ffed4f9be2527074500448c40d82fe9",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/mark-4-39__icon__1__a1.jpg",
+        "sha256": "7dac016f63c20a4eb0666f06b213e7b62a1541896b116f6c1fd50dcc92dea69b",
+        "scene": "Jesus standing upright in the stern, arm outstretched in a calm, commanding gesture; Disciples crouched in the boat holding its sides and rigging, faces turned toward Jesus in awe; spray and torn sail slackening; a lamp swaying in the hull"
+      }
+    },
+    {
+      "id": "pair128",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__classical__1__a1.jpg",
+        "sha256": "cd8997da9ae00715f1779215ca04ee48807baba5ad60d1547115d126deef9a5d",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      },
+      "right": {
+        "unitId": "leviticus-11-7",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/leviticus-11-7__classical__1__a1.jpg",
+        "sha256": "7504332c63117d204b06c339c2ee85fe43533ad6e5a87285af06a82a1838154e",
+        "scene": "Moses and Aaron standing side by side, facing the camp, attentive and still.; Israelite men and women in woven tunics and cloaks gathered at a respectful distance; a single pig in the sand; Aaron in plain priestly linen and Moses in a simple cloak."
+      }
+    },
+    {
+      "id": "pair129",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/daniel-6-22__fresco__1__a1.jpg",
+        "sha256": "ba31c0ceec56b54f625a77d1f66bf05b9f2919ab81e9d699426af0beadb4bf21",
+        "scene": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides.; Several lions with closed jaws near the walls; Darius in royal court robes with signet ring at the rim; a faint radiance or angelic light suggested in the upper air above the opening."
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-6-23__fresco__1__a1.jpg",
+        "sha256": "0c7997e65e724381aa9d688d53ceba097c7534049d3cf5026a1e802d643c09f4",
+        "scene": "Daniel, unharmed, being raised up from the pit by ropes and hands; Guards in period armor steady the rope; a few lions visible below in the shadowed pit, calm and not attacking"
+      }
+    },
+    {
+      "id": "pair130",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-17-12__watercolor__1__a1.jpg",
+        "sha256": "dcd61fc61e66cf3198b9ba33a3c720ec86a8955fd119c4ea1efb173fd95b4800",
+        "scene": "Moses seated on a rough stone, arms raised and supported by Aaron and Hur; Israelite warriors fighting on the plain below, a distant hint of Amalekite forces, dust rising from the battle"
+      },
+      "right": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/numbers-20-11__watercolor__1__a1.jpg",
+        "sha256": "f4c5a84e65716d76e7ff663a100483b57515eebe29252859537bea43221d68f3",
+        "scene": "Moses standing before the rock, rod raised high in a striking pose; Aaron in priestly linen beside Moses, Israelites and livestock gathering at the water's edge, cupped hands and jars"
+      }
+    },
+    {
+      "id": "pair131",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__watercolor__1__a1.jpg",
+        "sha256": "5dbaf4d70cf221215160b06ea4321bb2206cf78a91f53d635e51bae85273d2a6",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      },
+      "right": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/numbers-20-11__watercolor__1__a1.jpg",
+        "sha256": "f4c5a84e65716d76e7ff663a100483b57515eebe29252859537bea43221d68f3",
+        "scene": "Moses standing before the rock, rod raised high in a striking pose; Aaron in priestly linen beside Moses, Israelites and livestock gathering at the water's edge, cupped hands and jars"
+      }
+    },
+    {
+      "id": "pair132",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "matthew-27-35",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-27-35__watercolor__1__a1.jpg",
+        "sha256": "f64403605f1dc0e21e2d2da87671f84f1bce6ea6ee8c0ffde089bb114d7612d0",
+        "scene": "Roman soldiers in military tunics and cloaks crouched in a circle around the cloth; Folded clothing spread on the ground, a crucified figure seen high above in the background, a few distant Jewish onlookers at the road's edge"
+      },
+      "right": {
+        "unitId": "matthew-14-29",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/matthew-14-29__watercolor__1__a1.jpg",
+        "sha256": "3ee2cdaecd517e4ce0e47f490221e1a8ddd3b2b10bb931f45b5c73d3dae1e677",
+        "scene": "Simon Peter, mid-step on the water, arms slightly out for balance, body leaning forward toward Jesus; Jesus standing on the waves in the distance, lit by faint radiance; the disciples gathered at the boat's rail; the boat rocking in the swells with a small oil lamp glowing"
+      }
+    },
+    {
+      "id": "pair133",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/john-21-9__fresco__1__a1.jpg",
+        "sha256": "7bc7707d113ca8b9006cd3249d17f2af06fd6b25f1bcb4bdf6d406a696572f5a",
+        "scene": "A group of fishermen in damp tunics stepping from a small boat onto the stones of the shore, pausing to look toward the fire.; A low charcoal fire on the sand with fish and loaves on the coals; the drag net heaped in the boat; a wet coat drawn around Peter's shoulders."
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/john-21-7__fresco__1__a1.jpg",
+        "sha256": "4023366c1c2059b17bdbb5b8e45551118014af5d1bf09d646625185a77667a56",
+        "scene": "Simon Peter mid-leap, coat clutched around his body, plunging from the boat's edge toward the water.; Other disciples crowd the stern of the boat, one pointing toward the shore; a net full of fish trails in the water; a charcoal fire glows faintly on the beach."
+      }
+    },
+    {
+      "id": "pair134",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/acts-3-7__classical__1__a1.jpg",
+        "sha256": "e4bef1da043ecbf27fbd693673614acada89562ece686199e94284a8aed532e1",
+        "scene": "Peter, mid-stride, bending to grip the lame man's right hand and lift him upright.; John beside Peter; the seated beggar's alms bowl tipped on the steps; a watching crowd in the colonnade in Jewish and Gentile dress; Roman soldiers in plain tunics near the colonnade."
+      },
+      "right": {
+        "unitId": "luke-22-61",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/luke-22-61__classical__1__a1.jpg",
+        "sha256": "3fe66d11207ab2f2f7626c29b7ea4533e242aa79a7a72640f62d719c979662f2",
+        "scene": "Peter, standing still near the brazier with his face turned toward Jesus, his expression stricken.; Jesus, bound and guarded by soldiers, visible at the edge of the courtyard; townsfolk and servants around the fire looking away; a Roman soldier in military dress nearby."
+      }
+    },
+    {
+      "id": "pair135",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-22__classical__1__a1.jpg",
+        "sha256": "cd8997da9ae00715f1779215ca04ee48807baba5ad60d1547115d126deef9a5d",
+        "scene": "The Israelite people, families and herders in woven tunics and cloaks, walking across the dry sea-floor in a long column.; Moses in plain cloak with staff stands near the front edge of the path, arm lowered. Spray and sand blow across the open ground. Pillar of fire light lies over the water walls."
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__classical__1__a1.jpg",
+        "sha256": "907f8617474e24fda47c3a8871f088b7d6095ea4d6655d1df13581a276b3e33f",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      }
+    },
+    {
+      "id": "pair136",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-17-12__classical__1__a1.jpg",
+        "sha256": "f1b3a2d4452ae1a69337af2f669cade0ab65bd3764af3cd5b8e04f2d144beacb",
+        "scene": "Moses seated on a rough stone, arms raised and supported by Aaron and Hur; Israelite warriors fighting on the plain below, a distant hint of Amalekite forces, dust rising from the battle"
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__classical__1__a1.jpg",
+        "sha256": "907f8617474e24fda47c3a8871f088b7d6095ea4d6655d1df13581a276b3e33f",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      }
+    },
+    {
+      "id": "pair137",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "acts-3-7",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/acts-3-7__fresco__1__a1.jpg",
+        "sha256": "7a5487771332f43546affe5d4c296eeabb308d86d38f59bccc094946f47c2fab",
+        "scene": "Peter, bending forward, gripping the right hand of the lame man and lifting him upright; Jewish worshippers in tunics and cloaks gathering in astonishment, priests in linen robes at the edges, a few Roman soldiers in military dress nearby."
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/john-21-7__fresco__1__a1.jpg",
+        "sha256": "4023366c1c2059b17bdbb5b8e45551118014af5d1bf09d646625185a77667a56",
+        "scene": "Simon Peter mid-leap, coat clutched around his body, plunging from the boat's edge toward the water.; Other disciples crowd the stern of the boat, one pointing toward the shore; a net full of fish trails in the water; a charcoal fire glows faintly on the beach."
+      }
+    },
+    {
+      "id": "pair138",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "watercolor",
+      "left": {
+        "unitId": "1-samuel-17-40",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-17-40__watercolor__1__a1.jpg",
+        "sha256": "e1afc5634680205245f7dc920d1dcf3daee627c8a1656627382e995247010862",
+        "scene": "David, a young shepherd in a simple tunic and cloak, standing upright with his staff in one hand and sling in the other.; Distant Israelite and Philistine battle lines on the slopes, with dust rising from the valley floor; the shepherd's leather bag and sling in clear view."
+      },
+      "right": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-16-13__watercolor__1__a1.jpg",
+        "sha256": "38ef8929ea8a5218b177944fc24d9f7f0b2da1839ba553bb1c35751919b97b8d",
+        "scene": "Samuel in a plain prophet's mantle pouring oil from a horn onto the head of a ruddy young David; Jesse and his older sons standing in a loose ring at the edges, a shepherd's leather pouch and staff near David, a faint dove or wind-like shimmer of light above David"
+      }
+    },
+    {
+      "id": "pair139",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-5-17",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/daniel-5-17__fresco__1__a1.jpg",
+        "sha256": "953f5a0e321f08598a118fa39bdd5222da12e1c2397c38cb8c5741534f337a4a",
+        "scene": "Daniel standing firmly before the king, one hand lifted in address, wearing an indigo wool cloak with a blue fringed hem over an undyed linen tunic.; Belshazzar seated on a raised throne in embroidered court robes with gold collar; nobles and courtiers reclining at the feast in the background; faint cold glow of the writing on the wall."
+      },
+      "right": {
+        "unitId": "daniel-7-9",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/daniel-7-9__fresco__1__a2.jpg",
+        "sha256": "3475c59cb5d445d86fcf6aededdc8b706bb8dd0a8270737a49002561496d7adf",
+        "scene": "Daniel standing at the edge of the vision, gazing upward; the Ancient of Days shown only as blazing white radiance and wool-white light enthroned in the court; Burning wheels rising from the flames, white light spread through the cloud, Daniel in plain exile tunic and cloak"
+      }
+    },
+    {
+      "id": "pair140",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "watercolor",
+      "left": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/1-samuel-17-49__watercolor__1__a1.jpg",
+        "sha256": "2f720250e630687440befc63cc2df8cb8c103550f10c70025d700d0632ddbb95",
+        "scene": "Young David, slight and tunic-clad, arm still extended after the slinging motion, sling taut in his hand.; Goliath's bronze helmet and scale armor and spear trailing from his hand; Philistine ranks watching in shock on one side, Israelite lines on the other; a leather bag at David's hip."
+      },
+      "right": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-18-11__watercolor__1__a1.jpg",
+        "sha256": "628444c4c17ace389bdc2f4087ec770e6b25923c6b3e3f759e1a5b56e326ba27",
+        "scene": "Saul, mid-throw, arm flung forward with the spear in hand; Clay lamps on the walls, a lyre or harp resting near the floor, dust hanging in the air"
+      }
+    },
+    {
+      "id": "pair141",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/mark-4-38__fresco__1__a1.jpg",
+        "sha256": "d8d5388675cacad4d15aa27143a3e5516ff215cb8fad4d41c135c9d3816fc37f",
+        "scene": "Jesus, roused from sleep on a cushion in the stern, half-rising and turning toward the disciples.; Several disciples in soaked tunics bailing with baskets, ropes and a torn sail, the dark shore faintly visible through spray."
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/mark-4-39__fresco__1__a1.jpg",
+        "sha256": "e7b1b8f4b5176681924c960faef86313f593eab5669118dc30f33ecdfcd885f6",
+        "scene": "Jesus standing upright in the bow, arm outstretched toward the sea, calm and commanding; Disciples in tunics and cloaks crouched or clinging to the boat's sides and mast, spray-soaked; ropes and a furled sail; oil lamp in the boat."
+      }
+    },
+    {
+      "id": "pair142",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "classical",
+      "left": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-18-11__classical__1__a1.jpg",
+        "sha256": "7f2b2f7a216c4544cf6f75ad9e71a4ae2153cd81a2948581240355ab6a24e190",
+        "scene": "Saul, mid-throw, arm flung forward with the spear in hand; Clay lamps on the walls, a lyre or harp resting near the floor, dust hanging in the air"
+      },
+      "right": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-16-13__classical__1__a1.jpg",
+        "sha256": "4298e552cbae9f67e01835908a6d975823bdee0d6cc84b7c2a9ecbc3c0a7274b",
+        "scene": "Samuel in a plain prophet's mantle pouring oil from a horn onto the head of a ruddy young David; Jesse and his older sons standing in a loose ring at the edges, a shepherd's leather pouch and staff near David, a faint dove or wind-like shimmer of light above David"
+      }
+    },
+    {
+      "id": "pair143",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/exodus-14-22__fresco__1__a1.jpg",
+        "sha256": "6e393ab707bb593e6ef42f9fb6f9c53b46d717ab80c220e71039087b66e81656",
+        "scene": "A long line of Israelite travellers with Moses leading, walking forward across the dry sea floor; Dust and spray lifted by the east wind, the walls of water glistening on the right and left, a faint pillar of cloud and fire glowing above the sea"
+      },
+      "right": {
+        "unitId": "numbers-20-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/numbers-20-11__fresco__1__a1.jpg",
+        "sha256": "49191bc42eb84f01b9b0cd0831a8db1ca4950cbbfeaedeecb532f61f103e069d",
+        "scene": "Moses standing at the rock, arm raised with rod in hand; Aaron beside Moses in priestly linen; crowd of Israelites and livestock drinking at the flowing water"
+      }
+    },
+    {
+      "id": "pair144",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/exodus-14-21__watercolor__1__a1.jpg",
+        "sha256": "cf49ed6bb84817a217b5abaad99defae5a6c5c1d47a9f0fe09e5fbc21def0c9a",
+        "scene": "Moses in a plain cloak, staff in his other hand, arm stretched out over the sea; Israelites in woven tunics and cloaks gathering at the shore; the east wind driving sand and spray across the open ground; radiance and cloud glowing in the night air above the parted waters"
+      },
+      "right": {
+        "unitId": "exodus-17-12",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/exodus-17-12__watercolor__1__a1.jpg",
+        "sha256": "dcd61fc61e66cf3198b9ba33a3c720ec86a8955fd119c4ea1efb173fd95b4800",
+        "scene": "Moses seated on a rough stone, arms raised and supported by Aaron and Hur; Israelite warriors fighting on the plain below, a distant hint of Amalekite forces, dust rising from the battle"
+      }
+    },
+    {
+      "id": "pair145",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "fresco",
+      "left": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-10-28-fresco-matrix/images/1-samuel-17-49__fresco__1__a1.jpg",
+        "sha256": "c1c71803ad491d9c8bce6b74d5ab18c56cd85195d10bfac8285cebf8b0dc109a",
+        "scene": "Goliath pitching forward, his bronze-helmeted head struck, body collapsing face-down onto the valley floor.; David in a shepherd's tunic and cloak with leather bag and sling; Philistine soldiers in bronze armor frozen in shock on one slope, Israelite soldiers on the opposite slope; a small cloud of dust rising where Goliath hits the ground."
+      },
+      "right": {
+        "unitId": "1-samuel-18-11",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-18-11__fresco__1__a1.jpg",
+        "sha256": "681eb482d32431b2ef7892775747c0c7b237cc1c0e3b6bf85bf5eeab41bbf9dd",
+        "scene": "Saul, mid-throw, arm drawn back with a bronze spear in his grip, face twisted in rage; A wooden lamp stand, a harp lying near David's feet, faint drifting smoke spread through the room as the evil spirit's effect"
+      }
+    },
+    {
+      "id": "pair146",
+      "groupId": "david",
+      "kind": "character",
+      "subject": "David",
+      "style": "watercolor",
+      "left": {
+        "unitId": "1-samuel-16-13",
+        "file": "evals/images/runs/2026-10-29-consistency-verses/images/1-samuel-16-13__watercolor__1__a1.jpg",
+        "sha256": "38ef8929ea8a5218b177944fc24d9f7f0b2da1839ba553bb1c35751919b97b8d",
+        "scene": "Samuel in a plain prophet's mantle pouring oil from a horn onto the head of a ruddy young David; Jesse and his older sons standing in a loose ring at the edges, a shepherd's leather pouch and staff near David, a faint dove or wind-like shimmer of light above David"
+      },
+      "right": {
+        "unitId": "1-samuel-17-49",
+        "file": "evals/images/runs/2026-10-28-launch-matrix-v3/images/1-samuel-17-49__watercolor__1__a1.jpg",
+        "sha256": "2f720250e630687440befc63cc2df8cb8c103550f10c70025d700d0632ddbb95",
+        "scene": "Young David, slight and tunic-clad, arm still extended after the slinging motion, sling taut in his hand.; Goliath's bronze helmet and scale armor and spear trailing from his hand; Philistine ranks watching in shock on one side, Israelite lines on the other; a leather bag at David's hip."
+      }
+    }
+  ]
+}
