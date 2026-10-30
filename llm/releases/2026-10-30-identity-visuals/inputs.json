@@ -1,0 +1,17 @@
+{
+  "sourceReadingSha256": "a5d9375a0c2ebbc91a743fff85e015d4a9e212a1c43c635b24e6db6b877b0d49",
+  "verifiedMerge": "llm/releases/2026-10-30-identity-alice-merge/merge.json",
+  "bibleReferenceDirectory": "evals/images/runs/2026-10-30-review-only-text/references",
+  "files": {
+    "llm/releases/2026-10-30-identity-visuals/reading.json": "6a6d8ef6eec2e3c466071af34f406186ed5cc87874e7d163b428163179f8ec13",
+    "llm/releases/2026-10-30-identity-visuals/bible-snapshot.json": "d8a0f23399cb29a9daf0ca1b7ad47124a9c953f24d4e46d9b4df3181e254b0a9",
+    "evals/images/analyses/alice-in-wonderland.json": "1db093431ee89415fa8a0b8958237e22432cf15a96aff9ddc2d94c9bdcf8ee03",
+    "works/alice-in-wonderland/work.json": "8dbcd44e0ab0c37ef65bcd2eb507bed73c4f395a94c0ac30e3f4ace25d64b95c",
+    "works/alice-in-wonderland/brief.json": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d",
+    "works/alice-in-wonderland/depiction.json": "fc97ce62ad640ca66a1c8ae5394112a76583e387687b5ccc30d02de19b7dacb0",
+    "works/bible-web/brief.json": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+    "works/bible-web/depiction.json": "67a641feb9b13e8b80516b4ec5ba9c32b0bd7e86108188ec1056dd1121bd4915",
+    "llm/releases/2026-10-30-identity-visuals/plan.json": "e9d20be6f81cd32e007d2d824a73cf35695c0b19278f441f1bff4f62514fe26c",
+    "llm/releases/2026-10-30-identity-visuals/scenes.json": "32fd2d7adb4e2bb0d16926c12842dfd0b362f9792bb78dbccc787e6433eab372"
+  }
+}
