@@ -6,6 +6,7 @@
  *   npm run works:correct -- <work-id> add-cast --file <correction.json>
  *   npm run works:correct -- <work-id> edit-stage <entryId> <stageId> --text "..." [--expect <version>]
  *   npm run works:correct -- <work-id> remove-cast <sectionId> <entryId> [--expect <version>]   (wrongly assigned cast member)
+ *   npm run works:correct -- <work-id> set-depiction <entryId> form|effects [--expect <version>]   (how the entry may be drawn; ADR 0009)
  *   npm run works:correct -- <work-id> edit-look <sectionId> [--place ..] [--time ..] [--weather ..] [--light ..] [--clothing ..] [--expect <version>]
  *   npm run works:correct -- <work-id> pin|unpin sheet|style <recordId>
  *   npm run works:correct -- <work-id> redo-sheet <entryId:stageId>            (owner-funded; refuses a pinned sheet)
@@ -83,6 +84,7 @@ switch (command) {
     break;
   }
   case "remove-cast": print(await corrections.removeCast(rest[0], rest[1], values.expect)); break;
+  case "set-depiction": print(await corrections.setDepiction(rest[0], rest[1], (await readWorkInputs(workId, root)).depiction, values.expect)); break;
   case "edit-look": print(await corrections.editLook(rest[0], { place: values.place, timeOfDay: values.time, weather: values.weather, light: values.light, clothing: values.clothing }, values.expect)); break;
   case "pin": case "unpin": {
     const kind = rest[0] === "style" ? "styleReference" : "sheet";

@@ -10,6 +10,7 @@ import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { createCorrections } from "../engine/corrections";
+import { testDepiction } from "../../../tests/fixtures/depiction";
 
 const SECRET = "s".repeat(40);
 process.env.CONVEX_SERVER_SECRET = SECRET;
@@ -94,6 +95,26 @@ describe("owner corrections", () => {
     await expect(c.editStage("jonah", "young", "Jonah: another edit.", before!.version)).rejects.toThrow(/Stale edit/);
     expect((await c.editStage("jonah", "young", "Jonah: young, owner-edited.", before!.version)).changed).toBe(false);
     await expect(c.editStage("jonah", "nope", "x")).rejects.toThrow(/no stage nope/);
+  });
+
+  it("sets an entry's depiction as an owner version, refusing a mode the work has no wording for, an unknown mode or another work's profile", async () => {
+    const plan = { kind: "plan" as const, momentId: "s1", entries: [{ entryId: "jonah", stageId: "young" }],
+      plan: { primarySubject: "Jonah", action: "rows", setting: "lake", secondaryElements: "", mood: "calm", timeOfDay: "dawn", composition: "wide" } };
+    const before = (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!;
+    await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "s1", payload: plan, inputs: [{ kind: "entry", recordId: "jonah", version: before.version }] });
+    const withEffects = testDepiction(WORK);
+    const withoutEffects = testDepiction(WORK, { withoutEffects: true });
+    await expect(c.setDepiction("jonah", "effects", withoutEffects)).rejects.toThrow(/two-books has no wording for subjects without form/);
+    await expect(c.setDepiction("jonah", "symbol", withEffects)).rejects.toThrow(/one of form, effects/);
+    await expect(c.setDepiction("jonah", "effects", testDepiction("bible-web"))).rejects.toThrow(/bible-web was given for two-books/);
+    const result = await c.setDepiction("jonah", "effects", withEffects);
+    expect(result).toMatchObject({ changed: true, previous: "form", depiction: "effects", staleDependents: [{ kind: "plan", recordId: "s1" }] });
+    const after = (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!;
+    expect(after).toMatchObject({ source: "owner", payload: { ...before.payload, hasForm: false } });
+    await expect(c.setDepiction("jonah", "form", withEffects, before.version)).rejects.toThrow(/Stale edit/);
+    // Back to drawn: a work without such subjects can always draw an entry from its canon.
+    expect(await c.setDepiction("jonah", "form", withoutEffects)).toMatchObject({ previous: "effects", depiction: "form" });
+    expect((await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!.payload).toMatchObject({ hasForm: true });
   });
 
   it("removes a wrongly assigned cast member as an owner section version, refusing an unassigned entry or a stale edit", async () => {
