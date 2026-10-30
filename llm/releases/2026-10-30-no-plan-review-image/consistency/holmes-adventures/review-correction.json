@@ -1,0 +1,59 @@
+{
+  "reviewer": "gpt-6-astra parent operator",
+  "reviewedAfterUnblinding": true,
+  "reviewedAtOriginalResolution": true,
+  "reason": "PR #347 identified decisive identity scores where the scene description does not single out Watson. All eight matching pairs were visually inspected; these are scoring-instruction corrections, not new blind judgments.",
+  "reviewComment": "https://github.com/AustinKelsay/visibible/pull/347#discussion_r4427972418",
+  "originalReportCommit": "44a736edfbb0bdd1bfc1d94b4a1c4589b169426f",
+  "originalReportSha256": "0dc84980f3512fe79221ac28f188b2be27a6152a0701fd725273a19ad13b67f7",
+  "scores": [
+    {
+      "id": "pair004",
+      "originalVerdict": "same",
+      "verdict": "unclear",
+      "notes": "The left hat-examination description identifies Holmes but no Watson figure. The additional man leaning over the table is visible, but the supplied description does not establish him as Watson. Apply the existing description-identification rule rather than infer his identity from resemblance."
+    },
+    {
+      "id": "pair013",
+      "originalVerdict": "same",
+      "verdict": "unclear",
+      "notes": "The left hat-examination description identifies Holmes but no Watson figure. The additional man leaning over the table is visible, but the supplied description does not establish him as Watson. Apply the existing description-identification rule rather than infer his identity from resemblance."
+    },
+    {
+      "id": "pair024",
+      "originalVerdict": "different",
+      "verdict": "unclear",
+      "notes": "The right hat-examination description identifies Holmes but no Watson figure. The additional man leaning over the table is visible, but the supplied description does not establish him as Watson. Apply the existing description-identification rule rather than infer his identity from resemblance."
+    },
+    {
+      "id": "pair028",
+      "originalVerdict": "same",
+      "verdict": "unclear",
+      "notes": "The left hat-examination description identifies Holmes but no Watson figure. The additional man leaning over the table is visible, but the supplied description does not establish him as Watson. Apply the existing description-identification rule rather than infer his identity from resemblance."
+    },
+    {
+      "id": "pair037",
+      "originalVerdict": "same",
+      "verdict": "unclear",
+      "notes": "The right hat-examination description identifies Holmes but no Watson figure. The additional man leaning over the table is visible, but the supplied description does not establish him as Watson. Apply the existing description-identification rule rather than infer his identity from resemblance."
+    },
+    {
+      "id": "pair049",
+      "originalVerdict": "same",
+      "verdict": "unclear",
+      "notes": "The right hat-examination description identifies Holmes but no Watson figure. The additional man leaning over the table is visible, but the supplied description does not establish him as Watson. Apply the existing description-identification rule rather than infer his identity from resemblance."
+    },
+    {
+      "id": "pair050",
+      "originalVerdict": "same",
+      "verdict": "unclear",
+      "notes": "The right hat-examination description identifies Holmes but no Watson figure. The additional man leaning over the table is visible, but the supplied description does not establish him as Watson. Apply the existing description-identification rule rather than infer his identity from resemblance."
+    },
+    {
+      "id": "pair053",
+      "originalVerdict": "different",
+      "verdict": "unclear",
+      "notes": "The left hat-examination description identifies Holmes but no Watson figure. The additional man leaning over the table is visible, but the supplied description does not establish him as Watson. Apply the existing description-identification rule rather than infer his identity from resemblance."
+    }
+  ]
+}

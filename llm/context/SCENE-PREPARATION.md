@@ -31,7 +31,7 @@ This is advisory model judgment, not a source-fact database or a guarantee of co
 
 ## Depiction modes
 
-A work's profile defines how its cast may be shown. Effects-mode entries provide no canon prose to the guide or planner and no canon prose or sheet to rendering; selection activates the work's effects instructions. The reviewer still sees their canon. Symbol-mode entries use their declared canon form. A work without wording for a mode cannot prepare an entry in that mode. These contracts are work data, not Bible branches in the engine; see [ADR 0010](../../docs/adr/0010-work-depiction-profiles.md).
+A work's profile defines how its cast may be shown. Effects-mode entries provide no canon prose to the guide or planner and no canon prose or sheet to rendering; a section cast containing an effects-mode entry activates the guide/planner wording, while selected effects-mode entries activate the rendering block. The reviewer still sees their canon. Symbol-mode entries use their declared canon form. A work without wording for a mode cannot prepare an entry in that mode. These contracts are work data, not Bible branches in the engine; see [ADR 0010](../../docs/adr/0010-work-depiction-profiles.md).
 
 ## Persistence and requests
 

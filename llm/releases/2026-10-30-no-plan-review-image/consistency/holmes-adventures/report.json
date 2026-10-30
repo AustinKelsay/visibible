@@ -180,7 +180,7 @@
     "pair001": "same",
     "pair002": "same",
     "pair003": "same",
-    "pair004": "same",
+    "pair004": "unclear",
     "pair005": "unclear",
     "pair006": "different",
     "pair007": "different",
@@ -189,7 +189,7 @@
     "pair010": "different",
     "pair011": "different",
     "pair012": "same",
-    "pair013": "same",
+    "pair013": "unclear",
     "pair014": "same",
     "pair015": "same",
     "pair016": "same",
@@ -200,11 +200,11 @@
     "pair021": "same",
     "pair022": "different",
     "pair023": "same",
-    "pair024": "different",
+    "pair024": "unclear",
     "pair025": "different",
     "pair026": "different",
     "pair027": "same",
-    "pair028": "same",
+    "pair028": "unclear",
     "pair029": "same",
     "pair030": "same",
     "pair031": "same",
@@ -213,7 +213,7 @@
     "pair034": "same",
     "pair035": "same",
     "pair036": "same",
-    "pair037": "same",
+    "pair037": "unclear",
     "pair038": "same",
     "pair039": "same",
     "pair040": "same",
@@ -225,11 +225,11 @@
     "pair046": "same",
     "pair047": "same",
     "pair048": "same",
-    "pair049": "same",
-    "pair050": "same",
+    "pair049": "unclear",
+    "pair050": "unclear",
     "pair051": "same",
     "pair052": "same",
-    "pair053": "different",
+    "pair053": "unclear",
     "pair054": "different",
     "pair055": "same",
     "pair056": "same",
@@ -240,47 +240,47 @@
     "character": {
       "overall": {
         "pairs": 50,
-        "same": 38,
-        "different": 12,
-        "unclear": 0,
+        "same": 32,
+        "different": 10,
+        "unclear": 8,
         "disputed": 0,
-        "rate": 0.76
+        "rate": 0.7619047619047619
       },
       "byStyle": {
         "classical": {
           "pairs": 25,
-          "same": 25,
+          "same": 21,
           "different": 0,
-          "unclear": 0,
+          "unclear": 4,
           "disputed": 0,
           "rate": 1
         },
         "watercolor": {
           "pairs": 25,
-          "same": 13,
-          "different": 12,
-          "unclear": 0,
+          "same": 11,
+          "different": 10,
+          "unclear": 4,
           "disputed": 0,
-          "rate": 0.52
+          "rate": 0.5238095238095238
         }
       },
       "byGroup": {
         "dr-watson": {
           "classical": {
             "pairs": 10,
-            "same": 10,
+            "same": 6,
             "different": 0,
-            "unclear": 0,
+            "unclear": 4,
             "disputed": 0,
             "rate": 1
           },
           "watercolor": {
             "pairs": 10,
-            "same": 3,
-            "different": 7,
-            "unclear": 0,
+            "same": 1,
+            "different": 5,
+            "unclear": 4,
             "disputed": 0,
-            "rate": 0.3
+            "rate": 0.16666666666666666
           }
         },
         "sherlock-holmes": {
@@ -382,11 +382,11 @@
         "kind": "character",
         "tally": {
           "pairs": 50,
-          "same": 38,
-          "different": 12,
-          "unclear": 0,
+          "same": 32,
+          "different": 10,
+          "unclear": 8,
           "disputed": 0,
-          "rate": 0.76
+          "rate": 0.7619047619047619
         },
         "baselineRate": 0.9,
         "pass": false,
@@ -413,5 +413,21 @@
         ]
       }
     ]
+  },
+  "reviewCorrection": {
+    "file": "review-correction.json",
+    "sha256": "3c2f3978e44c95cf97005910920b78b842d2a168be7c498d1b08f91f5c3f5241",
+    "reviewedAfterUnblinding": true,
+    "overriddenPairs": [
+      "pair004",
+      "pair013",
+      "pair024",
+      "pair028",
+      "pair037",
+      "pair049",
+      "pair050",
+      "pair053"
+    ],
+    "originalUnanimousCount": 58
   }
 }
