@@ -91,7 +91,8 @@ for (const phase of wanted) {
     assert.ok(cap > 0);
     for (const line of readFileSync(path.join(out, "images-results.ndjson"), "utf8").trim().split("\n")) completed.add(JSON.parse(line).caseId);
     assert.equal(completed.size, 27, "Continue only the 18 unstarted model/control cases; never reroll a failed sample");
-    const original = read<{ sources: Record<string, string> }>(path.join(out, "images-started.json"));
+    const original = read<{ sources: Record<string, string>; inputs: Record<string, string> }>(path.join(out, "images-started.json"));
+    for (const [file, expected] of Object.entries(original.inputs)) assert.equal(hash(readFileSync(path.join(root, file))), expected, file);
     for (const [file, expected] of Object.entries(original.sources)) if (file !== "scripts/evals/identity-visuals.mts") assert.equal(hash(readFileSync(path.join(root, file))), expected, file);
     for (const file of ["images-ledger.json", "images-results.ndjson", "images-provider.ndjson"]) continuation[file] = hash(readFileSync(path.join(out, file)));
   }
