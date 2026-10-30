@@ -104,11 +104,16 @@ export function briefBlock(brief: WorkBrief, eraId: string, styleId: string): st
   ].join("\n");
 }
 
-/** The words a plan may call an entry by: its name, the name up to a comma, bracket or slash, its canon label, and their capitalised words. */
+/**
+ * The words a plan may call an entry by: its name, the name up to a comma, bracket or slash, its canon label, and the
+ * capitalised words those begin with ("Simon Peter" gives "Peter"). Words after a lowercase one qualify the name rather
+ * than name the entry, so "The men with Saul" never answers to "Saul".
+ */
 function entryNames(entry: SelectedCanon) {
   const head = entry.name.split(/[,(/]/)[0].trim();
   const label = entry.text.match(/^([^:\n]{1,80}):/)?.[1]?.trim() ?? "";
-  const words = [head, label].flatMap((name) => name.split(/\s+/)).filter((word) => /^\p{Lu}/u.test(word) && word.length >= 4);
+  const leading = (name: string) => { const words = name.split(/\s+/); const end = words.findIndex((word) => !/^\p{Lu}/u.test(word)); return end < 0 ? words : words.slice(0, end); };
+  const words = [head, label].flatMap(leading).filter((word) => word.length >= 4);
   return [...new Set([entry.name, head, label, ...words].filter((name) => name.length > 2))];
 }
 const names = (text: string, entry: SelectedCanon) =>

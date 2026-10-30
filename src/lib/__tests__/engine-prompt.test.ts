@@ -236,6 +236,18 @@ describe("rendering packet", () => {
     // No place sheet either: the third slot goes to the next character rather than staying empty.
     const charactersOnly = selectReferences(formedCanon, noHolmes.filter((r) => r.kind !== "sheet" || r.entryId !== "221b_baker_street"), "classical", null);
     expect(charactersOnly.map((r) => r.kind === "sheet" ? r.entryId : r.styleId)).toEqual(["classical", "dr_watson"]);
+    // A relational name answers only to its own leading words: "The men with Saul" never takes Saul's place.
+    const companions: SelectedCanon = { entryId: "the_men_with_saul", stageId: "main", kind: "character", name: "The men with Saul", text: "The men with Saul: travel-worn guards.", hasForm: true, version: "m1" };
+    const saul: SelectedCanon = { entryId: "saul_of_tarsus", stageId: "main", kind: "character", name: "Saul of Tarsus (Paul)", text: "Saul of Tarsus: a lean young Pharisee.", hasForm: true, version: "s1" };
+    const damascus: SelectedCanon = { entryId: "damascus", stageId: "main", kind: "location", name: "Damascus", text: "Damascus: a walled oasis city.", hasForm: true, version: "d1" };
+    const road = { primarySubject: "Saul, a traveling man, thrown to the ground", action: "light flashes around him" };
+    expect(rankSheetCandidates([companions, saul, damascus], road).map((c) => c.entryId)).toEqual(["saul_of_tarsus", "damascus", "the_men_with_saul"]);
+    const roadSheets: AvailableReference[] = [{ kind: "styleReference", styleId: "classical", storageId: "st", version: "r" },
+      ...[companions, saul, damascus].map((c) => ({ kind: "sheet" as const, entryId: c.entryId, stageId: "main", storageId: `sh-${c.entryId}`, version: "v" }))];
+    expect(selectReferences([companions, saul, damascus], roadSheets, "classical", road).map((r) => r.kind === "sheet" ? r.entryId : r.styleId)).toEqual(["classical", "saul_of_tarsus", "damascus"]);
+    // Both parts of a plain two-word name still answer: "Peter" finds "Simon Peter".
+    const peter: SelectedCanon = { entryId: "simon_peter", stageId: "main", kind: "character", name: "Simon Peter", text: "Simon Peter: a broad fisherman.", hasForm: true, version: "p1" };
+    expect(rankSheetCandidates([companions, peter], { primarySubject: "Peter leaps into the water", action: "" }).map((c) => c.entryId)).toEqual(["simon_peter", "the_men_with_saul"]);
     // A no-form entry never competes for a slot, and objects come after every character and place.
     const ark: SelectedCanon = { entryId: "the_ark", stageId: "main", kind: "object", name: "The ark", text: "The ark: a gilded chest.", hasForm: true, version: "a1" };
     expect(rankSheetCandidates([ark, ...canon], { primarySubject: "the ark", action: "" }).map((c) => c.entryId)).toEqual(["sherlock_holmes", "221b_baker_street", "dr_watson", "the_ark"]);
