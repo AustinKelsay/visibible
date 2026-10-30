@@ -10,10 +10,11 @@ npm run works:check
 npm run works:import
 ```
 
-Both commands run locally with no network or model calls. They verify the decompressed source bytes against [the manifest](../../works/sources/manifest.json), verify the four footnote snapshots/readings, parse and validate both works, and print unit counts and output hashes. `works:check` writes nothing. `works:import` produces:
+Both commands run locally with no network or model calls. They verify the decompressed source bytes against [the manifest](../../works/sources/manifest.json), verify the four footnote snapshots/readings, parse and validate all three works, and print unit counts and output hashes. `works:check` writes nothing. `works:import` produces:
 
 - `works/bible-web/work.json`
 - `works/holmes-adventures/work.json`
+- `works/alice-in-wonderland/work.json`
 
 These generated files are ignored; the compressed source snapshots, checksums and importers are committed. `npm run build` regenerates them offline before Next.js traces the server files, so a clean deployment includes the same versioned reference text as preparation. Run `works:import` before local preparation commands too. The files are not put in `public/` or loaded into the reader's client bundle. See [source provenance and refresh instructions](../../works/sources/README.md).
 
@@ -30,6 +31,9 @@ Reference templates are keyed by the leaf division's level. Named placeholders u
 - Bible `Chapter`: `{Book} {Chapter}:{Verse}`
 - Holmes `Story`: `{Story} ¶{Paragraph}`
 - Holmes `Part`: `{Story}, Part {Part} ¶{Paragraph}`
+- Alice `Chapter`: `{Chapter} ¶{Paragraph}`, such as `A Mad Tea-Party ¶1` (unit `a-mad-tea-party-1`)
+
+Alice (*Alice's Adventures in Wonderland*) is the regression suite's third work ([ADR 0011](../../docs/adr/0011-frozen-multi-work-regression-suite.md)): imported like Holmes, prepared only for evaluation and never served by the reader. Its twelve chapters become numbered paragraphs; only star separators and the closing "THE END" are dropped.
 
 `createWorkReader(unknown)` validates and indexes a file. `getUnit(id)` and `getUnitByReference(reference)` return the original text and exact formatted reference; unknown identities fail. Reference lookup is exact, not the reader's free-form alias resolver. Text is never truncated to an image-prompt budget.
 

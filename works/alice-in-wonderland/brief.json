@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "workId": "alice-in-wonderland",
+  "tone": "Whimsical and dreamlike, with a gently unsettling bewilderment that turns to sharp absurdity at court.",
+  "depictionRules": [
+    {
+      "text": "Alice's changing size reads clearly against doors, furniture, trees and other figures."
+    },
+    {
+      "text": "Talking animals are drawn as animals, with human posture and dress where the text gives it."
+    },
+    {
+      "text": "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs."
+    },
+    {
+      "text": "Threats and executions stay threats or slapstick; no gore or real injury."
+    },
+    {
+      "text": "Take no likeness, costume or prop from film or animated adaptations."
+    }
+  ],
+  "eras": [
+    {
+      "id": "victorian-england-dreamlike-underground-wonderland",
+      "label": "Victorian England and its dream Wonderland",
+      "people": "Alice, a young Victorian English girl, among talking animals, card courtiers and odd Wonderland folk.",
+      "dress": "A Victorian child's dress and pinafore for Alice; period robes, waistcoats and hats for others.",
+      "buildingsAndObjects": "Riverbank, rabbit-hole, long hall, little door, cottages, mushroom wood, croquet-ground and courtroom.",
+      "technology": "Pocket watches, oil lamps, slates and pencils; no machines or modern devices."
+    }
+  ],
+  "styleIds": [
+    "watercolor",
+    "classical",
+    "fresco"
+  ]
+}

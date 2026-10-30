@@ -8,9 +8,9 @@ import { caseUnitId, caseWork, loadEvalCases } from "@/lib/image-evals/cases";
 import evalCases from "../../evals/images/cases.json";
 import manifest from "../../works/sources/manifest.json";
 import footnotes from "../../works/sources/web-footnotes.json";
-import { importHolmes, importWeb, sha256 } from "./importers";
+import { importAlice, importHolmes, importWeb, sha256 } from "./importers";
 
-function source(name: "web" | "holmes") {
+function source(name: "web" | "holmes" | "alice") {
   const entry = manifest[name];
   const bytes = gunzipSync(readFileSync(new URL(`../../works/sources/${entry.file}`, import.meta.url)));
   expect(bytes.length).toBe(entry.bytes);
@@ -21,10 +21,12 @@ function source(name: "web" | "holmes") {
 const webSource = source("web");
 const holmesSource = source("holmes");
 const holmes = createWorkReader(importHolmes(holmesSource));
+const aliceSource = source("alice");
+const alice = createWorkReader(importAlice(aliceSource));
 
 describe("committed evaluation inputs", () => {
   it("resolves every fixed case against its imported work and canonical reference", () => {
-    const works = { "bible-web": createWorkReader(importWeb(webSource)), "holmes-adventures": holmes };
+    const works = { "bible-web": createWorkReader(importWeb(webSource)), "holmes-adventures": holmes, "alice-in-wonderland": alice };
     for (const c of loadEvalCases(evalCases)) {
       const work = works[caseWork(c) as keyof typeof works];
       expect(work, c.id).toBeDefined();
@@ -148,5 +150,30 @@ describe("Holmes import", () => {
     ["out-of-order part", (input: string) => input.replace(/\nII\.\r?\n/, "\nIV.\n")],
   ])("rejects %s", (_, change) => {
     expect(() => importHolmes(change(holmesSource))).toThrow();
+  });
+});
+
+describe("Alice import", () => {
+  it("imports twelve chapters of numbered paragraphs with chapter-titled references", () => {
+    expect(alice.work.divisions.map((d) => d.label)).toHaveLength(12);
+    expect(alice.units).toHaveLength(789);
+    expect(alice.units[0].id).toBe("down-the-rabbit-hole-1");
+    expect(alice.units[0].text).toMatch(/^Alice was beginning to get very tired of sitting by her sister on the bank/);
+    expect(alice.getUnit("a-mad-tea-party-1").reference).toBe("A Mad Tea-Party ¶1");
+    expect(alice.getUnit("the-queens-croquet-ground-41").reference).toBe("The Queen’s Croquet-Ground ¶41");
+    expect(alice.work.momentMode).toBe("reading-pass");
+    for (const unit of alice.units) {
+      expect(unit.text).not.toMatch(/^(\* )+\*$/);
+      expect(unit.text).not.toContain("PROJECT GUTENBERG");
+      expect(alice.getUnitByReference(unit.reference)).toBe(unit);
+    }
+    expect(alice.units.at(-1)!.text).not.toBe("THE END");
+  });
+
+  it("retains the source and license bytes and rejects a changed chapter list", () => {
+    expect(/FULL PROJECT GUTENBERG.* LICENSE/.test(aliceSource)).toBe(true);
+    expect(alice.work.referenceText.sha256).toBe(manifest.alice.sha256);
+    expect(() => importAlice(aliceSource.replace("CHAPTER VII.\r\nA Mad Tea-Party", "CHAPTER VII.\r\nAn Ordinary Tea"))).toThrow(/Unexpected Alice chapter heading/);
+    expect(() => importAlice(aliceSource.replace("*** END OF THE PROJECT", "*** MISSING END OF THE PROJECT"))).toThrow(/boundaries/);
   });
 });
