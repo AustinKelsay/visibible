@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "instructions": "evals/images/consistency-scoring.md",
+  "pairs": [
+    {
+      "id": "pair001",
+      "file": "composites/pair001.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den.",
+      "right": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking"
+    },
+    {
+      "id": "pair002",
+      "file": "composites/pair002.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking",
+      "right": "Daniel standing tall before the king, one hand lifted in refusal; Belshazzar seated on a throne in a deep crimson fringed robe over a white tunic, gold-banded crown; courtiers in jeweled garments at the edges; gold vessels on the tables"
+    },
+    {
+      "id": "pair003",
+      "file": "composites/pair003.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing tall before the king, one hand lifted in refusal; Belshazzar seated on a throne in a deep crimson fringed robe over a white tunic, gold-banded crown; courtiers in jeweled garments at the edges; gold vessels on the tables",
+      "right": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den."
+    },
+    {
+      "id": "pair004",
+      "file": "composites/pair004.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking",
+      "right": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den."
+    },
+    {
+      "id": "pair005",
+      "file": "composites/pair005.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den.",
+      "right": "Daniel in plain linen, gazing forward with awe, and a throne of fire with burning wheels glowing from within a cloud of light; Fire rolling in wheels along the ground, faint Babylonian court outlines at the distant edge, brilliant white light filling the air"
+    },
+    {
+      "id": "pair006",
+      "file": "composites/pair006.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den.",
+      "right": "Daniel standing tall before the king, one hand lifted in refusal; Belshazzar seated on a throne in a deep crimson fringed robe over a white tunic, gold-banded crown; courtiers in jeweled garments at the edges; gold vessels on the tables"
+    },
+    {
+      "id": "pair007",
+      "file": "composites/pair007.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing tall before the king, one hand lifted in refusal; Belshazzar seated on a throne in a deep crimson fringed robe over a white tunic, gold-banded crown; courtiers in jeweled garments at the edges; gold vessels on the tables",
+      "right": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking"
+    },
+    {
+      "id": "pair008",
+      "file": "composites/pair008.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel in plain linen, gazing forward with awe, and a throne of fire with burning wheels glowing from within a cloud of light; Fire rolling in wheels along the ground, faint Babylonian court outlines at the distant edge, brilliant white light filling the air",
+      "right": "Daniel standing tall before the king, one hand lifted in refusal; Belshazzar seated on a throne in a deep crimson fringed robe over a white tunic, gold-banded crown; courtiers in jeweled garments at the edges; gold vessels on the tables"
+    },
+    {
+      "id": "pair009",
+      "file": "composites/pair009.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking",
+      "right": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den."
+    },
+    {
+      "id": "pair010",
+      "file": "composites/pair010.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing tall before the king, one hand lifted in refusal; Belshazzar seated on a throne in a deep crimson fringed robe over a white tunic, gold-banded crown; courtiers in jeweled garments at the edges; gold vessels on the tables",
+      "right": "Daniel in plain linen, gazing forward with awe, and a throne of fire with burning wheels glowing from within a cloud of light; Fire rolling in wheels along the ground, faint Babylonian court outlines at the distant edge, brilliant white light filling the air"
+    },
+    {
+      "id": "pair011",
+      "file": "composites/pair011.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel in plain linen, gazing forward with awe, and a throne of fire with burning wheels glowing from within a cloud of light; Fire rolling in wheels along the ground, faint Babylonian court outlines at the distant edge, brilliant white light filling the air",
+      "right": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking"
+    },
+    {
+      "id": "pair012",
+      "file": "composites/pair012.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking",
+      "right": "Daniel in plain linen, gazing forward with awe, and a throne of fire with burning wheels glowing from within a cloud of light; Fire rolling in wheels along the ground, faint Babylonian court outlines at the distant edge, brilliant white light filling the air"
+    },
+    {
+      "id": "pair013",
+      "file": "composites/pair013.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den.",
+      "right": "Daniel, unhurt, rising up out of the den with attendants' hands on his arms; Darius in royal court robes with signet ring at the rim; attendants in period linen and armor pulling the rope; a few lions low in the shadowed pit, calm and not attacking"
+    },
+    {
+      "id": "pair014",
+      "file": "composites/pair014.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel in plain linen, gazing forward with awe, and a throne of fire with burning wheels glowing from within a cloud of light; Fire rolling in wheels along the ground, faint Babylonian court outlines at the distant edge, brilliant white light filling the air",
+      "right": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Lions couched on the sand at Daniel's feet and sides; Darius in purple court robe with cream tunic, gold collar and blue sash, leaning at the rim; a faint angelic glow near the top of the den."
+    }
+  ]
+}

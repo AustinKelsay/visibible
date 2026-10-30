@@ -1,0 +1,420 @@
+{
+  "schemaVersion": 1,
+  "groups": {
+    "file": "evals/images/consistency.json",
+    "sha256": "ea76d7c8780ec8a6ae66dbdc26e7471fc5ff5f0497b52e601770f1b5845ee12f"
+  },
+  "sources": [
+    {
+      "file": "llm/releases/2026-10-29-daniel-recheck/results.ndjson",
+      "sha256": "fd43d312d6a2abb4eb645f0189ae51687010aac21239376910678f26a623d6bf"
+    },
+    {
+      "file": "llm/releases/2026-10-29-daniel-recheck/snapshot.json",
+      "sha256": "1e8b8256146aa76148729546677f756291f25a965a3db16e0aabf7a3767a66a9"
+    }
+  ],
+  "baseline": null,
+  "scorers": [
+    "scorer-a",
+    "scorer-b"
+  ],
+  "operator": "operator",
+  "unanimous": 10,
+  "disputed": [
+    "pair001",
+    "pair008",
+    "pair009",
+    "pair011"
+  ],
+  "notRun": {
+    "character": [
+      "matthew-14-29",
+      "matthew-27-35",
+      "mark-4-39",
+      "john-11-43",
+      "john-21-9",
+      "exodus-14-21",
+      "exodus-14-22",
+      "exodus-17-12",
+      "leviticus-11-7",
+      "numbers-20-11",
+      "luke-22-61",
+      "john-21-7",
+      "acts-3-7",
+      "1-samuel-16-13",
+      "1-samuel-17-40",
+      "1-samuel-17-49",
+      "1-samuel-18-11"
+    ],
+    "setting": [
+      "exodus-14-21",
+      "exodus-14-22",
+      "exodus-14-23",
+      "mark-4-37",
+      "mark-4-38",
+      "mark-4-39",
+      "john-21-7",
+      "john-21-9",
+      "luke-15-20",
+      "luke-15-22"
+    ]
+  },
+  "coverage": [
+    {
+      "groupId": "jesus",
+      "style": "classical",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "jesus",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "classical",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "classical",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "classical",
+      "units": 4,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "watercolor",
+      "units": 4,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "classical",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "daniel-5-17",
+        "daniel-6-22",
+        "daniel-6-23",
+        "daniel-7-9"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "watercolor",
+      "units": 4,
+      "imaged": 4,
+      "eligible": [
+        "daniel-5-17",
+        "daniel-6-22",
+        "daniel-6-23",
+        "daniel-7-9"
+      ],
+      "pairs": 6,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "classical",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "classical",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "classical",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "classical",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    }
+  ],
+  "verdicts": {
+    "pair001": "same",
+    "pair002": "same",
+    "pair003": "different",
+    "pair004": "different",
+    "pair005": "different",
+    "pair006": "different",
+    "pair007": "same",
+    "pair008": "same",
+    "pair009": "different",
+    "pair010": "same",
+    "pair011": "same",
+    "pair012": "same",
+    "pair013": "different",
+    "pair014": "different"
+  },
+  "summary": {
+    "character": {
+      "overall": {
+        "pairs": 12,
+        "same": 6,
+        "different": 6,
+        "unclear": 0,
+        "disputed": 0,
+        "rate": 0.5
+      },
+      "byStyle": {
+        "watercolor": {
+          "pairs": 6,
+          "same": 3,
+          "different": 3,
+          "unclear": 0,
+          "disputed": 0,
+          "rate": 0.5
+        },
+        "classical": {
+          "pairs": 6,
+          "same": 3,
+          "different": 3,
+          "unclear": 0,
+          "disputed": 0,
+          "rate": 0.5
+        }
+      },
+      "byGroup": {
+        "daniel": {
+          "watercolor": {
+            "pairs": 6,
+            "same": 3,
+            "different": 3,
+            "unclear": 0,
+            "disputed": 0,
+            "rate": 0.5
+          },
+          "classical": {
+            "pairs": 6,
+            "same": 3,
+            "different": 3,
+            "unclear": 0,
+            "disputed": 0,
+            "rate": 0.5
+          }
+        }
+      }
+    },
+    "setting": {
+      "overall": {
+        "pairs": 2,
+        "same": 1,
+        "different": 1,
+        "unclear": 0,
+        "disputed": 0,
+        "rate": 0.5
+      },
+      "byStyle": {
+        "watercolor": {
+          "pairs": 1,
+          "same": 1,
+          "different": 0,
+          "unclear": 0,
+          "disputed": 0,
+          "rate": 1
+        },
+        "classical": {
+          "pairs": 1,
+          "same": 0,
+          "different": 1,
+          "unclear": 0,
+          "disputed": 0,
+          "rate": 0
+        }
+      },
+      "byGroup": {
+        "lions-den": {
+          "watercolor": {
+            "pairs": 1,
+            "same": 1,
+            "different": 0,
+            "unclear": 0,
+            "disputed": 0,
+            "rate": 1
+          },
+          "classical": {
+            "pairs": 1,
+            "same": 0,
+            "different": 1,
+            "unclear": 0,
+            "disputed": 0,
+            "rate": 0
+          }
+        }
+      }
+    }
+  },
+  "gate": {
+    "pass": false,
+    "styles": [
+      "classical",
+      "watercolor"
+    ],
+    "barVersion": "2026-10-29-consistency-v1",
+    "checks": [
+      {
+        "kind": "character",
+        "tally": {
+          "pairs": 12,
+          "same": 6,
+          "different": 6,
+          "unclear": 0,
+          "disputed": 0,
+          "rate": 0.5
+        },
+        "baselineRate": null,
+        "pass": false,
+        "reasons": [
+          "17 group verses never ran: matthew-14-29, matthew-27-35, mark-4-39, john-11-43, john-21-9, …",
+          "only 12 pairs judged same or different; needs 30",
+          "50% judged the same; bar 75%"
+        ]
+      },
+      {
+        "kind": "setting",
+        "tally": {
+          "pairs": 2,
+          "same": 1,
+          "different": 1,
+          "unclear": 0,
+          "disputed": 0,
+          "rate": 0.5
+        },
+        "baselineRate": null,
+        "pass": false,
+        "reasons": [
+          "10 group verses never ran: exodus-14-21, exodus-14-22, exodus-14-23, mark-4-37, mark-4-38, …",
+          "only 2 pairs judged same or different; needs 20"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "instructions": "evals/images/consistency-scoring.md",
+  "pairs": [
+    {
+      "id": "pair001",
+      "file": "composites/pair001.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Several lions crouched or lying on the floor at varying distances from Daniel; Darius in court robes with a signet ring at the rim above, leaning forward; a faint luminous light suggesting the angel's presence without a visible human form.",
+      "right": "Daniel, unharmed, being drawn up out of the pit by attendants; Lions below in the pit, calm and not attacking; a few palace attendants and guards at the rim; a faint dim torch on the wall"
+    },
+    {
+      "id": "pair002",
+      "file": "composites/pair002.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, unharmed, being drawn up out of the pit by attendants; Lions below in the pit, calm and not attacking; a few palace attendants and guards at the rim; a faint dim torch on the wall",
+      "right": "Daniel standing upright before the king, calm and resolute; Belshazzar seated on a raised throne in court robes, gold cups and vessels on tables, courtiers at the edges of the hall"
+    },
+    {
+      "id": "pair003",
+      "file": "composites/pair003.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing upright before the king, calm and resolute; Belshazzar seated on a raised throne in court robes, gold cups and vessels on tables, courtiers at the edges of the hall",
+      "right": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Several lions crouched or lying on the floor at varying distances from Daniel; Darius in court robes with a signet ring at the rim above, leaning forward; a faint luminous light suggesting the angel's presence without a visible human form."
+    },
+    {
+      "id": "pair004",
+      "file": "composites/pair004.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, unhurt in plain linen tunic and cloak, being lifted up onto the stone rim of the den; Several attendants gripping ropes at the rim; the dark pit below with the lions partly visible at the bottom, calm and not attacking; a royal signet ring glinting on Darius's hand",
+      "right": "Daniel, plainly dressed, standing upright before the king with one hand lifted in refusal; Seated Belshazzar in rich court robes, a golden cup held loosely in his hand, nobles watching in the background, lamp stands beside the tables"
+    },
+    {
+      "id": "pair005",
+      "file": "composites/pair005.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, plainly dressed, standing upright before the king with one hand lifted in refusal; Seated Belshazzar in rich court robes, a golden cup held loosely in his hand, nobles watching in the background, lamp stands beside the tables",
+      "right": "Daniel standing upright in the center of the den, arms loose at his sides, facing the king.; Lions couched on the sandy floor near Daniel; Darius in deep purple court robes with signet ring at the pit's edge; a faint shaft of light falling from above."
+    },
+    {
+      "id": "pair006",
+      "file": "composites/pair006.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, unharmed, being drawn up out of the pit by attendants; Lions below in the pit, calm and not attacking; a few palace attendants and guards at the rim; a faint dim torch on the wall",
+      "right": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Several lions crouched or lying on the floor at varying distances from Daniel; Darius in court robes with a signet ring at the rim above, leaning forward; a faint luminous light suggesting the angel's presence without a visible human form."
+    },
+    {
+      "id": "pair007",
+      "file": "composites/pair007.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Several lions crouched or lying on the floor at varying distances from Daniel; Darius in court robes with a signet ring at the rim above, leaning forward; a faint luminous light suggesting the angel's presence without a visible human form.",
+      "right": "Daniel standing upright before the king, calm and resolute; Belshazzar seated on a raised throne in court robes, gold cups and vessels on tables, courtiers at the edges of the hall"
+    },
+    {
+      "id": "pair008",
+      "file": "composites/pair008.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing upright before the king, calm and resolute; Belshazzar seated on a raised throne in court robes, gold cups and vessels on tables, courtiers at the edges of the hall",
+      "right": "Daniel, unharmed, being drawn up out of the pit by attendants; Lions below in the pit, calm and not attacking; a few palace attendants and guards at the rim; a faint dim torch on the wall"
+    },
+    {
+      "id": "pair009",
+      "file": "composites/pair009.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing upright in the center of the den, arms loose at his sides, facing the king.; Lions couched on the sandy floor near Daniel; Darius in deep purple court robes with signet ring at the pit's edge; a faint shaft of light falling from above.",
+      "right": "Daniel, unhurt in plain linen tunic and cloak, being lifted up onto the stone rim of the den; Several attendants gripping ropes at the rim; the dark pit below with the lions partly visible at the bottom, calm and not attacking; a royal signet ring glinting on Darius's hand"
+    },
+    {
+      "id": "pair010",
+      "file": "composites/pair010.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel, unharmed, being drawn up out of the pit by attendants; Lions below in the pit, calm and not attacking; a few palace attendants and guards at the rim; a faint dim torch on the wall",
+      "right": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Several lions crouched or lying on the floor at varying distances from Daniel; Darius in court robes with a signet ring at the rim above, leaning forward; a faint luminous light suggesting the angel's presence without a visible human form."
+    },
+    {
+      "id": "pair011",
+      "file": "composites/pair011.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, unhurt in plain linen tunic and cloak, being lifted up onto the stone rim of the den; Several attendants gripping ropes at the rim; the dark pit below with the lions partly visible at the bottom, calm and not attacking; a royal signet ring glinting on Darius's hand",
+      "right": "Daniel standing and watching, cloak drawn close, gaze lifted toward the vision; Drifting clouds, rising streams of fire, empty space where the thrones are being set, no human shape within the glow"
+    },
+    {
+      "id": "pair012",
+      "file": "composites/pair012.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing and watching, cloak drawn close, gaze lifted toward the vision; Drifting clouds, rising streams of fire, empty space where the thrones are being set, no human shape within the glow",
+      "right": "Daniel standing upright in the center of the den, arms loose at his sides, facing the king.; Lions couched on the sandy floor near Daniel; Darius in deep purple court robes with signet ring at the pit's edge; a faint shaft of light falling from above."
+    },
+    {
+      "id": "pair013",
+      "file": "composites/pair013.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing calm and upright in the centre of the den, arms relaxed at his sides.; Several lions crouched or lying on the floor at varying distances from Daniel; Darius in court robes with a signet ring at the rim above, leaning forward; a faint luminous light suggesting the angel's presence without a visible human form.",
+      "right": "Daniel, unharmed, being drawn up out of the pit by attendants; Lions below in the pit, calm and not attacking; a few palace attendants and guards at the rim; a faint dim torch on the wall"
+    },
+    {
+      "id": "pair014",
+      "file": "composites/pair014.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel standing upright in the center of the den, arms loose at his sides, facing the king.; Lions couched on the sandy floor near Daniel; Darius in deep purple court robes with signet ring at the pit's edge; a faint shaft of light falling from above.",
+      "right": "Daniel, unhurt in plain linen tunic and cloak, being lifted up onto the stone rim of the den; Several attendants gripping ropes at the rim; the dark pit below with the lions partly visible at the bottom, calm and not attacking; a royal signet ring glinting on Darius's hand"
+    },
+    {
+      "id": "pair015",
+      "file": "composites/pair015.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, plainly dressed, standing upright before the king with one hand lifted in refusal; Seated Belshazzar in rich court robes, a golden cup held loosely in his hand, nobles watching in the background, lamp stands beside the tables",
+      "right": "Daniel standing and watching, cloak drawn close, gaze lifted toward the vision; Drifting clouds, rising streams of fire, empty space where the thrones are being set, no human shape within the glow"
+    }
+  ]
+}

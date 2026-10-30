@@ -1,0 +1,735 @@
+{
+ "schemaVersion": 1,
+ "workId": "bible-web",
+ "done": {
+  "sheet:abram:abram-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340355,
+   "at": "2026-10-30T00:49:07.598Z",
+   "fingerprint": "4331a9fd6bc2cff8b3117a458f0345d1"
+  },
+  "sheet:sarai_sarah_wife_of_abraham:sarah_canon": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340475,
+   "at": "2026-10-30T00:49:14.165Z",
+   "fingerprint": "1022fe012e732ce2c7c58f3914cf4d65"
+  },
+  "sheet:isaac_son_of_abraham_and_sarah:isaac-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340957,
+   "at": "2026-10-30T00:49:22.479Z",
+   "fingerprint": "ebdc85c3146efab22f333a7b20c499f7"
+  },
+  "sheet:jacob:jacob-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03407345,
+   "at": "2026-10-30T00:49:29.823Z",
+   "fingerprint": "360dba4b76871cfa9db860b388a71b3f"
+  },
+  "sheet:joseph_son_of_jacob_the_dreamer:joseph_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340944,
+   "at": "2026-10-30T00:49:37.385Z",
+   "fingerprint": "5256f396948797414912d00ede6e9bc2"
+  },
+  "sheet:goshen:goshen-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03400765,
+   "at": "2026-10-30T00:49:46.673Z",
+   "fingerprint": "dfb35bf7815931582be6673f5aef570b"
+  },
+  "sheet:pharaoh_of_the_exodus_oppressor_of_israel:pharaoh_of_the_exodus_oppressor_of_israel-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03405865,
+   "at": "2026-10-30T00:49:54.010Z",
+   "fingerprint": "de956cd45d9709871a154ccc96fe2eb0"
+  },
+  "sheet:horeb_mount_sinai:horeb_mount_sinai_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03400235,
+   "at": "2026-10-30T00:50:01.704Z",
+   "fingerprint": "795233727c9ed74d9f1a618aa70f4a7e"
+  },
+  "sheet:aaron_brother_of_moses:aaron": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03403525,
+   "at": "2026-10-30T00:50:09.255Z",
+   "fingerprint": "80a0fd598bc8a81493428721116507fd"
+  },
+  "sheet:the_camp_of_israel:the_camp_of_israel": {
+   "ok": true,
+   "attempts": 2,
+   "costUsd": 0.0680702,
+   "at": "2026-10-30T00:50:22.598Z",
+   "fingerprint": "7847ff41861f4752622f2f09193a869d"
+  },
+  "sheet:joshua_son_of_nun:joshua_son_of_nun-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340546,
+   "at": "2026-10-30T00:50:31.752Z",
+   "fingerprint": "16ac876a73ac1f3bb1661c720d6d9ce6"
+  },
+  "sheet:the_tabernacle_portable_sanctuary:tabernacle-main": {
+   "ok": true,
+   "attempts": 2,
+   "costUsd": 0.0680558,
+   "at": "2026-10-30T00:50:46.671Z",
+   "fingerprint": "a308948b7929667a56fcc1e31f0bab47"
+  },
+  "sheet:eleazar_son_of_aaron:eleazar_son_of_aaron": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03402015,
+   "at": "2026-10-30T00:50:53.082Z",
+   "fingerprint": "fe752e0bc47b7c1c69251a6318745f47"
+  },
+  "sheet:kadesh_kadesh_barnea:kadesh_kadesh_barnea": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034002649999999995,
+   "at": "2026-10-30T00:51:01.045Z",
+   "fingerprint": "425e07a5537be2e2f0d45d0dc272b4c9"
+  },
+  "sheet:the_plains_of_moab_numbers:the_plains_of_moab_numbers-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340231,
+   "at": "2026-10-30T00:51:11.841Z",
+   "fingerprint": "550066f6799acac3ed4fbeceef5b909a"
+  },
+  "sheet:the_plains_of_moab:the_plains_of_moab": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03402775,
+   "at": "2026-10-30T00:51:21.671Z",
+   "fingerprint": "ed279db4e97af8a7b44fe15cd5edd098"
+  },
+  "sheet:the_jordan_river:the_jordan_river_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03402235,
+   "at": "2026-10-30T00:51:29.678Z",
+   "fingerprint": "87cbfacb31d7a0367fd96f0338b0862f"
+  },
+  "sheet:jericho:jericho-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03401135,
+   "at": "2026-10-30T00:51:40.702Z",
+   "fingerprint": "f9c9bad5692ceadedf8033bdd25941d1"
+  },
+  "sheet:shechem_israelite_covenant_city:shechem_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340018,
+   "at": "2026-10-30T00:51:47.272Z",
+   "fingerprint": "db47ce10978e59c1909c6bc8e34875ac"
+  },
+  "sheet:hebron_city_in_judah:hebron_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340034,
+   "at": "2026-10-30T00:51:54.900Z",
+   "fingerprint": "9e8100dc5ab460b3d26f49b4c6d8a488"
+  },
+  "sheet:shiloh:shiloh-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340159,
+   "at": "2026-10-30T00:52:01.736Z",
+   "fingerprint": "1776539ff593c7346aaf01b7e04157e3"
+  },
+  "sheet:jerusalem:jerusalem": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03401445,
+   "at": "2026-10-30T00:52:09.605Z",
+   "fingerprint": "4d0748401efad7816ac1978858e265d4"
+  },
+  "sheet:ramah_of_benjamin_ramathaim_zophim:ramah-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03402375,
+   "at": "2026-10-30T00:52:20.809Z",
+   "fingerprint": "591038d3ffecda589d453edb5d5d2aff"
+  },
+  "sheet:samuel:samuel-adult": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034028199999999995,
+   "at": "2026-10-30T00:52:29.127Z",
+   "fingerprint": "6268419076cbfdef3de71b28bd66f5ec"
+  },
+  "sheet:saul:saul": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03408925,
+   "at": "2026-10-30T00:52:36.775Z",
+   "fingerprint": "431225a5d551454e25b817ede2c7b731"
+  },
+  "sheet:gibeah_of_saul_1_samuel:gibeah_of_saul_1_samuel_s1": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03402775,
+   "at": "2026-10-30T00:52:44.028Z",
+   "fingerprint": "df9ab28b6d9fc588ed032ed3945af0f7"
+  },
+  "sheet:jonathan_son_of_saul:jonathan_son_of_saul": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340449,
+   "at": "2026-10-30T00:52:50.465Z",
+   "fingerprint": "7b1bd72458569b57b391a29c82f9c270"
+  },
+  "sheet:abner_son_of_ner:abner_son_of_ner": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340548,
+   "at": "2026-10-30T00:52:58.696Z",
+   "fingerprint": "8b34662768533c1cb3e6af6fadfd3cdb"
+  },
+  "sheet:abiathar:abiathar-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034052849999999996,
+   "at": "2026-10-30T00:53:06.515Z",
+   "fingerprint": "b9bb680ecb89319f8c930b06b4601702"
+  },
+  "sheet:abishai:abishai-main": {
+   "ok": true,
+   "attempts": 2,
+   "costUsd": 0.06811165,
+   "at": "2026-10-30T00:53:21.312Z",
+   "fingerprint": "29144dadbbbfdc46f7963665d5ef2901"
+  },
+  "sheet:jezreel:jezreel": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034023,
+   "at": "2026-10-30T00:53:29.859Z",
+   "fingerprint": "62a56382c34226379b09ea6ab8aa2dae"
+  },
+  "sheet:joab:joab-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340433,
+   "at": "2026-10-30T00:53:36.618Z",
+   "fingerprint": "632b063cb69f3d91db211ed493fecf98"
+  },
+  "sheet:david_s_royal_palace_in_jerusalem:david_s_royal_palace_in_jerusalem_s1": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0339933,
+   "at": "2026-10-30T00:53:43.898Z",
+   "fingerprint": "a0009cda9b27008546b540c29c450e9e"
+  },
+  "sheet:david_son_of_jesse_king_of_israel:david_elder": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03406305,
+   "at": "2026-10-30T00:53:52.653Z",
+   "fingerprint": "838c3752e0728d93394f2f3a9719385e"
+  },
+  "sheet:solomon:solomon-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03402525,
+   "at": "2026-10-30T00:54:00.139Z",
+   "fingerprint": "e515c1883e61829314cc11304339d3ac"
+  },
+  "sheet:yahweh_s_house_in_jerusalem_the_temple:yahweh_s_house_in_jerusalem_the_temple_s1": {
+   "ok": true,
+   "attempts": 2,
+   "costUsd": 0.0681131,
+   "at": "2026-10-30T00:54:20.275Z",
+   "fingerprint": "348e1cbbc9da7b0640e54a63254482c7"
+  },
+  "sheet:damascus:damascus-main": {
+   "ok": true,
+   "attempts": 3,
+   "costUsd": 0.102082,
+   "at": "2026-10-30T00:54:41.608Z",
+   "fingerprint": "acba4a8f0c8e21e0677d9837832954bb"
+  },
+  "sheet:rehoboam:rehoboam": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034072849999999995,
+   "at": "2026-10-30T00:54:49.560Z",
+   "fingerprint": "f5f060ffa42c8d84e544afd7573fa2cb"
+  },
+  "sheet:samaria_city:samaria_hill_city": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.033977049999999995,
+   "at": "2026-10-30T00:54:57.337Z",
+   "fingerprint": "e91b4b460c0705612f37b56e31731872"
+  },
+  "sheet:ahab_king_of_israel_son_of_omri:ahab-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03405355,
+   "at": "2026-10-30T00:55:04.016Z",
+   "fingerprint": "8e9baf850b0aac800a691eed9644b231"
+  },
+  "sheet:elijah:elijah-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340958,
+   "at": "2026-10-30T00:55:12.178Z",
+   "fingerprint": "05d28f3ff7bc71528c3ad3b72e165c43"
+  },
+  "sheet:elisha_son_of_shaphat:elisha_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03408315,
+   "at": "2026-10-30T00:55:19.816Z",
+   "fingerprint": "1abfbe17867e8ed26a199e9f598225ab"
+  },
+  "sheet:jehoshaphat_king_of_judah_son_of_asa_ahab_s_ally_at_ramoth_gilead:jehoshaphat_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340571,
+   "at": "2026-10-30T00:55:26.857Z",
+   "fingerprint": "ed242156ce09ccf16da05b9ec7892f6a"
+  },
+  "sheet:jehoram_son_of_ahab:jehoram_son_of_ahab_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03408125,
+   "at": "2026-10-30T00:55:34.198Z",
+   "fingerprint": "2673c9474edb75f4e645ee1fcbddace3"
+  },
+  "sheet:jehu_son_of_jehoshaphat:jehu_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03403105,
+   "at": "2026-10-30T00:55:42.262Z",
+   "fingerprint": "f62ee57b59a6ddea774719f37861eb67"
+  },
+  "sheet:joash_king_of_judah:joash_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03408835,
+   "at": "2026-10-30T00:55:49.633Z",
+   "fingerprint": "40f952c762a3ece43c506aff50d5534b"
+  },
+  "sheet:hezekiah:hezekiah": {
+   "ok": true,
+   "attempts": 2,
+   "costUsd": 0.06814065,
+   "at": "2026-10-30T00:56:04.524Z",
+   "fingerprint": "1a11de726ed3b84d48d40a1adfd18c9e"
+  },
+  "sheet:isaiah_son_of_amoz:isaiah_son_of_amoz-1": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034089249999999995,
+   "at": "2026-10-30T00:56:12.472Z",
+   "fingerprint": "1504623fb7e93818f714c267f7fd36b3"
+  },
+  "sheet:josiah:josiah-main": {
+   "ok": true,
+   "attempts": 2,
+   "costUsd": 0.06816815,
+   "at": "2026-10-30T00:56:26.628Z",
+   "fingerprint": "67fb9d15184cef2c6783470d1eeafdd1"
+  },
+  "sheet:nebuchadnezzar:nebuchadnezzar-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340181,
+   "at": "2026-10-30T00:56:33.274Z",
+   "fingerprint": "c4a0ac7cc60ce4fde38e61348f580a58"
+  },
+  "sheet:zedekiah:zedekiah-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03407355,
+   "at": "2026-10-30T00:56:40.262Z",
+   "fingerprint": "bc2b9c17d3fa0bb2b2043d6f577d47eb"
+  },
+  "sheet:babylon:babylon": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340094,
+   "at": "2026-10-30T00:56:49.170Z",
+   "fingerprint": "f6b2d8c2e58a596f281cdcaa0666a00e"
+  },
+  "sheet:zechariah_son_of_berechiah:zechariah_son_of_berechiah_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03406415,
+   "at": "2026-10-30T00:56:56.423Z",
+   "fingerprint": "baa5de4edf45f0f3461c5c3606b672f2"
+  },
+  "sheet:nehemiah_son_of_hacaliah:nehemiah_son_of_hacaliah_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340834,
+   "at": "2026-10-30T00:57:02.717Z",
+   "fingerprint": "68705e2bea60cf52453491d3d5b508d7"
+  },
+  "sheet:ahasuerus:ahasuerus-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340228,
+   "at": "2026-10-30T00:57:09.824Z",
+   "fingerprint": "2ce698fd30821a5e09de45f5f4b72ad9"
+  },
+  "sheet:palace_at_susa:palace_at_susa-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03400835,
+   "at": "2026-10-30T00:57:17.044Z",
+   "fingerprint": "3036d9f43cd4386968eeadfc39cc8d88"
+  },
+  "sheet:mordecai:mordecai-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03401994999999999,
+   "at": "2026-10-30T00:57:23.582Z",
+   "fingerprint": "d89ac3438c1d3b562ef34afb0acfb557"
+  },
+  "sheet:esther:esther": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034053049999999994,
+   "at": "2026-10-30T00:57:30.140Z",
+   "fingerprint": "33c3b0f6f33ed4cda07cda8ee0e1671a"
+  },
+  "sheet:job:job-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03408345,
+   "at": "2026-10-30T00:57:38.664Z",
+   "fingerprint": "758900f85010412f88f8e5305eb066f4"
+  },
+  "sheet:the_ash_heap:the_ash_heap": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0339967,
+   "at": "2026-10-30T00:57:46.625Z",
+   "fingerprint": "63b60d3b3d46785ca322e993d7d07fbf"
+  },
+  "sheet:zion_holy_hill_mount_zion:zion_holy_hill_mount_zion_s1": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03402725,
+   "at": "2026-10-30T00:57:55.541Z",
+   "fingerprint": "09cd95f4aba57d2d5df4b70ce06a6f78"
+  },
+  "sheet:the_preacher_qoheleth:the_preacher_qoheleth": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340675,
+   "at": "2026-10-30T00:58:03.710Z",
+   "fingerprint": "1ffadf89ff2d98b808881f711f2e371d"
+  },
+  "sheet:the_shulammite:the_shulammite-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0341003,
+   "at": "2026-10-30T00:58:13.154Z",
+   "fingerprint": "781ffab901bccdb0158560312f4f58cd"
+  },
+  "sheet:the_beloved_shepherd_song_of_solomon:the_beloved_shepherd_song_of_solomon-s1": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03406475,
+   "at": "2026-10-30T00:58:21.444Z",
+   "fingerprint": "9cd2de472af0cf9e8513c43f60ec7f7b"
+  },
+  "sheet:nineveh_assyrian_capital:nineveh_assyrian_capital": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340257,
+   "at": "2026-10-30T00:58:29.183Z",
+   "fingerprint": "0e3f0b45c463f2865840e57d8ffc1f01"
+  },
+  "sheet:jeremiah_son_of_hilkiah:jeremiah": {
+   "ok": true,
+   "attempts": 2,
+   "costUsd": 0.0681466,
+   "at": "2026-10-30T00:58:42.282Z",
+   "fingerprint": "58c6f438a15f470b6401dec0e9c23514"
+  },
+  "sheet:ezekiel_son_of_buzi:ezekiel-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03405525,
+   "at": "2026-10-30T00:58:51.129Z",
+   "fingerprint": "9d39184f02c9afec25cd030721359deb"
+  },
+  "sheet:ezekiel_s_temple:ezekiel_s_temple_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340376,
+   "at": "2026-10-30T00:58:58.826Z",
+   "fingerprint": "e31d9eca40a543e366efe1c2936680be"
+  },
+  "sheet:daniel_prophet_of_babylon:daniel_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03406345,
+   "at": "2026-10-30T00:59:07.057Z",
+   "fingerprint": "b6df6d5f1723e79e0972348703242a9b"
+  },
+  "sheet:royal_palace_of_babylon:royal_palace_of_babylon-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034043199999999996,
+   "at": "2026-10-30T00:59:14.155Z",
+   "fingerprint": "200696013239987a6f60dca94769ed6d"
+  },
+  "sheet:amos_the_herdsman_of_tekoa:amos_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340778,
+   "at": "2026-10-30T00:59:23.460Z",
+   "fingerprint": "bd29f1e2ca26fa8bd6a6778a343b08e6"
+  },
+  "sheet:micah_the_prophet_of_morasheth:micah_the_prophet_of_morasheth-s1": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03402285,
+   "at": "2026-10-30T00:59:30.830Z",
+   "fingerprint": "d59207b5bafa3a1417e8e57df822c519"
+  },
+  "sheet:mount_of_olives:mount_of_olives": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.033986749999999996,
+   "at": "2026-10-30T00:59:39.357Z",
+   "fingerprint": "427aa9f3aa7268d8a094e4dbc5ffc287"
+  },
+  "sheet:mary_mother_of_jesus:mary_mother_of_jesus_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03402545,
+   "at": "2026-10-30T00:59:46.477Z",
+   "fingerprint": "a2810370bb29faf12a889fd82fd248e4"
+  },
+  "sheet:john_the_baptizer:john_the_baptizer-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034013249999999995,
+   "at": "2026-10-30T00:59:53.935Z",
+   "fingerprint": "478300b1ec7ed1ea69f2e6d9eaad10a5"
+  },
+  "sheet:capernaum:capernaum-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034026100000000004,
+   "at": "2026-10-30T01:00:01.760Z",
+   "fingerprint": "b89736cf1603729cb1cb788769aa425b"
+  },
+  "sheet:andrew:andrew": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03408485,
+   "at": "2026-10-30T01:00:09.453Z",
+   "fingerprint": "8c2d08c46b16f07b9716187c6a59d750"
+  },
+  "sheet:james_son_of_zebedee:james_son_of_zebedee_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340562,
+   "at": "2026-10-30T01:00:18.656Z",
+   "fingerprint": "6a6ae1450ba7800440f7d0ad8f8ae759"
+  },
+  "sheet:john_the_apostle_son_of_zebedee:john_apostle_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340467,
+   "at": "2026-10-30T01:00:25.486Z",
+   "fingerprint": "f172c568ce39e2d15c8b9a803ecd4c3c"
+  },
+  "sheet:sea_of_galilee:sea_of_galilee": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03398395,
+   "at": "2026-10-30T01:00:31.798Z",
+   "fingerprint": "8290f44a4bb4b0e9ea178b8240024b4e"
+  },
+  "sheet:the_jerusalem_temple:the_jerusalem_temple_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03401035,
+   "at": "2026-10-30T01:00:41.066Z",
+   "fingerprint": "3c926756c226ff4fab7eb76e66816872"
+  },
+  "sheet:judas_iscariot:judas_iscariot": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340761,
+   "at": "2026-10-30T01:00:48.974Z",
+   "fingerprint": "9b51c7beb09e0a316f6514b6558335ba"
+  },
+  "sheet:the_court_of_the_high_priest_caiaphas:court-caiaphas": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03398585,
+   "at": "2026-10-30T01:00:56.395Z",
+   "fingerprint": "6a90bcc31da1b1586bdbb43b2d05f4d7"
+  },
+  "sheet:pontius_pilate:pontius_pilate": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340575,
+   "at": "2026-10-30T01:01:03.138Z",
+   "fingerprint": "c097fa28e2bfc28fb51e7b20342c57ac"
+  },
+  "sheet:golgotha:golgotha": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03398945,
+   "at": "2026-10-30T01:01:10.793Z",
+   "fingerprint": "af69caa4f9db3ae7cf81feac40bff170"
+  },
+  "sheet:mary_magdalene:mary_magdalene": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340572,
+   "at": "2026-10-30T01:01:18.129Z",
+   "fingerprint": "8135136d81f4a94e03a708e519173e21"
+  },
+  "sheet:joseph_of_arimathea_s_new_tomb:joseph_of_arimathea_s_new_tomb_stage_1": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340069,
+   "at": "2026-10-30T01:01:26.242Z",
+   "fingerprint": "76a8cae691c781d54418466e8c4c6a32"
+  },
+  "sheet:john_son_of_zebedee:john_son_of_zebedee_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034054900000000006,
+   "at": "2026-10-30T01:01:33.423Z",
+   "fingerprint": "9a6e8fa61c00d2f17375d8be3ff9dbda"
+  },
+  "sheet:bethany_beyond_the_jordan:bethany_beyond_the_jordan_s1": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03401395,
+   "at": "2026-10-30T01:01:42.772Z",
+   "fingerprint": "49de19dc008778d35823c10459eb4d48"
+  },
+  "sheet:barnabas:barnabas-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03406955,
+   "at": "2026-10-30T01:01:52.057Z",
+   "fingerprint": "8db7041cfa0197258d382834086a7ff8"
+  },
+  "sheet:saul_of_tarsus_paul:saul-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034079200000000004,
+   "at": "2026-10-30T01:02:01.310Z",
+   "fingerprint": "2a1251a65b6c9c5ff159044e039e8912"
+  },
+  "sheet:caesarea_maritima:caesarea_maritima": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.033990599999999996,
+   "at": "2026-10-30T01:02:08.380Z",
+   "fingerprint": "51a9d3b68027100b1f0af48e0112248a"
+  },
+  "sheet:antioch_of_syria:antioch_of_syria_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340078,
+   "at": "2026-10-30T01:02:17.451Z",
+   "fingerprint": "06561ee77b2043060429e64fe39142c3"
+  },
+  "sheet:silas_silvanus:silas_silvanus-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03402595,
+   "at": "2026-10-30T01:02:25.838Z",
+   "fingerprint": "7d2ca4843eae29a1d9e6f7ec51ef8ba8"
+  },
+  "sheet:timothy:timothy": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03401855,
+   "at": "2026-10-30T01:02:32.582Z",
+   "fingerprint": "bb4edbc5075b96f09e99060dcbd8cda9"
+  },
+  "sheet:philippi:philippi": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034014800000000005,
+   "at": "2026-10-30T01:02:39.492Z",
+   "fingerprint": "537ab46db7b1ea0222d3aa45461c3e01"
+  },
+  "sheet:thessalonica:thessalonica": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03402675,
+   "at": "2026-10-30T01:02:48.306Z",
+   "fingerprint": "cbfbd2f4938841d7922beb3cc57311c0"
+  },
+  "sheet:corinth:corinth": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340436,
+   "at": "2026-10-30T01:02:57.559Z",
+   "fingerprint": "d73474b4f5469949f4564b0c457819a8"
+  },
+  "sheet:ephesus:ephesus-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03401475,
+   "at": "2026-10-30T01:03:04.773Z",
+   "fingerprint": "8976acc7250757543bd1d64f37039b9b"
+  },
+  "sheet:james_the_brother_of_jesus:james_the_brother_of_jesus_main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034033,
+   "at": "2026-10-30T01:03:12.203Z",
+   "fingerprint": "c425a62ce576d149d4c2b75469a548a8"
+  },
+  "sheet:paul_the_apostle:paul-main": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340453,
+   "at": "2026-10-30T01:03:21.150Z",
+   "fingerprint": "31cea9e57fc6cdf05a3af1ed37979019"
+  },
+  "sheet:paul_s_prison_in_rome:paul_s_prison_in_rome-s1": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03399895,
+   "at": "2026-10-30T01:03:29.968Z",
+   "fingerprint": "f0d92dd7dee4af087171a40f3763442b"
+  },
+  "sheet:john_the_seer_revelation:john-seer": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.03408365,
+   "at": "2026-10-30T01:03:38.637Z",
+   "fingerprint": "d1f6b10041032935c0c9b3c8f7119d44"
+  },
+  "sheet:david_son_of_jesse_king_of_israel:david_king": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034044399999999995,
+   "at": "2026-10-30T01:03:47.906Z",
+   "fingerprint": "155efa20dce59d7dd4e7fae868acc1c4"
+  }
+ },
+ "spentUsd": 3.84662575
+}

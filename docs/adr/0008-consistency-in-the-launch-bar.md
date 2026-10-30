@@ -24,7 +24,7 @@ These join ADR 0006's per-image bar and owner sign-off; they do not replace them
 
 ## Baseline
 
-The [baseline](../../llm/releases/2026-10-29-consistency-baseline/README.md) paired images the launch matrices had already made, at no provider cost. In the released styles, 21 of 25 character pairs showed the same person (84%) and 1 of 3 neighbouring-verse pairs showed the same place. Both measures fail on too few pairs, so the next launch matrix must add the groups' 14 new verses. Moses changed hairstyle even with his sheet attached. Daniel, who has no sheet in production, became two different men. Consecutive Red Sea verses were drawn as different places.
+The [baseline](../../llm/releases/2026-10-29-consistency-baseline/README.md) paired images the launch matrices had already made, at no provider cost. In the released styles, 21 of 25 character pairs showed the same person (84%) and 1 of 3 neighbouring-verse pairs showed the same place. Both measures fail on too few pairs, so the next launch matrix must add the groups' 14 new verses. The [first full measurement](../../llm/releases/2026-10-29-consistency-verses/README.md) rendered them the same day, and the gate passed: 83% of character pairs and 70% of place pairs in the released styles. Moses changed hairstyle even with his sheet attached. Daniel, who has no sheet in production, became two different men. Consecutive Red Sea verses were drawn as different places.
 
 The 75% character floor sits about ten points below the baseline, roughly the noise in a sample of 100 or so pairs. No setting baseline exists yet, so its floor only demands better than an even chance.
 
