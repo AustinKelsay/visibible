@@ -29,6 +29,10 @@
         "describe": "true if a head, face, hands, shoulders or a robed or human-shaped body appears inside, made of or emerging from light, radiance, cloud, smoke, fire, a pillar or the sky, or seated or standing on a throne, unless it is clearly one of the beings the description names. A faint or translucent figure counts if you can point to its head, face, hands or body outline. A flame, a heart-shaped glow or billowing cloud is not a figure. People standing in the scene, and winged angels or creatures the description names, do not count.",
         "brightAreas": "What is inside each bright area, cloud, fire, pillar or throne, or \"none\"."
       }
+    },
+    "symbol": {
+      "renderBlock": "SYMBOLIC FORM (binding): each of these appears only in the non-human form its canon describes, never as a person, a human-like figure, a face or a robed body:",
+      "planSystem": "- Cast marked \"shown only as its canon form\" are never drawn as a person. When one of them appears or acts in the moment, select it and describe it in that form, placed in the scene with its own pose. Never give it a human face, hands, clothing or body, even when the text calls it a man, a woman or a speaker: those words name it, they do not describe its look. If the moment only mentions it, leave it out."
     }
   }
 }

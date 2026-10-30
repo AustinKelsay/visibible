@@ -1,0 +1,431 @@
+{
+ "b01": {
+  "key": "matthew-4-3/classical/effects",
+  "arm": "effects",
+  "case": "matthew-4-3",
+  "style": "classical",
+  "sha256": "6e6f4181aaa261ddd9f064b911d348bfee070d4118e04601ac05c258c2fb2a2c",
+  "selected": [
+   "jesus_christ_the_son_of_god_and_lord",
+   "satan",
+   "wilderness_of_judea"
+  ]
+ },
+ "b02": {
+  "key": "proverbs-9-14/fresco/symbol",
+  "arm": "symbol",
+  "case": "proverbs-9-14",
+  "style": "fresco",
+  "sha256": "b1b36059c83dddf3a717b83c021dce237a076357d5e1e69981c0c3090de539c2",
+  "selected": [
+   "wisdom",
+   "wisdom_s_house",
+   "the_streets_and_city_gates"
+  ]
+ },
+ "b03": {
+  "key": "job-1-6/classical/effects",
+  "arm": "effects",
+  "case": "job-1-6",
+  "style": "classical",
+  "sha256": "191eb6bcbaadeb6ff56addcff1e520e7230f810b03fbf28ec1686c29a151b6fe",
+  "selected": [
+   "the_heavenly_court",
+   "god_yahweh_the_father_and_god_of_israel",
+   "satan"
+  ]
+ },
+ "b04": {
+  "key": "matthew-4-3/watercolor/symbol",
+  "arm": "symbol",
+  "case": "matthew-4-3",
+  "style": "watercolor",
+  "sha256": "e203e1e8f6f32350e20a857873398fcc40c5ca6603c87a0205d23241cbf2c548",
+  "selected": [
+   "jesus_christ_the_son_of_god_and_lord",
+   "satan",
+   "wilderness_of_judea"
+  ]
+ },
+ "b05": {
+  "key": "zechariah-3-1/watercolor/symbol",
+  "arm": "symbol",
+  "case": "zechariah-3-1",
+  "style": "watercolor",
+  "sha256": "c2b2ed333f4aeb75fec2455b2e5e3842e66b08d23c546077f7bbd61dab08fffe",
+  "selected": [
+   "joshua_the_high_priest_son_of_jehozadak_haggai_and_zechariah",
+   "satan",
+   "yahweh_s_angel_among_the_myrtle_trees"
+  ]
+ },
+ "b06": {
+  "key": "zechariah-3-1/fresco/symbol",
+  "arm": "symbol",
+  "case": "zechariah-3-1",
+  "style": "fresco",
+  "sha256": "94c86fbba67e8647df4fcb93cf5bbbb2e8d9b27990d0cb4e2fffc4a969491b67",
+  "selected": [
+   "joshua_the_high_priest_son_of_jehozadak_haggai_and_zechariah",
+   "satan",
+   "yahweh_s_angel_among_the_myrtle_trees"
+  ]
+ },
+ "b07": {
+  "key": "matthew-4-3/watercolor/effects",
+  "arm": "effects",
+  "case": "matthew-4-3",
+  "style": "watercolor",
+  "sha256": "f8127f3c39d32d79613df1479f73a13f05eff05987b7d9157f8af853086c012a",
+  "selected": [
+   "jesus_christ_the_son_of_god_and_lord",
+   "satan",
+   "wilderness_of_judea"
+  ]
+ },
+ "b08": {
+  "key": "zechariah-3-1/watercolor/effects",
+  "arm": "effects",
+  "case": "zechariah-3-1",
+  "style": "watercolor",
+  "sha256": "73b433cea20c5098d676673e4cc7c1d35c135107893dd3c6a7ba359ea7f0b3a7",
+  "selected": [
+   "joshua_the_high_priest_son_of_jehozadak_haggai_and_zechariah",
+   "satan",
+   "yahweh_s_angel_among_the_myrtle_trees"
+  ]
+ },
+ "b09": {
+  "key": "revelation-12-9/watercolor/effects",
+  "arm": "effects",
+  "case": "revelation-12-9",
+  "style": "watercolor",
+  "sha256": "a0347cb33be14f11fbd1a1d69472d7d1f796a22bbfedc5f1b1966d7a01f5576b",
+  "selected": [
+   "satan",
+   "michael_the_archangel",
+   "heavenly_throne_room"
+  ]
+ },
+ "b10": {
+  "key": "revelation-12-9/watercolor/symbol",
+  "arm": "symbol",
+  "case": "revelation-12-9",
+  "style": "watercolor",
+  "sha256": "f360fceedab297a17c35e1abe7392f568c0c97082d270b6cbe276f6cc626e5c2",
+  "selected": [
+   "satan",
+   "michael_the_archangel",
+   "heavenly_throne_room"
+  ]
+ },
+ "b11": {
+  "key": "job-1-6/fresco/effects",
+  "arm": "effects",
+  "case": "job-1-6",
+  "style": "fresco",
+  "sha256": "b5c03fdc0ad5366f69bf6f7a79bbd2edd283a52562acf6a420d99f3bc1bbac0f",
+  "selected": [
+   "the_heavenly_court",
+   "god_yahweh_the_father_and_god_of_israel",
+   "satan"
+  ]
+ },
+ "b12": {
+  "key": "matthew-4-3/fresco/effects",
+  "arm": "effects",
+  "case": "matthew-4-3",
+  "style": "fresco",
+  "sha256": "05e6e28e30074762710386b4d24eb4d8d35ffa496f418e09d2de549705e78c3a",
+  "selected": [
+   "jesus_christ_the_son_of_god_and_lord",
+   "satan",
+   "wilderness_of_judea"
+  ]
+ },
+ "b13": {
+  "key": "revelation-12-3/fresco/symbol",
+  "arm": "symbol",
+  "case": "revelation-12-3",
+  "style": "fresco",
+  "sha256": "70f896c0463f8c96bf3f4099e52c6d835d7223580ce2e6a87850e0e15764b592",
+  "selected": [
+   "satan",
+   "the_woman_clothed_with_the_sun",
+   "heavenly_throne_room"
+  ]
+ },
+ "b14": {
+  "key": "matthew-4-3/classical/symbol",
+  "arm": "symbol",
+  "case": "matthew-4-3",
+  "style": "classical",
+  "sha256": "21dde32263917480820af617a3025b9c5fa8316214a71858d56a052004f2ffd4",
+  "selected": [
+   "jesus_christ_the_son_of_god_and_lord",
+   "satan",
+   "wilderness_of_judea"
+  ]
+ },
+ "b15": {
+  "key": "zechariah-3-1/classical/symbol",
+  "arm": "symbol",
+  "case": "zechariah-3-1",
+  "style": "classical",
+  "sha256": "15c317a28708250f1a2233b51943e6f28d3606047b361afc4696069596c26131",
+  "selected": [
+   "joshua_the_high_priest_son_of_jehozadak_haggai_and_zechariah",
+   "satan",
+   "yahweh_s_angel_among_the_myrtle_trees"
+  ]
+ },
+ "b16": {
+  "key": "revelation-12-3/classical/effects",
+  "arm": "effects",
+  "case": "revelation-12-3",
+  "style": "classical",
+  "sha256": "32347ab88d57c7c79a35fffe0b88d3be8f20e612edb76c3bdc2bb43cb03d294d",
+  "selected": [
+   "satan",
+   "heavenly_throne_room"
+  ]
+ },
+ "b17": {
+  "key": "matthew-4-3/fresco/symbol",
+  "arm": "symbol",
+  "case": "matthew-4-3",
+  "style": "fresco",
+  "sha256": "0b8fd26c2ea2f1e1cd50df00a2e53e8e77528098478118bd6a67164bc46a64d2",
+  "selected": [
+   "jesus_christ_the_son_of_god_and_lord",
+   "satan",
+   "wilderness_of_judea"
+  ]
+ },
+ "b18": {
+  "key": "revelation-12-3/fresco/effects",
+  "arm": "effects",
+  "case": "revelation-12-3",
+  "style": "fresco",
+  "sha256": "8c0c834c26914f1968eb22a9ab308aba2f14f047304acd73ab39b109c6536c05",
+  "selected": [
+   "satan",
+   "heavenly_throne_room"
+  ]
+ },
+ "b19": {
+  "key": "revelation-12-3/watercolor/symbol",
+  "arm": "symbol",
+  "case": "revelation-12-3",
+  "style": "watercolor",
+  "sha256": "c37b4278c3c71e3254ecf6573598756073eb4389a4288321ff9f506de4b5ae89",
+  "selected": [
+   "satan",
+   "the_woman_clothed_with_the_sun",
+   "heavenly_throne_room"
+  ]
+ },
+ "b20": {
+  "key": "revelation-12-9/classical/effects",
+  "arm": "effects",
+  "case": "revelation-12-9",
+  "style": "classical",
+  "sha256": "5798ecc8bc80e8d72fbf03e3553ba684499a98af9fd293d95786db3fa7a45ed7",
+  "selected": [
+   "satan",
+   "michael_the_archangel",
+   "heavenly_throne_room"
+  ]
+ },
+ "b21": {
+  "key": "zechariah-3-1/fresco/effects",
+  "arm": "effects",
+  "case": "zechariah-3-1",
+  "style": "fresco",
+  "sha256": "d1a57f9a20eaf4f5df2bc4e6936261835140517857465cf64d2e2e9c6c38c726",
+  "selected": [
+   "joshua_the_high_priest_son_of_jehozadak_haggai_and_zechariah",
+   "satan",
+   "yahweh_s_angel_among_the_myrtle_trees"
+  ]
+ },
+ "b22": {
+  "key": "zechariah-3-1/classical/effects",
+  "arm": "effects",
+  "case": "zechariah-3-1",
+  "style": "classical",
+  "sha256": "df61f6f499732def62c16e8720d1c32030a2cd7be31230602b2898ccfea70e6e",
+  "selected": [
+   "joshua_the_high_priest_son_of_jehozadak_haggai_and_zechariah",
+   "satan",
+   "yahweh_s_angel_among_the_myrtle_trees"
+  ]
+ },
+ "b23": {
+  "key": "proverbs-9-14/classical/effects",
+  "arm": "effects",
+  "case": "proverbs-9-14",
+  "style": "classical",
+  "sha256": "57a18928755c10c6a6c43e56b56b9d1cbdb4dcc82dc5a5d3660eef8b3f38e8c2",
+  "selected": [
+   "wisdom",
+   "wisdom_s_house",
+   "the_streets_and_city_gates"
+  ]
+ },
+ "b24": {
+  "key": "job-1-6/watercolor/effects",
+  "arm": "effects",
+  "case": "job-1-6",
+  "style": "watercolor",
+  "sha256": "42cbb96420a0539e4f77f4f2d46668828a805338e5355f12f4345345f4a3f867",
+  "selected": [
+   "the_heavenly_court",
+   "god_yahweh_the_father_and_god_of_israel",
+   "satan"
+  ]
+ },
+ "b25": {
+  "key": "proverbs-9-14/classical/symbol",
+  "arm": "symbol",
+  "case": "proverbs-9-14",
+  "style": "classical",
+  "sha256": "3073a885e0477d60478bccc01aed0a0d9b8fd2a4d5e0d8c4dfd1a52777823ad9",
+  "selected": [
+   "wisdom",
+   "wisdom_s_house",
+   "the_streets_and_city_gates"
+  ]
+ },
+ "b26": {
+  "key": "revelation-12-9/classical/symbol",
+  "arm": "symbol",
+  "case": "revelation-12-9",
+  "style": "classical",
+  "sha256": "396f24e9574742506ab7dcefb775e2c66652c85d02fe1a7baec5db333d1e6433",
+  "selected": [
+   "satan",
+   "michael_the_archangel",
+   "heavenly_throne_room"
+  ]
+ },
+ "b27": {
+  "key": "revelation-12-9/fresco/effects",
+  "arm": "effects",
+  "case": "revelation-12-9",
+  "style": "fresco",
+  "sha256": "2f47d92f7cae3f0ac2e4fb61fa952fb0f1486a55c1f41b0f9aeb530d0e3bc11c",
+  "selected": [
+   "satan",
+   "michael_the_archangel",
+   "heavenly_throne_room"
+  ]
+ },
+ "b28": {
+  "key": "revelation-12-3/classical/symbol",
+  "arm": "symbol",
+  "case": "revelation-12-3",
+  "style": "classical",
+  "sha256": "91bae35f7f2226f676d7167ff6b237e6f36161bc592fe0d976f12c01d8d469d3",
+  "selected": [
+   "satan",
+   "the_woman_clothed_with_the_sun",
+   "heavenly_throne_room"
+  ]
+ },
+ "b29": {
+  "key": "proverbs-9-14/fresco/effects",
+  "arm": "effects",
+  "case": "proverbs-9-14",
+  "style": "fresco",
+  "sha256": "364e0f9365440292cbc7666cf0b65b644015e58bdab679e28f5081b586c7adb2",
+  "selected": [
+   "wisdom",
+   "wisdom_s_house",
+   "the_streets_and_city_gates"
+  ]
+ },
+ "b30": {
+  "key": "job-1-6/fresco/symbol",
+  "arm": "symbol",
+  "case": "job-1-6",
+  "style": "fresco",
+  "sha256": "3287f5e0782c3d862db4f515e158f4a3e98a276a08ae21a98a84f19887c140a4",
+  "selected": [
+   "god_yahweh_the_father_and_god_of_israel",
+   "satan",
+   "the_heavenly_court"
+  ]
+ },
+ "b31": {
+  "key": "job-1-6/watercolor/symbol",
+  "arm": "symbol",
+  "case": "job-1-6",
+  "style": "watercolor",
+  "sha256": "41eea355621ea12370e59d9128291cb029b6932b8bdb3e6b1890d8de51143a5a",
+  "selected": [
+   "god_yahweh_the_father_and_god_of_israel",
+   "satan",
+   "the_heavenly_court"
+  ]
+ },
+ "b32": {
+  "key": "revelation-12-3/watercolor/effects",
+  "arm": "effects",
+  "case": "revelation-12-3",
+  "style": "watercolor",
+  "sha256": "8ea5f4b34c87dc11cd52ef5edd05b4cf14a559ec8138ad9ce802451571d08cae",
+  "selected": [
+   "satan",
+   "heavenly_throne_room"
+  ]
+ },
+ "b33": {
+  "key": "revelation-12-9/fresco/symbol",
+  "arm": "symbol",
+  "case": "revelation-12-9",
+  "style": "fresco",
+  "sha256": "dfbf3f4e24fde1c68d57a2c87bd6bbdcdecf136b172869319464d199514ecf9a",
+  "selected": [
+   "satan",
+   "michael_the_archangel",
+   "heavenly_throne_room"
+  ]
+ },
+ "b34": {
+  "key": "job-1-6/classical/symbol",
+  "arm": "symbol",
+  "case": "job-1-6",
+  "style": "classical",
+  "sha256": "c059fdf63232c2ffd1227ce76ae679c273c979d830f13429d110f1675a070bc1",
+  "selected": [
+   "god_yahweh_the_father_and_god_of_israel",
+   "satan",
+   "the_heavenly_court"
+  ]
+ },
+ "b35": {
+  "key": "proverbs-9-14/watercolor/effects",
+  "arm": "effects",
+  "case": "proverbs-9-14",
+  "style": "watercolor",
+  "sha256": "189eae1a8200596c74a5b0c4b37348a20d131b97f73310e88d10e7d90ebfc7b4",
+  "selected": [
+   "wisdom",
+   "wisdom_s_house",
+   "the_streets_and_city_gates"
+  ]
+ },
+ "b36": {
+  "key": "proverbs-9-14/watercolor/symbol",
+  "arm": "symbol",
+  "case": "proverbs-9-14",
+  "style": "watercolor",
+  "sha256": "23e8ada7f3bf311c59d983b1a638c61e57b69d1499674371566160295efc8906",
+  "selected": [
+   "wisdom",
+   "wisdom_s_house",
+   "the_streets_and_city_gates"
+  ]
+ }
+}

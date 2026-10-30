@@ -180,6 +180,9 @@ const entryPayloadValidator = v.object({
   name: v.string(),
   entryKind: v.union(v.literal("character"), v.literal("location"), v.literal("object")),
   hasForm: v.optional(v.boolean()),
+  // Depiction mode `symbol` (ADR 0010): drawn only as the non-human form its canon describes. Kept with hasForm false,
+  // so a deployment from before symbols treats it as a subject without form.
+  depiction: v.optional(v.literal("symbol")),
   // Reading-pass evidence carried for canon drafting: other name forms, a one-line note, and the
   // division-local entries ("division:character:id" or "division:location:id") this merged entry came from.
   aliases: v.optional(v.array(v.string())),

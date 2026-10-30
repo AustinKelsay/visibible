@@ -28,7 +28,7 @@ _Avoid_: World bible, style guide, theme
 **Depiction profile**: A work's own wording for the engine's image instructions and checks, such as where its writing appears and how a subject without form is shown. It sits beside the work brief and is not part of it.
 _Avoid_: Brief (for this wording), engine rules
 
-**Depiction mode**: How one character, location or object of a work may appear: drawn from its canon (form), or never drawn, with only the effects the text names standing for it (effects). A work's depiction profile words each mode it uses.
+**Depiction mode**: How one character, location or object of a work may appear: drawn from its canon (form); never drawn, with only the effects the text names standing for it (effects); or drawn only in the non-human form its canon describes, never as a person (symbol). A work's depiction profile words each mode it uses.
 
 **Passage**: Scripture text identified by its reference and translation. A passage can contain one or more verses.
 

@@ -8,7 +8,7 @@
 import type { FunctionReference } from "convex/server";
 import type { Doc } from "../../../convex/_generated/dataModel";
 import type { WorkInputs } from "./work-inputs";
-import { DEPICTION_MODES, depictionModeOf, effectsWordingFor, storedDepiction, type DepictionMode, type DepictionProfile } from "./depiction";
+import { DEPICTION_MODES, depictionModeOf, effectsWordingFor, storedDepiction, symbolWordingFor, type DepictionMode, type DepictionProfile } from "./depiction";
 
 export type CastEntryAddition = {
   workVersion: string; expectedGeneration: number; sectionId: string; expectedSectionVersion: string;
@@ -121,16 +121,20 @@ export function createCorrections(client: CorrectionClient, api: AnalysisApi, wo
 
     /**
      * Set how an entry may be depicted (ADR 0010) as an owner version of the entry: `form` draws it from its canon,
-     * `effects` never draws it and needs the work's wording for subjects without form. Its looks and plans are remade lazily.
+     * `effects` never draws it, and `symbol` draws it only as its canon's non-human form; each of the last two needs the
+     * work's wording for that mode. Its looks and plans are remade lazily.
      */
     async setDepiction(entryId: string, mode: string, depiction: DepictionProfile, expectedVersion?: string) {
       if (!(DEPICTION_MODES as readonly string[]).includes(mode)) throw new Error(`Depiction must be one of ${DEPICTION_MODES.join(", ")}, got ${mode}`);
       if (depiction.workId !== workId) throw new Error(`The depiction profile of ${depiction.workId} was given for ${workId}`);
       if (mode === "effects") effectsWordingFor(depiction, [entryId]);
+      if (mode === "symbol") symbolWordingFor(depiction, [entryId]);
       const entry = await query<Record_ | null>(api.getActiveRecord, { kind: "entry", recordId: entryId });
       if (!entry || entry.payload.kind !== "entry") throw new Error(`No active entry ${entryId}`);
       const previous = depictionModeOf(entry.payload);
-      const payload = { ...entry.payload, ...storedDepiction(mode as DepictionMode) };
+      const payload: Record<string, unknown> = { ...entry.payload, ...storedDepiction(mode as DepictionMode) };
+      // Only a symbol entry stores `depiction`; leaving the mode clears it.
+      if (mode !== "symbol") delete payload.depiction;
       const result = await mutate<{ version: string; changed: boolean }>(api.correctRecord, { kind: "entry", recordId: entryId, payload, expectedVersion: expectedVersion ?? entry.version });
       const closed = await mutate<{ closed: number }>(api.closeAttentionFor, { kind: "entry", recordId: entryId, disposition: "source corrected" });
       const stale = await query<Array<{ kind: string; recordId: string }>>(api.listStaleDependents, { kind: "entry", recordId: entryId });

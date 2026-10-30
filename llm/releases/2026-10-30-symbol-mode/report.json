@@ -1,0 +1,170 @@
+{
+ "settled": {
+  "effects": {
+   "images": 18,
+   "acceptable": 12,
+   "figureInLight": 2,
+   "faults": {
+    "lettering": 0,
+    "frame": 0,
+    "edge": 0,
+    "figure in light": 2
+   },
+   "byEntry": {
+    "satan": {
+     "selected": 15,
+     "canonForm": 6,
+     "appears": {
+      "canon form": 6,
+      "person": 2,
+      "light or cloud": 4,
+      "absent": 2,
+      "unclear": 1
+     }
+    },
+    "the_foolish_woman": {
+     "selected": 0,
+     "canonForm": 0,
+     "appears": {
+      "canon form": 0,
+      "person": 0,
+      "light or cloud": 0,
+      "absent": 0,
+      "unclear": 0
+     }
+    }
+   }
+  },
+  "symbol": {
+   "images": 18,
+   "acceptable": 14,
+   "figureInLight": 3,
+   "faults": {
+    "lettering": 0,
+    "frame": 1,
+    "edge": 0,
+    "figure in light": 3
+   },
+   "byEntry": {
+    "satan": {
+     "selected": 15,
+     "canonForm": 15,
+     "appears": {
+      "canon form": 15,
+      "person": 0,
+      "light or cloud": 0,
+      "absent": 0,
+      "unclear": 0
+     }
+    },
+    "the_foolish_woman": {
+     "selected": 0,
+     "canonForm": 0,
+     "appears": {
+      "canon form": 0,
+      "person": 0,
+      "light or cloud": 0,
+      "absent": 0,
+      "unclear": 0
+     }
+    }
+   }
+  }
+ },
+ "sensitivityB35Acceptable": {
+  "effects": {
+   "images": 18,
+   "acceptable": 13,
+   "figureInLight": 2,
+   "faults": {
+    "lettering": 0,
+    "frame": 0,
+    "edge": 0,
+    "figure in light": 2
+   },
+   "byEntry": {
+    "satan": {
+     "selected": 15,
+     "canonForm": 6,
+     "appears": {
+      "canon form": 6,
+      "person": 2,
+      "light or cloud": 4,
+      "absent": 2,
+      "unclear": 1
+     }
+    },
+    "the_foolish_woman": {
+     "selected": 0,
+     "canonForm": 0,
+     "appears": {
+      "canon form": 0,
+      "person": 0,
+      "light or cloud": 0,
+      "absent": 0,
+      "unclear": 0
+     }
+    }
+   }
+  },
+  "symbol": {
+   "images": 18,
+   "acceptable": 14,
+   "figureInLight": 3,
+   "faults": {
+    "lettering": 0,
+    "frame": 1,
+    "edge": 0,
+    "figure in light": 3
+   },
+   "byEntry": {
+    "satan": {
+     "selected": 15,
+     "canonForm": 15,
+     "appears": {
+      "canon form": 15,
+      "person": 0,
+      "light or cloud": 0,
+      "absent": 0,
+      "unclear": 0
+     }
+    },
+    "the_foolish_woman": {
+     "selected": 0,
+     "canonForm": 0,
+     "appears": {
+      "canon form": 0,
+      "person": 0,
+      "light or cloud": 0,
+      "absent": 0,
+      "unclear": 0
+     }
+    }
+   }
+  }
+ },
+ "passBar": {
+  "symbolForm": {
+   "satan": "15/15 (100%) canon form; bar 75%",
+   "satanPasses": true,
+   "foolishWoman": "selected in 0 of 3 symbol samples (the planner chose Wisdom for Proverbs 9:14 in both arms); bar 2 of 3",
+   "foolishWomanPasses": false
+  },
+  "noRegression": {
+   "acceptable": "symbol 14 vs effects 12 (bar: at least effects - 1)",
+   "passes": false,
+   "figureInLight": "symbol 3 vs effects 2"
+  },
+  "passBarAsWritten": false
+ },
+ "spend": {
+  "at": "2026-10-30T03:45:58.404Z",
+  "measuredUsd": 1.4145305499999996,
+  "uncertainUsd": 0,
+  "images": 40,
+  "textCalls": 53,
+  "checkCalls": 80,
+  "blocked": null,
+  "productionMutations": 0
+ }
+}

@@ -11,7 +11,7 @@
 import { SITUATION_FIELDS, type Situation } from "./situation";
 import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
-import { effectsWordingFor, readDepictionProfile, type DepictionProfile } from "./depiction";
+import { effectsWordingFor, readDepictionProfile, symbolWordingFor, type DepictionMode, type DepictionProfile } from "./depiction";
 
 /** Structure, wording and reference choice of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. v15 ranks sheet slots (ADR 0009). */
 export const GENERIC_PROMPT_VERSION = "2026-10-29-generic-v15";
@@ -21,7 +21,8 @@ export const MAX_REFERENCE_IMAGES = 3;
 const MOMENT_TEXT_MAX_CHARS = 1200;
 const NEIGHBOR_HINT_MAX_CHARS = 220;
 
-export type SelectedCanon = { entryId: string; stageId: string; kind: "character" | "location" | "object"; name: string; text: string; hasForm: boolean; version: string };
+/** `hasForm` is false only for `effects` entries; `depiction` tells a `symbol` entry (drawn only as its canon's non-human form) from `form`. */
+export type SelectedCanon = { entryId: string; stageId: string; kind: "character" | "location" | "object"; name: string; text: string; hasForm: boolean; depiction?: DepictionMode; version: string };
 export type AvailableReference =
   | { kind: "styleReference"; styleId: string; storageId: string; version: string }
   | { kind: "sheet"; entryId: string; stageId: string; storageId: string; version: string };
@@ -135,10 +136,10 @@ const names = (text: string, entry: SelectedCanon) =>
 /**
  * Sheet candidates in the order their slots are filled (ADR 0009): the best character, the best place, then the other
  * characters, places and objects. Within a kind, the entries the plan's primary subject names come first, then those its
- * action names, then plan order. No-form entries never have a sheet.
+ * action names, then plan order. No-form and symbol entries never have a sheet.
  */
 export function rankSheetCandidates(canon: SelectedCanon[], plan?: { primarySubject: string; action: string } | null): SelectedCanon[] {
-  const eligible = canon.filter((c) => c.hasForm);
+  const eligible = canon.filter((c) => c.hasForm && c.depiction !== "symbol");
   const weight = (c: SelectedCanon) => !plan ? 0 : names(plan.primarySubject, c) ? 2 : names(plan.action, c) ? 1 : 0;
   const ranked = (kind: SelectedCanon["kind"]) => eligible.map((c, index) => ({ c, index, weight: weight(c) })).filter((x) => x.c.kind === kind)
     .sort((a, b) => b.weight - a.weight || a.index - b.index).map((x) => x.c);
@@ -187,9 +188,11 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   // without form is present it is never named or described: the source text, neighbours and its canon are left out,
   // and only the plan's plain effects stand for it, in the work's own wording. A work with no such wording refuses.
   const presence = formless.length > 0;
-  let effects;
+  const symbols = input.canon.filter((c) => c.depiction === "symbol");
+  let effects, symbol;
   try {
     effects = presence ? effectsWordingFor(depiction, formless.map((c) => c.entryId)) : null;
+    symbol = symbols.length ? symbolWordingFor(depiction, symbols.map((c) => c.entryId)) : null;
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : String(error), finalChars: 0 };
   }
@@ -201,8 +204,10 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const nameless = (text: string) => formlessNames.reduce((t, name) => t.replace(new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(name)}(?![\\p{L}\\p{N}])`, "giu"), effects?.alias ?? name), text);
   // Callers may pass extra plan keys (such as a stored payload's `present` list); only scene text is rewritten.
   const plan = Object.fromEntries(Object.entries(input.plan).map(([key, value]) => [key, key === "version" || typeof value !== "string" ? value : nameless(value)])) as RenderingInput["plan"];
-  const selectedCharacters = `SELECTED CHARACTERS: ${formed.filter((c) => c.kind === "character").map((c) => c.name).join("; ") || "(none with fixed canon; show only figures the scene plan describes, or none)"}`;
+  // A symbol entry is never a person, so it is not among the selected characters; its canon still describes its form.
+  const selectedCharacters = `SELECTED CHARACTERS: ${formed.filter((c) => c.kind === "character" && c.depiction !== "symbol").map((c) => c.name).join("; ") || "(none with fixed canon; show only figures the scene plan describes, or none)"}`;
   const formlessBlock = effects?.renderBlock ?? "";
+  const symbolBlock = symbol ? `${symbol.renderBlock} ${symbols.map((c) => c.name).join("; ")}.` : "";
   const canonBlock = formed.length
     ? ["CANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):",
       ...formed.map((c) => `- ${c.text}`),
@@ -237,6 +242,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     presence ? nameless(briefBlock(brief, input.eraId, style.id)) : briefBlock(brief, input.eraId, style.id),
     selectedCharacters,
     formlessBlock,
+    symbolBlock,
     canonBlock,
     ownerBlock,
     planBlock,

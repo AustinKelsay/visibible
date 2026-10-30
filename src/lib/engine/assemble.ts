@@ -126,7 +126,8 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     if (!stage || !stage.text.trim()) {
       return { ok: false, reason: "preparation", message: `Preparing scene: missing canon stage ${present.entryId}:${present.stageId}.`, retryable: true, stage: "plan", error: null };
     }
-    canon.push({ entryId: present.entryId, stageId: stage.id, kind: payload.entryKind, name: payload.name, text: stage.text, hasForm: depictionModeOf(payload) === "form", version: entry.version });
+    const mode = depictionModeOf(payload);
+    canon.push({ entryId: present.entryId, stageId: stage.id, kind: payload.entryKind, name: payload.name, text: stage.text, hasForm: mode !== "effects", depiction: mode, version: entry.version });
   }
 
   const lookCurrent = async () => {

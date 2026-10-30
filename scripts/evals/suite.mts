@@ -41,6 +41,7 @@ import { createLedger, modelPricing, requestCeilingUsd, runSuite, scrubForLog, t
 import { createOfflineOpenRouter } from "@/lib/image-evals/suite-offline";
 import { createOpenRouterEvalImageProvider } from "@/lib/image-evals/adapters";
 import { listAnalysisRecords } from "@/lib/engine/analysis-records";
+import { depictionModeOf } from "@/lib/engine/depiction";
 import type { ReferenceRecord } from "@/lib/engine/assemble";
 import type { AnalysisRecord } from "@/lib/engine/preparation";
 import { FORMLESS_LOOK_PROMPT_VERSION, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION } from "@/lib/engine/preparation";
@@ -398,7 +399,7 @@ async function blind() {
       const section = snapshotRecords(p).get(row.work)?.get(`section:${row.sectionId}`);
       const cast = ((section?.payload.cast ?? []) as Array<{ entryId: string }>).map((m) => {
         const e = snapshotRecords(p).get(row.work)?.get(`entry:${m.entryId}`)?.payload as { name?: string; entryKind?: string; hasForm?: boolean } | undefined;
-        return { name: e?.name ?? m.entryId, kind: e?.entryKind ?? "unknown", mayBeDrawn: e?.hasForm !== false };
+        return { name: e?.name ?? m.entryId, kind: e?.entryKind ?? "unknown", mayBeDrawn: depictionModeOf(e ?? {}) !== "effects" };
       });
       items.push({ id, ask, ...moment, previous: row.context.previous?.text ?? null, next: row.context.next?.text ?? null,
         depictionRules: inputs.brief.depictionRules.map((r) => r.text), sectionCast: cast, plan: { selected, ...scene } });
@@ -406,7 +407,7 @@ async function blind() {
       const attempt = row.attempts[row.chosen - 1];
       const file = path.join(blobDir, "blind", `${id}${path.extname(attempt.file)}`);
       copyFileSync(path.join(root, attempt.file), file);
-      const neverDrawn = (row.prepared.present as Array<{ entryId: string }>).filter((e) => (snapshotRecords(p).get(row.work)?.get(`entry:${e.entryId}`)?.payload as { hasForm?: boolean } | undefined)?.hasForm === false).map((e) => entryName(e.entryId));
+      const neverDrawn = (row.prepared.present as Array<{ entryId: string }>).filter((e) => depictionModeOf(snapshotRecords(p).get(row.work)?.get(`entry:${e.entryId}`)?.payload ?? {}) === "effects").map((e) => entryName(e.entryId));
       // Scorers see no style, so each item names the faults its style accepts and the depiction rules that apply to it.
       const accepted = faults.image.filter((f) => ask.includes(f.id) && f.acceptedIn?.includes(row.style)).map((f) => f.id);
       items.push({ id, ask, accepted, file: path.relative(root, file), ...moment, depictionRules: applicableRules(inputs.brief, row.style), selected, neverDrawn, scene });

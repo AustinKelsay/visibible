@@ -82,6 +82,7 @@ All of these are in the content hash and excluded from image prompts. `review.no
 - The moment, the section (directly, so a stage reassignment refreshes it even when the look's bytes match), the look version and its ownership policy (`scene_plan_look_ownership`), the brief and the cast's canon versions.
 - The prompt markers `scene_plan_moment_cast` and `scene_plan_review`, plus `scene_plan_formless_presence` for no-form sections.
 - `depiction_plan`: the version of the profile wording the planner and review read. Wording only image prompts or checks read remakes nothing.
+- `depiction_symbol`, for sections that cast a symbol entry: the version of the profile's symbol instruction. The planner also sees each such entry's canon form beside its name, and the review treats it as having form.
 
 A missing or older marker refreshes the plan on next use and reuses a current look. Nothing about a style or a translation enters the plan. Changing look ownership invalidates plans even for identical look bytes.
 
