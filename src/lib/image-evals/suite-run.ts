@@ -45,10 +45,10 @@ export function scrubForLog(value: unknown, secret: string, hash: (text: string)
 /** A model's catalog prices (USD per token) and its largest output, from OpenRouter's model list. */
 export type ModelPricing = { prompt: number; completion: number; imageOutput: number | null; maxCompletionTokens: number | null; overrides: Array<{ minPromptTokens: number; prompt: number; completion: number }> };
 
-/** A catalog price as a finite, nonnegative number, or null when it is absent or malformed. */
+/** A catalog price as a finite, nonnegative number, or null unless it is a number or a numeric string ("0.0000001"). */
 const price = (value: unknown): number | null => {
-  if (value === undefined || value === null || value === "") return null;
-  const n = Number(value);
+  const n = typeof value === "number" ? value
+    : typeof value === "string" && /^\d+(\.\d+)?(e[-+]?\d+)?$/i.test(value) ? Number(value) : Number.NaN;
   return Number.isFinite(n) && n >= 0 ? n : null;
 };
 

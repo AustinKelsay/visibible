@@ -78,6 +78,14 @@ describe("call ceilings", () => {
     expect(modelPricing({ pricing: { prompt: "abc", completion: "0.0000005" } })).toBeUndefined();
     expect(modelPricing({ pricing: { prompt: "-1", completion: "0.0000005" } })).toBeUndefined();
     expect(modelPricing({ pricing: { prompt: "0.0000001", completion: "0.0000005", overrides: [{ min_prompt_tokens: "x", prompt: "1", completion: "1" }] } })).toBeUndefined();
+    // Values Number() would read as 0 are malformed, not free.
+    const valid = { prompt: "0.0000001", completion: "0.0000005", image_output: "0.00003", overrides: [{ min_prompt_tokens: 100000, prompt: "0.0000005", completion: "0.0000025" }] };
+    for (const bad of [" ", false, [], {}, null, "0x10", "1,5"]) {
+      for (const field of ["prompt", "completion"]) expect(modelPricing({ pricing: { ...valid, [field]: bad } }), `${field} ${JSON.stringify(bad)}`).toBeUndefined();
+      for (const field of ["min_prompt_tokens", "prompt", "completion"]) expect(modelPricing({ pricing: { ...valid, overrides: [{ ...valid.overrides[0], [field]: bad }] } }), `override ${field}`).toBeUndefined();
+      expect(modelPricing({ pricing: { ...valid, image_output: bad } })!.imageOutput, `image_output ${JSON.stringify(bad)}`).toBeNull();
+    }
+    expect(modelPricing({ pricing: valid })).toMatchObject({ prompt: 1e-7, completion: 5e-7, imageOutput: 3e-5 });
     // An image call needs the model's image price; text calls to it do not.
     const noImagePrice = modelPricing({ pricing: { prompt: "0.00000025", completion: "0.0000015" }, top_provider: { max_completion_tokens: 58982 } });
     expect(requestCeilingUsd("image", { model: "google/gemini-3.1-flash-lite-image", messages: [] }, noImagePrice)).toBeNull();
@@ -101,6 +109,11 @@ describe("call ceilings", () => {
     const notANumber = createLedger({ capUsd: 0.01, reserves: { text: 0.01, image: 0.05, check: 0.002 }, limits: { text: 10, image: 10, check: 10 }, fetch: counting,
       ceiling: () => Number.NaN, save: () => {}, log: () => {}, scrub: (v) => v });
     await expect(call(notANumber.fetchFor("image", () => "x"))).rejects.toThrow(/No price ceiling/);
+    // Blank catalog prices give no ceiling, so the call is never sent.
+    const blank = modelPricing({ pricing: { prompt: " ", completion: " " } });
+    const blankLedger = createLedger({ capUsd: 0.001, reserves: { text: 0.01, image: 0.05, check: 0.002 }, limits: { text: 10, image: 10, check: 10 }, fetch: counting,
+      ceiling: (kind, request) => requestCeilingUsd(kind, request, blank), save: () => {}, log: () => {}, scrub: (v) => v });
+    await expect(call(blankLedger.fetchFor("text", () => "x"), { model: "m", max_tokens: 10, messages: [] })).rejects.toThrow(/No price ceiling/);
     expect(sent).toBe(1);
   });
 });
