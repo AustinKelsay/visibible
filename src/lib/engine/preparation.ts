@@ -71,7 +71,7 @@ const PLAN_FIELD_MAX_CHARS = 400;
  * output enforces it; a reply outside it is malformed and retried once). Repeated IDs are dropped and long
  * values trimmed in code, so a usable plan is not refused for formatting; the field descriptions guide the model.
  */
-function planningResponseSchema(entryIds: string[], effects: EffectsWording | null) {
+function planningResponseSchema(entryIds: string[], effects: EffectsWording | null, depiction: DepictionProfile) {
   // An empty enum is not a valid provider schema; IDs outside the cast are dropped after parsing.
   const id = entryIds.length ? z.enum(entryIds) : z.string();
   const field = (description: string) => z.string().describe(`${description} One or two short phrases.`);
@@ -80,7 +80,7 @@ function planningResponseSchema(entryIds: string[], effects: EffectsWording | nu
     focusQuote: z.string().describe("A few words copied from MOMENT naming what this image shows."),
     instant: z.string().describe("One sentence fixing the single instant to draw: who is where, doing what."),
     selectedCast: z.array(z.object({ entryId: id, evidence: z.string().describe("A few words from the text that put this entry in the scene.") }).strict())
-      .describe("Every section cast entry visible in the image, once each: people, groups, places, objects and presences shown through effects. Empty when none is."),
+      .describe(`Every section cast entry visible in the image, once each: ${depiction.modes.effects ? "people, groups, places, objects and presences shown through effects" : "people, groups, places and objects"}. Empty when none is.`),
     primarySubject: field(`The main subject and its pose or placement at that instant.${formless}`),
     action: field(`What happens at that one instant.${formless}`),
     setting: field("The physical place and surroundings, consistent with the text and era."),
@@ -298,7 +298,7 @@ export async function prepareMoment(options: {
     const neighbors = planningNeighbors(options.context);
     const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Technology: ${era.technology}\nSTORY SECTION: ${sectionPayload.title}\n\nMOMENT (${options.context.moment.reference}): ${options.context.moment.text}\nPREVIOUS: ${neighbors.previous ?? "(section starts here)"}\nNEXT: ${neighbors.next ?? "(section ends here)"}\n\nCAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name}${hasFormlessCast ? ` (hasForm: ${c.hasForm})` : ""}`).join("\n") || "- (no one listed)"}`;
     const castIds = cast.map((c) => c.entryId);
-    const schema = planningResponseSchema(castIds, effects);
+    const schema = planningResponseSchema(castIds, effects, depiction);
     const lookContext = `\n\n${policy === "generated-guide-v1" ? "SECTION LOOK GUIDE (a suggestion; keep what fits this moment)" : "OWNER LOOK CONSTRAINTS (copy all values exactly)"}:\n${JSON.stringify(lookPayload)}`;
     const reviewCast = cast.map((c) => ({ entryId: c.entryId, name: c.name, hasForm: c.hasForm }));
     const trim = (text: string) => text.length <= PLAN_FIELD_MAX_CHARS ? text : `${text.slice(0, PLAN_FIELD_MAX_CHARS - 1).trimEnd()}…`;

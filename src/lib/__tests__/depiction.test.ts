@@ -20,7 +20,7 @@ import { bibleDepictionJson, testDepiction } from "../../../tests/fixtures/depic
 
 /** Wording the Bible's evaluations put into the engine; none of it belongs in another work's requests. */
 const BIBLE_WORDING = ["throne", "chariot", "crucifixion", "halo", "scroll", "tablet", "king ready for battle", "standing in the gap",
-  "UNSEEN PRESENCE", "the presence", "hasForm: false", "hasForm false", "no-form", "presence without form", "figure_in_light", "bright area", "embodied_formless", "radiance"];
+  "UNSEEN PRESENCE", "the presence", "hasForm: false", "hasForm false", "no-form", "presence without form", "shown through effects", "figure_in_light", "bright area", "embodied_formless", "radiance"];
 const bibleWordingIn = (text: string) => BIBLE_WORDING.filter((term) => text.toLowerCase().includes(term.toLowerCase()));
 
 function recordingFetch(answer: (body: { response_format: { json_schema: { name: string } }; messages: unknown[] }) => unknown, bodies: string[]) {
