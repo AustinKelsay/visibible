@@ -135,20 +135,21 @@ describe("a suite run through the real assembly", () => {
   ];
 
   type Row = {
-    key: string; caseId: string; outcome: string; style: string | null; textCalls: number; reason?: string; standsFor?: string[];
+    key: string; caseId: string; outcome: string; style: string | null; textCalls: number; reason?: string; stage?: string; standsFor?: string[];
     records: { look: AnalysisRecord; plan: AnalysisRecord }; context: { moment: { text: string } }; checkContext: { softEdges: boolean };
     prepared: { plan: Record<string, unknown> }; attempts: unknown[];
   };
 
-  async function run(tier: "text" | "image", seeded?: AnalysisRecord[], options: Parameters<typeof createOfflineOpenRouter>[0] = {}, extra: MemoryRecordInput[] = []) {
+  type RunShape = { limits?: { text: number; image: number; check: number }; cases?: SuiteCase[]; otherWorks?: [string, SuiteWork][]; concurrency?: number };
+  async function run(tier: "text" | "image", seeded?: AnalysisRecord[], options: Parameters<typeof createOfflineOpenRouter>[0] = {}, extra: MemoryRecordInput[] = [], shape: RunShape = {}) {
     const inputs = await readWorkInputs("holmes-adventures");
     const offline = createOfflineOpenRouter(options);
-    const { ledger } = ledgerWith(offline.fetch, 1, { text: 100, image: 100, check: 100 });
+    const { ledger } = ledgerWith(offline.fetch, 1, shape.limits ?? { text: 100, image: 100, check: 100 });
     const rows: Row[] = [];
     const work: SuiteWork = { inputs, records: [...records, ...extra], seeded, getReference: async () => null, loadReference: async () => { throw new Error("no references"); } };
     let saved = 0;
     await runSuite({
-      tier, cases, works: new Map([["holmes-adventures", work]]), aspectRatio: "16:9", concurrency: 2,
+      tier, cases: shape.cases ?? cases, works: new Map([["holmes-adventures", work], ...(shape.otherWorks ?? [])]), aspectRatio: "16:9", concurrency: shape.concurrency ?? 2,
       image: tier === "image" ? { model: "google/gemini-3.1-flash-lite-image", resolution: "1K" } : undefined,
       providers: (phase) => ({
         text: createOpenRouterTextModel({ apiKey: "k", fetch: ledger.fetchFor("text", phase), timeoutMs: 5_000 }),
@@ -200,6 +201,25 @@ describe("a suite run through the real assembly", () => {
     const image = await run("image", seeds, {}, [ownerLook]);
     expect(image.offline.counts.text).toBe(0);
     expect(image.rows.every((r) => r.outcome === "image")).toBe(true);
+  });
+
+  it("refuses only a case whose seed is stale, without spending the image run's zero text calls", async () => {
+    const text = await run("text");
+    // The shared look and case A's plan are seeded; case B's plan is missing, so B would have to be planned again.
+    const seeds = [text.rows[0].records.look, text.rows.find((r) => r.caseId === "holmes-a")!.records.plan];
+    const { rows, ledger, offline } = await run("image", seeds, {}, [], { limits: { text: 0, image: 100, check: 100 } });
+    expect(ledger.state.blocked).toBeNull();
+    expect(offline.counts.text).toBe(0);
+    expect(rows.filter((r) => r.caseId === "holmes-a").map((r) => r.outcome)).toEqual(["image", "image"]);
+    expect(rows.filter((r) => r.caseId === "holmes-b")).toMatchObject([{ outcome: "refused", stage: "seed", standsFor: ["classical", "watercolor"] }]);
+  });
+
+  it("runs every work's holdout cases before any dev case", async () => {
+    // A second work with no analysis refuses its case at once, so the record order is the run order.
+    const alice: SuiteWork = { inputs: await readWorkInputs("alice-in-wonderland"), records: [], getReference: async () => null, loadReference: async () => { throw new Error("no references"); } };
+    const aliceCase: SuiteCase = { caseId: "alice-a", work: "alice-in-wonderland", unitId: "alice-1-1", reference: "Chapter I ¶1", split: "holdout", tiers: ["text", "image"], styles: ["classical"] };
+    const { rows } = await run("text", undefined, {}, [], { cases: [...cases, aliceCase], otherWorks: [["alice-in-wonderland", alice]], concurrency: 1 });
+    expect(rows.map((r) => r.caseId)).toEqual(["holmes-b", "alice-a", "holmes-a"]);
   });
 
   it("records a refused case once for all its styles, and stops at a provider error", async () => {
