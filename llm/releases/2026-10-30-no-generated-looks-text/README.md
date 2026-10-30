@@ -6,4 +6,4 @@ The text run uses the frozen suite and a read-only snapshot of the current analy
 
 Historical `.mts` runners under `llm/releases` are retained as evidence and must run at their recorded commit. They are excluded from current type checking instead of forcing the current engine to preserve retired APIs. The maintained runner is `scripts/evals/suite.mts`; source and active tests remain checked, including any historical controls they import.
 
-Results: pending live evaluation.
+The live run prepared all 113 cases with 301 text calls for $0.146505, no uncertain usage, no refusals, and no production mutations. The baseline used 404 calls for $0.1782921. The snapshot’s source records, reference metadata, and image hashes match the baseline exactly. Independent quality scoring is pending.
