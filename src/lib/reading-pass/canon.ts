@@ -40,8 +40,23 @@ export const canonOutputSchema = z.object({
 });
 export type CanonOutput = z.infer<typeof canonOutputSchema>;
 
+/**
+ * A work whose depiction profile words no subjects without form (ADR 0010) cannot render one, so its drafter is not
+ * offered the choice: every entry has a form and prose stages. Haiku otherwise marked Alice's Caterpillar, a garden
+ * and the rabbit-hole "no form" under a brief with no rule against a body.
+ */
+export const canonFormOnlySchema = z.object({
+  kind: z.enum(["character", "location", "object"]),
+  has_form: z.literal(true),
+  appearance_from_text: text,
+  stages: z.array(z.object({ ...stageFields, text }).strict()),
+  section_stages: z.array(z.object({ section: text, stage: text }).strict()),
+}).strict();
+
 /** Wording of new canon drafts; saved entries are reused until explicitly redrafted. */
 export const CANON_PROMPT_VERSION = "2026-10-22-canon-showing-v3";
+/** Wording of new drafts for a work with no subjects without form: the same prompt plus one closing rule. */
+export const CANON_FORM_ONLY_PROMPT_VERSION = "2026-10-30-canon-form-only-v1";
 
 export const CANON_SYSTEM = `You write CANON ENTRIES for an illustrated edition of a work of literature. A canon entry fixes the identity of one character, location or object so that independently generated images agree with each other. Return only JSON matching the schema.
 
@@ -221,22 +236,31 @@ export function checkCanon(work: WorkReader, entry: MergedEntry, output: CanonOu
   return { entryId: entry.id, kind: output.kind === entry.kind ? entry.kind : entry.kind, hasForm: output.has_form, appearanceFromText: output.appearance_from_text, stages, sectionStages, problems };
 }
 
+/** The closing rule for a work whose depiction profile has no subjects without form. */
+export const CANON_FORM_ONLY_SYSTEM = `${CANON_SYSTEM}
+- This work has no subjects without form: every entry, including animals, places and objects, has has_form true and returns stage text.`;
+
 export async function draftCanonEntry(options: {
   work: WorkReader; entry: MergedEntry; brief: WorkBrief; sections: MergedSection[]; sectionEras: Record<string, string>; hints: CanonHint[]; model: TextModel;
+  /** The work's depiction profile has no `effects` wording, so every entry is drafted with a form. */
+  formOnly?: boolean;
 }): Promise<CanonEntryResult> {
   const { user, sectionIds } = canonUserPrompt(options);
+  const system = options.formOnly ? CANON_FORM_ONLY_SYSTEM : CANON_SYSTEM;
+  const schema: z.ZodType<CanonOutput> = options.formOnly ? canonFormOnlySchema : canonOutputSchema;
+  const promptVersion = options.formOnly ? CANON_FORM_ONLY_PROMPT_VERSION : CANON_PROMPT_VERSION;
   let feedback = "";
   let last: Omit<CanonEntryResult, "attempts"> | null = null;
   for (let attempt = 1; attempt <= 2; attempt++) {
-    const result = await options.model.complete({ label: `canon:${options.entry.id}:${attempt}`, system: CANON_SYSTEM, user: user + feedback, schemaName: "canon_entry", schema: canonOutputSchema, maxTokens: 4000, expectedCompletionTokens: 1200 });
-    const parsed = parseModelJson(canonOutputSchema, result.content);
+    const result = await options.model.complete({ label: `canon:${options.entry.id}:${attempt}`, system, user: user + feedback, schemaName: "canon_entry", schema, maxTokens: 4000, expectedCompletionTokens: 1200 });
+    const parsed = parseModelJson(schema, result.content);
     if ("error" in parsed) { feedback = `\n\nThe previous answer was not valid JSON for the schema (${parsed.error}). Return a corrected answer.`; continue; }
     last = checkCanon(options.work, options.entry, parsed.value, sectionIds);
     const overCap = last.problems.filter((p) => p.includes("characters (cap"));
-    if (!overCap.length || attempt === 2) return { ...last, promptVersion: CANON_PROMPT_VERSION, attempts: attempt };
+    if (!overCap.length || attempt === 2) return { ...last, promptVersion, attempts: attempt };
     feedback = `\n\nThe previous answer was rejected: ${overCap.join("; ")}. Shorten every stage text to at most ${CANON_TEXT_CAP} characters and return the corrected answer.`;
   }
-  if (last) return { ...last, promptVersion: CANON_PROMPT_VERSION, attempts: 2 };
+  if (last) return { ...last, promptVersion, attempts: 2 };
   throw new Error(`Canon for ${options.entry.id} could not be drafted`);
 }
 

@@ -22,6 +22,7 @@ import { createOpenRouterTextModel } from "@/lib/reading-pass/model";
 import { createConvexAnalysisStore } from "@/lib/reading-pass/store";
 import type { ReadingPassState } from "@/lib/reading-pass/run";
 import { emptyCanonState, runCanon, type CanonState } from "@/lib/reading-pass/canon-run";
+import { readDepictionProfile } from "@/lib/engine/depiction";
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -67,6 +68,9 @@ if (state.briefVersion !== briefVersion) {
   console.log("The brief changed since the last canon run; starting canon fresh against the new brief.");
   state = emptyCanonState(workId, workVersion, briefVersion);
 }
+// A work whose depiction profile words no subjects without form cannot render one, so none is drafted (ADR 0010).
+const formOnly = !readDepictionProfile(workId, root).modes.effects;
+if (formOnly) console.log(`${workId} has no subjects without form: every entry is drafted with a form.`);
 const budgetUsd = Number(values.budget);
 if (!Number.isFinite(budgetUsd) || budgetUsd <= 0) throw new Error("--budget must be a positive USD amount");
 
@@ -83,7 +87,7 @@ if (!values["no-store"]) {
 const saveState = async (next: CanonState) => { await writeFile(statePath, JSON.stringify(next, null, 1)); };
 try {
   state = await runCanon({ workFile: JSON.parse(workJson), workVersion, brief, briefVersion, reading, hints, model: createOpenRouterTextModel({ apiKey }), store, state, saveState,
-    budgetUsd, activate: values.activate, redraft: values.redraft?.split(",").map((s) => s.trim()).filter(Boolean), log: (line) => console.log(line) });
+    budgetUsd, activate: values.activate, redraft: values.redraft?.split(",").map((s) => s.trim()).filter(Boolean), formOnly, log: (line) => console.log(line) });
 } finally {
   await saveState(state);
   const spent = state.ledger.reduce((n, e) => n + (e.costUsd ?? 0), 0);
