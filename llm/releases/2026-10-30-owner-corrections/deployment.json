@@ -19,7 +19,8 @@
   "corrections": [
     { "entry": "the_heavenly_court", "command": "set-depiction form", "from": "location, hasForm false (generated c4902613…)", "to": "location, form (owner 333941b2…)", "staleDependents": [] },
     { "entry": "nineveh", "command": "set-kind location", "from": "character, hasForm false (generated cc4b32eb…)", "to": "location (owner 9e3452b3…)", "staleDependents": [] },
-    { "entry": "nineveh", "command": "set-depiction form", "from": "location, hasForm false (owner 9e3452b3…)", "to": "location, form (owner 8959b998…)", "staleDependents": [] }
+    { "entry": "nineveh", "command": "set-depiction form", "from": "location, hasForm false (owner 9e3452b3…)", "to": "location, form (owner 8959b998…)", "staleDependents": [] },
+    { "section": "nahum-2-6", "command": "remove-cast nineveh", "from": "cast assyrian_troops, nineveh, nineveh_assyrian_capital (generated 53a3d88c…)", "to": "cast assyrian_troops, nineveh_assyrian_capital (owner 3c63a85d…)", "why": "nineveh duplicated nineveh_assyrian_capital, the Nineveh of 13 sections with a sheet; nineveh was cast only here." }
   ],
   "smokes": {
     "method": "Fresh guest sessions (0 credits), POST /api/generate-image, classical, 16:9, 1K; each stopped at HTTP 402 Insufficient credits (required 5) after cold preparation, with no image call.",
