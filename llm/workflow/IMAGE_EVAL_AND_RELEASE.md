@@ -2,7 +2,32 @@
 
 Apply this process when changing the generic engine's prompt or preparation, an art style, the default image model, or anything else that can change what a verse's image looks like. It is the image half of [Spec S10](https://github.com/AustinKelsay/visibible/issues/54); the chat half is [Chat eval and release requirements](CHAT_EVAL_AND_RELEASE.md).
 
-## The harness
+## The regression suite
+
+Every measurement of the engine is a run of the regression suite ([ADR 0011](../../docs/adr/0011-frozen-multi-work-regression-suite.md)). It covers the Bible, Holmes and Alice, keeps a holdout nobody tuned against, and gates fault by fault. Its settings are in [suite.json](../../evals/images/suite.json), its cases in [cases.json](../../evals/images/cases.json) and its fault questions in [faults.json](../../evals/images/faults.json). One committed command, `npm run evals:suite` ([scripts/evals/suite.mts](../../scripts/evals/suite.mts)), runs it; a release folder holds a run's data, never a copy of the code.
+
+Which tier a change needs:
+
+- **Every change:** `npm test`. Each work's exact engine requests are pinned byte for byte (the Bible's in [bible-engine-golden.test.ts](../../src/lib/__tests__/bible-engine-golden.test.ts), Holmes's and Alice's in [work-engine-golden.test.ts](../../src/lib/__tests__/work-engine-golden.test.ts)). A diff there names the works a prompt change reaches. Regenerate the Holmes and Alice files with `WRITE_ENGINE_GOLDEN=1` only as part of that change.
+- **A change to looks, plans or their review:** a text run (about $0.20), compared with the last one.
+- **A change to rendering, a style, the image model or the check, or a release:** a text run, then an image run drawing its plans (about $8), compared with the last of each, plus the [consistency](#consistency) pairing.
+
+Steps, in order. Each refuses to overwrite what an earlier step wrote:
+
+1. `npm run evals:suite -- plan --run <name> --tier text` writes `llm/releases/<name>/plan.json`: the cases (holdout first), prompt versions, estimate and the cap the owner is asked to fund. An image run names its text run: `--tier image --from <text run>`, and usually an explicit `--cap`.
+2. `npm run evals:suite -- snapshot --run <text run>` reads each work's analysis once, read-only, from production (Bible and Holmes) or its committed fixture (Alice), with the reference images production would attach. The blobs go to the ignored `evals/images/runs/<name>/`; their hashes go into `snapshot.json`. An image run reuses its text run's snapshot and the looks and plans that run stored, so the plans scored in text are the plans drawn.
+3. `npm run evals:suite -- run --run <name> --offline` rehearses the run with scripted replies into a temporary folder, for free.
+4. Commit `funding.json` (`authorization` quoting the owner, `operationCapUsd` equal to the plan's cap) with the plan and snapshot, then `npm run evals:suite -- run --run <name> --execute` with `VISIBIBLE_EVAL_ENV_FILE` set. It checks the checkout is clean and the run's inputs committed, that the account keeps $5 for readers and the key's limit covers the cap, then ledgers every call. A blocked ledger stops the run; rows already written stay.
+5. `npm run evals:suite -- blind --run <name> --batches <n>` writes scorer packs to `scoring/`: `SCORING.md`, generated from the fault file, and `items-<k>.json` without case, style or split. Give each of two independent scorers the instructions and every items file; they never read `key.json`.
+6. `npm run evals:suite -- report --run <name> --scores <a files>,<b files> [--operator <file>] [--baseline <run>]` settles the scores, writes `scoring/disputes.json` for any field the scorers disagree on, and reports rates by fault, work, style and split. The operator rules on the disputes in a file of the same shape and reports again. With `--baseline` it applies the gate below.
+
+**The gate.** On holdout items both runs judged, refusals, each fault and the unacceptable share may each rise by at most `max(5% of items, 2 items)` over the baseline. A different suite version, an unsettled score or a holdout item the candidate never ran fails it. It joins the per-image bar ([ADR 0006](../../docs/adr/0006-unseen-presence-speakers-and-launch-bar.md)), the consistency gate and owner sign-off; it replaces none of them.
+
+**Changing the suite.** Add cases, never replace them, and bump `version` in suite.json; a baseline and candidate must share a version. Mark a case `tuned` only if it shaped the engine before it joined. A new random case comes from a draw in suite.json, which the tests replay. A new work needs an import, a brief, a depiction profile, image styles and consistency groups, and an analysis: production's, or a committed fixture made with `--no-store`.
+
+## The diagnostic harness
+
+`npm run evals:images` remains for style trials and diagnostic controls that are not release measurements.
 
 `npm run evals:images` ([scripts/evals/images.mts](../../scripts/evals/images.mts) over [src/lib/image-evals](../../src/lib/image-evals)) runs the committed cases in [evals/images/cases.json](../../evals/images/cases.json) through the generic engine's own assembly and the same OpenRouter request the engine makes, one arm per art style ([below](#generic-engine-arms)). The legacy `direct` and `planner` arms were removed with the legacy engine ([#184](https://github.com/AustinKelsay/visibible/issues/184)); historical run states keep their planner fields. Every case has a reference, translation, settings and the visual behaviour a reviewer expects; the set covers narrative, poetry, prophecy, genealogy, symbolic and difficult passages and keeps the Peter, Red Sea and Genesis continuity cases.
 
@@ -25,17 +50,17 @@ Apply this process when changing the generic engine's prompt or preparation, an 
 
 Generic arms are scored on five dimensions: relevance, character/location identity, section continuity, style and artifacts. An observed depiction-rule or prohibited-likeness violation is a release fail whatever the averages; a known Icon border is recorded as an accepted limitation, never hidden.
 
-## Scoring and gates
+## Scoring diagnostic runs
 
-Score each arm of each case 0–2 on the dimensions above, and record one verdict: `pass`, `accepted limitation` or `fail`, with notes. Review every failed or edge case by eye; averages never hide them. Compare candidate and baseline on the same cases, repeats and settings. Material regressions and failures need review; an inconclusive comparison retains the baseline.
+Diagnostic runs are not release measurements; the suite's [gate](#the-regression-suite) is. Score each arm of each case 0–2 on the dimensions above, and record one verdict: `pass`, `accepted limitation` or `fail`, with notes. Review every failed or edge case by eye; averages never hide them. Compare candidate and baseline on the same cases, repeats and settings. Material regressions and failures need review; an inconclusive comparison retains the baseline.
 
-The report carries completions, failures by stage, latency percentiles, image and preparation spend, missing-usage counts and reproducibility metadata (prompt version, models, repeats, sample floor). Attach `report.json`, the scored `scores.json` and the contact sheet to the release PR with the rollback plan and the first-24-hour owner, as the chat process requires.
+The report carries completions, failures by stage, latency percentiles, image and preparation spend, missing-usage counts and reproducibility metadata (prompt version, models, repeats, sample floor). Keep `report.json`, the scored `scores.json` and the contact sheet with the diagnostic's record.
 
 Nothing here authorizes spend: a paid run is the owner's decision under the `--budget` it names, and the repository tests exercise the harness only with fake providers.
 
 ## Consistency
 
-The launch bar also checks that images that should agree do ([ADR 0008](../../docs/adr/0008-consistency-in-the-launch-bar.md)). [evals/images/consistency.json](../../evals/images/consistency.json) names fixed groups. Character groups cover one canon entry across stories; setting groups cover neighbouring verses of one section. A launch matrix must render every verse they name.
+The launch bar also checks that images that should agree do ([ADR 0008](../../docs/adr/0008-consistency-in-the-launch-bar.md)). [evals/images/consistency.json](../../evals/images/consistency.json) names the Bible's fixed groups, and `consistency.<work>.json` beside it Holmes's and Alice's. Character groups cover one canon entry across stories; setting groups cover neighbouring verses of one section. A suite image run renders every unit they name; pair one work at a time with `--groups <file>`. The gate's floors were set on the Bible and apply to it; the other works' rates are reported.
 
 - `npm run evals:consistency -- pairs --results <results.ndjson>[,…] --out <dir>` ([scripts/evals/consistency.mts](../../scripts/evals/consistency.mts) over [consistency.ts](../../src/lib/image-evals/consistency.ts)) reads launch-matrix results with the `snapshot.json` beside each. Within each group and style, it pairs the shown images. A character pair needs the entry selected in both plans and the same canon stage. It checks every image against its recorded SHA-256 and writes `pairs.json` for scorers, `key.json` for the operator and one side-by-side picture per pair. The key also lists any group verse with no result row. `--images-root` finds images kept in another checkout.
 - Two independent scorers judge every pair `same`, `different` or `unclear` from [the instructions](../../evals/images/consistency-scoring.md), blind to the key. The operator settles disagreements in a third file with the same shape, covering only the disputed pairs.
