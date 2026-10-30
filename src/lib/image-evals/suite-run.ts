@@ -138,14 +138,16 @@ export function createLedger(options: {
       const body = await response.clone().text();
       let payload: Record<string, unknown> = {};
       try { payload = JSON.parse(body); } catch { /* a non-JSON body is a provider error below */ }
-      const cost = extractOpenRouterUsageUsd(payload);
+      // A moderation refusal is that call's failure, as in production, not the run's: the provider charges nothing for it.
+      const moderated = response.status === 403 && /moderation|flagged/i.test(JSON.stringify(payload.error ?? ""));
+      const cost = moderated ? 0 : extractOpenRouterUsageUsd(payload);
       options.log({ ...call, at: new Date().toISOString(), reservedUsd: reserve, request: options.scrub(Object.keys(request).length ? request : String(init.body).slice(0, 300)),
         status: response.status, response: options.scrub(payload), nonJson: Object.keys(payload).length ? undefined : body.slice(0, 300), measuredUsageUsd: cost });
       call.status = String(response.status); call.measuredUsd = cost;
       if (cost === null) state.blocked = "Missing provider usage";
       // Rounded to a billionth of a dollar, so repeated reservations never leave float residue.
       else { state.uncertainUsd = Math.round((state.uncertainUsd - reserve) * 1e9) / 1e9; state.measuredUsd = Math.round((state.measuredUsd + cost) * 1e9) / 1e9; }
-      if (!response.ok) state.blocked = `Provider error ${response.status}`;
+      if (!response.ok && !moderated) state.blocked = `Provider error ${response.status}`;
       else if (cost !== null && options.ceiling && cost > reserve + 1e-9) state.blocked = `A call cost $${cost} against its $${reserve} ceiling`;
       else if (state.measuredUsd > options.capUsd) state.blocked = "Evaluation cap exceeded";
       save();
@@ -248,7 +250,6 @@ async function runCase(options: SuiteRunOptions, workId: string, work: SuiteWork
     const key = options.tier === "text" ? `${c.caseId}/text` : `${c.caseId}/${style}`;
     phase = key;
     textCalls = 0;
-    const spendBefore = memory.ledger.length;
     const skipped: string[] = [];
     const deps: AssembleDeps = {
       inputs: work.inputs, store: memory.store, model, listMoments: memory.listMoments,
@@ -257,8 +258,8 @@ async function runCase(options: SuiteRunOptions, workId: string, work: SuiteWork
     };
     const started = Date.now();
     const assembled = await assembleRendering(deps, { workId, unitId: c.unitId, styleId: style, variationNumber: null, aspectRatio: options.aspectRatio });
-    const spend = memory.ledger.slice(spendBefore).map((e) => ({ kind: e.kind, recordId: e.recordId, outcome: e.outcome, costUsd: e.costUsd }));
-    const common = { ...base, key, style: options.tier === "image" ? style : null, textCalls, spend, skippedReferences: skipped,
+    // Spend is labelled per case in the provider log; the shared in-memory ledger cannot attribute it under concurrency.
+    const common = { ...base, key, style: options.tier === "image" ? style : null, textCalls, skippedReferences: skipped,
       context: assembled.ok ? assembled.context : null };
     // A refusal on the first style comes from the moment's shared look or plan, so it stands for every style; a later
     // one (a style's prompt over budget) stands for that style only.

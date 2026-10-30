@@ -46,6 +46,18 @@ describe("the run ledger", () => {
     await expect(ledger.fetchFor("text", () => "x")("https://example.com", {})).rejects.toThrow(/Unexpected provider URL/);
   });
 
+  it("lets a moderation refusal fail its own call without stopping the run, and charges nothing for it", async () => {
+    const moderated = async () => new Response(JSON.stringify({ error: { code: 403, message: "anthropic/claude-haiku-5.5 requires moderation on Anthropic. Your input was flagged for \"violence/graphic\". No credits were charged." } }), { status: 403 });
+    const { ledger } = ledgerWith(moderated);
+    const response = await call(ledger.fetchFor("text", () => "judges/text"));
+    expect(response.status).toBe(403);
+    expect(ledger.state).toMatchObject({ blocked: null, measuredUsd: 0, uncertainUsd: 0 });
+    // Any other 403 still stops the run.
+    const { ledger: other } = ledgerWith(async () => new Response(JSON.stringify({ error: { code: 403, message: "Key limit exceeded" } }), { status: 403 }));
+    await call(other.fetchFor("text", () => "x"));
+    expect(other.state.blocked).toBe("Provider error 403");
+  });
+
   it("refuses a call whose reservation would pass the cap, counting calls still in flight", async () => {
     let release: () => void = () => {};
     const slow = () => new Promise<Response>((resolve) => { release = () => resolve(new Response(JSON.stringify({ usage: { cost: 0.001 } }))); });
