@@ -1,0 +1,412 @@
+{
+  "scorer": "model-b",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "i105",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice small at lower left looking up at a grinning, long-clawed Cheshire Cat sprawled on a high branch in a wooded thicket with mushrooms and a path; no lettering or frame. The painting vignettes into white paper on all edges (accepted)."
+    },
+    {
+      "id": "i106",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Naomi seated centrally on a woven mat cradling the infant, with women of Bethlehem in head coverings around her in a mudbrick courtyard, clay jar and lamplight at dusk; no lettering, hands and infant are sound."
+    },
+    {
+      "id": "i107",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Egyptian horsemen and a chariot surge between the water walls with Moses at the right bank, but the pillar of fire in the upper centre is shaped like a cruciform figure with arms spread, reading as a human-shaped figure of light for God."
+    },
+    {
+      "id": "i108",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Daniel stands composed with a refusing gesture before Belshazzar enthroned, with a servant holding a gold chain on a tray; however the throne back (upper right) is bordered with glyph-like script marks, and a similar glyph mark sits above it."
+    },
+    {
+      "id": "i109",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Alice faces a blue Caterpillar on the mushroom in a dim wood, but the Caterpillar wears a bowler hat and waistcoat and has a human face, dress the text does not give; it also still holds the pipe in its mouth rather than lowering it."
+    },
+    {
+      "id": "i110",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Watson crouches behind a crate with his revolver, but both Watson (right) and Holmes (left) have Benedict Cumberbatch's face, and the right crate is stencilled with legible 'COIN &...' lettering; Jones and Merryweather also stand openly by a lit lantern rather than hiding in darkness."
+    },
+    {
+      "id": "i111",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Golden radiance breaks through dark cloud from the upper edge over dark, misty formless waters; no figure, form, land or lettering."
+    },
+    {
+      "id": "i112",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The 'ostrich feather' simile is drawn as a literal giant black feather in the sky above the fire instead of a smoke column, and the station-master's book cover carries glyph-like text marks; only three passengers are in the carriage."
+    },
+    {
+      "id": "i113",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "yes",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "The father embraces and kisses his son on a Galilee road, but he has three hands: one with a ring on the son's chest, one curled over the son's shoulder at the neck, and a third open hand extending behind the son's back at left."
+    },
+    {
+      "id": "i114",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel stands upright in the centre of a stone den among docile, closed-mouthed lions, with Darius in a Persian crown leaning over the rim and torch-bearing guards; no lettering or anatomy faults."
+    },
+    {
+      "id": "i115",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Moses stretches his arm over the sea with his staff, walls of water divided, a pillar of fire glowing in the distance (a plain flame, not a figure), and Israelites gathered on the shore; no lettering."
+    },
+    {
+      "id": "i116",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "yes",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "The father runs to embrace and kiss the barefoot son on a Galilee road, but a prominent extra barefoot man in a ragged tunic with a sash stands at right with arms outstretched, looking like a second prodigal son."
+    },
+    {
+      "id": "i117",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "effects_figure": "no"
+      },
+      "overall": "flawed",
+      "notes": "Isaiah stands in a temple hall with smoke, but the two seraphim have only four wings each with their feet left uncovered (the text gives six wings, two covering the feet), and they hold tongs with a burning coal from a later verse."
+    },
+    {
+      "id": "i118",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "John stands small on a glassy sea before an empty, radiant throne under a rainbow, flanked by lion, ox, man-faced and eagle creatures with eyes on their wings; no figure on the throne and no lettering."
+    },
+    {
+      "id": "i119",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Youths pour from Bethel's gate taunting, and the calf shrine is visible, but Elisha walks downhill toward the viewer, away from the city, instead of going up to Bethel seen from behind; edges vignette into white paper (accepted)."
+    },
+    {
+      "id": "i120",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Job stands on an ash heap of broken pottery facing a towering whirlwind of dust under storm clouds with a golden break, city walls on the horizon; the storm contains no face or figure and there is no lettering."
+    },
+    {
+      "id": "i121",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Soldiers kneel at the foot of the cross dividing a garment with lots on a cloth, Jesus on the cross above with distant crosses on the hill; the title board is blank and there is no gore."
+    },
+    {
+      "id": "i122",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Alice turns with the grinning Cat head at left and the Queen passing behind at right with card gardeners and a hedgehog, but the right-hand card gardener's lower corner carries a numeral-like index glyph beneath the heart pip."
+    },
+    {
+      "id": "i123",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Alice kneels among jurymen spilled from the tilted jury-box, but Bill the Lizard appears twice (mid-air near her hand and again at lower left), and the jurymen are dressed in waistcoats, top hats and tailcoats the text does not give."
+    },
+    {
+      "id": "i124",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "David kneels at the brook picking a smooth stone with his staff in hand and his bag open beside him, Goliath in bronze armour approaching up the valley; no lettering or anatomy faults."
+    },
+    {
+      "id": "i125",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "The Gryphon and a turtle dance beside Alice on a shingle shore with lobsters and jellyfish in the surf; creatures are undressed animals and there is no lettering, though they flank rather than circle her."
+    },
+    {
+      "id": "i126",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Saul raises an arm against a blaze of light pouring from the sky on a rocky road while companions shield their eyes and stagger, with Damascus on the horizon; hands and faces are sound and there is no lettering."
+    },
+    {
+      "id": "i127",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The King peers from behind Alice at the floating Cat head with the Queen and card soldiers in the distance, but there is a painted signature in the lower-right corner and the cards at right show 'Q' and '2' index letters."
+    },
+    {
+      "id": "i128",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes examines the battered hat with a lens while Watson leans in, but Holmes has Benedict Cumberbatch's face and Watson Martin Freeman's, and the newspaper on the desk shows a legible masthead; left edge vignettes to white (accepted)."
+    },
+    {
+      "id": "i129",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Lestrade leans over the desk as Holmes holds up the paper, but the paper is lettered 'Hotel Bill', and Holmes has Benedict Cumberbatch's face and Watson Martin Freeman's."
+    },
+    {
+      "id": "i130",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Isaiah in a rough mantle steadies a bowed, weary man on a Jerusalem street below the walls and temple, with townsfolk and a water jar at dawn; no lettering or anatomy faults."
+    }
+  ]
+}

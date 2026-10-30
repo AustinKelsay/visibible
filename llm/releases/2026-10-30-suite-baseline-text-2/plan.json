@@ -1,0 +1,1803 @@
+{
+  "suite": "2026-10-30-suite-v1",
+  "faults": "2026-10-30-faults-v1",
+  "tier": "text",
+  "from": null,
+  "pipeline": {
+    "momentCast": "2026-10-28-moment-cast-v15",
+    "formlessPlan": "2026-10-28-formless-effects-v17",
+    "formlessLook": "2026-10-27-formless-look-v2",
+    "review": "2026-10-27-plan-review-v12",
+    "rendering": "2026-10-29-generic-v15",
+    "sceneCheck": "2026-10-28-scene-check-v4",
+    "textModel": "anthropic/claude-haiku-5.5"
+  },
+  "image": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "checker": {
+    "model": "anthropic/claude-haiku-5.5",
+    "reasoningEffort": "low",
+    "maxTokens": 1500
+  },
+  "works": {
+    "bible-web": {
+      "analysis": "convex",
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+      "briefVersion": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+      "effects": true,
+      "title": "The Holy Bible"
+    },
+    "holmes-adventures": {
+      "analysis": "convex",
+      "workVersion": "a0dea2fb8184b9d0d63ff4b06b7c2066603f224c8341ef12ab5535e4fc076229",
+      "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+      "effects": false,
+      "title": "The Adventures of Sherlock Holmes"
+    },
+    "alice-in-wonderland": {
+      "analysis": "evals/images/analyses/alice-in-wonderland.json",
+      "workVersion": "8dbcd44e0ab0c37ef65bcd2eb507bed73c4f395a94c0ac30e3f4ace25d64b95c",
+      "briefVersion": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d",
+      "effects": false,
+      "title": "Alice’s Adventures in Wonderland"
+    }
+  },
+  "cases": [
+    {
+      "caseId": "leviticus-1-16",
+      "work": "bible-web",
+      "unitId": "leviticus-1-16",
+      "reference": "Leviticus 1:16",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "daniel-6-17",
+      "work": "bible-web",
+      "unitId": "daniel-6-17",
+      "reference": "Daniel 6:17",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "proverbs-8-21",
+      "work": "bible-web",
+      "unitId": "proverbs-8-21",
+      "reference": "Proverbs 8:21",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "1-corinthians-13-12",
+      "work": "bible-web",
+      "unitId": "1-corinthians-13-12",
+      "reference": "1 Corinthians 13:12",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "isaiah-40-29",
+      "work": "bible-web",
+      "unitId": "isaiah-40-29",
+      "reference": "Isaiah 40:29",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "deuteronomy-1-7",
+      "work": "bible-web",
+      "unitId": "deuteronomy-1-7",
+      "reference": "Deuteronomy 1:7",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "nehemiah-3-9",
+      "work": "bible-web",
+      "unitId": "nehemiah-3-9",
+      "reference": "Nehemiah 3:9",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "2-chronicles-31-21",
+      "work": "bible-web",
+      "unitId": "2-chronicles-31-21",
+      "reference": "2 Chronicles 31:21",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "numbers-9-22",
+      "work": "bible-web",
+      "unitId": "numbers-9-22",
+      "reference": "Numbers 9:22",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "holmes-eyford-fire",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-engineers-thumb-165",
+      "reference": "The Adventure of the Engineer’s Thumb ¶165",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "the-adventure-of-the-noble-bachelor-176",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-noble-bachelor-176",
+      "reference": "The Adventure of the Noble Bachelor ¶176",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "the-adventure-of-the-blue-carbuncle-73",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-blue-carbuncle-73",
+      "reference": "The Adventure of the Blue Carbuncle ¶73",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "a-case-of-identity-94",
+      "work": "holmes-adventures",
+      "unitId": "a-case-of-identity-94",
+      "reference": "A Case of Identity ¶94",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "alice-caterpillar",
+      "work": "alice-in-wonderland",
+      "unitId": "advice-from-a-caterpillar-1",
+      "reference": "Advice from a Caterpillar ¶1",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-tea-party-arrival",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-1",
+      "reference": "A Mad Tea-Party ¶1",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-croquet-game",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-41",
+      "reference": "The Queen’s Croquet-Ground ¶41",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "the-lobster-quadrille-19",
+      "work": "alice-in-wonderland",
+      "unitId": "the-lobster-quadrille-19",
+      "reference": "The Lobster Quadrille ¶19",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alices-evidence-38",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-38",
+      "reference": "Alice’s Evidence ¶38",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "a-mad-tea-party-76",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-76",
+      "reference": "A Mad Tea-Party ¶76",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alices-evidence-2",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-2",
+      "reference": "Alice’s Evidence ¶2",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "work": "bible-web",
+      "unitId": "genesis-1-3",
+      "reference": "Genesis 1:3",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "genesis-5-5-adam-days",
+      "work": "bible-web",
+      "unitId": "genesis-5-5",
+      "reference": "Genesis 5:5",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "genesis-19-24-sodom",
+      "work": "bible-web",
+      "unitId": "genesis-19-24",
+      "reference": "Genesis 19:24",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "genesis-22-10-abraham-knife",
+      "work": "bible-web",
+      "unitId": "genesis-22-10",
+      "reference": "Genesis 22:10",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "exodus-14-21-sea-parts",
+      "work": "bible-web",
+      "unitId": "exodus-14-21",
+      "reference": "Exodus 14:21",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "work": "bible-web",
+      "unitId": "exodus-14-22",
+      "reference": "Exodus 14:22",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "leviticus-11-7-pig",
+      "work": "bible-web",
+      "unitId": "leviticus-11-7",
+      "reference": "Leviticus 11:7",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "joshua-6-20-jericho",
+      "work": "bible-web",
+      "unitId": "joshua-6-20",
+      "reference": "Joshua 6:20",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "judges-19-29-concubine",
+      "work": "bible-web",
+      "unitId": "judges-19-29",
+      "reference": "Judges 19:29",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "ruth-4-22-genealogy",
+      "work": "bible-web",
+      "unitId": "ruth-4-22",
+      "reference": "Ruth 4:22",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "1-samuel-17-49-sling",
+      "work": "bible-web",
+      "unitId": "1-samuel-17-49",
+      "reference": "1 Samuel 17:49",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "work": "bible-web",
+      "unitId": "2-kings-2-23",
+      "reference": "2 Kings 2:23",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "job-38-4-foundations",
+      "work": "bible-web",
+      "unitId": "job-38-4",
+      "reference": "Job 38:4",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "psalms-23-2-pastures",
+      "work": "bible-web",
+      "unitId": "psalms-23-2",
+      "reference": "Psalms 23:2",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "psalms-137-1-babylon",
+      "work": "bible-web",
+      "unitId": "psalms-137-1",
+      "reference": "Psalms 137:1",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "song-of-solomon-2-1-rose",
+      "work": "bible-web",
+      "unitId": "song-of-solomon-2-1",
+      "reference": "Song of Solomon 2:1",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "work": "bible-web",
+      "unitId": "isaiah-6-2",
+      "reference": "Isaiah 6:2",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "isaiah-11-6-wolf-lamb",
+      "work": "bible-web",
+      "unitId": "isaiah-11-6",
+      "reference": "Isaiah 11:6",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "ezekiel-37-4-dry-bones",
+      "work": "bible-web",
+      "unitId": "ezekiel-37-4",
+      "reference": "Ezekiel 37:4",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "daniel-6-22-lions",
+      "work": "bible-web",
+      "unitId": "daniel-6-22",
+      "reference": "Daniel 6:22",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "work": "bible-web",
+      "unitId": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "jonah-1-17-fish",
+      "work": "bible-web",
+      "unitId": "jonah-1-17",
+      "reference": "Jonah 1:17",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "matthew-1-1-genealogy",
+      "work": "bible-web",
+      "unitId": "matthew-1-1",
+      "reference": "Matthew 1:1",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "work": "bible-web",
+      "unitId": "matthew-14-29",
+      "reference": "Matthew 14:29",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "john-21-7-peter-sea",
+      "work": "bible-web",
+      "unitId": "john-21-7",
+      "reference": "John 21:7",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "mark-4-39-storm",
+      "work": "bible-web",
+      "unitId": "mark-4-39",
+      "reference": "Mark 4:39",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "luke-15-20-prodigal",
+      "work": "bible-web",
+      "unitId": "luke-15-20",
+      "reference": "Luke 15:20",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "john-11-43-lazarus",
+      "work": "bible-web",
+      "unitId": "john-11-43",
+      "reference": "John 11:43",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "acts-9-3-damascus",
+      "work": "bible-web",
+      "unitId": "acts-9-3",
+      "reference": "Acts 9:3",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "romans-8-28-all-things",
+      "work": "bible-web",
+      "unitId": "romans-8-28",
+      "reference": "Romans 8:28",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "matthew-27-35-crucified",
+      "work": "bible-web",
+      "unitId": "matthew-27-35",
+      "reference": "Matthew 27:35",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "work": "bible-web",
+      "unitId": "revelation-4-6",
+      "reference": "Revelation 4:6",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "revelation-21-1-new-heaven",
+      "work": "bible-web",
+      "unitId": "revelation-21-1",
+      "reference": "Revelation 21:1",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "work": "holmes-adventures",
+      "unitId": "a-scandal-in-bohemia-1-1",
+      "reference": "A Scandal in Bohemia, Part I ¶1",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-king-arrives",
+      "work": "holmes-adventures",
+      "unitId": "a-scandal-in-bohemia-1-42",
+      "reference": "A Scandal in Bohemia, Part I ¶42",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-red-headed-league",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-1",
+      "reference": "The Red-Headed League ¶1",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "john-21-9",
+      "work": "bible-web",
+      "unitId": "john-21-9",
+      "reference": "John 21:9",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "exodus-17-12",
+      "work": "bible-web",
+      "unitId": "exodus-17-12",
+      "reference": "Exodus 17:12",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "numbers-20-11",
+      "work": "bible-web",
+      "unitId": "numbers-20-11",
+      "reference": "Numbers 20:11",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "luke-22-61",
+      "work": "bible-web",
+      "unitId": "luke-22-61",
+      "reference": "Luke 22:61",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "acts-3-7",
+      "work": "bible-web",
+      "unitId": "acts-3-7",
+      "reference": "Acts 3:7",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "1-samuel-16-13",
+      "work": "bible-web",
+      "unitId": "1-samuel-16-13",
+      "reference": "1 Samuel 16:13",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "1-samuel-17-40",
+      "work": "bible-web",
+      "unitId": "1-samuel-17-40",
+      "reference": "1 Samuel 17:40",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "1-samuel-18-11",
+      "work": "bible-web",
+      "unitId": "1-samuel-18-11",
+      "reference": "1 Samuel 18:11",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "daniel-5-17",
+      "work": "bible-web",
+      "unitId": "daniel-5-17",
+      "reference": "Daniel 5:17",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "daniel-6-23",
+      "work": "bible-web",
+      "unitId": "daniel-6-23",
+      "reference": "Daniel 6:23",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "exodus-14-23",
+      "work": "bible-web",
+      "unitId": "exodus-14-23",
+      "reference": "Exodus 14:23",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "mark-4-37",
+      "work": "bible-web",
+      "unitId": "mark-4-37",
+      "reference": "Mark 4:37",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "mark-4-38",
+      "work": "bible-web",
+      "unitId": "mark-4-38",
+      "reference": "Mark 4:38",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "luke-15-22",
+      "work": "bible-web",
+      "unitId": "luke-15-22",
+      "reference": "Luke 15:22",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "hosea-1-7",
+      "work": "bible-web",
+      "unitId": "hosea-1-7",
+      "reference": "Hosea 1:7",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "2-chronicles-16-9",
+      "work": "bible-web",
+      "unitId": "2-chronicles-16-9",
+      "reference": "2 Chronicles 16:9",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "job-15-24",
+      "work": "bible-web",
+      "unitId": "job-15-24",
+      "reference": "Job 15:24",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "romans-2-19",
+      "work": "bible-web",
+      "unitId": "romans-2-19",
+      "reference": "Romans 2:19",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "psalms-25-15",
+      "work": "bible-web",
+      "unitId": "psalms-25-15",
+      "reference": "Psalms 25:15",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "romans-10-17",
+      "work": "bible-web",
+      "unitId": "romans-10-17",
+      "reference": "Romans 10:17",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "proverbs-25-3",
+      "work": "bible-web",
+      "unitId": "proverbs-25-3",
+      "reference": "Proverbs 25:3",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "ephesians-5-31",
+      "work": "bible-web",
+      "unitId": "ephesians-5-31",
+      "reference": "Ephesians 5:31",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "luke-2-45",
+      "work": "bible-web",
+      "unitId": "luke-2-45",
+      "reference": "Luke 2:45",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "2-chronicles-30-27",
+      "work": "bible-web",
+      "unitId": "2-chronicles-30-27",
+      "reference": "2 Chronicles 30:27",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "daniel-11-14",
+      "work": "bible-web",
+      "unitId": "daniel-11-14",
+      "reference": "Daniel 11:14",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "matthew-5-40",
+      "work": "bible-web",
+      "unitId": "matthew-5-40",
+      "reference": "Matthew 5:40",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "revelation-21-6",
+      "work": "bible-web",
+      "unitId": "revelation-21-6",
+      "reference": "Revelation 21:6",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "judges-11-4",
+      "work": "bible-web",
+      "unitId": "judges-11-4",
+      "reference": "Judges 11:4",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "ruth-2-22",
+      "work": "bible-web",
+      "unitId": "ruth-2-22",
+      "reference": "Ruth 2:22",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "exodus-29-7",
+      "work": "bible-web",
+      "unitId": "exodus-29-7",
+      "reference": "Exodus 29:7",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "1-corinthians-1-30",
+      "work": "bible-web",
+      "unitId": "1-corinthians-1-30",
+      "reference": "1 Corinthians 1:30",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "1-samuel-15-27",
+      "work": "bible-web",
+      "unitId": "1-samuel-15-27",
+      "reference": "1 Samuel 15:27",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "exodus-36-6",
+      "work": "bible-web",
+      "unitId": "exodus-36-6",
+      "reference": "Exodus 36:6",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "numbers-33-27",
+      "work": "bible-web",
+      "unitId": "numbers-33-27",
+      "reference": "Numbers 33:27",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "hebrews-12-1",
+      "work": "bible-web",
+      "unitId": "hebrews-12-1",
+      "reference": "Hebrews 12:1",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "holmes-saxe-coburg-square",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-138",
+      "reference": "The Red-Headed League ¶138",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-blue-carbuncle-hat",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-blue-carbuncle-12",
+      "reference": "The Adventure of the Blue Carbuncle ¶12",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-speckled-band-vigil",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-speckled-band-235",
+      "reference": "The Adventure of the Speckled Band ¶235",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-boscombe-train",
+      "work": "holmes-adventures",
+      "unitId": "the-boscombe-valley-mystery-9",
+      "reference": "The Boscombe Valley Mystery ¶9",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-bank-cellar-lantern",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-175",
+      "reference": "The Red-Headed League ¶175",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-bank-cellar-plans",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-183",
+      "reference": "The Red-Headed League ¶183",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-eyford-smoke",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-engineers-thumb-160",
+      "reference": "The Adventure of the Engineer’s Thumb ¶160",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-eyford-drive",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-engineers-thumb-170",
+      "reference": "The Adventure of the Engineer’s Thumb ¶170",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "the-adventure-of-the-noble-bachelor-178",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-noble-bachelor-178",
+      "reference": "The Adventure of the Noble Bachelor ¶178",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "the-adventure-of-the-beryl-coronet-49",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-beryl-coronet-49",
+      "reference": "The Adventure of the Beryl Coronet ¶49",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "the-adventure-of-the-speckled-band-13",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-speckled-band-13",
+      "reference": "The Adventure of the Speckled Band ¶13",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "alice-drink-me",
+      "work": "alice-in-wonderland",
+      "unitId": "down-the-rabbit-hole-16",
+      "reference": "Down the Rabbit-Hole ¶16",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-tea-party-riddle",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-7",
+      "reference": "A Mad Tea-Party ¶7",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-tea-party-say-what-you-mean",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-13",
+      "reference": "A Mad Tea-Party ¶13",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-cat-grin-appears",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-45",
+      "reference": "The Queen’s Croquet-Ground ¶45",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-cat-head-talks",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-49",
+      "reference": "The Queen’s Croquet-Ground ¶49",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-king-and-cat",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-52",
+      "reference": "The Queen’s Croquet-Ground ¶52",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-refuses-to-leave",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-16",
+      "reference": "Alice’s Evidence ¶16",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-cheshire-cat-bough",
+      "work": "alice-in-wonderland",
+      "unitId": "pig-and-pepper-50",
+      "reference": "Pig and Pepper ¶50",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-hatter-witness",
+      "work": "alice-in-wonderland",
+      "unitId": "who-stole-the-tarts-16",
+      "reference": "Who Stole the Tarts? ¶16",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alices-evidence-54",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-54",
+      "reference": "Alice’s Evidence ¶54",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "advice-from-a-caterpillar-59",
+      "work": "alice-in-wonderland",
+      "unitId": "advice-from-a-caterpillar-59",
+      "reference": "Advice from a Caterpillar ¶59",
+      "split": "dev",
+      "tiers": [
+        "text"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    }
+  ],
+  "refusedInTextRun": [],
+  "evaluation": {
+    "estimatedUsd": 0.1978,
+    "proposedCapUsd": 0.22,
+    "reserves": {
+      "text": 0.005,
+      "image": 0.06,
+      "check": 0.002
+    },
+    "limits": {
+      "text": 904,
+      "image": 0,
+      "check": 0
+    }
+  }
+}
