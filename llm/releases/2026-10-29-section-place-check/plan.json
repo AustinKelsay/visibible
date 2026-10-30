@@ -1,0 +1,68 @@
+{
+  "purpose": "A/B check of the shared section place and ranked reference slots (ADR 0009) against the current engine, on the neighbouring-verse groups of the consistency gate (ADR 0008). Measures whether verses of one section show the same place, and whether recurring characters still agree.",
+  "authorization": "Owner, 29 October 2026: \"Okay, let's start to address number two, systematically end-to-end, full send.\" Point two of the critique asked to make the section look binding again for stable fields, rank reference slots, and evaluate the reference cap and sheets. The operator funds this bounded check from the evaluation allowance's recorded remainder ($1.3336492 after the Fresco matrix).",
+  "arms": {
+    "baseline": {
+      "label": "arm-a",
+      "commit": "fafd43f74033392581b567bc71fe1e1a5c1d445e",
+      "pipeline": {
+        "momentCast": "2026-10-28-moment-cast-v15",
+        "review": "2026-10-27-plan-review-v12",
+        "rendering": "2026-10-28-generic-v14"
+      }
+    },
+    "candidate": {
+      "label": "arm-b",
+      "commit": "f015a6e",
+      "pipeline": {
+        "momentCast": "2026-10-29-moment-cast-v16",
+        "review": "2026-10-29-plan-review-v13",
+        "rendering": "2026-10-29-generic-v15",
+        "sectionLook": "2026-10-29-section-look-place-v1"
+      }
+    },
+    "candidate2": {
+      "label": "arm-c",
+      "commit": "80db26f",
+      "capUsd": 0.46,
+      "pipeline": {
+        "momentCast": "2026-10-29-moment-cast-v17",
+        "review": "2026-10-29-plan-review-v13",
+        "rendering": "2026-10-29-generic-v15",
+        "sectionLook": "2026-10-29-section-look-place-v1"
+      },
+      "why": "Added after arm-b was scored (9/9 baseline vs 6/9 candidate setting pairs). Two of arm-b's three mismatches were night beside daylight on the same water walls: the whole-section look spanned night into dawn and every plan copied the span. Moment-cast v17 makes the plan's timeOfDay one time at the instant. Only the planner prompt differs from arm-b. The cap keeps the run within the evaluation allowance's remaining $0.4685."
+    }
+  },
+  "cases": [
+    "exodus-14-21",
+    "exodus-14-22",
+    "exodus-14-23",
+    "mark-4-37",
+    "mark-4-38",
+    "mark-4-39",
+    "john-21-7",
+    "john-21-9",
+    "luke-15-20",
+    "luke-15-22",
+    "daniel-6-22",
+    "daniel-6-23"
+  ],
+  "style": "classical",
+  "image": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "design": "Each arm runs from its own checkout with the same runner file, cold, in one in-memory store seeded from the read-only production snapshot of the Fresco matrix (llm/releases/2026-10-28-fresco-matrix/snapshot.json, sha256 55e88a47\u2026), with the production references that snapshot recorded. Moments the snapshot lacks are built from their section's range, as production stores them. One Classical image per verse and arm, no scene check or retry, so each image is the plan's first rendering. Pairs are made with npm run evals:consistency, each arm under its own label so pairs never cross arms; two independent model scorers judge them blind to arm, verse and group.",
+  "snapshotSha256": "55e88a470dc8f95256db57938a13253197d23184f462176492fa292af7ac58c9",
+  "groupsSha256": "ea76d7c8780ec8a6ae66dbdc26e7471fc5ff5f0497b52e601770f1b5845ee12f",
+  "cap": {
+    "perArmUsd": 0.6,
+    "textReserveUsd": 0.01,
+    "imageReserveUsd": 0.05,
+    "maximumImages": 12,
+    "maximumTextCalls": 60
+  },
+  "limits": "One image per verse and arm and one style: 9 setting pairs and a handful of character pairs per arm. A large difference can show; a small one cannot. The operator wrote the runner and knows which label is which arm; the scorers do not."
+}

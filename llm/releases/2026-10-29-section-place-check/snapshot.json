@@ -1,0 +1,132 @@
+{
+  "cases": [
+    {
+      "id": "exodus-14-21",
+      "sectionId": "exodus-14-21",
+      "cast": [
+        "moses:moses-elder",
+        "the_israelite_people_the_children_of_israel:the_israelite_people_the_children_of_israel_s1",
+        "the_egyptians:the_egyptians-s1",
+        "god_yahweh_the_father_and_god_of_israel:god_yahweh_the_father_stage_1",
+        "red_sea:red_sea"
+      ]
+    },
+    {
+      "id": "exodus-14-22",
+      "sectionId": "exodus-14-21",
+      "cast": [
+        "moses:moses-elder",
+        "the_israelite_people_the_children_of_israel:the_israelite_people_the_children_of_israel_s1",
+        "the_egyptians:the_egyptians-s1",
+        "god_yahweh_the_father_and_god_of_israel:god_yahweh_the_father_stage_1",
+        "red_sea:red_sea"
+      ]
+    },
+    {
+      "id": "exodus-14-23",
+      "sectionId": "exodus-14-21",
+      "cast": [
+        "moses:moses-elder",
+        "the_israelite_people_the_children_of_israel:the_israelite_people_the_children_of_israel_s1",
+        "the_egyptians:the_egyptians-s1",
+        "god_yahweh_the_father_and_god_of_israel:god_yahweh_the_father_stage_1",
+        "red_sea:red_sea"
+      ]
+    },
+    {
+      "id": "mark-4-37",
+      "sectionId": "mark-4-35",
+      "cast": [
+        "jesus_christ_the_son_of_god_and_lord:adult",
+        "the_twelve_disciples_collective:the_twelve_disciples_collective_main",
+        "sea_of_galilee:sea_of_galilee"
+      ]
+    },
+    {
+      "id": "mark-4-38",
+      "sectionId": "mark-4-35",
+      "cast": [
+        "jesus_christ_the_son_of_god_and_lord:adult",
+        "the_twelve_disciples_collective:the_twelve_disciples_collective_main",
+        "sea_of_galilee:sea_of_galilee"
+      ]
+    },
+    {
+      "id": "mark-4-39",
+      "sectionId": "mark-4-35",
+      "cast": [
+        "jesus_christ_the_son_of_god_and_lord:adult",
+        "the_twelve_disciples_collective:the_twelve_disciples_collective_main",
+        "sea_of_galilee:sea_of_galilee"
+      ]
+    },
+    {
+      "id": "john-21-7",
+      "sectionId": "john-21-1",
+      "cast": [
+        "jesus_christ_the_son_of_god_and_lord:adult",
+        "simon_peter:simon_peter",
+        "thomas_the_apostle:thomas_the_apostle_main",
+        "bartholomew:bartholomew-main",
+        "james_and_john_sons_of_zebedee:zebedee_sons",
+        "the_beloved_disciple:beloved-disciple",
+        "the_twelve_disciples_collective:the_twelve_disciples_collective_main",
+        "sea_of_galilee:sea_of_galilee"
+      ]
+    },
+    {
+      "id": "john-21-9",
+      "sectionId": "john-21-1",
+      "cast": [
+        "jesus_christ_the_son_of_god_and_lord:adult",
+        "simon_peter:simon_peter",
+        "thomas_the_apostle:thomas_the_apostle_main",
+        "bartholomew:bartholomew-main",
+        "james_and_john_sons_of_zebedee:zebedee_sons",
+        "the_beloved_disciple:beloved-disciple",
+        "the_twelve_disciples_collective:the_twelve_disciples_collective_main",
+        "sea_of_galilee:sea_of_galilee"
+      ]
+    },
+    {
+      "id": "luke-15-20",
+      "sectionId": "luke-15-11",
+      "cast": [
+        "the_younger_son:younger-son",
+        "the_prodigal_s_father:the_prodigal_s_father-main",
+        "galilee:galilee-main"
+      ]
+    },
+    {
+      "id": "luke-15-22",
+      "sectionId": "luke-15-11",
+      "cast": [
+        "the_younger_son:younger-son",
+        "the_prodigal_s_father:the_prodigal_s_father-main",
+        "galilee:galilee-main"
+      ]
+    },
+    {
+      "id": "daniel-6-22",
+      "sectionId": "daniel-6-19",
+      "cast": [
+        "darius_the_mede:darius_the_mede",
+        "daniel_prophet_of_babylon:daniel_main",
+        "the_den_of_lions:den-of-lions"
+      ]
+    },
+    {
+      "id": "daniel-6-23",
+      "sectionId": "daniel-6-19",
+      "cast": [
+        "darius_the_mede:darius_the_mede",
+        "daniel_prophet_of_babylon:daniel_main",
+        "the_den_of_lions:den-of-lions"
+      ]
+    }
+  ],
+  "source": {
+    "file": "llm/releases/2026-10-28-fresco-matrix/snapshot.json",
+    "sha256": "55e88a470dc8f95256db57938a13253197d23184f462176492fa292af7ac58c9"
+  }
+}

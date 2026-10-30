@@ -10,7 +10,7 @@ import { contentVersion } from "../../../convex/_helpers/contentVersion";
 import type { TextModel } from "../reading-pass/model";
 import type { ArtStyle } from "../work-preparation";
 import { prepareMoment, PreparationUnavailableError, type PreparedMoment, type PreparationStore } from "./preparation";
-import { buildRenderingPacket, type AvailableReference, type RenderingPacket, type SelectedCanon, type SelectedReference } from "./prompt";
+import { buildRenderingPacket, MAX_REFERENCE_IMAGES, rankSheetCandidates, type AvailableReference, type RenderingPacket, type SelectedCanon, type SelectedReference } from "./prompt";
 import { momentContext, momentForUnit, type MomentRange, type WorkInputs } from "./work-inputs";
 import type { MomentContext } from "./preparation";
 
@@ -134,17 +134,15 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
   };
   if (!await lookCurrent()) return { ok: false, reason: "preparation", message: "Preparing scene: section look changed.", retryable: true, stage: "look", error: null };
 
-  // Optional references: only the ones the packet could select, only when current, only when their bytes load.
+  // Optional references: the style reference, then sheets in the packet's ranked order until the slots are full,
+  // each only when current and only when its bytes load, so a candidate without a usable sheet passes its slot on.
   const available: AvailableReference[] = [];
   const inline = new Map<string, Uint8Array>();
   type Required = Array<{ kind: string; recordId: string; version: string }>;
   const candidates: Array<{ kind: "sheet" | "styleReference"; id: string; reference: (storageId: string, version: string) => AvailableReference; required: Required }> = [];
   candidates.push({ kind: "styleReference", id: input.styleId, reference: (storageId, version) => ({ kind: "styleReference", styleId: input.styleId, storageId, version }),
     required: [{ kind: "style", recordId: input.styleId, version: styleEntry.version }] });
-  const eligible = canon.filter((c) => c.hasForm);
-  const characters = eligible.filter((c) => c.kind === "character");
-  const locations = eligible.filter((c) => c.kind === "location");
-  for (const entry of [characters[0], locations[0], characters[1]].filter((c): c is SelectedCanon => Boolean(c))) {
+  for (const entry of rankSheetCandidates(canon, prepared.plan.payload)) {
     candidates.push({ kind: "sheet", id: `${entry.entryId}:${entry.stageId}`, reference: (storageId, version) => ({ kind: "sheet", entryId: entry.entryId, stageId: entry.stageId, storageId, version }),
       required: [
         { kind: "entry", recordId: entry.entryId, version: entry.version },
@@ -153,6 +151,7 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
       ] });
   }
   for (const candidate of candidates) {
+    if (available.length >= MAX_REFERENCE_IMAGES) break;
     const record = await deps.getReference(candidate.kind, candidate.id).catch(() => null);
     if (!record || !referenceIsCurrent(record, candidate.required)) {
       deps.onReferenceSkipped?.(candidate.kind, candidate.id, record ? "stale" : "missing");

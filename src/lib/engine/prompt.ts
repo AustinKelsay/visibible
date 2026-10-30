@@ -2,8 +2,8 @@
  * The generic rendering packet (#173, spec #165 §3, §5, §6): one prompt per image built from the
  * engine rules, the work brief's prompt form for the moment's era, the selected canon, the
  * owner look constraints when given, the style-neutral scene plan, the art style's rendering and the captions of up
- * to three reference images. A subject without form is described by its effects, never named, and its scene omits
- * the source text. Precedence, strongest first: engine rules, brief content and depiction rules, canon identity,
+ * to three reference images, ranked so the plan's main figures get the sheet slots (ADR 0009). A subject without form
+ * is described by its effects, never named, and its scene omits the source text. Precedence, strongest first: engine rules, brief content and depiction rules, canon identity,
  * style rendering, scene plan. The prompt is capped at 12,000
  * characters; nothing required is ever trimmed, and an over-budget result is rejected before
  * any paid call.
@@ -12,8 +12,8 @@ import { SITUATION_FIELDS, type Situation } from "./situation";
 import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
-/** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-28-generic-v14";
+/** Structure, wording and reference choice of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. v15 ranks sheet slots (ADR 0009). */
+export const GENERIC_PROMPT_VERSION = "2026-10-29-generic-v15";
 /** Prompt text is cheap next to the image itself (12,000 characters is about $0.001); the cap only guards runaway input. */
 export const GENERIC_PROMPT_MAX_CHARS = 12000;
 export const MAX_REFERENCE_IMAGES = 3;
@@ -105,20 +105,45 @@ export function briefBlock(brief: WorkBrief, eraId: string, styleId: string): st
 }
 
 /**
- * Up to three references in the agreed order: style reference, main character, location, second character. No-form entries never contribute.
- * Every style may have a style reference, Classical included: in the 26 October image check, images sent with one showed
- * neither white margins nor a figure for a no-form subject.
+ * The words a plan may call an entry by: its name, the name up to a comma, bracket or slash, its canon label, and the
+ * capitalised words those begin with ("Simon Peter" gives "Peter"). Words after a lowercase one qualify the name rather
+ * than name the entry, so "The men with Saul" never answers to "Saul".
  */
-export function selectReferences(canon: SelectedCanon[], available: AvailableReference[], styleId: string): SelectedReference[] {
+function entryNames(entry: SelectedCanon) {
+  const head = entry.name.split(/[,(/]/)[0].trim();
+  const label = entry.text.match(/^([^:\n]{1,80}):/)?.[1]?.trim() ?? "";
+  const leading = (name: string) => { const words = name.split(/\s+/); const end = words.findIndex((word) => !/^\p{Lu}/u.test(word)); return end < 0 ? words : words.slice(0, end); };
+  const words = [head, label].flatMap(leading).filter((word) => word.length >= 4);
+  return [...new Set([entry.name, head, label, ...words].filter((name) => name.length > 2))];
+}
+const names = (text: string, entry: SelectedCanon) =>
+  entryNames(entry).some((name) => new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(name)}(?![\\p{L}\\p{N}])`, "iu").test(text));
+
+/**
+ * Sheet candidates in the order their slots are filled (ADR 0009): the best character, the best place, then the other
+ * characters, places and objects. Within a kind, the entries the plan's primary subject names come first, then those its
+ * action names, then plan order. No-form entries never have a sheet.
+ */
+export function rankSheetCandidates(canon: SelectedCanon[], plan?: { primarySubject: string; action: string } | null): SelectedCanon[] {
+  const eligible = canon.filter((c) => c.hasForm);
+  const weight = (c: SelectedCanon) => !plan ? 0 : names(plan.primarySubject, c) ? 2 : names(plan.action, c) ? 1 : 0;
+  const ranked = (kind: SelectedCanon["kind"]) => eligible.map((c, index) => ({ c, index, weight: weight(c) })).filter((x) => x.c.kind === kind)
+    .sort((a, b) => b.weight - a.weight || a.index - b.index).map((x) => x.c);
+  const [characters, locations, objects] = [ranked("character"), ranked("location"), ranked("object")];
+  return [...characters.slice(0, 1), ...locations.slice(0, 1), ...characters.slice(1), ...locations.slice(1), ...objects];
+}
+
+/**
+ * Up to three references: the style reference, then the sheets of the ranked candidates that have one, so a candidate
+ * without a sheet passes its slot to the next. Every style may have a style reference, Classical included: in the
+ * 26 October image check, images sent with one showed neither white margins nor a figure for a no-form subject.
+ */
+export function selectReferences(canon: SelectedCanon[], available: AvailableReference[], styleId: string, plan?: { primarySubject: string; action: string } | null): SelectedReference[] {
   const picked: AvailableReference[] = [];
   const style = available.find((r) => r.kind === "styleReference" && r.styleId === styleId);
   if (style) picked.push(style);
   const sheetFor = (entry: SelectedCanon) => available.find((r) => r.kind === "sheet" && r.entryId === entry.entryId && r.stageId === entry.stageId);
-  const eligible = canon.filter((c) => c.hasForm);
-  const characters = eligible.filter((c) => c.kind === "character");
-  const locations = eligible.filter((c) => c.kind === "location");
-  const order = [characters[0], locations[0], characters[1]].filter((c): c is SelectedCanon => Boolean(c));
-  for (const entry of order) {
+  for (const entry of rankSheetCandidates(canon, plan)) {
     const sheet = sheetFor(entry);
     if (sheet && picked.length < MAX_REFERENCE_IMAGES) picked.push(sheet);
   }
@@ -139,7 +164,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const { brief, style } = input;
   const owner = input.situation ?? null;
   if (owner && SITUATION_FIELDS.some((field) => typeof owner[field] !== "string")) return { ok: false, error: "Owner look constraints are malformed.", finalChars: 0 };
-  let references = selectReferences(input.canon, input.references ?? [], style.id);
+  let references = selectReferences(input.canon, input.references ?? [], style.id, input.plan);
   const formed = input.canon.filter((c) => c.hasForm);
   const formless = input.canon.filter((c) => !c.hasForm);
   const names = formed.map((c) => c.name);
@@ -218,7 +243,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   }
   if (input.omitStyleReference) {
     // Select and trim the control first. Do not backfill a freed slot or restore trimmed details.
-    references = selectReferences(input.canon, references.filter((r) => r.kind !== "styleReference"), style.id);
+    references = selectReferences(input.canon, references.filter((r) => r.kind !== "styleReference"), style.id, input.plan);
     prompt = assemble(flags);
   }
   return {

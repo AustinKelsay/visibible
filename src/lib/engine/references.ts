@@ -38,7 +38,8 @@ export interface ReferenceBlobStore {
 const NO_TEXT = "Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.";
 const NO_LIKENESS = "No likeness of any real actor, performer or public figure.";
 
-export type SheetSubject = { entryId: string; stageId: string; kind: "character" | "location" | "object"; name: string; text: string; version: string; eras: Era[] };
+/** `sections` counts the story sections whose cast uses this stage: how many sections' images the sheet can serve. */
+export type SheetSubject = { entryId: string; stageId: string; kind: "character" | "location" | "object"; name: string; text: string; version: string; eras: Era[]; sections: number };
 
 export function styleBriefText(style: ArtStyle) {
   return [style.rendering, style.palette, style.lighting, style.materials, style.composition].join(" ");
@@ -174,7 +175,11 @@ export function makeStyleReference(style: ArtStyle, mainEra: Era, deps: Paramete
 export type ActiveSection = { recordId: string; era?: string; cast: Array<{ entryId: string; stageId: string }> };
 export type ActiveEntry = { recordId: string; version: string; name: string; entryKind: "character" | "location" | "object"; hasForm?: boolean; stages: Array<{ id: string; text: string }> };
 
-/** One subject per (entry, stage) that a cast uses, for entries present in two or more sections and not without form. Eras come from those sections. */
+/**
+ * One subject per (entry, stage) that a cast uses, for entries present in two or more sections and not without form. Eras come
+ * from those sections. Subjects come most-reused first (ADR 0009): by the sections using the stage, then the sections using the
+ * entry, then id. A budget-limited reference run therefore covers the figures and places most images show before rare ones.
+ */
 export function sheetSubjects(entries: ActiveEntry[], sections: ActiveSection[], brief: WorkBrief): SheetSubject[] {
   const byEntry = new Map(entries.map((e) => [e.recordId, e]));
   const uses = new Map<string, { sections: Set<string>; eras: Set<string> }>();
@@ -203,9 +208,11 @@ export function sheetSubjects(entries: ActiveEntry[], sections: ActiveSection[],
     const stage = entry.stages.find((s) => s.id === stageId);
     if (!stage) continue;
     const eras = brief.eras.filter((e) => use.eras.has(e.id));
-    subjects.push({ entryId, stageId, kind: entry.entryKind, name: entry.name, text: stage.text, version: entry.version, eras: eras.length ? eras : [brief.eras[0]] });
+    subjects.push({ entryId, stageId, kind: entry.entryKind, name: entry.name, text: stage.text, version: entry.version, eras: eras.length ? eras : [brief.eras[0]], sections: use.sections.size });
   }
-  return subjects;
+  const entrySections = (s: SheetSubject) => sectionsPerEntry.get(s.entryId)?.size ?? 0;
+  const id = (s: SheetSubject) => `${s.entryId}:${s.stageId}`;
+  return subjects.sort((a, b) => b.sections - a.sections || entrySections(b) - entrySections(a) || (id(a) < id(b) ? -1 : id(a) > id(b) ? 1 : 0));
 }
 
 /** The era with the most story sections (#156); ties keep brief order. */

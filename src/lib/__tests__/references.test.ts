@@ -82,13 +82,14 @@ describe("reference images", () => {
 
   it("chooses sheets for recurring entries by stage with their sections' eras and skips no-form entries", () => {
     const subjects = sheetSubjects(activeEntries, activeSections, brief);
-    expect(subjects.map((s) => [s.entryId, s.stageId, s.eras.map((e) => e.id)])).toEqual([
-      ["jonah", "young", ["early"]], ["the_lake", "main", ["early", "late"]], ["jonah", "old", ["late"]],
+    // Most-reused first (ADR 0009): stages by the sections using them, ties by the entry's sections, then id.
+    expect(subjects.map((s) => [s.entryId, s.stageId, s.eras.map((e) => e.id), s.sections])).toEqual([
+      ["jonah", "old", ["late"], 2], ["the_lake", "main", ["early", "late"], 2], ["jonah", "young", ["early"], 1],
     ]);
     // Amos is in one section, the voice has no form: neither gets a sheet.
     expect(subjects.some((s) => s.entryId === "amos" || s.entryId === "the_voice")).toBe(false);
     expect(mainEra(activeSections, brief).id).toBe("late");
-    const prompt = sheetPrompt({ title: "Two Books" }, subjects[0], SHARED_STYLES.get("classical"));
+    const prompt = sheetPrompt({ title: "Two Books" }, subjects.find((s) => s.stageId === "young")!, SHARED_STYLES.get("classical"));
     expect(prompt).toContain("World: Fisherfolk. Rough wool.");
     expect(prompt).toContain("Character: Jonah: young fisherman.");
     expect(prompt).toContain("No likeness of any real actor");
@@ -107,7 +108,10 @@ describe("reference images", () => {
     const state = await runReferences({ workId: WORK, workTitle: "Two Books", brief, store, maker, checker, blobs, state: emptyReferenceState(WORK), saveState: async (s) => { saved.push(Object.keys(s.done).length); }, budgetUsd: 5, styleVersions });
     // Jonah young: failed once on text, passed with a note. The lake: three failures. Jonah old: first try. Three style references, Classical included.
     expect(state.done["sheet:jonah:young"]).toMatchObject({ ok: true, attempts: 2 });
-    expect(maker.prompts[1]).toContain("A previous attempt was rejected because: letters on the sleeve");
+    // Style references come first, since every image of a style uses one; the sheets follow, most-reused first.
+    expect(maker.prompts.slice(0, 3).every((p) => p.startsWith("Style reference image"))).toBe(true);
+    expect(maker.prompts[3]).toContain("Character: Jonah: weathered sailor.");
+    expect(maker.prompts[maker.prompts.length - 1]).toContain("A previous attempt was rejected because: letters on the sleeve");
     expect(state.done["sheet:the_lake:main"]).toMatchObject({ ok: false, attempts: 3 });
     expect(state.done["sheet:jonah:old"]).toMatchObject({ ok: true, attempts: 1 });
     expect(state.done["styleReference:classical"]).toMatchObject({ ok: true, attempts: 1 });
@@ -131,7 +135,7 @@ describe("reference images", () => {
     expect(again.spentUsd).toBe(state.spentUsd);
     // The plan shows the failed lake as failed for these inputs; with a fresh run state it would be retried.
     const plan = await planReferences({ workId: WORK, brief, store, state, styleVersions });
-    expect(plan.sheets.map((s) => [s.recordId, s.status])).toEqual([["jonah:young", "fresh"], ["the_lake:main", "failed"], ["jonah:old", "fresh"]]);
+    expect(plan.sheets.map((s) => [s.recordId, s.status])).toEqual([["jonah:old", "fresh"], ["the_lake:main", "failed"], ["jonah:young", "fresh"]]);
     expect((await planReferences({ workId: WORK, brief, store, state: emptyReferenceState(WORK), styleVersions })).sheets[1].status).toBe("missing");
     expect(plan.styles.map((s) => [s.styleId, s.status])).toEqual([["classical", "fresh"], ["watercolor", "fresh"], ["icon", "fresh"]]);
   });
@@ -150,7 +154,7 @@ describe("reference images", () => {
     // An owner edit to Jonah changes his entry version, so both his sheets are stale; the lake is untouched.
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah", payload: { kind: "entry", name: "Jonah", entryKind: "character", hasForm: true, stages: [{ id: "young", text: "Jonah: young fisherman." }, { id: "old", text: "Jonah: weathered sailor, scarred." }] } });
     const plan = await planReferences({ workId: WORK, brief, store, state: emptyReferenceState(WORK), styleVersions });
-    expect(plan.sheets.map((s) => [s.recordId, s.status])).toEqual([["jonah:young", "stale"], ["the_lake:main", "fresh"], ["jonah:old", "stale"]]);
+    expect(plan.sheets.map((s) => [s.recordId, s.status])).toEqual([["jonah:old", "stale"], ["the_lake:main", "fresh"], ["jonah:young", "stale"]]);
     // Pin the young sheet: only the old one is remade, with the edited text.
     await t.mutation(api.analysis.pinReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "jonah:young", pinned: true });
     await runReferences({ workId: WORK, workTitle: "Two Books", brief, store, maker, checker, blobs, state: emptyReferenceState(WORK), saveState: async () => {}, budgetUsd: 5, styleVersions });
@@ -159,7 +163,7 @@ describe("reference images", () => {
     // A style file change makes only that style reference stale.
     const plan2 = await planReferences({ workId: WORK, brief, store, state: emptyReferenceState(WORK), styleVersions: { ...styleVersions, icon: "i2" } });
     expect(plan2.styles.map((s) => [s.styleId, s.status])).toEqual([["classical", "fresh"], ["watercolor", "fresh"], ["icon", "stale"]]);
-    expect(plan2.sheets.map((s) => s.status)).toEqual(["pinned", "fresh", "fresh"]);
+    expect(plan2.sheets.map((s) => s.status)).toEqual(["fresh", "fresh", "pinned"]);
     // The budget stops before a call that would pass it.
     await expect(runReferences({ workId: WORK, workTitle: "Two Books", brief, store, maker, checker, blobs, state: emptyReferenceState(WORK), saveState: async () => {}, budgetUsd: 0.01, styleVersions: { ...styleVersions, icon: "i2" } })).rejects.toThrow(ReferenceBudgetError);
     expect(maker.prompts).toHaveLength(8);
@@ -173,14 +177,15 @@ describe("reference images", () => {
     let stores = 0;
     const flakyBlobs = { store: async (bytes: Uint8Array, mimeType: string) => { stores++; if (stores === 1) throw new Error("storage down"); return blobs.store(bytes, mimeType); } };
     const state = await runReferences({ workId: WORK, workTitle: "Two Books", brief, store, maker: noCost, checker: flaky, blobs: flakyBlobs, state: emptyReferenceState(WORK), saveState: async () => {}, budgetUsd: 5, styleVersions });
-    // First subject: attempt 1 lost to the checker, attempt 2 lost to storage, attempt 3 stored. Every attempt counted at the estimate.
-    expect(state.done["sheet:jonah:young"]).toMatchObject({ ok: true, attempts: 3 });
+    // First subject (the Classical style reference): attempt 1 lost to the checker, attempt 2 lost to storage, attempt 3 stored.
+    // Every attempt counted at the estimate.
+    expect(state.done["styleReference:classical"]).toMatchObject({ ok: true, attempts: 3 });
     expect(state.spentUsd).toBeCloseTo(3 * 0.04 + 2 * 0.005 + 5 * 0.045, 6);
   });
 
   it("keeps the spend of paid attempts when the budget stops a subject midway", async () => {
     const maker = fakeMaker();
-    const checker = fakeChecker((key, n) => (key === "sheet:jonah:young" && n === 1 ? { ...pass, text_present: true, verdict: "fail", reasons: ["text"] } : pass));
+    const checker = fakeChecker((key, n) => (key === "styleref:classical" && n === 1 ? { ...stylePass, text_present: true, verdict: "fail", reasons: ["text"] } : key.startsWith("styleref:") ? stylePass : pass));
     const saved: number[] = [];
     // Enough for one attempt and its check, not for the retry.
     await expect(runReferences({ workId: WORK, workTitle: "Two Books", brief, store, maker, checker, blobs, state: emptyReferenceState(WORK), saveState: async (s) => { saved.push(s.spentUsd); }, budgetUsd: 0.05, styleVersions })).rejects.toThrow(ReferenceBudgetError);

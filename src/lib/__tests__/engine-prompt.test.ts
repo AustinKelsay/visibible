@@ -4,7 +4,7 @@
  * precedence, and quote counts from controlled catalog data.
  */
 import { describe, it, expect } from "vitest";
-import { buildRenderingPacket, selectReferences, ENGINE_RULES, GENERIC_PROMPT_MAX_CHARS, GENERIC_PROMPT_VERSION, PRECEDENCE_LINE, type RenderingInput, type SelectedCanon, type AvailableReference } from "../engine/prompt";
+import { buildRenderingPacket, rankSheetCandidates, selectReferences, ENGINE_RULES, GENERIC_PROMPT_MAX_CHARS, GENERIC_PROMPT_VERSION, PRECEDENCE_LINE, type RenderingInput, type SelectedCanon, type AvailableReference } from "../engine/prompt";
 import { quoteGenericImage } from "../engine/quote";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
 import { normalizeImageBilling } from "../image-catalog";
@@ -217,6 +217,40 @@ describe("rendering packet", () => {
     expect(longer.packet.budget).toEqual({ maxChars: 12000, finalChars: longer.prompt.length });
     // Nothing was trimmed to fit it.
     expect(longer.packet.flags).toMatchObject({ variationIncluded: true, neighborsIncluded: true, styleDetailIncluded: true });
+  });
+
+  it("ranks sheet slots by who the plan's primary subject and action name, then plan order, and passes a slot on when a candidate has no sheet", () => {
+    const watcher = { primarySubject: "Watson at the window", action: "watches the street" };
+    // Watson's sheet goes first because the primary subject names him; the place keeps the second slot.
+    expect(rankSheetCandidates(formedCanon, watcher).map((c) => c.entryId)).toEqual(["dr_watson", "221b_baker_street", "sherlock_holmes"]);
+    const withClassical: AvailableReference[] = [{ kind: "styleReference", styleId: "classical", storageId: "st-classical", version: "r0" }, ...references];
+    const ranked = buildRenderingPacket(base("classical", { references: withClassical, plan: { ...base("classical").plan, ...watcher } }));
+    expect(ranked.ok && ranked.packet.references.map((r) => r.id)).toEqual(["classical", "dr_watson:main", "221b_baker_street:main"]);
+    // An action mention outranks plain plan order.
+    expect(rankSheetCandidates(formedCanon, { primarySubject: "a quiet room", action: "Watson hands over a letter" }).map((c) => c.entryId))
+      .toEqual(["dr_watson", "221b_baker_street", "sherlock_holmes"]);
+    // Holmes has no sheet: his slot passes to Watson instead of going unused.
+    const noHolmes = withClassical.filter((r) => !(r.kind === "sheet" && r.entryId === "sherlock_holmes"));
+    const passed = buildRenderingPacket(base("classical", { references: noHolmes }));
+    expect(passed.ok && passed.packet.references.map((r) => r.id)).toEqual(["classical", "221b_baker_street:main", "dr_watson:main"]);
+    // No place sheet either: the third slot goes to the next character rather than staying empty.
+    const charactersOnly = selectReferences(formedCanon, noHolmes.filter((r) => r.kind !== "sheet" || r.entryId !== "221b_baker_street"), "classical", null);
+    expect(charactersOnly.map((r) => r.kind === "sheet" ? r.entryId : r.styleId)).toEqual(["classical", "dr_watson"]);
+    // A relational name answers only to its own leading words: "The men with Saul" never takes Saul's place.
+    const companions: SelectedCanon = { entryId: "the_men_with_saul", stageId: "main", kind: "character", name: "The men with Saul", text: "The men with Saul: travel-worn guards.", hasForm: true, version: "m1" };
+    const saul: SelectedCanon = { entryId: "saul_of_tarsus", stageId: "main", kind: "character", name: "Saul of Tarsus (Paul)", text: "Saul of Tarsus: a lean young Pharisee.", hasForm: true, version: "s1" };
+    const damascus: SelectedCanon = { entryId: "damascus", stageId: "main", kind: "location", name: "Damascus", text: "Damascus: a walled oasis city.", hasForm: true, version: "d1" };
+    const road = { primarySubject: "Saul, a traveling man, thrown to the ground", action: "light flashes around him" };
+    expect(rankSheetCandidates([companions, saul, damascus], road).map((c) => c.entryId)).toEqual(["saul_of_tarsus", "damascus", "the_men_with_saul"]);
+    const roadSheets: AvailableReference[] = [{ kind: "styleReference", styleId: "classical", storageId: "st", version: "r" },
+      ...[companions, saul, damascus].map((c) => ({ kind: "sheet" as const, entryId: c.entryId, stageId: "main", storageId: `sh-${c.entryId}`, version: "v" }))];
+    expect(selectReferences([companions, saul, damascus], roadSheets, "classical", road).map((r) => r.kind === "sheet" ? r.entryId : r.styleId)).toEqual(["classical", "saul_of_tarsus", "damascus"]);
+    // Both parts of a plain two-word name still answer: "Peter" finds "Simon Peter".
+    const peter: SelectedCanon = { entryId: "simon_peter", stageId: "main", kind: "character", name: "Simon Peter", text: "Simon Peter: a broad fisherman.", hasForm: true, version: "p1" };
+    expect(rankSheetCandidates([companions, peter], { primarySubject: "Peter leaps into the water", action: "" }).map((c) => c.entryId)).toEqual(["simon_peter", "the_men_with_saul"]);
+    // A no-form entry never competes for a slot, and objects come after every character and place.
+    const ark: SelectedCanon = { entryId: "the_ark", stageId: "main", kind: "object", name: "The ark", text: "The ark: a gilded chest.", hasForm: true, version: "a1" };
+    expect(rankSheetCandidates([ark, ...canon], { primarySubject: "the ark", action: "" }).map((c) => c.entryId)).toEqual(["sherlock_holmes", "221b_baker_street", "dr_watson", "the_ark"]);
   });
 
   it("works with zero references and keeps full canon, and a stage-specific sheet only matches its stage", () => {

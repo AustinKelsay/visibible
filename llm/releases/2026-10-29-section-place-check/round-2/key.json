@@ -1,0 +1,761 @@
+{
+  "schemaVersion": 1,
+  "seed": "section-place-round-2",
+  "groups": {
+    "file": "evals/images/consistency.json",
+    "sha256": "ea76d7c8780ec8a6ae66dbdc26e7471fc5ff5f0497b52e601770f1b5845ee12f"
+  },
+  "sources": [
+    {
+      "file": "llm/releases/2026-10-29-section-place-check/results-arm-a.ndjson",
+      "sha256": "500d5e1632fe649e797db4184ea58b9b7937579c50d438bc0aa2b3740c5e56e7"
+    },
+    {
+      "file": "llm/releases/2026-10-29-section-place-check/snapshot.json",
+      "sha256": "6002eb6ae6f3aceabccaaae0eaeff9b8b4a284caffb399231247ba3dab87d1e1"
+    },
+    {
+      "file": "llm/releases/2026-10-29-section-place-check/results-arm-c.ndjson",
+      "sha256": "aa61b19a53ed0df2ac4472cc529850ed245dd97aa004a93fc1f22bb5c3e7651a"
+    },
+    {
+      "file": "llm/releases/2026-10-29-section-place-check/snapshot.json",
+      "sha256": "6002eb6ae6f3aceabccaaae0eaeff9b8b4a284caffb399231247ba3dab87d1e1"
+    }
+  ],
+  "notRun": {
+    "character": [
+      "matthew-14-29",
+      "matthew-27-35",
+      "john-11-43",
+      "exodus-17-12",
+      "leviticus-11-7",
+      "numbers-20-11",
+      "luke-22-61",
+      "acts-3-7",
+      "1-samuel-16-13",
+      "1-samuel-17-40",
+      "1-samuel-17-49",
+      "1-samuel-18-11",
+      "daniel-5-17",
+      "daniel-7-9"
+    ],
+    "setting": []
+  },
+  "coverage": [
+    {
+      "groupId": "jesus",
+      "style": "arm-a",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "mark-4-39"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "jesus",
+      "style": "arm-c",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "mark-4-39",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "arm-a",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "arm-c",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "arm-a",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "arm-c",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "arm-a",
+      "units": 4,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "arm-c",
+      "units": 4,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "arm-a",
+      "units": 4,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "arm-c",
+      "units": 4,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "arm-a",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-14-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "arm-c",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-14-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "arm-a",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "mark-4-37",
+        "mark-4-38",
+        "mark-4-39"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "arm-c",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "mark-4-37",
+        "mark-4-38",
+        "mark-4-39"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "arm-a",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "arm-c",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "arm-a",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "luke-15-20",
+        "luke-15-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "arm-c",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "luke-15-20",
+        "luke-15-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "arm-a",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "arm-c",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    }
+  ],
+  "pairs": [
+    {
+      "id": "pair001",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "arm-a",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/john-21-7.jpg",
+        "sha256": "55afb99de5694c0e0fc48f1b3455442f850f612399d9b0272abd55398464bfa1",
+        "scene": "Simon Peter mid-leap, coat clutched around his body, plunging feet-first from the boat's side into the water; Jesus standing on the beach near a charcoal fire, the beloved disciple pointing from the boat, other disciples still aboard, a heavy net of fish in the water"
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/john-21-9.jpg",
+        "sha256": "954f0be8477f647ba21a9f3a37c79727948c1324ccbb1de217f4f4874284abd9",
+        "scene": "The disciples, wet from the lake, stepping onto the sand and halting as they see the fire.; A bed of glowing charcoal on the beach with fish and flatbread laid across it, the heavy dragnet heaped in the boat behind."
+      }
+    },
+    {
+      "id": "pair002",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "arm-a",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/daniel-6-23.jpg",
+        "sha256": "afb6843b7da12dc47227326820e1742c5380341c1232de4cd5f8d7c4a084df95",
+        "scene": "Daniel, unhurt, being lifted upward out of the pit by servants' hands and ropes.; Darius kneeling at the rim with arms outstretched in gladness; a few attendants with torches; lions sitting quietly below in the pit, not attacking."
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/daniel-6-22.jpg",
+        "sha256": "d317e09e4ad1c246ce78f9d5329d1e7026ad684d82cebb8921ee66a0e97f1901",
+        "scene": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides; Darius in a Persian court robe with royal headdress leaning at the open rim above; faint radiance and a gentle glow near Daniel suggesting the angel's presence; scattered straw on the floor."
+      }
+    },
+    {
+      "id": "pair003",
+      "groupId": "prodigal-son-return",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "style": "arm-c",
+      "left": {
+        "unitId": "luke-15-22",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/luke-15-22.jpg",
+        "sha256": "2ed24374e49834f7c0584f52049431e753c2ba155d3f4941d85b22e122fbad2e",
+        "scene": "The father, older and gray-bearded, standing with an outstretched hand and turned toward his servants.; Two servants hurrying forward in plain tunics, one carrying a folded robe; the ragged, barefoot younger son in worn garments, head bowed."
+      },
+      "right": {
+        "unitId": "luke-15-20",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/luke-15-20.jpg",
+        "sha256": "bc53603a295aed7bacec61a6b18b251e5ef5522c5f262ca73b78e9485da5b385",
+        "scene": "The elderly father running down the track, robe flying, arms open, and the younger son in worn, ragged tunic, bowing his head near his father's shoulder.; Olive trees at the edge of the track; the wooden gate standing open behind the embracing figures."
+      }
+    },
+    {
+      "id": "pair004",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "arm-a",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/mark-4-39.jpg",
+        "sha256": "0cb5cc2ac4a6b798a3d9dea76c147e0999bec0e2d6098935ec95c265a0b3d118",
+        "scene": "Jesus standing in the stern, arm extended and palm open toward the sea; Disciples crouched and clutching the gunwales and mast, wet cloaks, oars and rigging, sea spray easing into still water"
+      },
+      "right": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/mark-4-38.jpg",
+        "sha256": "10f9ff2c273892b635d83564b66f6d94a900c4fe929606da5e585751b984abc8",
+        "scene": "Jesus lying on a cushion in the stern, roused by the disciples leaning over him; Disciples in wet tunics bailing and clinging to mast and oars; spray and waves filling the hull; faint stone village shore far off"
+      }
+    },
+    {
+      "id": "pair005",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "arm-c",
+      "left": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/exodus-14-23.jpg",
+        "sha256": "024c307a414e830a7f38990b840a244152898fae6fef7b14e5e223026ebbaae1",
+        "scene": "Egyptian chariots and horsemen galloping in a close column across the dry seabed; Egyptian soldiers in linen and chariot gear, wheels churning sand, distant Israelite figures moving ahead toward the far shore"
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/exodus-14-21.jpg",
+        "sha256": "dee9ecd6fe15c0e27ea619c04b648a52f4f0a9f11b4a8f503dcde70cda9622be",
+        "scene": "Moses standing at the water's edge, arm outstretched over the sea; Wind bending the cloaks of onlookers, the pillar of cloud and fire glowing faintly over the sea"
+      }
+    },
+    {
+      "id": "pair006",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "arm-c",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/exodus-14-21.jpg",
+        "sha256": "dee9ecd6fe15c0e27ea619c04b648a52f4f0a9f11b4a8f503dcde70cda9622be",
+        "scene": "Moses standing at the water's edge, arm outstretched over the sea; Wind bending the cloaks of onlookers, the pillar of cloud and fire glowing faintly over the sea"
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/exodus-14-22.jpg",
+        "sha256": "6ed59ed55f5553fc588d6a0c35209c36d8a34997309030da6f15671539a3060f",
+        "scene": "Israelite families and herders walking in a line across the dry seabed, Moses leading at the front; Strong east wind streaming past, a pillar of cloud and fire glowing over the group, faint dawn light on the water walls"
+      }
+    },
+    {
+      "id": "pair007",
+      "groupId": "breakfast-on-the-shore",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "style": "arm-a",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/john-21-7.jpg",
+        "sha256": "55afb99de5694c0e0fc48f1b3455442f850f612399d9b0272abd55398464bfa1",
+        "scene": "Simon Peter mid-leap, coat clutched around his body, plunging feet-first from the boat's side into the water; Jesus standing on the beach near a charcoal fire, the beloved disciple pointing from the boat, other disciples still aboard, a heavy net of fish in the water"
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/john-21-9.jpg",
+        "sha256": "954f0be8477f647ba21a9f3a37c79727948c1324ccbb1de217f4f4874284abd9",
+        "scene": "The disciples, wet from the lake, stepping onto the sand and halting as they see the fire.; A bed of glowing charcoal on the beach with fish and flatbread laid across it, the heavy dragnet heaped in the boat behind."
+      }
+    },
+    {
+      "id": "pair008",
+      "groupId": "prodigal-son-return",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "style": "arm-a",
+      "left": {
+        "unitId": "luke-15-22",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/luke-15-22.jpg",
+        "sha256": "5acda3d29addf19e7e11513914ff1903996125ebad0bc95ea66ed6f1115394eb",
+        "scene": "The father, standing upright, holding out a folded white robe toward his son.; Two servants standing a few steps back, one carrying the folded robe; dusty road and terraced hillside behind."
+      },
+      "right": {
+        "unitId": "luke-15-20",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/luke-15-20.jpg",
+        "sha256": "828aaeb941a4a46e5abfe39834bbe599f42daf0a37f10ac121865edc30a4daaf",
+        "scene": "The father running toward his younger son, robes lifted, arms outstretched.; Worn, travel-stained tunic and cloak on the son; a few distant farmhouse walls and an olive tree on the terraces."
+      }
+    },
+    {
+      "id": "pair009",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "arm-a",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/exodus-14-22.jpg",
+        "sha256": "a96388aede2c299ba138f4e7e9eb75341441cf8c21ad29db8c06daec739d0476",
+        "scene": "A crowd of Israelites with bundles and staffs walking forward in a line across the dry seabed.; Moses in a plain travel cloak near the front of the line, water walls curling and holding their shape on both sides, spray and dust lifted by the wind."
+      },
+      "right": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/exodus-14-23.jpg",
+        "sha256": "8657b8cb3e79868e770107cdba9495087f25bd7fc5992617f99e7be9f5817281",
+        "scene": "Egyptian chariots and horsemen galloping in a line down the dry seabed; Egyptian soldiers in linen with spears and shields, horses straining, the Israelites distant on the far shore, walls of water rising on either side"
+      }
+    },
+    {
+      "id": "pair010",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "arm-c",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/john-21-9.jpg",
+        "sha256": "6ef4511cc57ada523fe875c2be1eb685bf22f7781f04835ad1577510d257b20c",
+        "scene": "The disciples, wet and weary, climbing out of the boat onto the sand, their eyes fixed on the fire.; Fish and bread set on the coals; the net dragged onto the shore; wet tunics and cloaks clinging to the men."
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/mark-4-39.jpg",
+        "sha256": "b88c2723253753c54a5ed44e6fa8d4684991e4550810f28c5b5c0dbe4b4e87bc",
+        "scene": "Jesus standing upright in the stern, one arm extended toward the sea; Disciples crouched in the boat, clutching the gunwales and sail ropes, soaked tunics; the sail slackening; storm clouds parting above"
+      }
+    },
+    {
+      "id": "pair011",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "arm-c",
+      "left": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/mark-4-38.jpg",
+        "sha256": "fcf535b923f181a10cdcb7c79886062df98b9f8ea5641a0ddb9b8ee7f7b66a56",
+        "scene": "Jesus lying asleep on a cushion in the stern, head resting, body relaxed; Disciples in soaked tunics and cloaks bailing water with a bucket, rough dark waves and spray, storm clouds overhead"
+      },
+      "right": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/mark-4-37.jpg",
+        "sha256": "4fe3f48e34f8e23c428ff5c699177aecae5d4d2816856c62163ba76e0f9645d6",
+        "scene": "Disciples in the wooden fishing boat, straining and bailing against the surging water; Spray-soaked tunics and cloaks, oars braced, bailing vessels in hand, other small boats tossed nearby"
+      }
+    },
+    {
+      "id": "pair012",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "arm-c",
+      "left": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/mark-4-37.jpg",
+        "sha256": "4fe3f48e34f8e23c428ff5c699177aecae5d4d2816856c62163ba76e0f9645d6",
+        "scene": "Disciples in the wooden fishing boat, straining and bailing against the surging water; Spray-soaked tunics and cloaks, oars braced, bailing vessels in hand, other small boats tossed nearby"
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/mark-4-39.jpg",
+        "sha256": "b88c2723253753c54a5ed44e6fa8d4684991e4550810f28c5b5c0dbe4b4e87bc",
+        "scene": "Jesus standing upright in the stern, one arm extended toward the sea; Disciples crouched in the boat, clutching the gunwales and sail ropes, soaked tunics; the sail slackening; storm clouds parting above"
+      }
+    },
+    {
+      "id": "pair013",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "arm-c",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/john-21-7.jpg",
+        "sha256": "e8e29f494f0fc3e527e0dae51e1baced2bb6560e21cb417b251bef45a45d7af4",
+        "scene": "Simon Peter, mid-leap from the boat's side into the water, coat clutched around his shoulders.; The beloved disciple stands in the boat pointing toward the shore; the other disciples gather at the rail; the net of fish is heavy in the boat."
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/john-21-9.jpg",
+        "sha256": "6ef4511cc57ada523fe875c2be1eb685bf22f7781f04835ad1577510d257b20c",
+        "scene": "The disciples, wet and weary, climbing out of the boat onto the sand, their eyes fixed on the fire.; Fish and bread set on the coals; the net dragged onto the shore; wet tunics and cloaks clinging to the men."
+      }
+    },
+    {
+      "id": "pair014",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "arm-c",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/mark-4-39.jpg",
+        "sha256": "b88c2723253753c54a5ed44e6fa8d4684991e4550810f28c5b5c0dbe4b4e87bc",
+        "scene": "Jesus standing upright in the stern, one arm extended toward the sea; Disciples crouched in the boat, clutching the gunwales and sail ropes, soaked tunics; the sail slackening; storm clouds parting above"
+      },
+      "right": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/mark-4-38.jpg",
+        "sha256": "fcf535b923f181a10cdcb7c79886062df98b9f8ea5641a0ddb9b8ee7f7b66a56",
+        "scene": "Jesus lying asleep on a cushion in the stern, head resting, body relaxed; Disciples in soaked tunics and cloaks bailing water with a bucket, rough dark waves and spray, storm clouds overhead"
+      }
+    },
+    {
+      "id": "pair015",
+      "groupId": "breakfast-on-the-shore",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "style": "arm-c",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/john-21-7.jpg",
+        "sha256": "e8e29f494f0fc3e527e0dae51e1baced2bb6560e21cb417b251bef45a45d7af4",
+        "scene": "Simon Peter, mid-leap from the boat's side into the water, coat clutched around his shoulders.; The beloved disciple stands in the boat pointing toward the shore; the other disciples gather at the rail; the net of fish is heavy in the boat."
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/john-21-9.jpg",
+        "sha256": "6ef4511cc57ada523fe875c2be1eb685bf22f7781f04835ad1577510d257b20c",
+        "scene": "The disciples, wet and weary, climbing out of the boat onto the sand, their eyes fixed on the fire.; Fish and bread set on the coals; the net dragged onto the shore; wet tunics and cloaks clinging to the men."
+      }
+    },
+    {
+      "id": "pair016",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "arm-c",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/daniel-6-23.jpg",
+        "sha256": "6b30e944bbb9d9b03e65b7f0caa55598814d93f10a9101fda8aadfdf53f22e07",
+        "scene": "Daniel, unharmed, rising up from the den, his arms lifted or held by rope and hands at the rim; A torch-bearing attendant beside Darius, and a rope or cord used to draw Daniel up; no lions visible, only calm"
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/daniel-6-22.jpg",
+        "sha256": "6c3ae743fc2e29a9b26256cd9a964ae29f8cde285ebcb814b18fedf33cf44677",
+        "scene": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides.; Several lions lying or sitting with closed or lowered jaws; Darius's head and torch-lit shoulders visible at the top opening, a faint radiance suggesting an unseen angel without drawing a figure."
+      }
+    },
+    {
+      "id": "pair017",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "arm-a",
+      "left": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/mark-4-38.jpg",
+        "sha256": "10f9ff2c273892b635d83564b66f6d94a900c4fe929606da5e585751b984abc8",
+        "scene": "Jesus lying on a cushion in the stern, roused by the disciples leaning over him; Disciples in wet tunics bailing and clinging to mast and oars; spray and waves filling the hull; faint stone village shore far off"
+      },
+      "right": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/mark-4-37.jpg",
+        "sha256": "f74edaafb7ccb9cc2c16d6fe9c741ef4fc3f472e79536321da272836ae7d292a",
+        "scene": "Disciples straining to bail water from a swamped wooden fishing boat; Small companion boats riding the swell nearby, spray and rain driving across the deck, Jesus lying asleep on a cushion in the stern, unseen by the bailers"
+      }
+    },
+    {
+      "id": "pair018",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "arm-a",
+      "left": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/mark-4-37.jpg",
+        "sha256": "f74edaafb7ccb9cc2c16d6fe9c741ef4fc3f472e79536321da272836ae7d292a",
+        "scene": "Disciples straining to bail water from a swamped wooden fishing boat; Small companion boats riding the swell nearby, spray and rain driving across the deck, Jesus lying asleep on a cushion in the stern, unseen by the bailers"
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/mark-4-39.jpg",
+        "sha256": "0cb5cc2ac4a6b798a3d9dea76c147e0999bec0e2d6098935ec95c265a0b3d118",
+        "scene": "Jesus standing in the stern, arm extended and palm open toward the sea; Disciples crouched and clutching the gunwales and mast, wet cloaks, oars and rigging, sea spray easing into still water"
+      }
+    },
+    {
+      "id": "pair019",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "arm-a",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/exodus-14-22.jpg",
+        "sha256": "a96388aede2c299ba138f4e7e9eb75341441cf8c21ad29db8c06daec739d0476",
+        "scene": "A crowd of Israelites with bundles and staffs walking forward in a line across the dry seabed.; Moses in a plain travel cloak near the front of the line, water walls curling and holding their shape on both sides, spray and dust lifted by the wind."
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/exodus-14-21.jpg",
+        "sha256": "43ada4c40d85e2e773d3f07423b7761984aeee3e7773798f820a44fac8512882",
+        "scene": "Moses on the shore, arm stretched out over the water; Israelites gathered at the shore with bundles and staffs, a pillar of cloud and fire glowing behind the cloud over the water, spray and dust lifted by the wind"
+      }
+    },
+    {
+      "id": "pair020",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "arm-a",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/daniel-6-23.jpg",
+        "sha256": "afb6843b7da12dc47227326820e1742c5380341c1232de4cd5f8d7c4a084df95",
+        "scene": "Daniel, unhurt, being lifted upward out of the pit by servants' hands and ropes.; Darius kneeling at the rim with arms outstretched in gladness; a few attendants with torches; lions sitting quietly below in the pit, not attacking."
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/daniel-6-22.jpg",
+        "sha256": "d317e09e4ad1c246ce78f9d5329d1e7026ad684d82cebb8921ee66a0e97f1901",
+        "scene": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides; Darius in a Persian court robe with royal headdress leaning at the open rim above; faint radiance and a gentle glow near Daniel suggesting the angel's presence; scattered straw on the floor."
+      }
+    },
+    {
+      "id": "pair021",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "arm-c",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/exodus-14-22.jpg",
+        "sha256": "6ed59ed55f5553fc588d6a0c35209c36d8a34997309030da6f15671539a3060f",
+        "scene": "Israelite families and herders walking in a line across the dry seabed, Moses leading at the front; Strong east wind streaming past, a pillar of cloud and fire glowing over the group, faint dawn light on the water walls"
+      },
+      "right": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/exodus-14-23.jpg",
+        "sha256": "024c307a414e830a7f38990b840a244152898fae6fef7b14e5e223026ebbaae1",
+        "scene": "Egyptian chariots and horsemen galloping in a close column across the dry seabed; Egyptian soldiers in linen and chariot gear, wheels churning sand, distant Israelite figures moving ahead toward the far shore"
+      }
+    },
+    {
+      "id": "pair022",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "arm-a",
+      "left": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/exodus-14-23.jpg",
+        "sha256": "8657b8cb3e79868e770107cdba9495087f25bd7fc5992617f99e7be9f5817281",
+        "scene": "Egyptian chariots and horsemen galloping in a line down the dry seabed; Egyptian soldiers in linen with spears and shields, horses straining, the Israelites distant on the far shore, walls of water rising on either side"
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/exodus-14-21.jpg",
+        "sha256": "43ada4c40d85e2e773d3f07423b7761984aeee3e7773798f820a44fac8512882",
+        "scene": "Moses on the shore, arm stretched out over the water; Israelites gathered at the shore with bundles and staffs, a pillar of cloud and fire glowing behind the cloud over the water, spray and dust lifted by the wind"
+      }
+    },
+    {
+      "id": "pair023",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "arm-a",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/exodus-14-21.jpg",
+        "sha256": "43ada4c40d85e2e773d3f07423b7761984aeee3e7773798f820a44fac8512882",
+        "scene": "Moses on the shore, arm stretched out over the water; Israelites gathered at the shore with bundles and staffs, a pillar of cloud and fire glowing behind the cloud over the water, spray and dust lifted by the wind"
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-a/exodus-14-22.jpg",
+        "sha256": "a96388aede2c299ba138f4e7e9eb75341441cf8c21ad29db8c06daec739d0476",
+        "scene": "A crowd of Israelites with bundles and staffs walking forward in a line across the dry seabed.; Moses in a plain travel cloak near the front of the line, water walls curling and holding their shape on both sides, spray and dust lifted by the wind."
+      }
+    },
+    {
+      "id": "pair024",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "arm-c",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/exodus-14-22.jpg",
+        "sha256": "6ed59ed55f5553fc588d6a0c35209c36d8a34997309030da6f15671539a3060f",
+        "scene": "Israelite families and herders walking in a line across the dry seabed, Moses leading at the front; Strong east wind streaming past, a pillar of cloud and fire glowing over the group, faint dawn light on the water walls"
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/exodus-14-21.jpg",
+        "sha256": "dee9ecd6fe15c0e27ea619c04b648a52f4f0a9f11b4a8f503dcde70cda9622be",
+        "scene": "Moses standing at the water's edge, arm outstretched over the sea; Wind bending the cloaks of onlookers, the pillar of cloud and fire glowing faintly over the sea"
+      }
+    },
+    {
+      "id": "pair025",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "arm-c",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/daniel-6-23.jpg",
+        "sha256": "6b30e944bbb9d9b03e65b7f0caa55598814d93f10a9101fda8aadfdf53f22e07",
+        "scene": "Daniel, unharmed, rising up from the den, his arms lifted or held by rope and hands at the rim; A torch-bearing attendant beside Darius, and a rope or cord used to draw Daniel up; no lions visible, only calm"
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-10-29-section-place-check/arm-c/daniel-6-22.jpg",
+        "sha256": "6c3ae743fc2e29a9b26256cd9a964ae29f8cde285ebcb814b18fedf33cf44677",
+        "scene": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides.; Several lions lying or sitting with closed or lowered jaws; Darius's head and torch-lit shoulders visible at the top opening, a faint radiance suggesting an unseen angel without drawing a figure."
+      }
+    }
+  ]
+}

@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "instructions": "evals/images/consistency-scoring.md",
+  "pairs": [
+    {
+      "id": "pair001",
+      "file": "composites/pair001.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter mid-leap, coat clutched around his body, plunging feet-first from the boat's side into the water; Jesus standing on the beach near a charcoal fire, the beloved disciple pointing from the boat, other disciples still aboard, a heavy net of fish in the water",
+      "right": "The disciples, wet from the lake, stepping onto the sand and halting as they see the fire.; A bed of glowing charcoal on the beach with fish and flatbread laid across it, the heavy dragnet heaped in the boat behind."
+    },
+    {
+      "id": "pair002",
+      "file": "composites/pair002.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, unhurt, being lifted upward out of the pit by servants' hands and ropes.; Darius kneeling at the rim with arms outstretched in gladness; a few attendants with torches; lions sitting quietly below in the pit, not attacking.",
+      "right": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides; Darius in a Persian court robe with royal headdress leaning at the open rim above; faint radiance and a gentle glow near Daniel suggesting the angel's presence; scattered straw on the floor."
+    },
+    {
+      "id": "pair003",
+      "file": "composites/pair003.jpg",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "question": "Do the left and right images show the same place (the father's house and the road where he meets his son)?",
+      "left": "The father, older and gray-bearded, standing with an outstretched hand and turned toward his servants.; Two servants hurrying forward in plain tunics, one carrying a folded robe; the ragged, barefoot younger son in worn garments, head bowed.",
+      "right": "The elderly father running down the track, robe flying, arms open, and the younger son in worn, ragged tunic, bowing his head near his father's shoulder.; Olive trees at the edge of the track; the wooden gate standing open behind the embracing figures."
+    },
+    {
+      "id": "pair004",
+      "file": "composites/pair004.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Jesus standing in the stern, arm extended and palm open toward the sea; Disciples crouched and clutching the gunwales and mast, wet cloaks, oars and rigging, sea spray easing into still water",
+      "right": "Jesus lying on a cushion in the stern, roused by the disciples leaning over him; Disciples in wet tunics bailing and clinging to mast and oars; spray and waves filling the hull; faint stone village shore far off"
+    },
+    {
+      "id": "pair005",
+      "file": "composites/pair005.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Egyptian chariots and horsemen galloping in a close column across the dry seabed; Egyptian soldiers in linen and chariot gear, wheels churning sand, distant Israelite figures moving ahead toward the far shore",
+      "right": "Moses standing at the water's edge, arm outstretched over the sea; Wind bending the cloaks of onlookers, the pillar of cloud and fire glowing faintly over the sea"
+    },
+    {
+      "id": "pair006",
+      "file": "composites/pair006.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Moses standing at the water's edge, arm outstretched over the sea; Wind bending the cloaks of onlookers, the pillar of cloud and fire glowing faintly over the sea",
+      "right": "Israelite families and herders walking in a line across the dry seabed, Moses leading at the front; Strong east wind streaming past, a pillar of cloud and fire glowing over the group, faint dawn light on the water walls"
+    },
+    {
+      "id": "pair007",
+      "file": "composites/pair007.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "Simon Peter mid-leap, coat clutched around his body, plunging feet-first from the boat's side into the water; Jesus standing on the beach near a charcoal fire, the beloved disciple pointing from the boat, other disciples still aboard, a heavy net of fish in the water",
+      "right": "The disciples, wet from the lake, stepping onto the sand and halting as they see the fire.; A bed of glowing charcoal on the beach with fish and flatbread laid across it, the heavy dragnet heaped in the boat behind."
+    },
+    {
+      "id": "pair008",
+      "file": "composites/pair008.jpg",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "question": "Do the left and right images show the same place (the father's house and the road where he meets his son)?",
+      "left": "The father, standing upright, holding out a folded white robe toward his son.; Two servants standing a few steps back, one carrying the folded robe; dusty road and terraced hillside behind.",
+      "right": "The father running toward his younger son, robes lifted, arms outstretched.; Worn, travel-stained tunic and cloak on the son; a few distant farmhouse walls and an olive tree on the terraces."
+    },
+    {
+      "id": "pair009",
+      "file": "composites/pair009.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "A crowd of Israelites with bundles and staffs walking forward in a line across the dry seabed.; Moses in a plain travel cloak near the front of the line, water walls curling and holding their shape on both sides, spray and dust lifted by the wind.",
+      "right": "Egyptian chariots and horsemen galloping in a line down the dry seabed; Egyptian soldiers in linen with spears and shields, horses straining, the Israelites distant on the far shore, walls of water rising on either side"
+    },
+    {
+      "id": "pair010",
+      "file": "composites/pair010.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "The disciples, wet and weary, climbing out of the boat onto the sand, their eyes fixed on the fire.; Fish and bread set on the coals; the net dragged onto the shore; wet tunics and cloaks clinging to the men.",
+      "right": "Jesus standing upright in the stern, one arm extended toward the sea; Disciples crouched in the boat, clutching the gunwales and sail ropes, soaked tunics; the sail slackening; storm clouds parting above"
+    },
+    {
+      "id": "pair011",
+      "file": "composites/pair011.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Jesus lying asleep on a cushion in the stern, head resting, body relaxed; Disciples in soaked tunics and cloaks bailing water with a bucket, rough dark waves and spray, storm clouds overhead",
+      "right": "Disciples in the wooden fishing boat, straining and bailing against the surging water; Spray-soaked tunics and cloaks, oars braced, bailing vessels in hand, other small boats tossed nearby"
+    },
+    {
+      "id": "pair012",
+      "file": "composites/pair012.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Disciples in the wooden fishing boat, straining and bailing against the surging water; Spray-soaked tunics and cloaks, oars braced, bailing vessels in hand, other small boats tossed nearby",
+      "right": "Jesus standing upright in the stern, one arm extended toward the sea; Disciples crouched in the boat, clutching the gunwales and sail ropes, soaked tunics; the sail slackening; storm clouds parting above"
+    },
+    {
+      "id": "pair013",
+      "file": "composites/pair013.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter, mid-leap from the boat's side into the water, coat clutched around his shoulders.; The beloved disciple stands in the boat pointing toward the shore; the other disciples gather at the rail; the net of fish is heavy in the boat.",
+      "right": "The disciples, wet and weary, climbing out of the boat onto the sand, their eyes fixed on the fire.; Fish and bread set on the coals; the net dragged onto the shore; wet tunics and cloaks clinging to the men."
+    },
+    {
+      "id": "pair014",
+      "file": "composites/pair014.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Jesus standing upright in the stern, one arm extended toward the sea; Disciples crouched in the boat, clutching the gunwales and sail ropes, soaked tunics; the sail slackening; storm clouds parting above",
+      "right": "Jesus lying asleep on a cushion in the stern, head resting, body relaxed; Disciples in soaked tunics and cloaks bailing water with a bucket, rough dark waves and spray, storm clouds overhead"
+    },
+    {
+      "id": "pair015",
+      "file": "composites/pair015.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "Simon Peter, mid-leap from the boat's side into the water, coat clutched around his shoulders.; The beloved disciple stands in the boat pointing toward the shore; the other disciples gather at the rail; the net of fish is heavy in the boat.",
+      "right": "The disciples, wet and weary, climbing out of the boat onto the sand, their eyes fixed on the fire.; Fish and bread set on the coals; the net dragged onto the shore; wet tunics and cloaks clinging to the men."
+    },
+    {
+      "id": "pair016",
+      "file": "composites/pair016.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel, unharmed, rising up from the den, his arms lifted or held by rope and hands at the rim; A torch-bearing attendant beside Darius, and a rope or cord used to draw Daniel up; no lions visible, only calm",
+      "right": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides.; Several lions lying or sitting with closed or lowered jaws; Darius's head and torch-lit shoulders visible at the top opening, a faint radiance suggesting an unseen angel without drawing a figure."
+    },
+    {
+      "id": "pair017",
+      "file": "composites/pair017.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Jesus lying on a cushion in the stern, roused by the disciples leaning over him; Disciples in wet tunics bailing and clinging to mast and oars; spray and waves filling the hull; faint stone village shore far off",
+      "right": "Disciples straining to bail water from a swamped wooden fishing boat; Small companion boats riding the swell nearby, spray and rain driving across the deck, Jesus lying asleep on a cushion in the stern, unseen by the bailers"
+    },
+    {
+      "id": "pair018",
+      "file": "composites/pair018.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Disciples straining to bail water from a swamped wooden fishing boat; Small companion boats riding the swell nearby, spray and rain driving across the deck, Jesus lying asleep on a cushion in the stern, unseen by the bailers",
+      "right": "Jesus standing in the stern, arm extended and palm open toward the sea; Disciples crouched and clutching the gunwales and mast, wet cloaks, oars and rigging, sea spray easing into still water"
+    },
+    {
+      "id": "pair019",
+      "file": "composites/pair019.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "A crowd of Israelites with bundles and staffs walking forward in a line across the dry seabed.; Moses in a plain travel cloak near the front of the line, water walls curling and holding their shape on both sides, spray and dust lifted by the wind.",
+      "right": "Moses on the shore, arm stretched out over the water; Israelites gathered at the shore with bundles and staffs, a pillar of cloud and fire glowing behind the cloud over the water, spray and dust lifted by the wind"
+    },
+    {
+      "id": "pair020",
+      "file": "composites/pair020.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel, unhurt, being lifted upward out of the pit by servants' hands and ropes.; Darius kneeling at the rim with arms outstretched in gladness; a few attendants with torches; lions sitting quietly below in the pit, not attacking.",
+      "right": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides; Darius in a Persian court robe with royal headdress leaning at the open rim above; faint radiance and a gentle glow near Daniel suggesting the angel's presence; scattered straw on the floor."
+    },
+    {
+      "id": "pair021",
+      "file": "composites/pair021.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Israelite families and herders walking in a line across the dry seabed, Moses leading at the front; Strong east wind streaming past, a pillar of cloud and fire glowing over the group, faint dawn light on the water walls",
+      "right": "Egyptian chariots and horsemen galloping in a close column across the dry seabed; Egyptian soldiers in linen and chariot gear, wheels churning sand, distant Israelite figures moving ahead toward the far shore"
+    },
+    {
+      "id": "pair022",
+      "file": "composites/pair022.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Egyptian chariots and horsemen galloping in a line down the dry seabed; Egyptian soldiers in linen with spears and shields, horses straining, the Israelites distant on the far shore, walls of water rising on either side",
+      "right": "Moses on the shore, arm stretched out over the water; Israelites gathered at the shore with bundles and staffs, a pillar of cloud and fire glowing behind the cloud over the water, spray and dust lifted by the wind"
+    },
+    {
+      "id": "pair023",
+      "file": "composites/pair023.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Moses on the shore, arm stretched out over the water; Israelites gathered at the shore with bundles and staffs, a pillar of cloud and fire glowing behind the cloud over the water, spray and dust lifted by the wind",
+      "right": "A crowd of Israelites with bundles and staffs walking forward in a line across the dry seabed.; Moses in a plain travel cloak near the front of the line, water walls curling and holding their shape on both sides, spray and dust lifted by the wind."
+    },
+    {
+      "id": "pair024",
+      "file": "composites/pair024.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Israelite families and herders walking in a line across the dry seabed, Moses leading at the front; Strong east wind streaming past, a pillar of cloud and fire glowing over the group, faint dawn light on the water walls",
+      "right": "Moses standing at the water's edge, arm outstretched over the sea; Wind bending the cloaks of onlookers, the pillar of cloud and fire glowing faintly over the sea"
+    },
+    {
+      "id": "pair025",
+      "file": "composites/pair025.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, unharmed, rising up from the den, his arms lifted or held by rope and hands at the rim; A torch-bearing attendant beside Darius, and a rope or cord used to draw Daniel up; no lions visible, only calm",
+      "right": "Daniel standing upright and calm in the center of the den, arms relaxed at his sides.; Several lions lying or sitting with closed or lowered jaws; Darius's head and torch-lit shoulders visible at the top opening, a faint radiance suggesting an unseen angel without drawing a figure."
+    }
+  ]
+}
