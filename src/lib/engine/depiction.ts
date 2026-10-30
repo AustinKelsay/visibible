@@ -6,9 +6,11 @@
  *
  * Every canon entry has a depiction mode. `form` entries are drawn from their canon. `effects` entries are never
  * drawn: their canon stays out of every prompt, they get no reference sheet, and only the effects the text names
- * stand for them, in the wording the profile gives. A work whose profile has no `effects` wording has no such
- * subjects: its prompts never mention them, its plan review and image check never look for them, and an entry
- * marked without form is refused rather than drawn with another work's wording.
+ * stand for them, in the wording the profile gives. `symbol` entries are drawn only in the non-human form their
+ * canon describes (Satan as a red dragon), never as a person: their canon is in the prompt, but they are not named
+ * among the selected characters and get no sheet. A work whose profile has no wording for a mode has no such
+ * subjects: its prompts never mention them, its plan review and image check never look for them, and an entry in
+ * that mode is refused rather than drawn with another work's wording.
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -37,6 +39,13 @@ const effectsSchema = z.object({
   checkFigure: z.object({ direct: text, describe: text, brightAreas: text }).strict(),
 }).strict();
 
+const symbolSchema = z.object({
+  /** Opens the line added to an image prompt whose scene plan selects such a subject; the engine appends their names. */
+  renderBlock: text,
+  /** Added to the scene plan's instructions when the section cast includes one. */
+  planSystem: text,
+}).strict();
+
 const profileSchema = z.object({
   schemaVersion: z.literal(1),
   workId: id,
@@ -51,10 +60,11 @@ const profileSchema = z.object({
   /** Examples, in the planner's instructions, of a speaker wrongly drawn as a figure of their own words. */
   speakerExamples: text.optional(),
   /** Wording for each depiction mode beyond `form` that this work's entries use. */
-  modes: z.object({ effects: effectsSchema.optional() }).strict(),
+  modes: z.object({ effects: effectsSchema.optional(), symbol: symbolSchema.optional() }).strict(),
 }).strict();
 
 export type EffectsWording = z.infer<typeof effectsSchema>;
+export type SymbolWording = z.infer<typeof symbolSchema>;
 export type DepictionProfile = Readonly<z.infer<typeof profileSchema> & {
   /** The whole profile; recorded with each rendering packet and saved image. */
   version: string;
@@ -62,6 +72,8 @@ export type DepictionProfile = Readonly<z.infer<typeof profileSchema> & {
   planVersion: string;
   /** What looks of sections with an `effects` entry read; such a look made under another version is remade. */
   lookVersion: string;
+  /** What plans of sections with a `symbol` entry read; such a plan made under another version is remade. */
+  symbolVersion: string;
 }>;
 
 /** Validate a work's depiction profile; the versions are content hashes, so only a wording change remakes looks and plans. */
@@ -75,6 +87,7 @@ export function loadDepictionProfile(input: unknown, workId: string): DepictionP
     planVersion: contentVersion({ closedDocuments: profile.closedDocuments, speakerExamples: profile.speakerExamples ?? null,
       effects: effects ? { planSystem: effects.planSystem, planField: effects.planField, reviewFault: effects.reviewFault } : null }),
     lookVersion: contentVersion(effects ? { lookSystem: effects.lookSystem, lookFields: effects.lookFields } : null),
+    symbolVersion: contentVersion(profile.modes.symbol ? { planSystem: profile.modes.symbol.planSystem } : null),
   });
 }
 
@@ -95,17 +108,29 @@ export function readDepictionProfile(workId: string, root = process.cwd()): Depi
   return profile;
 }
 
-export const DEPICTION_MODES = ["form", "effects"] as const;
+export const DEPICTION_MODES = ["form", "effects", "symbol"] as const;
 export type DepictionMode = (typeof DEPICTION_MODES)[number];
 
-/** Canon stores the mode as `hasForm` (absent means drawn), so existing entries and older deployments read it unchanged. */
+/**
+ * Canon stores the mode as `hasForm` (absent means drawn), plus `depiction: "symbol"` for a symbol entry. A symbol entry
+ * keeps `hasForm: false`, so a deployment from before symbols treats it as `effects`, as it did before.
+ */
 export function depictionModeOf(entry: object): DepictionMode {
-  return (entry as { hasForm?: unknown }).hasForm === false ? "effects" : "form";
+  const stored = entry as { hasForm?: unknown; depiction?: unknown };
+  if (stored.depiction === "symbol") return "symbol";
+  return stored.hasForm === false ? "effects" : "form";
 }
 
-/** The stored form of a mode, as `works:correct set-depiction` writes it. */
-export function storedDepiction(mode: DepictionMode): { hasForm: boolean } {
-  return { hasForm: mode === "form" };
+/** The stored form of a mode, as `works:correct set-depiction` writes it over a payload without `depiction`. */
+export function storedDepiction(mode: DepictionMode): { hasForm: boolean; depiction?: "symbol" } {
+  return mode === "symbol" ? { hasForm: false, depiction: "symbol" } : { hasForm: mode === "form" };
+}
+
+/** The work's `symbol` wording, or why entries in that mode cannot be prepared or rendered for this work. */
+export function symbolWordingFor(profile: DepictionProfile, entryIds: readonly string[]): SymbolWording {
+  const symbol = profile.modes.symbol;
+  if (!symbol) throw new Error(`${profile.workId} has no wording for subjects shown only as a symbol, so it cannot depict ${entryIds.join(", ")}; set their depiction or add the mode to works/${profile.workId}/depiction.json`);
+  return symbol;
 }
 
 /** The work's `effects` wording, or why entries in that mode cannot be prepared or rendered for this work. */

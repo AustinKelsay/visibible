@@ -10,7 +10,7 @@ import { assembleRendering, type AssembleDeps } from "../engine/assemble";
 import { DEPICTION_MODES, depictionModeOf, loadDepictionProfile, readDepictionProfile, storedDepiction } from "../engine/depiction";
 import { createMemoryPreparationStore, type MemoryRecordInput } from "../engine/memory-store";
 import { prepareMoment, PreparationUnavailableError } from "../engine/preparation";
-import { buildRenderingPacket, engineRules, type SelectedCanon } from "../engine/prompt";
+import { buildRenderingPacket, engineRules, rankSheetCandidates, type SelectedCanon } from "../engine/prompt";
 import { checkScene, sceneCheckFaults } from "../engine/scene-check";
 import { readWorkInputs, type MomentRange } from "../engine/work-inputs";
 import { createOpenRouterTextModel } from "../reading-pass/model";
@@ -50,12 +50,15 @@ describe("the repo's depiction profiles", () => {
   });
 
   it("reads each entry's depiction from its stored form flag, absent meaning drawn", () => {
-    expect(DEPICTION_MODES).toEqual(["form", "effects"]);
+    expect(DEPICTION_MODES).toEqual(["form", "effects", "symbol"]);
     expect(depictionModeOf({})).toBe("form");
     expect(depictionModeOf({ hasForm: true })).toBe("form");
     expect(depictionModeOf({ hasForm: false })).toBe("effects");
+    // A symbol keeps hasForm false, so a deployment from before symbols reads it as effects.
+    expect(depictionModeOf({ hasForm: false, depiction: "symbol" })).toBe("symbol");
     expect(storedDepiction("effects")).toEqual({ hasForm: false });
     expect(storedDepiction("form")).toEqual({ hasForm: true });
+    expect(storedDepiction("symbol")).toEqual({ hasForm: false, depiction: "symbol" });
   });
 
   it("versions what plans and looks read apart from rendering-only wording", () => {
@@ -218,5 +221,83 @@ describe("profile wording and cached scene plans", () => {
     await expect(prepareMoment({ workId: WORK, momentId: "lake-1-1", store: memory.store, model: m, brief, briefVersion: "bv", depiction: testDepiction("bible-web"), context, holder: "h", now: () => 0, sleep: async () => {} }))
       .rejects.toThrow(PreparationUnavailableError);
     expect(calls).toEqual([]);
+  });
+});
+
+describe("the symbol mode", () => {
+  const bible = testDepiction("bible-web");
+  const symbolWording = (bibleDepictionJson.modes as { symbol: { renderBlock: string; planSystem: string } }).symbol;
+  const satan: SelectedCanon = { entryId: "satan", stageId: "main", kind: "character", name: "Satan", text: "Satan: no human face or body; a vast red serpentine dragon.", hasForm: true, depiction: "symbol", version: "s1" };
+  const job: SelectedCanon = { entryId: "job", stageId: "main", kind: "character", name: "Job", text: "Job: a grey-bearded herdsman in wool.", hasForm: true, depiction: "form", version: "j1" };
+  const look = { place: "a court of cloud", timeOfDay: "day", weather: "still", light: "bright", clothing: "robes" };
+  const render = (workId: string, canon: SelectedCanon[], depiction = bible) => {
+    const brief = JSON.parse(readFileSync(path.join(process.cwd(), "works", "bible-web", "brief.json"), "utf8"));
+    return buildRenderingPacket({ work: { id: workId, title: "T" }, moment: { id: "m", sectionId: "s", reference: "R 1:1", text: "Satan came among them." },
+      brief: { ...brief, workId }, briefVersion: "bv", eraId: brief.eras[0].id, style: SHARED_STYLES.get("classical"), styleVersion: "sv",
+      look: { version: "l", ...look }, situation: null, canon, aspectRatio: "16:9", depiction,
+      plan: { version: "p", primarySubject: "Satan coiled before the court", action: "Satan answers", setting: "a court of cloud", secondaryElements: "Job far below", mood: "dread", timeOfDay: "day", composition: "wide" } });
+  };
+
+  it("draws a symbol entry from its canon, never names it as a person, and gives it no sheet", () => {
+    const result = render("bible-web", [job, satan]);
+    if (!result.ok) throw new Error(result.error);
+    expect(result.prompt).toContain(`${symbolWording.renderBlock} Satan.`);
+    expect(result.prompt).toContain("SELECTED CHARACTERS: Job\n");
+    expect(result.prompt).toContain(`- ${satan.text}`);
+    // Not a subject without form: no unseen-presence line, no renaming, and the verse stays in the prompt.
+    expect(result.prompt).not.toContain("UNSEEN PRESENCE");
+    expect(result.prompt).toContain("Satan coiled before the court");
+    expect(result.prompt).toContain('"Satan came among them."');
+    expect(rankSheetCandidates([satan, job]).map((c) => c.entryId)).toEqual(["job"]);
+  });
+
+  it("refuses a symbol entry in a work without symbol wording", () => {
+    const result = render("holmes-adventures", [satan], readDepictionProfile("holmes-adventures"));
+    expect(result).toMatchObject({ ok: false, finalChars: 0 });
+    if (!result.ok) expect(result.error).toContain("has no wording for subjects shown only as a symbol, so it cannot depict satan");
+  });
+
+  it("versions the planner's symbol wording apart from every other plan", () => {
+    const changed = loadDepictionProfile({ ...bibleDepictionJson, modes: { ...bibleDepictionJson.modes, symbol: { ...symbolWording, planSystem: "- Draw symbols in their form." } } }, "bible-web");
+    expect(changed.symbolVersion).not.toBe(bible.symbolVersion);
+    expect([changed.planVersion, changed.lookVersion]).toEqual([bible.planVersion, bible.lookVersion]);
+    const renderOnly = loadDepictionProfile({ ...bibleDepictionJson, modes: { ...bibleDepictionJson.modes, symbol: { ...symbolWording, renderBlock: "SYMBOL:" } } }, "bible-web");
+    expect(renderOnly.symbolVersion).toBe(bible.symbolVersion);
+  });
+
+  it("tells the planner the symbol's form, records the wording it read, and lets the review see it as having form", async () => {
+    const WORK = "court";
+    const brief = { schemaVersion: 1 as const, workId: WORK, tone: "Grave.", depictionRules: [], styleIds: ["classical"],
+      eras: [{ id: "court", label: "Court", people: "Herders.", dress: "Wool.", buildingsAndObjects: "Tents.", technology: "Hand tools." }] };
+    const records: MemoryRecordInput[] = [
+      { kind: "entry", recordId: "job", payload: { kind: "entry", name: "Job", entryKind: "character", hasForm: true, stages: [{ id: "main", text: job.text }] } },
+      { kind: "entry", recordId: "satan", payload: { kind: "entry", name: "Satan", entryKind: "character", hasForm: false, depiction: "symbol", stages: [{ id: "main", text: satan.text }] } },
+      { kind: "section", recordId: "court-1-1", payload: { kind: "section", title: "The court", firstUnit: "court-1-1", lastUnit: "court-1-1", era: "court", cast: [{ entryId: "job", stageId: "main" }, { entryId: "satan", stageId: "main" }] } },
+      { kind: "moment", recordId: "court-1-1", payload: { kind: "moment", sectionId: "court-1-1", firstUnit: "court-1-1", lastUnit: "court-1-1" } },
+    ];
+    const bodies: string[] = [];
+    const model = createOpenRouterTextModel({ apiKey: "test-key", fetch: recordingFetch((body) => {
+      const schema = body.response_format.json_schema.name;
+      return schema === "section_look" ? look : schema === "scene_plan" ? { focusQuote: "Satan came", instant: "Satan coils before the court.",
+        selectedCast: [{ entryId: "satan", evidence: "Satan came" }], primarySubject: "a red dragon coiled in the court", action: "it answers", setting: "court of cloud",
+        secondaryElements: "none", mood: "dread", timeOfDay: "day", composition: "wide" } : { problems: [] };
+    }, bodies) });
+    const memory = createMemoryPreparationStore(records);
+    const depiction = loadDepictionProfile({ ...bibleDepictionJson, workId: WORK }, WORK);
+    const context = { moment: { id: "court-1-1", reference: "Court 1:1", text: "Satan came among them." }, previous: null, next: null };
+    await prepareMoment({ workId: WORK, momentId: "court-1-1", store: memory.store, model, brief, briefVersion: "bv", depiction, context, holder: "h", now: () => 0, sleep: async () => {} });
+    const [, plan, review] = bodies.map((b) => JSON.parse(b) as { messages: Array<{ content: string }> });
+    expect(plan.messages[0].content.endsWith(`\n${symbolWording.planSystem}`)).toBe(true);
+    expect(plan.messages[1].content).toContain(`- satan: Satan (shown only as its canon form: ${satan.text})`);
+    expect(review.messages[1].content).toContain("- satan: Satan (hasForm: true)");
+    const stored = await memory.store.getActiveRecord("plan", "court-1-1");
+    expect(stored?.inputs).toContainEqual({ kind: "prompt", recordId: "depiction_symbol", version: depiction.symbolVersion });
+    // A work without symbol wording refuses before any model call.
+    const refused: string[] = [];
+    const holmesLike = loadDepictionProfile({ ...bibleDepictionJson, workId: WORK, modes: { effects: bibleDepictionJson.modes.effects } }, WORK);
+    await expect(prepareMoment({ workId: WORK, momentId: "court-1-1", store: createMemoryPreparationStore(records).store,
+      model: createOpenRouterTextModel({ apiKey: "test-key", fetch: recordingFetch(() => ({}), refused) }), brief, briefVersion: "bv", depiction: holmesLike, context, holder: "h", now: () => 0, sleep: async () => {} }))
+      .rejects.toThrow(/no wording for subjects shown only as a symbol/);
+    expect(refused).toEqual([]);
   });
 });
