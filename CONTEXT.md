@@ -25,6 +25,11 @@ _Avoid_: World bible, style guide, theme
 
 **Depiction rule**: A rule in a work brief about how something in the work may or may not be shown, such as drawing a disguised character as the disguise.
 
+**Depiction profile**: A work's own wording for the engine's image instructions and checks, such as where its writing appears and how a subject without form is shown. It sits beside the work brief and is not part of it.
+_Avoid_: Brief (for this wording), engine rules
+
+**Depiction mode**: How one character, location or object of a work may appear: drawn from its canon (form), or never drawn, with only the effects the text names standing for it (effects). A work's depiction profile words each mode it uses.
+
 **Passage**: Scripture text identified by its reference and translation. A passage can contain one or more verses.
 
 **Verse reference**: The book, chapter, and verse that identify one verse independently of its translation.
