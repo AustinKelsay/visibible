@@ -1,0 +1,528 @@
+{
+  "schemaVersion": 1,
+  "instructions": "evals/images/consistency-scoring.md",
+  "pairs": [
+    {
+      "id": "pair001",
+      "file": "composites/pair001.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square",
+      "right": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby."
+    },
+    {
+      "id": "pair002",
+      "file": "composites/pair002.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on.",
+      "right": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby."
+    },
+    {
+      "id": "pair003",
+      "file": "composites/pair003.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Sherlock Holmes seated alone in a high-backed armchair, gaze fixed and reflective; A single chair empty opposite him, a folded letter or closed notebook on a side table, a small pipe rack",
+      "right": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator"
+    },
+    {
+      "id": "pair004",
+      "file": "composites/pair004.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair.",
+      "right": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on."
+    },
+    {
+      "id": "pair005",
+      "file": "composites/pair005.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "Victor Hatherley, young engineer, pointing with excitement toward the rose-bushes below a window; Three fire-engines in the garden vainly playing water on the flames; a crowd of villagers and onlookers in the background; the station-master nearby; rose-bushes and a second window visible",
+      "right": "Inspector Bradstreet on the platform, head tilted back toward the smoke, with the station-master beside him; Holmes and Watson at the open carriage door of the train; a massive dark smoke plume rising like an ostrich feather above a cluster of trees on the horizon"
+    },
+    {
+      "id": "pair006",
+      "file": "composites/pair006.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "A large whitewashed house engulfed in fire, seen from a low hill; The station-master in a waistcoat gesturing toward the house, Holmes and Watson striding forward, Hatherley pale and intent beside them, firemen and dark smoke billowing up",
+      "right": "Inspector Bradstreet on the platform, head tilted back toward the smoke, with the station-master beside him; Holmes and Watson at the open carriage door of the train; a massive dark smoke plume rising like an ostrich feather above a cluster of trees on the horizon"
+    },
+    {
+      "id": "pair007",
+      "file": "composites/pair007.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on.",
+      "right": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square"
+    },
+    {
+      "id": "pair008",
+      "file": "composites/pair008.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on.",
+      "right": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square"
+    },
+    {
+      "id": "pair009",
+      "file": "composites/pair009.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby.",
+      "right": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on."
+    },
+    {
+      "id": "pair010",
+      "file": "composites/pair010.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "Inspector Bradstreet on the platform, head tilted back toward the smoke, with the station-master beside him; Holmes and Watson at the open carriage door of the train; a massive dark smoke plume rising like an ostrich feather above a cluster of trees on the horizon",
+      "right": "A large whitewashed house engulfed in fire, seen from a low hill; The station-master in a waistcoat gesturing toward the house, Holmes and Watson striding forward, Hatherley pale and intent beside them, firemen and dark smoke billowing up"
+    },
+    {
+      "id": "pair011",
+      "file": "composites/pair011.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator",
+      "right": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby."
+    },
+    {
+      "id": "pair012",
+      "file": "composites/pair012.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby.",
+      "right": "Sherlock Holmes seated alone in a high-backed armchair, gaze fixed and reflective; A single chair empty opposite him, a folded letter or closed notebook on a side table, a small pipe rack"
+    },
+    {
+      "id": "pair013",
+      "file": "composites/pair013.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair.",
+      "right": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator"
+    },
+    {
+      "id": "pair014",
+      "file": "composites/pair014.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator",
+      "right": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby."
+    },
+    {
+      "id": "pair015",
+      "file": "composites/pair015.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair.",
+      "right": "Sherlock Holmes seated alone in a high-backed armchair, gaze fixed and reflective; A single chair empty opposite him, a folded letter or closed notebook on a side table, a small pipe rack"
+    },
+    {
+      "id": "pair016",
+      "file": "composites/pair016.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Sherlock Holmes seated alone in a high-backed armchair, gaze fixed and reflective; A single chair empty opposite him, a folded letter or closed notebook on a side table, a small pipe rack",
+      "right": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby."
+    },
+    {
+      "id": "pair017",
+      "file": "composites/pair017.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "Inspector Bradstreet on the platform, head tilted back toward the smoke, with the station-master beside him; Holmes and Watson at the open carriage door of the train; a massive dark smoke plume rising like an ostrich feather above a cluster of trees on the horizon",
+      "right": "Victor Hatherley, young engineer, pointing with excitement toward the rose-bushes below a window; Three fire-engines in the garden vainly playing water on the flames; a crowd of villagers and onlookers in the background; the station-master nearby; rose-bushes and a second window visible"
+    },
+    {
+      "id": "pair018",
+      "file": "composites/pair018.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Sherlock Holmes seated alone in a high-backed armchair, gaze fixed and reflective; A single chair empty opposite him, a folded letter or closed notebook on a side table, a small pipe rack",
+      "right": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square"
+    },
+    {
+      "id": "pair019",
+      "file": "composites/pair019.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby.",
+      "right": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square"
+    },
+    {
+      "id": "pair020",
+      "file": "composites/pair020.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on.",
+      "right": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair."
+    },
+    {
+      "id": "pair021",
+      "file": "composites/pair021.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square",
+      "right": "Sherlock Holmes seated alone in a high-backed armchair, gaze fixed and reflective; A single chair empty opposite him, a folded letter or closed notebook on a side table, a small pipe rack"
+    },
+    {
+      "id": "pair022",
+      "file": "composites/pair022.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square",
+      "right": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator"
+    },
+    {
+      "id": "pair023",
+      "file": "composites/pair023.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square",
+      "right": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator"
+    },
+    {
+      "id": "pair024",
+      "file": "composites/pair024.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square",
+      "right": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair."
+    },
+    {
+      "id": "pair025",
+      "file": "composites/pair025.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair.",
+      "right": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square"
+    },
+    {
+      "id": "pair026",
+      "file": "composites/pair026.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "Victor Hatherley, young engineer, pointing with excitement toward the rose-bushes below a window; Three fire-engines in the garden vainly playing water on the flames; a crowd of villagers and onlookers in the background; the station-master nearby; rose-bushes and a second window visible",
+      "right": "A large whitewashed house engulfed in fire, seen from a low hill; The station-master in a waistcoat gesturing toward the house, Holmes and Watson striding forward, Hatherley pale and intent beside them, firemen and dark smoke billowing up"
+    },
+    {
+      "id": "pair027",
+      "file": "composites/pair027.jpg",
+      "kind": "setting",
+      "subject": "the vault cellar of the City and Suburban Bank",
+      "question": "Do the left and right images show the same place (the vault cellar of the City and Suburban Bank)?",
+      "left": "Dr. Watson crouched behind a wooden crate, revolver cocked on top, eyes fixed on the floor; Holmes crouched behind a crate across the vault and Merryweather and Jones hidden behind other cases, all barely visible; a shuttered lantern giving only a faint warm trace",
+      "right": "Sherlock Holmes kneeling on the flagstone floor, lens held close to the cracks between the stones; Crates of bullion stacked along the walls, a dark lantern on the floor beside Holmes, the director's walking stick resting across his knees"
+    },
+    {
+      "id": "pair028",
+      "file": "composites/pair028.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair.",
+      "right": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square"
+    },
+    {
+      "id": "pair029",
+      "file": "composites/pair029.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair.",
+      "right": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby."
+    },
+    {
+      "id": "pair030",
+      "file": "composites/pair030.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator",
+      "right": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair."
+    },
+    {
+      "id": "pair031",
+      "file": "composites/pair031.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator",
+      "right": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on."
+    },
+    {
+      "id": "pair032",
+      "file": "composites/pair032.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "A large whitewashed house engulfed in fire, seen from a low hill; The station-master in a waistcoat gesturing toward the house, Holmes and Watson striding forward, Hatherley pale and intent beside them, firemen and dark smoke billowing up",
+      "right": "Victor Hatherley, young engineer, pointing with excitement toward the rose-bushes below a window; Three fire-engines in the garden vainly playing water on the flames; a crowd of villagers and onlookers in the background; the station-master nearby; rose-bushes and a second window visible"
+    },
+    {
+      "id": "pair033",
+      "file": "composites/pair033.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair.",
+      "right": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator"
+    },
+    {
+      "id": "pair034",
+      "file": "composites/pair034.jpg",
+      "kind": "setting",
+      "subject": "the vault cellar of the City and Suburban Bank",
+      "question": "Do the left and right images show the same place (the vault cellar of the City and Suburban Bank)?",
+      "left": "Sherlock Holmes kneeling on the flagstone floor, lens held close to the cracks between the stones; Crates of bullion stacked along the walls, a dark lantern on the floor beside Holmes, the director's walking stick resting across his knees",
+      "right": "Dr. Watson crouched behind a wooden crate, revolver cocked on top, eyes fixed on the floor; Holmes crouched behind a crate across the vault and Merryweather and Jones hidden behind other cases, all barely visible; a shuttered lantern giving only a faint warm trace"
+    },
+    {
+      "id": "pair035",
+      "file": "composites/pair035.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Sherlock Holmes seated alone in a high-backed armchair, gaze fixed and reflective; A single chair empty opposite him, a folded letter or closed notebook on a side table, a small pipe rack",
+      "right": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on."
+    },
+    {
+      "id": "pair036",
+      "file": "composites/pair036.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator",
+      "right": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on."
+    },
+    {
+      "id": "pair037",
+      "file": "composites/pair037.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby.",
+      "right": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair."
+    },
+    {
+      "id": "pair038",
+      "file": "composites/pair038.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on.",
+      "right": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby."
+    },
+    {
+      "id": "pair039",
+      "file": "composites/pair039.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby.",
+      "right": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square"
+    },
+    {
+      "id": "pair040",
+      "file": "composites/pair040.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square",
+      "right": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair."
+    },
+    {
+      "id": "pair041",
+      "file": "composites/pair041.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby.",
+      "right": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator"
+    },
+    {
+      "id": "pair042",
+      "file": "composites/pair042.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on.",
+      "right": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator"
+    },
+    {
+      "id": "pair043",
+      "file": "composites/pair043.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square",
+      "right": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on."
+    },
+    {
+      "id": "pair044",
+      "file": "composites/pair044.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on.",
+      "right": "Sherlock Holmes seated alone in a high-backed armchair, gaze fixed and reflective; A single chair empty opposite him, a folded letter or closed notebook on a side table, a small pipe rack"
+    },
+    {
+      "id": "pair045",
+      "file": "composites/pair045.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square",
+      "right": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby."
+    },
+    {
+      "id": "pair046",
+      "file": "composites/pair046.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby.",
+      "right": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator"
+    },
+    {
+      "id": "pair047",
+      "file": "composites/pair047.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on.",
+      "right": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator"
+    },
+    {
+      "id": "pair048",
+      "file": "composites/pair048.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Sherlock Holmes seated alone in a high-backed armchair, gaze fixed and reflective; A single chair empty opposite him, a folded letter or closed notebook on a side table, a small pipe rack",
+      "right": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair."
+    },
+    {
+      "id": "pair049",
+      "file": "composites/pair049.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on.",
+      "right": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair."
+    },
+    {
+      "id": "pair050",
+      "file": "composites/pair050.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator",
+      "right": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair."
+    },
+    {
+      "id": "pair051",
+      "file": "composites/pair051.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator",
+      "right": "Sherlock Holmes seated alone in a high-backed armchair, gaze fixed and reflective; A single chair empty opposite him, a folded letter or closed notebook on a side table, a small pipe rack"
+    },
+    {
+      "id": "pair052",
+      "file": "composites/pair052.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square",
+      "right": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on."
+    },
+    {
+      "id": "pair053",
+      "file": "composites/pair053.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair.",
+      "right": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby."
+    },
+    {
+      "id": "pair054",
+      "file": "composites/pair054.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator",
+      "right": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square"
+    },
+    {
+      "id": "pair055",
+      "file": "composites/pair055.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair.",
+      "right": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on."
+    },
+    {
+      "id": "pair056",
+      "file": "composites/pair056.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby.",
+      "right": "Holmes, lean and alert, arm raised after flinging a crumpled bundle of newspapers onto the luggage rack.; Papers scattered and spilling from the seat and floor, a notebook held loosely in Holmes' other hand, Watson seated opposite with his hat and coat on."
+    },
+    {
+      "id": "pair057",
+      "file": "composites/pair057.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "Sherlock Holmes springing up from the bed, striking a match with his cane raised; Watson seated on the bed beside him, startled and weary, eyes squinting at the sudden light; a faint wisp of smoke rising near the ventilator",
+      "right": "Holmes, lean and alert, standing on the pavement with his head tilted and eyes narrowed in scrutiny; The assistant in shirtsleeves and waistcoat at the doorway; Watson in a wool overcoat and hat; a few distant passers-by; soot-darkened railings and smoke haze over the square"
+    },
+    {
+      "id": "pair058",
+      "file": "composites/pair058.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "Watson in the doorway, half turned to withdraw, while Holmes draws him in by the arm.; Wilson, stout and red-haired, seated in an armchair with a quick questioning glance; a settee nearby.",
+      "right": "Holmes seated at the table, lifting the worn felt hat close to his eye with a magnifying lens.; A goose-less table, a gas lamp on the table casting warm light, a hat rack and armchairs in the background, a folded newspaper on the arm of a chair."
+    }
+  ]
+}

@@ -1,0 +1,267 @@
+{
+  "scorer": "operator",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "p001",
+      "notes": "A restrained portrait represents the focal character description without inventing a meeting with Irene; no fault is established by the unspecified setting.",
+      "overall": "acceptable"
+    },
+    {
+      "id": "p019",
+      "notes": "The quoted command is Yahweh’s; making Moses its visible directing speaker imports the narrator into that command rather than merely resolving a continuing participant.",
+      "faults": {
+        "speaker_in_scene": "yes",
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p020",
+      "notes": "The invented scribe is not identified as the narrator or author. The separate agreed wrong-moment fault covers the invented scene.",
+      "faults": {
+        "speaker_in_scene": "no"
+      }
+    },
+    {
+      "id": "p021",
+      "notes": "The focal action is the Egyptian pursuit; an army following people ahead need not depict its pursued subjects in the same frame. All explicitly described pursuers and the sea corridor are present.",
+      "overall": "acceptable",
+      "faults": {
+        "missing_subject": "no"
+      }
+    },
+    {
+      "id": "p032",
+      "notes": "The Knave is the defendant in the immediately continuing courtroom exchange, established by the preceding paragraph. The agreed successive-instants fault remains.",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p035",
+      "notes": "Neither the focal text nor the supplied immediately continuing context establishes companions on this road. Their selected group and staged reactions are additional to Saul’s sudden illumination.",
+      "overall": "flawed",
+      "faults": {
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p036",
+      "notes": "Job’s reaction replaces the creation described by the question; the listener is drawn instead of the earth’s foundations.",
+      "faults": {
+        "speaker_in_scene": "yes",
+        "missing_subject": "yes"
+      }
+    },
+    {
+      "id": "p037",
+      "notes": "The station-master speaks before the group hurries toward the fire; the supplied text does not establish that he accompanies them. Naming him at the fire adds a participant.",
+      "overall": "flawed",
+      "faults": {
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p039",
+      "notes": "The disciples are the continuing occupants of the boat Peter leaves, rather than figures imported from a different scene. Their watching does not change the focal step toward Jesus.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p043",
+      "notes": "The plan brings the fire-river and ministering ranks from the next verse into the placing of thrones, adding later vision content to the focal instant.",
+      "faults": {
+        "wrong_moment": "yes"
+      }
+    },
+    {
+      "id": "p044",
+      "notes": "The people who awaken Jesus immediately before and whom he addresses immediately after remain on the same boat during the calming. Their continued presence is established context.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p045",
+      "notes": "The preceding verse places the group with Jesus aboard the boat and the next has them wake him there. Showing those continuing occupants during the storm does not import another scene.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p046",
+      "notes": "The preceding clause establishes the evil spirit’s influence during this same encounter; an explicitly formless haze is also not an added embodied figure. The multiple spear positions remain faulty.",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p050",
+      "notes": "“Blank lettering” still requests lettering on the sign and is not an unambiguous blank-board instruction. The contradictory phrase is a writing fault, not evidence of reliable suppression.",
+      "overall": "flawed",
+      "faults": {
+        "visible_writing": "yes"
+      }
+    },
+    {
+      "id": "p054",
+      "notes": "The narrative separates the drawing-room coffee conversation from Arthur following Holder to his room and its own bureau. Placing the clue-bearing locked bureau in the coffee group conflates those locations.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes",
+        "rule_conflict": "yes"
+      }
+    },
+    {
+      "id": "p067",
+      "notes": "The proverb compares abstract royal hearts with height and depth; it does not clearly place a literal king in a physical scene. Its substitution by scribes is already covered by the agreed wrong-moment and speaker faults.",
+      "faults": {
+        "missing_subject": "no"
+      }
+    },
+    {
+      "id": "p070",
+      "notes": "Aaron gathers the assembly with Moses immediately before the strike and is addressed with him immediately after. He remains a participant in this same rock episode.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p071",
+      "notes": "The central instant remains Abraham taking the knife before the strike. The undiscovered ram and distant servants are additions, already reflected by the agreed unsupported-figure fault, rather than a different depicted action.",
+      "faults": {
+        "wrong_moment": "no"
+      }
+    },
+    {
+      "id": "p078",
+      "notes": "Jephthah’s as-yet-unrecruited outlaw band replaces Israel as the target and defender of the attack. The stated national subject is missing, not merely off-camera within the same confrontation.",
+      "faults": {
+        "missing_subject": "yes"
+      }
+    },
+    {
+      "id": "p079",
+      "notes": "The preceding verse establishes the ongoing Israel-Amalek battle affected by Moses’ hands; the next names Joshua’s victory. Showing that same battle below the supported arms retains the focal context.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p081",
+      "notes": "Anonymous card officers and courtiers are incidental courtroom background, not additional named or recurring figures assigned a separate narrative role. The focal Hatter scene and its participants are preserved.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p090",
+      "notes": "The action explicitly sequences examination and then drinking, with a mood changing to delight. It does not settle on one instant; the label alone does not require words under the agreed writing scores.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes"
+      }
+    },
+    {
+      "id": "p091",
+      "notes": "The supplied source identifies David and the single Philistine at this point, but the plan adds a distinct visible group of Philistine ranks to the stone-gathering scene.",
+      "overall": "flawed",
+      "faults": {
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p092",
+      "notes": "John is the listener to a promise for whoever thirsts; staging the spring at his feet turns him into its unsupported recipient inside the promised scene.",
+      "faults": {
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p093",
+      "notes": "Exposed clippings on the table request printed material, even without legible words specified; this is analogous to exposed newspapers and the rubric’s open documents.",
+      "faults": {
+        "visible_writing": "yes"
+      }
+    },
+    {
+      "id": "p094",
+      "notes": "The next sentence’s “with them” establishes companions at the same healing; John resolves that ongoing companion from the supplied cast. Incidental temple onlookers do not introduce a new named event participant.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p099",
+      "notes": "The immediately preceding act of sending for David and the surrounding brothers establish the continuing family gathering. Jesse’s presence is continuity of that setting, not a new scene or later participant.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p100",
+      "notes": "The text says Holmes rolls all the papers into the ball before tossing it. Keeping papers scattered and spilling while the complete bundle is thrown combines the earlier spread with its later packed state.",
+      "faults": {
+        "wrong_moment": "yes",
+        "rule_conflict": "yes"
+      }
+    },
+    {
+      "id": "p101",
+      "notes": "The preceding verse explicitly places the duel before the army. Distant watching ranks remain that same battlefield context and do not change the focal fall.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p102",
+      "notes": "Moses is established at the path by the immediately preceding parting gesture; his lowered arm keeps him in the same continuing scene without replaying that earlier action.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p106",
+      "notes": "Wilson half-rises after the exchange and introduction, whereas the plan makes that greeting simultaneous with pulling Watson through the doorway. It merges successive narrated actions.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes",
+        "rule_conflict": "yes"
+      }
+    },
+    {
+      "id": "p107",
+      "notes": "An uprising against a king does not require the king physically present at the gathering. The rebels and southern realm identify the focal event without a literal royal encounter.",
+      "overall": "acceptable",
+      "faults": {
+        "missing_subject": "no"
+      }
+    },
+    {
+      "id": "p108",
+      "notes": "The plan stays at the same inspection and exchange; the split paper clue is a prop/fidelity error covered by the agreed rule-conflict score, not a different instant or place.",
+      "faults": {
+        "wrong_moment": "no"
+      }
+    },
+    {
+      "id": "p111",
+      "notes": "The people who immediately enter the newly opened passage are its continuing waiting travelers. A distant gathering on shore supports the focal parting rather than showing their later crossing.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    }
+  ]
+}

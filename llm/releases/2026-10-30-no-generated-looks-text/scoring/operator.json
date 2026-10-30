@@ -1,0 +1,246 @@
+{
+  "scorer": "operator",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "p003",
+      "notes": "Holmes assumes the fingertips-together seated pose in the next paragraph after Wilson’s greeting. The plan combines that later posture with the greeting.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes",
+        "rule_conflict": "yes"
+      }
+    },
+    {
+      "id": "p016",
+      "notes": "The speaker explicitly identifies herself with the flowers. A floral self-portrait illustrates that stated subject, rather than inserting an unrelated narrator into someone else’s event; its unspecified gesture is pictorial staging.",
+      "overall": "acceptable",
+      "faults": {
+        "speaker_in_scene": "no"
+      }
+    },
+    {
+      "id": "p031",
+      "notes": "The first-person subject explicitly describes his own gaze and promised rescue from the net. Representing that promise with his own lifted foot illustrates its subject without importing a listener or separate event.",
+      "overall": "acceptable",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no"
+      }
+    },
+    {
+      "id": "p032",
+      "notes": "“Mid-copying” specifies writing activity even though the secondary scroll is closed. The conflicting prop description does not remove the instruction to depict copying.",
+      "faults": {
+        "visible_writing": "yes"
+      }
+    },
+    {
+      "id": "p033",
+      "notes": "The focal action is the Egyptian pursuit in the sea corridor. People pursued ahead may remain outside this view; all explicitly described Egyptian pursuers are present.",
+      "overall": "acceptable",
+      "faults": {
+        "missing_subject": "no"
+      }
+    },
+    {
+      "id": "p034",
+      "notes": "The Queen calling from a distance belongs after the King leaves to fetch the executioner; retaining him hiding behind Alice combines the earlier encounter with that later state.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes"
+      }
+    },
+    {
+      "id": "p037",
+      "notes": "The inclusive “we see” expressly supplies a viewer for the mirror comparison. A believer representing that collective does not add Paul as an observer or enact an unrelated audience scene.",
+      "overall": "acceptable",
+      "faults": {
+        "speaker_in_scene": "no",
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p041",
+      "notes": "The focal examination is offered to Watson with Holmes’s lens. Assigning the active lens examination to Holmes and leaving Watson only watching changes the specified actor; a merely possible earlier gesture is insufficient source support.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes",
+        "rule_conflict": "yes"
+      }
+    },
+    {
+      "id": "p045",
+      "notes": "The immediately preceding verse places the duel before the army. Distant ranks continue that established battlefield rather than introducing a separate participant or later event.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p047",
+      "notes": "The selected ash-heap location imports Job’s surrounding discourse setting into the hypothetical man’s distress, despite the scene fields describing a generic wasteland. Selected location identity is part of the plan.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes"
+      }
+    },
+    {
+      "id": "p048",
+      "notes": "Moving Holder’s own clue-bearing bureau to a distant room below stairs separates it from his private room in the narrated episode. The chosen father-son instant is otherwise valid.",
+      "overall": "flawed",
+      "faults": {
+        "rule_conflict": "yes"
+      }
+    },
+    {
+      "id": "p057",
+      "notes": "Alice nods when the eyes appear; only later, after the full head appears, does she set down the flamingo. The plan combines the earlier specified nod with the later prop and head state.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes"
+      }
+    },
+    {
+      "id": "p058",
+      "notes": "The immediately preceding paragraph establishes the Knave in this same uninterrupted courtroom exchange. Keeping the defendant nearby does not import a character from another scene.",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p059",
+      "notes": "At the moment of the father’s command, the requested clothes need not yet be fetched or visible. The different central embrace remains the agreed wrong-moment fault.",
+      "faults": {
+        "missing_subject": "no"
+      }
+    },
+    {
+      "id": "p061",
+      "notes": "The subject explicitly moves from bowed and seated to lifting, the action has him rise, and composition fixes him seated. Those successive states do not describe one settled instant.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes"
+      }
+    },
+    {
+      "id": "p069",
+      "notes": "Aaron gathers the assembly with Moses immediately before the strike and is addressed beside him immediately after. His continuing presence belongs to this same episode.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p070",
+      "notes": "The action explicitly asks for revolt and then its fall. This combines the predicted uprising with its subsequent defeat instead of selecting one instant.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes"
+      }
+    },
+    {
+      "id": "p073",
+      "notes": "The focal verse gives the instruction to prophesy. Having Ezekiel already deliver the prophecy advances from receiving that instruction to carrying it out.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes"
+      }
+    },
+    {
+      "id": "p078",
+      "notes": "Moses and the divine wind/light continue the immediately established sea-parting scene. The plan keeps the crossing central and does not add the later Egyptian pursuit.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p084",
+      "notes": "Choosing Jesse and David represents one stated parent-child link without needing both generations’ births at once. The selected earlier Naomi-house identity is unsupported for this later domestic moment.",
+      "faults": {
+        "wrong_moment": "yes",
+        "missing_subject": "no"
+      }
+    },
+    {
+      "id": "p086",
+      "notes": "The addressed believers are the explicit subject of being in Christ, so their portrayal is not an unrelated audience insertion. The dove-shaped supernatural glow introduces the conventional Spirit depiction in a statement about Christ; that reading is inferential but the distinct divine symbol is not supported here.",
+      "overall": "flawed",
+      "faults": {
+        "speaker_in_scene": "no",
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p090",
+      "notes": "The Queen’s spectacles are explicitly donned before the stare that unsettles the Hatter; the plan retains her stare but omits that stated visible prop.",
+      "faults": {
+        "missing_subject": "yes"
+      }
+    },
+    {
+      "id": "p094",
+      "notes": "The disciples remain the occupants of the boat Peter leaves; their distant watching does not import another scene or advance to his sinking. This follows the same ruling for the other candidate.",
+      "overall": "acceptable",
+      "faults": {
+        "unsupported_figure": "no"
+      }
+    },
+    {
+      "id": "p096",
+      "notes": "The broad promised rescue of Judah is not the surrounding conversation in Hosea’s house. Selecting that named domestic location brings incompatible scene identity into the landscape.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes"
+      }
+    },
+    {
+      "id": "p098",
+      "notes": "Alice asks the repeated question at the actual tea-table; a thoughtful listener can be visible during that question. The plan does not yet depict the later answer or a contradictory change in physical state.",
+      "overall": "acceptable",
+      "faults": {
+        "wrong_moment": "no"
+      }
+    },
+    {
+      "id": "p099",
+      "notes": "The text explicitly requires both the king’s signet and his lords’ signet. The plan depicts the king’s seal and the lords only watching, leaving their specified sealing object absent.",
+      "faults": {
+        "missing_subject": "yes"
+      }
+    },
+    {
+      "id": "p104",
+      "notes": "A scatter of letters is not explicitly open, unfolded, inscribed or legible. Unlike named newspaper clippings, these may be closed correspondence; the plan does not establish the writing fault.",
+      "faults": {
+        "visible_writing": "no"
+      }
+    },
+    {
+      "id": "p105",
+      "notes": "The scene replaces the earth’s foundations described by the question with the listener on the ash heap. It depicts the framing interrogation instead of the focal creation image, consistent with the other candidate’s ruling.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "yes"
+      }
+    },
+    {
+      "id": "p107",
+      "notes": "Goliath’s advance is placed in the next verse after David comes near, but here occurs during stone-gathering. The watching army groups are also additional to the supplied local preparation text.",
+      "faults": {
+        "wrong_moment": "yes",
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p111",
+      "notes": "The work permits animal dress where the text supplies it. Giving the animal and bird jurors unspecified period dress exceeds that explicit condition.",
+      "faults": {
+        "rule_conflict": "yes"
+      }
+    }
+  ]
+}

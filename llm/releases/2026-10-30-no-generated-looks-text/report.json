@@ -1,0 +1,458 @@
+{
+  "run": "2026-10-30-no-generated-looks-text",
+  "tier": "text",
+  "suite": "2026-10-30-suite-v1",
+  "faults": "2026-10-30-faults-v1",
+  "disputes": 0,
+  "summary": {
+    "overall": {
+      "items": 113,
+      "refused": {
+        "yes": 0,
+        "judged": 113,
+        "rate": 0
+      },
+      "acceptable": {
+        "yes": 56,
+        "judged": 113,
+        "rate": 0.49557522123893805
+      },
+      "faults": {
+        "wrong_moment": {
+          "yes": 33,
+          "judged": 113,
+          "rate": 0.2920353982300885
+        },
+        "speaker_in_scene": {
+          "yes": 11,
+          "judged": 113,
+          "rate": 0.09734513274336283
+        },
+        "missing_subject": {
+          "yes": 10,
+          "judged": 113,
+          "rate": 0.08849557522123894
+        },
+        "unsupported_figure": {
+          "yes": 19,
+          "judged": 113,
+          "rate": 0.168141592920354
+        },
+        "rule_conflict": {
+          "yes": 10,
+          "judged": 113,
+          "rate": 0.08849557522123894
+        },
+        "visible_writing": {
+          "yes": 9,
+          "judged": 113,
+          "rate": 0.07964601769911504
+        },
+        "embodied_effects": {
+          "yes": 3,
+          "judged": 21,
+          "rate": 0.14285714285714285
+        }
+      }
+    },
+    "byWork": {
+      "alice-in-wonderland": {
+        "items": 18,
+        "refused": {
+          "yes": 0,
+          "judged": 18,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 8,
+          "judged": 18,
+          "rate": 0.4444444444444444
+        },
+        "faults": {
+          "wrong_moment": {
+            "yes": 5,
+            "judged": 18,
+            "rate": 0.2777777777777778
+          },
+          "speaker_in_scene": {
+            "yes": 0,
+            "judged": 18,
+            "rate": 0
+          },
+          "missing_subject": {
+            "yes": 1,
+            "judged": 18,
+            "rate": 0.05555555555555555
+          },
+          "unsupported_figure": {
+            "yes": 1,
+            "judged": 18,
+            "rate": 0.05555555555555555
+          },
+          "rule_conflict": {
+            "yes": 3,
+            "judged": 18,
+            "rate": 0.16666666666666666
+          },
+          "visible_writing": {
+            "yes": 3,
+            "judged": 18,
+            "rate": 0.16666666666666666
+          },
+          "embodied_effects": {
+            "yes": 0,
+            "judged": 0,
+            "rate": null
+          }
+        }
+      },
+      "bible-web": {
+        "items": 77,
+        "refused": {
+          "yes": 0,
+          "judged": 77,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 42,
+          "judged": 77,
+          "rate": 0.5454545454545454
+        },
+        "faults": {
+          "wrong_moment": {
+            "yes": 22,
+            "judged": 77,
+            "rate": 0.2857142857142857
+          },
+          "speaker_in_scene": {
+            "yes": 11,
+            "judged": 77,
+            "rate": 0.14285714285714285
+          },
+          "missing_subject": {
+            "yes": 7,
+            "judged": 77,
+            "rate": 0.09090909090909091
+          },
+          "unsupported_figure": {
+            "yes": 18,
+            "judged": 77,
+            "rate": 0.23376623376623376
+          },
+          "rule_conflict": {
+            "yes": 0,
+            "judged": 77,
+            "rate": 0
+          },
+          "visible_writing": {
+            "yes": 2,
+            "judged": 77,
+            "rate": 0.025974025974025976
+          },
+          "embodied_effects": {
+            "yes": 3,
+            "judged": 21,
+            "rate": 0.14285714285714285
+          }
+        }
+      },
+      "holmes-adventures": {
+        "items": 18,
+        "refused": {
+          "yes": 0,
+          "judged": 18,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 6,
+          "judged": 18,
+          "rate": 0.3333333333333333
+        },
+        "faults": {
+          "wrong_moment": {
+            "yes": 6,
+            "judged": 18,
+            "rate": 0.3333333333333333
+          },
+          "speaker_in_scene": {
+            "yes": 0,
+            "judged": 18,
+            "rate": 0
+          },
+          "missing_subject": {
+            "yes": 2,
+            "judged": 18,
+            "rate": 0.1111111111111111
+          },
+          "unsupported_figure": {
+            "yes": 0,
+            "judged": 18,
+            "rate": 0
+          },
+          "rule_conflict": {
+            "yes": 7,
+            "judged": 18,
+            "rate": 0.3888888888888889
+          },
+          "visible_writing": {
+            "yes": 4,
+            "judged": 18,
+            "rate": 0.2222222222222222
+          },
+          "embodied_effects": {
+            "yes": 0,
+            "judged": 0,
+            "rate": null
+          }
+        }
+      }
+    },
+    "byStyle": {},
+    "bySplit": {
+      "dev": {
+        "items": 93,
+        "refused": {
+          "yes": 0,
+          "judged": 93,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 45,
+          "judged": 93,
+          "rate": 0.4838709677419355
+        },
+        "faults": {
+          "wrong_moment": {
+            "yes": 28,
+            "judged": 93,
+            "rate": 0.3010752688172043
+          },
+          "speaker_in_scene": {
+            "yes": 10,
+            "judged": 93,
+            "rate": 0.10752688172043011
+          },
+          "missing_subject": {
+            "yes": 8,
+            "judged": 93,
+            "rate": 0.08602150537634409
+          },
+          "unsupported_figure": {
+            "yes": 19,
+            "judged": 93,
+            "rate": 0.20430107526881722
+          },
+          "rule_conflict": {
+            "yes": 7,
+            "judged": 93,
+            "rate": 0.07526881720430108
+          },
+          "visible_writing": {
+            "yes": 6,
+            "judged": 93,
+            "rate": 0.06451612903225806
+          },
+          "embodied_effects": {
+            "yes": 3,
+            "judged": 18,
+            "rate": 0.16666666666666666
+          }
+        }
+      },
+      "holdout": {
+        "items": 20,
+        "refused": {
+          "yes": 0,
+          "judged": 20,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 11,
+          "judged": 20,
+          "rate": 0.55
+        },
+        "faults": {
+          "wrong_moment": {
+            "yes": 5,
+            "judged": 20,
+            "rate": 0.25
+          },
+          "speaker_in_scene": {
+            "yes": 1,
+            "judged": 20,
+            "rate": 0.05
+          },
+          "missing_subject": {
+            "yes": 2,
+            "judged": 20,
+            "rate": 0.1
+          },
+          "unsupported_figure": {
+            "yes": 0,
+            "judged": 20,
+            "rate": 0
+          },
+          "rule_conflict": {
+            "yes": 3,
+            "judged": 20,
+            "rate": 0.15
+          },
+          "visible_writing": {
+            "yes": 3,
+            "judged": 20,
+            "rate": 0.15
+          },
+          "embodied_effects": {
+            "yes": 0,
+            "judged": 3,
+            "rate": 0
+          }
+        }
+      }
+    }
+  },
+  "gate": {
+    "baseline": "2026-10-30-suite-baseline-text-2",
+    "pass": false,
+    "reasons": [
+      "rule_conflict rose from 0% to 15% on holdout (allowed 2.0 item(s))"
+    ],
+    "checks": [
+      {
+        "measure": "refused",
+        "candidate": {
+          "yes": 0,
+          "judged": 20,
+          "rate": 0
+        },
+        "baseline": {
+          "yes": 0,
+          "judged": 20,
+          "rate": 0
+        },
+        "allowed": 2,
+        "pass": true
+      },
+      {
+        "measure": "wrong_moment",
+        "candidate": {
+          "yes": 5,
+          "judged": 20,
+          "rate": 0.25
+        },
+        "baseline": {
+          "yes": 4,
+          "judged": 20,
+          "rate": 0.2
+        },
+        "allowed": 2,
+        "pass": true
+      },
+      {
+        "measure": "speaker_in_scene",
+        "candidate": {
+          "yes": 1,
+          "judged": 20,
+          "rate": 0.05
+        },
+        "baseline": {
+          "yes": 2,
+          "judged": 20,
+          "rate": 0.1
+        },
+        "allowed": 2,
+        "pass": true
+      },
+      {
+        "measure": "missing_subject",
+        "candidate": {
+          "yes": 2,
+          "judged": 20,
+          "rate": 0.1
+        },
+        "baseline": {
+          "yes": 2,
+          "judged": 20,
+          "rate": 0.1
+        },
+        "allowed": 2,
+        "pass": true
+      },
+      {
+        "measure": "unsupported_figure",
+        "candidate": {
+          "yes": 0,
+          "judged": 20,
+          "rate": 0
+        },
+        "baseline": {
+          "yes": 2,
+          "judged": 20,
+          "rate": 0.1
+        },
+        "allowed": 2,
+        "pass": true
+      },
+      {
+        "measure": "rule_conflict",
+        "candidate": {
+          "yes": 3,
+          "judged": 20,
+          "rate": 0.15
+        },
+        "baseline": {
+          "yes": 0,
+          "judged": 20,
+          "rate": 0
+        },
+        "allowed": 2,
+        "pass": false
+      },
+      {
+        "measure": "visible_writing",
+        "candidate": {
+          "yes": 3,
+          "judged": 20,
+          "rate": 0.15
+        },
+        "baseline": {
+          "yes": 3,
+          "judged": 20,
+          "rate": 0.15
+        },
+        "allowed": 2,
+        "pass": true
+      },
+      {
+        "measure": "embodied_effects",
+        "candidate": {
+          "yes": 0,
+          "judged": 3,
+          "rate": 0
+        },
+        "baseline": {
+          "yes": 0,
+          "judged": 3,
+          "rate": 0
+        },
+        "allowed": 2,
+        "pass": true
+      },
+      {
+        "measure": "not acceptable",
+        "candidate": {
+          "yes": 9,
+          "judged": 20,
+          "rate": 0.45
+        },
+        "baseline": {
+          "yes": 11,
+          "judged": 20,
+          "rate": 0.55
+        },
+        "allowed": 2,
+        "pass": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "scorer": "operator",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "p007",
+      "notes": "The supplied exchange and neighbours establish Holmes and Lestrade, but do not place Watson in this scene. Turning and pointing to the note/hotel bill displays the written document, even without spelling out its lettering.",
+      "faults": {
+        "unsupported_figure": "yes",
+        "visible_writing": "yes"
+      }
+    },
+    {
+      "id": "p011",
+      "notes": "The primary subject has the spear leaving Saul’s hand while the action also places it lodging in the wall. These are distinct physical positions in successive instants, not merely a completed earlier action.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes"
+      }
+    },
+    {
+      "id": "p015",
+      "notes": "The seraphim and temple remain visible, and radiance as cloud and fire supplies the permitted unbodied presence. Misplacing the seraphim above Isaiah and inserting attendants are covered by the agreed scene and figure faults; a separate missing subject is not established.",
+      "faults": {
+        "missing_subject": "no"
+      }
+    },
+    {
+      "id": "p019",
+      "notes": "The verse’s uprising and falling rebels can be shown without the opposed king physically appearing. The imported riverbank and Daniel already account for the agreed wrong scene; depicting the broader opposition through armed figures does not require a visible king.",
+      "faults": {
+        "missing_subject": "no"
+      }
+    },
+    {
+      "id": "p020",
+      "notes": "The heading identifies David as author, not a shepherd physically leading sheep in this episode. The plan places the named writer inside the metaphor and reverses the guiding role.",
+      "faults": {
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p025",
+      "notes": "The plan makes the case-book visible during the reassuring touch, although the passage explicitly retrieves it from a locked desk only later. This imports a later clue-handling state into the chosen earlier moment.",
+      "faults": {
+        "wrong_moment": "yes",
+        "rule_conflict": "yes"
+      }
+    },
+    {
+      "id": "p026",
+      "notes": "The prayer’s snare image becomes a literal travel episode for the named David. The supplied text does not establish him walking this ridge or physically caught in a net; it inserts the speaker into the metaphor.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p031",
+      "notes": "The waiting lobsters and turtles belong to the sung scene, while the performers explicitly dance without lobsters. Bringing those identified song participants onto the beach adds figures absent from the performed dance.",
+      "faults": {
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p037",
+      "notes": "The pursuers enter after Israelites who the preceding line places in the middle of the sea. Putting the families already on the far shore advances their crossing beyond this supplied moment.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes"
+      }
+    },
+    {
+      "id": "p043",
+      "notes": "The focal interaction can frame the King, Queen, Alice and Bill without the defendant from the previous line. Bill bent over his slate with ink running down his face represents the explicitly described writing activity.",
+      "faults": {
+        "missing_subject": "no",
+        "visible_writing": "yes"
+      }
+    },
+    {
+      "id": "p051",
+      "notes": "The oil, the anointing actor and Aaron are present. The plan’s general priestly garments do not expressly remove the turban and crown from the preceding line; every continuing clothing detail need not be repeated to depict this anointing.",
+      "overall": "acceptable",
+      "faults": {
+        "missing_subject": "no"
+      }
+    },
+    {
+      "id": "p052",
+      "notes": "The supplied passage describes returning and searching, with discovery only after three days. A search within that interval, before the discovery, remains a representative instant of this action rather than a separate event.",
+      "overall": "acceptable",
+      "faults": {
+        "wrong_moment": "no"
+      }
+    },
+    {
+      "id": "p053",
+      "notes": "The spring is promised to the thirsty; making it appear at the named listener John’s feet inserts him as its recipient inside the promise. His presence as the listener does not establish that depicted event.",
+      "faults": {
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p056",
+      "notes": "The self-comparison and adjacent reply do not establish a literal valley encounter with the speakers among an orchard and grazing sheep. The plan stages the named lovers physically within the floral imagery instead of depicting the comparison’s content.",
+      "overall": "flawed",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p059",
+      "notes": "The supplied focal verse and neighbours establish Saul and the light, but not accompanying men. Their named selection and staged reaction add participants beyond the permitted source context.",
+      "overall": "flawed",
+      "faults": {
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p068",
+      "notes": "The supplied text says the Levite went to his own place without naming its location. Gibeah cannot be confirmed or contradicted as his home from this packet alone; retain uncertainty rather than import knowledge from outside it.",
+      "overall": "uncertain",
+      "faults": {
+        "wrong_moment": "no"
+      }
+    },
+    {
+      "id": "p082",
+      "notes": "The chosen instant is David’s approach with staff, sling and bagged stones, all present. A distant Philistine does not require the shield-bearer first specified in the following verse to be visible in this frame.",
+      "overall": "acceptable",
+      "faults": {
+        "missing_subject": "no"
+      }
+    },
+    {
+      "id": "p091",
+      "notes": "The text names Holder’s own bureau and a subsequent move to his room, but never explicitly locates the bureau in that room. The drawing-room placement is materially uncertain, not a demonstrated relocation of the clue from the supplied text alone.",
+      "overall": "uncertain",
+      "faults": {
+        "wrong_moment": "no",
+        "rule_conflict": "no"
+      }
+    },
+    {
+      "id": "p092",
+      "notes": "The supplied account explicitly shows the next croquet arch walking at the far end of the ground. The plan replaces that living game participant with a conventional striped arch and unrelated gardeners, losing the described subject.",
+      "faults": {
+        "missing_subject": "yes"
+      }
+    },
+    {
+      "id": "p093",
+      "notes": "Having just tapped the pavement is a completed action, not an instruction to show the tapping simultaneously. Holmes pausing with the assistant at an open doorway fits the immediately ensuing encounter without contradicting the intervening knock.",
+      "overall": "acceptable",
+      "faults": {
+        "wrong_moment": "no",
+        "rule_conflict": "no"
+      }
+    },
+    {
+      "id": "p094",
+      "notes": "The words concern Judah’s promised rescue, but the plan inserts their recipient Hosea and his family into the illustrated promise. Their earlier naming scene does not establish them as participants in the event these words describe.",
+      "faults": {
+        "speaker_in_scene": "yes",
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p098",
+      "notes": "Alice, the Cat and the overhearing Queen are all present in the focal exchange. The distant walking arch mentioned in the preceding description is not a required visible participant in this closer interaction; other agreed faults remain.",
+      "faults": {
+        "missing_subject": "no"
+      }
+    },
+    {
+      "id": "p106",
+      "notes": "Irene is the subject of a reflective comparison, not a person physically present with Holmes. A portrait could represent the description without adding her; the invented visit and narrator already account for the agreed faults.",
+      "faults": {
+        "missing_subject": "no"
+      }
+    },
+    {
+      "id": "p109",
+      "notes": "The supplied account establishes last night’s escape and a sighting early that morning, but does not explicitly fix the hour when this group observes the fire. Late-night lighting is not proved contradictory from these inputs alone; the agreed omissions remain.",
+      "faults": {
+        "wrong_moment": "no",
+        "rule_conflict": "no"
+      }
+    },
+    {
+      "id": "p110",
+      "notes": "The King speaks in the supplied scene, while the Queen is not placed there by this packet or its neighbour. Adding her as a named spectator exceeds the supplied scene context.",
+      "faults": {
+        "unsupported_figure": "yes"
+      }
+    },
+    {
+      "id": "p111",
+      "notes": "Every visual field depicts the swallowing instant, with Jonah still entering the jaws. Selecting the belly entry does not itself ask to render the later confinement, so no second visible instant is established.",
+      "overall": "acceptable",
+      "faults": {
+        "wrong_moment": "no"
+      }
+    }
+  ]
+}

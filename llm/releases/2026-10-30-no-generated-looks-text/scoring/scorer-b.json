@@ -1,0 +1,1552 @@
+{
+  "scorer": "model-b",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "p001",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "The plan captures Alice answering the Hatter's riddle with the March Hare at the tea-table. The sleeping third companion is consistent with the table's three existing occupants; no writing or prohibited depiction is requested."
+    },
+    {
+      "id": "p002",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Mary and Joseph search as they return to Jerusalem, matching the parents' unsuccessful search and return. Jesus is appropriately absent from this searching scene."
+    },
+    {
+      "id": "p003",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Wilson's half-risen greeting and questioning glance toward Watson are the selected instant. All three participants are present, and the plan explicitly excludes visible writing."
+    },
+    {
+      "id": "p004",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Hatherley points out the drive, rose-bushes and window while Holmes stands beside him, matching their exchange. The excerpt does not itself establish a time of day or require the other named members of the section cast in this view."
+    },
+    {
+      "id": "p005",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "yes",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "The verse describes the addressee's claimed guidance of the blind and light for those in darkness. The plan substitutes Paul teaching attentive listeners in a courtyard and omits the described blind or darkened subjects."
+    },
+    {
+      "id": "p006",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "The conditional example concerns an unnamed person yielding coat and cloak. The plan makes Jesus the litigant and places the disciples inside that example, neither of which the verse states."
+    },
+    {
+      "id": "p007",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Holmes holds the blue gem to the light while Watson watches, exactly the opening action. Books and papers are background clutter without an explicit request for open pages or visible text."
+    },
+    {
+      "id": "p008",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed",
+      "notes": "The light conveys unembodied Wisdom giving wealth to people, but the plan never shows the treasuries that the verse explicitly says are being filled. The luminous cloud is not a bodily figure."
+    },
+    {
+      "id": "p009",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "The tipping jury-box, oversized Alice and tumbling jurors capture the opening accident. A dangling lizard can belong to that tumble without necessarily importing the later upside-down replacement; slates are not requested to bear writing."
+    },
+    {
+      "id": "p010",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed",
+      "notes": "The narrator Watson holds the printed slip to the light in the text, whereas the plan assigns that action to Holmes, contrary to the narrated-moment rule. The printed slip and typewritten letters expressly require writing."
+    },
+    {
+      "id": "p011",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed",
+      "notes": "The text has Lestrade shut the door before Holmes rises for his overcoat. Showing Lestrade still exiting while Holmes lifts the coat combines those successive instants and conflicts with following the narrated moment."
+    },
+    {
+      "id": "p012",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "Moses seated on the stone with Aaron and Hur supporting his arms is accurate. Joshua and the opposing armies are imported from the surrounding battle narrative rather than placed in this verse's scene."
+    },
+    {
+      "id": "p013",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The unnamed man, his parents and his wife illustrate the stated departure and joining. No named speaker or unrelated figure is inserted into the example."
+    },
+    {
+      "id": "p014",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Seated Israelite exiles weep beside Babylon's river, matching the verse. Zion is remembered rather than physically present, so its absence from the landscape is appropriate."
+    },
+    {
+      "id": "p015",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "The party viewing a burning whitewashed house and three working fire-engines captures the final described instant. The host and foreign patient discussed by the station-master are not incorrectly drawn at the fire."
+    },
+    {
+      "id": "p016",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "uncertain",
+      "notes": "The speaker identifies herself with the rose and lily, so a floral self-portrait may be a valid illustration rather than an inserted unrelated speaker. The invented blossom-holding gesture makes it unclear whether this is merely poetic staging or a different physical episode; the text establishes no such gesture."
+    },
+    {
+      "id": "p017",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice timidly addresses the grinning animal Cat, whose claws and teeth remain visible. The plan keeps the requested encounter and does not introduce the March Hare's house or another cast member."
+    },
+    {
+      "id": "p018",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Arriving disciples look at the charcoal fire with fish and bread, retaining all subjects explicitly shown in the verse. Jesus's ensuing speech is not imported into this arrival scene."
+    },
+    {
+      "id": "p019",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The wall collapses as Israelites advance and priests blow trumpets, capturing the transition described in the verse. The action remains solemn and does not add the following verse's slaughter."
+    },
+    {
+      "id": "p020",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed",
+      "notes": "The verse sees the new heaven and earth after the former ones have passed, but the plan also depicts the old heavens actively folding away. God is selected although this verse does not place him in the scene; the radiance itself has no body."
+    },
+    {
+      "id": "p021",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed",
+      "notes": "The seraphim stand above the Lord, resolved by the preceding verse, whereas the plan makes them hover above Isaiah and adds Isaiah bowing within his vision. Their six-wing arrangement is accurate, and the unseen presence remains light and smoke rather than an actual garment or body."
+    },
+    {
+      "id": "p022",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel unharmed among lions with closed jaws matches his report, and the king is the explicitly addressed listener at the den. The angelic light supplies the sent presence without adding an unrelated named figure."
+    },
+    {
+      "id": "p023",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes tossing the newspaper ball onto the rack while Watson watches matches the narrated action. Newspapers spread through the carriage and notes in Holmes's hand request visible written material."
+    },
+    {
+      "id": "p024",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The restrained instant of the Levite beginning to use the knife on his concubine retains the action, participants and house. Preparing the bundles is compatible with the described division and dispatch without depicting lingering gore."
+    },
+    {
+      "id": "p025",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Sulfur and fire descend onto Sodom and Gomorrah from a radiant cloud, preserving both cities and the divine action. No human form is assigned to Yahweh and the catastrophe is treated gravely."
+    },
+    {
+      "id": "p026",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "yes"
+      },
+      "overall": "flawed",
+      "notes": "The glasslike sea and four eye-covered creatures match the verse. Radiant light and cloud at the throne's center give the formless divine presence a throne, which the embodied-effects definition explicitly includes even without a human body."
+    },
+    {
+      "id": "p027",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Holmes reassuring Helen while observing the ticket and mud captures the consultation with Watson present. The case-book is merely nearby, with no opening, inscription or readable ticket text requested."
+    },
+    {
+      "id": "p028",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "yes",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "A family-record scroll is a reasonable illustration of the genealogy heading without drawing the ancestors together. The plan explicitly asks for an open, unrolled scroll, which the rubric counts under visible writing even though its surface is specified as blank."
+    },
+    {
+      "id": "p029",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter plunges toward the recognized Lord while the beloved disciple points from the boat, preserving the verse's central action and actors. The coat covers Peter and the additional fishing details do not substitute a different event."
+    },
+    {
+      "id": "p030",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "Israelite families making camp at Terah matches the itinerary. Moses and Aaron directing the camp are added named actors not placed in this stopping-place scene by the verse."
+    },
+    {
+      "id": "p031",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The speaker explicitly describes his own gaze and feet in a net, so David can represent that first-person image. Rescue comes through light rather than a visible divine hand or body."
+    },
+    {
+      "id": "p032",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "yes",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "yes",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "The proverb compares heaven and earth with kings' unsearchable hearts, but the plan depicts the Men of Hezekiah contemplating their copying work and omits the kings. Those scribes are inserted as figures in the proverb, and 'mid-copying' also requests a writing activity despite the closed scroll."
+    },
+    {
+      "id": "p033",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed",
+      "notes": "The pursuing Egyptian horses, chariots and riders in the sea are accurate. The Israelites whom they follow into it ('after them') are entirely absent from both selected cast and described elements."
+    },
+    {
+      "id": "p034",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "The King shelters behind Alice facing the Cat's floating head, while the Queen is within the croquet scene. The threat remains comic and no actual execution is shown."
+    },
+    {
+      "id": "p035",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "The child and peaceful animal group preserve the verse's image. The plan lists only one calf, omitting the separately specified fattened calf alongside the calf and young lion."
+    },
+    {
+      "id": "p036",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Disciples rouse Jesus from the stern cushion in the threatened boat, matching the moment. The plan does not jump ahead to Jesus calming the storm."
+    },
+    {
+      "id": "p037",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A believer looking into a dim mirror represents the inclusive 'we see' image without inserting Paul as a teacher. The single reflective instant does not require a literal second scene of future face-to-face knowledge."
+    },
+    {
+      "id": "p038",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "flawed",
+      "notes": "The plan says the Queen is unseen by Alice while Alice delivers the careful revised sentence. In the text Alice notices her and changes the sentence because of that awareness, so the depicted knowledge and instant conflict."
+    },
+    {
+      "id": "p039",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Saul's thrown spear and David dodging it capture one escape, without merging the two escapes into separate simultaneous actions. The evil spirit is not embodied."
+    },
+    {
+      "id": "p040",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed",
+      "notes": "Abraham with knife above his bound son captures the threatened sacrifice without gore. The servant and donkeys at the foot of the rise are imported named attendance not placed in this verse's scene."
+    },
+    {
+      "id": "p041",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes hands the lens to Watson and invites Watson to infer from the hat in the excerpt. The plan instead has Holmes performing the lens examination while Watson only watches, departing from the narrated action."
+    },
+    {
+      "id": "p042",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Alice tasting the bottle is the correct event and the small door supplies scale. The secondary elements explicitly request the label reading DRINK ME."
+    },
+    {
+      "id": "p043",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Elisha ascends toward Bethel while youths mock his baldness, retaining the encounter. The plan does not import the bears or the following punishment."
+    },
+    {
+      "id": "p044",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The resting cloud over the tabernacle and stationary Israelite camp capture one of the verse's stated conditions. No simultaneous departure or added named speaker is shown."
+    },
+    {
+      "id": "p045",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "David's released sling and Goliath falling face-first match the strike. The plan additionally selects and draws the Philistine army watching, a collective not placed in this particular verse's scene."
+    },
+    {
+      "id": "p046",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "yes"
+      },
+      "overall": "flawed",
+      "notes": "The promise to a thirsty person becomes water already flowing to John as its recipient, and elders are added without support in the verse. The divine light occupies a throne-space with a glow about its throne, meeting the rubric's explicit throne criterion for embodiment."
+    },
+    {
+      "id": "p047",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "The fearful unnamed man and advancing shadows can illustrate distress prevailing over him. Selecting the ash heap imports the location of the surrounding discourse into an image of the hypothetical wicked man, though the verse specifies no ash heap."
+    },
+    {
+      "id": "p048",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Arthur gravely following his father to the bedroom is the final event of the supplied excerpt. The narrator legitimately appears in his own remembered event, and Mary need not be added to this later father-son moment."
+    },
+    {
+      "id": "p049",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "Samuel's oil horn, David and the watching brothers capture the anointing instant before the verse proceeds to the Spirit's coming. Jesse is additionally seated nearby although this verse places only Samuel, David and David's brothers at that anointing."
+    },
+    {
+      "id": "p050",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Watson sees the first glint from the floor while the four men remain concealed, matching the closing instant. The shuttered lantern, revolver and dark cellar preserve the specified suspense."
+    },
+    {
+      "id": "p051",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed",
+      "notes": "The visitor's entrance with his hand at his mask is combined with Watson half-rising, which occurs later after the visitor questions Watson's presence. Combining those actions departs from the ordered narrated moment."
+    },
+    {
+      "id": "p052",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes kneeling to inspect the floor and Merryweather sulking on the crate match the excerpt. Watson is a participant explicitly addressed as Doctor and narrating the shared cellar visit, but is omitted entirely."
+    },
+    {
+      "id": "p053",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed",
+      "notes": "The verse describes the pig's hoof and dietary status. The plan turns it into Moses teaching with Aaron and gathered Israelites, importing named recipients or transmitters into the subject of the law."
+    },
+    {
+      "id": "p054",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Hanani rebuking Asa represents the direct accusation and warning to the king in the verse. It does not literalize Yahweh's eyes as bodily organs, and the throne belongs to the human king."
+    },
+    {
+      "id": "p055",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Unnamed listeners hearing a message illustrate the causal statement about hearing and faith. Paul is not inserted, and the sealed scroll and unspecified milestone do not explicitly ask for visible writing."
+    },
+    {
+      "id": "p056",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "flawed",
+      "notes": "The Hatter and Hare cry out at Alice when they see her coming, before she sits. The plan combines their arrival protest with Alice already seated at the empty end of the table."
+    },
+    {
+      "id": "p057",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "The full floating head and Alice's lowered flamingo fit the instant she begins talking to the Cat. Only the Cat's head is shown and the croquet animals remain animals."
+    },
+    {
+      "id": "p058",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed",
+      "notes": "The Queen's flying inkstand is simultaneous with Bill already writing using ink from its impact, combining successive instants; the selected Knave is not placed in this excerpt's scene. Bill scribbling on his slate explicitly requests writing."
+    },
+    {
+      "id": "p059",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "The verse gives the father's directions for robe, ring and sandals, while the plan centers a renewed approach to embrace the son. It expressly keeps the robe out of hand and does not depict the requested best robe, ring or sandals as actual scene objects."
+    },
+    {
+      "id": "p060",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Jesus and Peter meet eyes across the courtyard, matching the recognition and remembered warning. Jesus is present in the scene description even though not listed under selected, so he is not missing."
+    },
+    {
+      "id": "p061",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The weary man beginning to rise toward light illustrates strength given to the weak. Isaiah is not inserted as a figure, and the light does not acquire a divine body."
+    },
+    {
+      "id": "p062",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "All four tea-party participants remain at the table as the conversation subsides into thought and silence. No literal raven or writing-desk is imported from Alice's thoughts."
+    },
+    {
+      "id": "p063",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "The Caterpillar takes the hookah from its mouth and addresses a shy Alice, preserving the exchange. The large mushroom clearly establishes Alice's small scale."
+    },
+    {
+      "id": "p064",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Holmes strikes at the bell-pull in the match flare with Watson watching, matching the selected instant. The snake is not clearly seen by the narrator in this excerpt, so its omission does not omit an explicitly visible subject."
+    },
+    {
+      "id": "p065",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Lestrade protesting as Holmes studies the reverse of the scrap matches the exchange. A hotel bill and pencil note are explicitly requested written objects."
+    },
+    {
+      "id": "p066",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "Daniel refusing rewards before Belshazzar is accurate. The writing he offers to read is absent from the described hall, and a rolled scroll does not depict that explicitly referenced writing."
+    },
+    {
+      "id": "p067",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Soldiers divide garments and cast lots beneath the crucified Jesus, who remains partly in frame. The plan keeps the scene solemn and avoids lingering gore."
+    },
+    {
+      "id": "p068",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The runner casting off a weight and surrounded by witnesses directly illustrates the verse's race image. Jesus from the next verse is not inserted into the scene."
+    },
+    {
+      "id": "p069",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "Moses striking the rock, abundant water and people with livestock drinking retain the verse's subjects. Aaron is an added named figure drawn from the preceding gathering rather than this verse's specified action."
+    },
+    {
+      "id": "p070",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The rebels confronting the southern power with some beginning to fall can occupy one battle instant. Daniel and the linen-clothed speaker are correctly absent from the events described by the prophecy."
+    },
+    {
+      "id": "p071",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Rephaiah repairs Jerusalem's wall with workers, matching the named laborer and action. His presence in the scene description suffices even though he is not an available selected-cast entry."
+    },
+    {
+      "id": "p072",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses issues the command, messengers relay it through camp and people stop bringing offerings. These actions can coexist during the proclamation and preserve the verse's actual participants."
+    },
+    {
+      "id": "p073",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Ezekiel addressing scattered dry bones illustrates the commanded prophetic act without jumping to assembled skeletons or living bodies. He is explicitly the person instructed to act in this valley rather than an unrelated observer inserted into an image."
+    },
+    {
+      "id": "p074",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Daniel is placed visibly inside the scene he watches, and the river of fire is imported from the following verse. The Ancient of Days is expressly a seated presence assigned a throne, which is embodiment under the rubric even though rendered only as radiance."
+    },
+    {
+      "id": "p075",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The father's arriving embrace and kiss of his returned son capture the verse's reunion. Jesus is not inserted as teller of the parable, and the scene remains a single meeting."
+    },
+    {
+      "id": "p076",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Naomi speaks to Ruth in the domestic setting, matching their actual conversation. Boaz and his reapers are not inserted merely because the advice mentions his fields and maidens."
+    },
+    {
+      "id": "p077",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable",
+      "notes": "The priest casts the bird's crop and feathers onto the ash place east of the altar. The plan retains the specific ritual action and location without adding Moses as a participant."
+    },
+    {
+      "id": "p078",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed",
+      "notes": "Israelite families crossing dry seabed between water walls match the verse. Moses leading and Yahweh selected as a moving glow are additional recurring subjects imported from surrounding context rather than placed here by this verse."
+    },
+    {
+      "id": "p079",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Attendants lift an unharmed Daniel from the den while the glad king watches. The quiet lions support the setting without substituting the preceding rescue report for the extraction."
+    },
+    {
+      "id": "p080",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice's elongated neck among the treetops and the Pigeon defending its eggs capture their argument. The scale change is clear and the Pigeon remains an animal."
+    },
+    {
+      "id": "p081",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed",
+      "notes": "The verse announces Ammon making war on Israel before Jephthah is fetched. The plan prematurely has Jephthah and his outlaw band leading the opposition and selects Tob, importing his separate surrounding story into the battle."
+    },
+    {
+      "id": "p082",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Adam lies dead at the end of his long life, matching the verse. The unnamed mourning household is ordinary scene support and does not introduce another named ancestor from the genealogy."
+    },
+    {
+      "id": "p083",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Hezekiah's wholehearted temple service is represented by his reverent attention and completed worship equipment. The unnamed workers and priests support that work without inserting an unrelated named person."
+    },
+    {
+      "id": "p084",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "Jesse with a young David can illustrate the second father-son link without combining the two generations' births. Selecting Naomi's house, however, imports an earlier generation's particular domestic setting into this later genealogical moment without support in the verse."
+    },
+    {
+      "id": "p085",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "The psalmist is the one led and made to rest by Yahweh. The plan instead makes David the human shepherd letting a flock rest, changing his role within his own pastoral image."
+    },
+    {
+      "id": "p086",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "uncertain",
+      "notes": "Believers receiving light can represent their stated relation to Christ without inserting Paul. The dove-shaped glow is ambiguous: the plan does not identify it as the Holy Spirit, but that conventional reading would add a different divine subject not specified in this verse."
+    },
+    {
+      "id": "p087",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed",
+      "notes": "The King's hurriedly closed notebook and trembling address are accurate. Calling Alice 'small against the court' fails the size rule in a moment explicitly debating her enormous height."
+    },
+    {
+      "id": "p088",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Jonah alone in the fish's belly selects the sustained interval explicitly described by the verse. The crew and a bodily divine agent are appropriately absent from this interior view."
+    },
+    {
+      "id": "p089",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Moses pours anointing oil onto Aaron's head, directly illustrating the instructed ritual with the pronouns resolved by the cast and context. No divine body or visible writing is requested."
+    },
+    {
+      "id": "p090",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "flawed",
+      "notes": "The Hatter biting his teacup under the Queen's stare and the accompanying tea-party witnesses match the excerpt. The selected officers of the court are an additional recurring group not placed in this excerpt's scene."
+    },
+    {
+      "id": "p091",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "The described believers in quiet trust suit the statement, but Paul is explicitly selected despite not being named or personally placed among the beneficiaries in this verse. Selecting the writer imports him into the image of his teaching even though the scene prose leaves him unnamed."
+    },
+    {
+      "id": "p092",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Moses stretches out his arm as the east wind divides the sea at night, preserving the verse's action. Yahweh is represented by wind and light without bodily form."
+    },
+    {
+      "id": "p093",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice tries to line up the living flamingo while it turns toward her, amid hedgehogs and bent card-soldier hoops. The plan explicitly preserves the soldiers' flat card form and keeps the Queen's threats non-graphic."
+    },
+    {
+      "id": "p094",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "Peter stepping onto the water toward the calling Jesus matches the verse. The selected collective of disciples watching with lamps is an added recurring group not placed in this particular moment by its text."
+    },
+    {
+      "id": "p095",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "flawed",
+      "notes": "Bradstreet's exchange with the station-master, departing train and plume of smoke are accurate. Watson participates in the narrated 'we' arriving and seeing the smoke, but the plan substitutes generic passengers and omits him entirely."
+    },
+    {
+      "id": "p096",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed",
+      "notes": "Unarmed Judah under formless divine light represents rescue without military force. The selected location Hosea's house belongs to the surrounding prophetic conversation, not the broad land-of-Judah scene described by the promise."
+    },
+    {
+      "id": "p097",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Saul grasps the robe as Samuel turns away and it tears, retaining both people and the precise action. The scene shows no later symbolic tearing of a kingdom as a separate event."
+    },
+    {
+      "id": "p098",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice questioning the Dormouse at the tea-table is an actual event in the excerpt. The three sisters need not appear because the plan selects the framing conversation rather than illustrating the well story."
+    },
+    {
+      "id": "p099",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "The king presses a seal while workers are still lowering the stone, combining its placement with the subsequent sealing. Only the king's signet is depicted; the explicitly required signet of his lords is omitted."
+    },
+    {
+      "id": "p100",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "no"
+      },
+      "overall": "flawed",
+      "notes": "The Mock Turtle and Gryphon dancing around Alice match the framing performance, so animals from the song need not be shown. Their added waistcoat and jacket conflict with the rule allowing animal dress only where the text gives it."
+    },
+    {
+      "id": "p101",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes scrutinizing the pawnbroker's corner house with Watson present captures the opening investigation. The plan explicitly requires the readable JABEZ WILSON shop sign."
+    },
+    {
+      "id": "p102",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "Peter raising the man by his right hand as his ankles gain strength is accurate. John and the recurring crowd are additionally selected and drawn although this verse places only the helper and healed man in the action."
+    },
+    {
+      "id": "p103",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "acceptable",
+      "notes": "First light spreads across the dark primordial deep, matching the creation command and result. God remains formless light and atmospheric effects, with no figure or body."
+    },
+    {
+      "id": "p104",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "yes",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed",
+      "notes": "The paragraph characterizes Holmes's attitude to Irene without narrating a photograph-viewing episode; the plan invents that reflective incident contrary to the narrated-moment rule. Its scatter of letters also requests visible written documents."
+    },
+    {
+      "id": "p105",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "yes",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed",
+      "notes": "The question describes God's laying the earth's foundations, but the plan depicts Job on the ash heap during the surrounding interrogation instead. It substitutes the listener and storm setting for the foundation image and never shows that clearly named subject."
+    },
+    {
+      "id": "p106",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "The supplied verse is Jesus's loud command. Having Lazarus already stir and step toward the light imports the response that the following verse begins, rather than holding at the call."
+    },
+    {
+      "id": "p107",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "David selecting stones at the brook with his shepherd's equipment matches the preparation, and the Philistine is explicitly his destination. The watching Israelite army and opposing lines are additional recurring groups not placed in this verse's scene."
+    },
+    {
+      "id": "p108",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Jesus's rebuke and the waves flattening capture the specified transition to calm. The disciples who have just awakened him remain passengers in the same boat, and no later conversation or different episode replaces the action."
+    },
+    {
+      "id": "p109",
+      "faults": {
+        "wrong_moment": "yes",
+        "speaker_in_scene": "yes",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "no"
+      },
+      "overall": "flawed",
+      "notes": "The quoted command is the remembered departure from Horeb, as the preceding line establishes. The plan relocates that departure to the plains of Moab and puts Moses in the foreground giving the order from the setting of his retelling."
+    },
+    {
+      "id": "p110",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Levitical priests rise and bless the gathered people, with prayer directed heavenward. Hezekiah is correctly not added just because he is in the section cast."
+    },
+    {
+      "id": "p111",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "yes"
+      },
+      "overall": "flawed",
+      "notes": "The White Rabbit reading before Alice, the royal pair, Knave and jury matches the selected courtroom instant. The unfolded paper being read aloud expressly requires visible written material."
+    },
+    {
+      "id": "p112",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "yes",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "flawed",
+      "notes": "Saul halted in the sudden light near Damascus preserves the moment before his fall. The named collective of men with Saul is additionally selected and depicted although this verse does not place companions in the scene."
+    },
+    {
+      "id": "p113",
+      "faults": {
+        "wrong_moment": "no",
+        "speaker_in_scene": "no",
+        "missing_subject": "no",
+        "unsupported_figure": "no",
+        "rule_conflict": "no",
+        "visible_writing": "no",
+        "embodied_effects": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Waves batter and fill the boat while its occupants struggle, matching the storm moment and retaining the immediately established passengers. Jesus remains asleep, so the plan does not import his subsequent waking or calming of the sea."
+    }
+  ]
+}

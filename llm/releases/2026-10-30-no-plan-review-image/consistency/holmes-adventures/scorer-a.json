@@ -1,0 +1,296 @@
+{
+  "scorer": "model-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "pair001",
+      "verdict": "same",
+      "notes": "Watson, the bowler-hatted man carrying the bag, has the same dark moustache, fair skin, compact face and middle-aged appearance on both sides."
+    },
+    {
+      "id": "pair002",
+      "verdict": "same",
+      "notes": "The seated passenger at left and the man being drawn inside at right share a neatly trimmed brown moustache, prominent nose, fair complexion and similar middle-aged face."
+    },
+    {
+      "id": "pair003",
+      "verdict": "same",
+      "notes": "The seated Holmes and the man holding the match share dark curly hair, a long angular clean-shaven face, pale skin and a lean build."
+    },
+    {
+      "id": "pair004",
+      "verdict": "same",
+      "notes": "Watson behind the table and the seated bowler-hatted passenger both have a short brown moustache, fair skin, a firm square jaw and similar middle-aged features; the hat hides much of his hair on the right."
+    },
+    {
+      "id": "pair005",
+      "verdict": "unclear",
+      "notes": "The left shows the house facade and rose garden, but at right only smoke above a distant tree clump marks the fire. The house and its grounds are hidden there, preventing an architectural or layout comparison."
+    },
+    {
+      "id": "pair006",
+      "verdict": "different",
+      "notes": "The burning house at left is under a dark night sky with a glowing hand lantern, while the station view at right has a bright daytime sky and sunlit fields; neither description requests that time change."
+    },
+    {
+      "id": "pair007",
+      "verdict": "different",
+      "notes": "Watson seated in the train has a distinct dark moustache, whereas the bowler-hatted bag carrier beside Holmes on the pavement is clean-shaven."
+    },
+    {
+      "id": "pair008",
+      "verdict": "same",
+      "notes": "Holmes has the same tousled dark curls, long sharp clean-shaven face and slender build in the train and on the pavement."
+    },
+    {
+      "id": "pair009",
+      "verdict": "different",
+      "notes": "The bag-carrying Watson in the doorway is a young-looking clean-shaven man with a narrow face; the seated passenger on the right has a dark moustache and a broader, older-looking face."
+    },
+    {
+      "id": "pair010",
+      "verdict": "different",
+      "notes": "The station and distant fire at left are shown in daylight under pale clouds; the house at right is shown under a deep blue night sky with lantern-lit figures. The descriptions do not call for a day-to-night change."
+    },
+    {
+      "id": "pair011",
+      "verdict": "different",
+      "notes": "Watson on the bed has a brown moustache and lined middle-aged face, while the doorway bag carrier is clean-shaven and visibly younger with a narrower face."
+    },
+    {
+      "id": "pair012",
+      "verdict": "same",
+      "notes": "Holmes holding Watson's arm and Holmes seated alone both have dark wavy curls, a pale angular clean-shaven face, prominent nose and slim build."
+    },
+    {
+      "id": "pair013",
+      "verdict": "same",
+      "notes": "Watson leaning over the table and Watson on the bed share side-parted brown hair, a small brown moustache, fair skin and the same lined, broad middle-aged face."
+    },
+    {
+      "id": "pair014",
+      "verdict": "same",
+      "notes": "Holmes holding the match and Holmes by the doorway both show short dark curls, high cheekbones, a long nose and a pale clean-shaven angular face."
+    },
+    {
+      "id": "pair015",
+      "verdict": "same",
+      "notes": "The hat examiner and the seated Holmes have matching dark wavy hair, long narrow clean-shaven faces, sharp cheekbones and slender frames."
+    },
+    {
+      "id": "pair016",
+      "verdict": "same",
+      "notes": "Holmes in the armchair and the man taking Watson's arm share dark curls, a long angular clean-shaven face, fair skin and the same lean build."
+    },
+    {
+      "id": "pair017",
+      "verdict": "unclear",
+      "notes": "The right shows a white house, windows and rose bushes in detail; the left shows only a distant smoke plume behind trees, with no discernible house facade or garden layout to match."
+    },
+    {
+      "id": "pair018",
+      "verdict": "different",
+      "notes": "The seated Holmes has full dark curls and a younger narrow face; the pavement Holmes has short slicked-back receding hair and a more lined, older angular face."
+    },
+    {
+      "id": "pair019",
+      "verdict": "different",
+      "notes": "The doorway Watson is a youthful narrow-faced clean-shaven man; the pavement bag carrier has a distinctly broader square face, heavier brow and older lined appearance."
+    },
+    {
+      "id": "pair020",
+      "verdict": "same",
+      "notes": "Holmes in the train and examining the hat has matching dark curls, pale skin, a long straight nose, angular jaw and clean-shaven face."
+    },
+    {
+      "id": "pair021",
+      "verdict": "same",
+      "notes": "Holmes on the pavement and in the armchair has the same dark curly hair, pronounced cheekbones, long clean-shaven face and thin build."
+    },
+    {
+      "id": "pair022",
+      "verdict": "different",
+      "notes": "The bowler-hatted Watson on the pavement has a bare upper lip, whereas Watson seated on the bed has a clearly drawn brown moustache."
+    },
+    {
+      "id": "pair023",
+      "verdict": "same",
+      "notes": "The street Holmes and the match-holder share dark tousled curls, a pale elongated clean-shaven face and a lean frame; the brighter face at right is illuminated by the match."
+    },
+    {
+      "id": "pair024",
+      "verdict": "different",
+      "notes": "Watson on the pavement is clean-shaven, while the man leaning over the table has a prominent brown moustache and swept side-parted brown hair."
+    },
+    {
+      "id": "pair025",
+      "verdict": "different",
+      "notes": "Holmes examining the hat has thick loose curls and a youthful angular face; Holmes on the pavement has a receding slicked-back hairline and a visibly older, more lined face."
+    },
+    {
+      "id": "pair026",
+      "verdict": "different",
+      "notes": "The left shows a compact three-window-wide house with a broad porch in daylight; the right shows a much wider many-windowed mansion with roof dormers at night. Both architecture and unrequested time of day conflict."
+    },
+    {
+      "id": "pair027",
+      "verdict": "same",
+      "notes": "Both vault views have low brick arches on thick piers, large irregular stone floor slabs and wooden crates lining the passages. The warmer right-hand illumination is compatible with its open lantern versus the dim left-hand lantern."
+    },
+    {
+      "id": "pair028",
+      "verdict": "same",
+      "notes": "Watson leaning on the table and the bowler-hatted man on the street have matching brown moustaches, fair skin, compact middle-aged faces and similar builds."
+    },
+    {
+      "id": "pair029",
+      "verdict": "same",
+      "notes": "Holmes at the table and beside the doorway has matching dark curly hair, a long pointed nose, hollow cheeks and a pale clean-shaven face."
+    },
+    {
+      "id": "pair030",
+      "verdict": "same",
+      "notes": "The match-holder and hat examiner share the same dark curls, long angular clean-shaven face and lean build, despite the different lighting and head angles."
+    },
+    {
+      "id": "pair031",
+      "verdict": "same",
+      "notes": "Holmes on the bed and throwing the papers has the same full dark curls, narrow pale face, prominent cheekbones and long slim frame."
+    },
+    {
+      "id": "pair032",
+      "verdict": "different",
+      "notes": "The left has a dark blue night sky and lantern-lit approach, whereas the close garden view at right has pale daylight across the facade and grounds. Neither description asks for this time-of-day change."
+    },
+    {
+      "id": "pair033",
+      "verdict": "same",
+      "notes": "Holmes at the table and on the bed has thick dark curls, a long narrow clean-shaven face, high cheekbones and the same slender build."
+    },
+    {
+      "id": "pair034",
+      "verdict": "same",
+      "notes": "Both views show a low brick-vaulted cellar, broad cracked stone flags and stacked wooden bullion crates. The right-hand darkness is compatible with the described shuttered lantern and does not obscure the matching construction."
+    },
+    {
+      "id": "pair035",
+      "verdict": "same",
+      "notes": "The armchair Holmes and the train Holmes share dark wavy curls, a long pale clean-shaven face, prominent nose and a slim frame."
+    },
+    {
+      "id": "pair036",
+      "verdict": "same",
+      "notes": "Watson on the bed and seated in the train has a matching short dark moustache, broad fair middle-aged face and compact build; the bowler covers his hair in the train."
+    },
+    {
+      "id": "pair037",
+      "verdict": "same",
+      "notes": "Watson carrying the bag and leaning over the table has the same short brown moustache, fair complexion, compact jaw and middle-aged facial lines."
+    },
+    {
+      "id": "pair038",
+      "verdict": "same",
+      "notes": "Holmes throwing the papers and taking Watson's arm has matching dark curls, a pale narrow clean-shaven face, long nose and slender build."
+    },
+    {
+      "id": "pair039",
+      "verdict": "same",
+      "notes": "The Holmes beside the doorway and on the pavement shares dark tousled curls, pronounced cheekbones, a long clean-shaven face and a thin frame."
+    },
+    {
+      "id": "pair040",
+      "verdict": "same",
+      "notes": "Holmes on the street and examining the hat has matching dark curly hair, pale skin, a long prominent nose and angular clean-shaven features."
+    },
+    {
+      "id": "pair041",
+      "verdict": "same",
+      "notes": "The doorway Watson and the man seated on the bed share a short brown moustache, fair skin, a compact middle-aged face and similar build."
+    },
+    {
+      "id": "pair042",
+      "verdict": "same",
+      "notes": "Watson seated in the train and on the bed has the same small brown moustache, prominent nose, broad fair face and middle-aged appearance."
+    },
+    {
+      "id": "pair043",
+      "verdict": "different",
+      "notes": "Holmes on the pavement has short receding slicked-back hair and an older lined face; the train Holmes has abundant dark curls and a younger angular face."
+    },
+    {
+      "id": "pair044",
+      "verdict": "same",
+      "notes": "Holmes raising his arm in the train and sitting in the armchair shares dark curls, high cheekbones, a long pale clean-shaven face and a thin build."
+    },
+    {
+      "id": "pair045",
+      "verdict": "different",
+      "notes": "The pavement Holmes has a receding hairline, slicked-back short hair and an older lined face; the doorway Holmes has full loose curls and a younger, narrower face."
+    },
+    {
+      "id": "pair046",
+      "verdict": "same",
+      "notes": "Holmes at the door and holding the match shares thick dark curls, a pale angular clean-shaven face and a lean build; the open smile versus alarm changes expression rather than identity."
+    },
+    {
+      "id": "pair047",
+      "verdict": "same",
+      "notes": "Holmes in the train and on the bed has the same dark curls, long nose, angular clean-shaven face and slim physique."
+    },
+    {
+      "id": "pair048",
+      "verdict": "same",
+      "notes": "The armchair Holmes and hat examiner have matching dark curly hair, prominent cheekbones, long pale clean-shaven faces and thin builds."
+    },
+    {
+      "id": "pair049",
+      "verdict": "same",
+      "notes": "Watson seated in the train and leaning over the table has the same brown moustache, fair skin, prominent nose and compact middle-aged facial structure."
+    },
+    {
+      "id": "pair050",
+      "verdict": "same",
+      "notes": "Watson on the bed and behind the table shares side-parted brown hair, a short moustache, a broad fair face and middle-aged lines around the eyes."
+    },
+    {
+      "id": "pair051",
+      "verdict": "same",
+      "notes": "Holmes with the match and seated in the chair has matching dark curly hair, a long narrow clean-shaven face and a slender build."
+    },
+    {
+      "id": "pair052",
+      "verdict": "same",
+      "notes": "The bag-carrying Watson on the pavement and the seated train passenger share the same brown moustache, fair middle-aged face, prominent nose and compact build."
+    },
+    {
+      "id": "pair053",
+      "verdict": "different",
+      "notes": "Watson leaning over the table has a brown moustache and broad middle-aged face; the bowler-hatted doorway Watson is clean-shaven, narrow-faced and visibly younger."
+    },
+    {
+      "id": "pair054",
+      "verdict": "different",
+      "notes": "The match-holding Holmes has full dark curls and a younger narrow face; the pavement Holmes has short slicked-back receding hair and an older lined face."
+    },
+    {
+      "id": "pair055",
+      "verdict": "same",
+      "notes": "Holmes at the table and in the train has matching tousled dark curls, high cheekbones, long clean-shaven face and slim build."
+    },
+    {
+      "id": "pair056",
+      "verdict": "same",
+      "notes": "Holmes holding Watson's arm and raising his arm in the train shares dark curls, a prominent nose, pale angular clean-shaven features and a lean build."
+    },
+    {
+      "id": "pair057",
+      "verdict": "same",
+      "notes": "Watson on the bed and carrying the bag on the pavement has the same small brown moustache, fair complexion and broad middle-aged facial structure."
+    },
+    {
+      "id": "pair058",
+      "verdict": "same",
+      "notes": "Holmes at the doorway and examining the hat has matching dark curly hair, a long pale clean-shaven face, pronounced cheekbones and slender build."
+    }
+  ]
+}
