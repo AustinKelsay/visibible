@@ -96,7 +96,58 @@
       183,
       184
     ],
-    "emptyTable": "Convex keeps an empty table after it leaves the schema, and the CLI has no table deletion (import --replace-all would clear every table). scenePlanCache stays listed, empty, on dev and production until it is deleted in the Convex dashboard.",
-    "schemaRelease": "#314 ships with the next release; production's scenePlanCache already holds no rows."
+    "emptyTable": {
+      "deleted": {
+        "dev": "coordinated-shepherd-515",
+        "production": "unique-impala-244",
+        "productionAt": "2026-10-29T03:11:59Z"
+      },
+      "method": "The Convex dashboard's own call: an admin key from the CLI login (api.convex.dev deployment/authorize_within_current_project), then POST <deployment>/api/delete_tables {tableNames: [\"scenePlanCache\"], componentId: null}, after confirming 0 rows.",
+      "checks": {
+        "devTablesRemoved": [
+          "scenePlanCache"
+        ],
+        "devTablesRemaining": 24,
+        "productionTablesRemoved": [
+          "scenePlanCache"
+        ],
+        "productionTablesRemaining": 23
+      }
+    },
+    "schemaRelease": {
+      "pullRequest": 316,
+      "includes": [
+        314,
+        315,
+        317,
+        318
+      ],
+      "mainCommit": "2dc34d4",
+      "mergedAt": "2026-10-29T02:34:34Z",
+      "deployment": "dpl_7vNUGwh21qo5cToibBj1vGbEokfb",
+      "checks": {
+        "artStyles": [
+          [
+            "classical",
+            true
+          ],
+          [
+            "watercolor",
+            true
+          ],
+          [
+            "fresco",
+            true
+          ],
+          [
+            "icon",
+            false
+          ]
+        ],
+        "readerPage": 200,
+        "productionScenePlanCacheRows": 0,
+        "productionScenePlanCacheFunctions": 0
+      }
+    }
   }
 }

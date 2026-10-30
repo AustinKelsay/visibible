@@ -69,8 +69,11 @@ const wanted = (id: string) => !only || only.includes(id);
 const todo = only ? [...plan.sheets.map((s) => s.recordId), ...plan.styles.map((s) => s.styleId)].filter(wanted).length
   : [...plan.sheets, ...plan.styles].filter((x) => x.status === "missing" || x.status === "stale").length;
 console.log(`${plan.sheets.length} sheet subject(s), ${plan.styles.length} style reference(s); ${todo} to make (about $${(todo * 0.045).toFixed(2)} at one attempt each); failed ones are retried only after their inputs change or with a new --run; spent so far $${state.spentUsd.toFixed(4)}; budget $${budgetUsd.toFixed(2)}`);
-for (const s of plan.sheets.filter((x) => wanted(x.recordId))) console.log(`  ${s.status.padEnd(7)} sheet ${s.recordId} (${s.kind}: ${s.name})`);
-for (const s of plan.styles.filter((x) => wanted(x.styleId))) console.log(`  ${s.status.padEnd(7)} style reference ${s.styleId}`);
+// In run order: style references, then sheets most-reused first, with the cumulative cost of what is still to make.
+let cumulative = 0;
+const cost = (status: string) => (only || status === "missing" || status === "stale" ? (cumulative += 0.045) : cumulative).toFixed(2).padStart(6);
+for (const s of plan.styles.filter((x) => wanted(x.styleId))) console.log(`  ${s.status.padEnd(7)} $${cost(s.status)} style reference ${s.styleId}`);
+for (const s of plan.sheets.filter((x) => wanted(x.recordId))) console.log(`  ${s.status.padEnd(7)} $${cost(s.status)} sheet ${s.recordId} (${s.kind}: ${s.name}; ${s.sections} sections)`);
 if (only) console.log(`--only: making just ${only.join(", ")}, even if fresh`);
 if (values["dry-run"]) { console.log("Dry run: no calls made, nothing written."); process.exit(0); }
 

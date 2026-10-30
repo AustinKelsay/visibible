@@ -40,7 +40,7 @@ export class ReferenceBudgetError extends Error {
 }
 
 export type ReferenceStatus = "fresh" | "pinned" | "stale" | "missing" | "failed";
-export type ReferencePlan = { sheets: Array<{ recordId: string; name: string; kind: string; status: ReferenceStatus }>; styles: Array<{ styleId: string; status: ReferenceStatus }> };
+export type ReferencePlan = { sheets: Array<{ recordId: string; name: string; kind: string; sections: number; status: ReferenceStatus }>; styles: Array<{ styleId: string; status: ReferenceStatus }> };
 
 export async function planReferences(options: { workId: string; brief: WorkBrief; store: ReferenceStore; state: ReferenceRunState; library?: StyleLibrary; styleVersions: Record<string, string> }): Promise<ReferencePlan> {
   const library = options.library ?? SHARED_STYLES;
@@ -59,7 +59,7 @@ export async function planReferences(options: { workId: string; brief: WorkBrief
   const sheets = [];
   for (const subject of sheetSubjects(entries, sections, options.brief)) {
     const recordId = `${subject.entryId}:${subject.stageId}`;
-    sheets.push({ recordId, name: subject.name, kind: subject.kind, status: await status("sheet", recordId, sheetInputs(subject, classical, classicalVersion)) });
+    sheets.push({ recordId, name: subject.name, kind: subject.kind, sections: subject.sections, status: await status("sheet", recordId, sheetInputs(subject, classical, classicalVersion)) });
   }
   const era = mainEra(sections, options.brief);
   const styles = [];
@@ -121,13 +121,8 @@ export async function runReferences(options: {
     const done = state.done[`${kind}:${recordId}`];
     return Boolean(done && done.fingerprint === inputFingerprint(inputs));
   };
-  for (const subject of sheetSubjects(entries, sections, options.brief)) {
-    const recordId = `${subject.entryId}:${subject.stageId}`;
-    const inputs = sheetInputs(subject, classical, classicalVersion);
-    if (await skip("sheet", recordId, inputs)) continue;
-    log(`sheet for ${subject.name} (${subject.kind}, stage ${subject.stageId})`);
-    await settle("sheet", recordId, subject.name, inputs, await makeSheet({ title: options.workTitle }, subject, classical, deps));
-  }
+  // Style references first, since every image of a style uses one; then sheets, most-reused first (ADR 0009),
+  // so a run that stops at its budget has covered what most images need.
   const era = mainEra(sections, options.brief);
   for (const styleId of options.brief.styleIds) {
     const style = library.get(styleId);
@@ -135,6 +130,13 @@ export async function runReferences(options: {
     if (await skip("styleReference", styleId, inputs)) continue;
     log(`style reference for ${style.label} (${era.label})`);
     await settle("styleReference", styleId, style.label, inputs, await makeStyleReference(style, era, deps));
+  }
+  for (const subject of sheetSubjects(entries, sections, options.brief)) {
+    const recordId = `${subject.entryId}:${subject.stageId}`;
+    const inputs = sheetInputs(subject, classical, classicalVersion);
+    if (await skip("sheet", recordId, inputs)) continue;
+    log(`sheet for ${subject.name} (${subject.kind}, stage ${subject.stageId}, ${subject.sections} sections)`);
+    await settle("sheet", recordId, subject.name, inputs, await makeSheet({ title: options.workTitle }, subject, classical, deps));
   }
   return state;
 }

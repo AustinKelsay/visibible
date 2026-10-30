@@ -24,7 +24,7 @@ describe("cast policy", () => {
   });
 
   it("tells rendering that only selected characters have fixed canon, without banning the plan's incidental figures", () => {
-    expect(GENERIC_PROMPT_VERSION).toBe("2026-10-28-generic-v14");
+    expect(GENERIC_PROMPT_VERSION).toBe("2026-10-29-generic-v15");
     const rule = ENGINE_RULES.join("\n");
     expect(rule).toContain("Show the SELECTED CHARACTERS with their canon.");
     expect(rule).toContain("no writing on scrolls, tablets, books, boards or halos");

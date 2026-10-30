@@ -1,0 +1,260 @@
+{
+  "arm": "arm-c",
+  "commit": "80db26ff45fd8c599ec051019b1d7ef531a0c54a",
+  "startedAt": "2026-10-30T00:28:19.241Z",
+  "balanceBeforeUsd": 13.239891588000006,
+  "calls": [
+    {
+      "phase": "exodus-14-21",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002807
+    },
+    {
+      "phase": "exodus-14-21",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005467
+    },
+    {
+      "phase": "exodus-14-21",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004843
+    },
+    {
+      "phase": "exodus-14-21",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034536
+    },
+    {
+      "phase": "exodus-14-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000588
+    },
+    {
+      "phase": "exodus-14-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005174
+    },
+    {
+      "phase": "exodus-14-22",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0345405
+    },
+    {
+      "phase": "exodus-14-23",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005477
+    },
+    {
+      "phase": "exodus-14-23",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004411
+    },
+    {
+      "phase": "exodus-14-23",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0342665
+    },
+    {
+      "phase": "mark-4-37",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002216
+    },
+    {
+      "phase": "mark-4-37",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004951
+    },
+    {
+      "phase": "mark-4-37",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004249
+    },
+    {
+      "phase": "mark-4-37",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0342415
+    },
+    {
+      "phase": "mark-4-38",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00053
+    },
+    {
+      "phase": "mark-4-38",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004285
+    },
+    {
+      "phase": "mark-4-38",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03456225
+    },
+    {
+      "phase": "mark-4-39",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005225
+    },
+    {
+      "phase": "mark-4-39",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000415
+    },
+    {
+      "phase": "mark-4-39",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03456375
+    },
+    {
+      "phase": "john-21-7",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002767
+    },
+    {
+      "phase": "john-21-7",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005564
+    },
+    {
+      "phase": "john-21-7",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006593
+    },
+    {
+      "phase": "john-21-7",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03460025
+    },
+    {
+      "phase": "john-21-9",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005506
+    },
+    {
+      "phase": "john-21-9",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005119
+    },
+    {
+      "phase": "john-21-9",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03488
+    },
+    {
+      "phase": "luke-15-20",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002486
+    },
+    {
+      "phase": "luke-15-20",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005111
+    },
+    {
+      "phase": "luke-15-20",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004969
+    },
+    {
+      "phase": "luke-15-20",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034281
+    },
+    {
+      "phase": "luke-15-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005011
+    },
+    {
+      "phase": "luke-15-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005586
+    },
+    {
+      "phase": "luke-15-22",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034279
+    },
+    {
+      "phase": "daniel-6-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002162
+    },
+    {
+      "phase": "daniel-6-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005165
+    },
+    {
+      "phase": "daniel-6-22",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005199
+    },
+    {
+      "phase": "daniel-6-22",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034276
+    },
+    {
+      "phase": "daniel-6-23",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005277
+    },
+    {
+      "phase": "daniel-6-23",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005078
+    },
+    {
+      "phase": "daniel-6-23",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03427125
+    }
+  ],
+  "measuredUsd": 0.4269008000000001,
+  "uncertainUsd": 0,
+  "images": 12,
+  "textCalls": 29,
+  "blocked": null,
+  "finishedAt": "2026-10-30T00:31:05.349Z"
+}
