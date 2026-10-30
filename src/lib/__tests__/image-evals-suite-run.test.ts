@@ -4,7 +4,7 @@
  * and an image run draws the text run's plans without a single text call.
  */
 import { describe, expect, it } from "vitest";
-import { createLedger, runSuite, scrubForLog, type SuiteWork } from "../image-evals/suite-run";
+import { createLedger, modelPricing, requestCeilingUsd, runSuite, scrubForLog, type SuiteWork } from "../image-evals/suite-run";
 import { createOfflineOpenRouter } from "../image-evals/suite-offline";
 import type { SuiteCase } from "../image-evals/suite";
 import { createOpenRouterEvalImageProvider } from "../image-evals/adapters";
@@ -57,6 +57,39 @@ describe("the run ledger", () => {
   });
 });
 
+describe("call ceilings", () => {
+  const haiku = modelPricing({ pricing: { prompt: "0.0000001", completion: "0.0000005", overrides: [{ min_prompt_tokens: 100000, prompt: "0.0000005", completion: "0.0000025" }] }, top_provider: { max_completion_tokens: 128000 } });
+  const lite = modelPricing({ pricing: { prompt: "0.00000025", completion: "0.0000015", image_output: "0.00003" }, top_provider: { max_completion_tokens: 58982 } });
+
+  it("bounds a text call by its characters and max_tokens, and an image call by the model's largest output", () => {
+    const messages = [{ role: "user", content: "x".repeat(9_990) }];
+    const text = requestCeilingUsd({ model: "anthropic/claude-haiku-5.5", messages, max_tokens: 2400 }, haiku)!;
+    expect(text).toBeCloseTo((JSON.stringify(messages).length) * 1e-7 + 2400 * 5e-7, 12);
+    const image = requestCeilingUsd({ model: "google/gemini-3.1-flash-lite-image", messages: [{ role: "user", content: [{ type: "image_url", image_url: { url: `data:image/jpeg;base64,${"A".repeat(400_000)}` } }] }] }, lite)!;
+    // The attached image counts as 5,000 tokens, not its base64 length; 1K output is 1,120 image tokens.
+    expect(image).toBeGreaterThan(58982 * 1.5e-6 + 1120 * 3e-5 + 5000 * 2.5e-7);
+    expect(image).toBeLessThan(0.13);
+    expect(requestCeilingUsd({ model: "x", messages: [] }, undefined)).toBeNull();
+    expect(requestCeilingUsd({ model: "google/unknown-image", messages: [] }, lite)).toBeNull();
+  });
+
+  it("refuses a call before it is sent when its ceiling would pass the cap, and stops if a call costs more than its ceiling", async () => {
+    let sent = 0;
+    const counting = async () => { sent++; return new Response(JSON.stringify({ usage: { cost: 0.5 } })); };
+    const ledger = createLedger({ capUsd: 0.4, reserves: { text: 0.01, image: 0.05, check: 0.002 }, limits: { text: 10, image: 10, check: 10 }, fetch: counting,
+      ceiling: (_kind, request) => (request.max_tokens as number) / 1000, save: () => {}, log: () => {}, scrub: (v) => v });
+    await expect(call(ledger.fetchFor("text", () => "x"), { model: "m", max_tokens: 500 })).rejects.toThrow(/cap or call limit/);
+    expect(sent).toBe(0);
+    const second = createLedger({ capUsd: 1, reserves: { text: 0.01, image: 0.05, check: 0.002 }, limits: { text: 10, image: 10, check: 10 }, fetch: counting,
+      ceiling: () => 0.2, save: () => {}, log: () => {}, scrub: (v) => v });
+    await call(second.fetchFor("text", () => "x"));
+    expect(second.state.blocked).toMatch(/cost \$0.5 against its \$0.2 ceiling/);
+    const unknown = createLedger({ capUsd: 1, reserves: { text: 0.01, image: 0.05, check: 0.002 }, limits: { text: 10, image: 10, check: 10 }, fetch: counting,
+      ceiling: () => null, save: () => {}, log: () => {}, scrub: (v) => v });
+    await expect(call(unknown.fetchFor("text", () => "x"))).rejects.toThrow(/No price ceiling/);
+  });
+});
+
 describe("a suite run through the real assembly", () => {
   const STORY = "a-scandal-in-bohemia";
   const entry = (name: string, entryKind: string, text: string) => ({ kind: "entry" as const, name, entryKind, hasForm: true, stages: [{ id: "main", text }] });
@@ -79,12 +112,12 @@ describe("a suite run through the real assembly", () => {
     prepared: { plan: Record<string, unknown> }; attempts: unknown[];
   };
 
-  async function run(tier: "text" | "image", seeded?: AnalysisRecord[], options: Parameters<typeof createOfflineOpenRouter>[0] = {}) {
+  async function run(tier: "text" | "image", seeded?: AnalysisRecord[], options: Parameters<typeof createOfflineOpenRouter>[0] = {}, extra: MemoryRecordInput[] = []) {
     const inputs = await readWorkInputs("holmes-adventures");
     const offline = createOfflineOpenRouter(options);
     const { ledger } = ledgerWith(offline.fetch, 1, { text: 100, image: 100, check: 100 });
     const rows: Row[] = [];
-    const work: SuiteWork = { inputs, records, seeded, getReference: async () => null, loadReference: async () => { throw new Error("no references"); } };
+    const work: SuiteWork = { inputs, records: [...records, ...extra], seeded, getReference: async () => null, loadReference: async () => { throw new Error("no references"); } };
     let saved = 0;
     await runSuite({
       tier, cases, works: new Map([["holmes-adventures", work]]), aspectRatio: "16:9", concurrency: 2,
@@ -128,6 +161,17 @@ describe("a suite run through the real assembly", () => {
     expect(rows.find((r) => r.style === "watercolor")!.checkContext.softEdges).toBe(true);
     // A row carries what consistency pairing reads: the plan's present cast and scene.
     expect(rows[0].prepared.plan).toMatchObject({ present: expect.any(Array), primarySubject: expect.any(String) });
+  });
+
+  it("keeps an owner look as the owner's when seeding, so the image run still makes no text call", async () => {
+    const ownerLook: MemoryRecordInput = { kind: "look", recordId: `${STORY}-1-1`, source: "owner", payload: { kind: "look", sectionId: `${STORY}-1-1`,
+      place: "The Baker Street sitting-room", timeOfDay: "Night", weather: "Wet March evening", light: "Lamplight", clothing: "Holmes in a dressing-gown" } };
+    const text = await run("text", undefined, {}, [ownerLook]);
+    expect(text.rows.every((r) => r.records.look.source === "owner")).toBe(true);
+    const seeds = [...new Map(text.rows.flatMap((r) => [r.records.look, r.records.plan]).map((r) => [`${r.kind}:${r.recordId}`, r])).values()];
+    const image = await run("image", seeds, {}, [ownerLook]);
+    expect(image.offline.counts.text).toBe(0);
+    expect(image.rows.every((r) => r.outcome === "image")).toBe(true);
   });
 
   it("records a refused case once for all its styles, and stops at a provider error", async () => {

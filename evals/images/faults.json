@@ -18,7 +18,7 @@
     { "id": "incoherent", "label": "incoherent", "question": "Is it a collage of several moments, or are poses, objects or places contradictory?" },
     { "id": "scene_mismatch", "label": "scene not shown", "question": "Does it fail to show the scene it asked for: the wrong subject, action or place?" },
     { "id": "anatomy", "label": "anatomy", "question": "Are there malformed or extra limbs, hands or faces?" },
-    { "id": "rule_violation", "label": "depiction rule broken", "question": "Does it show gore, sexual content, a caricature of a people, or the likeness of a real actor or public figure?" },
+    { "id": "rule_violation", "label": "depiction rule broken", "question": "Does it break one of the item's depiction rules, or show gore, sexual content, a caricature of a people, or the likeness of a real actor or public figure?" },
     { "id": "effects_figure", "label": "unseen subject drawn", "question": "Is a subject listed in neverDrawn shown with a face, body, limbs, robe or a human-shaped figure, including one made of light or cloud?", "effectsOnly": true }
   ]
 }

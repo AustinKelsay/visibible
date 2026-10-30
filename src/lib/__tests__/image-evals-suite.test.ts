@@ -119,18 +119,20 @@ describe("the per-fault gate", () => {
   });
   const many = (yes: number, total: number, split: "dev" | "holdout" = "holdout") => Array.from({ length: total }, (_, n) => item(n, split, n < yes ? "yes" : "no"));
   const run = (items: JudgedItem[], suiteVersion = config.version) => ({ suiteVersion, items, disputes: 0 });
+  // The frozen suite's holdout keys, not either run's survivors.
+  const expected = many(0, 40).map((i) => i.key);
 
   it("passes an unchanged candidate and one within the margin", () => {
-    expect(evaluateSuiteGate({ config, faults: imageFaults, candidate: run(many(4, 40)), baseline: run(many(4, 40)) }).pass).toBe(true);
+    expect(evaluateSuiteGate({ config, faults: imageFaults, expected, candidate: run(many(4, 40)), baseline: run(many(4, 40)) }).pass).toBe(true);
     // Two more items is within max(5% of 40, 2).
-    expect(evaluateSuiteGate({ config, faults: imageFaults, candidate: run(many(6, 40)), baseline: run(many(4, 40)) }).pass).toBe(true);
+    expect(evaluateSuiteGate({ config, faults: imageFaults, expected, candidate: run(many(6, 40)), baseline: run(many(4, 40)) }).pass).toBe(true);
   });
 
   it("fails a fault that rises past the margin on holdout, and ignores the dev split", () => {
-    const gate = evaluateSuiteGate({ config, faults: imageFaults, candidate: run(many(9, 40)), baseline: run(many(4, 40)) });
+    const gate = evaluateSuiteGate({ config, faults: imageFaults, expected, candidate: run(many(9, 40)), baseline: run(many(4, 40)) });
     expect(gate.pass).toBe(false);
     expect(gate.reasons.join(" ")).toMatch(/lettering rose from 10% to 23%/);
-    const dev = evaluateSuiteGate({ config, faults: imageFaults, candidate: run([...many(4, 40), ...many(30, 40, "dev").map((i) => ({ ...i, key: `dev-${i.key}` }))]), baseline: run(many(4, 40)) });
+    const dev = evaluateSuiteGate({ config, faults: imageFaults, expected, candidate: run([...many(4, 40), ...many(30, 40, "dev").map((i) => ({ ...i, key: `dev-${i.key}` }))]), baseline: run(many(4, 40)) });
     expect(dev.pass).toBe(true);
   });
 
@@ -141,14 +143,18 @@ describe("the per-fault gate", () => {
   });
 
   it("counts refusals and fails closed on a different suite, disputes or missing holdout items", () => {
-    const refusals = evaluateSuiteGate({ config, faults: imageFaults, candidate: run(many(0, 40).map((i, n) => n < 8 ? { ...i, refused: true, score: null } : i)), baseline: run(many(0, 40)) });
+    const refusals = evaluateSuiteGate({ config, faults: imageFaults, expected, candidate: run(many(0, 40).map((i, n) => n < 8 ? { ...i, refused: true, score: null } : i)), baseline: run(many(0, 40)) });
     expect(refusals.reasons.join(" ")).toMatch(/refused rose/);
-    expect(evaluateSuiteGate({ config, faults: imageFaults, candidate: run(many(4, 40), "other"), baseline: run(many(4, 40)) }).reasons.join(" ")).toMatch(/Different suites/);
-    expect(evaluateSuiteGate({ config, faults: imageFaults, candidate: { ...run(many(4, 40)), disputes: 1 }, baseline: run(many(4, 40)) }).pass).toBe(false);
-    expect(evaluateSuiteGate({ config, faults: imageFaults, candidate: run(many(4, 39)), baseline: run(many(4, 40)) }).reasons.join(" ")).toMatch(/no result for 1 holdout item/);
+    expect(evaluateSuiteGate({ config, faults: imageFaults, expected, candidate: run(many(4, 40), "other"), baseline: run(many(4, 40)) }).reasons.join(" ")).toMatch(/Different suites/);
+    expect(evaluateSuiteGate({ config, faults: imageFaults, expected, candidate: { ...run(many(4, 40)), disputes: 1 }, baseline: run(many(4, 40)) }).pass).toBe(false);
+    expect(evaluateSuiteGate({ config, faults: imageFaults, expected, candidate: run(many(4, 39)), baseline: run(many(4, 40)) }).reasons.join(" ")).toMatch(/candidate has no result for 1 holdout item/);
+    // Two empty runs never pass: completeness is read from the suite, not from the baseline.
+    const empty = evaluateSuiteGate({ config, faults: imageFaults, expected, candidate: run([]), baseline: run([]) });
+    expect(empty.pass).toBe(false);
+    expect(empty.reasons.join(" ")).toMatch(/baseline has no result for 40 holdout item/);
     // An unsettled baseline drops items from its rates, so it fails closed too.
-    expect(evaluateSuiteGate({ config, faults: imageFaults, candidate: run(many(4, 40)), baseline: { ...run(many(4, 40)), disputes: 2 } }).reasons.join(" ")).toMatch(/2 baseline item\(s\) are still disputed/);
+    expect(evaluateSuiteGate({ config, faults: imageFaults, expected, candidate: run(many(4, 40)), baseline: { ...run(many(4, 40)), disputes: 2 } }).reasons.join(" ")).toMatch(/2 baseline item\(s\) are still disputed/);
     const unscoredBaseline = many(4, 40).map((i, n) => n === 7 ? { ...i, score: null } : i);
-    expect(evaluateSuiteGate({ config, faults: imageFaults, candidate: run(many(4, 40)), baseline: run(unscoredBaseline) }).reasons.join(" ")).toMatch(/1 baseline holdout item\(s\) are unscored/);
+    expect(evaluateSuiteGate({ config, faults: imageFaults, expected, candidate: run(many(4, 40)), baseline: run(unscoredBaseline) }).reasons.join(" ")).toMatch(/1 baseline holdout item\(s\) are unscored/);
   });
 });

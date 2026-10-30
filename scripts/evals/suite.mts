@@ -34,10 +34,10 @@ import { api } from "../../convex/_generated/api";
 import { contentVersion } from "../../convex/_helpers/contentVersion";
 import { loadEvalCases } from "@/lib/image-evals/cases";
 import {
-  evaluateSuiteGate, faultsFor, loadFaults, loadSuiteConfig, operatorFileSchema, scoreFileSchema, scoringInstructions, settleScores, suiteCases, summarizeBy,
+  evaluateSuiteGate, expectedHoldoutKeys, faultsFor, loadFaults, loadSuiteConfig, operatorFileSchema, scoreFileSchema, scoringInstructions, settleScores, suiteCases, summarizeBy,
   drawFraction, type JudgedItem, type ScoreFile, type SuiteCase, type SuiteTier,
 } from "@/lib/image-evals/suite";
-import { createLedger, runSuite, scrubForLog, type SuiteWork } from "@/lib/image-evals/suite-run";
+import { createLedger, modelPricing, requestCeilingUsd, runSuite, scrubForLog, type ModelPricing, type SuiteWork } from "@/lib/image-evals/suite-run";
 import { createOfflineOpenRouter } from "@/lib/image-evals/suite-offline";
 import { createOpenRouterEvalImageProvider } from "@/lib/image-evals/adapters";
 import { listAnalysisRecords } from "@/lib/engine/analysis-records";
@@ -45,7 +45,7 @@ import type { ReferenceRecord } from "@/lib/engine/assemble";
 import type { AnalysisRecord } from "@/lib/engine/preparation";
 import { FORMLESS_LOOK_PROMPT_VERSION, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION } from "@/lib/engine/preparation";
 import { PLAN_REVIEW_PROMPT_VERSION } from "@/lib/engine/plan-review";
-import { GENERIC_PROMPT_VERSION } from "@/lib/engine/prompt";
+import { applicableRules, GENERIC_PROMPT_VERSION } from "@/lib/engine/prompt";
 import { SCENE_CHECK_VERSION } from "@/lib/engine/scene-check";
 import { createOpenRouterVisionChecker } from "@/lib/engine/reference-adapters";
 import { momentForUnit, readWorkInputs, type WorkInputs } from "@/lib/engine/work-inputs";
@@ -273,11 +273,14 @@ async function run() {
   const snap = readJson(path.join(root, "llm/releases", sourceRun, "snapshot.json")) as Snapshot;
   const refDir = path.join(root, "evals/images/runs", sourceRun, "references");
   const outDir = values.offline ? mkdtempSync(path.join(os.tmpdir(), `suite-${values.run}-`)) : runDir;
-  const imageDir = values.offline ? path.join(outDir, "images") : path.join(blobDir, "images");
+  // Offline images go beside a paid run's, in the ignored blob folder, so scorer packs and pairing rehearse on them too.
+  const imageDir = path.join(blobDir, values.offline ? "offline" : "images");
   let apiKey = "offline-rehearsal";
   let fetchImpl: (url: string, init: RequestInit) => Promise<Response> = (url, init) => fetch(url, init);
   const offline = values.offline ? createOfflineOpenRouter({ letteringEvery: 5 }) : null;
   const cap = p.evaluation.proposedCapUsd;
+  // A paid run reserves each call's most possible cost at catalog prices, so spend cannot pass the cap.
+  let pricing: Map<string, ModelPricing | undefined> | null = null;
   if (offline) fetchImpl = offline.fetch;
   else {
     for (const name of ["run-started.json", "frozen-commit.json", "ledger.json", "provider.ndjson", "results.ndjson"]) assert.ok(!existsSync(path.join(runDir, name)), `One-shot artifact exists: ${name}`);
@@ -293,6 +296,9 @@ async function run() {
     for (const [file, hash] of Object.entries(hashes)) assert.equal(sha256(execFileSync("git", ["show", `${commit}:${file}`], { cwd: root, maxBuffer: 50_000_000 })), hash, `Not committed: ${file}`);
     const env = readEvalEnvironment();
     apiKey = env.OPENROUTER_API_KEY!; assert.ok(apiKey, "OPENROUTER_API_KEY is missing from the eval env file");
+    const catalog = (await (await fetch("https://openrouter.ai/api/v1/models")).json()).data as Array<{ id: string; pricing?: Record<string, unknown>; top_provider?: { max_completion_tokens?: number | null } }>;
+    pricing = new Map([p.image.model, p.checker.model, READING_PASS_MODEL].map((id) => [id, modelPricing(catalog.find((m) => m.id === id))]));
+    for (const [id, price] of pricing) assert.ok(price, `${id} has no catalog price, so its calls cannot be bounded`);
     const credits = (await (await fetch("https://openrouter.ai/api/v1/credits", { headers: { Authorization: `Bearer ${apiKey}` } })).json()).data;
     const balanceUsd = credits.total_credits - credits.total_usage;
     assert.ok(balanceUsd >= cap + PRODUCTION_HEADROOM_USD, `The account holds $${balanceUsd.toFixed(2)}; this run needs $${cap} plus $${PRODUCTION_HEADROOM_USD} left for readers`);
@@ -304,6 +310,7 @@ async function run() {
   mkdirSync(imageDir, { recursive: true });
   const ledger = createLedger({
     capUsd: cap, reserves: p.evaluation.reserves, limits: p.evaluation.limits, fetch: fetchImpl,
+    ceiling: pricing ? (_kind, request) => requestCeilingUsd(request, pricing!.get(String(request.model))) : undefined,
     save: (state) => writeFileSync(path.join(outDir, "ledger.json"), `${JSON.stringify(state, null, 2)}\n`),
     log: (entry) => appendFileSync(path.join(outDir, "provider.ndjson"), `${JSON.stringify(entry)}\n`),
     scrub: (value) => scrubForLog(value, apiKey, sha256),
@@ -353,7 +360,7 @@ async function run() {
       const extension = image.mimeType === "image/jpeg" ? "jpg" : image.mimeType.split("/")[1] ?? "png";
       const file = path.join(imageDir, `${key.replaceAll("/", "__")}__a${n}.${extension}`);
       writeFileSync(file, image.bytes);
-      return { file: path.relative(values.offline ? outDir : root, file), sha256: sha256(image.bytes) };
+      return { file: path.relative(root, file), sha256: sha256(image.bytes) };
     },
     log: (line) => console.log(line),
   });
@@ -400,7 +407,9 @@ async function blind() {
       const file = path.join(blobDir, "blind", `${id}${path.extname(attempt.file)}`);
       copyFileSync(path.join(root, attempt.file), file);
       const neverDrawn = (row.prepared.present as Array<{ entryId: string }>).filter((e) => (snapshotRecords(p).get(row.work)?.get(`entry:${e.entryId}`)?.payload as { hasForm?: boolean } | undefined)?.hasForm === false).map((e) => entryName(e.entryId));
-      items.push({ id, ask, file: path.relative(root, file), ...moment, selected, neverDrawn, scene });
+      // Scorers see no style, so each item names the faults its style accepts and the depiction rules that apply to it.
+      const accepted = faults.image.filter((f) => ask.includes(f.id) && f.acceptedIn?.includes(row.style)).map((f) => f.id);
+      items.push({ id, ask, accepted, file: path.relative(root, file), ...moment, depictionRules: applicableRules(inputs.brief, row.style), selected, neverDrawn, scene });
     }
     key.push({ id, key: row.key, caseId: row.caseId, work: row.work, style: row.style ?? null, split: row.split, faults: ask });
   }
@@ -467,7 +476,7 @@ async function report() {
   if (values.baseline) {
     const baseline = judgedItems(path.join(root, "llm/releases", values.baseline));
     assert.equal(baseline.tier, candidate.tier, "Compare runs of the same tier");
-    gate = { baseline: values.baseline, ...evaluateSuiteGate({ config, faults: tierFaults, candidate, baseline }) };
+    gate = { baseline: values.baseline, ...evaluateSuiteGate({ config, faults: tierFaults, expected: expectedHoldoutKeys(config, allCases, candidate.tier), candidate, baseline }) };
   }
   writeFileSync(path.join(runDir, "items.json"), `${JSON.stringify(candidate.items, null, 1)}\n`);
   writeFileSync(path.join(runDir, "report.json"), `${JSON.stringify({ run: values.run, tier: candidate.tier, suite: candidate.suiteVersion, faults: faults.version, disputes: disputes.length, summary, gate }, null, 2)}\n`);

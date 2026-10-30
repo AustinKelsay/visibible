@@ -18,6 +18,7 @@ import { checkAndRetry, checkScene, SOFT_EDGE_STYLES, type SceneChecker, type Sc
 import type { WorkInputs } from "../engine/work-inputs";
 import type { TextModel } from "../reading-pass/model";
 import { extractOpenRouterUsageUsd } from "../image-response";
+import { imageCapabilities, type ImageResolution } from "../image-catalog";
 
 export type CallKind = "text" | "image" | "check";
 type FetchLike = (url: string, init: RequestInit) => Promise<Response>;
@@ -41,6 +42,48 @@ export function scrubForLog(value: unknown, secret: string, hash: (text: string)
   return value;
 }
 
+/** A model's catalog prices (USD per token) and its largest output, from OpenRouter's model list. */
+export type ModelPricing = { prompt: number; completion: number; imageOutput: number; maxCompletionTokens: number | null; overrides: Array<{ minPromptTokens: number; prompt: number; completion: number }> };
+
+/** Read one model's pricing from an OpenRouter `/models` entry. */
+export function modelPricing(entry: { pricing?: Record<string, unknown>; top_provider?: { max_completion_tokens?: number | null } } | undefined): ModelPricing | undefined {
+  if (!entry?.pricing) return undefined;
+  const n = (value: unknown) => Number(value ?? 0);
+  const overrides = Array.isArray(entry.pricing.overrides) ? entry.pricing.overrides as Array<Record<string, unknown>> : [];
+  return { prompt: n(entry.pricing.prompt), completion: n(entry.pricing.completion), imageOutput: n(entry.pricing.image_output),
+    maxCompletionTokens: entry.top_provider?.max_completion_tokens ?? null,
+    overrides: overrides.map((o) => ({ minPromptTokens: n(o.min_prompt_tokens), prompt: n(o.prompt), completion: n(o.completion) })) };
+}
+
+/** Tokens an attached image may count for, above any provider's default media resolution. */
+const IMAGE_INPUT_TOKEN_BOUND = 5000;
+
+/**
+ * The most one request can cost at catalog prices, or null when it cannot be bounded: every character of its text as a
+ * token, every attached image at a generous token count, its `max_tokens` (or the model's largest output) as text
+ * output, and an image model's output image tokens at the requested resolution. The ledger reserves this before the
+ * call, so the cap holds even when every call in flight costs its most.
+ */
+export function requestCeilingUsd(request: { model?: unknown; messages?: unknown; max_tokens?: unknown; image_config?: { image_size?: unknown } }, pricing: ModelPricing | undefined): number | null {
+  if (!pricing || typeof request.model !== "string") return null;
+  const text = JSON.stringify(request.messages ?? []);
+  const images = (text.match(/data:image\//g) ?? []).length;
+  const promptTokens = text.replace(/data:image\/[a-z]+;base64,[A-Za-z0-9+/=]+/g, "").length + images * IMAGE_INPUT_TOKEN_BOUND;
+  const completionTokens = typeof request.max_tokens === "number" ? request.max_tokens : pricing.maxCompletionTokens;
+  if (completionTokens === null) return null;
+  let imageTokens = 0;
+  if (pricing.imageOutput > 0) {
+    const resolution = (typeof request.image_config?.image_size === "string" ? request.image_config.image_size : "1K") as ImageResolution;
+    const tokens = imageCapabilities(request.model)?.outputTokens[resolution];
+    if (!tokens) return null;
+    imageTokens = tokens;
+  }
+  // A long prompt may switch to a dearer override; take the dearest price that could apply.
+  const rates = [pricing, ...pricing.overrides.filter((o) => promptTokens >= o.minPromptTokens)];
+  const prompt = Math.max(...rates.map((r) => r.prompt)), completion = Math.max(...rates.map((r) => r.completion));
+  return promptTokens * prompt + completionTokens * completion + imageTokens * pricing.imageOutput;
+}
+
 /**
  * One ledger for every paid call: each call reserves its estimate before it is sent and settles from the provider's
  * reported usage. A call that would pass the cap or a kind's limit is refused, and missing usage, a provider error or
@@ -48,6 +91,8 @@ export function scrubForLog(value: unknown, secret: string, hash: (text: string)
  */
 export function createLedger(options: {
   capUsd: number; reserves: Record<CallKind, number>; limits: Record<CallKind, number>; fetch: FetchLike;
+  /** The most this request can cost (see requestCeilingUsd), reserved instead of the kind's fixed estimate; null refuses it. */
+  ceiling?: (kind: CallKind, request: Record<string, unknown>) => number | null;
   /** Called after every change, so the state on disk is never behind the calls made. */
   save: (state: LedgerState) => void;
   /** One provider exchange, already scrubbed. */
@@ -62,7 +107,13 @@ export function createLedger(options: {
   const fetchFor = (kind: CallKind, phase: () => string): FetchLike => async (target, init) => {
     if (target !== url) throw new Error(`Unexpected provider URL: ${target}`);
     if (state.blocked) throw new Error(`Evaluation stopped: ${state.blocked}`);
-    const reserve = options.reserves[kind];
+    let request: Record<string, unknown> = {};
+    try { request = JSON.parse(String(init.body)); } catch { /* an unreadable body has no ceiling */ }
+    const reserve = options.ceiling ? options.ceiling(kind, request) : options.reserves[kind];
+    if (reserve === null) {
+      state.blocked = `No price ceiling for ${String(request.model)}`; save();
+      throw new Error(`Evaluation stopped: ${state.blocked}`);
+    }
     if (state.measuredUsd + state.uncertainUsd + reserve > options.capUsd || state.counts[kind] >= options.limits[kind]) {
       state.blocked = "Evaluation cap or call limit reached"; save();
       throw new Error(`Evaluation stopped: ${state.blocked}`);
@@ -76,15 +127,14 @@ export function createLedger(options: {
       let payload: Record<string, unknown> = {};
       try { payload = JSON.parse(body); } catch { /* a non-JSON body is a provider error below */ }
       const cost = extractOpenRouterUsageUsd(payload);
-      let request: unknown = null;
-      try { request = JSON.parse(String(init.body)); } catch { request = String(init.body).slice(0, 300); }
-      options.log({ ...call, at: new Date().toISOString(), request: options.scrub(request), status: response.status, response: options.scrub(payload),
-        nonJson: Object.keys(payload).length ? undefined : body.slice(0, 300), measuredUsageUsd: cost });
+      options.log({ ...call, at: new Date().toISOString(), reservedUsd: reserve, request: options.scrub(Object.keys(request).length ? request : String(init.body).slice(0, 300)),
+        status: response.status, response: options.scrub(payload), nonJson: Object.keys(payload).length ? undefined : body.slice(0, 300), measuredUsageUsd: cost });
       call.status = String(response.status); call.measuredUsd = cost;
       if (cost === null) state.blocked = "Missing provider usage";
       // Rounded to a billionth of a dollar, so repeated reservations never leave float residue.
       else { state.uncertainUsd = Math.round((state.uncertainUsd - reserve) * 1e9) / 1e9; state.measuredUsd = Math.round((state.measuredUsd + cost) * 1e9) / 1e9; }
       if (!response.ok) state.blocked = `Provider error ${response.status}`;
+      else if (cost !== null && options.ceiling && cost > reserve + 1e-9) state.blocked = `A call cost $${cost} against its $${reserve} ceiling`;
       else if (state.measuredUsd > options.capUsd) state.blocked = "Evaluation cap exceeded";
       save();
       return response;
@@ -144,6 +194,8 @@ export async function runSuite(options: SuiteRunOptions): Promise<void> {
     // Seeded looks and plans go in through the store's own write, so their recorded inputs stay current.
     for (const r of work.seeded ?? []) {
       if (r.kind !== "look" && r.kind !== "plan") throw new Error(`Only looks and plans can be seeded, not ${r.kind}`);
+      // An owner record is already in the snapshot; rewriting it would make it a generated one and change its policy.
+      if (r.source === "owner") continue;
       await memory.store.putDerivedRecord({ kind: r.kind, recordId: r.recordId, payload: r.payload as never, inputs: r.inputs });
     }
     const queue = [...cases];

@@ -148,6 +148,12 @@ export function suiteCases(config: SuiteConfig, cases: readonly EvalCase[], tier
   return out;
 }
 
+/** Every holdout item a run of the tier must have: one per case for text, one per case and image style for images. */
+export function expectedHoldoutKeys(config: SuiteConfig, cases: readonly EvalCase[], tier: SuiteTier): string[] {
+  return suiteCases(config, cases, tier).filter((c) => c.split === "holdout")
+    .flatMap((c) => tier === "text" ? [`${c.caseId}/text`] : c.styles.map((style) => `${c.caseId}/${style}`));
+}
+
 /** The faults asked of one work in one tier and style. */
 export function faultsFor(faults: FaultFile, tier: SuiteTier, options: { effects: boolean }): Fault[] {
   return faults[tier].filter((f) => !f.effectsOnly || options.effects);
@@ -155,15 +161,15 @@ export function faultsFor(faults: FaultFile, tier: SuiteTier, options: { effects
 
 /** Scorer instructions for one tier, generated from the fault file so every run asks the same questions. */
 export function scoringInstructions(faults: FaultFile, tier: SuiteTier): string {
-  const list = faults[tier].map((f) => `- \`${f.id}\` (${f.label}): ${f.question}${f.effectsOnly ? " Answer `na` when the item lists no subject without form." : ""}${f.acceptedIn?.length ? ` In ${f.acceptedIn.join(", ")} this is recorded but does not make the item flawed.` : ""}`).join("\n");
+  const list = faults[tier].map((f) => `- \`${f.id}\` (${f.label}): ${f.question}${f.effectsOnly ? " Answer `na` when the item lists no subject without form." : ""}${f.acceptedIn?.length ? " When the item lists it under `accepted`, record it, but it does not make the item flawed." : ""}`).join("\n");
   const what = tier === "text"
     ? "Your items file lists scene plans. Each item gives the moment's text and its same-section neighbours, the work's depiction rules, the section's cast (with whether each member may be drawn), and the plan: the cast it selected and its scene fields. Judge the plan against the moment's text only. Answer only the faults the item's `ask` lists."
-    : "Your items file lists illustrations. Each item gives the image file, the moment's text, the cast its plan selected (with `neverDrawn`, any selected subject that may never be drawn as a figure) and the scene it asked for. View every image file yourself at full resolution and judge only from what you see and its own item. Answer only the faults the item's `ask` lists.";
+    : "Your items file lists illustrations. Each item gives the image file, the moment's text, the work's depiction rules, the cast its plan selected (with `neverDrawn`, any selected subject that may never be drawn as a figure), the scene it asked for, and under `accepted` any fault its style accepts. View every image file yourself at full resolution and judge only from what you see and its own item. Answer only the faults the item's `ask` lists.";
   return `# Suite scoring instructions: ${tier} tier (faults ${faults.version})
 
 ${what} Do not read \`key.json\` or any other file in the run folder, and do not look at another scorer's answers.
 
-For each item, answer every fault below with \`yes\` (the fault is present), \`no\` or \`na\` (it cannot apply), then give one \`overall\` verdict: \`acceptable\`, \`flawed\` (any fault present that is not accepted in its style) or \`uncertain\`, and \`notes\`: one or two sentences naming what drives your answers, with where you saw it.
+For each item, answer every fault below with \`yes\` (the fault is present), \`no\` or \`na\` (it cannot apply), then give one \`overall\` verdict: \`acceptable\`, \`flawed\` (any fault present that the item does not list under \`accepted\`) or \`uncertain\`, and \`notes\`: one or two sentences naming what drives your answers, with where you saw it.
 
 ${list}
 
@@ -298,29 +304,30 @@ export type GateResult = { pass: boolean; reasons: string[]; checks: GateCheck[]
 /**
  * The per-fault gate on holdout items: refusals, every fault and the unacceptable share may each rise by at most
  * `max(margin × judged, minItems)` items over the baseline's rate. Fails closed on a different suite, unsettled
- * scores or holdout items the candidate never ran.
+ * scores, or an expected holdout item (from the suite, not from either run) that either run has no result for.
  */
 export function evaluateSuiteGate(options: {
   config: SuiteConfig; faults: readonly Fault[];
+  /** The tier's holdout keys from the frozen suite (expectedHoldoutKeys). */
+  expected: readonly string[];
   candidate: { suiteVersion: string; items: readonly JudgedItem[]; disputes: number };
   baseline: { suiteVersion: string; items: readonly JudgedItem[]; disputes: number };
 }): GateResult {
-  const { config, faults, candidate, baseline } = options;
+  const { config, faults, candidate, baseline, expected } = options;
   const reasons: string[] = [];
   if (candidate.suiteVersion !== baseline.suiteVersion) reasons.push(`Different suites: candidate ${candidate.suiteVersion}, baseline ${baseline.suiteVersion}`);
   // Either run unsettled would leave items out of its rates, so both must be fully scored.
   if (candidate.disputes) reasons.push(`${candidate.disputes} scored item(s) are still disputed`);
   if (baseline.disputes) reasons.push(`${baseline.disputes} baseline item(s) are still disputed`);
-  const holdout = (items: readonly JudgedItem[]) => items.filter((i) => i.split === "holdout");
-  const candidateKeys = new Set(holdout(candidate.items).map((i) => i.key));
-  const shared = holdout(baseline.items).filter((i) => candidateKeys.has(i.key)).map((i) => i.key);
-  const missing = holdout(baseline.items).filter((i) => !candidateKeys.has(i.key)).map((i) => i.key);
-  if (missing.length) reasons.push(`The candidate has no result for ${missing.length} holdout item(s): ${missing.slice(0, 5).join(", ")}`);
-  const unscored = holdout(candidate.items).filter((i) => !i.refused && !i.score).map((i) => i.key);
-  if (unscored.length) reasons.push(`${unscored.length} holdout item(s) are unscored: ${unscored.slice(0, 5).join(", ")}`);
-  const baselineUnscored = holdout(baseline.items).filter((i) => !i.refused && !i.score).map((i) => i.key);
-  if (baselineUnscored.length) reasons.push(`${baselineUnscored.length} baseline holdout item(s) are unscored: ${baselineUnscored.slice(0, 5).join(", ")}`);
-  const keep = new Set(shared);
+  if (!expected.length) reasons.push("The suite has no holdout items for this tier");
+  const keep = new Set(expected);
+  for (const [name, run] of [["candidate", candidate], ["baseline", baseline]] as const) {
+    const have = new Set(run.items.map((i) => i.key));
+    const missing = expected.filter((key) => !have.has(key));
+    if (missing.length) reasons.push(`The ${name} has no result for ${missing.length} holdout item(s): ${missing.slice(0, 5).join(", ")}`);
+    const unscored = run.items.filter((i) => keep.has(i.key) && !i.refused && !i.score).map((i) => i.key);
+    if (unscored.length) reasons.push(`${unscored.length} ${name} holdout item(s) are unscored: ${unscored.slice(0, 5).join(", ")}`);
+  }
   const pick = (items: readonly JudgedItem[]) => summarize(items.filter((i) => keep.has(i.key)), faults);
   const [after, before] = [pick(candidate.items), pick(baseline.items)];
   const checks: GateCheck[] = [];
