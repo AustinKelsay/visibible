@@ -118,15 +118,17 @@ describe("plan review before storage", () => {
     expect(spend.map((s) => s.outcome)).toEqual(["ok", "review problems", "ok", "review ok"]);
   });
 
-  it("gives the review no conditions for a generated guide, so a look_conflict cannot cite one and the plan is kept", async () => {
-    // Review v10: only owner look constraints reach the review; the plan's own setting and time carry the rest.
+  it("gives the review only a generated look's shared place, so a look_conflict citing another value is invalid and the plan is kept", async () => {
+    // Review v10: owner look constraints reach the review; since v13 a generated look's place does too when the plan puts the
+    // moment there, since rendering draws it (ADR 0009). The plan's own setting and time carry the rest.
     const daylight = { kind: "look_conflict", entryId: "", planQuote: "ordinary daylight", reason: "Daylight contradicts the night the plan describes." };
     const { run, calls, writes } = await setup([plan()], [[daylight], [daylight]]);
     const result = await run();
     expect(result.situation).toBeNull();
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review", "plan_review"]);
     expect(calls[1].user).not.toContain("MOMENT CONDITIONS");
-    expect(calls[1].system).toContain("an OWNER LOOK CONSTRAINTS value (only when supplied)");
+    expect(calls[1].user).toContain("SECTION PLACE (drawn as written in this image)");
+    expect(calls[1].system).toContain("a SECTION PLACE or OWNER LOOK CONSTRAINTS value (only when supplied)");
     expect(calls[1].system).toContain("embodied_formless: a hasForm false entry is given a body, face, hands, clothing, a robe or train, a silhouette, a throne or seat of its own, or is described as seated or standing.");
     expect(writes[0].payload).toMatchObject({ review: { rounds: 1, notes: ["plan review unavailable: look_conflict quote is not in the look"] } });
     expect(writes[0].payload).not.toHaveProperty("situation");

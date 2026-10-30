@@ -6,7 +6,7 @@ import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { assembleRendering } from "../engine/assemble";
-import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION, LOOK_SYSTEM, lookOutputSchema, PLAN_SYSTEM } from "../engine/preparation";
+import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION, LOOK_SYSTEM, lookOutputSchema, PLAN_SYSTEM, SECTION_LOOK_PROMPT_VERSION } from "../engine/preparation";
 import { PLAN_REVIEW_PROMPT_VERSION } from "../engine/plan-review";
 import type { WorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
@@ -126,19 +126,21 @@ describe("no-form presence selection", () => {
     const request = calls.find((r) => r.schemaName === "scene_plan")!;
     expect(responseSchema(request.schema)).toEqual({
       type: "object", additionalProperties: false,
-      required: ["focusQuote", "instant", "selectedCast", ...Object.keys(fields)],
+      required: ["focusQuote", "instant", "selectedCast", "sectionPlace", ...Object.keys(fields)],
       properties: {
         focusQuote: { type: "string", description: expect.any(String) },
         instant: { type: "string", description: expect.any(String) },
         selectedCast: { type: "array", description: expect.any(String), items: expect.objectContaining({ type: "object", additionalProperties: false,
           required: ["entryId", "evidence"], properties: expect.objectContaining({ entryId: { type: "string", enum: entries.map((e) => e.recordId) } }) }) },
+        sectionPlace: { type: "string", enum: ["same", "elsewhere"], description: expect.any(String) },
         // No maxLength reaches the provider, and long values are trimmed locally rather than refused.
         ...Object.fromEntries(Object.keys(fields).map((key) => [key, { type: "string", description: expect.stringContaining("One or two short phrases.") }])),
       },
     });
     // The no-form addendum reaches the fields that place effects.
     expect((responseSchema(request.schema).properties as Record<string, { description: string }>).primarySubject.description).toContain("For a cast entry with hasForm false, describe only the smoke, cloud, fire, wind or light the text names");
-    const reply = { focusQuote: "The voice sat", instant: "One instant.", selectedCast: [], ...fields };
+    const reply = { focusQuote: "The voice sat", instant: "One instant.", selectedCast: [], sectionPlace: "same", ...fields };
+    expect(request.schema.safeParse({ ...reply, sectionPlace: "nearby" }).success).toBe(false);
     expect(request.schema.safeParse(reply).success).toBe(true);
     for (const key of Object.keys(fields)) expect(request.schema.safeParse({ ...reply, [key]: "x".repeat(1000) }).success).toBe(true);
     for (const removed of ["grounding", "consideredCast", "missingCast"]) expect(request.schema.safeParse({ ...reply, [removed]: [] }).success).toBe(false);
@@ -314,10 +316,12 @@ describe("no-form presence selection", () => {
     const plan = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
     expect(plan?.inputs.filter((i) => i.kind === "prompt")).toEqual([{ kind: "prompt", recordId: "scene_plan_look_ownership", version: "generated-guide-v1" }, { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION }, { kind: "prompt", recordId: "scene_plan_review", version: PLAN_REVIEW_PROMPT_VERSION }]);
     const look = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "court-1" });
-    expect(look?.inputs.some((i) => i.kind === "prompt")).toBe(false);
+    // Only the general look contract marker: a formed section has no no-form look marker.
+    expect(look?.inputs.filter((i) => i.kind === "prompt")).toEqual([{ kind: "prompt", recordId: "section_look", version: SECTION_LOOK_PROMPT_VERSION }]);
     expect(calls[0].system).toBe(LOOK_SYSTEM);
     expect(calls[0].schema).toBe(lookOutputSchema);
-    expect(calls[0].user).toBe(`WORK BRIEF\nTone: Quiet.\nDepiction rules:\n- The voice has no body; show its presence only as light.\nEra: Ancient court. People: Courtiers. Dress: Tunics. Buildings and objects: Stone throne.\n\nSTORY SECTION: The court\nON STAGE: The watcher\nTEXT OF THE SECTION'S FIRST MOMENT (the look covers the whole section):\n${work.getUnit("court-1").text}`);
+    expect(calls[0].user).toBe(`WORK BRIEF\nTone: Quiet.\nDepiction rules:\n- The voice has no body; show its presence only as light.\nEra: Ancient court. People: Courtiers. Dress: Tunics. Buildings and objects: Stone throne.\n\nSTORY SECTION: The court\nON STAGE: The watcher\nTEXT OF THE SECTION (the look covers all of it):\n${first.context.section!.text}`);
+    expect(first.context.section!.text).toContain(work.getUnit("court-1").text);
     expect(calls[1].system).toBe(PLAN_SYSTEM);
     expect(calls[1].schema.safeParse({ missingCast: [], present: ["unknown_entry"], ...fields }).success).toBe(false);
     expect(first.prepared.plan.payload.present).toEqual(["watcher"]);

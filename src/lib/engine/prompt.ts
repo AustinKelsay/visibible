@@ -1,8 +1,8 @@
 /**
  * The generic rendering packet (#173, spec #165 §3, §5, §6): one prompt per image built from the
  * engine rules, the work brief's prompt form for the moment's era, the selected canon, the
- * owner look constraints when given, the style-neutral scene plan, the art style's rendering and the captions of up
- * to three reference images. A subject without form is described by its effects, never named, and its scene omits
+ * owner look constraints when given, the section's shared place when the plan puts the moment there, the style-neutral
+ * scene plan, the art style's rendering and the captions of up to three reference images. A subject without form is described by its effects, never named, and its scene omits
  * the source text. Precedence, strongest first: engine rules, brief content and depiction rules, canon identity,
  * style rendering, scene plan. The prompt is capped at 12,000
  * characters; nothing required is ever trimmed, and an over-budget result is rejected before
@@ -13,7 +13,7 @@ import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
 /** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-28-generic-v14";
+export const GENERIC_PROMPT_VERSION = "2026-10-29-generic-v15";
 /** Prompt text is cheap next to the image itself (12,000 characters is about $0.001); the cap only guards runaway input. */
 export const GENERIC_PROMPT_MAX_CHARS = 12000;
 export const MAX_REFERENCE_IMAGES = 3;
@@ -38,6 +38,8 @@ export type RenderingInput = {
   look: { version: string; place: string; timeOfDay: string; weather: string; light: string; clothing: string };
   /** Owner look constraints, rendered verbatim when supplied. Generated plans carry their own setting and time (since generic-v10). */
   situation?: Situation | null;
+  /** A generated look's place, drawn verbatim when the plan puts the moment there, so a section's images share it (generic-v15). */
+  sharedPlace?: string | null;
   plan: { version: string; primarySubject: string; action: string; setting: string; secondaryElements: string; mood: string; timeOfDay: string; composition: string };
   /** The entries the plan marked present, with the stage the section assigns them. */
   canon: SelectedCanon[];
@@ -80,7 +82,7 @@ export const ENGINE_RULES = [
   "Show the SELECTED CHARACTERS with their canon. Anyone else appears only as an unnamed figure the scene plan describes.",
   "A subject without form is never drawn. Only when it is selected may the light, cloud, smoke, fire or wind in the scene plan stand for it, with nobody in them. A throne or seat stays empty unless the scene plan names who sits on it.",
 ];
-export const CONTENT_OWNERSHIP = "The text decides who is in the scene; canon decides how they look; the scene plan decides this moment's place, time, light, clothing and action. Owner look constraints, when given, are binding.";
+export const CONTENT_OWNERSHIP = "The text decides who is in the scene; canon decides how they look; the scene plan decides this moment's place, time, light, clothing and action, inside the section place when one is given. Owner look constraints, when given, are binding.";
 export const PRECEDENCE_LINE = `If instructions conflict, follow these rules, then the work brief, then canon, then the art style, then the scene plan. ${CONTENT_OWNERSHIP}`;
 
 function clip(text: string, max: number) {
@@ -104,21 +106,41 @@ export function briefBlock(brief: WorkBrief, eraId: string, styleId: string): st
   ].join("\n");
 }
 
+/** The words a plan may call an entry by: its name, the name up to a comma, bracket or slash, its canon label, and their capitalised words. */
+function entryNames(entry: SelectedCanon) {
+  const head = entry.name.split(/[,(/]/)[0].trim();
+  const label = entry.text.match(/^([^:\n]{1,80}):/)?.[1]?.trim() ?? "";
+  const words = [head, label].flatMap((name) => name.split(/\s+/)).filter((word) => /^\p{Lu}/u.test(word) && word.length >= 4);
+  return [...new Set([entry.name, head, label, ...words].filter((name) => name.length > 2))];
+}
+const names = (text: string, entry: SelectedCanon) =>
+  entryNames(entry).some((name) => new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(name)}(?![\\p{L}\\p{N}])`, "iu").test(text));
+
 /**
- * Up to three references in the agreed order: style reference, main character, location, second character. No-form entries never contribute.
- * Every style may have a style reference, Classical included: in the 26 October image check, images sent with one showed
- * neither white margins nor a figure for a no-form subject.
+ * Sheet candidates in the order their slots are filled (ADR 0009): the best character, the best place, then the other
+ * characters, places and objects. Within a kind, the entries the plan's primary subject names come first, then those its
+ * action names, then plan order. No-form entries never have a sheet.
  */
-export function selectReferences(canon: SelectedCanon[], available: AvailableReference[], styleId: string): SelectedReference[] {
+export function rankSheetCandidates(canon: SelectedCanon[], plan?: { primarySubject: string; action: string } | null): SelectedCanon[] {
+  const eligible = canon.filter((c) => c.hasForm);
+  const weight = (c: SelectedCanon) => !plan ? 0 : names(plan.primarySubject, c) ? 2 : names(plan.action, c) ? 1 : 0;
+  const ranked = (kind: SelectedCanon["kind"]) => eligible.map((c, index) => ({ c, index, weight: weight(c) })).filter((x) => x.c.kind === kind)
+    .sort((a, b) => b.weight - a.weight || a.index - b.index).map((x) => x.c);
+  const [characters, locations, objects] = [ranked("character"), ranked("location"), ranked("object")];
+  return [...characters.slice(0, 1), ...locations.slice(0, 1), ...characters.slice(1), ...locations.slice(1), ...objects];
+}
+
+/**
+ * Up to three references: the style reference, then the sheets of the ranked candidates that have one, so a candidate
+ * without a sheet passes its slot to the next. Every style may have a style reference, Classical included: in the
+ * 26 October image check, images sent with one showed neither white margins nor a figure for a no-form subject.
+ */
+export function selectReferences(canon: SelectedCanon[], available: AvailableReference[], styleId: string, plan?: { primarySubject: string; action: string } | null): SelectedReference[] {
   const picked: AvailableReference[] = [];
   const style = available.find((r) => r.kind === "styleReference" && r.styleId === styleId);
   if (style) picked.push(style);
   const sheetFor = (entry: SelectedCanon) => available.find((r) => r.kind === "sheet" && r.entryId === entry.entryId && r.stageId === entry.stageId);
-  const eligible = canon.filter((c) => c.hasForm);
-  const characters = eligible.filter((c) => c.kind === "character");
-  const locations = eligible.filter((c) => c.kind === "location");
-  const order = [characters[0], locations[0], characters[1]].filter((c): c is SelectedCanon => Boolean(c));
-  for (const entry of order) {
+  for (const entry of rankSheetCandidates(canon, plan)) {
     const sheet = sheetFor(entry);
     if (sheet && picked.length < MAX_REFERENCE_IMAGES) picked.push(sheet);
   }
@@ -139,7 +161,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const { brief, style } = input;
   const owner = input.situation ?? null;
   if (owner && SITUATION_FIELDS.some((field) => typeof owner[field] !== "string")) return { ok: false, error: "Owner look constraints are malformed.", finalChars: 0 };
-  let references = selectReferences(input.canon, input.references ?? [], style.id);
+  let references = selectReferences(input.canon, input.references ?? [], style.id, input.plan);
   const formed = input.canon.filter((c) => c.hasForm);
   const formless = input.canon.filter((c) => !c.hasForm);
   const names = formed.map((c) => c.name);
@@ -163,6 +185,11 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     ? ["CANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):",
       ...formed.map((c) => `- ${c.text}`),
       ...(names.length ? [`- Only ${names.join(", ")} ${names.length > 1 ? "have" : "has"} this canon look; other selected people get clearly different faces, hair and clothing colours.`] : [])].join("\n")
+    : "";
+  // The same words in every image of the section, so neighbouring moments show one place. Owner constraints carry their own place.
+  const sharedPlace = !owner && input.sharedPlace?.trim() ? input.sharedPlace.trim() : null;
+  const placeBlock = sharedPlace
+    ? `SECTION PLACE (the same in every image of this story section; draw it as written, seen from wherever the scene plan's setting and composition place the view):\n${presence ? nameless(sharedPlace) : sharedPlace}`
     : "";
   const planBlock = ["SCENE PLAN (this moment's place, time and action; obey the rules, brief, canon and style):",
     `Primary subject: ${plan.primarySubject}`, `Action: ${plan.action}`, `Setting: ${plan.setting}`, `Secondary elements: ${plan.secondaryElements}`,
@@ -195,6 +222,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     formlessBlock,
     canonBlock,
     ownerBlock,
+    placeBlock,
     planBlock,
     flags.styleDetailIncluded ? `${styleMain}\n${styleDetail}` : styleMain,
     referenceBlock(),
@@ -203,7 +231,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     `SCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges and corners.\nAspect ratio: ${input.aspectRatio} (${aspect} landscape).`,
   ].filter(Boolean).join("\n\n");
 
-  // Canon, the plan and owner constraints are required content and are never trimmed.
+  // Canon, the section place, the plan and owner constraints are required content and are never trimmed.
   // lookDetailIncluded stays in stored packet flags for compatibility; it is always true.
   const flags: RenderingPacket["flags"] = { variationIncluded: Boolean(variationBlock), neighborsIncluded: Boolean(neighborBlock), styleDetailIncluded: true, lookDetailIncluded: true };
   let prompt = assemble(flags);
@@ -218,7 +246,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   }
   if (input.omitStyleReference) {
     // Select and trim the control first. Do not backfill a freed slot or restore trimmed details.
-    references = selectReferences(input.canon, references.filter((r) => r.kind !== "styleReference"), style.id);
+    references = selectReferences(input.canon, references.filter((r) => r.kind !== "styleReference"), style.id, input.plan);
     prompt = assemble(flags);
   }
   return {

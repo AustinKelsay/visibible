@@ -47,18 +47,20 @@ async function setup(id = "r027", options: { importLook?: "generated" | "owner" 
 }
 
 describe("section look ownership in rendering", () => {
-  it.each(["r027", "f019"])("keeps failed %s look as an unrendered guide while reviewing and rendering the plan in every style", async (id) => {
+  it.each(["r027", "f019"])("keeps failed %s look advisory apart from its shared place while reviewing and rendering the plan in every style", async (id) => {
     const probe = await setup(id);
     for (const style of ["classical", "watercolor", "icon"]) {
       const result = await probe.render(style);
       if (!result.ok) throw Error(result.message);
       expect(result.prepared.calls).toBe(style === "classical" ? 3 : 0);
       expect(result.prepared.look.payload).toEqual(probe.look);
-      // A generated guide is advisory: the plan carries its own setting and time, and no conditions block is rendered.
+      // A generated look is advisory apart from its place, which the plan put the moment at and which every image of the
+      // section draws as written (ADR 0009); no conditions block is rendered, and its light stays out.
       expect(result.prepared.situation).toBeNull();
+      expect(result.prepared.sharedPlace).toBe(probe.look.place);
+      expect(result.prompt).toContain("SECTION PLACE (the same in every image of this story section");
       expect(result.prompt).not.toContain("MOMENT CONDITIONS");
       expect(result.prompt).not.toContain("OWNER LOOK CONSTRAINTS");
-      expect(result.prompt).not.toContain(probe.look.place);
       expect(result.prompt).not.toContain(probe.look.light);
       expect(result.prompt).toContain("SCENE PLAN");
       for (const entry of result.canon.filter((c) => c.hasForm)) expect(result.prompt).toContain(entry.text);
@@ -67,11 +69,12 @@ describe("section look ownership in rendering", () => {
       expect(saved?.inputs).toContainEqual({ kind: "prompt", recordId: "scene_plan_look_ownership", version: "generated-guide-v1" });
     }
     const planner = probe.calls.find((c) => c.schemaName === "scene_plan")!;
-    expect(planner.user).toContain("SECTION LOOK GUIDE (a suggestion; keep what fits this moment)");
+    expect(planner.user).toContain(`SECTION LOOK (its place is drawn as written wherever sectionPlace is "same"; the other values are suggestions)`);
     expect(planner.user).toContain(JSON.stringify(probe.look));
     const review = probe.calls.find((c) => c.schemaName === "plan_review")!;
     expect(review.user).not.toContain("MOMENT CONDITIONS");
     expect(review.user).not.toContain("OWNER LOOK CONSTRAINTS");
+    expect(review.user).toContain(JSON.stringify({ place: probe.look.place }));
     expect(review.user).not.toContain(probe.look.light);
     expect(probe.memory.ledger).toHaveLength(3);
   });

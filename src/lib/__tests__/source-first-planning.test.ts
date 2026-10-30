@@ -14,7 +14,7 @@ const set = JSON.parse(readFileSync(new URL("../2026-10-23-cast-policy-check/sam
 const sample = set.samples.find((s: { momentId: string }) => s.momentId === "lamentations-4-7");
 
 describe("source-first scene planning", () => {
-  it.each([1, 2])("retains look %i as advisory provenance and renders only the plan's own setting and time", async (repeat) => {
+  it.each([1, 2])("retains look %i as advisory provenance and renders its shared place with the plan's own setting and time", async (repeat) => {
     const look = JSON.parse(traces.find((r) => r.phase === `identity-s034-${repeat}` && r.request.response_format.json_schema.name === "section_look").response.choices[0].message.content);
     const memory = createMemoryPreparationStore(sample.keys.map((key: string) => set.records[key]).filter((r: { kind: string }) => r.kind !== "look" && r.kind !== "plan"));
     const inputs = await readWorkInputs("bible-web");
@@ -41,8 +41,9 @@ describe("source-first scene planning", () => {
       expect(result.prepared.look.payload).toEqual(look);
       expect(result.prompt).not.toContain(look.clothing);
       expect(result.prompt).not.toContain(look.light);
-      expect(result.prompt).not.toContain(look.place);
-      // A generated guide renders no conditions block; the plan's own fields carry setting and time.
+      // The plan put the moment at the section's place, which is drawn as written (ADR 0009).
+      expect(result.prompt).toContain(`SECTION PLACE (the same in every image of this story section; draw it as written, seen from wherever the scene plan's setting and composition place the view):\n${look.place}`);
+      // A generated guide renders no conditions block; the plan's own fields carry the rest of the setting and time.
       expect(result.prepared.situation).toBeNull();
       expect(result.prompt).not.toContain("MOMENT CONDITIONS");
       expect(result.prompt).toContain(`Setting: ${fields.setting}`);
@@ -55,7 +56,7 @@ describe("source-first scene planning", () => {
       expect(request.user).toContain("Her nobles were purer than snow.");
       expect(request.user).toContain("CAST ON STAGE IN THIS SECTION");
       expect(request.user).not.toContain("NO-FORM CANON CONSTRAINTS");
-      expect(request.user).toContain("SECTION LOOK GUIDE (a suggestion; keep what fits this moment)");
+      expect(request.user).toContain(`SECTION LOOK (its place is drawn as written wherever sectionPlace is "same"; the other values are suggestions)`);
       for (const value of Object.values(look)) expect(request.user).toContain(value);
     }
     expect(plans[1].user).toContain("A PREVIOUS PLAN FOR THIS MOMENT WAS REJECTED");

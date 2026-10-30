@@ -61,6 +61,8 @@ export function clearWorkInputsCache() { cache.clear(); }
 
 export type MomentRange = { id: string; firstUnit: string; lastUnit: string };
 export type SectionRange = { firstUnit: string; lastUnit: string };
+/** The section text its look sees, so the shared place fits the whole section rather than whichever moment came first. */
+export const SECTION_TEXT_MAX_CHARS = 4000;
 
 /**
  * The moment's reference text and its in-section neighbours, from the imported work and never
@@ -80,7 +82,9 @@ export function momentContext(work: WorkReader, moment: MomentRange, section: Se
   const reference = first.id === last.id ? first.reference : `${first.reference} to ${last.reference}`;
   const previous: ReferenceUnit | null = first.position > sectionFirst.position ? work.units[first.position - 1] : null;
   const next: ReferenceUnit | null = last.position < sectionLast.position ? work.units[last.position + 1] : null;
-  return { moment: { id: moment.id, reference, text }, previous: previous ? { text: previous.text } : null, next: next ? { text: next.text } : null };
+  const whole = work.units.slice(sectionFirst.position, sectionLast.position + 1).map((u) => u.text).join(" ").replace(/\s+/g, " ").trim();
+  const sectionText = whole.length <= SECTION_TEXT_MAX_CHARS ? whole : `${whole.slice(0, SECTION_TEXT_MAX_CHARS - 1).trimEnd()}…`;
+  return { moment: { id: moment.id, reference, text }, previous: previous ? { text: previous.text } : null, next: next ? { text: next.text } : null, section: { text: sectionText } };
 }
 
 /** The moment holding a unit, for works whose moments span several units. */

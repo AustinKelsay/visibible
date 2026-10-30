@@ -10,7 +10,7 @@ import { convexTest } from "convex-test";
 import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
-import { prepareMoment, createConvexPreparationStore, PreparationUnavailableError, type MomentContext } from "../engine/preparation";
+import { prepareMoment, createConvexPreparationStore, PreparationUnavailableError, SECTION_LOOK_PROMPT_VERSION, type MomentContext } from "../engine/preparation";
 import type { TextModel, TextModelRequest, TextModelResult } from "../reading-pass/model";
 import type { WorkBrief } from "../work-preparation";
 import { withGrounding } from "../../../tests/fixtures/scene-grounding";
@@ -96,6 +96,19 @@ describe("lazy looks and plans", () => {
     const spend = await t.query(api.analysis.getPreparationSpend, { workId: WORK });
     expect(spend.calls).toBe(8); // five look/plan calls and three reviews
     expect(spend.costUsd).toBeCloseTo(0.0025 + 3 * 0.0001, 6);
+  });
+
+  it("shows the look the whole section's text and records the look contract it was made under", async () => {
+    const model = scriptedModel(defaultAnswer);
+    const withSection = { ...context("alpha-1-2", "Text of alpha-1-1.", null), section: { text: "Text of alpha-1-1. Text of alpha-1-2. Text of alpha-1-3." } };
+    await prepareMoment({ workId: WORK, momentId: "alpha-1-2", store: store(), model, brief, briefVersion: "bv", context: withSection, ...fast });
+    expect(model.calls[0].user).toContain("TEXT OF THE SECTION (the look covers all of it):\nText of alpha-1-1. Text of alpha-1-2. Text of alpha-1-3.");
+    const look = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "alpha-1-1" });
+    expect(look?.inputs).toContainEqual({ kind: "prompt", recordId: "section_look", version: SECTION_LOOK_PROMPT_VERSION });
+    // A context without the section text still describes one moment, labelled as such.
+    const other = scriptedModel(defaultAnswer);
+    await prepareMoment({ workId: WORK, momentId: "alpha-1-4", store: store(), model: other, brief, briefVersion: "bv", context: context("alpha-1-4", null, null), ...fast });
+    expect(other.calls[0].user).toContain("TEXT OF ONE MOMENT OF THE SECTION (the look covers the whole section):\nText of alpha-1-4.");
   });
 
   it("uses a reassigned canon stage even when the refreshed look has identical content", async () => {
@@ -189,7 +202,7 @@ describe("lazy looks and plans", () => {
         const jonah = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" });
         const amos = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "amos" });
         await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", payload: { kind: "look", sectionId: "alpha-1-1", ...lookAnswer },
-          inputs: [{ kind: "section", recordId: "alpha-1-1", version: section!.version }, { kind: "brief", recordId: WORK, version: "bv" }, { kind: "entry", recordId: "jonah", version: jonah!.version }, { kind: "entry", recordId: "amos", version: amos!.version }] });
+          inputs: [{ kind: "section", recordId: "alpha-1-1", version: section!.version }, { kind: "brief", recordId: WORK, version: "bv" }, { kind: "entry", recordId: "jonah", version: jonah!.version }, { kind: "entry", recordId: "amos", version: amos!.version }, { kind: "prompt", recordId: "section_look", version: SECTION_LOOK_PROMPT_VERSION }] });
         await t.mutation(api.analysis.releasePreparation, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", holder: "other" });
       }
     } };
@@ -210,7 +223,7 @@ describe("lazy looks and plans", () => {
         const jonah = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" });
         const amos = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "amos" });
         await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", payload: { kind: "look", sectionId: "alpha-1-1", ...lookAnswer },
-          inputs: [{ kind: "section", recordId: "alpha-1-1", version: section!.version }, { kind: "brief", recordId: WORK, version: "bv" }, { kind: "entry", recordId: "jonah", version: jonah!.version }, { kind: "entry", recordId: "amos", version: amos!.version }] });
+          inputs: [{ kind: "section", recordId: "alpha-1-1", version: section!.version }, { kind: "brief", recordId: WORK, version: "bv" }, { kind: "entry", recordId: "jonah", version: jonah!.version }, { kind: "entry", recordId: "amos", version: amos!.version }, { kind: "prompt", recordId: "section_look", version: SECTION_LOOK_PROMPT_VERSION }] });
       }
       return base.claim(kind, recordId, holder, ttlMs);
     } };
@@ -235,7 +248,7 @@ describe("forgiving plan review through the real payload validator", () => {
   const scene = { primarySubject: "Noa standing on the harbor quay", action: "turns toward the sound", setting: "the harbor quay at dawn", secondaryElements: "moored boats",
     mood: "awe", timeOfDay: "dawn", composition: "Noa small against the water" };
   const reply = (overrides: Record<string, unknown> = {}) => ({ focusQuote: "Noa heard the voice", instant: "Noa turns on the quay toward the voice.",
-    selectedCast: [{ entryId: "noa", evidence: "Noa heard" }], ...scene, ...overrides });
+    selectedCast: [{ entryId: "noa", evidence: "Noa heard" }], sectionPlace: "same", ...scene, ...overrides });
   beforeEach(async () => {
     t = convexTest(schema, modules);
     client = { query: (ref, args) => t.query(ref as never, args as never), mutation: (ref, args) => t.mutation(ref as never, args as never) };
@@ -270,11 +283,15 @@ describe("forgiving plan review through the real payload validator", () => {
     expect(result.plan.payload.action).toHaveLength(400);
     expect(result.plan.payload.action.endsWith("…")).toBe(true);
     // Since moment-cast v12 the scene fields carry setting and time: a generated guide renders no separate conditions.
+    // Since v16 its place alone is drawn where the plan puts the moment, so the review sees exactly that place.
     expect(result.situation).toBeNull();
+    expect(result.sharedPlace).toBe(lookAnswer.place);
+    expect(calls[2].user).toContain(`SECTION PLACE (drawn as written in this image):\n${JSON.stringify({ place: lookAnswer.place })}`);
+    expect(calls[2].user).not.toContain(lookAnswer.clothing);
     expect(calls[2].user).not.toContain("MOMENT CONDITIONS");
     expect(calls[2].user).not.toContain("OWNER LOOK CONSTRAINTS");
     expect(await storedPlan()).not.toHaveProperty("situation");
-    expect(await storedPlan()).toMatchObject({
+    expect(await storedPlan()).toMatchObject({ sectionPlace: "same",
       entries: [{ entryId: "noa", stageId: "main" }, { entryId: "harbor", stageId: "quay" }],
       grounding: { focusQuote: "Noa heard the voice", instant: "Noa turns on the quay toward the voice.", singleInstant: true,
         cast: [{ entryId: "noa", momentQuote: "Noa heard", contextSource: "none", contextQuote: "", participation: "in_scene" }] },
@@ -301,7 +318,41 @@ describe("forgiving plan review through the real payload validator", () => {
     expect(after[0].user).toContain(`OWNER LOOK CONSTRAINTS (copy all values exactly):\n${JSON.stringify(owner)}`);
     expect(after[1].user).toContain(`OWNER LOOK CONSTRAINTS (binding verbatim rendering input):\n${JSON.stringify(owner)}`);
     expect(result.situation).toEqual(owner);
+    // Owner constraints render through their own block; no separate shared place is added.
+    expect(result.sharedPlace).toBeNull();
     expect(await storedPlan()).not.toHaveProperty("situation");
+  });
+
+  it("draws the section place only where the plan puts the moment, never sending it to the review otherwise", async () => {
+    const { run, calls } = prepare([reply({ sectionPlace: "elsewhere", setting: "a hillside above the harbor" })], [[]]);
+    const result = await run();
+    expect(result.sharedPlace).toBeNull();
+    expect(calls[1].user).toContain(`SECTION LOOK (its place is drawn as written wherever sectionPlace is "same"; the other values are suggestions):\n${JSON.stringify(lookAnswer)}`);
+    expect(calls[2].user).not.toContain("SECTION PLACE");
+    expect(calls[2].user).not.toContain(lookAnswer.place);
+    expect(await storedPlan()).toMatchObject({ sectionPlace: "elsewhere", review: { rounds: 1 } });
+  });
+
+  it("re-plans once when the review finds the section place contradicts the moment, then drops the place if it still does", async () => {
+    const conflict = { kind: "look_conflict", entryId: "", planQuote: lookAnswer.place, reason: "The text puts Noa at a harbor quay, not a lakeshore." };
+    const { run, calls } = prepare([reply()], [[conflict], [conflict]]);
+    const result = await run();
+    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "scene_plan", "plan_review"]);
+    expect(calls[3].user).toContain(`- look_conflict: ${conflict.reason} (the section place said: "${lookAnswer.place}")`);
+    expect(result.sharedPlace).toBeNull();
+    expect(await storedPlan()).toMatchObject({ sectionPlace: "elsewhere",
+      review: { rounds: 2, problems: [conflict], notes: [`dropped section place: ${conflict.reason}`] } });
+  });
+
+  it("keeps a re-plan that moves the moment elsewhere, with no place left to conflict", async () => {
+    const conflict = { kind: "look_conflict", entryId: "", planQuote: lookAnswer.place, reason: "The text puts Noa at a harbor quay, not a lakeshore." };
+    const { run, calls } = prepare([reply(), reply({ sectionPlace: "elsewhere", setting: "the stone harbor quay" })], [[conflict], []]);
+    const result = await run();
+    expect(calls[4].user).not.toContain("SECTION PLACE");
+    expect(result.sharedPlace).toBeNull();
+    const stored = await storedPlan();
+    expect(stored).toMatchObject({ sectionPlace: "elsewhere", review: { rounds: 2, problems: [conflict] } });
+    expect((stored?.review as { notes?: string[] }).notes).toBeUndefined();
   });
 
   it("notes a reported canon gap without a re-plan", async () => {

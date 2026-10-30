@@ -205,6 +205,9 @@ const planPayloadValidator = v.object({
   momentId: v.string(),
   entries: v.array(v.object({ entryId: v.string(), stageId: v.string() })),
   plan: scenePlanValidator,
+  // Moment-cast v16 (ADR 0009): whether the moment happens at its section look's place, which rendering then draws
+  // verbatim. Older plans have none and render without a shared place.
+  sectionPlace: v.optional(v.union(v.literal("same"), v.literal("elsewhere"))),
   // Optional for historical plans; new preparation requires reviewed moment conditions.
   situation: v.optional(v.object({ place: v.string(), timeOfDay: v.string(), weather: v.string(), light: v.string(), clothing: v.string() })),
   // Audit-only source choice; historical plans remain readable and saved prompts are unchanged.
