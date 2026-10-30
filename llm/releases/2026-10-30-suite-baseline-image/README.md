@@ -7,7 +7,7 @@
 - **Holmes fails:** 1 of 30. Production's Holmes and Watson reference sheets are likenesses of Benedict Cumberbatch and Martin Freeman, and every Holmes image copies them.
 - **Alice is in between:** 14 of 32 (44%). Lettering and film-style creatures cause most of its misses.
 
-The run drew the plans of the [text baseline](../2026-10-30-suite-baseline-text-2/README.md), in each work's image styles, through the same scene check and retry readers get. It made **228 image calls and 456 check calls for $7.9841808**, under its $9.00 cap. It had no uncertain usage, no refusal and no production write. Links: [funding](funding.json), [plan](plan.json), [report](report.json), [items](items.json).
+The run drew the plans of the [text baseline](../2026-10-30-suite-baseline-text-2/README.md), in each work's image styles, through the same scene check and retry readers get. It made **228 image calls and 456 check calls for $7.9841808**, under its $9.00 cap. It had no uncertain usage, no refusal and no production write. The engine was the one merged in #338, before #339 gave Satan a symbol mode. Links: [funding](funding.json), [plan](plan.json), [report](report.json), [items](items.json).
 
 ## Images
 
@@ -88,9 +88,9 @@ What the numbers mean:
 | Images (this run) | 228 image, 456 check | $7.9841808 | 0 |
 | **Suite baseline** | | **$8.1889340** | $0.0026066 |
 
-All three runs are evaluation spend. The owner's grant raised evaluation by **$9.25 to $49.55**: $0.25 for the text runs and $9.00 for this one ([funding](funding.json)).
-- **Total.** Measured evaluation is now **$49.39280750**, with **$0.12160660** of retained uncertainty. That leaves **$0.03558590**.
-- **Earlier overage.** The $1.02287350 overage from before this grant now fits inside the new total. The grant did not cover it, so ratifying it remains the owner's call.
+All three runs are evaluation spend. The owner's grant raised evaluation by **$9.25**: $0.25 for the text runs and $9.00 for this one ([funding](funding.json)). In parallel, a separate session recorded two more changes to the same allowance: the owner ratified the earlier $1.02287350 overage, and granted $3 for the symbol-mode check, which spent $1.41453055 ([#340](https://github.com/AustinKelsay/visibible/pull/340)). Neither session saw the other's spend when it ran. The funding files record the allowance as each session saw it before its run.
+
+Together: **$53.5728735** authorized, **$50.80733805** measured, **$0.1216066** retained uncertainty, **$2.64392885** left.
 
 Scoring ran on agents with no OpenRouter spend. No run wrote to production; the text runs only read it for their snapshots.
 
