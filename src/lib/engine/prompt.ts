@@ -37,7 +37,7 @@ export type RenderingInput = {
   eraId: string;
   style: ArtStyle;
   styleVersion: string;
-  look?: { version: string; place: string; timeOfDay: string; weather: string; light: string; clothing: string };
+  look: { version: string; place: string; timeOfDay: string; weather: string; light: string; clothing: string };
   /** Owner look constraints, rendered verbatim when supplied. Generated plans carry their own setting and time (since generic-v10). */
   situation?: Situation | null;
   plan: { version: string; primarySubject: string; action: string; setting: string; secondaryElements: string; mood: string; timeOfDay: string; composition: string };
@@ -61,7 +61,7 @@ export type RenderingPacket = {
   styleId: string;
   styleVersion: string;
   briefVersion: string;
-  lookVersion?: string;
+  lookVersion: string;
   planVersion: string;
   /** The work's depiction profile the prompt was built from; absent on packets made before profiles. */
   depictionVersion: string;
@@ -275,7 +275,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     ok: true, prompt, references,
     packet: {
       promptVersion: GENERIC_PROMPT_VERSION, workId: input.work.id, momentId: input.moment.id, sectionId: input.moment.sectionId, eraId: input.eraId,
-      styleId: style.id, styleVersion: input.styleVersion, briefVersion: input.briefVersion, ...(input.look ? { lookVersion: input.look.version } : {}), planVersion: plan.version, depictionVersion: depiction.version,
+      styleId: style.id, styleVersion: input.styleVersion, briefVersion: input.briefVersion, lookVersion: input.look.version, planVersion: plan.version, depictionVersion: depiction.version,
       canon: input.canon.map((c) => ({ entryId: c.entryId, stageId: c.stageId, version: c.version })),
       references: references.map((r) => ({ kind: r.kind, id: r.kind === "sheet" ? `${r.entryId}:${r.stageId}` : r.styleId, storageId: r.storageId, version: r.version, caption: r.caption })),
       flags: { ...flags, ...(input.omitStyleReference ? { omitStyleReference: true as const } : {}) }, budget: { maxChars: GENERIC_PROMPT_MAX_CHARS, finalChars: prompt.length },

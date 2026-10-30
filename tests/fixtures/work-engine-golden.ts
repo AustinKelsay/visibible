@@ -1,6 +1,6 @@
 /**
  * The exact model requests the engine makes for a work other than the Bible, captured per work (ADR 0011's free tier):
- * the scene-plan request with its provider schema, the rendering prompt and packet in each style
+ * the look, plan and plan-review requests with their provider schemas, the rendering prompt and packet in each style
  * the work offers, and both scene-check questions. A change to the engine's shared wording shows up as a diff in every
  * work it reaches, so a prompt change names the works whose images it can change. The Bible keeps its own frozen
  * baseline in bible-engine-golden.ts.
@@ -84,7 +84,7 @@ export async function captureWorkEngineRequests(workId: string): Promise<Record<
   const out: Record<string, string> = {};
 
   const bodies: string[] = [];
-  const model = createOpenRouterTextModel({ apiKey: "test-key", fetch: recordingFetch((schema) => schema === "section_look" ? scenario.look : scenario.plan, bodies) });
+  const model = createOpenRouterTextModel({ apiKey: "test-key", fetch: recordingFetch((schema) => schema === "section_look" ? scenario.look : schema === "scene_plan" ? scenario.plan : { problems: [] }, bodies) });
   const { store } = createMemoryPreparationStore(records);
   await prepareMoment({ workId, momentId: scenario.momentId, store, model, brief, briefVersion: "golden-brief", context: scenario.context, depiction: profile,
     holder: "golden", now: () => 0, sleep: async () => {} });

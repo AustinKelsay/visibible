@@ -77,6 +77,9 @@ const planReplies: Record<string, unknown> = {
     primarySubject: "David dancing with arms raised", action: "whirls in a linen ephod", setting: "the road into Jerusalem",
     secondaryElements: "priests carrying the ark behind him", mood: "exultant", timeOfDay: "midday", composition: "low wide angle with the ark behind" },
 };
+// The Sinai plan's first review asks for one re-plan, so the feedback round is captured too.
+const firstSinaiReview = { problems: [{ kind: "outside_instant", entryId: "moses", planQuote: "Moses at the front of the trembling crowd", reason: "Moses is not at the mountain at this instant." }] };
+
 function recordingFetch(answer: (body: { response_format: { json_schema: { name: string } }; messages: unknown[] }, count: number) => unknown, bodies: string[]) {
   let count = 0;
   return async (_url: string, init: RequestInit) => {
@@ -89,7 +92,14 @@ function recordingFetch(answer: (body: { response_format: { json_schema: { name:
 
 async function capturePreparation(momentId: string): Promise<string[]> {
   const bodies: string[] = [];
-  const fetch = recordingFetch((body) => body.response_format.json_schema.name === "section_look" ? lookReply : planReplies[momentId], bodies);
+  let sinaiReviews = 0;
+  const fetch = recordingFetch((body) => {
+    const schema = body.response_format.json_schema.name;
+    if (schema === "section_look") return lookReply;
+    if (schema === "scene_plan") return planReplies[momentId];
+    if (momentId === "exodus-19-18" && sinaiReviews++ === 0) return firstSinaiReview;
+    return { problems: [] };
+  }, bodies);
   const model = createOpenRouterTextModel({ apiKey: "test-key", fetch });
   const { store } = createMemoryPreparationStore(records);
   await prepareMoment({ workId: "bible-web", momentId, store, model, brief, briefVersion: "golden-brief", context: contexts[momentId], depiction: profile,

@@ -115,7 +115,7 @@ describe("Holmes through the real assembly", () => {
     const { inputs, bodies, result } = await assemble(false);
     if (!result.ok) throw new Error(result.message);
     const requests = bodies.map((body) => JSON.parse(body) as { messages: Array<{ content: string }>; response_format: { json_schema: { name: string; schema: unknown } } });
-    expect(requests.map((r) => r.response_format.json_schema.name)).toEqual(["scene_plan"]);
+    expect(requests.map((r) => r.response_format.json_schema.name)).toEqual(["section_look", "scene_plan", "plan_review"]);
 
     const checkBodies: string[] = [];
     const checker = createOpenRouterVisionChecker({ apiKey: "test-key", fetch: recordingFetch((body) => JSON.stringify(body.messages).includes("First describe")
@@ -131,11 +131,13 @@ describe("Holmes through the real assembly", () => {
     expect(result.prompt).toContain("serious depictions of battles, blood and death and non-sexual nudity may be, treated seriously.");
     expect(result.prompt).not.toMatch(/^8\) /m);
     expect(result.packet.depictionVersion).toBe(inputs.depiction.version);
-    const [planRequest] = requests;
-    expect(planRequest.messages[0].content).not.toContain("hasForm");
+    const [lookRequest, planRequest, reviewRequest] = requests;
+    expect(lookRequest.messages[0].content).not.toContain("hasForm");
     expect(planRequest.messages[0].content).toContain("ask for no visible writing: letters, telegrams, newspapers and notebooks stay folded or closed, and signs and boards are blank.");
     expect(planRequest.messages[0].content).toContain("people, groups, places and objects.");
     expect(planRequest.messages[0].content).toContain("never make them a figure of their own words.");
+    expect(reviewRequest.messages[0].content).toContain("(a person, group, place or object)");
+    expect(JSON.stringify(reviewRequest.response_format.json_schema.schema)).not.toContain("embodied_formless");
     const questions = checkBodies.map((body) => JSON.parse(body).messages[0].content[0].text as string);
     for (const question of questions) {
       expect(question).toContain("for three visible faults");
@@ -206,11 +208,11 @@ describe("profile wording and cached scene plans", () => {
       await prepareMoment({ workId: WORK, momentId: "lake-1-1", store: memory.store, model: m, brief, briefVersion: "bv", depiction, context, holder: "h", now: () => 0, sleep: async () => {} });
       return calls.map((body) => JSON.parse(body).response_format.json_schema.name);
     };
-    expect(await run(withProfile({}))).toEqual(["scene_plan"]);
+    expect(await run(withProfile({}))).toEqual(["section_look", "scene_plan", "plan_review"]);
     // Rendering-only wording leaves the cached look and plan in place.
     expect(await run(withProfile({ writingSurfaces: "nets or sails", seriousSubjects: [] }))).toEqual([]);
     // The planner's own wording remakes the plan but keeps the look, which never read it.
-    expect(await run(withProfile({ closedDocuments: "letters stay folded" }))).toEqual(["scene_plan"]);
+    expect(await run(withProfile({ closedDocuments: "letters stay folded" }))).toEqual(["scene_plan", "plan_review"]);
   });
 
   it("refuses another work's profile instead of planning or rendering with it", async () => {
@@ -263,7 +265,7 @@ describe("the symbol mode", () => {
     expect(renderOnly.symbolVersion).toBe(bible.symbolVersion);
   });
 
-  it("tells the planner the symbol's form, records the wording it read, and selects its canon form", async () => {
+  it("tells the planner the symbol's form, records the wording it read, and lets the review see it as having form", async () => {
     const WORK = "court";
     const brief = { schemaVersion: 1 as const, workId: WORK, tone: "Grave.", depictionRules: [], styleIds: ["classical"],
       eras: [{ id: "court", label: "Court", people: "Herders.", dress: "Wool.", buildingsAndObjects: "Tents.", technology: "Hand tools." }] };
@@ -284,10 +286,10 @@ describe("the symbol mode", () => {
     const depiction = loadDepictionProfile({ ...bibleDepictionJson, workId: WORK }, WORK);
     const context = { moment: { id: "court-1-1", reference: "Court 1:1", text: "Satan came among them." }, previous: null, next: null };
     await prepareMoment({ workId: WORK, momentId: "court-1-1", store: memory.store, model, brief, briefVersion: "bv", depiction, context, holder: "h", now: () => 0, sleep: async () => {} });
-    const [plan] = bodies.map((b) => JSON.parse(b) as { messages: Array<{ content: string }> });
+    const [, plan, review] = bodies.map((b) => JSON.parse(b) as { messages: Array<{ content: string }> });
     expect(plan.messages[0].content.endsWith(`\n${symbolWording.planSystem}`)).toBe(true);
     expect(plan.messages[1].content).toContain(`- satan: Satan (shown only as its canon form: ${satan.text})`);
-    expect(bodies).toHaveLength(1);
+    expect(review.messages[1].content).toContain("- satan: Satan (hasForm: true)");
     const stored = await memory.store.getActiveRecord("plan", "court-1-1");
     expect(stored?.inputs).toContainEqual({ kind: "prompt", recordId: "depiction_symbol", version: depiction.symbolVersion });
     // A work without symbol wording refuses before any model call.

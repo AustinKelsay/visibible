@@ -1,20 +1,28 @@
 /**
- * Prepare a section guide and one scene plan, shared across styles and reader translations.
- * The model selects the scene and cast without a semantic review or feedback re-plan.
- * Structural failures get one retry; claims and the owner-funded ledger cover each call.
+ * Lazy text preparation for one moment (#171, spec #165 §5): the original section look guide (or binding owner constraints) and the scene plan with
+ * resolved moment conditions, shared by every art style and
+ * reader translation of a moment. Both are made with Claude Haiku 5.5 the first time they are
+ * needed, stored in the active analysis generation with the versions they were made from, and
+ * reused until an input changes. Preparation is forgiving: the plan review advises, depicted cast are
+ * selected for their canon, and a plan is kept with notes after one re-plan. A look or plan that
+ * still cannot be made (unreadable replies, or a no-form subject drawn as a body) raises a retryable
+ * error before any image call, which the request route returns as is. Wording that belongs to one work,
+ * including everything about subjects without form, comes from its depiction profile (ADR 0010). Concurrent
+ * misses take a claim so only one caller funds the call; the others wait for the record. Owner spend
+ * is recorded per call and no guest credit is touched.
  */
 import { z } from "zod";
 import type { TextModel } from "../reading-pass/model";
 import { parseModelJson } from "../reading-pass/model";
 import type { WorkBrief } from "../work-preparation";
 import { planningNeighbors } from "./scene-grounding";
+import { PLAN_REVIEW_PROMPT_VERSION, PLAN_SCENE_FIELDS, reviewPlan, type PlanReviewProblem } from "./plan-review";
 import type { SelectedCanon } from "./prompt";
 import { lookPolicy, type Situation } from "./situation";
 import { depictionModeOf, effectsWordingFor, readDepictionProfile, symbolWordingFor, type DepictionMode, type DepictionProfile, type EffectsWording, type SymbolWording } from "./depiction";
 
 export const LOOK_SYSTEM = `You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.
 Rules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments, and do not restate anyone's fixed appearance; canon does that. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.`;
-const PLAN_SCENE_FIELDS = ["primarySubject", "action", "setting", "secondaryElements", "mood", "timeOfDay", "composition"] as const;
 export const lookOutputSchema = z.object({ place: z.string(), timeOfDay: z.string(), weather: z.string(), light: z.string(), clothing: z.string() }).strict();
 /** Bump for changes to this no-form look contract or its cast format; only affected looks use it. */
 export const FORMLESS_LOOK_PROMPT_VERSION = "2026-10-27-formless-look-v2";
@@ -39,7 +47,7 @@ export function planSystem(depiction: DepictionProfile): string {
 - Each field is one or two short phrases.`;
 }
 /** All plans use the forgiving general contract; a change refreshes plans lazily, without remaking looks. */
-export const MOMENT_CAST_PROMPT_VERSION = "2026-10-30-moment-cast-v18-review-only";
+export const MOMENT_CAST_PROMPT_VERSION = "2026-10-28-moment-cast-v15";
 /** Bump for changes to the no-form planning addendum; only sections with no-form cast use it. */
 export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-28-formless-effects-v17";
 const formlessPlanSystem = (depiction: DepictionProfile, effects: EffectsWording) => `${planSystem(depiction)}\n${effects.planSystem}`;
@@ -121,7 +129,7 @@ export type PreparedMoment = {
   calls: number;
 };
 
-// A look and a plan each allow one malformed-reply retry.
+// A plan may take two plan replies and two reviews, each with one malformed-reply retry.
 const CLAIM_TTL_MS = 120_000;
 const WAIT_MS = 90_000;
 
@@ -196,6 +204,11 @@ async function askOnce<T>(model: TextModel, store: PreparationStore, kind: "look
   throw new PreparationUnavailableError(kind, lastError);
 }
 
+/** Appended to the planner request for the single re-plan; the problems come from code checks or the review. */
+function replanFeedback(problems: string[]) {
+  return `\n\nA PREVIOUS PLAN FOR THIS MOMENT WAS REJECTED. Write a new plan that fixes every problem below and keeps what was correct:\n${problems.map((p) => `- ${p}`).join("\n")}`;
+}
+
 export async function prepareMoment(options: {
   workId: string;
   momentId: string;
@@ -257,7 +270,7 @@ export async function prepareMoment(options: {
     ...(effects ? [{ kind: "prompt", recordId: "section_look_formless_presence", version: FORMLESS_LOOK_PROMPT_VERSION },
       { kind: "prompt", recordId: "depiction_look", version: depiction.lookVersion }] : [])];
   const existingLook = await store.getActiveRecord("look", sectionId);
-  // Owner/unknown looks stay literal even when other dependencies change.
+  // Owner/unknown looks stay literal even when other dependencies change. Review decides compatibility.
   const look = existingLook && lookPolicy(existingLook) === "literal-constraint-v1" ? existingLook : await ensureRecord(store, options.workId, "look", sectionId, lookInputs, async () => {
     // A no-form subject's canon is not given: the look must not describe it (ADR 0006).
     const castContext = hasFormlessCast
@@ -282,6 +295,7 @@ export async function prepareMoment(options: {
     { kind: "prompt", recordId: "scene_plan_look_ownership", version: policy },
     { kind: "brief", recordId: options.workId, version: options.briefVersion }, ...cast.map((c) => ({ kind: "entry", recordId: c.entryId, version: c.version })),
     { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION },
+    { kind: "prompt", recordId: "scene_plan_review", version: PLAN_REVIEW_PROMPT_VERSION },
     ...(hasFormlessCast ? [{ kind: "prompt", recordId: "scene_plan_formless_presence", version: FORMLESS_PLAN_PROMPT_VERSION }] : []),
     { kind: "prompt", recordId: "depiction_plan", version: depiction.planVersion },
     ...(symbol ? [{ kind: "prompt", recordId: "depiction_symbol", version: depiction.symbolVersion }] : [])];
@@ -291,17 +305,56 @@ export async function prepareMoment(options: {
     const castIds = cast.map((c) => c.entryId);
     const schema = planningResponseSchema(castIds, effects, depiction);
     const lookContext = `\n\n${policy === "generated-guide-v1" ? "SECTION LOOK GUIDE (a suggestion; keep what fits this moment)" : "OWNER LOOK CONSTRAINTS (copy all values exactly)"}:\n${JSON.stringify(lookPayload)}`;
+    const reviewCast = cast.map((c) => ({ entryId: c.entryId, name: c.name, hasForm: c.hasForm }));
     const trim = (text: string) => text.length <= PLAN_FIELD_MAX_CHARS ? text : `${text.slice(0, PLAN_FIELD_MAX_CHARS - 1).trimEnd()}…`;
-    const system = `${effects ? formlessPlanSystem(depiction, effects) : planSystem(depiction)}${symbol ? `\n${symbol.planSystem}` : ""}`;
-    const reply = await askOnce(model, store, "plan", options.momentId, schema, system, user + lookContext);
-    const selected = reply.selectedCast.filter((entry, index, all) => castIds.includes(entry.entryId) && all.findIndex((e) => e.entryId === entry.entryId) === index);
-    const fields = Object.fromEntries(PLAN_SCENE_FIELDS.map((field) => [field, trim(reply[field])])) as Record<(typeof PLAN_SCENE_FIELDS)[number], string>;
-    await assertLookCurrent();
-    return { kind: "plan" as const, momentId: options.momentId,
-      entries: selected.map(({ entryId }) => ({ entryId, stageId: cast.find((c) => c.entryId === entryId)!.stageId })), plan: fields,
-      grounding: { focusQuote: reply.focusQuote, instant: reply.instant, singleInstant: true,
-        cast: selected.map((entry) => ({ entryId: entry.entryId, momentQuote: entry.evidence, contextSource: "none" as const, contextQuote: "", participation: "in_scene" as const })) } };
-
+    // Forgiving preparation: the review advises rather than gates. A depicted but unselected cast entry is
+    // selected so it gets its canon; other problems get one re-plan, after which the plan is kept with notes.
+    // Only a no-form subject still drawn as a body after the re-plan stops preparation.
+    let feedback = "", firstProblems: PlanReviewProblem[] | undefined;
+    for (let round = 1; round <= 2; round++) {
+      const notes: string[] = [];
+      const system = `${effects ? formlessPlanSystem(depiction, effects) : planSystem(depiction)}${symbol ? `\n${symbol.planSystem}` : ""}`;
+      const reply = await askOnce(model, store, "plan", options.momentId, schema, system, user + lookContext + feedback);
+      const selected = reply.selectedCast.filter((entry, index, all) => castIds.includes(entry.entryId) && all.findIndex((e) => e.entryId === entry.entryId) === index);
+      const present = selected.map((entry) => entry.entryId);
+      const fields = Object.fromEntries(PLAN_SCENE_FIELDS.map((field) => [field, trim(reply[field])])) as Record<(typeof PLAN_SCENE_FIELDS)[number], string>;
+      // Only owner constraints are rendered as conditions; a generated guide was advisory and the plan carries its own.
+      const situation = policy === "literal-constraint-v1" ? { ...lookPayload } : undefined;
+      const review = await reviewPlan(model, (entry) => store.recordSpend({ kind: "plan", recordId: options.momentId, ...entry }), options.momentId,
+        { rules, depiction, context: options.context, sectionTitle: sectionPayload.title, cast: reviewCast, present, fields,
+          rendering: { look: situation, lookPolicy: policy, canon: present.map((id) => {
+            const entry = cast.find((c) => c.entryId === id)!;
+            return { entryId: id, stageId: entry.stageId, kind: entry.entryKind, name: entry.name, text: entry.text, hasForm: entry.hasForm, depiction: entry.mode, version: entry.version };
+          }) } });
+      let remaining: PlanReviewProblem[] = [];
+      if ("unavailable" in review) notes.push(review.unavailable);
+      else {
+        for (const problem of review.problems) {
+          if (problem.kind === "unselected_figure" && castIds.includes(problem.entryId) && !present.includes(problem.entryId)) {
+            present.push(problem.entryId);
+            notes.push(`selected ${problem.entryId}: depicted but not selected`);
+          }
+        }
+        // A re-plan cannot add missing canon or change owner text, so those are only noted.
+        remaining = review.problems.filter((p) => p.kind !== "unselected_figure" && p.kind !== "missing_canon" && !(p.kind === "look_conflict" && policy === "literal-constraint-v1"));
+        const noted = review.problems.filter((p) => p.kind === "missing_canon" || (p.kind === "look_conflict" && policy === "literal-constraint-v1"));
+        if (noted.length) notes.push(`noted: ${noted.map((p) => `${p.kind}: ${p.reason}`).join("; ")}`);
+      }
+      if (remaining.length && round === 1) {
+        firstProblems = remaining;
+        feedback = replanFeedback(remaining.map((p) => `${p.kind}: ${p.reason} (${p.kind === "look_conflict" ? "moment conditions" : "plan"} said: "${p.planQuote}")`));
+        continue;
+      }
+      const embodied = remaining.filter((p) => p.kind === "embodied_formless");
+      if (embodied.length) throw new PreparationUnavailableError("plan", `a subject without form is still drawn as a figure: ${embodied.map((p) => p.entryId).join(", ")}`);
+      if (remaining.length) notes.push(`kept with: ${remaining.map((p) => `${p.kind}${p.entryId ? ` ${p.entryId}` : ""}`).join(", ")}`);
+      await assertLookCurrent();
+      return { kind: "plan" as const, momentId: options.momentId, entries: present.map((id) => ({ entryId: id, stageId: cast.find((c) => c.entryId === id)!.stageId })), plan: fields,
+        grounding: { focusQuote: reply.focusQuote, instant: reply.instant, singleInstant: !remaining.some((p) => p.kind === "not_one_instant"),
+          cast: selected.map((entry) => ({ entryId: entry.entryId, momentQuote: entry.evidence, contextSource: "none" as const, contextQuote: "", participation: "in_scene" as const })) },
+        review: { rounds: round, ...(firstProblems ? { problems: firstProblems } : {}), ...(notes.length ? { notes } : {}) } };
+    }
+    throw new PreparationUnavailableError("plan", "plan review exhausted");
   }, timing);
 
   await assertLookCurrent();

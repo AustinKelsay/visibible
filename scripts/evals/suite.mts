@@ -44,7 +44,8 @@ import { listAnalysisRecords } from "@/lib/engine/analysis-records";
 import { depictionModeOf } from "@/lib/engine/depiction";
 import type { ReferenceRecord } from "@/lib/engine/assemble";
 import type { AnalysisRecord } from "@/lib/engine/preparation";
-import { FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION } from "@/lib/engine/preparation";
+import { FORMLESS_LOOK_PROMPT_VERSION, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION } from "@/lib/engine/preparation";
+import { PLAN_REVIEW_PROMPT_VERSION } from "@/lib/engine/plan-review";
 import { applicableRules, GENERIC_PROMPT_VERSION } from "@/lib/engine/prompt";
 import { SCENE_CHECK_VERSION } from "@/lib/engine/scene-check";
 import { createOpenRouterVisionChecker } from "@/lib/engine/reference-adapters";
@@ -71,15 +72,15 @@ const list = (value: string | undefined) => (value ?? "").split(",").map((s) => 
 const config = loadSuiteConfig(readJson(path.join(root, "evals/images/suite.json")));
 const faults = loadFaults(readJson(path.join(root, "evals/images/faults.json")));
 const allCases = loadEvalCases(readJson(path.join(root, "evals/images/cases.json")));
-const PIPELINE = { momentCast: MOMENT_CAST_PROMPT_VERSION, formlessPlan: FORMLESS_PLAN_PROMPT_VERSION,
-  review: "none", rendering: GENERIC_PROMPT_VERSION, sceneCheck: SCENE_CHECK_VERSION, textModel: READING_PASS_MODEL };
+const PIPELINE = { momentCast: MOMENT_CAST_PROMPT_VERSION, formlessPlan: FORMLESS_PLAN_PROMPT_VERSION, formlessLook: FORMLESS_LOOK_PROMPT_VERSION,
+  review: PLAN_REVIEW_PROMPT_VERSION, rendering: GENERIC_PROMPT_VERSION, sceneCheck: SCENE_CHECK_VERSION, textModel: READING_PASS_MODEL };
 /** Measured on the 28–29 October matrices: text calls, image calls (retries included) and check calls. */
 const ESTIMATE = { textCallUsd: 0.0005, textCallsPerCase: 3.5, imageUsd: 0.0342, retryShare: 0.15, checkUsd: 0.0003 };
 const RESERVE = { text: 0.005, image: 0.06, check: 0.002 };
 /** The eval key shares the production account's balance; a run must leave this much for readers. */
 const PRODUCTION_HEADROOM_USD = 5;
 /** Everything a paid run's result depends on, hashed into run-started.json and required to be committed. */
-const SHARED_SOURCES = ["src/lib/engine/preparation.ts", "src/lib/engine/assemble.ts", "src/lib/engine/situation.ts", "src/lib/engine/scene-grounding.ts",
+const SHARED_SOURCES = ["src/lib/engine/preparation.ts", "src/lib/engine/assemble.ts", "src/lib/engine/situation.ts", "src/lib/engine/scene-grounding.ts", "src/lib/engine/plan-review.ts",
   "src/lib/engine/prompt.ts", "src/lib/engine/scene-check.ts", "src/lib/engine/reference-adapters.ts", "src/lib/engine/work-inputs.ts", "src/lib/engine/depiction.ts",
   "src/lib/engine/memory-store.ts", "src/lib/reading-pass/model.ts", "src/lib/reading-pass/prompts.ts", "src/lib/image-response.ts", "src/lib/image-evals/adapters.ts",
   "src/lib/image-evals/suite.ts", "src/lib/image-evals/suite-run.ts", "src/lib/canon-showing.ts", "src/lib/work-preparation.ts", "convex/_helpers/contentVersion.ts",
@@ -321,8 +322,7 @@ async function run() {
     for (const row of ndjson(path.join(root, "llm/releases", p.from!, "results.ndjson"))) {
       if (row.outcome !== "planned") continue;
       const bucket = seeds.get(row.work) ?? new Map<string, AnalysisRecord>(); seeds.set(row.work, bucket);
-      for (const r of [row.records.look, row.records.plan] as Array<AnalysisRecord | null>) {
-        if (!r) continue;
+      for (const r of [row.records.look, row.records.plan] as AnalysisRecord[]) {
         const key = `${r.kind}:${r.recordId}`;
         if (bucket.has(key)) assert.equal(bucket.get(key)!.version, r.version, `${key}: the text run stored two versions`);
         else bucket.set(key, r);

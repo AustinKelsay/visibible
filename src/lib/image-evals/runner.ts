@@ -10,8 +10,8 @@ import { armsFor, caseUnitId, caseWork, type EvalArm, type EvalCase } from "./ca
 import { assembleForEval, genericStyleOf, type GenericEvalProvider } from "./generic";
 import { GENERIC_PROMPT_VERSION, type RenderingPacket } from "../engine/prompt";
 
-/** Reserve one plan and its possible malformed-reply retry; settle from actual usage. */
-export const COLD_PREPARATION_CALLS = 2;
+/** A cold generic moment makes a look, a plan and its review; a re-plan adds two calls, settled from actual usage. */
+export const COLD_PREPARATION_CALLS = 3;
 
 export interface EvalImageProvider {
   readonly id: string;
@@ -45,7 +45,7 @@ export type EvalSample = {
   engine: "legacy" | "generic";
   model: string;
   settings: { aspectRatio: string; resolution: string; translation: string; style: string };
-  /** Generic arms: the work and unit rendered, whether the plan already existed, the exact packet, and the quote against usage. */
+  /** Generic arms: the work and unit rendered, whether the look and plan already existed, the exact packet, and the quote against usage. */
   work?: string;
   unitId?: string;
   momentId?: string;
@@ -102,7 +102,7 @@ export type RunImageEvalOptions = {
   repeats: number;
   budgetUsd: number;
   /** What one call is assumed to cost before usage is known, and what a missing usage is charged as. */
-  estimateUsd: { image: number; /** One plan call; charged when a sample has to prepare. */ preparation?: number };
+  estimateUsd: { image: number; /** One look or plan call; charged when a sample has to prepare. */ preparation?: number };
   dryRun?: boolean;
   /** An evaluation control; production callers retain normal reference selection. */
   omitStyleReference?: boolean;
@@ -216,7 +216,7 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
     }
     sample.preparationCalls = assembly.preparationCalls; sample.preparationCostUsd = assembly.preparationCostUsd; sample.preparationUsageMissing = assembly.preparationUsageMissing;
     if (!assembly.result.ok) { await finish({ status: "failed", stage: "assemble", error: `${assembly.result.reason}: ${assembly.result.message}` }); continue; }
-    // Only an assembled sample is classified: prepared when its plan already existed, cold when it had to make one.
+    // Only an assembled sample is classified: prepared when its look and plan already existed, cold when it had to make them.
     sample.prepared = assembly.preparationCalls === 0;
     const assembled = assembly.result;
     sample.momentId = assembled.momentId; sample.prompt = assembled.prompt; sample.promptChars = assembled.prompt.length; sample.packet = assembled.packet; sample.referencesSent = assembled.sentReferences.length;

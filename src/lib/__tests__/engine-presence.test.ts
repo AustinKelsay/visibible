@@ -1,12 +1,13 @@
 /** No-form presence through real analysis storage, lazy planning and rendering assembly; no providers. */
-import { withPlanningReply } from "../../../tests/fixtures/planning-model";
+import { withCleanReview } from "../../../tests/fixtures/plan-review";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { convexTest } from "convex-test";
 import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { assembleRendering } from "../engine/assemble";
-import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION, planSystem } from "../engine/preparation";
+import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION, LOOK_SYSTEM, lookOutputSchema, planSystem } from "../engine/preparation";
+import { PLAN_REVIEW_PROMPT_VERSION } from "../engine/plan-review";
 import type { WorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { responseSchema } from "../reading-pass/prompts";
@@ -65,7 +66,7 @@ describe("no-form presence selection", () => {
     const store = createConvexPreparationStore(client, api.analysis as unknown as Record<string, unknown>, WORK, SECRET);
     const calls: TextModelRequest[] = [];
     let planAttempt = 0;
-    const model: TextModel = withPlanningReply({ id: "scripted", async complete(request) {
+    const model: TextModel = withCleanReview({ id: "scripted", async complete(request) {
       calls.push(request);
       const alone = request.user.includes("MOMENT (The Court 2)");
       const value = request.schemaName === "section_look" ? lookAnswer : planReplies?.[planAttempt++] ?? {
@@ -101,7 +102,7 @@ describe("no-form presence selection", () => {
       expect(result.references.some((r) => r.kind === "sheet" && r.entryId !== "watcher")).toBe(false);
     }
     expect(new Set(versions).size).toBe(1);
-    expect(calls).toHaveLength(1);
+    expect(calls).toHaveLength(2);
     const plan = calls.find((r) => r.schemaName === "scene_plan")!;
     expect(plan.user).toContain("- watcher: The watcher (hasForm: true)");
     expect(plan.user).toContain("- voice: The voice (hasForm: false)");
@@ -153,7 +154,7 @@ describe("no-form presence selection", () => {
     const { t, calls, render } = await setup(true, { planReplies: [{ present: ["watcher", "voice"], ...fields, action: "x".repeat(1000), mood: "y".repeat(300) }] });
     const result = await render();
     if (!result.ok) throw new Error(result.message);
-    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan"]);
+    expect(calls.map((r) => r.schemaName)).toEqual(["section_look", "scene_plan"]);
     const stored = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
     if (stored?.payload.kind !== "plan") throw new Error("No prepared plan");
     expect(stored.payload.plan.action).toBe(`${"x".repeat(399)}…`);
@@ -167,12 +168,12 @@ describe("no-form presence selection", () => {
     const { t, calls, render, getReference } = await setup(true, { planReplies: [invalid, invalid] });
     const result = await render();
     expect(result).toMatchObject({ ok: false, reason: "preparation", stage: "plan", retryable: true });
-    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "scene_plan"]);
+    expect(calls.map((r) => r.schemaName)).toEqual(["section_look", "scene_plan", "scene_plan"]);
     expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" })).toBeNull();
     expect(getReference).not.toHaveBeenCalled();
     const spend = await t.query(api.analysis.getPreparationSpend, { workId: WORK });
-    expect(spend.calls).toBe(2);
-    expect(await t.run(async (ctx) => (await ctx.db.query("preparationLedger").collect()).map((entry) => entry.outcome))).toEqual(["invalid", "invalid"]);
+    expect(spend.calls).toBe(3);
+    expect(await t.run(async (ctx) => (await ctx.db.query("preparationLedger").collect()).map((entry) => entry.outcome))).toEqual(["ok", "invalid", "invalid"]);
   });
 
   it("stores a valid second reply and reuses it across styles without another look or plan call", async () => {
@@ -180,9 +181,9 @@ describe("no-form presence selection", () => {
     const { t, calls, render } = await setup(true, { planReplies: [{ ...valid, present: ["unknown_entry"] }, valid] });
     const first = await render();
     if (!first.ok) throw new Error(first.message);
-    expect(first.prepared.calls).toBe(2); // malformed reply and its valid retry
+    expect(first.prepared.calls).toBe(4); // look, invalid plan, valid plan and its review
     expect(first.prepared.plan.payload).toEqual(valid);
-    expect(await t.run(async (ctx) => (await ctx.db.query("preparationLedger").collect()).map((entry) => entry.outcome))).toEqual(["invalid", "ok"]);
+    expect(await t.run(async (ctx) => (await ctx.db.query("preparationLedger").collect()).map((entry) => entry.outcome))).toEqual(["ok", "invalid", "ok", "review ok"]);
     calls.length = 0;
     const second = await render("court-1", "watercolor");
     if (!second.ok) throw new Error(second.message);
@@ -197,16 +198,16 @@ describe("no-form presence selection", () => {
     expect(first.ok && alone.ok).toBe(true);
     if (!first.ok || !alone.ok) throw new Error("Assembly failed");
     expect(alone.packet.lookVersion).toBe(first.packet.lookVersion);
-    expect(alone.prepared.calls).toBe(1); // one plan
+    expect(alone.prepared.calls).toBe(2); // plan and review
     expect(alone.packet.canon.map((c) => c.entryId)).toEqual(["watcher"]);
     expect(alone.prompt).not.toContain("UNSEEN PRESENCE");
     // A formed-only scene keeps its source text.
     expect(alone.prompt).toContain(work.getUnit("court-2").text);
     expect(first.prompt).not.toContain(work.getUnit("court-1").text);
-    expect(calls[1].user).toContain("- voice: The voice (hasForm: false)"); // Section context does not force moment presence.
-    expect(calls[1].user).not.toContain(voiceCanon);
+    expect(calls[2].user).toContain("- voice: The voice (hasForm: false)"); // Section context does not force moment presence.
+    expect(calls[2].user).not.toContain(voiceCanon);
     expect(alone.prompt).not.toContain(voiceCanon);
-    expect(calls).toHaveLength(2);
+    expect(calls).toHaveLength(3);
   });
 
   it("refuses a removed section-assigned canon stage without a model call or references", async () => {
@@ -240,7 +241,7 @@ describe("no-form presence selection", () => {
     expect(result.prompt).toContain("UNSEEN PRESENCE (binding)");
     // Code never rewrites the reply. The scripted review reports no problems; a real review is a
     // separate model judgment measured in evaluation, and live compliance remains a gate.
-    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(1);
+    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(3);
   });
 
   it.each(["missing", "older", "2026-10-21-formless-presence-v1", "2026-10-21-formless-presence-v2", "2026-10-21-formless-presence-v3", "2026-10-22-formless-placement-v4"])("refreshes a cached no-form plan when the prompt version is %s and preserves its history", async (version) => {
@@ -314,15 +315,18 @@ describe("no-form presence selection", () => {
     const first = await render();
     if (!first.ok) throw new Error(first.message);
     const plan = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
-    expect(plan?.inputs.filter((i) => i.kind === "prompt")).toEqual([{ kind: "prompt", recordId: "scene_plan_look_ownership", version: "no-owner-look-v1" }, { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION }, { kind: "prompt", recordId: "depiction_plan", version: testDepiction(WORK).planVersion }]);
+    expect(plan?.inputs.filter((i) => i.kind === "prompt")).toEqual([{ kind: "prompt", recordId: "scene_plan_look_ownership", version: "generated-guide-v1" }, { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION }, { kind: "prompt", recordId: "scene_plan_review", version: PLAN_REVIEW_PROMPT_VERSION }, { kind: "prompt", recordId: "depiction_plan", version: testDepiction(WORK).planVersion }]);
     const look = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "court-1" });
-    expect(look).toBeNull();
-    expect(calls[0].system).toBe(PLAN_SYSTEM);
-    expect(calls[0].schema.safeParse({ missingCast: [], present: ["unknown_entry"], ...fields }).success).toBe(false);
+    expect(look?.inputs.some((i) => i.kind === "prompt")).toBe(false);
+    expect(calls[0].system).toBe(LOOK_SYSTEM);
+    expect(calls[0].schema).toBe(lookOutputSchema);
+    expect(calls[0].user).toBe(`WORK BRIEF\nTone: Quiet.\nDepiction rules:\n- The voice has no body; show its presence only as light.\nEra: Ancient court. People: Courtiers. Dress: Tunics. Buildings and objects: Stone throne.\n\nSTORY SECTION: The court\nON STAGE: The watcher\nTEXT OF THE SECTION'S FIRST MOMENT (the look covers the whole section):\n${work.getUnit("court-1").text}`);
+    expect(calls[1].system).toBe(PLAN_SYSTEM);
+    expect(calls[1].schema.safeParse({ missingCast: [], present: ["unknown_entry"], ...fields }).success).toBe(false);
     expect(first.prepared.plan.payload.present).toEqual(["watcher"]);
-    expect(calls[0].user).toContain("- watcher: The watcher");
-    expect(calls[0].user).not.toContain("hasForm:");
-    expect(calls[0].user).not.toContain("NO-FORM CANON CONSTRAINTS");
+    expect(calls[1].user).toContain("- watcher: The watcher");
+    expect(calls[1].user).not.toContain("hasForm:");
+    expect(calls[1].user).not.toContain("NO-FORM CANON CONSTRAINTS");
     calls.length = 0;
     const again = await render();
     if (!again.ok) throw new Error(again.message);

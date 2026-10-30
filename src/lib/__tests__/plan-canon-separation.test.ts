@@ -1,10 +1,9 @@
 /** Retained live failure through ordinary planning; scripted replay is not model-obedience evidence. */
-import { withPlanningReply } from "../../../tests/fixtures/planning-model";
+import { withCleanReview } from "../../../tests/fixtures/plan-review";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
-const FORMLESS_LOOK_PROMPT_VERSION = "2026-10-27-formless-look-v2";
-import { prepareMoment, type AnalysisRecord, type PreparationStore } from "../engine/preparation";
+import { FORMLESS_LOOK_PROMPT_VERSION, prepareMoment, type AnalysisRecord, type PreparationStore } from "../engine/preparation";
 import { assembleRendering, type AssembleDeps } from "../engine/assemble";
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
@@ -47,7 +46,7 @@ async function plan(content = retainedContent, showing?: unknown) {
     getActiveRecord: async (kind, id) => records.find((r) => r.kind === kind && r.recordId === id) ?? null,
     putDerivedRecord: write, claim: async () => ({ held: true }), release: async () => {}, recordSpend: spend,
   };
-  const model: TextModel = withPlanningReply({ id: "scripted", complete: async (request) => {
+  const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
     requests.push(request);
     const answer = request.schemaName === "section_look" ? JSON.stringify({ place: frozenLook.place, timeOfDay: frozenLook.timeOfDay,
       weather: frozenLook.weather, light: frozenLook.light, clothing: frozenLook.clothing }) : JSON.stringify(withGrounding({ ...JSON.parse(content), missingCast: [] }, input.context.moment.text));
@@ -71,14 +70,14 @@ describe("no-form plan and canon separation", () => {
     expect(request.user).toContain(input.context.moment.text);
     expect(request.user).toContain(input.records.find((record: AnalysisRecord) => record.kind === "look").payload.clothing);
     expect(request.user).toContain("OWNER LOOK CONSTRAINTS");
-    expect(result.look?.version).toBe(input.overlay.frozenLookVersion);
+    expect(result.look.version).toBe(input.overlay.frozenLookVersion);
     // Since formless-effects v14 no-form canon never reaches planning; the addendum asks only for the text's effects in plain words.
     expect(request.user).not.toContain(canon.stages[0].text);
     expect(request.user).not.toContain("NO-FORM CANON CONSTRAINTS");
     expect(request.system).toContain("describe in your own plain words only the physical effects the text names");
     // Moment-cast v12: no separate conditions reply; the scene fields carry place and time, and owner constraints stay binding.
     expect(request.system).toContain("The scene fields carry this moment's place, time, light and situational clothing.");
-    expect(request.system).toContain("OWNER LOOK CONSTRAINTS, when given, are binding: keep the setting and time of day consistent with them.");
+    expect(request.system).toContain("OWNER LOOK CONSTRAINTS, when given instead, are binding: keep the setting and time of day consistent with them.");
     expect(request.system).toContain("Never name it or call it seated, standing, enthroned or riding, and leave out its throne, seat, chariot, robe, train or hem");
     expect(input.request.system).not.toContain("effect names for placement");
     const serialized = responseSchema(request.schema);
@@ -100,7 +99,7 @@ describe("no-form plan and canon separation", () => {
     expect(result.plan.payload.secondaryElements).toContain("brilliant white light");
     expect(result.present.map((p) => p.entryId)).toEqual(retainedPlan.present);
     expect(write.mock.calls.filter(([args]) => args.kind === "plan")).toHaveLength(1);
-    expect(spend.mock.calls.filter(([args]) => args.kind === "plan").map(([args]) => args.outcome)).toEqual(["ok"]);
+    expect(spend.mock.calls.filter(([args]) => args.kind === "plan").map(([args]) => args.outcome)).toEqual(["ok", "review ok"]);
     expect(spend).toHaveBeenCalledWith(expect.objectContaining({ outcome: "ok", costUsd: 0 }));
   });
 
@@ -109,7 +108,7 @@ describe("no-form plan and canon separation", () => {
     const { result, requests, write, render, getReference } = await plan(JSON.stringify(situational), canon.stages[0].showing);
     expect(requests.map((r) => r.schemaName)).toEqual(["scene_plan"]);
     expect(write).toHaveBeenCalledTimes(1); // Canon metadata refreshes the plan while the literal owner look survives.
-    expect(result.look?.payload).toEqual(Object.fromEntries(["place", "timeOfDay", "weather", "light", "clothing"].map((key) =>
+    expect(result.look.payload).toEqual(Object.fromEntries(["place", "timeOfDay", "weather", "light", "clothing"].map((key) =>
       [key, input.records.find((r: AnalysisRecord) => r.kind === "look").payload[key]])));
     const request = requests[0];
     expect(request.user).not.toContain("effect names for placement");

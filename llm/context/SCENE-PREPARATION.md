@@ -1,48 +1,54 @@
 # Scene preparation
 
-[Preparation](../../src/lib/engine/preparation.ts) makes one style-neutral scene plan for a moment, stores it in the work’s active analysis generation, and reuses it until its inputs change. The model chooses the scene and visible cast in one call. There is no generated section look, semantic review, cast repair, or feedback re-plan. A malformed reply receives one retry.
+[Preparation](../../src/lib/engine/preparation.ts) creates a shared section guide and a scene plan for each moment, then stores them in the work's active analysis generation. The current pipeline retains its advisory plan review. The October 30 subtraction experiments failed the existing quality gates; they are evidence, not active alternatives.
 
-The source, the work’s interpretation, recurring visual identity, and rendering treatment remain separate:
+## Separate responsibilities
 
-- Imported reference text supplies the moment and its same-section neighbours.
-- The work brief supplies tone, era and depiction rules. Work-specific instructions live in the [depiction profile](WORK-PREPARATION.md#depiction-profile), not Bible branches in the engine.
-- Canon and reference sheets preserve recurring designs across moments, keyed by work, entry and life stage.
-- Art style supplies rendering treatment. Image model, aspect ratio and resolution are rendering settings; none is a plan or canon identity.
+- **Source:** the work adapter supplies reference text, the focal moment and same-section neighbours. It owns navigation and source identity.
+- **Interpretation:** the work brief supplies tone, era and depiction rules. The [depiction profile](WORK-PREPARATION.md#depiction-profile) holds work-specific wording and supported depiction modes. Bible rules belong in Bible data.
+- **Recurring appearance:** model-authored canon and reference sheets identify characters, places and objects by work, entry and life stage. They preserve designs across sections and do not learn from previously generated images.
+- **Art style:** shared rendering treatment stays separate from the source, brief and cast. A deliberate change of setting or interpretation belongs in work data, not a surface style.
+- **Rendering settings:** image model, resolution and aspect ratio affect the image request, not canon or plan identity. Reader translation is request context; planning uses the work's reference text.
 
-## Planning contract
+These boundaries let the same engine illustrate the Bible, Holmes and Alice. They do not guarantee identical faces across models or styles. The [evaluation suite](../workflow/IMAGE_EVAL_AND_RELEASE.md) measures source fidelity and visual consistency separately.
 
-The configured [text model](../../src/lib/reading-pass/model.ts) receives the brief, section title, moment text, same-section neighbours, section cast and any owner-authored constraints. Neighbour excerpts are bounded to 400 characters. The model is asked to choose one representative instant, select only cast visible in it, leave fixed appearance to canon, and describe pose, action and situational details without an art style. Unnamed people and crowds may appear without canon when the source requires them.
+## Guide, plan and review
 
-The strict provider reply contains `focusQuote`, `instant`, `selectedCast: [{ entryId, evidence }]`, and seven scene fields: `primarySubject`, `action`, `setting`, `secondaryElements`, `mood`, `timeOfDay`, and `composition`.
+A **section look** holds place, time, weather, light and situational clothing. A generated look is a suggestion to the planner and is never rendered verbatim. An owner-authored look, or a historical look with unknown provenance, is a literal constraint: rendering uses all five values from the saved record. Generated preparation never replaces an owner look.
 
-Code checks structure and section cast IDs, drops duplicate IDs, and trims scene fields over 400 characters with an ellipsis. It does not extract source facts, judge the evidence, or reinterpret the cast. An unknown ID or malformed reply is retried once; two invalid replies stop preparation. These checks establish a usable contract, not semantic accuracy. The [evaluation suite](../workflow/IMAGE_EVAL_AND_RELEASE.md) measures that separately.
+The **moment planner** receives the brief, section title, moment text, neighbours bounded to 400 characters each, section cast and the look. It chooses one representative instant and the visible cast. Unnamed roles and crowds can appear without canon. Fixed designs come from canon; pose, action and changing conditions come from the plan.
 
-## Owner constraints and no-form subjects
+The strict reply has `focusQuote`, `instant`, `selectedCast: [{ entryId, evidence }]`, and seven fields: `primarySubject`, `action`, `setting`, `secondaryElements`, `mood`, `timeOfDay`, `composition`. Code checks structure and cast IDs, drops duplicate IDs, and trims scene fields over 400 characters. Evidence is retained for audit, not verified as fact. A malformed reply gets one retry.
 
-Generated section looks are ignored, including their revisions. Historical records remain readable. They enter neither the planning prompt nor the plan’s dependencies or image provenance.
+The **semantic review** sees the source, plan, selected canon and any literal owner constraints. It reports quoted problems; code checks the report's citations and IDs. Its actions are bounded:
 
-Owner looks and historical looks with unknown provenance remain literal constraints. The planner receives their place, time, weather, light and clothing; rendering uses those values verbatim. `lookVersion` exists in the packet only when constraints were selected. Adding, removing, editing or changing ownership of constraints invalidates the plan.
+- A depicted section-cast entry omitted from selection is added so it receives canon.
+- Missing canon and conflicts with owner constraints are noted; re-planning cannot create canon or rewrite owner text.
+- Other clear problems trigger one feedback re-plan. Remaining problems are kept as notes, except a still-embodied effects-mode subject, which stops preparation.
+- An unavailable review keeps the plan with an explanatory note.
 
-A work’s depiction profile supplies its rules for subjects without form. Effects-mode entries provide no canon description to the planner and no canon prose or reference sheet to rendering; their selected identity activates the work’s effects instructions. Symbol-mode entries use their declared canon form. A work without a configured effects mode cannot prepare a section containing an effects-mode entry. These are work data and structural requirements, not a new semantic reviewer. The finished-image check remains in place.
+This is advisory model judgment, not a source-fact database or a guarantee of correctness. The [review module](../../src/lib/engine/plan-review.ts) defines its problem types and validation; [ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md) explains why most problems no longer refuse an image.
 
-## Persistence and invalidation
+## Depiction modes
 
-The stored plan contains selected `{ entryId, stageId }` entries, the seven scene fields, and the model’s source/instant audit. `grounding.singleInstant: true` records the requested model contract, not an independently verified claim. Historical `review` metadata remains readable; new plans do not write it.
+A work's profile defines how its cast may be shown. Effects-mode entries provide no canon prose to the guide or planner and no canon prose or sheet to rendering; selection activates the work's effects instructions. The reviewer still sees their canon. Symbol-mode entries use their declared canon form. A work without wording for a mode cannot prepare an entry in that mode. These contracts are work data, not Bible branches in the engine; see [ADR 0010](../../docs/adr/0010-work-depiction-profiles.md).
 
-Plan dependencies are the moment, section, brief, section cast canon, selected owner constraints (or the `no-owner-look-v1` marker), and the applicable planning/depiction prompt versions. A version change refreshes a plan lazily. Styles, reader translations, image models and output dimensions do not invalidate analysis. Images and admitted generation requests retain the exact packet and versions they used.
+## Persistence and requests
 
-Before publication, preparation rechecks owner constraints. The Convex mutation also checks their presence/version transactionally, including an owner constraint created after the final application read. Assembly rechecks section assignments and selected canon before loading references. Missing canon or an unavailable assigned stage stops preparation rather than substituting a different stage.
+A look depends on its section, brief and section-cast versions, plus applicable depiction instructions. A plan depends on the moment, section, look version and ownership policy, brief, cast versions, and planning/review/depiction prompt versions. Changes refresh affected preparation lazily. Styles and reader translations do not invalidate it.
 
-## Concurrency, spend and failures
+Stored plans hold selected entries and stages, scene fields, source/instant audit data, and review rounds/problems/notes. Generated images and admitted requests retain their exact packet and provenance. An existing request replays its accepted inputs rather than selecting newer versions.
 
-Concurrent requests share an in-process promise and a durable preparation claim across instances. The existing 120-second claim and 90-second bounded wait remain. Every model attempt is recorded as owner preparation spend; guests pay only for admitted image generation. Failed preparation precedes image reservation and provider work.
+Preparation rechecks the look's version and ownership before publication; the Convex mutation validates dependencies transactionally. Assembly checks section assignments and selected canon before loading references. Missing canon or an unavailable assigned stage stops preparation rather than substituting a different stage.
 
-Unreadable replies, unavailable required inputs, stale dependencies and an unresolved concurrent preparation return a retryable error. There is no legacy fallback. Prompt overflow is rejected before image spend. Clearing a plan requests fresh preparation without altering saved images. [Image generation](IMAGE-GENERATION.md#generic-generation-path) describes admission, immutable request replay, settlement and the finished-image check.
+Concurrent requests share an in-process promise and a durable claim. Claims last 120 seconds; other callers wait up to 90 seconds. Every guide, planning, review and retry attempt is recorded as owner preparation spend. Guest image charging remains in the generation route.
+
+Unavailable or malformed required preparation returns retryable `503 Preparing scene` before image admission and spend. Prompt overflow returns non-retryable `503 Scene unavailable`. There is no legacy fallback. Clearing a plan affects future preparation, not saved images. See [Image generation](IMAGE-GENERATION.md#generic-generation-path) for admission, immutable replay, settlement and finished-image checks.
 
 ## Evidence and history
 
-[Preparation tests](../../src/lib/__tests__/preparation.test.ts) exercise structural normalization, shared reuse, owner spending and concurrent publication through the real Convex validator. [Presence tests](../../src/lib/__tests__/engine-presence.test.ts) cover cast IDs and no-form delivery; [owner-constraint tests](../../src/lib/__tests__/moment-situation.test.ts) cover provenance and ownership races. Golden requests cover the Bible, Holmes and Alice. Scripted providers establish mechanics; they do not establish image quality.
+[Preparation tests](../../src/lib/__tests__/preparation.test.ts), [review tests](../../src/lib/__tests__/plan-review.test.ts), [presence tests](../../src/lib/__tests__/engine-presence.test.ts) and [owner-constraint tests](../../src/lib/__tests__/moment-situation.test.ts) cover mechanics. Golden requests pin the Bible, Holmes and Alice. Scripted providers do not establish visual quality.
 
-The subtraction experiment compares [no generated looks](../releases/2026-10-30-no-generated-looks-text/README.md) and [no looks or semantic review](../releases/2026-10-30-no-plan-review-text/README.md), followed by [image and consistency evaluation](../releases/2026-10-30-no-plan-review-image/README.md). The first arm failed its text gate; the second passed. Image release approval is recorded in the image run and [release status](../releases/STATUS.md), not inferred from unit tests.
+The October 30 pass measured three removals without tuning prompts or relaxing gates: [generated guides alone](../releases/2026-10-30-no-generated-looks-text/README.md) failed text fidelity; [guides plus review](../releases/2026-10-30-no-plan-review-image/README.md) failed image quality and Bible setting consistency; [review alone](../releases/2026-10-30-review-only-text/README.md) failed text fidelity. The existing pipeline remains. These single-run model-scored results do not prove that every retained layer is necessary; they do prevent claiming these removals preserve quality.
 
-Earlier decisions and evidence remain in [ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md), [ADR 0005](../../docs/adr/0005-one-scene-description-unnamed-presence.md), [ADR 0006](../../docs/adr/0006-unseen-presence-speakers-and-launch-bar.md) and [ADR 0009](../../docs/adr/0009-reference-priority-over-a-shared-place.md). The historical review and generated-look contracts are not active runtime paths.
+Earlier design decisions remain in [ADR 0005](../../docs/adr/0005-one-scene-description-unnamed-presence.md), [ADR 0006](../../docs/adr/0006-unseen-presence-speakers-and-launch-bar.md) and [ADR 0009](../../docs/adr/0009-reference-priority-over-a-shared-place.md). The [release status](../releases/STATUS.md) records deployments and current gates.
