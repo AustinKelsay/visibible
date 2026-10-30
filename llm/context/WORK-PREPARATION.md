@@ -37,7 +37,7 @@ Section-to-era assignments are analysis output and are rejected as extra fields 
 
 ## Depiction profile
 
-`works/<work-id>/depiction.json` holds the wording the engine's image instructions and checks need that belongs to one work rather than to the engine ([ADR 0009](../../docs/adr/0009-work-depiction-profiles.md); [depiction.ts](../../src/lib/engine/depiction.ts)). It sits beside the brief but is not part of it: it is deployed with the build, versioned by content, never registered with the analysis, and changing it needs no brief amendment.
+`works/<work-id>/depiction.json` holds the wording the engine's image instructions and checks need that belongs to one work rather than to the engine ([ADR 0010](../../docs/adr/0010-work-depiction-profiles.md); [depiction.ts](../../src/lib/engine/depiction.ts)). It sits beside the brief but is not part of it: it is deployed with the build, versioned by content, never registered with the analysis, and changing it needs no brief amendment.
 
 ```text
 schemaVersion: 1

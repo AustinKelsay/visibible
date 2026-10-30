@@ -1,5 +1,5 @@
 /**
- * Depiction profiles (ADR 0009): each work supplies its own wording to the engine's prompts and checks, so a work
+ * Depiction profiles (ADR 0010): each work supplies its own wording to the engine's prompts and checks, so a work
  * without the Bible's subjects never receives the Bible's wording. Holmes runs through the real assembly with its
  * real work, brief and profile; the Bible's own requests are pinned byte for byte in bible-engine-golden.test.ts.
  */

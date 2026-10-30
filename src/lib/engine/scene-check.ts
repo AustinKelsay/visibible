@@ -2,7 +2,7 @@
  * A look-check of one finished scene image before it is shown (ADR 0007). Two cheap vision calls, run in parallel,
  * look for visible faults: an unpainted edge, a painted frame, lettering and, in a work with subjects without form,
  * a figure in light, cloud or fire (such a subject drawn as a person). The work's depiction profile words that fault
- * and names its typical inscriptions; a work without such subjects is never asked about them (ADR 0009). Code, not
+ * and names its typical inscriptions; a work without such subjects is never asked about them (ADR 0010). Code, not
  * the model, decides which faults count and which of two attempts to show. A checker failure never blocks an image.
  *
  * Each question is used for the faults it measured best on the dev set (llm/releases/2026-10-27-scene-check-benchmark):

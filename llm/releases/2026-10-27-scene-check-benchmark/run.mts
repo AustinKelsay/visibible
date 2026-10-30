@@ -8,7 +8,7 @@ import { SCENE_CHECK_VERSION, edgeCheckQuestion, edgeCheckSchema, figureCheckQue
 import { extractOpenRouterUsageUsd } from "../../../src/lib/image-response";
 import { dir, hash, items, json, readEnvironment, root } from "./common.mjs";
 import { readDepictionProfile } from "../../../src/lib/engine/depiction";
-// The Bible's depiction profile reproduces the wording these runs used (ADR 0009).
+// The Bible's depiction profile reproduces the wording these runs used (ADR 0010).
 const depiction = readDepictionProfile("bible-web");
 
 const [flag, runName] = process.argv.slice(2);

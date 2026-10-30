@@ -14,7 +14,7 @@ Updated 29 October 2026. Canonical release ticket: [#183](https://github.com/Aus
 
 **Fresco launch (28 October, 20:31 UTC):** release #298 (`af2b4d3`) deployed `dpl_E4Vg2JmUhXkUjXqbVGoSxxS93LUn`. One second after the alias moved, `works:amend-brief-styles` moved production's registered and active brief from `1f5f38a7…` to `35c6e9a0…`, and the work stayed ready. `/api/image-models` reports Classical, Watercolor and Fresco available and Icon unavailable. [Launch record](2026-10-28-fresco-launch/deployment.json).
 
-**Depiction profiles (on `dev` since 30 October, ships with the next release; [ADR 0009](../../docs/adr/0009-work-depiction-profiles.md)):**
+**Depiction profiles (on `dev` since 30 October, ships with the next release; [ADR 0010](../../docs/adr/0010-work-depiction-profiles.md)):**
 
 - **What moved.** The Bible's wording left the shared engine for `works/bible-web/depiction.json`. Holmes has its own profile with no subjects without form.
 - **No image change, no evaluation.** Every Bible request is byte-for-byte unchanged, pinned by a golden test.

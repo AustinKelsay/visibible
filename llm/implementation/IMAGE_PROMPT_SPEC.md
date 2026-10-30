@@ -20,7 +20,7 @@ Moment planning contract `2026-10-23-moment-cast-v6` adds source-grounding audit
 
 Blocks, in order (generic-v15, unchanged since v14): engine rules with the precedence line (rules, then brief, then canon, then style, then plan); the moment's reference and text; the brief's prompt form for the moment's era with only the depiction rules that apply to the style (unconditional ones and those naming it); the selected-character roster; the unseen-presence line for selected no-form subjects; the selected canon of entries with form, with a line reserving that look for them; owner look constraints verbatim, only when the section look is owner-written (a generated look is advisory and not rendered; the plan's setting and time carry those details); the scene plan; the art style's rendering and negatives plus its detail lines; the captions of the reference images; neighbour hints; the variation note; scene presentation and aspect ratio.
 
-**Work wording ([ADR 0009](../../docs/adr/0009-work-depiction-profiles.md)).** The engine's wording is general. The work's [depiction profile](../context/WORK-PREPARATION.md#depiction-profile) supplies the rest:
+**Work wording ([ADR 0010](../../docs/adr/0010-work-depiction-profiles.md)).** The engine's wording is general. The work's [depiction profile](../context/WORK-PREPARATION.md#depiction-profile) supplies the rest:
 
 - where its writing appears, in the first rule;
 - any serious subjects beyond battles, blood and death, in the content rule;

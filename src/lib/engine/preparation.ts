@@ -7,7 +7,7 @@
  * selected for their canon, and a plan is kept with notes after one re-plan. A look or plan that
  * still cannot be made (unreadable replies, or a no-form subject drawn as a body) raises a retryable
  * error before any image call, which the request route returns as is. Wording that belongs to one work,
- * including everything about subjects without form, comes from its depiction profile (ADR 0009). Concurrent
+ * including everything about subjects without form, comes from its depiction profile (ADR 0010). Concurrent
  * misses take a claim so only one caller funds the call; the others wait for the record. Owner spend
  * is recorded per call and no guest credit is touched.
  */
@@ -27,7 +27,7 @@ export const lookOutputSchema = z.object({ place: z.string(), timeOfDay: z.strin
 /** Bump for changes to this no-form look contract or its cast format; only affected looks use it. */
 export const FORMLESS_LOOK_PROMPT_VERSION = "2026-10-27-formless-look-v2";
 // Since v2 the look gets no canon text for a no-form subject: a look or plan that never sees "veiled light… throne-light"
-// cannot copy it back into the image prompt (ADR 0006). The work's depiction profile words the contract (ADR 0009).
+// cannot copy it back into the image prompt (ADR 0006). The work's depiction profile words the contract (ADR 0010).
 const formlessLookSystem = (effects: EffectsWording) => `${LOOK_SYSTEM}\n${effects.lookSystem}`;
 function formlessLookOutputSchema(effects: EffectsWording) {
   // As with plans, enforce length locally without emitting Anthropic's unsupported maxLength.

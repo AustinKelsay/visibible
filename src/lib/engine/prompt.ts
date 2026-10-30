@@ -47,7 +47,7 @@ export type RenderingInput = {
   omitStyleReference?: boolean;
   variationNumber?: number | null;
   aspectRatio: "16:9" | "21:9" | "3:2";
-  /** The work's own wording for the rules and for subjects without form (ADR 0009); read from the checkout when omitted. */
+  /** The work's own wording for the rules and for subjects without form (ADR 0010); read from the checkout when omitted. */
   depiction?: DepictionProfile;
 };
 
@@ -79,7 +79,7 @@ const listed = (items: readonly string[], last = "and") => items.length < 2 ? it
 
 /**
  * Short, general rules: every word here is repeated in every image prompt. The work names where its writing
- * appears, any serious subjects beyond the engine's floor, and its rule for subjects without form (ADR 0009).
+ * appears, any serious subjects beyond the engine's floor, and its rule for subjects without form (ADR 0010).
  */
 export function engineRules(depiction: DepictionProfile): string[] {
   return [

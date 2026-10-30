@@ -2,7 +2,7 @@
  * A work's depiction profile (`works/<id>/depiction.json`): the wording the engine's prompts and checks use that
  * belongs to one work rather than to the engine, and the depiction modes its canon entries may have. The engine's
  * own wording is general; everything here was written for, or tuned on, one work (the Bible's thrones, chariots and
- * crucifixion came from its God-figure evaluations and its brief). See ADR 0009.
+ * crucifixion came from its God-figure evaluations and its brief). See ADR 0010.
  *
  * Every canon entry has a depiction mode. `form` entries are drawn from their canon. `effects` entries are never
  * drawn: their canon stays out of every prompt, they get no reference sheet, and only the effects the text names

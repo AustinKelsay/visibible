@@ -6,7 +6,7 @@ import { fixture } from "../2026-10-23-formless-selection-check/scenarios.mjs";
 import type { ReviewInput } from "../../../src/lib/engine/plan-review";
 import { dir, json, save } from "./common.mjs";
 import { readDepictionProfile } from "../../../src/lib/engine/depiction";
-// The Bible's depiction profile reproduces the wording these runs used (ADR 0009).
+// The Bible's depiction profile reproduces the wording these runs used (ADR 0010).
 const depiction = readDepictionProfile("bible-web");
 
 const prior = path.resolve(dir, "../2026-10-23-formless-selection-check");

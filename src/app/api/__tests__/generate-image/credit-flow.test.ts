@@ -706,7 +706,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", artStyleId: "watercolor", promptVersion: GENERIC_PROMPT_VERSION });
       expect(image.provenance).toMatchObject({ workId: WORK, momentId: "genesis-1-1", sectionId: "genesis-1-1", styleId: "watercolor", lookVersion: request.renderingPacket!.lookVersion, planVersion: request.renderingPacket!.planVersion, requestTranslationId: "web" });
       expect(image.provenance!.references).toEqual([{ kind: "styleReference", id: "watercolor", version: expect.any(String) }, { kind: "sheet", id: "adam:main", version: expect.any(String) }]);
-      // The work's depiction profile is recorded with the accepted packet and the saved image (ADR 0009).
+      // The work's depiction profile is recorded with the accepted packet and the saved image (ADR 0010).
       expect(request.renderingPacket!.depictionVersion).toBe(testDepiction(brief.workId).version);
       expect(image.provenance!.depictionVersion).toBe(request.renderingPacket!.depictionVersion);
       // The stored plan keeps the planner's audit choice and a clean single-round review without notes.

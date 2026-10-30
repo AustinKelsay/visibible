@@ -3,7 +3,7 @@
  * imported work, its approved brief, its depiction profile and the shared style files, read once per
  * server instance. The work and brief are versioned exactly as the owner scripts version them (a SHA-256
  * of each file's text), so the deployed inputs can be checked against the versions the active analysis
- * was registered with; the depiction profile is versioned by content and never registered (ADR 0009).
+ * was registered with; the depiction profile is versioned by content and never registered (ADR 0010).
  */
 import { readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";

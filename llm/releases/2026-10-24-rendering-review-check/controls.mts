@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import type { ReviewInput, PlanReviewProblem } from "../../../src/lib/engine/plan-review";
 import { readDepictionProfile } from "../../../src/lib/engine/depiction";
-// The Bible's depiction profile reproduces the wording these runs used (ADR 0009).
+// The Bible's depiction profile reproduces the wording these runs used (ADR 0010).
 const depiction = readDepictionProfile("bible-web");
 
 type Required = { kind: PlanReviewProblem["kind"]; entryId?: string; quoteFrom?: string };

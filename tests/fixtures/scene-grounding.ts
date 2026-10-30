@@ -70,7 +70,7 @@ export function withCurrentLookMarker<T extends { kind: string; inputs: Array<{ 
   const inputs = record.inputs.map((input) =>
     input.kind === "prompt" && input.recordId === "section_look_formless_presence" ? { ...input, version: FORMLESS_LOOK_PROMPT_VERSION }
     : input.kind === "brief" && input.recordId === "bible-web" ? { ...input, version: bibleBriefVersion } : input);
-  // Retained Bible records predate depiction profiles (ADR 0009); the Bible's profile words them identically.
+  // Retained Bible records predate depiction profiles (ADR 0010); the Bible's profile words them identically.
   if (!inputs.some((input) => input.kind === "brief" && input.recordId === "bible-web")) return { ...record, inputs };
   const has = (recordId: string) => inputs.some((input) => input.kind === "prompt" && input.recordId === recordId);
   if (record.kind === "look" && has("section_look_formless_presence") && !has("depiction_look")) inputs.push({ kind: "prompt", recordId: "depiction_look", version: bibleDepiction.lookVersion });

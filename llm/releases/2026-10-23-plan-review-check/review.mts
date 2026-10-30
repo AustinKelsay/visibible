@@ -8,7 +8,7 @@ import { READING_PASS_MODEL, estimateRequestCostUsd } from "../../../src/lib/rea
 import { root, json, rate, saveOut, readOut, out, environment, row, hash, armConfig } from "./common.mjs";
 import { evaluationModel } from "./model.mjs";
 import { readDepictionProfile } from "../../../src/lib/engine/depiction";
-// The Bible's depiction profile reproduces the wording these runs used (ADR 0009).
+// The Bible's depiction profile reproduces the wording these runs used (ADR 0010).
 const depiction = readDepictionProfile("bible-web");
 const PLAN_REVIEW_SYSTEM = planReviewSystem(depiction);
 

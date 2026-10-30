@@ -6,7 +6,7 @@
  *   npm run works:correct -- <work-id> add-cast --file <correction.json>
  *   npm run works:correct -- <work-id> edit-stage <entryId> <stageId> --text "..." [--expect <version>]
  *   npm run works:correct -- <work-id> remove-cast <sectionId> <entryId> [--expect <version>]   (wrongly assigned cast member)
- *   npm run works:correct -- <work-id> set-depiction <entryId> form|effects [--expect <version>]   (how the entry may be drawn; ADR 0009)
+ *   npm run works:correct -- <work-id> set-depiction <entryId> form|effects [--expect <version>]   (how the entry may be drawn; ADR 0010)
  *   npm run works:correct -- <work-id> edit-look <sectionId> [--place ..] [--time ..] [--weather ..] [--light ..] [--clothing ..] [--expect <version>]
  *   npm run works:correct -- <work-id> pin|unpin sheet|style <recordId>
  *   npm run works:correct -- <work-id> redo-sheet <entryId:stageId>            (owner-funded; refuses a pinned sheet)

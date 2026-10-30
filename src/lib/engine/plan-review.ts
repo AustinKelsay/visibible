@@ -4,7 +4,7 @@
  * a cast id of the right kind. These checks validate citations, not their meaning. The verdict advises
  * forgiving preparation (select depicted cast, re-plan once, then keep with notes); it is never shown to
  * the image model. A work's depiction profile words the problems about subjects without form, and a work
- * without such subjects is never asked about them (ADR 0009).
+ * without such subjects is never asked about them (ADR 0010).
  */
 import { z } from "zod";
 import { parseModelJson, type ReasoningEffort, type TextModel } from "../reading-pass/model";

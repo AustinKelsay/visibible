@@ -120,7 +120,7 @@ export function createCorrections(client: CorrectionClient, api: AnalysisApi, wo
     },
 
     /**
-     * Set how an entry may be depicted (ADR 0009) as an owner version of the entry: `form` draws it from its canon,
+     * Set how an entry may be depicted (ADR 0010) as an owner version of the entry: `form` draws it from its canon,
      * `effects` never draws it and needs the work's wording for subjects without form. Its looks and plans are remade lazily.
      */
     async setDepiction(entryId: string, mode: string, depiction: DepictionProfile, expectedVersion?: string) {
