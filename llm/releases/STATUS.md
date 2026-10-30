@@ -19,7 +19,7 @@ Updated 29 October 2026. Canonical release ticket: [#183](https://github.com/Aus
 **Depiction profiles (on `dev` since 30 October, ships with the next release; [ADR 0010](../../docs/adr/0010-work-depiction-profiles.md)):**
 
 - **What moved.** The Bible's wording left the shared engine for `works/bible-web/depiction.json`. Holmes has its own profile with no subjects without form.
-- **No image change, no evaluation.** Every Bible request is byte-for-byte unchanged, pinned by a golden test.
+- **Same requests, no evaluation.** Every Bible request the golden test pins (rendering, look, plan, review, image check) is byte-for-byte unchanged, so the engine asks for exactly what it asked before. Plans and looks remade at release are fresh samples of those same requests, as after any cache refresh, so individual images can differ.
 - **At release.** Deploy the Convex schema before the application: packets and saved images gain an optional `depictionVersion`, and the Vercel build's `convex deploy` runs first. Nothing needs registering or amending. Cached plans, and looks of sections with a no-form entry, are remade once, lazily, because they now record the profile they read. Production held 55 plans and 46 looks on 29 October.
 - **Owner follow-ups, not yet applied.**
   - Return production's wrongly no-form Nineveh and heavenly court to `form` with `works:correct set-depiction`.
