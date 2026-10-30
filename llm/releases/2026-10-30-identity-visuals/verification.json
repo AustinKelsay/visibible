@@ -1,0 +1,38 @@
+{
+  "canon": {
+    "inputsMatch": true,
+    "runtimeSourcesMatch": true
+  },
+  "references": {
+    "inputsMatch": true,
+    "runtimeSourcesMatch": true
+  },
+  "text": {
+    "inputsMatch": true,
+    "runtimeSourcesMatch": true
+  },
+  "images": {
+    "inputsMatch": true,
+    "runtimeSourcesMatch": true,
+    "scheduled": 45,
+    "unique": 45,
+    "returned": 44,
+    "savedAttempts": 54,
+    "hashesMatch": true
+  },
+  "images-remaining": {
+    "inputsMatch": true,
+    "runtimeSourcesMatch": true
+  },
+  "applicationChecks": {
+    "typecheck": "pass",
+    "lint": "pass, three pre-existing warnings",
+    "tests": {
+      "passed": 1051,
+      "skipped": 1
+    },
+    "build": "pass",
+    "productionDependencyAudit": "zero vulnerabilities",
+    "offlineSyntheticMatrix": "45/45 completed; not quality evidence"
+  }
+}

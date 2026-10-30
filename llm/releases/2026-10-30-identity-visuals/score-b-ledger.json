@@ -1,0 +1,955 @@
+{
+  "capUsd": 0.375,
+  "calls": [
+    {
+      "phase": "b/v001",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004212
+    },
+    {
+      "phase": "b/v002",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004609
+    },
+    {
+      "phase": "b/v003",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004319
+    },
+    {
+      "phase": "b/v004",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004859
+    },
+    {
+      "phase": "b/v005",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004759
+    },
+    {
+      "phase": "b/v006",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004394
+    },
+    {
+      "phase": "b/v007",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003996
+    },
+    {
+      "phase": "b/v008",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009406
+    },
+    {
+      "phase": "b/v009",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008412
+    },
+    {
+      "phase": "b/v010",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004724
+    },
+    {
+      "phase": "b/v011",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009301
+    },
+    {
+      "phase": "b/v012",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004469
+    },
+    {
+      "phase": "b/v013",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004307
+    },
+    {
+      "phase": "b/v014",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008505
+    },
+    {
+      "phase": "b/v015",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004449
+    },
+    {
+      "phase": "b/v017",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004567
+    },
+    {
+      "phase": "b/v018",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004367
+    },
+    {
+      "phase": "b/v019",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009236
+    },
+    {
+      "phase": "b/v020",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004544
+    },
+    {
+      "phase": "b/v021",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009201
+    },
+    {
+      "phase": "b/v022",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008032
+    },
+    {
+      "phase": "b/v023",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004334
+    },
+    {
+      "phase": "b/v024",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009646
+    },
+    {
+      "phase": "b/v025",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008229
+    },
+    {
+      "phase": "b/v026",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004332
+    },
+    {
+      "phase": "b/v027",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004279
+    },
+    {
+      "phase": "b/v028",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008345
+    },
+    {
+      "phase": "b/v029",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004274
+    },
+    {
+      "phase": "b/v030",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004414
+    },
+    {
+      "phase": "b/v031",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004199
+    },
+    {
+      "phase": "b/v032",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004785
+    },
+    {
+      "phase": "b/v033",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004209
+    },
+    {
+      "phase": "b/v034",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0007862
+    },
+    {
+      "phase": "b/v035",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.00044
+    },
+    {
+      "phase": "b/v036",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004274
+    },
+    {
+      "phase": "b/v037",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003896
+    },
+    {
+      "phase": "b/v038",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004859
+    },
+    {
+      "phase": "b/v039",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004372
+    },
+    {
+      "phase": "b/v040",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004167
+    },
+    {
+      "phase": "b/v041",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005007
+    },
+    {
+      "phase": "b/v042",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008472
+    },
+    {
+      "phase": "b/v043",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009444
+    },
+    {
+      "phase": "b/v044",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008244
+    },
+    {
+      "phase": "b/v045",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004637
+    },
+    {
+      "phase": "b/v046",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000407
+    },
+    {
+      "phase": "b/v047",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004515
+    },
+    {
+      "phase": "b/v048",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009611
+    },
+    {
+      "phase": "b/v049",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008074
+    },
+    {
+      "phase": "b/v050",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008437
+    },
+    {
+      "phase": "b/v051",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009421
+    },
+    {
+      "phase": "b/v052",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004645
+    },
+    {
+      "phase": "b/v053",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004121
+    },
+    {
+      "phase": "b/v054",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005583
+    },
+    {
+      "phase": "b/v055",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004064
+    },
+    {
+      "phase": "b/v056",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004535
+    },
+    {
+      "phase": "b/v057",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004537
+    },
+    {
+      "phase": "b/v058",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008117
+    },
+    {
+      "phase": "b/v059",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004329
+    },
+    {
+      "phase": "b/v060",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004909
+    },
+    {
+      "phase": "b/v061",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003963
+    },
+    {
+      "phase": "b/v062",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003966
+    },
+    {
+      "phase": "b/v064",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005379
+    },
+    {
+      "phase": "b/v065",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009211
+    },
+    {
+      "phase": "b/v066",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004557
+    },
+    {
+      "phase": "b/v067",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008052
+    },
+    {
+      "phase": "b/v068",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004187
+    },
+    {
+      "phase": "b/v069",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000435
+    },
+    {
+      "phase": "b/v070",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004034
+    },
+    {
+      "phase": "b/v071",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004056
+    },
+    {
+      "phase": "b/v072",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004109
+    },
+    {
+      "phase": "b/v073",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005688
+    },
+    {
+      "phase": "b/v074",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008124
+    },
+    {
+      "phase": "b/v075",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005317
+    },
+    {
+      "phase": "b/v076",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008477
+    },
+    {
+      "phase": "b/v077",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004058
+    },
+    {
+      "phase": "b/v078",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005277
+    },
+    {
+      "phase": "b/v079",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004377
+    },
+    {
+      "phase": "b/v080",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004415
+    },
+    {
+      "phase": "b/v081",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000452
+    },
+    {
+      "phase": "b/v082",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004299
+    },
+    {
+      "phase": "b/v083",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004427
+    },
+    {
+      "phase": "b/v084",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004564
+    },
+    {
+      "phase": "b/v085",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004134
+    },
+    {
+      "phase": "b/v086",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0010527
+    },
+    {
+      "phase": "b/v087",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004895
+    },
+    {
+      "phase": "b/v088",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004159
+    },
+    {
+      "phase": "b/v089",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005373
+    },
+    {
+      "phase": "b/v091",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008194
+    },
+    {
+      "phase": "b/v092",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004264
+    },
+    {
+      "phase": "b/v093",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004397
+    },
+    {
+      "phase": "b/v094",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004004
+    },
+    {
+      "phase": "b/v095",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004524
+    },
+    {
+      "phase": "b/v096",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004314
+    },
+    {
+      "phase": "b/v097",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008392
+    },
+    {
+      "phase": "b/v098",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004041
+    },
+    {
+      "phase": "b/v099",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004439
+    },
+    {
+      "phase": "b/v100",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009286
+    },
+    {
+      "phase": "b/v101",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004064
+    },
+    {
+      "phase": "b/v102",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009216
+    },
+    {
+      "phase": "b/v103",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005402
+    },
+    {
+      "phase": "b/v104",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000431
+    },
+    {
+      "phase": "b/v105",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004259
+    },
+    {
+      "phase": "b/v106",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004274
+    },
+    {
+      "phase": "b/v107",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004362
+    },
+    {
+      "phase": "b/v108",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000407
+    },
+    {
+      "phase": "b/v109",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004564
+    },
+    {
+      "phase": "b/v110",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000453
+    },
+    {
+      "phase": "b/v111",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004824
+    },
+    {
+      "phase": "b/v112",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004304
+    },
+    {
+      "phase": "b/v113",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008932
+    },
+    {
+      "phase": "b/v114",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004284
+    },
+    {
+      "phase": "b/v115",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008555
+    },
+    {
+      "phase": "b/v116",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009246
+    },
+    {
+      "phase": "b/v117",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008465
+    },
+    {
+      "phase": "b/v118",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000443
+    },
+    {
+      "phase": "b/v119",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004612
+    },
+    {
+      "phase": "b/v120",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004572
+    },
+    {
+      "phase": "b/v121",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004397
+    },
+    {
+      "phase": "b/v122",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009069
+    },
+    {
+      "phase": "b/v123",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000446
+    },
+    {
+      "phase": "b/v124",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004294
+    },
+    {
+      "phase": "b/v126",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009271
+    },
+    {
+      "phase": "b/v127",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004209
+    },
+    {
+      "phase": "b/v128",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004695
+    },
+    {
+      "phase": "b/v129",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003923
+    },
+    {
+      "phase": "b/v130",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000432
+    },
+    {
+      "phase": "b/v131",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004487
+    },
+    {
+      "phase": "b/v132",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000495
+    },
+    {
+      "phase": "b/v133",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008244
+    },
+    {
+      "phase": "b/v134",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004289
+    },
+    {
+      "phase": "b/v135",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008747
+    },
+    {
+      "phase": "b/v136",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008177
+    },
+    {
+      "phase": "b/v137",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004427
+    },
+    {
+      "phase": "b/v138",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005299
+    },
+    {
+      "phase": "b/v139",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008122
+    },
+    {
+      "phase": "b/v140",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004284
+    },
+    {
+      "phase": "b/v141",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004464
+    },
+    {
+      "phase": "b/v142",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004492
+    },
+    {
+      "phase": "b/v143",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004249
+    },
+    {
+      "phase": "b/v144",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004079
+    },
+    {
+      "phase": "b/v145",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004447
+    },
+    {
+      "phase": "b/v146",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008179
+    },
+    {
+      "phase": "b/v147",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0007838
+    },
+    {
+      "phase": "b/v148",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000435
+    },
+    {
+      "phase": "b/v149",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004392
+    },
+    {
+      "phase": "b/v150",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009586
+    },
+    {
+      "phase": "b/v151",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004437
+    },
+    {
+      "phase": "b/v152",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009301
+    },
+    {
+      "phase": "b/v154",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004024
+    },
+    {
+      "phase": "b/v155",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004569
+    },
+    {
+      "phase": "b/v156",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008117
+    },
+    {
+      "phase": "b/v157",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000423
+    },
+    {
+      "phase": "b/v158",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004602
+    },
+    {
+      "phase": "b/v159",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008204
+    },
+    {
+      "phase": "b/v160",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005479
+    },
+    {
+      "phase": "b/v161",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004225
+    },
+    {
+      "phase": "b/v162",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008264
+    }
+  ],
+  "measuredUsd": 0.0891133,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 0,
+    "check": 157
+  },
+  "blocked": null
+}
