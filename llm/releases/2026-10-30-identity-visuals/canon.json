@@ -1,0 +1,3210 @@
+{
+  "schemaVersion": 1,
+  "workId": "alice-in-wonderland",
+  "workVersion": "8dbcd44e0ab0c37ef65bcd2eb507bed73c4f395a94c0ac30e3f4ace25d64b95c",
+  "briefVersion": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d",
+  "entries": {
+    "alice_s_sister": {
+      "entryId": "alice_s_sister",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes almost no physical appearance for the sister beyond her sitting on the bank with a book, brushing leaves from Alice's face, and kissing her; the rest (an older young woman, dark-haired, in a plain Victorian day dress) is supplied from the Victorian English setting.",
+      "stages": [
+        {
+          "id": "alice_s_sister",
+          "label": "Alice's sister",
+          "when": "Victorian England, a summer afternoon on the riverbank (the frame of the work)",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "down-the-rabbit-hole-1",
+              "quote": "sitting by her sister on the bank"
+            },
+            {
+              "unit": "alices-evidence-64",
+              "quote": "with her head in the lap of her sister, who was gently brushing away some dead leaves"
+            }
+          ],
+          "text": "Alice's sister: an older young Victorian English woman in her late teens or early twenties, slender build, fair skin, dark hair pinned up neatly. She wears a plain, modest Victorian day dress with a high neck and long sleeves in muted blue-grey, with a simple shawl. Her signature prop is a small book she holds closed in her lap or on the grass beside her."
+        }
+      ],
+      "sectionStages": {
+        "down-the-rabbit-hole-1": "alice_s_sister",
+        "alices-evidence-47": "alice_s_sister"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "white_rabbit": {
+      "entryId": "white_rabbit",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a White Rabbit with pink eyes, a waistcoat with a pocket holding a watch, white kid gloves and a fan, and a trumpet and parchment scroll as herald; the rest (build, clothing colours, fur detail) is supplied from the work's own tradition of drawing the rabbit as an upright, human-dressed animal.",
+      "stages": [
+        {
+          "id": "white_rabbit",
+          "label": "White Rabbit",
+          "when": "throughout the story",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "down-the-rabbit-hole-2",
+              "quote": "a White Rabbit with pink eyes ran close by her"
+            },
+            {
+              "unit": "down-the-rabbit-hole-3",
+              "quote": "took a watch out of its waistcoat-pocket"
+            },
+            {
+              "unit": "the-pool-of-tears-8",
+              "quote": "splendidly dressed, with a pair of white kid gloves in one hand and a large fan in the other"
+            },
+            {
+              "unit": "who-stole-the-tarts-1",
+              "quote": "with a trumpet in one hand, and a scroll of parchment in the other"
+            }
+          ],
+          "text": "White Rabbit: an anthropomorphic white rabbit, upright and human-proportioned, with pink eyes, white fur, and a small, anxious build. Dressed in a splendid waistcoat with a pocket holding a pocket watch, often carrying white kid gloves and a large fan, and as herald at court a trumpet and a rolled parchment scroll. Fussy and hurried in manner, with a waistcoat and whiskers as his most distinctive features."
+        }
+      ],
+      "sectionStages": {
+        "down-the-rabbit-hole-1": "white_rabbit",
+        "down-the-rabbit-hole-11": "white_rabbit",
+        "the-pool-of-tears-1": "white_rabbit",
+        "the-rabbit-sends-in-a-little-bill-1": "white_rabbit",
+        "the-rabbit-sends-in-a-little-bill-10": "white_rabbit",
+        "the-rabbit-sends-in-a-little-bill-24": "white_rabbit",
+        "the-queens-croquet-ground-1": "white_rabbit",
+        "the-queens-croquet-ground-34": "white_rabbit",
+        "who-stole-the-tarts-1": "white_rabbit",
+        "who-stole-the-tarts-16": "white_rabbit",
+        "who-stole-the-tarts-63": "white_rabbit",
+        "who-stole-the-tarts-74": "white_rabbit",
+        "alices-evidence-1": "white_rabbit",
+        "alices-evidence-23": "white_rabbit",
+        "alices-evidence-47": "white_rabbit"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "alice": {
+      "entryId": "alice",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes little visual detail beyond a young girl who grows and shrinks, has a pinafore-like sense of dress implied by her shoes and stockings, long hair that falls into her eyes, and a sister on the bank; the era's Victorian child's dress and pinafore and the tradition of the work's original illustrations supply the rest.",
+      "stages": [
+        {
+          "id": "alice",
+          "label": "Alice",
+          "when": "throughout the story",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-pool-of-tears-1",
+              "quote": "Oh, my poor little feet, I wonder who will put on your shoes and stockings for you now, dears?"
+            },
+            {
+              "unit": "alices-evidence-68",
+              "quote": "the bright eager eyes were looking up into hers"
+            },
+            {
+              "unit": "advice-from-a-caterpillar-44",
+              "quote": "three inches is such a wretched height to be"
+            }
+          ],
+          "text": "Alice: a young Victorian English girl of about seven or eight, slender and small-boned with a child's build, fair skin, long loose hair that falls into her bright eager eyes and is tossed back from her face, and a round, earnest face. She wears a Victorian child's dress with a pinafore over it, with stockings and buttoned shoes on her feet, and carries nothing else of note."
+        }
+      ],
+      "sectionStages": {
+        "down-the-rabbit-hole-1": "alice",
+        "down-the-rabbit-hole-4": "alice",
+        "down-the-rabbit-hole-11": "alice",
+        "down-the-rabbit-hole-13": "alice",
+        "down-the-rabbit-hole-18": "alice",
+        "the-pool-of-tears-1": "alice",
+        "the-pool-of-tears-9": "alice",
+        "the-pool-of-tears-16": "alice",
+        "the-pool-of-tears-26": "alice",
+        "a-caucus-race-and-a-long-tale-1": "alice",
+        "a-caucus-race-and-a-long-tale-24": "alice",
+        "a-caucus-race-and-a-long-tale-35": "alice",
+        "the-rabbit-sends-in-a-little-bill-1": "alice",
+        "the-rabbit-sends-in-a-little-bill-10": "alice",
+        "the-rabbit-sends-in-a-little-bill-24": "alice",
+        "the-rabbit-sends-in-a-little-bill-35": "alice",
+        "advice-from-a-caterpillar-1": "alice",
+        "advice-from-a-caterpillar-52": "alice",
+        "advice-from-a-caterpillar-57": "alice",
+        "pig-and-pepper-1": "alice",
+        "pig-and-pepper-5": "alice",
+        "pig-and-pepper-19": "alice",
+        "pig-and-pepper-50": "alice",
+        "a-mad-tea-party-1": "alice",
+        "a-mad-tea-party-21": "alice",
+        "a-mad-tea-party-47": "alice",
+        "a-mad-tea-party-63": "alice",
+        "a-mad-tea-party-90": "alice",
+        "a-mad-tea-party-103": "alice",
+        "the-queens-croquet-ground-1": "alice",
+        "the-queens-croquet-ground-34": "alice",
+        "the-queens-croquet-ground-45": "alice",
+        "the-queens-croquet-ground-62": "alice",
+        "the-mock-turtles-story-1": "alice",
+        "the-mock-turtles-story-5": "alice",
+        "the-mock-turtles-story-31": "alice",
+        "the-mock-turtles-story-37": "alice",
+        "the-mock-turtles-story-48": "alice",
+        "the-mock-turtles-story-71": "alice",
+        "the-lobster-quadrille-1": "alice",
+        "the-lobster-quadrille-18": "alice",
+        "the-lobster-quadrille-27": "alice",
+        "the-lobster-quadrille-48": "alice",
+        "the-lobster-quadrille-66": "alice",
+        "who-stole-the-tarts-1": "alice",
+        "who-stole-the-tarts-16": "alice",
+        "who-stole-the-tarts-63": "alice",
+        "who-stole-the-tarts-74": "alice",
+        "alices-evidence-1": "alice",
+        "alices-evidence-16": "alice",
+        "alices-evidence-23": "alice",
+        "alices-evidence-47": "alice"
+      },
+      "problems": [
+        "stage alice: quote not found in alices-evidence-68: \"that queer little toss of her head to keep back the wanderin\""
+      ],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_riverbank": {
+      "entryId": "the_riverbank",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a grassy riverbank beside a field and hedge, with trees overhead dropping dead leaves, and a hot, sleepy summer day; the rest of the bank's look is supplied from the Victorian English setting.",
+      "stages": [
+        {
+          "id": "the_riverbank_main",
+          "label": "The riverbank",
+          "when": "Victorian England, a hot summer afternoon",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "down-the-rabbit-hole-1",
+              "quote": "sitting by her sister on the bank"
+            },
+            {
+              "unit": "down-the-rabbit-hole-3",
+              "quote": "ran across the field after it"
+            },
+            {
+              "unit": "down-the-rabbit-hole-3",
+              "quote": "pop down a large rabbit-hole under the hedge"
+            },
+            {
+              "unit": "alices-evidence-64",
+              "quote": "found herself lying on the bank"
+            },
+            {
+              "unit": "alices-evidence-64",
+              "quote": "dead leaves that had fluttered down from the trees"
+            }
+          ],
+          "text": "The riverbank: a grassy bank sloping gently to a slow river, with a wide open field beyond and a thick hedge along its edge where a large rabbit-hole opens among the roots. Tall trees stand nearby, their branches shedding dry leaves onto the grass. Wildflowers, including daisies, grow through the turf. The light of an English summer afternoon falls warm and soft over the field."
+        }
+      ],
+      "sectionStages": {
+        "down-the-rabbit-hole-1": "the_riverbank_main",
+        "alices-evidence-47": "the_riverbank_main"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_rabbit_hole": {
+      "entryId": "the_rabbit_hole",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a deep tunnel that runs straight then dips into a very deep well, its sides lined with cupboards, book-shelves, maps and pictures on pegs, and a heap of sticks and dry leaves at the bottom; the illustrative tradition supplies the rest of the look.",
+      "stages": [
+        {
+          "id": "the_rabbit_hole_1",
+          "label": "The rabbit-hole",
+          "when": "Throughout the fall and at its end",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "down-the-rabbit-hole-5",
+              "quote": "The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down"
+            },
+            {
+              "unit": "down-the-rabbit-hole-6",
+              "quote": "then she looked at the sides of the well, and noticed that they were filled with cupboards and book-shelves; here and there she saw maps and pictures hung upon pegs"
+            },
+            {
+              "unit": "down-the-rabbit-hole-10",
+              "quote": "down she came upon a heap of sticks and dry leaves"
+            }
+          ],
+          "text": "The rabbit-hole: a tunnel under a hedge that runs straight for a way, then dips suddenly into a very deep well of dark earth. The well's walls are lined with cupboards, book-shelves, maps and pictures hung on wooden pegs. Near the bottom lies a heap of dry sticks and leaves on the earth floor, with a few hedge roots at the tunnel's mouth."
+        }
+      ],
+      "sectionStages": {
+        "down-the-rabbit-hole-4": "the_rabbit_hole_1"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_long_low_hall": {
+      "entryId": "the_long_low_hall",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a long, low hall lit by a row of lamps hanging from the roof, with doors all round, a three-legged solid glass table, and a low curtain hiding a small door about fifteen inches high; the stone-and-timber architecture, floor and ceiling detail are supplied from the work's tradition and the era brief.",
+      "stages": [
+        {
+          "id": "the_long_low_hall",
+          "label": "The long low hall",
+          "when": "throughout the story",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "down-the-rabbit-hole-11",
+              "quote": "a long, low hall, which was lit up by a row of lamps hanging from the roof"
+            },
+            {
+              "unit": "down-the-rabbit-hole-12",
+              "quote": "There were doors all round the hall, but they were all locked"
+            },
+            {
+              "unit": "down-the-rabbit-hole-13",
+              "quote": "a little three-legged table, all made of solid glass"
+            },
+            {
+              "unit": "down-the-rabbit-hole-13",
+              "quote": "a low curtain she had not noticed before, and behind it was a little door about fifteen inches high"
+            },
+            {
+              "unit": "the-pool-of-tears-7",
+              "quote": "until there was a large pool all round her, about four inches deep and reaching half down the hall"
+            }
+          ],
+          "text": "The Long Low Hall: a long, low hall of smooth stone floor and low timber-beamed ceiling, stretching far in length and little in height, its roof hung with a row of lamps that light it evenly. Doors line all its walls, every one locked. Near the middle stands a small three-legged table of solid glass, and beside one wall a low curtain hides a little door about fifteen inches high. Vegetation is absent; the hall is an enclosed interior that opens only to a garden beyond the small door and a tree-door at the far end."
+        }
+      ],
+      "sectionStages": {
+        "down-the-rabbit-hole-11": "the_long_low_hall",
+        "down-the-rabbit-hole-13": "the_long_low_hall",
+        "down-the-rabbit-hole-18": "the_long_low_hall",
+        "the-pool-of-tears-1": "the_long_low_hall",
+        "the-pool-of-tears-9": "the_long_low_hall",
+        "a-mad-tea-party-103": "the_long_low_hall"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_little_door_to_the_garden": {
+      "entryId": "the_little_door_to_the_garden",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a small fifteen-inch door behind a low curtain in the long hall, reached by a little three-legged glass table holding a tiny golden key, and opening onto a rat-hole-sized passage; the garden beyond is only glimpsed. Materials and period finish are supplied from the Victorian setting.",
+      "stages": [
+        {
+          "id": "the_little_door_to_the_garden",
+          "label": "The little door to the garden",
+          "when": "throughout the story",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "down-the-rabbit-hole-13",
+              "quote": "behind it was a little door about fifteen inches high"
+            },
+            {
+              "unit": "down-the-rabbit-hole-13",
+              "quote": "a little three-legged table, all made of solid glass"
+            },
+            {
+              "unit": "down-the-rabbit-hole-14",
+              "quote": "it led into a small passage, not much larger than a rat-hole"
+            },
+            {
+              "unit": "down-the-rabbit-hole-14",
+              "quote": "the loveliest garden you ever saw"
+            }
+          ],
+          "text": "The little door to the garden: a low door about fifteen inches high, set behind a hanging curtain in a long hall, its wood dark and old with a small golden keyhole. Beyond it a narrow passage no larger than a rat-hole leads into a sunlit garden of bright flower beds and cool fountains, glimpsed only faintly. Nearby stands a small three-legged table of solid glass, with a tiny golden key lying on its top."
+        }
+      ],
+      "sectionStages": {
+        "down-the-rabbit-hole-13": "the_little_door_to_the_garden",
+        "down-the-rabbit-hole-18": "the_little_door_to_the_garden",
+        "the-pool-of-tears-1": "the_little_door_to_the_garden",
+        "the-pool-of-tears-9": "the_little_door_to_the_garden"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_mouse": {
+      "entryId": "the_mouse",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes that the Mouse is a small mouse that swims in the pool, has a tail, little eyes, bristles and trembles with temper, and grows pale with passion; the text does not fix its colour, so the look is supplied from the book's own illustrative tradition of a small grey-brown mouse drawn as an animal with human dress.",
+      "stages": [
+        {
+          "id": "the_mouse",
+          "label": "The Mouse",
+          "when": "Pool of Tears and the Caucus-Race, Wonderland",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-pool-of-tears-18",
+              "quote": "it was only a mouse that had slipped in like herself"
+            },
+            {
+              "unit": "the-pool-of-tears-19",
+              "quote": "The Mouse looked at her rather inquisitively, and seemed to her to wink with one of its little eyes"
+            },
+            {
+              "unit": "the-pool-of-tears-23",
+              "quote": "who was trembling down to the end of his tail"
+            },
+            {
+              "unit": "a-caucus-race-and-a-long-tale-33",
+              "quote": "looking down with wonder at the Mouse’s tail"
+            }
+          ],
+          "text": "The Mouse: a small grey-brown mouse with round ears, bright little eyes and a long thin tail, standing upright with human posture; it wears a modest Victorian waistcoat and a small hat, and its fur bristles and it trembles when offended. Small and wet from swimming, with fur clinging close."
+        }
+      ],
+      "sectionStages": {
+        "the-pool-of-tears-16": "the_mouse",
+        "the-pool-of-tears-26": "the_mouse",
+        "a-caucus-race-and-a-long-tale-1": "the_mouse",
+        "a-caucus-race-and-a-long-tale-24": "the_mouse",
+        "a-caucus-race-and-a-long-tale-35": "the_mouse"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_duck": {
+      "entryId": "the_duck",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text names the Duck as one of the wet birds and animals and gives it a human-style argumentative voice; it fixes no plumage colour or size, so the look (a waterfowl with draggled feathers, human-style dress) is supplied from the work's illustrative tradition.",
+      "stages": [
+        {
+          "id": "the_duck",
+          "label": "the Duck",
+          "when": "Pool of Tears and Caucus-Race, Wonderland",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-pool-of-tears-26",
+              "quote": "there were a Duck and a Dodo, a Lory and an Eaglet"
+            },
+            {
+              "unit": "a-caucus-race-and-a-long-tale-1",
+              "quote": "the birds with draggled feathers, the animals with their fur clinging close to them, and all dripping wet"
+            },
+            {
+              "unit": "a-caucus-race-and-a-long-tale-9",
+              "quote": "“Found _what_?” said the Duck."
+            }
+          ],
+          "text": "the Duck: a waterfowl the size of a large domestic duck, standing upright on two webbed feet with human posture, wearing a Victorian waistcoat and small hat. Plumage is a glossy white-grey with orange-yellow bill and feet, feathers draggled and wet from the pool. Its manner is brisk and argumentative, a dry, practical bird among the dripping company."
+        }
+      ],
+      "sectionStages": {
+        "the-pool-of-tears-26": "the_duck",
+        "a-caucus-race-and-a-long-tale-1": "the_duck"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_dodo": {
+      "entryId": "the_dodo",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that the Dodo is a bird who swims ashore, rises to its feet, speaks solemnly, presents a thimble and is among those fallen into the pool; no size, colour or dress is given, so the look is drawn from the work's own Tenniel-style illustrative tradition of a dodo with human posture and waistcoat-era dress.",
+      "stages": [
+        {
+          "id": "the_dodo",
+          "label": "the Dodo",
+          "when": "throughout the pool of tears and the Caucus-race sections",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-pool-of-tears-26",
+              "quote": "there were a Duck and a Dodo, a Lory and an Eaglet"
+            },
+            {
+              "unit": "a-caucus-race-and-a-long-tale-14",
+              "quote": "said the Dodo solemnly, rising to its feet"
+            },
+            {
+              "unit": "a-caucus-race-and-a-long-tale-28",
+              "quote": "the Dodo solemnly presented the thimble"
+            }
+          ],
+          "text": "the Dodo: an elderly, portly dodo bird standing upright on two legs with human posture, with a plump grey-brown body, a large hooked bill, small wings held at its sides, and a rounded head. It wears a Victorian waistcoat and cravat with a dignified, pompous bearing, and carries no props of its own. Its plumage is dry in the scene described."
+        }
+      ],
+      "sectionStages": {
+        "the-pool-of-tears-26": "the_dodo",
+        "a-caucus-race-and-a-long-tale-1": "the_dodo",
+        "a-caucus-race-and-a-long-tale-24": "the_dodo"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_lory": {
+      "entryId": "the_lory",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text names the Lory as a bird among the wet pool-creatures and says it is older than Alice and sulky, but gives no plumage or build; the tradition of the work's illustrators shows a parrot-like bird, which is supplied here.",
+      "stages": [
+        {
+          "id": "the_lory",
+          "label": "The Lory",
+          "when": "throughout the story, from the pool to the caucus-race bank",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-pool-of-tears-26",
+              "quote": "there were a Duck and a Dodo, a Lory and an Eaglet"
+            },
+            {
+              "unit": "a-caucus-race-and-a-long-tale-2",
+              "quote": "the Lory, who at last turned sulky, and would only say, \"I am older than you, and must know better;\""
+            },
+            {
+              "unit": "a-caucus-race-and-a-long-tale-43",
+              "quote": "\"What a pity it wouldn't stay!\" sighed the Lory"
+            }
+          ],
+          "text": "The Lory: an adult parrot-like bird of middling age with draggled, dripping feathers in bright green, a short hooked beak and a sulky, self-important bearing. Its plumage is glossy green with red and yellow patches on wings and breast, fur-free and damp from the pool. Its signature accessory is none; it carries no props. Dress: none beyond its own feathers."
+        }
+      ],
+      "sectionStages": {
+        "the-pool-of-tears-26": "the_lory",
+        "a-caucus-race-and-a-long-tale-1": "the_lory",
+        "a-caucus-race-and-a-long-tale-35": "the_lory"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_eaglet": {
+      "entryId": "the_eaglet",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text names the Eaglet among the birds and never describes its look; a young eaglet is drawn as a young bird of prey with human posture and dress only where given, so the look is supplied from the bird's natural form.",
+      "stages": [
+        {
+          "id": "the_eaglet",
+          "label": "Eaglet",
+          "when": "Story-wide, single stage",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-pool-of-tears-26",
+              "quote": "there were a Duck and a Dodo, a Lory and an Eaglet"
+            },
+            {
+              "unit": "a-caucus-race-and-a-long-tale-15",
+              "quote": "\"Speak English!\" said the Eaglet."
+            }
+          ],
+          "text": "The Eaglet: a young eaglet, a juvenile bird of prey not yet full-grown, with downy-feathered body, brown-tawny plumage, and a sharp hooked beak and yellow-tipped talons. Its feathers are draggled and wet from the Pool of Tears, clinging close to its body. Its signature colours are warm brown and tawny with pale patches of down. It carries no props."
+        }
+      ],
+      "sectionStages": {
+        "the-pool-of-tears-26": "the_eaglet",
+        "a-caucus-race-and-a-long-tale-1": "the_eaglet"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "pool_creatures": {
+      "entryId": "pool_creatures",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that the group is a crowd of birds and animals (a Duck, a Dodo, a Lory, an Eaglet and other curious creatures) soaked from the pool; the rendering of their bodies follows the brief's rule that talking animals are drawn as animals with human posture and dress where given, and the exact species mix and dress are supplied by invention in the Victorian dream style.",
+      "stages": [
+        {
+          "id": "pool_creatures_base",
+          "label": "Pool creatures",
+          "when": "after the fall into the pool of tears, swimming toward the shore",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-pool-of-tears-26",
+              "quote": "the birds and animals that had fallen into it: there were a Duck and a Dodo, a Lory and an Eaglet"
+            },
+            {
+              "unit": "the-pool-of-tears-26",
+              "quote": "several other curious creatures"
+            }
+          ],
+          "text": "Pool creatures: a mixed crowd of waterlogged birds and animals, typical member a small feathered or furred creature of modest size, drenched plumage or fur clinging to the body, upright human-like posture with dampened Victorian-era waistcoats or small garments where dress is given, a Duck, a Dodo, a Lory and an Eaglet among varied curious species, muted earthy and grey tones with wet sheen, whimsical dreamlike Victorian Wonderland styling."
+        }
+      ],
+      "sectionStages": {
+        "the-pool-of-tears-26": "pool_creatures_base"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_duchess": {
+      "entryId": "the_duchess",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes the Duchess as very ugly with a sharp chin, sitting on a three-legged stool in a smoky kitchen, nursing a baby, and tall enough to rest her chin on Alice's shoulder; the rest of her look is supplied from the Victorian dress and Tenniel-era illustrative tradition of the work.",
+      "stages": [
+        {
+          "id": "the_duchess",
+          "label": "The Duchess",
+          "when": "throughout the story",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "pig-and-pepper-19",
+              "quote": "the Duchess was sitting on a three-legged stool in the middle, nursing a baby"
+            },
+            {
+              "unit": "the-mock-turtles-story-7",
+              "quote": "because the Duchess was _very_ ugly; and secondly, because she was exactly the right height to rest her chin upon Alice’s shoulder, and it was an uncomfortably sharp chin"
+            }
+          ],
+          "text": "The Duchess: a woman of middle years with a very ugly, sharp-chinned face and a pointed, narrow chin, of a height to rest her chin on a young girl's shoulder. Build slight and bony. Skin pale and sallow. Dark hair pinned up under a large, lopsided Victorian cap. Signature outfit worn most often: a dark brown or plum Victorian gown with a high collar and a shawl of faded green, colours muted. Carries a baby wrapped in a shawl when in the kitchen; no other props."
+        }
+      ],
+      "sectionStages": {
+        "pig-and-pepper-19": "the_duchess",
+        "the-mock-turtles-story-1": "the_duchess",
+        "the-mock-turtles-story-5": "the_duchess",
+        "the-mock-turtles-story-31": "the_duchess"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "pool_of_tears": {
+      "entryId": "pool_of_tears",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes the pool only as a body of salt water formed from Alice's tears, about four inches deep in the hall and reaching half down it, with no terrain or architecture described; the rest is supplied in the Victorian dream-Wonderland setting.",
+      "stages": [
+        {
+          "id": "pool_of_tears",
+          "label": "Pool of Tears",
+          "when": "throughout the story sections in which it appears",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-pool-of-tears-7",
+              "quote": "shedding gallons of tears, until there was a large pool all round her, about four inches deep"
+            },
+            {
+              "unit": "the-pool-of-tears-16",
+              "quote": "up to her chin in salt water"
+            }
+          ],
+          "text": "Pool of Tears: a broad body of salt water filling the long hall, formed from Alice's own tears, shallow at its edges and deep enough to swim in at its middle, its surface pale and still under a low, dim dream-light. Its banks are smooth, rounded edges of the hall floor, and it is surrounded by the hall's tall walls, a little golden key and a small garden door in the distance."
+        }
+      ],
+      "sectionStages": {
+        "the-pool-of-tears-1": "pool_of_tears",
+        "the-pool-of-tears-16": "pool_of_tears",
+        "the-pool-of-tears-26": "pool_of_tears"
+      },
+      "problems": [
+        "stage pool_of_tears: quote not found in the-pool-of-tears-17: \"the pool of tears which she had wept\""
+      ],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "shore": {
+      "entryId": "shore",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text names the shore only as the edge of the pool of tears that the swimming party reaches; no terrain, vegetation or architecture is described, so the stage supplies a grassy, pebbled riverbank drawn in the work's Victorian-dream tradition.",
+      "stages": [
+        {
+          "id": "shore",
+          "label": "Shore",
+          "when": "the-pool-of-tears-26",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-pool-of-tears-26",
+              "quote": "the whole party swam to the shore."
+            },
+            {
+              "unit": "the-pool-of-tears-25",
+              "quote": "Let us get to the shore, and then I'll tell you my history"
+            }
+          ],
+          "text": "Shore: the grassy edge of the pool of tears, a gentle sloping bank of pale pebbles and short green turf, with tufts of reeds and a few low bushes along the water's rim. The pool's broad, salt-tinged water lies beside it, and the bank rises to a soft meadow of wild grass and clover under an open Wonderland sky, with a dry stone outcrop jutting out toward the water."
+        }
+      ],
+      "sectionStages": {
+        "the-pool-of-tears-26": "shore"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_old_magpie": {
+      "entryId": "the_old_magpie",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that the Magpie is an old bird that wraps itself up carefully to leave; it gives no plumage or size, so the look is invented from the tradition of Tenniel's illustrations of birds in Wonderland, in the Victorian period.",
+      "stages": [
+        {
+          "id": "the_old_magpie_main",
+          "label": "the old Magpie",
+          "when": "throughout the section, as the birds scatter after Alice mentions Dinah",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "a-caucus-race-and-a-long-tale-47",
+              "quote": "one old Magpie began wrapping itself up very carefully"
+            },
+            {
+              "unit": "a-caucus-race-and-a-long-tale-47",
+              "quote": "the night-air doesn't suit my throat"
+            }
+          ],
+          "text": "the old Magpie: an elderly magpie drawn as an animal with a plump, rounded body, glossy black and white plumage, a long dark tail, a short stout beak and bright, shrewd eyes. Human posture and a shawl or wrap of muted Victorian tweed drawn tightly about its body, in keeping with the animal's dress in the text. Its signature prop is the wrap it draws around itself."
+        }
+      ],
+      "sectionStages": {
+        "a-caucus-race-and-a-long-tale-35": "the_old_magpie_main"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_canary": {
+      "entryId": "the_canary",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that the Canary is a bird who calls its children to bed in a trembling voice; no plumage, size or dress is described, so the appearance is supplied from the work's Tenniel-style tradition of a small yellow songbird in human posture and dress.",
+      "stages": [
+        {
+          "id": "the_canary-s1",
+          "label": "the Canary",
+          "when": "the Caucus-race shore, after the Mouse leaves",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "a-caucus-race-and-a-long-tale-47",
+              "quote": "a Canary called out in a trembling voice to its children"
+            },
+            {
+              "unit": "a-caucus-race-and-a-long-tale-47",
+              "quote": "Come away, my dears! It's high time you were all in bed!"
+            }
+          ],
+          "text": "the Canary: an adult songbird of middling age, small and plump-breasted, with bright yellow plumage and a rounded head, standing upright on two slender legs in human posture. It wears a neat Victorian bonnet and a little shawl over a soft dress of pale yellow, with a demure white collar. It carries no props."
+        }
+      ],
+      "sectionStages": {
+        "a-caucus-race-and-a-long-tale-35": "the_canary-s1"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_old_crab_mother_of_the_young_crab": {
+      "entryId": "the_old_crab_mother_of_the_young_crab",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that she is an old Crab, mother of the young Crab, who scolds her daughter; no physical look is given, so the crab form, age and dress are supplied from the work's tradition of drawing animals with human posture and dress.",
+      "stages": [
+        {
+          "id": "the_old_crab_mother_of_the_young_crab_main",
+          "label": "the old Crab",
+          "when": "Wonderland, during the Caucus-race scene",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "a-caucus-race-and-a-long-tale-43",
+              "quote": "an old Crab took the opportunity of saying to her daughter"
+            }
+          ],
+          "text": "the old Crab: an elderly female crab of the Wonderland company, drawn as a crab with human posture and dress. Age: elderly. Build: stout, rounded shell. Shell: mottled reddish-brown carapace, pale underside, claws held in front. Eyes: small stalked eyes on the shell's front edge. Signature outfit: a dark bonnet and a faded brown shawl over a grey dress, the colours of a respectable matron. Signature props: none."
+        }
+      ],
+      "sectionStages": {
+        "a-caucus-race-and-a-long-tale-35": "the_old_crab_mother_of_the_young_crab_main"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_young_crab": {
+      "entryId": "the_young_crab",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that the young Crab is a daughter of the old Crab who snaps back at her mother; no body, colour or dress is described, so the crab form, a slightly sharper, more petulant bearing and a simple hue were supplied in keeping with the book's tradition of drawing talking animals as animals.",
+      "stages": [
+        {
+          "id": "the_young_crab",
+          "label": "The young Crab",
+          "when": "throughout the Caucus-race sequence",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "a-caucus-race-and-a-long-tale-43",
+              "quote": "Hold your tongue, Ma!” said the young Crab, a little snappishly."
+            },
+            {
+              "unit": "a-caucus-race-and-a-long-tale-43",
+              "quote": "You’re enough to try the patience of an oyster!"
+            }
+          ],
+          "text": "The young Crab: a young crab, a daughter of the old crab, smaller and more youthful than her mother, with a bright red-orange shell, ten jointed legs, and two stalked eyes on the front of the head, drawn as an animal with a slightly upright, impatient posture and a small pair of clasping claws. She has a sharp, peevish manner and a touch of pert youthful defiance."
+        }
+      ],
+      "sectionStages": {
+        "a-caucus-race-and-a-long-tale-35": "the_young_crab"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_assembled_birds_and_animals": {
+      "entryId": "the_assembled_birds_and_animals",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that the party are birds with draggled feathers and animals with fur clinging close, all dripping wet, cross and uncomfortable; the species, dress and pose of each member are supplied from the work's tradition of talking animals in human dress.",
+      "stages": [
+        {
+          "id": "the_assembled_birds_and_animals_stage_1",
+          "label": "the assembled birds and animals",
+          "when": "the wet gathering on the riverbank after Alice's fall into the pool of tears",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "a-caucus-race-and-a-long-tale-1",
+              "quote": "the birds with draggled feathers, the animals with their fur clinging close to them, and all dripping wet"
+            }
+          ],
+          "text": "the assembled birds and animals: a mixed group of birds with draggled, dripping feathers and small animals with fur clinging close to their bodies, all soaked through, in the manner of talking animals in human dress; typical member an adult creature standing upright with human posture, wearing a waterlogged waistcoat or shawl in faded Victorian colours, damp and bedraggled throughout."
+        }
+      ],
+      "sectionStages": {
+        "a-caucus-race-and-a-long-tale-1": "the_assembled_birds_and_animals_stage_1",
+        "a-caucus-race-and-a-long-tale-24": "the_assembled_birds_and_animals_stage_1",
+        "a-caucus-race-and-a-long-tale-35": "the_assembled_birds_and_animals_stage_1"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "pat": {
+      "entryId": "pat",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that Pat is an Irishman who speaks in an Irish dialect, is heard but not seen beyond an arm at the window, and says he is 'digging for apples'; all visual appearance is supplied from the era and the Wonderland tradition of a gardener-type working man.",
+      "stages": [
+        {
+          "id": "pat",
+          "label": "Pat",
+          "when": "Victorian England and its dream Wonderland; present in the rabbit's garden outside the window",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-16",
+              "quote": "Sure then I’m here! Digging for apples, yer honour!"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-19",
+              "quote": "Sure, it’s an arm, yer honour!"
+            }
+          ],
+          "text": "Pat: a middle-aged Irish gardener, sturdy and weathered, with a broad build and ruddy, sun-browned skin. Short, tousled hair under a battered cap, with stubble on his jaw and a rough, good-natured face. He wears a rough linen shirt with rolled sleeves, a patched waistcoat, and dark corduroy trousers tucked into worn boots, in muted earth tones. He carries a spade or garden tool."
+        }
+      ],
+      "sectionStages": {
+        "the-rabbit-sends-in-a-little-bill-10": "pat",
+        "the-rabbit-sends-in-a-little-bill-24": "pat"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_bank_of_the_pool_of_tears": {
+      "entryId": "the_bank_of_the_pool_of_tears",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a shore of a pool made of Alice's own tears, where wet birds and animals gather, dripping and uncomfortable, and a race-course is marked out; the bank's terrain and vegetation are not described, so the look is supplied from the era and the work's illustrative tradition.",
+      "stages": [
+        {
+          "id": "the_bank_of_the_pool_of_tears",
+          "label": "The bank of the pool of tears",
+          "when": "throughout the sections where the wet party gathers",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "a-caucus-race-and-a-long-tale-1",
+              "quote": "They were indeed a queer-looking party that assembled on the bank"
+            },
+            {
+              "unit": "a-caucus-race-and-a-long-tale-19",
+              "quote": "First it marked out a race-course, in a sort of circle"
+            }
+          ],
+          "text": "The bank of the pool of tears: a grassy shore of a salt-water pool, its edge damp and soft underfoot, with low tufts of wet grass and a few stunted reeds at the waterline. A broad, level clearing of trodden turf rises gently from the water, set with a few scattered mushrooms and a low bush or two, and a wide circular track worn into the grass for the Caucus-race. Pale, drifting mist hangs over the still pool, which spreads out of frame toward the far side, and a faint salty glimmer lies on the water."
+        }
+      ],
+      "sectionStages": {
+        "a-caucus-race-and-a-long-tale-1": "the_bank_of_the_pool_of_tears",
+        "a-caucus-race-and-a-long-tale-24": "the_bank_of_the_pool_of_tears",
+        "a-caucus-race-and-a-long-tale-35": "the_bank_of_the_pool_of_tears"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "bill_the_lizard": {
+      "entryId": "bill_the_lizard",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes Bill as a small, feeble, squeaking lizard that is sent down the chimney, kicked out, held up by guinea-pigs, and later serves as a juror writing on a slate with ink trickling down its face; the text gives no colour or detailed look, so the lizard form, small scale, and slate-writing posture are the stated facts, and the rest is supplied from the work's tradition.",
+      "stages": [
+        {
+          "id": "bill_the_lizard",
+          "label": "Bill the Lizard",
+          "when": "throughout the story",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-24",
+              "quote": "Bill’s to go down—Here, Bill!"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-28",
+              "quote": "Last came a little feeble, squeaking voice"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-34",
+              "quote": "The poor little Lizard, Bill, was in the middle, being held up by two guinea-pigs"
+            },
+            {
+              "unit": "who-stole-the-tarts-9",
+              "quote": "the poor little juror (it was Bill, the Lizard)"
+            },
+            {
+              "unit": "alices-evidence-5",
+              "quote": "all except the Lizard, who seemed too much overcome to do anything but sit with its mouth open"
+            }
+          ],
+          "text": "Bill the Lizard: a small, feeble lizard of modest size, slender body, scaled skin in muted green, long tail, and small clawed feet, dressed in a little juror's waistcoat and cravat in the Victorian manner of the court. Bill stands upright on hind legs with human posture, holds a small slate and a pencil, and has a tuft of ink-stained scales on the face. Drawn as an animal with human dress where the text gives it, and small enough to be sent down a chimney."
+        }
+      ],
+      "sectionStages": {
+        "the-rabbit-sends-in-a-little-bill-24": "bill_the_lizard",
+        "who-stole-the-tarts-1": "bill_the_lizard",
+        "alices-evidence-1": "bill_the_lizard",
+        "alices-evidence-23": "bill_the_lizard"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_two_guinea_pigs": {
+      "entryId": "the_two_guinea_pigs",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that they are two guinea-pigs who serve the Rabbit, hold up Bill with a bottle, and are bagged in court; it gives no colour, size or dress, so the look is invented in the period-appropriate Victorian Wonderland style.",
+      "stages": [
+        {
+          "id": "the_two_guinea_pigs-s1",
+          "label": "Rabbit's guinea-pig servants",
+          "when": "throughout the story",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-34",
+              "quote": "being held up by two guinea-pigs, who were giving it something out of a bottle"
+            },
+            {
+              "unit": "who-stole-the-tarts-53",
+              "quote": "they slipped the guinea-pig, head first, and then sat upon it"
+            }
+          ],
+          "text": "The two guinea-pigs: a pair of plump, short-legged guinea-pigs standing upright in human posture, each in a small Victorian servant's waistcoat and neat cap, with glossy brown and cream coats and round dark eyes. They serve the Rabbit as attentive footmen, attending to small bottles and cheering in court."
+        }
+      ],
+      "sectionStages": {
+        "the-rabbit-sends-in-a-little-bill-24": "the_two_guinea_pigs-s1",
+        "who-stole-the-tarts-16": "the_two_guinea_pigs-s1"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_puppy": {
+      "entryId": "the_puppy",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a large, enormous puppy with large round eyes, a sharp bark, and a tongue hanging out while panting; the look is supplied by the illustrative tradition with a shaggy, big-footed young dog in the wood.",
+      "stages": [
+        {
+          "id": "the_puppy",
+          "label": "the puppy",
+          "when": "in the wood beside the thistle",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-37",
+              "quote": "An enormous puppy was looking down at her with large round eyes"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-38",
+              "quote": "its tongue hanging out of its mouth, and its great eyes half shut"
+            }
+          ],
+          "text": "the puppy: an enormous young dog, far larger than Alice, with a shaggy coat, large round eyes, floppy ears, big paws, and a bright pink tongue hanging from its open mouth. It has the stocky, gangly build of an oversized puppy, with a sturdy body and long legs that look too big for it. Its fur is soft and tawny-brown with lighter patches on the chest and muzzle. It wears no clothing and carries no props; a small stick may lie nearby but belongs to Alice."
+        }
+      ],
+      "sectionStages": {
+        "the-rabbit-sends-in-a-little-bill-35": "the_puppy"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_caterpillar": {
+      "entryId": "the_caterpillar",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a large, blue, languid caterpillar with folded arms, smoking a long hookah atop a mushroom, and three inches high when it rears up; the human posture and arms come from the text, while the blue colour, the hookah's form and the mushroom perch follow the work's illustrative tradition.",
+      "stages": [
+        {
+          "id": "the_caterpillar",
+          "label": "the Caterpillar",
+          "when": "throughout the Caterpillar sections",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-42",
+              "quote": "a large blue caterpillar, that was sitting on the top with its arms folded, quietly smoking a long hookah"
+            },
+            {
+              "unit": "advice-from-a-caterpillar-45",
+              "quote": "rearing itself upright as it spoke (it was exactly three inches high)"
+            }
+          ],
+          "text": "the Caterpillar: a large blue caterpillar with a segmented, many-legged body and a human-like upper posture, arms folded across its chest, a languid sleepy face with heavy-lidded eyes, and a long hookah pipe in its mouth. It is an animal with human posture and dress where given, sitting atop a large round mushroom. Its signature props are the long hookah and the mushroom it sits on, both carried or perched upon alone. Blue body throughout."
+        }
+      ],
+      "sectionStages": {
+        "the-rabbit-sends-in-a-little-bill-35": "the_caterpillar",
+        "advice-from-a-caterpillar-1": "the_caterpillar"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_white_rabbit_s_house": {
+      "entryId": "the_white_rabbit_s_house",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a neat little house with a tidy room, a table in the window, a looking-glass, a brass plate reading W. RABBIT on the door, inward-opening door, stairs and a small window; the look of the rooms is supplied from the work's tradition of Tenniel-style Victorian interiors.",
+      "stages": [
+        {
+          "id": "the_white_rabbit_s_house_main",
+          "label": "The White Rabbit's House",
+          "when": "throughout the story sections",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-3",
+              "quote": "a neat little house, on the door of which was a bright brass plate with the name “W. RABBIT,” engraved upon it"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-5",
+              "quote": "a tidy little room with a table in the window"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-14",
+              "quote": "the door opened inwards"
+            }
+          ],
+          "text": "The White Rabbit's House: a neat small Victorian cottage of warm red brick with a steep slate roof, a narrow chimney and a single small casement window set low in the wall. A bright brass plate engraved W. RABBIT is fixed to the front door, which opens inwards. Inside, a tidy little room has a small table set in the window, a looking-glass on the wall, and a narrow staircase rising to the upper rooms. Rooms are modest in scale, so the house visibly strains around a grown Alice."
+        }
+      ],
+      "sectionStages": {
+        "the-rabbit-sends-in-a-little-bill-1": "the_white_rabbit_s_house_main",
+        "the-rabbit-sends-in-a-little-bill-10": "the_white_rabbit_s_house_main",
+        "the-rabbit-sends-in-a-little-bill-24": "the_white_rabbit_s_house_main"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_rabbit_s_garden": {
+      "entryId": "the_rabbit_s_garden",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a rabbit's house with a window, a door opening inward, a chimney, a cucumber-frame and a loose slate roof, with a thick wood beyond; the text gives no further terrain or vegetation detail, so the Victorian dream-Wonderland setting is supplied by invention.",
+      "stages": [
+        {
+          "id": "the_rabbit_s_garden",
+          "label": "the Rabbit's garden",
+          "when": "the Rabbit's garden outside the Rabbit's house, sections 10 and 24",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-14",
+              "quote": "tried to open it; but, as the door opened inwards"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-15",
+              "quote": "a crash of broken glass, from which she concluded that it was just possible it had fallen into a cucumber-frame"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-24",
+              "quote": "Will the roof bear?—Mind that loose slate"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-34",
+              "quote": "found quite a crowd of little animals and birds waiting outside"
+            }
+          ],
+          "text": "the Rabbit's garden: a small cottage garden outside a low house with a small window and an inward-opening door, a sooty brick chimney and a slate roof with a loose slate, beside a cucumber-frame of glass panes, with a thick wood beyond the hedge and a patch of grass and hedge."
+        }
+      ],
+      "sectionStages": {
+        "the-rabbit-sends-in-a-little-bill-10": "the_rabbit_s_garden",
+        "the-rabbit-sends-in-a-little-bill-24": "the_rabbit_s_garden"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_thick_wood_alice_s_first_wood": {
+      "entryId": "the_thick_wood_alice_s_first_wood",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a thick wood with thistles, buttercups, grass and a mushroom about Alice's height; the wood's overall look is supplied in the Victorian dream-Wonderland tradition of the book's illustrations.",
+      "stages": [
+        {
+          "id": "the_thick_wood_alice_s_first_wood_main",
+          "label": "The thick wood",
+          "when": "Alice's first wood, where she wanders after escaping the crowd",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-35",
+              "quote": "as she wandered about in the wood"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-36",
+              "quote": "while she was peering about anxiously among the trees"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-38",
+              "quote": "Alice dodged behind a great thistle"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-40",
+              "quote": "as she leant against a buttercup to rest herself"
+            },
+            {
+              "unit": "the-rabbit-sends-in-a-little-bill-41",
+              "quote": "There was a large mushroom growing near her, about the same height as herself"
+            }
+          ],
+          "text": "The thick wood: a dense wood of tall trees and close-set trunks, with great thistles, tall grass, blades and flowers, buttercups at the edges, and a large mushroom about Alice's own height growing on the ground, in a dim dreamlike Victorian English woodland under soft indistinct light, with no people."
+        }
+      ],
+      "sectionStages": {
+        "the-rabbit-sends-in-a-little-bill-35": "the_thick_wood_alice_s_first_wood_main"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_pigeon": {
+      "entryId": "the_pigeon",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text gives the Pigeon an anxious, indignant mother's manner in a tree nest and a voice that shrieks and sobs, but no physical description; the form is drawn from the work's tradition of Tenniel's illustrations as a large pigeon with human-like dress and posture, supplied for the rest.",
+      "stages": [
+        {
+          "id": "the_pigeon",
+          "label": "The Pigeon",
+          "when": "Throughout the scene in the tree nest in the wood",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "advice-from-a-caterpillar-57",
+              "quote": "“Serpent!” screamed the Pigeon."
+            },
+            {
+              "unit": "advice-from-a-caterpillar-63",
+              "quote": "I must be on the look-out for serpents night and day!"
+            },
+            {
+              "unit": "advice-from-a-caterpillar-69",
+              "quote": "I’ve seen a good many little girls in my time"
+            }
+          ],
+          "text": "The Pigeon: a large pigeon, an adult mother bird of middle age with a plump, rounded body and a broad chest, grey-blue feathers with darker wing bars, and a pale throat. Her head is small and round with a short, pointed beak, and bright, anxious eyes. She has human posture and dress, standing upright on two legs with arms and hands, wearing a simple dark shawl over her shoulders. Her signature prop is a single large twig-nest in the high branch of a tree."
+        }
+      ],
+      "sectionStages": {
+        "advice-from-a-caterpillar-57": "the_pigeon"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_mushroom_clearing": {
+      "entryId": "the_mushroom_clearing",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes an open place in a wood with a large round mushroom in the middle, tall trees around it and grass; the mushroom's round form and the surrounding leaves and trees are from the text, and the depiction of the clearing's details is supplied from the work's own illustrative tradition.",
+      "stages": [
+        {
+          "id": "the_mushroom_clearing",
+          "label": "The mushroom clearing",
+          "when": "throughout the sections where the Caterpillar sits on the mushroom",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "advice-from-a-caterpillar-51",
+              "quote": "as it was perfectly round, she found this a very difficult question"
+            },
+            {
+              "unit": "advice-from-a-caterpillar-55",
+              "quote": "a little shaking among the distant green leaves"
+            },
+            {
+              "unit": "advice-from-a-caterpillar-56",
+              "quote": "the tops of the trees under which she had been wandering"
+            },
+            {
+              "unit": "advice-from-a-caterpillar-75",
+              "quote": "she came suddenly upon an open place, with a little house in it about four feet high"
+            }
+          ],
+          "text": "The mushroom clearing: an open place in a wood, with tall trees rising around its edge and grass underfoot. At its centre stands a large, perfectly round mushroom, broad enough to sit upon, with its flat cap rising above the grass. Dense tree-tops and a sea of green leaves lie beyond the clearing, and a small house stands at its far edge."
+        }
+      ],
+      "sectionStages": {
+        "advice-from-a-caterpillar-1": "the_mushroom_clearing",
+        "advice-from-a-caterpillar-52": "the_mushroom_clearing",
+        "advice-from-a-caterpillar-57": "the_mushroom_clearing"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_treetops": {
+      "entryId": "the_treetops",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that the treetops are the leafy tops of the trees under which Alice had been wandering, with the Pigeon's nest in the highest tree; the wood's foliage and branches are supplied from the tradition of Tenniel's illustrated edition, with no people shown.",
+      "stages": [
+        {
+          "id": "the_treetops-main",
+          "label": "the treetops",
+          "when": "the story's single setting in the wood",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "advice-from-a-caterpillar-56",
+              "quote": "the tops of the trees under which she had been wandering"
+            },
+            {
+              "unit": "advice-from-a-caterpillar-65",
+              "quote": "just as I'd taken the highest tree in the wood"
+            }
+          ],
+          "text": "the treetops: the leafy crowns of tall trees in a wooded place, dense green foliage with interlacing branches, the highest tree rising above the rest, a broad wood of untrimmed oaks and elms, no people, no buildings, Victorian English dream landscape in the manner of Tenniel's engravings."
+        }
+      ],
+      "sectionStages": {
+        "advice-from-a-caterpillar-57": "the_treetops-main"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_open_place_with_the_little_house": {
+      "entryId": "the_open_place_with_the_little_house",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes an open clearing in a wood with a small house about four feet high, and the Victorian illustrative tradition supplies the cottage look; the text gives no further detail of terrain or materials, which are supplied from the era brief.",
+      "stages": [
+        {
+          "id": "the_open_place_with_the_little_house_stage_1",
+          "label": "Open place with the little house",
+          "when": "Throughout the story section where Alice comes upon it in the mushroom wood",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "advice-from-a-caterpillar-75",
+              "quote": "she came suddenly upon an open place, with a little house in it about four feet high"
+            }
+          ],
+          "text": "the open place with the little house: a clearing opening suddenly among the trees of a mushroom wood, with a small cottage about four feet high standing in it. The cottage is of plain Victorian country build, with a pitched roof, a low door and small windows, roughly the height of a child's doorway. Grass and low wild growth fill the clearing, and trees ring its edges."
+        }
+      ],
+      "sectionStages": {
+        "advice-from-a-caterpillar-57": "the_open_place_with_the_little_house_stage_1"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "fish_footman": {
+      "entryId": "fish_footman",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a footman in livery with a fish-like face (Alice would have called him a fish if not for his livery) and powdered curling hair; the rest of the look is supplied from the Victorian period dress for footmen.",
+      "stages": [
+        {
+          "id": "fish_footman_base",
+          "label": "Fish-Footman",
+          "when": "Pig and Pepper section, when he delivers the invitation and later sits staring at the sky",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "pig-and-pepper-1",
+              "quote": "a footman in livery came running out of the wood"
+            },
+            {
+              "unit": "pig-and-pepper-1",
+              "quote": "judging by his face only, she would have called him a fish"
+            },
+            {
+              "unit": "pig-and-pepper-1",
+              "quote": "both footmen, Alice noticed, had powdered hair that curled all over their heads"
+            }
+          ],
+          "text": "Fish-Footman: adult man, slim to medium build, pale skin, face with a fish-like cast with wide mouth and large round eyes, powdered white hair curling all over his head, worn in the manner of a footman's wig. Signature outfit: a formal footman's livery coat with brass buttons, knee breeches and white stockings, in dark green and gold. Signature prop: a great letter, nearly as large as himself, carried under one arm."
+        }
+      ],
+      "sectionStages": {
+        "pig-and-pepper-1": "fish_footman_base"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_duchess_s_cook": {
+      "entryId": "the_duchess_s_cook",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes that she is a cook in a smoky kitchen, stirring a cauldron of peppery soup, carrying a pepper-box, and throwing kitchen wares; it gives no physical features, so the look is invented in Tenniel-like Victorian style.",
+      "stages": [
+        {
+          "id": "the_duchess_s_cook",
+          "label": "The Duchess's cook",
+          "when": "Duchess's kitchen, and later the courtroom",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "pig-and-pepper-19",
+              "quote": "the cook was leaning over the fire, stirring a large cauldron which seemed to be full of soup"
+            },
+            {
+              "unit": "who-stole-the-tarts-64",
+              "quote": "She carried the pepper-box in her hand"
+            }
+          ],
+          "text": "The Duchess's cook: a stout woman in her middle years with a broad, sturdy build and rosy, flushed skin from the heat of the fire. Her hair is tucked under a plain white cap, and she wears a long dark Victorian kitchen dress with a white apron and sleeves rolled to the elbow. Her signature prop is a pepper-box she carries in her hand, and her face is set in a sour, determined expression."
+        }
+      ],
+      "sectionStages": {
+        "pig-and-pepper-19": "the_duchess_s_cook",
+        "who-stole-the-tarts-63": "the_duchess_s_cook"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "frog_footman": {
+      "entryId": "frog_footman",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a footman in livery with a round face, large frog-like eyes and powdered hair curling all over his head; the era dress, build and age are supplied from the Victorian dream-Wonderland brief and the Tenniel-style tradition of the work's own illustrations.",
+      "stages": [
+        {
+          "id": "frog_footman_main",
+          "label": "Frog-Footman",
+          "when": "throughout the story",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "pig-and-pepper-1",
+              "quote": "with a round face, and large eyes like a frog"
+            },
+            {
+              "unit": "pig-and-pepper-1",
+              "quote": "both footmen, Alice noticed, had powdered hair that curled all over their heads"
+            },
+            {
+              "unit": "pig-and-pepper-1",
+              "quote": "another footman in livery"
+            }
+          ],
+          "text": "Frog-Footman: adult manservant, slim and upright in build, pale skin, powdered white hair curled tightly all over the head, round face with large bulging frog-like eyes. Signature outfit: a formal footman's livery coat in deep green with brass buttons, white powdered wig-like curls, white stockings and dark knee breeches, worn with a buttoned waistcoat. No props carried alone."
+        }
+      ],
+      "sectionStages": {
+        "pig-and-pepper-1": "frog_footman_main",
+        "pig-and-pepper-5": "frog_footman_main"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "baby": {
+      "entryId": "baby",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a baby held by the Duchess, a queer-shaped, snorting infant with a very turn-up, snout-like nose and small eyes that turns into a pig; the text does not describe its clothing, so the look is supplied from the Victorian-era brief.",
+      "stages": [
+        {
+          "id": "baby-main",
+          "label": "Baby",
+          "when": "Duchess's kitchen, then carried out and turning into a pig",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "pig-and-pepper-44",
+              "quote": "it was a queer-shaped little creature, and held out its arms and legs in all directions"
+            },
+            {
+              "unit": "pig-and-pepper-46",
+              "quote": "There could be no doubt that it had a _very_ turn-up nose, much more like a snout than a real nose"
+            },
+            {
+              "unit": "pig-and-pepper-46",
+              "quote": "its eyes were getting extremely small for a baby"
+            },
+            {
+              "unit": "pig-and-pepper-48",
+              "quote": "it was neither more nor less than a pig"
+            }
+          ],
+          "text": "Baby: a young infant of indeterminate age, small and queer-shaped, with limbs that stick out in all directions, a very turn-up snout-like nose and unusually small eyes, its skin pale and flushed from sneezing. Wrapped in a plain Victorian infant's gown of pale cotton or flannel, with a soft knitted cap. Tousled fine hair, barely visible under the cap. Its pig-like features grow more pronounced as it transforms."
+        }
+      ],
+      "sectionStages": {
+        "pig-and-pepper-19": "baby-main"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "cheshire_cat": {
+      "entryId": "cheshire_cat",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a large, grinning cat with very long claws and many teeth, sitting on a bough or hearth and able to fade from the tail end first, leaving the grin; its fur, colour and clothing are unstated, so the look is supplied from the Tenniel-era illustrative tradition of a striped tabby cat with a broad grin, with no costume.",
+      "stages": [
+        {
+          "id": "cheshire_cat",
+          "label": "Cheshire Cat",
+          "when": "Duchess's kitchen, croquet ground and trees throughout the story",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "pig-and-pepper-50",
+              "quote": "it had _very_ long claws and a great many teeth"
+            },
+            {
+              "unit": "pig-and-pepper-78",
+              "quote": "vanished quite slowly, beginning with the end of the tail, and ending with the grin"
+            }
+          ],
+          "text": "Cheshire Cat: a large grey-and-white striped tabby cat, adult, with a broad, wide, ear-to-ear grin, long claws and many teeth, drawn as an animal with no clothing or props. Its fur is short and tabby-striped, eyes wide and bright, ears pointed, with a long tail. Neither dressed nor armed; a plain, natural cat form."
+        }
+      ],
+      "sectionStages": {
+        "pig-and-pepper-19": "cheshire_cat",
+        "pig-and-pepper-50": "cheshire_cat",
+        "the-queens-croquet-ground-45": "cheshire_cat",
+        "the-queens-croquet-ground-62": "cheshire_cat"
+      },
+      "problems": [
+        "stage cheshire_cat: quote not found in pig-and-pepper-19: \"a large cat which was sitting on the hearth and grinning fro\""
+      ],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "march_hare": {
+      "entryId": "march_hare",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a large house with ear-shaped chimneys and a fur-thatched roof, a hare who is mad and sits at the tea-table, and a March setting; the look of a human-posed hare in Victorian dress is supplied from the work's tradition of illustration.",
+      "stages": [
+        {
+          "id": "march_hare",
+          "label": "March Hare",
+          "when": "throughout the work",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "pig-and-pepper-80",
+              "quote": "the chimneys were shaped like ears and the roof was thatched with fur"
+            },
+            {
+              "unit": "a-mad-tea-party-1",
+              "quote": "the March Hare and the Hatter were having tea at it"
+            }
+          ],
+          "text": "March Hare: an anthropomorphic brown hare with long upright ears and a wild, staring, mad expression, standing on two legs with human posture. Age: middle-aged adult. Build: lean and wiry. Skin: brown fur. Hair and beard: none beyond fur on the face and whiskers. Facial notes: large round eyes, twitching nose. Signature outfit: a rumpled waistcoat and frock coat in faded brown and buff, with a loosened cravat. Signature props: a teacup and saucer."
+        }
+      ],
+      "sectionStages": {
+        "a-mad-tea-party-1": "march_hare",
+        "a-mad-tea-party-21": "march_hare",
+        "a-mad-tea-party-47": "march_hare",
+        "a-mad-tea-party-63": "march_hare",
+        "a-mad-tea-party-90": "march_hare",
+        "who-stole-the-tarts-16": "march_hare"
+      },
+      "problems": [
+        "stage march_hare: quote not found in who-stole-the-tarts-18: \"Fourteenth of March, I think it was\""
+      ],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_hatter": {
+      "entryId": "the_hatter",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes that the Hatter wears a hat (he is asked to take it off and says it is not his), carries a teacup and bread-and-butter, has a watch he shakes and holds to his ear, and is untidy-haired per Alice's remark; the rest is supplied in the Tenniel-derived tradition of the book's illustrations.",
+      "stages": [
+        {
+          "id": "the_hatter",
+          "label": "The Hatter",
+          "when": "throughout the work",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "a-mad-tea-party-9",
+              "quote": "Your hair wants cutting"
+            },
+            {
+              "unit": "who-stole-the-tarts-16",
+              "quote": "He came in with a teacup in one hand and a piece of bread-and-butter in the other."
+            },
+            {
+              "unit": "a-mad-tea-party-21",
+              "quote": "he had taken his watch out of his pocket, and was looking at it uneasily, shaking it every now and then, and holding it to his ear."
+            },
+            {
+              "unit": "who-stole-the-tarts-22",
+              "quote": "Take off your hat,” the King said to the Hatter."
+            }
+          ],
+          "text": "The Hatter: an adult man of middle years, lean and slightly stooped, with a pale, anxious face and untidy, uncut hair. He wears a tall battered top hat and a rumpled Victorian frock coat and waistcoat in faded browns and mustard, with a loose cravat. Signature props he carries alone: a chipped teacup, a slice of bread-and-butter, and a pocket watch he holds to his ear."
+        }
+      ],
+      "sectionStages": {
+        "a-mad-tea-party-1": "the_hatter",
+        "a-mad-tea-party-21": "the_hatter",
+        "a-mad-tea-party-47": "the_hatter",
+        "a-mad-tea-party-63": "the_hatter",
+        "a-mad-tea-party-90": "the_hatter",
+        "who-stole-the-tarts-16": "the_hatter"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "duchess_s_house": {
+      "entryId": "duchess_s_house",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a house standing in a wood with a door opening into a smoky kitchen containing a three-legged stool, a fire, a large cauldron, and a hearth; the wood setting, smoke and kitchen details are from the text, while the house's exterior materials and palette are supplied by invention in keeping with the Victorian dream setting.",
+      "stages": [
+        {
+          "id": "duchess_s_house_base",
+          "label": "Duchess's House",
+          "when": "throughout the story sections in which the house appears",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "pig-and-pepper-1",
+              "quote": "a footman in livery came running out of the wood"
+            },
+            {
+              "unit": "pig-and-pepper-6",
+              "quote": "a most extraordinary noise going on within"
+            },
+            {
+              "unit": "pig-and-pepper-19",
+              "quote": "The door led right into a large kitchen, which was full of smoke from one end to the other"
+            },
+            {
+              "unit": "pig-and-pepper-19",
+              "quote": "the Duchess was sitting on a three-legged stool in the middle"
+            }
+          ],
+          "text": "Duchess's House: a modest house standing at the edge of a wood, with a plain front door and rough, weathered timber walls. Inside the door lies a large kitchen filled with thick smoke, a great fire burning at one end, a hearth with a large cauldron of soup hanging over the flames, a three-legged stool at the centre, and pots, pans, plates and dishes scattered about. Trees of the wood crowd close around the house."
+        }
+      ],
+      "sectionStages": {
+        "pig-and-pepper-1": "duchess_s_house_base",
+        "pig-and-pepper-5": "duchess_s_house_base",
+        "pig-and-pepper-19": "duchess_s_house_base"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "queen_of_hearts": {
+      "entryId": "queen_of_hearts",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes her as the imperious Queen of Hearts, crimson with fury, who sits beside the King on a throne and wears a crown-like regal bearing; her look is not described in detail, so a stately card-court queen with a heart motif was supplied in keeping with the playing-card courtiers.",
+      "stages": [
+        {
+          "id": "queen_of_hearts",
+          "label": "Queen of Hearts",
+          "when": "throughout the work",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-18",
+              "quote": "The Queen turned crimson with fury"
+            },
+            {
+              "unit": "who-stole-the-tarts-1",
+              "quote": "The King and Queen of Hearts were seated on their throne"
+            }
+          ],
+          "text": "Queen of Hearts: an adult woman of middle years, stately and severe, with a flat oblong playing-card body, arms and legs at the corners, and a heart-ornamented robe in crimson and scarlet. Pale skin, dark hair dressed high under a small crown of gold, sharp features and a stern expression. Signature outfit: a long crimson velvet gown with heart shapes and a gold-trimmed collar. Signature prop: a small golden sceptre."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-1": "queen_of_hearts",
+        "the-queens-croquet-ground-34": "queen_of_hearts",
+        "the-queens-croquet-ground-45": "queen_of_hearts",
+        "the-queens-croquet-ground-62": "queen_of_hearts",
+        "the-mock-turtles-story-5": "queen_of_hearts",
+        "the-mock-turtles-story-31": "queen_of_hearts",
+        "the-mock-turtles-story-37": "queen_of_hearts",
+        "who-stole-the-tarts-1": "queen_of_hearts",
+        "who-stole-the-tarts-16": "queen_of_hearts",
+        "who-stole-the-tarts-63": "queen_of_hearts",
+        "alices-evidence-1": "queen_of_hearts",
+        "alices-evidence-16": "queen_of_hearts",
+        "alices-evidence-23": "queen_of_hearts",
+        "alices-evidence-47": "queen_of_hearts"
+      },
+      "problems": [
+        "stage queen_of_hearts: quote not found in the-queens-croquet-ground-1: \"came THE KING AND QUEEN OF HEARTS.\""
+      ],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "march_hare_s_house": {
+      "entryId": "march_hare_s_house",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a large house with ear-shaped chimneys and a roof thatched with fur; the terrain, surroundings and any further architecture are supplied by invention in the work's illustrative tradition.",
+      "stages": [
+        {
+          "id": "march_hare_s_house",
+          "label": "March Hare's House",
+          "when": "Alice's approach near the end of the Cheshire Cat conversation, in the May woodland",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "pig-and-pepper-80",
+              "quote": "the chimneys were shaped like ears and the roof was thatched with fur"
+            },
+            {
+              "unit": "pig-and-pepper-80",
+              "quote": "It was so large a house"
+            }
+          ],
+          "text": "March Hare's House: a very large house with tall chimneys shaped like ears and a steeply pitched roof thatched with fur, set in a shaded woodland clearing among old trees and mushrooms, with a quiet garden path leading up to its front. The house is rambling and wide, with several windows and a timbered Victorian-storybook look in the whimsical tradition of the work's illustrations."
+        }
+      ],
+      "sectionStages": {
+        "pig-and-pepper-50": "march_hare_s_house"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_woods_around_the_duchess_s_house": {
+      "entryId": "the_woods_around_the_duchess_s_house",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that the woods lie beside the Duchess's house, where the footmen run out and the Cat sits on a bough; the wood's terrain, trees and vegetation are supplied from the Victorian dream-Wonderland setting.",
+      "stages": [
+        {
+          "id": "the_woods_around_the_duchess_s_house-main",
+          "label": "The woods around the Duchess's house",
+          "when": "Throughout the story sections in which the wood appears",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "pig-and-pepper-1",
+              "quote": "a footman in livery came running out of the wood"
+            },
+            {
+              "unit": "pig-and-pepper-10",
+              "quote": "broke to pieces against one of the trees behind him"
+            },
+            {
+              "unit": "pig-and-pepper-49",
+              "quote": "trot away quietly into the wood"
+            }
+          ],
+          "text": "The woods around the Duchess's house: a dim, close wood of tall, shadowy trees with broad trunks and low spreading boughs, rooted in soft grass and tangled undergrowth beside a modest house with a stout front door. Dappled light falls through the leaves, and a faint path leads between the trunks toward the wider country. Several trees stand near the house, and the wood thickens into a dreamlike, slightly unsettling maze. No people are present."
+        }
+      ],
+      "sectionStages": {
+        "pig-and-pepper-1": "the_woods_around_the_duchess_s_house-main",
+        "pig-and-pepper-5": "the_woods_around_the_duchess_s_house-main",
+        "pig-and-pepper-19": "the_woods_around_the_duchess_s_house-main",
+        "pig-and-pepper-50": "the_woods_around_the_duchess_s_house-main"
+      },
+      "problems": [
+        "stage the_woods_around_the_duchess_s_house-main: quote not found in pig-and-pepper-50: \"the Cheshire Cat sitting on a bough of a tree a few yards of\""
+      ],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_dormouse": {
+      "entryId": "the_dormouse",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes the Dormouse as a sleepy, hoarse-voiced animal seated between the Hatter and the March Hare; it gives no fur colour or dress, so the animal look and a Victorian-era waistcoat-free small-animal form are supplied from the era and the work's animal-as-character rule.",
+      "stages": [
+        {
+          "id": "the_dormouse",
+          "label": "the Dormouse",
+          "when": "throughout the work",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "a-mad-tea-party-1",
+              "quote": "a Dormouse was sitting between them, fast asleep"
+            },
+            {
+              "unit": "a-mad-tea-party-66",
+              "quote": "in a hoarse, feeble voice"
+            },
+            {
+              "unit": "who-stole-the-tarts-34",
+              "quote": "got up very sulkily and crossed over to the other side of the court"
+            }
+          ],
+          "text": "the Dormouse: a small, drowsy dormouse with a plump round body, soft grey-brown fur, round ears, a long thin tail and small dark eyes half-closed with sleep. Standing upright in human posture, it wears a modest Victorian waistcoat and neckcloth in muted dusty blue with a small pocket watch chain, and carries no props of its own. Its whiskers are long and pale."
+        }
+      ],
+      "sectionStages": {
+        "a-mad-tea-party-1": "the_dormouse",
+        "a-mad-tea-party-21": "the_dormouse",
+        "a-mad-tea-party-47": "the_dormouse",
+        "a-mad-tea-party-63": "the_dormouse",
+        "a-mad-tea-party-90": "the_dormouse",
+        "who-stole-the-tarts-16": "the_dormouse",
+        "who-stole-the-tarts-63": "the_dormouse"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_wood_after_the_tea_party": {
+      "entryId": "the_wood_after_the_tea_party",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that Alice walks through a wood after the tea-party and that a tree has a door leading into it; the wood's terrain, trees and vegetation are supplied from the work's tradition of the wood as a shaded, tangled English woodland.",
+      "stages": [
+        {
+          "id": "the_wood_after_the_tea_party_base",
+          "label": "The wood after the tea-party",
+          "when": "after the March Hare's tea-party, before the tree-door to the garden",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "a-mad-tea-party-103",
+              "quote": "she picked her way through the wood"
+            },
+            {
+              "unit": "a-mad-tea-party-104",
+              "quote": "one of the trees had a door leading right into it"
+            }
+          ],
+          "text": "The wood after the tea-party: a tangled, shaded woodland of close-growing trees with twisted trunks and undergrowth, lit by dappled daylight through the leaves. Among the trunks stands at least one tree with a small door set into its bark, leading inward. Ground is uneven with roots and fallen leaves, and the path winds between the trees. No people or animals are present."
+        }
+      ],
+      "sectionStages": {
+        "a-mad-tea-party-103": "the_wood_after_the_tea_party_base"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "tea_table_under_a_tree": {
+      "entryId": "tea_table_under_a_tree",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a large table set out under a tree in front of a house, with tea-things crowded at one corner, and a tree providing shade; the surface, tea-things, and tree form were supplied from the Victorian-era setting brief.",
+      "stages": [
+        {
+          "id": "tea_table_under_a_tree_main",
+          "label": "Tea-table under a tree",
+          "when": "throughout the tea-party",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "a-mad-tea-party-1",
+              "quote": "There was a table set out under a tree in front of the house"
+            },
+            {
+              "unit": "a-mad-tea-party-2",
+              "quote": "The table was a large one, but the three were all crowded together at one corner of it"
+            },
+            {
+              "unit": "a-mad-tea-party-2",
+              "quote": "she sat down in a large arm-chair at one end of the table"
+            },
+            {
+              "unit": "a-mad-tea-party-58",
+              "quote": "so many tea-things are put out here"
+            }
+          ],
+          "text": "Tea-table under a tree: a large table set out under a tree in front of a house, its long surface crowded with tea-things, teapots, cups, saucers, a milk-jug, bread-and-butter and a cluster of mismatched chairs at one end, with a large armchair; the tree's branches cast shade over it, and the house stands behind it in a Victorian English garden setting."
+        }
+      ],
+      "sectionStages": {
+        "a-mad-tea-party-1": "tea_table_under_a_tree_main",
+        "a-mad-tea-party-21": "tea_table_under_a_tree_main",
+        "a-mad-tea-party-47": "tea_table_under_a_tree_main",
+        "a-mad-tea-party-63": "tea_table_under_a_tree_main",
+        "a-mad-tea-party-90": "tea_table_under_a_tree_main"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_garden": {
+      "entryId": "the_garden",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a beautiful garden of bright flower-beds and cool fountains, reached through a tree-door, with a large rose-tree near its entrance whose white roses the card gardeners paint red; the rest of the garden's architecture and terrain are supplied from the work's Victorian-dream illustrative tradition.",
+      "stages": [
+        {
+          "id": "the_garden_stage_1",
+          "label": "The garden",
+          "when": "throughout the story sections in which the garden appears",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "a-mad-tea-party-105",
+              "quote": "found herself at last in the beautiful garden, among the bright flower-beds and the cool fountains"
+            },
+            {
+              "unit": "the-queens-croquet-ground-1",
+              "quote": "A large rose-tree stood near the entrance of the garden: the roses growing on it were white"
+            }
+          ],
+          "text": "The garden: a beautiful walled garden of bright flower-beds and cool fountains, entered through a door set into a great tree. Near the entrance stands a large rose-tree with white roses, its blooms in need of paint. Neat flower-beds, clipped hedges, stone paths and splashing fountains fill the grounds beneath a Victorian dream-sky."
+        }
+      ],
+      "sectionStages": {
+        "a-mad-tea-party-103": "the_garden_stage_1",
+        "the-queens-croquet-ground-1": "the_garden_stage_1"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "five": {
+      "entryId": "five",
+      "kind": "object",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes Five as one of three flat, oblong playing-card gardeners with heads, arms and legs, painting white roses red; the card form, paint-splashed brush and sulky blame of Seven are from the text, and the rest is supplied from the card-pack tradition.",
+      "stages": [
+        {
+          "id": "five-main",
+          "label": "Five",
+          "when": "during the croquet-ground scene",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-1",
+              "quote": "there were three gardeners at it, busily painting them red"
+            },
+            {
+              "unit": "the-queens-croquet-ground-1",
+              "quote": "Look out now, Five! Don't go splashing paint over me like that!"
+            }
+          ],
+          "text": "Five: a flat, oblong playing card gardener with a head, arms and legs placed at the corners, his back patterned like the rest of the pack. He holds a paint brush and wears the plain gardener's garb of the card pack, with paint splashed across his card face and clothing."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-1": "five-main"
+      },
+      "problems": [
+        "stage five-main: quote not found in the-queens-croquet-ground-1: \"these were all shaped like the three gardeners, oblong and f\""
+      ],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "two": {
+      "entryId": "two",
+      "kind": "object",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes that Two is one of three flat, oblong card gardeners painting white roses red, the spokesman who explains the mistake to Alice; the card form, hands and feet at the corners, and his look are supplied from the work's illustrative tradition.",
+      "stages": [
+        {
+          "id": "two-card-gardener",
+          "label": "Two, card gardener",
+          "when": "the rose-garden scene in the Queen's croquet-ground",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-1",
+              "quote": "there were three gardeners at it, busily painting them red"
+            },
+            {
+              "unit": "the-queens-croquet-ground-11",
+              "quote": "these were all shaped like the three gardeners, oblong and flat, with their hands and feet at the corners"
+            },
+            {
+              "unit": "the-queens-croquet-ground-10",
+              "quote": "Two began in a low voice, \"Why the fact is, you see, Miss"
+            }
+          ],
+          "text": "Two: a flat, oblong playing card gardener, not a human, with a head, arms and legs placed at the corners of the card. Painted in the pattern of the card pack with a spade-marked back, he is a card of the gardeners' suit, dressed as a humble gardener in a plain waistcoat with a brush in hand. His face is small and earnest, with a meek, worried expression, and he carries a paintbrush and a pot of red paint as his only props."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-1": "two-card-gardener"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "seven": {
+      "entryId": "seven",
+      "kind": "object",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes Seven as one of three oblong, flat playing-card gardeners with heads, arms and legs at the corners, painting white roses red; the card's pattern is the same as the rest of the pack, and the card is a flat card form, with the Tenniel-style illustrative tradition supplying the rest.",
+      "stages": [
+        {
+          "id": "seven-stage-1",
+          "label": "Seven, card gardener",
+          "when": "Victorian England and its dream Wonderland",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-1",
+              "quote": "there were three gardeners at it, busily painting them red"
+            },
+            {
+              "unit": "the-queens-croquet-ground-11",
+              "quote": "these were all shaped like the three gardeners, oblong and flat, with their hands and feet at the corners"
+            },
+            {
+              "unit": "the-queens-croquet-ground-16",
+              "quote": "the pattern on their backs was the same as the rest of the pack"
+            }
+          ],
+          "text": "Seven: a flat, oblong playing card gardener with a head, arms and legs at the corners of the card body. Its face is simple and a little sulky, and its card back carries the same pattern as the rest of the pack. Seven holds a paintbrush and is stained with red paint from the white roses it has been painting."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-1": "seven-stage-1"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_knave_of_hearts": {
+      "entryId": "the_knave_of_hearts",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes that the Knave of Hearts is a playing card carrying the King's crown on a crimson velvet cushion, standing in chains between two soldiers, and made entirely of cardboard; the text does not fix his face or build, so the flat oblong card form with heads, arms and legs follows the depiction rule, and the rest is supplied in the Victorian Wonderland tradition.",
+      "stages": [
+        {
+          "id": "the_knave_of_hearts-stage-1",
+          "label": "The Knave of Hearts",
+          "when": "Wonderland court, throughout the story",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-11",
+              "quote": "oblong and flat, with their hands and feet at the corners"
+            },
+            {
+              "unit": "the-queens-croquet-ground-11",
+              "quote": "Then followed the Knave of Hearts, carrying the King’s crown on a crimson velvet cushion"
+            },
+            {
+              "unit": "who-stole-the-tarts-1",
+              "quote": "the Knave was standing before them, in chains, with a soldier on each side to guard him"
+            },
+            {
+              "unit": "alices-evidence-51",
+              "quote": "being made entirely of cardboard"
+            }
+          ],
+          "text": "The Knave of Hearts: a flat, oblong playing card of cardboard with a head, arms and legs at the corners, young adult, slim build, pale cardboard skin, hair and face painted in simple red-and-white card style, a small heart-marked tunic in red and white with a plain card collar, a crimson velvet cushion carried as his signature prop, simple iron chains at the wrists when on trial."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-1": "the_knave_of_hearts-stage-1",
+        "who-stole-the-tarts-1": "the_knave_of_hearts-stage-1",
+        "alices-evidence-1": "the_knave_of_hearts-stage-1",
+        "alices-evidence-23": "the_knave_of_hearts-stage-1",
+        "alices-evidence-47": "the_knave_of_hearts-stage-1"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "king_of_hearts": {
+      "entryId": "king_of_hearts",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes the King as a mild, timid, merciful husband of the Queen, wearing a crown (worn over a judicial wig at trial) and spectacles, with a note-book; his physical look (portly, gentle, royal robes) is supplied from the work's illustrative tradition of the Tenniel-style King of Hearts as a card-king.",
+      "stages": [
+        {
+          "id": "king_of_hearts_main",
+          "label": "King of Hearts",
+          "when": "throughout the story",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-11",
+              "quote": "and, last of all this grand procession, came THE KING AND QUEEN OF HEARTS."
+            },
+            {
+              "unit": "who-stole-the-tarts-3",
+              "quote": "the judge, by the way, was the King; and as he wore his crown over the wig"
+            },
+            {
+              "unit": "who-stole-the-tarts-7",
+              "quote": "the King put on his spectacles and looked anxiously round"
+            },
+            {
+              "unit": "the-queens-croquet-ground-20",
+              "quote": "The King laid his hand upon her arm, and timidly said “Consider, my dear: she is only a child!”"
+            }
+          ],
+          "text": "King of Hearts: a mild, timid middle-aged man with a rounded, gentle face and a kindly, worried expression, a short full beard and moustache, and a plump build. His signature outfit is a long crimson royal robe with heart motifs over a white shirt, gold-trimmed, worn with a crown and, at trial, a great white judge's wig with the crown set over it. Signature props: a note-book and round spectacles. Flat, oblong playing-card proportions with arms and legs as a card-king."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-1": "king_of_hearts_main",
+        "the-queens-croquet-ground-45": "king_of_hearts_main",
+        "the-queens-croquet-ground-62": "king_of_hearts_main",
+        "the-mock-turtles-story-31": "king_of_hearts_main",
+        "the-mock-turtles-story-37": "king_of_hearts_main",
+        "who-stole-the-tarts-1": "king_of_hearts_main",
+        "who-stole-the-tarts-16": "king_of_hearts_main",
+        "who-stole-the-tarts-63": "king_of_hearts_main",
+        "alices-evidence-1": "king_of_hearts_main",
+        "alices-evidence-16": "king_of_hearts_main",
+        "alices-evidence-23": "king_of_hearts_main",
+        "alices-evidence-47": "king_of_hearts_main"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_queen_s_playing_card_soldiers": {
+      "entryId": "the_queen_s_playing_card_soldiers",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes that the soldiers are oblong and flat like the gardeners, with hands and feet at the corners, carry clubs, and are shaped like cards; the card pattern and flat cardboard build are from the text, and the uniform and expression are supplied from the Victorian card-pack tradition.",
+      "stages": [
+        {
+          "id": "the_queen_s_playing_card_soldiers_stage_1",
+          "label": "Playing-card soldiers",
+          "when": "Throughout Wonderland, from the rose-garden procession to the court.",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-11",
+              "quote": "First came ten soldiers carrying clubs; these were all shaped like the three gardeners, oblong and flat, with their hands and feet at the corners"
+            }
+          ],
+          "text": "The Queen's playing-card soldiers: flat oblong playing cards with a club pattern on the front, each with a small head, arms and legs at the corners, standing in a row of ten. Each card carries a club, with a neat cardboard edge. Their faces are simple painted expressions of stiff, dutiful seriousness. The uniform is a period red and black card-suit livery, with a small crown-style cap on the head. Narrow, straight-edged bodies, with hands and feet tucked at the corners."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-1": "the_queen_s_playing_card_soldiers_stage_1",
+        "the-queens-croquet-ground-34": "the_queen_s_playing_card_soldiers_stage_1",
+        "who-stole-the-tarts-16": "the_queen_s_playing_card_soldiers_stage_1",
+        "who-stole-the-tarts-63": "the_queen_s_playing_card_soldiers_stage_1"
+      },
+      "problems": [
+        "stage the_queen_s_playing_card_soldiers_stage_1: quote not found in the-queens-croquet-ground-42: \"the soldiers had to double themselves up and to stand on the\""
+      ],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_courtiers": {
+      "entryId": "the_courtiers",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes the courtiers as flat, oblong playing cards ornamented all over with diamonds, walking two by two with hands and feet at the corners; the card-body form and diamond ornament come from the text, and their small human-like faces, posture and dress are supplied within the brief's card-courtier rule.",
+      "stages": [
+        {
+          "id": "the_courtiers-1",
+          "label": "the courtiers",
+          "when": "the royal procession in the Queen's croquet-ground",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-11",
+              "quote": "the ten courtiers; these were ornamented all over with diamonds, and walked two and two"
+            },
+            {
+              "unit": "the-queens-croquet-ground-11",
+              "quote": "oblong and flat, with their hands and feet at the corners"
+            }
+          ],
+          "text": "the courtiers: a group of ten flat, oblong playing-card courtiers, each a card-shaped body with a head, arms and legs at the corners, ornamented all over with red and white diamonds. Each card has a small, sober, human-like face with a simple painted expression and a plain card-stiff bearing, walking upright in pairs. Their dress is a suggested period courtly tunic and hat, drawn flat in the card's own pattern, with diamond motifs on the body and clothing in the same red and white."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-1": "the_courtiers-1"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_royal_children": {
+      "entryId": "the_royal_children",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes that the royal children are ten, decorated all over with hearts, and that they jump merrily along hand in hand in couples; their age, build and features are not stated, so the child-like look and heart-patterned flat-card form are supplied from the card-courtier convention.",
+      "stages": [
+        {
+          "id": "the_royal_children",
+          "label": "the royal children",
+          "when": "the royal procession on the croquet-ground",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-11",
+              "quote": "the royal children; there were ten of them, and the little dears came jumping merrily along hand in hand, in couples"
+            },
+            {
+              "unit": "the-queens-croquet-ground-11",
+              "quote": "they were all ornamented with hearts."
+            }
+          ],
+          "text": "the royal children: ten young children, drawn as flat oblong playing cards with heads, arms and legs at the corners, their bodies ornamented all over with red hearts; a small group of ten, each child with a simple rounded head and childlike proportions, and the same card pattern on front and back."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-1": "the_royal_children"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_executioner": {
+      "entryId": "the_executioner",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that the executioner argues about beheading and runs off like an arrow to fetch the Duchess; no physical appearance is given, so the Tenniel-style tradition of a stout, bearded headsman in period dress is supplied, shown as a flat playing-card courtier with head, arms and legs, with no gore.",
+      "stages": [
+        {
+          "id": "the_executioner",
+          "label": "the executioner",
+          "when": "the Queen's croquet-ground dispute",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-66",
+              "quote": "you couldn’t cut off a head unless there was a body to cut it off from"
+            },
+            {
+              "unit": "the-queens-croquet-ground-70",
+              "quote": "the executioner went off like an arrow"
+            }
+          ],
+          "text": "the executioner: a flat, oblong playing-card figure with a head, arms and legs, middle-aged and stoutly built, with a close-cropped grey beard and heavy brows, a dark sober face. He wears a black Victorian-era tunic over a waistcoat, with a dark cap and a short axe-shaped tool slung at the hip, in black and grey tones."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-62": "the_executioner"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_flamingo": {
+      "entryId": "the_flamingo",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that the flamingo is a live bird used as a mallet: its body tucks under Alice's arm with legs hanging, its neck twists and it looks up with a puzzled expression; the rest of its look is supplied from the book's tradition of a pink flamingo.",
+      "stages": [
+        {
+          "id": "the_flamingo",
+          "label": "the flamingo",
+          "when": "throughout the croquet-ground scenes",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-42",
+              "quote": "it _would_ twist itself round and look up in her face"
+            },
+            {
+              "unit": "the-queens-croquet-ground-42",
+              "quote": "its body tucked away, comfortably enough, under her arm, with its legs hanging down"
+            }
+          ],
+          "text": "the flamingo: a live flamingo with long slender pink legs and a long S-curved neck, a sleek body with pale pink feathers and darker pink flight feathers, a long bill tipped with black, and bright, wide-set eyes. It is a bird of the Wonderland croquet-ground, living and wriggling, used as a mallet."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-34": "the_flamingo",
+        "the-queens-croquet-ground-45": "the_flamingo"
+      },
+      "problems": [
+        "stage the_flamingo: quote not found in the-queens-croquet-ground-42: \"the mallets live flamingoes\""
+      ],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_hedgehogs": {
+      "entryId": "the_hedgehogs",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes that the hedgehogs are live, rolling and crawling, used as croquet balls that unroll and run away; their look (spiny, small, animal) is supplied from the tradition of the work's illustrations, not from explicit description.",
+      "stages": [
+        {
+          "id": "the_hedgehogs",
+          "label": "the hedgehogs",
+          "when": "throughout the croquet-ground scenes",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-41",
+              "quote": "the balls were live hedgehogs"
+            },
+            {
+              "unit": "the-queens-croquet-ground-42",
+              "quote": "the hedgehog had unrolled itself, and was in the act of crawling away"
+            }
+          ],
+          "text": "the hedgehogs: small live hedgehogs with brown-grey spiny backs and short snouts, tiny dark eyes and little legs, shaped into rounded balls when curled up, drawn as animals with no clothing or human features; their spines are the defining feature and they show no face-to-face human expression."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-34": "the_hedgehogs",
+        "the-queens-croquet-ground-45": "the_hedgehogs"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_queen_s_croquet_ground": {
+      "entryId": "the_queen_s_croquet_ground",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a walled-garden croquet ground with ridges and furrows, hedgehog balls, flamingo mallets and soldier arches; the source gives no description of walls or architecture, so the walls, flower beds and sky were supplied from the era and the work brief.",
+      "stages": [
+        {
+          "id": "the_queens_croquet_ground_main",
+          "label": "The Queen's croquet-ground",
+          "when": "the whole story, all sections",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-queens-croquet-ground-41",
+              "quote": "it was all ridges and furrows; the balls were live hedgehogs, the mallets live flamingoes"
+            },
+            {
+              "unit": "the-queens-croquet-ground-41",
+              "quote": "the soldiers had to double themselves up and to stand on their hands and feet, to make the arches"
+            }
+          ],
+          "text": "The Queen's croquet-ground: an enclosed walled garden of uneven ground, ridged and furrowed like ploughed earth, with a few sparse trees and low hedges around its edges. Scattered across the lawn are hedgehog balls and flamingo mallets, with soldier-card arches standing where the hoops would be. Tall flowering shrubs and a pale Victorian sky frame the grounds, with a distant palace-like building behind the garden wall. No people in the scene."
+        }
+      ],
+      "sectionStages": {
+        "the-queens-croquet-ground-34": "the_queens_croquet_ground_main",
+        "the-queens-croquet-ground-45": "the_queens_croquet_ground_main",
+        "the-queens-croquet-ground-62": "the_queens_croquet_ground_main",
+        "the-mock-turtles-story-1": "the_queens_croquet_ground_main",
+        "the-mock-turtles-story-5": "the_queens_croquet_ground_main",
+        "the-mock-turtles-story-31": "the_queens_croquet_ground_main",
+        "the-mock-turtles-story-37": "the_queens_croquet_ground_main"
+      },
+      "problems": [
+        "stage the_queens_croquet_ground_main: quote not found in the-queens-croquet-ground-62: \"the arches are gone from this side of the ground\""
+      ],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_gryphon": {
+      "entryId": "the_gryphon",
+      "kind": "object",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes the Gryphon as a sleepy, chuckling, paw-lifting creature who sits up in the sun and sobs or hiccups with the Mock Turtle, with paws and a solemn voice; its wings, beaked head and lion-like body are the work's illustrative tradition (the Tenniel-style Gryphon) with the creature's form supplied from that tradition.",
+      "stages": [
+        {
+          "id": "the_gryphon-stage-1",
+          "label": "Gryphon",
+          "when": "throughout the work",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-mock-turtles-story-43",
+              "quote": "They very soon came upon a Gryphon, lying fast asleep in the sun."
+            },
+            {
+              "unit": "the-lobster-quadrille-41",
+              "quote": "the Gryphon went on in a deep voice"
+            }
+          ],
+          "text": "the Gryphon: a mythical creature with the head and forelegs of an eagle and the hindquarters of a lion, feathered wings folded at its back, a curved yellow beak and sharp talons, its body covered in tawny fur and golden-brown feathers; it sits upright on its haunches in sunlight with its front paws raised as if gesturing, its manner languid and pert, its colouring warm gold and russet."
+        }
+      ],
+      "sectionStages": {
+        "the-mock-turtles-story-37": "the_gryphon-stage-1",
+        "the-mock-turtles-story-48": "the_gryphon-stage-1",
+        "the-mock-turtles-story-71": "the_gryphon-stage-1",
+        "the-lobster-quadrille-1": "the_gryphon-stage-1",
+        "the-lobster-quadrille-18": "the_gryphon-stage-1",
+        "the-lobster-quadrille-27": "the_gryphon-stage-1",
+        "the-lobster-quadrille-48": "the_gryphon-stage-1",
+        "the-lobster-quadrille-66": "the_gryphon-stage-1",
+        "who-stole-the-tarts-1": "the_gryphon-stage-1"
+      },
+      "problems": [
+        "stage the_gryphon-stage-1: quote not found in the-lobster-quadrille-75: \"lifted up both its paws in surprise\""
+      ],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_rock_ledge_by_the_sea": {
+      "entryId": "the_rock_ledge_by_the_sea",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text places the Mock Turtle on a lonely little ledge of rock near the sea but gives no description of the ledge itself, so the rock, sea edge and surroundings are supplied from the work's illustrative tradition and the era brief.",
+      "stages": [
+        {
+          "id": "the_rock_ledge_by_the_sea_s1",
+          "label": "the rock ledge by the sea",
+          "when": "the time of the Mock Turtle's story, on the shore of the sea",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-mock-turtles-story-48",
+              "quote": "sitting sad and lonely on a little ledge of rock"
+            },
+            {
+              "unit": "the-mock-turtles-story-70",
+              "quote": "living at the bottom of the sea"
+            }
+          ],
+          "text": "the rock ledge by the sea: a small, weathered ledge of grey rock jutting out over the water at the edge of a sea shore, its rough surface bare and lonely, with waves breaking on rocks below and open sea stretching beyond, no trees or buildings in sight."
+        }
+      ],
+      "sectionStages": {
+        "the-mock-turtles-story-48": "the_rock_ledge_by_the_sea_s1",
+        "the-mock-turtles-story-71": "the_rock_ledge_by_the_sea_s1"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_undersea_school": {
+      "entryId": "the_undersea_school",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that the school was under the sea and attended by the Mock Turtle in his youth; the text gives no physical description of the school itself, so the undersea setting, its sea-bottom terrain and its pale recollected quality are supplied from the work's tradition.",
+      "stages": [
+        {
+          "id": "the_undersea_school",
+          "label": "The undersea school",
+          "when": "In the Mock Turtle's youth, as he recalls it",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-mock-turtles-story-55",
+              "quote": "we went to school in the sea"
+            },
+            {
+              "unit": "the-mock-turtles-story-70",
+              "quote": "living at the bottom of the sea"
+            }
+          ],
+          "text": "The undersea school: a schoolhouse on the sea floor, seen only in the Mock Turtle's memory; pale sandy bottom, drifting sea-green water above, dim filtered light, faint coral and kelp at its edges, no people or animals present."
+        }
+      ],
+      "sectionStages": {
+        "the-mock-turtles-story-48": "the_undersea_school",
+        "the-mock-turtles-story-71": "the_undersea_school"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_mock_turtle": {
+      "entryId": "the_mock_turtle",
+      "kind": "object",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a sorrowful, sobbing creature with a calf's head and a turtle's tail or flappers, and the Mock Turtle's sighing and tearful manner; the rest of the figure is supplied from the work's own illustrative tradition of a calf-headed, flippered creature in a waistcoat.",
+      "stages": [
+        {
+          "id": "the_mock_turtle",
+          "label": "The Mock Turtle",
+          "when": "throughout the work",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-mock-turtles-story-48",
+              "quote": "sitting sad and lonely on a little ledge of rock"
+            },
+            {
+              "unit": "the-mock-turtles-story-53",
+              "quote": "Once,\" said the Mock Turtle at last, with a deep sigh, \"I was a real Turtle."
+            },
+            {
+              "unit": "the-lobster-quadrille-1",
+              "quote": "with tears running down his cheeks"
+            }
+          ],
+          "text": "The Mock Turtle: a sorrowful creature with a calf's head and a turtle's tail, with flappers for forelimbs. Middle-aged, heavy-set build, sad large eyes, grey-white calf's head with a soft muzzle. Wears a dull waistcoat and a dark coat, with a turtle's shell-patterned tail. Carries nothing."
+        }
+      ],
+      "sectionStages": {
+        "the-mock-turtles-story-48": "the_mock_turtle",
+        "the-mock-turtles-story-71": "the_mock_turtle",
+        "the-lobster-quadrille-1": "the_mock_turtle",
+        "the-lobster-quadrille-18": "the_mock_turtle",
+        "the-lobster-quadrille-27": "the_mock_turtle",
+        "the-lobster-quadrille-48": "the_mock_turtle",
+        "the-lobster-quadrille-66": "the_mock_turtle"
+      },
+      "problems": [
+        "stage the_mock_turtle: quote not found in the-lobster-quadrille-79: \"counting off the subjects on his flappers\""
+      ],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 2
+    },
+    "sea_shore": {
+      "entryId": "sea_shore",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes only that the Lobster Quadrille is danced 'along the sea-shore' with seals, turtles, salmon and jelly-fish cleared away, and that there is 'shingle' and a far shore; the rest of the undersea shore look is supplied from the era and brief.",
+      "stages": [
+        {
+          "id": "sea_shore",
+          "label": "Sea-shore",
+          "when": "the undersea shore where the Lobster Quadrille is danced",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "the-lobster-quadrille-4",
+              "quote": "you first form into a line along the sea-shore"
+            },
+            {
+              "unit": "the-lobster-quadrille-24",
+              "quote": "They are waiting on the shingle"
+            },
+            {
+              "unit": "the-lobster-quadrille-5",
+              "quote": "when you've cleared all the jelly-fish out of the way"
+            }
+          ],
+          "text": "Sea-shore: an undersea shore of pale shingle and wet sand sloping down to a dim, rolling sea, with rock outcrops and clumps of swaying sea-weed and kelp along the tide-line. Scattered jelly-fish drift in the shallows, and a faint far shore lies across the water in the murky distance. No people."
+        }
+      ],
+      "sectionStages": {
+        "the-lobster-quadrille-1": "sea_shore",
+        "the-lobster-quadrille-18": "sea_shore",
+        "the-lobster-quadrille-27": "sea_shore",
+        "the-lobster-quadrille-48": "sea_shore",
+        "the-lobster-quadrille-66": "sea_shore"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_pack_of_cards_the_court_s_playing_cards": {
+      "entryId": "the_pack_of_cards_the_court_s_playing_cards",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes that the playing cards are flat, oblong cards with heads, arms and legs (depiction rule) and that they rise up and fly down at Alice; it gives no colour or costume, so the flat card form, playing-card suit pips and court-card dress are supplied from the work's own illustrative tradition.",
+      "stages": [
+        {
+          "id": "the_pack_of_cards_the_court_s_playing_cards-stage-1",
+          "label": "The pack of cards",
+          "when": "Final dream scene, the court's cards rising into the air",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "alices-evidence-63",
+              "quote": "You’re nothing but a pack of cards!"
+            },
+            {
+              "unit": "alices-evidence-64",
+              "quote": "At this the whole pack rose up into the air, and came flying down upon her"
+            }
+          ],
+          "text": "The pack of cards: a crowd of flat, oblong playing cards, each with a small head, arms and legs, in the Queen's court suits of hearts and spades with painted court-card dress and simple cardboard edges, each card a thin, stiff sheet with no depth."
+        }
+      ],
+      "sectionStages": {
+        "alices-evidence-47": "the_pack_of_cards_the_court_s_playing_cards-stage-1"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "the_jury": {
+      "entryId": "the_jury",
+      "kind": "character",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes the jury as twelve small birds and beasts, some animals and some birds, writing on slates in a jury-box; the Lizard (Bill) is named as one juror. Appearance beyond that (posture, dress as animals with human dress, card-like flatness is not applied since they are creatures) is supplied from the work's Tenniel-style tradition of animal jurors in period dress.",
+      "stages": [
+        {
+          "id": "the_jury",
+          "label": "the jury",
+          "when": "throughout the trial in the court",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "who-stole-the-tarts-4",
+              "quote": "those twelve creatures"
+            },
+            {
+              "unit": "who-stole-the-tarts-4",
+              "quote": "some of them were animals, and some were birds"
+            },
+            {
+              "unit": "who-stole-the-tarts-5",
+              "quote": "The twelve jurors were all writing very busily on slates."
+            },
+            {
+              "unit": "who-stole-the-tarts-9",
+              "quote": "it was Bill, the Lizard"
+            }
+          ],
+          "text": "the jury: twelve small creatures, a mix of birds and beasts, seated in the jury-box, each animal standing or sitting upright with human posture and dress in Victorian period waistcoats and small hats, a slate and pencil held before each one. Ages mixed and mostly small and adult; builds slight and compact; plumage or fur in muted tones of brown, grey and cream; the Lizard among them has green-grey scaly skin and a long tail. Signature props: a slate and slate-pencil each."
+        }
+      ],
+      "sectionStages": {
+        "who-stole-the-tarts-1": "the_jury",
+        "who-stole-the-tarts-16": "the_jury",
+        "who-stole-the-tarts-63": "the_jury",
+        "alices-evidence-1": "the_jury",
+        "alices-evidence-16": "the_jury",
+        "alices-evidence-23": "the_jury",
+        "alices-evidence-47": "the_jury"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 1
+    },
+    "court_of_justice": {
+      "entryId": "court_of_justice",
+      "kind": "location",
+      "hasForm": true,
+      "appearanceFromText": "The text fixes a open court with a throne, a jury-box, a central table holding a large dish of tarts, and a crowd of birds, beasts and playing cards; the court's furnishings and layout are drawn from the text, and the rest is supplied in a Victorian dream-court manner.",
+      "stages": [
+        {
+          "id": "court_of_justice_main",
+          "label": "Court of Justice",
+          "when": "throughout the trial",
+          "source": "mixed",
+          "quotes": [
+            {
+              "unit": "who-stole-the-tarts-1",
+              "quote": "In the very middle of the court was a table, with a large dish of tarts upon it"
+            },
+            {
+              "unit": "alices-evidence-1",
+              "quote": "she tipped over the jury-box with the edge of her skirt"
+            }
+          ],
+          "text": "Court of Justice: an open court of hall-like space with a raised throne at one end, a tall jury-box beside it, and a long central table in the middle holding a large dish of tarts. Wooden benches and a crowded floor of stone surround the table, with a rail and doorways at the edges. Wall hangings and dim banners frame the room, and a high ceiling holds the dream-court's brightness."
+        }
+      ],
+      "sectionStages": {
+        "the-lobster-quadrille-66": "court_of_justice_main",
+        "who-stole-the-tarts-1": "court_of_justice_main",
+        "who-stole-the-tarts-16": "court_of_justice_main",
+        "who-stole-the-tarts-63": "court_of_justice_main",
+        "who-stole-the-tarts-74": "court_of_justice_main",
+        "alices-evidence-1": "court_of_justice_main",
+        "alices-evidence-16": "court_of_justice_main",
+        "alices-evidence-23": "court_of_justice_main",
+        "alices-evidence-47": "court_of_justice_main"
+      },
+      "problems": [],
+      "promptVersion": "2026-10-30-canon-form-only-v1",
+      "attempts": 2
+    }
+  },
+  "ledger": [
+    {
+      "label": "canon:alice_s_sister:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.000787,
+      "promptTokens": 5525,
+      "completionTokens": 469,
+      "elapsedMs": 3426,
+      "at": "2026-10-30T23:14:20.771Z"
+    },
+    {
+      "label": "canon:white_rabbit:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0013368,
+      "promptTokens": 8323,
+      "completionTokens": 1009,
+      "elapsedMs": 4903,
+      "at": "2026-10-30T23:14:22.252Z"
+    },
+    {
+      "label": "canon:alice:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0017189,
+      "promptTokens": 9279,
+      "completionTokens": 1582,
+      "elapsedMs": 6335,
+      "at": "2026-10-30T23:14:23.676Z"
+    },
+    {
+      "label": "canon:the_riverbank:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0008255,
+      "promptTokens": 5540,
+      "completionTokens": 543,
+      "elapsedMs": 3155,
+      "at": "2026-10-30T23:14:23.930Z"
+    },
+    {
+      "label": "canon:the_rabbit_hole:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0006781,
+      "promptTokens": 4076,
+      "completionTokens": 541,
+      "elapsedMs": 2900,
+      "at": "2026-10-30T23:14:25.155Z"
+    },
+    {
+      "label": "canon:the_long_low_hall:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011648,
+      "promptTokens": 7668,
+      "completionTokens": 796,
+      "elapsedMs": 4531,
+      "at": "2026-10-30T23:14:28.210Z"
+    },
+    {
+      "label": "canon:the_little_door_to_the_garden:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0010245,
+      "promptTokens": 7010,
+      "completionTokens": 647,
+      "elapsedMs": 4337,
+      "at": "2026-10-30T23:14:28.269Z"
+    },
+    {
+      "label": "canon:the_mouse:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011531,
+      "promptTokens": 8261,
+      "completionTokens": 654,
+      "elapsedMs": 3131,
+      "at": "2026-10-30T23:14:28.290Z"
+    },
+    {
+      "label": "canon:the_duck:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0007618,
+      "promptTokens": 4978,
+      "completionTokens": 528,
+      "elapsedMs": 3114,
+      "at": "2026-10-30T23:14:31.327Z"
+    },
+    {
+      "label": "canon:the_dodo:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0008808,
+      "promptTokens": 5943,
+      "completionTokens": 573,
+      "elapsedMs": 3204,
+      "at": "2026-10-30T23:14:31.476Z"
+    },
+    {
+      "label": "canon:the_lory:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0009019,
+      "promptTokens": 6229,
+      "completionTokens": 558,
+      "elapsedMs": 4015,
+      "at": "2026-10-30T23:14:32.308Z"
+    },
+    {
+      "label": "canon:the_eaglet:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0007218,
+      "promptTokens": 4978,
+      "completionTokens": 448,
+      "elapsedMs": 2887,
+      "at": "2026-10-30T23:14:34.216Z"
+    },
+    {
+      "label": "canon:pool_creatures:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0005365,
+      "promptTokens": 2795,
+      "completionTokens": 514,
+      "elapsedMs": 3197,
+      "at": "2026-10-30T23:14:34.676Z"
+    },
+    {
+      "label": "canon:the_duchess:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011131,
+      "promptTokens": 8021,
+      "completionTokens": 622,
+      "elapsedMs": 3268,
+      "at": "2026-10-30T23:14:35.579Z"
+    },
+    {
+      "label": "canon:pool_of_tears:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0008145,
+      "promptTokens": 5580,
+      "completionTokens": 513,
+      "elapsedMs": 2695,
+      "at": "2026-10-30T23:14:36.913Z"
+    },
+    {
+      "label": "canon:shore:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0004951,
+      "promptTokens": 2926,
+      "completionTokens": 405,
+      "elapsedMs": 2897,
+      "at": "2026-10-30T23:14:37.576Z"
+    },
+    {
+      "label": "canon:the_old_magpie:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0006182,
+      "promptTokens": 3902,
+      "completionTokens": 456,
+      "elapsedMs": 2623,
+      "at": "2026-10-30T23:14:38.205Z"
+    },
+    {
+      "label": "canon:the_canary:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0006003,
+      "promptTokens": 3893,
+      "completionTokens": 422,
+      "elapsedMs": 2627,
+      "at": "2026-10-30T23:14:39.543Z"
+    },
+    {
+      "label": "canon:the_old_crab_mother_of_the_young_crab:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0006164,
+      "promptTokens": 3959,
+      "completionTokens": 441,
+      "elapsedMs": 3291,
+      "at": "2026-10-30T23:14:40.870Z"
+    },
+    {
+      "label": "canon:the_young_crab:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0006199,
+      "promptTokens": 3899,
+      "completionTokens": 460,
+      "elapsedMs": 2948,
+      "at": "2026-10-30T23:14:41.155Z"
+    },
+    {
+      "label": "canon:the_assembled_birds_and_animals:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.000971,
+      "promptTokens": 7040,
+      "completionTokens": 534,
+      "elapsedMs": 2908,
+      "at": "2026-10-30T23:14:42.456Z"
+    },
+    {
+      "label": "canon:pat:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0008152,
+      "promptTokens": 5567,
+      "completionTokens": 517,
+      "elapsedMs": 2924,
+      "at": "2026-10-30T23:14:44.083Z"
+    },
+    {
+      "label": "canon:the_bank_of_the_pool_of_tears:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0010168,
+      "promptTokens": 7083,
+      "completionTokens": 617,
+      "elapsedMs": 3579,
+      "at": "2026-10-30T23:14:44.452Z"
+    },
+    {
+      "label": "canon:bill_the_lizard:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011779,
+      "promptTokens": 7959,
+      "completionTokens": 764,
+      "elapsedMs": 3823,
+      "at": "2026-10-30T23:14:46.283Z"
+    },
+    {
+      "label": "canon:the_two_guinea_pigs:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.000933,
+      "promptTokens": 6895,
+      "completionTokens": 487,
+      "elapsedMs": 2865,
+      "at": "2026-10-30T23:14:46.951Z"
+    },
+    {
+      "label": "canon:the_puppy:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0006255,
+      "promptTokens": 3875,
+      "completionTokens": 476,
+      "elapsedMs": 2867,
+      "at": "2026-10-30T23:14:47.323Z"
+    },
+    {
+      "label": "canon:the_caterpillar:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0009744,
+      "promptTokens": 7059,
+      "completionTokens": 537,
+      "elapsedMs": 3064,
+      "at": "2026-10-30T23:14:49.352Z"
+    },
+    {
+      "label": "canon:the_white_rabbit_s_house:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0010634,
+      "promptTokens": 7344,
+      "completionTokens": 658,
+      "elapsedMs": 3291,
+      "at": "2026-10-30T23:14:50.246Z"
+    },
+    {
+      "label": "canon:the_rabbit_s_garden:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0008677,
+      "promptTokens": 5582,
+      "completionTokens": 619,
+      "elapsedMs": 3341,
+      "at": "2026-10-30T23:14:50.667Z"
+    },
+    {
+      "label": "canon:the_thick_wood_alice_s_first_wood:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0006831,
+      "promptTokens": 3936,
+      "completionTokens": 579,
+      "elapsedMs": 2876,
+      "at": "2026-10-30T23:14:52.231Z"
+    },
+    {
+      "label": "canon:the_pigeon:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0006965,
+      "promptTokens": 4375,
+      "completionTokens": 518,
+      "elapsedMs": 3150,
+      "at": "2026-10-30T23:14:53.399Z"
+    },
+    {
+      "label": "canon:the_mushroom_clearing:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0010993,
+      "promptTokens": 7978,
+      "completionTokens": 603,
+      "elapsedMs": 3362,
+      "at": "2026-10-30T23:14:54.032Z"
+    },
+    {
+      "label": "canon:the_treetops:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0006541,
+      "promptTokens": 4536,
+      "completionTokens": 401,
+      "elapsedMs": 3025,
+      "at": "2026-10-30T23:14:55.259Z"
+    },
+    {
+      "label": "canon:the_open_place_with_the_little_house:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0006388,
+      "promptTokens": 4368,
+      "completionTokens": 404,
+      "elapsedMs": 2761,
+      "at": "2026-10-30T23:14:56.163Z"
+    },
+    {
+      "label": "canon:fish_footman:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.000556,
+      "promptTokens": 3165,
+      "completionTokens": 479,
+      "elapsedMs": 2969,
+      "at": "2026-10-30T23:14:57.004Z"
+    },
+    {
+      "label": "canon:the_duchess_s_cook:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0008418,
+      "promptTokens": 5983,
+      "completionTokens": 487,
+      "elapsedMs": 3171,
+      "at": "2026-10-30T23:14:59.337Z"
+    },
+    {
+      "label": "canon:frog_footman:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0006492,
+      "promptTokens": 4082,
+      "completionTokens": 482,
+      "elapsedMs": 4406,
+      "at": "2026-10-30T23:14:59.668Z"
+    },
+    {
+      "label": "canon:baby:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0008033,
+      "promptTokens": 5333,
+      "completionTokens": 540,
+      "elapsedMs": 3474,
+      "at": "2026-10-30T23:15:00.481Z"
+    },
+    {
+      "label": "canon:cheshire_cat:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011044,
+      "promptTokens": 8009,
+      "completionTokens": 607,
+      "elapsedMs": 3343,
+      "at": "2026-10-30T23:15:02.686Z"
+    },
+    {
+      "label": "canon:march_hare:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011663,
+      "promptTokens": 8513,
+      "completionTokens": 630,
+      "elapsedMs": 3360,
+      "at": "2026-10-30T23:15:03.032Z"
+    },
+    {
+      "label": "canon:the_hatter:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0012056,
+      "promptTokens": 8576,
+      "completionTokens": 696,
+      "elapsedMs": 4121,
+      "at": "2026-10-30T23:15:04.607Z"
+    },
+    {
+      "label": "canon:duchess_s_house:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0009895,
+      "promptTokens": 6880,
+      "completionTokens": 603,
+      "elapsedMs": 2840,
+      "at": "2026-10-30T23:15:05.879Z"
+    },
+    {
+      "label": "canon:queen_of_hearts:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.001282,
+      "promptTokens": 8305,
+      "completionTokens": 903,
+      "elapsedMs": 4315,
+      "at": "2026-10-30T23:15:07.010Z"
+    },
+    {
+      "label": "canon:march_hare_s_house:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0006524,
+      "promptTokens": 4479,
+      "completionTokens": 409,
+      "elapsedMs": 2555,
+      "at": "2026-10-30T23:15:08.437Z"
+    },
+    {
+      "label": "canon:the_woods_around_the_duchess_s_house:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011275,
+      "promptTokens": 8005,
+      "completionTokens": 654,
+      "elapsedMs": 4025,
+      "at": "2026-10-30T23:15:08.638Z"
+    },
+    {
+      "label": "canon:the_dormouse:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011854,
+      "promptTokens": 8614,
+      "completionTokens": 648,
+      "elapsedMs": 3441,
+      "at": "2026-10-30T23:15:10.455Z"
+    },
+    {
+      "label": "canon:the_wood_after_the_tea_party:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0005161,
+      "promptTokens": 3031,
+      "completionTokens": 426,
+      "elapsedMs": 2727,
+      "at": "2026-10-30T23:15:11.370Z"
+    },
+    {
+      "label": "canon:tea_table_under_a_tree:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011685,
+      "promptTokens": 8510,
+      "completionTokens": 635,
+      "elapsedMs": 3240,
+      "at": "2026-10-30T23:15:11.682Z"
+    },
+    {
+      "label": "canon:the_garden:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.000813,
+      "promptTokens": 5675,
+      "completionTokens": 491,
+      "elapsedMs": 2789,
+      "at": "2026-10-30T23:15:13.249Z"
+    },
+    {
+      "label": "canon:five:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0007361,
+      "promptTokens": 5176,
+      "completionTokens": 437,
+      "elapsedMs": 2514,
+      "at": "2026-10-30T23:15:14.200Z"
+    },
+    {
+      "label": "canon:two:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0008037,
+      "promptTokens": 5472,
+      "completionTokens": 513,
+      "elapsedMs": 3327,
+      "at": "2026-10-30T23:15:14.701Z"
+    },
+    {
+      "label": "canon:seven:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0007542,
+      "promptTokens": 5172,
+      "completionTokens": 474,
+      "elapsedMs": 3029,
+      "at": "2026-10-30T23:15:16.282Z"
+    },
+    {
+      "label": "canon:the_knave_of_hearts:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011584,
+      "promptTokens": 7924,
+      "completionTokens": 732,
+      "elapsedMs": 3385,
+      "at": "2026-10-30T23:15:18.090Z"
+    },
+    {
+      "label": "canon:king_of_hearts:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0012948,
+      "promptTokens": 8168,
+      "completionTokens": 956,
+      "elapsedMs": 4731,
+      "at": "2026-10-30T23:15:18.935Z"
+    },
+    {
+      "label": "canon:the_queen_s_playing_card_soldiers:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011642,
+      "promptTokens": 8187,
+      "completionTokens": 691,
+      "elapsedMs": 3708,
+      "at": "2026-10-30T23:15:19.994Z"
+    },
+    {
+      "label": "canon:the_courtiers:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0007608,
+      "promptTokens": 5148,
+      "completionTokens": 492,
+      "elapsedMs": 3376,
+      "at": "2026-10-30T23:15:21.470Z"
+    },
+    {
+      "label": "canon:the_royal_children:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0007135,
+      "promptTokens": 5145,
+      "completionTokens": 398,
+      "elapsedMs": 2626,
+      "at": "2026-10-30T23:15:21.565Z"
+    },
+    {
+      "label": "canon:the_executioner:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0005751,
+      "promptTokens": 3581,
+      "completionTokens": 434,
+      "elapsedMs": 3201,
+      "at": "2026-10-30T23:15:23.199Z"
+    },
+    {
+      "label": "canon:the_flamingo:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0007674,
+      "promptTokens": 5244,
+      "completionTokens": 486,
+      "elapsedMs": 2754,
+      "at": "2026-10-30T23:15:24.231Z"
+    },
+    {
+      "label": "canon:the_hedgehogs:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.000737,
+      "promptTokens": 5240,
+      "completionTokens": 426,
+      "elapsedMs": 2709,
+      "at": "2026-10-30T23:15:24.280Z"
+    },
+    {
+      "label": "canon:the_queen_s_croquet_ground:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011914,
+      "promptTokens": 8104,
+      "completionTokens": 762,
+      "elapsedMs": 3600,
+      "at": "2026-10-30T23:15:26.807Z"
+    },
+    {
+      "label": "canon:the_gryphon:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.001262,
+      "promptTokens": 8660,
+      "completionTokens": 792,
+      "elapsedMs": 3925,
+      "at": "2026-10-30T23:15:28.163Z"
+    },
+    {
+      "label": "canon:the_mock_turtle:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0012504,
+      "promptTokens": 8609,
+      "completionTokens": 779,
+      "elapsedMs": 4174,
+      "at": "2026-10-30T23:15:28.460Z"
+    },
+    {
+      "label": "canon:the_rock_ledge_by_the_sea:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0007615,
+      "promptTokens": 5380,
+      "completionTokens": 447,
+      "elapsedMs": 3119,
+      "at": "2026-10-30T23:15:29.933Z"
+    },
+    {
+      "label": "canon:the_undersea_school:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0007363,
+      "promptTokens": 5368,
+      "completionTokens": 399,
+      "elapsedMs": 3080,
+      "at": "2026-10-30T23:15:31.250Z"
+    },
+    {
+      "label": "canon:the_mock_turtle:2",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0012237,
+      "promptTokens": 8667,
+      "completionTokens": 714,
+      "elapsedMs": 3436,
+      "at": "2026-10-30T23:15:31.900Z"
+    },
+    {
+      "label": "canon:sea_shore:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011083,
+      "promptTokens": 8258,
+      "completionTokens": 565,
+      "elapsedMs": 3375,
+      "at": "2026-10-30T23:15:33.313Z"
+    },
+    {
+      "label": "canon:court_of_justice:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0012513,
+      "promptTokens": 8153,
+      "completionTokens": 872,
+      "elapsedMs": 4358,
+      "at": "2026-10-30T23:15:35.614Z"
+    },
+    {
+      "label": "canon:the_pack_of_cards_the_court_s_playing_cards:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0007187,
+      "promptTokens": 5037,
+      "completionTokens": 430,
+      "elapsedMs": 2666,
+      "at": "2026-10-30T23:15:35.985Z"
+    },
+    {
+      "label": "canon:the_jury:1",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.001153,
+      "promptTokens": 8020,
+      "completionTokens": 702,
+      "elapsedMs": 4282,
+      "at": "2026-10-30T23:15:36.186Z"
+    },
+    {
+      "label": "canon:court_of_justice:2",
+      "model": "anthropic/claude-haiku-5.5",
+      "costUsd": 0.0011556,
+      "promptTokens": 8211,
+      "completionTokens": 669,
+      "elapsedMs": 3165,
+      "at": "2026-10-30T23:15:38.781Z"
+    }
+  ],
+  "staged": null
+}

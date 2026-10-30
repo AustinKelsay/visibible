@@ -1,0 +1,785 @@
+[
+  {
+    "tier": "text",
+    "case": "down-the-rabbit-hole-3",
+    "caseId": "alice-baseline-rabbit-watch-1",
+    "work": "alice-in-wonderland",
+    "split": "dev",
+    "key": "alice-baseline-rabbit-watch-1/text",
+    "style": null,
+    "textCalls": 5,
+    "skippedReferences": [
+      "styleReference:classical:missing",
+      "sheet:alice:alice:missing",
+      "sheet:the_riverbank:the_riverbank:missing",
+      "sheet:white_rabbit_the_rabbit_who_runs_down_the_hole:white_rabbit_the_rabbit_who_runs_down_the_hole_main:missing"
+    ],
+    "context": {
+      "moment": {
+        "id": "down-the-rabbit-hole-3",
+        "reference": "Down the Rabbit-Hole ¶3",
+        "text": "There was nothing so _very_ remarkable in that; nor did Alice think it so _very_ much out of the way to hear the Rabbit say to itself, “Oh dear! Oh dear! I shall be late!” (when she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural); but when the Rabbit actually _took a watch out of its waistcoat-pocket_, and looked at it, and then hurried on, Alice started to her feet, for it flashed across her mind that she had never before seen a rabbit with either a waistcoat-pocket, or a watch to take out of it, and burning with curiosity, she ran across the field after it, and fortunately was just in time to see it pop down a large rabbit-hole under the hedge."
+      },
+      "previous": {
+        "text": "So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her."
+      },
+      "next": null
+    },
+    "outcome": "planned",
+    "momentId": "down-the-rabbit-hole-3",
+    "sectionId": "down-the-rabbit-hole-1",
+    "prepared": {
+      "look": {
+        "place": "Riverbank with grassy field and a hedge, a large rabbit-hole beneath the hedge; Victorian England's dream Wonderland edge",
+        "timeOfDay": "Warm early afternoon",
+        "weather": "Bright, still summer day with a few drifting clouds",
+        "light": "Soft golden sunlight over the grass, dappled shade under the hedge",
+        "clothing": "Alice in a Victorian child's pale dress and white pinafore; the Rabbit in a waistcoat and watch-chain"
+      },
+      "situation": null,
+      "plan": {
+        "primarySubject": "Alice, seated on the grass in a plain blue Victorian child's dress and white pinafore, head propped drowsily, turned toward the running Rabbit.",
+        "action": "The White Rabbit, in waistcoat and watch-chain, sprints past her close by, heading for the large rabbit-hole beneath the hedge.",
+        "setting": "A grassy riverbank and open field edged by a hedge, with a large rabbit-hole opening at its base.",
+        "secondaryElements": "A scatter of white daisies in the grass beside Alice; the river glinting at the bank's edge; a few drifting clouds above.",
+        "mood": "Drowsy and idle, with a flicker of startled curiosity as the Rabbit passes.",
+        "timeOfDay": "Warm early afternoon, bright still summer weather, soft golden sunlight over the grass with dappled shade under the hedge.",
+        "composition": "Low viewpoint from the riverbank, Alice in the lower left, the Rabbit mid-stride crossing toward the hedge on the right, the rabbit-hole visible at the frame's edge.",
+        "present": [
+          "alice",
+          "white_rabbit_the_rabbit_who_runs_down_the_hole",
+          "the_riverbank"
+        ]
+      },
+      "present": [
+        {
+          "entryId": "alice",
+          "stageId": "alice",
+          "version": "ced62cb748190a703dc01a6fe0b857ab"
+        },
+        {
+          "entryId": "white_rabbit_the_rabbit_who_runs_down_the_hole",
+          "stageId": "white_rabbit_the_rabbit_who_runs_down_the_hole_main",
+          "version": "8bde0c6ae0ee1677168f61122c47bf1e"
+        },
+        {
+          "entryId": "the_riverbank",
+          "stageId": "the_riverbank",
+          "version": "27bd3cdd99ef6cbed3679815b2a355b1"
+        }
+      ]
+    },
+    "records": {
+      "look": {
+        "kind": "look",
+        "recordId": "down-the-rabbit-hole-1",
+        "version": "61da4aefa0df325cc86fea2704657f33",
+        "inputs": [
+          {
+            "kind": "section",
+            "recordId": "down-the-rabbit-hole-1",
+            "version": "e652727c6997ab77b5d6f3649eb7c6a0"
+          },
+          {
+            "kind": "brief",
+            "recordId": "alice-in-wonderland",
+            "version": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d"
+          },
+          {
+            "kind": "entry",
+            "recordId": "alice",
+            "version": "ced62cb748190a703dc01a6fe0b857ab"
+          },
+          {
+            "kind": "entry",
+            "recordId": "alice_s_sister",
+            "version": "9ffdd72757fc20da637f510f42d70b63"
+          },
+          {
+            "kind": "entry",
+            "recordId": "white_rabbit_the_rabbit_who_runs_down_the_hole",
+            "version": "8bde0c6ae0ee1677168f61122c47bf1e"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_riverbank",
+            "version": "27bd3cdd99ef6cbed3679815b2a355b1"
+          }
+        ],
+        "source": "generated",
+        "payload": {
+          "kind": "look",
+          "sectionId": "down-the-rabbit-hole-1",
+          "place": "Riverbank with grassy field and a hedge, a large rabbit-hole beneath the hedge; Victorian England's dream Wonderland edge",
+          "timeOfDay": "Warm early afternoon",
+          "weather": "Bright, still summer day with a few drifting clouds",
+          "light": "Soft golden sunlight over the grass, dappled shade under the hedge",
+          "clothing": "Alice in a Victorian child's pale dress and white pinafore; the Rabbit in a waistcoat and watch-chain"
+        }
+      },
+      "plan": {
+        "kind": "plan",
+        "recordId": "down-the-rabbit-hole-3",
+        "version": "fd80e89c760d5a7954c2e6a4eb388090",
+        "inputs": [
+          {
+            "kind": "moment",
+            "recordId": "down-the-rabbit-hole-3",
+            "version": "2f5a27af62e09f70ad0e9ca77c6f0cdb"
+          },
+          {
+            "kind": "section",
+            "recordId": "down-the-rabbit-hole-1",
+            "version": "e652727c6997ab77b5d6f3649eb7c6a0"
+          },
+          {
+            "kind": "look",
+            "recordId": "down-the-rabbit-hole-1",
+            "version": "61da4aefa0df325cc86fea2704657f33"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_look_ownership",
+            "version": "generated-guide-v1"
+          },
+          {
+            "kind": "brief",
+            "recordId": "alice-in-wonderland",
+            "version": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d"
+          },
+          {
+            "kind": "entry",
+            "recordId": "alice",
+            "version": "ced62cb748190a703dc01a6fe0b857ab"
+          },
+          {
+            "kind": "entry",
+            "recordId": "alice_s_sister",
+            "version": "9ffdd72757fc20da637f510f42d70b63"
+          },
+          {
+            "kind": "entry",
+            "recordId": "white_rabbit_the_rabbit_who_runs_down_the_hole",
+            "version": "8bde0c6ae0ee1677168f61122c47bf1e"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_riverbank",
+            "version": "27bd3cdd99ef6cbed3679815b2a355b1"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_moment_cast",
+            "version": "2026-10-28-moment-cast-v15"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_review",
+            "version": "2026-10-27-plan-review-v12"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "depiction_plan",
+            "version": "c356fd7295dedaad9e03a68a9edf12be"
+          }
+        ],
+        "source": "generated",
+        "payload": {
+          "kind": "plan",
+          "momentId": "down-the-rabbit-hole-3",
+          "entries": [
+            {
+              "entryId": "alice",
+              "stageId": "alice"
+            },
+            {
+              "entryId": "white_rabbit_the_rabbit_who_runs_down_the_hole",
+              "stageId": "white_rabbit_the_rabbit_who_runs_down_the_hole_main"
+            },
+            {
+              "entryId": "the_riverbank",
+              "stageId": "the_riverbank"
+            }
+          ],
+          "plan": {
+            "primarySubject": "Alice, seated on the grass in a plain blue Victorian child's dress and white pinafore, head propped drowsily, turned toward the running Rabbit.",
+            "action": "The White Rabbit, in waistcoat and watch-chain, sprints past her close by, heading for the large rabbit-hole beneath the hedge.",
+            "setting": "A grassy riverbank and open field edged by a hedge, with a large rabbit-hole opening at its base.",
+            "secondaryElements": "A scatter of white daisies in the grass beside Alice; the river glinting at the bank's edge; a few drifting clouds above.",
+            "mood": "Drowsy and idle, with a flicker of startled curiosity as the Rabbit passes.",
+            "timeOfDay": "Warm early afternoon, bright still summer weather, soft golden sunlight over the grass with dappled shade under the hedge.",
+            "composition": "Low viewpoint from the riverbank, Alice in the lower left, the Rabbit mid-stride crossing toward the hedge on the right, the rabbit-hole visible at the frame's edge."
+          },
+          "grounding": {
+            "focusQuote": "a White Rabbit with pink eyes ran close by her",
+            "instant": "Alice sits on the riverbank in the grass, half-dozing, as the White Rabbit in waistcoat and watch-chain dashes past her toward the rabbit-hole under the hedge.",
+            "singleInstant": true,
+            "cast": [
+              {
+                "entryId": "alice",
+                "momentQuote": "Alice, on the bank, considering a daisy-chain",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "white_rabbit_the_rabbit_who_runs_down_the_hole",
+                "momentQuote": "a White Rabbit with pink eyes ran close by her",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "the_riverbank",
+                "momentQuote": "the riverbank and the grassy field beside the hedge",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              }
+            ]
+          },
+          "review": {
+            "rounds": 2,
+            "problems": [
+              {
+                "kind": "canon_conflict",
+                "entryId": "alice",
+                "planQuote": "in a pale dress",
+                "reason": "Alice's fixed canon is a plain blue Victorian child's dress, but the plan's primarySubject describes a pale dress."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "promptChars": 7182,
+    "references": [],
+    "elapsedMs": 19428
+  },
+  {
+    "tier": "text",
+    "case": "the-pool-of-tears-8",
+    "caseId": "alice-baseline-rabbit-gloves-1",
+    "work": "alice-in-wonderland",
+    "split": "dev",
+    "key": "alice-baseline-rabbit-gloves-1/text",
+    "style": null,
+    "textCalls": 5,
+    "skippedReferences": [
+      "styleReference:classical:missing",
+      "sheet:alice:alice:missing",
+      "sheet:pool_of_tears:pool_of_tears:missing",
+      "sheet:white_rabbit_the_rabbit_dressed_for_the_duchess_who_flees_at_the_pool:white_rabbit_the_rabbit_dressed_for_the_duchess_who_flees_at_the_pool_s1:missing",
+      "sheet:the_long_low_hall:the_long_low_hall-main:missing"
+    ],
+    "context": {
+      "moment": {
+        "id": "the-pool-of-tears-8",
+        "reference": "The Pool of Tears ¶8",
+        "text": "After a time she heard a little pattering of feet in the distance, and she hastily dried her eyes to see what was coming. It was the White Rabbit returning, splendidly dressed, with a pair of white kid gloves in one hand and a large fan in the other: he came trotting along in a great hurry, muttering to himself as he came, “Oh! the Duchess, the Duchess! Oh! won’t she be savage if I’ve kept her waiting!” Alice felt so desperate that she was ready to ask help of any one; so, when the Rabbit came near her, she began, in a low, timid voice, “If you please, sir—” The Rabbit started violently, dropped the white kid gloves and the fan, and skurried away into the darkness as hard as he could go."
+      },
+      "previous": {
+        "text": "“You ought to be ashamed of yourself,” said Alice, “a great girl like you,” (she might well say this), “to go on crying in this way! Stop this moment, I tell you!” But she went on all the same, shedding gallons of tears, until there was a large pool all round her, about four inches deep and reaching half down the hall."
+      },
+      "next": null
+    },
+    "outcome": "planned",
+    "momentId": "the-pool-of-tears-8",
+    "sectionId": "the-pool-of-tears-1",
+    "prepared": {
+      "look": {
+        "place": "A long low hall lit by a row of lamps, with a small locked door to the garden and a salty pool of tears spread across the floor; the scene shifts to a cool, shadowed corridor at the pool's edge",
+        "timeOfDay": "Late afternoon, the day deepening toward dusk",
+        "weather": "Still, damp air with faint mist rising from the tears",
+        "light": "Warm dim lamplight with a soft glow on wet floor, fading into darkness at the far end of the hall",
+        "clothing": "Alice in a Victorian child's pale dress and white pinafore; the White Rabbit dressed for an outing with waistcoat and hat, carrying white kid gloves and a fan"
+      },
+      "situation": null,
+      "plan": {
+        "primarySubject": "Alice, a young girl in a plain blue Victorian dress with a white pinafore, standing in the shallow pool and turned toward the Rabbit.",
+        "action": "The White Rabbit recoils mid-stride, gloves and fan falling toward the wet floor, as he bolts away into the dark.",
+        "setting": "A long low hall with a row of lamps along the walls, the floor flooded with a shallow pool of tears reaching halfway down its length, and a small locked door at the far side.",
+        "secondaryElements": "The White Rabbit's gloves and fan lie scattered on the surface of the pool; faint ripples spread outward; the Rabbit's coat tails flare as he runs into the shadowed far end of the hall.",
+        "mood": "Timid hope turning to startled flight, tinged with a gently unsettling bewilderment.",
+        "timeOfDay": "Late afternoon deepening toward dusk, still damp air with faint mist rising from the tears, warm dim lamplight.",
+        "composition": "Eye-level view down the length of the hall, Alice near the foreground in the pool, the Rabbit small and receding toward the darkened far end.",
+        "present": [
+          "alice",
+          "white_rabbit_the_rabbit_dressed_for_the_duchess_who_flees_at_the_pool",
+          "the_long_low_hall",
+          "pool_of_tears"
+        ]
+      },
+      "present": [
+        {
+          "entryId": "alice",
+          "stageId": "alice",
+          "version": "ced62cb748190a703dc01a6fe0b857ab"
+        },
+        {
+          "entryId": "white_rabbit_the_rabbit_dressed_for_the_duchess_who_flees_at_the_pool",
+          "stageId": "white_rabbit_the_rabbit_dressed_for_the_duchess_who_flees_at_the_pool_s1",
+          "version": "16285fcba6ca764ed8ded8330671c8ef"
+        },
+        {
+          "entryId": "the_long_low_hall",
+          "stageId": "the_long_low_hall-main",
+          "version": "cbadf177633807347c43000f2416dfbb"
+        },
+        {
+          "entryId": "pool_of_tears",
+          "stageId": "pool_of_tears",
+          "version": "1856c2c6f25f4183f5c2940e8758002a"
+        }
+      ]
+    },
+    "records": {
+      "look": {
+        "kind": "look",
+        "recordId": "the-pool-of-tears-1",
+        "version": "b882d8306c23364b40641168a5efdcc4",
+        "inputs": [
+          {
+            "kind": "section",
+            "recordId": "the-pool-of-tears-1",
+            "version": "a59b47d422fb1fb10b8048bce5801688"
+          },
+          {
+            "kind": "brief",
+            "recordId": "alice-in-wonderland",
+            "version": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d"
+          },
+          {
+            "kind": "entry",
+            "recordId": "alice",
+            "version": "ced62cb748190a703dc01a6fe0b857ab"
+          },
+          {
+            "kind": "entry",
+            "recordId": "white_rabbit_the_rabbit_dressed_for_the_duchess_who_flees_at_the_pool",
+            "version": "16285fcba6ca764ed8ded8330671c8ef"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_long_low_hall",
+            "version": "cbadf177633807347c43000f2416dfbb"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_little_door_to_the_garden",
+            "version": "f1aef6435b3833dcc2f1f27b1551d84f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "pool_of_tears",
+            "version": "1856c2c6f25f4183f5c2940e8758002a"
+          }
+        ],
+        "source": "generated",
+        "payload": {
+          "kind": "look",
+          "sectionId": "the-pool-of-tears-1",
+          "place": "A long low hall lit by a row of lamps, with a small locked door to the garden and a salty pool of tears spread across the floor; the scene shifts to a cool, shadowed corridor at the pool's edge",
+          "timeOfDay": "Late afternoon, the day deepening toward dusk",
+          "weather": "Still, damp air with faint mist rising from the tears",
+          "light": "Warm dim lamplight with a soft glow on wet floor, fading into darkness at the far end of the hall",
+          "clothing": "Alice in a Victorian child's pale dress and white pinafore; the White Rabbit dressed for an outing with waistcoat and hat, carrying white kid gloves and a fan"
+        }
+      },
+      "plan": {
+        "kind": "plan",
+        "recordId": "the-pool-of-tears-8",
+        "version": "3bfdc0a1a6d4e4acdac965f96da6b045",
+        "inputs": [
+          {
+            "kind": "moment",
+            "recordId": "the-pool-of-tears-8",
+            "version": "9b85eaad54be522c7e552475051ae949"
+          },
+          {
+            "kind": "section",
+            "recordId": "the-pool-of-tears-1",
+            "version": "a59b47d422fb1fb10b8048bce5801688"
+          },
+          {
+            "kind": "look",
+            "recordId": "the-pool-of-tears-1",
+            "version": "b882d8306c23364b40641168a5efdcc4"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_look_ownership",
+            "version": "generated-guide-v1"
+          },
+          {
+            "kind": "brief",
+            "recordId": "alice-in-wonderland",
+            "version": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d"
+          },
+          {
+            "kind": "entry",
+            "recordId": "alice",
+            "version": "ced62cb748190a703dc01a6fe0b857ab"
+          },
+          {
+            "kind": "entry",
+            "recordId": "white_rabbit_the_rabbit_dressed_for_the_duchess_who_flees_at_the_pool",
+            "version": "16285fcba6ca764ed8ded8330671c8ef"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_long_low_hall",
+            "version": "cbadf177633807347c43000f2416dfbb"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_little_door_to_the_garden",
+            "version": "f1aef6435b3833dcc2f1f27b1551d84f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "pool_of_tears",
+            "version": "1856c2c6f25f4183f5c2940e8758002a"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_moment_cast",
+            "version": "2026-10-28-moment-cast-v15"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_review",
+            "version": "2026-10-27-plan-review-v12"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "depiction_plan",
+            "version": "c356fd7295dedaad9e03a68a9edf12be"
+          }
+        ],
+        "source": "generated",
+        "payload": {
+          "kind": "plan",
+          "momentId": "the-pool-of-tears-8",
+          "entries": [
+            {
+              "entryId": "alice",
+              "stageId": "alice"
+            },
+            {
+              "entryId": "white_rabbit_the_rabbit_dressed_for_the_duchess_who_flees_at_the_pool",
+              "stageId": "white_rabbit_the_rabbit_dressed_for_the_duchess_who_flees_at_the_pool_s1"
+            },
+            {
+              "entryId": "the_long_low_hall",
+              "stageId": "the_long_low_hall-main"
+            },
+            {
+              "entryId": "pool_of_tears",
+              "stageId": "pool_of_tears"
+            }
+          ],
+          "plan": {
+            "primarySubject": "Alice, a young girl in a plain blue Victorian dress with a white pinafore, standing in the shallow pool and turned toward the Rabbit.",
+            "action": "The White Rabbit recoils mid-stride, gloves and fan falling toward the wet floor, as he bolts away into the dark.",
+            "setting": "A long low hall with a row of lamps along the walls, the floor flooded with a shallow pool of tears reaching halfway down its length, and a small locked door at the far side.",
+            "secondaryElements": "The White Rabbit's gloves and fan lie scattered on the surface of the pool; faint ripples spread outward; the Rabbit's coat tails flare as he runs into the shadowed far end of the hall.",
+            "mood": "Timid hope turning to startled flight, tinged with a gently unsettling bewilderment.",
+            "timeOfDay": "Late afternoon deepening toward dusk, still damp air with faint mist rising from the tears, warm dim lamplight.",
+            "composition": "Eye-level view down the length of the hall, Alice near the foreground in the pool, the Rabbit small and receding toward the darkened far end."
+          },
+          "grounding": {
+            "focusQuote": "the White Rabbit returning, splendidly dressed, with a pair of white kid gloves in one hand and a large fan in the other",
+            "instant": "Alice, standing in the pool of tears, timidly speaks as the White Rabbit, startled, drops his gloves and fan and bolts into the darkness.",
+            "singleInstant": true,
+            "cast": [
+              {
+                "entryId": "alice",
+                "momentQuote": "she hastily dried her eyes to see what was coming... began, in a low, timid voice, \"If you please, sir—\"",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "white_rabbit_the_rabbit_dressed_for_the_duchess_who_flees_at_the_pool",
+                "momentQuote": "the White Rabbit returning, splendidly dressed, with a pair of white kid gloves... The Rabbit started violently, dropped the white kid gloves and the fan, and skurried away",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "the_long_low_hall",
+                "momentQuote": "until there was a large pool all round her, about four inches deep and reaching half down the hall",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "pool_of_tears",
+                "momentQuote": "there was a large pool all round her, about four inches deep",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              }
+            ]
+          },
+          "review": {
+            "rounds": 2,
+            "problems": [
+              {
+                "kind": "canon_conflict",
+                "entryId": "alice",
+                "planQuote": "pale dress and pinafore",
+                "reason": "Alice's fixed canon is a plain blue Victorian child's dress with a white pinafore, but the plan describes a pale dress."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "promptChars": 7746,
+    "references": [],
+    "elapsedMs": 19680
+  },
+  {
+    "tier": "text",
+    "case": "the-rabbit-sends-in-a-little-bill-2",
+    "caseId": "alice-baseline-rabbit-mary-ann-1",
+    "work": "alice-in-wonderland",
+    "split": "dev",
+    "key": "alice-baseline-rabbit-mary-ann-1/text",
+    "style": null,
+    "textCalls": 3,
+    "skippedReferences": [
+      "styleReference:classical:missing",
+      "sheet:alice:alice:missing",
+      "sheet:the_white_rabbit_s_house:the_white_rabbit_s_house_stage_1:missing",
+      "sheet:white_rabbit_the_anxious_householder_who_sends_bill_and_pat:white_rabbit_main:missing"
+    ],
+    "context": {
+      "moment": {
+        "id": "the-rabbit-sends-in-a-little-bill-2",
+        "reference": "The Rabbit Sends in a Little Bill ¶2 to The Rabbit Sends in a Little Bill ¶3",
+        "text": "Very soon the Rabbit noticed Alice, as she went hunting about, and called out to her in an angry tone, “Why, Mary Ann, what _are_ you doing out here? Run home this moment, and fetch me a pair of gloves and a fan! Quick, now!” And Alice was so much frightened that she ran off at once in the direction it pointed to, without trying to explain the mistake it had made. “He took me for his housemaid,” she said to herself as she ran. “How surprised he’ll be when he finds out who I am! But I’d better take him his fan and gloves—that is, if I can find them.” As she said this, she came upon a neat little house, on the door of which was a bright brass plate with the name “W. RABBIT,” engraved upon it. She went in without knocking, and hurried upstairs, in great fear lest she should meet the real Mary Ann, and be turned out of the house before she had found the fan and gloves."
+      },
+      "previous": {
+        "text": "It was the White Rabbit, trotting slowly back again, and looking anxiously about as it went, as if it had lost something; and she heard it muttering to itself “The Duchess! The Duchess! Oh my dear paws! Oh my fur and whiskers! She’ll get me executed, as sure as ferrets are ferrets! Where _can_ I have dropped them, I wonder?” Alice guessed in a moment that it was looking for the fan and the pair of white kid gloves, and she very good-naturedly began hunting about for them, but they were nowhere to be seen—everything seemed to have changed since her swim in the pool, and the great hall, with the glass table and the little door, had vanished completely."
+      },
+      "next": {
+        "text": "“How queer it seems,” Alice said to herself, “to be going messages for a rabbit! I suppose Dinah’ll be sending me on messages next!” And she began fancying the sort of thing that would happen: “‘Miss Alice! Come here directly, and get ready for your walk!’ ‘Coming in a minute, nurse! But I’ve got to see that the mouse doesn’t get out.’ Only I don’t think,” Alice went on, “that they’d let Dinah stop in the house if it began ordering people about like that!”"
+      }
+    },
+    "outcome": "planned",
+    "momentId": "the-rabbit-sends-in-a-little-bill-2",
+    "sectionId": "the-rabbit-sends-in-a-little-bill-1",
+    "prepared": {
+      "look": {
+        "place": "Neat little Victorian rabbit's house with a long hall, a small door, and a staircase, set in a dream Wonderland",
+        "timeOfDay": "Late afternoon, lingering daylight",
+        "weather": "Calm and warm, still air",
+        "light": "Soft amber daylight through hall windows, dim shadowed corners",
+        "clothing": "Alice in a Victorian child's dress and white pinafore; Rabbit in a waistcoat and fob watch"
+      },
+      "situation": null,
+      "plan": {
+        "primarySubject": "Alice, small and startled, mid-stride, turning away from the Rabbit",
+        "action": "The Rabbit points sharply and barks orders while Alice flees in the indicated direction, startled.",
+        "setting": "Outside the neat little Victorian rabbit's house, a garden path before a small door with a brass plate",
+        "secondaryElements": "The White Rabbit in waistcoat and fob watch, pointing with one paw; a few leafy plants and a low garden wall beside the path",
+        "mood": "Flustered, comically anxious, a touch of bewildered urgency",
+        "timeOfDay": "Late afternoon, lingering daylight, calm warm still air",
+        "composition": "Medium shot from the side, Alice in the foreground moving left, the Rabbit right with arm extended, the house door visible behind them",
+        "present": [
+          "alice",
+          "white_rabbit_the_anxious_householder_who_sends_bill_and_pat",
+          "the_white_rabbit_s_house"
+        ]
+      },
+      "present": [
+        {
+          "entryId": "alice",
+          "stageId": "alice",
+          "version": "ced62cb748190a703dc01a6fe0b857ab"
+        },
+        {
+          "entryId": "white_rabbit_the_anxious_householder_who_sends_bill_and_pat",
+          "stageId": "white_rabbit_main",
+          "version": "451547fe9a7874dd835e64f6d3143b32"
+        },
+        {
+          "entryId": "the_white_rabbit_s_house",
+          "stageId": "the_white_rabbit_s_house_stage_1",
+          "version": "aa4611b74db8ac9815c0bd2fe614feab"
+        }
+      ]
+    },
+    "records": {
+      "look": {
+        "kind": "look",
+        "recordId": "the-rabbit-sends-in-a-little-bill-1",
+        "version": "29fff281d66527ac0fc6fef906954ef5",
+        "inputs": [
+          {
+            "kind": "section",
+            "recordId": "the-rabbit-sends-in-a-little-bill-1",
+            "version": "1eb83c94725bed99ee90eaac04c58e78"
+          },
+          {
+            "kind": "brief",
+            "recordId": "alice-in-wonderland",
+            "version": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d"
+          },
+          {
+            "kind": "entry",
+            "recordId": "alice",
+            "version": "ced62cb748190a703dc01a6fe0b857ab"
+          },
+          {
+            "kind": "entry",
+            "recordId": "white_rabbit_the_anxious_householder_who_sends_bill_and_pat",
+            "version": "451547fe9a7874dd835e64f6d3143b32"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_white_rabbit_s_house",
+            "version": "aa4611b74db8ac9815c0bd2fe614feab"
+          }
+        ],
+        "source": "generated",
+        "payload": {
+          "kind": "look",
+          "sectionId": "the-rabbit-sends-in-a-little-bill-1",
+          "place": "Neat little Victorian rabbit's house with a long hall, a small door, and a staircase, set in a dream Wonderland",
+          "timeOfDay": "Late afternoon, lingering daylight",
+          "weather": "Calm and warm, still air",
+          "light": "Soft amber daylight through hall windows, dim shadowed corners",
+          "clothing": "Alice in a Victorian child's dress and white pinafore; Rabbit in a waistcoat and fob watch"
+        }
+      },
+      "plan": {
+        "kind": "plan",
+        "recordId": "the-rabbit-sends-in-a-little-bill-2",
+        "version": "bfad6b5bcc0f1c5039c9d083fa7ca62f",
+        "inputs": [
+          {
+            "kind": "moment",
+            "recordId": "the-rabbit-sends-in-a-little-bill-2",
+            "version": "84e2ef137c57b0f291d8c52b61be034f"
+          },
+          {
+            "kind": "section",
+            "recordId": "the-rabbit-sends-in-a-little-bill-1",
+            "version": "1eb83c94725bed99ee90eaac04c58e78"
+          },
+          {
+            "kind": "look",
+            "recordId": "the-rabbit-sends-in-a-little-bill-1",
+            "version": "29fff281d66527ac0fc6fef906954ef5"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_look_ownership",
+            "version": "generated-guide-v1"
+          },
+          {
+            "kind": "brief",
+            "recordId": "alice-in-wonderland",
+            "version": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d"
+          },
+          {
+            "kind": "entry",
+            "recordId": "alice",
+            "version": "ced62cb748190a703dc01a6fe0b857ab"
+          },
+          {
+            "kind": "entry",
+            "recordId": "white_rabbit_the_anxious_householder_who_sends_bill_and_pat",
+            "version": "451547fe9a7874dd835e64f6d3143b32"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_white_rabbit_s_house",
+            "version": "aa4611b74db8ac9815c0bd2fe614feab"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_moment_cast",
+            "version": "2026-10-28-moment-cast-v15"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_review",
+            "version": "2026-10-27-plan-review-v12"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "depiction_plan",
+            "version": "c356fd7295dedaad9e03a68a9edf12be"
+          }
+        ],
+        "source": "generated",
+        "payload": {
+          "kind": "plan",
+          "momentId": "the-rabbit-sends-in-a-little-bill-2",
+          "entries": [
+            {
+              "entryId": "alice",
+              "stageId": "alice"
+            },
+            {
+              "entryId": "white_rabbit_the_anxious_householder_who_sends_bill_and_pat",
+              "stageId": "white_rabbit_main"
+            },
+            {
+              "entryId": "the_white_rabbit_s_house",
+              "stageId": "the_white_rabbit_s_house_stage_1"
+            }
+          ],
+          "plan": {
+            "primarySubject": "Alice, small and startled, mid-stride, turning away from the Rabbit",
+            "action": "The Rabbit points sharply and barks orders while Alice flees in the indicated direction, startled.",
+            "setting": "Outside the neat little Victorian rabbit's house, a garden path before a small door with a brass plate",
+            "secondaryElements": "The White Rabbit in waistcoat and fob watch, pointing with one paw; a few leafy plants and a low garden wall beside the path",
+            "mood": "Flustered, comically anxious, a touch of bewildered urgency",
+            "timeOfDay": "Late afternoon, lingering daylight, calm warm still air",
+            "composition": "Medium shot from the side, Alice in the foreground moving left, the Rabbit right with arm extended, the house door visible behind them"
+          },
+          "grounding": {
+            "focusQuote": "Run home this moment, and fetch me a pair of gloves and a fan",
+            "instant": "Alice, mistaken for the housemaid, stands before the anxious White Rabbit, who points urgently toward the way home while she hurries off.",
+            "singleInstant": true,
+            "cast": [
+              {
+                "entryId": "alice",
+                "momentQuote": "Alice went hunting about; she ran off at once in the direction it pointed",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "white_rabbit_the_anxious_householder_who_sends_bill_and_pat",
+                "momentQuote": "the Rabbit noticed Alice and called out to her in an angry tone",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "the_white_rabbit_s_house",
+                "momentQuote": "a neat little house, on the door of which was a bright brass plate with the name W. RABBIT",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              }
+            ]
+          },
+          "review": {
+            "rounds": 1
+          }
+        }
+      }
+    },
+    "promptChars": 7495,
+    "references": [],
+    "elapsedMs": 11722
+  }
+]

@@ -29,7 +29,7 @@ type Plan = { operationCapUsd: number; readerReserveUsd: number; repeats: number
   scenes: Array<{ id: string; work: string; unitId: string; expected: string }> };
 type Snapshot = { records: Record<string, AnalysisRecord>; references: Record<string, ReferenceRecord | null>; files: Record<string, { sha256: string }>; status: { workVersion: string; briefVersion: string } };
 type Row = Record<string, unknown> & { outcome: string; records?: { look: AnalysisRecord; plan: AnalysisRecord } };
-const { values } = parseArgs({ options: { execute: { type: "boolean" }, offline: { type: "boolean" }, phase: { type: "string" } } });
+const { values } = parseArgs({ options: { execute: { type: "boolean" }, offline: { type: "boolean" }, phase: { type: "string" }, remaining: { type: "boolean" } } });
 const root = path.resolve(import.meta.dirname, "../..");
 const run = "2026-10-30-identity-visuals", frozen = path.join(root, "llm/releases", run);
 const read = <T,>(file: string): T => JSON.parse(readFileSync(file, "utf8"));
@@ -41,6 +41,7 @@ assert.equal(Object.values(plan.phaseCaps).reduce((a, b) => a + b, 0), plan.oper
 const phases = ["canon", "references", "text", "images"];
 const wanted = values.offline ? phases : [values.phase];
 assert.ok(values.offline || (values.execute && wanted.every(p => p && phases.includes(p))), "Use --offline or --execute --phase canon|references|text|images");
+assert.ok(!values.remaining || (!values.offline && values.phase === "images"), "--remaining only continues the interrupted live image phase");
 const out = values.offline ? mkdtempSync(path.join(os.tmpdir(), "visibible-identity-visuals-")) : frozen;
 const blobs = values.offline ? path.join(out, "blobs") : path.join(root, "evals/images/runs", run);
 mkdirSync(blobs, { recursive: true });
@@ -78,7 +79,22 @@ if (!values.offline) {
 }
 for (const phase of wanted) {
   assert.ok(phase);
-  const startedFile = `${phase}-started.json`;
+  const prefix = values.remaining ? "images-remaining" : phase;
+  const startedFile = `${prefix}-started.json`;
+  let cap = plan.phaseCaps[phase];
+  const completed = new Set<string>();
+  const continuation: Record<string, string> = {};
+  if (values.remaining) {
+    const prior = read<{ measuredUsd: number; uncertainUsd: number; blocked: string }>(path.join(out, "images-ledger.json"));
+    assert.equal(prior.blocked, "Missing provider usage");
+    cap -= prior.measuredUsd + prior.uncertainUsd; // Keep the unknown call's full ceiling reserved.
+    assert.ok(cap > 0);
+    for (const line of readFileSync(path.join(out, "images-results.ndjson"), "utf8").trim().split("\n")) completed.add(JSON.parse(line).caseId);
+    assert.equal(completed.size, 27, "Continue only the 18 unstarted model/control cases; never reroll a failed sample");
+    const original = read<{ sources: Record<string, string> }>(path.join(out, "images-started.json"));
+    for (const [file, expected] of Object.entries(original.sources)) if (file !== "scripts/evals/identity-visuals.mts") assert.equal(hash(readFileSync(path.join(root, file))), expected, file);
+    for (const file of ["images-ledger.json", "images-results.ndjson", "images-provider.ndjson"]) continuation[file] = hash(readFileSync(path.join(out, file)));
+  }
   assert.ok(!existsSync(path.join(out, startedFile)), `${phase} already started; do not reroll`);
   if (!values.offline) {
     assert.equal(execFileSync("git", ["status", "--porcelain", "--untracked-files=no"], { cwd: root, encoding: "utf8" }).trim(), "", "Commit frozen inputs before spending");
@@ -86,15 +102,15 @@ for (const phase of wanted) {
     const funding = read<{ operationCapUsd: number }>(path.join(frozen, "funding.json")); assert.equal(funding.operationCapUsd, plan.operationCapUsd);
     const headers = { Authorization: `Bearer ${apiKey}` };
     const [credits, key] = await Promise.all(["credits", "key"].map(async p => (await (await fetch(`https://openrouter.ai/api/v1/${p}`, { headers })).json()).data));
-    const remaining = phases.slice(phases.indexOf(phase)).reduce((n,p) => n + plan.phaseCaps[p], 0);
+    const remaining = values.remaining ? cap : phases.slice(phases.indexOf(phase)).reduce((n,p) => n + plan.phaseCaps[p], 0);
     assert.ok(credits.total_credits - credits.total_usage >= remaining + plan.readerReserveUsd, "Insufficient balance above reader reserve");
     assert.ok(key.limit_remaining === null || key.limit_remaining >= remaining + 1, "Insufficient key allowance");
   }
   const sourceFiles = execFileSync("git", ["ls-files", "src/lib", "convex/_helpers/contentVersion.ts", "scripts/evals/identity-visuals.mts", "styles", "works/*/brief.json", "works/*/depiction.json", "package-lock.json"], { cwd: root, encoding: "utf8" }).trim().split("\n").filter(Boolean);
-  save(startedFile, { at: new Date().toISOString(), offline: !!values.offline, commit: execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim(), sources: Object.fromEntries(sourceFiles.map(f => [f, hash(readFileSync(path.join(root, f)))])), inputs: provenance.files, prices: Object.fromEntries(prices) });
-  const ledger = createLedger({ capUsd: plan.phaseCaps[phase], reserves: { text: 0.005, image: 0.1, check: 0.002 }, limits: { text: 250, image: 110, check: 250 }, fetch: (u,i) => fetchImpl(u,i),
+  save(startedFile, { capUsd: cap, continuation, at: new Date().toISOString(), offline: !!values.offline, commit: execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim(), sources: Object.fromEntries(sourceFiles.map(f => [f, hash(readFileSync(path.join(root, f)))])), inputs: provenance.files, prices: Object.fromEntries(prices) });
+  const ledger = createLedger({ capUsd: cap, reserves: { text: 0.005, image: 0.1, check: 0.002 }, limits: { text: 250, image: 110, check: 250 }, fetch: (u,i) => fetchImpl(u,i),
     ceiling: values.offline ? undefined : (kind, req) => requestCeilingUsd(kind, req, prices.get(String(req.model))),
-    save: s => save(`${phase}-ledger.json`, s), log: e => appendFileSync(path.join(out, `${phase}-provider.ndjson`), JSON.stringify(e) + "\n"), scrub: v => scrubForLog(v, apiKey, hash) });
+    save: s => save(`${prefix}-ledger.json`, s), log: e => appendFileSync(path.join(out, `${prefix}-provider.ndjson`), JSON.stringify(e) + "\n"), scrub: v => scrubForLog(v, apiKey, hash) });
   const textModel = (label: () => string) => createOpenRouterTextModel({ apiKey, fetch: ledger.fetchFor("text", label) });
   const checker = (label: () => string) => createOpenRouterVisionChecker({ apiKey, fetch: ledger.fetchFor("check", label), reasoningEffort: "low", maxTokens: 1500 });
   if (phase === "canon") {
@@ -135,22 +151,23 @@ for (const phase of wanted) {
       const work:SuiteWork={inputs:condition.work==="bible-web"?bible:alice,records,seeded:phase==="images"?seeded:undefined,
         getReference:async(kind,id)=>variant==="baseline"?null:variant==="bible"?bibleSnapshot.references[`${kind}:${id}`]??null:localRefs.refs[`${kind}:${id}`]??null,
         loadReference:async id=>{const file=variant==="bible"?path.join(root,provenance.bibleReferenceDirectory,`${id}.jpg`):path.resolve(root,localRefs.files[id].file);const bytes=readFileSync(file);assert.equal(hash(bytes),variant==="bible"?bibleSnapshot.files[id].sha256:localRefs.files[id].sha256);return bytes;} };
-      const cases:SuiteCase[]=plan.scenes.filter(s=>s.work===condition.work).flatMap(s=>Array.from({length:phase==="text"?1:plan.repeats},(_,i)=>({caseId:`${condition.id}-${s.id}-${i+1}`,work:s.work,unitId:s.unitId,reference:s.expected,split:"dev",tiers:[phase==="text"?"text":"image"],styles:[condition.style]})));
+      const cases:SuiteCase[]=plan.scenes.filter(s=>s.work===condition.work).flatMap(s=>Array.from({length:phase==="text"?1:plan.repeats},(_,i): SuiteCase=>({caseId:`${condition.id}-${s.id}-${i+1}`,work:s.work,unitId:s.unitId,reference:s.expected,split:"dev",tiers:[phase==="text"?"text":"image"],styles:[condition.style]}))).filter(c=>!completed.has(c.caseId));
+      if (!cases.length) continue;
       const part:Row[]=[];
       await runSuite({tier:phase==="text"?"text":"image",cases,works:new Map([[condition.work,work]]),aspectRatio:"16:9",concurrency:2,
         image:{model:condition.model,resolution:"1K"},providers:label=>({text:textModel(label),image:createOpenRouterEvalImageProvider({apiKey,timeoutMs:180000,fetch:ledger.fetchFor("image",label)}),checker:checker(label)}),
-        blocked:()=>ledger.state.blocked,record:r=>{const row=r as Row;part.push(row);rows.push(row);appendFileSync(path.join(out,`${phase}-results.ndjson`),JSON.stringify(row)+"\n");},
+        blocked:()=>ledger.state.blocked,record:r=>{const row=r as Row;part.push(row);rows.push(row);appendFileSync(path.join(out,`${prefix}-results.ndjson`),JSON.stringify(row)+"\n");},
         saveImage:(key,n,img)=>{const file=path.join(blobs,`${key.replaceAll("/","__")}__a${n}.${img.mimeType.split("/")[1]}`);writeFileSync(file,img.bytes);return{file:path.relative(root,file),sha256:hash(img.bytes)};},log:console.log});
       if(phase==="text") save(`${variant}-plans.json`,part);
       assert.equal(ledger.state.blocked,null,"Provider ledger blocked");
     }
-    save(`${phase}-summary.json`,{rows:rows.length,outcomes:rows.reduce<Record<string,number>>((n,r)=>(n[r.outcome]=(n[r.outcome]??0)+1,n),{})});
+    save(`${prefix}-summary.json`,{rows:rows.length,outcomes:rows.reduce<Record<string,number>>((n,r)=>(n[r.outcome]=(n[r.outcome]??0)+1,n),{})});
     if(values.offline) assert.ok(rows.every(r=>r.outcome===(phase==="text"?"planned":"image")),"Offline assembly failed");
   }
   assert.equal(ledger.state.blocked,null);
   const started = read<{ sources: Record<string, string> }>(path.join(out, startedFile));
   for (const [file, expected] of Object.entries(started.sources)) assert.equal(hash(readFileSync(path.join(root, file))), expected, `Changed during run: ${file}`);
   for (const [file, expected] of Object.entries(provenance.files)) assert.equal(hash(readFileSync(path.join(root, file))), expected, `Changed input: ${file}`);
-  save(`${phase}-finished.json`,{at:new Date().toISOString(),measuredUsd:ledger.state.measuredUsd,uncertainUsd:ledger.state.uncertainUsd,productionMutations:0,offline:!!values.offline});
+  save(`${prefix}-finished.json`,{at:new Date().toISOString(),measuredUsd:ledger.state.measuredUsd,uncertainUsd:ledger.state.uncertainUsd,productionMutations:0,offline:!!values.offline});
 }
 console.log(`Diagnostic artifacts: ${out}`);

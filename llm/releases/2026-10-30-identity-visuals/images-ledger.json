@@ -1,0 +1,631 @@
+{
+  "capUsd": 4.5,
+  "calls": [
+    {
+      "phase": "alice-baseline-rabbit-watch-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03400775
+    },
+    {
+      "phase": "alice-baseline-rabbit-watch-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03400775
+    },
+    {
+      "phase": "alice-baseline-rabbit-watch-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002299
+    },
+    {
+      "phase": "alice-baseline-rabbit-watch-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003066
+    },
+    {
+      "phase": "alice-baseline-rabbit-watch-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002299
+    },
+    {
+      "phase": "alice-baseline-rabbit-watch-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002946
+    },
+    {
+      "phase": "alice-baseline-rabbit-watch-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03400775
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03404
+    },
+    {
+      "phase": "alice-baseline-rabbit-watch-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002299
+    },
+    {
+      "phase": "alice-baseline-rabbit-watch-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003186
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002547
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003604
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03404
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03404
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002547
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003504
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03404
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002507
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003544
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002517
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003594
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03404
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034028
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002524
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003556
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002632
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003399
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03404
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034028
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002842
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003504
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002984
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003501
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034028
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034028
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002279
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003316
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002809
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003401
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034028
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002499
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003656
+    },
+    {
+      "phase": "alice-candidate-rabbit-watch-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03486875
+    },
+    {
+      "phase": "alice-candidate-rabbit-watch-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03486875
+    },
+    {
+      "phase": "alice-candidate-rabbit-watch-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002266
+    },
+    {
+      "phase": "alice-candidate-rabbit-watch-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003038
+    },
+    {
+      "phase": "alice-candidate-rabbit-watch-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002266
+    },
+    {
+      "phase": "alice-candidate-rabbit-watch-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002948
+    },
+    {
+      "phase": "alice-candidate-rabbit-watch-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03486875
+    },
+    {
+      "phase": "alice-candidate-rabbit-gloves-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0349255
+    },
+    {
+      "phase": "alice-candidate-rabbit-watch-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002266
+    },
+    {
+      "phase": "alice-candidate-rabbit-watch-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003223
+    },
+    {
+      "phase": "alice-candidate-rabbit-gloves-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000226
+    },
+    {
+      "phase": "alice-candidate-rabbit-gloves-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002992
+    },
+    {
+      "phase": "alice-candidate-rabbit-gloves-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0349255
+    },
+    {
+      "phase": "alice-candidate-rabbit-gloves-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0349255
+    },
+    {
+      "phase": "alice-candidate-rabbit-gloves-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000226
+    },
+    {
+      "phase": "alice-candidate-rabbit-gloves-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002937
+    },
+    {
+      "phase": "alice-candidate-rabbit-gloves-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000226
+    },
+    {
+      "phase": "alice-candidate-rabbit-gloves-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002997
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03490425
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03490425
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002917
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003814
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002282
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002924
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03490425
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03490425
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002897
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003839
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002282
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003054
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03490425
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002282
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003259
+    },
+    {
+      "phase": "alice-theme-rabbit-watch-1/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03458875
+    },
+    {
+      "phase": "alice-theme-rabbit-watch-2/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03458875
+    },
+    {
+      "phase": "alice-theme-rabbit-watch-1/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002626
+    },
+    {
+      "phase": "alice-theme-rabbit-watch-1/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003368
+    },
+    {
+      "phase": "alice-theme-rabbit-watch-2/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003011
+    },
+    {
+      "phase": "alice-theme-rabbit-watch-2/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003078
+    },
+    {
+      "phase": "alice-theme-rabbit-watch-3/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03458875
+    },
+    {
+      "phase": "alice-theme-rabbit-gloves-1/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0346455
+    },
+    {
+      "phase": "alice-theme-rabbit-gloves-1/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000226
+    },
+    {
+      "phase": "alice-theme-rabbit-gloves-1/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003317
+    },
+    {
+      "phase": "alice-theme-rabbit-watch-3/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003036
+    },
+    {
+      "phase": "alice-theme-rabbit-watch-3/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003413
+    },
+    {
+      "phase": "alice-theme-rabbit-gloves-2/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0346455
+    },
+    {
+      "phase": "alice-theme-rabbit-gloves-3/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0346455
+    },
+    {
+      "phase": "alice-theme-rabbit-gloves-3/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.00028
+    },
+    {
+      "phase": "alice-theme-rabbit-gloves-3/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003647
+    },
+    {
+      "phase": "alice-theme-rabbit-gloves-2/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000226
+    },
+    {
+      "phase": "alice-theme-rabbit-gloves-2/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003097
+    },
+    {
+      "phase": "alice-theme-rabbit-mary-ann-1/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03462425
+    },
+    {
+      "phase": "alice-theme-rabbit-gloves-3/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0346455
+    },
+    {
+      "phase": "alice-theme-rabbit-gloves-3/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000226
+    },
+    {
+      "phase": "alice-theme-rabbit-gloves-3/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003067
+    },
+    {
+      "phase": "alice-theme-rabbit-mary-ann-1/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002967
+    },
+    {
+      "phase": "alice-theme-rabbit-mary-ann-1/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003694
+    },
+    {
+      "phase": "alice-theme-rabbit-mary-ann-2/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03462425
+    },
+    {
+      "phase": "alice-theme-rabbit-mary-ann-3/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": null
+    },
+    {
+      "phase": "alice-theme-rabbit-mary-ann-2/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002927
+    },
+    {
+      "phase": "alice-theme-rabbit-mary-ann-2/watercolor",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003379
+    }
+  ],
+  "measuredUsd": 1.1917871,
+  "uncertainUsd": 0.12666475,
+  "counts": {
+    "text": 0,
+    "image": 35,
+    "check": 68
+  },
+  "blocked": "Missing provider usage"
+}
