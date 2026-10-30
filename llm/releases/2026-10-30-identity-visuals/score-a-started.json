@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-30T23:29:08.004Z",
+  "spentIncludingUncertainUsd": 2.69487595,
+  "capUsd": 0.375,
+  "scriptHash": "374957d9a8628b89aee8ee2922a49f7109fb956d98068c2388ea4816f9bdc584",
+  "inputs": {
+    "images-results.ndjson": "f2a806322762e7002a882feab129fdd819eb2cdeffe2f82969833aa3c2bdbe74",
+    "images-remaining-results.ndjson": "c4e0d8eb6a924a4e8de8ce4f93858ba4dfee039cacc6c84cbdc189ba75a7450c",
+    "plan.json": "e9d20be6f81cd32e007d2d824a73cf35695c0b19278f441f1bff4f62514fe26c",
+    "scoring-items.json": "c6706673cb5954b6cfd960dc8b14fe9dd12475d051439b9f56b057946d008c32"
+  },
+  "price": {
+    "prompt": 1e-7,
+    "completion": 5e-7,
+    "imageOutput": null,
+    "maxCompletionTokens": 128000,
+    "overrides": [
+      {
+        "minPromptTokens": 100000,
+        "prompt": 5e-7,
+        "completion": 0.0000025
+      }
+    ]
+  }
+}

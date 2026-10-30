@@ -17,7 +17,7 @@ const dir = path.join(root, "llm/releases", run);
 const hash = (data: Uint8Array | string) => createHash("sha256").update(data).digest("hex");
 const read = <T,>(file: string): T => JSON.parse(readFileSync(path.join(dir, file), "utf8"));
 const save = (file: string, data: unknown) => writeFileSync(path.join(dir, file), JSON.stringify(data, null, 2) + "\n");
-const { values } = parseArgs({ options: { prepare: { type: "boolean" }, scorer: { type: "string" }, execute: { type: "boolean" } } });
+const { values } = parseArgs({ options: { prepare: { type: "boolean" }, scorer: { type: "string" }, execute: { type: "boolean" }, resume: { type: "boolean" } } });
 type Attempt = { n: number; file: string; sha256: string };
 type Row = { caseId: string; work: string; case: string; style: string; outcome: string; context: { moment: { text: string } }; attempts?: Attempt[]; chosen?: number };
 type Item = { id: string; kind: "image" | "pair"; question: string; images: Attempt[]; cases: string[]; category: string; chosen?: boolean };
@@ -64,53 +64,68 @@ if (values.prepare) {
   console.log(`Prepared ${items.length} judgments per scorer.`);
 } else {
   assert.ok(values.execute && ["a", "b"].includes(values.scorer ?? ""), "Use --prepare or --execute --scorer a|b");
-  const scorer = values.scorer!, prefix = `score-${scorer}`;
+  const scorer = values.scorer!;
+  assert.ok(!values.resume || scorer === "a", "Only the interrupted first scorer can continue");
+  const prefix = values.resume ? "score-a-remaining" : `score-${scorer}`;
+  const retained = values.resume ? readFileSync(path.join(dir, "score-a-answers.ndjson"), "utf8").trim().split("\n").map(s => JSON.parse(s)) : [];
+  const completed = new Set(retained.map(a => a.id));
   assert.ok(!existsSync(path.join(dir, `${prefix}-started.json`)), "Do not reroll scorer answers");
   assert.equal(execFileSync("git", ["status", "--porcelain", "--untracked-files=no"], { cwd: root, encoding: "utf8" }).trim(), "", "Commit scoring contract before paid calls");
   const scoring = read<{ perScorerCapUsd: number; operationCapUsd: number; readerReserveUsd: number; model: string; files: Record<string, string> }>("scoring-plan.json");
   for (const [file, expected] of Object.entries(scoring.files)) assert.equal(hash(readFileSync(path.join(dir, file))), expected);
   assert.ok(existsSync(path.join(dir, "images-remaining-finished.json")), "Rendering must have closed before reallocating unused allowance");
-  const prior = ["canon", "references", "text", "images", "images-remaining", ...(scorer === "b" ? ["score-a"] : [])];
+  const prior = ["canon", "references", "text", "images", "images-remaining", ...(values.resume || scorer === "b" ? ["score-a"] : []), ...(scorer === "b" ? ["score-a-remaining"] : [])];
   const spent = prior.reduce((n, phase) => { const ledger = read<{ measuredUsd: number; uncertainUsd: number }>(`${phase}-ledger.json`); return n + ledger.measuredUsd + ledger.uncertainUsd; }, 0);
-  assert.ok(spent + scoring.perScorerCapUsd * (scorer === "a" ? 2 : 1) <= scoring.operationCapUsd);
-  if (scorer === "b") assert.ok(existsSync(path.join(dir, "score-a-finished.json")));
+  let cap = scoring.perScorerCapUsd;
+  if (values.resume) {
+    const stopped = read<{ measuredUsd: number; uncertainUsd: number; blocked: string }>("score-a-ledger.json");
+    assert.equal(stopped.blocked, "Provider error 400");
+    cap -= stopped.measuredUsd + stopped.uncertainUsd;
+    assert.equal(completed.size, 6);
+  }
+  assert.ok(spent + cap + (scorer === "a" ? scoring.perScorerCapUsd : 0) <= scoring.operationCapUsd);
+  if (scorer === "b") assert.ok(existsSync(path.join(dir, "score-a-remaining-finished.json")));
   const env = parseEnv(readFileSync(process.env.VISIBIBLE_EVAL_ENV_FILE!, "utf8"));
   assert.equal(env.GENERIC_ENGINE_MODE, "disabled");
   const apiKey = env.OPENROUTER_API_KEY; assert.ok(apiKey);
   const headers = { Authorization: `Bearer ${apiKey}` };
   const [credits, key] = await Promise.all(["credits", "key"].map(async endpoint => (await (await fetch(`https://openrouter.ai/api/v1/${endpoint}`, { headers })).json()).data));
-  const remaining = scoring.perScorerCapUsd * (scorer === "a" ? 2 : 1);
+  const remaining = cap + (scorer === "a" ? scoring.perScorerCapUsd : 0);
   assert.ok(credits.total_credits - credits.total_usage >= remaining + scoring.readerReserveUsd);
   assert.ok(key.limit_remaining === null || key.limit_remaining >= remaining + 1);
   const catalog = (await (await fetch("https://openrouter.ai/api/v1/models")).json()).data;
   const price = modelPricing(catalog.find((m: { id: string }) => m.id === scoring.model)); assert.ok(price);
   const scriptHash = hash(readFileSync(import.meta.filename));
-  save(`${prefix}-started.json`, { at: new Date().toISOString(), spentIncludingUncertainUsd: spent, capUsd: scoring.perScorerCapUsd, scriptHash, inputs: scoring.files, price });
-  const ledger = createLedger({ capUsd: scoring.perScorerCapUsd, reserves: { text: 0, image: 0, check: 0.005 }, limits: { text: 0, image: 0, check: 250 }, fetch: (u, i) => fetch(u, i), ceiling: (kind, req) => requestCeilingUsd(kind, req, price), save: s => save(`${prefix}-ledger.json`, s), log: e => appendFileSync(path.join(dir, `${prefix}-provider.ndjson`), JSON.stringify(e) + "\n"), scrub: v => scrubForLog(v, apiKey, hash) });
+  save(`${prefix}-started.json`, { at: new Date().toISOString(), spentIncludingUncertainUsd: spent, capUsd: cap, scriptHash, inputs: scoring.files, price });
+  const ledger = createLedger({ capUsd: cap, reserves: { text: 0, image: 0, check: 0.005 }, limits: { text: 0, image: 0, check: 250 }, fetch: (u, i) => fetch(u, i), ceiling: (kind, req) => requestCeilingUsd(kind, req, price), save: s => save(`${prefix}-ledger.json`, s), log: e => appendFileSync(path.join(dir, `${prefix}-provider.ndjson`), JSON.stringify(e) + "\n"), scrub: v => scrubForLog(v, apiKey, hash) });
   const items = read<Item[]>("scoring-items.json");
   let cursor = 0;
-  await Promise.all(Array.from({ length: 3 }, async () => {
+  const tasks = await Promise.allSettled(Array.from({ length: 3 }, async () => {
     while (cursor < items.length && !ledger.state.blocked) {
       const item = items[cursor++];
+      if (completed.has(item.id)) continue;
       if (item.kind === "pair" && item.images.length !== 2) {
         appendFileSync(path.join(dir, `${prefix}-answers.ndjson`), JSON.stringify({ id: item.id, value: { identity: "unclear", notes: "A scheduled image failed; no visual pair exists." }, automaticMissing: true }) + "\n"); continue;
       }
       const buffers = item.images.map(i => { const b = readFileSync(path.join(root, i.file)); assert.equal(hash(b), i.sha256); return b; });
       let bytes = buffers[0];
+      let mimeType = `image/${(await sharp(bytes).metadata()).format}`;
       if (item.kind === "pair") {
+        mimeType = "image/jpeg";
         const sizes = await Promise.all(buffers.map(b => sharp(b).metadata()));
         bytes = await sharp({ create: { width: sizes[0].width! + sizes[1].width!, height: Math.max(sizes[0].height!, sizes[1].height!), channels: 3, background: "#555555" } }).composite([{ input: buffers[0], left: 0, top: 0 }, { input: buffers[1], left: sizes[0].width!, top: 0 }]).jpeg({ quality: 95 }).toBuffer();
       }
       const checker = createOpenRouterVisionChecker({ apiKey, model: scoring.model, fetch: ledger.fetchFor("check", () => `${scorer}/${item.id}`), reasoningEffort: "low", maxTokens: 1500 });
       const schema: z.ZodType<unknown> = item.kind === "pair" ? pairSchema : imageSchema;
-      const result = await checker.check({ label: item.id, question: item.question, schema, image: { bytes, mimeType: "image/jpeg" } });
+      const result = await checker.check({ label: item.id, question: item.question, schema, image: { bytes, mimeType } });
       appendFileSync(path.join(dir, `${prefix}-answers.ndjson`), JSON.stringify({ id: item.id, ...result }) + "\n");
     }
   }));
   assert.equal(ledger.state.blocked, null);
+  for (const task of tasks) if (task.status === "rejected") throw task.reason;
   assert.equal(hash(readFileSync(import.meta.filename)), scriptHash);
   const answers = readFileSync(path.join(dir, `${prefix}-answers.ndjson`), "utf8").trim().split("\n").map(s => JSON.parse(s));
-  assert.equal(new Set(answers.map(a => a.id)).size, items.length);
-  save(`${prefix}-finished.json`, { at: new Date().toISOString(), answers: answers.length, measuredUsd: ledger.state.measuredUsd, uncertainUsd: ledger.state.uncertainUsd });
+  assert.equal(new Set([...retained, ...answers].map(a => a.id)).size, items.length);
+  save(`${prefix}-finished.json`, { at: new Date().toISOString(), answers: answers.length, retained: retained.length, measuredUsd: ledger.state.measuredUsd, uncertainUsd: ledger.state.uncertainUsd });
   console.log(`${scorer}: ${answers.length} judgments, $${ledger.state.measuredUsd}`);
 }
