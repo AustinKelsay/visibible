@@ -1,0 +1,500 @@
+{
+  "at": "2026-10-30T03:42:05.420Z",
+  "samples": 36,
+  "rows": [
+    {
+      "key": "revelation-12-3/classical/effects",
+      "depiction": "effects",
+      "promptSha256": "ab9950a43d90858aaff61da94f543de69d666c36d449a8ed053aeca78a52d25d",
+      "chars": 4362,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": [
+        "style:classical"
+      ]
+    },
+    {
+      "key": "revelation-12-3/watercolor/effects",
+      "depiction": "effects",
+      "promptSha256": "aab180e099c2a350d150baa06add580794665f3c0f0f6ec9814dd183ac014581",
+      "chars": 4153,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": []
+    },
+    {
+      "key": "revelation-12-3/fresco/effects",
+      "depiction": "effects",
+      "promptSha256": "2876ea90523d200a84312918d30050d2c325fe2ac7ecc0d86e3e7326ef8ca0a2",
+      "chars": 3991,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": []
+    },
+    {
+      "key": "revelation-12-9/classical/effects",
+      "depiction": "effects",
+      "promptSha256": "ab9950a43d90858aaff61da94f543de69d666c36d449a8ed053aeca78a52d25d",
+      "chars": 4362,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": [
+        "style:classical"
+      ]
+    },
+    {
+      "key": "revelation-12-9/watercolor/effects",
+      "depiction": "effects",
+      "promptSha256": "aab180e099c2a350d150baa06add580794665f3c0f0f6ec9814dd183ac014581",
+      "chars": 4153,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": []
+    },
+    {
+      "key": "revelation-12-9/fresco/effects",
+      "depiction": "effects",
+      "promptSha256": "2876ea90523d200a84312918d30050d2c325fe2ac7ecc0d86e3e7326ef8ca0a2",
+      "chars": 3991,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": []
+    },
+    {
+      "key": "job-1-6/classical/effects",
+      "depiction": "effects",
+      "promptSha256": "3798e5337416d083fff841c2777509c32013a48e372ec98f648e0d8cf2b424a0",
+      "chars": 4382,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": [
+        "style:classical"
+      ]
+    },
+    {
+      "key": "job-1-6/watercolor/effects",
+      "depiction": "effects",
+      "promptSha256": "f519881cc1e83e0849a0f23409f89ec6951f2075785e113fb7a5d6a3f2875fad",
+      "chars": 4173,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": []
+    },
+    {
+      "key": "job-1-6/fresco/effects",
+      "depiction": "effects",
+      "promptSha256": "b18266194c95557994c60d2d94c2de27ba3f4095b1666c5895843a268c233713",
+      "chars": 4011,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": []
+    },
+    {
+      "key": "zechariah-3-1/classical/effects",
+      "depiction": "effects",
+      "promptSha256": "3798e5337416d083fff841c2777509c32013a48e372ec98f648e0d8cf2b424a0",
+      "chars": 4382,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": [
+        "style:classical"
+      ]
+    },
+    {
+      "key": "zechariah-3-1/watercolor/effects",
+      "depiction": "effects",
+      "promptSha256": "f519881cc1e83e0849a0f23409f89ec6951f2075785e113fb7a5d6a3f2875fad",
+      "chars": 4173,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": []
+    },
+    {
+      "key": "zechariah-3-1/fresco/effects",
+      "depiction": "effects",
+      "promptSha256": "b18266194c95557994c60d2d94c2de27ba3f4095b1666c5895843a268c233713",
+      "chars": 4011,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": []
+    },
+    {
+      "key": "matthew-4-3/classical/effects",
+      "depiction": "effects",
+      "promptSha256": "c5a1bed2415bdb2f85bd820d3b8f54cff4092bb78a3c08157c4b08d19bc3179f",
+      "chars": 4376,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": [
+        "style:classical"
+      ]
+    },
+    {
+      "key": "matthew-4-3/watercolor/effects",
+      "depiction": "effects",
+      "promptSha256": "8df7dca2dbc4563ca45a4ab9609b69c59ec0a52ccc118125630d37975d2ac7e9",
+      "chars": 4167,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": []
+    },
+    {
+      "key": "matthew-4-3/fresco/effects",
+      "depiction": "effects",
+      "promptSha256": "16025283f4ba3f8c7b4f1875b22d8821240f445a7ba6d51ca82a803170db9cbf",
+      "chars": 4005,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": []
+    },
+    {
+      "key": "proverbs-9-14/classical/effects",
+      "depiction": "effects",
+      "promptSha256": "3798e5337416d083fff841c2777509c32013a48e372ec98f648e0d8cf2b424a0",
+      "chars": 4382,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": [
+        "style:classical"
+      ]
+    },
+    {
+      "key": "proverbs-9-14/watercolor/effects",
+      "depiction": "effects",
+      "promptSha256": "f519881cc1e83e0849a0f23409f89ec6951f2075785e113fb7a5d6a3f2875fad",
+      "chars": 4173,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": []
+    },
+    {
+      "key": "proverbs-9-14/fresco/effects",
+      "depiction": "effects",
+      "promptSha256": "b18266194c95557994c60d2d94c2de27ba3f4095b1666c5895843a268c233713",
+      "chars": 4011,
+      "symbolLine": false,
+      "presenceLine": true,
+      "canonInPrompt": false,
+      "inRoster": false,
+      "plannerSymbol": false,
+      "plannerSeesForm": false,
+      "references": []
+    },
+    {
+      "key": "revelation-12-3/classical/symbol",
+      "depiction": "symbol",
+      "promptSha256": "db6f81663efde15e1d2021f074c54ba4aab644245be209064da424a71784a07b",
+      "chars": 5239,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": [
+        "style:classical"
+      ]
+    },
+    {
+      "key": "revelation-12-3/watercolor/symbol",
+      "depiction": "symbol",
+      "promptSha256": "63c4bfd49c3ae9834789b85e5b278a57701786de18829f53c75d6c5be7218fc4",
+      "chars": 5030,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": []
+    },
+    {
+      "key": "revelation-12-3/fresco/symbol",
+      "depiction": "symbol",
+      "promptSha256": "52365866d05ecd40adbd045a47a65f8284e007e82c2853ca7ec9488057081406",
+      "chars": 4868,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": []
+    },
+    {
+      "key": "revelation-12-9/classical/symbol",
+      "depiction": "symbol",
+      "promptSha256": "43c3003b8ca4eeeba9f2db889fb1521e998b0cc41190081df8b62188b3a80020",
+      "chars": 5336,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": [
+        "style:classical"
+      ]
+    },
+    {
+      "key": "revelation-12-9/watercolor/symbol",
+      "depiction": "symbol",
+      "promptSha256": "f57f56534844a174789c1b167eabcf3bdce8ba418bee26b5481b78e355248524",
+      "chars": 5127,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": []
+    },
+    {
+      "key": "revelation-12-9/fresco/symbol",
+      "depiction": "symbol",
+      "promptSha256": "865ed6eb1d5f605678ddd41758471372ffc5f6d08f5b5c15930f47c3c85cad91",
+      "chars": 4965,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": []
+    },
+    {
+      "key": "job-1-6/classical/symbol",
+      "depiction": "symbol",
+      "promptSha256": "e41de004305df9225df0edb52940a82b4dbe68d073709607b9df247dfd33edd4",
+      "chars": 5119,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": [
+        "style:classical"
+      ]
+    },
+    {
+      "key": "job-1-6/watercolor/symbol",
+      "depiction": "symbol",
+      "promptSha256": "281d58a64940fffb9d0b8281ed185ca4fabd58a34f0bbf7435229356c2c91549",
+      "chars": 4910,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": []
+    },
+    {
+      "key": "job-1-6/fresco/symbol",
+      "depiction": "symbol",
+      "promptSha256": "10cd7f9a17ee8f169528de0d744ee41e9f75408b3a29cfd2e3a2ee85f4413871",
+      "chars": 4748,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": []
+    },
+    {
+      "key": "zechariah-3-1/classical/symbol",
+      "depiction": "symbol",
+      "promptSha256": "f4822f76eae12873d4cda871f7ed4676877f63be432e467e5e16c9b85b87dcaa",
+      "chars": 5135,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": [
+        "style:classical"
+      ]
+    },
+    {
+      "key": "zechariah-3-1/watercolor/symbol",
+      "depiction": "symbol",
+      "promptSha256": "8497e202135a62b2249b2f729ff15e7f5944d3c1d66e5d57e900301e1e2fc632",
+      "chars": 4926,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": []
+    },
+    {
+      "key": "zechariah-3-1/fresco/symbol",
+      "depiction": "symbol",
+      "promptSha256": "c9d45e167e9e0c64209905e3b384251c09705d5335959106026f6d55260779ac",
+      "chars": 4764,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": []
+    },
+    {
+      "key": "matthew-4-3/classical/symbol",
+      "depiction": "symbol",
+      "promptSha256": "67b33c401e890bc0af062b654537e629c0caaa8c69a9b290d5f08ceec17078bb",
+      "chars": 5159,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": [
+        "style:classical"
+      ]
+    },
+    {
+      "key": "matthew-4-3/watercolor/symbol",
+      "depiction": "symbol",
+      "promptSha256": "c0003168054daef8a4ebb04fe047a14e4d9486963720d7fdd850093b05effee1",
+      "chars": 4950,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": []
+    },
+    {
+      "key": "matthew-4-3/fresco/symbol",
+      "depiction": "symbol",
+      "promptSha256": "fb881d3557e1cd9b2128da08e2b0e0388f89b82c160c1f5ab896ca36f6eed11f",
+      "chars": 4788,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": []
+    },
+    {
+      "key": "proverbs-9-14/classical/symbol",
+      "depiction": "symbol",
+      "promptSha256": "247867c7171cf527754d9f8f726be02ea82c9ef9dd1d5657c8fa229c45b328fc",
+      "chars": 5167,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": [
+        "style:classical"
+      ]
+    },
+    {
+      "key": "proverbs-9-14/watercolor/symbol",
+      "depiction": "symbol",
+      "promptSha256": "05e1ddf9a4058059b9c858aa8b35d8d75d1f79524272bbfb368a55092c054973",
+      "chars": 4958,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": []
+    },
+    {
+      "key": "proverbs-9-14/fresco/symbol",
+      "depiction": "symbol",
+      "promptSha256": "9517062e4f85fad71aa42e00aeaca8c6956ed31b5d9af5d305422b5c89c78981",
+      "chars": 4796,
+      "symbolLine": true,
+      "presenceLine": false,
+      "canonInPrompt": true,
+      "inRoster": false,
+      "plannerSymbol": true,
+      "plannerSeesForm": true,
+      "references": []
+    }
+  ],
+  "paidCalls": 0,
+  "productionMutations": 0
+}

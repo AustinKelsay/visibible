@@ -1,0 +1,1490 @@
+{
+  "at": "2026-10-30T03:41:41.582Z",
+  "status": {
+    "activeGeneration": 1,
+    "activeVersions": {
+      "activatedAt": 1792538171849,
+      "briefVersion": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+    },
+    "briefVersion": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+    "candidateGeneration": null,
+    "exists": true,
+    "ready": true,
+    "reasons": [],
+    "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+  },
+  "cases": [
+    {
+      "id": "revelation-12-3",
+      "sectionId": "revelation-12-1",
+      "cast": [
+        "the_woman_clothed_with_the_sun:the_woman_clothed_with_the_sun",
+        "satan:satan-main",
+        "heavenly_throne_room:heavenly_throne_room"
+      ]
+    },
+    {
+      "id": "revelation-12-9",
+      "sectionId": "revelation-12-7",
+      "cast": [
+        "michael_the_archangel:michael_the_archangel-main",
+        "satan:satan-main",
+        "heavenly_throne_room:heavenly_throne_room"
+      ]
+    },
+    {
+      "id": "job-1-6",
+      "sectionId": "job-1-6",
+      "cast": [
+        "god_yahweh_the_father_and_god_of_israel:god_yahweh_the_father_stage_1",
+        "satan:satan-main",
+        "the_heavenly_court:the_heavenly_court"
+      ]
+    },
+    {
+      "id": "zechariah-3-1",
+      "sectionId": "zechariah-3-1",
+      "cast": [
+        "joshua_the_high_priest_son_of_jehozadak_haggai_and_zechariah:joshua_main",
+        "satan:satan-main",
+        "yahweh_s_angel_among_the_myrtle_trees:yahweh_s_angel_among_the_myrtle_trees-main",
+        "zechariah_son_of_berechiah:zechariah_son_of_berechiah_main"
+      ]
+    },
+    {
+      "id": "matthew-4-3",
+      "sectionId": "matthew-4-1",
+      "cast": [
+        "jesus_christ_the_son_of_god_and_lord:adult",
+        "satan:satan-main",
+        "an_angel_of_the_lord:an_angel_of_the_lord",
+        "wilderness_of_judea:wilderness_of_judea"
+      ]
+    },
+    {
+      "id": "proverbs-9-14",
+      "sectionId": "proverbs-9-1",
+      "cast": [
+        "wisdom:wisdom-radiance",
+        "the_foolish_woman:the_foolish_woman",
+        "wisdom_s_house:wisdom_s_house-main",
+        "the_streets_and_city_gates:streets-gates-main"
+      ]
+    }
+  ],
+  "records": {
+    "moment:revelation-12-3": {
+      "createdAt": 1792538170034,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "revelation-12-3",
+        "kind": "moment",
+        "lastUnit": "revelation-12-3",
+        "sectionId": "revelation-12-1"
+      },
+      "recordId": "revelation-12-3",
+      "source": "generated",
+      "status": "current",
+      "version": "00cad0f41354172d005a538c93eb9ba0",
+      "workId": "bible-web"
+    },
+    "section:revelation-12-1": {
+      "createdAt": 1792535244916,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "the_woman_clothed_with_the_sun",
+            "named": false,
+            "stageId": "the_woman_clothed_with_the_sun"
+          },
+          {
+            "entryId": "satan",
+            "named": false,
+            "stageId": "satan-main"
+          },
+          {
+            "entryId": "heavenly_throne_room",
+            "stageId": "heavenly_throne_room"
+          }
+        ],
+        "era": "visionary-heaven-and-the-end-of-days",
+        "firstUnit": "revelation-12-1",
+        "kind": "section",
+        "lastUnit": "revelation-12-6",
+        "mentionedOnly": [],
+        "title": "The woman clothed with the sun and the dragon"
+      },
+      "recordId": "revelation-12-1",
+      "source": "generated",
+      "status": "current",
+      "version": "dc173b533eaed58453ed793b955eafa7",
+      "workId": "bible-web"
+    },
+    "entry:the_woman_clothed_with_the_sun": {
+      "createdAt": 1792535231240,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the woman in the wilderness"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "revelation:character:the_woman_clothed_with_sun"
+        ],
+        "name": "the woman clothed with the sun",
+        "note": "A woman with the moon under her feet and a crown of twelve stars who gives birth to a male child and flees into the wilderness.",
+        "stages": [
+          {
+            "id": "the_woman_clothed_with_the_sun",
+            "label": "the woman clothed with the sun",
+            "quotes": [],
+            "text": "The woman clothed with the sun: a woman in her late twenties, of a dignified, grounded build, with warm olive-brown skin and dark hair drawn back under a crown of twelve bright stars. Her face is calm, grave and tender. Her signature garment is a long flowing robe of radiant white-gold, as if woven of sunlight, with a mantle of deep blue beneath, and the moon lies at her feet."
+          }
+        ]
+      },
+      "recordId": "the_woman_clothed_with_the_sun",
+      "source": "generated",
+      "status": "current",
+      "version": "50619aff5b82aa98f2224bd71d0c5e23",
+      "workId": "bible-web"
+    },
+    "entry:satan": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the adversary",
+          "the devil",
+          "the tempter",
+          "the evil one",
+          "Beelzebul",
+          "prince of the demons",
+          "the enemy",
+          "the god of peace's adversary",
+          "the prince of the power of the air",
+          "the spirit who works in the children of disobedience",
+          "the one in the world",
+          "the accuser",
+          "the great red dragon",
+          "the old serpent",
+          "the deceiver of the whole world",
+          "the serpent"
+        ],
+        "entryKind": "character",
+        "hasForm": false,
+        "kind": "entry",
+        "members": [
+          "job:character:satan",
+          "zechariah:character:satan",
+          "matthew:character:satan_the_tempter",
+          "luke:character:satan",
+          "romans:character:satan",
+          "2-corinthians:character:satan",
+          "ephesians:character:the_devil",
+          "1-thessalonians:character:satan",
+          "1-timothy:character:satan",
+          "1-peter:character:the_devil",
+          "1-john:character:the_evil_one",
+          "jude:character:the_devil",
+          "revelation:character:the_dragon"
+        ],
+        "name": "Satan",
+        "note": "The one adversary figure (Satan, the devil, the tempter, the evil one, the dragon) across all supplied entries; distinguished from other figures only by being the accuser and tempter of humankind.",
+        "stages": [
+          {
+            "id": "satan-main",
+            "label": "Satan, the adversary and great red dragon",
+            "quotes": [
+              {
+                "quote": "The great dragon was thrown down, the old serpent, he who is called the devil and Satan",
+                "unit": "revelation-12-9"
+              },
+              {
+                "quote": "From going back and forth on the earth, and from walking up and down in it.",
+                "unit": "job-1-7"
+              }
+            ],
+            "text": "Satan: no human face or body; a vast, fearsome serpentine shape of deep red and dark scale, coiled and many-headed in the manner of the great red dragon, with a shadowed, unlit core. Visionary and strange, not comic."
+          }
+        ]
+      },
+      "recordId": "satan",
+      "source": "generated",
+      "status": "current",
+      "version": "0a1fe6a7913edcfcd62da8dffe0e2563",
+      "workId": "bible-web"
+    },
+    "entry:heavenly_throne_room": {
+      "createdAt": 1792535231240,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the throne room in heaven",
+          "heaven",
+          "the temple in heaven",
+          "the sea of glass before the throne"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "revelation:location:heaven_throne_room"
+        ],
+        "name": "Heavenly throne room",
+        "note": "The heavenly court of God in Revelation, with the throne, elders, living creatures, the Lamb and the sea of glass before the throne.",
+        "stages": [
+          {
+            "id": "heavenly_throne_room",
+            "label": "Heavenly throne room",
+            "quotes": [
+              {
+                "quote": "there was a throne set in heaven, and one sitting on the throne",
+                "unit": "revelation-4-2"
+              },
+              {
+                "quote": "the temple of the tabernacle of the testimony in heaven was opened",
+                "unit": "revelation-15-5"
+              },
+              {
+                "quote": "Lightnings, sounds, thunders, an earthquake, and great hail followed.",
+                "unit": "revelation-11-19"
+              }
+            ],
+            "text": "Heavenly throne room: a vast open sanctuary of radiance beneath a heaven like crystal, floored with a sea of glass that is clear as crystal, set with a great throne and a temple whose doors open onto the heavens, lit by lightnings, thunders and a rainbow the colour of emerald about the throne. Pale gold and white stone, jasper and sardius glimmer in the walls; an altar of gold stands before the throne."
+          }
+        ]
+      },
+      "recordId": "heavenly_throne_room",
+      "source": "generated",
+      "status": "current",
+      "version": "5ec45b7dc898aa10489e19d584a54271",
+      "workId": "bible-web"
+    },
+    "moment:revelation-12-9": {
+      "createdAt": 1792538170034,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "revelation-12-9",
+        "kind": "moment",
+        "lastUnit": "revelation-12-9",
+        "sectionId": "revelation-12-7"
+      },
+      "recordId": "revelation-12-9",
+      "source": "generated",
+      "status": "current",
+      "version": "4b251d7e6375a28721652c362d967d02",
+      "workId": "bible-web"
+    },
+    "section:revelation-12-7": {
+      "createdAt": 1792535244916,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "michael_the_archangel",
+            "named": true,
+            "stageId": "michael_the_archangel-main"
+          },
+          {
+            "entryId": "satan",
+            "named": true,
+            "stageId": "satan-main"
+          },
+          {
+            "entryId": "heavenly_throne_room",
+            "stageId": "heavenly_throne_room"
+          }
+        ],
+        "era": "visionary-heaven-and-the-end-of-days",
+        "firstUnit": "revelation-12-7",
+        "kind": "section",
+        "lastUnit": "revelation-12-12",
+        "mentionedOnly": [],
+        "title": "War in heaven and the dragon's fall"
+      },
+      "recordId": "revelation-12-7",
+      "source": "generated",
+      "status": "current",
+      "version": "58a4ccfc9e826383a6479314de186280",
+      "workId": "bible-web"
+    },
+    "entry:michael_the_archangel": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Michael",
+          "the prince Michael",
+          "the great prince",
+          "the archangel",
+          "the archangel Michael"
+        ],
+        "entryKind": "character",
+        "hasForm": false,
+        "kind": "entry",
+        "members": [
+          "daniel:character:michael",
+          "jude:character:michael",
+          "revelation:character:michael"
+        ],
+        "name": "Michael the archangel",
+        "note": "The chief angelic prince and archangel who fights the dragon, defends Israel and disputes over Moses' body; all three entries describe this single angelic figure, so they form one cluster.",
+        "stages": [
+          {
+            "id": "michael_the_archangel-main",
+            "label": "Michael the archangel",
+            "quotes": [
+              {
+                "quote": "Michael will stand up, the great prince who stands for the children of your people",
+                "unit": "daniel-12-1"
+              },
+              {
+                "quote": "Michael and his angels made war on the dragon.",
+                "unit": "revelation-12-7"
+              }
+            ],
+            "text": "Michael the archangel: a radiant presence of pale gold light and white flame, shaped like a towering figure of brilliance rather than a human body, with no human face or features visible. Armour of burnished light, edged in silver, and a great sword of white fire carried in one hand. Wings of luminous cloud rise behind the figure."
+          }
+        ]
+      },
+      "recordId": "michael_the_archangel",
+      "source": "generated",
+      "status": "current",
+      "version": "b06cd4cec1016157c4d84736a91a766a",
+      "workId": "bible-web"
+    },
+    "moment:job-1-6": {
+      "createdAt": 1792535316090,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "job-1-6",
+        "kind": "moment",
+        "lastUnit": "job-1-6",
+        "sectionId": "job-1-6"
+      },
+      "recordId": "job-1-6",
+      "source": "generated",
+      "status": "current",
+      "version": "bdbc5d955582c0c4a6b2698d8fe9d509",
+      "workId": "bible-web"
+    },
+    "section:job-1-6": {
+      "createdAt": 1792535237008,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "named": true,
+            "stageId": "god_yahweh_the_father_stage_1"
+          },
+          {
+            "entryId": "satan",
+            "named": true,
+            "stageId": "satan-main"
+          },
+          {
+            "entryId": "the_heavenly_court",
+            "stageId": "the_heavenly_court"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "job-1-6",
+        "kind": "section",
+        "lastUnit": "job-1-12",
+        "mentionedOnly": [
+          "job"
+        ],
+        "title": "The heavenly wager"
+      },
+      "recordId": "job-1-6",
+      "source": "generated",
+      "status": "current",
+      "version": "ae6377776a9f73064afc1d6f66d65dc3",
+      "workId": "bible-web"
+    },
+    "entry:god_yahweh_the_father_and_god_of_israel": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "God",
+          "Yahweh",
+          "Yahweh God",
+          "God Almighty",
+          "Lord",
+          "God Most High",
+          "the angel of God",
+          "Yahweh's angel",
+          "God's sons",
+          "God (Yahweh)",
+          "I AM",
+          "the Lord",
+          "I am Yahweh your God",
+          "my name",
+          "the Most High",
+          "the Rock",
+          "the God of Israel",
+          "the Lord Yahweh",
+          "the Almighty",
+          "the Holy One",
+          "Yah",
+          "the Holy One of Israel",
+          "the God of Jacob",
+          "the Shepherd of Israel",
+          "the LORD",
+          "his Maker",
+          "the Creator",
+          "Yahweh of Armies",
+          "God of Israel",
+          "the man in linen's master",
+          "God of Armies",
+          "my husband",
+          "my master",
+          "the God of Armies",
+          "the God of heaven",
+          "my God",
+          "my Holy One",
+          "the Lord God",
+          "the Holy Spirit",
+          "God the Father",
+          "the Father",
+          "our God and Father",
+          "the Father of glory",
+          "the God of our Lord Jesus Christ",
+          "the God of peace",
+          "God our Father",
+          "the Lord of peace",
+          "God our Savior",
+          "the living God",
+          "the King eternal",
+          "the Majesty on high",
+          "the Judge of all",
+          "the Lord Jesus Christ",
+          "the Father of lights",
+          "the Lord of Armies",
+          "the judge",
+          "the Majestic Glory",
+          "him",
+          "the true God",
+          "Jesus Christ",
+          "our Master",
+          "him who sits on the throne"
+        ],
+        "entryKind": "character",
+        "hasForm": false,
+        "kind": "entry",
+        "members": [
+          "genesis:character:god",
+          "exodus:character:god",
+          "leviticus:character:yahweh",
+          "numbers:character:yahweh",
+          "deuteronomy:character:yahweh",
+          "joshua:character:yahweh",
+          "judges:character:yahweh",
+          "job:character:yahweh",
+          "psalms:character:yahweh",
+          "proverbs:character:yahweh",
+          "ecclesiastes:character:god",
+          "isaiah:character:yahweh",
+          "jeremiah:character:yahweh",
+          "lamentations:character:yahweh",
+          "ezekiel:character:yahweh",
+          "hosea:character:yahweh",
+          "joel:character:yahweh",
+          "amos:character:yahweh",
+          "obadiah:character:yahweh",
+          "jonah:character:yahweh",
+          "micah:character:yahweh",
+          "nahum:character:yahweh",
+          "habakkuk:character:yahweh",
+          "zephaniah:character:yahweh",
+          "haggai:character:yahweh",
+          "zechariah:character:yahweh",
+          "malachi:character:yahweh",
+          "acts:character:god_father",
+          "1-corinthians:character:god",
+          "galatians:character:god_the_father",
+          "ephesians:character:god_the_father",
+          "philippians:character:god_the_father",
+          "colossians:character:god_the_father",
+          "1-thessalonians:character:god_the_father",
+          "2-thessalonians:character:god_the_father",
+          "1-timothy:character:god",
+          "2-timothy:character:god",
+          "titus:character:god",
+          "hebrews:character:god",
+          "james:character:the_lord",
+          "1-peter:character:god_the_father",
+          "2-peter:character:god_the_father",
+          "1-john:character:god_the_father",
+          "jude:character:the_lord",
+          "revelation:character:god"
+        ],
+        "name": "God / Yahweh, the Father and God of Israel",
+        "note": "The one God, creator and speaker of the Old Testament and the Father of Jesus Christ in the New Testament; distinct from Jesus in every entry.",
+        "stages": [
+          {
+            "id": "god_yahweh_the_father_stage_1",
+            "label": "God the Father (radiance and cloud)",
+            "quotes": [
+              {
+                "quote": "Heaven is my throne, and the earth is my footstool.",
+                "unit": "isaiah-66-1"
+              },
+              {
+                "quote": "Behold, Yahweh rides on a swift cloud, and comes to Egypt.",
+                "unit": "isaiah-19-1"
+              }
+            ],
+            "text": "God the Father: no human face or body; presence shown only as radiance, cloud and fire. A brilliant white-gold light without a source, veiled by a dense, slowly moving cloud, with a fire-like glow at its heart. Throne-light and footstool-earth implied at the edges, never a figure seated in it."
+          }
+        ]
+      },
+      "recordId": "god_yahweh_the_father_and_god_of_israel",
+      "source": "generated",
+      "status": "current",
+      "version": "0f49ada61c15185ddb3913aecc959f8a",
+      "workId": "bible-web"
+    },
+    "entry:the_heavenly_court": {
+      "createdAt": 1793330389584,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the presence of Yahweh"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "job:location:heaven_court"
+        ],
+        "name": "The heavenly court",
+        "note": "The assembly in Job where God's sons present themselves before Yahweh and Satan appears among them; distinct from the king's court in Proverbs, which is a human royal court.",
+        "stages": [
+          {
+            "id": "the_heavenly_court",
+            "label": "The heavenly court",
+            "quotes": [
+              {
+                "quote": "So Satan went out from the presence of Yahweh.",
+                "unit": "job-1-12"
+              }
+            ],
+            "text": "The heavenly court: a vast open precinct beneath a canopy of luminous cloud, its floor a pale expanse like polished sapphire, edged by towering pillars of gold-tinged light. Flames of fire move in the high distance; no wall or roof is visible, only radiance rising into the sky. Measureless, still, and majestic."
+          }
+        ]
+      },
+      "recordId": "the_heavenly_court",
+      "source": "owner",
+      "status": "current",
+      "version": "333941b2a19f6d9bcc9bd81a4b35dc96",
+      "workId": "bible-web"
+    },
+    "moment:zechariah-3-1": {
+      "createdAt": 1792538127915,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "zechariah-3-1",
+        "kind": "moment",
+        "lastUnit": "zechariah-3-1",
+        "sectionId": "zechariah-3-1"
+      },
+      "recordId": "zechariah-3-1",
+      "source": "generated",
+      "status": "current",
+      "version": "3a9ce22e77fd85438f5e3246a727474a",
+      "workId": "bible-web"
+    },
+    "section:zechariah-3-1": {
+      "createdAt": 1792535239756,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "joshua_the_high_priest_son_of_jehozadak_haggai_and_zechariah",
+            "named": true,
+            "stageId": "joshua_main"
+          },
+          {
+            "entryId": "satan",
+            "named": true,
+            "stageId": "satan-main"
+          },
+          {
+            "entryId": "yahweh_s_angel_among_the_myrtle_trees",
+            "named": true,
+            "stageId": "yahweh_s_angel_among_the_myrtle_trees-main"
+          },
+          {
+            "entryId": "zechariah_son_of_berechiah",
+            "named": false,
+            "stageId": "zechariah_son_of_berechiah_main"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "zechariah-3-1",
+        "kind": "section",
+        "lastUnit": "zechariah-3-5",
+        "mentionedOnly": [
+          "god_yahweh_the_father_and_god_of_israel"
+        ],
+        "title": "Joshua cleansed before the angel"
+      },
+      "recordId": "zechariah-3-1",
+      "source": "generated",
+      "status": "current",
+      "version": "1654b1e09ed680abba5fd478a1461da4",
+      "workId": "bible-web"
+    },
+    "entry:joshua_the_high_priest_son_of_jehozadak_haggai_and_zechariah": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Joshua",
+          "the son of Jehozadak",
+          "the high priest",
+          "Joshua the high priest",
+          "Joshua the son of Jehozadak"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "haggai:character:joshua",
+          "zechariah:character:joshua_high_priest"
+        ],
+        "name": "Joshua the high priest (son of Jehozadak, Haggai and Zechariah)",
+        "note": "High priest son of Jehozadak, addressed by Haggai and cleansed and crowned in Zechariah; the post-exilic high priest of the prophetic books.",
+        "stages": [
+          {
+            "id": "joshua_main",
+            "label": "Joshua the high priest",
+            "quotes": [
+              {
+                "quote": "Now Joshua was clothed with filthy garments, and was standing before the angel.",
+                "unit": "zechariah-3-3"
+              },
+              {
+                "quote": "to Joshua the son of Jehozadak, the high priest",
+                "unit": "haggai-1-1"
+              }
+            ],
+            "text": "Joshua the high priest: man in his fifties; sturdy, dignified build; olive-brown skin; short dark hair and a trimmed grey-flecked beard; grave, steady face with deep-set eyes. Signature outfit: white priestly linen tunic and sash over a long undertunic, with a blue-violet priestly robe; bronze-gold breastplate. Props alone: a gold-and-linen mitre bearing the crown of the high priest."
+          }
+        ]
+      },
+      "recordId": "joshua_the_high_priest_son_of_jehozadak_haggai_and_zechariah",
+      "source": "generated",
+      "status": "current",
+      "version": "493a28912e1518e6eb194da9101532a5",
+      "workId": "bible-web"
+    },
+    "entry:yahweh_s_angel_among_the_myrtle_trees": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Yahweh's angel",
+          "the angel who stood among the myrtle trees",
+          "the man on the red horse"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "zechariah:character:angel_of_yahweh"
+        ],
+        "name": "Yahweh's angel among the myrtle trees",
+        "note": "The rider among the myrtle trees in chapter 1 who reports on the patrolling horses to Yahweh's angel; distinct from the interpreting angel who talks with Zechariah.",
+        "stages": [
+          {
+            "id": "yahweh_s_angel_among_the_myrtle_trees-main",
+            "label": "Yahweh's angel among the myrtle trees",
+            "quotes": [],
+            "text": "Yahweh's angel among the myrtle trees: a bearded man of mature years, lean and upright, with a steady, grave face, dark eyes and close-cut dark hair and beard touched with light. He wears a long undertunic of white linen under a deep red cloak fastened at the shoulder with a bronze clasp. He rides a red horse. He carries no props."
+          }
+        ]
+      },
+      "recordId": "yahweh_s_angel_among_the_myrtle_trees",
+      "source": "generated",
+      "status": "current",
+      "version": "081b7d39f7048444917893211329c2cd",
+      "workId": "bible-web"
+    },
+    "entry:zechariah_son_of_berechiah": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Zechariah",
+          "Zechariah the son of Iddo",
+          "the prophet",
+          "the son of Berechiah",
+          "the son of Iddo"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "ezra:character:zechariah_prophet",
+          "zechariah:character:zechariah"
+        ],
+        "name": "Zechariah son of Berechiah",
+        "note": "The post-exilic prophet Zechariah, son of Berechiah and grandson of Iddo, who prophesies alongside Haggai, receives the visions and oracles of the book bearing his name, and appears in Ezra and Tattenai's letter; one individual across all divisions.",
+        "stages": [
+          {
+            "id": "zechariah_son_of_berechiah_main",
+            "label": "Zechariah son of Berechiah",
+            "quotes": [
+              {
+                "quote": "Yahweh’s word came to the prophet Zechariah the son of Berechiah, the son of Iddo",
+                "unit": "zechariah-1-1"
+              }
+            ],
+            "text": "Zechariah son of Berechiah: a man in middle years, lean and weathered, with dark hair and a short full beard touched with grey. Skin olive-brown from desert sun. Deep-set, steady eyes and a calm, grave face. Wears a plain undyed linen tunic under a long cloak of dark brown wool, belted with a cord. Carries a simple wooden staff."
+          }
+        ]
+      },
+      "recordId": "zechariah_son_of_berechiah",
+      "source": "generated",
+      "status": "current",
+      "version": "bacede59a7d1475680d5cdb1d5c61995",
+      "workId": "bible-web"
+    },
+    "moment:matthew-4-3": {
+      "createdAt": 1792538132067,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "matthew-4-3",
+        "kind": "moment",
+        "lastUnit": "matthew-4-3",
+        "sectionId": "matthew-4-1"
+      },
+      "recordId": "matthew-4-3",
+      "source": "generated",
+      "status": "current",
+      "version": "11f8dd14f2e29471000cffec1c5049a8",
+      "workId": "bible-web"
+    },
+    "section:matthew-4-1": {
+      "createdAt": 1792535239756,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "jesus_christ_the_son_of_god_and_lord",
+            "named": true,
+            "stageId": "adult"
+          },
+          {
+            "entryId": "satan",
+            "named": true,
+            "stageId": "satan-main"
+          },
+          {
+            "entryId": "an_angel_of_the_lord",
+            "named": false,
+            "stageId": "an_angel_of_the_lord"
+          },
+          {
+            "entryId": "wilderness_of_judea",
+            "stageId": "wilderness_of_judea"
+          }
+        ],
+        "era": "roman-era-judea-galilee-and-the-early-church",
+        "firstUnit": "matthew-4-1",
+        "kind": "section",
+        "lastUnit": "matthew-4-11",
+        "mentionedOnly": [],
+        "title": "Temptation in the wilderness"
+      },
+      "recordId": "matthew-4-1",
+      "source": "generated",
+      "status": "current",
+      "version": "8d8c6e74ed725095e1b66c7c3b71e1b0",
+      "workId": "bible-web"
+    },
+    "entry:jesus_christ_the_son_of_god_and_lord": {
+      "createdAt": 1792538172786,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Jesus",
+          "Jesus Christ",
+          "the Christ",
+          "Son of Man",
+          "Son of David",
+          "Son of God",
+          "Rabbi",
+          "Teacher",
+          "Lord",
+          "the Nazarene",
+          "the Son of Man",
+          "the Lord",
+          "the carpenter",
+          "Jesus of Nazareth",
+          "the Son of God",
+          "the teacher",
+          "Master",
+          "the boy Jesus",
+          "the Word",
+          "the Teacher",
+          "the Lamb of God",
+          "the Prince of life",
+          "Christ",
+          "the Lord Jesus",
+          "Christ Jesus",
+          "the last Adam",
+          "the Beloved",
+          "the Savior",
+          "the Son of his love",
+          "the Head",
+          "the firstborn of all creation",
+          "the Lord Jesus Christ",
+          "the Son",
+          "the man Christ Jesus",
+          "the Lord's servant",
+          "the Lord, the righteous judge",
+          "our Savior",
+          "the great God and Savior",
+          "the firstborn",
+          "the apostle and high priest of our confession",
+          "the great shepherd of the sheep",
+          "the author and perfecter of faith",
+          "the mediator of a new covenant",
+          "the chief Shepherd",
+          "the cornerstone",
+          "the Lamb without blemish",
+          "Lord and Savior",
+          "Son",
+          "the Word of life",
+          "the Counselor",
+          "the righteous one",
+          "the Son of the Father",
+          "his only born Son",
+          "the Lamb",
+          "the Lion of the tribe of Judah",
+          "the Root of David",
+          "the Word of God",
+          "the faithful witness",
+          "the Alpha and the Omega",
+          "the first and the last",
+          "the Living one",
+          "the Bright and Morning Star",
+          "the Amen",
+          "the rider called Faithful and True",
+          "KING OF KINGS AND LORD OF LORDS"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "matthew:character:jesus",
+          "mark:character:jesus",
+          "luke:character:jesus",
+          "john:character:jesus",
+          "acts:character:jesus",
+          "1-corinthians:character:jesus",
+          "galatians:character:jesus_christ",
+          "ephesians:character:christ_jesus",
+          "philippians:character:jesus_christ",
+          "colossians:character:christ",
+          "1-thessalonians:character:the_lord_jesus",
+          "2-thessalonians:character:the_lord_jesus",
+          "1-timothy:character:jesus_christ",
+          "2-timothy:character:the_lord",
+          "titus:character:jesus_christ",
+          "hebrews:character:jesus",
+          "1-peter:character:jesus_christ",
+          "2-peter:character:jesus",
+          "1-john:character:jesus_christ",
+          "revelation:character:jesus_christ"
+        ],
+        "name": "Jesus Christ, the Son of God and Lord",
+        "note": "The one Jesus: the teacher from Nazareth of the Gospels and Acts, and the risen, exalted Christ and Lord of the epistles and Revelation; the same individual across all divisions, with death, resurrection and changed portrayal not creating new individuals.",
+        "stages": [
+          {
+            "id": "adult",
+            "label": "Adult Jesus",
+            "quotes": [
+              {
+                "quote": "Jesus himself, when he began to teach, was about thirty years old, being the son (as was supposed) of Joseph, the son of Heli,",
+                "unit": "luke-3-23"
+              }
+            ],
+            "text": "Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one."
+          },
+          {
+            "id": "infant",
+            "label": "Infant Jesus",
+            "quotes": [
+              {
+                "quote": "She gave birth to her firstborn son. She wrapped him in bands of cloth and laid him in a feeding trough, because there was no room for them in the inn.",
+                "unit": "luke-2-7"
+              }
+            ],
+            "text": "Jesus: newborn to about two years old; olive-brown skin, a little dark hair and dark eyes; a small infant or toddler's build, no beard. Plain undyed swaddling linen for the newborn; a small plain linen tunic as a toddler. No adult clothing or props."
+          },
+          {
+            "id": "child",
+            "label": "Boy Jesus",
+            "quotes": [
+              {
+                "quote": "When he was twelve years old, they went up to Jerusalem according to the custom of the feast;",
+                "unit": "luke-2-42"
+              }
+            ],
+            "text": "Jesus: boy of about twelve, slim and sturdy; olive-brown skin; dark brown hair cut short at the neck; dark eyes; no beard; wears a plain undyed tunic of natural linen with a dark blue-grey cloak; no props."
+          }
+        ]
+      },
+      "recordId": "jesus_christ_the_son_of_god_and_lord",
+      "source": "owner",
+      "status": "current",
+      "version": "0610430f0f21f266bc5852671492395b",
+      "workId": "bible-web"
+    },
+    "entry:an_angel_of_the_lord": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the angel",
+          "the angels",
+          "an angel"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "matthew:character:the_angel_of_the_lord",
+          "acts:character:angel_of_the_lord"
+        ],
+        "name": "an angel of the Lord",
+        "note": "Heavenly messenger of the Lord who appears in dreams and at key moments; the same angelic messenger role across Matthew and Acts, distinguished only by the episode, not by a separate identity.",
+        "stages": [
+          {
+            "id": "an_angel_of_the_lord",
+            "label": "An angel of the Lord",
+            "quotes": [
+              {
+                "quote": "an angel of the Lord stood by him, and a light shone in the cell",
+                "unit": "acts-12-7"
+              },
+              {
+                "quote": "saw his face like it was the face of an angel",
+                "unit": "acts-6-15"
+              },
+              {
+                "quote": "an angel of the Lord descended from the sky",
+                "unit": "matthew-28-2"
+              }
+            ],
+            "text": "An angel of the Lord: appears youthful and ageless, of tall, strong, well-proportioned build; skin fair and luminous; short light-brown hair; calm, steady features with a radiance about the face and head. Wears a long white tunic belted at the waist and a pale cloak of heavy linen, the robe glowing faintly with light. Carries no props."
+          }
+        ]
+      },
+      "recordId": "an_angel_of_the_lord",
+      "source": "generated",
+      "status": "current",
+      "version": "b37d1983b7c1f118a791b42b7e1a669f",
+      "workId": "bible-web"
+    },
+    "entry:wilderness_of_judea": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the wilderness of Judea",
+          "the wilderness"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "matthew:location:judean_wilderness"
+        ],
+        "name": "Wilderness of Judea",
+        "note": "Judean desert where John the Baptist preaches and Jesus is tempted, in Matthew.",
+        "stages": [
+          {
+            "id": "wilderness_of_judea",
+            "label": "Wilderness of Judea",
+            "quotes": [
+              {
+                "quote": "preaching in the wilderness of Judea",
+                "unit": "matthew-3-1"
+              },
+              {
+                "quote": "led up by the Spirit into the wilderness",
+                "unit": "matthew-4-1"
+              }
+            ],
+            "text": "Wilderness of Judea: a wide arid desert of pale limestone ridges, dry wadis cut through rolling chalk hills, and sparse scrub, tufts of hardy grass and scattered thorn bushes. Rocky outcrops and caves dot the slopes, and a distant mountain rises on the horizon. No buildings or people."
+          }
+        ]
+      },
+      "recordId": "wilderness_of_judea",
+      "source": "generated",
+      "status": "current",
+      "version": "babdb5920e1ba5afcf31450a2dddc41e",
+      "workId": "bible-web"
+    },
+    "moment:proverbs-9-14": {
+      "createdAt": 1792535337540,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "proverbs-9-14",
+        "kind": "moment",
+        "lastUnit": "proverbs-9-14",
+        "sectionId": "proverbs-9-1"
+      },
+      "recordId": "proverbs-9-14",
+      "source": "generated",
+      "status": "current",
+      "version": "f9a2041292820da1da76e49a76b6fdb6",
+      "workId": "bible-web"
+    },
+    "section:proverbs-9-1": {
+      "createdAt": 1792535237008,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "wisdom",
+            "named": true,
+            "stageId": "wisdom-radiance"
+          },
+          {
+            "entryId": "the_foolish_woman",
+            "named": true,
+            "stageId": "the_foolish_woman"
+          },
+          {
+            "entryId": "wisdom_s_house",
+            "stageId": "wisdom_s_house-main"
+          },
+          {
+            "entryId": "the_streets_and_city_gates",
+            "stageId": "streets-gates-main"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "proverbs-9-1",
+        "kind": "section",
+        "lastUnit": "proverbs-9-18",
+        "mentionedOnly": [
+          "the_scoffer"
+        ],
+        "title": "Wisdom and Folly invite the simple"
+      },
+      "recordId": "proverbs-9-1",
+      "source": "generated",
+      "status": "current",
+      "version": "9ce2a1e1d2c9c1b69d7eecf96f235325",
+      "workId": "bible-web"
+    },
+    "entry:wisdom": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "she",
+          "Lady Wisdom",
+          "the woman Wisdom"
+        ],
+        "entryKind": "character",
+        "hasForm": false,
+        "kind": "entry",
+        "members": [
+          "proverbs:character:wisdom"
+        ],
+        "name": "Wisdom",
+        "note": "The personified figure Lady Wisdom who calls in the streets, builds a seven-pillared house, and speaks in Proverbs 1, 3, 4, 8 and 9; not a human woman.",
+        "stages": [
+          {
+            "id": "wisdom-radiance",
+            "label": "Wisdom as radiant presence",
+            "quotes": [
+              {
+                "quote": "Beside the gates, at the entry of the city, at the entry doors, she cries aloud:",
+                "unit": "proverbs-8-3"
+              },
+              {
+                "quote": "Wisdom has built her house. She has carved out her seven pillars.",
+                "unit": "proverbs-9-1"
+              }
+            ],
+            "text": "Wisdom: no human face or body; she is shown only as radiance, a pale luminous brightness gathered like light at a city gate, unbounded and warm. Her presence is light and voice, never a figure to be drawn as a woman."
+          }
+        ]
+      },
+      "recordId": "wisdom",
+      "source": "generated",
+      "status": "current",
+      "version": "660861c35439bca465a73c7bd28d0d37",
+      "workId": "bible-web"
+    },
+    "entry:the_foolish_woman": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Folly",
+          "the foolish woman who calls from her house"
+        ],
+        "entryKind": "object",
+        "hasForm": false,
+        "kind": "entry",
+        "members": [
+          "proverbs:character:the_foolish_woman"
+        ],
+        "name": "The foolish woman",
+        "note": "Personified Folly in chapter 9, who sits at her door and invites the simple to stolen water and food eaten in secret; a counterpart to Wisdom.",
+        "stages": [
+          {
+            "id": "the_foolish_woman",
+            "label": "The foolish woman",
+            "quotes": [
+              {
+                "quote": "The foolish woman is loud, undisciplined, and knows nothing.",
+                "unit": "proverbs-9-13"
+              }
+            ],
+            "text": "The foolish woman: no body or face is given; rendered as an open doorway of a low house at the edge of a town, a dim threshold with stolen water in a shallow clay jar and bread eaten in secret, warm lamplight spilling out, and a faint ember-coloured glow suggesting a loud, restless presence."
+          }
+        ]
+      },
+      "recordId": "the_foolish_woman",
+      "source": "generated",
+      "status": "current",
+      "version": "ddebad80c828a6bf3230b538a1d4fe8c",
+      "workId": "bible-web"
+    },
+    "entry:wisdom_s_house": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the house with seven pillars",
+          "her house"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "proverbs:location:wisdoms_house"
+        ],
+        "name": "Wisdom's house",
+        "note": "The house Wisdom built with seven pillars and a prepared feast in chapter 9; distinct from the house of the strange woman, which is a place of seduction.",
+        "stages": [
+          {
+            "id": "wisdom_s_house-main",
+            "label": "Wisdom's house",
+            "quotes": [
+              {
+                "quote": "Wisdom has built her house. She has carved out her seven pillars.",
+                "unit": "proverbs-9-1"
+              },
+              {
+                "quote": "She sits at the door of her house, on a seat in the high places of the city,",
+                "unit": "proverbs-9-14"
+              }
+            ],
+            "text": "Wisdom's house: a substantial dwelling of dressed stone and cedar on a raised height within a walled city, its courtyard paved in limestone flags. Seven carved pillars of cedar or stone stand in a row across the front, their capitals finely worked, supporting a flat roof. A wide open door faces the street, with a stone seat set beside it on the high place of the city. Olive trees, vines and palms frame the courtyard."
+          }
+        ]
+      },
+      "recordId": "wisdom_s_house",
+      "source": "generated",
+      "status": "current",
+      "version": "955fafc6f4e24cebce0cfefe84f67402",
+      "workId": "bible-web"
+    },
+    "entry:the_streets_and_city_gates": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the public squares",
+          "the high places of the city",
+          "the gates",
+          "the entry of the city"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "proverbs:location:the_streets_and_gates"
+        ],
+        "name": "The streets and city gates",
+        "note": "Public squares and gates of a city where Wisdom cries out and judgment is given; distinct from Jerusalem as a named city.",
+        "stages": [
+          {
+            "id": "streets-gates-main",
+            "label": "The streets and city gates",
+            "quotes": [
+              {
+                "quote": "Wisdom calls aloud in the street. She utters her voice in the public squares.",
+                "unit": "proverbs-1-20"
+              },
+              {
+                "quote": "Beside the gates, at the entry of the city, at the entry doors, she cries aloud:",
+                "unit": "proverbs-8-3"
+              },
+              {
+                "quote": "She sits at the door of her house, on a seat in the high places of the city,",
+                "unit": "proverbs-9-14"
+              }
+            ],
+            "text": "The streets and city gates: a walled town of packed earth and mudbrick and dressed stone on a low hill, with a broad double city gate of cedar-banded timber set in thick stone towers. Beyond the gate the public square is paved with flat limestone slabs, worn pale by feet. Mud-plastered houses of two storeys line narrow lanes; flat roofs, lintels, and stone benches stand by the gate. Olive trees and terraced vines grow on the slopes, with a tall high place of cut stone above the square."
+          }
+        ]
+      },
+      "recordId": "the_streets_and_city_gates",
+      "source": "generated",
+      "status": "current",
+      "version": "9e1b68f40f1086f7f393eaecbcdd1bb8",
+      "workId": "bible-web"
+    }
+  },
+  "references": {
+    "styleReference:classical": {
+      "createdAt": 1793038020263,
+      "fingerprint": "56cdda26e88a809fa8bbdebe2cc8ccea",
+      "id": "mx777dy32rnfvxpkrap934178d8h0gmc",
+      "inputs": [
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "be88bfa2cb7f7a9d0eeb899a63a308be"
+        }
+      ],
+      "kind": "styleReference",
+      "notes": [],
+      "pinned": false,
+      "recordId": "classical",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2e99zh3qps4ys5tx6r0jecex8h1tfg",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "styleReference:watercolor": {
+      "createdAt": 1792538338583,
+      "fingerprint": "fa549f4888d199a3c3fd94209103e214",
+      "id": "mx707m2ep4xnbywxw0z0441c9h8gnwms",
+      "inputs": [
+        {
+          "kind": "style",
+          "recordId": "watercolor",
+          "version": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "be88bfa2cb7f7a9d0eeb899a63a308be"
+        }
+      ],
+      "kind": "styleReference",
+      "notes": [],
+      "pinned": false,
+      "recordId": "watercolor",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "styleReference:fresco": null,
+    "sheet:the_woman_clothed_with_the_sun:the_woman_clothed_with_the_sun": null,
+    "sheet:satan:satan-main": null,
+    "sheet:heavenly_throne_room:heavenly_throne_room": null,
+    "sheet:michael_the_archangel:michael_the_archangel-main": null,
+    "sheet:god_yahweh_the_father_and_god_of_israel:god_yahweh_the_father_stage_1": null,
+    "sheet:the_heavenly_court:the_heavenly_court": null,
+    "sheet:joshua_the_high_priest_son_of_jehozadak_haggai_and_zechariah:joshua_main": null,
+    "sheet:yahweh_s_angel_among_the_myrtle_trees:yahweh_s_angel_among_the_myrtle_trees-main": null,
+    "sheet:zechariah_son_of_berechiah:zechariah_son_of_berechiah_main": {
+      "createdAt": 1793321816290,
+      "fingerprint": "baa5de4edf45f0f3461c5c3606b672f2",
+      "id": "mx7232t1acgwv2hkkv0g5mhxb58h83m2",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "zechariah_son_of_berechiah",
+          "version": "bacede59a7d1475680d5cdb1d5c61995"
+        },
+        {
+          "kind": "stage",
+          "recordId": "zechariah_son_of_berechiah:zechariah_son_of_berechiah_main",
+          "version": "d627f7d86333a1fd18f033f017ccb8bc"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "5d9c203a7885036dfd0954726c62844e"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Figure matches canon: middle-aged, lean, dark hair with grey-touched short beard, olive-brown weathered skin, undyed linen tunic under dark brown wool cloak with cord belt, wooden staff.",
+        "Staff in front view is plain wood, consistent with canon.",
+        "Face appears calm and grave with deep-set eyes, consistent with canon."
+      ],
+      "pinned": false,
+      "recordId": "zechariah_son_of_berechiah:zechariah_son_of_berechiah_main",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2ax6wctmbd0xp7aa6h8ywn958h87kc",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:jesus_christ_the_son_of_god_and_lord:adult": {
+      "createdAt": 1792538274120,
+      "fingerprint": "faeacb4c217a32a73a86082443a41d40",
+      "id": "mx7er55bwabgx67py4vwk3fj6h8gnd40",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "jesus_christ_the_son_of_god_and_lord",
+          "version": "0610430f0f21f266bc5852671492395b"
+        },
+        {
+          "kind": "stage",
+          "recordId": "jesus_christ_the_son_of_god_and_lord:adult",
+          "version": "7fdcc3bb7cba387043c1187383757e07"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "roman-era-judea-galilee-and-the-early-church+visionary-heaven-and-the-end-of-days",
+          "version": "136aff1fa5f7d1105d33347727fce3a3"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Hair is dark brown, shoulder-length, parted at centre, consistent with canon",
+        "Short dark beard present, consistent with canon",
+        "Tunic is natural linen, cloak is dark blue-grey, sandals worn, consistent with canon",
+        "Olive-brown skin tone and calm dark eyes appear consistent with canon",
+        "No props shown, consistent with canon"
+      ],
+      "pinned": false,
+      "recordId": "jesus_christ_the_son_of_god_and_lord:adult",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:an_angel_of_the_lord:an_angel_of_the_lord": null,
+    "sheet:wilderness_of_judea:wilderness_of_judea": null,
+    "sheet:wisdom:wisdom-radiance": null,
+    "sheet:the_foolish_woman:the_foolish_woman": null,
+    "sheet:wisdom_s_house:wisdom_s_house-main": null,
+    "sheet:the_streets_and_city_gates:streets-gates-main": null
+  },
+  "files": {
+    "kg2e99zh3qps4ys5tx6r0jecex8h1tfg": {
+      "sha256": "201492ec8ee2388612f06f5caa92b93f789a772211f440df5fa955f890612041",
+      "bytes": 214583,
+      "contentType": "image/jpeg"
+    },
+    "kg28wgdj214z31d65smtrt44ps8gnnm3": {
+      "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5",
+      "bytes": 372434,
+      "contentType": "image/jpeg"
+    },
+    "kg2ax6wctmbd0xp7aa6h8ywn958h87kc": {
+      "sha256": "6d82df4b87b3368e3a7c9b0f4d988353dd0f8b3a6059e9cc8075b4943a99ca15",
+      "bytes": 120153,
+      "contentType": "image/jpeg"
+    },
+    "kg2b2q038x8b4tnhms5vwcg2x18gmejf": {
+      "sha256": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce",
+      "bytes": 97907,
+      "contentType": "image/jpeg"
+    }
+  },
+  "readOnlyProductionQueries": 52,
+  "paidCalls": 0,
+  "productionMutations": 0
+}
