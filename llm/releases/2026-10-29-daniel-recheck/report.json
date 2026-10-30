@@ -19,7 +19,7 @@
     "scorer-a",
     "scorer-b"
   ],
-  "operator": null,
+  "operator": "operator",
   "unanimous": 10,
   "disputed": [
     "pair001",
@@ -259,17 +259,17 @@
     }
   ],
   "verdicts": {
-    "pair001": "disputed",
+    "pair001": "same",
     "pair002": "same",
     "pair003": "different",
     "pair004": "different",
     "pair005": "different",
     "pair006": "different",
     "pair007": "same",
-    "pair008": "disputed",
-    "pair009": "disputed",
+    "pair008": "same",
+    "pair009": "different",
     "pair010": "same",
-    "pair011": "disputed",
+    "pair011": "same",
     "pair012": "same",
     "pair013": "different",
     "pair014": "different"
@@ -278,11 +278,11 @@
     "character": {
       "overall": {
         "pairs": 12,
-        "same": 4,
+        "same": 6,
         "different": 6,
         "unclear": 0,
-        "disputed": 2,
-        "rate": 0.4
+        "disputed": 0,
+        "rate": 0.5
       },
       "byStyle": {
         "watercolor": {
@@ -295,11 +295,11 @@
         },
         "classical": {
           "pairs": 6,
-          "same": 1,
+          "same": 3,
           "different": 3,
           "unclear": 0,
-          "disputed": 2,
-          "rate": 0.25
+          "disputed": 0,
+          "rate": 0.5
         }
       },
       "byGroup": {
@@ -314,11 +314,11 @@
           },
           "classical": {
             "pairs": 6,
-            "same": 1,
+            "same": 3,
             "different": 3,
             "unclear": 0,
-            "disputed": 2,
-            "rate": 0.25
+            "disputed": 0,
+            "rate": 0.5
           }
         }
       }
@@ -326,47 +326,47 @@
     "setting": {
       "overall": {
         "pairs": 2,
-        "same": 0,
-        "different": 0,
+        "same": 1,
+        "different": 1,
         "unclear": 0,
-        "disputed": 2,
-        "rate": null
+        "disputed": 0,
+        "rate": 0.5
       },
       "byStyle": {
         "watercolor": {
           "pairs": 1,
-          "same": 0,
+          "same": 1,
           "different": 0,
           "unclear": 0,
-          "disputed": 1,
-          "rate": null
+          "disputed": 0,
+          "rate": 1
         },
         "classical": {
           "pairs": 1,
           "same": 0,
-          "different": 0,
+          "different": 1,
           "unclear": 0,
-          "disputed": 1,
-          "rate": null
+          "disputed": 0,
+          "rate": 0
         }
       },
       "byGroup": {
         "lions-den": {
           "watercolor": {
             "pairs": 1,
-            "same": 0,
+            "same": 1,
             "different": 0,
             "unclear": 0,
-            "disputed": 1,
-            "rate": null
+            "disputed": 0,
+            "rate": 1
           },
           "classical": {
             "pairs": 1,
             "same": 0,
-            "different": 0,
+            "different": 1,
             "unclear": 0,
-            "disputed": 1,
-            "rate": null
+            "disputed": 0,
+            "rate": 0
           }
         }
       }
@@ -384,37 +384,35 @@
         "kind": "character",
         "tally": {
           "pairs": 12,
-          "same": 4,
+          "same": 6,
           "different": 6,
           "unclear": 0,
-          "disputed": 2,
-          "rate": 0.4
+          "disputed": 0,
+          "rate": 0.5
         },
         "baselineRate": null,
         "pass": false,
         "reasons": [
           "17 group verses never ran: matthew-14-29, matthew-27-35, mark-4-39, john-11-43, john-21-9, …",
-          "2 pairs still disputed",
-          "only 10 pairs judged same or different; needs 30",
-          "40% judged the same; bar 75%"
+          "only 12 pairs judged same or different; needs 30",
+          "50% judged the same; bar 75%"
         ]
       },
       {
         "kind": "setting",
         "tally": {
           "pairs": 2,
-          "same": 0,
-          "different": 0,
+          "same": 1,
+          "different": 1,
           "unclear": 0,
-          "disputed": 2,
-          "rate": null
+          "disputed": 0,
+          "rate": 0.5
         },
         "baselineRate": null,
         "pass": false,
         "reasons": [
           "10 group verses never ran: exodus-14-21, exodus-14-22, exodus-14-23, mark-4-37, mark-4-38, …",
-          "2 pairs still disputed",
-          "only 0 pairs judged same or different; needs 20"
+          "only 2 pairs judged same or different; needs 20"
         ]
       }
     ]

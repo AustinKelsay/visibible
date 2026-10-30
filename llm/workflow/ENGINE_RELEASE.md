@@ -85,7 +85,7 @@ The removal goes in steps:
 
 ## Budgets and estimates
 
-Projections, not authorization; each command takes its own `--budget`.
+Projections, not authorization; each command takes its own `--budget`. Before a paid run, check the OpenRouter key's own limit as well as the account balance (`GET https://openrouter.ai/api/v1/key`, `limit_remaining`). The production key is shared with readers, and image calls need at least $1 left on the key; on 30 October a $50 key limit stopped an evaluation and production images together.
 
 | Step | Basis | Estimate |
 | --- | --- | --- |
