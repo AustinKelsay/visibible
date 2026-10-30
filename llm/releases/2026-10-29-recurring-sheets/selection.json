@@ -1,0 +1,1169 @@
+{
+  "basis": "The 160 most frequent sheet subjects (entry and stage) by the number of story sections that cast them, in the active Bible analysis on 29 October 2026. Missing sheets among them are made, except crowds and groups, abstract places or whole regions, and subjects that are never drawn.",
+  "subjects": 777,
+  "sectionAppearances": 8280,
+  "existingSheets": [
+    "jesus_christ_the_son_of_god_and_lord:adult",
+    "moses:moses-elder",
+    "simon_peter:simon_peter",
+    "david_son_of_jesse_king_of_israel:david_youth",
+    "jesus_christ_the_son_of_god_and_lord:infant",
+    "jesus_christ_the_son_of_god_and_lord:child"
+  ],
+  "coverageAfter": {
+    "sectionAppearances": 4401,
+    "share": 0.532
+  },
+  "coverageBefore": {
+    "sectionAppearances": 911,
+    "share": 0.11
+  },
+  "chosen": [
+    {
+      "rank": 2,
+      "id": "jerusalem:jerusalem",
+      "name": "Jerusalem",
+      "kind": "location",
+      "sections": 464
+    },
+    {
+      "rank": 5,
+      "id": "paul_the_apostle:paul-main",
+      "name": "Paul the apostle",
+      "kind": "character",
+      "sections": 220
+    },
+    {
+      "rank": 7,
+      "id": "david_son_of_jesse_king_of_israel:david_king",
+      "name": "David son of Jesse (king of Israel)",
+      "kind": "character",
+      "sections": 139
+    },
+    {
+      "rank": 8,
+      "id": "yahweh_s_house_in_jerusalem_the_temple:yahweh_s_house_in_jerusalem_the_temple_s1",
+      "name": "Yahweh's house in Jerusalem (the temple)",
+      "kind": "location",
+      "sections": 106
+    },
+    {
+      "rank": 9,
+      "id": "isaiah_son_of_amoz:isaiah_son_of_amoz-1",
+      "name": "Isaiah son of Amoz",
+      "kind": "character",
+      "sections": 105
+    },
+    {
+      "rank": 10,
+      "id": "aaron_brother_of_moses:aaron",
+      "name": "Aaron, brother of Moses",
+      "kind": "character",
+      "sections": 96
+    },
+    {
+      "rank": 11,
+      "id": "horeb_mount_sinai:horeb_mount_sinai_main",
+      "name": "Horeb/Mount Sinai",
+      "kind": "location",
+      "sections": 91
+    },
+    {
+      "rank": 13,
+      "id": "solomon:solomon-main",
+      "name": "Solomon",
+      "kind": "character",
+      "sections": 90
+    },
+    {
+      "rank": 16,
+      "id": "samaria_city:samaria_hill_city",
+      "name": "Samaria (city)",
+      "kind": "location",
+      "sections": 72
+    },
+    {
+      "rank": 17,
+      "id": "saul_of_tarsus_paul:saul-main",
+      "name": "Saul of Tarsus (Paul)",
+      "kind": "character",
+      "sections": 70
+    },
+    {
+      "rank": 18,
+      "id": "the_camp_of_israel:the_camp_of_israel",
+      "name": "the camp of Israel",
+      "kind": "location",
+      "sections": 68
+    },
+    {
+      "rank": 19,
+      "id": "ezekiel_son_of_buzi:ezekiel-main",
+      "name": "Ezekiel son of Buzi",
+      "kind": "character",
+      "sections": 65
+    },
+    {
+      "rank": 20,
+      "id": "the_jerusalem_temple:the_jerusalem_temple_main",
+      "name": "the Jerusalem temple",
+      "kind": "location",
+      "sections": 59
+    },
+    {
+      "rank": 21,
+      "id": "the_tabernacle_portable_sanctuary:tabernacle-main",
+      "name": "the tabernacle (portable sanctuary)",
+      "kind": "location",
+      "sections": 58
+    },
+    {
+      "rank": 25,
+      "id": "corinth:corinth",
+      "name": "Corinth",
+      "kind": "location",
+      "sections": 54
+    },
+    {
+      "rank": 26,
+      "id": "timothy:timothy",
+      "name": "Timothy",
+      "kind": "character",
+      "sections": 53
+    },
+    {
+      "rank": 27,
+      "id": "jeremiah_son_of_hilkiah:jeremiah",
+      "name": "Jeremiah son of Hilkiah",
+      "kind": "character",
+      "sections": 50
+    },
+    {
+      "rank": 30,
+      "id": "job:job-main",
+      "name": "Job",
+      "kind": "character",
+      "sections": 44
+    },
+    {
+      "rank": 33,
+      "id": "jacob:jacob-main",
+      "name": "Jacob",
+      "kind": "character",
+      "sections": 40
+    },
+    {
+      "rank": 34,
+      "id": "joshua_son_of_nun:joshua_son_of_nun-main",
+      "name": "Joshua son of Nun",
+      "kind": "character",
+      "sections": 39
+    },
+    {
+      "rank": 35,
+      "id": "the_ash_heap:the_ash_heap",
+      "name": "The ash heap",
+      "kind": "location",
+      "sections": 38
+    },
+    {
+      "rank": 37,
+      "id": "capernaum:capernaum-main",
+      "name": "Capernaum",
+      "kind": "location",
+      "sections": 38
+    },
+    {
+      "rank": 38,
+      "id": "sea_of_galilee:sea_of_galilee",
+      "name": "Sea of Galilee",
+      "kind": "location",
+      "sections": 37
+    },
+    {
+      "rank": 43,
+      "id": "saul:saul",
+      "name": "Saul",
+      "kind": "character",
+      "sections": 34
+    },
+    {
+      "rank": 44,
+      "id": "the_shulammite:the_shulammite-main",
+      "name": "The Shulammite",
+      "kind": "character",
+      "sections": 34
+    },
+    {
+      "rank": 45,
+      "id": "mount_of_olives:mount_of_olives",
+      "name": "Mount of Olives",
+      "kind": "location",
+      "sections": 34
+    },
+    {
+      "rank": 47,
+      "id": "babylon:babylon",
+      "name": "Babylon",
+      "kind": "location",
+      "sections": 33
+    },
+    {
+      "rank": 48,
+      "id": "daniel_prophet_of_babylon:daniel_main",
+      "name": "Daniel (prophet of Babylon)",
+      "kind": "character",
+      "sections": 32
+    },
+    {
+      "rank": 49,
+      "id": "silas_silvanus:silas_silvanus-main",
+      "name": "Silas (Silvanus)",
+      "kind": "character",
+      "sections": 32
+    },
+    {
+      "rank": 51,
+      "id": "zion_holy_hill_mount_zion:zion_holy_hill_mount_zion_s1",
+      "name": "Zion (holy hill / Mount Zion)",
+      "kind": "location",
+      "sections": 30
+    },
+    {
+      "rank": 52,
+      "id": "abram:abram-main",
+      "name": "Abram",
+      "kind": "character",
+      "sections": 29
+    },
+    {
+      "rank": 53,
+      "id": "joseph_son_of_jacob_the_dreamer:joseph_main",
+      "name": "Joseph son of Jacob (the dreamer)",
+      "kind": "character",
+      "sections": 28
+    },
+    {
+      "rank": 54,
+      "id": "joab:joab-main",
+      "name": "Joab",
+      "kind": "character",
+      "sections": 28
+    },
+    {
+      "rank": 55,
+      "id": "elisha_son_of_shaphat:elisha_main",
+      "name": "Elisha son of Shaphat",
+      "kind": "character",
+      "sections": 28
+    },
+    {
+      "rank": 56,
+      "id": "nebuchadnezzar:nebuchadnezzar-main",
+      "name": "Nebuchadnezzar",
+      "kind": "character",
+      "sections": 28
+    },
+    {
+      "rank": 57,
+      "id": "the_preacher_qoheleth:the_preacher_qoheleth",
+      "name": "The Preacher (Qoheleth)",
+      "kind": "character",
+      "sections": 28
+    },
+    {
+      "rank": 59,
+      "id": "the_jordan_river:the_jordan_river_main",
+      "name": "the Jordan River",
+      "kind": "location",
+      "sections": 25
+    },
+    {
+      "rank": 60,
+      "id": "john_the_seer_revelation:john-seer",
+      "name": "John the seer (Revelation)",
+      "kind": "character",
+      "sections": 25
+    },
+    {
+      "rank": 63,
+      "id": "the_plains_of_moab_numbers:the_plains_of_moab_numbers-main",
+      "name": "The plains of Moab (Numbers)",
+      "kind": "location",
+      "sections": 24
+    },
+    {
+      "rank": 65,
+      "id": "thessalonica:thessalonica",
+      "name": "Thessalonica",
+      "kind": "location",
+      "sections": 23
+    },
+    {
+      "rank": 66,
+      "id": "james_son_of_zebedee:james_son_of_zebedee_main",
+      "name": "James son of Zebedee",
+      "kind": "character",
+      "sections": 22
+    },
+    {
+      "rank": 68,
+      "id": "john_the_baptizer:john_the_baptizer-main",
+      "name": "John the Baptizer",
+      "kind": "character",
+      "sections": 21
+    },
+    {
+      "rank": 69,
+      "id": "gibeah_of_saul_1_samuel:gibeah_of_saul_1_samuel_s1",
+      "name": "Gibeah of Saul (1 Samuel)",
+      "kind": "location",
+      "sections": 20
+    },
+    {
+      "rank": 70,
+      "id": "hezekiah:hezekiah",
+      "name": "Hezekiah",
+      "kind": "character",
+      "sections": 20
+    },
+    {
+      "rank": 71,
+      "id": "mary_mother_of_jesus:mary_mother_of_jesus_main",
+      "name": "Mary, mother of Jesus",
+      "kind": "character",
+      "sections": 20
+    },
+    {
+      "rank": 75,
+      "id": "eleazar_son_of_aaron:eleazar_son_of_aaron",
+      "name": "Eleazar son of Aaron",
+      "kind": "character",
+      "sections": 19
+    },
+    {
+      "rank": 76,
+      "id": "jericho:jericho-main",
+      "name": "Jericho",
+      "kind": "location",
+      "sections": 19
+    },
+    {
+      "rank": 77,
+      "id": "elijah:elijah-main",
+      "name": "Elijah",
+      "kind": "character",
+      "sections": 19
+    },
+    {
+      "rank": 78,
+      "id": "the_beloved_shepherd_song_of_solomon:the_beloved_shepherd_song_of_solomon-s1",
+      "name": "The beloved shepherd (Song of Solomon)",
+      "kind": "character",
+      "sections": 19
+    },
+    {
+      "rank": 79,
+      "id": "barnabas:barnabas-main",
+      "name": "Barnabas",
+      "kind": "character",
+      "sections": 19
+    },
+    {
+      "rank": 81,
+      "id": "royal_palace_of_babylon:royal_palace_of_babylon-main",
+      "name": "Royal palace of Babylon",
+      "kind": "location",
+      "sections": 18
+    },
+    {
+      "rank": 82,
+      "id": "pharaoh_of_the_exodus_oppressor_of_israel:pharaoh_of_the_exodus_oppressor_of_israel-main",
+      "name": "Pharaoh of the Exodus (oppressor of Israel)",
+      "kind": "character",
+      "sections": 17
+    },
+    {
+      "rank": 85,
+      "id": "philippi:philippi",
+      "name": "Philippi",
+      "kind": "location",
+      "sections": 17
+    },
+    {
+      "rank": 87,
+      "id": "hebron_city_in_judah:hebron_main",
+      "name": "Hebron (city in Judah)",
+      "kind": "location",
+      "sections": 16
+    },
+    {
+      "rank": 88,
+      "id": "shiloh:shiloh-main",
+      "name": "Shiloh",
+      "kind": "location",
+      "sections": 16
+    },
+    {
+      "rank": 89,
+      "id": "samuel:samuel-adult",
+      "name": "Samuel",
+      "kind": "character",
+      "sections": 16
+    },
+    {
+      "rank": 90,
+      "id": "ahab_king_of_israel_son_of_omri:ahab-main",
+      "name": "Ahab, king of Israel (son of Omri)",
+      "kind": "character",
+      "sections": 16
+    },
+    {
+      "rank": 91,
+      "id": "zechariah_son_of_berechiah:zechariah_son_of_berechiah_main",
+      "name": "Zechariah son of Berechiah",
+      "kind": "character",
+      "sections": 16
+    },
+    {
+      "rank": 92,
+      "id": "nehemiah_son_of_hacaliah:nehemiah_son_of_hacaliah_main",
+      "name": "Nehemiah son of Hacaliah",
+      "kind": "character",
+      "sections": 16
+    },
+    {
+      "rank": 93,
+      "id": "john_the_apostle_son_of_zebedee:john_apostle_main",
+      "name": "John the apostle, son of Zebedee",
+      "kind": "character",
+      "sections": 16
+    },
+    {
+      "rank": 96,
+      "id": "caesarea_maritima:caesarea_maritima",
+      "name": "Caesarea Maritima",
+      "kind": "location",
+      "sections": 16
+    },
+    {
+      "rank": 97,
+      "id": "ephesus:ephesus-main",
+      "name": "Ephesus",
+      "kind": "location",
+      "sections": 16
+    },
+    {
+      "rank": 102,
+      "id": "the_plains_of_moab:the_plains_of_moab",
+      "name": "The plains of Moab",
+      "kind": "location",
+      "sections": 15
+    },
+    {
+      "rank": 103,
+      "id": "david_son_of_jesse_king_of_israel:david_elder",
+      "name": "David son of Jesse (king of Israel)",
+      "kind": "character",
+      "sections": 15
+    },
+    {
+      "rank": 104,
+      "id": "jehoram_son_of_ahab:jehoram_son_of_ahab_main",
+      "name": "Jehoram son of Ahab",
+      "kind": "character",
+      "sections": 15
+    },
+    {
+      "rank": 105,
+      "id": "judas_iscariot:judas_iscariot",
+      "name": "Judas Iscariot",
+      "kind": "character",
+      "sections": 15
+    },
+    {
+      "rank": 106,
+      "id": "pontius_pilate:pontius_pilate",
+      "name": "Pontius Pilate",
+      "kind": "character",
+      "sections": 15
+    },
+    {
+      "rank": 107,
+      "id": "golgotha:golgotha",
+      "name": "Golgotha",
+      "kind": "location",
+      "sections": 15
+    },
+    {
+      "rank": 108,
+      "id": "james_the_brother_of_jesus:james_the_brother_of_jesus_main",
+      "name": "James the brother of Jesus",
+      "kind": "character",
+      "sections": 15
+    },
+    {
+      "rank": 109,
+      "id": "ezekiel_s_temple:ezekiel_s_temple_main",
+      "name": "Ezekiel's temple",
+      "kind": "location",
+      "sections": 14
+    },
+    {
+      "rank": 112,
+      "id": "shechem_israelite_covenant_city:shechem_main",
+      "name": "Shechem (Israelite covenant city)",
+      "kind": "location",
+      "sections": 13
+    },
+    {
+      "rank": 114,
+      "id": "abner_son_of_ner:abner_son_of_ner",
+      "name": "Abner son of Ner",
+      "kind": "character",
+      "sections": 13
+    },
+    {
+      "rank": 116,
+      "id": "damascus:damascus-main",
+      "name": "Damascus",
+      "kind": "location",
+      "sections": 13
+    },
+    {
+      "rank": 117,
+      "id": "josiah:josiah-main",
+      "name": "Josiah",
+      "kind": "character",
+      "sections": 13
+    },
+    {
+      "rank": 118,
+      "id": "palace_at_susa:palace_at_susa-main",
+      "name": "Palace at Susa",
+      "kind": "location",
+      "sections": 13
+    },
+    {
+      "rank": 120,
+      "id": "nineveh_assyrian_capital:nineveh_assyrian_capital",
+      "name": "Nineveh (Assyrian capital)",
+      "kind": "location",
+      "sections": 13
+    },
+    {
+      "rank": 122,
+      "id": "andrew:andrew",
+      "name": "Andrew",
+      "kind": "character",
+      "sections": 13
+    },
+    {
+      "rank": 125,
+      "id": "isaac_son_of_abraham_and_sarah:isaac-main",
+      "name": "Isaac, son of Abraham and Sarah",
+      "kind": "character",
+      "sections": 12
+    },
+    {
+      "rank": 126,
+      "id": "goshen:goshen-main",
+      "name": "Goshen",
+      "kind": "location",
+      "sections": 12
+    },
+    {
+      "rank": 127,
+      "id": "jezreel:jezreel",
+      "name": "Jezreel",
+      "kind": "location",
+      "sections": 12
+    },
+    {
+      "rank": 128,
+      "id": "david_s_royal_palace_in_jerusalem:david_s_royal_palace_in_jerusalem_s1",
+      "name": "David's royal palace in Jerusalem",
+      "kind": "location",
+      "sections": 12
+    },
+    {
+      "rank": 129,
+      "id": "jehu_son_of_jehoshaphat:jehu_main",
+      "name": "Jehu son of Jehoshaphat",
+      "kind": "character",
+      "sections": 12
+    },
+    {
+      "rank": 130,
+      "id": "joash_king_of_judah:joash_main",
+      "name": "Joash king of Judah",
+      "kind": "character",
+      "sections": 12
+    },
+    {
+      "rank": 132,
+      "id": "ahasuerus:ahasuerus-main",
+      "name": "Ahasuerus",
+      "kind": "character",
+      "sections": 12
+    },
+    {
+      "rank": 133,
+      "id": "mary_magdalene:mary_magdalene",
+      "name": "Mary Magdalene",
+      "kind": "character",
+      "sections": 12
+    },
+    {
+      "rank": 134,
+      "id": "john_son_of_zebedee:john_son_of_zebedee_main",
+      "name": "John son of Zebedee",
+      "kind": "character",
+      "sections": 12
+    },
+    {
+      "rank": 135,
+      "id": "paul_s_prison_in_rome:paul_s_prison_in_rome-s1",
+      "name": "Paul's prison in Rome",
+      "kind": "location",
+      "sections": 12
+    },
+    {
+      "rank": 138,
+      "id": "ramah_of_benjamin_ramathaim_zophim:ramah-main",
+      "name": "Ramah of Benjamin (Ramathaim Zophim)",
+      "kind": "location",
+      "sections": 11
+    },
+    {
+      "rank": 139,
+      "id": "abishai:abishai-main",
+      "name": "Abishai",
+      "kind": "character",
+      "sections": 11
+    },
+    {
+      "rank": 140,
+      "id": "mordecai:mordecai-main",
+      "name": "Mordecai",
+      "kind": "character",
+      "sections": 11
+    },
+    {
+      "rank": 141,
+      "id": "the_court_of_the_high_priest_caiaphas:court-caiaphas",
+      "name": "the court of the high priest (Caiaphas)",
+      "kind": "location",
+      "sections": 11
+    },
+    {
+      "rank": 142,
+      "id": "joseph_of_arimathea_s_new_tomb:joseph_of_arimathea_s_new_tomb_stage_1",
+      "name": "Joseph of Arimathea's new tomb",
+      "kind": "location",
+      "sections": 11
+    },
+    {
+      "rank": 145,
+      "id": "sarai_sarah_wife_of_abraham:sarah_canon",
+      "name": "Sarai/Sarah, wife of Abraham",
+      "kind": "character",
+      "sections": 10
+    },
+    {
+      "rank": 146,
+      "id": "kadesh_kadesh_barnea:kadesh_kadesh_barnea",
+      "name": "Kadesh (Kadesh Barnea)",
+      "kind": "location",
+      "sections": 10
+    },
+    {
+      "rank": 148,
+      "id": "jonathan_son_of_saul:jonathan_son_of_saul",
+      "name": "Jonathan son of Saul",
+      "kind": "character",
+      "sections": 10
+    },
+    {
+      "rank": 149,
+      "id": "abiathar:abiathar-main",
+      "name": "Abiathar",
+      "kind": "character",
+      "sections": 10
+    },
+    {
+      "rank": 150,
+      "id": "rehoboam:rehoboam",
+      "name": "Rehoboam",
+      "kind": "character",
+      "sections": 10
+    },
+    {
+      "rank": 151,
+      "id": "jehoshaphat_king_of_judah_son_of_asa_ahab_s_ally_at_ramoth_gilead:jehoshaphat_main",
+      "name": "Jehoshaphat, king of Judah (son of Asa, Ahab's ally at Ramoth Gilead)",
+      "kind": "character",
+      "sections": 10
+    },
+    {
+      "rank": 152,
+      "id": "zedekiah:zedekiah-main",
+      "name": "Zedekiah",
+      "kind": "character",
+      "sections": 10
+    },
+    {
+      "rank": 153,
+      "id": "esther:esther",
+      "name": "Esther",
+      "kind": "character",
+      "sections": 10
+    },
+    {
+      "rank": 156,
+      "id": "amos_the_herdsman_of_tekoa:amos_main",
+      "name": "Amos the herdsman of Tekoa",
+      "kind": "character",
+      "sections": 10
+    },
+    {
+      "rank": 157,
+      "id": "micah_the_prophet_of_morasheth:micah_the_prophet_of_morasheth-s1",
+      "name": "Micah the prophet of Morasheth",
+      "kind": "character",
+      "sections": 10
+    },
+    {
+      "rank": 158,
+      "id": "bethany_beyond_the_jordan:bethany_beyond_the_jordan_s1",
+      "name": "Bethany beyond the Jordan",
+      "kind": "location",
+      "sections": 10
+    },
+    {
+      "rank": 159,
+      "id": "antioch_of_syria:antioch_of_syria_main",
+      "name": "Antioch of Syria",
+      "kind": "location",
+      "sections": 10
+    }
+  ],
+  "skipped": [
+    {
+      "rank": 4,
+      "id": "the_twelve_disciples_collective:the_twelve_disciples_collective_main",
+      "name": "The Twelve Disciples (collective)",
+      "kind": "character",
+      "sections": 226,
+      "reason": "group"
+    },
+    {
+      "rank": 6,
+      "id": "the_israelite_people_the_children_of_israel:the_israelite_people_the_children_of_israel_s1",
+      "name": "The Israelite people (the children of Israel)",
+      "kind": "character",
+      "sections": 215,
+      "reason": "group"
+    },
+    {
+      "rank": 12,
+      "id": "galilee:galilee-main",
+      "name": "Galilee",
+      "kind": "location",
+      "sections": 91,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 15,
+      "id": "egypt:egypt-main",
+      "name": "Egypt",
+      "kind": "location",
+      "sections": 72,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 22,
+      "id": "under_the_sun:under_the_sun",
+      "name": "Under the sun",
+      "kind": "location",
+      "sections": 57,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 23,
+      "id": "judah_kingdom_and_land:judah_kingdom_and_land_base",
+      "name": "Judah (kingdom and land)",
+      "kind": "location",
+      "sections": 56,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 24,
+      "id": "crowd_in_luke:crowd_in_luke-main",
+      "name": "Crowd in Luke",
+      "kind": "character",
+      "sections": 54,
+      "reason": "group"
+    },
+    {
+      "rank": 28,
+      "id": "the_righteous_psalms:the_righteous_psalms_s1",
+      "name": "The righteous (Psalms)",
+      "kind": "character",
+      "sections": 46,
+      "reason": "group"
+    },
+    {
+      "rank": 29,
+      "id": "the_pharisees:the_pharisees-main",
+      "name": "the Pharisees",
+      "kind": "character",
+      "sections": 46,
+      "reason": "group"
+    },
+    {
+      "rank": 31,
+      "id": "crowd_following_jesus_mark:crowd-main",
+      "name": "Crowd following Jesus (Mark)",
+      "kind": "character",
+      "sections": 43,
+      "reason": "group"
+    },
+    {
+      "rank": 32,
+      "id": "crowds_in_matthew:crowds_in_matthew-main",
+      "name": "Crowds in Matthew",
+      "kind": "character",
+      "sections": 41,
+      "reason": "group"
+    },
+    {
+      "rank": 36,
+      "id": "the_chief_priests_and_elders:the_chief_priests_and_elders",
+      "name": "the chief priests and elders",
+      "kind": "character",
+      "sections": 38,
+      "reason": "group"
+    },
+    {
+      "rank": 40,
+      "id": "the_scribes:the_scribes",
+      "name": "the scribes",
+      "kind": "character",
+      "sections": 35,
+      "reason": "group"
+    },
+    {
+      "rank": 41,
+      "id": "the_jewish_leaders:the_jewish_leaders",
+      "name": "The Jewish leaders",
+      "kind": "character",
+      "sections": 35,
+      "reason": "group"
+    },
+    {
+      "rank": 42,
+      "id": "crowd_in_acts:crowd_in_acts",
+      "name": "Crowd in Acts",
+      "kind": "character",
+      "sections": 35,
+      "reason": "group"
+    },
+    {
+      "rank": 46,
+      "id": "the_corinthian_believers:the_corinthian_believers_main",
+      "name": "The Corinthian believers",
+      "kind": "character",
+      "sections": 34,
+      "reason": "group"
+    },
+    {
+      "rank": 50,
+      "id": "canaan:canaan-main",
+      "name": "Canaan",
+      "kind": "location",
+      "sections": 31,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 58,
+      "id": "galilee_2:galilee_2_s1",
+      "name": "Galilee",
+      "kind": "location",
+      "sections": 26,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 61,
+      "id": "heavenly_throne_room:heavenly_throne_room",
+      "name": "Heavenly throne room",
+      "kind": "location",
+      "sections": 25,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 62,
+      "id": "the_earth:the_earth",
+      "name": "The earth",
+      "kind": "location",
+      "sections": 25,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 64,
+      "id": "the_roman_soldiers:the_roman_soldiers-main",
+      "name": "The Roman soldiers",
+      "kind": "character",
+      "sections": 23,
+      "reason": "group"
+    },
+    {
+      "rank": 67,
+      "id": "the_altar:the_altar",
+      "name": "the altar",
+      "kind": "location",
+      "sections": 21,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 72,
+      "id": "the_sanhedrin:the_sanhedrin",
+      "name": "the Sanhedrin",
+      "kind": "character",
+      "sections": 20,
+      "reason": "group"
+    },
+    {
+      "rank": 73,
+      "id": "the_disciples:the_disciples",
+      "name": "The disciples",
+      "kind": "character",
+      "sections": 20,
+      "reason": "group"
+    },
+    {
+      "rank": 74,
+      "id": "the_egyptians:the_egyptians-s1",
+      "name": "the Egyptians",
+      "kind": "character",
+      "sections": 19,
+      "reason": "group"
+    },
+    {
+      "rank": 80,
+      "id": "joseph_s_brothers:brothers_main",
+      "name": "Joseph's brothers",
+      "kind": "character",
+      "sections": 18,
+      "reason": "group"
+    },
+    {
+      "rank": 83,
+      "id": "the_priests_group:the_priests_group_s1",
+      "name": "the priests (group)",
+      "kind": "character",
+      "sections": 17,
+      "reason": "group"
+    },
+    {
+      "rank": 84,
+      "id": "daughters_of_jerusalem:daughters_of_jerusalem-main",
+      "name": "Daughters of Jerusalem",
+      "kind": "character",
+      "sections": 17,
+      "reason": "group"
+    },
+    {
+      "rank": 86,
+      "id": "the_wilderness_exodus_route:the_wilderness_exodus_route-main",
+      "name": "The wilderness (Exodus route)",
+      "kind": "location",
+      "sections": 16,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 94,
+      "id": "judea_gospel_region_around_jerusalem:judea_main",
+      "name": "Judea (Gospel region around Jerusalem)",
+      "kind": "location",
+      "sections": 16,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 95,
+      "id": "crowd_in_john:crowd_in_john-main",
+      "name": "Crowd in John",
+      "kind": "character",
+      "sections": 16,
+      "reason": "group"
+    },
+    {
+      "rank": 98,
+      "id": "the_thessalonians:the_thessalonians",
+      "name": "the Thessalonians",
+      "kind": "character",
+      "sections": 16,
+      "reason": "group"
+    },
+    {
+      "rank": 99,
+      "id": "the_author_of_1_john:the_author_of_1_john-main",
+      "name": "The author of 1 John",
+      "kind": "character",
+      "sections": 16,
+      "reason": "neverDrawn"
+    },
+    {
+      "rank": 100,
+      "id": "the_readers_of_1_john:the_readers_of_1_john_s1",
+      "name": "The readers of 1 John",
+      "kind": "character",
+      "sections": 16,
+      "reason": "group"
+    },
+    {
+      "rank": 101,
+      "id": "the_world_moral_realm:the_world_moral_realm_main",
+      "name": "the world (moral realm)",
+      "kind": "location",
+      "sections": 16,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 110,
+      "id": "paul_s_prison:paul_s_prison",
+      "name": "Paul's prison",
+      "kind": "location",
+      "sections": 14,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 111,
+      "id": "the_angel_who_shows_john:the_angel_who_shows_john",
+      "name": "The angel who shows John",
+      "kind": "object",
+      "sections": 14,
+      "reason": "neverDrawn"
+    },
+    {
+      "rank": 113,
+      "id": "philistines:philistines-main",
+      "name": "Philistines",
+      "kind": "character",
+      "sections": 13,
+      "reason": "group"
+    },
+    {
+      "rank": 115,
+      "id": "israel_the_northern_tribes_at_shechem:israel_shechem_northern_tribes",
+      "name": "Israel (the northern tribes at Shechem)",
+      "kind": "character",
+      "sections": 13,
+      "reason": "group"
+    },
+    {
+      "rank": 119,
+      "id": "heaven:heaven-main",
+      "name": "Heaven",
+      "kind": "location",
+      "sections": 13,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 121,
+      "id": "israel_hosea:israel_hosea_main",
+      "name": "Israel (Hosea)",
+      "kind": "location",
+      "sections": 13,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 123,
+      "id": "saints_at_philippi:saints_at_philippi_main",
+      "name": "Saints at Philippi",
+      "kind": "character",
+      "sections": 13,
+      "reason": "group"
+    },
+    {
+      "rank": 124,
+      "id": "the_twelve_tribes_in_the_dispersion:the_twelve_tribes_in_the_dispersion-base",
+      "name": "The twelve tribes in the Dispersion",
+      "kind": "character",
+      "sections": 13,
+      "reason": "group"
+    },
+    {
+      "rank": 131,
+      "id": "the_levites_who_teach_the_law_nehemiah:the_levites_who_teach_the_law_nehemiah",
+      "name": "The Levites who teach the law (Nehemiah)",
+      "kind": "character",
+      "sections": 12,
+      "reason": "group"
+    },
+    {
+      "rank": 136,
+      "id": "the_dispersion_general_setting_of_the_twelve_tribes:the_dispersion_single",
+      "name": "The Dispersion (general setting of the twelve tribes)",
+      "kind": "location",
+      "sections": 12,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 137,
+      "id": "tribal_elders_of_joshua:tribal_elders_of_joshua_main",
+      "name": "Tribal elders of Joshua",
+      "kind": "character",
+      "sections": 11,
+      "reason": "group"
+    },
+    {
+      "rank": 143,
+      "id": "the_saints_at_colossae:the_saints_at_colossae",
+      "name": "The saints at Colossae",
+      "kind": "character",
+      "sections": 11,
+      "reason": "group"
+    },
+    {
+      "rank": 144,
+      "id": "the_chosen_ones_of_the_dispersion:the_chosen_ones_of_the_dispersion-main",
+      "name": "The chosen ones of the Dispersion",
+      "kind": "character",
+      "sections": 11,
+      "reason": "group"
+    },
+    {
+      "rank": 147,
+      "id": "the_priests_and_levites_deuteronomy:priests-levites",
+      "name": "The priests and Levites (Deuteronomy)",
+      "kind": "character",
+      "sections": 10,
+      "reason": "group"
+    },
+    {
+      "rank": 154,
+      "id": "mountains_of_israel:mountains_of_israel",
+      "name": "Mountains of Israel",
+      "kind": "location",
+      "sections": 10,
+      "reason": "abstractOrRegion"
+    },
+    {
+      "rank": 155,
+      "id": "man_clothed_in_linen:man_clothed_in_linen",
+      "name": "Man clothed in linen",
+      "kind": "object",
+      "sections": 10,
+      "reason": "neverDrawn"
+    },
+    {
+      "rank": 160,
+      "id": "the_galatians:galatians-main",
+      "name": "the Galatians",
+      "kind": "character",
+      "sections": 10,
+      "reason": "group"
+    }
+  ]
+}

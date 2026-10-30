@@ -16,8 +16,8 @@ For each pair, record one `verdict`:
   - `different`: a clear identity cue conflicts, such as bearded and clean-shaven, grey and dark hair, clearly different ages, or a different face or skin tone. Clothing alone is not enough, because a scene may change it.
   - `unclear`: you cannot judge, because the subject is missing, too small, turned away or hidden in one image, or the description does not single out one figure.
 - **Setting pairs**
-  - `same`: both images plausibly show the same place, seen at the same occasion: the same kind of land, water, buildings and vegetation, arranged compatibly, allowing for a different viewpoint.
-  - `different`: the places conflict, such as a different landscape, different architecture, a different body of water, or night in one and day in the other.
+  - `same`: both images plausibly show the same place, seen at the same occasion: the same kind of land, water, buildings and vegetation, arranged compatibly, allowing for a different viewpoint. When the two descriptions themselves ask for a change between the moments, such as a storm and then the calm after it, or night and then dawn, judge the place itself and not that change.
+  - `different`: the places conflict, such as a different landscape, different architecture, a different body of water, or night in one and day in the other when neither description asks for that change.
   - `unclear`: one image shows too little of the place to judge.
 
 When torn between `same` and `different`, choose the one with a concrete visible cue and name that cue. Give `notes`: one or two sentences naming what you compared and where.
