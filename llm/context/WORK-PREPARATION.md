@@ -47,7 +47,7 @@ closedDocuments      the planner's instruction for written objects ("letters …
 inscribedObjects     the image check's examples of inscriptions ("tablets or scrolls")
 seriousSubjects      serious subjects beyond the floor's battles, blood and death (["crucifixion"])
 speakerExamples?     the planner's examples of a speaker drawn as a figure of their own words
-modes: { effects? }  wording for subjects never drawn, only shown through effects
+modes: { effects?, symbol? }  wording for subjects never drawn (effects) and subjects drawn only as their canon's non-human form (symbol)
 ```
 
 Every canon entry has a **depiction mode**. `form` entries are drawn from their canon. `effects` entries are never drawn, and the profile's `effects` wording covers every stage:
@@ -60,7 +60,9 @@ Every canon entry has a **depiction mode**. `form` entries are drawn from their 
 
 A work without `effects` wording has no such subjects: its prompts never mention them, its review cannot report them and its image check asks only about edges, frames and lettering. An `effects` entry in such a work stops preparation and rendering before any model call.
 
-The mode is stored as the entry's `hasForm` (`false` is `effects`; absent or `true` is `form`). `works:correct set-depiction` changes it ([Owner corrections](../workflow/OWNER-CORRECTIONS.md)).
+`symbol` entries are drawn only in the non-human form their canon describes, such as Satan's red dragon, and never as a person. Their canon stays in the image prompt, but they are not named among the selected characters and get no sheet. The profile's `symbol.renderBlock` opens a line naming them, and `symbol.planSystem` instructs the planner, which sees each one's canon form. No entry uses the mode yet (ADR 0010 amendment).
+
+The mode is stored as the entry's `hasForm` (`false` is `effects`; absent or `true` is `form`), plus `depiction: "symbol"` with `hasForm: false` for a symbol. `works:correct set-depiction` changes it ([Owner corrections](../workflow/OWNER-CORRECTIONS.md)).
 
 Fields are single-line text and unknown fields fail. Looks and plans record a version of only the wording they read, so a rendering-only change remakes nothing; the rendering packet and saved image record the whole profile's version. The Bible's profile is the engine's former wording verbatim. Holmes has no `effects` wording.
 

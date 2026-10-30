@@ -33,3 +33,12 @@ The profile is engine-facing data, closer to a style file. It is deployed with t
   - Misclassified entries. The owner can return Nineveh, the heavenly court and Southampton Road to `form` with `set-depiction`.
 - The engine's general wording still carries some Bible-shaped genres in the planner's list (prophecy, oracle, parable, vision). They describe kinds of speech that many works have and were left as engine wording.
 - Canon drafting, an offline owner step, still offers every work the same vocabulary for subjects without form (light, radiance, cloud, mist, fire, wind, voice). A work's profile does not yet shape drafting. The request path and saved images remain Bible-shaped by design ([ADR 0002](0002-consistent-images-from-canon-and-reference-images.md)).
+
+## Amendment: the symbol mode (30 October 2026)
+
+The owner funded a third mode, `symbol`: an entry drawn only in the non-human form its canon describes, never as a person. The motivating entries are Satan, whose canon is a red many-headed dragon, and the foolish woman of Proverbs 9, whose canon is a doorway. Both are stored without form today, so their canon never reaches the image.
+
+- **Behavior.** A symbol entry keeps its canon text in the image prompt. It is not named among the selected characters, gets no reference sheet, and adds the work's symbolic-form line, which names it. The planner sees its canon form beside its name, plus the work's symbol instruction. The plan review treats it as having form, so `embodied_formless` never applies to it.
+- **Storage.** It is stored as `depiction: "symbol"` with `hasForm: false`, so a deployment from before the mode treats it as `effects`, as now. `works:correct set-depiction <entry> symbol` sets it.
+- **Unchanged requests.** Bible requests without a symbol entry stay byte-for-byte unchanged (golden test). Plans record the profile's symbol wording only when their section casts a symbol entry (`depiction_symbol`).
+- **Not applied.** A [paid two-arm check](../../llm/releases/2026-10-30-symbol-mode/README.md) found Satan drawn as his dragon in 15 of 15 images (6 of 15 today), and acceptable images rose from 12 to 14. Its pre-declared bar still failed: the foolish woman was never selected, and figures in light rose from 2 to 3, all from one Revelation 12:9 plan that gave Michael's no-form host garments. Under that rule no entry is set to `symbol` until the owner decides.
