@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "workId": "holmes-adventures",
+  "groups": [
+    {
+      "id": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "entryId": "sherlock_holmes",
+      "units": ["a-scandal-in-bohemia-1-1", "the-red-headed-league-1", "the-red-headed-league-138", "the-adventure-of-the-blue-carbuncle-12", "the-adventure-of-the-speckled-band-235", "the-boscombe-valley-mystery-9"]
+    },
+    {
+      "id": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "entryId": "dr_watson",
+      "units": ["a-scandal-in-bohemia-1-1", "the-red-headed-league-1", "the-red-headed-league-138", "the-adventure-of-the-blue-carbuncle-12", "the-adventure-of-the-speckled-band-235", "the-boscombe-valley-mystery-9"],
+      "note": "Watson narrates; a plan that leaves him out as the narrator drops his pairs rather than failing them."
+    },
+    {
+      "id": "bank-cellar",
+      "kind": "setting",
+      "subject": "the vault cellar of the City and Suburban Bank",
+      "units": ["the-red-headed-league-175", "the-red-headed-league-183"],
+      "note": "Section the-red-headed-league-175."
+    },
+    {
+      "id": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "units": ["the-adventure-of-the-engineers-thumb-160", "the-adventure-of-the-engineers-thumb-165", "the-adventure-of-the-engineers-thumb-170"],
+      "note": "Section the-adventure-of-the-engineers-thumb-160; the first moment sees the smoke from the station."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "version": "2026-10-30-suite-v1",
+  "seed": "2026-10-30-suite-v1",
+  "holdoutShare": 0.4,
+  "works": {
+    "bible-web": {
+      "analysis": "convex",
+      "imageStyles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ],
+      "consistency": "evals/images/consistency.json"
+    },
+    "holmes-adventures": {
+      "analysis": "convex",
+      "imageStyles": [
+        "classical",
+        "watercolor"
+      ],
+      "consistency": "evals/images/consistency.holmes-adventures.json"
+    },
+    "alice-in-wonderland": {
+      "analysis": "evals/images/analyses/alice-in-wonderland.json",
+      "imageStyles": [
+        "watercolor",
+        "classical"
+      ],
+      "consistency": "evals/images/consistency.alice-in-wonderland.json"
+    }
+  },
+  "draws": [
+    {
+      "work": "bible-web",
+      "label": "bible-random",
+      "count": 30
+    },
+    {
+      "work": "holmes-adventures",
+      "label": "holmes-random",
+      "count": 6
+    },
+    {
+      "work": "alice-in-wonderland",
+      "label": "alice-random",
+      "count": 6
+    }
+  ],
+  "gate": {
+    "margin": 0.05,
+    "minItems": 2
+  }
+}

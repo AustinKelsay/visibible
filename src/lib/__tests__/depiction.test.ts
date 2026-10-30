@@ -35,10 +35,11 @@ function recordingFetch(answer: (body: { response_format: { json_schema: { name:
 describe("the repo's depiction profiles", () => {
   it("gives every work with a brief its own valid profile, and only the Bible has subjects without form", () => {
     const works = readdirSync(path.join(process.cwd(), "works")).filter((id) => existsSync(path.join(process.cwd(), "works", id, "brief.json")));
-    expect(works.sort()).toEqual(["bible-web", "holmes-adventures"]);
+    expect(works.sort()).toEqual(["alice-in-wonderland", "bible-web", "holmes-adventures"]);
     for (const workId of works) expect(readDepictionProfile(workId).workId).toBe(workId);
     expect(readDepictionProfile("bible-web").modes.effects).toBeDefined();
     expect(readDepictionProfile("holmes-adventures").modes).toEqual({});
+    expect(readDepictionProfile("alice-in-wonderland").modes).toEqual({});
   });
 
   it("rejects a profile for another work, unknown fields and multi-line wording", () => {
