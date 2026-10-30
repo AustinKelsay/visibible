@@ -29,5 +29,5 @@
   ],
   "paidCalls": "Smoke preparation only, owner spend $0.0014134: look $0.0002745, plan $0.0005523, review $0.0005866 (Claude Haiku 5.5). No image calls.",
   "productionMutations": "The smoke's look and plan records and their three preparation ledger rows, made as any reader request would make them.",
-  "atRelease": "The production OpenRouter key had $0.75 of its $50 limit left (read-only key query at 02:05 UTC). Images stop once it runs out; raising it is the owner's step."
+  "atRelease": "The production OpenRouter key had $0.75 of its $50 limit left (read-only key query at 02:05 UTC). Image calls need $1 left, so production images were already refused at release, since 01:15 UTC. A new key restored them at 02:39 UTC (STATUS.md, key-limit note)."
 }
