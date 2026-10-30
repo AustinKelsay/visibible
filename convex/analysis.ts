@@ -969,8 +969,9 @@ export const listRecordHistory = query({
  * never touched. A pinned reference is listed with its pin so callers can leave it alone.
  */
 /**
- * Current looks, plans and references that name an older version of a record. Only looks and plans record inputs, so
- * the work's moments are never read: a full Bible's 31,102 moments would pass a transaction's 32,000-document limit.
+ * Current looks, plans and references that name an older version of a record. Only looks and plans name other analysis
+ * records as inputs (an entry's `prompt` input is not one), so the work's moments are never read: a full Bible's 31,102
+ * moments would pass a transaction's 32,000-document limit.
  */
 export async function staleDependents(ctx: QueryCtx, args: { workId: string; kind: AnalysisKind; recordId: string }) {
   const work = await findWork(ctx, args.workId);
