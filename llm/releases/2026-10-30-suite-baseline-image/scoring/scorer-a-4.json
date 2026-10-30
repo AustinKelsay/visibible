@@ -1,0 +1,412 @@
+{
+  "scorer": "model-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "i079",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Night storm on open water: disciples in a diagonal boat bail and grip the gunwales as waves break in, sail torn loose, other boats and moonlit shoreline behind. Thin gold halo rings carry no glyphs; hands and faces read correctly."
+    },
+    {
+      "id": "i080",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Moses holds two staffs at once, a rod raised overhead and a separate crook in his other hand. A broad river with a palm oasis runs behind the rock, at odds with the waterless camp. Aaron's breastplate gems carry no letters, and the people and livestock drinking at right are well formed."
+    },
+    {
+      "id": "i081",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice in a blue dress and pinafore looks up at a bodiless grin and eyes floating upper right; flamingo lies on the grass behind her, hedgehog scurries right, wire arch in the distance. No lettering, edges painted."
+    },
+    {
+      "id": "i082",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Shop board reads 'pawnbroker's balls' with 'Nam...' on the side board, there is a street-name plate on the right building, and a signature sits in the bottom-right corner. Holmes clearly resembles Benedict Cumberbatch and Watson resembles Martin Freeman."
+    },
+    {
+      "id": "i083",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Newspapers with mastheads and print columns are pinned at upper right and lie on the floor at left, and the slip and letters on the desk carry text marks. Holmes is a Cumberbatch likeness and the seated Watson a Martin Freeman likeness."
+    },
+    {
+      "id": "i084",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Open newspapers on the floor at lower left carry headline and print marks. Holmes at the door is a Benedict Cumberbatch likeness. He grips Watson's arm but holds a pipe rather than the door, and red-haired Wilson stands rather than half-rising and is thin rather than stout."
+    },
+    {
+      "id": "i085",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Naomi sits centred on a stool with the swaddled infant, and women in head coverings sit in an arc with clasped hands. Water jar, woven mat and lamp are in the mudbrick courtyard at dusk. Hands and faces are sound, with no lettering."
+    },
+    {
+      "id": "i086",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter, clutching his bundled coat, runs barefoot through the shallows from the boat as the beloved disciple points shoreward. Jesus stands on the beach near a charcoal fire. Peter strides through the shallows by a beached boat rather than leaping into deeper water, but the moment reads. The pale top corners are painted haze."
+    },
+    {
+      "id": "i087",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Fire and sulfur streak from a smoky dawn sky onto a burning walled city, with glowing pits at right and a herder shielding his face in the foreground. Treated gravely with no gore. Only one city is clearly shown, but that is minor."
+    },
+    {
+      "id": "i088",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Aged Adam lies on a mat inside a tent with family bowed on either side, a cold ash hearth and water jars in front, and fields and hills through the entrance. The cluster of hands at upper left and the hands at right touching his feet are anatomically sound."
+    },
+    {
+      "id": "i089",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Seven disciples step from the boat with a net and fish onto the shore toward a charcoal fire with fish, bread beside it and stone houses behind. White paper shows at the top-left and bottom edges (accepted). The pebble outlines at bottom right are not lettering."
+    },
+    {
+      "id": "i090",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Ezekiel stands small mid-valley with an arm raised over scattered sun-bleached bones under a bright cloudy sky, and God is not drawn as any figure. He oddly holds a blank tablet and stylus, but there is no lettering and no gore."
+    },
+    {
+      "id": "i091",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice in a pinafore drinks from a blank-labelled bottle beside a glass table with a tiny gold key in a long lamp-lit hall. The garden door at the far end is drawn full-size and open rather than tiny and locked, a minor departure. No lettering."
+    },
+    {
+      "id": "i092",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "The camp contains three separate sanctuaries: a fenced court with a tent at left, a curtained tent under the cloud pillar in the centre, and a large columned tabernacle with cherub curtains, horned altar and laver at right. The tabernacle is therefore duplicated, and the cloud rests on a different one than the dominant structure. Edges are painted and the curtains show no letters."
+    },
+    {
+      "id": "i093",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "flawed",
+      "notes": "The empty flaming throne with burning wheels in a radiant night sky over Babylon, with Daniel looking up from a roof, follows the no-figure rule. However, the lit building wall at lower right bears glyph-like pen marks (stacked strokes and hooked characters, roughly x1220-1260, y570-620). A small white patch at the bottom-right edge is accepted."
+    },
+    {
+      "id": "i094",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes on the bed lashes his cane at the ventilator holding a flaring match while Watson stands with a revolver, which matches the scene. But Holmes is a Benedict Cumberbatch likeness and Watson a Martin Freeman likeness. The top-left wall fades into white paper (accepted)."
+    },
+    {
+      "id": "i095",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Aaron in ephod, breastplate and blue robe gestures toward a pig while white-bearded Moses stands with a staff. The Israelite crowd, tents and a smoking tabernacle are in the distance. The breastplate gems carry no letters, and hands and faces are sound."
+    },
+    {
+      "id": "i096",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Seated Saul, with an arm thrown up, has loosed a spear that flies across the lamplit stone hall toward David, who dodges with his lyre on the floor. The evil spirit is not drawn as any figure, the tapestries show only texture, and the anatomy is fine."
+    },
+    {
+      "id": "i097",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Hatherley points with a bandaged hand at the burning whitewashed house and gate while Holmes studies it. Holmes is a clear Benedict Cumberbatch likeness. A motorised fire engine by the gate is also anachronistic."
+    },
+    {
+      "id": "i098",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice in a blue dress and pinafore turns toward a floating Cheshire Cat head upper right, with a flamingo at her side and a hedgehog scurrying. A distant card figure shows only diamond pips. The upper-right sky fades to white paper (accepted). A whole head rather than just a grin is shown, which the passage also covers."
+    },
+    {
+      "id": "i099",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Moses holds two staffs at once, a tall staff in one hand and a second rod lowered in the other. The left 'wall' is a wave breaking behind a palm-lined beach and cliffs, with open sea ahead, so the crowd walks a shoreline rather than between two walls on the sea floor."
+    },
+    {
+      "id": "i100",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter stands frozen beside the courtyard brazier, glancing toward a bearded figure across the court. A rooster sits on the roof edge at upper right and servants are scattered around. Which figure is Jesus is somewhat ambiguous, and Peter oddly carries a net and staff, but there is no listed fault."
+    },
+    {
+      "id": "i101",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The standing card soldiers at left and right carry 'A' index letters in their corners. Otherwise Alice holds a flamingo under her arm over furrowed turf with hedgehogs and doubled-over card arches. A tiny brown block sits in the extreme top-left corner."
+    },
+    {
+      "id": "i102",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter grips the lame man's hand and lifts him from the steps before the bronze Beautiful Gate, with John and a crowd around and a priest at right. The hands are sound, and the headband pattern is ornament, not letters."
+    },
+    {
+      "id": "i103",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A priest in white linen bends at the east side of the horned altar, dropping feathers onto a grey ash heap, with the curtained tabernacle and onlookers behind. The curtain motifs are eagles and fleurons with no letters, and the corners have no signature."
+    },
+    {
+      "id": "i104",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Stern Alice faces the wide-eyed Hatter across a crowded tea-table under a great tree, the March Hare in hat and coat pours tea, and the Dormouse sleeps on a teapot. There is no hat label, the watch dial shows only indistinct hour ticks, and no screen likeness."
+    }
+  ]
+}

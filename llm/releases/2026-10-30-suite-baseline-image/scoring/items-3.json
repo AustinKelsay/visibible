@@ -1,0 +1,1082 @@
+{
+  "tier": "image",
+  "items": [
+    {
+      "id": "i053",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i053.jpg",
+      "work": "The Holy Bible",
+      "reference": "2 Chronicles 31:21",
+      "text": "In every work that he began in the service of God’s house, in the law, and in the commandments, to seek his God, he did it with all his heart and prospered.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Hezekiah",
+        "Yahweh's house in Jerusalem (the temple)",
+        "Jerusalem"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Hezekiah in a royal robe over a tunic, standing upright and attentive at the center of the temple courts",
+        "action": "He directs the renewed service of the temple, gesturing toward the priests and Levites at work",
+        "setting": "The courts of the temple in Jerusalem, with stone walls, cedar beams and bronze vessels",
+        "secondaryElements": "Priests in white linen tunics and sashes at the altar, Levites in plain tunics carrying vessels, storerooms with open doorways behind",
+        "mood": "Dedicated, resolute and quietly joyful",
+        "timeOfDay": "Bright morning light carrying into midday, clear and dry Judean sky",
+        "composition": "Eye-level view from the courtyard, Hezekiah placed centrally with the temple buildings receding behind him"
+      }
+    },
+    {
+      "id": "i054",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i054.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6",
+      "text": "There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Dormouse,” thought Alice; “only, as it’s asleep, I suppose it doesn’t mind.” The table was a large one, but the three were all crowded together at one corner of it: “No room! No room!” they cried out when they saw Alice coming. “There’s _plenty_ of room!” said Alice indignantly, and she sat down in a large arm-chair at one end of the table. “Have some wine,” the March Hare said in an encouraging tone. Alice looked all round the table, but there was nothing on it but tea. “I don’t see any wine,” she remarked. “There isn’t any,” said the March Hare. “Then it wasn’t very civil of you to offer it,” said Alice angrily.",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+        "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+        "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations."
+      ],
+      "selected": [
+        "Alice",
+        "March Hare",
+        "Hatter",
+        "the Dormouse",
+        "Tea-table under a tree"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Alice seated in a large arm-chair at the end of the table, looking indignant and mid-sentence",
+        "action": "The Hatter and March Hare crowd together at the far corner, pointing and shouting 'No room!' as Alice settles into her chair",
+        "setting": "A long outdoor tea-table set under a great tree before a house in Wonderland, with the table's far corner crowded with china",
+        "secondaryElements": "The Dormouse asleep between the Hatter and March Hare, the two using it as a cushion with elbows resting on it; teapot and china cups; an empty stretch of tablecloth in front of Alice",
+        "mood": "Absurd, bristling and comically rude, with Alice's indignation sharp against the strange hosts",
+        "timeOfDay": "Mild afternoon, still summer air, soft dappled sunlight through leaves onto the tablecloth and figures",
+        "composition": "Wide view of the long table running across the frame, Alice seated at the near end, the three crowded figures clustered at the far corner"
+      }
+    },
+    {
+      "id": "i055",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i055.jpg",
+      "work": "The Holy Bible",
+      "reference": "Genesis 19:24",
+      "text": "Then Yahweh rained on Sodom and on Gomorrah sulfur and fire from Yahweh out of the sky.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Sodom",
+        "Gomorrah"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Burning city walls and rooftops of Sodom and Gomorrah under a rain of fire and sulfur",
+        "action": "Blazing sulfur streaks down from a dark smoky sky onto the cities",
+        "setting": "Wide valley of the Jordan plain with bitumen pits, dry hills and distant mud-brick towns",
+        "secondaryElements": "Dark smoke and drifting sulfur haze over the valley, bitumen pits glowing, a distant herder shielding his face",
+        "mood": "Awe-struck, grave and sorrowful, treated with seriousness",
+        "timeOfDay": "Dawn breaking into morning, low sunrise glow turning smoky amber and red from the fire",
+        "composition": "Wide view from a rise above the valley, the cities in the middle distance under falling fire, smoke rising into the sky"
+      }
+    },
+    {
+      "id": "i056",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i056.jpg",
+      "work": "The Holy Bible",
+      "reference": "Genesis 5:5",
+      "text": "All the days that Adam lived were nine hundred thirty years, then he died.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Adam, aged and motionless, resting on a mat",
+        "action": "Adam's final breath passes; the family stands in quiet stillness",
+        "setting": "Wild early earth, a simple tent among open fields and low hills",
+        "secondaryElements": "Unnamed family members with bowed heads, plain wool wraps, a cold hearth and a water jar nearby",
+        "mood": "Solemn, grieving and reverent, with quiet dignity",
+        "timeOfDay": "Dusk, clear sky with soft wind and dimming warm amber light",
+        "composition": "Low viewpoint from the tent entrance, Adam centred on the mat, family framing him on either side"
+      }
+    },
+    {
+      "id": "i057",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i057.jpg",
+      "work": "The Holy Bible",
+      "reference": "Mark 4:39",
+      "text": "He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Jesus Christ, the Son of God and Lord",
+        "The Twelve Disciples (collective)",
+        "Sea of Galilee"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Jesus standing upright in the stern, one arm extended toward the water, calm and commanding.",
+        "action": "The wind ceases and the churning waves smooth as he speaks.",
+        "setting": "Open water of the Sea of Galilee at night, a fishing boat with a wooden stern, rocky shoreline and stone villages in the distance.",
+        "secondaryElements": "Disciples crouched or clinging to the boat's sides and mast, soaked and startled, rain easing; a dim oil lamp in the boat; torn sail slackening.",
+        "mood": "Awe, relief and stunned reverence after terror.",
+        "timeOfDay": "Night sky breaking toward pale dawn, storm clouds parting, air suddenly still.",
+        "composition": "Low viewpoint from within the boat, Jesus centered in the stern against the lightening sky, disciples framing the lower edges, sea stretching outward."
+      }
+    },
+    {
+      "id": "i058",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i058.jpg",
+      "work": "The Holy Bible",
+      "reference": "Ruth 4:22",
+      "text": "and Obed became the father of Jesse, and Jesse became the father of David.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Naomi",
+        "Women of Bethlehem",
+        "Naomi's house in Bethlehem"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Naomi seated, cradling the infant in her lap, gaze lowered toward the child",
+        "action": "The women gather near with quiet attention as the line of descent is spoken, the child held in continuity",
+        "setting": "Courtyard of Naomi's mudbrick house in Bethlehem with a flat roof and village street beyond",
+        "secondaryElements": "Several women of Bethlehem in plain linen tunics and head coverings standing close, a clay water jar and woven mat in the courtyard",
+        "mood": "Quiet, reverent, hopeful and tender",
+        "timeOfDay": "Evening, clear dry air, lamplight warming the courtyard after golden sunset",
+        "composition": "Medium shot from the doorway side, Naomi central and seated, the women arranged in a loose arc around her"
+      }
+    },
+    {
+      "id": "i059",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i059.jpg",
+      "work": "The Holy Bible",
+      "reference": "Daniel 6:22",
+      "text": "My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Daniel (prophet of Babylon)",
+        "Darius the Mede",
+        "the den of lions"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Daniel standing calm and upright in the center of the den, face lifted toward the rim.",
+        "action": "Lions lie crouched and docile around him with closed jaws while he speaks up to the king.",
+        "setting": "Stone den in a Persian royal court at Babylon, with a heavy wooden lid at the rim and the opening partly lit.",
+        "secondaryElements": "Darius in royal Persian court robes and crown leaning over the rim, a few guards with torches; the lions at Daniel's feet.",
+        "mood": "Awed, reverent relief tinged with tension.",
+        "timeOfDay": "Deep night, flickering torchlight, still cool air, with the first hint of pale dawn at the opening.",
+        "composition": "Low viewpoint looking up from inside the den, Daniel centered, the king framed at the top edge of the rim against the sky."
+      }
+    },
+    {
+      "id": "i060",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i060.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240",
+      "text": "From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarters! Twelve struck, and one and two and three, and still we sat waiting silently for whatever might befall. Suddenly there was the momentary gleam of a light up in the direction of the ventilator, which vanished immediately, but was succeeded by a strong smell of burning oil and heated metal. Someone in the next room had lit a dark-lantern. I heard a gentle sound of movement, and then all was silent once more, though the smell grew stronger. For half an hour I sat with straining ears. Then suddenly another sound became audible—a very gentle, soothing sound, like that of a small jet of steam escaping continually from a kettle. The instant that we heard it, Holmes sprang from the bed, struck a match, and lashed furiously with his cane at the bell-pull. “You see it, Watson?” he yelled. “You see it?” But I saw nothing. At the moment when Holmes struck the light I heard a low, clear whistle, but the sudden glare flashing into my weary eyes made it impossible for me to tell what it was at which my friend lashed so savagely. I could, however, see that his face was deadly pale and filled with horror and loathing. He had ceased to strike and was gazing up at the ventilator when suddenly there broke from the silence of the night the most horrible cry to which I have ever listened. It swelled up louder and louder, a hoarse yell of pain and fear and anger all mingled in the one dreadful shriek. They say that away down in the village, and even in the distant parsonage, that cry raised the sleepers from their beds. It struck cold to our hearts, and I stood gazing at Holmes, and he at me, until the last echoes of it had died away into the silence from which it rose. “What can it mean?” I gasped. “It means that it is all over,” Holmes answered. “And perhaps, after all, it is for the best. Take your pistol, and we will enter Dr. Roylott’s room.”",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "selected": [
+        "Sherlock Holmes",
+        "Dr. Watson",
+        "Helen's bedroom"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Holmes, pale and rigid, springing from the bed with a raised cane",
+        "action": "Holmes lashes his cane toward the ventilator in the flare of a struck match while Watson looks on",
+        "setting": "Stoke Moran bedroom at night, with the ventilator high on the wall and a bed nearby",
+        "secondaryElements": "Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room",
+        "mood": "Tense, horrified, breathless",
+        "timeOfDay": "Deep night past three in the morning, still and chilly, lit only by a match flare and oil-lamp shadows",
+        "composition": "Interior view from the room's side, Holmes in the foreground near the bed, ventilator visible above, Watson behind in the shadows"
+      }
+    },
+    {
+      "id": "i061",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i061.jpg",
+      "work": "The Holy Bible",
+      "reference": "Acts 9:3",
+      "text": "As he traveled, he got close to Damascus, and suddenly a light from the sky shone around him.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Saul of Tarsus (Paul)",
+        "the men with Saul",
+        "Damascus"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Saul, dusty and travel-worn, halted mid-stride with arm raised against the light",
+        "action": "A sudden overwhelming radiance pours down from the sky and encircles him as the companions shield their eyes",
+        "setting": "Rocky Syrian desert road with distant walls and rooftops of Damascus on the horizon",
+        "secondaryElements": "Companions in tunics and traveling mantles, dust rising from sandals, sunlight turning to dazzling radiance from above",
+        "mood": "Startled awe and sudden dread, reverent and grounded",
+        "timeOfDay": "Midday, clear cloudless sky with harsh heat haze, shifting to blinding light",
+        "composition": "Wide view from the roadside, Saul centred on the road with the city low on the horizon and the light descending from the upper frame"
+      }
+    },
+    {
+      "id": "i062",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i062.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Red-Headed League ¶183 to The Red-Headed League ¶190",
+      "text": "“Which were very well justified,” observed Holmes. “And now it is time that we arranged our little plans. I expect that within an hour matters will come to a head. In the meantime Mr. Merryweather, we must put the screen over that dark lantern.” “And sit in the dark?” “I am afraid so. I had brought a pack of cards in my pocket, and I thought that, as we were a _partie carrée_, you might have your rubber after all. But I see that the enemy’s preparations have gone so far that we cannot risk the presence of a light. And, first of all, we must choose our positions. These are daring men, and though we shall take them at a disadvantage, they may do us some harm unless we are careful. I shall stand behind this crate, and do you conceal yourselves behind those. Then, when I flash a light upon them, close in swiftly. If they fire, Watson, have no compunction about shooting them down.” I placed my revolver, cocked, upon the top of the wooden case behind which I crouched. Holmes shot the slide across the front of his lantern and left us in pitch darkness—such an absolute darkness as I have never before experienced. The smell of hot metal remained to assure us that the light was still there, ready to flash out at a moment’s notice. To me, with my nerves worked up to a pitch of expectancy, there was something depressing and subduing in the sudden gloom, and in the cold dank air of the vault. “They have but one retreat,” whispered Holmes. “That is back through the house into Saxe-Coburg Square. I hope that you have done what I asked you, Jones?” “I have an inspector and two officers waiting at the front door.” “Then we have stopped all the holes. And now we must be silent and wait.” What a time it seemed! From comparing notes afterwards it was but an hour and a quarter, yet it appeared to me that the night must have almost gone, and the dawn be breaking above us. My limbs were weary and stiff, for I feared to change my position; yet my nerves were worked up to the highest pitch of tension, and my hearing was so acute that I could not only hear the gentle breathing of my companions, but I could distinguish the deeper, heavier in-breath of the bulky Jones from the thin, sighing note of the bank director. From my position I could look over the case in the direction of the floor. Suddenly my eyes caught the glint of a light.",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "selected": [
+        "Dr. Watson",
+        "Sherlock Holmes",
+        "Peter Jones",
+        "Mr. Merryweather",
+        "Cellar of the City and Suburban Bank"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Dr. Watson, crouched low behind a wooden crate, revolver cocked on its top, eyes fixed on the floor",
+        "action": "He suddenly sees a faint glint of light on the stone floor while the others remain hidden in the dark",
+        "setting": "Stone-floored bank cellar with stacked wooden crates and lead-foiled gold boxes, the vault otherwise swallowed in darkness",
+        "secondaryElements": "Holmes and Merryweather crouched behind their own crates, Jones nearby; the shuttered lantern hidden and unlit, its hot metal smell faintly present",
+        "mood": "Tense, expectant, nerves stretched taut in the silence",
+        "timeOfDay": "Deep night in the sealed vault, no lamp lit, only the darkness of the cellar",
+        "composition": "Low viewpoint from behind the crates, Watson in the foreground peering over the case, the dark vault receding around him"
+      }
+    },
+    {
+      "id": "i063",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i063.jpg",
+      "work": "The Holy Bible",
+      "reference": "Isaiah 6:2",
+      "text": "Above him stood the seraphim. Each one had six wings. With two he covered his face. With two he covered his feet. With two he flew.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Isaiah son of Amoz",
+        "Seraphim",
+        "Yahweh's house in Jerusalem (the temple)",
+        "God / Yahweh, the Father and God of Israel"
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ],
+      "scene": {
+        "primarySubject": "Isaiah in a plain tunic and cloak, face lifted, standing before the sanctuary; winged seraphim hovering above him, faces veiled with two wings each",
+        "action": "Six-winged seraphim hover in the air, covering their faces and feet while two wings beat the air, as the hall fills with rising smoke",
+        "setting": "High temple hall in Jerusalem with stone pillars, a wide threshold and gold lamp stands",
+        "secondaryElements": "Smoke rising from the altar; cloud and radiance spread through the hall from beyond the frame, filling the sanctuary, with no visible figure; temple attendants in priestly linen at the edges",
+        "mood": "Awed, reverent, trembling stillness",
+        "timeOfDay": "Late evening, still air, warm lamplight",
+        "composition": "Low viewpoint from the threshold looking up at Isaiah, with the seraphim arranged in the upper half of the frame and the light-filled sanctuary behind them"
+      }
+    },
+    {
+      "id": "i064",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i064.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Red-Headed League ¶175 to The Red-Headed League ¶182",
+      "text": "“You are not very vulnerable from above,” Holmes remarked as he held up the lantern and gazed about him. “Nor from below,” said Mr. Merryweather, striking his stick upon the flags which lined the floor. “Why, dear me, it sounds quite hollow!” he remarked, looking up in surprise. “I must really ask you to be a little more quiet!” said Holmes severely. “You have already imperilled the whole success of our expedition. Might I beg that you would have the goodness to sit down upon one of those boxes, and not to interfere?” The solemn Mr. Merryweather perched himself upon a crate, with a very injured expression upon his face, while Holmes fell upon his knees upon the floor and, with the lantern and a magnifying lens, began to examine minutely the cracks between the stones. A few seconds sufficed to satisfy him, for he sprang to his feet again and put his glass in his pocket. “We have at least an hour before us,” he remarked, “for they can hardly take any steps until the good pawnbroker is safely in bed. Then they will not lose a minute, for the sooner they do their work the longer time they will have for their escape. We are at present, Doctor—as no doubt you have divined—in the cellar of the City branch of one of the principal London banks. Mr. Merryweather is the chairman of directors, and he will explain to you that there are reasons why the more daring criminals of London should take a considerable interest in this cellar at present.” “It is our French gold,” whispered the director. “We have had several warnings that an attempt might be made upon it.” “Your French gold?” “Yes. We had occasion some months ago to strengthen our resources and borrowed for that purpose 30,000 napoleons from the Bank of France. It has become known that we have never had occasion to unpack the money, and that it is still lying in our cellar. The crate upon which I sit contains 2,000 napoleons packed between layers of lead foil. Our reserve of bullion is much larger at present than is usually kept in a single branch office, and the directors have had misgivings upon the subject.”",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "selected": [
+        "Sherlock Holmes",
+        "Mr. Merryweather",
+        "Cellar of the City and Suburban Bank"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Holmes kneeling on the stone flags, lantern in hand, lens to his eye",
+        "action": "Holmes examines the cracks between the flags while Merryweather sits upright on a crate, rebuked and sulking",
+        "setting": "Stone-flagged bank cellar with stacked wooden crates and lead-foil packed gold",
+        "secondaryElements": "Lantern casting a warm pool of light; Merryweather's stick resting against his knee; darkness pressing at the edges of the vault",
+        "mood": "Tense, expectant hush with a touch of dry comedy",
+        "timeOfDay": "Late night, underground and windowless, the bank above closed",
+        "composition": "Low viewpoint across the flags, Holmes in the foreground near the lantern, Merryweather seated on a crate in the middle distance, vault receding into shadow"
+      }
+    },
+    {
+      "id": "i065",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i065.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Red-Headed League ¶1 to The Red-Headed League ¶7",
+      "text": "I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and closed the door behind me. “You could not possibly have come at a better time, my dear Watson,” he said cordially. “I was afraid that you were engaged.” “So I am. Very much so.” “Then I can wait in the next room.” “Not at all. This gentleman, Mr. Wilson, has been my partner and helper in many of my most successful cases, and I have no doubt that he will be of the utmost use to me in yours also.” The stout gentleman half rose from his chair and gave a bob of greeting, with a quick little questioning glance from his small fat-encircled eyes.",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "selected": [
+        "Sherlock Holmes",
+        "Dr. Watson",
+        "Jabez Wilson",
+        "Baker Street"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door",
+        "action": "Holmes swings the door shut behind Watson while Wilson half rises from his chair, startled and questioning",
+        "setting": "Holmes's cluttered sitting room at 221B Baker Street with desk, bookshelves and a coal fire",
+        "secondaryElements": "Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk",
+        "mood": "Brisk, cordial and slightly conspiratorial, with a hint of curiosity",
+        "timeOfDay": "Afternoon in autumn, grey daylight from the window mixing with the warm glow of the fire",
+        "composition": "Viewpoint from just inside the doorway, Holmes and Watson in the foreground near the door, Wilson in the middle distance by the desk, window light falling across the room"
+      }
+    },
+    {
+      "id": "i066",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i066.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Adventure of the Blue Carbuncle ¶71 to The Adventure of the Blue Carbuncle ¶78",
+      "text": "When the commissionaire had gone, Holmes took up the stone and held it against the light. “It’s a bonny thing,” said he. “Just see how it glints and sparkles. Of course it is a nucleus and focus of crime. Every good stone is. They are the devil’s pet baits. In the larger and older jewels every facet may stand for a bloody deed. This stone is not yet twenty years old. It was found in the banks of the Amoy River in southern China and is remarkable in having every characteristic of the carbuncle, save that it is blue in shade instead of ruby red. In spite of its youth, it has already a sinister history. There have been two murders, a vitriol-throwing, a suicide, and several robberies brought about for the sake of this forty-grain weight of crystallised charcoal. Who would think that so pretty a toy would be a purveyor to the gallows and the prison? I’ll lock it up in my strong box now and drop a line to the Countess to say that we have it.” “Do you think that this man Horner is innocent?” “I cannot tell.” “Well, then, do you imagine that this other one, Henry Baker, had anything to do with the matter?” “It is, I think, much more likely that Henry Baker is an absolutely innocent man, who had no idea that the bird which he was carrying was of considerably more value than if it were made of solid gold. That, however, I shall determine by a very simple test if we have an answer to our advertisement.” “And you can do nothing until then?” “Nothing.” “In that case I shall continue my professional round. But I shall come back in the evening at the hour you have mentioned, for I should like to see the solution of so tangled a business.”",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "selected": [
+        "Sherlock Holmes",
+        "Dr. Watson",
+        "Baker Street sitting-room"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Holmes standing at the window, lifting the blue gem toward the light between finger and thumb",
+        "action": "Holmes studies the glinting stone against the window while Watson looks on",
+        "setting": "Baker Street sitting-room with a desk, bookshelves and a coal fire",
+        "secondaryElements": "Watson seated near the fireplace with his hat and overcoat by the door; a strongbox open on the desk",
+        "mood": "Quiet, absorbed and faintly ominous",
+        "timeOfDay": "Late morning under grey, fog-pressed London daylight",
+        "composition": "Medium interior view from the room's side, the window light falling on Holmes and the gem in the foreground, Watson and the fireplace visible behind"
+      }
+    },
+    {
+      "id": "i067",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i067.jpg",
+      "work": "The Holy Bible",
+      "reference": "Mark 4:37",
+      "text": "A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "The Twelve Disciples (collective)",
+        "Sea of Galilee"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Several disciples in a small wooden fishing boat, bailing water and gripping the sides",
+        "action": "Waves break over the boat and water pours in around their feet as they fight to keep it afloat.",
+        "setting": "Open water of the Sea of Galilee at night, with a rocky shoreline faintly visible in the distance",
+        "secondaryElements": "Other small boats tossed nearby, a sail flapping loose, oars and baskets sloshing in the bilge, storm clouds overhead",
+        "mood": "Fear, urgency and desperate effort against overwhelming danger",
+        "timeOfDay": "Night, dark churning clouds and driving rain, dim moonlight breaking through",
+        "composition": "Low viewpoint from the water's surface, the boat slanting diagonally across the frame with waves rising high around it"
+      }
+    },
+    {
+      "id": "i068",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i068.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "Alice’s Evidence ¶29 to Alice’s Evidence ¶40",
+      "text": "“Are they in the prisoner’s handwriting?” asked another of the jurymen. “No, they’re not,” said the White Rabbit, “and that’s the queerest thing about it.” (The jury all looked puzzled.) “He must have imitated somebody else’s hand,” said the King. (The jury all brightened up again.) “Please your Majesty,” said the Knave, “I didn’t write it, and they can’t prove I did: there’s no name signed at the end.” “If you didn’t sign it,” said the King, “that only makes the matter worse. You _must_ have meant some mischief, or else you’d have signed your name like an honest man.” There was a general clapping of hands at this: it was the first really clever thing the King had said that day. “That _proves_ his guilt,” said the Queen. “It proves nothing of the sort!” said Alice. “Why, you don’t even know what they’re about!” “Read them,” said the King. The White Rabbit put on his spectacles. “Where shall I begin, please your Majesty?” he asked. “Begin at the beginning,” the King said gravely, “and go on till you come to the end: then stop.” These were the verses the White Rabbit read:—",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+        "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+        "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations."
+      ],
+      "selected": [
+        "the White Rabbit",
+        "King of Hearts",
+        "Queen of Hearts",
+        "Alice",
+        "the jury",
+        "the Knave of Hearts",
+        "The Queen of Hearts' court of justice"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "The White Rabbit standing at a reading stand, spectacles on, holding the unfolded paper.",
+        "action": "He reads the verses aloud while the King listens gravely and Alice stands protesting.",
+        "setting": "The Queen of Hearts' crowded courtroom with tiered benches and a tall judge's dais.",
+        "secondaryElements": "Jury seated in the benches, the Queen leaning forward on the dais, the flat oblong Knave of Hearts in red tunic and breeches standing apart at the side, playing-card soldiers lining the walls.",
+        "mood": "Solemn, absurd and tense, with a flicker of indignation from Alice.",
+        "timeOfDay": "Afternoon, indoors under steady lamplight.",
+        "composition": "Wide view of the courtroom with the Rabbit at centre reading, the King and Queen on the dais, Alice to one side and the jury arrayed across the lower benches."
+      }
+    },
+    {
+      "id": "i069",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i069.jpg",
+      "work": "The Holy Bible",
+      "reference": "Luke 22:61",
+      "text": "The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Simon Peter",
+        "the court of the high priest (Caiaphas)",
+        "Crowd in Luke"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Peter frozen mid-step beside the brazier, eyes locked on a distant figure",
+        "action": "Jesus turns his head and gazes across the courtyard at Peter, as Peter's face begins to register recollection",
+        "setting": "Stone courtyard of the high priest's house in Jerusalem, with a gated passage to the street",
+        "secondaryElements": "A faint rooster glimpsed on a rooftop edge in dim light; a few guards and servants near the brazier, glancing aside",
+        "mood": "Stunned recognition, grief and quiet dignity",
+        "timeOfDay": "Deep night turning to pre-dawn grey, cool still air with faint mist",
+        "composition": "Peter in the foreground near the brazier, Jesus seen across the courtyard in the middle distance, eyes meeting over the firelight"
+      }
+    },
+    {
+      "id": "i070",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i070.jpg",
+      "work": "The Holy Bible",
+      "reference": "John 21:9",
+      "text": "So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Sea of Galilee",
+        "Simon Peter",
+        "The Twelve Disciples (collective)",
+        "James and John, sons of Zebedee",
+        "Thomas the apostle",
+        "Bartholomew"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Disciples stepping from a small fishing boat onto the sand, gazing toward the fire",
+        "action": "They halt at the shoreline as they notice the coals, fish and bread laid on them.",
+        "setting": "Sandy shore of the Sea of Galilee with a small fishing boat and a charcoal fire, stone village houses behind",
+        "secondaryElements": "Net heaped in the boat, fish spilling from it, a few unnamed fishermen and a loaf of bread on the coals",
+        "mood": "Quiet wonder and hushed expectancy",
+        "timeOfDay": "Early dawn light warming toward morning, clear and still",
+        "composition": "Low viewpoint from the water, boat in the foreground, fire and shore receding into the middle distance"
+      }
+    },
+    {
+      "id": "i071",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i071.jpg",
+      "work": "The Holy Bible",
+      "reference": "Genesis 1:3",
+      "text": "God said, “Let there be light,” and there was light.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "God / Yahweh, the Father and God of Israel"
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ],
+      "scene": {
+        "primarySubject": "A gathering golden radiance breaking through the darkness over the deep waters, with no figure or form within it.",
+        "action": "Light spreads outward from beyond the frame across the dark surface of the formless waters, pushing back the darkness.",
+        "setting": "A vast, empty, unformed expanse of deep water under heavy darkness, with no land, shore or structures yet.",
+        "secondaryElements": "Dim vapor and mist rising from the waters, the faint silvered edges of the light catching on the surface, no people or creatures present.",
+        "mood": "Awe, stillness and quiet expectancy at the first dawn of creation.",
+        "timeOfDay": "The first light before dawn of the first day, shadowless air moving from unbroken darkness toward radiance.",
+        "composition": "Wide, low viewpoint over the water, with the light entering from the upper edge and the dark deep filling the lower frame."
+      }
+    },
+    {
+      "id": "i072",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i072.jpg",
+      "work": "The Holy Bible",
+      "reference": "Deuteronomy 1:7",
+      "text": "Turn, and take your journey, and go to the hill country of the Amorites and to all the places near there: in the Arabah, in the hill country, in the lowland, in the South, by the seashore, in the land of the Canaanites, and in Lebanon as far as the great river, the river Euphrates.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Moses",
+        "The Israelite people (the children of Israel)",
+        "Horeb/Mount Sinai"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Moses, standing tall with one arm extended toward the north, leading the people.",
+        "action": "The people gather their bundles and begin turning their faces toward the road ahead.",
+        "setting": "The stony slopes below Horeb, dry wadis and scattered tents at the foot of the mountain.",
+        "secondaryElements": "Families with packs and livestock, a cloud pillar hanging over the mountain's peak in the background, radiance and cloud gathered over Horeb.",
+        "mood": "Solemn expectancy, resolve tinged with weariness.",
+        "timeOfDay": "Desert morning, hot still air with dust haze, warm light beginning to build.",
+        "composition": "Wide view from a low rise, Moses in the foreground-center pointing, the crowd spreading out behind him toward the mountain."
+      }
+    },
+    {
+      "id": "i073",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i073.jpg",
+      "work": "The Holy Bible",
+      "reference": "Leviticus 1:16",
+      "text": "and he shall take away its crop and its feathers, and cast it beside the altar on the east part, in the place of the ashes.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "the altar",
+        "the tabernacle (portable sanctuary)",
+        "The Israelite people (the children of Israel)"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "A priest in plain linen garments bending at the east side of the bronze altar, lifting away the small crop and feathers of the bird.",
+        "action": "He tosses the discarded crop and feathers onto the ash heap beside the altar, with the heap's grey ash in the foreground.",
+        "setting": "Open ground before the portable tabernacle in the wilderness, bronze altar set in the court, dry sand and stones around.",
+        "secondaryElements": "Tent curtains of the tabernacle behind, a faint thread of smoke rising from the altar, a few Israelite onlookers standing respectfully at a distance.",
+        "mood": "Quiet, reverent and orderly, with a sense of careful duty.",
+        "timeOfDay": "Morning, early sunrise light over a clear, dry desert day.",
+        "composition": "Medium shot from the east side, priest in the middle ground beside the altar, tabernacle curtains filling the background."
+      }
+    },
+    {
+      "id": "i074",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i074.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Adventure of the Engineer’s Thumb ¶170 to The Adventure of the Engineer’s Thumb ¶171",
+      "text": "“That’s it!” cried Hatherley, in intense excitement. “There is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.” “Well, at least,” said Holmes, “you have had your revenge upon them. There can be no question that it was your oil-lamp which, when it was crushed in the press, set fire to the wooden walls, though no doubt they were too excited in the chase after you to observe it at the time. Now keep your eyes open in this crowd for your friends of last night, though I very much fear that they are a good hundred miles off by now.”",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "selected": [
+        "Victor Hatherley",
+        "Sherlock Holmes",
+        "Eyford house"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Victor Hatherley standing on the road, arm outstretched, pointing toward the house",
+        "action": "Hatherley points at the gravel-drive and rose-bushes while Holmes turns to study the burning house",
+        "setting": "A rural Berkshire lane rising to a low hill, with the whitewashed country house blazing in its garden",
+        "secondaryElements": "Holmes at Hatherley's side with hands in coat pockets; a few dim crowd figures and fire-engine silhouettes near the gate; smoke drifting across the hedgerows",
+        "mood": "Tense, urgent, with a dry undercurrent of satisfaction and foreboding",
+        "timeOfDay": "Deep night, clear and still, with cold air and a faint smoke haze",
+        "composition": "Wide view from the road's crest, the burning house large in the middle distance, Hatherley and Holmes in the foreground framed by hedgerows"
+      }
+    },
+    {
+      "id": "i075",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i075.jpg",
+      "work": "The Holy Bible",
+      "reference": "Luke 15:22",
+      "text": "“But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "the younger son",
+        "The prodigal's father",
+        "Galilee"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "The father embracing the returning younger son at the edge of the farmstead courtyard",
+        "action": "Servants step forward with a folded robe, a ring and sandals as the father clasps his son",
+        "setting": "Stone village road leading into a farmstead courtyard in Galilee, with low walls and olive trees",
+        "secondaryElements": "Two servants in plain tunics holding the robe, sandals and a ring; the younger son barefoot in torn clothing",
+        "mood": "Tender, joyful relief and restored dignity",
+        "timeOfDay": "Late afternoon turning to dusk, warm golden light with a dry dusty breeze",
+        "composition": "Medium shot from the side of the road, father and son centered, servants entering from the left"
+      }
+    },
+    {
+      "id": "i076",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i076.jpg",
+      "work": "The Holy Bible",
+      "reference": "Daniel 6:23",
+      "text": "Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Darius the Mede",
+        "Daniel (prophet of Babylon)",
+        "the den of lions"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Daniel being hauled up from the den, calm and unharmed, with Darius leaning over the rim",
+        "action": "Attendants lift Daniel up and out of the den while the king watches with relief and joy.",
+        "setting": "Stone den in a Persian royal court at Babylon, its heavy wooden lid at the rim thrown open",
+        "secondaryElements": "Attendants in court dress pulling a rope, a few courtiers at the edge, faint lion shapes resting unharmed in the shadows below",
+        "mood": "Relief, reverent joy, quiet wonder",
+        "timeOfDay": "Pale dawn, soft grey light entering from above the den, cool still air, clear sky",
+        "composition": "Eye-level view from the rim of the den, Daniel rising in the centre, Darius leaning in from the left, the open den framing the figures"
+      }
+    },
+    {
+      "id": "i077",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i077.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "A Case of Identity ¶92 to A Case of Identity ¶101",
+      "text": "I held the little printed slip to the light. “Missing,” it said, “on the morning of the fourteenth, a gentleman named Hosmer Angel. About five ft. seven in. in height; strongly built, sallow complexion, black hair, a little bald in the centre, bushy, black side-whiskers and moustache; tinted glasses, slight infirmity of speech. Was dressed, when last seen, in black frock-coat faced with silk, black waistcoat, gold Albert chain, and grey Harris tweed trousers, with brown gaiters over elastic-sided boots. Known to have been employed in an office in Leadenhall Street. Anybody bringing,” &c, &c. “That will do,” said Holmes. “As to the letters,” he continued, glancing over them, “they are very commonplace. Absolutely no clue in them to Mr. Angel, save that he quotes Balzac once. There is one remarkable point, however, which will no doubt strike you.” “They are typewritten,” I remarked. “Not only that, but the signature is typewritten. Look at the neat little ‘Hosmer Angel’ at the bottom. There is a date, you see, but no superscription except Leadenhall Street, which is rather vague. The point about the signature is very suggestive—in fact, we may call it conclusive.” “Of what?” “My dear fellow, is it possible you do not see how strongly it bears upon the case?” “I cannot say that I do unless it were that he wished to be able to deny his signature if an action for breach of promise were instituted.” “No, that was not the point. However, I shall write two letters, which should settle the matter. One is to a firm in the City, the other is to the young lady’s stepfather, Mr. Windibank, asking him whether he could meet us here at six o’clock to-morrow evening. It is just as well that we should do business with the male relatives. And now, Doctor, we can do nothing until the answers to those letters come, so we may put our little problem upon the shelf for the interim.” I had had so many reasons to believe in my friend’s subtle powers of reasoning and extraordinary energy in action that I felt that he must have some solid grounds for the assured and easy demeanour with which he treated the singular mystery which he had been called upon to fathom. Once only had I known him to fail, in the case of the King of Bohemia and of the Irene Adler photograph; but when I looked back to the weird business of the Sign of Four, and the extraordinary circumstances connected with the Study in Scarlet, I felt that it would be a strange tangle indeed which he could not unravel. I left him then, still puffing at his black clay pipe, with the conviction that when I came again on the next evening I would find that he held in his hands all the clues which would lead up to the identity of the disappearing bridegroom of Miss Mary Sutherland.",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "selected": [
+        "Sherlock Holmes",
+        "Dr. Watson",
+        "Holmes's lodgings at Baker Street"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Holmes standing at the window, holding a small printed slip up to the light",
+        "action": "Holmes examines the slip against the window while Watson, seated nearby, looks on attentively.",
+        "setting": "Holmes's cluttered sitting room at Baker Street with a desk, papers and a coal fire",
+        "secondaryElements": "Typewritten letters spread on the desk, a black clay pipe in Holmes's hand, the fog-grey window behind him",
+        "mood": "Intent, quiet and faintly puzzled, with restrained tension",
+        "timeOfDay": "Late afternoon in grey London fog, dim daylight turning toward firelight",
+        "composition": "Interior view from across the room, Holmes in profile against the window light with Watson seated at the edge of the frame and the desk in the foreground"
+      }
+    },
+    {
+      "id": "i078",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i078.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "Who Stole the Tarts? ¶16 to Who Stole the Tarts? ¶28",
+      "text": "The first witness was the Hatter. He came in with a teacup in one hand and a piece of bread-and-butter in the other. “I beg pardon, your Majesty,” he began, “for bringing these in: but I hadn’t quite finished my tea when I was sent for.” “You ought to have finished,” said the King. “When did you begin?” The Hatter looked at the March Hare, who had followed him into the court, arm-in-arm with the Dormouse. “Fourteenth of March, I _think_ it was,” he said. “Fifteenth,” said the March Hare. “Sixteenth,” added the Dormouse. “Write that down,” the King said to the jury, and the jury eagerly wrote down all three dates on their slates, and then added them up, and reduced the answer to shillings and pence. “Take off your hat,” the King said to the Hatter. “It isn’t mine,” said the Hatter. “_Stolen!_” the King exclaimed, turning to the jury, who instantly made a memorandum of the fact. “I keep them to sell,” the Hatter added as an explanation; “I’ve none of my own. I’m a hatter.” Here the Queen put on her spectacles, and began staring at the Hatter, who turned pale and fidgeted. “Give your evidence,” said the King; “and don’t be nervous, or I’ll have you executed on the spot.” This did not seem to encourage the witness at all: he kept shifting from one foot to the other, looking uneasily at the Queen, and in his confusion he bit a large piece out of his teacup instead of the bread-and-butter.",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+        "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+        "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations."
+      ],
+      "selected": [
+        "Hatter",
+        "King of Hearts",
+        "Queen of Hearts",
+        "the jury",
+        "The Queen of Hearts' court of justice"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "The Hatter, nervous and shifting his weight, holding a teacup and bread-and-butter.",
+        "action": "He glances uneasily at the Queen while the King looks down from the dais.",
+        "setting": "The Queen of Hearts' courtroom with its raised dais and tiered jury benches.",
+        "secondaryElements": "The Queen peering through spectacles from her seat, the King on the dais, and jurors with slates on the benches; flat oblong card courtiers line the walls.",
+        "mood": "Bewildered, tense and faintly absurd.",
+        "timeOfDay": "Afternoon in warm, even indoor daylight mixed with candle glow.",
+        "composition": "Eye-level view across the courtroom floor with the Hatter centred in front of the dais, the King and Queen above him, and the jury to one side."
+      }
+    }
+  ]
+}

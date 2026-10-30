@@ -1,0 +1,414 @@
+{
+  "scorer": "model-b",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "i027",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Lazarus sits fully lit among mourners who stand inside the tomb at left, while Jesus stands in the entrance calling outward and up, away from him; the crowd and Lazarus share the cave, so the call into the dark tomb is not shown."
+    },
+    {
+      "id": "i028",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "yes",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Moses with raised rod, Aaron in priestly dress, water gushing and people and livestock drinking are all as asked; but in the lower left the white goat's neck runs straight into the brown goat's head, so the two animals are fused."
+    },
+    {
+      "id": "i029",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice sits chin on hand between the March Hare and Hatter, with the Dormouse asleep on the table under a great tree; the hat tag is blank. A pale watercolour fade at the top-right edge is accepted."
+    },
+    {
+      "id": "i030",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Saul rises from his carved seat with arm flung back, the spear crossing the hall toward David, who dodges, with the lyre at his feet and lamps on stands; no figure stands for the evil spirit and no lettering."
+    },
+    {
+      "id": "i031",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes in the armchair has a clear Benedict Cumberbatch likeness (screen adaptation); the framed certificate top left shows a pseudo-script heading and text lines, and papers pinned at right carry scribbled writing."
+    },
+    {
+      "id": "i032",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes at the carriage window is a Cumberbatch likeness and the man with the bandaged hand resembles Martin Freeman (screen adaptation); the paper in the station-master's hand shows ruled text-like marks."
+    },
+    {
+      "id": "i033",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The burning whitewashed house, fire-engines and the four travellers on the rise match the scene, but the station-master holds papers covered in rows of pseudo-text (lower right)."
+    },
+    {
+      "id": "i034",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A woman gathers grapes into a basket while a man steadies a vine post, with a child carrying jars, a resting ox, a red-cloaked Roman on the road and a harbour and walled city beyond; no lettering or anatomy faults."
+    },
+    {
+      "id": "i035",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "yes",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Scattered sheets on the floor at lower left carry lines of pseudo-text; small Alice-like girls peer in at the left doorway as unasked extra figures; the black-haired Queen with the tall heart collar and small crown echoes the Disney film design."
+    },
+    {
+      "id": "i036",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Aaron in ephod and jewelled breastplate gestures toward the pig, Moses stands beside him with a staff, the crowd at right and the tabernacle with smoke behind; the breastplate stones are plain."
+    },
+    {
+      "id": "i037",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "yes",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Moses sits on the stone with arms raised above the battle, but three men support him: a man at left, a man at right and an extra priest in ephod and headband behind, where the text names only Aaron and Hur."
+    },
+    {
+      "id": "i038",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "The restrained scene (Levite kneeling with a knife over the still woman, lamp, window moon, donkey in the doorway) matches, but a faint signature-like scrawl is painted on the floor in the bottom-right corner."
+    },
+    {
+      "id": "i039",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Daniel stands on the den floor beside the lions with the rope-pulling attendants standing in the pit with him, tugging his arm sideways, while Darius leans over the rim; he is not being lifted up and the space is contradictory."
+    },
+    {
+      "id": "i040",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "effects_figure": "no"
+      },
+      "overall": "flawed",
+      "notes": "The seraphim are human angels with only two wings each, faces hidden by hair rather than wings and bare feet showing, so the six-winged visionary creatures do not follow the text; one also holds tongs with a coal from a later verse. No figure in the radiance."
+    },
+    {
+      "id": "i041",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Paul sits on a bench looking up toward the light among a circle of believers in a stone house-church, with tied scrolls and a pen beside him and a lamp on the shelf; scrolls are plain and edges are painted."
+    },
+    {
+      "id": "i042",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel in a plain dark robe raises a hand declining before Belshazzar on a raised throne, with the feast, glazed-brick animal friezes, torches and a tray of gold chains; no inscriptions visible."
+    },
+    {
+      "id": "i043",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Ezekiel stands small in the middle distance with arm raised over a valley strewn with bones and skulls; the image vignettes into white paper at all edges, which is accepted. No figure for Yahweh."
+    },
+    {
+      "id": "i044",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "David follows through with the sling, but Goliath is no larger than a normal man and topples backward with spear and shield flying, rather than falling forward on his face as the text and scene ask."
+    },
+    {
+      "id": "i045",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "The Caterpillar is blue with a human face and wears a bowler hat and waistcoat the text does not give, close to animated-film designs; it also still has the hookah mouthpiece in its mouth rather than lowering it."
+    },
+    {
+      "id": "i046",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Jesus stands in the boat with arm extended over the sea as storm clouds part toward dawn, disciples clinging to the sides and mast, lantern on the mast and torn sail; edges are painted."
+    },
+    {
+      "id": "i047",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Alice holds a wooden croquet mallet as well as the flamingo, a metal hoop stands at right, and the card soldiers march upright in a line instead of doubling over to form arches; white vignette edges are accepted."
+    },
+    {
+      "id": "i048",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Rephaiah on scaffolding points to the wall while workers set stones and carry baskets, with a guard at right (Roman-style armour, a minor anachronism) and Jerusalem behind; no lettering."
+    },
+    {
+      "id": "i049",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter steps from the boat onto the dark sea toward Jesus standing on the water, disciples with a lantern at the rail, rain and moonlight; a small child among the disciples is not prominent."
+    },
+    {
+      "id": "i050",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes is a clear Cumberbatch likeness and Watson resembles Martin Freeman (screen adaptation); glyph-like inked marks sit on the pavement at lower left. The white paper edge at left is accepted."
+    },
+    {
+      "id": "i051",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses points from a rise with staff in hand as families with bundles and livestock gather below Horeb, cloud over the peak; watercolour fades to white paper at top and left, which is accepted."
+    },
+    {
+      "id": "i052",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses sits on a stone with Hur and Aaron (in ephod) holding his arms, with Israelites and Amalekites fighting on either side; his arms are only half raised and the battle is level with them rather than below, but no listed fault."
+    }
+  ]
+}
