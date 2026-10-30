@@ -28,7 +28,7 @@ Blocks, in order (generic-v15, unchanged since v14): engine rules with the prece
 
 A work without that `effects` wording has seven rules and no presence line, and refuses a selected subject without form (`ok: false`) rather than borrow another work's wording. The Bible's profile reproduces the text described below byte for byte, pinned by [a golden test](../../src/lib/__tests__/bible-engine-golden.test.ts). The packet records the profile's `depictionVersion`, and a profile given for another work is refused.
 
-**Symbol entries (ADR 0010 amendment).** An entry in the `symbol` mode keeps its canon in the CANON block. It is left out of SELECTED CHARACTERS and sheet ranking, and the profile's symbol line, followed by the entries' names, follows the unseen-presence line. A work without symbol wording refuses such an entry. No entry uses the mode yet.
+**Symbol entries (ADR 0010 amendment).** An entry in the `symbol` mode keeps its canon in the CANON block. It is left out of SELECTED CHARACTERS and sheet ranking, and the profile's symbol line, followed by the entries' names, follows the unseen-presence line. A work without symbol wording refuses such an entry. Only Satan uses the mode.
 
 **Writing and thrones (generic-v14).** The first engine rule also forbids writing on scrolls, tablets, books, boards and halos, and the no-form rule keeps a throne or seat empty unless the scene plan names who sits on it. Both follow the [launch matrix](../../llm/releases/2026-10-27-launch-matrix/RESULTS.md): genealogy scrolls, halo glyphs and an unselected God on Revelation 4:6's throne.
 

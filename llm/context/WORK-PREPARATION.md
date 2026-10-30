@@ -60,7 +60,7 @@ Every canon entry has a **depiction mode**. `form` entries are drawn from their 
 
 A work without `effects` wording has no such subjects: its prompts never mention them, its review cannot report them and its image check asks only about edges, frames and lettering. An `effects` entry in such a work stops preparation and rendering before any model call.
 
-`symbol` entries are drawn only in the non-human form their canon describes, such as Satan's red dragon, and never as a person. Their canon stays in the image prompt, but they are not named among the selected characters and get no sheet. The profile's `symbol.renderBlock` opens a line naming them, and `symbol.planSystem` instructs the planner, which sees each one's canon form. No entry uses the mode yet (ADR 0010 amendment).
+`symbol` entries are drawn only in the non-human form their canon describes, such as Satan's red dragon, and never as a person. Their canon stays in the image prompt, but they are not named among the selected characters and get no sheet. The profile's `symbol.renderBlock` opens a line naming them, and `symbol.planSystem` instructs the planner, which sees each one's canon form. Only Satan uses it, by the owner's decision after its check (ADR 0010 amendment).
 
 The mode is stored as the entry's `hasForm` (`false` is `effects`; absent or `true` is `form`), plus `depiction: "symbol"` with `hasForm: false` for a symbol. `works:correct set-depiction` changes it ([Owner corrections](../workflow/OWNER-CORRECTIONS.md)).
 
