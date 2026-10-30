@@ -15,7 +15,8 @@
       "tags": [
         "genesis",
         "continuity"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "genesis-5-5-adam-days",
@@ -24,7 +25,8 @@
       "expected": "An aged patriarch at the end of a long life; no numerals or inscriptions.",
       "tags": [
         "genealogy"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "genesis-19-24-sodom",
@@ -33,7 +35,8 @@
       "expected": "Fire and sulfur falling on a city from a distance; no gratuitous gore; nothing modern.",
       "tags": [
         "difficult"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "genesis-22-10-abraham-knife",
@@ -42,6 +45,10 @@
       "expected": "Abraham with the knife raised over the altar, Isaac bound; tension without blood.",
       "tags": [
         "narrative"
+      ],
+      "tuned": true,
+      "tiers": [
+        "text"
       ]
     },
     {
@@ -52,7 +59,8 @@
       "tags": [
         "red-sea",
         "continuity"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "exodus-14-22-sea-walls",
@@ -62,7 +70,8 @@
       "tags": [
         "red-sea",
         "continuity"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "leviticus-11-7-pig",
@@ -71,7 +80,8 @@
       "expected": "A pig with cloven hooves in an ancient Near Eastern setting; no text; no modern farm.",
       "tags": [
         "law"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "joshua-6-20-jericho",
@@ -80,6 +90,10 @@
       "expected": "Trumpets, a shout, city walls collapsing; soldiers in Bronze Age dress.",
       "tags": [
         "narrative"
+      ],
+      "tuned": true,
+      "tiers": [
+        "text"
       ]
     },
     {
@@ -89,7 +103,8 @@
       "expected": "The horror conveyed by composition and restraint, not by gore; nothing explicit.",
       "tags": [
         "difficult"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "ruth-4-22-genealogy",
@@ -98,7 +113,8 @@
       "expected": "Three generations of a family line in Bethlehem; no name labels.",
       "tags": [
         "genealogy"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "1-samuel-17-49-sling",
@@ -107,7 +123,8 @@
       "expected": "A young shepherd's sling stone striking a giant warrior's forehead; valley battlefield.",
       "tags": [
         "narrative"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "2-kings-2-23-bears",
@@ -116,7 +133,8 @@
       "expected": "Youths mocking a bald prophet on the road up to Bethel; the bears not yet shown as a bloodbath.",
       "tags": [
         "difficult"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "job-38-4-foundations",
@@ -126,7 +144,8 @@
       "tags": [
         "poetry",
         "symbolic"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "psalms-23-2-pastures",
@@ -135,6 +154,10 @@
       "expected": "Green pastures and still waters with sheep and a shepherd; calm.",
       "tags": [
         "poetry"
+      ],
+      "tuned": true,
+      "tiers": [
+        "text"
       ]
     },
     {
@@ -144,6 +167,10 @@
       "expected": "Exiles weeping by Babylon's rivers with harps hung on willows.",
       "tags": [
         "poetry"
+      ],
+      "tuned": true,
+      "tiers": [
+        "text"
       ]
     },
     {
@@ -153,6 +180,10 @@
       "expected": "A rose of Sharon and a lily of the valleys; tasteful, no nudity.",
       "tags": [
         "poetry"
+      ],
+      "tuned": true,
+      "tiers": [
+        "text"
       ]
     },
     {
@@ -163,7 +194,8 @@
       "tags": [
         "prophecy",
         "symbolic"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "isaiah-11-6-wolf-lamb",
@@ -172,6 +204,10 @@
       "expected": "Wolf and lamb, leopard and kid, calf and lion together, a little child leading them.",
       "tags": [
         "prophecy"
+      ],
+      "tuned": true,
+      "tiers": [
+        "text"
       ]
     },
     {
@@ -181,7 +217,8 @@
       "expected": "A prophet speaking over a valley of dry bones; eerie but not horror.",
       "tags": [
         "prophecy"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "daniel-6-22-lions",
@@ -190,7 +227,8 @@
       "expected": "Daniel unharmed among lions in a den, an angelic presence; dawn light from above.",
       "tags": [
         "narrative"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "daniel-7-9-ancient-of-days",
@@ -199,7 +237,8 @@
       "expected": "A throne of flames with burning wheels, white garments, hair like wool; visionary, not a portrait.",
       "tags": [
         "symbolic"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "jonah-1-17-fish",
@@ -208,6 +247,10 @@
       "expected": "A great fish swallowing Jonah in a stormy sea.",
       "tags": [
         "narrative"
+      ],
+      "tuned": true,
+      "tiers": [
+        "text"
       ]
     },
     {
@@ -217,7 +260,8 @@
       "expected": "A scroll or family line from Abraham through David to Jesus, shown without legible writing.",
       "tags": [
         "genealogy"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "matthew-14-29-peter-water",
@@ -227,7 +271,8 @@
       "tags": [
         "peter",
         "continuity"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "john-21-7-peter-sea",
@@ -237,7 +282,8 @@
       "tags": [
         "peter",
         "continuity"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "mark-4-39-storm",
@@ -246,7 +292,8 @@
       "expected": "Jesus standing in a boat rebuking wind and waves, the sea suddenly calm.",
       "tags": [
         "narrative"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "luke-15-20-prodigal",
@@ -255,7 +302,8 @@
       "expected": "A father running to embrace a ragged returning son on the road.",
       "tags": [
         "parable"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "john-11-43-lazarus",
@@ -264,7 +312,8 @@
       "expected": "Jesus calling at a tomb's mouth as a wrapped figure emerges; mourners.",
       "tags": [
         "narrative"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "acts-9-3-damascus",
@@ -273,7 +322,8 @@
       "expected": "A blinding light from heaven around a traveler on the Damascus road.",
       "tags": [
         "narrative"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "romans-8-28-all-things",
@@ -283,7 +333,8 @@
       "tags": [
         "epistle",
         "symbolic"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "matthew-27-35-crucified",
@@ -292,7 +343,8 @@
       "expected": "Soldiers casting lots for garments beneath the cross; the crucifixion treated seriously, no gratuitous gore.",
       "tags": [
         "difficult"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "revelation-4-6-living-creatures",
@@ -301,7 +353,8 @@
       "expected": "A sea of glass before the throne and four living creatures full of eyes.",
       "tags": [
         "symbolic"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "revelation-21-1-new-heaven",
@@ -310,6 +363,10 @@
       "expected": "A new heaven and new earth, the sea gone; luminous, vast.",
       "tags": [
         "symbolic"
+      ],
+      "tuned": true,
+      "tiers": [
+        "text"
       ]
     },
     {
@@ -322,7 +379,8 @@
       "tags": [
         "holmes",
         "continuity"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "holmes-scandal-king-arrives",
@@ -334,7 +392,8 @@
       "tags": [
         "holmes",
         "continuity"
-      ]
+      ],
+      "tuned": true
     },
     {
       "id": "holmes-red-headed-league",
@@ -346,7 +405,775 @@
       "tags": [
         "holmes",
         "continuity"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "john-21-9",
+      "reference": "John 21:9",
+      "genre": "narrative",
+      "expected": "A charcoal fire with fish and bread on the shore, Jesus waiting; the same shore as John 21:7.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "exodus-17-12",
+      "reference": "Exodus 17:12",
+      "genre": "narrative",
+      "expected": "Moses seated on a stone, Aaron and Hur holding up his hands until sunset.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "numbers-20-11",
+      "reference": "Numbers 20:11",
+      "genre": "narrative",
+      "expected": "Moses striking the rock twice with his rod and water pouring out for the people.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "luke-22-61",
+      "reference": "Luke 22:61",
+      "genre": "narrative",
+      "expected": "Jesus turning to look at Peter in the high priest's courtyard as the rooster crows.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "acts-3-7",
+      "reference": "Acts 3:7",
+      "genre": "narrative",
+      "expected": "Peter taking the lame man by the right hand and raising him up.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "1-samuel-16-13",
+      "reference": "1 Samuel 16:13",
+      "genre": "narrative",
+      "expected": "Samuel anointing the youth David with oil among his brothers.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "1-samuel-17-40",
+      "reference": "1 Samuel 17:40",
+      "genre": "narrative",
+      "expected": "Young David choosing five smooth stones from the brook, sling in hand.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "1-samuel-18-11",
+      "reference": "1 Samuel 18:11",
+      "genre": "narrative",
+      "expected": "Saul hurling a spear at David, who evades it.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "daniel-5-17",
+      "reference": "Daniel 5:17",
+      "genre": "narrative",
+      "expected": "Daniel answering King Belshazzar in the banquet hall; the wall's writing shows no legible letters.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "daniel-6-23",
+      "reference": "Daniel 6:23",
+      "genre": "narrative",
+      "expected": "Daniel lifted unharmed out of the lions' den while the king rejoices.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "exodus-14-23",
+      "reference": "Exodus 14:23",
+      "genre": "narrative",
+      "expected": "Egyptian chariots pursuing into the dry path through the sea; the same crossing as Exodus 14:21–22.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "mark-4-37",
+      "reference": "Mark 4:37",
+      "genre": "narrative",
+      "expected": "A great windstorm, waves breaking into the disciples' boat.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "mark-4-38",
+      "reference": "Mark 4:38",
+      "genre": "narrative",
+      "expected": "Jesus asleep on a cushion in the stern while frightened disciples wake him.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "luke-15-22",
+      "reference": "Luke 15:22",
+      "genre": "parable",
+      "expected": "The father calling for the best robe, a ring and sandals for his returned son.",
+      "tags": [
+        "consistency"
+      ],
+      "tuned": true
+    },
+    {
+      "id": "hosea-1-7",
+      "reference": "Hosea 1:7",
+      "genre": "prophecy",
+      "expected": "Judah delivered without bow, sword, battle or horsemen; no figure for God; no text.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
       ]
+    },
+    {
+      "id": "2-chronicles-16-9",
+      "reference": "2 Chronicles 16:9",
+      "genre": "prophecy",
+      "expected": "The seer's rebuke: watchful care over the whole earth and wars to come; no eye or figure for God.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "job-15-24",
+      "reference": "Job 15:24",
+      "genre": "poetry",
+      "expected": "A frightened man overwhelmed by distress, as by a king's army; the speaker not drawn into his own simile.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "romans-2-19",
+      "reference": "Romans 2:19",
+      "genre": "epistle",
+      "expected": "A guide leading the blind, a light to those in darkness; no letter or writing shown.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "psalms-25-15",
+      "reference": "Psalms 25:15",
+      "genre": "poetry",
+      "expected": "A man looking upward as his feet come free of a net; no figure for God.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "romans-10-17",
+      "reference": "Romans 10:17",
+      "genre": "epistle",
+      "expected": "People listening to a message being spoken; no open book or writing.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "proverbs-25-3",
+      "reference": "Proverbs 25:3",
+      "genre": "poetry",
+      "expected": "High heavens and deep earth set beside a king; no text.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "ephesians-5-31",
+      "reference": "Ephesians 5:31",
+      "genre": "epistle",
+      "expected": "A man leaving his parents' house to be joined to his wife; dignified, no nudity.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "leviticus-1-16",
+      "reference": "Leviticus 1:16",
+      "genre": "law",
+      "expected": "A priest casting a bird's crop and feathers beside the altar's ash heap; no gore.",
+      "drawn": "bible-random"
+    },
+    {
+      "id": "daniel-6-17",
+      "reference": "Daniel 6:17",
+      "genre": "narrative",
+      "expected": "A stone laid over the mouth of the lions' den and sealed with the king's signet.",
+      "drawn": "bible-random"
+    },
+    {
+      "id": "luke-2-45",
+      "reference": "Luke 2:45",
+      "genre": "narrative",
+      "expected": "Joseph and Mary turning back to Jerusalem to search for the boy Jesus.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "2-chronicles-30-27",
+      "reference": "2 Chronicles 30:27",
+      "genre": "narrative",
+      "expected": "Levitical priests blessing the people; their prayer rising; no figure for God.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "proverbs-8-21",
+      "reference": "Proverbs 8:21",
+      "genre": "poetry",
+      "expected": "Wealth given to those who love wisdom: full treasuries; no writing.",
+      "drawn": "bible-random"
+    },
+    {
+      "id": "daniel-11-14",
+      "reference": "Daniel 11:14",
+      "genre": "prophecy",
+      "expected": "Many rising against the king of the south, and their fall; the vision, not Daniel writing it.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "matthew-5-40",
+      "reference": "Matthew 5:40",
+      "genre": "parable",
+      "expected": "A man handing over his cloak as well as his coat to one suing him; the teacher not drawn into his own example.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "revelation-21-6",
+      "reference": "Revelation 21:6",
+      "genre": "symbolic",
+      "expected": "The spring of the water of life offered freely; no letters (Alpha, Omega) shown.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "1-corinthians-13-12",
+      "reference": "1 Corinthians 13:12",
+      "genre": "epistle",
+      "expected": "Seeing dimly in a mirror; no writing.",
+      "drawn": "bible-random"
+    },
+    {
+      "id": "judges-11-4",
+      "reference": "Judges 11:4",
+      "genre": "narrative",
+      "expected": "The Ammonite army marching to war against Israel; no gore.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "ruth-2-22",
+      "reference": "Ruth 2:22",
+      "genre": "dialogue",
+      "expected": "Naomi speaking with Ruth about gleaning safely with Boaz's maidens.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "isaiah-40-29",
+      "reference": "Isaiah 40:29",
+      "genre": "prophecy",
+      "expected": "Strength given to the faint and weak; no figure for God.",
+      "drawn": "bible-random"
+    },
+    {
+      "id": "exodus-29-7",
+      "reference": "Exodus 29:7",
+      "genre": "law",
+      "expected": "Anointing oil poured on Aaron's head.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "1-corinthians-1-30",
+      "reference": "1 Corinthians 1:30",
+      "genre": "epistle",
+      "expected": "An abstract confession about Christ Jesus; whatever is shown carries no writing.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "1-samuel-15-27",
+      "reference": "1 Samuel 15:27",
+      "genre": "narrative",
+      "expected": "Saul grabbing the hem of Samuel's robe as he turns away, and it tears.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "deuteronomy-1-7",
+      "reference": "Deuteronomy 1:7",
+      "genre": "law",
+      "expected": "Israel setting out toward hill country, lowland and seashore; a landscape, no map lettering.",
+      "drawn": "bible-random"
+    },
+    {
+      "id": "nehemiah-3-9",
+      "reference": "Nehemiah 3:9",
+      "genre": "genealogy",
+      "expected": "Rephaiah repairing his section of Jerusalem's wall.",
+      "drawn": "bible-random"
+    },
+    {
+      "id": "2-chronicles-31-21",
+      "reference": "2 Chronicles 31:21",
+      "genre": "narrative",
+      "expected": "Hezekiah wholeheartedly at work in the service of God's house; no open scroll text.",
+      "drawn": "bible-random"
+    },
+    {
+      "id": "exodus-36-6",
+      "reference": "Exodus 36:6",
+      "genre": "narrative",
+      "expected": "Moses' command proclaimed through the camp; the people stop bringing offerings.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "numbers-9-22",
+      "reference": "Numbers 9:22",
+      "genre": "narrative",
+      "expected": "The cloud resting on the tabernacle while the camp stays; no figure in the cloud.",
+      "drawn": "bible-random"
+    },
+    {
+      "id": "numbers-33-27",
+      "reference": "Numbers 33:27",
+      "genre": "genealogy",
+      "expected": "Israel breaking camp at Tahath and encamping at Terah; no map or writing.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "hebrews-12-1",
+      "reference": "Hebrews 12:1",
+      "genre": "epistle",
+      "expected": "Runners in a race surrounded by a great cloud of witnesses.",
+      "drawn": "bible-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "holmes-saxe-coburg-square",
+      "reference": "The Red-Headed League ¶138",
+      "genre": "narrative",
+      "expected": "Holmes and Watson in shabby Saxe-Coburg Square before the pawnbroker's; the shop board shows no legible name.",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-138",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "holmes-blue-carbuncle-hat",
+      "reference": "The Adventure of the Blue Carbuncle ¶12",
+      "genre": "dialogue",
+      "expected": "Holmes and Watson over a battered felt hat in the Baker Street sitting room; no legible initials.",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-blue-carbuncle-12",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "holmes-speckled-band-vigil",
+      "reference": "The Adventure of the Speckled Band ¶235",
+      "genre": "narrative",
+      "expected": "Holmes and Watson keeping a dark vigil in Helen's bedroom, waiting for the whistle.",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-speckled-band-235",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "holmes-boscombe-train",
+      "reference": "The Boscombe Valley Mystery ¶9",
+      "genre": "narrative",
+      "expected": "Holmes and Watson alone in a railway carriage, Holmes among a litter of papers.",
+      "work": "holmes-adventures",
+      "unitId": "the-boscombe-valley-mystery-9",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "holmes-bank-cellar-lantern",
+      "reference": "The Red-Headed League ¶175",
+      "genre": "dialogue",
+      "expected": "Holmes holding up a lantern in the bank cellar among crates, with Watson, Jones and Merryweather.",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-175",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "holmes-bank-cellar-plans",
+      "reference": "The Red-Headed League ¶183",
+      "genre": "dialogue",
+      "expected": "The same cellar as the plans for the night are laid.",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-183",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "holmes-eyford-smoke",
+      "reference": "The Adventure of the Engineer’s Thumb ¶160",
+      "genre": "narrative",
+      "expected": "Arriving at Eyford station to see a column of smoke rising over the country.",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-engineers-thumb-160",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "holmes-eyford-fire",
+      "reference": "The Adventure of the Engineer’s Thumb ¶165",
+      "genre": "narrative",
+      "expected": "The party hurrying toward the great whitewashed house spouting fire from every window.",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-engineers-thumb-165",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "holmes-eyford-drive",
+      "reference": "The Adventure of the Engineer’s Thumb ¶170",
+      "genre": "narrative",
+      "expected": "Hatherley recognising the gravel drive and rose-bushes before the burning house.",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-engineers-thumb-170",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "the-adventure-of-the-noble-bachelor-176",
+      "reference": "The Adventure of the Noble Bachelor ¶176",
+      "genre": "dialogue",
+      "expected": "Holmes, Watson and Lestrade over the note and the hotel bill; no legible writing.",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-noble-bachelor-176",
+      "drawn": "holmes-random"
+    },
+    {
+      "id": "the-adventure-of-the-noble-bachelor-178",
+      "reference": "The Adventure of the Noble Bachelor ¶178",
+      "genre": "dialogue",
+      "expected": "Lestrade packing the wet garments to leave while Holmes drawls his hint.",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-noble-bachelor-178",
+      "drawn": "holmes-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "the-adventure-of-the-blue-carbuncle-73",
+      "reference": "The Adventure of the Blue Carbuncle ¶73",
+      "genre": "dialogue",
+      "expected": "Holmes holding the blue stone to the light; the crimes he names are not drawn as a scene beside him.",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-blue-carbuncle-73",
+      "drawn": "holmes-random"
+    },
+    {
+      "id": "a-case-of-identity-94",
+      "reference": "A Case of Identity ¶94",
+      "genre": "dialogue",
+      "expected": "Watson holding the printed notice to the light while Holmes looks over the letters; no legible text.",
+      "work": "holmes-adventures",
+      "unitId": "a-case-of-identity-94",
+      "drawn": "holmes-random"
+    },
+    {
+      "id": "the-adventure-of-the-beryl-coronet-49",
+      "reference": "The Adventure of the Beryl Coronet ¶49",
+      "genre": "dialogue",
+      "expected": "Holder's account of his son's gambling: what the words describe, without inventing a listener inside it.",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-beryl-coronet-49",
+      "drawn": "holmes-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "the-adventure-of-the-speckled-band-13",
+      "reference": "The Adventure of the Speckled Band ¶13",
+      "genre": "narrative",
+      "expected": "Helen Stoner raising her veil, grey and frightened, as Holmes pats her arm.",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-speckled-band-13",
+      "drawn": "holmes-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "alice-drink-me",
+      "reference": "Down the Rabbit-Hole ¶16",
+      "genre": "narrative",
+      "expected": "Alice in the long hall holding the little bottle labelled to drink; the label shows no legible letters.",
+      "work": "alice-in-wonderland",
+      "unitId": "down-the-rabbit-hole-16",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "alice-caterpillar",
+      "reference": "Advice from a Caterpillar ¶1",
+      "genre": "dialogue",
+      "expected": "Alice face to face with the blue Caterpillar on its mushroom, hookah in its mouth.",
+      "work": "alice-in-wonderland",
+      "unitId": "advice-from-a-caterpillar-1",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "alice-tea-party-arrival",
+      "reference": "A Mad Tea-Party ¶1",
+      "genre": "narrative",
+      "expected": "A long tea table under a tree; the March Hare and the Hatter with the Dormouse asleep between them; Alice sitting down.",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-1",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "alice-tea-party-riddle",
+      "reference": "A Mad Tea-Party ¶7",
+      "genre": "dialogue",
+      "expected": "The same tea table as the Hatter asks his riddle.",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-7",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "alice-tea-party-say-what-you-mean",
+      "reference": "A Mad Tea-Party ¶13",
+      "genre": "dialogue",
+      "expected": "The same tea table as the March Hare, Hatter and sleeping Dormouse twist Alice's words.",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-13",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "alice-croquet-game",
+      "reference": "The Queen’s Croquet-Ground ¶41",
+      "genre": "narrative",
+      "expected": "Croquet with live flamingo mallets and hedgehog balls, card soldiers doubled up as arches, the Queen shouting.",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-41",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "alice-cat-grin-appears",
+      "reference": "The Queen’s Croquet-Ground ¶45",
+      "genre": "narrative",
+      "expected": "A grin appearing in the air over the croquet-ground, then the Cheshire Cat's head.",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-45",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "alice-cat-head-talks",
+      "reference": "The Queen’s Croquet-Ground ¶49",
+      "genre": "dialogue",
+      "expected": "Alice talking with the Cheshire Cat's floating head on the croquet-ground.",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-49",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "alice-king-and-cat",
+      "reference": "The Queen’s Croquet-Ground ¶52",
+      "genre": "dialogue",
+      "expected": "The King peering at the Cat's head from behind Alice.",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-52",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "alice-refuses-to-leave",
+      "reference": "Alice’s Evidence ¶16",
+      "genre": "dialogue",
+      "expected": "Alice, grown very large, refusing to leave the court before the King, Queen and jury.",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-16",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "alice-cheshire-cat-bough",
+      "reference": "Pig and Pepper ¶50",
+      "genre": "dialogue",
+      "expected": "The Cheshire Cat grinning on a bough above Alice in the wood.",
+      "work": "alice-in-wonderland",
+      "unitId": "pig-and-pepper-50",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "alice-hatter-witness",
+      "reference": "Who Stole the Tarts? ¶16",
+      "genre": "narrative",
+      "expected": "The Hatter entering the court as first witness, a teacup in one hand and bread-and-butter in the other.",
+      "work": "alice-in-wonderland",
+      "unitId": "who-stole-the-tarts-16",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "the-lobster-quadrille-19",
+      "reference": "The Lobster Quadrille ¶19",
+      "genre": "poetry",
+      "expected": "The Mock Turtle and the Gryphon dancing round Alice on the shore while the Mock Turtle sings.",
+      "work": "alice-in-wonderland",
+      "unitId": "the-lobster-quadrille-19",
+      "drawn": "alice-random"
+    },
+    {
+      "id": "alices-evidence-38",
+      "reference": "Alice’s Evidence ¶38",
+      "genre": "dialogue",
+      "expected": "The court over the unsigned verses: the King, the Knave and a puzzled jury; no legible writing.",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-38",
+      "drawn": "alice-random"
+    },
+    {
+      "id": "alices-evidence-54",
+      "reference": "Alice’s Evidence ¶54",
+      "genre": "narrative",
+      "expected": "The King pointing to the tarts as the Queen throws an inkstand at the Lizard; the slate shows no writing.",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-54",
+      "drawn": "alice-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "a-mad-tea-party-76",
+      "reference": "A Mad Tea-Party ¶76",
+      "genre": "dialogue",
+      "expected": "The Dormouse's treacle-well story at the tea table; the told sisters only if the plan draws the story itself.",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-76",
+      "drawn": "alice-random"
+    },
+    {
+      "id": "advice-from-a-caterpillar-59",
+      "reference": "Advice from a Caterpillar ¶59",
+      "genre": "dialogue",
+      "expected": "The Pigeon screaming 'Serpent!' at long-necked Alice among the treetops.",
+      "work": "alice-in-wonderland",
+      "unitId": "advice-from-a-caterpillar-59",
+      "drawn": "alice-random",
+      "tiers": [
+        "text"
+      ]
+    },
+    {
+      "id": "alices-evidence-2",
+      "reference": "Alice’s Evidence ¶2",
+      "genre": "narrative",
+      "expected": "Alice, grown large, tipping over the jury-box with her skirt; the jurymen sprawling.",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-2",
+      "drawn": "alice-random"
     }
   ]
 }

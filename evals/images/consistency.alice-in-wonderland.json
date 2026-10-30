@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "workId": "alice-in-wonderland",
+  "groups": [
+    {
+      "id": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "entryId": "alice",
+      "units": ["down-the-rabbit-hole-16", "advice-from-a-caterpillar-1", "a-mad-tea-party-1", "the-queens-croquet-ground-41", "alices-evidence-16"],
+      "note": "Alice's size changes between scenes; judge her face, hair, age and dress."
+    },
+    {
+      "id": "cheshire-cat",
+      "kind": "character",
+      "subject": "the Cheshire Cat",
+      "entryId": "cheshire_cat",
+      "units": ["pig-and-pepper-50", "the-queens-croquet-ground-49"]
+    },
+    {
+      "id": "hatter",
+      "kind": "character",
+      "subject": "the Hatter",
+      "entryId": "hatter",
+      "units": ["a-mad-tea-party-1", "who-stole-the-tarts-16"]
+    },
+    {
+      "id": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "units": ["a-mad-tea-party-1", "a-mad-tea-party-7", "a-mad-tea-party-13"],
+      "note": "Section a-mad-tea-party-1."
+    },
+    {
+      "id": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "units": ["the-queens-croquet-ground-45", "the-queens-croquet-ground-49", "the-queens-croquet-ground-52"],
+      "note": "Section the-queens-croquet-ground-45."
+    }
+  ]
+}

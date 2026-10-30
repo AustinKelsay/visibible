@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "version": "2026-10-30-faults-v1",
+  "text": [
+    { "id": "wrong_moment", "label": "wrong moment", "question": "Does the plan draw a different event, instant or place than the moment's text gives, or several instants at once?" },
+    { "id": "speaker_in_scene", "label": "speaker inside their words", "question": "Is a speaker, writer, narrator or listener put inside a scene their words only describe, or drawn as a figure of their own words?" },
+    { "id": "missing_subject", "label": "missing subject", "question": "Does the plan leave out a person, group, place or object the moment's text clearly shows in this scene?" },
+    { "id": "unsupported_figure", "label": "unsupported figure", "question": "Does the plan select or describe a named or recurring figure the moment's text does not put in this scene?" },
+    { "id": "rule_conflict", "label": "depiction rule broken", "question": "Does the plan contradict one of the work's depiction rules?" },
+    { "id": "visible_writing", "label": "writing asked for", "question": "Does the plan ask for visible writing: an open scroll, letter or book, an inscription, or a sign or label with words?" },
+    { "id": "embodied_effects", "label": "unseen subject given a body", "question": "Is a cast member that may not be drawn (mayBeDrawn false) given a body, face, hands, clothing, a seat or throne, or a figure of light?", "effectsOnly": true }
+  ],
+  "image": [
+    { "id": "lettering", "label": "lettering", "question": "Is any lettering, writing, numeral or glyph-like inscription visible, including marks on scrolls, signs, labels, cards, halos or in a corner?" },
+    { "id": "painted_frame", "label": "painted frame", "question": "Is an ornamental painted border or frame part of the artwork?" },
+    { "id": "unpainted_edge", "label": "unpainted edge", "question": "Does any edge or corner show white or unpainted paper, a blank band, a vignette into white or a deckled edge?", "acceptedIn": ["watercolor"] },
+    { "id": "extra_figures", "label": "extra figure", "question": "Does it show a prominent figure the selected cast and scene do not ask for, such as a narrator, a speaker inside their own words, or a named figure that was not selected?" },
+    { "id": "incoherent", "label": "incoherent", "question": "Is it a collage of several moments, or are poses, objects or places contradictory?" },
+    { "id": "scene_mismatch", "label": "scene not shown", "question": "Does it fail to show the scene it asked for: the wrong subject, action or place?" },
+    { "id": "anatomy", "label": "anatomy", "question": "Are there malformed or extra limbs, hands or faces?" },
+    { "id": "rule_violation", "label": "depiction rule broken", "question": "Does it show gore, sexual content, a caricature of a people, or the likeness of a real actor or public figure?" },
+    { "id": "effects_figure", "label": "unseen subject drawn", "question": "Is a subject listed in neverDrawn shown with a face, body, limbs, robe or a human-shaped figure, including one made of light or cloud?", "effectsOnly": true }
+  ]
+}
