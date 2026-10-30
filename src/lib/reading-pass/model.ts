@@ -1,5 +1,5 @@
 /**
- * The text model behind the reading pass: Claude Haiku 5.5 through OpenRouter, reasoning off,
+ * The text model behind the reading pass: Claude Haiku 5.5 through OpenRouter, reasoning off by default,
  * schema-constrained JSON (#165 §2). Tests substitute a scripted model through the same interface.
  */
 import type { z } from "zod";

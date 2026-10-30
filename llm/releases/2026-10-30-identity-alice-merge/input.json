@@ -1,0 +1,3574 @@
+{
+  "workTitle": "Alice\u2019s Adventures in Wonderland",
+  "workAuthor": "Lewis Carroll",
+  "readings": [
+    {
+      "divisionId": "down-the-rabbit-hole",
+      "label": "Down the Rabbit-Hole",
+      "unitCount": 24,
+      "characters": [
+        {
+          "id": "alice",
+          "name": "Alice",
+          "aliases": [
+            "the little girl",
+            "the child"
+          ],
+          "kind": "person",
+          "note": "A young girl sitting by the riverbank with her sister; falls down the rabbit-hole and finds herself in the long hall, where she drinks and eats to change her size. Appears in units 1-24.",
+          "same_person_as": ""
+        },
+        {
+          "id": "alice_sister",
+          "name": "Alice's sister",
+          "aliases": [
+            "her sister"
+          ],
+          "kind": "person",
+          "note": "Alice's older sister, reading a book on the bank in the opening scene; unnamed in this division. Appears in units 1-2.",
+          "same_person_as": ""
+        },
+        {
+          "id": "white_rabbit",
+          "name": "White Rabbit",
+          "aliases": [
+            "the Rabbit",
+            "the White Rabbit with pink eyes"
+          ],
+          "kind": "animal",
+          "note": "A talking white rabbit with pink eyes and a waistcoat-pocket watch, who runs down a rabbit-hole and is seen hurrying along the passage. Appears in units 2-11.",
+          "same_person_as": ""
+        },
+        {
+          "id": "dinah",
+          "name": "Dinah",
+          "aliases": [
+            "the cat"
+          ],
+          "kind": "animal",
+          "note": "Alice's cat, thought of by Alice as she falls; exists only in Alice's musing and is not physically present. Mentioned in unit 10.",
+          "same_person_as": ""
+        }
+      ],
+      "locations": [
+        {
+          "id": "riverbank",
+          "name": "The riverbank",
+          "aliases": [
+            "the bank",
+            "the field"
+          ],
+          "note": "Grassy bank where Alice sits beside her sister on a hot day; the field where the Rabbit runs past. Units 1-3."
+        },
+        {
+          "id": "rabbit_hole",
+          "name": "The rabbit-hole",
+          "aliases": [
+            "the large rabbit-hole under the hedge",
+            "the well"
+          ],
+          "note": "A deep tunnel under the hedge that dips into a long, deep well lined with cupboards and shelves. Units 3-10."
+        },
+        {
+          "id": "long_hall",
+          "name": "The long low hall",
+          "aliases": [
+            "the hall",
+            "the passage"
+          ],
+          "note": "A long, low hall lit by lamps hanging from the roof, with locked doors all round, a glass table and a low curtain hiding a small door. Units 11-22."
+        },
+        {
+          "id": "little_door_garden",
+          "name": "The little door and passage to the garden",
+          "aliases": [
+            "the small passage",
+            "the garden door"
+          ],
+          "note": "A small door about fifteen inches high leading to a passage that opens onto a lovely garden. Units 13-14, 19-20."
+        }
+      ],
+      "sections": [
+        {
+          "firstUnitId": "down-the-rabbit-hole-1",
+          "lastUnitId": "down-the-rabbit-hole-3",
+          "title": "Alice on the bank sees the White Rabbit",
+          "setting": [
+            "riverbank"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "alice_sister",
+              "named": true
+            },
+            {
+              "id": "white_rabbit",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "down-the-rabbit-hole-4",
+          "lastUnitId": "down-the-rabbit-hole-10",
+          "title": "Alice falls down the rabbit-hole",
+          "setting": [
+            "rabbit_hole"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "dinah",
+            "white_rabbit"
+          ]
+        },
+        {
+          "firstUnitId": "down-the-rabbit-hole-11",
+          "lastUnitId": "down-the-rabbit-hole-12",
+          "title": "Alice runs after the Rabbit into the long hall",
+          "setting": [
+            "long_hall"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "white_rabbit",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "down-the-rabbit-hole-13",
+          "lastUnitId": "down-the-rabbit-hole-17",
+          "title": "The little key, the small door and the bottle marked DRINK ME",
+          "setting": [
+            "long_hall",
+            "little_door_garden"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "down-the-rabbit-hole-18",
+          "lastUnitId": "down-the-rabbit-hole-24",
+          "title": "Alice shrinks, cries and eats the cake marked EAT ME",
+          "setting": [
+            "long_hall",
+            "little_door_garden"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        }
+      ],
+      "brief": {
+        "tone": "Whimsical, curious and gently dreamlike, with an undercurrent of childish unease as Alice's size and surroundings change.",
+        "depiction_rules": [
+          "The White Rabbit should appear as a neat, anxious animal in a waistcoat with a pocket watch, not a fantastical monster.",
+          "Alice's size changes should be shown relative to the furniture and door, keeping the scale readable.",
+          "The little key, bottle and cake should be clearly labelled as the text describes (DRINK ME, EAT ME) when shown.",
+          "Depict the falling in a rabbit-hole with cupboards and shelves visible, without gore or danger imagery.",
+          "Dinah is only present in Alice's thoughts and should not be drawn as physically in the scene."
+        ],
+        "era": {
+          "name": "Victorian England, a dreamlike underground realm",
+          "people": "Alice is a young English girl; the only other human is her sister, who reads on the bank. The world below is populated by talking animals.",
+          "dress": "Alice wears a Victorian pinafore dress over a white blouse, with long hair and a ribbon, and a child's boots; the sister wears a long summer dress.",
+          "buildings_and_objects": "Riverbank and hedge fields, a rabbit-hole, a long hall with hanging lamps, a three-legged glass table, a small golden key, a labelled glass bottle, a small glass box holding a cake, cupboards and shelves on the well's walls.",
+          "technology": "Pocket watches and printed labels exist; no electricity beyond oil lamps, no modern vehicles or machines."
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "unitsPerSection": 18,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the little girl\",\"the child\"],\"kind\":\"person\",\"note\":\"A young girl sitting by the riverbank with her sister; falls down the rabbit-hole and finds herself in the long hall, where she drinks and eats to change her size. Appears in units 1-24.\",\"same_person_as\":\"\"},{\"id\":\"alice_sister\",\"name\":\"Alice's sister\",\"aliases\":[\"her sister\"],\"kind\":\"person\",\"note\":\"Alice's older sister, reading a book on the bank in the opening scene; unnamed in this division. Appears in units 1-2.\",\"same_person_as\":\"\"},{\"id\":\"white_rabbit\",\"name\":\"White Rabbit\",\"aliases\":[\"the Rabbit\",\"the White Rabbit with pink eyes\"],\"kind\":\"animal\",\"note\":\"A talking white rabbit with pink eyes and a waistcoat-pocket watch, who runs down a rabbit-hole and is seen hurrying along the passage. Appears in units 2-11.\",\"same_person_as\":\"\"},{\"id\":\"dinah\",\"name\":\"Dinah\",\"aliases\":[\"the cat\"],\"kind\":\"animal\",\"note\":\"Alice's cat, thought of by Alice as she falls; exists only in Alice's musing and is not physically present. Mentioned in unit 10.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"riverbank\",\"name\":\"The riverbank\",\"aliases\":[\"the bank\",\"the field\"],\"note\":\"Grassy bank where Alice sits beside her sister on a hot day; the field where the Rabbit runs past. Units 1-3.\"},{\"id\":\"rabbit_hole\",\"name\":\"The rabbit-hole\",\"aliases\":[\"the large rabbit-hole under the hedge\",\"the well\"],\"note\":\"A deep tunnel under the hedge that dips into a long, deep well lined with cupboards and shelves. Units 3-10.\"},{\"id\":\"long_hall\",\"name\":\"The long low hall\",\"aliases\":[\"the hall\",\"the passage\"],\"note\":\"A long, low hall lit by lamps hanging from the roof, with locked doors all round, a glass table and a low curtain hiding a small door. Units 11-22.\"},{\"id\":\"little_door_garden\",\"name\":\"The little door and passage to the garden\",\"aliases\":[\"the small passage\",\"the garden door\"],\"note\":\"A small door about fifteen inches high leading to a passage that opens onto a lovely garden. Units 13-14, 19-20.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"3\",\"title\":\"Alice on the bank sees the White Rabbit\",\"setting\":[\"riverbank\"],\"on_stage\":[\"alice\",\"alice_sister\",\"white_rabbit\"],\"mentioned_only\":[]},{\"start\":\"4\",\"end\":\"10\",\"title\":\"Alice falls down the rabbit-hole\",\"setting\":[\"rabbit_hole\"],\"on_stage\":[\"alice\"],\"mentioned_only\":[\"dinah\",\"white_rabbit\"]},{\"start\":\"11\",\"end\":\"12\",\"title\":\"Alice runs after the Rabbit into the long hall\",\"setting\":[\"long_hall\"],\"on_stage\":[\"alice\",\"white_rabbit\"],\"mentioned_only\":[]},{\"start\":\"13\",\"end\":\"17\",\"title\":\"The little key, the small door and the bottle marked DRINK ME\",\"setting\":[\"long_hall\",\"little_door_garden\"],\"on_stage\":[\"alice\"],\"mentioned_only\":[]},{\"start\":\"18\",\"end\":\"24\",\"title\":\"Alice shrinks, cries and eats the cake marked EAT ME\",\"setting\":[\"long_hall\",\"little_door_garden\"],\"on_stage\":[\"alice\"],\"mentioned_only\":[]}],\"brief\":{\"tone\":\"Whimsical, curious and gently dreamlike, with an undercurrent of childish unease as Alice's size and surroundings change.\",\"depiction_rules\":[\"The White Rabbit should appear as a neat, anxious animal in a waistcoat with a pocket watch, not a fantastical monster.\",\"Alice's size changes should be shown relative to the furniture and door, keeping the scale readable.\",\"The little key, bottle and cake should be clearly labelled as the text describes (DRINK ME, EAT ME) when shown.\",\"Depict the falling in a rabbit-hole with cupboards and shelves visible, without gore or danger imagery.\",\"Dinah is only present in Alice's thoughts and should not be drawn as physically in the scene.\"],\"era\":{\"name\":\"Victorian England, a dreamlike underground realm\",\"people\":\"Alice is a young English girl; the only other human is her sister, who reads on the bank. The world below is populated by talking animals.\",\"dress\":\"Alice wears a Victorian pinafore dress over a white blouse, with long hair and a ribbon, and a child's boots; the sister wears a long summer dress.\",\"buildings_and_objects\":\"Riverbank and hedge fields, a rabbit-hole, a long hall with hanging lamps, a three-legged glass table, a small golden key, a labelled glass bottle, a small glass box holding a cake, cupboards and shelves on the well's walls.\",\"technology\":\"Pocket watches and printed labels exist; no electricity beyond oil lamps, no modern vehicles or machines.\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326273-4ZUMxb3enfOnHFzbmKsz",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 6547,
+              "completionTokens": 1695,
+              "costUsd": 0.0015022
+            },
+            "elapsedMs": 11574
+          },
+          "error": null,
+          "problems": []
+        }
+      ]
+    },
+    {
+      "divisionId": "the-pool-of-tears",
+      "label": "The Pool of Tears",
+      "unitCount": 26,
+      "characters": [
+        {
+          "id": "alice",
+          "name": "Alice",
+          "aliases": [
+            "the child",
+            "the poor child"
+          ],
+          "kind": "person",
+          "note": "A young girl who has shrunk and grown greatly in the hall; she is the protagonist, swimming in the pool of her own tears and talking with the Mouse; appears throughout units 1 to 26.",
+          "same_person_as": ""
+        },
+        {
+          "id": "white_rabbit",
+          "name": "White Rabbit",
+          "aliases": [
+            "the Rabbit"
+          ],
+          "kind": "animal",
+          "note": "A hurrying rabbit in a splendid waistcoat, dressed for the Duchess; drops his white kid gloves and fan and flees when Alice speaks to him in units 7 to 8.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_mouse",
+          "name": "Mouse",
+          "aliases": [
+            "the Mouse",
+            "O Mouse"
+          ],
+          "kind": "animal",
+          "note": "A mouse that has fallen into the pool of tears; proud and offended by talk of cats and dogs, and agrees to tell its history on the shore in units 18 to 25.",
+          "same_person_as": ""
+        },
+        {
+          "id": "dinah",
+          "name": "Dinah",
+          "aliases": [
+            "our cat"
+          ],
+          "kind": "animal",
+          "note": "Alice's pet cat at home, only mentioned as the subject of talk with the Mouse in unit 22; not present.",
+          "same_person_as": ""
+        },
+        {
+          "id": "ada",
+          "name": "Ada",
+          "aliases": [],
+          "kind": "person",
+          "note": "A girl of Alice's age whom Alice considers as a possible identity in unit 10; not present.",
+          "same_person_as": ""
+        },
+        {
+          "id": "mabel",
+          "name": "Mabel",
+          "aliases": [],
+          "kind": "person",
+          "note": "A girl of Alice's age whom Alice considers as a possible identity in units 10 and 13; not present.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_duck",
+          "name": "Duck",
+          "aliases": [
+            "a Duck"
+          ],
+          "kind": "animal",
+          "note": "One of the birds fallen into the pool, swimming to the shore with the party in unit 26.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_dodo",
+          "name": "Dodo",
+          "aliases": [
+            "a Dodo"
+          ],
+          "kind": "animal",
+          "note": "One of the birds fallen into the pool, swimming to the shore with the party in unit 26.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_lory",
+          "name": "Lory",
+          "aliases": [
+            "a Lory"
+          ],
+          "kind": "animal",
+          "note": "One of the birds fallen into the pool, swimming to the shore with the party in unit 26.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_eaglet",
+          "name": "Eaglet",
+          "aliases": [
+            "an Eaglet"
+          ],
+          "kind": "animal",
+          "note": "One of the birds fallen into the pool, swimming to the shore with the party in unit 26.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_pool_creatures",
+          "name": "Pool creatures",
+          "aliases": [
+            "the birds and animals that had fallen into it",
+            "several other curious creatures"
+          ],
+          "kind": "group",
+          "note": "The crowd of birds and animals that fell into the pool and swim together to the shore in unit 26.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_duchess",
+          "name": "Duchess",
+          "aliases": [
+            "the Duchess"
+          ],
+          "kind": "person",
+          "note": "The Duchess the Rabbit is hurrying to; named only, not present in this division.",
+          "same_person_as": ""
+        }
+      ],
+      "locations": [
+        {
+          "id": "long_hall",
+          "name": "Long Hall",
+          "aliases": [
+            "the hall",
+            "the hall of the house"
+          ],
+          "note": "The hall where Alice has grown tall and then shrunk, with the small garden door and the glass table.Alice weeps here until the pool forms around her."
+        },
+        {
+          "id": "garden_door",
+          "name": "Garden door",
+          "aliases": [
+            "the little door",
+            "the little golden key door"
+          ],
+          "note": "A small door in the hall leading to the garden, locked with a little golden key on a glass table."
+        },
+        {
+          "id": "pool_of_tears",
+          "name": "Pool of Tears",
+          "aliases": [
+            "the pool",
+            "the pool of tears which she had wept"
+          ],
+          "note": "The pool formed by Alice's tears, about four inches deep and reaching half down the hall, where the Mouse and birds swim."
+        },
+        {
+          "id": "shore",
+          "name": "Shore",
+          "aliases": [
+            "the shore of the pool"
+          ],
+          "note": "The shore of the pool to which Alice leads the swimming party in unit 26."
+        }
+      ],
+      "sections": [
+        {
+          "firstUnitId": "the-pool-of-tears-1",
+          "lastUnitId": "the-pool-of-tears-8",
+          "title": "Alice grows tall and weeps; the Rabbit flees",
+          "setting": [
+            "long_hall",
+            "garden_door",
+            "pool_of_tears"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "white_rabbit",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "the_duchess"
+          ]
+        },
+        {
+          "firstUnitId": "the-pool-of-tears-9",
+          "lastUnitId": "the-pool-of-tears-15",
+          "title": "Alice doubts her identity and shrinks",
+          "setting": [
+            "long_hall",
+            "garden_door"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "ada",
+            "mabel",
+            "white_rabbit"
+          ]
+        },
+        {
+          "firstUnitId": "the-pool-of-tears-16",
+          "lastUnitId": "the-pool-of-tears-25",
+          "title": "Alice swims with the Mouse and talks of cats and dogs",
+          "setting": [
+            "pool_of_tears"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_mouse",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "dinah"
+          ]
+        },
+        {
+          "firstUnitId": "the-pool-of-tears-26",
+          "lastUnitId": "the-pool-of-tears-26",
+          "title": "The crowd of birds and animals swims to shore",
+          "setting": [
+            "pool_of_tears",
+            "shore"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_mouse",
+              "named": false
+            },
+            {
+              "id": "the_duck",
+              "named": true
+            },
+            {
+              "id": "the_dodo",
+              "named": true
+            },
+            {
+              "id": "the_lory",
+              "named": true
+            },
+            {
+              "id": "the_eaglet",
+              "named": true
+            },
+            {
+              "id": "the_pool_creatures",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        }
+      ],
+      "brief": {
+        "tone": "Whimsical, dreamlike and slightly melancholy, with Alice's bewilderment and the absurd logic of the underground world carried in every picture.",
+        "depiction_rules": [
+          "Alice's size changes must read clearly, from nine feet tall to a small figure swimming in tears.",
+          "Animals behave as talking characters with human posture and dress where the text gives it, such as the Rabbit's waistcoat.",
+          "The Mouse's offence at cats and dogs should be shown with bristling fur and a pale face, not made comic beyond the text.",
+          "Do not show the Duchess, Dinah, Ada or Mabel on stage; they remain mentioned only."
+        ],
+        "era": {
+          "name": "Victorian England in a dream world",
+          "people": "Alice is a English girl of about nine, and the animal characters are anthropomorphic creatures of the dream world.",
+          "dress": "Victorian children's dress for Alice, with a pinafore and stockings; the Rabbit wears a splendid waistcoat and carries white kid gloves and a large fan.",
+          "buildings_and_objects": "A long hall with a small locked door, a glass table, a golden key, and a shore with a distant seaside of bathing machines and lodging houses as Alice remembers it.",
+          "technology": "Nineteenth-century technology only: railways and the carrier exist; no modern devices appear."
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "unitsPerSection": 18,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the child\",\"the poor child\"],\"kind\":\"person\",\"note\":\"A young girl who has shrunk and grown greatly in the hall; she is the protagonist, swimming in the pool of her own tears and talking with the Mouse; appears throughout units 1 to 26.\",\"same_person_as\":\"\"},{\"id\":\"white_rabbit\",\"name\":\"White Rabbit\",\"aliases\":[\"the Rabbit\"],\"kind\":\"animal\",\"note\":\"A hurrying rabbit in a splendid waistcoat, dressed for the Duchess; drops his white kid gloves and fan and flees when Alice speaks to him in units 7 to 8.\",\"same_person_as\":\"\"},{\"id\":\"the_mouse\",\"name\":\"Mouse\",\"aliases\":[\"the Mouse\",\"O Mouse\"],\"kind\":\"animal\",\"note\":\"A mouse that has fallen into the pool of tears; proud and offended by talk of cats and dogs, and agrees to tell its history on the shore in units 18 to 25.\",\"same_person_as\":\"\"},{\"id\":\"dinah\",\"name\":\"Dinah\",\"aliases\":[\"our cat\"],\"kind\":\"animal\",\"note\":\"Alice's pet cat at home, only mentioned as the subject of talk with the Mouse in unit 22; not present.\",\"same_person_as\":\"\"},{\"id\":\"ada\",\"name\":\"Ada\",\"aliases\":[],\"kind\":\"person\",\"note\":\"A girl of Alice's age whom Alice considers as a possible identity in unit 10; not present.\",\"same_person_as\":\"\"},{\"id\":\"mabel\",\"name\":\"Mabel\",\"aliases\":[],\"kind\":\"person\",\"note\":\"A girl of Alice's age whom Alice considers as a possible identity in units 10 and 13; not present.\",\"same_person_as\":\"\"},{\"id\":\"the_duck\",\"name\":\"Duck\",\"aliases\":[\"a Duck\"],\"kind\":\"animal\",\"note\":\"One of the birds fallen into the pool, swimming to the shore with the party in unit 26.\",\"same_person_as\":\"\"},{\"id\":\"the_dodo\",\"name\":\"Dodo\",\"aliases\":[\"a Dodo\"],\"kind\":\"animal\",\"note\":\"One of the birds fallen into the pool, swimming to the shore with the party in unit 26.\",\"same_person_as\":\"\"},{\"id\":\"the_lory\",\"name\":\"Lory\",\"aliases\":[\"a Lory\"],\"kind\":\"animal\",\"note\":\"One of the birds fallen into the pool, swimming to the shore with the party in unit 26.\",\"same_person_as\":\"\"},{\"id\":\"the_eaglet\",\"name\":\"Eaglet\",\"aliases\":[\"an Eaglet\"],\"kind\":\"animal\",\"note\":\"One of the birds fallen into the pool, swimming to the shore with the party in unit 26.\",\"same_person_as\":\"\"},{\"id\":\"the_pool_creatures\",\"name\":\"Pool creatures\",\"aliases\":[\"the birds and animals that had fallen into it\",\"several other curious creatures\"],\"kind\":\"group\",\"note\":\"The crowd of birds and animals that fell into the pool and swim together to the shore in unit 26.\",\"same_person_as\":\"\"},{\"id\":\"the_duchess\",\"name\":\"Duchess\",\"aliases\":[\"the Duchess\"],\"kind\":\"person\",\"note\":\"The Duchess the Rabbit is hurrying to; named only, not present in this division.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"long_hall\",\"name\":\"Long Hall\",\"aliases\":[\"the hall\",\"the hall of the house\"],\"note\":\"The hall where Alice has grown tall and then shrunk, with the small garden door and the glass table.Alice weeps here until the pool forms around her.\"},{\"id\":\"garden_door\",\"name\":\"Garden door\",\"aliases\":[\"the little door\",\"the little golden key door\"],\"note\":\"A small door in the hall leading to the garden, locked with a little golden key on a glass table.\"},{\"id\":\"pool_of_tears\",\"name\":\"Pool of Tears\",\"aliases\":[\"the pool\",\"the pool of tears which she had wept\"],\"note\":\"The pool formed by Alice's tears, about four inches deep and reaching half down the hall, where the Mouse and birds swim.\"},{\"id\":\"shore\",\"name\":\"Shore\",\"aliases\":[\"the shore of the pool\"],\"note\":\"The shore of the pool to which Alice leads the swimming party in unit 26.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"8\",\"title\":\"Alice grows tall and weeps; the Rabbit flees\",\"setting\":[\"long_hall\",\"garden_door\",\"pool_of_tears\"],\"on_stage\":[\"alice\",\"white_rabbit\"],\"mentioned_only\":[\"the_duchess\"]},{\"start\":\"9\",\"end\":\"15\",\"title\":\"Alice doubts her identity and shrinks\",\"setting\":[\"long_hall\",\"garden_door\"],\"on_stage\":[\"alice\"],\"mentioned_only\":[\"ada\",\"mabel\",\"white_rabbit\"]},{\"start\":\"16\",\"end\":\"25\",\"title\":\"Alice swims with the Mouse and talks of cats and dogs\",\"setting\":[\"pool_of_tears\"],\"on_stage\":[\"alice\",\"the_mouse\"],\"mentioned_only\":[\"dinah\"]},{\"start\":\"26\",\"end\":\"26\",\"title\":\"The crowd of birds and animals swims to shore\",\"setting\":[\"pool_of_tears\",\"shore\"],\"on_stage\":[\"alice\",\"the_mouse\",\"the_duck\",\"the_dodo\",\"the_lory\",\"the_eaglet\",\"the_pool_creatures\"],\"mentioned_only\":[]}],\"brief\":{\"tone\":\"Whimsical, dreamlike and slightly melancholy, with Alice's bewilderment and the absurd logic of the underground world carried in every picture.\",\"depiction_rules\":[\"Alice's size changes must read clearly, from nine feet tall to a small figure swimming in tears.\",\"Animals behave as talking characters with human posture and dress where the text gives it, such as the Rabbit's waistcoat.\",\"The Mouse's offence at cats and dogs should be shown with bristling fur and a pale face, not made comic beyond the text.\",\"Do not show the Duchess, Dinah, Ada or Mabel on stage; they remain mentioned only.\"],\"era\":{\"name\":\"Victorian England in a dream world\",\"people\":\"Alice is a English girl of about nine, and the animal characters are anthropomorphic creatures of the dream world.\",\"dress\":\"Victorian children's dress for Alice, with a pinafore and stockings; the Rabbit wears a splendid waistcoat and carries white kid gloves and a large fan.\",\"buildings_and_objects\":\"A long hall with a small locked door, a glass table, a golden key, and a shore with a distant seaside of bathing machines and lodging houses as Alice remembers it.\",\"technology\":\"Nineteenth-century technology only: railways and the carrier exist; no modern devices appear.\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326284-XKjJ6PmiEJg7UNc2X99z",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 6649,
+              "completionTokens": 2203,
+              "costUsd": 0.0017664
+            },
+            "elapsedMs": 9829
+          },
+          "error": null,
+          "problems": []
+        }
+      ]
+    },
+    {
+      "divisionId": "a-caucus-race-and-a-long-tale",
+      "label": "A Caucus-Race and a Long Tale",
+      "unitCount": 48,
+      "characters": [
+        {
+          "id": "alice",
+          "name": "Alice",
+          "aliases": [
+            "the girl",
+            "Alice"
+          ],
+          "kind": "person",
+          "note": "A young girl who has fallen into the pool of tears; talks familiarly with the birds and animals, hands out comfits and a thimble as prizes, and mourns her cat Dinah.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_mouse",
+          "name": "the Mouse",
+          "aliases": [
+            "the Mouse",
+            "it"
+          ],
+          "kind": "animal",
+          "note": "A mouse who acts as the authority of the gathering, lectures on English history, tells the long tale about Fury and the mouse, and storms off offended.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_lory",
+          "name": "the Lory",
+          "aliases": [
+            "the Lory"
+          ],
+          "kind": "animal",
+          "note": "A bird in the gathering who argues with Alice about age, exclaims at the history lesson, and laments the Mouse leaving.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_duck",
+          "name": "the Duck",
+          "aliases": [
+            "the Duck"
+          ],
+          "kind": "animal",
+          "note": "A duck in the gathering who questions the Mouse's use of 'it' and what the archbishop found.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_dodo",
+          "name": "the Dodo",
+          "aliases": [
+            "the Dodo",
+            "he"
+          ],
+          "kind": "animal",
+          "note": "A dodo who proposes the Caucus-race, runs the race, awards the prizes, and presents Alice's thimble.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_eaglet",
+          "name": "the Eaglet",
+          "aliases": [
+            "the Eaglet"
+          ],
+          "kind": "animal",
+          "note": "A young eaglet in the gathering who asks the Dodo to speak English.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_magpie",
+          "name": "the old Magpie",
+          "aliases": [
+            "the old Magpie"
+          ],
+          "kind": "animal",
+          "note": "An old magpie who wraps itself up and leaves after Alice mentions cats.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_canary",
+          "name": "the Canary",
+          "aliases": [
+            "the Canary"
+          ],
+          "kind": "animal",
+          "note": "A canary who calls its children away to bed after Alice mentions cats.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_old_crab",
+          "name": "the old Crab",
+          "aliases": [
+            "the old Crab",
+            "Ma"
+          ],
+          "kind": "animal",
+          "note": "An old crab who lectures her daughter about losing temper; mother of the young Crab.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_young_crab",
+          "name": "the young Crab",
+          "aliases": [
+            "the young Crab",
+            "daughter"
+          ],
+          "kind": "animal",
+          "note": "A young crab, daughter of the old Crab, who snaps back at her mother.",
+          "same_person_as": ""
+        },
+        {
+          "id": "dinah",
+          "name": "Dinah",
+          "aliases": [
+            "Dinah",
+            "our cat"
+          ],
+          "kind": "animal",
+          "note": "Alice's pet cat, mentioned only; never present on stage.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_birds_and_animals",
+          "name": "the assembled birds and animals",
+          "aliases": [
+            "the party",
+            "the birds",
+            "the animals",
+            "the others"
+          ],
+          "kind": "group",
+          "note": "The wet gathering on the bank who sit in a ring, race, and chorus their requests as one body.",
+          "same_person_as": ""
+        }
+      ],
+      "locations": [
+        {
+          "id": "bank_of_the_pool",
+          "name": "the bank of the pool of tears",
+          "aliases": [
+            "the bank",
+            "the pool"
+          ],
+          "note": "The shore where the wet party assembles, dries off, races, and talks, and where Alice is left alone at the end."
+        }
+      ],
+      "sections": [
+        {
+          "firstUnitId": "a-caucus-race-and-a-long-tale-1",
+          "lastUnitId": "a-caucus-race-and-a-long-tale-23",
+          "title": "Dripping on the Bank and the Caucus-Race",
+          "setting": [
+            "bank_of_the_pool"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_mouse",
+              "named": true
+            },
+            {
+              "id": "the_lory",
+              "named": true
+            },
+            {
+              "id": "the_duck",
+              "named": true
+            },
+            {
+              "id": "the_dodo",
+              "named": true
+            },
+            {
+              "id": "the_eaglet",
+              "named": true
+            },
+            {
+              "id": "the_birds_and_animals",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "a-caucus-race-and-a-long-tale-24",
+          "lastUnitId": "a-caucus-race-and-a-long-tale-34",
+          "title": "The Prizes and the Mouse's Tale Begins",
+          "setting": [
+            "bank_of_the_pool"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_mouse",
+              "named": true
+            },
+            {
+              "id": "the_dodo",
+              "named": true
+            },
+            {
+              "id": "the_birds_and_animals",
+              "named": false
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "a-caucus-race-and-a-long-tale-35",
+          "lastUnitId": "a-caucus-race-and-a-long-tale-48",
+          "title": "The Mouse Departs and Alice Mentions Dinah",
+          "setting": [
+            "bank_of_the_pool"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_mouse",
+              "named": true
+            },
+            {
+              "id": "the_lory",
+              "named": true
+            },
+            {
+              "id": "the_old_crab",
+              "named": false
+            },
+            {
+              "id": "the_young_crab",
+              "named": true
+            },
+            {
+              "id": "the_magpie",
+              "named": false
+            },
+            {
+              "id": "the_canary",
+              "named": true
+            },
+            {
+              "id": "the_birds_and_animals",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "dinah"
+          ]
+        }
+      ],
+      "brief": {
+        "tone": "Whimsical and damp, with the comic formality of the gathering set against Alice's growing loneliness and wistfulness at the end.",
+        "depiction_rules": [
+          "The animals are shown as talking creatures in ordinary clothing or feathers, not as realistic beasts; the birds keep their feathers, the Mouse keeps its tail.",
+          "The Dodo's Caucus-race is shown as a loose ring of running creatures, not as a formal competition.",
+          "Dinah is never shown on stage, only as an absent cat mentioned by Alice.",
+          "The Mouse's tale of Fury and the mouse may be shown as a small visual vignette, but its text should not be quoted in images."
+        ],
+        "era": {
+          "name": "A dreamlike Victorian England",
+          "people": "Talking animals and a single English girl, Alice, of about seven or eight years old, with a child's proportions.",
+          "dress": "Alice wears a simple Victorian pinafore dress, damp and clinging; the animals are shown with their fur or feathers draggled by the water.",
+          "buildings_and_objects": "A bank of grass beside a deep pool of tears; no buildings are shown. Objects include Alice's box of comfits, her thimble, and the ring of race-course.",
+          "technology": "No modern technology; the world is pre-industrial and dreamlike, with no machines or mechanical devices."
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "unitsPerSection": 18,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the girl\",\"Alice\"],\"kind\":\"person\",\"note\":\"A young girl who has fallen into the pool of tears; talks familiarly with the birds and animals, hands out comfits and a thimble as prizes, and mourns her cat Dinah.\",\"same_person_as\":\"\"},{\"id\":\"the_mouse\",\"name\":\"the Mouse\",\"aliases\":[\"the Mouse\",\"it\"],\"kind\":\"animal\",\"note\":\"A mouse who acts as the authority of the gathering, lectures on English history, tells the long tale about Fury and the mouse, and storms off offended.\",\"same_person_as\":\"\"},{\"id\":\"the_lory\",\"name\":\"the Lory\",\"aliases\":[\"the Lory\"],\"kind\":\"animal\",\"note\":\"A bird in the gathering who argues with Alice about age, exclaims at the history lesson, and laments the Mouse leaving.\",\"same_person_as\":\"\"},{\"id\":\"the_duck\",\"name\":\"the Duck\",\"aliases\":[\"the Duck\"],\"kind\":\"animal\",\"note\":\"A duck in the gathering who questions the Mouse's use of 'it' and what the archbishop found.\",\"same_person_as\":\"\"},{\"id\":\"the_dodo\",\"name\":\"the Dodo\",\"aliases\":[\"the Dodo\",\"he\"],\"kind\":\"animal\",\"note\":\"A dodo who proposes the Caucus-race, runs the race, awards the prizes, and presents Alice's thimble.\",\"same_person_as\":\"\"},{\"id\":\"the_eaglet\",\"name\":\"the Eaglet\",\"aliases\":[\"the Eaglet\"],\"kind\":\"animal\",\"note\":\"A young eaglet in the gathering who asks the Dodo to speak English.\",\"same_person_as\":\"\"},{\"id\":\"the_magpie\",\"name\":\"the old Magpie\",\"aliases\":[\"the old Magpie\"],\"kind\":\"animal\",\"note\":\"An old magpie who wraps itself up and leaves after Alice mentions cats.\",\"same_person_as\":\"\"},{\"id\":\"the_canary\",\"name\":\"the Canary\",\"aliases\":[\"the Canary\"],\"kind\":\"animal\",\"note\":\"A canary who calls its children away to bed after Alice mentions cats.\",\"same_person_as\":\"\"},{\"id\":\"the_old_crab\",\"name\":\"the old Crab\",\"aliases\":[\"the old Crab\",\"Ma\"],\"kind\":\"animal\",\"note\":\"An old crab who lectures her daughter about losing temper; mother of the young Crab.\",\"same_person_as\":\"\"},{\"id\":\"the_young_crab\",\"name\":\"the young Crab\",\"aliases\":[\"the young Crab\",\"daughter\"],\"kind\":\"animal\",\"note\":\"A young crab, daughter of the old Crab, who snaps back at her mother.\",\"same_person_as\":\"\"},{\"id\":\"dinah\",\"name\":\"Dinah\",\"aliases\":[\"Dinah\",\"our cat\"],\"kind\":\"animal\",\"note\":\"Alice's pet cat, mentioned only; never present on stage.\",\"same_person_as\":\"\"},{\"id\":\"the_birds_and_animals\",\"name\":\"the assembled birds and animals\",\"aliases\":[\"the party\",\"the birds\",\"the animals\",\"the others\"],\"kind\":\"group\",\"note\":\"The wet gathering on the bank who sit in a ring, race, and chorus their requests as one body.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"bank_of_the_pool\",\"name\":\"the bank of the pool of tears\",\"aliases\":[\"the bank\",\"the pool\"],\"note\":\"The shore where the wet party assembles, dries off, races, and talks, and where Alice is left alone at the end.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"23\",\"title\":\"Dripping on the Bank and the Caucus-Race\",\"setting\":[\"bank_of_the_pool\"],\"on_stage\":[\"alice\",\"the_mouse\",\"the_lory\",\"the_duck\",\"the_dodo\",\"the_eaglet\",\"the_birds_and_animals\"],\"mentioned_only\":[]},{\"start\":\"24\",\"end\":\"34\",\"title\":\"The Prizes and the Mouse's Tale Begins\",\"setting\":[\"bank_of_the_pool\"],\"on_stage\":[\"alice\",\"the_mouse\",\"the_dodo\",\"the_birds_and_animals\"],\"mentioned_only\":[]},{\"start\":\"35\",\"end\":\"48\",\"title\":\"The Mouse Departs and Alice Mentions Dinah\",\"setting\":[\"bank_of_the_pool\"],\"on_stage\":[\"alice\",\"the_mouse\",\"the_lory\",\"the_old_crab\",\"the_young_crab\",\"the_magpie\",\"the_canary\",\"the_birds_and_animals\"],\"mentioned_only\":[\"dinah\"]}],\"brief\":{\"tone\":\"Whimsical and damp, with the comic formality of the gathering set against Alice's growing loneliness and wistfulness at the end.\",\"depiction_rules\":[\"The animals are shown as talking creatures in ordinary clothing or feathers, not as realistic beasts; the birds keep their feathers, the Mouse keeps its tail.\",\"The Dodo's Caucus-race is shown as a loose ring of running creatures, not as a formal competition.\",\"Dinah is never shown on stage, only as an absent cat mentioned by Alice.\",\"The Mouse's tale of Fury and the mouse may be shown as a small visual vignette, but its text should not be quoted in images.\"],\"era\":{\"name\":\"A dreamlike Victorian England\",\"people\":\"Talking animals and a single English girl, Alice, of about seven or eight years old, with a child's proportions.\",\"dress\":\"Alice wears a simple Victorian pinafore dress, damp and clinging; the animals are shown with their fur or feathers draggled by the water.\",\"buildings_and_objects\":\"A bank of grass beside a deep pool of tears; no buildings are shown. Objects include Alice's box of comfits, her thimble, and the ring of race-course.\",\"technology\":\"No modern technology; the world is pre-industrial and dreamlike, with no machines or mechanical devices.\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326294-cJqshBpGQPQai9z81kwc",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 6229,
+              "completionTokens": 1909,
+              "costUsd": 0.0015774
+            },
+            "elapsedMs": 9216
+          },
+          "error": null,
+          "problems": []
+        }
+      ]
+    },
+    {
+      "divisionId": "the-rabbit-sends-in-a-little-bill",
+      "label": "The Rabbit Sends in a Little Bill",
+      "unitCount": 42,
+      "characters": [
+        {
+          "id": "alice",
+          "name": "Alice",
+          "aliases": [
+            "Mary Ann (mistaken identity)",
+            "the little girl"
+          ],
+          "kind": "person",
+          "note": "A young girl who has fallen down the rabbit-hole; she shrinks and grows from eating and drinking. She is mistaken for the housemaid Mary Ann by the Rabbit.",
+          "same_person_as": ""
+        },
+        {
+          "id": "white_rabbit",
+          "name": "the White Rabbit",
+          "aliases": [
+            "the Rabbit",
+            "W. Rabbit"
+          ],
+          "kind": "animal",
+          "note": "A anxious white rabbit with a waistcoat-pocket watch, who owns the house and sends Alice to fetch gloves and a fan; he is the one who sends Pat and Bill to deal with Alice.",
+          "same_person_as": ""
+        },
+        {
+          "id": "mary_ann",
+          "name": "Mary Ann",
+          "aliases": [
+            "the housemaid"
+          ],
+          "kind": "person",
+          "note": "The Rabbit's housemaid, whom Alice is mistaken for; she is only named, never seen on stage.",
+          "same_person_as": ""
+        },
+        {
+          "id": "dinah",
+          "name": "Dinah",
+          "aliases": [
+            "the cat"
+          ],
+          "kind": "animal",
+          "note": "Alice's pet cat at home, mentioned in her thoughts and as a threat to the animals.",
+          "same_person_as": ""
+        },
+        {
+          "id": "pat",
+          "name": "Pat",
+          "aliases": [
+            "the gardener"
+          ],
+          "kind": "person",
+          "note": "The Rabbit's gardener, an Irishman (speaks with an Irish dialect) who is outside the window and handles the arm; he is heard but not seen.",
+          "same_person_as": ""
+        },
+        {
+          "id": "bill_lizard",
+          "name": "Bill",
+          "aliases": [
+            "the Lizard",
+            "poor little Lizard"
+          ],
+          "kind": "animal",
+          "note": "A lizard sent down the chimney by the Rabbit's servants; Alice kicks him back out, sending him flying. He is later held up by two guinea-pigs.",
+          "same_person_as": ""
+        },
+        {
+          "id": "guinea_pigs",
+          "name": "the guinea-pigs",
+          "aliases": [
+            "two guinea-pigs"
+          ],
+          "kind": "group",
+          "note": "Two guinea-pigs who hold up Bill and give him something from a bottle outside the house; they rush at Alice.",
+          "same_person_as": ""
+        },
+        {
+          "id": "puppy",
+          "name": "the puppy",
+          "aliases": [
+            "the enormous puppy"
+          ],
+          "kind": "animal",
+          "note": "A large puppy in the wood that Alice plays with using a stick.",
+          "same_person_as": ""
+        },
+        {
+          "id": "caterpillar",
+          "name": "the blue Caterpillar",
+          "aliases": [
+            "the caterpillar"
+          ],
+          "kind": "animal",
+          "note": "A large blue caterpillar sitting on top of a mushroom smoking a hookah; it appears at the very end of this division.",
+          "same_person_as": ""
+        }
+      ],
+      "locations": [
+        {
+          "id": "rabbit_house",
+          "name": "the White Rabbit's house",
+          "aliases": [
+            "W. Rabbit's house",
+            "the little house"
+          ],
+          "note": "A neat little house with a brass plate on the door; Alice grows inside its tidy room, with the stairs and window.)"
+        },
+        {
+          "id": "rabbit_garden",
+          "name": "the Rabbit's garden",
+          "aliases": [
+            "the garden outside the window",
+            "the cucumber-frame area"
+          ],
+          "note": "The area outside the Rabbit's house where Pat, Bill and the crowd of animals gather around the window and chimney."
+        },
+        {
+          "id": "wood",
+          "name": "the thick wood",
+          "aliases": [
+            "the wood"
+          ],
+          "note": "A wood where Alice wanders after escaping the crowd, meets the puppy, and finds the mushroom."
+        }
+      ],
+      "sections": [
+        {
+          "firstUnitId": "the-rabbit-sends-in-a-little-bill-1",
+          "lastUnitId": "the-rabbit-sends-in-a-little-bill-9",
+          "title": "Alice Grows Large in the Rabbit's House",
+          "setting": [
+            "rabbit_house"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "white_rabbit",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "mary_ann",
+            "dinah"
+          ]
+        },
+        {
+          "firstUnitId": "the-rabbit-sends-in-a-little-bill-10",
+          "lastUnitId": "the-rabbit-sends-in-a-little-bill-23",
+          "title": "Alice Stuck in the Window",
+          "setting": [
+            "rabbit_house",
+            "rabbit_garden"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "white_rabbit",
+              "named": true
+            },
+            {
+              "id": "pat",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "mary_ann",
+            "dinah"
+          ]
+        },
+        {
+          "firstUnitId": "the-rabbit-sends-in-a-little-bill-24",
+          "lastUnitId": "the-rabbit-sends-in-a-little-bill-34",
+          "title": "The Rabbit's Servants Try to Remove Alice",
+          "setting": [
+            "rabbit_house",
+            "rabbit_garden"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "white_rabbit",
+              "named": true
+            },
+            {
+              "id": "pat",
+              "named": false
+            },
+            {
+              "id": "bill_lizard",
+              "named": true
+            },
+            {
+              "id": "guinea_pigs",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "dinah"
+          ]
+        },
+        {
+          "firstUnitId": "the-rabbit-sends-in-a-little-bill-35",
+          "lastUnitId": "the-rabbit-sends-in-a-little-bill-42",
+          "title": "Alice in the Wood and the Caterpillar",
+          "setting": [
+            "wood"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "puppy",
+              "named": true
+            },
+            {
+              "id": "caterpillar",
+              "named": false
+            }
+          ],
+          "mentionedOnly": []
+        }
+      ],
+      "brief": {
+        "tone": "Whimsical and slightly anxious, with Alice's bewilderment and comic absurdity carried by the nonsense of the Rabbit's household and the strange creatures.",
+        "depiction_rules": [
+          "Alice must show her changing size clearly, from a tiny girl to one filling the room, with her arm out the window and foot up the chimney.",
+          "The Rabbit should look fussy and anxious, dressed as a gentleman, not a realistic animal.",
+          "The Lizard Bill should be shown small and humbled, not gruesomely harmed.",
+          "Pat's arm in the window should be depicted as absurdly large and comedic.",
+          "The caterpillar should appear calm, aloof and smoking, with a hookah, sitting on a mushroom."
+        ],
+        "era": {
+          "name": "Victorian England, as an imagined dreamlike setting",
+          "people": "Humans are Alice (a young English girl) and Pat (an Irish gardener); all other characters are anthropomorphic animals.",
+          "dress": "Alice wears a pinafore dress and simple Victorian clothes; the Rabbit wears a waistcoat and carries a watch.",
+          "buildings_and_objects": "A small, neat house with brass door plates, a window, a chimney, stairs, a glass-topped table, a looking-glass, and a labelled bottle; a wood with thistles, buttercups and mushrooms.",
+          "technology": "Victorian-era things such as ladders, a barrow, a cart and bottles exist; no modern technology appears."
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "unitsPerSection": 18,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"Mary Ann (mistaken identity)\",\"the little girl\"],\"kind\":\"person\",\"note\":\"A young girl who has fallen down the rabbit-hole; she shrinks and grows from eating and drinking. She is mistaken for the housemaid Mary Ann by the Rabbit.\",\"same_person_as\":\"\"},{\"id\":\"white_rabbit\",\"name\":\"the White Rabbit\",\"aliases\":[\"the Rabbit\",\"W. Rabbit\"],\"kind\":\"animal\",\"note\":\"A anxious white rabbit with a waistcoat-pocket watch, who owns the house and sends Alice to fetch gloves and a fan; he is the one who sends Pat and Bill to deal with Alice.\",\"same_person_as\":\"\"},{\"id\":\"mary_ann\",\"name\":\"Mary Ann\",\"aliases\":[\"the housemaid\"],\"kind\":\"person\",\"note\":\"The Rabbit's housemaid, whom Alice is mistaken for; she is only named, never seen on stage.\",\"same_person_as\":\"\"},{\"id\":\"dinah\",\"name\":\"Dinah\",\"aliases\":[\"the cat\"],\"kind\":\"animal\",\"note\":\"Alice's pet cat at home, mentioned in her thoughts and as a threat to the animals.\",\"same_person_as\":\"\"},{\"id\":\"pat\",\"name\":\"Pat\",\"aliases\":[\"the gardener\"],\"kind\":\"person\",\"note\":\"The Rabbit's gardener, an Irishman (speaks with an Irish dialect) who is outside the window and handles the arm; he is heard but not seen.\",\"same_person_as\":\"\"},{\"id\":\"bill_lizard\",\"name\":\"Bill\",\"aliases\":[\"the Lizard\",\"poor little Lizard\"],\"kind\":\"animal\",\"note\":\"A lizard sent down the chimney by the Rabbit's servants; Alice kicks him back out, sending him flying. He is later held up by two guinea-pigs.\",\"same_person_as\":\"\"},{\"id\":\"guinea_pigs\",\"name\":\"the guinea-pigs\",\"aliases\":[\"two guinea-pigs\"],\"kind\":\"group\",\"note\":\"Two guinea-pigs who hold up Bill and give him something from a bottle outside the house; they rush at Alice.\",\"same_person_as\":\"\"},{\"id\":\"puppy\",\"name\":\"the puppy\",\"aliases\":[\"the enormous puppy\"],\"kind\":\"animal\",\"note\":\"A large puppy in the wood that Alice plays with using a stick.\",\"same_person_as\":\"\"},{\"id\":\"caterpillar\",\"name\":\"the blue Caterpillar\",\"aliases\":[\"the caterpillar\"],\"kind\":\"animal\",\"note\":\"A large blue caterpillar sitting on top of a mushroom smoking a hookah; it appears at the very end of this division.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"rabbit_house\",\"name\":\"the White Rabbit's house\",\"aliases\":[\"W. Rabbit's house\",\"the little house\"],\"note\":\"A neat little house with a brass plate on the door; Alice grows inside its tidy room, with the stairs and window.)\"},{\"id\":\"rabbit_garden\",\"name\":\"the Rabbit's garden\",\"aliases\":[\"the garden outside the window\",\"the cucumber-frame area\"],\"note\":\"The area outside the Rabbit's house where Pat, Bill and the crowd of animals gather around the window and chimney.\"},{\"id\":\"wood\",\"name\":\"the thick wood\",\"aliases\":[\"the wood\"],\"note\":\"A wood where Alice wanders after escaping the crowd, meets the puppy, and finds the mushroom.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"9\",\"title\":\"Alice Grows Large in the Rabbit's House\",\"setting\":[\"rabbit_house\"],\"on_stage\":[\"alice\",\"white_rabbit\"],\"mentioned_only\":[\"mary_ann\",\"dinah\"]},{\"start\":\"10\",\"end\":\"23\",\"title\":\"Alice Stuck in the Window\",\"setting\":[\"rabbit_house\",\"rabbit_garden\"],\"on_stage\":[\"alice\",\"white_rabbit\",\"pat\"],\"mentioned_only\":[\"mary_ann\",\"dinah\"]},{\"start\":\"24\",\"end\":\"34\",\"title\":\"The Rabbit's Servants Try to Remove Alice\",\"setting\":[\"rabbit_house\",\"rabbit_garden\"],\"on_stage\":[\"alice\",\"white_rabbit\",\"pat\",\"bill_lizard\",\"guinea_pigs\"],\"mentioned_only\":[\"dinah\"]},{\"start\":\"35\",\"end\":\"42\",\"title\":\"Alice in the Wood and the Caterpillar\",\"setting\":[\"wood\"],\"on_stage\":[\"alice\",\"puppy\",\"caterpillar\"],\"mentioned_only\":[]}],\"brief\":{\"tone\":\"Whimsical and slightly anxious, with Alice's bewilderment and comic absurdity carried by the nonsense of the Rabbit's household and the strange creatures.\",\"depiction_rules\":[\"Alice must show her changing size clearly, from a tiny girl to one filling the room, with her arm out the window and foot up the chimney.\",\"The Rabbit should look fussy and anxious, dressed as a gentleman, not a realistic animal.\",\"The Lizard Bill should be shown small and humbled, not gruesomely harmed.\",\"Pat's arm in the window should be depicted as absurdly large and comedic.\",\"The caterpillar should appear calm, aloof and smoking, with a hookah, sitting on a mushroom.\"],\"era\":{\"name\":\"Victorian England, as an imagined dreamlike setting\",\"people\":\"Humans are Alice (a young English girl) and Pat (an Irish gardener); all other characters are anthropomorphic animals.\",\"dress\":\"Alice wears a pinafore dress and simple Victorian clothes; the Rabbit wears a waistcoat and carries a watch.\",\"buildings_and_objects\":\"A small, neat house with brass door plates, a window, a chimney, stairs, a glass-topped table, a looking-glass, and a labelled bottle; a wood with thistles, buttercups and mushrooms.\",\"technology\":\"Victorian-era things such as ladders, a barrow, a cart and bottles exist; no modern technology appears.\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326303-Rbeb74eRZ0QECLQTfhar",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 7747,
+              "completionTokens": 2000,
+              "costUsd": 0.0017747
+            },
+            "elapsedMs": 9025
+          },
+          "error": null,
+          "problems": []
+        }
+      ]
+    },
+    {
+      "divisionId": "advice-from-a-caterpillar",
+      "label": "Advice from a Caterpillar",
+      "unitCount": 75,
+      "characters": [
+        {
+          "id": "alice",
+          "name": "Alice",
+          "aliases": [
+            "the little girl",
+            "the child"
+          ],
+          "kind": "person",
+          "note": "The young girl protagonist who is shrinking and growing after eating the mushroom pieces; in this division she converses with the Caterpillar and the Pigeon, and recites a garbled poem.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_caterpillar",
+          "name": "the Caterpillar",
+          "aliases": [
+            "the Caterpillar on the mushroom"
+          ],
+          "kind": "animal",
+          "note": "A languid, sleepy Caterpillar smoking a hookah on a mushroom; gives Alice advice about the two sides of the mushroom and crawls away.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_pigeon",
+          "name": "the Pigeon",
+          "aliases": [
+            "the large pigeon"
+          ],
+          "kind": "animal",
+          "note": "An anxious mother Pigeon in a tree nest who mistakes Alice's long neck for a serpent's and accuses her of hunting eggs.",
+          "same_person_as": ""
+        },
+        {
+          "id": "father_william",
+          "name": "Father William",
+          "aliases": [
+            "the sage",
+            "his father"
+          ],
+          "kind": "person",
+          "note": "The old man in Alice's recited poem who stands on his head and balances an eel; he speaks with his son, the young man, in the verses.",
+          "same_person_as": ""
+        },
+        {
+          "id": "william_son",
+          "name": "the young man",
+          "aliases": [
+            "the youth",
+            "his son"
+          ],
+          "kind": "person",
+          "note": "The son of Father William in Alice's recited poem, who questions his father; exists only within the poem's verses.",
+          "same_person_as": ""
+        }
+      ],
+      "locations": [
+        {
+          "id": "mushroom_clearing",
+          "name": "the mushroom clearing",
+          "aliases": [
+            "the open place in the wood",
+            "the wood"
+          ],
+          "note": "A wood where the Caterpillar sits atop a large round mushroom and where Alice later nibbles it."
+        },
+        {
+          "id": "tall_trees",
+          "name": "the treetops",
+          "aliases": [
+            "the tops of the trees"
+          ],
+          "note": "The high tree where the Pigeon has its nest, among the trees under which Alice had been wandering."
+        },
+        {
+          "id": "garden_clearing",
+          "name": "the open place with the little house",
+          "aliases": [
+            "the little house in the open place"
+          ],
+          "note": "An open place with a small house about four feet high, which Alice approaches once she has shrunk to nine inches."
+        }
+      ],
+      "sections": [
+        {
+          "firstUnitId": "advice-from-a-caterpillar-1",
+          "lastUnitId": "advice-from-a-caterpillar-51",
+          "title": "The Caterpillar's Questions and Advice",
+          "setting": [
+            "mushroom_clearing"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_caterpillar",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "father_william",
+            "william_son"
+          ]
+        },
+        {
+          "firstUnitId": "advice-from-a-caterpillar-52",
+          "lastUnitId": "advice-from-a-caterpillar-56",
+          "title": "Alice Tastes the Mushroom and Grows Tall",
+          "setting": [
+            "mushroom_clearing"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "advice-from-a-caterpillar-57",
+          "lastUnitId": "advice-from-a-caterpillar-75",
+          "title": "The Pigeon Mistakes Alice for a Serpent",
+          "setting": [
+            "tall_trees",
+            "mushroom_clearing",
+            "garden_clearing"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_pigeon",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "father_william",
+            "william_son"
+          ]
+        }
+      ],
+      "brief": {
+        "tone": "Whimsical, dreamlike and slightly absurd, with a drowsy hookah-smoke haze over the mushroom and an undercurrent of Alice's growing bewilderment.",
+        "depiction_rules": [
+          "Show Alice's size changes plausibly against the mushroom, the trees and the house, keeping her neck long and serpentine only when the text describes it.",
+          "Depict the Caterpillar as a large, languid insect with a hookah, sitting on a round mushroom.",
+          "Depict the Pigeon as an indignant mother bird in a nest high in a tree.",
+          "Show the poem's Father William and his son as separate figures only when the verse is the subject; do not depict them in the narrative scenes."
+        ],
+        "era": {
+          "name": "A Victorian-era fantasy dreamland",
+          "people": "Alice is a young English girl; the only human figure is Alice herself.",
+          "dress": "Alice wears a modest Victorian pinafore-style dress with a white collar and stockings.",
+          "buildings_and_objects": "Wild woodland with grass, tree branches and leaves, a large round mushroom, a hookah, and a small house about four feet high.",
+          "technology": "None visible; the setting is a pastoral wood with no machines or modern devices."
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "unitsPerSection": 18,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the little girl\",\"the child\"],\"kind\":\"person\",\"note\":\"The protagonist, a young girl who changes size repeatedly after eating mushroom pieces; she is truthful, polite and easily irritated in this section.\",\"same_person_as\":\"\"},{\"id\":\"caterpillar\",\"name\":\"the Caterpillar\",\"aliases\":[\"the blue Caterpillar\"],\"kind\":\"animal\",\"note\":\"A large blue caterpillar sitting on a mushroom, smoking a hookah, who speaks languidly and sternly and is the source of the advice about the mushroom's two sides.\",\"same_person_as\":\"\"},{\"id\":\"pigeon\",\"name\":\"the Pigeon\",\"aliases\":[\"the mother Pigeon\"],\"kind\":\"animal\",\"note\":\"A distressed pigeon in a tree nest who mistakes Alice's long neck for a serpent's and is guarding her eggs.\",\"same_person_as\":\"\"},{\"id\":\"father_william\",\"name\":\"Father William\",\"aliases\":[\"the old man\",\"the sage\"],\"kind\":\"person\",\"note\":\"The old man in Alice's recited poem who stands on his head and balances an eel; he exists only inside her recitation, not on stage in the present action.\",\"same_person_as\":\"\"},{\"id\":\"young_man\",\"name\":\"the young man\",\"aliases\":[\"the youth\",\"the son\"],\"kind\":\"person\",\"note\":\"Father William's son in Alice's recited poem, who questions his father; appears only within the recited verse, not on stage in the present action.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"mushroom_clearing\",\"name\":\"the mushroom clearing\",\"aliases\":[\"the open place with the mushroom\",\"the wood\"],\"note\":\"A wood where the Caterpillar sits atop a large round mushroom; Alice later breaks off pieces of it.We should also note this is the place where she looks around and sees the little house.].Please see Adjusted.]..\"}],\"sections\":[],\"brief\":{\"tone\":\"\",\"depiction_rules\":[],\"era\":{\"name\":\"\",\"people\":\"\",\"dress\":\"\",\"buildings_and_objects\":\"\",\"technology\":\"\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326312-Y4X8YWcjKhEVAiyXE7Q9",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 7186,
+              "completionTokens": 686,
+              "costUsd": 0.0010616
+            },
+            "elapsedMs": 4531
+          },
+          "error": null,
+          "problems": [
+            "no sections returned"
+          ]
+        },
+        {
+          "attempt": 2,
+          "unitsPerSection": 27,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the little girl\",\"the child\"],\"kind\":\"person\",\"note\":\"The young girl protagonist who is shrinking and growing after eating the mushroom pieces; in this division she converses with the Caterpillar and the Pigeon, and recites a garbled poem.\",\"same_person_as\":\"\"},{\"id\":\"the_caterpillar\",\"name\":\"the Caterpillar\",\"aliases\":[\"the Caterpillar on the mushroom\"],\"kind\":\"animal\",\"note\":\"A languid, sleepy Caterpillar smoking a hookah on a mushroom; gives Alice advice about the two sides of the mushroom and crawls away.\",\"same_person_as\":\"\"},{\"id\":\"the_pigeon\",\"name\":\"the Pigeon\",\"aliases\":[\"the large pigeon\"],\"kind\":\"animal\",\"note\":\"An anxious mother Pigeon in a tree nest who mistakes Alice's long neck for a serpent's and accuses her of hunting eggs.\",\"same_person_as\":\"\"},{\"id\":\"father_william\",\"name\":\"Father William\",\"aliases\":[\"the sage\",\"his father\"],\"kind\":\"person\",\"note\":\"The old man in Alice's recited poem who stands on his head and balances an eel; he speaks with his son, the young man, in the verses.\",\"same_person_as\":\"\"},{\"id\":\"william_son\",\"name\":\"the young man\",\"aliases\":[\"the youth\",\"his son\"],\"kind\":\"person\",\"note\":\"The son of Father William in Alice's recited poem, who questions his father; exists only within the poem's verses.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"mushroom_clearing\",\"name\":\"the mushroom clearing\",\"aliases\":[\"the open place in the wood\",\"the wood\"],\"note\":\"A wood where the Caterpillar sits atop a large round mushroom and where Alice later nibbles it.\"},{\"id\":\"tall_trees\",\"name\":\"the treetops\",\"aliases\":[\"the tops of the trees\"],\"note\":\"The high tree where the Pigeon has its nest, among the trees under which Alice had been wandering.\"},{\"id\":\"garden_clearing\",\"name\":\"the open place with the little house\",\"aliases\":[\"the little house in the open place\"],\"note\":\"An open place with a small house about four feet high, which Alice approaches once she has shrunk to nine inches.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"51\",\"title\":\"The Caterpillar's Questions and Advice\",\"setting\":[\"mushroom_clearing\"],\"on_stage\":[\"alice\",\"the_caterpillar\"],\"mentioned_only\":[\"father_william\",\"william_son\"]},{\"start\":\"52\",\"end\":\"56\",\"title\":\"Alice Tastes the Mushroom and Grows Tall\",\"setting\":[\"mushroom_clearing\"],\"on_stage\":[\"alice\"],\"mentioned_only\":[]},{\"start\":\"57\",\"end\":\"75\",\"title\":\"The Pigeon Mistakes Alice for a Serpent\",\"setting\":[\"tall_trees\",\"mushroom_clearing\",\"garden_clearing\"],\"on_stage\":[\"alice\",\"the_pigeon\"],\"mentioned_only\":[\"father_william\",\"william_son\"]}],\"brief\":{\"tone\":\"Whimsical, dreamlike and slightly absurd, with a drowsy hookah-smoke haze over the mushroom and an undercurrent of Alice's growing bewilderment.\",\"depiction_rules\":[\"Show Alice's size changes plausibly against the mushroom, the trees and the house, keeping her neck long and serpentine only when the text describes it.\",\"Depict the Caterpillar as a large, languid insect with a hookah, sitting on a round mushroom.\",\"Depict the Pigeon as an indignant mother bird in a nest high in a tree.\",\"Show the poem's Father William and his son as separate figures only when the verse is the subject; do not depict them in the narrative scenes.\"],\"era\":{\"name\":\"A Victorian-era fantasy dreamland\",\"people\":\"Alice is a young English girl; the only human figure is Alice herself.\",\"dress\":\"Alice wears a modest Victorian pinafore-style dress with a white collar and stockings.\",\"buildings_and_objects\":\"Wild woodland with grass, tree branches and leaves, a large round mushroom, a hookah, and a small house about four feet high.\",\"technology\":\"None visible; the setting is a pastoral wood with no machines or modern devices.\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326317-1BHp758SJB64hkAtM1gj",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 7186,
+              "completionTokens": 1406,
+              "costUsd": 0.0014216
+            },
+            "elapsedMs": 6950
+          },
+          "error": null,
+          "problems": []
+        }
+      ]
+    },
+    {
+      "divisionId": "pig-and-pepper",
+      "label": "Pig and Pepper",
+      "unitCount": 80,
+      "characters": [
+        {
+          "id": "alice",
+          "name": "Alice",
+          "aliases": [
+            "the girl"
+          ],
+          "kind": "person",
+          "note": "A curious young girl who wanders into the Duchess's kitchen, takes charge of the baby, and sets off toward the March Hare's house; appears throughout the division.",
+          "same_person_as": ""
+        },
+        {
+          "id": "fish_footman",
+          "name": "Fish-Footman",
+          "aliases": [
+            "the footman in livery"
+          ],
+          "kind": "person",
+          "note": "A footman, so called by Alice from his face, who delivers the Queen's invitation to the Duchess at the door and then sits staring at the sky; not the Frog-Footman.",
+          "same_person_as": ""
+        },
+        {
+          "id": "frog_footman",
+          "name": "Frog-Footman",
+          "aliases": [
+            "the other footman",
+            "the footman with a round face and frog-like eyes"
+          ],
+          "kind": "person",
+          "note": "The footman with a round face and large eyes who opens the door and repeats the invitation message; sits on the ground outside afterward.",
+          "same_person_as": ""
+        },
+        {
+          "id": "duchess",
+          "name": "Duchess",
+          "aliases": [
+            "the Duchess"
+          ],
+          "kind": "person",
+          "note": "A short-tempered noblewoman who sits on a three-legged stool in the smoky kitchen nursing a baby, sings a violent lullaby, and then leaves to play croquet with the Queen.",
+          "same_person_as": ""
+        },
+        {
+          "id": "cook",
+          "name": "Cook",
+          "aliases": [
+            "the cook"
+          ],
+          "kind": "person",
+          "note": "The kitchen cook who stirs a cauldron of peppery soup and throws kitchen objects at the Duchess and the baby.",
+          "same_person_as": ""
+        },
+        {
+          "id": "baby",
+          "name": "Baby",
+          "aliases": [
+            "the baby",
+            "the little creature",
+            "the pig"
+          ],
+          "kind": "person",
+          "note": "The Duchess's infant, sneezing and howling, which Alice carries outside and which turns into a pig, then runs off into the wood.",
+          "same_person_as": ""
+        },
+        {
+          "id": "cheshire_cat",
+          "name": "Cheshire Cat",
+          "aliases": [
+            "Cheshire Puss",
+            "the Cat"
+          ],
+          "kind": "animal",
+          "note": "A large grinning cat in the kitchen and then in the trees outside, who talks with Alice, mentions the Hatter and the March Hare, and vanishes and reappears.",
+          "same_person_as": ""
+        },
+        {
+          "id": "march_hare",
+          "name": "March Hare",
+          "aliases": [
+            "the Hare"
+          ],
+          "kind": "animal",
+          "note": "A mad hare who lives in the large house Alice approaches at the end of the division; not yet on stage.",
+          "same_person_as": ""
+        },
+        {
+          "id": "hatter",
+          "name": "Hatter",
+          "aliases": [
+            "the Hatter"
+          ],
+          "kind": "person",
+          "note": "A mad hatter the Cat says lives in the other direction; only mentioned here.",
+          "same_person_as": ""
+        },
+        {
+          "id": "queen",
+          "name": "Queen",
+          "aliases": [
+            "the Queen"
+          ],
+          "kind": "person",
+          "note": "The Queen who sends the croquet invitation to the Duchess; only mentioned here.",
+          "same_person_as": ""
+        }
+      ],
+      "locations": [
+        {
+          "id": "duchess_house",
+          "name": "Duchess's House",
+          "aliases": [
+            "the house",
+            "the house in the wood"
+          ],
+          "note": "A house standing in a wood, with a door opening into a smoky kitchen where the Duchess and cook are.Alice enters the kitchen here."
+        },
+        {
+          "id": "wood",
+          "name": "Wood",
+          "aliases": [
+            "the wood"
+          ],
+          "note": "The woods around the Duchess's house, where the footmen run out and where the pig escapes and the Cat sits in a tree."
+        },
+        {
+          "id": "march_hare_house",
+          "name": "March Hare's House",
+          "aliases": [
+            "the March Hare's house"
+          ],
+          "note": "A large house with ear-shaped chimneys and a fur-thatched roof, where the March Hare is said to live; Alice approaches it at the end."
+        }
+      ],
+      "sections": [
+        {
+          "firstUnitId": "pig-and-pepper-1",
+          "lastUnitId": "pig-and-pepper-4",
+          "title": "The Footman Delivers the Invitation",
+          "setting": [
+            "duchess_house",
+            "wood"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "fish_footman",
+              "named": true
+            },
+            {
+              "id": "frog_footman",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "queen",
+            "duchess"
+          ]
+        },
+        {
+          "firstUnitId": "pig-and-pepper-5",
+          "lastUnitId": "pig-and-pepper-18",
+          "title": "Refused at the Door",
+          "setting": [
+            "duchess_house",
+            "wood"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "frog_footman",
+              "named": false
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "pig-and-pepper-19",
+          "lastUnitId": "pig-and-pepper-49",
+          "title": "The Kitchen, the Soup and the Pig",
+          "setting": [
+            "duchess_house",
+            "wood"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "duchess",
+              "named": true
+            },
+            {
+              "id": "cook",
+              "named": true
+            },
+            {
+              "id": "baby",
+              "named": true
+            },
+            {
+              "id": "cheshire_cat",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "queen"
+          ]
+        },
+        {
+          "firstUnitId": "pig-and-pepper-50",
+          "lastUnitId": "pig-and-pepper-80",
+          "title": "Talk with the Cheshire Cat",
+          "setting": [
+            "wood",
+            "march_hare_house"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "cheshire_cat",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "hatter",
+            "march_hare",
+            "queen",
+            "duchess"
+          ]
+        }
+      ],
+      "brief": {
+        "tone": "Whimsical and slightly unsettling, with absurd comedy, sneezing chaos and a sense of dreamlike logic.",
+        "depiction_rules": [
+          "The Cheshire Cat's grin may be shown alone, floating without its body, as the text describes.",
+          "The baby should be drawn as a small, sneezing, increasingly piglike creature that is not overtly gory.",
+          "Violence in the kitchen is slapstick: flying pans and plates miss or graze, with no real injury shown.",
+          "Alice is a small girl of about seven, shown at normal size except where the text says she has grown."
+        ],
+        "era": {
+          "name": "Victorian-era English fantasy wonderland (1865 as imagined by Carroll)",
+          "people": "Human servants in livery, an aristocratic Duchess, a cook, and talking animals; humans appear in English upper- and servant-class dress.",
+          "dress": "Footmen in livery with powdered curled wigs; the Duchess in fine but untidy aristocratic dress; Alice in a simple pinafore dress and stockings; the cook in a plain apron and cap.",
+          "buildings_and_objects": "A cottage-like house in a wood with a smoky, cluttered kitchen, a three-legged stool, a great cauldron over an open hearth, iron fire-irons, saucepans, plates and dishes; the March Hare's house has ear-shaped chimneys and a fur-thatched roof.",
+          "technology": "Pre-industrial household technology: open hearths, cauldrons and hand-made utensils; no machines, though the baby is compared to a steam-engine."
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "unitsPerSection": 18,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the girl\"],\"kind\":\"person\",\"note\":\"A curious young girl who wanders into the Duchess's kitchen, takes charge of the baby, and sets off toward the March Hare's house; appears throughout the division.\",\"same_person_as\":\"\"},{\"id\":\"fish_footman\",\"name\":\"Fish-Footman\",\"aliases\":[\"the footman in livery\"],\"kind\":\"person\",\"note\":\"A footman, so called by Alice from his face, who delivers the Queen's invitation to the Duchess at the door and then sits staring at the sky; not the Frog-Footman.\",\"same_person_as\":\"\"},{\"id\":\"frog_footman\",\"name\":\"Frog-Footman\",\"aliases\":[\"the other footman\",\"the footman with a round face and frog-like eyes\"],\"kind\":\"person\",\"note\":\"The footman with a round face and large eyes who opens the door and repeats the invitation message; sits on the ground outside afterward.\",\"same_person_as\":\"\"},{\"id\":\"duchess\",\"name\":\"Duchess\",\"aliases\":[\"the Duchess\"],\"kind\":\"person\",\"note\":\"A short-tempered noblewoman who sits on a three-legged stool in the smoky kitchen nursing a baby, sings a violent lullaby, and then leaves to play croquet with the Queen.\",\"same_person_as\":\"\"},{\"id\":\"cook\",\"name\":\"Cook\",\"aliases\":[\"the cook\"],\"kind\":\"person\",\"note\":\"The kitchen cook who stirs a cauldron of peppery soup and throws kitchen objects at the Duchess and the baby.\",\"same_person_as\":\"\"},{\"id\":\"baby\",\"name\":\"Baby\",\"aliases\":[\"the baby\",\"the little creature\",\"the pig\"],\"kind\":\"person\",\"note\":\"The Duchess's infant, sneezing and howling, which Alice carries outside and which turns into a pig, then runs off into the wood.\",\"same_person_as\":\"\"},{\"id\":\"cheshire_cat\",\"name\":\"Cheshire Cat\",\"aliases\":[\"Cheshire Puss\",\"the Cat\"],\"kind\":\"animal\",\"note\":\"A large grinning cat in the kitchen and then in the trees outside, who talks with Alice, mentions the Hatter and the March Hare, and vanishes and reappears.\",\"same_person_as\":\"\"},{\"id\":\"march_hare\",\"name\":\"March Hare\",\"aliases\":[\"the Hare\"],\"kind\":\"animal\",\"note\":\"A mad hare who lives in the large house Alice approaches at the end of the division; not yet on stage.\",\"same_person_as\":\"\"},{\"id\":\"hatter\",\"name\":\"Hatter\",\"aliases\":[\"the Hatter\"],\"kind\":\"person\",\"note\":\"A mad hatter the Cat says lives in the other direction; only mentioned here.\",\"same_person_as\":\"\"},{\"id\":\"queen\",\"name\":\"Queen\",\"aliases\":[\"the Queen\"],\"kind\":\"person\",\"note\":\"The Queen who sends the croquet invitation to the Duchess; only mentioned here.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"duchess_house\",\"name\":\"Duchess's House\",\"aliases\":[\"the house\",\"the house in the wood\"],\"note\":\"A house standing in a wood, with a door opening into a smoky kitchen where the Duchess and cook are.Alice enters the kitchen here.\"},{\"id\":\"wood\",\"name\":\"Wood\",\"aliases\":[\"the wood\"],\"note\":\"The woods around the Duchess's house, where the footmen run out and where the pig escapes and the Cat sits in a tree.\"},{\"id\":\"march_hare_house\",\"name\":\"March Hare's House\",\"aliases\":[\"the March Hare's house\"],\"note\":\"A large house with ear-shaped chimneys and a fur-thatched roof, where the March Hare is said to live; Alice approaches it at the end.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"4\",\"title\":\"The Footman Delivers the Invitation\",\"setting\":[\"duchess_house\",\"wood\"],\"on_stage\":[\"alice\",\"fish_footman\",\"frog_footman\"],\"mentioned_only\":[\"queen\",\"duchess\"]},{\"start\":\"5\",\"end\":\"18\",\"title\":\"Refused at the Door\",\"setting\":[\"duchess_house\",\"wood\"],\"on_stage\":[\"alice\",\"frog_footman\"],\"mentioned_only\":[]},{\"start\":\"19\",\"end\":\"49\",\"title\":\"The Kitchen, the Soup and the Pig\",\"setting\":[\"duchess_house\",\"wood\"],\"on_stage\":[\"alice\",\"duchess\",\"cook\",\"baby\",\"cheshire_cat\"],\"mentioned_only\":[\"queen\"]},{\"start\":\"50\",\"end\":\"80\",\"title\":\"Talk with the Cheshire Cat\",\"setting\":[\"wood\",\"march_hare_house\"],\"on_stage\":[\"alice\",\"cheshire_cat\"],\"mentioned_only\":[\"hatter\",\"march_hare\",\"queen\",\"duchess\"]}],\"brief\":{\"tone\":\"Whimsical and slightly unsettling, with absurd comedy, sneezing chaos and a sense of dreamlike logic.\",\"depiction_rules\":[\"The Cheshire Cat's grin may be shown alone, floating without its body, as the text describes.\",\"The baby should be drawn as a small, sneezing, increasingly piglike creature that is not overtly gory.\",\"Violence in the kitchen is slapstick: flying pans and plates miss or graze, with no real injury shown.\",\"Alice is a small girl of about seven, shown at normal size except where the text says she has grown.\"],\"era\":{\"name\":\"Victorian-era English fantasy wonderland (1865 as imagined by Carroll)\",\"people\":\"Human servants in livery, an aristocratic Duchess, a cook, and talking animals; humans appear in English upper- and servant-class dress.\",\"dress\":\"Footmen in livery with powdered curled wigs; the Duchess in fine but untidy aristocratic dress; Alice in a simple pinafore dress and stockings; the cook in a plain apron and cap.\",\"buildings_and_objects\":\"A cottage-like house in a wood with a smoky, cluttered kitchen, a three-legged stool, a great cauldron over an open hearth, iron fire-irons, saucepans, plates and dishes; the March Hare's house has ear-shaped chimneys and a fur-thatched roof.\",\"technology\":\"Pre-industrial household technology: open hearths, cauldrons and hand-made utensils; no machines, though the baby is compared to a steam-engine.\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326324-fAbO3xkovUc5VrbHi01D",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 7804,
+              "completionTokens": 2069,
+              "costUsd": 0.0018149
+            },
+            "elapsedMs": 9341
+          },
+          "error": null,
+          "problems": []
+        }
+      ]
+    },
+    {
+      "divisionId": "a-mad-tea-party",
+      "label": "A Mad Tea-Party",
+      "unitCount": 105,
+      "characters": [
+        {
+          "id": "alice",
+          "name": "Alice",
+          "aliases": [
+            "the young lady"
+          ],
+          "kind": "person",
+          "note": "A young girl, the protagonist; here a guest who sits uninvited at the tea-party and later leaves through a tree-door into the garden.",
+          "same_person_as": ""
+        },
+        {
+          "id": "march_hare",
+          "name": "March Hare",
+          "aliases": [
+            "the Hare"
+          ],
+          "kind": "animal",
+          "note": "An anthropomorphic hare, one of the three tea-party hosts, who offers wine and takes part in the riddles and the story-telling.",
+          "same_person_as": ""
+        },
+        {
+          "id": "hatter",
+          "name": "Hatter",
+          "aliases": [
+            "Mad Hatter"
+          ],
+          "kind": "person",
+          "note": "An eccentric hatter, host of the tea-party, who asks Alice the riddle about the raven and the writing-desk and tells of quarrelling with Time.",
+          "same_person_as": ""
+        },
+        {
+          "id": "dormouse",
+          "name": "Dormouse",
+          "aliases": [
+            "the sleepy Dormouse"
+          ],
+          "kind": "animal",
+          "note": "A perpetually sleeping dormouse seated between the Hare and the Hatter, who tells the story of the three little sisters at the treacle-well.",
+          "same_person_as": ""
+        },
+        {
+          "id": "queen_of_hearts",
+          "name": "Queen of Hearts",
+          "aliases": [
+            "the Queen"
+          ],
+          "kind": "person",
+          "note": "Mentioned only: the Hatter recalls she shouted 'Off with his head!' at the concert where he sang about Time.",
+          "same_person_as": ""
+        },
+        {
+          "id": "time",
+          "name": "Time",
+          "aliases": [
+            "him"
+          ],
+          "kind": "other",
+          "note": "Personified Time, with whom the Hatter has quarrelled; mentioned only and never present on stage.",
+          "same_person_as": ""
+        },
+        {
+          "id": "elsie",
+          "name": "Elsie",
+          "aliases": [
+            "the first little sister"
+          ],
+          "kind": "person",
+          "note": "One of the three little sisters in the Dormouse's story, who lived at the bottom of a treacle-well; told of, not present.",
+          "same_person_as": ""
+        },
+        {
+          "id": "lacie",
+          "name": "Lacie",
+          "aliases": [
+            "the second little sister"
+          ],
+          "kind": "person",
+          "note": "One of the three little sisters in the Dormouse's story, living in the treacle-well; told of, not present.",
+          "same_person_as": ""
+        },
+        {
+          "id": "tillie",
+          "name": "Tillie",
+          "aliases": [
+            "the third little sister"
+          ],
+          "kind": "person",
+          "note": "One of the three little sisters in the Dormouse's story, living in the treacle-well; told of, not present.",
+          "same_person_as": ""
+        }
+      ],
+      "locations": [
+        {
+          "id": "tea_table",
+          "name": "Tea-table under a tree",
+          "aliases": [
+            "the table in front of the house",
+            "the tea-party table"
+          ],
+          "note": "A large table set out under a tree in front of a house, where the tea-party takes place."
+        },
+        {
+          "id": "wood",
+          "name": "The wood",
+          "aliases": [
+            "the wood"
+          ],
+          "note": "The wood through which Alice picks her way after leaving the tea-party."
+        },
+        {
+          "id": "long_hall",
+          "name": "Long hall",
+          "aliases": [
+            "the long hall"
+          ],
+          "note": "The hall with the little glass table, where Alice returns through a tree-door."
+        },
+        {
+          "id": "garden",
+          "name": "Garden",
+          "aliases": [
+            "the beautiful garden"
+          ],
+          "note": "The beautiful garden with bright flower-beds and cool fountains, reached at the end of the division."
+        }
+      ],
+      "sections": [
+        {
+          "firstUnitId": "a-mad-tea-party-1",
+          "lastUnitId": "a-mad-tea-party-20",
+          "title": "Riddles and the Hatter's silence",
+          "setting": [
+            "tea_table"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "march_hare",
+              "named": true
+            },
+            {
+              "id": "hatter",
+              "named": true
+            },
+            {
+              "id": "dormouse",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "a-mad-tea-party-21",
+          "lastUnitId": "a-mad-tea-party-46",
+          "title": "Butter, the watch and Time",
+          "setting": [
+            "tea_table"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "march_hare",
+              "named": true
+            },
+            {
+              "id": "hatter",
+              "named": true
+            },
+            {
+              "id": "dormouse",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "time"
+          ]
+        },
+        {
+          "firstUnitId": "a-mad-tea-party-47",
+          "lastUnitId": "a-mad-tea-party-62",
+          "title": "The concert and the stopped clock",
+          "setting": [
+            "tea_table"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "march_hare",
+              "named": true
+            },
+            {
+              "id": "hatter",
+              "named": true
+            },
+            {
+              "id": "dormouse",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "queen_of_hearts",
+            "time"
+          ]
+        },
+        {
+          "firstUnitId": "a-mad-tea-party-63",
+          "lastUnitId": "a-mad-tea-party-89",
+          "title": "The Dormouse's treacle-well story",
+          "setting": [
+            "tea_table"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "march_hare",
+              "named": true
+            },
+            {
+              "id": "hatter",
+              "named": true
+            },
+            {
+              "id": "dormouse",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "elsie",
+            "lacie",
+            "tillie"
+          ]
+        },
+        {
+          "firstUnitId": "a-mad-tea-party-90",
+          "lastUnitId": "a-mad-tea-party-102",
+          "title": "Drawing treacle and Alice's departure",
+          "setting": [
+            "tea_table"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "march_hare",
+              "named": true
+            },
+            {
+              "id": "hatter",
+              "named": true
+            },
+            {
+              "id": "dormouse",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "a-mad-tea-party-103",
+          "lastUnitId": "a-mad-tea-party-105",
+          "title": "Through the tree-door to the garden",
+          "setting": [
+            "wood",
+            "long_hall",
+            "garden"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        }
+      ],
+      "brief": {
+        "tone": "Absurd, playful and whimsical, with an undercurrent of rudeness and mounting nonsense at a chaotic tea-party.",
+        "depiction_rules": [
+          "Show the Dormouse asleep or half-asleep, often with the Hare and Hatter using it as a cushion.",
+          "Depict the Hatter and March Hare as eccentric, rude and unkempt, but not grotesque to the point of horror.",
+          "Alice should appear polite, indignant and bewildered, a proper Victorian girl amid the madness.",
+          "Do not show the treacle-well or the three sisters directly; they remain in the Dormouse's telling.",
+          "Time, the Queen of Hearts and the tea-things remain offstage in this division."
+        ],
+        "era": {
+          "name": "Victorian England, a dreamlike fantasy realm",
+          "people": "Anthropomorphic animals and eccentric humans, with Alice as a young English girl.",
+          "dress": "Victorian clothing: Alice in a pinafore and dress, the Hatter in a tall hat and coat, the March Hare in a waistcoat.",
+          "buildings_and_objects": "A house and tea-table under a tree, a wood, a long hall with a little glass table, a garden with flower-beds and fountains; teapots, cups, milk-jug, bread-and-butter, a pocket watch.",
+          "technology": "Pocket watches and tea-service exist; no modern technology."
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "unitsPerSection": 18,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the young lady\"],\"kind\":\"person\",\"note\":\"A young girl, the protagonist; here a guest who sits uninvited at the tea-party and later leaves through a tree-door into the garden.\",\"same_person_as\":\"\"},{\"id\":\"march_hare\",\"name\":\"March Hare\",\"aliases\":[\"the Hare\"],\"kind\":\"animal\",\"note\":\"An anthropomorphic hare, one of the three tea-party hosts, who offers wine and takes part in the riddles and the story-telling.\",\"same_person_as\":\"\"},{\"id\":\"hatter\",\"name\":\"Hatter\",\"aliases\":[\"Mad Hatter\"],\"kind\":\"person\",\"note\":\"An eccentric hatter, host of the tea-party, who asks Alice the riddle about the raven and the writing-desk and tells of quarrelling with Time.\",\"same_person_as\":\"\"},{\"id\":\"dormouse\",\"name\":\"Dormouse\",\"aliases\":[\"the sleepy Dormouse\"],\"kind\":\"animal\",\"note\":\"A perpetually sleeping dormouse seated between the Hare and the Hatter, who tells the story of the three little sisters at the treacle-well.\",\"same_person_as\":\"\"},{\"id\":\"queen_of_hearts\",\"name\":\"Queen of Hearts\",\"aliases\":[\"the Queen\"],\"kind\":\"person\",\"note\":\"Mentioned only: the Hatter recalls she shouted 'Off with his head!' at the concert where he sang about Time.\",\"same_person_as\":\"\"},{\"id\":\"time\",\"name\":\"Time\",\"aliases\":[\"him\"],\"kind\":\"other\",\"note\":\"Personified Time, with whom the Hatter has quarrelled; mentioned only and never present on stage.\",\"same_person_as\":\"\"},{\"id\":\"elsie\",\"name\":\"Elsie\",\"aliases\":[\"the first little sister\"],\"kind\":\"person\",\"note\":\"One of the three little sisters in the Dormouse's story, who lived at the bottom of a treacle-well; told of, not present.\",\"same_person_as\":\"\"},{\"id\":\"lacie\",\"name\":\"Lacie\",\"aliases\":[\"the second little sister\"],\"kind\":\"person\",\"note\":\"One of the three little sisters in the Dormouse's story, living in the treacle-well; told of, not present.\",\"same_person_as\":\"\"},{\"id\":\"tillie\",\"name\":\"Tillie\",\"aliases\":[\"the third little sister\"],\"kind\":\"person\",\"note\":\"One of the three little sisters in the Dormouse's story, living in the treacle-well; told of, not present.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"tea_table\",\"name\":\"Tea-table under a tree\",\"aliases\":[\"the table in front of the house\",\"the tea-party table\"],\"note\":\"A large table set out under a tree in front of a house, where the tea-party takes place.\"},{\"id\":\"wood\",\"name\":\"The wood\",\"aliases\":[\"the wood\"],\"note\":\"The wood through which Alice picks her way after leaving the tea-party.\"},{\"id\":\"long_hall\",\"name\":\"Long hall\",\"aliases\":[\"the long hall\"],\"note\":\"The hall with the little glass table, where Alice returns through a tree-door.\"},{\"id\":\"garden\",\"name\":\"Garden\",\"aliases\":[\"the beautiful garden\"],\"note\":\"The beautiful garden with bright flower-beds and cool fountains, reached at the end of the division.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"20\",\"title\":\"Riddles and the Hatter's silence\",\"setting\":[\"tea_table\"],\"on_stage\":[\"alice\",\"march_hare\",\"hatter\",\"dormouse\"],\"mentioned_only\":[]},{\"start\":\"21\",\"end\":\"46\",\"title\":\"Butter, the watch and Time\",\"setting\":[\"tea_table\"],\"on_stage\":[\"alice\",\"march_hare\",\"hatter\",\"dormouse\"],\"mentioned_only\":[\"time\"]},{\"start\":\"47\",\"end\":\"62\",\"title\":\"The concert and the stopped clock\",\"setting\":[\"tea_table\"],\"on_stage\":[\"alice\",\"march_hare\",\"hatter\",\"dormouse\"],\"mentioned_only\":[\"queen_of_hearts\",\"time\"]},{\"start\":\"63\",\"end\":\"89\",\"title\":\"The Dormouse's treacle-well story\",\"setting\":[\"tea_table\"],\"on_stage\":[\"alice\",\"march_hare\",\"hatter\",\"dormouse\"],\"mentioned_only\":[\"elsie\",\"lacie\",\"tillie\"]},{\"start\":\"90\",\"end\":\"102\",\"title\":\"Drawing treacle and Alice's departure\",\"setting\":[\"tea_table\"],\"on_stage\":[\"alice\",\"march_hare\",\"hatter\",\"dormouse\"],\"mentioned_only\":[]},{\"start\":\"103\",\"end\":\"105\",\"title\":\"Through the tree-door to the garden\",\"setting\":[\"wood\",\"long_hall\",\"garden\"],\"on_stage\":[\"alice\"],\"mentioned_only\":[]}],\"brief\":{\"tone\":\"Absurd, playful and whimsical, with an undercurrent of rudeness and mounting nonsense at a chaotic tea-party.\",\"depiction_rules\":[\"Show the Dormouse asleep or half-asleep, often with the Hare and Hatter using it as a cushion.\",\"Depict the Hatter and March Hare as eccentric, rude and unkempt, but not grotesque to the point of horror.\",\"Alice should appear polite, indignant and bewildered, a proper Victorian girl amid the madness.\",\"Do not show the treacle-well or the three sisters directly; they remain in the Dormouse's telling.\",\"Time, the Queen of Hearts and the tea-things remain offstage in this division.\"],\"era\":{\"name\":\"Victorian England, a dreamlike fantasy realm\",\"people\":\"Anthropomorphic animals and eccentric humans, with Alice as a young English girl.\",\"dress\":\"Victorian clothing: Alice in a pinafore and dress, the Hatter in a tall hat and coat, the March Hare in a waistcoat.\",\"buildings_and_objects\":\"A house and tea-table under a tree, a wood, a long hall with a little glass table, a garden with flower-beds and fountains; teapots, cups, milk-jug, bread-and-butter, a pocket watch.\",\"technology\":\"Pocket watches and tea-service exist; no modern technology.\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326333-mN6hkEZR6g6C8wS4E5DM",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 7777,
+              "completionTokens": 1992,
+              "costUsd": 0.0017737
+            },
+            "elapsedMs": 8576
+          },
+          "error": null,
+          "problems": []
+        }
+      ]
+    },
+    {
+      "divisionId": "the-queens-croquet-ground",
+      "label": "The Queen\u2019s Croquet-Ground",
+      "unitCount": 71,
+      "characters": [
+        {
+          "id": "two",
+          "name": "Two",
+          "aliases": [
+            "one of the gardeners",
+            "the gardener who spoke first"
+          ],
+          "kind": "person",
+          "note": "One of the three card gardeners painting white roses red; he is the one who explains the mistake to Alice, and he is a playing card, not a human, in units 1-11 and 25.",
+          "same_person_as": ""
+        },
+        {
+          "id": "five",
+          "name": "Five",
+          "aliases": [
+            "one of the gardeners"
+          ],
+          "kind": "person",
+          "note": "One of the three card gardeners painting roses; he blames Seven for splashing paint and warns the others of the Queen's approach, in units 1-10.",
+          "same_person_as": ""
+        },
+        {
+          "id": "seven",
+          "name": "Seven",
+          "aliases": [
+            "one of the gardeners"
+          ],
+          "kind": "person",
+          "note": "One of the three card gardeners painting roses; he is blamed by Five and is the one who checks himself when he sees Alice, in units 1-8.",
+          "same_person_as": ""
+        },
+        {
+          "id": "alice",
+          "name": "Alice",
+          "aliases": [
+            "the child",
+            "the girl"
+          ],
+          "kind": "person",
+          "note": "The young heroine who wanders into the garden and is drawn into the Queen's croquet game, present throughout the division.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_queen",
+          "name": "the Queen of Hearts",
+          "aliases": [
+            "the Queen",
+            "her Majesty"
+          ],
+          "kind": "person",
+          "note": "The short-tempered ruler who calls for beheadings and runs the croquet game; she leads the royal procession in unit 11 and the game that follows.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_king",
+          "name": "the King of Hearts",
+          "aliases": [
+            "the King"
+          ],
+          "kind": "person",
+          "note": "The mild, timid husband of the Queen who walks in the procession, tries to protect Alice, and later fetches the executioner over the Cat.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_knave_of_hearts",
+          "name": "the Knave of Hearts",
+          "aliases": [
+            "the Knave"
+          ],
+          "kind": "person",
+          "note": "A playing card in the procession who carries the King's crown on a cushion and turns over the gardeners with his foot in unit 22.",
+          "same_person_as": ""
+        },
+        {
+          "id": "white_rabbit",
+          "name": "the White Rabbit",
+          "aliases": [
+            "the Rabbit"
+          ],
+          "kind": "animal",
+          "note": "The nervous rabbit in the procession who whispers to Alice about the Duchess's sentence in units 34-40.",
+          "same_person_as": ""
+        },
+        {
+          "id": "soldiers",
+          "name": "the soldiers",
+          "aliases": [
+            "the playing-card soldiers",
+            "the ten soldiers"
+          ],
+          "kind": "group",
+          "note": "Ten oblong card soldiers with clubs who march in the procession, form the croquet arches, and carry out the Queen's orders.",
+          "same_person_as": ""
+        },
+        {
+          "id": "courtiers",
+          "name": "the courtiers",
+          "aliases": [
+            "the ten courtiers"
+          ],
+          "kind": "group",
+          "note": "Ten diamond-decorated card courtiers who walk two by two in the procession.",
+          "same_person_as": ""
+        },
+        {
+          "id": "royal_children",
+          "name": "the royal children",
+          "aliases": [
+            "the Queen's ten children"
+          ],
+          "kind": "group",
+          "note": "Ten heart-decorated children who skip hand in hand in the procession.",
+          "same_person_as": ""
+        },
+        {
+          "id": "executioner",
+          "name": "the executioner",
+          "aliases": [
+            "the headsman"
+          ],
+          "kind": "person",
+          "note": "The Queen's executioner who argues about beheading the Cat and runs to fetch the Duchess in unit 70.",
+          "same_person_as": ""
+        },
+        {
+          "id": "duchess",
+          "name": "the Duchess",
+          "aliases": [],
+          "kind": "person",
+          "note": "Imprisoned under sentence of execution; she is named only in mention in this division and is fetched by the executioner at the end.",
+          "same_person_as": ""
+        },
+        {
+          "id": "cheshire_cat",
+          "name": "the Cheshire Cat",
+          "aliases": [
+            "the Cat"
+          ],
+          "kind": "animal",
+          "note": "A grinning cat whose head appears in the air, talks with Alice, and vanishes before the Duchess arrives.",
+          "same_person_as": ""
+        },
+        {
+          "id": "flamingo",
+          "name": "the flamingo",
+          "aliases": [
+            "Alice's flamingo"
+          ],
+          "kind": "animal",
+          "note": "A live flamingo used as Alice's mallet; it twists its neck and at one point flies off into a tree.",
+          "same_person_as": ""
+        },
+        {
+          "id": "hedgehogs",
+          "name": "the hedgehogs",
+          "aliases": [
+            "the live hedgehogs"
+          ],
+          "kind": "animal",
+          "note": "Live hedgehogs used as croquet balls, which roll away and fight one another.",
+          "same_person_as": ""
+        }
+      ],
+      "locations": [
+        {
+          "id": "rose_tree_garden",
+          "name": "the garden entrance by the rose-tree",
+          "aliases": [
+            "the garden"
+          ],
+          "note": "The garden near its entrance where the card gardeners paint the white rose-tree red and Alice first meets them.','"
+        },
+        {
+          "id": "croquet_ground",
+          "name": "the Queen's croquet-ground",
+          "aliases": [
+            "the croquet-ground"
+          ],
+          "note": "The ridged, furrowed garden ground where the croquet game with flamingos and hedgehogs is played."
+        }
+      ],
+      "sections": [
+        {
+          "firstUnitId": "the-queens-croquet-ground-1",
+          "lastUnitId": "the-queens-croquet-ground-33",
+          "title": "The gardeners and the royal procession",
+          "setting": [
+            "rose_tree_garden"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "two",
+              "named": true
+            },
+            {
+              "id": "five",
+              "named": true
+            },
+            {
+              "id": "seven",
+              "named": true
+            },
+            {
+              "id": "the_queen",
+              "named": true
+            },
+            {
+              "id": "the_king",
+              "named": true
+            },
+            {
+              "id": "the_knave_of_hearts",
+              "named": true
+            },
+            {
+              "id": "white_rabbit",
+              "named": true
+            },
+            {
+              "id": "soldiers",
+              "named": true
+            },
+            {
+              "id": "courtiers",
+              "named": true
+            },
+            {
+              "id": "royal_children",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "the-queens-croquet-ground-34",
+          "lastUnitId": "the-queens-croquet-ground-44",
+          "title": "The Rabbit's whisper and the game begins",
+          "setting": [
+            "croquet_ground"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "white_rabbit",
+              "named": true
+            },
+            {
+              "id": "the_queen",
+              "named": true
+            },
+            {
+              "id": "flamingo",
+              "named": false
+            },
+            {
+              "id": "hedgehogs",
+              "named": true
+            },
+            {
+              "id": "soldiers",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "duchess"
+          ]
+        },
+        {
+          "firstUnitId": "the-queens-croquet-ground-45",
+          "lastUnitId": "the-queens-croquet-ground-61",
+          "title": "Alice and the Cheshire Cat",
+          "setting": [
+            "croquet_ground"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "cheshire_cat",
+              "named": true
+            },
+            {
+              "id": "the_queen",
+              "named": true
+            },
+            {
+              "id": "the_king",
+              "named": true
+            },
+            {
+              "id": "flamingo",
+              "named": false
+            },
+            {
+              "id": "hedgehogs",
+              "named": false
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "the-queens-croquet-ground-62",
+          "lastUnitId": "the-queens-croquet-ground-71",
+          "title": "The dispute over the Cat's head",
+          "setting": [
+            "croquet_ground"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_king",
+              "named": true
+            },
+            {
+              "id": "the_queen",
+              "named": true
+            },
+            {
+              "id": "executioner",
+              "named": true
+            },
+            {
+              "id": "cheshire_cat",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "duchess"
+          ]
+        }
+      ],
+      "brief": {
+        "tone": "Whimsical and tense, with comic absurdity undercut by constant threat of execution.",
+        "depiction_rules": [
+          "Playing-card figures should look flat and oblong, with suits and patterns visible on their bodies.",
+          "Flamingos and hedgehogs are live animals used as mallets and balls; show them as real creatures.",
+          "The Cheshire Cat appears as a floating grin and head, fading in and out.",
+          "The Queen should look furious and imperious; the King timid and mild.",
+          "Beheadings are threatened, not shown in graphic detail."
+        ],
+        "era": {
+          "name": "Victorian-era fantasy Wonderland",
+          "people": "Playing-card courtiers, soldiers, and children, alongside Alice, a young English girl, and talking animals.",
+          "dress": "Victorian children's dress for Alice; royal robes and card-pattern costumes for the court.",
+          "buildings_and_objects": "A formal garden with a rose-tree, flower-pots, arches and ridges, and a croquet ground.",
+          "technology": "Nothing mechanical; the croquet game is played with live animals and card-people, and no modern technology exists."
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "unitsPerSection": 18,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"two\",\"name\":\"Two\",\"aliases\":[\"one of the gardeners\",\"the gardener who spoke first\"],\"kind\":\"person\",\"note\":\"One of the three card gardeners painting white roses red; he is the one who explains the mistake to Alice, and he is a playing card, not a human, in units 1-11 and 25.\",\"same_person_as\":\"\"},{\"id\":\"five\",\"name\":\"Five\",\"aliases\":[\"one of the gardeners\"],\"kind\":\"person\",\"note\":\"One of the three card gardeners painting roses; he blames Seven for splashing paint and warns the others of the Queen's approach, in units 1-10.\",\"same_person_as\":\"\"},{\"id\":\"seven\",\"name\":\"Seven\",\"aliases\":[\"one of the gardeners\"],\"kind\":\"person\",\"note\":\"One of the three card gardeners painting roses; he is blamed by Five and is the one who checks himself when he sees Alice, in units 1-8.\",\"same_person_as\":\"\"},{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the child\",\"the girl\"],\"kind\":\"person\",\"note\":\"The young heroine who wanders into the garden and is drawn into the Queen's croquet game, present throughout the division.\",\"same_person_as\":\"\"},{\"id\":\"the_queen\",\"name\":\"the Queen of Hearts\",\"aliases\":[\"the Queen\",\"her Majesty\"],\"kind\":\"person\",\"note\":\"The short-tempered ruler who calls for beheadings and runs the croquet game; she leads the royal procession in unit 11 and the game that follows.\",\"same_person_as\":\"\"},{\"id\":\"the_king\",\"name\":\"the King of Hearts\",\"aliases\":[\"the King\"],\"kind\":\"person\",\"note\":\"The mild, timid husband of the Queen who walks in the procession, tries to protect Alice, and later fetches the executioner over the Cat.\",\"same_person_as\":\"\"},{\"id\":\"the_knave_of_hearts\",\"name\":\"the Knave of Hearts\",\"aliases\":[\"the Knave\"],\"kind\":\"person\",\"note\":\"A playing card in the procession who carries the King's crown on a cushion and turns over the gardeners with his foot in unit 22.\",\"same_person_as\":\"\"},{\"id\":\"white_rabbit\",\"name\":\"the White Rabbit\",\"aliases\":[\"the Rabbit\"],\"kind\":\"animal\",\"note\":\"The nervous rabbit in the procession who whispers to Alice about the Duchess's sentence in units 34-40.\",\"same_person_as\":\"\"},{\"id\":\"soldiers\",\"name\":\"the soldiers\",\"aliases\":[\"the playing-card soldiers\",\"the ten soldiers\"],\"kind\":\"group\",\"note\":\"Ten oblong card soldiers with clubs who march in the procession, form the croquet arches, and carry out the Queen's orders.\",\"same_person_as\":\"\"},{\"id\":\"courtiers\",\"name\":\"the courtiers\",\"aliases\":[\"the ten courtiers\"],\"kind\":\"group\",\"note\":\"Ten diamond-decorated card courtiers who walk two by two in the procession.\",\"same_person_as\":\"\"},{\"id\":\"royal_children\",\"name\":\"the royal children\",\"aliases\":[\"the Queen's ten children\"],\"kind\":\"group\",\"note\":\"Ten heart-decorated children who skip hand in hand in the procession.\",\"same_person_as\":\"\"},{\"id\":\"executioner\",\"name\":\"the executioner\",\"aliases\":[\"the headsman\"],\"kind\":\"person\",\"note\":\"The Queen's executioner who argues about beheading the Cat and runs to fetch the Duchess in unit 70.\",\"same_person_as\":\"\"},{\"id\":\"duchess\",\"name\":\"the Duchess\",\"aliases\":[],\"kind\":\"person\",\"note\":\"Imprisoned under sentence of execution; she is named only in mention in this division and is fetched by the executioner at the end.\",\"same_person_as\":\"\"},{\"id\":\"cheshire_cat\",\"name\":\"the Cheshire Cat\",\"aliases\":[\"the Cat\"],\"kind\":\"animal\",\"note\":\"A grinning cat whose head appears in the air, talks with Alice, and vanishes before the Duchess arrives.\",\"same_person_as\":\"\"},{\"id\":\"flamingo\",\"name\":\"the flamingo\",\"aliases\":[\"Alice's flamingo\"],\"kind\":\"animal\",\"note\":\"A live flamingo used as Alice's mallet; it twists its neck and at one point flies off into a tree.\",\"same_person_as\":\"\"},{\"id\":\"hedgehogs\",\"name\":\"the hedgehogs\",\"aliases\":[\"the live hedgehogs\"],\"kind\":\"animal\",\"note\":\"Live hedgehogs used as croquet balls, which roll away and fight one another.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"rose_tree_garden\",\"name\":\"the garden entrance by the rose-tree\",\"aliases\":[\"the garden\"],\"note\":\"The garden near its entrance where the card gardeners paint the white rose-tree red and Alice first meets them.','\"},{\"id\":\"croquet_ground\",\"name\":\"the Queen's croquet-ground\",\"aliases\":[\"the croquet-ground\"],\"note\":\"The ridged, furrowed garden ground where the croquet game with flamingos and hedgehogs is played.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"33\",\"title\":\"The gardeners and the royal procession\",\"setting\":[\"rose_tree_garden\"],\"on_stage\":[\"alice\",\"two\",\"five\",\"seven\",\"the_queen\",\"the_king\",\"the_knave_of_hearts\",\"white_rabbit\",\"soldiers\",\"courtiers\",\"royal_children\"],\"mentioned_only\":[]},{\"start\":\"34\",\"end\":\"44\",\"title\":\"The Rabbit's whisper and the game begins\",\"setting\":[\"croquet_ground\"],\"on_stage\":[\"alice\",\"white_rabbit\",\"the_queen\",\"flamingo\",\"hedgehogs\",\"soldiers\"],\"mentioned_only\":[\"duchess\"]},{\"start\":\"45\",\"end\":\"61\",\"title\":\"Alice and the Cheshire Cat\",\"setting\":[\"croquet_ground\"],\"on_stage\":[\"alice\",\"cheshire_cat\",\"the_queen\",\"the_king\",\"flamingo\",\"hedgehogs\"],\"mentioned_only\":[]},{\"start\":\"62\",\"end\":\"71\",\"title\":\"The dispute over the Cat's head\",\"setting\":[\"croquet_ground\"],\"on_stage\":[\"alice\",\"the_king\",\"the_queen\",\"executioner\",\"cheshire_cat\"],\"mentioned_only\":[\"duchess\"]}],\"brief\":{\"tone\":\"Whimsical and tense, with comic absurdity undercut by constant threat of execution.\",\"depiction_rules\":[\"Playing-card figures should look flat and oblong, with suits and patterns visible on their bodies.\",\"Flamingos and hedgehogs are live animals used as mallets and balls; show them as real creatures.\",\"The Cheshire Cat appears as a floating grin and head, fading in and out.\",\"The Queen should look furious and imperious; the King timid and mild.\",\"Beheadings are threatened, not shown in graphic detail.\"],\"era\":{\"name\":\"Victorian-era fantasy Wonderland\",\"people\":\"Playing-card courtiers, soldiers, and children, alongside Alice, a young English girl, and talking animals.\",\"dress\":\"Victorian children's dress for Alice; royal robes and card-pattern costumes for the court.\",\"buildings_and_objects\":\"A formal garden with a rose-tree, flower-pots, arches and ridges, and a croquet ground.\",\"technology\":\"Nothing mechanical; the croquet game is played with live animals and card-people, and no modern technology exists.\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326342-lxnds1RdT1iNLOAso9Bl",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 7672,
+              "completionTokens": 2399,
+              "costUsd": 0.0019667
+            },
+            "elapsedMs": 11137
+          },
+          "error": null,
+          "problems": []
+        }
+      ]
+    },
+    {
+      "divisionId": "the-mock-turtles-story",
+      "label": "The Mock Turtle\u2019s Story",
+      "unitCount": 92,
+      "characters": [
+        {
+          "id": "alice",
+          "name": "Alice",
+          "aliases": [
+            "the young lady",
+            "this here young lady"
+          ],
+          "kind": "person",
+          "note": "A young girl visiting Wonderland, polite and curious; the main listener to the Mock Turtle's story and the Gryphon's lessons; present throughout the section.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_duchess",
+          "name": "the Duchess",
+          "aliases": [
+            "Duchess"
+          ],
+          "kind": "person",
+          "note": "An ugly, sharp-chinned, moralising Duchess met in the kitchen earlier; here she walks arm in arm with Alice until the Queen frightens her off and she vanishes.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_queen",
+          "name": "the Queen",
+          "aliases": [
+            "Queen of Hearts",
+            "her Majesty"
+          ],
+          "kind": "person",
+          "note": "The fiercely shouting Queen of Hearts who orders executions on the croquet-ground; she leaves Alice with the Gryphon to take her to the Mock Turtle.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_king",
+          "name": "the King",
+          "aliases": [
+            "King of Hearts"
+          ],
+          "kind": "person",
+          "note": "The King of Hearts, who quietly pardons all the condemned players on the croquet-ground.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_gryphon",
+          "name": "the Gryphon",
+          "aliases": [
+            "Gryphon"
+          ],
+          "kind": "other",
+          "note": "A creature with a lion's and an eagle's features, lazy and chuckling at the Queen's threats; guides Alice to the Mock Turtle and interrupts his story with explanations of the school subjects.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_mock_turtle",
+          "name": "the Mock Turtle",
+          "aliases": [
+            "Mock Turtle"
+          ],
+          "kind": "other",
+          "note": "A sorrowful, sobbing creature with a calf's head and a turtle's tail, sitting on a rock ledge; he tells of his schooldays in the sea.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_master_tortoise",
+          "name": "the old Turtle master (Tortoise)",
+          "aliases": [
+            "Tortoise",
+            "the master"
+          ],
+          "kind": "other",
+          "note": "The old Turtle who taught the Mock Turtle at school under the sea; only recalled in the Mock Turtle's story, not present on stage.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_conger_eel_master",
+          "name": "the Drawling-master (old conger-eel)",
+          "aliases": [
+            "the Drawling-master",
+            "old conger-eel"
+          ],
+          "kind": "other",
+          "note": "The old conger-eel who came once a week to teach Drawling, Stretching and Fainting in Coils; recalled in the Mock Turtle's story only.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_classics_master_crab",
+          "name": "the Classics master (old crab)",
+          "aliases": [
+            "the Classics master",
+            "old crab"
+          ],
+          "kind": "other",
+          "note": "The old crab who taught the Gryphon the Classics; recalled in the story only, not present.",
+          "same_person_as": ""
+        }
+      ],
+      "locations": [
+        {
+          "id": "croquet_ground",
+          "name": "the croquet-ground",
+          "aliases": [
+            "the game",
+            "the croquet lawn"
+          ],
+          "note": "The Queen's croquet-ground where the game with flamingo mallets and hedgehog balls is played and the executions are ordered.(Setting for the opening, before the walk.)"
+        },
+        {
+          "id": "seashore_ledge",
+          "name": "the rock ledge by the sea",
+          "aliases": [
+            "the ledge of rock"
+          ],
+          "note": "The lonely rock ledge where the Mock Turtle sits sobbing and tells his story, near the sea."
+        },
+        {
+          "id": "undersea_school",
+          "name": "the undersea school",
+          "aliases": [
+            "school in the sea"
+          ],
+          "note": "The school under the sea attended by the Mock Turtle in his youth, existing only in his recollection; not shown on stage."
+        }
+      ],
+      "sections": [
+        {
+          "firstUnitId": "the-mock-turtles-story-1",
+          "lastUnitId": "the-mock-turtles-story-4",
+          "title": "The Duchess walks arm in arm with Alice",
+          "setting": [
+            "croquet_ground"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_duchess",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "the-mock-turtles-story-5",
+          "lastUnitId": "the-mock-turtles-story-30",
+          "title": "The Duchess's morals and the Queen's arrival",
+          "setting": [
+            "croquet_ground"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_duchess",
+              "named": true
+            },
+            {
+              "id": "the_queen",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "the-mock-turtles-story-31",
+          "lastUnitId": "the-mock-turtles-story-36",
+          "title": "The Duchess is sent away; the Queen's game of executions",
+          "setting": [
+            "croquet_ground"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_duchess",
+              "named": true
+            },
+            {
+              "id": "the_queen",
+              "named": true
+            },
+            {
+              "id": "the_king",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "the-mock-turtles-story-37",
+          "lastUnitId": "the-mock-turtles-story-47",
+          "title": "The Queen sends Alice off with the Gryphon",
+          "setting": [
+            "croquet_ground"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_queen",
+              "named": true
+            },
+            {
+              "id": "the_king",
+              "named": true
+            },
+            {
+              "id": "the_gryphon",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "the_mock_turtle"
+          ]
+        },
+        {
+          "firstUnitId": "the-mock-turtles-story-48",
+          "lastUnitId": "the-mock-turtles-story-70",
+          "title": "The Mock Turtle begins his history: school in the sea",
+          "setting": [
+            "seashore_ledge",
+            "undersea_school"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_gryphon",
+              "named": true
+            },
+            {
+              "id": "the_mock_turtle",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "the_master_tortoise"
+          ]
+        },
+        {
+          "firstUnitId": "the-mock-turtles-story-71",
+          "lastUnitId": "the-mock-turtles-story-92",
+          "title": "The lessons: Reeling, Writhing and Uglification",
+          "setting": [
+            "seashore_ledge",
+            "undersea_school"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_gryphon",
+              "named": true
+            },
+            {
+              "id": "the_mock_turtle",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "the_master_tortoise",
+            "the_conger_eel_master",
+            "the_classics_master_crab"
+          ]
+        }
+      ],
+      "brief": {
+        "tone": "Whimsical and absurd, with an undercurrent of menace from the Queen and melancholy from the Mock Turtle; the pictures should mix playful oddity with sorrowful stillness.",
+        "depiction_rules": [
+          "The Queen should be shown as shouting and threatening but executions are never shown on stage; the Gryphon insists they are only her fancy.",
+          "The Mock Turtle should be shown with a calf's head and a turtle's shell tail, sobbing, rather than as a fully human figure.",
+          "The Gryphon should be shown with a lion's body and an eagle's head and forelegs, lazy and chuckling.",
+          "The Duchess should be shown ugly with a sharp chin, and her sudden disappearance should be shown without gore.",
+          "Follow Tenniel's style of the original illustrations where the text references the picture."
+        ],
+        "era": {
+          "name": "Victorian-era fantasy Wonderland, a dreamlike realm",
+          "people": "Fantastical court creatures and playing cards: the Queen and King of Hearts, soldiers shaped like playing cards, the Duchess, the Gryphon, and the Mock Turtle, with Alice as a human English girl.",
+          "dress": "Victorian-style dress for Alice and the Duchess, royal robes and crowns for the King and Queen, and card-soldier costumes for the soldiers.",
+          "buildings_and_objects": "A croquet-ground with flamingo mallets, hedgehog balls and card-soldier arches; a rocky ledge by the sea; the undersea school with its school bill.",
+          "technology": "No modern technology; the world is pre-industrial, with croquet and school lessons as the main activities."
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "unitsPerSection": 18,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the young lady\",\"this here young lady\"],\"kind\":\"person\",\"note\":\"A young girl visiting Wonderland, polite and curious; the main listener to the Mock Turtle's story and the Gryphon's lessons; present throughout the section.\",\"same_person_as\":\"\"},{\"id\":\"the_duchess\",\"name\":\"the Duchess\",\"aliases\":[\"Duchess\"],\"kind\":\"person\",\"note\":\"An ugly, sharp-chinned, moralising Duchess met in the kitchen earlier; here she walks arm in arm with Alice until the Queen frightens her off and she vanishes.\",\"same_person_as\":\"\"},{\"id\":\"the_queen\",\"name\":\"the Queen\",\"aliases\":[\"Queen of Hearts\",\"her Majesty\"],\"kind\":\"person\",\"note\":\"The fiercely shouting Queen of Hearts who orders executions on the croquet-ground; she leaves Alice with the Gryphon to take her to the Mock Turtle.\",\"same_person_as\":\"\"},{\"id\":\"the_king\",\"name\":\"the King\",\"aliases\":[\"King of Hearts\"],\"kind\":\"person\",\"note\":\"The King of Hearts, who quietly pardons all the condemned players on the croquet-ground.\",\"same_person_as\":\"\"},{\"id\":\"the_gryphon\",\"name\":\"the Gryphon\",\"aliases\":[\"Gryphon\"],\"kind\":\"other\",\"note\":\"A creature with a lion's and an eagle's features, lazy and chuckling at the Queen's threats; guides Alice to the Mock Turtle and interrupts his story with explanations of the school subjects.\",\"same_person_as\":\"\"},{\"id\":\"the_mock_turtle\",\"name\":\"the Mock Turtle\",\"aliases\":[\"Mock Turtle\"],\"kind\":\"other\",\"note\":\"A sorrowful, sobbing creature with a calf's head and a turtle's tail, sitting on a rock ledge; he tells of his schooldays in the sea.\",\"same_person_as\":\"\"},{\"id\":\"the_master_tortoise\",\"name\":\"the old Turtle master (Tortoise)\",\"aliases\":[\"Tortoise\",\"the master\"],\"kind\":\"other\",\"note\":\"The old Turtle who taught the Mock Turtle at school under the sea; only recalled in the Mock Turtle's story, not present on stage.\",\"same_person_as\":\"\"},{\"id\":\"the_conger_eel_master\",\"name\":\"the Drawling-master (old conger-eel)\",\"aliases\":[\"the Drawling-master\",\"old conger-eel\"],\"kind\":\"other\",\"note\":\"The old conger-eel who came once a week to teach Drawling, Stretching and Fainting in Coils; recalled in the Mock Turtle's story only.\",\"same_person_as\":\"\"},{\"id\":\"the_classics_master_crab\",\"name\":\"the Classics master (old crab)\",\"aliases\":[\"the Classics master\",\"old crab\"],\"kind\":\"other\",\"note\":\"The old crab who taught the Gryphon the Classics; recalled in the story only, not present.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"croquet_ground\",\"name\":\"the croquet-ground\",\"aliases\":[\"the game\",\"the croquet lawn\"],\"note\":\"The Queen's croquet-ground where the game with flamingo mallets and hedgehog balls is played and the executions are ordered.(Setting for the opening, before the walk.)\"},{\"id\":\"seashore_ledge\",\"name\":\"the rock ledge by the sea\",\"aliases\":[\"the ledge of rock\"],\"note\":\"The lonely rock ledge where the Mock Turtle sits sobbing and tells his story, near the sea.\"},{\"id\":\"undersea_school\",\"name\":\"the undersea school\",\"aliases\":[\"school in the sea\"],\"note\":\"The school under the sea attended by the Mock Turtle in his youth, existing only in his recollection; not shown on stage.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"4\",\"title\":\"The Duchess walks arm in arm with Alice\",\"setting\":[\"croquet_ground\"],\"on_stage\":[\"alice\",\"the_duchess\"],\"mentioned_only\":[]},{\"start\":\"5\",\"end\":\"30\",\"title\":\"The Duchess's morals and the Queen's arrival\",\"setting\":[\"croquet_ground\"],\"on_stage\":[\"alice\",\"the_duchess\",\"the_queen\"],\"mentioned_only\":[]},{\"start\":\"31\",\"end\":\"36\",\"title\":\"The Duchess is sent away; the Queen's game of executions\",\"setting\":[\"croquet_ground\"],\"on_stage\":[\"alice\",\"the_duchess\",\"the_queen\",\"the_king\"],\"mentioned_only\":[]},{\"start\":\"37\",\"end\":\"47\",\"title\":\"The Queen sends Alice off with the Gryphon\",\"setting\":[\"croquet_ground\"],\"on_stage\":[\"alice\",\"the_queen\",\"the_king\",\"the_gryphon\"],\"mentioned_only\":[\"the_mock_turtle\"]},{\"start\":\"48\",\"end\":\"70\",\"title\":\"The Mock Turtle begins his history: school in the sea\",\"setting\":[\"seashore_ledge\",\"undersea_school\"],\"on_stage\":[\"alice\",\"the_gryphon\",\"the_mock_turtle\"],\"mentioned_only\":[\"the_master_tortoise\"]},{\"start\":\"71\",\"end\":\"92\",\"title\":\"The lessons: Reeling, Writhing and Uglification\",\"setting\":[\"seashore_ledge\",\"undersea_school\"],\"on_stage\":[\"alice\",\"the_gryphon\",\"the_mock_turtle\"],\"mentioned_only\":[\"the_master_tortoise\",\"the_conger_eel_master\",\"the_classics_master_crab\"]}],\"brief\":{\"tone\":\"Whimsical and absurd, with an undercurrent of menace from the Queen and melancholy from the Mock Turtle; the pictures should mix playful oddity with sorrowful stillness.\",\"depiction_rules\":[\"The Queen should be shown as shouting and threatening but executions are never shown on stage; the Gryphon insists they are only her fancy.\",\"The Mock Turtle should be shown with a calf's head and a turtle's shell tail, sobbing, rather than as a fully human figure.\",\"The Gryphon should be shown with a lion's body and an eagle's head and forelegs, lazy and chuckling.\",\"The Duchess should be shown ugly with a sharp chin, and her sudden disappearance should be shown without gore.\",\"Follow Tenniel's style of the original illustrations where the text references the picture.\"],\"era\":{\"name\":\"Victorian-era fantasy Wonderland, a dreamlike realm\",\"people\":\"Fantastical court creatures and playing cards: the Queen and King of Hearts, soldiers shaped like playing cards, the Duchess, the Gryphon, and the Mock Turtle, with Alice as a human English girl.\",\"dress\":\"Victorian-style dress for Alice and the Duchess, royal robes and crowns for the King and Queen, and card-soldier costumes for the soldiers.\",\"buildings_and_objects\":\"A croquet-ground with flamingo mallets, hedgehog balls and card-soldier arches; a rocky ledge by the sea; the undersea school with its school bill.\",\"technology\":\"No modern technology; the world is pre-industrial, with croquet and school lessons as the main activities.\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326353-Q6rafoxKu1GFuAtEpvhr",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 7738,
+              "completionTokens": 2336,
+              "costUsd": 0.0019418
+            },
+            "elapsedMs": 9729
+          },
+          "error": null,
+          "problems": []
+        }
+      ]
+    },
+    {
+      "divisionId": "the-lobster-quadrille",
+      "label": "The Lobster Quadrille",
+      "unitCount": 81,
+      "characters": [
+        {
+          "id": "alice",
+          "name": "Alice",
+          "aliases": [
+            "the child"
+          ],
+          "kind": "person",
+          "note": "The young girl protagonist, listening to and taking part in the Mock Turtle's and the Gryphon's tales; she recites the altered poems and is taken off by the Gryphon at the end.",
+          "same_person_as": ""
+        },
+        {
+          "id": "mock_turtle",
+          "name": "Mock Turtle",
+          "aliases": [
+            "the Mock Turtle"
+          ],
+          "kind": "other",
+          "note": "A sad, sobbing creature with a calf's head and flappers, who describes the Lobster Quadrille, explains the whiting, and sings 'Beautiful Soup'.",
+          "same_person_as": ""
+        },
+        {
+          "id": "gryphon",
+          "name": "Gryphon",
+          "aliases": [
+            "the Gryphon"
+          ],
+          "kind": "other",
+          "note": "A winged creature with an eagle's head and lion's body, impatient and energetic, who interrupts the Mock Turtle, explains the whiting's boots-and-shoes joke, and hurries Alice off to the trial.",
+          "same_person_as": ""
+        },
+        {
+          "id": "whiting",
+          "name": "Whiting",
+          "aliases": [
+            "a whiting"
+          ],
+          "kind": "animal",
+          "note": "A sea fish addressed in the Mock Turtle's song; it urges a snail to join the dance. Described as the subject of the song, not a physical presence on stage.",
+          "same_person_as": ""
+        },
+        {
+          "id": "snail",
+          "name": "Snail",
+          "aliases": [
+            "a snail"
+          ],
+          "kind": "animal",
+          "note": "A snail in the Mock Turtle's song who refuses the whiting's invitation to join the dance, saying 'Too far, too far!'.",
+          "same_person_as": ""
+        },
+        {
+          "id": "porpoise",
+          "name": "Porpoise",
+          "aliases": [
+            "a porpoise"
+          ],
+          "kind": "animal",
+          "note": "A porpoise in the song who treads on the whiting's tail; mentioned in the whiting's explanation and in the Mock Turtle's remark about fish needing a porpoise.",
+          "same_person_as": ""
+        },
+        {
+          "id": "lobsters",
+          "name": "Lobsters",
+          "aliases": [
+            "the lobsters",
+            "a lobster"
+          ],
+          "kind": "group",
+          "note": "Sea creatures who serve as partners in the Lobster Quadrille; they are thrown out to sea and sing of their dance in the song.",
+          "same_person_as": ""
+        }
+      ],
+      "locations": [
+        {
+          "id": "seashore",
+          "name": "Sea-shore",
+          "aliases": [
+            "the sea-shore",
+            "the sea",
+            "under the sea"
+          ],
+          "note": "The undersea setting where the Lobster Quadrille would be danced along the shore and where the whiting and lobsters are placed."
+        },
+        {
+          "id": "court_of_justice",
+          "name": "Court of Justice",
+          "aliases": [
+            "the trial"
+          ],
+          "note": "The place where the trial is beginning, heard in the distance at the end of the division; not shown on stage here."
+        }
+      ],
+      "sections": [
+        {
+          "firstUnitId": "the-lobster-quadrille-1",
+          "lastUnitId": "the-lobster-quadrille-17",
+          "title": "The Mock Turtle describes the Lobster Quadrille",
+          "setting": [
+            "seashore"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "mock_turtle",
+              "named": true
+            },
+            {
+              "id": "gryphon",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "lobsters"
+          ]
+        },
+        {
+          "firstUnitId": "the-lobster-quadrille-18",
+          "lastUnitId": "the-lobster-quadrille-26",
+          "title": "The dance and the whiting's song",
+          "setting": [
+            "seashore"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "mock_turtle",
+              "named": true
+            },
+            {
+              "id": "gryphon",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "whiting",
+            "snail",
+            "porpoise",
+            "lobsters"
+          ]
+        },
+        {
+          "firstUnitId": "the-lobster-quadrille-27",
+          "lastUnitId": "the-lobster-quadrille-47",
+          "title": "Why whitings have their tails in their mouths",
+          "setting": [
+            "seashore"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "mock_turtle",
+              "named": true
+            },
+            {
+              "id": "gryphon",
+              "named": true
+            }
+          ],
+          "mentionedOnly": [
+            "whiting",
+            "porpoise",
+            "lobsters"
+          ]
+        },
+        {
+          "firstUnitId": "the-lobster-quadrille-48",
+          "lastUnitId": "the-lobster-quadrille-65",
+          "title": "Alice recites the garbled verses",
+          "setting": [
+            "seashore"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "mock_turtle",
+              "named": true
+            },
+            {
+              "id": "gryphon",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "the-lobster-quadrille-66",
+          "lastUnitId": "the-lobster-quadrille-81",
+          "title": "Turtle Soup song and the rush to the trial",
+          "setting": [
+            "seashore",
+            "court_of_justice"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "mock_turtle",
+              "named": true
+            },
+            {
+              "id": "gryphon",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        }
+      ],
+      "brief": {
+        "tone": "Whimsical, absurd and melancholy at once, with the Mock Turtle's sorrow contrasting the Gryphon's manic energy and Alice's polite bewilderment.",
+        "depiction_rules": [
+          "The Mock Turtle should have a calf's head and a sad, tearful aspect, with flappers rather than hands.",
+          "The Gryphon should be an eagle-headed, lion-bodied creature with wings, shown bounding and gesturing excitedly.",
+          "Show the dance as stylised and solemn, not frantic, except where the Gryphon's exclamations call for wild capering.",
+          "Undersea imagery should be whimsical rather than realistic, with fish and creatures behaving like people."
+        ],
+        "era": {
+          "name": "Victorian-era fantasy wonderland",
+          "people": "Only Alice is human; the other inhabitants are anthropomorphic creatures of the sea and fantasy.",
+          "dress": "Alice wears a Victorian-style pinafore dress with stockings and shoes; creatures are unclothed or wear no elaborate costume.",
+          "buildings_and_objects": "Sparse: a sea-shore, a hot tureen of soup, and pieces of a dance floor; no modern structures.",
+          "technology": "None of modern technology exists; the setting is pre-industrial and dreamlike."
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "unitsPerSection": 18,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the child\"],\"kind\":\"person\",\"note\":\"The young girl protagonist, listening to and taking part in the Mock Turtle's and the Gryphon's tales; she recites the altered poems and is taken off by the Gryphon at the end.\",\"same_person_as\":\"\"},{\"id\":\"mock_turtle\",\"name\":\"Mock Turtle\",\"aliases\":[\"the Mock Turtle\"],\"kind\":\"other\",\"note\":\"A sad, sobbing creature with a calf's head and flappers, who describes the Lobster Quadrille, explains the whiting, and sings 'Beautiful Soup'.\",\"same_person_as\":\"\"},{\"id\":\"gryphon\",\"name\":\"Gryphon\",\"aliases\":[\"the Gryphon\"],\"kind\":\"other\",\"note\":\"A winged creature with an eagle's head and lion's body, impatient and energetic, who interrupts the Mock Turtle, explains the whiting's boots-and-shoes joke, and hurries Alice off to the trial.\",\"same_person_as\":\"\"},{\"id\":\"whiting\",\"name\":\"Whiting\",\"aliases\":[\"a whiting\"],\"kind\":\"animal\",\"note\":\"A sea fish addressed in the Mock Turtle's song; it urges a snail to join the dance. Described as the subject of the song, not a physical presence on stage.\",\"same_person_as\":\"\"},{\"id\":\"snail\",\"name\":\"Snail\",\"aliases\":[\"a snail\"],\"kind\":\"animal\",\"note\":\"A snail in the Mock Turtle's song who refuses the whiting's invitation to join the dance, saying 'Too far, too far!'.\",\"same_person_as\":\"\"},{\"id\":\"porpoise\",\"name\":\"Porpoise\",\"aliases\":[\"a porpoise\"],\"kind\":\"animal\",\"note\":\"A porpoise in the song who treads on the whiting's tail; mentioned in the whiting's explanation and in the Mock Turtle's remark about fish needing a porpoise.\",\"same_person_as\":\"\"},{\"id\":\"lobsters\",\"name\":\"Lobsters\",\"aliases\":[\"the lobsters\",\"a lobster\"],\"kind\":\"group\",\"note\":\"Sea creatures who serve as partners in the Lobster Quadrille; they are thrown out to sea and sing of their dance in the song.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"seashore\",\"name\":\"Sea-shore\",\"aliases\":[\"the sea-shore\",\"the sea\",\"under the sea\"],\"note\":\"The undersea setting where the Lobster Quadrille would be danced along the shore and where the whiting and lobsters are placed.\"},{\"id\":\"court_of_justice\",\"name\":\"Court of Justice\",\"aliases\":[\"the trial\"],\"note\":\"The place where the trial is beginning, heard in the distance at the end of the division; not shown on stage here.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"17\",\"title\":\"The Mock Turtle describes the Lobster Quadrille\",\"setting\":[\"seashore\"],\"on_stage\":[\"alice\",\"mock_turtle\",\"gryphon\"],\"mentioned_only\":[\"lobsters\"]},{\"start\":\"18\",\"end\":\"26\",\"title\":\"The dance and the whiting's song\",\"setting\":[\"seashore\"],\"on_stage\":[\"alice\",\"mock_turtle\",\"gryphon\"],\"mentioned_only\":[\"whiting\",\"snail\",\"porpoise\",\"lobsters\"]},{\"start\":\"27\",\"end\":\"47\",\"title\":\"Why whitings have their tails in their mouths\",\"setting\":[\"seashore\"],\"on_stage\":[\"alice\",\"mock_turtle\",\"gryphon\"],\"mentioned_only\":[\"whiting\",\"porpoise\",\"lobsters\"]},{\"start\":\"48\",\"end\":\"65\",\"title\":\"Alice recites the garbled verses\",\"setting\":[\"seashore\"],\"on_stage\":[\"alice\",\"mock_turtle\",\"gryphon\"],\"mentioned_only\":[]},{\"start\":\"66\",\"end\":\"81\",\"title\":\"Turtle Soup song and the rush to the trial\",\"setting\":[\"seashore\",\"court_of_justice\"],\"on_stage\":[\"alice\",\"mock_turtle\",\"gryphon\"],\"mentioned_only\":[]}],\"brief\":{\"tone\":\"Whimsical, absurd and melancholy at once, with the Mock Turtle's sorrow contrasting the Gryphon's manic energy and Alice's polite bewilderment.\",\"depiction_rules\":[\"The Mock Turtle should have a calf's head and a sad, tearful aspect, with flappers rather than hands.\",\"The Gryphon should be an eagle-headed, lion-bodied creature with wings, shown bounding and gesturing excitedly.\",\"Show the dance as stylised and solemn, not frantic, except where the Gryphon's exclamations call for wild capering.\",\"Undersea imagery should be whimsical rather than realistic, with fish and creatures behaving like people.\"],\"era\":{\"name\":\"Victorian-era fantasy wonderland\",\"people\":\"Only Alice is human; the other inhabitants are anthropomorphic creatures of the sea and fantasy.\",\"dress\":\"Alice wears a Victorian-style pinafore dress with stockings and shoes; creatures are unclothed or wear no elaborate costume.\",\"buildings_and_objects\":\"Sparse: a sea-shore, a hot tureen of soup, and pieces of a dance floor; no modern structures.\",\"technology\":\"None of modern technology exists; the setting is pre-industrial and dreamlike.\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326362-bVQP4YJVo8i21g6Edhgk",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 7340,
+              "completionTokens": 1752,
+              "costUsd": 0.00161
+            },
+            "elapsedMs": 8328
+          },
+          "error": null,
+          "problems": []
+        }
+      ]
+    },
+    {
+      "divisionId": "who-stole-the-tarts",
+      "label": "Who Stole the Tarts?",
+      "unitCount": 74,
+      "characters": [
+        {
+          "id": "alice",
+          "name": "Alice",
+          "aliases": [
+            "the little girl",
+            "the witness Alice"
+          ],
+          "kind": "person",
+          "note": "A young girl who has grown and shrunk in Wonderland; present in the court watching the trial and about to be called as a witness, the only Alice here.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_king_of_hearts",
+          "name": "the King of Hearts",
+          "aliases": [
+            "the King",
+            "the judge"
+          ],
+          "kind": "person",
+          "note": "The King of Hearts, sitting on the throne as judge of the trial; wears his crown over his wig.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_queen_of_hearts",
+          "name": "the Queen of Hearts",
+          "aliases": [
+            "the Queen"
+          ],
+          "kind": "person",
+          "note": "The Queen of Hearts, seated beside the King on the throne, who stares at the Hatter and shouts orders to have the Dormouse removed.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_knave_of_hearts",
+          "name": "the Knave of Hearts",
+          "aliases": [
+            "the Knave",
+            "the accused"
+          ],
+          "kind": "person",
+          "note": "The Knave of Hearts, standing in chains between two soldiers, on trial for stealing the tarts.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_white_rabbit",
+          "name": "the White Rabbit",
+          "aliases": [
+            "the Rabbit",
+            "the herald"
+          ],
+          "kind": "animal",
+          "note": "The White Rabbit, herald of the court, who blows the trumpet, reads the accusation and calls the witnesses.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_gryphon",
+          "name": "the Gryphon",
+          "aliases": [],
+          "kind": "divine",
+          "note": "A Gryphon in the court who whispers to Alice about the jurors writing their names down.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_jury",
+          "name": "the jury",
+          "aliases": [
+            "the jurors",
+            "the twelve creatures",
+            "the pack of cards"
+          ],
+          "kind": "group",
+          "note": "The twelve jurors, birds and beasts writing on slates, who act together as one body.",
+          "same_person_as": ""
+        },
+        {
+          "id": "bill_the_lizard",
+          "name": "Bill the Lizard",
+          "aliases": [
+            "Bill",
+            "the little juror"
+          ],
+          "kind": "animal",
+          "note": "A juror, a lizard, whose squeaking pencil Alice takes away; he is the one who cannot spell stupid.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_hatter",
+          "name": "the Hatter",
+          "aliases": [
+            "the poor man",
+            "the first witness"
+          ],
+          "kind": "person",
+          "note": "The Hatter, the first witness, with a teacup and bread-and-butter, who is nervous before the Queen.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_march_hare",
+          "name": "the March Hare",
+          "aliases": [
+            "the Hare"
+          ],
+          "kind": "animal",
+          "note": "The March Hare, who follows the Hatter into court arm-in-arm with the Dormouse and gives a date.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_dormouse",
+          "name": "the Dormouse",
+          "aliases": [
+            "the sleepy voice"
+          ],
+          "kind": "animal",
+          "note": "The Dormouse, who sits beside Alice, complains of her growing, and is asleep or is ordered out of court.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_guinea_pigs",
+          "name": "the guinea-pigs",
+          "aliases": [
+            "the guinea-pig"
+          ],
+          "kind": "animal",
+          "note": "Two guinea-pigs in the court who cheer and are suppressed in a canvas bag by the officers.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_duchess_cook",
+          "name": "the Duchess's cook",
+          "aliases": [
+            "the cook"
+          ],
+          "kind": "person",
+          "note": "The Duchess's cook, carrying a pepper-box, who is questioned about tarts and then disappears.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_court_officers",
+          "name": "the officers of the court",
+          "aliases": [
+            "the officers",
+            "the soldiers"
+          ],
+          "kind": "group",
+          "note": "The officers of the court who suppress the guinea-pigs, remove the Dormouse and attend the Queen's orders.",
+          "same_person_as": ""
+        }
+      ],
+      "locations": [
+        {
+          "id": "the_court",
+          "name": "the court of justice",
+          "aliases": [
+            "the court",
+            "the courtroom"
+          ],
+          "note": "The open court of the Queen of Hearts, with a throne, a jury-box and a table of tarts at its centre."
+        }
+      ],
+      "sections": [
+        {
+          "firstUnitId": "who-stole-the-tarts-1",
+          "lastUnitId": "who-stole-the-tarts-15",
+          "title": "The court assembles",
+          "setting": [
+            "the_court"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_king_of_hearts",
+              "named": true
+            },
+            {
+              "id": "the_queen_of_hearts",
+              "named": true
+            },
+            {
+              "id": "the_knave_of_hearts",
+              "named": true
+            },
+            {
+              "id": "the_white_rabbit",
+              "named": true
+            },
+            {
+              "id": "the_gryphon",
+              "named": true
+            },
+            {
+              "id": "the_jury",
+              "named": true
+            },
+            {
+              "id": "bill_the_lizard",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "who-stole-the-tarts-16",
+          "lastUnitId": "who-stole-the-tarts-62",
+          "title": "The Hatter's evidence",
+          "setting": [
+            "the_court"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_king_of_hearts",
+              "named": true
+            },
+            {
+              "id": "the_queen_of_hearts",
+              "named": true
+            },
+            {
+              "id": "the_hatter",
+              "named": true
+            },
+            {
+              "id": "the_march_hare",
+              "named": true
+            },
+            {
+              "id": "the_dormouse",
+              "named": true
+            },
+            {
+              "id": "the_guinea_pigs",
+              "named": true
+            },
+            {
+              "id": "the_court_officers",
+              "named": true
+            },
+            {
+              "id": "the_jury",
+              "named": true
+            },
+            {
+              "id": "the_white_rabbit",
+              "named": false
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "who-stole-the-tarts-63",
+          "lastUnitId": "who-stole-the-tarts-73",
+          "title": "The cook and the Dormouse",
+          "setting": [
+            "the_court"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_king_of_hearts",
+              "named": true
+            },
+            {
+              "id": "the_queen_of_hearts",
+              "named": true
+            },
+            {
+              "id": "the_duchess_cook",
+              "named": true
+            },
+            {
+              "id": "the_dormouse",
+              "named": true
+            },
+            {
+              "id": "the_court_officers",
+              "named": false
+            },
+            {
+              "id": "the_white_rabbit",
+              "named": true
+            },
+            {
+              "id": "the_jury",
+              "named": false
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "who-stole-the-tarts-74",
+          "lastUnitId": "who-stole-the-tarts-74",
+          "title": "Alice is called",
+          "setting": [
+            "the_court"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_white_rabbit",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        }
+      ],
+      "brief": {
+        "tone": "Absurd, comic and mounting in tension, with the pompous court and its rapid shifts from order to uproar shown with a light, playful touch.",
+        "depiction_rules": [
+          "Show the court as a card-and-animal menagerie in which the jurors are birds and beasts writing on slates.",
+          "The Queen and King are rendered as playing-card royalty, the Knave in chains between two soldiers.",
+          "Show the Dormouse and the guinea-pigs being removed or bagged in comic, non-violent ways; no actual executions are depicted.",
+          "The tarts on the central table should be visibly appetising."
+        ],
+        "era": {
+          "name": "Wonderland, an imagined fantasy kingdom",
+          "people": "Playing-card courtiers mixed with talking animals and birds, including a Rabbit, Hare, Dormouse, Lizard and Gryphon.",
+          "dress": "Playing-card costumes for the royals and soldiers; the King wears a great wig under his crown; the Hatter wears a hat and shoes; the jury wear no formal dress beyond their animal forms.",
+          "buildings_and_objects": "A raised throne, a jury-box, a central table laden with tarts, slates and pencils, a trumpet and parchment scroll, teacups and bread-and-butter, spectacles, and a canvas bag for suppressing guinea-pigs.",
+          "technology": "No modern technology; slates, pencils and printed newspapers are the only writing tools, and the court runs on trumpets and proclamation."
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "unitsPerSection": 18,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the little girl\",\"the witness Alice\"],\"kind\":\"person\",\"note\":\"A young girl who has grown and shrunk in Wonderland; present in the court watching the trial and about to be called as a witness, the only Alice here.\",\"same_person_as\":\"\"},{\"id\":\"the_king_of_hearts\",\"name\":\"the King of Hearts\",\"aliases\":[\"the King\",\"the judge\"],\"kind\":\"person\",\"note\":\"The King of Hearts, sitting on the throne as judge of the trial; wears his crown over his wig.\",\"same_person_as\":\"\"},{\"id\":\"the_queen_of_hearts\",\"name\":\"the Queen of Hearts\",\"aliases\":[\"the Queen\"],\"kind\":\"person\",\"note\":\"The Queen of Hearts, seated beside the King on the throne, who stares at the Hatter and shouts orders to have the Dormouse removed.\",\"same_person_as\":\"\"},{\"id\":\"the_knave_of_hearts\",\"name\":\"the Knave of Hearts\",\"aliases\":[\"the Knave\",\"the accused\"],\"kind\":\"person\",\"note\":\"The Knave of Hearts, standing in chains between two soldiers, on trial for stealing the tarts.\",\"same_person_as\":\"\"},{\"id\":\"the_white_rabbit\",\"name\":\"the White Rabbit\",\"aliases\":[\"the Rabbit\",\"the herald\"],\"kind\":\"animal\",\"note\":\"The White Rabbit, herald of the court, who blows the trumpet, reads the accusation and calls the witnesses.\",\"same_person_as\":\"\"},{\"id\":\"the_gryphon\",\"name\":\"the Gryphon\",\"aliases\":[],\"kind\":\"divine\",\"note\":\"A Gryphon in the court who whispers to Alice about the jurors writing their names down.\",\"same_person_as\":\"\"},{\"id\":\"the_jury\",\"name\":\"the jury\",\"aliases\":[\"the jurors\",\"the twelve creatures\",\"the pack of cards\"],\"kind\":\"group\",\"note\":\"The twelve jurors, birds and beasts writing on slates, who act together as one body.\",\"same_person_as\":\"\"},{\"id\":\"bill_the_lizard\",\"name\":\"Bill the Lizard\",\"aliases\":[\"Bill\",\"the little juror\"],\"kind\":\"animal\",\"note\":\"A juror, a lizard, whose squeaking pencil Alice takes away; he is the one who cannot spell stupid.\",\"same_person_as\":\"\"},{\"id\":\"the_hatter\",\"name\":\"the Hatter\",\"aliases\":[\"the poor man\",\"the first witness\"],\"kind\":\"person\",\"note\":\"The Hatter, the first witness, with a teacup and bread-and-butter, who is nervous before the Queen.\",\"same_person_as\":\"\"},{\"id\":\"the_march_hare\",\"name\":\"the March Hare\",\"aliases\":[\"the Hare\"],\"kind\":\"animal\",\"note\":\"The March Hare, who follows the Hatter into court arm-in-arm with the Dormouse and gives a date.\",\"same_person_as\":\"\"},{\"id\":\"the_dormouse\",\"name\":\"the Dormouse\",\"aliases\":[\"the sleepy voice\"],\"kind\":\"animal\",\"note\":\"The Dormouse, who sits beside Alice, complains of her growing, and is asleep or is ordered out of court.\",\"same_person_as\":\"\"},{\"id\":\"the_guinea_pigs\",\"name\":\"the guinea-pigs\",\"aliases\":[\"the guinea-pig\"],\"kind\":\"animal\",\"note\":\"Two guinea-pigs in the court who cheer and are suppressed in a canvas bag by the officers.\",\"same_person_as\":\"\"},{\"id\":\"the_duchess_cook\",\"name\":\"the Duchess's cook\",\"aliases\":[\"the cook\"],\"kind\":\"person\",\"note\":\"The Duchess's cook, carrying a pepper-box, who is questioned about tarts and then disappears.\",\"same_person_as\":\"\"},{\"id\":\"the_court_officers\",\"name\":\"the officers of the court\",\"aliases\":[\"the officers\",\"the soldiers\"],\"kind\":\"group\",\"note\":\"The officers of the court who suppress the guinea-pigs, remove the Dormouse and attend the Queen's orders.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"the_court\",\"name\":\"the court of justice\",\"aliases\":[\"the court\",\"the courtroom\"],\"note\":\"The open court of the Queen of Hearts, with a throne, a jury-box and a table of tarts at its centre.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"15\",\"title\":\"The court assembles\",\"setting\":[\"the_court\"],\"on_stage\":[\"alice\",\"the_king_of_hearts\",\"the_queen_of_hearts\",\"the_knave_of_hearts\",\"the_white_rabbit\",\"the_gryphon\",\"the_jury\",\"bill_the_lizard\"],\"mentioned_only\":[]},{\"start\":\"16\",\"end\":\"62\",\"title\":\"The Hatter's evidence\",\"setting\":[\"the_court\"],\"on_stage\":[\"alice\",\"the_king_of_hearts\",\"the_queen_of_hearts\",\"the_hatter\",\"the_march_hare\",\"the_dormouse\",\"the_guinea_pigs\",\"the_court_officers\",\"the_jury\",\"the_white_rabbit\"],\"mentioned_only\":[]},{\"start\":\"63\",\"end\":\"73\",\"title\":\"The cook and the Dormouse\",\"setting\":[\"the_court\"],\"on_stage\":[\"alice\",\"the_king_of_hearts\",\"the_queen_of_hearts\",\"the_duchess_cook\",\"the_dormouse\",\"the_court_officers\",\"the_white_rabbit\",\"the_jury\"],\"mentioned_only\":[]},{\"start\":\"74\",\"end\":\"74\",\"title\":\"Alice is called\",\"setting\":[\"the_court\"],\"on_stage\":[\"alice\",\"the_white_rabbit\"],\"mentioned_only\":[]}],\"brief\":{\"tone\":\"Absurd, comic and mounting in tension, with the pompous court and its rapid shifts from order to uproar shown with a light, playful touch.\",\"depiction_rules\":[\"Show the court as a card-and-animal menagerie in which the jurors are birds and beasts writing on slates.\",\"The Queen and King are rendered as playing-card royalty, the Knave in chains between two soldiers.\",\"Show the Dormouse and the guinea-pigs being removed or bagged in comic, non-violent ways; no actual executions are depicted.\",\"The tarts on the central table should be visibly appetising.\"],\"era\":{\"name\":\"Wonderland, an imagined fantasy kingdom\",\"people\":\"Playing-card courtiers mixed with talking animals and birds, including a Rabbit, Hare, Dormouse, Lizard and Gryphon.\",\"dress\":\"Playing-card costumes for the royals and soldiers; the King wears a great wig under his crown; the Hatter wears a hat and shoes; the jury wear no formal dress beyond their animal forms.\",\"buildings_and_objects\":\"A raised throne, a jury-box, a central table laden with tarts, slates and pencils, a trumpet and parchment scroll, teacups and bread-and-butter, spectacles, and a canvas bag for suppressing guinea-pigs.\",\"technology\":\"No modern technology; slates, pencils and printed newspapers are the only writing tools, and the court runs on trumpets and proclamation.\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326371-BahmdBTX4eeAVSfvW8Q4",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 6690,
+              "completionTokens": 2310,
+              "costUsd": 0.001824
+            },
+            "elapsedMs": 9945
+          },
+          "error": null,
+          "problems": []
+        }
+      ]
+    },
+    {
+      "divisionId": "alices-evidence",
+      "label": "Alice\u2019s Evidence",
+      "unitCount": 71,
+      "characters": [
+        {
+          "id": "alice",
+          "name": "Alice",
+          "aliases": [
+            "the girl",
+            "little Alice"
+          ],
+          "kind": "person",
+          "note": "A girl who has grown very large in the courtroom; the dreamer and the main witness. Her sister is a separate person.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_king",
+          "name": "the King",
+          "aliases": [
+            "His Majesty"
+          ],
+          "kind": "person",
+          "note": "The King of Hearts presiding over the trial, pompous and fond of his rules; appears in units 1-57.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_queen",
+          "name": "the Queen",
+          "aliases": [
+            "the Queen of Hearts"
+          ],
+          "kind": "person",
+          "note": "The Queen of Hearts, furious and quick to order executions; present throughout the trial.",
+          "same_person_as": ""
+        },
+        {
+          "id": "white_rabbit",
+          "name": "the White Rabbit",
+          "aliases": [
+            "the Rabbit"
+          ],
+          "kind": "animal",
+          "note": "The anxious White Rabbit acting as herald and reader of the verses; present in the court.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_knave",
+          "name": "the Knave",
+          "aliases": [
+            "the Knave of Hearts",
+            "the Knave made of cardboard"
+          ],
+          "kind": "person",
+          "note": "The Knave of Hearts, accused of stealing the tarts; a cardboard card figure on trial.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_lizard_bill",
+          "name": "Bill the Lizard",
+          "aliases": [
+            "the Lizard",
+            "little Bill"
+          ],
+          "kind": "animal",
+          "note": "The Lizard, a juror who is put in head downwards and writes on a slate; present in the court.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_jury",
+          "name": "the jury",
+          "aliases": [
+            "the jurymen"
+          ],
+          "kind": "group",
+          "note": "The twelve jurymen who write on their slates and are knocked over by Alice; acts as one group in the court.",
+          "same_person_as": ""
+        },
+        {
+          "id": "the_pack_of_cards",
+          "name": "the pack of cards",
+          "aliases": [
+            "the cards"
+          ],
+          "kind": "group",
+          "note": "The playing cards of the court who rise up and fly down at Alice, ending the dream.",
+          "same_person_as": ""
+        },
+        {
+          "id": "alice_sister",
+          "name": "Alice's sister",
+          "aliases": [
+            "her sister"
+          ],
+          "kind": "person",
+          "note": "Alice's older sister, sitting on the bank who wakes Alice and then dreams of Wonderland; not present in the court.",
+          "same_person_as": ""
+        }
+      ],
+      "locations": [
+        {
+          "id": "the_court",
+          "name": "the court of the Queen of Hearts",
+          "aliases": [
+            "the court",
+            "the courtroom"
+          ],
+          "note": "The courtroom where the trial of the Knave takes place, with a jury-box and crowd below."
+        },
+        {
+          "id": "riverbank",
+          "name": "the riverbank",
+          "aliases": [
+            "the bank"
+          ],
+          "note": "The bank where Alice's sister sits and wakes Alice, and where her sister dreams at sunset.."
+        }
+      ],
+      "sections": [
+        {
+          "firstUnitId": "alices-evidence-1",
+          "lastUnitId": "alices-evidence-15",
+          "title": "The jury upset and the trial begins",
+          "setting": [
+            "the_court"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_king",
+              "named": true
+            },
+            {
+              "id": "the_queen",
+              "named": false
+            },
+            {
+              "id": "white_rabbit",
+              "named": true
+            },
+            {
+              "id": "the_knave",
+              "named": false
+            },
+            {
+              "id": "the_lizard_bill",
+              "named": true
+            },
+            {
+              "id": "the_jury",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "alices-evidence-16",
+          "lastUnitId": "alices-evidence-22",
+          "title": "Alice refuses to leave the court",
+          "setting": [
+            "the_court"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_king",
+              "named": true
+            },
+            {
+              "id": "the_queen",
+              "named": true
+            },
+            {
+              "id": "the_jury",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "alices-evidence-23",
+          "lastUnitId": "alices-evidence-46",
+          "title": "The verses are read as evidence",
+          "setting": [
+            "the_court"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_king",
+              "named": true
+            },
+            {
+              "id": "the_queen",
+              "named": true
+            },
+            {
+              "id": "white_rabbit",
+              "named": true
+            },
+            {
+              "id": "the_knave",
+              "named": true
+            },
+            {
+              "id": "the_lizard_bill",
+              "named": false
+            },
+            {
+              "id": "the_jury",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        },
+        {
+          "firstUnitId": "alices-evidence-47",
+          "lastUnitId": "alices-evidence-71",
+          "title": "Alice wakes and her sister dreams",
+          "setting": [
+            "the_court",
+            "riverbank"
+          ],
+          "onStage": [
+            {
+              "id": "alice",
+              "named": true
+            },
+            {
+              "id": "the_king",
+              "named": true
+            },
+            {
+              "id": "the_queen",
+              "named": true
+            },
+            {
+              "id": "white_rabbit",
+              "named": true
+            },
+            {
+              "id": "the_knave",
+              "named": true
+            },
+            {
+              "id": "the_jury",
+              "named": true
+            },
+            {
+              "id": "the_pack_of_cards",
+              "named": false
+            },
+            {
+              "id": "alice_sister",
+              "named": true
+            }
+          ],
+          "mentionedOnly": []
+        }
+      ],
+      "brief": {
+        "tone": "Bright, absurd and mock-solemn at first, turning gently dreamy and tender as the dream fades into the sunset on the riverbank.",
+        "depiction_rules": [
+          "The Knave is a flat cardboard card figure and should look like one.",
+          "The playing cards are flat, card-shaped figures that fly down onto Alice.",
+          "The Lizard, the Rabbit and the jurors are animals or figures in a Victorian courtroom mood, not realistic beasts.",
+          "The Queen's fury may be shown through her exaggerated expression, but no real harm or bloodshed is depicted.",
+          "Alice grows very large during the trial; her size should be clearly larger than the court and the crowd."
+        ],
+        "era": {
+          "name": "Victorian England, reimagined as Wonderland",
+          "people": "Wonderland's court is an imaginary mix of playing-card figures, animals in clothing, and a human girl, Alice, with her sister in the Victorian English countryside.",
+          "dress": "Victorian dress for Alice and her sister; the court wears formal, exaggerated robes and card-themed costumes.",
+          "buildings_and_objects": "A stiff, ornate courtroom with a jury-box, a judge's bench, a table of tarts, inkstands, slates and pencils; an outdoor riverbank with trees and reeds.",
+          "technology": "Victorian-era writing tools such as slates, pencils, inkstands and note-books; no modern technology."
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "unitsPerSection": 18,
+          "feedback": null,
+          "result": {
+            "content": "{\"characters\":[{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the girl\",\"little Alice\"],\"kind\":\"person\",\"note\":\"A girl who has grown very large in the courtroom; the dreamer and the main witness. Her sister is a separate person.\",\"same_person_as\":\"\"},{\"id\":\"the_king\",\"name\":\"the King\",\"aliases\":[\"His Majesty\"],\"kind\":\"person\",\"note\":\"The King of Hearts presiding over the trial, pompous and fond of his rules; appears in units 1-57.\",\"same_person_as\":\"\"},{\"id\":\"the_queen\",\"name\":\"the Queen\",\"aliases\":[\"the Queen of Hearts\"],\"kind\":\"person\",\"note\":\"The Queen of Hearts, furious and quick to order executions; present throughout the trial.\",\"same_person_as\":\"\"},{\"id\":\"white_rabbit\",\"name\":\"the White Rabbit\",\"aliases\":[\"the Rabbit\"],\"kind\":\"animal\",\"note\":\"The anxious White Rabbit acting as herald and reader of the verses; present in the court.\",\"same_person_as\":\"\"},{\"id\":\"the_knave\",\"name\":\"the Knave\",\"aliases\":[\"the Knave of Hearts\",\"the Knave made of cardboard\"],\"kind\":\"person\",\"note\":\"The Knave of Hearts, accused of stealing the tarts; a cardboard card figure on trial.\",\"same_person_as\":\"\"},{\"id\":\"the_lizard_bill\",\"name\":\"Bill the Lizard\",\"aliases\":[\"the Lizard\",\"little Bill\"],\"kind\":\"animal\",\"note\":\"The Lizard, a juror who is put in head downwards and writes on a slate; present in the court.\",\"same_person_as\":\"\"},{\"id\":\"the_jury\",\"name\":\"the jury\",\"aliases\":[\"the jurymen\"],\"kind\":\"group\",\"note\":\"The twelve jurymen who write on their slates and are knocked over by Alice; acts as one group in the court.\",\"same_person_as\":\"\"},{\"id\":\"the_pack_of_cards\",\"name\":\"the pack of cards\",\"aliases\":[\"the cards\"],\"kind\":\"group\",\"note\":\"The playing cards of the court who rise up and fly down at Alice, ending the dream.\",\"same_person_as\":\"\"},{\"id\":\"alice_sister\",\"name\":\"Alice's sister\",\"aliases\":[\"her sister\"],\"kind\":\"person\",\"note\":\"Alice's older sister, sitting on the bank who wakes Alice and then dreams of Wonderland; not present in the court.\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"the_court\",\"name\":\"the court of the Queen of Hearts\",\"aliases\":[\"the court\",\"the courtroom\"],\"note\":\"The courtroom where the trial of the Knave takes place, with a jury-box and crowd below.\"},{\"id\":\"riverbank\",\"name\":\"the riverbank\",\"aliases\":[\"the bank\"],\"note\":\"The bank where Alice's sister sits and wakes Alice, and where her sister dreams at sunset..\"}],\"sections\":[{\"start\":\"1\",\"end\":\"15\",\"title\":\"The jury upset and the trial begins\",\"setting\":[\"the_court\"],\"on_stage\":[\"alice\",\"the_king\",\"the_queen\",\"white_rabbit\",\"the_knave\",\"the_lizard_bill\",\"the_jury\"],\"mentioned_only\":[]},{\"start\":\"16\",\"end\":\"22\",\"title\":\"Alice refuses to leave the court\",\"setting\":[\"the_court\"],\"on_stage\":[\"alice\",\"the_king\",\"the_queen\",\"the_jury\"],\"mentioned_only\":[]},{\"start\":\"23\",\"end\":\"46\",\"title\":\"The verses are read as evidence\",\"setting\":[\"the_court\"],\"on_stage\":[\"alice\",\"the_king\",\"the_queen\",\"white_rabbit\",\"the_knave\",\"the_lizard_bill\",\"the_jury\"],\"mentioned_only\":[]},{\"start\":\"47\",\"end\":\"71\",\"title\":\"Alice wakes and her sister dreams\",\"setting\":[\"the_court\",\"riverbank\"],\"on_stage\":[\"alice\",\"the_king\",\"the_queen\",\"white_rabbit\",\"the_knave\",\"the_jury\",\"the_pack_of_cards\",\"alice_sister\"],\"mentioned_only\":[]}],\"brief\":{\"tone\":\"Bright, absurd and mock-solemn at first, turning gently dreamy and tender as the dream fades into the sunset on the riverbank.\",\"depiction_rules\":[\"The Knave is a flat cardboard card figure and should look like one.\",\"The playing cards are flat, card-shaped figures that fly down onto Alice.\",\"The Lizard, the Rabbit and the jurors are animals or figures in a Victorian courtroom mood, not realistic beasts.\",\"The Queen's fury may be shown through her exaggerated expression, but no real harm or bloodshed is depicted.\",\"Alice grows very large during the trial; her size should be clearly larger than the court and the crowd.\"],\"era\":{\"name\":\"Victorian England, reimagined as Wonderland\",\"people\":\"Wonderland's court is an imaginary mix of playing-card figures, animals in clothing, and a human girl, Alice, with her sister in the Victorian English countryside.\",\"dress\":\"Victorian dress for Alice and her sister; the court wears formal, exaggerated robes and card-themed costumes.\",\"buildings_and_objects\":\"A stiff, ornate courtroom with a jury-box, a judge's bench, a table of tarts, inkstands, slates and pencils; an outdoor riverbank with trees and reeds.\",\"technology\":\"Victorian-era writing tools such as slates, pencils, inkstands and note-books; no modern technology.\"}}}",
+            "model": "anthropic/claude-haiku-5.5",
+            "providerRequestId": "gen-1793326381-8vqQTXOPQvC8S7CdibQG",
+            "finishReason": "stop",
+            "usage": {
+              "promptTokens": 7014,
+              "completionTokens": 1771,
+              "costUsd": 0.0015869
+            },
+            "elapsedMs": 8060
+          },
+          "error": null,
+          "problems": []
+        }
+      ]
+    }
+  ],
+  "expectedRabbitMembers": [
+    "alices-evidence:character:white_rabbit",
+    "down-the-rabbit-hole:character:white_rabbit",
+    "the-pool-of-tears:character:white_rabbit",
+    "the-queens-croquet-ground:character:white_rabbit",
+    "the-rabbit-sends-in-a-little-bill:character:white_rabbit",
+    "who-stole-the-tarts:character:the_white_rabbit"
+  ]
+}

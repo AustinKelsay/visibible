@@ -1,0 +1,8 @@
+{
+  "purpose": "Run the complete Alice cast merge with unchanged prompts and high reasoning. Use original division readings, original grouping and reconciliation; no production writes.",
+  "model": "anthropic/claude-haiku-5.5",
+  "capUsd": 0.5,
+  "readerReserveUsd": 5,
+  "maximumCalls": 100,
+  "gate": "Exactly one identity must contain all six expected White Rabbit members and no other member. Complete member coverage and section references must survive. One end-to-end sample; no broad quality claim."
+}

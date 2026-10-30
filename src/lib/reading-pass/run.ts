@@ -146,7 +146,7 @@ export async function runReadingPass(options: {
   const readings = rootDivisions(work).map((d) => state.readings[d.id]);
   if (!state.merge) {
     log("merging casts");
-    const responseKey = (request: TextModelRequest) => contentVersion({ model: model.id, system: request.system, user: request.user, schemaName: request.schemaName, schema: responseSchema(request.schema), maxTokens: request.maxTokens });
+    const responseKey = (request: TextModelRequest) => contentVersion({ model: model.id, system: request.system, user: request.user, schemaName: request.schemaName, schema: responseSchema(request.schema), maxTokens: request.maxTokens, reasoningEffort: request.reasoningEffort });
     const mergeModel: TextModel = { id: model.id, async complete(request) {
       const key = responseKey(request);
       const cached = state.mergeResponses?.[key];

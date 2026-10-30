@@ -1,0 +1,782 @@
+{
+  "2dc5176ce7d82733b26fed54a8223320": {
+    "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Alice\",\"kind\":\"person\",\"note\":\"The single protagonist of the book, the young girl who falls down the rabbit-hole and appears in every division; all entries refer to her, and her sister on the bank is not part of this cluster.\",\"members\":[\"down-the-rabbit-hole:character:alice\",\"the-pool-of-tears:character:alice\",\"a-caucus-race-and-a-long-tale:character:alice\",\"the-rabbit-sends-in-a-little-bill:character:alice\",\"advice-from-a-caterpillar:character:alice\",\"pig-and-pepper:character:alice\",\"a-mad-tea-party:character:alice\",\"the-queens-croquet-ground:character:alice\",\"the-mock-turtles-story:character:alice\",\"the-lobster-quadrille:character:alice\",\"who-stole-the-tarts:character:alice\",\"alices-evidence:character:alice\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326389-Y3mdHAdEmpPl8Vfxo1Pf",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 3218,
+      "completionTokens": 307,
+      "costUsd": 0.0004753
+    },
+    "elapsedMs": 2974
+  },
+  "c65f68cd079ca64c27882ac522cbc639": {
+    "content": "{\"groups\":[{\"group\":1,\"clusters\":[{\"name\":\"Alice\",\"kind\":\"person\",\"note\":\"The young girl protagonist of all four divisions, who falls down the rabbit-hole, grows and shrinks in Wonderland, and testifies at the trial; all entries are the same individual, so keep them together.\",\"members\":[\"down-the-rabbit-hole:character:alice\",\"the-rabbit-sends-in-a-little-bill:character:alice\",\"advice-from-a-caterpillar:character:alice\",\"who-stole-the-tarts:character:alice\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326392-wDmMYVo2XfUpG5IvjtiZ",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1789,
+      "completionTokens": 188,
+      "costUsd": 0.0002729
+    },
+    "elapsedMs": 2352
+  },
+  "98eee3416636c3d6d8f52369c24627bd": {
+    "content": "{\"groups\":[{\"group\":2,\"clusters\":[{\"name\":\"Alice\",\"kind\":\"person\",\"note\":\"The one protagonist young girl of the book, appearing in all five divisions under different aliases (the little girl, the child); all entries are the same individual, so keep them in one cluster.\",\"members\":[\"down-the-rabbit-hole:character:alice\",\"the-pool-of-tears:character:alice\",\"advice-from-a-caterpillar:character:alice\",\"the-queens-croquet-ground:character:alice\",\"the-lobster-quadrille:character:alice\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326394-gnCXYo9Ca8DRE31lxLB1",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1970,
+      "completionTokens": 185,
+      "costUsd": 0.0002895
+    },
+    "elapsedMs": 4093
+  },
+  "e12ef581dd1b0224cd56ac49847e0715": {
+    "content": "{\"groups\":[{\"group\":3,\"clusters\":[{\"name\":\"Alice's sister\",\"kind\":\"person\",\"note\":\"Alice's unnamed older sister who sits on the riverbank with her, reads a book, and later dreams of Wonderland; both entries are the same individual, so keep them in one cluster.\",\"members\":[\"down-the-rabbit-hole:character:alice_sister\",\"alices-evidence:character:alice_sister\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326398-Or7EhFZKWorS4Fhfh4ie",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1264,
+      "completionTokens": 144,
+      "costUsd": 0.0001984
+    },
+    "elapsedMs": 4716
+  },
+  "05a4d44ccd1ff1294bb221242e3bde90": {
+    "content": "{\"groups\":[{\"group\":4,\"clusters\":[{\"name\":\"White Rabbit (the Rabbit who runs down the hole)\",\"kind\":\"animal\",\"note\":\"The talking white rabbit with pink eyes and a waistcoat-pocket watch who leads Alice down the rabbit-hole and is seen hurrying along the passage; the first appearance, so the 'hurrying with a watch' figure.\",\"members\":[\"down-the-rabbit-hole:character:white_rabbit\"]},{\"name\":\"White Rabbit (the Rabbit dressed for the Duchess who flees at the pool)\",\"kind\":\"animal\",\"note\":\"The hurrying rabbit in a splendid waistcoat, dressed for the Duchess, who drops his gloves and fan and flees when Alice speaks to him near the pool of tears; the one who loses his gloves and fan, not the one who sends the bill.\",\"members\":[\"the-pool-of-tears:character:white_rabbit\"]},{\"name\":\"White Rabbit (the anxious householder who sends Bill and Pat)\",\"kind\":\"animal\",\"note\":\"The anxious white rabbit who owns the house, sends Alice for gloves and a fan, and sends Pat and Bill to deal with her; the one with a house and servants, not the roadside runner or the court herald.\",\"members\":[\"the-rabbit-sends-in-a-little-bill:character:white_rabbit\"]},{\"name\":\"White Rabbit (the nervous whisperer in the royal procession)\",\"kind\":\"animal\",\"note\":\"The nervous rabbit in the royal procession who whispers to Alice about the Duchess's sentence and starts the croquet game; distinguished by the procession and croquet-ground setting rather than the court trial.\",\"members\":[\"the-queens-croquet-ground:character:white_rabbit\"]},{\"name\":\"White Rabbit (the herald of the court at the trial)\",\"kind\":\"animal\",\"note\":\"The White Rabbit acting as herald of the court, who blows the trumpet, reads the accusation and the verses and calls the witnesses; the trial figure, appearing in both the stolen-tarts trial sections.\",\"members\":[\"who-stole-the-tarts:character:the_white_rabbit\",\"alices-evidence:character:white_rabbit\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326403-ldHmOYx2NobDNgxGU0R4",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1998,
+      "completionTokens": 736,
+      "costUsd": 0.0005678
+    },
+    "elapsedMs": 4134
+  },
+  "0e6f41feba99eb233546b64689f285aa": {
+    "content": "{\"groups\":[{\"group\":5,\"clusters\":[{\"name\":\"White Rabbit\",\"kind\":\"animal\",\"note\":\"The talking white rabbit with pink eyes and a waistcoat-pocket watch who runs down the rabbit-hole, hurrying along the passage; seen in the rabbit-hole sections.\",\"members\":[\"down-the-rabbit-hole:character:white_rabbit\"]},{\"name\":\"White Rabbit (Duchess's errand rabbit)\",\"kind\":\"animal\",\"note\":\"The rabbit in a splendid waistcoat, dressed for the Duchess, who drops his gloves and fan and flees when Alice speaks to him near the pool of tears; the same rabbit as the White Rabbit, so keep them joined.\",\"members\":[\"the-pool-of-tears:character:white_rabbit\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326407-3nHVdnBEiQecTHYSJxS7",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1366,
+      "completionTokens": 273,
+      "costUsd": 0.0002731
+    },
+    "elapsedMs": 3166
+  },
+  "1cf6caff46ec023e383d99c7f625bdcb": {
+    "content": "{\"groups\":[{\"group\":6,\"clusters\":[{\"name\":\"Dinah\",\"kind\":\"animal\",\"note\":\"Alice's pet cat at home, mentioned only in Alice's thoughts and talk and never physically present; all four entries describe the same cat, so they form one cluster.\",\"members\":[\"down-the-rabbit-hole:character:dinah\",\"the-pool-of-tears:character:dinah\",\"a-caucus-race-and-a-long-tale:character:dinah\",\"the-rabbit-sends-in-a-little-bill:character:dinah\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326410-fweQHHRyESIbFXRIYd1Z",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1446,
+      "completionTokens": 184,
+      "costUsd": 0.0002366
+    },
+    "elapsedMs": 2038
+  },
+  "38c42876d661873bd389bbeef7a4acca": {
+    "content": "{\"groups\":[{\"group\":7,\"clusters\":[{\"name\":\"Dinah (Alice's cat, in Alice's musing)\",\"kind\":\"animal\",\"note\":\"Alice's cat, imagined by Alice as she falls down the rabbit hole and never physically present; distinct from the household Dinah at home.\",\"members\":[\"down-the-rabbit-hole:character:dinah\"]},{\"name\":\"Dinah (Alice's pet cat at home)\",\"kind\":\"animal\",\"note\":\"Alice's pet cat at home, mentioned in her thoughts and as a threat to the animals; distinct from the Dinah imagined during the fall.\",\"members\":[\"the-rabbit-sends-in-a-little-bill:character:dinah\"]},{\"name\":\"Cheshire Cat\",\"kind\":\"animal\",\"note\":\"The grinning cat in the kitchen and trees who talks with Alice about the Hatter and the March Hare, and vanishes and reappears; the same grinning cat whose head appears in the air in the croquet-ground scene.\",\"members\":[\"pig-and-pepper:character:cheshire_cat\",\"the-queens-croquet-ground:character:cheshire_cat\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326412-HaaaGAvo3dqT1Ob3hd5Y",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1551,
+      "completionTokens": 381,
+      "costUsd": 0.0003456
+    },
+    "elapsedMs": 3151
+  },
+  "50e5bc4063864f1b1ee9ac489cddb11c": {
+    "content": "{\"groups\":[{\"group\":8,\"clusters\":[{\"name\":\"the Mouse (pool of tears)\",\"kind\":\"animal\",\"note\":\"The mouse that fell into the pool of tears, swims with Alice, offended by talk of cats and dogs, and later tells its history on the shore; distinguish from the caucus-race Mouse by its swimming in the pool and the tale of its history.\",\"members\":[\"the-pool-of-tears:character:the_mouse\"]},{\"name\":\"the Mouse (caucus-race)\",\"kind\":\"animal\",\"note\":\"The authoritative mouse at the gathering on the bank, lectures on English history, tells the long tale about Fury and the mouse, and storms off; distinguish from the pool-of-tears Mouse by its role as authority of the caucus-race gathering.\",\"members\":[\"a-caucus-race-and-a-long-tale:character:the_mouse\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326416-cUJmEEOOOSPIRA18rHz1",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1378,
+      "completionTokens": 292,
+      "costUsd": 0.0002838
+    },
+    "elapsedMs": 2368
+  },
+  "2261e4701077867b344f493832fc4f4c": {
+    "content": "{\"groups\":[{\"group\":9,\"clusters\":[{\"name\":\"Dinah\",\"kind\":\"animal\",\"note\":\"Alice's pet cat at home, mentioned only and never present on stage; both entries describe the same cat, so they are one cluster.\",\"members\":[\"the-pool-of-tears:character:dinah\",\"a-caucus-race-and-a-long-tale:character:dinah\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326418-HSM2v9VAduDDUmv9BYuo",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1226,
+      "completionTokens": 129,
+      "costUsd": 0.0001871
+    },
+    "elapsedMs": 2990
+  },
+  "20659d92ad41105f3fc0f2ca711d51ee": {
+    "content": "{\"groups\":[{\"group\":10,\"clusters\":[{\"name\":\"the Duck\",\"kind\":\"animal\",\"note\":\"A duck of the Pool of Tears crowd who swims to shore with the party, and the duck in the Caucus-Race who questions the Mouse; both are the same bird in the same gathering, so they form one cluster.\",\"members\":[\"the-pool-of-tears:character:the_duck\",\"a-caucus-race-and-a-long-tale:character:the_duck\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326421-ZoaOCwgRcWsUS2LLstYH",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1259,
+      "completionTokens": 158,
+      "costUsd": 0.0002049
+    },
+    "elapsedMs": 2238
+  },
+  "a9a403e6de27ee77c29bb4eeeb162292": {
+    "content": "{\"groups\":[{\"group\":11,\"clusters\":[{\"name\":\"the Dodo\",\"kind\":\"animal\",\"note\":\"The dodo bird who proposes the Caucus-race, runs it, awards the prizes and presents Alice's thimble; the same dodo appears among the birds swimming to shore from the pool of tears.\",\"members\":[\"the-pool-of-tears:character:the_dodo\",\"a-caucus-race-and-a-long-tale:character:the_dodo\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326423-3HkrNjbSTKTMhxyrb3CS",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1295,
+      "completionTokens": 157,
+      "costUsd": 0.000208
+    },
+    "elapsedMs": 2617
+  },
+  "0d6e69a71904f20830f0be7f92285bf3": {
+    "content": "{\"groups\":[{\"group\":12,\"clusters\":[{\"name\":\"the Lory\",\"kind\":\"animal\",\"note\":\"A bird (a Lory) who swims in the pool of tears, argues with Alice about age, and laments the Mouse leaving; both entries describe the same bird, so they are one individual.\",\"members\":[\"the-pool-of-tears:character:the_lory\",\"a-caucus-race-and-a-long-tale:character:the_lory\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326426-8tlmpoDtLgWEWV7SYfK5",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1289,
+      "completionTokens": 148,
+      "costUsd": 0.0002029
+    },
+    "elapsedMs": 2309
+  },
+  "e9d4161ef84af4ef8aa70a463558fbfa": {
+    "content": "{\"groups\":[{\"group\":13,\"clusters\":[{\"name\":\"the Eaglet\",\"kind\":\"animal\",\"note\":\"A young eaglet among the birds and animals in the pool and caucus-race scenes; both entries are the same bird, so one cluster.\",\"members\":[\"the-pool-of-tears:character:the_eaglet\",\"a-caucus-race-and-a-long-tale:character:the_eaglet\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326428-2HdamgJ1Pf0WuCI7nciE",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1267,
+      "completionTokens": 138,
+      "costUsd": 0.0001957
+    },
+    "elapsedMs": 2165
+  },
+  "ef605ce60d9ea88d6fc50f8e59254a5a": {
+    "content": "{\"groups\":[{\"group\":14,\"clusters\":[{\"name\":\"The Duchess (kitchen, lullaby, croquet with the Queen)\",\"kind\":\"person\",\"note\":\"The short-tempered noblewoman in the smoky kitchen who nurses a baby and sings a violent lullaby, then leaves to play croquet with the Queen; distinguished from the moralising Duchess who walks with Alice by her kitchen and lullaby scenes.\",\"members\":[\"pig-and-pepper:character:duchess\"]},{\"name\":\"The Duchess (arm in arm with Alice, moralising)\",\"kind\":\"person\",\"note\":\"The ugly, sharp-chinned, moralising Duchess who walks arm in arm with Alice and is driven off by the Queen's arrival; the same Duchess met earlier in the kitchen, so her kitchen scene is a separate cluster only where its notes point to a different portrayal.\",\"members\":[\"the-mock-turtles-story:character:the_duchess\"]},{\"name\":\"The Duchess (imprisoned, to be executed)\",\"kind\":\"person\",\"note\":\"The Duchess sentenced to execution who is fetched by the executioner at the end; named only in mention, distinguished by her imprisonment and sentence rather than any on-page scene.\",\"members\":[\"the-queens-croquet-ground:character:duchess\"]},{\"name\":\"The Duchess (named only, the Rabbit's destination)\",\"kind\":\"person\",\"note\":\"The Duchess the White Rabbit is hurrying to, named only and not present in this division; a mention with no scene of her own, so kept apart from the characters who appear on the page.\",\"members\":[\"the-pool-of-tears:character:the_duchess\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326430-iuCDHx99XikrSUuH6Tu0",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1539,
+      "completionTokens": 551,
+      "costUsd": 0.0004294
+    },
+    "elapsedMs": 5997
+  },
+  "2fc763a062c1f76f4b4756f8dd88a2ac": {
+    "content": "{\"groups\":[{\"group\":15,\"clusters\":[{\"name\":\"Alice\",\"kind\":\"person\",\"note\":\"The young heroine of the work, a curious girl who falls down the rabbit hole and is present in every division: at the pool of tears, the Duchess's kitchen, the Queen's croquet ground and the trial; her sister is a separate person.\",\"members\":[\"a-caucus-race-and-a-long-tale:character:alice\",\"pig-and-pepper:character:alice\",\"the-queens-croquet-ground:character:alice\",\"alices-evidence:character:alice\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326436-LToVQLLCD5ET6eXmDkuu",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1665,
+      "completionTokens": 187,
+      "costUsd": 0.00026
+    },
+    "elapsedMs": 2418
+  },
+  "6cd43b8ceff6bb65d91f0734923bae80": {
+    "content": "{\"groups\":[{\"group\":16,\"clusters\":[{\"name\":\"the old Crab\",\"kind\":\"animal\",\"note\":\"The mother crab who lectures her daughter about temper in A Caucus-Race and a Long Tale; not to be confused with the Classics master crab, who was a teacher recalled in The Mock Turtle's Story.\",\"members\":[\"a-caucus-race-and-a-long-tale:character:the_old_crab\"]},{\"name\":\"the Classics master (old crab)\",\"kind\":\"other\",\"note\":\"The old crab who taught the Gryphon the Classics, recalled only in The Mock Turtle's Story and not present; a different crab from the mother crab, distinguished by her role as a schoolmaster.\",\"members\":[\"the-mock-turtles-story:character:the_classics_master_crab\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326439-0vGwO2UjhLn9wkGi12Yx",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1275,
+      "completionTokens": 264,
+      "costUsd": 0.0002595
+    },
+    "elapsedMs": 2565
+  },
+  "318640a71b576584389d109fa193e013": {
+    "content": "{\"groups\":[{\"group\":17,\"clusters\":[{\"name\":\"Alice\",\"kind\":\"person\",\"note\":\"The young girl who falls down the rabbit-hole, shrinks and grows, and is mistaken by the Rabbit for the housemaid Mary Ann; she is the protagonist seen across the sections.\",\"members\":[\"the-rabbit-sends-in-a-little-bill:character:alice\"]},{\"name\":\"Mary Ann\",\"kind\":\"person\",\"note\":\"The Rabbit's housemaid, only named and never seen on stage; Alice is mistaken for her, so she is distinct from Alice herself.\",\"members\":[\"the-rabbit-sends-in-a-little-bill:character:mary_ann\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326441-vq9ztSiyYWe0zGEZbZhF",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1364,
+      "completionTokens": 236,
+      "costUsd": 0.0002544
+    },
+    "elapsedMs": 3046
+  },
+  "8d59553d9221611c945077e50c5b2929": {
+    "content": "{\"groups\":[{\"group\":18,\"clusters\":[{\"name\":\"The White Rabbit\",\"kind\":\"animal\",\"note\":\"The anxious white rabbit with a waistcoat-pocket watch who owns the house and sends Alice and his servants Pat and Bill; distinguished from the herald by his household role.\",\"members\":[\"the-rabbit-sends-in-a-little-bill:character:white_rabbit\"]},{\"name\":\"The White Rabbit (herald of the court)\",\"kind\":\"animal\",\"note\":\"The rabbit serving as herald at the trial, who blows the trumpet, reads the accusation and verses, and calls witnesses; the same individual as the White Rabbit of the house and the procession, joined through his recurring role and anxious character.\",\"members\":[\"the-queens-croquet-ground:character:white_rabbit\",\"who-stole-the-tarts:character:the_white_rabbit\",\"alices-evidence:character:white_rabbit\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326444-2GdmfbqtMizvrwFQgOAZ",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1660,
+      "completionTokens": 309,
+      "costUsd": 0.0003205
+    },
+    "elapsedMs": 3021
+  },
+  "084327ea773c7e45c7cfd472472663f6": {
+    "content": "{\"groups\":[{\"group\":19,\"clusters\":[{\"name\":\"Bill the Lizard\",\"kind\":\"animal\",\"note\":\"The lizard Bill, sent down the chimney by the Rabbit's servants and kicked back out by Alice, later serving as a juror in the court; the same individual across all three sections, distinguished from other characters in the group by being the only lizard of this name.\",\"members\":[\"the-rabbit-sends-in-a-little-bill:character:bill_lizard\",\"who-stole-the-tarts:character:bill_the_lizard\",\"alices-evidence:character:the_lizard_bill\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326447-ArDjhh0z9BMgLxXgnR7P",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1441,
+      "completionTokens": 200,
+      "costUsd": 0.0002441
+    },
+    "elapsedMs": 3085
+  },
+  "ed109a55f0fdf578b169deede2b525f9": {
+    "content": "{\"groups\":[{\"group\":20,\"clusters\":[{\"name\":\"Bill the Lizard\",\"kind\":\"animal\",\"note\":\"The lizard sent down the chimney by the Rabbit's servants, kicked back out by Alice; distinguished from the court juror by the chimney episode.\",\"members\":[\"the-rabbit-sends-in-a-little-bill:character:bill_lizard\"]},{\"name\":\"Bill the Lizard (juror)\",\"kind\":\"animal\",\"note\":\"The Lizard serving as a juror in the court, who writes on a slate; distinguished from the chimney lizard by his role in the trial.\",\"members\":[\"alices-evidence:character:the_lizard_bill\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326450-fc9SFsFKoICvp7mkUbvw",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1317,
+      "completionTokens": 225,
+      "costUsd": 0.0002442
+    },
+    "elapsedMs": 2614
+  },
+  "ab9730933e60ddba129dadabea7d0497": {
+    "content": "{\"groups\":[{\"group\":21,\"clusters\":[{\"name\":\"the guinea-pigs\",\"kind\":\"group\",\"note\":\"The two guinea-pigs who hold up Bill outside the house and rush at Alice; the same pair later cheering in court and being bagged, so both entries join this cluster and are distinguished only by section.\",\"members\":[\"the-rabbit-sends-in-a-little-bill:character:guinea_pigs\",\"who-stole-the-tarts:character:the_guinea_pigs\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326453-RFwlMuEvgyaOahzRWw5V",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1302,
+      "completionTokens": 167,
+      "costUsd": 0.0002137
+    },
+    "elapsedMs": 2408
+  },
+  "b6a65d1b7112ace065d4e793acd924d7": {
+    "content": "{\"groups\":[{\"group\":22,\"clusters\":[{\"name\":\"the Caterpillar\",\"kind\":\"animal\",\"note\":\"The blue hookah-smoking Caterpillar on the mushroom in Wonderland, who questions Alice and gives her advice on the two sides of the mushroom; both entries describe this same individual across divisions.\",\"members\":[\"the-rabbit-sends-in-a-little-bill:character:caterpillar\",\"advice-from-a-caterpillar:character:the_caterpillar\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326455-TJ730KtBIzGSu9wdHHdL",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1325,
+      "completionTokens": 169,
+      "costUsd": 0.000217
+    },
+    "elapsedMs": 3107
+  },
+  "5f1eeed68cf0b82b63d7a97ee0aa914a": {
+    "content": "{\"groups\":[{\"group\":23,\"clusters\":[{\"name\":\"Cook\",\"kind\":\"person\",\"note\":\"The Duchess's kitchen cook with a pepper-box, who stirs soup and is questioned about tarts; both entries describe the same cook in the Duchess's kitchen.\",\"members\":[\"pig-and-pepper:character:cook\",\"who-stole-the-tarts:character:the_duchess_cook\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326459-d6FbjP62mLLNsHuAaAEM",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1257,
+      "completionTokens": 140,
+      "costUsd": 0.0001957
+    },
+    "elapsedMs": 2714
+  },
+  "a0188a8b5bb478c4cdf833c3b80e4e6f": {
+    "content": "{\"groups\":[{\"group\":24,\"clusters\":[{\"name\":\"Cheshire Cat\",\"kind\":\"animal\",\"note\":\"The grinning cat of the Duchess's kitchen and the trees, who talks with Alice and vanishes and reappears; both entries are the same cat, so they form a single cluster.\",\"members\":[\"pig-and-pepper:character:cheshire_cat\",\"the-queens-croquet-ground:character:cheshire_cat\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326461-xv8oO7OxRCfoeC5wm076",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1331,
+      "completionTokens": 151,
+      "costUsd": 0.0002086
+    },
+    "elapsedMs": 2030
+  },
+  "63bb9b30c026a835f73bbbe83fda249c": {
+    "content": "{\"groups\":[{\"group\":25,\"clusters\":[{\"name\":\"March Hare\",\"kind\":\"animal\",\"note\":\"The mad anthropomorphic hare of the Mad Tea-Party, one of the three hosts, who offers wine, takes part in the riddles and story-telling, and appears in the Mad Tea-Party division as well as the court scene; the same individual as the March Hare at the tea party. Distinguish from the court-scene and house-scene entries only by identity, since all describe the same hare.\",\"members\":[\"a-mad-tea-party:character:march_hare\",\"who-stole-the-tarts:character:the_march_hare\",\"pig-and-pepper:character:march_hare\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326463-k5PqMjgjAoeH4T2Im1YN",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1405,
+      "completionTokens": 225,
+      "costUsd": 0.000253
+    },
+    "elapsedMs": 2676
+  },
+  "b69795cd913b8e24d167203585944419": {
+    "content": "{\"groups\":[{\"group\":26,\"clusters\":[{\"name\":\"March Hare\",\"kind\":\"animal\",\"note\":\"The mad hare of the tea party, one of the three hosts who takes part in the riddles and story-telling; the same hare Alice approaches at the end of Pig and Pepper, so both entries belong to this one cluster.\",\"members\":[\"pig-and-pepper:character:march_hare\",\"a-mad-tea-party:character:march_hare\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326466-C8DKkIeos5H0iQib6FEt",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1291,
+      "completionTokens": 151,
+      "costUsd": 0.0002046
+    },
+    "elapsedMs": 2757
+  },
+  "35126c11bcb35d2af0c476a933fa7fd5": {
+    "content": "{\"groups\":[{\"group\":27,\"clusters\":[{\"name\":\"The Hatter\",\"kind\":\"person\",\"note\":\"The eccentric Mad Hatter, host of the tea-party in A Mad Tea-Party and the first witness at the trial in Who Stole the Tarts; the same individual across both sections, distinguished from the unnamed hatter mentioned only in Pig and Pepper.\",\"members\":[\"a-mad-tea-party:character:hatter\",\"who-stole-the-tarts:character:the_hatter\"]},{\"name\":\"Unnamed hatter in Pig and Pepper\",\"kind\":\"person\",\"note\":\"A different hatter mentioned only in passing by the Cat as living in the other direction; no narrative presence, so kept apart from the tea-party Hatter.\",\"members\":[\"pig-and-pepper:character:hatter\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326469-1TEnMQAOnsmFEAm8IdZW",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1406,
+      "completionTokens": 275,
+      "costUsd": 0.0002781
+    },
+    "elapsedMs": 2396
+  },
+  "57b7f4ec28e81fb7ed51688433f42cf0": {
+    "content": "{\"groups\":[{\"group\":28,\"clusters\":[{\"name\":\"the Hatter\",\"kind\":\"person\",\"note\":\"The mad Hatter who appears as the first witness at the trial and tea-party scenes; the pig-and-pepper entry only mentions a Hatter the Cat says lives in the other direction, which is the same figure.\",\"members\":[\"pig-and-pepper:character:hatter\",\"who-stole-the-tarts:character:the_hatter\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326471-LA2e4S9IMJLucI63qM3j",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1229,
+      "completionTokens": 151,
+      "costUsd": 0.0001984
+    },
+    "elapsedMs": 3061
+  },
+  "81a12818f1295877b5b9311043ad5e94": {
+    "content": "{\"groups\":[{\"group\":29,\"clusters\":[{\"name\":\"Queen of Hearts\",\"kind\":\"person\",\"note\":\"The short-tempered Queen of Hearts who orders executions, runs the croquet game, sits on the throne at the trial, and appears across the divisions; the one ruler named Queen of Hearts with the Knave's trial and croquet-ground.\",\"members\":[\"a-mad-tea-party:character:queen_of_hearts\",\"the-queens-croquet-ground:character:the_queen\",\"the-mock-turtles-story:character:the_queen\",\"who-stole-the-tarts:character:the_queen_of_hearts\",\"alices-evidence:character:the_queen\"]},{\"name\":\"The Queen (croquet invitation)\",\"kind\":\"person\",\"note\":\"A separate Queen who only sends the croquet invitation to the Duchess, mentioned in passing with no described traits tying her to the Queen of Hearts.\",\"members\":[\"pig-and-pepper:character:queen\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326474-yFqngSbfYDHA8fVhNmks",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1874,
+      "completionTokens": 323,
+      "costUsd": 0.0003489
+    },
+    "elapsedMs": 4689
+  },
+  "3c883384bb01cc9f06e1ed8c45a89090": {
+    "content": "{\"groups\":[{\"group\":30,\"clusters\":[{\"name\":\"Alice\",\"kind\":\"person\",\"note\":\"The young protagonist of Wonderland, a polite, curious girl who is a guest at the Mad Tea-Party and the main listener to the Mock Turtle's story and the Gryphon's lessons; the same girl in both sections, distinguished only by the section she appears in.\",\"members\":[\"a-mad-tea-party:character:alice\",\"the-mock-turtles-story:character:alice\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326479-K5QdxsBowkZudyb9BXPm",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1432,
+      "completionTokens": 165,
+      "costUsd": 0.0002257
+    },
+    "elapsedMs": 2524
+  },
+  "5f71672828ddd77975899ce0db27e334": {
+    "content": "{\"groups\":[{\"group\":31,\"clusters\":[{\"name\":\"the Dormouse\",\"kind\":\"animal\",\"note\":\"The sleepy dormouse at the Mad Tea-Party between the Hare and the Hatter, who tells the treacle-well story; the same Dormouse appears in the trial chapter, so both entries are one cluster.\",\"members\":[\"a-mad-tea-party:character:dormouse\",\"who-stole-the-tarts:character:the_dormouse\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326481-27HjFDF3xy2zmTXKwYPu",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1338,
+      "completionTokens": 158,
+      "costUsd": 0.0002128
+    },
+    "elapsedMs": 2151
+  },
+  "cf274f583b699af33c52b7502b3cb344": {
+    "content": "{\"groups\":[{\"group\":32,\"clusters\":[{\"name\":\"Queen of Hearts\",\"kind\":\"person\",\"note\":\"The fiercely shouting monarch who orders executions on the croquet-ground and sends Alice off with the Gryphon; the Hatter's memory of her shouting 'Off with his head!' at the concert refers to this same Queen, so it joins her cluster.\",\"members\":[\"a-mad-tea-party:character:queen_of_hearts\",\"the-mock-turtles-story:character:the_queen\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326484-uZktIX5RtaAhmnJdTFmd",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1327,
+      "completionTokens": 174,
+      "costUsd": 0.0002197
+    },
+    "elapsedMs": 2306
+  },
+  "51d8f8a614aa4ca7e7eddeaeda828c9a": {
+    "content": "{\"groups\":[{\"group\":33,\"clusters\":[{\"name\":\"Queen of Hearts\",\"kind\":\"person\",\"note\":\"The short-tempered Queen who calls for beheadings, runs the croquet game and appears in the procession, the executions, the trial and Alice's dream; distinguished from the other Queens by being the one who orders executions and sits beside the King at trial.\",\"members\":[\"a-mad-tea-party:character:queen_of_hearts\",\"the-queens-croquet-ground:character:the_queen\",\"the-mock-turtles-story:character:the_queen\",\"who-stole-the-tarts:character:the_queen_of_hearts\",\"alices-evidence:character:the_queen\"]},{\"name\":\"King of Hearts\",\"kind\":\"person\",\"note\":\"The mild, timid King who walks in the procession, quietly pardons the condemned players and sits as judge at the trial; distinguished from the Queen by his timidity and pardons.\",\"members\":[\"the-queens-croquet-ground:character:the_king\",\"the-mock-turtles-story:character:the_king\",\"who-stole-the-tarts:character:the_king_of_hearts\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326486-BJtEx8VKYlJYhqMCdsj8",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 2202,
+      "completionTokens": 367,
+      "costUsd": 0.0004037
+    },
+    "elapsedMs": 3483
+  },
+  "65a4198fbf4cf34622969de7f51b2e23": {
+    "content": "{\"groups\":[{\"group\":34,\"clusters\":[{\"name\":\"Two\",\"kind\":\"person\",\"note\":\"One of the three card gardeners painting roses red; he explains the mistake to Alice, and is a playing card rather than a human in units 1-11 and 25. Distinguished from Five and Seven by his role as the spokesman who explains to Alice.\",\"members\":[\"the-queens-croquet-ground:character:two\"]},{\"name\":\"Five\",\"kind\":\"person\",\"note\":\"One of the three card gardeners painting roses; he blames Seven for splashing paint and warns the others of the Queen's approach. Distinguished from Two and Seven by blaming Seven and giving the warning.\",\"members\":[\"the-queens-croquet-ground:character:five\"]},{\"name\":\"Seven\",\"kind\":\"person\",\"note\":\"One of the three card gardeners painting roses; he is blamed by Five and is the one who checks himself when he sees Alice. Distinguished from Two and Five by being the one blamed for the splashing.\",\"members\":[\"the-queens-croquet-ground:character:seven\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326489-W9lsC4j9t6MQK8evi2pU",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1402,
+      "completionTokens": 349,
+      "costUsd": 0.0003147
+    },
+    "elapsedMs": 2603
+  },
+  "fc2ba88bd80261ca5d7f54f3250c5777": {
+    "content": "{\"groups\":[{\"group\":35,\"clusters\":[{\"name\":\"the Queen of Hearts\",\"kind\":\"person\",\"note\":\"The short-tempered Queen of Hearts who runs the croquet game, leads the royal procession, and presides over the trial; the same figure appears across all three divisions, so these entries are one individual.\",\"members\":[\"the-queens-croquet-ground:character:the_queen\",\"who-stole-the-tarts:character:the_queen_of_hearts\",\"alices-evidence:character:the_queen\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326492-qTfa8NahcGtIgJ54yluf",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1492,
+      "completionTokens": 171,
+      "costUsd": 0.0002347
+    },
+    "elapsedMs": 2618
+  },
+  "a3063917c46bb1fa862aeb1f1235b95b": {
+    "content": "{\"groups\":[{\"group\":36,\"clusters\":[{\"name\":\"the Queen of Hearts\",\"kind\":\"person\",\"note\":\"The short-tempered Queen of Hearts who runs the croquet game and orders executions; both entries describe this same ruler, so they form one cluster.\",\"members\":[\"the-queens-croquet-ground:character:the_queen\",\"the-mock-turtles-story:character:the_queen\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326495-ZxeykTipO2RRPf7gIHpU",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1389,
+      "completionTokens": 137,
+      "costUsd": 0.0002074
+    },
+    "elapsedMs": 3076
+  },
+  "1bfa9e1525688b64482da12d53dae701": {
+    "content": "{\"groups\":[{\"group\":37,\"clusters\":[{\"name\":\"The King of Hearts\",\"kind\":\"person\",\"note\":\"The mild, timid husband of the Queen who walks in the royal procession, tries to protect Alice, and presides as judge at the trial; both entries are the same King, so join them.\",\"members\":[\"the-queens-croquet-ground:character:the_king\",\"who-stole-the-tarts:character:the_king_of_hearts\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326498-epmODeo3PhgUFJqHQjUX",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1311,
+      "completionTokens": 147,
+      "costUsd": 0.0002046
+    },
+    "elapsedMs": 2553
+  },
+  "7604b4e821a35bc5bed0c980da19b084": {
+    "content": "{\"groups\":[{\"group\":38,\"clusters\":[{\"name\":\"the King of Hearts\",\"kind\":\"person\",\"note\":\"The single King of Hearts across all divisions: the mild, timid husband of the Queen who presides as judge at the trial and pardons the condemned players; all four entries describe this same King.\",\"members\":[\"the-queens-croquet-ground:character:the_king\",\"the-mock-turtles-story:character:the_king\",\"who-stole-the-tarts:character:the_king_of_hearts\",\"alices-evidence:character:the_king\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326500-y4fAYvgV0F11vG3LDmK1",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1573,
+      "completionTokens": 179,
+      "costUsd": 0.0002468
+    },
+    "elapsedMs": 2593
+  },
+  "91ca6936ae5f4b612b5b99ee7df2de4a": {
+    "content": "{\"groups\":[{\"group\":39,\"clusters\":[{\"name\":\"the Knave of Hearts\",\"kind\":\"person\",\"note\":\"The Knave of Hearts, a playing card who carries the King's crown in the procession and is later tried for stealing the tarts; the same individual across all three entries, shown carrying the crown, standing accused in chains, and as the cardboard card figure on trial in Alice's dream.\",\"members\":[\"the-queens-croquet-ground:character:the_knave_of_hearts\",\"who-stole-the-tarts:character:the_knave_of_hearts\",\"alices-evidence:character:the_knave\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326503-vwaHZbMeE0EU4XjDGue3",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1423,
+      "completionTokens": 204,
+      "costUsd": 0.0002443
+    },
+    "elapsedMs": 2574
+  },
+  "ff210c6e3a3d43dd63f936b630a1c7ba": {
+    "content": "{\"groups\":[{\"group\":40,\"clusters\":[{\"name\":\"the playing-card soldiers\",\"kind\":\"group\",\"note\":\"The ten oblong card soldiers with clubs who march in the royal procession, form the croquet arches and carry out the Queen's orders in the croquet-ground scenes.\",\"members\":[\"the-queens-croquet-ground:character:soldiers\"]},{\"name\":\"the officers of the court\",\"kind\":\"group\",\"note\":\"The court officers who suppress the guinea-pigs, remove the Dormouse and attend the Queen's orders in the Hatter's evidence and cook scenes; distinct from the card soldiers who march in the procession.\",\"members\":[\"who-stole-the-tarts:character:the_court_officers\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326505-7hiQxKDRIVBap37DhxTl",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1308,
+      "completionTokens": 242,
+      "costUsd": 0.0002518
+    },
+    "elapsedMs": 3373
+  },
+  "8a401b40fb31db3967facc584622cd94": {
+    "content": "{\"groups\":[{\"group\":41,\"clusters\":[{\"name\":\"the Gryphon\",\"kind\":\"other\",\"note\":\"The Gryphon of the Mock Turtle's story and the Lobster Quadrille: a winged creature with an eagle's head and lion's body who guides Alice, interrupts the Mock Turtle, and hurries her to the trial; the same individual as the Gryphon who whispers in the court.\",\"members\":[\"the-mock-turtles-story:character:the_gryphon\",\"the-lobster-quadrille:character:gryphon\",\"who-stole-the-tarts:character:the_gryphon\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326509-n6g7n63pNftwsxK01pXj",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1531,
+      "completionTokens": 203,
+      "costUsd": 0.0002546
+    },
+    "elapsedMs": 2832
+  },
+  "df80ed07c7c04bb2d6f8c27f9be9f393": {
+    "content": "{\"groups\":[{\"group\":42,\"clusters\":[{\"name\":\"the Mock Turtle\",\"kind\":\"other\",\"note\":\"Sorrowful calf-headed creature with a turtle's tail who tells of his schooldays in the sea (The Mock Turtle's Story); the same creature who later describes the Lobster Quadrille and sings Beautiful Soup, so both entries belong to this cluster.\",\"members\":[\"the-mock-turtles-story:character:the_mock_turtle\",\"the-lobster-quadrille:character:mock_turtle\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326512-gxZHnqnxNH989RZ2e5CA",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1403,
+      "completionTokens": 183,
+      "costUsd": 0.0002318
+    },
+    "elapsedMs": 2729
+  },
+  "3f9cd4cd3d9e65724f02d12563691931": {
+    "content": "{\"groups\":[{\"group\":43,\"clusters\":[{\"name\":\"the jury\",\"kind\":\"group\",\"note\":\"The twelve jurors, birds and beasts who write on slates and act together as one body in the court; same jury in both the tart trial and Alice's trial, so the two entries are one cluster.\",\"members\":[\"who-stole-the-tarts:character:the_jury\",\"alices-evidence:character:the_jury\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326514-gjL7VYpwg6c6PtJpfu81",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1294,
+      "completionTokens": 137,
+      "costUsd": 0.0001979
+    },
+    "elapsedMs": 2508
+  },
+  "898facbb98896d22ece9c2e30b5b583f": {
+    "content": "{\"groups\":[{\"group\":44,\"clusters\":[{\"name\":\"the jury\",\"kind\":\"group\",\"note\":\"The twelve birds and beasts serving as jurors in the trial of the Knave, writing on slates; distinct from the pack of cards, who are a separate group of playing cards in the closing dream.\",\"members\":[\"who-stole-the-tarts:character:the_jury\"]},{\"name\":\"the pack of cards\",\"kind\":\"group\",\"note\":\"The playing cards of the court who rise up and fly at Alice at the end of the dream; distinct from the jury of birds and beasts.\",\"members\":[\"alices-evidence:character:the_pack_of_cards\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326517-hmDC7XtG6NOmX2Vm1IhE",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1264,
+      "completionTokens": 214,
+      "costUsd": 0.0002334
+    },
+    "elapsedMs": 3339
+  },
+  "a47dab89b13208166b6cb541772c1eed": {
+    "content": "{\"groups\":[{\"group\":45,\"clusters\":[{\"name\":\"Bill the Lizard\",\"kind\":\"animal\",\"note\":\"The lizard juror of the Queen's trial who squeaks his pencil and cannot spell stupid, and who is later put in head downwards and writes on a slate; both entries describe the same juror, so they form one cluster.\",\"members\":[\"who-stole-the-tarts:character:bill_the_lizard\",\"alices-evidence:character:the_lizard_bill\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326520-0uEFpqVCDvXUaYoZwMGA",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1277,
+      "completionTokens": 162,
+      "costUsd": 0.0002087
+    },
+    "elapsedMs": 2076
+  },
+  "0f69b4719dcca3c6ff4ff8e92763d0b5": {
+    "content": "{\"groups\":[{\"group\":46,\"clusters\":[{\"name\":\"The riverbank\",\"kind\":\"place\",\"note\":\"The grassy riverbank where Alice sits beside her sister at the start and where the Rabbit runs past; both entries describe this same bank, so they are one place.\",\"members\":[\"down-the-rabbit-hole:location:riverbank\",\"alices-evidence:location:riverbank\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326522-An0dabZ6X7Z3Fp6PgQGn",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1250,
+      "completionTokens": 132,
+      "costUsd": 0.000191
+    },
+    "elapsedMs": 2522
+  },
+  "b58803c04b15cbabed60a5980e8662fc": {
+    "content": "{\"groups\":[{\"group\":47,\"clusters\":[{\"name\":\"The riverbank (grassy bank above the rabbit-hole)\",\"kind\":\"place\",\"note\":\"The grassy riverbank where Alice sits beside her sister on a hot day and where the White Rabbit runs past; distinct from the bank of the pool of tears.\",\"members\":[\"down-the-rabbit-hole:location:riverbank\",\"alices-evidence:location:riverbank\"]},{\"name\":\"The bank of the pool of tears\",\"kind\":\"place\",\"note\":\"The shore of the pool of tears where the wet party assembles, dries off, races and talks; not the riverbank beside Alice's sister.\",\"members\":[\"a-caucus-race-and-a-long-tale:location:bank_of_the_pool\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326525-DD187LHkrz6VL2HFkz9Q",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1434,
+      "completionTokens": 253,
+      "costUsd": 0.0002699
+    },
+    "elapsedMs": 3107
+  },
+  "64f0d4651767a9066b2e05cdbb6d96d9": {
+    "content": "{\"groups\":[{\"group\":48,\"clusters\":[{\"name\":\"The long low hall\",\"kind\":\"place\",\"note\":\"The first long low hall with lamps and locked doors, where Alice shrinks after the bottle and eats the cake; the same hall described as the hall of the house with the glass table.\",\"members\":[\"down-the-rabbit-hole:location:long_hall\",\"the-pool-of-tears:location:long_hall\",\"a-mad-tea-party:location:long_hall\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326528-lYnZkRihuEohZVDKZuQK",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1446,
+      "completionTokens": 156,
+      "costUsd": 0.0002226
+    },
+    "elapsedMs": 2957
+  },
+  "c2f0dbbbd1e7ac36ea646ff309c667ff": {
+    "content": "{\"groups\":[{\"group\":49,\"clusters\":[{\"name\":\"The long low hall\",\"kind\":\"place\",\"note\":\"The hall in the Rabbit-hole episode, with lamps, locked doors, a glass table and a low curtain hiding a small door; it is the place where Alice first shrinks and grows in the opening chapters.\",\"members\":[\"down-the-rabbit-hole:location:long_hall\"]},{\"name\":\"Long Hall\",\"kind\":\"place\",\"note\":\"The hall of the house where Alice grows tall, weeps into the pool of tears, and then shrinks again; the same hall as the long low hall, distinguished here by the later episode of her weeping and doubting her identity.\",\"members\":[\"the-pool-of-tears:location:long_hall\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326531-A6rV1Ph1OvBZesV21asp",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1354,
+      "completionTokens": 246,
+      "costUsd": 0.0002584
+    },
+    "elapsedMs": 2926
+  },
+  "178b97daa376bd2fe9cb6fc2d538dc2e": {
+    "content": "{\"groups\":[{\"group\":50,\"clusters\":[{\"name\":\"The little door to the garden\",\"kind\":\"place\",\"note\":\"The small fifteen-inch door in the hall and the passage behind it leading to the garden, reached with the little golden key; the same door is called the garden door and the little golden key door in the later section, so it is one place with both entries.\",\"members\":[\"down-the-rabbit-hole:location:little_door_garden\",\"the-pool-of-tears:location:garden_door\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326534-08GBcyEW92w7uMp3bXJ4",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1316,
+      "completionTokens": 157,
+      "costUsd": 0.0002101
+    },
+    "elapsedMs": 2023
+  },
+  "1a9a12e746a57eeca4545bff58d8171b": {
+    "content": "{\"groups\":[{\"group\":51,\"clusters\":[{\"name\":\"Long Hall (the hall of the house, where Alice grows and shrinks)\",\"kind\":\"place\",\"note\":\"The hall with the small garden door and glass table where Alice grows tall, weeps and shrinks; the same hall as the Pool of Tears section, distinct from the long hall she returns to through the tree-door.\",\"members\":[\"the-pool-of-tears:location:long_hall\"]},{\"name\":\"Long hall (with the glass table, reached through a tree-door)\",\"kind\":\"place\",\"note\":\"The long hall with the little glass table that Alice returns to through a tree-door from the garden; the aliases alone do not settle identity, so it is kept separate from the hall where she grows and shrinks.\",\"members\":[\"a-mad-tea-party:location:long_hall\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326536-rLBndAAhYri4qrbDkfqa",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1266,
+      "completionTokens": 271,
+      "costUsd": 0.0002621
+    },
+    "elapsedMs": 3752
+  },
+  "802771ded219e955f1227186af89db42": {
+    "content": "{\"groups\":[{\"group\":52,\"clusters\":[{\"name\":\"Garden door\",\"kind\":\"place\",\"note\":\"The small locked door in the hall, opened with the little golden key on the glass table, leading into the garden; distinct from the garden itself.\",\"members\":[\"the-pool-of-tears:location:garden_door\"]},{\"name\":\"The beautiful garden\",\"kind\":\"place\",\"note\":\"The bright, fountain-cooled garden reached through the tree-door at the end of the tea-party division; the destination beyond the garden door.\",\"members\":[\"a-mad-tea-party:location:garden\"]},{\"name\":\"Garden by the rose-tree\",\"kind\":\"place\",\"note\":\"The garden entrance near the rose-tree where the card gardeners paint the white rose red and Alice first meets them; a distinct spot from the beautiful garden and the garden door.\",\"members\":[\"the-queens-croquet-ground:location:rose_tree_garden\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326540-nsvZvMzotnQhaKLKkZ0S",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1377,
+      "completionTokens": 302,
+      "costUsd": 0.0002887
+    },
+    "elapsedMs": 3178
+  },
+  "c450c03db5e00470530a21356837a761": {
+    "content": "{\"groups\":[{\"group\":53,\"clusters\":[{\"name\":\"Pool of Tears\",\"kind\":\"place\",\"note\":\"The lake of Alice's own tears in the hall, about four inches deep, where the Mouse and birds swim; distinct from the shore where the party dries off.\",\"members\":[\"the-pool-of-tears:location:pool_of_tears\"]},{\"name\":\"Bank of the Pool of Tears\",\"kind\":\"place\",\"note\":\"The shore beside the pool where the wet party assembles, runs the Caucus-Race and where Alice is left alone at the end; distinct from the pool itself.\",\"members\":[\"a-caucus-race-and-a-long-tale:location:bank_of_the_pool\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326543-pTZ4qFkXEC86SrXEjik5",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1388,
+      "completionTokens": 232,
+      "costUsd": 0.0002548
+    },
+    "elapsedMs": 2711
+  },
+  "8c42b988efddc30f1f189ce0cce227e4": {
+    "content": "{\"groups\":[{\"group\":54,\"clusters\":[{\"name\":\"The thick wood (where Alice meets the puppy and finds the mushroom)\",\"kind\":\"place\",\"note\":\"The wood Alice wanders into after escaping the crowd; distinguished from other woods by her meeting the puppy and finding the mushroom there.\",\"members\":[\"the-rabbit-sends-in-a-little-bill:location:wood\"]},{\"name\":\"The mushroom clearing\",\"kind\":\"place\",\"note\":\"The open clearing in the wood where the Caterpillar sits on a large round mushroom and where Alice later nibbles it; the only place described as an open clearing rather than woodland in general.\",\"members\":[\"advice-from-a-caterpillar:location:mushroom_clearing\"]},{\"name\":\"The Duchess's wood\",\"kind\":\"place\",\"note\":\"The woods around the Duchess's house, where the footmen run out, the pig escapes and the Cat sits in a tree; set near the Duchess's residence, not the mushroom wood.\",\"members\":[\"pig-and-pepper:location:wood\"]},{\"name\":\"The wood beyond the tea-party\",\"kind\":\"place\",\"note\":\"The wood Alice picks her way through after leaving the Mad Tea-Party, on her way to the garden; identified by its link to the tea-party and the tree-door.\",\"members\":[\"a-mad-tea-party:location:wood\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326546-RbPVLG8FumAkayCJNHFI",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1550,
+      "completionTokens": 450,
+      "costUsd": 0.00038
+    },
+    "elapsedMs": 3436
+  },
+  "757d2d49f64065ccddf77d01ed2fe9ed": {
+    "content": "{\"groups\":[{\"group\":55,\"clusters\":[{\"name\":\"the Queen's croquet-ground\",\"kind\":\"place\",\"note\":\"The single walled garden croquet-ground of the Queen where the flamingo-and-hedgehog game is played and executions are ordered; both entries describe this same place, so they form one cluster.\",\"members\":[\"the-queens-croquet-ground:location:croquet_ground\",\"the-mock-turtles-story:location:croquet_ground\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326549-F57pim9AO7rjIPP2G2dq",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1379,
+      "completionTokens": 155,
+      "costUsd": 0.0002154
+    },
+    "elapsedMs": 2393
+  },
+  "f6e7aac36d33f5f40e09ebbb8a572e1f": {
+    "content": "{\"groups\":[{\"group\":56,\"clusters\":[{\"name\":\"The Court of Justice\",\"kind\":\"place\",\"note\":\"The Queen of Hearts' courtroom where the tart trial is held, with throne, jury-box and table of tarts; the same court appears in both divisions, so the two keys are one place.\",\"members\":[\"the-lobster-quadrille:location:court_of_justice\",\"who-stole-the-tarts:location:the_court\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326551-uQ4Gsj3pDK1tloUuf7NM",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1271,
+      "completionTokens": 146,
+      "costUsd": 0.0002001
+    },
+    "elapsedMs": 3566
+  },
+  "e1ff4db3c6da70fa4ddd213bd26a8ebf": {
+    "content": "{\"groups\":[{\"group\":57,\"clusters\":[{\"name\":\"Court of Justice (the trial's court)\",\"kind\":\"place\",\"note\":\"The Court of Justice in the Lobster Quadrille division, heard in the distance where the trial is beginning and not shown on stage; distinguished from the courtroom of the Queen of Hearts by being only a remote location of the trial.\",\"members\":[\"the-lobster-quadrille:location:court_of_justice\"]},{\"name\":\"The court of the Queen of Hearts\",\"kind\":\"place\",\"note\":\"The open courtroom of the Queen of Hearts with throne, jury-box and table of tarts, where the trial of the Knave is held; the setting of the Hatter's evidence, the cook and Dormouse, Alice's summons, the jury upset and Alice's refusal to leave, the reading of the verses, and Alice waking.\",\"members\":[\"who-stole-the-tarts:location:the_court\",\"alices-evidence:location:the_court\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326555-eiSZQ5HPxLOOM5c6ErKQ",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1410,
+      "completionTokens": 320,
+      "costUsd": 0.000301
+    },
+    "elapsedMs": 3269
+  },
+  "21617fdab2de15dd37c355026481b99e": {
+    "content": "{\"groups\":[{\"group\":58,\"clusters\":[{\"name\":\"the court of the Queen of Hearts\",\"kind\":\"place\",\"note\":\"The open courtroom of the Queen of Hearts where the Knave's trial and the tart inquiry both take place, with throne, jury-box and crowd; the same court seen across the tart-theft and the trial sections.\",\"members\":[\"who-stole-the-tarts:location:the_court\",\"alices-evidence:location:the_court\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326558-dGdp6tOLl8G072Tj3OA7",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1297,
+      "completionTokens": 154,
+      "costUsd": 0.0002067
+    },
+    "elapsedMs": 2345
+  },
+  "73ae5b575e6499748443b19f617321e3": {
+    "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Dinah\",\"kind\":\"animal\",\"note\":\"Alice's pet cat at home, mentioned only in talk and thought, never physically present; all four entries describe this same cat and should be one cluster.\",\"members\":[\"down-the-rabbit-hole:character:dinah\",\"the-pool-of-tears:character:dinah\",\"a-caucus-race-and-a-long-tale:character:dinah\",\"the-rabbit-sends-in-a-little-bill:character:dinah\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326561-T1mgrR7v9js8I0zmVG6s",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1601,
+      "completionTokens": 177,
+      "costUsd": 0.0002486
+    },
+    "elapsedMs": 2520
+  },
+  "cd60eba1cf59878025a4d3c9c52fcb95": {
+    "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"The long low hall\",\"kind\":\"place\",\"note\":\"The single long low hall with locked doors, lamps and a glass table where Alice shrinks and grows; the same hall recurs across divisions, including the later return through the tree-door.\",\"members\":[\"down-the-rabbit-hole:location:long_hall\",\"the-pool-of-tears:location:long_hall\",\"a-mad-tea-party:location:long_hall\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326563-C3X9FGIaVPq0oTs83OcX",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1601,
+      "completionTokens": 157,
+      "costUsd": 0.0002386
+    },
+    "elapsedMs": 2481
+  },
+  "ee2fe9389590d15dd1cdc4a0f3f4b484": {
+    "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Bill the Lizard\",\"kind\":\"animal\",\"note\":\"The lizard Bill, sent down the chimney by the Rabbit's servants, kicked out by Alice, then later a juror at the trial who squeaks a pencil and cannot spell stupid; all three entries are the same lizard.\",\"members\":[\"the-rabbit-sends-in-a-little-bill:character:bill_lizard\",\"who-stole-the-tarts:character:bill_the_lizard\",\"alices-evidence:character:the_lizard_bill\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326566-yiV49IFGFaZBj2WG6408",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1596,
+      "completionTokens": 195,
+      "costUsd": 0.0002571
+    },
+    "elapsedMs": 4039
+  },
+  "b837c41939a5a8207182adb15b42b21d": {
+    "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Hatter\",\"kind\":\"person\",\"note\":\"The Mad Hatter of the tea-party and the nervous first witness at the trial are the same individual; the pig-and-pepper mention is the same hatter named only in passing, so all three keys join one cluster.\",\"members\":[\"pig-and-pepper:character:hatter\",\"a-mad-tea-party:character:hatter\",\"who-stole-the-tarts:character:the_hatter\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326570-ojsMepwNiBJrBnuCjcxM",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1561,
+      "completionTokens": 164,
+      "costUsd": 0.0002381
+    },
+    "elapsedMs": 2483
+  },
+  "e302c414536d9839e28dca7c8ff9d3c0": {
+    "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"the White Rabbit\",\"kind\":\"animal\",\"note\":\"The single anxious White Rabbit of Wonderland who whispers the Duchess's sentence in the croquet procession and later acts as herald of the court, blowing the trumpet, reading the accusation and calling witnesses; all three entries are the same rabbit across divisions.\",\"members\":[\"the-queens-croquet-ground:character:white_rabbit\",\"who-stole-the-tarts:character:the_white_rabbit\",\"alices-evidence:character:white_rabbit\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326572-siHMlWJ1HREdd2e8iXbx",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1601,
+      "completionTokens": 198,
+      "costUsd": 0.0002591
+    },
+    "elapsedMs": 2521
+  },
+  "9ebd4e1b46ec3c048471fbe3a2046eb7": {
+    "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"The Queen of Hearts' court of justice\",\"kind\":\"place\",\"note\":\"The single courtroom of the Queen of Hearts where the trial of the Knave takes place; the Lobster Quadrille entry, which only mentions the trial heard in the distance, is the same court and is distinguished only by being unseen on stage.\",\"members\":[\"the-lobster-quadrille:location:court_of_justice\",\"who-stole-the-tarts:location:the_court\",\"alices-evidence:location:the_court\"]}]}]}",
+    "model": "anthropic/claude-haiku-5.5",
+    "providerRequestId": "gen-1793326575-aaiYaGVlgSjJsyHwNuuG",
+    "finishReason": "stop",
+    "usage": {
+      "promptTokens": 1565,
+      "completionTokens": 185,
+      "costUsd": 0.000249
+    },
+    "elapsedMs": 2824
+  }
+}

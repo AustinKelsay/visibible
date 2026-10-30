@@ -1,0 +1,67 @@
+{
+  "sourceStateSha256": "a5d9375a0c2ebbc91a743fff85e015d4a9e212a1c43c635b24e6db6b877b0d49",
+  "calls": 65,
+  "rabbitIdentities": [
+    {
+      "id": "white_rabbit_the_rabbit_who_runs_down_the_hole",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "White Rabbit (the Rabbit who runs down the hole)",
+      "aliases": [
+        "White Rabbit",
+        "the Rabbit",
+        "the White Rabbit with pink eyes"
+      ],
+      "note": "The talking white rabbit with pink eyes and a waistcoat-pocket watch who leads Alice down the rabbit-hole and is seen hurrying along the passage; the first appearance, so the 'hurrying with a watch' figure.",
+      "members": [
+        "down-the-rabbit-hole:character:white_rabbit"
+      ]
+    },
+    {
+      "id": "white_rabbit_the_rabbit_dressed_for_the_duchess_who_flees_at_the_pool",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "White Rabbit (the Rabbit dressed for the Duchess who flees at the pool)",
+      "aliases": [
+        "White Rabbit",
+        "the Rabbit"
+      ],
+      "note": "The hurrying rabbit in a splendid waistcoat, dressed for the Duchess, who drops his gloves and fan and flees when Alice speaks to him near the pool of tears; the one who loses his gloves and fan, not the one who sends the bill.",
+      "members": [
+        "the-pool-of-tears:character:white_rabbit"
+      ]
+    },
+    {
+      "id": "white_rabbit_the_anxious_householder_who_sends_bill_and_pat",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "White Rabbit (the anxious householder who sends Bill and Pat)",
+      "aliases": [
+        "the White Rabbit",
+        "the Rabbit",
+        "W. Rabbit"
+      ],
+      "note": "The anxious white rabbit who owns the house, sends Alice for gloves and a fan, and sends Pat and Bill to deal with her; the one with a house and servants, not the roadside runner or the court herald.",
+      "members": [
+        "the-rabbit-sends-in-a-little-bill:character:white_rabbit"
+      ]
+    },
+    {
+      "id": "the_white_rabbit",
+      "kind": "character",
+      "readingKind": "animal",
+      "name": "the White Rabbit",
+      "aliases": [
+        "the Rabbit",
+        "the herald"
+      ],
+      "note": "The single anxious White Rabbit of Wonderland who whispers the Duchess's sentence in the croquet procession and later acts as herald of the court, blowing the trumpet, reading the accusation and calling witnesses; all three entries are the same rabbit across divisions.",
+      "members": [
+        "the-queens-croquet-ground:character:white_rabbit",
+        "who-stole-the-tarts:character:the_white_rabbit",
+        "alices-evidence:character:white_rabbit"
+      ]
+    }
+  ],
+  "method": "Offline replay of all 65 captured provider answers through mergeCasts at fe1afcd. Expected one Rabbit identity; observed four."
+}
