@@ -5,7 +5,7 @@
 - **The foolish woman was never tested.** For Proverbs 9:14 ("She sits at the door of her house") the planner selected Wisdom, not her, in both arms, so the mode never applied to her (0 of 3; bar 2 of 3).
 - **Figures in light: 3 in the symbol arm, against 2.** All three come from one Revelation 12:9 plan, which every style shares. It described "a faint angelic host in the upper air, their gold-girdled garments catching light", and Michael's host is a separate no-form entry. Today's two come from one Matthew 4:3 plan that drew the tempter as a human silhouette in dust: the failure the symbol mode removes.
 
-**Owner decision (30 October): ship for Satan only** ([decision.json](decision.json)). Asked with this result, the owner overrode the bar for Satan. The mode merges after a code review and is released, and only Satan is set to `symbol` in production. The foolish woman stays as she is.
+**Owner decision (30 October): ship for Satan only** ([decision.json](decision.json)). Asked with this result, the owner overrode the bar for Satan. The mode merges after a code review and is released, and only Satan is set to `symbol` in production. The foolish woman stays as she is. Released in #341 and applied on 30 October; smoke tests on Job 1:6 and Matthew 4:3 planned Satan as his dragon ([deployment.json](deployment.json)).
 
 ## Authorization and spend
 
