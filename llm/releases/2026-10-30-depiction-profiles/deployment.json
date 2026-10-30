@@ -1,0 +1,33 @@
+{
+  "authorization": "Owner, 29 October 2026 (US Central), after #326 merged to dev: \"Ok continue and get everything that is ready cleanly and systematically deployed and released\".",
+  "release": {
+    "pullRequest": 328,
+    "includes": [324, 325, 326, 327, 329],
+    "mainCommit": "a91ea75",
+    "mergedAt": "2026-10-30T02:25:45Z",
+    "deployment": "dpl_DkTjceSmxJWBfswyMUqZAoUm8Gbm",
+    "aliases": ["https://visibible.com", "https://www.visibible.com"],
+    "convexChanges": "Optional depictionVersion on renderingPacket and image provenance. The build log shows 'Schema validation complete' and the push to unique-impala-244 before the new app was served.",
+    "checks": {
+      "checkedAt": "2026-10-30T02:27:01Z",
+      "health": "ok",
+      "readiness": "ready",
+      "artStyles": [["classical", true], ["watercolor", true], ["fresco", true], ["icon", false]],
+      "depictionSmoke": {
+        "request": "Fresh guest session (0 credits), POST /api/generate-image, Exodus 19:18, classical, 16:9, 1K, requestId smoke-depiction-1793327236",
+        "response": "HTTP 402 Insufficient credits, required 5, available 0, after 18.1 s",
+        "meaning": "Production read works/bible-web/depiction.json and prepared a section with God through the profile's no-form wording. It quoted the image and stopped before any image call. A missing profile would have returned 503 'The work's inputs are not available on this server.'",
+        "storedPlan": "exodus-19-18: depiction_plan c19079c0514be1c179070478 (the repo's Bible planVersion); selected moses, the_israelite_people_the_children_of_israel, horeb_mount_sinai, god_yahweh_the_father_and_god_of_israel",
+        "storedLook": "exodus-19-16: depiction_look af08ecf272548f654b33015a (the repo's Bible lookVersion)"
+      }
+    }
+  },
+  "review": [
+    "Sol (GPT-6.1, xhigh) on #326: two rounds, approved. Round 1 found the planner's cast description still mentioning presences shown through effects to Holmes; fixed.",
+    "CodeRabbit on #328: the scoring-rubric finding was withdrawn by CodeRabbit (the rubric already excludes description-requested changes); the 'no image change' wording was narrowed to 'same requests' in #329.",
+    "#324 merged into dev after #326 and broke dev's typecheck (its new run scripts predated the depiction parameter); #327 fixed it before the release."
+  ],
+  "paidCalls": "Smoke preparation only, owner spend $0.0014134: look $0.0002745, plan $0.0005523, review $0.0005866 (Claude Haiku 5.5). No image calls.",
+  "productionMutations": "The smoke's look and plan records and their three preparation ledger rows, made as any reader request would make them.",
+  "atRelease": "The production OpenRouter key had $0.75 of its $50 limit left (read-only key query at 02:05 UTC). Image calls need $1 left, so production images were already refused at release, since 01:15 UTC. A new key restored them at 02:39 UTC (STATUS.md, key-limit note)."
+}

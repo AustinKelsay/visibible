@@ -138,6 +138,25 @@ export function createCorrections(client: CorrectionClient, api: AnalysisApi, wo
     },
 
     /**
+     * Correct an entry's kind (character, location or object) as an owner version of the entry, such as a city the reading
+     * pass filed as a character. Only selected characters are named as people in image prompts. An object keeps one stage.
+     */
+    async setKind(entryId: string, kind: string, expectedVersion?: string) {
+      const kinds = ["character", "location", "object"];
+      if (!kinds.includes(kind)) throw new Error(`Kind must be one of ${kinds.join(", ")}, got ${kind}`);
+      const entry = await query<Record_ | null>(api.getActiveRecord, { kind: "entry", recordId: entryId });
+      if (!entry || entry.payload.kind !== "entry") throw new Error(`No active entry ${entryId}`);
+      const stages = (entry.payload.stages as unknown[]) ?? [];
+      if (kind === "object" && stages.length > 1) throw new Error(`An object has one stage; ${entryId} has ${stages.length}`);
+      const previous = String(entry.payload.entryKind);
+      const payload = { ...entry.payload, entryKind: kind };
+      const result = await mutate<{ version: string; changed: boolean }>(api.correctRecord, { kind: "entry", recordId: entryId, payload, expectedVersion: expectedVersion ?? entry.version });
+      const closed = await mutate<{ closed: number }>(api.closeAttentionFor, { kind: "entry", recordId: entryId, disposition: "source corrected" });
+      const stale = await query<Array<{ kind: string; recordId: string }>>(api.listStaleDependents, { kind: "entry", recordId: entryId });
+      return { ...result, previous, entryKind: kind, closedAttention: closed.closed, staleDependents: stale };
+    },
+
+    /**
      * Remove a wrongly assigned cast member from one section as an owner version of the section. The entry and its
      * other sections are untouched; the section's looks and plans name the old section version and are remade lazily.
      */
