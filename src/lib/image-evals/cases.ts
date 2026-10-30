@@ -5,7 +5,7 @@
 import { z } from "zod";
 import { DEFAULT_ASPECT_RATIO, DEFAULT_IMAGE_MODEL, DEFAULT_RESOLUTION, isValidAspectRatio, isValidResolution } from "../image-models";
 
-export const EVAL_GENRES = ["narrative", "poetry", "prophecy", "genealogy", "symbolic", "difficult", "law", "epistle", "parable"] as const;
+export const EVAL_GENRES = ["narrative", "poetry", "prophecy", "genealogy", "symbolic", "difficult", "law", "epistle", "parable", "dialogue"] as const;
 export type EvalGenre = (typeof EVAL_GENRES)[number];
 /** An arm renders the cases in one art style through the generic engine (#181). The legacy direct and planner arms went with the legacy engine (#184). */
 export type EvalArm = `generic:${string}`;
@@ -32,6 +32,12 @@ const caseSchema = z.object({
   unitId: z.string().optional(),
   /** Restrict the generic arms this case runs in; every requested style otherwise. */
   styles: z.array(z.string()).optional(),
+  /** Used to tune the engine before the regression suite (ADR 0011), so never in its holdout. */
+  tuned: z.boolean().optional(),
+  /** The suite tiers this case takes part in; both when omitted. */
+  tiers: z.array(z.enum(["text", "image"])).min(1).optional(),
+  /** The seeded draw that picked this case (a draw label in evals/images/suite.json). */
+  drawn: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).optional(),
 }).strict();
 
 export const evalCaseFileSchema = z.object({

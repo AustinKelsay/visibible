@@ -39,7 +39,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Vercel deployment](workflow/VERCEL_WORKFLOWS.md)
 - [Proxy trust](workflow/PROXY_CONFIGURATION.md)
 - [Chat eval and release requirements](workflow/CHAT_EVAL_AND_RELEASE.md)
-- [Image eval and release requirements](workflow/IMAGE_EVAL_AND_RELEASE.md)
+- [Image eval and release requirements](workflow/IMAGE_EVAL_AND_RELEASE.md): the regression suite across the Bible, Holmes and Alice, its tiers and its per-fault gate
 - [Generic engine release, rollback and retirement runbook](workflow/ENGINE_RELEASE.md)
 - [Current generic-engine release status, remaining allowances and ordered gates](releases/STATUS.md)
 - [Initial generic-engine release evaluation and retained failures](releases/2026-10-20-engine-evaluation/README.md)

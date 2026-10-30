@@ -79,6 +79,8 @@ export async function runCanon(options: {
   budgetUsd: number;
   activate?: boolean;
   redraft?: string[];
+  /** The work's depiction profile has no `effects` wording: draft every entry with a form. */
+  formOnly?: boolean;
   parallel?: number;
   log?: (line: string) => void;
 }): Promise<CanonState> {
@@ -101,7 +103,7 @@ export async function runCanon(options: {
   const todo = needed.filter((e) => !state.entries[e.id]);
   log(`${needed.length} entries need canon, ${todo.length} to draft`);
   await pool(todo, options.parallel ?? 6, async (entry) => {
-    const result = await draftCanonEntry({ work, entry, brief: options.brief, sections: reading.merge!.sections, sectionEras: reading.brief!.sectionEras, hints: options.hints, model });
+    const result = await draftCanonEntry({ work, entry, brief: options.brief, sections: reading.merge!.sections, sectionEras: reading.brief!.sectionEras, hints: options.hints, model, formOnly: options.formOnly });
     state.entries[entry.id] = result;
     await save();
     log(`  ${entry.id}: ${result.stages.length} stage(s)${result.hasForm ? "" : ", no form"}${result.problems.length ? `; ${result.problems.join("; ")}` : ""}`);

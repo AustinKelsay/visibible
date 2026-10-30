@@ -1,0 +1,55 @@
+{
+  "adr": "0010",
+  "status": "Measurement gating the symbol depiction mode. Owner: \"yes i approve\" (the $1.02287350 evaluation overage) and chose \"Yes, up to $3\" for building the symbolic-form mode and checking it with paid images; it ships only if the images pass.",
+  "purpose": "Whether Satan and the foolish woman, drawn in the symbol mode from their canon (a red dragon; a doorway), illustrate their verses better than today's effects mode, without new faults.",
+  "candidateCommit": "3fe2772",
+  "entries": ["satan", "the_foolish_woman"],
+  "arms": [
+    { "id": "effects", "description": "Production as it is: both entries are subjects without form." },
+    { "id": "symbol", "description": "The same snapshot with both entries set to the symbol mode, as works:correct set-depiction would." }
+  ],
+  "pipeline": {
+    "momentCast": "2026-10-28-moment-cast-v15",
+    "formlessPlan": "2026-10-28-formless-effects-v17",
+    "review": "2026-10-27-plan-review-v12",
+    "rendering": "2026-10-29-generic-v15",
+    "sceneCheck": "2026-10-28-scene-check-v4"
+  },
+  "image": { "model": "google/gemini-3.1-flash-lite-image", "aspectRatio": "16:9", "resolution": "1K" },
+  "checker": { "model": "anthropic/claude-haiku-5.5", "reasoningEffort": "low", "maxTokens": 1500 },
+  "styles": ["classical", "watercolor", "fresco"],
+  "design": "Each arm gets its own memory store seeded from one read-only production snapshot, and the arms run one after the other. Every case is prepared afresh in each arm, so the arms differ only in the two entries' mode and what follows from it. One image per verse, style and arm: every first image is checked, and a faulty one gets one retry. Cases run three at a time.",
+  "scoring": "Two independent blind model scorers see the 36 shown images in random order, without arm or mode, with the verse text and the entry's canon form. For each image they record: how the entry appears (canon form, a person or human-like figure, light or cloud only, absent, unclear); any fault (lettering, painted frame, unpainted edge outside Watercolor, a figure made of light or on a throne); and whether it is an acceptable illustration of the verse. The operator settles disagreements and records each settlement.",
+  "passBar": {
+    "symbolForm": "In the symbol arm, of the samples whose plan selects the entry, at least 75% show it in its canon form with no person or human-like figure standing for it, and the foolish woman does so in at least 2 of 3.",
+    "noRegression": "Acceptable images in the symbol arm are at least the effects arm's count minus one, and figures in light are no more frequent.",
+    "decision": "Pass: the mode merges, and after release both entries are set to symbol in production. Fail: the PR stays open with this evidence, and no entry changes."
+  },
+  "evaluation": {
+    "authorizedBeforeUsd": 40.3,
+    "measuredBeforeUsd": 41.2038735,
+    "uncertaintyBeforeUsd": 0.119,
+    "ratifiedOverageUsd": 1.0228735,
+    "proposedIncreaseUsd": 3,
+    "proposedAuthorizedUsd": 44.3228735,
+    "proposedOperationCapUsd": 3,
+    "textReserveUsd": 0.005,
+    "imageReserveUsd": 0.06,
+    "checkReserveUsd": 0.002,
+    "maximumImages": 72,
+    "maximumTextCalls": 140,
+    "maximumCheckCalls": 144
+  },
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "knownLimitation": "One image per verse, style and arm, with fresh plans in each arm: a paired before-and-after on 18 pairs, not a controlled test. Runs on the local dev OpenRouter key, which shares the production account.",
+  "cases": [
+    { "id": "revelation-12-3", "reference": "Revelation 12:3", "entry": "satan", "context": "The text names a great red dragon." },
+    { "id": "revelation-12-9", "reference": "Revelation 12:9", "entry": "satan", "context": "The text names the dragon, the old serpent, the devil and Satan." },
+    { "id": "job-1-6", "reference": "Job 1:6", "entry": "satan", "context": "Satan comes among the sons of God; the dragon comes from his canon, not the verse." },
+    { "id": "zechariah-3-1", "reference": "Zechariah 3:1", "entry": "satan", "context": "Satan stands at Joshua's right hand; the dragon comes from his canon." },
+    { "id": "matthew-4-3", "reference": "Matthew 4:3", "entry": "satan", "context": "The tempter comes to Jesus; the dragon comes from his canon." },
+    { "id": "proverbs-9-14", "reference": "Proverbs 9:14", "entry": "the_foolish_woman", "context": "She sits at the door of her house; her canon is the doorway itself." }
+  ]
+}

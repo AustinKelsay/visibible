@@ -19,7 +19,7 @@ import { planningNeighbors } from "./scene-grounding";
 import { PLAN_REVIEW_PROMPT_VERSION, PLAN_SCENE_FIELDS, reviewPlan, type PlanReviewProblem } from "./plan-review";
 import type { SelectedCanon } from "./prompt";
 import { lookPolicy, type Situation } from "./situation";
-import { depictionModeOf, effectsWordingFor, readDepictionProfile, type DepictionProfile, type EffectsWording } from "./depiction";
+import { depictionModeOf, effectsWordingFor, readDepictionProfile, symbolWordingFor, type DepictionMode, type DepictionProfile, type EffectsWording, type SymbolWording } from "./depiction";
 
 export const LOOK_SYSTEM = `You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.
 Rules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments, and do not restate anyone's fixed appearance; canon does that. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.`;
@@ -239,7 +239,7 @@ export async function prepareMoment(options: {
   if (!section || section.payload.kind !== "section") throw new PreparationUnavailableError("look", `unknown section ${sectionId}`);
   const sectionPayload = section.payload as unknown as { title: string; era?: string; cast: Array<{ entryId: string; stageId: string; named?: boolean }> };
   const era = brief.eras.find((e) => e.id === sectionPayload.era) ?? brief.eras[0];
-  const cast: Array<{ entryId: string; stageId: string; name: string; version: string; text: string; hasForm: boolean; entryKind: SelectedCanon["kind"] }> = [];
+  const cast: Array<{ entryId: string; stageId: string; name: string; version: string; text: string; hasForm: boolean; mode: DepictionMode; entryKind: SelectedCanon["kind"] }> = [];
   for (const member of sectionPayload.cast) {
     const entry = await store.getActiveRecord("entry", member.entryId);
     if (!entry || entry.payload.kind !== "entry") throw new PreparationUnavailableError("plan", `missing canon entry ${member.entryId}`);
@@ -248,14 +248,18 @@ export async function prepareMoment(options: {
     if (!stage || !stage.text.trim()) throw new PreparationUnavailableError("plan", `missing canon stage ${member.entryId}:${member.stageId}`);
     const name = String(entry.payload.name);
     cast.push({ entryId: member.entryId, stageId: stage.id, name, version: entry.version,
-      text: stage.text, hasForm: depictionModeOf(entry.payload) === "form", entryKind: (entry.payload.entryKind ?? "character") as SelectedCanon["kind"] });
+      // A symbol entry has a form (its non-human one), so only effects entries count as without form.
+      text: stage.text, hasForm: depictionModeOf(entry.payload) !== "effects", mode: depictionModeOf(entry.payload), entryKind: (entry.payload.entryKind ?? "character") as SelectedCanon["kind"] });
   }
   const rules = brief.depictionRules.map((r) => `- ${r.text}`).join("\n") || "- none";
   const hasFormlessCast = cast.some((c) => !c.hasForm);
   // A work without wording for subjects without form cannot prepare them; refuse before any model call.
   let effects: EffectsWording | null = null;
+  let symbol: SymbolWording | null = null;
+  const symbolCast = cast.filter((c) => c.mode === "symbol");
   try {
     effects = hasFormlessCast ? effectsWordingFor(depiction, cast.filter((c) => !c.hasForm).map((c) => c.entryId)) : null;
+    symbol = symbolCast.length ? symbolWordingFor(depiction, symbolCast.map((c) => c.entryId)) : null;
   } catch (error) {
     throw new PreparationUnavailableError("look", error instanceof Error ? error.message : String(error));
   }
@@ -293,10 +297,11 @@ export async function prepareMoment(options: {
     { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION },
     { kind: "prompt", recordId: "scene_plan_review", version: PLAN_REVIEW_PROMPT_VERSION },
     ...(hasFormlessCast ? [{ kind: "prompt", recordId: "scene_plan_formless_presence", version: FORMLESS_PLAN_PROMPT_VERSION }] : []),
-    { kind: "prompt", recordId: "depiction_plan", version: depiction.planVersion }];
+    { kind: "prompt", recordId: "depiction_plan", version: depiction.planVersion },
+    ...(symbol ? [{ kind: "prompt", recordId: "depiction_symbol", version: depiction.symbolVersion }] : [])];
   const plan = await ensureRecord(store, options.workId, "plan", options.momentId, planInputs, async () => {
     const neighbors = planningNeighbors(options.context);
-    const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Technology: ${era.technology}\nSTORY SECTION: ${sectionPayload.title}\n\nMOMENT (${options.context.moment.reference}): ${options.context.moment.text}\nPREVIOUS: ${neighbors.previous ?? "(section starts here)"}\nNEXT: ${neighbors.next ?? "(section ends here)"}\n\nCAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name}${hasFormlessCast ? ` (hasForm: ${c.hasForm})` : ""}`).join("\n") || "- (no one listed)"}`;
+    const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Technology: ${era.technology}\nSTORY SECTION: ${sectionPayload.title}\n\nMOMENT (${options.context.moment.reference}): ${options.context.moment.text}\nPREVIOUS: ${neighbors.previous ?? "(section starts here)"}\nNEXT: ${neighbors.next ?? "(section ends here)"}\n\nCAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name}${hasFormlessCast ? ` (hasForm: ${c.hasForm})` : ""}${c.mode === "symbol" ? ` (shown only as its canon form: ${c.text})` : ""}`).join("\n") || "- (no one listed)"}`;
     const castIds = cast.map((c) => c.entryId);
     const schema = planningResponseSchema(castIds, effects, depiction);
     const lookContext = `\n\n${policy === "generated-guide-v1" ? "SECTION LOOK GUIDE (a suggestion; keep what fits this moment)" : "OWNER LOOK CONSTRAINTS (copy all values exactly)"}:\n${JSON.stringify(lookPayload)}`;
@@ -308,7 +313,8 @@ export async function prepareMoment(options: {
     let feedback = "", firstProblems: PlanReviewProblem[] | undefined;
     for (let round = 1; round <= 2; round++) {
       const notes: string[] = [];
-      const reply = await askOnce(model, store, "plan", options.momentId, schema, effects ? formlessPlanSystem(depiction, effects) : planSystem(depiction), user + lookContext + feedback);
+      const system = `${effects ? formlessPlanSystem(depiction, effects) : planSystem(depiction)}${symbol ? `\n${symbol.planSystem}` : ""}`;
+      const reply = await askOnce(model, store, "plan", options.momentId, schema, system, user + lookContext + feedback);
       const selected = reply.selectedCast.filter((entry, index, all) => castIds.includes(entry.entryId) && all.findIndex((e) => e.entryId === entry.entryId) === index);
       const present = selected.map((entry) => entry.entryId);
       const fields = Object.fromEntries(PLAN_SCENE_FIELDS.map((field) => [field, trim(reply[field])])) as Record<(typeof PLAN_SCENE_FIELDS)[number], string>;
@@ -318,7 +324,7 @@ export async function prepareMoment(options: {
         { rules, depiction, context: options.context, sectionTitle: sectionPayload.title, cast: reviewCast, present, fields,
           rendering: { look: situation, lookPolicy: policy, canon: present.map((id) => {
             const entry = cast.find((c) => c.entryId === id)!;
-            return { entryId: id, stageId: entry.stageId, kind: entry.entryKind, name: entry.name, text: entry.text, hasForm: entry.hasForm, version: entry.version };
+            return { entryId: id, stageId: entry.stageId, kind: entry.entryKind, name: entry.name, text: entry.text, hasForm: entry.hasForm, depiction: entry.mode, version: entry.version };
           }) } });
       let remaining: PlanReviewProblem[] = [];
       if ("unavailable" in review) notes.push(review.unavailable);

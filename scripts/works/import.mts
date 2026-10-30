@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { createWorkReader } from "@/lib/work-input";
-import { importWeb, importHolmes, sha256 } from "./importers";
+import { importWeb, importHolmes, importAlice, sha256 } from "./importers";
 import footnotes from "../../works/sources/web-footnotes.json";
 
 const { values } = parseArgs({ options: { check: { type: "boolean", default: false } } });
@@ -24,7 +24,7 @@ for (const reading of Object.values(footnotes)) {
   }
 }
 
-for (const [sourceId, importer] of Object.entries({ web: importWeb, holmes: importHolmes })) {
+for (const [sourceId, importer] of Object.entries({ web: importWeb, holmes: importHolmes, alice: importAlice })) {
   const entry = manifest[sourceId];
   const bytes = gunzipSync(await readFile(path.join(sources, entry.file)));
   if (bytes.length !== entry.bytes || sha256(bytes) !== entry.sha256) {

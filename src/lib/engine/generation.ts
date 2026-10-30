@@ -362,7 +362,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       let shown = first;
       const checker = sceneChecker(runtime.openRouterApiKey, fetchImpl);
       if (checker) {
-        const checkContext = { people: assembled.canon.filter((c) => c.hasForm && c.kind === "character").map((c) => c.name),
+        const checkContext = { people: assembled.canon.filter((c) => c.hasForm && c.kind === "character" && c.depiction !== "symbol").map((c) => c.name),
           description: `${prepared.plan.payload.primarySubject}; ${prepared.plan.payload.secondaryElements}`, softEdges: SOFT_EDGE_STYLES.includes(style.id), depiction: inputs.depiction };
         const checked = await checkAndRetry<ImageAttempt>(first, {
           check: (attempt, n) => {

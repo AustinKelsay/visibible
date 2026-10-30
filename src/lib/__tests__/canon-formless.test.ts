@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { canonOutputSchema, checkCanon, draftCanonEntry, CANON_PROMPT_VERSION } from "../reading-pass/canon";
+import { canonFormOnlySchema, canonOutputSchema, checkCanon, draftCanonEntry, CANON_FORM_ONLY_PROMPT_VERSION, CANON_FORM_ONLY_SYSTEM, CANON_PROMPT_VERSION, CANON_SYSTEM } from "../reading-pass/canon";
 import { responseSchema } from "../reading-pass/prompts";
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
@@ -101,5 +101,31 @@ describe("structured no-form canon", () => {
     expect(noForm.properties).not.toHaveProperty("text");
     expect(noForm.properties.showing).toMatchObject({ minItems: 1, maxItems: 5 });
     expect(JSON.stringify(noForm)).toContain('"enum":["light","radiance","cloud","mist","fire"]');
+  });
+});
+
+describe("form-only canon (a work with no subjects without form, ADR 0010)", () => {
+  it("never offers the no-form choice, re-asks a no-form answer and records its own drafting version", async () => {
+    const inputs = await readWorkInputs("bible-web");
+    const formed = { ...structuredClone(rejected), has_form: true };
+    expect(canonFormOnlySchema.safeParse(candidate()).success).toBe(false);
+    expect(canonFormOnlySchema.safeParse(formed).success).toBe(true);
+    expect((responseSchema(canonFormOnlySchema).properties as Record<string, { const?: unknown }>).has_form.const).toBe(true);
+    const model = modelFor([candidate(), formed]);
+    const result = await draftCanonEntry({ ...input, work: inputs.work, brief: inputs.brief, model, formOnly: true });
+    expect(model.calls).toHaveLength(2);
+    expect(model.calls[0].system).toBe(CANON_FORM_ONLY_SYSTEM);
+    expect(model.calls[0].system.startsWith(CANON_SYSTEM)).toBe(true);
+    expect(model.calls[0].schema).toBe(canonFormOnlySchema);
+    expect(result).toMatchObject({ hasForm: true, promptVersion: CANON_FORM_ONLY_PROMPT_VERSION, attempts: 2 });
+    expect(result.stages[0].text).toBe(rejected.stages[0].text);
+  });
+
+  it("leaves a work that words subjects without form on the unchanged prompt and schema", async () => {
+    const inputs = await readWorkInputs("bible-web");
+    const model = modelFor([candidate()]);
+    await draftCanonEntry({ ...input, work: inputs.work, brief: inputs.brief, model });
+    expect(model.calls[0].system).toBe(CANON_SYSTEM);
+    expect(model.calls[0].schema).toBe(canonOutputSchema);
   });
 });

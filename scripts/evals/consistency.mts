@@ -12,6 +12,7 @@
  * --styles names the released styles the gate pools, so an owner-only style never counts toward a release, and
  * --baseline the previous measurement it must not fall below. Scoring instructions: evals/images/consistency-scoring.md.
  */
+import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
@@ -51,6 +52,16 @@ async function composite(left: Buffer, right: Buffer, file: string) {
     .jpeg({ quality: 88 }).toFile(file);
 }
 
+/** The snapshot beside a run's results; a suite image run (ADR 0011) uses the snapshot of the text run its plan names. */
+async function snapshotBeside(results: string): Promise<string> {
+  const dir = path.dirname(results);
+  const beside = path.join(dir, "snapshot.json");
+  if (existsSync(beside)) return beside;
+  const plan = existsSync(path.join(dir, "plan.json")) ? JSON.parse(await readFile(path.join(dir, "plan.json"), "utf8")) as { from?: string | null } : {};
+  if (!plan.from) throw new Error(`No snapshot.json beside ${results}, and its plan names no text run`);
+  return path.join(path.dirname(dir), plan.from, "snapshot.json");
+}
+
 async function pairs() {
   const resultFiles = list(values.results);
   if (!resultFiles.length) throw new Error("pairs needs --results");
@@ -61,7 +72,7 @@ async function pairs() {
   const attempted = new Set<string>();
   for (const file of resultFiles) {
     const text = await readFile(file, "utf8");
-    const snapshotFile = path.join(path.dirname(file), "snapshot.json");
+    const snapshotFile = await snapshotBeside(file);
     const snapshotText = await readFile(snapshotFile, "utf8");
     sources.push({ file: path.relative(root, path.resolve(file)), sha256: sha256(text) }, { file: path.relative(root, path.resolve(snapshotFile)), sha256: sha256(snapshotText) });
     const rows = text.split("\n").filter((line) => line.trim()).map((line) => JSON.parse(line) as { case: string });

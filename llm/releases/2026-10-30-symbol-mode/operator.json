@@ -1,0 +1,39 @@
+{
+ "settledBy": "operator, after both scorers, viewing each disputed image at full size",
+ "settlements": {
+  "b07": {
+   "entryAppears": "person",
+   "faults": [
+    "figure in light"
+   ],
+   "acceptable": false,
+   "why": "A faint human silhouette in the dust stands for the tempter: a subject without form drawn as a figure in cloud, against his canon ('no human face or body'). With scorer A."
+  },
+  "b12": {
+   "entryAppears": "person",
+   "faults": [
+    "figure in light"
+   ],
+   "acceptable": false,
+   "why": "The same human-shaped dust silhouette for the tempter as b07. With scorer A."
+  },
+  "b19": {
+   "entryAppears": "canon form",
+   "faults": [],
+   "acceptable": true,
+   "why": "A clear red seven-headed crowned dragon; the woman on the moon is a solid figure the plan selected, with a soft glow, not a figure made of light. With scorer A."
+  },
+  "b21": {
+   "entryAppears": "absent",
+   "faults": [],
+   "acceptable": false,
+   "why": "The only dark shape is Joshua's own cast shadow; nothing stands for Satan. With scorer B; both scorers judged it not acceptable."
+  },
+  "b35": {
+   "entryAppears": "unclear",
+   "faults": [],
+   "acceptable": false,
+   "why": "A city view in which no seat at her door is legible; the verse's subject is not shown. With scorer B. Sensitivity reported both ways."
+  }
+ }
+}

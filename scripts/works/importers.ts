@@ -145,3 +145,47 @@ export function importHolmes(source: string): WorkFile {
     momentMode: "reading-pass", divisions,
   }).work;
 }
+
+const ALICE_CHAPTERS = [
+  "Down the Rabbit-Hole", "The Pool of Tears", "A Caucus-Race and a Long Tale",
+  "The Rabbit Sends in a Little Bill", "Advice from a Caterpillar", "Pig and Pepper",
+  "A Mad Tea-Party", "The Queen’s Croquet-Ground", "The Mock Turtle’s Story",
+  "The Lobster Quadrille", "Who Stole the Tarts?", "Alice’s Evidence",
+];
+const ALICE_START = "*** START OF THE PROJECT GUTENBERG EBOOK ALICE'S ADVENTURES IN WONDERLAND ***";
+const ALICE_END = "*** END OF THE PROJECT GUTENBERG EBOOK ALICE'S ADVENTURES IN WONDERLAND ***";
+
+/** Import the twelve chapters as numbered paragraphs, dropping only star separators and the closing "THE END". */
+export function importAlice(source: string): WorkFile {
+  const normalized = source.replace(/^﻿/, "").replace(/\r\n?/g, "\n");
+  const start = normalized.indexOf(ALICE_START);
+  const end = normalized.indexOf(ALICE_END);
+  if (start < 0 || end < start || normalized.indexOf(ALICE_START, start + 1) !== -1 || normalized.indexOf(ALICE_END, end + 1) !== -1) {
+    throw new Error("Missing or ambiguous Gutenberg text boundaries");
+  }
+  const body = normalized.slice(start + ALICE_START.length, end);
+  const headings = [...body.matchAll(/^CHAPTER ([IVX]+)\.\n([^\n]+)$/gm)];
+  if (headings.length !== ALICE_CHAPTERS.length) throw new Error("Expected twelve Alice chapter headings");
+  const divisions: WorkDivision[] = headings.map((heading, index) => {
+    const label = ALICE_CHAPTERS[index];
+    if (heading[1] !== ROMAN[index] || heading[2] !== label) throw new Error(`Unexpected Alice chapter heading: ${heading[0]}`);
+    const key = label.toLowerCase().replace(/[’']/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const segment = body.slice(heading.index! + heading[0].length, headings[index + 1]?.index ?? body.length);
+    const paragraphs = segment.split(/\n\s*\n/).map((block) => block.replace(/\s+/g, " ").trim())
+      .filter((paragraph) => paragraph && !/^(\* )+\*$/.test(paragraph) && !(index === headings.length - 1 && paragraph === "THE END"));
+    return { key, label, level: "Chapter", units: paragraphs.map((text, n) => ({ number: n + 1, text })) };
+  });
+  return createWorkReader({
+    schemaVersion: 1, id: "alice-in-wonderland", title: "Alice’s Adventures in Wonderland",
+    author: "Lewis Carroll", language: "en",
+    referenceText: {
+      name: "Project Gutenberg eBook #11",
+      source: "https://www.gutenberg.org/ebooks/11",
+      credit: "Lewis Carroll; Project Gutenberg eBook #11, The Millennium Fulcrum Edition 3.0. Public domain in the USA; full source and Gutenberg license retained.",
+      sha256: sha256(source),
+    },
+    levels: ["Chapter", "Paragraph"],
+    referenceFormats: { Chapter: "{Chapter} ¶{Paragraph}" },
+    momentMode: "reading-pass", divisions,
+  }).work;
+}
