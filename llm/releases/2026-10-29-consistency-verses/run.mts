@@ -159,7 +159,7 @@ async function runCase(c: { id: string }, group: StorePlan, records: AnalysisRec
       continue;
     }
     const checkContext = { people: assembled.canon.filter((x) => x.hasForm && x.kind === "character").map((x) => x.name),
-      description: `${assembled.prepared.plan.payload.primarySubject}; ${assembled.prepared.plan.payload.secondaryElements}`, softEdges: SOFT_EDGE_STYLES.includes(style) };
+      description: `${assembled.prepared.plan.payload.primarySubject}; ${assembled.prepared.plan.payload.secondaryElements}`, softEdges: SOFT_EDGE_STYLES.includes(style), depiction: inputs.depiction };
     const checked = await checkAndRetry(firstImage, {
       check: (image, n) => withTimeout(checkScene(checker, { bytes: image.bytes, mimeType: image.mimeType }, checkContext, `${c.id}:${n}`), 30_000),
       retry: () => generate(2),
