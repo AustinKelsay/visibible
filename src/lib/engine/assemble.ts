@@ -3,9 +3,9 @@
  * its in-section neighbours from the imported text, the lazy look and plan, the canon stages of
  * the present entries, the current references that load, and the validated packet. The request
  * engine maps the failures to responses; the evaluation harness records them. Nothing here is
- * paid except the owner-funded scene plan.
+ * paid except the owner-funded look and plan.
  */
-import { ownerLookVersion } from "./situation";
+import { lookPolicy } from "./situation";
 import { depictionModeOf } from "./depiction";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
 import type { TextModel } from "../reading-pass/model";
@@ -97,7 +97,7 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     return { ok: false, reason: "context", message: "This passage's moment is malformed in the work's analysis.", error };
   }
 
-  // The required plan and optional owner constraints; owner-funded, retryable without any image charge when they fail.
+  // The required look and plan; owner-funded, retryable without any image charge when they fail.
   let prepared: PreparedMoment;
   try {
     prepared = await prepareMoment({ workId: input.workId, momentId, store, model: deps.model, brief: inputs.brief, briefVersion: inputs.briefVersion, depiction: inputs.depiction, context, now: deps.now });
@@ -132,7 +132,7 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
 
   const lookCurrent = async () => {
     const active = await store.getActiveRecord("look", sectionId);
-    return ownerLookVersion(active) === (prepared.look?.version ?? null);
+    return active?.version === prepared.look.version && lookPolicy(active) === prepared.look.policy;
   };
   if (!await lookCurrent()) return { ok: false, reason: "preparation", message: "Preparing scene: section look changed.", retryable: true, stage: "look", error: null };
 
@@ -176,7 +176,7 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     neighbors: { previous: context.previous?.text ?? null, next: context.next?.text ?? null },
     brief: inputs.brief, briefVersion: inputs.briefVersion, eraId: prepared.era ?? inputs.brief.eras[0].id,
     style: styleEntry.style, styleVersion: styleEntry.version,
-    look: prepared.look ? { version: prepared.look.version, ...prepared.look.payload } : undefined,
+    look: { version: prepared.look.version, ...prepared.look.payload },
     situation: prepared.situation,
     plan: { version: prepared.plan.version, primarySubject: prepared.plan.payload.primarySubject, action: prepared.plan.payload.action, setting: prepared.plan.payload.setting, secondaryElements: prepared.plan.payload.secondaryElements, mood: prepared.plan.payload.mood, timeOfDay: prepared.plan.payload.timeOfDay, composition: prepared.plan.payload.composition },
     canon, references: available, omitStyleReference: deps.omitStyleReference, variationNumber: input.variationNumber, aspectRatio: input.aspectRatio,

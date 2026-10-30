@@ -84,7 +84,7 @@ export async function captureWorkEngineRequests(workId: string): Promise<Record<
   const out: Record<string, string> = {};
 
   const bodies: string[] = [];
-  const model = createOpenRouterTextModel({ apiKey: "test-key", fetch: recordingFetch(() => scenario.plan, bodies) });
+  const model = createOpenRouterTextModel({ apiKey: "test-key", fetch: recordingFetch((schema) => schema === "section_look" ? scenario.look : scenario.plan, bodies) });
   const { store } = createMemoryPreparationStore(records);
   await prepareMoment({ workId, momentId: scenario.momentId, store, model, brief, briefVersion: "golden-brief", context: scenario.context, depiction: profile,
     holder: "golden", now: () => 0, sleep: async () => {} });

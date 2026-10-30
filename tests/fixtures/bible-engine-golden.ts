@@ -89,7 +89,7 @@ function recordingFetch(answer: (body: { response_format: { json_schema: { name:
 
 async function capturePreparation(momentId: string): Promise<string[]> {
   const bodies: string[] = [];
-  const fetch = recordingFetch(() => planReplies[momentId], bodies);
+  const fetch = recordingFetch((body) => body.response_format.json_schema.name === "section_look" ? lookReply : planReplies[momentId], bodies);
   const model = createOpenRouterTextModel({ apiKey: "test-key", fetch });
   const { store } = createMemoryPreparationStore(records);
   await prepareMoment({ workId: "bible-web", momentId, store, model, brief, briefVersion: "golden-brief", context: contexts[momentId], depiction: profile,
