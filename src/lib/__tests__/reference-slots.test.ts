@@ -81,7 +81,5 @@ describe("reference slots at assembly", () => {
     const result = await render();
     if (!result.ok) throw new Error(result.message);
     expect(result.packet.references.map((r) => r.id)).toEqual(["moses:main", "sea:main", "aaron:main"]);
-    // The shared place is drawn too, since the plan put the moment at the section's place.
-    expect(result.prompt).toContain(`SECTION PLACE (the same in every image of this story section; draw it as written, seen from wherever the scene plan's setting and composition place the view):\n${look.place}`);
   });
 });

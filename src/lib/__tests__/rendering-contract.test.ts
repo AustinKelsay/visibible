@@ -51,18 +51,13 @@ const lookProblem = (quote: string, entryId = ""): PlanReviewProblem => ({ kind:
   reason: "Scripted pipeline probe: the shared look contradicts the chosen moment. This is not a new model verdict." });
 
 describe("combined rendering content review", () => {
-  it.each(["r027", "r067", "f011", "f003"])("reviews the complete selected stages and the shared place, never the advisory look values, for retained packet %s", async (id) => {
+  it.each(["r027", "r067", "f011", "f003"])("reviews the complete selected stages but never the advisory guide for retained packet %s", async (id) => {
     const { look, calls, render, memory, sample } = await setup(id);
     const result = await render();
     if (!result.ok) throw Error(result.message);
     const review = calls.find((c) => c.schemaName === "plan_review")!.user;
-    // Since review v13 / generic-v15 a generated look's place is drawn where the plan puts the moment, so it is reviewed
-    // exactly as rendered; its time, weather, light and clothing stay advisory, neither rendered nor reviewed (ADR 0009).
-    expect(result.prepared.sharedPlace).toBe(look.place);
-    expect(review).toContain(`SECTION PLACE (drawn as written in this image):\n${JSON.stringify({ place: look.place })}`);
-    expect(result.prompt).toContain("SECTION PLACE (the same in every image of this story section");
-    for (const [field, value] of Object.entries(look)) {
-      if (field === "place") continue;
+    // A generated guide is neither rendered nor reviewed since review v10; only the plan and canon are.
+    for (const value of Object.values(look)) {
       expect(review).not.toContain(value);
       expect(result.prompt).not.toContain(value);
     }
@@ -88,29 +83,13 @@ describe("combined rendering content review", () => {
     expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review"]);
   });
 
-  it("re-plans once for a retained Exodus place conflict with the shared place, then draws the plan's own setting without it", async () => {
-    const { look } = captured("r027");
-    const problem = lookProblem(look.place);
-    const { render, calls, memory, sample } = await setup("r027", "candidate", [[problem]]);
-    const result = await render();
-    if (!result.ok) throw Error(result.message);
-    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "scene_plan", "plan_review"]);
-    expect(result.prepared.sharedPlace).toBeNull();
-    expect(result.prompt).not.toContain("SECTION PLACE");
-    expect(result.prompt).not.toContain(look.place);
-    const saved = await memory.store.getActiveRecord("plan", sample.momentId);
-    expect(saved?.payload).toMatchObject({ sectionPlace: "elsewhere", review: { rounds: 2, problems: [problem], notes: [`dropped section place: ${problem.reason}`] } });
-    // The look itself is never rewritten.
-    expect((await memory.store.getActiveRecord("look", sample.sectionId))?.payload).toEqual({ kind: "look", sectionId: sample.sectionId, ...look });
-  });
-
-  it.each(["timeOfDay", "light"])("treats a retained Exodus %s conflict with the unrendered look value as an invalid citation, keeping the plan without a re-plan or rewriting the guide", async (field) => {
+  it.each(["place", "timeOfDay", "light"])("treats a retained Exodus %s conflict with the unrendered guide as an invalid citation, keeping the plan without a re-plan or rewriting the guide", async (field) => {
     const { look } = captured("r027");
     const problem = lookProblem(look[field], field === "light" ? god : "");
     const { render, calls, memory, getReference, sample } = await setup("r027", "candidate", [[problem]]);
     const result = await render();
     if (!result.ok) throw Error(result.message);
-    // The review is given only the shared place of a generated look, so a citation of another value cannot be valid: the report is retried, then the review is unavailable.
+    // The review is given no generated conditions, so a look citation cannot be valid: the report is retried, then the review is unavailable.
     expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "plan_review"]);
     expect(getReference).toHaveBeenCalled();
     const saved = await memory.store.getActiveRecord("plan", sample.momentId);

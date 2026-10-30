@@ -6,7 +6,7 @@
 import type { SceneGrounding } from "../../src/lib/engine/scene-grounding";
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { FORMLESS_LOOK_PROMPT_VERSION, SECTION_LOOK_PROMPT_VERSION } from "../../src/lib/engine/preparation";
+import { FORMLESS_LOOK_PROMPT_VERSION } from "../../src/lib/engine/preparation";
 
 /** The deployed Bible brief's version, as the engine computes it from the file. */
 const bibleBriefVersion = createHash("sha256").update(readFileSync(new URL("../../works/bible-web/brief.json", import.meta.url), "utf8")).digest("hex");
@@ -49,30 +49,23 @@ export function withSituation(value: unknown, owner?: unknown): unknown {
   return { ...plan, situation: owner ?? { place: plan.setting ?? "", timeOfDay: plan.timeOfDay ?? "", weather: "clear", light: "ordinary daylight", clothing: "ordinary situational clothing" } };
 }
 
-/**
- * The planner reply format since moment-cast v12 has no `situation`: scene fields carry setting and time. Since v16 it
- * says whether the moment is at the section's place; fixtures that do not say are at it.
- */
+/** The planner reply format since moment-cast v12 has no `situation`: scene fields carry setting and time. */
 export function selectionReply(value: unknown): unknown {
   const reply = selectionContract(value);
   if (typeof reply !== "object" || reply === null || Array.isArray(reply)) return reply;
   const { situation: _situation, ...rest } = reply as Record<string, unknown>;
   void _situation;
-  return "primarySubject" in rest && !("sectionPlace" in rest) ? { ...rest, sectionPlace: "same" } : rest;
+  return rest;
 }
 
 /**
- * Retained looks and plans record the look contracts and the Bible brief they were made with. Tests of other
- * mechanics treat them as made under the current contracts and the deployed brief (a styles-only brief change keeps
+ * Retained looks and plans record the no-form look contract and the Bible brief they were made with. Tests of other
+ * mechanics treat them as made under the current contract and the deployed brief (a styles-only brief change keeps
  * the same rules), so they are reused rather than remade.
  */
 export function withCurrentLookMarker<T extends { kind: string; inputs: Array<{ kind: string; recordId: string; version: string }> }>(record: T): T {
   if (record.kind !== "look" && record.kind !== "plan") return record;
-  const inputs = record.inputs.map((input) =>
+  return { ...record, inputs: record.inputs.map((input) =>
     input.kind === "prompt" && input.recordId === "section_look_formless_presence" ? { ...input, version: FORMLESS_LOOK_PROMPT_VERSION }
-    : input.kind === "prompt" && input.recordId === "section_look" ? { ...input, version: SECTION_LOOK_PROMPT_VERSION }
-    : input.kind === "brief" && input.recordId === "bible-web" ? { ...input, version: bibleBriefVersion } : input);
-  // Looks retained from before the section-place contract (ADR 0009) name no look marker; treat them as current too.
-  const marked = record.kind === "look" && !inputs.some((input) => input.kind === "prompt" && input.recordId === "section_look");
-  return { ...record, inputs: marked ? [...inputs, { kind: "prompt", recordId: "section_look", version: SECTION_LOOK_PROMPT_VERSION }] : inputs };
+    : input.kind === "brief" && input.recordId === "bible-web" ? { ...input, version: bibleBriefVersion } : input) };
 }

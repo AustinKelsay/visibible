@@ -176,7 +176,6 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     style: styleEntry.style, styleVersion: styleEntry.version,
     look: { version: prepared.look.version, ...prepared.look.payload },
     situation: prepared.situation,
-    sharedPlace: prepared.sharedPlace,
     plan: { version: prepared.plan.version, primarySubject: prepared.plan.payload.primarySubject, action: prepared.plan.payload.action, setting: prepared.plan.payload.setting, secondaryElements: prepared.plan.payload.secondaryElements, mood: prepared.plan.payload.mood, timeOfDay: prepared.plan.payload.timeOfDay, composition: prepared.plan.payload.composition },
     canon, references: available, omitStyleReference: deps.omitStyleReference, variationNumber: input.variationNumber, aspectRatio: input.aspectRatio,
   });

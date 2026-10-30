@@ -70,7 +70,7 @@ describe("look review citations", () => {
       const content = request.schemaName === "plan_review" ? traces[0].response.choices[0].message.content
         : JSON.stringify(request.schemaName === "section_look" ? input.rendering!.look : {
           focusQuote: input.context.moment.text, instant: "The traveler stands still at midday.",
-          selectedCast: [], sectionPlace: "same", ...input.fields,
+          selectedCast: [], ...input.fields,
         });
       return { content, model: "recorded", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 1, completionTokens: 1, costUsd: 0.0001 }, elapsedMs: 0 };
     } };
@@ -79,8 +79,6 @@ describe("look review citations", () => {
     expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
     expect(calls[1].user).toContain("OWNER LOOK CONSTRAINTS (binding verbatim rendering input)");
     expect(prepared.situation).toEqual(input.rendering!.look);
-    // Owner constraints render through their own block, never as a separate shared place.
-    expect(prepared.sharedPlace).toBeNull();
     const stored = await memory.store.getActiveRecord("plan", "constructed");
     expect(stored?.payload.review).toEqual({ rounds: 1, notes: [expect.stringMatching(/^noted: look_conflict: /)] });
     expect((await memory.store.getActiveRecord("look", "section"))?.payload).toEqual({ kind: "look", sectionId: "section", ...input.rendering!.look });

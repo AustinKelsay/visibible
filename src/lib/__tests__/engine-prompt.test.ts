@@ -241,28 +241,6 @@ describe("rendering packet", () => {
     expect(rankSheetCandidates([ark, ...canon], { primarySubject: "the ark", action: "" }).map((c) => c.entryId)).toEqual(["sherlock_holmes", "221b_baker_street", "dr_watson", "the_ark"]);
   });
 
-  it("draws a shared section place as written before the scene plan, only for a generated look", () => {
-    const place = "A first-floor sitting-room with a bow window over a gaslit street";
-    const shared = buildRenderingPacket(base("classical", { sharedPlace: place }));
-    if (!shared.ok) throw new Error(shared.error);
-    const block = `SECTION PLACE (the same in every image of this story section; draw it as written, seen from wherever the scene plan's setting and composition place the view):\n${place}`;
-    expect(shared.prompt).toContain(block);
-    expect(shared.prompt.indexOf(block)).toBeLessThan(shared.prompt.indexOf("SCENE PLAN ("));
-    expect(shared.prompt.indexOf("CANON (")).toBeLessThan(shared.prompt.indexOf(block));
-    // Without a shared place the prompt is unchanged apart from the block.
-    const none = buildRenderingPacket(base("classical"));
-    expect(none.ok && none.prompt).toBe(shared.prompt.replace(`${block}\n\n`, ""));
-    // Owner constraints already render the owner's place; a shared place is never added beside them.
-    const owned = buildRenderingPacket(base("classical", { sharedPlace: place, situation: owner }));
-    expect(owned.ok && owned.prompt).not.toContain("SECTION PLACE");
-    // With a presence in the scene, its name never reaches the image model through the place either.
-    const presence = buildRenderingPacket(base("classical", { canon, sharedPlace: "The court where the voice speaks from the dais" }));
-    expect(presence.ok && presence.prompt).toContain("The court where the presence speaks from the dais");
-    // Required content: the place survives every trim.
-    const huge = buildRenderingPacket(base("classical", { sharedPlace: place, plan: { ...base("classical").plan, composition: "x".repeat(GENERIC_PROMPT_MAX_CHARS) } }));
-    expect(huge.ok).toBe(false);
-  });
-
   it("works with zero references and keeps full canon, and a stage-specific sheet only matches its stage", () => {
     const none = buildRenderingPacket(base("watercolor", { references: [] }));
     expect(none.ok && none.references).toEqual([]);

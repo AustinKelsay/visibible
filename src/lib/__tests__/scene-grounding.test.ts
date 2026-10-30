@@ -84,8 +84,7 @@ describe("scene source grounding", () => {
         { entryId: wounded, momentQuote: "his wounds", contextSource: "none", contextQuote: "", participation: "in_scene" },
       ] } });
     expect(calls[0].user.indexOf("MOMENT (")).toBeLessThan(calls[0].user.indexOf("CAST ON STAGE"));
-    // The planner sees the look with its place marked as shared (moment-cast v16, ADR 0009).
-    expect(calls[0].user).toContain(`SECTION LOOK (its place is drawn as written wherever sectionPlace is "same"; the other values are suggestions)`);
+    expect(calls[0].user).not.toContain("SECTION LOOK (");
     expect(calls[0].system).toContain("pick one representative instant");
     expect(calls[0].system).toContain("Never put a speaker, writer or listener into a scene their words only describe");
   });

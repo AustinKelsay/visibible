@@ -12,19 +12,19 @@ import { planningNeighbors } from "./scene-grounding";
 import { CONTENT_OWNERSHIP, type RenderingInput, type SelectedCanon } from "./prompt";
 
 /** Bump for changes to the review instructions, schema or acceptance rules; plans refresh lazily. */
-export const PLAN_REVIEW_PROMPT_VERSION = "2026-10-29-plan-review-v13";
+export const PLAN_REVIEW_PROMPT_VERSION = "2026-10-27-plan-review-v12";
 /** The benchmarked configuration: reasoning off flagged every clean plan. Thinking needs room above 1,024 tokens. */
 export const PLAN_REVIEW_REASONING: ReasoningEffort = "low";
 export const PLAN_REVIEW_MAX_TOKENS = 4000;
 
-export const PLAN_REVIEW_SYSTEM = `You check an illustration plan before it is drawn. You get the moment's text with its neighbours, the depiction rules, the section cast (id, name, hasForm), the plan's selected cast ids (\`present\`), its seven scene fields, the SECTION PLACE or OWNER LOOK CONSTRAINTS that rendering will draw as written (when there are any), and the canon of the selected entries. Report only clear problems that a careful reader would agree with, and return an empty list when the plan is a reasonable illustration of the moment. Do not report preferences, small omissions or other valid readings. Return only JSON.
+export const PLAN_REVIEW_SYSTEM = `You check an illustration plan before it is drawn. You get the moment's text with its neighbours, the depiction rules, the section cast (id, name, hasForm), the plan's selected cast ids (\`present\`), its seven scene fields, any OWNER LOOK CONSTRAINTS that rendering will use, and the canon of the selected entries. Report only clear problems that a careful reader would agree with, and return an empty list when the plan is a reasonable illustration of the moment. Do not report preferences, small omissions or other valid readings. Return only JSON.
 ${CONTENT_OWNERSHIP}
 Kinds:
 - unselected_figure: a section cast entry (a person, group, place, object, or a no-form presence shown as its effect) is clearly depicted in a scene field but its id is not in present. Use its id.
 - outside_instant: a selected or described person or presence does not belong in this moment, such as a speaker, writer, prophet or listener put into a scene their words only describe or made a figure of their own words, the narrator of a story or vision, someone from a different event, or a no-form presence the moment does not show. Use its id, or empty.
 - not_one_instant: the fields give someone incompatible poses or places, or show successive steps as one image.
 - embodied_formless: a hasForm false entry is given a body, face, hands, clothing, a robe or train, a silhouette, a throne or seat of its own, or is described as seated or standing.
-- look_conflict: a SECTION PLACE or OWNER LOOK CONSTRAINTS value (only when supplied) contradicts the scene, the text or the depiction rules, for example the text clearly puts this moment somewhere else. Quote that value.
+- look_conflict: an OWNER LOOK CONSTRAINTS value (only when supplied) contradicts the scene, the text or the depiction rules. Quote that value.
 - canon_conflict: a scene field contradicts a selected entry's fixed canon. Quote the scene field.
 - missing_canon: the scene depicts a named recurring character or group with no section cast entry. Leave entryId empty.
 For each problem, copy a short exact phrase from a scene field or a selected id into planQuote (from an owner constraint for look_conflict) and give a one-sentence reason.`;
@@ -51,17 +51,14 @@ export type ReviewInput = {
   /** Historical shape: conditions plus selected canon. Omitted only by historical isolated plan-review controls. */
   rendering?: { look: Omit<RenderingInput["look"], "version">; lookPolicy?: "generated-guide-v1" | "literal-constraint-v1"; canon: SelectedCanon[] };
 };
-/**
- * What the review accepts: the look values rendering will draw verbatim, only when it will draw them. That is every
- * owner constraint, or since v13 a generated look's place alone when the plan puts the moment there (ADR 0009).
- */
+/** What the review accepts since v10: owner look constraints only when rendering will use them (none for a generated guide). */
 export type PlanReviewInput = Omit<ReviewInput, "rendering"> & {
-  rendering?: Omit<NonNullable<ReviewInput["rendering"]>, "look"> & { look?: Partial<NonNullable<ReviewInput["rendering"]>["look"]> };
+  rendering?: Omit<NonNullable<ReviewInput["rendering"]>, "look"> & { look?: NonNullable<ReviewInput["rendering"]>["look"] };
 };
 
 export function planReviewUser(input: PlanReviewInput) {
   const neighbors = planningNeighbors(input.context);
-  const label = input.rendering?.lookPolicy === "generated-guide-v1" ? "SECTION PLACE (drawn as written in this image)" : input.rendering?.lookPolicy === "literal-constraint-v1" ? "OWNER LOOK CONSTRAINTS (binding verbatim rendering input)" : "SECTION LOOK (verbatim rendering input)";
+  const label = input.rendering?.lookPolicy === "generated-guide-v1" ? "MOMENT CONDITIONS (exact rendering input)" : input.rendering?.lookPolicy === "literal-constraint-v1" ? "OWNER LOOK CONSTRAINTS (binding verbatim rendering input)" : "SECTION LOOK (verbatim rendering input)";
   const look = input.rendering?.look ? `\n\n${label}:\n${JSON.stringify(input.rendering.look)}` : "";
   const rendering = input.rendering ? `${look}\n\nSELECTED CANON (complete assigned stages; fixed identity, not source evidence):\n${input.rendering.canon.map((c) => `- ${c.entryId} (stage: ${c.stageId}, kind: ${c.kind}, hasForm: ${c.hasForm}): ${c.text}`).join("\n") || "- (none)"}` : "";
   return `DEPICTION RULES\n${input.rules}\nSTORY SECTION: ${input.sectionTitle}\n\nMOMENT (${input.context.moment.reference}): ${input.context.moment.text}\nPREVIOUS: ${neighbors.previous ?? "(section starts here)"}\nNEXT: ${neighbors.next ?? "(section ends here)"}\n\nSECTION CAST (id: name, hasForm):\n${input.cast.map((c) => `- ${c.entryId}: ${c.name} (hasForm: ${c.hasForm})`).join("\n") || "- (none)"}${rendering}\n\nPLAN\npresent: ${input.present.join(", ") || "(none)"}\n${PLAN_SCENE_FIELDS.map((f) => `${f}: ${input.fields[f]}`).join("\n")}`;
@@ -87,7 +84,7 @@ export function invalidReview(problems: PlanReviewProblem[], input: PlanReviewIn
   for (const p of problems) {
     const quote = flat(p.planQuote);
     const quoted = p.kind === "look_conflict"
-      ? Object.entries(input.rendering?.look ?? {}).some(([field, value]) => typeof value === "string" && lookQuoteMatches(field, value, quote))
+      ? Object.entries(input.rendering?.look ?? {}).some(([field, value]) => lookQuoteMatches(field, value, quote))
       : PLAN_SCENE_FIELDS.some((f) => flat(input.fields[f]).includes(quote)) || input.present.includes(p.planQuote.trim());
     if (!quote || !quoted) return `${p.kind} quote is not in the ${p.kind === "look_conflict" ? "look" : "plan"}`;
     if (p.entryId && !castIds.has(p.entryId)) return `${p.kind} names unknown cast ${p.entryId}`;

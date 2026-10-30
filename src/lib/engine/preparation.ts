@@ -1,7 +1,7 @@
 /**
- * Lazy text preparation for one moment (#171, spec #165 §5): the section look (or binding owner constraints) and the scene plan with
+ * Lazy text preparation for one moment (#171, spec #165 §5): the original section look guide (or binding owner constraints) and the scene plan with
  * resolved moment conditions, shared by every art style and
- * reader translation of a moment. A generated look's place is drawn verbatim in every moment the plan puts there (ADR 0009). Both are made with Claude Haiku 5.5 the first time they are
+ * reader translation of a moment. Both are made with Claude Haiku 5.5 the first time they are
  * needed, stored in the active analysis generation with the versions they were made from, and
  * reused until an input changes. Preparation is forgiving: the plan review advises, depicted cast are
  * selected for their canon, and a plan is kept with notes after one re-plan. A look or plan that
@@ -20,14 +20,8 @@ import type { SelectedCanon } from "./prompt";
 import { lookPolicy, type Situation } from "./situation";
 
 export const LOOK_SYSTEM = `You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.
-Rules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments, and do not restate anyone's fixed appearance; canon does that. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.
-\`place\` is drawn exactly as written in every image of the section that happens there, so it names only the physical place where most of the section happens: its land or water, buildings, their layout and fixed features, as they look throughout the section. Put no people, animals, crowds, events, time of day or weather in \`place\`.`;
-/** Bump for changes to the look contract or what it is shown; generated looks refresh lazily, owner looks never do. */
-export const SECTION_LOOK_PROMPT_VERSION = "2026-10-29-section-look-place-v1";
-export const lookOutputSchema = z.object({
-  place: z.string().describe("The physical place where most of the section happens, drawn as written in its images: land or water, buildings, layout and fixed features. No people, animals, events, time or weather."),
-  timeOfDay: z.string(), weather: z.string(), light: z.string(), clothing: z.string(),
-}).strict();
+Rules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments, and do not restate anyone's fixed appearance; canon does that. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.`;
+export const lookOutputSchema = z.object({ place: z.string(), timeOfDay: z.string(), weather: z.string(), light: z.string(), clothing: z.string() }).strict();
 /** Bump for changes to this no-form look contract or its cast format; only affected looks use it. */
 export const FORMLESS_LOOK_PROMPT_VERSION = "2026-10-27-formless-look-v2";
 // Since v2 the look gets no canon text for a no-form subject: a look or plan that never sees "veiled light… throne-light"
@@ -38,7 +32,7 @@ const formlessLookOutputSchema = (() => {
   // As with plans, enforce length locally without emitting Anthropic's unsupported maxLength.
   const field = (description: string) => z.string().refine((text) => text.length <= 200, "Must be at most 200 characters").describe(`${description} At most 200 characters.`);
   return z.object({
-    place: field("The physical place where most of the section happens, drawn as written in its images: land or water, buildings, layout and fixed features. No people, animals, events, time or weather, and no throne or seat for a no-form subject."),
+    place: field("The shared physical place and surroundings, with no throne or seat for a no-form subject."),
     timeOfDay: field("The time of day or change in time across the section."),
     weather: field("Shared environmental conditions, without bodily metaphors."),
     light: field("Situational illumination shared by the section. A no-form subject's presence may appear only as light, cloud, smoke, fire or wind spread through the place, never as a shape or figure."),
@@ -51,14 +45,10 @@ export const PLAN_SYSTEM = `You plan one illustration of one moment of a work's 
 - Show what the moment is about. When the moment is mostly someone's words (a prophecy, oracle, poem, proverb, prayer, letter, argument or teaching, or a story, parable, vision or memory being told), draw what the words describe and leave the speaker, writer and listeners out, unless the text shows them inside that scene (a visionary within the vision). Never put a speaker, writer or listener into a scene their words only describe, and never make them a figure of their own words, such as the king ready for battle or the man standing in the gap.
 - In \`selectedCast\`, list every section cast entry that will be visible: people, groups, places, objects, and any presence without form shown through its effects. Give a few words of the text for each. Leave out cast who are elsewhere or only mentioned. Anyone without a cast entry may appear as an unnamed role or crowd when the moment needs them.
 - Describe pose, action, placement and situational detail. Leave fixed appearance to canon, name no art style, and ask for no visible writing: scrolls, tablets, letters and books stay rolled or closed, and signs and boards are blank. Describe only what can be seen; leave out unseen or invisible beings, because anything named gets drawn. Keep every depiction rule.
-- The SECTION LOOK's place is shared: every image of the section that happens there draws it exactly as written, so neighbouring moments show the same place. Set \`sectionPlace\` to "same" when this moment happens there; then \`setting\` says only where in that place the subjects are and which part is in view, without describing the place again. Set it to "elsewhere" only when the text clearly puts this moment somewhere else, and then describe that place in \`setting\`.
-- The scene fields carry this moment's time, light and situational clothing. The look's time of day, weather, light and clothing are suggestions: keep what fits this moment and change what does not. \`timeOfDay\` names the one time at this instant, never a change such as night into dawn: when the look spans a change, take the time this moment's text or its neighbours give, and otherwise keep the time the section starts at. OWNER LOOK CONSTRAINTS, when given instead, are binding: keep the setting and time of day consistent with them.
+- The scene fields carry this moment's place, time, light and situational clothing. The SECTION LOOK GUIDE is a suggestion for them: keep what fits this moment and change what does not. OWNER LOOK CONSTRAINTS, when given instead, are binding: keep the setting and time of day consistent with them.
 - Each field is one or two short phrases.`;
 /** All plans use the forgiving general contract; a change refreshes plans lazily, without remaking looks. */
-export const MOMENT_CAST_PROMPT_VERSION = "2026-10-29-moment-cast-v17";
-/** Whether a moment happens at its section look's place, which is then drawn verbatim. */
-export const SECTION_PLACE_CHOICES = ["same", "elsewhere"] as const;
-export type SectionPlace = (typeof SECTION_PLACE_CHOICES)[number];
+export const MOMENT_CAST_PROMPT_VERSION = "2026-10-28-moment-cast-v15";
 /** Bump for changes to the no-form planning addendum; only sections with no-form cast use it. */
 export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-28-formless-effects-v17";
 const FORMLESS_PLAN_SYSTEM = `${PLAN_SYSTEM}
@@ -93,13 +83,12 @@ function planningResponseSchema(entryIds: string[], hasFormlessCast: boolean) {
     instant: z.string().describe("One sentence fixing the single instant to draw: who is where, doing what."),
     selectedCast: z.array(z.object({ entryId: id, evidence: z.string().describe("A few words from the text that put this entry in the scene.") }).strict())
       .describe("Every section cast entry visible in the image, once each: people, groups, places, objects and presences shown through effects. Empty when none is."),
-    sectionPlace: z.enum(SECTION_PLACE_CHOICES).describe("\"same\" when this moment happens at the SECTION LOOK's place, which is then drawn exactly as written; \"elsewhere\" only when the text clearly puts it somewhere else."),
     primarySubject: field(`The main subject and its pose or placement at that instant.${formless}`),
     action: field(`What happens at that one instant.${formless}`),
-    setting: field("With sectionPlace \"same\": where in the section's place the subjects are and which part is in view, without describing the place again. With \"elsewhere\": the physical place and surroundings, consistent with the text and era."),
+    setting: field("The physical place and surroundings, consistent with the text and era."),
     secondaryElements: field("Supporting people, props and effects with their placement."),
     mood: field("The emotional atmosphere of the moment."),
-    timeOfDay: field("This moment's one time of day, weather and situational light at this instant, never a change such as night into dawn."),
+    timeOfDay: field("This moment's time of day, weather and situational light."),
     composition: field("Viewpoint, framing and placement of the subjects, independent of art style."),
   }).strict();
 }
@@ -111,8 +100,6 @@ export type MomentContext = {
   moment: { id: string; reference: string; text: string };
   previous: { text: string } | null;
   next: { text: string } | null;
-  /** The whole section's text, bounded, for its look. Contexts without it show the look this moment's text. */
-  section?: { text: string };
 };
 
 /** The analysis reads and writes preparation needs; the Convex analysis module implements it in production. */
@@ -137,8 +124,6 @@ export type PreparedMoment = {
   look: { version: string; payload: z.infer<typeof lookOutputSchema>; policy: ReturnType<typeof lookPolicy> };
   /** Owner look constraints rendered verbatim; null for a generated guide, whose plan carries its own setting and time. */
   situation: Situation | null;
-  /** A generated look's place, drawn verbatim when the plan puts the moment there; null otherwise (owner looks render through `situation`). */
-  sharedPlace: string | null;
   plan: { version: string; payload: z.infer<typeof planOutputSchema> };
   /** The entries present in the moment with the stage the section assigns them, and their canon versions. */
   present: Array<{ entryId: string; stageId: string; version: string }>;
@@ -269,7 +254,6 @@ export async function prepareMoment(options: {
   // Only affected sections add the no-form look contract; all-formed requests stay unchanged.
   const lookInputs: InputRef[] = [{ kind: "section", recordId: sectionId, version: section.version }, { kind: "brief", recordId: options.workId, version: options.briefVersion },
     ...cast.map((c) => ({ kind: "entry", recordId: c.entryId, version: c.version })),
-    { kind: "prompt", recordId: "section_look", version: SECTION_LOOK_PROMPT_VERSION },
     ...(hasFormlessCast ? [{ kind: "prompt", recordId: "section_look_formless_presence", version: FORMLESS_LOOK_PROMPT_VERSION }] : [])];
   const existingLook = await store.getActiveRecord("look", sectionId);
   // Owner/unknown looks stay literal even when other dependencies change. Review decides compatibility.
@@ -278,10 +262,7 @@ export async function prepareMoment(options: {
     const castContext = hasFormlessCast
       ? `CAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name} (hasForm: ${c.hasForm})`).join("\n")}`
       : `ON STAGE: ${cast.map((c) => c.name).join(", ") || "(no one listed)"}`;
-    const sectionText = options.context.section
-      ? `TEXT OF THE SECTION (the look covers all of it):\n${options.context.section.text}`
-      : `TEXT OF ONE MOMENT OF THE SECTION (the look covers the whole section):\n${options.context.moment.text}`;
-    const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Buildings and objects: ${era.buildingsAndObjects}\n\nSTORY SECTION: ${sectionPayload.title}\n${castContext}\n${sectionText}`;
+    const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Buildings and objects: ${era.buildingsAndObjects}\n\nSTORY SECTION: ${sectionPayload.title}\n${castContext}\nTEXT OF THE SECTION'S FIRST MOMENT (the look covers the whole section):\n${options.context.moment.text}`;
     const value = await askOnce(model, store, "look", sectionId, hasFormlessCast ? formlessLookOutputSchema : lookOutputSchema, hasFormlessCast ? FORMLESS_LOOK_SYSTEM : LOOK_SYSTEM, user);
     return { kind: "look" as const, sectionId, ...value };
   }, timing);
@@ -307,7 +288,7 @@ export async function prepareMoment(options: {
     const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Technology: ${era.technology}\nSTORY SECTION: ${sectionPayload.title}\n\nMOMENT (${options.context.moment.reference}): ${options.context.moment.text}\nPREVIOUS: ${neighbors.previous ?? "(section starts here)"}\nNEXT: ${neighbors.next ?? "(section ends here)"}\n\nCAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name}${hasFormlessCast ? ` (hasForm: ${c.hasForm})` : ""}`).join("\n") || "- (no one listed)"}`;
     const castIds = cast.map((c) => c.entryId);
     const schema = planningResponseSchema(castIds, hasFormlessCast);
-    const lookContext = `\n\n${policy === "generated-guide-v1" ? "SECTION LOOK (its place is drawn as written wherever sectionPlace is \"same\"; the other values are suggestions)" : "OWNER LOOK CONSTRAINTS (copy all values exactly)"}:\n${JSON.stringify(lookPayload)}`;
+    const lookContext = `\n\n${policy === "generated-guide-v1" ? "SECTION LOOK GUIDE (a suggestion; keep what fits this moment)" : "OWNER LOOK CONSTRAINTS (copy all values exactly)"}:\n${JSON.stringify(lookPayload)}`;
     const reviewCast = cast.map((c) => ({ entryId: c.entryId, name: c.name, hasForm: c.hasForm }));
     const trim = (text: string) => text.length <= PLAN_FIELD_MAX_CHARS ? text : `${text.slice(0, PLAN_FIELD_MAX_CHARS - 1).trimEnd()}…`;
     // Forgiving preparation: the review advises rather than gates. A depicted but unselected cast entry is
@@ -320,13 +301,11 @@ export async function prepareMoment(options: {
       const selected = reply.selectedCast.filter((entry, index, all) => castIds.includes(entry.entryId) && all.findIndex((e) => e.entryId === entry.entryId) === index);
       const present = selected.map((entry) => entry.entryId);
       const fields = Object.fromEntries(PLAN_SCENE_FIELDS.map((field) => [field, trim(reply[field])])) as Record<(typeof PLAN_SCENE_FIELDS)[number], string>;
-      let sectionPlace: SectionPlace = reply.sectionPlace;
-      // The review sees exactly the look text rendering will draw: all owner constraints, or a generated look's
-      // place when the plan puts the moment there. A generated look's other values stay advisory and unrendered.
-      const renderedLook = policy === "literal-constraint-v1" ? { ...lookPayload } : sectionPlace === "same" ? { place: lookPayload.place } : undefined;
+      // Only owner constraints are rendered as conditions; a generated guide was advisory and the plan carries its own.
+      const situation = policy === "literal-constraint-v1" ? { ...lookPayload } : undefined;
       const review = await reviewPlan(model, (entry) => store.recordSpend({ kind: "plan", recordId: options.momentId, ...entry }), options.momentId,
         { rules, context: options.context, sectionTitle: sectionPayload.title, cast: reviewCast, present, fields,
-          rendering: { look: renderedLook, lookPolicy: policy, canon: present.map((id) => {
+          rendering: { look: situation, lookPolicy: policy, canon: present.map((id) => {
             const entry = cast.find((c) => c.entryId === id)!;
             return { entryId: id, stageId: entry.stageId, kind: entry.entryKind, name: entry.name, text: entry.text, hasForm: entry.hasForm, version: entry.version };
           }) } });
@@ -346,21 +325,14 @@ export async function prepareMoment(options: {
       }
       if (remaining.length && round === 1) {
         firstProblems = remaining;
-        feedback = replanFeedback(remaining.map((p) => `${p.kind}: ${p.reason} (${p.kind === "look_conflict" ? "the section place" : "plan"} said: "${p.planQuote}")`));
+        feedback = replanFeedback(remaining.map((p) => `${p.kind}: ${p.reason} (${p.kind === "look_conflict" ? "moment conditions" : "plan"} said: "${p.planQuote}")`));
         continue;
-      }
-      // A shared place that still contradicts the moment after the re-plan is not drawn; the plan's own setting stands.
-      const placeConflicts = remaining.filter((p) => p.kind === "look_conflict");
-      if (placeConflicts.length && sectionPlace === "same") {
-        sectionPlace = "elsewhere";
-        remaining = remaining.filter((p) => p.kind !== "look_conflict");
-        notes.push(`dropped section place: ${placeConflicts.map((p) => p.reason).join("; ")}`);
       }
       const embodied = remaining.filter((p) => p.kind === "embodied_formless");
       if (embodied.length) throw new PreparationUnavailableError("plan", `a subject without form is still drawn as a figure: ${embodied.map((p) => p.entryId).join(", ")}`);
       if (remaining.length) notes.push(`kept with: ${remaining.map((p) => `${p.kind}${p.entryId ? ` ${p.entryId}` : ""}`).join(", ")}`);
       await assertLookCurrent();
-      return { kind: "plan" as const, momentId: options.momentId, entries: present.map((id) => ({ entryId: id, stageId: cast.find((c) => c.entryId === id)!.stageId })), plan: fields, sectionPlace,
+      return { kind: "plan" as const, momentId: options.momentId, entries: present.map((id) => ({ entryId: id, stageId: cast.find((c) => c.entryId === id)!.stageId })), plan: fields,
         grounding: { focusQuote: reply.focusQuote, instant: reply.instant, singleInstant: !remaining.some((p) => p.kind === "not_one_instant"),
           cast: selected.map((entry) => ({ entryId: entry.entryId, momentQuote: entry.evidence, contextSource: "none" as const, contextQuote: "", participation: "in_scene" as const })) },
         review: { rounds: round, ...(firstProblems ? { problems: firstProblems } : {}), ...(notes.length ? { notes } : {}) } };
@@ -369,11 +341,9 @@ export async function prepareMoment(options: {
   }, timing);
 
   await assertLookCurrent();
-  const planPayload = plan.payload as unknown as { entries: Array<{ entryId: string; stageId: string }>; plan: z.infer<typeof planOutputSchema>; sectionPlace?: SectionPlace };
+  const planPayload = plan.payload as unknown as { entries: Array<{ entryId: string; stageId: string }>; plan: z.infer<typeof planOutputSchema> };
   return {
     sectionId, era: era.id, situation: policy === "literal-constraint-v1" ? { ...lookPayload } : null,
-    // Plans stored before moment-cast v16 have no choice and keep the earlier rendering, without a shared place.
-    sharedPlace: policy === "generated-guide-v1" && planPayload.sectionPlace === "same" ? lookPayload.place : null,
     look: { version: look.version, policy, payload: { place: lookPayload.place, timeOfDay: lookPayload.timeOfDay, weather: lookPayload.weather, light: lookPayload.light, clothing: lookPayload.clothing } },
     plan: { version: plan.version, payload: { ...planPayload.plan, present: planPayload.entries.map((e) => e.entryId) } },
     present: planPayload.entries.map((e) => ({ entryId: e.entryId, stageId: e.stageId, version: cast.find((c) => c.entryId === e.entryId)?.version ?? "" })),

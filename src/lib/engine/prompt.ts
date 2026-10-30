@@ -1,9 +1,9 @@
 /**
  * The generic rendering packet (#173, spec #165 §3, §5, §6): one prompt per image built from the
  * engine rules, the work brief's prompt form for the moment's era, the selected canon, the
- * owner look constraints when given, the section's shared place when the plan puts the moment there, the style-neutral
- * scene plan, the art style's rendering and the captions of up to three reference images. A subject without form is described by its effects, never named, and its scene omits
- * the source text. Precedence, strongest first: engine rules, brief content and depiction rules, canon identity,
+ * owner look constraints when given, the style-neutral scene plan, the art style's rendering and the captions of up
+ * to three reference images, ranked so the plan's main figures get the sheet slots (ADR 0009). A subject without form
+ * is described by its effects, never named, and its scene omits the source text. Precedence, strongest first: engine rules, brief content and depiction rules, canon identity,
  * style rendering, scene plan. The prompt is capped at 12,000
  * characters; nothing required is ever trimmed, and an over-budget result is rejected before
  * any paid call.
@@ -12,7 +12,7 @@ import { SITUATION_FIELDS, type Situation } from "./situation";
 import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
-/** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
+/** Structure, wording and reference choice of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. v15 ranks sheet slots (ADR 0009). */
 export const GENERIC_PROMPT_VERSION = "2026-10-29-generic-v15";
 /** Prompt text is cheap next to the image itself (12,000 characters is about $0.001); the cap only guards runaway input. */
 export const GENERIC_PROMPT_MAX_CHARS = 12000;
@@ -38,8 +38,6 @@ export type RenderingInput = {
   look: { version: string; place: string; timeOfDay: string; weather: string; light: string; clothing: string };
   /** Owner look constraints, rendered verbatim when supplied. Generated plans carry their own setting and time (since generic-v10). */
   situation?: Situation | null;
-  /** A generated look's place, drawn verbatim when the plan puts the moment there, so a section's images share it (generic-v15). */
-  sharedPlace?: string | null;
   plan: { version: string; primarySubject: string; action: string; setting: string; secondaryElements: string; mood: string; timeOfDay: string; composition: string };
   /** The entries the plan marked present, with the stage the section assigns them. */
   canon: SelectedCanon[];
@@ -82,7 +80,7 @@ export const ENGINE_RULES = [
   "Show the SELECTED CHARACTERS with their canon. Anyone else appears only as an unnamed figure the scene plan describes.",
   "A subject without form is never drawn. Only when it is selected may the light, cloud, smoke, fire or wind in the scene plan stand for it, with nobody in them. A throne or seat stays empty unless the scene plan names who sits on it.",
 ];
-export const CONTENT_OWNERSHIP = "The text decides who is in the scene; canon decides how they look; the scene plan decides this moment's place, time, light, clothing and action, inside the section place when one is given. Owner look constraints, when given, are binding.";
+export const CONTENT_OWNERSHIP = "The text decides who is in the scene; canon decides how they look; the scene plan decides this moment's place, time, light, clothing and action. Owner look constraints, when given, are binding.";
 export const PRECEDENCE_LINE = `If instructions conflict, follow these rules, then the work brief, then canon, then the art style, then the scene plan. ${CONTENT_OWNERSHIP}`;
 
 function clip(text: string, max: number) {
@@ -186,11 +184,6 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
       ...formed.map((c) => `- ${c.text}`),
       ...(names.length ? [`- Only ${names.join(", ")} ${names.length > 1 ? "have" : "has"} this canon look; other selected people get clearly different faces, hair and clothing colours.`] : [])].join("\n")
     : "";
-  // The same words in every image of the section, so neighbouring moments show one place. Owner constraints carry their own place.
-  const sharedPlace = !owner && input.sharedPlace?.trim() ? input.sharedPlace.trim() : null;
-  const placeBlock = sharedPlace
-    ? `SECTION PLACE (the same in every image of this story section; draw it as written, seen from wherever the scene plan's setting and composition place the view):\n${presence ? nameless(sharedPlace) : sharedPlace}`
-    : "";
   const planBlock = ["SCENE PLAN (this moment's place, time and action; obey the rules, brief, canon and style):",
     `Primary subject: ${plan.primarySubject}`, `Action: ${plan.action}`, `Setting: ${plan.setting}`, `Secondary elements: ${plan.secondaryElements}`,
     `Mood: ${plan.mood}`, `Time of day: ${plan.timeOfDay}`, `Composition: ${plan.composition}`].join("\n");
@@ -222,7 +215,6 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     formlessBlock,
     canonBlock,
     ownerBlock,
-    placeBlock,
     planBlock,
     flags.styleDetailIncluded ? `${styleMain}\n${styleDetail}` : styleMain,
     referenceBlock(),
@@ -231,7 +223,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     `SCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges and corners.\nAspect ratio: ${input.aspectRatio} (${aspect} landscape).`,
   ].filter(Boolean).join("\n\n");
 
-  // Canon, the section place, the plan and owner constraints are required content and are never trimmed.
+  // Canon, the plan and owner constraints are required content and are never trimmed.
   // lookDetailIncluded stays in stored packet flags for compatibility; it is always true.
   const flags: RenderingPacket["flags"] = { variationIncluded: Boolean(variationBlock), neighborsIncluded: Boolean(neighborBlock), styleDetailIncluded: true, lookDetailIncluded: true };
   let prompt = assemble(flags);

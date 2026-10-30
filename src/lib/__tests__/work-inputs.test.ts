@@ -5,7 +5,7 @@ import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { createWorkReader } from "../work-input";
-import { momentContext, momentForUnit, readWorkInputs, loadWorkInputs, clearWorkInputsCache, SECTION_TEXT_MAX_CHARS } from "../engine/work-inputs";
+import { momentContext, momentForUnit, readWorkInputs, loadWorkInputs, clearWorkInputsCache } from "../engine/work-inputs";
 import { referenceIsCurrent } from "../engine/generation";
 
 const workFile = {
@@ -19,21 +19,9 @@ const work = createWorkReader(workFile);
 describe("moment context", () => {
   it("joins the moment's units and takes neighbours only inside the section", () => {
     const section = { firstUnit: "alpha-1-2", lastUnit: "alpha-1-4" };
-    // Every moment also carries its whole section's text, which the section look reads (ADR 0009).
-    const whole = { text: "Verse 2. Verse 3. Verse 4." };
-    expect(momentContext(work, { id: "alpha-1-2", firstUnit: "alpha-1-2", lastUnit: "alpha-1-2" }, section)).toEqual({ moment: { id: "alpha-1-2", reference: "Alpha 1:2", text: "Verse 2." }, previous: null, next: { text: "Verse 3." }, section: whole });
-    expect(momentContext(work, { id: "alpha-1-3", firstUnit: "alpha-1-3", lastUnit: "alpha-1-4" }, section)).toEqual({ moment: { id: "alpha-1-3", reference: "Alpha 1:3 to Alpha 1:4", text: "Verse 3. Verse 4." }, previous: { text: "Verse 2." }, next: null, section: whole });
+    expect(momentContext(work, { id: "alpha-1-2", firstUnit: "alpha-1-2", lastUnit: "alpha-1-2" }, section)).toEqual({ moment: { id: "alpha-1-2", reference: "Alpha 1:2", text: "Verse 2." }, previous: null, next: { text: "Verse 3." } });
+    expect(momentContext(work, { id: "alpha-1-3", firstUnit: "alpha-1-3", lastUnit: "alpha-1-4" }, section)).toEqual({ moment: { id: "alpha-1-3", reference: "Alpha 1:3 to Alpha 1:4", text: "Verse 3. Verse 4." }, previous: { text: "Verse 2." }, next: null });
     expect(() => momentContext(work, { id: "alpha-1-1", firstUnit: "alpha-1-1", lastUnit: "alpha-1-1" }, section)).toThrow(/inside its section/);
-  });
-
-  it("bounds the section text its look reads, ending a cut with an ellipsis", () => {
-    const long = createWorkReader({ ...workFile, divisions: [{ key: "alpha", label: "Alpha", level: "Book", divisions: [{ key: "1", label: "1", level: "Chapter",
-      units: [1, 2, 3].map((n) => ({ number: n, text: `${"word ".repeat(600)}end ${n}.` })) }] }] });
-    const context = momentContext(long, { id: "alpha-1-2", firstUnit: "alpha-1-2", lastUnit: "alpha-1-2" }, { firstUnit: "alpha-1-1", lastUnit: "alpha-1-3" });
-    expect(context.section!.text).toHaveLength(SECTION_TEXT_MAX_CHARS);
-    expect(context.section!.text.endsWith("…")).toBe(true);
-    expect(context.section!.text).toContain("end 1.");
-    expect(context.section!.text).not.toContain("end 3.");
   });
 
   it("finds the moment holding a unit for multi-unit moments", () => {

@@ -105,8 +105,8 @@ describe("no-form section look and canon separation", () => {
     expect(result.prepared.look.payload).toEqual(situationalLook);
     expect(result.packet.lookVersion).not.toBe(scene.result.look.version);
     expect(requests[1].user).toContain(situationalLook.clothing);
-    expect(requests[1].user).toContain(`SECTION LOOK (its place is drawn as written wherever sectionPlace is "same"; the other values are suggestions)`);
-    expect(requests[1].user).not.toContain("SECTION LOOK GUIDE");
+    expect(requests[1].user).toContain("SECTION LOOK GUIDE");
+    expect(requests[1].user).not.toContain("SECTION LOOK (");
     expect(requests[1].user).not.toContain(retainedLook.clothing);
     expect((await record("look"))?.inputs).toContainEqual({ kind: "prompt", recordId: "section_look_formless_presence", version: FORMLESS_LOOK_PROMPT_VERSION });
     const plan = await record("plan");

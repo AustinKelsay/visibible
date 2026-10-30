@@ -75,10 +75,8 @@ describe("no-form plan and canon separation", () => {
     expect(request.user).not.toContain(canon.stages[0].text);
     expect(request.user).not.toContain("NO-FORM CANON CONSTRAINTS");
     expect(request.system).toContain("describe in your own plain words only the physical effects the text names");
-    // Moment-cast v12: no separate conditions reply; the scene fields carry time, and owner constraints stay binding.
-    // Since v16 the look's place is shared and the plan says whether the moment is there (ADR 0009).
-    expect(request.system).toContain("The scene fields carry this moment's time, light and situational clothing.");
-    expect(request.system).toContain("Set `sectionPlace` to \"same\" when this moment happens there");
+    // Moment-cast v12: no separate conditions reply; the scene fields carry place and time, and owner constraints stay binding.
+    expect(request.system).toContain("The scene fields carry this moment's place, time, light and situational clothing.");
     expect(request.system).toContain("OWNER LOOK CONSTRAINTS, when given instead, are binding: keep the setting and time of day consistent with them.");
     expect(request.system).toContain("Never name it or call it seated, standing, enthroned or riding, and leave out its throne, seat, chariot, robe, train or hem");
     expect(input.request.system).not.toContain("effect names for placement");
@@ -133,7 +131,7 @@ describe("no-form plan and canon separation", () => {
       expect(rendered.prompt).toContain("UNSEEN PRESENCE (binding)");
       expect(rendered.prompt).not.toContain(canon.stages[0].text);
       expect(rendered.prepared.plan.payload).toEqual(situational);
-      expect(rendered.context).toEqual({ ...input.context, section: { text: expect.any(String) } });
+      expect(rendered.context).toEqual(input.context);
       expect(rendered.prompt).not.toContain("effect names for placement");
     }
     expect(new Set(versions).size).toBe(1);
