@@ -3,7 +3,7 @@
  * current sheet passes its slot to the next one, and no further reference is read once the slots are full.
  */
 import { describe, it, expect, vi } from "vitest";
-import { withCleanReview } from "../../../tests/fixtures/plan-review";
+import { withPlanningReply } from "../../../tests/fixtures/planning-model";
 import { withGrounding } from "../../../tests/fixtures/scene-grounding";
 import { assembleRendering, type ReferenceRecord } from "../engine/assemble";
 import { createMemoryPreparationStore } from "../engine/memory-store";
@@ -41,7 +41,7 @@ const look = { place: "A shore of a wide sea below desert cliffs", timeOfDay: "n
 
 function setup(references: Record<string, ReferenceRecord | null>) {
   const memory = createMemoryPreparationStore(records);
-  const model: TextModel = withCleanReview({ id: "scripted", async complete(request) {
+  const model: TextModel = withPlanningReply({ id: "scripted", async complete(request) {
     const value = request.schemaName === "section_look" ? look : withGrounding(plan, work.getUnit("camp-1-1").text);
     return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 1, completionTokens: 1, costUsd: 0 }, elapsedMs: 0 };
   } });

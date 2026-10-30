@@ -2,7 +2,6 @@ import { selectionReply } from "../../../tests/fixtures/scene-grounding";
 /** The model selects cast once; forgiving preparation normalizes the selection and keeps evidence as audit only. */
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
-import { reviewReply } from "../../../tests/fixtures/plan-review";
 import { createMemoryPreparationStore } from "../engine/memory-store";
 import { prepareMoment } from "../engine/preparation";
 import { sceneGroundingProblem } from "../engine/scene-grounding";
@@ -24,7 +23,7 @@ const generalReply = () => selectionReply(reply()) as { selectedCast: Array<{ en
 const brief: WorkBrief = { schemaVersion: 1, workId: "selection", tone: "Quiet", depictionRules: [], styleIds: ["classical"],
   eras: [{ id: "workshop", label: "Workshop", people: "Workers", dress: "Tunics", buildingsAndObjects: "Tools", technology: "Hand tools" }] };
 
-function setup(answer: unknown, problems: unknown[] = [], raw = false) {
+function setup(answer: unknown, raw = false) {
   const memory = createMemoryPreparationStore([
     { kind: "moment", recordId: "m1", payload: { kind: "moment", sectionId: "s1", firstUnit: "m1", lastUnit: "m1" } },
     { kind: "section", recordId: "s1", payload: { kind: "section", title: "Workshop", eraId: "workshop", cast: ["mara", "lantern", "narrator"].map((entryId) => ({ entryId, stageId: "main" })) } },
@@ -35,7 +34,6 @@ function setup(answer: unknown, problems: unknown[] = [], raw = false) {
     context: { moment: { id: "m1", reference: "1", text }, previous: null, next: null },
     model: { id: "scripted", complete: async (request) => {
       calls.push(request);
-      if (request.schemaName === "plan_review") return reviewReply(problems);
       const value = request.schemaName === "section_look" ? { place: "Workshop", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "tunics" } : answer;
       return { content: JSON.stringify(request.schemaName === "section_look" || raw ? value : selectionReply(value)), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
     } } });
@@ -77,16 +75,16 @@ describe("one explicit cast selection", () => {
       grounding: { focusQuote: value.grounding.focusQuote, instant: value.grounding.instant, singleInstant: true,
         cast: value.selectedCast.map((entry) => ({ entryId: entry.entryId, momentQuote: entry.momentQuote, contextSource: "none", contextQuote: "", participation: "in_scene" })) },
     });
-    expect(calls.map((request) => request.schemaName)).toEqual(["scene_plan", "plan_review"]);
-    const review = calls.at(-1)!;
-    expect(review.user).toContain("mara");
-    expect(review.user).not.toContain("contextQuote");
+    expect(calls.map((request) => request.schemaName)).toEqual(["scene_plan"]);
+    const request = calls.at(-1)!;
+    expect(request.user).toContain("mara");
+    expect(request.user).not.toContain("contextQuote");
   });
 
   it("drops a repeated cast ID instead of refusing the plan", async () => {
     const value = generalReply();
     value.selectedCast = [...value.selectedCast, { entryId: "mara", evidence: "Mara holds the lantern" }];
-    const { run, has, calls } = setup(value, [], true);
+    const { run, has, calls } = setup(value, true);
     const result = await run();
     expect(result.present.map((entry) => entry.entryId)).toEqual(["mara", "lantern"]);
     expect(has("plan", "m1")).toBe(true);
@@ -96,7 +94,7 @@ describe("one explicit cast selection", () => {
   it("keeps evidence as audit only, even when it is not quoted from the text", async () => {
     const value = generalReply();
     value.selectedCast = [{ entryId: "mara", evidence: "Mara sits down" }, { entryId: "lantern", evidence: "" }];
-    const { run, store } = setup(value, [], true);
+    const { run, store } = setup(value, true);
     await run();
     expect((await store.getActiveRecord("plan", "m1"))?.payload).toMatchObject({ entries: [{ entryId: "mara" }, { entryId: "lantern" }],
       grounding: { cast: [{ entryId: "mara", momentQuote: "Mara sits down" }, { entryId: "lantern", momentQuote: "" }] } });
@@ -107,24 +105,10 @@ describe("one explicit cast selection", () => {
     ["missing evidence field", () => ({ ...generalReply(), selectedCast: [{ entryId: "mara" }] })],
     ["obsolete present list", () => ({ ...generalReply(), present: ["narrator"] })],
   ])("refuses a structurally malformed %s reply after the one retry, storing no plan", async (_name, value) => {
-    const { run, has, calls } = setup(value(), [], true);
+    const { run, has, calls } = setup(value(), true);
     await expect(run()).rejects.toThrow("plan unavailable");
     expect(has("plan", "m1")).toBe(false);
     expect(calls.filter((request) => request.schemaName === "scene_plan")).toHaveLength(2);
     expect(calls.some((request) => request.schemaName === "plan_review")).toBe(false);
-  });
-
-  it("keeps a semantically unsupported selection after one re-plan, with a note", async () => {
-    const value = reply();
-    value.selectedCast.push(evidence("narrator", "I tell her story"));
-    value.consideredCast = [];
-    value.primarySubject = "Mara stands beside the narrator";
-    const problem = { kind: "outside_instant", entryId: "narrator", planQuote: "beside the narrator", reason: "The narrator tells the story but is not inside its scene." };
-    const { run, calls, store } = setup(value, [problem]);
-    const result = await run();
-    expect(result.present.map((entry) => entry.entryId)).toEqual(["mara", "lantern", "narrator"]);
-    expect(calls.map((request) => request.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
-    expect(calls[2].user).toContain(problem.reason);
-    expect((await store.getActiveRecord("plan", "m1"))?.payload).toMatchObject({ review: { rounds: 2, problems: [problem], notes: ["kept with: outside_instant narrator"] } });
   });
 });

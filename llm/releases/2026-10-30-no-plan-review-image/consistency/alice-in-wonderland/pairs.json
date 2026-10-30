@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "instructions": "evals/images/consistency-scoring.md",
+  "pairs": [
+    {
+      "id": "pair001",
+      "file": "composites/pair001.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "The large blue Caterpillar, human-postured, seated on a mushroom with its hookah lifted, gazing down sternly.; A Victorian girl in a plain dress and white pinafore; a hookah with a curling wisp of smoke; a few small mushrooms at the clearing's edge.",
+      "right": "Alice standing upright and defiant, facing the King, with her hands at her sides; The Queen seated beside the King at the bench, playing-card courtiers as flat oblong cards at the edges, the jury seated in the box holding blank slates."
+    },
+    {
+      "id": "pair002",
+      "file": "composites/pair002.jpg",
+      "kind": "character",
+      "subject": "the Cheshire Cat",
+      "question": "Is the Cheshire Cat the same person in the left and right images?",
+      "left": "Alice, a young Victorian girl in a pinafore, leaning in with a sidelong, guarded look.; Cheshire Cat's head hovering with a wide grin; the Queen of Hearts standing close behind Alice with a sly smile; a hedgehog croquet ball nearby.",
+      "right": "A young Victorian girl in pinafore and dress, half-turned toward a large grinning cat.; The Cat's long claws and many teeth visible in its wide grin; scattered leaves and undergrowth on the path."
+    },
+    {
+      "id": "pair003",
+      "file": "composites/pair003.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Young Victorian girl Alice, in pinafore and dress, holding a small bottle to her mouth; Paper label tied at the bottle's neck, the tiny door shut and low in the wall, a few dim lamps on the wall",
+      "right": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table"
+    },
+    {
+      "id": "pair004",
+      "file": "composites/pair004.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table",
+      "right": "Young Victorian girl Alice, in pinafore and dress, holding a small bottle to her mouth; Paper label tied at the bottle's neck, the tiny door shut and low in the wall, a few dim lamps on the wall"
+    },
+    {
+      "id": "pair005",
+      "file": "composites/pair005.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table",
+      "right": "The large blue Caterpillar, human-postured, seated on a mushroom with its hookah lifted, gazing down sternly.; A Victorian girl in a plain dress and white pinafore; a hookah with a curling wisp of smoke; a few small mushrooms at the clearing's edge."
+    },
+    {
+      "id": "pair006",
+      "file": "composites/pair006.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "Alice, a young Victorian girl in a pinafore, leaning in with a sidelong, guarded look.; Cheshire Cat's head hovering with a wide grin; the Queen of Hearts standing close behind Alice with a sly smile; a hedgehog croquet ball nearby.",
+      "right": "Alice, a young Victorian girl in pinafore and dress, standing with a flamingo tucked under one arm; A floating Cheshire Cat grin with no body yet, hedgehogs rolling off in the background, the flamingo's long neck drooping"
+    },
+    {
+      "id": "pair007",
+      "file": "composites/pair007.jpg",
+      "kind": "character",
+      "subject": "the Hatter",
+      "question": "Is the Hatter the same person in the left and right images?",
+      "left": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table",
+      "right": "The nervous Hatter, a thin man in a rumpled hat-maker's coat, teacup in one hand and bread-and-butter in the other, mid-shift from foot to foot.; The jury leaning forward with slates on their knees, the March Hare and Dormouse beside the Hatter, the King seated and watching, the Queen peering through her spectacles, and card officers standing at attention."
+    },
+    {
+      "id": "pair008",
+      "file": "composites/pair008.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "Alice seated at the long tea-table, turned toward the three party guests across from her.; Teapots, cups and a few crumbs on the cloth; the Dormouse slumped between the Hatter and March Hare; Alice's sheltering tree branches overhead.",
+      "right": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table"
+    },
+    {
+      "id": "pair009",
+      "file": "composites/pair009.jpg",
+      "kind": "character",
+      "subject": "the Hatter",
+      "question": "Is the Hatter the same person in the left and right images?",
+      "left": "The nervous Hatter, a thin man in a rumpled hat-maker's coat, teacup in one hand and bread-and-butter in the other, mid-shift from foot to foot.; The jury leaning forward with slates on their knees, the March Hare and Dormouse beside the Hatter, the King seated and watching, the Queen peering through her spectacles, and card officers standing at attention.",
+      "right": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table"
+    },
+    {
+      "id": "pair010",
+      "file": "composites/pair010.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice in a pinafore and Victorian dress, flamingo clamped under one arm, neck half-straightened; Hedgehogs scattering across the ground, flat card soldiers bent backward on hands and feet forming arches, other players running in all directions",
+      "right": "The large blue Caterpillar, human-postured, seated on a mushroom with its hookah lifted, gazing down sternly.; A Victorian girl in a plain dress and white pinafore; a hookah with a curling wisp of smoke; a few small mushrooms at the clearing's edge."
+    },
+    {
+      "id": "pair011",
+      "file": "composites/pair011.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table",
+      "right": "Alice seated at the long tea-table, turned toward the three party guests across from her.; Teapots, cups and a few crumbs on the cloth; the Dormouse slumped between the Hatter and March Hare; Alice's sheltering tree branches overhead."
+    },
+    {
+      "id": "pair012",
+      "file": "composites/pair012.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice in a pinafore and Victorian dress, flamingo clamped under one arm, neck half-straightened; Hedgehogs scattering across the ground, flat card soldiers bent backward on hands and feet forming arches, other players running in all directions",
+      "right": "Alice standing upright and defiant, facing the King, with her hands at her sides; The Queen seated beside the King at the bench, playing-card courtiers as flat oblong cards at the edges, the jury seated in the box holding blank slates."
+    },
+    {
+      "id": "pair013",
+      "file": "composites/pair013.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table",
+      "right": "Alice seated at one end of the table, leaning slightly forward with a bright, curious expression.; The March Hare seated across from Alice with one paw raised; the Dormouse sleeping slumped among the teacups; the Hatter in his tall hat at the far end; a few scattered teacups and a teapot."
+    },
+    {
+      "id": "pair014",
+      "file": "composites/pair014.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Young Victorian girl Alice, in pinafore and dress, holding a small bottle to her mouth; Paper label tied at the bottle's neck, the tiny door shut and low in the wall, a few dim lamps on the wall",
+      "right": "The large blue Caterpillar, human-postured, seated on a mushroom with its hookah lifted, gazing down sternly.; A Victorian girl in a plain dress and white pinafore; a hookah with a curling wisp of smoke; a few small mushrooms at the clearing's edge."
+    },
+    {
+      "id": "pair015",
+      "file": "composites/pair015.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "The large blue Caterpillar, human-postured, seated on a mushroom with its hookah lifted, gazing down sternly.; A Victorian girl in a plain dress and white pinafore; a hookah with a curling wisp of smoke; a few small mushrooms at the clearing's edge.",
+      "right": "Young Victorian girl Alice, in pinafore and dress, holding a small bottle to her mouth; Paper label tied at the bottle's neck, the tiny door shut and low in the wall, a few dim lamps on the wall"
+    },
+    {
+      "id": "pair016",
+      "file": "composites/pair016.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "Alice seated at one end of the table, leaning slightly forward with a bright, curious expression.; The March Hare seated across from Alice with one paw raised; the Dormouse sleeping slumped among the teacups; the Hatter in his tall hat at the far end; a few scattered teacups and a teapot.",
+      "right": "Alice seated at the long tea-table, turned toward the three party guests across from her.; Teapots, cups and a few crumbs on the cloth; the Dormouse slumped between the Hatter and March Hare; Alice's sheltering tree branches overhead."
+    },
+    {
+      "id": "pair017",
+      "file": "composites/pair017.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice in a pinafore and Victorian dress, flamingo clamped under one arm, neck half-straightened; Hedgehogs scattering across the ground, flat card soldiers bent backward on hands and feet forming arches, other players running in all directions",
+      "right": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table"
+    },
+    {
+      "id": "pair018",
+      "file": "composites/pair018.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice standing upright and defiant, facing the King, with her hands at her sides; The Queen seated beside the King at the bench, playing-card courtiers as flat oblong cards at the edges, the jury seated in the box holding blank slates.",
+      "right": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table"
+    },
+    {
+      "id": "pair019",
+      "file": "composites/pair019.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "Alice, a young Victorian girl in pinafore and dress, standing with a flamingo tucked under one arm; A floating Cheshire Cat grin with no body yet, hedgehogs rolling off in the background, the flamingo's long neck drooping",
+      "right": "Alice, a young Victorian girl in a pinafore, leaning in with a sidelong, guarded look.; Cheshire Cat's head hovering with a wide grin; the Queen of Hearts standing close behind Alice with a sly smile; a hedgehog croquet ball nearby."
+    },
+    {
+      "id": "pair020",
+      "file": "composites/pair020.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice standing upright and defiant, facing the King, with her hands at her sides; The Queen seated beside the King at the bench, playing-card courtiers as flat oblong cards at the edges, the jury seated in the box holding blank slates.",
+      "right": "Alice in a pinafore and Victorian dress, flamingo clamped under one arm, neck half-straightened; Hedgehogs scattering across the ground, flat card soldiers bent backward on hands and feet forming arches, other players running in all directions"
+    },
+    {
+      "id": "pair021",
+      "file": "composites/pair021.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "Alice, a young Victorian girl in pinafore and dress, standing with a flamingo tucked under one arm; A floating Cheshire Cat grin with no body yet, hedgehogs rolling off in the background, the flamingo's long neck drooping",
+      "right": "Alice holding up the disembodied grinning head of the Cheshire Cat; Card-soldier gardeners flat and oblong nearby; a distant red-clad Queen passing in the background; a hedgehog ball rolling in the grass"
+    },
+    {
+      "id": "pair022",
+      "file": "composites/pair022.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice in a pinafore and Victorian dress, flamingo clamped under one arm, neck half-straightened; Hedgehogs scattering across the ground, flat card soldiers bent backward on hands and feet forming arches, other players running in all directions",
+      "right": "Young Victorian girl Alice, in pinafore and dress, holding a small bottle to her mouth; Paper label tied at the bottle's neck, the tiny door shut and low in the wall, a few dim lamps on the wall"
+    },
+    {
+      "id": "pair023",
+      "file": "composites/pair023.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice standing upright and defiant, facing the King, with her hands at her sides; The Queen seated beside the King at the bench, playing-card courtiers as flat oblong cards at the edges, the jury seated in the box holding blank slates.",
+      "right": "The large blue Caterpillar, human-postured, seated on a mushroom with its hookah lifted, gazing down sternly.; A Victorian girl in a plain dress and white pinafore; a hookah with a curling wisp of smoke; a few small mushrooms at the clearing's edge."
+    },
+    {
+      "id": "pair024",
+      "file": "composites/pair024.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "Alice holding up the disembodied grinning head of the Cheshire Cat; Card-soldier gardeners flat and oblong nearby; a distant red-clad Queen passing in the background; a hedgehog ball rolling in the grass",
+      "right": "Alice, a young Victorian girl in pinafore and dress, standing with a flamingo tucked under one arm; A floating Cheshire Cat grin with no body yet, hedgehogs rolling off in the background, the flamingo's long neck drooping"
+    },
+    {
+      "id": "pair025",
+      "file": "composites/pair025.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "The large blue Caterpillar, human-postured, seated on a mushroom with its hookah lifted, gazing down sternly.; A Victorian girl in a plain dress and white pinafore; a hookah with a curling wisp of smoke; a few small mushrooms at the clearing's edge.",
+      "right": "Alice in a pinafore and Victorian dress, flamingo clamped under one arm, neck half-straightened; Hedgehogs scattering across the ground, flat card soldiers bent backward on hands and feet forming arches, other players running in all directions"
+    },
+    {
+      "id": "pair026",
+      "file": "composites/pair026.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Young Victorian girl Alice, in pinafore and dress, holding a small bottle to her mouth; Paper label tied at the bottle's neck, the tiny door shut and low in the wall, a few dim lamps on the wall",
+      "right": "Alice in a pinafore and Victorian dress, flamingo clamped under one arm, neck half-straightened; Hedgehogs scattering across the ground, flat card soldiers bent backward on hands and feet forming arches, other players running in all directions"
+    },
+    {
+      "id": "pair027",
+      "file": "composites/pair027.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "Alice seated at the long tea-table, turned toward the three party guests across from her.; Teapots, cups and a few crumbs on the cloth; the Dormouse slumped between the Hatter and March Hare; Alice's sheltering tree branches overhead.",
+      "right": "Alice seated at one end of the table, leaning slightly forward with a bright, curious expression.; The March Hare seated across from Alice with one paw raised; the Dormouse sleeping slumped among the teacups; the Hatter in his tall hat at the far end; a few scattered teacups and a teapot."
+    },
+    {
+      "id": "pair028",
+      "file": "composites/pair028.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table",
+      "right": "Alice in a pinafore and Victorian dress, flamingo clamped under one arm, neck half-straightened; Hedgehogs scattering across the ground, flat card soldiers bent backward on hands and feet forming arches, other players running in all directions"
+    },
+    {
+      "id": "pair029",
+      "file": "composites/pair029.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "Alice seated at one end of the table, leaning slightly forward with a bright, curious expression.; The March Hare seated across from Alice with one paw raised; the Dormouse sleeping slumped among the teacups; the Hatter in his tall hat at the far end; a few scattered teacups and a teapot.",
+      "right": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table"
+    },
+    {
+      "id": "pair030",
+      "file": "composites/pair030.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Young Victorian girl Alice, in pinafore and dress, holding a small bottle to her mouth; Paper label tied at the bottle's neck, the tiny door shut and low in the wall, a few dim lamps on the wall",
+      "right": "Alice standing upright and defiant, facing the King, with her hands at her sides; The Queen seated beside the King at the bench, playing-card courtiers as flat oblong cards at the edges, the jury seated in the box holding blank slates."
+    },
+    {
+      "id": "pair031",
+      "file": "composites/pair031.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "Alice holding up the disembodied grinning head of the Cheshire Cat; Card-soldier gardeners flat and oblong nearby; a distant red-clad Queen passing in the background; a hedgehog ball rolling in the grass",
+      "right": "Alice, a young Victorian girl in a pinafore, leaning in with a sidelong, guarded look.; Cheshire Cat's head hovering with a wide grin; the Queen of Hearts standing close behind Alice with a sly smile; a hedgehog croquet ball nearby."
+    },
+    {
+      "id": "pair032",
+      "file": "composites/pair032.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "Alice, a young Victorian girl in a pinafore, leaning in with a sidelong, guarded look.; Cheshire Cat's head hovering with a wide grin; the Queen of Hearts standing close behind Alice with a sly smile; a hedgehog croquet ball nearby.",
+      "right": "Alice holding up the disembodied grinning head of the Cheshire Cat; Card-soldier gardeners flat and oblong nearby; a distant red-clad Queen passing in the background; a hedgehog ball rolling in the grass"
+    },
+    {
+      "id": "pair033",
+      "file": "composites/pair033.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "The large blue Caterpillar, human-postured, seated on a mushroom with its hookah lifted, gazing down sternly.; A Victorian girl in a plain dress and white pinafore; a hookah with a curling wisp of smoke; a few small mushrooms at the clearing's edge.",
+      "right": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table"
+    },
+    {
+      "id": "pair034",
+      "file": "composites/pair034.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice seated in a large armchair at one end of a long tea-table, looking indignant; The sleeping Dormouse wedged between the Hare and Hatter, who rest their elbows on it; teapot and cups on the table",
+      "right": "Alice standing upright and defiant, facing the King, with her hands at her sides; The Queen seated beside the King at the bench, playing-card courtiers as flat oblong cards at the edges, the jury seated in the box holding blank slates."
+    },
+    {
+      "id": "pair035",
+      "file": "composites/pair035.jpg",
+      "kind": "character",
+      "subject": "the Cheshire Cat",
+      "question": "Is the Cheshire Cat the same person in the left and right images?",
+      "left": "A young Victorian girl in pinafore and dress, half-turned toward a large grinning cat.; The Cat's long claws and many teeth visible in its wide grin; scattered leaves and undergrowth on the path.",
+      "right": "Alice, a young Victorian girl in a pinafore, leaning in with a sidelong, guarded look.; Cheshire Cat's head hovering with a wide grin; the Queen of Hearts standing close behind Alice with a sly smile; a hedgehog croquet ball nearby."
+    },
+    {
+      "id": "pair036",
+      "file": "composites/pair036.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice standing upright and defiant, facing the King, with her hands at her sides; The Queen seated beside the King at the bench, playing-card courtiers as flat oblong cards at the edges, the jury seated in the box holding blank slates.",
+      "right": "Young Victorian girl Alice, in pinafore and dress, holding a small bottle to her mouth; Paper label tied at the bottle's neck, the tiny door shut and low in the wall, a few dim lamps on the wall"
+    }
+  ]
+}

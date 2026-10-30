@@ -3,7 +3,7 @@
  * sceneGroundingProblem remains a pure audit utility: forgiving preparation (moment-cast v11) no longer
  * refuses or re-plans for evidence, and stores the planner's own words as audit.
  */
-import { withCleanReview } from "../../../tests/fixtures/plan-review";
+import { withPlanningReply } from "../../../tests/fixtures/planning-model";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
@@ -47,7 +47,7 @@ async function setup(unitId: string, reply: unknown) {
   const store: PreparationStore = { getActiveRecord: async (kind, id) => records.find((r) => r.kind === kind && r.recordId === id) ?? null,
     putDerivedRecord: write, recordSpend: spend, claim: async () => ({ held: true }), release };
   const calls: TextModelRequest[] = [];
-  const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
+  const model: TextModel = withPlanningReply({ id: "scripted", complete: async (request) => {
     calls.push(request);
     return { content: JSON.stringify(reply), model: "scripted", providerRequestId: null, finishReason: "stop",
       usage: { promptTokens: 100, completionTokens: 100, costUsd: 0.0004 }, elapsedMs: 1 };
@@ -104,8 +104,8 @@ describe("scene source grounding", () => {
       assembly.contextSource = "next"; assembly.contextQuote = assembly.momentQuote;
       return reply;
     }],
-  ])("stores a reply with %s without an evidence re-plan, leaving judgment to the review", async (label, reply) => {
-    // Formerly refused by evidence checks; forgiving preparation keeps the plan for the review to judge.
+  ])("stores a reply with %s without an evidence re-plan, keeping evidence as model-authored audit", async (label, reply) => {
+    // Formerly refused by evidence checks; preparation keeps the model’s structurally valid choice.
     const unitId = label === "a neighbor-only assembly quote" ? "daniel-7-9" : "luke-10-34";
     const { render, records, calls, write, spend } = await setup(unitId, reply());
     const result = await render();
@@ -113,8 +113,8 @@ describe("scene source grounding", () => {
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan"]);
     expect(calls[0].user).not.toContain("WAS REJECTED");
     expect(write).toHaveBeenCalledOnce();
-    expect(spend.mock.calls.map(([entry]) => entry.outcome)).toEqual(["ok", "review ok"]);
-    expect(records.find((r) => r.kind === "plan" && r.recordId === unitId)?.payload).toMatchObject({ review: { rounds: 1 } });
+    expect(spend.mock.calls.map(([entry]) => entry.outcome)).toEqual(["ok"]);
+    expect(records.find((r) => r.kind === "plan" && r.recordId === unitId)?.payload).not.toHaveProperty("review");
   });
 
   const prose: MomentContext = { moment: { id: "tale-2", reference: "The Tale ¶2–3", text: "She knelt beside the broken lantern. Then she stood and carried it outside." },

@@ -1,0 +1,3 @@
+Two independent blind scorers viewed every image. Two further model adjudicators inspected the 48 disputed items in disjoint batches of 24, using the original instructions, source/scene packet and both initial judgments, without the key or aggregate report. Their original rulings are preserved as `operator-1.json` and `operator-2.json`.
+
+The parent operator checked coverage and disputed fields, read all rulings, and visually spot-checked i006, i133, i141, i174, i180 and i190 at original resolution before unblinding. Those checks agreed with the rulings; the combined `operator.json` changes none of them. Ambiguous judgments remain uncertain. These are model judgments, not independent human acceptance or a new claim about visual identity.

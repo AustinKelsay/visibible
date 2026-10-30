@@ -1,0 +1,186 @@
+{
+  "scorer": "model-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "pair001",
+      "verdict": "same",
+      "notes": "Alice beside the mushroom and facing the bench shares long golden-brown hair, fair skin, a small youthful face and a slim childlike build. Her size relative to the surroundings does not change those cues."
+    },
+    {
+      "id": "pair002",
+      "verdict": "same",
+      "notes": "The floating head and the cat on the branch share grey-brown tabby stripes, pale muzzle, pink nose, greenish eyes and a broad toothy grin; the absence of a body on the left does not alter the recognizable head."
+    },
+    {
+      "id": "pair003",
+      "verdict": "same",
+      "notes": "Alice drinking and Alice in the armchair both have fair skin, long golden-brown hair, a small pointed chin and similar youthful facial features; the flying hair and frown account for the pose difference."
+    },
+    {
+      "id": "pair004",
+      "verdict": "same",
+      "notes": "The seated and drinking Alice shares long wavy golden-brown hair, rosy fair cheeks, a small nose and the same young child's facial proportions."
+    },
+    {
+      "id": "pair005",
+      "verdict": "same",
+      "notes": "Alice at the tea table and beside the mushroom shares golden-brown hair past her shoulders, fair rosy skin, a small pointed chin and similar young facial proportions."
+    },
+    {
+      "id": "pair006",
+      "verdict": "same",
+      "notes": "Both views show a grassy croquet ground with conspicuous parallel furrows, card-patterned hoops, clipped hedges and tall trees beyond the garden boundary. The different angles are compatible with the same enclosed garden."
+    },
+    {
+      "id": "pair007",
+      "verdict": "different",
+      "notes": "The tea-table Hatter has grey wispy hair at the temples and a deeply lined, older face; the courtroom Hatter has thick dark brown curls and a smoother, younger-looking face."
+    },
+    {
+      "id": "pair008",
+      "verdict": "same",
+      "notes": "Both show a long tea table beneath a massive spreading tree, with an ivy-covered gabled brick cottage and leaded windows behind it. The closer left viewpoint and shade are compatible with that same garden."
+    },
+    {
+      "id": "pair009",
+      "verdict": "different",
+      "notes": "The courtroom Hatter has long straw-brown wisps and a narrow drooping face with a small chin; the tea-table Hatter has shorter dark-grey hair, a heavier angular jaw and more deeply aged features."
+    },
+    {
+      "id": "pair010",
+      "verdict": "same",
+      "notes": "Alice holding the flamingo and standing by the mushroom shares long wavy golden-brown hair, fair skin, a small nose and a youthful oval face. The change in apron and posture does not conflict with those identity cues."
+    },
+    {
+      "id": "pair011",
+      "verdict": "same",
+      "notes": "Both show a white-clothed tea table under a huge spreading tree next to an ivy-covered gabled cottage with diamond-paned windows. The cottage's position changes compatibly with viewing the table from another side."
+    },
+    {
+      "id": "pair012",
+      "verdict": "same",
+      "notes": "Alice with the flamingo and before the bench shares long golden-brown hair, a dark hairband, fair skin, small nose and youthful profile; her smaller scale in the courtroom does not establish a different identity."
+    },
+    {
+      "id": "pair013",
+      "verdict": "different",
+      "notes": "Behind the tree, the left has an irregular ivy-covered brick cottage with steep front gables and diamond-paned windows; the right has a plain symmetrical pale house with a hipped roof, sash windows and a classical triangular door pediment."
+    },
+    {
+      "id": "pair014",
+      "verdict": "same",
+      "notes": "Alice drinking and Alice beside the Caterpillar has the same long golden-brown wavy hair, fair skin, small nose and youthful oval face; the different sleeves and apron are clothing changes."
+    },
+    {
+      "id": "pair015",
+      "verdict": "same",
+      "notes": "Both Alices have fair rosy skin, golden-brown hair extending below the shoulders, a small pointed chin and similar youthful features. The windblown hair and larger depiction on the right do not alone change identity."
+    },
+    {
+      "id": "pair016",
+      "verdict": "different",
+      "notes": "The left background house is a tall, narrow building with horizontal wooden siding and projecting bay windows; the right cottage has pale masonry, exposed timber in the gable and broad diamond-paned windows. Those building materials and facade forms conflict."
+    },
+    {
+      "id": "pair017",
+      "verdict": "same",
+      "notes": "Alice with the flamingo and in the armchair shares golden-brown shoulder-length waves, a dark hairband, fair skin and the same youthful oval face."
+    },
+    {
+      "id": "pair018",
+      "verdict": "same",
+      "notes": "The courtroom and tea-table Alice has matching golden-brown hair and hairband, fair skin, small nose and youthful facial proportions; the side view and greater distance in the courtroom remain recognizable."
+    },
+    {
+      "id": "pair019",
+      "verdict": "different",
+      "notes": "The left ground is enclosed by very tall solid hedges with a high arched iron gate and irregular bare patches; the right has low clipped hedges below exposed pale garden walls, rose borders and regular parallel furrows."
+    },
+    {
+      "id": "pair020",
+      "verdict": "same",
+      "notes": "Alice in court and holding the flamingo shares long wavy golden-brown hair, a dark hairband, fair rosy skin, a small nose and a similar young face despite her different pose and scale."
+    },
+    {
+      "id": "pair021",
+      "verdict": "different",
+      "notes": "The left has a broad worn, rutted playing area enclosed by towering hedges and an arched iron gate. The right has a much more even grassy lawn with low rose-lined garden walls and separated clipped shrubs, conflicting in ground and boundary layout."
+    },
+    {
+      "id": "pair022",
+      "verdict": "same",
+      "notes": "The flamingo-holder and bottle-drinker share golden-brown hair below the shoulders, fair rosy skin, a small nose and pointed chin. The hair blowing outward on the right changes its pose rather than its recognizable color and length."
+    },
+    {
+      "id": "pair023",
+      "verdict": "same",
+      "notes": "The courtroom Alice and the girl beside the mushroom share long wavy golden-brown hair, fair skin, small youthful oval faces and similar slim builds; the clothing differences do not establish another person."
+    },
+    {
+      "id": "pair024",
+      "verdict": "same",
+      "notes": "Both show a sunlit grassy croquet ground with ridged furrows, patterned hoops and clipped hedges backed by tall trees. The exposed wall in part of the left view is compatible with the hedge-screened boundary at right."
+    },
+    {
+      "id": "pair025",
+      "verdict": "same",
+      "notes": "Alice beside the mushroom and holding the flamingo shares long golden-brown hair, fair rosy skin, a small nose and pointed youthful chin. The hairband and slight wave difference do not outweigh the matching face."
+    },
+    {
+      "id": "pair026",
+      "verdict": "same",
+      "notes": "The bottle-drinking Alice and flamingo-holder have matching long golden-brown waves, fair rosy skin, small nose and young oval face, despite leaning in different directions."
+    },
+    {
+      "id": "pair027",
+      "verdict": "different",
+      "notes": "The left background has an ivy-covered cottage with steep projecting gables and small leaded windows; the right shows a broad plain symmetrical house with a hipped roof, sash windows and a triangular door pediment."
+    },
+    {
+      "id": "pair028",
+      "verdict": "same",
+      "notes": "Alice in the armchair and with the flamingo shares long golden-brown wavy hair, fair rosy cheeks, a small nose and similar young facial proportions."
+    },
+    {
+      "id": "pair029",
+      "verdict": "different",
+      "notes": "The left background building has horizontal wooden siding, tall projecting bays and narrow gables; the right has a broad ivy-clad brick facade with large diamond-paned windows. The differing facade construction is not explained by the table viewpoint."
+    },
+    {
+      "id": "pair030",
+      "verdict": "same",
+      "notes": "The bottle-drinking and courtroom Alice has matching long golden-brown wavy hair, fair skin, small nose and young oval face; her scale within each room differs without a clear identity conflict."
+    },
+    {
+      "id": "pair031",
+      "verdict": "same",
+      "notes": "Both show the same kind of furrowed grassy croquet lawn, patterned hoops, clipped hedges, pale boundary wall and tall trees. Their arrangement is compatible with nearby viewpoints in one garden."
+    },
+    {
+      "id": "pair032",
+      "verdict": "different",
+      "notes": "The left lawn has deep parallel earth furrows running across almost the entire playing surface; the right playing area is a relatively level continuous grassy lawn. The similar walls and shrubs do not explain that substantial ground change at the same occasion."
+    },
+    {
+      "id": "pair033",
+      "verdict": "same",
+      "notes": "Alice beside the Caterpillar and in the armchair shares long wavy golden-brown hair, fair skin, a small nose and similar young facial proportions; her dress and apron differ but her identity cues remain."
+    },
+    {
+      "id": "pair034",
+      "verdict": "same",
+      "notes": "The seated tea-party Alice and standing courtroom Alice has matching long golden-brown waves, fair rosy cheeks, a small chin and a youthful oval face."
+    },
+    {
+      "id": "pair035",
+      "verdict": "same",
+      "notes": "The branch cat and floating head have matching grey-brown tabby stripes, pale muzzle, pink nose, pointed ears and a broad toothy grin. The eyes are opened more widely on the left, consistent with expression."
+    },
+    {
+      "id": "pair036",
+      "verdict": "same",
+      "notes": "Alice in court and drinking from the bottle shares golden-brown hair below the shoulders, fair rosy skin, a small nose and pointed youthful chin. The different scale and flowing hair do not provide a conflicting identity cue."
+    }
+  ]
+}

@@ -2,7 +2,7 @@
  * Structural safeguards over retained failed Luke inputs; scripted replies prove no live model compliance. Forgiving
  * preparation has no missingCast report: uncast people are drawn as unnamed roles, and repeated IDs are dropped.
  */
-import { withCleanReview } from "../../../tests/fixtures/plan-review";
+import { withPlanningReply } from "../../../tests/fixtures/planning-model";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
@@ -52,7 +52,7 @@ async function setup(reply: unknown, correctSource = false) {
     putDerivedRecord: write, recordSpend: spend, claim: async () => ({ held: true }), release: async () => {},
   };
   const calls: TextModelRequest[] = [];
-  const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
+  const model: TextModel = withPlanningReply({ id: "scripted", complete: async (request) => {
     calls.push(request);
     const value = request.schemaName === "section_look" ? retained.prepared.look?.payload : reply;
     return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop",
@@ -169,7 +169,7 @@ describe("required moment cast", () => {
       { kind: "section", recordId: "sky-1", payload: { kind: "section", firstUnit: "sky-1", lastUnit: "sky-1", title: "Clouds", cast: [] } },
       { kind: "moment", recordId: "sky-1", payload: { kind: "moment", firstUnit: "sky-1", lastUnit: "sky-1", sectionId: "sky-1" } },
     ]);
-    const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
+    const model: TextModel = withPlanningReply({ id: "scripted", complete: async (request) => {
       const value = request.schemaName === "section_look" ? { place: "field", timeOfDay: "day", weather: "cloudy", light: "diffuse", clothing: "" } : withGrounding({ present: ["invented"], ...fields, primarySubject: "Clouds", action: "drift" }, "Clouds drift above a still field.");
       return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
     } });

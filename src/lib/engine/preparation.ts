@@ -1,19 +1,19 @@
 /**
- * Experimental no-review preparation: one model selects the moment's scene and cast.
- * Malformed replies still receive one retry. Source/brief/canon identity, owner constraints,
- * claims and spend accounting retain the same contract as the generated-look removal arm.
- * Do not release this candidate without the suite's visual and consistency gates.
+ * One model-authored scene plan per moment, shared across styles and reader translations.
+ * Source, brief, cast and owner constraints determine its identity. Structural failures get
+ * one retry; semantic quality is measured by the release suite and finished-image checks.
+ * Claims prevent duplicate preparation spend, which is always funded by the owner.
  */
 import { z } from "zod";
 import type { TextModel } from "../reading-pass/model";
 import { parseModelJson } from "../reading-pass/model";
 import type { WorkBrief } from "../work-preparation";
 import { planningNeighbors } from "./scene-grounding";
-import { PLAN_SCENE_FIELDS } from "./plan-review";
 import type { SelectedCanon } from "./prompt";
 import { ownerLookVersion, type Situation } from "./situation";
 import { depictionModeOf, effectsWordingFor, readDepictionProfile, symbolWordingFor, type DepictionMode, type DepictionProfile, type EffectsWording, type SymbolWording } from "./depiction";
 
+const PLAN_SCENE_FIELDS = ["primarySubject", "action", "setting", "secondaryElements", "mood", "timeOfDay", "composition"] as const;
 const lookOutputSchema = z.object({ place: z.string(), timeOfDay: z.string(), weather: z.string(), light: z.string(), clothing: z.string() }).strict();
 
 /** The planner's general contract; the work names its written objects and examples, and whether it has subjects without form. */
@@ -109,7 +109,7 @@ export type PreparedMoment = {
   calls: number;
 };
 
-// A plan may take two plan replies and two reviews, each with one malformed-reply retry.
+// Preserve the bounded claim/wait contract; a plan has at most one malformed-reply retry.
 const CLAIM_TTL_MS = 120_000;
 const WAIT_MS = 90_000;
 

@@ -1,5 +1,5 @@
 /** Missing cast repair over real storage and ordinary assembly; scripted plans do not prove model compliance. */
-import { withCleanReview } from "../../../tests/fixtures/plan-review";
+import { withPlanningReply } from "../../../tests/fixtures/planning-model";
 import { readFileSync } from "node:fs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { convexTest } from "convex-test";
@@ -117,7 +117,7 @@ describe("missing cast correction", () => {
     const saved = await t.run(async (ctx) => ctx.db.query("verseImages").collect());
     const calls: TextModelRequest[] = [];
     let corrected = false;
-    const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
+    const model: TextModel = withPlanningReply({ id: "scripted", complete: async (request) => {
       calls.push(request);
       const value = request.schemaName === "section_look" ? { place: "court", timeOfDay: "night", weather: "still", light: "lamps", clothing: "robes" }
         : { missingCast: [], present: corrected && request.user.includes("MOMENT (Court 2)") ? ["watcher", "assembly"] : ["watcher"], primarySubject: "The watcher looks toward the seat", action: "watching", setting: "court", secondaryElements: "lamps", mood: "quiet", timeOfDay: "night", composition: "wide" };
@@ -133,7 +133,7 @@ describe("missing cast correction", () => {
     calls.length = 0;
     await add(); corrected = true;
     expect(calls).toHaveLength(0);
-    expect(await t.query(api.analysis.getPreparationSpend, { workId: WORK })).toMatchObject({ calls: 6 }); // two looks, three plans and their three reviews
+    expect(await t.query(api.analysis.getPreparationSpend, { workId: WORK })).toMatchObject({ calls: 3 }); // two looks, three plans and their three reviews
     const after = await render(2);
     if (!after.ok) throw new Error(after.message);
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan"]);

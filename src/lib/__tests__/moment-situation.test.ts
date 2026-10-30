@@ -5,16 +5,14 @@ import { assembleRendering } from "../engine/assemble";
 import { createMemoryPreparationStore } from "../engine/memory-store";
 import { momentContext, readWorkInputs } from "../engine/work-inputs";
 import { buildRenderingPacket } from "../engine/prompt";
-import { reviewReply } from "../../../tests/fixtures/plan-review";
 import { selectionReply } from "../../../tests/fixtures/scene-grounding";
 import type { TextModelRequest, TextModel } from "../reading-pass/model";
-import type { PlanReviewProblem } from "../engine/plan-review";
 import type { Situation } from "../engine/situation";
 
 const release = new URL("../../../llm/releases/2026-10-25-citation-validation/", import.meta.url);
 const set = JSON.parse(readFileSync(new URL("../2026-10-24-rendering-review-check/sample-set.json", release), "utf8"));
 const traces = readFileSync(new URL("provider.ndjson", release), "utf8").trim().split("\n").map((line) => JSON.parse(line));
-async function setup(id = "r027", options: { importLook?: "generated" | "owner" | "unknown"; includeSituation?: boolean; reports?: PlanReviewProblem[][]; onReview?: () => void | Promise<void> } = {}) {
+async function setup(id = "r027", options: { importLook?: "generated" | "owner" | "unknown"; includeSituation?: boolean; onPlan?: () => void | Promise<void> } = {}) {
   const sample = set.samples.find((s: { id: string }) => s.id === id);
   const replies = traces.filter((r) => r.phase === `${id}-candidate`);
   const answer = (name: string) => JSON.parse(replies.filter((r) => r.request.response_format.json_schema.name === name).at(-1).response.choices[0].message.content);
@@ -27,13 +25,9 @@ async function setup(id = "r027", options: { importLook?: "generated" | "owner" 
   const calls: TextModelRequest[] = [];
   // The removed v11 conditions field, used only to show the planner schema now refuses it.
   const situation: Situation = { place: plan.setting, timeOfDay: plan.timeOfDay, weather: "Clear, dry air", light: "Ordinary daylight consistent with the moment's time", clothing: "Source-compatible situational dress; fixed appearance remains in canon" };
-  let reviews = 0;
   const model: TextModel = { id: "scripted", complete: async (request) => {
     calls.push(request);
-    if (request.schemaName === "plan_review") {
-      await options.onReview?.();
-      return reviewReply(options.reports?.[Math.min(reviews++, options.reports.length - 1)] ?? []);
-    }
+    await options.onPlan?.();
     // Retained replies use the old strict format; convert them to the general planner reply, which has no situation.
     const converted = request.schemaName === "section_look" ? look : selectionReply(plan) as Record<string, unknown>;
     const value = options.includeSituation && request.schemaName !== "section_look" ? { ...converted, situation } : converted;
@@ -47,12 +41,12 @@ async function setup(id = "r027", options: { importLook?: "generated" | "owner" 
 }
 
 describe("section look ownership in rendering", () => {
-  it.each(["r027", "f019"])("keeps failed %s look as an unrendered guide while reviewing and rendering the plan in every style", async (id) => {
+  it.each(["r027", "f019"])("ignores the generated %s look while planning and rendering in every style", async (id) => {
     const probe = await setup(id);
     for (const style of ["classical", "watercolor", "icon"]) {
       const result = await probe.render(style);
       if (!result.ok) throw Error(result.message);
-      expect(result.prepared.calls).toBe(style === "classical" ? 2 : 0);
+      expect(result.prepared.calls).toBe(style === "classical" ? 1 : 0);
       expect(result.prepared.look).toBeNull();
       // A generated guide is advisory: the plan carries its own setting and time, and no conditions block is rendered.
       expect(result.prepared.situation).toBeNull();
@@ -69,14 +63,11 @@ describe("section look ownership in rendering", () => {
     const planner = probe.calls.find((c) => c.schemaName === "scene_plan")!;
     expect(planner.user).not.toContain("SECTION LOOK GUIDE");
     expect(planner.user).not.toContain(JSON.stringify(probe.look));
-    const review = probe.calls.find((c) => c.schemaName === "plan_review")!;
-    expect(review.user).not.toContain("MOMENT CONDITIONS");
-    expect(review.user).not.toContain("OWNER LOOK CONSTRAINTS");
-    expect(review.user).not.toContain(probe.look.light);
-    expect(probe.memory.ledger).toHaveLength(2);
+    expect(probe.calls.map((c) => c.schemaName)).toEqual(["scene_plan"]);
+    expect(probe.memory.ledger).toHaveLength(1);
   });
 
-  it("refuses a reply that still carries the removed situation field after the bounded schema retry, with no review, references or plan store", async () => {
+  it("refuses a reply that still carries the removed situation field after the bounded schema retry, with no references or plan store", async () => {
     const p = await setup("r027", { includeSituation: true });
     expect(await p.render()).toMatchObject({ ok: false, stage: "plan", message: expect.stringContaining("situation") });
     expect(p.calls.map((c) => c.schemaName)).toEqual(["scene_plan", "scene_plan"]);
@@ -93,7 +84,7 @@ describe("section look ownership in rendering", () => {
     record.source = source;
     const again = await p.render();
     if (!again.ok) throw Error(again.message);
-    expect(again.prepared.calls).toBe(2);
+    expect(again.prepared.calls).toBe(1);
     expect(again.packet.lookVersion).toBe(record.version);
     expect(again.prepared.situation).toEqual(p.look);
     expect(again.prepared.look?.policy).toBe("literal-constraint-v1");
@@ -102,7 +93,6 @@ describe("section look ownership in rendering", () => {
     expect(saved?.inputs).toContainEqual({ kind: "prompt", recordId: "scene_plan_look_ownership", version: "literal-constraint-v1" });
     expect(again.prompt).toContain("OWNER LOOK CONSTRAINTS (binding, verbatim)");
     expect(again.prompt).toContain(`Place: ${p.look.place}`);
-    expect(p.calls.at(-2)!.user).toContain("OWNER LOOK CONSTRAINTS (copy all values exactly)");
     expect(p.calls.at(-1)!.user).toContain("OWNER LOOK CONSTRAINTS");
     expect(p.calls.at(-1)!.user).toContain(JSON.stringify(p.look));
     expect(await p.memory.store.getActiveRecord("look", p.sample.sectionId)).toEqual(record);
@@ -117,11 +107,11 @@ describe("section look ownership in rendering", () => {
     const result = await p.render();
     if (!result.ok) throw Error(result.message);
     expect(result.prepared.situation).toEqual(p.look);
-    expect(p.calls.slice(count).map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
+    expect(p.calls.slice(count).map((c) => c.schemaName)).toEqual(["scene_plan"]);
     for (const value of Object.values(p.look)) expect(result.prompt).toContain(String(value));
     const saved = await p.memory.store.getActiveRecord("plan", p.sample.momentId);
     expect(saved?.payload.situation).toBeUndefined();
-    expect((saved?.payload.review as { notes?: string[] }).notes ?? []).not.toContain("owner look constraints restored verbatim");
+    expect(saved?.payload).not.toHaveProperty("review");
     expect((await p.memory.store.getActiveRecord("look", p.sample.sectionId))?.payload).toEqual(record.payload);
   });
 
@@ -130,36 +120,17 @@ describe("section look ownership in rendering", () => {
     const original = structuredClone(await p.memory.store.getActiveRecord("look", p.sample.sectionId));
     const result = await p.render();
     if (!result.ok) throw Error(result.message);
-    expect(result.prepared.calls).toBe(2);
+    expect(result.prepared.calls).toBe(1);
     expect(result.prepared.look?.policy).toBe("literal-constraint-v1");
     expect(result.prepared.situation).toEqual(p.look);
     expect(result.prompt).toContain("OWNER LOOK CONSTRAINTS (binding, verbatim)");
     expect(await p.memory.store.getActiveRecord("look", p.sample.sectionId)).toEqual(original);
     expect(original?.source).toBeUndefined();
-    expect(p.calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
+    expect(p.calls.map((c) => c.schemaName)).toEqual(["scene_plan"]);
   });
 
-  it("notes a literal owner constraint conflict without a re-plan and keeps the owner text", async () => {
-    const problem: PlanReviewProblem = { kind: "look_conflict", entryId: "", planQuote: "Shore of the Red Sea", reason: "Scripted owner-place contradiction, not a new semantic judgment." };
-    const p = await setup("r027", { reports: [[], [problem]] });
-    await p.render();
-    (await p.memory.store.getActiveRecord("look", p.sample.sectionId))!.source = "owner";
-    const count = p.calls.length;
-    p.getReference.mockClear();
-    const result = await p.render();
-    if (!result.ok) throw Error(result.message);
-    expect(result.prepared.situation).toEqual(p.look);
-    expect(p.calls.slice(count).map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
-    const saved = await p.memory.store.getActiveRecord("plan", p.sample.momentId);
-    const review = saved?.payload.review as { rounds: number; problems?: unknown; notes?: string[] };
-    expect(review.rounds).toBe(1);
-    expect(review.problems).toBeUndefined();
-    expect(review.notes?.some((note) => note.startsWith("noted: look_conflict"))).toBe(true);
-    expect(p.getReference).toHaveBeenCalled();
-  });
-
-  it("does not store a plan if ownership changes while its review is in flight", async () => {
-    const p = await setup("r027", { onReview: async () => {
+  it("does not store a plan if ownership changes while its planning call is in flight", async () => {
+    const p = await setup("r027", { onPlan: async () => {
       (await p.memory.store.getActiveRecord("look", p.sample.sectionId))!.source = "owner";
     } });
     expect(await p.render()).toMatchObject({ ok: false, stage: "look", message: expect.stringContaining("changed during preparation") });

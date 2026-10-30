@@ -79,7 +79,7 @@ const RESERVE = { text: 0.005, image: 0.06, check: 0.002 };
 /** The eval key shares the production account's balance; a run must leave this much for readers. */
 const PRODUCTION_HEADROOM_USD = 5;
 /** Everything a paid run's result depends on, hashed into run-started.json and required to be committed. */
-const SHARED_SOURCES = ["src/lib/engine/preparation.ts", "src/lib/engine/assemble.ts", "src/lib/engine/situation.ts", "src/lib/engine/scene-grounding.ts", "src/lib/engine/plan-review.ts",
+const SHARED_SOURCES = ["src/lib/engine/preparation.ts", "src/lib/engine/assemble.ts", "src/lib/engine/situation.ts", "src/lib/engine/scene-grounding.ts",
   "src/lib/engine/prompt.ts", "src/lib/engine/scene-check.ts", "src/lib/engine/reference-adapters.ts", "src/lib/engine/work-inputs.ts", "src/lib/engine/depiction.ts",
   "src/lib/engine/memory-store.ts", "src/lib/reading-pass/model.ts", "src/lib/reading-pass/prompts.ts", "src/lib/image-response.ts", "src/lib/image-evals/adapters.ts",
   "src/lib/image-evals/suite.ts", "src/lib/image-evals/suite-run.ts", "src/lib/canon-showing.ts", "src/lib/work-preparation.ts", "convex/_helpers/contentVersion.ts",

@@ -1,0 +1,651 @@
+{
+  "scorer": "model-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "pair001",
+      "verdict": "same",
+      "notes": "Both show a round, tan block-lined pit with lions below and palms beyond its sunlit rim. The interior and elevated courtyard viewpoints are compatible."
+    },
+    {
+      "id": "pair002",
+      "verdict": "same",
+      "notes": "Peter in the courtyard and stepping from the boat has the same curly graying hair, short gray beard, prominent nose and mature face."
+    },
+    {
+      "id": "pair003",
+      "verdict": "same",
+      "notes": "Both show a low wooden fishing boat with a central mast on dark, breaking waves, with hilly shoreline beyond. The close interior and wider exterior views are compatible."
+    },
+    {
+      "id": "pair004",
+      "verdict": "same",
+      "notes": "The planked, open fishing boat and mast match, as do the hilly shores with small buildings. The calmer water and clearing sky fit the depicted calming of the storm."
+    },
+    {
+      "id": "pair005",
+      "verdict": "same",
+      "notes": "Daniel has closely cropped gray hair, a short gray beard, a narrow mature face and slim build in both the rescue and court scenes."
+    },
+    {
+      "id": "pair006",
+      "verdict": "same",
+      "notes": "Both show a sandy corridor enclosed by blue water walls. The lower walls and visible desert rim on the right are compatible with a view near the shore."
+    },
+    {
+      "id": "pair007",
+      "verdict": "same",
+      "notes": "The standing man before the king and the man among lions share short gray hair, a close gray beard, dark complexion and slender build."
+    },
+    {
+      "id": "pair008",
+      "verdict": "same",
+      "notes": "Both boats have open wooden hulls and a single mast against terraced hills and pale shoreline buildings. Calm versus rough water is consistent with the requested storm transition."
+    },
+    {
+      "id": "pair009",
+      "verdict": "same",
+      "notes": "Both shores have pale pebbles, calm water and terraced rocky hills with small stone houses and trees. The fire beside the landing is compatible across the two viewpoints."
+    },
+    {
+      "id": "pair010",
+      "verdict": "same",
+      "notes": "Both depict the same kind of open wooden sailboat amid large waves, backed by a hilly shore under storm clouds. The tighter stern view exposes no conflicting landmark."
+    },
+    {
+      "id": "pair011",
+      "verdict": "same",
+      "notes": "The man being lifted and the man before the throne have the same cropped gray hair, close gray beard and angular, older face."
+    },
+    {
+      "id": "pair012",
+      "verdict": "same",
+      "notes": "Daniel in both panels has short gray hair, a neatly trimmed gray beard, a long angular face and a lean build."
+    },
+    {
+      "id": "pair013",
+      "verdict": "same",
+      "notes": "Peter by the courtyard fire and Peter grasping the seated man's hand share curly salt-and-pepper hair, a full short graying beard and a weathered face."
+    },
+    {
+      "id": "pair014",
+      "verdict": "same",
+      "notes": "Moses has the same receding swept-back white hair, long white beard, prominent nose and elderly face in the camp and rock scenes."
+    },
+    {
+      "id": "pair015",
+      "verdict": "same",
+      "notes": "The kneeling youth and the youth beside the spear both have short dark curls, a smooth ruddy face and a slim adolescent build."
+    },
+    {
+      "id": "pair016",
+      "verdict": "different",
+      "notes": "The crossing on the left is under a bright golden daylight sky; the parting on the right is under a dark nightlike sky with a narrow overhead glow. The descriptions do not request this time-of-day change."
+    },
+    {
+      "id": "pair017",
+      "verdict": "different",
+      "notes": "The left sea is beneath a nearly black sky and isolated shaft of light, whereas the chariot corridor is in broad pale daylight. Neither description asks for a night-to-day transition."
+    },
+    {
+      "id": "pair018",
+      "verdict": "same",
+      "notes": "The open planked hull, mast and hilly lakeshore are compatible in both views. The brighter sky and reduced waves on the left accompany the requested calming scene."
+    },
+    {
+      "id": "pair019",
+      "verdict": "same",
+      "notes": "The camp speaker and the staff-raising man by the rock share swept-back white hair, a long white beard and an elderly profile visible on the right."
+    },
+    {
+      "id": "pair020",
+      "verdict": "same",
+      "notes": "The seated central Moses and the front-left staff bearer in the crossing have matching receding white hair, full white beards and elderly, narrow faces."
+    },
+    {
+      "id": "pair021",
+      "verdict": "same",
+      "notes": "Both kneeling Davids have dense short dark curls, a youthful clean-shaven face, rosy cheeks and a slender build."
+    },
+    {
+      "id": "pair022",
+      "verdict": "same",
+      "notes": "The anointed youth and the standing youth beside Goliath share short dark curly hair, a smooth ruddy face and slim adolescent proportions."
+    },
+    {
+      "id": "pair023",
+      "verdict": "unclear",
+      "notes": "Jesus is clear in the water scene, but the crucified figure's small, bowed and shadowed head does not provide enough facial detail to establish identity."
+    },
+    {
+      "id": "pair024",
+      "verdict": "unclear",
+      "notes": "The crucified figure's face is bowed, dark and very small compared with Jesus on the water. Hair is broadly compatible, but individual facial identity cannot be judged reliably."
+    },
+    {
+      "id": "pair025",
+      "verdict": "same",
+      "notes": "David beside the falling giant and David kneeling indoors have the same tight dark curls, flushed youthful face and slim, beardless appearance."
+    },
+    {
+      "id": "pair026",
+      "verdict": "same",
+      "notes": "The camp speaker and seated man have matching long white beards, swept-back thinning white hair and deeply lined elderly faces."
+    },
+    {
+      "id": "pair027",
+      "verdict": "different",
+      "notes": "The left crossing is sunlit under a pale sky; the right has a dark star-filled night sky. That time-of-day change is not requested in the descriptions."
+    },
+    {
+      "id": "pair028",
+      "verdict": "different",
+      "notes": "Stars and a dark blue night sky appear above the left path, while the chariot path is lit under a pale daytime sky. The descriptions do not ask for this change."
+    },
+    {
+      "id": "pair029",
+      "verdict": "same",
+      "notes": "The lifted Daniel and the man among lions share close-cropped gray hair, a short gray beard, dark skin and a slender, older face."
+    },
+    {
+      "id": "pair030",
+      "verdict": "same",
+      "notes": "The kneeling and crouching youths have matching short black curls, rosy cheeks, clean-shaven narrow faces and slight builds."
+    },
+    {
+      "id": "pair031",
+      "verdict": "same",
+      "notes": "Peter's curly salt-and-pepper hair, gray beard and prominent nose agree between the courtyard and the man helping at the gate."
+    },
+    {
+      "id": "pair032",
+      "verdict": "same",
+      "notes": "Daniel's visible profile in the vision has the same close gray hair, short gray beard and angular mature face as the man in the pit."
+    },
+    {
+      "id": "pair033",
+      "verdict": "unclear",
+      "notes": "Jesus at the tomb is shown clearly in profile, but the crucified figure's bowed head is too small and obscured for an individual facial comparison."
+    },
+    {
+      "id": "pair034",
+      "verdict": "same",
+      "notes": "The man in the pit and the man addressing the king have matching closely cropped gray hair, close gray beards, angular faces and lean builds."
+    },
+    {
+      "id": "pair035",
+      "verdict": "same",
+      "notes": "Both Davids have short curly dark hair, a smooth youthful face, prominent brows and slim proportions; the brook view supplies a closer view of those features."
+    },
+    {
+      "id": "pair036",
+      "verdict": "same",
+      "notes": "Daniel's short gray hair, trimmed gray beard, narrow older face and dark complexion match between court and rescue."
+    },
+    {
+      "id": "pair037",
+      "verdict": "same",
+      "notes": "David at the brook and beside the wall shares dark short curls, a smooth rosy face, large dark eyes and a slim youthful build."
+    },
+    {
+      "id": "pair038",
+      "verdict": "same",
+      "notes": "Both staff-bearing figures show white swept-back hair and a long white beard in visible profile, with matching elderly noses and lean proportions."
+    },
+    {
+      "id": "pair039",
+      "verdict": "same",
+      "notes": "The man helping at the gate and Peter on the water share graying tight curls, a short full gray beard and a weathered angular face."
+    },
+    {
+      "id": "pair040",
+      "verdict": "same",
+      "notes": "Jesus has matching shoulder-length dark hair, a short dark beard and a straight-nosed, lean adult face in the water and tomb scenes."
+    },
+    {
+      "id": "pair041",
+      "verdict": "same",
+      "notes": "Moses beside the stream and seated above the battle has swept-back white hair, a full white beard and the same lined elderly face."
+    },
+    {
+      "id": "pair042",
+      "verdict": "same",
+      "notes": "The diving man and the man helping at the gate both have short graying curls, a gray beard and a mature, weathered profile."
+    },
+    {
+      "id": "pair043",
+      "verdict": "same",
+      "notes": "Moses's sea-side profile and camp face share a prominent nose, long white beard and receding wavy white hair."
+    },
+    {
+      "id": "pair044",
+      "verdict": "same",
+      "notes": "The youth by the spear and the youth at the brook share dark curls, rosy smooth cheeks and a narrow adolescent face and build."
+    },
+    {
+      "id": "pair045",
+      "verdict": "unclear",
+      "notes": "The crucified head on the left is distant, bowed and in shadow; it lacks enough visible facial detail to compare with Jesus standing at the tomb."
+    },
+    {
+      "id": "pair046",
+      "verdict": "same",
+      "notes": "Both images show towering teal water walls beside a sandy passage, with pale desert slopes and a distant settlement at its end. The opposing views are compatible."
+    },
+    {
+      "id": "pair047",
+      "verdict": "same",
+      "notes": "Jesus at the tomb and standing in the boat has shoulder-length dark wavy hair, a dark beard and matching lean adult facial proportions."
+    },
+    {
+      "id": "pair048",
+      "verdict": "same",
+      "notes": "Both passages have immense blue-green water walls, exposed sandy and rocky seabed and visible aquatic plants. The overhead curve on the right is compatible with the requested curving water walls near the desert exit."
+    },
+    {
+      "id": "pair049",
+      "verdict": "same",
+      "notes": "The diving Peter and Peter stepping on the water share curly gray-streaked hair, a short gray beard and a weathered middle-aged face."
+    },
+    {
+      "id": "pair050",
+      "verdict": "unclear",
+      "notes": "The crucified figure's tiny, downturned face is hidden by hair and shadow, preventing a reliable comparison with the clearly visible Jesus in the boat."
+    },
+    {
+      "id": "pair051",
+      "verdict": "same",
+      "notes": "Daniel's side profile at the vision and face before the king have matching cropped gray hair, close gray beards, prominent noses and mature angular features."
+    },
+    {
+      "id": "pair052",
+      "verdict": "same",
+      "notes": "Both standing Jesuses have shoulder-length dark hair, a short dark beard and a lean, long-faced adult appearance."
+    },
+    {
+      "id": "pair053",
+      "verdict": "same",
+      "notes": "The sea-side Moses and Moses beside the rock share swept-back white hair, a long white beard and the same elderly angular face."
+    },
+    {
+      "id": "pair054",
+      "verdict": "same",
+      "notes": "The seated man and camp speaker share thinning white hair, a full white beard, lined forehead and slender elderly proportions."
+    },
+    {
+      "id": "pair055",
+      "verdict": "same",
+      "notes": "Jesus beside Lazarus and Jesus on the water have matching dark shoulder-length hair, a full short beard, straight nose and lean adult face."
+    },
+    {
+      "id": "pair056",
+      "verdict": "same",
+      "notes": "Daniel standing among lions and Daniel being lifted have the same short gray hair, close gray beard and narrow older facial features."
+    },
+    {
+      "id": "pair057",
+      "verdict": "same",
+      "notes": "Jesus on the water and Jesus raising his arm in the boat share dark shoulder-length waves, a short beard, prominent nose and lean facial structure."
+    },
+    {
+      "id": "pair058",
+      "verdict": "different",
+      "notes": "The chariot passage opens onto a daylight desert and pale sky, whereas the sea-parting view is under a dark night sky. No time-of-day transition is requested."
+    },
+    {
+      "id": "pair059",
+      "verdict": "different",
+      "notes": "The left scene has a deep-blue night sky and isolated shaft of light; the right passage is lit by a pale golden daytime sky. The descriptions do not request that change."
+    },
+    {
+      "id": "pair060",
+      "verdict": "same",
+      "notes": "Both views show a circular tan stone pit with lions, palms and scrub above the rim, and a heavy wooden cover nearby. The interior and rim views plausibly fit the same enclosure."
+    },
+    {
+      "id": "pair061",
+      "verdict": "same",
+      "notes": "Daniel's close gray beard, prominent nose, angular older face and gray hair agree. The vision gives his hair more wave and volume, but the visible face remains recognizable."
+    },
+    {
+      "id": "pair062",
+      "verdict": "same",
+      "notes": "The sea-side profile and seated Moses have the same swept-back white hair, long white beard and elderly prominent-nosed face."
+    },
+    {
+      "id": "pair063",
+      "verdict": "same",
+      "notes": "Peter on the water and Peter clasping the seated man's hand share short gray-streaked curls, a close gray beard and mature angular facial features."
+    },
+    {
+      "id": "pair064",
+      "verdict": "same",
+      "notes": "Both show a pale dirt road among olive trees and low stone village houses in warm daylight. The wider view toward the lakeside village and the closer road view can belong to the same place."
+    },
+    {
+      "id": "pair065",
+      "verdict": "same",
+      "notes": "Both Jesuses have dark shoulder-length wavy hair, a dark beard and a long straight-nosed face; the smaller boat figure retains these features."
+    },
+    {
+      "id": "pair066",
+      "verdict": "same",
+      "notes": "Peter's curly graying hair, gray beard, pronounced nose and mature face match between the courtyard and water scenes."
+    },
+    {
+      "id": "pair067",
+      "verdict": "same",
+      "notes": "The diving man's visible head has the same gray-streaked curls and short gray beard as the courtyard Peter, with compatible mature facial proportions."
+    },
+    {
+      "id": "pair068",
+      "verdict": "same",
+      "notes": "The vision figure's visible profile matches Daniel's close gray hair, trimmed gray beard and angular older face in court."
+    },
+    {
+      "id": "pair069",
+      "verdict": "same",
+      "notes": "The vision profile and the man in the pit share a short gray beard, angular older face and gray hair. The closer profile shows somewhat fuller hair, with no clear facial identity conflict."
+    },
+    {
+      "id": "pair070",
+      "verdict": "same",
+      "notes": "The seated Moses and front-right staff bearer have matching white receding hair, long white beards and elderly narrow faces."
+    },
+    {
+      "id": "pair071",
+      "verdict": "same",
+      "notes": "The pale dirt road, olive trees, low tan stone houses and gently sloping village terrain are compatible between the wide lakeside view and closer house-side view."
+    },
+    {
+      "id": "pair072",
+      "verdict": "same",
+      "notes": "Peter in the courtyard and the leaping man both have curly graying hair, a full short gray beard and the same mature, prominent-nosed face."
+    },
+    {
+      "id": "pair073",
+      "verdict": "same",
+      "notes": "The camp speaker and front-left staff bearer at the crossing share receding white hair, a long white beard and a slender elderly face."
+    },
+    {
+      "id": "pair074",
+      "verdict": "same",
+      "notes": "The crouching and standing Davids both have short dark curls, ruddy clean-shaven faces and slim youthful builds."
+    },
+    {
+      "id": "pair075",
+      "verdict": "same",
+      "notes": "Moses's visible sea-side profile and frontal crossing face show matching white hair, long white beard, prominent nose and elderly appearance."
+    },
+    {
+      "id": "pair076",
+      "verdict": "same",
+      "notes": "David kneeling and David beside the spear share dense short dark curls, rosy cheeks and a smooth youthful face and slight build."
+    },
+    {
+      "id": "pair077",
+      "verdict": "same",
+      "notes": "Both scenes show a stony dirt road through tan flat-roofed village buildings and olive groves under warm daylight. The wider hillside view is compatible with the closer house-lined road."
+    },
+    {
+      "id": "pair078",
+      "verdict": "same",
+      "notes": "The sea-side Moses and front-right Moses at the crossing have matching receding white hair, long white beards and elderly angular faces."
+    },
+    {
+      "id": "pair079",
+      "verdict": "same",
+      "notes": "Both Davids show short dark curls, smooth youthful faces, ruddy skin and slender adolescent proportions."
+    },
+    {
+      "id": "pair080",
+      "verdict": "same",
+      "notes": "Both views show an open planked boat with a central mast, low gunwales and a stern platform on a lake bordered by hills. The weather and waves change as requested by the calming scene."
+    },
+    {
+      "id": "pair081",
+      "verdict": "same",
+      "notes": "David by the spear and at the brook has short curly dark hair, a smooth young face and a slim build. The stronger flush indoors does not change the facial structure."
+    },
+    {
+      "id": "pair082",
+      "verdict": "same",
+      "notes": "The youth beside the spear and the slinger share tight dark curls, a ruddy beardless face and slender adolescent proportions."
+    },
+    {
+      "id": "pair083",
+      "verdict": "same",
+      "notes": "The front-right Moses in the crossing and seated Moses have matching white swept-back hair, full white beards and elderly angular faces."
+    },
+    {
+      "id": "pair084",
+      "verdict": "same",
+      "notes": "Moses beside the flowing rock and leading the crossing has matching receding white hair, a long white beard and a lean elderly build."
+    },
+    {
+      "id": "pair085",
+      "verdict": "same",
+      "notes": "Daniel's vision profile and rescued face have matching cropped gray hair, a close gray beard, dark complexion and narrow mature features."
+    },
+    {
+      "id": "pair086",
+      "verdict": "same",
+      "notes": "The rock-side Moses and the camp speaker share white swept-back hair, a full white beard and a lined elderly face."
+    },
+    {
+      "id": "pair087",
+      "verdict": "same",
+      "notes": "The boat and water figures of Jesus have matching shoulder-length dark hair, short dark beards and narrow adult faces."
+    },
+    {
+      "id": "pair088",
+      "verdict": "same",
+      "notes": "Jesus standing on the water has the same shoulder-length dark hair, dark beard and long facial outline as the closer profile at the tomb."
+    },
+    {
+      "id": "pair089",
+      "verdict": "same",
+      "notes": "Both show a low wooden sailboat on water bordered by rocky hills, palms and pale houses. Rough water and torn sail on the right are compatible with the storm preceding the left calming scene."
+    },
+    {
+      "id": "pair090",
+      "verdict": "same",
+      "notes": "The planked hull, central mast and hilly shoreline agree, with breaking waves and heavy clouds in both. The darker sky on the right is plausibly denser storm cover."
+    },
+    {
+      "id": "pair091",
+      "verdict": "same",
+      "notes": "Jesus in the boat and at the tomb shares dark shoulder-length hair, a short full beard, prominent nose and lean adult face."
+    },
+    {
+      "id": "pair092",
+      "verdict": "same",
+      "notes": "Both landings have pebbled banks, a small shore fire, calm water and pale stone houses beneath terraced hills and palms. The wider bay view is compatible with the close approach."
+    },
+    {
+      "id": "pair093",
+      "verdict": "same",
+      "notes": "The stepping and leaping Peters share short gray-streaked curly hair, a gray beard, prominent nose and a mature weathered face."
+    },
+    {
+      "id": "pair094",
+      "verdict": "unclear",
+      "notes": "The crucified figure's head is very small and bowed into shadow. There is insufficient facial detail to compare identity with Jesus standing in the boat."
+    },
+    {
+      "id": "pair095",
+      "verdict": "unclear",
+      "notes": "Jesus in the boat is visible, but the distant crucified figure's bowed, shadowed face cannot support an individual identity comparison."
+    },
+    {
+      "id": "pair096",
+      "verdict": "same",
+      "notes": "Peter leaving the boat and Peter helping at the gate share gray-streaked curls, a short gray beard and the same mature, prominent-nosed facial profile."
+    },
+    {
+      "id": "pair097",
+      "verdict": "same",
+      "notes": "The courtyard Peter and leaping Peter have matching curly gray-streaked hair, gray beards, prominent noses and mature faces."
+    },
+    {
+      "id": "pair098",
+      "verdict": "same",
+      "notes": "Moses speaking at camp and the front-right staff bearer share white swept-back hair, long white beards and narrow elderly faces."
+    },
+    {
+      "id": "pair099",
+      "verdict": "same",
+      "notes": "The helper at the gate and the leaping man show the same short gray curls, trimmed gray beard and weathered mature facial structure."
+    },
+    {
+      "id": "pair100",
+      "verdict": "same",
+      "notes": "Peter on the water and the courtyard foreground man share curly graying hair, a short gray beard, strong nose and matching lined cheeks."
+    },
+    {
+      "id": "pair101",
+      "verdict": "same",
+      "notes": "Moses's visible profile at the sea and frontal camp face share a receding white hairline, long white beard and elderly angular features."
+    },
+    {
+      "id": "pair102",
+      "verdict": "same",
+      "notes": "The rescued Daniel and vision profile have matching close gray hair, short gray beards and narrow mature faces."
+    },
+    {
+      "id": "pair103",
+      "verdict": "same",
+      "notes": "The seated Moses and staff-raising profile by the rock share swept-back white hair, a long white beard and a lined elderly face."
+    },
+    {
+      "id": "pair104",
+      "verdict": "same",
+      "notes": "The camp and sea figures have matching swept-back white hair, long white beards, prominent noses and lean elderly builds."
+    },
+    {
+      "id": "pair105",
+      "verdict": "same",
+      "notes": "Both views show Daniel as a lean older man with closely cropped gray hair, a short gray beard, and the same narrow, angular face."
+    },
+    {
+      "id": "pair106",
+      "verdict": "unclear",
+      "notes": "Jesus is clearly visible beside the tomb, but the crucified figure's head is small, bowed, and dark, preventing a reliable comparison of individual facial features."
+    },
+    {
+      "id": "pair107",
+      "verdict": "same",
+      "notes": "Peter has the same gray-streaked curls, full short beard, prominent nose, and mature facial profile in the boat and leaping into the water."
+    },
+    {
+      "id": "pair108",
+      "verdict": "same",
+      "notes": "Both scenes show Moses with a receding hairline, swept-back white hair, a long full white beard, and a lean elderly face."
+    },
+    {
+      "id": "pair109",
+      "verdict": "same",
+      "notes": "Moses has the same swept-back wavy white hair, full white beard, prominent nose, and lean elderly profile in both scenes."
+    },
+    {
+      "id": "pair110",
+      "verdict": "same",
+      "notes": "Both views show a pebbled, gently curving lakeshore with calm water, dry terraced hills, scattered trees, and a charcoal fire near the water. The change from shore to boat viewpoint is compatible."
+    },
+    {
+      "id": "pair111",
+      "verdict": "same",
+      "notes": "The man leading the crossing and the man raising his hand in camp share a receding hairline, wavy white hair, a full white beard, and the same lean older face."
+    },
+    {
+      "id": "pair112",
+      "verdict": "same",
+      "notes": "Both views depict a round, open stone-block pit with a sandy floor, resting lions, and sparse vegetation beyond its rim in pale morning light."
+    },
+    {
+      "id": "pair113",
+      "verdict": "same",
+      "notes": "The seated and standing Moses share swept-back white hair, a long full white beard, a prominent nose, and the same lined elderly face."
+    },
+    {
+      "id": "pair114",
+      "verdict": "same",
+      "notes": "Moses is identifiable by the same receding white hair, thick white beard, narrow older face, and lean build in the crossing and rock scenes."
+    },
+    {
+      "id": "pair115",
+      "verdict": "unclear",
+      "notes": "The crucified figure's face is tiny and bowed into shadow, so its individual features cannot be reliably compared with Jesus standing on the water."
+    },
+    {
+      "id": "pair116",
+      "verdict": "same",
+      "notes": "Peter has matching short gray-streaked curls, a close full beard, deep facial lines, and a prominent nose in both views."
+    },
+    {
+      "id": "pair117",
+      "verdict": "same",
+      "notes": "Daniel's visible side profile in the vision has the same closely cropped gray hair, short gray beard, angular nose, and slim older build as the man in the pit."
+    },
+    {
+      "id": "pair118",
+      "verdict": "same",
+      "notes": "Both images show Moses with swept-back white hair, a full white beard, prominent nose, and a lean elderly face despite the different lighting."
+    },
+    {
+      "id": "pair119",
+      "verdict": "same",
+      "notes": "The seated man and the man beside the sea have matching receding wavy white hair, long white beards, and the same strongly lined, narrow facial profile."
+    },
+    {
+      "id": "pair120",
+      "verdict": "same",
+      "notes": "Peter is singled out by the helping gesture and the leap, respectively; both figures have matching short gray-streaked curls, full gray beards, prominent noses, and weathered mature faces."
+    },
+    {
+      "id": "pair121",
+      "verdict": "same",
+      "notes": "Both scenes show David as a slim, clean-shaven youth with short dark curls, a narrow face, and a similar straight nose and ruddy complexion."
+    },
+    {
+      "id": "pair122",
+      "verdict": "same",
+      "notes": "Daniel has the same angular older face, long prominent nose, short gray beard, and lean build. His gray hair is fuller and wavier on the right, but the visible facial profile remains recognizable."
+    },
+    {
+      "id": "pair123",
+      "verdict": "same",
+      "notes": "David has matching short dark curls, a smooth youthful face, slim limbs, and a ruddy complexion in both scenes; the startled expression does not obscure the resemblance."
+    },
+    {
+      "id": "pair124",
+      "verdict": "same",
+      "notes": "Both scenes use an open wooden fishing boat with a central mast amid a lake bordered by rocky hills and settlements. The clearing sky and still water are compatible with the depicted command to calm the storm."
+    },
+    {
+      "id": "pair125",
+      "verdict": "same",
+      "notes": "The youth dodging the spear and the youth being anointed have the same short dark curls, smooth ruddy face, straight nose, and slim adolescent build."
+    },
+    {
+      "id": "pair126",
+      "verdict": "same",
+      "notes": "Moses has matching receding wavy white hair and a full white beard; the visible side of his face at the rock retains the same prominent nose and elderly profile."
+    },
+    {
+      "id": "pair127",
+      "verdict": "same",
+      "notes": "Both views show Moses with swept-back white hair, a long white beard, deep facial lines, and the same prominent nose and lean frame."
+    },
+    {
+      "id": "pair128",
+      "verdict": "same",
+      "notes": "David has the same short dark curls, clean-shaven youthful face, straight nose, and slim build beside Goliath and beside the wall."
+    },
+    {
+      "id": "pair129",
+      "verdict": "same",
+      "notes": "The kneeling and standing David share short dark curls, a smooth ruddy face, a straight nose, and a slim youthful build."
+    }
+  ]
+}

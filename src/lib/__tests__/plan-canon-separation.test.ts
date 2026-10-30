@@ -1,5 +1,5 @@
 /** Retained live failure through ordinary planning; scripted replay is not model-obedience evidence. */
-import { withCleanReview } from "../../../tests/fixtures/plan-review";
+import { withPlanningReply } from "../../../tests/fixtures/planning-model";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
@@ -47,7 +47,7 @@ async function plan(content = retainedContent, showing?: unknown) {
     getActiveRecord: async (kind, id) => records.find((r) => r.kind === kind && r.recordId === id) ?? null,
     putDerivedRecord: write, claim: async () => ({ held: true }), release: async () => {}, recordSpend: spend,
   };
-  const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
+  const model: TextModel = withPlanningReply({ id: "scripted", complete: async (request) => {
     requests.push(request);
     const answer = request.schemaName === "section_look" ? JSON.stringify({ place: frozenLook.place, timeOfDay: frozenLook.timeOfDay,
       weather: frozenLook.weather, light: frozenLook.light, clothing: frozenLook.clothing }) : JSON.stringify(withGrounding({ ...JSON.parse(content), missingCast: [] }, input.context.moment.text));
@@ -100,7 +100,7 @@ describe("no-form plan and canon separation", () => {
     expect(result.plan.payload.secondaryElements).toContain("brilliant white light");
     expect(result.present.map((p) => p.entryId)).toEqual(retainedPlan.present);
     expect(write.mock.calls.filter(([args]) => args.kind === "plan")).toHaveLength(1);
-    expect(spend.mock.calls.filter(([args]) => args.kind === "plan").map(([args]) => args.outcome)).toEqual(["ok", "review ok"]);
+    expect(spend.mock.calls.filter(([args]) => args.kind === "plan").map(([args]) => args.outcome)).toEqual(["ok"]);
     expect(spend).toHaveBeenCalledWith(expect.objectContaining({ outcome: "ok", costUsd: 0 }));
   });
 

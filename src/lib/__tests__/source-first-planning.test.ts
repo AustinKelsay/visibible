@@ -2,7 +2,6 @@ import { selectionReply } from "../../../tests/fixtures/scene-grounding";
 /** Captured shared looks at the production request/assembly seam; scripted replies prove input isolation only. */
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { reviewReply } from "../../../tests/fixtures/plan-review";
 import { assembleRendering } from "../engine/assemble";
 import { createMemoryPreparationStore } from "../engine/memory-store";
 import { readWorkInputs } from "../engine/work-inputs";
@@ -19,13 +18,10 @@ describe("source-first scene planning", () => {
     const memory = createMemoryPreparationStore(sample.keys.map((key: string) => set.records[key]).filter((r: { kind: string }) => r.kind !== "look" && r.kind !== "plan"));
     const inputs = await readWorkInputs("bible-web");
     const calls: TextModelRequest[] = [];
-    let reviews = 0;
     const fields = { primarySubject: "Unnamed nobles standing together", action: "The nobles stand upright with composed bearing", setting: "an open space",
       secondaryElements: "", mood: "solemn", timeOfDay: "day", composition: "The nobles stand together in one view" };
     const model: TextModel = { id: "scripted", complete: async (request) => {
       calls.push(request);
-      // Exercise the real re-plan too. This scripted problem is a pipeline probe, not a semantic score.
-      if (request.schemaName === "plan_review") return reviewReply(++reviews === 1 ? [{ kind: "outside_instant", entryId: "", planQuote: fields.primarySubject, reason: "Scripted review probe; choose another source-supported instant." }] : []);
       const value = request.schemaName === "section_look" ? look : { ...fields, missingCast: [], selectedCast: [], consideredCast: [],
         grounding: { focusQuote: "Her nobles were purer than snow.", instant: "The nobles stand together.", singleInstant: true } };
       // The retained-era reply shape is converted to the general planner reply.
@@ -37,7 +33,7 @@ describe("source-first scene planning", () => {
         getReference: async () => null, loadReference: async () => { throw Error("No reference expected"); } },
       { workId: "bible-web", unitId: "lamentations-4-7", styleId, variationNumber: 1, aspectRatio: "16:9" });
       if (!result.ok) throw Error(result.message);
-      expect(result.prepared.calls).toBe(styleId === "classical" ? 4 : 0);
+      expect(result.prepared.calls).toBe(styleId === "classical" ? 1 : 0);
       expect(result.prepared.look).toBeNull();
       expect(result.prompt).not.toContain(look.clothing);
       expect(result.prompt).not.toContain(look.light);
@@ -50,7 +46,7 @@ describe("source-first scene planning", () => {
       expect(result.prepared.plan.payload).toEqual({ present: [], ...fields });
     }
     const plans = calls.filter((c) => c.schemaName === "scene_plan");
-    expect(plans).toHaveLength(2);
+    expect(plans).toHaveLength(1);
     for (const request of plans) {
       expect(request.user).toContain("Her nobles were purer than snow.");
       expect(request.user).toContain("CAST ON STAGE IN THIS SECTION");
@@ -58,8 +54,7 @@ describe("source-first scene planning", () => {
       expect(request.user).not.toContain("SECTION LOOK GUIDE");
       for (const value of Object.values(look)) expect(request.user).not.toContain(value);
     }
-    expect(plans[1].user).toContain("A PREVIOUS PLAN FOR THIS MOMENT WAS REJECTED");
-    expect((await memory.store.getActiveRecord("plan", sample.momentId))?.payload).toMatchObject({ entries: [], plan: fields, review: { rounds: 2 } });
-    expect(memory.ledger).toHaveLength(4);
+    expect((await memory.store.getActiveRecord("plan", sample.momentId))?.payload).toMatchObject({ entries: [], plan: fields });
+    expect(memory.ledger).toHaveLength(1);
   });
 });

@@ -1,5 +1,5 @@
 /** No-form presence through real analysis storage, lazy planning and rendering assembly; no providers. */
-import { withCleanReview } from "../../../tests/fixtures/plan-review";
+import { withPlanningReply } from "../../../tests/fixtures/planning-model";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { convexTest } from "convex-test";
 import schema from "../../../convex/schema";
@@ -7,7 +7,6 @@ import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { assembleRendering } from "../engine/assemble";
 import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION, planSystem } from "../engine/preparation";
-import { PLAN_REVIEW_PROMPT_VERSION } from "../engine/plan-review";
 import type { WorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { responseSchema } from "../reading-pass/prompts";
@@ -66,7 +65,7 @@ describe("no-form presence selection", () => {
     const store = createConvexPreparationStore(client, api.analysis as unknown as Record<string, unknown>, WORK, SECRET);
     const calls: TextModelRequest[] = [];
     let planAttempt = 0;
-    const model: TextModel = withCleanReview({ id: "scripted", async complete(request) {
+    const model: TextModel = withPlanningReply({ id: "scripted", async complete(request) {
       calls.push(request);
       const alone = request.user.includes("MOMENT (The Court 2)");
       const value = request.schemaName === "section_look" ? lookAnswer : planReplies?.[planAttempt++] ?? {
@@ -181,9 +180,9 @@ describe("no-form presence selection", () => {
     const { t, calls, render } = await setup(true, { planReplies: [{ ...valid, present: ["unknown_entry"] }, valid] });
     const first = await render();
     if (!first.ok) throw new Error(first.message);
-    expect(first.prepared.calls).toBe(3); // look, invalid plan, valid plan and its review
+    expect(first.prepared.calls).toBe(2); // malformed reply and its valid retry
     expect(first.prepared.plan.payload).toEqual(valid);
-    expect(await t.run(async (ctx) => (await ctx.db.query("preparationLedger").collect()).map((entry) => entry.outcome))).toEqual(["invalid", "ok", "review ok"]);
+    expect(await t.run(async (ctx) => (await ctx.db.query("preparationLedger").collect()).map((entry) => entry.outcome))).toEqual(["invalid", "ok"]);
     calls.length = 0;
     const second = await render("court-1", "watercolor");
     if (!second.ok) throw new Error(second.message);
@@ -198,7 +197,7 @@ describe("no-form presence selection", () => {
     expect(first.ok && alone.ok).toBe(true);
     if (!first.ok || !alone.ok) throw new Error("Assembly failed");
     expect(alone.packet.lookVersion).toBe(first.packet.lookVersion);
-    expect(alone.prepared.calls).toBe(2); // plan and review
+    expect(alone.prepared.calls).toBe(1); // one plan
     expect(alone.packet.canon.map((c) => c.entryId)).toEqual(["watcher"]);
     expect(alone.prompt).not.toContain("UNSEEN PRESENCE");
     // A formed-only scene keeps its source text.
@@ -241,7 +240,7 @@ describe("no-form presence selection", () => {
     expect(result.prompt).toContain("UNSEEN PRESENCE (binding)");
     // Code never rewrites the reply. The scripted review reports no problems; a real review is a
     // separate model judgment measured in evaluation, and live compliance remains a gate.
-    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(2);
+    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(1);
   });
 
   it.each(["missing", "older", "2026-10-21-formless-presence-v1", "2026-10-21-formless-presence-v2", "2026-10-21-formless-presence-v3", "2026-10-22-formless-placement-v4"])("refreshes a cached no-form plan when the prompt version is %s and preserves its history", async (version) => {
@@ -315,7 +314,7 @@ describe("no-form presence selection", () => {
     const first = await render();
     if (!first.ok) throw new Error(first.message);
     const plan = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
-    expect(plan?.inputs.filter((i) => i.kind === "prompt")).toEqual([{ kind: "prompt", recordId: "scene_plan_look_ownership", version: "no-owner-look-v1" }, { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION }, { kind: "prompt", recordId: "scene_plan_review", version: PLAN_REVIEW_PROMPT_VERSION }, { kind: "prompt", recordId: "depiction_plan", version: testDepiction(WORK).planVersion }]);
+    expect(plan?.inputs.filter((i) => i.kind === "prompt")).toEqual([{ kind: "prompt", recordId: "scene_plan_look_ownership", version: "no-owner-look-v1" }, { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION }, { kind: "prompt", recordId: "depiction_plan", version: testDepiction(WORK).planVersion }]);
     const look = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "court-1" });
     expect(look).toBeNull();
     expect(calls[0].system).toBe(PLAN_SYSTEM);

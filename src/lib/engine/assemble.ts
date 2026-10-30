@@ -3,7 +3,7 @@
  * its in-section neighbours from the imported text, the lazy look and plan, the canon stages of
  * the present entries, the current references that load, and the validated packet. The request
  * engine maps the failures to responses; the evaluation harness records them. Nothing here is
- * paid except the owner-funded look and plan.
+ * paid except the owner-funded scene plan.
  */
 import { ownerLookVersion } from "./situation";
 import { depictionModeOf } from "./depiction";

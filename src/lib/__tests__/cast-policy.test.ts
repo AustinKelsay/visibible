@@ -15,7 +15,7 @@ const randomRun = new URL("../../../llm/releases/2026-10-23-random-verse-check/"
 
 describe("cast policy", () => {
   it("lets plans describe uncast incidental figures and never stops for missing canon", () => {
-    expect(MOMENT_CAST_PROMPT_VERSION).toBe("2026-10-30-moment-cast-v16");
+    expect(MOMENT_CAST_PROMPT_VERSION).toBe("2026-10-30-moment-cast-v17-no-review");
     expect(PLAN_SYSTEM).not.toContain("omit unselected figures rather than describing them as background");
     expect(PLAN_SYSTEM).toContain("list every section cast entry that will be visible");
     expect(PLAN_SYSTEM).toContain("Anyone without a cast entry may appear as an unnamed role or crowd when the moment needs them.");

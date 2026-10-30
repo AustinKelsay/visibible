@@ -1,5 +1,5 @@
 /** Retained shared-look/presence conflict through real storage and assembly; no model obedience claimed. */
-import { withCleanReview } from "../../../tests/fixtures/plan-review";
+import { withPlanningReply } from "../../../tests/fixtures/planning-model";
 import { readFileSync } from "node:fs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { convexTest } from "convex-test";
@@ -67,7 +67,7 @@ describe("moment cast over shared section context", () => {
     const client = { query: (ref: unknown, args: unknown) => t.query(ref as never, args as never), mutation: (ref: unknown, args: unknown) => t.mutation(ref as never, args as never) };
     const store = createConvexPreparationStore(client, api.analysis as unknown as Record<string, unknown>, WORK, SECRET);
     const requests: TextModelRequest[] = [];
-    const model: TextModel = withoutSituation(withCleanReview({ id: "retained-reply", complete: async (request) => {
+    const model: TextModel = withoutSituation(withPlanningReply({ id: "retained-reply", complete: async (request) => {
       requests.push(request);
       // Padded canon changes entry versions, so its look is remade; answer with the retained look text.
       if (padCanon && request.schemaName === "section_look") {
@@ -100,7 +100,7 @@ describe("moment cast over shared section context", () => {
     for (const styleId of ["classical", "watercolor", "icon"]) {
       const result = await render("daniel-7-10", styleId);
       if (!result.ok) throw new Error(result.message);
-      expect(result.prepared.calls).toBe(styleId === "classical" ? 2 : 0); // plan and its review, once
+      expect(result.prepared.calls).toBe(styleId === "classical" ? 1 : 0); // plan and its review, once
       expect(result.packet.lookVersion).toBe(ownerLook ? oldLook.version : undefined);
       expect(result.packet.planVersion).not.toBe(oldPlan.version); // Same scene prose, new grounding audit.
       if (ownerLook) expect(result.prepared.look?.payload.clothing).toContain("Daniel in his ordinary tunic and cloak");

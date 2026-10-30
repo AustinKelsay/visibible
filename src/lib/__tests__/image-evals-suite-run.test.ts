@@ -148,7 +148,7 @@ describe("a suite run through the real assembly", () => {
 
   type Row = {
     key: string; caseId: string; outcome: string; style: string | null; textCalls: number; reason?: string; stage?: string; standsFor?: string[];
-    records: { look: AnalysisRecord; plan: AnalysisRecord }; context: { moment: { text: string } }; checkContext: { softEdges: boolean };
+    records: { look: AnalysisRecord | null; plan: AnalysisRecord }; context: { moment: { text: string } }; checkContext: { softEdges: boolean };
     prepared: { plan: Record<string, unknown> }; attempts: unknown[];
   };
 
@@ -174,11 +174,11 @@ describe("a suite run through the real assembly", () => {
     return { rows, ledger, offline };
   }
 
-  it("prepares each case once in the text tier and records the look and plan it stored", async () => {
+  it("prepares each case once in the text tier and records its plan and optional owner constraints", async () => {
     const { rows, offline } = await run("text");
     expect(rows.map((r) => [r.key, r.outcome]).sort()).toEqual([["holmes-a/text", "planned"], ["holmes-b/text", "planned"]]);
-    // One shared look for the section, then a plan and its review per moment.
-    expect(offline.counts.text).toBe(4);
+    // One scene plan per moment.
+    expect(offline.counts.text).toBe(2);
     expect(offline.counts.image + offline.counts.check).toBe(0);
     for (const r of rows) {
       expect(r.records.plan.kind).toBe("plan");
@@ -208,7 +208,7 @@ describe("a suite run through the real assembly", () => {
     const ownerLook: MemoryRecordInput = { kind: "look", recordId: `${STORY}-1-1`, source: "owner", payload: { kind: "look", sectionId: `${STORY}-1-1`,
       place: "The Baker Street sitting-room", timeOfDay: "Night", weather: "Wet March evening", light: "Lamplight", clothing: "Holmes in a dressing-gown" } };
     const text = await run("text", undefined, {}, [ownerLook]);
-    expect(text.rows.every((r) => r.records.look.source === "owner")).toBe(true);
+    expect(text.rows.every((r) => r.records.look?.source === "owner")).toBe(true);
     const seeds = [...new Map(text.rows.flatMap((r) => [r.records.look, r.records.plan].filter((record) => record !== null)).map((r) => [`${r.kind}:${r.recordId}`, r])).values()];
     const image = await run("image", seeds, {}, [ownerLook]);
     expect(image.offline.counts.text).toBe(0);
@@ -217,14 +217,14 @@ describe("a suite run through the real assembly", () => {
 
   it("refuses only a case whose seed is stale, without spending the image run's zero text calls", async () => {
     const text = await run("text");
-    // The shared look and case A's plan are seeded; case B's plan is missing, so B would have to be planned again.
+    // Case A's plan is seeded; case B's plan is missing, so B would have to be planned again.
     const seeds = [text.rows.find((r) => r.caseId === "holmes-a")!.records.plan];
     const { rows, ledger, offline } = await run("image", seeds, {}, [], { limits: { text: 0, image: 100, check: 100 } });
     expect(ledger.state.blocked).toBeNull();
     expect(offline.counts.text).toBe(0);
     expect(rows.filter((r) => r.caseId === "holmes-a").map((r) => r.outcome)).toEqual(["image", "image"]);
     expect(rows.filter((r) => r.caseId === "holmes-b")).toMatchObject([{ outcome: "refused", stage: "seed", standsFor: ["classical", "watercolor"] }]);
-    // A stale look shared by two cases running together refuses both as stale seeds, including the one that only waited on it.
+    // An empty seed set refuses both cases without making a text call.
     const together = cases.map((c) => ({ ...c, split: "holdout" as const }));
     const noLook = await run("image", seeds.slice(1), {}, [], { limits: { text: 0, image: 100, check: 100 }, cases: together, concurrency: 2 });
     expect(noLook.ledger.state.blocked).toBeNull();
