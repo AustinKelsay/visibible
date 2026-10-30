@@ -1,0 +1,36 @@
+{
+  "authorization": "Owner, 29 October 2026 (US Central): \"Ok continue\", after the depiction-profile release listed the heavenly court and Nineveh corrections and the failing correction lookup as the open items.",
+  "release": {
+    "pullRequest": 333,
+    "includes": [330, 331, 332, 334],
+    "mainCommit": "2010753",
+    "mergedAt": "2026-10-30T03:18:26Z",
+    "deployment": "dpl_492ekymtVaN19m9UzVgHwsZjXwxM",
+    "aliases": ["https://visibible.com", "https://www.visibible.com"],
+    "convexChanges": "listStaleDependents reads current looks, plans and references only (no schema change).",
+    "checks": {
+      "checkedAt": "2026-10-30T03:19:13Z",
+      "health": "ok",
+      "readiness": "ready",
+      "artStyles": [["classical", true], ["watercolor", true], ["fresco", true], ["icon", false]],
+      "correctionLookup": "works:correct inspect on the_heavenly_court and nineveh succeeded on production; before #332 it failed on the Bible's 31,102 moments."
+    }
+  },
+  "corrections": [
+    { "entry": "the_heavenly_court", "command": "set-depiction form", "from": "location, hasForm false (generated c4902613…)", "to": "location, form (owner 333941b2…)", "staleDependents": [] },
+    { "entry": "nineveh", "command": "set-kind location", "from": "character, hasForm false (generated cc4b32eb…)", "to": "location (owner 9e3452b3…)", "staleDependents": [] },
+    { "entry": "nineveh", "command": "set-depiction form", "from": "location, hasForm false (owner 9e3452b3…)", "to": "location, form (owner 8959b998…)", "staleDependents": [] }
+  ],
+  "smokes": {
+    "method": "Fresh guest sessions (0 credits), POST /api/generate-image, classical, 16:9, 1K; each stopped at HTTP 402 Insufficient credits (required 5) after cold preparation, with no image call.",
+    "nahum-2-8": "Section nahum-2-6 casts nineveh. Plan selects nineveh, nineveh_assyrian_capital, assyrian_troops; setting 'A broken city gateway and street within the walls of Nineveh'.",
+    "job-1-6": "Section job-1-6 casts the_heavenly_court. Plan selects the_heavenly_court, satan, god_yahweh_the_father_and_god_of_israel; review kept 'canon_conflict satan'.",
+    "jonah-3-3": "Section jonah-3-1 does not cast nineveh; the plan selects nineveh_assyrian_capital (a second Nineveh entry)."
+  },
+  "paidCalls": "Smoke preparation only, owner spend $0.0065351 across 14 Claude Haiku 5.5 calls (jonah-3-3 $0.0021623, nahum-2-8 $0.0020079, job-1-6 $0.0023649). No image calls.",
+  "productionMutations": "Three owner entry versions (above), plus the smokes' looks, plans and preparation ledger rows, as reader requests would make them.",
+  "found": [
+    "Two entries describe Nineveh: nineveh (Nahum 2:6–10 only) and nineveh_assyrian_capital (Jonah, and also selected in Nahum 2:8). Merging them needs an owner decision.",
+    "Satan's canon is a red dragon but his depiction mode is effects; the Job 1:6 review kept a canon conflict. That is the symbol-mode follow-up in ADR 0010."
+  ]
+}
