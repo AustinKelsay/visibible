@@ -10,7 +10,7 @@ import schema from "../../convex/schema";
 import { api } from "../../convex/_generated/api";
 import { modules } from "./modules";
 import { listAnalysisRecords } from "../../src/lib/engine/analysis-records";
-import { activateCandidate } from "../../convex/analysis";
+import { activateCandidate, staleDependents } from "../../convex/analysis";
 
 const SECRET = "test-server-secret-with-at-least-32-chars";
 process.env.CONVEX_SERVER_SECRET = SECRET;
@@ -346,6 +346,10 @@ describe("analysis generations", () => {
       expect(new Set(list.map((r) => r.recordId)).size).toBe(31102);
       await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "unit-31101", payload: { kind: "plan", momentId: "unit-31101", entries: [{ entryId: "sherlock_holmes", stageId: "main" }], plan: { primarySubject: "Holmes", action: "reads", setting: "room" } }, inputs: [] });
       expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: first }))?.counts.plan).toBe(1);
+      // Owner corrections list stale dependents on the full Bible: only looks and plans are read, never the moments.
+      scanned = 0;
+      expect(await t.run((ctx) => staleDependents({ ...ctx, db: bounded(ctx.db) }, { workId: WORK, kind: "entry", recordId: "sherlock_holmes" }))).toEqual([]);
+      expect(scanned).toBeLessThan(5000);
       await t.mutation(api.analysis.clearRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "unit-31101" });
       expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: first }))?.counts.plan).toBe(0);
       const correction = await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "moment", recordId: "a-scandal-in-bohemia-1", payload: { kind: "moment", sectionId: "a-scandal-in-bohemia-1", firstUnit: "a-scandal-in-bohemia-1", lastUnit: "owner-end" } });
