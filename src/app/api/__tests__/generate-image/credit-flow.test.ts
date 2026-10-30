@@ -35,6 +35,7 @@ import {
   resetMockFetchBibleApiBypass,
   setMockFetchBibleApiBypass,
 } from "@/app/api/__tests__/shared/bible-api-mocks";
+import { testDepiction } from "../../../../../tests/fixtures/depiction";
 
 // Create mock state
 const mockState = {
@@ -560,7 +561,7 @@ describe("Image Generation API Credit Flow", () => {
     };
     const adamText = "Adam: a young man with dark curly hair and brown skin, wearing a plain wrap.";
     const workInputs = (tone = brief.tone): WorkInputs => ({
-      work, workVersion: "wv", brief: { ...brief, tone }, briefVersion: "bv",
+      work, workVersion: "wv", brief: { ...brief, tone }, briefVersion: "bv", depiction: testDepiction(brief.workId),
       styles: Object.fromEntries(SHARED_STYLES.styles.map((style) => [style.id, { style, version: `sv-${style.id}` }])),
     });
     const lookAnswer = { place: "A river garden", timeOfDay: "morning", weather: "clear", light: "soft first light", clothing: "plain wraps" };
@@ -705,6 +706,9 @@ describe("Image Generation API Credit Flow", () => {
       expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", artStyleId: "watercolor", promptVersion: GENERIC_PROMPT_VERSION });
       expect(image.provenance).toMatchObject({ workId: WORK, momentId: "genesis-1-1", sectionId: "genesis-1-1", styleId: "watercolor", lookVersion: request.renderingPacket!.lookVersion, planVersion: request.renderingPacket!.planVersion, requestTranslationId: "web" });
       expect(image.provenance!.references).toEqual([{ kind: "styleReference", id: "watercolor", version: expect.any(String) }, { kind: "sheet", id: "adam:main", version: expect.any(String) }]);
+      // The work's depiction profile is recorded with the accepted packet and the saved image (ADR 0009).
+      expect(request.renderingPacket!.depictionVersion).toBe(testDepiction(brief.workId).version);
+      expect(image.provenance!.depictionVersion).toBe(request.renderingPacket!.depictionVersion);
       // The stored plan keeps the planner's audit choice and a clean single-round review without notes.
       const storedPlan = await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" });
       expect(storedPlan!.payload).toMatchObject({ entries: [{ entryId: "adam", stageId: "main" }, { entryId: "eden", stageId: "main" }, { entryId: "god", stageId: "main" }],

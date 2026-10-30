@@ -1,12 +1,15 @@
 /** Constructed isolates of retained failure classes. These are not historical provider replies. */
 import assert from "node:assert/strict";
 import type { ReviewInput, PlanReviewProblem } from "../../../src/lib/engine/plan-review";
+import { readDepictionProfile } from "../../../src/lib/engine/depiction";
+// The Bible's depiction profile reproduces the wording these runs used (ADR 0009).
+const depiction = readDepictionProfile("bible-web");
 
 type Required = { kind: PlanReviewProblem["kind"]; entryId?: string; quoteFrom?: string };
 type Control = { id: string; basis: string; required: Required[]; input: ReviewInput };
 const god = "god", esther = "esther";
 function input(text: string): ReviewInput {
-  return { rules: "Never give God a body, face, silhouette or clothing. An established manifestation may use cloud or light.",
+  return { depiction, rules: "Never give God a body, face, silhouette or clothing. An established manifestation may use cloud or light.",
     context: { moment: { id: "constructed", reference: "Constructed control, not a Bible quotation", text }, previous: null, next: null },
     sectionTitle: "Isolated content review control", cast: [], present: [],
     fields: { primarySubject: "An unnamed traveler", action: "stands still", setting: "an open plain", secondaryElements: "", mood: "quiet", timeOfDay: "midday", composition: "One view of the traveler." },

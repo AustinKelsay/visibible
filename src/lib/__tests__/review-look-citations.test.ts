@@ -1,12 +1,15 @@
 /** Exact replies from the stopped text comparison; no provider calls or new semantic scores. */
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
-import { invalidReview, PLAN_REVIEW_SYSTEM, planReviewUser, reviewPlan, type PlanReviewProblem } from "../engine/plan-review";
+import { invalidReview, planReviewSystem, planReviewUser, reviewPlan, type PlanReviewProblem } from "../engine/plan-review";
 import { prepareMoment } from "../engine/preparation";
 import { createMemoryPreparationStore } from "../engine/memory-store";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import type { WorkBrief } from "../work-preparation";
 import { cases } from "../../../llm/releases/2026-10-24-rendering-review-check/controls.mjs";
+import { testDepiction } from "../../../tests/fixtures/depiction";
+
+const PLAN_REVIEW_SYSTEM = planReviewSystem(testDepiction("citation-test"));
 
 const traces = readFileSync(new URL("../../../llm/releases/2026-10-24-rendering-review-check/provider.ndjson", import.meta.url), "utf8")
   .trim().split("\n").map((line) => JSON.parse(line)).filter((row) => row.phase === "look-time-candidate");
@@ -74,7 +77,7 @@ describe("look review citations", () => {
         });
       return { content, model: "recorded", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 1, completionTokens: 1, costUsd: 0.0001 }, elapsedMs: 0 };
     } };
-    const prepared = await prepareMoment({ workId: brief.workId, momentId: "constructed", store: memory.store, model, brief, briefVersion: "brief", context: input.context });
+    const prepared = await prepareMoment({ workId: brief.workId, depiction: testDepiction(brief.workId), momentId: "constructed", store: memory.store, model, brief, briefVersion: "brief", context: input.context });
     // A re-plan cannot change owner text, so the conflict is recorded instead of re-planned or refused.
     expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
     expect(calls[1].user).toContain("OWNER LOOK CONSTRAINTS (binding verbatim rendering input)");

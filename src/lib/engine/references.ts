@@ -11,6 +11,7 @@
 import { z } from "zod";
 import type { ArtStyle, Era, WorkBrief } from "../work-preparation";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
+import { depictionModeOf } from "./depiction";
 
 export const REFERENCE_IMAGE_MODEL = "google/gemini-3.1-flash-lite-image";
 /** The cheap vision model that look-checks reference images (#159). */
@@ -204,7 +205,7 @@ export function sheetSubjects(entries: ActiveEntry[], sections: ActiveSection[],
     const entryId = key.slice(0, key.lastIndexOf(":"));
     const stageId = key.slice(entryId.length + 1);
     const entry = byEntry.get(entryId);
-    if (!entry || entry.hasForm === false || (sectionsPerEntry.get(entryId)?.size ?? 0) < 2) continue;
+    if (!entry || depictionModeOf(entry) !== "form" || (sectionsPerEntry.get(entryId)?.size ?? 0) < 2) continue;
     const stage = entry.stages.find((s) => s.id === stageId);
     if (!stage) continue;
     const eras = brief.eras.filter((e) => use.eras.has(e.id));

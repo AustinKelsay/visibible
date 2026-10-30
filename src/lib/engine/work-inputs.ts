@@ -1,14 +1,16 @@
 /**
  * The owner-authored repo inputs the generic engine renders from (#175, spec #165 §7): the
- * imported work, its approved brief and the shared style files, read once per server instance
- * and versioned exactly as the owner scripts version them (a SHA-256 of each file's text), so the
- * deployed inputs can be checked against the versions the active analysis was registered with.
+ * imported work, its approved brief, its depiction profile and the shared style files, read once per
+ * server instance. The work and brief are versioned exactly as the owner scripts version them (a SHA-256
+ * of each file's text), so the deployed inputs can be checked against the versions the active analysis
+ * was registered with; the depiction profile is versioned by content and never registered (ADR 0009).
  */
 import { readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import { createWorkReader, type ReferenceUnit, type WorkReader } from "../work-input";
 import { SHARED_STYLES, validateWorkBrief, type ArtStyle, type WorkBrief } from "../work-preparation";
+import { loadDepictionProfile, type DepictionProfile } from "./depiction";
 import type { MomentContext } from "./preparation";
 
 export type WorkInputs = {
@@ -16,6 +18,8 @@ export type WorkInputs = {
   workVersion: string;
   brief: WorkBrief;
   briefVersion: string;
+  /** The work's own wording for the engine's prompts and checks, and its depiction modes. */
+  depiction: DepictionProfile;
   /** The styles the brief approves, with the version of each style file. */
   styles: Record<string, { style: ArtStyle; version: string }>;
 };
@@ -28,21 +32,23 @@ const WORK_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 export async function readWorkInputs(workId: string, root = process.cwd()): Promise<WorkInputs> {
   if (!WORK_ID.test(workId)) throw new Error(`Invalid work id: ${workId}`);
   const workDir = path.join(root, "works", workId);
-  const [workJson, briefJson] = await Promise.all([
+  const [workJson, briefJson, depictionJson] = await Promise.all([
     readFile(path.join(workDir, "work.json"), "utf8"),
     readFile(path.join(workDir, "brief.json"), "utf8"),
+    readFile(path.join(workDir, "depiction.json"), "utf8"),
   ]);
   const work = createWorkReader(JSON.parse(workJson));
   if (work.work.id !== workId) throw new Error(`works/${workId}/work.json describes ${work.work.id}`);
   const brief = validateWorkBrief(JSON.parse(briefJson));
   if (brief.workId !== workId) throw new Error(`works/${workId}/brief.json is the brief of ${brief.workId}`);
+  const depiction = loadDepictionProfile(JSON.parse(depictionJson), workId);
   const styles: WorkInputs["styles"] = {};
   for (const id of brief.styleIds) {
     const style = SHARED_STYLES.styles.find((s) => s.id === id);
     if (!style) throw new Error(`Brief style ${id} is not in the shared library`);
     styles[id] = { style, version: fileVersion(await readFile(path.join(root, "styles", `${id}.json`), "utf8")) };
   }
-  return { work, workVersion: fileVersion(workJson), brief, briefVersion: fileVersion(briefJson), styles };
+  return { work, workVersion: fileVersion(workJson), brief, briefVersion: fileVersion(briefJson), depiction, styles };
 }
 
 const cache = new Map<string, Promise<WorkInputs>>();

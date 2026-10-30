@@ -10,9 +10,12 @@ import { modules } from "../../../tests/convex/modules";
 import { assembleRendering, type AssembleDeps } from "../engine/assemble";
 import { createConvexPreparationStore, MOMENT_CAST_PROMPT_VERSION, type AnalysisRecord } from "../engine/preparation";
 import { readWorkInputs } from "../engine/work-inputs";
-import { ENGINE_RULES, GENERIC_PROMPT_MAX_CHARS } from "../engine/prompt";
+import { engineRules, GENERIC_PROMPT_MAX_CHARS } from "../engine/prompt";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { withCurrentLookMarker, withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { testDepiction } from "../../../tests/fixtures/depiction";
+
+const ENGINE_RULES = engineRules(testDepiction("bible-web"));
 
 const evidence = new URL("../../../llm/releases/2026-10-22-formless-look-evaluation/", import.meta.url);
 const snapshot: { records: Array<{ record: AnalysisRecord | null }> } = JSON.parse(readFileSync(new URL("after-10.json", evidence), "utf8"));

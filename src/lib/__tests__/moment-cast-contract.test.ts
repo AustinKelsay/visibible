@@ -14,6 +14,7 @@ import { createWorkReader } from "../work-input";
 import { SHARED_STYLES } from "../work-preparation";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { withCurrentLookMarker, withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { testDepiction } from "../../../tests/fixtures/depiction";
 
 const snapshot = JSON.parse(readFileSync(new URL("../../../llm/releases/2026-10-22-owner-request-check/after-prepared.json", import.meta.url), "utf8"));
 const retained = snapshot.rows.find((r: { unitId: string }) => r.unitId === "luke-10-33");
@@ -161,7 +162,7 @@ describe("required moment cast", () => {
       referenceText: { name: "Fixture", source: "https://example.com", credit: "Test", sha256: "0".repeat(64) },
       levels: ["Part", "Line"], referenceFormats: { Part: "{Part} {Line}" }, momentMode: "unit",
       divisions: [{ key: "sky", label: "Sky", level: "Part", units: [{ number: 1, text: "Clouds drift above a still field." }] }] });
-    const inputs: WorkInputs = { work, workVersion: "wv", briefVersion: "bv",
+    const inputs: WorkInputs = { work, workVersion: "wv", briefVersion: "bv", depiction: testDepiction("sky"),
       brief: { schemaVersion: 1, workId: "sky", tone: "Quiet", depictionRules: [], styleIds: ["classical"], eras: [{ id: "rural", label: "Rural", people: "None", dress: "None", buildingsAndObjects: "Fields", technology: "None" }] },
       styles: { classical: { style: SHARED_STYLES.get("classical"), version: "sv" } } };
     const memory = createMemoryPreparationStore([

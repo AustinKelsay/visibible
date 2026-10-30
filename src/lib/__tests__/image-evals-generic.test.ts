@@ -21,6 +21,7 @@ import { buildReport, buildScoreTemplate, renderComparisonSheet, renderContactSh
 import type { GenericEvalProvider } from "../image-evals/generic";
 import type { WorkInputs } from "../engine/work-inputs";
 import { selectionReply, withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { testDepiction } from "../../../tests/fixtures/depiction";
 
 /** Clean reviews and the v12 planner reply format (no `situation`); the shared clean-review fixture still adds conditions. */
 function withCleanV12Review<T extends TextModel>(model: T): T {
@@ -49,7 +50,7 @@ const prose = createWorkReader({
   divisions: [{ key: "lamp", label: "The Lamp", level: "Story", units: [1, 2, 3, 4].map((n) => ({ number: n, text: `Paragraph ${n} of the lamp story.` })) }],
 });
 const brief = (workId: string): WorkBrief => ({ schemaVersion: 1, workId, tone: "Quiet.", depictionRules: [{ text: "Royalty wears a plain circlet." }], eras: [{ id: "lakeside", label: "Lakeside kingdom", people: "Fisherfolk.", dress: "Wool.", buildingsAndObjects: "Boats.", technology: "Sail." }], styleIds: ["classical", "watercolor"] });
-const inputsFor = (reader: typeof work, workId: string): WorkInputs => ({ work: reader, workVersion: "wv", brief: brief(workId), briefVersion: "bv", styles: Object.fromEntries(brief(workId).styleIds.map((id) => [id, { style: SHARED_STYLES.get(id), version: `sv-${id}` }])) });
+const inputsFor = (reader: typeof work, workId: string): WorkInputs => ({ work: reader, workVersion: "wv", brief: brief(workId), briefVersion: "bv", depiction: testDepiction(workId), styles: Object.fromEntries(brief(workId).styleIds.map((id) => [id, { style: SHARED_STYLES.get(id), version: `sv-${id}` }])) });
 const records = [
   { kind: "entry", recordId: "jonah", payload: { kind: "entry", name: "Jonah", entryKind: "character", hasForm: true, stages: [{ id: "old", text: "Jonah: a weathered sailor with a grey beard." }] } },
   { kind: "section", recordId: "alpha-1-1", payload: { kind: "section", title: "At the lake", firstUnit: "alpha-1-1", lastUnit: "alpha-1-3", era: "lakeside", cast: [{ entryId: "jonah", stageId: "old" }] } },

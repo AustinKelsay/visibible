@@ -6,6 +6,7 @@
  * paid except the owner-funded look and plan.
  */
 import { lookPolicy } from "./situation";
+import { depictionModeOf } from "./depiction";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
 import type { TextModel } from "../reading-pass/model";
 import type { ArtStyle } from "../work-preparation";
@@ -99,7 +100,7 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
   // The required look and plan; owner-funded, retryable without any image charge when they fail.
   let prepared: PreparedMoment;
   try {
-    prepared = await prepareMoment({ workId: input.workId, momentId, store, model: deps.model, brief: inputs.brief, briefVersion: inputs.briefVersion, context, now: deps.now });
+    prepared = await prepareMoment({ workId: input.workId, momentId, store, model: deps.model, brief: inputs.brief, briefVersion: inputs.briefVersion, depiction: inputs.depiction, context, now: deps.now });
   } catch (error) {
     if (error instanceof PreparationUnavailableError) return { ok: false, reason: "preparation", message: error.message, retryable: true, stage: error.stage, error };
     return { ok: false, reason: "preparation", message: "Scene preparation failed.", retryable: true, stage: null, error };
@@ -125,7 +126,7 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     if (!stage || !stage.text.trim()) {
       return { ok: false, reason: "preparation", message: `Preparing scene: missing canon stage ${present.entryId}:${present.stageId}.`, retryable: true, stage: "plan", error: null };
     }
-    canon.push({ entryId: present.entryId, stageId: stage.id, kind: payload.entryKind, name: payload.name, text: stage.text, hasForm: payload.hasForm !== false, version: entry.version });
+    canon.push({ entryId: present.entryId, stageId: stage.id, kind: payload.entryKind, name: payload.name, text: stage.text, hasForm: depictionModeOf(payload) === "form", version: entry.version });
   }
 
   const lookCurrent = async () => {
@@ -178,6 +179,7 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     situation: prepared.situation,
     plan: { version: prepared.plan.version, primarySubject: prepared.plan.payload.primarySubject, action: prepared.plan.payload.action, setting: prepared.plan.payload.setting, secondaryElements: prepared.plan.payload.secondaryElements, mood: prepared.plan.payload.mood, timeOfDay: prepared.plan.payload.timeOfDay, composition: prepared.plan.payload.composition },
     canon, references: available, omitStyleReference: deps.omitStyleReference, variationNumber: input.variationNumber, aspectRatio: input.aspectRatio,
+    depiction: inputs.depiction,
   });
   if (!rendering.ok) return { ok: false, reason: "packet", message: rendering.error, finalChars: rendering.finalChars, momentId };
   return {

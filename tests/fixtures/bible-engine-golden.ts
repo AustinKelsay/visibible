@@ -15,8 +15,10 @@ import { createOpenRouterTextModel } from "../../src/lib/reading-pass/model";
 import { createOpenRouterVisionChecker } from "../../src/lib/engine/reference-adapters";
 import { checkScene, type SceneCheckContext } from "../../src/lib/engine/scene-check";
 import { SHARED_STYLES, validateWorkBrief } from "../../src/lib/work-preparation";
+import { loadDepictionProfile } from "../../src/lib/engine/depiction";
 
 const brief = validateWorkBrief(JSON.parse(readFileSync(new URL("../../works/bible-web/brief.json", import.meta.url), "utf8")));
+const profile = loadDepictionProfile(JSON.parse(readFileSync(new URL("../../works/bible-web/depiction.json", import.meta.url), "utf8")), brief.workId);
 const EXODUS = "exodus-wilderness-and-conquest-of-canaan";
 const MONARCHY = "monarchy-of-israel-and-judah";
 
@@ -100,7 +102,7 @@ async function capturePreparation(momentId: string): Promise<string[]> {
   }, bodies);
   const model = createOpenRouterTextModel({ apiKey: "test-key", fetch });
   const { store } = createMemoryPreparationStore(records);
-  await prepareMoment({ workId: "bible-web", momentId, store, model, brief, briefVersion: "golden-brief", context: contexts[momentId],
+  await prepareMoment({ workId: "bible-web", momentId, store, model, brief, briefVersion: "golden-brief", context: contexts[momentId], depiction: profile,
     holder: "golden", now: () => 0, sleep: async () => {} });
   return bodies;
 }
@@ -124,7 +126,7 @@ const renderingBase = (momentId: string, sectionId: string, eraId: string, style
   moment: { id: momentId, sectionId, reference: contexts[momentId].moment.reference, text: contexts[momentId].moment.text },
   neighbors: { previous: contexts[momentId].previous?.text ?? null, next: contexts[momentId].next?.text ?? null },
   brief, briefVersion: "golden-brief", eraId, style: SHARED_STYLES.get(styleId), styleVersion: `${styleId}-v1`, look, situation: null,
-  plan: plan(momentId), canon, references, variationNumber: 2, aspectRatio: "16:9", ...extra,
+  plan: plan(momentId), canon, references, variationNumber: 2, aspectRatio: "16:9", depiction: profile, ...extra,
 });
 
 function captureRendering(): Record<string, string> {
@@ -156,8 +158,8 @@ function captureRendering(): Record<string, string> {
 async function captureSceneCheck(): Promise<Record<string, string>> {
   const out: Record<string, string> = {};
   const contextsByName: Record<string, SceneCheckContext> = {
-    "people": { people: ["Moses"], description: "Mount Sinai wrapped in billowing smoke and fire; Moses at the front of the trembling crowd" },
-    "no-people-soft-edges": { people: [], description: "the gravel plain at the foot of Sinai; none", softEdges: true },
+    "people": { people: ["Moses"], description: "Mount Sinai wrapped in billowing smoke and fire; Moses at the front of the trembling crowd", depiction: profile },
+    "no-people-soft-edges": { people: [], description: "the gravel plain at the foot of Sinai; none", softEdges: true, depiction: profile },
   };
   for (const [name, context] of Object.entries(contextsByName)) {
     const bodies: string[] = [];

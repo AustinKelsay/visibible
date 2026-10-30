@@ -12,6 +12,7 @@ import { invalidReview, type ReviewInput } from "../engine/plan-review";
 import { sceneGroundingProblem } from "../engine/scene-grounding";
 import { momentContext, readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
+import { testDepiction } from "../../../tests/fixtures/depiction";
 
 const repair = new URL("../../../llm/releases/2026-10-22-luke-cast-repair/", import.meta.url);
 const rateCheck = new URL("../../../llm/releases/2026-10-23-grounding-rate-check/", import.meta.url);
@@ -195,7 +196,7 @@ describe("plan review before storage", () => {
 });
 
 describe("review report validation", () => {
-  const input = (present: string[]): ReviewInput => ({ rules: "- none", context: { moment: { id: "m", reference: "M", text: "text" }, previous: null, next: null }, sectionTitle: "S",
+  const input = (present: string[]): ReviewInput => ({ rules: "- none", depiction: testDepiction("bible-web"), context: { moment: { id: "m", reference: "M", text: "text" }, previous: null, next: null }, sectionTitle: "S",
     cast: [{ entryId: "a", name: "A", hasForm: true }, { entryId: "b", name: "B", hasForm: true }, { entryId: "voice", name: "Voice", hasForm: false }],
     present, fields: { primarySubject: "A kneels", action: "Light   SEATED above the throne", setting: "hall", secondaryElements: "B waits", mood: "", timeOfDay: "", composition: "" } });
   it.each([

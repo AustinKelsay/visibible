@@ -1,12 +1,13 @@
 /** Deployed work inputs for the generic engine (#175): file versions, moment text and in-section neighbours, reference currency. */
 import { describe, it, expect } from "vitest";
-import { mkdtemp, mkdir, writeFile, readFile } from "node:fs/promises";
+import { mkdtemp, mkdir, writeFile, readFile, rm } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { createWorkReader } from "../work-input";
 import { momentContext, momentForUnit, readWorkInputs, loadWorkInputs, clearWorkInputsCache } from "../engine/work-inputs";
 import { referenceIsCurrent } from "../engine/generation";
+import { loadDepictionProfile } from "../engine/depiction";
 
 const workFile = {
   schemaVersion: 1, id: "two-books", title: "Two Books", author: "Fixture", language: "en",
@@ -34,12 +35,15 @@ describe("moment context", () => {
 
 describe("repo inputs", () => {
   const brief = { schemaVersion: 1, workId: "two-books", tone: "Quiet.", depictionRules: [], eras: [{ id: "lake", label: "Lake", people: "Fisherfolk.", dress: "Wool.", buildingsAndObjects: "Boats.", technology: "Sail." }], styleIds: ["classical", "watercolor"] };
+  // A work with no subjects without form: no `effects` wording.
+  const depiction = { schemaVersion: 1, workId: "two-books", writingSurfaces: "nets or sails", closedDocuments: "letters stay folded", inscribedObjects: "boats", seriousSubjects: [], modes: {} };
   async function checkout() {
     const root = await mkdtemp(path.join(tmpdir(), "work-inputs-"));
     await mkdir(path.join(root, "works", "two-books"), { recursive: true });
     await mkdir(path.join(root, "styles"), { recursive: true });
     await writeFile(path.join(root, "works", "two-books", "work.json"), JSON.stringify(workFile));
     await writeFile(path.join(root, "works", "two-books", "brief.json"), JSON.stringify(brief, null, 2));
+    await writeFile(path.join(root, "works", "two-books", "depiction.json"), JSON.stringify(depiction));
     for (const id of ["classical", "watercolor"]) await writeFile(path.join(root, "styles", `${id}.json`), await readFile(path.join(process.cwd(), "styles", `${id}.json`)));
     return root;
   }
@@ -53,6 +57,17 @@ describe("repo inputs", () => {
     expect(Object.keys(inputs.styles)).toEqual(["classical", "watercolor"]);
     expect(inputs.styles.classical.version).toBe(sha(await readFile(path.join(root, "styles", "classical.json"), "utf8")));
     expect(inputs.work.getUnit("alpha-1-4").text).toBe("Verse 4.");
+    // The depiction profile is versioned by content and never registered, so whitespace does not remake looks or plans.
+    expect(inputs.depiction).toMatchObject({ workId: "two-books", writingSurfaces: "nets or sails", modes: {} });
+    expect(inputs.depiction.version).toBe(loadDepictionProfile(JSON.parse(JSON.stringify(depiction, null, 2)), "two-books").version);
+  });
+
+  it("refuses a missing depiction profile, or one that belongs to another work", async () => {
+    const root = await checkout();
+    await writeFile(path.join(root, "works", "two-books", "depiction.json"), JSON.stringify({ ...depiction, workId: "bible-web" }));
+    await expect(readWorkInputs("two-books", root)).rejects.toThrow(/depiction profile of bible-web was given for two-books/);
+    await rm(path.join(root, "works", "two-books", "depiction.json"));
+    await expect(readWorkInputs("two-books", root)).rejects.toThrow(/depiction\.json/);
   });
 
   it("caches a successful read per instance and never a failed one", async () => {

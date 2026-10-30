@@ -1,10 +1,14 @@
 /** The finished-image check (ADR 0007): both questions, which faults count from which reply, and which attempt is shown. */
 import { describe, expect, it } from "vitest";
-import { checkAndRetry, checkScene, edgeCheckQuestion, edgeCheckSchema, figureCheckQuestion, figureCheckSchema, preferredAttempt, sceneCheckFaults, SOFT_EDGE_STYLES } from "../engine/scene-check";
+import { checkAndRetry, checkScene, edgeCheckQuestion, edgeCheckSchema, figureCheckQuestion, figureCheckSchemaFor, preferredAttempt, sceneCheckFaults, SOFT_EDGE_STYLES } from "../engine/scene-check";
+import { testDepiction } from "../../../tests/fixtures/depiction";
+
+const bible = testDepiction("bible-web");
+const figureCheckSchema = figureCheckSchemaFor(bible);
 
 const answers = { figure_in_light: false, unpainted_edge: false, painted_frame: false, lettering: false, reasons: [] };
 const described = { edges: "scenery at every edge", bright_areas: "none", marks: "none", ...answers };
-const context = { people: ["Moses", "The Israelite people"], description: "Moses on the summit; cloud and pale radiance over the rocks" };
+const context = { people: ["Moses", "The Israelite people"], description: "Moses on the summit; cloud and pale radiance over the rocks", depiction: bible };
 
 describe("scene check", () => {
   it("asks both questions with the scene's own people and description", () => {
@@ -16,7 +20,7 @@ describe("scene check", () => {
     expect(edgeCheckQuestion(context)).toContain("Inspect all four edges and corners.");
     expect(figureCheckQuestion(context)).toContain("First describe the edges, the bright areas and any marks, then answer.");
     expect(figureCheckQuestion(context)).toContain("A flame, a heart-shaped glow or billowing cloud is not a figure.");
-    expect(edgeCheckQuestion({ people: [], description: "Light over dark water" })).toContain("The scene should show: no named characters.");
+    expect(edgeCheckQuestion({ people: [], description: "Light over dark water", depiction: bible })).toContain("The scene should show: no named characters.");
   });
 
   it("accepts only each question's strict reply shape", () => {

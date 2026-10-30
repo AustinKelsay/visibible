@@ -79,6 +79,8 @@ export const renderingPacketValidator = v.object({
   briefVersion: v.string(),
   lookVersion: v.string(),
   planVersion: v.string(),
+  // The work's depiction profile (ADR 0009); absent on packets accepted before profiles.
+  depictionVersion: v.optional(v.string()),
   canon: v.array(engineCanonRefValidator),
   references: v.array(engineReferenceRefValidator),
   flags: v.object({ variationIncluded: v.boolean(), neighborsIncluded: v.boolean(), styleDetailIncluded: v.boolean(), lookDetailIncluded: v.boolean() }),
@@ -95,6 +97,8 @@ export const imageProvenanceValidator = v.object({
   lookVersion: v.string(),
   planVersion: v.string(),
   promptVersion: v.string(),
+  // The work's depiction profile (ADR 0009); absent on images saved before profiles.
+  depictionVersion: v.optional(v.string()),
   analysisGeneration: v.number(),
   canon: v.array(engineCanonRefValidator),
   references: v.array(v.object({ kind: v.union(v.literal("styleReference"), v.literal("sheet")), id: v.string(), version: v.string() })),
