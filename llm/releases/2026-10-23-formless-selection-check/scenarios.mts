@@ -34,7 +34,7 @@ export function fixture(id: string) {
     const entry = records.find((r) => r.kind === "entry" && r.recordId === entryId)!;
     return { entryId, name: String(entry.payload.name), hasForm: entry.payload.hasForm !== false };
   });
-  const review: ReviewInput = { rules: inputs.brief.depictionRules.map((r) => `- ${r.text}`).join("\n") || "- none", context,
+  const review: ReviewInput = { rules: inputs.brief.depictionRules.map((r) => `- ${r.text}`).join("\n") || "- none", depiction: inputs.depiction, context,
     sectionTitle: String(section.payload.title), cast, present: row.stored.payload.entries.map((e: { entryId: string }) => e.entryId),
     fields: Object.fromEntries(PLAN_SCENE_FIELDS.map((f) => [f, row.stored.payload.plan[f]])) as ReviewInput["fields"] };
   return { row, sample, records, context, review };

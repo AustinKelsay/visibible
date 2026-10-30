@@ -363,7 +363,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       const checker = sceneChecker(runtime.openRouterApiKey, fetchImpl);
       if (checker) {
         const checkContext = { people: assembled.canon.filter((c) => c.hasForm && c.kind === "character").map((c) => c.name),
-          description: `${prepared.plan.payload.primarySubject}; ${prepared.plan.payload.secondaryElements}`, softEdges: SOFT_EDGE_STYLES.includes(style.id) };
+          description: `${prepared.plan.payload.primarySubject}; ${prepared.plan.payload.secondaryElements}`, softEdges: SOFT_EDGE_STYLES.includes(style.id), depiction: inputs.depiction };
         const checked = await checkAndRetry<ImageAttempt>(first, {
           check: (attempt, n) => {
             const match = attempt.imageUrl.match(/^data:(image\/[a-z+]+);base64,(.+)$/);
@@ -458,7 +458,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       // 15. The saved image: the work's reference text, never the reader's translation, with full provenance.
       const provenance = {
         workId, momentId, sectionId, eraId: packet.eraId, styleId: packet.styleId, styleVersion: packet.styleVersion, briefVersion: packet.briefVersion,
-        lookVersion: packet.lookVersion, planVersion: packet.planVersion, promptVersion: packet.promptVersion, analysisGeneration: input.readiness.activeGeneration,
+        lookVersion: packet.lookVersion, planVersion: packet.planVersion, promptVersion: packet.promptVersion, depictionVersion: packet.depictionVersion, analysisGeneration: input.readiness.activeGeneration,
         canon: packet.canon, references: packet.references.map((r) => ({ kind: r.kind, id: r.id, version: r.version })), requestTranslationId: input.translationId,
       };
       const sourceTranslationId = workId === "bible-web" ? BIBLE_REFERENCE_TRANSLATION : workId;

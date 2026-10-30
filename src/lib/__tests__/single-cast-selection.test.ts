@@ -10,6 +10,7 @@ import { momentContext, readWorkInputs } from "../engine/work-inputs";
 import type { AnalysisRecord } from "../engine/preparation";
 import type { TextModelRequest } from "../reading-pass/model";
 import type { WorkBrief } from "../work-preparation";
+import { testDepiction } from "../../../tests/fixtures/depiction";
 
 const text = "Mara holds the lantern. I tell her story.";
 const fields = { primarySubject: "Mara stands beside the door", action: "holds the lantern", setting: "workshop",
@@ -30,7 +31,7 @@ function setup(answer: unknown, problems: unknown[] = [], raw = false) {
     ...["mara", "lantern", "narrator"].map((recordId) => ({ kind: "entry", recordId, payload: { kind: "entry", name: recordId, entryKind: recordId === "lantern" ? "object" : "character", hasForm: true, stages: [{ id: "main", text: `${recordId}: plain appearance.` }] } })),
   ]);
   const calls: TextModelRequest[] = [];
-  const run = () => prepareMoment({ workId: "selection", momentId: "m1", store: memory.store, brief, briefVersion: "b1",
+  const run = () => prepareMoment({ workId: "selection", depiction: testDepiction("selection"), momentId: "m1", store: memory.store, brief, briefVersion: "b1",
     context: { moment: { id: "m1", reference: "1", text }, previous: null, next: null },
     model: { id: "scripted", complete: async (request) => {
       calls.push(request);

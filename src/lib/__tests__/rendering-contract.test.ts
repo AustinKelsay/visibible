@@ -14,6 +14,7 @@ import { assembleRendering } from "../engine/assemble";
 import { createMemoryPreparationStore } from "../engine/memory-store";
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
+import { testDepiction } from "../../../tests/fixtures/depiction";
 
 const release = new URL("../../../llm/releases/2026-10-23-source-first-check/", import.meta.url);
 const set = JSON.parse(readFileSync(new URL("sample-set.json", release), "utf8"));
@@ -224,7 +225,7 @@ describe("combined rendering content review", () => {
 });
 
 describe("review quote ownership", () => {
-  const input: ReviewInput = { rules: "", sectionTitle: "S", context: { moment: { id: "m", reference: "M", text: "A walks" }, previous: null, next: null },
+  const input: ReviewInput = { rules: "", depiction: testDepiction("bible-web"), sectionTitle: "S", context: { moment: { id: "m", reference: "M", text: "A walks" }, previous: null, next: null },
     cast: [{ entryId: "a", name: "A", hasForm: true }, { entryId: "b", name: "B", hasForm: true }], present: ["a"],
     fields: { primarySubject: "A in blue", action: "walks", setting: "court", secondaryElements: "", mood: "", timeOfDay: "day", composition: "" },
     rendering: { look: { place: "shore", timeOfDay: "night", weather: "clear", light: "moonlight", clothing: "red coats" },

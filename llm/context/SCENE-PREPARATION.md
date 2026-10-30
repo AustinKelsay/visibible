@@ -2,6 +2,8 @@
 
 [Lazy preparation](../../src/lib/engine/preparation.ts) makes the two pieces of text the generic engine needs before it can draw a moment. It runs the first time they are needed and stores them in the work's active analysis generation ([Analysis storage](ANALYSIS-STORAGE.md)). The legacy route's scene planner and its plan cache were removed with the legacy engine (#184).
 
+The instructions below are general. The work's [depiction profile](WORK-PREPARATION.md#depiction-profile) supplies the planner's written objects and examples. It also supplies every instruction about subjects without form, the throne, chariot and robe lists among them ([ADR 0010](../../docs/adr/0010-work-depiction-profiles.md)). The Bible's profile holds the wording quoted here. A work without that wording (Holmes) gets none of it: its planner lists "people, groups, places and objects", and its review cannot report `embodied_formless`. A section of such a work with an entry marked without form stops before any model call.
+
 Preparation is **forgiving** (moment-cast v15, formless-effects v17, formless-look v2, plan-review v12, rendering generic-v14; [ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md), [ADR 0005](../../docs/adr/0005-one-scene-description-unnamed-presence.md), [ADR 0006](../../docs/adr/0006-unseen-presence-speakers-and-launch-bar.md)). The plan review advises rather than gates. A usable plan is kept with notes instead of being refused, and only a few hard faults stop a moment. [ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md) records the decision.
 
 ## Section look
@@ -10,7 +12,7 @@ There is one look per story section, holding the situational place, time of day,
 
 - **Generated looks** (`source: "generated"`) are advisory guides. The planner receives one as `SECTION LOOK GUIDE (a suggestion; keep what fits this moment)` and resolves its own conditions; rendering never uses the raw look.
 - **Owner looks, and historical looks with unknown provenance**, are literal constraints. The planner receives them as `OWNER LOOK CONSTRAINTS (copy all values exactly)` to keep its setting and time consistent, and rendering takes all five values verbatim from the look record. A generated look is never regenerated over an owner look.
-- **Inputs:** the section version, the brief version, the canon versions of the section's cast, and, when the cast includes a no-form entry, the prompt marker `section_look_formless_presence`. A changed input remakes the look lazily; history is retained.
+- **Inputs:** the section version, the brief version, the canon versions of the section's cast, and, when the cast includes a no-form entry, the prompt marker `section_look_formless_presence` and `depiction_look` (the version of the profile's no-form look wording). A changed input remakes the look lazily; history is retained.
 - Looks use five required string fields (900-token ceiling, 350 expected). No-form sections use a stricter look prompt (formless-look v2) and a local 200-character check per field, retried once like any malformed reply. That prompt lists no-form cast by name only, with no canon, and permits their presence only as smoke, cloud, fire, wind or light spread through the place, never a throne, seat, robe or figure.
 
 ## Scene plan
@@ -79,6 +81,7 @@ All of these are in the content hash and excluded from image prompts. `review.no
 
 - The moment, the section (directly, so a stage reassignment refreshes it even when the look's bytes match), the look version and its ownership policy (`scene_plan_look_ownership`), the brief and the cast's canon versions.
 - The prompt markers `scene_plan_moment_cast` and `scene_plan_review`, plus `scene_plan_formless_presence` for no-form sections.
+- `depiction_plan`: the version of the profile wording the planner and review read. Wording only image prompts or checks read remakes nothing.
 
 A missing or older marker refreshes the plan on next use and reuses a current look. Nothing about a style or a translation enters the plan. Changing look ownership invalidates plans even for identical look bytes.
 

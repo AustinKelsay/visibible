@@ -10,7 +10,7 @@ These guides describe the repository's current behavior. Source links identify t
 | Model, translation, ratio or resolution preferences | [Preferences](context/PREFERENCES.md) |
 | Image requests, planner cache or progress | [Image generation](context/IMAGE-GENERATION.md) |
 | Image prompt construction | [Prompt specification](implementation/IMAGE_PROMPT_SPEC.md) |
-| Work briefs, shared art styles, draft scope checks or preparation approval | [Work preparation](context/WORK-PREPARATION.md) |
+| Work briefs, shared art styles, depiction profiles, draft scope checks or preparation approval | [Work preparation](context/WORK-PREPARATION.md) |
 | Bulk queues, pause/resume or scope selection | [Bulk generation](context/BULK-GENERATION.md) |
 | Saved images, shared history or remote image storage | [Image persistence](context/IMAGE-PERSISTENCE.md) |
 | A work's analysis: generations, canon versions, looks, plans, references and attention | [Analysis storage](context/ANALYSIS-STORAGE.md) |

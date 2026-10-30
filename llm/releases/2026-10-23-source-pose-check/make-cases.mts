@@ -5,6 +5,9 @@ import assert from "node:assert/strict";
 import { fixture } from "../2026-10-23-formless-selection-check/scenarios.mjs";
 import type { ReviewInput } from "../../../src/lib/engine/plan-review";
 import { dir, json, save } from "./common.mjs";
+import { readDepictionProfile } from "../../../src/lib/engine/depiction";
+// The Bible's depiction profile reproduces the wording these runs used (ADR 0010).
+const depiction = readDepictionProfile("bible-web");
 
 const prior = path.resolve(dir, "../2026-10-23-formless-selection-check");
 const rows = fs.readFileSync(path.join(prior, "results.ndjson"), "utf8").trim().split("\n").map((line) => JSON.parse(line));
@@ -37,13 +40,13 @@ for (const defect of [...cases]) {
   }
   cases.push({ id: `${defect.id}-repaired`, provenance: `Operator's minimal scene-field repair of ${defect.id}; source, cast and other fields unchanged.`, targets: [], input });
 }
-const base: ReviewInput = { rules: "The Presence has no physical body; represent an established presence through radiance around an unoccupied seat.", sectionTitle: "Synthetic vision control",
+const base: ReviewInput = { depiction, rules: "The Presence has no physical body; represent an established presence through radiance around an unoccupied seat.", sectionTitle: "Synthetic vision control",
   context: { moment: { id: "vision", reference: "Synthetic vision 1", text: "In the vision, the Presence appeared above the throne while a witness watched from the doorway." }, previous: null, next: null },
   cast: [{ entryId: "presence", name: "The Presence", hasForm: false }, { entryId: "witness", name: "Witness", hasForm: true }], present: ["presence", "witness"],
   fields: { primarySubject: "Radiance above an unoccupied throne; the witness stands in the doorway", action: "The radiance glows as the witness watches", setting: "A quiet hall", secondaryElements: "An unoccupied throne", mood: "Quiet wonder", timeOfDay: "Daylight", composition: "Wide view from inside the hall toward the throne and doorway" } };
 cases.push({ id: "synthetic-visible-presence", provenance: "Synthetic positive control: an explicit appearance, not a population sample.", targets: [], input: base });
 cases.push({ id: "synthetic-compatible-contact", provenance: "Synthetic positive control: touching an object supported by a bench is simultaneous, not the retained holding/putting-down sequence.", targets: [], input: {
-  rules: "- none", sectionTitle: "Synthetic workshop control", context: { moment: { id: "contact", reference: "Synthetic workshop 1", text: "The artisan rested one hand on the idol on the bench and looked at its dull surface." }, previous: null, next: null },
+  depiction, rules: "- none", sectionTitle: "Synthetic workshop control", context: { moment: { id: "contact", reference: "Synthetic workshop 1", text: "The artisan rested one hand on the idol on the bench and looked at its dull surface." }, previous: null, next: null },
   cast: [], present: [], fields: { primarySubject: "An artisan with one hand resting on an idol on the bench", action: "The artisan looks at the idol's dull surface while touching it with one hand", setting: "A workshop", secondaryElements: "The bench supports the idol; tools lie beside it", mood: "Disappointment", timeOfDay: "Daylight", composition: "Medium view of the artisan, idol and bench" },
 } });
 assert.equal(cases.length, 8);

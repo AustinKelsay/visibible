@@ -15,7 +15,9 @@ export const PROMPT_PRECEDENCE = Object.freeze([
 ] as const);
 export const COMMON_CONTENT_FLOOR = Object.freeze({
   prohibited: Object.freeze(["Sexually explicit content", "Lingering gore"]),
-  permitted: Object.freeze(["Serious depictions of battles, blood, death and crucifixion", "Non-sexual nudity"]),
+  /** Shown seriously in every work; a work's depiction profile may name more (the Bible adds crucifixion). */
+  seriousSubjects: Object.freeze(["battles", "blood", "death"]),
+  permitted: Object.freeze(["Non-sexual nudity"]),
 });
 
 const styleSchema = z.object({

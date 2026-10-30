@@ -3,8 +3,12 @@ import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import { readWorkInputs, momentContext } from "../../../src/lib/engine/work-inputs";
-import { PLAN_REVIEW_SYSTEM, planReviewUser, reviewPlan, type ReviewInput } from "../../../src/lib/engine/plan-review";
+import { planReviewSystem, planReviewUser, reviewPlan, type ReviewInput } from "../../../src/lib/engine/plan-review";
 import { dir, root, json, rate, hash, row } from "./common.mjs";
+import { readDepictionProfile } from "../../../src/lib/engine/depiction";
+// The Bible's depiction profile reproduces the wording these runs used (ADR 0010).
+const depiction = readDepictionProfile("bible-web");
+const PLAN_REVIEW_SYSTEM = planReviewSystem(depiction);
 
 globalThis.fetch = async () => { throw Error("Offline audit forbids network"); };
 const manifest = json("sha256.json");
@@ -17,7 +21,7 @@ const reviewInput = (reply: { moment: string; present: string[]; scene: ReviewIn
   const moment = row(snapshot, "moment", reply.moment)!, section = row(snapshot, "section", String(moment.payload.sectionId))!;
   const context = momentContext(inputs.work, { id: reply.moment, firstUnit: String(moment.payload.firstUnit), lastUnit: String(moment.payload.lastUnit) }, { firstUnit: String(section.payload.firstUnit), lastUnit: String(section.payload.lastUnit) });
   const cast = (section.payload.cast as Array<{ entryId: string }>).map(({ entryId }) => ({ entryId, name: String(row(snapshot, "entry", entryId)!.payload.name), hasForm: row(snapshot, "entry", entryId)!.payload.hasForm !== false }));
-  return { rules, context, sectionTitle: String(section.payload.title), cast, present: reply.present, fields: reply.scene };
+  return { rules, depiction, context, sectionTitle: String(section.payload.title), cast, present: reply.present, fields: reply.scene };
 };
 const lines = (file: string) => fs.readFileSync(file, "utf8").trim().split("\n").map((line) => JSON.parse(line));
 const kinds: Record<string, string> = { unselected_figure: "U", outside_instant: "X", not_one_instant: "I", embodied_formless: "F" };

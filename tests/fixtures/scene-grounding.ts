@@ -7,9 +7,11 @@ import type { SceneGrounding } from "../../src/lib/engine/scene-grounding";
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { FORMLESS_LOOK_PROMPT_VERSION } from "../../src/lib/engine/preparation";
+import { loadDepictionProfile } from "../../src/lib/engine/depiction";
 
 /** The deployed Bible brief's version, as the engine computes it from the file. */
 const bibleBriefVersion = createHash("sha256").update(readFileSync(new URL("../../works/bible-web/brief.json", import.meta.url), "utf8")).digest("hex");
+const bibleDepiction = loadDepictionProfile(JSON.parse(readFileSync(new URL("../../works/bible-web/depiction.json", import.meta.url), "utf8")), "bible-web");
 
 export function withGrounding<T extends { present: string[] }>(plan: T, focusQuote: string, quotes: Record<string, string> = {}) {
   const grounding: SceneGrounding = { focusQuote, singleInstant: true,
@@ -65,7 +67,13 @@ export function selectionReply(value: unknown): unknown {
  */
 export function withCurrentLookMarker<T extends { kind: string; inputs: Array<{ kind: string; recordId: string; version: string }> }>(record: T): T {
   if (record.kind !== "look" && record.kind !== "plan") return record;
-  return { ...record, inputs: record.inputs.map((input) =>
+  const inputs = record.inputs.map((input) =>
     input.kind === "prompt" && input.recordId === "section_look_formless_presence" ? { ...input, version: FORMLESS_LOOK_PROMPT_VERSION }
-    : input.kind === "brief" && input.recordId === "bible-web" ? { ...input, version: bibleBriefVersion } : input) };
+    : input.kind === "brief" && input.recordId === "bible-web" ? { ...input, version: bibleBriefVersion } : input);
+  // Retained Bible records predate depiction profiles (ADR 0010); the Bible's profile words them identically.
+  if (!inputs.some((input) => input.kind === "brief" && input.recordId === "bible-web")) return { ...record, inputs };
+  const has = (recordId: string) => inputs.some((input) => input.kind === "prompt" && input.recordId === recordId);
+  if (record.kind === "look" && has("section_look_formless_presence") && !has("depiction_look")) inputs.push({ kind: "prompt", recordId: "depiction_look", version: bibleDepiction.lookVersion });
+  if (record.kind === "plan" && !has("depiction_plan")) inputs.push({ kind: "prompt", recordId: "depiction_plan", version: bibleDepiction.planVersion });
+  return { ...record, inputs };
 }

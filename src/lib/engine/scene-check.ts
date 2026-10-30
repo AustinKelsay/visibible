@@ -1,13 +1,15 @@
 /**
  * A look-check of one finished scene image before it is shown (ADR 0007). Two cheap vision calls, run in parallel,
- * look for four visible faults: a figure in light, cloud or fire (God or another presence without form drawn as a
- * person), an unpainted edge, a painted frame, and lettering. Code, not the model, decides which faults count and
- * which of two attempts to show. A checker failure never blocks an image.
+ * look for visible faults: an unpainted edge, a painted frame, lettering and, in a work with subjects without form,
+ * a figure in light, cloud or fire (such a subject drawn as a person). The work's depiction profile words that fault
+ * and names its typical inscriptions; a work without such subjects is never asked about them (ADR 0010). Code, not
+ * the model, decides which faults count and which of two attempts to show. A checker failure never blocks an image.
  *
  * Each question is used for the faults it measured best on the dev set (llm/releases/2026-10-27-scene-check-benchmark):
  * the direct question (v1) for edges and frames, and the describe-first question (v2) for figures and lettering.
  */
 import { z } from "zod";
+import type { DepictionProfile } from "./depiction";
 
 /** Bump for changes to either question, schema or the fault rules. v3 = v1 edges and frames + v2 figures and lettering; v4 accepts soft edges in Watercolor. */
 export const SCENE_CHECK_VERSION = "2026-10-28-scene-check-v4";
@@ -25,13 +27,17 @@ export type SceneCheckContext = {
   description: string;
   /** The style's soft white edges are accepted, so an unpainted edge is not a fault. */
   softEdges?: boolean;
+  /** The work's wording for its inscriptions and for a figure drawn for a subject without form. */
+  depiction: DepictionProfile;
 };
 
 const sceneLine = (context: SceneCheckContext) =>
   `The scene should show: ${context.people.length ? context.people.join("; ") : "no named characters"}. Its description: ${context.description}`;
-const EDGE_RULES = `- unpainted_edge: true if any edge or corner fades into or shows bare white or cream paper, a blank band or an unpainted margin. Pale sky or cloud that continues the scene is not a margin.
+const edgeRules = (depiction: DepictionProfile) => `- unpainted_edge: true if any edge or corner fades into or shows bare white or cream paper, a blank band or an unpainted margin. Pale sky or cloud that continues the scene is not a margin.
 - painted_frame: true if an ornamental border, gilt band or frame runs along the edges as part of the artwork. A window or doorway inside the scene is not a frame.
-- lettering: true if letters, words, numerals, pseudo-script, inscriptions on objects such as tablets or scrolls, a signature or initials appear anywhere, including small marks in corners.`;
+- lettering: true if letters, words, numerals, pseudo-script, inscriptions on objects such as ${depiction.inscribedObjects}, a signature or initials appear anywhere, including small marks in corners.`;
+const faultCount = (depiction: DepictionProfile) => depiction.modes.effects ? "four" : "three";
+const figureRule = (line: string | undefined) => line ? `- figure_in_light: ${line}\n` : "";
 
 /** The direct question (v1): answers first. Used for edges and frames. */
 export const edgeCheckSchema = z.object({
@@ -41,31 +47,33 @@ export const edgeCheckSchema = z.object({
   lettering: z.boolean(),
   reasons: z.array(z.string()),
 }).strict();
+/** A work without subjects without form is not asked about a figure in light. */
+export const edgeCheckSchemaFor = (depiction: DepictionProfile) => depiction.modes.effects ? edgeCheckSchema : edgeCheckSchema.omit({ figure_in_light: true });
 export function edgeCheckQuestion(context: SceneCheckContext): string {
-  return `You inspect a finished illustration for four visible faults before a reader sees it. Judge only from the image. Return only JSON.
+  const { depiction } = context;
+  return `You inspect a finished illustration for ${faultCount(depiction)} visible faults before a reader sees it. Judge only from the image. Return only JSON.
 ${sceneLine(context)}
-- figure_in_light: true if any face, head, hands, robe, body or human-shaped silhouette appears inside, made of or emerging from light, radiance, cloud, smoke, fire, a pillar or the sky, or seated or standing on a throne, unless it is clearly one of the beings the description names. Look closely at every bright area, cloud and throne; a faint, translucent or partial figure counts. People standing in the scene, and winged angels or creatures the description names, do not count.
-${EDGE_RULES}
+${figureRule(depiction.modes.effects?.checkFigure.direct)}${edgeRules(depiction)}
 Inspect all four edges and corners. In reasons, name each fault you report and where it is; leave reasons empty when there are none.`;
 }
 
 /** The describe-first question (v2): what it sees, then answers. Used for figures and lettering. */
-export const figureCheckSchema = z.object({
+export const figureCheckSchemaFor = (depiction: DepictionProfile) => z.object({
   edges: z.string().describe("What reaches the top, bottom, left and right edges and the four corners, one short phrase each."),
-  bright_areas: z.string().describe("What is inside each bright area, cloud, fire, pillar or throne, or \"none\"."),
+  ...(depiction.modes.effects ? { bright_areas: z.string().describe(depiction.modes.effects.checkFigure.brightAreas) } : {}),
   marks: z.string().describe("Any letters, script, numerals, signature or initials, and where, or \"none\"."),
-  figure_in_light: z.boolean(),
+  ...(depiction.modes.effects ? { figure_in_light: z.boolean() } : {}),
   unpainted_edge: z.boolean(),
   painted_frame: z.boolean(),
   lettering: z.boolean(),
   reasons: z.array(z.string()),
 }).strict();
 export function figureCheckQuestion(context: SceneCheckContext): string {
-  return `You inspect a finished illustration for four visible faults before a reader sees it. Judge only from the image. Return only JSON.
+  const { depiction } = context;
+  return `You inspect a finished illustration for ${faultCount(depiction)} visible faults before a reader sees it. Judge only from the image. Return only JSON.
 ${sceneLine(context)}
-First describe the edges, the bright areas and any marks, then answer.
-- figure_in_light: true if a head, face, hands, shoulders or a robed or human-shaped body appears inside, made of or emerging from light, radiance, cloud, smoke, fire, a pillar or the sky, or seated or standing on a throne, unless it is clearly one of the beings the description names. A faint or translucent figure counts if you can point to its head, face, hands or body outline. A flame, a heart-shaped glow or billowing cloud is not a figure. People standing in the scene, and winged angels or creatures the description names, do not count.
-${EDGE_RULES}
+First describe ${depiction.modes.effects ? "the edges, the bright areas and any marks" : "the edges and any marks"}, then answer.
+${figureRule(depiction.modes.effects?.checkFigure.describe)}${edgeRules(depiction)}
 Each answer must agree with what you described. In reasons, name each fault you report and where it is; leave reasons empty when there are none.`;
 }
 
@@ -74,9 +82,13 @@ export type SceneFault = "figure" | "edge" | "frame" | "lettering";
 export const SCENE_FAULT_ORDER: SceneFault[] = ["figure", "lettering", "frame", "edge"];
 
 /** The faults that count, worst first, from the two replies. */
-export function sceneCheckFaults(edge: z.infer<typeof edgeCheckSchema>, figure: z.infer<typeof figureCheckSchema>, options: { softEdges?: boolean } = {}): SceneFault[] {
+/** The answers each question gives; `figure_in_light` only in a work with subjects without form. */
+type EdgeAnswers = Omit<z.infer<typeof edgeCheckSchema>, "figure_in_light"> & { figure_in_light?: boolean };
+type FigureAnswers = { edges: string; bright_areas?: string; marks: string; figure_in_light?: boolean; unpainted_edge: boolean; painted_frame: boolean; lettering: boolean; reasons: string[] };
+
+export function sceneCheckFaults(edge: EdgeAnswers, figure: FigureAnswers, options: { softEdges?: boolean } = {}): SceneFault[] {
   const faults: SceneFault[] = [];
-  if (figure.figure_in_light) faults.push("figure");
+  if (figure.figure_in_light === true) faults.push("figure");
   if (figure.lettering) faults.push("lettering");
   if (edge.painted_frame) faults.push("frame");
   if (edge.unpainted_edge && !options.softEdges) faults.push("edge");
@@ -100,8 +112,8 @@ export type SceneCheckResult = { faults: SceneFault[]; costUsd: number | null; e
 /** Both questions in parallel; throws when either reply is unavailable. */
 export async function checkScene(checker: SceneChecker, image: { bytes: Uint8Array; mimeType: string }, context: SceneCheckContext, label: string): Promise<SceneCheckResult> {
   const [edge, figure] = await Promise.all([
-    checker.check({ label: `${label}:edge`, question: edgeCheckQuestion(context), schema: edgeCheckSchema, image }),
-    checker.check({ label: `${label}:figure`, question: figureCheckQuestion(context), schema: figureCheckSchema, image }),
+    checker.check({ label: `${label}:edge`, question: edgeCheckQuestion(context), schema: edgeCheckSchemaFor(context.depiction) as z.ZodType<EdgeAnswers>, image }),
+    checker.check({ label: `${label}:figure`, question: figureCheckQuestion(context), schema: figureCheckSchemaFor(context.depiction) as z.ZodType<FigureAnswers>, image }),
   ]);
   return { faults: sceneCheckFaults(edge.value, figure.value, { softEdges: context.softEdges }), costUsd: edge.costUsd === null || figure.costUsd === null ? null : edge.costUsd + figure.costUsd, elapsedMs: Math.max(edge.elapsedMs, figure.elapsedMs) };
 }

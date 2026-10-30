@@ -14,6 +14,15 @@ Updated 29 October 2026. Canonical release ticket: [#183](https://github.com/Aus
 
 **Fresco launch (28 October, 20:31 UTC):** release #298 (`af2b4d3`) deployed `dpl_E4Vg2JmUhXkUjXqbVGoSxxS93LUn`. One second after the alias moved, `works:amend-brief-styles` moved production's registered and active brief from `1f5f38a7…` to `35c6e9a0…`, and the work stayed ready. `/api/image-models` reports Classical, Watercolor and Fresco available and Icon unavailable. [Launch record](2026-10-28-fresco-launch/deployment.json).
 
+**Depiction profiles (on `dev` since 30 October, ships with the next release; [ADR 0010](../../docs/adr/0010-work-depiction-profiles.md)):**
+
+- **What moved.** The Bible's wording left the shared engine for `works/bible-web/depiction.json`. Holmes has its own profile with no subjects without form.
+- **No image change, no evaluation.** Every Bible request is byte-for-byte unchanged, pinned by a golden test.
+- **At release.** Deploy the Convex schema before the application: packets and saved images gain an optional `depictionVersion`, and the Vercel build's `convex deploy` runs first. Nothing needs registering or amending. Cached plans, and looks of sections with a no-form entry, are remade once, lazily, because they now record the profile they read. Production held 55 plans and 46 looks on 29 October.
+- **Owner follow-ups, not yet applied.**
+  - Return production's wrongly no-form Nineveh and heavenly court to `form` with `works:correct set-depiction`.
+  - Satan's dragon, the foolish woman's doorway and the Holy Spirit's dove need a new mode, with wording and an image evaluation.
+
 **Analysis correction (28 October):** John 11:43 (Lazarus) was planned at Joseph of Arimathea's Jerusalem tomb, a wrong cast assignment CodeRabbit flagged on #297. A scan found the same tomb wrongly cast in Mark 5:1 (the Gerasene tombs). Both sections were corrected in production with the new `works:correct remove-cast` ([record](2026-10-28-cast-corrections/README.md)); the other 11 sections that cast the tomb are correct. The shared dev Convex deployment keeps the old brief registration, which matters only if a preview turns the generic engine on (previews run with it disabled).
 
 | Gate | Current evidence |

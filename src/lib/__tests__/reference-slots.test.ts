@@ -11,6 +11,7 @@ import type { WorkInputs } from "../engine/work-inputs";
 import { createWorkReader } from "../work-input";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
 import type { TextModel } from "../reading-pass/model";
+import { testDepiction } from "../../../tests/fixtures/depiction";
 
 const work = createWorkReader({
   schemaVersion: 1, id: "camp", title: "The Camp", author: "Fixture", language: "en",
@@ -22,7 +23,7 @@ const brief: WorkBrief = {
   schemaVersion: 1, workId: "camp", tone: "Plain.", depictionRules: [],
   eras: [{ id: "desert", label: "Desert", people: "Herders.", dress: "Wool.", buildingsAndObjects: "Tents.", technology: "Staffs." }], styleIds: ["classical"],
 };
-const inputs: WorkInputs = { work, workVersion: "wv", brief, briefVersion: "bv", styles: { classical: { style: SHARED_STYLES.get("classical"), version: "sv-classical" } } };
+const inputs: WorkInputs = { work, workVersion: "wv", brief, briefVersion: "bv", depiction: testDepiction("camp"), styles: { classical: { style: SHARED_STYLES.get("classical"), version: "sv-classical" } } };
 const entry = (recordId: string, name: string, entryKind: "character" | "location", text: string) =>
   ({ kind: "entry", recordId, payload: { kind: "entry", name, entryKind, hasForm: true, stages: [{ id: "main", text }] } });
 const records = [
