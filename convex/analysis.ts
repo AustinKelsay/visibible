@@ -968,30 +968,36 @@ export const listRecordHistory = query({
  * older version of the given record. Detection only: nothing is remade and saved images are
  * never touched. A pinned reference is listed with its pin so callers can leave it alone.
  */
+/**
+ * Current looks, plans and references that name an older version of a record. Only looks and plans record inputs, so
+ * the work's moments are never read: a full Bible's 31,102 moments would pass a transaction's 32,000-document limit.
+ */
+export async function staleDependents(ctx: QueryCtx, args: { workId: string; kind: AnalysisKind; recordId: string }) {
+  const work = await findWork(ctx, args.workId);
+  if (!work || work.activeGeneration === undefined) return [];
+  const current = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
+  const records = [...await currentKind(ctx, args.workId, work.activeGeneration, "look"), ...await currentKind(ctx, args.workId, work.activeGeneration, "plan")];
+  // Only current references can be stale; superseded ones are history.
+  const references = await ctx.db
+    .query("referenceImages")
+    .withIndex("by_work_status", (q) => q.eq("workId", args.workId).eq("status", "current"))
+    .collect();
+  const stale: Array<{ kind: AnalysisKind | "sheet" | "styleReference"; recordId: string; version: string; usedVersion: string; pinned?: boolean }> = [];
+  const olderThanCurrent = (used: InputRef | undefined) => used !== undefined && (!current || used.version !== current.version);
+  for (const r of records) {
+    const used = r.inputs.find((i: InputRef) => i.kind === args.kind && i.recordId === args.recordId);
+    if (olderThanCurrent(used)) stale.push({ kind: r.kind, recordId: r.recordId, version: r.version, usedVersion: used!.version });
+  }
+  for (const r of references) {
+    const used = r.inputs.find((i: InputRef) => i.kind === args.kind && i.recordId === args.recordId);
+    if (olderThanCurrent(used)) stale.push({ kind: r.kind, recordId: r.recordId, version: r.fingerprint, usedVersion: used!.version, pinned: r.pinned });
+  }
+  return stale;
+}
+
 export const listStaleDependents = query({
   args: { workId: v.string(), kind: analysisValidators.kind, recordId: v.string() },
-  handler: async (ctx, args) => {
-    const work = await findWork(ctx, args.workId);
-    if (!work || work.activeGeneration === undefined) return [];
-    const current = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
-    const records = await currentRecords(ctx, args.workId, work.activeGeneration);
-    // Only current references can be stale; superseded ones are history.
-    const references = await ctx.db
-      .query("referenceImages")
-      .withIndex("by_work_status", (q) => q.eq("workId", args.workId).eq("status", "current"))
-      .collect();
-    const stale: Array<{ kind: AnalysisKind | "sheet" | "styleReference"; recordId: string; version: string; usedVersion: string; pinned?: boolean }> = [];
-    const olderThanCurrent = (used: InputRef | undefined) => used !== undefined && (!current || used.version !== current.version);
-    for (const r of records) {
-      const used = r.inputs.find((i: InputRef) => i.kind === args.kind && i.recordId === args.recordId);
-      if (olderThanCurrent(used)) stale.push({ kind: r.kind, recordId: r.recordId, version: r.version, usedVersion: used!.version });
-    }
-    for (const r of references) {
-      const used = r.inputs.find((i: InputRef) => i.kind === args.kind && i.recordId === args.recordId);
-      if (olderThanCurrent(used)) stale.push({ kind: r.kind, recordId: r.recordId, version: r.fingerprint, usedVersion: used!.version, pinned: r.pinned });
-    }
-    return stale;
-  },
+  handler: staleDependents,
 });
 
 /** The current reference and whether it is stale against the inputs it should have been made from. */

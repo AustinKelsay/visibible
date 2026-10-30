@@ -97,6 +97,16 @@ describe("owner corrections", () => {
     await expect(c.editStage("jonah", "nope", "x")).rejects.toThrow(/no stage nope/);
   });
 
+  it("corrects an entry's kind as an owner version, refusing an unknown kind, a multi-stage object or a stale edit", async () => {
+    const before = (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!;
+    await expect(c.setKind("jonah", "city")).rejects.toThrow(/one of character, location, object/);
+    // Jonah has two stages; an object has one.
+    await expect(c.setKind("jonah", "object")).rejects.toThrow(/An object has one stage; jonah has 2/);
+    expect(await c.setKind("jonah", "location")).toMatchObject({ changed: true, previous: "character", entryKind: "location", staleDependents: [] });
+    expect((await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))).toMatchObject({ source: "owner", payload: { ...before.payload, entryKind: "location" } });
+    await expect(c.setKind("jonah", "character", before.version)).rejects.toThrow(/Stale edit/);
+  });
+
   it("sets an entry's depiction as an owner version, refusing a mode the work has no wording for, an unknown mode or another work's profile", async () => {
     const plan = { kind: "plan" as const, momentId: "s1", entries: [{ entryId: "jonah", stageId: "young" }],
       plan: { primarySubject: "Jonah", action: "rows", setting: "lake", secondaryElements: "", mood: "calm", timeOfDay: "dawn", composition: "wide" } };
