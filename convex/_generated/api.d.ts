@@ -8,10 +8,12 @@
  * @module
  */
 
+import type * as _helpers_attention from "../_helpers/attention.js";
 import type * as _helpers_auth from "../_helpers/auth.js";
 import type * as _helpers_contentVersion from "../_helpers/contentVersion.js";
 import type * as _helpers_guestKeys from "../_helpers/guestKeys.js";
 import type * as _helpers_pendingHolds from "../_helpers/pendingHolds.js";
+import type * as _helpers_styleIds from "../_helpers/styleIds.js";
 import type * as analysis from "../analysis.js";
 import type * as bulkGenerations from "../bulkGenerations.js";
 import type * as cleanup from "../cleanup.js";
@@ -29,6 +31,8 @@ import type * as nostrScheduler from "../nostrScheduler.js";
 import type * as rateLimit from "../rateLimit.js";
 import type * as sessions from "../sessions.js";
 import type * as verseImages from "../verseImages.js";
+import type * as verseVideos from "../verseVideos.js";
+import type * as videoWorker from "../videoWorker.js";
 import type * as walletMigration from "../walletMigration.js";
 
 import type {
@@ -38,10 +42,12 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  "_helpers/attention": typeof _helpers_attention;
   "_helpers/auth": typeof _helpers_auth;
   "_helpers/contentVersion": typeof _helpers_contentVersion;
   "_helpers/guestKeys": typeof _helpers_guestKeys;
   "_helpers/pendingHolds": typeof _helpers_pendingHolds;
+  "_helpers/styleIds": typeof _helpers_styleIds;
   analysis: typeof analysis;
   bulkGenerations: typeof bulkGenerations;
   cleanup: typeof cleanup;
@@ -59,6 +65,8 @@ declare const fullApi: ApiFromModules<{
   rateLimit: typeof rateLimit;
   sessions: typeof sessions;
   verseImages: typeof verseImages;
+  verseVideos: typeof verseVideos;
+  videoWorker: typeof videoWorker;
   walletMigration: typeof walletMigration;
 }>;
 

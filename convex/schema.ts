@@ -325,6 +325,51 @@ export default defineSchema({
     .index("by_generationId", ["generationId"])
     .index("by_createdAt", ["createdAt"]),
 
+  videoJobs: defineTable({
+    sid: v.string(),
+    requestId: v.string(),
+    inputFingerprint: v.string(),
+    generationId: v.string(),
+    verseId: v.string(),
+    reference: v.string(),
+    translation: v.string(),
+    prompt: v.string(),
+    duration: v.union(v.literal(5), v.literal(10)),
+    resolution: v.union(v.literal("480p"), v.literal("768p")),
+    status: v.union(
+      v.literal("queued"),
+      v.literal("submitting"),
+      v.literal("processing"),
+      v.literal("storing"),
+      v.literal("completed"),
+      v.literal("failed")
+    ),
+    active: v.boolean(),
+    admin: v.boolean(),
+    estimatedCostUsd: v.number(),
+    estimatedCredits: v.number(),
+    actualCostUsd: v.optional(v.number()),
+    actualCredits: v.optional(v.number()),
+    absorbedCostUsd: v.optional(v.number()),
+    providerId: v.optional(v.string()),
+    storageId: v.optional(v.id("_storage")),
+    error: v.optional(v.string()),
+    failureKind: v.optional(v.string()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    nextRunAt: v.number(),
+    lease: v.number(),
+    leaseUntil: v.number(),
+    attempts: v.number(),
+  })
+    .index("by_request", ["sid", "requestId"])
+    .index("by_sid_active", ["sid", "active"])
+    .index("by_sid_verse", ["sid", "verseId", "createdAt"])
+    .index("by_sid_createdAt", ["sid", "createdAt"])
+    .index("by_verse_status", ["verseId", "status", "createdAt"])
+    .index("by_generationId", ["generationId"])
+    .index("by_active_nextRun", ["active", "nextRunAt"]),
+
   // Singleton scheduler state for recurring Nostr publishing windows.
   nostrPublishingState: defineTable({
     key: v.string(),

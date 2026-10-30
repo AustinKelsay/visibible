@@ -44,7 +44,9 @@ export function VerseViewProvider({ children }: VerseViewProviderProps) {
   const { tier, credits } = useSession();
   const searchParams = useSearchParams();
   const routeView: VerseViewValue =
-    searchParams.get("view") === "gallery" ? "gallery" : "reader";
+    searchParams.get("view") === "video"
+      ? "video"
+      : searchParams.get("view") === "gallery" ? "gallery" : "reader";
   const [viewOverride, setViewOverride] = useState<VerseViewOverride | null>(null);
   const pendingPreferenceChangeRef = useRef<PendingPreferenceChange | null>(null);
   const effectiveView =
@@ -76,8 +78,13 @@ export function VerseViewProvider({ children }: VerseViewProviderProps) {
       return;
     }
 
-    pendingPreferenceChangeRef.current = { source, view };
+    pendingPreferenceChangeRef.current = view === "video" || effectiveView === "video"
+      ? null : { source, view };
     setViewOverride(view === routeView ? null : { baseView: routeView, view });
+    const url = new URL(window.location.href);
+    if (view === "reader") url.searchParams.delete("view");
+    else url.searchParams.set("view", view);
+    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
   }, [effectiveView, routeView]);
 
   const value = useMemo(() => ({

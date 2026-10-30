@@ -8,6 +8,14 @@ vi.mock("@/context/verse-view-context", () => ({
   useVerseView: vi.fn(),
 }));
 
+vi.mock("next/dynamic", () => ({
+  default: () => ({ verseId }: { verseId: string }) => createElement(
+    "div",
+    { "data-video-verse-id": verseId },
+    "VideoMode"
+  ),
+}));
+
 vi.mock("@/components/hero-image", () => ({
   HeroImage: () => createElement("div", null, "HeroImage"),
 }));
@@ -82,6 +90,22 @@ describe("VersePageContent", () => {
     expect(markup).toContain("VerseStripBar");
     expect(markup).toContain("ScriptureReader");
     expect(markup).toContain("ScriptureDetails");
+    expect(markup).not.toContain("ChapterGallery");
+    expect(markup).not.toContain("VideoMode");
+  });
+
+  it("mounts Video mode with the canonical verse ID instead of the reading or gallery views", () => {
+    useVerseViewMock.mockReturnValue({
+      isSettled: true,
+      effectiveView: "video",
+    } as never);
+
+    const markup = renderToStaticMarkup(createElement(VersePageContent, baseProps));
+
+    expect(markup).toContain("VideoMode");
+    expect(markup).toContain('data-video-verse-id="genesis-1-1"');
+    expect(markup).not.toContain("HeroImage");
+    expect(markup).not.toContain("ScriptureReader");
     expect(markup).not.toContain("ChapterGallery");
   });
 

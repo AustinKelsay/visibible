@@ -62,3 +62,6 @@ function_spec.json
 /evals/images/runs/
 # Release rehearsal results: observed outcomes attached to the release PR, not source
 /evals/rehearsal/
+
+# Local evaluation media and browser evidence
+/output/

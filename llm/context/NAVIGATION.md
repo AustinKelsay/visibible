@@ -10,12 +10,12 @@ Verse URLs are `/{book}/{chapter}/{verse}`. [navigation.ts](../../src/lib/naviga
 - [Mobile navigation](../../src/components/mobile-verse-nav.tsx) and [keyboard helper](../../src/lib/verse-keyboard-navigation.ts): responsive and keyboard behavior.
 - [Chat sidebar](../../src/components/chat-sidebar.tsx): chat and feedback tabs.
 
-## Gallery and selected images
+## Verse modes and selected images
 
-[VerseViewProvider](../../src/context/verse-view-context.tsx) reads `?view=gallery`; other values default to the reader. The header can override that view in memory. The override is tied to the route's base view, not stored as a localStorage preference.
+[VerseViewProvider](../../src/context/verse-view-context.tsx) reads `?view=gallery` and `?view=video`; other values default to the reader. The Images / Gallery / Video switcher updates the URL with `replaceState`, so refresh preserves the selected mode. It is not a localStorage preference. Video unmounts when another mode is selected, stopping playback. Its desktop and mobile adjacent-verse links preserve `?view=video`; see [Video generation](VIDEO-GENERATION.md).
 
 [ChapterGallery](../../src/components/chapter-gallery.tsx) shows the saved images in the selected art style or groups them by verse, with placeholders where art is missing; existing images count as Classical. Chapter navigation preserves `?view=gallery`. Cards return to the reader; a saved-image card adds `?image=<id>` so the reader can select that image. A separate fullscreen action opens the gallery lightbox.
 
-[VersePageContent](../../src/components/verse-page-content.tsx) coordinates reader/gallery rendering. Keep the generation callback registration intact when changing which surface is visible: header generation uses [GenerationContext](../../src/context/generation-context.tsx), with state supplied by HeroImage.
+[VersePageContent](../../src/components/verse-page-content.tsx) coordinates reader, gallery, and video rendering. Image settings and generation controls are hidden in Video mode. Keep the generation callback registration intact when changing which surface is visible: header generation uses [GenerationContext](../../src/context/generation-context.tsx), with state supplied by HeroImage.
 
 The reader's image dock shows the selected style's images of a verse. When the verse has images in other styles, an "N in other styles" control opens a deliberate other-styles view for that verse and style; changing the style or verse returns to the style's own images, and auto-generation never fires while that view is open.

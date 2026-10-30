@@ -558,7 +558,7 @@ export function BuyCreditsModal() {
                     Help build the visual Bible
                   </p>
                   <p className="text-xs text-[var(--muted)]">
-                    Credits fund new images and visualizations. Everything created here becomes part of a growing library anyone can explore for free.
+                    Credits fund new images and videos. Everything created here becomes part of a growing library anyone can explore for free.
                   </p>
                 </div>
               </div>
@@ -570,7 +570,7 @@ export function BuyCreditsModal() {
                     Participate in the experience
                   </p>
                   <p className="text-xs text-[var(--muted)]">
-                    Browse existing images for free, or purchase credits to generate your own.
+                    Browse existing images and videos for free, or purchase credits to generate your own.
                   </p>
                   <div className="flex flex-col items-center -ml-8">
                     <MiniVerseStrip />
@@ -617,9 +617,9 @@ export function BuyCreditsModal() {
             <div className="mb-4 rounded-[var(--radius-md)] bg-[var(--surface)] px-4 py-3 text-xs">
               <p className="text-[var(--foreground)] font-medium mb-2">Early Access</p>
               <ul className="space-y-1 text-[var(--muted)]">
-                <li>Credits are used for AI image generation</li>
+                <li>Credits are used for AI image and video generation</li>
                 <li>Lightning payments only (no on-chain)</li>
-                <li>No refunds during alpha</li>
+                <li>Credit purchases are non-refundable during alpha</li>
               </ul>
             </div>
 
