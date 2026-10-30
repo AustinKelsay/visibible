@@ -1,0 +1,412 @@
+{
+  "scorer": "model-b",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "i053",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Hezekiah stands centred with a staff in the temple court, priests and Levites at the altar and bronze sea behind; carved cherub reliefs only, no glyphs, and the pale top edge is painted hazy sky."
+    },
+    {
+      "id": "i054",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice sits indignant in an armchair at the near end while the March Hare and Hatter crowd the far corner over the sleeping Dormouse; no lettering on the hat or china, edges fully painted."
+    },
+    {
+      "id": "i055",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Fire and sulfur streak down onto two burning walled cities across the plain with glowing pits and a small herder shielding his face at lower centre; no figure in the sky, no glyphs or blank edges."
+    },
+    {
+      "id": "i056",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Aged Adam lies still on a mat in the tent with bowed family members on either side at dusk; the hearth is lit rather than cold, a minor detail, and nothing malformed or lettered."
+    },
+    {
+      "id": "i057",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Jesus stands in the boat with arm extended over smoothing water while soaked disciples cling to the sides under a lightening sky; the shape by the sail at right is a rope knot, not a hand."
+    },
+    {
+      "id": "i058",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Naomi sits central with the infant in her lap, the women of Bethlehem in an arc around her in a lamplit mudbrick courtyard; edges are fully painted and no glyphs."
+    },
+    {
+      "id": "i059",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel stands calm in the stone den among crouched closed-mouthed lions, Darius leans over the rim at top left and two guards hold torches at top right; nothing lettered or malformed."
+    },
+    {
+      "id": "i060",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes has a recognisable Benedict Cumberbatch screen likeness; the cane is stuck in the ventilator at upper left with nobody holding it while Holmes holds only the match."
+    },
+    {
+      "id": "i061",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Saul kneels shielding his eyes under a shaft of light on the road with companions shielding theirs and Damascus beyond (anachronistic dome and minaret); white paper margins all round are accepted."
+    },
+    {
+      "id": "i062",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes, standing at back left with a lit lantern, has a Benedict Cumberbatch screen likeness; the others stand in plain view rather than hidden in darkness, and small white paper shows at the top-left and bottom-right corners (accepted)."
+    },
+    {
+      "id": "i063",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "flawed",
+      "notes": "The seraphim are ordinary two-winged angels with bare feet showing, not six-winged with faces and feet covered by wings, and the top-centre one holds tongs and a coal from a later verse; the cloud has no figure, though a small golden statue-like shape stands in the sanctuary doorway."
+    },
+    {
+      "id": "i064",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Kneeling Holmes with lens and lantern has a Benedict Cumberbatch screen likeness; a faint script-like squiggle sits on a floor flag at lower centre-right, and the bottom corners fade to paper (accepted)."
+    },
+    {
+      "id": "i065",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes and Watson resemble Benedict Cumberbatch and Martin Freeman, and a book on the desk at centre-right has pseudo-letters on its cover; the left edge is white paper (accepted)."
+    },
+    {
+      "id": "i066",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes, holding the blue stone up at the window, has a Benedict Cumberbatch likeness and the seated Watson resembles Martin Freeman; the open strongbox at left is full of more blue gems, which works against a single unique stone."
+    },
+    {
+      "id": "i067",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Five disciples bail and grip the sides of a swamped boat in high waves under storm clouds, with other boats and the shore beyond; a white paper patch at the bottom-left edge is accepted."
+    },
+    {
+      "id": "i068",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "A 'K' index shows on the card courtier at right and the papers on the reading stand carry script lines; the Knave (red doublet, crown cushion) and the helmeted soldiers along the right wall are drawn as humans, not flat cards."
+    },
+    {
+      "id": "i069",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter stands in the foreground by a brazier glancing across the courtyard to Jesus in red in the middle distance, with a rooster on the roof at top right and servants by the fire; the net Peter carries is an odd prop but nothing faulty."
+    },
+    {
+      "id": "i070",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Disciples stand on the shore by the beached boat and net, looking at a charcoal fire with fish and a loaf on it, village houses behind; the bright top edge is painted sky, no glyphs."
+    },
+    {
+      "id": "i071",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "A golden radiance rises over dark misty water from the upper centre with no figure or form in it; the edges are dark painted canvas with no white or lettering."
+    },
+    {
+      "id": "i072",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses stands centre with staff, arm outstretched, while families pack bundles and animals below a cloud-wrapped mountain; no lettering or malformed figures."
+    },
+    {
+      "id": "i073",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A priest beside the horned altar plucks a bird so feathers fall onto the ash heap, with the tabernacle and a few onlookers behind; white paper margins are accepted."
+    },
+    {
+      "id": "i074",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes, standing at right, has a Benedict Cumberbatch screen likeness beside the bandaged Hatherley pointing at the burning house; small white paper bits at the left corners are accepted."
+    },
+    {
+      "id": "i075",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The father embraces his ragged barefoot son while two servants approach from the left with a robe and sandals, though no ring is visible; the pale top edge is accepted."
+    },
+    {
+      "id": "i076",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Attendants lift Daniel out over the den's rim while Darius leans in joyfully from the left, with lions resting below; the barred gate inside the pit is odd, but the scene, hands and edges are fine."
+    },
+    {
+      "id": "i077",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes and Watson have Benedict Cumberbatch and Martin Freeman likenesses, and the newspaper at right has headline-like letters while the letters on the desk carry script lines."
+    },
+    {
+      "id": "i078",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Playing cards on the walls and the card courtier at left show corner indices ('K', 'A'); otherwise the nervous Hatter with teacup and bread, the King on the dais, the spectacled Queen and the slate-holding jury match the scene."
+    }
+  ]
+}

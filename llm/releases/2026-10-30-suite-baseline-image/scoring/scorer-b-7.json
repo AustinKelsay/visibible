@@ -1,0 +1,416 @@
+{
+  "scorer": "model-b",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "i157",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel stands centred in a stone pit with four docile lions with closed jaws at his feet; Darius in Persian robe and crown leans over the rim with torch-bearing guards. No lid or dawn and Daniel faces the viewer rather than lifting his face, but nothing wrong is shown."
+    },
+    {
+      "id": "i158",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Samuel in a blue cloak tips the horn over the kneeling David with radiance around his head, Jesse with staff and three brothers stand around in a Bethlehem courtyard. The sky fades to blank paper along the top edge (accepted)."
+    },
+    {
+      "id": "i159",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "David's sling (upper left, ~200,200) still holds the stone in its pouch while Goliath is already struck at the helmet and toppling (centre-right), so the throw and the hit contradict each other. A thin white border runs along all four edges (accepted)."
+    },
+    {
+      "id": "i160",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "The den is a separate barred gate with a wooden lid at left, while the king presses clay onto a loose round stone lying on the courtyard paving and being dragged off by rope-pullers at right, so the stone covers nothing. The lords and lamp are right, but the sealing of the den's mouth is not shown."
+    },
+    {
+      "id": "i161",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "The Dormouse sits in a cracked teapot with a paw raised, Alice in a pinafore leans across the table, the March Hare offers a cup and the Hatter holds his cup and bread under a tree. The teapot's fret pattern and the blank tag on the Hatter's hat carry no glyphs."
+    },
+    {
+      "id": "i162",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A woman with a basket of grapes and a man steadying a tall vine post stand in a terraced vineyard at golden dusk; a child carries two jars, an ox rests by a low wall and a red-cloaked Roman walks the road above a walled harbour town."
+    },
+    {
+      "id": "i163",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter steps from the gunwale with one sandalled foot reaching the water toward Jesus, who stands on the waves at right; six disciples crowd the boat with a lantern under a moonlit, cloudy sky. No text, border or anatomy problems."
+    },
+    {
+      "id": "i164",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Playing cards leaning against the dais (bottom centre-right, ~800-1090,580-720) carry 'A' corner indices, and scattered papers at bottom right show script-like lines. Small Alice with folded arms, the King and Queen on the bench and the animal jury with slates are otherwise right."
+    },
+    {
+      "id": "i165",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A bald Elisha in a hairy mantle, seen from behind, climbs a dusty road while a band of youths pours out of Bethel's gate at upper right with arms raised and mouths open; onlookers stand in doorways and a calf statue tops a hill shrine. No faults seen."
+    },
+    {
+      "id": "i166",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "The gold friezes and door lintel of the temple (upper right, ~890-1120,30-280) carry rows of glyph-like pseudo-script. Peter lifting the lame man by the right hand, with John and a watching crowd at the gate, is otherwise right; no white edge."
+    },
+    {
+      "id": "i167",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Job with a staff stands on an ash heap strewn with broken pottery, looking up at a towering dust whirlwind against a golden-red storm sky, with city walls on the horizon. The storm has no human form; Job is larger in frame than asked, which is minor."
+    },
+    {
+      "id": "i168",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "A grinning tabby Cheshire Cat with long claws sprawls on a high branch while small Alice in a pinafore looks up warily from the path below in a shaded wood with mushrooms. No faults seen."
+    },
+    {
+      "id": "i169",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The elderly father in a brown mantle embraces and kisses the bowed, barefoot son in a ragged tunic on a stone road with low walls, olive trees and a farmstead behind at dusk. No faults seen."
+    },
+    {
+      "id": "i170",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "yes",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "flawed",
+      "notes": "The robed lion creature at left has an extra foreleg: two paws are crossed under the robe, a third paw is raised behind the mane, and the hind feet are separate (~150-330,300-520). The throne is empty with radiance and a rainbow, so God is not drawn; John stands below on the glassy sea."
+    },
+    {
+      "id": "i171",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "A throne of flames on burning wheels blazes in a night sky above the city with no figure seated on it, and small Daniel in a tunic and cloak gazes up from the lower foreground. No text or border."
+    },
+    {
+      "id": "i172",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Isaiah in a mantle steadies a bowed, weary man who is just raising his head, on a Jerusalem street at dawn below the walls and temple, with a water jar and a few townsfolk. No faults seen."
+    },
+    {
+      "id": "i173",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "flawed",
+      "notes": "Egyptian chariots run sideways along the near bank right beside Moses and a group of Israelites (left foreground), while other Israelites walk inside the channel between the walls of water; a charioteer runs on foot beside his chariot. The chariots are not shown driving into the sea. The pillar of fire and cloud have no human form."
+    },
+    {
+      "id": "i174",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A woman picks grapes into a basket and a man steadies a vine post on a terraced hillside at dusk, with a child carrying jars, an ox by a wall, a Roman cloak on the road and a harbour town beyond. Edges are painted."
+    },
+    {
+      "id": "i175",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice sits at the long tea table with her hand at her chin in thought, the March Hare and Hatter sit still and the Dormouse dozes at the table edge, under a great tree. No lettering or anatomy problems seen."
+    },
+    {
+      "id": "i176",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "uncertain",
+      "notes": "A tiny chest in the distant street (~735,410) carries a framed panel with two or three glyph-like marks, too small to be sure it is an inscription. Otherwise the scene matches: golden light falls through the city gate into open storehouses of jars, with no figure for Wisdom."
+    },
+    {
+      "id": "i177",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Two sanctuaries are shown: a smaller curtained tent with an altar in its own fenced court at left (~260-590,360-600) besides the main tabernacle under the cloud. The main tabernacle's centre curtain also shows a crowned, robed figure (~640-720,340-450). Tents, families packing and the rising cloud are otherwise right."
+    },
+    {
+      "id": "i178",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel in a plain blue robe raises both palms to decline, facing Belshazzar, who sits crowned on a raised throne, while gold chains are held out on trays. Glazed-brick lion walls, torches and reclining nobles fit; the banners and walls carry no lettering."
+    },
+    {
+      "id": "i179",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Jesus sleeps on a cushion in the stern while two disciples grip his shoulders and shout; others bail with buckets and haul the rigging in a storm-tossed boat at night with a swinging lantern and rocky shore. The overlapping arms resolve to plausible owners."
+    },
+    {
+      "id": "i180",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Paul sits in a plain stone room, gazing up toward the doorway light, with the believers seated around him on benches and a scroll and pen case on the bench beside him. The shelf lamp is lit rather than unlit, which is minor."
+    },
+    {
+      "id": "i181",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes (left) is a clear likeness of Benedict Cumberbatch from the screen adaptation, and Watson (right) resembles Martin Freeman. The bill Holmes holds (~440-500,300-400) shows legible pseudo-text ('Jaed ...') and lines of writing."
+    },
+    {
+      "id": "i182",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The card courtiers at left carry 'A' corner indices (~120-220,420-560), the Hatter's teacup has script-like marks, and the papers on the floor show writing lines. The Hatter with his cup and bread before the dais, the bespectacled Queen, the King and the jury with slates are otherwise right; a second crowned figure stands at the right edge."
+    }
+  ]
+}

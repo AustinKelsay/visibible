@@ -1,0 +1,14 @@
+{
+  "authorization": "Owner, 30 October 2026, replying to a plan that quoted the regression suite's costs (\"check the scene plans (about $0.20 a run) before paying for images (about $6–9 a run)\"; \"Running the image tests needs you to add to the test budget, which is down to $0.04\"): \"Yes let's go! Full send. Re-upping openrouter budget now.\"",
+  "funds": "The rest of the text run's cap after the first attempt (2026-10-30-suite-baseline-text) stopped at a moderation refusal having spent $0.0264611 (its refused call was not charged); then one image run drawing this run's plans (2026-10-30-suite-baseline-image).",
+  "operationCapUsd": 0.22,
+  "evaluationIncreaseUsd": 9.25,
+  "evaluationIncreaseCovers": {
+    "textRunCapUsd": 0.25,
+    "imageRunCapUsd": 9.0
+  },
+  "evaluationAuthorizedBeforeUsd": 40.3,
+  "evaluationAuthorizedAfterUsd": 49.55,
+  "priorOverage": "The $1.02287350 overage reconciled in STATUS.md on 30 October is not covered by this grant; ratifying it remains the owner's call.",
+  "key": "The local dev OpenRouter key (same account as production, its own $50 limit); the run refuses unless the account keeps $5 for readers."
+}

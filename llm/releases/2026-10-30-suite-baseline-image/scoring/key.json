@@ -1,0 +1,3860 @@
+{
+  "run": "2026-10-30-suite-baseline-image",
+  "tier": "image",
+  "suite": "2026-10-30-suite-v1",
+  "faults": "2026-10-30-faults-v1",
+  "items": [
+    {
+      "id": "i001",
+      "key": "exodus-14-22-sea-walls/watercolor",
+      "caseId": "exodus-14-22-sea-walls",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i002",
+      "key": "job-38-4-foundations/classical",
+      "caseId": "job-38-4-foundations",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i003",
+      "key": "daniel-6-17/classical",
+      "caseId": "daniel-6-17",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i004",
+      "key": "proverbs-8-21/classical",
+      "caseId": "proverbs-8-21",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i005",
+      "key": "2-chronicles-31-21/watercolor",
+      "caseId": "2-chronicles-31-21",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i006",
+      "key": "luke-22-61/watercolor",
+      "caseId": "luke-22-61",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i007",
+      "key": "isaiah-40-29/watercolor",
+      "caseId": "isaiah-40-29",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i008",
+      "key": "ezekiel-37-4-dry-bones/fresco",
+      "caseId": "ezekiel-37-4-dry-bones",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i009",
+      "key": "exodus-14-22-sea-walls/fresco",
+      "caseId": "exodus-14-22-sea-walls",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i010",
+      "key": "a-mad-tea-party-76/classical",
+      "caseId": "a-mad-tea-party-76",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i011",
+      "key": "holmes-scandal-king-arrives/watercolor",
+      "caseId": "holmes-scandal-king-arrives",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i012",
+      "key": "leviticus-11-7-pig/watercolor",
+      "caseId": "leviticus-11-7-pig",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i013",
+      "key": "john-21-7-peter-sea/watercolor",
+      "caseId": "john-21-7-peter-sea",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i014",
+      "key": "matthew-1-1-genealogy/classical",
+      "caseId": "matthew-1-1-genealogy",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i015",
+      "key": "nehemiah-3-9/fresco",
+      "caseId": "nehemiah-3-9",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i016",
+      "key": "exodus-14-21-sea-parts/fresco",
+      "caseId": "exodus-14-21-sea-parts",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i017",
+      "key": "the-lobster-quadrille-19/classical",
+      "caseId": "the-lobster-quadrille-19",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i018",
+      "key": "nehemiah-3-9/watercolor",
+      "caseId": "nehemiah-3-9",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i019",
+      "key": "1-samuel-18-11/watercolor",
+      "caseId": "1-samuel-18-11",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i020",
+      "key": "genesis-1-3-light/watercolor",
+      "caseId": "genesis-1-3-light",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i021",
+      "key": "holmes-eyford-fire/classical",
+      "caseId": "holmes-eyford-fire",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i022",
+      "key": "judges-19-29-concubine/watercolor",
+      "caseId": "judges-19-29-concubine",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i023",
+      "key": "daniel-6-17/watercolor",
+      "caseId": "daniel-6-17",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i024",
+      "key": "judges-19-29-concubine/classical",
+      "caseId": "judges-19-29-concubine",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i025",
+      "key": "holmes-scandal-the-woman/classical",
+      "caseId": "holmes-scandal-the-woman",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i026",
+      "key": "alices-evidence-38/classical",
+      "caseId": "alices-evidence-38",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i027",
+      "key": "john-11-43-lazarus/fresco",
+      "caseId": "john-11-43-lazarus",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i028",
+      "key": "numbers-20-11/classical",
+      "caseId": "numbers-20-11",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i029",
+      "key": "alice-tea-party-say-what-you-mean/watercolor",
+      "caseId": "alice-tea-party-say-what-you-mean",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i030",
+      "key": "1-samuel-18-11/fresco",
+      "caseId": "1-samuel-18-11",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i031",
+      "key": "holmes-scandal-the-woman/watercolor",
+      "caseId": "holmes-scandal-the-woman",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i032",
+      "key": "holmes-eyford-smoke/classical",
+      "caseId": "holmes-eyford-smoke",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i033",
+      "key": "holmes-eyford-fire/watercolor",
+      "caseId": "holmes-eyford-fire",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i034",
+      "key": "romans-8-28-all-things/classical",
+      "caseId": "romans-8-28-all-things",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i035",
+      "key": "alice-refuses-to-leave/classical",
+      "caseId": "alice-refuses-to-leave",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i036",
+      "key": "leviticus-11-7-pig/fresco",
+      "caseId": "leviticus-11-7-pig",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i037",
+      "key": "exodus-17-12/classical",
+      "caseId": "exodus-17-12",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i038",
+      "key": "judges-19-29-concubine/fresco",
+      "caseId": "judges-19-29-concubine",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i039",
+      "key": "daniel-6-23/classical",
+      "caseId": "daniel-6-23",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i040",
+      "key": "isaiah-6-2-seraphim/classical",
+      "caseId": "isaiah-6-2-seraphim",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i041",
+      "key": "1-corinthians-13-12/watercolor",
+      "caseId": "1-corinthians-13-12",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i042",
+      "key": "daniel-5-17/classical",
+      "caseId": "daniel-5-17",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i043",
+      "key": "ezekiel-37-4-dry-bones/watercolor",
+      "caseId": "ezekiel-37-4-dry-bones",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i044",
+      "key": "1-samuel-17-49-sling/classical",
+      "caseId": "1-samuel-17-49-sling",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i045",
+      "key": "alice-caterpillar/classical",
+      "caseId": "alice-caterpillar",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i046",
+      "key": "mark-4-39-storm/watercolor",
+      "caseId": "mark-4-39-storm",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i047",
+      "key": "alice-croquet-game/watercolor",
+      "caseId": "alice-croquet-game",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i048",
+      "key": "nehemiah-3-9/classical",
+      "caseId": "nehemiah-3-9",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i049",
+      "key": "matthew-14-29-peter-water/classical",
+      "caseId": "matthew-14-29-peter-water",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i050",
+      "key": "holmes-saxe-coburg-square/watercolor",
+      "caseId": "holmes-saxe-coburg-square",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i051",
+      "key": "deuteronomy-1-7/watercolor",
+      "caseId": "deuteronomy-1-7",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i052",
+      "key": "exodus-17-12/fresco",
+      "caseId": "exodus-17-12",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i053",
+      "key": "2-chronicles-31-21/classical",
+      "caseId": "2-chronicles-31-21",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i054",
+      "key": "alice-tea-party-arrival/classical",
+      "caseId": "alice-tea-party-arrival",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i055",
+      "key": "genesis-19-24-sodom/fresco",
+      "caseId": "genesis-19-24-sodom",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i056",
+      "key": "genesis-5-5-adam-days/classical",
+      "caseId": "genesis-5-5-adam-days",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i057",
+      "key": "mark-4-39-storm/classical",
+      "caseId": "mark-4-39-storm",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i058",
+      "key": "ruth-4-22-genealogy/watercolor",
+      "caseId": "ruth-4-22-genealogy",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i059",
+      "key": "daniel-6-22-lions/classical",
+      "caseId": "daniel-6-22-lions",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i060",
+      "key": "holmes-speckled-band-vigil/classical",
+      "caseId": "holmes-speckled-band-vigil",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i061",
+      "key": "acts-9-3-damascus/watercolor",
+      "caseId": "acts-9-3-damascus",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i062",
+      "key": "holmes-bank-cellar-plans/watercolor",
+      "caseId": "holmes-bank-cellar-plans",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i063",
+      "key": "isaiah-6-2-seraphim/watercolor",
+      "caseId": "isaiah-6-2-seraphim",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i064",
+      "key": "holmes-bank-cellar-lantern/watercolor",
+      "caseId": "holmes-bank-cellar-lantern",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i065",
+      "key": "holmes-red-headed-league/watercolor",
+      "caseId": "holmes-red-headed-league",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i066",
+      "key": "the-adventure-of-the-blue-carbuncle-73/classical",
+      "caseId": "the-adventure-of-the-blue-carbuncle-73",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i067",
+      "key": "mark-4-37/watercolor",
+      "caseId": "mark-4-37",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i068",
+      "key": "alices-evidence-38/watercolor",
+      "caseId": "alices-evidence-38",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i069",
+      "key": "luke-22-61/fresco",
+      "caseId": "luke-22-61",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i070",
+      "key": "john-21-9/fresco",
+      "caseId": "john-21-9",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i071",
+      "key": "genesis-1-3-light/fresco",
+      "caseId": "genesis-1-3-light",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i072",
+      "key": "deuteronomy-1-7/classical",
+      "caseId": "deuteronomy-1-7",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i073",
+      "key": "leviticus-1-16/watercolor",
+      "caseId": "leviticus-1-16",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i074",
+      "key": "holmes-eyford-drive/watercolor",
+      "caseId": "holmes-eyford-drive",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i075",
+      "key": "luke-15-22/watercolor",
+      "caseId": "luke-15-22",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i076",
+      "key": "daniel-6-23/fresco",
+      "caseId": "daniel-6-23",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i077",
+      "key": "a-case-of-identity-94/watercolor",
+      "caseId": "a-case-of-identity-94",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i078",
+      "key": "alice-hatter-witness/classical",
+      "caseId": "alice-hatter-witness",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i079",
+      "key": "mark-4-37/fresco",
+      "caseId": "mark-4-37",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i080",
+      "key": "numbers-20-11/fresco",
+      "caseId": "numbers-20-11",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i081",
+      "key": "alice-cat-grin-appears/classical",
+      "caseId": "alice-cat-grin-appears",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i082",
+      "key": "holmes-saxe-coburg-square/classical",
+      "caseId": "holmes-saxe-coburg-square",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i083",
+      "key": "a-case-of-identity-94/classical",
+      "caseId": "a-case-of-identity-94",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i084",
+      "key": "holmes-red-headed-league/classical",
+      "caseId": "holmes-red-headed-league",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i085",
+      "key": "ruth-4-22-genealogy/fresco",
+      "caseId": "ruth-4-22-genealogy",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i086",
+      "key": "john-21-7-peter-sea/classical",
+      "caseId": "john-21-7-peter-sea",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i087",
+      "key": "genesis-19-24-sodom/classical",
+      "caseId": "genesis-19-24-sodom",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i088",
+      "key": "genesis-5-5-adam-days/fresco",
+      "caseId": "genesis-5-5-adam-days",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i089",
+      "key": "john-21-9/watercolor",
+      "caseId": "john-21-9",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i090",
+      "key": "ezekiel-37-4-dry-bones/classical",
+      "caseId": "ezekiel-37-4-dry-bones",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i091",
+      "key": "alice-drink-me/classical",
+      "caseId": "alice-drink-me",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i092",
+      "key": "numbers-9-22/watercolor",
+      "caseId": "numbers-9-22",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i093",
+      "key": "daniel-7-9-ancient-of-days/watercolor",
+      "caseId": "daniel-7-9-ancient-of-days",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i094",
+      "key": "holmes-speckled-band-vigil/watercolor",
+      "caseId": "holmes-speckled-band-vigil",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i095",
+      "key": "leviticus-11-7-pig/classical",
+      "caseId": "leviticus-11-7-pig",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i096",
+      "key": "1-samuel-18-11/classical",
+      "caseId": "1-samuel-18-11",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i097",
+      "key": "holmes-eyford-drive/classical",
+      "caseId": "holmes-eyford-drive",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i098",
+      "key": "alice-cat-grin-appears/watercolor",
+      "caseId": "alice-cat-grin-appears",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i099",
+      "key": "exodus-14-22-sea-walls/classical",
+      "caseId": "exodus-14-22-sea-walls",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i100",
+      "key": "luke-22-61/classical",
+      "caseId": "luke-22-61",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i101",
+      "key": "alice-croquet-game/classical",
+      "caseId": "alice-croquet-game",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i102",
+      "key": "acts-3-7/fresco",
+      "caseId": "acts-3-7",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i103",
+      "key": "leviticus-1-16/fresco",
+      "caseId": "leviticus-1-16",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i104",
+      "key": "alice-tea-party-riddle/classical",
+      "caseId": "alice-tea-party-riddle",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i105",
+      "key": "alice-cheshire-cat-bough/watercolor",
+      "caseId": "alice-cheshire-cat-bough",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i106",
+      "key": "ruth-4-22-genealogy/classical",
+      "caseId": "ruth-4-22-genealogy",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i107",
+      "key": "exodus-14-23/classical",
+      "caseId": "exodus-14-23",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i108",
+      "key": "daniel-5-17/watercolor",
+      "caseId": "daniel-5-17",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i109",
+      "key": "alice-caterpillar/watercolor",
+      "caseId": "alice-caterpillar",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i110",
+      "key": "holmes-bank-cellar-plans/classical",
+      "caseId": "holmes-bank-cellar-plans",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i111",
+      "key": "genesis-1-3-light/classical",
+      "caseId": "genesis-1-3-light",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i112",
+      "key": "holmes-eyford-smoke/watercolor",
+      "caseId": "holmes-eyford-smoke",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i113",
+      "key": "luke-15-20-prodigal/fresco",
+      "caseId": "luke-15-20-prodigal",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i114",
+      "key": "daniel-6-22-lions/watercolor",
+      "caseId": "daniel-6-22-lions",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i115",
+      "key": "exodus-14-21-sea-parts/classical",
+      "caseId": "exodus-14-21-sea-parts",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i116",
+      "key": "luke-15-20-prodigal/watercolor",
+      "caseId": "luke-15-20-prodigal",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i117",
+      "key": "isaiah-6-2-seraphim/fresco",
+      "caseId": "isaiah-6-2-seraphim",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i118",
+      "key": "revelation-4-6-living-creatures/fresco",
+      "caseId": "revelation-4-6-living-creatures",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i119",
+      "key": "2-kings-2-23-bears/watercolor",
+      "caseId": "2-kings-2-23-bears",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i120",
+      "key": "job-38-4-foundations/watercolor",
+      "caseId": "job-38-4-foundations",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i121",
+      "key": "matthew-27-35-crucified/fresco",
+      "caseId": "matthew-27-35-crucified",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i122",
+      "key": "alice-cat-head-talks/watercolor",
+      "caseId": "alice-cat-head-talks",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i123",
+      "key": "alices-evidence-2/classical",
+      "caseId": "alices-evidence-2",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i124",
+      "key": "1-samuel-17-40/fresco",
+      "caseId": "1-samuel-17-40",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i125",
+      "key": "the-lobster-quadrille-19/watercolor",
+      "caseId": "the-lobster-quadrille-19",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i126",
+      "key": "acts-9-3-damascus/classical",
+      "caseId": "acts-9-3-damascus",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i127",
+      "key": "alice-king-and-cat/classical",
+      "caseId": "alice-king-and-cat",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i128",
+      "key": "holmes-blue-carbuncle-hat/watercolor",
+      "caseId": "holmes-blue-carbuncle-hat",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i129",
+      "key": "the-adventure-of-the-noble-bachelor-176/classical",
+      "caseId": "the-adventure-of-the-noble-bachelor-176",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i130",
+      "key": "isaiah-40-29/fresco",
+      "caseId": "isaiah-40-29",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i131",
+      "key": "daniel-7-9-ancient-of-days/fresco",
+      "caseId": "daniel-7-9-ancient-of-days",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i132",
+      "key": "alice-tea-party-riddle/watercolor",
+      "caseId": "alice-tea-party-riddle",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i133",
+      "key": "matthew-27-35-crucified/classical",
+      "caseId": "matthew-27-35-crucified",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i134",
+      "key": "alice-tea-party-arrival/watercolor",
+      "caseId": "alice-tea-party-arrival",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i135",
+      "key": "exodus-14-21-sea-parts/watercolor",
+      "caseId": "exodus-14-21-sea-parts",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i136",
+      "key": "holmes-blue-carbuncle-hat/classical",
+      "caseId": "holmes-blue-carbuncle-hat",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i137",
+      "key": "matthew-27-35-crucified/watercolor",
+      "caseId": "matthew-27-35-crucified",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i138",
+      "key": "matthew-14-29-peter-water/fresco",
+      "caseId": "matthew-14-29-peter-water",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i139",
+      "key": "mark-4-37/classical",
+      "caseId": "mark-4-37",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i140",
+      "key": "acts-9-3-damascus/fresco",
+      "caseId": "acts-9-3-damascus",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i141",
+      "key": "numbers-20-11/watercolor",
+      "caseId": "numbers-20-11",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i142",
+      "key": "john-21-7-peter-sea/fresco",
+      "caseId": "john-21-7-peter-sea",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i143",
+      "key": "alices-evidence-2/watercolor",
+      "caseId": "alices-evidence-2",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i144",
+      "key": "daniel-6-23/watercolor",
+      "caseId": "daniel-6-23",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i145",
+      "key": "2-chronicles-31-21/fresco",
+      "caseId": "2-chronicles-31-21",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i146",
+      "key": "1-samuel-17-40/classical",
+      "caseId": "1-samuel-17-40",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i147",
+      "key": "alice-drink-me/watercolor",
+      "caseId": "alice-drink-me",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i148",
+      "key": "leviticus-1-16/classical",
+      "caseId": "leviticus-1-16",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i149",
+      "key": "alice-cat-head-talks/classical",
+      "caseId": "alice-cat-head-talks",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i150",
+      "key": "mark-4-38/watercolor",
+      "caseId": "mark-4-38",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i151",
+      "key": "matthew-1-1-genealogy/fresco",
+      "caseId": "matthew-1-1-genealogy",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i152",
+      "key": "2-kings-2-23-bears/fresco",
+      "caseId": "2-kings-2-23-bears",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i153",
+      "key": "acts-3-7/classical",
+      "caseId": "acts-3-7",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i154",
+      "key": "holmes-boscombe-train/classical",
+      "caseId": "holmes-boscombe-train",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i155",
+      "key": "genesis-5-5-adam-days/watercolor",
+      "caseId": "genesis-5-5-adam-days",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i156",
+      "key": "john-21-9/classical",
+      "caseId": "john-21-9",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i157",
+      "key": "daniel-6-22-lions/fresco",
+      "caseId": "daniel-6-22-lions",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i158",
+      "key": "1-samuel-16-13/watercolor",
+      "caseId": "1-samuel-16-13",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i159",
+      "key": "1-samuel-17-49-sling/watercolor",
+      "caseId": "1-samuel-17-49-sling",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i160",
+      "key": "daniel-6-17/fresco",
+      "caseId": "daniel-6-17",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i161",
+      "key": "a-mad-tea-party-76/watercolor",
+      "caseId": "a-mad-tea-party-76",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i162",
+      "key": "romans-8-28-all-things/fresco",
+      "caseId": "romans-8-28-all-things",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i163",
+      "key": "matthew-14-29-peter-water/watercolor",
+      "caseId": "matthew-14-29-peter-water",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i164",
+      "key": "alice-refuses-to-leave/watercolor",
+      "caseId": "alice-refuses-to-leave",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i165",
+      "key": "2-kings-2-23-bears/classical",
+      "caseId": "2-kings-2-23-bears",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i166",
+      "key": "acts-3-7/watercolor",
+      "caseId": "acts-3-7",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i167",
+      "key": "job-38-4-foundations/fresco",
+      "caseId": "job-38-4-foundations",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i168",
+      "key": "alice-cheshire-cat-bough/classical",
+      "caseId": "alice-cheshire-cat-bough",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i169",
+      "key": "luke-15-20-prodigal/classical",
+      "caseId": "luke-15-20-prodigal",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i170",
+      "key": "revelation-4-6-living-creatures/watercolor",
+      "caseId": "revelation-4-6-living-creatures",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i171",
+      "key": "daniel-7-9-ancient-of-days/classical",
+      "caseId": "daniel-7-9-ancient-of-days",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i172",
+      "key": "isaiah-40-29/classical",
+      "caseId": "isaiah-40-29",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i173",
+      "key": "exodus-14-23/fresco",
+      "caseId": "exodus-14-23",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i174",
+      "key": "romans-8-28-all-things/watercolor",
+      "caseId": "romans-8-28-all-things",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i175",
+      "key": "alice-tea-party-say-what-you-mean/classical",
+      "caseId": "alice-tea-party-say-what-you-mean",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i176",
+      "key": "proverbs-8-21/watercolor",
+      "caseId": "proverbs-8-21",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i177",
+      "key": "numbers-9-22/fresco",
+      "caseId": "numbers-9-22",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i178",
+      "key": "daniel-5-17/fresco",
+      "caseId": "daniel-5-17",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i179",
+      "key": "mark-4-38/classical",
+      "caseId": "mark-4-38",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i180",
+      "key": "1-corinthians-13-12/fresco",
+      "caseId": "1-corinthians-13-12",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i181",
+      "key": "the-adventure-of-the-noble-bachelor-176/watercolor",
+      "caseId": "the-adventure-of-the-noble-bachelor-176",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i182",
+      "key": "alice-hatter-witness/watercolor",
+      "caseId": "alice-hatter-witness",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i183",
+      "key": "mark-4-39-storm/fresco",
+      "caseId": "mark-4-39-storm",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i184",
+      "key": "1-samuel-16-13/classical",
+      "caseId": "1-samuel-16-13",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i185",
+      "key": "john-11-43-lazarus/watercolor",
+      "caseId": "john-11-43-lazarus",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i186",
+      "key": "exodus-17-12/watercolor",
+      "caseId": "exodus-17-12",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i187",
+      "key": "alice-king-and-cat/watercolor",
+      "caseId": "alice-king-and-cat",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i188",
+      "key": "1-samuel-16-13/fresco",
+      "caseId": "1-samuel-16-13",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i189",
+      "key": "numbers-9-22/classical",
+      "caseId": "numbers-9-22",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i190",
+      "key": "luke-15-22/classical",
+      "caseId": "luke-15-22",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i191",
+      "key": "1-corinthians-13-12/classical",
+      "caseId": "1-corinthians-13-12",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i192",
+      "key": "exodus-14-23/watercolor",
+      "caseId": "exodus-14-23",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i193",
+      "key": "1-samuel-17-49-sling/fresco",
+      "caseId": "1-samuel-17-49-sling",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i194",
+      "key": "holmes-scandal-king-arrives/classical",
+      "caseId": "holmes-scandal-king-arrives",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i195",
+      "key": "luke-15-22/fresco",
+      "caseId": "luke-15-22",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i196",
+      "key": "matthew-1-1-genealogy/watercolor",
+      "caseId": "matthew-1-1-genealogy",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i197",
+      "key": "john-11-43-lazarus/classical",
+      "caseId": "john-11-43-lazarus",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i198",
+      "key": "the-adventure-of-the-blue-carbuncle-73/watercolor",
+      "caseId": "the-adventure-of-the-blue-carbuncle-73",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i199",
+      "key": "proverbs-8-21/fresco",
+      "caseId": "proverbs-8-21",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i200",
+      "key": "genesis-19-24-sodom/watercolor",
+      "caseId": "genesis-19-24-sodom",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i201",
+      "key": "holmes-boscombe-train/watercolor",
+      "caseId": "holmes-boscombe-train",
+      "work": "holmes-adventures",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i202",
+      "key": "deuteronomy-1-7/fresco",
+      "caseId": "deuteronomy-1-7",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "holdout",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i203",
+      "key": "1-samuel-17-40/watercolor",
+      "caseId": "1-samuel-17-40",
+      "work": "bible-web",
+      "style": "watercolor",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i204",
+      "key": "holmes-bank-cellar-lantern/classical",
+      "caseId": "holmes-bank-cellar-lantern",
+      "work": "holmes-adventures",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ]
+    },
+    {
+      "id": "i205",
+      "key": "revelation-4-6-living-creatures/classical",
+      "caseId": "revelation-4-6-living-creatures",
+      "work": "bible-web",
+      "style": "classical",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    },
+    {
+      "id": "i206",
+      "key": "mark-4-38/fresco",
+      "caseId": "mark-4-38",
+      "work": "bible-web",
+      "style": "fresco",
+      "split": "dev",
+      "faults": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ]
+    }
+  ]
+}

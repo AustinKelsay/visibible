@@ -1,0 +1,415 @@
+{
+  "scorer": "model-b",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "i131",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "effects_figure": "yes"
+      },
+      "overall": "flawed",
+      "notes": "The white radiance on the fiery throne at centre is a seated human-shaped figure (head, shoulders, arm and draped lap), so the Ancient of Days is drawn as a figure; Daniel small at lower edge and fiery wheels are otherwise as asked."
+    },
+    {
+      "id": "i132",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The Dormouse appears twice: one sits upright at the table with a cup between Alice and the Hatter and a second waistcoated dormouse lies under the table. The white vignette at the top-left corner is accepted."
+    },
+    {
+      "id": "i133",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Soldiers kneel in the foreground dividing garments with dice by the central cross; the titulus is blank, hands and limbs are sound and the painting runs full-bleed."
+    },
+    {
+      "id": "i134",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "yes",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Above the Dormouse a furry hand holding a teapot belongs to no one: the Hatter holds toast and a cup and the March Hare's two arms are on the Dormouse and raised at right. The white vignette at the corners is accepted."
+    },
+    {
+      "id": "i135",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Moses with outstretched arm and the Israelites on the shore face two curling walls of water with a channel toward a pillar of flame-like light, which is not a figure. The channel still reads as wet water rather than clearly dry ground, and the pale ragged side edges are accepted."
+    },
+    {
+      "id": "i136",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "The folded newspaper in the lower left carries headline-like letter glyphs, and Holmes and Watson have the faces of the Sherlock screen actors (Cumberbatch and Freeman), which the depiction rules forbid."
+    },
+    {
+      "id": "i137",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Soldiers kneel casting lots over garments below the central cross; the titulus is blank and hands are sound. The pale paper showing at the lower-left edge is accepted."
+    },
+    {
+      "id": "i138",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "One disciple at the boat's rail is a near-twin of Jesus (same long hair, beard, cream tunic and dark-blue mantle), so Jesus seems to be both in the boat and on the water; Peter stepping onto the sea is otherwise clear."
+    },
+    {
+      "id": "i139",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Disciples in a swamped boat bail and grip the sides under a night storm with waves breaking over the gunwale; no lettering, extra figures or malformed limbs found."
+    },
+    {
+      "id": "i140",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Saul halts on the desert road with his arm raised as a beam of light descends and his companions shield their eyes, with Damascus on the horizon; the light holds no figure and no lettering appears."
+    },
+    {
+      "id": "i141",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses strikes the rock with Aaron beside him while water gushes out and people and animals drink at the right; the white watercolour margin round the edges is accepted."
+    },
+    {
+      "id": "i142",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "yes",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Peter leaps from the boat at centre toward Jesus, but three extra men squat at the fire beside Jesus on the right-hand shore, although the scene keeps the other disciples aboard and has Jesus waiting alone."
+    },
+    {
+      "id": "i143",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "yes",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "yes",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "A second blonde Alice in blue sits on the judges' bench beside the King and Queen, a juror at bottom centre has a duck's bill with rabbit ears, and the papers and slates on the floor carry text-like strokes."
+    },
+    {
+      "id": "i144",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Attendants haul Daniel up from the den as Darius leans in from the left, but a glyph like \"S'\" sits in the bottom-right corner. The white edges are accepted."
+    },
+    {
+      "id": "i145",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Hezekiah in a blue royal robe stands centred in the temple court with priests at an altar and Levites carrying vessels, beside a bronze sea on oxen; the carved doors bear ornament only, not lettering."
+    },
+    {
+      "id": "i146",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "David crouches at the brook with his staff, picking up a smooth stone with his bag beside him while the armoured Philistine approaches up the valley; the limbs are sound (the sling lies on the ground rather than in his hand)."
+    },
+    {
+      "id": "i147",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice holds the bottle up to the lamplight in the long lamplit hall, with the key on a small glass table and a curtained keyhole door at the far end; the bottle's label is blank (the far door is not especially tiny)."
+    },
+    {
+      "id": "i148",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A priest in linen plucks the bird beside the horned altar with feathers falling onto the ash heap, the tabernacle is behind and three onlookers stand at a distance; the cherub curtains are ornament, not lettering."
+    },
+    {
+      "id": "i149",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "The Queen's white-painted face, red hair and small crown closely follow the Burton film's Red Queen, and the card gardeners at the left and right edges carry glyph-like rank marks above their corner pips; Alice, the grinning Cat and the hedgehog are otherwise as asked."
+    },
+    {
+      "id": "i150",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Jesus lies asleep on a cushion as two disciples grip him and shout, one holding a lantern, while others bail in the storm; I traced the lantern arm to the rear disciple and found no extra limbs or lettering."
+    },
+    {
+      "id": "i151",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Two closed, blank scrolls lie on a stone bench in a courtyard, framed by an aged haloed Abraham and a crowned David with a shepherd's staff, with boats in the distance; the halo is a plain ring."
+    },
+    {
+      "id": "i152",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Mocking youths burst from Bethel's gate with arms raised as the mantled Elisha walks on calmly; he faces the viewer, walking away from the gate rather than up toward it, and the shrine idol is a figure rather than a calf, but no listed fault is clear."
+    },
+    {
+      "id": "i153",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter lifts the lame man by the arm with John beside him before the temple gate, watched by the crowd and a robed priest; hands and limbs are sound and nothing is written."
+    },
+    {
+      "id": "i154",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes flinging the ball of papers has Benedict Cumberbatch's face and Watson in a bowler has Martin Freeman's, a screen-adaptation likeness; the newspapers on the seat and floor show glyph-like print."
+    },
+    {
+      "id": "i155",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Aged Adam lies dead on a mat in a tent at dusk, surrounded by family members with bowed heads, with a cold hearth and water jars nearby; limbs and hands are sound and nothing is written."
+    },
+    {
+      "id": "i156",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter steps from the boat with a net while disciples stand on the shore by a charcoal fire with fish and bread; the background figures are allowed as unnamed fishermen, and I found no lettering or malformed limbs."
+    }
+  ]
+}

@@ -1,0 +1,1276 @@
+{
+  "schemaVersion": 1,
+  "seed": "consistency",
+  "groups": {
+    "file": "evals/images/consistency.holmes-adventures.json",
+    "sha256": "4f184d9bd242a2b9453be8a9463ef8c0acf823b571bb9c2962df93d6bf2124ea"
+  },
+  "sources": [
+    {
+      "file": "llm/releases/2026-10-30-suite-baseline-image/results.ndjson",
+      "sha256": "021e50d96654287ca9d6dd830f38a351fdb511fd7967690c26ffdaadc55f4730"
+    },
+    {
+      "file": "llm/releases/2026-10-30-suite-baseline-text-2/snapshot.json",
+      "sha256": "ce7f2779ceedcef4327ec9139affff7f0161b527906a05c28c0c0ed5fe970d2b"
+    }
+  ],
+  "notRun": {
+    "character": [],
+    "setting": []
+  },
+  "coverage": [
+    {
+      "groupId": "sherlock-holmes",
+      "style": "classical",
+      "units": 6,
+      "imaged": 6,
+      "eligible": [
+        "a-scandal-in-bohemia-1-1",
+        "the-red-headed-league-1",
+        "the-red-headed-league-138",
+        "the-adventure-of-the-blue-carbuncle-12",
+        "the-adventure-of-the-speckled-band-235",
+        "the-boscombe-valley-mystery-9"
+      ],
+      "pairs": 15,
+      "otherStage": 0
+    },
+    {
+      "groupId": "sherlock-holmes",
+      "style": "fresco",
+      "units": 6,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "sherlock-holmes",
+      "style": "watercolor",
+      "units": 6,
+      "imaged": 6,
+      "eligible": [
+        "a-scandal-in-bohemia-1-1",
+        "the-red-headed-league-1",
+        "the-red-headed-league-138",
+        "the-adventure-of-the-blue-carbuncle-12",
+        "the-adventure-of-the-speckled-band-235",
+        "the-boscombe-valley-mystery-9"
+      ],
+      "pairs": 15,
+      "otherStage": 0
+    },
+    {
+      "groupId": "dr-watson",
+      "style": "classical",
+      "units": 6,
+      "imaged": 6,
+      "eligible": [
+        "the-red-headed-league-1",
+        "the-red-headed-league-138",
+        "the-adventure-of-the-blue-carbuncle-12",
+        "the-adventure-of-the-speckled-band-235",
+        "the-boscombe-valley-mystery-9"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "dr-watson",
+      "style": "fresco",
+      "units": 6,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "dr-watson",
+      "style": "watercolor",
+      "units": 6,
+      "imaged": 6,
+      "eligible": [
+        "the-red-headed-league-1",
+        "the-red-headed-league-138",
+        "the-adventure-of-the-blue-carbuncle-12",
+        "the-adventure-of-the-speckled-band-235",
+        "the-boscombe-valley-mystery-9"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "bank-cellar",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "the-red-headed-league-175",
+        "the-red-headed-league-183"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "bank-cellar",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "bank-cellar",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "the-red-headed-league-175",
+        "the-red-headed-league-183"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "eyford-fire",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "the-adventure-of-the-engineers-thumb-160",
+        "the-adventure-of-the-engineers-thumb-165",
+        "the-adventure-of-the-engineers-thumb-170"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "eyford-fire",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "eyford-fire",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "the-adventure-of-the-engineers-thumb-160",
+        "the-adventure-of-the-engineers-thumb-165",
+        "the-adventure-of-the-engineers-thumb-170"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    }
+  ],
+  "pairs": [
+    {
+      "id": "pair001",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "02de43e0114186dfc0f0de17fdbaec483907714f4b26fd9721c1b9836e3be161",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__classical__a2.jpg",
+        "sha256": "5d0fa3a16c2f6f707bf7740644e37df9e2d813a9628fcd24fa7189f63c520939",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      }
+    },
+    {
+      "id": "pair002",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "f3ed1cdc683a9047ba39e1ca2ea7b8bb3d71dfb17f8e9718034b2d4932f39068",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__classical__a2.jpg",
+        "sha256": "5d0fa3a16c2f6f707bf7740644e37df9e2d813a9628fcd24fa7189f63c520939",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      }
+    },
+    {
+      "id": "pair003",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-scandal-the-woman__classical__a1.jpg",
+        "sha256": "abe0c8c3f05380f7d60e8eb2fde16aec50cc7c86f3e4b682c74f67428dbc5c98",
+        "scene": "Sherlock Holmes seated in his armchair, lean and still, absorbed in thought; A low coal fire glows in the grate, a violin and pipe resting nearby, fog-darkened windows behind him"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "af75615af0cf7cd0600010c292ef9be514a182869c4c81899228ad700a7ee655",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      }
+    },
+    {
+      "id": "pair004",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__watercolor__a1.jpg",
+        "sha256": "6ab00c73480a66e4ac95a3583a35bc37906471cb25a8c14865d09fe1686e0667",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "9d7760a3db26e2483b5dce4761aefd61efd5afab5cfc11fd914f39677e52f99d",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      }
+    },
+    {
+      "id": "pair005",
+      "groupId": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-engineers-thumb-170",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-eyford-drive__watercolor__a1.jpg",
+        "sha256": "eef3a5065167ff3f0247521000fd096332f61c80e9956a84db50790a2f285115",
+        "scene": "Victor Hatherley standing on the road, arm outstretched, pointing toward the house; Holmes at Hatherley's side with hands in coat pockets; a few dim crowd figures and fire-engine silhouettes near the gate; smoke drifting across the hedgerows"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-engineers-thumb-160",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-eyford-smoke__watercolor__a1.jpg",
+        "sha256": "f93e6b1fc6841b6819bec3481a9a9419f92fe8b483b722fd509b582a3ff6904a",
+        "scene": "Inspector Bradstreet, Holmes, Watson and Hatherley seated in the departing railway carriage, peering out of the window; A distant column of smoke like an ostrich feather rising from behind a small clump of trees, the station-master on the platform with a hand raised, a puff of steam from the engine"
+      }
+    },
+    {
+      "id": "pair006",
+      "groupId": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-engineers-thumb-165",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-eyford-fire__watercolor__a1.jpg",
+        "sha256": "0fcdfa83325fefce91321e4197d12d0a3969c36c07c6d55ff3b679f8446194fd",
+        "scene": "The burning whitewashed country house, flames pouring from every window and chink.; Three fire-engines in the front garden with hoses, dark silhouettes of fire crews and villagers at the gate, the station-master gesturing with a laugh."
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-engineers-thumb-160",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-eyford-smoke__watercolor__a1.jpg",
+        "sha256": "f93e6b1fc6841b6819bec3481a9a9419f92fe8b483b722fd509b582a3ff6904a",
+        "scene": "Inspector Bradstreet, Holmes, Watson and Hatherley seated in the departing railway carriage, peering out of the window; A distant column of smoke like an ostrich feather rising from behind a small clump of trees, the station-master on the platform with a hand raised, a puff of steam from the engine"
+      }
+    },
+    {
+      "id": "pair007",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "9d7760a3db26e2483b5dce4761aefd61efd5afab5cfc11fd914f39677e52f99d",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__watercolor__a2.jpg",
+        "sha256": "bf51184109d21894d9ab346cc03cb55d89068c9b22a698800c9562ffda6a5726",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      }
+    },
+    {
+      "id": "pair008",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "f3ed1cdc683a9047ba39e1ca2ea7b8bb3d71dfb17f8e9718034b2d4932f39068",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "02de43e0114186dfc0f0de17fdbaec483907714f4b26fd9721c1b9836e3be161",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      }
+    },
+    {
+      "id": "pair009",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "a602a88a8d0f56cd131b1b73a7c5dbce4f85396d51397a4c5c838b922fe2723c",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "9d7760a3db26e2483b5dce4761aefd61efd5afab5cfc11fd914f39677e52f99d",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      }
+    },
+    {
+      "id": "pair010",
+      "groupId": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-engineers-thumb-160",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-eyford-smoke__classical__a1.jpg",
+        "sha256": "aac2443971a71abc64a4407bf8fba6628ac11eb534e944b6822728d7a54c0fd1",
+        "scene": "Inspector Bradstreet, Holmes, Watson and Hatherley seated in the departing railway carriage, peering out of the window; A distant column of smoke like an ostrich feather rising from behind a small clump of trees, the station-master on the platform with a hand raised, a puff of steam from the engine"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-engineers-thumb-165",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-eyford-fire__classical__a1.jpg",
+        "sha256": "512c85f46e2e4d8619b40e4dc8fd46f6c6fc9798cc16561302e8a0fd77740128",
+        "scene": "The burning whitewashed country house, flames pouring from every window and chink.; Three fire-engines in the front garden with hoses, dark silhouettes of fire crews and villagers at the gate, the station-master gesturing with a laugh."
+      }
+    },
+    {
+      "id": "pair011",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1e25d3c12ea642ba69084765be9b6db9d610bedb6a7ba13501d0ad876475c709",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "a602a88a8d0f56cd131b1b73a7c5dbce4f85396d51397a4c5c838b922fe2723c",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      }
+    },
+    {
+      "id": "pair012",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "a602a88a8d0f56cd131b1b73a7c5dbce4f85396d51397a4c5c838b922fe2723c",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      },
+      "right": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-scandal-the-woman__watercolor__a1.jpg",
+        "sha256": "c46853aca858c0cd2d45b2205bdf44797c3cdf7bb6b41dbbaa02863aea675df0",
+        "scene": "Sherlock Holmes seated in his armchair, lean and still, absorbed in thought; A low coal fire glows in the grate, a violin and pipe resting nearby, fog-darkened windows behind him"
+      }
+    },
+    {
+      "id": "pair013",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__classical__a1.jpg",
+        "sha256": "b03124909ab4219899fb7ae5687f89c6282f0369259f186d387fc1eb7f8f2ae0",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "af75615af0cf7cd0600010c292ef9be514a182869c4c81899228ad700a7ee655",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      }
+    },
+    {
+      "id": "pair014",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "af75615af0cf7cd0600010c292ef9be514a182869c4c81899228ad700a7ee655",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__classical__a2.jpg",
+        "sha256": "5d0fa3a16c2f6f707bf7740644e37df9e2d813a9628fcd24fa7189f63c520939",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      }
+    },
+    {
+      "id": "pair015",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__watercolor__a1.jpg",
+        "sha256": "6ab00c73480a66e4ac95a3583a35bc37906471cb25a8c14865d09fe1686e0667",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      },
+      "right": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-scandal-the-woman__watercolor__a1.jpg",
+        "sha256": "c46853aca858c0cd2d45b2205bdf44797c3cdf7bb6b41dbbaa02863aea675df0",
+        "scene": "Sherlock Holmes seated in his armchair, lean and still, absorbed in thought; A low coal fire glows in the grate, a violin and pipe resting nearby, fog-darkened windows behind him"
+      }
+    },
+    {
+      "id": "pair016",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-scandal-the-woman__classical__a1.jpg",
+        "sha256": "abe0c8c3f05380f7d60e8eb2fde16aec50cc7c86f3e4b682c74f67428dbc5c98",
+        "scene": "Sherlock Holmes seated in his armchair, lean and still, absorbed in thought; A low coal fire glows in the grate, a violin and pipe resting nearby, fog-darkened windows behind him"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__classical__a2.jpg",
+        "sha256": "5d0fa3a16c2f6f707bf7740644e37df9e2d813a9628fcd24fa7189f63c520939",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      }
+    },
+    {
+      "id": "pair017",
+      "groupId": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-engineers-thumb-160",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-eyford-smoke__classical__a1.jpg",
+        "sha256": "aac2443971a71abc64a4407bf8fba6628ac11eb534e944b6822728d7a54c0fd1",
+        "scene": "Inspector Bradstreet, Holmes, Watson and Hatherley seated in the departing railway carriage, peering out of the window; A distant column of smoke like an ostrich feather rising from behind a small clump of trees, the station-master on the platform with a hand raised, a puff of steam from the engine"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-engineers-thumb-170",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-eyford-drive__classical__a1.jpg",
+        "sha256": "6b3b35574abd71daa8ad88395a58c74cfe234e5a3204ae228ae97c5129e69e60",
+        "scene": "Victor Hatherley standing on the road, arm outstretched, pointing toward the house; Holmes at Hatherley's side with hands in coat pockets; a few dim crowd figures and fire-engine silhouettes near the gate; smoke drifting across the hedgerows"
+      }
+    },
+    {
+      "id": "pair018",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-scandal-the-woman__watercolor__a1.jpg",
+        "sha256": "c46853aca858c0cd2d45b2205bdf44797c3cdf7bb6b41dbbaa02863aea675df0",
+        "scene": "Sherlock Holmes seated in his armchair, lean and still, absorbed in thought; A low coal fire glows in the grate, a violin and pipe resting nearby, fog-darkened windows behind him"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__watercolor__a2.jpg",
+        "sha256": "bf51184109d21894d9ab346cc03cb55d89068c9b22a698800c9562ffda6a5726",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      }
+    },
+    {
+      "id": "pair019",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "a602a88a8d0f56cd131b1b73a7c5dbce4f85396d51397a4c5c838b922fe2723c",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__watercolor__a2.jpg",
+        "sha256": "bf51184109d21894d9ab346cc03cb55d89068c9b22a698800c9562ffda6a5726",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      }
+    },
+    {
+      "id": "pair020",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "9d7760a3db26e2483b5dce4761aefd61efd5afab5cfc11fd914f39677e52f99d",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__watercolor__a1.jpg",
+        "sha256": "6ab00c73480a66e4ac95a3583a35bc37906471cb25a8c14865d09fe1686e0667",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      }
+    },
+    {
+      "id": "pair021",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "02de43e0114186dfc0f0de17fdbaec483907714f4b26fd9721c1b9836e3be161",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      },
+      "right": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-scandal-the-woman__classical__a1.jpg",
+        "sha256": "abe0c8c3f05380f7d60e8eb2fde16aec50cc7c86f3e4b682c74f67428dbc5c98",
+        "scene": "Sherlock Holmes seated in his armchair, lean and still, absorbed in thought; A low coal fire glows in the grate, a violin and pipe resting nearby, fog-darkened windows behind him"
+      }
+    },
+    {
+      "id": "pair022",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__watercolor__a2.jpg",
+        "sha256": "bf51184109d21894d9ab346cc03cb55d89068c9b22a698800c9562ffda6a5726",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1e25d3c12ea642ba69084765be9b6db9d610bedb6a7ba13501d0ad876475c709",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      }
+    },
+    {
+      "id": "pair023",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "02de43e0114186dfc0f0de17fdbaec483907714f4b26fd9721c1b9836e3be161",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "af75615af0cf7cd0600010c292ef9be514a182869c4c81899228ad700a7ee655",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      }
+    },
+    {
+      "id": "pair024",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__watercolor__a2.jpg",
+        "sha256": "bf51184109d21894d9ab346cc03cb55d89068c9b22a698800c9562ffda6a5726",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__watercolor__a1.jpg",
+        "sha256": "6ab00c73480a66e4ac95a3583a35bc37906471cb25a8c14865d09fe1686e0667",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      }
+    },
+    {
+      "id": "pair025",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__watercolor__a1.jpg",
+        "sha256": "6ab00c73480a66e4ac95a3583a35bc37906471cb25a8c14865d09fe1686e0667",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__watercolor__a2.jpg",
+        "sha256": "bf51184109d21894d9ab346cc03cb55d89068c9b22a698800c9562ffda6a5726",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      }
+    },
+    {
+      "id": "pair026",
+      "groupId": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-engineers-thumb-170",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-eyford-drive__classical__a1.jpg",
+        "sha256": "6b3b35574abd71daa8ad88395a58c74cfe234e5a3204ae228ae97c5129e69e60",
+        "scene": "Victor Hatherley standing on the road, arm outstretched, pointing toward the house; Holmes at Hatherley's side with hands in coat pockets; a few dim crowd figures and fire-engine silhouettes near the gate; smoke drifting across the hedgerows"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-engineers-thumb-165",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-eyford-fire__classical__a1.jpg",
+        "sha256": "512c85f46e2e4d8619b40e4dc8fd46f6c6fc9798cc16561302e8a0fd77740128",
+        "scene": "The burning whitewashed country house, flames pouring from every window and chink.; Three fire-engines in the front garden with hoses, dark silhouettes of fire crews and villagers at the gate, the station-master gesturing with a laugh."
+      }
+    },
+    {
+      "id": "pair027",
+      "groupId": "bank-cellar",
+      "kind": "setting",
+      "subject": "the vault cellar of the City and Suburban Bank",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-183",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-bank-cellar-plans__watercolor__a1.jpg",
+        "sha256": "cdaefb2e0509aa21974d2f1daa77bb44339e54e7632b1d48e5c1bf5ca971b899",
+        "scene": "Dr. Watson, crouched low behind a wooden crate, revolver cocked on its top, eyes fixed on the floor; Holmes and Merryweather crouched behind their own crates, Jones nearby; the shuttered lantern hidden and unlit, its hot metal smell faintly present"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-175",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-bank-cellar-lantern__watercolor__a1.jpg",
+        "sha256": "8691af9d288e1e68d0c78dad865e80ead7052e44abfd141afac0c2261db05c16",
+        "scene": "Holmes kneeling on the stone flags, lantern in hand, lens to his eye; Lantern casting a warm pool of light; Merryweather's stick resting against his knee; darkness pressing at the edges of the vault"
+      }
+    },
+    {
+      "id": "pair028",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__classical__a1.jpg",
+        "sha256": "b03124909ab4219899fb7ae5687f89c6282f0369259f186d387fc1eb7f8f2ae0",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "02de43e0114186dfc0f0de17fdbaec483907714f4b26fd9721c1b9836e3be161",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      }
+    },
+    {
+      "id": "pair029",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__classical__a1.jpg",
+        "sha256": "b03124909ab4219899fb7ae5687f89c6282f0369259f186d387fc1eb7f8f2ae0",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__classical__a2.jpg",
+        "sha256": "5d0fa3a16c2f6f707bf7740644e37df9e2d813a9628fcd24fa7189f63c520939",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      }
+    },
+    {
+      "id": "pair030",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "af75615af0cf7cd0600010c292ef9be514a182869c4c81899228ad700a7ee655",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__classical__a1.jpg",
+        "sha256": "b03124909ab4219899fb7ae5687f89c6282f0369259f186d387fc1eb7f8f2ae0",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      }
+    },
+    {
+      "id": "pair031",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "af75615af0cf7cd0600010c292ef9be514a182869c4c81899228ad700a7ee655",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "f3ed1cdc683a9047ba39e1ca2ea7b8bb3d71dfb17f8e9718034b2d4932f39068",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      }
+    },
+    {
+      "id": "pair032",
+      "groupId": "eyford-fire",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-engineers-thumb-165",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-eyford-fire__watercolor__a1.jpg",
+        "sha256": "0fcdfa83325fefce91321e4197d12d0a3969c36c07c6d55ff3b679f8446194fd",
+        "scene": "The burning whitewashed country house, flames pouring from every window and chink.; Three fire-engines in the front garden with hoses, dark silhouettes of fire crews and villagers at the gate, the station-master gesturing with a laugh."
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-engineers-thumb-170",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-eyford-drive__watercolor__a1.jpg",
+        "sha256": "eef3a5065167ff3f0247521000fd096332f61c80e9956a84db50790a2f285115",
+        "scene": "Victor Hatherley standing on the road, arm outstretched, pointing toward the house; Holmes at Hatherley's side with hands in coat pockets; a few dim crowd figures and fire-engine silhouettes near the gate; smoke drifting across the hedgerows"
+      }
+    },
+    {
+      "id": "pair033",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__watercolor__a1.jpg",
+        "sha256": "6ab00c73480a66e4ac95a3583a35bc37906471cb25a8c14865d09fe1686e0667",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1e25d3c12ea642ba69084765be9b6db9d610bedb6a7ba13501d0ad876475c709",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      }
+    },
+    {
+      "id": "pair034",
+      "groupId": "bank-cellar",
+      "kind": "setting",
+      "subject": "the vault cellar of the City and Suburban Bank",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-175",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-bank-cellar-lantern__classical__a1.jpg",
+        "sha256": "8c9610d5fc59fa7856c6f81a83384daab0901d49253f48c331217be790bd998d",
+        "scene": "Holmes kneeling on the stone flags, lantern in hand, lens to his eye; Lantern casting a warm pool of light; Merryweather's stick resting against his knee; darkness pressing at the edges of the vault"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-183",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-bank-cellar-plans__classical__a1.jpg",
+        "sha256": "49d0d663cf1811ac8366535e1f6fffc2e69243c9d68e570568f811bc79e69e94",
+        "scene": "Dr. Watson, crouched low behind a wooden crate, revolver cocked on its top, eyes fixed on the floor; Holmes and Merryweather crouched behind their own crates, Jones nearby; the shuttered lantern hidden and unlit, its hot metal smell faintly present"
+      }
+    },
+    {
+      "id": "pair035",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-scandal-the-woman__watercolor__a1.jpg",
+        "sha256": "c46853aca858c0cd2d45b2205bdf44797c3cdf7bb6b41dbbaa02863aea675df0",
+        "scene": "Sherlock Holmes seated in his armchair, lean and still, absorbed in thought; A low coal fire glows in the grate, a violin and pipe resting nearby, fog-darkened windows behind him"
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "9d7760a3db26e2483b5dce4761aefd61efd5afab5cfc11fd914f39677e52f99d",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      }
+    },
+    {
+      "id": "pair036",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1e25d3c12ea642ba69084765be9b6db9d610bedb6a7ba13501d0ad876475c709",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "9d7760a3db26e2483b5dce4761aefd61efd5afab5cfc11fd914f39677e52f99d",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      }
+    },
+    {
+      "id": "pair037",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__classical__a2.jpg",
+        "sha256": "5d0fa3a16c2f6f707bf7740644e37df9e2d813a9628fcd24fa7189f63c520939",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__classical__a1.jpg",
+        "sha256": "b03124909ab4219899fb7ae5687f89c6282f0369259f186d387fc1eb7f8f2ae0",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      }
+    },
+    {
+      "id": "pair038",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "9d7760a3db26e2483b5dce4761aefd61efd5afab5cfc11fd914f39677e52f99d",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "a602a88a8d0f56cd131b1b73a7c5dbce4f85396d51397a4c5c838b922fe2723c",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      }
+    },
+    {
+      "id": "pair039",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__classical__a2.jpg",
+        "sha256": "5d0fa3a16c2f6f707bf7740644e37df9e2d813a9628fcd24fa7189f63c520939",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "02de43e0114186dfc0f0de17fdbaec483907714f4b26fd9721c1b9836e3be161",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      }
+    },
+    {
+      "id": "pair040",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "02de43e0114186dfc0f0de17fdbaec483907714f4b26fd9721c1b9836e3be161",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__classical__a1.jpg",
+        "sha256": "b03124909ab4219899fb7ae5687f89c6282f0369259f186d387fc1eb7f8f2ae0",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      }
+    },
+    {
+      "id": "pair041",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__classical__a2.jpg",
+        "sha256": "5d0fa3a16c2f6f707bf7740644e37df9e2d813a9628fcd24fa7189f63c520939",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "af75615af0cf7cd0600010c292ef9be514a182869c4c81899228ad700a7ee655",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      }
+    },
+    {
+      "id": "pair042",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "f3ed1cdc683a9047ba39e1ca2ea7b8bb3d71dfb17f8e9718034b2d4932f39068",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "af75615af0cf7cd0600010c292ef9be514a182869c4c81899228ad700a7ee655",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      }
+    },
+    {
+      "id": "pair043",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__watercolor__a2.jpg",
+        "sha256": "bf51184109d21894d9ab346cc03cb55d89068c9b22a698800c9562ffda6a5726",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "9d7760a3db26e2483b5dce4761aefd61efd5afab5cfc11fd914f39677e52f99d",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      }
+    },
+    {
+      "id": "pair044",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "f3ed1cdc683a9047ba39e1ca2ea7b8bb3d71dfb17f8e9718034b2d4932f39068",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      },
+      "right": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-scandal-the-woman__classical__a1.jpg",
+        "sha256": "abe0c8c3f05380f7d60e8eb2fde16aec50cc7c86f3e4b682c74f67428dbc5c98",
+        "scene": "Sherlock Holmes seated in his armchair, lean and still, absorbed in thought; A low coal fire glows in the grate, a violin and pipe resting nearby, fog-darkened windows behind him"
+      }
+    },
+    {
+      "id": "pair045",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__watercolor__a2.jpg",
+        "sha256": "bf51184109d21894d9ab346cc03cb55d89068c9b22a698800c9562ffda6a5726",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "a602a88a8d0f56cd131b1b73a7c5dbce4f85396d51397a4c5c838b922fe2723c",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      }
+    },
+    {
+      "id": "pair046",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "a602a88a8d0f56cd131b1b73a7c5dbce4f85396d51397a4c5c838b922fe2723c",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1e25d3c12ea642ba69084765be9b6db9d610bedb6a7ba13501d0ad876475c709",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      }
+    },
+    {
+      "id": "pair047",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__watercolor__a1.jpg",
+        "sha256": "9d7760a3db26e2483b5dce4761aefd61efd5afab5cfc11fd914f39677e52f99d",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1e25d3c12ea642ba69084765be9b6db9d610bedb6a7ba13501d0ad876475c709",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      }
+    },
+    {
+      "id": "pair048",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-scandal-the-woman__classical__a1.jpg",
+        "sha256": "abe0c8c3f05380f7d60e8eb2fde16aec50cc7c86f3e4b682c74f67428dbc5c98",
+        "scene": "Sherlock Holmes seated in his armchair, lean and still, absorbed in thought; A low coal fire glows in the grate, a violin and pipe resting nearby, fog-darkened windows behind him"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__classical__a1.jpg",
+        "sha256": "b03124909ab4219899fb7ae5687f89c6282f0369259f186d387fc1eb7f8f2ae0",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      }
+    },
+    {
+      "id": "pair049",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "f3ed1cdc683a9047ba39e1ca2ea7b8bb3d71dfb17f8e9718034b2d4932f39068",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__classical__a1.jpg",
+        "sha256": "b03124909ab4219899fb7ae5687f89c6282f0369259f186d387fc1eb7f8f2ae0",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      }
+    },
+    {
+      "id": "pair050",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1e25d3c12ea642ba69084765be9b6db9d610bedb6a7ba13501d0ad876475c709",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__watercolor__a1.jpg",
+        "sha256": "6ab00c73480a66e4ac95a3583a35bc37906471cb25a8c14865d09fe1686e0667",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      }
+    },
+    {
+      "id": "pair051",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1e25d3c12ea642ba69084765be9b6db9d610bedb6a7ba13501d0ad876475c709",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      },
+      "right": {
+        "unitId": "a-scandal-in-bohemia-1-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-scandal-the-woman__watercolor__a1.jpg",
+        "sha256": "c46853aca858c0cd2d45b2205bdf44797c3cdf7bb6b41dbbaa02863aea675df0",
+        "scene": "Sherlock Holmes seated in his armchair, lean and still, absorbed in thought; A low coal fire glows in the grate, a violin and pipe resting nearby, fog-darkened windows behind him"
+      }
+    },
+    {
+      "id": "pair052",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "02de43e0114186dfc0f0de17fdbaec483907714f4b26fd9721c1b9836e3be161",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "f3ed1cdc683a9047ba39e1ca2ea7b8bb3d71dfb17f8e9718034b2d4932f39068",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      }
+    },
+    {
+      "id": "pair053",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__watercolor__a1.jpg",
+        "sha256": "6ab00c73480a66e4ac95a3583a35bc37906471cb25a8c14865d09fe1686e0667",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "a602a88a8d0f56cd131b1b73a7c5dbce4f85396d51397a4c5c838b922fe2723c",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      }
+    },
+    {
+      "id": "pair054",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__watercolor__a1.jpg",
+        "sha256": "1e25d3c12ea642ba69084765be9b6db9d610bedb6a7ba13501d0ad876475c709",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__watercolor__a2.jpg",
+        "sha256": "bf51184109d21894d9ab346cc03cb55d89068c9b22a698800c9562ffda6a5726",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      }
+    },
+    {
+      "id": "pair055",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__classical__a1.jpg",
+        "sha256": "b03124909ab4219899fb7ae5687f89c6282f0369259f186d387fc1eb7f8f2ae0",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "f3ed1cdc683a9047ba39e1ca2ea7b8bb3d71dfb17f8e9718034b2d4932f39068",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      }
+    },
+    {
+      "id": "pair056",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "classical",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__classical__a2.jpg",
+        "sha256": "5d0fa3a16c2f6f707bf7740644e37df9e2d813a9628fcd24fa7189f63c520939",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      },
+      "right": {
+        "unitId": "the-boscombe-valley-mystery-9",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-boscombe-train__classical__a1.jpg",
+        "sha256": "f3ed1cdc683a9047ba39e1ca2ea7b8bb3d71dfb17f8e9718034b2d4932f39068",
+        "scene": "Holmes in mid-motion, arm raised as he flings a large bundle of papers up toward the overhead rack.; Scattered loose newspapers litter the seats and floor; Watson sits calmly, hat and coat on, a watch chain across his waistcoat."
+      }
+    },
+    {
+      "id": "pair057",
+      "groupId": "dr-watson",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "style": "classical",
+      "left": {
+        "unitId": "the-adventure-of-the-speckled-band-235",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-speckled-band-vigil__classical__a1.jpg",
+        "sha256": "af75615af0cf7cd0600010c292ef9be514a182869c4c81899228ad700a7ee655",
+        "scene": "Holmes, pale and rigid, springing from the bed with a raised cane; Watson standing at the bedside with a pistol, a flaring match, faint dark-lantern glow from the next room"
+      },
+      "right": {
+        "unitId": "the-red-headed-league-138",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-saxe-coburg-square__classical__a1.jpg",
+        "sha256": "02de43e0114186dfc0f0de17fdbaec483907714f4b26fd9721c1b9836e3be161",
+        "scene": "Sherlock Holmes, tall and lean, standing still on the pavement with head inclined and eyes narrowed in close scrutiny.; Gilt pawnbroker's balls and a brown board with white lettering on the corner house; a few passing City men in overcoats and hats; the railed lawn behind."
+      }
+    },
+    {
+      "id": "pair058",
+      "groupId": "sherlock-holmes",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-red-headed-league-1",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-red-headed-league__watercolor__a1.jpg",
+        "sha256": "a602a88a8d0f56cd131b1b73a7c5dbce4f85396d51397a4c5c838b922fe2723c",
+        "scene": "Holmes mid-motion, gripping Watson's arm and drawing him into the room with his other hand on the door; Wilson, stout and red-haired, half standing beside a chair near the desk, his small eyes glancing at the newcomer; papers and books scattered on the desk"
+      },
+      "right": {
+        "unitId": "the-adventure-of-the-blue-carbuncle-12",
+        "file": "evals/images/runs/2026-10-30-suite-baseline-image/images/holmes-blue-carbuncle-hat__watercolor__a1.jpg",
+        "sha256": "6ab00c73480a66e4ac95a3583a35bc37906471cb25a8c14865d09fe1686e0667",
+        "scene": "Holmes examining a worn felt hat through a magnifying lens; Goose-less table, the hat and lens on the desk, a folded newspaper and a cold teacup nearby"
+      }
+    }
+  ]
+}

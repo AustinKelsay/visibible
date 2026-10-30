@@ -1,0 +1,1098 @@
+{
+  "tier": "image",
+  "items": [
+    {
+      "id": "i001",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i001.jpg",
+      "work": "The Holy Bible",
+      "reference": "Exodus 14:22",
+      "text": "The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Moses",
+        "The Israelite people (the children of Israel)",
+        "Red Sea"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Moses at the head of the Israelite people, walking forward with hand lowered across the parted water",
+        "action": "Families and herds step forward together over the wet sand of the sea floor, carrying their belongings, as the water stands in walls on either side",
+        "setting": "Dry sea floor between two towering walls of water, with the near shore of sand and rock behind them",
+        "secondaryElements": "Women and children, herdsmen with flocks, a few men carrying bundles; water walls glistening with spray and moving wind-torn surfaces; no Egyptians present",
+        "mood": "Awe, urgency and quiet hope, with fear held in check by faith",
+        "timeOfDay": "Night, the sky beginning to pale toward dawn; strong east wind blowing spray from the water walls",
+        "composition": "Viewed from behind and slightly to one side of the company, the crowd stretching forward into the middle of the sea, the water walls framing the path on both sides"
+      }
+    },
+    {
+      "id": "i002",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i002.jpg",
+      "work": "The Holy Bible",
+      "reference": "Job 38:4",
+      "text": "“Where were you when I laid the foundations of the earth? Declare, if you have understanding.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Job",
+        "The whirlwind",
+        "The ash heap",
+        "God / Yahweh, the Father and God of Israel"
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ],
+      "scene": {
+        "primarySubject": "Job, upright and bracing himself in worn tunic and ash-dusted cloak, face lifted toward the storm.",
+        "action": "Dust and wind whirl around him while a towering column of light and cloud seems to speak from beyond the storm.",
+        "setting": "A bleak ash heap outside the city walls, with distant walls and gates on the horizon, scattered stones, broken pottery shards and dry scrub.",
+        "secondaryElements": "Ash and broken pottery shards on the ground, a violent whirlwind of dust across the plain, radiance spreading through dark storm clouds above.",
+        "mood": "Awe, dread and steadfast human dignity.",
+        "timeOfDay": "Late afternoon turning toward dusk under a storm-darkened sky, with low golden-red sunlight breaking through dust and cloud.",
+        "composition": "Wide view from a low angle, Job small in the lower foreground against the vast storm and the distant city walls on the horizon."
+      }
+    },
+    {
+      "id": "i003",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i003.jpg",
+      "work": "The Holy Bible",
+      "reference": "Daniel 6:17",
+      "text": "A stone was brought, and laid on the mouth of the den; and the king sealed it with his own signet, and with the signet of his lords; that nothing might be changed concerning Daniel.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Darius the Mede",
+        "the den of lions"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Darius the Mede kneeling at the pit's edge, pressing his signet ring into sealing clay on the stone",
+        "action": "A heavy stone is being rolled over the den's opening as the king and his lords affix their seals to it",
+        "setting": "A stone-sealed pit in a Persian palace courtyard in Babylon, mud-brick and dressed stone walls",
+        "secondaryElements": "Several Persian lords in court dress gathered close, one holding a lamp, attendants straining at the stone with ropes; Daniel is not shown",
+        "mood": "Solemn, tense and hushed, with a sense of irrevocable decision",
+        "timeOfDay": "Night, clear and still, lit by torchlight and lamp glow",
+        "composition": "Eye-level view from the courtyard edge, the stone and kneeling king in the foreground, the lords arranged around the pit in the middle distance"
+      }
+    },
+    {
+      "id": "i004",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i004.jpg",
+      "work": "The Holy Bible",
+      "reference": "Proverbs 8:21",
+      "text": "that I may give wealth to those who love me. I fill their treasuries.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Wisdom",
+        "The streets and city gates"
+      ],
+      "neverDrawn": [
+        "Wisdom"
+      ],
+      "scene": {
+        "primarySubject": "Radiant light and warm glow filling the city gate and the open treasuries beside it, rising from above the square.",
+        "action": "Golden radiance spreads down through the air and into the storehouses, with the light brightening the stored jars and chests.",
+        "setting": "The crowded streets and city gates of an ancient walled town, with open squares and busy gate entrance.",
+        "secondaryElements": "Townspeople in tunics and cloaks passing through the gate, merchants' baskets and jars along the streets, open storehouse doors glowing with light.",
+        "mood": "Quiet abundance and reverent wonder amid ordinary daily life.",
+        "timeOfDay": "Clear midday daylight with warm dry air and dust drifting in the streets.",
+        "composition": "Wide view from street level looking through the city gate toward the square, with the storehouses in the middle ground and the light descending from the upper frame."
+      }
+    },
+    {
+      "id": "i005",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i005.jpg",
+      "work": "The Holy Bible",
+      "reference": "2 Chronicles 31:21",
+      "text": "In every work that he began in the service of God’s house, in the law, and in the commandments, to seek his God, he did it with all his heart and prospered.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Hezekiah",
+        "Yahweh's house in Jerusalem (the temple)",
+        "Jerusalem"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Hezekiah in a royal robe over a tunic, standing upright and attentive at the center of the temple courts",
+        "action": "He directs the renewed service of the temple, gesturing toward the priests and Levites at work",
+        "setting": "The courts of the temple in Jerusalem, with stone walls, cedar beams and bronze vessels",
+        "secondaryElements": "Priests in white linen tunics and sashes at the altar, Levites in plain tunics carrying vessels, storerooms with open doorways behind",
+        "mood": "Dedicated, resolute and quietly joyful",
+        "timeOfDay": "Bright morning light carrying into midday, clear and dry Judean sky",
+        "composition": "Eye-level view from the courtyard, Hezekiah placed centrally with the temple buildings receding behind him"
+      }
+    },
+    {
+      "id": "i006",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i006.jpg",
+      "work": "The Holy Bible",
+      "reference": "Luke 22:61",
+      "text": "The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Simon Peter",
+        "the court of the high priest (Caiaphas)",
+        "Crowd in Luke"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Peter frozen mid-step beside the brazier, eyes locked on a distant figure",
+        "action": "Jesus turns his head and gazes across the courtyard at Peter, as Peter's face begins to register recollection",
+        "setting": "Stone courtyard of the high priest's house in Jerusalem, with a gated passage to the street",
+        "secondaryElements": "A faint rooster glimpsed on a rooftop edge in dim light; a few guards and servants near the brazier, glancing aside",
+        "mood": "Stunned recognition, grief and quiet dignity",
+        "timeOfDay": "Deep night turning to pre-dawn grey, cool still air with faint mist",
+        "composition": "Peter in the foreground near the brazier, Jesus seen across the courtyard in the middle distance, eyes meeting over the firelight"
+      }
+    },
+    {
+      "id": "i007",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i007.jpg",
+      "work": "The Holy Bible",
+      "reference": "Isaiah 40:29",
+      "text": "He gives power to the weak. He increases the strength of him who has no might.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Isaiah son of Amoz",
+        "Jerusalem"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Isaiah in a simple prophet's mantle, steadying a bowed and weary figure",
+        "action": "The weary figure is just beginning to raise his head, his posture not yet upright, as Isaiah supports him.",
+        "setting": "Stone streets of Jerusalem below the high temple precinct and city walls",
+        "secondaryElements": "Few townsfolk in plain undyed wool, a water jar set down by a doorway, the sun's first rays on distant eastern hills",
+        "mood": "Quiet hope, tender and reverent, with grief still lingering",
+        "timeOfDay": "Early morning, clear sky after faint dawn haze, pale golden light from the east",
+        "composition": "Medium shot from street level, Isaiah and the weary figure in the foreground, the city walls and temple rising behind, dawn light falling across the stones"
+      }
+    },
+    {
+      "id": "i008",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i008.jpg",
+      "work": "The Holy Bible",
+      "reference": "Ezekiel 37:4",
+      "text": "Again he said to me, “Prophesy over these bones, and tell them, ‘You dry bones, hear Yahweh’s word.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Ezekiel son of Buzi",
+        "Valley of dry bones",
+        "God / Yahweh, the Father and God of Israel"
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ],
+      "scene": {
+        "primarySubject": "Ezekiel, a man in a plain tunic and cloak, standing and facing the bones with his arm raised.",
+        "action": "He speaks the word of Yahweh over the bones lying scattered across the valley floor.",
+        "setting": "A wide barren valley of sun-bleached bones on dry earth, with hills rising at the edges.",
+        "secondaryElements": "Bones scattered across the ground in the foreground and middle distance; a faint pale radiance of cloud and light spread through the valley where the Lord's presence is.",
+        "mood": "Solemn, expectant and hushed, with grief giving way to hope.",
+        "timeOfDay": "Midday, bright and still, with dry windless air and a faint hot haze.",
+        "composition": "Ezekiel placed in the middle distance, small against the wide valley, with the bones spread across the lower foreground and the hills framing the edges."
+      }
+    },
+    {
+      "id": "i009",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i009.jpg",
+      "work": "The Holy Bible",
+      "reference": "Exodus 14:22",
+      "text": "The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Moses",
+        "The Israelite people (the children of Israel)",
+        "Red Sea"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Moses at the head of the Israelite people, walking forward with hand lowered across the parted water",
+        "action": "Families and herds step forward together over the wet sand of the sea floor, carrying their belongings, as the water stands in walls on either side",
+        "setting": "Dry sea floor between two towering walls of water, with the near shore of sand and rock behind them",
+        "secondaryElements": "Women and children, herdsmen with flocks, a few men carrying bundles; water walls glistening with spray and moving wind-torn surfaces; no Egyptians present",
+        "mood": "Awe, urgency and quiet hope, with fear held in check by faith",
+        "timeOfDay": "Night, the sky beginning to pale toward dawn; strong east wind blowing spray from the water walls",
+        "composition": "Viewed from behind and slightly to one side of the company, the crowd stretching forward into the middle of the sea, the water walls framing the path on both sides"
+      }
+    },
+    {
+      "id": "i010",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i010.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "A Mad Tea-Party ¶70 to A Mad Tea-Party ¶81",
+      "text": "“Once upon a time there were three little sisters,” the Dormouse began in a great hurry; “and their names were Elsie, Lacie, and Tillie; and they lived at the bottom of a well—” “What did they live on?” said Alice, who always took a great interest in questions of eating and drinking. “They lived on treacle,” said the Dormouse, after thinking a minute or two. “They couldn’t have done that, you know,” Alice gently remarked; “they’d have been ill.” “So they were,” said the Dormouse; “_very_ ill.” Alice tried to fancy to herself what such an extraordinary way of living would be like, but it puzzled her too much, so she went on: “But why did they live at the bottom of a well?” “Take some more tea,” the March Hare said to Alice, very earnestly. “I’ve had nothing yet,” Alice replied in an offended tone, “so I can’t take more.” “You mean you can’t take _less_,” said the Hatter: “it’s very easy to take _more_ than nothing.” “Nobody asked _your_ opinion,” said Alice. “Who’s making personal remarks now?” the Hatter asked triumphantly. Alice did not quite know what to say to this: so she helped herself to some tea and bread-and-butter, and then turned to the Dormouse, and repeated her question. “Why did they live at the bottom of a well?”",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+        "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+        "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations."
+      ],
+      "selected": [
+        "Alice",
+        "March Hare",
+        "Hatter",
+        "the Dormouse",
+        "Tea-table under a tree"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "The sleepy Dormouse, half-sunk in a large teapot, mid-sentence with one paw raised.",
+        "action": "Alice leans across the table in a questioning pose while the March Hare offers a cup and the Hatter gestures with his teacup.",
+        "setting": "Outdoor tea-table beneath a large tree in a sunlit Wonderland clearing, strewn with cups and a cracked teapot.",
+        "secondaryElements": "Alice in a Victorian pinafore at one side of the table, the March Hare and Hatter in waistcoats and hats at the far end, bread-and-butter on plates, a few cups tipped on the cloth.",
+        "mood": "Whimsical bewilderment with a faint comic absurdity.",
+        "timeOfDay": "Late afternoon, warm and still, with a faint breeze stirring leaves.",
+        "composition": "Eye-level view from the side of the table, with Alice in the foreground and the tea party arranged along the table beneath the tree."
+      }
+    },
+    {
+      "id": "i011",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i011.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "A Scandal in Bohemia, Part I ¶34 to A Scandal in Bohemia, Part I ¶47",
+      "text": "As he spoke there was the sharp sound of horses’ hoofs and grating wheels against the curb, followed by a sharp pull at the bell. Holmes whistled. “A pair, by the sound,” said he. “Yes,” he continued, glancing out of the window. “A nice little brougham and a pair of beauties. A hundred and fifty guineas apiece. There’s money in this case, Watson, if there is nothing else.” “I think that I had better go, Holmes.” “Not a bit, Doctor. Stay where you are. I am lost without my Boswell. And this promises to be interesting. It would be a pity to miss it.” “But your client—” “Never mind him. I may want your help, and so may he. Here he comes. Sit down in that armchair, Doctor, and give us your best attention.” A slow and heavy step, which had been heard upon the stairs and in the passage, paused immediately outside the door. Then there was a loud and authoritative tap. “Come in!” said Holmes. A man entered who could hardly have been less than six feet six inches in height, with the chest and limbs of a Hercules. His dress was rich with a richness which would, in England, be looked upon as akin to bad taste. Heavy bands of astrakhan were slashed across the sleeves and fronts of his double-breasted coat, while the deep blue cloak which was thrown over his shoulders was lined with flame-coloured silk and secured at the neck with a brooch which consisted of a single flaming beryl. Boots which extended halfway up his calves, and which were trimmed at the tops with rich brown fur, completed the impression of barbaric opulence which was suggested by his whole appearance. He carried a broad-brimmed hat in his hand, while he wore across the upper part of his face, extending down past the cheekbones, a black vizard mask, which he had apparently adjusted that very moment, for his hand was still raised to it as he entered. From the lower part of the face he appeared to be a man of strong character, with a thick, hanging lip, and a long, straight chin suggestive of resolution pushed to the length of obstinacy. “You had my note?” he asked with a deep harsh voice and a strongly marked German accent. “I told you that I would call.” He looked from one to the other of us, as if uncertain which to address. “Pray take a seat,” said Holmes. “This is my friend and colleague, Dr. Watson, who is occasionally good enough to help me in my cases. Whom have I the honour to address?” “You may address me as the Count Von Kramm, a Bohemian nobleman. I understand that this gentleman, your friend, is a man of honour and discretion, whom I may trust with a matter of the most extreme importance. If not, I should much prefer to communicate with you alone.” I rose to go, but Holmes caught me by the wrist and pushed me back into my chair. “It is both, or none,” said he. “You may say before this gentleman anything which you may say to me.” The Count shrugged his broad shoulders. “Then I must begin,” said he, “by binding you both to absolute secrecy for two years; at the end of that time the matter will be of no importance. At present it is not too much to say that it is of such weight it may have an influence upon European history.”",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "selected": [
+        "Sherlock Holmes",
+        "Dr. Watson",
+        "Wilhelm Gottsreich Sigismond von Ormstein, King of Bohemia",
+        "Holmes's rooms, Baker Street"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "A very tall man in a furred double-breasted coat and flame-lined blue cloak, black vizard mask across his upper face, broad hat in one hand.",
+        "action": "He stands just inside the doorway, one hand still raised to his mask, while Holmes gestures toward a seat and Watson half-rises from his chair.",
+        "setting": "Holmes's sitting room at 221B Baker Street, with a coal fire, lamp-lit shelves and a window onto the street.",
+        "secondaryElements": "Holmes seated near the window with a hand raised, Watson in an armchair half-risen; the flaming beryl brooch glints at the visitor's neck; a gaslit room with soft shadows.",
+        "mood": "Restrained tension, wary curiosity and a faint dry expectancy.",
+        "timeOfDay": "Late afternoon into evening, with muted grey window light fading and warm gaslight inside.",
+        "composition": "Medium-wide interior view from across the room, visitor at the doorway on one side, Holmes and Watson grouped in the armchairs on the other."
+      }
+    },
+    {
+      "id": "i012",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i012.jpg",
+      "work": "The Holy Bible",
+      "reference": "Leviticus 11:7",
+      "text": "The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Aaron, brother of Moses",
+        "Moses",
+        "the camp of Israel"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Aaron in his full priestly garments, a white linen tunic under a blue robe with the blue, purple and scarlet ephod, breastplate and headband, one arm extended toward a pig",
+        "action": "Aaron gestures toward the pig, teaching the people which animals are unclean, while Moses stands beside him",
+        "setting": "Wilderness camp of Israel among dry rocky hills, tents and the tabernacle in the background",
+        "secondaryElements": "Israelite men and women in woven tunics and cloaks gathered in a loose crowd, a pig standing near the edge of the camp, a few tent ropes and bronze vessels",
+        "mood": "Solemn, instructive and reverent, with a sense of careful order",
+        "timeOfDay": "Daytime, bright midday light with clear dry desert air and faint heat haze",
+        "composition": "Medium-wide view from the side of the crowd, Aaron in the foreground left with the pig and crowd extending to the right, tabernacle visible in the distance"
+      }
+    },
+    {
+      "id": "i013",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i013.jpg",
+      "work": "The Holy Bible",
+      "reference": "John 21:7",
+      "text": "That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Simon Peter",
+        "The beloved disciple",
+        "Jesus Christ, the Son of God and Lord",
+        "Sea of Galilee",
+        "The Twelve Disciples (collective)"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Peter, mid-leap from the boat, coat clutched around his body",
+        "action": "Peter plunges from the side of the small boat into the shallow water, reaching toward the shore where Jesus waits by the fire.",
+        "setting": "Shallow shoreline of the Sea of Galilee with a small fishing boat and a charcoal fire on the sand, stone houses behind.",
+        "secondaryElements": "The beloved disciple stands in the boat pointing toward the shore; the other disciples remain aboard, the loaded net trailing in the water; Jesus is a distant figure by the fire.",
+        "mood": "Urgent, joyful recognition and eager devotion.",
+        "timeOfDay": "Early dawn with pale golden light low over the water, warming toward morning.",
+        "composition": "Viewed from the lake side, the boat at left, Peter's arc of motion across the center, the shore and fire receding to the right."
+      }
+    },
+    {
+      "id": "i014",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i014.jpg",
+      "work": "The Holy Bible",
+      "reference": "Matthew 1:1",
+      "text": "The book of the genealogy of Jesus Christ, the son of David, the son of Abraham.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "A stone bench bearing a rolled, closed scroll, set at the center of the courtyard",
+        "action": "Still moment; sunlight falls across the closed scroll as if the family line is being gathered and held",
+        "setting": "Stone village courtyard in Roman Judea beside a synagogue wall, fishing boats faintly visible in the distance",
+        "secondaryElements": "Clay jars and a low stone wall; figures of Abraham and David stand quietly at the edges of the courtyard, unnamed by any written sign",
+        "mood": "Reverent, grounded and expectant",
+        "timeOfDay": "Midday, bright daylight with clear dry warm air and light dust",
+        "composition": "Eye-level view across the courtyard, the scroll centered in the foreground with the two ancestral figures framing it on either side"
+      }
+    },
+    {
+      "id": "i015",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i015.jpg",
+      "work": "The Holy Bible",
+      "reference": "Nehemiah 3:9",
+      "text": "Next to them, Rephaiah the son of Hur, the ruler of half the district of Jerusalem, made repairs.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Jerusalem",
+        "The Israelite people (the children of Israel)"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Rephaiah, a dignified district ruler in a plain cloak, pointing toward a section of wall",
+        "action": "Laborers lift and set stones into a gap in the wall while Rephaiah gives directions",
+        "setting": "Jerusalem's ruined city wall with fresh stone and mortar beside older rubble",
+        "secondaryElements": "Workers with headcloths and work wraps hauling stones and mortar baskets; a guard in period armor standing nearby",
+        "mood": "Determined, orderly and hopeful",
+        "timeOfDay": "Morning into midday, clear dry sky, warm bright sunlight with dust in the air",
+        "composition": "Medium shot from the side at street level, wall stretching across the frame, Rephaiah in the foreground"
+      }
+    },
+    {
+      "id": "i016",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i016.jpg",
+      "work": "The Holy Bible",
+      "reference": "Exodus 14:21",
+      "text": "Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Moses",
+        "Red Sea",
+        "God / Yahweh, the Father and God of Israel",
+        "The Israelite people (the children of Israel)"
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ],
+      "scene": {
+        "primarySubject": "Moses in plain linen cloak, standing at the water's edge with his arm extended out over the sea",
+        "action": "The east wind pushes the sea back as the waters stand divided, leaving dry ground between them",
+        "setting": "Shore of the Red Sea, sand and rock giving way to a wide sea floor between two walls of water",
+        "secondaryElements": "Strong east wind blowing spray and moving cloud; radiant cloud and pillar of fire spreading pale gold across the wind and the parted water; Israelites in woven tunics and cloaks gathered on the shore behind Moses",
+        "mood": "Awe, reverent expectancy and quiet hope",
+        "timeOfDay": "Night, shifting toward the first grey of dawn; strong east wind and blowing spray",
+        "composition": "Wide view from the shore looking out over the parted sea, Moses in the foreground with outstretched arm, the sea floor receding into the middle distance between the walls of water"
+      }
+    },
+    {
+      "id": "i017",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i017.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "The Lobster Quadrille ¶18 to The Lobster Quadrille ¶26",
+      "text": "“It must be a very pretty dance,” said Alice timidly. “Would you like to see a little of it?” said the Mock Turtle. “Very much indeed,” said Alice. “Come, let’s try the first figure!” said the Mock Turtle to the Gryphon. “We can do without lobsters, you know. Which shall sing?” “Oh, _you_ sing,” said the Gryphon. “I’ve forgotten the words.” So they began solemnly dancing round and round Alice, every now and then treading on her toes when they passed too close, and waving their forepaws to mark the time, while the Mock Turtle sang this, very slowly and sadly:— “Will you walk a little faster?” said a whiting to a snail. “There’s a porpoise close behind us, and he’s treading on my tail. See how eagerly the lobsters and the turtles all advance! They are waiting on the shingle—will you come and join the dance? Will you, won’t you, will you, won’t you, will you join the dance? Will you, won’t you, will you, won’t you, won’t you join the dance? “You can really have no notion how delightful it will be When they take us up and throw us, with the lobsters, out to sea!” But the snail replied “Too far, too far!” and gave a look askance— Said he thanked the whiting kindly, but he would not join the dance. Would not, could not, would not, could not, would not join the dance. Would not, could not, would not, could not, could not join the dance. “What matters it how far we go?” his scaly friend replied. “There is another shore, you know, upon the other side. The further off from England the nearer is to France— Then turn not pale, beloved snail, but come and join the dance. Will you, won’t you, will you, won’t you, will you join the dance? Will you, won’t you, will you, won’t you, won’t you join the dance?”",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+        "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+        "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations."
+      ],
+      "selected": [
+        "Alice",
+        "the Mock Turtle",
+        "the Gryphon",
+        "Sea-shore"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "The Mock Turtle and the Gryphon circling Alice in a slow, solemn dance",
+        "action": "The two creatures step in a ring around Alice, one treading close to her toes while they wave their forepaws in time.",
+        "setting": "Pale shingle of a sea-shore in Wonderland, with shallow surf and open sea beyond.",
+        "secondaryElements": "Alice standing still in her pinafore at the centre of the ring; a faint suggestion of distant waiting lobsters and turtles on the shingle; loose strands of seaweed.",
+        "mood": "Solemn, dreamlike and faintly absurd, with a touch of gentle melancholy.",
+        "timeOfDay": "Bright afternoon, clear and mild with a light sea breeze and soft golden daylight.",
+        "composition": "Alice centred in the foreground, with the Mock Turtle and Gryphon arranged in a circle around her and the sea opening behind them."
+      }
+    },
+    {
+      "id": "i018",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i018.jpg",
+      "work": "The Holy Bible",
+      "reference": "Nehemiah 3:9",
+      "text": "Next to them, Rephaiah the son of Hur, the ruler of half the district of Jerusalem, made repairs.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Jerusalem",
+        "The Israelite people (the children of Israel)"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Rephaiah, a dignified district ruler in a plain cloak, pointing toward a section of wall",
+        "action": "Laborers lift and set stones into a gap in the wall while Rephaiah gives directions",
+        "setting": "Jerusalem's ruined city wall with fresh stone and mortar beside older rubble",
+        "secondaryElements": "Workers with headcloths and work wraps hauling stones and mortar baskets; a guard in period armor standing nearby",
+        "mood": "Determined, orderly and hopeful",
+        "timeOfDay": "Morning into midday, clear dry sky, warm bright sunlight with dust in the air",
+        "composition": "Medium shot from the side at street level, wall stretching across the frame, Rephaiah in the foreground"
+      }
+    },
+    {
+      "id": "i019",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i019.jpg",
+      "work": "The Holy Bible",
+      "reference": "1 Samuel 18:11",
+      "text": "and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Saul",
+        "David son of Jesse (king of Israel)",
+        "the evil spirit from God",
+        "Gibeah of Saul (1 Samuel)"
+      ],
+      "neverDrawn": [
+        "the evil spirit from God"
+      ],
+      "scene": {
+        "primarySubject": "Saul, seated and rising from his place, arm drawn back in a throwing motion, the spear leaving his hand.",
+        "action": "The spear is caught mid-throw across the hall, its shaft angled toward the wall, while David dodges sideways away from it.",
+        "setting": "Interior of a stone-walled hall in Saul's house at Gibeah, with a lamp stand, woven hangings and a wooden floor.",
+        "secondaryElements": "A lyre lying near David's feet, lamps on their stands, and a dark heavy shadow pressing down over the room, dimming the lamplight near Saul.",
+        "mood": "Tense, violent and fearful, with a sense of dread gripping the room.",
+        "timeOfDay": "Night, lamps burning in the hall, still dry night air with no wind inside the house.",
+        "composition": "Eye-level view from the side of the hall, with Saul on one side and David on the other, the spear crossing the centre of the frame."
+      }
+    },
+    {
+      "id": "i020",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i020.jpg",
+      "work": "The Holy Bible",
+      "reference": "Genesis 1:3",
+      "text": "God said, “Let there be light,” and there was light.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "God / Yahweh, the Father and God of Israel"
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ],
+      "scene": {
+        "primarySubject": "A gathering golden radiance breaking through the darkness over the deep waters, with no figure or form within it.",
+        "action": "Light spreads outward from beyond the frame across the dark surface of the formless waters, pushing back the darkness.",
+        "setting": "A vast, empty, unformed expanse of deep water under heavy darkness, with no land, shore or structures yet.",
+        "secondaryElements": "Dim vapor and mist rising from the waters, the faint silvered edges of the light catching on the surface, no people or creatures present.",
+        "mood": "Awe, stillness and quiet expectancy at the first dawn of creation.",
+        "timeOfDay": "The first light before dawn of the first day, shadowless air moving from unbroken darkness toward radiance.",
+        "composition": "Wide, low viewpoint over the water, with the light entering from the upper edge and the dark deep filling the lower frame."
+      }
+    },
+    {
+      "id": "i021",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i021.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Adventure of the Engineer’s Thumb ¶165 to The Adventure of the Engineer’s Thumb ¶169",
+      "text": "“Whose house is it?” “Dr. Becher’s.” “Tell me,” broke in the engineer, “is Dr. Becher a German, very thin, with a long, sharp nose?” The station-master laughed heartily. “No, sir, Dr. Becher is an Englishman, and there isn’t a man in the parish who has a better-lined waistcoat. But he has a gentleman staying with him, a patient, as I understand, who is a foreigner, and he looks as if a little good Berkshire beef would do him no harm.” The station-master had not finished his speech before we were all hastening in the direction of the fire. The road topped a low hill, and there was a great widespread whitewashed building in front of us, spouting fire at every chink and window, while in the garden in front three fire-engines were vainly striving to keep the flames under.",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "selected": [
+        "Sherlock Holmes",
+        "Dr. Watson",
+        "Victor Hatherley",
+        "the station-master",
+        "Eyford house",
+        "Eyford Station"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "The burning whitewashed country house, flames pouring from every window and chink.",
+        "action": "Holmes, Watson, Hatherley and the station-master pause on the rise, gazing down at the blaze as firemen struggle below.",
+        "setting": "A rural Berkshire lane rising to a low hill, with the great house and garden below.",
+        "secondaryElements": "Three fire-engines in the front garden with hoses, dark silhouettes of fire crews and villagers at the gate, the station-master gesturing with a laugh.",
+        "mood": "Tense, urgent and dramatic, with a dry undercurrent of wit.",
+        "timeOfDay": "Deep night, clear and still and cold, with the fire lighting everything orange and red against pale moonlight.",
+        "composition": "Wide view from the hilltop road looking down at the house, with the travellers in the foreground silhouetted against the fire glow."
+      }
+    },
+    {
+      "id": "i022",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i022.jpg",
+      "work": "The Holy Bible",
+      "reference": "Judges 19:29",
+      "text": "When he had come into his house, he took a knife and cut up his concubine, and divided her, limb by limb, into twelve pieces, and sent her throughout all the borders of Israel.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "The Levite husband of the concubine",
+        "The Levite's concubine",
+        "Gibeah of Benjamin (Judges)"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "The Levite kneeling over the still body of his concubine on the floor of a dwelling, knife raised in one hand.",
+        "action": "He begins to divide the body, the single act of cutting that starts the twelve pieces.",
+        "setting": "A plain interior room of a hill-town house in Gibeah, mud-brick walls, a low wooden table and a clay lamp.",
+        "secondaryElements": "A coarse cloth spread on the floor, a woven cloak and travel-worn sandals set aside, the donkey tethered faintly outside the doorway.",
+        "mood": "Grim, stunned silence, restrained grief and horror without spectacle.",
+        "timeOfDay": "Deep night, dim lamplight and moonlight through a small window, still heavy air.",
+        "composition": "Interior view from the doorway, the Levite and the figure on the floor placed low and central, the lamp casting soft shadow across them."
+      }
+    },
+    {
+      "id": "i023",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i023.jpg",
+      "work": "The Holy Bible",
+      "reference": "Daniel 6:17",
+      "text": "A stone was brought, and laid on the mouth of the den; and the king sealed it with his own signet, and with the signet of his lords; that nothing might be changed concerning Daniel.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "Darius the Mede",
+        "the den of lions"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Darius the Mede kneeling at the pit's edge, pressing his signet ring into sealing clay on the stone",
+        "action": "A heavy stone is being rolled over the den's opening as the king and his lords affix their seals to it",
+        "setting": "A stone-sealed pit in a Persian palace courtyard in Babylon, mud-brick and dressed stone walls",
+        "secondaryElements": "Several Persian lords in court dress gathered close, one holding a lamp, attendants straining at the stone with ropes; Daniel is not shown",
+        "mood": "Solemn, tense and hushed, with a sense of irrevocable decision",
+        "timeOfDay": "Night, clear and still, lit by torchlight and lamp glow",
+        "composition": "Eye-level view from the courtyard edge, the stone and kneeling king in the foreground, the lords arranged around the pit in the middle distance"
+      }
+    },
+    {
+      "id": "i024",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i024.jpg",
+      "work": "The Holy Bible",
+      "reference": "Judges 19:29",
+      "text": "When he had come into his house, he took a knife and cut up his concubine, and divided her, limb by limb, into twelve pieces, and sent her throughout all the borders of Israel.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "selected": [
+        "The Levite husband of the concubine",
+        "The Levite's concubine",
+        "Gibeah of Benjamin (Judges)"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "The Levite kneeling over the still body of his concubine on the floor of a dwelling, knife raised in one hand.",
+        "action": "He begins to divide the body, the single act of cutting that starts the twelve pieces.",
+        "setting": "A plain interior room of a hill-town house in Gibeah, mud-brick walls, a low wooden table and a clay lamp.",
+        "secondaryElements": "A coarse cloth spread on the floor, a woven cloak and travel-worn sandals set aside, the donkey tethered faintly outside the doorway.",
+        "mood": "Grim, stunned silence, restrained grief and horror without spectacle.",
+        "timeOfDay": "Deep night, dim lamplight and moonlight through a small window, still heavy air.",
+        "composition": "Interior view from the doorway, the Levite and the figure on the floor placed low and central, the lamp casting soft shadow across them."
+      }
+    },
+    {
+      "id": "i025",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i025.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "A Scandal in Bohemia, Part I ¶1",
+      "text": "To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his cold, precise but admirably balanced mind. He was, I take it, the most perfect reasoning and observing machine that the world has seen, but as a lover he would have placed himself in a false position. He never spoke of the softer passions, save with a gibe and a sneer. They were admirable things for the observer—excellent for drawing the veil from men’s motives and actions. But for the trained reasoner to admit such intrusions into his own delicate and finely adjusted temperament was to introduce a distracting factor which might throw a doubt upon all his mental results. Grit in a sensitive instrument, or a crack in one of his own high-power lenses, would not be more disturbing than a strong emotion in a nature such as his. And yet there was but one woman to him, and that woman was the late Irene Adler, of dubious and questionable memory.",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "selected": [
+        "Sherlock Holmes",
+        "Holmes's rooms, Baker Street"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "Sherlock Holmes seated in his armchair, lean and still, absorbed in thought",
+        "action": "He sits motionless, lost in private reflection, untouched by sentiment",
+        "setting": "Holmes's cluttered sitting room at 221B Baker Street, with shelves of books, papers and chemical apparatus",
+        "secondaryElements": "A low coal fire glows in the grate, a violin and pipe resting nearby, fog-darkened windows behind him",
+        "mood": "Cool, withdrawn, detached and contemplative",
+        "timeOfDay": "Late evening, damp autumn night, fog pressing against the windows",
+        "composition": "Interior view from the room's doorway side, Holmes centred in the armchair before the fire, the room's clutter framing him"
+      }
+    },
+    {
+      "id": "i026",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-10-30-suite-baseline-image/blind/i026.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "Alice’s Evidence ¶29 to Alice’s Evidence ¶40",
+      "text": "“Are they in the prisoner’s handwriting?” asked another of the jurymen. “No, they’re not,” said the White Rabbit, “and that’s the queerest thing about it.” (The jury all looked puzzled.) “He must have imitated somebody else’s hand,” said the King. (The jury all brightened up again.) “Please your Majesty,” said the Knave, “I didn’t write it, and they can’t prove I did: there’s no name signed at the end.” “If you didn’t sign it,” said the King, “that only makes the matter worse. You _must_ have meant some mischief, or else you’d have signed your name like an honest man.” There was a general clapping of hands at this: it was the first really clever thing the King had said that day. “That _proves_ his guilt,” said the Queen. “It proves nothing of the sort!” said Alice. “Why, you don’t even know what they’re about!” “Read them,” said the King. The White Rabbit put on his spectacles. “Where shall I begin, please your Majesty?” he asked. “Begin at the beginning,” the King said gravely, “and go on till you come to the end: then stop.” These were the verses the White Rabbit read:—",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+        "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+        "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations."
+      ],
+      "selected": [
+        "the White Rabbit",
+        "King of Hearts",
+        "Queen of Hearts",
+        "Alice",
+        "the jury",
+        "the Knave of Hearts",
+        "The Queen of Hearts' court of justice"
+      ],
+      "neverDrawn": [],
+      "scene": {
+        "primarySubject": "The White Rabbit standing at a reading stand, spectacles on, holding the unfolded paper.",
+        "action": "He reads the verses aloud while the King listens gravely and Alice stands protesting.",
+        "setting": "The Queen of Hearts' crowded courtroom with tiered benches and a tall judge's dais.",
+        "secondaryElements": "Jury seated in the benches, the Queen leaning forward on the dais, the flat oblong Knave of Hearts in red tunic and breeches standing apart at the side, playing-card soldiers lining the walls.",
+        "mood": "Solemn, absurd and tense, with a flicker of indignation from Alice.",
+        "timeOfDay": "Afternoon, indoors under steady lamplight.",
+        "composition": "Wide view of the courtroom with the Rabbit at centre reading, the King and Queen on the dais, Alice to one side and the jury arrayed across the lower benches."
+      }
+    }
+  ]
+}

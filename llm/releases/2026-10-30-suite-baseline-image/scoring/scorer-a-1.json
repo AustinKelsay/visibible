@@ -1,0 +1,416 @@
+{
+  "scorer": "model-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "i001",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses leads with his hand lowered and a staff, with families, children and flocks on the sea floor between two tall water walls. The view is from the front rather than from behind, and the bottom edge fades to white paper, which is accepted."
+    },
+    {
+      "id": "i002",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Job stands on the ash heap among broken pottery, face lifted to a whirlwind with a radiant column inside it and no figure; city walls are on the right. There is a small blank pale square artifact inside the vortex, upper centre, but it has no marks."
+    },
+    {
+      "id": "i003",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "At night the kneeling king, wearing rings, presses a clay lump while attendants rope a boulder toward a lidded pit and torch-bearing lords look on. The clay sits on the paving rather than on the stone, and the den has both a wooden lid and a barred gate, but nothing is outright contradictory."
+    },
+    {
+      "id": "i004",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Golden rays descend over the city gate into glowing storehouses full of jars, with townspeople in the square, and no figure is formed in the light. The top edge is painted blue sky."
+    },
+    {
+      "id": "i005",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "The temple appears twice: a golden temple with two pillars and a bronze basin sits in the courts at mid-left, while a second great temple façade with bronze pillars and carved doors stands right behind Hezekiah. The top-left sky is left near-white paper, which is accepted."
+    },
+    {
+      "id": "i006",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "yes",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Two near-identical Jesus figures appear, both long-haired and bearded in dark grey robes: one by the pots in the centre and one standing by the fire at right. Peter, the brazier, guards and the rooster on the roof (top centre) are otherwise as asked."
+    },
+    {
+      "id": "i007",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "A small sideways letter 'R' with a dashed guide line is drawn on the wall at the far left edge beside the door (about x=40, y=340). The scene itself, Isaiah steadying a bowed man in a Jerusalem street at dawn, is right, and the white paper at the left and top edges is accepted."
+    },
+    {
+      "id": "i008",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Ezekiel, small in the middle distance with one arm raised and holding a book, faces a valley strewn with skulls and bones between rocky hills. The sky is pale haze with no figure, and the edges are painted."
+    },
+    {
+      "id": "i009",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses with a staff walks with his hand lowered at the head of women, children, sheep and goats between two towering water walls under a dark dawn sky. It is viewed from the side-front rather than from behind, and there are no Egyptians."
+    },
+    {
+      "id": "i010",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "The Dormouse sits in a cracked teapot with a paw raised, Alice leans across the table, the March Hare holds a cup and the Hatter gestures, all under a big tree with bread-and-butter and a tipped cup. None of the figures is taken from a film design."
+    },
+    {
+      "id": "i011",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Lines of writing show on the note pinned to the back wall (centre, above the desk lamps) and on the open books in the bottom-left corner. Holmes, with curly dark hair in a modern-cut suit, reads as Benedict Cumberbatch's screen Sherlock; the masked visitor at the door is otherwise well done."
+    },
+    {
+      "id": "i012",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Aaron in ephod and breastplate gestures toward a pig at left beside Moses, with the crowd to the right and the tabernacle in the distance. The left edge and corners fade to white paper, which is accepted."
+    },
+    {
+      "id": "i013",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter leaps from the boat clutching his coat while the beloved disciple points, the other disciples sit aboard with the full net, and Jesus stands by a charcoal fire on the shore at right. The near-white sky at the top corners is accepted."
+    },
+    {
+      "id": "i014",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "The scroll on the stone bench (centre) is unrolled between its two rods and shows rows of written text, where a closed scroll was asked for. The two ancestral figures frame the courtyard as asked."
+    },
+    {
+      "id": "i015",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Rephaiah in a cloak points along the wall while headcloth-wearing workers lift stones and carry baskets, and an armoured guard stands at right; the city and temple are on the hill behind. The top edge is painted sky."
+    },
+    {
+      "id": "i016",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "uncertain",
+      "notes": "Moses stretches his arm over the sea before the gathered Israelites, and the radiant cloud with flame at top centre has no human form. The two curling wave walls frame open sea that runs to the horizon, though, so the dry ground between the divided waters is barely shown."
+    },
+    {
+      "id": "i017",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice stands on the shingle between a weeping calf-eared Mock Turtle and a Gryphon raising a paw, with small turtles and lobsters on the beach and the sea behind. The creatures flank her rather than circling her, and her blue dress and pinafore are generic rather than a film copy."
+    },
+    {
+      "id": "i018",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Rephaiah in the foreground points at the wall while workers carry and set stones and an armoured guard stands by. Pen scribbles on the stones are texture, not glyphs, and the white paper at the left edge and corners is accepted."
+    },
+    {
+      "id": "i019",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Saul follows through a throw as the spear crosses the hall toward David, who dodges with the lyre at his feet; lamp stands and hangings are present. The dark shadow along the ceiling has no form, the hanging's hatching is fabric rather than script, and the pale paper at the top corners is accepted."
+    },
+    {
+      "id": "i020",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Golden light pours from the top edge onto dark churning waters, with no figure, land or creature. The bottom-left corner shows white paper, which is accepted."
+    },
+    {
+      "id": "i021",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "On a hill at night Hatherley (bandaged hand), Watson (with bag), Holmes (pipe and lens) and a laughing station-master with a lantern stand above a burning whitewashed house, where three horse-drawn fire engines and crowds work in the garden. None of the faces is an actor likeness."
+    },
+    {
+      "id": "i022",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The Levite kneels with a knife raised over the clothed, still woman on a mat, with the donkey tethered outside the door, a lamp on the table, and a cloak and sandals set aside. It is restrained, with no blood or wounds."
+    },
+    {
+      "id": "i023",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Both rope teams are in a tug-of-war: at right, men pull one rope in opposite directions, and at left, a worker pulls against two lords, with neither rope tied to the stone slab. Glyph-like ink marks resembling letters ('S:P:') are on the paving stone in the bottom-left corner."
+    },
+    {
+      "id": "i024",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The Levite kneels over the still woman with a knife held low at her waist rather than raised, with a lamp on the table, sandals and cloak in front, and the donkey at the door. There is no gore; her hand at her belt has its arm hidden under the cloak but is not malformed."
+    },
+    {
+      "id": "i025",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes is a clear likeness of Benedict Cumberbatch's screen Sherlock, in the same curly hair and dark modern-cut suit. The loose papers on the floor at bottom right show rows of printed text."
+    },
+    {
+      "id": "i026",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "The crown-bearing card courtier (centre-left) has the letter 'A' printed in both corner indices of his card tunic. He is a full human body in striped sleeves and breeches wearing a card as a tabard rather than a flat oblong card, and the Queen's high white collar, black bun and small crown echo the animated film."
+    }
+  ]
+}

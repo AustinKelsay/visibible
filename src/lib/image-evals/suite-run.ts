@@ -138,14 +138,16 @@ export function createLedger(options: {
       const body = await response.clone().text();
       let payload: Record<string, unknown> = {};
       try { payload = JSON.parse(body); } catch { /* a non-JSON body is a provider error below */ }
-      const cost = extractOpenRouterUsageUsd(payload);
+      // A moderation refusal is that call's failure, as in production, not the run's: the provider charges nothing for it.
+      const moderated = response.status === 403 && /moderation|flagged/i.test(JSON.stringify(payload.error ?? ""));
+      const cost = moderated ? 0 : extractOpenRouterUsageUsd(payload);
       options.log({ ...call, at: new Date().toISOString(), reservedUsd: reserve, request: options.scrub(Object.keys(request).length ? request : String(init.body).slice(0, 300)),
         status: response.status, response: options.scrub(payload), nonJson: Object.keys(payload).length ? undefined : body.slice(0, 300), measuredUsageUsd: cost });
       call.status = String(response.status); call.measuredUsd = cost;
       if (cost === null) state.blocked = "Missing provider usage";
       // Rounded to a billionth of a dollar, so repeated reservations never leave float residue.
       else { state.uncertainUsd = Math.round((state.uncertainUsd - reserve) * 1e9) / 1e9; state.measuredUsd = Math.round((state.measuredUsd + cost) * 1e9) / 1e9; }
-      if (!response.ok) state.blocked = `Provider error ${response.status}`;
+      if (!response.ok && !moderated) state.blocked = `Provider error ${response.status}`;
       else if (cost !== null && options.ceiling && cost > reserve + 1e-9) state.blocked = `A call cost $${cost} against its $${reserve} ceiling`;
       else if (state.measuredUsd > options.capUsd) state.blocked = "Evaluation cap exceeded";
       save();
@@ -199,9 +201,9 @@ const withTimeout = <T,>(promise: Promise<T>, ms: number, what: string) =>
 /** Run every case of the tier. Rows record each case (text) or each case and style (image); nothing throws past a case. */
 export async function runSuite(options: SuiteRunOptions): Promise<void> {
   const log = options.log ?? (() => {});
+  const memories = new Map<string, ReturnType<typeof createMemoryPreparationStore>>();
   for (const [workId, work] of options.works) {
-    const cases = options.cases.filter((c) => c.work === workId);
-    if (!cases.length) continue;
+    if (!options.cases.some((c) => c.work === workId)) continue;
     const memory = createMemoryPreparationStore(work.records);
     // Seeded looks and plans go in through the store's own write, so their recorded inputs stay current.
     for (const r of work.seeded ?? []) {
@@ -210,14 +212,22 @@ export async function runSuite(options: SuiteRunOptions): Promise<void> {
       if (r.source === "owner") continue;
       await memory.store.putDerivedRecord({ kind: r.kind, recordId: r.recordId, payload: r.payload as never, inputs: r.inputs });
     }
-    const queue = [...cases];
-    await Promise.all(Array.from({ length: Math.max(1, options.concurrency ?? 3) }, async () => {
-      for (let c = queue.shift(); c; c = queue.shift()) {
-        if (options.blocked()) return;
-        try { await runCase(options, workId, work, memory, c, log); }
-        catch (error) { options.record({ key: `${c.caseId}/*`, tier: options.tier, case: c.unitId, caseId: c.caseId, work: workId, split: c.split, outcome: "error", message: String(error).slice(0, 400) }); }
-      }
-    }));
+    memories.set(workId, memory);
+  }
+  // Every work's holdout cases before any dev case, so a run stopped by its cap loses dev cases before any the gate
+  // reads. Each work keeps one store across both passes.
+  for (const split of ["holdout", "dev"] as const) {
+    for (const [workId, memory] of memories) {
+      const work = options.works.get(workId)!;
+      const queue = options.cases.filter((c) => c.work === workId && c.split === split);
+      await Promise.all(Array.from({ length: Math.max(1, options.concurrency ?? 3) }, async () => {
+        for (let c = queue.shift(); c; c = queue.shift()) {
+          if (options.blocked()) return;
+          try { await runCase(options, workId, work, memory, c, log); }
+          catch (error) { options.record({ key: `${c.caseId}/*`, tier: options.tier, case: c.unitId, caseId: c.caseId, work: workId, split: c.split, outcome: "error", message: String(error).slice(0, 400) }); }
+        }
+      }));
+    }
   }
 }
 
@@ -226,15 +236,20 @@ async function runCase(options: SuiteRunOptions, workId: string, work: SuiteWork
   let textCalls = 0;
   let phase = c.caseId;
   const providers = options.providers(() => phase);
-  const model: TextModel = { id: providers.text.id, complete: (request) => { textCalls++; return providers.text.complete(request); } };
-  const styles = options.tier === "text" ? [c.styles[0]] : c.styles;
   const seeded = Boolean(work.seeded?.length);
+  // A seeded image run allows no text call, so one here fails the case locally instead of tripping the ledger's
+  // call limit, which would stop every other case.
+  const drawsSeeds = seeded && options.tier === "image";
+  const model: TextModel = { id: providers.text.id, complete: (request) => {
+    textCalls++;
+    return drawsSeeds ? Promise.reject(new Error("A seeded image run makes no text call")) : providers.text.complete(request);
+  } };
+  const styles = options.tier === "text" ? [c.styles[0]] : c.styles;
   for (const [index, style] of styles.entries()) {
     if (options.blocked()) return;
     const key = options.tier === "text" ? `${c.caseId}/text` : `${c.caseId}/${style}`;
     phase = key;
     textCalls = 0;
-    const spendBefore = memory.ledger.length;
     const skipped: string[] = [];
     const deps: AssembleDeps = {
       inputs: work.inputs, store: memory.store, model, listMoments: memory.listMoments,
@@ -243,21 +258,22 @@ async function runCase(options: SuiteRunOptions, workId: string, work: SuiteWork
     };
     const started = Date.now();
     const assembled = await assembleRendering(deps, { workId, unitId: c.unitId, styleId: style, variationNumber: null, aspectRatio: options.aspectRatio });
-    const spend = memory.ledger.slice(spendBefore).map((e) => ({ kind: e.kind, recordId: e.recordId, outcome: e.outcome, costUsd: e.costUsd }));
-    const common = { ...base, key, style: options.tier === "image" ? style : null, textCalls, spend, skippedReferences: skipped,
+    // Spend is labelled per case in the provider log; the shared in-memory ledger cannot attribute it under concurrency.
+    const common = { ...base, key, style: options.tier === "image" ? style : null, textCalls, skippedReferences: skipped,
       context: assembled.ok ? assembled.context : null };
     // A refusal on the first style comes from the moment's shared look or plan, so it stands for every style; a later
     // one (a style's prompt over budget) stands for that style only.
     const standsFor = options.tier === "image" ? (index === 0 ? [...styles] : [style]) : null;
+    // A seeded image run must draw the text run's plans; a text call, or a preparation failure shared from another case's
+    // call, means its inputs moved since that run.
+    if (seeded && (textCalls > 0 || (!assembled.ok && assembled.reason === "preparation"))) {
+      options.record({ ...common, standsFor, outcome: "refused", stage: "seed", message: "The text run's look or plan was stale for this checkout, so the case was refused without re-planning; its images were not made.", elapsedMs: Date.now() - started });
+      return;
+    }
     if (!assembled.ok) {
       options.record({ ...common, standsFor, outcome: "refused", stage: "assemble", reason: assembled.reason, message: assembled.message, elapsedMs: Date.now() - started });
       if (index === 0) return;
       continue;
-    }
-    // A seeded image run must draw the text run's plans; a call here means its inputs moved since that run.
-    if (seeded && textCalls > 0) {
-      options.record({ ...common, standsFor, outcome: "refused", stage: "seed", message: "The text run's look or plan was stale for this checkout, so the case was re-planned; its images were not made.", elapsedMs: Date.now() - started });
-      return;
     }
     if (options.tier === "image" && index > 0 && textCalls > 0) throw new Error(`${key}: a prepared case called the text model again`);
     const prepared = { look: assembled.prepared.look.payload, situation: assembled.prepared.situation, plan: assembled.prepared.plan.payload, present: assembled.prepared.present };
