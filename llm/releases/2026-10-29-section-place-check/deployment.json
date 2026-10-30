@@ -1,0 +1,24 @@
+{
+  "authorization": "Owner, 29 October 2026 (US Central), after #322 merged to dev: \"No, we're not going to do this follow up for now. We're just going to ship this as is. This is a solid improvement.\" Released without the launch matrix ADR 0009 planned for generic-v15 and without the reference-sheet run.",
+  "release": {
+    "pullRequest": 323,
+    "includes": [319, 320, 321, 322],
+    "mainCommit": "45ec00c",
+    "mergedAt": "2026-10-30T01:30:27Z",
+    "deployment": "dpl_Dm2Bp8matwrZc6PAkcquC5zChGRE",
+    "aliases": ["https://visibible.com", "https://www.visibible.com"],
+    "checks": {
+      "checkedAt": "2026-10-30T01:31:18Z",
+      "health": "ok",
+      "readiness": "ready",
+      "artStyles": [["classical", true], ["watercolor", true], ["fresco", true], ["icon", false]],
+      "convexChanges": false
+    }
+  },
+  "deferredReview": [
+    "CodeRabbit on #323, accepted as follow-ups: bind scorer files to the pair set they scored (or refuse an --out that already has key.json); require --baseline unless the first measurement is explicit; decide whether same-story character pairs stay in the measure (ADR 0008 says groups cross stories) or are reported separately.",
+    "CodeRabbit CLI on #322: parenthesized aliases (\"Saul of Tarsus (Paul)\") declined, since brackets in this work's names are mostly descriptions."
+  ],
+  "paidCalls": 0,
+  "productionMutations": 0
+}
