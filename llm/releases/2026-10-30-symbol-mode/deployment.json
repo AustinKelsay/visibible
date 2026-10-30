@@ -1,0 +1,59 @@
+{
+  "authorization": "Owner, 30 October 2026, asked with the failed bar: chose \"Ship for Satan only (Recommended)\": merge #339 after a code review, release it, and set only Satan to the symbol mode in production; the foolish woman stays as she is. See decision.json.",
+  "release": {
+    "pullRequest": 341,
+    "includes": [335, 336, 337, 338, 339, 340],
+    "mainCommit": "1746c20",
+    "mergedAt": "2026-10-30T14:38:20Z",
+    "deployment": "dpl_EhT97L5VZPv5Q9Eh4QQiSvGdWr79",
+    "aliases": ["https://visibible.com", "https://www.visibible.com"],
+    "rollback": "Promote dpl_492ekymtVaN19m9UzVgHwsZjXwxM (2010753). Older code reads Satan's stored hasForm: false and treats him as effects.",
+    "convexChanges": "Optional entry field depiction: \"symbol\" (no other schema change).",
+    "checks": {
+      "checkedAt": "2026-10-30T14:39:17Z",
+      "health": "ok",
+      "readiness": "ready",
+      "artStyles": [["classical", true], ["watercolor", true], ["fresco", true], ["icon", false]]
+    }
+  },
+  "corrections": [
+    {
+      "entry": "satan",
+      "command": "works:correct bible-web set-depiction satan symbol --expect 0a1fe6a7913edcfcd62da8dffe0e2563",
+      "at": "2026-10-30T14:40:05Z",
+      "from": "character, effects (generated 0a1fe6a7…, the version the symbol check snapshot tested)",
+      "to": "character, symbol (owner 2f757a2e…; stored hasForm false, depiction symbol)",
+      "staleDependents": [
+        { "kind": "look", "recordId": "job-1-6" },
+        { "kind": "plan", "recordId": "job-1-6" }
+      ],
+      "undo": "works:correct bible-web set-depiction satan effects --expect 2f757a2e364b11bb90a32bd66e2e869a"
+    }
+  ],
+  "smokes": {
+    "method": "Fresh guest sessions (0 credits), POST /api/generate-image, classical, 16:9, 1K; each stopped at HTTP 402 Insufficient credits (required 5) after cold preparation, with no image call.",
+    "job-1-6": {
+      "requestId": "smoke-symbol-1793371229",
+      "response": "HTTP 402 in 15.5 s",
+      "plan": "Version 7f326069…, inputs satan 2f757a2e… and depiction_symbol 77903fc7…; review passed in 1 round. Selects satan, the_heavenly_court, god_yahweh_the_father_and_god_of_israel.",
+      "primarySubject": "Satan's vast, coiled, many-headed serpentine shape of deep red and dark scale, entering the court with a shadowed, unlit core",
+      "secondaryElements": "Radiance and cloud-light rising from the far center where the presence of God is felt as light and cloud, not a figure; the sons of God in court robes and plain cloaks gathered in ranks",
+      "before": "The 30 October smoke on the same verse (2026-10-30-owner-corrections) had Satan as effects, and its review kept a canon conflict on him."
+    },
+    "matthew-4-3": {
+      "requestId": "smoke-symbol-1793371288",
+      "response": "HTTP 402 in 11.8 s",
+      "plan": "Version 63d0551c…, inputs satan 2f757a2e… and depiction_symbol 77903fc7…; review passed in 1 round. Selects jesus_christ_the_son_of_god_and_lord, satan, wilderness_of_judea.",
+      "secondaryElements": "Scattered round desert stones at Jesus's feet, a vast coiled shape of deep red scale with a shadowed unlit core looming behind him",
+      "look": "matthew-4-1 (79011ba5…) no longer reads depiction_look: the section has no effects entry left.",
+      "before": "In the symbol check's effects arm, both Matthew 4:3 figures in light came from one plan that drew the tempter as a human silhouette in dust."
+    }
+  },
+  "paidCalls": "Smoke preparation only, owner spend $0.0024059 across 6 Claude Haiku 5.5 calls: job-1-6 look $0.0002402, plan $0.0005529, review $0.0005028; matthew-4-1 look $0.0001794; matthew-4-3 plan $0.0005225, review $0.0004081. No image calls.",
+  "productionMutations": "One owner entry version for satan (above), plus the smokes' two looks, two plans and six preparation ledger rows, as reader requests would make them.",
+  "followUps": [
+    "The foolish woman stays effects: the planner read Proverbs 9:14's \"she\" as Wisdom, so the symbol mode was never tested on her.",
+    "The plan review missed garments on Michael's no-form host in one Revelation 12:9 plan.",
+    "Evaluation suite (#338), found by CodeRabbit on #341: an image run's stale seed blocks the whole run instead of refusing its own case, and a capped run can lose other works' holdout cases. Fix in a PR into dev before the paid baseline."
+  ]
+}
