@@ -1,0 +1,44 @@
+{
+  "operationCapUsd": 1.4,
+  "cumulativeCapUsd": 6,
+  "priorUpperBoundUsd": 4.5655353,
+  "readerReserveUsd": 5,
+  "imageModel": "google/gemini-3.1-flash-lite-image",
+  "resolution": "1K",
+  "aspectRatio": "16:9",
+  "repeats": 3,
+  "scenes": [
+    {
+      "id": "alice-house-entry",
+      "work": "alice-in-wonderland",
+      "unitId": "the-rabbit-sends-in-a-little-bill-2",
+      "expected": "Alice receives the errand or enters the house, before drinking and growing. No premature giant body, trapped limb, or conflation with the real Mary Ann. Rabbit absence after she enters is valid.",
+      "sourceCaseId": "alice-house-entry-section-1"
+    },
+    {
+      "id": "alice-house-grown",
+      "work": "alice-in-wonderland",
+      "unitId": "the-rabbit-sends-in-a-little-bill-8",
+      "expected": "Alice is enormous and wedged in the cottage, with one arm out the window and one foot up the chimney: one coherent body in this chosen instant, without adding the earlier elbow-against-door/other-arm-around-head pose.",
+      "sourceCaseId": "alice-house-grown-section-1"
+    },
+    {
+      "id": "holmes-cellar",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-183",
+      "expected": "The men are concealed in the cellar after waiting in darkness; the first glint appears near the floor while Holmes’s lantern remains shuttered. No permanent wall tunnel, premature thieves/arrest, seated offended Merryweather, or bright open lantern.",
+      "sourceCaseId": "holmes-cellar-section-1"
+    }
+  ],
+  "contract": {
+    "arms": [
+      "original frozen inputs with current prompt",
+      "prepared corrected canon and plan fields with the same current prompt"
+    ],
+    "fixed": "One retained section-arm plan (repeat 1) per scene, independently rendered three times per arm. The same source excerpt, ownership wording, other prompt blocks, selected cast, classical style, image model, settings and ordered reference bytes are used in each pair. No new planning calls.",
+    "scope": "18 scheduled images, at most 36 image attempts and 72 check calls. Existing image check and at most one automatic retry per case; no manual rerolls, production writes, activation, new sheets or prompt tuning.",
+    "criterion": "For further study, all three chosen candidate house-entry controls must avoid premature growth; all three candidate grown-house images must clearly retain giant size and a coherent single body; all three candidate cellar images must avoid a wall opening, premature thieves and a bright open lantern while making the chosen waiting/floor-light instant readable. Any incomplete or ambiguous scene is inconclusive; a new clear source-state failure rejects broadening. Compare baseline and candidate first and chosen attempts separately, and disclose residual anatomy/spatial, identity, lettering and source-state defects. This is exploratory and cannot approve activation.",
+    "inspection": "Inspect every saved attempt at original resolution with unblinded model review. No paid scoring, human acceptance claim or independent blind-scoring claim.",
+    "limits": "Canon and manual plan corrections are bundled in the grown-house and cellar arms, so their contributions are not isolated. House-entry changes canon only. Fresh random samples, no paired image seed. Existing style, sheets and remaining canon defects can still dominate. Only one model/style and three selected scenes; no Bible or cross-work quality claim."
+  }
+}
