@@ -1,0 +1,398 @@
+{
+  "baselineCommit": "d23437397d6af4b404b07b7b9946c62a4a480292",
+  "inputHashes": {
+    "scripts/evals/render-source-context.mts": "e24c344ef2abed231fa99f632b010f1157037b9d8b0c6a3ded9b9ad147c3eb51",
+    "llm/releases/2026-10-30-source-context/text-results.json": "43824f95bde06c4e6c96d96e56ee96876cac75bc6e104b6f2dbcc24958f33671",
+    "llm/releases/2026-10-30-source-context/scenes.json": "a6691769df22eb94034d668ddddd59bba072f1de66e5327caebf0f87f88fb26e",
+    "llm/releases/2026-10-30-source-context/images-results.json": "5da4f56111f30c50d2c1076c3c0fad2d6081495b147fac81491f9cd46f708c7e",
+    "llm/releases/2026-10-30-source-context/inputs.json": "dbebf010317ac0aa28b8f4844d784a7fb8710b66e501f5289fd079b298505f86",
+    "llm/releases/2026-10-30-source-context/plan.json": "f6db0f1b4f7dcf42648504a0b57e67c1facf79d3f89496d6d7bc6ccf60796908",
+    "llm/releases/2026-10-30-review-only-text/snapshot.json": "d10dd4cc5b31278d84d3eec24adb3531f7db1e3ba35e0a626fa6f567d42da903",
+    "llm/releases/2026-10-30-identity-visuals/candidate-records.json": "3b7313afb403734bb4d2f791f961f420f47206fa66a019532c4339a122ab96c4",
+    "llm/releases/2026-10-30-identity-visuals/references.json": "10ef22f865ed4b158772e6d24dc27501daa12e1265b80e1af383ca48cfbf52e5",
+    "llm/releases/2026-10-30-identity-visuals/funding-close.json": "03e78b45c994f16f03dc6d43348cd4a67675cf2d4063039a85f85ace00085d7e",
+    "works/alice-in-wonderland/work.json": "8dbcd44e0ab0c37ef65bcd2eb507bed73c4f395a94c0ac30e3f4ace25d64b95c",
+    "works/alice-in-wonderland/brief.json": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d",
+    "works/alice-in-wonderland/depiction.json": "fc97ce62ad640ca66a1c8ae5394112a76583e387687b5ccc30d02de19b7dacb0",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "works/bible-web/brief.json": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+    "works/bible-web/depiction.json": "67a641feb9b13e8b80516b4ec5ba9c32b0bd7e86108188ec1056dd1121bd4915",
+    "works/holmes-adventures/work.json": "a0dea2fb8184b9d0d63ff4b06b7c2066603f224c8341ef12ab5535e4fc076229",
+    "works/holmes-adventures/brief.json": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "works/holmes-adventures/depiction.json": "c3b62657ce196bd208bdd0f3536a168bbd9e52a61b39374c751b5fbe2d37db1b",
+    "evals/images/runs/2026-10-30-identity-visuals/57da3a1dce4656f047e7aae781ed149437c32dcc4c4832b6fd862b3d070d3a6b.jpg": "57da3a1dce4656f047e7aae781ed149437c32dcc4c4832b6fd862b3d070d3a6b",
+    "evals/images/runs/2026-10-30-identity-visuals/289600e43268fd0659d11bce87a8abf5d727e69d34d8f871a7d762174fbce81c.jpg": "289600e43268fd0659d11bce87a8abf5d727e69d34d8f871a7d762174fbce81c",
+    "evals/images/runs/2026-10-30-identity-visuals/9d6ae2323cbd5a762c3326e2526d88911a9c28fa2133f9b49ae45b49303572b6.jpg": "9d6ae2323cbd5a762c3326e2526d88911a9c28fa2133f9b49ae45b49303572b6"
+  },
+  "modelCalls": 0,
+  "providerCalls": 0,
+  "spendUsd": 0,
+  "productionChanges": false,
+  "reproducedPriorImagePackets": 12,
+  "wholeSourceRetained": true,
+  "unchangedPlansAndOrderedReferences": true,
+  "overflowRejected": true,
+  "sourceRuleChanges": "Both fuller source and its precedence change; a future image comparison would measure the combined candidate.",
+  "cases": [
+    {
+      "caseId": "alice-gloves-baseline-1",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 8113,
+      "candidateChars": 9758,
+      "baselineHash": "1fa7f638611d1eac66345e87c1e561173186ead1070141245716722fe6e2fdbc",
+      "candidateHash": "abb81c202130c3f23cebaa1cc81ad27db2fb176f2ca863c7311c3b260598954f"
+    },
+    {
+      "caseId": "alice-gloves-section-1",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 8354,
+      "candidateChars": 9999,
+      "baselineHash": "fd44a1c0209e0beaa5dddbcb7c9211d3a9d61b89896041f78572d8574946371b",
+      "candidateHash": "2ca707751b679076735990cc9e206a431f2fcc4e09f62ab1a23438dc98c69885"
+    },
+    {
+      "caseId": "alice-gloves-section-2",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 8593,
+      "candidateChars": 10238,
+      "baselineHash": "02b71928e08bd92a923c495b103e93dbca4f8837f2f54a216bbc5dc666db4466",
+      "candidateHash": "242ee0d814e3751864c9824c8a0ae7b03ad373bbdaa4f5799000fc912791b735"
+    },
+    {
+      "caseId": "alice-gloves-baseline-2",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 8569,
+      "candidateChars": 10214,
+      "baselineHash": "405cde5ac5e5d7129e69ceba3f92d16c58fff9e7c395743a351b8e83994ae4fa",
+      "candidateHash": "00ce2aaa27fdc97651ec6014e9d1eef7b4310f7bbec029cc48b01afd63e64c29"
+    },
+    {
+      "caseId": "alice-gloves-baseline-3",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 8647,
+      "candidateChars": 10292,
+      "baselineHash": "6b0ea774b6e940b190f2f4ac1bff7bb36e0947f74383844301dc1c90cb0235b0",
+      "candidateHash": "b10563b909457a69fed6e8ffd15cf0a4f9bfc48eed9e63c740c597e50ba0f91b"
+    },
+    {
+      "caseId": "alice-gloves-section-3",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 8106,
+      "candidateChars": 9751,
+      "baselineHash": "3d47baba105f62e2ffffb51d0a32218012fd8dafa2413c998170aed5a3b04e7d",
+      "candidateHash": "79912e19ea88f0f9d00f3c0b2fb145267dc17a063efc47d072f329179116dc21"
+    },
+    {
+      "caseId": "alice-house-entry-baseline-1",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7480,
+      "candidateChars": 10654,
+      "baselineHash": "75a13f8766bfb7b9a1c06c9173df72c96571fa442fbc6196be28e129269d68c0",
+      "candidateHash": "0720d33bfd6e24bbc4c1a81b7196c51f5c771989f7402b5b6e9b6a71f05f91f9"
+    },
+    {
+      "caseId": "alice-house-entry-section-1",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 8246,
+      "candidateChars": 11420,
+      "baselineHash": "253f970b84dda6e91026328e857f30d5e1470015bfb6990fa7b37e2b59d95048",
+      "candidateHash": "520480a1588cc680fdbbc8b844cb37c619e3818a998714866707c30260e7b5ce"
+    },
+    {
+      "caseId": "alice-house-entry-section-2",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 8266,
+      "candidateChars": 11440,
+      "baselineHash": "602f8bedc190a793c56210602313e84e1f390f12bf90240c4e1a3e1a1aedfdf6",
+      "candidateHash": "631fb81c44952ec51f87ac70535ab8aeb5d9068054efd4cdf8f38ca482e3c360"
+    },
+    {
+      "caseId": "alice-house-entry-baseline-2",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 8268,
+      "candidateChars": 11442,
+      "baselineHash": "6c016b347805b03e10c2e47019ae689957d902ecc27c984bf78e3c9ce6cb7b40",
+      "candidateHash": "54a042de8b7607585d743239888a1359e04b59909d9f61bde47303fcb8cab89c"
+    },
+    {
+      "caseId": "alice-house-entry-baseline-3",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7568,
+      "candidateChars": 10742,
+      "baselineHash": "5bf6d71a4a3cbac9a4ea20dadf1c211622573fcb13ee6f6ce01fb7fd67e62a58",
+      "candidateHash": "f05658d5eb3d266aa8522afdb5b6e4358f13bea0cb69d2e7127382b7b129562c"
+    },
+    {
+      "caseId": "alice-house-entry-section-3",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7535,
+      "candidateChars": 10709,
+      "baselineHash": "73aa51b3c94f502a3883bbdfe00a6b80c273804ff51177e300282198f9fcb4aa",
+      "candidateHash": "b8298a602a797ace62d896e18005f207eb04fdec140d5760982ff0a0fdd591e1"
+    },
+    {
+      "caseId": "alice-house-grown-baseline-1",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7624,
+      "candidateChars": 10712,
+      "baselineHash": "09433bdbcf166758803de499ddc25f66ce66474857a8c03370150554693fbf2e",
+      "candidateHash": "8b04c26a9d89b79ddf37ce283348312cacecac33a905165f33b2b41f18ee177d"
+    },
+    {
+      "caseId": "alice-house-grown-section-1",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7616,
+      "candidateChars": 10704,
+      "baselineHash": "1f6ab306b747b7487c1f39e84c8b360c77b43dda47a8902b0eca1bff234809b3",
+      "candidateHash": "6d7d2193daddbe57f451bf9588ff82de386b97beb75460a0b9af0085a71ed5e9"
+    },
+    {
+      "caseId": "alice-house-grown-section-2",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7625,
+      "candidateChars": 10713,
+      "baselineHash": "2807ff12a774f18ef6af96fc336c068be531c63f5ec45d8548f57f4a4eb451c9",
+      "candidateHash": "19ed19e40a66b7c6a6ffb056a31def8b18f48b19a73e4aecf641867916be15ab"
+    },
+    {
+      "caseId": "alice-house-grown-baseline-2",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7604,
+      "candidateChars": 10692,
+      "baselineHash": "9da803528eb666fab7a51a2ad32cd706ea106f3ca2406bb456531fd392c198fa",
+      "candidateHash": "0851b16c56950d7945e1cbc7f95765567c5567929049392bfad2b58a487a6a6d"
+    },
+    {
+      "caseId": "alice-house-grown-baseline-3",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7652,
+      "candidateChars": 10740,
+      "baselineHash": "9893316e98ecd4e0e94b71412346b6db71e482b5786381d211aea66c8f8d9ef9",
+      "candidateHash": "bbc46ae035a835e734e734086263010239f8473bde1927dffe5cf5b5f0e1c258"
+    },
+    {
+      "caseId": "alice-house-grown-section-3",
+      "work": "alice-in-wonderland",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7633,
+      "candidateChars": 10721,
+      "baselineHash": "3a89ecc7e3fcc3272458e1927e8a0063683680e793e80c51fc9a35c9a8cde540",
+      "candidateHash": "4d5f97b91874625ff4feea8a6eea0a40be2a19f89c82fc62cf9b8674018fd112"
+    },
+    {
+      "caseId": "sea-night-baseline-1",
+      "work": "bible-web",
+      "eligible": false,
+      "blockedReason": "Section contains non-literal depiction; raw source remains excluded from this trial.",
+      "baselineChars": 6392,
+      "candidateChars": null,
+      "baselineHash": "5871c98a55cfca270352dae7a71ef1797e18e81c84866f0e4a2eab932642e95d",
+      "candidateHash": null
+    },
+    {
+      "caseId": "sea-night-section-1",
+      "work": "bible-web",
+      "eligible": false,
+      "blockedReason": "Section contains non-literal depiction; raw source remains excluded from this trial.",
+      "baselineChars": 6023,
+      "candidateChars": null,
+      "baselineHash": "312ae71d51817bfb0c1a910aa942e7abefc82d61c03c0711c5e2a0aa5f7a8446",
+      "candidateHash": null
+    },
+    {
+      "caseId": "sea-night-section-2",
+      "work": "bible-web",
+      "eligible": false,
+      "blockedReason": "Section contains non-literal depiction; raw source remains excluded from this trial.",
+      "baselineChars": 6424,
+      "candidateChars": null,
+      "baselineHash": "5383e3e902795240e77c7610d69222e1223272ff7608b7bfd7dd57f43e6223fa",
+      "candidateHash": null
+    },
+    {
+      "caseId": "sea-night-baseline-2",
+      "work": "bible-web",
+      "eligible": false,
+      "blockedReason": "Section contains non-literal depiction; raw source remains excluded from this trial.",
+      "baselineChars": 5433,
+      "candidateChars": null,
+      "baselineHash": "6deef6c2e37d96049188caa0890b9544834116824ab1b1ce1d31fa1781d2cdac",
+      "candidateHash": null
+    },
+    {
+      "caseId": "sea-night-baseline-3",
+      "work": "bible-web",
+      "eligible": false,
+      "blockedReason": "Section contains non-literal depiction; raw source remains excluded from this trial.",
+      "baselineChars": 5488,
+      "candidateChars": null,
+      "baselineHash": "19595f3aeb5c183a222a345753e73c6a359c2d519c13b3ba752ab3fa707b661b",
+      "candidateHash": null
+    },
+    {
+      "caseId": "sea-night-section-3",
+      "work": "bible-web",
+      "eligible": false,
+      "blockedReason": "Section contains non-literal depiction; raw source remains excluded from this trial.",
+      "baselineChars": 6126,
+      "candidateChars": null,
+      "baselineHash": "2ad81efeb97c497fd8a405bdac57ed16f2993d354da98696ca02d5ce82528426",
+      "candidateHash": null
+    },
+    {
+      "caseId": "sea-crossing-baseline-1",
+      "work": "bible-web",
+      "eligible": false,
+      "blockedReason": "Section contains non-literal depiction; raw source remains excluded from this trial.",
+      "baselineChars": 6370,
+      "candidateChars": null,
+      "baselineHash": "fcbb4ff6baa2faf047aeab45698405930b84035eec6ef20754815c95356556d2",
+      "candidateHash": null
+    },
+    {
+      "caseId": "sea-crossing-section-1",
+      "work": "bible-web",
+      "eligible": false,
+      "blockedReason": "Section contains non-literal depiction; raw source remains excluded from this trial.",
+      "baselineChars": 6060,
+      "candidateChars": null,
+      "baselineHash": "5bfea95fcfd93a121e243a080f69446ff62bb9991b6eaeece91ac5caffd7c7e6",
+      "candidateHash": null
+    },
+    {
+      "caseId": "sea-crossing-section-2",
+      "work": "bible-web",
+      "eligible": false,
+      "blockedReason": "Section contains non-literal depiction; raw source remains excluded from this trial.",
+      "baselineChars": 6211,
+      "candidateChars": null,
+      "baselineHash": "76e95fb4329999c6cb796c32d9e04a3c48afa5a25b40f12be1188b9f67450d51",
+      "candidateHash": null
+    },
+    {
+      "caseId": "sea-crossing-baseline-2",
+      "work": "bible-web",
+      "eligible": false,
+      "blockedReason": "Section contains non-literal depiction; raw source remains excluded from this trial.",
+      "baselineChars": 5698,
+      "candidateChars": null,
+      "baselineHash": "d7a3c9491fa4a0f6953fcffa3049b3d2b468dab27c5084448655d538d7e6de63",
+      "candidateHash": null
+    },
+    {
+      "caseId": "sea-crossing-baseline-3",
+      "work": "bible-web",
+      "eligible": false,
+      "blockedReason": "Section contains non-literal depiction; raw source remains excluded from this trial.",
+      "baselineChars": 5695,
+      "candidateChars": null,
+      "baselineHash": "dec52fdafaa758d1f0a807ec872c8139e7842b360097dfc99cb6cc2149d2c4ea",
+      "candidateHash": null
+    },
+    {
+      "caseId": "sea-crossing-section-3",
+      "work": "bible-web",
+      "eligible": false,
+      "blockedReason": "Section contains non-literal depiction; raw source remains excluded from this trial.",
+      "baselineChars": 6410,
+      "candidateChars": null,
+      "baselineHash": "493c8fc40dfa248c7849bebd2bfa5e5a7470f55bd3247a414d671a2269a9a07d",
+      "candidateHash": null
+    },
+    {
+      "caseId": "holmes-cellar-baseline-1",
+      "work": "holmes-adventures",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7683,
+      "candidateChars": 10798,
+      "baselineHash": "0acac0b0daaf2a402ed6b4c52beea024aa19348942d366b3daccb67ee3225eee",
+      "candidateHash": "329d795f788f105e38fdf279d4cc6a4fc392c7b2b7241d498b9f0246f3ed9fe5"
+    },
+    {
+      "caseId": "holmes-cellar-section-1",
+      "work": "holmes-adventures",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7776,
+      "candidateChars": 10891,
+      "baselineHash": "8410876694594617c07a72804de0e0fb52bf67d7421fb77cc989b2e55a89d63c",
+      "candidateHash": "8cfa7ddf18b4c8287ebb45b4f70a1a0fbe519bc9b81d982e4f88162930d1e195"
+    },
+    {
+      "caseId": "holmes-cellar-section-2",
+      "work": "holmes-adventures",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7736,
+      "candidateChars": 10851,
+      "baselineHash": "716d5e0ed6d4b709fa060cd8fa6af9cfc082ba31c896e0ef00f138831cc818b1",
+      "candidateHash": "c15165d51e71d4d8ccbd2d215e7e1bad497751029f04d4f17963fccb141ce835"
+    },
+    {
+      "caseId": "holmes-cellar-baseline-2",
+      "work": "holmes-adventures",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7702,
+      "candidateChars": 10817,
+      "baselineHash": "3e3ac16b920b7b9dfaea3de26974a0e422ea65bafd5cee64028a9988c8617699",
+      "candidateHash": "c35d84ffdfdf1b71016010b7795b3c25813dd94038b7a873b05896def43b5949"
+    },
+    {
+      "caseId": "holmes-cellar-baseline-3",
+      "work": "holmes-adventures",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 6479,
+      "candidateChars": 9594,
+      "baselineHash": "315ffe36f378bf0f2cc93173c8719ea0c64ac2171663cd4f45011d18ac2dc9bc",
+      "candidateHash": "03576b886827cfe5aaea59e035bd37357fbb15aa88c33727cf0d4d7589443043"
+    },
+    {
+      "caseId": "holmes-cellar-section-3",
+      "work": "holmes-adventures",
+      "eligible": true,
+      "blockedReason": null,
+      "baselineChars": 7778,
+      "candidateChars": 10893,
+      "baselineHash": "59a2b6c1962408889839c8b127e716026cb5afe59120dec15c580dfa6e843e92",
+      "candidateHash": "ec2de91bdf9f242fbfa949161164666f879a0a8cfdbb891774f7817509302d08"
+    }
+  ]
+}
