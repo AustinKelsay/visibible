@@ -90,7 +90,8 @@ for (const phase of wanted) {
     assert.equal(prior.blocked, "Missing provider usage");
     cap -= prior.measuredUsd + prior.uncertainUsd; // Keep the unknown call's full ceiling reserved.
     assert.ok(cap > 0);
-    for (const line of readFileSync(path.join(out, "images-results.ndjson"), "utf8").trim().split("\n")) completed.add(JSON.parse(line).caseId);
+    const previousRows = readFileSync(path.join(out, "images-results.ndjson"), "utf8").trim().split("\n").map(line => JSON.parse(line));
+    for (const row of previousRows) { assert.notEqual(row.outcome, "error", "Prior suite recorded an error row"); completed.add(row.caseId); }
     assert.equal(completed.size, 27, "Continue only the 18 unstarted model/control cases; never reroll a failed sample");
     const original = read<{ sources: Record<string, string>; inputs: Record<string, string> }>(path.join(out, "images-started.json"));
     for (const [file, expected] of Object.entries(original.inputs)) assert.equal(hash(readFileSync(path.join(root, file))), expected, file);
