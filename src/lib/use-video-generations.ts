@@ -147,7 +147,7 @@ export function useVideoGenerations({
         body: JSON.stringify(intent),
         signal: controller.signal,
       });
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         // A definite rejection cannot have created a new job. Unknown failures retain the ID.
         if ([400, 401, 402, 403, 409, 413, 422, 429].includes(response.status))

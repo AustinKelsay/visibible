@@ -21,3 +21,5 @@ A controlled local job exercised actual reservation/refund mutations, refresh, a
 Sol approved the behavior in two review rounds. Fixes preserve the exact displayed settings and maximum charge during interrupted-request recovery, expose pricing retries after catalog outages, and avoid browser-only AbortSignal static helpers. The first two regression tests failed before the fixes and passed afterward.
 
 Before the first push, a guarded shared-development Convex dry run reported seven additive video indexes and no deletions. Both preview build logs confirmed no index deletion. The PR records final checks and review status. Production rollout remains a separate release decision.
+
+After the live smoke, a one-line client error fallback was added for non-JSON platform errors. HTTP 400 clears a definite rejected intent; HTTP 503 retains the same intent for safe retry. Both tests failed before the fix; all 15 focused client/UI tests pass afterward. This does not change the worker or the successful hosted path.

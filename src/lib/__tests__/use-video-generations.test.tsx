@@ -40,6 +40,15 @@ afterEach(async () => {
 async function mount() { await act(async () => root.render(<Harness />)); }
 
 describe("durable video submission", () => {
+  it.each([400, 503])("handles non-JSON status %s without losing rejection semantics", async (status) => {
+    post.mockResolvedValueOnce(new Response("<html>Platform error</html>", { status }));
+    await mount();
+    await act(async () => { await state.generate(input); });
+    expect(state.error).toBe("Video could not be started.");
+    expect(state.request === null).toBe(status === 400);
+    expect(post).toHaveBeenCalledTimes(1);
+  });
+
   it("loads pricing and submits when AbortSignal static helpers are unavailable", async () => {
     vi.stubGlobal("AbortSignal", {});
     post.mockResolvedValue(Response.json(accepted));
