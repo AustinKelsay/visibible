@@ -39,7 +39,7 @@ The [replay](../../../scripts/evals/scene-input-ownership.mts) reuses the existi
 
 The [report](report.json) records the exact replacements, input hashes, original/candidate prompt hashes and lengths. Full comparison packets are generated into ignored `evals/images/runs/2026-10-31-scene-input-ownership/`. Original packet versions and preparation/reference metadata remain baseline evidence; they are not fresh admission or provenance for the substituted prompt.
 
-Reproduce with `node --import tsx scripts/evals/scene-input-ownership.mts`. This uses the same locally retained reference files as the earlier replay and regenerates that replay's ignored outputs first. No credentials are needed. The script recaptures and verifies every golden request, including non-rendering requests.
+Run `npm run works:import` to generate the ignored work files, then reproduce with `node --import tsx scripts/evals/scene-input-ownership.mts`. This uses the same locally retained reference files as the earlier replay and regenerates that replay's ignored outputs first. No credentials are needed. The script recaptures and verifies every golden request, including non-rendering requests.
 
 Verification: 1,052 tests passed, one skipped; typecheck and focused lint passed; repository lint reported zero errors and three existing warnings. All 32 local documentation links and diff whitespace checks passed. CodeRabbit CLI raised zero issues. GPT-6.1 Sol on xhigh approved in one round with no findings, independently reproducing both reports byte for byte without writing files. Approval covers offline evidence only.
 
