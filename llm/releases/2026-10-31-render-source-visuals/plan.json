@@ -1,0 +1,48 @@
+{
+  "operationCapUsd": 2,
+  "cumulativeCapUsd": 6,
+  "priorUpperBoundUsd": 3.43900025,
+  "readerReserveUsd": 5,
+  "imageModel": "google/gemini-3.1-flash-lite-image",
+  "resolution": "1K",
+  "aspectRatio": "16:9",
+  "priorPlanningArm": "section",
+  "repeats": 3,
+  "scenes": [
+    {
+      "id": "alice-gloves",
+      "work": "alice-in-wonderland",
+      "unitId": "the-pool-of-tears-8",
+      "expected": "Alice remains more than nine feet tall in the hall when the Rabbit returns with gloves and fan. Any coherent focal instant is valid; the Rabbit may have fled, but Alice must not be normal child-sized or already shrunk."
+    },
+    {
+      "id": "alice-house-entry",
+      "work": "alice-in-wonderland",
+      "unitId": "the-rabbit-sends-in-a-little-bill-2",
+      "expected": "Alice receives the errand or enters the house, before drinking and growing. No premature giant body, trapped limb, or conflation with the real Mary Ann. Rabbit absence after she enters is valid."
+    },
+    {
+      "id": "alice-house-grown",
+      "work": "alice-in-wonderland",
+      "unitId": "the-rabbit-sends-in-a-little-bill-8",
+      "expected": "Alice is already oversized and cramped in the house. Select one coherent focal pose; do not restore ordinary child size or combine successive poses."
+    },
+    {
+      "id": "holmes-cellar",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-183",
+      "expected": "Holmes, Watson, Jones and Merryweather make preparations and hide in the bank cellar before the thieves arrive. Keep one coherent instant and the lantern state for that instant; do not introduce the later arrest."
+    }
+  ],
+  "contract": {
+    "arms": [
+      "baseline rendering packet",
+      "whole source plus source precedence from the committed offline candidate"
+    ],
+    "fixed": "Each pair uses exactly one retained section-arm plan, canon, classical style, model, settings, and ordered reference bytes. Three different frozen plans per scene; no new planning calls.",
+    "scope": "24 scheduled images; existing image check and at most one automatic retry. No manual rerolls, production writes, activation, new sheets or prompt tuning. This is a diagnostic, not a release gate.",
+    "criterion": "Broader testing is justified only if all three chosen candidate gloves images clearly preserve giant size, all three house-entry controls avoid premature growth, and no new clear source-state failures appear on house-grown or Holmes controls. Report first attempts and chosen attempts separately; any incomplete scene is inconclusive. Check identity, extra subjects, lettering and overall coherence separately.",
+    "inspection": "Inspect every saved attempt at original resolution. Unblinded model inspection, not human acceptance or independent blind scoring. Unclear size stays unclear. Existing control defects remain recorded.",
+    "limits": "Tests the combined content/precedence candidate on one model and style. Excludes non-literal depiction. Plan omissions, reference-sheet conflicts, future-event leakage and existing control defects remain possible."
+  }
+}

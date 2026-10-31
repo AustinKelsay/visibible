@@ -1,0 +1,39 @@
+{
+  "offlineOnly": true,
+  "paidProviderCalls": 0,
+  "fault": "First frozen baseline prompt mismatches the suite-assembled prompt",
+  "before": {
+    "rows": 24,
+    "firstOutcome": "failed",
+    "laterFakeImageCalls": 32,
+    "ledgerBlocked": null
+  },
+  "after": {
+    "rows": 1,
+    "firstOutcome": "failed",
+    "calls": {
+      "text": 0,
+      "image": 0,
+      "check": 0
+    },
+    "finishedMarker": false
+  },
+  "method": "In-memory file-read substitution; retained inputs unchanged.",
+  "delayedCheck": {
+    "method": "Existing suite and ledger with delayed scripted provider; millisecond-scaled timeouts",
+    "before": {
+      "checkerTimeoutMs": 100,
+      "suiteTimeoutMs": 30,
+      "inFlightAtSuiteReturn": 2,
+      "uncertainUsd": 0.004
+    },
+    "after": {
+      "checkerTimeoutMs": 10,
+      "suiteTimeoutMs": 30,
+      "blocked": "Checker provider timeout",
+      "uncertainUsd": 0.004
+    },
+    "completionGuard": "Rejects any in-flight ledger calls; no finished marker permitted",
+    "paidProviderCalls": 0
+  }
+}
