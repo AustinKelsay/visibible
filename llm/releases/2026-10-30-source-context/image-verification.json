@@ -1,0 +1,176 @@
+{
+  "scheduled": 12,
+  "returned": 12,
+  "savedAttempts": 14,
+  "allAttemptsInspectedAtOriginalResolution": true,
+  "textCalls": 0,
+  "frozenPlansAndContextsMatch": true,
+  "savedHashesAndJpegSignaturesMatch": true,
+  "sentReferenceHashesMatch": true,
+  "referenceSelection": "Fixed reference pool; existing assembly selects and orders sheets from each plan. Actual sheet count/order differ between some arms.",
+  "providerCalls": {
+    "text": 0,
+    "image": 14,
+    "check": 28
+  },
+  "rawResponseCostUsd": 0.4958384,
+  "ledgerCostMatches": true,
+  "uncertainUsd": 0,
+  "frozenSourceAndTextHashesMatch": true,
+  "images": [
+    {
+      "caseId": "alice-gloves-baseline-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-gloves-baseline-1__classical__a1.jpeg",
+      "sha256": "a13c66b4a8b71072cb0ef9badd1fa3c7e02bcca7dbd5f2eebf9a25540b07689f",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": true
+    },
+    {
+      "caseId": "alice-gloves-section-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-gloves-section-1__classical__a1.jpeg",
+      "sha256": "7315bb10ccebfee78692530d5cc4408b30be55e817dee1febada3ddf4cead70c",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": true
+    },
+    {
+      "caseId": "alice-gloves-section-2",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-gloves-section-2__classical__a1.jpeg",
+      "sha256": "aeafabcb3d7220f9bcec3226c6961e296cabc9f6c893fefc73ff179c2b8b3e8d",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": true
+    },
+    {
+      "caseId": "alice-gloves-baseline-2",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-gloves-baseline-2__classical__a1.jpeg",
+      "sha256": "37bb3de5bf47f17eb7bdc023ede9e03693fd1db16044d1f6d96ffedd403206f4",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": true
+    },
+    {
+      "caseId": "alice-gloves-baseline-3",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-gloves-baseline-3__classical__a1.jpeg",
+      "sha256": "ed95a293394bc77af3b7b421f140d5e6fca169cd5e27b298bd4f4035b349e5c6",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": true
+    },
+    {
+      "caseId": "alice-gloves-section-3",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-gloves-section-3__classical__a1.jpeg",
+      "sha256": "8ab0089683761a79f1d59b6e1ad60b9c5b1b2b2b2d8728dbc2a3f09b02394a56",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": true
+    },
+    {
+      "caseId": "alice-house-entry-baseline-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-house-entry-baseline-1__classical__a1.jpeg",
+      "sha256": "d203b8c7f10cb99457a6b40764ab0ce7d7a9ffa1e7ed26f4b1160b3a3db80cbe",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": true
+    },
+    {
+      "caseId": "alice-house-entry-section-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-house-entry-section-1__classical__a1.jpeg",
+      "sha256": "3dc00e0ed194c687ce2f83cf89d1c565c9a9c5494d9071eace7e320bcc81d20b",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": true
+    },
+    {
+      "caseId": "alice-house-entry-section-2",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-house-entry-section-2__classical__a1.jpeg",
+      "sha256": "1bb614094d255d904cecd52f41787016b6bcb0deaa3ab601953db764dbc97029",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": true
+    },
+    {
+      "caseId": "alice-house-entry-section-2",
+      "attempt": 2,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-house-entry-section-2__classical__a2.jpeg",
+      "sha256": "d56190785a341171269b8a42bd9c08fa27a7a2d047ca0d396e9c568bdf60fe4f",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": false
+    },
+    {
+      "caseId": "alice-house-entry-baseline-2",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-house-entry-baseline-2__classical__a1.jpeg",
+      "sha256": "5b08ef90eec6c72f6965f097ac1ab8e104111efedc505779c46a1e8365ad385d",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": true
+    },
+    {
+      "caseId": "alice-house-entry-baseline-2",
+      "attempt": 2,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-house-entry-baseline-2__classical__a2.jpeg",
+      "sha256": "9d1c0765042d42f0261ea6fa82c2e6d4f1333f516a51dc79fa76243e32a441c4",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": false
+    },
+    {
+      "caseId": "alice-house-entry-baseline-3",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-house-entry-baseline-3__classical__a1.jpeg",
+      "sha256": "a2c7d59cf2b0deb456890f945c368763d128a5600a37e0d4dd80408ff66ce3a7",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": true
+    },
+    {
+      "caseId": "alice-house-entry-section-3",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-source-context/alice-house-entry-section-3__classical__a1.jpeg",
+      "sha256": "8ea812066e943c69c6877c0bf60efdb362af4feaf255d39c13a0ca9e476e6328",
+      "size": [
+        1376,
+        768
+      ],
+      "chosen": true
+    }
+  ]
+}

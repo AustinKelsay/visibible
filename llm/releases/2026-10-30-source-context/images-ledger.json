@@ -1,0 +1,265 @@
+{
+  "capUsd": 1.6,
+  "calls": [
+    {
+      "phase": "alice-gloves-baseline-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034901
+    },
+    {
+      "phase": "alice-gloves-baseline-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002263
+    },
+    {
+      "phase": "alice-gloves-baseline-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000324
+    },
+    {
+      "phase": "alice-gloves-section-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03491375
+    },
+    {
+      "phase": "alice-gloves-section-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002312
+    },
+    {
+      "phase": "alice-gloves-section-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003259
+    },
+    {
+      "phase": "alice-gloves-section-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034928
+    },
+    {
+      "phase": "alice-gloves-section-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002293
+    },
+    {
+      "phase": "alice-gloves-section-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000325
+    },
+    {
+      "phase": "alice-gloves-baseline-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03492775
+    },
+    {
+      "phase": "alice-gloves-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002281
+    },
+    {
+      "phase": "alice-gloves-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003148
+    },
+    {
+      "phase": "alice-gloves-baseline-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03492825
+    },
+    {
+      "phase": "alice-gloves-baseline-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002283
+    },
+    {
+      "phase": "alice-gloves-baseline-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002965
+    },
+    {
+      "phase": "alice-gloves-section-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0348975
+    },
+    {
+      "phase": "alice-gloves-section-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002276
+    },
+    {
+      "phase": "alice-gloves-section-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003063
+    },
+    {
+      "phase": "alice-house-entry-baseline-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0345885
+    },
+    {
+      "phase": "alice-house-entry-baseline-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002248
+    },
+    {
+      "phase": "alice-house-entry-baseline-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000292
+    },
+    {
+      "phase": "alice-house-entry-section-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0349105
+    },
+    {
+      "phase": "alice-house-entry-section-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002981
+    },
+    {
+      "phase": "alice-house-entry-section-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002983
+    },
+    {
+      "phase": "alice-house-entry-section-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03491125
+    },
+    {
+      "phase": "alice-house-entry-section-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002498
+    },
+    {
+      "phase": "alice-house-entry-section-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000342
+    },
+    {
+      "phase": "alice-house-entry-section-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03491125
+    },
+    {
+      "phase": "alice-house-entry-section-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002813
+    },
+    {
+      "phase": "alice-house-entry-section-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000356
+    },
+    {
+      "phase": "alice-house-entry-baseline-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03490925
+    },
+    {
+      "phase": "alice-house-entry-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000254
+    },
+    {
+      "phase": "alice-house-entry-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003402
+    },
+    {
+      "phase": "alice-house-entry-baseline-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03490925
+    },
+    {
+      "phase": "alice-house-entry-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003165
+    },
+    {
+      "phase": "alice-house-entry-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003807
+    },
+    {
+      "phase": "alice-house-entry-baseline-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03459225
+    },
+    {
+      "phase": "alice-house-entry-baseline-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002282
+    },
+    {
+      "phase": "alice-house-entry-baseline-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003479
+    },
+    {
+      "phase": "alice-house-entry-section-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0345905
+    },
+    {
+      "phase": "alice-house-entry-section-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002263
+    },
+    {
+      "phase": "alice-house-entry-section-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.00032
+    }
+  ],
+  "measuredUsd": 0.4958384,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 14,
+    "check": 28
+  },
+  "blocked": null
+}
