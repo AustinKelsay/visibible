@@ -6,7 +6,7 @@ The hosted preview at code commit `96d2cfa9224f909d92e959f8fdb71a779844f0ef` com
 - Backend: `https://coordinated-shepherd-515.convex.cloud`
 - Normal credited guest; initial 100 credits, final 50. Exactly one job and one generation charge, with the reservation released and zero absorbed cost.
 - An identical admission replay returned the same job. Navigation away occurred during processing. The job completed before the later close/reopen check, so this live run does not establish closure mid-job.
-- Permanent storage and public history verified; desktop playback, sound, seeking, and HTTP 206 passed. A different zero-credit guest played the same clip in an incognito mobile viewport.
+- Permanent storage and public history verified; desktop playback, sound, seeking, and HTTP 206 passed. A different zero-credit guest played the same clip in an incognito mobile viewport. The report distinguishes the browser-visible header (not exposed by CORS) from an unauthenticated transport check returning `Content-Range: bytes 0-31/7142553`. The local-only paid smoke script was not used on this hosted deployment.
 
 These are hosted screenshots: desktop 1280×800 and mobile viewport 390×844.
 

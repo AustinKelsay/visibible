@@ -28,7 +28,6 @@
     "pendingReservation": false
   },
   "desktop": {
-    "contentRange": null,
     "credits": 50,
     "duration": 5.184,
     "history": true,
@@ -39,7 +38,8 @@
     "readyState": 4,
     "seekSeconds": 2.000144,
     "soundEnabled": true,
-    "videoUrl": "https://coordinated-shepherd-515.convex.cloud/api/storage/c449f287-5fe8-48c9-9402-41aae0a30701"
+    "videoUrl": "https://coordinated-shepherd-515.convex.cloud/api/storage/c449f287-5fe8-48c9-9402-41aae0a30701",
+    "browserVisibleContentRange": null
   },
   "anonymousMobile": {
     "credits": 0,
@@ -59,5 +59,15 @@
     "One live 5s/768p SKU; other settings covered by deterministic tests.",
     "Hosted job completed before the later tab-close check."
   ],
-  "preProductionSpendUsd": 0.4
+  "preProductionSpendUsd": 0.4,
+  "transportRangeCheck": {
+    "checkedAt": "2026-10-31T00:10:11.099Z",
+    "client": "Node.js fetch without authentication",
+    "checkedAfterCommit": "a00d781c2707a6795fc291cf38552667c7516fd3",
+    "requestedRange": "bytes=0-31",
+    "status": 206,
+    "contentRange": "bytes 0-31/7142553",
+    "accessControlExposeHeaders": null
+  },
+  "rangeEvidenceNote": "The desktop value comes from browser fetch on the cross-origin storage URL. Content-Range is not exposed to browser JavaScript, so that value is null despite HTTP 206 and successful seeking. The unauthenticated transport check records the actual header separately. The local-only paid smoke script was not used for this hosted test."
 }
