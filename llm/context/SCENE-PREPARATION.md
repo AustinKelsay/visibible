@@ -59,4 +59,6 @@ Before changing canon/state ownership or collapsing the plan fields, read the [o
 
 Before changing rendering precedence, read the [ownership-only candidate](../releases/2026-10-31-scene-input-ownership/README.md) and its [completed visual comparison](../releases/2026-10-31-ownership-visuals/README.md): two replacement lines with original inputs held fixed. The candidate preserved the pre-growth control but failed the grown-house body and late cellar criteria in the small, unblinded sample. Do not activate or broaden on this evidence.
 
+The [one-description implementation candidate](../releases/2026-10-31-scene-description/README.md) is an unapplied patch tested offline: one scene paragraph feeds review, rendering and image checking, while ordered cast IDs prioritize reference sheets. It preserves historical readers and changes no active runtime. Its mechanical checks do not establish visual quality; activation remains unapproved.
+
 Earlier design decisions remain in [ADR 0005](../../docs/adr/0005-one-scene-description-unnamed-presence.md), [ADR 0006](../../docs/adr/0006-unseen-presence-speakers-and-launch-bar.md) and [ADR 0009](../../docs/adr/0009-reference-priority-over-a-shared-place.md). The [release status](../releases/STATUS.md) records deployments and current gates.
