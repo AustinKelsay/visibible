@@ -65,7 +65,7 @@ describe("the committed suite", () => {
   });
 
   it("draws Alice from a committed analysis with no subject marked without form", async () => {
-    const fixture = read("evals/images/analyses/alice-in-wonderland.json");
+    const fixture = read(config.works["alice-in-wonderland"].analysis);
     const inputs = await readWorkInputs("alice-in-wonderland");
     expect([fixture.workVersion, fixture.briefVersion]).toEqual([inputs.workVersion, inputs.briefVersion]);
     const entries = fixture.records.filter((r: { kind: string }) => r.kind === "entry");

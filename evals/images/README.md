@@ -5,9 +5,13 @@ The regression suite ([ADR 0011](../../docs/adr/0011-frozen-multi-work-regressio
 - `suite.json`: the suite's version, seed, holdout share, works (where each analysis comes from, its image styles and consistency groups), random draws and gate.
 - `cases.json`: every case. `tuned` marks a case that shaped the engine before the suite (always dev), `drawn` one picked by a seeded draw, and `tiers` a case that takes part in only one tier.
 - `faults.json`: the questions scorers answer for plans and for images.
-- `analyses/alice-in-wonderland.json`: Alice's analysis, prepared locally for evaluation only. The Bible's and Holmes's come from production, read-only, into each run's snapshot.
+- `analyses/alice-in-wonderland-v2.json`: Alice's current analysis revision, prepared locally for evaluation only. The Bible's and Holmes's come from production, read-only, into each run's snapshot.
 
 Add cases rather than replacing them, and bump the suite version when they change. A random case comes from a draw in `suite.json`, never by hand; the tests replay every draw.
+
+Alice revision 2 removes only `a stern, frowning face and ` from the Queen of Hearts' `queen_of_hearts-main` stage text and marks that entry as owner-corrected. The source has her smile in `the-queens-croquet-ground-51` and frown in `the-mock-turtles-story-30`; either expression belongs to its moment. The [bounded canon review](../../llm/releases/2026-10-31-canon-review-boundary/REVIEW.md) supports this data correction, without establishing image quality. The revision records its parent hash and correction under `preparation`; all other payloads, quotes, identities and section assignments remain exact.
+
+The [original fixture](analyses/alice-in-wonderland.json) and frozen runs remain unchanged. Suite `2026-10-31-suite-v2` selects the [corrected fixture](analyses/alice-in-wonderland-v2.json), retaining v1's seed, cases and holdout split. There is no v2 quality baseline yet: future comparisons need fresh v2 snapshots and preparation on both sides. Do not transplant old guides/plans or compare against a v1 baseline; the existing suite-version check rejects v1 `--from` runs. Historical diagnostics that explicitly name the old file still use it. This revision changes evaluation inputs only, with no model calls or production changes.
 
 `cases.json` is also the committed case set for `npm run evals:images` ([guide](../../llm/workflow/IMAGE_EVAL_AND_RELEASE.md)). Each case fixes a reference, genre, settings and the visual behaviour a reviewer expects; `work`, `unitId` and `styles` describe generic-engine cases. Runs write to `runs/<name>/` (ignored by git): `state.json`, `manifest.json`, `report.json`, `scores.json`, `contact-sheet.html` and `outputs/`. Comparisons write to `compare/`.
 
