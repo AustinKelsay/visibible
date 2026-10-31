@@ -1,0 +1,65 @@
+{
+  "offlineOnly": true,
+  "providerCalls": 0,
+  "spendUsd": 0,
+  "scheduledRows": 18,
+  "fakeCalls": {
+    "text": 0,
+    "image": 26,
+    "check": 52
+  },
+  "frozenInputsVerified": 29,
+  "promptAndCheckerRequestsVerified": 78,
+  "planInputsPerScene": 1,
+  "repeatsPerArm": 3,
+  "baselineAdmissionIsNotCorrectedCacheAdmission": true,
+  "cases": [
+    {
+      "sourceCaseId": "alice-house-entry-section-1",
+      "baselineChars": 8246,
+      "candidateChars": 8195,
+      "changedLines": [
+        31
+      ],
+      "orderedReferences": 3
+    },
+    {
+      "sourceCaseId": "alice-house-grown-section-1",
+      "baselineChars": 7616,
+      "candidateChars": 7492,
+      "changedLines": [
+        30,
+        35
+      ],
+      "orderedReferences": 2
+    },
+    {
+      "sourceCaseId": "holmes-cellar-section-1",
+      "baselineChars": 7776,
+      "candidateChars": 7711,
+      "changedLines": [
+        31,
+        36,
+        38
+      ],
+      "orderedReferences": 0
+    }
+  ],
+  "unavailableReference": {
+    "method": "Read interception after the offline started marker; frozen files unchanged",
+    "rows": 1,
+    "firstOutcome": "failed",
+    "calls": {
+      "text": 0,
+      "image": 0,
+      "check": 0
+    },
+    "finishedMarker": false
+  },
+  "checks": {
+    "typecheck": "passed",
+    "focusedLint": "passed",
+    "suiteRunnerTests": 14,
+    "repositoryLint": "zero errors, three existing warnings"
+  }
+}
