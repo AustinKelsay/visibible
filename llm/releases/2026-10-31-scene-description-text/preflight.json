@@ -1,0 +1,419 @@
+{
+  "status": "prepared-not-executed",
+  "baseCommit": "4c1e025a77c199a6241ffdbd134c598fe90949e0",
+  "sourceRun": "2026-10-30-review-only-text",
+  "approvedCandidatePatchSha256": "e05c6512a34603d17d4ccdaed85142bbd577fbab5664259f304eb493e1c07fef",
+  "armPlans": {
+    "control": {
+      "path": "llm/releases/2026-10-31-scene-description-control/plan.json",
+      "sha256": "5afc446afe7025eae06704e0b133c4ef15aca81e4463bc49e8423a11e44950b0",
+      "pipeline": {
+        "momentCast": "2026-10-28-moment-cast-v15",
+        "formlessPlan": "2026-10-28-formless-effects-v17",
+        "formlessLook": "2026-10-27-formless-look-v2",
+        "review": "2026-10-27-plan-review-v12",
+        "rendering": "2026-10-29-generic-v15",
+        "sceneCheck": "2026-10-28-scene-check-v4",
+        "textModel": "anthropic/claude-haiku-5.5"
+      }
+    },
+    "candidate": {
+      "path": "llm/releases/2026-10-31-scene-description-candidate/plan.json",
+      "sha256": "e04eaf9747bdbde4d322c045da47e77d7ac6587a36837be9276eda4f7a393dcc",
+      "pipeline": {
+        "momentCast": "2026-10-31-moment-scene-v16",
+        "formlessPlan": "2026-10-28-formless-effects-v17",
+        "formlessLook": "2026-10-27-formless-look-v2",
+        "review": "2026-10-31-plan-review-v13",
+        "rendering": "2026-10-31-generic-v16",
+        "sceneCheck": "2026-10-28-scene-check-v4",
+        "textModel": "anthropic/claude-haiku-5.5"
+      }
+    }
+  },
+  "rehearsal": {
+    "control": {
+      "cases": 113,
+      "outcomes": {
+        "planned": 113
+      },
+      "syntheticCalls": {
+        "text": 226,
+        "image": 0,
+        "check": 0
+      },
+      "guideCalls": 0,
+      "resultSha256": "dfe80a98d1c779f2ad1de1eaaf721151788f2cabdbee3a29f8838fc2189292bd",
+      "providerSha256": "72777f0e985c97ae34a185995bfbd3b18e30a0aea3b603b1e6623d1301b389f5",
+      "logSha256": "f55769d2c621323c3623fd39f254006dd5aa841a10bf3881745888db1676c3e5"
+    },
+    "candidate": {
+      "cases": 113,
+      "outcomes": {
+        "planned": 113
+      },
+      "syntheticCalls": {
+        "text": 226,
+        "image": 0,
+        "check": 0
+      },
+      "guideCalls": 0,
+      "resultSha256": "a89ec18064141c3d066b704e43d159d88e555e78732b371b52586075cc611aa4",
+      "providerSha256": "9c59b266aeed73d34aedb5641f536702177c80213cd758418b99a68e923a258d",
+      "logSha256": "597f6e0107cabdd8f0bd0efe5f9f9cdb0e5321a220758a45e227e0ab67d1ec34"
+    }
+  },
+  "pairedAssertions": {
+    "cases": 113,
+    "distinctSharedGuides": 98,
+    "sameInitialPlannerUserMessages": 113,
+    "sameInitialPlannerProviderSettings": 113,
+    "sameSourceContextAndGuides": 113,
+    "newPlansNotSeeded": true,
+    "callsOutsideTextTier": 0,
+    "staleGuideTestProviderCalls": 0
+  },
+  "sharedFiles": {
+    "llm/releases/2026-10-30-review-only-text/plan.json": "3b603dd566ceede8737d6b22746de7743fab01fa4a0decfd119b0f18d97411a1",
+    "llm/releases/2026-10-30-review-only-text/snapshot.json": "d10dd4cc5b31278d84d3eec24adb3531f7db1e3ba35e0a626fa6f567d42da903",
+    "llm/releases/2026-10-30-review-only-text/results.ndjson": "ab98c5ff6e2b5ca60d8f8562bed5328a6381bb499927f8664bac3a1ce4f6476e",
+    "llm/releases/2026-10-30-review-only-text/run-finished.json": "bb3baddeb1ab6111db3a377a22df8faf05a9d1b0a0c3c5d96c8c6aac95c445c8",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "works/bible-web/brief.json": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+    "works/bible-web/depiction.json": "67a641feb9b13e8b80516b4ec5ba9c32b0bd7e86108188ec1056dd1121bd4915",
+    "works/holmes-adventures/work.json": "a0dea2fb8184b9d0d63ff4b06b7c2066603f224c8341ef12ab5535e4fc076229",
+    "works/holmes-adventures/brief.json": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "works/holmes-adventures/depiction.json": "c3b62657ce196bd208bdd0f3536a168bbd9e52a61b39374c751b5fbe2d37db1b",
+    "works/alice-in-wonderland/work.json": "8dbcd44e0ab0c37ef65bcd2eb507bed73c4f395a94c0ac30e3f4ace25d64b95c",
+    "works/alice-in-wonderland/brief.json": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d",
+    "works/alice-in-wonderland/depiction.json": "fc97ce62ad640ca66a1c8ae5394112a76583e387687b5ccc30d02de19b7dacb0",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/fresco.json": "b7aa9799217f5effaade817e3f1aa5ae3b6e322bef461ae161e564e83a65f529",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+    "styles/watercolor.json": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0"
+  },
+  "referenceFiles": {
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2e99zh3qps4ys5tx6r0jecex8h1tfg.jpg": "201492ec8ee2388612f06f5caa92b93f789a772211f440df5fa955f890612041",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg28wgdj214z31d65smtrt44ps8gnnm3.jpg": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg241s05kh7nzbkaeb0ccp5jm18gma4s.jpg": "c36a3a74ba2a6869541796f818d48cf54884b6469f7b1a2899fa7ed77a101e17",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg21ne25z4mdw2nm4yeewyjvkd8h9ymp.jpg": "2a78962043e11c6206dd78c359aaea22ffa5506c2b3c393745f30872fb69a474",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2575h3rz1vtstda30mkqjmn18h8g0a.jpg": "f5db6a971c23e993e559705278586d53b9218610bb4f59ade2e8b325db74fe58",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg26p4jnwpkm8nm66fs61wjc858h91zc.jpg": "2c4db5e52cd1daeeb67673aa1d0d60d524d528418c54bc4ed227d47e3a1ba340",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2f64zjj63xt3pfan7x21nde18h8stq.jpg": "4eeba8199701361f1211fc88ebdc7f8f3e42108c6c105ed8092ba2b828a9e59d",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2fzqxsdcezrmkp0vv0t12s898h9440.jpg": "60ad34bb816169b2a811bf9bedd3a290abdb2f67e68f5d2334cd1be33bbd422d",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg27mwmp29f4h548zd41w4hsx58h9w7b.jpg": "474ddc39e105c7782c000c6787c2f5ffb1d6b608e1e916d4c7df872f43b1fed7",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg28jcj2svv44ecz3gwvgg53t98h98nj.jpg": "fac883e79b13c37e005de4efc238a5df61370c3e3b4a5c2af7d483a4f81bc0b1",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg25r50d9vfncwphrge3dwk9kn8h8npt.jpg": "45c87c2285d19429e2e80dad438da28b87291991931576ff6f254d30d009f016",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2fn1sxempmjpgcct7w8af4398h9x2d.jpg": "bc8d6cd6b4dfce5bbd3f988549589dec3ba5dad0f6e2290079a0f6cd9da31380",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2a08667pnar8trsqyfrp81298h9jnw.jpg": "78abeed9be17ebf152dc9ed6283c899702d05e8992859bec8061832f6a6eae94",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg202ds27c5s7d3twbvd54tyt58h9mnx.jpg": "a8546de4a7b0c04dd799aaf282db45f8bc56cf066524d38a7666bb61488ff5e3",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2crq3jhpw316nwtn7k1jenh98h9smv.jpg": "f6307d30d51e0dfd0ef4ba0a4fc7d53906868aabb98b4ca81b4510a8006679ab",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg298hr5ngejfsxeay4cjdt9h58h86w2.jpg": "3d2a6cb1fab225d810f73c26627cadad8324f4a7a492875396c4f9737a63e83f",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2d5mv9ax68t8327mt96p5bmh8h8w7z.jpg": "c513a99415f08855de08fa86e28e7740e1508478c767aa841dd0c342f8233c38",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg25ze43jx0z231b66fd7ymtqs8h94sh.jpg": "755c7dcaf9235051b63cdddf47f10ab2806e07e254f768868e8846c11fa46b71",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg23sm8rwc3zce7fhmkp2mew5h8h97wd.jpg": "efbd75a2ec50704ad0d810746afa6da4b72efd0f53dbb9ea9ffe967665a7c735",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg26tqzs8cgfeyayz68t32bt798h8rt5.jpg": "52ec952530f39aa0a23f8bba7798b0b734c049846bf41da4233653367e7a162e",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg22wm412xtx5mpa1ysdb5syqs8gm7ft.jpg": "2350b431fe1e451d945c0bba8cfc5cea1260176a7db33aa87da00082414d70ee",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg29kcg0rfcwc07zhqd39m03w98h80em.jpg": "5106a1d0cc8f892b3bbec010a5867647182bc0b23e8ba2b9892f4a92610ee273",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg238aqp5dde3wmkjqmssknqkx8h90hv.jpg": "a9badca1b2aad52c426f8b14ffbdd36d2ada20f6c8c2f691c3ebc150066151f5",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2cqetqa65226rx3nqh1f23cx8h865a.jpg": "54e1cef6728a7596257e12276538dda2b93a7a6f9672ea8dd029585f6d6b8b41",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2eghg7g17c5pdqkrdamm3w1n8h95cy.jpg": "eaadfb3e97a3ee0e93b4de8c8398ed4241507524ac5bc954f9b71bb7f8700149",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2e5j9ep7v6ssg2crkef7sjhd8h9a5w.jpg": "0b43e3e415281165900080c862abd820c69ba5223de7b1f8bb58cd3dc30c4667",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg285zppwqkj8psyabvqm31qp98h9760.jpg": "cf89af0d9ff73b2818dcaf3f767866bf5bfe305bc533f59ff92effe4efd8d2fe",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg217fpyeywh3nt5sekxc93f8h8h8c6p.jpg": "c470a812c5c55774adb0d6f057b17d4e5a22ed682a4dce648c4c280202817993",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg20fqj8qw4f2rsq7m75r3mj4x8h9wg4.jpg": "2c86f7aef1c6bd7c2447ecd463555ebfdb992c15e496edec22a034c665ff5a74",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2cwcbg302dhc6mzvsxgdjhd18h9904.jpg": "4318786b44935bbb654c1b42e6cd4fc0f73e469bacb00894b9c9096d15dd9d4c",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2bk4rq79vrpk227v38k9w2a98h8eqv.jpg": "4363d707dba3c44a913e14370d78d69c509100c08e5f295a466def0b6f0eb63b",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2abqy5jddwyrt3shz89qft1d8h8r9p.jpg": "5646991b3ea160e5c7e63a2c08d07a92fbbb3b23da4eeaa2b69be21a8a21e7cb",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2b2q038x8b4tnhms5vwcg2x18gmejf.jpg": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg22ctymxw84pb0aydkzn092f58gmm0g.jpg": "bb6f319514794761c473829772aa8690f025f5619acef098c6c934c5eaee0f33",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg29n1awzqeag96dwwcf4g12218h8nf7.jpg": "ee63fe2e74b1f4fc5afc033adb730213cacb09a67e406fd0d88fabaa4b26508d",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg250ysajgqnfa6k7zs7a9053s8h8z2s.jpg": "06d696f3562e78009c018f9f41a340c646db5e28899cd60774109e4e0c1843c4",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg29f48j7gfbyktcvpdaz75mdx8h9p59.jpg": "cf4da01a61073949990323fbd19d47d57e544c954836e84f520ca4cea9269acc",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2f9samx6n9g11bv0aw7v15qn8h82m1.jpg": "e49d4401b0779648c26e733aab51159de89e14fefb6afdf595757016a1b9f529",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2drx5b4s398xd7z0kkhwa1n18h8kdd.jpg": "06e064d9618aa039fceadb9003ecb697c88cfb55aaedaa3fedeadfbc9c8c2ced",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2azz4664er8kdrnp7b5hmhms8h9xw3.jpg": "ef8ed6a278d8bd5eb65c8cbd4ff0d5747fdd74792c3ca214a6337e07d2e99450",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2310yp4hr0219hcdnd24b66x8h99ek.jpg": "54a719889ae6a1b0227fcd7a3c9406202f7ab3d9685b3be6adf2dea55d0cbc2f",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2ax32wenpx74zkgc0w3egcjh8h8xd8.jpg": "fcba5193475a6cf6c2693c758c427c6f8556336fe7385801cd9489f6de84fd47",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg28h1csr4tskmm1dacs580qrn8h97qa.jpg": "14a553bc1ea316214cb0334e617799b79de03c189446607ea8ac51779f379f3a",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2e4gsbz1mpnw7vayj6hk2rx18h8yjp.jpg": "58a108b59e05bdb9408f532e554a5543938159d0aba8aa26bc098d292c3fb066",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg23rww1fh8k5qmw8zdhdgddjh8h9t6h.jpg": "bc09a44ad8c94da1785efec5f6fb72afa12d2c95982a69212edcddc18e69a9f2",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2a7naakmqjbswdkx60pwq8h18h8118.jpg": "0d43884a6393cc9c017a6526c405c6d6e110a2f528492211af54e4f54ea9c7bf",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2cvvd8qp7ssyw58mr0em65sh8h8b7v.jpg": "09b702ecdb1426022fd6a7f85dad3412f7bd645a5c166478f334936b0b0b6f79",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg29efdxe8w1bwbzx4awh4vc9x8gnkvt.jpg": "09fb95eb996aece26b1cc512272c70fd6363b3248cf65f45e14a793252f058ce",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg22xq7awwcjanst65x89hm6w98h8302.jpg": "fbfb78d5fb9d69e96bc06533cc017f5e336c57ac5515918ce6c8549894f682a3",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2fd4jjqzctkgwvh5y59cq3gs8h9wpb.jpg": "e0f837d7844d3208856a38303aebf1bda4bd0876bcd488ef1f43f0d8faa0571a",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg20paet0rmgsjt0y7ar3wrd398gnc3s.jpg": "cff7298326fdde848d3b3e0c24e368d2b9710aa4c00866206aa32c3e4cfeae5b",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg29nxwpan975fg6h4jtttedhd8gm6s1.jpg": "907ca40168fb8b786dd92b35658aac0fadc449ab7c5edce9a7e68bbfddd83669",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp.jpg": "1704848f713dc15928c64dff0283e33b378ef6aadc92c81bc9999cf26a514640",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg288zmz11dwt02a6m6p7993v58gmq7p.jpg": "69c73ea72399600e26de9fa6e092e90c18f09b5ef9eb6c3f3a15657a161e1175",
+    "evals/images/runs/2026-10-30-review-only-text/references/kg2cpdrwkappmgdk52jr57801x8gnedq.jpg": "26eab3dcf2f610570e8bb7461f788349ab2407a1297c6e310c78351397a09517"
+  },
+  "appliedCandidateFiles": [
+    {
+      "path": "convex/schema.ts",
+      "control": "5709b118bc448d9880cb21d299d8f3c6ba991fd13fdf384d24c2cfb47f5d8bdb",
+      "candidate": "629c1b956b7557808b2db04eb50368db774c915151b5b9040b6b613094d81cde"
+    },
+    {
+      "path": "llm/releases/2026-10-27-launch-matrix/run.mts",
+      "control": "4b94037d80e72bb480c4e844a6db6911252c1324054e3d50c185b774dce1e8f5",
+      "candidate": "fd0dccbaa87b90258fd9030e725008ba5e0dd852379d03bf3f0b1af1209840d8"
+    },
+    {
+      "path": "llm/releases/2026-10-28-fresco-matrix/run.mts",
+      "control": "ef10b2d53420c5bfd88a2040c39f52d67aa57f6a08b7d5ca0876e770b2b2ef58",
+      "candidate": "d43a25cba4c060d5e4e1bdb6d3e99a696e3a6fe5b469db38a579c39478e4c437"
+    },
+    {
+      "path": "llm/releases/2026-10-28-launch-matrix-v2/run.mts",
+      "control": "8a91e0677995f5b3e9b2bb279b52be0a5b9636e2772ec2dd02f3592b50b19728",
+      "candidate": "300c3e17a99ded81adeac0b55e2b0dc82f042d2b4f97199bf7d3da03850a4c9e"
+    },
+    {
+      "path": "llm/releases/2026-10-28-launch-matrix-v3/run.mts",
+      "control": "3b9f98d6f23c6cf790e625c3c358bd70b7b6238993cdf4074de4b3299c3927bf",
+      "candidate": "c68af5c2bfc6262152c6ab6e3bd7e3b036edb15e49802ed80d773e74fc57f074"
+    },
+    {
+      "path": "llm/releases/2026-10-28-style-bakeoff/continue.mts",
+      "control": "33bb65c9c22c550bb57cd9dc67a26da972bd901f80e6744a9fe1687dfcbfb34e",
+      "candidate": "f094bc50ea42a7cf246ff23446444e69e60e468f9ef5678844d3e47a0a855982"
+    },
+    {
+      "path": "llm/releases/2026-10-28-style-bakeoff/run.mts",
+      "control": "581bf370f136a3c1e746dda0d43d79214fa5d33a430645abb7385d0dfef661d7",
+      "candidate": "779f5ad4735ea7a89ad0665b28d5c9358e4457f3ebbaa708cd0f453f97070db8"
+    },
+    {
+      "path": "llm/releases/2026-10-29-consistency-verses/run.mts",
+      "control": "d028048315d1554df0d4f1207c4596e9e67e19b5b3995f4f5c5afebdd6456591",
+      "candidate": "2a331b280bb8616deaf9ab237794c60be1b094fbdfd81c1029bde4394e911289"
+    },
+    {
+      "path": "llm/releases/2026-10-29-daniel-recheck-2/run.mts",
+      "control": "31a0d90812e0dc4082dcf2d001567f88b2aac2d1af09446592c0e3c24a8224bd",
+      "candidate": "d0cbbd8fee9a8a8f8b930517fd7aff6b4345f7491ff0aa928c3f3e0555d5e53b"
+    },
+    {
+      "path": "llm/releases/2026-10-29-daniel-recheck/run.mts",
+      "control": "c14607a191873a19722d9e8054c19f7be68cd1766dfb935a79cd93e263f3f59a",
+      "candidate": "d5a143bc7a116e6545b75be3b20495d8acc2f4d6e29906eeb273e969b256cc76"
+    },
+    {
+      "path": "llm/releases/2026-10-30-symbol-mode/run.mts",
+      "control": "2c366f89e211dd8cc8ebaf005ce523f8266ae3ae50c021709394bbb3c8bb2e62",
+      "candidate": "1ba0301533a10454bf7e43e4c0f8e002f45ebe0d05113dd8f906652d55e2c16d"
+    },
+    {
+      "path": "scripts/evals/suite.mts",
+      "control": "c13edf263adbacf8d820fbb55d75e676ec090d72adb2f4832f5f1ab33a47fae9",
+      "candidate": "b91c88bd7e422aea2dea47399da5acf15aa7df8cdb4cbf3685811dbac2a2a902"
+    },
+    {
+      "path": "src/app/api/__tests__/generate-image/credit-flow.test.ts",
+      "control": "8443d3dc5eef31e4a019e7ffdcdd8fa2fb9f06685ddb6146621dce02a5ae1aeb",
+      "candidate": "69c40763dae55c7f245ca242bb09f6ebf466b8f3bc92714cae03e2a47ac07d58"
+    },
+    {
+      "path": "src/lib/__tests__/cast-policy.test.ts",
+      "control": "a27b00711e1e39e784467bd05393b30c09d5c38807c89891f7041cf21d2f6f21",
+      "candidate": "bfaf5fce0794e9389821cd4d2cb88b2602a94f66e9a8446ae83160b315fe9fb6"
+    },
+    {
+      "path": "src/lib/__tests__/depiction.test.ts",
+      "control": "2328a5c4109f27027b6a827db88f1c70381394b02fa5cedab7f9eba174a2b4ed",
+      "candidate": "150a2478660f2d31c1921c055a5c9edcaef7efddef69286934caf490ace76eff"
+    },
+    {
+      "path": "src/lib/__tests__/engine-presence.test.ts",
+      "control": "d497d8121f30bbdb335cae12201cfead1462c118c856653f1fc8eee01d8560a9",
+      "candidate": "613a452e9505c0623fc2fece4c419c24b32d3ebb53e25bac7c7b3c6e4abfe94c"
+    },
+    {
+      "path": "src/lib/__tests__/image-evals-suite-run.test.ts",
+      "control": "525a2b6edd7295853ca3fc90459f9f397510f3bca10c9c81d508a1023e3a8a41",
+      "candidate": "a1314e0ad16d86787a1319b364b96ddbeadd3e5d8f75deb942efadc4d7720ab1"
+    },
+    {
+      "path": "src/lib/__tests__/look-canon-separation.test.ts",
+      "control": "e52ae031e86cc3d702fcff98ae6cb40ee93674e015d5e79c39822ec8a34be722",
+      "candidate": "f4211a70bef7bd294ed7b3996349d77e0a36ac58bd6ba75125a5953050e7b974"
+    },
+    {
+      "path": "src/lib/__tests__/moment-cast-contract.test.ts",
+      "control": "d990bea7a870b394386c8205e73f8174ee4b744af8d9b936b93302e893387dd0",
+      "candidate": "f46318eacdced4b5ccbe5e9dbf72ebd580b9ffc25854c4aae5b8a3480e40b8a1"
+    },
+    {
+      "path": "src/lib/__tests__/plan-canon-separation.test.ts",
+      "control": "0f838079d07b4706c1b8eb1434f826a27ac9c60d2f2c4a4bb50390759e6742e4",
+      "candidate": "ac9b5e6cb11489a0c40d288c95e6a2db56db01bf978cca8dfd7d46f692aa7398"
+    },
+    {
+      "path": "src/lib/__tests__/plan-review.test.ts",
+      "control": "69078a4687cc21da33b57f075f771724ea5ec9e00461d97b29fb1e1ca260071a",
+      "candidate": "04232264befdd9908c031dc865ab48162db6bb9b45bdbe1f519a3967c6201345"
+    },
+    {
+      "path": "src/lib/__tests__/preparation.test.ts",
+      "control": "47d3f598aaca442b792905dfc4caa01d5af248ff5ebe1de0eb542124b7622e20",
+      "candidate": "bdfa26d27529dc2b0d81dd3dd4f92c7bf9a0e092868b2604d67ddeb98b45f84a"
+    },
+    {
+      "path": "src/lib/__tests__/reference-slots.test.ts",
+      "control": "626b8441908f6033e04bce4c37bf06ef31b8c03957da9b2587ead11d02690771",
+      "candidate": "7035e220b7526b50386d2afc1295a797742aefb6340c0638cadb03b3607cd453"
+    },
+    {
+      "path": "src/lib/__tests__/review-look-citations.test.ts",
+      "control": "60e72f6c8f3164dc71fa35ad401336f8b4a6e1138c1e827769cef3565bbc5321",
+      "candidate": "582c87fa81a2a4d90cb319dcf37ba711ea55d7a23da72c760c763d26689ce20c"
+    },
+    {
+      "path": "src/lib/__tests__/scene-grounding.test.ts",
+      "control": "4af74ec4a05c6a189f0ad6afebcc2bc54b301be6d71221667e31e909bc12cfc0",
+      "candidate": "89da0b309d0237800bdda71a610035ae1d15a71fa55e506a405fa816b3526d4b"
+    },
+    {
+      "path": "src/lib/__tests__/single-cast-selection.test.ts",
+      "control": "4130b20628d92c0d3a6cc36a5d76d2746b08db95dde2d0603e6f8aefccb96814",
+      "candidate": "d49118034a13875ccb8eb086f29e61ea13aab37b5643197f11f1031097f36273"
+    },
+    {
+      "path": "src/lib/__tests__/source-cast-identity.test.ts",
+      "control": "4295d85077e9776bc178f3ba8ba69e38e7d6ef6de387efe44a78408378d9b44c",
+      "candidate": "c17e090f0863a20f324ce79ffdecda94d0b5ab3c49306bb36b94369c8bddc534"
+    },
+    {
+      "path": "src/lib/__tests__/source-first-planning.test.ts",
+      "control": "b13bcc6e0c27048974ad5f4042ac120badafe7e49480f6ee80f0c2f14861ce75",
+      "candidate": "c77759d82849587e0f8c4f0500b382ac9c0c9905ee62b10e5a884bb9cba6117c"
+    },
+    {
+      "path": "src/lib/__tests__/suite-blind-description.test.ts",
+      "control": null,
+      "candidate": "cc537b1d3a0da2de7a1eeb0d57bbcf557949f496b21dfd307ecf515c007be31d"
+    },
+    {
+      "path": "src/lib/engine/assemble.ts",
+      "control": "0da3f837c7c684a424790ed54ddfb880b7f3d766b2b2bd76ff1cd4fa1d075460",
+      "candidate": "0ef980ae2b2fe7b7c927dd3ee69201003fdd2a98a221cc3fc77a864298d28e48"
+    },
+    {
+      "path": "src/lib/engine/generation.ts",
+      "control": "e0d3a367a656296f54fcbd6c178924b2e4a5d4c6d0202a53285d49266fdc0a58",
+      "candidate": "2f6581064229fcf6240e9a710e0a6fff333fc98485f161d97f5eb42a238a52bb"
+    },
+    {
+      "path": "src/lib/engine/plan-review.ts",
+      "control": "01a5656346cb8f62ac74970e049350c8eb85e76e84d3ec218fff7af1da6ce1f1",
+      "candidate": "02a4febdb15bce3ef7cc4cae423e39269679baad2544c460fb936c2d76a60085"
+    },
+    {
+      "path": "src/lib/engine/preparation.ts",
+      "control": "562e203aa11fd975460d011628e1147a60e4afd73ba145c00455780b3fdbd6ed",
+      "candidate": "5931d30105a7d24ba525bf4a2aee061e65d86d1ef8fe85cfa30564c77bd20704"
+    },
+    {
+      "path": "src/lib/engine/prompt.ts",
+      "control": "dfe33e64074d7ca273654703d39173dc4aafe4b2dab157196f3b5332b94d115b",
+      "candidate": "f8fa894532b8eab7b0ce703541fbd883c3fcac51000b411930c5cff114d9258a"
+    },
+    {
+      "path": "src/lib/image-evals/consistency.ts",
+      "control": "3476050e008cb271f40fa271040b06b58fbe33364896cfc096acb1abc876b068",
+      "candidate": "6c2580f67c301176382758b53e08e1dee5a5debf53d617dcfb377b3f01e2d1d7"
+    },
+    {
+      "path": "src/lib/image-evals/suite-offline.ts",
+      "control": "53ad20b753e09b780ce8908d78dd9a9d351d655cc641694fded3b9a32a18ea55",
+      "candidate": "053cd49d91fd71fa2605b03bbf83a37a35600bfac4fd853e03b069f894d8745c"
+    },
+    {
+      "path": "src/lib/image-evals/suite-run.ts",
+      "control": "d18d1f3fef44447646e5359d9c22e28428f490e3be06dfe9e8f84263649e442c",
+      "candidate": "413059540a44316357439ce4fb7e76b1ddb31067f1e9caf5adfb97c01ec07d47"
+    },
+    {
+      "path": "tests/fixtures/alice-in-wonderland-engine-golden.json",
+      "control": "41e9f2a0a088007fecc31c8a7afd1ef49f73d5710e7381ca429e4ef51d4fe87b",
+      "candidate": "a6cad5afb39c9445e368af2e11f255592146c9edf02fad845d998e1062104006"
+    },
+    {
+      "path": "tests/fixtures/bible-engine-golden.json",
+      "control": "ba6ddf69bbd915889d944efbc107e4658e553f4a95331889322942fb4885241a",
+      "candidate": "d081b63a1e35ed2f42bd3d93fcf6f93e9b9a794d419f0628152d5a1d846c4019"
+    },
+    {
+      "path": "tests/fixtures/bible-engine-golden.ts",
+      "control": "ddc9baf676d113504c270f9d87cae8046dc501c113c34c9ea6f27710f103290d",
+      "candidate": "78ff9636710723331b4d72ddbe27020f38808e1875523f7e5f396b0b77621ad5"
+    },
+    {
+      "path": "tests/fixtures/holmes-adventures-engine-golden.json",
+      "control": "06bd0f641f6becc65bc578189fc98359cb088d140274c9a18b5028c1601cd56b",
+      "candidate": "4b42cd32aaa6f28f1457f084c6cd52a2a83798e967e65293d0f5d4e9eb6ad67a"
+    },
+    {
+      "path": "tests/fixtures/scene-grounding.ts",
+      "control": "22a0ae162274eb93c49893cdd926bb3f540ba0b40e8fbfbfede93eb9af7cd1d7",
+      "candidate": "6f967f1b24fd4d51ce6696a5fdcb9e01bd393538b1d2e84d34214c8c3116cba7"
+    },
+    {
+      "path": "tests/fixtures/work-engine-golden.ts",
+      "control": "aad9bbed22180edeed5980ef16b21d52e717ecebf0f01ee1d9f8b9248c5c6dfe",
+      "candidate": "60c28d9fc436bade3e0eeaf355ac3ffa2e75c1a0cc4b2e31cc95e2a8317e0f10"
+    }
+  ],
+  "sharedCliSha256": "c13edf263adbacf8d820fbb55d75e676ec090d72adb2f4832f5f1ab33a47fae9",
+  "sharedCliTestSha256": "a7066d618590f0e8d256271d60c6fa4a3f1b8d4a40a97b26299bf990ac420f5d",
+  "funding": {
+    "priorUpperBoundUsd": 6.31691115,
+    "operationCapPerArmUsd": 0.3,
+    "maximumCombinedUsd": 0.6,
+    "maximumCumulativeUsd": 6.91691115,
+    "authorizedCumulativeCapUsd": 7,
+    "readerReserveUsd": 5
+  },
+  "limitations": [
+    "Synthetic replies prove isolation, not quality.",
+    "Previously examined corpus; its named holdout is not fresh.",
+    "One draw per case and arm; no seed pairing or statistical power claim.",
+    "Candidate selection/order may change reference attachments; preserve and inspect those differences.",
+    "No paid providers have been called for this comparison."
+  ],
+  "checkLogSha256": {
+    "/tmp/scene-description-paired-before.log": "be15dbc6a4ffae401fc658cacf9ce59b2b000d65c63a9ff7ff2217e6db4cebd3",
+    "/tmp/scene-description-paired-test.log": "0e6babea700f154fe2217ee09f79c777e3b273a88cb3130e28854a7eaf33d61c",
+    "/tmp/scene-description-candidate-paired-test.log": "5a584aadd7699e97a16fa9af69a68bb7a5f4f22ae089b8273fa65cf4d32e91ec",
+    "/tmp/scene-description-text-tests.log": "603355d1ae362d17170a873e69d1b3962929d9934e8b5fdfe8f9f49760f1cf3e",
+    "/tmp/scene-description-text-typecheck.log": "8aa9519f302b906bbc040eb0e0af9d32ea3ba28881cd8e229d8063292c7bb4dd",
+    "/tmp/scene-description-text-lint.log": "90fbf3cd4dd65348f021832b2466256dc4b95410baba4880ba9814dba3e366ea",
+    "/tmp/scene-description-text-coderabbit.log": "32fcf56eae281f96eb12d457feb3fdf03ee78d2107b1ea2d55bb875118d7d939"
+  },
+  "checks": {
+    "mainFullSuite": "1053 passed, 1 existing skipped",
+    "mainTypecheck": "passed",
+    "mainLint": "0 errors, 3 existing warnings",
+    "candidateFocused": "17 passed",
+    "regressionBefore": "failed against unchanged main",
+    "regressionAfter": "passed",
+    "codeRabbit": "completed, 0 findings"
+  },
+  "review": {
+    "round": 1,
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "xhigh",
+    "verdict": "APPROVE \u2014 pre-execution only",
+    "findings": [
+      {
+        "id": "S1",
+        "severity": "nit",
+        "status": "deferred",
+        "finding": "Image runs cannot chain through a paired text run to its original snapshot/reference directory.",
+        "reason": "Outside this text-only comparison. Fix or reject chaining before any image follow-up; current text runs are unaffected."
+      }
+    ]
+  }
+}
