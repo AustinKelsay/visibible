@@ -131,6 +131,8 @@ async function plan() {
     if (tier === "image") assert.deepEqual(fromPlan.pipeline, PIPELINE, "The text run used other prompt versions; plan a new text run");
     assert.ok(existsSync(path.join(fromDir, "run-finished.json")), "The text run has not finished");
     const rows = ndjson(path.join(fromDir, "results.ndjson"));
+    assert.ok(rows.every((r) => r.outcome !== "planned" || cases.every((c) => c.caseId !== r.caseId || (c.work === r.work && c.unitId === r.case))),
+      "A source result changed; plan a new source run");
     const planned = new Set(rows.filter((r) => r.outcome === "planned").map((r) => r.caseId));
     if (tier === "text") assert.ok(cases.every((c) => planned.has(c.caseId)), "The source run must cover every paired text case");
     for (const c of cases.filter((c) => !planned.has(c.caseId))) {

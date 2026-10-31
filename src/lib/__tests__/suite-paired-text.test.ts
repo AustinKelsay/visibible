@@ -54,6 +54,14 @@ it("reuses only frozen guides, rejects stale guides and keeps the source snapsho
       writeFileSync(path.join(dirs[0], "plan.json"), JSON.stringify(changedCase));
       expect(() => cli("plan", "--run", names[3], "--tier", "text", "--from", prefix)).toThrow(/source case changed/);
     }
+    writeFileSync(path.join(dirs[0], "plan.json"), JSON.stringify(changed));
+    for (const field of ["case", "work"] as const) {
+      const changedRows = structuredClone(sourceRows);
+      changedRows[0][field] = "changed-source";
+      writeFileSync(path.join(dirs[0], "results.ndjson"), changedRows.map((row) => JSON.stringify(row)).join("\n") + "\n");
+      expect(() => cli("plan", "--run", names[3], "--tier", "text", "--from", prefix)).toThrow(/source result changed/);
+    }
+    writeFileSync(path.join(dirs[0], "results.ndjson"), sourceRows.map((row) => JSON.stringify(row)).join("\n") + "\n");
     changed.works["bible-web"].workVersion = "changed-source";
     writeFileSync(path.join(dirs[0], "plan.json"), JSON.stringify(changed));
     expect(() => cli("plan", "--run", names[3], "--tier", "text", "--from", prefix)).toThrow(/source text changed/);
