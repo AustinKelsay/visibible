@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "c305cff89e9451d47774526bbe89c78f8db744de",
+  "model": "anthropic/claude-haiku-5.5",
+  "repeats": 3,
+  "maximumCalls": 42,
+  "operationCapUsd": 0.15,
+  "cumulativeCapUsd": 7,
+  "priorConservativeUsd": 6.63054885,
+  "readerReserveUsd": 5,
+  "candidateRule": "- canon_conflict: the scene changes a selected entry's recurring identity without source support. Judge enduring design, not moment-specific state. Quote the scene detail.",
+  "candidateVersion": "2026-10-31-plan-review-identity-v13",
+  "priorFunding": "llm/releases/2026-10-31-scene-description-text/funding-close.json",
+  "criterion": "Every candidate repetition must avoid the targeted false canon conflict while detecting both identity controls and the binding owner constraint. A missed/invalid/uncertain target result or incomplete run does not pass. Other reported problems remain recorded and inspected. This targeted diagnostic cannot authorize activation or establish image quality.",
+  "arms": [
+    "baseline",
+    "review-rule",
+    "canon-only (retained Queen only)",
+    "review-rule+canon (retained Queen only)"
+  ]
+}
