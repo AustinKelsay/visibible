@@ -1,0 +1,63 @@
+{
+  "at": "2026-10-31T15:26:56.881Z",
+  "offline": false,
+  "capUsd": 2,
+  "frozen": {
+    "scripts/evals/render-source-visuals.mts": "a348cff96ba05b7b508a47d7f06ae4c2f00c2a7a599be26011ccaae92567658f",
+    "llm/releases/2026-10-31-render-source-context-offline/report.json": "992c36e1a04e3e0b3dfa992e218d71159008c70291deb63a36816a880888417f",
+    "llm/releases/2026-10-30-source-context/funding-close.json": "304de6c1adf354a11982055e41d81c7104e993520211b5e957c7fd9fc97f8faa",
+    "scripts/evals/render-source-context.mts": "6dfd263bcecb6273c5f9eb9beab6d83aaa01233d51595e7f4203cf6b15f624f6",
+    "llm/releases/2026-10-30-source-context/text-results.json": "43824f95bde06c4e6c96d96e56ee96876cac75bc6e104b6f2dbcc24958f33671",
+    "llm/releases/2026-10-30-source-context/scenes.json": "a6691769df22eb94034d668ddddd59bba072f1de66e5327caebf0f87f88fb26e",
+    "llm/releases/2026-10-30-source-context/images-results.json": "5da4f56111f30c50d2c1076c3c0fad2d6081495b147fac81491f9cd46f708c7e",
+    "llm/releases/2026-10-30-source-context/inputs.json": "dbebf010317ac0aa28b8f4844d784a7fb8710b66e501f5289fd079b298505f86",
+    "llm/releases/2026-10-30-source-context/plan.json": "f6db0f1b4f7dcf42648504a0b57e67c1facf79d3f89496d6d7bc6ccf60796908",
+    "llm/releases/2026-10-30-review-only-text/snapshot.json": "d10dd4cc5b31278d84d3eec24adb3531f7db1e3ba35e0a626fa6f567d42da903",
+    "llm/releases/2026-10-30-identity-visuals/candidate-records.json": "3b7313afb403734bb4d2f791f961f420f47206fa66a019532c4339a122ab96c4",
+    "llm/releases/2026-10-30-identity-visuals/references.json": "10ef22f865ed4b158772e6d24dc27501daa12e1265b80e1af383ca48cfbf52e5",
+    "llm/releases/2026-10-30-identity-visuals/funding-close.json": "03e78b45c994f16f03dc6d43348cd4a67675cf2d4063039a85f85ace00085d7e",
+    "works/alice-in-wonderland/work.json": "8dbcd44e0ab0c37ef65bcd2eb507bed73c4f395a94c0ac30e3f4ace25d64b95c",
+    "works/alice-in-wonderland/brief.json": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d",
+    "works/alice-in-wonderland/depiction.json": "fc97ce62ad640ca66a1c8ae5394112a76583e387687b5ccc30d02de19b7dacb0",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "works/bible-web/brief.json": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+    "works/bible-web/depiction.json": "67a641feb9b13e8b80516b4ec5ba9c32b0bd7e86108188ec1056dd1121bd4915",
+    "works/holmes-adventures/work.json": "a0dea2fb8184b9d0d63ff4b06b7c2066603f224c8341ef12ab5535e4fc076229",
+    "works/holmes-adventures/brief.json": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "works/holmes-adventures/depiction.json": "c3b62657ce196bd208bdd0f3536a168bbd9e52a61b39374c751b5fbe2d37db1b",
+    "evals/images/runs/2026-10-30-identity-visuals/57da3a1dce4656f047e7aae781ed149437c32dcc4c4832b6fd862b3d070d3a6b.jpg": "57da3a1dce4656f047e7aae781ed149437c32dcc4c4832b6fd862b3d070d3a6b",
+    "evals/images/runs/2026-10-30-identity-visuals/289600e43268fd0659d11bce87a8abf5d727e69d34d8f871a7d762174fbce81c.jpg": "289600e43268fd0659d11bce87a8abf5d727e69d34d8f871a7d762174fbce81c",
+    "evals/images/runs/2026-10-30-identity-visuals/9d6ae2323cbd5a762c3326e2526d88911a9c28fa2133f9b49ae45b49303572b6.jpg": "9d6ae2323cbd5a762c3326e2526d88911a9c28fa2133f9b49ae45b49303572b6",
+    "llm/releases/2026-10-31-render-source-visuals/plan.json": "d47c3818c81ff6b19e14678ebc29534f6a808205fe5282022d18a91aa54a629c",
+    "llm/releases/2026-10-31-render-source-visuals/funding.json": "59ffdd14ddca8f618a099ea055a6b4fb2d63ab4e625d7b3e747fa48c4489154e"
+  },
+  "balance": {
+    "at": "2026-10-31T15:26:56.829Z",
+    "balanceUsd": 12.043841837999992,
+    "keyLimitRemainingUsd": 27.043475046,
+    "readerReserveUsd": 5
+  },
+  "prices": {
+    "anthropic/claude-haiku-5.5": {
+      "prompt": 1e-7,
+      "completion": 5e-7,
+      "imageOutput": null,
+      "maxCompletionTokens": 128000,
+      "overrides": [
+        {
+          "minPromptTokens": 100000,
+          "prompt": 5e-7,
+          "completion": 0.0000025
+        }
+      ]
+    },
+    "google/gemini-3.1-flash-lite-image": {
+      "prompt": 2.5e-7,
+      "completion": 0.0000015,
+      "imageOutput": 0.00003,
+      "maxCompletionTokens": 58982,
+      "overrides": []
+    }
+  },
+  "commit": "7fda4bdfe10ed8a115bf6d3e09eb0f3b982804c5"
+}

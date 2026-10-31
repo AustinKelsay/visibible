@@ -1,0 +1,142 @@
+{
+  "inspection": "Unblinded model inspection; not human acceptance or a release gate.",
+  "scheduled": 24,
+  "attempts": 32,
+  "retries": 8,
+  "scenes": [
+    {
+      "scene": "alice-gloves",
+      "arms": {
+        "baseline": {
+          "first": {
+            "pass": 1,
+            "fail": 0,
+            "unclear": 2
+          },
+          "chosen": {
+            "pass": 1,
+            "fail": 0,
+            "unclear": 2
+          },
+          "firstCheckerFaults": 0,
+          "chosenCheckerFaults": 0
+        },
+        "candidate": {
+          "first": {
+            "pass": 1,
+            "fail": 2,
+            "unclear": 0
+          },
+          "chosen": {
+            "pass": 1,
+            "fail": 2,
+            "unclear": 0
+          },
+          "firstCheckerFaults": 0,
+          "chosenCheckerFaults": 0
+        }
+      }
+    },
+    {
+      "scene": "alice-house-entry",
+      "arms": {
+        "baseline": {
+          "first": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "chosen": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "firstCheckerFaults": 1,
+          "chosenCheckerFaults": 1
+        },
+        "candidate": {
+          "first": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "chosen": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "firstCheckerFaults": 1,
+          "chosenCheckerFaults": 0
+        }
+      }
+    },
+    {
+      "scene": "alice-house-grown",
+      "arms": {
+        "baseline": {
+          "first": {
+            "pass": 1,
+            "fail": 2,
+            "unclear": 0
+          },
+          "chosen": {
+            "pass": 1,
+            "fail": 2,
+            "unclear": 0
+          },
+          "firstCheckerFaults": 0,
+          "chosenCheckerFaults": 0
+        },
+        "candidate": {
+          "first": {
+            "pass": 2,
+            "fail": 0,
+            "unclear": 1
+          },
+          "chosen": {
+            "pass": 2,
+            "fail": 0,
+            "unclear": 1
+          },
+          "firstCheckerFaults": 1,
+          "chosenCheckerFaults": 0
+        }
+      }
+    },
+    {
+      "scene": "holmes-cellar",
+      "arms": {
+        "baseline": {
+          "first": {
+            "pass": 2,
+            "fail": 0,
+            "unclear": 1
+          },
+          "chosen": {
+            "pass": 2,
+            "fail": 0,
+            "unclear": 1
+          },
+          "firstCheckerFaults": 2,
+          "chosenCheckerFaults": 2
+        },
+        "candidate": {
+          "first": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "chosen": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "firstCheckerFaults": 3,
+          "chosenCheckerFaults": 3
+        }
+      }
+    }
+  ],
+  "criterionMet": false,
+  "decision": "Do not activate or broaden this candidate on this evidence; production inputs and runtime remain unchanged."
+}

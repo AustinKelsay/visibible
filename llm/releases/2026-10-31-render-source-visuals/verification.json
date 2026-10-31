@@ -1,0 +1,16 @@
+{
+  "frozenHashesMatched": 27,
+  "scheduledCases": 24,
+  "retainedPlans": 12,
+  "promptAndOrderedReferenceChecks": 32,
+  "savedImagesHashAndMimeMatched": 32,
+  "inspectedAttempts": 32,
+  "providerExchangesMatched": 96,
+  "checkerAnswersMatched": 64,
+  "allCallsSettled": true,
+  "runtimeSourceUnchangedFrom": "58d6638985a50e6f287bede21965560a7063849b",
+  "measuredUsd": 1.12653505,
+  "uncertainUsd": 0,
+  "balanceDeltaMatchesLedger": true,
+  "method": "Offline packet replay, exact JSON comparison, SHA-256 of raw bytes and sent data URLs, provider usage/ledger multiset reconciliation, checker answer recomputation, and inspection coverage. Original local pixels required."
+}

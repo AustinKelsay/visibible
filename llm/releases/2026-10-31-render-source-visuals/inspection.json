@@ -1,0 +1,296 @@
+{
+  "inspector": "gpt-6-astra",
+  "blind": false,
+  "humanAcceptance": false,
+  "items": [
+    {
+      "caseId": "alice-gloves-baseline-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-gloves-baseline-1__classical__a1.jpeg",
+      "sha256": "b5787d0ecac58b7519e3848be2cc2c602678cdd15730b1118d8fd77240a2cd94",
+      "sourceState": "unclear",
+      "notes": "Alice leans forward with her lower legs submerged. She is large in the foreground, but the doors and ceiling do not establish a nine-foot giant; posture and perspective leave scale uncertain.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-gloves-candidate-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-gloves-candidate-1__classical__a1.jpeg",
+      "sha256": "f5daf83f9b200043a20a72f01413ec2397640c0c65f52ef912c2a133caa25655",
+      "sourceState": "fail",
+      "notes": "Alice reads as a seated ordinary child beside a Rabbit of comparable scale, with substantial doorway and ceiling clearance. The required giant state does not read.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-gloves-candidate-2",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-gloves-candidate-2__classical__a1.jpeg",
+      "sha256": "135ccb353b33b69d2f3d7bf562d340944b91de073c4e6a74dc3f026577e32b8f",
+      "sourceState": "pass",
+      "notes": "Alice is crouched beneath the beams with her head near the ceiling, much larger than the Rabbit and nearby door. Giant state reads; exact height remains inferred.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-gloves-baseline-2",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-gloves-baseline-2__classical__a1.jpeg",
+      "sha256": "508660b85e8f5162607d1553757c8f69e186f82d31bdec997275eab9e5f0a3ba",
+      "sourceState": "pass",
+      "notes": "Kneeling Alice reaches near the low ceiling and dwarfs the Rabbit, giving a recognizable giant state. Exact absolute height remains inferred.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-gloves-baseline-3",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-gloves-baseline-3__classical__a1.jpeg",
+      "sha256": "8330e4464281d4b515e98a1d18b331c804344eebbf698aba593a5057917dc990",
+      "sourceState": "unclear",
+      "notes": "Alice is large in the foreground but kneels well below the ceiling beside doors extending above her; perspective does not establish giant size. Three loose glove-like objects appear, beyond the named pair.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-gloves-candidate-3",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-gloves-candidate-3__classical__a1.jpeg",
+      "sha256": "29923e46c0a4cd1bcc08c436c4fbd2e62d137472e9bf76193a376b10a80b5d4a",
+      "sourceState": "fail",
+      "notes": "Alice kneels at ordinary child scale beside a tall door and open overhead space. The source giant state does not read.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-entry-baseline-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-entry-baseline-1__classical__a1.jpeg",
+      "sha256": "17ab1ddb7bf533f822df6d568c40bbc8fd9626db03682fa43ee7ff8e74ab009a",
+      "sourceState": "pass",
+      "notes": "Alice kneels outdoors receiving the errand, at a scale compatible with the Rabbit and house; no premature giant body. Exact temporary height is not established.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-entry-candidate-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-entry-candidate-1__classical__a1.jpeg",
+      "sha256": "3f970fc61f547d02b34da40c59910f94948bc084684518e15112bbc43f09aa35",
+      "sourceState": "pass",
+      "notes": "Alice crouches below the Rabbit outside the house; no premature giant body. Exact temporary height remains inferred.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-entry-candidate-2",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-entry-candidate-2__classical__a1.jpeg",
+      "sha256": "e4126f058d2b4f9d12a5c77ee21749ff8a4b34beeb74e6908b83033da6878a60",
+      "sourceState": "pass",
+      "notes": "Alice runs toward the house, smaller than the Rabbit; no premature growth. The automatic checker reported lettering on this attempt; tiny nameplate marks are not clearly legible on inspection, so its reported fault is retained.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-entry-candidate-2",
+      "attempt": 2,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-entry-candidate-2__classical__a2.jpeg",
+      "sha256": "2aa1883fea23f2ccf53ea44d3bcbd72733638382e44c040775b73d36bf70d2e5",
+      "sourceState": "pass",
+      "notes": "Alice runs toward the house below Rabbit height; no premature growth. The replacement nameplate appears blank and the checker reports no lettering.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-entry-baseline-2",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-entry-baseline-2__classical__a1.jpeg",
+      "sha256": "413a968df2f15585f07c094d85f3fa1539224d39cf4b4f57c1379c7119845dc0",
+      "sourceState": "pass",
+      "notes": "Alice runs beside the Rabbit and is smaller than him; no premature growth. The house sign has visible lettering, agreeing with the automatic checker.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-entry-baseline-2",
+      "attempt": 2,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-entry-baseline-2__classical__a2.jpeg",
+      "sha256": "fa9773c0b9ba4b67725c3202f0206089e91ef9444046fcf6f7f7ac89972819ef",
+      "sourceState": "pass",
+      "notes": "Alice remains at comparable scale to the Rabbit outside a door she can enter; no premature growth. Small marks remain on the doorway plate and the checker still reports lettering. The suite retained attempt one.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-entry-baseline-3",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-entry-baseline-3__classical__a1.jpeg",
+      "sha256": "f7a0fea5b68574a3af5c596d1b9cd3917b7e3a422baa7e8f2d7fb77c786d64a5",
+      "sourceState": "pass",
+      "notes": "Alice stands below the ceiling beside a usable staircase and doorway; no premature growth. Rabbit absence is valid. The brass plate appears blank.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-entry-candidate-3",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-entry-candidate-3__classical__a1.jpeg",
+      "sha256": "3299138fb0b24de91368ad16c7462f5d36e2cdbe6a7dc280ea38392534e828ec",
+      "sourceState": "pass",
+      "notes": "Alice enters at ordinary child scale relative to door and stairs; no premature giant body. Rabbit absence is valid. The plate appears blank.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-grown-baseline-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-grown-baseline-1__classical__a1.jpeg",
+      "sha256": "9c6b63ee36ad3b9202692051d2fc1c19191a362edd913dc4add9d58be25caf2a",
+      "sourceState": "fail",
+      "notes": "Giant size is clear, but Alice has three arms: one through the window, one by her head, and one across her chest. This combines poses rather than showing one coherent body. A raised foot rests above a door rather than visibly up a chimney. Automatic checks reported no fault.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-grown-candidate-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-grown-candidate-1__classical__a1.jpeg",
+      "sha256": "02139e3d30d6ade1495812257a9371d1e05443193b0397af4a192f0f3cc80c8e",
+      "sourceState": "pass",
+      "notes": "Alice clearly fills the room and has one readable cramped body with two arms and two legs. This passes the bounded giant/coherent-pose check, not exact spatial fidelity: the arm rests inside the window and the raised foot braces against the door/wall rather than visibly entering the chimney.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-grown-candidate-2",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-grown-candidate-2__classical__a1.jpeg",
+      "sha256": "1c8b686f139a6acf2e731cc3948acf6f16c1aa682593cb7c5e304bfd491e6bf6",
+      "sourceState": "unclear",
+      "notes": "Giant size is clear. The right-side arm reaches toward a boot-like shape at the chimney while a separate foot braces on the opposite wall. The hidden torso and unclear upper shoe/limb connection leave a single coherent source pose uncertain. Automatic checks reported no fault.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-grown-baseline-2",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-grown-baseline-2__classical__a1.jpeg",
+      "sha256": "6ced114cc57763e1b7fecf826fd19e7dfd0b2fc748d24868ac2cb08dd7ad5c24",
+      "sourceState": "fail",
+      "notes": "Giant size reads, but three booted legs and the disconnected-looking head/torso make the cramped pose incoherent. Multiple bottles and loose gloves/fan clutter the floor. Automatic checks reported no fault.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-grown-baseline-3",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-grown-baseline-3__classical__a1.jpeg",
+      "sha256": "41ed216a9acfd8b41d4af227868ff8e2a9ef848e0872a72730c91b234d9e73b3",
+      "sourceState": "pass",
+      "notes": "Alice fills the room and a single cramped body with two arms and two legs is readable. The raised leg and head-side arm are awkward but not clearly duplicated. The raised foot braces near the chimney rather than visibly inside it; this is not exact pose fidelity.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-grown-candidate-3",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-grown-candidate-3__classical__a1.jpeg",
+      "sha256": "c231dd13d5f8b631edac739722d8f3aedc2fec710b9dd04da234de45fa8f6dd4",
+      "sourceState": "pass",
+      "notes": "Giant size and one cramped body read. The raised bare foot rests near the door rather than up the chimney, and the other foot remains booted. Paper at the window has marks, agreeing with the checker lettering fault. These spatial/costume defects remain despite passing the bounded size/coherent-body check.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "alice-house-grown-candidate-3",
+      "attempt": 2,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/alice-house-grown-candidate-3__classical__a2.jpeg",
+      "sha256": "3685b37e341954604909f9e37159f5f7bab8eff533f1a3e931f1e511f0ecd9d2",
+      "sourceState": "pass",
+      "notes": "Selected retry: giant Alice is cramped beneath the ceiling with one readable body. Her foot presses on the door rather than entering the chimney, so exact placement remains wrong. No clear lettering visible; checker agrees.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "holmes-cellar-baseline-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/holmes-cellar-baseline-1__classical__a1.jpeg",
+      "sha256": "c15ce43d93de5102929c67708f09d2686d2540160929181feda4798017ea1b77",
+      "sourceState": "unclear",
+      "notes": "Four men prepare or wait; Holmes holds a lit lantern and Watson has a revolver on the crate. No arrest is shown. This could be just before screening the lantern, but the exact instant is unclear; it contradicts the frozen plan if read as the later wait. Clearly lettered crates match the checker fault.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "holmes-cellar-baseline-1",
+      "attempt": 2,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/holmes-cellar-baseline-1__classical__a2.jpeg",
+      "sha256": "57eaccbe8ea12826a5df836969a37588b4b9e9b5b57ac9cd6a58820eb6039037",
+      "sourceState": "unclear",
+      "notes": "Four men, open lit lantern and revolver on a crate. The image could depict the earlier preparations, but does not resolve whether the lantern should already be screened. No arrest. Lettered crates remain; selected attempt remains one.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "holmes-cellar-candidate-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/holmes-cellar-candidate-1__classical__a1.jpeg",
+      "sha256": "bb7805a2f342b25b3c605c6da4dc1d2c2b031b79f7630fa54f1d043ae8585ef5",
+      "sourceState": "fail",
+      "notes": "The floor has a bright slit of emerging light while Holmes still holds a visibly lit unscreened lantern. This combines the later glint with an earlier lantern state. Four men and no arrest. Foreground man has beard instead of canon trimmed moustache; crates explicitly label characters and locations.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "holmes-cellar-candidate-1",
+      "attempt": 2,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/holmes-cellar-candidate-1__classical__a2.jpeg",
+      "sha256": "4fe6111e00e68047456ba5b6e0098164da125c74754770f07ad6a8e1fde4cc64",
+      "sourceState": "fail",
+      "notes": "The floor glint remains alongside a lit open lantern and a lit rear wall lamp; this does not preserve the dark wait. No arrest. Clearly lettered crates and foreground label remain. The suite retains attempt one.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "holmes-cellar-candidate-2",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/holmes-cellar-candidate-2__classical__a1.jpeg",
+      "sha256": "b725dada46879d7ccbdd1669cdb869948b99de31de4eb12157c5469fd7e4e2e9",
+      "sourceState": "fail",
+      "notes": "A luminous crack/glint in the floor appears while Holmes holds an open bright lantern; rear wall light also illuminates the vault. The later wait has conflicting light states. Four men, no arrest. Checker reports lettering; faint crate inscriptions are visible.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "holmes-cellar-candidate-2",
+      "attempt": 2,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/holmes-cellar-candidate-2__classical__a2.jpeg",
+      "sha256": "e714aac8305a1e6d71af73ac27a7bbf6399883474faca73d51e346febb15205c",
+      "sourceState": "fail",
+      "notes": "The visible floor glint and lit open lantern again combine incompatible light states. Two background faces are very similar and Merryweather is not clearly distinguished, an identity concern separate from state. Crate lettering remains faint; no arrest.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "holmes-cellar-baseline-2",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/holmes-cellar-baseline-2__classical__a1.jpeg",
+      "sha256": "a6f4aa09dbf8aa558ee666bb39975780e4e89e730aea2e6a19d5891db4868c73",
+      "sourceState": "pass",
+      "notes": "Four men wait with a revolver and a low floor glint; no visibly open glowing lantern or arrest. Painterly visibility is accepted rather than requiring a black image. This supports a coherent dark waiting instant. No clear text is visible, agreeing with the checker.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "holmes-cellar-baseline-3",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/holmes-cellar-baseline-3__classical__a1.jpeg",
+      "sha256": "9507c52f4ca21556f2f8a22b77003d1b6319099f471d9233bd246ced561716cf",
+      "sourceState": "pass",
+      "notes": "Four men wait with revolver and a low floor glint; no clearly glowing open handheld lantern or arrest. Hanging fixtures are dim and do not establish a conflicting open light. Crates have obvious lettering, agreeing with the checker. Passing state does not mean acceptable overall.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "holmes-cellar-baseline-3",
+      "attempt": 2,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/holmes-cellar-baseline-3__classical__a2.jpeg",
+      "sha256": "12f30bb0f5aa90a69c0f43d2ada0c2354c09f988161e7a5a529476eda5adb9c5",
+      "sourceState": "unclear",
+      "notes": "Four men wait without a visibly lit handheld lantern, but a bright low tunnel opening replaces the subtle floor glint. The exact instant and light source remain unclear. Watson now has a full beard and Holmes also has a revolver, separate identity/prop drift. Crate lettering remains; attempt one was selected.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "holmes-cellar-candidate-3",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/holmes-cellar-candidate-3__classical__a1.jpeg",
+      "sha256": "946ec01f2d6cfb650773faa59836e7bcc5fd58320b8488d7032daa79b14e1b79",
+      "sourceState": "fail",
+      "notes": "A flame/light and tool emerge through an already broken floor while an open lantern remains lit behind the men. This mixes later entry cues with the earlier lit-lantern state. No arrest is depicted. Crate lettering is visible.",
+      "viewedAtOriginalResolution": true
+    },
+    {
+      "caseId": "holmes-cellar-candidate-3",
+      "attempt": 2,
+      "file": "evals/images/runs/2026-10-31-render-source-visuals/holmes-cellar-candidate-3__classical__a2.jpeg",
+      "sha256": "791017b436d1cd79fa872360352bfdad89e8e2c35fab560c1794123b91c01cc6",
+      "sourceState": "fail",
+      "notes": "The open floor hole and illuminated tunnel are advanced entry cues, beyond the focal endpoint of the first glint. There is no clearly lit handheld lantern, but source timing is still wrong. Four men and no arrest. Crate lettering remains; attempt one was selected.",
+      "viewedAtOriginalResolution": true
+    }
+  ],
+  "scope": "Source-state judgments apply to the bounded scene expectation in plan.json, not overall image acceptability. For house-grown, pass means a visibly giant single readable body; exact limb placement defects remain in notes. For Holmes, a lit lantern alone is ambiguous because early preparations are valid; a simultaneous later floor glint and open lantern is a failure."
+}
