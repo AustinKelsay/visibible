@@ -1,6 +1,8 @@
 # Ownership wording — bounded visual comparison
 
-**Status: preparation reviewed and the budget increase approved; ready for execution.** This tests the [two-line ownership candidate](../2026-10-31-scene-input-ownership/README.md) with every other input held fixed. It makes no production change. No images have been generated for this run.
+**Status: complete; do not activate or broaden on this evidence.** The [two-line ownership candidate](../2026-10-31-scene-input-ownership/README.md) did not satisfy the declared visual criterion with the other inputs held fixed. The run completed 18 scheduled cases and 24 saved images, including six automatic retries. Production is unchanged.
+
+[REVIEW.md](REVIEW.md) records the result and limits. The chosen-image narrow passes were 3/3 versus 3/3 for the pre-growth control, 2/3 versus 1/3 for giant size plus one coherent body, and 0/3 versus 0/3 for the selected late cellar instant (baseline versus candidate). These are small, unblinded model observations, not comparative-quality estimates or human acceptance.
 
 ## Frozen comparison
 
@@ -16,7 +18,7 @@ The model remains `google/gemini-3.1-flash-lite-image`, Classical, 16:9. The sui
 
 The criterion and interpretation limits are fixed in the plan. All three chosen candidate images in each scene must satisfy its narrow criterion before considering further study; an ambiguous or incomplete result is inconclusive, and a clear failure rejects broadening. Report first and chosen attempts separately. The checker selects on its existing faults; it does not judge these source-state criteria. Inspect every saved image at original resolution and retain failures and retries. Even a clean small result does not approve activation.
 
-Original input conflicts intentionally remain in both arms, including the house's later-growth canon and the cellar's wall-opening canon. Earlier cellar preparations can be valid source instants while failing the specifically selected late-instant criterion. The grown-house plan still mixes poses. The experiment isolates wording over these inputs; it cannot establish that wording repairs bad saved content, that all Bible depictions are safe, or that identity survives other models/styles. Judgments will be unblinded model observations, not independent blind scoring or human acceptance.
+Original input conflicts intentionally remain in both arms, including the house's later-growth canon and the cellar's wall-opening canon. Earlier cellar preparations can be valid source instants while failing the specifically selected late-instant criterion. The grown-house plan still mixes poses. The experiment isolates wording over these inputs; it cannot establish that wording repairs bad saved content, that all Bible depictions are safe, or that identity survives other models/styles. Judgments are unblinded model observations, not independent blind scoring or human acceptance.
 
 ## Execution and provenance
 
@@ -40,6 +42,16 @@ With dependencies and the retained local reference files available, run `npm run
 
 [preflight.json](preflight.json) records 18 successful fake cases, 26 fake image calls and 52 fake checker calls, with zero planning calls. All 78 outgoing fake requests match the frozen arm prompt, image settings, ordered reference bytes and unchanged per-scene checker questions. Each candidate changes exactly two lines and is 59 characters shorter. All 33 frozen hashes match.
 
-An unavailable-reference injection after the start marker yields one failed row, zero provider calls and no finished marker. The existing delayed-check reproduction confirms retained uncertainty/in-flight reservations and prevents completion. Attempting unapproved execution fails immediately. Typecheck, focused lint and all 14 suite-runner tests pass. The full suite passed 1,052 tests with one skipped; repository lint reported zero errors and three existing warnings. These checks establish mechanics only; visual results remain pending.
+An unavailable-reference injection after the start marker yields one failed row, zero provider calls and no finished marker. The existing delayed-check reproduction confirms retained uncertainty/in-flight reservations and prevents completion. Attempting unapproved execution fails immediately. Typecheck, focused lint and all 14 suite-runner tests pass. The full suite passed 1,052 tests with one skipped; repository lint reported zero errors and three existing warnings. These checks establish mechanics; the separate visual observations are in [inspection.json](inspection.json).
 
-Preparation review: GPT-6.1 Sol on xhigh approved in one round with no findings, independently verifying all frozen hashes and 78 fake requests. CodeRabbit CLI raised zero issues. This approves the pre-execution package only, not spending, activation or visual quality. Final evidence review remains necessary after an authorized run.
+Preparation review: GPT-6.1 Sol on xhigh approved in one round with no findings, independently verifying all frozen hashes and 78 fake requests. CodeRabbit CLI raised zero issues. This approves the pre-execution package only, not spending, activation or visual quality. Final evidence review also approved with no findings: GPT-6.1 Sol independently inspected all 24 images, reconciled all 72 exchanges and request ceilings, and reproduced the four reports without writing files. The whole working tree remained unchanged during review. CodeRabbit CLI reported zero issues on the completed evidence. Both approvals cover preservation of this negative diagnostic only; neither approves activation or another run.
+
+## Completed execution
+
+The approved inputs were committed at `6207b13b344bee7a038a5367f676ae4048f0f945`. [started.json](started.json) and [finished.json](finished.json) bound the one-shot execution. All 18 rows succeeded; all 72 provider calls settled, with zero uncertain costs and no blocked ledger. All six cellar cases retried for lettering, which persisted; the checker retained attempt 1 in every case. First and chosen source-state counts therefore match.
+
+[funding-close.json](funding-close.json) reconciles **$0.82552200** for 24 image attempts and **$0.01445230** for 48 checker calls: **$0.83997430** total, below the $1.40 operation cap. Conservative cumulative spend is **$6.31691115 / $7**, leaving **$0.68308885** authorized. The ending account balance was **$9.165930938**, preserving the $5 reader reserve; account and key-allowance deltas match measured spend. No planning, paid scoring or production mutation occurred.
+
+[verification.json](verification.json) records 33 matching frozen hashes; exact original preparations and source contexts for all 18 rows; actual prompts and ordered reference bytes for all 24 images; all saved image hashes, signatures and dimensions; replay of all 48 checker answers; and reconciliation of all 72 exchanges and their recomputed pre-call ceilings. [report.json](report.json) aggregates every inspection, with first and chosen attempts separate.
+
+Raw evidence is retained in [requests.ndjson](requests.ndjson), [results.ndjson](results.ndjson), [provider.ndjson](provider.ndjson) and [ledger.json](ledger.json). Image bytes remain in the ignored local `evals/images/runs/2026-10-31-ownership-visuals/` directory; their hashes and filenames are recorded in the results and inspection. A fresh checkout has the text evidence but not those pixels or the earlier local reference images. No rerender is a substitute for the original bytes.
