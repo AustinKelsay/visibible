@@ -1,0 +1,190 @@
+{
+  "baseCommit": "56ba68e1832e0a6ca959370d5d9a67686338f5e2",
+  "preparedBy": "gpt-6-astra",
+  "purpose": "Offline correction candidates; not a production import or activation request",
+  "sourceFiles": {
+    "llm/releases/2026-10-30-identity-visuals/candidate-records.json": "3b7313afb403734bb4d2f791f961f420f47206fa66a019532c4339a122ab96c4",
+    "llm/releases/2026-10-30-review-only-text/snapshot.json": "d10dd4cc5b31278d84d3eec24adb3531f7db1e3ba35e0a626fa6f567d42da903",
+    "llm/releases/2026-10-30-source-context/text-results.json": "43824f95bde06c4e6c96d96e56ee96876cac75bc6e104b6f2dbcc24958f33671",
+    "llm/releases/2026-10-30-identity-visuals/references.json": "10ef22f865ed4b158772e6d24dc27501daa12e1265b80e1af383ca48cfbf52e5"
+  },
+  "entries": [
+    {
+      "workId": "alice-in-wonderland",
+      "sourceFile": "llm/releases/2026-10-30-identity-visuals/candidate-records.json",
+      "recordId": "the_white_rabbit_s_house",
+      "stageId": "the_white_rabbit_s_house_main",
+      "operation": "edit-stage",
+      "payload": {
+        "kind": "entry",
+        "name": "the White Rabbit's house",
+        "entryKind": "location",
+        "aliases": [
+          "W. Rabbit's house",
+          "the little house"
+        ],
+        "note": "A neat little house with a brass plate on the door; Alice grows inside its tidy room, with the stairs and window.)",
+        "members": [
+          "the-rabbit-sends-in-a-little-bill:location:rabbit_house"
+        ],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "the_white_rabbit_s_house_main",
+            "label": "The White Rabbit's House",
+            "text": "The White Rabbit's House: a neat small Victorian cottage of warm red brick with a steep slate roof, a narrow chimney and a single small casement window set low in the wall. A bright brass plate engraved W. RABBIT is fixed to the front door, which opens inwards. Inside, a tidy little room has a small table set in the window, a looking-glass on the wall, and a narrow staircase rising to the upper rooms. Rooms are modest in scale.",
+            "quotes": [
+              {
+                "unit": "the-rabbit-sends-in-a-little-bill-3",
+                "quote": "a neat little house, on the door of which was a bright brass plate with the name “W. RABBIT,” engraved upon it"
+              },
+              {
+                "unit": "the-rabbit-sends-in-a-little-bill-5",
+                "quote": "a tidy little room with a table in the window"
+              },
+              {
+                "unit": "the-rabbit-sends-in-a-little-bill-14",
+                "quote": "the door opened inwards"
+              }
+            ]
+          }
+        ]
+      },
+      "expectedVersion": "018ec450b3362999683e22788e79f5e4",
+      "correctedVersion": "2e7204c83e014b73ed895b907a7212cc"
+    },
+    {
+      "workId": "holmes-adventures",
+      "sourceFile": "llm/releases/2026-10-30-review-only-text/snapshot.json",
+      "recordId": "cellar_of_the_city_and_suburban_bank",
+      "stageId": "cellar_of_the_city_and_suburban_bank",
+      "operation": "edit-stage",
+      "payload": {
+        "aliases": [
+          "the vault",
+          "the cellar",
+          "the bank cellar"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "the-red-headed-league:location:city_bank_cellar"
+        ],
+        "name": "Cellar of the City and Suburban Bank",
+        "note": "Huge vault beneath the City branch bank where the napoleons are stored and the criminals' tunnel emerges.",
+        "stages": [
+          {
+            "id": "cellar_of_the_city_and_suburban_bank",
+            "label": "Cellar of the City and Suburban Bank",
+            "quotes": [
+              {
+                "quote": "We are at present, Doctor—as no doubt you have divined—in the cellar of the City branch of one of the principal London banks.",
+                "unit": "the-red-headed-league-179"
+              },
+              {
+                "quote": "the cold dank air of the vault",
+                "unit": "the-red-headed-league-186"
+              },
+              {
+                "quote": "The cellar! There was the end of this tangled clue.",
+                "unit": "the-red-headed-league-208"
+              }
+            ],
+            "text": "Cellar of the City and Suburban Bank: a vast low vault of old London brickwork beneath a bank branch in the City, with dank cold air, stone flags underfoot. Stacked wooden cases of coin stand in rows; gaslight and lantern fittings hang from the arches."
+          }
+        ]
+      },
+      "expectedVersion": "014986d7b12c8a02ebc4d29fd77b965b",
+      "correctedVersion": "8fff6b74118c09739bf1b42cd2732578"
+    }
+  ],
+  "plans": [
+    {
+      "workId": "alice-in-wonderland",
+      "sourceFile": "llm/releases/2026-10-30-source-context/text-results.json",
+      "sourceCaseId": "alice-house-grown-section-1",
+      "recordId": "the-rabbit-sends-in-a-little-bill-7",
+      "sectionId": "the-rabbit-sends-in-a-little-bill-1",
+      "use": "manual diagnostic copy only; live correction clears and regenerates the plan",
+      "selectedSource": {
+        "unit": "the-rabbit-sends-in-a-little-bill-7",
+        "quote": "put one arm out of the window, and one foot up the chimney"
+      },
+      "payload": {
+        "kind": "plan",
+        "momentId": "the-rabbit-sends-in-a-little-bill-7",
+        "entries": [
+          {
+            "entryId": "alice",
+            "stageId": "alice"
+          },
+          {
+            "entryId": "the_white_rabbit_s_house",
+            "stageId": "the_white_rabbit_s_house_main"
+          }
+        ],
+        "plan": {
+          "primarySubject": "Alice, enormously large, crammed into the room, one arm out of the window and one foot up the chimney",
+          "action": "Alice is wedged in place, unable to move",
+          "setting": "Interior of the White Rabbit's small cottage parlour, low-ceilinged, with a little door, a window and a chimney",
+          "secondaryElements": "A small table in the window, a looking-glass nearby, and the little magic bottle on the floor; no other figures present",
+          "mood": "Uncomfortable, bewildered and forlorn, with a touch of whimsical absurdity",
+          "timeOfDay": "Afternoon, soft dim daylight through the small window, warm muted interior glow",
+          "composition": "Interior view from across the room, framing Alice's bulk filling the space with her arm out the window and foot up the chimney"
+        }
+      },
+      "expectedVersion": "80af290a7fd66c4b7e9c2d524a79415e",
+      "correctedVersion": "73d4a6104d13a881cdb176587e2ca454"
+    },
+    {
+      "workId": "holmes-adventures",
+      "sourceFile": "llm/releases/2026-10-30-source-context/text-results.json",
+      "sourceCaseId": "holmes-cellar-section-1",
+      "recordId": "the-red-headed-league-183",
+      "sectionId": "the-red-headed-league-175",
+      "use": "manual diagnostic copy only; live correction clears and regenerates the plan",
+      "selectedSource": {
+        "unit": "the-red-headed-league-190",
+        "quote": "Suddenly my eyes caught the glint of a light."
+      },
+      "payload": {
+        "kind": "plan",
+        "momentId": "the-red-headed-league-183",
+        "entries": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson"
+          },
+          {
+            "entryId": "mr_merryweather",
+            "stageId": "mr_merryweather"
+          },
+          {
+            "entryId": "peter_jones",
+            "stageId": "peter_jones"
+          },
+          {
+            "entryId": "cellar_of_the_city_and_suburban_bank",
+            "stageId": "cellar_of_the_city_and_suburban_bank"
+          }
+        ],
+        "plan": {
+          "primarySubject": "Watson crouched behind a wooden crate, revolver cocked on its top, tense and still",
+          "action": "Watson waits behind a crate as the first glint of light appears near the floor; Holmes’s lantern remains shuttered",
+          "setting": "Stone-flagged bank cellar vault with stacked wooden crates of French gold, cold and dank",
+          "secondaryElements": "Holmes crouched behind a crate near the lantern, Merryweather hidden behind a crate, Jones in a dim corner behind other crates, a faint thread of light glinting near the floor",
+          "mood": "Tense, expectant and subdued, with a sense of waiting",
+          "timeOfDay": "Deep night in the small hours, sealed underground, no daylight",
+          "composition": "Low viewpoint from behind the crates, Watson in the foreground, the others partly hidden in the dark shadows beyond"
+        }
+      },
+      "expectedVersion": "b6d33eb545583beee1f6d4edaf90db61",
+      "correctedVersion": "93ea87a66d97e8dbb07df0be05fa156a"
+    }
+  ]
+}
