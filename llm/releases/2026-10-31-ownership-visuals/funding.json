@@ -1,0 +1,14 @@
+{
+  "status": "pending",
+  "authorization": "Offline preparation authorized by continue; an increase of the original $6 cap has not been authorized.",
+  "operationCapUsd": 1.4,
+  "cumulativeCapUsd": 7,
+  "authorizedCumulativeCapUsd": 6,
+  "priorUpperBoundUsd": 5.47693685,
+  "readerReserveUsd": 5,
+  "verifiedAt": "2026-10-31T18:42:24.600Z",
+  "balanceUsd": 10.005905237999997,
+  "keyLimitRemainingUsd": 25.005538446,
+  "executionRechecksFunding": true,
+  "scope": "Local diagnostic only; no production mutation or activation. Proposed operation maximum reaches $6.87693685 cumulative."
+}
