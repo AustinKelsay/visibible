@@ -52,6 +52,7 @@ assert.equal(hashes[`${prior}/text-results.json`], hash(execFileSync("git", ["sh
 assert.equal(new Set(rows.map(r => r.caseId)).size, rows.length, "Frozen plan case IDs must be unique");
 const scenes = read<Scene[]>(`${prior}/scenes.json`);
 const images = read<Array<{ caseId: string; prompt: string; references: unknown }>>(`${prior}/images-results.json`);
+assert.equal(hashes[`${prior}/images-results.json`], hash(execFileSync("git", ["show", `${baselineCommit}:${prior}/images-results.json`], { cwd: root })), "Prior image results changed");
 const frozen = read<Record<string, string>>(`${prior}/inputs.json`);
 assert.equal(hashes[`${prior}/inputs.json`], hash(execFileSync("git", ["show", `${baselineCommit}:${prior}/inputs.json`], { cwd: root })), "Frozen input manifest changed");
 for (const [file, expected] of Object.entries(frozen)) {
@@ -112,7 +113,7 @@ assert.ok(images.every(i => rows.some(r => r.caseId === i.caseId)), "Every prior
 assert.equal(packets.length, 36);
 mkdirSync(out, { recursive: true });
 writeFileSync(path.join(out, "packets.json"), JSON.stringify(packets, null, 2) + "\n");
-const report = { baselineCommit, inputHashes: hashes, modelCalls, providerCalls: 0, spendUsd: 0, productionChanges: false,
+const report = { baselineCommit, inputHashes: hashes, modelCalls, providerCalls: 0, spendUsd: 0,
   reproducedPriorImagePackets: images.length, wholeSourceRetained: true, unchangedPlansAndOrderedReferences: true,
   overflowRejected: true, sourceRuleChanges: "Both fuller source and its precedence change; a future image comparison would measure the combined candidate.",
   cases: packets.map(p => ({ caseId: p.caseId, work: p.work, eligible: p.candidate !== null, blockedReason: p.blockedReason,
