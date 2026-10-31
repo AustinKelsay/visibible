@@ -1,0 +1,509 @@
+{
+  "baselineCommit": "29b9c7815c2b3234b341e5aed98c16b4ebc8c1ef",
+  "inputHashes": {
+    "llm/releases/2026-10-31-render-source-context-offline/report.json": "992c36e1a04e3e0b3dfa992e218d71159008c70291deb63a36816a880888417f",
+    "tests/fixtures/bible-engine-golden.json": "ba6ddf69bbd915889d944efbc107e4658e553f4a95331889322942fb4885241a",
+    "tests/fixtures/holmes-adventures-engine-golden.json": "06bd0f641f6becc65bc578189fc98359cb088d140274c9a18b5028c1601cd56b",
+    "tests/fixtures/alice-in-wonderland-engine-golden.json": "41e9f2a0a088007fecc31c8a7afd1ef49f73d5710e7381ca429e4ef51d4fe87b"
+  },
+  "scriptHash": "e8bfa0698d44b66b3a1b3f6b0e11b19b6bc6102de9aeef5a9ca817a747a4c1da",
+  "liveProviderCalls": 0,
+  "spendUsd": 0,
+  "replacements": [
+    {
+      "before": "If instructions conflict, follow these rules, then the work brief, then canon, then the art style, then the scene plan. The text decides who is in the scene; canon decides how they look; the scene plan decides this moment's place, time, light, clothing and action. Owner look constraints, when given, are binding.",
+      "after": "Follow the rendering rules and work brief; owner look constraints remain binding. Within those constraints, explicit source facts and changes govern the depicted moment. The plan selects one instant and its changing state. Canon supplies recurring appearance. Art style supplies visual treatment."
+    },
+    {
+      "before": "SCENE PLAN (this moment's place, time and action; obey the rules, brief, canon and style):",
+      "after": "SCENE PLAN (one instant and its changing state):"
+    }
+  ],
+  "frozenPackets": 36,
+  "goldenPackets": 12,
+  "allOtherPromptLinesExact": true,
+  "overflowRejected": true,
+  "provenance": "Original preparation, packet and reference metadata remain baseline evidence, not admission or versions for the diagnostic candidate.",
+  "cases": [
+    {
+      "caseId": "alice-gloves-baseline-1",
+      "work": "alice-in-wonderland",
+      "baselineChars": 8113,
+      "candidateChars": 8054,
+      "baselineHash": "1fa7f638611d1eac66345e87c1e561173186ead1070141245716722fe6e2fdbc",
+      "candidateHash": "29c85b453d6623f75b7b7c3d0ec5a3f0866cd9a5dcd031a73b32911636f5a965",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-gloves-section-1",
+      "work": "alice-in-wonderland",
+      "baselineChars": 8354,
+      "candidateChars": 8295,
+      "baselineHash": "fd44a1c0209e0beaa5dddbcb7c9211d3a9d61b89896041f78572d8574946371b",
+      "candidateHash": "ecbf2c21f3df7b3dd31960a27d78a7b0b10818a829963d36ce4f83e01f7407ef",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-gloves-section-2",
+      "work": "alice-in-wonderland",
+      "baselineChars": 8593,
+      "candidateChars": 8534,
+      "baselineHash": "02b71928e08bd92a923c495b103e93dbca4f8837f2f54a216bbc5dc666db4466",
+      "candidateHash": "f112c5dfef694db97fcd101a557f89e6a6669171db6cce8b8b0c6087c1122172",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-gloves-baseline-2",
+      "work": "alice-in-wonderland",
+      "baselineChars": 8569,
+      "candidateChars": 8510,
+      "baselineHash": "405cde5ac5e5d7129e69ceba3f92d16c58fff9e7c395743a351b8e83994ae4fa",
+      "candidateHash": "536e296ab84dd9dab17f6314d5e83e862c26fdacec8bd099a24e3c9e0d67fc2b",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-gloves-baseline-3",
+      "work": "alice-in-wonderland",
+      "baselineChars": 8647,
+      "candidateChars": 8588,
+      "baselineHash": "6b0ea774b6e940b190f2f4ac1bff7bb36e0947f74383844301dc1c90cb0235b0",
+      "candidateHash": "12156b2d8adf5d50b81026ee3698a9ea83c234e47f2e65cea352ef3046ac73dd",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-gloves-section-3",
+      "work": "alice-in-wonderland",
+      "baselineChars": 8106,
+      "candidateChars": 8047,
+      "baselineHash": "3d47baba105f62e2ffffb51d0a32218012fd8dafa2413c998170aed5a3b04e7d",
+      "candidateHash": "f3b2875c0a71f0fdd4607b22f8985c5ebb26d2676c9d7c9eebdd006b278cf29b",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-house-entry-baseline-1",
+      "work": "alice-in-wonderland",
+      "baselineChars": 7480,
+      "candidateChars": 7421,
+      "baselineHash": "75a13f8766bfb7b9a1c06c9173df72c96571fa442fbc6196be28e129269d68c0",
+      "candidateHash": "60bdb134a362667778dc4c818bbd22ed49913ce4a36006f472ee837d05e29902",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-house-entry-section-1",
+      "work": "alice-in-wonderland",
+      "baselineChars": 8246,
+      "candidateChars": 8187,
+      "baselineHash": "253f970b84dda6e91026328e857f30d5e1470015bfb6990fa7b37e2b59d95048",
+      "candidateHash": "7a1a468236cf91cfe4f9fcb92b0cbbdd428c1ab53e60f3a2703654fd759a3287",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-house-entry-section-2",
+      "work": "alice-in-wonderland",
+      "baselineChars": 8266,
+      "candidateChars": 8207,
+      "baselineHash": "602f8bedc190a793c56210602313e84e1f390f12bf90240c4e1a3e1a1aedfdf6",
+      "candidateHash": "5b3b9d6353039d3ebbcbf642223b36f3ee9bd704e89c57a289c42a6492103b8c",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-house-entry-baseline-2",
+      "work": "alice-in-wonderland",
+      "baselineChars": 8268,
+      "candidateChars": 8209,
+      "baselineHash": "6c016b347805b03e10c2e47019ae689957d902ecc27c984bf78e3c9ce6cb7b40",
+      "candidateHash": "b94a0215def71853a3623dd4effbe8440932572a933ba806781cec3550b8c562",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-house-entry-baseline-3",
+      "work": "alice-in-wonderland",
+      "baselineChars": 7568,
+      "candidateChars": 7509,
+      "baselineHash": "5bf6d71a4a3cbac9a4ea20dadf1c211622573fcb13ee6f6ce01fb7fd67e62a58",
+      "candidateHash": "1d610f9ed597cc5fd45c88e3541e07fb1632c6757d21b039e0acdba3553caaa0",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-house-entry-section-3",
+      "work": "alice-in-wonderland",
+      "baselineChars": 7535,
+      "candidateChars": 7476,
+      "baselineHash": "73aa51b3c94f502a3883bbdfe00a6b80c273804ff51177e300282198f9fcb4aa",
+      "candidateHash": "91b39a1ad1e2ba164399db2c39a1bd72b028a48effba05b5e8d8b4d08443ed02",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-house-grown-baseline-1",
+      "work": "alice-in-wonderland",
+      "baselineChars": 7624,
+      "candidateChars": 7565,
+      "baselineHash": "09433bdbcf166758803de499ddc25f66ce66474857a8c03370150554693fbf2e",
+      "candidateHash": "4b3e899b64e15ce3e63a2d473f1b8fe68322b60b8c402362ac036eefbd315210",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-house-grown-section-1",
+      "work": "alice-in-wonderland",
+      "baselineChars": 7616,
+      "candidateChars": 7557,
+      "baselineHash": "1f6ab306b747b7487c1f39e84c8b360c77b43dda47a8902b0eca1bff234809b3",
+      "candidateHash": "d70d2a161bb41c72d93f7a19029fc06da3eafcf8d2bc05cfe3cb8d3b16dfba63",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-house-grown-section-2",
+      "work": "alice-in-wonderland",
+      "baselineChars": 7625,
+      "candidateChars": 7566,
+      "baselineHash": "2807ff12a774f18ef6af96fc336c068be531c63f5ec45d8548f57f4a4eb451c9",
+      "candidateHash": "d8600070490a1d45d587eec56a6555f4429ec7a8248ad6c6485c14e84250ab48",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-house-grown-baseline-2",
+      "work": "alice-in-wonderland",
+      "baselineChars": 7604,
+      "candidateChars": 7545,
+      "baselineHash": "9da803528eb666fab7a51a2ad32cd706ea106f3ca2406bb456531fd392c198fa",
+      "candidateHash": "85165b32de90ebe1d640456febec291367523c2af186bf2c60a7a5a51903e7a1",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-house-grown-baseline-3",
+      "work": "alice-in-wonderland",
+      "baselineChars": 7652,
+      "candidateChars": 7593,
+      "baselineHash": "9893316e98ecd4e0e94b71412346b6db71e482b5786381d211aea66c8f8d9ef9",
+      "candidateHash": "ecf81a5f692a7bd1e5d3960abfd6cc00efbca6703502dcbbea2acebc07db4000",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-house-grown-section-3",
+      "work": "alice-in-wonderland",
+      "baselineChars": 7633,
+      "candidateChars": 7574,
+      "baselineHash": "3a89ecc7e3fcc3272458e1927e8a0063683680e793e80c51fc9a35c9a8cde540",
+      "candidateHash": "106c96fdf2443ccb4c3b9c8c638360a4884c6ebdd593b27d21b0f30b6035f64d",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "sea-night-baseline-1",
+      "work": "bible-web",
+      "baselineChars": 6392,
+      "candidateChars": 6333,
+      "baselineHash": "5871c98a55cfca270352dae7a71ef1797e18e81c84866f0e4a2eab932642e95d",
+      "candidateHash": "4bed25109e85f5234774b7b735fc68336a357c1299346add059b64e0491f9087",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "sea-night-section-1",
+      "work": "bible-web",
+      "baselineChars": 6023,
+      "candidateChars": 5964,
+      "baselineHash": "312ae71d51817bfb0c1a910aa942e7abefc82d61c03c0711c5e2a0aa5f7a8446",
+      "candidateHash": "a0a3908cd64cf11b44ff612e9bd4388a1a74404afda3e6e52ac61f02e05eea2f",
+      "ownerConstraints": false,
+      "sourceSuppressed": true
+    },
+    {
+      "caseId": "sea-night-section-2",
+      "work": "bible-web",
+      "baselineChars": 6424,
+      "candidateChars": 6365,
+      "baselineHash": "5383e3e902795240e77c7610d69222e1223272ff7608b7bfd7dd57f43e6223fa",
+      "candidateHash": "bfbdee97b657ee8dcedd47d93d4e7266793f80b7a6d5e3fc48348881ae82f3b5",
+      "ownerConstraints": false,
+      "sourceSuppressed": true
+    },
+    {
+      "caseId": "sea-night-baseline-2",
+      "work": "bible-web",
+      "baselineChars": 5433,
+      "candidateChars": 5374,
+      "baselineHash": "6deef6c2e37d96049188caa0890b9544834116824ab1b1ce1d31fa1781d2cdac",
+      "candidateHash": "c10569116a07cd572639448b2d60c00ce301841c8f2ea8cb6d62d203cb1eab18",
+      "ownerConstraints": false,
+      "sourceSuppressed": true
+    },
+    {
+      "caseId": "sea-night-baseline-3",
+      "work": "bible-web",
+      "baselineChars": 5488,
+      "candidateChars": 5429,
+      "baselineHash": "19595f3aeb5c183a222a345753e73c6a359c2d519c13b3ba752ab3fa707b661b",
+      "candidateHash": "6963bed776444a2f8862a61786a0e429b7108e094cc5b424df74487c34035fbf",
+      "ownerConstraints": false,
+      "sourceSuppressed": true
+    },
+    {
+      "caseId": "sea-night-section-3",
+      "work": "bible-web",
+      "baselineChars": 6126,
+      "candidateChars": 6067,
+      "baselineHash": "2ad81efeb97c497fd8a405bdac57ed16f2993d354da98696ca02d5ce82528426",
+      "candidateHash": "e8a900cd85996119b2997179e97c5548ae29ff93ba552eb74f16b7b5ee27dbe8",
+      "ownerConstraints": false,
+      "sourceSuppressed": true
+    },
+    {
+      "caseId": "sea-crossing-baseline-1",
+      "work": "bible-web",
+      "baselineChars": 6370,
+      "candidateChars": 6311,
+      "baselineHash": "fcbb4ff6baa2faf047aeab45698405930b84035eec6ef20754815c95356556d2",
+      "candidateHash": "2b87480fb04177424fe83931b8b8eb6b99bc5f01b4f35380d7c6f1a4acdc9e82",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "sea-crossing-section-1",
+      "work": "bible-web",
+      "baselineChars": 6060,
+      "candidateChars": 6001,
+      "baselineHash": "5bfea95fcfd93a121e243a080f69446ff62bb9991b6eaeece91ac5caffd7c7e6",
+      "candidateHash": "df46213800bf9a999b0148ae331845bcd4ce375eca0cc9da7435b9f9033513fd",
+      "ownerConstraints": false,
+      "sourceSuppressed": true
+    },
+    {
+      "caseId": "sea-crossing-section-2",
+      "work": "bible-web",
+      "baselineChars": 6211,
+      "candidateChars": 6152,
+      "baselineHash": "76e95fb4329999c6cb796c32d9e04a3c48afa5a25b40f12be1188b9f67450d51",
+      "candidateHash": "f4826ebe31fc88a6ebdd6b938275d09b611ebe525f61dcd8fc921865ad43fc3e",
+      "ownerConstraints": false,
+      "sourceSuppressed": true
+    },
+    {
+      "caseId": "sea-crossing-baseline-2",
+      "work": "bible-web",
+      "baselineChars": 5698,
+      "candidateChars": 5639,
+      "baselineHash": "d7a3c9491fa4a0f6953fcffa3049b3d2b468dab27c5084448655d538d7e6de63",
+      "candidateHash": "a2381e7786c9dac0859bd939526fce898bb23169f13abc257249fd00535b76c1",
+      "ownerConstraints": false,
+      "sourceSuppressed": true
+    },
+    {
+      "caseId": "sea-crossing-baseline-3",
+      "work": "bible-web",
+      "baselineChars": 5695,
+      "candidateChars": 5636,
+      "baselineHash": "dec52fdafaa758d1f0a807ec872c8139e7842b360097dfc99cb6cc2149d2c4ea",
+      "candidateHash": "22c80d5e831aaa9fbe3081f80afbad9723f16e1a17a17ab1dc7f74bd250a1b1d",
+      "ownerConstraints": false,
+      "sourceSuppressed": true
+    },
+    {
+      "caseId": "sea-crossing-section-3",
+      "work": "bible-web",
+      "baselineChars": 6410,
+      "candidateChars": 6351,
+      "baselineHash": "493c8fc40dfa248c7849bebd2bfa5e5a7470f55bd3247a414d671a2269a9a07d",
+      "candidateHash": "05557a3737015e607198baeb6ac9aa9d278f857f556b9ccd80ff80120b6abd8c",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "holmes-cellar-baseline-1",
+      "work": "holmes-adventures",
+      "baselineChars": 7683,
+      "candidateChars": 7624,
+      "baselineHash": "0acac0b0daaf2a402ed6b4c52beea024aa19348942d366b3daccb67ee3225eee",
+      "candidateHash": "9179a2c910005252e2241d6b7512fbf6c65645555b88532825c0f7e15016b902",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "holmes-cellar-section-1",
+      "work": "holmes-adventures",
+      "baselineChars": 7776,
+      "candidateChars": 7717,
+      "baselineHash": "8410876694594617c07a72804de0e0fb52bf67d7421fb77cc989b2e55a89d63c",
+      "candidateHash": "48bfd71622311ed709570c7f7f993440389cd947761f65a8c6a06391bb480860",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "holmes-cellar-section-2",
+      "work": "holmes-adventures",
+      "baselineChars": 7736,
+      "candidateChars": 7677,
+      "baselineHash": "716d5e0ed6d4b709fa060cd8fa6af9cfc082ba31c896e0ef00f138831cc818b1",
+      "candidateHash": "a1ed14e4797a065c971163792bc619b342dab5f7284b146dd024ffd9f038272b",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "holmes-cellar-baseline-2",
+      "work": "holmes-adventures",
+      "baselineChars": 7702,
+      "candidateChars": 7643,
+      "baselineHash": "3e3ac16b920b7b9dfaea3de26974a0e422ea65bafd5cee64028a9988c8617699",
+      "candidateHash": "3341ea2e2398f3d50bbd7d5cab594d2d895f63fb4e2e432a5170c2d160da38b6",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "holmes-cellar-baseline-3",
+      "work": "holmes-adventures",
+      "baselineChars": 6479,
+      "candidateChars": 6420,
+      "baselineHash": "315ffe36f378bf0f2cc93173c8719ea0c64ac2171663cd4f45011d18ac2dc9bc",
+      "candidateHash": "cd38cedab9b45c5a6bb167c75c54f664ea4dfecd1f62849b74b6b2f9b3f50221",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "holmes-cellar-section-3",
+      "work": "holmes-adventures",
+      "baselineChars": 7778,
+      "candidateChars": 7719,
+      "baselineHash": "59a2b6c1962408889839c8b127e716026cb5afe59120dec15c580dfa6e843e92",
+      "candidateHash": "2852c022ac963bfeb2d48fe25ae1934e17c70965950fa32d44524e3fba21fa30",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "bible-web/render:presence-classical:prompt",
+      "work": "bible-web",
+      "baselineChars": 5525,
+      "candidateChars": 5466,
+      "baselineHash": "475eca3a6e28358aa6df56fee109fe66effd5f0e3259fb08449a5c07ba762648",
+      "candidateHash": "7a057b62edc88ff30118fac864b493bee301603b1626c85ffaa89438701c896d",
+      "ownerConstraints": false,
+      "sourceSuppressed": true
+    },
+    {
+      "caseId": "bible-web/render:formed-watercolor:prompt",
+      "work": "bible-web",
+      "baselineChars": 5390,
+      "candidateChars": 5331,
+      "baselineHash": "b7f5cf067962f3798e36bf706dfac2372f7c5720608fcbaea797f391f0d63596",
+      "candidateHash": "9fa9f1bd332a4d5cbd2b49f90b6bb9697c98ac777f0ff99b8b920822e07fc785",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "bible-web/render:owner-look-icon:prompt",
+      "work": "bible-web",
+      "baselineChars": 4787,
+      "candidateChars": 4728,
+      "baselineHash": "30fb8566a6994b6a86e52a093845df6fb0ca705dc563cf4f886d43bd3db7fdd7",
+      "candidateHash": "b121248c56c1149fea93059a68e4316142dce0ff280788f4510aff98af41a677",
+      "ownerConstraints": true,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "bible-web/render:place-only-fresco:prompt",
+      "work": "bible-web",
+      "baselineChars": 5457,
+      "candidateChars": 5398,
+      "baselineHash": "70fe5bb6d260e13e7d3b30a094d268c92f08cbe3b0e363cbe9273f1042092392",
+      "candidateHash": "ec0626217a480e617e16a29c4c26fc5e42bfdaf2fd5853f39385f4f5e0d5c758",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "bible-web/render:budget-trims:prompt",
+      "work": "bible-web",
+      "baselineChars": 11970,
+      "candidateChars": 11911,
+      "baselineHash": "a1ca23e3d9faa1d6005f26efa134bc76ad3e32eeb6d7374918600422b3d14457",
+      "candidateHash": "8ddc90c1c775ca36f0e5b3d9d318e898a2981eda40e0ded873251ac77bac061e",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "bible-web/render:omit-style-reference:prompt",
+      "work": "bible-web",
+      "baselineChars": 5020,
+      "candidateChars": 4961,
+      "baselineHash": "0595324062d009c68e69657e6d9dfab7460db144d1e9551db46575e0331fafed",
+      "candidateHash": "c0ad50210bb1beef08a9868882161014e3ed3b1fe9a401b4687d3e359b209603",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "holmes-adventures/render:watercolor:prompt",
+      "work": "holmes-adventures",
+      "baselineChars": 4629,
+      "candidateChars": 4570,
+      "baselineHash": "86e8f2647b33c25ef19e100bedfcfecbfea370c9799765e6089104ea5b8d433a",
+      "candidateHash": "dd85d7b21b4b4274a5ca06242a364bf32256897677c792a3f5b9096ff0b375f9",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "holmes-adventures/render:classical:prompt",
+      "work": "holmes-adventures",
+      "baselineChars": 4501,
+      "candidateChars": 4442,
+      "baselineHash": "e6948122ad5530ceacea23a27d8c14bda05e37063fda4e67a1b1f470f25b2d58",
+      "candidateHash": "da31652a45bcea01097c8364a66ea1c518a90a2bcdb54ab9730dff8c70c37953",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "holmes-adventures/render:icon:prompt",
+      "work": "holmes-adventures",
+      "baselineChars": 4489,
+      "candidateChars": 4430,
+      "baselineHash": "0653fdcf34d52dd573d6544c435cd741bd3d43b3d3d1db05c89844a000d72993",
+      "candidateHash": "da40345a95e3dd3893aa618ee6c5bf9ae8c3c0ae7c2824c35a70abcc740f1afb",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-in-wonderland/render:watercolor:prompt",
+      "work": "alice-in-wonderland",
+      "baselineChars": 4925,
+      "candidateChars": 4866,
+      "baselineHash": "bb00174175e4a7e52feb33fa0c2e6273af23355d983730e86b49738387a237ee",
+      "candidateHash": "6ca2f281be28845f203e7c0fee63d02448db3e9d5d56ae93005ae7051ef1d2ac",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-in-wonderland/render:classical:prompt",
+      "work": "alice-in-wonderland",
+      "baselineChars": 4797,
+      "candidateChars": 4738,
+      "baselineHash": "36b64c2c80dc76c38525cb8f203ea53564c37838f93daf22d0ec0453471634f6",
+      "candidateHash": "ede4eeae174443db819a4d527fd33edaf9a0bbfde6febd8bcd7b13fe6b629530",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    },
+    {
+      "caseId": "alice-in-wonderland/render:fresco:prompt",
+      "work": "alice-in-wonderland",
+      "baselineChars": 4763,
+      "candidateChars": 4704,
+      "baselineHash": "358936f63181930e8ae658f4d5b1e2ce3ca20ced5f6412affb168355d29fdf43",
+      "candidateHash": "724d8b75636ad062af6bf1c3324989e141303e04b8e66c7703a0cd11f25c163b",
+      "ownerConstraints": false,
+      "sourceSuppressed": false
+    }
+  ]
+}
