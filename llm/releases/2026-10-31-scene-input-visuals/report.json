@@ -1,0 +1,175 @@
+{
+  "inspection": "Unblinded model inspection. Narrow scene-specific criteria, not overall quality, human acceptance or a release gate.",
+  "scheduled": 18,
+  "attempts": 26,
+  "retries": 8,
+  "planningCalls": 0,
+  "checkerCalls": 52,
+  "scenes": [
+    {
+      "scene": "alice-house-entry",
+      "arms": {
+        "baseline": {
+          "first": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "firstSelectedInstant": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "firstCheckerFaultImages": 0,
+          "chosen": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "chosenSelectedInstant": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "chosenCheckerFaultImages": 0
+        },
+        "candidate": {
+          "first": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "firstSelectedInstant": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "firstCheckerFaultImages": 2,
+          "chosen": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "chosenSelectedInstant": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "chosenCheckerFaultImages": 0
+        }
+      }
+    },
+    {
+      "scene": "alice-house-grown",
+      "arms": {
+        "baseline": {
+          "first": {
+            "pass": 2,
+            "fail": 1,
+            "unclear": 0
+          },
+          "firstSelectedInstant": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "firstCheckerFaultImages": 0,
+          "chosen": {
+            "pass": 2,
+            "fail": 1,
+            "unclear": 0
+          },
+          "chosenSelectedInstant": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "chosenCheckerFaultImages": 0
+        },
+        "candidate": {
+          "first": {
+            "pass": 1,
+            "fail": 1,
+            "unclear": 1
+          },
+          "firstSelectedInstant": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "firstCheckerFaultImages": 0,
+          "chosen": {
+            "pass": 1,
+            "fail": 1,
+            "unclear": 1
+          },
+          "chosenSelectedInstant": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "chosenCheckerFaultImages": 0
+        }
+      }
+    },
+    {
+      "scene": "holmes-cellar",
+      "arms": {
+        "baseline": {
+          "first": {
+            "pass": 0,
+            "fail": 2,
+            "unclear": 1
+          },
+          "firstSelectedInstant": {
+            "pass": 0,
+            "fail": 2,
+            "unclear": 1
+          },
+          "firstCheckerFaultImages": 3,
+          "chosen": {
+            "pass": 0,
+            "fail": 2,
+            "unclear": 1
+          },
+          "chosenSelectedInstant": {
+            "pass": 0,
+            "fail": 2,
+            "unclear": 1
+          },
+          "chosenCheckerFaultImages": 3
+        },
+        "candidate": {
+          "first": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "firstSelectedInstant": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "firstCheckerFaultImages": 3,
+          "chosen": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "chosenSelectedInstant": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "chosenCheckerFaultImages": 3
+        }
+      }
+    }
+  ],
+  "candidateMeetsDeclaredCriterion": false,
+  "conclusion": "Do not activate or broaden on this evidence. The corrections remove textual conflicts but do not reliably resolve the selected visual states.",
+  "measuredUsd": 0.91140155,
+  "uncertainUsd": 0,
+  "cumulativeUpperBoundUsd": 5.47693685,
+  "remainingOriginalAllowanceUsd": 0.52306315
+}

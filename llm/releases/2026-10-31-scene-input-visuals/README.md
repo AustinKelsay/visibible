@@ -1,8 +1,8 @@
 # Corrected scene inputs — bounded visual comparison
 
-**Status: prepared and rehearsed offline; no paid images yet.** This follows the [prepared corrections](../2026-10-31-scene-input-corrections/README.md) and tests them with the current rendering prompt. It does not use the earlier whole-source/precedence candidate, change production, or activate corrected analysis.
+**Status: completed; the candidate failed the declared criterion. Do not activate or broaden on this evidence.** This follows the [prepared corrections](../2026-10-31-scene-input-corrections/README.md) and tests them with the current rendering prompt. It does not use the earlier whole-source/precedence candidate, change production, or activate corrected analysis.
 
-The question is whether removing the demonstrated input conflicts helps before changing generic prompt ownership. [plan.json](plan.json) fixes three scenes, two arms and three independent renders per arm: **18 scheduled images**, with the existing finished-image check and at most one automatic retry per case. The model is `google/gemini-3.1-flash-lite-image`, Classical, 1K, 16:9. Each scene reuses its retained section-arm plan 1 for all three repeats; these are repeated image samples, not three independent plans.
+The question is whether removing the demonstrated input conflicts helps before changing generic prompt ownership. [plan.json](plan.json) fixes three scenes, two arms and three independent renders per arm: **18 scheduled images**, with the existing finished-image check and at most one automatic retry per case. The model is `google/gemini-3.1-flash-lite-image`, Classical, with the suite’s 1K resolution label and 16:9 aspect ratio. The existing adapter omits `image_size` for this fixed-resolution model; every returned image is 1376 × 768. Each scene reuses its retained section-arm plan 1 for all three repeats; these are repeated image samples, not three independent plans.
 
 | Scene | Candidate change | Other inputs |
 |---|---|---|
@@ -34,6 +34,28 @@ The live run requires a clean committed checkout and uses an exclusive start mar
 
 Typecheck and focused lint passed. The existing suite-runner tests passed all 14 tests; repository lint has zero errors and three pre-existing warnings. No runtime code or shared test framework changed. The first test invocation used a nonexistent filename and found no tests; the corrected invocation passed the actual suite.
 
-Before any paid execution, review this frozen plan and runner. Afterwards inspect every original-resolution attempt and retain uncertain judgments. Report whether giant size, a coherent pose, the chosen cellar instant and the entry control meet the declared criterion, alongside remaining spatial/anatomical, identity and lettering faults. Earlier valid cellar preparation is a different source-supported instant, not automatically a baseline failure for lacking the later floor glint. A visible wall tunnel, premature thieves, or incompatible lantern state is a separate source-state question.
+The pre-execution plan and runner received Sol approval with no findings; CodeRabbit raised zero issues. All 26 original-resolution attempts have now been inspected, including eight retries. [inspection.json](inspection.json) preserves each judgment and its image hash; [report.json](report.json) aggregates first and chosen attempts separately. These assess giant size, a coherent body, the chosen cellar instant and the entry control alongside remaining spatial/anatomical, identity and lettering faults. Earlier valid cellar preparation is a different source-supported instant, not automatically a baseline failure for lacking the later floor glint. A visible wall tunnel, premature thieves, or incompatible lantern state is a separate source-state question.
 
 These are unblinded model observations on three selected scenes, not human acceptance, independent blind scoring, evidence for all books, or permission to activate the candidate. Even a clean small result would justify only further consideration, not a production correction or broader prompt change.
+
+## Results
+
+The first and chosen images have the same scene-criterion counts. Two entry retries removed checker-reported lettering; every cellar retry retained lettering, so the checker kept the first attempts. No grown-house image was retried. “Pass” below means only the named criterion, not complete source fidelity or acceptable overall quality.
+
+| Narrow criterion, chosen images | Original | Corrected |
+|---|---|---|
+| Entry: no premature growth | 3 pass | 3 pass |
+| Grown house: clearly giant and one coherent body | 2 pass, 1 fail | 1 pass, 1 fail, 1 unclear |
+| Cellar: selected later waiting/floor-light instant | 0 pass, 2 fail, 1 unclear | 0 pass, 3 fail |
+
+All six grown-house images clearly depict a giant. The narrower single-body test separates that success from extra or ambiguous limbs. None faithfully establishes the requested arm-out-window/foot-up-chimney arrangement: even the body passes retain spatial/pose errors. Candidate repeat 3 still has an extra arm, and repeat 1 has an ambiguous toe-like shape under the hem. The corrected cellar first attempts all retain a visibly open lantern; two retries are less clear, but were not selected and are not promoted into successes. These small samples do not establish a statistical regression or identify which input causes the failures.
+
+The entry control also retains unrequested mushrooms/maze scenery, variation in apparent age and cottage design, and one replacement's small black square artifact. Holmes identity and beard/costume details vary without reference attachments. No independent identity or adaptation-likeness score is claimed. The judgments are unblinded model observations, with ambiguous limbs and lighting kept explicit. The original early cellar preparations can be source-supported even when they fail the specifically selected late-instant criterion.
+
+[verification.json](verification.json) reconciles all 29 frozen input hashes, 26 image signatures/hashes, all actual prompt/reference attachments, 52 raw checker responses, and all 78 settled ledger exchanges. The full pre-execution test suite passed 1,052 tests with one skipped; runtime code, work data, styles, schemas and dependencies still match the base. [REVIEW.md](REVIEW.md) records the evidence and limitations.
+
+[funding-close.json](funding-close.json): images **$0.89539125** + checks **$0.01601030** = **$0.91140155**, with no new uncertainty. Conservative cumulative spend is **$5.47693685 / $6**, leaving **$0.52306315** of the original allowance. The ending balance is **$10.005905238**, preserving the $5 reader reserve. Account and key-allowance deltas match the ledger within stored-number precision. There were no production mutations, planning calls or paid scoring calls.
+
+The useful result is bounded: removing these textual conflicts alone did not deliver the intended visual states under the existing prompt. Keep the correction copies offline. This does not prove that the text corrections are wrong, that stronger instructions would work, or that generic prompt ownership should change without separate evidence. No additional paid run is part of this package.
+
+Review complete: GPT-6.1 Sol on xhigh approved preparation and final evidence in two rounds with no findings. It independently inspected all 26 images and reconciled provenance, raw responses, aggregates and funding. CodeRabbit CLI raised zero issues in both passes. This approves the evidence record and negative conclusion, not activation.
