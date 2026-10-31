@@ -1,0 +1,31 @@
+{
+  "textRows": 36,
+  "allPlanned": true,
+  "firstPlanPairsDifferOnlyByAddedSource": [
+    "alice-gloves-1",
+    "alice-gloves-2",
+    "alice-gloves-3",
+    "alice-house-entry-1",
+    "alice-house-entry-2",
+    "alice-house-entry-3",
+    "alice-house-grown-1",
+    "alice-house-grown-2",
+    "alice-house-grown-3",
+    "sea-night-1",
+    "sea-night-2",
+    "sea-night-3",
+    "sea-crossing-1",
+    "sea-crossing-2",
+    "sea-crossing-3",
+    "holmes-cellar-1",
+    "holmes-cellar-2",
+    "holmes-cellar-3"
+  ],
+  "oneGuideVersionPerScene": true,
+  "actualTextCalls": 104,
+  "rawResponseCostUsd": 0.0628947,
+  "ledgerCostMatches": true,
+  "uncertainUsd": 0,
+  "frozenInputAndCodeHashesMatch": true,
+  "ndjsonMatchesFinalResults": true
+}
