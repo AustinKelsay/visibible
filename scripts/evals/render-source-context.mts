@@ -18,7 +18,7 @@ const identity = "llm/releases/2026-10-30-identity-visuals";
 const out = path.join(root, "evals/images/runs/2026-10-31-render-source-context-offline");
 const hashes: Record<string, string> = {};
 const hash = (value: string | Uint8Array) => createHash("sha256").update(value).digest("hex");
-execFileSync("git", ["diff", "--quiet", baselineCommit, "--", "src/lib", "styles", "convex/_helpers/contentVersion.ts", "package-lock.json"], { cwd: root });
+execFileSync("git", ["diff", "--quiet", baselineCommit, "--", "src", "styles", "convex", "package-lock.json"], { cwd: root });
 hashes["scripts/evals/render-source-context.mts"] = hash(readFileSync(import.meta.filename));
 function read<T>(file: string): T {
   const bytes = readFileSync(path.join(root, file));
@@ -53,6 +53,7 @@ assert.equal(new Set(rows.map(r => r.caseId)).size, rows.length, "Frozen plan ca
 const scenes = read<Scene[]>(`${prior}/scenes.json`);
 const images = read<Array<{ caseId: string; prompt: string; references: unknown }>>(`${prior}/images-results.json`);
 const frozen = read<Record<string, string>>(`${prior}/inputs.json`);
+assert.equal(hashes[`${prior}/inputs.json`], hash(execFileSync("git", ["show", `${baselineCommit}:${prior}/inputs.json`], { cwd: root })), "Frozen input manifest changed");
 for (const [file, expected] of Object.entries(frozen)) {
   assert.equal(hash(readFileSync(path.join(root, file))), expected, file);
   hashes[file] = expected;
