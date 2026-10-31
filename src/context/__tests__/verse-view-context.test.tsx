@@ -6,6 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useVerseView, VerseViewProvider } from "@/context/verse-view-context";
 import { trackPreferenceChanged } from "@/lib/analytics";
 import type { VerseViewValue } from "@/lib/verse-view";
+import { VerseModeTabs } from "@/components/verse-mode-tabs";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -61,6 +62,7 @@ describe("VerseViewProvider", () => {
     container?.remove();
     root = null;
     container = null;
+    vi.unstubAllEnvs();
   });
 
   async function renderProvider(child: ReactNode) {
@@ -96,6 +98,29 @@ describe("VerseViewProvider", () => {
     await renderProvider(<ExposureHarness />);
 
     expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("gallery");
+  });
+
+  it("allows video deep links in development and production", async () => {
+    searchParamView = "video";
+    vi.stubEnv("NODE_ENV", "development");
+    await renderProvider(<ExposureHarness />);
+    expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("video");
+    vi.stubEnv("NODE_ENV", "production");
+    await renderProvider(<ExposureHarness />);
+    expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("video");
+  });
+
+  it("switches to Video using the mode tabs without reporting a gallery preference", async () => {
+    vi.stubEnv("NODE_ENV", "development");
+    await renderProvider(<><VerseModeTabs /><ExposureHarness /></>);
+    const buttons = container!.querySelectorAll("button");
+    await act(async () => buttons[2].click());
+    expect(buttons[2].getAttribute("aria-pressed")).toBe("true");
+    expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("video");
+    expect(trackPreferenceChanged).not.toHaveBeenCalled();
+    await act(async () => buttons[2].dispatchEvent(new KeyboardEvent("keydown", { key: "Home", bubbles: true })));
+    expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("reader");
+    expect(document.activeElement).toBe(buttons[0]);
   });
 
   it("tracks preference changes when the gallery is toggled on", async () => {

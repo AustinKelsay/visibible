@@ -6,6 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { MobileVerseNav } from "@/components/mobile-verse-nav";
 import { useNavigation } from "@/context/navigation-context";
 import { useSession } from "@/context/session-context";
+import { useVerseView } from "@/context/verse-view-context";
 import { trackVerseNavigation } from "@/lib/analytics";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -42,12 +43,17 @@ vi.mock("@/context/session-context", () => ({
   useSession: vi.fn(),
 }));
 
+vi.mock("@/context/verse-view-context", () => ({
+  useVerseView: vi.fn(),
+}));
+
 vi.mock("@/lib/analytics", () => ({
   trackVerseNavigation: vi.fn(),
 }));
 
 const useNavigationMock = vi.mocked(useNavigation);
 const useSessionMock = vi.mocked(useSession);
+const useVerseViewMock = vi.mocked(useVerseView);
 const trackVerseNavigationMock = vi.mocked(trackVerseNavigation);
 
 describe("MobileVerseNav", () => {
@@ -69,6 +75,12 @@ describe("MobileVerseNav", () => {
       tier: "paid",
       credits: 3,
     } as never);
+
+    useVerseViewMock.mockReturnValue({
+      effectiveView: "reader",
+      isSettled: true,
+      setEffectiveView: vi.fn(),
+    });
   });
 
   afterEach(async () => {
@@ -108,7 +120,9 @@ describe("MobileVerseNav", () => {
     expect(nav?.className).toContain("sm:hidden");
     expect(nav?.className).toContain("translate-y-0");
 
+    const previousLink = container?.querySelector('a[aria-label="Previous verse"]');
     const nextLink = container?.querySelector('a[aria-label="Next verse"]');
+    expect(previousLink?.getAttribute("href")).toBe("/genesis/1/1");
     expect(nextLink?.getAttribute("href")).toBe("/genesis/1/3");
 
     await act(async () => {
@@ -124,6 +138,35 @@ describe("MobileVerseNav", () => {
       targetUrl: "/genesis/1/3",
       tier: "paid",
       hasCredits: true,
+    }));
+  });
+
+  it.each([
+    { label: "Previous verse", direction: "prev", targetUrl: "/genesis/1/1?view=video" },
+    { label: "Next verse", direction: "next", targetUrl: "/genesis/1/3?view=video" },
+  ])("preserves Video mode in the $label link and navigation event", async ({ label, direction, targetUrl }) => {
+    useVerseViewMock.mockReturnValue({
+      effectiveView: "video",
+      isSettled: true,
+      setEffectiveView: vi.fn(),
+    });
+
+    await renderNav();
+
+    const link = container?.querySelector(`a[aria-label="${label}"]`);
+    expect(link?.getAttribute("href")).toBe(targetUrl);
+
+    await act(async () => {
+      link?.dispatchEvent(new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+      }));
+    });
+
+    expect(trackVerseNavigationMock).toHaveBeenCalledWith(expect.objectContaining({
+      source: "mobile_nav",
+      direction,
+      targetUrl,
     }));
   });
 

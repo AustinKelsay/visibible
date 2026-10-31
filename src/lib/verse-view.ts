@@ -1,4 +1,4 @@
 /**
- * Shared verse-view types used by the URL-driven reader/gallery toggle.
+ * Shared verse-view types used by the URL-driven verse mode switcher.
  */
-export type VerseViewValue = "reader" | "gallery";
+export type VerseViewValue = "reader" | "gallery" | "video";

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
+import { useVerseView } from "@/context/verse-view-context";
 import { useSession } from "@/context/session-context";
 import { trackVerseNavigation } from "@/lib/analytics";
 
@@ -30,6 +31,9 @@ export function MobileVerseNav({
 }: MobileVerseNavProps) {
   const { isFullscreen, isChatOpen } = useNavigation();
   const { tier, credits } = useSession();
+  const { effectiveView } = useVerseView();
+  const previousHref = prevUrl && (effectiveView === "video" ? `${prevUrl}?view=video` : prevUrl);
+  const nextHref = nextUrl && (effectiveView === "video" ? `${nextUrl}?view=video` : nextUrl);
 
   const isHidden = isFullscreen || isChatOpen;
 
@@ -52,9 +56,9 @@ export function MobileVerseNav({
       <div className="flex items-center px-4 py-2">
         {/* Previous button */}
         <div className="flex-1">
-          {prevUrl ? (
+          {previousHref ? (
             <Link
-              href={prevUrl}
+              href={previousHref}
               tabIndex={isHidden ? -1 : undefined}
               onClick={() => {
                 trackVerseNavigation({
@@ -63,7 +67,7 @@ export function MobileVerseNav({
                   verse: verseNumber,
                   direction: "prev",
                   source: "mobile_nav",
-                  targetUrl: prevUrl,
+                  targetUrl: previousHref,
                   tier,
                   hasCredits: credits > 0,
                 });
@@ -92,9 +96,9 @@ export function MobileVerseNav({
 
         {/* Next button */}
         <div className="flex-1 flex justify-end">
-          {nextUrl ? (
+          {nextHref ? (
             <Link
-              href={nextUrl}
+              href={nextHref}
               tabIndex={isHidden ? -1 : undefined}
               onClick={() => {
                 trackVerseNavigation({
@@ -103,7 +107,7 @@ export function MobileVerseNav({
                   verse: verseNumber,
                   direction: "next",
                   source: "mobile_nav",
-                  targetUrl: nextUrl,
+                  targetUrl: nextHref,
                   tier,
                   hasCredits: credits > 0,
                 });

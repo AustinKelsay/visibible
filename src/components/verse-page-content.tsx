@@ -1,11 +1,16 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useVerseView } from "@/context/verse-view-context";
 import { HeroImage } from "@/components/hero-image";
 import { ScriptureReader } from "@/components/scripture-reader";
 import { ScriptureDetails } from "@/components/scripture-details";
 import { VerseStripBar } from "@/components/verse-strip-bar";
 import { ChapterGallery } from "@/components/chapter-gallery";
+import { VerseModeTabs } from "@/components/verse-mode-tabs";
+const VideoMode = dynamic(() => import("@/components/video-mode").then((module) => module.VideoMode), {
+  loading: () => <p className="p-8 text-center text-[var(--muted)]">Loading videos…</p>,
+});
 
 interface VerseContext {
   number: number;
@@ -40,7 +45,28 @@ interface VersePageContentProps {
   }>;
 }
 
-export function VersePageContent({
+export function VersePageContent(props: VersePageContentProps) {
+  const { effectiveView } = useVerseView();
+  return (
+    <>
+      <VerseModeTabs />
+      {effectiveView === "video" && (
+        <main className="flex-1 flex flex-col">
+          <VideoMode
+            verseId={`${props.bookSlug}-${props.chapter}-${props.verseNumber}`}
+            reference={props.currentReference}
+            verseText={props.verseText}
+            prevUrl={props.prevUrl}
+            nextUrl={props.nextUrl}
+          />
+        </main>
+      )}
+      <VersePageBody {...props} />
+    </>
+  );
+}
+
+function VersePageBody({
   bookSlug,
   bookName,
   chapter,
@@ -83,6 +109,10 @@ export function VersePageContent({
         </div>
       </main>
     );
+  }
+
+  if (effectiveView === "video") {
+    return null;
   }
 
   if (effectiveView === "gallery") {
