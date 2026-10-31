@@ -36,6 +36,7 @@ const read = <T,>(file: string): T => JSON.parse(readFileSync(file, "utf8"));
 const hash = (bytes: string | Uint8Array) => createHash("sha256").update(bytes).digest("hex");
 const plan = read<Plan>(path.join(frozen, "plan.json"));
 const provenance = read<{ files: Record<string, string>; bibleReferenceDirectory: string }>(path.join(frozen, "inputs.json"));
+assert.ok(existsSync(path.join(root, "works/alice-in-wonderland/work.json")), "Missing works/alice-in-wonderland/work.json. Run npm run works:import first.");
 for (const [file, expected] of Object.entries(provenance.files)) assert.equal(hash(readFileSync(path.join(root, file))), expected, file);
 assert.equal(Object.values(plan.phaseCaps).reduce((a, b) => a + b, 0), plan.operationCapUsd);
 const phases = ["canon", "references", "text", "images"];
@@ -160,6 +161,7 @@ for (const phase of wanted) {
         image:{model:condition.model,resolution:"1K"},providers:label=>({text:textModel(label),image:createOpenRouterEvalImageProvider({apiKey,timeoutMs:180000,fetch:ledger.fetchFor("image",label)}),checker:checker(label)}),
         blocked:()=>ledger.state.blocked,record:r=>{const row=r as Row;part.push(row);rows.push(row);appendFileSync(path.join(out,`${prefix}-results.ndjson`),JSON.stringify(row)+"\n");},
         saveImage:(key,n,img)=>{const file=path.join(blobs,`${key.replaceAll("/","__")}__a${n}.${img.mimeType.split("/")[1]}`);writeFileSync(file,img.bytes);return{file:path.relative(root,file),sha256:hash(img.bytes)};},log:console.log});
+      assert.ok(!part.some(r=>r.outcome==="error"),"Suite recorded an error row");
       if(phase==="text") save(`${variant}-plans.json`,part);
       assert.equal(ledger.state.blocked,null,"Provider ledger blocked");
     }

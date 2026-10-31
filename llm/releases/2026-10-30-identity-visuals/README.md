@@ -13,7 +13,7 @@ The examples use the first scheduled repeat and the pipeline's chosen attempt, n
 - Nine scene plans frozen once. Five conditions each scheduled nine outputs: prior Alice fixture, fresh Alice candidate, same candidate in watercolor, same candidate on the alternate image model, and a retained Bible control. Three repeats per scene. Candidate plans and cast references were reused across theme/model variations.
 - All 45 scheduled cases accounted for: 44 returned images, one provider refusal. Ten ordinary retries produce 54 saved scene attempts. The refused scene was never rerolled. Two independent model-scoring passes cover every saved attempt and all 108 scheduled identity pairs, including five pairs made unclear by the missing image.
 
-`plan.json` is the original frozen contract; `inputs.json` and phase-started records preserve source hashes. The original image phase stopped on missing provider usage. `CONTINUATION.md` explains the bounded continuation and subsequent scoring MIME-type failure, with all previous costs and answers retained. Neither incident changes quality criteria or regenerates failed scene samples.
+`plan.json` is the original frozen contract; `inputs.json` and phase-started records preserve source hashes. `sourceReadingSha256` records the byte hash of the historical full reading-state snapshot before the accepted merge was applied; it is a lineage record, not a hash of the merge diagnostic's `input.json`. The runner consumes and verifies the separate frozen `reading.json` listed in `inputs.json.files`. The original image phase stopped on missing provider usage. `CONTINUATION.md` explains the bounded continuation and subsequent scoring MIME-type failure, with all previous costs and answers retained. Neither incident changes quality criteria or regenerates failed scene samples.
 
 ## Recorded results
 
@@ -46,7 +46,7 @@ No production data, reference sheets, active analyses, runtime code, model defau
 
 ## Reproduction and verification
 
-- `scripts/evals/identity-visuals.mts --offline`: full synthetic rehearsal in a temporary directory; 45/45 outputs. This validates mechanics only.
+- After `npm run works:import`, run `npx tsx scripts/evals/identity-visuals.mts --offline`: full synthetic rehearsal in a temporary directory; 45/45 outputs. This validates mechanics only.
 - Paid phases are deliberately one-shot, with frozen inputs, durable ceilings and explicit continuations for the recorded interruptions. They refuse completed runs.
 - `scripts/evals/identity-report.mts`: recompute aggregates from the recorded answers, preserving every disputed field and unclear pair.
 - Application verification: 1,051 tests passed, one skipped; typecheck, lint (three existing warnings), production build and dependency audit passed. Runtime sources and input hashes match each paid phase. See `verification.json` and `REVIEW.md`.
