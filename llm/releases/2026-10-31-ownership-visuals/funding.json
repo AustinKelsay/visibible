@@ -1,0 +1,14 @@
+{
+  "status": "approved",
+  "authorization": "User explicitly selected: Approve $7 total cap and run (Recommended). This authorizes the prepared 18-image comparison, at most $1.40 for this run, with the $5 reader reserve preserved.",
+  "operationCapUsd": 1.4,
+  "cumulativeCapUsd": 7,
+  "authorizedCumulativeCapUsd": 7,
+  "priorUpperBoundUsd": 5.47693685,
+  "readerReserveUsd": 5,
+  "verifiedAt": "2026-10-31T18:52:01.081Z",
+  "balanceUsd": 10.005905237999997,
+  "keyLimitRemainingUsd": 25.005538446,
+  "executionRechecksFunding": true,
+  "scope": "Local diagnostic only; no production mutation or activation. Proposed operation maximum reaches $6.87693685 cumulative."
+}

@@ -1,0 +1,175 @@
+{
+  "inspection": "Unblinded model inspection. Narrow scene-specific criteria, not overall quality, human acceptance or a release gate.",
+  "scheduled": 18,
+  "attempts": 24,
+  "retries": 6,
+  "planningCalls": 0,
+  "checkerCalls": 48,
+  "scenes": [
+    {
+      "scene": "alice-house-entry",
+      "arms": {
+        "baseline": {
+          "first": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "firstSelectedInstant": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "firstCheckerFaultImages": 0,
+          "chosen": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "chosenSelectedInstant": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "chosenCheckerFaultImages": 0
+        },
+        "candidate": {
+          "first": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "firstSelectedInstant": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "firstCheckerFaultImages": 0,
+          "chosen": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "chosenSelectedInstant": {
+            "pass": 3,
+            "fail": 0,
+            "unclear": 0
+          },
+          "chosenCheckerFaultImages": 0
+        }
+      }
+    },
+    {
+      "scene": "alice-house-grown",
+      "arms": {
+        "baseline": {
+          "first": {
+            "pass": 2,
+            "fail": 1,
+            "unclear": 0
+          },
+          "firstSelectedInstant": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "firstCheckerFaultImages": 0,
+          "chosen": {
+            "pass": 2,
+            "fail": 1,
+            "unclear": 0
+          },
+          "chosenSelectedInstant": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "chosenCheckerFaultImages": 0
+        },
+        "candidate": {
+          "first": {
+            "pass": 1,
+            "fail": 2,
+            "unclear": 0
+          },
+          "firstSelectedInstant": {
+            "pass": 0,
+            "fail": 2,
+            "unclear": 1
+          },
+          "firstCheckerFaultImages": 0,
+          "chosen": {
+            "pass": 1,
+            "fail": 2,
+            "unclear": 0
+          },
+          "chosenSelectedInstant": {
+            "pass": 0,
+            "fail": 2,
+            "unclear": 1
+          },
+          "chosenCheckerFaultImages": 0
+        }
+      }
+    },
+    {
+      "scene": "holmes-cellar",
+      "arms": {
+        "baseline": {
+          "first": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "firstSelectedInstant": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "firstCheckerFaultImages": 3,
+          "chosen": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "chosenSelectedInstant": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "chosenCheckerFaultImages": 3
+        },
+        "candidate": {
+          "first": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "firstSelectedInstant": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "firstCheckerFaultImages": 3,
+          "chosen": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "chosenSelectedInstant": {
+            "pass": 0,
+            "fail": 3,
+            "unclear": 0
+          },
+          "chosenCheckerFaultImages": 3
+        }
+      }
+    }
+  ],
+  "candidateMeetsDeclaredCriterion": false,
+  "conclusion": "Do not activate or broaden on this evidence. The candidate preserves the pre-growth control but does not satisfy the grown-house body or selected late cellar criteria. Small unblinded samples do not establish comparative quality or universal failure of ownership wording.",
+  "measuredUsd": 0.8399743,
+  "uncertainUsd": 0,
+  "cumulativeUpperBoundUsd": 6.31691115,
+  "remainingAuthorizedAllowanceUsd": 0.68308885
+}
