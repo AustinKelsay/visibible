@@ -1,0 +1,67 @@
+{
+  "baseCommit": "56ba68e1832e0a6ca959370d5d9a67686338f5e2",
+  "correctionSha256": "1da7c554a3a509d163acbf87d32acc23fcaf7e6f3bdd7b26e27426a0cea3595d",
+  "method": "Existing createCorrections and Convex handlers in convex-test memory; no deployment client",
+  "networkAttempts": 0,
+  "modelCalls": 0,
+  "productionMutations": 0,
+  "measuredUsd": 0,
+  "records": [
+    {
+      "workId": "alice-in-wonderland",
+      "entryId": "the_white_rabbit_s_house",
+      "beforeVersion": "018ec450b3362999683e22788e79f5e4",
+      "correctedVersion": "2e7204c83e014b73ed895b907a7212cc",
+      "oldEntryPreserved": true,
+      "staleDependents": [
+        {
+          "kind": "look",
+          "recordId": "the-rabbit-sends-in-a-little-bill-1",
+          "usedVersion": "018ec450b3362999683e22788e79f5e4",
+          "version": "37b07d17b74ccdd4f9b61dbf9029fbe3"
+        },
+        {
+          "kind": "plan",
+          "recordId": "the-rabbit-sends-in-a-little-bill-7",
+          "usedVersion": "018ec450b3362999683e22788e79f5e4",
+          "version": "80af290a7fd66c4b7e9c2d524a79415e"
+        }
+      ],
+      "retryUnchanged": true,
+      "staleEditRejected": true,
+      "originalPlanClearedInMemory": true,
+      "oldPlanPreserved": true,
+      "diagnosticPlanStaged": false,
+      "planVersion": "73d4a6104d13a881cdb176587e2ca454",
+      "workVersion": "8dbcd44e0ab0c37ef65bcd2eb507bed73c4f395a94c0ac30e3f4ace25d64b95c"
+    },
+    {
+      "workId": "holmes-adventures",
+      "entryId": "cellar_of_the_city_and_suburban_bank",
+      "beforeVersion": "014986d7b12c8a02ebc4d29fd77b965b",
+      "correctedVersion": "8fff6b74118c09739bf1b42cd2732578",
+      "oldEntryPreserved": true,
+      "staleDependents": [
+        {
+          "kind": "look",
+          "recordId": "the-red-headed-league-175",
+          "usedVersion": "014986d7b12c8a02ebc4d29fd77b965b",
+          "version": "8f97565feb26f7feffcf6907ef5145f3"
+        },
+        {
+          "kind": "plan",
+          "recordId": "the-red-headed-league-183",
+          "usedVersion": "014986d7b12c8a02ebc4d29fd77b965b",
+          "version": "b6d33eb545583beee1f6d4edaf90db61"
+        }
+      ],
+      "retryUnchanged": true,
+      "staleEditRejected": true,
+      "originalPlanClearedInMemory": true,
+      "oldPlanPreserved": true,
+      "diagnosticPlanStaged": false,
+      "planVersion": "93ea87a66d97e8dbb07df0be05fa156a",
+      "workVersion": "a0dea2fb8184b9d0d63ff4b06b7c2066603f224c8341ef12ab5535e4fc076229"
+    }
+  ]
+}
