@@ -1,0 +1,919 @@
+{
+  "capUsd": 0.3653582,
+  "calls": [
+    {
+      "phase": "a/v008",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009421
+    },
+    {
+      "phase": "a/v009",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008147
+    },
+    {
+      "phase": "a/v007",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004141
+    },
+    {
+      "phase": "a/v010",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005084
+    },
+    {
+      "phase": "a/v011",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009476
+    },
+    {
+      "phase": "a/v012",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004639
+    },
+    {
+      "phase": "a/v013",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004312
+    },
+    {
+      "phase": "a/v014",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008015
+    },
+    {
+      "phase": "a/v015",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004514
+    },
+    {
+      "phase": "a/v017",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004477
+    },
+    {
+      "phase": "a/v018",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004397
+    },
+    {
+      "phase": "a/v019",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009426
+    },
+    {
+      "phase": "a/v020",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004579
+    },
+    {
+      "phase": "a/v021",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009256
+    },
+    {
+      "phase": "a/v022",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008212
+    },
+    {
+      "phase": "a/v023",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004439
+    },
+    {
+      "phase": "a/v024",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009341
+    },
+    {
+      "phase": "a/v025",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008109
+    },
+    {
+      "phase": "a/v026",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004622
+    },
+    {
+      "phase": "a/v027",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004359
+    },
+    {
+      "phase": "a/v028",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008275
+    },
+    {
+      "phase": "a/v029",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004344
+    },
+    {
+      "phase": "a/v030",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004314
+    },
+    {
+      "phase": "a/v031",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004164
+    },
+    {
+      "phase": "a/v032",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000454
+    },
+    {
+      "phase": "a/v033",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004114
+    },
+    {
+      "phase": "a/v034",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008337
+    },
+    {
+      "phase": "a/v035",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004425
+    },
+    {
+      "phase": "a/v036",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004304
+    },
+    {
+      "phase": "a/v037",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003916
+    },
+    {
+      "phase": "a/v038",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004529
+    },
+    {
+      "phase": "a/v039",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004462
+    },
+    {
+      "phase": "a/v040",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004147
+    },
+    {
+      "phase": "a/v041",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004932
+    },
+    {
+      "phase": "a/v042",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008427
+    },
+    {
+      "phase": "a/v043",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009269
+    },
+    {
+      "phase": "a/v044",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008109
+    },
+    {
+      "phase": "a/v045",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004492
+    },
+    {
+      "phase": "a/v046",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004155
+    },
+    {
+      "phase": "a/v047",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004325
+    },
+    {
+      "phase": "a/v048",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009456
+    },
+    {
+      "phase": "a/v049",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008114
+    },
+    {
+      "phase": "a/v050",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008097
+    },
+    {
+      "phase": "a/v051",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009631
+    },
+    {
+      "phase": "a/v052",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004505
+    },
+    {
+      "phase": "a/v053",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003876
+    },
+    {
+      "phase": "a/v054",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005858
+    },
+    {
+      "phase": "a/v055",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004129
+    },
+    {
+      "phase": "a/v056",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004775
+    },
+    {
+      "phase": "a/v057",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004407
+    },
+    {
+      "phase": "a/v058",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008687
+    },
+    {
+      "phase": "a/v059",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004269
+    },
+    {
+      "phase": "a/v060",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004909
+    },
+    {
+      "phase": "a/v061",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003963
+    },
+    {
+      "phase": "a/v062",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004086
+    },
+    {
+      "phase": "a/v064",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005444
+    },
+    {
+      "phase": "a/v065",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009166
+    },
+    {
+      "phase": "a/v066",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004607
+    },
+    {
+      "phase": "a/v067",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008167
+    },
+    {
+      "phase": "a/v068",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004137
+    },
+    {
+      "phase": "a/v069",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004125
+    },
+    {
+      "phase": "a/v070",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004039
+    },
+    {
+      "phase": "a/v071",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003861
+    },
+    {
+      "phase": "a/v072",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004029
+    },
+    {
+      "phase": "a/v073",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005673
+    },
+    {
+      "phase": "a/v074",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008119
+    },
+    {
+      "phase": "a/v075",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005277
+    },
+    {
+      "phase": "a/v076",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009092
+    },
+    {
+      "phase": "a/v077",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004208
+    },
+    {
+      "phase": "a/v078",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005212
+    },
+    {
+      "phase": "a/v079",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004487
+    },
+    {
+      "phase": "a/v080",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004595
+    },
+    {
+      "phase": "a/v081",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004335
+    },
+    {
+      "phase": "a/v082",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004314
+    },
+    {
+      "phase": "a/v083",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004542
+    },
+    {
+      "phase": "a/v084",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004724
+    },
+    {
+      "phase": "a/v085",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004434
+    },
+    {
+      "phase": "a/v086",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0010612
+    },
+    {
+      "phase": "a/v087",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000472
+    },
+    {
+      "phase": "a/v088",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004119
+    },
+    {
+      "phase": "a/v089",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005383
+    },
+    {
+      "phase": "a/v091",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008169
+    },
+    {
+      "phase": "a/v092",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004354
+    },
+    {
+      "phase": "a/v093",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004407
+    },
+    {
+      "phase": "a/v094",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004064
+    },
+    {
+      "phase": "a/v095",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004414
+    },
+    {
+      "phase": "a/v096",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004274
+    },
+    {
+      "phase": "a/v097",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008417
+    },
+    {
+      "phase": "a/v098",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004001
+    },
+    {
+      "phase": "a/v099",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004584
+    },
+    {
+      "phase": "a/v100",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009651
+    },
+    {
+      "phase": "a/v101",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004174
+    },
+    {
+      "phase": "a/v102",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009351
+    },
+    {
+      "phase": "a/v103",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005367
+    },
+    {
+      "phase": "a/v104",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004585
+    },
+    {
+      "phase": "a/v105",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004484
+    },
+    {
+      "phase": "a/v106",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004709
+    },
+    {
+      "phase": "a/v107",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004462
+    },
+    {
+      "phase": "a/v108",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004135
+    },
+    {
+      "phase": "a/v109",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004949
+    },
+    {
+      "phase": "a/v110",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004465
+    },
+    {
+      "phase": "a/v111",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004919
+    },
+    {
+      "phase": "a/v112",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004444
+    },
+    {
+      "phase": "a/v113",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008262
+    },
+    {
+      "phase": "a/v114",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004554
+    },
+    {
+      "phase": "a/v115",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000838
+    },
+    {
+      "phase": "a/v116",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009381
+    },
+    {
+      "phase": "a/v117",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000817
+    },
+    {
+      "phase": "a/v118",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004435
+    },
+    {
+      "phase": "a/v119",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004547
+    },
+    {
+      "phase": "a/v120",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004632
+    },
+    {
+      "phase": "a/v121",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004317
+    },
+    {
+      "phase": "a/v122",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009439
+    },
+    {
+      "phase": "a/v123",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000431
+    },
+    {
+      "phase": "a/v124",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004329
+    },
+    {
+      "phase": "a/v126",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009361
+    },
+    {
+      "phase": "a/v127",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004174
+    },
+    {
+      "phase": "a/v128",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004275
+    },
+    {
+      "phase": "a/v129",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003878
+    },
+    {
+      "phase": "a/v130",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004415
+    },
+    {
+      "phase": "a/v131",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004522
+    },
+    {
+      "phase": "a/v132",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000499
+    },
+    {
+      "phase": "a/v133",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008229
+    },
+    {
+      "phase": "a/v134",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004409
+    },
+    {
+      "phase": "a/v135",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008342
+    },
+    {
+      "phase": "a/v136",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008297
+    },
+    {
+      "phase": "a/v137",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004462
+    },
+    {
+      "phase": "a/v138",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005309
+    },
+    {
+      "phase": "a/v139",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008552
+    },
+    {
+      "phase": "a/v140",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004084
+    },
+    {
+      "phase": "a/v141",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004589
+    },
+    {
+      "phase": "a/v142",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004447
+    },
+    {
+      "phase": "a/v143",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004269
+    },
+    {
+      "phase": "a/v144",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004139
+    },
+    {
+      "phase": "a/v145",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004632
+    },
+    {
+      "phase": "a/v146",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008149
+    },
+    {
+      "phase": "a/v147",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0007383
+    },
+    {
+      "phase": "a/v148",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000454
+    },
+    {
+      "phase": "a/v149",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004467
+    },
+    {
+      "phase": "a/v150",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009406
+    },
+    {
+      "phase": "a/v151",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004242
+    },
+    {
+      "phase": "a/v152",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0009521
+    },
+    {
+      "phase": "a/v154",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004124
+    },
+    {
+      "phase": "a/v155",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004524
+    },
+    {
+      "phase": "a/v156",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008057
+    },
+    {
+      "phase": "a/v157",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000425
+    },
+    {
+      "phase": "a/v158",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004592
+    },
+    {
+      "phase": "a/v159",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008079
+    },
+    {
+      "phase": "a/v160",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0005384
+    },
+    {
+      "phase": "a/v161",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.00044
+    },
+    {
+      "phase": "a/v162",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0008004
+    }
+  ],
+  "measuredUsd": 0.0866361,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 0,
+    "check": 151
+  },
+  "blocked": null
+}

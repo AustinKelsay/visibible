@@ -1,0 +1,205 @@
+{
+  "capUsd": 0.15,
+  "calls": [
+    {
+      "phase": "alice-baseline-rabbit-watch-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002058
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002348
+    },
+    {
+      "phase": "alice-baseline-rabbit-watch-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005483
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005792
+    },
+    {
+      "phase": "alice-baseline-rabbit-watch-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005174
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006672
+    },
+    {
+      "phase": "alice-baseline-rabbit-watch-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005753
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006636
+    },
+    {
+      "phase": "alice-baseline-rabbit-watch-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005085
+    },
+    {
+      "phase": "alice-baseline-rabbit-gloves-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005024
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002019
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005514
+    },
+    {
+      "phase": "alice-baseline-rabbit-mary-ann-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005207
+    },
+    {
+      "phase": "alice-candidate-rabbit-watch-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002024
+    },
+    {
+      "phase": "alice-candidate-rabbit-gloves-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002085
+    },
+    {
+      "phase": "alice-candidate-rabbit-watch-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005146
+    },
+    {
+      "phase": "alice-candidate-rabbit-gloves-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005438
+    },
+    {
+      "phase": "alice-candidate-rabbit-watch-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004712
+    },
+    {
+      "phase": "alice-candidate-rabbit-gloves-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006717
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002107
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005328
+    },
+    {
+      "phase": "alice-candidate-rabbit-mary-ann-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005424
+    },
+    {
+      "phase": "bible-control-peter-water-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001686
+    },
+    {
+      "phase": "bible-control-peter-sea-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000202
+    },
+    {
+      "phase": "bible-control-peter-sea-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005307
+    },
+    {
+      "phase": "bible-control-peter-water-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005047
+    },
+    {
+      "phase": "bible-control-peter-sea-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006231
+    },
+    {
+      "phase": "bible-control-peter-water-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004578
+    },
+    {
+      "phase": "bible-control-shore-meal-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005219
+    },
+    {
+      "phase": "bible-control-shore-meal-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006546
+    },
+    {
+      "phase": "bible-control-shore-meal-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005382
+    },
+    {
+      "phase": "bible-control-shore-meal-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005631
+    }
+  ],
+  "measuredUsd": 0.0149393,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 32,
+    "image": 0,
+    "check": 0
+  },
+  "blocked": null
+}

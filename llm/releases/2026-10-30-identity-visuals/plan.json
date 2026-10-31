@@ -1,0 +1,108 @@
+{
+  "kind": "bounded diagnostic; not a release gate",
+  "authorization": "Okay, continue with recommended next steps",
+  "operationCapUsd": 6,
+  "readerReserveUsd": 5,
+  "repeats": 3,
+  "shownImages": 45,
+  "conditions": [
+    {
+      "id": "alice-baseline",
+      "work": "alice-in-wonderland",
+      "analysis": "committed prior Alice fixture",
+      "style": "classical",
+      "model": "google/gemini-3.1-flash-lite-image"
+    },
+    {
+      "id": "alice-candidate",
+      "work": "alice-in-wonderland",
+      "analysis": "fresh canon from verified merge; local references",
+      "style": "classical",
+      "model": "google/gemini-3.1-flash-lite-image"
+    },
+    {
+      "id": "alice-theme",
+      "work": "alice-in-wonderland",
+      "analysis": "same candidate, plans and references",
+      "style": "watercolor",
+      "model": "google/gemini-3.1-flash-lite-image"
+    },
+    {
+      "id": "alice-model",
+      "work": "alice-in-wonderland",
+      "analysis": "same candidate, plans and references",
+      "style": "classical",
+      "model": "google/gemini-3.1-flash-image"
+    },
+    {
+      "id": "bible-control",
+      "work": "bible-web",
+      "analysis": "retained read-only snapshot and matching reference blobs",
+      "style": "classical",
+      "model": "google/gemini-3.1-flash-lite-image"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "rabbit-watch",
+      "work": "alice-in-wonderland",
+      "unitId": "down-the-rabbit-hole-3",
+      "expected": "The White Rabbit consults its waistcoat-pocket watch as Alice notices it. Pink eyes and white fur come from the source."
+    },
+    {
+      "id": "rabbit-gloves",
+      "work": "alice-in-wonderland",
+      "unitId": "the-pool-of-tears-8",
+      "expected": "The same Rabbit hurries with white kid gloves and a large fan, splendidly dressed; the focal moment determines whether it is approaching or startled."
+    },
+    {
+      "id": "rabbit-mary-ann",
+      "work": "alice-in-wonderland",
+      "unitId": "the-rabbit-sends-in-a-little-bill-2",
+      "expected": "The White Rabbit mistakes Alice for Mary Ann and sends her for gloves and a fan. Preserve Alice as Alice, rather than introducing an actual second girl or fixing her earlier giant size."
+    },
+    {
+      "id": "peter-water",
+      "work": "bible-web",
+      "unitId": "matthew-14-29",
+      "expected": "Peter steps from the boat onto the water toward Jesus. Source context sets storm and time."
+    },
+    {
+      "id": "peter-sea",
+      "work": "bible-web",
+      "unitId": "john-21-7",
+      "expected": "Peter recognizes the Lord and throws himself into the sea from the boat. Source context sets dawn and clothing."
+    },
+    {
+      "id": "shore-meal",
+      "work": "bible-web",
+      "unitId": "john-21-9",
+      "expected": "The disciples find a charcoal fire with fish and bread ashore. Do not require Peter to appear when the selected source moment does not show him."
+    }
+  ],
+  "limits": {
+    "canonAndPlanningUsd": 0.5,
+    "referencesUsd": 1,
+    "sceneRenderingAndChecksUsd": 4.5
+  },
+  "scope": [
+    "Draft full Alice canon against the approved brief using the corrected identity partition; retain original source readings, moment boundaries and brief assignments.",
+    "Use existing runCanon, reference preparation and runSuite implementation with local stores; never write Convex or activate a generation.",
+    "Generate only Alice/White Rabbit stage sheets and the two needed style references. Other sheets remain absent and are reported.",
+    "Freeze each condition\u2019s scene plans once; reuse candidate plans and reference identities for theme and model variations.",
+    "Retain failed attempts and normal check/retry outcomes. Never reroll a judged failure."
+  ],
+  "acceptance": [
+    "Two independent scorers inspect every output and all sequence comparisons, with all disagreements retained or adjudicated.",
+    "Score source fidelity, recognizability, legitimate state changes, style adherence, artifacts and distinctive adaptation borrowing; absence or occlusion is unclear, not success.",
+    "Use same-scene repeat and cross-scene identity pairs; no forced person presence in the Bible control.",
+    "The baseline/candidate comparison changes canon and sheets together; it cannot attribute a gain solely to the reasoning setting.",
+    "A material source, identity or adaptation failure blocks promotion. Small samples and this limited Bible control cannot authorize public rollout; the existing release gates still apply."
+  ],
+  "phaseCaps": {
+    "canon": 0.35,
+    "references": 1,
+    "text": 0.15,
+    "images": 4.5
+  }
+}

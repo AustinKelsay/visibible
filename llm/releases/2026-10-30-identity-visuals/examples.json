@@ -1,0 +1,33 @@
+{
+  "selection": "First scheduled repeat for these four conditions/scenes; uses the normal chosen attempt, never cherry-picked repeats.",
+  "examples": [
+    {
+      "caseId": "alice-candidate-rabbit-watch-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-identity-visuals/alice-candidate-rabbit-watch-1__classical__a1.jpeg",
+      "sha256": "a7c25c4736dc9bcbf0c6c7d46063f171711c501e5c030ff42e1b21cd96993ed1",
+      "label": "Fresh cast · classical"
+    },
+    {
+      "caseId": "alice-theme-rabbit-watch-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-identity-visuals/alice-theme-rabbit-watch-1__watercolor__a1.jpeg",
+      "sha256": "1b8ea8ad8e36563998cb86a4a5a285ebcd82395416eef86dac550fde2364b834",
+      "label": "Same cast · watercolor"
+    },
+    {
+      "caseId": "alice-candidate-rabbit-gloves-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-identity-visuals/alice-candidate-rabbit-gloves-1__classical__a1.jpeg",
+      "sha256": "059c2cf3c5d80f8f12357fa51ad53cb6a8ccfd7f8f61a92204b4eb34fb5d0d23",
+      "label": "Gloves scene · Alice should be nine feet tall"
+    },
+    {
+      "caseId": "alice-model-rabbit-gloves-1",
+      "attempt": 1,
+      "file": "evals/images/runs/2026-10-30-identity-visuals/alice-model-rabbit-gloves-1__classical__a1.png",
+      "sha256": "5613ca431377f8257c48320046ae4a5b7789ac84d943bc392c3b7bc1692db327",
+      "label": "Same state error · alternate model"
+    }
+  ]
+}

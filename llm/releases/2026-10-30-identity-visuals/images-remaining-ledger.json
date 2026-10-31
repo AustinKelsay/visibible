@@ -1,0 +1,373 @@
+{
+  "capUsd": 3.1815481500000002,
+  "calls": [
+    {
+      "phase": "alice-model-rabbit-watch-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0697375
+    },
+    {
+      "phase": "alice-model-rabbit-watch-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0697375
+    },
+    {
+      "phase": "alice-model-rabbit-watch-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002266
+    },
+    {
+      "phase": "alice-model-rabbit-watch-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003243
+    },
+    {
+      "phase": "alice-model-rabbit-watch-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002266
+    },
+    {
+      "phase": "alice-model-rabbit-watch-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003113
+    },
+    {
+      "phase": "alice-model-rabbit-watch-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0697375
+    },
+    {
+      "phase": "alice-model-rabbit-gloves-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.069851
+    },
+    {
+      "phase": "alice-model-rabbit-watch-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002266
+    },
+    {
+      "phase": "alice-model-rabbit-watch-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003078
+    },
+    {
+      "phase": "alice-model-rabbit-gloves-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000226
+    },
+    {
+      "phase": "alice-model-rabbit-gloves-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003187
+    },
+    {
+      "phase": "alice-model-rabbit-gloves-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.069851
+    },
+    {
+      "phase": "alice-model-rabbit-gloves-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.069851
+    },
+    {
+      "phase": "alice-model-rabbit-gloves-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000226
+    },
+    {
+      "phase": "alice-model-rabbit-gloves-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003262
+    },
+    {
+      "phase": "alice-model-rabbit-gloves-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.000226
+    },
+    {
+      "phase": "alice-model-rabbit-gloves-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002962
+    },
+    {
+      "phase": "alice-model-rabbit-mary-ann-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0698085
+    },
+    {
+      "phase": "alice-model-rabbit-mary-ann-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0698085
+    },
+    {
+      "phase": "alice-model-rabbit-mary-ann-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002282
+    },
+    {
+      "phase": "alice-model-rabbit-mary-ann-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003164
+    },
+    {
+      "phase": "alice-model-rabbit-mary-ann-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002922
+    },
+    {
+      "phase": "alice-model-rabbit-mary-ann-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003414
+    },
+    {
+      "phase": "alice-model-rabbit-mary-ann-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0698085
+    },
+    {
+      "phase": "alice-model-rabbit-mary-ann-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0698085
+    },
+    {
+      "phase": "alice-model-rabbit-mary-ann-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002282
+    },
+    {
+      "phase": "alice-model-rabbit-mary-ann-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002989
+    },
+    {
+      "phase": "alice-model-rabbit-mary-ann-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002942
+    },
+    {
+      "phase": "alice-model-rabbit-mary-ann-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003349
+    },
+    {
+      "phase": "bible-control-peter-water-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03487725
+    },
+    {
+      "phase": "bible-control-peter-water-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03487725
+    },
+    {
+      "phase": "bible-control-peter-water-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002524
+    },
+    {
+      "phase": "bible-control-peter-water-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003381
+    },
+    {
+      "phase": "bible-control-peter-water-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03487725
+    },
+    {
+      "phase": "bible-control-peter-water-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002524
+    },
+    {
+      "phase": "bible-control-peter-water-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003611
+    },
+    {
+      "phase": "bible-control-peter-water-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002524
+    },
+    {
+      "phase": "bible-control-peter-water-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003406
+    },
+    {
+      "phase": "bible-control-peter-sea-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03487725
+    },
+    {
+      "phase": "bible-control-peter-sea-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03487725
+    },
+    {
+      "phase": "bible-control-peter-sea-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002537
+    },
+    {
+      "phase": "bible-control-peter-sea-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003449
+    },
+    {
+      "phase": "bible-control-peter-sea-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03487725
+    },
+    {
+      "phase": "bible-control-peter-sea-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002537
+    },
+    {
+      "phase": "bible-control-peter-sea-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003934
+    },
+    {
+      "phase": "bible-control-peter-sea-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03487725
+    },
+    {
+      "phase": "bible-control-peter-sea-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002867
+    },
+    {
+      "phase": "bible-control-peter-sea-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003609
+    },
+    {
+      "phase": "bible-control-peter-sea-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002797
+    },
+    {
+      "phase": "bible-control-peter-sea-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003754
+    },
+    {
+      "phase": "bible-control-shore-meal-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03484275
+    },
+    {
+      "phase": "bible-control-shore-meal-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03484275
+    },
+    {
+      "phase": "bible-control-shore-meal-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002514
+    },
+    {
+      "phase": "bible-control-shore-meal-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003511
+    },
+    {
+      "phase": "bible-control-shore-meal-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002514
+    },
+    {
+      "phase": "bible-control-shore-meal-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003551
+    },
+    {
+      "phase": "bible-control-shore-meal-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03484275
+    },
+    {
+      "phase": "bible-control-shore-meal-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002514
+    },
+    {
+      "phase": "bible-control-shore-meal-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003676
+    }
+  ],
+  "measuredUsd": 1.0584186,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 20,
+    "check": 40
+  },
+  "blocked": null
+}

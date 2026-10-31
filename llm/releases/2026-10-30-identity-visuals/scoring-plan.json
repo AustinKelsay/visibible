@@ -1,0 +1,22 @@
+{
+  "capUsd": 0.75,
+  "perScorerCapUsd": 0.375,
+  "operationCapUsd": 6,
+  "readerReserveUsd": 5,
+  "model": "anthropic/claude-haiku-5.5",
+  "passes": [
+    "a",
+    "b"
+  ],
+  "items": 162,
+  "images": 54,
+  "pairs": 108,
+  "missingImagePairs": 5,
+  "caveat": "Independent calls without shared answers; same model, correlated errors possible. Model judgments, not human acceptance. Root review is unblinded. Criteria finalized after unblinded inspection of plans, reference sheets and contact sheets, before these scoring calls.",
+  "files": {
+    "images-results.ndjson": "f2a806322762e7002a882feab129fdd819eb2cdeffe2f82969833aa3c2bdbe74",
+    "images-remaining-results.ndjson": "c4e0d8eb6a924a4e8de8ce4f93858ba4dfee039cacc6c84cbdc189ba75a7450c",
+    "plan.json": "e9d20be6f81cd32e007d2d824a73cf35695c0b19278f441f1bff4f62514fe26c",
+    "scoring-items.json": "c6706673cb5954b6cfd960dc8b14fe9dd12475d051439b9f56b057946d008c32"
+  }
+}

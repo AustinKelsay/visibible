@@ -1,0 +1,89 @@
+{
+  "refs": {
+    "styleReference:classical": {
+      "storageId": "57da3a1dce4656f047e7aae781ed149437c32dcc4c4832b6fd862b3d070d3a6b",
+      "inputs": [
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "victorian-england-dreamlike-underground-wonderland",
+          "version": "149732d06d3d041fe52afc5823207ea4"
+        }
+      ],
+      "fingerprint": "7b7cf1393b28ce90aeae4691922d488d",
+      "pinned": false
+    },
+    "sheet:alice:alice": {
+      "storageId": "289600e43268fd0659d11bce87a8abf5d727e69d34d8f871a7d762174fbce81c",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "alice",
+          "version": "c9b5050809804f71e2bc2a90872cd13c"
+        },
+        {
+          "kind": "stage",
+          "recordId": "alice:alice",
+          "version": "335b571ab0422fe38ff970f2c6731db6"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "victorian-england-dreamlike-underground-wonderland",
+          "version": "2ea10974fb1898f775ff525cb34cf9b0"
+        }
+      ],
+      "fingerprint": "449b913f6990cc6a2f649317103d84db",
+      "pinned": false
+    },
+    "sheet:white_rabbit:white_rabbit": {
+      "storageId": "9d6ae2323cbd5a762c3326e2526d88911a9c28fa2133f9b49ae45b49303572b6",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "white_rabbit",
+          "version": "e2bf31a9f7e9511ecf320d21649ea8b5"
+        },
+        {
+          "kind": "stage",
+          "recordId": "white_rabbit:white_rabbit",
+          "version": "d8999ad3a51a166c128aaf5b7a97a42f"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "victorian-england-dreamlike-underground-wonderland",
+          "version": "2ea10974fb1898f775ff525cb34cf9b0"
+        }
+      ],
+      "fingerprint": "0f1066a53f249172f26ccc4df2911251",
+      "pinned": false
+    }
+  },
+  "files": {
+    "57da3a1dce4656f047e7aae781ed149437c32dcc4c4832b6fd862b3d070d3a6b": {
+      "file": "evals/images/runs/2026-10-30-identity-visuals/57da3a1dce4656f047e7aae781ed149437c32dcc4c4832b6fd862b3d070d3a6b.jpg",
+      "sha256": "57da3a1dce4656f047e7aae781ed149437c32dcc4c4832b6fd862b3d070d3a6b"
+    },
+    "289600e43268fd0659d11bce87a8abf5d727e69d34d8f871a7d762174fbce81c": {
+      "file": "evals/images/runs/2026-10-30-identity-visuals/289600e43268fd0659d11bce87a8abf5d727e69d34d8f871a7d762174fbce81c.jpg",
+      "sha256": "289600e43268fd0659d11bce87a8abf5d727e69d34d8f871a7d762174fbce81c"
+    },
+    "9d6ae2323cbd5a762c3326e2526d88911a9c28fa2133f9b49ae45b49303572b6": {
+      "file": "evals/images/runs/2026-10-30-identity-visuals/9d6ae2323cbd5a762c3326e2526d88911a9c28fa2133f9b49ae45b49303572b6.jpg",
+      "sha256": "9d6ae2323cbd5a762c3326e2526d88911a9c28fa2133f9b49ae45b49303572b6"
+    }
+  }
+}

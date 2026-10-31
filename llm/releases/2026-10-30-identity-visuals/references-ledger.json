@@ -1,0 +1,97 @@
+{
+  "capUsd": 1,
+  "calls": [
+    {
+      "phase": "reference",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03369575
+    },
+    {
+      "phase": "reference",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002604
+    },
+    {
+      "phase": "reference",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03370675
+    },
+    {
+      "phase": "reference",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002609
+    },
+    {
+      "phase": "reference",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03370625
+    },
+    {
+      "phase": "reference",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002784
+    },
+    {
+      "phase": "reference",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0336885
+    },
+    {
+      "phase": "reference",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002344
+    },
+    {
+      "phase": "reference",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033717
+    },
+    {
+      "phase": "reference",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003758
+    },
+    {
+      "phase": "reference",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.033717
+    },
+    {
+      "phase": "reference",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0004051
+    },
+    {
+      "phase": "reference",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03373775
+    },
+    {
+      "phase": "reference",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003581
+    }
+  ],
+  "measuredUsd": 0.2381421,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 7,
+    "check": 7
+  },
+  "blocked": null
+}

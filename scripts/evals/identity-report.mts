@@ -1,0 +1,40 @@
+/** Recompute diagnostic counts without changing scorer judgments or excluding failures. */
+import { readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
+import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+
+const dir = path.resolve(import.meta.dirname, "../../llm/releases/2026-10-30-identity-visuals");
+const read = <T,>(file: string): T => JSON.parse(readFileSync(path.join(dir, file), "utf8"));
+const lines = <T,>(file: string): T[] => readFileSync(path.join(dir, file), "utf8").trim().split("\n").map(s => JSON.parse(s));
+type Item = { id: string; kind: string; cases: string[]; category: string; chosen?: boolean };
+type Answer = { id: string; value: Record<string, string> };
+const items = read<Item[]>("scoring-items.json");
+const sources = ["score-a-answers.ndjson", "score-a-remaining-answers.ndjson", "score-b-answers.ndjson"];
+const a = [...lines<Answer>(sources[0]), ...lines<Answer>(sources[1])], b = lines<Answer>(sources[2]);
+const byId = (rows: Answer[]) => {
+  assert.equal(rows.length, items.length);
+  assert.deepEqual(rows.map(r => r.id).sort(), items.map(i => i.id).sort());
+  return new Map(rows.map(r => [r.id, r.value]));
+};
+const maps = [byId(a), byId(b)];
+const conditions = read<{ conditions: Array<{ id: string }> }>("plan.json").conditions.map(c => c.id);
+const condition = (id: string) => conditions.find(c => id.startsWith(c + "-"))!;
+const fields = ["sourceFaithful", "unsupportedProps", "stateCorrect", "styleAdherent", "artifactFree", "distinctiveAdaptation"];
+type Counts = Record<string, number>;
+const counts = (values: string[]): Counts => values.reduce<Counts>((n, v) => (n[v] = (n[v] ?? 0) + 1, n), {});
+const consensus = (item: Item, field: string) => maps[0].get(item.id)![field] === maps[1].get(item.id)![field] ? maps[0].get(item.id)![field] : "disputed";
+const summarize = (selected: Item[], columns: string[]) => ({ total: selected.length, consensus: Object.fromEntries(columns.map(f => [f, counts(selected.map(i => consensus(i, f)))])), scorers: maps.map(m => Object.fromEntries(columns.map(f => [f, counts(selected.map(i => m.get(i.id)![f]))]))) });
+const images = conditions.map(c => ({ condition: c, ...summarize(items.filter(i => i.kind === "image" && i.chosen && condition(i.cases[0]) === c), fields) }));
+const allAttempts = conditions.map(c => ({ condition: c, ...summarize(items.filter(i => i.kind === "image" && condition(i.cases[0]) === c), fields) }));
+const pairs = conditions.flatMap(c => ["same-scene", "cross-scene"].map(category => ({ condition: c, category, ...summarize(items.filter(i => i.kind === "pair" && condition(i.cases[0]) === c && i.category === category), ["identity"]) })));
+const variations = ["alice-theme", "alice-model"].map(category => ({ category, ...summarize(items.filter(i => i.category === category), ["identity"]) }));
+const disagreements = items.flatMap(i => (i.kind === "pair" ? ["identity"] : fields).filter(f => consensus(i, f) === "disputed").map(field => ({ id: i.id, field, a: maps[0].get(i.id)![field], b: maps[1].get(i.id)![field], cases: i.cases })));
+const phases = ["canon", "references", "text", "images", "images-remaining", "score-a", "score-a-remaining", "score-b"];
+const spending = phases.map(phase => ({ phase, ...read<{ measuredUsd: number; uncertainUsd: number }>(`${phase}-ledger.json`) })).map(({ phase, measuredUsd, uncertainUsd }) => ({ phase, measuredUsd, uncertainUsd }));
+const measuredUsd = Number(spending.reduce((n, p) => n + p.measuredUsd, 0).toFixed(9));
+const uncertainUsd = Number(spending.reduce((n, p) => n + p.uncertainUsd, 0).toFixed(9));
+assert.ok(measuredUsd + uncertainUsd <= 6);
+const report = { scope: "Small diagnostic; no release gate or human acceptance. Two independent calls to the same model; correlated errors possible. All disagreements retained, not adjudicated. No production mutation.", images, allAttempts, pairs, variations, disagreements, spending, measuredUsd, uncertainUsd, upperBoundUsd: Number((measuredUsd + uncertainUsd).toFixed(9)), sources: Object.fromEntries([...sources, "scoring-items.json"].map(f => [f, createHash("sha256").update(readFileSync(path.join(dir, f))).digest("hex")])) };
+writeFileSync(path.join(dir, "report.json"), JSON.stringify(report, null, 2) + "\n");
+console.log(JSON.stringify({ images, pairs, variations, disagreements: disagreements.length, measuredUsd, uncertainUsd }, null, 2));

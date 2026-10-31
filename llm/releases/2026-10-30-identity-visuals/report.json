@@ -1,0 +1,1263 @@
+{
+  "scope": "Small diagnostic; no release gate or human acceptance. Two independent calls to the same model; correlated errors possible. All disagreements retained, not adjudicated. No production mutation.",
+  "images": [
+    {
+      "condition": "alice-baseline",
+      "total": 9,
+      "consensus": {
+        "sourceFaithful": {
+          "yes": 9
+        },
+        "unsupportedProps": {
+          "no": 9
+        },
+        "stateCorrect": {
+          "yes": 7,
+          "disputed": 1,
+          "no": 1
+        },
+        "styleAdherent": {
+          "yes": 9
+        },
+        "artifactFree": {
+          "yes": 6,
+          "disputed": 2,
+          "no": 1
+        },
+        "distinctiveAdaptation": {
+          "no": 7,
+          "disputed": 2
+        }
+      },
+      "scorers": [
+        {
+          "sourceFaithful": {
+            "yes": 9
+          },
+          "unsupportedProps": {
+            "no": 9
+          },
+          "stateCorrect": {
+            "yes": 7,
+            "no": 2
+          },
+          "styleAdherent": {
+            "yes": 9
+          },
+          "artifactFree": {
+            "yes": 6,
+            "uncertain": 1,
+            "no": 2
+          },
+          "distinctiveAdaptation": {
+            "no": 8,
+            "uncertain": 1
+          }
+        },
+        {
+          "sourceFaithful": {
+            "yes": 9
+          },
+          "unsupportedProps": {
+            "no": 9
+          },
+          "stateCorrect": {
+            "yes": 8,
+            "no": 1
+          },
+          "styleAdherent": {
+            "yes": 9
+          },
+          "artifactFree": {
+            "yes": 6,
+            "no": 2,
+            "uncertain": 1
+          },
+          "distinctiveAdaptation": {
+            "no": 8,
+            "uncertain": 1
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-candidate",
+      "total": 9,
+      "consensus": {
+        "sourceFaithful": {
+          "yes": 7,
+          "uncertain": 1,
+          "disputed": 1
+        },
+        "unsupportedProps": {
+          "no": 9
+        },
+        "stateCorrect": {
+          "no": 4,
+          "yes": 5
+        },
+        "styleAdherent": {
+          "yes": 9
+        },
+        "artifactFree": {
+          "yes": 9
+        },
+        "distinctiveAdaptation": {
+          "no": 8,
+          "disputed": 1
+        }
+      },
+      "scorers": [
+        {
+          "sourceFaithful": {
+            "yes": 7,
+            "uncertain": 2
+          },
+          "unsupportedProps": {
+            "no": 9
+          },
+          "stateCorrect": {
+            "no": 4,
+            "yes": 5
+          },
+          "styleAdherent": {
+            "yes": 9
+          },
+          "artifactFree": {
+            "yes": 9
+          },
+          "distinctiveAdaptation": {
+            "no": 8,
+            "yes": 1
+          }
+        },
+        {
+          "sourceFaithful": {
+            "yes": 7,
+            "uncertain": 1,
+            "no": 1
+          },
+          "unsupportedProps": {
+            "no": 9
+          },
+          "stateCorrect": {
+            "no": 4,
+            "yes": 5
+          },
+          "styleAdherent": {
+            "yes": 9
+          },
+          "artifactFree": {
+            "yes": 9
+          },
+          "distinctiveAdaptation": {
+            "no": 9
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-theme",
+      "total": 8,
+      "consensus": {
+        "sourceFaithful": {
+          "yes": 8
+        },
+        "unsupportedProps": {
+          "no": 8
+        },
+        "stateCorrect": {
+          "yes": 7,
+          "no": 1
+        },
+        "styleAdherent": {
+          "yes": 8
+        },
+        "artifactFree": {
+          "yes": 4,
+          "no": 4
+        },
+        "distinctiveAdaptation": {
+          "no": 8
+        }
+      },
+      "scorers": [
+        {
+          "sourceFaithful": {
+            "yes": 8
+          },
+          "unsupportedProps": {
+            "no": 8
+          },
+          "stateCorrect": {
+            "yes": 7,
+            "no": 1
+          },
+          "styleAdherent": {
+            "yes": 8
+          },
+          "artifactFree": {
+            "yes": 4,
+            "no": 4
+          },
+          "distinctiveAdaptation": {
+            "no": 8
+          }
+        },
+        {
+          "sourceFaithful": {
+            "yes": 8
+          },
+          "unsupportedProps": {
+            "no": 8
+          },
+          "stateCorrect": {
+            "yes": 7,
+            "no": 1
+          },
+          "styleAdherent": {
+            "yes": 8
+          },
+          "artifactFree": {
+            "yes": 4,
+            "no": 4
+          },
+          "distinctiveAdaptation": {
+            "no": 8
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-model",
+      "total": 9,
+      "consensus": {
+        "sourceFaithful": {
+          "yes": 9
+        },
+        "unsupportedProps": {
+          "no": 9
+        },
+        "stateCorrect": {
+          "yes": 6,
+          "no": 2,
+          "disputed": 1
+        },
+        "styleAdherent": {
+          "yes": 9
+        },
+        "artifactFree": {
+          "yes": 8,
+          "no": 1
+        },
+        "distinctiveAdaptation": {
+          "no": 9
+        }
+      },
+      "scorers": [
+        {
+          "sourceFaithful": {
+            "yes": 9
+          },
+          "unsupportedProps": {
+            "no": 9
+          },
+          "stateCorrect": {
+            "yes": 7,
+            "no": 2
+          },
+          "styleAdherent": {
+            "yes": 9
+          },
+          "artifactFree": {
+            "yes": 8,
+            "no": 1
+          },
+          "distinctiveAdaptation": {
+            "no": 9
+          }
+        },
+        {
+          "sourceFaithful": {
+            "yes": 9
+          },
+          "unsupportedProps": {
+            "no": 9
+          },
+          "stateCorrect": {
+            "yes": 6,
+            "no": 3
+          },
+          "styleAdherent": {
+            "yes": 9
+          },
+          "artifactFree": {
+            "yes": 8,
+            "no": 1
+          },
+          "distinctiveAdaptation": {
+            "no": 9
+          }
+        }
+      ]
+    },
+    {
+      "condition": "bible-control",
+      "total": 9,
+      "consensus": {
+        "sourceFaithful": {
+          "yes": 9
+        },
+        "unsupportedProps": {
+          "no": 9
+        },
+        "stateCorrect": {
+          "yes": 8,
+          "uncertain": 1
+        },
+        "styleAdherent": {
+          "yes": 9
+        },
+        "artifactFree": {
+          "yes": 9
+        },
+        "distinctiveAdaptation": {
+          "no": 9
+        }
+      },
+      "scorers": [
+        {
+          "sourceFaithful": {
+            "yes": 9
+          },
+          "unsupportedProps": {
+            "no": 9
+          },
+          "stateCorrect": {
+            "yes": 8,
+            "uncertain": 1
+          },
+          "styleAdherent": {
+            "yes": 9
+          },
+          "artifactFree": {
+            "yes": 9
+          },
+          "distinctiveAdaptation": {
+            "no": 9
+          }
+        },
+        {
+          "sourceFaithful": {
+            "yes": 9
+          },
+          "unsupportedProps": {
+            "no": 9
+          },
+          "stateCorrect": {
+            "yes": 8,
+            "uncertain": 1
+          },
+          "styleAdherent": {
+            "yes": 9
+          },
+          "artifactFree": {
+            "yes": 9
+          },
+          "distinctiveAdaptation": {
+            "no": 9
+          }
+        }
+      ]
+    }
+  ],
+  "allAttempts": [
+    {
+      "condition": "alice-baseline",
+      "total": 14,
+      "consensus": {
+        "sourceFaithful": {
+          "yes": 13,
+          "no": 1
+        },
+        "unsupportedProps": {
+          "no": 14
+        },
+        "stateCorrect": {
+          "disputed": 2,
+          "yes": 11,
+          "no": 1
+        },
+        "styleAdherent": {
+          "yes": 14
+        },
+        "artifactFree": {
+          "no": 6,
+          "yes": 6,
+          "disputed": 2
+        },
+        "distinctiveAdaptation": {
+          "disputed": 3,
+          "no": 11
+        }
+      },
+      "scorers": [
+        {
+          "sourceFaithful": {
+            "yes": 13,
+            "no": 1
+          },
+          "unsupportedProps": {
+            "no": 14
+          },
+          "stateCorrect": {
+            "yes": 12,
+            "no": 2
+          },
+          "styleAdherent": {
+            "yes": 14
+          },
+          "artifactFree": {
+            "no": 7,
+            "yes": 6,
+            "uncertain": 1
+          },
+          "distinctiveAdaptation": {
+            "uncertain": 2,
+            "no": 12
+          }
+        },
+        {
+          "sourceFaithful": {
+            "yes": 13,
+            "no": 1
+          },
+          "unsupportedProps": {
+            "no": 14
+          },
+          "stateCorrect": {
+            "no": 2,
+            "yes": 12
+          },
+          "styleAdherent": {
+            "yes": 14
+          },
+          "artifactFree": {
+            "no": 7,
+            "yes": 6,
+            "uncertain": 1
+          },
+          "distinctiveAdaptation": {
+            "no": 13,
+            "uncertain": 1
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-candidate",
+      "total": 11,
+      "consensus": {
+        "sourceFaithful": {
+          "yes": 9,
+          "uncertain": 1,
+          "disputed": 1
+        },
+        "unsupportedProps": {
+          "no": 11
+        },
+        "stateCorrect": {
+          "yes": 7,
+          "no": 4
+        },
+        "styleAdherent": {
+          "yes": 11
+        },
+        "artifactFree": {
+          "no": 2,
+          "yes": 9
+        },
+        "distinctiveAdaptation": {
+          "no": 10,
+          "disputed": 1
+        }
+      },
+      "scorers": [
+        {
+          "sourceFaithful": {
+            "yes": 9,
+            "uncertain": 2
+          },
+          "unsupportedProps": {
+            "no": 11
+          },
+          "stateCorrect": {
+            "yes": 7,
+            "no": 4
+          },
+          "styleAdherent": {
+            "yes": 11
+          },
+          "artifactFree": {
+            "no": 2,
+            "yes": 9
+          },
+          "distinctiveAdaptation": {
+            "no": 10,
+            "yes": 1
+          }
+        },
+        {
+          "sourceFaithful": {
+            "yes": 9,
+            "uncertain": 1,
+            "no": 1
+          },
+          "unsupportedProps": {
+            "no": 11
+          },
+          "stateCorrect": {
+            "yes": 7,
+            "no": 4
+          },
+          "styleAdherent": {
+            "yes": 11
+          },
+          "artifactFree": {
+            "no": 2,
+            "yes": 9
+          },
+          "distinctiveAdaptation": {
+            "no": 11
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-theme",
+      "total": 9,
+      "consensus": {
+        "sourceFaithful": {
+          "yes": 9
+        },
+        "unsupportedProps": {
+          "no": 9
+        },
+        "stateCorrect": {
+          "yes": 7,
+          "no": 2
+        },
+        "styleAdherent": {
+          "yes": 9
+        },
+        "artifactFree": {
+          "yes": 5,
+          "no": 4
+        },
+        "distinctiveAdaptation": {
+          "no": 9
+        }
+      },
+      "scorers": [
+        {
+          "sourceFaithful": {
+            "yes": 9
+          },
+          "unsupportedProps": {
+            "no": 9
+          },
+          "stateCorrect": {
+            "yes": 7,
+            "no": 2
+          },
+          "styleAdherent": {
+            "yes": 9
+          },
+          "artifactFree": {
+            "yes": 5,
+            "no": 4
+          },
+          "distinctiveAdaptation": {
+            "no": 9
+          }
+        },
+        {
+          "sourceFaithful": {
+            "yes": 9
+          },
+          "unsupportedProps": {
+            "no": 9
+          },
+          "stateCorrect": {
+            "yes": 7,
+            "no": 2
+          },
+          "styleAdherent": {
+            "yes": 9
+          },
+          "artifactFree": {
+            "yes": 5,
+            "no": 4
+          },
+          "distinctiveAdaptation": {
+            "no": 9
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-model",
+      "total": 10,
+      "consensus": {
+        "sourceFaithful": {
+          "yes": 10
+        },
+        "unsupportedProps": {
+          "no": 10
+        },
+        "stateCorrect": {
+          "yes": 7,
+          "no": 2,
+          "disputed": 1
+        },
+        "styleAdherent": {
+          "yes": 10
+        },
+        "artifactFree": {
+          "no": 2,
+          "yes": 8
+        },
+        "distinctiveAdaptation": {
+          "no": 10
+        }
+      },
+      "scorers": [
+        {
+          "sourceFaithful": {
+            "yes": 10
+          },
+          "unsupportedProps": {
+            "no": 10
+          },
+          "stateCorrect": {
+            "yes": 8,
+            "no": 2
+          },
+          "styleAdherent": {
+            "yes": 10
+          },
+          "artifactFree": {
+            "no": 2,
+            "yes": 8
+          },
+          "distinctiveAdaptation": {
+            "no": 10
+          }
+        },
+        {
+          "sourceFaithful": {
+            "yes": 10
+          },
+          "unsupportedProps": {
+            "no": 10
+          },
+          "stateCorrect": {
+            "yes": 7,
+            "no": 3
+          },
+          "styleAdherent": {
+            "yes": 10
+          },
+          "artifactFree": {
+            "no": 2,
+            "yes": 8
+          },
+          "distinctiveAdaptation": {
+            "no": 10
+          }
+        }
+      ]
+    },
+    {
+      "condition": "bible-control",
+      "total": 10,
+      "consensus": {
+        "sourceFaithful": {
+          "yes": 10
+        },
+        "unsupportedProps": {
+          "no": 10
+        },
+        "stateCorrect": {
+          "disputed": 1,
+          "yes": 8,
+          "uncertain": 1
+        },
+        "styleAdherent": {
+          "yes": 10
+        },
+        "artifactFree": {
+          "yes": 10
+        },
+        "distinctiveAdaptation": {
+          "no": 10
+        }
+      },
+      "scorers": [
+        {
+          "sourceFaithful": {
+            "yes": 10
+          },
+          "unsupportedProps": {
+            "no": 10
+          },
+          "stateCorrect": {
+            "uncertain": 2,
+            "yes": 8
+          },
+          "styleAdherent": {
+            "yes": 10
+          },
+          "artifactFree": {
+            "yes": 10
+          },
+          "distinctiveAdaptation": {
+            "no": 10
+          }
+        },
+        {
+          "sourceFaithful": {
+            "yes": 10
+          },
+          "unsupportedProps": {
+            "no": 10
+          },
+          "stateCorrect": {
+            "yes": 9,
+            "uncertain": 1
+          },
+          "styleAdherent": {
+            "yes": 10
+          },
+          "artifactFree": {
+            "yes": 10
+          },
+          "distinctiveAdaptation": {
+            "no": 10
+          }
+        }
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "condition": "alice-baseline",
+      "category": "same-scene",
+      "total": 9,
+      "consensus": {
+        "identity": {
+          "same": 8,
+          "disputed": 1
+        }
+      },
+      "scorers": [
+        {
+          "identity": {
+            "same": 9
+          }
+        },
+        {
+          "identity": {
+            "same": 8,
+            "different": 1
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-baseline",
+      "category": "cross-scene",
+      "total": 9,
+      "consensus": {
+        "identity": {
+          "same": 9
+        }
+      },
+      "scorers": [
+        {
+          "identity": {
+            "same": 9
+          }
+        },
+        {
+          "identity": {
+            "same": 9
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-candidate",
+      "category": "same-scene",
+      "total": 9,
+      "consensus": {
+        "identity": {
+          "same": 4,
+          "unclear": 3,
+          "disputed": 1,
+          "different": 1
+        }
+      },
+      "scorers": [
+        {
+          "identity": {
+            "same": 4,
+            "unclear": 4,
+            "different": 1
+          }
+        },
+        {
+          "identity": {
+            "same": 5,
+            "unclear": 3,
+            "different": 1
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-candidate",
+      "category": "cross-scene",
+      "total": 9,
+      "consensus": {
+        "identity": {
+          "same": 2,
+          "unclear": 7
+        }
+      },
+      "scorers": [
+        {
+          "identity": {
+            "same": 2,
+            "unclear": 7
+          }
+        },
+        {
+          "identity": {
+            "same": 2,
+            "unclear": 7
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-theme",
+      "category": "same-scene",
+      "total": 9,
+      "consensus": {
+        "identity": {
+          "same": 6,
+          "unclear": 3
+        }
+      },
+      "scorers": [
+        {
+          "identity": {
+            "same": 6,
+            "unclear": 3
+          }
+        },
+        {
+          "identity": {
+            "same": 6,
+            "unclear": 3
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-theme",
+      "category": "cross-scene",
+      "total": 9,
+      "consensus": {
+        "identity": {
+          "unclear": 6,
+          "same": 3
+        }
+      },
+      "scorers": [
+        {
+          "identity": {
+            "unclear": 6,
+            "same": 3
+          }
+        },
+        {
+          "identity": {
+            "unclear": 6,
+            "same": 3
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-model",
+      "category": "same-scene",
+      "total": 9,
+      "consensus": {
+        "identity": {
+          "different": 1,
+          "same": 5,
+          "unclear": 3
+        }
+      },
+      "scorers": [
+        {
+          "identity": {
+            "different": 1,
+            "same": 5,
+            "unclear": 3
+          }
+        },
+        {
+          "identity": {
+            "different": 1,
+            "same": 5,
+            "unclear": 3
+          }
+        }
+      ]
+    },
+    {
+      "condition": "alice-model",
+      "category": "cross-scene",
+      "total": 9,
+      "consensus": {
+        "identity": {
+          "unclear": 6,
+          "same": 3
+        }
+      },
+      "scorers": [
+        {
+          "identity": {
+            "unclear": 6,
+            "same": 3
+          }
+        },
+        {
+          "identity": {
+            "unclear": 6,
+            "same": 3
+          }
+        }
+      ]
+    },
+    {
+      "condition": "bible-control",
+      "category": "same-scene",
+      "total": 9,
+      "consensus": {
+        "identity": {
+          "same": 2,
+          "different": 2,
+          "unclear": 4,
+          "disputed": 1
+        }
+      },
+      "scorers": [
+        {
+          "identity": {
+            "same": 2,
+            "different": 3,
+            "unclear": 4
+          }
+        },
+        {
+          "identity": {
+            "same": 2,
+            "different": 2,
+            "unclear": 5
+          }
+        }
+      ]
+    },
+    {
+      "condition": "bible-control",
+      "category": "cross-scene",
+      "total": 9,
+      "consensus": {
+        "identity": {
+          "unclear": 4,
+          "same": 4,
+          "different": 1
+        }
+      },
+      "scorers": [
+        {
+          "identity": {
+            "unclear": 4,
+            "same": 4,
+            "different": 1
+          }
+        },
+        {
+          "identity": {
+            "unclear": 4,
+            "same": 4,
+            "different": 1
+          }
+        }
+      ]
+    }
+  ],
+  "variations": [
+    {
+      "category": "alice-theme",
+      "total": 9,
+      "consensus": {
+        "identity": {
+          "same": 4,
+          "different": 1,
+          "unclear": 3,
+          "disputed": 1
+        }
+      },
+      "scorers": [
+        {
+          "identity": {
+            "same": 4,
+            "different": 2,
+            "unclear": 3
+          }
+        },
+        {
+          "identity": {
+            "same": 4,
+            "different": 1,
+            "unclear": 4
+          }
+        }
+      ]
+    },
+    {
+      "category": "alice-model",
+      "total": 9,
+      "consensus": {
+        "identity": {
+          "different": 3,
+          "same": 3,
+          "unclear": 3
+        }
+      },
+      "scorers": [
+        {
+          "identity": {
+            "different": 3,
+            "same": 3,
+            "unclear": 3
+          }
+        },
+        {
+          "identity": {
+            "different": 3,
+            "same": 3,
+            "unclear": 3
+          }
+        }
+      ]
+    }
+  ],
+  "disagreements": [
+    {
+      "id": "v009",
+      "field": "stateCorrect",
+      "a": "yes",
+      "b": "no",
+      "cases": [
+        "alice-baseline-rabbit-gloves-1"
+      ]
+    },
+    {
+      "id": "v009",
+      "field": "distinctiveAdaptation",
+      "a": "uncertain",
+      "b": "no",
+      "cases": [
+        "alice-baseline-rabbit-gloves-1"
+      ]
+    },
+    {
+      "id": "v032",
+      "field": "identity",
+      "a": "same",
+      "b": "different",
+      "cases": [
+        "alice-baseline-rabbit-gloves-1",
+        "alice-baseline-rabbit-gloves-2"
+      ]
+    },
+    {
+      "id": "v038",
+      "field": "identity",
+      "a": "unclear",
+      "b": "same",
+      "cases": [
+        "alice-candidate-rabbit-watch-1",
+        "alice-candidate-rabbit-watch-3"
+      ]
+    },
+    {
+      "id": "v053",
+      "field": "identity",
+      "a": "different",
+      "b": "unclear",
+      "cases": [
+        "bible-control-peter-water-1",
+        "bible-control-peter-water-3"
+      ]
+    },
+    {
+      "id": "v054",
+      "field": "stateCorrect",
+      "a": "uncertain",
+      "b": "yes",
+      "cases": [
+        "bible-control-peter-sea-3"
+      ]
+    },
+    {
+      "id": "v058",
+      "field": "stateCorrect",
+      "a": "no",
+      "b": "yes",
+      "cases": [
+        "alice-baseline-rabbit-gloves-1"
+      ]
+    },
+    {
+      "id": "v058",
+      "field": "artifactFree",
+      "a": "uncertain",
+      "b": "no",
+      "cases": [
+        "alice-baseline-rabbit-gloves-1"
+      ]
+    },
+    {
+      "id": "v058",
+      "field": "distinctiveAdaptation",
+      "a": "uncertain",
+      "b": "no",
+      "cases": [
+        "alice-baseline-rabbit-gloves-1"
+      ]
+    },
+    {
+      "id": "v067",
+      "field": "artifactFree",
+      "a": "no",
+      "b": "uncertain",
+      "cases": [
+        "alice-baseline-rabbit-gloves-3"
+      ]
+    },
+    {
+      "id": "v091",
+      "field": "distinctiveAdaptation",
+      "a": "yes",
+      "b": "no",
+      "cases": [
+        "alice-candidate-rabbit-watch-3"
+      ]
+    },
+    {
+      "id": "v109",
+      "field": "identity",
+      "a": "different",
+      "b": "unclear",
+      "cases": [
+        "alice-candidate-rabbit-watch-2",
+        "alice-theme-rabbit-watch-2"
+      ]
+    },
+    {
+      "id": "v113",
+      "field": "stateCorrect",
+      "a": "yes",
+      "b": "no",
+      "cases": [
+        "alice-model-rabbit-gloves-2"
+      ]
+    },
+    {
+      "id": "v135",
+      "field": "distinctiveAdaptation",
+      "a": "no",
+      "b": "uncertain",
+      "cases": [
+        "alice-baseline-rabbit-gloves-2"
+      ]
+    },
+    {
+      "id": "v150",
+      "field": "sourceFaithful",
+      "a": "uncertain",
+      "b": "no",
+      "cases": [
+        "alice-candidate-rabbit-mary-ann-1"
+      ]
+    }
+  ],
+  "spending": [
+    {
+      "phase": "canon",
+      "measuredUsd": 0.0649241,
+      "uncertainUsd": 0
+    },
+    {
+      "phase": "references",
+      "measuredUsd": 0.2381421,
+      "uncertainUsd": 0
+    },
+    {
+      "phase": "text",
+      "measuredUsd": 0.0149393,
+      "uncertainUsd": 0
+    },
+    {
+      "phase": "images",
+      "measuredUsd": 1.1917871,
+      "uncertainUsd": 0.12666475
+    },
+    {
+      "phase": "images-remaining",
+      "measuredUsd": 1.0584186,
+      "uncertainUsd": 0
+    },
+    {
+      "phase": "score-a",
+      "measuredUsd": 0.0026812,
+      "uncertainUsd": 0.0069606
+    },
+    {
+      "phase": "score-a-remaining",
+      "measuredUsd": 0.0866361,
+      "uncertainUsd": 0
+    },
+    {
+      "phase": "score-b",
+      "measuredUsd": 0.0891133,
+      "uncertainUsd": 0
+    }
+  ],
+  "measuredUsd": 2.7466418,
+  "uncertainUsd": 0.13362535,
+  "upperBoundUsd": 2.88026715,
+  "sources": {
+    "score-a-answers.ndjson": "a8ed938032f9ea541060e3fecada137320449ecccacd5bae60b1c71ea55f3ef7",
+    "score-a-remaining-answers.ndjson": "12b4152978adc925ca772dc94c91be6fa3a98ce37848ac31fc7850559066008a",
+    "score-b-answers.ndjson": "e3a7e98ad8979a649d743d06d57e52de1bd4ffc4c08fcb44858ee88bcb83a0b1",
+    "scoring-items.json": "c6706673cb5954b6cfd960dc8b14fe9dd12475d051439b9f56b057946d008c32"
+  }
+}
