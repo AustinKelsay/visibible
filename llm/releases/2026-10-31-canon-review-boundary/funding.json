@@ -1,0 +1,10 @@
+{
+  "status": "within-existing-grant",
+  "authorization": "User approved a $7 cumulative evaluation cap, then accepted the recommended bounded canon/review investigation: Okay, your recommendation. No increase or top-up.",
+  "operationCapUsd": 0.15,
+  "cumulativeCapUsd": 7,
+  "priorConservativeUsd": 6.63054885,
+  "maximumCumulativeUsd": 6.78054885,
+  "readerReserveUsd": 5,
+  "executionPrerequisite": "Frozen inputs, offline verification, independent pre-execution review, clean committed checkout and live balance/key checks. No images, production writes or activation."
+}

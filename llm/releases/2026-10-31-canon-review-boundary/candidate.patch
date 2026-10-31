@@ -1,0 +1,12 @@
+--- a/src/lib/engine/plan-review.ts
++++ b/src/lib/engine/plan-review.ts
+@@ -16,3 +16,3 @@
+ /** Bump for changes to the review instructions, schema or acceptance rules; plans refresh lazily. */
+-export const PLAN_REVIEW_PROMPT_VERSION = "2026-10-27-plan-review-v12";
++export const PLAN_REVIEW_PROMPT_VERSION = "2026-10-31-plan-review-identity-v13";
+ /** The benchmarked configuration: reasoning off flagged every clean plan. Thinking needs room above 1,024 tokens. */
+@@ -31,3 +31,3 @@
+ ${effects ? `- embodied_formless: ${effects.reviewFault}\n` : ""}- look_conflict: an OWNER LOOK CONSTRAINTS value (only when supplied) contradicts the scene, the text or the depiction rules. Quote that value.
+-- canon_conflict: a scene field contradicts a selected entry's fixed canon. Quote the scene field.
++- canon_conflict: the scene changes a selected entry's recurring identity without source support. Judge enduring design, not moment-specific state. Quote the scene detail.
+ - missing_canon: the scene depicts a named recurring character or group with no section cast entry. Leave entryId empty.

@@ -1,0 +1,150 @@
+{
+  "scope": "Exploratory reviewer-only diagnostic; unblinded interpretation; not an activation gate",
+  "completedReviews": 42,
+  "candidateTargetChecks": {
+    "matched": 21,
+    "total": 21
+  },
+  "narrowCriterionMet": true,
+  "activationApproved": false,
+  "visualEvidence": false,
+  "arms": {
+    "queen-retained-paragraph/baseline/original": {
+      "reviews": 3,
+      "targetMatches": 2,
+      "targetConflicts": 1,
+      "otherKindOrEntryProblems": 2,
+      "otherKinds": {
+        "missing_canon": 2
+      }
+    },
+    "queen-retained-paragraph/rule/original": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 0,
+      "otherKindOrEntryProblems": 1,
+      "otherKinds": {
+        "missing_canon": 1
+      }
+    },
+    "queen-retained-paragraph/baseline/clean": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 0,
+      "otherKindOrEntryProblems": 2,
+      "otherKinds": {
+        "missing_canon": 2
+      }
+    },
+    "queen-retained-paragraph/rule/clean": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 0,
+      "otherKindOrEntryProblems": 0,
+      "otherKinds": {}
+    },
+    "queen-current-smile/baseline/original": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 0,
+      "otherKindOrEntryProblems": 3,
+      "otherKinds": {
+        "unselected_figure": 3
+      }
+    },
+    "queen-current-smile/rule/original": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 0,
+      "otherKindOrEntryProblems": 3,
+      "otherKinds": {
+        "unselected_figure": 3
+      }
+    },
+    "queen-current-design/baseline/original": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 3,
+      "otherKindOrEntryProblems": 3,
+      "otherKinds": {
+        "unselected_figure": 3
+      }
+    },
+    "queen-current-design/rule/original": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 3,
+      "otherKindOrEntryProblems": 3,
+      "otherKinds": {
+        "unselected_figure": 3
+      }
+    },
+    "generic-changing-clothing/baseline/original": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 0,
+      "otherKindOrEntryProblems": 0,
+      "otherKinds": {}
+    },
+    "generic-changing-clothing/rule/original": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 0,
+      "otherKindOrEntryProblems": 0,
+      "otherKinds": {}
+    },
+    "generic-recurring-identity/baseline/original": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 3,
+      "otherKindOrEntryProblems": 0,
+      "otherKinds": {}
+    },
+    "generic-recurring-identity/rule/original": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 3,
+      "otherKindOrEntryProblems": 0,
+      "otherKinds": {}
+    },
+    "owner-clothing-constraint/baseline/original": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 3,
+      "otherKindOrEntryProblems": 0,
+      "otherKinds": {}
+    },
+    "owner-clothing-constraint/rule/original": {
+      "reviews": 3,
+      "targetMatches": 3,
+      "targetConflicts": 3,
+      "otherKindOrEntryProblems": 0,
+      "otherKinds": {}
+    }
+  },
+  "verified": {
+    "frozenHashes": 40,
+    "requestHashes": 42,
+    "providerAnswers": 42,
+    "problemQuotesAndIds": 37,
+    "ledgerCalls": 42,
+    "noUnsettledOrUncertainCalls": true
+  },
+  "funding": {
+    "measuredUsd": 0.0171137,
+    "uncertainUsd": 0,
+    "operationCapUsd": 0.15,
+    "scheduledCeilingsUsd": 0.1058901,
+    "priorConservativeUsd": 6.63054885,
+    "cumulativeConservativeUsd": 6.64766255,
+    "cumulativeCapUsd": 7,
+    "remainingAuthorizationUsd": 0.35233745
+  },
+  "limitations": [
+    "Post-hoc fixtures, three repeats, one reviewer model and low reasoning.",
+    "Target flags do not establish whole-review or scene validity.",
+    "Queen baseline design repetition 1 and candidate repetition 2 overinterpret robe versus gown while also correctly detecting silver hair.",
+    "Missing-canon reporting differs across retained-paragraph arms.",
+    "No replan, image, full-suite quality gate or production correction was tested."
+  ]
+}
