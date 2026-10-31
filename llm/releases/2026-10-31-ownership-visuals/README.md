@@ -1,6 +1,6 @@
 # Ownership wording — bounded visual comparison
 
-**Status: prepared offline; execution awaits a budget increase.** This tests the [two-line ownership candidate](../2026-10-31-scene-input-ownership/README.md) with every other input held fixed. It makes no production change. No images have been generated for this run.
+**Status: preparation reviewed and the budget increase approved; ready for execution.** This tests the [two-line ownership candidate](../2026-10-31-scene-input-ownership/README.md) with every other input held fixed. It makes no production change. No images have been generated for this run.
 
 ## Frozen comparison
 
@@ -30,9 +30,9 @@ Every paid call uses the existing ledger's pre-call price ceiling. Exhausted cap
 
 The [previous close](../2026-10-31-scene-input-visuals/funding-close.json) records **$5.47693685** conservative cumulative spend against the user's explicit **$6 hard cap**, leaving **$0.52306315**. That authorization does not cover this proposed $1.40 operation cap.
 
-[funding.json](funding.json) therefore remains `pending`, with an authorized cumulative cap of $6 and a proposed cap of **$7**. The proposed operation maximum would reach **$6.87693685**, below $7. A read-only account check found $10.005905238 available and $25.005538446 key allowance. No top-up is needed at that balance; the $5 reader reserve remains protected. Execution rechecks account funds, key allowance and current pricing immediately before starting.
+[funding.json](funding.json) records the user's explicit approval to raise the cumulative cap to **$7** and run this comparison with a **$1.40 operation cap**. The operation maximum would reach **$6.87693685**, below $7. A fresh read-only account check found $10.005905238 available and $25.005538446 key allowance. No top-up is needed at that balance; the $5 reader reserve remains protected. Execution rechecks account funds, key allowance and current pricing immediately before starting.
 
-User approval must precede paid execution. If approved, record that authorization and the $7 authorized cap in `funding.json`, update only that file's hash in the input manifest, verify all hashes, and commit before running. Keep the runner, plan, prompts and reference hashes fixed. `--execute` currently fails before reading credentials, calling the network or writing a start marker.
+Approval changed only the funding authorization record and its manifest hash; the runner, plan, prompts and reference hashes remain fixed. All inputs must be committed before spending. The preparation check demonstrated that `--execute` rejects pending authorization before reading credentials, calling the network or writing a start marker.
 
 ## Offline verification
 
