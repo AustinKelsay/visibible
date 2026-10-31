@@ -21,6 +21,13 @@ it("reuses only frozen guides, rejects stale guides and keeps the source snapsho
   mkdirSync(dirs[0], { recursive: true });
   try {
     for (const file of ["plan.json", "snapshot.json", "run-finished.json", "results.ndjson"]) copyFileSync(path.join(source, file), path.join(dirs[0], file));
+    const sourcePlan = read(path.join(dirs[0], "plan.json"));
+    sourcePlan.suite = "incompatible-suite";
+    writeFileSync(path.join(dirs[0], "plan.json"), JSON.stringify(sourcePlan));
+    expect(() => cli("plan", "--run", names[3], "--tier", "text", "--from", prefix)).toThrow(/incompatible-suite/);
+    // Synthetic harness data only: relabel this temporary copy, never the retained evaluation evidence.
+    sourcePlan.suite = read(path.join(root, "evals/images/suite.json")).version;
+    writeFileSync(path.join(dirs[0], "plan.json"), JSON.stringify(sourcePlan));
     const sourceRows = rows(path.join(dirs[0], "results.ndjson"));
     for (const [index, stale] of [[1, false], [2, true]] as const) {
       if (stale) {
