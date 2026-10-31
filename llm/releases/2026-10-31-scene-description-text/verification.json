@@ -1,0 +1,77 @@
+{
+  "status": "verified-offline",
+  "sharedFileHashesVerified": 17,
+  "referenceByteHashesVerifiedBothCopies": 55,
+  "approvedCandidateFilesVerified": 43,
+  "sameInitialPlannerUserMessagesAndSettings": 113,
+  "sameSourceContextAndGuides": 113,
+  "arms": {
+    "control": {
+      "frozenCommit": "cb1ac405ffb2e09b8e70a99185fea8a5c547d950",
+      "sourceHashesVerified": 30,
+      "allSourcesMatchCommittedBlobs": true,
+      "ledgerExchangesReconciled": 293,
+      "callsWithinRecordedCeilings": 293,
+      "replay": {
+        "arm": "control",
+        "rowsReproducedIgnoringElapsedMs": 113,
+        "exactRequestsReplayed": 293,
+        "allPlanPayloadVersionsMatch": true,
+        "allRecordedCeilingsReproducedWithClosingCatalog": true,
+        "networkCalls": 0,
+        "images": 0,
+        "checks": 0
+      }
+    },
+    "candidate": {
+      "frozenCommit": "45d4cc4a16d422fb0d42293a6af479c069b92d35",
+      "sourceHashesVerified": 30,
+      "allSourcesMatchCommittedBlobs": true,
+      "ledgerExchangesReconciled": 324,
+      "callsWithinRecordedCeilings": 324,
+      "replay": {
+        "arm": "candidate",
+        "rowsReproducedIgnoringElapsedMs": 113,
+        "exactRequestsReplayed": 324,
+        "allPlanPayloadVersionsMatch": true,
+        "allRecordedCeilingsReproducedWithClosingCatalog": true,
+        "networkCalls": 0,
+        "images": 0,
+        "checks": 0
+      }
+    }
+  },
+  "fullReplayMethod": "In each frozen arm, rebuild SuiteWork inputs and seed only the original guides. Run runSuite using createOpenRouterTextModel with a fake fetch that asserts each outgoing request equals the recorded per-case request then returns its saved HTTP status/body. Global fetch, image and checker are forbidden. Compare every result field except elapsedMs, consume every exchange, recompute contentVersion and request ceilings.",
+  "replayVerifierSha256": "9265edd60ede465e42b39509b0b0486f99e0f7585f033805a54e7c505da4c158",
+  "aggregationVerifierSha256": "72a5eec24d49353b056f5daa5e24d57e681fc4ac0e51c1d63e3d2be88c1f1f16",
+  "runtimeAndProductionInputsMatchBase": true,
+  "fundingReconciled": true,
+  "artifactSha256": {
+    "llm/releases/2026-10-31-scene-description-control/funding.json": "6539d4eda4cd289b8e09feb1f646e768aaf94d38d4fd4ad23bd1f68a56f2c0cd",
+    "llm/releases/2026-10-31-scene-description-control/frozen-commit.json": "d3503b75e0e5d62079bd6641ede2109aa671975fed223a2a19ebefa391175825",
+    "llm/releases/2026-10-31-scene-description-control/plan.json": "5afc446afe7025eae06704e0b133c4ef15aca81e4463bc49e8423a11e44950b0",
+    "llm/releases/2026-10-31-scene-description-control/run-started.json": "717403d32cef910cf08471df8535f413e1e36f932b8198376a1bc6762a48c0e7",
+    "llm/releases/2026-10-31-scene-description-control/results.ndjson": "da82e74ff8ff0a74cbcd12cbb33843342a7b55002c528d51e78273f6a3e2011d",
+    "llm/releases/2026-10-31-scene-description-control/run-finished.json": "03381ccf2323b02242ce8dc5f036e3f339f1664bfca01473e4664f0c3c09ee53",
+    "llm/releases/2026-10-31-scene-description-control/ledger.json": "e08e5742df274e4f0ebb51b67fa175fca20044ca87daeb248f9dbe8081ece368",
+    "llm/releases/2026-10-31-scene-description-control/provider.ndjson": "7433218f6d7fce7729cb024a662c953d1a9808514ba4e6f81380f5b6b4fe37e3",
+    "llm/releases/2026-10-31-scene-description-control/scoring/key.json": "4eabecc747fcfffb58ef9f251a64945ac324e16e9cb9709f384ed66b3c50d980",
+    "llm/releases/2026-10-31-scene-description-control/scoring/items-1.json": "0cbef90272d5c94d2f0eafeebd36f4279e298f8cfdf90200def7579d0ed1c9a3",
+    "llm/releases/2026-10-31-scene-description-control/scoring/SCORING.md": "6c793d39280f0b2f3db907398691e6dfd86cffc919e254e3a1e5e30412807b66",
+    "llm/releases/2026-10-31-scene-description-candidate/funding.json": "7b55354c655dd495fb7bfc70eb6d4ce78753b5d7cf5e9e0f4e0002f639cbb5df",
+    "llm/releases/2026-10-31-scene-description-candidate/frozen-commit.json": "7f08f485491a5fdb5477f5eef8d222094250b90ff6e56f107937e0f6ae24e067",
+    "llm/releases/2026-10-31-scene-description-candidate/plan.json": "e04eaf9747bdbde4d322c045da47e77d7ac6587a36837be9276eda4f7a393dcc",
+    "llm/releases/2026-10-31-scene-description-candidate/run-started.json": "5f4a57376a4d8c75314245c5cdb1d18a406ef65f67deb219f6fadab1d5f9b83e",
+    "llm/releases/2026-10-31-scene-description-candidate/results.ndjson": "8845e318acff02a154544d178ec7ce8327c3d7ee6d46115c371d6e176cd64056",
+    "llm/releases/2026-10-31-scene-description-candidate/run-finished.json": "2af45020fa86a9f2047aa0b25d4ec343b42a236a86db58de12951d94969749e4",
+    "llm/releases/2026-10-31-scene-description-candidate/ledger.json": "65b655f57a134c1957459a02c72a1522014d66d803846323dc3bda613299a69a",
+    "llm/releases/2026-10-31-scene-description-candidate/provider.ndjson": "3c3396b0ce6a6861ade290780171ca4fe3754b0e64bbeab6823e5f319e89708f",
+    "llm/releases/2026-10-31-scene-description-candidate/scoring/key.json": "8abace5df8305970cf7f2c959c5fdd0affc2e631e6925cd3f6a07ca882f32792",
+    "llm/releases/2026-10-31-scene-description-candidate/scoring/items-1.json": "d165a61ee2188ba7ee7afcf4cd98f6cd4567dcac538fa8fd2e512be77d14ebc2",
+    "llm/releases/2026-10-31-scene-description-candidate/scoring/SCORING.md": "6c793d39280f0b2f3db907398691e6dfd86cffc919e254e3a1e5e30412807b66"
+  },
+  "inspectionSha256": "5d0ea57ae1c925fb1f18fed2cb77f78fc27859c431e9241c8c2f87963b232973",
+  "reportSha256": "819b5ff1edd08c6f29568bf7ec60bfc544de4e9c6e8637ee83aff7fc08498f89",
+  "castReferenceDifferencesSha256": "07501dc8aa4e52b76c991e7f1f37bc659c0470965aff362d9bafd7184783ff26",
+  "fundingCloseSha256": "def019c4bc2e9c5e4d172011ffa7512c082d971e3891961d5e6c0017becc51d2"
+}
