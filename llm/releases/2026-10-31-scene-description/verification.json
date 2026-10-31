@@ -1,0 +1,355 @@
+{
+  "status": "offline-unapplied",
+  "baseCommit": "30b397303a88e71f754633a5fc75a131293a30b3",
+  "patchSha256": "e05c6512a34603d17d4ccdaed85142bbd577fbab5664259f304eb493e1c07fef",
+  "candidateTree": "3a47845cea5d450205603e2c1db2456be4b885c0",
+  "paidEvaluationCalls": 0,
+  "evaluationSpendUsd": 0,
+  "newSceneFields": [
+    "scene"
+  ],
+  "removedNewOutputFields": [
+    "primarySubject",
+    "action",
+    "setting",
+    "secondaryElements",
+    "mood",
+    "timeOfDay",
+    "composition",
+    "instant"
+  ],
+  "coreDiff": {
+    "files": 6,
+    "added": 42,
+    "removed": 55
+  },
+  "wholePatchDiff": {
+    "files": 43,
+    "added": 268,
+    "removed": 193
+  },
+  "checks": [
+    {
+      "command": "npm test -- --run",
+      "exitCode": 0,
+      "result": "1057 passed, 1 skipped; 110 test files passed, 1 skipped"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "result": "0 errors; 3 existing warnings"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "command": "git apply --check candidate.patch (base checkout)",
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "command": "temporary-index git apply --cached candidate.patch",
+      "exitCode": 0,
+      "result": "Reproduces candidateTree exactly"
+    },
+    {
+      "command": "coderabbit review --uncommitted --agent -c AGENTS.md (applied candidate)",
+      "exitCode": 0,
+      "result": "0 issues; all 43 candidate files reviewed"
+    },
+    {
+      "command": "npm test -- --run src/lib/__tests__/suite-blind-description.test.ts",
+      "exitCode": 0,
+      "result": "2 new CLI integration tests fail before S1 fix and pass after; text/image packs retain new and historical descriptions; network blocked"
+    }
+  ],
+  "localLogSha256": {
+    "scene-description-full-r2.log": "0b7d8cc6c9d2f73a1b705b70ea7a871e68a27c6d0c99c5455f0f1a03b01e3d44",
+    "scene-description-typecheck-r2.log": "8aa9519f302b906bbc040eb0e0af9d32ea3ba28881cd8e229d8063292c7bb4dd",
+    "scene-description-lint-r2.log": "04bfb0c988e4db5123fa12ef2288b2ff42b656050cc54d328c88c7ebb69fabed",
+    "scene-description-coderabbit-r2.log": "6bb93d47e1f68ed581271f028b409580ec46fde18f97c6569ab8dd79aa6c6c4d",
+    "scene-description-s1-before.log": "b35af18af129ddb64444cb9f95b62b55ae28f70c4f8d4171b676520090b08f48",
+    "scene-description-s1-after.log": "2535313045ba0f30738f13452903247fb0365203aefabbca9de5cf3382d3549e",
+    "scene-description-lint-r2-race.log": "9a56b50dd2da4691d9bf788958e97d8b5d132ad8a85aefdf521919a9f6d8f023"
+  },
+  "goldenRequests": [
+    {
+      "work": "bible",
+      "requests": 27,
+      "changed": 21,
+      "unchangedLookRequests": [
+        "prepare:exodus-19-18:0",
+        "prepare:exodus-32-4:0"
+      ]
+    },
+    {
+      "work": "holmes-adventures",
+      "requests": 11,
+      "changed": 10,
+      "unchangedLookRequests": [
+        "prepare:0"
+      ]
+    },
+    {
+      "work": "alice-in-wonderland",
+      "requests": 11,
+      "changed": 10,
+      "unchangedLookRequests": [
+        "prepare:0"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "convex/schema.ts",
+      "before": "5709b118bc448d9880cb21d299d8f3c6ba991fd13fdf384d24c2cfb47f5d8bdb",
+      "after": "629c1b956b7557808b2db04eb50368db774c915151b5b9040b6b613094d81cde"
+    },
+    {
+      "path": "llm/releases/2026-10-27-launch-matrix/run.mts",
+      "before": "4b94037d80e72bb480c4e844a6db6911252c1324054e3d50c185b774dce1e8f5",
+      "after": "fd0dccbaa87b90258fd9030e725008ba5e0dd852379d03bf3f0b1af1209840d8"
+    },
+    {
+      "path": "llm/releases/2026-10-28-fresco-matrix/run.mts",
+      "before": "ef10b2d53420c5bfd88a2040c39f52d67aa57f6a08b7d5ca0876e770b2b2ef58",
+      "after": "d43a25cba4c060d5e4e1bdb6d3e99a696e3a6fe5b469db38a579c39478e4c437"
+    },
+    {
+      "path": "llm/releases/2026-10-28-launch-matrix-v2/run.mts",
+      "before": "8a91e0677995f5b3e9b2bb279b52be0a5b9636e2772ec2dd02f3592b50b19728",
+      "after": "300c3e17a99ded81adeac0b55e2b0dc82f042d2b4f97199bf7d3da03850a4c9e"
+    },
+    {
+      "path": "llm/releases/2026-10-28-launch-matrix-v3/run.mts",
+      "before": "3b9f98d6f23c6cf790e625c3c358bd70b7b6238993cdf4074de4b3299c3927bf",
+      "after": "c68af5c2bfc6262152c6ab6e3bd7e3b036edb15e49802ed80d773e74fc57f074"
+    },
+    {
+      "path": "llm/releases/2026-10-28-style-bakeoff/continue.mts",
+      "before": "33bb65c9c22c550bb57cd9dc67a26da972bd901f80e6744a9fe1687dfcbfb34e",
+      "after": "f094bc50ea42a7cf246ff23446444e69e60e468f9ef5678844d3e47a0a855982"
+    },
+    {
+      "path": "llm/releases/2026-10-28-style-bakeoff/run.mts",
+      "before": "581bf370f136a3c1e746dda0d43d79214fa5d33a430645abb7385d0dfef661d7",
+      "after": "779f5ad4735ea7a89ad0665b28d5c9358e4457f3ebbaa708cd0f453f97070db8"
+    },
+    {
+      "path": "llm/releases/2026-10-29-consistency-verses/run.mts",
+      "before": "d028048315d1554df0d4f1207c4596e9e67e19b5b3995f4f5c5afebdd6456591",
+      "after": "2a331b280bb8616deaf9ab237794c60be1b094fbdfd81c1029bde4394e911289"
+    },
+    {
+      "path": "llm/releases/2026-10-29-daniel-recheck-2/run.mts",
+      "before": "31a0d90812e0dc4082dcf2d001567f88b2aac2d1af09446592c0e3c24a8224bd",
+      "after": "d0cbbd8fee9a8a8f8b930517fd7aff6b4345f7491ff0aa928c3f3e0555d5e53b"
+    },
+    {
+      "path": "llm/releases/2026-10-29-daniel-recheck/run.mts",
+      "before": "c14607a191873a19722d9e8054c19f7be68cd1766dfb935a79cd93e263f3f59a",
+      "after": "d5a143bc7a116e6545b75be3b20495d8acc2f4d6e29906eeb273e969b256cc76"
+    },
+    {
+      "path": "llm/releases/2026-10-30-symbol-mode/run.mts",
+      "before": "2c366f89e211dd8cc8ebaf005ce523f8266ae3ae50c021709394bbb3c8bb2e62",
+      "after": "1ba0301533a10454bf7e43e4c0f8e002f45ebe0d05113dd8f906652d55e2c16d"
+    },
+    {
+      "path": "scripts/evals/suite.mts",
+      "before": "ab209205d47b43697d36de243473ec43bd2199090831fac5c65bd0a6405f320d",
+      "after": "6d2a2771f4ffe3172e509518220575d6a088c7a41212aefba8dc0beaa819c912"
+    },
+    {
+      "path": "src/app/api/__tests__/generate-image/credit-flow.test.ts",
+      "before": "8443d3dc5eef31e4a019e7ffdcdd8fa2fb9f06685ddb6146621dce02a5ae1aeb",
+      "after": "69c40763dae55c7f245ca242bb09f6ebf466b8f3bc92714cae03e2a47ac07d58"
+    },
+    {
+      "path": "src/lib/__tests__/cast-policy.test.ts",
+      "before": "a27b00711e1e39e784467bd05393b30c09d5c38807c89891f7041cf21d2f6f21",
+      "after": "bfaf5fce0794e9389821cd4d2cb88b2602a94f66e9a8446ae83160b315fe9fb6"
+    },
+    {
+      "path": "src/lib/__tests__/depiction.test.ts",
+      "before": "2328a5c4109f27027b6a827db88f1c70381394b02fa5cedab7f9eba174a2b4ed",
+      "after": "150a2478660f2d31c1921c055a5c9edcaef7efddef69286934caf490ace76eff"
+    },
+    {
+      "path": "src/lib/__tests__/engine-presence.test.ts",
+      "before": "d497d8121f30bbdb335cae12201cfead1462c118c856653f1fc8eee01d8560a9",
+      "after": "613a452e9505c0623fc2fece4c419c24b32d3ebb53e25bac7c7b3c6e4abfe94c"
+    },
+    {
+      "path": "src/lib/__tests__/image-evals-suite-run.test.ts",
+      "before": "525a2b6edd7295853ca3fc90459f9f397510f3bca10c9c81d508a1023e3a8a41",
+      "after": "a1314e0ad16d86787a1319b364b96ddbeadd3e5d8f75deb942efadc4d7720ab1"
+    },
+    {
+      "path": "src/lib/__tests__/look-canon-separation.test.ts",
+      "before": "e52ae031e86cc3d702fcff98ae6cb40ee93674e015d5e79c39822ec8a34be722",
+      "after": "f4211a70bef7bd294ed7b3996349d77e0a36ac58bd6ba75125a5953050e7b974"
+    },
+    {
+      "path": "src/lib/__tests__/moment-cast-contract.test.ts",
+      "before": "d990bea7a870b394386c8205e73f8174ee4b744af8d9b936b93302e893387dd0",
+      "after": "f46318eacdced4b5ccbe5e9dbf72ebd580b9ffc25854c4aae5b8a3480e40b8a1"
+    },
+    {
+      "path": "src/lib/__tests__/plan-canon-separation.test.ts",
+      "before": "0f838079d07b4706c1b8eb1434f826a27ac9c60d2f2c4a4bb50390759e6742e4",
+      "after": "ac9b5e6cb11489a0c40d288c95e6a2db56db01bf978cca8dfd7d46f692aa7398"
+    },
+    {
+      "path": "src/lib/__tests__/plan-review.test.ts",
+      "before": "69078a4687cc21da33b57f075f771724ea5ec9e00461d97b29fb1e1ca260071a",
+      "after": "04232264befdd9908c031dc865ab48162db6bb9b45bdbe1f519a3967c6201345"
+    },
+    {
+      "path": "src/lib/__tests__/preparation.test.ts",
+      "before": "47d3f598aaca442b792905dfc4caa01d5af248ff5ebe1de0eb542124b7622e20",
+      "after": "bdfa26d27529dc2b0d81dd3dd4f92c7bf9a0e092868b2604d67ddeb98b45f84a"
+    },
+    {
+      "path": "src/lib/__tests__/reference-slots.test.ts",
+      "before": "626b8441908f6033e04bce4c37bf06ef31b8c03957da9b2587ead11d02690771",
+      "after": "7035e220b7526b50386d2afc1295a797742aefb6340c0638cadb03b3607cd453"
+    },
+    {
+      "path": "src/lib/__tests__/review-look-citations.test.ts",
+      "before": "60e72f6c8f3164dc71fa35ad401336f8b4a6e1138c1e827769cef3565bbc5321",
+      "after": "582c87fa81a2a4d90cb319dcf37ba711ea55d7a23da72c760c763d26689ce20c"
+    },
+    {
+      "path": "src/lib/__tests__/scene-grounding.test.ts",
+      "before": "4af74ec4a05c6a189f0ad6afebcc2bc54b301be6d71221667e31e909bc12cfc0",
+      "after": "89da0b309d0237800bdda71a610035ae1d15a71fa55e506a405fa816b3526d4b"
+    },
+    {
+      "path": "src/lib/__tests__/single-cast-selection.test.ts",
+      "before": "4130b20628d92c0d3a6cc36a5d76d2746b08db95dde2d0603e6f8aefccb96814",
+      "after": "d49118034a13875ccb8eb086f29e61ea13aab37b5643197f11f1031097f36273"
+    },
+    {
+      "path": "src/lib/__tests__/source-cast-identity.test.ts",
+      "before": "4295d85077e9776bc178f3ba8ba69e38e7d6ef6de387efe44a78408378d9b44c",
+      "after": "c17e090f0863a20f324ce79ffdecda94d0b5ab3c49306bb36b94369c8bddc534"
+    },
+    {
+      "path": "src/lib/__tests__/source-first-planning.test.ts",
+      "before": "b13bcc6e0c27048974ad5f4042ac120badafe7e49480f6ee80f0c2f14861ce75",
+      "after": "c77759d82849587e0f8c4f0500b382ac9c0c9905ee62b10e5a884bb9cba6117c"
+    },
+    {
+      "path": "src/lib/__tests__/suite-blind-description.test.ts",
+      "before": null,
+      "after": "cc537b1d3a0da2de7a1eeb0d57bbcf557949f496b21dfd307ecf515c007be31d"
+    },
+    {
+      "path": "src/lib/engine/assemble.ts",
+      "before": "0da3f837c7c684a424790ed54ddfb880b7f3d766b2b2bd76ff1cd4fa1d075460",
+      "after": "0ef980ae2b2fe7b7c927dd3ee69201003fdd2a98a221cc3fc77a864298d28e48"
+    },
+    {
+      "path": "src/lib/engine/generation.ts",
+      "before": "e0d3a367a656296f54fcbd6c178924b2e4a5d4c6d0202a53285d49266fdc0a58",
+      "after": "2f6581064229fcf6240e9a710e0a6fff333fc98485f161d97f5eb42a238a52bb"
+    },
+    {
+      "path": "src/lib/engine/plan-review.ts",
+      "before": "01a5656346cb8f62ac74970e049350c8eb85e76e84d3ec218fff7af1da6ce1f1",
+      "after": "02a4febdb15bce3ef7cc4cae423e39269679baad2544c460fb936c2d76a60085"
+    },
+    {
+      "path": "src/lib/engine/preparation.ts",
+      "before": "562e203aa11fd975460d011628e1147a60e4afd73ba145c00455780b3fdbd6ed",
+      "after": "5931d30105a7d24ba525bf4a2aee061e65d86d1ef8fe85cfa30564c77bd20704"
+    },
+    {
+      "path": "src/lib/engine/prompt.ts",
+      "before": "dfe33e64074d7ca273654703d39173dc4aafe4b2dab157196f3b5332b94d115b",
+      "after": "f8fa894532b8eab7b0ce703541fbd883c3fcac51000b411930c5cff114d9258a"
+    },
+    {
+      "path": "src/lib/image-evals/consistency.ts",
+      "before": "3476050e008cb271f40fa271040b06b58fbe33364896cfc096acb1abc876b068",
+      "after": "6c2580f67c301176382758b53e08e1dee5a5debf53d617dcfb377b3f01e2d1d7"
+    },
+    {
+      "path": "src/lib/image-evals/suite-offline.ts",
+      "before": "53ad20b753e09b780ce8908d78dd9a9d351d655cc641694fded3b9a32a18ea55",
+      "after": "053cd49d91fd71fa2605b03bbf83a37a35600bfac4fd853e03b069f894d8745c"
+    },
+    {
+      "path": "src/lib/image-evals/suite-run.ts",
+      "before": "d18d1f3fef44447646e5359d9c22e28428f490e3be06dfe9e8f84263649e442c",
+      "after": "413059540a44316357439ce4fb7e76b1ddb31067f1e9caf5adfb97c01ec07d47"
+    },
+    {
+      "path": "tests/fixtures/alice-in-wonderland-engine-golden.json",
+      "before": "41e9f2a0a088007fecc31c8a7afd1ef49f73d5710e7381ca429e4ef51d4fe87b",
+      "after": "a6cad5afb39c9445e368af2e11f255592146c9edf02fad845d998e1062104006"
+    },
+    {
+      "path": "tests/fixtures/bible-engine-golden.json",
+      "before": "ba6ddf69bbd915889d944efbc107e4658e553f4a95331889322942fb4885241a",
+      "after": "d081b63a1e35ed2f42bd3d93fcf6f93e9b9a794d419f0628152d5a1d846c4019"
+    },
+    {
+      "path": "tests/fixtures/bible-engine-golden.ts",
+      "before": "ddc9baf676d113504c270f9d87cae8046dc501c113c34c9ea6f27710f103290d",
+      "after": "78ff9636710723331b4d72ddbe27020f38808e1875523f7e5f396b0b77621ad5"
+    },
+    {
+      "path": "tests/fixtures/holmes-adventures-engine-golden.json",
+      "before": "06bd0f641f6becc65bc578189fc98359cb088d140274c9a18b5028c1601cd56b",
+      "after": "4b42cd32aaa6f28f1457f084c6cd52a2a83798e967e65293d0f5d4e9eb6ad67a"
+    },
+    {
+      "path": "tests/fixtures/scene-grounding.ts",
+      "before": "22a0ae162274eb93c49893cdd926bb3f540ba0b40e8fbfbfede93eb9af7cd1d7",
+      "after": "6f967f1b24fd4d51ce6696a5fdcb9e01bd393538b1d2e84d34214c8c3116cba7"
+    },
+    {
+      "path": "tests/fixtures/work-engine-golden.ts",
+      "before": "aad9bbed22180edeed5980ef16b21d52e717ecebf0f01ee1d9f8b9248c5c6dfe",
+      "after": "60c28d9fc436bade3e0eeaf355ac3ffa2e75c1a0cc4b2e31cc95e2a8317e0f10"
+    }
+  ],
+  "limits": [
+    "Scripted provider replies and fixture concatenation are not model-authored or visual evidence.",
+    "Legacy readers remain; old paid runners are reproducible at their recorded commits.",
+    "No production activation or further paid run is approved by this package."
+  ],
+  "patchEncoding": "git diff --binary; empty context lines normalized to blank lines (accepted by git apply)",
+  "reviewLedger": [
+    {
+      "id": "S1",
+      "severity": "should",
+      "round": 1,
+      "finding": "Shared blind-scoring CLI discarded the new scene description.",
+      "outcome": "Resolved by Sol round two: exact new and historical descriptions survive serialized text/image scoring packs; independently reran both offline CLI tests."
+    }
+  ],
+  "validationNotes": [
+    "Initial concurrent lint raced the CLI test temporary-directory cleanup (ENOENT); rerun sequentially after tests. Reproduction commands are sequential."
+  ],
+  "review": {
+    "rounds": 2,
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "xhigh",
+    "verdict": "APPROVE",
+    "scope": "offline candidate and evidence only",
+    "unresolvedFindings": 0,
+    "declinedFindings": 0,
+    "reviewedPackageTree": "b5177c4f4c551324bc77fdeb487e83a45f1c0bd9",
+    "reviewedCandidateTree": "3a47845cea5d450205603e2c1db2456be4b885c0"
+  }
+}
