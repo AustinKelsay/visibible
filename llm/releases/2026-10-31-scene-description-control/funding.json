@@ -1,0 +1,15 @@
+{
+  "authorization": "User approved a $7 cumulative evaluation hard cap, then said 'ok continue' after the recommendation to compare fresh model-authored scene descriptions. This paired text-only comparison stays within that cap; no increase or top-up.",
+  "operationCapUsd": 0.3,
+  "combinedOperationCapUsd": 0.6,
+  "cumulativeCapUsd": 7,
+  "priorUpperBoundUsd": 6.31691115,
+  "maximumCumulativeUsd": 6.91691115,
+  "readerReserveUsd": 5,
+  "verifiedAt": "2026-10-31T19:54:59.673Z",
+  "balanceUsd": 9.165930938000002,
+  "keyLimitRemainingUsd": 24.165564146,
+  "executionRechecksFunding": true,
+  "scope": "One text run per arm, 113 cases each. No paid scoring, images, live preparation writes or candidate activation. No resumption or rerun of a paid arm.",
+  "arm": "control"
+}

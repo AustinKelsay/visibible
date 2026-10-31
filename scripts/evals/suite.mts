@@ -2,7 +2,7 @@
  * The image regression suite (ADR 0011): one committed runner for every measurement, so a release folder holds a
  * run's data and never its own copy of the code. Each step refuses to overwrite what an earlier step wrote.
  *
- *   npm run evals:suite -- plan --run <name> --tier text [--cap <usd>]
+ *   npm run evals:suite -- plan --run <name> --tier text [--from <text run>] [--cap <usd>]
  *   npm run evals:suite -- plan --run <name> --tier image --from <text run> [--cap <usd>]
  *   npm run evals:suite -- snapshot --run <text run>
  *   npm run evals:suite -- run --run <name> --offline
@@ -13,8 +13,9 @@
  * `plan` writes llm/releases/<run>/plan.json with the cases, pipeline versions, estimate and the cap the owner is
  * asked to fund. `snapshot` reads each work's analysis once, read-only, from production (Bible, Holmes) or from its
  * committed fixture (Alice), with the reference images production would attach; an image run reuses its text run's
- * snapshot and draws the plans that run stored. `run --offline` rehearses with scripted replies into a temporary
- * folder; `run --execute` needs a committed `funding.json` and a clean checkout, then ledgers every paid call.
+ * snapshot and draws the plans that run stored. A text run with --from reuses only the source run's looks,
+ * keeping its guides fixed while preparing fresh plans under the current contract. `run --offline` rehearses with
+ * scripted replies into a temporary folder; `run --execute` needs a committed `funding.json` and a clean checkout, then ledgers every paid call.
  * `blind` writes scorer packs without case, style or split; `report` settles two scorers (and the operator's rulings),
  * summarizes by fault, work, style and split, and with --baseline applies the per-fault gate on holdout items.
  *
@@ -118,15 +119,16 @@ async function plan() {
   mkdirSync(runDir, { recursive: true });
   let cases = suiteCases(config, allCases, tier);
   const refusedInTextRun: Plan["refusedInTextRun"] = [];
-  if (tier === "image") {
-    assert.ok(values.from, "An image run draws a text run's plans: --from <text run>");
+  if (tier === "image") assert.ok(values.from, "An image run draws a text run's plans: --from <text run>");
+  if (values.from) {
     const fromDir = path.join(root, "llm/releases", values.from);
     const fromPlan = readJson(path.join(fromDir, "plan.json")) as Plan;
     assert.equal(fromPlan.tier, "text"); assert.equal(fromPlan.suite, config.version);
-    assert.deepEqual(fromPlan.pipeline, PIPELINE, "The text run used other prompt versions; plan a new text run");
+    if (tier === "image") assert.deepEqual(fromPlan.pipeline, PIPELINE, "The text run used other prompt versions; plan a new text run");
     assert.ok(existsSync(path.join(fromDir, "run-finished.json")), "The text run has not finished");
     const rows = ndjson(path.join(fromDir, "results.ndjson"));
     const planned = new Set(rows.filter((r) => r.outcome === "planned").map((r) => r.caseId));
+    if (tier === "text") assert.ok(cases.every((c) => planned.has(c.caseId)), "The source run must cover every paired text case");
     for (const c of cases.filter((c) => !planned.has(c.caseId))) {
       const row = rows.find((r) => r.caseId === c.caseId);
       refusedInTextRun.push({ caseId: c.caseId, work: c.work, unitId: c.unitId, split: c.split, reason: row ? `${row.outcome}: ${row.reason ?? row.message ?? ""}` : "not run" });
@@ -139,6 +141,11 @@ async function plan() {
   for (const workId of new Set(cases.map((c) => c.work).concat(refusedInTextRun.map((c) => c.work)))) {
     const inputs = await inputsFor(workId);
     for (const style of config.works[workId].imageStyles) assert.ok(inputs.styles[style], `${workId}'s brief does not offer ${style}`);
+    if (values.from) {
+      const source = (readJson(path.join(root, "llm/releases", values.from, "plan.json")) as Plan).works[workId];
+      assert.equal(source?.workVersion, inputs.workVersion, `${workId}: source text changed`);
+      assert.equal(source?.briefVersion, inputs.briefVersion, `${workId}: source brief changed`);
+    }
     works[workId] = { analysis: config.works[workId].analysis, workVersion: inputs.workVersion, briefVersion: inputs.briefVersion, effects: Boolean(inputs.depiction.modes.effects), title: inputs.work.work.title };
   }
   const shown = cases.reduce((n, c) => n + c.styles.length, 0);
@@ -163,6 +170,7 @@ async function plan() {
 async function snapshot() {
   const p = readJson(path.join(runDir, "plan.json")) as Plan;
   assert.equal(p.tier, "text", "Only text runs take a snapshot; an image run reuses its text run's");
+  assert.ok(!p.from, "Paired text runs reuse the source snapshot");
   const snapshotFile = path.join(runDir, "snapshot.json");
   assert.ok(!existsSync(snapshotFile), "Keep the first snapshot");
   const needsConvex = Object.values(p.works).some((w) => w.analysis === "convex");
@@ -270,7 +278,7 @@ async function run() {
   const p = readJson(path.join(runDir, "plan.json")) as Plan;
   assert.deepEqual(p.pipeline, PIPELINE, "Prompt versions changed since the plan; plan a new run");
   assert.equal(p.suite, config.version); assert.equal(p.faults, faults.version);
-  const sourceRun = p.tier === "image" ? p.from! : values.run!;
+  const sourceRun = p.from ?? values.run!;
   const snap = readJson(path.join(root, "llm/releases", sourceRun, "snapshot.json")) as Snapshot;
   const refDir = path.join(root, "evals/images/runs", sourceRun, "references");
   const outDir = values.offline ? mkdtempSync(path.join(os.tmpdir(), `suite-${values.run}-`)) : runDir;
@@ -292,7 +300,8 @@ async function run() {
     assert.equal(grant.operationCapUsd, cap, "funding.json must fund the plan's cap");
     assert.equal(execFileSync("git", ["status", "--porcelain", "--untracked-files=no"], { cwd: root, encoding: "utf8" }).trim(), "", "Commit the plan, snapshot and funding before calls");
     const commit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
-    const frozen = [...SHARED_SOURCES, ...["plan.json", "funding.json"].map((f) => path.relative(root, path.join(runDir, f))), path.relative(root, path.join(root, "llm/releases", sourceRun, "snapshot.json"))];
+    const frozen = [...SHARED_SOURCES, ...["plan.json", "funding.json"].map((f) => path.relative(root, path.join(runDir, f))), path.relative(root, path.join(root, "llm/releases", sourceRun, "snapshot.json")),
+      ...(p.from ? ["plan.json", "results.ndjson"].map((f) => path.join("llm/releases", p.from!, f)) : [])];
     const hashes = Object.fromEntries(frozen.map((f) => [f, sha256(readFileSync(path.join(root, f)))]));
     for (const [file, hash] of Object.entries(hashes)) assert.equal(sha256(execFileSync("git", ["show", `${commit}:${file}`], { cwd: root, maxBuffer: 50_000_000 })), hash, `Not committed: ${file}`);
     const env = readEvalEnvironment();
@@ -316,13 +325,13 @@ async function run() {
     log: (entry) => appendFileSync(path.join(outDir, "provider.ndjson"), `${JSON.stringify(entry)}\n`),
     scrub: (value) => scrubForLog(value, apiKey, sha256),
   });
-  // Seeds: the looks and plans the text run stored, one per record, with the inputs they were made from.
+  // Paired text runs reuse only looks; image runs reuse both looks and plans.
   const seeds = new Map<string, Map<string, AnalysisRecord>>();
-  if (p.tier === "image") {
-    for (const row of ndjson(path.join(root, "llm/releases", p.from!, "results.ndjson"))) {
+  if (p.from) {
+    for (const row of ndjson(path.join(root, "llm/releases", p.from, "results.ndjson"))) {
       if (row.outcome !== "planned") continue;
       const bucket = seeds.get(row.work) ?? new Map<string, AnalysisRecord>(); seeds.set(row.work, bucket);
-      for (const r of [row.records.look, row.records.plan] as AnalysisRecord[]) {
+      for (const r of (p.tier === "text" ? [row.records.look] : [row.records.look, row.records.plan]) as AnalysisRecord[]) {
         const key = `${r.kind}:${r.recordId}`;
         if (bucket.has(key)) assert.equal(bucket.get(key)!.version, r.version, `${key}: the text run stored two versions`);
         else bucket.set(key, r);
@@ -350,11 +359,17 @@ async function run() {
   await runSuite({
     tier: p.tier, cases: p.cases, works, aspectRatio: p.image.aspectRatio, concurrency: 3,
     image: p.tier === "image" ? { model: p.image.model, resolution: p.image.resolution, checkTimeoutMs: 30_000 } : undefined,
-    providers: (phase) => ({
-      text: createOpenRouterTextModel({ apiKey, timeoutMs: 120_000, fetch: ledger.fetchFor("text", phase) }),
-      image: createOpenRouterEvalImageProvider({ apiKey, timeoutMs: 180_000, fetch: ledger.fetchFor("image", phase) }),
-      checker: createOpenRouterVisionChecker({ apiKey, fetch: ledger.fetchFor("check", phase), reasoningEffort: p.checker.reasoningEffort, maxTokens: p.checker.maxTokens, timeoutMs: 30_000 }),
-    }),
+    providers: (phase) => {
+      const text = createOpenRouterTextModel({ apiKey, timeoutMs: 120_000, fetch: ledger.fetchFor("text", phase) });
+      return {
+        text: p.tier === "text" && p.from ? { ...text, complete: (request) => {
+          if (request.schemaName === "section_look") throw new Error("Frozen guide unavailable or stale; paired text does not regenerate it");
+          return text.complete(request);
+        } } : text,
+        image: createOpenRouterEvalImageProvider({ apiKey, timeoutMs: 180_000, fetch: ledger.fetchFor("image", phase) }),
+        checker: createOpenRouterVisionChecker({ apiKey, fetch: ledger.fetchFor("check", phase), reasoningEffort: p.checker.reasoningEffort, maxTokens: p.checker.maxTokens, timeoutMs: 30_000 }),
+      };
+    },
     blocked: () => ledger.state.blocked,
     record,
     saveImage: (key, n, image) => {
@@ -424,7 +439,7 @@ async function blind() {
 
 const recordsCache = new Map<string, Map<string, AnalysisRecord>>();
 function snapshotRecords(p: Plan): Map<string, Map<string, AnalysisRecord>> {
-  const sourceRun = p.tier === "image" ? p.from! : values.run!;
+  const sourceRun = p.from ?? values.run!;
   if (!recordsCache.size) {
     const snap = readJson(path.join(root, "llm/releases", sourceRun, "snapshot.json")) as Snapshot;
     for (const [workId, w] of Object.entries(snap.works)) recordsCache.set(workId, new Map(Object.entries(w.records)));
