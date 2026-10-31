@@ -48,6 +48,8 @@ function candidate(prompt: string, source: string, literalDepiction: boolean) {
 type Row = { caseId: string; work: string; scene: string; arm: string; repeat: number; context: unknown; prepared: unknown; records: { look: AnalysisRecord; plan: AnalysisRecord } };
 type Scene = { id: string; unitId: string; sectionId: string; source: string };
 const rows = read<Row[]>(`${prior}/text-results.json`);
+assert.equal(hashes[`${prior}/text-results.json`], hash(execFileSync("git", ["show", `${baselineCommit}:${prior}/text-results.json`], { cwd: root })), "Frozen plan results changed");
+assert.equal(new Set(rows.map(r => r.caseId)).size, rows.length, "Frozen plan case IDs must be unique");
 const scenes = read<Scene[]>(`${prior}/scenes.json`);
 const images = read<Array<{ caseId: string; prompt: string; references: unknown }>>(`${prior}/images-results.json`);
 const frozen = read<Record<string, string>>(`${prior}/inputs.json`);
