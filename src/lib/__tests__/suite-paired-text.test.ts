@@ -47,6 +47,13 @@ it("reuses only frozen guides, rejects stale guides and keeps the source snapsho
       }
     }
     const changed = read(path.join(dirs[0], "plan.json"));
+    for (const mismatch of ["unitId", "work", "missing"] as const) {
+      const changedCase = structuredClone(changed);
+      if (mismatch === "missing") changedCase.cases.shift();
+      else changedCase.cases[0][mismatch] = "changed-source";
+      writeFileSync(path.join(dirs[0], "plan.json"), JSON.stringify(changedCase));
+      expect(() => cli("plan", "--run", names[3], "--tier", "text", "--from", prefix)).toThrow(/source case changed/);
+    }
     changed.works["bible-web"].workVersion = "changed-source";
     writeFileSync(path.join(dirs[0], "plan.json"), JSON.stringify(changed));
     expect(() => cli("plan", "--run", names[3], "--tier", "text", "--from", prefix)).toThrow(/source text changed/);

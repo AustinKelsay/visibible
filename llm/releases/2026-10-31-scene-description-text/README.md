@@ -110,3 +110,23 @@ The final CodeRabbit CLI review completed with nine findings and two files unrev
 Two findings concern the unchanged suite scoring template: whether neighbours may establish continuity, and the inconsistency between “every fault” and “only faults in ask.” They are deferred before any formal blind-scoring follow-up. This trial commissioned no blind scores and does not use that template as a release gate. For this unblinded inspection, neighbours establish continuing identities, place and state; they do not license bringing a later event into an earlier instant. The broader Eyford source check is separately disclosed above. Required formal fault-key coverage must follow each item's `ask`.
 
 Final Sol review independently reproduced both replays, all three aggregate artifacts, source/reference/candidate hashes, provider accounting and the Queen expression trace. Package and candidate snapshots were unchanged before and after review. S1 remains deferred; no new blocker, should or nit findings were raised. Across preparation and final evidence, two GPT-6.1 Sol reviews approved their bounded scopes.
+
+## Post-execution CI compatibility
+
+PR #360's first CI run exposed a startup failure in the new actual-CLI regression under Node 20.20.2: the `tsx` loader did not expose the generated Convex JavaScript's named `api` export. The same test had passed locally under Node 26.12.1. A direct Node 20 import without `tsx` and a typed `createRequire` load through `tsx` both expose the original generated API correctly; the explicit `.js` named import still fails under Node 20 plus `tsx`.
+
+The shared CLI now loads that generated module through `createRequire`, retaining its generated TypeScript type. The existing regression failed before and passed after on Node 20; it also passes on Node 26. All four snapshot query references resolve to their unchanged Convex function names on both runtimes. This is a module-loading compatibility correction, not a change to prompts, inputs, provider calls or the generated API.
+
+The captured paid sources and their hashes remain frozen at control `cb1ac40` and candidate `45d4cc4`. The published CLI's later import fix therefore differs from those historical hashes intentionally. Reproduce the paid artifacts from their frozen sources; do not rewrite their manifests or rerun paid cases to incorporate this CI correction.
+
+After the import correction, the full Node 20.20.2 coverage run passed: **1,053 tests passed, one existing skipped**, with coverage thresholds satisfied. Typecheck and focused CLI/test lint passed. The fix adds no new test machinery: the existing actual-CLI regression exercises the failed startup path directly.
+
+A third GPT-6.1 Sol review approved this compatibility correction and independently reran the actual-CLI regression and all four query-reference checks on both runtimes. Its before/after working-tree snapshots match. The import-fix CodeRabbit CLI review also completed with zero findings.
+
+## Post-execution source-case check
+
+CodeRabbit's PR review found that source-run coverage checked only case IDs. A case reassigned to another work or source unit could therefore be paired incorrectly while suite/work versions remained unchanged. The CLI now also requires the source plan's matching work and unit for every case before saving a new plan. The network-blocked CLI regression reproduced the missing rejection, then passed with changed-unit, changed-work and missing-case checks after the two-line fix. Typecheck and focused lint passed.
+
+All 113 `(caseId, work, unitId)` identities in each completed arm match the original source plan. This later guard does not change the recorded trial; the frozen sources, paid outputs and manifests remain untouched. It is a small PR-review correction, made after the third Sol review.
+
+The updated regression also passed on Node 26, and existing image-run planning accepted matching cases from the baseline text run with network access blocked. The final CodeRabbit CLI review of all three changed files completed with zero findings.

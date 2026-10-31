@@ -25,13 +25,13 @@
 import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
+import { createRequire } from "node:module";
 import os from "node:os";
 import path from "node:path";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
 import { parseArgs, parseEnv } from "node:util";
 import { ConvexHttpClient } from "convex/browser";
-import { api } from "../../convex/_generated/api";
 import { contentVersion } from "../../convex/_helpers/contentVersion";
 import { loadEvalCases } from "@/lib/image-evals/cases";
 import {
@@ -54,6 +54,8 @@ import { momentForUnit, readWorkInputs, type WorkInputs } from "@/lib/engine/wor
 import { createOpenRouterTextModel, READING_PASS_MODEL } from "@/lib/reading-pass/model";
 import { DEFAULT_ASPECT_RATIO, DEFAULT_IMAGE_MODEL, DEFAULT_RESOLUTION } from "@/lib/image-models";
 
+// Node 20's tsx loader exposes this generated JavaScript through CommonJS.
+const { api } = createRequire(import.meta.url)("../../convex/_generated/api") as typeof import("../../convex/_generated/api");
 const root = fileURLToPath(new URL("../../", import.meta.url));
 const { values, positionals } = parseArgs({ allowPositionals: true, options: {
   run: { type: "string" }, tier: { type: "string" }, from: { type: "string" }, cap: { type: "string" },
@@ -124,6 +126,8 @@ async function plan() {
     const fromDir = path.join(root, "llm/releases", values.from);
     const fromPlan = readJson(path.join(fromDir, "plan.json")) as Plan;
     assert.equal(fromPlan.tier, "text"); assert.equal(fromPlan.suite, config.version);
+    assert.ok(cases.every((c) => fromPlan.cases.some((source) => source.caseId === c.caseId && source.work === c.work && source.unitId === c.unitId)),
+      "A source case changed; plan a new source run");
     if (tier === "image") assert.deepEqual(fromPlan.pipeline, PIPELINE, "The text run used other prompt versions; plan a new text run");
     assert.ok(existsSync(path.join(fromDir, "run-finished.json")), "The text run has not finished");
     const rows = ndjson(path.join(fromDir, "results.ndjson"));
