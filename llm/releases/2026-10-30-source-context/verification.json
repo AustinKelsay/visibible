@@ -1,0 +1,25 @@
+{
+  "textRows": 36,
+  "imageRows": 12,
+  "pairedFirstPlanRequestsDifferOnlyByAddedSource": [
+    "alice-gloves",
+    "alice-house-entry",
+    "alice-house-grown",
+    "sea-night",
+    "sea-crossing",
+    "holmes-cellar"
+  ],
+  "oneGuideVersionPerScene": true,
+  "imageTextCalls": 0,
+  "sourceSectionsWhole": true,
+  "runtimeChanges": false,
+  "testsPassed": 1052,
+  "testsSkipped": 1,
+  "typecheck": "passed",
+  "lint": "passed with three existing warnings",
+  "readerReserveVerifiedAt": "2026-10-31T01:08:35.131065+00:00",
+  "readerReserveProtected": true,
+  "followupCapUsd": 2,
+  "cumulativeCeilingUsd": 4.88026715,
+  "originalHardCapUsd": 6
+}

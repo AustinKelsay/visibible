@@ -1,0 +1,67 @@
+{
+  "operationCapUsd": 2,
+  "priorUpperBoundUsd": 2.88026715,
+  "cumulativeCapUsd": 6,
+  "readerReserveUsd": 5,
+  "phaseCaps": {
+    "text": 0.3,
+    "images": 1.6,
+    "score": 0.1
+  },
+  "repeats": 3,
+  "imageModel": "google/gemini-3.1-flash-lite-image",
+  "scenes": [
+    {
+      "id": "alice-gloves",
+      "work": "alice-in-wonderland",
+      "unitId": "the-pool-of-tears-8",
+      "expected": "Alice remains more than nine feet tall in the hall when the Rabbit returns with gloves and fan. Any coherent focal instant is valid; the Rabbit may have fled, but Alice must not be normal child-sized or already shrunk.",
+      "images": true
+    },
+    {
+      "id": "alice-house-entry",
+      "work": "alice-in-wonderland",
+      "unitId": "the-rabbit-sends-in-a-little-bill-2",
+      "expected": "Alice receives the errand or enters the house, before drinking and growing. No premature giant body, trapped limb, or conflation with the real Mary Ann. Rabbit absence after she enters is valid.",
+      "images": true
+    },
+    {
+      "id": "alice-house-grown",
+      "work": "alice-in-wonderland",
+      "unitId": "the-rabbit-sends-in-a-little-bill-8",
+      "expected": "Alice is already oversized and cramped in the house. Select one coherent focal pose; do not restore ordinary child size or combine successive poses.",
+      "images": false
+    },
+    {
+      "id": "sea-night",
+      "work": "bible-web",
+      "unitId": "exodus-14-21",
+      "expected": "Moses stretches his hand over the sea; wind drives it back through the night. Do not move this event to the later morning-watch action or combine distinct instants.",
+      "images": false
+    },
+    {
+      "id": "sea-crossing",
+      "work": "bible-web",
+      "unitId": "exodus-14-22",
+      "expected": "Israel crosses dry ground between walls of water. Preserve night/early-watch context; do not prematurely depict the returned water or drowning army.",
+      "images": false
+    },
+    {
+      "id": "holmes-cellar",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-183",
+      "expected": "Holmes, Watson, Jones and Merryweather make preparations and hide in the bank cellar before the thieves arrive. Keep one coherent instant and the lantern state for that instant; do not introduce the later arrest.",
+      "images": false
+    }
+  ],
+  "contract": {
+    "arms": [
+      "unchanged planner/review inputs",
+      "identical inputs plus full same-section text marked before/focal/after"
+    ],
+    "fixed": "Same reference edition, canon, classical style, model/settings and frozen per-case guide. No extra model stage. Three independent plans per arm; image trials draw their corresponding frozen plans with the same Alice references.",
+    "scope": "Exploratory paired diagnostic, not a release gate. No production writes, activation, runtime changes, holdout tuning, failed-sample rerolls, or source-fact extraction.",
+    "scoring": "Inspect all final plans and all saved image attempts against the predeclared source-state expectations. Keep failures and unclear outcomes. Candidate needs all three gloves plans to preserve giant size and no new state errors on the controls before recommending broader testing; images must confirm that state, not just plan wording. Small samples cannot establish universal improvement.",
+    "limits": "Frozen retained Bible/Holmes analyses and local Alice candidate; no fresh production snapshot. A same-section window cannot recover facts outside its boundaries. Source sections remain whole, never truncated."
+  }
+}
