@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-31T22:35:35.967Z",
+  "measuredUsd": 0.0171137,
+  "uncertainUsd": 0,
+  "operationCapUsd": 0.15,
+  "scheduledCeilingsUsd": 0.1058901,
+  "priorConservativeUsd": 6.63054885,
+  "cumulativeConservativeUsd": 6.64766255,
+  "cumulativeCapUsd": 7,
+  "remainingAuthorizationUsd": 0.35233745,
+  "readerReserveUsd": 5,
+  "balanceUsd": 8.835179538000006,
+  "keyLimitRemaining": 23.834812746,
+  "accountDeltaUsd": 0.01711369999998169,
+  "keyAllowanceDeltaUsd": 0.017113699999999454,
+  "note": "Later read-only close; run-finished.json retains the earlier balances observed before usage fully propagated."
+}

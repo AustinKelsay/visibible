@@ -1,0 +1,265 @@
+{
+  "capUsd": 0.15,
+  "calls": [
+    {
+      "phase": "queen-retained-paragraph/baseline/original/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000592
+    },
+    {
+      "phase": "queen-retained-paragraph/rule/original/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005942
+    },
+    {
+      "phase": "queen-retained-paragraph/baseline/clean/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006206
+    },
+    {
+      "phase": "queen-retained-paragraph/rule/clean/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005233
+    },
+    {
+      "phase": "queen-current-smile/baseline/original/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003408
+    },
+    {
+      "phase": "queen-current-smile/rule/original/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006105
+    },
+    {
+      "phase": "queen-current-design/baseline/original/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003987
+    },
+    {
+      "phase": "queen-current-design/rule/original/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006409
+    },
+    {
+      "phase": "generic-changing-clothing/baseline/original/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001481
+    },
+    {
+      "phase": "generic-changing-clothing/rule/original/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001498
+    },
+    {
+      "phase": "generic-recurring-identity/baseline/original/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001922
+    },
+    {
+      "phase": "generic-recurring-identity/rule/original/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001969
+    },
+    {
+      "phase": "owner-clothing-constraint/baseline/original/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001976
+    },
+    {
+      "phase": "owner-clothing-constraint/rule/original/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002048
+    },
+    {
+      "phase": "queen-retained-paragraph/rule/clean/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005478
+    },
+    {
+      "phase": "queen-retained-paragraph/baseline/clean/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005671
+    },
+    {
+      "phase": "queen-retained-paragraph/rule/original/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006377
+    },
+    {
+      "phase": "queen-retained-paragraph/baseline/original/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006435
+    },
+    {
+      "phase": "queen-current-smile/rule/original/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005835
+    },
+    {
+      "phase": "queen-current-smile/baseline/original/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005743
+    },
+    {
+      "phase": "queen-current-design/rule/original/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004329
+    },
+    {
+      "phase": "queen-current-design/baseline/original/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006142
+    },
+    {
+      "phase": "generic-changing-clothing/rule/original/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001498
+    },
+    {
+      "phase": "generic-changing-clothing/baseline/original/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001481
+    },
+    {
+      "phase": "generic-recurring-identity/rule/original/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001899
+    },
+    {
+      "phase": "generic-recurring-identity/baseline/original/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001922
+    },
+    {
+      "phase": "owner-clothing-constraint/rule/original/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001998
+    },
+    {
+      "phase": "owner-clothing-constraint/baseline/original/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001971
+    },
+    {
+      "phase": "queen-retained-paragraph/baseline/original/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006485
+    },
+    {
+      "phase": "queen-retained-paragraph/rule/original/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004792
+    },
+    {
+      "phase": "queen-retained-paragraph/baseline/clean/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006831
+    },
+    {
+      "phase": "queen-retained-paragraph/rule/clean/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006093
+    },
+    {
+      "phase": "queen-current-smile/baseline/original/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005723
+    },
+    {
+      "phase": "queen-current-smile/rule/original/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00065
+    },
+    {
+      "phase": "queen-current-design/baseline/original/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006682
+    },
+    {
+      "phase": "queen-current-design/rule/original/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006349
+    },
+    {
+      "phase": "generic-changing-clothing/baseline/original/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001481
+    },
+    {
+      "phase": "generic-changing-clothing/rule/original/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001498
+    },
+    {
+      "phase": "generic-recurring-identity/baseline/original/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001927
+    },
+    {
+      "phase": "generic-recurring-identity/rule/original/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001924
+    },
+    {
+      "phase": "owner-clothing-constraint/baseline/original/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001971
+    },
+    {
+      "phase": "owner-clothing-constraint/rule/original/3",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0001998
+    }
+  ],
+  "measuredUsd": 0.0171137,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 42,
+    "image": 0,
+    "check": 0
+  },
+  "blocked": null
+}
