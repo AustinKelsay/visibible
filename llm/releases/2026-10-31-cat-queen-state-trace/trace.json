@@ -1,0 +1,373 @@
+{
+  "scope": "Offline audit of one captured Cat/Queen scene; no changed inputs, model queries or visual claim.",
+  "baseCommit": "b3a9dbca42a6ada54ffc9c9e8de2606a2e8a43bc",
+  "run": "llm/releases/2026-10-31-suite-v2-baseline-text",
+  "caseId": "alice-cat-head-talks",
+  "sourceHashes": {
+    "llm/releases/2026-10-31-suite-v2-baseline-text/plan.json": "5b299c87fcf4de8ab169f3d37c883d8a42ab689a35a17be06f750b688ecb4704",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/snapshot.json": "063daddab8e0e6ca37592725e35fa3c03d838e49d60bb8adba11daed17d9b915",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/provider.ndjson": "4c6177667756a9f54e2ebd9f75a6e18e2f124cd2a7a0b888724509066f395efd",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/results.ndjson": "fb480f71e8215367737f1131b0b588fd7085046028640667f1ab8a9eb6e66025",
+    "src/lib/engine/preparation.ts": "562e203aa11fd975460d011628e1147a60e4afd73ba145c00455780b3fdbd6ed",
+    "src/lib/engine/plan-review.ts": "01a5656346cb8f62ac74970e049350c8eb85e76e84d3ec218fff7af1da6ce1f1",
+    "src/lib/engine/assemble.ts": "0da3f837c7c684a424790ed54ddfb880b7f3d766b2b2bd76ff1cd4fa1d075460",
+    "src/lib/engine/prompt.ts": "dfe33e64074d7ca273654703d39173dc4aafe4b2dab157196f3b5332b94d115b",
+    "src/lib/engine/work-inputs.ts": "fb0d94e51f979610332ed538eb5a34f9c70988f1c704f880991d8411af6b0cb4",
+    "src/lib/reading-pass/model.ts": "d9d579e4b14f3d4140006bad40f8952f2ef679e95d42502373fc697e23ddec08",
+    "src/lib/image-evals/suite-run.ts": "d18d1f3fef44447646e5359d9c22e28428f490e3be06dfe9e8f84263649e442c",
+    "works/alice-in-wonderland/work.json": "8dbcd44e0ab0c37ef65bcd2eb507bed73c4f395a94c0ac30e3f4ace25d64b95c",
+    "works/alice-in-wonderland/brief.json": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d",
+    "works/alice-in-wonderland/depiction.json": "fc97ce62ad640ca66a1c8ae5394112a76583e387687b5ccc30d02de19b7dacb0"
+  },
+  "sourceUnits": [
+    {
+      "id": "the-queens-croquet-ground-45",
+      "reference": "The Queen’s Croquet-Ground ¶45",
+      "text": "She was looking about for some way of escape, and wondering whether she could get away without being seen, when she noticed a curious appearance in the air: it puzzled her very much at first, but, after watching it a minute or two, she made it out to be a grin, and she said to herself “It’s the Cheshire Cat: now I shall have somebody to talk to.”"
+    },
+    {
+      "id": "the-queens-croquet-ground-46",
+      "reference": "The Queen’s Croquet-Ground ¶46",
+      "text": "“How are you getting on?” said the Cat, as soon as there was mouth enough for it to speak with."
+    },
+    {
+      "id": "the-queens-croquet-ground-47",
+      "reference": "The Queen’s Croquet-Ground ¶47",
+      "text": "Alice waited till the eyes appeared, and then nodded. “It’s no use speaking to it,” she thought, “till its ears have come, or at least one of them.” In another minute the whole head appeared, and then Alice put down her flamingo, and began an account of the game, feeling very glad she had someone to listen to her. The Cat seemed to think that there was enough of it now in sight, and no more of it appeared."
+    },
+    {
+      "id": "the-queens-croquet-ground-48",
+      "reference": "The Queen’s Croquet-Ground ¶48",
+      "text": "“I don’t think they play at all fairly,” Alice began, in rather a complaining tone, “and they all quarrel so dreadfully one can’t hear oneself speak—and they don’t seem to have any rules in particular; at least, if there are, nobody attends to them—and you’ve no idea how confusing it is all the things being alive; for instance, there’s the arch I’ve got to go through next walking about at the other end of the ground—and I should have croqueted the Queen’s hedgehog just now, only it ran away when it saw mine coming!”"
+    },
+    {
+      "id": "the-queens-croquet-ground-49",
+      "reference": "The Queen’s Croquet-Ground ¶49",
+      "text": "“How do you like the Queen?” said the Cat in a low voice."
+    },
+    {
+      "id": "the-queens-croquet-ground-50",
+      "reference": "The Queen’s Croquet-Ground ¶50",
+      "text": "“Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.”"
+    },
+    {
+      "id": "the-queens-croquet-ground-51",
+      "reference": "The Queen’s Croquet-Ground ¶51",
+      "text": "The Queen smiled and passed on."
+    },
+    {
+      "id": "the-queens-croquet-ground-52",
+      "reference": "The Queen’s Croquet-Ground ¶52",
+      "text": "“Who _are_ you talking to?” said the King, going up to Alice, and looking at the Cat’s head with great curiosity."
+    }
+  ],
+  "sourceWindow": {
+    "focal": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51",
+    "previousUnit": "the-queens-croquet-ground-48",
+    "nextUnit": "the-queens-croquet-ground-52",
+    "explicitAppearanceUnitsAbsentFromPlanner": [
+      "the-queens-croquet-ground-45",
+      "the-queens-croquet-ground-46",
+      "the-queens-croquet-ground-47"
+    ],
+    "plannerPreviousChars": 400
+  },
+  "guide": {
+    "providerLine": 376,
+    "phase": "alice-cat-grin-appears/text",
+    "payload": {
+      "place": "The Queen's croquet-ground in a Wonderland garden, with mushroom-shaped arches, flower beds and a dark wood beyond",
+      "timeOfDay": "Afternoon in a dream-lit, timeless Wonderland day",
+      "weather": "Warm, still and cloudless, with a faint hazy drift",
+      "light": "Soft golden sunlight with long, slightly uneven shadows across the grass",
+      "clothing": "Alice in a Victorian child's pinafore dress; courtiers and card figures in period robes and hats; flat oblong playing cards"
+    }
+  },
+  "calls": [
+    {
+      "providerLine": 380,
+      "rawLineSha256": "4e1ad62c13d4925a0e56f4238c666ef34f97f9b68e95fcc68e98ea3eb942b6d5",
+      "schema": "scene_plan",
+      "response": {
+        "focusQuote": "How do you like the Queen? Not at all",
+        "instant": "Alice leans toward the grinning Cheshire Cat's head floating above the croquet-ground while the Queen of Hearts, unseen by Alice, stands close behind her listening.",
+        "selectedCast": [
+          {
+            "entryId": "alice",
+            "evidence": "said Alice: \"she's so extremely—\""
+          },
+          {
+            "entryId": "cheshire_cat",
+            "evidence": "said the Cat in a low voice"
+          },
+          {
+            "entryId": "queen_of_hearts",
+            "evidence": "the Queen was close behind her, listening... The Queen smiled and passed on."
+          },
+          {
+            "entryId": "the_queen_s_croquet_ground",
+            "evidence": "the Queen's croquet-ground"
+          }
+        ],
+        "primarySubject": "Alice in a Victorian pinafore dress, half-turned, mid-sentence, glancing sideways at the Cheshire Cat's head.",
+        "action": "Alice speaks in a low, guarded voice while the Queen, just behind her, leans in to listen with a smile.",
+        "setting": "The Queen's croquet-ground in a Wonderland garden, with mushroom-shaped arches, flower beds and a dark wood beyond.",
+        "secondaryElements": "The Cheshire Cat's grinning head floating in the air at Alice's shoulder; the Queen in a period robe and crown just behind Alice, partly hidden; flat oblong playing-card gardeners and courtiers in the background.",
+        "mood": "Conspiratorial, sly and faintly tense, with a hint of comic danger.",
+        "timeOfDay": "Afternoon in a dream-lit, timeless Wonderland day; warm, still and cloudless with a faint hazy drift.",
+        "composition": "Alice in the left foreground, the Cat's head at her right shoulder, the Queen close behind Alice on the right, with the croquet ground and arches receding into the distance."
+      }
+    },
+    {
+      "providerLine": 385,
+      "rawLineSha256": "f0235221a3464451fb6c29c52202204b17bbf3e647a8da73005934968b7fddb5",
+      "schema": "plan_review",
+      "response": {
+        "problems": [
+          {
+            "kind": "canon_conflict",
+            "entryId": "the_queen_s_croquet_ground",
+            "planQuote": "mushroom-shaped arches",
+            "reason": "The croquet-ground canon specifies small painted arches made of doubled-up soldiers as hoops, not mushroom-shaped arches."
+          }
+        ]
+      }
+    },
+    {
+      "providerLine": 387,
+      "rawLineSha256": "45750e9c7c8af9a280a06b9d768d588d64a24858c47181fadc59184f56528d39",
+      "schema": "scene_plan",
+      "response": {
+        "focusQuote": "How do you like the Queen?",
+        "instant": "Alice, standing by the Cheshire Cat at the croquet-ground, turns to see the Queen of Hearts close behind her, just as she says the Queen is 'likely to win'.",
+        "selectedCast": [
+          {
+            "entryId": "alice",
+            "evidence": "\"Not at all,\" said Alice"
+          },
+          {
+            "entryId": "cheshire_cat",
+            "evidence": "said the Cat in a low voice"
+          },
+          {
+            "entryId": "queen_of_hearts",
+            "evidence": "the Queen was close behind her, listening... The Queen smiled and passed on."
+          },
+          {
+            "entryId": "the_queen_s_croquet_ground",
+            "evidence": "the Queen's croquet-ground"
+          }
+        ],
+        "primarySubject": "Alice, in her pinafore dress, half-turned with a guarded look, beside the grinning Cheshire Cat perched on a branch",
+        "action": "Alice glances over her shoulder as the Queen of Hearts approaches from behind, smiling sweetly as she passes.",
+        "setting": "The Queen's croquet-ground in a Wonderland garden, with small painted arches made of doubled-up soldiers as hoops, flower beds and a dark wood beyond",
+        "secondaryElements": "Flat oblong playing-card soldiers bent into hoops on the grass, the Queen in period robes with a crown, a distant flamingo and hedgehogs on the croquet-ground",
+        "mood": "Sly, awkward and mischievously tense, with a hint of absurd danger",
+        "timeOfDay": "Warm, still afternoon with soft golden sunlight and long, slightly uneven shadows",
+        "composition": "Medium shot from the side, Alice and the Cat in the foreground at left, the Queen approaching from behind Alice at right, the arches receding into the distance"
+      }
+    },
+    {
+      "providerLine": 390,
+      "rawLineSha256": "be89cb15810a019c02fd3fcf4b22cb58b4c13e525403b35903beb58bf700e544",
+      "schema": "plan_review",
+      "response": {
+        "problems": [
+          {
+            "kind": "unselected_figure",
+            "entryId": "the_flamingo",
+            "planQuote": "a distant flamingo",
+            "reason": "The flamingo is clearly depicted in a secondary element but is not in the selected cast."
+          },
+          {
+            "kind": "unselected_figure",
+            "entryId": "the_hedgehogs",
+            "planQuote": "hedgehogs on the croquet-ground",
+            "reason": "The hedgehogs are clearly depicted in a secondary element but are not in the selected cast."
+          }
+        ]
+      }
+    }
+  ],
+  "replanHandoff": {
+    "sameSystem": true,
+    "sameOriginalUserPrefix": true,
+    "sameProviderSettings": true,
+    "messageCount": 2,
+    "previousDraftIncluded": false,
+    "feedback": "\n\nA PREVIOUS PLAN FOR THIS MOMENT WAS REJECTED. Write a new plan that fixes every problem below and keeps what was correct:\n- canon_conflict: The croquet-ground canon specifies small painted arches made of doubled-up soldiers as hoops, not mushroom-shaped arches. (plan said: \"mushroom-shaped arches\")",
+    "changedSceneFields": [
+      "primarySubject",
+      "action",
+      "setting",
+      "secondaryElements",
+      "mood",
+      "timeOfDay",
+      "composition"
+    ],
+    "changes": [
+      {
+        "field": "primarySubject",
+        "before": "Alice in a Victorian pinafore dress, half-turned, mid-sentence, glancing sideways at the Cheshire Cat's head.",
+        "after": "Alice, in her pinafore dress, half-turned with a guarded look, beside the grinning Cheshire Cat perched on a branch"
+      },
+      {
+        "field": "action",
+        "before": "Alice speaks in a low, guarded voice while the Queen, just behind her, leans in to listen with a smile.",
+        "after": "Alice glances over her shoulder as the Queen of Hearts approaches from behind, smiling sweetly as she passes."
+      },
+      {
+        "field": "setting",
+        "before": "The Queen's croquet-ground in a Wonderland garden, with mushroom-shaped arches, flower beds and a dark wood beyond.",
+        "after": "The Queen's croquet-ground in a Wonderland garden, with small painted arches made of doubled-up soldiers as hoops, flower beds and a dark wood beyond"
+      },
+      {
+        "field": "secondaryElements",
+        "before": "The Cheshire Cat's grinning head floating in the air at Alice's shoulder; the Queen in a period robe and crown just behind Alice, partly hidden; flat oblong playing-card gardeners and courtiers in the background.",
+        "after": "Flat oblong playing-card soldiers bent into hoops on the grass, the Queen in period robes with a crown, a distant flamingo and hedgehogs on the croquet-ground"
+      },
+      {
+        "field": "mood",
+        "before": "Conspiratorial, sly and faintly tense, with a hint of comic danger.",
+        "after": "Sly, awkward and mischievously tense, with a hint of absurd danger"
+      },
+      {
+        "field": "timeOfDay",
+        "before": "Afternoon in a dream-lit, timeless Wonderland day; warm, still and cloudless with a faint hazy drift.",
+        "after": "Warm, still afternoon with soft golden sunlight and long, slightly uneven shadows"
+      },
+      {
+        "field": "composition",
+        "before": "Alice in the left foreground, the Cat's head at her right shoulder, the Queen close behind Alice on the right, with the croquet ground and arches receding into the distance.",
+        "after": "Medium shot from the side, Alice and the Cat in the foreground at left, the Queen approaching from behind Alice at right, the arches receding into the distance"
+      }
+    ]
+  },
+  "canon": {
+    "catStage": "Cheshire Cat: a large striped cat with a wide, broad grin from ear to ear, long claws and many teeth, drawn as an animal with a sitting posture and a human-like Victorian sense of humour. Its body is often absent, leaving only the grin hanging in the air, which fades slowly from the tail end first. Its coat is a soft striped tabby in grey and cream, with a bright pink tongue visible in the grin. It wears no clothing and carries no props.",
+    "catNote": "The grinning cat in the kitchen and trees who talks with Alice about the Hatter and the March Hare, and vanishes and reappears; the same grinning cat whose head appears in the air in the croquet-ground scene.",
+    "normalCanonPresentInPlanner": false,
+    "normalCanonPresentInReviewerAndRenderer": true
+  },
+  "savedResult": {
+    "line": 107,
+    "rawLineSha256": "b70670554335c35451932bb06af8fa2076b149ce9af132b00771a112984a11db",
+    "planVersion": "64dcb7503c28fef9ddb60da8dd9f0d44",
+    "review": {
+      "rounds": 2,
+      "problems": [
+        {
+          "kind": "canon_conflict",
+          "entryId": "the_queen_s_croquet_ground",
+          "planQuote": "mushroom-shaped arches",
+          "reason": "The croquet-ground canon specifies small painted arches made of doubled-up soldiers as hoops, not mushroom-shaped arches."
+        }
+      ],
+      "notes": [
+        "selected the_flamingo: depicted but not selected",
+        "selected the_hedgehogs: depicted but not selected"
+      ]
+    },
+    "selectedEntries": [
+      "alice",
+      "cheshire_cat",
+      "queen_of_hearts",
+      "the_queen_s_croquet_ground",
+      "the_flamingo",
+      "the_hedgehogs"
+    ]
+  },
+  "reconstructedRendering": {
+    "promptSha256": "4110cffda86a327c5ad23d07eab8203894984dd6338933703cc17a9e85e6cf0c",
+    "promptChars": 8267,
+    "styleId": "watercolor",
+    "packet": {
+      "promptVersion": "2026-10-29-generic-v15",
+      "workId": "alice-in-wonderland",
+      "momentId": "the-queens-croquet-ground-49",
+      "sectionId": "the-queens-croquet-ground-45",
+      "eraId": "victorian-england-dreamlike-underground-wonderland",
+      "styleId": "watercolor",
+      "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+      "briefVersion": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d",
+      "lookVersion": "f9354c096a1148708b649cf16277a97d",
+      "planVersion": "64dcb7503c28fef9ddb60da8dd9f0d44",
+      "depictionVersion": "976e0fc1c2aa13be8323197926ba7abd",
+      "canon": [
+        {
+          "entryId": "alice",
+          "stageId": "alice",
+          "version": "ced62cb748190a703dc01a6fe0b857ab"
+        },
+        {
+          "entryId": "cheshire_cat",
+          "stageId": "cheshire_cat",
+          "version": "071418b2ffaed6435772267a9f3f05d6"
+        },
+        {
+          "entryId": "queen_of_hearts",
+          "stageId": "queen_of_hearts-main",
+          "version": "a39693a9c7d30712d7b10121083b42dd"
+        },
+        {
+          "entryId": "the_queen_s_croquet_ground",
+          "stageId": "the_queen_s_croquet_ground_stage_1",
+          "version": "924d3f67a66289b8f06f28afb1cfebd3"
+        },
+        {
+          "entryId": "the_flamingo",
+          "stageId": "the_flamingo",
+          "version": "0435eb86b31547615014e3de4ca4d6d2"
+        },
+        {
+          "entryId": "the_hedgehogs",
+          "stageId": "the_hedgehogs_main",
+          "version": "190dd0bf929c6ac0aeea240774c9d803"
+        }
+      ],
+      "references": [],
+      "flags": {
+        "variationIncluded": false,
+        "neighborsIncluded": true,
+        "styleDetailIncluded": true,
+        "lookDetailIncluded": true
+      },
+      "budget": {
+        "maxChars": 12000,
+        "finalChars": 8267
+      }
+    },
+    "referenceBytes": [],
+    "primarySubjectPreserved": true,
+    "allSevenFieldsPreserved": true,
+    "guideRenderedVerbatim": false,
+    "providerCalls": 0,
+    "networkCalls": 0
+  },
+  "nearbyControls": [
+    {
+      "caseId": "alice-cat-grin-appears",
+      "resultLine": 106,
+      "reference": "The Queen’s Croquet-Ground ¶45 to The Queen’s Croquet-Ground ¶48",
+      "primarySubject": "Alice, a young girl in a Victorian pinafore dress, standing and looking up at the floating grin",
+      "secondaryElements": "A flamingo lying folded on the lawn, a hedgehog rolling away in the distance, flat oblong card soldiers standing as arches"
+    },
+    {
+      "caseId": "alice-cheshire-cat-bough",
+      "resultLine": 108,
+      "reference": "Pig and Pepper ¶50 to Pig and Pepper ¶52",
+      "primarySubject": "Alice, small and cautious, standing on the path gazing upward at the Cat",
+      "secondaryElements": "The Cat sitting on a low tree branch with long claws, its body partly curled, its wide grin dominating its face"
+    }
+  ],
+  "verification": {
+    "minimizedReplayRecords": 11,
+    "exactRequestsReplayed": 4,
+    "exactResultRowsExcludingElapsedMs": 1,
+    "knownSymptomAssertion": "Known source-state failure: Cat remains perched on a branch",
+    "expectedAssertionExit": 1,
+    "noProductionFilesChanged": true,
+    "newProviderCalls": 0,
+    "newSpendUsd": 0
+  }
+}
