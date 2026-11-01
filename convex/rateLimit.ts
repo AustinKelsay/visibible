@@ -10,6 +10,7 @@ import { validateServerSecret } from "./_helpers/auth";
 export const RATE_LIMITS = {
   chat: { windowMs: 60_000, maxRequests: 20 }, // 20 requests per minute
   "generate-image": { windowMs: 60_000, maxRequests: 5 }, // 5 images per minute
+  "generate-video": { windowMs: 60_000, maxRequests: 3 },
   "admin-login": { windowMs: 900_000, maxRequests: 5 }, // 5 attempts per 15 minutes
   "guest-token": { windowMs: 60_000, maxRequests: 30 },
   session: { windowMs: 60_000, maxRequests: 10 }, // 10 session creates per minute

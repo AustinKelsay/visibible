@@ -36,3 +36,7 @@ npm test -- --run
 - [Documentation index](llm/README.md): feature behavior and source entry points.
 - [Vercel deployment](llm/workflow/VERCEL_WORKFLOWS.md): environment mapping and release commands.
 - Public read-only image API: `/api/public/images`; the app serves its API reference at `/api-docs`.
+
+## Video mode
+
+Choose **Video** on a verse to generate a short scene with Hailuo 3 Max. Jobs continue on the server, use existing credits, and save completed videos to public verse history. See [Video generation](llm/context/VIDEO-GENERATION.md) for configuration, verification, and rollout.

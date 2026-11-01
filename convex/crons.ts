@@ -53,4 +53,6 @@ crons.hourly(
   {}
 );
 
+crons.interval("recover durable video jobs", { minutes: 1 }, internal.verseVideos.recover, {});
+
 export default crons;

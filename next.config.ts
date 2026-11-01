@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const isProduction = process.env.NODE_ENV === "production";
+// Local Convex uses a separate loopback origin for requests and stored media.
+const developmentConvexSource = !isProduction ? process.env.NEXT_PUBLIC_CONVEX_URL ?? "" : "";
 
 const nextConfig: NextConfig = {
   // The generic image engine reads the owner-authored work, brief, depiction profile and style files at request time.
@@ -13,9 +15,10 @@ const nextConfig: NextConfig = {
       // Keep inline scripts for Next runtime compatibility. Restrict eval to development only.
       `script-src 'self' 'unsafe-inline'${isProduction ? "" : " 'unsafe-eval'"}`,
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob: https:",
+      `img-src 'self' data: blob: https: ${developmentConvexSource}`,
+      `media-src 'self' https: ${developmentConvexSource}`,
       "font-src 'self'",
-      `connect-src 'self' https: wss:${isProduction ? "" : " ws:"}`,
+      `connect-src 'self' https: wss:${isProduction ? "" : ` ws: ${developmentConvexSource}`}`,
       "frame-ancestors 'none'",
       "frame-src 'none'",
       "object-src 'none'",

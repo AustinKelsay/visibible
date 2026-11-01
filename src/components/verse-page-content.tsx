@@ -1,11 +1,17 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import { useId } from "react";
 import { useVerseView } from "@/context/verse-view-context";
 import { HeroImage } from "@/components/hero-image";
 import { ScriptureReader } from "@/components/scripture-reader";
 import { ScriptureDetails } from "@/components/scripture-details";
 import { VerseStripBar } from "@/components/verse-strip-bar";
 import { ChapterGallery } from "@/components/chapter-gallery";
+import { VerseModeTabs } from "@/components/verse-mode-tabs";
+const VideoMode = dynamic(() => import("@/components/video-mode").then((module) => module.VideoMode), {
+  loading: () => <p className="p-8 text-center text-[var(--muted)]">Loading videos…</p>,
+});
 
 interface VerseContext {
   number: number;
@@ -40,7 +46,42 @@ interface VersePageContentProps {
   }>;
 }
 
-export function VersePageContent({
+export function VersePageContent(props: VersePageContentProps) {
+  const { effectiveView, isSettled } = useVerseView();
+  const idPrefix = useId();
+  return (
+    <>
+      <VerseModeTabs idPrefix={idPrefix} />
+      <main className="flex-1 flex flex-col">
+        {(["reader", "gallery", "video"] as const).map((view) => (
+          <div
+            key={view}
+            id={`${idPrefix}-panel-${view}`}
+            role="tabpanel"
+            aria-labelledby={`${idPrefix}-tab-${view}`}
+            hidden={effectiveView !== view}
+            tabIndex={0}
+            className={effectiveView === view ? "flex-1 flex flex-col" : undefined}
+          >
+            {effectiveView === view && (
+              view === "video" && isSettled ? (
+                <VideoMode
+                  verseId={`${props.bookSlug}-${props.chapter}-${props.verseNumber}`}
+                  reference={props.currentReference}
+                  verseText={props.verseText}
+                  prevUrl={props.prevUrl}
+                  nextUrl={props.nextUrl}
+                />
+              ) : <VersePageBody {...props} />
+            )}
+          </div>
+        ))}
+      </main>
+    </>
+  );
+}
+
+function VersePageBody({
   bookSlug,
   bookName,
   chapter,
@@ -60,7 +101,7 @@ export function VersePageContent({
 
   if (!isSettled) {
     return (
-      <main className="flex-1 flex flex-col" aria-busy="true" aria-live="polite">
+      <div className="flex-1 flex flex-col" aria-busy="true" aria-live="polite">
         <div className="relative h-[40vh] min-h-[260px] overflow-hidden bg-[var(--surface-muted)]">
           <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[var(--surface-muted)] via-[var(--surface)] to-[var(--surface-muted)]" />
           <div className="absolute left-4 md:left-6 right-4 md:right-6 top-4 h-12 rounded-[var(--radius-lg)] bg-[var(--background)]/60" />
@@ -81,13 +122,17 @@ export function VersePageContent({
             </div>
           </div>
         </div>
-      </main>
+      </div>
     );
+  }
+
+  if (effectiveView === "video") {
+    return null;
   }
 
   if (effectiveView === "gallery") {
     return (
-      <main className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col">
         <ChapterGallery
           book={bookSlug}
           bookName={bookName}
@@ -96,12 +141,12 @@ export function VersePageContent({
           verses={verses}
           fullScreen
         />
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col">
       <div className="relative">
         <HeroImage
           verseText={verseText}
@@ -151,6 +196,6 @@ export function VersePageContent({
           reference={currentReference}
         />
       </div>
-    </main>
+    </div>
   );
 }
