@@ -1,0 +1,77 @@
+{
+  "charcoal": {
+    "shown": 12,
+    "acceptable": 10,
+    "firstAttemptAcceptable": 10,
+    "retries": 4,
+    "faultsInFlawedShown": {
+      "lettering": 1,
+      "incoherent": 1,
+      "scene partly": 1
+    },
+    "perCase": {
+      "john-11-43": "ok",
+      "genesis-1-3": "ok",
+      "revelation-4-6": "ok",
+      "luke-15-20": "ok",
+      "daniel-7-9": "ok",
+      "matthew-27-35": "ok",
+      "matthew-1-1": "ok",
+      "exodus-14-21": "ok",
+      "psalms-23-2": "lettering",
+      "ruth-4-22": "ok",
+      "1-samuel-17-49": "ok",
+      "isaiah-6-2": "incoherent+scene partly"
+    }
+  },
+  "storybook": {
+    "shown": 12,
+    "acceptable": 10,
+    "firstAttemptAcceptable": 10,
+    "retries": 0,
+    "faultsInFlawedShown": {
+      "incoherent": 2,
+      "scene partly": 2,
+      "extraFigures": 1
+    },
+    "perCase": {
+      "1-samuel-17-49": "ok",
+      "matthew-27-35": "incoherent+scene partly",
+      "daniel-7-9": "ok",
+      "psalms-23-2": "ok",
+      "exodus-14-21": "ok",
+      "genesis-1-3": "ok",
+      "luke-15-20": "ok",
+      "john-11-43": "ok",
+      "ruth-4-22": "ok",
+      "revelation-4-6": "ok",
+      "isaiah-6-2": "extraFigures+incoherent+scene partly",
+      "matthew-1-1": "ok"
+    }
+  },
+  "pastel": {
+    "shown": 12,
+    "acceptable": 8,
+    "firstAttemptAcceptable": 6,
+    "retries": 4,
+    "faultsInFlawedShown": {
+      "incoherent": 3,
+      "scene partly": 3,
+      "margin": 1
+    },
+    "perCase": {
+      "revelation-4-6": "ok",
+      "isaiah-6-2": "incoherent+scene partly",
+      "daniel-7-9": "ok",
+      "exodus-14-21": "ok",
+      "ruth-4-22": "ok",
+      "psalms-23-2": "ok",
+      "luke-15-20": "ok",
+      "1-samuel-17-49": "incoherent+scene partly",
+      "matthew-1-1": "ok",
+      "matthew-27-35": "incoherent+scene partly",
+      "john-11-43": "ok",
+      "genesis-1-3": "margin"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "closedAt": "2026-11-01T19:20:00Z",
+  "operationCapUsd": 2.2,
+  "ledgerMeasuredUsd": 1.5494905,
+  "ledgerUncertainUsd": 0,
+  "calls": { "images": 44, "textCalls": 47, "checkCalls": 88, "providerRows": 179 },
+  "ledgerByKind": { "text": 0.0198232, "image": 1.5020335, "check": 0.0276338 },
+  "account": {
+    "balanceBeforeUsd": 8.236318338,
+    "balanceAfterUsd": 5.743483188,
+    "observedMovementUsd": 2.49283515,
+    "devKeyLimitRemainingBeforeUsd": 23.653620746,
+    "devKeyLimitRemainingAfterUsd": 21.160785596,
+    "unexplainedDifferenceUsd": 0.94334465,
+    "note": "The dev key's usage moved $2.49 between the pre-run check (18:58 UTC) and the post-run check (19:16 UTC) while the ledger settled $1.55 from provider-reported usage. No other local process using the key was found; the key is shared with other sessions on this machine, and the key's daily usage ($2.67) exceeds this run alone. The difference is disclosed, not attributed. Conservatively counting the observed movement, this run's upper bound is $2.49 against a $2.20 cap; by provider-reported usage it is $1.55."
+  },
+  "readerReserveUsd": 5,
+  "readerReserveHeld": true,
+  "productionMutations": 0,
+  "nextStep": "A full 33-case matrix for the owner's pick costs about $1.40 and would take the balance below the $5 reader reserve. It needs a top-up or an explicit owner decision before a new grant."
+}
