@@ -1,0 +1,18 @@
+{
+  "closedAt": "2026-11-01T21:40:00Z",
+  "operationCapUsd": 0.9,
+  "ledgerMeasuredUsd": 0.54832865,
+  "ledgerUncertainUsd": 0,
+  "calls": { "images": 15, "textCalls": 46, "checkCalls": 30 },
+  "account": {
+    "balanceBeforeUsd": 4.475845938,
+    "balanceAfterUsd": 3.927517288,
+    "observedMovementUsd": 0.54832865,
+    "unexplainedDifferenceUsd": 0,
+    "note": "Account movement matches the ledger."
+  },
+  "readerReserveUsd": 5,
+  "readerReserveHeld": false,
+  "readerReserveShortfallUsd": 1.072482712,
+  "productionMutations": 0
+}
