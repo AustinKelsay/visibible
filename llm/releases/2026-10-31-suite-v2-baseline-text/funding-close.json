@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-01T01:34:14.602Z",
+  "measuredUsd": 0.181192,
+  "uncertainUsd": 0,
+  "operationCapUsd": 0.3,
+  "priorConservativeUsd": 6.64766255,
+  "cumulativeConservativeUsd": 6.82885455,
+  "cumulativeCapUsd": 7,
+  "remainingAuthorizationUsd": 0.17114545,
+  "readerReserveUsd": 5,
+  "balanceUsd": 8.653987537999996,
+  "keyLimitRemaining": 23.653620746,
+  "accountDeltaUsd": 0.18119200000001,
+  "keyAllowanceDeltaUsd": 0.18119199999999935,
+  "earlierObservation": {
+    "at": "2026-11-01T01:26:29.804Z",
+    "measuredUsd": 0.181192,
+    "uncertainUsd": 0,
+    "operationCapUsd": 0.3,
+    "priorConservativeUsd": 6.64766255,
+    "cumulativeConservativeUsd": 6.82885455,
+    "cumulativeCapUsd": 7,
+    "remainingAuthorizationUsd": 0.17114545,
+    "readerReserveUsd": 5,
+    "balanceUsd": 8.660135537999992,
+    "keyLimitRemaining": 23.659768746,
+    "accountDeltaUsd": 0.17504400000001397,
+    "keyAllowanceDeltaUsd": 0.17504399999999976
+  }
+}
