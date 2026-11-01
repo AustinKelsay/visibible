@@ -1,0 +1,48 @@
+{
+  "storybook": {
+    "shown": 33,
+    "acceptable": 28,
+    "firstAttemptAcceptable": 28,
+    "retries": 2,
+    "faultsInFlawedShown": {
+      "lettering": 3,
+      "incoherent": 2,
+      "scene partly": 2
+    },
+    "perCase": {
+      "joshua-6-20": "ok",
+      "genesis-5-5": "ok",
+      "revelation-4-6": "ok",
+      "acts-9-3": "ok",
+      "song-of-solomon-2-1": "ok",
+      "2-kings-2-23": "ok",
+      "genesis-22-10": "ok",
+      "psalms-137-1": "ok",
+      "matthew-27-35": "ok",
+      "genesis-1-3": "ok",
+      "mark-4-39": "ok",
+      "luke-15-20": "ok",
+      "ezekiel-37-4": "lettering",
+      "psalms-23-2": "lettering",
+      "revelation-21-1": "ok",
+      "daniel-7-9": "ok",
+      "romans-8-28": "ok",
+      "1-samuel-17-49": "incoherent+scene partly",
+      "john-11-43": "ok",
+      "judges-19-29": "ok",
+      "daniel-6-22": "ok",
+      "jonah-1-17": "ok",
+      "matthew-1-1": "lettering",
+      "leviticus-11-7": "ok",
+      "matthew-14-29": "ok",
+      "job-38-4": "ok",
+      "genesis-19-24": "ok",
+      "exodus-14-22": "ok",
+      "john-21-7": "ok",
+      "exodus-14-21": "ok",
+      "ruth-4-22": "ok",
+      "isaiah-11-6": "ok",
+      "isaiah-6-2": "incoherent+scene partly"
+    }
+  }
+}
