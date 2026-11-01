@@ -1,0 +1,222 @@
+{
+  "networkCalls": 0,
+  "jobs": [
+    {
+      "id": "floating-head/baseline/1",
+      "inputContentSha256": "15765d32ac9839b489fd8aadad626905acaf18bd25e2f27e06d7090f4784f3ae",
+      "requestSha256": "52c6480122ff902d36613111e6dbd1d2850b5eb73fd7883721f186fd6005aad0",
+      "ceilingUsd": 0.0026984
+    },
+    {
+      "id": "floating-head/with-draft/1",
+      "inputContentSha256": "2f264768182217023ad06161d9f55dcee21c82470cf62ffece94191a549f113e",
+      "requestSha256": "5d67052462a0992ccc1f9e4d38afb92d071d969dcf7eb73b321e446af6fc3d41",
+      "ceilingUsd": 0.0027063
+    },
+    {
+      "id": "branch-control/baseline/1",
+      "inputContentSha256": "58b95194ada82454a82b86934e6c5d2583d6d8b51f661bcdb9c15afb6d15f466",
+      "requestSha256": "e479056c622c8ae8f180e113de083bb4d2b67814d9f369a85426b962fd60f210",
+      "ceilingUsd": 0.0025627000000000002
+    },
+    {
+      "id": "branch-control/with-draft/1",
+      "inputContentSha256": "eac7d4d54ede2ebbe35d22c69a762bf2f11f4f191943aadbea05a6ce28abec1e",
+      "requestSha256": "f572aa584105d960254fec28232a13a5df5d82bab09108a055c21ff0eded1661",
+      "ceilingUsd": 0.0025664
+    },
+    {
+      "id": "dormouse-pose/baseline/1",
+      "inputContentSha256": "18941102eb2f9c3d127e2b0182fa9b9d33749bf80101a780f4b4d36b9ef7d1a9",
+      "requestSha256": "a4b640c694be9770e3aa2f4478e459620292b6aba494195db05e4bce029628ef",
+      "ceilingUsd": 0.0027697
+    },
+    {
+      "id": "dormouse-pose/with-draft/1",
+      "inputContentSha256": "43a51f427384d53a397a9bdba165971ada53cf769d388140e9215532f2bf0c62",
+      "requestSha256": "042e405724db3d5feb9b3a9f9e89644685e12014afe1b17ed40d42bfe7a0a65d",
+      "ceilingUsd": 0.0027505
+    },
+    {
+      "id": "camp-time/baseline/1",
+      "inputContentSha256": "a92567f9c98b647a2d7865a6aad7fc8b34afed6a35fdd06f8257347eb70ab2c2",
+      "requestSha256": "23940e900009fbac673f0f54e950b6607b4cdab064d3a50b9cd9afa56332ad3d",
+      "ceilingUsd": 0.00255
+    },
+    {
+      "id": "camp-time/with-draft/1",
+      "inputContentSha256": "7e261710b1e6b458aae14e54509b54b81cfa9ab54e1919cb57cb6805019fb9bf",
+      "requestSha256": "64b431fe20da07f5fbebb5b175ef04f62b087a01999d1ce70440ac8445e8a44e",
+      "ceilingUsd": 0.0025353
+    },
+    {
+      "id": "floating-head/with-draft/2",
+      "inputContentSha256": "f357172347690c684b9976e15453a7aed30b3a5749093dd903ecbe319573ab52",
+      "requestSha256": "94d5020aa049cc9626a244b7dbe709ef036420b8e8767a0f7073f07e3615e4df",
+      "ceilingUsd": 0.002711
+    },
+    {
+      "id": "floating-head/baseline/2",
+      "inputContentSha256": "4be7c298ed5097d3a08f723f4cd83123e3e4444c82d99fe20cac0ded32c3283d",
+      "requestSha256": "54bc5a74240147ba031f4b7d70f0966231df65c7375c9129a8dfb4460ef45134",
+      "ceilingUsd": 0.0026975000000000002
+    },
+    {
+      "id": "branch-control/with-draft/2",
+      "inputContentSha256": "e31baa83544847c5da3dd8d87dc7042ffa19b2ad2dbe59fa21cbdf24dc9d5f5a",
+      "requestSha256": "33f29d7af52e0e0e208c1a7c8cb025447fd95fdf191e6765376e4e94c9f41a7d",
+      "ceilingUsd": 0.0025662000000000003
+    },
+    {
+      "id": "branch-control/baseline/2",
+      "inputContentSha256": "000598d3727fa2ed649f705e24e6e34f30eaa111cb44842642f0b82a7407861b",
+      "requestSha256": "054f39c1efd374e9c58c65e537caf99329db57baee380a4c8987db98f671d92e",
+      "ceilingUsd": 0.0025716000000000003
+    },
+    {
+      "id": "dormouse-pose/with-draft/2",
+      "inputContentSha256": "2a889948f9e234ed671a209c71995a05bf9f82e7865e311ec912a3d492d082d9",
+      "requestSha256": "9f1d62fb2204d9101dae00a5a68d1b40fa1535b10fefffa02ba612d61e39d25d",
+      "ceilingUsd": 0.0027526
+    },
+    {
+      "id": "dormouse-pose/baseline/2",
+      "inputContentSha256": "004571deda9dc1f17fd627ccb03a5bd410d231805aee8c7d2100173ebe27a238",
+      "requestSha256": "b413c796f526553cbef1dfb1fb046c4b83b8ebb572b05d330faeea2bf2b5a41f",
+      "ceilingUsd": 0.0027625
+    },
+    {
+      "id": "camp-time/with-draft/2",
+      "inputContentSha256": "a367e2438f897cae30d9ad573bb7a1cb96f783c0ef1ed0810632c527d456059d",
+      "requestSha256": "ed377fe08d99d26ae4e9a3575deb6cdeb4d6b3eb05398c1f1a44d1632d414cc1",
+      "ceilingUsd": 0.0025409
+    },
+    {
+      "id": "camp-time/baseline/2",
+      "inputContentSha256": "67fd903ce7fc50a7e45e6468b566221d8271fbd65946692d25b6f96ae36a7cb0",
+      "requestSha256": "977aec8be35fa56202ede682a0fd86dcd5bfe577045aaa554304db80fb9e716f",
+      "ceilingUsd": 0.0025433
+    },
+    {
+      "id": "floating-head/baseline/3",
+      "inputContentSha256": "ddb09a54d555ff62e59f8f8b4e6e101a3f3c12194eec96291d3bfc564dfb535e",
+      "requestSha256": "916f768f3df55ff87d247a5d45363043e1e1f7ec2b0512e55fa9ee62b79c6c52",
+      "ceilingUsd": 0.0026971
+    },
+    {
+      "id": "floating-head/with-draft/3",
+      "inputContentSha256": "f257b7a841a05d75d5c9bf019fcd4987ae7806b8bfc0fb9ff2ee28c9a58c7e09",
+      "requestSha256": "9cd96a14b3d86e3321d06918ef41839b627998d39f6620e6363b4478b21b7d22",
+      "ceilingUsd": 0.0027044
+    },
+    {
+      "id": "branch-control/baseline/3",
+      "inputContentSha256": "93040d981783b99c27bbd7f907c5ead94f8879170ce231c3e6920c8ca2d3be11",
+      "requestSha256": "7e3750b9fffeb4a5dc64f7565e096f3dd00d02bd7b5d07d33fb04ba6b7099b6c",
+      "ceilingUsd": 0.0025688
+    },
+    {
+      "id": "branch-control/with-draft/3",
+      "inputContentSha256": "81a3cf602517ddf244578414ea86d8b0cf8ec1ab720037ac41d955cda18cb1d5",
+      "requestSha256": "8d983b02a73c0db3fe37d34af982e93e1b0c1a1166ddf4b3facb1df4bc72aebc",
+      "ceilingUsd": 0.0025658
+    },
+    {
+      "id": "dormouse-pose/baseline/3",
+      "inputContentSha256": "ceb7a26337f8d8885b19eb0b51ca774e3c65695a23b02b5f3214e6fa078508f1",
+      "requestSha256": "3e1afec77f148a030c6186aad9372f5d7d551e95fed5530f8b0c4899367a24b6",
+      "ceilingUsd": 0.0027689999999999998
+    },
+    {
+      "id": "dormouse-pose/with-draft/3",
+      "inputContentSha256": "d6e6537857280afab453c9319448a0bc28926c19ce05cd839f153e66b1a7a47a",
+      "requestSha256": "8ce4306d0c93ffd14b40325ca837045e650c3510a4280d2c4471450356c689fd",
+      "ceilingUsd": 0.0027516
+    },
+    {
+      "id": "camp-time/baseline/3",
+      "inputContentSha256": "c0a5ee98626b9a0f353c60f9a5a9b39f3cf4f830c3a5fae3977462613120ca4f",
+      "requestSha256": "ab7a3b918678aadcd5509e00688f986efddd1a9c0285714adf259f7685c4ef74",
+      "ceilingUsd": 0.0025525
+    },
+    {
+      "id": "camp-time/with-draft/3",
+      "inputContentSha256": "321405b3c8abe0216629bf092cea7e3cb8684b11d1495f52b665bdcb81e580f9",
+      "requestSha256": "416f4cc594d34a79aef39dd96bc6da0ee55b85eab5d5907f35dcae54e796607f",
+      "ceilingUsd": 0.0025365
+    }
+  ],
+  "ceilingWithEveryRetryUsd": 0.1268612,
+  "rehearsals": {
+    "none": {
+      "sent": 24,
+      "results": 24,
+      "outputSha256": "0b47dd2cdce48245b7c62f54e16a167ff24793478b286c3e56bc5dae8cf411c5",
+      "blocked": null,
+      "uncertainUsd": 0
+    },
+    "retry-once": {
+      "sent": 48,
+      "results": 24,
+      "outputSha256": "6a05e2ced190ea7e539d937b834b48ba4ff9d4c3daee60072371f4f5656c0c24",
+      "blocked": null,
+      "uncertainUsd": 0
+    },
+    "http": {
+      "sent": 1,
+      "results": 1,
+      "outputSha256": "3e846ea22f87b94e3e567565d3219411b9409fa57e767a1afb08bd3cc2dc013c",
+      "blocked": "Provider error 500",
+      "uncertainUsd": 0
+    },
+    "schema": {
+      "sent": 2,
+      "results": 1,
+      "outputSha256": "634c6655b8b82b92ed361fc60d8d11a2109715034eb3d82be48b9406f2f472d9",
+      "blocked": null,
+      "uncertainUsd": 0
+    },
+    "missing-usage": {
+      "sent": 1,
+      "results": 1,
+      "outputSha256": "62b53280326dde430c78068d3a7d384641efb06c8c8a0f29c698533a8cb8b326",
+      "blocked": "Missing provider usage",
+      "uncertainUsd": 0.0026984
+    },
+    "over-ceiling": {
+      "sent": 1,
+      "results": 1,
+      "outputSha256": "d23c336c9753b17d4286e099227fd2227876ff8f1f0b9bcd83f0b372d337ead5",
+      "blocked": "A call cost $1 against its $0.0026984 ceiling",
+      "uncertainUsd": 0
+    },
+    "exception": {
+      "sent": 1,
+      "results": 1,
+      "outputSha256": "88bb7e85ebf1ba309cc4a0782f0fa663963b829555dd69129f2e429a10b49d8c",
+      "blocked": "fake timeout",
+      "uncertainUsd": 0.0026984
+    },
+    "model": {
+      "sent": 1,
+      "results": 1,
+      "outputSha256": "65d73ef520e65b8c5b8de85d59f72246e89ba3eaa973bc11c73924bef48f5c9b",
+      "blocked": null,
+      "uncertainUsd": 0
+    },
+    "finish": {
+      "sent": 1,
+      "results": 1,
+      "outputSha256": "67cf3dc933aea97a5b9e26f2d510bc9ca5d2ffcb28395dee2f570f1d92210640",
+      "blocked": null,
+      "uncertainUsd": 0
+    },
+    "packet-hash": {
+      "sent": 0,
+      "results": 1,
+      "outputSha256": "9a6f9c725f22b610634f88df4824b7a8833c1efec61ad372e8d00ee8c652064b",
+      "blocked": null,
+      "uncertainUsd": 0
+    }
+  }
+}

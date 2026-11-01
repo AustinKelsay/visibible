@@ -1,0 +1,13 @@
+{
+  "baseCommit": "a70099136d0d1121ac17e41ac1f8715bb135bf9c",
+  "model": "anthropic/claude-haiku-5.5",
+  "maximumCalls": 48,
+  "operationCapUsd": 0.13,
+  "cumulativeCapUsd": 7,
+  "priorConservativeUsd": 6.84241275,
+  "readerReserveUsd": 5,
+  "priorFunding": "llm/releases/2026-11-01-replan-draft-text/funding-close.json",
+  "retainedPricing": "llm/releases/2026-10-31-suite-v2-baseline-text/closing-pricing.json",
+  "scope": "Existing final review of all 24 retained corrections, including its one malformed-response retry; no new plans or images.",
+  "criterion": "Inspect every report and quote against its exact sent source/canon/scene. Inspect the saved cast and rendering-bound canon after normal handling. Report repair, source/constraint validity and preservation separately; do not treat empty review as acceptance or revise historical criteria. Ambiguous identity remains uncertain. Stop on execution/accounting faults, assembly refusal or review unavailable after its retry; partial results are inconclusive. No activation claim."
+}

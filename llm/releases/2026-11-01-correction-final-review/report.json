@@ -1,0 +1,35 @@
+{
+  "outcome": "stopped-partial-inconclusive",
+  "executionCommit": "50388af1bae0c641380df9c9d7b88072fe93e099",
+  "scheduledCorrections": 24,
+  "capturedResults": 8,
+  "unattemptedCorrections": 16,
+  "attemptedRepeats": [
+    1
+  ],
+  "providerCalls": {
+    "text": 9,
+    "image": 0,
+    "check": 0
+  },
+  "validReports": 7,
+  "validEmptyReports": 5,
+  "validNonemptyReports": 2,
+  "invalidReports": 2,
+  "reportedProblemsAcrossAllAttempts": 6,
+  "unavailableFinalReviews": 1,
+  "finalSceneFieldsChanged": 0,
+  "finalCastSelectionsChanged": 0,
+  "referencesAttached": 0,
+  "unavailableCorrection": "camp-time/with-draft/1",
+  "stopReason": "Review unavailable after bounded retry; retain result and stop",
+  "measuredUsd": 0.004111,
+  "uncertainUsd": 0,
+  "cumulativeConservativeUsd": 6.84652375,
+  "cumulativeCapUsd": 7,
+  "remainingAuthorizationUsd": 0.15347624999999976,
+  "conclusion": "Do not activate or rerun on this evidence. First-repeat observations do not establish a complete paired comparison or final-review reliability.",
+  "method": "Unblinded model inspection of all nine raw reviewer replies, eight exact sent source/canon/scene inputs and eight saved results. No human acceptance, blind gate, visual evidence or additional judge calls.",
+  "priorJudgmentsRevised": false,
+  "formalQualityGate": false
+}

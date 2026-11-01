@@ -1,0 +1,67 @@
+{
+  "capUsd": 0.13,
+  "calls": [
+    {
+      "phase": "floating-head/baseline/1/review/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006817
+    },
+    {
+      "phase": "floating-head/with-draft/1/review/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006291
+    },
+    {
+      "phase": "branch-control/baseline/1/review/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005198
+    },
+    {
+      "phase": "branch-control/with-draft/1/review/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002498
+    },
+    {
+      "phase": "dormouse-pose/baseline/1/review/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004497
+    },
+    {
+      "phase": "dormouse-pose/with-draft/1/review/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000468
+    },
+    {
+      "phase": "camp-time/baseline/1/review/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005188
+    },
+    {
+      "phase": "camp-time/with-draft/1/review/1",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002783
+    },
+    {
+      "phase": "camp-time/with-draft/1/review/2",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003158
+    }
+  ],
+  "measuredUsd": 0.004111,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 9,
+    "image": 0,
+    "check": 0
+  },
+  "blocked": null
+}
