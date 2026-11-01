@@ -1,6 +1,6 @@
 /** Exercise frozen-guide text trials through the actual CLI, with network access blocked. */
 import { execFileSync } from "node:child_process";
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { copyFileSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { expect, it } from "vitest";
@@ -25,10 +25,20 @@ it("reuses only frozen guides, rejects stale guides and keeps the source snapsho
     sourcePlan.suite = "incompatible-suite";
     writeFileSync(path.join(dirs[0], "plan.json"), JSON.stringify(sourcePlan));
     expect(() => cli("plan", "--run", names[3], "--tier", "text", "--from", prefix)).toThrow(/incompatible-suite/);
-    // Synthetic harness data only: relabel this temporary copy, never the retained evaluation evidence.
+    // Synthetic harness data only: relabel this temporary copy, never the retained evaluation evidence. The retained
+    // run predates a styles-only brief change (ADR 0006 amendment 6), which keeps the rules the looks were made under,
+    // so its brief version is relabelled to the deployed brief's, as tests/fixtures/scene-grounding.ts does for fixtures.
     sourcePlan.suite = read(path.join(root, "evals/images/suite.json")).version;
+    const briefVersion = createHash("sha256").update(readFileSync(path.join(root, "works/bible-web/brief.json"), "utf8")).digest("hex");
+    sourcePlan.works["bible-web"].briefVersion = briefVersion;
     writeFileSync(path.join(dirs[0], "plan.json"), JSON.stringify(sourcePlan));
-    const sourceRows = rows(path.join(dirs[0], "results.ndjson"));
+    const sourceRows = rows(path.join(dirs[0], "results.ndjson")).map((row) => {
+      for (const record of Object.values(row.records ?? {}) as Array<{ inputs?: Array<{ kind: string; recordId: string; version: string }> } | null>) {
+        for (const input of record?.inputs ?? []) if (input.kind === "brief" && input.recordId === "bible-web") input.version = briefVersion;
+      }
+      return row;
+    });
+    writeFileSync(path.join(dirs[0], "results.ndjson"), sourceRows.map((row) => JSON.stringify(row)).join("\n") + "\n");
     for (const [index, stale] of [[1, false], [2, true]] as const) {
       if (stale) {
         const changed = structuredClone(sourceRows);
