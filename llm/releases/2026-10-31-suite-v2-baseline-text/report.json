@@ -1,0 +1,105 @@
+{
+  "status": "completed-provisional-reference-not-quality-approved",
+  "suite": "2026-10-31-suite-v2",
+  "outcomes": {
+    "planned": 113
+  },
+  "cases": 113,
+  "holdoutCases": 20,
+  "providerCalls": 411,
+  "schemas": {
+    "section_look": 98,
+    "scene_plan": 155,
+    "plan_review": 158
+  },
+  "finalPlanReviewRounds": {
+    "1": 71,
+    "2": 42
+  },
+  "reviewValidationRetries": [
+    {
+      "phase": "psalms-137-1-babylon/text",
+      "plans": 1,
+      "reviews": 2,
+      "providerLines": [
+        124,
+        126
+      ],
+      "cause": "Both replies named an empty entryId for unselected_figure. The validator retried once; the retry also failed, leaving the plan kept with plan review unavailable and no completed review."
+    },
+    {
+      "phase": "matthew-1-1-genealogy/text",
+      "plans": 2,
+      "reviews": 3,
+      "providerLines": [
+        154,
+        156,
+        162
+      ],
+      "cause": "Review reply names an empty entryId for unselected_figure; the existing validator retries that review."
+    },
+    {
+      "phase": "romans-10-17/text",
+      "plans": 2,
+      "reviews": 3,
+      "providerLines": [
+        267,
+        273,
+        278
+      ],
+      "cause": "Review reply names an empty entryId for unselected_figure; the existing validator retries that review."
+    }
+  ],
+  "unblindedMomentStateObservations": {
+    "counts": {
+      "clear": 55,
+      "conflict": 27,
+      "uncertain": 31
+    },
+    "byWork": {
+      "bible-web": {
+        "clear": 43,
+        "conflict": 13,
+        "uncertain": 21
+      },
+      "holmes-adventures": {
+        "conflict": 7,
+        "clear": 4,
+        "uncertain": 7
+      },
+      "alice-in-wonderland": {
+        "clear": 8,
+        "uncertain": 3,
+        "conflict": 7
+      }
+    },
+    "notAcceptanceOrFaultGate": true
+  },
+  "queenSmile": {
+    "caseId": "alice-cat-head-talks",
+    "preserved": true,
+    "providerLines": [
+      380,
+      385,
+      387,
+      390
+    ],
+    "limitation": "One fresh sample, no matched causal control. The same final plan incorrectly perches the Cat on a branch."
+  },
+  "measuredUsd": 0.181192,
+  "uncertainUsd": 0,
+  "cumulativeConservativeUsd": 6.82885455,
+  "cumulativeCapUsd": 7,
+  "remainingAuthorizationUsd": 0.17114545,
+  "productionMutations": 0,
+  "imageCalls": 0,
+  "paidScoringCalls": 0,
+  "recommendation": "Preserve this fresh v2 text reference. Do not claim a quality baseline or broaden to images; first isolate a concrete source-state error using the saved text evidence, without adding a new production layer.",
+  "limitations": [
+    "Unblinded model assessment; prior case exposure, including the named holdout.",
+    "Narrow moment-state labels are not exhaustive fault-key judgments or overall acceptance.",
+    "No images, blind judges, human acceptance, paired causal control or activation evidence.",
+    "Known scorer-template ambiguities remain; the generated blind packs are unscored."
+  ],
+  "finalPlanReviewRoundsNote": "Recorded round counts, not counts of successfully completed reviews: Psalm 137:1 has rounds=1 but both validation attempts failed and its review remained unavailable."
+}

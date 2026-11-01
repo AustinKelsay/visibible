@@ -1,0 +1,71 @@
+{
+  "networkCalls": 0,
+  "providerResponsesReplayed": 411,
+  "exactRequests": 411,
+  "exactResultRowsExcludingElapsedMs": 113,
+  "committedExecutionSourceHashes": 28,
+  "preflightInputHashes": 19,
+  "referenceFiles": 55,
+  "referenceBytes": 10498601,
+  "providerSchemas": {
+    "section_look": 98,
+    "scene_plan": 155,
+    "plan_review": 158
+  },
+  "measuredUsd": 0.181192,
+  "allResponsesWithinReservedCeiling": true,
+  "reservationsReproducedUsingClosingCatalog": true,
+  "uncertainUsd": 0,
+  "blocked": null,
+  "inFlight": 0,
+  "method": "Network-blocked actual runSuite replay with createOpenRouterTextModel returning saved provider responses in captured completion order. Every generated provider JSON body and result row is exact, excluding elapsedMs only.",
+  "inspectionCoverage": {
+    "uniqueCases": 113,
+    "complete": true
+  },
+  "checks": {
+    "/tmp/suite-v2-baseline-tests.log": {
+      "sha256": "6cfbea892d899b99544efc46c492152acd1cbb8f37ffdbe20b1d7741155d7735"
+    },
+    "/tmp/suite-v2-baseline-full-tests.log": {
+      "sha256": "aeb1b66f37a3b20a0e2738a8038c0bafa19143b6b6945c67ddaf40df6bef2152"
+    },
+    "/tmp/suite-v2-replay.log": {
+      "sha256": "12418b718e404dd798df75b50e7674826e39b0c65946a92f3dc745af7127f552"
+    },
+    "/tmp/suite-v2-baseline-typecheck.log": {
+      "sha256": "8aa9519f302b906bbc040eb0e0af9d32ea3ba28881cd8e229d8063292c7bb4dd"
+    },
+    "/tmp/suite-v2-baseline-lint.log": {
+      "sha256": "90fbf3cd4dd65348f021832b2466256dc4b95410baba4880ba9814dba3e366ea"
+    }
+  },
+  "evidenceHashes": {
+    "plan.json": "5b299c87fcf4de8ab169f3d37c883d8a42ab689a35a17be06f750b688ecb4704",
+    "snapshot.json": "063daddab8e0e6ca37592725e35fa3c03d838e49d60bb8adba11daed17d9b915",
+    "funding.json": "41a6f99613957a6a392e4577e5ff49f35f142672468db1b0b8c5e389654e3166",
+    "frozen-commit.json": "3ec503fdc121dec9c54d28dbc54dd290f8a31b03a4c820c640edbc4bcaed90e8",
+    "run-started.json": "bab2c534031dae0bfd8cea751d23a0b677746216df788131566b63ac3f859aa2",
+    "run-finished.json": "578240b4c3daff2804940ef0066ffeefae9085f7a2015d0e3a84fe4aaf1aee45",
+    "ledger.json": "30d7b2435750778706d27ec442bb84b42e3ef8ec510783918e6bc67bd93e1e16",
+    "provider.ndjson": "4c6177667756a9f54e2ebd9f75a6e18e2f124cd2a7a0b888724509066f395efd",
+    "results.ndjson": "fb480f71e8215367737f1131b0b588fd7085046028640667f1ab8a9eb6e66025",
+    "inspection.json": "21fe53b24ddd5a653c7b0115a32d80c6390351f9237578f524e7693bf60b7d46",
+    "report.json": "c7d56aa823c365afb7ecf58ebd4e3e62c0dceec24d0324e785ee998a22614309",
+    "funding-close.json": "9786c404b0f0395373e29646881863ad47846bd364168137344946e1200f50ad",
+    "closing-pricing.json": "cf0817be042c9fb50bd4e5a2c3c8c7fd90a43a5502a954c6d405b2de0a414e06"
+  },
+  "checkResults": {
+    "focusedTestsPassed": 27,
+    "applicationTestsPassed": 1053,
+    "applicationTestsSkipped": 1,
+    "typecheckExit": 0,
+    "lintErrors": 0,
+    "lintExistingWarnings": 3
+  },
+  "unscoredPackCoverage": {
+    "cases": 113,
+    "exactFocalTextAndSevenFields": true,
+    "scored": false
+  }
+}

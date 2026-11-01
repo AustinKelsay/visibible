@@ -1,6 +1,6 @@
 # Fresh v2 text reference run
 
-**Prepared; not executed.** Establish a fresh reference run for the unchanged engine using the corrected Alice evaluation fixture. This is input collection and diagnostic assessment, not a candidate activation or a completed quality baseline.
+**Completed; provisional reference only.** All 113 text cases produced plans using the unchanged engine and corrected Alice evaluation fixture. The [assessment](REVIEW.md), [report](report.json), [inspection](inspection.json) and [verification](verification.json) preserve the results. Source-state errors remain, so this is not a quality-approved baseline, activation or justification for an image follow-up.
 
 ## Fixed scope
 
@@ -35,4 +35,17 @@ npm run works:import
 npm run evals:suite -- run --run 2026-10-31-suite-v2-baseline-text --offline
 ```
 
-The reviewed execution uses the existing private evaluation environment and `--execute` once. Preserve all provider exchanges, ledger entries, results and source hashes. Final spend and outcome reconciliation will be added after execution; no completion or quality result is claimed here.
+The reviewed execution used the existing private evaluation environment and `--execute` once. All provider exchanges, ledger entries, results and source hashes are retained. The prepared `preflight.json` is intentionally unchanged and describes the pre-execution checks. The completed network-blocked raw-response replay reproduced 411 exact request bodies and 113 exact result rows (excluding elapsed time). No paid rerun is part of reproduction.
+
+The run spent $0.181192 with zero uncertainty, bringing conservative cumulative spend to $6.82885455 of the approved $7. The settled account/key deltas agree; the $5 reader reserve remains intact. See [funding-close.json](funding-close.json), which retains the earlier lagging observation.
+
+The full application suite passed: 1,053 tests, one skipped. Typecheck passed; lint completed with zero errors and three existing warnings. Preparation review by GPT-6.1 Sol approved with no findings. Local CodeRabbit preparation review found one documentation gap about ignored reference JPEGs; the reproduction paragraph above fixes it. Final evidence review by GPT-6.1 Sol independently reproduced the requests, results, hashes and accounting and approved with no findings. Two Sol rounds approved preparation and completed evidence; neither is a quality-gate or activation approval.
+
+
+## Review disposition
+
+The final local CodeRabbit review completed with warnings: four findings (three distinct issues), with one file reported unreviewed. Sol independently covered the complete 23-file package. The report now explicitly marks Psalm 137:1's review unavailable after both validation attempts, so recorded round counts cannot be mistaken for completed reviews. The claimed missing `plan.json`, `snapshot.json` and `funding.json` are present in this directory and were committed in preparation commit `c917199899f167132cdd5ccb9f32fc1bd8645343`; they were simply outside CodeRabbit's uncommitted diff.
+
+The `/tmp` check-log paths in `verification.json` identify local session evidence and are deliberately not included in the repository. Their hashes were verified during independent review; a clean checkout can run the documented commands and repository checks, but cannot recover those local logs from a hash. Frozen inputs and raw model exchanges are retained here; reference JPEG availability is explained above.
+
+**Deferred before formal scoring:** correct the shared scorer template's neighbouring-context rule, `ask` versus “every fault” wording, and the undefined `accepted` reference for text items. The repeated CodeRabbit scoring-instruction finding is valid, but this package preserves the original, explicitly unscored output of the existing CLI; silently editing one generated pack would not fix future packs. No score or gate result depends on these instructions in this run.
