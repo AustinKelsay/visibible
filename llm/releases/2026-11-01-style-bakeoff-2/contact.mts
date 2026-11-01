@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import sharp, { type OverlayOptions } from "sharp";
-import { blobs, dir, json, root } from "./common.mjs";
+import { dir, json, root } from "./common.mjs";
 
 const plan = json("plan.json"), styles = plan.styles as string[], cases = plan.cases as Array<{ id: string; reference: string }>;
 const rows = fs.readFileSync(path.join(dir, "results.ndjson"), "utf8").trim().split("\n").map((l) => JSON.parse(l)).filter((r) => r.outcome === "image");

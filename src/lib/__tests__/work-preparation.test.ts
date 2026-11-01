@@ -12,7 +12,7 @@ import {
 describe("shared art styles", () => {
   it("registers the approved canonical IDs and labels", () => {
     expect(SHARED_STYLES.styles.map(({ id, label }) => [id, label])).toEqual([
-      ["classical", "Classical"], ["watercolor", "Ink & Watercolor"], ["fresco", "Fresco"], ["icon", "Byzantine Icon"],
+      ["classical", "Classical"], ["watercolor", "Ink & Watercolor"], ["fresco", "Fresco"], ["storybook", "Storybook"], ["icon", "Byzantine Icon"],
     ]);
     // Convex checks brief styles against this dependency-free copy of the library's ids.
     expect([...KNOWN_STYLE_IDS].sort()).toEqual(SHARED_STYLES.styles.map(({ id }) => id).sort());

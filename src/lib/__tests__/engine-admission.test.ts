@@ -34,8 +34,10 @@ describe("engine admission", () => {
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "classical", readiness: null })).toMatchObject({ engine: null, unavailable: "preparing", reason: expect.stringContaining("not registered") });
   });
 
-  it("releases Classical, Watercolor and Fresco to readers in public mode, and keeps Icon for the owner", () => {
-    expect(PUBLIC_GENERIC_STYLE_IDS).toEqual(["classical", "watercolor", "fresco"]);
+  it("releases Classical, Watercolor, Fresco and Storybook to readers in public mode, and keeps Icon for the owner", () => {
+    expect(PUBLIC_GENERIC_STYLE_IDS).toEqual(["classical", "watercolor", "fresco", "storybook"]);
+    expect(decideEngine({ mode: "public", isOwner: false, styleId: "storybook", readiness: ready })).toEqual({ engine: "generic", reason: "public" });
+    expect(decideEngine({ mode: "disabled", isOwner: false, styleId: "storybook", readiness: ready })).toMatchObject({ engine: null, unavailable: "style" });
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "fresco", readiness: ready })).toEqual({ engine: "generic", reason: "public" });
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "watercolor", readiness: ready })).toEqual({ engine: "generic", reason: "public" });
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "icon", readiness: ready })).toMatchObject({ engine: null, unavailable: "style", reason: "The icon art style is temporarily unavailable", retryable: true });

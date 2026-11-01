@@ -25,10 +25,10 @@ export type EngineDecision =
 
 /**
  * Styles the public switch releases to every reader. The owner launched Classical and Watercolor first (28 October
- * 2026) and chose Fresco as the third style after Icon failed two style rounds; Icon stays owner-only (ADR 0006,
- * amendments 3 and 4).
+ * 2026), chose Fresco as the third style after Icon failed two style rounds, and delegated the fourth to a measured
+ * bake-off that Storybook won (1 November 2026); Icon stays owner-only (ADR 0006, amendments 3, 4 and 6).
  */
-export const PUBLIC_GENERIC_STYLE_IDS: readonly string[] = Object.freeze(["classical", "watercolor", "fresco"]);
+export const PUBLIC_GENERIC_STYLE_IDS: readonly string[] = Object.freeze(["classical", "watercolor", "fresco", "storybook"]);
 
 /**
  * Decide whether a new request is admitted. The mode, the caller's owner status (verified server-side by the

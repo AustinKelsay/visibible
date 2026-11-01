@@ -148,7 +148,7 @@ describe("Image Models API", () => {
 });
 
 describe("art style availability", () => {
-  it("reports every style with the admission decision: none while the generic engine is disabled, Classical, Watercolor and Fresco when public and ready", async () => {
+  it("reports every style with the admission decision: none while the generic engine is disabled, Classical, Watercolor, Fresco and Storybook when public and ready", async () => {
     process.env = { ...originalEnv, OPENROUTER_API_KEY: "test-api-key" };
     delete process.env.GENERIC_ENGINE_MODE;
     mockFetchImageModels.mockResolvedValue({ models: [imageModelFixture()] });
@@ -156,15 +156,15 @@ describe("art style availability", () => {
     const { GET } = await import("../../image-models/route");
     const disabled = await (await GET()).json();
     // The legacy engine is removed (#184): with the generic engine disabled no style has an engine, Classical included.
-    expect(disabled.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", false], ["watercolor", false], ["fresco", false], ["icon", false]]);
+    expect(disabled.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", false], ["watercolor", false], ["fresco", false], ["storybook", false], ["icon", false]]);
     expect(disabled.artStyles[1].reason).toMatch(/temporarily unavailable/);
 
     process.env.GENERIC_ENGINE_MODE = "public";
     mockConvex.query.mockImplementation(async (_ref: unknown, args: Record<string, unknown>) =>
       "workId" in args ? { ready: true, reasons: [], activeGeneration: 1, briefVersion: "bv" } : []);
     const publicMode = await (await GET()).json();
-    // Public mode releases Classical, Watercolor and Fresco; Icon stays owner-only (owner decisions, 28 October).
-    expect(publicMode.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", true], ["watercolor", true], ["fresco", true], ["icon", false]]);
-    expect(publicMode.artStyles[3].reason).toMatch(/temporarily unavailable/);
+    // Public mode releases Classical, Watercolor, Fresco and Storybook; Icon stays owner-only (owner decisions, 28 October and 1 November).
+    expect(publicMode.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", true], ["watercolor", true], ["fresco", true], ["storybook", true], ["icon", false]]);
+    expect(publicMode.artStyles[4].reason).toMatch(/temporarily unavailable/);
   });
 });
