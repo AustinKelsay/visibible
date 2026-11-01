@@ -1,0 +1,48 @@
+{
+  "scope": "Offline request wiring only. Captured replies are replayed unchanged and do not answer the candidate request.",
+  "caseId": "alice-cat-head-talks",
+  "baseCommit": "0ed826a52020fb938041d8cfb9cfd8d22279dc31",
+  "sourceHashes": {
+    "llm/releases/2026-10-31-suite-v2-baseline-text/snapshot.json": "063daddab8e0e6ca37592725e35fa3c03d838e49d60bb8adba11daed17d9b915",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/results.ndjson": "fb480f71e8215367737f1131b0b588fd7085046028640667f1ab8a9eb6e66025",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/provider.ndjson": "4c6177667756a9f54e2ebd9f75a6e18e2f124cd2a7a0b888724509066f395efd",
+    "works/alice-in-wonderland/work.json": "8dbcd44e0ab0c37ef65bcd2eb507bed73c4f395a94c0ac30e3f4ace25d64b95c",
+    "works/alice-in-wonderland/brief.json": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d",
+    "works/alice-in-wonderland/depiction.json": "fc97ce62ad640ca66a1c8ae5394112a76583e387687b5ccc30d02de19b7dacb0"
+  },
+  "minimizedRecords": 11,
+  "requestCount": 4,
+  "unchangedRequestIndices": [
+    0,
+    1,
+    3
+  ],
+  "changedRequestIndex": 2,
+  "sameInitialUserPrefix": true,
+  "sameSystemSchemaAndProviderSettings": true,
+  "baselineRetryUserSha256": "57b2e54235edf391400bdd483ba81d1accb44f56eb6cd0116589aaf919541c62",
+  "candidateRetryUserSha256": "aad970198dabc2bd34018629644ea4133573942f0076bd58660457a5e39f7e28",
+  "baselineRetryChars": 2968,
+  "candidateRetryChars": 4219,
+  "candidateSuffix": "\n\nA PREVIOUS PLAN FOR THIS MOMENT WAS REJECTED. Revise the draft below to fix the reported problems. Preserve other details only where consistent with the source, work brief, depiction rules and any OWNER LOOK CONSTRAINTS. The draft is a proposal, not source evidence.\nCURRENT DRAFT:\n{\"present\":[\"alice\",\"cheshire_cat\",\"queen_of_hearts\",\"the_queen_s_croquet_ground\"],\"primarySubject\":\"Alice in a Victorian pinafore dress, half-turned, mid-sentence, glancing sideways at the Cheshire Cat's head.\",\"action\":\"Alice speaks in a low, guarded voice while the Queen, just behind her, leans in to listen with a smile.\",\"setting\":\"The Queen's croquet-ground in a Wonderland garden, with mushroom-shaped arches, flower beds and a dark wood beyond.\",\"secondaryElements\":\"The Cheshire Cat's grinning head floating in the air at Alice's shoulder; the Queen in a period robe and crown just behind Alice, partly hidden; flat oblong playing-card gardeners and courtiers in the background.\",\"mood\":\"Conspiratorial, sly and faintly tense, with a hint of comic danger.\",\"timeOfDay\":\"Afternoon in a dream-lit, timeless Wonderland day; warm, still and cloudless with a faint hazy drift.\",\"composition\":\"Alice in the left foreground, the Cat's head at her right shoulder, the Queen close behind Alice on the right, with the croquet ground and arches receding into the distance.\"}\nREVIEW PROBLEMS:\n- canon_conflict: The croquet-ground canon specifies small painted arches made of doubled-up soldiers as hoops, not mushroom-shaped arches. (plan said: \"mushroom-shaped arches\")",
+  "draft": {
+    "present": [
+      "alice",
+      "cheshire_cat",
+      "queen_of_hearts",
+      "the_queen_s_croquet_ground"
+    ],
+    "primarySubject": "Alice in a Victorian pinafore dress, half-turned, mid-sentence, glancing sideways at the Cheshire Cat's head.",
+    "action": "Alice speaks in a low, guarded voice while the Queen, just behind her, leans in to listen with a smile.",
+    "setting": "The Queen's croquet-ground in a Wonderland garden, with mushroom-shaped arches, flower beds and a dark wood beyond.",
+    "secondaryElements": "The Cheshire Cat's grinning head floating in the air at Alice's shoulder; the Queen in a period robe and crown just behind Alice, partly hidden; flat oblong playing-card gardeners and courtiers in the background.",
+    "mood": "Conspiratorial, sly and faintly tense, with a hint of comic danger.",
+    "timeOfDay": "Afternoon in a dream-lit, timeless Wonderland day; warm, still and cloudless with a faint hazy drift.",
+    "composition": "Alice in the left foreground, the Cat's head at her right shoulder, the Queen close behind Alice on the right, with the croquet ground and arches receding into the distance."
+  },
+  "promptVersion": "2026-10-31-moment-cast-v16",
+  "finalCapturedPlanStillPerched": true,
+  "recordedFakeSpendEntries": 4,
+  "liveProviderCalls": 0,
+  "newSpendUsd": 0
+}
