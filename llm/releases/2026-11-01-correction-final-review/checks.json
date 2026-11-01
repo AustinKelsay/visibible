@@ -1,0 +1,39 @@
+{
+  "node": "v26.12.1",
+  "checks": [
+    {
+      "name": "offline rehearsal",
+      "command": "node --import tsx llm/releases/2026-11-01-correction-final-review/run.mts",
+      "outcome": "passed",
+      "logSha256": "229993ca18ae0023d0c32bfc627e12320b2b84adc9565a190924f0e9890dd55f"
+    },
+    {
+      "name": "typecheck",
+      "command": "npm run typecheck",
+      "outcome": "passed",
+      "logSha256": "8aa9519f302b906bbc040eb0e0af9d32ea3ba28881cd8e229d8063292c7bb4dd"
+    },
+    {
+      "name": "focused lint",
+      "command": "npx eslint llm/releases/2026-11-01-correction-final-review/*.mts",
+      "outcome": "passed",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "focused tests",
+      "command": "npm test -- --run src/lib/__tests__/image-evals-suite-run.test.ts src/lib/__tests__/plan-review.test.ts src/lib/__tests__/engine-presence.test.ts src/lib/__tests__/cast-policy.test.ts",
+      "outcome": "passed",
+      "logSha256": "0710b8faa24208c135c2b9e9a94fe30152d5be65a3c68a4c75e04f60065a123c"
+    },
+    {
+      "name": "Node 20 compatibility rehearsal",
+      "command": "Node 20.20.2 --import tsx with verification write intercepted",
+      "outcome": "passed: jobs, ceilings and rehearsal outcomes match",
+      "logSha256": "b4f3ddd1c0ac222ef52f1c30d3b723f954341ea7f31d1dd8b9fb85cbcc53ea52"
+    }
+  ],
+  "focusedTestsPassed": 58,
+  "networkCalls": 0,
+  "paidExecution": "not started",
+  "fullApplicationSuite": "not rerun for this diagnostic-only preparation"
+}
