@@ -1,0 +1,45 @@
+[
+  {
+    "id": "floating-head",
+    "caseId": "alice-cat-head-talks",
+    "firstPlanLine": 380,
+    "reviewLine": 385,
+    "correctionLine": 387,
+    "criterion": "Remove the mushroom-shaped hoop conflict while retaining a head floating freely in air, without a Cat body or perch. Keep the Queen smiling if depicted in the smiling instant; an explicitly earlier overhearing instant is valid but does not demonstrate smile preservation. Inspect scene compression and other faults separately."
+  },
+  {
+    "id": "branch-control",
+    "caseId": "alice-cheshire-cat-bough",
+    "firstPlanLine": 395,
+    "reviewLine": 396,
+    "correctionLine": null,
+    "edit": {
+      "field": "composition",
+      "before": "Eye-level view from slightly behind Alice",
+      "after": "Eye-level view from behind Alice seated on the path"
+    },
+    "addedProblem": {
+      "kind": "not_one_instant",
+      "entryId": "alice",
+      "planQuote": "Alice seated on the path",
+      "reason": "The composition seats Alice on the path while the primarySubject has her standing, giving Alice incompatible poses in one instant."
+    },
+    "criterion": "Resolve the injected seated-versus-standing Alice contradiction, preserving a complete Cat on a tree branch. Either coherent Alice pose is acceptable; do not introduce a floating disembodied head. The original unselected-house finding and its cast addition remain. This is a synthetic correction control, not a captured failure."
+  },
+  {
+    "id": "dormouse-pose",
+    "caseId": "a-mad-tea-party-76",
+    "firstPlanLine": 64,
+    "reviewLine": 68,
+    "correctionLine": 71,
+    "criterion": "Resolve the speaking/raised-paw versus dozing contradiction: portray one coherent source-supported instant. Do not count deleting the Dormouse or switching to an unrelated event as demonstrated correction. Inspect the existing narrated-story/speaker-policy conflict separately; target success is not overall validity."
+  },
+  {
+    "id": "camp-time",
+    "caseId": "numbers-9-22",
+    "firstPlanLine": 32,
+    "reviewLine": 33,
+    "correctionLine": 34,
+    "criterion": "Choose one time and lighting state without a day-to-night sequence, retaining the cloud resting over the tabernacle and people encamped rather than traveling. Inspect unsupported incidental details and all other constraints separately."
+  }
+]

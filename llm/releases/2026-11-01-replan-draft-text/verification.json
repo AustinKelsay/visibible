@@ -1,0 +1,254 @@
+{
+  "scope": "Mechanical rehearsal, not semantic evidence",
+  "networkCalls": 0,
+  "requests": 24,
+  "sourceHashes": {
+    "llm/releases/2026-10-31-replan-draft-candidate/candidate.patch": "6e92a5985fe2166cde4cb987a31851896cabbba9bb41d39bd870756c609d7c42",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/closing-pricing.json": "cf0817be042c9fb50bd4e5a2c3c8c7fd90a43a5502a954c6d405b2de0a414e06",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/funding-close.json": "9786c404b0f0395373e29646881863ad47846bd364168137344946e1200f50ad",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/provider.ndjson": "4c6177667756a9f54e2ebd9f75a6e18e2f124cd2a7a0b888724509066f395efd",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/results.ndjson": "fb480f71e8215367737f1131b0b588fd7085046028640667f1ab8a9eb6e66025",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/snapshot.json": "063daddab8e0e6ca37592725e35fa3c03d838e49d60bb8adba11daed17d9b915",
+    "llm/releases/2026-11-01-replan-draft-text/baseline-requests.json": "b2a6d40c1de8a938e4f3c0b07127c0b6f25a84e701c231a1ba8f020d5714155a",
+    "llm/releases/2026-11-01-replan-draft-text/cases.json": "3a886274e37fbb109d8a22c30ef56e6cd32f6271df113f187721335475554621",
+    "llm/releases/2026-11-01-replan-draft-text/funding.json": "8d503198c76d065bb8c3e4be5e7357b1b15a2fd4400732561609a4ec8fb0cdef",
+    "llm/releases/2026-11-01-replan-draft-text/plan.json": "b7c55fac449468761ba74500ffb0d2b1f6eeae5f96fa6c20d324a2a14c725428",
+    "llm/releases/2026-11-01-replan-draft-text/replay.mts": "22dd49afe9422914fca2e5a3577ff4860de2e847510e75c4b54c2239dff96c11",
+    "llm/releases/2026-11-01-replan-draft-text/run.mts": "a5fbfc506e438f990957b0c45c80903f1b8cbba6a3809146bd62eb0c8f37731f",
+    "llm/releases/2026-11-01-replan-draft-text/with-draft-requests.json": "8b3f5f06c31c70c799cab91260f9983a180d055d7042c1f8192cb5f3b1226716",
+    "package-lock.json": "49eaf7c5aede6804020aeada51f279d4941028bd9ab5198d2ca569c9c91cbf56",
+    "src/lib/engine/depiction.ts": "60dbfb9bca1e8cd120d4e8a8dc0ba9d364484eb6bce71528d17d3f0fe3d81f7a",
+    "src/lib/engine/memory-store.ts": "3f6c20532afac6697a136b414dbb55f04ccc28af0846469ee3f81022813e35ed",
+    "src/lib/engine/plan-review.ts": "01a5656346cb8f62ac74970e049350c8eb85e76e84d3ec218fff7af1da6ce1f1",
+    "src/lib/engine/preparation.ts": "562e203aa11fd975460d011628e1147a60e4afd73ba145c00455780b3fdbd6ed",
+    "src/lib/engine/prompt.ts": "dfe33e64074d7ca273654703d39173dc4aafe4b2dab157196f3b5332b94d115b",
+    "src/lib/engine/scene-grounding.ts": "fb20e4778239fc734c0ed5b6098b11474bb6a98d20c21c05d26865596c79eed5",
+    "src/lib/engine/situation.ts": "793c7e95ea720a62986f0253ccf3bb25c471a733de21e7a790640918517d6f67",
+    "src/lib/engine/work-inputs.ts": "fb0d94e51f979610332ed538eb5a34f9c70988f1c704f880991d8411af6b0cb4",
+    "src/lib/image-evals/suite-run.ts": "d18d1f3fef44447646e5359d9c22e28428f490e3be06dfe9e8f84263649e442c",
+    "src/lib/image-response.ts": "d29592291a7a865cd77c2f75b5c732da3d6f8b9da5157113c6b7debf5f8cf527",
+    "src/lib/reading-pass/model.ts": "d9d579e4b14f3d4140006bad40f8952f2ef679e95d42502373fc697e23ddec08",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/work-input.ts": "e43bddfa5b9a1e2f8065c42f6f99baba98d359f3a996efaca3d30aafb1d13590",
+    "src/lib/work-preparation.ts": "4ec63971bb9fa9f43aac6a97108d59437f72583740f58eb6bbb552bb6c5ddd2e",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/fresco.json": "b7aa9799217f5effaade817e3f1aa5ae3b6e322bef461ae161e564e83a65f529",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+    "styles/watercolor.json": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+    "works/alice-in-wonderland/brief.json": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d",
+    "works/alice-in-wonderland/depiction.json": "fc97ce62ad640ca66a1c8ae5394112a76583e387687b5ccc30d02de19b7dacb0",
+    "works/alice-in-wonderland/work.json": "8dbcd44e0ab0c37ef65bcd2eb507bed73c4f395a94c0ac30e3f4ace25d64b95c",
+    "works/bible-web/brief.json": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+    "works/bible-web/depiction.json": "67a641feb9b13e8b80516b4ec5ba9c32b0bd7e86108188ec1056dd1121bd4915",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+  },
+  "retainedPricingCeilingUsd": 0.04235399999999999,
+  "jobs": [
+    {
+      "id": "floating-head/baseline/1",
+      "caseId": "floating-head",
+      "arm": "baseline",
+      "repeat": 1,
+      "requestSha256": "f74ab9e6923edbc9f7bb30294e142a29ebc035421a04bddd49c58105f42b47ea"
+    },
+    {
+      "id": "floating-head/with-draft/1",
+      "caseId": "floating-head",
+      "arm": "with-draft",
+      "repeat": 1,
+      "requestSha256": "df020abf484325965f28e799b4db12b6c7a52ce513799faea3daa82c1c718ea7"
+    },
+    {
+      "id": "branch-control/baseline/1",
+      "caseId": "branch-control",
+      "arm": "baseline",
+      "repeat": 1,
+      "requestSha256": "43551320d2048d80d19027b68a6dbc8d02eda1056d6a8f1cedcf9062aba192a3"
+    },
+    {
+      "id": "branch-control/with-draft/1",
+      "caseId": "branch-control",
+      "arm": "with-draft",
+      "repeat": 1,
+      "requestSha256": "9e91bc04da21b69b8434daeccdf920bd3c6e61c14894f097169e6e5f71302a89"
+    },
+    {
+      "id": "dormouse-pose/baseline/1",
+      "caseId": "dormouse-pose",
+      "arm": "baseline",
+      "repeat": 1,
+      "requestSha256": "660abc0c52c80f52dd6ac8318b84ce46f44dfd37c005eca7b3d56daf961bdcab"
+    },
+    {
+      "id": "dormouse-pose/with-draft/1",
+      "caseId": "dormouse-pose",
+      "arm": "with-draft",
+      "repeat": 1,
+      "requestSha256": "f450eea4275f0a7ceaafc66804fdba381dc6607c3d488c21b74e2d8587ceba6d"
+    },
+    {
+      "id": "camp-time/baseline/1",
+      "caseId": "camp-time",
+      "arm": "baseline",
+      "repeat": 1,
+      "requestSha256": "e1f16a6dd93f62a6a40e5eda82cb446bc1c72698b9761ccec645ea084f765f76"
+    },
+    {
+      "id": "camp-time/with-draft/1",
+      "caseId": "camp-time",
+      "arm": "with-draft",
+      "repeat": 1,
+      "requestSha256": "34d7705615d1d082fe67168c03e16bda2795b0f04a2d3aef4835e8ebfea8a0be"
+    },
+    {
+      "id": "floating-head/with-draft/2",
+      "caseId": "floating-head",
+      "arm": "with-draft",
+      "repeat": 2,
+      "requestSha256": "df020abf484325965f28e799b4db12b6c7a52ce513799faea3daa82c1c718ea7"
+    },
+    {
+      "id": "floating-head/baseline/2",
+      "caseId": "floating-head",
+      "arm": "baseline",
+      "repeat": 2,
+      "requestSha256": "f74ab9e6923edbc9f7bb30294e142a29ebc035421a04bddd49c58105f42b47ea"
+    },
+    {
+      "id": "branch-control/with-draft/2",
+      "caseId": "branch-control",
+      "arm": "with-draft",
+      "repeat": 2,
+      "requestSha256": "9e91bc04da21b69b8434daeccdf920bd3c6e61c14894f097169e6e5f71302a89"
+    },
+    {
+      "id": "branch-control/baseline/2",
+      "caseId": "branch-control",
+      "arm": "baseline",
+      "repeat": 2,
+      "requestSha256": "43551320d2048d80d19027b68a6dbc8d02eda1056d6a8f1cedcf9062aba192a3"
+    },
+    {
+      "id": "dormouse-pose/with-draft/2",
+      "caseId": "dormouse-pose",
+      "arm": "with-draft",
+      "repeat": 2,
+      "requestSha256": "f450eea4275f0a7ceaafc66804fdba381dc6607c3d488c21b74e2d8587ceba6d"
+    },
+    {
+      "id": "dormouse-pose/baseline/2",
+      "caseId": "dormouse-pose",
+      "arm": "baseline",
+      "repeat": 2,
+      "requestSha256": "660abc0c52c80f52dd6ac8318b84ce46f44dfd37c005eca7b3d56daf961bdcab"
+    },
+    {
+      "id": "camp-time/with-draft/2",
+      "caseId": "camp-time",
+      "arm": "with-draft",
+      "repeat": 2,
+      "requestSha256": "34d7705615d1d082fe67168c03e16bda2795b0f04a2d3aef4835e8ebfea8a0be"
+    },
+    {
+      "id": "camp-time/baseline/2",
+      "caseId": "camp-time",
+      "arm": "baseline",
+      "repeat": 2,
+      "requestSha256": "e1f16a6dd93f62a6a40e5eda82cb446bc1c72698b9761ccec645ea084f765f76"
+    },
+    {
+      "id": "floating-head/baseline/3",
+      "caseId": "floating-head",
+      "arm": "baseline",
+      "repeat": 3,
+      "requestSha256": "f74ab9e6923edbc9f7bb30294e142a29ebc035421a04bddd49c58105f42b47ea"
+    },
+    {
+      "id": "floating-head/with-draft/3",
+      "caseId": "floating-head",
+      "arm": "with-draft",
+      "repeat": 3,
+      "requestSha256": "df020abf484325965f28e799b4db12b6c7a52ce513799faea3daa82c1c718ea7"
+    },
+    {
+      "id": "branch-control/baseline/3",
+      "caseId": "branch-control",
+      "arm": "baseline",
+      "repeat": 3,
+      "requestSha256": "43551320d2048d80d19027b68a6dbc8d02eda1056d6a8f1cedcf9062aba192a3"
+    },
+    {
+      "id": "branch-control/with-draft/3",
+      "caseId": "branch-control",
+      "arm": "with-draft",
+      "repeat": 3,
+      "requestSha256": "9e91bc04da21b69b8434daeccdf920bd3c6e61c14894f097169e6e5f71302a89"
+    },
+    {
+      "id": "dormouse-pose/baseline/3",
+      "caseId": "dormouse-pose",
+      "arm": "baseline",
+      "repeat": 3,
+      "requestSha256": "660abc0c52c80f52dd6ac8318b84ce46f44dfd37c005eca7b3d56daf961bdcab"
+    },
+    {
+      "id": "dormouse-pose/with-draft/3",
+      "caseId": "dormouse-pose",
+      "arm": "with-draft",
+      "repeat": 3,
+      "requestSha256": "f450eea4275f0a7ceaafc66804fdba381dc6607c3d488c21b74e2d8587ceba6d"
+    },
+    {
+      "id": "camp-time/baseline/3",
+      "caseId": "camp-time",
+      "arm": "baseline",
+      "repeat": 3,
+      "requestSha256": "e1f16a6dd93f62a6a40e5eda82cb446bc1c72698b9761ccec645ea084f765f76"
+    },
+    {
+      "id": "camp-time/with-draft/3",
+      "caseId": "camp-time",
+      "arm": "with-draft",
+      "repeat": 3,
+      "requestSha256": "34d7705615d1d082fe67168c03e16bda2795b0f04a2d3aef4835e8ebfea8a0be"
+    }
+  ],
+  "stops": {
+    "none": {
+      "sent": 24,
+      "captured": 24,
+      "blocked": null,
+      "uncertainUsd": 0
+    },
+    "http": {
+      "sent": 1,
+      "captured": 0,
+      "blocked": "Provider error 500",
+      "uncertainUsd": 0
+    },
+    "schema": {
+      "sent": 1,
+      "captured": 0,
+      "blocked": null,
+      "uncertainUsd": 0
+    },
+    "missing-usage": {
+      "sent": 1,
+      "captured": 0,
+      "blocked": "Missing provider usage",
+      "uncertainUsd": 0.0017115999999999998
+    },
+    "over-ceiling": {
+      "sent": 1,
+      "captured": 0,
+      "blocked": "A call cost $1 against its $0.0017115999999999998 ceiling",
+      "uncertainUsd": 0
+    },
+    "exception": {
+      "sent": 1,
+      "captured": 0,
+      "blocked": "fake timeout",
+      "uncertainUsd": 0.0017115999999999998
+    }
+  }
+}
