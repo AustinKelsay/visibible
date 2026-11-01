@@ -1,0 +1,180 @@
+[
+  {
+    "id": "alice-gloves",
+    "work": "alice-in-wonderland",
+    "unitId": "the-pool-of-tears-8",
+    "expected": "Alice remains more than nine feet tall in the hall when the Rabbit returns with gloves and fan. Any coherent focal instant is valid; the Rabbit may have fled, but Alice must not be normal child-sized or already shrunk.",
+    "images": true,
+    "moment": {
+      "id": "the-pool-of-tears-8",
+      "firstUnit": "the-pool-of-tears-8",
+      "lastUnit": "the-pool-of-tears-8"
+    },
+    "sectionId": "the-pool-of-tears-1",
+    "range": {
+      "firstUnit": "the-pool-of-tears-1",
+      "lastUnit": "the-pool-of-tears-8"
+    },
+    "context": {
+      "moment": {
+        "id": "the-pool-of-tears-8",
+        "reference": "The Pool of Tears ¶8",
+        "text": "After a time she heard a little pattering of feet in the distance, and she hastily dried her eyes to see what was coming. It was the White Rabbit returning, splendidly dressed, with a pair of white kid gloves in one hand and a large fan in the other: he came trotting along in a great hurry, muttering to himself as he came, “Oh! the Duchess, the Duchess! Oh! won’t she be savage if I’ve kept her waiting!” Alice felt so desperate that she was ready to ask help of any one; so, when the Rabbit came near her, she began, in a low, timid voice, “If you please, sir—” The Rabbit started violently, dropped the white kid gloves and the fan, and skurried away into the darkness as hard as he could go."
+      },
+      "previous": {
+        "text": "“You ought to be ashamed of yourself,” said Alice, “a great girl like you,” (she might well say this), “to go on crying in this way! Stop this moment, I tell you!” But she went on all the same, shedding gallons of tears, until there was a large pool all round her, about four inches deep and reaching half down the hall."
+      },
+      "next": null
+    },
+    "source": "\n\nCOMPLETE SOURCE SECTION (context for the focal MOMENT; establish its state at that instant, not a later event):\nBEFORE THE MOMENT:\n“Curiouser and curiouser!” cried Alice (she was so much surprised, that for the moment she quite forgot how to speak good English); “now I’m opening out like the largest telescope that ever was! Good-bye, feet!” (for when she looked down at her feet, they seemed to be almost out of sight, they were getting so far off). “Oh, my poor little feet, I wonder who will put on your shoes and stockings for you now, dears? I’m sure _I_ shan’t be able! I shall be a great deal too far off to trouble myself about you: you must manage the best way you can;—but I must be kind to them,” thought Alice, “or perhaps they won’t walk the way I want to go! Let me see: I’ll give them a new pair of boots every Christmas.”\n\nAnd she went on planning to herself how she would manage it. “They must go by the carrier,” she thought; “and how funny it’ll seem, sending presents to one’s own feet! And how odd the directions will look!\n\n_Alice’s Right Foot, Esq., Hearthrug, near the Fender,_ (_with Alice’s love_).\n\nOh dear, what nonsense I’m talking!”\n\nJust then her head struck against the roof of the hall: in fact she was now more than nine feet high, and she at once took up the little golden key and hurried off to the garden door.\n\nPoor Alice! It was as much as she could do, lying down on one side, to look through into the garden with one eye; but to get through was more hopeless than ever: she sat down and began to cry again.\n\n“You ought to be ashamed of yourself,” said Alice, “a great girl like you,” (she might well say this), “to go on crying in this way! Stop this moment, I tell you!” But she went on all the same, shedding gallons of tears, until there was a large pool all round her, about four inches deep and reaching half down the hall.\nFOCAL MOMENT:\nAfter a time she heard a little pattering of feet in the distance, and she hastily dried her eyes to see what was coming. It was the White Rabbit returning, splendidly dressed, with a pair of white kid gloves in one hand and a large fan in the other: he came trotting along in a great hurry, muttering to himself as he came, “Oh! the Duchess, the Duchess! Oh! won’t she be savage if I’ve kept her waiting!” Alice felt so desperate that she was ready to ask help of any one; so, when the Rabbit came near her, she began, in a low, timid voice, “If you please, sir—” The Rabbit started violently, dropped the white kid gloves and the fan, and skurried away into the darkness as hard as he could go.\nAFTER THE MOMENT:\n(none)"
+  },
+  {
+    "id": "alice-house-entry",
+    "work": "alice-in-wonderland",
+    "unitId": "the-rabbit-sends-in-a-little-bill-2",
+    "expected": "Alice receives the errand or enters the house, before drinking and growing. No premature giant body, trapped limb, or conflation with the real Mary Ann. Rabbit absence after she enters is valid.",
+    "images": true,
+    "moment": {
+      "id": "the-rabbit-sends-in-a-little-bill-2",
+      "firstUnit": "the-rabbit-sends-in-a-little-bill-2",
+      "lastUnit": "the-rabbit-sends-in-a-little-bill-3"
+    },
+    "sectionId": "the-rabbit-sends-in-a-little-bill-1",
+    "range": {
+      "firstUnit": "the-rabbit-sends-in-a-little-bill-1",
+      "lastUnit": "the-rabbit-sends-in-a-little-bill-9"
+    },
+    "context": {
+      "moment": {
+        "id": "the-rabbit-sends-in-a-little-bill-2",
+        "reference": "The Rabbit Sends in a Little Bill ¶2 to The Rabbit Sends in a Little Bill ¶3",
+        "text": "Very soon the Rabbit noticed Alice, as she went hunting about, and called out to her in an angry tone, “Why, Mary Ann, what _are_ you doing out here? Run home this moment, and fetch me a pair of gloves and a fan! Quick, now!” And Alice was so much frightened that she ran off at once in the direction it pointed to, without trying to explain the mistake it had made. “He took me for his housemaid,” she said to herself as she ran. “How surprised he’ll be when he finds out who I am! But I’d better take him his fan and gloves—that is, if I can find them.” As she said this, she came upon a neat little house, on the door of which was a bright brass plate with the name “W. RABBIT,” engraved upon it. She went in without knocking, and hurried upstairs, in great fear lest she should meet the real Mary Ann, and be turned out of the house before she had found the fan and gloves."
+      },
+      "previous": {
+        "text": "It was the White Rabbit, trotting slowly back again, and looking anxiously about as it went, as if it had lost something; and she heard it muttering to itself “The Duchess! The Duchess! Oh my dear paws! Oh my fur and whiskers! She’ll get me executed, as sure as ferrets are ferrets! Where _can_ I have dropped them, I wonder?” Alice guessed in a moment that it was looking for the fan and the pair of white kid gloves, and she very good-naturedly began hunting about for them, but they were nowhere to be seen—everything seemed to have changed since her swim in the pool, and the great hall, with the glass table and the little door, had vanished completely."
+      },
+      "next": {
+        "text": "“How queer it seems,” Alice said to herself, “to be going messages for a rabbit! I suppose Dinah’ll be sending me on messages next!” And she began fancying the sort of thing that would happen: “‘Miss Alice! Come here directly, and get ready for your walk!’ ‘Coming in a minute, nurse! But I’ve got to see that the mouse doesn’t get out.’ Only I don’t think,” Alice went on, “that they’d let Dinah stop in the house if it began ordering people about like that!”"
+      }
+    },
+    "source": "\n\nCOMPLETE SOURCE SECTION (context for the focal MOMENT; establish its state at that instant, not a later event):\nBEFORE THE MOMENT:\nIt was the White Rabbit, trotting slowly back again, and looking anxiously about as it went, as if it had lost something; and she heard it muttering to itself “The Duchess! The Duchess! Oh my dear paws! Oh my fur and whiskers! She’ll get me executed, as sure as ferrets are ferrets! Where _can_ I have dropped them, I wonder?” Alice guessed in a moment that it was looking for the fan and the pair of white kid gloves, and she very good-naturedly began hunting about for them, but they were nowhere to be seen—everything seemed to have changed since her swim in the pool, and the great hall, with the glass table and the little door, had vanished completely.\nFOCAL MOMENT:\nVery soon the Rabbit noticed Alice, as she went hunting about, and called out to her in an angry tone, “Why, Mary Ann, what _are_ you doing out here? Run home this moment, and fetch me a pair of gloves and a fan! Quick, now!” And Alice was so much frightened that she ran off at once in the direction it pointed to, without trying to explain the mistake it had made. “He took me for his housemaid,” she said to herself as she ran. “How surprised he’ll be when he finds out who I am! But I’d better take him his fan and gloves—that is, if I can find them.” As she said this, she came upon a neat little house, on the door of which was a bright brass plate with the name “W. RABBIT,” engraved upon it. She went in without knocking, and hurried upstairs, in great fear lest she should meet the real Mary Ann, and be turned out of the house before she had found the fan and gloves.\nAFTER THE MOMENT:\n“How queer it seems,” Alice said to herself, “to be going messages for a rabbit! I suppose Dinah’ll be sending me on messages next!” And she began fancying the sort of thing that would happen: “‘Miss Alice! Come here directly, and get ready for your walk!’ ‘Coming in a minute, nurse! But I’ve got to see that the mouse doesn’t get out.’ Only I don’t think,” Alice went on, “that they’d let Dinah stop in the house if it began ordering people about like that!”\n\nBy this time she had found her way into a tidy little room with a table in the window, and on it (as she had hoped) a fan and two or three pairs of tiny white kid gloves: she took up the fan and a pair of the gloves, and was just going to leave the room, when her eye fell upon a little bottle that stood near the looking-glass. There was no label this time with the words “DRINK ME,” but nevertheless she uncorked it and put it to her lips. “I know _something_ interesting is sure to happen,” she said to herself, “whenever I eat or drink anything; so I’ll just see what this bottle does. I do hope it’ll make me grow large again, for really I’m quite tired of being such a tiny little thing!”\n\nIt did so indeed, and much sooner than she had expected: before she had drunk half the bottle, she found her head pressing against the ceiling, and had to stoop to save her neck from being broken. She hastily put down the bottle, saying to herself “That’s quite enough—I hope I shan’t grow any more—As it is, I can’t get out at the door—I do wish I hadn’t drunk quite so much!”\n\nAlas! it was too late to wish that! She went on growing, and growing, and very soon had to kneel down on the floor: in another minute there was not even room for this, and she tried the effect of lying down with one elbow against the door, and the other arm curled round her head. Still she went on growing, and, as a last resource, she put one arm out of the window, and one foot up the chimney, and said to herself “Now I can do no more, whatever happens. What _will_ become of me?”\n\nLuckily for Alice, the little magic bottle had now had its full effect, and she grew no larger: still it was very uncomfortable, and, as there seemed to be no sort of chance of her ever getting out of the room again, no wonder she felt unhappy.\n\n“It was much pleasanter at home,” thought poor Alice, “when one wasn’t always growing larger and smaller, and being ordered about by mice and rabbits. I almost wish I hadn’t gone down that rabbit-hole—and yet—and yet—it’s rather curious, you know, this sort of life! I do wonder what _can_ have happened to me! When I used to read fairy-tales, I fancied that kind of thing never happened, and now here I am in the middle of one! There ought to be a book written about me, that there ought! And when I grow up, I’ll write one—but I’m grown up now,” she added in a sorrowful tone; “at least there’s no room to grow up any more _here_.”"
+  },
+  {
+    "id": "alice-house-grown",
+    "work": "alice-in-wonderland",
+    "unitId": "the-rabbit-sends-in-a-little-bill-8",
+    "expected": "Alice is already oversized and cramped in the house. Select one coherent focal pose; do not restore ordinary child size or combine successive poses.",
+    "images": false,
+    "moment": {
+      "id": "the-rabbit-sends-in-a-little-bill-7",
+      "firstUnit": "the-rabbit-sends-in-a-little-bill-7",
+      "lastUnit": "the-rabbit-sends-in-a-little-bill-9"
+    },
+    "sectionId": "the-rabbit-sends-in-a-little-bill-1",
+    "range": {
+      "firstUnit": "the-rabbit-sends-in-a-little-bill-1",
+      "lastUnit": "the-rabbit-sends-in-a-little-bill-9"
+    },
+    "context": {
+      "moment": {
+        "id": "the-rabbit-sends-in-a-little-bill-7",
+        "reference": "The Rabbit Sends in a Little Bill ¶7 to The Rabbit Sends in a Little Bill ¶9",
+        "text": "Alas! it was too late to wish that! She went on growing, and growing, and very soon had to kneel down on the floor: in another minute there was not even room for this, and she tried the effect of lying down with one elbow against the door, and the other arm curled round her head. Still she went on growing, and, as a last resource, she put one arm out of the window, and one foot up the chimney, and said to herself “Now I can do no more, whatever happens. What _will_ become of me?” Luckily for Alice, the little magic bottle had now had its full effect, and she grew no larger: still it was very uncomfortable, and, as there seemed to be no sort of chance of her ever getting out of the room again, no wonder she felt unhappy. “It was much pleasanter at home,” thought poor Alice, “when one wasn’t always growing larger and smaller, and being ordered about by mice and rabbits. I almost wish I hadn’t gone down that rabbit-hole—and yet—and yet—it’s rather curious, you know, this sort of life! I do wonder what _can_ have happened to me! When I used to read fairy-tales, I fancied that kind of thing never happened, and now here I am in the middle of one! There ought to be a book written about me, that there ought! And when I grow up, I’ll write one—but I’m grown up now,” she added in a sorrowful tone; “at least there’s no room to grow up any more _here_.”"
+      },
+      "previous": {
+        "text": "It did so indeed, and much sooner than she had expected: before she had drunk half the bottle, she found her head pressing against the ceiling, and had to stoop to save her neck from being broken. She hastily put down the bottle, saying to herself “That’s quite enough—I hope I shan’t grow any more—As it is, I can’t get out at the door—I do wish I hadn’t drunk quite so much!”"
+      },
+      "next": null
+    },
+    "source": "\n\nCOMPLETE SOURCE SECTION (context for the focal MOMENT; establish its state at that instant, not a later event):\nBEFORE THE MOMENT:\nIt was the White Rabbit, trotting slowly back again, and looking anxiously about as it went, as if it had lost something; and she heard it muttering to itself “The Duchess! The Duchess! Oh my dear paws! Oh my fur and whiskers! She’ll get me executed, as sure as ferrets are ferrets! Where _can_ I have dropped them, I wonder?” Alice guessed in a moment that it was looking for the fan and the pair of white kid gloves, and she very good-naturedly began hunting about for them, but they were nowhere to be seen—everything seemed to have changed since her swim in the pool, and the great hall, with the glass table and the little door, had vanished completely.\n\nVery soon the Rabbit noticed Alice, as she went hunting about, and called out to her in an angry tone, “Why, Mary Ann, what _are_ you doing out here? Run home this moment, and fetch me a pair of gloves and a fan! Quick, now!” And Alice was so much frightened that she ran off at once in the direction it pointed to, without trying to explain the mistake it had made.\n\n“He took me for his housemaid,” she said to herself as she ran. “How surprised he’ll be when he finds out who I am! But I’d better take him his fan and gloves—that is, if I can find them.” As she said this, she came upon a neat little house, on the door of which was a bright brass plate with the name “W. RABBIT,” engraved upon it. She went in without knocking, and hurried upstairs, in great fear lest she should meet the real Mary Ann, and be turned out of the house before she had found the fan and gloves.\n\n“How queer it seems,” Alice said to herself, “to be going messages for a rabbit! I suppose Dinah’ll be sending me on messages next!” And she began fancying the sort of thing that would happen: “‘Miss Alice! Come here directly, and get ready for your walk!’ ‘Coming in a minute, nurse! But I’ve got to see that the mouse doesn’t get out.’ Only I don’t think,” Alice went on, “that they’d let Dinah stop in the house if it began ordering people about like that!”\n\nBy this time she had found her way into a tidy little room with a table in the window, and on it (as she had hoped) a fan and two or three pairs of tiny white kid gloves: she took up the fan and a pair of the gloves, and was just going to leave the room, when her eye fell upon a little bottle that stood near the looking-glass. There was no label this time with the words “DRINK ME,” but nevertheless she uncorked it and put it to her lips. “I know _something_ interesting is sure to happen,” she said to herself, “whenever I eat or drink anything; so I’ll just see what this bottle does. I do hope it’ll make me grow large again, for really I’m quite tired of being such a tiny little thing!”\n\nIt did so indeed, and much sooner than she had expected: before she had drunk half the bottle, she found her head pressing against the ceiling, and had to stoop to save her neck from being broken. She hastily put down the bottle, saying to herself “That’s quite enough—I hope I shan’t grow any more—As it is, I can’t get out at the door—I do wish I hadn’t drunk quite so much!”\nFOCAL MOMENT:\nAlas! it was too late to wish that! She went on growing, and growing, and very soon had to kneel down on the floor: in another minute there was not even room for this, and she tried the effect of lying down with one elbow against the door, and the other arm curled round her head. Still she went on growing, and, as a last resource, she put one arm out of the window, and one foot up the chimney, and said to herself “Now I can do no more, whatever happens. What _will_ become of me?” Luckily for Alice, the little magic bottle had now had its full effect, and she grew no larger: still it was very uncomfortable, and, as there seemed to be no sort of chance of her ever getting out of the room again, no wonder she felt unhappy. “It was much pleasanter at home,” thought poor Alice, “when one wasn’t always growing larger and smaller, and being ordered about by mice and rabbits. I almost wish I hadn’t gone down that rabbit-hole—and yet—and yet—it’s rather curious, you know, this sort of life! I do wonder what _can_ have happened to me! When I used to read fairy-tales, I fancied that kind of thing never happened, and now here I am in the middle of one! There ought to be a book written about me, that there ought! And when I grow up, I’ll write one—but I’m grown up now,” she added in a sorrowful tone; “at least there’s no room to grow up any more _here_.”\nAFTER THE MOMENT:\n(none)"
+  },
+  {
+    "id": "sea-night",
+    "work": "bible-web",
+    "unitId": "exodus-14-21",
+    "expected": "Moses stretches his hand over the sea; wind drives it back through the night. Do not move this event to the later morning-watch action or combine distinct instants.",
+    "images": false,
+    "moment": {
+      "id": "exodus-14-21",
+      "firstUnit": "exodus-14-21",
+      "lastUnit": "exodus-14-21"
+    },
+    "sectionId": "exodus-14-21",
+    "range": {
+      "firstUnit": "exodus-14-21",
+      "lastUnit": "exodus-14-25"
+    },
+    "context": {
+      "moment": {
+        "id": "exodus-14-21",
+        "reference": "Exodus 14:21",
+        "text": "Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided."
+      },
+      "previous": null,
+      "next": {
+        "text": "The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left."
+      }
+    },
+    "source": "\n\nCOMPLETE SOURCE SECTION (context for the focal MOMENT; establish its state at that instant, not a later event):\nBEFORE THE MOMENT:\n(none)\nFOCAL MOMENT:\nMoses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.\nAFTER THE MOMENT:\nThe children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.\n\nThe Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.\n\nIn the morning watch, Yahweh looked out on the Egyptian army through the pillar of fire and of cloud, and confused the Egyptian army.\n\nHe took off their chariot wheels, and they drove them heavily; so that the Egyptians said, “Let’s flee from the face of Israel, for Yahweh fights for them against the Egyptians!”"
+  },
+  {
+    "id": "sea-crossing",
+    "work": "bible-web",
+    "unitId": "exodus-14-22",
+    "expected": "Israel crosses dry ground between walls of water. Preserve night/early-watch context; do not prematurely depict the returned water or drowning army.",
+    "images": false,
+    "moment": {
+      "id": "exodus-14-22",
+      "firstUnit": "exodus-14-22",
+      "lastUnit": "exodus-14-22"
+    },
+    "sectionId": "exodus-14-21",
+    "range": {
+      "firstUnit": "exodus-14-21",
+      "lastUnit": "exodus-14-25"
+    },
+    "context": {
+      "moment": {
+        "id": "exodus-14-22",
+        "reference": "Exodus 14:22",
+        "text": "The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left."
+      },
+      "previous": {
+        "text": "Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided."
+      },
+      "next": {
+        "text": "The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen."
+      }
+    },
+    "source": "\n\nCOMPLETE SOURCE SECTION (context for the focal MOMENT; establish its state at that instant, not a later event):\nBEFORE THE MOMENT:\nMoses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.\nFOCAL MOMENT:\nThe children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.\nAFTER THE MOMENT:\nThe Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.\n\nIn the morning watch, Yahweh looked out on the Egyptian army through the pillar of fire and of cloud, and confused the Egyptian army.\n\nHe took off their chariot wheels, and they drove them heavily; so that the Egyptians said, “Let’s flee from the face of Israel, for Yahweh fights for them against the Egyptians!”"
+  },
+  {
+    "id": "holmes-cellar",
+    "work": "holmes-adventures",
+    "unitId": "the-red-headed-league-183",
+    "expected": "Holmes, Watson, Jones and Merryweather make preparations and hide in the bank cellar before the thieves arrive. Keep one coherent instant and the lantern state for that instant; do not introduce the later arrest.",
+    "images": false,
+    "moment": {
+      "id": "the-red-headed-league-183",
+      "firstUnit": "the-red-headed-league-183",
+      "lastUnit": "the-red-headed-league-190"
+    },
+    "sectionId": "the-red-headed-league-175",
+    "range": {
+      "firstUnit": "the-red-headed-league-175",
+      "lastUnit": "the-red-headed-league-190"
+    },
+    "context": {
+      "moment": {
+        "id": "the-red-headed-league-183",
+        "reference": "The Red-Headed League ¶183 to The Red-Headed League ¶190",
+        "text": "“Which were very well justified,” observed Holmes. “And now it is time that we arranged our little plans. I expect that within an hour matters will come to a head. In the meantime Mr. Merryweather, we must put the screen over that dark lantern.” “And sit in the dark?” “I am afraid so. I had brought a pack of cards in my pocket, and I thought that, as we were a _partie carrée_, you might have your rubber after all. But I see that the enemy’s preparations have gone so far that we cannot risk the presence of a light. And, first of all, we must choose our positions. These are daring men, and though we shall take them at a disadvantage, they may do us some harm unless we are careful. I shall stand behind this crate, and do you conceal yourselves behind those. Then, when I flash a light upon them, close in swiftly. If they fire, Watson, have no compunction about shooting them down.” I placed my revolver, cocked, upon the top of the wooden case behind which I crouched. Holmes shot the slide across the front of his lantern and left us in pitch darkness—such an absolute darkness as I have never before experienced. The smell of hot metal remained to assure us that the light was still there, ready to flash out at a moment’s notice. To me, with my nerves worked up to a pitch of expectancy, there was something depressing and subduing in the sudden gloom, and in the cold dank air of the vault. “They have but one retreat,” whispered Holmes. “That is back through the house into Saxe-Coburg Square. I hope that you have done what I asked you, Jones?” “I have an inspector and two officers waiting at the front door.” “Then we have stopped all the holes. And now we must be silent and wait.” What a time it seemed! From comparing notes afterwards it was but an hour and a quarter, yet it appeared to me that the night must have almost gone, and the dawn be breaking above us. My limbs were weary and stiff, for I feared to change my position; yet my nerves were worked up to the highest pitch of tension, and my hearing was so acute that I could not only hear the gentle breathing of my companions, but I could distinguish the deeper, heavier in-breath of the bulky Jones from the thin, sighing note of the bank director. From my position I could look over the case in the direction of the floor. Suddenly my eyes caught the glint of a light."
+      },
+      "previous": {
+        "text": "“Yes. We had occasion some months ago to strengthen our resources and borrowed for that purpose 30,000 napoleons from the Bank of France. It has become known that we have never had occasion to unpack the money, and that it is still lying in our cellar. The crate upon which I sit contains 2,000 napoleons packed between layers of lead foil. Our reserve of bullion is much larger at present than is usually kept in a single branch office, and the directors have had misgivings upon the subject.”"
+      },
+      "next": null
+    },
+    "source": "\n\nCOMPLETE SOURCE SECTION (context for the focal MOMENT; establish its state at that instant, not a later event):\nBEFORE THE MOMENT:\n“You are not very vulnerable from above,” Holmes remarked as he held up the lantern and gazed about him.\n\n“Nor from below,” said Mr. Merryweather, striking his stick upon the flags which lined the floor. “Why, dear me, it sounds quite hollow!” he remarked, looking up in surprise.\n\n“I must really ask you to be a little more quiet!” said Holmes severely. “You have already imperilled the whole success of our expedition. Might I beg that you would have the goodness to sit down upon one of those boxes, and not to interfere?”\n\nThe solemn Mr. Merryweather perched himself upon a crate, with a very injured expression upon his face, while Holmes fell upon his knees upon the floor and, with the lantern and a magnifying lens, began to examine minutely the cracks between the stones. A few seconds sufficed to satisfy him, for he sprang to his feet again and put his glass in his pocket.\n\n“We have at least an hour before us,” he remarked, “for they can hardly take any steps until the good pawnbroker is safely in bed. Then they will not lose a minute, for the sooner they do their work the longer time they will have for their escape. We are at present, Doctor—as no doubt you have divined—in the cellar of the City branch of one of the principal London banks. Mr. Merryweather is the chairman of directors, and he will explain to you that there are reasons why the more daring criminals of London should take a considerable interest in this cellar at present.”\n\n“It is our French gold,” whispered the director. “We have had several warnings that an attempt might be made upon it.”\n\n“Your French gold?”\n\n“Yes. We had occasion some months ago to strengthen our resources and borrowed for that purpose 30,000 napoleons from the Bank of France. It has become known that we have never had occasion to unpack the money, and that it is still lying in our cellar. The crate upon which I sit contains 2,000 napoleons packed between layers of lead foil. Our reserve of bullion is much larger at present than is usually kept in a single branch office, and the directors have had misgivings upon the subject.”\nFOCAL MOMENT:\n“Which were very well justified,” observed Holmes. “And now it is time that we arranged our little plans. I expect that within an hour matters will come to a head. In the meantime Mr. Merryweather, we must put the screen over that dark lantern.” “And sit in the dark?” “I am afraid so. I had brought a pack of cards in my pocket, and I thought that, as we were a _partie carrée_, you might have your rubber after all. But I see that the enemy’s preparations have gone so far that we cannot risk the presence of a light. And, first of all, we must choose our positions. These are daring men, and though we shall take them at a disadvantage, they may do us some harm unless we are careful. I shall stand behind this crate, and do you conceal yourselves behind those. Then, when I flash a light upon them, close in swiftly. If they fire, Watson, have no compunction about shooting them down.” I placed my revolver, cocked, upon the top of the wooden case behind which I crouched. Holmes shot the slide across the front of his lantern and left us in pitch darkness—such an absolute darkness as I have never before experienced. The smell of hot metal remained to assure us that the light was still there, ready to flash out at a moment’s notice. To me, with my nerves worked up to a pitch of expectancy, there was something depressing and subduing in the sudden gloom, and in the cold dank air of the vault. “They have but one retreat,” whispered Holmes. “That is back through the house into Saxe-Coburg Square. I hope that you have done what I asked you, Jones?” “I have an inspector and two officers waiting at the front door.” “Then we have stopped all the holes. And now we must be silent and wait.” What a time it seemed! From comparing notes afterwards it was but an hour and a quarter, yet it appeared to me that the night must have almost gone, and the dawn be breaking above us. My limbs were weary and stiff, for I feared to change my position; yet my nerves were worked up to the highest pitch of tension, and my hearing was so acute that I could not only hear the gentle breathing of my companions, but I could distinguish the deeper, heavier in-breath of the bulky Jones from the thin, sighing note of the bank director. From my position I could look over the case in the direction of the floor. Suddenly my eyes caught the glint of a light.\nAFTER THE MOMENT:\n(none)"
+  }
+]

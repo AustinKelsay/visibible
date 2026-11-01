@@ -1,0 +1,272 @@
+{
+  "status": "completed-not-activated",
+  "conclusion": "Do not activate or broaden to an image trial on this evidence.",
+  "method": "Unblinded parent model inspection, control inspected first. Existing text fault definitions guide judgments; this is not blind scoring, human acceptance or a release gate. Narrow pose/cast uncertainties are recorded separately.",
+  "limitations": [
+    "Verdicts are exploratory parent-model observations, not exhaustive answers to every suite fault question. Cast selection and reference differences are assessed separately; acceptable does not certify complete cast selection.",
+    "Control was inspected first; source contexts were then reused for candidate inspection. No independent blind quality score was produced.",
+    "A cross-arm costume audit corrected control Hatter-witness acceptability and added costume faults to two already-flawed control court/dance scenes.",
+    "The Eyford day/night judgment uses additional frozen-source paragraphs outside the individual planner window, equally for both arms.",
+    "One sample per case and arm; named holdout was previously examined.",
+    "Alice gloves, house-entry and grown-house fixtures from earlier diagnostics are absent from this suite.",
+    "Reference changes below are assembled attachment metadata; no images were generated.",
+    "Closing catalog reproduces ceilings but is not a saved pre-call catalog snapshot."
+  ],
+  "arms": {
+    "control": {
+      "cases": 113,
+      "costUsd": 0.1502514,
+      "textCalls": 293,
+      "plannerCalls": 146,
+      "reviewCalls": 147,
+      "reviewRounds": {
+        "1": 80,
+        "2": 33
+      },
+      "responseModels": {
+        "anthropic/claude-haiku-5.5": 293
+      },
+      "successfulJsonResponses": 293,
+      "providerErrors": [],
+      "sceneDescriptionCharacters": {
+        "min": 537,
+        "median": 686,
+        "max": 887
+      },
+      "assembledPromptCharacters": {
+        "min": 4979,
+        "median": 7060,
+        "max": 9555
+      },
+      "inspection": {
+        "cases": 113,
+        "observedVerdicts": {
+          "acceptable": 64,
+          "flawed": 40,
+          "uncertain": 9
+        },
+        "oneInstantConflict": {
+          "no": 87,
+          "uncertain": 18,
+          "yes": 8
+        }
+      },
+      "byWork": {
+        "bible-web": {
+          "cases": 77,
+          "observedVerdicts": {
+            "acceptable": 48,
+            "flawed": 23,
+            "uncertain": 6
+          },
+          "oneInstantConflict": {
+            "no": 61,
+            "uncertain": 12,
+            "yes": 4
+          }
+        },
+        "holmes-adventures": {
+          "cases": 18,
+          "observedVerdicts": {
+            "acceptable": 7,
+            "flawed": 9,
+            "uncertain": 2
+          },
+          "oneInstantConflict": {
+            "no": 14,
+            "uncertain": 3,
+            "yes": 1
+          }
+        },
+        "alice-in-wonderland": {
+          "cases": 18,
+          "observedVerdicts": {
+            "acceptable": 9,
+            "flawed": 8,
+            "uncertain": 1
+          },
+          "oneInstantConflict": {
+            "no": 12,
+            "uncertain": 3,
+            "yes": 3
+          }
+        }
+      },
+      "bySplit": {
+        "holdout": {
+          "cases": 20,
+          "observedVerdicts": {
+            "acceptable": 13,
+            "flawed": 7
+          },
+          "oneInstantConflict": {
+            "no": 18,
+            "uncertain": 2
+          }
+        },
+        "dev": {
+          "cases": 93,
+          "observedVerdicts": {
+            "acceptable": 51,
+            "flawed": 33,
+            "uncertain": 9
+          },
+          "oneInstantConflict": {
+            "no": 69,
+            "uncertain": 16,
+            "yes": 8
+          }
+        }
+      }
+    },
+    "candidate": {
+      "cases": 113,
+      "costUsd": 0.1633863,
+      "textCalls": 324,
+      "plannerCalls": 161,
+      "reviewCalls": 163,
+      "reviewRounds": {
+        "1": 65,
+        "2": 48
+      },
+      "responseModels": {
+        "anthropic/claude-haiku-5.5": 323
+      },
+      "successfulJsonResponses": 323,
+      "providerErrors": [
+        {
+          "caseId": "judges-19-29-concubine",
+          "schema": "plan_review",
+          "status": 403,
+          "message": "anthropic/claude-haiku-5.5-20261007 requires moderation on Anthropic. Your input was flagged for \"violence/graphic\". No credits were charged.",
+          "measuredUsd": 0
+        }
+      ],
+      "sceneDescriptionCharacters": {
+        "min": 632,
+        "median": 900,
+        "max": 1297
+      },
+      "assembledPromptCharacters": {
+        "min": 4830,
+        "median": 7220,
+        "max": 10959
+      },
+      "inspection": {
+        "cases": 113,
+        "observedVerdicts": {
+          "acceptable": 56,
+          "flawed": 45,
+          "uncertain": 12
+        },
+        "oneInstantConflict": {
+          "no": 86,
+          "uncertain": 15,
+          "yes": 12
+        }
+      },
+      "byWork": {
+        "bible-web": {
+          "cases": 77,
+          "observedVerdicts": {
+            "acceptable": 44,
+            "flawed": 24,
+            "uncertain": 9
+          },
+          "oneInstantConflict": {
+            "no": 59,
+            "uncertain": 10,
+            "yes": 8
+          }
+        },
+        "holmes-adventures": {
+          "cases": 18,
+          "observedVerdicts": {
+            "acceptable": 7,
+            "flawed": 10,
+            "uncertain": 1
+          },
+          "oneInstantConflict": {
+            "no": 17,
+            "yes": 1
+          }
+        },
+        "alice-in-wonderland": {
+          "cases": 18,
+          "observedVerdicts": {
+            "acceptable": 5,
+            "flawed": 11,
+            "uncertain": 2
+          },
+          "oneInstantConflict": {
+            "no": 10,
+            "uncertain": 5,
+            "yes": 3
+          }
+        }
+      },
+      "bySplit": {
+        "holdout": {
+          "cases": 20,
+          "observedVerdicts": {
+            "acceptable": 10,
+            "flawed": 9,
+            "uncertain": 1
+          },
+          "oneInstantConflict": {
+            "no": 13,
+            "uncertain": 4,
+            "yes": 3
+          }
+        },
+        "dev": {
+          "cases": 93,
+          "observedVerdicts": {
+            "acceptable": 46,
+            "flawed": 36,
+            "uncertain": 11
+          },
+          "oneInstantConflict": {
+            "no": 73,
+            "uncertain": 11,
+            "yes": 9
+          }
+        }
+      }
+    }
+  },
+  "pairedObservedVerdictTransitions": {
+    "acceptable -> acceptable": 44,
+    "acceptable -> flawed": 14,
+    "acceptable -> uncertain": 6,
+    "flawed -> acceptable": 11,
+    "flawed -> flawed": 28,
+    "flawed -> uncertain": 1,
+    "uncertain -> acceptable": 1,
+    "uncertain -> flawed": 3,
+    "uncertain -> uncertain": 5
+  },
+  "castAndReferences": {
+    "cases": 113,
+    "selectionSetsChanged": 40,
+    "sameSetOrderChanged": 27,
+    "stageChangedCases": 0,
+    "referenceOrderOrSetChangedCases": 18,
+    "lostReferenceCases": 8,
+    "gainedReferenceCases": 9
+  },
+  "funding": {
+    "at": "2026-10-31T20:30:15.973Z",
+    "balanceUsd": 8.852293237999987,
+    "keyLimitRemaining": 23.851926446,
+    "readerReserveUsd": 5,
+    "priorConservativeUsd": 6.31691115,
+    "controlUsd": 0.1502514,
+    "candidateUsd": 0.1633863,
+    "totalThisComparisonUsd": 0.3136377,
+    "cumulativeConservativeUsd": 6.63054885,
+    "cumulativeCapUsd": 7,
+    "remainingAuthorizationUsd": 0.36945115,
+    "uncertainUsd": 0
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "authorization": "Okay, continue (after recommendation to test richer actual source context); original instruction: I\u2019ll add $6; continue after verifying the balance",
+  "operationCapUsd": 2,
+  "cumulativeCapUsd": 6,
+  "priorUpperBoundUsd": 2.88026715,
+  "readerReserveUsd": 5,
+  "scope": "Bounded follow-up using unused original diagnostic allowance; local data only, no activation or production writes."
+}

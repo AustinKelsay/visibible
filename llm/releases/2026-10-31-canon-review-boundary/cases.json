@@ -1,0 +1,229 @@
+[
+  {
+    "id": "queen-retained-paragraph",
+    "source": {
+      "file": "llm/releases/2026-10-31-scene-description-candidate/provider.ndjson",
+      "row": 308
+    },
+    "targetEntry": "queen_of_hearts",
+    "targetKind": "canon_conflict",
+    "expected": false,
+    "cleanCanonRemove": "a stern, frowning face and ",
+    "note": "Exact captured request from the unapplied paragraph candidate. Only the Queen canon-conflict claim is evaluated; this is not an otherwise clean scene."
+  },
+  {
+    "source": {
+      "file": "llm/releases/2026-10-31-scene-description-control/provider.ndjson",
+      "row": 278
+    },
+    "targetEntry": "queen_of_hearts",
+    "targetKind": "canon_conflict",
+    "id": "queen-current-smile",
+    "expected": false,
+    "edits": [
+      [
+        "eyes narrowed in listening",
+        "smiling as she listens"
+      ]
+    ],
+    "note": "Counterfactual current seven-field request: only the Queen expression changes. Other original defects remain."
+  },
+  {
+    "source": {
+      "file": "llm/releases/2026-10-31-scene-description-control/provider.ndjson",
+      "row": 278
+    },
+    "targetEntry": "queen_of_hearts",
+    "targetKind": "canon_conflict",
+    "id": "queen-current-design",
+    "expected": true,
+    "edits": [
+      [
+        "Queen of Hearts in a heart-patterned robe with a crown",
+        "Queen of Hearts in a heart-patterned robe with a crown and long silver hair"
+      ]
+    ],
+    "note": "Counterfactual current seven-field request: the Queen hair differs from the dark-haired recurring design without source support."
+  },
+  {
+    "id": "generic-changing-clothing",
+    "source": {
+      "file": "llm/releases/2026-10-31-scene-description-control/provider.ndjson",
+      "row": 278
+    },
+    "input": {
+      "rules": "- No additional depiction restrictions.",
+      "context": {
+        "moment": {
+          "id": "generic-changing-clothing",
+          "reference": "Invented control passage",
+          "text": "Mara took off her red coat, revealing a blue shirt."
+        },
+        "previous": null,
+        "next": null
+      },
+      "sectionTitle": "Synthetic continuity control",
+      "cast": [
+        {
+          "entryId": "mara",
+          "name": "Mara",
+          "hasForm": true
+        }
+      ],
+      "present": [
+        "mara"
+      ],
+      "fields": {
+        "primarySubject": "Mara, an adult with short black hair and brown eyes",
+        "action": "Mara stands in her blue shirt after removing her coat",
+        "setting": "A plain doorway",
+        "secondaryElements": "Her red coat hangs over her arm",
+        "mood": "Quiet",
+        "timeOfDay": "Daylight",
+        "composition": "One scene, Mara beside the doorway"
+      },
+      "rendering": {
+        "lookPolicy": "generated-guide-v1",
+        "canon": [
+          {
+            "entryId": "mara",
+            "stageId": "adult",
+            "kind": "character",
+            "name": "Mara",
+            "text": "Mara: an adult with short black hair, brown eyes and a broad square face. Her usual outer garment is a red coat.",
+            "hasForm": true,
+            "depiction": "form",
+            "version": "synthetic-canon-v1"
+          }
+        ]
+      }
+    },
+    "targetEntry": "mara",
+    "targetKind": "canon_conflict",
+    "expected": false,
+    "note": "Invented generic fixture, not a captured literary scene."
+  },
+  {
+    "id": "generic-recurring-identity",
+    "source": {
+      "file": "llm/releases/2026-10-31-scene-description-control/provider.ndjson",
+      "row": 278
+    },
+    "input": {
+      "rules": "- No additional depiction restrictions.",
+      "context": {
+        "moment": {
+          "id": "generic-recurring-identity",
+          "reference": "Invented control passage",
+          "text": "Mara waited by the doorway."
+        },
+        "previous": null,
+        "next": null
+      },
+      "sectionTitle": "Synthetic continuity control",
+      "cast": [
+        {
+          "entryId": "mara",
+          "name": "Mara",
+          "hasForm": true
+        }
+      ],
+      "present": [
+        "mara"
+      ],
+      "fields": {
+        "primarySubject": "Mara, an adult with long golden hair and green eyes",
+        "action": "Mara waits beside the doorway",
+        "setting": "A plain doorway",
+        "secondaryElements": "Her red coat is fastened",
+        "mood": "Quiet",
+        "timeOfDay": "Daylight",
+        "composition": "One scene, Mara beside the doorway"
+      },
+      "rendering": {
+        "lookPolicy": "generated-guide-v1",
+        "canon": [
+          {
+            "entryId": "mara",
+            "stageId": "adult",
+            "kind": "character",
+            "name": "Mara",
+            "text": "Mara: an adult with short black hair, brown eyes and a broad square face. Her usual outer garment is a red coat.",
+            "hasForm": true,
+            "depiction": "form",
+            "version": "synthetic-canon-v1"
+          }
+        ]
+      }
+    },
+    "targetEntry": "mara",
+    "targetKind": "canon_conflict",
+    "expected": true,
+    "note": "Invented generic fixture, not a captured literary scene."
+  },
+  {
+    "id": "owner-clothing-constraint",
+    "source": {
+      "file": "llm/releases/2026-10-31-scene-description-control/provider.ndjson",
+      "row": 278
+    },
+    "input": {
+      "rules": "- No additional depiction restrictions.",
+      "context": {
+        "moment": {
+          "id": "owner-clothing-constraint",
+          "reference": "Invented control passage",
+          "text": "Mara took off her red coat, revealing a blue shirt."
+        },
+        "previous": null,
+        "next": null
+      },
+      "sectionTitle": "Synthetic continuity control",
+      "cast": [
+        {
+          "entryId": "mara",
+          "name": "Mara",
+          "hasForm": true
+        }
+      ],
+      "present": [
+        "mara"
+      ],
+      "fields": {
+        "primarySubject": "Mara, an adult with short black hair and brown eyes",
+        "action": "Mara stands in her blue shirt after removing her coat",
+        "setting": "A plain doorway",
+        "secondaryElements": "Her red coat hangs over her arm",
+        "mood": "Quiet",
+        "timeOfDay": "Daylight",
+        "composition": "One scene, Mara beside the doorway"
+      },
+      "rendering": {
+        "lookPolicy": "literal-constraint-v1",
+        "canon": [
+          {
+            "entryId": "mara",
+            "stageId": "adult",
+            "kind": "character",
+            "name": "Mara",
+            "text": "Mara: an adult with short black hair, brown eyes and a broad square face. Her usual outer garment is a red coat.",
+            "hasForm": true,
+            "depiction": "form",
+            "version": "synthetic-canon-v1"
+          }
+        ],
+        "look": {
+          "place": "A plain doorway",
+          "timeOfDay": "Daylight",
+          "weather": "Dry",
+          "light": "Daylight",
+          "clothing": "Mara keeps her red coat on."
+        }
+      }
+    },
+    "targetEntry": null,
+    "targetKind": "look_conflict",
+    "expected": true,
+    "note": "Invented generic fixture, not a captured literary scene. Owner constraint deliberately conflicts with the source and plan."
+  }
+]

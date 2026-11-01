@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-31T20:30:15.973Z",
+  "balanceUsd": 8.852293237999987,
+  "keyLimitRemaining": 23.851926446,
+  "readerReserveUsd": 5,
+  "priorConservativeUsd": 6.31691115,
+  "controlUsd": 0.1502514,
+  "candidateUsd": 0.1633863,
+  "totalThisComparisonUsd": 0.3136377,
+  "cumulativeConservativeUsd": 6.63054885,
+  "cumulativeCapUsd": 7,
+  "remainingAuthorizationUsd": 0.36945115,
+  "uncertainUsd": 0,
+  "catalogObservedAfterExecution": [
+    {
+      "id": "anthropic/claude-haiku-5.5",
+      "pricing": {
+        "prompt": "0.0000001",
+        "completion": "0.0000005",
+        "web_search": "0.01",
+        "input_cache_read": "0.00000001",
+        "input_cache_write": "0.000000125",
+        "input_cache_write_1h": "0.0000002",
+        "overrides": [
+          {
+            "min_prompt_tokens": 100000,
+            "prompt": "0.0000005",
+            "completion": "0.0000025",
+            "input_cache_read": "0.00000005",
+            "input_cache_write": "0.000000625",
+            "input_cache_write_1h": "0.000001"
+          }
+        ]
+      },
+      "top_provider": {
+        "context_length": 1000000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      }
+    }
+  ]
+}

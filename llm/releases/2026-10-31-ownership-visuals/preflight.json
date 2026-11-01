@@ -1,0 +1,68 @@
+{
+  "offlineOnly": true,
+  "liveProviderCalls": 0,
+  "spendUsd": 0,
+  "scheduledRows": 18,
+  "fakeCalls": {
+    "text": 0,
+    "image": 26,
+    "check": 52
+  },
+  "frozenInputsVerified": 33,
+  "promptAndCheckerRequestsVerified": 78,
+  "fixedPlanInputsPerScene": 1,
+  "repeatsPerArm": 3,
+  "cases": [
+    {
+      "sourceCaseId": "alice-house-entry-section-1",
+      "baselineChars": 8246,
+      "candidateChars": 8187,
+      "changedLines": [
+        9,
+        34
+      ],
+      "orderedReferences": 3
+    },
+    {
+      "sourceCaseId": "alice-house-grown-section-1",
+      "baselineChars": 7616,
+      "candidateChars": 7557,
+      "changedLines": [
+        9,
+        33
+      ],
+      "orderedReferences": 2
+    },
+    {
+      "sourceCaseId": "holmes-cellar-section-1",
+      "baselineChars": 7776,
+      "candidateChars": 7717,
+      "changedLines": [
+        9,
+        34
+      ],
+      "orderedReferences": 0
+    }
+  ],
+  "unavailableReference": {
+    "rows": 1,
+    "firstOutcome": "failed",
+    "calls": {
+      "text": 0,
+      "image": 0,
+      "check": 0
+    },
+    "finished": false,
+    "ledgerBlocked": null
+  },
+  "unapprovedExecution": "Rejected before credentials, network or start marker",
+  "delayedChecker": "Existing network-free reproduction retains uncertainty/in-flight calls and prevents completion; no provider calls",
+  "checks": {
+    "typecheck": "passed",
+    "focusedLint": "passed",
+    "suiteRunnerTests": 14,
+    "fullSuitePassed": 1052,
+    "fullSuiteSkipped": 1,
+    "repositoryLint": "zero errors, three existing warnings"
+  }
+}

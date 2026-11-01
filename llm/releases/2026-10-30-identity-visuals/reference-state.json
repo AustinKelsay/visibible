@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "workId": "alice-in-wonderland",
+  "done": {
+    "styleReference:watercolor": {
+      "ok": false,
+      "attempts": 3,
+      "costUsd": 0.10190845000000001,
+      "at": "2026-10-30T23:17:41.712Z",
+      "fingerprint": "7a786ecf236d13e09d6d6037037ccbe3"
+    },
+    "styleReference:classical": {
+      "ok": true,
+      "attempts": 1,
+      "costUsd": 0.033922900000000006,
+      "at": "2026-10-30T23:17:46.738Z",
+      "fingerprint": "7b7cf1393b28ce90aeae4691922d488d"
+    },
+    "sheet:alice:alice": {
+      "ok": true,
+      "attempts": 1,
+      "costUsd": 0.0340928,
+      "at": "2026-10-30T23:17:54.258Z",
+      "fingerprint": "449b913f6990cc6a2f649317103d84db"
+    },
+    "sheet:white_rabbit:white_rabbit": {
+      "ok": true,
+      "attempts": 2,
+      "costUsd": 0.06821795,
+      "at": "2026-10-30T23:18:08.426Z",
+      "fingerprint": "0f1066a53f249172f26ccc4df2911251"
+    }
+  },
+  "spentUsd": 0.23814210000000002
+}

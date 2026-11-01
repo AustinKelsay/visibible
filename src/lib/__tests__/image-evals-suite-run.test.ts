@@ -187,6 +187,15 @@ describe("a suite run through the real assembly", () => {
     }
   });
 
+  it("reuses a frozen guide while making fresh plans in a paired text run", async () => {
+    const first = await run("text");
+    const look = first.rows[0].records.look;
+    const paired = await run("text", [look]);
+    expect(paired.rows.map(r => r.outcome)).toEqual(["planned", "planned"]);
+    expect(paired.offline.counts.text).toBe(4); // Two plans and two reviews; no new guide.
+    expect(paired.rows.every(r => r.records.look.version === look.version)).toBe(true);
+  });
+
   it("draws the text run's plans in the image tier, with no text call, then checks and retries", async () => {
     const text = await run("text");
     const seeds = [...new Map(text.rows.flatMap((r) => [r.records.look, r.records.plan]).map((r) => [`${r.kind}:${r.recordId}`, r])).values()];

@@ -1,0 +1,2498 @@
+{
+  "method": "Unblinded parent model inspection, control inspected first. Existing text fault definitions guide judgments; this is not blind scoring, human acceptance or a release gate. Narrow pose/cast uncertainties are recorded separately.",
+  "scorer": "gpt-6-astra",
+  "arms": {
+    "control": [
+      {
+        "index": 0,
+        "caseId": "leviticus-1-16",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "One priest disposes of the crop and feathers beside the altar; the generic ritual onlookers do not change the action."
+      },
+      {
+        "index": 1,
+        "caseId": "daniel-6-17",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Final plan fixes on pressing a seal after the stone is laid; the earlier review's movement conflict is not retained. Signet seals need not contain lettering."
+      },
+      {
+        "index": 2,
+        "caseId": "proverbs-8-21",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "A grain gift is a plausible illustration of non-event abundance; no bodily Wisdom is requested. This does not establish that the added radiance is required by the text."
+      },
+      {
+        "index": 3,
+        "caseId": "1-corinthians-13-12",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "unsupported_figure"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Paul and Corinthian listeners are staged around a literal mirror although the passage uses seeing in a mirror as a metaphor."
+      },
+      {
+        "index": 4,
+        "caseId": "isaiah-40-29",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "Renewed strength matches the verse. Bowed/failing knees, rising and standing may describe a readable rising pose, but the fields leave posture ambiguous."
+      },
+      {
+        "index": 5,
+        "caseId": "deuteronomy-1-7",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Departure from Horeb illustrates the remembered command. The added cloud pillar is unsupported by this excerpt and is a depiction/cast-selection caution."
+      },
+      {
+        "index": 6,
+        "caseId": "nehemiah-3-9",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Rephaiah setting a wall stone matches the repairs; a named subject may appear without a canon entry."
+      },
+      {
+        "index": 7,
+        "caseId": "2-chronicles-31-21",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Hezekiah overseeing temple service fits the summary of his devoted work."
+      },
+      {
+        "index": 8,
+        "caseId": "numbers-9-22",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The plan selects the resting-cloud interval, keeping Israel encamped. The absent God selection despite the cloud is a depiction-selection caution."
+      },
+      {
+        "index": 9,
+        "caseId": "holmes-eyford-fire",
+        "work": "holmes-adventures",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The supplied excerpt supports the hill/fire scene but does not settle night versus day or whether the station-master accompanies the party. Eyford Station is selected although not described in the view. Additional frozen-work inspection of paragraphs 133/138 resolves the prior timing uncertainty: this return is in daylight, so the late-night setting is wrong."
+      },
+      {
+        "index": 10,
+        "caseId": "the-adventure-of-the-noble-bachelor-176",
+        "work": "holmes-adventures",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "visible_writing"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The opened hotel bill and scattered newspapers are presented for inspection without suppressing their writing; the final poses are otherwise coherent."
+      },
+      {
+        "index": 11,
+        "caseId": "the-adventure-of-the-blue-carbuncle-73",
+        "work": "holmes-adventures",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Holmes holds the blue stone to the light with Watson present, matching the narrated action."
+      },
+      {
+        "index": 12,
+        "caseId": "a-case-of-identity-94",
+        "work": "holmes-adventures",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment",
+          "visible_writing"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Watson's first-person action of holding the printed slip becomes Holmes's action; the printed notice is also shown openly."
+      },
+      {
+        "index": 13,
+        "caseId": "alice-caterpillar",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Caterpillar removes the hookah and speaks to small Alice beside the mushroom."
+      },
+      {
+        "index": 14,
+        "caseId": "alice-tea-party-arrival",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The wine offer is verbal while only tea is present, consistent with the source. Cottages/mushroom wood are additional setting inventions, not necessary scene facts."
+      },
+      {
+        "index": 15,
+        "caseId": "alice-croquet-game",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The final plan isolates Alice's pre-strike attempt and keeps the flamingo, hedgehog and card arches coherent."
+      },
+      {
+        "index": 16,
+        "caseId": "the-lobster-quadrille-19",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment",
+          "unsupported_figure",
+          "rule_conflict"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The actual dance around Alice is mixed with lobsters and turtles from the sung story, although the dancers explicitly perform without lobsters. Cross-arm costume audit also flags unsupported animal clothing."
+      },
+      {
+        "index": 17,
+        "caseId": "alices-evidence-38",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "visible_writing",
+          "rule_conflict"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The Rabbit holds a paper open and reads verses without a blank/back-facing treatment. Cross-arm costume audit also flags unsupported animal clothing."
+      },
+      {
+        "index": 18,
+        "caseId": "a-mad-tea-party-76",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Alice's questioning at the tea table is physically narrated within this moment; speakers are not inserted inside the sisters' well."
+      },
+      {
+        "index": 19,
+        "caseId": "alices-evidence-2",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "rule_conflict"
+        ],
+        "oneInstantConflict": "uncertain",
+        "note": "Alice's explicitly enlarged size is not conveyed against the courtroom. Bill is already upright and waving while jurors remain scattered; the source instead describes his upside-down waving before correction."
+      },
+      {
+        "index": 20,
+        "caseId": "genesis-1-3-light",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Light spreads across primordial waters without a divine body."
+      },
+      {
+        "index": 21,
+        "caseId": "genesis-5-5-adam-days",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Adam's death is represented with restrained family mourning; a missing canon selection does not prohibit an incidental named subject."
+      },
+      {
+        "index": 22,
+        "caseId": "genesis-19-24-sodom",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Fire and sulfur strike the cities. Yahweh is omitted from selected cast despite explicit action and depicted fire; record this selection concern separately from the visible event."
+      },
+      {
+        "index": 23,
+        "caseId": "genesis-22-10-abraham-knife",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Abraham's raised knife over bound Isaac represents the threatened sacrifice. Added sky radiance anticipates the next verse and is unnecessary."
+      },
+      {
+        "index": 24,
+        "caseId": "exodus-14-21-sea-parts",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Moses, wind and divided waters preserve the focal event; the night-to-dawn choice is broader than a precise timestamp."
+      },
+      {
+        "index": 25,
+        "caseId": "exodus-14-22-sea-walls",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "Israel walks between the water walls. Deep night plus the first grey of dawn leaves lighting underspecified rather than establishing two separate scenes."
+      },
+      {
+        "index": 26,
+        "caseId": "leviticus-11-7-pig",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The law about a pig becomes a Moses-led teaching scene with the pig small and distant."
+      },
+      {
+        "index": 27,
+        "caseId": "joshua-6-20-jericho",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The breach and advancing army depict the event. A crowd moving toward a viewer outside the wall while entering the city makes movement direction ambiguous."
+      },
+      {
+        "index": 28,
+        "caseId": "judges-19-29-concubine",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The source has the Levite return home, but this excerpt does not identify that home as Gibeah. Raised knife and cutting before the first division also leave the exact pose ambiguous."
+      },
+      {
+        "index": 29,
+        "caseId": "ruth-4-22-genealogy",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment",
+          "missing_subject",
+          "unsupported_figure"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Naomi with newborn Obed replaces Obed fathering Jesse and Jesse fathering David; the missing descendants and the invented recitation change the genealogy."
+      },
+      {
+        "index": 30,
+        "caseId": "1-samuel-17-49-sling",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "David's released sling and Goliath's fall fit the verse. The secondary field calls the still-falling giant already fallen, leaving impact timing ambiguous."
+      },
+      {
+        "index": 31,
+        "caseId": "2-kings-2-23-bears",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Elisha is mocked on the road; the next verse's bears are correctly excluded."
+      },
+      {
+        "index": 32,
+        "caseId": "job-38-4-foundations",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Job listening beneath a whirlwind replaces the creation/foundations that the question describes."
+      },
+      {
+        "index": 33,
+        "caseId": "psalms-23-2-pastures",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "David becomes the shepherd leading sheep, although the psalm describes Yahweh as the speaker's shepherd."
+      },
+      {
+        "index": 34,
+        "caseId": "psalms-137-1-babylon",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The speakers are explicitly the exiles sitting and weeping; their physical presence is warranted."
+      },
+      {
+        "index": 35,
+        "caseId": "song-of-solomon-2-1-rose",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "A Shulammite self-portrait among flowers may illustrate the self-metaphor or improperly literalize the speaker inside it; the ambiguity is genuine."
+      },
+      {
+        "index": 36,
+        "caseId": "isaiah-6-2-seraphim",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "embodied_effects"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The 'hem of light' reintroduces the divine garment metaphor that the effects instructions exclude, despite no visible body."
+      },
+      {
+        "index": 37,
+        "caseId": "isaiah-11-6-wolf-lamb",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Child, wolf/lamb and other animals illustrate peaceful coexistence without inserting Isaiah."
+      },
+      {
+        "index": 38,
+        "caseId": "ezekiel-37-4-dry-bones",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Ezekiel is explicitly addressed inside the vision; speaking among the dry bones is a plausible illustration of the command."
+      },
+      {
+        "index": 39,
+        "caseId": "daniel-6-22-lions",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Daniel and subdued lions show his present safety, but the described angel's action is reduced to faint radiance while Darius is foregrounded. It is ambiguous whether this represents the reported deliverance adequately."
+      },
+      {
+        "index": 40,
+        "caseId": "daniel-7-9-ancient-of-days",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "embodied_effects"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The divine throne-space, thrones and fiery wheels retain the seat imagery excluded by the active effects contract, even with no figure."
+      },
+      {
+        "index": 41,
+        "caseId": "jonah-1-17-fish",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Jonah inside the fish is the stated condition. The cloud/fire radiance is ungrounded decoration and a selection caution, not a new bodily figure."
+      },
+      {
+        "index": 42,
+        "caseId": "matthew-1-1-genealogy",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "A closed genealogy scroll and a period household are a plausible non-event illustration; the named lineage is not visually identifiable."
+      },
+      {
+        "index": 43,
+        "caseId": "matthew-14-29-peter-water",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Peter's step onto water toward Jesus precedes sinking, as the focal verse requires."
+      },
+      {
+        "index": 44,
+        "caseId": "john-21-7-peter-sea",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Clothed Peter leaps toward the shore while the others remain in the boat."
+      },
+      {
+        "index": 45,
+        "caseId": "mark-4-39-storm",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "Calming the sea is the right event. Billowing cloak against a limp sail and dying wind leaves the transition's exact state ambiguous."
+      },
+      {
+        "index": 46,
+        "caseId": "luke-15-20-prodigal",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "The father simultaneously runs with open arms and already embraces/kisses the son; these fields prescribe different arm poses."
+      },
+      {
+        "index": 47,
+        "caseId": "john-11-43-lazarus",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The grave-clothed figure stirring at the tomb mouth anticipates Lazarus's emergence in the next verse during the command itself."
+      },
+      {
+        "index": 48,
+        "caseId": "acts-9-3-damascus",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Saul remains standing as the light appears, leaving the next verse's fall out of this moment."
+      },
+      {
+        "index": 49,
+        "caseId": "romans-8-28-all-things",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Unnamed believers in quiet trust plausibly illustrate the non-event promise; Paul is not inserted as its speaker."
+      },
+      {
+        "index": 50,
+        "caseId": "matthew-27-35-crucified",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Soldiers cast lots for the clothing beneath the crucified Jesus, with restrained treatment."
+      },
+      {
+        "index": 51,
+        "caseId": "revelation-4-6-living-creatures",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "embodied_effects"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The central divine throne remains explicit despite effects-mode restrictions on its seat imagery. The selected elders are not actually described as visible."
+      },
+      {
+        "index": 52,
+        "caseId": "revelation-21-1-new-heaven",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "A calm crystalline shore sits beside repeated claims that no sea remains. A dry former shore or inland bank is possible, but the spatial instruction is ambiguous."
+      },
+      {
+        "index": 53,
+        "caseId": "holmes-scandal-the-woman",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "unsupported_figure"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Watson is placed physically at Holmes's doorway inside the narrator's abstract description, although this moment narrates no visit."
+      },
+      {
+        "index": 54,
+        "caseId": "holmes-scandal-king-arrives",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The masked visitor's arrival is faithful overall. Watson half-rising and the mask hand already lowered borrow or shift gestures around the chosen entrance instant."
+      },
+      {
+        "index": 55,
+        "caseId": "holmes-red-headed-league",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The introduction of Watson to Wilson is represented. A just-closed door with Watson half in the room, and seated versus half-risen Wilson, leave precise positions ambiguous."
+      },
+      {
+        "index": 56,
+        "caseId": "john-21-9",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The net is heaped in the boat, whereas the neighboring source has the disciples dragging the full net behind it; the shore/fire encounter itself is correct."
+      },
+      {
+        "index": 57,
+        "caseId": "exodus-17-12",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Seated Moses with Aaron and Hur supporting his arms correctly anchors a single stage of the battle."
+      },
+      {
+        "index": 58,
+        "caseId": "numbers-20-11",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "Moses's rod is still raised for the second blow while water already gushes and the congregation drinks; the source's causal stages are collapsed."
+      },
+      {
+        "index": 59,
+        "caseId": "luke-22-61",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Peter meets Jesus's gaze in the courtyard. Jesus is clearly described but omitted from selected cast, a material identity/reference selection defect to track separately."
+      },
+      {
+        "index": 60,
+        "caseId": "acts-3-7",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Peter raises the man by the right hand; standing strength is shown before the next verse's walking and leaping."
+      },
+      {
+        "index": 61,
+        "caseId": "1-samuel-16-13",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The anointing is the correct event. The oil horn remains at Samuel's belt while oil pours, and the Spirit's depicted radiance has no corresponding selection."
+      },
+      {
+        "index": 62,
+        "caseId": "1-samuel-17-40",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "The primary subject explicitly stoops to pick stones then stands; the action also combines gathering stones and advancing, prescribing successive instants."
+      },
+      {
+        "index": 63,
+        "caseId": "1-samuel-18-11",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "Saul still has the spear flung back in his arm while the spear is already mid-flight toward David."
+      },
+      {
+        "index": 64,
+        "caseId": "daniel-5-17",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Daniel's refusal of the gifts is isolated coherently without showing the writing he later interprets."
+      },
+      {
+        "index": 65,
+        "caseId": "daniel-6-23",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Daniel is hauled out unharmed while Darius reaches down; the lifted stone and quiet lions fit this rescue."
+      },
+      {
+        "index": 66,
+        "caseId": "exodus-14-23",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Egyptian chariots pursue through the opened sea. Wet wheel-tracks/spray need not mean the passable sea floor is submerged."
+      },
+      {
+        "index": 67,
+        "caseId": "mark-4-37",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The swamped boat and struggling disciples fit the verse; Jesus's ongoing sleeping state from the next verse is context, not premature awakening."
+      },
+      {
+        "index": 68,
+        "caseId": "mark-4-38",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "Rousing Jesus is the focal action. 'Asleep' and 'stirs awake' leave his exact waking posture ambiguous but can depict one transition."
+      },
+      {
+        "index": 69,
+        "caseId": "luke-15-22",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The father commands servants while the son waits; the feast and completed dressing are not prematurely depicted."
+      },
+      {
+        "index": 70,
+        "caseId": "hosea-1-7",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "unsupported_figure",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Hosea's family and their courtyard replace the promise of mercy to Judah; figures from the neighboring birth narrative enter the oracle."
+      },
+      {
+        "index": 71,
+        "caseId": "2-chronicles-16-9",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Hanani speaking to Asa is substituted for the divine strength and coming wars described by the rebuke."
+      },
+      {
+        "index": 72,
+        "caseId": "job-15-24",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The frightened victim is armed like the attacking king in the simile, reversing the metaphor's roles; the ash-heap setting also comes from the speaking scene."
+      },
+      {
+        "index": 73,
+        "caseId": "romans-2-19",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "unsupported_figure"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Paul becomes the lamp-bearing guide, although the text addresses someone else's confidence in guiding others."
+      },
+      {
+        "index": 74,
+        "caseId": "psalms-25-15",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "David's literal escape from a net may be a valid poetic self-image or an invented physical incident; the excerpt does not resolve that choice."
+      },
+      {
+        "index": 75,
+        "caseId": "romans-10-17",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "unsupported_figure"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Paul is staged preaching even though the verse describes the general relationship of hearing and faith."
+      },
+      {
+        "index": 76,
+        "caseId": "proverbs-25-3",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "unsupported_figure"
+        ],
+        "oneInstantConflict": "uncertain",
+        "note": "Hezekiah's scribes copying the proverb replace the heavens, earth and kings it describes. Mid-copying with a rolled scroll leaves writing/pose unclear."
+      },
+      {
+        "index": 77,
+        "caseId": "ephesians-5-31",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "A generic man leaving parents for his bride illustrates the quoted content without inserting its author."
+      },
+      {
+        "index": 78,
+        "caseId": "luke-2-45",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "Mary and Joseph search on their return. Walking toward the viewer with Jerusalem behind them leaves travel direction ambiguous; the excerpt does not fix the search hour."
+      },
+      {
+        "index": 79,
+        "caseId": "2-chronicles-30-27",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Priests bless the people in the temple courts. Hezekiah's visible inclusion is additional context; priests and crowd are described even though not selected by name."
+      },
+      {
+        "index": 80,
+        "caseId": "daniel-11-14",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "unsupported_figure",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Daniel and the Ulai speaking/vision setting are inserted among the future rebels against the southern king."
+      },
+      {
+        "index": 81,
+        "caseId": "matthew-5-40",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "unsupported_figure"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Jesus and his disciples become actors in the hypothetical lawsuit and gift of a cloak."
+      },
+      {
+        "index": 82,
+        "caseId": "revelation-21-6",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The glass-like sea mixed with fire imports another vision into the new-creation setting, where the earlier chapter text explicitly removes the sea; the spring's gift is displaced by John receiving speech."
+      },
+      {
+        "index": 83,
+        "caseId": "judges-11-4",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The Ammonite advance against Israel is represented without prematurely adding Jephthah. Tob is selected despite the described Gilead scene, a place-selection concern."
+      },
+      {
+        "index": 84,
+        "caseId": "ruth-2-22",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The conversation is correct, but Ruth is simultaneously near the field's edge and in the doorway foreground with the fields distant; the spatial relationship is unresolved."
+      },
+      {
+        "index": 85,
+        "caseId": "exodus-29-7",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Moses pours oil onto turbaned Aaron as instructed, without advancing to the sons' dressing."
+      },
+      {
+        "index": 86,
+        "caseId": "1-corinthians-1-30",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "An unnamed Corinthian believer gives a plausible non-event depiction of gratitude without inserting Paul as speaker."
+      },
+      {
+        "index": 87,
+        "caseId": "1-samuel-15-27",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Saul catches Samuel's robe as he turns and the cloth tears, a coherent focal instant."
+      },
+      {
+        "index": 88,
+        "caseId": "exodus-36-6",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Moses and a herald restrain further offerings; paused givers and existing heaps fit the command."
+      },
+      {
+        "index": 89,
+        "caseId": "numbers-33-27",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The encampment is explicitly Terah, but the selected plains of Moab entry is not that place; record the canon/reference mismatch separately."
+      },
+      {
+        "index": 90,
+        "caseId": "hebrews-12-1",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "A runner shedding a heavy cloak illustrates the metaphor's content without adding the letter's author."
+      },
+      {
+        "index": 91,
+        "caseId": "holmes-saxe-coburg-square",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "visible_writing"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The sign explicitly requests JABEZ WILSON in white letters, violating the no-writing instruction."
+      },
+      {
+        "index": 92,
+        "caseId": "holmes-blue-carbuncle-hat",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Holmes inspecting the hat could replace the examination offered to Watson, or be a gesture during his explanation; the text leaves that staging choice unresolved."
+      },
+      {
+        "index": 93,
+        "caseId": "holmes-speckled-band-vigil",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "uncertain",
+        "note": "The plan restores a ventilator glimmer that the focal text says vanished before the attack and adds a dim room lamp during the dark vigil. Lashing versus looking up after ceasing also leaves timing ambiguous."
+      },
+      {
+        "index": 94,
+        "caseId": "holmes-boscombe-train",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "visible_writing"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "Holmes stands tossing papers while a notebook remains on his knee, mixing standing and seated arrangements. Loose newspapers also invite visible writing."
+      },
+      {
+        "index": 95,
+        "caseId": "holmes-bank-cellar-lantern",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "This early cellar moment correctly keeps the lantern open while kneeling Holmes inspects the cracks and Merryweather sits."
+      },
+      {
+        "index": 96,
+        "caseId": "holmes-bank-cellar-plans",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "This later cellar moment correctly shutters Holmes's lantern, hides the four men and shows only the first floor glint."
+      },
+      {
+        "index": 97,
+        "caseId": "holmes-eyford-smoke",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The plan keeps Holmes and Watson in the carriage during the station-master dialogue even though the train is departing. Its night setting is also contradicted by the wider source at Engineer's Thumb paragraphs 133/138, which place this return journey in the morning; that timing is outside the supplied neighbor window."
+      },
+      {
+        "index": 98,
+        "caseId": "holmes-eyford-drive",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The identification of drive/window is correct. The supplied excerpt alone does not establish the clock time; wider paragraphs 133/138 show the late-night setting is wrong, as for the adjacent fire cases. Additional frozen-work inspection of paragraphs 133/138 resolves the prior timing uncertainty: this return is in daylight, so the late-night setting is wrong."
+      },
+      {
+        "index": 99,
+        "caseId": "the-adventure-of-the-noble-bachelor-178",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Lestrade's forehead gesture at the doorway is a specific coherent instant before Holmes puts on his overcoat."
+      },
+      {
+        "index": 100,
+        "caseId": "the-adventure-of-the-beryl-coronet-49",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Holder, Arthur and Mary at coffee fit the recollection. The visible bureau in the drawing-room may conflict with the later move to Holder's own room; its exact location is not explicit enough here."
+      },
+      {
+        "index": 101,
+        "caseId": "the-adventure-of-the-speckled-band-13",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Helen lifts her veil while Holmes reassures her by touching her forearm; the gestures can overlap naturally."
+      },
+      {
+        "index": 102,
+        "caseId": "alice-drink-me",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "The primary field leaves the bottle on the table and raised in Alice's hand at once. Label wording is unspecified, so a visible-writing judgment remains uncertain rather than assumed."
+      },
+      {
+        "index": 103,
+        "caseId": "alice-tea-party-riddle",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "'Answers the riddle' may mean Alice responds that she can guess it, or falsely imply she gives a solution. The Hatter's wide eyes also originate in the prior rebuke."
+      },
+      {
+        "index": 104,
+        "caseId": "alice-tea-party-say-what-you-mean",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The silent pause at the tea table is explicitly narrated and contains no invented raven or writing desk."
+      },
+      {
+        "index": 105,
+        "caseId": "alice-cat-grin-appears",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Alice watches the grin/head appear before setting the flamingo down; the Cat has no body and the arches are identified as doubled-up card soldiers."
+      },
+      {
+        "index": 106,
+        "caseId": "alice-cat-head-talks",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Alice changes her reply as the Queen listens behind her; the floating Cat remains a head. The striped arch is underspecified, so no ordinary wooden arch is inferred."
+      },
+      {
+        "index": 107,
+        "caseId": "alice-king-and-cat",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The King shelters behind Alice while asking the passing Queen to remove the Cat. Alice facing him while he is behind her leaves orientation ambiguous."
+      },
+      {
+        "index": 108,
+        "caseId": "alice-refuses-to-leave",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment",
+          "rule_conflict"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The plan explicitly makes Alice small during the courtroom dispute about her enlarged height."
+      },
+      {
+        "index": 109,
+        "caseId": "alice-cheshire-cat-bough",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The Cat remains perched with claws and a grin, matching the encounter. 'Grin hanging in the air' risks premature disembodiment but does not expressly remove its body."
+      },
+      {
+        "index": 110,
+        "caseId": "alice-hatter-witness",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "rule_conflict"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The Hatter bites the teacup under the Queen's stare, the intended comic incident. March Hare is selected but not described in the chosen view. Cross-arm costume audit: the animal jury has unsupported period waistcoats, so the otherwise faithful scene is flawed."
+      },
+      {
+        "index": 111,
+        "caseId": "alices-evidence-54",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment",
+          "visible_writing"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "The Queen is still throwing the inkstand while Bill already has ink on his face and writes with it; the King's earlier pointing is also folded into the same view."
+      },
+      {
+        "index": 112,
+        "caseId": "advice-from-a-caterpillar-59",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "rule_conflict"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "The Pigeon receives dress and a hat that the source does not give, contrary to the animal-dress rule. Alice's head is above its nest while the Pigeon looks down at her."
+      }
+    ],
+    "candidate": [
+      {
+        "index": 0,
+        "caseId": "leviticus-1-16",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "unsupported_figure"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Moses is inserted watching the priest perform this law, although the focal ritual and neighbors do not put him there."
+      },
+      {
+        "index": 1,
+        "caseId": "daniel-6-17",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "Daniel stands outside at the rim after the preceding verse put him inside the den. The mouth is open and the slab being lowered while the king already seals it."
+      },
+      {
+        "index": 2,
+        "caseId": "proverbs-8-21",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Market abundance and a filled storeroom illustrate the non-event promise without a bodily Wisdom."
+      },
+      {
+        "index": 3,
+        "caseId": "1-corinthians-13-12",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The mirror itself carries partial sight; Paul and an invented teaching encounter are removed."
+      },
+      {
+        "index": 4,
+        "caseId": "isaiah-40-29",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "A weary man steadies himself at a wall as strength returns, without incompatible standing/rising poses."
+      },
+      {
+        "index": 5,
+        "caseId": "deuteronomy-1-7",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The departure is understandable, but a single view near Horeb includes the distant great river and selects Kadesh/Moab; it may collapse a long journey's destinations into one location."
+      },
+      {
+        "index": 6,
+        "caseId": "nehemiah-3-9",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Rephaiah and helpers place a masonry block, maintaining the repairs."
+      },
+      {
+        "index": 7,
+        "caseId": "2-chronicles-31-21",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Hezekiah directs temple labor in a coherent courtyard scene."
+      },
+      {
+        "index": 8,
+        "caseId": "numbers-9-22",
+        "work": "bible-web",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The resting-cloud camp state is preserved. Packed donkeys described as remaining unloaded make readiness versus loaded state unclear."
+      },
+      {
+        "index": 9,
+        "caseId": "holmes-eyford-fire",
+        "work": "holmes-adventures",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The return to the burning house remains late at night despite the wider frozen source's morning journey. Eyford Station is also selected but not visible."
+      },
+      {
+        "index": 10,
+        "caseId": "the-adventure-of-the-noble-bachelor-176",
+        "work": "holmes-adventures",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "visible_writing"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The inspected paper and scattered newspapers retain the writing problem; the triumph-to-alarm expression need not require two poses."
+      },
+      {
+        "index": 11,
+        "caseId": "the-adventure-of-the-blue-carbuncle-73",
+        "work": "holmes-adventures",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "visible_writing"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The gem action is faithful, but the new paragraph adds open books to the room."
+      },
+      {
+        "index": 12,
+        "caseId": "a-case-of-identity-94",
+        "work": "holmes-adventures",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment",
+          "visible_writing"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Holmes again holds Watson's printed slip, retaining the actor swap and writing request."
+      },
+      {
+        "index": 13,
+        "caseId": "alice-caterpillar",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "rule_conflict",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "The Caterpillar acquires an unsupported waistcoat and hat. Alice answers while the same paragraph says both remain in a long silence."
+      },
+      {
+        "index": 14,
+        "caseId": "alice-tea-party-arrival",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The wine offer is clearly an empty gesture, with only tea present and the sleeping Dormouse between the others."
+      },
+      {
+        "index": 15,
+        "caseId": "alice-croquet-game",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "The flamingo turning up to Alice and the hedgehog escaping are combined, although the source places the escape on the next attempt after she has lowered its head."
+      },
+      {
+        "index": 16,
+        "caseId": "the-lobster-quadrille-19",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment",
+          "unsupported_figure",
+          "rule_conflict"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The shore becomes underwater, and waiting lobsters from the song join the actual dance performed without lobsters. The Gryphon also receives unsupported clothing."
+      },
+      {
+        "index": 17,
+        "caseId": "alices-evidence-38",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The blank outside of the verses avoids an explicit writing request. Jury confusion/brightening, the accusation and Alice's protest compress reactions around the Rabbit preparing to read."
+      },
+      {
+        "index": 18,
+        "caseId": "a-mad-tea-party-76",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The tea-table exchange is represented without illustrating the sisters' well. Storytelling, the tea offer and the Hatter's triumph may summarize successive dialogue beats."
+      },
+      {
+        "index": 19,
+        "caseId": "alices-evidence-2",
+        "work": "alice-in-wonderland",
+        "split": "holdout",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "Alice's giant scale is explicit and Bill is upside down. Bill's later misplaced state still overlaps the ongoing collection of scattered jurors."
+      },
+      {
+        "index": 20,
+        "caseId": "genesis-1-3-light",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "First light appears without a body. 'Unbroken' darkness followed by light can depict a transition, though it is not a strictly static description."
+      },
+      {
+        "index": 21,
+        "caseId": "genesis-5-5-adam-days",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Adam's death and family mourning are coherent; unidentified family members do not create extra named canon."
+      },
+      {
+        "index": 22,
+        "caseId": "genesis-19-24-sodom",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "The sky is both dawn and 'shifting from dusk to morning,' mixing opposite twilight states in one view."
+      },
+      {
+        "index": 23,
+        "caseId": "genesis-22-10-abraham-knife",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The knife over bound Isaac preserves the event. Added radiance and God selection are unsupported appearance choices to track, as in the control's added light."
+      },
+      {
+        "index": 24,
+        "caseId": "exodus-14-21-sea-parts",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Moses and the divided sea are coherent; wet glistening sand amid spray does not by itself negate a passable exposed sea bed."
+      },
+      {
+        "index": 25,
+        "caseId": "exodus-14-22-sea-walls",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Israel crosses the parted sea; Moses remains by the path and the cloud supplies unbodied presence."
+      },
+      {
+        "index": 26,
+        "caseId": "leviticus-11-7-pig",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "unsupported_figure"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The pig law again becomes Moses teaching, now with Aaron and an added divine appearance as well."
+      },
+      {
+        "index": 27,
+        "caseId": "joshua-6-20-jericho",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The breach and advance remain recognizable; the paragraph also narrates daylight growing stronger as the day advances instead of fixing its lighting."
+      },
+      {
+        "index": 28,
+        "caseId": "judges-19-29-concubine",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The still, restrained aftermath/preparation does not specify the division clearly, and Gibeah remains an unsupported identification of the Levite's home in this window."
+      },
+      {
+        "index": 29,
+        "caseId": "ruth-4-22-genealogy",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The empty house avoids the control's invented birth/recitation, but its relationship to the named genealogy is too weak to call clearly faithful; a setting-only non-event illustration remains possible."
+      },
+      {
+        "index": 30,
+        "caseId": "1-samuel-17-49-sling",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The sling release and falling giant fit the event. Taut-sling momentum and already-fallen armor leave exact impact timing less clear."
+      },
+      {
+        "index": 31,
+        "caseId": "2-kings-2-23-bears",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The taunting on the road is kept distinct from the next verse's bears."
+      },
+      {
+        "index": 32,
+        "caseId": "job-38-4-foundations",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Job listening to the whirlwind again replaces the foundations of the earth described in the speech."
+      },
+      {
+        "index": 33,
+        "caseId": "psalms-23-2-pastures",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "David again takes the shepherd's role instead of being the recipient of shepherding, and is now also omitted from selected cast despite being named in the paragraph."
+      },
+      {
+        "index": 34,
+        "caseId": "psalms-137-1-babylon",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Exiles weep beside Babylon's water without importing the later harp action."
+      },
+      {
+        "index": 35,
+        "caseId": "song-of-solomon-2-1-rose",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The same unresolved poetic self-portrait issue remains as in the control."
+      },
+      {
+        "index": 36,
+        "caseId": "isaiah-6-2-seraphim",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The seraphim retain the six-wing arrangement and the divine hem is removed. Added unnamed priests are unnecessary witnesses, but no forbidden divine body or garment is described."
+      },
+      {
+        "index": 37,
+        "caseId": "isaiah-11-6-wolf-lamb",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The child and animals illustrate the peaceful vision, leaving Isaiah outside it."
+      },
+      {
+        "index": 38,
+        "caseId": "ezekiel-37-4-dry-bones",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Ezekiel addresses the bones in the vision. Added divine radiance now has a selected entry, although the command itself names no light effect."
+      },
+      {
+        "index": 39,
+        "caseId": "daniel-6-22-lions",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "Daniel's safety is visible, but the angel becomes radiance and a sealed entrance coexists with an opening admitting daylight. The rough-hewn den also conflicts with the frozen dressed-stone canon."
+      },
+      {
+        "index": 40,
+        "caseId": "daniel-7-9-ancient-of-days",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The paragraph expressly removes a divine seat/body and retains fiery effects; the wheels still risk recalling prohibited throne/chariot imagery. The attendant assembly is contextual description from the next verse."
+      },
+      {
+        "index": 41,
+        "caseId": "jonah-1-17-fish",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Jonah's confinement is retained, but the simultaneous exterior fish, interior belly and above-water scene require an unspecified cutaway or transparent view."
+      },
+      {
+        "index": 42,
+        "caseId": "matthew-1-1-genealogy",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The blank book provides a nonliteral opening to the genealogy without visible writing; background villagers and soldier are optional invention. Although the pages are explicitly blank, the open volume conflicts with the planner instruction to keep books closed; its acceptability is uncertain."
+      },
+      {
+        "index": 43,
+        "caseId": "matthew-14-29-peter-water",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Peter steps onto the sea toward Jesus with witnesses in the boat. Added radiance is not required by the source."
+      },
+      {
+        "index": 44,
+        "caseId": "john-21-7-peter-sea",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "Peter's coat is gathered and the leap/plunge is represented. Airborne leap and water around chest can describe a transitional pose, but may be difficult to render as one position."
+      },
+      {
+        "index": 45,
+        "caseId": "mark-4-39-storm",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The calming is relevant, although waves flatten into a perfectly still sea while last gusts pull the cloak: a transition rather than a clearly fixed state."
+      },
+      {
+        "index": 46,
+        "caseId": "luke-15-20-prodigal",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The father has reached the son and embraces him; the contradictory running-plus-embrace pose is removed. Kneeling is an added detail."
+      },
+      {
+        "index": 47,
+        "caseId": "john-11-43-lazarus",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Lazarus is already emerging while Jesus calls, importing the response from the next verse into the focal call."
+      },
+      {
+        "index": 48,
+        "caseId": "acts-9-3-damascus",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The heavenly light interrupts the journey without a visible figure or premature fall. 'Rides or walks' leaves the principal pose unresolved."
+      },
+      {
+        "index": 49,
+        "caseId": "romans-8-28-all-things",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The theological statement becomes Paul addressing townspeople, with no such episode in the passage."
+      },
+      {
+        "index": 50,
+        "caseId": "matthew-27-35-crucified",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The crucifixion and soldiers dividing garments by lots remain visible with restrained treatment."
+      },
+      {
+        "index": 51,
+        "caseId": "revelation-4-6-living-creatures",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "embodied_effects"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "The central physical throne violates the effects boundary, and elders simultaneously sit and rise. Unlike the control, selected elders are at least described."
+      },
+      {
+        "index": 52,
+        "caseId": "revelation-21-1-new-heaven",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The passage explicitly removes the sea; the paragraph repeatedly depicts a sea and shore and imports the city descent from the next verse."
+      },
+      {
+        "index": 53,
+        "caseId": "holmes-scandal-the-woman",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "A solitary, reflective Holmes illustrates the abstract character description without staging narrator Watson as an interacting participant. The correspondence is folded rather than visibly inscribed."
+      },
+      {
+        "index": 54,
+        "caseId": "holmes-scandal-king-arrives",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Holmes looks out at the arriving carriage while Watson half rises; both are relevant to the immediate exchange."
+      },
+      {
+        "index": 55,
+        "caseId": "holmes-red-headed-league",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Holmes brings Watson back inside while Wilson half rises in greeting. The door is already closed, avoiding an open/closed conflict."
+      },
+      {
+        "index": 56,
+        "caseId": "john-21-9",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The boat's net is already heaped with fish rather than still being dragged in the water before Peter pulls it ashore in the following action."
+      },
+      {
+        "index": 57,
+        "caseId": "exodus-17-12",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Seated Moses has both arms supported by Aaron and Hur, with the battle below."
+      },
+      {
+        "index": 58,
+        "caseId": "numbers-20-11",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "Moses is lifting the rod and striking while water has already reached kneeling drinkers and livestock; the paragraph compresses successive action and result into one pose."
+      },
+      {
+        "index": 59,
+        "caseId": "luke-22-61",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The mutual gaze is faithful, but Jesus is again omitted from selected canon despite being explicitly depicted. An incidental Roman soldier is added."
+      },
+      {
+        "index": 60,
+        "caseId": "acts-3-7",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The right-hand lift and strengthening ankles are preserved; sitting and beginning to bear weight are a transitional rather than necessarily contradictory pose."
+      },
+      {
+        "index": 61,
+        "caseId": "1-samuel-16-13",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The anointing is one clear pose. Ramah is incorrectly selected despite the Bethlehem setting, while the depicted Spirit radiance is not selected."
+      },
+      {
+        "index": 62,
+        "caseId": "1-samuel-17-40",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "David selects stones with his bag ready, avoiding the control's gathering-and-advancing conflict."
+      },
+      {
+        "index": 63,
+        "caseId": "1-samuel-18-11",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "Saul's arm is flung back while the spear leaves his hand and also strikes the wall. These incompatible throw positions remain within the paragraph."
+      },
+      {
+        "index": 64,
+        "caseId": "daniel-5-17",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Daniel refuses the rewards before Belshazzar. The king's dismissive gesture is invented but does not replace the exchange."
+      },
+      {
+        "index": 65,
+        "caseId": "daniel-6-23",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "Daniel has been drawn out with ropes yet the entrance stone remains sealed. The den cannot remain sealed during that extraction."
+      },
+      {
+        "index": 66,
+        "caseId": "exodus-14-23",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The Egyptian pursuit is clear and uses effects rather than a divine body. Distant Israelite placement across the crossing is additional staging rather than the focal action."
+      },
+      {
+        "index": 67,
+        "caseId": "mark-4-37",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The storm fills the boat while Jesus sleeps; these are simultaneous states in the context."
+      },
+      {
+        "index": 68,
+        "caseId": "mark-4-38",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "A disciple reaches to wake the sleeping Jesus without also making him stand or calm the storm."
+      },
+      {
+        "index": 69,
+        "caseId": "luke-15-22",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The servants bring the requested gifts. The father has arms open and a hand lifting toward the robe, a potentially awkward but not definite incompatible pose."
+      },
+      {
+        "index": 70,
+        "caseId": "hosea-1-7",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The promise concerning Judah is replaced by Hosea's family scene from surrounding events; radiance on northern hills does not establish Judah."
+      },
+      {
+        "index": 71,
+        "caseId": "2-chronicles-16-9",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "The oracle becomes Hanani and Asa's conversation rather than its stated content; the same scroll is unrolled and closed."
+      },
+      {
+        "index": 72,
+        "caseId": "job-15-24",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Eliphaz's description of a wicked man's terror is assigned to Job on the ash heap."
+      },
+      {
+        "index": 73,
+        "caseId": "romans-2-19",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Paul acts out a confident guide, although the passage addresses another person's claim rather than describing Paul's teaching episode."
+      },
+      {
+        "index": 74,
+        "caseId": "psalms-25-15",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The poetic speaker looking upward near a snare is relevant symbolic staging, but its assignment to a literal David episode remains interpretive."
+      },
+      {
+        "index": 75,
+        "caseId": "romans-10-17",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Generic listeners convey hearing and faith without inserting Paul as an onstage speaker."
+      },
+      {
+        "index": 76,
+        "caseId": "proverbs-25-3",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The king's reflective pose and high/low space address the proverb. The men of Hezekiah remain unnecessary background, but unlike the control they are not copying instead of the proverb's subject."
+      },
+      {
+        "index": 77,
+        "caseId": "ephesians-5-31",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The couple's leaving and joining is represented by a single parting pose; their reach can coexist with parental hands on shoulders."
+      },
+      {
+        "index": 78,
+        "caseId": "luke-2-45",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Mary and Joseph search Jerusalem. Jesus is unnecessarily selected even though the paragraph correctly leaves him absent."
+      },
+      {
+        "index": 79,
+        "caseId": "2-chronicles-30-27",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Priests bless the gathered people; added Hezekiah is incidental. Selection contains only Hezekiah and Jerusalem rather than the focal priest/people groups."
+      },
+      {
+        "index": 80,
+        "caseId": "daniel-11-14",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "The prophecy becomes Daniel and a linen-clad speaker at Ulai. It also explicitly changes light from moonlight to morning as the section progresses rather than fixing an instant."
+      },
+      {
+        "index": 81,
+        "caseId": "matthew-5-40",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The cloak teaching becomes Jesus gesturing at his own clothing to disciples rather than the lawsuit content."
+      },
+      {
+        "index": 82,
+        "caseId": "revelation-21-6",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The new-creation scene imports a sea mixed with fire despite the preceding no-sea statement, and adds the later river."
+      },
+      {
+        "index": 83,
+        "caseId": "judges-11-4",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The Ammonite war is relocated to Jephthah's outland camp near Tob, joining separate contextual places and events."
+      },
+      {
+        "index": 84,
+        "caseId": "ruth-2-22",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Naomi counsels Ruth in Boaz's field rather than after Ruth's return to town/home in the supplied context."
+      },
+      {
+        "index": 85,
+        "caseId": "exodus-29-7",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Moses pours oil onto Aaron at the tabernacle entrance, preserving the principal action; the added radiance is unnecessary."
+      },
+      {
+        "index": 86,
+        "caseId": "1-corinthians-1-30",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "speaker_in_scene",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The theological statement becomes an unsupported onstage sermon by Paul to Corinthian believers."
+      },
+      {
+        "index": 87,
+        "caseId": "1-samuel-15-27",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Saul grips Samuel's moving robe as it tears. Afternoon versus midday wording is imprecise but does not require two incompatible poses."
+      },
+      {
+        "index": 88,
+        "caseId": "exodus-36-6",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The stop announcement is present, but people continue setting offerings on a growing heap while supposedly withdrawing from giving. This can be an interrupted action but is not a clean stopped state."
+      },
+      {
+        "index": 89,
+        "caseId": "numbers-33-27",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The travelers settle at Terah without selecting the control's unrelated Moab location."
+      },
+      {
+        "index": 90,
+        "caseId": "hebrews-12-1",
+        "work": "bible-web",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "A runner sheds weight before the race, an appropriate rendering of the metaphor."
+      },
+      {
+        "index": 91,
+        "caseId": "holmes-saxe-coburg-square",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "visible_writing",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The sign explicitly has white letters; the assistant and pavement-tapping visit are imported from the later action rather than the focal survey."
+      },
+      {
+        "index": 92,
+        "caseId": "holmes-blue-carbuncle-hat",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Holmes examines the hat instead of handing the lens to Watson. As in the control, it may represent the immediately preceding explanatory gesture, but the focal invitation is weakened."
+      },
+      {
+        "index": 93,
+        "caseId": "holmes-speckled-band-vigil",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The vigil gains a bedroom lamp and an ongoing ventilator glimmer although the supplied context is dark and the earlier glimmer disappeared. Nightclothes are also an unsupported costume change."
+      },
+      {
+        "index": 94,
+        "caseId": "holmes-boscombe-train",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Holmes throws the bundled papers toward the rack without the control's notebook-on-knee/standing contradiction. No writing is requested on the wad."
+      },
+      {
+        "index": 95,
+        "caseId": "holmes-bank-cellar-lantern",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The early cellar's lantern is correctly lit and Holmes kneels to examine the flags."
+      },
+      {
+        "index": 96,
+        "caseId": "holmes-bank-cellar-plans",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The late cellar's lantern is shuttered and the party hides. A seam of glow is weaker than complete darkness, but the intended screened state is clear. 'Three gentlemen' conflicts with four listed figures; selection correctly includes four."
+      },
+      {
+        "index": 97,
+        "caseId": "holmes-eyford-smoke",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The party is at a carriage step while the train departs instead of watching after its departure, and the shared night setting contradicts the broader frozen source's daytime return."
+      },
+      {
+        "index": 98,
+        "caseId": "holmes-eyford-drive",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The starlit night contradicts the daytime return established by the broader frozen source. Hatherley's pointing and the fire are otherwise relevant."
+      },
+      {
+        "index": 99,
+        "caseId": "the-adventure-of-the-noble-bachelor-178",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "Watson receives Lestrade's forehead gesture, and Holmes puts on his coat before Lestrade has left although the source makes that action follow the closed door."
+      },
+      {
+        "index": 100,
+        "caseId": "the-adventure-of-the-beryl-coronet-49",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "Arthur follows his father to his room with a grave face, choosing the final instant of the supplied focal span. Fairbank is selected despite being only an offscreen footstep."
+      },
+      {
+        "index": 101,
+        "caseId": "the-adventure-of-the-speckled-band-13",
+        "work": "holmes-adventures",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "visible_writing"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The reassurance is relevant but an open case-book adds prohibited writing-bearing presentation. The later ticket deduction is also included."
+      },
+      {
+        "index": 102,
+        "caseId": "alice-drink-me",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "visible_writing"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The bottle is now only in Alice's hand, resolving the control's two-location conflict, but DRINK ME is explicitly rendered as label text."
+      },
+      {
+        "index": 103,
+        "caseId": "alice-tea-party-riddle",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "rule_conflict"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The tea exchange is relevant, but the Dormouse is given a waistcoat and neckcloth not supported by the source's costume rule."
+      },
+      {
+        "index": 104,
+        "caseId": "alice-tea-party-say-what-you-mean",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "rule_conflict"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The quiet thinking pause is relevant; the March Hare is assigned a waistcoat and hat beyond the source costume rule."
+      },
+      {
+        "index": 105,
+        "caseId": "alice-cat-grin-appears",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The flamingo is already set down while the grin, eyes and head are still forming, blending successive beats. This could settle at the head-complete endpoint but the paragraph does not choose it."
+      },
+      {
+        "index": 106,
+        "caseId": "alice-cat-head-talks",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The Queen moves past while frowning suspiciously although the source says she smiles before passing; the Cat also shrinks back to a grin after its head has appeared."
+      },
+      {
+        "index": 107,
+        "caseId": "alice-king-and-cat",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "uncertain",
+        "faults": [],
+        "oneInstantConflict": "uncertain",
+        "note": "The Cat is simultaneously a head and 'grin alone'; Alice faces a King who also hides behind her. The intended staging remains ambiguous."
+      },
+      {
+        "index": 108,
+        "caseId": "alice-refuses-to-leave",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment",
+          "rule_conflict"
+        ],
+        "oneInstantConflict": "no",
+        "note": "Alice's large court scale is omitted in favor of looking up at the King, and the animal jury gains waistcoats and hats. The notebook is properly closed."
+      },
+      {
+        "index": 109,
+        "caseId": "alice-cheshire-cat-bough",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "acceptable",
+        "faults": [],
+        "oneInstantConflict": "no",
+        "note": "The complete unclothed Cat rests on the bough above Alice with teeth and claws, preserving the source state."
+      },
+      {
+        "index": 110,
+        "caseId": "alice-hatter-witness",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment",
+          "visible_writing",
+          "rule_conflict"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The jittery Hatter is relevant to the broad focal span, but Alice's ceiling-reaching growth comes from later context, the jury writes on slates, and animal jurors receive unsupported waistcoats."
+      },
+      {
+        "index": 111,
+        "caseId": "alices-evidence-54",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "wrong_moment",
+          "visible_writing",
+          "rule_conflict"
+        ],
+        "oneInstantConflict": "yes",
+        "note": "The Queen throws the inkstand while Bill already writes with ink running down his face. Bill is duplicated as ducking Lizard and card juror, and the animal jury is replaced with cards."
+      },
+      {
+        "index": 112,
+        "caseId": "advice-from-a-caterpillar-59",
+        "work": "alice-in-wonderland",
+        "split": "dev",
+        "verdict": "flawed",
+        "faults": [
+          "rule_conflict",
+          "wrong_moment"
+        ],
+        "oneInstantConflict": "no",
+        "note": "The Pigeon retains unsupported dress and hat. Alice already holds mushroom pieces although the supplied sequence has not yet returned to the mushroom to break them off."
+      }
+    ]
+  },
+  "additionalSourceChecks": [
+    {
+      "work": "holmes-adventures",
+      "units": [
+        "the-adventure-of-the-engineers-thumb-133",
+        "the-adventure-of-the-engineers-thumb-138"
+      ],
+      "finding": "Hatherley reaches town just after six in the morning; the party is on the return train some three hours after the consultation. The Eyford return/fire scene is daytime. This evidence is outside the individual planner windows, and both arms receive the same incomplete windows and night guide."
+    }
+  ],
+  "limitations": [
+    "Verdicts are exploratory parent-model observations, not exhaustive answers to every suite fault question. Cast selection and reference differences are assessed separately; acceptable does not certify complete cast selection.",
+    "Control was inspected first; source contexts were then reused for candidate inspection. No independent blind quality score was produced.",
+    "A cross-arm costume audit corrected control Hatter-witness acceptability and added costume faults to two already-flawed control court/dance scenes.",
+    "The Eyford day/night judgment uses additional frozen-source paragraphs outside the individual planner window, equally for both arms."
+  ]
+}

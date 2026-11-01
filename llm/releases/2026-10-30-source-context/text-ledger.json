@@ -1,0 +1,637 @@
+{
+  "capUsd": 0.3,
+  "calls": [
+    {
+      "phase": "alice-gloves-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000216
+    },
+    {
+      "phase": "alice-gloves-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005343
+    },
+    {
+      "phase": "alice-gloves-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007068
+    },
+    {
+      "phase": "alice-gloves-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006367
+    },
+    {
+      "phase": "alice-gloves-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0008229
+    },
+    {
+      "phase": "alice-gloves-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000702
+    },
+    {
+      "phase": "alice-gloves-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0008179
+    },
+    {
+      "phase": "alice-gloves-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006352
+    },
+    {
+      "phase": "alice-gloves-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000824
+    },
+    {
+      "phase": "alice-gloves-baseline-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005563
+    },
+    {
+      "phase": "alice-gloves-baseline-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003299
+    },
+    {
+      "phase": "alice-gloves-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005523
+    },
+    {
+      "phase": "alice-gloves-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007082
+    },
+    {
+      "phase": "alice-gloves-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005828
+    },
+    {
+      "phase": "alice-gloves-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000567
+    },
+    {
+      "phase": "alice-gloves-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006457
+    },
+    {
+      "phase": "alice-gloves-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006463
+    },
+    {
+      "phase": "alice-house-entry-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002347
+    },
+    {
+      "phase": "alice-house-entry-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005991
+    },
+    {
+      "phase": "alice-house-entry-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007822
+    },
+    {
+      "phase": "alice-house-entry-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000542
+    },
+    {
+      "phase": "alice-house-entry-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006164
+    },
+    {
+      "phase": "alice-house-entry-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006844
+    },
+    {
+      "phase": "alice-house-entry-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0013181
+    },
+    {
+      "phase": "alice-house-entry-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007404
+    },
+    {
+      "phase": "alice-house-entry-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0008043
+    },
+    {
+      "phase": "alice-house-entry-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007144
+    },
+    {
+      "phase": "alice-house-entry-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000813
+    },
+    {
+      "phase": "alice-house-entry-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007455
+    },
+    {
+      "phase": "alice-house-entry-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007537
+    },
+    {
+      "phase": "alice-house-entry-baseline-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005421
+    },
+    {
+      "phase": "alice-house-entry-baseline-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003278
+    },
+    {
+      "phase": "alice-house-entry-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005326
+    },
+    {
+      "phase": "alice-house-entry-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005254
+    },
+    {
+      "phase": "alice-house-entry-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007444
+    },
+    {
+      "phase": "alice-house-entry-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0009267
+    },
+    {
+      "phase": "alice-house-entry-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007098
+    },
+    {
+      "phase": "alice-house-entry-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007531
+    },
+    {
+      "phase": "alice-house-grown-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002287
+    },
+    {
+      "phase": "alice-house-grown-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000516
+    },
+    {
+      "phase": "alice-house-grown-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0003688
+    },
+    {
+      "phase": "alice-house-grown-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005327
+    },
+    {
+      "phase": "alice-house-grown-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004271
+    },
+    {
+      "phase": "alice-house-grown-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006796
+    },
+    {
+      "phase": "alice-house-grown-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004888
+    },
+    {
+      "phase": "alice-house-grown-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006958
+    },
+    {
+      "phase": "alice-house-grown-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0008643
+    },
+    {
+      "phase": "alice-house-grown-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006866
+    },
+    {
+      "phase": "alice-house-grown-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006281
+    },
+    {
+      "phase": "alice-house-grown-baseline-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005175
+    },
+    {
+      "phase": "alice-house-grown-baseline-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005032
+    },
+    {
+      "phase": "alice-house-grown-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000539
+    },
+    {
+      "phase": "alice-house-grown-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004121
+    },
+    {
+      "phase": "alice-house-grown-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006876
+    },
+    {
+      "phase": "alice-house-grown-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006666
+    },
+    {
+      "phase": "sea-night-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002641
+    },
+    {
+      "phase": "sea-night-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005431
+    },
+    {
+      "phase": "sea-night-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005855
+    },
+    {
+      "phase": "sea-night-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005915
+    },
+    {
+      "phase": "sea-night-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006908
+    },
+    {
+      "phase": "sea-night-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006088
+    },
+    {
+      "phase": "sea-night-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005349
+    },
+    {
+      "phase": "sea-night-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005955
+    },
+    {
+      "phase": "sea-night-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000703
+    },
+    {
+      "phase": "sea-night-baseline-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005236
+    },
+    {
+      "phase": "sea-night-baseline-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004373
+    },
+    {
+      "phase": "sea-night-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005331
+    },
+    {
+      "phase": "sea-night-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004128
+    },
+    {
+      "phase": "sea-night-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000608
+    },
+    {
+      "phase": "sea-night-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000676
+    },
+    {
+      "phase": "sea-night-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000631
+    },
+    {
+      "phase": "sea-night-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005065
+    },
+    {
+      "phase": "sea-crossing-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002477
+    },
+    {
+      "phase": "sea-crossing-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005674
+    },
+    {
+      "phase": "sea-crossing-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006419
+    },
+    {
+      "phase": "sea-crossing-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005476
+    },
+    {
+      "phase": "sea-crossing-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004314
+    },
+    {
+      "phase": "sea-crossing-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005789
+    },
+    {
+      "phase": "sea-crossing-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000699
+    },
+    {
+      "phase": "sea-crossing-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006349
+    },
+    {
+      "phase": "sea-crossing-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005843
+    },
+    {
+      "phase": "sea-crossing-baseline-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005549
+    },
+    {
+      "phase": "sea-crossing-baseline-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0004107
+    },
+    {
+      "phase": "sea-crossing-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005594
+    },
+    {
+      "phase": "sea-crossing-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006126
+    },
+    {
+      "phase": "sea-crossing-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005703
+    },
+    {
+      "phase": "sea-crossing-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006491
+    },
+    {
+      "phase": "sea-crossing-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005834
+    },
+    {
+      "phase": "sea-crossing-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000661
+    },
+    {
+      "phase": "holmes-cellar-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0002459
+    },
+    {
+      "phase": "holmes-cellar-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006064
+    },
+    {
+      "phase": "holmes-cellar-baseline-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.000732
+    },
+    {
+      "phase": "holmes-cellar-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007943
+    },
+    {
+      "phase": "holmes-cellar-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.00057
+    },
+    {
+      "phase": "holmes-cellar-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0008029
+    },
+    {
+      "phase": "holmes-cellar-section-1/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005747
+    },
+    {
+      "phase": "holmes-cellar-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007798
+    },
+    {
+      "phase": "holmes-cellar-section-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007244
+    },
+    {
+      "phase": "holmes-cellar-baseline-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0006029
+    },
+    {
+      "phase": "holmes-cellar-baseline-2/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005259
+    },
+    {
+      "phase": "holmes-cellar-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005389
+    },
+    {
+      "phase": "holmes-cellar-baseline-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0005535
+    },
+    {
+      "phase": "holmes-cellar-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007833
+    },
+    {
+      "phase": "holmes-cellar-section-3/text",
+      "kind": "text",
+      "status": "200",
+      "measuredUsd": 0.0007429
+    }
+  ],
+  "measuredUsd": 0.0628947,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 104,
+    "image": 0,
+    "check": 0
+  },
+  "blocked": null
+}

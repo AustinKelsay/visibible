@@ -1,0 +1,142 @@
+[
+  {
+    "id": "rabbit-watch",
+    "work": "alice-in-wonderland",
+    "unitId": "down-the-rabbit-hole-3",
+    "expected": "The White Rabbit consults its waistcoat-pocket watch as Alice notices it. Pink eyes and white fur come from the source.",
+    "moment": {
+      "id": "down-the-rabbit-hole-3",
+      "firstUnit": "down-the-rabbit-hole-3",
+      "lastUnit": "down-the-rabbit-hole-3"
+    },
+    "context": {
+      "moment": {
+        "id": "down-the-rabbit-hole-3",
+        "reference": "Down the Rabbit-Hole ¶3",
+        "text": "There was nothing so _very_ remarkable in that; nor did Alice think it so _very_ much out of the way to hear the Rabbit say to itself, “Oh dear! Oh dear! I shall be late!” (when she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural); but when the Rabbit actually _took a watch out of its waistcoat-pocket_, and looked at it, and then hurried on, Alice started to her feet, for it flashed across her mind that she had never before seen a rabbit with either a waistcoat-pocket, or a watch to take out of it, and burning with curiosity, she ran across the field after it, and fortunately was just in time to see it pop down a large rabbit-hole under the hedge."
+      },
+      "previous": {
+        "text": "So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her."
+      },
+      "next": null
+    }
+  },
+  {
+    "id": "rabbit-gloves",
+    "work": "alice-in-wonderland",
+    "unitId": "the-pool-of-tears-8",
+    "expected": "The same Rabbit hurries with white kid gloves and a large fan, splendidly dressed; the focal moment determines whether it is approaching or startled.",
+    "moment": {
+      "id": "the-pool-of-tears-8",
+      "firstUnit": "the-pool-of-tears-8",
+      "lastUnit": "the-pool-of-tears-8"
+    },
+    "context": {
+      "moment": {
+        "id": "the-pool-of-tears-8",
+        "reference": "The Pool of Tears ¶8",
+        "text": "After a time she heard a little pattering of feet in the distance, and she hastily dried her eyes to see what was coming. It was the White Rabbit returning, splendidly dressed, with a pair of white kid gloves in one hand and a large fan in the other: he came trotting along in a great hurry, muttering to himself as he came, “Oh! the Duchess, the Duchess! Oh! won’t she be savage if I’ve kept her waiting!” Alice felt so desperate that she was ready to ask help of any one; so, when the Rabbit came near her, she began, in a low, timid voice, “If you please, sir—” The Rabbit started violently, dropped the white kid gloves and the fan, and skurried away into the darkness as hard as he could go."
+      },
+      "previous": {
+        "text": "“You ought to be ashamed of yourself,” said Alice, “a great girl like you,” (she might well say this), “to go on crying in this way! Stop this moment, I tell you!” But she went on all the same, shedding gallons of tears, until there was a large pool all round her, about four inches deep and reaching half down the hall."
+      },
+      "next": null
+    }
+  },
+  {
+    "id": "rabbit-mary-ann",
+    "work": "alice-in-wonderland",
+    "unitId": "the-rabbit-sends-in-a-little-bill-2",
+    "expected": "The White Rabbit mistakes Alice for Mary Ann and sends her for gloves and a fan. Preserve Alice as Alice, rather than introducing an actual second girl or fixing her earlier giant size.",
+    "moment": {
+      "id": "the-rabbit-sends-in-a-little-bill-2",
+      "firstUnit": "the-rabbit-sends-in-a-little-bill-2",
+      "lastUnit": "the-rabbit-sends-in-a-little-bill-3"
+    },
+    "context": {
+      "moment": {
+        "id": "the-rabbit-sends-in-a-little-bill-2",
+        "reference": "The Rabbit Sends in a Little Bill ¶2 to The Rabbit Sends in a Little Bill ¶3",
+        "text": "Very soon the Rabbit noticed Alice, as she went hunting about, and called out to her in an angry tone, “Why, Mary Ann, what _are_ you doing out here? Run home this moment, and fetch me a pair of gloves and a fan! Quick, now!” And Alice was so much frightened that she ran off at once in the direction it pointed to, without trying to explain the mistake it had made. “He took me for his housemaid,” she said to herself as she ran. “How surprised he’ll be when he finds out who I am! But I’d better take him his fan and gloves—that is, if I can find them.” As she said this, she came upon a neat little house, on the door of which was a bright brass plate with the name “W. RABBIT,” engraved upon it. She went in without knocking, and hurried upstairs, in great fear lest she should meet the real Mary Ann, and be turned out of the house before she had found the fan and gloves."
+      },
+      "previous": {
+        "text": "It was the White Rabbit, trotting slowly back again, and looking anxiously about as it went, as if it had lost something; and she heard it muttering to itself “The Duchess! The Duchess! Oh my dear paws! Oh my fur and whiskers! She’ll get me executed, as sure as ferrets are ferrets! Where _can_ I have dropped them, I wonder?” Alice guessed in a moment that it was looking for the fan and the pair of white kid gloves, and she very good-naturedly began hunting about for them, but they were nowhere to be seen—everything seemed to have changed since her swim in the pool, and the great hall, with the glass table and the little door, had vanished completely."
+      },
+      "next": {
+        "text": "“How queer it seems,” Alice said to herself, “to be going messages for a rabbit! I suppose Dinah’ll be sending me on messages next!” And she began fancying the sort of thing that would happen: “‘Miss Alice! Come here directly, and get ready for your walk!’ ‘Coming in a minute, nurse! But I’ve got to see that the mouse doesn’t get out.’ Only I don’t think,” Alice went on, “that they’d let Dinah stop in the house if it began ordering people about like that!”"
+      }
+    }
+  },
+  {
+    "id": "peter-water",
+    "work": "bible-web",
+    "unitId": "matthew-14-29",
+    "expected": "Peter steps from the boat onto the water toward Jesus. Source context sets storm and time.",
+    "moment": {
+      "id": "matthew-14-29",
+      "firstUnit": "matthew-14-29",
+      "lastUnit": "matthew-14-29"
+    },
+    "context": {
+      "moment": {
+        "id": "matthew-14-29",
+        "reference": "Matthew 14:29",
+        "text": "He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus."
+      },
+      "previous": {
+        "text": "Peter answered him and said, “Lord, if it is you, command me to come to you on the waters.”"
+      },
+      "next": {
+        "text": "But when he saw that the wind was strong, he was afraid, and beginning to sink, he cried out, saying, “Lord, save me!”"
+      }
+    }
+  },
+  {
+    "id": "peter-sea",
+    "work": "bible-web",
+    "unitId": "john-21-7",
+    "expected": "Peter recognizes the Lord and throws himself into the sea from the boat. Source context sets dawn and clothing.",
+    "moment": {
+      "id": "john-21-7",
+      "firstUnit": "john-21-7",
+      "lastUnit": "john-21-7"
+    },
+    "context": {
+      "moment": {
+        "id": "john-21-7",
+        "reference": "John 21:7",
+        "text": "That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea."
+      },
+      "previous": {
+        "text": "He said to them, “Cast the net on the right side of the boat, and you will find some.” They cast it therefore, and now they weren’t able to draw it in for the multitude of fish."
+      },
+      "next": {
+        "text": "But the other disciples came in the little boat (for they were not far from the land, but about two hundred cubits away), dragging the net full of fish."
+      }
+    }
+  },
+  {
+    "id": "shore-meal",
+    "work": "bible-web",
+    "unitId": "john-21-9",
+    "expected": "The disciples find a charcoal fire with fish and bread ashore. Do not require Peter to appear when the selected source moment does not show him.",
+    "moment": {
+      "id": "john-21-9",
+      "firstUnit": "john-21-9",
+      "lastUnit": "john-21-9"
+    },
+    "context": {
+      "moment": {
+        "id": "john-21-9",
+        "reference": "John 21:9",
+        "text": "So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it."
+      },
+      "previous": {
+        "text": "But the other disciples came in the little boat (for they were not far from the land, but about two hundred cubits away), dragging the net full of fish."
+      },
+      "next": {
+        "text": "Jesus said to them, “Bring some of the fish which you have just caught.”"
+      }
+    }
+  }
+]

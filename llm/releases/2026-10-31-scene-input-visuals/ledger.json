@@ -1,0 +1,481 @@
+{
+  "capUsd": 1.4,
+  "calls": [
+    {
+      "phase": "alice-house-entry-baseline-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0349105
+    },
+    {
+      "phase": "alice-house-entry-baseline-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002286
+    },
+    {
+      "phase": "alice-house-entry-baseline-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003298
+    },
+    {
+      "phase": "alice-house-entry-candidate-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034908
+    },
+    {
+      "phase": "alice-house-entry-candidate-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002841
+    },
+    {
+      "phase": "alice-house-entry-candidate-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003738
+    },
+    {
+      "phase": "alice-house-entry-candidate-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034908
+    },
+    {
+      "phase": "alice-house-entry-candidate-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002286
+    },
+    {
+      "phase": "alice-house-entry-candidate-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003403
+    },
+    {
+      "phase": "alice-house-entry-candidate-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034908
+    },
+    {
+      "phase": "alice-house-entry-candidate-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002701
+    },
+    {
+      "phase": "alice-house-entry-candidate-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003653
+    },
+    {
+      "phase": "alice-house-entry-candidate-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034908
+    },
+    {
+      "phase": "alice-house-entry-candidate-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002286
+    },
+    {
+      "phase": "alice-house-entry-candidate-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003153
+    },
+    {
+      "phase": "alice-house-entry-baseline-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0349105
+    },
+    {
+      "phase": "alice-house-entry-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002286
+    },
+    {
+      "phase": "alice-house-entry-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003283
+    },
+    {
+      "phase": "alice-house-entry-baseline-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0349105
+    },
+    {
+      "phase": "alice-house-entry-baseline-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002286
+    },
+    {
+      "phase": "alice-house-entry-baseline-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003318
+    },
+    {
+      "phase": "alice-house-entry-candidate-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034908
+    },
+    {
+      "phase": "alice-house-entry-candidate-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002286
+    },
+    {
+      "phase": "alice-house-entry-candidate-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003423
+    },
+    {
+      "phase": "alice-house-grown-baseline-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034594
+    },
+    {
+      "phase": "alice-house-grown-baseline-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002252
+    },
+    {
+      "phase": "alice-house-grown-baseline-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002859
+    },
+    {
+      "phase": "alice-house-grown-candidate-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03458775
+    },
+    {
+      "phase": "alice-house-grown-candidate-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002252
+    },
+    {
+      "phase": "alice-house-grown-candidate-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003129
+    },
+    {
+      "phase": "alice-house-grown-candidate-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03458775
+    },
+    {
+      "phase": "alice-house-grown-candidate-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002252
+    },
+    {
+      "phase": "alice-house-grown-candidate-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002924
+    },
+    {
+      "phase": "alice-house-grown-baseline-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034594
+    },
+    {
+      "phase": "alice-house-grown-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002252
+    },
+    {
+      "phase": "alice-house-grown-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003259
+    },
+    {
+      "phase": "alice-house-grown-baseline-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.034594
+    },
+    {
+      "phase": "alice-house-grown-baseline-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002252
+    },
+    {
+      "phase": "alice-house-grown-baseline-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003169
+    },
+    {
+      "phase": "alice-house-grown-candidate-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03458775
+    },
+    {
+      "phase": "alice-house-grown-candidate-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002762
+    },
+    {
+      "phase": "alice-house-grown-candidate-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003549
+    },
+    {
+      "phase": "holmes-cellar-baseline-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0340495
+    },
+    {
+      "phase": "holmes-cellar-baseline-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003046
+    },
+    {
+      "phase": "holmes-cellar-baseline-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003808
+    },
+    {
+      "phase": "holmes-cellar-baseline-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0340495
+    },
+    {
+      "phase": "holmes-cellar-baseline-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002966
+    },
+    {
+      "phase": "holmes-cellar-baseline-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003903
+    },
+    {
+      "phase": "holmes-cellar-candidate-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03404625
+    },
+    {
+      "phase": "holmes-cellar-candidate-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002642
+    },
+    {
+      "phase": "holmes-cellar-candidate-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003904
+    },
+    {
+      "phase": "holmes-cellar-candidate-1/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03404625
+    },
+    {
+      "phase": "holmes-cellar-candidate-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003097
+    },
+    {
+      "phase": "holmes-cellar-candidate-1/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003689
+    },
+    {
+      "phase": "holmes-cellar-candidate-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03404625
+    },
+    {
+      "phase": "holmes-cellar-candidate-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002572
+    },
+    {
+      "phase": "holmes-cellar-candidate-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003654
+    },
+    {
+      "phase": "holmes-cellar-candidate-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03404625
+    },
+    {
+      "phase": "holmes-cellar-candidate-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002992
+    },
+    {
+      "phase": "holmes-cellar-candidate-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003819
+    },
+    {
+      "phase": "holmes-cellar-baseline-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0340495
+    },
+    {
+      "phase": "holmes-cellar-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002911
+    },
+    {
+      "phase": "holmes-cellar-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003873
+    },
+    {
+      "phase": "holmes-cellar-baseline-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0340495
+    },
+    {
+      "phase": "holmes-cellar-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002896
+    },
+    {
+      "phase": "holmes-cellar-baseline-2/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003703
+    },
+    {
+      "phase": "holmes-cellar-baseline-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0340495
+    },
+    {
+      "phase": "holmes-cellar-baseline-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0002966
+    },
+    {
+      "phase": "holmes-cellar-baseline-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003653
+    },
+    {
+      "phase": "holmes-cellar-baseline-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0340495
+    },
+    {
+      "phase": "holmes-cellar-baseline-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003056
+    },
+    {
+      "phase": "holmes-cellar-baseline-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003863
+    },
+    {
+      "phase": "holmes-cellar-candidate-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03404625
+    },
+    {
+      "phase": "holmes-cellar-candidate-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003142
+    },
+    {
+      "phase": "holmes-cellar-candidate-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003549
+    },
+    {
+      "phase": "holmes-cellar-candidate-3/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.03404625
+    },
+    {
+      "phase": "holmes-cellar-candidate-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003132
+    },
+    {
+      "phase": "holmes-cellar-candidate-3/classical",
+      "kind": "check",
+      "status": "200",
+      "measuredUsd": 0.0003829
+    }
+  ],
+  "measuredUsd": 0.91140155,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 26,
+    "check": 52
+  },
+  "blocked": null
+}

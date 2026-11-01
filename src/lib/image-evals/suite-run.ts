@@ -166,7 +166,7 @@ export type SuiteWork = {
   inputs: WorkInputs;
   /** The work's analysis records from the run's snapshot: sections, moments and canon entries, no looks or plans. */
   records: MemoryRecordInput[];
-  /** Looks and plans a text run stored, with their inputs; the image tier draws these instead of re-planning. */
+  /** Frozen looks/plans with their inputs. Text trials may reuse a look; image trials require complete plans. */
   seeded?: AnalysisRecord[];
   getReference: (kind: "sheet" | "styleReference", recordId: string) => Promise<ReferenceRecord | null>;
   loadReference: (storageId: string) => Promise<Uint8Array>;
@@ -266,7 +266,7 @@ async function runCase(options: SuiteRunOptions, workId: string, work: SuiteWork
     const standsFor = options.tier === "image" ? (index === 0 ? [...styles] : [style]) : null;
     // A seeded image run must draw the text run's plans; a text call, or a preparation failure shared from another case's
     // call, means its inputs moved since that run.
-    if (seeded && (textCalls > 0 || (!assembled.ok && assembled.reason === "preparation"))) {
+    if (drawsSeeds && (textCalls > 0 || (!assembled.ok && assembled.reason === "preparation"))) {
       options.record({ ...common, standsFor, outcome: "refused", stage: "seed", message: "The text run's look or plan was stale for this checkout, so the case was refused without re-planning; its images were not made.", elapsedMs: Date.now() - started });
       return;
     }

@@ -1,0 +1,20 @@
+{
+  "frozenHashes": 29,
+  "scheduledRows": 18,
+  "savedImageHashesAndMimeSignatures": 26,
+  "allImageDimensions": [
+    1376,
+    768
+  ],
+  "orderedReferencesAndActualPromptsVerified": 26,
+  "rawCheckerResponsesVerified": 52,
+  "ledgerExchangesReconciled": 78,
+  "inspectionUniqueExactCoverage": 26,
+  "inputVersionsAndCheckerDescriptionsVerified": true,
+  "imageSpendUsd": 0.89539125,
+  "checkerSpendUsd": 0.0160103,
+  "uncertainUsd": 0,
+  "blocked": null,
+  "runtimeAndProductionInputsMatchBase": true,
+  "baseCommit": "ca702da6d1634cbebcf377d795e0c5c10ce5f37d"
+}

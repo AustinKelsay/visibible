@@ -7,6 +7,7 @@ import { useVerseView, VerseViewProvider } from "@/context/verse-view-context";
 import { trackPreferenceChanged } from "@/lib/analytics";
 import type { VerseViewValue } from "@/lib/verse-view";
 import { VerseModeTabs } from "@/components/verse-mode-tabs";
+import { getVerseNavigationDirection } from "@/lib/verse-keyboard-navigation";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -44,6 +45,7 @@ describe("VerseViewProvider", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     sessionState.credits = 10;
+    window.history.replaceState(null, "", "/genesis/1/1");
     searchParamView = null;
     searchParamsGetMock.mockImplementation((key: string) => (
       key === "view" ? searchParamView : null
@@ -112,15 +114,51 @@ describe("VerseViewProvider", () => {
 
   it("switches to Video using the mode tabs without reporting a gallery preference", async () => {
     vi.stubEnv("NODE_ENV", "development");
-    await renderProvider(<><VerseModeTabs /><ExposureHarness /></>);
+    await renderProvider(<><VerseModeTabs idPrefix="verse" /><ExposureHarness /></>);
     const buttons = container!.querySelectorAll("button");
     await act(async () => buttons[2].click());
-    expect(buttons[2].getAttribute("aria-pressed")).toBe("true");
+    expect(buttons[2].getAttribute("aria-selected")).toBe("true");
+    expect([...buttons].map((button) => button.tabIndex)).toEqual([-1, -1, 0]);
+    expect(window.location.search).toBe("?view=video");
     expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("video");
     expect(trackPreferenceChanged).not.toHaveBeenCalled();
     await act(async () => buttons[2].dispatchEvent(new KeyboardEvent("keydown", { key: "Home", bubbles: true })));
-    expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("reader");
+    expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("video");
     expect(document.activeElement).toBe(buttons[0]);
+    // Enter/Space use the native button click; focusing another tab leaves Video active.
+    await act(async () => buttons[0].click());
+    expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("reader");
+    expect([...buttons].map((button) => button.tabIndex)).toEqual([0, -1, -1]);
+    expect(window.location.search).toBe("");
+    expect(trackPreferenceChanged).not.toHaveBeenCalled();
+  });
+
+  it("moves tab focus without activating a view or triggering verse shortcuts", async () => {
+    await renderProvider(<><button type="button">Before tabs</button><VerseModeTabs idPrefix="verse" /><ExposureHarness /></>);
+    const buttons = container!.querySelectorAll<HTMLButtonElement>('[role="tab"]');
+    await act(async () => buttons[0].focus());
+    for (const [key, target] of [
+      ["ArrowLeft", 2], ["ArrowRight", 0], ["ArrowRight", 1],
+      ["ArrowRight", 2], ["Home", 0], ["End", 2],
+    ] as const) {
+      const event = new KeyboardEvent("keydown", { key, bubbles: true, cancelable: true });
+      await act(async () => document.activeElement!.dispatchEvent(event));
+      expect(document.activeElement).toBe(buttons[target]);
+      expect([...buttons].map((button) => button.tabIndex)).toEqual(
+        [...buttons].map((_, index) => index === target ? 0 : -1)
+      );
+      expect(event.defaultPrevented).toBe(true);
+      expect(getVerseNavigationDirection(event)).toBeNull();
+      expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("reader");
+      expect(window.location.search).toBe("");
+    }
+    for (const key of ["Tab", "ArrowUp", "ArrowDown", "Enter", " "]) {
+      const event = new KeyboardEvent("keydown", { key, bubbles: true, cancelable: true });
+      await act(async () => buttons[2].dispatchEvent(event));
+      expect(event.defaultPrevented).toBe(false);
+    }
+    await act(async () => container!.querySelector<HTMLButtonElement>("button")!.focus());
+    expect([...buttons].map((button) => button.tabIndex)).toEqual([0, -1, -1]);
   });
 
   it("tracks preference changes when the gallery is toggled on", async () => {

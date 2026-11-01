@@ -1,0 +1,949 @@
+[
+  {
+    "tier": "text",
+    "case": "john-21-7",
+    "caseId": "bible-control-peter-sea-1",
+    "work": "bible-web",
+    "split": "dev",
+    "key": "bible-control-peter-sea-1/text",
+    "style": null,
+    "textCalls": 3,
+    "skippedReferences": [],
+    "context": {
+      "moment": {
+        "id": "john-21-7",
+        "reference": "John 21:7",
+        "text": "That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea."
+      },
+      "previous": {
+        "text": "He said to them, “Cast the net on the right side of the boat, and you will find some.” They cast it therefore, and now they weren’t able to draw it in for the multitude of fish."
+      },
+      "next": {
+        "text": "But the other disciples came in the little boat (for they were not far from the land, but about two hundred cubits away), dragging the net full of fish."
+      }
+    },
+    "outcome": "planned",
+    "momentId": "john-21-7",
+    "sectionId": "john-21-1",
+    "prepared": {
+      "look": {
+        "place": "Shore of the Sea of Galilee with a small fishing boat offshore and a charcoal fire on the sand, stone village houses and fishing nets visible behind",
+        "timeOfDay": "Early morning, shifting from pre-dawn grey to full daylight by breakfast",
+        "weather": "Clear, calm air with a light breeze over still water",
+        "light": "Soft dawn light low over the lake, warming to bright, even daylight across the section",
+        "clothing": "Working fishermen's tunics and cloaks, sea-damp and practical; Peter wears only a cloak once he has wrapped it around himself"
+      },
+      "situation": null,
+      "plan": {
+        "primarySubject": "Simon Peter mid-leap, cloak clutched around his body, plunging feet-first from the boat's edge",
+        "action": "Peter springs into the sea toward the shore while the boat rocks behind him and the net of fish stays in the water",
+        "setting": "Shallow edge of the Sea of Galilee near a small wooden fishing boat, with the shoreline and a charcoal fire beyond",
+        "secondaryElements": "The beloved disciple standing in the bow pointing toward the shore; other disciples gripping oars and nets in the boat; a heavy net of fish trailing in the water; rippling wake",
+        "mood": "Urgent, joyful and awed, with a rush of recognition and devotion",
+        "timeOfDay": "Early morning pre-dawn grey warming toward daylight, clear calm air with a light breeze over still water",
+        "composition": "Low side view from the lake, Peter central in motion with the boat sweeping diagonally behind him and the shore in the distance",
+        "present": [
+          "simon_peter",
+          "the_beloved_disciple",
+          "sea_of_galilee",
+          "the_twelve_disciples_collective"
+        ]
+      },
+      "present": [
+        {
+          "entryId": "simon_peter",
+          "stageId": "simon_peter",
+          "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+        },
+        {
+          "entryId": "the_beloved_disciple",
+          "stageId": "beloved-disciple",
+          "version": "5be384aa72fa4637557b81b235dcd186"
+        },
+        {
+          "entryId": "sea_of_galilee",
+          "stageId": "sea_of_galilee",
+          "version": "1b1eeaba7c185d577b2e200222afb10e"
+        },
+        {
+          "entryId": "the_twelve_disciples_collective",
+          "stageId": "the_twelve_disciples_collective_main",
+          "version": "e11e1543bc474368c11b38cbcb38fb87"
+        }
+      ]
+    },
+    "records": {
+      "look": {
+        "kind": "look",
+        "recordId": "john-21-1",
+        "version": "8ba169ddfbe9442c9f9788a54f486e89",
+        "inputs": [
+          {
+            "kind": "section",
+            "recordId": "john-21-1",
+            "version": "92f99df78b20e474ce526c8f0f5c41e3"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717"
+          },
+          {
+            "kind": "entry",
+            "recordId": "jesus_christ_the_son_of_god_and_lord",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "kind": "entry",
+            "recordId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "kind": "entry",
+            "recordId": "thomas_the_apostle",
+            "version": "f0f6424620c5d4755e743c4e06a3da52"
+          },
+          {
+            "kind": "entry",
+            "recordId": "bartholomew",
+            "version": "afd72226f16ab5d7fb0af73e2d5ce752"
+          },
+          {
+            "kind": "entry",
+            "recordId": "james_and_john_sons_of_zebedee",
+            "version": "bcbd73a477a3f02730f26b2c45400ef8"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_beloved_disciple",
+            "version": "5be384aa72fa4637557b81b235dcd186"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_twelve_disciples_collective",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "kind": "entry",
+            "recordId": "sea_of_galilee",
+            "version": "1b1eeaba7c185d577b2e200222afb10e"
+          }
+        ],
+        "source": "generated",
+        "payload": {
+          "kind": "look",
+          "sectionId": "john-21-1",
+          "place": "Shore of the Sea of Galilee with a small fishing boat offshore and a charcoal fire on the sand, stone village houses and fishing nets visible behind",
+          "timeOfDay": "Early morning, shifting from pre-dawn grey to full daylight by breakfast",
+          "weather": "Clear, calm air with a light breeze over still water",
+          "light": "Soft dawn light low over the lake, warming to bright, even daylight across the section",
+          "clothing": "Working fishermen's tunics and cloaks, sea-damp and practical; Peter wears only a cloak once he has wrapped it around himself"
+        }
+      },
+      "plan": {
+        "kind": "plan",
+        "recordId": "john-21-7",
+        "version": "b62b44e292f9eb757c3360daf2b2fcc6",
+        "inputs": [
+          {
+            "kind": "moment",
+            "recordId": "john-21-7",
+            "version": "9eb2c0260b2c54ff1ee5af1ed0d536fa"
+          },
+          {
+            "kind": "section",
+            "recordId": "john-21-1",
+            "version": "92f99df78b20e474ce526c8f0f5c41e3"
+          },
+          {
+            "kind": "look",
+            "recordId": "john-21-1",
+            "version": "8ba169ddfbe9442c9f9788a54f486e89"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_look_ownership",
+            "version": "generated-guide-v1"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717"
+          },
+          {
+            "kind": "entry",
+            "recordId": "jesus_christ_the_son_of_god_and_lord",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "kind": "entry",
+            "recordId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "kind": "entry",
+            "recordId": "thomas_the_apostle",
+            "version": "f0f6424620c5d4755e743c4e06a3da52"
+          },
+          {
+            "kind": "entry",
+            "recordId": "bartholomew",
+            "version": "afd72226f16ab5d7fb0af73e2d5ce752"
+          },
+          {
+            "kind": "entry",
+            "recordId": "james_and_john_sons_of_zebedee",
+            "version": "bcbd73a477a3f02730f26b2c45400ef8"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_beloved_disciple",
+            "version": "5be384aa72fa4637557b81b235dcd186"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_twelve_disciples_collective",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "kind": "entry",
+            "recordId": "sea_of_galilee",
+            "version": "1b1eeaba7c185d577b2e200222afb10e"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_moment_cast",
+            "version": "2026-10-28-moment-cast-v15"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_review",
+            "version": "2026-10-27-plan-review-v12"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "depiction_plan",
+            "version": "c19079c0514be1c179070478ede4554c"
+          }
+        ],
+        "source": "generated",
+        "payload": {
+          "kind": "plan",
+          "momentId": "john-21-7",
+          "entries": [
+            {
+              "entryId": "simon_peter",
+              "stageId": "simon_peter"
+            },
+            {
+              "entryId": "the_beloved_disciple",
+              "stageId": "beloved-disciple"
+            },
+            {
+              "entryId": "sea_of_galilee",
+              "stageId": "sea_of_galilee"
+            },
+            {
+              "entryId": "the_twelve_disciples_collective",
+              "stageId": "the_twelve_disciples_collective_main"
+            }
+          ],
+          "plan": {
+            "primarySubject": "Simon Peter mid-leap, cloak clutched around his body, plunging feet-first from the boat's edge",
+            "action": "Peter springs into the sea toward the shore while the boat rocks behind him and the net of fish stays in the water",
+            "setting": "Shallow edge of the Sea of Galilee near a small wooden fishing boat, with the shoreline and a charcoal fire beyond",
+            "secondaryElements": "The beloved disciple standing in the bow pointing toward the shore; other disciples gripping oars and nets in the boat; a heavy net of fish trailing in the water; rippling wake",
+            "mood": "Urgent, joyful and awed, with a rush of recognition and devotion",
+            "timeOfDay": "Early morning pre-dawn grey warming toward daylight, clear calm air with a light breeze over still water",
+            "composition": "Low side view from the lake, Peter central in motion with the boat sweeping diagonally behind him and the shore in the distance"
+          },
+          "grounding": {
+            "focusQuote": "threw himself into the sea",
+            "instant": "Peter, having just wrapped his coat around himself, leaps from the stern of the small boat into the lake while the other disciples remain aboard.",
+            "singleInstant": true,
+            "cast": [
+              {
+                "entryId": "simon_peter",
+                "momentQuote": "Simon Peter heard that it was the Lord, he wrapped his coat around himself and threw himself into the sea",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "the_beloved_disciple",
+                "momentQuote": "That disciple whom Jesus loved said to Peter, It's the Lord!",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "sea_of_galilee",
+                "momentQuote": "threw himself into the sea",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              }
+            ]
+          },
+          "review": {
+            "rounds": 1,
+            "notes": [
+              "selected the_twelve_disciples_collective: depicted but not selected"
+            ]
+          }
+        }
+      }
+    },
+    "promptChars": 7797,
+    "references": [
+      {
+        "kind": "styleReference",
+        "storageId": "kg2e99zh3qps4ys5tx6r0jecex8h1tfg",
+        "version": "56cdda26e88a809fa8bbdebe2cc8ccea",
+        "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+      },
+      {
+        "kind": "sheet",
+        "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+        "version": "1e80e44fb6e82ece65cc6bd7f732a363",
+        "caption": "Image 2: Simon Peter's reference sheet (one figure shown in three views). Match its identity exactly for Simon Peter only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+      },
+      {
+        "kind": "sheet",
+        "storageId": "kg29n1awzqeag96dwwcf4g12218h8nf7",
+        "version": "8290f44a4bb4b0e9ea178b8240024b4e",
+        "caption": "Image 3: Sea of Galilee's reference sheet (two views of the same place or thing). Match its identity exactly for Sea of Galilee only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+      }
+    ],
+    "elapsedMs": 10095
+  },
+  {
+    "tier": "text",
+    "case": "matthew-14-29",
+    "caseId": "bible-control-peter-water-1",
+    "work": "bible-web",
+    "split": "dev",
+    "key": "bible-control-peter-water-1/text",
+    "style": null,
+    "textCalls": 3,
+    "skippedReferences": [
+      "sheet:the_boat_matthew_s_sea_boat:the_boat_matthew_s_sea_boat_main:missing"
+    ],
+    "context": {
+      "moment": {
+        "id": "matthew-14-29",
+        "reference": "Matthew 14:29",
+        "text": "He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus."
+      },
+      "previous": {
+        "text": "Peter answered him and said, “Lord, if it is you, command me to come to you on the waters.”"
+      },
+      "next": {
+        "text": "But when he saw that the wind was strong, he was afraid, and beginning to sink, he cried out, saying, “Lord, save me!”"
+      }
+    },
+    "outcome": "planned",
+    "momentId": "matthew-14-29",
+    "sectionId": "matthew-14-28",
+    "prepared": {
+      "look": {
+        "place": "Sea of Galilee, open water near a fishing boat, distant shore of stone village",
+        "timeOfDay": "Night, the storm passing before dawn",
+        "weather": "Rough wind and choppy dark waves, clearing sky with scattered cloud",
+        "light": "Faint moonlight and reflected glimmer on water, cool dim tones",
+        "clothing": "Tunics and wet cloaks of fishermen, disciples in simple working linen"
+      },
+      "situation": null,
+      "plan": {
+        "primarySubject": "Peter, mid-step, one foot on the water and body leaning toward Jesus",
+        "action": "Peter steps over the side of the boat onto the water toward Jesus",
+        "setting": "Open Sea of Galilee at night, a fishing boat tilting near the water",
+        "secondaryElements": "Disciples in the boat gripping its rail and gazing out; Jesus standing calm on the water with arm extended; faint lantern in the boat",
+        "mood": "Awed, tense hope and quiet trust",
+        "timeOfDay": "Night, storm passing, rough wind over dark waves",
+        "composition": "Low viewpoint from the boat's side, Peter and Jesus in profile across the waves with the boat at the edge of the frame",
+        "present": [
+          "simon_peter",
+          "jesus_christ_the_son_of_god_and_lord",
+          "the_boat_matthew_s_sea_boat",
+          "sea_of_galilee",
+          "the_twelve_disciples_collective"
+        ]
+      },
+      "present": [
+        {
+          "entryId": "simon_peter",
+          "stageId": "simon_peter",
+          "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "stageId": "adult",
+          "version": "0610430f0f21f266bc5852671492395b"
+        },
+        {
+          "entryId": "the_boat_matthew_s_sea_boat",
+          "stageId": "the_boat_matthew_s_sea_boat_main",
+          "version": "032a15679fdafc40c8ce25af0dde4c0b"
+        },
+        {
+          "entryId": "sea_of_galilee",
+          "stageId": "sea_of_galilee",
+          "version": "1b1eeaba7c185d577b2e200222afb10e"
+        },
+        {
+          "entryId": "the_twelve_disciples_collective",
+          "stageId": "the_twelve_disciples_collective_main",
+          "version": "e11e1543bc474368c11b38cbcb38fb87"
+        }
+      ]
+    },
+    "records": {
+      "look": {
+        "kind": "look",
+        "recordId": "matthew-14-28",
+        "version": "acb384c1b7571f6a98ec0d69f9da5605",
+        "inputs": [
+          {
+            "kind": "section",
+            "recordId": "matthew-14-28",
+            "version": "2e35122e458d46efa4121706c0b4665a"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717"
+          },
+          {
+            "kind": "entry",
+            "recordId": "jesus_christ_the_son_of_god_and_lord",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "kind": "entry",
+            "recordId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_twelve_disciples_collective",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "kind": "entry",
+            "recordId": "sea_of_galilee",
+            "version": "1b1eeaba7c185d577b2e200222afb10e"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_boat_matthew_s_sea_boat",
+            "version": "032a15679fdafc40c8ce25af0dde4c0b"
+          }
+        ],
+        "source": "generated",
+        "payload": {
+          "kind": "look",
+          "sectionId": "matthew-14-28",
+          "place": "Sea of Galilee, open water near a fishing boat, distant shore of stone village",
+          "timeOfDay": "Night, the storm passing before dawn",
+          "weather": "Rough wind and choppy dark waves, clearing sky with scattered cloud",
+          "light": "Faint moonlight and reflected glimmer on water, cool dim tones",
+          "clothing": "Tunics and wet cloaks of fishermen, disciples in simple working linen"
+        }
+      },
+      "plan": {
+        "kind": "plan",
+        "recordId": "matthew-14-29",
+        "version": "ba330ccb7f8a6fb2104b80b38980bc1f",
+        "inputs": [
+          {
+            "kind": "moment",
+            "recordId": "matthew-14-29",
+            "version": "222aa2fa4d1a48d79addbf4298a073ae"
+          },
+          {
+            "kind": "section",
+            "recordId": "matthew-14-28",
+            "version": "2e35122e458d46efa4121706c0b4665a"
+          },
+          {
+            "kind": "look",
+            "recordId": "matthew-14-28",
+            "version": "acb384c1b7571f6a98ec0d69f9da5605"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_look_ownership",
+            "version": "generated-guide-v1"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717"
+          },
+          {
+            "kind": "entry",
+            "recordId": "jesus_christ_the_son_of_god_and_lord",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "kind": "entry",
+            "recordId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_twelve_disciples_collective",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "kind": "entry",
+            "recordId": "sea_of_galilee",
+            "version": "1b1eeaba7c185d577b2e200222afb10e"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_boat_matthew_s_sea_boat",
+            "version": "032a15679fdafc40c8ce25af0dde4c0b"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_moment_cast",
+            "version": "2026-10-28-moment-cast-v15"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_review",
+            "version": "2026-10-27-plan-review-v12"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "depiction_plan",
+            "version": "c19079c0514be1c179070478ede4554c"
+          }
+        ],
+        "source": "generated",
+        "payload": {
+          "kind": "plan",
+          "momentId": "matthew-14-29",
+          "entries": [
+            {
+              "entryId": "simon_peter",
+              "stageId": "simon_peter"
+            },
+            {
+              "entryId": "jesus_christ_the_son_of_god_and_lord",
+              "stageId": "adult"
+            },
+            {
+              "entryId": "the_boat_matthew_s_sea_boat",
+              "stageId": "the_boat_matthew_s_sea_boat_main"
+            },
+            {
+              "entryId": "sea_of_galilee",
+              "stageId": "sea_of_galilee"
+            },
+            {
+              "entryId": "the_twelve_disciples_collective",
+              "stageId": "the_twelve_disciples_collective_main"
+            }
+          ],
+          "plan": {
+            "primarySubject": "Peter, mid-step, one foot on the water and body leaning toward Jesus",
+            "action": "Peter steps over the side of the boat onto the water toward Jesus",
+            "setting": "Open Sea of Galilee at night, a fishing boat tilting near the water",
+            "secondaryElements": "Disciples in the boat gripping its rail and gazing out; Jesus standing calm on the water with arm extended; faint lantern in the boat",
+            "mood": "Awed, tense hope and quiet trust",
+            "timeOfDay": "Night, storm passing, rough wind over dark waves",
+            "composition": "Low viewpoint from the boat's side, Peter and Jesus in profile across the waves with the boat at the edge of the frame"
+          },
+          "grounding": {
+            "focusQuote": "Come! Peter stepped down from the boat and walked on the waters",
+            "instant": "Peter has just stepped off the side of the boat onto the dark waves, one foot on the water, while Jesus stands a short distance away on the water, arm extended in welcome.",
+            "singleInstant": true,
+            "cast": [
+              {
+                "entryId": "simon_peter",
+                "momentQuote": "Peter stepped down from the boat and walked on the waters",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "jesus_christ_the_son_of_god_and_lord",
+                "momentQuote": "to come to Jesus",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "the_boat_matthew_s_sea_boat",
+                "momentQuote": "stepped down from the boat",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "sea_of_galilee",
+                "momentQuote": "walked on the waters",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "the_twelve_disciples_collective",
+                "momentQuote": "the disciples in the boat watching",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              }
+            ]
+          },
+          "review": {
+            "rounds": 1
+          }
+        }
+      }
+    },
+    "promptChars": 7682,
+    "references": [
+      {
+        "kind": "styleReference",
+        "storageId": "kg2e99zh3qps4ys5tx6r0jecex8h1tfg",
+        "version": "56cdda26e88a809fa8bbdebe2cc8ccea",
+        "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+      },
+      {
+        "kind": "sheet",
+        "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+        "version": "1e80e44fb6e82ece65cc6bd7f732a363",
+        "caption": "Image 2: Simon Peter's reference sheet (one figure shown in three views). Match its identity exactly for Simon Peter only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+      },
+      {
+        "kind": "sheet",
+        "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+        "version": "faeacb4c217a32a73a86082443a41d40",
+        "caption": "Image 3: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+      }
+    ],
+    "elapsedMs": 11139
+  },
+  {
+    "tier": "text",
+    "case": "john-21-9",
+    "caseId": "bible-control-shore-meal-1",
+    "work": "bible-web",
+    "split": "dev",
+    "key": "bible-control-shore-meal-1/text",
+    "style": null,
+    "textCalls": 4,
+    "skippedReferences": [
+      "sheet:the_twelve_disciples_collective:the_twelve_disciples_collective_main:missing"
+    ],
+    "context": {
+      "moment": {
+        "id": "john-21-9",
+        "reference": "John 21:9",
+        "text": "So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it."
+      },
+      "previous": {
+        "text": "But the other disciples came in the little boat (for they were not far from the land, but about two hundred cubits away), dragging the net full of fish."
+      },
+      "next": {
+        "text": "Jesus said to them, “Bring some of the fish which you have just caught.”"
+      }
+    },
+    "outcome": "planned",
+    "momentId": "john-21-9",
+    "sectionId": "john-21-1",
+    "prepared": {
+      "look": {
+        "place": "Shore of the Sea of Galilee with a small fishing boat offshore and a charcoal fire on the sand, stone village houses and fishing nets visible behind",
+        "timeOfDay": "Early morning, shifting from pre-dawn grey to full daylight by breakfast",
+        "weather": "Clear, calm air with a light breeze over still water",
+        "light": "Soft dawn light low over the lake, warming to bright, even daylight across the section",
+        "clothing": "Working fishermen's tunics and cloaks, sea-damp and practical; Peter wears only a cloak once he has wrapped it around himself"
+      },
+      "situation": null,
+      "plan": {
+        "primarySubject": "Disciples in damp tunics and cloaks stepping onto the sand, their gazes fixed on the fire.",
+        "action": "They have just landed from the boat and halt, seeing the fire of coals with fish and bread upon it.",
+        "setting": "Sandy shore of the Sea of Galilee with a small fishing boat drawn up and a charcoal fire on the sand, stone village houses and fishing nets behind.",
+        "secondaryElements": "A bed of glowing coals with fish and round loaves laid on it; a dragged net of fish in the boat; no figure tending the fire.",
+        "mood": "Quiet wonder and cautious expectancy as the men take in the unexpected meal.",
+        "timeOfDay": "Early morning, shifting from pre-dawn grey to full daylight; clear, calm air with a light breeze over still water.",
+        "composition": "Viewpoint from the shallows looking up the sand, disciples in the middle ground, fire and lake behind them, boat at the edge of the frame.",
+        "present": [
+          "simon_peter",
+          "the_twelve_disciples_collective",
+          "sea_of_galilee"
+        ]
+      },
+      "present": [
+        {
+          "entryId": "simon_peter",
+          "stageId": "simon_peter",
+          "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+        },
+        {
+          "entryId": "the_twelve_disciples_collective",
+          "stageId": "the_twelve_disciples_collective_main",
+          "version": "e11e1543bc474368c11b38cbcb38fb87"
+        },
+        {
+          "entryId": "sea_of_galilee",
+          "stageId": "sea_of_galilee",
+          "version": "1b1eeaba7c185d577b2e200222afb10e"
+        }
+      ]
+    },
+    "records": {
+      "look": {
+        "kind": "look",
+        "recordId": "john-21-1",
+        "version": "8ba169ddfbe9442c9f9788a54f486e89",
+        "inputs": [
+          {
+            "kind": "section",
+            "recordId": "john-21-1",
+            "version": "92f99df78b20e474ce526c8f0f5c41e3"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717"
+          },
+          {
+            "kind": "entry",
+            "recordId": "jesus_christ_the_son_of_god_and_lord",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "kind": "entry",
+            "recordId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "kind": "entry",
+            "recordId": "thomas_the_apostle",
+            "version": "f0f6424620c5d4755e743c4e06a3da52"
+          },
+          {
+            "kind": "entry",
+            "recordId": "bartholomew",
+            "version": "afd72226f16ab5d7fb0af73e2d5ce752"
+          },
+          {
+            "kind": "entry",
+            "recordId": "james_and_john_sons_of_zebedee",
+            "version": "bcbd73a477a3f02730f26b2c45400ef8"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_beloved_disciple",
+            "version": "5be384aa72fa4637557b81b235dcd186"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_twelve_disciples_collective",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "kind": "entry",
+            "recordId": "sea_of_galilee",
+            "version": "1b1eeaba7c185d577b2e200222afb10e"
+          }
+        ],
+        "source": "generated",
+        "payload": {
+          "kind": "look",
+          "sectionId": "john-21-1",
+          "place": "Shore of the Sea of Galilee with a small fishing boat offshore and a charcoal fire on the sand, stone village houses and fishing nets visible behind",
+          "timeOfDay": "Early morning, shifting from pre-dawn grey to full daylight by breakfast",
+          "weather": "Clear, calm air with a light breeze over still water",
+          "light": "Soft dawn light low over the lake, warming to bright, even daylight across the section",
+          "clothing": "Working fishermen's tunics and cloaks, sea-damp and practical; Peter wears only a cloak once he has wrapped it around himself"
+        }
+      },
+      "plan": {
+        "kind": "plan",
+        "recordId": "john-21-9",
+        "version": "2a1186db9a0df794f4d1e23321e294d7",
+        "inputs": [
+          {
+            "kind": "moment",
+            "recordId": "john-21-9",
+            "version": "dc1ca98ee5541ad3d6d6144668362f42"
+          },
+          {
+            "kind": "section",
+            "recordId": "john-21-1",
+            "version": "92f99df78b20e474ce526c8f0f5c41e3"
+          },
+          {
+            "kind": "look",
+            "recordId": "john-21-1",
+            "version": "8ba169ddfbe9442c9f9788a54f486e89"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_look_ownership",
+            "version": "generated-guide-v1"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717"
+          },
+          {
+            "kind": "entry",
+            "recordId": "jesus_christ_the_son_of_god_and_lord",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "kind": "entry",
+            "recordId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "kind": "entry",
+            "recordId": "thomas_the_apostle",
+            "version": "f0f6424620c5d4755e743c4e06a3da52"
+          },
+          {
+            "kind": "entry",
+            "recordId": "bartholomew",
+            "version": "afd72226f16ab5d7fb0af73e2d5ce752"
+          },
+          {
+            "kind": "entry",
+            "recordId": "james_and_john_sons_of_zebedee",
+            "version": "bcbd73a477a3f02730f26b2c45400ef8"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_beloved_disciple",
+            "version": "5be384aa72fa4637557b81b235dcd186"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_twelve_disciples_collective",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "kind": "entry",
+            "recordId": "sea_of_galilee",
+            "version": "1b1eeaba7c185d577b2e200222afb10e"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_moment_cast",
+            "version": "2026-10-28-moment-cast-v15"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_review",
+            "version": "2026-10-27-plan-review-v12"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "depiction_plan",
+            "version": "c19079c0514be1c179070478ede4554c"
+          }
+        ],
+        "source": "generated",
+        "payload": {
+          "kind": "plan",
+          "momentId": "john-21-9",
+          "entries": [
+            {
+              "entryId": "simon_peter",
+              "stageId": "simon_peter"
+            },
+            {
+              "entryId": "the_twelve_disciples_collective",
+              "stageId": "the_twelve_disciples_collective_main"
+            },
+            {
+              "entryId": "sea_of_galilee",
+              "stageId": "sea_of_galilee"
+            }
+          ],
+          "plan": {
+            "primarySubject": "Disciples in damp tunics and cloaks stepping onto the sand, their gazes fixed on the fire.",
+            "action": "They have just landed from the boat and halt, seeing the fire of coals with fish and bread upon it.",
+            "setting": "Sandy shore of the Sea of Galilee with a small fishing boat drawn up and a charcoal fire on the sand, stone village houses and fishing nets behind.",
+            "secondaryElements": "A bed of glowing coals with fish and round loaves laid on it; a dragged net of fish in the boat; no figure tending the fire.",
+            "mood": "Quiet wonder and cautious expectancy as the men take in the unexpected meal.",
+            "timeOfDay": "Early morning, shifting from pre-dawn grey to full daylight; clear, calm air with a light breeze over still water.",
+            "composition": "Viewpoint from the shallows looking up the sand, disciples in the middle ground, fire and lake behind them, boat at the edge of the frame."
+          },
+          "grounding": {
+            "focusQuote": "they saw a fire of coals there, with fish and bread laid on it",
+            "instant": "The disciples have just stepped out of the boat onto the shore and stand on the sand, looking toward a charcoal fire already burning with fish and bread laid on it.",
+            "singleInstant": false,
+            "cast": [
+              {
+                "entryId": "simon_peter",
+                "momentQuote": "So when they got out on the land, they saw a fire of coals there",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "the_twelve_disciples_collective",
+                "momentQuote": "the other disciples came in the little boat",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              },
+              {
+                "entryId": "sea_of_galilee",
+                "momentQuote": "they were not far from the land",
+                "contextSource": "none",
+                "contextQuote": "",
+                "participation": "in_scene"
+              }
+            ]
+          },
+          "review": {
+            "rounds": 2,
+            "problems": [
+              {
+                "kind": "outside_instant",
+                "entryId": "jesus_christ_the_son_of_god_and_lord",
+                "planQuote": "Jesus standing beside a charcoal fire on the sand",
+                "reason": "The moment only says the disciples saw a fire of coals with fish and bread laid on it; Jesus is not shown or described until the next verses, so placing him standing at the fire goes beyond this instant."
+              }
+            ],
+            "notes": [
+              "kept with: not_one_instant"
+            ]
+          }
+        }
+      }
+    },
+    "promptChars": 7158,
+    "references": [
+      {
+        "kind": "styleReference",
+        "storageId": "kg2e99zh3qps4ys5tx6r0jecex8h1tfg",
+        "version": "56cdda26e88a809fa8bbdebe2cc8ccea",
+        "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+      },
+      {
+        "kind": "sheet",
+        "storageId": "kg29n1awzqeag96dwwcf4g12218h8nf7",
+        "version": "8290f44a4bb4b0e9ea178b8240024b4e",
+        "caption": "Image 2: Sea of Galilee's reference sheet (two views of the same place or thing). Match its identity exactly for Sea of Galilee only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+      },
+      {
+        "kind": "sheet",
+        "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+        "version": "1e80e44fb6e82ece65cc6bd7f732a363",
+        "caption": "Image 3: Simon Peter's reference sheet (one figure shown in three views). Match its identity exactly for Simon Peter only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+      }
+    ],
+    "elapsedMs": 16888
+  }
+]

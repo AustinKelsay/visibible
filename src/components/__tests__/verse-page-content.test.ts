@@ -1,4 +1,6 @@
-import { createElement } from "react";
+/* @vitest-environment jsdom */
+
+import { createElement, Fragment } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useVerseView } from "@/context/verse-view-context";
@@ -61,6 +63,39 @@ const baseProps = {
 describe("VersePageContent", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it.each(["reader", "gallery", "video"] as const)("links each tab to its panel when %s is selected", (effectiveView) => {
+    useVerseViewMock.mockReturnValue({ isSettled: true, effectiveView, setEffectiveView: vi.fn() });
+    const container = document.createElement("div");
+    container.innerHTML = renderToStaticMarkup(createElement(VersePageContent, baseProps));
+    const tabs = container.querySelectorAll<HTMLButtonElement>('[role="tablist"][aria-label="Verse mode"] [role="tab"]');
+    const panels = [...container.querySelectorAll<HTMLDivElement>('[role="tabpanel"]')];
+
+    expect(tabs).toHaveLength(3);
+    expect(panels).toHaveLength(3);
+    expect(container.querySelectorAll("main")).toHaveLength(1);
+    expect(panels.filter((panel) => !panel.hidden)).toHaveLength(1);
+    expect([...tabs].filter((tab) => tab.tabIndex === 0)).toHaveLength(1);
+    for (const tab of tabs) {
+      const panel = panels.find((candidate) => candidate.id === tab.getAttribute("aria-controls"));
+      expect(panel).toBeDefined();
+      expect(panel!.getAttribute("aria-labelledby")).toBe(tab.id);
+      expect(panel!.hidden).toBe(tab.getAttribute("aria-selected") !== "true");
+      expect(tab.type).toBe("button");
+      if (panel!.hidden) expect(panel!.childElementCount).toBe(0);
+      else expect(panel!.tabIndex).toBe(0);
+    }
+  });
+
+  it("keeps tab and panel IDs unique across mounted verse pages", () => {
+    useVerseViewMock.mockReturnValue({ isSettled: true, effectiveView: "reader", setEffectiveView: vi.fn() });
+    const container = document.createElement("div");
+    container.innerHTML = renderToStaticMarkup(createElement(Fragment, null,
+      createElement(VersePageContent, baseProps), createElement(VersePageContent, baseProps)));
+    const ids = [...container.querySelectorAll("[id]")].map((element) => element.id);
+    expect(ids).toHaveLength(12);
+    expect(new Set(ids).size).toBe(ids.length);
   });
 
   it("switches to the full gallery view when the chapter gallery preference is enabled", () => {
