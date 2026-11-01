@@ -1,6 +1,6 @@
 # Second style bake-off results
 
-**All three candidates passed the predeclared screen (8 of 12), and two cleared it comfortably: Charcoal 10/12, Storybook 10/12, Pastel 8/12 shown images acceptable.** No candidate drew a figure for God or any no-form subject in any of the 16 shown images of the five scenes that select one, and none produced a frame. The Fresco bake-off on the same 12 hard cases reached 6/12 for Fresco and 4 to 5 for Icon.
+**All three candidates passed the predeclared screen (8 of 12), and two cleared it comfortably: Charcoal 10/12, Storybook 10/12, Pastel 8/12 shown images acceptable.** No candidate drew a figure for God or any no-form subject in any of the 15 shown images of the five scenes that select one, and none produced a frame. The Fresco bake-off on the same 12 hard cases reached 6/12 for Fresco and 4 to 5 for Icon.
 
 The run made **44 images (36 shown, 8 retries), 47 text calls and 88 check calls for $1.5494905** by provider-reported usage, under the $2.20 cap, with no uncertain usage and no production write. The account moved $2.49 during the run window; the $0.94 difference is disclosed in [funding-close.json](funding-close.json), not attributed. [Plan](plan.json), [grant](funding.json), [budget](budget.json), [ledger](ledger.json), [results](results.ndjson), [per-style summary](bakeoff-summary.json), [contact sheet](contact-sheet.jpg), [thumbnails](thumbs/), [Fresco bake-off](../2026-10-28-style-bakeoff/RESULTS.md).
 
