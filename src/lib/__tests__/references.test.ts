@@ -8,7 +8,7 @@ import { convexTest } from "convex-test";
 import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
-import { sheetSubjects, mainEra, sheetPrompt, createReferenceBlobCache, type ImageMaker, type VisionChecker, type ActiveEntry, type ActiveSection } from "../engine/references";
+import { sheetSubjects, mainEra, sheetPrompt, sheetCheckQuestion, createReferenceBlobCache, LIKENESS_RETRY_REASON, type ImageMaker, type VisionChecker, type ActiveEntry, type ActiveSection } from "../engine/references";
 import { runReferences, planReferences, emptyReferenceState, ReferenceBudgetError, type ReferenceStore } from "../engine/references-run";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
 
@@ -41,7 +41,7 @@ const records = [
 ];
 const activeEntries: ActiveEntry[] = entryRecords.map((r) => ({ recordId: r.recordId, version: "v", name: r.payload.name, entryKind: r.payload.entryKind, hasForm: r.payload.hasForm, stages: r.payload.stages }));
 const activeSections: ActiveSection[] = sectionRecords.map((r) => ({ recordId: r.recordId, era: r.payload.era, cast: r.payload.cast }));
-const pass = { views_ok: true, same_subject: true, extra_figures: false, text_present: false, frame_present: false, canon_notes: [] as string[], verdict: "pass" as const, reasons: [] as string[] };
+const pass = { views_ok: true, same_subject: true, extra_figures: false, text_present: false, frame_present: false, likeness_present: false, canon_notes: [] as string[], verdict: "pass" as const, reasons: [] as string[] };
 const stylePass = { people_present: false, frame_present: false, text_present: false, full_bleed: true, verdict: "pass" as const, reasons: [] as string[] };
 
 function fakeMaker(cost = 0.034) {
@@ -94,6 +94,26 @@ describe("reference images", () => {
     expect(prompt).toContain("Character: Jonah: young fisherman.");
     expect(prompt).toContain("No likeness of any real actor");
     expect(prompt).not.toContain("Stone palace");
+  });
+
+  it("treats a real-person likeness as a hard fault and retries without naming anyone", async () => {
+    const maker = fakeMaker();
+    const checker = fakeChecker((key, n) => {
+      // A checker that flags the likeness yet still says "pass", and names the actor despite being told not to.
+      if (key === "sheet:jonah:old") return n === 1 ? { ...pass, likeness_present: true, verdict: "pass", reasons: ["looks exactly like Famous Actor"] } : pass;
+      if (key.startsWith("styleref:")) return stylePass;
+      return pass;
+    });
+    const state = await runReferences({ workId: WORK, workTitle: "Two Books", brief, store, maker, checker, blobs, state: emptyReferenceState(WORK), saveState: async () => {}, budgetUsd: 5, styleVersions });
+    expect(state.done["sheet:jonah:old"]).toMatchObject({ ok: true, attempts: 2 });
+    const retry = maker.prompts.filter((p) => p.includes("Character: Jonah: weathered sailor."));
+    expect(retry).toHaveLength(2);
+    expect(retry[1]).toContain(`A previous attempt was rejected because: ${LIKENESS_RETRY_REASON}. Fix these.`);
+    expect(retry[1]).not.toContain("Famous Actor");
+    // The question asks the checker to fail on a likeness and to keep the person's name out of the reasons that feed the next prompt.
+    expect(sheetCheckQuestion(sheetSubjects(activeEntries, activeSections, brief).find((s) => s.stageId === "old")!)).toContain("do not name the person");
+    const attention = await t.query(api.analysis.listAttention, { workId: WORK });
+    expect(attention.filter((a) => a.recordId === "jonah:old")).toHaveLength(0);
   });
 
   it("makes, checks, retries with feedback, records notes, and surfaces exhaustion as attention", async () => {
