@@ -1,0 +1,167 @@
+{
+  "status": "The owner asked for a safer fourth style in Icon's place (1 November 2026: \"ok let's do it!\" to a bake-off of charcoal drawing, storybook illustration and pastel). Measurement only; nothing is registered or deployed.",
+  "purpose": "Bake-off of three candidate fourth styles (Charcoal, Storybook, Pastel) on the same 12 launch-matrix cases the Fresco bake-off used: God scenes, writing-prone scenes, crowds and moments. Candidates were chosen because their traditions carry neither inscriptions nor a physical object with edges, the two fault classes that held Icon at 44-50%. The winner gets the full 33-case matrix before any release.",
+  "candidateCommit": "d05a49746ffbf1cd0e341543d4f760daaaaff21e",
+  "pipeline": {
+    "momentCast": "2026-10-28-moment-cast-v15",
+    "formlessPlan": "2026-10-28-formless-effects-v17",
+    "review": "2026-10-27-plan-review-v12",
+    "rendering": "2026-10-29-generic-v15",
+    "sceneCheck": "2026-10-28-scene-check-v4"
+  },
+  "image": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "checker": {
+    "model": "anthropic/claude-haiku-5.5",
+    "reasoningEffort": "low",
+    "maxTokens": 1500
+  },
+  "styles": [
+    "charcoal",
+    "storybook",
+    "pastel"
+  ],
+  "design": "Each case is prepared once, cold, in one shared memory store seeded from the read-only production snapshot taken for this run (production now registers Fresco and depiction profiles), then rendered in each candidate style through the engine's styleOverride with no style reference. Every first image is checked; a faulty one gets one retry, exactly as the request path does. Cases run three at a time.",
+  "cases": [
+    {
+      "id": "genesis-1-3",
+      "reference": "Genesis 1:3",
+      "fixedCase": "genesis-1-3-light",
+      "expected": "Light breaking over formless dark waters; no human figure for God; no text.",
+      "tags": [
+        "genesis",
+        "continuity"
+      ]
+    },
+    {
+      "id": "exodus-14-21",
+      "reference": "Exodus 14:21",
+      "fixedCase": "exodus-14-21-sea-parts",
+      "expected": "Moses' hand stretched out, a strong east wind, the sea dividing with a dry seabed; night.",
+      "tags": [
+        "red-sea",
+        "continuity"
+      ]
+    },
+    {
+      "id": "isaiah-6-2",
+      "reference": "Isaiah 6:2",
+      "fixedCase": "isaiah-6-2-seraphim",
+      "expected": "Six-winged seraphim above a throne, faces and feet covered; temple smoke.",
+      "tags": [
+        "prophecy",
+        "symbolic"
+      ]
+    },
+    {
+      "id": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "fixedCase": "daniel-7-9-ancient-of-days",
+      "expected": "A throne of flames with burning wheels, white garments, hair like wool; visionary, not a portrait.",
+      "tags": [
+        "symbolic"
+      ]
+    },
+    {
+      "id": "revelation-4-6",
+      "reference": "Revelation 4:6",
+      "fixedCase": "revelation-4-6-living-creatures",
+      "expected": "A sea of glass before the throne and four living creatures full of eyes.",
+      "tags": [
+        "symbolic"
+      ]
+    },
+    {
+      "id": "matthew-1-1",
+      "reference": "Matthew 1:1",
+      "fixedCase": "matthew-1-1-genealogy",
+      "expected": "A scroll or family line from Abraham through David to Jesus, shown without legible writing.",
+      "tags": [
+        "genealogy"
+      ]
+    },
+    {
+      "id": "ruth-4-22",
+      "reference": "Ruth 4:22",
+      "fixedCase": "ruth-4-22-genealogy",
+      "expected": "Three generations of a family line in Bethlehem; no name labels.",
+      "tags": [
+        "genealogy"
+      ]
+    },
+    {
+      "id": "matthew-27-35",
+      "reference": "Matthew 27:35",
+      "fixedCase": "matthew-27-35-crucified",
+      "expected": "Soldiers casting lots for garments beneath the cross; the crucifixion treated seriously, no gratuitous gore.",
+      "tags": [
+        "difficult"
+      ]
+    },
+    {
+      "id": "1-samuel-17-49",
+      "reference": "1 Samuel 17:49",
+      "fixedCase": "1-samuel-17-49-sling",
+      "expected": "A young shepherd's sling stone striking a giant warrior's forehead; valley battlefield.",
+      "tags": [
+        "narrative"
+      ]
+    },
+    {
+      "id": "john-11-43",
+      "reference": "John 11:43",
+      "fixedCase": "john-11-43-lazarus",
+      "expected": "Jesus calling at a tomb's mouth as a wrapped figure emerges; mourners.",
+      "tags": [
+        "narrative"
+      ]
+    },
+    {
+      "id": "luke-15-20",
+      "reference": "Luke 15:20",
+      "fixedCase": "luke-15-20-prodigal",
+      "expected": "A father running to embrace a ragged returning son on the road.",
+      "tags": [
+        "parable"
+      ]
+    },
+    {
+      "id": "psalms-23-2",
+      "reference": "Psalms 23:2",
+      "fixedCase": "psalms-23-2-pastures",
+      "expected": "Green pastures and still waters with sheep and a shepherd; calm.",
+      "tags": [
+        "poetry"
+      ]
+    }
+  ],
+  "scoring": {
+    "method": "As in the launch matrix: shuffled opaque names, two independent blind model scorers per batch of about 12 images, operator adjudication committed before unblinding. Not human acceptance.",
+    "decision": "Pick the candidate with the most acceptable shown images, provided it reaches at least 65% (8 of 12) and draws no no-form figure; ties go to fewer lettering, frame and margin faults, then to the look least like the three live styles. The owner may also pick by look among candidates within noise of each other, as for Fresco. The winner then runs the full 33 cases against the per-style bar, and the owner signs off on its contact sheet."
+  },
+  "evaluation": {
+    "series": "style-bakeoff-2",
+    "authorizedBeforeUsd": 0,
+    "measuredBeforeUsd": 0,
+    "uncertaintyBeforeUsd": 0,
+    "remainingBeforeUsd": 0,
+    "proposedIncreaseUsd": 2.2,
+    "proposedAuthorizedUsd": 2.2,
+    "proposedOperationCapUsd": 2.2,
+    "readerReserveUsd": 5,
+    "textReserveUsd": 0.005,
+    "imageReserveUsd": 0.06,
+    "checkReserveUsd": 0.002,
+    "maximumImages": 72,
+    "maximumTextCalls": 80,
+    "maximumCheckCalls": 144,
+    "note": "A new grant, separate from the closed $7 diagnostic series and the earlier evaluation allowance. The Fresco bake-off measured $1.58 for the same design; the cap leaves at least the $5 reader reserve on the $8.24 account balance observed at planning time. The later full matrix (about $1.40) is a separate grant after the owner picks by look."
+  },
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "knownLimitation": "Twelve cases and one image per case and style: a screen, not a release measurement. Candidates run without a style reference. Charcoal and Pastel describe a toned ground; the edge check and scorers treat bare paper at an edge as a margin fault with no soft-edge allowance."
+}

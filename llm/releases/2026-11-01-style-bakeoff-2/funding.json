@@ -1,0 +1,12 @@
+{
+  "authorizedAt": "2026-11-01T19:05:00Z",
+  "authorization": "Owner: \"ok let's do it!\" (1 November 2026), replying to the proposal to bake off charcoal drawing, storybook illustration and pastel on the 12 hard cases for about $1.60, then run the full 33-case matrix (about $1.40) on the owner's pick. Operator decision: this grant covers the bake-off only, capped at $2.20, keeping the $5 reader reserve on the $8.24 account balance; the full matrix is a separate later grant.",
+  "increaseUsd": 2.2,
+  "authorizedUsd": 2.2,
+  "operationCapUsd": 2.2,
+  "verifiedAt": "2026-11-01T18:58:00Z",
+  "balanceUsd": 8.236318338,
+  "keyLimitRemainingUsd": 23.653620746,
+  "key": "local dev key (ending 292), not the production key",
+  "scope": "One execution of the frozen style bake-off in this directory: 12 cases, three candidate styles, at most 72 images, 80 text calls and 144 check calls. No paid restart, production writes, registration or deployment."
+}
