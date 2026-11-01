@@ -1,0 +1,34 @@
+{
+  "authorization": [
+    "Owner asked for a safer fourth style in Icon's place (\"ok let's do it!\"), delegated the pick and the balance decision (\"your call!\") and the release path (\"ok lets continue\"), 1 November 2026.",
+    "Bake-off: Storybook 10/12 by the predeclared tie-break (llm/releases/2026-11-01-style-bakeoff-2/RESULTS.md).",
+    "Matrix: 28/33 acceptable (85%), no God figure (llm/releases/2026-11-01-storybook-matrix/RESULTS.md).",
+    "Consistency: 47/47 Storybook pairs the same; pooled gate 98% same person, 92% same place (llm/releases/2026-11-01-storybook-consistency/README.md)."
+  ],
+  "release": { "pullRequests": [371, 375, 374], "mainCommit": "361cd7a", "reviewFindings": "CodeRabbit raised the unmeasured ADR 0008 gate, the unmeasured style reference and stale runbook wording; all three were addressed before merge and the threads resolved." },
+  "before": { "deployment": "unknown; not captured before the alias moved", "briefVersion": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717", "artStyles": [["classical", true], ["watercolor", true], ["fresco", true], ["icon", false]] },
+  "deploy": { "deployment": "dpl_13xogtpKREN9BddfY6q5UMUS9ue6", "createdAt": "2026-11-01T20:56:33Z", "servingStorybookBy": "2026-11-01T20:57:20Z", "note": "The production build pushed Convex (KNOWN_STYLE_IDS with storybook) and the frontend together; the alias moved within a minute of the merge." },
+  "amendment": {
+    "command": "npm run works:amend-brief-styles -- bible-web --previous 7a4771a (production NEXT_PUBLIC_CONVEX_URL and CONVEX_SERVER_SECRET, from a main checkout)",
+    "at": "2026-11-01T20:57:33Z",
+    "result": { "changed": true, "previousVersion": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717", "nextVersion": "b00a7b217f9fa1dcbf1e2b5844d9132f32a3d0906a2fd24a1674cfbf7e8d5537", "styleIds": ["icon", "classical", "watercolor", "fresco", "storybook"] },
+    "after": { "ready": true, "reasons": [] },
+    "window": "Up to about a minute between the alias move and the amendment, during which generic requests would have answered a retryable 503."
+  },
+  "checks": {
+    "artStyles": [["classical", true], ["watercolor", true], ["fresco", true], ["storybook", true], ["icon", false]],
+    "health": "ok", "readiness": "ready (summary)",
+    "smoke": "A fresh zero-credit guest POST /api/generate-image for Psalm 23:2 in storybook was admitted, prepared its look and plan under the new brief (21.6 s) and stopped at HTTP 402 with a 5-credit quote; no image call."
+  },
+  "styleReference": "None made. Storybook ships as measured, without a style reference (ADR 0006 amendment 6); one is made only after a run with it meets the bar.",
+  "rollback": [
+    "Remove storybook from PUBLIC_GENERIC_STYLE_IDS and release, or redeploy the previous production deployment and run the amendment with the briefs swapped (previous = the Storybook brief at 361cd7a).",
+    "GENERIC_ENGINE_MODE=disabled remains the full engine rollback."
+  ],
+  "followUps": [
+    "First-24-hour watch: engine_admission, generic_preparation, settlement events and the attention list for storybook requests.",
+    "The shared dev Convex deployment still has the old brief registered; dev previews answer 'preparing' for generic requests until the same amendment runs there.",
+    "Account balance $3.93 after the fourth-style series, below the $5 reader reserve; top up.",
+    "Cached looks and plans named the previous brief version and refresh lazily, one planner round per moment as readers return."
+  ]
+}
