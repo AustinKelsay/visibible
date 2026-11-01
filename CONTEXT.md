@@ -15,7 +15,7 @@ _Avoid_: Book (when meaning the whole text)
 
 **Reference text**: The one text of a work that its images are planned from, such as the World English Bible. Other translations of the work share those images.
 
-**Moment**: A run of one or more consecutive units, inside one story section, that one image illustrates. In the Bible, each verse is its own moment.
+**Moment**: A run of one or more consecutive units, inside one story section, that one image illustrates. In the Bible, each verse is its own moment; a moment can support more than one [depicted instant](GLOSSARY.md#language).
 _Avoid_: Passage, scene (when meaning this span)
 
 **Work brief**: The one page describing a work's tone, depiction rules, eras and style set, approved by the owner before the work's first image.
