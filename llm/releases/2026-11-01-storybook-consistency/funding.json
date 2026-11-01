@@ -1,0 +1,11 @@
+{
+  "authorizedAt": "2026-11-01T21:05:00Z",
+  "authorization": "Owner: \"ok lets continue\" and earlier \"your call!\" (1 November 2026), delegating the Storybook release path. Operator decision after CodeRabbit's review of #374 raised the unmeasured ADR 0008 gate: render Storybook's 14 missing group verses, capped at $0.90, keeping the balance above $3.50.",
+  "increaseUsd": 0.9,
+  "authorizedUsd": 4.8,
+  "operationCapUsd": 0.9,
+  "verifiedAt": "2026-11-01T21:00:00Z",
+  "balanceUsd": 4.475845938,
+  "key": "local dev key (ending 292), not the production key",
+  "scope": "One execution of the frozen Storybook consistency-verse run in this directory: 14 cases, one style, at most 28 images, 60 text calls and 56 check calls. No paid restart, production writes, registration or deployment."
+}

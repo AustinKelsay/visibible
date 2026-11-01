@@ -1,0 +1,166 @@
+{
+  "adr": "0008",
+  "status": "Measurement only. CodeRabbit's review of the Storybook release (#374) noted that ADR 0008's consistency gate had not been measured for Storybook; the owner had delegated the release path (\"ok lets continue\", \"your call!\"). This run renders the 14 group verses the Storybook matrix did not, so Storybook's pairs can be judged and pooled with the released styles' baseline.",
+  "purpose": "Storybook on the 14 consistency-group verses outside the 33-case matrix, so every group verse has a Storybook image and ADR 0008's pairs can be built from this run plus the Storybook matrix.",
+  "candidateCommit": "7a4771a",
+  "pipeline": {
+    "momentCast": "2026-10-28-moment-cast-v15",
+    "formlessPlan": "2026-10-28-formless-effects-v17",
+    "review": "2026-10-27-plan-review-v12",
+    "rendering": "2026-10-29-generic-v15",
+    "sceneCheck": "2026-10-28-scene-check-v4"
+  },
+  "image": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "checker": {
+    "model": "anthropic/claude-haiku-5.5",
+    "reasoningEffort": "low",
+    "maxTokens": 1500
+  },
+  "styles": [
+    "storybook"
+  ],
+  "stores": [
+    {
+      "id": "storybook-matrix",
+      "styles": [
+        "storybook"
+      ],
+      "seededFrom": "2026-11-01-storybook-matrix"
+    }
+  ],
+  "design": "Production keeps one look per story section, so a new verse is planned against the look its neighbours were drawn with. One memory store is seeded from a fresh read-only production snapshot plus the section looks of the Storybook matrix, whose images these pair with. A look is seeded only when its section and cast versions are unchanged. Storybook is injected through the engine's styleOverride, byte-identical to the matrix's candidate file, with no style reference. Each case is prepared once; every first image is checked and a faulty one gets one retry. Cases run three at a time.",
+  "scoring": {
+    "method": "npm run evals:consistency -- pairs over the suite baseline's Bible results, the Storybook matrix and this run; the baseline's judged pairs keep their verdicts (carried by group, style and image hashes); new Storybook pairs go to two blind model scorers per batch with operator settlement, committed before the report.",
+    "gate": "ADR 0008 pooled over the released styles plus Storybook, with per-style rates reported; baseline is the suite baseline's Bible report (97% same person, 89% same place)."
+  },
+  "evaluation": {
+    "series": "style-bakeoff-2",
+    "authorizedBeforeUsd": 3.9,
+    "measuredBeforeUsd": 2.81549285,
+    "uncertaintyBeforeUsd": 0,
+    "remainingBeforeUsd": 1.08450715,
+    "proposedIncreaseUsd": 0.9,
+    "proposedAuthorizedUsd": 4.8,
+    "proposedOperationCapUsd": 0.9,
+    "readerReserveUsd": 5,
+    "balanceAtPlanningUsd": 4.475845938,
+    "textReserveUsd": 0.005,
+    "imageReserveUsd": 0.06,
+    "checkReserveUsd": 0.002,
+    "maximumImages": 28,
+    "maximumTextCalls": 60,
+    "maximumCheckCalls": 56,
+    "note": "The 2026-10-29 consistency-verse run measured $1.54 for 14 verses in three styles; one style is about a third. The cap keeps the balance above $3.50; the owner's top-up is still pending."
+  },
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "knownLimitation": "One image per verse and style; model scorers judging likeness. Storybook runs without a style reference, as it would ship.",
+  "cases": [
+    {
+      "id": "john-21-9",
+      "reference": "John 21:9",
+      "groups": [
+        "jesus",
+        "simon-peter",
+        "breakfast-on-the-shore"
+      ]
+    },
+    {
+      "id": "exodus-17-12",
+      "reference": "Exodus 17:12",
+      "groups": [
+        "moses"
+      ]
+    },
+    {
+      "id": "numbers-20-11",
+      "reference": "Numbers 20:11",
+      "groups": [
+        "moses"
+      ]
+    },
+    {
+      "id": "luke-22-61",
+      "reference": "Luke 22:61",
+      "groups": [
+        "simon-peter"
+      ]
+    },
+    {
+      "id": "acts-3-7",
+      "reference": "Acts 3:7",
+      "groups": [
+        "simon-peter"
+      ]
+    },
+    {
+      "id": "1-samuel-16-13",
+      "reference": "1 Samuel 16:13",
+      "groups": [
+        "david"
+      ]
+    },
+    {
+      "id": "1-samuel-17-40",
+      "reference": "1 Samuel 17:40",
+      "groups": [
+        "david"
+      ]
+    },
+    {
+      "id": "1-samuel-18-11",
+      "reference": "1 Samuel 18:11",
+      "groups": [
+        "david"
+      ]
+    },
+    {
+      "id": "daniel-5-17",
+      "reference": "Daniel 5:17",
+      "groups": [
+        "daniel"
+      ]
+    },
+    {
+      "id": "daniel-6-23",
+      "reference": "Daniel 6:23",
+      "groups": [
+        "daniel",
+        "lions-den"
+      ]
+    },
+    {
+      "id": "exodus-14-23",
+      "reference": "Exodus 14:23",
+      "groups": [
+        "red-sea-crossing"
+      ]
+    },
+    {
+      "id": "mark-4-37",
+      "reference": "Mark 4:37",
+      "groups": [
+        "storm-on-the-lake"
+      ]
+    },
+    {
+      "id": "mark-4-38",
+      "reference": "Mark 4:38",
+      "groups": [
+        "storm-on-the-lake"
+      ]
+    },
+    {
+      "id": "luke-15-22",
+      "reference": "Luke 15:22",
+      "groups": [
+        "prodigal-son-return"
+      ]
+    }
+  ]
+}
