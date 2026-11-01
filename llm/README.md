@@ -16,7 +16,7 @@ These guides describe the repository's current behavior. Source links identify t
 | Saved images, shared history or remote image storage | [Image persistence](context/IMAGE-PERSISTENCE.md) |
 | A work's analysis: generations, canon versions, looks, plans, references and attention | [Analysis storage](context/ANALYSIS-STORAGE.md) |
 | Reading a work into sections, moments, a cast and a draft brief | [Work preparation](context/WORK-PREPARATION.md) |
-| Section looks and scene plans made lazily for the generic engine | [Scene preparation](context/SCENE-PREPARATION.md) (source-grounded scene choice, shared looks and lazy plan caching) |
+| Scene consistency, preparation or the closed simplification investigation | [Scene preparation](context/SCENE-PREPARATION.md): current responsibilities and retained decisions |
 | Correcting a work's analysis after the fact, attention items, wiping a work | [Owner corrections runbook](workflow/OWNER-CORRECTIONS.md) |
 | Public image API | [Public API](context/PUBLIC-IMAGE-API.md) |
 | Chat streaming or context | [Chat](context/CHAT.md) |
@@ -42,33 +42,8 @@ These guides describe the repository's current behavior. Source links identify t
 - [Chat eval and release requirements](workflow/CHAT_EVAL_AND_RELEASE.md)
 - [Image eval and release requirements](workflow/IMAGE_EVAL_AND_RELEASE.md): the regression suite across the Bible, Holmes and Alice, its tiers and its per-fault gate
 - [Generic engine release, rollback and retirement runbook](workflow/ENGINE_RELEASE.md)
-- [Current generic-engine release status, remaining allowances and ordered gates](releases/STATUS.md)
-- [Initial generic-engine release evaluation and retained failures](releases/2026-10-20-engine-evaluation/README.md)
-- [Complete production Bible preparation, partial evaluation and disabled rollback evidence](releases/2026-10-20-engine-production/README.md)
-- [Watercolor reference edge-check calibration and unexecuted rendering trial](releases/2026-10-20-watercolor-edge-check/README.md)
-- [Funded Classical/Icon evaluation, rejected Watercolor trial and retained release blockers](releases/2026-10-20-engine-funded-evaluation/README.md)
-- [Targeted no-form and Elisha corrections, retained visual failures and evaluation accounting](releases/2026-10-21-formless-corrections/README.md)
-- [Daniel presence retest: corrected selection, retained rendering failures and remaining allowance](releases/2026-10-21-daniel-presence-retest/README.md)
-- [Exact style-reference input audit and omission control](releases/2026-10-21-reference-input-audit/README.md)
-- [Controlled 12-image reference comparison: retained failures and $16.50 evaluation accounting](releases/2026-10-21-reference-comparison/README.md)
-- [Rejected Daniel canon candidate: exact drafting failure, source-context gap and unchanged image allowance](releases/2026-10-21-daniel-canon-candidate/README.md)
-- [Daniel canon with section context: exact source quotes, retained drafting failure and text-only spend](releases/2026-10-22-daniel-context-candidate/README.md)
-- [Structured Daniel canon and isolated plan: text improvement, retained canon-restatement failure and separate spend](releases/2026-10-22-daniel-structured-candidate/README.md)
-- [Daniel v4 placement evaluation: cleaner subject, retained appearance copying in secondary elements](releases/2026-10-22-daniel-placement-v4/README.md)
-- [Daniel v5 effect-input evaluation: no copied canon qualifiers, images held for unlisted attendants](releases/2026-10-22-daniel-effects-v5/README.md)
-- [Daniel source/cast correction: an unapplied ministering-assembly entry and atomic owner repair](releases/2026-10-22-daniel-cast-correction/README.md)
-- [Applied Daniel cast repair: disabled deployment, ordinary regeneration and retained section-look failure](releases/2026-10-22-daniel-cast-repair/README.md)
-- [Fresh no-form look and Daniel plans: improved wording, held cast selection and separate accounting](releases/2026-10-22-formless-look-evaluation/README.md)
-- [Selected-cast text check: retained presence failure, stopped sequence and 146-test compatibility rehearsal](releases/2026-10-22-moment-cast-evaluation/README.md)
-- [Actual production request timings, guest billing, rollback replay and retained visual failures](releases/2026-10-22-owner-request-check/README.md)
-- [Applied Luke cast repair, first v2 Luke/Daniel text outcomes and retained release holds](releases/2026-10-22-luke-cast-repair/README.md)
-- [Backend audit-schema deploy and first v3 grounded plans: presence fixed, Luke 10:33 and Daniel 7:9 held, Daniel 7:10 refused](releases/2026-10-23-grounded-plan-check/README.md)
-- [Stated-instant schema deploy and first v4 plans: Luke pose fixed but unselected donkey, Daniel narrator/attendants regressed](releases/2026-10-23-instant-plan-check/README.md)
-- [Blind-scored repeated v3/v4 plan samples: 10/20 vs 8/20, not converging](releases/2026-10-23-grounding-rate-check/README.md)
-- [Plan-review checker benchmark: three declared arms, third wired (13/15 caught, 3/25 false alarms)](releases/2026-10-23-plan-review-check/README.md)
-- [Held-out reviewed-pipeline samples: 1/20 flawed plans stored, 10/20 acceptable, Daniel 7:9 refused 5/5](releases/2026-10-23-reviewed-plan-check/README.md)
-- [Random-verse sample of the planning pipeline: 53/100 acceptable, 41 refused (23 missing cast), 6 flawed stored](releases/2026-10-23-random-verse-check/README.md)
-- [Paired v6 re-run on the same verses: 74/98 acceptable vs 52, 30 improved and 8 regressed (p = 0.0005)](releases/2026-10-23-cast-policy-check/README.md)
+- [Release status, closed investigation accounting and dated deployment evidence](releases/STATUS.md)
+- [Historical release records](releases/): consult the named experiment when reproducing a result; dated proposed next steps are not a current task queue.
 
 Exact dependencies and commands: [package.json](../package.json). Environment templates: [.env.example](../.env.example), [.env.convex.dev.example](../.env.convex.dev.example), [.env.convex.prod.example](../.env.convex.prod.example), [.env.vercel.preview.example](../.env.vercel.preview.example), [.env.vercel.prod.example](../.env.vercel.prod.example). Tables and scheduled jobs: [schema](../convex/schema.ts), [crons](../convex/crons.ts).
 
