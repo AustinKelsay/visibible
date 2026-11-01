@@ -4,6 +4,9 @@ Terms for the shared content used to illustrate a work across art styles and rea
 
 ## Language
 
+**Depicted instant**:
+The single coherent visual state chosen for an illustration. A moment is the source span being illustrated and may support more than one depicted instant.
+
 **Canon**:
 The fixed identity and appearance of a recurring character, group, place or object. Canon does not establish whether it is present in a particular scene.
 

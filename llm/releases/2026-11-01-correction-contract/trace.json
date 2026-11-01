@@ -1,0 +1,340 @@
+{
+  "base": "93c30fc7deac127d61b12a2cbbedd097d4a93a52",
+  "kind": "conditional offline dispatch trace",
+  "environment": {
+    "node": "v26.12.1",
+    "style": "watercolor",
+    "aspectRatio": "16:9",
+    "variationNumber": null
+  },
+  "inputVersions": {
+    "work": "8dbcd44e0ab0c37ef65bcd2eb507bed73c4f395a94c0ac30e3f4ace25d64b95c",
+    "brief": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d",
+    "styles": {
+      "watercolor": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+      "classical": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+      "fresco": "b7aa9799217f5effaade817e3f1aa5ae3b6e322bef461ae161e564e83a65f529"
+    },
+    "depictionSha256": "fc97ce62ad640ca66a1c8ae5394112a76583e387687b5ccc30d02de19b7dacb0"
+  },
+  "note": "Captured candidate replies are injected into the unchanged current engine. No claim that its baseline request produced them. Final reviews are scripted premises, not model judgments. References are unavailable in every scenario.",
+  "sourceHashes": {
+    "llm/releases/2026-10-31-suite-v2-baseline-text/provider.ndjson": "4c6177667756a9f54e2ebd9f75a6e18e2f124cd2a7a0b888724509066f395efd",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/results.ndjson": "fb480f71e8215367737f1131b0b588fd7085046028640667f1ab8a9eb6e66025",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/snapshot.json": "063daddab8e0e6ca37592725e35fa3c03d838e49d60bb8adba11daed17d9b915",
+    "llm/releases/2026-11-01-replan-draft-text/answers.ndjson": "8d288913af32c1de7c875b7e9084b13ccf3829ef2d957931b0e9d3f1886a9fdb",
+    "llm/releases/2026-11-01-replan-draft-text/cases.json": "3a886274e37fbb109d8a22c30ef56e6cd32f6271df113f187721335475554621",
+    "llm/releases/2026-11-01-replan-draft-text/baseline-requests.json": "b2a6d40c1de8a938e4f3c0b07127c0b6f25a84e701c231a1ba8f020d5714155a",
+    "src/lib/engine/preparation.ts": "562e203aa11fd975460d011628e1147a60e4afd73ba145c00455780b3fdbd6ed",
+    "src/lib/engine/plan-review.ts": "01a5656346cb8f62ac74970e049350c8eb85e76e84d3ec218fff7af1da6ce1f1",
+    "src/lib/engine/assemble.ts": "0da3f837c7c684a424790ed54ddfb880b7f3d766b2b2bd76ff1cd4fa1d075460",
+    "src/lib/engine/memory-store.ts": "3f6c20532afac6697a136b414dbb55f04ccc28af0846469ee3f81022813e35ed",
+    "src/lib/engine/work-inputs.ts": "fb0d94e51f979610332ed538eb5a34f9c70988f1c704f880991d8411af6b0cb4",
+    "src/lib/engine/prompt.ts": "dfe33e64074d7ca273654703d39173dc4aafe4b2dab157196f3b5332b94d115b",
+    "src/lib/reading-pass/model.ts": "d9d579e4b14f3d4140006bad40f8952f2ef679e95d42502373fc697e23ddec08"
+  },
+  "scenarios": [
+    {
+      "scenario": "cottage-reported",
+      "correctionId": "branch-control/with-draft/2",
+      "correctionContentSha256": "e31baa83544847c5da3dd8d87dc7042ffa19b2ad2dbe59fa21cbdf24dc9d5f5a",
+      "finalReview": {
+        "problems": [
+          {
+            "kind": "unselected_figure",
+            "entryId": "march_hare_s_house",
+            "planQuote": "a cottage faintly glimpsed in the distance",
+            "reason": "Scripted premise only: the cottage is the section's March Hare house and is described but not selected."
+          }
+        ]
+      },
+      "requestBodySha256": [
+        "371dfbc8c645a12903153f1d8f17bd8203b9e492f079e2b9036041d3a53701fb",
+        "8689b37be1a89528e900cb9b5d3ff3f535f734df922b268523c617b389c1920d",
+        "43551320d2048d80d19027b68a6dbc8d02eda1056d6a8f1cedcf9062aba192a3",
+        "33f29d7af52e0e0e208c1a7c8cb025447fd95fdf191e6765376e4e94c9f41a7d"
+      ],
+      "finalReviewPresent": "present: alice, cheshire_cat, the_duchess_s_wood",
+      "houseInSectionCast": true,
+      "houseCanonInFinalReview": false,
+      "storedEntries": [
+        {
+          "entryId": "alice",
+          "stageId": "alice"
+        },
+        {
+          "entryId": "cheshire_cat",
+          "stageId": "cheshire_cat"
+        },
+        {
+          "entryId": "the_duchess_s_wood",
+          "stageId": "the_duchess_s_wood.s1"
+        },
+        {
+          "entryId": "march_hare_s_house",
+          "stageId": "march_hare_s_house"
+        }
+      ],
+      "groundingCast": [
+        "alice",
+        "cheshire_cat",
+        "the_duchess_s_wood"
+      ],
+      "review": {
+        "rounds": 2,
+        "problems": [
+          {
+            "kind": "not_one_instant",
+            "entryId": "alice",
+            "planQuote": "Alice seated on the path",
+            "reason": "The composition seats Alice on the path while the primarySubject has her standing, giving Alice incompatible poses in one instant."
+          }
+        ],
+        "notes": [
+          "selected march_hare_s_house: depicted but not selected"
+        ]
+      },
+      "renderingCanon": [
+        "alice",
+        "cheshire_cat",
+        "the_duchess_s_wood",
+        "march_hare_s_house"
+      ],
+      "referenceLookups": [
+        "styleReference:watercolor",
+        "sheet:alice:alice",
+        "sheet:the_duchess_s_wood:the_duchess_s_wood.s1",
+        "sheet:cheshire_cat:cheshire_cat",
+        "sheet:march_hare_s_house:march_hare_s_house"
+      ],
+      "attachedReferences": 0,
+      "promptSha256": "2bf6dd587265aaeff1b4835d2ad61131341fb311786e9b457536a46c1eac1c71",
+      "promptChars": 6946,
+      "calls": 4,
+      "ledgerOutcomes": [
+        "ok",
+        "review problems",
+        "ok",
+        "review problems"
+      ],
+      "providerCalls": 0,
+      "spendUsd": 0
+    },
+    {
+      "scenario": "cottage-unreported",
+      "correctionId": "branch-control/with-draft/2",
+      "correctionContentSha256": "e31baa83544847c5da3dd8d87dc7042ffa19b2ad2dbe59fa21cbdf24dc9d5f5a",
+      "finalReview": {
+        "problems": []
+      },
+      "requestBodySha256": [
+        "371dfbc8c645a12903153f1d8f17bd8203b9e492f079e2b9036041d3a53701fb",
+        "8689b37be1a89528e900cb9b5d3ff3f535f734df922b268523c617b389c1920d",
+        "43551320d2048d80d19027b68a6dbc8d02eda1056d6a8f1cedcf9062aba192a3",
+        "33f29d7af52e0e0e208c1a7c8cb025447fd95fdf191e6765376e4e94c9f41a7d"
+      ],
+      "finalReviewPresent": "present: alice, cheshire_cat, the_duchess_s_wood",
+      "houseInSectionCast": true,
+      "houseCanonInFinalReview": false,
+      "storedEntries": [
+        {
+          "entryId": "alice",
+          "stageId": "alice"
+        },
+        {
+          "entryId": "cheshire_cat",
+          "stageId": "cheshire_cat"
+        },
+        {
+          "entryId": "the_duchess_s_wood",
+          "stageId": "the_duchess_s_wood.s1"
+        }
+      ],
+      "groundingCast": [
+        "alice",
+        "cheshire_cat",
+        "the_duchess_s_wood"
+      ],
+      "review": {
+        "rounds": 2,
+        "problems": [
+          {
+            "kind": "not_one_instant",
+            "entryId": "alice",
+            "planQuote": "Alice seated on the path",
+            "reason": "The composition seats Alice on the path while the primarySubject has her standing, giving Alice incompatible poses in one instant."
+          }
+        ]
+      },
+      "renderingCanon": [
+        "alice",
+        "cheshire_cat",
+        "the_duchess_s_wood"
+      ],
+      "referenceLookups": [
+        "styleReference:watercolor",
+        "sheet:alice:alice",
+        "sheet:the_duchess_s_wood:the_duchess_s_wood.s1",
+        "sheet:cheshire_cat:cheshire_cat"
+      ],
+      "attachedReferences": 0,
+      "promptSha256": "707e92cc2d198143edd4864ab0a91f37ce085ae73e43928180ce5f12028c515c",
+      "promptChars": 6615,
+      "calls": 4,
+      "ledgerOutcomes": [
+        "ok",
+        "review problems",
+        "ok",
+        "review ok"
+      ],
+      "providerCalls": 0,
+      "spendUsd": 0
+    },
+    {
+      "scenario": "cottage-review-unavailable",
+      "correctionId": "branch-control/with-draft/2",
+      "correctionContentSha256": "e31baa83544847c5da3dd8d87dc7042ffa19b2ad2dbe59fa21cbdf24dc9d5f5a",
+      "finalReview": {
+        "scriptedMalformedContent": "unreadable scripted review",
+        "attempts": 2
+      },
+      "requestBodySha256": [
+        "371dfbc8c645a12903153f1d8f17bd8203b9e492f079e2b9036041d3a53701fb",
+        "8689b37be1a89528e900cb9b5d3ff3f535f734df922b268523c617b389c1920d",
+        "43551320d2048d80d19027b68a6dbc8d02eda1056d6a8f1cedcf9062aba192a3",
+        "33f29d7af52e0e0e208c1a7c8cb025447fd95fdf191e6765376e4e94c9f41a7d",
+        "33f29d7af52e0e0e208c1a7c8cb025447fd95fdf191e6765376e4e94c9f41a7d"
+      ],
+      "finalReviewPresent": "present: alice, cheshire_cat, the_duchess_s_wood",
+      "houseInSectionCast": true,
+      "houseCanonInFinalReview": false,
+      "storedEntries": [
+        {
+          "entryId": "alice",
+          "stageId": "alice"
+        },
+        {
+          "entryId": "cheshire_cat",
+          "stageId": "cheshire_cat"
+        },
+        {
+          "entryId": "the_duchess_s_wood",
+          "stageId": "the_duchess_s_wood.s1"
+        }
+      ],
+      "groundingCast": [
+        "alice",
+        "cheshire_cat",
+        "the_duchess_s_wood"
+      ],
+      "review": {
+        "rounds": 2,
+        "problems": [
+          {
+            "kind": "not_one_instant",
+            "entryId": "alice",
+            "planQuote": "Alice seated on the path",
+            "reason": "The composition seats Alice on the path while the primarySubject has her standing, giving Alice incompatible poses in one instant."
+          }
+        ],
+        "notes": [
+          "plan review unavailable: invalid JSON: Unexpected token 'u', \"unreadable\"... is not valid JSON"
+        ]
+      },
+      "renderingCanon": [
+        "alice",
+        "cheshire_cat",
+        "the_duchess_s_wood"
+      ],
+      "referenceLookups": [
+        "styleReference:watercolor",
+        "sheet:alice:alice",
+        "sheet:the_duchess_s_wood:the_duchess_s_wood.s1",
+        "sheet:cheshire_cat:cheshire_cat"
+      ],
+      "attachedReferences": 0,
+      "promptSha256": "707e92cc2d198143edd4864ab0a91f37ce085ae73e43928180ce5f12028c515c",
+      "promptChars": 6615,
+      "calls": 5,
+      "ledgerOutcomes": [
+        "ok",
+        "review problems",
+        "ok",
+        "review invalid",
+        "review invalid"
+      ],
+      "providerCalls": 0,
+      "spendUsd": 0
+    },
+    {
+      "scenario": "cottage-removed",
+      "correctionId": "branch-control/with-draft/1",
+      "correctionContentSha256": "eac7d4d54ede2ebbe35d22c69a762bf2f11f4f191943aadbea05a6ce28abec1e",
+      "finalReview": {
+        "problems": []
+      },
+      "requestBodySha256": [
+        "371dfbc8c645a12903153f1d8f17bd8203b9e492f079e2b9036041d3a53701fb",
+        "8689b37be1a89528e900cb9b5d3ff3f535f734df922b268523c617b389c1920d",
+        "43551320d2048d80d19027b68a6dbc8d02eda1056d6a8f1cedcf9062aba192a3",
+        "f572aa584105d960254fec28232a13a5df5d82bab09108a055c21ff0eded1661"
+      ],
+      "finalReviewPresent": "present: alice, cheshire_cat, the_duchess_s_wood",
+      "houseInSectionCast": true,
+      "houseCanonInFinalReview": false,
+      "storedEntries": [
+        {
+          "entryId": "alice",
+          "stageId": "alice"
+        },
+        {
+          "entryId": "cheshire_cat",
+          "stageId": "cheshire_cat"
+        },
+        {
+          "entryId": "the_duchess_s_wood",
+          "stageId": "the_duchess_s_wood.s1"
+        }
+      ],
+      "groundingCast": [
+        "alice",
+        "cheshire_cat",
+        "the_duchess_s_wood"
+      ],
+      "review": {
+        "rounds": 2,
+        "problems": [
+          {
+            "kind": "not_one_instant",
+            "entryId": "alice",
+            "planQuote": "Alice seated on the path",
+            "reason": "The composition seats Alice on the path while the primarySubject has her standing, giving Alice incompatible poses in one instant."
+          }
+        ]
+      },
+      "renderingCanon": [
+        "alice",
+        "cheshire_cat",
+        "the_duchess_s_wood"
+      ],
+      "referenceLookups": [
+        "styleReference:watercolor",
+        "sheet:alice:alice",
+        "sheet:the_duchess_s_wood:the_duchess_s_wood.s1",
+        "sheet:cheshire_cat:cheshire_cat"
+      ],
+      "attachedReferences": 0,
+      "promptSha256": "f0538848e08ca1fb142a05e69bd0ad814e1e8c476ddaae3752d644978f3b7d3b",
+      "promptChars": 6617,
+      "calls": 4,
+      "ledgerOutcomes": [
+        "ok",
+        "review problems",
+        "ok",
+        "review ok"
+      ],
+      "providerCalls": 0,
+      "spendUsd": 0
+    }
+  ]
+}
