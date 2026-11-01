@@ -1,0 +1,21 @@
+{
+  "observedAt": "2026-11-01T17:39:16.196951+00:00",
+  "outcome": "stopped",
+  "reason": "Review unavailable after bounded retry; retain result and stop",
+  "failedCorrectionId": "camp-time/with-draft/1",
+  "scheduledCorrections": 24,
+  "capturedResults": 8,
+  "unattemptedCorrections": 16,
+  "providerCalls": {
+    "text": 9,
+    "image": 0,
+    "check": 0
+  },
+  "measuredUsd": 0.004111,
+  "uncertainUsd": 0,
+  "ledgerBlocked": null,
+  "processExitCode": 1,
+  "liveLogSha256": "9f9e5019a28444af2dd52c7f66c36bde39ec2b6254e1e72adfbc72c61d11969a",
+  "finishedMarkerPresent": false,
+  "restarted": false
+}

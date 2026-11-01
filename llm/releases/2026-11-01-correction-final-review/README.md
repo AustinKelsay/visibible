@@ -1,6 +1,8 @@
 # Finish the existing review of the retained corrections
 
-**Prepared, not executed.** Continue the [24 saved corrections](../2026-11-01-replan-draft-text/answers.ndjson) through the existing final semantic review and inspect the saved results. This measures the stage omitted from the correction-only diagnostic. The draft-aware candidate remains unapplied; no new planner, guide, image or image-check call is scheduled.
+**Stopped; partial evidence only.** Eight of the 24 retained corrections reached final review. The eighth exhausted the existing invalid-report retry, so the diagnostic preserved its result and stopped after nine paid calls. No rerun or activation is supported. See the [completed inspection and accounting](REVIEW.md), [report](report.json) and [stop record](run-stopped.json). The preparation below remains the pre-execution contract; its scripts and frozen inputs are unchanged.
+
+The intended comparison continues the [24 saved corrections](../2026-11-01-replan-draft-text/answers.ndjson) through the existing final semantic review and inspects the saved results. This measures the stage omitted from the correction-only diagnostic. The draft-aware candidate remains unapplied; no new planner, guide, image or image-check call was made.
 
 The [offline contract and trace](../2026-11-01-correction-contract/README.md) established that final-review findings can restore cast IDs through to rendering. It did not establish whether a model would report the right findings. This continuation asks that narrower question, using the existing reviewer and its normal one-retry handling.
 
@@ -50,4 +52,4 @@ Execution is reserved for the independently reviewed, committed preparation, usi
 VISIBIBLE_EVAL_ENV_FILE=/path/to/private.env node --import tsx llm/releases/2026-11-01-correction-final-review/run.mts --execute
 ```
 
-The environment must contain Visibible's OpenRouter key and `GENERIC_ENGINE_MODE=disabled`, with no owner-check session binding. It is never stored in this directory. Paid output will include raw requests/replies, the ledger, each final stored scene and assembled prompt, and completion accounting saved before the closing balance query. Every result still requires inspection and independent final evidence review.
+The environment must contain Visibible's OpenRouter key and `GENERIC_ENGINE_MODE=disabled`, with no owner-check session binding. It is never stored in this directory. The execution command above documents the original run, not permission to restart: `run-started.json` already exists. The retained partial output includes raw requests/replies, the ledger, each captured stored scene and assembled prompt, plus stop and closing-account records. There is no `run-finished.json` because execution stopped. Every result still requires inspection and independent final evidence review.

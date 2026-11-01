@@ -1,0 +1,239 @@
+{
+  "method": "Unblinded model inspection of all nine raw reviewer replies, eight exact sent source/canon/scene inputs and eight saved results. No human acceptance, blind gate, visual evidence or additional judge calls.",
+  "scope": "Partial: repeat 1 only. Sixteen retained corrections were not attempted. Prior component judgments are copied unchanged, not rescored.",
+  "reports": [
+    {
+      "phase": "floating-head/baseline/1/review/1",
+      "requestSha256": "52c6480122ff902d36613111e6dbd1d2850b5eb73fd7883721f186fd6005aad0",
+      "engineReportStatus": "accepted",
+      "problems": [
+        {
+          "index": 0,
+          "problem": {
+            "kind": "not_one_instant",
+            "entryId": "queen_of_hearts",
+            "planQuote": "unnoticed",
+            "reason": "The moment says Alice notices the Queen close behind her and then changes her words, but the plan's action has the Queen approaching unnoticed, which conflicts with the text."
+          },
+          "inspection": "not_supported_as_clear_fault"
+        }
+      ],
+      "interpretation": "Inspect the associated scene notes; citation validation does not verify meaning."
+    },
+    {
+      "phase": "floating-head/with-draft/1/review/1",
+      "requestSha256": "5d67052462a0992ccc1f9e4d38afb92d071d969dcf7eb73b321e446af6fc3d41",
+      "engineReportStatus": "accepted",
+      "problems": [],
+      "interpretation": "Empty report, not a scene-quality verdict."
+    },
+    {
+      "phase": "branch-control/baseline/1/review/1",
+      "requestSha256": "e479056c622c8ae8f180e113de083bb4d2b67814d9f369a85426b962fd60f210",
+      "engineReportStatus": "accepted",
+      "problems": [],
+      "interpretation": "Empty report, not a scene-quality verdict."
+    },
+    {
+      "phase": "branch-control/with-draft/1/review/1",
+      "requestSha256": "f572aa584105d960254fec28232a13a5df5d82bab09108a055c21ff0eded1661",
+      "engineReportStatus": "accepted",
+      "problems": [],
+      "interpretation": "Empty report, not a scene-quality verdict."
+    },
+    {
+      "phase": "dormouse-pose/baseline/1/review/1",
+      "requestSha256": "a4b640c694be9770e3aa2f4478e459620292b6aba494195db05e4bce029628ef",
+      "engineReportStatus": "accepted",
+      "problems": [
+        {
+          "index": 0,
+          "problem": {
+            "kind": "not_one_instant",
+            "entryId": "the_dormouse",
+            "planQuote": "The Dormouse, awake and mid-sentence, raises one paw while explaining the well",
+            "reason": "The text has the Dormouse drowsy and only starting to think, and the canon shows him holding a teacup, so a paw raised mid-explanation conflicts with the moment's posture only if read strictly; this is a minor point, so the entry is kept as a possible issue."
+          },
+          "inspection": "explicitly_speculative"
+        },
+        {
+          "index": 1,
+          "problem": {
+            "kind": "canon_conflict",
+            "entryId": "the_dormouse",
+            "planQuote": "The Dormouse, awake and mid-sentence",
+            "reason": "Canon describes the Dormouse as a small drowsy character with eyes often shut, while the scene field shows him fully awake."
+          },
+          "inspection": "not_supported_as_clear_fault"
+        }
+      ],
+      "interpretation": "Inspect the associated scene notes; citation validation does not verify meaning."
+    },
+    {
+      "phase": "dormouse-pose/with-draft/1/review/1",
+      "requestSha256": "042e405724db3d5feb9b3a9f9e89644685e12014afe1b17ed40d42bfe7a0a65d",
+      "engineReportStatus": "accepted",
+      "problems": [],
+      "interpretation": "Empty report, not a scene-quality verdict."
+    },
+    {
+      "phase": "camp-time/baseline/1/review/1",
+      "requestSha256": "23940e900009fbac673f0f54e950b6607b4cdab064d3a50b9cd9afa56332ad3d",
+      "engineReportStatus": "accepted",
+      "problems": [],
+      "interpretation": "Empty report, not a scene-quality verdict."
+    },
+    {
+      "phase": "camp-time/with-draft/1/review/1",
+      "requestSha256": "64b431fe20da07f5fbebb5b175ef04f62b087a01999d1ce70440ac8445e8a44e",
+      "engineReportStatus": "rejected",
+      "problems": [
+        {
+          "index": 0,
+          "problem": {
+            "kind": "unselected_figure",
+            "entryId": "",
+            "planQuote": "priestly linen garments at the tabernacle",
+            "reason": "Priests are a distinct group not in the section cast and not in present, yet they are depicted in a scene field."
+          },
+          "inspection": "invalid_selection_report"
+        }
+      ],
+      "interpretation": "Inspect the associated scene notes; citation validation does not verify meaning."
+    },
+    {
+      "phase": "camp-time/with-draft/1/review/2",
+      "requestSha256": "64b431fe20da07f5fbebb5b175ef04f62b087a01999d1ce70440ac8445e8a44e",
+      "engineReportStatus": "rejected",
+      "problems": [
+        {
+          "index": 0,
+          "problem": {
+            "kind": "unselected_figure",
+            "entryId": "",
+            "planQuote": "priestly linen garments at the tabernacle",
+            "reason": "Priests are a named group in the text but have no section cast entry and are not selected, so the depicted priests are unlisted figures."
+          },
+          "inspection": "invalid_selection_report"
+        },
+        {
+          "index": 1,
+          "problem": {
+            "kind": "missing_canon",
+            "entryId": "",
+            "planQuote": "priestly linen garments at the tabernacle",
+            "reason": "The priests are a named recurring group depicted in the scene with no section cast entry."
+          },
+          "inspection": "unsupported_named_group_claim_in_rejected_report"
+        }
+      ],
+      "interpretation": "Inspect the associated scene notes; citation validation does not verify meaning."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "floating-head/baseline/1",
+      "priorObservations": {
+        "hoops_corrected": "yes",
+        "floating_head_explicit": "yes",
+        "queen_smile": "not_demonstrated_earlier_instant"
+      },
+      "finalReviewStatus": "accepted_report",
+      "inspectionNotes": [
+        "The earlier unnoticed listening instant is possible within the supplied span. The review does not identify incompatible poses or steps in the scene itself; its later-noticing quotation does not exclude this earlier instant. Stealthy approach is an inferred incidental action, so this is not an overall acceptance of the scene.",
+        "The old smile-preservation judgment remains unchanged. The review is stored as a note and singleInstant becomes false, while every rendered scene field stays exact."
+      ]
+    },
+    {
+      "id": "floating-head/with-draft/1",
+      "priorObservations": {
+        "hoops_corrected": "yes",
+        "floating_head_explicit": "yes",
+        "queen_smile": "yes"
+      },
+      "finalReviewStatus": "accepted_report",
+      "inspectionNotes": [
+        "The empty report does not settle the retained ambiguity about the Queen listening and smiling during Alice's speech. The source orders noticing, changed words, then a smile; compressing those actions remains open to interpretation.",
+        "The head-only/hoops observations are inherited unchanged; no cast entry is added."
+      ]
+    },
+    {
+      "id": "branch-control/baseline/1",
+      "priorObservations": {
+        "alice_pose_coherent": "yes",
+        "legitimate_branch_preserved": "yes",
+        "cottage_without_house_selection": "yes"
+      },
+      "finalReviewStatus": "accepted_report",
+      "inspectionNotes": [
+        "The cottage remains described without the March Hare house selected. An empty report did not add that ID, but the local source does not establish that cottage identity, so this is not proven failure to select the right house.",
+        "Standing Alice and the branch Cat preserve the declared synthetic-control repair. The earlier paragraph establishing the branch remains outside the frozen request; this run adds no broader source."
+      ]
+    },
+    {
+      "id": "branch-control/with-draft/1",
+      "priorObservations": {
+        "alice_pose_coherent": "yes",
+        "legitimate_branch_preserved": "yes",
+        "cottage_without_house_selection": "no"
+      },
+      "finalReviewStatus": "accepted_report",
+      "inspectionNotes": [
+        "The cottage is removed and its ID stays absent. The empty report and saved cast agree with that removal; carrying every earlier cast ID would incorrectly restore the house.",
+        "Standing Alice and the branch Cat preserve the declared control target, with the same local source-window limitation."
+      ]
+    },
+    {
+      "id": "dormouse-pose/baseline/1",
+      "priorObservations": {
+        "awake_doze_conflict_removed": "yes",
+        "dormouse_retained": "yes",
+        "well_like_hollow_described": "yes"
+      },
+      "finalReviewStatus": "accepted_report",
+      "inspectionNotes": [
+        "The review's not_one_instant reason expressly calls its own concern minor and conditional on a strict reading. It gives no clear incompatible poses in these fields; the drowsy/teacup canon does not establish that a speaking animal cannot raise a paw.",
+        "Often-shut eyes and a drowsy disposition do not require permanent sleep. The focal text repeatedly has the Dormouse speaking. The awake canon-conflict report is therefore not supported as a clear fixed-identity contradiction.",
+        "The existing narrated-story/speaker-policy conflict, well-like garden hollow, and question/answer timing remain separate limitations. Disputing these reviewer reports does not establish scene validity."
+      ]
+    },
+    {
+      "id": "dormouse-pose/with-draft/1",
+      "priorObservations": {
+        "awake_doze_conflict_removed": "yes",
+        "dormouse_retained": "yes",
+        "well_like_hollow_described": "no"
+      },
+      "finalReviewStatus": "accepted_report",
+      "inspectionNotes": [
+        "The empty report leaves the existing narrated-story/speaker-policy conflict and the answering-versus-thinking timing uncertainty unresolved.",
+        "The prior awake/upright repair observation remains; no pose, field or cast is changed by review."
+      ]
+    },
+    {
+      "id": "camp-time/baseline/1",
+      "priorObservations": {
+        "single_time_of_day": "yes",
+        "stationary_camp_preserved": "not_demonstrated_alternative_instant"
+      },
+      "finalReviewStatus": "accepted_report",
+      "inspectionNotes": [
+        "The departure is explicitly supported by Numbers 9:22 but changes the original stationary instant. The prior preservation result is unchanged.",
+        "The empty report does not validate incidental priestly figures. Those figures are also present in this baseline, so the candidate's later priest concern is not evidence of a new defect unique to that arm. This is one sample, not a reliability estimate."
+      ]
+    },
+    {
+      "id": "camp-time/with-draft/1",
+      "priorObservations": {
+        "single_time_of_day": "yes",
+        "stationary_camp_preserved": "yes"
+      },
+      "finalReviewStatus": "unavailable",
+      "inspectionNotes": [
+        "Both reports use an empty ID for unselected_figure. The supplied section has only the Israelite people and tabernacle, already selected. Existing validation rejects the entire report both times; the second report's additional missing_canon item is not applied.",
+        "The sent focal text and neighbours do not name priests. Priest-like garments may imply an incidental role or refer to clothing; neither reading establishes a named recurring group needing its own canon. The planner permits unnamed roles when the moment needs them; this does not establish that this incidental detail is needed or source-grounded.",
+        "The stationary camp and single daylight state remain as captured. The engine saves unchanged fields/cast with an unavailable-review note; the diagnostic then stops, with no restart."
+      ]
+    }
+  ]
+}

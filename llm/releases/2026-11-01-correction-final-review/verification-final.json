@@ -1,0 +1,104 @@
+{
+  "node": "v26.12.1",
+  "networkCalls": 0,
+  "frozenInputHashesVerified": 53,
+  "trackedPreparationBlobHashesVerified": 51,
+  "exactPaidRequestsReplayed": 9,
+  "exactStoredResultsReplayed": 8,
+  "quotesChecked": 6,
+  "priorObservationCopiesVerified": 8,
+  "callChecks": [
+    {
+      "phase": "floating-head/baseline/1/review/1",
+      "requestSha256": "52c6480122ff902d36613111e6dbd1d2850b5eb73fd7883721f186fd6005aad0",
+      "rawAnswerSha256": "c6b06d0ca22881fd478e81564f4b8d6d2a330c2d1b62c1606b395cfbfde9cc8e",
+      "reportStatus": "accepted",
+      "problemCount": 1,
+      "reservedUsd": 0.0026984,
+      "measuredUsd": 0.0006817
+    },
+    {
+      "phase": "floating-head/with-draft/1/review/1",
+      "requestSha256": "5d67052462a0992ccc1f9e4d38afb92d071d969dcf7eb73b321e446af6fc3d41",
+      "rawAnswerSha256": "aa390952e01e1064e20cc0c8f9c054cc264258d109f0166fcd62c8b11e4b7fc5",
+      "reportStatus": "accepted",
+      "problemCount": 0,
+      "reservedUsd": 0.0027063,
+      "measuredUsd": 0.0006291
+    },
+    {
+      "phase": "branch-control/baseline/1/review/1",
+      "requestSha256": "e479056c622c8ae8f180e113de083bb4d2b67814d9f369a85426b962fd60f210",
+      "rawAnswerSha256": "aa390952e01e1064e20cc0c8f9c054cc264258d109f0166fcd62c8b11e4b7fc5",
+      "reportStatus": "accepted",
+      "problemCount": 0,
+      "reservedUsd": 0.0025627000000000002,
+      "measuredUsd": 0.0005198
+    },
+    {
+      "phase": "branch-control/with-draft/1/review/1",
+      "requestSha256": "f572aa584105d960254fec28232a13a5df5d82bab09108a055c21ff0eded1661",
+      "rawAnswerSha256": "aa390952e01e1064e20cc0c8f9c054cc264258d109f0166fcd62c8b11e4b7fc5",
+      "reportStatus": "accepted",
+      "problemCount": 0,
+      "reservedUsd": 0.0025664,
+      "measuredUsd": 0.0002498
+    },
+    {
+      "phase": "dormouse-pose/baseline/1/review/1",
+      "requestSha256": "a4b640c694be9770e3aa2f4478e459620292b6aba494195db05e4bce029628ef",
+      "rawAnswerSha256": "0dfdd3a0bfd65744dfc70564a5a4a48780cd8f1792c9307a0aa0e43b13cc66ca",
+      "reportStatus": "accepted",
+      "problemCount": 2,
+      "reservedUsd": 0.0027697,
+      "measuredUsd": 0.0004497
+    },
+    {
+      "phase": "dormouse-pose/with-draft/1/review/1",
+      "requestSha256": "042e405724db3d5feb9b3a9f9e89644685e12014afe1b17ed40d42bfe7a0a65d",
+      "rawAnswerSha256": "aa390952e01e1064e20cc0c8f9c054cc264258d109f0166fcd62c8b11e4b7fc5",
+      "reportStatus": "accepted",
+      "problemCount": 0,
+      "reservedUsd": 0.0027505,
+      "measuredUsd": 0.000468
+    },
+    {
+      "phase": "camp-time/baseline/1/review/1",
+      "requestSha256": "23940e900009fbac673f0f54e950b6607b4cdab064d3a50b9cd9afa56332ad3d",
+      "rawAnswerSha256": "aa390952e01e1064e20cc0c8f9c054cc264258d109f0166fcd62c8b11e4b7fc5",
+      "reportStatus": "accepted",
+      "problemCount": 0,
+      "reservedUsd": 0.00255,
+      "measuredUsd": 0.0005188
+    },
+    {
+      "phase": "camp-time/with-draft/1/review/1",
+      "requestSha256": "64b431fe20da07f5fbebb5b175ef04f62b087a01999d1ce70440ac8445e8a44e",
+      "rawAnswerSha256": "77d2f3d2df7f0a3dc47950cc5fce797cefdc8e4958665b85a64aa7c0f411360c",
+      "reportStatus": "rejected",
+      "problemCount": 1,
+      "reservedUsd": 0.0025353,
+      "measuredUsd": 0.0002783
+    },
+    {
+      "phase": "camp-time/with-draft/1/review/2",
+      "requestSha256": "64b431fe20da07f5fbebb5b175ef04f62b087a01999d1ce70440ac8445e8a44e",
+      "rawAnswerSha256": "245ab3446c9e98a09702ed12b5829ce6038c652ff4e548fe1fc1919a51f851f5",
+      "reportStatus": "rejected",
+      "problemCount": 2,
+      "reservedUsd": 0.0025353,
+      "measuredUsd": 0.0003158
+    }
+  ],
+  "assertionScope": "Exact replay through unchanged engine; report inspection coverage and quotation membership; source and artifact hashes; selected cast through rendering; ledger, token-price ceilings and closing balances. No mechanical assertion establishes semantic quality.",
+  "evidenceSha256": {
+    "provider.ndjson": "71b13b6d95e1ce8b5a5da2a5f1ce3b0ee86e6b2cd93863b0f1b74e8b2327b520",
+    "results.ndjson": "bd2eff771b207b00c540a079a92500a85876181fa29d3eb0ea1800d4246bce65",
+    "inspection.json": "1e0db2dc538f00ff5ba9bebe808bdc5e0a8c28f2b61019189accdb157ab9f782",
+    "ledger.json": "a4dd80450ab894e7b2677297777efb898534657a4c298f170d0fdb685b390283",
+    "run-started.json": "86e8d799f379d8865d2a3b29cd72445fbc2e64c1612f7b0b9179f54d74c0109a",
+    "run-stopped.json": "bcc8c71e75e494500713fa0b3b97ed83152272f074921e657180c611bdc5d7cb",
+    "funding-close.json": "206515fdc2b0b7ee27c2e135cb9efa6dcabf7aebe3aa4537ee182888c972eeda"
+  },
+  "reportSha256": "6fef2cddf61eb563e7ca5268ab7058ba6df36594f28a63c06a8557be186a9ed0"
+}

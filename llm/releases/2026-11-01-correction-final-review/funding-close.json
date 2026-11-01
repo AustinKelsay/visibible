@@ -1,0 +1,21 @@
+{
+  "observedAt": "2026-11-01T17:38:12.173Z",
+  "outcome": "stopped-after-unavailable-review",
+  "measuredUsd": 0.004111,
+  "uncertainUsd": 0,
+  "operationCapUsd": 0.13,
+  "priorConservativeUsd": 6.84241275,
+  "cumulativeConservativeUsd": 6.84652375,
+  "cumulativeCapUsd": 7,
+  "remainingAuthorizationUsd": 0.15347624999999976,
+  "readerReserveUsd": 5,
+  "startingBalanceUsd": 8.240429338000013,
+  "startingKeyLimitRemaining": 146.22286593500002,
+  "balanceUsd": 8.23631833799999,
+  "keyLimitRemaining": 146.218754935,
+  "accountDeltaUsd": 0.004111000000023068,
+  "keyDeltaUsd": 0.004111000000023068,
+  "priorCloseBalanceUsd": 8.64042933799999,
+  "preRunBalanceDifferenceUsd": 0.39999999999997726,
+  "preRunDifferenceNote": "The account was $0.40 lower before this diagnostic began. The cause is not established here; that pre-existing difference is not charged to this run."
+}
