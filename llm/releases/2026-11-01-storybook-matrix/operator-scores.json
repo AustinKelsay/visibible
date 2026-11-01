@@ -1,0 +1,487 @@
+{
+ "scorer": "operator adjudication of scorers A and B",
+ "scoredBeforeUnblinding": true,
+ "method": "Scorer A verdicts where both scorers agreed on every field; six disputes that could affect the verdict or an edge/text field resolved by viewing the image and detail crops, five field-only disputes resolved from both notes. Committed before unblinding.",
+ "agreedImages": 24,
+ "disputedImages": [
+  "img003",
+  "img010",
+  "img014",
+  "img015",
+  "img022",
+  "img023",
+  "img024",
+  "img026",
+  "img027",
+  "img030",
+  "img035"
+ ],
+ "scores": [
+  {
+   "id": "img001",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Wall section collapses in a dust cloud at top centre while a crowd pours toward the breach; Joshua centre-right with raised spear, white-and-blue priests blowing horns and carrying a golden ark at right (ark not requested but not an excluded figure). Painting reaches all four edges; no lettering seen, small crowd banners are blank.",
+   "agreed": true
+  },
+  {
+   "id": "img002",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "White-bearded old man lies on a reed mat centre-foreground with a staff beside him, seven mourners kneel around him, tents, a stone well and a mud-brick altar sit behind under a dusk sky. Painting reaches all four edges; no lettering seen.",
+   "agreed": true
+  },
+  {
+   "id": "img003",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "partly",
+   "overall": "acceptable",
+   "notes": "A: Central throne is empty, shown only as fire and radiance; John stands small at bottom centre, 24 crowned elders flank the hall, painting reaches all edges, no lettering (arc above the rainbow is gem shapes). Six eyed winged creatures (lion, ox, eagle, man-faced plus two small flying ones) ring the throne instead of four. | B: Throne at centre is empty, shown only with fire and radiance; four eye-covered creatures (lion, ox, man-faced, eagle) ring it, crowned elders sit either side, John small at bottom centre with staff on a glassy reflective floor. Jewel shapes arc above the rainbow but no lettering; painting reaches all four edges.",
+   "adjudication": "Operator viewed the full image and a detail crop before unblinding. Six creatures ring the throne where the verse names four (two small flying man-faced figures are extra), so the scene is only partly matched; no lettering, frame or God figure, so the image stays acceptable as both scorers found.",
+   "agreed": false,
+   "disputed": [
+    "matchesScene"
+   ]
+  },
+  {
+   "id": "img004",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Saul centred shielding his eyes under rays of pale light from the top of the frame, four companions with two donkeys at left, Damascus with domes on the right horizon. The upper sky is very pale cream but is painted radiance that reaches the edges, not bare paper; no text.",
+   "agreed": true
+  },
+  {
+   "id": "img005",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Single young woman centred with a sheer veil over her shoulders, face lifted to her left, white lilies and pink roses in the foreground grass, apple trees left and right, a village on the far ridge. Full-bleed, no text, no second figure.",
+   "agreed": true
+  },
+  {
+   "id": "img006",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Bald Elisha in dark mantle seen from behind on the climbing road at left; group of youths pointing and shouting at the town gate centre-right, golden calf pillar on the hilltop; low golden light, full bleed, no text.",
+   "agreed": true
+  },
+  {
+   "id": "img007",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Grey-haired Abraham at left with knife raised high, Isaac bound with cord lying on a stone altar stacked with wood at centre-right, firewood bundle and water skin on the ground, tents and a well in the valley at left, sun rising behind the hills. Full-bleed edges, no lettering.",
+   "agreed": true
+  },
+  {
+   "id": "img008",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Seven exiles including two children sit hugging knees on a reedy bank in the lower half, bundles at both lower corners, a misty canal and Babylon's walls, blue gate and ziggurat across the water at dusk. Painting reaches all edges; no instruments, no lettering.",
+   "agreed": true
+  },
+  {
+   "id": "img009",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Three soldiers kneel in the foreground around a flat stone with dice, one holding up a white tunic, garments spread on the ground; Jesus on the central cross with two empty crosses, city walls behind under dark clouds. Shields carry a sunburst motif only, no lettering; painting reaches all edges.",
+   "agreed": true
+  },
+  {
+   "id": "img010",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "A: A huge half-disc of striped golden light rises from the horizon over dark rippling water, mist at the sides; no figure or shape for God, light only. Reads as a sunrise rather than light from beyond the frame, but it is light piercing darkness over the deep. Dark sky and water reach all edges; no lettering. | B: A huge dome of pale gold light rises over a dark rippled sea with mist at both sides and dark blue void in the upper corners; no figure, face or silhouette anywhere in the light. All edges painted to the border, no text.",
+   "adjudication": "Operator ruled from both scorers notes; the field does not change the overall verdict. Light breaking over dark waters with no figure is the requested scene; reading as a sunrise does not contradict it.",
+   "agreed": false,
+   "disputed": [
+    "matchesScene"
+   ]
+  },
+  {
+   "id": "img011",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Jesus stands upright at the stern beside the mast, right hand open toward the water, with four disciples in the foreground (one holding a lantern) and coiled rope and net on the deck; waves still choppy, clouds parting to pale light over hills. Full-bleed, sail plain with no marks.",
+   "agreed": true
+  },
+  {
+   "id": "img012",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "yes",
+   "matchesScene": "partly",
+   "overall": "flawed",
+   "notes": "Three lines of garbled caption text in the upper-left sky ('Saul of Tarsus, ... (Acts 9:3)'). Saul walks mid-stride with arms lowered rather than halted with arms raised; companions shield their eyes at right and lower left with donkeys, Damascus on the left horizon, light beam has no figure.",
+   "agreed": true
+  },
+  {
+   "id": "img013",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Grey-bearded father in brown cloak at centre-right running into an embrace with the thin, dusty son at centre-left, dust kicked up around their feet, stone wall and farmhouse at left, terraced hills, a white columned building and lakeside village with boats at right. Painting fills all edges; no lettering.",
+   "agreed": true
+  },
+  {
+   "id": "img014",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "yes",
+   "matchesScene": "yes",
+   "overall": "flawed",
+   "notes": "A: Ezekiel stands in the middle distance right of centre with raised hand and a blank tablet, bones and skulls strewn across the valley floor, pale sky painted to the top edge. A tiny dark scribble of glyph-like strokes sits on the ground just right of his cloak hem at hip height (about 72% across, 53% down), which reads like a miniature inscription rather than a bone; otherwise clean. | B: Ink-and-watercolor Ezekiel stands centre-right with one arm raised over a valley floor strewn with skulls and bones under a pale blue sky; no figure or voice for God. A small cluster of dark glyph-like scribble marks sits on the sand just right of his robe hem (about x=975, y=410 of 1376x768), reading like tiny lettering on a baseline, and the tablet under his arm carries faint ruled lines; the pale sky is painted to the top edge, not bare paper.",
+   "adjudication": "Operator viewed the full image and a detail crop before unblinding. A small cluster of inscription-like strokes sits on the sand beside the hem; both scorers found it, one as uncertain. Recorded as lettering and flawed.",
+   "agreed": false,
+   "disputed": [
+    "overall"
+   ]
+  },
+  {
+   "id": "img015",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "yes",
+   "matchesScene": "yes",
+   "overall": "flawed",
+   "notes": "A: David reclines in thick grass in the foreground with a harp, sheathed sword, sling and staff beside him; sheep graze around, still pool and a stone fold recede behind under evening sky. Small marks on the harp's neck read as tuning pegs, not lettering; full bleed. | B: David reclines in green grass beside a still pool with sheep and a stone fold in the distance; a crook, a sheathed sword and a harp lie beside him in place of the requested sling. The harp's curved upper arm (lower right) carries a row of small glyph-like pseudo-letter marks, confirmed on an enlarged crop. Painting reaches all four edges.",
+   "adjudication": "Operator viewed the full image and a detail crop before unblinding. The harp arm carries a row of small glyph-like marks on a baseline where pegs would sit; at 3x they read as pseudo-letters rather than peg dots. Recorded as lettering, a judgment call, ruling against the candidate as the written rule covers glyph-like marks anywhere.",
+   "agreed": false,
+   "disputed": [
+    "text",
+    "overall"
+   ]
+  },
+  {
+   "id": "img016",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Rolling green hills with round trees under a sky of warm clouds and a bright glow at the centre horizon, no sea, no figures, no shape in the light. Foliage fills the lower corners and clouds the upper corners; no lettering.",
+   "agreed": true
+  },
+  {
+   "id": "img017",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Grey-bearded Daniel at lower left seen from behind in three-quarter view looks up at an empty fiery throne with burning wheels at upper right, a river of fire flows down to the foreground, ranks of white-robed assembly stand either side, Babylon's walls and night sky behind. No seated figure on the throne, no lettering, painting reaches all edges.",
+   "agreed": true
+  },
+  {
+   "id": "img018",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Lone traveler on a cobbled road with cloak lifting in the wind, looking up at light breaking through heavy clouds; terraced village left, distant walled city, sea, tiny red-clad soldiers at the gate and field workers at right. Traveler is large in the foreground rather than small in the middle distance; no text, full bleed.",
+   "agreed": true
+  },
+  {
+   "id": "img019",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "no",
+   "text": "no",
+   "matchesScene": "partly",
+   "overall": "flawed",
+   "notes": "Young David at left has thrown the whole sling, which flies through the air at top centre beside the stone, which has not yet reached Goliath; yet Goliath at centre-right is already staggering backward with dropped shield, falling on his back rather than on his face. Goliath is also no larger than the soldiers around him. Philistines at right, Israelites at left on the same plain; full edges, no lettering.",
+   "agreed": true
+  },
+  {
+   "id": "img020",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Jesus centre-right raises his right arm toward the rock tomb where Lazarus stands bound in white grave cloths, a veiled woman with clasped hands and a crowd of adults and children (several shielding eyes) fill the left half, Bethany village behind under hazy light. Full-bleed, no lettering.",
+   "agreed": true
+  },
+  {
+   "id": "img021",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Levite kneels centre over the concubine's body lying covered on a woven mat, knife raised in his right hand, face grieved; oil lamp on a stool at left, rolled cloak and travel bag by the wall, donkey framed in the starlit doorway at right. Restrained, full bleed, no lettering.",
+   "agreed": true
+  },
+  {
+   "id": "img022",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "A: Daniel stands composed at the centre of a round stone pit among four sleeping lions, looking up; Darius in purple leans over the rim at upper right with torch-bearing guards behind him, a round wooden slab propped at upper left, soft light falling from above with no figure in it. Stonework reaches all edges; no lettering. | B: Grey-bearded Daniel in blue cloak standing centre in a round stone pit, four lions lying asleep around him; Darius in purple leaning over the rim at upper right with torch-bearing soldiers behind him, a round banded door leaning at upper left and a stair, soft light falling from above with no figure in it. All edges painted; no lettering.",
+   "adjudication": "Operator ruled from both scorers notes; the field does not change the overall verdict. God is relevant to the deliverance and shown only as light.",
+   "agreed": false,
+   "disputed": [
+    "noFormFigure"
+   ]
+  },
+  {
+   "id": "img023",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "A: Ezekiel right of centre with raised hand and blank tablet amid a muted teal-and-ochre valley strewn with bones and skulls, hills either side, cream haze sky painted to the top edge (a wash, not bare paper). No lettering or marks seen. | B: Ezekiel stands centre-right, hand raised, holding a wood-grained tablet, amid bones and skulls on banded teal-and-rust earth; the cream sky washes out to near-paper white along the whole top edge (soft watercolor fade, no hard band or frame). No lettering found on the tablet, ground or corners; God shown by nothing at all.",
+   "adjudication": "Operator viewed the full image and a detail crop before unblinding. The top strip is a uniform cream painted sky continuing the scene in this flat style, not bare paper or a band; recorded as full.",
+   "agreed": false,
+   "disputed": [
+    "edges"
+   ]
+  },
+  {
+   "id": "img024",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "A: Jonah in tunic and cloak lies curled on his side in a dark ribbed fleshy cavity with dark water pooled beneath him and a faint pale glow through the walls; figure fills more of the frame than 'small' but the moment is right. Painting reaches all edges, no text. | B: Jonah lies curled on his side in a dim ribbed fleshy cavity with greenish water pooled beneath him and a faint pale glow through the walls at left and right; no outside figures, no text, painting reaches every edge.",
+   "adjudication": "Operator ruled from both scorers notes; the field does not change the overall verdict. God appoints the fish in the verse and is not depicted.",
+   "agreed": false,
+   "disputed": [
+    "noFormFigure"
+   ]
+  },
+  {
+   "id": "img025",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "yes",
+   "matchesScene": "yes",
+   "overall": "flawed",
+   "notes": "A diagonal line of eight family figures recedes from an old man in the right foreground along a courtyard with clay jars, an olive tree and a hilltop building; the scene matches. On the table at lower left the open scroll shows faint columns of script-like lines on the parchment, which counts as glyph-like inscription (the packet also asked for a closed scroll). Painting fills all edges.",
+   "agreed": true
+  },
+  {
+   "id": "img026",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "A: Moses with staff and Aaron in jewelled breastplate and patterned ephod stand from behind at centre-left facing the tabernacle, where golden radiance and faint cloud drift among the tents; Israelite families stand quietly either side. Ephod hem carries pale-blue woven block motifs that are geometric rather than letters; breastplate stones plain; no figure for God; painting reaches all edges. | B: Moses with staff and Aaron in a jeweled breastpiece and multicolored ephod stand with their backs to us facing a glowing tabernacle in the camp centre, families among tents on both sides, radiance and faint cloud only for God. The woven bands on the lower back of Aaron's ephod (around x=580-650, y=540-560) contain rows of white character-like shapes that read as glyphs or pseudo-lettering rather than plain pattern; painting fills all edges.",
+   "adjudication": "Operator viewed the full image and a detail crop before unblinding. The ephod bands are a dense all-over woven pattern of repeated block and figure motifs, not a line of writing; recorded as pattern, not lettering.",
+   "agreed": false,
+   "disputed": [
+    "text",
+    "overall"
+   ]
+  },
+  {
+   "id": "img027",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "partly",
+   "overall": "acceptable",
+   "notes": "A: Peter sits on the boat's stern rail at left with one sandaled foot lowered toward the water but not yet planted on it; five disciples cluster behind him gripping the rail; glowing Jesus stands on the water at right under a moonlit cloudy sky with a distant shore. Full bleed, no lettering. | B: Peter sits on the boat's stern rail with one sandaled foot touching the water surface, looking toward Jesus, who stands glowing on the water at right under a moonlit cloudy sky; five disciples grip the rail behind him, distant shore at right. No lettering on the patched sail; image fills all edges.",
+   "adjudication": "Operator ruled from both scorers notes; the field does not change the overall verdict. Peter has a foot toward the water but has not yet stepped out onto it.",
+   "agreed": false,
+   "disputed": [
+    "matchesScene"
+   ]
+  },
+  {
+   "id": "img028",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Job with a staff stands on a mound of ash and broken pottery at left-centre, looking up at a dust whirlwind that twists down from dark clouds at upper right with rays of light breaking through the cloud and no shape in the light; embers burn on the heap, a ruined walled settlement sits on the left horizon. Full edges, no lettering.",
+   "agreed": true
+  },
+  {
+   "id": "img029",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Wide view from the hills over two walled mud-brick cities on a green plain, streaks of fire fall from a dark sky, smoke and glowing bitumen pools spread across the foreground, tiny herders and tents on the dunes at right under a pale dawn horizon. No figures for Yahweh, no Lot's wife, no lettering, full-bleed.",
+   "agreed": true
+  },
+  {
+   "id": "img030",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "A: Moses with staff leads a long file of Israelites carrying bundles along a dry sandy path between towering water walls on both sides, a column of fire glowing in the storm clouds above the far horizon with no figure in it. Group is seen from the front walking toward the viewer rather than from behind; painting reaches all edges, no lettering. | B: White-bearded Moses with staff leads a long file of Israelites carrying bundles along dry sand between towering water walls, viewed from the front rather than from behind the file; a pillar of fire glows in the dark clouds behind them as light only, with no figure. No text, painting reaches all four edges.",
+   "adjudication": "Operator ruled from both scorers notes; the field does not change the overall verdict. The crossing, dry path, water walls and pillar of fire are all present; the viewpoint is not the scene.",
+   "agreed": false,
+   "disputed": [
+    "matchesScene"
+   ]
+  },
+  {
+   "id": "img031",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Peter in a wrapped cloak leaps mid-air from the boat at centre with a splash below his foot, the beloved disciple points from the boat at left with five other disciples and a net full of fish, Jesus stands on the shore at right beside a small charcoal fire with a soft glow around his head and no marks in it. Painting reaches all edges; no lettering.",
+   "agreed": true
+  },
+  {
+   "id": "img032",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "White-bearded Moses at left with staff and outstretched right arm, a dry sand path runs between curling water walls to a glowing pillar of cloud and fire on the far shore, crowds of Israelites gather on both sides under a starry night sky. Deity shown only as the pillar; painting reaches all edges; no lettering.",
+   "agreed": true
+  },
+  {
+   "id": "img033",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "Grey-haired Naomi sits centre on a mat in a mud-brick courtyard holding the swaddled infant, eight veiled women in earth-toned wraps kneel close around her looking at the child; clay jars and a folded cloth lower left, stone threshold at the bottom, Bethlehem walls and olive trees under amber sky at upper right. Full bleed, no text.",
+   "agreed": true
+  },
+  {
+   "id": "img034",
+   "noFormFigure": "na",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "yes",
+   "text": "no",
+   "matchesScene": "yes",
+   "overall": "acceptable",
+   "notes": "A small child in a red tunic walks the path at centre with one hand on a grey wolf and the other on a lamb, a leopard rests by the wall at left, a goat grazes mid-left, a lion and calf rest under a tree at right, terraced hills and a walled city on the right horizon. Painting fills all edges; no lettering.",
+   "agreed": true
+  },
+  {
+   "id": "img035",
+   "noFormFigure": "no",
+   "edges": "full",
+   "extraFigures": "no",
+   "coherence": "no",
+   "text": "no",
+   "matchesScene": "partly",
+   "overall": "flawed",
+   "notes": "A: Isaiah kneels lower left with clasped hands looking up at eight seraphim hovering in glowing cloud above a golden altar in a gilded temple hall; God appears only as radiance. Each seraph has a single pair of wings (none with six), faces are hidden by hands rather than wings and feet are bare, and the central seraph already carries tongs with a coal (a later verse). Altar relief is a winged figure, wall panels floral; no lettering; full-bleed. | B: Isaiah kneels with clasped hands at lower left before a golden altar in a carved temple hall while eight blank-faced seraphim hover in a glowing cloud above; God appears only as radiance from the top. The seraphim show two or four wings each, cover faces with hands rather than wings and none covers its feet, and the foremost holds tongs with a coal (a later verse); door and altar carvings are floral and winged motifs, not letters, and the glow reaches the top edge.",
+   "adjudication": "Operator viewed the full image and a detail crop before unblinding. Seraphim have two wings each with faces covered by hands, not wings, and one already carries tongs with a coal from verse 6: the picture collages a later moment and contradicts the verse, as in the bake-off ruling for the same case.",
+   "agreed": false,
+   "disputed": [
+    "overall"
+   ]
+  }
+ ]
+}

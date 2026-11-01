@@ -1,0 +1,3652 @@
+{
+  "at": "2026-11-01T19:03:42.096Z",
+  "status": {
+    "activeGeneration": 1,
+    "activeVersions": {
+      "activatedAt": 1792538171849,
+      "briefVersion": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+    },
+    "briefVersion": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+    "candidateGeneration": null,
+    "exists": true,
+    "ready": true,
+    "reasons": [],
+    "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+  },
+  "cases": [
+    {
+      "id": "genesis-1-3",
+      "sectionId": "genesis-1-1",
+      "cast": [
+        "god_yahweh_the_father_and_god_of_israel:god_yahweh_the_father_stage_1"
+      ]
+    },
+    {
+      "id": "exodus-14-21",
+      "sectionId": "exodus-14-21",
+      "cast": [
+        "moses:moses-elder",
+        "the_israelite_people_the_children_of_israel:the_israelite_people_the_children_of_israel_s1",
+        "the_egyptians:the_egyptians-s1",
+        "god_yahweh_the_father_and_god_of_israel:god_yahweh_the_father_stage_1",
+        "red_sea:red_sea"
+      ]
+    },
+    {
+      "id": "isaiah-6-2",
+      "sectionId": "isaiah-6-1",
+      "cast": [
+        "isaiah_son_of_amoz:isaiah_son_of_amoz-1",
+        "god_yahweh_the_father_and_god_of_israel:god_yahweh_the_father_stage_1",
+        "seraphim:seraphim-main",
+        "yahweh_s_house_in_jerusalem_the_temple:yahweh_s_house_in_jerusalem_the_temple_s1"
+      ]
+    },
+    {
+      "id": "daniel-7-9",
+      "sectionId": "daniel-7-9",
+      "cast": [
+        "daniel_prophet_of_babylon:daniel_main",
+        "the_ancient_of_days:ancient-of-days-light",
+        "one_like_a_son_of_man:one_like_a_son_of_man",
+        "babylon:babylon",
+        "ministering_assembly_in_daniels_vision:ministering_assembly-main"
+      ]
+    },
+    {
+      "id": "revelation-4-6",
+      "sectionId": "revelation-4-6",
+      "cast": [
+        "john_the_seer_revelation:john-seer",
+        "god_yahweh_the_father_and_god_of_israel:god_yahweh_the_father_stage_1",
+        "four_living_creatures_revelation:four-living-creatures-revelation-main",
+        "twenty_four_elders_of_revelation:elders-revelation",
+        "heavenly_throne_room:heavenly_throne_room"
+      ]
+    },
+    {
+      "id": "matthew-1-1",
+      "sectionId": "matthew-1-1",
+      "cast": []
+    },
+    {
+      "id": "ruth-4-22",
+      "sectionId": "ruth-4-13",
+      "cast": [
+        "ruth:ruth",
+        "boaz:boaz",
+        "naomi:naomi-main",
+        "women_of_bethlehem:women_of_bethlehem_main",
+        "naomi_s_house_in_bethlehem:naomi_house_bethlehem"
+      ]
+    },
+    {
+      "id": "matthew-27-35",
+      "sectionId": "matthew-27-32",
+      "cast": [
+        "simon_of_cyrene:simon_of_cyrene",
+        "jesus_christ_the_son_of_god_and_lord:adult",
+        "the_roman_soldiers:the_roman_soldiers-main",
+        "golgotha:golgotha"
+      ]
+    },
+    {
+      "id": "1-samuel-17-49",
+      "sectionId": "1-samuel-17-48",
+      "cast": [
+        "david_son_of_jesse_king_of_israel:david_youth",
+        "goliath:goliath",
+        "saul:saul",
+        "abner_son_of_ner:abner_son_of_ner",
+        "philistines:philistines-main",
+        "valley_of_elah:valley_of_elah",
+        "gath_philistine_city:gath_philistine_city"
+      ]
+    },
+    {
+      "id": "john-11-43",
+      "sectionId": "john-11-38",
+      "cast": [
+        "jesus_christ_the_son_of_god_and_lord:adult",
+        "martha:martha-main",
+        "lazarus_of_bethany:lazarus_of_bethany_main",
+        "crowd_in_john:crowd_in_john-main"
+      ]
+    },
+    {
+      "id": "luke-15-20",
+      "sectionId": "luke-15-11",
+      "cast": [
+        "the_younger_son:younger-son",
+        "the_prodigal_s_father:the_prodigal_s_father-main",
+        "galilee:galilee-main"
+      ]
+    },
+    {
+      "id": "psalms-23-2",
+      "sectionId": "psalms-23-1",
+      "cast": [
+        "david_son_of_jesse_king_of_israel:david_king"
+      ]
+    }
+  ],
+  "records": {
+    "moment:genesis-1-3": {
+      "createdAt": 1792535244916,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "genesis-1-3",
+        "kind": "moment",
+        "lastUnit": "genesis-1-3",
+        "sectionId": "genesis-1-1"
+      },
+      "recordId": "genesis-1-3",
+      "source": "generated",
+      "status": "current",
+      "version": "97f8f0d19bfcb088d0268e49415fdab5",
+      "workId": "bible-web"
+    },
+    "section:genesis-1-1": {
+      "createdAt": 1792535231240,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "named": true,
+            "stageId": "god_yahweh_the_father_stage_1"
+          }
+        ],
+        "era": "primeval-and-patriarchal-ancient-near-east",
+        "firstUnit": "genesis-1-1",
+        "kind": "section",
+        "lastUnit": "genesis-1-31",
+        "mentionedOnly": [],
+        "title": "Creation of the world and of humankind"
+      },
+      "recordId": "genesis-1-1",
+      "source": "generated",
+      "status": "current",
+      "version": "b4b04f27f6fff338e1c1d15f78d08e8b",
+      "workId": "bible-web"
+    },
+    "entry:god_yahweh_the_father_and_god_of_israel": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "God",
+          "Yahweh",
+          "Yahweh God",
+          "God Almighty",
+          "Lord",
+          "God Most High",
+          "the angel of God",
+          "Yahweh's angel",
+          "God's sons",
+          "God (Yahweh)",
+          "I AM",
+          "the Lord",
+          "I am Yahweh your God",
+          "my name",
+          "the Most High",
+          "the Rock",
+          "the God of Israel",
+          "the Lord Yahweh",
+          "the Almighty",
+          "the Holy One",
+          "Yah",
+          "the Holy One of Israel",
+          "the God of Jacob",
+          "the Shepherd of Israel",
+          "the LORD",
+          "his Maker",
+          "the Creator",
+          "Yahweh of Armies",
+          "God of Israel",
+          "the man in linen's master",
+          "God of Armies",
+          "my husband",
+          "my master",
+          "the God of Armies",
+          "the God of heaven",
+          "my God",
+          "my Holy One",
+          "the Lord God",
+          "the Holy Spirit",
+          "God the Father",
+          "the Father",
+          "our God and Father",
+          "the Father of glory",
+          "the God of our Lord Jesus Christ",
+          "the God of peace",
+          "God our Father",
+          "the Lord of peace",
+          "God our Savior",
+          "the living God",
+          "the King eternal",
+          "the Majesty on high",
+          "the Judge of all",
+          "the Lord Jesus Christ",
+          "the Father of lights",
+          "the Lord of Armies",
+          "the judge",
+          "the Majestic Glory",
+          "him",
+          "the true God",
+          "Jesus Christ",
+          "our Master",
+          "him who sits on the throne"
+        ],
+        "entryKind": "character",
+        "hasForm": false,
+        "kind": "entry",
+        "members": [
+          "genesis:character:god",
+          "exodus:character:god",
+          "leviticus:character:yahweh",
+          "numbers:character:yahweh",
+          "deuteronomy:character:yahweh",
+          "joshua:character:yahweh",
+          "judges:character:yahweh",
+          "job:character:yahweh",
+          "psalms:character:yahweh",
+          "proverbs:character:yahweh",
+          "ecclesiastes:character:god",
+          "isaiah:character:yahweh",
+          "jeremiah:character:yahweh",
+          "lamentations:character:yahweh",
+          "ezekiel:character:yahweh",
+          "hosea:character:yahweh",
+          "joel:character:yahweh",
+          "amos:character:yahweh",
+          "obadiah:character:yahweh",
+          "jonah:character:yahweh",
+          "micah:character:yahweh",
+          "nahum:character:yahweh",
+          "habakkuk:character:yahweh",
+          "zephaniah:character:yahweh",
+          "haggai:character:yahweh",
+          "zechariah:character:yahweh",
+          "malachi:character:yahweh",
+          "acts:character:god_father",
+          "1-corinthians:character:god",
+          "galatians:character:god_the_father",
+          "ephesians:character:god_the_father",
+          "philippians:character:god_the_father",
+          "colossians:character:god_the_father",
+          "1-thessalonians:character:god_the_father",
+          "2-thessalonians:character:god_the_father",
+          "1-timothy:character:god",
+          "2-timothy:character:god",
+          "titus:character:god",
+          "hebrews:character:god",
+          "james:character:the_lord",
+          "1-peter:character:god_the_father",
+          "2-peter:character:god_the_father",
+          "1-john:character:god_the_father",
+          "jude:character:the_lord",
+          "revelation:character:god"
+        ],
+        "name": "God / Yahweh, the Father and God of Israel",
+        "note": "The one God, creator and speaker of the Old Testament and the Father of Jesus Christ in the New Testament; distinct from Jesus in every entry.",
+        "stages": [
+          {
+            "id": "god_yahweh_the_father_stage_1",
+            "label": "God the Father (radiance and cloud)",
+            "quotes": [
+              {
+                "quote": "Heaven is my throne, and the earth is my footstool.",
+                "unit": "isaiah-66-1"
+              },
+              {
+                "quote": "Behold, Yahweh rides on a swift cloud, and comes to Egypt.",
+                "unit": "isaiah-19-1"
+              }
+            ],
+            "text": "God the Father: no human face or body; presence shown only as radiance, cloud and fire. A brilliant white-gold light without a source, veiled by a dense, slowly moving cloud, with a fire-like glow at its heart. Throne-light and footstool-earth implied at the edges, never a figure seated in it."
+          }
+        ]
+      },
+      "recordId": "god_yahweh_the_father_and_god_of_israel",
+      "source": "generated",
+      "status": "current",
+      "version": "0f49ada61c15185ddb3913aecc959f8a",
+      "workId": "bible-web"
+    },
+    "moment:exodus-14-21": {
+      "createdAt": 1792535256302,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "exodus-14-21",
+        "kind": "moment",
+        "lastUnit": "exodus-14-21",
+        "sectionId": "exodus-14-21"
+      },
+      "recordId": "exodus-14-21",
+      "source": "generated",
+      "status": "current",
+      "version": "b30d6af564a84baab18f3e9d316823e9",
+      "workId": "bible-web"
+    },
+    "section:exodus-14-21": {
+      "createdAt": 1792535231240,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "moses",
+            "named": true,
+            "stageId": "moses-elder"
+          },
+          {
+            "entryId": "the_israelite_people_the_children_of_israel",
+            "named": true,
+            "stageId": "the_israelite_people_the_children_of_israel_s1"
+          },
+          {
+            "entryId": "the_egyptians",
+            "named": true,
+            "stageId": "the_egyptians-s1"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "named": true,
+            "stageId": "god_yahweh_the_father_stage_1"
+          },
+          {
+            "entryId": "red_sea",
+            "stageId": "red_sea"
+          }
+        ],
+        "era": "exodus-wilderness-and-conquest-of-canaan",
+        "firstUnit": "exodus-14-21",
+        "kind": "section",
+        "lastUnit": "exodus-14-25",
+        "mentionedOnly": [],
+        "title": "The sea parts and Israel crosses on dry ground"
+      },
+      "recordId": "exodus-14-21",
+      "source": "generated",
+      "status": "current",
+      "version": "aa6ed3f1163492ba7fd6ac79ae578875",
+      "workId": "bible-web"
+    },
+    "entry:moses": {
+      "createdAt": 1792538173054,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the man of God",
+          "Yahweh's servant",
+          "the servant of Yahweh",
+          "my servant Moses",
+          "Yahweh's servant Moses",
+          "the lawgiver",
+          "the law of Moses",
+          "the servant in God's house",
+          "the body of Moses"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "exodus:character:moses",
+          "leviticus:character:moses",
+          "numbers:character:moses",
+          "deuteronomy:character:moses",
+          "joshua:character:moses",
+          "psalms:character:moses",
+          "micah:character:moses",
+          "malachi:character:moses",
+          "matthew:character:moses",
+          "mark:character:moses",
+          "luke:character:moses",
+          "john:character:moses",
+          "acts:character:moses",
+          "romans:character:moses",
+          "1-corinthians:character:moses",
+          "2-corinthians:character:moses",
+          "hebrews:character:moses",
+          "jude:character:moses"
+        ],
+        "name": "Moses",
+        "note": "Israel's lawgiver and leader who led the people out of Egypt, received the law at Sinai and is named across the Old and New Testament divisions as the same individual, distinguished only by the sections in which he appears or is mentioned.",
+        "stages": [
+          {
+            "id": "moses-elder",
+            "label": "Moses, elder",
+            "quotes": [
+              {
+                "quote": "Moses was eighty years old, and Aaron eighty-three years old, when they spoke to Pharaoh.",
+                "unit": "exodus-7-7"
+              }
+            ],
+            "text": "Moses: an old man of about eighty; lean, weathered build; brown skin darkened by desert sun; white hair and a long white beard; deep-set, steady eyes and lined brow; a plain undyed linen tunic belted at the waist with a long dark-brown wool cloak; he carries a wooden shepherd's staff of dark acacia wood, and only he bears the rod of God."
+          },
+          {
+            "id": "moses-infant",
+            "label": "Moses, infant",
+            "quotes": [
+              {
+                "quote": "The woman conceived and bore a son. When she saw that he was a fine child, she hid him three months.",
+                "unit": "exodus-2-2"
+              }
+            ],
+            "text": "Moses: a newborn infant; soft smooth skin; a small round face; a little dark hair; wrapped in plain linen cloth and laid in a woven reed basket sealed with bitumen and pitch; no beard, no staff, no adult clothing."
+          },
+          {
+            "id": "moses-adult",
+            "label": "Moses, adult",
+            "quotes": [
+              {
+                "quote": "But when he was forty years old, it came into his heart to visit his brothers, the children of Israel.",
+                "unit": "acts-7-23"
+              }
+            ],
+            "text": "Moses: a man of about forty; lean, strong, well-proportioned build; brown skin; short dark hair and a close-trimmed dark beard; alert, sober face; a knee-length undyed linen tunic with a dark woven wool cloak of brown and grey pinned at the shoulder; he carries a plain wooden shepherd's staff."
+          }
+        ]
+      },
+      "recordId": "moses",
+      "source": "owner",
+      "status": "current",
+      "version": "ed16bff281e7750b58b56b3a367a2146",
+      "workId": "bible-web"
+    },
+    "entry:the_israelite_people_the_children_of_israel": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the children of Israel",
+          "the Hebrews",
+          "the people",
+          "the congregation",
+          "the assembly",
+          "Israel",
+          "Jeshurun",
+          "Jacob",
+          "the people of Israel",
+          "the nation",
+          "children of Israel",
+          "the congregation of Israel",
+          "the men of Israel",
+          "all Israel",
+          "the army of Israel",
+          "the Jews",
+          "the house of Jacob",
+          "the sheep of his pasture",
+          "Ephraim",
+          "the house of Israel",
+          "the northern kingdom",
+          "Samaria",
+          "Israelites",
+          "house of Jacob",
+          "house of Joseph",
+          "the virgin of Israel",
+          "the sons of Jacob",
+          "Judah and Jerusalem",
+          "the people of God",
+          "the fathers",
+          "those who came out of Egypt",
+          "the wilderness generation"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "exodus:character:israelites",
+          "leviticus:character:children_of_israel",
+          "numbers:character:israelites",
+          "deuteronomy:character:israel",
+          "joshua:character:israelite_people",
+          "judges:character:israelites",
+          "1-samuel:character:the_people_of_israel",
+          "nehemiah:character:people_of_israel",
+          "psalms:character:israel",
+          "hosea:character:israel",
+          "amos:character:the_israelites",
+          "malachi:character:israel",
+          "hebrews:character:the_israelites"
+        ],
+        "name": "The Israelite people (the children of Israel)",
+        "note": "The collective Israelite nation across Exodus through Malachi and Hebrews, one body whose different portrayals (marching nation, assembly, covenant people, judged northern kingdom, returned community, wilderness generation) are all the same people; distinguish only from the returned community of Nehemiah in the note by the Judah/Jerusalem setting, but these are the same people.",
+        "stages": [
+          {
+            "id": "the_israelite_people_the_children_of_israel_s1",
+            "label": "The Israelite people",
+            "quotes": [
+              {
+                "quote": "Now these are the names of the sons of Israel, who came into Egypt",
+                "unit": "exodus-1-1"
+              },
+              {
+                "quote": "You shall tell the children of Israel this",
+                "unit": "exodus-3-15"
+              },
+              {
+                "quote": "So they shall put my name on the children of Israel; and I will bless them.",
+                "unit": "numbers-6-27"
+              }
+            ],
+            "text": "The Israelite people: a typical member is an adult of mixed age, from youth to middle years, of sturdy and weathered build shaped by desert travel and field labour. Skin is warm olive-brown, hair dark and kept short or tied back, with full beards on men. Faces are calm and steady with dark eyes. Signature outfit: a plain undyed woven linen tunic in ochre or cream with a wool cloak in earth brown."
+          }
+        ]
+      },
+      "recordId": "the_israelite_people_the_children_of_israel",
+      "source": "generated",
+      "status": "current",
+      "version": "c5143c0542fab9242236871d516c6461",
+      "workId": "bible-web"
+    },
+    "entry:the_egyptians": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the magicians of Egypt",
+          "the captains"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "exodus:character:egyptians"
+        ],
+        "name": "the Egyptians",
+        "note": "The Egyptian people, officers and magicians in Exodus who oppress Israel and suffer the plagues; distinguished from the Egyptian magicians of Genesis and from the Chaldeans of Babylon.",
+        "stages": [
+          {
+            "id": "the_egyptians-s1",
+            "label": "the Egyptians",
+            "quotes": [
+              {
+                "quote": "The Egyptians ruthlessly made the children of Israel serve,",
+                "unit": "exodus-1-13"
+              },
+              {
+                "quote": "They also, the magicians of Egypt, did the same thing with their enchantments.",
+                "unit": "exodus-7-11"
+              }
+            ],
+            "text": "the Egyptians: adults of middle age, broad-shouldered and strong from labour and rank, with warm brown skin and close-cropped black hair, clean-shaven men with short wigs or bare heads, dignified and grave of face. Signature outfit: a pleated white linen kilt or wrap-tunic with a linen cloak in ochre and blue. Signature props: none carried alone; officers may bear a staff of office."
+          }
+        ]
+      },
+      "recordId": "the_egyptians",
+      "source": "generated",
+      "status": "current",
+      "version": "e4ad562fa008a87044c9f05703a34573",
+      "workId": "bible-web"
+    },
+    "entry:red_sea": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the Red Sea",
+          "the sea",
+          "Yam Suph"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "exodus:location:red_sea"
+        ],
+        "name": "Red Sea",
+        "note": "The sea in Exodus that parts for Israel and closes over Pharaoh's army; distinct from the other seas by its setting in the exodus narrative.",
+        "stages": [
+          {
+            "id": "red_sea",
+            "label": "Red Sea",
+            "quotes": [
+              {
+                "quote": "Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night",
+                "unit": "exodus-14-21"
+              },
+              {
+                "quote": "the waters were a wall to them on their right hand and on their left.",
+                "unit": "exodus-14-22"
+              },
+              {
+                "quote": "You shall encamp opposite it by the sea.",
+                "unit": "exodus-14-2"
+              }
+            ],
+            "text": "Red Sea: a wide, deep arm of open water between desert shores, its surface dark blue-green under wind. Sand dunes and low reddish cliffs line the coast; scattered tamarisk and palms grow at the water's edge. Bare rock outcrops and shallow wadis run down to the shore, and a distant fortified town sits on the northern ridge."
+          }
+        ]
+      },
+      "recordId": "red_sea",
+      "source": "generated",
+      "status": "current",
+      "version": "00f127899a1f04421b2bc0111cbfb4e5",
+      "workId": "bible-web"
+    },
+    "moment:isaiah-6-2": {
+      "createdAt": 1792535343059,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "isaiah-6-2",
+        "kind": "moment",
+        "lastUnit": "isaiah-6-2",
+        "sectionId": "isaiah-6-1"
+      },
+      "recordId": "isaiah-6-2",
+      "source": "generated",
+      "status": "current",
+      "version": "23ab8af1269b0c2ac8aedba9a5109975",
+      "workId": "bible-web"
+    },
+    "section:isaiah-6-1": {
+      "createdAt": 1792535237008,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "isaiah_son_of_amoz",
+            "named": false,
+            "stageId": "isaiah_son_of_amoz-1"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "named": true,
+            "stageId": "god_yahweh_the_father_stage_1"
+          },
+          {
+            "entryId": "seraphim",
+            "named": true,
+            "stageId": "seraphim-main"
+          },
+          {
+            "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+            "stageId": "yahweh_s_house_in_jerusalem_the_temple_s1"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "isaiah-6-1",
+        "kind": "section",
+        "lastUnit": "isaiah-6-8",
+        "mentionedOnly": [],
+        "title": "Isaiah's vision of Yahweh in the temple"
+      },
+      "recordId": "isaiah-6-1",
+      "source": "generated",
+      "status": "current",
+      "version": "071de81f7e0aa04ef4ffd247e60cc5f3",
+      "workId": "bible-web"
+    },
+    "entry:isaiah_son_of_amoz": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Isaiah",
+          "son of Amoz",
+          "the prophet",
+          "Isaiah the prophet"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "2-kings:character:isaiah",
+          "2-chronicles:character:isaiah_prophet",
+          "isaiah:character:isaiah"
+        ],
+        "name": "Isaiah son of Amoz",
+        "note": "Prophet who advises Hezekiah; the same prophet across Isaiah, 2 Kings and 2 Chronicles.",
+        "stages": [
+          {
+            "id": "isaiah_son_of_amoz-1",
+            "label": "Isaiah son of Amoz",
+            "quotes": [
+              {
+                "quote": "The vision of Isaiah the son of Amoz, which he saw concerning Judah and Jerusalem, in the days of Uzziah, Jotham, Ahaz, and Hezekiah, kings of Judah.",
+                "unit": "isaiah-1-1"
+              },
+              {
+                "quote": "Go, and loosen the sackcloth from off your waist, and take your sandals from off your feet.",
+                "unit": "isaiah-20-2"
+              }
+            ],
+            "text": "Isaiah son of Amoz: a man in his fifties, lean and sinewy, with a weathered brown skin of the Judean hill country. Dark hair graying at the temples, worn to the shoulders, and a short, full grey beard. Deep-set, steady eyes and a long, lined face marked by years of hard counsel. Signature outfit: a plain undyed linen tunic belted at the waist and a rough brown wool cloak in earth tones. Carries a simple wooden staff, the sign of a traveling prophet."
+          }
+        ]
+      },
+      "recordId": "isaiah_son_of_amoz",
+      "source": "generated",
+      "status": "current",
+      "version": "2968951d41e33bd4d20e4d15071e24e1",
+      "workId": "bible-web"
+    },
+    "entry:seraphim": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "one of the seraphim"
+        ],
+        "entryKind": "object",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "isaiah:character:seraphim"
+        ],
+        "name": "Seraphim",
+        "note": "Six-winged beings around the throne in Isaiah 6 who call out and touch Isaiah's lips with a coal; a class of heavenly beings, not a single individual.",
+        "stages": [
+          {
+            "id": "seraphim-main",
+            "label": "Seraphim",
+            "quotes": [
+              {
+                "quote": "Each one had six wings. With two he covered his face. With two he covered his feet. With two he flew.",
+                "unit": "isaiah-6-2"
+              },
+              {
+                "quote": "one of the seraphim flew to me, having a live coal in his hand, which he had taken with the tongs from off the altar.",
+                "unit": "isaiah-6-6"
+              }
+            ],
+            "text": "Seraphim: a heavenly being of tall, luminous human-like form, ageless, with burnished bronze-gold skin. Six wings: two cover the face, two cover the feet, two lift in flight, feathered in white and gold. Face hidden behind the wings. Robed in a long linen tunic of pale white. Carries a glowing live coal held in long iron tongs, the coal burning orange-red."
+          }
+        ]
+      },
+      "recordId": "seraphim",
+      "source": "generated",
+      "status": "current",
+      "version": "df6b23fbd590939e0920f1f32e9d6a07",
+      "workId": "bible-web"
+    },
+    "entry:yahweh_s_house_in_jerusalem_the_temple": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Yahweh's house",
+          "the temple",
+          "the house of Yahweh",
+          "the house of God",
+          "Temple of Yahweh at Jerusalem",
+          "God's house",
+          "The temple",
+          "the sanctuary",
+          "the holy temple",
+          "the courts",
+          "the house",
+          "the house which is called by my name",
+          "The sanctuary",
+          "the altar",
+          "the tent of the daughter of Zion",
+          "the house of our God",
+          "Yahweh's temple",
+          "this house",
+          "the house of Yahweh of Armies",
+          "my house",
+          "the storehouse",
+          "Yahweh's altar",
+          "altar"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-kings:location:temple",
+          "2-kings:location:temple",
+          "2-chronicles:location:temple",
+          "ezra:location:temple_site",
+          "nehemiah:location:temple",
+          "psalms:location:temple",
+          "isaiah:location:temple_in_jerusalem",
+          "jeremiah:location:yahwehs_house",
+          "lamentations:location:temple_sanctuary",
+          "joel:location:yahweh_house",
+          "haggai:location:jerusalem_temple_site",
+          "zechariah:location:the_temple",
+          "malachi:location:temple"
+        ],
+        "name": "Yahweh's house in Jerusalem (the temple)",
+        "note": "The one Jerusalem temple (Yahweh's house, the sanctuary on Mount Moriah) across all references, from Solomon's building through repair, destruction and rebuilding; construction and ruin are later appearance stages, not separate places.",
+        "stages": [
+          {
+            "id": "yahweh_s_house_in_jerusalem_the_temple_s1",
+            "label": "Solomon's temple on Mount Moriah",
+            "quotes": [
+              {
+                "quote": "The house, when it was under construction, was built of stone prepared at the quarry",
+                "unit": "1-kings-6-7"
+              },
+              {
+                "quote": "Within the inner sanctuary was twenty cubits in length, and twenty cubits in width, and twenty cubits in its height.",
+                "unit": "1-kings-6-20"
+              },
+              {
+                "quote": "He overlaid the floor of the house with gold, inside and outside.",
+                "unit": "1-kings-6-30"
+              },
+              {
+                "quote": "Also he made before the house two pillars thirty-five cubits high",
+                "unit": "2-chronicles-3-15"
+              },
+              {
+                "quote": "He set the sea on the right side of the house eastward and toward the south.",
+                "unit": "1-kings-7-39"
+              }
+            ],
+            "text": "Yahweh's house in Jerusalem: a stone temple of finished ashlar on Mount Moriah, roofed with cedar beams, its inner sanctuary panelled in cedar and overlaid with pure gold. Carved cherubim, palm and open flowers cover the doors and walls. Before the house stand two great bronze pillars and a huge bronze molten sea on twelve oxen. Courts of stone surround it, with olive and cypress trees, and the walled city of Jerusalem rises beyond."
+          }
+        ]
+      },
+      "recordId": "yahweh_s_house_in_jerusalem_the_temple",
+      "source": "generated",
+      "status": "current",
+      "version": "54534e91ce4170967bcea0e9d7baa045",
+      "workId": "bible-web"
+    },
+    "moment:daniel-7-9": {
+      "createdAt": 1792538123265,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "daniel-7-9",
+        "kind": "moment",
+        "lastUnit": "daniel-7-9",
+        "sectionId": "daniel-7-9"
+      },
+      "recordId": "daniel-7-9",
+      "source": "generated",
+      "status": "current",
+      "version": "42811b767e7aea912528509ebeae351a",
+      "workId": "bible-web"
+    },
+    "section:daniel-7-9": {
+      "createdAt": 1792692142607,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "daniel_prophet_of_babylon",
+            "named": false,
+            "stageId": "daniel_main"
+          },
+          {
+            "entryId": "the_ancient_of_days",
+            "named": true,
+            "stageId": "ancient-of-days-light"
+          },
+          {
+            "entryId": "one_like_a_son_of_man",
+            "named": true,
+            "stageId": "one_like_a_son_of_man"
+          },
+          {
+            "entryId": "babylon",
+            "stageId": "babylon"
+          },
+          {
+            "entryId": "ministering_assembly_in_daniels_vision",
+            "named": false,
+            "stageId": "ministering_assembly-main"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "daniel-7-9",
+        "kind": "section",
+        "lastUnit": "daniel-7-14",
+        "mentionedOnly": [],
+        "title": "The Ancient of Days and the son of man"
+      },
+      "recordId": "daniel-7-9",
+      "source": "owner",
+      "status": "current",
+      "version": "8573512b6683f0d87a6a3553c7a6b9ef",
+      "workId": "bible-web"
+    },
+    "entry:daniel_prophet_of_babylon": {
+      "createdAt": 1793323624649,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Daniel",
+          "Belteshazzar"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "daniel:character:daniel"
+        ],
+        "name": "Daniel (prophet of Babylon)",
+        "note": "The Jewish youth taken captive to Babylon, renamed Belteshazzar, who interprets dreams and receives visions; the main entry with many sections in Daniel, distinguished from the prophet named only in Matthew's citation.",
+        "stages": [
+          {
+            "id": "daniel_main",
+            "label": "Daniel (Belteshazzar), prophet of Babylon",
+            "quotes": [
+              {
+                "quote": "Now among these of the children of Judah were Daniel, Hananiah, Mishael, and Azariah.",
+                "unit": "daniel-1-6"
+              },
+              {
+                "quote": "to Daniel he gave the name Belteshazzar",
+                "unit": "daniel-1-7"
+              },
+              {
+                "quote": "he went into his house (now his windows were open in his room toward Jerusalem)",
+                "unit": "daniel-6-10"
+              }
+            ],
+            "text": "Daniel: a lean, dignified Judean man, grave and greying; olive-brown skin; close-cropped greying hair and a short trimmed grey beard; deep-set, steady eyes and a calm, thoughtful face. Signature outfit: a long undyed linen tunic under a plain indigo wool cloak with a blue fringed hem. Props: a small leather scroll case slung at the hip."
+          }
+        ]
+      },
+      "recordId": "daniel_prophet_of_babylon",
+      "source": "owner",
+      "status": "current",
+      "version": "a9ff9e07f51dfb0e1c2ce6df48f8d113",
+      "workId": "bible-web"
+    },
+    "entry:the_ancient_of_days": {
+      "createdAt": 1792692143097,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the Ancient of Days",
+          "the Most High"
+        ],
+        "entryKind": "character",
+        "hasForm": false,
+        "kind": "entry",
+        "members": [
+          "daniel:character:ancient_of_days"
+        ],
+        "name": "The Ancient of Days",
+        "note": "The divine figure on a fiery throne in Daniel's vision of the beasts; a distinct visionary figure, seen only in Daniel's dream-vision.",
+        "stages": [
+          {
+            "id": "ancient-of-days-light",
+            "label": "The Ancient of Days",
+            "quotes": [
+              {
+                "quote": "His clothing was white as snow, and the hair of his head like pure wool.",
+                "unit": "daniel-7-9"
+              },
+              {
+                "quote": "His throne was fiery flames, and its wheels burning fire.",
+                "unit": "daniel-7-9"
+              },
+              {
+                "quote": "A fiery stream issued and came out from before him.",
+                "unit": "daniel-7-10"
+              }
+            ],
+            "showing": [
+              {
+                "brightness": "brilliant",
+                "colour": "white",
+                "effect": "radiance"
+              },
+              {
+                "brightness": "bright",
+                "colour": "orange",
+                "effect": "fire"
+              },
+              {
+                "brightness": "soft",
+                "colour": "white",
+                "effect": "cloud"
+              },
+              {
+                "brightness": "brilliant",
+                "colour": "white",
+                "effect": "light"
+              }
+            ],
+            "text": "The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light."
+          }
+        ]
+      },
+      "recordId": "the_ancient_of_days",
+      "source": "owner",
+      "status": "current",
+      "version": "2580946090305beb790717b8920e11ec",
+      "workId": "bible-web"
+    },
+    "entry:one_like_a_son_of_man": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "one like a son of man",
+          "the son of man"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "daniel:character:one_like_son_of_man"
+        ],
+        "name": "One like a son of man",
+        "note": "The figure coming with the clouds of heaven to receive dominion in Daniel's vision; not the Gospel Jesus, but a distinct heavenly figure in Daniel.",
+        "stages": [
+          {
+            "id": "one_like_a_son_of_man",
+            "label": "One like a son of man",
+            "quotes": [
+              {
+                "quote": "there came with the clouds of the sky one like a son of man, and he came even to the Ancient of Days",
+                "unit": "daniel-7-13"
+              }
+            ],
+            "text": "One like a son of man: a man in his prime, early thirties, of athletic but dignified build; skin warm olive-brown; short dark hair and a close-cut beard; calm, steady features with a grave, luminous gaze. He wears a long white linen tunic with a deep blue-purple cloak falling from the shoulders, edged with gold thread. He carries no props."
+          }
+        ]
+      },
+      "recordId": "one_like_a_son_of_man",
+      "source": "generated",
+      "status": "current",
+      "version": "f0a2429d0ca6ac9657801f25e0921699",
+      "workId": "bible-web"
+    },
+    "entry:babylon": {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Babylonia",
+          "the province of Babylon",
+          "the rivers of Babylon",
+          "the land of the Chaldeans",
+          "land of the Chaldeans",
+          "the land of Shinar",
+          "Great Babylon"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "2-chronicles:location:babylon",
+          "ezra:location:babylon",
+          "psalms:location:babylon",
+          "isaiah:location:babylon",
+          "jeremiah:location:babylon",
+          "daniel:location:babylon",
+          "micah:location:babylon"
+        ],
+        "name": "Babylon",
+        "note": "The city and empire of exile and captivity across the prophets, histories and psalms, also called Babylonia, Shinar and the land of the Chaldeans; the same place in every division.",
+        "stages": [
+          {
+            "id": "babylon",
+            "label": "Babylon",
+            "quotes": [
+              {
+                "quote": "The wide walls of Babylon will be utterly overthrown. Her high gates will be burned with fire.",
+                "unit": "jeremiah-51-58"
+              },
+              {
+                "quote": "I will execute judgment on Bel in Babylon, and I will bring out of his mouth that which he has swallowed up.",
+                "unit": "jeremiah-51-44"
+              },
+              {
+                "quote": "He brought the vessels into the treasure house of his god.",
+                "unit": "daniel-1-2"
+              },
+              {
+                "quote": "I will record Rahab and Babylon among those who acknowledge me.",
+                "unit": "psalms-87-4"
+              }
+            ],
+            "text": "Babylon: a vast walled city of baked brick on a flat plain watered by broad canals and rivers, its wide walls rising high and its great gates of bronze-banded cedar. Date palms and reed beds line the riverbanks, and ziggurat towers and palace roofs of brick rise above the flat skyline, with the temple of Bel among them."
+          }
+        ]
+      },
+      "recordId": "babylon",
+      "source": "generated",
+      "status": "current",
+      "version": "de8721810ea07cf6cc361bc90ea0502d",
+      "workId": "bible-web"
+    },
+    "entry:ministering_assembly_in_daniels_vision": {
+      "createdAt": 1792692142607,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "thousands of thousands",
+          "ten thousand times ten thousand"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "name": "Ministering assembly in Daniel's vision",
+        "note": "The unidentified assembly ministering before the Ancient of Days in Daniel 7:10; distinct from earthly Babylonian royal attendants. A group whose canon describes a typical member.",
+        "stages": [
+          {
+            "id": "ministering_assembly-main",
+            "label": "Ministering assembly",
+            "quotes": [
+              {
+                "quote": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+                "unit": "daniel-7-10"
+              }
+            ],
+            "text": "Ministering assembly in Daniel's vision: a typical member is an adult of medium height and slim build, with warm brown skin, dark curly hair and a short dark beard, wearing an undyed linen robe, a narrow woven belt and plain sandals."
+          }
+        ]
+      },
+      "recordId": "ministering_assembly_in_daniels_vision",
+      "source": "owner",
+      "status": "current",
+      "version": "4abdbb32cfcaa06d3bc748ea6b88a23e",
+      "workId": "bible-web"
+    },
+    "moment:revelation-4-6": {
+      "createdAt": 1792538170034,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "revelation-4-6",
+        "kind": "moment",
+        "lastUnit": "revelation-4-6",
+        "sectionId": "revelation-4-6"
+      },
+      "recordId": "revelation-4-6",
+      "source": "generated",
+      "status": "current",
+      "version": "7f73d49cde65dfa706678ec4631918c0",
+      "workId": "bible-web"
+    },
+    "section:revelation-4-6": {
+      "createdAt": 1792535244916,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "john_the_seer_revelation",
+            "named": false,
+            "stageId": "john-seer"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "named": true,
+            "stageId": "god_yahweh_the_father_stage_1"
+          },
+          {
+            "entryId": "four_living_creatures_revelation",
+            "named": true,
+            "stageId": "four-living-creatures-revelation-main"
+          },
+          {
+            "entryId": "twenty_four_elders_of_revelation",
+            "named": true,
+            "stageId": "elders-revelation"
+          },
+          {
+            "entryId": "heavenly_throne_room",
+            "stageId": "heavenly_throne_room"
+          }
+        ],
+        "era": "visionary-heaven-and-the-end-of-days",
+        "firstUnit": "revelation-4-6",
+        "kind": "section",
+        "lastUnit": "revelation-4-11",
+        "mentionedOnly": [],
+        "title": "Living creatures and the elders worship"
+      },
+      "recordId": "revelation-4-6",
+      "source": "generated",
+      "status": "current",
+      "version": "0b0e38ddb754e5e6940bf055686007a9",
+      "workId": "bible-web"
+    },
+    "entry:john_the_seer_revelation": {
+      "createdAt": 1792535231240,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "John",
+          "John the seer",
+          "your brother John",
+          "the servant John"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "revelation:character:john"
+        ],
+        "name": "John the seer (Revelation)",
+        "note": "Author and visionary on Patmos who receives and records the revelation; the narrator of Revelation, distinct from other Johns.",
+        "stages": [
+          {
+            "id": "john-seer",
+            "label": "John the seer",
+            "quotes": [
+              {
+                "quote": "to his servant, John",
+                "unit": "revelation-1-1"
+              },
+              {
+                "quote": "I John, your brother and partner with you in the oppression",
+                "unit": "revelation-1-9"
+              }
+            ],
+            "text": "John the seer: man of about sixty, of middle height and spare build, weathered olive skin from exile by the sea, short greying hair and a close grey beard, lined brow and steady dark eyes. Signature outfit: a plain undyed linen tunic of ochre-brown under a rough dark brown wool mantle. He carries a worn wooden staff and a small scroll case."
+          }
+        ]
+      },
+      "recordId": "john_the_seer_revelation",
+      "source": "generated",
+      "status": "current",
+      "version": "0ee871475aa1ac1825d1ea2f0a30165b",
+      "workId": "bible-web"
+    },
+    "entry:four_living_creatures_revelation": {
+      "createdAt": 1792535231240,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the four living creatures",
+          "the lion-like creature",
+          "the calf-like creature",
+          "the creature with a face like a man",
+          "the flying eagle-like creature"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "revelation:character:four_living_creatures"
+        ],
+        "name": "Four living creatures (Revelation)",
+        "note": "The creatures around God's throne in Revelation, full of eyes, who worship God and call forth the four horsemen; distinguished from the Ezekiel beings by their role at the throne and the seals.",
+        "stages": [
+          {
+            "id": "four-living-creatures-revelation-main",
+            "label": "Four living creatures",
+            "quotes": [
+              {
+                "quote": "each one of them having six wings, are full of eyes around and within",
+                "unit": "revelation-4-8"
+              },
+              {
+                "quote": "as though it had been slain, having seven horns and seven eyes",
+                "unit": "revelation-5-6"
+              }
+            ],
+            "text": "Four living creatures: ageless and powerful, each with six wings set close about the body; the wings and bodies are covered with eyes, around and within. One is lion-like with a mane of tawny gold, one calf-like with a sleek red-brown hide, one with a human face of grave dignity and dark skin, one eagle-like with bronze-gold feathers. Robes of deep crimson and white."
+          }
+        ]
+      },
+      "recordId": "four_living_creatures_revelation",
+      "source": "generated",
+      "status": "current",
+      "version": "30fd780ba494602442640a9325096e9f",
+      "workId": "bible-web"
+    },
+    "entry:twenty_four_elders_of_revelation": {
+      "createdAt": 1792535231240,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the twenty-four elders",
+          "the elders"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "revelation:character:twenty_four_elders"
+        ],
+        "name": "Twenty-four elders of Revelation",
+        "note": "Twenty-four elders seated on thrones around God's throne, clothed in white with golden crowns.",
+        "stages": [
+          {
+            "id": "elders-revelation",
+            "label": "Twenty-four elders of Revelation",
+            "quotes": [
+              {
+                "quote": "the twenty-four elders fall down before him who sits on the throne",
+                "unit": "revelation-4-10"
+              },
+              {
+                "quote": "each one having a harp, and golden bowls full of incense",
+                "unit": "revelation-5-8"
+              },
+              {
+                "quote": "These who are arrayed in the white robes, who are they",
+                "unit": "revelation-7-13"
+              }
+            ],
+            "text": "Twenty-four elders: mature men of venerable age, grey or white-bearded, of dignified and grounded build; skin warm olive-brown; hair white and worn to the shoulder, full white beard; calm, noble faces. Signature outfit: long white robes with gold sashes and a golden crown on the head. Props, carried alone: a golden harp or a golden bowl of incense."
+          }
+        ]
+      },
+      "recordId": "twenty_four_elders_of_revelation",
+      "source": "generated",
+      "status": "current",
+      "version": "750c9693db79017af3767fdbd29b6ea7",
+      "workId": "bible-web"
+    },
+    "entry:heavenly_throne_room": {
+      "createdAt": 1792535231240,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the throne room in heaven",
+          "heaven",
+          "the temple in heaven",
+          "the sea of glass before the throne"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "revelation:location:heaven_throne_room"
+        ],
+        "name": "Heavenly throne room",
+        "note": "The heavenly court of God in Revelation, with the throne, elders, living creatures, the Lamb and the sea of glass before the throne.",
+        "stages": [
+          {
+            "id": "heavenly_throne_room",
+            "label": "Heavenly throne room",
+            "quotes": [
+              {
+                "quote": "there was a throne set in heaven, and one sitting on the throne",
+                "unit": "revelation-4-2"
+              },
+              {
+                "quote": "the temple of the tabernacle of the testimony in heaven was opened",
+                "unit": "revelation-15-5"
+              },
+              {
+                "quote": "Lightnings, sounds, thunders, an earthquake, and great hail followed.",
+                "unit": "revelation-11-19"
+              }
+            ],
+            "text": "Heavenly throne room: a vast open sanctuary of radiance beneath a heaven like crystal, floored with a sea of glass that is clear as crystal, set with a great throne and a temple whose doors open onto the heavens, lit by lightnings, thunders and a rainbow the colour of emerald about the throne. Pale gold and white stone, jasper and sardius glimmer in the walls; an altar of gold stands before the throne."
+          }
+        ]
+      },
+      "recordId": "heavenly_throne_room",
+      "source": "generated",
+      "status": "current",
+      "version": "5ec45b7dc898aa10489e19d584a54271",
+      "workId": "bible-web"
+    },
+    "moment:matthew-1-1": {
+      "createdAt": 1792538132067,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "matthew-1-1",
+        "kind": "moment",
+        "lastUnit": "matthew-1-1",
+        "sectionId": "matthew-1-1"
+      },
+      "recordId": "matthew-1-1",
+      "source": "generated",
+      "status": "current",
+      "version": "1987f32d10598d6c2809dc25709762d9",
+      "workId": "bible-web"
+    },
+    "section:matthew-1-1": {
+      "createdAt": 1792535239756,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [],
+        "era": "roman-era-judea-galilee-and-the-early-church",
+        "firstUnit": "matthew-1-1",
+        "kind": "section",
+        "lastUnit": "matthew-1-17",
+        "mentionedOnly": [
+          "abram",
+          "david_son_of_jesse_king_of_israel",
+          "jesus_christ_the_son_of_god_and_lord"
+        ],
+        "title": "Genealogy of Jesus"
+      },
+      "recordId": "matthew-1-1",
+      "source": "generated",
+      "status": "current",
+      "version": "66f091bbf13bf144fe0059a388e50abf",
+      "workId": "bible-web"
+    },
+    "moment:ruth-4-22": {
+      "createdAt": 1792535286762,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "ruth-4-22",
+        "kind": "moment",
+        "lastUnit": "ruth-4-22",
+        "sectionId": "ruth-4-13"
+      },
+      "recordId": "ruth-4-22",
+      "source": "generated",
+      "status": "current",
+      "version": "01906282ce250aeffbcbcb2a4ba29cfe",
+      "workId": "bible-web"
+    },
+    "section:ruth-4-13": {
+      "createdAt": 1792535234262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "ruth",
+            "named": true,
+            "stageId": "ruth"
+          },
+          {
+            "entryId": "boaz",
+            "named": true,
+            "stageId": "boaz"
+          },
+          {
+            "entryId": "naomi",
+            "named": true,
+            "stageId": "naomi-main"
+          },
+          {
+            "entryId": "women_of_bethlehem",
+            "named": true,
+            "stageId": "women_of_bethlehem_main"
+          },
+          {
+            "entryId": "naomi_s_house_in_bethlehem",
+            "stageId": "naomi_house_bethlehem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "ruth-4-13",
+        "kind": "section",
+        "lastUnit": "ruth-4-22",
+        "mentionedOnly": [],
+        "title": "Birth of Obed and the genealogy"
+      },
+      "recordId": "ruth-4-13",
+      "source": "generated",
+      "status": "current",
+      "version": "a256536838ff6f67afc976308f8c8484",
+      "workId": "bible-web"
+    },
+    "entry:ruth": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Ruth the Moabitess",
+          "the Moabite lady",
+          "the wife of Mahlon"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "ruth:character:ruth"
+        ],
+        "name": "Ruth",
+        "note": "Moabite widow of Mahlon who goes with Naomi to Bethlehem, gleans in Boaz's field, becomes Boaz's wife and mother of Obed.",
+        "stages": [
+          {
+            "id": "ruth",
+            "label": "Ruth",
+            "quotes": [
+              {
+                "quote": "The name of the one was Orpah, and the name of the other was Ruth.",
+                "unit": "ruth-1-4"
+              },
+              {
+                "quote": "It is the Moabite lady who came back with Naomi out of the country of Moab.",
+                "unit": "ruth-2-6"
+              }
+            ],
+            "text": "Ruth: a young woman in her twenties; slender, sturdy build from field labour; warm olive-brown skin; dark hair worn covered with a linen head-veil in the fields and bound back at home; calm, steady face with dark eyes. Signature outfit: a plain undyed linen tunic with a rust-red wool cloak over the shoulders, belted with a cord. Carries a simple woven gleaner's basket on one arm."
+          }
+        ]
+      },
+      "recordId": "ruth",
+      "source": "generated",
+      "status": "current",
+      "version": "7116dd65e58db1d2adb6515ddb181821",
+      "workId": "bible-web"
+    },
+    "entry:boaz": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "friend",
+          "kinsman"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "ruth:character:boaz"
+        ],
+        "name": "Boaz",
+        "note": "Wealthy kinsman of Elimelech in Bethlehem who shows kindness to Ruth, redeems the land and marries her; the one who acts as redeemer at the city gate.",
+        "stages": [
+          {
+            "id": "boaz",
+            "label": "Boaz",
+            "quotes": [
+              {
+                "quote": "a mighty man of wealth, of the family of Elimelech, and his name was Boaz.",
+                "unit": "ruth-2-1"
+              },
+              {
+                "quote": "Boaz went up to the gate and sat down there.",
+                "unit": "ruth-4-1"
+              }
+            ],
+            "text": "Boaz: a mature man in his middle years, broad-shouldered and sturdy, of a prosperous landholder. Olive-brown skin weathered by the fields. Dark hair and a short, neatly trimmed beard with some grey at the temples. Calm, dignified face with deep-set eyes. Signature outfit: a long undertunic of undyed linen under a cloak of deep blue wool with a woven band at the hem. Carries a shepherd's staff of olive wood."
+          }
+        ]
+      },
+      "recordId": "boaz",
+      "source": "generated",
+      "status": "current",
+      "version": "b9de7cdb1e5eaa38d6f8dd43e91c5c77",
+      "workId": "bible-web"
+    },
+    "entry:naomi": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Mara"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "ruth:character:naomi"
+        ],
+        "name": "Naomi",
+        "note": "Wife of Elimelech, mother of Mahlon and Chilion, mother-in-law of Ruth and Orpah; returns from Moab to Bethlehem and calls herself Mara; cares for Ruth's son.",
+        "stages": [
+          {
+            "id": "naomi-main",
+            "label": "Naomi",
+            "quotes": [
+              {
+                "quote": "The name of the man was Elimelech, and the name of his wife Naomi.",
+                "unit": "ruth-1-2"
+              },
+              {
+                "quote": "Call me Mara, for the Almighty has dealt very bitterly with me.",
+                "unit": "ruth-1-20"
+              },
+              {
+                "quote": "I went out full, and Yahweh has brought me home again empty.",
+                "unit": "ruth-1-21"
+              },
+              {
+                "quote": "Naomi took the child, laid him in her bosom, and became nurse to him.",
+                "unit": "ruth-4-16"
+              }
+            ],
+            "text": "Naomi: woman of middle years, mature and weathered by grief; lean, upright build; olive skin with sun-darkened forearms; dark hair covered by a plain linen veil, with grey threads showing at the temples; lined face, dignified and steady; wears an undyed brown woollen tunic with a long dull-ochre cloak over it, belted at the waist; carries a small water skin or walking staff alone."
+          }
+        ]
+      },
+      "recordId": "naomi",
+      "source": "generated",
+      "status": "current",
+      "version": "0987334045de523d6fb26288dbcc9834",
+      "workId": "bible-web"
+    },
+    "entry:women_of_bethlehem": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "neighbors",
+          "the women"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "ruth:character:bethlehem_women"
+        ],
+        "name": "Women of Bethlehem",
+        "note": "The neighborhood women of Bethlehem who praise Naomi and name Obed in Ruth; distinct from the women weeping for Tammuz at the north gate in Ezekiel 8.",
+        "stages": [
+          {
+            "id": "women_of_bethlehem_main",
+            "label": "Women of Bethlehem",
+            "quotes": [
+              {
+                "quote": "They took for themselves wives of the women of Moab.",
+                "unit": "ruth-1-4"
+              },
+              {
+                "quote": "The women said to Naomi, “Blessed be Yahweh, who has not left you today without a near kinsman.",
+                "unit": "ruth-4-14"
+              },
+              {
+                "quote": "The women, her neighbors, gave him a name, saying, “A son is born to Naomi”.",
+                "unit": "ruth-4-17"
+              }
+            ],
+            "text": "Women of Bethlehem: adult village women, mature to middle age; sturdy, unhurried build; warm olive-brown skin; dark hair covered by a plain linen headcloth; weathered, kind faces with lines of work and years; signature outfit a long undyed linen tunic under a dun-brown woven cloak; no props carried alone."
+          }
+        ]
+      },
+      "recordId": "women_of_bethlehem",
+      "source": "generated",
+      "status": "current",
+      "version": "f74c4aba10c8956b36e603f211f17ec6",
+      "workId": "bible-web"
+    },
+    "entry:naomi_s_house_in_bethlehem": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Naomi's house",
+          "the house",
+          "my mother's house"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "ruth:location:boaz_house"
+        ],
+        "name": "Naomi's house in Bethlehem",
+        "note": "Ruth and Naomi's home in Bethlehem where the child is cared for; distinct from Boaz's fields and the threshing floor.",
+        "stages": [
+          {
+            "id": "naomi_house_bethlehem",
+            "label": "Naomi's house in Bethlehem",
+            "quotes": [
+              {
+                "quote": "each of you in the house of her husband",
+                "unit": "ruth-1-9"
+              },
+              {
+                "quote": "except that she rested a little in the house",
+                "unit": "ruth-2-7"
+              },
+              {
+                "quote": "the woman who has come into your house",
+                "unit": "ruth-4-11"
+              }
+            ],
+            "text": "Naomi's house in Bethlehem: a modest village dwelling of mud-brick walls and a flat roof of packed earth and beams, with a low doorway and a courtyard of beaten earth. Stone terraces and olive trees stand on the hillside, with grain fields in the valley below and the walls of Bethlehem nearby."
+          }
+        ]
+      },
+      "recordId": "naomi_s_house_in_bethlehem",
+      "source": "generated",
+      "status": "current",
+      "version": "dfaa88fd65b266dec36fd395f0602121",
+      "workId": "bible-web"
+    },
+    "moment:matthew-27-35": {
+      "createdAt": 1792538137472,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "matthew-27-35",
+        "kind": "moment",
+        "lastUnit": "matthew-27-35",
+        "sectionId": "matthew-27-32"
+      },
+      "recordId": "matthew-27-35",
+      "source": "generated",
+      "status": "current",
+      "version": "4eef1911c74b42ccd73282c9a69bc145",
+      "workId": "bible-web"
+    },
+    "section:matthew-27-32": {
+      "createdAt": 1792535239756,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "simon_of_cyrene",
+            "named": true,
+            "stageId": "simon_of_cyrene"
+          },
+          {
+            "entryId": "jesus_christ_the_son_of_god_and_lord",
+            "named": true,
+            "stageId": "adult"
+          },
+          {
+            "entryId": "the_roman_soldiers",
+            "named": false,
+            "stageId": "the_roman_soldiers-main"
+          },
+          {
+            "entryId": "golgotha",
+            "stageId": "golgotha"
+          }
+        ],
+        "era": "roman-era-judea-galilee-and-the-early-church",
+        "firstUnit": "matthew-27-32",
+        "kind": "section",
+        "lastUnit": "matthew-27-37",
+        "mentionedOnly": [],
+        "title": "Way to Golgotha; the crucifixion"
+      },
+      "recordId": "matthew-27-32",
+      "source": "generated",
+      "status": "current",
+      "version": "840cf329871f923e95393a618690908d",
+      "workId": "bible-web"
+    },
+    "entry:simon_of_cyrene": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "a man of Cyrene",
+          "father of Alexander and Rufus",
+          "Simon the Cyrenian"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "matthew:character:simon_of_cyrene",
+          "mark:character:simon_cyrene",
+          "luke:character:simon_of_cyrene"
+        ],
+        "name": "Simon of Cyrene",
+        "note": "Cyrenian man compelled to carry Jesus' cross; the father of Alexander and Rufus in Mark; distinct from every other Simon in the group.",
+        "stages": [
+          {
+            "id": "simon_of_cyrene",
+            "label": "Simon of Cyrene",
+            "quotes": [
+              {
+                "quote": "Simon of Cyrene, the father of Alexander and Rufus",
+                "unit": "mark-15-21"
+              },
+              {
+                "quote": "coming from the country",
+                "unit": "luke-23-26"
+              }
+            ],
+            "text": "Simon of Cyrene: a man in his forties, sturdy and broad-shouldered from years of field labour; olive-brown skin weathered by sun; short dark hair and a close-cropped beard streaked with grey; a lined, steady face with deep-set dark eyes. Signature outfit: a plain undyed linen tunic belted at the waist, with a rough brown wool cloak thrown over the shoulders, dusty from the road. No signature props."
+          }
+        ]
+      },
+      "recordId": "simon_of_cyrene",
+      "source": "generated",
+      "status": "current",
+      "version": "c3048214849e588b2dcb552c1e0ec538",
+      "workId": "bible-web"
+    },
+    "entry:jesus_christ_the_son_of_god_and_lord": {
+      "createdAt": 1792538172786,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Jesus",
+          "Jesus Christ",
+          "the Christ",
+          "Son of Man",
+          "Son of David",
+          "Son of God",
+          "Rabbi",
+          "Teacher",
+          "Lord",
+          "the Nazarene",
+          "the Son of Man",
+          "the Lord",
+          "the carpenter",
+          "Jesus of Nazareth",
+          "the Son of God",
+          "the teacher",
+          "Master",
+          "the boy Jesus",
+          "the Word",
+          "the Teacher",
+          "the Lamb of God",
+          "the Prince of life",
+          "Christ",
+          "the Lord Jesus",
+          "Christ Jesus",
+          "the last Adam",
+          "the Beloved",
+          "the Savior",
+          "the Son of his love",
+          "the Head",
+          "the firstborn of all creation",
+          "the Lord Jesus Christ",
+          "the Son",
+          "the man Christ Jesus",
+          "the Lord's servant",
+          "the Lord, the righteous judge",
+          "our Savior",
+          "the great God and Savior",
+          "the firstborn",
+          "the apostle and high priest of our confession",
+          "the great shepherd of the sheep",
+          "the author and perfecter of faith",
+          "the mediator of a new covenant",
+          "the chief Shepherd",
+          "the cornerstone",
+          "the Lamb without blemish",
+          "Lord and Savior",
+          "Son",
+          "the Word of life",
+          "the Counselor",
+          "the righteous one",
+          "the Son of the Father",
+          "his only born Son",
+          "the Lamb",
+          "the Lion of the tribe of Judah",
+          "the Root of David",
+          "the Word of God",
+          "the faithful witness",
+          "the Alpha and the Omega",
+          "the first and the last",
+          "the Living one",
+          "the Bright and Morning Star",
+          "the Amen",
+          "the rider called Faithful and True",
+          "KING OF KINGS AND LORD OF LORDS"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "matthew:character:jesus",
+          "mark:character:jesus",
+          "luke:character:jesus",
+          "john:character:jesus",
+          "acts:character:jesus",
+          "1-corinthians:character:jesus",
+          "galatians:character:jesus_christ",
+          "ephesians:character:christ_jesus",
+          "philippians:character:jesus_christ",
+          "colossians:character:christ",
+          "1-thessalonians:character:the_lord_jesus",
+          "2-thessalonians:character:the_lord_jesus",
+          "1-timothy:character:jesus_christ",
+          "2-timothy:character:the_lord",
+          "titus:character:jesus_christ",
+          "hebrews:character:jesus",
+          "1-peter:character:jesus_christ",
+          "2-peter:character:jesus",
+          "1-john:character:jesus_christ",
+          "revelation:character:jesus_christ"
+        ],
+        "name": "Jesus Christ, the Son of God and Lord",
+        "note": "The one Jesus: the teacher from Nazareth of the Gospels and Acts, and the risen, exalted Christ and Lord of the epistles and Revelation; the same individual across all divisions, with death, resurrection and changed portrayal not creating new individuals.",
+        "stages": [
+          {
+            "id": "adult",
+            "label": "Adult Jesus",
+            "quotes": [
+              {
+                "quote": "Jesus himself, when he began to teach, was about thirty years old, being the son (as was supposed) of Joseph, the son of Heli,",
+                "unit": "luke-3-23"
+              }
+            ],
+            "text": "Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one."
+          },
+          {
+            "id": "infant",
+            "label": "Infant Jesus",
+            "quotes": [
+              {
+                "quote": "She gave birth to her firstborn son. She wrapped him in bands of cloth and laid him in a feeding trough, because there was no room for them in the inn.",
+                "unit": "luke-2-7"
+              }
+            ],
+            "text": "Jesus: newborn to about two years old; olive-brown skin, a little dark hair and dark eyes; a small infant or toddler's build, no beard. Plain undyed swaddling linen for the newborn; a small plain linen tunic as a toddler. No adult clothing or props."
+          },
+          {
+            "id": "child",
+            "label": "Boy Jesus",
+            "quotes": [
+              {
+                "quote": "When he was twelve years old, they went up to Jerusalem according to the custom of the feast;",
+                "unit": "luke-2-42"
+              }
+            ],
+            "text": "Jesus: boy of about twelve, slim and sturdy; olive-brown skin; dark brown hair cut short at the neck; dark eyes; no beard; wears a plain undyed tunic of natural linen with a dark blue-grey cloak; no props."
+          }
+        ]
+      },
+      "recordId": "jesus_christ_the_son_of_god_and_lord",
+      "source": "owner",
+      "status": "current",
+      "version": "0610430f0f21f266bc5852671492395b",
+      "workId": "bible-web"
+    },
+    "entry:the_roman_soldiers": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the soldiers",
+          "the guards",
+          "the governor's soldiers",
+          "soldiers",
+          "the cohort",
+          "guards",
+          "Herod's soldiers",
+          "Pilate's soldiers",
+          "the detachment",
+          "the commanding officer"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "matthew:character:the_soldiers",
+          "mark:character:soldiers",
+          "luke:character:pilate_soldiers",
+          "john:character:roman_soldiers"
+        ],
+        "name": "The Roman soldiers",
+        "note": "Roman soldiers (and Herodian soldiers in Luke) who mock, crucify and guard Jesus across all three Gospels; they are one body of soldiers seen from different accounts, so all three entries describe the same group.",
+        "stages": [
+          {
+            "id": "the_roman_soldiers-main",
+            "label": "The Roman soldiers",
+            "quotes": [
+              {
+                "quote": "Then the governor’s soldiers took Jesus into the Praetorium, and gathered the whole garrison together against him.",
+                "unit": "matthew-27-27"
+              },
+              {
+                "quote": "The soldiers twisted thorns into a crown and put it on his head, and dressed him in a purple garment.",
+                "unit": "john-19-2"
+              },
+              {
+                "quote": "Now the tunic was without seam, woven from the top throughout.",
+                "unit": "john-19-23"
+              }
+            ],
+            "text": "The Roman soldiers: adult men, late twenties to forties; sturdy, disciplined build; olive to tan skin of Mediterranean men; short-cropped dark or brown hair, clean-shaven or close-cropped beard; stern, weathered faces. Signature dress: a short tunic of undyed linen under a red-brown woollen military cloak, leather belt and sandals, bronze helmet worn at the cohort. Props: a short sword at the hip and a tall rectangular shield."
+          }
+        ]
+      },
+      "recordId": "the_roman_soldiers",
+      "source": "generated",
+      "status": "current",
+      "version": "399f4045a5a419ba94d5ee8d14594839",
+      "workId": "bible-web"
+    },
+    "entry:golgotha": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the place of a skull",
+          "place of a skull",
+          "The Skull",
+          "the place called the skull"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "matthew:location:golgotha",
+          "mark:location:golgotha",
+          "luke:location:golgotha",
+          "john:location:golgotha"
+        ],
+        "name": "Golgotha",
+        "note": "The hill outside Jerusalem called the place of a skull, where Jesus is crucified; the Matthew and John entries describe the same place and join here.",
+        "stages": [
+          {
+            "id": "golgotha",
+            "label": "Golgotha",
+            "quotes": [
+              {
+                "quote": "When they came to a place called “Golgotha”, that is to say, “The place of a skull,”",
+                "unit": "matthew-27-33"
+              },
+              {
+                "quote": "When they came to the place that is called “The Skull”",
+                "unit": "luke-23-33"
+              },
+              {
+                "quote": "He went out, bearing his cross, to the place called “The Place of a Skull”",
+                "unit": "john-19-17"
+              }
+            ],
+            "text": "Golgotha: a rounded rocky knoll of pale limestone rising just outside the walls of Jerusalem, bare of trees and scrub except for thin dry grass in cracks. Its crown is worn smooth and bony-white, giving the hill its name, the place of a skull. A rough stone-cut quarry face and a few low olive trees stand at its foot, and the walls and towers of the city rise distant behind it."
+          }
+        ]
+      },
+      "recordId": "golgotha",
+      "source": "generated",
+      "status": "current",
+      "version": "c36463c2f0ae49e9e91eb82a3e12105e",
+      "workId": "bible-web"
+    },
+    "moment:1-samuel-17-49": {
+      "createdAt": 1792535289159,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "1-samuel-17-49",
+        "kind": "moment",
+        "lastUnit": "1-samuel-17-49",
+        "sectionId": "1-samuel-17-48"
+      },
+      "recordId": "1-samuel-17-49",
+      "source": "generated",
+      "status": "current",
+      "version": "f71f1e242df5e99f56ec88cc154f5a28",
+      "workId": "bible-web"
+    },
+    "section:1-samuel-17-48": {
+      "createdAt": 1792535234262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_youth"
+          },
+          {
+            "entryId": "goliath",
+            "named": false,
+            "stageId": "goliath"
+          },
+          {
+            "entryId": "saul",
+            "named": true,
+            "stageId": "saul"
+          },
+          {
+            "entryId": "abner_son_of_ner",
+            "named": true,
+            "stageId": "abner_son_of_ner"
+          },
+          {
+            "entryId": "philistines",
+            "named": true,
+            "stageId": "philistines-main"
+          },
+          {
+            "entryId": "valley_of_elah",
+            "stageId": "valley_of_elah"
+          },
+          {
+            "entryId": "gath_philistine_city",
+            "stageId": "gath_philistine_city"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-samuel-17-48",
+        "kind": "section",
+        "lastUnit": "1-samuel-17-58",
+        "mentionedOnly": [
+          "jesse"
+        ],
+        "title": "David kills Goliath"
+      },
+      "recordId": "1-samuel-17-48",
+      "source": "generated",
+      "status": "current",
+      "version": "e8b7c8e44f1545b9623899ac6aff9228",
+      "workId": "bible-web"
+    },
+    "entry:david_son_of_jesse_king_of_israel": {
+      "createdAt": 1792538173413,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "David",
+          "the youngest son of Jesse",
+          "the shepherd boy",
+          "the son of Jesse",
+          "Saul's son-in-law",
+          "captain over a thousand",
+          "the king",
+          "king David",
+          "my lord the king",
+          "the anointed of the God of Jacob",
+          "King David",
+          "your father David",
+          "son of Jesse",
+          "the seer's anointed",
+          "David my father",
+          "the servant of Yahweh",
+          "the sweet psalmist",
+          "David the king",
+          "the patriarch David"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-samuel:character:david",
+          "2-samuel:character:david",
+          "1-kings:character:david",
+          "1-chronicles:character:david",
+          "2-chronicles:character:david",
+          "psalms:character:david",
+          "matthew:character:david",
+          "mark:character:david",
+          "acts:character:david_king",
+          "romans:character:david",
+          "hebrews:character:david"
+        ],
+        "name": "David son of Jesse (king of Israel)",
+        "note": "The single David of the Hebrew books and the New Testament references: son of Jesse, shepherd, harpist, anointed king, father of Solomon; all entries describe this one king and the hint's second David is not needed.",
+        "stages": [
+          {
+            "id": "david_king",
+            "label": "David as king",
+            "quotes": [
+              {
+                "quote": "David was thirty years old when he began to reign, and he reigned forty years.",
+                "unit": "2-samuel-5-4"
+              }
+            ],
+            "text": "David: a man of about thirty to fifty, athletic and broad-shouldered, of medium height; ruddy complexion, bright dark eyes, short dark beard trimmed close; dark hair cut to the shoulder. Signature outfit: a long blue royal robe with a sash of crimson and gold, over an undertunic of white linen. Carries a bronze-bossed sword in a leather scabbard and a harp."
+          },
+          {
+            "id": "david_youth",
+            "label": "David as youth",
+            "quotes": [
+              {
+                "quote": "He sent, and brought him in. Now he was ruddy, with a handsome face and good appearance. Yahweh said, “Arise! Anoint him, for this is he.”",
+                "unit": "1-samuel-16-12"
+              }
+            ],
+            "text": "David: a beardless youth and young adult before kingship; slender, wiry build, ruddy complexion, bright dark eyes and short dark curly hair. Plain undyed brown wool tunic, leather belt and sandals; shepherd's pouch and sling when called for. No crown or royal robes."
+          },
+          {
+            "id": "david_elder",
+            "label": "David as elder",
+            "quotes": [
+              {
+                "quote": "Now King David was old and advanced in years; and they covered him with clothes, but he couldn’t keep warm.",
+                "unit": "1-kings-1-1"
+              }
+            ],
+            "text": "David: an old man of about seventy, lean and bent with age, his frame still dignified; ruddy complexion faded to a weathered warmth, dark eyes deep-set and gentle, white hair and a white beard cut short. Signature outfit: a plain long wool robe of undyed cream with a dark blue cloak over the shoulders for warmth. Carries a staff of almond wood."
+          }
+        ]
+      },
+      "recordId": "david_son_of_jesse_king_of_israel",
+      "source": "owner",
+      "status": "current",
+      "version": "450993e6492b41cb6a5c1a8eab0b9ea2",
+      "workId": "bible-web"
+    },
+    "entry:goliath": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the Philistine champion",
+          "the Philistine of Gath"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-samuel:character:goliath"
+        ],
+        "name": "Goliath",
+        "note": "Giant Philistine champion of Gath who challenges Israel and is killed by David.",
+        "stages": [
+          {
+            "id": "goliath",
+            "label": "Goliath of Gath",
+            "quotes": [
+              {
+                "quote": "A champion out of the camp of the Philistines named Goliath of Gath, whose height was six cubits and a span went out.",
+                "unit": "1-samuel-17-4"
+              },
+              {
+                "quote": "the champion, the Philistine of Gath, Goliath by name, came up out of the ranks of the Philistines",
+                "unit": "1-samuel-17-23"
+              },
+              {
+                "quote": "Behold, the sword of Goliath the Philistine, whom you killed in the valley of Elah",
+                "unit": "1-samuel-21-9"
+              }
+            ],
+            "text": "Goliath: man of enormous height, over nine feet tall, broad-shouldered and heavily muscled, around forty years old. Olive-brown skin, close-cropped dark hair and a full dark beard, strong heavy brow, grave and hard features. Wears bronze scale armour over a linen tunic, bronze greaves, and a bronze helmet, colours of bronze, dark leather and undyed linen. Carries a great spear with a heavy iron head and a sword at his side."
+          }
+        ]
+      },
+      "recordId": "goliath",
+      "source": "generated",
+      "status": "current",
+      "version": "937855dfce04753469230a972f8e1f5b",
+      "workId": "bible-web"
+    },
+    "entry:saul": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the son of Kish",
+          "the king",
+          "Saul the Benjamite",
+          "Saul's house",
+          "son of Kish",
+          "the king Saul"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-samuel:character:saul",
+          "2-samuel:character:saul",
+          "1-chronicles:character:saul",
+          "psalms:character:saul"
+        ],
+        "name": "Saul",
+        "note": "First king of Israel, son of Kish.",
+        "stages": [
+          {
+            "id": "saul",
+            "label": "Saul, first king of Israel",
+            "quotes": [
+              {
+                "quote": "Am I not a Benjamite, of the smallest of the tribes of Israel?",
+                "unit": "1-samuel-9-21"
+              },
+              {
+                "quote": "Saul disguised himself and put on other clothing",
+                "unit": "1-samuel-28-8"
+              },
+              {
+                "quote": "they found Saul and his three sons fallen on Mount Gilboa.",
+                "unit": "1-samuel-31-8"
+              }
+            ],
+            "text": "Saul: a man in his forties, tall and broad-shouldered with a strong, weathered face, dark hair cut to the neck and a short, close beard. Skin olive-brown from sun. Dignified, brooding eyes. Signature outfit: a long undertunic of deep blue wool under a dark red royal cloak with a gold-bordered hem, a bronze-scaled leather belt and a plain sandal. Carries a royal spear of dark ash wood with a bronze head."
+          }
+        ]
+      },
+      "recordId": "saul",
+      "source": "generated",
+      "status": "current",
+      "version": "2d4075d8fe8fc6dfdb6a3f00f1b8c37c",
+      "workId": "bible-web"
+    },
+    "entry:abner_son_of_ner": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Abner",
+          "Ner's son",
+          "captain of Saul's army",
+          "Saul's uncle",
+          "the son of Ner",
+          "Abner the son of Ner"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-samuel:character:abner",
+          "2-samuel:character:abner",
+          "1-kings:character:abner"
+        ],
+        "name": "Abner son of Ner",
+        "note": "Captain of Saul's army and Saul's uncle in Samuel, who later makes Ishbosheth king and is killed by Joab at Hebron in Samuel 2.",
+        "stages": [
+          {
+            "id": "abner_son_of_ner",
+            "label": "Abner son of Ner",
+            "quotes": [
+              {
+                "quote": "Abner the son of Ner, Saul’s uncle.",
+                "unit": "1-samuel-14-50"
+              },
+              {
+                "quote": "Am I a dog’s head that belongs to Judah?",
+                "unit": "2-samuel-3-8"
+              }
+            ],
+            "text": "Abner son of Ner: a man of middle to later years, broad-shouldered and sturdy, with a dignified, weathered face. Skin olive-brown from the sun. Hair dark, graying at the temples, worn to the shoulder; a short, close-cut grey-streaked beard. Wears a long undertunic and a cloak of deep blue over bronze scale armour, with a leather sword belt. Carries a long spear and a bronze-hilted sword."
+          }
+        ]
+      },
+      "recordId": "abner_son_of_ner",
+      "source": "generated",
+      "status": "current",
+      "version": "4e5731fd610164b0b29abc6589841ff1",
+      "workId": "bible-web"
+    },
+    "entry:philistines": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "lords of the Philistines",
+          "men of Ashkelon",
+          "the Gazites",
+          "the Philistines",
+          "the lords of the Philistines"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "judges:character:philistines",
+          "1-samuel:character:the_philistines"
+        ],
+        "name": "Philistines",
+        "note": "The oppressors of Israel and lords of the Philistines in Samson's story; a foreign people, not an Israelite tribe.",
+        "stages": [
+          {
+            "id": "philistines-main",
+            "label": "Philistines (typical warrior of the lords' armies)",
+            "quotes": [
+              {
+                "quote": "the five lords of the Philistines",
+                "unit": "judges-3-3"
+              },
+              {
+                "quote": "thirty thousand chariots, six thousand horsemen",
+                "unit": "1-samuel-13-5"
+              }
+            ],
+            "text": "Philistines: adult men of the coastal cities, age twenty to forty; medium-to-broad build, sun-browned skin; close-cropped dark hair and a short beard; calm, hard-set features, not caricatured. Typical dress: a knee-length woven tunic of undyed wool with a bordered hem in blue or red, a leather belt and a short cloak of dark wool. Signature props: a bronze helmet with a crest and a round shield, carried by the army; no props carried by the figure alone."
+          }
+        ]
+      },
+      "recordId": "philistines",
+      "source": "generated",
+      "status": "current",
+      "version": "4ada5743ece0766a8afb707ba6960447",
+      "workId": "bible-web"
+    },
+    "entry:valley_of_elah": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the valley of Elah"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-samuel:location:valley_of_elah"
+        ],
+        "name": "Valley of Elah",
+        "note": "Valley in 1 Samuel between the armies where David fights and kills Goliath.",
+        "stages": [
+          {
+            "id": "valley_of_elah",
+            "label": "Valley of Elah",
+            "quotes": [
+              {
+                "quote": "encamped in the valley of Elah, and set the battle in array against the Philistines",
+                "unit": "1-samuel-17-2"
+              }
+            ],
+            "text": "Valley of Elah: a broad, shallow valley of the Judean lowlands between rounded hills of terraced limestone, with a dry watercourse winding through its floor. Scattered terebinth and oak trees and low scrub grow along the slopes, and sun-baked earth shows pale between rocks. Rough stone walls and simple dwellings of field stone mark the hill ridges."
+          }
+        ]
+      },
+      "recordId": "valley_of_elah",
+      "source": "generated",
+      "status": "current",
+      "version": "bf5870ac576b14e30d30c7744e4a97f8",
+      "workId": "bible-web"
+    },
+    "entry:gath_philistine_city": {
+      "createdAt": 1792535223679,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Gath"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-samuel:location:gath_city"
+        ],
+        "name": "Gath (Philistine city)",
+        "note": "The Philistine city where the ark was taken, Goliath's home, and David's refuge; distinct from the Judahite villages named in Micah.",
+        "stages": [
+          {
+            "id": "gath_philistine_city",
+            "label": "Gath, Philistine city",
+            "quotes": [
+              {
+                "quote": "They carried the ark of the God of Israel there.",
+                "unit": "1-samuel-5-8"
+              },
+              {
+                "quote": "A champion out of the camp of the Philistines named Goliath of Gath",
+                "unit": "1-samuel-17-4"
+              },
+              {
+                "quote": "went to Achish the king of Gath.",
+                "unit": "1-samuel-21-10"
+              },
+              {
+                "quote": "David lived with Achish at Gath",
+                "unit": "1-samuel-27-3"
+              }
+            ],
+            "text": "Gath: a fortified Philistine city on a low hill of the Shephelah, reached by a dusty road from the lowland fields. Thick mudbrick and stone city walls crowned with timber towers, a broad gate of heavy timber and bronze fittings, and tall stone-and-mudbrick houses with flat roofs clustered inside. Olive groves, terraced vineyards and grain fields spread beyond the walls; sycamore and terebinth stand along the road. Cult stands and a temple precinct rise above the houses."
+          }
+        ]
+      },
+      "recordId": "gath_philistine_city",
+      "source": "generated",
+      "status": "current",
+      "version": "e06ab2ff0892f9e4e51b19e79dc8e27b",
+      "workId": "bible-web"
+    },
+    "moment:john-11-43": {
+      "createdAt": 1792538147308,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "john-11-43",
+        "kind": "moment",
+        "lastUnit": "john-11-43",
+        "sectionId": "john-11-38"
+      },
+      "recordId": "john-11-43",
+      "source": "generated",
+      "status": "current",
+      "version": "4782f7adbf22e47e2a5a83e5d215afb9",
+      "workId": "bible-web"
+    },
+    "section:john-11-38": {
+      "createdAt": 1793220564905,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "jesus_christ_the_son_of_god_and_lord",
+            "named": true,
+            "stageId": "adult"
+          },
+          {
+            "entryId": "martha",
+            "named": true,
+            "stageId": "martha-main"
+          },
+          {
+            "entryId": "lazarus_of_bethany",
+            "named": true,
+            "stageId": "lazarus_of_bethany_main"
+          },
+          {
+            "entryId": "crowd_in_john",
+            "named": true,
+            "stageId": "crowd_in_john-main"
+          }
+        ],
+        "era": "roman-era-judea-galilee-and-the-early-church",
+        "firstUnit": "john-11-38",
+        "kind": "section",
+        "lastUnit": "john-11-44",
+        "mentionedOnly": [],
+        "title": "Lazarus raised from the tomb"
+      },
+      "recordId": "john-11-38",
+      "source": "owner",
+      "status": "current",
+      "version": "0701203a2ee354c95bbb8a12f73ad05e",
+      "workId": "bible-web"
+    },
+    "entry:martha": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the sister of Mary",
+          "sister of Lazarus"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "luke:character:martha",
+          "john:character:martha"
+        ],
+        "name": "Martha",
+        "note": "Woman of Bethany who serves Jesus in her house and is the sister of Mary; not the same as Miriam, the sister of Moses and Aaron.",
+        "stages": [
+          {
+            "id": "martha-main",
+            "label": "Martha of Bethany",
+            "quotes": [
+              {
+                "quote": "a certain woman named Martha received him into her house",
+                "unit": "luke-10-38"
+              },
+              {
+                "quote": "Martha was distracted with much serving",
+                "unit": "luke-10-40"
+              },
+              {
+                "quote": "Now Jesus loved Martha, and her sister, and Lazarus.",
+                "unit": "john-11-5"
+              }
+            ],
+            "text": "Martha of Bethany: a woman in her thirties, of sturdy and capable build, with warm olive skin weathered by sun. Dark brown hair is covered by a plain linen head veil pulled back from a careful face with a firm mouth and tired, attentive eyes. Her signature outfit, worn most often, is an undyed ochre-brown tunic with a rust-red wool cloak over the shoulders, belted with a plain cord. She carries no signature props."
+          }
+        ]
+      },
+      "recordId": "martha",
+      "source": "generated",
+      "status": "current",
+      "version": "f264452d137791bab34ab055c2429841",
+      "workId": "bible-web"
+    },
+    "entry:lazarus_of_bethany": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Lazarus",
+          "our friend Lazarus",
+          "the dead man"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "john:character:lazarus"
+        ],
+        "name": "Lazarus of Bethany",
+        "note": "Man of Bethany, brother of Mary and Martha, raised from the tomb after four days (John); distinct from the beggar in Luke's parable.",
+        "stages": [
+          {
+            "id": "lazarus_of_bethany_main",
+            "label": "Lazarus of Bethany",
+            "quotes": [
+              {
+                "quote": "a certain man was sick, Lazarus from Bethany, of the village of Mary and her sister, Martha.",
+                "unit": "john-11-1"
+              },
+              {
+                "quote": "Lazarus was one of those who sat at the table with him.",
+                "unit": "john-12-2"
+              }
+            ],
+            "text": "Lazarus of Bethany: man in his thirties; lean, medium build; olive skin weathered by sun; short dark hair and close-trimmed beard, streaked grey at the chin; calm, steady face with deep-set eyes. Signature outfit: plain undyed linen tunic in ochre-brown, with a dark wool cloak in earth-brown. Carries no props."
+          }
+        ]
+      },
+      "recordId": "lazarus_of_bethany",
+      "source": "generated",
+      "status": "current",
+      "version": "544d1d7004e6ca69714287b81b23ffec",
+      "workId": "bible-web"
+    },
+    "entry:crowd_in_john": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the crowd",
+          "the multitude",
+          "the great multitude",
+          "the people"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "john:character:crowd"
+        ],
+        "name": "Crowd in John",
+        "note": "Large crowds who follow Jesus, are fed at the five thousand and debate his identity in John's gospel.",
+        "stages": [
+          {
+            "id": "crowd_in_john-main",
+            "label": "Crowd in John",
+            "quotes": [
+              {
+                "quote": "So the men sat down, in number about five thousand.",
+                "unit": "john-6-10"
+              },
+              {
+                "quote": "There was much murmuring among the multitudes concerning him.",
+                "unit": "john-7-12"
+              }
+            ],
+            "text": "Crowd in John: adults and some older children of Jewish and Gentile communities in Galilee and Judea, ages roughly 15 to 60; lean to sturdy build; olive to tan skin; dark or grey-streaked hair kept short or tied back, beards kept trimmed or unshaven among the men; plain, weathered faces showing the sun and labour. Signature outfit: a undyed linen or wool tunic in ochre, earth brown or faded blue, with a long woollen cloak in dusty ochre, worn over the shoulders. Carries nothing alone."
+          }
+        ]
+      },
+      "recordId": "crowd_in_john",
+      "source": "generated",
+      "status": "current",
+      "version": "1a31002268bffbab890a374ab1694b36",
+      "workId": "bible-web"
+    },
+    "moment:luke-15-20": {
+      "createdAt": 1792538142065,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "luke-15-20",
+        "kind": "moment",
+        "lastUnit": "luke-15-20",
+        "sectionId": "luke-15-11"
+      },
+      "recordId": "luke-15-20",
+      "source": "generated",
+      "status": "current",
+      "version": "6e8698b622e6a1256fafbfbe2043a3c2",
+      "workId": "bible-web"
+    },
+    "section:luke-15-11": {
+      "createdAt": 1792535242233,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "the_younger_son",
+            "named": true,
+            "stageId": "younger-son"
+          },
+          {
+            "entryId": "the_prodigal_s_father",
+            "named": true,
+            "stageId": "the_prodigal_s_father-main"
+          },
+          {
+            "entryId": "galilee",
+            "stageId": "galilee-main"
+          }
+        ],
+        "era": "roman-era-judea-galilee-and-the-early-church",
+        "firstUnit": "luke-15-11",
+        "kind": "section",
+        "lastUnit": "luke-15-24",
+        "mentionedOnly": [],
+        "title": "Parable of the prodigal son"
+      },
+      "recordId": "luke-15-11",
+      "source": "generated",
+      "status": "current",
+      "version": "1d4716b1ac2ebb5ca57e83b9a3dda86d",
+      "workId": "bible-web"
+    },
+    "entry:the_younger_son": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the prodigal"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "luke:character:prodigal_son"
+        ],
+        "name": "the younger son",
+        "note": "Younger son in the parable of the lost son (ch. 15).",
+        "stages": [
+          {
+            "id": "younger-son",
+            "label": "the younger son",
+            "quotes": [
+              {
+                "quote": "the younger son gathered all of this together and traveled into a far country",
+                "unit": "luke-15-13"
+              }
+            ],
+            "text": "the younger son: Young man in his late teens or early twenties, slender and wiry, with a lean build. Olive skin browned by travel and weather. Dark hair cut short and unkempt, with a short, sparse beard. Face young and open, with weary eyes and a tired mouth. Signature outfit: a sun-faded undyed linen tunic with a dust-brown woollen cloak. Signature prop: a small leather purse at his belt."
+          }
+        ]
+      },
+      "recordId": "the_younger_son",
+      "source": "generated",
+      "status": "current",
+      "version": "7b90ac628e30f793f482edaa29576ef6",
+      "workId": "bible-web"
+    },
+    "entry:the_prodigal_s_father": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the father",
+          "the father in the parable"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "luke:character:prodigal_father"
+        ],
+        "name": "The prodigal's father",
+        "note": "Unnamed father of the two sons in Luke's parable of the prodigal son, who welcomes his younger son home.",
+        "stages": [
+          {
+            "id": "the_prodigal_s_father-main",
+            "label": "The prodigal's father",
+            "quotes": [
+              {
+                "quote": "Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.",
+                "unit": "luke-15-22"
+              }
+            ],
+            "text": "The prodigal's father: man in his late fifties to sixties, of middle height and sturdy, weathered build from years of farm labour; olive skin, lined with sun; close-cropped grey-streaked dark hair and a short greying beard; deep-set, kind eyes and a broad, steady face. Signature outfit: a plain undyed linen tunic of ochre-brown under a dark russet woollen cloak, with a fringed tzitzit at the hem. Signature props: none carried alone; a bronze signet ring on his hand."
+          }
+        ]
+      },
+      "recordId": "the_prodigal_s_father",
+      "source": "generated",
+      "status": "current",
+      "version": "66749b84d4e662bb73add09cb5e59710",
+      "workId": "bible-web"
+    },
+    "entry:galilee": {
+      "createdAt": 1792535228766,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the region of Galilee"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "matthew:location:galilee",
+          "luke:location:galilee"
+        ],
+        "name": "Galilee",
+        "note": "The northern region of Galilee where Jesus preaches, teaches and heals; both Matthew and Luke describe the same region, so these entries are one place.",
+        "stages": [
+          {
+            "id": "galilee-main",
+            "label": "Galilee",
+            "quotes": [
+              {
+                "quote": "Walking by the sea of Galilee, he saw two brothers",
+                "unit": "matthew-4-18"
+              },
+              {
+                "quote": "teaching in their synagogues, preaching the Good News of the Kingdom",
+                "unit": "matthew-4-23"
+              },
+              {
+                "quote": "toward the sea, beyond the Jordan, Galilee of the Gentiles",
+                "unit": "matthew-4-15"
+              }
+            ],
+            "text": "Galilee: Northern hill country falling to a freshwater lake, the sea of Galilee, its shore lined with fishing boats and nets drying on stone. Low limestone villages of flat-roofed houses, a white stone synagogue with a shallow portico, terraced olive groves, fig trees and scrubland. Roman roads and a distant Gentile town on the slopes."
+          }
+        ]
+      },
+      "recordId": "galilee",
+      "source": "generated",
+      "status": "current",
+      "version": "af96b1e29d86a6d175c63beada4179ae",
+      "workId": "bible-web"
+    },
+    "moment:psalms-23-2": {
+      "createdAt": 1792535323827,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "psalms-23-2",
+        "kind": "moment",
+        "lastUnit": "psalms-23-2",
+        "sectionId": "psalms-23-1"
+      },
+      "recordId": "psalms-23-2",
+      "source": "generated",
+      "status": "current",
+      "version": "a736ed8f2bd327fed02dbfa7779c9183",
+      "workId": "bible-web"
+    },
+    "section:psalms-23-1": {
+      "createdAt": 1792538189607,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_king"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "psalms-23-1",
+        "kind": "section",
+        "lastUnit": "psalms-23-6",
+        "mentionedOnly": [
+          "god_yahweh_the_father_and_god_of_israel"
+        ],
+        "title": "Yahweh is my shepherd"
+      },
+      "recordId": "psalms-23-1",
+      "source": "owner",
+      "status": "current",
+      "version": "81a0e4a54d1fb1c61df7790d8b14f4a1",
+      "workId": "bible-web"
+    }
+  },
+  "references": {
+    "styleReference:classical": {
+      "createdAt": 1793038020263,
+      "fingerprint": "56cdda26e88a809fa8bbdebe2cc8ccea",
+      "id": "mx777dy32rnfvxpkrap934178d8h0gmc",
+      "inputs": [
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "be88bfa2cb7f7a9d0eeb899a63a308be"
+        }
+      ],
+      "kind": "styleReference",
+      "notes": [],
+      "pinned": false,
+      "recordId": "classical",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2e99zh3qps4ys5tx6r0jecex8h1tfg",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "styleReference:watercolor": {
+      "createdAt": 1792538338583,
+      "fingerprint": "fa549f4888d199a3c3fd94209103e214",
+      "id": "mx707m2ep4xnbywxw0z0441c9h8gnwms",
+      "inputs": [
+        {
+          "kind": "style",
+          "recordId": "watercolor",
+          "version": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "be88bfa2cb7f7a9d0eeb899a63a308be"
+        }
+      ],
+      "kind": "styleReference",
+      "notes": [],
+      "pinned": false,
+      "recordId": "watercolor",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "styleReference:icon": {
+      "createdAt": 1792538308239,
+      "fingerprint": "1cc16e5294b9e8b1744d73aa01f936e6",
+      "id": "mx7a2jrtajfmc5v35e8p6t84gh8gm6ey",
+      "inputs": [
+        {
+          "kind": "style",
+          "recordId": "icon",
+          "version": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "be88bfa2cb7f7a9d0eeb899a63a308be"
+        }
+      ],
+      "kind": "styleReference",
+      "notes": [],
+      "pinned": false,
+      "recordId": "icon",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "styleReference:fresco": null,
+    "sheet:god_yahweh_the_father_and_god_of_israel:god_yahweh_the_father_stage_1": null,
+    "sheet:moses:moses-elder": {
+      "createdAt": 1792538246320,
+      "fingerprint": "7d323628f0bdc65959ff550032a27b04",
+      "id": "mx7ez1h3yaq8yq7ea3mty3a6vx8gmyy8",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "moses",
+          "version": "ed16bff281e7750b58b56b3a367a2146"
+        },
+        {
+          "kind": "stage",
+          "recordId": "moses:moses-elder",
+          "version": "cbc2c86ab27c20cd4f8199529136c54e"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "exodus-wilderness-and-conquest-of-canaan+monarchy-of-israel-and-judah+roman-era-judea-galilee-and-the-early-church",
+          "version": "f7ea3e8c84b26bd5c5328574ffae7370"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Old man with white hair and long white beard, matching canon age and colouring",
+        "Brown weathered skin, lean build consistent with canon",
+        "Undyed linen tunic belted at waist with long dark-brown cloak, matches canon",
+        "Carries a wooden staff with a hooked top; canon specifies dark acacia wood, staff appears medium brown rather than dark acacia",
+        "Head-and-shoulders close-up shows deep-set eyes and lined brow as described"
+      ],
+      "pinned": false,
+      "recordId": "moses:moses-elder",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:the_israelite_people_the_children_of_israel:the_israelite_people_the_children_of_israel_s1": null,
+    "sheet:the_egyptians:the_egyptians-s1": null,
+    "sheet:red_sea:red_sea": null,
+    "sheet:isaiah_son_of_amoz:isaiah_son_of_amoz-1": {
+      "createdAt": 1793321772253,
+      "fingerprint": "1504623fb7e93818f714c267f7fd36b3",
+      "id": "mx76q10cdbdd6cdz2n3me97fdx8h9082",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "isaiah_son_of_amoz",
+          "version": "2968951d41e33bd4d20e4d15071e24e1"
+        },
+        {
+          "kind": "stage",
+          "recordId": "isaiah_son_of_amoz:isaiah_son_of_amoz-1",
+          "version": "9487278fef8b314437ef4037f99d8883"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "5d9c203a7885036dfd0954726c62844e"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Figure matches canon: lean build, weathered brown skin, dark hair graying at temples to shoulders, short full grey beard, linen tunic with rope belt, brown earth-tone wool cloak, wooden staff.",
+        "Figure appears more weathered and ragged in outfit than the plain undyed linen and rough wool described; acceptable as a note only.",
+        "Staff is present as the traveling prophet prop."
+      ],
+      "pinned": false,
+      "recordId": "isaiah_son_of_amoz:isaiah_son_of_amoz-1",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2fzqxsdcezrmkp0vv0t12s898h9440",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:seraphim:seraphim-main": null,
+    "sheet:yahweh_s_house_in_jerusalem_the_temple:yahweh_s_house_in_jerusalem_the_temple_s1": {
+      "createdAt": 1793321659919,
+      "fingerprint": "348e1cbbc9da7b0640e54a63254482c7",
+      "id": "mx7018jb8k0q9k5jnmdd8z04sd8h8973",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "yahweh_s_house_in_jerusalem_the_temple",
+          "version": "54534e91ce4170967bcea0e9d7baa045"
+        },
+        {
+          "kind": "stage",
+          "recordId": "yahweh_s_house_in_jerusalem_the_temple:yahweh_s_house_in_jerusalem_the_temple_s1",
+          "version": "48d38ddd81728fbc6e9aecf5ea740601"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "5d9c203a7885036dfd0954726c62844e"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Stone ashlar temple with gold-covered upper walls and roof, consistent with canon",
+        "Two bronze pillars and bronze molten sea on oxen shown in closer view",
+        "Olive and cypress trees and walled Jerusalem city visible in wide view",
+        "Carved door panels with palm and floral motifs visible",
+        "Cedar roofing and cedar-panelled interior not clearly visible"
+      ],
+      "pinned": false,
+      "recordId": "yahweh_s_house_in_jerusalem_the_temple:yahweh_s_house_in_jerusalem_the_temple_s1",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2crq3jhpw316nwtn7k1jenh98h9smv",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:daniel_prophet_of_babylon:daniel_main": {
+      "createdAt": 1793323648751,
+      "fingerprint": "d899053238a1015388f1383ad32de356",
+      "id": "mx79aphxskvyz0y4k34p4b928h8h9nc5",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "daniel_prophet_of_babylon",
+          "version": "a9ff9e07f51dfb0e1c2ce6df48f8d113"
+        },
+        {
+          "kind": "stage",
+          "recordId": "daniel_prophet_of_babylon:daniel_main",
+          "version": "9e186cfd7b808fc4717b3045ce3dc329"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "5d9c203a7885036dfd0954726c62844e"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Lean build, greying close-cropped hair, short trimmed grey beard consistent with canon",
+        "Olive-brown skin tone consistent with canon",
+        "Long undyed linen tunic under indigo cloak with blue fringed hem consistent with canon",
+        "Leather scroll case slung at hip present consistent with canon",
+        "Calm, grave expression consistent with canon"
+      ],
+      "pinned": false,
+      "recordId": "daniel_prophet_of_babylon:daniel_main",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2575h3rz1vtstda30mkqjmn18h8g0a",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:the_ancient_of_days:ancient-of-days-light": null,
+    "sheet:one_like_a_son_of_man:one_like_a_son_of_man": null,
+    "sheet:babylon:babylon": {
+      "createdAt": 1793321808953,
+      "fingerprint": "f6b2d8c2e58a596f281cdcaa0666a00e",
+      "id": "mx71e4m12hgr63ted2yvmqv83s8h87af",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "babylon",
+          "version": "de8721810ea07cf6cc361bc90ea0502d"
+        },
+        {
+          "kind": "stage",
+          "recordId": "babylon:babylon",
+          "version": "74fe300a06d1e61964522d128710394e"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "5d9c203a7885036dfd0954726c62844e"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Wide view shows walled brick city on flat plain with canals and palm-lined rivers, ziggurat rising above skyline, consistent with canon.",
+        "Closer view shows blue-glazed gate with bronze-like banding and lion reliefs along a paved processional way, consistent with canon's gate description.",
+        "Date palms and reed-lined waterways appear in the wide view as described in canon."
+      ],
+      "pinned": false,
+      "recordId": "babylon:babylon",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg20fqj8qw4f2rsq7m75r3mj4x8h9wg4",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:ministering_assembly_in_daniels_vision:ministering_assembly-main": null,
+    "sheet:john_the_seer_revelation:john-seer": {
+      "createdAt": 1793322218295,
+      "fingerprint": "d1f6b10041032935c0c9b3c8f7119d44",
+      "id": "mx7ap7qfn4pmtn8jax6vg72nn98h84rv",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "john_the_seer_revelation",
+          "version": "0ee871475aa1ac1825d1ea2f0a30165b"
+        },
+        {
+          "kind": "stage",
+          "recordId": "john_the_seer_revelation:john-seer",
+          "version": "3f744316f57454e35cb849fe143a77da"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "visionary-heaven-and-the-end-of-days",
+          "version": "599c0d1b8d8ffb982460eca3e364eb8f"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Man of apparent middle-to-older age with short greying hair and grey beard, consistent with canon",
+        "Wears ochre-brown undyed linen tunic under rough dark brown wool mantle, matching canon outfit",
+        "Carries a worn wooden staff; a small scroll case is visible at the waist in the front and three-quarter views",
+        "Build appears spare and of middle height, consistent with canon",
+        "Weathered olive-toned skin and lined brow consistent with canon"
+      ],
+      "pinned": false,
+      "recordId": "john_the_seer_revelation:john-seer",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2drx5b4s398xd7z0kkhwa1n18h8kdd",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:four_living_creatures_revelation:four-living-creatures-revelation-main": null,
+    "sheet:twenty_four_elders_of_revelation:elders-revelation": null,
+    "sheet:heavenly_throne_room:heavenly_throne_room": null,
+    "sheet:ruth:ruth": null,
+    "sheet:boaz:boaz": null,
+    "sheet:naomi:naomi-main": null,
+    "sheet:women_of_bethlehem:women_of_bethlehem_main": null,
+    "sheet:naomi_s_house_in_bethlehem:naomi_house_bethlehem": null,
+    "sheet:simon_of_cyrene:simon_of_cyrene": null,
+    "sheet:jesus_christ_the_son_of_god_and_lord:adult": {
+      "createdAt": 1792538274120,
+      "fingerprint": "faeacb4c217a32a73a86082443a41d40",
+      "id": "mx7er55bwabgx67py4vwk3fj6h8gnd40",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "jesus_christ_the_son_of_god_and_lord",
+          "version": "0610430f0f21f266bc5852671492395b"
+        },
+        {
+          "kind": "stage",
+          "recordId": "jesus_christ_the_son_of_god_and_lord:adult",
+          "version": "7fdcc3bb7cba387043c1187383757e07"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "roman-era-judea-galilee-and-the-early-church+visionary-heaven-and-the-end-of-days",
+          "version": "136aff1fa5f7d1105d33347727fce3a3"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Hair is dark brown, shoulder-length, parted at centre, consistent with canon",
+        "Short dark beard present, consistent with canon",
+        "Tunic is natural linen, cloak is dark blue-grey, sandals worn, consistent with canon",
+        "Olive-brown skin tone and calm dark eyes appear consistent with canon",
+        "No props shown, consistent with canon"
+      ],
+      "pinned": false,
+      "recordId": "jesus_christ_the_son_of_god_and_lord:adult",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:the_roman_soldiers:the_roman_soldiers-main": null,
+    "sheet:golgotha:golgotha": {
+      "createdAt": 1793322070464,
+      "fingerprint": "af69caa4f9db3ae7cf81feac40bff170",
+      "id": "mx7b2gezzq3vq8s2bcarzkxp3n8h843r",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "golgotha",
+          "version": "c36463c2f0ae49e9e91eb82a3e12105e"
+        },
+        {
+          "kind": "stage",
+          "recordId": "golgotha:golgotha",
+          "version": "f4edf6c3a780b2501f08864bd6c6cfcf"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "roman-era-judea-galilee-and-the-early-church",
+          "version": "effd73210eda93eac4ac8aa98772db15"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Pale limestone knoll with bony-white smooth crown matches canon",
+        "Quarry face and low olive trees at foot match canon",
+        "City walls and towers visible distantly match canon",
+        "Thin dry grass in cracks present"
+      ],
+      "pinned": false,
+      "recordId": "golgotha:golgotha",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg2f9samx6n9g11bv0aw7v15qn8h82m1",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:david_son_of_jesse_king_of_israel:david_youth": {
+      "createdAt": 1792538258040,
+      "fingerprint": "983fadd660f7445fbbeebb1e704b49a2",
+      "id": "mx7fdfjt15tzftpr33s4dwyp1x8gnfcp",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "david_son_of_jesse_king_of_israel",
+          "version": "450993e6492b41cb6a5c1a8eab0b9ea2"
+        },
+        {
+          "kind": "stage",
+          "recordId": "david_son_of_jesse_king_of_israel:david_youth",
+          "version": "421810e8eeeae0792d473500c6ec9664"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "5d9c203a7885036dfd0954726c62844e"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Beardless youth with short dark curly hair and ruddy complexion matches canon.",
+        "Brown wool tunic, leather belt, sandals and shepherd's pouch with sling match canon.",
+        "No crown or royal robes visible, consistent with canon."
+      ],
+      "pinned": false,
+      "recordId": "david_son_of_jesse_king_of_israel:david_youth",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg22wm412xtx5mpa1ysdb5syqs8gm7ft",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:goliath:goliath": null,
+    "sheet:saul:saul": {
+      "createdAt": 1793321556486,
+      "fingerprint": "431225a5d551454e25b817ede2c7b731",
+      "id": "mx72gbmy10whs29xfsavbpbmm98h9t5k",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "saul",
+          "version": "2d4075d8fe8fc6dfdb6a3f00f1b8c37c"
+        },
+        {
+          "kind": "stage",
+          "recordId": "saul:saul",
+          "version": "b6958f2e98ecaa93b9f6958606ea1972"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "5d9c203a7885036dfd0954726c62844e"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Tall broad-shouldered man with dark neck-length hair and short beard, consistent with canon",
+        "Deep blue undertunic, dark red cloak with gold-bordered hem, bronze-scaled belt and sandals present",
+        "Royal spear with bronze head shown in three-quarter view; canon describes dark ash wood, which appears consistent",
+        "Close-up head-and-shoulders view shows weathered olive-brown skin and brooding eyes consistent with canon"
+      ],
+      "pinned": false,
+      "recordId": "saul:saul",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg29kcg0rfcwc07zhqd39m03w98h80em",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:abner_son_of_ner:abner_son_of_ner": {
+      "createdAt": 1793321578127,
+      "fingerprint": "8b34662768533c1cb3e6af6fadfd3cdb",
+      "id": "mx70bkxk7ca60azpjsw999xhk98h8hc5",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "abner_son_of_ner",
+          "version": "4e5731fd610164b0b29abc6589841ff1"
+        },
+        {
+          "kind": "stage",
+          "recordId": "abner_son_of_ner:abner_son_of_ner",
+          "version": "3e1d67fcc6d4319902c9cc64eb246d88"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah",
+          "version": "5d9c203a7885036dfd0954726c62844e"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Broad-shouldered sturdy build consistent with canon",
+        "Olive-brown weathered skin consistent with canon",
+        "Dark hair graying at temples to shoulder length consistent with canon",
+        "Short grey-streaked beard consistent with canon",
+        "Deep blue cloak over bronze scale armour consistent with canon",
+        "Leather sword belt with bronze-hilted sword present",
+        "Long spear carried in front and three-quarter views",
+        "Long undertunic visible at neckline and hem"
+      ],
+      "pinned": false,
+      "recordId": "abner_son_of_ner:abner_son_of_ner",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg238aqp5dde3wmkjqmssknqkx8h90hv",
+      "verdict": "pass",
+      "workId": "bible-web"
+    },
+    "sheet:philistines:philistines-main": null,
+    "sheet:valley_of_elah:valley_of_elah": null,
+    "sheet:gath_philistine_city:gath_philistine_city": null,
+    "sheet:martha:martha-main": null,
+    "sheet:lazarus_of_bethany:lazarus_of_bethany_main": null,
+    "sheet:crowd_in_john:crowd_in_john-main": null,
+    "sheet:the_younger_son:younger-son": null,
+    "sheet:the_prodigal_s_father:the_prodigal_s_father-main": null,
+    "sheet:galilee:galilee-main": null,
+    "sheet:david_son_of_jesse_king_of_israel:david_king": {
+      "createdAt": 1793322227597,
+      "fingerprint": "155efa20dce59d7dd4e7fae868acc1c4",
+      "id": "mx7fkk60bhyzkbexjsa1dkznzx8h9zp4",
+      "inputs": [
+        {
+          "kind": "entry",
+          "recordId": "david_son_of_jesse_king_of_israel",
+          "version": "450993e6492b41cb6a5c1a8eab0b9ea2"
+        },
+        {
+          "kind": "stage",
+          "recordId": "david_son_of_jesse_king_of_israel:david_king",
+          "version": "159052b536b628e2f7a5740dd30092b1"
+        },
+        {
+          "kind": "style",
+          "recordId": "classical",
+          "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+        },
+        {
+          "kind": "era",
+          "recordId": "monarchy-of-israel-and-judah+roman-era-judea-galilee-and-the-early-church",
+          "version": "9c66a5924b1de6b18b0c907a185b4de6"
+        }
+      ],
+      "kind": "sheet",
+      "notes": [
+        "Subject is a man with dark shoulder-length hair and a short dark beard, consistent with canon.",
+        "Blue robe with crimson and gold sash over white undertunic matches the signature outfit.",
+        "Bronze-bossed sword in scabbard and harp are both shown, matching canon props.",
+        "Complexion appears ruddy and eyes are light brown rather than bright dark; build appears athletic and broad-shouldered."
+      ],
+      "pinned": false,
+      "recordId": "david_son_of_jesse_king_of_israel:david_king",
+      "stale": false,
+      "status": "current",
+      "storageId": "kg217fpyeywh3nt5sekxc93f8h8h8c6p",
+      "verdict": "pass",
+      "workId": "bible-web"
+    }
+  },
+  "files": {
+    "kg2e99zh3qps4ys5tx6r0jecex8h1tfg": {
+      "sha256": "201492ec8ee2388612f06f5caa92b93f789a772211f440df5fa955f890612041",
+      "bytes": 214583,
+      "contentType": "image/jpeg"
+    },
+    "kg28wgdj214z31d65smtrt44ps8gnnm3": {
+      "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5",
+      "bytes": 372434,
+      "contentType": "image/jpeg"
+    },
+    "kg25vgb1rqs6mh3w0vce41caxh8gn5n9": {
+      "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948",
+      "bytes": 340385,
+      "contentType": "image/jpeg"
+    },
+    "kg241s05kh7nzbkaeb0ccp5jm18gma4s": {
+      "sha256": "c36a3a74ba2a6869541796f818d48cf54884b6469f7b1a2899fa7ed77a101e17",
+      "bytes": 104949,
+      "contentType": "image/jpeg"
+    },
+    "kg2fzqxsdcezrmkp0vv0t12s898h9440": {
+      "sha256": "60ad34bb816169b2a811bf9bedd3a290abdb2f67e68f5d2334cd1be33bbd422d",
+      "bytes": 151146,
+      "contentType": "image/jpeg"
+    },
+    "kg2crq3jhpw316nwtn7k1jenh98h9smv": {
+      "sha256": "f6307d30d51e0dfd0ef4ba0a4fc7d53906868aabb98b4ca81b4510a8006679ab",
+      "bytes": 313600,
+      "contentType": "image/jpeg"
+    },
+    "kg2575h3rz1vtstda30mkqjmn18h8g0a": {
+      "sha256": "f5db6a971c23e993e559705278586d53b9218610bb4f59ade2e8b325db74fe58",
+      "bytes": 103685,
+      "contentType": "image/jpeg"
+    },
+    "kg20fqj8qw4f2rsq7m75r3mj4x8h9wg4": {
+      "sha256": "2c86f7aef1c6bd7c2447ecd463555ebfdb992c15e496edec22a034c665ff5a74",
+      "bytes": 256299,
+      "contentType": "image/jpeg"
+    },
+    "kg2drx5b4s398xd7z0kkhwa1n18h8kdd": {
+      "sha256": "06e064d9618aa039fceadb9003ecb697c88cfb55aaedaa3fedeadfbc9c8c2ced",
+      "bytes": 124913,
+      "contentType": "image/jpeg"
+    },
+    "kg2b2q038x8b4tnhms5vwcg2x18gmejf": {
+      "sha256": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce",
+      "bytes": 97907,
+      "contentType": "image/jpeg"
+    },
+    "kg2f9samx6n9g11bv0aw7v15qn8h82m1": {
+      "sha256": "e49d4401b0779648c26e733aab51159de89e14fefb6afdf595757016a1b9f529",
+      "bytes": 272709,
+      "contentType": "image/jpeg"
+    },
+    "kg22wm412xtx5mpa1ysdb5syqs8gm7ft": {
+      "sha256": "2350b431fe1e451d945c0bba8cfc5cea1260176a7db33aa87da00082414d70ee",
+      "bytes": 103530,
+      "contentType": "image/jpeg"
+    },
+    "kg29kcg0rfcwc07zhqd39m03w98h80em": {
+      "sha256": "5106a1d0cc8f892b3bbec010a5867647182bc0b23e8ba2b9892f4a92610ee273",
+      "bytes": 111178,
+      "contentType": "image/jpeg"
+    },
+    "kg238aqp5dde3wmkjqmssknqkx8h90hv": {
+      "sha256": "a9badca1b2aad52c426f8b14ffbdd36d2ada20f6c8c2f691c3ebc150066151f5",
+      "bytes": 140929,
+      "contentType": "image/jpeg"
+    },
+    "kg217fpyeywh3nt5sekxc93f8h8h8c6p": {
+      "sha256": "c470a812c5c55774adb0d6f057b17d4e5a22ed682a4dce648c4c280202817993",
+      "bytes": 124702,
+      "contentType": "image/jpeg"
+    }
+  },
+  "readOnlyProductionQueries": 123,
+  "paidCalls": 0,
+  "productionMutations": 0
+}

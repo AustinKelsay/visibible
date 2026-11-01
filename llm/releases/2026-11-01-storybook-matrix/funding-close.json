@@ -1,0 +1,22 @@
+{
+  "closedAt": "2026-11-01T20:20:00Z",
+  "operationCapUsd": 1.7,
+  "ledgerMeasuredUsd": 1.26600235,
+  "ledgerUncertainUsd": 0,
+  "calls": { "images": 35, "textCalls": 114, "checkCalls": 70 },
+  "ledgerByKind": { "text": 0.0449484, "image": 1.19947125, "check": 0.0215827 },
+  "account": {
+    "balanceBeforeUsd": 5.743483188,
+    "balanceAfterUsd": 4.475845938,
+    "observedMovementUsd": 1.26763725,
+    "devKeyLimitRemainingBeforeUsd": 21.160785596,
+    "devKeyLimitRemainingAfterUsd": 19.893148346,
+    "unexplainedDifferenceUsd": 0.0016349,
+    "note": "Account movement matches the ledger to $0.0016. This supports reading the bake-off's $0.94 gap as another session's use of the shared dev key rather than under-reported usage here."
+  },
+  "readerReserveUsd": 5,
+  "readerReserveHeld": false,
+  "readerReserveShortfallUsd": 0.524154062,
+  "productionMutations": 0,
+  "nextStep": "Registration and release are a separate owner decision. A top-up restores the $5 reader reserve."
+}
