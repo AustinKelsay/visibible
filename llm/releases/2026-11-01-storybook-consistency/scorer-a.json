@@ -1,0 +1,946 @@
+{
+  "scorer": "scorer-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "pair001",
+      "verdict": "different",
+      "notes": "Baseline pair001: Left is a very deep sheer-walled cylindrical shaft under a dark night-blue sky lit by torches; right is a shallower round pit with a stone staircase built into its wall, a courtyard gate and palm above, in bright full daylight. The internal staircase/depth and the night-vs-bright-day lighting conflict."
+    },
+    {
+      "id": "pair002",
+      "verdict": "same",
+      "notes": "Baseline pair002: Peter (foreground in courtyard; man stepping from boat) has the same short curly dark-and-grey hair, grey beard, weathered middle-aged face and build in both."
+    },
+    {
+      "id": "pair003",
+      "verdict": "same",
+      "notes": "Baseline pair003: Both show a small boat on a dark, wave-tossed sea at night under a moonlit storm sky, with a rocky/hilly coastline on the right; compatible place from a different viewpoint."
+    },
+    {
+      "id": "pair004",
+      "verdict": "same",
+      "notes": "Baseline pair004: Both show the same lake with hilly shores and a small settlement along the shoreline; the left is mid-storm at night and the right is the storm easing as described, so the lighting change is asked for."
+    },
+    {
+      "id": "pair005",
+      "verdict": "same",
+      "notes": "Baseline pair005: Daniel (man being hauled from the pit; man standing before the king) has the same short grey hair, short grey beard, lean older face and skin tone, in the same blue cloak over white tunic."
+    },
+    {
+      "id": "pair006",
+      "verdict": "same",
+      "notes": "Baseline pair006: Both show a sandy, rock-strewn path between towering wave walls running to the horizon under a dim sky; the far end differs only in visibility (fire glow vs low cliffs), nothing conflicts."
+    },
+    {
+      "id": "pair007",
+      "verdict": "same",
+      "notes": "Baseline pair007: Daniel at the feast and in the den both have short grey hair, short grey beard, slim older face and the same blue robe over white tunic."
+    },
+    {
+      "id": "pair008",
+      "verdict": "same",
+      "notes": "Baseline pair008: Both show a lake bordered by hills/cliffs with stone houses near the shore; left is the calm after the storm and right the storm, a change the descriptions call for."
+    },
+    {
+      "id": "pair009",
+      "verdict": "same",
+      "notes": "Baseline pair009: Both show a pebbly beach with a smoking fire on the right, a long lake between hills, and a white-walled village climbing the right shore under soft morning light."
+    },
+    {
+      "id": "pair010",
+      "verdict": "same",
+      "notes": "Baseline pair010: Both show a fishing boat on a stormy night sea under a moon in rain, with a hilly shore and small village on the left; consistent place."
+    },
+    {
+      "id": "pair011",
+      "verdict": "same",
+      "notes": "Baseline pair011: Daniel being lifted out of the pit and Daniel at the feast share short grey hair, a short grey beard, lean older face and medium-brown skin, in matching blue robe."
+    },
+    {
+      "id": "pair012",
+      "verdict": "same",
+      "notes": "Baseline pair012: Zoomed faces: Daniel at the feast and in the den have the same close-cropped grey hair, trimmed grey beard, gaunt older face and brown skin, plus the same blue robe and scroll case."
+    },
+    {
+      "id": "pair013",
+      "verdict": "same",
+      "notes": "Baseline pair013: Peter by the brazier and Peter lifting the lame man both have curly dark-and-grey hair, salt-and-pepper beard, broad weathered face and similar build."
+    },
+    {
+      "id": "pair014",
+      "verdict": "unclear",
+      "notes": "Baseline pair014: The left description names Aaron and a crowd but not Moses, so no figure is singled out as Moses there. The white-haired, white-bearded elder with a staff beside Aaron does resemble the right-image Moses."
+    },
+    {
+      "id": "pair015",
+      "verdict": "same",
+      "notes": "Baseline pair015: Kneeling David (left) and David by the lyre (right) are both a beardless youth with short dark curly hair, slim build and similar face."
+    },
+    {
+      "id": "pair016",
+      "verdict": "same",
+      "notes": "Baseline pair016: Both show the parted sea with towering green-blue water walls and the same far shore of red cliffs topped by a walled hill town; viewpoint differs (on the path vs at the water's edge)."
+    },
+    {
+      "id": "pair017",
+      "verdict": "same",
+      "notes": "Baseline pair017: Both show curling green water walls with a sandy seabed between them under a stormy sky with fire/radiance; left shows the far cliffs, right looks down the corridor to the horizon, which is compatible."
+    },
+    {
+      "id": "pair021",
+      "verdict": "same",
+      "notes": "Baseline pair018: Both show a boat on a lake with hills and stone houses along the shore; storm vs calming is the change the descriptions ask for."
+    },
+    {
+      "id": "pair022",
+      "verdict": "unclear",
+      "notes": "Baseline pair019: The left description does not mention Moses, so no figure is singled out as him. The white-haired, long-white-bearded elder with a staff beside Aaron closely resembles the right-image Moses."
+    },
+    {
+      "id": "pair023",
+      "verdict": "same",
+      "notes": "Baseline pair020: Seated Moses (left) and Moses leading through the sea (right) both have wild white hair, long white beard, an aged lined face and similar build."
+    },
+    {
+      "id": "pair024",
+      "verdict": "same",
+      "notes": "Baseline pair021: David at the stream and the kneeling anointed David are both a clean-shaven teenager with short dark curly hair and a youthful face."
+    },
+    {
+      "id": "pair027",
+      "verdict": "same",
+      "notes": "Baseline pair022: Kneeling David (left) and David slinging (right) are both a beardless youth with short dark curly hair and a slim build."
+    },
+    {
+      "id": "pair028",
+      "verdict": "unclear",
+      "notes": "Baseline pair023: The right description refers only to 'disciples', so Peter is not singled out there. The net-carrying, grey-bearded, curly-haired man in the centre does resemble the left-image Peter."
+    },
+    {
+      "id": "pair029",
+      "verdict": "same",
+      "notes": "Baseline pair024: Zoomed faces: Jesus on the water and Jesus on the cross both have long dark wavy shoulder-length hair, full dark beard and the same narrow face."
+    },
+    {
+      "id": "pair030",
+      "verdict": "same",
+      "notes": "Baseline pair025: Zoomed faces: Jesus on the cross and Jesus standing on the water share long dark hair, dark full beard and a similar lean face."
+    },
+    {
+      "id": "pair031",
+      "verdict": "same",
+      "notes": "Baseline pair026: Zoomed faces: David slinging and the kneeling anointed David are both a clean-shaven youth with thick short dark curls and similar profile."
+    },
+    {
+      "id": "pair032",
+      "verdict": "unclear",
+      "notes": "Baseline pair027: The left description does not mention Moses, so no figure is singled out as him. The white-bearded elder with a staff beside Aaron resembles the seated white-haired Moses on the right."
+    },
+    {
+      "id": "pair033",
+      "verdict": "same",
+      "notes": "Baseline pair028: Both show the same shoreline of red cliffs with a walled hill town on the far side and towering curling waves; left is on the seabed path, right at the water's edge."
+    },
+    {
+      "id": "pair034",
+      "verdict": "same",
+      "notes": "Baseline pair029: Both show high curling water walls opening a sandy seabed under a stormy sky with a fiery glow at the far end; viewpoint differs but nothing conflicts."
+    },
+    {
+      "id": "pair035",
+      "verdict": "same",
+      "notes": "Baseline pair030: Daniel in the den centre in both images: short grey hair, short trimmed grey beard, lean older face, blue robe over white tunic with shoulder satchel."
+    },
+    {
+      "id": "pair036",
+      "verdict": "same",
+      "notes": "Baseline pair031: The kneeling youth being anointed (left) and the crouching youth at the stream (right) both have short dark curly hair, a clean-shaven youthful face and the same build in a brown tunic."
+    },
+    {
+      "id": "pair037",
+      "verdict": "same",
+      "notes": "Baseline pair032: Peter by the brazier (left foreground) and Peter lifting the lame man (right centre) both have dark curly hair streaked with grey, a salt-and-pepper beard, a middle-aged face and a net over the shoulder."
+    },
+    {
+      "id": "pair038",
+      "verdict": "same",
+      "notes": "Baseline pair033: Daniel in the den (left) and the small figure gazing upward (right lower foreground) both have short grey hair, a short grey beard, an older lean face and a blue robe over a white tunic."
+    },
+    {
+      "id": "pair039",
+      "verdict": "same",
+      "notes": "Baseline pair034: Jesus at the tomb (left) and on the central cross (right) both have long dark-brown shoulder-length hair and a full dark beard, with the same face shape."
+    },
+    {
+      "id": "pair041",
+      "verdict": "same",
+      "notes": "Baseline pair035: Daniel in the den (left) and standing before Belshazzar (right) both have short grey hair, a short grey beard, the same lean older face and a blue robe over a white tunic."
+    },
+    {
+      "id": "pair042",
+      "verdict": "same",
+      "notes": "Baseline pair036: David with the sling (left) and David at the stream (right) are both a youthful, clean-shaven young man with short dark curly hair and the same slim build."
+    },
+    {
+      "id": "pair043",
+      "verdict": "same",
+      "notes": "Baseline pair037: Daniel before Belshazzar (left) and Daniel hauled from the den (right centre) both have short grey hair, a short grey beard, an older lean face and a blue robe over a white tunic."
+    },
+    {
+      "id": "pair044",
+      "verdict": "same",
+      "notes": "Baseline pair038: David at the stream (left) and the youth dodging Saul's spear near the lyre (right) both have short dark curly hair, a clean-shaven youthful face and a slim build."
+    },
+    {
+      "id": "pair045",
+      "verdict": "same",
+      "notes": "Baseline pair039: Moses striking the rock (left) and Moses at the sea (right, seen from behind in profile) both show long white-grey hair and a white beard on an elderly man."
+    },
+    {
+      "id": "pair047",
+      "verdict": "same",
+      "notes": "Baseline pair040: Peter lifting the lame man (left centre) and Peter stepping onto the water (right) both have dark curly hair going grey, a salt-and-pepper beard and the same middle-aged face, with a net over the shoulder."
+    },
+    {
+      "id": "pair049",
+      "verdict": "unclear",
+      "notes": "Baseline pair041: The left description names only 'disciples' and does not single out Peter. The foreground man carrying a net does resemble the leaping Peter on the right (grey curly hair, grey beard), but the description does not identify him as Peter."
+    },
+    {
+      "id": "pair050",
+      "verdict": "same",
+      "notes": "Baseline pair042: Jesus standing on the waves (left) and at the tomb (right) both have long dark hair and a full dark beard, with a white tunic and a dark blue-grey mantle."
+    },
+    {
+      "id": "pair051",
+      "verdict": "same",
+      "notes": "Baseline pair043: Moses at the rock (left, beside Aaron) and Moses seated on the stone (right centre) are both an elderly man with long white hair and a long white beard."
+    },
+    {
+      "id": "pair052",
+      "verdict": "same",
+      "notes": "Baseline pair044: Peter leaping from the boat (left) and Peter lifting the lame man (right centre) both have dark curly hair going grey, a salt-and-pepper beard and the same middle-aged face."
+    },
+    {
+      "id": "pair053",
+      "verdict": "unclear",
+      "notes": "Baseline pair045: The right description is about Aaron and never mentions Moses. A white-haired, white-bearded man with a staff stands beside Aaron and resembles the left Moses, but nothing identifies him as Moses."
+    },
+    {
+      "id": "pair054",
+      "verdict": "same",
+      "notes": "Baseline pair046: The youth dodging Saul's spear (left) and David at the stream (right) are both clean-shaven with short dark curly hair, a youthful face and a slim build in a brown tunic."
+    },
+    {
+      "id": "pair055",
+      "verdict": "same",
+      "notes": "Baseline pair047: Jesus on the cross (left) and at the tomb (right) both have long dark-brown hair and a full dark beard, with the same face shape."
+    },
+    {
+      "id": "pair059",
+      "verdict": "same",
+      "notes": "Baseline pair048: Both show a dry sandy sea bed between towering dark teal-green water walls under a dusky stormy sky. The far end differs (open sea and fire on the left, red desert cliffs on the right), which fits looking toward opposite ends of the same path."
+    },
+    {
+      "id": "pair060",
+      "verdict": "same",
+      "notes": "Baseline pair049: Jesus at the tomb (left) and Jesus standing in the boat's stern (right) both have long dark hair and a full dark beard, with a white tunic and a dark blue mantle."
+    },
+    {
+      "id": "pair061",
+      "verdict": "same",
+      "notes": "Baseline pair050: Both show a dry cracked sandy floor between towering dark teal water walls, with a long column moving along it. The left sky is paler with red coastal cliffs while the right is darker with the pillar of fire, but the land, water and their arrangement are compatible."
+    },
+    {
+      "id": "pair062",
+      "verdict": "same",
+      "notes": "Baseline pair051: Peter leaping ashore (left) and Peter stepping onto the water (right) both have dark curly hair going grey, a salt-and-pepper beard and the same middle-aged face."
+    },
+    {
+      "id": "pair063",
+      "verdict": "same",
+      "notes": "Baseline pair052: Jesus on the central cross (left) and Jesus standing in the boat (right) both have long dark-brown hair and a full dark beard, with the same face shape."
+    },
+    {
+      "id": "pair067",
+      "verdict": "same",
+      "notes": "Baseline pair053: Daniel gazing at the fiery throne (left lower foreground) and Daniel before Belshazzar (right) both have short grey hair, a short grey beard, a lean older face and a blue robe over a white tunic."
+    },
+    {
+      "id": "pair068",
+      "verdict": "same",
+      "notes": "Baseline pair054: Jesus standing in the stern (left) and Jesus on the waves (right) both have long dark hair and a full dark beard, with a white tunic and a dark blue mantle."
+    },
+    {
+      "id": "pair069",
+      "verdict": "same",
+      "notes": "Baseline pair055: Moses at the sea (left foreground) and Moses at the rock (right, smaller, beside Aaron) are both an elderly man with long white hair and a long white beard in a brown cloak."
+    },
+    {
+      "id": "pair071",
+      "verdict": "unclear",
+      "notes": "Baseline pair056: The left description names only 'disciples' and does not single out Peter. The man with a net and staff beside the boat resembles the right Peter (grey curly hair, grey beard), but the description does not identify him."
+    },
+    {
+      "id": "pair072",
+      "verdict": "unclear",
+      "notes": "Baseline pair057: The right description is about Aaron and never mentions Moses. A white-haired, white-bearded man with a staff to Aaron's left resembles the seated Moses on the left, but nothing identifies him as Moses."
+    },
+    {
+      "id": "pair073",
+      "verdict": "unclear",
+      "notes": "Baseline pair058: The left description names only 'disciples' and does not single out Peter. The net-carrying man by the boat resembles the right Peter (grey curly hair, salt-and-pepper beard), but the description does not identify him."
+    },
+    {
+      "id": "pair074",
+      "verdict": "same",
+      "notes": "Baseline pair059: Jesus at the tomb (left, centre) and Jesus on the waves (right, far right) both have long dark centre-parted hair, a full dark beard, a similar lean face and a blue-grey cloak over a cream tunic."
+    },
+    {
+      "id": "pair075",
+      "verdict": "same",
+      "notes": "Baseline pair060: Daniel standing in the den (left, centre) and Daniel being lifted out (right, centre-right) are both an older lean man with short grey hair and a short grey beard, wearing a blue robe over a white tunic with a shoulder bag."
+    },
+    {
+      "id": "pair078",
+      "verdict": "same",
+      "notes": "Baseline pair061: Jesus on the water (left, right side) and Jesus in the stern (right, centre) both have long dark hair, a dark beard, the same face and a blue cloak over a pale tunic."
+    },
+    {
+      "id": "pair079",
+      "verdict": "same",
+      "notes": "Baseline pair062: Both show the same sandy seabed between towering teal-green walls of water, with a fiery pillar of light under dark storm cloud. The right view adds the shore and a cliff-top town, which fits a viewpoint further back."
+    },
+    {
+      "id": "pair081",
+      "verdict": "same",
+      "notes": "Baseline pair063: Both show a sandy seabed between teal-green walls of water, with reddish cliffs on the far shore. The right is lighter and overcast, with palms on the cliffs and no fire pillar, but the land, water and cliffs match, allowing for the moment of crossing."
+    },
+    {
+      "id": "pair082",
+      "verdict": "different",
+      "notes": "Baseline pair064: The left den is a shallow circular pit with a low rim, a wooden lid and a gate, open to daylight with palms and bushes around it. The right den is a deep shaft whose stone walls rise several times Daniel's height, under a dark night sky lit by torches."
+    },
+    {
+      "id": "pair084",
+      "verdict": "same",
+      "notes": "Baseline pair065: Daniel being lifted from the den (left, centre) and the small Daniel gazing up at the fiery throne (right, lower centre; seen in a crop) both have short grey hair, a short grey beard and an older lean face, and wear a blue robe over a white tunic."
+    },
+    {
+      "id": "pair086",
+      "verdict": "same",
+      "notes": "Baseline pair066: Moses at the shore (left, mostly from behind with his profile visible) and the seated Moses (right, centre) both have long white hair, a full long white beard and an elderly face."
+    },
+    {
+      "id": "pair087",
+      "verdict": "same",
+      "notes": "Baseline pair067: Peter stepping from the boat (left) and Peter lifting the lame man (right, centre-right) both have curly dark hair going grey and a grey-flecked beard, are middle-aged and carry a net over the shoulder."
+    },
+    {
+      "id": "pair088",
+      "verdict": "same",
+      "notes": "Baseline pair068: Both show a dusty track among olive groves and dry-stone walls, with a hillside village of white buildings at golden hour. The left shows a lake in the distance and the right a farmhouse doorway, which fits different viewpoints of one countryside."
+    },
+    {
+      "id": "pair089",
+      "verdict": "same",
+      "notes": "Baseline pair069: Jesus at the tomb (left, centre) and Jesus standing in the boat (right, right side) both have long dark hair, a dark beard and a blue-grey cloak over a pale tunic."
+    },
+    {
+      "id": "pair090",
+      "verdict": "same",
+      "notes": "Baseline pair070: Peter by the brazier (left, foreground) and Peter stepping from the boat (right, centre) both have curly dark-grey hair, a greying full beard and a weathered middle-aged face, and carry a net and a staff."
+    },
+    {
+      "id": "pair091",
+      "verdict": "unclear",
+      "notes": "Baseline pair071: The left description names only 'disciples' and never singles out Peter, so the left subject cannot be identified from the text. A net-carrying man with curly greying hair and a grey beard (left, at the boat) does resemble the right image's Peter."
+    },
+    {
+      "id": "pair092",
+      "verdict": "same",
+      "notes": "Baseline pair072: Peter leaping ashore (left, centre) and Peter by the brazier (right, centre) both have curly dark hair going grey and a greying full beard, with similar middle-aged features."
+    },
+    {
+      "id": "pair093",
+      "verdict": "same",
+      "notes": "Baseline pair073: Daniel before Belshazzar (left; profile seen in a crop) and Daniel on the rooftop (right, gazing upward) both have cropped grey hair, a short grey beard and a lean older face, and wear a blue robe over a white tunic. The night light makes the right figure's skin look slightly darker."
+    },
+    {
+      "id": "pair094",
+      "verdict": "same",
+      "notes": "Baseline pair074: The small Daniel under the fiery throne (left, lower centre) and Daniel in the den (right, centre) both have short grey hair, a short grey beard and an older lean build, in a blue robe over a white tunic."
+    },
+    {
+      "id": "pair096",
+      "verdict": "same",
+      "notes": "Baseline pair075: The seated Moses (left, centre) and Moses leading the people (right, centre) both have long white hair, a long full white beard and an elderly face, in a brown cloak over a pale tunic."
+    },
+    {
+      "id": "pair097",
+      "verdict": "same",
+      "notes": "Baseline pair076: Both show terraced hills with olive trees, dry-stone walls, a dusty road and a white columned temple-like building in a hillside village. The left adds a lake and the right adds nearby farmhouses, which fits different viewpoints."
+    },
+    {
+      "id": "pair099",
+      "verdict": "same",
+      "notes": "Baseline pair077: Peter by the brazier (left, foreground) and Peter leaping from the boat (right, centre) both have curly greying dark hair and a greying beard, with a matching middle-aged face."
+    },
+    {
+      "id": "pair100",
+      "verdict": "unclear",
+      "notes": "Baseline pair078: The left description concerns Aaron and the crowd and never mentions Moses, so no left figure is singled out as Moses. A white-haired, white-bearded elder with a staff (left, centre) resembles the right image's Moses."
+    },
+    {
+      "id": "pair101",
+      "verdict": "unclear",
+      "notes": "Baseline pair079: The right description names only 'disciples' and does not single out Peter, so the right subject cannot be fixed from the text. A net-carrying man with greying hair and a beard (right, leftmost of the group) resembles the left image's Peter."
+    },
+    {
+      "id": "pair103",
+      "verdict": "same",
+      "notes": "Baseline pair080: David at the stream (left, foreground) and David slinging (right, centre-left) are both a clean-shaven youth with short curly dark hair, in a rough brown tunic with a shepherd's bag."
+    },
+    {
+      "id": "pair105",
+      "verdict": "same",
+      "notes": "Baseline pair081: Moses at the shore (left, mostly from behind with his profile visible) and Moses walking the seabed (right, left side) both have long white hair and a full white beard, in a dark brown cloak with a crook staff."
+    },
+    {
+      "id": "pair106",
+      "verdict": "same",
+      "notes": "Baseline pair082: The kneeling David being anointed (left, centre; seen in a crop) and the youth dodging the spear (right, right side) are both a clean-shaven teenager with curly dark hair and ruddy cheeks, in a brown tunic."
+    },
+    {
+      "id": "pair108",
+      "verdict": "same",
+      "notes": "Baseline pair083: Both show a winding dusty path between dry-stone walls through olive groves, with small stone houses on rolling hills under a warm sunset. The left is closer to the courtyard gatepost, and the right shows the lake and village further off."
+    },
+    {
+      "id": "pair109",
+      "verdict": "same",
+      "notes": "Baseline pair084: Moses at the water's edge (left, centre) and Moses leading the crossing (right, centre) both have long white hair, a long white beard and an elderly face, in a brown cloak with a crook staff."
+    },
+    {
+      "id": "pair110",
+      "verdict": "same",
+      "notes": "Baseline pair085: David mid-throw (left, left side) and David at the stream (right, centre) are both a clean-shaven youth with short curly dark hair, in a rough brown tunic."
+    },
+    {
+      "id": "pair111",
+      "verdict": "same",
+      "notes": "Baseline pair086: Both show the same small wooden fishing boat with a torn pale sail and a hanging lantern on rough grey-blue water, with a hilly shoreline and a village in the background. As the descriptions ask, the storm is easing in the right."
+    },
+    {
+      "id": "pair112",
+      "verdict": "same",
+      "notes": "Baseline pair087: David dodging Saul's spear (left, right side) and David at the stream (right, centre) are both a clean-shaven youth with curly dark hair and ruddy cheeks, in a brown tunic."
+    },
+    {
+      "id": "pair113",
+      "verdict": "same",
+      "notes": "Baseline pair088: David (young man dodging the spear, left; slinger, right) is a clean-shaven youth with short dark curly hair and slim build in both, in a similar brown tunic."
+    },
+    {
+      "id": "pair114",
+      "verdict": "same",
+      "notes": "Baseline pair089: Moses (staff-bearer at the head of the crossing, left; seated man with arms held up, right) is elderly in both, with white hair and a long white beard and the same lean face."
+    },
+    {
+      "id": "pair116",
+      "verdict": "same",
+      "notes": "Baseline pair090: Moses striking the rock (left, small figure) and leading through the sea (right) both have white hair, a full white beard and an elderly build, and both hold a staff."
+    },
+    {
+      "id": "pair117",
+      "verdict": "same",
+      "notes": "Baseline pair091: Daniel gazing up at the fiery throne (left) and being hauled from the den (right) has short grey hair and a short grey beard in both, with a lean middle-aged face and a blue cloak over a white tunic with a satchel."
+    },
+    {
+      "id": "pair119",
+      "verdict": "unclear",
+      "notes": "Baseline pair092: The right description names only Aaron and the crowd, so it does not single out Moses. A white-haired, white-bearded man with a crook beside Aaron does resemble the left image's Moses at the rock."
+    },
+    {
+      "id": "pair120",
+      "verdict": "same",
+      "notes": "Baseline pair093: Jesus standing in the stern (left) and on the waves (right) has long dark hair and a dark beard in both, with the same face and a blue-grey cloak over a white tunic."
+    },
+    {
+      "id": "pair121",
+      "verdict": "unclear",
+      "notes": "Baseline pair094: The right description says only 'disciples' and never singles out Peter. A man with a net and staff by the boat has curly greying hair and a short grey beard like the left image's leaping Peter, but he cannot be identified from the text."
+    },
+    {
+      "id": "pair122",
+      "verdict": "same",
+      "notes": "Baseline pair095: Jesus on the water (left) and at the tomb (right) has the same long dark hair, dark beard and face in both, with a blue-grey cloak over a white tunic."
+    },
+    {
+      "id": "pair123",
+      "verdict": "same",
+      "notes": "Baseline pair096: Both show a wooden fishing boat on a wide, choppy lake with hills and a white-walled village on the left shore under dark cloud. The right is rougher and the left calmer, which matches the descriptions."
+    },
+    {
+      "id": "pair124",
+      "verdict": "same",
+      "notes": "Baseline pair097: Both show a night storm on the lake with heavy dark clouds, high waves and a single-mast boat, with hills and a village on the shores and other small boats in the distance."
+    },
+    {
+      "id": "pair125",
+      "verdict": "same",
+      "notes": "Baseline pair098: Jesus in the stern (left) and at the tomb (right) has long dark hair and a dark beard in both, with the same narrow face and a dark blue cloak over a white tunic."
+    },
+    {
+      "id": "pair126",
+      "verdict": "same",
+      "notes": "Baseline pair099: Both show a pebbly lake shore with a beached boat, a charcoal fire on the beach and stone houses with palms on the hillside to the right, in soft early light."
+    },
+    {
+      "id": "pair128",
+      "verdict": "same",
+      "notes": "Baseline pair100: Peter stepping out onto the water (left) and leaping from the boat (right) has curly grey-flecked hair and a short grey beard in both, with the same weathered middle-aged face."
+    },
+    {
+      "id": "pair130",
+      "verdict": "same",
+      "notes": "Baseline pair101: Jesus on the cross (left, small) and standing in the boat (right) has long dark hair and a dark beard in both, with matching facial features."
+    },
+    {
+      "id": "pair131",
+      "verdict": "unclear",
+      "notes": "Baseline pair102: The right description refers only to 'disciples', so it does not single out Peter. A man with a net and staff resembles the left image's Peter at the brazier, who has curly greying hair and a grey beard."
+    },
+    {
+      "id": "pair132",
+      "verdict": "unclear",
+      "notes": "Baseline pair103: The right description never singles out Peter among the disciples. A man with a net and staff has curly grey hair and a beard like the left image's Peter on the water, but the text does not identify him."
+    },
+    {
+      "id": "pair134",
+      "verdict": "same",
+      "notes": "Baseline pair104: Jesus in the stern (left) and on the cross (right, small) has long dark hair and a dark beard in both, with the same face shape."
+    },
+    {
+      "id": "pair135",
+      "verdict": "same",
+      "notes": "Baseline pair105: Peter on the water (left) and lifting the lame man (right) has curly dark-grey hair and a short grey beard in both, with the same weathered face, a brown cloak and a net over one shoulder."
+    },
+    {
+      "id": "pair136",
+      "verdict": "same",
+      "notes": "Baseline pair106: Peter by the brazier (left, close-up) and leaping from the boat (right) has curly grey-streaked hair and a short grey beard in both, with the same middle-aged face."
+    },
+    {
+      "id": "pair140",
+      "verdict": "unclear",
+      "notes": "Baseline pair107: The left description names Aaron, not Moses, so it does not single out Moses. A white-bearded elder with a crook beside Aaron resembles the right image's Moses at the parted sea."
+    },
+    {
+      "id": "pair141",
+      "verdict": "same",
+      "notes": "Baseline pair108: Peter lifting the lame man (left) and leaping from the boat (right) has curly dark-grey hair and a short grey beard in both, with the same face and build."
+    },
+    {
+      "id": "pair142",
+      "verdict": "same",
+      "notes": "Baseline pair109: Peter on the water (left) and by the brazier (right) has curly dark hair and a short grey-flecked beard in both, with the same lean face, and in both he carries a net and staff."
+    },
+    {
+      "id": "pair143",
+      "verdict": "unclear",
+      "notes": "Baseline pair110: The right description names Aaron only, so it does not single out Moses. A white-haired, white-bearded man with a crook beside Aaron resembles the left image's Moses at the sea."
+    },
+    {
+      "id": "pair144",
+      "verdict": "same",
+      "notes": "Baseline pair111: Daniel hauled from the den (left) and on the rooftop (right, small, night-lit) has short grey hair and a short grey beard in both, with the same blue cloak, white tunic and satchel."
+    },
+    {
+      "id": "pair145",
+      "verdict": "same",
+      "notes": "Baseline pair112: Moses seated with his arms held up (left) and striking the rock (right) has white hair and a long white beard in both, with the same elderly face."
+    },
+    {
+      "id": "pair146",
+      "verdict": "unclear",
+      "notes": "Baseline pair113: The left description names Aaron, not Moses, so it does not single out Moses. A white-haired, white-bearded elder with a crook resembles the right image's Moses at the sea."
+    },
+    {
+      "id": "pair148",
+      "verdict": "same",
+      "notes": "Baseline pair114: Daniel standing among the lions (left) and being hauled up (right) has short grey hair and a short grey beard in both, with a blue cloak over a white tunic and a satchel."
+    },
+    {
+      "id": "pair150",
+      "verdict": "same",
+      "notes": "Baseline pair115: Jesus at the tomb (left) and on the cross (right, small) has long dark hair and a dark beard in both, with the same face shape."
+    },
+    {
+      "id": "pair151",
+      "verdict": "unclear",
+      "notes": "Baseline pair116: The right description says only 'disciples' and does not single out Peter. A man with a net and staff has curly dark hair and a beard like the left image's Peter on the water, but the text does not identify him."
+    },
+    {
+      "id": "pair152",
+      "verdict": "same",
+      "notes": "Baseline pair117: Peter stepping onto the water (left) and Peter leaping from the boat (right) both have grey curly hair, a short grey beard, a weathered middle-aged face and a similar build."
+    },
+    {
+      "id": "pair153",
+      "verdict": "unclear",
+      "notes": "Baseline pair118: Left Peter (lifting the lame man) has grey curly hair and a grey beard. The right description names no Peter among the five disciples on the shore, so no single figure can be identified as him; the bearded man with the staff at left only looks similar."
+    },
+    {
+      "id": "pair154",
+      "verdict": "unclear",
+      "notes": "Baseline pair119: The left description (Aaron and the pig) does not mention Moses. The white-haired, white-bearded elder with a staff beside Aaron resembles the seated Moses on the right, but the text does not identify him as Moses."
+    },
+    {
+      "id": "pair155",
+      "verdict": "same",
+      "notes": "Baseline pair120: Moses striking the rock (left) and Moses at the sea (right) both have white hair, a long white beard, an elderly face and a brown cloak over a pale tunic."
+    },
+    {
+      "id": "pair156",
+      "verdict": "same",
+      "notes": "Baseline pair121: Both show a pebbly lakeshore with a charcoal fire, a fishing boat, hills rising behind and stone village houses on the slope; the warmer dawn sky on the right fits the same place at the same occasion."
+    },
+    {
+      "id": "pair157",
+      "verdict": "unclear",
+      "notes": "Baseline pair122: The left Moses (parted sea) is a white-haired, white-bearded elder. The right description covers Aaron and the pig and never mentions Moses; the old man with a staff beside Aaron looks similar but is not singled out."
+    },
+    {
+      "id": "pair160",
+      "verdict": "different",
+      "notes": "Baseline pair123: The left den is a deep stone shaft seen from inside under a dark night sky with lit torches. The right den is a ground-level stone pit with a wooden grated hatch in bright daylight with palms. Night versus full day, and neither description asks for that change."
+    },
+    {
+      "id": "pair161",
+      "verdict": "same",
+      "notes": "Baseline pair124: The seated Moses (left) and Moses striking the rock (right) both have flowing white hair, a long white beard, an elderly face and a brown cloak over a pale tunic."
+    },
+    {
+      "id": "pair162",
+      "verdict": "same",
+      "notes": "Baseline pair125: Moses leading through the parted sea (left) and at the rock (right) has the same white hair, long white beard, old face and brown cloak over a pale tunic."
+    },
+    {
+      "id": "pair165",
+      "verdict": "same",
+      "notes": "Baseline pair126: Jesus on the cross (left, small and head bowed) and Jesus on the water (right) both have long brown hair and a brown beard and look like the same young adult."
+    },
+    {
+      "id": "pair166",
+      "verdict": "unclear",
+      "notes": "Baseline pair127: Right Peter (leaping from the boat) has grey curly hair and a grey beard. The left description does not name Peter among the disciples on the shore, so no figure there can be identified as him."
+    },
+    {
+      "id": "pair167",
+      "verdict": "same",
+      "notes": "Baseline pair128: Peter at the temple gate (left) and Peter at the brazier (right) both have curly greying hair, a salt-and-pepper beard, a middle-aged weathered face and a net over the shoulder; the night lighting on the right only darkens the tones."
+    },
+    {
+      "id": "pair168",
+      "verdict": "same",
+      "notes": "Baseline pair129: Daniel watching the fiery throne (left, small) and Daniel in the den (right) both have short grey hair, a short grey beard and darker skin, and wear the same blue cloak with a shoulder pouch."
+    },
+    {
+      "id": "pair170",
+      "verdict": "same",
+      "notes": "Baseline pair130: Moses in the parted sea (left) and Moses at the shore with his arm out (right) both have white hair, a long white beard, a deeply lined elderly face and a dark cloak."
+    },
+    {
+      "id": "pair171",
+      "verdict": "same",
+      "notes": "Baseline pair131: The seated Moses with his arms held up (left) and Moses at the sea (right) both have unkempt white hair, a long white beard and an elderly face."
+    },
+    {
+      "id": "pair173",
+      "verdict": "same",
+      "notes": "Baseline pair132: Peter lifting the lame man (left) and Peter leaping from the boat (right) both have grey curly hair, a short grey beard and a middle-aged weathered face."
+    },
+    {
+      "id": "pair174",
+      "verdict": "same",
+      "notes": "Baseline pair133: David choosing stones (left) and the kneeling, anointed David (right) are both a clean-shaven youth with short dark curly hair and ruddy cheeks in a brown tunic."
+    },
+    {
+      "id": "pair175",
+      "verdict": "same",
+      "notes": "Baseline pair134: Daniel before Belshazzar (left) and the small Daniel looking up at the fiery throne (right) both have short grey hair, a grey beard and olive-brown skin, and wear a blue cloak over a white tunic."
+    },
+    {
+      "id": "pair176",
+      "verdict": "same",
+      "notes": "Baseline pair135: David with the sling (left) and the youth dodging the spear by the lyre (right) are both clean-shaven with short dark curly hair and a youthful face, in a brown tunic."
+    },
+    {
+      "id": "pair178",
+      "verdict": "same",
+      "notes": "Baseline pair136: Both show a wooden boat with a torn sail and a lamp on a lake ringed by hills and shoreline stone villages; the calmer water and clearing sky on the right match the storm easing that the description asks for."
+    },
+    {
+      "id": "pair179",
+      "verdict": "same",
+      "notes": "Baseline pair137: David dodging Saul's spear (left) and the kneeling, anointed David (right) are both a clean-shaven youth with short dark curly hair in a brown tunic."
+    },
+    {
+      "id": "pair182",
+      "verdict": "same",
+      "notes": "Baseline pair138: Moses in the parted sea (left) and Moses raising the rod at the rock (right) both have long white hair, a long white beard and an elderly face."
+    },
+    {
+      "id": "pair183",
+      "verdict": "same",
+      "notes": "Baseline pair139: Moses at the sea (left) and the seated Moses with his arms supported (right) both have white hair, a long white beard and an elderly face, in a brown cloak."
+    },
+    {
+      "id": "pair186",
+      "verdict": "same",
+      "notes": "Baseline pair140: David with the sling (left) and the youth fleeing the spear by the lyre (right) both have short dark curly hair, a clean-shaven youthful face and a brown tunic with a shoulder pouch."
+    },
+    {
+      "id": "pair188",
+      "verdict": "same",
+      "notes": "Baseline pair141: The kneeling, anointed David (left) and David with the sling (right) are both a clean-shaven youth with dark curly hair and ruddy cheeks in a brown tunic."
+    },
+    {
+      "id": "pair018",
+      "verdict": "same",
+      "notes": "Compared the staff-bearing elder leading the file (left) with the rod-raising figure on the rock (right): both are elderly, white-haired, full white beard, pale skin, brown cloak over white tunic."
+    },
+    {
+      "id": "pair019",
+      "verdict": "same",
+      "notes": "Both show a night scene with towering water walls on either side of a dry sandy path and a pillar of fire/cloud glowing in the distance; left is inside the path, right is at the shoreline looking in."
+    },
+    {
+      "id": "pair020",
+      "verdict": "same",
+      "notes": "Both are night scenes with water walls flanking a dry sandy seabed; right adds a crescent moon and chariots but the landscape and body of water are compatible."
+    },
+    {
+      "id": "pair025",
+      "verdict": "same",
+      "notes": "Compared the man on the rope at the pit (left) with the man gazing up at the fiery chariot (right): both have short grey hair, a short grey beard and the same middle age; the right figure's skin reads warmer under the fire glow but the identity cues match."
+    },
+    {
+      "id": "pair026",
+      "verdict": "same",
+      "notes": "Took the staff-and-net fisherman stepping from the boat (left) as Peter and compared him to the leaping figure (right): both have salt-and-pepper curly hair, a grey beard and middle-aged build."
+    },
+    {
+      "id": "pair040",
+      "verdict": "same",
+      "notes": "The standing man in white tunic and blue cloak before Belshazzar (left) and the upward-gazing man (right) share short grey hair, short grey beard and the same middle age."
+    },
+    {
+      "id": "pair046",
+      "verdict": "same",
+      "notes": "Compared the net-draped man with staff by the courtyard fire (left) with the staff-and-net fisherman at the boat (right): both have dark curly hair with grey, a greying beard and the same weathered middle-aged face."
+    },
+    {
+      "id": "pair048",
+      "verdict": "same",
+      "notes": "The courtyard man with the net (left) and the leaping fisherman (right) both have curly dark-and-grey hair, a grey beard and a similar stocky middle-aged build."
+    },
+    {
+      "id": "pair056",
+      "verdict": "same",
+      "notes": "The youth picking stones at the brook (left) and the bowed youth being anointed (right) both have short dark curly hair, a slight teenage build, light skin and a plain brown tunic."
+    },
+    {
+      "id": "pair057",
+      "verdict": "same",
+      "notes": "Jesus standing in the stern (left) and Jesus on the water (right) both have long dark-brown hair, a dark beard and the same blue cloak over a white tunic."
+    },
+    {
+      "id": "pair058",
+      "verdict": "same",
+      "notes": "Both show a pebbly lake shore with a charcoal fire, a wooden boat, green hills and white flat-roofed village buildings at the water's edge in soft dawn light."
+    },
+    {
+      "id": "pair064",
+      "verdict": "same",
+      "notes": "The bowed youth being anointed (left) and the sling-thrower (right) both have dark curly hair, a round youthful face, light skin and a plain brown tunic."
+    },
+    {
+      "id": "pair065",
+      "verdict": "same",
+      "notes": "The boy dodging the spear (left) and the youth selecting stones (right) both have dark curly hair, a youthful face and slight build; the left reads slightly younger but within the same individual."
+    },
+    {
+      "id": "pair066",
+      "verdict": "same",
+      "notes": "Moses with staff beside the ephod-clad Aaron (left) and the seated Moses with raised arms (right) are both elderly with long white hair, full white beard and pale skin."
+    },
+    {
+      "id": "pair070",
+      "verdict": "same",
+      "notes": "Jesus on the water (left) and Jesus at the tomb (right) both have long dark hair, a dark beard, a lean build and a blue cloak over a white robe."
+    },
+    {
+      "id": "pair076",
+      "verdict": "same",
+      "notes": "Moses before the tabernacle (left) and Moses leading the file through the sea (right) are both elderly with white hair, white beard, brown cloak over white tunic and a staff."
+    },
+    {
+      "id": "pair077",
+      "verdict": "same",
+      "notes": "The bowed youth being anointed (left) and the boy fleeing Saul's spear (right) both have dark curly hair, youthful features, light skin and a plain brown tunic."
+    },
+    {
+      "id": "pair080",
+      "verdict": "same",
+      "notes": "Compared the crucified central figure (left) with the standing figure in the stern (right): both have long dark-brown hair, a full dark beard, slim build and the same early-adult age; only clothing and pose differ."
+    },
+    {
+      "id": "pair083",
+      "verdict": "same",
+      "notes": "Both show a wooden sailboat with furled sail and lantern on a lake ringed by low hills; the left's dusk calm versus the right's moonlit storm matches the described change, and the shoreline villages on the right are compatible with the hills seen on the left."
+    },
+    {
+      "id": "pair085",
+      "verdict": "same",
+      "notes": "Both are a moonlit night storm on the same kind of wooden fishing boat with mast, lantern and nets; the right simply frames open water without the shoreline villages visible on the left, which a different viewpoint allows."
+    },
+    {
+      "id": "pair095",
+      "verdict": "same",
+      "notes": "Peter (left, pulling the beggar up) and the net-carrying figure with the staff stepping from the boat (right) both have grey curly hair, a grey beard, medium-dark skin and an older heavyset build."
+    },
+    {
+      "id": "pair098",
+      "verdict": "same",
+      "notes": "Moses seated on the stone (left) and Moses leading the file (right) both have white hair, a long white beard, light skin and the same aged face."
+    },
+    {
+      "id": "pair102",
+      "verdict": "same",
+      "notes": "Peter by the courtyard fire (left) and Peter lifting the lame man (right) share grey-flecked curly dark hair, a grey beard, medium-dark skin and a net slung over the shoulder; the right reads slightly greyer but within the same identity."
+    },
+    {
+      "id": "pair104",
+      "verdict": "same",
+      "notes": "David in both images is a slight clean-shaven boy with dark curly hair, light skin and rosy cheeks; only the pose (throwing versus bending for stones) changes."
+    },
+    {
+      "id": "pair107",
+      "verdict": "same",
+      "notes": "Peter lifting the beggar (left) and the figure leaping from the boat (right) both have grey curly hair and a grey beard on a stocky older frame; the right's skin is a shade lighter but the face type matches."
+    },
+    {
+      "id": "pair115",
+      "verdict": "same",
+      "notes": "Both show the dry sandy corridor between two towering water walls under a dark night sky with distant hills at the far end; the chariots on the left and the walking file on the right occupy the same kind of sea-bed path."
+    },
+    {
+      "id": "pair118",
+      "verdict": "same",
+      "notes": "Peter stepping from the boat (left) and Peter lifting the lame man (right) both have grey curly hair, a grey beard and an older face; the right's skin is darker in daylight but hair and beard colour agree."
+    },
+    {
+      "id": "pair127",
+      "verdict": "same",
+      "notes": "The crucified figure (left) and the distant glowing figure on the water (right) both have long dark hair, a dark beard and a slim build; the right is small but the hair and beard are legible."
+    },
+    {
+      "id": "pair129",
+      "verdict": "same",
+      "notes": "Moses at the shoreline (left) and Moses leading the file (right) both have white hair, a white beard, a dark cloak over a cream robe and a staff; same aged face."
+    },
+    {
+      "id": "pair133",
+      "verdict": "same",
+      "notes": "Peter stepping onto the water (left) and the net-carrying figure with the staff on the beach (right) both have grey curly hair and a grey beard with an older, stocky build."
+    },
+    {
+      "id": "pair137",
+      "verdict": "same",
+      "notes": "Moses supported on the stone (left) and Moses striking the rock (right) both have white hair, a long white beard, light skin and a dark cloak over a cream robe."
+    },
+    {
+      "id": "pair138",
+      "verdict": "same",
+      "notes": "Jesus at the tomb (left) and the crucified figure (right) share long dark hair, a dark beard, slim build and the same young-adult face."
+    },
+    {
+      "id": "pair139",
+      "verdict": "same",
+      "notes": "Moses before the rock (left) and Moses at the sea (right) both have white hair, a white beard, a dark cloak over a cream robe and a shepherd's staff."
+    },
+    {
+      "id": "pair147",
+      "verdict": "same",
+      "notes": "Peter on the water (left) and Peter mid-leap from the boat (right) both have grey curly hair and a grey beard on a stocky older frame; pose and clothing differ only."
+    },
+    {
+      "id": "pair149",
+      "verdict": "same",
+      "notes": "Right description names only Saul, but the single boy dodging the spear at the right edge is the only David candidate. Both show a clean-shaven youth with dark curly hair, light skin, slight build and a belted brown tunic; face shape and age match."
+    },
+    {
+      "id": "pair158",
+      "verdict": "same",
+      "notes": "Both show terraced hillsides with olive trees, low dry-stone walls, a whitewashed farmhouse and a bay with hills beyond under a low sun. Left is on the road before the gate, right is just inside the courtyard wall; the landscape and buildings are compatible."
+    },
+    {
+      "id": "pair159",
+      "verdict": "same",
+      "notes": "Same wooden fishing boat with a single mast, hanging lantern and nets and ropes in the bilge, on open lake water under dark storm clouds. Left is at the storm's height with no shore visible; right shows the glow and hills emerging as the waves subside, which the descriptions ask for."
+    },
+    {
+      "id": "pair163",
+      "verdict": "same",
+      "notes": "Moses in both is an elderly man with long white hair and a long white beard, light skin, dark cloak over a pale robe and a shepherd's crook. Face and age match; only pose differs (standing left, seated on the rock right)."
+    },
+    {
+      "id": "pair164",
+      "verdict": "same",
+      "notes": "Left Moses at the sea and right Moses facing the tabernacle both have white hair, long white beard, dark brown cloak over white robe, crook, and the same elderly light-skinned face."
+    },
+    {
+      "id": "pair169",
+      "verdict": "same",
+      "notes": "Both show the same round pit of pale stone blocks with sandy floor and tawny lions, a hazy pale sky, the king in purple at the rim and armored guards. Left includes the wooden cover and stairs; right is a closer angle at the rim with buildings behind, which is compatible."
+    },
+    {
+      "id": "pair172",
+      "verdict": "same",
+      "notes": "Moses on the left (beside Aaron in the camp) and on the right (rod raised at the rock) both have white hair, long white beard, dark cloak over white robe and the same elderly face and build."
+    },
+    {
+      "id": "pair177",
+      "verdict": "same",
+      "notes": "Daniel in the pit (left, small) and rising on the rope (right) both have short grey hair, trimmed grey beard, blue cloak over a white tunic and a brown shoulder satchel; age and face shape match."
+    },
+    {
+      "id": "pair180",
+      "verdict": "same",
+      "notes": "Daniel on the rope (left) and before Belshazzar (right) both show a middle-aged man with short grey hair, short grey beard, blue fringed cloak over white tunic and a brown satchel; skin tone is slightly darker on the right but face and age agree."
+    },
+    {
+      "id": "pair181",
+      "verdict": "same",
+      "notes": "Daniel in the court (left) and standing in the pit (right, small) both have short grey hair, grey beard, blue cloak over white tunic and a satchel; the pit figure is small but hair and beard colour and build are readable."
+    },
+    {
+      "id": "pair184",
+      "verdict": "same",
+      "notes": "Peter by the fire (left) and in the boat (right) both have dark curly hair going grey, a grey-flecked beard, medium skin, a weathered middle-aged face and a stocky build; clothing is similar tan and grey."
+    },
+    {
+      "id": "pair185",
+      "verdict": "same",
+      "notes": "Jesus at the tomb (left) and in the stern (right) both have long dark brown hair, a dark beard, light skin, slim build, and a blue cloak over a white robe; the face and age match."
+    },
+    {
+      "id": "pair187",
+      "verdict": "same",
+      "notes": "Daniel in the vision (left, foreground) and in the pit (right) both have short grey hair, grey beard, blue cloak over white tunic and a brown satchel; left is a closer view with slightly darker skin, but age, hair and beard agree."
+    }
+  ]
+}

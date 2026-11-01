@@ -1,0 +1,61 @@
+{
+  "scorer": "operator",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "pair008",
+      "verdict": "same",
+      "notes": "Baseline pair008: Both show a lake ringed by steep, olive-terraced hills with stone houses at the shoreline (right bank on the left, far shore on the right) and a mast with a torn sail. The calmer water on the left is the storm-then-calm change the descriptions ask for, and the boat sitting nearer the shore is a viewpoint and drift difference, not a different lake."
+    },
+    {
+      "id": "pair014",
+      "verdict": "same",
+      "notes": "Baseline pair014: On the left, Moses is identifiable by role as the staff-bearing elder who stands beside Aaron, apart from the crowd. He and Moses at the rock (right) share long white hair, a long full white beard and an elderly face. The right face is small and reads slightly lighter, but no identity cue clearly conflicts."
+    },
+    {
+      "id": "pair022",
+      "verdict": "same",
+      "notes": "Baseline pair019: The staff-bearing elder beside Aaron (left), the only figure set apart from the crowd with him, and Moses striking the rock (right) share swept-back long white hair, a long full white beard, a lean lined face and light olive skin."
+    },
+    {
+      "id": "pair032",
+      "verdict": "same",
+      "notes": "Baseline pair027: The staff-bearing elder beside Aaron (left) and the seated Moses (right) share long white hair, a long full white beard, a lined elderly face and the same warm brown skin."
+    },
+    {
+      "id": "pair045",
+      "verdict": "unclear",
+      "notes": "Baseline pair039: Moses at the rock (left) is clear, but Moses at the sea (right) is seen from behind in lost profile, with only white hair and the edge of a beard showing. Face shape and skin tone, the cues that separate other Moses renderings, cannot be compared."
+    },
+    {
+      "id": "pair093",
+      "verdict": "different",
+      "notes": "Baseline pair073: Both have short grey hair and a grey beard, but Daniel before Belshazzar (left) has light olive skin. Daniel on the rooftop (right) has a deep brown face and hands while his cream tunic stays light, so the skin tone conflicts and is not just shadow."
+    },
+    {
+      "id": "pair153",
+      "verdict": "unclear",
+      "notes": "Baseline pair118: Peter is clear on the left (grey curly hair, grey beard), but the right description names only 'disciples' and the five men on the shore stand as a group. Picking the bearded man with the staff as Peter would rest on his resemblance to the left image, not on anything that singles him out."
+    },
+    {
+      "id": "pair154",
+      "verdict": "same",
+      "notes": "Baseline pair119: The staff-bearing elder beside Aaron (left), Moses by role, and the seated Moses (right) share wavy shoulder-length white hair, a full white beard, a lined elderly face and light olive skin."
+    },
+    {
+      "id": "pair157",
+      "verdict": "different",
+      "notes": "Baseline pair122: Moses crossing the sea (left) has deep reddish-brown skin and a gaunt, long face. The staff-bearing elder beside Aaron (right), Moses by role, has light olive skin and a fuller face, although both have white hair and beards, so the skin tone conflicts."
+    },
+    {
+      "id": "pair166",
+      "verdict": "unclear",
+      "notes": "Baseline pair127: Peter leaping from the boat (right) is clear, but the left description names only 'disciples' and the five men on the shore stand as a group. Nothing but resemblance to the right image picks one of them out as Peter."
+    },
+    {
+      "id": "pair170",
+      "verdict": "different",
+      "notes": "Baseline pair130: Both have white hair and a full white beard, but Moses crossing the sea (left) has deep reddish-brown skin and a gaunt face. Moses at the shore (right) has light olive skin even under a darker sky, so the difference is not lighting."
+    }
+  ]
+}
