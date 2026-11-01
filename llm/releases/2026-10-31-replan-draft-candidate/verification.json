@@ -1,0 +1,81 @@
+{
+  "scope": "Offline unapplied candidate; no activation, provider execution or quality claim",
+  "baseCommit": "0ed826a52020fb938041d8cfb9cfd8d22279dc31",
+  "candidateTree": "8e08ed8e5191e2ba5506f74b0c35736a992ad5b5",
+  "patchSha256": "6e92a5985fe2166cde4cb987a31851896cabbba9bb41d39bd870756c609d7c42",
+  "files": {
+    "src/lib/engine/preparation.ts": {
+      "before": "562e203aa11fd975460d011628e1147a60e4afd73ba145c00455780b3fdbd6ed",
+      "after": "ba8c4ed3009760d594ffaa374f25f6a918ad844fbeafb2dc66730006a80f3581"
+    },
+    "src/lib/__tests__/plan-review.test.ts": {
+      "before": "69078a4687cc21da33b57f075f771724ea5ec9e00461d97b29fb1e1ca260071a",
+      "after": "83253fdd53909985f5053cdf7c44c2a2a5b552383f8cceca49b69cdde56713a7"
+    },
+    "src/lib/__tests__/cast-policy.test.ts": {
+      "before": "a27b00711e1e39e784467bd05393b30c09d5c38807c89891f7041cf21d2f6f21",
+      "after": "5f368a70f6dd82524ef83c1fdd109a8c3aeec0e9d028a522bf5fdba01c478048"
+    },
+    "tests/fixtures/bible-engine-golden.json": {
+      "before": "ba6ddf69bbd915889d944efbc107e4658e553f4a95331889322942fb4885241a",
+      "after": "250c0bff3df79d3cff863f6871c5db283fdae5d109dd923c84ae09125c73c15b"
+    }
+  },
+  "requestReplaySha256": "f815f39ea2b7df6d08517c8630235a53dc1e6f5415951edc44d58e0712a02798",
+  "checks": {
+    "regressionOnBase": {
+      "exit": 1,
+      "reason": "CURRENT DRAFT absent"
+    },
+    "focused": {
+      "passed": 43
+    },
+    "initialFullSuite": {
+      "passed": 1054,
+      "failed": 1,
+      "skipped": 1,
+      "failure": "expected Bible retry golden mismatch"
+    },
+    "finalFullSuite": {
+      "passed": 1055,
+      "failed": 0,
+      "skipped": 1
+    },
+    "typecheck": "passed",
+    "lint": {
+      "errors": 0,
+      "existingWarnings": 3
+    },
+    "golden": {
+      "totalEntries": 27,
+      "changed": [
+        "prepare:exodus-19-18:3"
+      ],
+      "onlyUserCorrectionSuffixChanged": true
+    },
+    "coderabbit": {
+      "issues": 0,
+      "reviewedFiles": [
+        "src/lib/__tests__/cast-policy.test.ts",
+        "src/lib/__tests__/plan-review.test.ts",
+        "src/lib/engine/preparation.ts"
+      ],
+      "note": "Golden fixture updated after this review started; independently checked to change only the retry user suffix."
+    }
+  },
+  "sessionLogHashes": {
+    "replan-draft-red.log": "f5db7134a208fe6ce759873b38eaf7752d8404efd72e2827f616859a91270014",
+    "replan-draft-focused.log": "0b44fc7a974be614668498e0623248e016baa8911931f8e60316b1dec0956f8a",
+    "replan-draft-all-tests.log": "4a5fd8f70866ec9430eeb9eeb4291b98b1e06668502909fef1a3b7fe1917c604",
+    "replan-draft-all-tests-final.log": "0fe464724cebe2b38eed6c8517dd8c38c65f78efa6d07a860347a2bb6b375102",
+    "replan-draft-typecheck.log": "8aa9519f302b906bbc040eb0e0af9d32ea3ba28881cd8e229d8063292c7bb4dd",
+    "replan-draft-lint.log": "90fbf3cd4dd65348f021832b2466256dc4b95410baba4880ba9814dba3e366ea",
+    "replan-draft-replay.log": "aa5939a4bdd239e0a7e9d5d68740440d088372b17adfb343f80e4314d2406c02",
+    "replan-draft-golden.log": "6b6af1a17dfc7817a7b30a0632b7f0af5adaf9269f10fd635c6a9741fbc7361b",
+    "replan-draft-applied-coderabbit.log": "38bfccebc56047dd355b4b9bf5467fbc65818eacfb8552949aff085a6ab79fcd"
+  },
+  "newSpendUsd": 0,
+  "priorCumulativeSpendUsd": 6.82885455,
+  "authorizedCumulativeCapUsd": 7,
+  "readerReserveUsd": 5
+}

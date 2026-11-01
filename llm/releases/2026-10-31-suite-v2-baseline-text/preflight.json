@@ -1,0 +1,139 @@
+{
+  "status": "prepared-not-executed",
+  "baseCommit": "5f38200854fcfc448e0966ec8e99a69fde42562c",
+  "inputs": {
+    "scripts/evals/suite.mts": "e0a74a59e03f944b0ed5ce6f0767a66d9f6e72884cb70a3660ac2852799ed11a",
+    "src/lib/image-evals/suite-run.ts": "d18d1f3fef44447646e5359d9c22e28428f490e3be06dfe9e8f84263649e442c",
+    "src/lib/image-evals/suite-offline.ts": "53ad20b753e09b780ce8908d78dd9a9d351d655cc641694fded3b9a32a18ea55",
+    "evals/images/suite.json": "79cb20e3ad26f6af7d3e3423bef61e9a64b867970fca73e0299f3a2f7a4fd0c7",
+    "evals/images/cases.json": "06bb40f953f7123b55cf2bfab8f153bbd5959c3c937181cdbb7b6b993ac0a224",
+    "evals/images/faults.json": "a909ae9f9399a5cc711b4fb18f4984f3ef9d34404b48f65964d40d0b1c8a15e1",
+    "evals/images/analyses/alice-in-wonderland-v2.json": "c849cf75ed37426d4628405178893eb3e9e1e1a33a5d5eddd3f53646af3b662c",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/plan.json": "5b299c87fcf4de8ab169f3d37c883d8a42ab689a35a17be06f750b688ecb4704",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/snapshot.json": "063daddab8e0e6ca37592725e35fa3c03d838e49d60bb8adba11daed17d9b915",
+    "llm/releases/2026-10-31-suite-v2-baseline-text/funding.json": "41a6f99613957a6a392e4577e5ff49f35f142672468db1b0b8c5e389654e3166",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "works/bible-web/brief.json": "35c6e9a05898abe9e4ba26e740c87e461fcd82436adc96cb790a262db6d5a717",
+    "works/bible-web/depiction.json": "67a641feb9b13e8b80516b4ec5ba9c32b0bd7e86108188ec1056dd1121bd4915",
+    "works/holmes-adventures/work.json": "a0dea2fb8184b9d0d63ff4b06b7c2066603f224c8341ef12ab5535e4fc076229",
+    "works/holmes-adventures/brief.json": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "works/holmes-adventures/depiction.json": "c3b62657ce196bd208bdd0f3536a168bbd9e52a61b39374c751b5fbe2d37db1b",
+    "works/alice-in-wonderland/work.json": "8dbcd44e0ab0c37ef65bcd2eb507bed73c4f395a94c0ac30e3f4ace25d64b95c",
+    "works/alice-in-wonderland/brief.json": "2e4abe8912c2f69e64e32e42f9851b806507cff93a63915be4bcb6ba2b42e45d",
+    "works/alice-in-wonderland/depiction.json": "fc97ce62ad640ca66a1c8ae5394112a76583e387687b5ccc30d02de19b7dacb0"
+  },
+  "references": {
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2e99zh3qps4ys5tx6r0jecex8h1tfg.jpg": "201492ec8ee2388612f06f5caa92b93f789a772211f440df5fa955f890612041",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg28wgdj214z31d65smtrt44ps8gnnm3.jpg": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg241s05kh7nzbkaeb0ccp5jm18gma4s.jpg": "c36a3a74ba2a6869541796f818d48cf54884b6469f7b1a2899fa7ed77a101e17",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg21ne25z4mdw2nm4yeewyjvkd8h9ymp.jpg": "2a78962043e11c6206dd78c359aaea22ffa5506c2b3c393745f30872fb69a474",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2575h3rz1vtstda30mkqjmn18h8g0a.jpg": "f5db6a971c23e993e559705278586d53b9218610bb4f59ade2e8b325db74fe58",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg26p4jnwpkm8nm66fs61wjc858h91zc.jpg": "2c4db5e52cd1daeeb67673aa1d0d60d524d528418c54bc4ed227d47e3a1ba340",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2f64zjj63xt3pfan7x21nde18h8stq.jpg": "4eeba8199701361f1211fc88ebdc7f8f3e42108c6c105ed8092ba2b828a9e59d",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2fzqxsdcezrmkp0vv0t12s898h9440.jpg": "60ad34bb816169b2a811bf9bedd3a290abdb2f67e68f5d2334cd1be33bbd422d",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg27mwmp29f4h548zd41w4hsx58h9w7b.jpg": "474ddc39e105c7782c000c6787c2f5ffb1d6b608e1e916d4c7df872f43b1fed7",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg28jcj2svv44ecz3gwvgg53t98h98nj.jpg": "fac883e79b13c37e005de4efc238a5df61370c3e3b4a5c2af7d483a4f81bc0b1",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg25r50d9vfncwphrge3dwk9kn8h8npt.jpg": "45c87c2285d19429e2e80dad438da28b87291991931576ff6f254d30d009f016",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2fn1sxempmjpgcct7w8af4398h9x2d.jpg": "bc8d6cd6b4dfce5bbd3f988549589dec3ba5dad0f6e2290079a0f6cd9da31380",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2a08667pnar8trsqyfrp81298h9jnw.jpg": "78abeed9be17ebf152dc9ed6283c899702d05e8992859bec8061832f6a6eae94",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg202ds27c5s7d3twbvd54tyt58h9mnx.jpg": "a8546de4a7b0c04dd799aaf282db45f8bc56cf066524d38a7666bb61488ff5e3",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2crq3jhpw316nwtn7k1jenh98h9smv.jpg": "f6307d30d51e0dfd0ef4ba0a4fc7d53906868aabb98b4ca81b4510a8006679ab",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg298hr5ngejfsxeay4cjdt9h58h86w2.jpg": "3d2a6cb1fab225d810f73c26627cadad8324f4a7a492875396c4f9737a63e83f",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2d5mv9ax68t8327mt96p5bmh8h8w7z.jpg": "c513a99415f08855de08fa86e28e7740e1508478c767aa841dd0c342f8233c38",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg25ze43jx0z231b66fd7ymtqs8h94sh.jpg": "755c7dcaf9235051b63cdddf47f10ab2806e07e254f768868e8846c11fa46b71",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg23sm8rwc3zce7fhmkp2mew5h8h97wd.jpg": "efbd75a2ec50704ad0d810746afa6da4b72efd0f53dbb9ea9ffe967665a7c735",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg26tqzs8cgfeyayz68t32bt798h8rt5.jpg": "52ec952530f39aa0a23f8bba7798b0b734c049846bf41da4233653367e7a162e",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg22wm412xtx5mpa1ysdb5syqs8gm7ft.jpg": "2350b431fe1e451d945c0bba8cfc5cea1260176a7db33aa87da00082414d70ee",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg29kcg0rfcwc07zhqd39m03w98h80em.jpg": "5106a1d0cc8f892b3bbec010a5867647182bc0b23e8ba2b9892f4a92610ee273",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg238aqp5dde3wmkjqmssknqkx8h90hv.jpg": "a9badca1b2aad52c426f8b14ffbdd36d2ada20f6c8c2f691c3ebc150066151f5",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2cqetqa65226rx3nqh1f23cx8h865a.jpg": "54e1cef6728a7596257e12276538dda2b93a7a6f9672ea8dd029585f6d6b8b41",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2eghg7g17c5pdqkrdamm3w1n8h95cy.jpg": "eaadfb3e97a3ee0e93b4de8c8398ed4241507524ac5bc954f9b71bb7f8700149",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2e5j9ep7v6ssg2crkef7sjhd8h9a5w.jpg": "0b43e3e415281165900080c862abd820c69ba5223de7b1f8bb58cd3dc30c4667",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg285zppwqkj8psyabvqm31qp98h9760.jpg": "cf89af0d9ff73b2818dcaf3f767866bf5bfe305bc533f59ff92effe4efd8d2fe",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg217fpyeywh3nt5sekxc93f8h8h8c6p.jpg": "c470a812c5c55774adb0d6f057b17d4e5a22ed682a4dce648c4c280202817993",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg20fqj8qw4f2rsq7m75r3mj4x8h9wg4.jpg": "2c86f7aef1c6bd7c2447ecd463555ebfdb992c15e496edec22a034c665ff5a74",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2cwcbg302dhc6mzvsxgdjhd18h9904.jpg": "4318786b44935bbb654c1b42e6cd4fc0f73e469bacb00894b9c9096d15dd9d4c",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2bk4rq79vrpk227v38k9w2a98h8eqv.jpg": "4363d707dba3c44a913e14370d78d69c509100c08e5f295a466def0b6f0eb63b",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2abqy5jddwyrt3shz89qft1d8h8r9p.jpg": "5646991b3ea160e5c7e63a2c08d07a92fbbb3b23da4eeaa2b69be21a8a21e7cb",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2b2q038x8b4tnhms5vwcg2x18gmejf.jpg": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg22ctymxw84pb0aydkzn092f58gmm0g.jpg": "bb6f319514794761c473829772aa8690f025f5619acef098c6c934c5eaee0f33",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg29n1awzqeag96dwwcf4g12218h8nf7.jpg": "ee63fe2e74b1f4fc5afc033adb730213cacb09a67e406fd0d88fabaa4b26508d",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg250ysajgqnfa6k7zs7a9053s8h8z2s.jpg": "06d696f3562e78009c018f9f41a340c646db5e28899cd60774109e4e0c1843c4",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg29f48j7gfbyktcvpdaz75mdx8h9p59.jpg": "cf4da01a61073949990323fbd19d47d57e544c954836e84f520ca4cea9269acc",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2f9samx6n9g11bv0aw7v15qn8h82m1.jpg": "e49d4401b0779648c26e733aab51159de89e14fefb6afdf595757016a1b9f529",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2drx5b4s398xd7z0kkhwa1n18h8kdd.jpg": "06e064d9618aa039fceadb9003ecb697c88cfb55aaedaa3fedeadfbc9c8c2ced",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2azz4664er8kdrnp7b5hmhms8h9xw3.jpg": "ef8ed6a278d8bd5eb65c8cbd4ff0d5747fdd74792c3ca214a6337e07d2e99450",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2310yp4hr0219hcdnd24b66x8h99ek.jpg": "54a719889ae6a1b0227fcd7a3c9406202f7ab3d9685b3be6adf2dea55d0cbc2f",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2ax32wenpx74zkgc0w3egcjh8h8xd8.jpg": "fcba5193475a6cf6c2693c758c427c6f8556336fe7385801cd9489f6de84fd47",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg28h1csr4tskmm1dacs580qrn8h97qa.jpg": "14a553bc1ea316214cb0334e617799b79de03c189446607ea8ac51779f379f3a",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2e4gsbz1mpnw7vayj6hk2rx18h8yjp.jpg": "58a108b59e05bdb9408f532e554a5543938159d0aba8aa26bc098d292c3fb066",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg23rww1fh8k5qmw8zdhdgddjh8h9t6h.jpg": "bc09a44ad8c94da1785efec5f6fb72afa12d2c95982a69212edcddc18e69a9f2",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2a7naakmqjbswdkx60pwq8h18h8118.jpg": "0d43884a6393cc9c017a6526c405c6d6e110a2f528492211af54e4f54ea9c7bf",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2cvvd8qp7ssyw58mr0em65sh8h8b7v.jpg": "09b702ecdb1426022fd6a7f85dad3412f7bd645a5c166478f334936b0b0b6f79",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg29efdxe8w1bwbzx4awh4vc9x8gnkvt.jpg": "09fb95eb996aece26b1cc512272c70fd6363b3248cf65f45e14a793252f058ce",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg22xq7awwcjanst65x89hm6w98h8302.jpg": "fbfb78d5fb9d69e96bc06533cc017f5e336c57ac5515918ce6c8549894f682a3",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2fd4jjqzctkgwvh5y59cq3gs8h9wpb.jpg": "e0f837d7844d3208856a38303aebf1bda4bd0876bcd488ef1f43f0d8faa0571a",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg20paet0rmgsjt0y7ar3wrd398gnc3s.jpg": "cff7298326fdde848d3b3e0c24e368d2b9710aa4c00866206aa32c3e4cfeae5b",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg29nxwpan975fg6h4jtttedhd8gm6s1.jpg": "907ca40168fb8b786dd92b35658aac0fadc449ab7c5edce9a7e68bbfddd83669",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp.jpg": "1704848f713dc15928c64dff0283e33b378ef6aadc92c81bc9999cf26a514640",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg288zmz11dwt02a6m6p7993v58gmq7p.jpg": "69c73ea72399600e26de9fa6e092e90c18f09b5ef9eb6c3f3a15657a161e1175",
+    "evals/images/runs/2026-10-31-suite-v2-baseline-text/references/kg2cpdrwkappmgdk52jr57801x8gnedq.jpg": "26eab3dcf2f610570e8bb7461f788349ab2407a1297c6e310c78351397a09517"
+  },
+  "snapshot": {
+    "cases": 113,
+    "records": 468,
+    "referenceFiles": 55,
+    "paidCalls": 0,
+    "productionMutations": 0,
+    "readOnlyProductionQueries": 786,
+    "generatedPreparationSeeded": false
+  },
+  "relativeToRetainedV1Snapshot": {
+    "source": "2026-10-30-review-only-text",
+    "changes": {
+      "bible-web": {
+        "added": [],
+        "removed": [],
+        "changedPayloadVersions": [],
+        "changedReferences": []
+      },
+      "holmes-adventures": {
+        "added": [],
+        "removed": [],
+        "changedPayloadVersions": [],
+        "changedReferences": []
+      },
+      "alice-in-wonderland": {
+        "added": [],
+        "removed": [],
+        "changedPayloadVersions": [
+          "entry:queen_of_hearts"
+        ],
+        "changedReferences": []
+      }
+    },
+    "note": "Inventory only, not a paired quality comparison."
+  },
+  "rehearsal": {
+    "cases": 113,
+    "outcomes": {
+      "planned": 113
+    },
+    "syntheticCalls": {
+      "text": 324,
+      "image": 0,
+      "check": 0
+    },
+    "blocked": null,
+    "uncertainUsd": 0,
+    "network": "global fetch blocked; existing scripted providers only",
+    "localOutput": "/var/folders/dq/xkm6n6s1687cdwkx1tcthdxh0000gn/T/suite-2026-10-31-suite-v2-baseline-text-MxAq5q",
+    "resultSha256": "c0ef9bff17147906de607b6f9c07b7a09863fae2dd4f072ba565f407deb39a17",
+    "providerSha256": "cfe9ada58530d944da155c7572baa890301840911c386d9085d71620036a0697"
+  },
+  "checks": {
+    "focusedTests": 27,
+    "logSha256": "6cfbea892d899b99544efc46c492152acd1cbb8f37ffdbe20b1d7741155d7735",
+    "fullApplicationChecks": "Same runtime/config as merged PR #362 (1053 passed, one skipped, coverage/typecheck/lint passed). This preparation changes run artifacts only."
+  }
+}

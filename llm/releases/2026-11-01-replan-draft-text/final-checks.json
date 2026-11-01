@@ -1,0 +1,35 @@
+{
+  "scope": "Final offline integrity checks and execution logs. Session helper/log paths are evidence, not runtime dependencies.",
+  "files": {
+    "verifier": {
+      "path": "/private/tmp/verify-replan-draft-text.mts",
+      "sha256": "0003f352c19117dd5b401868aa0078e696d68868ef35fa9d981faa346fd43313"
+    },
+    "verificationLog": {
+      "path": "/tmp/replan-draft-text-final-verification.log",
+      "sha256": "9c45de701f7e0c982839e79ee9febc30d2695e25f6d097c1e5521db151e9934c"
+    },
+    "liveLog": {
+      "path": "/tmp/replan-draft-text-live.log",
+      "sha256": "e0a8782a8d1032a2e82a5324d7974521df9357e3e857dd7e0b7ec444ad285243"
+    },
+    "initialMissingEnvironmentLog": {
+      "path": "/tmp/replan-draft-text-missing-env.log",
+      "sha256": "d98d54c76baac56eee2f0d3e8b42445efdc0fcf99619c44353cd27e620b8ac61"
+    },
+    "finalCodeRabbit": {
+      "path": "/tmp/replan-draft-text-final-coderabbit.log",
+      "sha256": "44174285e4b84e0e7b8ce05d912a71b0ecbdbf58143f11c50822893c5d92b244"
+    }
+  },
+  "result": "24 exact requests/responses and inspection items; all 38 frozen input hashes, normalized fields, quote fields, reservations, provider costs, account/key deltas and unchanged runtime inputs verified.",
+  "codeRabbit": "Completed with zero findings on the eleven listed evidence files. This final-checks metadata and review-status documentation were updated afterward; no runner or evidence output changed.",
+  "solReview": {
+    "rounds": 2,
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "xhigh",
+    "preparationSnapshot": "4b4b7bed7cb15269255e41ebccba4cbf097f25b3",
+    "evidenceSnapshot": "f5d39f9063eb42916f23610ba2c531c0ad0365cf",
+    "verdict": "APPROVE both stages, no findings. Evidence preservation only; no activation or broader evaluation approval."
+  }
+}

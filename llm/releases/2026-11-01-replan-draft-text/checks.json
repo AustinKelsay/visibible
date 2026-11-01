@@ -1,0 +1,75 @@
+{
+  "scope": "Preparation checks only; no paid execution. Absolute log paths are session evidence, not replay dependencies.",
+  "checks": {
+    "focusedTests": {
+      "path": "/tmp/replan-draft-text-tests.log",
+      "sha256": "d07ac18485e49c6caddfb7b4b827cf3fbdb5cfe475eee2618558981ebd3a0af3",
+      "result": "52 passed"
+    },
+    "coverage": {
+      "path": "/tmp/replan-draft-text-coverage.log",
+      "sha256": "8860412d032283f3c05dcb340692e1185dce92b729348e956f0706479857f785",
+      "result": "1053 passed, 1 skipped; thresholds pass"
+    },
+    "initialOverlappingCoverage": {
+      "path": "/tmp/replan-draft-text-coverage-overlap.log",
+      "sha256": "5741fe2c0f6463ae93a7ea9e8fb2be780521049daabf97d6aafddba48febc08e",
+      "result": "5 failures: temporary candidate source overlapped the baseline test run. Not final evidence; rerun on restored fixed source passed."
+    },
+    "candidateReplay": {
+      "path": "/tmp/replan-draft-text-candidate-replay.log",
+      "sha256": "7883745af36127260f09274c82b92f2e9902d4298ee45a5e3c239f8ace8fba9a",
+      "result": "4 exact candidate correction requests; zero network calls"
+    },
+    "rehearsal": {
+      "path": "/tmp/replan-draft-text-rehearsal.log",
+      "sha256": "cfc9282c47d9d6b359d4df3660bf21d4856a38b8d3e68b4e9820d553ec4aaf6f",
+      "result": "24 fake requests and five stop paths pass"
+    },
+    "closingQueryReproduction": {
+      "path": "/tmp/replan-draft-text-finish-check.log",
+      "sha256": "0199c69830b71a19e6ed9cb92571f77af8ad0ac457549500da00c1c99e4d1d4f",
+      "result": "Before: closing query failure loses completion record. After: completion saved before failed query; successful query adds account fields."
+    },
+    "closingQueryReproductionScript": {
+      "path": "/private/tmp/replan-draft-finish-check.mjs",
+      "sha256": "c8a19a8b2e12c129c3b6a26b14650b547ffa2eb9771eae16825b56a6f2818554",
+      "result": "Session-only harness evaluates the exact finishing block with fake save/funds callbacks; no network."
+    },
+    "closingQueryBeforeSource": {
+      "path": "/private/tmp/replan-draft-text-before-finish.mts",
+      "sha256": "818685c00c2a802c676cd6b82e25f6db02cced655306314c6ec87cc73f497b75",
+      "result": "Pre-fix source retained for reproduction only"
+    },
+    "finalTypecheck": {
+      "path": "/tmp/replan-draft-text-typecheck.log",
+      "sha256": "8aa9519f302b906bbc040eb0e0af9d32ea3ba28881cd8e229d8063292c7bb4dd",
+      "result": "Pass"
+    },
+    "repositoryLint": {
+      "path": "/tmp/replan-draft-text-lint.log",
+      "sha256": "90fbf3cd4dd65348f021832b2466256dc4b95410baba4880ba9814dba3e366ea",
+      "result": "0 errors, 3 existing warnings"
+    },
+    "finalFocusedLint": {
+      "path": "/tmp/replan-draft-text-focused-lint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "Pass"
+    },
+    "codeRabbit": {
+      "path": "/tmp/replan-draft-text-coderabbit.log",
+      "sha256": "cea6b883afb7425e39e232c3f9b9a59a6c36f0e50242b647d74cdea24fb5b107",
+      "result": "Completed; 10 files reviewed, one minor finding fixed. Final change covered by reproduction and pending Sol review; no claim of a second CodeRabbit pass."
+    }
+  },
+  "codeRabbitFindings": [
+    {
+      "id": "CR1",
+      "severity": "minor",
+      "outcome": "fixed",
+      "file": "run.mts",
+      "claim": "Save completed spend before a potentially failing closing account query.",
+      "proof": "closingQueryReproduction"
+    }
+  ]
+}

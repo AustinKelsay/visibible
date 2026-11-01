@@ -1,0 +1,1893 @@
+{
+  "run": "2026-10-31-suite-v2-baseline-text",
+  "tier": "text",
+  "suite": "2026-10-31-suite-v2",
+  "faults": "2026-10-30-faults-v1",
+  "items": [
+    {
+      "id": "p001",
+      "key": "romans-8-28-all-things/text",
+      "caseId": "romans-8-28-all-things",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p002",
+      "key": "matthew-27-35-crucified/text",
+      "caseId": "matthew-27-35-crucified",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p003",
+      "key": "ruth-2-22/text",
+      "caseId": "ruth-2-22",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p004",
+      "key": "exodus-14-23/text",
+      "caseId": "exodus-14-23",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p005",
+      "key": "proverbs-25-3/text",
+      "caseId": "proverbs-25-3",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p006",
+      "key": "luke-15-20-prodigal/text",
+      "caseId": "luke-15-20-prodigal",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p007",
+      "key": "holmes-red-headed-league/text",
+      "caseId": "holmes-red-headed-league",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p008",
+      "key": "daniel-11-14/text",
+      "caseId": "daniel-11-14",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p009",
+      "key": "alice-cat-grin-appears/text",
+      "caseId": "alice-cat-grin-appears",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p010",
+      "key": "job-38-4-foundations/text",
+      "caseId": "job-38-4-foundations",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p011",
+      "key": "daniel-7-9-ancient-of-days/text",
+      "caseId": "daniel-7-9-ancient-of-days",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p012",
+      "key": "judges-11-4/text",
+      "caseId": "judges-11-4",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p013",
+      "key": "numbers-20-11/text",
+      "caseId": "numbers-20-11",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p014",
+      "key": "exodus-14-21-sea-parts/text",
+      "caseId": "exodus-14-21-sea-parts",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p015",
+      "key": "revelation-4-6-living-creatures/text",
+      "caseId": "revelation-4-6-living-creatures",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p016",
+      "key": "isaiah-40-29/text",
+      "caseId": "isaiah-40-29",
+      "work": "bible-web",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p017",
+      "key": "exodus-29-7/text",
+      "caseId": "exodus-29-7",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p018",
+      "key": "nehemiah-3-9/text",
+      "caseId": "nehemiah-3-9",
+      "work": "bible-web",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p019",
+      "key": "proverbs-8-21/text",
+      "caseId": "proverbs-8-21",
+      "work": "bible-web",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p020",
+      "key": "genesis-5-5-adam-days/text",
+      "caseId": "genesis-5-5-adam-days",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p021",
+      "key": "holmes-eyford-drive/text",
+      "caseId": "holmes-eyford-drive",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p022",
+      "key": "2-chronicles-31-21/text",
+      "caseId": "2-chronicles-31-21",
+      "work": "bible-web",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p023",
+      "key": "the-lobster-quadrille-19/text",
+      "caseId": "the-lobster-quadrille-19",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p024",
+      "key": "matthew-5-40/text",
+      "caseId": "matthew-5-40",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p025",
+      "key": "1-corinthians-1-30/text",
+      "caseId": "1-corinthians-1-30",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p026",
+      "key": "luke-22-61/text",
+      "caseId": "luke-22-61",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p027",
+      "key": "alice-tea-party-arrival/text",
+      "caseId": "alice-tea-party-arrival",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p028",
+      "key": "1-corinthians-13-12/text",
+      "caseId": "1-corinthians-13-12",
+      "work": "bible-web",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p029",
+      "key": "exodus-36-6/text",
+      "caseId": "exodus-36-6",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p030",
+      "key": "mark-4-38/text",
+      "caseId": "mark-4-38",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p031",
+      "key": "mark-4-39-storm/text",
+      "caseId": "mark-4-39-storm",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p032",
+      "key": "holmes-saxe-coburg-square/text",
+      "caseId": "holmes-saxe-coburg-square",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p033",
+      "key": "the-adventure-of-the-noble-bachelor-178/text",
+      "caseId": "the-adventure-of-the-noble-bachelor-178",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p034",
+      "key": "acts-9-3-damascus/text",
+      "caseId": "acts-9-3-damascus",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p035",
+      "key": "1-samuel-17-40/text",
+      "caseId": "1-samuel-17-40",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p036",
+      "key": "matthew-1-1-genealogy/text",
+      "caseId": "matthew-1-1-genealogy",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p037",
+      "key": "2-chronicles-30-27/text",
+      "caseId": "2-chronicles-30-27",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p038",
+      "key": "holmes-bank-cellar-lantern/text",
+      "caseId": "holmes-bank-cellar-lantern",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p039",
+      "key": "holmes-scandal-the-woman/text",
+      "caseId": "holmes-scandal-the-woman",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p040",
+      "key": "ezekiel-37-4-dry-bones/text",
+      "caseId": "ezekiel-37-4-dry-bones",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p041",
+      "key": "the-adventure-of-the-speckled-band-13/text",
+      "caseId": "the-adventure-of-the-speckled-band-13",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p042",
+      "key": "1-samuel-15-27/text",
+      "caseId": "1-samuel-15-27",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p043",
+      "key": "song-of-solomon-2-1-rose/text",
+      "caseId": "song-of-solomon-2-1-rose",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p044",
+      "key": "advice-from-a-caterpillar-59/text",
+      "caseId": "advice-from-a-caterpillar-59",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p045",
+      "key": "alice-cheshire-cat-bough/text",
+      "caseId": "alice-cheshire-cat-bough",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p046",
+      "key": "alice-croquet-game/text",
+      "caseId": "alice-croquet-game",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p047",
+      "key": "psalms-23-2-pastures/text",
+      "caseId": "psalms-23-2-pastures",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p048",
+      "key": "alice-tea-party-riddle/text",
+      "caseId": "alice-tea-party-riddle",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p049",
+      "key": "revelation-21-6/text",
+      "caseId": "revelation-21-6",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p050",
+      "key": "alice-cat-head-talks/text",
+      "caseId": "alice-cat-head-talks",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p051",
+      "key": "leviticus-11-7-pig/text",
+      "caseId": "leviticus-11-7-pig",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p052",
+      "key": "psalms-137-1-babylon/text",
+      "caseId": "psalms-137-1-babylon",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p053",
+      "key": "holmes-boscombe-train/text",
+      "caseId": "holmes-boscombe-train",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p054",
+      "key": "romans-10-17/text",
+      "caseId": "romans-10-17",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p055",
+      "key": "psalms-25-15/text",
+      "caseId": "psalms-25-15",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p056",
+      "key": "isaiah-11-6-wolf-lamb/text",
+      "caseId": "isaiah-11-6-wolf-lamb",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p057",
+      "key": "luke-15-22/text",
+      "caseId": "luke-15-22",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p058",
+      "key": "alice-drink-me/text",
+      "caseId": "alice-drink-me",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p059",
+      "key": "alice-hatter-witness/text",
+      "caseId": "alice-hatter-witness",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p060",
+      "key": "genesis-1-3-light/text",
+      "caseId": "genesis-1-3-light",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p061",
+      "key": "holmes-speckled-band-vigil/text",
+      "caseId": "holmes-speckled-band-vigil",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p062",
+      "key": "numbers-33-27/text",
+      "caseId": "numbers-33-27",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p063",
+      "key": "genesis-19-24-sodom/text",
+      "caseId": "genesis-19-24-sodom",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p064",
+      "key": "2-chronicles-16-9/text",
+      "caseId": "2-chronicles-16-9",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p065",
+      "key": "alice-refuses-to-leave/text",
+      "caseId": "alice-refuses-to-leave",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p066",
+      "key": "daniel-6-22-lions/text",
+      "caseId": "daniel-6-22-lions",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p067",
+      "key": "john-11-43-lazarus/text",
+      "caseId": "john-11-43-lazarus",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p068",
+      "key": "deuteronomy-1-7/text",
+      "caseId": "deuteronomy-1-7",
+      "work": "bible-web",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p069",
+      "key": "holmes-eyford-fire/text",
+      "caseId": "holmes-eyford-fire",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p070",
+      "key": "romans-2-19/text",
+      "caseId": "romans-2-19",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p071",
+      "key": "daniel-6-23/text",
+      "caseId": "daniel-6-23",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p072",
+      "key": "jonah-1-17-fish/text",
+      "caseId": "jonah-1-17-fish",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p073",
+      "key": "judges-19-29-concubine/text",
+      "caseId": "judges-19-29-concubine",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p074",
+      "key": "holmes-scandal-king-arrives/text",
+      "caseId": "holmes-scandal-king-arrives",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p075",
+      "key": "a-case-of-identity-94/text",
+      "caseId": "a-case-of-identity-94",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p076",
+      "key": "holmes-bank-cellar-plans/text",
+      "caseId": "holmes-bank-cellar-plans",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p077",
+      "key": "job-15-24/text",
+      "caseId": "job-15-24",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p078",
+      "key": "matthew-14-29-peter-water/text",
+      "caseId": "matthew-14-29-peter-water",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p079",
+      "key": "exodus-14-22-sea-walls/text",
+      "caseId": "exodus-14-22-sea-walls",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p080",
+      "key": "1-samuel-18-11/text",
+      "caseId": "1-samuel-18-11",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p081",
+      "key": "alices-evidence-2/text",
+      "caseId": "alices-evidence-2",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p082",
+      "key": "exodus-17-12/text",
+      "caseId": "exodus-17-12",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p083",
+      "key": "hosea-1-7/text",
+      "caseId": "hosea-1-7",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p084",
+      "key": "john-21-7-peter-sea/text",
+      "caseId": "john-21-7-peter-sea",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p085",
+      "key": "joshua-6-20-jericho/text",
+      "caseId": "joshua-6-20-jericho",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p086",
+      "key": "mark-4-37/text",
+      "caseId": "mark-4-37",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p087",
+      "key": "the-adventure-of-the-beryl-coronet-49/text",
+      "caseId": "the-adventure-of-the-beryl-coronet-49",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p088",
+      "key": "alice-king-and-cat/text",
+      "caseId": "alice-king-and-cat",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p089",
+      "key": "hebrews-12-1/text",
+      "caseId": "hebrews-12-1",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p090",
+      "key": "the-adventure-of-the-blue-carbuncle-73/text",
+      "caseId": "the-adventure-of-the-blue-carbuncle-73",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p091",
+      "key": "a-mad-tea-party-76/text",
+      "caseId": "a-mad-tea-party-76",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p092",
+      "key": "leviticus-1-16/text",
+      "caseId": "leviticus-1-16",
+      "work": "bible-web",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p093",
+      "key": "holmes-eyford-smoke/text",
+      "caseId": "holmes-eyford-smoke",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p094",
+      "key": "alices-evidence-38/text",
+      "caseId": "alices-evidence-38",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p095",
+      "key": "ruth-4-22-genealogy/text",
+      "caseId": "ruth-4-22-genealogy",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p096",
+      "key": "alices-evidence-54/text",
+      "caseId": "alices-evidence-54",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p097",
+      "key": "ephesians-5-31/text",
+      "caseId": "ephesians-5-31",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p098",
+      "key": "john-21-9/text",
+      "caseId": "john-21-9",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p099",
+      "key": "isaiah-6-2-seraphim/text",
+      "caseId": "isaiah-6-2-seraphim",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p100",
+      "key": "luke-2-45/text",
+      "caseId": "luke-2-45",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p101",
+      "key": "1-samuel-17-49-sling/text",
+      "caseId": "1-samuel-17-49-sling",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p102",
+      "key": "alice-caterpillar/text",
+      "caseId": "alice-caterpillar",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p103",
+      "key": "holmes-blue-carbuncle-hat/text",
+      "caseId": "holmes-blue-carbuncle-hat",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p104",
+      "key": "1-samuel-16-13/text",
+      "caseId": "1-samuel-16-13",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p105",
+      "key": "2-kings-2-23-bears/text",
+      "caseId": "2-kings-2-23-bears",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p106",
+      "key": "alice-tea-party-say-what-you-mean/text",
+      "caseId": "alice-tea-party-say-what-you-mean",
+      "work": "alice-in-wonderland",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p107",
+      "key": "genesis-22-10-abraham-knife/text",
+      "caseId": "genesis-22-10-abraham-knife",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p108",
+      "key": "acts-3-7/text",
+      "caseId": "acts-3-7",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p109",
+      "key": "numbers-9-22/text",
+      "caseId": "numbers-9-22",
+      "work": "bible-web",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p110",
+      "key": "the-adventure-of-the-noble-bachelor-176/text",
+      "caseId": "the-adventure-of-the-noble-bachelor-176",
+      "work": "holmes-adventures",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing"
+      ]
+    },
+    {
+      "id": "p111",
+      "key": "revelation-21-1-new-heaven/text",
+      "caseId": "revelation-21-1-new-heaven",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p112",
+      "key": "daniel-5-17/text",
+      "caseId": "daniel-5-17",
+      "work": "bible-web",
+      "style": null,
+      "split": "dev",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    },
+    {
+      "id": "p113",
+      "key": "daniel-6-17/text",
+      "caseId": "daniel-6-17",
+      "work": "bible-web",
+      "style": null,
+      "split": "holdout",
+      "faults": [
+        "wrong_moment",
+        "speaker_in_scene",
+        "missing_subject",
+        "unsupported_figure",
+        "rule_conflict",
+        "visible_writing",
+        "embodied_effects"
+      ]
+    }
+  ]
+}
