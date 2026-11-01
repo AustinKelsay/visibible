@@ -161,6 +161,23 @@ describe("VerseViewProvider", () => {
     expect([...buttons].map((button) => button.tabIndex)).toEqual([0, -1, -1]);
   });
 
+  it("leaves modified tab shortcuts to the browser", async () => {
+    await renderProvider(<><VerseModeTabs idPrefix="verse" /><ExposureHarness /></>);
+    const buttons = container!.querySelectorAll<HTMLButtonElement>('[role="tab"]');
+    await act(async () => buttons[0].focus());
+    for (const modifier of ["altKey", "ctrlKey", "metaKey", "shiftKey"]) {
+      for (const key of ["ArrowLeft", "ArrowRight", "Home", "End"]) {
+        const event = new KeyboardEvent("keydown", { key, [modifier]: true, bubbles: true, cancelable: true });
+        await act(async () => buttons[0].dispatchEvent(event));
+        expect(event.defaultPrevented).toBe(false);
+        expect(document.activeElement).toBe(buttons[0]);
+        expect(getVerseNavigationDirection(event)).toBeNull();
+        expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("reader");
+        expect(window.location.search).toBe("");
+      }
+    }
+  });
+
   it("tracks preference changes when the gallery is toggled on", async () => {
     function ToggleHarness() {
       const { setEffectiveView } = useVerseView();

@@ -18,6 +18,7 @@ export function VerseModeTabs({ idPrefix }: { idPrefix: string }) {
     Partial<Record<VerseViewValue, HTMLButtonElement | null>>
   >({});
   function handleKey(event: KeyboardEvent<HTMLButtonElement>, view: VerseViewValue) {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
     const index = modes.findIndex((mode) => mode.value === view);
     const next =
       event.key === "ArrowRight"
