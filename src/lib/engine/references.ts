@@ -38,6 +38,8 @@ export interface ReferenceBlobStore {
 
 const NO_TEXT = "Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.";
 const NO_LIKENESS = "No likeness of any real actor, performer or public figure.";
+/** Retry feedback for a sheet whose face copied a real person: fixed wording, so a name the checker may use never reaches the next prompt. */
+export const LIKENESS_RETRY_REASON = "the face resembled a real actor or public figure; invent a face from the canon text alone";
 
 /** `sections` counts the story sections whose cast uses this stage: how many sections' images the sheet can serve. */
 export type SheetSubject = { entryId: string; stageId: string; kind: "character" | "location" | "object"; name: string; text: string; version: string; eras: Era[]; sections: number };
@@ -70,6 +72,8 @@ Not a photograph.`;
 
 export const sheetCheckSchema = z.object({
   views_ok: z.boolean(), same_subject: z.boolean(), extra_figures: z.boolean(), text_present: z.boolean(), frame_present: z.boolean(),
+  /** The face is recognisably a specific real actor, performer or public figure: a hard fault, since every image of the character copies the sheet. */
+  likeness_present: z.boolean(),
   canon_notes: z.array(z.string()), verdict: z.enum(["pass", "fail"]), reasons: z.array(z.string()),
 }).strict();
 export type SheetCheck = z.infer<typeof sheetCheckSchema>;
@@ -80,7 +84,7 @@ export function sheetCheckQuestion(subject: SheetSubject): string {
   const extra = subject.kind === "character" ? "no figures other than the subject" : "no people at all";
   return `You check a ${subject.kind} reference sheet before it is used as a reference image. Judge strictly from the image. Return only JSON.
 It must show ${views}; ${extra}; no text of any kind; no frame or border around the image. All views must show the same subject. The plain grey background and the narrow plain gap or divider between the views are part of the sheet layout and are NOT a frame or panel edge.
-Fail ONLY for these hard faults: a required view missing, views showing different subjects, extra figures, text, or a frame. Anything about likeness to the canon entry (build, age, colours, props) goes in canon_notes and never causes a fail.
+Fail ONLY for these hard faults: a required view missing, views showing different subjects, extra figures, text, a frame, or a face that is recognisably a specific real actor, performer or public figure (likeness_present). On a real-person likeness, say in reasons that the face must come from the canon text alone, and do not name the person. Anything else about likeness to the canon entry (build, age, colours, props) goes in canon_notes and never causes a fail.
 CANON ENTRY (for notes only): ${subject.text}`;
 }
 
@@ -118,6 +122,8 @@ async function makeWithCheck<T extends Verdict>(
   label: string, prompt: string, question: string, schema: z.ZodType<T>,
   deps: { maker: ImageMaker; checker: VisionChecker; blobs: ReferenceBlobStore; /** Checked before every attempt with the estimate and what this subject's earlier attempts already cost. */ beforeCall?: (estimateUsd: number, pendingUsd: number) => Promise<void> },
   notesOf: (verdict: T) => string[],
+  /** A fault the checker must never pass, whatever verdict it gave: returns the fixed retry reason, or null. */
+  hardFault: (verdict: T) => string | null = () => null,
 ): Promise<ReferenceOutcome> {
   const attempts: Attempt[] = [];
   let feedback = "";
@@ -148,6 +154,12 @@ async function makeWithCheck<T extends Verdict>(
     }
     const costUsd = imageCost + (check.costUsd ?? ESTIMATED_CHECK_USD);
     attempts.push({ n, verdict: check.value, error: null, costUsd, elapsedMs: image.elapsedMs + check.elapsedMs });
+    const fault = hardFault(check.value);
+    if (fault !== null) {
+      // The checker's own reasons are dropped here: they may name the person, and the fixed reason says all the maker needs.
+      feedback = `\n\nA previous attempt was rejected because: ${fault}. Fix these.`;
+      continue;
+    }
     if (check.value.verdict === "pass") {
       try {
         const { storageId } = await deps.blobs.store(image.bytes, image.mimeType);
@@ -165,7 +177,8 @@ async function makeWithCheck<T extends Verdict>(
 }
 
 export function makeSheet(work: { title: string }, subject: SheetSubject, classical: ArtStyle, deps: Parameters<typeof makeWithCheck>[4]) {
-  return makeWithCheck(`sheet:${subject.entryId}:${subject.stageId}`, sheetPrompt(work, subject, classical), sheetCheckQuestion(subject), sheetCheckSchema, deps, (v) => v.canon_notes);
+  return makeWithCheck(`sheet:${subject.entryId}:${subject.stageId}`, sheetPrompt(work, subject, classical), sheetCheckQuestion(subject), sheetCheckSchema, deps, (v) => v.canon_notes,
+    (v) => (v.likeness_present ? LIKENESS_RETRY_REASON : null));
 }
 export function makeStyleReference(style: ArtStyle, mainEra: Era, deps: Parameters<typeof makeWithCheck>[4]) {
   return makeWithCheck(`styleref:${style.id}`, styleReferencePrompt(style, mainEra), STYLE_CHECK_QUESTION, styleCheckSchema, deps, () => []);
