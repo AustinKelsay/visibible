@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "2026-10-31-suite-v2",
+  "version": "2026-11-01-suite-v3",
   "seed": "2026-10-30-suite-v1",
   "holdoutShare": 0.4,
   "works": {
@@ -22,7 +22,7 @@
       "consistency": "evals/images/consistency.holmes-adventures.json"
     },
     "alice-in-wonderland": {
-      "analysis": "evals/images/analyses/alice-in-wonderland-v2.json",
+      "analysis": "evals/images/analyses/alice-in-wonderland-v3.json",
       "imageStyles": [
         "watercolor",
         "classical"
