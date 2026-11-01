@@ -1,0 +1,2104 @@
+{
+ "run": "check-holmes-sheets",
+ "createdAt": 1793559833768,
+ "reportedAt": 1793560062125,
+ "reproducibility": {
+  "promptVersion": "2026-10-29-generic-v15",
+  "imageModel": "google/gemini-3.1-flash-lite-image",
+  "plannerModel": null,
+  "arms": [
+   "generic:classical",
+   "generic:watercolor"
+  ],
+  "repeats": 2,
+  "sampleFloor": 3,
+  "omitStyleReference": false
+ },
+ "stopped": null,
+ "spentUsd": 0.8411804,
+ "arms": {
+  "generic:classical": {
+   "completed": 12,
+   "failed": 0,
+   "notRun": 0,
+   "failureRate": 0,
+   "latencyMs": {
+    "image": {
+     "p50": 4743,
+     "p90": 6151,
+     "max": 6516,
+     "n": 12
+    },
+    "planner": {
+     "p50": 0,
+     "p90": 0,
+     "max": 0,
+     "n": 0
+    },
+    "total": {
+     "p50": 7949,
+     "p90": 18738,
+     "max": 24684,
+     "n": 12
+    }
+   },
+   "spendUsd": {
+    "image": 0.41583650000000005,
+    "planner": 0,
+    "total": 0.41583650000000005
+   },
+   "usageMissing": 0,
+   "plannerOutcomes": {
+    "not_used": 12
+   },
+   "failuresByStage": {},
+   "preparation": {
+    "prepared": 6,
+    "cold": 6,
+    "calls": 22,
+    "spendUsd": 0.009420399999999999,
+    "usageMissing": 0,
+    "latencyMs": {
+     "prepared": {
+      "p50": 5865,
+      "p90": 7949,
+      "max": 7949,
+      "n": 6
+     },
+     "cold": {
+      "p50": 15952,
+      "p90": 24684,
+      "max": 24684,
+      "n": 6
+     }
+    }
+   },
+   "quoteVariance": {
+    "samples": 12,
+    "meanUsd": -0.00019914583333333243,
+    "maxUsd": 0.00020675000000000554,
+    "meanQuotedCredits": 5,
+    "meanActualCredits": 5,
+    "withinLiteTarget": true,
+    "unpriced": 0
+   }
+  },
+  "generic:watercolor": {
+   "completed": 12,
+   "failed": 0,
+   "notRun": 0,
+   "failureRate": 0,
+   "latencyMs": {
+    "image": {
+     "p50": 4700,
+     "p90": 7054,
+     "max": 7774,
+     "n": 12
+    },
+    "planner": {
+     "p50": 0,
+     "p90": 0,
+     "max": 0,
+     "n": 0
+    },
+    "total": {
+     "p50": 6427,
+     "p90": 8755,
+     "max": 9657,
+     "n": 12
+    }
+   },
+   "spendUsd": {
+    "image": 0.4159235,
+    "planner": 0,
+    "total": 0.4159235
+   },
+   "usageMissing": 0,
+   "plannerOutcomes": {
+    "not_used": 12
+   },
+   "failuresByStage": {},
+   "preparation": {
+    "prepared": 12,
+    "cold": 0,
+    "calls": 0,
+    "spendUsd": 0,
+    "usageMissing": 0,
+    "latencyMs": {
+     "prepared": {
+      "p50": 6427,
+      "p90": 8755,
+      "max": 9657,
+      "n": 12
+     },
+     "cold": {
+      "p50": 0,
+      "p90": 0,
+      "max": 0,
+      "n": 0
+     }
+    }
+   },
+   "quoteVariance": {
+    "samples": 12,
+    "meanUsd": -0.00019989583333333144,
+    "maxUsd": 0.00020749999999999935,
+    "meanQuotedCredits": 5,
+    "meanActualCredits": 5,
+    "withinLiteTarget": true,
+    "unpriced": 0
+   }
+  }
+ },
+ "cases": [
+  {
+   "id": "holmes-scandal-the-woman",
+   "reference": "A Scandal in Bohemia, Part I ¶1",
+   "genre": "narrative",
+   "expected": "Holmes in his Baker Street rooms, late Victorian; the same lean, hawk-faced figure as in every other Holmes case; no deerstalker cliché unless the text has it.",
+   "arms": {
+    "generic:classical": {
+     "completed": 2,
+     "failed": 0,
+     "outputs": [
+      "outputs/holmes-scandal-the-woman/generic-classical-1.jpg",
+      "outputs/holmes-scandal-the-woman/generic-classical-2.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/holmes-scandal-the-woman/generic-classical-1.jpg",
+       "costUsd": 0.0345975,
+       "latencyMs": 24684,
+       "promptChars": 7834,
+       "plannerOutcome": "not_used",
+       "prepared": false,
+       "preparationCostUsd": 0.002341,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.0002022499999999941,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2c6d230e4a6da58977bf2d56a64a84c2",
+        "planVersion": "fdc911173be38cb4ddf575df2d811653",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "holmes_s_rooms_baker_street",
+          "stageId": "holmes_s_rooms_baker_street",
+          "version": "98e05771d673f3f6cec5ff69ddb3ab6d"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": false,
+         "neighborsIncluded": true,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 7834
+        }
+       }
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/holmes-scandal-the-woman/generic-classical-2.jpg",
+       "costUsd": 0.034604,
+       "latencyMs": 5865,
+       "promptChars": 7952,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00020299999999999485,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2c6d230e4a6da58977bf2d56a64a84c2",
+        "planVersion": "fdc911173be38cb4ddf575df2d811653",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "holmes_s_rooms_baker_street",
+          "stageId": "holmes_s_rooms_baker_street",
+          "version": "98e05771d673f3f6cec5ff69ddb3ab6d"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": true,
+         "neighborsIncluded": true,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 7952
+        }
+       }
+      }
+     ]
+    },
+    "generic:watercolor": {
+     "completed": 2,
+     "failed": 0,
+     "outputs": [
+      "outputs/holmes-scandal-the-woman/generic-watercolor-1.jpg",
+      "outputs/holmes-scandal-the-woman/generic-watercolor-2.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/holmes-scandal-the-woman/generic-watercolor-1.jpg",
+       "costUsd": 0.03460475,
+       "latencyMs": 5475,
+       "promptChars": 7962,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.0002030000000000018,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2c6d230e4a6da58977bf2d56a64a84c2",
+        "planVersion": "fdc911173be38cb4ddf575df2d811653",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "holmes_s_rooms_baker_street",
+          "stageId": "holmes_s_rooms_baker_street",
+          "version": "98e05771d673f3f6cec5ff69ddb3ab6d"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": false,
+         "neighborsIncluded": true,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 7962
+        }
+       }
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/holmes-scandal-the-woman/generic-watercolor-2.jpg",
+       "costUsd": 0.03461125,
+       "latencyMs": 6427,
+       "promptChars": 8080,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.0002037499999999956,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2c6d230e4a6da58977bf2d56a64a84c2",
+        "planVersion": "fdc911173be38cb4ddf575df2d811653",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "holmes_s_rooms_baker_street",
+          "stageId": "holmes_s_rooms_baker_street",
+          "version": "98e05771d673f3f6cec5ff69ddb3ab6d"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": true,
+         "neighborsIncluded": true,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 8080
+        }
+       }
+      }
+     ]
+    }
+   },
+   "comparison": "inconclusive",
+   "reason": "fewer than 3 completed samples in an arm; retain the baseline"
+  },
+  {
+   "id": "holmes-red-headed-league",
+   "reference": "The Red-Headed League ¶1",
+   "genre": "narrative",
+   "expected": "A stout, florid, red-haired client with Holmes and Watson; the detective and doctor unchanged across stories.",
+   "arms": {
+    "generic:classical": {
+     "completed": 2,
+     "failed": 0,
+     "outputs": [
+      "outputs/holmes-red-headed-league/generic-classical-1.jpg",
+      "outputs/holmes-red-headed-league/generic-classical-2.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/holmes-red-headed-league/generic-classical-1.jpg",
+       "costUsd": 0.03490175,
+       "latencyMs": 17768,
+       "promptChars": 8097,
+       "plannerOutcome": "not_used",
+       "prepared": false,
+       "preparationCostUsd": 0.0020157,
+       "referencesSent": 3,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00019450000000000023,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-red-headed-league-1",
+        "sectionId": "the-red-headed-league-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "8cd1b4a484efcc696bcd469c577583d8",
+        "planVersion": "536aaa969eaa9c3724d9db9e05625162",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "jabez_wilson",
+          "stageId": "jabez_wilson",
+          "version": "135582da9ff519af438bddc2804080d6"
+         },
+         {
+          "entryId": "baker_street",
+          "stageId": "baker_street_main",
+          "version": "1bd3dbd2a6bb7369def7fe4a912f2ace"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "jabez_wilson:jabez_wilson",
+          "storageId": "kg2cpdrwkappmgdk52jr57801x8gnedq",
+          "version": "8456437c60240e052c0639141705e930",
+          "caption": "Image 3: Jabez Wilson's reference sheet (one figure shown in three views). Match its identity exactly for Jabez Wilson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": false,
+         "neighborsIncluded": true,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 8097
+        }
+       }
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/holmes-red-headed-league/generic-classical-2.jpg",
+       "costUsd": 0.03490825,
+       "latencyMs": 6407,
+       "promptChars": 8215,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 3,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00019525000000000098,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-red-headed-league-1",
+        "sectionId": "the-red-headed-league-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "8cd1b4a484efcc696bcd469c577583d8",
+        "planVersion": "536aaa969eaa9c3724d9db9e05625162",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "jabez_wilson",
+          "stageId": "jabez_wilson",
+          "version": "135582da9ff519af438bddc2804080d6"
+         },
+         {
+          "entryId": "baker_street",
+          "stageId": "baker_street_main",
+          "version": "1bd3dbd2a6bb7369def7fe4a912f2ace"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "jabez_wilson:jabez_wilson",
+          "storageId": "kg2cpdrwkappmgdk52jr57801x8gnedq",
+          "version": "8456437c60240e052c0639141705e930",
+          "caption": "Image 3: Jabez Wilson's reference sheet (one figure shown in three views). Match its identity exactly for Jabez Wilson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": true,
+         "neighborsIncluded": true,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 8215
+        }
+       }
+      }
+     ]
+    },
+    "generic:watercolor": {
+     "completed": 2,
+     "failed": 0,
+     "outputs": [
+      "outputs/holmes-red-headed-league/generic-watercolor-1.jpg",
+      "outputs/holmes-red-headed-league/generic-watercolor-2.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/holmes-red-headed-league/generic-watercolor-1.jpg",
+       "costUsd": 0.034909,
+       "latencyMs": 5682,
+       "promptChars": 8225,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 3,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00019524999999999404,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-red-headed-league-1",
+        "sectionId": "the-red-headed-league-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "8cd1b4a484efcc696bcd469c577583d8",
+        "planVersion": "536aaa969eaa9c3724d9db9e05625162",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "jabez_wilson",
+          "stageId": "jabez_wilson",
+          "version": "135582da9ff519af438bddc2804080d6"
+         },
+         {
+          "entryId": "baker_street",
+          "stageId": "baker_street_main",
+          "version": "1bd3dbd2a6bb7369def7fe4a912f2ace"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "jabez_wilson:jabez_wilson",
+          "storageId": "kg2cpdrwkappmgdk52jr57801x8gnedq",
+          "version": "8456437c60240e052c0639141705e930",
+          "caption": "Image 3: Jabez Wilson's reference sheet (one figure shown in three views). Match its identity exactly for Jabez Wilson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": false,
+         "neighborsIncluded": true,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 8225
+        }
+       }
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/holmes-red-headed-league/generic-watercolor-2.jpg",
+       "costUsd": 0.0349155,
+       "latencyMs": 6620,
+       "promptChars": 8343,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 3,
+       "quotedCredits": 5,
+       "varianceUsd": -0.0001959999999999948,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-red-headed-league-1",
+        "sectionId": "the-red-headed-league-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "8cd1b4a484efcc696bcd469c577583d8",
+        "planVersion": "536aaa969eaa9c3724d9db9e05625162",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "jabez_wilson",
+          "stageId": "jabez_wilson",
+          "version": "135582da9ff519af438bddc2804080d6"
+         },
+         {
+          "entryId": "baker_street",
+          "stageId": "baker_street_main",
+          "version": "1bd3dbd2a6bb7369def7fe4a912f2ace"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "jabez_wilson:jabez_wilson",
+          "storageId": "kg2cpdrwkappmgdk52jr57801x8gnedq",
+          "version": "8456437c60240e052c0639141705e930",
+          "caption": "Image 3: Jabez Wilson's reference sheet (one figure shown in three views). Match its identity exactly for Jabez Wilson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": true,
+         "neighborsIncluded": true,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 8343
+        }
+       }
+      }
+     ]
+    }
+   },
+   "comparison": "inconclusive",
+   "reason": "fewer than 3 completed samples in an arm; retain the baseline"
+  },
+  {
+   "id": "holmes-saxe-coburg-square",
+   "reference": "The Red-Headed League ¶138",
+   "genre": "narrative",
+   "expected": "Holmes and Watson in shabby Saxe-Coburg Square before the pawnbroker's; the shop board shows no legible name.",
+   "arms": {
+    "generic:classical": {
+     "completed": 2,
+     "failed": 0,
+     "outputs": [
+      "outputs/holmes-saxe-coburg-square/generic-classical-1.jpg",
+      "outputs/holmes-saxe-coburg-square/generic-classical-2.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/holmes-saxe-coburg-square/generic-classical-1.jpg",
+       "costUsd": 0.03463,
+       "latencyMs": 15952,
+       "promptChars": 8194,
+       "plannerOutcome": "not_used",
+       "prepared": false,
+       "preparationCostUsd": 0.0014780000000000001,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00019224999999999798,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-red-headed-league-138",
+        "sectionId": "the-red-headed-league-130",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "f0bd30720d582487a3bd717a2de20cc6",
+        "planVersion": "e0a2f2470d59ad5ebaa33c0f597e60cb",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "saxe_coburg_square",
+          "stageId": "saxe_coburg_square",
+          "version": "41a4cb5332f656b4c7855e7b9213d8bf"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": false,
+         "neighborsIncluded": true,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 8194
+        }
+       }
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/holmes-saxe-coburg-square/generic-classical-2.jpg",
+       "costUsd": 0.0346365,
+       "latencyMs": 5814,
+       "promptChars": 8312,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00019299999999999873,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-red-headed-league-138",
+        "sectionId": "the-red-headed-league-130",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "f0bd30720d582487a3bd717a2de20cc6",
+        "planVersion": "e0a2f2470d59ad5ebaa33c0f597e60cb",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "saxe_coburg_square",
+          "stageId": "saxe_coburg_square",
+          "version": "41a4cb5332f656b4c7855e7b9213d8bf"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": true,
+         "neighborsIncluded": true,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 8312
+        }
+       }
+      }
+     ]
+    },
+    "generic:watercolor": {
+     "completed": 2,
+     "failed": 0,
+     "outputs": [
+      "outputs/holmes-saxe-coburg-square/generic-watercolor-1.jpg",
+      "outputs/holmes-saxe-coburg-square/generic-watercolor-2.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/holmes-saxe-coburg-square/generic-watercolor-1.jpg",
+       "costUsd": 0.03463725,
+       "latencyMs": 5541,
+       "promptChars": 8322,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00019299999999999873,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-red-headed-league-138",
+        "sectionId": "the-red-headed-league-130",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "f0bd30720d582487a3bd717a2de20cc6",
+        "planVersion": "e0a2f2470d59ad5ebaa33c0f597e60cb",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "saxe_coburg_square",
+          "stageId": "saxe_coburg_square",
+          "version": "41a4cb5332f656b4c7855e7b9213d8bf"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": false,
+         "neighborsIncluded": true,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 8322
+        }
+       }
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/holmes-saxe-coburg-square/generic-watercolor-2.jpg",
+       "costUsd": 0.03464375,
+       "latencyMs": 8755,
+       "promptChars": 8440,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00019374999999999948,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-red-headed-league-138",
+        "sectionId": "the-red-headed-league-130",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "f0bd30720d582487a3bd717a2de20cc6",
+        "planVersion": "e0a2f2470d59ad5ebaa33c0f597e60cb",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "saxe_coburg_square",
+          "stageId": "saxe_coburg_square",
+          "version": "41a4cb5332f656b4c7855e7b9213d8bf"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": true,
+         "neighborsIncluded": true,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 8440
+        }
+       }
+      }
+     ]
+    }
+   },
+   "comparison": "inconclusive",
+   "reason": "fewer than 3 completed samples in an arm; retain the baseline"
+  },
+  {
+   "id": "holmes-blue-carbuncle-hat",
+   "reference": "The Adventure of the Blue Carbuncle ¶12",
+   "genre": "dialogue",
+   "expected": "Holmes and Watson over a battered felt hat in the Baker Street sitting room; no legible initials.",
+   "arms": {
+    "generic:classical": {
+     "completed": 2,
+     "failed": 0,
+     "outputs": [
+      "outputs/holmes-blue-carbuncle-hat/generic-classical-1.jpg",
+      "outputs/holmes-blue-carbuncle-hat/generic-classical-2.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/holmes-blue-carbuncle-hat/generic-classical-1.jpg",
+       "costUsd": 0.03458275,
+       "latencyMs": 13992,
+       "promptChars": 7518,
+       "plannerOutcome": "not_used",
+       "prepared": false,
+       "preparationCostUsd": 0.0009488000000000001,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00019724999999999604,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-adventure-of-the-blue-carbuncle-12",
+        "sectionId": "the-adventure-of-the-blue-carbuncle-12",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "55e13fb50edb859034c390ade06e1e11",
+        "planVersion": "85ff1a8d5df5e5326cd322e59ef95a31",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "baker_street_sitting_room",
+          "stageId": "baker_street_sitting_room",
+          "version": "5a7a8c4cdbf76b1142c3bc94186e7f20"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": false,
+         "neighborsIncluded": false,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 7518
+        }
+       }
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/holmes-blue-carbuncle-hat/generic-classical-2.jpg",
+       "costUsd": 0.03458925,
+       "latencyMs": 5832,
+       "promptChars": 7636,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.0001979999999999968,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-adventure-of-the-blue-carbuncle-12",
+        "sectionId": "the-adventure-of-the-blue-carbuncle-12",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "55e13fb50edb859034c390ade06e1e11",
+        "planVersion": "85ff1a8d5df5e5326cd322e59ef95a31",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "baker_street_sitting_room",
+          "stageId": "baker_street_sitting_room",
+          "version": "5a7a8c4cdbf76b1142c3bc94186e7f20"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": true,
+         "neighborsIncluded": false,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 7636
+        }
+       }
+      }
+     ]
+    },
+    "generic:watercolor": {
+     "completed": 2,
+     "failed": 0,
+     "outputs": [
+      "outputs/holmes-blue-carbuncle-hat/generic-watercolor-1.jpg",
+      "outputs/holmes-blue-carbuncle-hat/generic-watercolor-2.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/holmes-blue-carbuncle-hat/generic-watercolor-1.jpg",
+       "costUsd": 0.03459,
+       "latencyMs": 5129,
+       "promptChars": 7646,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.0001979999999999968,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-adventure-of-the-blue-carbuncle-12",
+        "sectionId": "the-adventure-of-the-blue-carbuncle-12",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "55e13fb50edb859034c390ade06e1e11",
+        "planVersion": "85ff1a8d5df5e5326cd322e59ef95a31",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "baker_street_sitting_room",
+          "stageId": "baker_street_sitting_room",
+          "version": "5a7a8c4cdbf76b1142c3bc94186e7f20"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": false,
+         "neighborsIncluded": false,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 7646
+        }
+       }
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/holmes-blue-carbuncle-hat/generic-watercolor-2.jpg",
+       "costUsd": 0.0345965,
+       "latencyMs": 6201,
+       "promptChars": 7764,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00019874999999999754,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-adventure-of-the-blue-carbuncle-12",
+        "sectionId": "the-adventure-of-the-blue-carbuncle-12",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "55e13fb50edb859034c390ade06e1e11",
+        "planVersion": "85ff1a8d5df5e5326cd322e59ef95a31",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "baker_street_sitting_room",
+          "stageId": "baker_street_sitting_room",
+          "version": "5a7a8c4cdbf76b1142c3bc94186e7f20"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": true,
+         "neighborsIncluded": false,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 7764
+        }
+       }
+      }
+     ]
+    }
+   },
+   "comparison": "inconclusive",
+   "reason": "fewer than 3 completed samples in an arm; retain the baseline"
+  },
+  {
+   "id": "holmes-speckled-band-vigil",
+   "reference": "The Adventure of the Speckled Band ¶235",
+   "genre": "narrative",
+   "expected": "Holmes and Watson keeping a dark vigil in Helen's bedroom, waiting for the whistle.",
+   "arms": {
+    "generic:classical": {
+     "completed": 2,
+     "failed": 0,
+     "outputs": [
+      "outputs/holmes-speckled-band-vigil/generic-classical-1.jpg",
+      "outputs/holmes-speckled-band-vigil/generic-classical-2.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/holmes-speckled-band-vigil/generic-classical-1.jpg",
+       "costUsd": 0.03460875,
+       "latencyMs": 18738,
+       "promptChars": 7984,
+       "plannerOutcome": "not_used",
+       "prepared": false,
+       "preparationCostUsd": 0.0015087999999999998,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00020024999999999904,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-adventure-of-the-speckled-band-235",
+        "sectionId": "the-adventure-of-the-speckled-band-235",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "5abfa75bda20017a18937d13dd6acc57",
+        "planVersion": "2b83f0b53bb2b86e504598dd7ad82a99",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "the_swamp_adder",
+          "stageId": "the_swamp_adder",
+          "version": "70c78ab268c0a5b7f7ce59ca06c004f6"
+         },
+         {
+          "entryId": "helen_s_bedroom",
+          "stageId": "helen_s_bedroom_1",
+          "version": "4f8a462a7c465fbd3c549d322cc6de7e"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": false,
+         "neighborsIncluded": false,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 7984
+        }
+       }
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/holmes-speckled-band-vigil/generic-classical-2.jpg",
+       "costUsd": 0.03461525,
+       "latencyMs": 7949,
+       "promptChars": 8102,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00020125000000000004,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-adventure-of-the-speckled-band-235",
+        "sectionId": "the-adventure-of-the-speckled-band-235",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "5abfa75bda20017a18937d13dd6acc57",
+        "planVersion": "2b83f0b53bb2b86e504598dd7ad82a99",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "the_swamp_adder",
+          "stageId": "the_swamp_adder",
+          "version": "70c78ab268c0a5b7f7ce59ca06c004f6"
+         },
+         {
+          "entryId": "helen_s_bedroom",
+          "stageId": "helen_s_bedroom_1",
+          "version": "4f8a462a7c465fbd3c549d322cc6de7e"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": true,
+         "neighborsIncluded": false,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 8102
+        }
+       }
+      }
+     ]
+    },
+    "generic:watercolor": {
+     "completed": 2,
+     "failed": 0,
+     "outputs": [
+      "outputs/holmes-speckled-band-vigil/generic-watercolor-1.jpg",
+      "outputs/holmes-speckled-band-vigil/generic-watercolor-2.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/holmes-speckled-band-vigil/generic-watercolor-1.jpg",
+       "costUsd": 0.034616,
+       "latencyMs": 9657,
+       "promptChars": 8112,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.0002009999999999998,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-adventure-of-the-speckled-band-235",
+        "sectionId": "the-adventure-of-the-speckled-band-235",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "5abfa75bda20017a18937d13dd6acc57",
+        "planVersion": "2b83f0b53bb2b86e504598dd7ad82a99",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "the_swamp_adder",
+          "stageId": "the_swamp_adder",
+          "version": "70c78ab268c0a5b7f7ce59ca06c004f6"
+         },
+         {
+          "entryId": "helen_s_bedroom",
+          "stageId": "helen_s_bedroom_1",
+          "version": "4f8a462a7c465fbd3c549d322cc6de7e"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": false,
+         "neighborsIncluded": false,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 8112
+        }
+       }
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/holmes-speckled-band-vigil/generic-watercolor-2.jpg",
+       "costUsd": 0.0346225,
+       "latencyMs": 7516,
+       "promptChars": 8230,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.0002020000000000008,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-adventure-of-the-speckled-band-235",
+        "sectionId": "the-adventure-of-the-speckled-band-235",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "5abfa75bda20017a18937d13dd6acc57",
+        "planVersion": "2b83f0b53bb2b86e504598dd7ad82a99",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "the_swamp_adder",
+          "stageId": "the_swamp_adder",
+          "version": "70c78ab268c0a5b7f7ce59ca06c004f6"
+         },
+         {
+          "entryId": "helen_s_bedroom",
+          "stageId": "helen_s_bedroom_1",
+          "version": "4f8a462a7c465fbd3c549d322cc6de7e"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": true,
+         "neighborsIncluded": false,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 8230
+        }
+       }
+      }
+     ]
+    }
+   },
+   "comparison": "inconclusive",
+   "reason": "fewer than 3 completed samples in an arm; retain the baseline"
+  },
+  {
+   "id": "holmes-boscombe-train",
+   "reference": "The Boscombe Valley Mystery ¶9",
+   "genre": "narrative",
+   "expected": "Holmes and Watson alone in a railway carriage, Holmes among a litter of papers.",
+   "arms": {
+    "generic:classical": {
+     "completed": 2,
+     "failed": 0,
+     "outputs": [
+      "outputs/holmes-boscombe-train/generic-classical-1.jpg",
+      "outputs/holmes-boscombe-train/generic-classical-2.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/holmes-boscombe-train/generic-classical-1.jpg",
+       "costUsd": 0.034578,
+       "latencyMs": 15755,
+       "promptChars": 7582,
+       "plannerOutcome": "not_used",
+       "prepared": false,
+       "preparationCostUsd": 0.0011281,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.0002060000000000048,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-boscombe-valley-mystery-9",
+        "sectionId": "the-boscombe-valley-mystery-9",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "ab953b8e37150c5df328a8b6fd3a6a22",
+        "planVersion": "c80bcce6a6e21e67f546866ef0106b42",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "the_train_to_the_west",
+          "stageId": "the_train_to_the_west",
+          "version": "d3009ab011a773d94b35b48825005074"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": false,
+         "neighborsIncluded": false,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 7582
+        }
+       }
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/holmes-boscombe-train/generic-classical-2.jpg",
+       "costUsd": 0.0345845,
+       "latencyMs": 7452,
+       "promptChars": 7700,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00020675000000000554,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-boscombe-valley-mystery-9",
+        "sectionId": "the-boscombe-valley-mystery-9",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "ab953b8e37150c5df328a8b6fd3a6a22",
+        "planVersion": "c80bcce6a6e21e67f546866ef0106b42",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "the_train_to_the_west",
+          "stageId": "the_train_to_the_west",
+          "version": "d3009ab011a773d94b35b48825005074"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": true,
+         "neighborsIncluded": false,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 7700
+        }
+       }
+      }
+     ]
+    },
+    "generic:watercolor": {
+     "completed": 2,
+     "failed": 0,
+     "outputs": [
+      "outputs/holmes-boscombe-train/generic-watercolor-1.jpg",
+      "outputs/holmes-boscombe-train/generic-watercolor-2.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/holmes-boscombe-train/generic-watercolor-1.jpg",
+       "costUsd": 0.03458525,
+       "latencyMs": 6813,
+       "promptChars": 7710,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.0002067499999999986,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-boscombe-valley-mystery-9",
+        "sectionId": "the-boscombe-valley-mystery-9",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "ab953b8e37150c5df328a8b6fd3a6a22",
+        "planVersion": "c80bcce6a6e21e67f546866ef0106b42",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "the_train_to_the_west",
+          "stageId": "the_train_to_the_west",
+          "version": "d3009ab011a773d94b35b48825005074"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": false,
+         "neighborsIncluded": false,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 7710
+        }
+       }
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/holmes-boscombe-train/generic-watercolor-2.jpg",
+       "costUsd": 0.03459175,
+       "latencyMs": 7629,
+       "promptChars": 7828,
+       "plannerOutcome": "not_used",
+       "prepared": true,
+       "preparationCostUsd": 0,
+       "referencesSent": 2,
+       "quotedCredits": 5,
+       "varianceUsd": -0.00020749999999999935,
+       "packet": {
+        "promptVersion": "2026-10-29-generic-v15",
+        "workId": "holmes-adventures",
+        "momentId": "the-boscombe-valley-mystery-9",
+        "sectionId": "the-boscombe-valley-mystery-9",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "34ef4f77dec131944484c9f16f456ae1a3143dc0797567319ad0af1d392447a0",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "ab953b8e37150c5df328a8b6fd3a6a22",
+        "planVersion": "c80bcce6a6e21e67f546866ef0106b42",
+        "depictionVersion": "1d5ea67a61c240f13354eb52fb70da4e",
+        "canon": [
+         {
+          "entryId": "sherlock_holmes",
+          "stageId": "sherlock_holmes",
+          "version": "3d50a5a82bd76fbd06b80ca09d446fec"
+         },
+         {
+          "entryId": "dr_watson",
+          "stageId": "dr_watson",
+          "version": "8f65bd6736e1a62413ab7cbf844e80cb"
+         },
+         {
+          "entryId": "the_train_to_the_west",
+          "stageId": "the_train_to_the_west",
+          "version": "d3009ab011a773d94b35b48825005074"
+         }
+        ],
+        "references": [
+         {
+          "kind": "sheet",
+          "id": "sherlock_holmes:sherlock_holmes",
+          "storageId": "kg21wsg96jck807qdt9yj2grgh8hc70g",
+          "version": "0b6d220ede5992994b9ad1169809a5a2",
+          "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         },
+         {
+          "kind": "sheet",
+          "id": "dr_watson:dr_watson",
+          "storageId": "kg20hetzyc386a7f6p3swrp4z18hcd61",
+          "version": "2e6e18d749ae46f0b070722f7d4cf45b",
+          "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing."
+         }
+        ],
+        "flags": {
+         "variationIncluded": true,
+         "neighborsIncluded": false,
+         "styleDetailIncluded": true,
+         "lookDetailIncluded": true
+        },
+        "budget": {
+         "maxChars": 12000,
+         "finalChars": 7828
+        }
+       }
+      }
+     ]
+    }
+   },
+   "comparison": "inconclusive",
+   "reason": "fewer than 3 completed samples in an arm; retain the baseline"
+  }
+ ],
+ "comparisons": {
+  "ready": 0,
+  "inconclusive": 6,
+  "incomplete": 0
+ },
+ "styleMatrix": {
+  "classical": {
+   "cases": 6,
+   "completed": 12,
+   "failed": 0,
+   "notRun": 0,
+   "complete": true
+  },
+  "watercolor": {
+   "cases": 6,
+   "completed": 12,
+   "failed": 0,
+   "notRun": 0,
+   "complete": true
+  }
+ }
+}

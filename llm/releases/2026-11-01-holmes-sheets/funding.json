@@ -1,0 +1,36 @@
+{
+  "at": "2026-11-01T19:01:00Z",
+  "grant": {
+    "authorizedAt": "2026-11-01T18:55:00Z",
+    "authorization": "Owner asked what remaking the Holmes and Watson sheets would cost, was quoted about $1.50 to $2 (two sheets at $0.034 to $0.11 each, one or two extra rounds, and about $1.20 to re-render the 30 Holmes suite images), and replied \"Ok let's do it!\".",
+    "authorizedUsd": 2,
+    "scope": "Owner canon edits for sherlock_holmes and dr_watson in production, remaking their two sheets through redo-sheet (at most three attempts each per remake), and one targeted render check of the six Holmes character cases in Classical and Watercolor with two repeats, on the local dev OpenRouter key. No other production writes, no deployment."
+  },
+  "allowances": {
+    "preparation": {
+      "before": 34.92968765,
+      "spent": 0.1023,
+      "after": 34.82738765,
+      "of": 43
+    },
+    "evaluation": {
+      "grant": "this record's $2.00",
+      "spent": 0.8411804,
+      "uncertain": 0
+    }
+  },
+  "key": {
+    "label": "local dev key (…1292), same OpenRouter account as production",
+    "limitRemainingBeforeUsd": 23.653620746,
+    "limitRemainingAfterUsd": 21.439310846,
+    "keyDeltaUsd": 2.214308408,
+    "thisOperationMeasuredUsd": 0.9434804,
+    "note": "The key is shared. A separate style bake-off (llm/releases/2026-11-01-style-bakeoff-2) ran on it in another session during this work and had measured $1.5494905 by 19:08:36Z. Together with this operation ($0.9434804) that is $2.4929709, against an account usage rise of $2.49283515 (193.763681662 to 196.256516812) over the same period. The key-limit delta was read a minute earlier."
+  },
+  "accountBalanceAfterUsd": 5.743483188,
+  "accountUsage": {
+    "before": 193.763681662,
+    "after": 196.256516812,
+    "delta": 2.49283515
+  }
+}

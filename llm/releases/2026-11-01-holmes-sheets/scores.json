@@ -1,0 +1,206 @@
+{
+ "run": "check-holmes-sheets",
+ "dimensions": {
+  "legacy": [
+   "relevance",
+   "clarity",
+   "artifacts_style"
+  ],
+  "generic": [
+   "relevance",
+   "identity",
+   "continuity",
+   "style",
+   "artifacts"
+  ]
+ },
+ "scale": "0 materially fails, 1 incomplete or mildly off, 2 meets",
+ "verdicts": [
+  "pass",
+  "accepted limitation",
+  "fail"
+ ],
+ "rules": "An observed depiction-rule or prohibited-likeness violation is a fail whatever the scores. A known Icon border may be recorded as an accepted limitation, never averaged away.",
+ "rows": [
+  {
+   "caseId": "holmes-scandal-the-woman",
+   "arm": "generic:classical",
+   "outputs": [
+    "outputs/holmes-scandal-the-woman/generic-classical-1.jpg",
+    "outputs/holmes-scandal-the-woman/generic-classical-2.jpg"
+   ],
+   "relevance": 2,
+   "identity": 2,
+   "continuity": 2,
+   "style": 2,
+   "artifacts": 1,
+   "verdict": "pass",
+   "notes": "Operator (unblinded, 640px montage): Holmes is the gaunt, hawk-nosed, receding-haired man of the remade sheet and Watson the sturdy, square-jawed man with a heavy moustache in both samples; no Benedict Cumberbatch or Martin Freeman likeness. Newspaper print visible on the table."
+  },
+  {
+   "caseId": "holmes-scandal-the-woman",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/holmes-scandal-the-woman/generic-watercolor-1.jpg",
+    "outputs/holmes-scandal-the-woman/generic-watercolor-2.jpg"
+   ],
+   "relevance": 2,
+   "identity": 2,
+   "continuity": 2,
+   "style": 2,
+   "artifacts": 2,
+   "verdict": "pass",
+   "notes": "Operator (unblinded, 640px montage): Holmes is the gaunt, hawk-nosed, receding-haired man of the remade sheet and Watson the sturdy, square-jawed man with a heavy moustache in both samples; no Benedict Cumberbatch or Martin Freeman likeness. "
+  },
+  {
+   "caseId": "holmes-red-headed-league",
+   "arm": "generic:classical",
+   "outputs": [
+    "outputs/holmes-red-headed-league/generic-classical-1.jpg",
+    "outputs/holmes-red-headed-league/generic-classical-2.jpg"
+   ],
+   "relevance": 2,
+   "identity": 2,
+   "continuity": 2,
+   "style": 2,
+   "artifacts": 2,
+   "verdict": "pass",
+   "notes": "Operator (unblinded, 640px montage): Holmes is the gaunt, hawk-nosed, receding-haired man of the remade sheet and Watson the sturdy, square-jawed man with a heavy moustache in both samples; no Benedict Cumberbatch or Martin Freeman likeness. "
+  },
+  {
+   "caseId": "holmes-red-headed-league",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/holmes-red-headed-league/generic-watercolor-1.jpg",
+    "outputs/holmes-red-headed-league/generic-watercolor-2.jpg"
+   ],
+   "relevance": 2,
+   "identity": 2,
+   "continuity": 2,
+   "style": 2,
+   "artifacts": 2,
+   "verdict": "pass",
+   "notes": "Operator (unblinded, 640px montage): Holmes is the gaunt, hawk-nosed, receding-haired man of the remade sheet and Watson the sturdy, square-jawed man with a heavy moustache in both samples; no Benedict Cumberbatch or Martin Freeman likeness. "
+  },
+  {
+   "caseId": "holmes-saxe-coburg-square",
+   "arm": "generic:classical",
+   "outputs": [
+    "outputs/holmes-saxe-coburg-square/generic-classical-1.jpg",
+    "outputs/holmes-saxe-coburg-square/generic-classical-2.jpg"
+   ],
+   "relevance": 2,
+   "identity": 2,
+   "continuity": 2,
+   "style": 2,
+   "artifacts": 1,
+   "verdict": "pass",
+   "notes": "Operator (unblinded, 640px montage): Holmes is the gaunt, hawk-nosed, receding-haired man of the remade sheet and Watson the sturdy, square-jawed man with a heavy moustache in both samples; no Benedict Cumberbatch or Martin Freeman likeness. Legible shop sign lettering in sample 2; newspaper print in several Baker Street interiors."
+  },
+  {
+   "caseId": "holmes-saxe-coburg-square",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/holmes-saxe-coburg-square/generic-watercolor-1.jpg",
+    "outputs/holmes-saxe-coburg-square/generic-watercolor-2.jpg"
+   ],
+   "relevance": 2,
+   "identity": 2,
+   "continuity": 2,
+   "style": 2,
+   "artifacts": 2,
+   "verdict": "pass",
+   "notes": "Operator (unblinded, 640px montage): Holmes is the gaunt, hawk-nosed, receding-haired man of the remade sheet and Watson the sturdy, square-jawed man with a heavy moustache in both samples; no Benedict Cumberbatch or Martin Freeman likeness. "
+  },
+  {
+   "caseId": "holmes-blue-carbuncle-hat",
+   "arm": "generic:classical",
+   "outputs": [
+    "outputs/holmes-blue-carbuncle-hat/generic-classical-1.jpg",
+    "outputs/holmes-blue-carbuncle-hat/generic-classical-2.jpg"
+   ],
+   "relevance": 2,
+   "identity": 2,
+   "continuity": 2,
+   "style": 2,
+   "artifacts": 1,
+   "verdict": "pass",
+   "notes": "Operator (unblinded, 640px montage): Holmes is the gaunt, hawk-nosed, receding-haired man of the remade sheet and Watson the sturdy, square-jawed man with a heavy moustache in both samples; no Benedict Cumberbatch or Martin Freeman likeness. Newspaper print on the table in both samples."
+  },
+  {
+   "caseId": "holmes-blue-carbuncle-hat",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/holmes-blue-carbuncle-hat/generic-watercolor-1.jpg",
+    "outputs/holmes-blue-carbuncle-hat/generic-watercolor-2.jpg"
+   ],
+   "relevance": 2,
+   "identity": 2,
+   "continuity": 2,
+   "style": 2,
+   "artifacts": 1,
+   "verdict": "pass",
+   "notes": "Operator (unblinded, 640px montage): Holmes is the gaunt, hawk-nosed, receding-haired man of the remade sheet and Watson the sturdy, square-jawed man with a heavy moustache in both samples; no Benedict Cumberbatch or Martin Freeman likeness. Newspaper print on the table in both samples."
+  },
+  {
+   "caseId": "holmes-speckled-band-vigil",
+   "arm": "generic:classical",
+   "outputs": [
+    "outputs/holmes-speckled-band-vigil/generic-classical-1.jpg",
+    "outputs/holmes-speckled-band-vigil/generic-classical-2.jpg"
+   ],
+   "relevance": 2,
+   "identity": 2,
+   "continuity": 2,
+   "style": 2,
+   "artifacts": 2,
+   "verdict": "pass",
+   "notes": "Operator (unblinded, 640px montage): Holmes is the gaunt, hawk-nosed, receding-haired man of the remade sheet and Watson the sturdy, square-jawed man with a heavy moustache in both samples; no Benedict Cumberbatch or Martin Freeman likeness. "
+  },
+  {
+   "caseId": "holmes-speckled-band-vigil",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/holmes-speckled-band-vigil/generic-watercolor-1.jpg",
+    "outputs/holmes-speckled-band-vigil/generic-watercolor-2.jpg"
+   ],
+   "relevance": 2,
+   "identity": 2,
+   "continuity": 2,
+   "style": 2,
+   "artifacts": 2,
+   "verdict": "pass",
+   "notes": "Operator (unblinded, 640px montage): Holmes is the gaunt, hawk-nosed, receding-haired man of the remade sheet and Watson the sturdy, square-jawed man with a heavy moustache in both samples; no Benedict Cumberbatch or Martin Freeman likeness. "
+  },
+  {
+   "caseId": "holmes-boscombe-train",
+   "arm": "generic:classical",
+   "outputs": [
+    "outputs/holmes-boscombe-train/generic-classical-1.jpg",
+    "outputs/holmes-boscombe-train/generic-classical-2.jpg"
+   ],
+   "relevance": 2,
+   "identity": 2,
+   "continuity": 2,
+   "style": 2,
+   "artifacts": 1,
+   "verdict": "pass",
+   "notes": "Operator (unblinded, 640px montage): Holmes is the gaunt, hawk-nosed, receding-haired man of the remade sheet and Watson the sturdy, square-jawed man with a heavy moustache in both samples; no Benedict Cumberbatch or Martin Freeman likeness. Scattered newspapers with print."
+  },
+  {
+   "caseId": "holmes-boscombe-train",
+   "arm": "generic:watercolor",
+   "outputs": [
+    "outputs/holmes-boscombe-train/generic-watercolor-1.jpg",
+    "outputs/holmes-boscombe-train/generic-watercolor-2.jpg"
+   ],
+   "relevance": 2,
+   "identity": 2,
+   "continuity": 2,
+   "style": 2,
+   "artifacts": 1,
+   "verdict": "pass",
+   "notes": "Operator (unblinded, 640px montage): Holmes is the gaunt, hawk-nosed, receding-haired man of the remade sheet and Watson the sturdy, square-jawed man with a heavy moustache in both samples; no Benedict Cumberbatch or Martin Freeman likeness. Scattered newspapers with print."
+  }
+ ]
+}
