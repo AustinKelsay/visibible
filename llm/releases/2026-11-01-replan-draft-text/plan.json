@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "c508de96702e204b695010978ce795eb01454d3c",
+  "model": "anthropic/claude-haiku-5.5",
+  "repeats": 3,
+  "maximumCalls": 24,
+  "operationCapUsd": 0.05,
+  "cumulativeCapUsd": 7,
+  "priorConservativeUsd": 6.82885455,
+  "readerReserveUsd": 5,
+  "priorFunding": "llm/releases/2026-10-31-suite-v2-baseline-text/funding-close.json",
+  "sourceRun": "llm/releases/2026-10-31-suite-v2-baseline-text",
+  "candidatePatch": "llm/releases/2026-10-31-replan-draft-candidate/candidate.patch",
+  "retainedPricing": "llm/releases/2026-10-31-suite-v2-baseline-text/closing-pricing.json",
+  "arms": [
+    "baseline",
+    "with-draft"
+  ],
+  "criterion": "Complete all 24 requests. Every candidate repeat must satisfy its declared case target with no newly introduced source or depiction fault attributable to preserving the draft. Ambiguous, missing, malformed or refused answers do not pass. Inspect all output fields and source evidence; report baseline performance, existing defects and new faults separately. This targeted, exposed-corpus, unblinded text diagnostic cannot authorize activation or establish image quality."
+}

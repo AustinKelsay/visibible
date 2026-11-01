@@ -1,0 +1,115 @@
+{
+  "scope": "Completed isolated correction diagnostic; unblinded model inspection, not formal quality gate or activation.",
+  "scheduled": 24,
+  "returned": 24,
+  "rawExchangeCount": 24,
+  "allSettled": true,
+  "componentCounts": {
+    "floating-head": {
+      "baseline": {
+        "hoops_corrected": {
+          "yes": 3
+        },
+        "floating_head_explicit": {
+          "yes": 1,
+          "unclear": 2
+        },
+        "queen_smile": {
+          "not_demonstrated_earlier_instant": 2,
+          "yes": 1
+        }
+      },
+      "with-draft": {
+        "hoops_corrected": {
+          "yes": 3
+        },
+        "floating_head_explicit": {
+          "yes": 3
+        },
+        "queen_smile": {
+          "yes": 2,
+          "not_demonstrated_earlier_instant": 1
+        }
+      }
+    },
+    "branch-control": {
+      "baseline": {
+        "alice_pose_coherent": {
+          "yes": 3
+        },
+        "legitimate_branch_preserved": {
+          "yes": 3
+        },
+        "cottage_without_house_selection": {
+          "yes": 3
+        }
+      },
+      "with-draft": {
+        "alice_pose_coherent": {
+          "yes": 3
+        },
+        "legitimate_branch_preserved": {
+          "yes": 3
+        },
+        "cottage_without_house_selection": {
+          "no": 1,
+          "yes": 2
+        }
+      }
+    },
+    "dormouse-pose": {
+      "baseline": {
+        "awake_doze_conflict_removed": {
+          "yes": 3
+        },
+        "dormouse_retained": {
+          "yes": 3
+        },
+        "well_like_hollow_described": {
+          "yes": 3
+        }
+      },
+      "with-draft": {
+        "awake_doze_conflict_removed": {
+          "yes": 3
+        },
+        "dormouse_retained": {
+          "yes": 3
+        },
+        "well_like_hollow_described": {
+          "no": 3
+        }
+      }
+    },
+    "camp-time": {
+      "baseline": {
+        "single_time_of_day": {
+          "yes": 3
+        },
+        "stationary_camp_preserved": {
+          "not_demonstrated_alternative_instant": 3
+        }
+      },
+      "with-draft": {
+        "single_time_of_day": {
+          "yes": 3
+        },
+        "stationary_camp_preserved": {
+          "yes": 3
+        }
+      }
+    }
+  },
+  "exactSceneFieldsRetained": {
+    "baseline": 0,
+    "withDraft": 44,
+    "possiblePerArm": 84,
+    "caveat": "Literal field equality measures editing, not semantic fidelity or image quality."
+  },
+  "predeclaredPreservationThresholdMet": false,
+  "decision": "Do not activate or broaden on this evidence.",
+  "reason": "One draft-aware Cat reply chooses the earlier listening instant without the smile. It can be source-valid but does not demonstrate the declared smile-preservation target in all repetitions. Other known source/selection defects remain; no final semantic review or images were run.",
+  "measuredUsd": 0.0135582,
+  "cumulativeConservativeUsd": 6.84241275,
+  "remainingAuthorizationUsd": 0.15758724999999973
+}
