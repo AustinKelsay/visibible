@@ -1,0 +1,825 @@
+{
+  "method": "Unblinded model inspection by the implementing agent of all 24 raw and normalized corrections and their frozen requests. No paid judge, human acceptance or formal suite fault gate. Component labels are narrow observations, not overall quality verdicts.",
+  "sourceChecks": [
+    "All focal text and neighbours are frozen in the request packets.",
+    "Additional source: works/alice-in-wonderland/work.json, The Queen's Croquet-Ground ¶45–52 and Pig and Pepper ¶49–52. Broader paragraphs were inspected but not added to requests."
+  ],
+  "items": [
+    {
+      "id": "floating-head/baseline/1",
+      "caseId": "floating-head",
+      "arm": "baseline",
+      "repeat": 1,
+      "answerSha256": "a0878eb7e0e5e9d6cf4a3f7cceacefa26402e4b30ff9cb7e10e784add79335ee",
+      "observations": {
+        "hoops_corrected": "yes",
+        "floating_head_explicit": "yes",
+        "queen_smile": "not_demonstrated_earlier_instant"
+      },
+      "evidence": [
+        {
+          "field": "setting",
+          "quote": "The Queen's croquet-ground with small painted arches made of doubled-up soldiers as hoops and a dark wood beyond"
+        },
+        {
+          "field": "primarySubject",
+          "quote": "Alice leaning toward the Cheshire Cat's grinning head, her face turned sideways with a guarded, sly expression"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "The Cheshire Cat's head hovering with a wide grin and no body; the Queen of Hearts in a regal robe and crown, half-hidden behind Alice; a flat oblong card soldier standing as an arch nearby"
+        },
+        {
+          "field": "action",
+          "quote": "Alice whispers her complaint to the Cat while the Queen of Hearts approaches stealthily from behind her, unnoticed"
+        }
+      ],
+      "notes": [
+        "The selected earlier overhearing/listening instant can be valid. It does not demonstrate preservation of the original smile; absence is not itself a source violation.",
+        "The head is explicitly hovering without a body. The description of a card soldier standing as an arch remains visually imprecise.",
+        "Broader-source support for the head-only appearance comes from The Queen's Croquet-Ground ¶45–47, outside this frozen local window; the supplied next paragraph ¶52 refers to its head."
+      ]
+    },
+    {
+      "id": "floating-head/with-draft/1",
+      "caseId": "floating-head",
+      "arm": "with-draft",
+      "repeat": 1,
+      "answerSha256": "12f4a58ced97c2fb07b99972866ec1b88b3c13afdd475161ce3110bf7a20850f",
+      "observations": {
+        "hoops_corrected": "yes",
+        "floating_head_explicit": "yes",
+        "queen_smile": "yes"
+      },
+      "evidence": [
+        {
+          "field": "setting",
+          "quote": "The Queen's croquet-ground in a Wonderland garden, with small painted arches of doubled-up soldiers as hoops, flower beds and a dark wood beyond."
+        },
+        {
+          "field": "primarySubject",
+          "quote": "Alice in a Victorian pinafore dress, half-turned, mid-sentence, glancing sideways at the Cheshire Cat's head."
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "The Cheshire Cat's grinning head floating in the air at Alice's shoulder; the Queen in a period robe and crown just behind Alice, partly hidden; flat oblong playing-card gardeners and courtiers in the background."
+        },
+        {
+          "field": "action",
+          "quote": "Alice speaks in a low, guarded voice while the Queen, just behind her, leans in to listen with a smile."
+        }
+      ],
+      "notes": [
+        "The smile is explicit, but the draft's existing compression of overhearing and subsequent smiling persists; this observation does not establish a valid single instant.",
+        "Broader-source support for the head-only appearance comes from The Queen's Croquet-Ground ¶45–47, outside this frozen local window; the supplied next paragraph ¶52 refers to its head."
+      ]
+    },
+    {
+      "id": "branch-control/baseline/1",
+      "caseId": "branch-control",
+      "arm": "baseline",
+      "repeat": 1,
+      "answerSha256": "27b25c1803c0635f6df2834582d82299b3e14ceb7e21dfab3b9717949ed09e5c",
+      "observations": {
+        "alice_pose_coherent": "yes",
+        "legitimate_branch_preserved": "yes",
+        "cottage_without_house_selection": "yes"
+      },
+      "evidence": [
+        {
+          "field": "primarySubject",
+          "quote": "Alice standing upright on the path, looking up timidly at the Cat"
+        },
+        {
+          "field": "composition",
+          "quote": "Alice standing full length in the lower foreground on the path, the Cat above and to the side on the branch, trees framing the scene"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "The Cat sitting on a low branch with a broad grin and long claws, a cottage glimpsed in the distance, mushrooms at the path edge"
+        },
+        {
+          "field": "setting",
+          "quote": "Edge of a shadowy wood of tall trees and mushrooms where the path forks"
+        }
+      ],
+      "notes": [
+        "The cottage remains described while march_hare_s_house is absent from selectedCast. The synthetic first review added that ID to the effective draft, but the correction drops it. The attribution of this cottage to that house is the retained reviewer's interpretation, not proof from the local source.",
+        "The injected Alice seating contradiction is corrected to standing; a full Cat on a branch remains. Branch support is explicit in Pig and Pepper ¶49, just before the supplied window. Fork, mushrooms and cottage come from the retained guide/draft rather than explicit local dialogue.",
+        "The ordinary final semantic review could re-add the house; it was not run in this isolated comparison, so no final production selection regression is established."
+      ]
+    },
+    {
+      "id": "branch-control/with-draft/1",
+      "caseId": "branch-control",
+      "arm": "with-draft",
+      "repeat": 1,
+      "answerSha256": "c3c7e63ad2b6283f13b91966da072ebaff850e8d0dba0e8436f4a0439642bcee",
+      "observations": {
+        "alice_pose_coherent": "yes",
+        "legitimate_branch_preserved": "yes",
+        "cottage_without_house_selection": "no"
+      },
+      "evidence": [
+        {
+          "field": "primarySubject",
+          "quote": "Alice standing upright on the path, head tilted up toward the Cat"
+        },
+        {
+          "field": "composition",
+          "quote": "Eye-level view from slightly behind and to the side of Alice standing on the path, the Cat framed high in the upper right against the trees, the path leading off to the left"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "The Cat sitting on a low tree branch with long claws and a great many teeth, body partly curled; the path forking off to the left"
+        },
+        {
+          "field": "setting",
+          "quote": "A shadowy wood at a fork in a dirt path, with tall trees and mushrooms"
+        }
+      ],
+      "notes": [
+        "The correction removes the cottage as well as the house ID; this is not a remaining unselected-cottage fault.",
+        "The injected Alice seating contradiction is corrected to standing; a full Cat on a branch remains. Branch support is explicit in Pig and Pepper ¶49, just before the supplied window. Fork, mushrooms and cottage come from the retained guide/draft rather than explicit local dialogue."
+      ]
+    },
+    {
+      "id": "dormouse-pose/baseline/1",
+      "caseId": "dormouse-pose",
+      "arm": "baseline",
+      "repeat": 1,
+      "answerSha256": "fd40d347dfead363ff0bb6eb664d495e9d3477724a5d74d2c5a8c64264b1283c",
+      "observations": {
+        "awake_doze_conflict_removed": "yes",
+        "dormouse_retained": "yes",
+        "well_like_hollow_described": "yes"
+      },
+      "evidence": [
+        {
+          "field": "action",
+          "quote": "The Dormouse, awake and mid-sentence, raises one paw while explaining the well, as Alice asks why the sisters lived in it"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "The March Hare pouring tea at one end, the Hatter with his hat tipped back at the other, teacups, bread-and-butter and a teapot on the cloth"
+        },
+        {
+          "field": "setting",
+          "quote": "A long tea-table set under a large tree in the March Hare's garden, with a shallow well-like hollow beyond the grass"
+        },
+        {
+          "field": "instant",
+          "quote": "Alice leans forward at the tea-table under the tree, asking the Dormouse her question while the Dormouse, mid-story and wide awake, lifts one paw as if counting out the sisters."
+        }
+      ],
+      "notes": [
+        "The Dormouse is upright/awake rather than simultaneously dozing. The existing narrated-content versus speaker-policy concern remains; target success does not make this an overall acceptable scene.",
+        "The retained vague hollow becomes a well-like hollow in the tea-party garden. The source well belongs to the Dormouse's narrated story; this may mix the story's location with its telling. Its causal source cannot be established from this sample."
+      ]
+    },
+    {
+      "id": "dormouse-pose/with-draft/1",
+      "caseId": "dormouse-pose",
+      "arm": "with-draft",
+      "repeat": 1,
+      "answerSha256": "822bde46d70b911d0d68fc6c0db7996a4e140eeb03ebf0543405c01737e700db",
+      "observations": {
+        "awake_doze_conflict_removed": "yes",
+        "dormouse_retained": "yes",
+        "well_like_hollow_described": "no"
+      },
+      "evidence": [
+        {
+          "field": "action",
+          "quote": "The Dormouse sits upright with one paw raised in thought as he answers, while Alice poses her question"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "Hare and Hatter seated at either end with teacups, teapots and bread-and-butter on the cloth"
+        },
+        {
+          "field": "setting",
+          "quote": "Long tea-table set under a large tree in the March Hare's garden, with a hollow nearby"
+        },
+        {
+          "field": "instant",
+          "quote": "Alice leans toward the Dormouse at the tea-table to ask why the three sisters lived at the bottom of a well, while he pauses in thought."
+        }
+      ],
+      "notes": [
+        "The Dormouse is upright/awake rather than simultaneously dozing. The existing narrated-content versus speaker-policy concern remains; target success does not make this an overall acceptable scene.",
+        "The original vague hollow remains; it is not explicitly called a well. The scene still illustrates the conversation. No claim that all source or depiction issues are fixed.",
+        "The action says the Dormouse answers while the instant says he pauses in thought. This is a residual speech/timing ambiguity, separate from the removed awake/doze conflict."
+      ]
+    },
+    {
+      "id": "camp-time/baseline/1",
+      "caseId": "camp-time",
+      "arm": "baseline",
+      "repeat": 1,
+      "answerSha256": "79ba0b823e5d155f81f5b493425ddf6b864635865dc76d2bd8f3bdcfcdcbc1ff",
+      "observations": {
+        "single_time_of_day": "yes",
+        "stationary_camp_preserved": "not_demonstrated_alternative_instant"
+      },
+      "evidence": [
+        {
+          "field": "primarySubject",
+          "quote": "The portable tabernacle at the center of the camp, with a pillar of cloud just lifting from its roof."
+        },
+        {
+          "field": "action",
+          "quote": "The cloud rises from the tabernacle and families begin to gather bundles and tents to set out."
+        },
+        {
+          "field": "timeOfDay",
+          "quote": "Full daylight under a clear desert sky, warm sunlight on the camp."
+        },
+        {
+          "field": "focusQuote",
+          "quote": "the cloud stayed on the tabernacle"
+        }
+      ],
+      "notes": [
+        "The reply chooses the cloud lifting and preparations to leave. That alternative is supported by the same verse, so this is lost draft-instant preservation, not a demonstrated source error. focusQuote still quotes the resting cloud, a mismatch with the chosen instant."
+      ]
+    },
+    {
+      "id": "camp-time/with-draft/1",
+      "caseId": "camp-time",
+      "arm": "with-draft",
+      "repeat": 1,
+      "answerSha256": "abde3026de50e1eee3f72778d40c8b9cb4df07b2a22bfa2074bf09c09cdca725",
+      "observations": {
+        "single_time_of_day": "yes",
+        "stationary_camp_preserved": "yes"
+      },
+      "evidence": [
+        {
+          "field": "primarySubject",
+          "quote": "The tabernacle at the center of the camp with a pillar of cloud resting steadily upon it"
+        },
+        {
+          "field": "action",
+          "quote": "The people remain seated and settled by their tents, none packing or traveling"
+        },
+        {
+          "field": "timeOfDay",
+          "quote": "Clear desert daylight under a bright sky"
+        },
+        {
+          "field": "focusQuote",
+          "quote": "the cloud stayed on the tabernacle, remaining on it"
+        }
+      ],
+      "notes": [
+        "The resting cloud and settled families survive, while the day/night mixture is replaced with daylight. Incidental priestly clothing remains unverified; this is a narrow target pass."
+      ]
+    },
+    {
+      "id": "floating-head/with-draft/2",
+      "caseId": "floating-head",
+      "arm": "with-draft",
+      "repeat": 2,
+      "answerSha256": "2406c8ed0c06c82c01ab528521b032b28297f1d704a5b037c98d2291496abaac",
+      "observations": {
+        "hoops_corrected": "yes",
+        "floating_head_explicit": "yes",
+        "queen_smile": "yes"
+      },
+      "evidence": [
+        {
+          "field": "setting",
+          "quote": "The Queen's croquet-ground in a Wonderland garden, with small painted arches made of doubled-up soldiers as hoops, flower beds and a dark wood beyond."
+        },
+        {
+          "field": "primarySubject",
+          "quote": "Alice in a Victorian pinafore dress, half-turned, mid-sentence, glancing sideways at the Cheshire Cat's head."
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "The Cheshire Cat's grinning head floating in the air at Alice's shoulder; the Queen in a period robe and crown just behind Alice, partly hidden; flat oblong playing-card gardeners and courtiers in the background, with soldiers bent over as living arches."
+        },
+        {
+          "field": "action",
+          "quote": "Alice speaks in a low, guarded voice while the Queen, just behind her, leans in to listen with a smile."
+        }
+      ],
+      "notes": [
+        "The smile is explicit, but the draft's existing compression of overhearing and subsequent smiling persists; this observation does not establish a valid single instant.",
+        "Broader-source support for the head-only appearance comes from The Queen's Croquet-Ground ¶45–47, outside this frozen local window; the supplied next paragraph ¶52 refers to its head."
+      ]
+    },
+    {
+      "id": "floating-head/baseline/2",
+      "caseId": "floating-head",
+      "arm": "baseline",
+      "repeat": 2,
+      "answerSha256": "57ef9170a1bbcc21301465b29a86d3ec4b7f7a89de439f390af0affef0365287",
+      "observations": {
+        "hoops_corrected": "yes",
+        "floating_head_explicit": "unclear",
+        "queen_smile": "not_demonstrated_earlier_instant"
+      },
+      "evidence": [
+        {
+          "field": "setting",
+          "quote": "The Queen's croquet-ground in a Wonderland garden, with doubled-up soldier arches as hoops, flower beds and a dark wood beyond"
+        },
+        {
+          "field": "primarySubject",
+          "quote": "Alice leaning toward the Cheshire Cat, which floats grinning in the air beside her"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "The Queen of Hearts in a red robe and crown, bending slightly to listen; flat oblong playing-card courtiers standing about the grass; the flamingo mallet and hedgehog ball lying nearby"
+        },
+        {
+          "field": "action",
+          "quote": "Alice pauses mid-sentence, eyes flicking sideways as the Queen of Hearts steps up close behind her, unseen by the Cat"
+        }
+      ],
+      "notes": [
+        "No perch is introduced, but this reply does not explicitly establish both a head-only form and free-floating placement. Do not turn this omission into a definite body or perch error.",
+        "The selected earlier overhearing/listening instant can be valid. It does not demonstrate preservation of the original smile; absence is not itself a source violation.",
+        "Flamingo and hedgehog props are described but their available section cast IDs are omitted; no final semantic review is run to repair the selection.",
+        "The Cat floats but is not explicitly head-only. The action also invents the Queen being unseen by the Cat.",
+        "Broader-source support for the head-only appearance comes from The Queen's Croquet-Ground ¶45–47, outside this frozen local window; the supplied next paragraph ¶52 refers to its head."
+      ]
+    },
+    {
+      "id": "branch-control/with-draft/2",
+      "caseId": "branch-control",
+      "arm": "with-draft",
+      "repeat": 2,
+      "answerSha256": "87bf05f357ce6ee3504945c49fdaa21b8d5fd342fe72814fe09bce85b5e9cee2",
+      "observations": {
+        "alice_pose_coherent": "yes",
+        "legitimate_branch_preserved": "yes",
+        "cottage_without_house_selection": "yes"
+      },
+      "evidence": [
+        {
+          "field": "primarySubject",
+          "quote": "Alice standing upright on the path, head tilted up toward the Cat"
+        },
+        {
+          "field": "composition",
+          "quote": "Eye-level view from behind Alice standing on the path, the Cat framed high in the upper right against the trees, the path leading off to the left"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "The Cat sitting on a low tree branch with long claws, body partly curled, wide grin dominating its face; a cottage faintly glimpsed in the distance"
+        },
+        {
+          "field": "setting",
+          "quote": "A shadowy wood at a fork in a dirt path, with tall trees and mushrooms"
+        }
+      ],
+      "notes": [
+        "The cottage remains described while march_hare_s_house is absent from selectedCast. The synthetic first review added that ID to the effective draft, but the correction drops it. The attribution of this cottage to that house is the retained reviewer's interpretation, not proof from the local source.",
+        "The injected Alice seating contradiction is corrected to standing; a full Cat on a branch remains. Branch support is explicit in Pig and Pepper ¶49, just before the supplied window. Fork, mushrooms and cottage come from the retained guide/draft rather than explicit local dialogue.",
+        "The ordinary final semantic review could re-add the house; it was not run in this isolated comparison, so no final production selection regression is established."
+      ]
+    },
+    {
+      "id": "branch-control/baseline/2",
+      "caseId": "branch-control",
+      "arm": "baseline",
+      "repeat": 2,
+      "answerSha256": "762c34029874903d6413c9e682045bd084064aab72d7680c7bdbe61928875ce6",
+      "observations": {
+        "alice_pose_coherent": "yes",
+        "legitimate_branch_preserved": "yes",
+        "cottage_without_house_selection": "yes"
+      },
+      "evidence": [
+        {
+          "field": "primarySubject",
+          "quote": "Alice standing upright on the path, hands clasped, head tilted up toward the Cat"
+        },
+        {
+          "field": "composition",
+          "quote": "Alice stands at lower left on the path, the Cat sits on a branch high at right, with the forking path leading into the trees behind them."
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "The Cat sits on a branch with a broad grin and long claws curled over the bough; a fork of the path runs off among the trees; a few mushrooms and undergrowth lie at Alice's feet."
+        },
+        {
+          "field": "setting",
+          "quote": "A shadowy wood of tall trees and mushrooms at a fork in the path, with a cottage glimpsed in the distance."
+        }
+      ],
+      "notes": [
+        "The cottage remains described while march_hare_s_house is absent from selectedCast. The synthetic first review added that ID to the effective draft, but the correction drops it. The attribution of this cottage to that house is the retained reviewer's interpretation, not proof from the local source.",
+        "The injected Alice seating contradiction is corrected to standing; a full Cat on a branch remains. Branch support is explicit in Pig and Pepper ¶49, just before the supplied window. Fork, mushrooms and cottage come from the retained guide/draft rather than explicit local dialogue.",
+        "The ordinary final semantic review could re-add the house; it was not run in this isolated comparison, so no final production selection regression is established."
+      ]
+    },
+    {
+      "id": "dormouse-pose/with-draft/2",
+      "caseId": "dormouse-pose",
+      "arm": "with-draft",
+      "repeat": 2,
+      "answerSha256": "a6f5149037fa5a1b0f7169f81a3e8d30ccad313390bcb2e7331cc5a233ceeb26",
+      "observations": {
+        "awake_doze_conflict_removed": "yes",
+        "dormouse_retained": "yes",
+        "well_like_hollow_described": "no"
+      },
+      "evidence": [
+        {
+          "field": "action",
+          "quote": "The Dormouse pauses mid-story, one paw raised, as Alice poses her question"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "Hare and Hatter seated at either end with teacups, teapots and bread-and-butter scattered across the cloth, the Dormouse seated upright at the table edge"
+        },
+        {
+          "field": "setting",
+          "quote": "Long tea-table set under a large tree in the March Hare's garden, with a hollow nearby"
+        },
+        {
+          "field": "instant",
+          "quote": "Alice leans forward across the tea-table to ask the Dormouse why the three sisters lived at the bottom of a well, while he pauses mid-story with one paw raised."
+        }
+      ],
+      "notes": [
+        "The Dormouse is upright/awake rather than simultaneously dozing. The existing narrated-content versus speaker-policy concern remains; target success does not make this an overall acceptable scene.",
+        "The original vague hollow remains; it is not explicitly called a well. The scene still illustrates the conversation. No claim that all source or depiction issues are fixed."
+      ]
+    },
+    {
+      "id": "dormouse-pose/baseline/2",
+      "caseId": "dormouse-pose",
+      "arm": "baseline",
+      "repeat": 2,
+      "answerSha256": "c308b816fad9372994bc8bda348631a3ea490e560944ed37bf172a1ef7031d10",
+      "observations": {
+        "awake_doze_conflict_removed": "yes",
+        "dormouse_retained": "yes",
+        "well_like_hollow_described": "yes"
+      },
+      "evidence": [
+        {
+          "field": "action",
+          "quote": "The Dormouse sits upright, paw lifted in thought, mid-story, while Alice asks her question"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "March Hare pouring tea and offering a cup, Hatter with hat and cup beside him, teapot, cups, bread-and-butter on the table"
+        },
+        {
+          "field": "setting",
+          "quote": "Long tea-table set under a large tree in the March Hare's garden, with a deep well-like hollow nearby"
+        },
+        {
+          "field": "instant",
+          "quote": "Alice leans forward at the tea-table under the tree, asking the Dormouse why the three sisters lived at the bottom of a well, while the Dormouse, awake and sitting upright, pauses to think."
+        }
+      ],
+      "notes": [
+        "The Dormouse is upright/awake rather than simultaneously dozing. The existing narrated-content versus speaker-policy concern remains; target success does not make this an overall acceptable scene.",
+        "The retained vague hollow becomes a well-like hollow in the tea-party garden. The source well belongs to the Dormouse's narrated story; this may mix the story's location with its telling. Its causal source cannot be established from this sample."
+      ]
+    },
+    {
+      "id": "camp-time/with-draft/2",
+      "caseId": "camp-time",
+      "arm": "with-draft",
+      "repeat": 2,
+      "answerSha256": "07afe001d1bae168b16ed8739b505b69537fe13e2eaeb7d9ab0563743ab4a3c6",
+      "observations": {
+        "single_time_of_day": "yes",
+        "stationary_camp_preserved": "yes"
+      },
+      "evidence": [
+        {
+          "field": "primarySubject",
+          "quote": "The tabernacle at the center of the camp, with a pillar of cloud resting upon it"
+        },
+        {
+          "field": "action",
+          "quote": "The people remain seated and settled by their tents, with no one packing or traveling"
+        },
+        {
+          "field": "timeOfDay",
+          "quote": "Clear desert sky in full daylight, with the pillar of cloud resting quietly over the tabernacle"
+        },
+        {
+          "field": "focusQuote",
+          "quote": "the cloud stayed on the tabernacle, remaining on it"
+        }
+      ],
+      "notes": [
+        "The resting cloud and settled families survive, while the day/night mixture is replaced with daylight. Incidental priestly clothing remains unverified; this is a narrow target pass."
+      ]
+    },
+    {
+      "id": "camp-time/baseline/2",
+      "caseId": "camp-time",
+      "arm": "baseline",
+      "repeat": 2,
+      "answerSha256": "ec10f1e081a37aaedde8768b9b9173cf0cf638c9390c53dd8c0db0d05254f860",
+      "observations": {
+        "single_time_of_day": "yes",
+        "stationary_camp_preserved": "not_demonstrated_alternative_instant"
+      },
+      "evidence": [
+        {
+          "field": "primarySubject",
+          "quote": "The tabernacle in the centre of the camp, with the pillar of cloud just rising from its top."
+        },
+        {
+          "field": "action",
+          "quote": "The cloud lifts from the tabernacle as the people turn to gather their belongings and prepare to set out."
+        },
+        {
+          "field": "timeOfDay",
+          "quote": "Clear morning daylight with warm sun and dry desert air."
+        },
+        {
+          "field": "focusQuote",
+          "quote": "the cloud stayed on the tabernacle, remaining on it"
+        }
+      ],
+      "notes": [
+        "The reply chooses the cloud lifting and preparations to leave. That alternative is supported by the same verse, so this is lost draft-instant preservation, not a demonstrated source error. focusQuote still quotes the resting cloud, a mismatch with the chosen instant."
+      ]
+    },
+    {
+      "id": "floating-head/baseline/3",
+      "caseId": "floating-head",
+      "arm": "baseline",
+      "repeat": 3,
+      "answerSha256": "bb6463e0b726ae7725337fd70707a82493aabe250a7d8148c5c549b0ffb24673",
+      "observations": {
+        "hoops_corrected": "yes",
+        "floating_head_explicit": "unclear",
+        "queen_smile": "yes"
+      },
+      "evidence": [
+        {
+          "field": "setting",
+          "quote": "The Queen's croquet-ground in a Wonderland garden, with small painted arches of doubled-up soldiers as hoops, flower beds and a dark wood beyond"
+        },
+        {
+          "field": "primarySubject",
+          "quote": "Alice, half-turned and startled, beside the Cheshire Cat's grinning head"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "Flat oblong playing-card courtiers in the background, the flamingo mallet and hedgehog ball at the edge, the Queen in a crown and royal robes, smiling thinly"
+        },
+        {
+          "field": "action",
+          "quote": "Alice stops mid-sentence as the Queen of Hearts looms close behind her, while the Cat leans in with a sly whisper"
+        }
+      ],
+      "notes": [
+        "No perch is introduced, but this reply does not explicitly establish both a head-only form and free-floating placement. Do not turn this omission into a definite body or perch error.",
+        "The smile is explicit, but the draft's existing compression of overhearing and subsequent smiling persists; this observation does not establish a valid single instant.",
+        "Flamingo and hedgehog props are described but their available section cast IDs are omitted; no final semantic review is run to repair the selection.",
+        "Broader-source support for the head-only appearance comes from The Queen's Croquet-Ground ¶45–47, outside this frozen local window; the supplied next paragraph ¶52 refers to its head."
+      ]
+    },
+    {
+      "id": "floating-head/with-draft/3",
+      "caseId": "floating-head",
+      "arm": "with-draft",
+      "repeat": 3,
+      "answerSha256": "ef22bf68d87663dfd0c612b606261898f402a447032540b95a25ca35367fc034",
+      "observations": {
+        "hoops_corrected": "yes",
+        "floating_head_explicit": "yes",
+        "queen_smile": "not_demonstrated_earlier_instant"
+      },
+      "evidence": [
+        {
+          "field": "setting",
+          "quote": "The Queen's croquet-ground in a Wonderland garden, with small painted arches made of doubled-up soldiers as hoops, flower beds and a dark wood beyond."
+        },
+        {
+          "field": "primarySubject",
+          "quote": "Alice in a Victorian pinafore dress, half-turned and mid-sentence, glancing sideways at the Cheshire Cat's head."
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "The Cheshire Cat's grinning head floating at Alice's shoulder; the Queen in a period robe and crown just behind Alice, partly hidden; flat oblong playing-card gardeners and courtiers in the background."
+        },
+        {
+          "field": "action",
+          "quote": "Alice speaks in a guarded whisper while the Queen, just behind her, leans in to listen."
+        }
+      ],
+      "notes": [
+        "The selected earlier overhearing/listening instant can be valid. It does not demonstrate preservation of the original smile; absence is not itself a source violation.",
+        "Broader-source support for the head-only appearance comes from The Queen's Croquet-Ground ¶45–47, outside this frozen local window; the supplied next paragraph ¶52 refers to its head."
+      ]
+    },
+    {
+      "id": "branch-control/baseline/3",
+      "caseId": "branch-control",
+      "arm": "baseline",
+      "repeat": 3,
+      "answerSha256": "767534476ab741213d93cb3a15f2b87fc3ab4377679e7caff6dd877043bde6e9",
+      "observations": {
+        "alice_pose_coherent": "yes",
+        "legitimate_branch_preserved": "yes",
+        "cottage_without_house_selection": "yes"
+      },
+      "evidence": [
+        {
+          "field": "primarySubject",
+          "quote": "Alice standing upright on the path, looking up with a timid expression."
+        },
+        {
+          "field": "composition",
+          "quote": "Alice in the lower foreground on the path, the Cat higher and to one side in the branches, both framed by the trees."
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "The Cat sits on a branch above Alice with long claws and many teeth visible in its grin; mushrooms and undergrowth line the path."
+        },
+        {
+          "field": "setting",
+          "quote": "A shadowy wood of tall trees and mushrooms at the edge of a fork in the path, near a cottage."
+        }
+      ],
+      "notes": [
+        "The cottage remains described while march_hare_s_house is absent from selectedCast. The synthetic first review added that ID to the effective draft, but the correction drops it. The attribution of this cottage to that house is the retained reviewer's interpretation, not proof from the local source.",
+        "The injected Alice seating contradiction is corrected to standing; a full Cat on a branch remains. Branch support is explicit in Pig and Pepper ¶49, just before the supplied window. Fork, mushrooms and cottage come from the retained guide/draft rather than explicit local dialogue.",
+        "The ordinary final semantic review could re-add the house; it was not run in this isolated comparison, so no final production selection regression is established."
+      ]
+    },
+    {
+      "id": "branch-control/with-draft/3",
+      "caseId": "branch-control",
+      "arm": "with-draft",
+      "repeat": 3,
+      "answerSha256": "1557f7f4edc3f1dc4604ab482a9ae2ada7ce414cc47cdcd1761cf04bc72b896c",
+      "observations": {
+        "alice_pose_coherent": "yes",
+        "legitimate_branch_preserved": "yes",
+        "cottage_without_house_selection": "yes"
+      },
+      "evidence": [
+        {
+          "field": "primarySubject",
+          "quote": "Alice standing upright on the path, head tilted up toward the Cat"
+        },
+        {
+          "field": "composition",
+          "quote": "Eye-level view from behind Alice standing on the path, the Cat framed high in the upper right against the trees, the path leading off to the left"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "The Cat sitting on a low tree branch, long claws and many teeth visible in its wide grin, body partly curled"
+        },
+        {
+          "field": "setting",
+          "quote": "A shadowy wood at a fork in a dirt path, tall trees and mushrooms, a cottage glimpsed in the distance"
+        }
+      ],
+      "notes": [
+        "The cottage remains described while march_hare_s_house is absent from selectedCast. The synthetic first review added that ID to the effective draft, but the correction drops it. The attribution of this cottage to that house is the retained reviewer's interpretation, not proof from the local source.",
+        "The injected Alice seating contradiction is corrected to standing; a full Cat on a branch remains. Branch support is explicit in Pig and Pepper ¶49, just before the supplied window. Fork, mushrooms and cottage come from the retained guide/draft rather than explicit local dialogue.",
+        "The ordinary final semantic review could re-add the house; it was not run in this isolated comparison, so no final production selection regression is established."
+      ]
+    },
+    {
+      "id": "dormouse-pose/baseline/3",
+      "caseId": "dormouse-pose",
+      "arm": "baseline",
+      "repeat": 3,
+      "answerSha256": "31e0dd5fae3f2d4167a0f01e44e2a0489ec789dc21429bb74f73a12693a8be46",
+      "observations": {
+        "awake_doze_conflict_removed": "yes",
+        "dormouse_retained": "yes",
+        "well_like_hollow_described": "yes"
+      },
+      "evidence": [
+        {
+          "field": "action",
+          "quote": "Alice poses her question while the Dormouse pauses to think before answering"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "March Hare and Hatter seated at the far end of the table with teapots and cups, bread-and-butter on plates; a deep well-like hollow in the grass beyond the table"
+        },
+        {
+          "field": "setting",
+          "quote": "Long tea-table set under a large tree in the March Hare's garden, with a dim clearing and a hollow nearby"
+        },
+        {
+          "field": "instant",
+          "quote": "Alice leans forward at the tea-table under the tree, asking the Dormouse why the three sisters lived at the bottom of a well, while the Dormouse, upright and awake, pauses mid-story with one paw lifted."
+        }
+      ],
+      "notes": [
+        "The Dormouse is upright/awake rather than simultaneously dozing. The existing narrated-content versus speaker-policy concern remains; target success does not make this an overall acceptable scene.",
+        "The retained vague hollow becomes a well-like hollow in the tea-party garden. The source well belongs to the Dormouse's narrated story; this may mix the story's location with its telling. Its causal source cannot be established from this sample."
+      ]
+    },
+    {
+      "id": "dormouse-pose/with-draft/3",
+      "caseId": "dormouse-pose",
+      "arm": "with-draft",
+      "repeat": 3,
+      "answerSha256": "b8be0ad7bdc7c656307c20ff879d4cea1c5b667d91d0e9c9ef74907f4b1ef4ef",
+      "observations": {
+        "awake_doze_conflict_removed": "yes",
+        "dormouse_retained": "yes",
+        "well_like_hollow_described": "no"
+      },
+      "evidence": [
+        {
+          "field": "action",
+          "quote": "The Dormouse pauses mid-story with one paw raised as Alice poses her question"
+        },
+        {
+          "field": "secondaryElements",
+          "quote": "Hare and Hatter seated at either end with teacups, teapots and bread-and-butter scattered across the cloth, the Dormouse seated at the table"
+        },
+        {
+          "field": "setting",
+          "quote": "Long tea-table set under a large tree in the March Hare's garden, with a hollow nearby"
+        },
+        {
+          "field": "instant",
+          "quote": "Alice leans forward at the tea-table to ask the Dormouse why the three sisters lived at the bottom of a well, while the Dormouse pauses mid-story with one paw raised."
+        }
+      ],
+      "notes": [
+        "The Dormouse is upright/awake rather than simultaneously dozing. The existing narrated-content versus speaker-policy concern remains; target success does not make this an overall acceptable scene.",
+        "The original vague hollow remains; it is not explicitly called a well. The scene still illustrates the conversation. No claim that all source or depiction issues are fixed."
+      ]
+    },
+    {
+      "id": "camp-time/baseline/3",
+      "caseId": "camp-time",
+      "arm": "baseline",
+      "repeat": 3,
+      "answerSha256": "b5108cfdfa924d973ef7809cb40898c057ffe00939d942e859ad5bd25807904e",
+      "observations": {
+        "single_time_of_day": "yes",
+        "stationary_camp_preserved": "not_demonstrated_alternative_instant"
+      },
+      "evidence": [
+        {
+          "field": "primarySubject",
+          "quote": "The portable tabernacle at the center of the camp, with a pillar of cloud rising from it and lifting upward."
+        },
+        {
+          "field": "action",
+          "quote": "The cloud lifts away from the tabernacle and families begin to strike tents and gather their belongings to travel."
+        },
+        {
+          "field": "timeOfDay",
+          "quote": "Full daylight in the morning, with warm sunlight and a clear desert sky."
+        },
+        {
+          "field": "focusQuote",
+          "quote": "the cloud stayed on the tabernacle"
+        }
+      ],
+      "notes": [
+        "The reply chooses the cloud lifting and preparations to leave. That alternative is supported by the same verse, so this is lost draft-instant preservation, not a demonstrated source error. focusQuote still quotes the resting cloud, a mismatch with the chosen instant."
+      ]
+    },
+    {
+      "id": "camp-time/with-draft/3",
+      "caseId": "camp-time",
+      "arm": "with-draft",
+      "repeat": 3,
+      "answerSha256": "d315b8dd42ef2b380ea299503c6374c7d505fb46aa1c0ea2534c48f3e4666cb1",
+      "observations": {
+        "single_time_of_day": "yes",
+        "stationary_camp_preserved": "yes"
+      },
+      "evidence": [
+        {
+          "field": "primarySubject",
+          "quote": "The tabernacle at the center of the camp, with a pillar of cloud resting upon it"
+        },
+        {
+          "field": "action",
+          "quote": "The people remain seated and settled by their tents, with no one packing or traveling"
+        },
+        {
+          "field": "timeOfDay",
+          "quote": "Clear desert daylight with warm sun and a dry sky"
+        },
+        {
+          "field": "focusQuote",
+          "quote": "the cloud stayed on the tabernacle, remaining on it"
+        }
+      ],
+      "notes": [
+        "The resting cloud and settled families survive, while the day/night mixture is replaced with daylight. Incidental priestly clothing remains unverified; this is a narrow target pass."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-01T16:35:16.824Z",
+  "measuredUsd": 0.0135582,
+  "uncertainUsd": 0,
+  "priorConservativeUsd": 6.82885455,
+  "cumulativeConservativeUsd": 6.84241275,
+  "cumulativeCapUsd": 7,
+  "remainingAuthorizationUsd": 0.15758725000000004,
+  "readerReserveUsd": 5,
+  "startingBalanceUsd": 8.653987537999996,
+  "startingKeyLimitRemaining": 146.636424135,
+  "firstFinishBalanceUsd": 8.646592037999994,
+  "firstFinishKeyLimitRemaining": 146.625672835,
+  "balanceUsd": 8.64042933799999,
+  "keyLimitRemaining": 146.622865935,
+  "accountDeltaUsd": 0.013558200000005627,
+  "keyDeltaUsd": 0.013558200000005627,
+  "credentialRecovery": "The expired temporary evaluation environment was replaced with an isolated temporary file containing only the already configured Visibible OpenRouter key and disabled engine mode. The initial missing-file attempt made no calls and created no start marker. The new key allowance is compared only with this run's own starting allowance."
+}
