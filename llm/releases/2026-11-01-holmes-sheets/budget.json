@@ -1,0 +1,18 @@
+{
+  "grant": "2026-11-01 Holmes sheets, $2.00 authorized",
+  "key": "local dev key (…1292), same OpenRouter account",
+  "operationCapUsd": 1.5,
+  "byKind": {
+    "sheet": { "attempts": 3, "measuredUsd": 0.1023, "allowance": "preparation" },
+    "image": { "samples": 24, "measuredUsd": 0.83176, "allowance": "evaluation" },
+    "preparation_in_check": { "measuredUsd": 0.0094204, "allowance": "evaluation", "note": "stale Holmes looks and plans remade by the check run, charged to its budget" }
+  },
+  "operationMeasuredUsd": 0.9434804,
+  "operationUncertainUsd": 0,
+  "productionWrites": [
+    "entry sherlock_holmes: de6edd15… → owner 4f223cc1… (19:01:41Z) → owner 3d50a5a8… (19:03:03Z)",
+    "entry dr_watson: da3d001d… → owner 8f65bd67… (19:01:42Z)",
+    "sheet sherlock_holmes:sherlock_holmes remade twice; current blob kg21wsg96jck807qdt9yj2grgh8hc70g",
+    "sheet dr_watson:dr_watson remade once; current blob kg20hetzyc386a7f6p3swrp4z18hcd61"
+  ]
+}
