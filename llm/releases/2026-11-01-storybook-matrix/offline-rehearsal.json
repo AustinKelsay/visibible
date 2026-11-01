@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-01T19:59:16.018Z",
+  "method": "Disposable clones with every HTTP request intercepted; synthetic grants, text, checks and 1-pixel images only. Mechanics, not evidence.",
+  "summaries": [
+    {
+      "scenario": "complete",
+      "rendered": 33,
+      "images": 46,
+      "checkCalls": 92,
+      "textCalls": 98,
+      "blocked": null,
+      "syntheticUsd": 1.6341999999999954,
+      "refused": 0,
+      "rerunRefused": true,
+      "paidCalls": 0,
+      "productionMutations": 0
+    },
+    {
+      "scenario": "first-refuses",
+      "rendered": 32,
+      "images": 39,
+      "checkCalls": 78,
+      "textCalls": 100,
+      "blocked": null,
+      "syntheticUsd": 1.3888999999999965,
+      "refused": 1,
+      "rerunRefused": true,
+      "paidCalls": 0,
+      "productionMutations": 0
+    },
+    {
+      "scenario": "image-error",
+      "rendered": 2,
+      "images": 3,
+      "checkCalls": 0,
+      "textCalls": 9,
+      "blocked": "Provider error or exhausted cap",
+      "syntheticUsd": 0.10469999999999999,
+      "refused": 0,
+      "rerunRefused": true,
+      "paidCalls": 0,
+      "productionMutations": 0
+    }
+  ]
+}

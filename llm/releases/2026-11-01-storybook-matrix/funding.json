@@ -1,0 +1,12 @@
+{
+  "authorizedAt": "2026-11-01T19:40:00Z",
+  "authorization": "Owner: \"your call!\" (1 November 2026), replying to the second bake-off report that asked for a pick between Charcoal and Storybook and whether to run the 33-case matrix (about $1.40) with the $5.74 balance below the $5 reader reserve. Operator decisions: Storybook by the predeclared tie-break; run now, capped at $1.70 so the balance stays above $4.00.",
+  "increaseUsd": 1.7,
+  "authorizedUsd": 3.9,
+  "operationCapUsd": 1.7,
+  "verifiedAt": "2026-11-01T19:36:00Z",
+  "balanceUsd": 5.743483188,
+  "keyLimitRemainingUsd": 21.160785596,
+  "key": "local dev key (ending 292), not the production key",
+  "scope": "One execution of the frozen Storybook matrix in this directory: 33 cases, one style, at most 66 images, 150 text calls and 132 check calls. No paid restart, production writes, registration or deployment."
+}
