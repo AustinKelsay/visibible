@@ -39,6 +39,7 @@ const readJson = <T,>(file: string): T => JSON.parse(fs.readFileSync(path.join(d
 const writeJson = (file: string, value: unknown) => fs.writeFileSync(path.join(dir, file), `${JSON.stringify(value, null, 2)}\n`);
 const RULE_ONE = /^1\) No text or symbols anywhere:.*$/m;
 
+/** The work's writing surfaces, as its depiction profile names them for rule 1. */
 function surfaces(work: string): string {
   return (JSON.parse(fs.readFileSync(path.join(root, "works", work, "depiction.json"), "utf8")) as { writingSurfaces: string }).writingSurfaces;
 }
@@ -48,11 +49,13 @@ export function candidateRule(writingSurfaces: string): string {
   return `1) No text or symbols anywhere. Keep every surface that could carry writing plain and unmarked: ${writingSurfaces}, papers, cards, walls, plaques, stones and clock faces show no letters, numerals, glyphs or pseudo-script. Where the moment involves writing, show the act, the glow or the blank surface, never marks. No signage, logos, or artist's signature or initials in a corner.`;
 }
 
+/** The v3 image run's successful results, by case key. */
 function rows(): Map<string, Row> {
   const all = fs.readFileSync(source, "utf8").trim().split("\n").map((line) => JSON.parse(line) as Row);
   return new Map(all.filter((r) => r.outcome === "image").map((r) => [r.key, r]));
 }
 
+/** The stored prompt and the same prompt with only rule 1 replaced. */
 function prompts(row: Row) {
   const current = row.prompt;
   const match = current.match(RULE_ONE);
@@ -60,6 +63,7 @@ function prompts(row: Row) {
   return { current, candidate: current.replace(RULE_ONE, candidateRule(surfaces(row.work))), currentRule: match[0] };
 }
 
+/** Freeze the cases, both rules and each arm's prompt hash in plan.json. */
 function plan() {
   const byKey = rows();
   const cases = CASES.map((key) => { const r = byKey.get(key); assert.ok(r, key); return { key, work: r.work, style: r.style, references: r.references.map((x) => x.storageId) }; });
@@ -70,12 +74,14 @@ function plan() {
   console.log(`${cases.length} cases, ${cases.length * 2} images planned`);
 }
 
+/** The OpenRouter account balance the reader reserve is checked against. */
 async function balanceUsd(apiKey: string): Promise<number> {
   const res = await fetch("https://openrouter.ai/api/v1/credits", { headers: { Authorization: `Bearer ${apiKey}` } });
   const data = (await res.json()) as { data: { total_credits: number; total_usage: number } };
   return data.data.total_credits - data.data.total_usage;
 }
 
+/** One image per case and arm, checking the cap and the reader reserve before every call. */
 async function execute() {
   assert.ok(fs.existsSync(path.join(dir, "funding.json")), "Owner funding is required");
   const apiKey = process.env.OPENROUTER_API_KEY; assert.ok(apiKey, "OPENROUTER_API_KEY");

@@ -34,7 +34,7 @@ By case (current → candidate):
 
 ## Cost
 
-24 image calls for $0.788822 measured, under a $0.95 cap. The account moved by exactly that amount. No text calls, no checks and no production writes. Balance afterwards $6.08; the dev key has $1.94 left of its $50 limit. [Funding](funding.json), [ledger](ledger.ndjson).
+24 image calls for $0.788822 measured, under a $0.95 cap. The account moved by exactly that amount. [run-finished.json](run-finished.json) shows $0.848822 because the script's cap guard also counts a $0.06 ceiling for the failed Hatter call, which the provider did not bill. No text calls, no checks and no production writes. Balance afterwards $6.08; the dev key has $1.94 left of its $50 limit. [Funding](funding.json), [ledger](ledger.ndjson).
 
 ## What this means
 
