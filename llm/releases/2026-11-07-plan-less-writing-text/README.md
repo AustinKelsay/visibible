@@ -1,6 +1,6 @@
 # Plan less writing: planner sentence not adopted
 
-**No effect, so reverted.** A planner sentence telling the scene planner to leave out writing-prone objects did not change what the plans ask for. It was the text-only follow-up to the [lettering diagnostic](../2026-11-07-lettering-rule/README.md), which found that the marks that survive are the ones the scene asks for.
+**No measurable effect on plans, so reverted.** A planner sentence telling the scene planner to leave out writing-prone objects did not reduce how many plans ask for them; its effect on images was not measured. It was the text-only follow-up to the [lettering diagnostic](../2026-11-07-lettering-rule/README.md), which found that the marks that survive are the ones the scene asks for.
 
 ## The candidate
 
@@ -23,7 +23,7 @@ Plans were compared with the [v3 baseline's](../2026-11-07-suite-v3-text/README.
 | v3 baseline | 23 of 113 (Holmes 9, Alice 9, Bible 5) | 35 | 16 |
 | Candidate | 23 of 113 (Holmes 9, Alice 11, Bible 3) | 28 | 10 |
 
-The same number of plans name such objects, and fewer of the mentions are qualified: the opposite of the sentence's intent. The test compares one candidate run with one baseline run, so it cannot separate these small shifts from sampling noise between fresh text runs. The plans show no improvement, so an image test could not show one either. None was run, and the plans were not scored blind.
+The same number of plans name such objects, and fewer of the mentions are qualified: the opposite of the sentence's intent. The test compares one candidate run with one baseline run, so it cannot separate these small shifts from sampling noise between fresh text runs. Equal plan counts do not mean identical plans: object phrases fell from 35 to 28. The image effect was not measured, so it cannot be ruled out. No image test was run, and the plans were not scored blind, because the text signal was too weak to justify spending with the account at the $5 reader reserve.
 
 The candidate commit is reverted on the same branch, so the engine stays at moment-cast v15.
 
