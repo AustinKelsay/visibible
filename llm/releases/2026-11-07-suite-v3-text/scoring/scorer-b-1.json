@@ -1,0 +1,804 @@
+{
+ "scorer": "scorer-b",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "p001",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Action has Holmes leaning in to pat her forearm while secondaryElements put him at his desk with the case-book, two separate instants of the passage at once."
+  },
+  {
+   "id": "p002",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Moses commands, herald proclaims, people stop bringing \u2014 matches the verse; cast has no unseen subject."
+  },
+  {
+   "id": "p003",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Plan shows only the grin materialising while the flamingo already lies on the grass and Alice begins her account; the text has the whole head appear before she puts the flamingo down (action/secondaryElements)."
+  },
+  {
+   "id": "p004",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "yes",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Alice is 'nearly two miles high' here, but the composition puts her small at the dais base with King and Queen raised above her, against the size-reads-clearly rule."
+  },
+  {
+   "id": "p005",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Illustrates the quoted principle with a generic couple leaving parents; speaker (Paul) is not drawn and nothing contradicts the text."
+  },
+  {
+   "id": "p006",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "yes",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "flawed",
+   "notes": "Leviticus 1:16 is instruction given to Moses, but the plan selects Moses and stands him near the tent inside the ritual his words only describe (selected/secondaryElements)."
+  },
+  {
+   "id": "p007",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Trumpets, shout, wall falling and the people going straight in are one continuous beat; Joshua is present from the preceding command; no gore."
+  },
+  {
+   "id": "p008",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "yes",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "The swamp adder is selected though Watson 'saw nothing' and the text never puts the snake in view; otherwise the match-and-cane instant is right (Holmes 'standing on the bed' is a minor deviation from 'sprang from the bed')."
+  },
+  {
+   "id": "p009",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice timidly addressing the grinning Cat on a bough in the wood matches the passage."
+  },
+  {
+   "id": "p010",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Samuel anointing David among his brothers matches; the Spirit is left unembodied and no unseen subject is in cast."
+  },
+  {
+   "id": "p011",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus standing and rebuking as the wind ceases matches the verse."
+  },
+  {
+   "id": "p012",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes pulling Watson in and Wilson's half-rise and bob are one short beat; plan omits Wilson's red hair but does not contradict anything."
+  },
+  {
+   "id": "p013",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "acceptable",
+   "notes": "Moses leading the people out from Horeb depicts the commanded journey; God shown only as a faint radiant cloud."
+  },
+  {
+   "id": "p014",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Moses seated on the stone with Aaron and Hur holding his hands until sunset matches; the ongoing battle and Joshua follow the surrounding verses."
+  },
+  {
+   "id": "p015",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "acceptable",
+   "notes": "Moses stretching out his hand as the east wind divides the sea at night; God only as radiance from beyond the frame."
+  },
+  {
+   "id": "p016",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Cloud resting on the tabernacle while the camp stays put matches the verse."
+  },
+  {
+   "id": "p017",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Saul startled as light from the sky surrounds him near Damascus; Jesus not drawn."
+  },
+  {
+   "id": "p018",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "King ducking behind Alice while the Queen passes crying the sentence is one beat of the text; Cat's head bodiless as given."
+  },
+  {
+   "id": "p019",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "David with staff, sling and pouch advancing toward the Philistine matches the verse."
+  },
+  {
+   "id": "p020",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Stone released and Goliath falling face-first, no gore lingered on."
+  },
+  {
+   "id": "p021",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "yes",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "flawed",
+   "notes": "Verse only says Ammon made war on Israel; plan puts Jephthah and his band in Tob facing the Ammonite host, a figure and place the verse does not give (Jephthah is still in exile until the elders fetch him)."
+  },
+  {
+   "id": "p022",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Generic weary man strengthened by light illustrates the statement; Isaiah not drawn and God only as light."
+  },
+  {
+   "id": "p023",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "The exhortation's 'us' (writer and readers) is drawn as an athlete inside the race metaphor, with stadium spectators as the cloud of witnesses \u2014 listeners put into a scene their words only describe."
+  },
+  {
+   "id": "p024",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Composition shows the rebels rising and already falling at once ('surge upward ... before they stumble and fall', rising men in centre, falling at edges)."
+  },
+  {
+   "id": "p025",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "flawed",
+   "notes": "Exodus 29:7 is God's instruction to Moses on Sinai; the plan draws Moses, the listener, performing the future anointing in a tabernacle courtyard."
+  },
+  {
+   "id": "p026",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Exiles seated weeping by the rivers of Babylon matches; the psalmist is among those described."
+  },
+  {
+   "id": "p027",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "The silent pause after the riddle exchange, with the Dormouse dozing, matches the passage's end."
+  },
+  {
+   "id": "p028",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Text says he did this when he came into his house (in Ephraim), but the plan sets it in a house in Gibeah and selects Gibeah."
+  },
+  {
+   "id": "p029",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice's long neck among the branches confronting the shrieking Pigeon on its nest matches; size reads against the trees."
+  },
+  {
+   "id": "p030",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Disciples bailing a swamped boat with Jesus asleep in the stern matches verse and its neighbour."
+  },
+  {
+   "id": "p031",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "yes",
+    "unsupported_figure": "yes",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "The verse names Obed, Jesse and David; the plan draws Ruth, Boaz, Naomi and the women with the infant Obed (an earlier scene) and leaves out Jesse and David."
+  },
+  {
+   "id": "p032",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice wrestling her flamingo amid hedgehog balls, card-soldier arches and the shouting Queen fits this summary passage; cards drawn flat."
+  },
+  {
+   "id": "p033",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes tossing the rolled papers onto the rack while Watson watches in the carriage matches."
+  },
+  {
+   "id": "p034",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Text has Watson holding the printed slip to the light and reading it; the plan gives that action to Holmes, with Watson merely listening."
+  },
+  {
+   "id": "p035",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice glancing at the Queen close behind her and covering her remark, Cat's head beside her, matches."
+  },
+  {
+   "id": "p036",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Child leading wolf, lamb, leopard, kid, calf and lion together illustrates the prophecy; speaker not drawn."
+  },
+  {
+   "id": "p037",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Combines the King pointing triumphantly at the tarts with the later inkstand throw (mid-flight) and the Lizard already ink-smeared \u2014 several instants at once."
+  },
+  {
+   "id": "p038",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "acceptable",
+   "notes": "Job facing the whirlwind as God speaks, God shown only as radiance and cloud."
+  },
+  {
+   "id": "p039",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Disciples landing and seeing the coal fire with fish and bread matches the verse; Jesus is not named in this verse."
+  },
+  {
+   "id": "p040",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice at the table end protesting the offered wine, trio crowded at the corner on the sleeping Dormouse, matches."
+  },
+  {
+   "id": "p041",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Disciples waking Jesus asleep on the cushion in the storm matches."
+  },
+  {
+   "id": "p042",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Moses striking the rock as water gushes and people drink is one compressed beat of the verse."
+  },
+  {
+   "id": "p043",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Hanani warning Asa in Jerusalem; Yahweh's eyes suggested only by faint light."
+  },
+  {
+   "id": "p044",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Mary and Joseph hurrying back through Jerusalem searching matches."
+  },
+  {
+   "id": "p045",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "acceptable",
+   "notes": "Isaiah beneath six-winged seraphim in the temple, God only as radiance with no throne or figure."
+  },
+  {
+   "id": "p046",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Elisha climbing toward Bethel as youths come out mocking matches."
+  },
+  {
+   "id": "p047",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes kneeling with lens and lantern while Merryweather sulks on the crate matches; Watson left out as the narrating viewpoint."
+  },
+  {
+   "id": "p048",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "acceptable",
+   "notes": "Light breaking over the dark waters with no figure, per the rule."
+  },
+  {
+   "id": "p049",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Hatter biting his teacup while the Queen stares through spectacles matches the end of the passage."
+  },
+  {
+   "id": "p050",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "acceptable",
+   "notes": "Abraham taking the knife over bound Isaac on Moriah matches; no gore."
+  },
+  {
+   "id": "p051",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Father holding his son while ordering servants to bring robe, ring and sandals matches the parable verse; Jesus not drawn."
+  },
+  {
+   "id": "p052",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "The speaker of 'I am a rose of Sharon' is drawn standing among roses and lilies, a figure inside her own metaphor."
+  },
+  {
+   "id": "p053",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Saul gripping and tearing Samuel's robe as he turns away matches."
+  },
+  {
+   "id": "p054",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "flawed",
+   "notes": "Verse has the Egyptians going in after Israel into the middle of the sea, but the plan puts the Israelites 'already across on the far shore', a later instant."
+  },
+  {
+   "id": "p055",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes examining the bill fragment's reverse while Lestrade protests matches; no legible writing requested."
+  },
+  {
+   "id": "p056",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "yes",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "yes",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "The Knave speaks in this passage but is not selected or shown; and the Rabbit is asked to hold 'the folded paper open to read aloud', an open sheet of verses."
+  },
+  {
+   "id": "p057",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice turning back to the Dormouse with her question at the tea-table matches."
+  }
+ ]
+}
