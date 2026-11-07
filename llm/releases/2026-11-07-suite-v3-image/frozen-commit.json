@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-07T17:37:36.008Z",
+  "commit": "9e6132a51236286c670dc1378ffe3f9dd0e39355",
+  "grant": {
+    "authorization": "Owner, 7 November 2026, after a reply that said the remaining work waits on a top-up and quoted the suite's costs (\"Top up $10 to $15 and I can run it\"; \"about $0.20 for the text step, then $8 to $9 for images\"): \"loaded up. Continue!\"",
+    "funds": "The image run of the first v3 suite baseline, drawing the plans of 2026-11-07-suite-v3-text: 206 shown images across the Bible, Holmes (remade sheets) and Alice (v3 fixture), with the reader's scene check and retry.",
+    "operationCapUsd": 9,
+    "seriesCapUsd": 9.25,
+    "seriesSpentBeforeUsd": 0.1807873,
+    "readerReserveUsd": 5,
+    "verifiedAt": "2026-11-07T17:37:29Z",
+    "balanceUsd": 15.03224279,
+    "keyLimitRemainingUsd": 10.88682085,
+    "key": "The local dev OpenRouter key (same account as production, its own $50 limit); the run refuses unless the account keeps $5 for readers.",
+    "scope": "Image tier only: no production writes. Scoring runs on agents with no OpenRouter spend."
+  }
+}
