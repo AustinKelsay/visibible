@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-07T17:27:36.070Z",
+  "commit": "ab4d9e1ba57a647f7a1d6bc47c2f72b4d2c30353",
+  "grant": {
+    "authorization": "Owner, 7 November 2026, after a reply that said the remaining work waits on a top-up and quoted the suite's costs (\"Top up $10 to $15 and I can run it\"; \"about $0.20 for the text step, then $8 to $9 for images\"): \"loaded up. Continue!\"",
+    "funds": "The text run of the first v3 suite baseline: fresh section guides and plans for 113 cases, with production's remade Holmes and Watson sheets and the v3 Alice fixture.",
+    "operationCapUsd": 0.25,
+    "seriesCapUsd": 9.25,
+    "seriesCovers": {
+      "textRunCapUsd": 0.25,
+      "imageRunCapUsd": 9
+    },
+    "readerReserveUsd": 5,
+    "verifiedAt": "2026-11-07T17:27:30Z",
+    "balanceUsd": 15.21303008800001,
+    "keyLimitRemainingUsd": 11.067608145999998,
+    "key": "The local dev OpenRouter key (same account as production, its own $50 limit); the run refuses unless the account keeps $5 for readers.",
+    "scope": "Text tier only: no image calls and no production writes. The image run draws these plans under its own funding file."
+  }
+}
