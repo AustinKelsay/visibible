@@ -29,4 +29,4 @@ The candidate commit is reverted on the same branch, so the engine stays at mome
 
 ## What this leaves
 
-Two prompt-level attempts, the [image rule](../2026-11-07-lettering-rule/README.md) and this planner sentence, have not moved lettering. The objects come from the passages themselves: court papers, card soldiers, the writing on the wall. The remaining options are a stricter scene check with more retries (costly, and retries often keep the marks) or accepting small marks as a limitation for some works. Both need an owner decision and, for a check change, a funded suite run.
+Neither prompt-level attempt has shown a lettering gain: the [image rule](../2026-11-07-lettering-rule/README.md) had mixed, inconclusive results, and this planner sentence did not change the plans enough to justify measuring images. The objects come from the passages themselves: court papers, card soldiers, the writing on the wall. The remaining options are a stricter scene check with more retries (costly, and retries often keep the marks) or accepting small marks as a limitation for some works. Both need an owner decision and, for a check change, a funded suite run.
