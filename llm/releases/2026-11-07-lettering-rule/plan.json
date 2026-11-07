@@ -1,0 +1,159 @@
+{
+  "run": "2026-11-07-lettering-rule",
+  "capUsd": 0.95,
+  "cases": [
+    {
+      "key": "alice-croquet-game/watercolor",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "references": []
+    },
+    {
+      "key": "alices-evidence-38/classical",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "references": []
+    },
+    {
+      "key": "alice-drink-me/watercolor",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "references": []
+    },
+    {
+      "key": "alice-cat-head-talks/classical",
+      "work": "alice-in-wonderland",
+      "style": "classical",
+      "references": []
+    },
+    {
+      "key": "alice-refuses-to-leave/watercolor",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "references": []
+    },
+    {
+      "key": "alice-hatter-witness/watercolor",
+      "work": "alice-in-wonderland",
+      "style": "watercolor",
+      "references": []
+    },
+    {
+      "key": "daniel-5-17/classical",
+      "work": "bible-web",
+      "style": "classical",
+      "references": [
+        "kg2e99zh3qps4ys5tx6r0jecex8h1tfg",
+        "kg2575h3rz1vtstda30mkqjmn18h8g0a",
+        "kg2a7naakmqjbswdkx60pwq8h18h8118"
+      ]
+    },
+    {
+      "key": "daniel-5-17/fresco",
+      "work": "bible-web",
+      "style": "fresco",
+      "references": [
+        "kg2575h3rz1vtstda30mkqjmn18h8g0a",
+        "kg2a7naakmqjbswdkx60pwq8h18h8118"
+      ]
+    },
+    {
+      "key": "matthew-27-35-crucified/fresco",
+      "work": "bible-web",
+      "style": "fresco",
+      "references": [
+        "kg2f9samx6n9g11bv0aw7v15qn8h82m1",
+        "kg2b2q038x8b4tnhms5vwcg2x18gmejf"
+      ]
+    },
+    {
+      "key": "matthew-1-1-genealogy/classical",
+      "work": "bible-web",
+      "style": "classical",
+      "references": [
+        "kg2e99zh3qps4ys5tx6r0jecex8h1tfg"
+      ]
+    },
+    {
+      "key": "1-corinthians-13-12/fresco",
+      "work": "bible-web",
+      "style": "fresco",
+      "references": [
+        "kg26p4jnwpkm8nm66fs61wjc858h91zc",
+        "kg2f64zjj63xt3pfan7x21nde18h8stq"
+      ]
+    },
+    {
+      "key": "proverbs-8-21/classical",
+      "work": "bible-web",
+      "style": "classical",
+      "references": [
+        "kg2e99zh3qps4ys5tx6r0jecex8h1tfg"
+      ]
+    }
+  ],
+  "currentRules": {
+    "alice-in-wonderland": "1) No text or symbols anywhere: no letters, numbers, signage, logos or inscriptions, no writing on labels, bottles, books, signs, slates or playing cards, and no artist's signature or initials in a corner.",
+    "bible-web": "1) No text or symbols anywhere: no letters, numbers, signage, logos or inscriptions, no writing on scrolls, tablets, books, boards or halos, and no artist's signature or initials in a corner."
+  },
+  "candidateRules": {
+    "alice-in-wonderland": "1) No text or symbols anywhere. Keep every surface that could carry writing plain and unmarked: labels, bottles, books, signs, slates or playing cards, papers, cards, walls, plaques, stones and clock faces show no letters, numerals, glyphs or pseudo-script. Where the moment involves writing, show the act, the glow or the blank surface, never marks. No signage, logos, or artist's signature or initials in a corner.",
+    "bible-web": "1) No text or symbols anywhere. Keep every surface that could carry writing plain and unmarked: scrolls, tablets, books, boards or halos, papers, cards, walls, plaques, stones and clock faces show no letters, numerals, glyphs or pseudo-script. Where the moment involves writing, show the act, the glow or the blank surface, never marks. No signage, logos, or artist's signature or initials in a corner."
+  },
+  "promptSha256": {
+    "alice-croquet-game/watercolor": {
+      "current": "3c4eeeea5f230a12188b340a8328abf18aec5d0585021d2fb628f9a43a73fc98",
+      "candidate": "53aecb2b9981b472ff0c376e94c585190a96d845a23426968cb96a30d0377557"
+    },
+    "alices-evidence-38/classical": {
+      "current": "59d4f757c2974d68c5321c5bb5fdac113ef205b2d5de24807cb970a34a1f4477",
+      "candidate": "7d7527ce58eebaf2686eec3404c731f844b6e40720d4e07892830ae61a0a990e"
+    },
+    "alice-drink-me/watercolor": {
+      "current": "dd8291d8434e5c2f9b042de4ae127bb7fe5d5bfc3263f293e0eee22bd1965e99",
+      "candidate": "f8ebcd20455a5afecb9e25047868ebe2d37fed5af9f49565455d40e350ef3d28"
+    },
+    "alice-cat-head-talks/classical": {
+      "current": "10801b64aa65c4d3d21a03ba4c58191bfb0ca2f110ce2a697d9df2f736eaedac",
+      "candidate": "97ce12515ccff0c244f838117c78cc7da342158e3b61f77ef6373be9329d947b"
+    },
+    "alice-refuses-to-leave/watercolor": {
+      "current": "933a5b35cf449a792b91a15a87fa245c10a6e91af2278cea340c8dd1e1fce397",
+      "candidate": "59a5107170386f4585d60241b0bf4a64860e56cec147ba16b0caa85a16c323bc"
+    },
+    "alice-hatter-witness/watercolor": {
+      "current": "2108a87a7fb020f0dd4aad3ef5997aa08305287da974e9d35ba7696a6d049efa",
+      "candidate": "539328efc4c90fba11a02783add3f2e2786f27b08a31891efc5eb23bbca96ef9"
+    },
+    "daniel-5-17/classical": {
+      "current": "89355b919bb14030e0c6f4ba8f646bed69b83073ef7d8510243480e2711592b4",
+      "candidate": "8b5f53c8177bfa7652a6c5efbbb129117720dbf35f1d6360e84f0305904f49da"
+    },
+    "daniel-5-17/fresco": {
+      "current": "ffb3c742444cd7c7c3b7a6416b7c5f5fb375aae3edd51644c67bc17196edc9c6",
+      "candidate": "a249e0271092e76b4de722a95e67debb5859f0569a25fee87bcc44d82474527b"
+    },
+    "matthew-27-35-crucified/fresco": {
+      "current": "52e993e68184af3d18abd0bf013a6f2a6d9b022c93488adeb24707628d7064d1",
+      "candidate": "d521bf897c7f471c1a2a365255a1acad5419486e08d4638b523e7e384e283b98"
+    },
+    "matthew-1-1-genealogy/classical": {
+      "current": "e1660f45b0b4ba241b16f8e5c662180ad75f00e82d6324d4ffde7cedfb3aeb1e",
+      "candidate": "698ce02fcab4554635aac23c4127359f588598632806eae3e4063f6195138aa4"
+    },
+    "1-corinthians-13-12/fresco": {
+      "current": "ca24c2c7f4c3fac64fc6eef8ee6e4b928f5dcd827ddff95ae3b533d6ef0854b2",
+      "candidate": "b4802c874d917144f182208f9053f2ddd3b96f8c65d2b35ab0a568417d183762"
+    },
+    "proverbs-8-21/classical": {
+      "current": "d5dfc1815c4536c757d4d921c7b9c3245ef11ba35a7cd287263fcccf5b749bd5",
+      "candidate": "018a17e624ff0661ef7995ff827e0ef5eda1ca8211362d4a0da9f160c0f2cf5e"
+    }
+  },
+  "arms": [
+    "current",
+    "candidate"
+  ],
+  "attempts": 1,
+  "sceneCheck": false
+}

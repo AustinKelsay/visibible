@@ -1,0 +1,142 @@
+{
+  "items": [
+    {
+      "id": "b01",
+      "key": "alice-cat-head-talks/classical",
+      "arm": "candidate",
+      "sha256": "09ffcffe82284d0a9ee63886b97713ea1812e573097df2c1027253b000cc84ab"
+    },
+    {
+      "id": "b02",
+      "key": "matthew-27-35-crucified/fresco",
+      "arm": "current",
+      "sha256": "974efe56860144699a1052c826c593c9f4fecbf421579708c80ebc7d907f5f4e"
+    },
+    {
+      "id": "b03",
+      "key": "alice-cat-head-talks/classical",
+      "arm": "current",
+      "sha256": "47f61961486a0d87598a93366308c8c3f94bc6ecd048ff1c8e37864bd09fe233"
+    },
+    {
+      "id": "b04",
+      "key": "alice-drink-me/watercolor",
+      "arm": "current",
+      "sha256": "6c59f1b925fb4c33eadc653b066b832b5e936a8e3842cf9b26e65b8f809fadd3"
+    },
+    {
+      "id": "b05",
+      "key": "alices-evidence-38/classical",
+      "arm": "current",
+      "sha256": "4916216a149383579de64d037d5a15748619e3d471a1ce04f62ba45c3246165d"
+    },
+    {
+      "id": "b06",
+      "key": "daniel-5-17/classical",
+      "arm": "current",
+      "sha256": "a4bd177c6f7dfb0bcbb861fb2c1d562006b9d516b0baf3c870c35baa4d3b9036"
+    },
+    {
+      "id": "b07",
+      "key": "alice-croquet-game/watercolor",
+      "arm": "candidate",
+      "sha256": "b1eb3308011834ea1ef04a51618c89f9ef4699da2d7034f280c097e5c73a8579"
+    },
+    {
+      "id": "b08",
+      "key": "matthew-1-1-genealogy/classical",
+      "arm": "current",
+      "sha256": "189f230dd70b21aa7d82cd8903128a5a272ab47f8dd0aad967617da8906d7256"
+    },
+    {
+      "id": "b09",
+      "key": "alice-hatter-witness/watercolor",
+      "arm": "current",
+      "sha256": "6274733429e96e290b1ac3ce8f8a2e4d3f7d6ad564b4f59a3ded7397ce6b4341"
+    },
+    {
+      "id": "b10",
+      "key": "1-corinthians-13-12/fresco",
+      "arm": "candidate",
+      "sha256": "f61cbd2f375dc1da6d832eac326a38e055d5e9ae4fecad0de2afe3ae77228a19"
+    },
+    {
+      "id": "b11",
+      "key": "alice-drink-me/watercolor",
+      "arm": "candidate",
+      "sha256": "7b5aae2956b0fdcda925b77abfd5e06ab57bbe8d97945a676a426947d8c59695"
+    },
+    {
+      "id": "b12",
+      "key": "daniel-5-17/fresco",
+      "arm": "candidate",
+      "sha256": "00c95dc860befd42aab2de52baba0da572abd3bbc783899500f0114ad2615948"
+    },
+    {
+      "id": "b13",
+      "key": "alice-refuses-to-leave/watercolor",
+      "arm": "candidate",
+      "sha256": "b54cb2c6b619cd7f7203aae5225567f5236286619e0abd8ecaf58510d268e77a"
+    },
+    {
+      "id": "b14",
+      "key": "alice-refuses-to-leave/watercolor",
+      "arm": "current",
+      "sha256": "52f971ad585d08c4f7a5658c06e8972371ae7152d9c25036fd871e426e734739"
+    },
+    {
+      "id": "b15",
+      "key": "daniel-5-17/classical",
+      "arm": "candidate",
+      "sha256": "b6882d299f70182396a912a63847005225fc44a71c39b53e368eb2096579444f"
+    },
+    {
+      "id": "b16",
+      "key": "alice-croquet-game/watercolor",
+      "arm": "current",
+      "sha256": "1a85bdbe585384acefaaeda5af4bb15ba73f0770985ac1cd5e7908ec537c06d0"
+    },
+    {
+      "id": "b17",
+      "key": "daniel-5-17/fresco",
+      "arm": "current",
+      "sha256": "2139495f1af57829bebadd049ccdc760870b0c78c85879967e077b8970ba118d"
+    },
+    {
+      "id": "b18",
+      "key": "proverbs-8-21/classical",
+      "arm": "candidate",
+      "sha256": "a4c23f878a34f830d5f7c1d6eef0203c39f0b9b90d107562fcffa1326071d6c3"
+    },
+    {
+      "id": "b19",
+      "key": "matthew-1-1-genealogy/classical",
+      "arm": "candidate",
+      "sha256": "ab484b075c196314d53395f401347883832bd47999e98fab84d4a61af919bb9b"
+    },
+    {
+      "id": "b20",
+      "key": "matthew-27-35-crucified/fresco",
+      "arm": "candidate",
+      "sha256": "339131b382ac5afe32b7b77bc6ecc78da538d74f7ce425076565a01d8afada5a"
+    },
+    {
+      "id": "b21",
+      "key": "alices-evidence-38/classical",
+      "arm": "candidate",
+      "sha256": "a5d66d221cd663e356a99346a6a092e4d84fbce46ca11bd03d9a12a9cae099e1"
+    },
+    {
+      "id": "b22",
+      "key": "1-corinthians-13-12/fresco",
+      "arm": "current",
+      "sha256": "3e1e206cf86e693dd4915c84e71d6166acc39f7820ac117acb617f050cb12750"
+    },
+    {
+      "id": "b23",
+      "key": "proverbs-8-21/classical",
+      "arm": "current",
+      "sha256": "570fbe3418ad743a91ac35d1d647dd792244976606adfd2b3678867dd277ec3c"
+    }
+  ]
+}
