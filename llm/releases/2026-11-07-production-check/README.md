@@ -16,7 +16,7 @@ Storybook's launch smoke stopped at the 402 credit check, so no Storybook image 
 - **Request:** owner session, `POST /api/generate-image` for Psalm 23:2 (WEB) in Storybook, 16:9 at 1K, request `owner-smoke-storybook-1794070688`, at 16:58:08 UTC.
 - **Result:** HTTP 200 after 11.3 s on the generic engine (`2026-10-29-generic-v15`, Nano Banana 2 Lite). The request row reads `succeeded` in 8.8 s. The image was saved as `psalms-23-2` (1376×768) under brief `b00a7b21…`, with David's `david_king` sheet.
 - **Check:** the scene check (`2026-10-28-scene-check-v4`) answered clean on the first image, with no retry. The look and plan were reused from the launch smoke.
-- **Cost:** $0.04276156 for the image and $0.0005707 for the check, $0.04333226 in all. The account balance moved from $5.252 to $5.213.
+- **Cost:** $0.04276156 for the image and $0.0005707 for the check, $0.04333226 in all. The account balance moved from $5.248 to $5.213.
 - **Image:** [psalm-23-2-storybook.jpg](psalm-23-2-storybook.jpg). It shows a shepherd kneeling among sheep lying in a green meadow beside a slow river, with no lettering, frame or figure faults.
 - **Owner tool links:** `works:correct` prints sheet and image links on `https://api.visibible.com/image/…`, which answer 404 because that domain serves the Convex API, not HTTP actions. The same files load from `https://unique-impala-244.convex.site/image/…`. Readers are unaffected: Convex builds their links from its own site URL.
 
