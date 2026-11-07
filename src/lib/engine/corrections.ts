@@ -45,11 +45,28 @@ export function parseCorrectionLink(value: string) {
 export const CHECKER_REASONS = Object.freeze(["sheet_failed", "style_reference_failed", "canon_note", "canon_check", "quote_check_failed", "unmatched_owner_edit"]);
 export const READER_REPORT_REASON = "reader_report";
 
-export function imageUrl(siteUrl: string, storageId: string) {
-  return `${siteUrl.replace(/\/$/, "")}/image/${encodeURIComponent(storageId)}`;
+/**
+ * The base of public image links (`<base>/image/<storageId>`). An explicit override wins; a `*.convex.cloud` URL maps to
+ * its `*.convex.site` twin; a custom domain (production's api.visibible.com serves only the API) asks the deployment.
+ * If the deployment cannot answer, there is no base: links are left out rather than pointed at an API-only domain.
+ */
+export async function resolveImageSiteUrl(convexUrl: string, env: { NOSTR_IMAGE_BASE_URL?: string; CONVEX_SITE_URL?: string }, askDeployment: () => Promise<string | null>): Promise<{ siteUrl: string | null; problem?: string }> {
+  const override = env.NOSTR_IMAGE_BASE_URL || env.CONVEX_SITE_URL;
+  if (override) return { siteUrl: override };
+  if (/\.convex\.cloud(\/|$)/.test(convexUrl)) return { siteUrl: convexUrl.replace(".convex.cloud", ".convex.site") };
+  try {
+    const siteUrl = await askDeployment();
+    return siteUrl ? { siteUrl } : { siteUrl: null, problem: "the deployment has no public image base" };
+  } catch (error) {
+    return { siteUrl: null, problem: error instanceof Error ? error.message : String(error) };
+  }
 }
 
-export function createCorrections(client: CorrectionClient, api: AnalysisApi, workId: string, serverSecret: string, siteUrl: string, extras: CorrectionExtras = {}) {
+export function imageUrl(siteUrl: string | null, storageId: string): string | null {
+  return siteUrl === null ? null : `${siteUrl.replace(/\/$/, "")}/image/${encodeURIComponent(storageId)}`;
+}
+
+export function createCorrections(client: CorrectionClient, api: AnalysisApi, workId: string, serverSecret: string, siteUrl: string | null, extras: CorrectionExtras = {}) {
   const query = <T>(ref: FunctionReference<"query">, args: Record<string, unknown>) => client.query(ref, { workId, ...args }) as Promise<T>;
   const mutate = <T>(ref: FunctionReference<"mutation">, args: Record<string, unknown>) => client.mutation(ref, { serverSecret, workId, ...args }) as Promise<T>;
   type Record_ = { kind: string; recordId: string; version: string; source: string; generation: number; payload: Record<string, unknown> };

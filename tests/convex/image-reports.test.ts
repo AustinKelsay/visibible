@@ -97,4 +97,10 @@ describe("reader image reports", () => {
     expect(image!.imageUrl).toEqual(expect.any(String));
     expect(await t.query(api.verseImages.getImageProvenance, { serverSecret: SECRET, imageId: "missing" })).toBeNull();
   });
+
+  it("gives owner tools the public image base, behind the server secret", async () => {
+    const t = convexTest(schema, modules);
+    expect(await t.query(api.verseImages.getPublicImageBase, { serverSecret: SECRET })).toBe("https://actions.example.com");
+    await expect(t.query(api.verseImages.getPublicImageBase, { serverSecret: "x".repeat(40) })).rejects.toThrow();
+  });
 });
