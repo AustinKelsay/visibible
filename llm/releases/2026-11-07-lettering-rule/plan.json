@@ -92,8 +92,14 @@
       ]
     }
   ],
-  "currentRule": "1) No text or symbols anywhere: no letters, numbers, signage, logos or inscriptions, no writing on labels, bottles, books, signs, slates or playing cards, and no artist's signature or initials in a corner.",
-  "candidateRule": "1) No text or symbols anywhere. Keep every surface that could carry writing plain and unmarked: <work's writing surfaces>, papers, cards, walls, plaques, stones and clock faces show no letters, numerals, glyphs or pseudo-script. Where the moment involves writing, show the act, the glow or the blank surface, never marks. No signage, logos, or artist's signature or initials in a corner.",
+  "currentRules": {
+    "alice-in-wonderland": "1) No text or symbols anywhere: no letters, numbers, signage, logos or inscriptions, no writing on labels, bottles, books, signs, slates or playing cards, and no artist's signature or initials in a corner.",
+    "bible-web": "1) No text or symbols anywhere: no letters, numbers, signage, logos or inscriptions, no writing on scrolls, tablets, books, boards or halos, and no artist's signature or initials in a corner."
+  },
+  "candidateRules": {
+    "alice-in-wonderland": "1) No text or symbols anywhere. Keep every surface that could carry writing plain and unmarked: labels, bottles, books, signs, slates or playing cards, papers, cards, walls, plaques, stones and clock faces show no letters, numerals, glyphs or pseudo-script. Where the moment involves writing, show the act, the glow or the blank surface, never marks. No signage, logos, or artist's signature or initials in a corner.",
+    "bible-web": "1) No text or symbols anywhere. Keep every surface that could carry writing plain and unmarked: scrolls, tablets, books, boards or halos, papers, cards, walls, plaques, stones and clock faces show no letters, numerals, glyphs or pseudo-script. Where the moment involves writing, show the act, the glow or the blank surface, never marks. No signage, logos, or artist's signature or initials in a corner."
+  },
   "promptSha256": {
     "alice-croquet-game/watercolor": {
       "current": "3c4eeeea5f230a12188b340a8328abf18aec5d0585021d2fb628f9a43a73fc98",

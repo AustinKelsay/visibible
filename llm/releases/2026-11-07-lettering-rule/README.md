@@ -10,7 +10,7 @@ The candidate replaced only rule 1 of the image prompt:
 
 > No text or symbols anywhere. Keep every surface that could carry writing plain and unmarked: *(the work's writing surfaces)*, papers, cards, walls, plaques, stones and clock faces show no letters, numerals, glyphs or pseudo-script. Where the moment involves writing, show the act, the glow or the blank surface, never marks. No signage, logos, or artist's signature or initials in a corner.
 
-The current rule 1 is in [plan.json](plan.json).
+Each work's current and candidate rule 1 are in [plan.json](plan.json) (`currentRules`, `candidateRules`). The per-work fields were added after the run at review; the cases, caps and prompt hashes the run checked are unchanged.
 
 ## Method
 

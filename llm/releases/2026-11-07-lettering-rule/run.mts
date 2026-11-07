@@ -32,7 +32,7 @@ const CASES = [
 ];
 
 type Row = { key: string; work: string; style: string; prompt: string; references: Array<{ storageId: string }>; outcome: string };
-type Plan = { run: string; capUsd: number; cases: Array<{ key: string; work: string; style: string; references: string[] }>; currentRule: string; candidateRule: string; promptSha256: Record<string, { current: string; candidate: string }> };
+type Plan = { run: string; capUsd: number; cases: Array<{ key: string; work: string; style: string; references: string[] }>; currentRules: Record<string, string>; candidateRules: Record<string, string>; promptSha256: Record<string, { current: string; candidate: string }> };
 
 const sha = (data: string | Uint8Array) => createHash("sha256").update(data).digest("hex");
 const readJson = <T,>(file: string): T => JSON.parse(fs.readFileSync(path.join(dir, file), "utf8")) as T;
@@ -68,9 +68,9 @@ function plan() {
   const byKey = rows();
   const cases = CASES.map((key) => { const r = byKey.get(key); assert.ok(r, key); return { key, work: r.work, style: r.style, references: r.references.map((x) => x.storageId) }; });
   const promptSha256: Plan["promptSha256"] = {};
-  let currentRule = "";
-  for (const c of cases) { const p = prompts(byKey.get(c.key)!); promptSha256[c.key] = { current: sha(p.current), candidate: sha(p.candidate) }; currentRule ||= p.currentRule; }
-  writeJson("plan.json", { run, capUsd: 0.95, cases, currentRule, candidateRule: candidateRule("<work's writing surfaces>"), promptSha256, arms: ["current", "candidate"], attempts: 1, sceneCheck: false } satisfies Plan & Record<string, unknown>);
+  const currentRules: Record<string, string> = {}, candidateRules: Record<string, string> = {};
+  for (const c of cases) { const p = prompts(byKey.get(c.key)!); promptSha256[c.key] = { current: sha(p.current), candidate: sha(p.candidate) }; currentRules[c.work] ??= p.currentRule; candidateRules[c.work] ??= candidateRule(surfaces(c.work)); }
+  writeJson("plan.json", { run, capUsd: 0.95, cases, currentRules, candidateRules, promptSha256, arms: ["current", "candidate"], attempts: 1, sceneCheck: false } satisfies Plan & Record<string, unknown>);
   console.log(`${cases.length} cases, ${cases.length * 2} images planned`);
 }
 
