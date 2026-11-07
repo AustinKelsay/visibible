@@ -23,7 +23,7 @@ Plans were compared with the [v3 baseline's](../2026-11-07-suite-v3-text/README.
 | v3 baseline | 23 of 113 (Holmes 9, Alice 9, Bible 5) | 35 | 16 |
 | Candidate | 23 of 113 (Holmes 9, Alice 11, Bible 3) | 28 | 10 |
 
-The same number of plans name such objects, and fewer of the mentions are qualified. The small shifts are within the variation between two fresh text runs of the same engine. With no change in the plans, an image test could not show one either, so none was run and the plans were not scored blind.
+The same number of plans name such objects, and fewer of the mentions are qualified: the opposite of the sentence's intent. The test compares one candidate run with one baseline run, so it cannot separate these small shifts from sampling noise between fresh text runs. The plans show no improvement, so an image test could not show one either. None was run, and the plans were not scored blind.
 
 The candidate commit is reverted on the same branch, so the engine stays at moment-cast v15.
 
