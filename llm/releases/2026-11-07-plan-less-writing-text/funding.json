@@ -1,0 +1,11 @@
+{
+  "authorization": "Owner, 7 November 2026, after a reply that proposed the next lettering step (\"ask the scene planner to leave out papers, card faces and carved stones when the passage doesn't need them. It costs cents and fits the remaining budget\"): \"ok great! Continue\".",
+  "funds": "A v3 suite text run of the candidate planner sentence (moment-cast v16), compared with the 2026-11-07-suite-v3-text baseline.",
+  "operationCapUsd": 0.25,
+  "readerReserveUsd": 5,
+  "verifiedAt": "2026-11-07T19:42:58Z",
+  "balanceUsd": 6.08340419,
+  "keyLimitRemainingUsd": 1.93798225,
+  "key": "The local dev OpenRouter key; the runner refuses unless the account keeps $5 for readers and the key's limit covers the cap.",
+  "scope": "Text tier only: no image calls and no production writes."
+}
