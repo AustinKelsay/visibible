@@ -1,0 +1,790 @@
+{
+ "scorer": "scorer-a",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "p058",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Plan shows the silent face-off and Caterpillar lowering the hookah on the mushroom with Alice small beside it, matching the text and size rule."
+  },
+  {
+   "id": "p059",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Paul, the letter's writer, is drawn gazing into a bronze mirror (primarySubject/action), staging his own metaphor of seeing in a mirror dimly; believers are cast as onlookers."
+  },
+  {
+   "id": "p060",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes with lens and battered hat and Watson sceptical fits the hat discussion; the card is blank and no writing is asked."
+  },
+  {
+   "id": "p061",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Father running down the road toward the son is an instant within the verse; no unsupported named figures."
+  },
+  {
+   "id": "p062",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Fire and sulfur from the sky on the two cities, with God shown only as sky; fleeing figures are anonymous and serious in tone."
+  },
+  {
+   "id": "p063",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes holding the blue stone to the light with Watson and the strong box matches the text after the commissionaire leaves."
+  },
+  {
+   "id": "p064",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Plan takes the last instant: door just closed behind Lestrade and Holmes pulling on his overcoat while Watson has papers, all in the text."
+  },
+  {
+   "id": "p065",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Rephaiah directing wall repairs in Jerusalem matches the verse; overseers in armour are anonymous extras."
+  },
+  {
+   "id": "p066",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "yes",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "The tall masked visitor (Count Von Kramm), described at length as entering and speaking, is not selected or drawn; the plan stops at Holmes at the window and Watson rising."
+  },
+  {
+   "id": "p067",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Daniel unharmed in the den with Darius at the rim and attendants with rope fits the command to take him up at dawn."
+  },
+  {
+   "id": "p068",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "uncertain",
+   "notes": "Title verse has no scene; the plan invents a village road of 'carved stone markers' that villagers pass 'as if reading' a lineage, which may invite inscriptions but does not ask for words outright."
+  },
+  {
+   "id": "p069",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Watson's narration about Holmes is shown as Holmes alone in Baker Street; narrator and Irene Adler are kept out."
+  },
+  {
+   "id": "p070",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "The psalmist David is drawn lifting his foot from a literal snare/net (action, secondaryElements), making him a figure of his own prayer's metaphor."
+  },
+  {
+   "id": "p071",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "yes",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Daniel is speaking to the king at dawn, but the plan draws the night he describes: a radiant angel beside him and lions with closed mouths, with Darius (the listener) placed at the rim in deep night."
+  },
+  {
+   "id": "p072",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "After-dinner drawing-room scene with Arthur asking about the bureau and Mary present is in Holder's account; the shadowy maid outside a half-open door stretches the text slightly."
+  },
+  {
+   "id": "p073",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "acceptable",
+   "notes": "Israelites crossing dry ground between walls of water with Moses; God appears only as the distant pillar of cloud and fire, an allowed form."
+  },
+  {
+   "id": "p074",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Hatter wide-eyed after his riddle with Alice replying at the long table, March Hare and Dormouse present, matches the text."
+  },
+  {
+   "id": "p075",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Levitical priests blessing the assembly in the temple court with faint radiance for the prayer reaching heaven fits the verse."
+  },
+  {
+   "id": "p076",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Summary verse rendered as Hezekiah in the temple courts among priests; nothing contradicts the text."
+  },
+  {
+   "id": "p077",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Jesus, who is teaching, is drawn acting out his own illustration by handing over his cloak to a man holding his coat (action)."
+  },
+  {
+   "id": "p078",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Peter stepping out of the boat onto the water toward Jesus with disciples watching matches the verse."
+  },
+  {
+   "id": "p079",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Epistle aphorism rendered as people listening to a reading with the scroll closed; Paul is not drawn and no named figure is added."
+  },
+  {
+   "id": "p080",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "yes",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Naomi speaks to Ruth at home after gleaning, but the plan sets the talk at the edge of Boaz's field with Ruth holding a basket and reapers working, the place and people Naomi's words only mention."
+  },
+  {
+   "id": "p081",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Abstract epistle verse drawn as anonymous villagers in calm trust; no speaker or named figure placed in the scene."
+  },
+  {
+   "id": "p082",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Creatures full of eyes around the throne and the glass sea match, but God (mayBeDrawn false) is selected and given 'the throne' at the centre of the composition, which the fault list counts as embodiment even though the text names the throne."
+  },
+  {
+   "id": "p083",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus turning to look at Peter across the high priest's courtyard by the fire matches the verse."
+  },
+  {
+   "id": "p084",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Camp being pitched at Terah after the journey from Tahath matches the itinerary verse."
+  },
+  {
+   "id": "p085",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "acceptable",
+   "notes": "Saul throwing the spear and David dodging fits; the evil spirit is shown only as disturbed air and smoke, not a body."
+  },
+  {
+   "id": "p086",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "acceptable",
+   "notes": "Ezekiel among the dry bones about to prophesy, explicitly before any movement; God is not given form."
+  },
+  {
+   "id": "p087",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "yes",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Action asks for 'the paper label reading DRINK ME', a label with words."
+  },
+  {
+   "id": "p088",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "flawed",
+   "notes": "God, the speaker, is drawn as radiance spreading over the hills of Judah (primarySubject/action), turning his promise of mercy on Judah into the picture while Hosea himself is only implied among the household."
+  },
+  {
+   "id": "p089",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "David, the psalmist, is drawn reclining in green pastures with sheep, placing him as a figure inside his own shepherd metaphor."
+  },
+  {
+   "id": "p090",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "yes",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "flawed",
+   "notes": "Verse shows only a new heaven and earth with no sea, but the plan selects God and gives light and cloud 'pouring down in glory' for him; God appears only in the next verse."
+  },
+  {
+   "id": "p091",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Paul is drawn holding a lamp aloft as 'a guide of the blind', but he is describing the confident person he addresses, so he becomes a figure of his own words."
+  },
+  {
+   "id": "p092",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Plan merges arriving by train (friends leaning out of the carriage) with the station-master answering after the train steamed off, and sets it in deep night although the fire broke out 'during the night' and has since got worse."
+  },
+  {
+   "id": "p093",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "yes",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Daniel refusing gifts before Belshazzar fits, but the plan keeps 'the bright hand' near the wall, which had already written and gone before Daniel was summoned."
+  },
+  {
+   "id": "p094",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "yes",
+    "unsupported_figure": "yes",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Set in deep night though the fire began 'during the night' and it is now later; Bradstreet is left out of the 'we were all hastening' party, and the station-master, who stayed at the station, is placed at the fire."
+  },
+  {
+   "id": "p095",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Alice mid-leap tipping the jury-box is combined with the Lizard already put back head-down, which happens after she has replaced the jurymen."
+  },
+  {
+   "id": "p096",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "flawed",
+   "notes": "God speaks the law to Moses and Aaron; the plan stages the words' content instead, with Moses pointing at a live pig's split hoof in the camp for Aaron and the people."
+  },
+  {
+   "id": "p097",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes scrutinising the pawnbroker's corner house in Saxe-Coburg Square with Watson matches the text; the brown board is requested without lettering, and 'late morning' is slightly early given the lunch on the way."
+  },
+  {
+   "id": "p098",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Eliphaz's simile is drawn literally as an armoured host ringing a frightened man on the ash heap, swapping the speech scene for the imagined fate it describes."
+  },
+  {
+   "id": "p099",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Darius pressing his signet to seal the stone over the den with his lords' signets matches the verse."
+  },
+  {
+   "id": "p100",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "flawed",
+   "notes": "Wisdom (no form) is kept as radiance, but the scene acts out her words, with people gathering the light into open jars and chests to 'fill their treasuries'."
+  },
+  {
+   "id": "p101",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "yes",
+    "missing_subject": "no",
+    "unsupported_figure": "yes",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "flawed",
+   "notes": "God's promise of the spring is drawn as water flowing from his radiance; the plan adds a sea of glass mixed with fire (though 'the sea is no more'), the river of life and white-robed palm-bearers from other visions."
+  },
+  {
+   "id": "p102",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Adam's death at a great age shown as an old man on his deathbed with sons and daughters, matching the verse and its neighbours."
+  },
+  {
+   "id": "p103",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "The verse is Jesus' cry; the plan already has Lazarus bound in linen stepping into the threshold, which is the next verse's event."
+  },
+  {
+   "id": "p104",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Soldiers casting lots for the clothing below a distant cross keeps the crucifixion serious and gore-free."
+  },
+  {
+   "id": "p105",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "acceptable",
+   "notes": "The Ancient of Days is given no figure, only fire, cloud and burning wheels, with Daniel small as the watcher of his own vision; the thrones are omitted to avoid embodiment."
+  },
+  {
+   "id": "p106",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Mock Turtle and Gryphon solemnly dancing round Alice on the shore, treading on her toes, with no lobsters, matches the text."
+  },
+  {
+   "id": "p107",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "yes",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Plan asks for an open papyrus with the pen above 'the lines' and words 'taking shape on the page'."
+  },
+  {
+   "id": "p108",
+   "faults": {
+    "wrong_moment": "yes",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Hatherley pointing out the drive and window with Holmes fits, but 'Late night' contradicts Holmes's 'your friends of last night', which places the scene the next day."
+  },
+  {
+   "id": "p109",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "no"
+   },
+   "overall": "acceptable",
+   "notes": "Jonah inside the fish's belly with God only as faint radiance and cloud beyond the walls fits the verse."
+  },
+  {
+   "id": "p110",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Watson crouched with his cocked revolver on the crate as the glint appears, with Holmes, Jones and Merryweather hidden, matches the final instant."
+  },
+  {
+   "id": "p111",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "yes",
+    "embodied_effects": "na"
+   },
+   "overall": "flawed",
+   "notes": "Scribes 'pause mid-copying' with one lifting his eyes 'from a scroll', which requires an open scroll being written."
+  },
+  {
+   "id": "p112",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Peter raising the lame man by the right hand with John beside him at the temple gate matches the verse."
+  },
+  {
+   "id": "p113",
+   "faults": {
+    "wrong_moment": "no",
+    "speaker_in_scene": "no",
+    "missing_subject": "no",
+    "unsupported_figure": "no",
+    "rule_conflict": "no",
+    "visible_writing": "no",
+    "embodied_effects": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Peter leaping into the sea in his coat after the beloved disciple's cry, with Jesus on shore, matches the verse."
+  }
+ ]
+}

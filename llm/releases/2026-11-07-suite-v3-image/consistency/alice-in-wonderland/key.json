@@ -1,0 +1,865 @@
+{
+  "schemaVersion": 1,
+  "seed": "consistency",
+  "groups": {
+    "file": "evals/images/consistency.alice-in-wonderland.json",
+    "sha256": "1a1bf661a81e478987cfc58bc3851eb40d6de4206d9165a23138018e260752a5"
+  },
+  "sources": [
+    {
+      "file": "llm/releases/2026-11-07-suite-v3-image/results.ndjson",
+      "sha256": "c4a65017e4b72a2f8ca7c758dccf11f221848fcf096a0a3da7d3457550e3c165"
+    },
+    {
+      "file": "llm/releases/2026-11-07-suite-v3-text/snapshot.json",
+      "sha256": "223a996bde395a451339fadb35645320bb8da5d1e10698d3c20739939d3115c9"
+    }
+  ],
+  "notRun": {
+    "character": [],
+    "setting": []
+  },
+  "coverage": [
+    {
+      "groupId": "alice",
+      "style": "classical",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "down-the-rabbit-hole-16",
+        "advice-from-a-caterpillar-1",
+        "a-mad-tea-party-1",
+        "the-queens-croquet-ground-41",
+        "alices-evidence-16"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "alice",
+      "style": "fresco",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "alice",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "down-the-rabbit-hole-16",
+        "advice-from-a-caterpillar-1",
+        "a-mad-tea-party-1",
+        "the-queens-croquet-ground-41",
+        "alices-evidence-16"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "cheshire-cat",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "pig-and-pepper-50",
+        "the-queens-croquet-ground-49"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "cheshire-cat",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "cheshire-cat",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "pig-and-pepper-50",
+        "the-queens-croquet-ground-49"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "hatter",
+      "style": "classical",
+      "units": 2,
+      "imaged": 1,
+      "eligible": [
+        "a-mad-tea-party-1"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "hatter",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "hatter",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "a-mad-tea-party-1",
+        "who-stole-the-tarts-16"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "tea-table",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "a-mad-tea-party-1",
+        "a-mad-tea-party-7",
+        "a-mad-tea-party-13"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "tea-table",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "tea-table",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "a-mad-tea-party-1",
+        "a-mad-tea-party-7",
+        "a-mad-tea-party-13"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "croquet-ground",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "the-queens-croquet-ground-45",
+        "the-queens-croquet-ground-49",
+        "the-queens-croquet-ground-52"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "croquet-ground",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "croquet-ground",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "the-queens-croquet-ground-45",
+        "the-queens-croquet-ground-49",
+        "the-queens-croquet-ground-52"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    }
+  ],
+  "pairs": [
+    {
+      "id": "pair001",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-caterpillar__watercolor__a1.jpg",
+        "sha256": "0ad51483c46ed7e4d78b0fc29621992163047233be4e178aab816bcd97a18589",
+        "scene": "Alice, small and hesitant, in a Victorian pinafore dress, facing the Caterpillar; The Caterpillar perched on the mushroom cap with a curling hookah smoke trail; drifting mist and glowing mushrooms around the clearing"
+      },
+      "right": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-refuses-to-leave__watercolor__a1.jpg",
+        "sha256": "d412ddc96f7797ce08b57e99445c17b159cb479ff66c9dd2e61177b82e376c90",
+        "scene": "Alice standing defiantly on the courtroom floor, chin lifted, facing the high dais.; The King and Queen seated high on the dais in crowns and robes, flat oblong playing-card courtiers ranked along the benches, jurors in waistcoats and hats in the box."
+      }
+    },
+    {
+      "id": "pair002",
+      "groupId": "cheshire-cat",
+      "kind": "character",
+      "subject": "the Cheshire Cat",
+      "style": "classical",
+      "left": {
+        "unitId": "the-queens-croquet-ground-49",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-cat-head-talks__classical__a1.jpg",
+        "sha256": "4075bb16d62aba6afaa56c81dabec789f7447b38aa5e7feb2260e3dc47d8022d",
+        "scene": "Alice, turning her head with a guarded look toward the Queen standing close behind her.; The Cheshire Cat's grinning head hangs in the air beside Alice; flat card courtiers stand near the lawn; a flamingo and hedgehogs lie scattered on the ground."
+      },
+      "right": {
+        "unitId": "pig-and-pepper-50",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-cheshire-cat-bough__classical__a1.jpg",
+        "sha256": "340b1b7b5abc5b5358366d90c4e23f14046a7a3070f3684f157e462fde556ccb",
+        "scene": "Alice in a Victorian pinafore dress, standing timidly with hands clasped, facing the Cat.; The Cat sits upright with long claws and many teeth showing in a wide grin, tail curled neatly around its feet."
+      }
+    },
+    {
+      "id": "pair003",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-drink-me__watercolor__a1.jpg",
+        "sha256": "8cdb3c46c0e297904f9809137024e9f12126e0c84975f5a1add6fc7775f99667",
+        "scene": "Alice, a young Victorian girl in pinafore, holding a small bottle up to examine it; The small glass table with the bottle, a key on the table, the tiny door set low in the wall behind her."
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__watercolor__a2.jpg",
+        "sha256": "08c52da79859185f660e480bd9ff16ed41d9f60fa482bab3ac6e7218234d3d5f",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      }
+    },
+    {
+      "id": "pair004",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__classical__a1.jpg",
+        "sha256": "8c681f34771d2effc8cc246be329d8f0a184286222bb99fd49b13f231b947bfe",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      },
+      "right": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-drink-me__classical__a1.jpg",
+        "sha256": "dea1afcdd58e46dbd6ead5fc89e7d8bee2799c454ae7d8644914d0d2aa14c129",
+        "scene": "Alice, a young Victorian girl in pinafore, holding a small bottle up to examine it; The small glass table with the bottle, a key on the table, the tiny door set low in the wall behind her."
+      }
+    },
+    {
+      "id": "pair005",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__watercolor__a2.jpg",
+        "sha256": "08c52da79859185f660e480bd9ff16ed41d9f60fa482bab3ac6e7218234d3d5f",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      },
+      "right": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-caterpillar__watercolor__a1.jpg",
+        "sha256": "0ad51483c46ed7e4d78b0fc29621992163047233be4e178aab816bcd97a18589",
+        "scene": "Alice, small and hesitant, in a Victorian pinafore dress, facing the Caterpillar; The Caterpillar perched on the mushroom cap with a curling hookah smoke trail; drifting mist and glowing mushrooms around the clearing"
+      }
+    },
+    {
+      "id": "pair006",
+      "groupId": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-queens-croquet-ground-49",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-cat-head-talks__watercolor__a1.jpg",
+        "sha256": "86ffc90dc14162f10ba40e5b6be7a3b21d1b8742e881744120a0017c2c6bbefc",
+        "scene": "Alice, turning her head with a guarded look toward the Queen standing close behind her.; The Cheshire Cat's grinning head hangs in the air beside Alice; flat card courtiers stand near the lawn; a flamingo and hedgehogs lie scattered on the ground."
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-45",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-cat-grin-appears__watercolor__a1.jpg",
+        "sha256": "b18da800eff1b2c45bc3ed5d018b22570ccd131309d2c4663687e9b63e8d86e0",
+        "scene": "Alice, small and wide-eyed, mid-gesture, looking up at the floating grin; The flamingo lying on the grass beside her, a few bristling hedgehogs rolling about at the edge of the lawn, and the Cat's grin hanging in the sunlit air above the grass."
+      }
+    },
+    {
+      "id": "pair007",
+      "groupId": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "style": "classical",
+      "left": {
+        "unitId": "a-mad-tea-party-13",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-say-what-you-mean__classical__a1.jpg",
+        "sha256": "d12c91669610201c602448639fdad467817e1de003ee84dff6ee1338fdd8d863",
+        "scene": "Alice seated at the table, head tilted in thought, gazing up and to the side.; Hatter and March Hare in period waistcoats and hats, the Dormouse slumped asleep on the table, teacups and teapot as the only props."
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__classical__a1.jpg",
+        "sha256": "8c681f34771d2effc8cc246be329d8f0a184286222bb99fd49b13f231b947bfe",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      }
+    },
+    {
+      "id": "pair008",
+      "groupId": "hatter",
+      "kind": "character",
+      "subject": "the Hatter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "who-stole-the-tarts-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-hatter-witness__watercolor__a1.jpg",
+        "sha256": "9f4fe96dbd0c11bdca2625a49bb15e206fbdaf5a2bfccc11b42aa25a374536db",
+        "scene": "The Hatter, rumpled and pale, clutching a teacup and bread-and-butter before the bench; The King seated on the bench, the March Hare and Dormouse together at the side, jurors with slates in the box, and a flat playing-card courtier crowd lining the sides"
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__watercolor__a2.jpg",
+        "sha256": "08c52da79859185f660e480bd9ff16ed41d9f60fa482bab3ac6e7218234d3d5f",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      }
+    },
+    {
+      "id": "pair009",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-croquet-game__classical__a1.jpg",
+        "sha256": "6a9ce78474a3e7fa2db11fb30fc670a03b20105ddda395a9a69c9e3778b3fc8a",
+        "scene": "Alice, in a Victorian pinafore dress, holding a flamingo under her arm with its neck half-straightened and its head turned up in puzzlement.; Card soldiers flat and oblong, painted like playing cards, arched over the lawn; hedgehogs unrolling and crawling away across the furrows; the Queen in a long crimson velvet gown with a golden crown, sceptre in hand, stamping in the middle distance."
+      },
+      "right": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-caterpillar__classical__a1.jpg",
+        "sha256": "9d0a2168d3dd63180720236aef3d60c7641f814b2c2b008e1227c8bb72367c9a",
+        "scene": "Alice, small and hesitant, in a Victorian pinafore dress, facing the Caterpillar; The Caterpillar perched on the mushroom cap with a curling hookah smoke trail; drifting mist and glowing mushrooms around the clearing"
+      }
+    },
+    {
+      "id": "pair010",
+      "groupId": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "style": "watercolor",
+      "left": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__watercolor__a2.jpg",
+        "sha256": "08c52da79859185f660e480bd9ff16ed41d9f60fa482bab3ac6e7218234d3d5f",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-13",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-say-what-you-mean__watercolor__a1.jpg",
+        "sha256": "c89b823d5c26902a3920f1912a81ca729014e441ac8c12e2be8a5e4967ab94f4",
+        "scene": "Alice seated at the table, head tilted in thought, gazing up and to the side.; Hatter and March Hare in period waistcoats and hats, the Dormouse slumped asleep on the table, teacups and teapot as the only props."
+      }
+    },
+    {
+      "id": "pair011",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-croquet-game__watercolor__a2.jpg",
+        "sha256": "b15203c0d1cc5491671c6fca87f00ec4059c621ba21f76293ecd0f84d2bb23b0",
+        "scene": "Alice, in a Victorian pinafore dress, holding a flamingo under her arm with its neck half-straightened and its head turned up in puzzlement.; Card soldiers flat and oblong, painted like playing cards, arched over the lawn; hedgehogs unrolling and crawling away across the furrows; the Queen in a long crimson velvet gown with a golden crown, sceptre in hand, stamping in the middle distance."
+      },
+      "right": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-refuses-to-leave__watercolor__a1.jpg",
+        "sha256": "d412ddc96f7797ce08b57e99445c17b159cb479ff66c9dd2e61177b82e376c90",
+        "scene": "Alice standing defiantly on the courtroom floor, chin lifted, facing the high dais.; The King and Queen seated high on the dais in crowns and robes, flat oblong playing-card courtiers ranked along the benches, jurors in waistcoats and hats in the box."
+      }
+    },
+    {
+      "id": "pair012",
+      "groupId": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "style": "classical",
+      "left": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__classical__a1.jpg",
+        "sha256": "8c681f34771d2effc8cc246be329d8f0a184286222bb99fd49b13f231b947bfe",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-7",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-riddle__classical__a1.jpg",
+        "sha256": "29bdc589acf446b2ce487e1f302303d1741d2699a5d912bf1e14a9bba441a55e",
+        "scene": "Alice seated at the tea-table, chin lifted, looking across at the Hatter; March Hare hunched beside the Hatter, Dormouse dozing on the table, scattered teacups and a pot on the cloth"
+      }
+    },
+    {
+      "id": "pair013",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-drink-me__classical__a1.jpg",
+        "sha256": "dea1afcdd58e46dbd6ead5fc89e7d8bee2799c454ae7d8644914d0d2aa14c129",
+        "scene": "Alice, a young Victorian girl in pinafore, holding a small bottle up to examine it; The small glass table with the bottle, a key on the table, the tiny door set low in the wall behind her."
+      },
+      "right": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-caterpillar__classical__a1.jpg",
+        "sha256": "9d0a2168d3dd63180720236aef3d60c7641f814b2c2b008e1227c8bb72367c9a",
+        "scene": "Alice, small and hesitant, in a Victorian pinafore dress, facing the Caterpillar; The Caterpillar perched on the mushroom cap with a curling hookah smoke trail; drifting mist and glowing mushrooms around the clearing"
+      }
+    },
+    {
+      "id": "pair014",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-caterpillar__watercolor__a1.jpg",
+        "sha256": "0ad51483c46ed7e4d78b0fc29621992163047233be4e178aab816bcd97a18589",
+        "scene": "Alice, small and hesitant, in a Victorian pinafore dress, facing the Caterpillar; The Caterpillar perched on the mushroom cap with a curling hookah smoke trail; drifting mist and glowing mushrooms around the clearing"
+      },
+      "right": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-drink-me__watercolor__a1.jpg",
+        "sha256": "8cdb3c46c0e297904f9809137024e9f12126e0c84975f5a1add6fc7775f99667",
+        "scene": "Alice, a young Victorian girl in pinafore, holding a small bottle up to examine it; The small glass table with the bottle, a key on the table, the tiny door set low in the wall behind her."
+      }
+    },
+    {
+      "id": "pair015",
+      "groupId": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "style": "watercolor",
+      "left": {
+        "unitId": "a-mad-tea-party-7",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-riddle__watercolor__a1.jpg",
+        "sha256": "3851977f43adb1e7b4f743f591407dbad04446b4ca2aa27726b986f03fc32eb2",
+        "scene": "Alice seated at the tea-table, chin lifted, looking across at the Hatter; March Hare hunched beside the Hatter, Dormouse dozing on the table, scattered teacups and a pot on the cloth"
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-13",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-say-what-you-mean__watercolor__a1.jpg",
+        "sha256": "c89b823d5c26902a3920f1912a81ca729014e441ac8c12e2be8a5e4967ab94f4",
+        "scene": "Alice seated at the table, head tilted in thought, gazing up and to the side.; Hatter and March Hare in period waistcoats and hats, the Dormouse slumped asleep on the table, teacups and teapot as the only props."
+      }
+    },
+    {
+      "id": "pair016",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-croquet-game__watercolor__a2.jpg",
+        "sha256": "b15203c0d1cc5491671c6fca87f00ec4059c621ba21f76293ecd0f84d2bb23b0",
+        "scene": "Alice, in a Victorian pinafore dress, holding a flamingo under her arm with its neck half-straightened and its head turned up in puzzlement.; Card soldiers flat and oblong, painted like playing cards, arched over the lawn; hedgehogs unrolling and crawling away across the furrows; the Queen in a long crimson velvet gown with a golden crown, sceptre in hand, stamping in the middle distance."
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__watercolor__a2.jpg",
+        "sha256": "08c52da79859185f660e480bd9ff16ed41d9f60fa482bab3ac6e7218234d3d5f",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      }
+    },
+    {
+      "id": "pair017",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-refuses-to-leave__watercolor__a1.jpg",
+        "sha256": "d412ddc96f7797ce08b57e99445c17b159cb479ff66c9dd2e61177b82e376c90",
+        "scene": "Alice standing defiantly on the courtroom floor, chin lifted, facing the high dais.; The King and Queen seated high on the dais in crowns and robes, flat oblong playing-card courtiers ranked along the benches, jurors in waistcoats and hats in the box."
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__watercolor__a2.jpg",
+        "sha256": "08c52da79859185f660e480bd9ff16ed41d9f60fa482bab3ac6e7218234d3d5f",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      }
+    },
+    {
+      "id": "pair018",
+      "groupId": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "style": "classical",
+      "left": {
+        "unitId": "the-queens-croquet-ground-45",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-cat-grin-appears__classical__a1.jpg",
+        "sha256": "106b5eebfac45ef835f7867004610f651411ae9251d4747e0ff3d13cb58da386",
+        "scene": "Alice, small and wide-eyed, mid-gesture, looking up at the floating grin; The flamingo lying on the grass beside her, a few bristling hedgehogs rolling about at the edge of the lawn, and the Cat's grin hanging in the sunlit air above the grass."
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-49",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-cat-head-talks__classical__a1.jpg",
+        "sha256": "4075bb16d62aba6afaa56c81dabec789f7447b38aa5e7feb2260e3dc47d8022d",
+        "scene": "Alice, turning her head with a guarded look toward the Queen standing close behind her.; The Cheshire Cat's grinning head hangs in the air beside Alice; flat card courtiers stand near the lawn; a flamingo and hedgehogs lie scattered on the ground."
+      }
+    },
+    {
+      "id": "pair019",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-refuses-to-leave__classical__a1.jpg",
+        "sha256": "fb6ae2b13ce2ef6a3f9566f57e02386a8d12bc3c9223f1953954ca66ec2f7723",
+        "scene": "Alice standing defiantly on the courtroom floor, chin lifted, facing the high dais.; The King and Queen seated high on the dais in crowns and robes, flat oblong playing-card courtiers ranked along the benches, jurors in waistcoats and hats in the box."
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-croquet-game__classical__a1.jpg",
+        "sha256": "6a9ce78474a3e7fa2db11fb30fc670a03b20105ddda395a9a69c9e3778b3fc8a",
+        "scene": "Alice, in a Victorian pinafore dress, holding a flamingo under her arm with its neck half-straightened and its head turned up in puzzlement.; Card soldiers flat and oblong, painted like playing cards, arched over the lawn; hedgehogs unrolling and crawling away across the furrows; the Queen in a long crimson velvet gown with a golden crown, sceptre in hand, stamping in the middle distance."
+      }
+    },
+    {
+      "id": "pair020",
+      "groupId": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "style": "classical",
+      "left": {
+        "unitId": "the-queens-croquet-ground-45",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-cat-grin-appears__classical__a1.jpg",
+        "sha256": "106b5eebfac45ef835f7867004610f651411ae9251d4747e0ff3d13cb58da386",
+        "scene": "Alice, small and wide-eyed, mid-gesture, looking up at the floating grin; The flamingo lying on the grass beside her, a few bristling hedgehogs rolling about at the edge of the lawn, and the Cat's grin hanging in the sunlit air above the grass."
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-52",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-king-and-cat__classical__a1.jpg",
+        "sha256": "b46e5c638cd2ebac3871b83fbb68d81a8eecbd56ebaedcbac03d0f0262995559",
+        "scene": "The King, small and anxious, half-hidden behind Alice, peering over her shoulder at the floating grin of the Cheshire Cat.; Alice stands tall in her white pinafore beside the King; the Cat's grinning head hangs in the air with no body; flat card courtiers mill near the lawn's edge."
+      }
+    },
+    {
+      "id": "pair021",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-croquet-game__watercolor__a2.jpg",
+        "sha256": "b15203c0d1cc5491671c6fca87f00ec4059c621ba21f76293ecd0f84d2bb23b0",
+        "scene": "Alice, in a Victorian pinafore dress, holding a flamingo under her arm with its neck half-straightened and its head turned up in puzzlement.; Card soldiers flat and oblong, painted like playing cards, arched over the lawn; hedgehogs unrolling and crawling away across the furrows; the Queen in a long crimson velvet gown with a golden crown, sceptre in hand, stamping in the middle distance."
+      },
+      "right": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-drink-me__watercolor__a1.jpg",
+        "sha256": "8cdb3c46c0e297904f9809137024e9f12126e0c84975f5a1add6fc7775f99667",
+        "scene": "Alice, a young Victorian girl in pinafore, holding a small bottle up to examine it; The small glass table with the bottle, a key on the table, the tiny door set low in the wall behind her."
+      }
+    },
+    {
+      "id": "pair022",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-refuses-to-leave__classical__a1.jpg",
+        "sha256": "fb6ae2b13ce2ef6a3f9566f57e02386a8d12bc3c9223f1953954ca66ec2f7723",
+        "scene": "Alice standing defiantly on the courtroom floor, chin lifted, facing the high dais.; The King and Queen seated high on the dais in crowns and robes, flat oblong playing-card courtiers ranked along the benches, jurors in waistcoats and hats in the box."
+      },
+      "right": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-caterpillar__classical__a1.jpg",
+        "sha256": "9d0a2168d3dd63180720236aef3d60c7641f814b2c2b008e1227c8bb72367c9a",
+        "scene": "Alice, small and hesitant, in a Victorian pinafore dress, facing the Caterpillar; The Caterpillar perched on the mushroom cap with a curling hookah smoke trail; drifting mist and glowing mushrooms around the clearing"
+      }
+    },
+    {
+      "id": "pair023",
+      "groupId": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-queens-croquet-ground-52",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-king-and-cat__watercolor__a1.jpg",
+        "sha256": "4c5ef2b30977cdf6048c0d1465728d901f844d4bbdc6de2a5309ad1a18762967",
+        "scene": "The King, small and anxious, half-hidden behind Alice, peering over her shoulder at the floating grin of the Cheshire Cat.; Alice stands tall in her white pinafore beside the King; the Cat's grinning head hangs in the air with no body; flat card courtiers mill near the lawn's edge."
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-45",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-cat-grin-appears__watercolor__a1.jpg",
+        "sha256": "b18da800eff1b2c45bc3ed5d018b22570ccd131309d2c4663687e9b63e8d86e0",
+        "scene": "Alice, small and wide-eyed, mid-gesture, looking up at the floating grin; The flamingo lying on the grass beside her, a few bristling hedgehogs rolling about at the edge of the lawn, and the Cat's grin hanging in the sunlit air above the grass."
+      }
+    },
+    {
+      "id": "pair024",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-caterpillar__watercolor__a1.jpg",
+        "sha256": "0ad51483c46ed7e4d78b0fc29621992163047233be4e178aab816bcd97a18589",
+        "scene": "Alice, small and hesitant, in a Victorian pinafore dress, facing the Caterpillar; The Caterpillar perched on the mushroom cap with a curling hookah smoke trail; drifting mist and glowing mushrooms around the clearing"
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-croquet-game__watercolor__a2.jpg",
+        "sha256": "b15203c0d1cc5491671c6fca87f00ec4059c621ba21f76293ecd0f84d2bb23b0",
+        "scene": "Alice, in a Victorian pinafore dress, holding a flamingo under her arm with its neck half-straightened and its head turned up in puzzlement.; Card soldiers flat and oblong, painted like playing cards, arched over the lawn; hedgehogs unrolling and crawling away across the furrows; the Queen in a long crimson velvet gown with a golden crown, sceptre in hand, stamping in the middle distance."
+      }
+    },
+    {
+      "id": "pair025",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-drink-me__classical__a1.jpg",
+        "sha256": "dea1afcdd58e46dbd6ead5fc89e7d8bee2799c454ae7d8644914d0d2aa14c129",
+        "scene": "Alice, a young Victorian girl in pinafore, holding a small bottle up to examine it; The small glass table with the bottle, a key on the table, the tiny door set low in the wall behind her."
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-croquet-game__classical__a1.jpg",
+        "sha256": "6a9ce78474a3e7fa2db11fb30fc670a03b20105ddda395a9a69c9e3778b3fc8a",
+        "scene": "Alice, in a Victorian pinafore dress, holding a flamingo under her arm with its neck half-straightened and its head turned up in puzzlement.; Card soldiers flat and oblong, painted like playing cards, arched over the lawn; hedgehogs unrolling and crawling away across the furrows; the Queen in a long crimson velvet gown with a golden crown, sceptre in hand, stamping in the middle distance."
+      }
+    },
+    {
+      "id": "pair026",
+      "groupId": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "style": "classical",
+      "left": {
+        "unitId": "a-mad-tea-party-13",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-say-what-you-mean__classical__a1.jpg",
+        "sha256": "d12c91669610201c602448639fdad467817e1de003ee84dff6ee1338fdd8d863",
+        "scene": "Alice seated at the table, head tilted in thought, gazing up and to the side.; Hatter and March Hare in period waistcoats and hats, the Dormouse slumped asleep on the table, teacups and teapot as the only props."
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-7",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-riddle__classical__a1.jpg",
+        "sha256": "29bdc589acf446b2ce487e1f302303d1741d2699a5d912bf1e14a9bba441a55e",
+        "scene": "Alice seated at the tea-table, chin lifted, looking across at the Hatter; March Hare hunched beside the Hatter, Dormouse dozing on the table, scattered teacups and a pot on the cloth"
+      }
+    },
+    {
+      "id": "pair027",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__classical__a1.jpg",
+        "sha256": "8c681f34771d2effc8cc246be329d8f0a184286222bb99fd49b13f231b947bfe",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-croquet-game__classical__a1.jpg",
+        "sha256": "6a9ce78474a3e7fa2db11fb30fc670a03b20105ddda395a9a69c9e3778b3fc8a",
+        "scene": "Alice, in a Victorian pinafore dress, holding a flamingo under her arm with its neck half-straightened and its head turned up in puzzlement.; Card soldiers flat and oblong, painted like playing cards, arched over the lawn; hedgehogs unrolling and crawling away across the furrows; the Queen in a long crimson velvet gown with a golden crown, sceptre in hand, stamping in the middle distance."
+      }
+    },
+    {
+      "id": "pair028",
+      "groupId": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "style": "watercolor",
+      "left": {
+        "unitId": "a-mad-tea-party-7",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-riddle__watercolor__a1.jpg",
+        "sha256": "3851977f43adb1e7b4f743f591407dbad04446b4ca2aa27726b986f03fc32eb2",
+        "scene": "Alice seated at the tea-table, chin lifted, looking across at the Hatter; March Hare hunched beside the Hatter, Dormouse dozing on the table, scattered teacups and a pot on the cloth"
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__watercolor__a2.jpg",
+        "sha256": "08c52da79859185f660e480bd9ff16ed41d9f60fa482bab3ac6e7218234d3d5f",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      }
+    },
+    {
+      "id": "pair029",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-drink-me__classical__a1.jpg",
+        "sha256": "dea1afcdd58e46dbd6ead5fc89e7d8bee2799c454ae7d8644914d0d2aa14c129",
+        "scene": "Alice, a young Victorian girl in pinafore, holding a small bottle up to examine it; The small glass table with the bottle, a key on the table, the tiny door set low in the wall behind her."
+      },
+      "right": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-refuses-to-leave__classical__a1.jpg",
+        "sha256": "fb6ae2b13ce2ef6a3f9566f57e02386a8d12bc3c9223f1953954ca66ec2f7723",
+        "scene": "Alice standing defiantly on the courtroom floor, chin lifted, facing the high dais.; The King and Queen seated high on the dais in crowns and robes, flat oblong playing-card courtiers ranked along the benches, jurors in waistcoats and hats in the box."
+      }
+    },
+    {
+      "id": "pair030",
+      "groupId": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-queens-croquet-ground-52",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-king-and-cat__watercolor__a1.jpg",
+        "sha256": "4c5ef2b30977cdf6048c0d1465728d901f844d4bbdc6de2a5309ad1a18762967",
+        "scene": "The King, small and anxious, half-hidden behind Alice, peering over her shoulder at the floating grin of the Cheshire Cat.; Alice stands tall in her white pinafore beside the King; the Cat's grinning head hangs in the air with no body; flat card courtiers mill near the lawn's edge."
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-49",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-cat-head-talks__watercolor__a1.jpg",
+        "sha256": "86ffc90dc14162f10ba40e5b6be7a3b21d1b8742e881744120a0017c2c6bbefc",
+        "scene": "Alice, turning her head with a guarded look toward the Queen standing close behind her.; The Cheshire Cat's grinning head hangs in the air beside Alice; flat card courtiers stand near the lawn; a flamingo and hedgehogs lie scattered on the ground."
+      }
+    },
+    {
+      "id": "pair031",
+      "groupId": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "style": "classical",
+      "left": {
+        "unitId": "the-queens-croquet-ground-49",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-cat-head-talks__classical__a1.jpg",
+        "sha256": "4075bb16d62aba6afaa56c81dabec789f7447b38aa5e7feb2260e3dc47d8022d",
+        "scene": "Alice, turning her head with a guarded look toward the Queen standing close behind her.; The Cheshire Cat's grinning head hangs in the air beside Alice; flat card courtiers stand near the lawn; a flamingo and hedgehogs lie scattered on the ground."
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-52",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-king-and-cat__classical__a1.jpg",
+        "sha256": "b46e5c638cd2ebac3871b83fbb68d81a8eecbd56ebaedcbac03d0f0262995559",
+        "scene": "The King, small and anxious, half-hidden behind Alice, peering over her shoulder at the floating grin of the Cheshire Cat.; Alice stands tall in her white pinafore beside the King; the Cat's grinning head hangs in the air with no body; flat card courtiers mill near the lawn's edge."
+      }
+    },
+    {
+      "id": "pair032",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-caterpillar__classical__a1.jpg",
+        "sha256": "9d0a2168d3dd63180720236aef3d60c7641f814b2c2b008e1227c8bb72367c9a",
+        "scene": "Alice, small and hesitant, in a Victorian pinafore dress, facing the Caterpillar; The Caterpillar perched on the mushroom cap with a curling hookah smoke trail; drifting mist and glowing mushrooms around the clearing"
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__classical__a1.jpg",
+        "sha256": "8c681f34771d2effc8cc246be329d8f0a184286222bb99fd49b13f231b947bfe",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      }
+    },
+    {
+      "id": "pair033",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-tea-party-arrival__classical__a1.jpg",
+        "sha256": "8c681f34771d2effc8cc246be329d8f0a184286222bb99fd49b13f231b947bfe",
+        "scene": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props"
+      },
+      "right": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-refuses-to-leave__classical__a1.jpg",
+        "sha256": "fb6ae2b13ce2ef6a3f9566f57e02386a8d12bc3c9223f1953954ca66ec2f7723",
+        "scene": "Alice standing defiantly on the courtroom floor, chin lifted, facing the high dais.; The King and Queen seated high on the dais in crowns and robes, flat oblong playing-card courtiers ranked along the benches, jurors in waistcoats and hats in the box."
+      }
+    },
+    {
+      "id": "pair034",
+      "groupId": "cheshire-cat",
+      "kind": "character",
+      "subject": "the Cheshire Cat",
+      "style": "watercolor",
+      "left": {
+        "unitId": "pig-and-pepper-50",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-cheshire-cat-bough__watercolor__a1.jpg",
+        "sha256": "ae0ae74bc65e3273069307879b1c37f8fec0ccd0964309633bf33e9d19d0970e",
+        "scene": "Alice in a Victorian pinafore dress, standing timidly with hands clasped, facing the Cat.; The Cat sits upright with long claws and many teeth showing in a wide grin, tail curled neatly around its feet."
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-49",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-cat-head-talks__watercolor__a1.jpg",
+        "sha256": "86ffc90dc14162f10ba40e5b6be7a3b21d1b8742e881744120a0017c2c6bbefc",
+        "scene": "Alice, turning her head with a guarded look toward the Queen standing close behind her.; The Cheshire Cat's grinning head hangs in the air beside Alice; flat card courtiers stand near the lawn; a flamingo and hedgehogs lie scattered on the ground."
+      }
+    },
+    {
+      "id": "pair035",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-refuses-to-leave__watercolor__a1.jpg",
+        "sha256": "d412ddc96f7797ce08b57e99445c17b159cb479ff66c9dd2e61177b82e376c90",
+        "scene": "Alice standing defiantly on the courtroom floor, chin lifted, facing the high dais.; The King and Queen seated high on the dais in crowns and robes, flat oblong playing-card courtiers ranked along the benches, jurors in waistcoats and hats in the box."
+      },
+      "right": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-07-suite-v3-image/images/alice-drink-me__watercolor__a1.jpg",
+        "sha256": "8cdb3c46c0e297904f9809137024e9f12126e0c84975f5a1add6fc7775f99667",
+        "scene": "Alice, a young Victorian girl in pinafore, holding a small bottle up to examine it; The small glass table with the bottle, a key on the table, the tiny door set low in the wall behind her."
+      }
+    }
+  ]
+}

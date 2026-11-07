@@ -1,0 +1,368 @@
+{
+  "scorer": "scorer-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "i183",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Saul at left in robe mid-throw, spear flying past David at right toward the wall; lamps on walls, wispy smoke drifting from window as the only sign of the spirit; full-bleed, no lettering."
+    },
+    {
+      "id": "i184",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Young man in linen tunic by a Jerusalem gate with dropped jar and weary figures at right wall, but Jerusalem is shown twice: a temple-topped walled city on the left hill and a second temple fortress on the right, contradictory geography; little radiance touching him."
+    },
+    {
+      "id": "i185",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Large foreground stone at left carries carved pseudo-Latin letters ('ROMA...'), and another marker shows faint inscription; unpainted paper border around all edges (accepted). Row of markers, villagers, Roman soldier by wall otherwise match."
+    },
+    {
+      "id": "i186",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice in pinafore with clasped hands on a wood path looking up at a grinning tabby Cheshire Cat seated on a mossy bough, cottage faint behind; no lettering, full-bleed, no film-derived design evident."
+    },
+    {
+      "id": "i187",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Moses with raised hand and staff, Aaron in breastplate beside him, pig rooting at left, families and cooking pots by tents and the tabernacle enclosure behind; breastplate stones unmarked; cloud-and-fire radiance is absent but the scene reads."
+    },
+    {
+      "id": "i188",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Moses sits on a stone but raises his own right arm and grips his staff himself; Aaron only touches his elbow and Hur's hand hovers near the staff, so his hands are not held up as the verse and scene require."
+    },
+    {
+      "id": "i189",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "yes",
+        "effects_figure": "no"
+      },
+      "overall": "flawed",
+      "notes": "Seraphim are classical angels with four wings, faces only partly hooded and bare feet showing, so not six wings covering face and feet; the right one holds tongs with a burning coal (Isaiah 6:6), breaking the rule that visionary creatures follow the text."
+    },
+    {
+      "id": "i190",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "King hides behind Alice, floating grinning Cat head, Queen pointing at left, card courtiers; but the Queen (black bun, tiny crown, tall white collar, heart gown) closely copies the Disney animated Queen of Hearts; background also holds Alice-like girls (white pinafore at left, blue dress at right)."
+    },
+    {
+      "id": "i191",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Darius kneels pressing his ring into red wax on the boulder closing the den, lords in embroidered dress around him, torches and lamps at night; the seal bears an ornamental motif, not letters."
+    },
+    {
+      "id": "i192",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Ezekiel stands among scattered skeletons with arm raised and face lifted in a barren valley under bright sky with low haze; the tablet he holds is blank, upright stones are uninscribed; no gore beyond dry bone."
+    },
+    {
+      "id": "i193",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Paul centered holding a bronze mirror in a colonnaded courtyard, believers in arcs behind, closed scrolls and oil lamp on ledge, city and acropolis beyond; pediment friezes are ornamental with no visible letters."
+    },
+    {
+      "id": "i194",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Night courtyard with central brazier and gate; Peter in foreground right looking stricken toward Jesus standing in the middle distance, bystanders and guards around; no lettering or anatomy faults."
+    },
+    {
+      "id": "i195",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Column of Egyptian chariots and horsemen with shields charging along wet seabed between two walls of water under dark clouds with dawn glow at the far end; distant Israelites not clearly distinguishable but the pursuit reads."
+    },
+    {
+      "id": "i196",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Hatherley with bandaged hands points at the burning white house with fire engines and hoses beyond rose bushes, but Holmes at right is a gaunt, slick-haired face closely resembling a screen Holmes actor (Peter Cushing type), breaking the adaptation/likeness rule."
+    },
+    {
+      "id": "i197",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "uncertain",
+      "notes": "Daniel stands small with lifted hands under fiery wheels and cloud, city on horizon; no clear figure, but in the bright radiance below the central wheel there is a faint pale shape with arm-like streaks that could read as a light figure."
+    },
+    {
+      "id": "i198",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Alice holds the flamingo with hedgehogs crawling, but card soldiers bear corner index glyphs ('J'-like marks on the spade cards) and dance upright in a chain rather than forming arches; the Queen at right (black bun, tiny crown, high white collar, red/yellow heart gown) copies the Disney design."
+    },
+    {
+      "id": "i199",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice on the left looking up at the grinning Cat head forming in a swirl of air, flamingo lying on the grass, hedgehogs among mushrooms, card soldiers and arches behind; card markings are pips only, no legible glyphs."
+    },
+    {
+      "id": "i200",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Elderly man lying on a woven mat with eyes closed, a woman kneeling at his side and family standing around between tents, well, fields and a mud-brick settlement at dusk; no faults seen."
+    },
+    {
+      "id": "i201",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Two burning mud-brick walled cities under falling fiery sulfur and smoke columns, orange sky, small fleeing figures at both edges; no lettering, treated without gore."
+    },
+    {
+      "id": "i202",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses with staff leads a line of Israelites carrying bundles and children along the seabed between walls of water at night, pillar of fire glowing far behind; viewed from the front rather than from behind, a minor composition difference."
+    },
+    {
+      "id": "i203",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter bends gripping the lame man's right hand as he rises beside a bronze temple gate, John watching at right, crowd and Roman soldiers behind the temple courtyard; no faults seen."
+    },
+    {
+      "id": "i204",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes in dressing gown on the bed with flaring match and raised cane, adder on the bell-pull, Watson seated with pistol; Holmes' gaunt slicked-back face closely resembles a screen Holmes actor (Jeremy Brett/Cushing type), breaking the adaptation rule."
+    },
+    {
+      "id": "i205",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Lion, ox, man-faced and eagle creatures with eyed wings stand around an empty throne over a crystalline sea under a rainbow and lightning; no figure for God, throne empty."
+    }
+  ]
+}

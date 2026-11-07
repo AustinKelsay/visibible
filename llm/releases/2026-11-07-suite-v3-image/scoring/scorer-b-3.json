@@ -1,0 +1,417 @@
+{
+ "scorer": "scorer-b",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "i053",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "yes",
+    "anatomy": "no",
+    "rule_violation": "no"
+   },
+   "overall": "flawed",
+   "notes": "The Cheshire Cat floats top-centre with full furry body and clawed front paws rather than a bodiless head, and the King stands beside Alice facing the viewer instead of peering over her shoulder at the grin; Queen pointing at right, card courtiers and hoops otherwise fit."
+  },
+  {
+   "id": "i054",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Scribbled pseudo-writing on the Hatter's hat card and the flying slates (centre); the unselected Queen of Hearts sits prominently on the bench beside the King; Alice on the bench at left is no larger than the seated spectators, so her grown size does not read. Lizard upended in the tipping box is good."
+  },
+  {
+   "id": "i055",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Saul centred shielding his eyes under a column of cloud-like radiance, companions and donkeys recoiling, Damascus walls and domes at left; edges fully painted, no lettering or anatomy faults found."
+  },
+  {
+   "id": "i056",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Fire streaks fall from smoke-filled orange sky onto two burning mud-brick towns in the middle distance, fleeing figures in wraps in the foreground; no writing, edges painted to the corners."
+  },
+  {
+   "id": "i057",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "flawed",
+   "notes": "A cursive-looking pseudo-letter squiggle sits on the floor at bottom left-centre (below the sandals, about x350 y690). Otherwise Samuel pours the horn on kneeling David among the brothers; paper edges are accepted."
+  },
+  {
+   "id": "i058",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus stands at the stern with arm outstretched over the sea, eleven disciples huddled by the mast and rail, mist and rocky shores behind; hands and faces check out and no lettering."
+  },
+  {
+   "id": "i059",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no"
+   },
+   "overall": "acceptable",
+   "notes": "Daniel small at lower left with lifted hands, two flaming wheels in fire and cloud above with no figure in the light, ziggurat city on the horizon; no lettering."
+  },
+  {
+   "id": "i060",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus asleep on cushions in the stern while a disciple grips his shoulder and others cling to ropes and mast, swinging lamp, waves and rain; hands counted cleanly, edges painted."
+  },
+  {
+   "id": "i061",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes"
+   },
+   "overall": "flawed",
+   "notes": "The Caterpillar on the mushroom (right) has a human old-man face and wears a bowler hat and waistcoat, which the text does not give, so it is not drawn as an animal; Alice small at left with clasped hands, hookah smoke fine."
+  },
+  {
+   "id": "i062",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Ruth and Boaz seated centre with a small boy between them, women of Bethlehem around the courtyard, oven at right, closed scrolls on the left ledge carry no marks; edges painted."
+  },
+  {
+   "id": "i063",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Father embraces the ragged son at left by whitewashed houses while two servants approach from right with a blue robe and sandals; ring not visibly carried but scene reads, hands plausible, no lettering."
+  },
+  {
+   "id": "i064",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Father embraces the son, ring on his hand, two servants approach with robe and sandals by a whitewashed village and lake; pale sky corners are wash not blank paper, no lettering."
+  },
+  {
+   "id": "i065",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "A cluster of plainly dressed villagers on the hillside gazing at the golden sky, one raising a hand, village lamps lit, small Roman soldier on the road at right; no lettering."
+  },
+  {
+   "id": "i066",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no"
+   },
+   "overall": "acceptable",
+   "notes": "Golden light floods through the open city gate across the square with townsfolk, elders and merchants turning toward it; no human shape inside the light, no lettering."
+  },
+  {
+   "id": "i067",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no"
+   },
+   "overall": "flawed",
+   "notes": "Playing-card courtiers show corner indices (A on the left card, J and numerals on the cards along the back bench). The scene itself fits: Alice before the dais, King with note-book, Queen leaning in, animal jury with slates."
+  },
+  {
+   "id": "i068",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Ruth and Boaz seated with a boy standing between them, Naomi on the ledge, women seated around the courtyard, oven and scroll on ledge; no marks, edges painted."
+  },
+  {
+   "id": "i069",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Daniel calm at centre of the stone pit, radiant angel at his side, lions with closed mouths around him, Darius behind the barred gate above; no lettering or anatomy faults."
+  },
+  {
+   "id": "i070",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "flawed",
+   "notes": "The titulus plaque on the cross (top right) carries scribbled pseudo-letter marks. Soldiers crouch casting lots over a stone with garments spread, and the crucifixion is shown without gore."
+  },
+  {
+   "id": "i071",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Saul centre with hands raised to his head under a burst of cloudy radiance, companions recoiling and one fallen, donkeys and dust, Damascus at left; no lettering."
+  },
+  {
+   "id": "i072",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "no"
+   },
+   "overall": "flawed",
+   "notes": "The four creatures (lion, calf, man, eagle) wear draped stoles and the calf in particular looks tame and cute rather than strange and fearsome; eyes appear only on the wings. Empty throne, so no unseen figure drawn."
+  },
+  {
+   "id": "i073",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Pseudo-text columns and a masthead on the newspapers (lower left) and numerals on the mantel clock (top right); Holmes's gaunt face with swept-back hair closely resembles Peter Cushing's screen Holmes."
+  },
+  {
+   "id": "i074",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Samuel pours oil onto kneeling David with Jesse and brothers around them, fleece and staff set aside at lower left, Bethlehem hillside behind; no lettering or anatomy faults."
+  },
+  {
+   "id": "i075",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus raises his arm before the open rock tomb as bandaged Lazarus steps out, Martha and the astonished crowd at right; rolled stone and lamp present, no lettering."
+  },
+  {
+   "id": "i076",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Hezekiah in royal robe with open hand in the temple court, gilded temple doors with cherub relief (no glyphs), priests and bronze vessels; edges are pale sky wash."
+  },
+  {
+   "id": "i077",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Darius crouches pressing his signet into wax on the stone over the den mouth, lords with rings and torches witness behind, night sky; no lettering or anatomy faults."
+  },
+  {
+   "id": "i078",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus asleep on a cushion while a disciple shakes him, others clutch the mast and a lamp in a storm-tossed boat; hands on the mast count correctly, no lettering."
+  }
+ ]
+}

@@ -1,0 +1,413 @@
+{
+  "scorer": "scorer-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "i027",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Tea table under the tree with Alice leaning toward the drowsy Dormouse, Hare and Hatter; scene fits, but the pocket-watch dials on the table (right) and on the grass (bottom right) carry numeral marks."
+    },
+    {
+      "id": "i028",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Card courtiers and card hoops carry corner index letters/numerals; the Queen's red-bodice, yellow heart-panel skirt and tall white collar closely follow the Disney animated costume."
+    },
+    {
+      "id": "i029",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes at the bay window holds the blue stone up with Watson seated right and strong box present; posted notes on the wall (upper left) show scribbled text marks and mantel clocks show numerals."
+    },
+    {
+      "id": "i030",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Wide camp view with the tabernacle centered under a resting cloud and families among tents; watercolor edges fade to bare paper at left and bottom-right corners (accepted)."
+    },
+    {
+      "id": "i031",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "yes",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Card-soldier guards at the door are human soldiers in heart tabards, not flat cards; floor papers carry text lines; a second Alice look-alike girl in blue pinafore stands in the crowd bottom left."
+    },
+    {
+      "id": "i032",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes and Watson before the pawnbroker's corner with three gilt balls, but the board reads 'PAWNBROKER' with pseudo-text above it and a signature appears bottom left."
+    },
+    {
+      "id": "i033",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "The father runs arms-wide toward the viewer while the son walks behind him on the right, so he is not running to meet the son; figures are large, not small and centered."
+    },
+    {
+      "id": "i034",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel at left raises a hand toward the seated Belshazzar with a faint glowing hand on the wall and nobles at feast tables; no writing on the wall, edges painted."
+    },
+    {
+      "id": "i035",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Daniel and Belshazzar in a glazed-brick hall, but glowing pseudo-script glyphs are written on the wall beside the hand (center)."
+    },
+    {
+      "id": "i036",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "David in tunic after releasing the sling, Goliath in scale armor toppling in a dust cloud between massed armies; he stumbles sideways rather than clearly face-first; paper white at bottom-right edge (accepted)."
+    },
+    {
+      "id": "i037",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Goliath already lies head-down on the ground while David still holds the stone in a Y-shaped slingshot fork (upper center), contradicting the release."
+    },
+    {
+      "id": "i038",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Elisha walks alone up the road toward Bethel's gate and calf shrine while youths spill out at right pointing and jeering; no lettering or anatomy issues seen."
+    },
+    {
+      "id": "i039",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice stands centered on a shingle beach between the Mock Turtle and Gryphon, who step and wave forepaws around her; no lettering."
+    },
+    {
+      "id": "i040",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Row of weathered stone markers receding down a limestone village street, largest at left, villagers passing and a Roman soldier by a wall at right; markers carry no inscriptions."
+    },
+    {
+      "id": "i041",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "A cloaked ruler on scaffolding points as laborers heave a stone block into a broken wall, with basket carriers and armored overseers; dust and receding wall fit."
+    },
+    {
+      "id": "i042",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Moses sits on a rock flanked by Aaron and Hur above the battle, but his arms are lowered holding a staff and are not raised or held up by them."
+    },
+    {
+      "id": "i043",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes at the door with Watson and red-haired Wilson by the fire; the newspaper on the desk (bottom right) has a pseudo-text masthead and columns, and floor papers show text."
+    },
+    {
+      "id": "i044",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes at the window with brougham outside and Watson half-rising by the fire fits; a paper on the floor (bottom left) shows written lines and the mantel clock shows numerals; white paper edges top/right (accepted)."
+    },
+    {
+      "id": "i045",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The father runs arms-wide down the road toward the weary son who lifts a hand, villagers watching from doorways, Galilee lake beyond; paper shows at bottom-right edge (accepted)."
+    },
+    {
+      "id": "i046",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Plainly dressed villagers on the slope facing the dusk sky, one lifting a hand, walled town and shore beyond and a red-cloaked soldier on the road; bare paper on left and bottom edges (accepted)."
+    },
+    {
+      "id": "i047",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "An old man lies on a woven mat with hands folded while family kneel and stand in grief at a tent opening, well, fields and mud-brick town behind."
+    },
+    {
+      "id": "i048",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Darius kneels at the pit rim reaching down with attendants holding rope and lamp; Daniel stands unharmed among calm lions, raised lid and banded gate present."
+    },
+    {
+      "id": "i049",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "A dome of golden radiance breaks through black cloud over dark water with no figure or face in the light."
+    },
+    {
+      "id": "i050",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Isaiah looks up at two winged seraphim with wings over faces and lower wings near their feet in a smoky pillared hall; one holds tongs with a coal, but God appears only as radiance and cloud."
+    },
+    {
+      "id": "i051",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel stands calm between closed-mouthed lions beside a glowing angel, Darius leaning over the barred gate above with a torch."
+    },
+    {
+      "id": "i052",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes kneels with lens and lantern while Merryweather sulks on a crate, but the crates carry stenciled pseudo-text (left and right)."
+    }
+  ]
+}

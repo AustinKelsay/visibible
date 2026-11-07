@@ -1,0 +1,411 @@
+{
+  "scorer": "scorer-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "i001",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter grips the lame man's right hand as he rises from the temple courtyard paving, John beside him, crowd and a few Roman soldiers behind, colonnade and gilded gate at back. No lettering (gate relief is figural), fully painted edges, anatomy sound."
+    },
+    {
+      "id": "i002",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes holds a pipe and a lens in his two hands while his cane stands unsupported beside him (lower centre); his gaunt slicked-hair face reads as a Peter Cushing screen likeness. Brown board is blank; white paper shows at the top-right corner (accepted)."
+    },
+    {
+      "id": "i003",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses with staff and raised arm leads the people with donkeys, bundles and children from the foot of a cloud-capped mountain. Unpainted watercolour paper at the top corners and bottom-left (accepted); no lettering."
+    },
+    {
+      "id": "i004",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "The kneeling priest releases a whole, apparently living white dove onto the ashes (lower centre) instead of casting away its crop and feathers, so the ritual action is wrong. Tabernacle panels are figural, no lettering."
+    },
+    {
+      "id": "i005",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The slip Holmes holds at the window is legibly lettered 'MISSING' with text lines and a portrait, and the letters on the table carry handwriting marks. Watson sits by the fire, room matches."
+    },
+    {
+      "id": "i006",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Jesus calls with raised arm while Lazarus, bound in linen, steps from the dark tomb doorway at right with a lamp inside; Martha and mourners behind, rolled stone at left. No lettering or anatomy faults."
+    },
+    {
+      "id": "i007",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Goliath topples backward/sideways onto one hand with his face turned up (centre-left) rather than falling on his face, and he is no larger than David; no visible strike to the forehead. Otherwise valley, armies and David with sling are shown."
+    },
+    {
+      "id": "i008",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Kneeling priest at the horned bronze altar with a dead dove and scattered feathers on the ash; Moses and Israelites stand before the tabernacle. White paper at the bottom corners and top-right (accepted); sash pattern is decorative, not lettering."
+    },
+    {
+      "id": "i009",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Rephaiah in a cloak points at the wall while labourers carry a block on a hand-barrow and baskets of stone; ruined wall, rubble and dust, Jerusalem behind. No lettering, edges painted."
+    },
+    {
+      "id": "i010",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The newspaper on the desk is lettered 'The Standard' with columns of text and the bill fragment Holmes holds also shows writing. Lestrade leaning over the desk, Watson by the fire otherwise match."
+    },
+    {
+      "id": "i011",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Moses with staff raises his arm at the head of the people, who carry bundles with loaded donkeys and children along a dusty track from the mountain with a cloud wisp at its summit. No lettering or other faults."
+    },
+    {
+      "id": "i012",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Card soldiers carry corner indices ('A', '1') and a pseudo-word on the club card at right; Alice holds a wooden croquet mallet as well as the flamingo and metal hoops stand on the lawn, contradicting live flamingo mallets and soldier arches."
+    },
+    {
+      "id": "i013",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Faint numeral marks on the mantel clock dial (right); Holmes at the window has the gaunt slicked-hair face of Peter Cushing's screen Holmes. Watson half-rising with bag and brougham outside otherwise match."
+    },
+    {
+      "id": "i014",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Mantel clock shows numerals and the fireplace tiles carry hieroglyph-like glyphs (right); Holmes's curly-haired profile is a Benedict Cumberbatch likeness. White paper along the left edge (accepted)."
+    },
+    {
+      "id": "i015",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Golden light pours through the city gate across the square while townsfolk raise their arms among stalls and jars; the small pale figures in the gateway are ordinary walkers, not Wisdom given form. No lettering."
+    },
+    {
+      "id": "i016",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The station-master's paper (right) is covered in lines of pseudo-writing. Burning whitewashed house with fire-engines, Hatherley with bandaged hand, Holmes and Watson otherwise match."
+    },
+    {
+      "id": "i017",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Alice is perched on top of the tea-table among the cups with her legs dangling over its front (centre), rather than seated at it, a contradictory placement. Hatter, March Hare and sleeping Dormouse present; no lettering visible."
+    },
+    {
+      "id": "i018",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Tabernacle centred in a tent camp with a large cloud above it, families resting by cooking fires and animals. Tiny woven figures on the tabernacle curtain read as decorative cherub-like embroidery; no lettering."
+    },
+    {
+      "id": "i019",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Peter's staff stands unsupported beside his open hand and he carries a net; he strides toward the viewer and away from Jesus, who stands behind him in the middle distance, so he is not walking to Jesus."
+    },
+    {
+      "id": "i020",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The Levite stands over the still, uncut body of the concubine with a knife raised, lamp at left and donkey with bundles through the doorway. No gore, no lettering, anatomy sound."
+    },
+    {
+      "id": "i021",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Mantel clock shows Roman numerals (top right); Holmes examining the hat with a lens is a clear Benedict Cumberbatch likeness. The card on the table is blank; edges painted."
+    },
+    {
+      "id": "i022",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Ezekiel stands among scattered skulls and bones in a barren valley, arm raised, holding a blank tablet/book. No lettering, no gore, edges painted."
+    },
+    {
+      "id": "i023",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "yes",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The Rabbit's scroll and the papers on the floor carry lines of script and his watch shows numerals; a gallery of human spectators (left, including an old man in front) is not in the cast or scene."
+    },
+    {
+      "id": "i024",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The airborne newspaper bundle carries columns of pseudo-text (top centre). Holmes throwing papers to the rack and Watson with hat on knee match; white paper at the corners and edges (accepted)."
+    },
+    {
+      "id": "i025",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel stands calm among closed-mouthed lions beside a radiant angel, Darius with torch at the gate above. Edges painted, no lettering."
+    },
+    {
+      "id": "i026",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Rephaiah points while workers set blocks and carry baskets, armoured overseers at right, Jerusalem behind. White paper at the top-right and bottom-left (accepted); no lettering."
+    }
+  ]
+}

@@ -1,0 +1,296 @@
+{
+ "scorer": "scorer-b",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "pair001",
+   "verdict": "different",
+   "notes": "Watson by the pawnbroker's has a broad, round face, a heavy dark waxed handlebar moustache and a stocky build; Watson in Wilson's room has a narrow, deeply lined face with a smaller brown moustache. The face shape and build conflict."
+  },
+  {
+   "id": "pair002",
+   "verdict": "same",
+   "notes": "Watson seated in the train and Watson in Wilson's room both have a lean, angular face, short brown hair and a brown moustache, and look middle-aged. No clear identity cue conflicts."
+  },
+  {
+   "id": "pair003",
+   "verdict": "same",
+   "notes": "Holmes at the desk and Holmes on the bed are both gaunt and clean-shaven, with swept-back dark hair, a long nose and hollow cheeks. The desk version looks a little more lined, but nothing clearly conflicts."
+  },
+  {
+   "id": "pair004",
+   "verdict": "same",
+   "notes": "The felt-hat Watson and the train Watson are both heavyset, with a broad, jowly face and a thick walrus/handlebar moustache. The hair is slightly darker in the felt-hat scene, but well within the same brown range."
+  },
+  {
+   "id": "pair005",
+   "verdict": "unclear",
+   "notes": "The left image shows a small white two-storey house burning on flat ground with fire-engines on the lawn. The right image shows only a smoke column rising from behind distant trees seen from the platform, so the house and grounds cannot be compared."
+  },
+  {
+   "id": "pair006",
+   "verdict": "unclear",
+   "notes": "The left image shows a large white multi-chimney house burning below a hill. The right image shows only a distant smoke column and fire behind trees from the station, so it shows too little of the house or grounds to judge."
+  },
+  {
+   "id": "pair007",
+   "verdict": "same",
+   "notes": "The train Watson and the street Watson by the pawnbroker's balls both have short brown hair, a full dark-brown handlebar moustache, an oval-to-broad face and a solid middle-aged build. No conflicting cue."
+  },
+  {
+   "id": "pair008",
+   "verdict": "same",
+   "notes": "Holmes in the train and Holmes at the pawnbroker's corner are both gaunt and clean-shaven, with dark swept hair, a sharp nose and lined cheeks. The faces are consistent."
+  },
+  {
+   "id": "pair009",
+   "verdict": "different",
+   "notes": "Watson in Wilson's room is slim, with a narrow younger face, dark hair and a dark moustache. The train Watson is heavyset and older-looking, with a broad, jowly ruddy face and lighter mid-brown hair. The face shape, build and hair shade conflict."
+  },
+  {
+   "id": "pair010",
+   "verdict": "unclear",
+   "notes": "The left image shows only a distant fire and smoke on the horizon behind trees, seen from the platform at dusk. The right image shows a large white Georgian house burning in a valley, so the house in the left image cannot be compared."
+  },
+  {
+   "id": "pair011",
+   "verdict": "same",
+   "notes": "Watson on the bed with the pistol and Watson in Wilson's room both have an oval face, short brown hair and a full brown moustache, and a medium build. There is no clear conflict."
+  },
+  {
+   "id": "pair012",
+   "verdict": "same",
+   "notes": "Holmes in Wilson's room and Holmes at the desk are both gaunt and deeply lined, with swept-back dark hair and a long hooked nose. The faces are consistent."
+  },
+  {
+   "id": "pair013",
+   "verdict": "different",
+   "notes": "The felt-hat Watson has a round, full-cheeked face with a very bushy handlebar moustache and wavy brown hair. The bed Watson has a narrower, hollow-cheeked face and a smaller moustache. The face shape conflicts."
+  },
+  {
+   "id": "pair014",
+   "verdict": "same",
+   "notes": "Holmes on the bed and Holmes at the door in Wilson's room are both gaunt, long-faced and clean-shaven, with black swept-back hair. There is no conflicting cue."
+  },
+  {
+   "id": "pair015",
+   "verdict": "different",
+   "notes": "The felt-hat Holmes has thick, wavy black hair and a smoother, younger, fuller face. The desk Holmes has thin, receding swept-back hair and a deeply lined, older, gaunt face. The hairstyle and age conflict."
+  },
+  {
+   "id": "pair016",
+   "verdict": "different",
+   "notes": "The desk Holmes looks clearly older, with a receding brown-dark hairline and deep facial lines. The Holmes at the door in Wilson's room has full jet-black hair and a smooth, younger face. The age and hair conflict."
+  },
+  {
+   "id": "pair017",
+   "verdict": "unclear",
+   "notes": "The left image shows only a distant fire and smoke behind trees beyond the station. The right image shows a small white two-storey house with a fire-engine and roses, but the house cannot be seen in the left image."
+  },
+  {
+   "id": "pair018",
+   "verdict": "same",
+   "notes": "Holmes at the desk and Holmes by the pawnbroker's balls are both gaunt and deeply lined, with swept-back black hair and a hooked nose. They match closely."
+  },
+  {
+   "id": "pair019",
+   "verdict": "same",
+   "notes": "Watson in Wilson's room and Watson on the street both have an oval face, dark-brown hair, a dark handlebar moustache and a medium build. They are consistent."
+  },
+  {
+   "id": "pair020",
+   "verdict": "different",
+   "notes": "The train Holmes has a receding, slicked-back hairline and a gaunt, older face. The felt-hat Holmes has thick, wavy black hair and a younger, fuller face. The hairstyle and age conflict."
+  },
+  {
+   "id": "pair021",
+   "verdict": "same",
+   "notes": "Holmes at the pawnbroker's corner and Holmes at the desk are both gaunt, lined and clean-shaven, with dark hair and a sharp nose. There is no clear conflict."
+  },
+  {
+   "id": "pair022",
+   "verdict": "same",
+   "notes": "Watson on the street and Watson on the bed with the pistol both have short brown hair, a full brown handlebar moustache, an oval face and a medium build. They are consistent."
+  },
+  {
+   "id": "pair023",
+   "verdict": "same",
+   "notes": "Holmes at the pawnbroker's corner and Holmes on the bed are both gaunt and clean-shaven, with dark hair and lined, hollow cheeks. They are consistent."
+  },
+  {
+   "id": "pair024",
+   "verdict": "same",
+   "notes": "The street Watson and the felt-hat Watson both have dark-brown hair, a thick dark handlebar moustache and a solid build. The felt-hat face is somewhat fleshier, but no identity cue clearly conflicts."
+  },
+  {
+   "id": "pair025",
+   "verdict": "different",
+   "notes": "The felt-hat Holmes has thick, wavy black hair and a younger, fuller face. The street Holmes has a receding, slicked-back hairline and a deeply lined, older, gaunt face. The hairstyle and age conflict."
+  },
+  {
+   "id": "pair026",
+   "verdict": "different",
+   "notes": "The left image shows a modest white two-storey cottage with one end chimney, set among rose bushes. The right image shows a large symmetrical white Georgian mansion with several chimneys on a hillside. The architecture conflicts."
+  },
+  {
+   "id": "pair027",
+   "verdict": "same",
+   "notes": "Both images show a brick cellar with barrel-vaulted arches, a stone flagstone floor and stacks of wooden crates along the walls, lit by a lantern. They plausibly show the same vault."
+  },
+  {
+   "id": "pair028",
+   "verdict": "same",
+   "notes": "The felt-hat Watson and the street Watson both have a broad, ruddy face, a big bushy handlebar moustache, brown hair and a stocky build. They are consistent."
+  },
+  {
+   "id": "pair029",
+   "verdict": "different",
+   "notes": "The felt-hat Holmes looks around 60, with grey-streaked, heavily receding hair and a deeply wrinkled face. The Holmes at the door in Wilson's room has full jet-black hair and a smooth, younger face. The age and hair colour conflict."
+  },
+  {
+   "id": "pair030",
+   "verdict": "same",
+   "notes": "Holmes in bedroom (left) vs examining hat (right): both clean-shaven with dark slicked-back hair, receding temples, long gaunt face and hooked nose; right looks slightly more lined but same individual."
+  },
+  {
+   "id": "pair031",
+   "verdict": "same",
+   "notes": "Holmes on bed vs Holmes in railway carriage: same dark swept-back receding hair, narrow gaunt clean-shaven face and aquiline nose."
+  },
+  {
+   "id": "pair032",
+   "verdict": "different",
+   "notes": "Left burning house is a large symmetrical two-storey white house with hipped slate roof, three chimneys and pedimented porch; right is a smaller gabled cottage with a chimney on the gable end. The architecture conflicts."
+  },
+  {
+   "id": "pair033",
+   "verdict": "different",
+   "notes": "Left Holmes (hat scene) has thick, full, wavy dark hair and a younger, fuller face; right Holmes on the bed has receding, swept-back hair and a gaunt, older, hollow-cheeked face. Hair and age conflict."
+  },
+  {
+   "id": "pair034",
+   "verdict": "same",
+   "notes": "Both show a brick barrel-vaulted cellar with arched side passages, stacked wooden crates and cracked flagstone floor, lit by a lantern. Compatible layout from different viewpoints."
+  },
+  {
+   "id": "pair035",
+   "verdict": "same",
+   "notes": "Holmes at desk vs in carriage: both have dark hair swept back from a high receding hairline, long gaunt clean-shaven face and prominent hooked nose."
+  },
+  {
+   "id": "pair036",
+   "verdict": "different",
+   "notes": "Watson on bed (left) is lean with a narrow angular face; Watson in carriage (right) is heavy-set with jowly, ruddy fuller face and broader build. Face shape and build conflict."
+  },
+  {
+   "id": "pair037",
+   "verdict": "different",
+   "notes": "Watson behind Holmes in Wilson's room has a narrow, gaunt face, dark hair and swarthy complexion; Watson in armchair (right) has a broader, rounder face, lighter brown side-parted hair and a large upturned walrus moustache. Face shape conflicts."
+  },
+  {
+   "id": "pair038",
+   "verdict": "same",
+   "notes": "Holmes in carriage vs Holmes by the door: same receding black hair swept back to the collar, long gaunt clean-shaven face and aquiline nose."
+  },
+  {
+   "id": "pair039",
+   "verdict": "same",
+   "notes": "Holmes at door (left) and outside pawnbroker's (right, in hat): both dark-haired, clean-shaven, lean long face with strong nose and similar age; hat hides hair on right but nothing conflicts."
+  },
+  {
+   "id": "pair040",
+   "verdict": "same",
+   "notes": "Holmes at pawnbroker's (hat on) vs examining the felt hat: both gaunt, clean-shaven, dark-haired with long hooked nose; right looks somewhat more lined but no clear identity conflict."
+  },
+  {
+   "id": "pair041",
+   "verdict": "different",
+   "notes": "Watson in Wilson's room has a lean narrow face with dark hair and clean chin; Watson on the bed has a broad heavy face with grey-flecked stubble and greying sideburns, looking older. Age and grizzled-stubble cue conflict."
+  },
+  {
+   "id": "pair042",
+   "verdict": "different",
+   "notes": "Watson in carriage has a long narrow lean face and brown hair; Watson on the bed has a broad, heavy face with grey stubble and greying sideburns. Face shape and age conflict."
+  },
+  {
+   "id": "pair043",
+   "verdict": "same",
+   "notes": "Holmes at pawnbroker's corner vs in carriage: same dark receding swept-back hair, long gaunt clean-shaven face and hooked nose."
+  },
+  {
+   "id": "pair044",
+   "verdict": "same",
+   "notes": "Holmes in carriage vs at his desk: same slicked dark receding hair, gaunt clean-shaven long face and aquiline nose."
+  },
+  {
+   "id": "pair045",
+   "verdict": "same",
+   "notes": "Holmes at pawnbroker's vs by the door in Wilson's room: same gaunt face, receding swept-back dark hair, clean-shaven, hooked nose."
+  },
+  {
+   "id": "pair046",
+   "verdict": "same",
+   "notes": "Holmes by the door vs on the bed: both gaunt, clean-shaven with receding dark hair swept back and long nose; bed figure is small but consistent."
+  },
+  {
+   "id": "pair047",
+   "verdict": "same",
+   "notes": "Holmes in carriage vs on the bed: same dark swept-back receding hair, gaunt clean-shaven face and aquiline profile."
+  },
+  {
+   "id": "pair048",
+   "verdict": "same",
+   "notes": "Holmes at desk vs examining hat: both gaunt, clean-shaven, dark slicked receding hair, long hooked nose, deep cheek lines."
+  },
+  {
+   "id": "pair049",
+   "verdict": "different",
+   "notes": "Watson in carriage has a long, narrow, lean face and modest moustache; Watson in armchair (hat scene) has a broader, rounder face with full cheeks and a large curled walrus moustache. Face shape conflicts."
+  },
+  {
+   "id": "pair050",
+   "verdict": "different",
+   "notes": "Watson on the bed is lean with a narrow face; Watson in the hat scene is heavy-set, jowly and broad-faced with a scowl. Build and face shape conflict."
+  },
+  {
+   "id": "pair051",
+   "verdict": "same",
+   "notes": "Holmes on bed vs at desk: same receding dark hair swept back, gaunt clean-shaven long face and aquiline nose."
+  },
+  {
+   "id": "pair052",
+   "verdict": "different",
+   "notes": "Watson at pawnbroker's has a broad, ruddy face with dark hair and full dark moustache; Watson in carriage has a long narrow lean face. Face shape conflicts."
+  },
+  {
+   "id": "pair053",
+   "verdict": "different",
+   "notes": "Watson in hat scene is heavy and jowly with a broad scowling face; Watson in Wilson's room has a longer, leaner face. Face shape and build conflict."
+  },
+  {
+   "id": "pair054",
+   "verdict": "same",
+   "notes": "Holmes on bed vs at pawnbroker's: same gaunt clean-shaven face, dark receding swept-back hair and hooked nose."
+  },
+  {
+   "id": "pair055",
+   "verdict": "same",
+   "notes": "Holmes examining hat vs in carriage: both gaunt, clean-shaven, dark slicked receding hair, long aquiline nose."
+  },
+  {
+   "id": "pair056",
+   "verdict": "same",
+   "notes": "Holmes by door vs in carriage: same dark swept-back hair, long lean clean-shaven face and strong nose."
+  },
+  {
+   "id": "pair057",
+   "verdict": "different",
+   "notes": "Watson on the bed has grey-flecked stubble, greying sideburns and grizzled moustache, looking older; Watson at pawnbroker's has a dark moustache, dark hair and clean chin. Grey stubble vs clean dark-haired is the conflicting cue (pawnbroker figure is small)."
+  },
+  {
+   "id": "pair058",
+   "verdict": "different",
+   "notes": "Holmes by the door has receding swept-back hair and a gaunt older face; Holmes in the hat scene has thick full wavy dark hair and a younger, fuller face. Hairline and age conflict."
+  }
+ ]
+}

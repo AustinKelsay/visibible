@@ -1,0 +1,413 @@
+{
+  "scorer": "scorer-a",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "i105",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice centre-left looks across at a wide-eyed Hatter holding cup and bread, March Hare beside him, tea-table under a big tree before a brick house; the Dormouse sits upright in a chair rather than dozing on the table, a minor deviation. No lettering, fully painted edges."
+    },
+    {
+      "id": "i106",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Four winged creatures (man, lion, ox, eagle) with eyes on their wings flank an empty throne under a rainbow on a glassy floor; no figure is drawn on the throne. No lettering or frame; creatures are dignified rather than fearsome but not comic."
+    },
+    {
+      "id": "i107",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Disciples in a boat at the shore with Peter stepping onto the beach toward a coal fire with fish and loaves; misty lake and stone village behind. Peter holds two staffs, odd but not malformed; no lettering."
+    },
+    {
+      "id": "i108",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Watercolour of two mud-brick cities burning under streaks of falling fire, smoke columns and orange sky, small fleeing figures in wraps along the edges. Edges are painted to the border; no lettering."
+    },
+    {
+      "id": "i109",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Indignant Alice in an armchair at the table end points at the March Hare, who holds a teapot with an elbow on the dozing Dormouse beside the Hatter, under a tree before a house. No lettering; corners painted."
+    },
+    {
+      "id": "i110",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Disciples bail and row a wave-swept boat at night with a swinging lamp, other boats nearby and Jesus asleep on a cushion in the stern. No lettering; hands and faces read correctly."
+    },
+    {
+      "id": "i111",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes kneels with lantern and lens while Merryweather sulks on a crate in a vaulted cellar, but a second magnifying lens lies on the flagstones beside the one in Holmes's hand (lower centre), a duplicated prop. No lettering."
+    },
+    {
+      "id": "i112",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Young David strides by a streambed with staff, dangling sling and bag; armoured Goliath with spear and shield stands mid-valley with soldiers on the slopes. Goliath does not read as towering and no shield-bearer is shown, minor; no lettering."
+    },
+    {
+      "id": "i113",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Rays of golden light break through dark clouds over a dark sea; no figure, face or shape is formed in the light. No lettering; edges painted."
+    },
+    {
+      "id": "i114",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Hatter with teacup and bread before the bench, King and spectacled Queen above, Hare and Dormouse at left, animal jury with slates; the King's card tabard carries a 'K' index and scattered papers and slates bear scribbled pseudo-writing."
+    },
+    {
+      "id": "i115",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Image is a split diptych with a hard vertical seam at about one-third width: Peter stands alone in the left panel, the brazier and bystanders in the right; Jesus is not identifiable and no meeting of gazes is shown."
+    },
+    {
+      "id": "i116",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter in the foreground looks across the courtyard toward a white-robed Jesus by the brazier with bystanders, guards by the gate behind. No lettering; edges painted."
+    },
+    {
+      "id": "i117",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The Levite stands over a cloaked body with a knife held low, lamp on a bench, donkey and bundles through the moonlit doorway; no cutting or gore shown. No lettering."
+    },
+    {
+      "id": "i118",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Moses gestures toward a foraging pig at left with Aaron in breastplate beside him, tents, families and the tabernacle court behind. The cloud-and-fire radiance is absent, minor; God is not drawn; breastplate stones carry no glyphs."
+    },
+    {
+      "id": "i119",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice leans forward indignantly at the table end; Dormouse dozes with a cup beside the March Hare and Hatter at the far end under a big tree before a house. Elbows-on-Dormouse is not shown, minor; no lettering."
+    },
+    {
+      "id": "i120",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Daniel raises a hand before the enthroned Belshazzar in a glazed-brick hall, but a glowing hand writes a clear line of glyph-like script on the back wall (centre)."
+    },
+    {
+      "id": "i121",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Holmes reaches up after tossing a rolled bundle of newspapers onto the rack while Watson, hat on knee, watches; the newspapers show columns of printed pseudo-text (upper right)."
+    },
+    {
+      "id": "i122",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Playing-card courtiers carry 'A' and 'K' corner indices (left); Alice is drawn child-sized beside the cards though she has grown huge in this moment, and the black-haired Queen's tall heart-lined collar follows the animated-film costume."
+    },
+    {
+      "id": "i123",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Alice leans toward the Dormouse sitting on the table with a cup, March Hare pouring and Hatter with cup and bread across the table under a large tree. Tablecloth marks are stains, not letters."
+    },
+    {
+      "id": "i124",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Jesus stands alone with arm extended in a separate small boat roped to the disciples' boat instead of in the stern of their boat; disciples grip the rail on calming water."
+    },
+    {
+      "id": "i125",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter with net and staff and two disciples step up from a beached boat toward a coal fire with fish and bread; misty shore, village and net racks behind. No lettering."
+    },
+    {
+      "id": "i126",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Holmes, Watson, a bandaged Hatherley and Bradstreet lean from the carriage as the station-master points to a smoke column, but Holmes's face (upper left) closely resembles Benedict Cumberbatch."
+    },
+    {
+      "id": "i127",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "The father strides toward his son with arms wide on a village road, the son pausing with hand raised, villagers in a doorway at left. No lettering."
+    },
+    {
+      "id": "i128",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Soldiers crouch casting lots over garments with the crucified figure distant; the titulus plaque on the cross carries faint pseudo-inscription marks, and the Jerusalem skyline shows an anachronistic blue dome resembling the Dome of the Rock (left)."
+    },
+    {
+      "id": "i129",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Darius kneels at the pit rim reaching down to Daniel standing unharmed among calm lions, two attendants with rope and lamp behind. No lettering."
+    },
+    {
+      "id": "i130",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Jesus stands in the boat with arm extended over calm water while the disciples huddle and grip the rail, shore faint behind. No lettering."
+    }
+  ]
+}

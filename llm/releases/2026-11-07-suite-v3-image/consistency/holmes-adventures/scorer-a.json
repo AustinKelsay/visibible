@@ -1,0 +1,296 @@
+{
+ "scorer": "scorer-a",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "pair001",
+   "verdict": "different",
+   "notes": "Watson in the pawnbroker street (bowler, jet-black upturned handlebar moustache, fuller face) vs Watson behind Holmes in Wilson's room (brown drooping moustache, lean lined ruddy face); moustache colour and style conflict."
+  },
+  {
+   "id": "pair002",
+   "verdict": "same",
+   "notes": "Seated Watson in the train (brown hair, brown drooping moustache, lean lined face, middle-aged) matches the bowler-hatted Watson behind Holmes in Wilson's room in colouring, face shape and moustache."
+  },
+  {
+   "id": "pair003",
+   "verdict": "same",
+   "notes": "Holmes at the desk and Holmes on the bed both have a long gaunt lined face, receding swept-back dark hair and similar middle age."
+  },
+  {
+   "id": "pair004",
+   "verdict": "same",
+   "notes": "Watercolour Watson by the fire (stout, heavy jowls, thick dark-brown moustache) and seated Watson in the train (stout, heavy jowled, brown hair, brown moustache) share build and face."
+  },
+  {
+   "id": "pair005",
+   "verdict": "unclear",
+   "notes": "Left shows a white two-storey farmhouse burning among flat fields with fire-engines; the station view shows the fire only as distant smoke and flame over a field, too little of the house or grounds to compare."
+  },
+  {
+   "id": "pair006",
+   "verdict": "unclear",
+   "notes": "Left shows a large white house with dormers and chimneys burning on a hillside; the station view shows only a distant column of smoke and flame behind trees, too little of the place to judge."
+  },
+  {
+   "id": "pair007",
+   "verdict": "different",
+   "notes": "Train Watson is stout with a broad heavy-jowled face; the street Watson in the bowler has a noticeably lean, narrow face and slim build; face shape and build conflict."
+  },
+  {
+   "id": "pair008",
+   "verdict": "same",
+   "notes": "Holmes in the oil train scene and Holmes at the pawnbroker's corner both show a gaunt narrow face, hollow cheeks, dark slicked hair and the same apparent age."
+  },
+  {
+   "id": "pair009",
+   "verdict": "different",
+   "notes": "Watson in Wilson's room has a lean, long face and slim build; the train Watson is stout with a broad heavy-jowled face; face shape and build conflict."
+  },
+  {
+   "id": "pair010",
+   "verdict": "unclear",
+   "notes": "The station scene shows the fire only as smoke and flame behind distant trees; the right shows a large white Georgian mansion on a hill; the station image shows too little of the house or grounds to compare."
+  },
+  {
+   "id": "pair011",
+   "verdict": "same",
+   "notes": "Watson on the bed with the pistol and Watson in Wilson's room both have a lean face, dark-brown hair and a dark moustache, middle-aged and slim."
+  },
+  {
+   "id": "pair012",
+   "verdict": "same",
+   "notes": "Watercolour Holmes in Wilson's room and at the desk both have a long gaunt lined face, receding slicked-back dark hair and similar older age."
+  },
+  {
+   "id": "pair013",
+   "verdict": "different",
+   "notes": "Watson by the fire (oil) has a broad, fleshy smiling face with an upturned waxed handlebar moustache; Watson on the bed has a long lean face with a drooping walrus moustache; face shape and moustache style conflict."
+  },
+  {
+   "id": "pair014",
+   "verdict": "different",
+   "notes": "Holmes on the bed has a gaunt, haggard face with receding hair; Holmes at the door in Wilson's room has thick full black hair with no recession and a smoother, noticeably younger face; hairline and apparent age conflict."
+  },
+  {
+   "id": "pair015",
+   "verdict": "different",
+   "notes": "Holmes with the lens has thick curly dark hair and a fuller, younger face; Holmes at the desk has slicked receding hair and a gaunt, deeply lined older face; hair style and age conflict."
+  },
+  {
+   "id": "pair016",
+   "verdict": "different",
+   "notes": "Holmes at the desk is older with deep lines and receding hair; Holmes at the door has thick full black hair and a smoother younger face; hairline and apparent age conflict."
+  },
+  {
+   "id": "pair017",
+   "verdict": "unclear",
+   "notes": "The station scene shows only smoke and flame beyond trees; the right shows a white two-storey farmhouse with fire-engines on the lawn; the station image shows too little of the house or grounds to judge."
+  },
+  {
+   "id": "pair018",
+   "verdict": "same",
+   "notes": "Watercolour Holmes at the desk and in the street share a gaunt lined face, sharp nose, receding slicked dark hair and similar age."
+  },
+  {
+   "id": "pair019",
+   "verdict": "same",
+   "notes": "Watson in Wilson's room and in the street (both watercolour) have a lean face, dark moustache, slim build and bowler; consistent identity."
+  },
+  {
+   "id": "pair020",
+   "verdict": "different",
+   "notes": "Train Holmes has slicked receding hair and a gaunt older face; Holmes with the lens has thick curly dark hair and a fuller, younger face; hair style and age conflict."
+  },
+  {
+   "id": "pair021",
+   "verdict": "same",
+   "notes": "Holmes at the pawnbroker's corner and at the desk both show a gaunt narrow face, hollow cheeks and dark hair, with similar age."
+  },
+  {
+   "id": "pair022",
+   "verdict": "same",
+   "notes": "Street Watson and Watson on the bed (watercolour) both have a lean face, brown hair, brown moustache and slim build."
+  },
+  {
+   "id": "pair023",
+   "verdict": "same",
+   "notes": "Holmes at the corner and Holmes on the bed share a gaunt narrow face, hollow cheeks, dark hair and similar age."
+  },
+  {
+   "id": "pair024",
+   "verdict": "different",
+   "notes": "Street Watson has a lean narrow face and slim build; Watson by the fire with the bowler is stout with a broad heavy-jowled face; face shape and build conflict."
+  },
+  {
+   "id": "pair025",
+   "verdict": "different",
+   "notes": "Holmes with the lens has thick curly dark hair and a fuller young face; street Holmes has slicked receding hair and a gaunt lined older face; hair style and age conflict."
+  },
+  {
+   "id": "pair026",
+   "verdict": "different",
+   "notes": "Left house is a modest two-storey whitewashed farmhouse with one end chimney on flat ground; right is a large symmetrical white Georgian mansion with several chimneys on a hillside; architecture conflicts."
+  },
+  {
+   "id": "pair027",
+   "verdict": "same",
+   "notes": "Both show a brick-vaulted cellar with round arches, stacked wooden crates and flagstone floor; compatible views of the same vault."
+  },
+  {
+   "id": "pair028",
+   "verdict": "different",
+   "notes": "Watson by the fire has mid-brown hair and a light-brown moustache on a broad smiling face; street Watson has a jet-black moustache and dark hair; hair colour conflicts."
+  },
+  {
+   "id": "pair029",
+   "verdict": "different",
+   "notes": "Holmes with the hat is older with a deeply lined face and receding hair; Holmes at the door has thick full black hair and a smoother younger face; hairline and apparent age conflict."
+  },
+  {
+   "id": "pair030",
+   "verdict": "same",
+   "notes": "Holmes on the bed (left) and Holmes with the lens (right) share a gaunt long face, slicked-back dark receding hair, hollow cheeks and lean build."
+  },
+  {
+   "id": "pair031",
+   "verdict": "same",
+   "notes": "Bedroom Holmes (left) and train Holmes (right) both have a gaunt narrow face, swept-back dark hair with high forehead and a tall lean build."
+  },
+  {
+   "id": "pair032",
+   "verdict": "different",
+   "notes": "Both show a burning white house with fire engines on the lawn, but the left house is a wide symmetrical two-storey building with a hipped roof, dormers and several chimneys, while the right is a narrow steep-gabled cottage with a single gable-end chimney."
+  },
+  {
+   "id": "pair033",
+   "verdict": "different",
+   "notes": "Left Holmes (with lens and hat) has a full mop of curly tousled dark hair and a fuller, younger face; right Holmes on the bed has straight swept-back hair and a narrower, harder face."
+  },
+  {
+   "id": "pair034",
+   "verdict": "same",
+   "notes": "Both show a brick barrel-vaulted cellar with flagstone floor, stacked wooden crates and receding arched passages; compatible architecture from different viewpoints."
+  },
+  {
+   "id": "pair035",
+   "verdict": "same",
+   "notes": "Desk Holmes (left) and train Holmes (right) both have a gaunt long face, slicked-back dark receding hair and lean build."
+  },
+  {
+   "id": "pair036",
+   "verdict": "different",
+   "notes": "Left Watson on the bed (pistol) is lean with a slim face and light-brown parted hair; right Watson in the train is noticeably heavier with a broad, jowly ruddy face and thicker build."
+  },
+  {
+   "id": "pair037",
+   "verdict": "same",
+   "notes": "Watson in a bowler beside Holmes (left) and seated Watson by the fire (right) both have brown hair, a full brown moustache, a lean middle-aged face and similar build."
+  },
+  {
+   "id": "pair038",
+   "verdict": "same",
+   "notes": "Train Holmes (left) and Holmes by the door (right) share the gaunt long face, swept-back dark receding hair and tall lean build."
+  },
+  {
+   "id": "pair039",
+   "verdict": "same",
+   "notes": "Holmes at the door (left) and at the pawnbroker's corner (right) both have a gaunt narrow face, dark slicked hair and tall lean build."
+  },
+  {
+   "id": "pair040",
+   "verdict": "same",
+   "notes": "Street Holmes (left) and lens Holmes (right) share the gaunt hollow-cheeked face, dark swept-back hair and lean build."
+  },
+  {
+   "id": "pair041",
+   "verdict": "same",
+   "notes": "Watson in bowler behind Holmes (left) and Watson on the bed (right) both have a lean middle-aged face, brown moustache and dark-brown hair."
+  },
+  {
+   "id": "pair042",
+   "verdict": "same",
+   "notes": "Seated Watson in the train (left) and Watson on the bed (right) both have brown hair, a brown moustache, a lean middle-aged face and slim build."
+  },
+  {
+   "id": "pair043",
+   "verdict": "same",
+   "notes": "Street Holmes with pipe (left) and train Holmes (right) both have a gaunt long face, swept-back dark receding hair and tall lean frame."
+  },
+  {
+   "id": "pair044",
+   "verdict": "same",
+   "notes": "Train Holmes (left) and desk Holmes (right) share a gaunt long face, slicked dark receding hair and lean build."
+  },
+  {
+   "id": "pair045",
+   "verdict": "same",
+   "notes": "Street Holmes (left) and Holmes by the door (right) both have a gaunt hollow-cheeked face, slicked dark receding hair and tall thin build."
+  },
+  {
+   "id": "pair046",
+   "verdict": "same",
+   "notes": "Holmes at the door (left) and on the bed (right) both have dark swept-back hair, a narrow stern face and lean build; no conflicting cue at the small scale of the right figure."
+  },
+  {
+   "id": "pair047",
+   "verdict": "same",
+   "notes": "Train Holmes (left) and bedroom Holmes (right) both have dark swept-back hair, a narrow face and lean build; no clear conflicting cue."
+  },
+  {
+   "id": "pair048",
+   "verdict": "same",
+   "notes": "Desk Holmes (left) and lens Holmes (right) share the gaunt long face, slicked dark receding hair and lean build."
+  },
+  {
+   "id": "pair049",
+   "verdict": "same",
+   "notes": "Seated train Watson (left) and fireside Watson (right) both have brown hair, a full brown moustache, a lean middle-aged face and slim build."
+  },
+  {
+   "id": "pair050",
+   "verdict": "different",
+   "notes": "Left Watson on the bed is lean with a slim face; right Watson in the armchair is stocky with a broad, heavy-jowled face and thick neck."
+  },
+  {
+   "id": "pair051",
+   "verdict": "same",
+   "notes": "Bedroom Holmes (left) and desk Holmes (right) both have dark swept-back hair, a narrow stern face and lean build."
+  },
+  {
+   "id": "pair052",
+   "verdict": "same",
+   "notes": "Street Watson in bowler (left) and seated train Watson (right) both have a brown moustache, dark-brown hair, middle-aged lean face and similar build."
+  },
+  {
+   "id": "pair053",
+   "verdict": "different",
+   "notes": "Left Watson in the armchair is stocky with a broad, heavy-jowled scowling face; right Watson standing in the doorway room is slim with a narrow face and lean build."
+  },
+  {
+   "id": "pair054",
+   "verdict": "same",
+   "notes": "Bedroom Holmes (left) and street Holmes (right) both have dark swept-back hair, a narrow gaunt face and tall lean build."
+  },
+  {
+   "id": "pair055",
+   "verdict": "same",
+   "notes": "Lens Holmes (left) and train Holmes (right) share the gaunt long face, slicked dark receding hair and lean build."
+  },
+  {
+   "id": "pair056",
+   "verdict": "same",
+   "notes": "Holmes at the door (left) and train Holmes (right) share a gaunt narrow face, slicked dark receding hair and tall lean build."
+  },
+  {
+   "id": "pair057",
+   "verdict": "same",
+   "notes": "Watson on the bed (left) and street Watson (right) both wear bowlers and have a brown moustache, dark-brown hair and a sturdy middle-aged face."
+  },
+  {
+   "id": "pair058",
+   "verdict": "different",
+   "notes": "Left Holmes by the door has a gaunt hollow-cheeked face with slicked receding hair; right Holmes with the lens has a full mop of curly dark hair and a fuller, younger face."
+  }
+ ]
+}
