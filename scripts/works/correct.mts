@@ -33,7 +33,7 @@ import path from "node:path";
 import { parseArgs } from "node:util";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../convex/_generated/api";
-import { createCorrections, parseCorrectionLink } from "@/lib/engine/corrections";
+import { createCorrections, parseCorrectionLink, resolveImageSiteUrl } from "@/lib/engine/corrections";
 import { readWorkInputs } from "@/lib/engine/work-inputs";
 import { validateWorkBrief, SHARED_STYLES } from "@/lib/work-preparation";
 import { createOpenRouterImageMaker, createOpenRouterVisionChecker } from "@/lib/engine/reference-adapters";
@@ -60,8 +60,8 @@ await loadEnv();
 const url = process.env.NEXT_PUBLIC_CONVEX_URL;
 const secret = process.env.CONVEX_SERVER_SECRET;
 if (!url || !secret) throw new Error("NEXT_PUBLIC_CONVEX_URL and CONVEX_SERVER_SECRET are needed");
-const siteUrl = process.env.NOSTR_IMAGE_BASE_URL || process.env.CONVEX_SITE_URL || url.replace(".convex.cloud", ".convex.site");
 const client = new ConvexHttpClient(url);
+const siteUrl = await resolveImageSiteUrl(url, { NOSTR_IMAGE_BASE_URL: process.env.NOSTR_IMAGE_BASE_URL, CONVEX_SITE_URL: process.env.CONVEX_SITE_URL }, () => client.query(api.verseImages.getPublicImageBase, { serverSecret: secret }));
 const corrections = createCorrections(client, api.analysis as never, workId, secret, siteUrl, { getImageProvenance: api.verseImages.getImageProvenance });
 const print = (value: unknown) => console.log(JSON.stringify(value, null, 2));
 

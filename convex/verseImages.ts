@@ -840,6 +840,15 @@ export const countRequestsByEngine = query({
 });
 
 /** Everything the owner needs to review one saved image: its source, style, provenance and URL. Server-only. */
+/** The base of public image links, for owner tools whose Convex URL is a custom domain that serves no HTTP actions. */
+export const getPublicImageBase = query({
+  args: { serverSecret: v.string() },
+  handler: async (_ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    return getPublicStorageImageBaseUrl();
+  },
+});
+
 export const getImageProvenance = query({
   args: { serverSecret: v.string(), imageId: v.string() },
   handler: async (ctx, args) => {

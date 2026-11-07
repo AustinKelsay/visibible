@@ -45,6 +45,22 @@ export function parseCorrectionLink(value: string) {
 export const CHECKER_REASONS = Object.freeze(["sheet_failed", "style_reference_failed", "canon_note", "canon_check", "quote_check_failed", "unmatched_owner_edit"]);
 export const READER_REPORT_REASON = "reader_report";
 
+/**
+ * The base of public image links (`<base>/image/<storageId>`). An explicit override wins; a `*.convex.cloud` URL maps to
+ * its `*.convex.site` twin; a custom domain (production's api.visibible.com serves only the API) asks the deployment,
+ * and falls back to the Convex URL if that deployment cannot answer.
+ */
+export async function resolveImageSiteUrl(convexUrl: string, env: { NOSTR_IMAGE_BASE_URL?: string; CONVEX_SITE_URL?: string }, askDeployment: () => Promise<string | null>): Promise<string> {
+  const override = env.NOSTR_IMAGE_BASE_URL || env.CONVEX_SITE_URL;
+  if (override) return override;
+  if (/\.convex\.cloud(\/|$)/.test(convexUrl)) return convexUrl.replace(".convex.cloud", ".convex.site");
+  try {
+    return (await askDeployment()) ?? convexUrl;
+  } catch {
+    return convexUrl;
+  }
+}
+
 export function imageUrl(siteUrl: string, storageId: string) {
   return `${siteUrl.replace(/\/$/, "")}/image/${encodeURIComponent(storageId)}`;
 }

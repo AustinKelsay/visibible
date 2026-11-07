@@ -9,7 +9,7 @@ import { convexTest } from "convex-test";
 import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
-import { createCorrections } from "../engine/corrections";
+import { createCorrections, resolveImageSiteUrl } from "../engine/corrections";
 import { testDepiction } from "../../../tests/fixtures/depiction";
 
 const SECRET = "s".repeat(40);
@@ -192,5 +192,21 @@ describe("owner corrections", () => {
     expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" })).toMatchObject({ source: "generated" });
     await expect(t.mutation(api.analysis.wipeWork, { serverSecret: SECRET, workId: WORK, confirmation: "wrong", includingOwner: false })).rejects.toThrow(/Confirmation/);
     await expect(t.mutation(api.analysis.wipeWork, { serverSecret: "nope", workId: WORK, confirmation: WORK, includingOwner: false })).rejects.toThrow();
+  });
+});
+
+describe("image link base for owner tools", () => {
+  const never = async (): Promise<string | null> => { throw new Error("should not ask"); };
+  it("prefers an explicit override", async () => {
+    expect(await resolveImageSiteUrl("https://api.example.com", { NOSTR_IMAGE_BASE_URL: "https://img.example.com" }, never)).toBe("https://img.example.com");
+    expect(await resolveImageSiteUrl("https://api.example.com", { CONVEX_SITE_URL: "https://site.example.com" }, never)).toBe("https://site.example.com");
+  });
+  it("maps a convex.cloud URL to its convex.site twin without asking", async () => {
+    expect(await resolveImageSiteUrl("https://happy-cat-1.convex.cloud", {}, never)).toBe("https://happy-cat-1.convex.site");
+  });
+  it("asks the deployment behind a custom domain, and falls back when it cannot answer", async () => {
+    expect(await resolveImageSiteUrl("https://api.example.com", {}, async () => "https://happy-cat-1.convex.site")).toBe("https://happy-cat-1.convex.site");
+    expect(await resolveImageSiteUrl("https://api.example.com", {}, async () => null)).toBe("https://api.example.com");
+    expect(await resolveImageSiteUrl("https://api.example.com", {}, never)).toBe("https://api.example.com");
   });
 });
