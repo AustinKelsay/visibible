@@ -25,6 +25,8 @@ Steps, in order. Each refuses to overwrite what an earlier step wrote:
 
 **The gate.** On holdout items both runs judged, refusals, each fault and the unacceptable share may each rise by at most `max(5% of items, 2 items)` over the baseline. A different suite version, an unsettled score or a holdout item the candidate never ran fails it. It joins the per-image bar ([ADR 0006](../../docs/adr/0006-unseen-presence-speakers-and-launch-bar.md)), the consistency gate and owner sign-off; it replaces none of them.
 
+**Small marks ([ADR 0006 amendment 7](../../docs/adr/0006-unseen-presence-speakers-and-launch-bar.md#amendment-7-small-marks-are-an-accepted-limitation)).** Scorers still answer `lettering`, and the suite gate still counts it. For the launch bar, an image whose only fault is small or illegible marks counts as acceptable; readable words, captions and corner signatures do not. The operator records which applies when adjudicating.
+
 **Changing the suite.** Add cases, never replace them, and bump `version` in suite.json; a baseline and candidate must share a version. Mark a case `tuned` only if it shaped the engine before it joined. A new random case comes from a draw in suite.json, which the tests replay. A new work needs an import, a brief, a depiction profile, image styles and consistency groups, and an analysis: production's, or a committed fixture made with `--no-store`.
 
 ## The diagnostic harness

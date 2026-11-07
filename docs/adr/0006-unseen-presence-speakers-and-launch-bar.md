@@ -64,3 +64,16 @@ Icon stayed owner-only after two failed style rounds, and on 1 November the owne
 - **Consistency ([ADR 0008](0008-consistency-in-the-launch-bar.md)):** a [consistency-verse run](../../llm/releases/2026-11-01-storybook-consistency/README.md) rendered the 14 group verses the matrix did not. All 47 Storybook pairs were judged the same person or place; pooled with the released styles' baseline verdicts the gate passes at 98% same person and 92% same place.
 
 Storybook joins the shared style library, the Bible brief and `PUBLIC_GENERIC_STYLE_IDS` by the amendment 4 path: deploy, then the styles-only brief amendment. **It ships as measured, without a style reference.** Both measurements ran with no Storybook style reference, and a reference changes every Storybook prompt, so none is made until a run with one has met the bar; Fresco shipped the same way and still has none. Icon stays in the library, so saved Icon images keep their label, and remains owner-only. Charcoal is the measured runner-up should a monochrome style be wanted later.
+
+## Amendment 7: small marks are an accepted limitation
+
+Lettering became the largest single fault in the [v3 suite baseline](../../llm/releases/2026-11-07-suite-v3-image/README.md): 51 of 205 images. Two attempts to prevent it showed no clear gain. A [reworded no-text rule](../../llm/releases/2026-11-07-lettering-rule/README.md) had mixed, inconclusive results, and a [planner sentence](../../llm/releases/2026-11-07-plan-less-writing-text/README.md) did not change the plans. The marks that survive come from objects the passages contain: court papers, playing cards, carved markers, the writing on the wall. On 7 November the owner chose to accept them ("accept the known limitation") over a stricter, costlier scene check.
+
+- **Accepted:** small or illegible marks on objects in the scene. That covers pseudo-script on papers, scrolls, walls, plaques and stones, playing-card corner indices, clock numerals, and faint glyphs. An image whose only fault is such marks counts as acceptable for the launch bar, in every work and style.
+- **Still faults:** readable words in the reader's language (such as a sign reading "PAWNBROKER" or a label reading "DRINK ME"), captions, and an artist's signature or initials in a corner. The operator separates these from accepted marks when adjudicating.
+- **Unchanged engine:** the image rules still forbid writing, and the scene check still flags lettering and retries once. Accepting the marks stops them from blocking a launch; it does not stop the engine from trying to avoid them.
+- **Unchanged measurement:** scorers keep answering `lettering`, and the regression suite keeps reporting it as a fault. Its gate still fails a candidate that raises lettering, so the suite version and baselines stay comparable.
+
+Read this way, the v3 Bible images would be 113 of 144 acceptable (78%), not 105 (73%). Holmes and Alice change too, but they are not served, and Holmes still fails on likeness.
+
+The rest of the bar is unchanged.
