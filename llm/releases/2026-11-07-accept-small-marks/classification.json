@@ -1,0 +1,249 @@
+{
+ "run": "2026-11-07-suite-v3-image",
+ "rule": "ADR 0006 amendment 7",
+ "method": "Every settled image whose only fault (after style-accepted faults) is lettering, including items both scorers agreed on, classified by the operator from both scorers' notes and the operator file. The suite's strict scores are unchanged.",
+ "summary": {
+  "bible-web": {
+   "strictAcceptable": 105,
+   "launchBarAcceptable": 113,
+   "of": 144
+  },
+  "holmes-adventures": {
+   "strictAcceptable": 0,
+   "launchBarAcceptable": 6,
+   "of": 30
+  },
+  "alice-in-wonderland": {
+   "strictAcceptable": 7,
+   "launchBarAcceptable": 14,
+   "of": 31
+  }
+ },
+ "items": [
+  {
+   "id": "i016",
+   "key": "holmes-eyford-fire/classical",
+   "work": "holmes-adventures",
+   "style": "classical",
+   "split": "holdout",
+   "classification": "accepted small marks",
+   "basis": "Pseudo-writing on the station-master's paper."
+  },
+  {
+   "id": "i027",
+   "key": "a-mad-tea-party-76/watercolor",
+   "work": "alice-in-wonderland",
+   "style": "watercolor",
+   "split": "holdout",
+   "classification": "accepted small marks",
+   "basis": "Numeral marks on pocket-watch dials."
+  },
+  {
+   "id": "i029",
+   "key": "the-adventure-of-the-blue-carbuncle-73/classical",
+   "work": "holmes-adventures",
+   "style": "classical",
+   "split": "holdout",
+   "classification": "accepted small marks",
+   "basis": "Pseudo-script on pinned papers; clock-dial marks."
+  },
+  {
+   "id": "i032",
+   "key": "holmes-saxe-coburg-square/classical",
+   "work": "holmes-adventures",
+   "style": "classical",
+   "split": "dev",
+   "classification": "still a fault",
+   "basis": "Readable word 'PAWNBROKER' on the board, and a painted signature in the bottom-left corner."
+  },
+  {
+   "id": "i034",
+   "key": "daniel-5-17/watercolor",
+   "work": "bible-web",
+   "style": "watercolor",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "Faint glyph-like strokes on the wall by the hand."
+  },
+  {
+   "id": "i035",
+   "key": "daniel-5-17/fresco",
+   "work": "bible-web",
+   "style": "fresco",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "Glowing pseudo-script on the wall by the hand."
+  },
+  {
+   "id": "i043",
+   "key": "holmes-red-headed-league/classical",
+   "work": "holmes-adventures",
+   "style": "classical",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "Pseudo-text masthead and columns on a newspaper; papers on the floor."
+  },
+  {
+   "id": "i044",
+   "key": "holmes-scandal-king-arrives/watercolor",
+   "work": "holmes-adventures",
+   "style": "watercolor",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "Glyph marks on a paper on the floor; clock numerals."
+  },
+  {
+   "id": "i052",
+   "key": "holmes-bank-cellar-lantern/classical",
+   "work": "holmes-adventures",
+   "style": "classical",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "Stencilled pseudo-text on crates."
+  },
+  {
+   "id": "i057",
+   "key": "1-samuel-16-13/watercolor",
+   "work": "bible-web",
+   "style": "watercolor",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "An isolated cursive-like squiggle on the floor; small and unreadable, not a corner signature."
+  },
+  {
+   "id": "i067",
+   "key": "alice-refuses-to-leave/watercolor",
+   "work": "alice-in-wonderland",
+   "style": "watercolor",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "Playing-card corner indices."
+  },
+  {
+   "id": "i070",
+   "key": "matthew-27-35-crucified/fresco",
+   "work": "bible-web",
+   "style": "fresco",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "Pseudo-letter marks on the cross's title plaque."
+  },
+  {
+   "id": "i102",
+   "key": "alice-tea-party-riddle/watercolor",
+   "work": "alice-in-wonderland",
+   "style": "watercolor",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "A small glyph on the card in the Hatter's hatband."
+  },
+  {
+   "id": "i109",
+   "key": "alice-tea-party-arrival/watercolor",
+   "work": "alice-in-wonderland",
+   "style": "watercolor",
+   "split": "holdout",
+   "classification": "still a fault",
+   "basis": "A looped signature-like scrawl ('Ob3') at the left edge."
+  },
+  {
+   "id": "i114",
+   "key": "alice-hatter-witness/watercolor",
+   "work": "alice-in-wonderland",
+   "style": "watercolor",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "A 'K' card index on the King's tabard; scribbles on papers."
+  },
+  {
+   "id": "i120",
+   "key": "daniel-5-17/classical",
+   "work": "bible-web",
+   "style": "classical",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "Glowing glyph-like script on the wall by the hand; unreadable."
+  },
+  {
+   "id": "i121",
+   "key": "holmes-boscombe-train/classical",
+   "work": "holmes-adventures",
+   "style": "classical",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "Printed pseudo-text on a newspaper bundle."
+  },
+  {
+   "id": "i137",
+   "key": "alice-tea-party-say-what-you-mean/watercolor",
+   "work": "alice-in-wonderland",
+   "style": "watercolor",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "Letter-shaped painted marks on teacups ('CUY', 'CUD'); not words."
+  },
+  {
+   "id": "i140",
+   "key": "alice-drink-me/classical",
+   "work": "alice-in-wonderland",
+   "style": "classical",
+   "split": "dev",
+   "classification": "still a fault",
+   "basis": "A painted signature in the bottom-right corner."
+  },
+  {
+   "id": "i141",
+   "key": "alice-drink-me/watercolor",
+   "work": "alice-in-wonderland",
+   "style": "watercolor",
+   "split": "dev",
+   "classification": "still a fault",
+   "basis": "Readable label 'DRINK ME' on the bottle's tag."
+  },
+  {
+   "id": "i147",
+   "key": "alice-cat-head-talks/classical",
+   "work": "alice-in-wonderland",
+   "style": "classical",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "Playing-card corner indices."
+  },
+  {
+   "id": "i153",
+   "key": "1-corinthians-13-12/fresco",
+   "work": "bible-web",
+   "style": "fresco",
+   "split": "holdout",
+   "classification": "accepted small marks",
+   "basis": "Faint script lines on an unrolled papyrus."
+  },
+  {
+   "id": "i161",
+   "key": "proverbs-8-21/classical",
+   "work": "bible-web",
+   "style": "classical",
+   "split": "holdout",
+   "classification": "accepted small marks",
+   "basis": "Faint pseudo-letters on a wall plaque."
+  },
+  {
+   "id": "i177",
+   "key": "alices-evidence-38/watercolor",
+   "work": "alice-in-wonderland",
+   "style": "watercolor",
+   "split": "holdout",
+   "classification": "accepted small marks",
+   "basis": "Pseudo-handwriting on the White Rabbit's scroll."
+  },
+  {
+   "id": "i185",
+   "key": "matthew-1-1-genealogy/watercolor",
+   "work": "bible-web",
+   "style": "watercolor",
+   "split": "dev",
+   "classification": "accepted small marks",
+   "basis": "Carved pseudo-Latin on a stone marker ('ROMA… S… ONS…'); not words in the reader's language."
+  }
+ ]
+}
