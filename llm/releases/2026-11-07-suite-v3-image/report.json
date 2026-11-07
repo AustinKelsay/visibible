@@ -1,0 +1,556 @@
+{
+  "run": "2026-11-07-suite-v3-image",
+  "tier": "image",
+  "suite": "2026-11-01-suite-v3",
+  "faults": "2026-10-30-faults-v1",
+  "disputes": 0,
+  "summary": {
+    "overall": {
+      "items": 205,
+      "refused": {
+        "yes": 0,
+        "judged": 205,
+        "rate": 0
+      },
+      "acceptable": {
+        "yes": 112,
+        "judged": 205,
+        "rate": 0.5463414634146342
+      },
+      "faults": {
+        "lettering": {
+          "yes": 51,
+          "judged": 205,
+          "rate": 0.24878048780487805
+        },
+        "painted_frame": {
+          "yes": 0,
+          "judged": 205,
+          "rate": 0
+        },
+        "unpainted_edge": {
+          "yes": 1,
+          "judged": 205,
+          "rate": 0.004878048780487805
+        },
+        "extra_figures": {
+          "yes": 7,
+          "judged": 205,
+          "rate": 0.03414634146341464
+        },
+        "incoherent": {
+          "yes": 23,
+          "judged": 205,
+          "rate": 0.11219512195121951
+        },
+        "scene_mismatch": {
+          "yes": 17,
+          "judged": 205,
+          "rate": 0.08292682926829269
+        },
+        "anatomy": {
+          "yes": 3,
+          "judged": 205,
+          "rate": 0.014634146341463415
+        },
+        "rule_violation": {
+          "yes": 32,
+          "judged": 205,
+          "rate": 0.15609756097560976
+        },
+        "effects_figure": {
+          "yes": 0,
+          "judged": 41,
+          "rate": 0
+        }
+      }
+    },
+    "byWork": {
+      "alice-in-wonderland": {
+        "items": 31,
+        "refused": {
+          "yes": 0,
+          "judged": 31,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 7,
+          "judged": 31,
+          "rate": 0.22580645161290322
+        },
+        "faults": {
+          "lettering": {
+            "yes": 18,
+            "judged": 31,
+            "rate": 0.5806451612903226
+          },
+          "painted_frame": {
+            "yes": 0,
+            "judged": 31,
+            "rate": 0
+          },
+          "unpainted_edge": {
+            "yes": 0,
+            "judged": 31,
+            "rate": 0
+          },
+          "extra_figures": {
+            "yes": 3,
+            "judged": 31,
+            "rate": 0.0967741935483871
+          },
+          "incoherent": {
+            "yes": 2,
+            "judged": 31,
+            "rate": 0.06451612903225806
+          },
+          "scene_mismatch": {
+            "yes": 2,
+            "judged": 31,
+            "rate": 0.06451612903225806
+          },
+          "anatomy": {
+            "yes": 2,
+            "judged": 31,
+            "rate": 0.06451612903225806
+          },
+          "rule_violation": {
+            "yes": 9,
+            "judged": 31,
+            "rate": 0.2903225806451613
+          },
+          "effects_figure": {
+            "yes": 0,
+            "judged": 0,
+            "rate": null
+          }
+        }
+      },
+      "bible-web": {
+        "items": 144,
+        "refused": {
+          "yes": 0,
+          "judged": 144,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 105,
+          "judged": 144,
+          "rate": 0.7291666666666666
+        },
+        "faults": {
+          "lettering": {
+            "yes": 11,
+            "judged": 144,
+            "rate": 0.0763888888888889
+          },
+          "painted_frame": {
+            "yes": 0,
+            "judged": 144,
+            "rate": 0
+          },
+          "unpainted_edge": {
+            "yes": 1,
+            "judged": 144,
+            "rate": 0.006944444444444444
+          },
+          "extra_figures": {
+            "yes": 3,
+            "judged": 144,
+            "rate": 0.020833333333333332
+          },
+          "incoherent": {
+            "yes": 16,
+            "judged": 144,
+            "rate": 0.1111111111111111
+          },
+          "scene_mismatch": {
+            "yes": 14,
+            "judged": 144,
+            "rate": 0.09722222222222222
+          },
+          "anatomy": {
+            "yes": 1,
+            "judged": 144,
+            "rate": 0.006944444444444444
+          },
+          "rule_violation": {
+            "yes": 2,
+            "judged": 144,
+            "rate": 0.013888888888888888
+          },
+          "effects_figure": {
+            "yes": 0,
+            "judged": 41,
+            "rate": 0
+          }
+        }
+      },
+      "holmes-adventures": {
+        "items": 30,
+        "refused": {
+          "yes": 0,
+          "judged": 30,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 0,
+          "judged": 30,
+          "rate": 0
+        },
+        "faults": {
+          "lettering": {
+            "yes": 22,
+            "judged": 30,
+            "rate": 0.7333333333333333
+          },
+          "painted_frame": {
+            "yes": 0,
+            "judged": 30,
+            "rate": 0
+          },
+          "unpainted_edge": {
+            "yes": 0,
+            "judged": 30,
+            "rate": 0
+          },
+          "extra_figures": {
+            "yes": 1,
+            "judged": 30,
+            "rate": 0.03333333333333333
+          },
+          "incoherent": {
+            "yes": 5,
+            "judged": 30,
+            "rate": 0.16666666666666666
+          },
+          "scene_mismatch": {
+            "yes": 1,
+            "judged": 30,
+            "rate": 0.03333333333333333
+          },
+          "anatomy": {
+            "yes": 0,
+            "judged": 30,
+            "rate": 0
+          },
+          "rule_violation": {
+            "yes": 21,
+            "judged": 30,
+            "rate": 0.7
+          },
+          "effects_figure": {
+            "yes": 0,
+            "judged": 0,
+            "rate": null
+          }
+        }
+      }
+    },
+    "byStyle": {
+      "classical": {
+        "items": 78,
+        "refused": {
+          "yes": 0,
+          "judged": 78,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 40,
+          "judged": 78,
+          "rate": 0.5128205128205128
+        },
+        "faults": {
+          "lettering": {
+            "yes": 22,
+            "judged": 78,
+            "rate": 0.28205128205128205
+          },
+          "painted_frame": {
+            "yes": 0,
+            "judged": 78,
+            "rate": 0
+          },
+          "unpainted_edge": {
+            "yes": 1,
+            "judged": 78,
+            "rate": 0.01282051282051282
+          },
+          "extra_figures": {
+            "yes": 2,
+            "judged": 78,
+            "rate": 0.02564102564102564
+          },
+          "incoherent": {
+            "yes": 8,
+            "judged": 78,
+            "rate": 0.10256410256410256
+          },
+          "scene_mismatch": {
+            "yes": 6,
+            "judged": 78,
+            "rate": 0.07692307692307693
+          },
+          "anatomy": {
+            "yes": 2,
+            "judged": 78,
+            "rate": 0.02564102564102564
+          },
+          "rule_violation": {
+            "yes": 13,
+            "judged": 78,
+            "rate": 0.16666666666666666
+          },
+          "effects_figure": {
+            "yes": 0,
+            "judged": 16,
+            "rate": 0
+          }
+        }
+      },
+      "fresco": {
+        "items": 48,
+        "refused": {
+          "yes": 0,
+          "judged": 48,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 31,
+          "judged": 48,
+          "rate": 0.6458333333333334
+        },
+        "faults": {
+          "lettering": {
+            "yes": 3,
+            "judged": 48,
+            "rate": 0.0625
+          },
+          "painted_frame": {
+            "yes": 0,
+            "judged": 48,
+            "rate": 0
+          },
+          "unpainted_edge": {
+            "yes": 0,
+            "judged": 48,
+            "rate": 0
+          },
+          "extra_figures": {
+            "yes": 2,
+            "judged": 48,
+            "rate": 0.041666666666666664
+          },
+          "incoherent": {
+            "yes": 8,
+            "judged": 48,
+            "rate": 0.16666666666666666
+          },
+          "scene_mismatch": {
+            "yes": 7,
+            "judged": 48,
+            "rate": 0.14583333333333334
+          },
+          "anatomy": {
+            "yes": 0,
+            "judged": 48,
+            "rate": 0
+          },
+          "rule_violation": {
+            "yes": 1,
+            "judged": 48,
+            "rate": 0.020833333333333332
+          },
+          "effects_figure": {
+            "yes": 0,
+            "judged": 14,
+            "rate": 0
+          }
+        }
+      },
+      "watercolor": {
+        "items": 79,
+        "refused": {
+          "yes": 0,
+          "judged": 79,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 41,
+          "judged": 79,
+          "rate": 0.5189873417721519
+        },
+        "faults": {
+          "lettering": {
+            "yes": 26,
+            "judged": 79,
+            "rate": 0.3291139240506329
+          },
+          "painted_frame": {
+            "yes": 0,
+            "judged": 79,
+            "rate": 0
+          },
+          "unpainted_edge": {
+            "yes": 0,
+            "judged": 79,
+            "rate": 0
+          },
+          "extra_figures": {
+            "yes": 3,
+            "judged": 79,
+            "rate": 0.0379746835443038
+          },
+          "incoherent": {
+            "yes": 7,
+            "judged": 79,
+            "rate": 0.08860759493670886
+          },
+          "scene_mismatch": {
+            "yes": 4,
+            "judged": 79,
+            "rate": 0.05063291139240506
+          },
+          "anatomy": {
+            "yes": 1,
+            "judged": 79,
+            "rate": 0.012658227848101266
+          },
+          "rule_violation": {
+            "yes": 18,
+            "judged": 79,
+            "rate": 0.22784810126582278
+          },
+          "effects_figure": {
+            "yes": 0,
+            "judged": 11,
+            "rate": 0
+          }
+        }
+      }
+    },
+    "bySplit": {
+      "dev": {
+        "items": 156,
+        "refused": {
+          "yes": 0,
+          "judged": 156,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 91,
+          "judged": 156,
+          "rate": 0.5833333333333334
+        },
+        "faults": {
+          "lettering": {
+            "yes": 32,
+            "judged": 156,
+            "rate": 0.20512820512820512
+          },
+          "painted_frame": {
+            "yes": 0,
+            "judged": 156,
+            "rate": 0
+          },
+          "unpainted_edge": {
+            "yes": 1,
+            "judged": 156,
+            "rate": 0.00641025641025641
+          },
+          "extra_figures": {
+            "yes": 4,
+            "judged": 156,
+            "rate": 0.02564102564102564
+          },
+          "incoherent": {
+            "yes": 16,
+            "judged": 156,
+            "rate": 0.10256410256410256
+          },
+          "scene_mismatch": {
+            "yes": 15,
+            "judged": 156,
+            "rate": 0.09615384615384616
+          },
+          "anatomy": {
+            "yes": 2,
+            "judged": 156,
+            "rate": 0.01282051282051282
+          },
+          "rule_violation": {
+            "yes": 21,
+            "judged": 156,
+            "rate": 0.1346153846153846
+          },
+          "effects_figure": {
+            "yes": 0,
+            "judged": 38,
+            "rate": 0
+          }
+        }
+      },
+      "holdout": {
+        "items": 49,
+        "refused": {
+          "yes": 0,
+          "judged": 49,
+          "rate": 0
+        },
+        "acceptable": {
+          "yes": 21,
+          "judged": 49,
+          "rate": 0.42857142857142855
+        },
+        "faults": {
+          "lettering": {
+            "yes": 19,
+            "judged": 49,
+            "rate": 0.3877551020408163
+          },
+          "painted_frame": {
+            "yes": 0,
+            "judged": 49,
+            "rate": 0
+          },
+          "unpainted_edge": {
+            "yes": 0,
+            "judged": 49,
+            "rate": 0
+          },
+          "extra_figures": {
+            "yes": 3,
+            "judged": 49,
+            "rate": 0.061224489795918366
+          },
+          "incoherent": {
+            "yes": 7,
+            "judged": 49,
+            "rate": 0.14285714285714285
+          },
+          "scene_mismatch": {
+            "yes": 2,
+            "judged": 49,
+            "rate": 0.04081632653061224
+          },
+          "anatomy": {
+            "yes": 1,
+            "judged": 49,
+            "rate": 0.02040816326530612
+          },
+          "rule_violation": {
+            "yes": 11,
+            "judged": 49,
+            "rate": 0.22448979591836735
+          },
+          "effects_figure": {
+            "yes": 0,
+            "judged": 3,
+            "rate": 0
+          }
+        }
+      }
+    }
+  },
+  "gate": null
+}

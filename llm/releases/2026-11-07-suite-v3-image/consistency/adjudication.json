@@ -1,0 +1,464 @@
+{
+ "entries": [
+  {
+   "id": "pair006",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/bible-web/composites/pair006.jpg",
+   "kind": "setting",
+   "subject": "the dry path through the parted Red Sea",
+   "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+   "left": "Egyptian chariots and horsemen charging down the sea floor, wheels churning wet sand; Shields and chariot gear glinting, spray and sand blown by the east wind, the walls of water rising on both sides, distant Israelites already across on the far shore.",
+   "right": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp.",
+   "work": "bible-web",
+   "scorerA": {
+    "id": "pair006",
+    "verdict": "same",
+    "notes": "Both show a dry sandy seabed between towering green-blue water walls under dark clouds, with desert banks and palms; the layout is compatible."
+   },
+   "scorerB": {
+    "id": "pair006",
+    "verdict": "different",
+    "notes": "Both have water walls and a sandy corridor, but left has palm-lined banks under a golden glowing horizon while right is dark night lit by the fire pillar with barren mesas and a walled city on the ridge."
+   }
+  },
+  {
+   "id": "pair019",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/bible-web/composites/pair019.jpg",
+   "kind": "character",
+   "subject": "Moses",
+   "question": "Is Moses the same person in the left and right images?",
+   "left": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp",
+   "right": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond",
+   "work": "bible-web",
+   "scorerA": {
+    "id": "pair019",
+    "verdict": "same",
+    "notes": "Moses in the camp (left) and at the rock (right) is an elderly man with white hair and a long white beard in both."
+   },
+   "scorerB": {
+    "id": "pair019",
+    "verdict": "different",
+    "notes": "Left Moses (crop) is bald on top with white side hair and darker skin; right Moses has a full head of long white hair; hair cue conflicts."
+   }
+  },
+  {
+   "id": "pair056",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/bible-web/composites/pair056.jpg",
+   "kind": "character",
+   "subject": "Simon Peter",
+   "question": "Is Simon Peter the same person in the left and right images?",
+   "left": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach.",
+   "right": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background.",
+   "work": "bible-web",
+   "scorerA": {
+    "id": "pair056",
+    "verdict": "same",
+    "notes": "Peter at the front by the shore fire (left) and lifting the lame man (right): same curly dark-grey hair, grey-streaked beard, middle age and net over the shoulder."
+   },
+   "scorerB": {
+    "id": "pair056",
+    "verdict": "unclear",
+    "notes": "Left description only says 'several disciples' and never names Peter, so it does not single out a figure. The foreground net-carrier with greying curly hair does resemble the Peter at right, but the description cannot confirm he is Peter."
+   }
+  },
+  {
+   "id": "pair058",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/bible-web/composites/pair058.jpg",
+   "kind": "character",
+   "subject": "Simon Peter",
+   "question": "Is Simon Peter the same person in the left and right images?",
+   "left": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach.",
+   "right": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him",
+   "work": "bible-web",
+   "scorerA": {
+    "id": "pair058",
+    "verdict": "same",
+    "notes": "Peter in front by the fire (left) and stepping onto the waves (right): same curly greying dark hair, grey-streaked beard and weathered middle-aged face."
+   },
+   "scorerB": {
+    "id": "pair058",
+    "verdict": "unclear",
+    "notes": "Left description only says 'several disciples' and does not name Peter. The foreground net-carrier resembles the Peter stepping onto the waves at right (curly greying hair, beard), but the subject is not singled out."
+   }
+  },
+  {
+   "id": "pair062",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/bible-web/composites/pair062.jpg",
+   "kind": "setting",
+   "subject": "the dry path through the parted Red Sea",
+   "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+   "left": "Egyptian chariots and horsemen charging down the sea floor, wheels churning wet sand; Shields and chariot gear glinting, spray and sand blown by the east wind, the walls of water rising on both sides, distant Israelites already across on the far shore.",
+   "right": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand.",
+   "work": "bible-web",
+   "scorerA": {
+    "id": "pair062",
+    "verdict": "same",
+    "notes": "Both are at night under storm clouds, with a churning sea or water walls beside a sandy path, rocky banks and palm trees along the shore. The banks are arranged compatibly, allowing for the different viewpoints."
+   },
+   "scorerB": {
+    "id": "pair062",
+    "verdict": "different",
+    "notes": "Setting: left path is flanked by tall red cliffs topped with palms; right shows a low rocky, shrubby shore with a walled hilltop town on a headland and no cliffs. The landforms conflict."
+   }
+  },
+  {
+   "id": "pair071",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/bible-web/composites/pair071.jpg",
+   "kind": "character",
+   "subject": "Simon Peter",
+   "question": "Is Simon Peter the same person in the left and right images?",
+   "left": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach.",
+   "right": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard",
+   "work": "bible-web",
+   "scorerA": {
+    "id": "pair071",
+    "verdict": "same",
+    "notes": "Peter at the shore fire (left) and in the courtyard (right): same curly grey-dark hair, grey-streaked beard and middle-aged face."
+   },
+   "scorerB": {
+    "id": "pair071",
+    "verdict": "unclear",
+    "notes": "Left description only says 'several disciples' and does not single out Peter. The net-carrier with curly greying hair resembles the right-hand Peter at the brazier, but the left subject is not identified."
+   }
+  },
+  {
+   "id": "pair079",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/bible-web/composites/pair079.jpg",
+   "kind": "character",
+   "subject": "Simon Peter",
+   "question": "Is Simon Peter the same person in the left and right images?",
+   "left": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard",
+   "right": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach.",
+   "work": "bible-web",
+   "scorerA": {
+    "id": "pair079",
+    "verdict": "same",
+    "notes": "Peter in the courtyard (left) and on the shore by the fire (right): dark curly hair, greying beard and similar weathered face."
+   },
+   "scorerB": {
+    "id": "pair079",
+    "verdict": "unclear",
+    "notes": "Right description only says 'several disciples' and does not name Peter. The net-carrier there resembles the left Peter (curly dark greying hair, beard), but the subject is not singled out."
+   }
+  },
+  {
+   "id": "pair094",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/bible-web/composites/pair094.jpg",
+   "kind": "character",
+   "subject": "Simon Peter",
+   "question": "Is Simon Peter the same person in the left and right images?",
+   "left": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water",
+   "right": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach.",
+   "work": "bible-web",
+   "scorerA": {
+    "id": "pair094",
+    "verdict": "same",
+    "notes": "Peter leaping from the boat (left) and standing by the shore fire (right): same curly greying hair, grey-streaked beard and middle-aged face."
+   },
+   "scorerB": {
+    "id": "pair094",
+    "verdict": "unclear",
+    "notes": "Right description only says 'several disciples' and does not name Peter. The foreground net-carrier resembles the leaping Peter at left (curly greying hair, beard), but the subject is not singled out."
+   }
+  },
+  {
+   "id": "pair104",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/bible-web/composites/pair104.jpg",
+   "kind": "character",
+   "subject": "Jesus",
+   "question": "Is Jesus the same person in the left and right images?",
+   "left": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist",
+   "right": "Roman soldiers in tunics and helmets, crouched in a group on the ground; Folded cloaks and garments spread on the dusty ground; the crucified figure raised above, seen from below and kept distant",
+   "work": "bible-web",
+   "scorerA": {
+    "id": "pair104",
+    "verdict": "unclear",
+    "notes": "Left Jesus is clear (long dark hair, beard). The crucified figure on the right is a tiny distant shape on the hilltop cross, too small to read face, hair or beard."
+   },
+   "scorerB": {
+    "id": "pair104",
+    "verdict": "same",
+    "notes": "Jesus in the stern (left) has long dark hair and beard; crucified figure on the right (small, cropped) shows long dark hair and beard; no conflicting cue."
+   }
+  },
+  {
+   "id": "pair110",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/bible-web/composites/pair110.jpg",
+   "kind": "character",
+   "subject": "Moses",
+   "question": "Is Moses the same person in the left and right images?",
+   "left": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand.",
+   "right": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp",
+   "work": "bible-web",
+   "scorerA": {
+    "id": "pair110",
+    "verdict": "same",
+    "notes": "Moses at the sea (left) and at the camp (right): elderly with thinning white hair, long white beard, brown cloak, crook staff. The cropped faces match."
+   },
+   "scorerB": {
+    "id": "pair110",
+    "verdict": "different",
+    "notes": "Moses at the sea (left) has a full head of wavy grey hair; Moses beside the pig (right) is clearly bald on the crown with hair only at the sides. Hair/hairline conflicts, beard both white."
+   }
+  },
+  {
+   "id": "pair119",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/bible-web/composites/pair119.jpg",
+   "kind": "character",
+   "subject": "Moses",
+   "question": "Is Moses the same person in the left and right images?",
+   "left": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp",
+   "right": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain",
+   "work": "bible-web",
+   "scorerA": {
+    "id": "pair119",
+    "verdict": "same",
+    "notes": "Moses at the camp (left) and seated with arms raised (right): elderly, white receding hair, long white beard, brown cloak, staff."
+   },
+   "scorerB": {
+    "id": "pair119",
+    "verdict": "different",
+    "notes": "Moses beside the pig (left) is bald on top with hair only at the sides; seated Moses (right) has a full head of long white wavy hair. Clear hair conflict."
+   }
+  },
+  {
+   "id": "pair123",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/bible-web/composites/pair123.jpg",
+   "kind": "setting",
+   "subject": "the den of lions at dawn",
+   "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+   "left": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim",
+   "right": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit",
+   "work": "bible-web",
+   "scorerA": {
+    "id": "pair123",
+    "verdict": "different",
+    "notes": "Left is the den seen from inside under a dark night sky, with a barred gate set high in the wall and Darius behind it. Right is an open-topped round pit in flat daylight, with Darius kneeling on the rim and no gate. The night-versus-daylight cue conflicts."
+   },
+   "scorerB": {
+    "id": "pair123",
+    "verdict": "same",
+    "notes": "Both show a circular pit of large stone blocks with a sandy floor and lions around the edges; left from inside with a barred gate at the rim, right from above. Compatible structure and lighting is low in both."
+   }
+  },
+  {
+   "id": "pair007",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/holmes-adventures/composites/pair007.jpg",
+   "kind": "character",
+   "subject": "Dr. Watson",
+   "question": "Is Dr. Watson the same person in the left and right images?",
+   "left": "Sherlock Holmes, arm raised high after tossing a tightly rolled bundle of newspapers onto the overhead rack; Watson seated opposite, hat on his knee; the rolled paper bundle airborne above Holmes; the carriage window showing the passing countryside",
+   "right": "Sherlock Holmes, tall and lean in a dark overcoat and hat, head tilted to one side; Three gilt pawnbroker's balls and a brown board on the corner house; a few passing City clerks in dark suits at a distance",
+   "work": "holmes-adventures",
+   "scorerA": {
+    "id": "pair007",
+    "verdict": "different",
+    "notes": "Train Watson is stout with a broad heavy-jowled face; the street Watson in the bowler has a noticeably lean, narrow face and slim build; face shape and build conflict."
+   },
+   "scorerB": {
+    "id": "pair007",
+    "verdict": "same",
+    "notes": "The train Watson and the street Watson by the pawnbroker's balls both have short brown hair, a full dark-brown handlebar moustache, an oval-to-broad face and a solid middle-aged build. No conflicting cue."
+   }
+  },
+  {
+   "id": "pair014",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/holmes-adventures/composites/pair014.jpg",
+   "kind": "character",
+   "subject": "Sherlock Holmes",
+   "question": "Is Sherlock Holmes the same person in the left and right images?",
+   "left": "Holmes standing on the bed in dressing gown, match flaring, cane raised; Watson seated on the bed in dark frock coat, grey waistcoat and white collar, pistol in hand; faint dark-lantern glow and smell of oil through the ventilator",
+   "right": "Holmes near the door, turning back toward Watson; Wilson half risen from his chair; A settee and armchairs, a hat resting on a side table, a folded newspaper, no visible writing",
+   "work": "holmes-adventures",
+   "scorerA": {
+    "id": "pair014",
+    "verdict": "different",
+    "notes": "Holmes on the bed has a gaunt, haggard face with receding hair; Holmes at the door in Wilson's room has thick full black hair with no recession and a smoother, noticeably younger face; hairline and apparent age conflict."
+   },
+   "scorerB": {
+    "id": "pair014",
+    "verdict": "same",
+    "notes": "Holmes on the bed and Holmes at the door in Wilson's room are both gaunt, long-faced and clean-shaven, with black swept-back hair. There is no conflicting cue."
+   }
+  },
+  {
+   "id": "pair024",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/holmes-adventures/composites/pair024.jpg",
+   "kind": "character",
+   "subject": "Dr. Watson",
+   "question": "Is Dr. Watson the same person in the left and right images?",
+   "left": "Sherlock Holmes, tall and lean in a dark overcoat and hat, head tilted to one side; Three gilt pawnbroker's balls and a brown board on the corner house; a few passing City clerks in dark suits at a distance",
+   "right": "Holmes peering through a lens at an old battered felt hat held in his hands; Folded goose-bearing newspaper absent; battered felt hat as the central prop; a small blank card tucked aside on the table",
+   "work": "holmes-adventures",
+   "scorerA": {
+    "id": "pair024",
+    "verdict": "different",
+    "notes": "Street Watson has a lean narrow face and slim build; Watson by the fire with the bowler is stout with a broad heavy-jowled face; face shape and build conflict."
+   },
+   "scorerB": {
+    "id": "pair024",
+    "verdict": "same",
+    "notes": "The street Watson and the felt-hat Watson both have dark-brown hair, a thick dark handlebar moustache and a solid build. The felt-hat face is somewhat fleshier, but no identity cue clearly conflicts."
+   }
+  },
+  {
+   "id": "pair028",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/holmes-adventures/composites/pair028.jpg",
+   "kind": "character",
+   "subject": "Dr. Watson",
+   "question": "Is Dr. Watson the same person in the left and right images?",
+   "left": "Holmes peering through a lens at an old battered felt hat held in his hands; Folded goose-bearing newspaper absent; battered felt hat as the central prop; a small blank card tucked aside on the table",
+   "right": "Sherlock Holmes, tall and lean in a dark overcoat and hat, head tilted to one side; Three gilt pawnbroker's balls and a brown board on the corner house; a few passing City clerks in dark suits at a distance",
+   "work": "holmes-adventures",
+   "scorerA": {
+    "id": "pair028",
+    "verdict": "different",
+    "notes": "Watson by the fire has mid-brown hair and a light-brown moustache on a broad smiling face; street Watson has a jet-black moustache and dark hair; hair colour conflicts."
+   },
+   "scorerB": {
+    "id": "pair028",
+    "verdict": "same",
+    "notes": "The felt-hat Watson and the street Watson both have a broad, ruddy face, a big bushy handlebar moustache, brown hair and a stocky build. They are consistent."
+   }
+  },
+  {
+   "id": "pair037",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/holmes-adventures/composites/pair037.jpg",
+   "kind": "character",
+   "subject": "Dr. Watson",
+   "question": "Is Dr. Watson the same person in the left and right images?",
+   "left": "Holmes near the door, turning back toward Watson; Wilson half risen from his chair; A settee and armchairs, a hat resting on a side table, a folded newspaper, no visible writing",
+   "right": "Holmes peering through a lens at an old battered felt hat held in his hands; Folded goose-bearing newspaper absent; battered felt hat as the central prop; a small blank card tucked aside on the table",
+   "work": "holmes-adventures",
+   "scorerA": {
+    "id": "pair037",
+    "verdict": "same",
+    "notes": "Watson in a bowler beside Holmes (left) and seated Watson by the fire (right) both have brown hair, a full brown moustache, a lean middle-aged face and similar build."
+   },
+   "scorerB": {
+    "id": "pair037",
+    "verdict": "different",
+    "notes": "Watson behind Holmes in Wilson's room has a narrow, gaunt face, dark hair and swarthy complexion; Watson in armchair (right) has a broader, rounder face, lighter brown side-parted hair and a large upturned walrus moustache. Face shape conflicts."
+   }
+  },
+  {
+   "id": "pair041",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/holmes-adventures/composites/pair041.jpg",
+   "kind": "character",
+   "subject": "Dr. Watson",
+   "question": "Is Dr. Watson the same person in the left and right images?",
+   "left": "Holmes near the door, turning back toward Watson; Wilson half risen from his chair; A settee and armchairs, a hat resting on a side table, a folded newspaper, no visible writing",
+   "right": "Holmes standing on the bed in dressing gown, match flaring, cane raised; Watson seated on the bed in dark frock coat, grey waistcoat and white collar, pistol in hand; faint dark-lantern glow and smell of oil through the ventilator",
+   "work": "holmes-adventures",
+   "scorerA": {
+    "id": "pair041",
+    "verdict": "same",
+    "notes": "Watson in bowler behind Holmes (left) and Watson on the bed (right) both have a lean middle-aged face, brown moustache and dark-brown hair."
+   },
+   "scorerB": {
+    "id": "pair041",
+    "verdict": "different",
+    "notes": "Watson in Wilson's room has a lean narrow face with dark hair and clean chin; Watson on the bed has a broad heavy face with grey-flecked stubble and greying sideburns, looking older. Age and grizzled-stubble cue conflict."
+   }
+  },
+  {
+   "id": "pair042",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/holmes-adventures/composites/pair042.jpg",
+   "kind": "character",
+   "subject": "Dr. Watson",
+   "question": "Is Dr. Watson the same person in the left and right images?",
+   "left": "Sherlock Holmes, arm raised high after tossing a tightly rolled bundle of newspapers onto the overhead rack; Watson seated opposite, hat on his knee; the rolled paper bundle airborne above Holmes; the carriage window showing the passing countryside",
+   "right": "Holmes standing on the bed in dressing gown, match flaring, cane raised; Watson seated on the bed in dark frock coat, grey waistcoat and white collar, pistol in hand; faint dark-lantern glow and smell of oil through the ventilator",
+   "work": "holmes-adventures",
+   "scorerA": {
+    "id": "pair042",
+    "verdict": "same",
+    "notes": "Seated Watson in the train (left) and Watson on the bed (right) both have brown hair, a brown moustache, a lean middle-aged face and slim build."
+   },
+   "scorerB": {
+    "id": "pair042",
+    "verdict": "different",
+    "notes": "Watson in carriage has a long narrow lean face and brown hair; Watson on the bed has a broad, heavy face with grey stubble and greying sideburns. Face shape and age conflict."
+   }
+  },
+  {
+   "id": "pair049",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/holmes-adventures/composites/pair049.jpg",
+   "kind": "character",
+   "subject": "Dr. Watson",
+   "question": "Is Dr. Watson the same person in the left and right images?",
+   "left": "Sherlock Holmes, arm raised high after tossing a tightly rolled bundle of newspapers onto the overhead rack; Watson seated opposite, hat on his knee; the rolled paper bundle airborne above Holmes; the carriage window showing the passing countryside",
+   "right": "Holmes peering through a lens at an old battered felt hat held in his hands; Folded goose-bearing newspaper absent; battered felt hat as the central prop; a small blank card tucked aside on the table",
+   "work": "holmes-adventures",
+   "scorerA": {
+    "id": "pair049",
+    "verdict": "same",
+    "notes": "Seated train Watson (left) and fireside Watson (right) both have brown hair, a full brown moustache, a lean middle-aged face and slim build."
+   },
+   "scorerB": {
+    "id": "pair049",
+    "verdict": "different",
+    "notes": "Watson in carriage has a long, narrow, lean face and modest moustache; Watson in armchair (hat scene) has a broader, rounder face with full cheeks and a large curled walrus moustache. Face shape conflicts."
+   }
+  },
+  {
+   "id": "pair052",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/holmes-adventures/composites/pair052.jpg",
+   "kind": "character",
+   "subject": "Dr. Watson",
+   "question": "Is Dr. Watson the same person in the left and right images?",
+   "left": "Sherlock Holmes, tall and lean in a dark overcoat and hat, head tilted to one side; Three gilt pawnbroker's balls and a brown board on the corner house; a few passing City clerks in dark suits at a distance",
+   "right": "Sherlock Holmes, arm raised high after tossing a tightly rolled bundle of newspapers onto the overhead rack; Watson seated opposite, hat on his knee; the rolled paper bundle airborne above Holmes; the carriage window showing the passing countryside",
+   "work": "holmes-adventures",
+   "scorerA": {
+    "id": "pair052",
+    "verdict": "same",
+    "notes": "Street Watson in bowler (left) and seated train Watson (right) both have a brown moustache, dark-brown hair, middle-aged lean face and similar build."
+   },
+   "scorerB": {
+    "id": "pair052",
+    "verdict": "different",
+    "notes": "Watson at pawnbroker's has a broad, ruddy face with dark hair and full dark moustache; Watson in carriage has a long narrow lean face. Face shape conflicts."
+   }
+  },
+  {
+   "id": "pair057",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/holmes-adventures/composites/pair057.jpg",
+   "kind": "character",
+   "subject": "Dr. Watson",
+   "question": "Is Dr. Watson the same person in the left and right images?",
+   "left": "Holmes standing on the bed in dressing gown, match flaring, cane raised; Watson seated on the bed in dark frock coat, grey waistcoat and white collar, pistol in hand; faint dark-lantern glow and smell of oil through the ventilator",
+   "right": "Sherlock Holmes, tall and lean in a dark overcoat and hat, head tilted to one side; Three gilt pawnbroker's balls and a brown board on the corner house; a few passing City clerks in dark suits at a distance",
+   "work": "holmes-adventures",
+   "scorerA": {
+    "id": "pair057",
+    "verdict": "same",
+    "notes": "Watson on the bed (left) and street Watson (right) both wear bowlers and have a brown moustache, dark-brown hair and a sturdy middle-aged face."
+   },
+   "scorerB": {
+    "id": "pair057",
+    "verdict": "different",
+    "notes": "Watson on the bed has grey-flecked stubble, greying sideburns and grizzled moustache, looking older; Watson at pawnbroker's has a dark moustache, dark hair and clean chin. Grey stubble vs clean dark-haired is the conflicting cue (pawnbroker figure is small)."
+   }
+  },
+  {
+   "id": "pair007",
+   "file": "llm/releases/2026-11-07-suite-v3-image/consistency/alice-in-wonderland/composites/pair007.jpg",
+   "kind": "setting",
+   "subject": "the tea table under a tree before the March Hare's house",
+   "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+   "left": "Alice seated at the table, head tilted in thought, gazing up and to the side.; Hatter and March Hare in period waistcoats and hats, the Dormouse slumped asleep on the table, teacups and teapot as the only props.",
+   "right": "Alice seated at one end of the table, leaning forward with an indignant look; March Hare and Hatter crowded together at the far corner, elbows on the sleeping Dormouse; teapot and cups as the only props",
+   "work": "alice-in-wonderland",
+   "scorerA": {
+    "id": "pair007",
+    "verdict": "same",
+    "notes": "Both put the table under a huge oak with a gabled old English cottage with leaded windows and timber detailing right behind; compatible arrangement."
+   },
+   "scorerB": {
+    "id": "pair007",
+    "verdict": "different",
+    "notes": "Tea-party house: left is a red-brick gabled cottage with brick chimneys; right is a half-timbered house with cream plaster panels and dark timber framing covered in ivy. Wall construction conflicts though both sit under a big oak."
+   }
+  }
+ ]
+}

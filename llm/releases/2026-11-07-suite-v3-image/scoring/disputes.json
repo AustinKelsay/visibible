@@ -1,0 +1,388 @@
+[
+  {
+    "id": "i005",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "i010",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "i019",
+    "fields": [
+      "incoherent"
+    ]
+  },
+  {
+    "id": "i021",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i023",
+    "fields": [
+      "extra_figures"
+    ]
+  },
+  {
+    "id": "i024",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "i027",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i028",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i031",
+    "fields": [
+      "lettering"
+    ]
+  },
+  {
+    "id": "i033",
+    "fields": [
+      "incoherent"
+    ]
+  },
+  {
+    "id": "i034",
+    "fields": [
+      "lettering",
+      "overall"
+    ]
+  },
+  {
+    "id": "i039",
+    "fields": [
+      "anatomy",
+      "overall"
+    ]
+  },
+  {
+    "id": "i048",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i050",
+    "fields": [
+      "rule_violation",
+      "overall"
+    ]
+  },
+  {
+    "id": "i053",
+    "fields": [
+      "lettering",
+      "scene_mismatch",
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "i054",
+    "fields": [
+      "unpainted_edge",
+      "extra_figures",
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "i057",
+    "fields": [
+      "lettering",
+      "overall"
+    ]
+  },
+  {
+    "id": "i058",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i064",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i072",
+    "fields": [
+      "unpainted_edge",
+      "rule_violation",
+      "overall"
+    ]
+  },
+  {
+    "id": "i073",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i076",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i080",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i081",
+    "fields": [
+      "scene_mismatch",
+      "overall"
+    ]
+  },
+  {
+    "id": "i082",
+    "fields": [
+      "lettering",
+      "unpainted_edge",
+      "scene_mismatch"
+    ]
+  },
+  {
+    "id": "i085",
+    "fields": [
+      "incoherent",
+      "overall"
+    ]
+  },
+  {
+    "id": "i096",
+    "fields": [
+      "lettering",
+      "unpainted_edge",
+      "scene_mismatch"
+    ]
+  },
+  {
+    "id": "i099",
+    "fields": [
+      "incoherent",
+      "overall"
+    ]
+  },
+  {
+    "id": "i100",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i101",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i102",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i103",
+    "fields": [
+      "incoherent"
+    ]
+  },
+  {
+    "id": "i109",
+    "fields": [
+      "lettering",
+      "unpainted_edge",
+      "overall"
+    ]
+  },
+  {
+    "id": "i111",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i112",
+    "fields": [
+      "scene_mismatch",
+      "overall"
+    ]
+  },
+  {
+    "id": "i114",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i122",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "i128",
+    "fields": [
+      "lettering",
+      "incoherent",
+      "overall"
+    ]
+  },
+  {
+    "id": "i134",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i137",
+    "fields": [
+      "lettering",
+      "overall"
+    ]
+  },
+  {
+    "id": "i141",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i142",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i143",
+    "fields": [
+      "scene_mismatch",
+      "overall"
+    ]
+  },
+  {
+    "id": "i144",
+    "fields": [
+      "incoherent",
+      "overall"
+    ]
+  },
+  {
+    "id": "i145",
+    "fields": [
+      "incoherent",
+      "overall"
+    ]
+  },
+  {
+    "id": "i146",
+    "fields": [
+      "scene_mismatch",
+      "overall"
+    ]
+  },
+  {
+    "id": "i149",
+    "fields": [
+      "extra_figures",
+      "overall"
+    ]
+  },
+  {
+    "id": "i150",
+    "fields": [
+      "extra_figures",
+      "overall"
+    ]
+  },
+  {
+    "id": "i151",
+    "fields": [
+      "anatomy",
+      "overall"
+    ]
+  },
+  {
+    "id": "i155",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "i167",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i169",
+    "fields": [
+      "lettering",
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "i176",
+    "fields": [
+      "scene_mismatch"
+    ]
+  },
+  {
+    "id": "i179",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "i182",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "i189",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "i197",
+    "fields": [
+      "overall"
+    ]
+  },
+  {
+    "id": "i198",
+    "fields": [
+      "scene_mismatch"
+    ]
+  },
+  {
+    "id": "i204",
+    "fields": [
+      "rule_violation",
+      "overall"
+    ]
+  }
+]

@@ -1,0 +1,416 @@
+{
+  "scorer": "scorer-b",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "i131",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "yes"
+      },
+      "overall": "flawed",
+      "notes": "Pseudo-text on the station notice board by the door and on the station-master's ledger (left); Holmes at the right window is a recognisable Jeremy Brett-style screen likeness. Unpainted paper along the right edge and bottom corners (accepted)."
+    },
+    {
+      "id": "i132",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Villagers on the hillside, one raising a hand to the golden sky, lit windows at right and a mounted Roman soldier on the road; no lettering, painted to every edge."
+    },
+    {
+      "id": "i133",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Job with staff on the ash heap looking up into a dust whirlwind and lightning-lit cloud; no figure in the cloud, no lettering, full-bleed."
+    },
+    {
+      "id": "i134",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Moses with staff on the shore stretching his hand as the sea splits to a stony path under wind-borne radiance; no figure in the light, edges painted."
+    },
+    {
+      "id": "i135",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Disciples bailing and rowing in a swamped boat at night with Jesus asleep on a cushion in the stern; hands and faces sound, no lettering."
+    },
+    {
+      "id": "i136",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "Image is a diptych: a hard vertical seam at about x=657 joins a separate city/bronze-sea view (left) to the Hezekiah-at-the-doorway panel (right)."
+    },
+    {
+      "id": "i137",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Teacups and sugar bowl on the table carry letter-like marks (e.g. 'CUY', 'VUV' shapes) and plates have glyph squiggles; otherwise the drowsy tea-party pause with dozing Dormouse reads correctly."
+    },
+    {
+      "id": "i138",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Daniel with lifted hands beneath two flaming wheels in fiery cloud, ziggurat city on the horizon; no figure within the fire."
+    },
+    {
+      "id": "i139",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Young man in a linen tunic lifting his face to light from upper right before Jerusalem's walls, weary men resting against the wall and a dropped jar; anatomy and edges fine."
+    },
+    {
+      "id": "i140",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "A painted artist-style signature sits in the bottom-right corner of the floor; Alice raising the bottle by the glass table with key and small garden door otherwise matches."
+    },
+    {
+      "id": "i141",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The bottle's tag carries legible 'DRINK ME' lettering (centre); hall, lamps, glass table with key and tiny door are all correct."
+    },
+    {
+      "id": "i142",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Elderly man on a woven mat with a kneeling woman and family gathered by tents and mud-brick huts at dusk; ground squiggles are not glyphs, edges painted."
+    },
+    {
+      "id": "i143",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "yes",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "The chariot column and three calm foot soldiers advance toward the viewer and fan out onto the near shore, reading as leaving the seabed rather than pressing into the sea; no Israelites visible on the far shore."
+    },
+    {
+      "id": "i144",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Young man in a tunic looking up into radiance from upper right by Jerusalem's wall, three weary men seated against it and a toppled jar; no faults found."
+    },
+    {
+      "id": "i145",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Disciples in the night storm rouse Jesus asleep on a cushion in the stern, one gripping his shoulder, others at the mast; hands checked and sound."
+    },
+    {
+      "id": "i146",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "David in the wadi with staff, stone and shepherd's bag faces armoured Goliath, a shield bearer and soldiers on the slope; the sling itself is not clearly shown but the scene reads."
+    },
+    {
+      "id": "i147",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "Card courtiers at right carry 'A' and '7' corner indices (numerals/letters); Alice, Queen, floating Cat head, flamingo and hedgehogs otherwise match."
+    },
+    {
+      "id": "i148",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Ezekiel with raised arm holding a blank tablet among scattered bones; the watercolour vignettes into white paper at the top corners and sides (accepted)."
+    },
+    {
+      "id": "i149",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Samuel pours oil from a horn on the kneeling young David with Jesse, sons and elders around a stone room, light shaft from above; anatomy sound, no lettering."
+    },
+    {
+      "id": "i150",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "uncertain",
+      "notes": "Disciples leave the boat toward the coal fire with fish and bread; a long-haired, centre-parted figure in the right-hand group of four reads like a conventional Jesus who was not selected, but could be a disciple. Sky fades to white paper at top (accepted)."
+    },
+    {
+      "id": "i151",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "yes",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "In the drinking crowd (lower right) a dark-haired man's head emerges from a donkey's neck/withers, merging human and animal bodies; Moses mid-strike with Aaron in breastplate otherwise matches."
+    },
+    {
+      "id": "i152",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "acceptable",
+      "notes": "Peter leaps from the boat in his cloak while the beloved disciple points to Jesus standing by the coal fire on shore; top edges fade to white paper (accepted)."
+    },
+    {
+      "id": "i153",
+      "faults": {
+        "lettering": "yes",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "na"
+      },
+      "overall": "flawed",
+      "notes": "The unrolled papyrus on the table at bottom right shows lines of faint script, though the scene asked for unmarked rolls; Paul with bronze mirror and believers otherwise match."
+    },
+    {
+      "id": "i154",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Job with staff on the ash heap beneath a dust whirlwind and lightning cloud, broken pottery around; white paper shows at the top corners and edges (accepted)."
+    },
+    {
+      "id": "i155",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "yes",
+        "extra_figures": "no",
+        "incoherent": "yes",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no"
+      },
+      "overall": "flawed",
+      "notes": "The adder appears twice: once on the bell-pull at the ventilator (top left) and again on the floor (bottom left), contradicting itself; left edge is unpainted paper (accepted)."
+    },
+    {
+      "id": "i156",
+      "faults": {
+        "lettering": "no",
+        "painted_frame": "no",
+        "unpainted_edge": "no",
+        "extra_figures": "no",
+        "incoherent": "no",
+        "scene_mismatch": "no",
+        "anatomy": "no",
+        "rule_violation": "no",
+        "effects_figure": "no"
+      },
+      "overall": "acceptable",
+      "notes": "Radiance breaking through dark cloud over rippling deep waters with no figure, land or props; edges fully painted."
+    }
+  ]
+}

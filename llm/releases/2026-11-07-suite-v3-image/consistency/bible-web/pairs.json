@@ -1,0 +1,1275 @@
+{
+  "schemaVersion": 1,
+  "instructions": "evals/images/consistency-scoring.md",
+  "pairs": [
+    {
+      "id": "pair001",
+      "file": "composites/pair001.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim",
+      "right": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit"
+    },
+    {
+      "id": "pair002",
+      "file": "composites/pair002.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard",
+      "right": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him"
+    },
+    {
+      "id": "pair003",
+      "file": "composites/pair003.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Jesus reclining asleep on a cushion in the stern, and disciples leaning over him; Water sloshing over the boat's sides, lamp swinging, nets and oars tangled, spray in the air",
+      "right": "Disciples bailing and straining at oars in a water-filled fishing boat; Other small boats tossed nearby, spray and wind-torn cloaks, oil lamp swinging at the mast, Jesus asleep on a cushion in the stern"
+    },
+    {
+      "id": "pair004",
+      "file": "composites/pair004.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Disciples bailing and straining at oars in a water-filled fishing boat; Other small boats tossed nearby, spray and wind-torn cloaks, oil lamp swinging at the mast, Jesus asleep on a cushion in the stern",
+      "right": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist"
+    },
+    {
+      "id": "pair005",
+      "file": "composites/pair005.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit",
+      "right": "Daniel, a plain-cloaked prophet, standing upright with one hand raised in refusal.; Belshazzar seated on a throne in royal robes, nobles in embroidered tunics frozen at the feast tables, a golden cup on a low table, a faint eerie glow on the wall near the bright hand."
+    },
+    {
+      "id": "pair006",
+      "file": "composites/pair006.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Egyptian chariots and horsemen charging down the sea floor, wheels churning wet sand; Shields and chariot gear glinting, spray and sand blown by the east wind, the walls of water rising on both sides, distant Israelites already across on the far shore.",
+      "right": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp."
+    },
+    {
+      "id": "pair007",
+      "file": "composites/pair007.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, a plain-cloaked prophet, standing upright with one hand raised in refusal.; Belshazzar seated on a throne in royal robes, nobles in embroidered tunics frozen at the feast tables, a golden cup on a low table, a faint eerie glow on the wall near the bright hand.",
+      "right": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim"
+    },
+    {
+      "id": "pair008",
+      "file": "composites/pair008.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist",
+      "right": "Disciples bailing and straining at oars in a water-filled fishing boat; Other small boats tossed nearby, spray and wind-torn cloaks, oil lamp swinging at the mast, Jesus asleep on a cushion in the stern"
+    },
+    {
+      "id": "pair009",
+      "file": "composites/pair009.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach.",
+      "right": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water"
+    },
+    {
+      "id": "pair010",
+      "file": "composites/pair010.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Disciples bailing and straining at oars in a water-filled fishing boat; Other small boats tossed nearby, spray and wind-torn cloaks, oil lamp swinging at the mast, Jesus asleep on a cushion in the stern",
+      "right": "Jesus reclining asleep on a cushion in the stern, and disciples leaning over him; Water sloshing over the boat's sides, lamp swinging, nets and oars tangled, spray in the air"
+    },
+    {
+      "id": "pair011",
+      "file": "composites/pair011.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit",
+      "right": "Daniel, a plain-cloaked prophet, standing upright with one hand raised in refusal.; Belshazzar seated on a throne in royal robes, nobles in embroidered tunics frozen at the feast tables, a golden cup on a low table, a faint eerie glow on the wall near the bright hand."
+    },
+    {
+      "id": "pair012",
+      "file": "composites/pair012.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, a plain-cloaked prophet, standing upright with one hand raised in refusal.; Belshazzar seated on a throne in royal robes, nobles in embroidered tunics frozen at the feast tables, a golden cup on a low table, a faint eerie glow on the wall near the bright hand.",
+      "right": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim"
+    },
+    {
+      "id": "pair013",
+      "file": "composites/pair013.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard",
+      "right": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background."
+    },
+    {
+      "id": "pair014",
+      "file": "composites/pair014.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp",
+      "right": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond"
+    },
+    {
+      "id": "pair015",
+      "file": "composites/pair015.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "Samuel in a plain linen robe pouring oil from a horn onto the head of a ruddy young shepherd, David, kneeling before him; Jesse and his older sons standing in a half circle at the edges, a sheep-skin cloak and shepherd's staff set aside, a clay oil horn, soft lamplight on faces",
+      "right": "Saul in a court robe, arm flung forward mid-throw, spear in hand; David in a plain tunic and cloak stepping away; a lamp stand and oil flames on the walls; a faint haze of wind-stirred smoke drifting through the room from the window, the evil spirit shown only through this disturbed air and smoke"
+    },
+    {
+      "id": "pair016",
+      "file": "composites/pair016.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp.",
+      "right": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand."
+    },
+    {
+      "id": "pair017",
+      "file": "composites/pair017.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand.",
+      "right": "Egyptian chariots and horsemen charging down the sea floor, wheels churning wet sand; Shields and chariot gear glinting, spray and sand blown by the east wind, the walls of water rising on both sides, distant Israelites already across on the far shore."
+    },
+    {
+      "id": "pair018",
+      "file": "composites/pair018.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist",
+      "right": "Jesus reclining asleep on a cushion in the stern, and disciples leaning over him; Water sloshing over the boat's sides, lamp swinging, nets and oars tangled, spray in the air"
+    },
+    {
+      "id": "pair019",
+      "file": "composites/pair019.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp",
+      "right": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond"
+    },
+    {
+      "id": "pair020",
+      "file": "composites/pair020.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain",
+      "right": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp."
+    },
+    {
+      "id": "pair021",
+      "file": "composites/pair021.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "David, a young shepherd, mid-stride with staff in one hand and sling in the other, reaching toward his shepherd's bag; Goliath in bronze scale armor and helmet, a shield bearer behind him, a few Israelite soldiers watching from the edge of the valley",
+      "right": "Samuel in a plain linen robe pouring oil from a horn onto the head of a ruddy young shepherd, David, kneeling before him; Jesse and his older sons standing in a half circle at the edges, a sheep-skin cloak and shepherd's staff set aside, a clay oil horn, soft lamplight on faces"
+    },
+    {
+      "id": "pair022",
+      "file": "composites/pair022.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "Samuel in a plain linen robe pouring oil from a horn onto the head of a ruddy young shepherd, David, kneeling before him; Jesse and his older sons standing in a half circle at the edges, a sheep-skin cloak and shepherd's staff set aside, a clay oil horn, soft lamplight on faces",
+      "right": "David, youthful and lean in a shepherd's tunic, arm extended after the release of the sling; Goliath's bronze scale armor and helmet, Philistine and Israelite warriors frozen in shock at the flanks, dust rising from the impact"
+    },
+    {
+      "id": "pair023",
+      "file": "composites/pair023.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background.",
+      "right": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach."
+    },
+    {
+      "id": "pair024",
+      "file": "composites/pair024.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him",
+      "right": "Roman soldiers in tunics and helmets, crouched in a group on the ground; Folded cloaks and garments spread on the dusty ground; the crucified figure raised above, seen from below and kept distant"
+    },
+    {
+      "id": "pair025",
+      "file": "composites/pair025.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Roman soldiers in tunics and helmets, crouched in a group on the ground; Folded cloaks and garments spread on the dusty ground; the crucified figure raised above, seen from below and kept distant",
+      "right": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him"
+    },
+    {
+      "id": "pair026",
+      "file": "composites/pair026.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "David, youthful and lean in a shepherd's tunic, arm extended after the release of the sling; Goliath's bronze scale armor and helmet, Philistine and Israelite warriors frozen in shock at the flanks, dust rising from the impact",
+      "right": "Samuel in a plain linen robe pouring oil from a horn onto the head of a ruddy young shepherd, David, kneeling before him; Jesse and his older sons standing in a half circle at the edges, a sheep-skin cloak and shepherd's staff set aside, a clay oil horn, soft lamplight on faces"
+    },
+    {
+      "id": "pair027",
+      "file": "composites/pair027.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp",
+      "right": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain"
+    },
+    {
+      "id": "pair028",
+      "file": "composites/pair028.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp.",
+      "right": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand."
+    },
+    {
+      "id": "pair029",
+      "file": "composites/pair029.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand.",
+      "right": "Egyptian chariots and horsemen charging down the sea floor, wheels churning wet sand; Shields and chariot gear glinting, spray and sand blown by the east wind, the walls of water rising on both sides, distant Israelites already across on the far shore."
+    },
+    {
+      "id": "pair030",
+      "file": "composites/pair030.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit",
+      "right": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim"
+    },
+    {
+      "id": "pair031",
+      "file": "composites/pair031.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "Samuel in a plain linen robe pouring oil from a horn onto the head of a ruddy young shepherd, David, kneeling before him; Jesse and his older sons standing in a half circle at the edges, a sheep-skin cloak and shepherd's staff set aside, a clay oil horn, soft lamplight on faces",
+      "right": "David, a young shepherd, mid-stride with staff in one hand and sling in the other, reaching toward his shepherd's bag; Goliath in bronze scale armor and helmet, a shield bearer behind him, a few Israelite soldiers watching from the edge of the valley"
+    },
+    {
+      "id": "pair032",
+      "file": "composites/pair032.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard",
+      "right": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background."
+    },
+    {
+      "id": "pair033",
+      "file": "composites/pair033.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim",
+      "right": "Daniel, standing and gazing upward with lifted hands at the edge of the vision; Blazing wheels of fire at the edge of the scene, clouds of light parting above, the glow reflected faintly on the plain and the city below"
+    },
+    {
+      "id": "pair034",
+      "file": "composites/pair034.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Jesus standing at the tomb entrance, arm raised toward the dark opening, face lifted in authority and compassion.; Crowd of mourners and onlookers standing back in astonishment, Martha near the front in a dusty mourning cloak, the rolled-away stone beside the entrance, a faint oil lamp glow within.",
+      "right": "Roman soldiers in tunics and helmets, crouched in a group on the ground; Folded cloaks and garments spread on the dusty ground; the crucified figure raised above, seen from below and kept distant"
+    },
+    {
+      "id": "pair035",
+      "file": "composites/pair035.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim",
+      "right": "Daniel, a plain-cloaked prophet, standing upright with one hand raised in refusal.; Belshazzar seated on a throne in royal robes, nobles in embroidered tunics frozen at the feast tables, a golden cup on a low table, a faint eerie glow on the wall near the bright hand."
+    },
+    {
+      "id": "pair036",
+      "file": "composites/pair036.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "David, youthful and lean in a shepherd's tunic, arm extended after the release of the sling; Goliath's bronze scale armor and helmet, Philistine and Israelite warriors frozen in shock at the flanks, dust rising from the impact",
+      "right": "David, a young shepherd, mid-stride with staff in one hand and sling in the other, reaching toward his shepherd's bag; Goliath in bronze scale armor and helmet, a shield bearer behind him, a few Israelite soldiers watching from the edge of the valley"
+    },
+    {
+      "id": "pair037",
+      "file": "composites/pair037.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, a plain-cloaked prophet, standing upright with one hand raised in refusal.; Belshazzar seated on a throne in royal robes, nobles in embroidered tunics frozen at the feast tables, a golden cup on a low table, a faint eerie glow on the wall near the bright hand.",
+      "right": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit"
+    },
+    {
+      "id": "pair038",
+      "file": "composites/pair038.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "David, a young shepherd, mid-stride with staff in one hand and sling in the other, reaching toward his shepherd's bag; Goliath in bronze scale armor and helmet, a shield bearer behind him, a few Israelite soldiers watching from the edge of the valley",
+      "right": "Saul in a court robe, arm flung forward mid-throw, spear in hand; David in a plain tunic and cloak stepping away; a lamp stand and oil flames on the walls; a faint haze of wind-stirred smoke drifting through the room from the window, the evil spirit shown only through this disturbed air and smoke"
+    },
+    {
+      "id": "pair039",
+      "file": "composites/pair039.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond",
+      "right": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand."
+    },
+    {
+      "id": "pair040",
+      "file": "composites/pair040.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background.",
+      "right": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him"
+    },
+    {
+      "id": "pair041",
+      "file": "composites/pair041.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach.",
+      "right": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water"
+    },
+    {
+      "id": "pair042",
+      "file": "composites/pair042.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him",
+      "right": "Jesus standing at the tomb entrance, arm raised toward the dark opening, face lifted in authority and compassion.; Crowd of mourners and onlookers standing back in astonishment, Martha near the front in a dusty mourning cloak, the rolled-away stone beside the entrance, a faint oil lamp glow within."
+    },
+    {
+      "id": "pair043",
+      "file": "composites/pair043.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond",
+      "right": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain"
+    },
+    {
+      "id": "pair044",
+      "file": "composites/pair044.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water",
+      "right": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background."
+    },
+    {
+      "id": "pair045",
+      "file": "composites/pair045.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand.",
+      "right": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp"
+    },
+    {
+      "id": "pair046",
+      "file": "composites/pair046.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "Saul in a court robe, arm flung forward mid-throw, spear in hand; David in a plain tunic and cloak stepping away; a lamp stand and oil flames on the walls; a faint haze of wind-stirred smoke drifting through the room from the window, the evil spirit shown only through this disturbed air and smoke",
+      "right": "David, a young shepherd, mid-stride with staff in one hand and sling in the other, reaching toward his shepherd's bag; Goliath in bronze scale armor and helmet, a shield bearer behind him, a few Israelite soldiers watching from the edge of the valley"
+    },
+    {
+      "id": "pair047",
+      "file": "composites/pair047.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Roman soldiers in tunics and helmets, crouched in a group on the ground; Folded cloaks and garments spread on the dusty ground; the crucified figure raised above, seen from below and kept distant",
+      "right": "Jesus standing at the tomb entrance, arm raised toward the dark opening, face lifted in authority and compassion.; Crowd of mourners and onlookers standing back in astonishment, Martha near the front in a dusty mourning cloak, the rolled-away stone beside the entrance, a faint oil lamp glow within."
+    },
+    {
+      "id": "pair048",
+      "file": "composites/pair048.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Egyptian chariots and horsemen charging down the sea floor, wheels churning wet sand; Shields and chariot gear glinting, spray and sand blown by the east wind, the walls of water rising on both sides, distant Israelites already across on the far shore.",
+      "right": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp."
+    },
+    {
+      "id": "pair049",
+      "file": "composites/pair049.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Jesus standing at the tomb entrance, arm raised toward the dark opening, face lifted in authority and compassion.; Crowd of mourners and onlookers standing back in astonishment, Martha near the front in a dusty mourning cloak, the rolled-away stone beside the entrance, a faint oil lamp glow within.",
+      "right": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist"
+    },
+    {
+      "id": "pair050",
+      "file": "composites/pair050.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp.",
+      "right": "Egyptian chariots and horsemen charging down the sea floor, wheels churning wet sand; Shields and chariot gear glinting, spray and sand blown by the east wind, the walls of water rising on both sides, distant Israelites already across on the far shore."
+    },
+    {
+      "id": "pair051",
+      "file": "composites/pair051.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water",
+      "right": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him"
+    },
+    {
+      "id": "pair052",
+      "file": "composites/pair052.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Roman soldiers in tunics and helmets, crouched in a group on the ground; Folded cloaks and garments spread on the dusty ground; the crucified figure raised above, seen from below and kept distant",
+      "right": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist"
+    },
+    {
+      "id": "pair053",
+      "file": "composites/pair053.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, standing and gazing upward with lifted hands at the edge of the vision; Blazing wheels of fire at the edge of the scene, clouds of light parting above, the glow reflected faintly on the plain and the city below",
+      "right": "Daniel, a plain-cloaked prophet, standing upright with one hand raised in refusal.; Belshazzar seated on a throne in royal robes, nobles in embroidered tunics frozen at the feast tables, a golden cup on a low table, a faint eerie glow on the wall near the bright hand."
+    },
+    {
+      "id": "pair054",
+      "file": "composites/pair054.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist",
+      "right": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him"
+    },
+    {
+      "id": "pair055",
+      "file": "composites/pair055.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand.",
+      "right": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond"
+    },
+    {
+      "id": "pair056",
+      "file": "composites/pair056.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach.",
+      "right": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background."
+    },
+    {
+      "id": "pair057",
+      "file": "composites/pair057.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain",
+      "right": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp"
+    },
+    {
+      "id": "pair058",
+      "file": "composites/pair058.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach.",
+      "right": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him"
+    },
+    {
+      "id": "pair059",
+      "file": "composites/pair059.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Jesus standing at the tomb entrance, arm raised toward the dark opening, face lifted in authority and compassion.; Crowd of mourners and onlookers standing back in astonishment, Martha near the front in a dusty mourning cloak, the rolled-away stone beside the entrance, a faint oil lamp glow within.",
+      "right": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him"
+    },
+    {
+      "id": "pair060",
+      "file": "composites/pair060.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim",
+      "right": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit"
+    },
+    {
+      "id": "pair061",
+      "file": "composites/pair061.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him",
+      "right": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist"
+    },
+    {
+      "id": "pair062",
+      "file": "composites/pair062.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Egyptian chariots and horsemen charging down the sea floor, wheels churning wet sand; Shields and chariot gear glinting, spray and sand blown by the east wind, the walls of water rising on both sides, distant Israelites already across on the far shore.",
+      "right": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand."
+    },
+    {
+      "id": "pair063",
+      "file": "composites/pair063.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand.",
+      "right": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp."
+    },
+    {
+      "id": "pair064",
+      "file": "composites/pair064.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit",
+      "right": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim"
+    },
+    {
+      "id": "pair065",
+      "file": "composites/pair065.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit",
+      "right": "Daniel, standing and gazing upward with lifted hands at the edge of the vision; Blazing wheels of fire at the edge of the scene, clouds of light parting above, the glow reflected faintly on the plain and the city below"
+    },
+    {
+      "id": "pair066",
+      "file": "composites/pair066.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand.",
+      "right": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain"
+    },
+    {
+      "id": "pair067",
+      "file": "composites/pair067.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him",
+      "right": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background."
+    },
+    {
+      "id": "pair068",
+      "file": "composites/pair068.jpg",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "question": "Do the left and right images show the same place (the father's house and the road where he meets his son)?",
+      "left": "The father running toward his son with robes lifted, arms reaching wide; the son pausing, weary, on the road.; A few distant villagers watching from a doorway, a courtyard wall and dry scrub along the road edge.",
+      "right": "The father, robed and embracing his thin, travel-worn son at the edge of the courtyard; Two servants in simple tunics approaching with the robe and sandals; a dusty path and a clay water jar by a doorway"
+    },
+    {
+      "id": "pair069",
+      "file": "composites/pair069.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Jesus standing at the tomb entrance, arm raised toward the dark opening, face lifted in authority and compassion.; Crowd of mourners and onlookers standing back in astonishment, Martha near the front in a dusty mourning cloak, the rolled-away stone beside the entrance, a faint oil lamp glow within.",
+      "right": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist"
+    },
+    {
+      "id": "pair070",
+      "file": "composites/pair070.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard",
+      "right": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him"
+    },
+    {
+      "id": "pair071",
+      "file": "composites/pair071.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach.",
+      "right": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard"
+    },
+    {
+      "id": "pair072",
+      "file": "composites/pair072.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water",
+      "right": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard"
+    },
+    {
+      "id": "pair073",
+      "file": "composites/pair073.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, a plain-cloaked prophet, standing upright with one hand raised in refusal.; Belshazzar seated on a throne in royal robes, nobles in embroidered tunics frozen at the feast tables, a golden cup on a low table, a faint eerie glow on the wall near the bright hand.",
+      "right": "Daniel, standing and gazing upward with lifted hands at the edge of the vision; Blazing wheels of fire at the edge of the scene, clouds of light parting above, the glow reflected faintly on the plain and the city below"
+    },
+    {
+      "id": "pair074",
+      "file": "composites/pair074.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, standing and gazing upward with lifted hands at the edge of the vision; Blazing wheels of fire at the edge of the scene, clouds of light parting above, the glow reflected faintly on the plain and the city below",
+      "right": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim"
+    },
+    {
+      "id": "pair075",
+      "file": "composites/pair075.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain",
+      "right": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp."
+    },
+    {
+      "id": "pair076",
+      "file": "composites/pair076.jpg",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "question": "Do the left and right images show the same place (the father's house and the road where he meets his son)?",
+      "left": "The father running toward his son with robes lifted, arms reaching wide; the son pausing, weary, on the road.; A few distant villagers watching from a doorway, a courtyard wall and dry scrub along the road edge.",
+      "right": "The father, robed and embracing his thin, travel-worn son at the edge of the courtyard; Two servants in simple tunics approaching with the robe and sandals; a dusty path and a clay water jar by a doorway"
+    },
+    {
+      "id": "pair077",
+      "file": "composites/pair077.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard",
+      "right": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water"
+    },
+    {
+      "id": "pair078",
+      "file": "composites/pair078.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp",
+      "right": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp."
+    },
+    {
+      "id": "pair079",
+      "file": "composites/pair079.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard",
+      "right": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach."
+    },
+    {
+      "id": "pair080",
+      "file": "composites/pair080.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "David, a young shepherd, mid-stride with staff in one hand and sling in the other, reaching toward his shepherd's bag; Goliath in bronze scale armor and helmet, a shield bearer behind him, a few Israelite soldiers watching from the edge of the valley",
+      "right": "David, youthful and lean in a shepherd's tunic, arm extended after the release of the sling; Goliath's bronze scale armor and helmet, Philistine and Israelite warriors frozen in shock at the flanks, dust rising from the impact"
+    },
+    {
+      "id": "pair081",
+      "file": "composites/pair081.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand.",
+      "right": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp."
+    },
+    {
+      "id": "pair082",
+      "file": "composites/pair082.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "Samuel in a plain linen robe pouring oil from a horn onto the head of a ruddy young shepherd, David, kneeling before him; Jesse and his older sons standing in a half circle at the edges, a sheep-skin cloak and shepherd's staff set aside, a clay oil horn, soft lamplight on faces",
+      "right": "Saul in a court robe, arm flung forward mid-throw, spear in hand; David in a plain tunic and cloak stepping away; a lamp stand and oil flames on the walls; a faint haze of wind-stirred smoke drifting through the room from the window, the evil spirit shown only through this disturbed air and smoke"
+    },
+    {
+      "id": "pair083",
+      "file": "composites/pair083.jpg",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "question": "Do the left and right images show the same place (the father's house and the road where he meets his son)?",
+      "left": "The father, robed and embracing his thin, travel-worn son at the edge of the courtyard; Two servants in simple tunics approaching with the robe and sandals; a dusty path and a clay water jar by a doorway",
+      "right": "The father running toward his son with robes lifted, arms reaching wide; the son pausing, weary, on the road.; A few distant villagers watching from a doorway, a courtyard wall and dry scrub along the road edge."
+    },
+    {
+      "id": "pair084",
+      "file": "composites/pair084.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand.",
+      "right": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp."
+    },
+    {
+      "id": "pair085",
+      "file": "composites/pair085.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "David, youthful and lean in a shepherd's tunic, arm extended after the release of the sling; Goliath's bronze scale armor and helmet, Philistine and Israelite warriors frozen in shock at the flanks, dust rising from the impact",
+      "right": "David, a young shepherd, mid-stride with staff in one hand and sling in the other, reaching toward his shepherd's bag; Goliath in bronze scale armor and helmet, a shield bearer behind him, a few Israelite soldiers watching from the edge of the valley"
+    },
+    {
+      "id": "pair086",
+      "file": "composites/pair086.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Jesus reclining asleep on a cushion in the stern, and disciples leaning over him; Water sloshing over the boat's sides, lamp swinging, nets and oars tangled, spray in the air",
+      "right": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist"
+    },
+    {
+      "id": "pair087",
+      "file": "composites/pair087.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "Saul in a court robe, arm flung forward mid-throw, spear in hand; David in a plain tunic and cloak stepping away; a lamp stand and oil flames on the walls; a faint haze of wind-stirred smoke drifting through the room from the window, the evil spirit shown only through this disturbed air and smoke",
+      "right": "David, a young shepherd, mid-stride with staff in one hand and sling in the other, reaching toward his shepherd's bag; Goliath in bronze scale armor and helmet, a shield bearer behind him, a few Israelite soldiers watching from the edge of the valley"
+    },
+    {
+      "id": "pair088",
+      "file": "composites/pair088.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "Saul in a court robe, arm flung forward mid-throw, spear in hand; David in a plain tunic and cloak stepping away; a lamp stand and oil flames on the walls; a faint haze of wind-stirred smoke drifting through the room from the window, the evil spirit shown only through this disturbed air and smoke",
+      "right": "David, youthful and lean in a shepherd's tunic, arm extended after the release of the sling; Goliath's bronze scale armor and helmet, Philistine and Israelite warriors frozen in shock at the flanks, dust rising from the impact"
+    },
+    {
+      "id": "pair089",
+      "file": "composites/pair089.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp.",
+      "right": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain"
+    },
+    {
+      "id": "pair090",
+      "file": "composites/pair090.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond",
+      "right": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp."
+    },
+    {
+      "id": "pair091",
+      "file": "composites/pair091.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, standing and gazing upward with lifted hands at the edge of the vision; Blazing wheels of fire at the edge of the scene, clouds of light parting above, the glow reflected faintly on the plain and the city below",
+      "right": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit"
+    },
+    {
+      "id": "pair092",
+      "file": "composites/pair092.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond",
+      "right": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp"
+    },
+    {
+      "id": "pair093",
+      "file": "composites/pair093.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist",
+      "right": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him"
+    },
+    {
+      "id": "pair094",
+      "file": "composites/pair094.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water",
+      "right": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach."
+    },
+    {
+      "id": "pair095",
+      "file": "composites/pair095.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him",
+      "right": "Jesus standing at the tomb entrance, arm raised toward the dark opening, face lifted in authority and compassion.; Crowd of mourners and onlookers standing back in astonishment, Martha near the front in a dusty mourning cloak, the rolled-away stone beside the entrance, a faint oil lamp glow within."
+    },
+    {
+      "id": "pair096",
+      "file": "composites/pair096.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist",
+      "right": "Disciples bailing and straining at oars in a water-filled fishing boat; Other small boats tossed nearby, spray and wind-torn cloaks, oil lamp swinging at the mast, Jesus asleep on a cushion in the stern"
+    },
+    {
+      "id": "pair097",
+      "file": "composites/pair097.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Disciples bailing and straining at oars in a water-filled fishing boat; Other small boats tossed nearby, spray and wind-torn cloaks, oil lamp swinging at the mast, Jesus asleep on a cushion in the stern",
+      "right": "Jesus reclining asleep on a cushion in the stern, and disciples leaning over him; Water sloshing over the boat's sides, lamp swinging, nets and oars tangled, spray in the air"
+    },
+    {
+      "id": "pair098",
+      "file": "composites/pair098.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist",
+      "right": "Jesus standing at the tomb entrance, arm raised toward the dark opening, face lifted in authority and compassion.; Crowd of mourners and onlookers standing back in astonishment, Martha near the front in a dusty mourning cloak, the rolled-away stone beside the entrance, a faint oil lamp glow within."
+    },
+    {
+      "id": "pair099",
+      "file": "composites/pair099.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water",
+      "right": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach."
+    },
+    {
+      "id": "pair100",
+      "file": "composites/pair100.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him",
+      "right": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water"
+    },
+    {
+      "id": "pair101",
+      "file": "composites/pair101.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Roman soldiers in tunics and helmets, crouched in a group on the ground; Folded cloaks and garments spread on the dusty ground; the crucified figure raised above, seen from below and kept distant",
+      "right": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist"
+    },
+    {
+      "id": "pair102",
+      "file": "composites/pair102.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard",
+      "right": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach."
+    },
+    {
+      "id": "pair103",
+      "file": "composites/pair103.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him",
+      "right": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach."
+    },
+    {
+      "id": "pair104",
+      "file": "composites/pair104.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist",
+      "right": "Roman soldiers in tunics and helmets, crouched in a group on the ground; Folded cloaks and garments spread on the dusty ground; the crucified figure raised above, seen from below and kept distant"
+    },
+    {
+      "id": "pair105",
+      "file": "composites/pair105.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him",
+      "right": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background."
+    },
+    {
+      "id": "pair106",
+      "file": "composites/pair106.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard",
+      "right": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water"
+    },
+    {
+      "id": "pair107",
+      "file": "composites/pair107.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp",
+      "right": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp."
+    },
+    {
+      "id": "pair108",
+      "file": "composites/pair108.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background.",
+      "right": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water"
+    },
+    {
+      "id": "pair109",
+      "file": "composites/pair109.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him",
+      "right": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard"
+    },
+    {
+      "id": "pair110",
+      "file": "composites/pair110.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand.",
+      "right": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp"
+    },
+    {
+      "id": "pair111",
+      "file": "composites/pair111.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit",
+      "right": "Daniel, standing and gazing upward with lifted hands at the edge of the vision; Blazing wheels of fire at the edge of the scene, clouds of light parting above, the glow reflected faintly on the plain and the city below"
+    },
+    {
+      "id": "pair112",
+      "file": "composites/pair112.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain",
+      "right": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond"
+    },
+    {
+      "id": "pair113",
+      "file": "composites/pair113.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp",
+      "right": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand."
+    },
+    {
+      "id": "pair114",
+      "file": "composites/pair114.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim",
+      "right": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit"
+    },
+    {
+      "id": "pair115",
+      "file": "composites/pair115.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Jesus standing at the tomb entrance, arm raised toward the dark opening, face lifted in authority and compassion.; Crowd of mourners and onlookers standing back in astonishment, Martha near the front in a dusty mourning cloak, the rolled-away stone beside the entrance, a faint oil lamp glow within.",
+      "right": "Roman soldiers in tunics and helmets, crouched in a group on the ground; Folded cloaks and garments spread on the dusty ground; the crucified figure raised above, seen from below and kept distant"
+    },
+    {
+      "id": "pair116",
+      "file": "composites/pair116.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him",
+      "right": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach."
+    },
+    {
+      "id": "pair117",
+      "file": "composites/pair117.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him",
+      "right": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water"
+    },
+    {
+      "id": "pair118",
+      "file": "composites/pair118.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background.",
+      "right": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach."
+    },
+    {
+      "id": "pair119",
+      "file": "composites/pair119.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp",
+      "right": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain"
+    },
+    {
+      "id": "pair120",
+      "file": "composites/pair120.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond",
+      "right": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand."
+    },
+    {
+      "id": "pair121",
+      "file": "composites/pair121.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach.",
+      "right": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water"
+    },
+    {
+      "id": "pair122",
+      "file": "composites/pair122.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp.",
+      "right": "Moses standing with one hand raised toward a pig, Aaron beside him in linen priestly garments; Israelite families in woven tunics and cloaks gathered near tent cloth and cooking pots, a pig rooting in the sand, radiance of cloud and fire spread across the camp"
+    },
+    {
+      "id": "pair123",
+      "file": "composites/pair123.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim",
+      "right": "Daniel standing unharmed at the floor of the den, looking up toward the light; Two or three attendants with a rope and a hand-lamp at the rim; a few lions lying calm and subdued in the shadowed corners of the pit"
+    },
+    {
+      "id": "pair124",
+      "file": "composites/pair124.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain",
+      "right": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond"
+    },
+    {
+      "id": "pair125",
+      "file": "composites/pair125.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp.",
+      "right": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond"
+    },
+    {
+      "id": "pair126",
+      "file": "composites/pair126.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Roman soldiers in tunics and helmets, crouched in a group on the ground; Folded cloaks and garments spread on the dusty ground; the crucified figure raised above, seen from below and kept distant",
+      "right": "Simon Peter mid-step, one foot planted on the waves, arms slightly out for balance; Disciples in the boat gripping the sides and watching, oars and damp nets, Jesus calm with faint lantern-like radiance around him"
+    },
+    {
+      "id": "pair127",
+      "file": "composites/pair127.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Several disciples in fishermen's tunics stepping off a small boat onto the sand, eyes turned toward the fire.; A fishing boat drawn partly onto the sand, a heavy net heaped in its hull, the fire's coals glowing low on the beach.",
+      "right": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water"
+    },
+    {
+      "id": "pair128",
+      "file": "composites/pair128.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background.",
+      "right": "Peter, standing still near the brazier with his face turned toward Jesus, eyes wide and stricken; A few bystanders by the fire turning slightly, Temple guards in Roman-era tunics and cloaks in the background, Jesus visible at the edge of the courtyard"
+    },
+    {
+      "id": "pair129",
+      "file": "composites/pair129.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, standing and gazing upward with lifted hands at the edge of the vision; Blazing wheels of fire at the edge of the scene, clouds of light parting above, the glow reflected faintly on the plain and the city below",
+      "right": "Daniel standing calm and upright in the center of the den, arms relaxed at his sides; Several lions lying low at the edges of the den; King Darius in royal robes and crown leaning over the iron-banded gate high above, torchlight on the rim"
+    },
+    {
+      "id": "pair130",
+      "file": "composites/pair130.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp.",
+      "right": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand."
+    },
+    {
+      "id": "pair131",
+      "file": "composites/pair131.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain",
+      "right": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand."
+    },
+    {
+      "id": "pair132",
+      "file": "composites/pair132.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Peter, bending forward, gripping the lame man's right hand and lifting him to his feet; John stands near Peter, watching; a crowd of worshippers in tunics and cloaks gathers at a distance, a few Roman soldiers in the background.",
+      "right": "Simon Peter mid-leap, cloak flung around his shoulders, plunging from the boat into the water; Fishing boat with a net heavy with fish, a few fellow disciples in the boat, Jesus standing on the sand by the fire, light ripples on the water"
+    },
+    {
+      "id": "pair133",
+      "file": "composites/pair133.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "David, a young shepherd, mid-stride with staff in one hand and sling in the other, reaching toward his shepherd's bag; Goliath in bronze scale armor and helmet, a shield bearer behind him, a few Israelite soldiers watching from the edge of the valley",
+      "right": "Samuel in a plain linen robe pouring oil from a horn onto the head of a ruddy young shepherd, David, kneeling before him; Jesse and his older sons standing in a half circle at the edges, a sheep-skin cloak and shepherd's staff set aside, a clay oil horn, soft lamplight on faces"
+    },
+    {
+      "id": "pair134",
+      "file": "composites/pair134.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel, a plain-cloaked prophet, standing upright with one hand raised in refusal.; Belshazzar seated on a throne in royal robes, nobles in embroidered tunics frozen at the feast tables, a golden cup on a low table, a faint eerie glow on the wall near the bright hand.",
+      "right": "Daniel, standing and gazing upward with lifted hands at the edge of the vision; Blazing wheels of fire at the edge of the scene, clouds of light parting above, the glow reflected faintly on the plain and the city below"
+    },
+    {
+      "id": "pair135",
+      "file": "composites/pair135.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "David, youthful and lean in a shepherd's tunic, arm extended after the release of the sling; Goliath's bronze scale armor and helmet, Philistine and Israelite warriors frozen in shock at the flanks, dust rising from the impact",
+      "right": "Saul in a court robe, arm flung forward mid-throw, spear in hand; David in a plain tunic and cloak stepping away; a lamp stand and oil flames on the walls; a faint haze of wind-stirred smoke drifting through the room from the window, the evil spirit shown only through this disturbed air and smoke"
+    },
+    {
+      "id": "pair136",
+      "file": "composites/pair136.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Jesus reclining asleep on a cushion in the stern, and disciples leaning over him; Water sloshing over the boat's sides, lamp swinging, nets and oars tangled, spray in the air",
+      "right": "Jesus standing upright in the stern, one arm extended over the water; Disciples huddled near the mast and rail, soaked and gripping the boat, flattening whitecaps and a thinning mist"
+    },
+    {
+      "id": "pair137",
+      "file": "composites/pair137.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "Saul in a court robe, arm flung forward mid-throw, spear in hand; David in a plain tunic and cloak stepping away; a lamp stand and oil flames on the walls; a faint haze of wind-stirred smoke drifting through the room from the window, the evil spirit shown only through this disturbed air and smoke",
+      "right": "Samuel in a plain linen robe pouring oil from a horn onto the head of a ruddy young shepherd, David, kneeling before him; Jesse and his older sons standing in a half circle at the edges, a sheep-skin cloak and shepherd's staff set aside, a clay oil horn, soft lamplight on faces"
+    },
+    {
+      "id": "pair138",
+      "file": "composites/pair138.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses in plain cloak with staff leading the Israelite people across the dry seabed.; Israelites in woven tunics and cloaks carrying bundles and children; the water walls rising on both sides with the east wind blowing spray through the air; pillar of cloud and fire glowing faintly far behind over the camp.",
+      "right": "Moses standing at the rock, rod raised high in his right hand, mid-strike; Aaron in linen priestly garments beside Moses; Israelite people and livestock crowding toward the flowing water with tents beyond"
+    },
+    {
+      "id": "pair139",
+      "file": "composites/pair139.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Moses in a plain cloak, arm outstretched toward the sea, staff in hand; Strong east wind carrying sand and spray through the air; dark clouds overhead; wind and cloud glowing with radiance from beyond the frame; moonlight on the wet sand.",
+      "right": "Moses seated on a stone, arms raised and supported by Aaron and Hur; Aaron on one side and Hur on the other each holding an arm; Joshua and Israelite warriors fighting below; Amalekite warriors with curved swords and shields on the plain"
+    },
+    {
+      "id": "pair140",
+      "file": "composites/pair140.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "David, youthful and lean in a shepherd's tunic, arm extended after the release of the sling; Goliath's bronze scale armor and helmet, Philistine and Israelite warriors frozen in shock at the flanks, dust rising from the impact",
+      "right": "Saul in a court robe, arm flung forward mid-throw, spear in hand; David in a plain tunic and cloak stepping away; a lamp stand and oil flames on the walls; a faint haze of wind-stirred smoke drifting through the room from the window, the evil spirit shown only through this disturbed air and smoke"
+    },
+    {
+      "id": "pair141",
+      "file": "composites/pair141.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "Samuel in a plain linen robe pouring oil from a horn onto the head of a ruddy young shepherd, David, kneeling before him; Jesse and his older sons standing in a half circle at the edges, a sheep-skin cloak and shepherd's staff set aside, a clay oil horn, soft lamplight on faces",
+      "right": "David, youthful and lean in a shepherd's tunic, arm extended after the release of the sling; Goliath's bronze scale armor and helmet, Philistine and Israelite warriors frozen in shock at the flanks, dust rising from the impact"
+    }
+  ]
+}

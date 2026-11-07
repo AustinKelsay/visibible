@@ -1,0 +1,56 @@
+{
+  "scorer": "operator",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "pair007",
+      "verdict": "different",
+      "notes": "The train Watson is stout, with a broad, heavy-jowled face and thick neck. The street Watson by the pawnbroker's balls has a longer, narrower face and a slender build. Face shape and build conflict. Followed scorer A."
+    },
+    {
+      "id": "pair014",
+      "verdict": "same",
+      "notes": "Holmes on the bed and Holmes at the door are both long-faced, aquiline and clean-shaven, with black swept-back hair. The bed version looks more haggard under harsh match-light, but that is lighting and expression, not a conflicting cue. Followed scorer B."
+    },
+    {
+      "id": "pair024",
+      "verdict": "different",
+      "notes": "The street Watson has a narrow, longish face and slim build. The fireside Watson in the bowler is stout, with a broad, heavy-jowled face. Face shape and build conflict. Followed scorer A."
+    },
+    {
+      "id": "pair028",
+      "verdict": "different",
+      "notes": "Both faces are broad. The fireside Watson has mid-brown hair and a light reddish-brown handlebar moustache, while the street Watson's moustache and side hair are near-black. That hair colour difference goes beyond the change in lighting. Followed scorer A."
+    },
+    {
+      "id": "pair037",
+      "verdict": "different",
+      "notes": "Watson behind Holmes in Wilson's room has a narrow, angular face and dark hair. The armchair Watson has a broad, round face, lighter brown side-parted hair and a large curled moustache. Face shape conflicts. Followed scorer B."
+    },
+    {
+      "id": "pair041",
+      "verdict": "different",
+      "notes": "Watson in Wilson's room has a narrow face with dark sideburns and moustache. Watson on the bed has a broad, heavy face with grey-flecked stubble and greying sideburns, and looks older. Face shape and greying conflict. Followed scorer B."
+    },
+    {
+      "id": "pair042",
+      "verdict": "different",
+      "notes": "Train Watson has a long, narrow, lean face and a modest light-brown moustache. Bed Watson has a broad, heavy face with grey stubble and greying sideburns. Face shape and age conflict. Followed scorer B."
+    },
+    {
+      "id": "pair049",
+      "verdict": "different",
+      "notes": "Train Watson has a long, narrow, lean face and a thin moustache. Fireside Watson has a broad, round, full-cheeked face and a big curled handlebar moustache. Face shape conflicts. Followed scorer B."
+    },
+    {
+      "id": "pair052",
+      "verdict": "different",
+      "notes": "The pawnbroker-street Watson has a broad, heavy face and a large black moustache. The train Watson has a long, narrow, lean face and a thin light-brown moustache. Face shape and moustache colour conflict. Followed scorer B."
+    },
+    {
+      "id": "pair057",
+      "verdict": "different",
+      "notes": "Both have broad faces and handlebar moustaches. Bed Watson, though, has grey-flecked stubble, greying sideburns and a greying moustache, while street Watson has a near-black moustache, dark sideburns and a clean chin, visible though he is small. The grey versus dark cue conflicts. Followed scorer B."
+    }
+  ]
+}
