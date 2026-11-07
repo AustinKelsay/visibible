@@ -1,0 +1,11 @@
+{
+  "authorization": "Owner, 7 November 2026. After the v3 baseline, the recommendation was \"park Holmes for now and fix lettering next\" with the balance at $6.87 and $5 kept for readers. The owner replied: \"Okay, continue\". Earlier the same day the owner asked to use the remaining money \"carefully and considerately\".",
+  "funds": "A paired diagnostic of a reworded no-text rule: 12 writing-prone cases from the v3 suite image run, each rendered once with the current prompt and once with only rule 1 changed. 24 image calls, no checks, no text calls.",
+  "operationCapUsd": 0.95,
+  "readerReserveUsd": 5,
+  "verifiedAt": "2026-11-07T19:00:58Z",
+  "balanceUsd": 6.87222619,
+  "keyLimitRemainingUsd": 2.72680425,
+  "key": "The local dev OpenRouter key. The script checks the balance before every call and stops before the account would fall below $5.",
+  "scope": "Diagnostic only, not a release measurement. A release of the rule still needs the suite gate."
+}
