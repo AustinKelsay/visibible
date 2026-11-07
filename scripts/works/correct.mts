@@ -61,7 +61,8 @@ const url = process.env.NEXT_PUBLIC_CONVEX_URL;
 const secret = process.env.CONVEX_SERVER_SECRET;
 if (!url || !secret) throw new Error("NEXT_PUBLIC_CONVEX_URL and CONVEX_SERVER_SECRET are needed");
 const client = new ConvexHttpClient(url);
-const siteUrl = await resolveImageSiteUrl(url, { NOSTR_IMAGE_BASE_URL: process.env.NOSTR_IMAGE_BASE_URL, CONVEX_SITE_URL: process.env.CONVEX_SITE_URL }, () => client.query(api.verseImages.getPublicImageBase, { serverSecret: secret }));
+const { siteUrl, problem: siteUrlProblem } = await resolveImageSiteUrl(url, { NOSTR_IMAGE_BASE_URL: process.env.NOSTR_IMAGE_BASE_URL, CONVEX_SITE_URL: process.env.CONVEX_SITE_URL }, () => client.query(api.verseImages.getPublicImageBase, { serverSecret: secret }));
+if (siteUrlProblem) console.error(`Image links are left out: could not find the public image base (${siteUrlProblem}). Set CONVEX_SITE_URL to include them.`);
 const corrections = createCorrections(client, api.analysis as never, workId, secret, siteUrl, { getImageProvenance: api.verseImages.getImageProvenance });
 const print = (value: unknown) => console.log(JSON.stringify(value, null, 2));
 
