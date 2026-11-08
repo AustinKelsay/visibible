@@ -19,8 +19,8 @@ describe("HeroImage phone pager placement", () => {
   it("tells phone readers why generation is off when a saved image is showing", () => {
     expect(source).toContain("const showPhonePricingNote = Boolean(pricingUnavailable) && Boolean(displayImage?.url);");
     expect(source).toContain("{showPhonePricingNote ? (");
-    expect(source).toContain('<p className="sm:hidden px-4 py-2 text-center text-xs text-[var(--muted)]">{phonePricingNote}</p>');
-    // A model reason without a next step gets one
-    expect(source).toContain("Tap the sliders button at the top to choose another model.");
+    expect(source).toContain('<p className="sm:hidden px-4 py-2 text-center text-xs text-[var(--muted)]">{pricingUnavailable}</p>');
+    // No "choose another model" advice: generation does not use the selected model yet
+    expect(source).not.toContain("to choose another model.");
   });
 });
