@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { ChevronLeft, ChevronRight, ImageIcon } from "lucide-react";
 import { useQuery } from "convex/react";
 import { usePreferences } from "@/context/preferences-context";
 import { api } from "../../convex/_generated/api";
@@ -62,6 +63,16 @@ function VerseStripBase({
     imageCount: imageCountMap.get(i + 1) ?? 0,
   }));
 
+  const [canScroll, setCanScroll] = useState({ back: false, forward: false });
+
+  const updateScrollState = useCallback(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+    const back = scroller.scrollLeft > 1;
+    const forward = scroller.scrollLeft + scroller.clientWidth < scroller.scrollWidth - 1;
+    setCanScroll((prev) => (prev.back === back && prev.forward === forward ? prev : { back, forward }));
+  }, []);
+
   // Keep the current verse visible in long chapters without scrolling the page
   useEffect(() => {
     const scroller = scrollerRef.current;
@@ -69,49 +80,80 @@ function VerseStripBase({
     if (!scroller || !current) return;
     const target = current.offsetLeft - scroller.clientWidth / 2 + current.clientWidth / 2;
     scroller.scrollTo({ left: Math.max(0, target) });
-  }, [currentVerse]);
+    updateScrollState();
+  }, [currentVerse, updateScrollState]);
+
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller || typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(updateScrollState);
+    observer.observe(scroller);
+    return () => observer.disconnect();
+  }, [updateScrollState, totalVerses]);
+
+  const scrollByPage = (direction: 1 | -1) => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+    scroller.scrollBy({ left: direction * scroller.clientWidth * 0.8, behavior: "smooth" });
+  };
+
+  const arrowClassName =
+    "shrink-0 self-stretch w-9 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)] focus-ring disabled:opacity-0 disabled:pointer-events-none";
 
   return (
-    <div ref={scrollerRef} className="overflow-x-auto scrollbar-hide">
-      <div className="flex gap-1 p-2">
-        {verses.map((v) => {
-          const isCurrent = v.verse === currentVerse;
-          return (
-            <Link
-              key={v.verse}
-              href={`/${book}/${chapter}/${v.verse}`}
-              className={`relative min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)] ${
-                isCurrent
-                  ? "bg-[var(--accent)] text-[var(--accent-text)]"
-                  : "bg-white/10 text-white/80 hover:bg-white/20 hover:text-white"
-              }`}
-              aria-current={isCurrent ? "page" : undefined}
-              ref={isCurrent ? currentRef : undefined}
-              title={`Verse ${v.verse}${v.imageCount > 0 ? ` · ${v.imageCount} image${v.imageCount !== 1 ? "s" : ""}` : " · no image yet"}`}
-            >
-              <span className="text-sm font-medium">{v.verse}</span>
-              {v.imageCount === 1 && (
-                <span
-                  aria-label="1 image"
-                  className={`absolute top-1 right-1 h-1.5 w-1.5 rounded-full ${isCurrent ? "bg-[var(--accent-text)]" : "bg-white/70"}`}
-                />
-              )}
-              {v.imageCount > 1 && (
-                <span
-                  aria-label={`${v.imageCount} images`}
-                  className={`absolute -top-1.5 -right-1.5 flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-[11px] font-semibold leading-none px-1 tabular-nums ${
-                    isCurrent
-                      ? "bg-[var(--accent-text)] text-[var(--accent)]"
-                      : "bg-white/25 text-white"
-                  }`}
-                >
-                  {v.imageCount}
-                </span>
-              )}
-            </Link>
-          );
-        })}
+    <div className="flex items-stretch">
+      <button
+        type="button"
+        onClick={() => scrollByPage(-1)}
+        disabled={!canScroll.back}
+        className={`${arrowClassName} rounded-l-[var(--radius-lg)]`}
+        aria-label="Earlier verses"
+      >
+        <ChevronLeft size={18} strokeWidth={1.75} />
+      </button>
+      <div ref={scrollerRef} onScroll={updateScrollState} className="flex-1 min-w-0 overflow-x-auto scrollbar-hide">
+        <div className="flex gap-1 py-2">
+          {verses.map((v) => {
+            const isCurrent = v.verse === currentVerse;
+            return (
+              <Link
+                key={v.verse}
+                href={`/${book}/${chapter}/${v.verse}`}
+                className={`min-h-[44px] min-w-[44px] px-1 flex flex-col items-center justify-center rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)] ${
+                  isCurrent
+                    ? "bg-[var(--accent)] text-[var(--accent-text)]"
+                    : "bg-white/10 text-white/80 hover:bg-white/20 hover:text-white"
+                }`}
+                aria-current={isCurrent ? "page" : undefined}
+                ref={isCurrent ? currentRef : undefined}
+                title={`Verse ${v.verse}${v.imageCount > 0 ? ` · ${v.imageCount} image${v.imageCount !== 1 ? "s" : ""}` : " · no image yet"}`}
+              >
+                <span className="text-sm font-medium leading-4">{v.verse}</span>
+                {v.imageCount > 0 && (
+                  <span
+                    aria-label={`${v.imageCount} image${v.imageCount !== 1 ? "s" : ""}`}
+                    className={`mt-0.5 flex items-center gap-0.5 text-[10px] font-medium leading-3 tabular-nums ${
+                      isCurrent ? "text-[var(--accent-text)]/85" : "text-white/60"
+                    }`}
+                  >
+                    <ImageIcon size={9} strokeWidth={2} aria-hidden="true" />
+                    {v.imageCount}
+                  </span>
+                )}
+              </Link>
+            );
+          })}
+        </div>
       </div>
+      <button
+        type="button"
+        onClick={() => scrollByPage(1)}
+        disabled={!canScroll.forward}
+        className={arrowClassName}
+        aria-label="Later verses"
+      >
+        <ChevronRight size={18} strokeWidth={1.75} />
+      </button>
     </div>
   );
 }

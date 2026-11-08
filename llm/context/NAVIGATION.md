@@ -5,7 +5,7 @@ Verse URLs are `/{book}/{chapter}/{verse}`. [navigation.ts](../../src/lib/naviga
 [NavigationContext](../../src/context/navigation-context.tsx) owns the book menu, chat/feedback sidebar, header settings menu, fullscreen state, current image ID, and chat context. Route changes close the book and settings menus; chat and fullscreen state persist. Escape closes fullscreen before chat. Fullscreen locks body scrolling.
 
 - [Book menu](../../src/components/book-menu.tsx): book → chapter → verse selection, with image availability indicators from Convex.
-- [Verse strip](../../src/components/verse-strip.tsx): chapter navigation and saved-image indicators.
+- [Verse strip](../../src/components/verse-strip.tsx): chapter navigation with scroll arrows; each verse tile shows its saved-image count inside the tile.
 - [Hero image](../../src/components/hero-image.tsx) and [scripture reader](../../src/components/scripture-reader.tsx): verse controls and image-history browsing.
 - [Mobile navigation](../../src/components/mobile-verse-nav.tsx) and [keyboard helper](../../src/lib/verse-keyboard-navigation.ts): responsive and keyboard behavior.
 - [Chat sidebar](../../src/components/chat-sidebar.tsx): chat and feedback tabs.

@@ -1755,6 +1755,13 @@ function HeroImageBase({
                 />
               )}
 
+              {/* Verse text (same order as the gallery lightbox: image, verse, image navigation) */}
+              {verseText && (
+                <p className="mt-3 text-center text-sm sm:text-base text-white/80 leading-relaxed max-w-2xl px-4">
+                  {verseText}
+                </p>
+              )}
+
               {/* Image iterator */}
               {totalImages > 1 && (
                 <div className="flex items-center gap-2 mt-3">
@@ -1786,13 +1793,6 @@ function HeroImageBase({
                     <ChevronRight size={18} strokeWidth={1.5} />
                   </button>
                 </div>
-              )}
-
-              {/* Verse text */}
-              {verseText && (
-                <p className="mt-3 text-center text-sm sm:text-base text-white/80 leading-relaxed max-w-2xl px-4">
-                  {verseText}
-                </p>
               )}
             </div>
 

@@ -1,12 +1,12 @@
 "use client";
 
 import { useRef, useState, type KeyboardEvent } from "react";
-import { BookOpen, Grid3x2, Film } from "lucide-react";
+import { ImageIcon, Grid3x2, Film } from "lucide-react";
 import { useVerseView } from "@/context/verse-view-context";
 import type { VerseViewValue } from "@/lib/verse-view";
 
 const modes = [
-  { value: "reader", label: "Images", icon: BookOpen },
+  { value: "reader", label: "Images", icon: ImageIcon },
   { value: "gallery", label: "Gallery", icon: Grid3x2 },
   { value: "video", label: "Video", icon: Film },
 ] as const;

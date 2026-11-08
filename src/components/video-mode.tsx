@@ -130,6 +130,8 @@ function VideoWorkspace({
   const configured = generation.config?.enabled && Boolean(quote);
   const checking =
     isLoading || !generation.ready || (Boolean(sid) && myJobs === undefined);
+  // With generation off and no videos, the stage alone says so; skip the empty list below it.
+  const emptyAndOff = generationOff && !selected && publicHistory !== undefined && !history.length;
   const inputClass =
     "w-full rounded-[var(--radius-md)] border border-[var(--divider)] bg-[var(--background)] p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)] disabled:opacity-60";
 
@@ -156,20 +158,20 @@ function VideoWorkspace({
             <Link
               href={`${prevUrl}?view=video`}
               aria-label="Previous verse"
-              title="Previous verse"
-              className="min-h-11 min-w-11 flex items-center justify-center rounded-full border border-[var(--divider)] hover:bg-[var(--surface)]"
+              className="min-h-11 px-4 flex items-center gap-1.5 rounded-full border border-[var(--divider)] text-sm hover:bg-[var(--surface)]"
             >
-              <ArrowLeft size={18} />
+              <ArrowLeft size={16} aria-hidden="true" />
+              Previous verse
             </Link>
           )}
           {nextUrl && (
             <Link
               href={`${nextUrl}?view=video`}
               aria-label="Next verse"
-              title="Next verse"
-              className="min-h-11 min-w-11 flex items-center justify-center rounded-full border border-[var(--divider)] hover:bg-[var(--surface)]"
+              className="min-h-11 px-4 flex items-center gap-1.5 rounded-full border border-[var(--divider)] text-sm hover:bg-[var(--surface)]"
             >
-              <ArrowRight size={18} />
+              Next verse
+              <ArrowRight size={16} aria-hidden="true" />
             </Link>
           )}
         </nav>
@@ -177,8 +179,8 @@ function VideoWorkspace({
 
       <div className={hideForm ? "grid gap-6" : "grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,1fr)]"}>
         <div className="space-y-3">
-          <div className={`relative aspect-video overflow-hidden rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] flex items-center justify-center ${
-            generationOff && !(selected?.status === "completed" && selected.videoUrl) ? "max-h-80" : ""
+          <div className={`relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] flex items-center justify-center ${
+            generationOff && !(selected?.status === "completed" && selected.videoUrl) ? "min-h-56 py-10" : "aspect-video"
           }`}>
             {selected?.status === "completed" && selected.videoUrl ? (
               <video
@@ -200,6 +202,13 @@ function VideoWorkspace({
                   <Loader2
                     className="mx-auto mb-4 animate-spin text-[var(--accent)]"
                     size={30}
+                    aria-hidden="true"
+                  />
+                ) : generationOff ? (
+                  <Film
+                    className="mx-auto mb-4 text-[var(--muted)]"
+                    size={30}
+                    strokeWidth={1.5}
                     aria-hidden="true"
                   />
                 ) : (
@@ -225,7 +234,9 @@ function VideoWorkspace({
                     : selected && isActiveVideoStatus(selected.status)
                       ? "You can leave this page. Your video will keep generating and appear here when ready."
                       : generationOff
-                        ? "Video generation is off right now. Videos others have made appear below."
+                        ? emptyAndOff
+                          ? "Video generation is off right now. Videos others make for this verse will appear here."
+                          : "Video generation is off right now. Videos others have made appear below."
                         : "A short cinematic scene, generated directly from this verse and its surrounding context."}
                 </p>
               </div>
@@ -439,6 +450,7 @@ function VideoWorkspace({
         )}
       </div>
 
+      {!emptyAndOff && (
       <div className="border-t border-[var(--divider)] pt-6">
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-medium">Video generations</h3>
@@ -516,6 +528,7 @@ function VideoWorkspace({
           </>
         )}
       </div>
+      )}
     </section>
   );
 }

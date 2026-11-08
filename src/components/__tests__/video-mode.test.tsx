@@ -11,6 +11,10 @@ const mocks = vi.hoisted(() => ({
   publicJobs: [] as VideoJobResponse[],
   ownJobs: [] as VideoJobResponse[],
   generate: vi.fn(),
+  config: { enabled: true, quotes: [{ duration: 5, resolution: "768p", credits: 50, providerCostUsd: 0.4 }] } as {
+    enabled: boolean;
+    quotes: Array<{ duration: number; resolution: string; credits: number; providerCostUsd: number }>;
+  },
 }));
 vi.mock("../../../convex/_generated/api", () => ({ api: { verseVideos: { getHistory: "history", getMyJobs: "mine" } } }));
 vi.mock("convex/react", () => ({ useQuery: (query: string) => query === "history" ? mocks.publicJobs : mocks.ownJobs }));
@@ -18,7 +22,7 @@ vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => 
 vi.mock("@/context/session-context", () => ({ useSession: () => mocks.session }));
 vi.mock("@/context/preferences-context", () => ({ usePreferences: () => ({ translation: "web" }) }));
 vi.mock("@/lib/use-video-generations", () => ({ useVideoGenerations: () => ({
-  config: { enabled: true, quotes: [{ duration: 5, resolution: "768p", credits: 50, providerCostUsd: 0.4 }] },
+  config: mocks.config,
   ready: true, accepted: null, request: null, submitting: false, generate: mocks.generate,
 }) }));
 const video: VideoJobResponse = {
@@ -34,6 +38,7 @@ beforeEach(() => {
   mocks.publicJobs = [];
   mocks.ownJobs = [];
   mocks.generate.mockReset();
+  mocks.config = { enabled: true, quotes: [{ duration: 5, resolution: "768p", credits: 50, providerCostUsd: 0.4 }] };
   container = document.createElement("div");
   document.body.appendChild(container);
   root = createRoot(container);
@@ -44,6 +49,23 @@ async function mount() {
 }
 
 describe("video workspace", () => {
+  it("shows one empty state, without an empty list, when generation is off and no videos exist", async () => {
+    mocks.config = { enabled: false, quotes: [] };
+    await mount();
+    expect(container.textContent).toContain("No video for this verse yet");
+    expect(container.textContent).toContain("will appear here");
+    expect(container.textContent).not.toContain("Video generations");
+    expect(container.textContent).not.toContain("No videos for this verse yet.");
+    expect(container.querySelector('a[aria-label="Next verse"]')?.textContent).toContain("Next verse");
+  });
+
+  it("keeps the public list when generation is off but videos exist", async () => {
+    mocks.config = { enabled: false, quotes: [] };
+    mocks.publicJobs = [video];
+    await mount();
+    expect(container.textContent).toContain("Video generations");
+  });
+
   it("allows public playback without a generation session and starts muted", async () => {
     mocks.session.sid = null;
     mocks.publicJobs = [video];

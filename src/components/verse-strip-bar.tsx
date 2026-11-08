@@ -19,14 +19,8 @@ export function VerseStripBar({ book, chapter, currentVerse, totalVerses }: Vers
 
   return (
     <div className="flex items-center">
-      {/* Scrollable verse strip with right-edge fade */}
-      <div
-        className="flex-1 min-w-0"
-        style={{
-          maskImage: "linear-gradient(to right, black calc(100% - 32px), transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to right, black calc(100% - 32px), transparent 100%)",
-        }}
-      >
+      {/* Scrollable verse strip with its own scroll arrows */}
+      <div className="flex-1 min-w-0">
         <VerseStrip
           book={book}
           chapter={chapter}
