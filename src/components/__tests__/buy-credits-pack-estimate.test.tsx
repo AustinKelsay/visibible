@@ -10,9 +10,8 @@ import { BuyCreditsModal } from "@/components/buy-credits-modal";
 vi.mock("@/context/session-context", () => ({
   useSession: () => ({ isBuyModalOpen: true, closeBuyModal: vi.fn(), credits: 0, tier: "free" }),
 }));
-vi.mock("@/context/preferences-context", () => ({
-  usePreferences: () => ({ imageModel: "google/gemini-3.1-flash-lite-image", imageResolution: "1K" }),
-}));
+const prefs = vi.hoisted(() => ({ imageModel: "google/gemini-3.1-flash-image", imageResolution: "1K" }));
+vi.mock("@/context/preferences-context", () => ({ usePreferences: () => prefs }));
 vi.mock("@/lib/analytics", () => ({
   trackCreditsModalOpened: vi.fn(),
   trackCreditsModalClosed: vi.fn(),
@@ -32,6 +31,7 @@ describe("Get Credits pack estimate", () => {
   let root: Root;
 
   beforeEach(() => {
+    prefs.imageResolution = "1K";
     const memoryStorage = () => {
       const store = new Map<string, string>();
       return { getItem: (k: string) => store.get(k) ?? null, setItem: (k: string, v: string) => void store.set(k, v), removeItem: (k: string) => void store.delete(k) };
@@ -56,16 +56,27 @@ describe("Get Credits pack estimate", () => {
     await act(async () => { await new Promise((resolve) => setTimeout(resolve, 0)); });
   }
 
-  it("shows about how many images each pack buys with the current model and resolution", async () => {
-    vi.stubGlobal("fetch", vi.fn(() => modelsResponse([
-      { id: "google/gemini-3.1-flash-lite-image", name: "Nano Banana 2 Lite", availability: "available", estimatedCreditsByResolution: { "1K": 5 } },
-    ])));
+  const catalog = [
+    { id: "google/gemini-3.1-flash-lite-image", name: "Nano Banana 2 Lite", availability: "available", estimatedCreditsByResolution: { "1K": 5 } },
+    { id: "google/gemini-3.1-flash-image", name: "Nano Banana 2", availability: "available", estimatedCreditsByResolution: { "1K": 9, "2K": 14 } },
+  ];
+
+  it("estimates with the model generation runs, not the selected one", async () => {
+    vi.stubGlobal("fetch", vi.fn(() => modelsResponse(catalog)));
     await openPacks();
     expect(document.body.textContent).toContain("About 20 images");
     expect(document.body.textContent).toContain("About 60 images");
   });
 
-  it("leaves the estimate out when the current model has no price", async () => {
+  it("leaves the estimate out at a resolution the generation model cannot make", async () => {
+    prefs.imageResolution = "2K";
+    vi.stubGlobal("fetch", vi.fn(() => modelsResponse(catalog)));
+    await openPacks();
+    expect(document.body.textContent).toContain("100 credits");
+    expect(document.body.textContent).not.toContain("images");
+  });
+
+  it("leaves the estimate out when the generation model has no price", async () => {
     vi.stubGlobal("fetch", vi.fn(() => modelsResponse([])));
     await openPacks();
     expect(document.body.textContent).toContain("100 credits");

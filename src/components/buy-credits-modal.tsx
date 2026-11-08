@@ -6,7 +6,7 @@ import Image from "next/image";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
 import { usePreferences } from "@/context/preferences-context";
-import { getEstimatedCreditsCostForResolution, type ImageModel } from "@/lib/image-models";
+import { DEFAULT_IMAGE_MODEL, getEstimatedCreditsCostForResolution, supportsResolution, type ImageModel } from "@/lib/image-models";
 import {
   trackCreditsModalOpened,
   trackCreditsModalClosed,
@@ -182,28 +182,32 @@ export function BuyCreditsModal() {
   const [adminSubmitting, setAdminSubmitting] = useState(false);
   const [selectedBundle, setSelectedBundle] = useState<CreditBundle>(CREDIT_BUNDLES[1]);
 
-  // What a pack buys: the current image model's estimated cost at the chosen resolution,
-  // from the same catalog the settings menu uses. Left out when pricing is unavailable.
-  const { imageModel, imageResolution } = usePreferences();
-  const [imageCost, setImageCost] = useState<number | null>(null);
+  // What a pack buys: the estimated catalog cost of one image with the model generation runs
+  // (the engine always uses DEFAULT_IMAGE_MODEL) at the reader's resolution. Left out when that
+  // model cannot make the resolution or pricing is unavailable. The result is tied to the
+  // resolution it was computed for, so a stale count never shows after a change.
+  const { imageResolution } = usePreferences();
+  const estimateSupported = imageResolution === "1K" || supportsResolution(DEFAULT_IMAGE_MODEL);
+  const [estimate, setEstimate] = useState<{ resolution: string; cost: number } | null>(null);
   useEffect(() => {
-    if (!isBuyModalOpen || state !== "selection") return;
+    if (!isBuyModalOpen || state !== "selection" || !estimateSupported) return;
     let cancelled = false;
     fetch("/api/image-models", { cache: "no-store" })
       .then((res) => res.json())
       .then((data: { models?: ImageModel[] }) => {
         if (cancelled) return;
-        const model = data.models?.find((m) => m.id === imageModel);
+        const model = data.models?.find((m) => m.id === DEFAULT_IMAGE_MODEL);
         const cost = model ? getEstimatedCreditsCostForResolution(model, imageResolution) : null;
-        setImageCost(cost && cost > 0 ? cost : null);
+        setEstimate(cost && cost > 0 ? { resolution: imageResolution, cost } : null);
       })
       .catch(() => {
-        if (!cancelled) setImageCost(null);
+        if (!cancelled) setEstimate(null);
       });
     return () => {
       cancelled = true;
     };
-  }, [isBuyModalOpen, state, imageModel, imageResolution]);
+  }, [isBuyModalOpen, state, imageResolution, estimateSupported]);
+  const imageCost = estimateSupported && estimate?.resolution === imageResolution ? estimate.cost : null;
 
   /**
    * Creates a new Lightning invoice for purchasing credits.
