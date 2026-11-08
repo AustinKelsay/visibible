@@ -156,7 +156,9 @@ export function useVideoGenerations({
           data.code !== "generation_disabled"
         )
           persist(null);
-        if (response.status === 409) setRevision((value) => value + 1);
+        // 409 (changed price) and "generation disabled" both mean the loaded configuration is stale.
+        if (response.status === 409 || data.code === "generation_disabled")
+          setRevision((value) => value + 1);
         throw new Error(data.error || "Video could not be started.");
       }
       if (typeof data.id !== "string" || typeof data.status !== "string") {

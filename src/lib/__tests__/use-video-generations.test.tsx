@@ -121,8 +121,12 @@ describe("durable video submission", () => {
     const saved = state.request;
     expect(saved).not.toBeNull();
     post.mockResolvedValueOnce(Response.json({ error: "Video generation is disabled.", code: "generation_disabled" }, { status: 403 }));
+    const configReads = () => vi.mocked(fetch).mock.calls.filter(([, init]) => (init as RequestInit | undefined)?.method !== "POST").length;
+    const readsBefore = configReads();
     await act(async () => { await state.retrySubmission(); });
     expect(state.request).toEqual(saved);
+    // Availability is re-read so the tab can switch to its "generation off" state.
+    await vi.waitFor(() => expect(configReads()).toBeGreaterThan(readsBefore));
   });
 
   it("handles blocked local storage while keeping safe retries in memory", async () => {
