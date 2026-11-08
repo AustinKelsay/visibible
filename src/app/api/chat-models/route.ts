@@ -30,6 +30,6 @@ export async function GET() {
     models: result.models,
     ...(result.error ? { error: result.error } : {}),
   }, {
-    headers: { "Cache-Control": "private, max-age=3600" },
+    headers: { "Cache-Control": result.error ? "private, no-store" : "private, max-age=3600" },
   });
 }

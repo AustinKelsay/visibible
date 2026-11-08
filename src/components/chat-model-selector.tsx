@@ -1,6 +1,6 @@
 "use client";
 
-import { formatModelId, shortImageModelName } from "@/lib/image-models";
+import { formatModelId } from "@/lib/image-models";
 import { useState, useRef, useEffect, useMemo } from "react";
 import { ChevronDown, Check, MessageSquare, Loader2, Search } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
@@ -46,6 +46,7 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
           }
           if (data.error) {
             setError(data.error);
+            hasFetched.current = false; // reported failure: retry on the next open
           }
         })
         .catch((err) => {
@@ -127,7 +128,10 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
 
   // Get current model info
   const currentModel = models.find((m) => m.id === chatModel);
-  const displayName = currentModel ? shortImageModelName(currentModel.name) : formatModelId(chatModel);
+  // Drop only the "Provider: " prefix and the "(Default)" marker; keep qualifiers such as "(free)"
+  const displayName = currentModel
+    ? currentModel.name.replace(/^[^:]+:\s*/, "").replace(/\s*\(Default\)$/i, "")
+    : formatModelId(chatModel);
   // Compact display: just show a short version
   const compactName = displayName.length > 15 ? displayName.substring(0, 13) + "…" : displayName;
   const hasVisibleModels = suggestedModels.length > 0 || Object.keys(groupedModels).length > 0;

@@ -31,7 +31,7 @@ export function Header() {
   const verseView = useOptionalVerseView();
   const { toggleMenu, toggleChat, isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu } = useNavigation();
   const menuRef = useRef<HTMLDivElement>(null);
-  const { tier, credits, buyCredits } = useSession();
+  const { tier, credits, buyCredits, accessStatus } = useSession();
   const isBrandLinkPage = pathname === "/about" || pathname === "/api-docs";
   const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname) && verseView !== null;
   const videoOpen = verseView?.effectiveView === "video";
@@ -105,7 +105,7 @@ export function Header() {
               <HeaderGenerateButton />
               <Divider />
             </>
-          ) : isVersePage && tier !== "admin" && credits < DEFAULT_IMAGE_ESTIMATED_CREDITS_COST ? (
+          ) : isVersePage && accessStatus === "ready" && tier !== "admin" && credits < DEFAULT_IMAGE_ESTIMATED_CREDITS_COST ? (
             <>
               <button
                 type="button"

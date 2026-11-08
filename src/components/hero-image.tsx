@@ -1548,7 +1548,7 @@ function HeroImageBase({
             </button>
 
             {/* Counter pill */}
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-black/45 backdrop-blur-sm border border-white/15 text-white text-xs">
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 text-white text-xs">
               Image {displayIndex} of {totalImages}
             </div>
           </div>

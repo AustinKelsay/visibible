@@ -122,6 +122,8 @@ function VideoWorkspace({
   const pricingError = generation.configError || generation.config?.error;
   // A failed quote also reports enabled: false; only call generation off when pricing did not fail.
   const generationOff = Boolean(generation.config && !generation.config.enabled && !pricingError);
+  // Keep the form (with "Check previous request" and errors) while a request is outstanding.
+  const hideForm = generationOff && !generation.request && !generation.error;
   const busy = generation.submitting || Boolean(active);
   const canAfford =
     tier === "admin" || (maximumCredits !== undefined && credits >= maximumCredits);
@@ -173,7 +175,7 @@ function VideoWorkspace({
         </nav>
       </div>
 
-      <div className={generationOff ? "grid gap-6" : "grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,1fr)]"}>
+      <div className={hideForm ? "grid gap-6" : "grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,1fr)]"}>
         <div className="space-y-3">
           <div className={`relative aspect-video overflow-hidden rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] flex items-center justify-center ${
             generationOff && !(selected?.status === "completed" && selected.videoUrl) ? "max-h-80" : ""
@@ -262,7 +264,7 @@ function VideoWorkspace({
           )}
         </div>
 
-        {!generationOff && (
+        {!hideForm && (
         <form
           className="space-y-4 rounded-[var(--radius-lg)] border border-[var(--divider)] p-5"
           onSubmit={(event) => {

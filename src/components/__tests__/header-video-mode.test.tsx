@@ -22,7 +22,7 @@ vi.mock("@/context/verse-view-context", () => ({
 }));
 
 vi.mock("@/context/session-context", () => ({
-  useSession: () => ({ tier: "paid", credits: 0, buyCredits: vi.fn() }),
+  useSession: () => ({ tier: "paid", credits: 0, buyCredits: vi.fn(), accessStatus: "ready" }),
 }));
 
 vi.mock("@/components/translation-selector", () => ({
