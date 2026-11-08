@@ -5,6 +5,9 @@ import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, 
 import Image from "next/image";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
+import { usePreferences } from "@/context/preferences-context";
+import { DEFAULT_IMAGE_MODEL, getEstimatedCreditsCostForResolution, supportsResolution, type ImageModel } from "@/lib/image-models";
+import { IMAGE_ENVELOPE_CREDITS } from "@/lib/engine/quote";
 import {
   trackCreditsModalOpened,
   trackCreditsModalClosed,
@@ -179,6 +182,37 @@ export function BuyCreditsModal() {
   const [adminError, setAdminError] = useState<string | null>(null);
   const [adminSubmitting, setAdminSubmitting] = useState(false);
   const [selectedBundle, setSelectedBundle] = useState<CreditBundle>(CREDIT_BUNDLES[1]);
+
+  // What a pack buys: the estimated catalog cost of one image with the model generation runs
+  // (the engine always uses DEFAULT_IMAGE_MODEL) at the reader's resolution. Left out when that
+  // model cannot make the resolution or pricing is unavailable. The result is tied to the
+  // resolution it was computed for, so a stale count never shows after a change.
+  const { imageResolution } = usePreferences();
+  const estimateSupported = imageResolution === "1K" || supportsResolution(DEFAULT_IMAGE_MODEL);
+  const [estimate, setEstimate] = useState<{ resolution: string; cost: number } | null>(null);
+  useEffect(() => {
+    if (!isBuyModalOpen || state !== "selection" || !estimateSupported) return;
+    let cancelled = false;
+    fetch("/api/image-models", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((data: { models?: ImageModel[] }) => {
+        if (cancelled) return;
+        const model = data.models?.find((m) => m.id === DEFAULT_IMAGE_MODEL);
+        const cost = model ? getEstimatedCreditsCostForResolution(model, imageResolution) : null;
+        // The catalog price is a floor for the engine's quote; above the envelope, generation declines
+        setEstimate(cost && cost > 0 && cost <= IMAGE_ENVELOPE_CREDITS ? { resolution: imageResolution, cost } : null);
+      })
+      .catch(() => {
+        if (!cancelled) setEstimate(null);
+      });
+    return () => {
+      cancelled = true;
+      // Runs when the modal closes or the inputs change, so a reopened modal never shows
+      // the last count while new pricing loads
+      setEstimate(null);
+    };
+  }, [isBuyModalOpen, state, imageResolution, estimateSupported]);
+  const imageCost = estimateSupported && estimate?.resolution === imageResolution ? estimate.cost : null;
 
   /**
    * Creates a new Lightning invoice for purchasing credits.
@@ -552,8 +586,8 @@ export function BuyCreditsModal() {
                   <p className="text-sm font-medium text-[var(--foreground)] mb-1">
                     Generate visuals verse by verse
                   </p>
-                  <p className="text-xs text-[var(--muted)]">
-                    Watch as AI transforms scripture into stunning, real-time imagery. Each verse comes alive with unique visual interpretations.
+                  <p className="text-sm text-[var(--muted)]">
+                    An AI painting for each verse, made as you read.
                   </p>
                 </div>
               </div>
@@ -564,8 +598,8 @@ export function BuyCreditsModal() {
                   <p className="text-sm font-medium text-[var(--foreground)] mb-1">
                     Help build the visual Bible
                   </p>
-                  <p className="text-xs text-[var(--muted)]">
-                    Credits fund new images and videos. Everything created here becomes part of a growing library anyone can explore for free.
+                  <p className="text-sm text-[var(--muted)]">
+                    Credits fund new images and videos, and everything made joins a library anyone can browse for free.
                   </p>
                 </div>
               </div>
@@ -576,13 +610,13 @@ export function BuyCreditsModal() {
                   <p className="text-sm font-medium text-[var(--foreground)] mb-1">
                     Participate in the experience
                   </p>
-                  <p className="text-xs text-[var(--muted)]">
-                    Browse existing images and videos for free, or purchase credits to generate your own.
+                  <p className="text-sm text-[var(--muted)]">
+                    Browse for free, or get credits to make your own.
                   </p>
                   {/* The verse strip is desktop-only, so phones skip its demo */}
                   <div className="hidden sm:flex flex-col items-center -ml-8">
                     <MiniVerseStrip />
-                    <p className="text-[10px] text-[var(--muted)]/70 tracking-wide">
+                    <p className="text-xs text-[var(--muted)]">
                       A dot means one saved image; a number shows how many
                     </p>
                   </div>
@@ -625,7 +659,7 @@ export function BuyCreditsModal() {
             <div className="mb-4 rounded-[var(--radius-md)] bg-[var(--surface)] px-4 py-3 text-xs">
               <p className="text-[var(--foreground)] font-medium mb-2">Early Access</p>
               <ul className="space-y-1 text-[var(--muted)]">
-                <li>Credits are used for AI image and video generation</li>
+                <li>Credits pay for AI images, videos and chat</li>
                 <li>Pay with any Lightning wallet, including Cash App (no on-chain)</li>
                 <li>Credit purchases are non-refundable during alpha</li>
               </ul>
@@ -667,6 +701,11 @@ export function BuyCreditsModal() {
                         <p className="text-xs text-[var(--muted)]">
                           {bundle.credits} credits
                         </p>
+                        {imageCost ? (
+                          <p className="mt-0.5 text-xs text-[var(--foreground)]/80">
+                            About {Math.floor(bundle.credits / imageCost)} images
+                          </p>
+                        ) : null}
                       </button>
                     );
                   })}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, type KeyboardEvent } from "react";
-import { Sparkles, Loader2, Zap, X, Layers } from "lucide-react";
+import { Sparkles, Loader2, Zap, X, Layers, SlidersHorizontal } from "lucide-react";
 import { createPortal } from "react-dom";
 import { useGeneration } from "@/context/generation-context";
 import { useSession } from "@/context/session-context";
@@ -172,8 +172,31 @@ export function HeaderGenerateButton() {
           </button>
         </>
       ) : pricingUnavailable ? (
-        <button onClick={() => openGenerateModal("single")} title={pricingUnavailable}
-          className="text-xs px-3 py-2 text-[var(--muted)]">Choose model</button>
+        <>
+          {/* Phones get a short visible label, so touch users can see how to restore generation
+              without the crowded "Choose model" text; the title explains why */}
+          <button
+            type="button"
+            onClick={() => openGenerateModal("single")}
+            title={pricingUnavailable}
+            className="sm:hidden min-h-[40px] px-1.5 flex items-center gap-1 text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
+            aria-label="Choose model"
+          >
+            <SlidersHorizontal size={16} strokeWidth={1.75} />
+            {/* The narrowest phones (under 360px) have no room for the word in the header */}
+            <span className="hidden min-[360px]:inline">Model</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => openGenerateModal("single")}
+            title={pricingUnavailable}
+            className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] border border-[var(--divider)] bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--foreground)] text-xs font-medium transition-colors duration-[var(--motion-fast)]"
+            aria-label="Choose model"
+          >
+            <SlidersHorizontal size={14} strokeWidth={2} />
+            <span>Choose model</span>
+          </button>
+        </>
       ) : canGenerate ? (
         <>
           <button

@@ -173,7 +173,8 @@ function VersePageBody({
         </div>
       </div>
 
-      <div className="flex-1 py-4 md:py-8">
+      {/* On phones the verse does not stretch to fill the screen, so Details follows it directly */}
+      <div className="sm:flex-1 py-4 md:py-8">
         <ScriptureReader
           book={bookName}
           chapter={chapter}
@@ -185,7 +186,7 @@ function VersePageBody({
         />
       </div>
 
-      <div className="max-w-2xl mx-auto w-full mb-8">
+      <div className="max-w-2xl mx-auto w-full mb-4 sm:mb-8">
         <ScriptureDetails
           book={bookName}
           chapter={chapter}
