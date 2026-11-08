@@ -173,15 +173,18 @@ export function HeaderGenerateButton() {
         </>
       ) : pricingUnavailable ? (
         <>
-          {/* Same icon-on-phone, labelled-on-desktop pattern as the other states, so it fits the phone header */}
+          {/* Phones get a short visible label, so touch users can see how to restore generation
+              without the crowded "Choose model" text; the title explains why */}
           <button
             type="button"
             onClick={() => openGenerateModal("single")}
             title={pricingUnavailable}
-            className={`${mobileIconBtn} text-[var(--muted)] hover:text-[var(--foreground)]`}
+            className="sm:hidden min-h-[40px] px-1.5 flex items-center gap-1 text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Choose model"
           >
-            <SlidersHorizontal size={20} strokeWidth={1.5} />
+            <SlidersHorizontal size={16} strokeWidth={1.75} />
+            {/* The narrowest phones (under 360px) have no room for the word in the header */}
+            <span className="hidden min-[360px]:inline">Model</span>
           </button>
           <button
             type="button"

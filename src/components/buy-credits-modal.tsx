@@ -7,6 +7,7 @@ import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
 import { usePreferences } from "@/context/preferences-context";
 import { DEFAULT_IMAGE_MODEL, getEstimatedCreditsCostForResolution, supportsResolution, type ImageModel } from "@/lib/image-models";
+import { IMAGE_ENVELOPE_CREDITS } from "@/lib/engine/quote";
 import {
   trackCreditsModalOpened,
   trackCreditsModalClosed,
@@ -198,13 +199,17 @@ export function BuyCreditsModal() {
         if (cancelled) return;
         const model = data.models?.find((m) => m.id === DEFAULT_IMAGE_MODEL);
         const cost = model ? getEstimatedCreditsCostForResolution(model, imageResolution) : null;
-        setEstimate(cost && cost > 0 ? { resolution: imageResolution, cost } : null);
+        // The catalog price is a floor for the engine's quote; above the envelope, generation declines
+        setEstimate(cost && cost > 0 && cost <= IMAGE_ENVELOPE_CREDITS ? { resolution: imageResolution, cost } : null);
       })
       .catch(() => {
         if (!cancelled) setEstimate(null);
       });
     return () => {
       cancelled = true;
+      // Runs when the modal closes or the inputs change, so a reopened modal never shows
+      // the last count while new pricing loads
+      setEstimate(null);
     };
   }, [isBuyModalOpen, state, imageResolution, estimateSupported]);
   const imageCost = estimateSupported && estimate?.resolution === imageResolution ? estimate.cost : null;
