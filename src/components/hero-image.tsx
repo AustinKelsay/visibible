@@ -1523,36 +1523,31 @@ function HeroImageBase({
           </div>
         )}
 
-        {/* Mobile inline image navigation - visible directly on image */}
-        {showControls && totalImages > 1 && (
-          <div className="sm:hidden">
-            {/* Left arrow - newer image */}
-            <button
-              onClick={() => goToNextImage("overlay")}
-              disabled={!canGoNewer}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-black/45 backdrop-blur-sm border border-white/15 text-white disabled:invisible active:scale-95 transition-all"
-              aria-label="Newer image"
-            >
-              <ChevronLeft size={22} strokeWidth={1.5} />
-            </button>
-
-            {/* Right arrow - older image */}
-            <button
-              onClick={() => goToPrevImage("overlay")}
-              disabled={!canGoOlder}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-black/45 backdrop-blur-sm border border-white/15 text-white disabled:invisible active:scale-95 transition-all"
-              aria-label="Older image"
-            >
-              <ChevronRight size={22} strokeWidth={1.5} />
-            </button>
-
-            {/* Counter pill */}
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 text-white text-xs">
-              Image {displayIndex} of {totalImages}
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* Phone image navigation sits in a dark row under the painting, like the desktop dock,
+          so only the fullscreen button is drawn on the art */}
+      {showControls && totalImages > 1 && (
+        <div className="sm:hidden flex items-center justify-center gap-1 bg-[var(--image-stage)] py-1">
+          <button
+            onClick={() => goToNextImage("overlay")}
+            disabled={!canGoNewer}
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-all focus-ring"
+            aria-label="Newer image"
+          >
+            <ChevronLeft size={20} strokeWidth={1.5} />
+          </button>
+          <span className="px-2 text-xs text-white/85 select-none">Image {displayIndex} of {totalImages}</span>
+          <button
+            onClick={() => goToPrevImage("overlay")}
+            disabled={!canGoOlder}
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-all focus-ring"
+            aria-label="Older image"
+          >
+            <ChevronRight size={20} strokeWidth={1.5} />
+          </button>
+        </div>
+      )}
 
       {/* Caption over the painting - desktop only; ScriptureReader shows the verse below on every size */}
       {caption && displayImage?.url && (

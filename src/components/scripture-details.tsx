@@ -1,6 +1,6 @@
 "use client";
 
-import { formatModelId } from "@/lib/image-models";
+import { imageModelDisplayName } from "@/lib/image-models";
 import { useState } from "react";
 import { ChevronDown, Info } from "lucide-react";
 import { useQuery } from "convex/react";
@@ -443,7 +443,7 @@ function formatDuration(seconds: number): string {
   return `${minutes} min`;
 }
 
-const formatModelName = formatModelId;
+const formatModelName = imageModelDisplayName;
 
 function formatProviderName(modelId: string): string {
   const provider = modelId.split("/")[0] || "";

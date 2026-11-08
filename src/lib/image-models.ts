@@ -85,6 +85,18 @@ export function formatModelId(modelId: string): string {
   return name.replace(/-image$/i, "").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).trim();
 }
 
+// Short catalog names for image models, so saved-image captions match the settings menu
+// without fetching the live catalog. Unknown ids fall back to formatModelId.
+const IMAGE_MODEL_DISPLAY_NAMES: Record<string, string> = {
+  "google/gemini-2.5-flash-image": "Nano Banana",
+  "google/gemini-3.1-flash-image": "Nano Banana 2",
+  "google/gemini-3.1-flash-lite-image": "Nano Banana 2 Lite",
+};
+
+export function imageModelDisplayName(modelId: string): string {
+  return IMAGE_MODEL_DISPLAY_NAMES[modelId] ?? formatModelId(modelId);
+}
+
 /** Display label without the "Provider: " prefix and trailing "(…)" detail, e.g. "Nano Banana 2 Lite". */
 export function shortImageModelName(name: string): string {
   return name.replace(/^[^:]+:\s*/, "").replace(/\s*\(.*\)$/, "");

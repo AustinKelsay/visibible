@@ -36,7 +36,7 @@ import {
   getPreviousChapter,
 } from "@/lib/navigation";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
-import { formatModelId } from "@/lib/image-models";
+import { imageModelDisplayName } from "@/lib/image-models";
 import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 
@@ -63,8 +63,9 @@ interface GalleryCardProps {
     item: ChapterGalleryFlatItem
   ) => void;
   onImageLoadFailed?: (item: ChapterGalleryFlatItem) => void;
-  /** Hide the verse excerpt (By verse shows it once in the group header). */
-  hideText?: boolean;
+  /** Inside a By verse group, whose header already names the verse: drop the verse badge,
+   *  reference and excerpt, and caption the card with its image position only. */
+  inGroup?: boolean;
 }
 
 function buildReaderHref(href: string, imageId?: string) {
@@ -107,7 +108,7 @@ function GalleryCard({
   onExpand,
   onNavigateToReader,
   onImageLoadFailed,
-  hideText = false,
+  inGroup = false,
 }: GalleryCardProps) {
   const isCurrent = item.verse === currentVerse;
   const [isImageReady, setIsImageReady] = useState(false);
@@ -174,6 +175,7 @@ function GalleryCard({
         )}
 
 
+        {!inGroup && (
         <div className="absolute left-3 top-3 flex items-center gap-1.5">
           <span
             className={`rounded-full px-2.5 py-1 text-[11px] font-medium backdrop-blur-sm ${
@@ -185,6 +187,7 @@ function GalleryCard({
             {item.verse}
           </span>
         </div>
+        )}
 
         {!item.isPlaceholder && item.imageUrl && onExpand ? (
           <button
@@ -203,13 +206,19 @@ function GalleryCard({
       </div>
 
       <div className="px-2.5 py-2 sm:px-3.5 sm:py-3">
+        {inGroup ? (
+          <p className="text-xs text-[var(--muted)]">
+            {item.isPlaceholder ? "No image yet" : `Image ${item.cardIndex + 1} of ${item.imageCount}`}
+          </p>
+        ) : (
         <p className="flex flex-wrap items-baseline justify-between gap-x-2 text-sm font-medium text-[var(--foreground)]">
           <span>{bookName} {chapter}:{item.verse}</span>
           <span className="shrink-0 text-xs font-normal text-[var(--muted)]">
             {item.isPlaceholder ? "No image yet" : item.imageCount > 1 ? `Image ${item.cardIndex + 1} of ${item.imageCount}` : null}
           </span>
         </p>
-        {item.text && !hideText ? (
+        )}
+        {item.text && !inGroup ? (
           <p className="mt-1 min-h-10 text-sm leading-5 text-[var(--muted)] hidden sm:line-clamp-2">
             {item.text}
           </p>
@@ -773,7 +782,7 @@ export function ChapterGallery({
                               onNavigateToReader={handleNavigateToReader}
                               onExpand={!card.isPlaceholder && card.imageUrl ? handleExpand : undefined}
                               onImageLoadFailed={handleGalleryImageLoadFailed}
-                              hideText
+                              inGroup
                             />
                           );
                         })}
@@ -860,7 +869,7 @@ export function ChapterGallery({
               ) : null}
 
               <div className="mt-2 flex items-center gap-3 text-xs text-white/50">
-                {lightboxItem.model ? <span>{formatModelId(lightboxItem.model)}</span> : null}
+                {lightboxItem.model ? <span>{imageModelDisplayName(lightboxItem.model)}</span> : null}
                 <Link
                   href={buildReaderHref(lightboxItem.href, lightboxItem.imageId)}
                   onClick={(event) => handleNavigateToReader(event, lightboxItem)}
