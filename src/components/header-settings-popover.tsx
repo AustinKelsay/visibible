@@ -20,6 +20,7 @@ export function HeaderSettingsPopover() {
   const { imageModel, setImageModel } = usePreferences();
   const [isOpen, setIsOpen] = useState(false);
   const [models, setModels] = useState<ImageModel[]>([]);
+  const [modelsFailed, setModelsFailed] = useState(false);
 
   // Fresh model list and prices each time the popover opens
   useEffect(() => {
@@ -27,8 +28,16 @@ export function HeaderSettingsPopover() {
     let cancelled = false;
     fetch("/api/image-models", { cache: "no-store" })
       .then((res) => res.json())
-      .then((data) => { if (!cancelled && Array.isArray(data.models)) setModels(data.models); })
-      .catch((error) => console.error("Failed to fetch image models:", error));
+      .then((data) => {
+        if (cancelled) return;
+        const loaded = Array.isArray(data.models) && data.models.length > 0;
+        if (loaded) setModels(data.models);
+        setModelsFailed(!loaded);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch image models:", error);
+        if (!cancelled) setModelsFailed(true);
+      });
     return () => { cancelled = true; };
   }, [isOpen]);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -66,9 +75,12 @@ export function HeaderSettingsPopover() {
       {isOpen && (
         <div className="absolute top-full mt-1 right-0 w-64 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
           {/* Model Section */}
-          {models.length > 0 && (
-            <div className="px-3 py-2 border-b border-[var(--divider)]/50" role="radiogroup" aria-label="Image model">
+          {(models.length > 0 || modelsFailed) && (
+            <div className="px-3 py-2 border-b border-[var(--divider)]/50">
               <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-1">Model</p>
+              {models.length === 0 && (
+                <p className="px-2 py-1.5 text-xs text-[var(--muted)]">Model list unavailable. Reopen to try again.</p>
+              )}
               {models.map((model) => {
                 const available = model.availability !== "unavailable" &&
                   getEstimatedCreditsCostForResolution(model, "1K") !== null;
@@ -77,8 +89,7 @@ export function HeaderSettingsPopover() {
                   <button
                     key={model.id}
                     type="button"
-                    role="radio"
-                    aria-checked={imageModel === model.id}
+                    aria-pressed={imageModel === model.id}
                     onClick={() => available && setImageModel(model.id, "header_settings_popover")}
                     disabled={!available}
                     className={`w-full px-2 py-1.5 flex items-center justify-between gap-2 text-left text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${

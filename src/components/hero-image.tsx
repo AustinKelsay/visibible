@@ -1263,7 +1263,11 @@ function HeroImageBase({
     <figure className="relative w-full">
       {/* Image Container - follows the image's shape; capped so the stage fits on screen */}
       <div
-        className="relative w-full overflow-hidden bg-[var(--image-stage)] [aspect-ratio:var(--ar)] max-h-[70svh] sm:max-h-[calc(100svh-6.75rem)]"
+        className={`relative w-full overflow-hidden bg-[var(--image-stage)] [aspect-ratio:var(--ar)] ${
+          !displayImage?.url && !isQueryLoading && !isGenerating
+            ? "max-h-[45svh]"
+            : "max-h-[70svh] sm:max-h-[calc(100svh-6.75rem)]"
+        }`}
         style={{ "--ar": containerAspectRatioCss, touchAction: "pan-y" } as React.CSSProperties}
         data-testid="hero-swipe-overlay"
         onTouchStart={handleSwipeStart}
@@ -1388,9 +1392,8 @@ function HeroImageBase({
             </button>
           </>
         ) : (
-          /* Placeholder with skeleton loader */
-          <div className="absolute inset-0 bg-[var(--surface)]">
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--background)]/80 via-[var(--surface)] to-[var(--surface)]" />
+          /* Placeholder with skeleton loader - stays on the dark stage */
+          <div className="absolute inset-0 bg-[var(--image-stage)]">
 
             {isGenerating && !error && (
               <HeroImageLoadingState
@@ -1437,6 +1440,7 @@ function HeroImageBase({
             {!isQueryLoading && !isGenerating && !error && (
               <VerseImagePlaceholder
                 className="absolute inset-0"
+                theme="dark"
                 action={
                   pricingPending ? (
                     <button
@@ -1557,7 +1561,7 @@ function HeroImageBase({
           <p className="mb-2 text-center text-xs uppercase tracking-[0.2em] text-white/70">
             {book} {chapter}:{verse}
           </p>
-          <p className="mx-auto max-w-4xl text-pretty text-center text-2xl md:text-3xl lg:text-4xl italic text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
+          <p className="mx-auto max-w-4xl line-clamp-3 text-pretty text-center text-2xl md:text-3xl lg:text-4xl italic text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
             &ldquo;{caption}&rdquo;
           </p>
         </figcaption>

@@ -50,6 +50,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
           .catch((err) => {
             console.error("Failed to fetch image models:", err);
             setError("Failed to load models");
+            hasFetched.current = false; // allow the next open to retry
             // Set fallback model with the normal estimated charge
             setModels([]);
           })

@@ -60,7 +60,7 @@ function VerseStripBase({
   }));
 
   return (
-    <div className="overflow-x-auto scrollbar-hide [mask-image:linear-gradient(to_right,black_calc(100%-40px),transparent)]">
+    <div className="overflow-x-auto scrollbar-hide">
       <div className="flex gap-1 p-2">
         {verses.map((v) => {
           const isCurrent = v.verse === currentVerse;

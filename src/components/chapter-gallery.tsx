@@ -139,7 +139,7 @@ function GalleryCard({
               ref={handleImageRef}
               src={item.imageUrl}
               alt={`${bookName} ${chapter}:${item.verse}`}
-              className={`h-full w-full bg-[var(--image-stage)] object-cover transition-[opacity,transform] duration-500 ${
+              className={`h-full w-full bg-[var(--image-stage)] object-contain transition-[opacity,transform] duration-500 ${
                 isImageReady ? "opacity-100" : "opacity-0"
               } group-hover:scale-[1.015]`}
               loading="lazy"
