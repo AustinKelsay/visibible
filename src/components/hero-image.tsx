@@ -1473,8 +1473,8 @@ function HeroImageBase({
           </div>
         )}
 
-        {/* Bottom gradient for text readability */}
-        <div className="hidden sm:block absolute inset-x-0 bottom-0 h-48 md:h-56 bg-gradient-to-t from-[var(--image-stage)]/90 via-[var(--image-stage)]/50 to-transparent pointer-events-none" />
+        {/* Bottom gradient for the caption - only over a painting */}
+        {displayImage?.url ? <div className="hidden sm:block absolute inset-x-0 bottom-0 h-48 md:h-56 bg-gradient-to-t from-[var(--image-stage)]/90 via-[var(--image-stage)]/50 to-transparent pointer-events-none" /> : null}
 
         {/* Image Browsing Dock - Desktop only, shown when images exist */}
         {totalImages > 0 && (
@@ -1551,8 +1551,8 @@ function HeroImageBase({
         )}
       </div>
 
-      {/* Caption - desktop only; mobile shows the verse in ScriptureReader below the image */}
-      {caption && (
+      {/* Caption over the painting - desktop only; ScriptureReader shows the verse below on every size */}
+      {caption && displayImage?.url && (
         <figcaption className="hidden sm:block pointer-events-none absolute inset-x-0 sm:bottom-20 md:bottom-24 z-10 px-4 md:px-6">
           <p className="mb-2 text-center text-xs uppercase tracking-[0.2em] text-white/70">
             {book} {chapter}:{verse}
