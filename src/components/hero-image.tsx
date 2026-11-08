@@ -1,10 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState, useCallback, useRef, type TouchEvent } from "react";
 import { useMutation, useQuery, useConvexAuth } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Maximize2, X } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
@@ -356,7 +357,6 @@ function HeroImageBase({
   const isConvexEnabled = useConvexEnabled();
   const { tier, credits, buyCredits, isLoading: sessionLoading } = useSession();
   const { setCurrentImageId, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const {
     registerGenerate,
@@ -589,7 +589,7 @@ function HeroImageBase({
   // Newest image is 1; the "older" arrow moves forward through the count.
   const displayIndex = currentIndex + 1;
   const imageCountLabel = totalImages > 0
-    ? `${displayIndex} / ${totalImages}${currentIndex === 0 ? " · Latest" : ""}`
+    ? `Image ${displayIndex} of ${totalImages}`
       : displayImage
       ? "1 / 1"
       : isQueryLoading
@@ -1496,7 +1496,6 @@ function HeroImageBase({
                     <ChevronLeft size={18} strokeWidth={1.5} />
                   </button>
                   <div className="flex flex-col items-center leading-tight px-2">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/50">Images</span>
                     <span className="text-xs text-white/90">{imageCountLabel}</span>
                     {onToggleOtherStyles && (otherStylesCount > 0 || showingOtherStyles) ? (
                       <button
@@ -1580,6 +1579,27 @@ function HeroImageBase({
             <span className="text-sm text-white/80 font-medium">
               {currentReference || ""}
             </span>
+            <div className="flex items-center gap-1">
+              {prevUrl ? (
+                <Link
+                  href={prevUrl}
+                  className="min-h-[44px] px-3 inline-flex items-center gap-1 rounded-full text-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)] focus-ring"
+                  aria-label="Previous verse"
+                >
+                  <ChevronLeft size={18} strokeWidth={1.5} />
+                  <span className="hidden sm:inline">Previous verse</span>
+                </Link>
+              ) : null}
+              {nextUrl ? (
+                <Link
+                  href={nextUrl}
+                  className="min-h-[44px] px-3 inline-flex items-center gap-1 rounded-full text-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)] focus-ring"
+                  aria-label="Next verse"
+                >
+                  <span>Next verse</span>
+                  <ChevronRight size={18} strokeWidth={1.5} />
+                </Link>
+              ) : null}
             <button
               onClick={closeFullscreen}
               className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)]"
@@ -1587,20 +1607,11 @@ function HeroImageBase({
             >
               <X size={24} strokeWidth={1.5} />
             </button>
+            </div>
           </div>
 
           {/* Centered content area */}
           <div className="flex-1 relative flex items-center justify-center min-h-0 px-2">
-            {/* Previous verse */}
-            {prevUrl && (
-              <button
-                onClick={() => router.push(prevUrl)}
-                className="absolute left-2 sm:left-4 z-10 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors duration-[var(--motion-fast)]"
-                aria-label="Previous verse"
-              >
-                <ChevronLeft size={28} strokeWidth={1.5} />
-              </button>
-            )}
 
             {/* Centered column: image + iterator + verse text */}
             <div className="flex flex-col items-center max-w-full max-h-full min-h-0">
@@ -1755,7 +1766,7 @@ function HeroImageBase({
                   >
                     <ChevronLeft size={18} strokeWidth={1.5} />
                   </button>
-                  <span className="text-xs text-white/70 px-2 select-none">{imageCountLabel}</span>
+                  <span className="text-xs text-white/70 px-2 select-none">Image {displayIndex} of {totalImages}</span>
                   {onToggleOtherStyles && (otherStylesCount > 0 || showingOtherStyles) ? (
                     <button
                       type="button"
@@ -1785,16 +1796,6 @@ function HeroImageBase({
               )}
             </div>
 
-            {/* Next verse */}
-            {nextUrl && (
-              <button
-                onClick={() => router.push(nextUrl)}
-                className="absolute right-2 sm:right-4 z-10 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors duration-[var(--motion-fast)]"
-                aria-label="Next verse"
-              >
-                <ChevronRight size={28} strokeWidth={1.5} />
-              </button>
-            )}
           </div>
         </div>
       )}

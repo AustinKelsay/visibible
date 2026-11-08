@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { useQuery } from "convex/react";
 import { usePreferences } from "@/context/preferences-context";
@@ -47,6 +48,8 @@ function VerseStripBase({
   totalVerses,
   imageStatus,
 }: VerseStripBaseProps) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const currentRef = useRef<HTMLAnchorElement>(null);
 
   // Create a Map of verses to image counts for O(1) lookup
   const imageCountMap = new Map(
@@ -59,8 +62,17 @@ function VerseStripBase({
     imageCount: imageCountMap.get(i + 1) ?? 0,
   }));
 
+  // Keep the current verse visible in long chapters without scrolling the page
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    const current = currentRef.current;
+    if (!scroller || !current) return;
+    const target = current.offsetLeft - scroller.clientWidth / 2 + current.clientWidth / 2;
+    scroller.scrollTo({ left: Math.max(0, target) });
+  }, [currentVerse]);
+
   return (
-    <div className="overflow-x-auto scrollbar-hide">
+    <div ref={scrollerRef} className="overflow-x-auto scrollbar-hide">
       <div className="flex gap-1 p-2">
         {verses.map((v) => {
           const isCurrent = v.verse === currentVerse;
@@ -74,6 +86,8 @@ function VerseStripBase({
                   : "bg-white/10 text-white/80 hover:bg-white/20 hover:text-white"
               }`}
               aria-current={isCurrent ? "page" : undefined}
+              ref={isCurrent ? currentRef : undefined}
+              title={`Verse ${v.verse}${v.imageCount > 0 ? ` · ${v.imageCount} image${v.imageCount !== 1 ? "s" : ""}` : " · no image yet"}`}
             >
               <span className="text-sm font-medium">{v.verse}</span>
               {v.imageCount === 1 && (
@@ -85,7 +99,7 @@ function VerseStripBase({
               {v.imageCount > 1 && (
                 <span
                   aria-label={`${v.imageCount} images`}
-                  className={`absolute -top-1 -right-1 flex items-center justify-center min-w-4 h-4 rounded-full text-[10px] font-bold leading-none px-1 tabular-nums ${
+                  className={`absolute -top-1.5 -right-1.5 flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-[11px] font-semibold leading-none px-1 tabular-nums ${
                     isCurrent
                       ? "bg-[var(--accent-text)] text-[var(--accent)]"
                       : "bg-white/25 text-white"

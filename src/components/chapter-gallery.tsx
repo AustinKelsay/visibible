@@ -7,8 +7,7 @@ import {
   useRef,
   type Dispatch,
   type MouseEvent as ReactMouseEvent,
-  type SetStateAction,
-} from "react";
+  type SetStateAction, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
@@ -407,8 +406,9 @@ export function ChapterGallery({
 
   const normalizedGalleryImages = normalizeChapterGalleryImages(galleryImages);
 
+  // Focus trap runs on open and close only, so stepping through images keeps focus on the control used.
   useEffect(() => {
-    if (!isLightboxOpen || !lightboxItem) {
+    if (!isLightboxOpen) {
       return;
     }
 
@@ -474,7 +474,7 @@ export function ChapterGallery({
         previousFocusedElement.focus();
       }
     };
-  }, [handleCloseLightbox, isLightboxOpen, lightboxItem]);
+  }, [handleCloseLightbox, isLightboxOpen]);
 
   const groupedItems = buildChapterGalleryItems({
     book,
@@ -490,6 +490,26 @@ export function ChapterGallery({
   });
   const isLoading = isConvexEnabled && galleryImages === undefined;
   const savedImageCount = flatItems.filter((item) => !item.isPlaceholder).length;
+
+  // Lightbox browsing: every saved image in the chapter, in gallery order
+  const viewableItems = flatItems.filter((item) => !item.isPlaceholder && item.imageUrl);
+  const itemKey = (item: ChapterGalleryFlatItem) => item.imageId ?? item.imageUrl;
+  const lightboxIndex = lightboxItem
+    ? viewableItems.findIndex((item) => itemKey(item) === itemKey(lightboxItem))
+    : -1;
+  const previousLightboxItem = lightboxIndex > 0 ? viewableItems[lightboxIndex - 1] : null;
+  const nextLightboxItem = lightboxIndex >= 0 ? viewableItems[lightboxIndex + 1] ?? null : null;
+
+  const handleLightboxArrow = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.key === "ArrowLeft" && previousLightboxItem) {
+      event.preventDefault();
+      setLightboxItem(previousLightboxItem);
+    } else if (event.key === "ArrowRight" && nextLightboxItem) {
+      event.preventDefault();
+      setLightboxItem(nextLightboxItem);
+    }
+  };
   const placeholderCount = flatItems.filter((item) => item.isPlaceholder).length;
   const filterSummary = isLoading
     ? "Checking saved art..."
@@ -763,6 +783,7 @@ export function ChapterGallery({
       {isLightboxOpen && isFullscreen && lightboxItem && (
         <div
           ref={fullscreenDialogRef}
+          onKeyDown={handleLightboxArrow}
           className="fixed inset-0 z-[60] bg-black flex flex-col"
           role="dialog"
           aria-modal="true"
@@ -802,11 +823,42 @@ export function ChapterGallery({
                 </p>
               ) : null}
 
-              {lightboxItem.model ? (
-                <p className="mt-2 text-xs text-white/40">
-                  {formatModelId(lightboxItem.model)}
-                </p>
+              {viewableItems.length > 1 && lightboxIndex >= 0 ? (
+                <div className="mt-3 flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => previousLightboxItem && setLightboxItem(previousLightboxItem)}
+                    aria-disabled={!previousLightboxItem}
+                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] aria-disabled:opacity-30 aria-disabled:cursor-default aria-disabled:hover:bg-transparent"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft size={20} strokeWidth={1.5} />
+                  </button>
+                  <span className="text-xs text-white/70 px-2 select-none" aria-live="polite">
+                    Image {lightboxIndex + 1} of {viewableItems.length}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => nextLightboxItem && setLightboxItem(nextLightboxItem)}
+                    aria-disabled={!nextLightboxItem}
+                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] aria-disabled:opacity-30 aria-disabled:cursor-default aria-disabled:hover:bg-transparent"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight size={20} strokeWidth={1.5} />
+                  </button>
+                </div>
               ) : null}
+
+              <div className="mt-2 flex items-center gap-3 text-xs text-white/50">
+                {lightboxItem.model ? <span>{formatModelId(lightboxItem.model)}</span> : null}
+                <Link
+                  href={buildReaderHref(lightboxItem.href, lightboxItem.imageId)}
+                  onClick={(event) => handleNavigateToReader(event, lightboxItem)}
+                  className="text-white/80 underline-offset-2 hover:text-white hover:underline focus-ring"
+                >
+                  Open in reader
+                </Link>
+              </div>
             </div>
           </div>
         </div>

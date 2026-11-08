@@ -88,7 +88,7 @@ export function ScriptureReader({
 
       {/* Scripture Text - plain reading copy; desktop also shows it as the image caption */}
       <div className="text-xl md:text-2xl leading-relaxed">
-        <p className="mx-auto max-w-[60ch] text-pretty text-center text-[var(--foreground)]">{verse.text}</p>
+        <p className={`mx-auto max-w-[60ch] text-pretty text-[var(--foreground)] ${verse.text.length > 140 ? "text-left" : "text-center"}`}>{verse.text}</p>
       </div>
 
       {/* Verse Navigation - Desktop only (mobile has top nav) */}

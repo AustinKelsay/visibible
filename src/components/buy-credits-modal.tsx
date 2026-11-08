@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, ArrowRight, Users } from "lucide-react";
+import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, ArrowRight, Users, Info } from "lucide-react";
 import Image from "next/image";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
@@ -168,6 +168,8 @@ export function BuyCreditsModal() {
 
   // Admin login state
   const [showAdminInput, setShowAdminInput] = useState(false);
+  // Owner sign-in stays out of the purchase flow unless the page URL asks for it.
+  const showAdminEntry = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("admin");
   const [adminPassword, setAdminPassword] = useState("");
   const [adminError, setAdminError] = useState<string | null>(null);
   const [adminSubmitting, setAdminSubmitting] = useState(false);
@@ -618,7 +620,7 @@ export function BuyCreditsModal() {
               <p className="text-[var(--foreground)] font-medium mb-2">Early Access</p>
               <ul className="space-y-1 text-[var(--muted)]">
                 <li>Credits are used for AI image and video generation</li>
-                <li>Lightning payments only (no on-chain)</li>
+                <li>Pay with any Lightning wallet, including Cash App (no on-chain)</li>
                 <li>Credit purchases are non-refundable during alpha</li>
               </ul>
             </div>
@@ -664,12 +666,6 @@ export function BuyCreditsModal() {
                   })}
                 </div>
 
-                <div className="text-center py-6 bg-[var(--surface)] rounded-[var(--radius-md)]">
-                  <p className="text-3xl font-bold text-[var(--foreground)]">
-                    {selectedBundle.credits} credits
-                  </p>
-                  <p className="text-[var(--muted)] mt-1">${selectedBundle.amountUsd} USD</p>
-                </div>
               </div>
 
               {/* Payment methods info */}
@@ -692,11 +688,12 @@ export function BuyCreditsModal() {
               </div>
 
               {/* Session-only warning */}
-              <div className="rounded-[var(--radius-md)] bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 px-4 py-3 text-xs">
-                <p className="text-amber-800 dark:text-amber-200 font-medium mb-1">
-                  ⚠️ Session-only credits
+              <div className="rounded-[var(--radius-md)] bg-[var(--surface)] border border-[var(--divider)] px-4 py-3 text-xs">
+                <p className="flex items-center gap-1.5 text-sm text-[var(--foreground)] font-semibold mb-1">
+                  <Info size={14} className="text-amber-500" aria-hidden="true" />
+                  Credits stay in this browser session
                 </p>
-                <p className="text-amber-700 dark:text-amber-300">
+                <p className="text-[var(--muted)]">
                   Your balance is stored on our server, but access depends on this browser’s session. Clearing cookies or letting the session expire ends access. Retaining the balance record does not restore access; cross-device and lost-cookie recovery are not available.
                 </p>
               </div>
@@ -709,7 +706,8 @@ export function BuyCreditsModal() {
                 Buy {selectedBundle.credits} Credits
               </button>
 
-              {/* Admin Access */}
+              {/* Admin Access - only when the page is opened with ?admin */}
+              {showAdminEntry && (
               <div className="pt-4 border-t border-[var(--divider)]">
                 <button
                   onClick={() => setShowAdminInput(!showAdminInput)}
@@ -751,6 +749,7 @@ export function BuyCreditsModal() {
                   </div>
                 )}
               </div>
+              )}
             </div>
           </>
         )}
