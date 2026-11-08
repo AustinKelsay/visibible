@@ -7,13 +7,12 @@ describe("HeroImage phone pager placement", () => {
   // full session, generation and Convex stack.
   const source = readFileSync(path.resolve(process.cwd(), "src/components/hero-image.tsx"), "utf8");
 
-  it("keeps image navigation available but off the stage while an error or generation shows", () => {
+  it("moves one pager under the painting while an error or generation shows", () => {
     expect(source).toContain("const showPhonePager = showControls && totalImages > 1;");
     expect(source).toContain("const phonePagerBelow = isGenerating || Boolean(error);");
-    // On the painting only when nothing else is drawn on it
-    expect(source).toContain("{showPhonePager && !phonePagerBelow && (");
-    // Under the painting, still usable, while Try Again or the progress label is showing
-    expect(source).toContain("{showPhonePager && phonePagerBelow && (");
-    expect(source.match(/\{phonePager\}/g)).toHaveLength(2);
+    // One element whose classes change, so keyboard focus survives the move
+    expect(source.match(/\{phonePager\}/g)).toHaveLength(1);
+    expect(source).toContain('? "sm:hidden flex justify-center bg-[var(--image-stage)] py-2"');
+    expect(source).toContain(': "sm:hidden absolute inset-x-0 bottom-3 z-20 flex justify-center"');
   });
 });

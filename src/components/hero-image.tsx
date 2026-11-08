@@ -1505,16 +1505,6 @@ function HeroImageBase({
         {/* Bottom gradient for the caption - only over a painting */}
         {displayImage?.url ? <div className="hidden sm:block absolute inset-x-0 bottom-0 h-48 md:h-56 bg-gradient-to-t from-[var(--image-stage)]/90 via-[var(--image-stage)]/50 to-transparent pointer-events-none" /> : null}
 
-        {/* Phone image navigation: one "‹ Image n of N ›" pill at the bottom of the painting,
-            like the desktop dock, so the counter and its arrows stay together. While an error or a
-            generation is showing it moves under the painting instead (below), so it never covers
-            Try Again or the progress label on short stages but stays available. */}
-        {showPhonePager && !phonePagerBelow && (
-          <div className="sm:hidden absolute inset-x-0 bottom-3 z-20 flex justify-center">
-            {phonePager}
-          </div>
-        )}
-
         {/* Image Browsing Dock - Desktop only, shown when images exist */}
         {totalImages > 0 && (
           <div className="hidden sm:block absolute inset-x-4 md:inset-x-6 bottom-4 z-20">
@@ -1560,8 +1550,18 @@ function HeroImageBase({
 
       </div>
 
-      {showPhonePager && phonePagerBelow && (
-        <div className="sm:hidden flex justify-center bg-[var(--image-stage)] py-2">
+      {/* Phone image navigation: one "‹ Image n of N ›" pill, like the desktop dock. It sits on the
+          bottom of the painting, and moves to a row under it while an error or a generation is
+          showing, so it never covers Try Again or the progress label. One element whose classes
+          change, so keyboard focus survives the move. */}
+      {showPhonePager && (
+        <div
+          className={
+            phonePagerBelow
+              ? "sm:hidden flex justify-center bg-[var(--image-stage)] py-2"
+              : "sm:hidden absolute inset-x-0 bottom-3 z-20 flex justify-center"
+          }
+        >
           {phonePager}
         </div>
       )}
