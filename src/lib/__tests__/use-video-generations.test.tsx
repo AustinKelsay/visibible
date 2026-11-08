@@ -114,6 +114,26 @@ describe("durable video submission", () => {
     expect(state.request).toBeNull();
   });
 
+  it("keeps the request identity when a retry finds generation disabled", async () => {
+    post.mockResolvedValueOnce(Response.json({ error: "Unavailable" }, { status: 503 }));
+    await mount();
+    await act(async () => { await state.generate(input); });
+    const saved = state.request;
+    expect(saved).not.toBeNull();
+    post.mockResolvedValueOnce(Response.json({ error: "Video generation is disabled.", code: "generation_disabled" }, { status: 403 }));
+    const configReads = () => vi.mocked(fetch).mock.calls.filter(([, init]) => (init as RequestInit | undefined)?.method !== "POST").length;
+    const readsBefore = configReads();
+    expect(state.config?.enabled).toBe(true);
+    vi.mocked(fetch).mockImplementation((_url, init) => init?.method === "POST"
+      ? post(init as RequestInit)
+      : Promise.resolve(Response.json({ ...config, enabled: false, quotes: [] })));
+    await act(async () => { await state.retrySubmission(); });
+    expect(state.request).toEqual(saved);
+    // Availability is re-read and applied, so the tab switches to its "generation off" state.
+    await vi.waitFor(() => expect(configReads()).toBeGreaterThan(readsBefore));
+    await vi.waitFor(() => expect(state.config?.enabled).toBe(false));
+  });
+
   it("handles blocked local storage while keeping safe retries in memory", async () => {
     vi.stubGlobal("localStorage", { getItem: () => { throw new Error("blocked"); }, setItem: () => { throw new Error("blocked"); } });
     post.mockRejectedValueOnce(new Error("Network unavailable"));

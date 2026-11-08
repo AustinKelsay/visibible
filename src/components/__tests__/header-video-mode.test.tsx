@@ -21,6 +21,10 @@ vi.mock("@/context/verse-view-context", () => ({
   useOptionalVerseView: vi.fn(),
 }));
 
+vi.mock("@/context/session-context", () => ({
+  useSession: () => ({ tier: "paid", credits: 0, buyCredits: vi.fn(), accessStatus: "ready" }),
+}));
+
 vi.mock("@/components/translation-selector", () => ({
   TranslationSelector: () => <button aria-label="Translation">Translation</button>,
 }));
@@ -91,25 +95,38 @@ describe("Header Video mode", () => {
     });
   }
 
-  function expectImageControls(visible: boolean) {
+  const buttons = (label: string) => Array.from(container?.querySelectorAll<HTMLButtonElement>(`button[aria-label="${label}"]`) ?? []);
+
+  function expectReaderControls() {
     for (const label of ["Art style", "Generate image"]) {
-      expect(container?.querySelectorAll(`button[aria-label="${label}"]`)).toHaveLength(visible ? 2 : 0);
+      expect(buttons(label)).toHaveLength(2);
     }
     // Desktop chooses the model inside the image settings popover; mobile keeps its own row.
     for (const label of ["Image model", "Image settings", "Image resolution"]) {
-      expect(container?.querySelectorAll(`button[aria-label="${label}"]`)).toHaveLength(visible ? 1 : 0);
+      expect(buttons(label)).toHaveLength(1);
+    }
+    for (const button of [...buttons("Art style"), ...buttons("Image settings")]) {
+      expect(button.closest("[inert]")).toBeNull();
     }
   }
 
-  it("hides desktop and mobile image controls in Video and restores them in reader", async () => {
+  it("keeps desktop image controls in place but inert in Video, and restores them in reader", async () => {
     await renderHeader("reader");
-    expectImageControls(true);
+    expectReaderControls();
 
     await renderHeader("video");
-    expectImageControls(false);
-    expect(container?.querySelectorAll('button[aria-label="Translation"]')).toHaveLength(2);
+    // Desktop: same slots, disabled; mobile menu and generation drop image-only controls.
+    for (const label of ["Art style", "Image settings"]) {
+      expect(buttons(label)).toHaveLength(1);
+      expect(buttons(label)[0].closest("[inert]")).not.toBeNull();
+    }
+    for (const label of ["Image model", "Image resolution", "Generate image"]) {
+      expect(buttons(label)).toHaveLength(0);
+    }
+    expect(Array.from(container?.querySelectorAll("button") ?? []).filter((b) => b.textContent === "Get Credits")).toHaveLength(1);
+    expect(buttons("Translation")).toHaveLength(2);
 
     await renderHeader("reader");
-    expectImageControls(true);
+    expectReaderControls();
   });
 });

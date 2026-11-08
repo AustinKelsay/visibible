@@ -37,6 +37,7 @@ import {
   getPreviousChapter,
 } from "@/lib/navigation";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
+import { formatModelId } from "@/lib/image-models";
 import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 
@@ -572,10 +573,10 @@ export function ChapterGallery({
 
   return (
     <section
-      className={fullScreen ? "flex-1 px-4 py-6 md:px-6 md:py-8" : "px-4 pb-10 md:px-6"}
+      className={fullScreen ? "flex-1 py-6 md:py-8" : "pb-10"}
       aria-labelledby="chapter-gallery-heading"
     >
-      <div className={`${fullScreen ? "max-w-[1480px]" : "max-w-6xl"} mx-auto space-y-6`}>
+      <div className="max-w-6xl mx-auto px-4 md:px-6 space-y-6">
         <header className="flex flex-wrap items-end justify-between gap-x-3 gap-y-2">
           <div>
             <p className="text-xs uppercase tracking-widest text-[var(--muted)]">Chapter Gallery</p>
@@ -803,7 +804,7 @@ export function ChapterGallery({
 
               {lightboxItem.model ? (
                 <p className="mt-2 text-xs text-white/40">
-                  {lightboxItem.model.split("/").pop()}
+                  {formatModelId(lightboxItem.model)}
                 </p>
               ) : null}
             </div>

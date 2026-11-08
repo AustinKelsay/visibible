@@ -149,10 +149,16 @@ export function useVideoGenerations({
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
-        // A definite rejection cannot have created a new job. Unknown failures retain the ID.
-        if ([400, 401, 402, 403, 409, 413, 422, 429].includes(response.status))
+        // A definite rejection cannot have created a new job. Unknown failures retain the ID,
+        // and so does "generation disabled": an earlier attempt may still have created a job.
+        if (
+          [400, 401, 402, 403, 409, 413, 422, 429].includes(response.status) &&
+          data.code !== "generation_disabled"
+        )
           persist(null);
-        if (response.status === 409) setRevision((value) => value + 1);
+        // 409 (changed price) and "generation disabled" both mean the loaded configuration is stale.
+        if (response.status === 409 || data.code === "generation_disabled")
+          setRevision((value) => value + 1);
         throw new Error(data.error || "Video could not be started.");
       }
       if (typeof data.id !== "string" || typeof data.status !== "string") {

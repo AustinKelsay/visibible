@@ -17,7 +17,7 @@ import { usePreferences } from "@/context/preferences-context";
 
 export function HeaderSettingsPopover() {
   const { state, isRegistered, setAspectRatio, setResolution } = useGeneration();
-  const { imageModel, setImageModel } = usePreferences();
+  const { imageModel, setImageModel, imageAspectRatio, imageResolution } = usePreferences();
   const [isOpen, setIsOpen] = useState(false);
   const [models, setModels] = useState<ImageModel[]>([]);
   const [modelsFailed, setModelsFailed] = useState(false);
@@ -55,7 +55,17 @@ export function HeaderSettingsPopover() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (!isRegistered) return null;
+  if (!isRegistered) {
+    return (
+      <span
+        className="min-h-[36px] px-2.5 flex items-center gap-1.5 text-xs font-medium text-[var(--muted)] opacity-60 cursor-default"
+        title="Image settings apply on the Images tab"
+      >
+        <Settings size={14} strokeWidth={1.5} />
+        <span>{imageAspectRatio} · {imageResolution}</span>
+      </span>
+    );
+  }
 
   return (
     <div ref={popoverRef} className="relative">
@@ -208,7 +218,7 @@ export function MobileSettingsRows() {
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-[var(--foreground)]">Resolution</span>
           {!modelSupportsRes && (
-            <span className="text-[10px] text-[var(--muted)] opacity-70">Not supported</span>
+            <span className="text-[10px] text-[var(--muted)]">2K and 4K unavailable for this model</span>
           )}
         </div>
         <div className="flex gap-2">

@@ -1,5 +1,6 @@
 "use client";
 
+import { formatModelId } from "@/lib/image-models";
 import { useState, useRef, useEffect, useMemo } from "react";
 import { ChevronDown, Check, MessageSquare, Loader2, Search } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
@@ -30,9 +31,9 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
   const dropdownRef = useRef<HTMLDivElement>(null);
   const hasFetched = useRef(false);
 
-  // Fetch models when dropdown opens (lazy loading)
+  // Fetch models on mount so the indicator shows a readable name, and when the dropdown opens
   useEffect(() => {
-    if (isOpen && !hasFetched.current && models.length === 0) {
+    if ((isOpen || models.length === 0) && !hasFetched.current) {
       hasFetched.current = true;
       setIsLoading(true);
       setError(null);
@@ -45,11 +46,13 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
           }
           if (data.error) {
             setError(data.error);
+            hasFetched.current = false; // reported failure: retry on the next open
           }
         })
         .catch((err) => {
           console.error("Failed to fetch chat models:", err);
           setError("Failed to load models");
+          hasFetched.current = false; // retry on the next open; the fallback list stays meanwhile
           // Set fallback model
           setModels([
             {
@@ -125,7 +128,10 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
 
   // Get current model info
   const currentModel = models.find((m) => m.id === chatModel);
-  const displayName = currentModel?.name || chatModel.split("/").pop() || "Model";
+  // Drop only the "Provider: " prefix and the "(Default)" marker; keep qualifiers such as "(free)"
+  const displayName = currentModel
+    ? currentModel.name.replace(/^[^:]+:\s*/, "").replace(/\s*\(Default\)$/i, "")
+    : formatModelId(chatModel);
   // Compact display: just show a short version
   const compactName = displayName.length > 15 ? displayName.substring(0, 13) + "…" : displayName;
   const hasVisibleModels = suggestedModels.length > 0 || Object.keys(groupedModels).length > 0;

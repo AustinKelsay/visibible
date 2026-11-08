@@ -1385,7 +1385,7 @@ function HeroImageBase({
                 });
                 openFullscreen();
               }}
-              className="sm:hidden absolute top-3 z-20 right-4 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 border border-[var(--divider)] text-[var(--foreground)] hover:bg-[var(--divider)]/50 hover:text-[var(--foreground)] active:scale-95 transition-all duration-[var(--motion-fast)] cursor-pointer focus-ring"
+              className="sm:hidden absolute top-3 z-20 right-4 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-black/45 backdrop-blur-sm border border-white/15 text-white hover:bg-black/60 active:scale-95 transition-all duration-[var(--motion-fast)] cursor-pointer focus-ring"
               aria-label="Open fullscreen view"
             >
               <Maximize2 size={20} strokeWidth={1.5} />
@@ -1531,7 +1531,7 @@ function HeroImageBase({
             <button
               onClick={() => goToNextImage("overlay")}
               disabled={!canGoNewer}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-black/45 backdrop-blur-sm border border-white/15 text-white disabled:invisible active:scale-95 transition-all"
               aria-label="Newer image"
             >
               <ChevronLeft size={22} strokeWidth={1.5} />
@@ -1541,14 +1541,14 @@ function HeroImageBase({
             <button
               onClick={() => goToPrevImage("overlay")}
               disabled={!canGoOlder}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-black/45 backdrop-blur-sm border border-white/15 text-white disabled:invisible active:scale-95 transition-all"
               aria-label="Older image"
             >
               <ChevronRight size={22} strokeWidth={1.5} />
             </button>
 
             {/* Counter pill */}
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-xs text-[var(--foreground)]">
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 text-white text-xs">
               Image {displayIndex} of {totalImages}
             </div>
           </div>

@@ -122,6 +122,8 @@ function VideoWorkspace({
   const pricingError = generation.configError || generation.config?.error;
   // A failed quote also reports enabled: false; only call generation off when pricing did not fail.
   const generationOff = Boolean(generation.config && !generation.config.enabled && !pricingError);
+  // Keep the form (with "Check previous request" and errors) while a request is outstanding.
+  const hideForm = generationOff && !generation.request && !generation.error;
   const busy = generation.submitting || Boolean(active);
   const canAfford =
     tier === "admin" || (maximumCredits !== undefined && credits >= maximumCredits);
@@ -133,7 +135,7 @@ function VideoWorkspace({
 
   return (
     <section
-      className="max-w-5xl mx-auto w-full px-4 py-6 sm:py-8 space-y-6"
+      className="max-w-6xl mx-auto w-full px-4 md:px-6 py-6 sm:py-8 space-y-6"
       aria-label="Verse videos"
     >
       <div className="flex flex-wrap items-start justify-between gap-4">
@@ -173,9 +175,11 @@ function VideoWorkspace({
         </nav>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,1fr)]">
+      <div className={hideForm ? "grid gap-6" : "grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,1fr)]"}>
         <div className="space-y-3">
-          <div className="relative aspect-video overflow-hidden rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] flex items-center justify-center">
+          <div className={`relative aspect-video overflow-hidden rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] flex items-center justify-center ${
+            generationOff && !(selected?.status === "completed" && selected.videoUrl) ? "max-h-80" : ""
+          }`}>
             {selected?.status === "completed" && selected.videoUrl ? (
               <video
                 key={selected.id}
@@ -260,6 +264,7 @@ function VideoWorkspace({
           )}
         </div>
 
+        {!hideForm && (
         <form
           className="space-y-4 rounded-[var(--radius-lg)] border border-[var(--divider)] p-5"
           onSubmit={(event) => {
@@ -353,7 +358,8 @@ function VideoWorkspace({
             <button
               type="button"
               onClick={() => void generation.retrySubmission()}
-              disabled={generation.submitting || checking}
+              // While generation is off the server rejects the retry, which would drop the saved request ID.
+              disabled={generation.submitting || checking || generationOff}
               className="w-full min-h-12 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] font-medium text-sm disabled:opacity-50"
             >
               {generation.submitting
@@ -384,8 +390,18 @@ function VideoWorkspace({
           )}
           {generation.request && (
             <p className="text-xs text-[var(--muted)]">
-              This checks the same request and will not create a duplicate
-              video.
+              {generationOff
+                ? "Video generation is off. Your earlier request is kept and can be checked once it is back on."
+                : "This checks the same request and will not create a duplicate video."}
+              {generationOff ? (
+                <button
+                  type="button"
+                  onClick={generation.refreshConfiguration}
+                  className="ml-1 font-medium text-[var(--accent)] hover:underline"
+                >
+                  Check again
+                </button>
+              ) : null}
             </p>
           )}
           {sid && quote && !canAfford && !busy && (
@@ -420,6 +436,7 @@ function VideoWorkspace({
             </p>
           )}
         </form>
+        )}
       </div>
 
       <div className="border-t border-[var(--divider)] pt-6">
