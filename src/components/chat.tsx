@@ -98,7 +98,7 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
     : null;
   const starterQuestions = passageLabel
     ? [`What does ${passageLabel} mean?`, `What is the historical context of ${passageLabel}?`, `How does ${passageLabel} fit the rest of the chapter?`]
-    : ["What does this passage mean?", "What is its historical context?", "How does it fit the rest of the chapter?"];
+    : ["What is the main message of the Bible?", "How do the Old and New Testaments fit together?", "Where is a good place to start reading?"];
 
   // Include both context and model in request body
   const requestBody = {

@@ -88,7 +88,9 @@ export function Header() {
             <TranslationSelector variant="compact" />
             {/* Same controls on every tab. Art style is a saved preference, so it stays usable in Video;
                 image settings need the image stage and are read-only there. */}
-            <ArtStyleSelector variant="compact" />
+            <div className="flex items-center" title={videoOpen ? "Art style applies to images, not videos" : undefined}>
+              <ArtStyleSelector variant="compact" />
+            </div>
             <div
               className="flex items-center"
               inert={videoOpen}

@@ -159,6 +159,7 @@ function ChatSidebarBase({
         }}
         aria-label="Sidebar"
         aria-hidden={!isChatOpen}
+        inert={!isChatOpen}
       >
         {/* Sidebar header with tabs */}
         <header className="shrink-0 border-b border-[var(--divider)]">

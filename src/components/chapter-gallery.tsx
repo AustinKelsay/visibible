@@ -9,7 +9,7 @@ import {
   type MouseEvent as ReactMouseEvent,
   type SetStateAction, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, ImageOff, Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
 import { usePreferences } from "@/context/preferences-context";
 import { api } from "../../convex/_generated/api";
@@ -159,11 +159,17 @@ function GalleryCard({
           </>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--background)]/75 via-[var(--surface)] to-[var(--surface)]">
-            <VerseImagePlaceholder
-              compact
-              className="absolute inset-0"
-              description={isLoading ? "Looking for saved images in this chapter" : "This verse has not been illustrated yet"}
-            />
+            {/* Phone cards are too short for the message; the footer already says "No image yet" */}
+            <div className="absolute inset-0 flex items-center justify-center sm:hidden" aria-hidden="true">
+              <ImageOff size={20} strokeWidth={1.5} className="text-[var(--muted)]" />
+            </div>
+            <div className="absolute inset-0 hidden sm:block">
+              <VerseImagePlaceholder
+                compact
+                className="absolute inset-0"
+                description={isLoading ? "Looking for saved images in this chapter" : "This verse has not been illustrated yet"}
+              />
+            </div>
           </div>
         )}
 
@@ -204,7 +210,7 @@ function GalleryCard({
           </span>
         </p>
         {item.text && !hideText ? (
-          <p className="mt-1 min-h-10 text-sm leading-5 text-[var(--muted)] line-clamp-2 hidden sm:block">
+          <p className="mt-1 min-h-10 text-sm leading-5 text-[var(--muted)] hidden sm:line-clamp-2">
             {item.text}
           </p>
         ) : null}
