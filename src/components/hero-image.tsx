@@ -1481,8 +1481,9 @@ function HeroImageBase({
         {displayImage?.url ? <div className="hidden sm:block absolute inset-x-0 bottom-0 h-48 md:h-56 bg-gradient-to-t from-[var(--image-stage)]/90 via-[var(--image-stage)]/50 to-transparent pointer-events-none" /> : null}
 
         {/* Phone image navigation: one "‹ Image n of N ›" pill at the bottom of the painting,
-            like the desktop dock, so the counter and its arrows stay together */}
-        {showControls && totalImages > 1 && (
+            like the desktop dock, so the counter and its arrows stay together.
+            Hidden while an error shows, so it cannot cover the Try Again button on short stages. */}
+        {showControls && totalImages > 1 && !(error && !isGenerating) && (
           <div className="sm:hidden absolute inset-x-0 bottom-3 z-20 flex justify-center">
             <div className="flex items-center rounded-full bg-black/55 backdrop-blur-sm border border-white/15 text-white">
               <button
