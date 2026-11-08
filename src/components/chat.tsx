@@ -249,7 +249,7 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
                   onClick={buyCredits}
                   className="mt-3 min-h-[40px] px-4 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] text-sm font-medium hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
                 >
-                  Get credits
+                  Get Credits
                 </button>
               </div>
             )
@@ -371,7 +371,7 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
               onClick={buyCredits}
               className="font-medium text-[var(--accent)] hover:underline"
             >
-              Get credits
+              Get Credits
             </button>
           </div>
         )}

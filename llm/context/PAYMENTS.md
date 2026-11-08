@@ -12,6 +12,6 @@ The purchase UI communicates session-only access and no refunds during alpha. Lo
 
 Next.js needs `LNURL_PAY_URL`, the LNURL-pay callback (production: `https://tower.taila60b27.ts.net:10000/lnurlp/pay`). It needs no node credentials: the callback creates invoices and `<LNURL_PAY_URL>/check?id=<payment hash>` reports their state. [lightning.ts](../../src/lib/lightning.ts) defines the actual requests and timeout behavior. [btc-price.ts](../../src/lib/btc-price.ts) provides the cached USD/BTC conversion.
 
-For optional admin login, set `ADMIN_PASSWORD` and `ADMIN_PASSWORD_SECRET` in Next.js and the same `ADMIN_PASSWORD_SECRET` in Convex. The modal exposes an Admin Access section. [The login route](../../src/app/api/admin-login/route.ts) validates origin, CSRF, session validation/IP tracking and brute-force protection before upgrading the session. It does not fund an ordinary paid session.
+For optional admin login, set `ADMIN_PASSWORD` and `ADMIN_PASSWORD_SECRET` in Next.js and the same `ADMIN_PASSWORD_SECRET` in Convex. The modal shows its Admin Access section only when the page URL includes `?admin` (for example `/genesis/1/1?admin`), so buyers do not see it. [The login route](../../src/app/api/admin-login/route.ts) validates origin, CSRF, session validation/IP tracking and brute-force protection before upgrading the session. It does not fund an ordinary paid session.
 
 The Next.js and Convex `CONVEX_SERVER_SECRET` values must also match. See [Convex setup](../../convex/README.md).
