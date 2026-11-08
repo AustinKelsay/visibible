@@ -407,8 +407,9 @@ export function ChapterGallery({
 
   const normalizedGalleryImages = normalizeChapterGalleryImages(galleryImages);
 
+  // Focus trap runs on open and close only, so stepping through images keeps focus on the control used.
   useEffect(() => {
-    if (!isLightboxOpen || !lightboxItem) {
+    if (!isLightboxOpen) {
       return;
     }
 
@@ -474,7 +475,7 @@ export function ChapterGallery({
         previousFocusedElement.focus();
       }
     };
-  }, [handleCloseLightbox, isLightboxOpen, lightboxItem]);
+  }, [handleCloseLightbox, isLightboxOpen]);
 
   const groupedItems = buildChapterGalleryItems({
     book,
