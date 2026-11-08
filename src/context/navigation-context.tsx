@@ -54,6 +54,9 @@ interface NavigationContextType {
   // Current displayed image (for syncing hero image with details)
   currentImageId: string | null;
   setCurrentImageId: (id: string | null) => void;
+  // Whether the desktop image caption is cut off by its line clamp (null until measured)
+  captionClamped: boolean | null;
+  setCaptionClamped: (clamped: boolean | null) => void;
 
   // Mobile header settings menu
   isHeaderMenuOpen: boolean;
@@ -77,6 +80,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   const [sidebarTab, setSidebarTab] = useState<SidebarTab>("chat");
   const [chatContext, setChatContext] = useState<PageContext | null>(null);
   const [currentImageId, setCurrentImageId] = useState<string | null>(null);
+  const [captionClamped, setCaptionClamped] = useState<boolean | null>(null);
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -237,6 +241,8 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
         // Current image
         currentImageId,
         setCurrentImageId,
+        captionClamped,
+        setCaptionClamped,
 
         // Mobile header settings menu
         isHeaderMenuOpen,

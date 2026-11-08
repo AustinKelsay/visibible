@@ -41,8 +41,11 @@ export function ScriptureReader({
   // On desktop a saved image carries the verse as its caption (up to three lines). When the whole
   // verse fits there, the heading and text here would only repeat it, so desktop shows just the
   // verse navigation; phones, long verses and verses without an image keep the full block.
-  const { currentImageId } = useNavigation();
-  const captionShowsVerse = Boolean(currentImageId) && verse.text.length <= CAPTION_FULL_VERSE_CHARS;
+  // The caption measures whether it is cut off; until it has, a length rule stands in.
+  const { currentImageId, captionClamped } = useNavigation();
+  const captionShowsVerse = Boolean(currentImageId) && (
+    captionClamped === null ? verse.text.length <= CAPTION_FULL_VERSE_CHARS : !captionClamped
+  );
   const desktopHidden = captionShowsVerse ? "sm:hidden" : "";
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

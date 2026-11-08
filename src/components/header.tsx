@@ -19,7 +19,8 @@ import { bookAbbreviation } from "@/data/book-abbreviations";
 
 function passageFromPath(pathname: string): { full: string; short: string } | null {
   const [slug, chapter, verse] = pathname.split("/").filter(Boolean);
-  const book = slug ? BOOK_BY_SLUG[slug] : undefined;
+  // Own keys only, so a path like /constructor/1/1 is not read as a book
+  const book = slug && Object.hasOwn(BOOK_BY_SLUG, slug) ? BOOK_BY_SLUG[slug] : undefined;
   if (!book || !chapter || !verse) return null;
   return {
     full: `${book.name} ${chapter}:${verse}`,

@@ -7,7 +7,7 @@ import { CAPTION_FULL_VERSE_CHARS, ScriptureReader } from "@/components/scriptur
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
-const nav = vi.hoisted(() => ({ currentImageId: null as string | null }));
+const nav = vi.hoisted(() => ({ currentImageId: null as string | null, captionClamped: null as boolean | null }));
 vi.mock("@/context/navigation-context", () => ({ useNavigation: () => nav }));
 vi.mock("@/context/session-context", () => ({ useSession: () => ({ tier: "free", credits: 0, isLoading: false }) }));
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn() }) }));
@@ -19,6 +19,7 @@ describe("ScriptureReader with the desktop image caption", () => {
 
   beforeEach(() => {
     nav.currentImageId = null;
+    nav.captionClamped = null;
     container = document.createElement("div");
     document.body.appendChild(container);
     root = createRoot(container);
@@ -50,6 +51,21 @@ describe("ScriptureReader with the desktop image caption", () => {
     await render("x".repeat(CAPTION_FULL_VERSE_CHARS + 1));
     expect(heading().className).not.toContain("sm:hidden");
     expect(text().className).not.toContain("sm:hidden");
+  });
+
+  it("keeps the verse below when the measured caption is cut off, even for a short verse", async () => {
+    nav.currentImageId = "image-1";
+    nav.captionClamped = true;
+    await render("In the beginning, God created the heavens and the earth.");
+    expect(heading().className).not.toContain("sm:hidden");
+    expect(text().className).not.toContain("sm:hidden");
+  });
+
+  it("trusts the measurement over the length rule when the caption fits", async () => {
+    nav.currentImageId = "image-1";
+    nav.captionClamped = false;
+    await render("x".repeat(CAPTION_FULL_VERSE_CHARS + 20));
+    expect(heading().className).toContain("sm:hidden");
   });
 
   it("keeps the verse below when there is no image", async () => {

@@ -356,7 +356,8 @@ function HeroImageBase({
   const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation, artStyle } = usePreferences();
   const isConvexEnabled = useConvexEnabled();
   const { tier, credits, buyCredits, isLoading: sessionLoading } = useSession();
-  const { setCurrentImageId, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
+  const { setCurrentImageId, setCaptionClamped, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
+  const captionTextRef = useRef<HTMLParagraphElement>(null);
   const searchParams = useSearchParams();
   const {
     registerGenerate,
@@ -640,6 +641,21 @@ function HeroImageBase({
 
     return () => window.clearInterval(intervalId);
   }, [isGenerating, effectiveEta]);
+
+  // Tell ScriptureReader whether the desktop caption shows the whole verse or is cut off by its
+  // three-line clamp, so the text below is hidden only when nothing is lost. Hidden (phones): unknown.
+  useEffect(() => {
+    const el = captionTextRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(() => {
+      setCaptionClamped?.(el.clientHeight > 0 ? el.scrollHeight > el.clientHeight + 1 : null);
+    });
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      setCaptionClamped?.(null);
+    };
+  }, [caption, displayImage?.url, setCaptionClamped]);
 
   // Sync current image ID to navigation context for ScriptureDetails
   useEffect(() => {
@@ -1581,7 +1597,7 @@ function HeroImageBase({
           <p className="mb-2 text-center text-xs uppercase tracking-[0.2em] text-white/70">
             {book} {chapter}:{verse}
           </p>
-          <p className="mx-auto max-w-4xl line-clamp-3 text-pretty text-center text-2xl md:text-3xl lg:text-4xl italic text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
+          <p ref={captionTextRef} className="mx-auto max-w-4xl line-clamp-3 text-pretty text-center text-2xl md:text-3xl lg:text-4xl italic text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
             &ldquo;{caption}&rdquo;
           </p>
         </figcaption>
