@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BookOpen, ChevronDown, Menu, MessageCircle, X, Zap } from "lucide-react";
@@ -36,6 +36,14 @@ export function Header() {
   const verseView = useOptionalVerseView();
   const { toggleMenu, toggleChat, isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu } = useNavigation();
   const menuRef = useRef<HTMLDivElement>(null);
+  // Phone passage pill: shown only when its full label fits beside the other header controls,
+  // otherwise the book icon stands in (a long passage plus a paid balance and Generate can crowd it).
+  const headerRowRef = useRef<HTMLDivElement>(null);
+  const brandRef = useRef<HTMLHeadingElement>(null);
+  const mobileNavRef = useRef<HTMLElement>(null);
+  const passageButtonRef = useRef<HTMLButtonElement>(null);
+  const pillMeasureRef = useRef<HTMLSpanElement>(null);
+  const [pillFits, setPillFits] = useState(true);
   const { tier, credits, buyCredits, accessStatus } = useSession();
   const isBrandLinkPage = pathname === "/about" || pathname === "/api-docs";
   const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname) && verseView !== null;
@@ -44,6 +52,34 @@ export function Header() {
   const readerOpen = verseView?.effectiveView === "reader";
   const passage = isVersePage ? passageFromPath(pathname) : null;
   const passageLabel = passage?.full ?? null;
+  const passageShort = passage?.short ?? null;
+
+  useEffect(() => {
+    const row = headerRowRef.current;
+    const nav = mobileNavRef.current;
+    if (!row || !nav || !passageShort || typeof ResizeObserver === "undefined") return;
+    const check = () => {
+      const brand = brandRef.current;
+      const button = passageButtonRef.current;
+      const measure = pillMeasureRef.current;
+      if (!brand || !button || !measure) return;
+      const rowStyle = getComputedStyle(row);
+      const rowContent = row.clientWidth - parseFloat(rowStyle.paddingLeft) - parseFloat(rowStyle.paddingRight);
+      // Space the passage button may use: the row minus the brand and every other nav item (with gaps)
+      const others = Array.from(nav.children).filter(
+        (child) => child !== button && child !== measure && (child as HTMLElement).offsetWidth > 0,
+      );
+      const gap = parseFloat(getComputedStyle(nav).columnGap) || 0;
+      const othersWidth = others.reduce((width, child) => width + (child as HTMLElement).offsetWidth, 0) + gap * others.length;
+      // Keep a small gap after the brand
+      const available = rowContent - brand.offsetWidth - othersWidth - 4;
+      setPillFits(measure.offsetWidth + 8 <= available);
+    };
+    const observer = new ResizeObserver(check);
+    observer.observe(row);
+    observer.observe(nav);
+    return () => observer.disconnect();
+  }, [passageShort]);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -65,9 +101,9 @@ export function Header() {
       style={{ paddingTop: 'env(safe-area-inset-top)' }}
       ref={menuRef}
     >
-      <div className="max-w-6xl mx-auto px-4 md:px-6 h-14 flex items-center justify-between">
+      <div ref={headerRowRef} className="max-w-6xl mx-auto px-4 md:px-6 h-14 flex items-center justify-between">
         {/* Brand */}
-        <h1 className="text-base sm:text-lg font-semibold tracking-tight">
+        <h1 ref={brandRef} className="shrink-0 text-base sm:text-lg font-semibold tracking-tight">
           {isBrandLinkPage ? (
             <Link
               href="/"
@@ -165,7 +201,8 @@ export function Header() {
         </nav>
 
         {/* Mobile Actions - Credits + Generate + Chat + Books + Hamburger */}
-        <nav className="flex sm:hidden items-center gap-0.5">
+        {/* min-w-0 lets the passage pill give way on narrow phones instead of pushing the menu off-screen */}
+        <nav ref={mobileNavRef} className="relative flex sm:hidden min-w-0 items-center gap-0.5">
           <CreditsBadge />
           {isVersePage && !videoOpen ? <HeaderGenerateButton /> : null}
           <button
@@ -175,19 +212,32 @@ export function Header() {
           >
             <MessageCircle size={20} strokeWidth={1.5} />
           </button>
-          {/* Phones show where you are ("Gen 1:1"); the narrowest keep the book icon */}
+          {/* Phones show where you are ("Gen 1:1") when the full label fits; otherwise, and on the
+              narrowest phones, the book icon. The pill can also shrink with an ellipsis, so it never
+              pushes the menu button out of view. */}
+          {passage ? (
+            <span
+              ref={pillMeasureRef}
+              aria-hidden="true"
+              className="invisible absolute left-0 top-0 -z-10 inline-flex h-8 items-center gap-0.5 rounded-full border px-3 text-sm font-medium whitespace-nowrap"
+            >
+              {passage.short}
+              <ChevronDown size={12} strokeWidth={1.75} />
+            </span>
+          ) : null}
           <button
+            ref={passageButtonRef}
             className={`min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] ${
-              passage ? "min-[375px]:min-w-0 min-[375px]:px-1" : ""
+              passage && pillFits ? "min-[375px]:min-w-0 min-[375px]:px-1" : ""
             }`}
             aria-label={passage ? `Open book navigation, ${passage.full}` : "Open book navigation"}
             onClick={toggleMenu}
           >
-            <BookOpen size={20} strokeWidth={1.5} className={passage ? "min-[375px]:hidden" : ""} />
-            {passage ? (
-              <span className="hidden min-[375px]:inline-flex h-8 items-center gap-0.5 rounded-full border border-[var(--divider)] px-3 text-sm font-medium text-[var(--foreground)] whitespace-nowrap">
-                {passage.short}
-                <ChevronDown size={12} strokeWidth={1.75} className="text-[var(--muted)]" aria-hidden="true" />
+            <BookOpen size={20} strokeWidth={1.5} className={passage && pillFits ? "min-[375px]:hidden" : ""} />
+            {passage && pillFits ? (
+              <span className="hidden min-[375px]:inline-flex min-w-0 max-w-full h-8 items-center gap-0.5 rounded-full border border-[var(--divider)] px-3 text-sm font-medium text-[var(--foreground)]">
+                <span className="min-w-0 truncate">{passage.short}</span>
+                <ChevronDown size={12} strokeWidth={1.75} className="shrink-0 text-[var(--muted)]" aria-hidden="true" />
               </span>
             ) : null}
           </button>
