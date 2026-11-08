@@ -7,8 +7,7 @@ import {
   useRef,
   type Dispatch,
   type MouseEvent as ReactMouseEvent,
-  type SetStateAction,
-} from "react";
+  type SetStateAction, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
@@ -501,21 +500,16 @@ export function ChapterGallery({
   const previousLightboxItem = lightboxIndex > 0 ? viewableItems[lightboxIndex - 1] : null;
   const nextLightboxItem = lightboxIndex >= 0 ? viewableItems[lightboxIndex + 1] ?? null : null;
 
-  useEffect(() => {
-    if (!isLightboxOpen) return;
-    const handleArrow = (event: KeyboardEvent) => {
-      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
-      if (event.key === "ArrowLeft" && previousLightboxItem) {
-        event.preventDefault();
-        setLightboxItem(previousLightboxItem);
-      } else if (event.key === "ArrowRight" && nextLightboxItem) {
-        event.preventDefault();
-        setLightboxItem(nextLightboxItem);
-      }
-    };
-    document.addEventListener("keydown", handleArrow);
-    return () => document.removeEventListener("keydown", handleArrow);
-  }, [isLightboxOpen, previousLightboxItem, nextLightboxItem]);
+  const handleLightboxArrow = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.key === "ArrowLeft" && previousLightboxItem) {
+      event.preventDefault();
+      setLightboxItem(previousLightboxItem);
+    } else if (event.key === "ArrowRight" && nextLightboxItem) {
+      event.preventDefault();
+      setLightboxItem(nextLightboxItem);
+    }
+  };
   const placeholderCount = flatItems.filter((item) => item.isPlaceholder).length;
   const filterSummary = isLoading
     ? "Checking saved art..."
@@ -789,6 +783,7 @@ export function ChapterGallery({
       {isLightboxOpen && isFullscreen && lightboxItem && (
         <div
           ref={fullscreenDialogRef}
+          onKeyDown={handleLightboxArrow}
           className="fixed inset-0 z-[60] bg-black flex flex-col"
           role="dialog"
           aria-modal="true"
@@ -833,8 +828,8 @@ export function ChapterGallery({
                   <button
                     type="button"
                     onClick={() => previousLightboxItem && setLightboxItem(previousLightboxItem)}
-                    disabled={!previousLightboxItem}
-                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] disabled:invisible"
+                    aria-disabled={!previousLightboxItem}
+                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] aria-disabled:opacity-30 aria-disabled:cursor-default aria-disabled:hover:bg-transparent"
                     aria-label="Previous image"
                   >
                     <ChevronLeft size={20} strokeWidth={1.5} />
@@ -845,8 +840,8 @@ export function ChapterGallery({
                   <button
                     type="button"
                     onClick={() => nextLightboxItem && setLightboxItem(nextLightboxItem)}
-                    disabled={!nextLightboxItem}
-                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] disabled:invisible"
+                    aria-disabled={!nextLightboxItem}
+                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] aria-disabled:opacity-30 aria-disabled:cursor-default aria-disabled:hover:bg-transparent"
                     aria-label="Next image"
                   >
                     <ChevronRight size={20} strokeWidth={1.5} />

@@ -1,10 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState, useCallback, useRef, type TouchEvent } from "react";
 import { useMutation, useQuery, useConvexAuth } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Maximize2, X } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
@@ -356,7 +357,6 @@ function HeroImageBase({
   const isConvexEnabled = useConvexEnabled();
   const { tier, credits, buyCredits, isLoading: sessionLoading } = useSession();
   const { setCurrentImageId, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const {
     registerGenerate,
@@ -1581,24 +1581,24 @@ function HeroImageBase({
             </span>
             <div className="flex items-center gap-1">
               {prevUrl ? (
-                <button
-                  onClick={() => router.push(prevUrl)}
-                  className="min-h-[44px] px-3 inline-flex items-center gap-1 rounded-full text-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)]"
+                <Link
+                  href={prevUrl}
+                  className="min-h-[44px] px-3 inline-flex items-center gap-1 rounded-full text-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)] focus-ring"
                   aria-label="Previous verse"
                 >
                   <ChevronLeft size={18} strokeWidth={1.5} />
                   <span className="hidden sm:inline">Previous verse</span>
-                </button>
+                </Link>
               ) : null}
               {nextUrl ? (
-                <button
-                  onClick={() => router.push(nextUrl)}
-                  className="min-h-[44px] px-3 inline-flex items-center gap-1 rounded-full text-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)]"
+                <Link
+                  href={nextUrl}
+                  className="min-h-[44px] px-3 inline-flex items-center gap-1 rounded-full text-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)] focus-ring"
                   aria-label="Next verse"
                 >
                   <span>Next verse</span>
                   <ChevronRight size={18} strokeWidth={1.5} />
-                </button>
+                </Link>
               ) : null}
             <button
               onClick={closeFullscreen}
