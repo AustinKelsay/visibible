@@ -94,7 +94,6 @@ function VideoWorkspace({
     reference,
     translation,
   });
-  const generationOff = Boolean(generation.config && !generation.config.enabled);
   const [duration, setDuration] = useState<VideoDuration>(5);
   const [resolution, setResolution] = useState<VideoResolution>("768p");
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -121,6 +120,8 @@ function VideoWorkspace({
   );
   const maximumCredits = generation.request?.maxCredits ?? quote?.credits;
   const pricingError = generation.configError || generation.config?.error;
+  // A failed quote also reports enabled: false; only call generation off when pricing did not fail.
+  const generationOff = Boolean(generation.config && !generation.config.enabled && !pricingError);
   const busy = generation.submitting || Boolean(active);
   const canAfford =
     tier === "admin" || (maximumCredits !== undefined && credits >= maximumCredits);

@@ -576,7 +576,7 @@ export function ChapterGallery({
       aria-labelledby="chapter-gallery-heading"
     >
       <div className={`${fullScreen ? "max-w-[1480px]" : "max-w-6xl"} mx-auto space-y-6`}>
-        <header className="flex items-end justify-between gap-3">
+        <header className="flex flex-wrap items-end justify-between gap-x-3 gap-y-2">
           <div>
             <p className="text-xs uppercase tracking-widest text-[var(--muted)]">Chapter Gallery</p>
             <h2

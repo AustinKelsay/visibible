@@ -73,7 +73,7 @@ export function HeaderSettingsPopover() {
         />
       </button>
       {isOpen && (
-        <div className="absolute top-full mt-1 right-0 w-64 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
+        <div className="absolute top-full mt-1 right-0 w-64 max-h-[calc(100svh-5rem)] overflow-y-auto rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50">
           {/* Model Section */}
           {(models.length > 0 || modelsFailed) && (
             <div className="px-3 py-2 border-b border-[var(--divider)]/50">
