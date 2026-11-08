@@ -599,7 +599,10 @@ function HeroImageBase({
           : "No images yet";
   const showControls = Boolean(hasImages || isGenerating || isQueryLoading || canGenerate || !pricingPending);
   const showPhonePager = showControls && totalImages > 1;
-  const phonePagerBelow = isGenerating || Boolean(error);
+  // Phones explain missing pricing under a saved image (the empty state already says it)
+  const showPhonePricingNote = Boolean(pricingUnavailable) && Boolean(displayImage?.url);
+  // While something sits under or on the stage, the phone pager moves to a row under the painting
+  const phonePagerBelow = isGenerating || Boolean(error) || showPhonePricingNote;
 
   useEffect(() => {
     const nextSelectedImageId = requestedImageId && requestedImageId.length > 0
@@ -1565,6 +1568,12 @@ function HeroImageBase({
           {phonePager}
         </div>
       )}
+
+      {/* Phones: say why generation is off when a saved image is showing (the empty state already says
+          it), since the header's model button can be icon-only on the narrowest screens */}
+      {showPhonePricingNote ? (
+        <p className="sm:hidden px-4 py-2 text-center text-xs text-[var(--muted)]">{pricingUnavailable}</p>
+      ) : null}
 
       {/* Caption over the painting - desktop only; ScriptureReader shows the verse below on every size */}
       {caption && displayImage?.url && (
