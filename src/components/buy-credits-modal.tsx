@@ -102,25 +102,30 @@ function MiniVerseStrip() {
         return (
           <div
             key={v.verse}
-            className={`relative min-h-[36px] min-w-[36px] flex items-center justify-center rounded-[var(--radius-sm)] transition-all duration-500 ease-in-out ${
+            className={`min-h-[40px] min-w-[36px] flex flex-col items-center justify-center rounded-[var(--radius-sm)] transition-all duration-500 ease-in-out ${
               isSelected
                 ? "bg-[var(--accent)] scale-110 shadow-lg shadow-[var(--accent)]/25"
                 : "bg-[var(--divider)] opacity-70"
             }`}
           >
             <span
-              className={`text-xs font-medium transition-all duration-500 ease-in-out ${
+              className={`text-xs font-medium leading-4 transition-all duration-500 ease-in-out ${
                 isSelected ? "text-[var(--accent-text)]" : "text-[var(--muted)]"
               }`}
             >
               {v.verse}
             </span>
-            {v.imageCount > 0 && (
+            {v.imageCount === 1 && (
               <span
-                className={`absolute -top-1 -right-1 flex items-center justify-center min-w-3.5 h-3.5 rounded-full text-[9px] font-bold leading-none px-0.5 transition-all duration-500 ease-in-out ${
-                  isSelected
-                    ? "bg-[var(--accent-text)] text-[var(--accent)]"
-                    : "bg-[var(--accent)] text-[var(--accent-text)]"
+                className={`mt-1 h-1 w-1 rounded-full transition-all duration-500 ease-in-out ${
+                  isSelected ? "bg-[var(--accent-text)]/90" : "bg-[var(--foreground)]/60"
+                }`}
+              />
+            )}
+            {v.imageCount > 1 && (
+              <span
+                className={`text-[10px] font-semibold leading-3 tabular-nums transition-all duration-500 ease-in-out ${
+                  isSelected ? "text-[var(--accent-text)]/90" : "text-[var(--foreground)]/70"
                 }`}
               >
                 {v.imageCount}
@@ -574,10 +579,11 @@ export function BuyCreditsModal() {
                   <p className="text-xs text-[var(--muted)]">
                     Browse existing images and videos for free, or purchase credits to generate your own.
                   </p>
-                  <div className="flex flex-col items-center -ml-8">
+                  {/* The verse strip is desktop-only, so phones skip its demo */}
+                  <div className="hidden sm:flex flex-col items-center -ml-8">
                     <MiniVerseStrip />
                     <p className="text-[10px] text-[var(--muted)]/70 tracking-wide">
-                      Numbers show images per verse
+                      A dot means one saved image; a number shows how many
                     </p>
                   </div>
                 </div>
@@ -590,7 +596,7 @@ export function BuyCreditsModal() {
                 onClick={handleWelcomeNext}
                 className="w-full py-3 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] font-medium hover:bg-[var(--accent-hover)] transition-colors flex items-center justify-center gap-2"
               >
-                <span>Buy Credits to Generate</span>
+                <span>Get Credits to Generate</span>
                 <ArrowRight size={18} />
               </button>
               <button
@@ -603,7 +609,7 @@ export function BuyCreditsModal() {
           </div>
         )}
 
-        {/* Buy Credits Page */}
+        {/* Get Credits page */}
         {state === "selection" && (
           <>
             {/* Header */}
@@ -612,7 +618,7 @@ export function BuyCreditsModal() {
                 <Zap size={24} className="text-[var(--accent)]" />
               </div>
               <h2 className="text-xl font-semibold text-[var(--foreground)]">
-                Buy Credits
+                Get Credits
               </h2>
             </div>
 
@@ -693,8 +699,8 @@ export function BuyCreditsModal() {
                   <Info size={14} className="text-amber-500" aria-hidden="true" />
                   Credits stay in this browser session
                 </p>
-                <p className="text-[var(--muted)]">
-                  Your balance is stored on our server, but access depends on this browser’s session. Clearing cookies or letting the session expire ends access. Retaining the balance record does not restore access; cross-device and lost-cookie recovery are not available.
+                <p className="text-sm leading-relaxed text-[var(--foreground)]/80">
+                  Your balance is kept on our server, but only this browser session can spend it. Clearing cookies or letting the session expire ends that access, and the balance cannot be recovered on another browser or device.
                 </p>
               </div>
 

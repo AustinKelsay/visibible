@@ -354,7 +354,7 @@ export function BulkGeneratePanel({
           className="w-full min-h-[44px] flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] text-sm font-medium"
         >
           <Zap size={14} strokeWidth={2} />
-          <span>Buy Credits (need {creditsNeeded} more)</span>
+          <span>Get Credits (need {creditsNeeded} more)</span>
         </button>
       )}
     </div>

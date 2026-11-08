@@ -1613,8 +1613,9 @@ function HeroImageBase({
           {/* Centered content area */}
           <div className="flex-1 relative flex items-center justify-center min-h-0 px-2">
 
-            {/* Centered column: image + iterator + verse text */}
-            <div className="flex flex-col items-center max-w-full max-h-full min-h-0">
+            {/* Centered column: image, verse text, then image navigation.
+                It scrolls on short screens so a long verse cannot push the controls out of reach. */}
+            <div className="flex flex-col items-center max-w-full max-h-full min-h-0 overflow-y-auto">
               {displayImage?.url ? (
                 <div
                   className="relative max-w-full max-h-[70vh] w-full flex items-center justify-center rounded-[var(--radius-md)] bg-[var(--image-stage)]"
@@ -1755,6 +1756,13 @@ function HeroImageBase({
                 />
               )}
 
+              {/* Verse text (same order as the gallery lightbox: image, verse, image navigation) */}
+              {verseText && (
+                <p className="mt-3 text-center text-sm sm:text-base text-white/80 leading-relaxed max-w-2xl px-4">
+                  {verseText}
+                </p>
+              )}
+
               {/* Image iterator */}
               {totalImages > 1 && (
                 <div className="flex items-center gap-2 mt-3">
@@ -1786,13 +1794,6 @@ function HeroImageBase({
                     <ChevronRight size={18} strokeWidth={1.5} />
                   </button>
                 </div>
-              )}
-
-              {/* Verse text */}
-              {verseText && (
-                <p className="mt-3 text-center text-sm sm:text-base text-white/80 leading-relaxed max-w-2xl px-4">
-                  {verseText}
-                </p>
               )}
             </div>
 
