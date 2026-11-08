@@ -4,16 +4,33 @@ import { useState, useEffect, useRef } from "react";
 import { Settings, ChevronDown, Zap } from "lucide-react";
 import {
   ASPECT_RATIOS,
+  getEstimatedCreditsCostForResolution,
+  shortImageModelName,
+  type ImageModel,
   RESOLUTIONS,
   type ImageAspectRatio,
   type ImageResolution,
   supportsResolution,
 } from "@/lib/image-models";
 import { useGeneration } from "@/context/generation-context";
+import { usePreferences } from "@/context/preferences-context";
 
 export function HeaderSettingsPopover() {
   const { state, isRegistered, setAspectRatio, setResolution } = useGeneration();
+  const { imageModel, setImageModel } = usePreferences();
   const [isOpen, setIsOpen] = useState(false);
+  const [models, setModels] = useState<ImageModel[]>([]);
+
+  // Fresh model list and prices each time the popover opens
+  useEffect(() => {
+    if (!isOpen) return;
+    let cancelled = false;
+    fetch("/api/image-models", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((data) => { if (!cancelled && Array.isArray(data.models)) setModels(data.models); })
+      .catch((error) => console.error("Failed to fetch image models:", error));
+    return () => { cancelled = true; };
+  }, [isOpen]);
   const popoverRef = useRef<HTMLDivElement>(null);
 
   const { aspectRatio, resolution, displayCostByResolution, showCreditsCost, modelId } = state;
@@ -47,7 +64,40 @@ export function HeaderSettingsPopover() {
         />
       </button>
       {isOpen && (
-        <div className="absolute top-full mt-1 right-0 w-56 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
+        <div className="absolute top-full mt-1 right-0 w-64 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
+          {/* Model Section */}
+          {models.length > 0 && (
+            <div className="px-3 py-2 border-b border-[var(--divider)]/50" role="radiogroup" aria-label="Image model">
+              <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-1">Model</p>
+              {models.map((model) => {
+                const available = model.availability !== "unavailable" &&
+                  getEstimatedCreditsCostForResolution(model, "1K") !== null;
+                const cost = getEstimatedCreditsCostForResolution(model, resolution);
+                return (
+                  <button
+                    key={model.id}
+                    type="button"
+                    role="radio"
+                    aria-checked={imageModel === model.id}
+                    onClick={() => available && setImageModel(model.id, "header_settings_popover")}
+                    disabled={!available}
+                    className={`w-full px-2 py-1.5 flex items-center justify-between gap-2 text-left text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
+                      imageModel === model.id ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
+                    } ${!available ? "opacity-60" : ""}`}
+                  >
+                    <span className="truncate">{shortImageModelName(model.name)}</span>
+                    {showCreditsCost && cost !== null && (
+                      <span className="inline-flex shrink-0 items-center gap-1 text-xs text-[var(--muted)]">
+                        <Zap size={12} strokeWidth={2} />
+                        About {cost}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
           {/* Aspect Ratio Section */}
           <div className="px-3 py-2 border-b border-[var(--divider)]/50">
             <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-1">Aspect Ratio</p>

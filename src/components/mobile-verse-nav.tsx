@@ -35,7 +35,8 @@ export function MobileVerseNav({
   const previousHref = prevUrl && (effectiveView === "video" ? `${prevUrl}?view=video` : prevUrl);
   const nextHref = nextUrl && (effectiveView === "video" ? `${nextUrl}?view=video` : nextUrl);
 
-  const isHidden = isFullscreen || isChatOpen;
+  // The gallery has its own chapter navigation, so the verse bar stays out of its way.
+  const isHidden = isFullscreen || isChatOpen || effectiveView === "gallery";
 
   return (
     <nav
@@ -76,7 +77,7 @@ export function MobileVerseNav({
               aria-label="Previous verse"
             >
               <ChevronLeft size={22} strokeWidth={2} />
-              <span className="text-sm font-semibold">Previous</span>
+              <span className="text-sm font-semibold">Previous verse</span>
             </Link>
           ) : (
             <div className="min-h-[52px]" aria-hidden="true" />
@@ -115,7 +116,7 @@ export function MobileVerseNav({
               className="inline-flex items-center gap-2 min-h-[52px] px-3 -mr-3 rounded-[var(--radius-md)] text-[var(--foreground)] active:bg-[var(--surface)] active:scale-[0.97] transition-all duration-[var(--motion-fast)] focus-ring"
               aria-label="Next verse"
             >
-              <span className="text-sm font-semibold">Next</span>
+              <span className="text-sm font-semibold">Next verse</span>
               <ChevronRight size={22} strokeWidth={2} />
             </Link>
           ) : (

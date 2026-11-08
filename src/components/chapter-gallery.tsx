@@ -111,7 +111,6 @@ function GalleryCard({
   const [isImageError, setIsImageError] = useState(false);
   const handleImageRef = useImageReadyRef(setIsImageReady, setIsImageError);
   const readerHref = buildReaderHref(item.href, item.imageId);
-  const hasExpandableImage = Boolean(!item.isPlaceholder && item.imageUrl && onExpand);
 
   return (
     <Link
@@ -140,7 +139,7 @@ function GalleryCard({
               ref={handleImageRef}
               src={item.imageUrl}
               alt={`${bookName} ${chapter}:${item.verse}`}
-              className={`h-full w-full bg-[var(--image-stage)] object-contain transition-[opacity,transform] duration-500 ${
+              className={`h-full w-full bg-[var(--image-stage)] object-cover transition-[opacity,transform] duration-500 ${
                 isImageReady ? "opacity-100" : "opacity-0"
               } group-hover:scale-[1.015]`}
               loading="lazy"
@@ -154,7 +153,6 @@ function GalleryCard({
                 onImageLoadFailed?.(item);
               }}
             />
-            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
           </>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--background)]/75 via-[var(--surface)] to-[var(--surface)]">
@@ -166,19 +164,6 @@ function GalleryCard({
           </div>
         )}
 
-        {item.text ? (
-          <div
-            className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 px-3 pb-3 ${
-              hasExpandableImage ? "pr-14" : ""
-            }`}
-          >
-            <div className="rounded-[18px] border border-white/10 bg-black/30 px-3 py-2 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.22)]">
-              <p className="line-clamp-3 text-[13px] leading-5 text-white/92 sm:text-sm">
-                {item.text}
-              </p>
-            </div>
-          </div>
-        ) : null}
 
         <div className="absolute left-3 top-3 flex items-center gap-1.5">
           <span
@@ -190,11 +175,6 @@ function GalleryCard({
           >
             {item.verse}
           </span>
-          {!item.isPlaceholder && item.imageCount > 1 ? (
-            <span className="rounded-full bg-black/50 px-2 py-1 text-[11px] text-white/80 backdrop-blur-sm">
-              {item.cardIndex + 1}/{item.imageCount}
-            </span>
-          ) : null}
         </div>
 
         {!item.isPlaceholder && item.imageUrl && onExpand ? (
@@ -214,12 +194,17 @@ function GalleryCard({
       </div>
 
       <div className="px-3.5 py-3">
-        <p className="text-sm font-medium text-[var(--foreground)]">
-          {bookName} {chapter}:{item.verse}
+        <p className="flex items-baseline justify-between gap-2 text-sm font-medium text-[var(--foreground)]">
+          <span>{bookName} {chapter}:{item.verse}</span>
+          <span className="shrink-0 text-xs font-normal text-[var(--muted)]">
+            {item.isPlaceholder ? "No image yet" : item.imageCount > 1 ? `Image ${item.cardIndex + 1} of ${item.imageCount}` : null}
+          </span>
         </p>
-        <p className="mt-0.5 text-xs text-[var(--muted)] line-clamp-1">
-          {item.isPlaceholder ? "No image yet" : "Saved image"}
-        </p>
+        {item.text ? (
+          <p className="mt-1 min-h-10 text-sm leading-5 text-[var(--muted)] line-clamp-2">
+            {item.text}
+          </p>
+        ) : null}
       </div>
     </Link>
   );
@@ -591,14 +576,17 @@ export function ChapterGallery({
       aria-labelledby="chapter-gallery-heading"
     >
       <div className={`${fullScreen ? "max-w-[1480px]" : "max-w-6xl"} mx-auto space-y-6`}>
-        <header className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-          <h2
-            id="chapter-gallery-heading"
-            className="text-2xl font-semibold tracking-tight text-[var(--foreground)]"
-          >
-            {bookName} {chapter}
-          </h2>
-          <p className="text-sm text-[var(--muted)]">Chapter Gallery</p>
+        <header className="flex items-end justify-between gap-3">
+          <div>
+            <p className="text-xs uppercase tracking-widest text-[var(--muted)]">Chapter Gallery</p>
+            <h2
+              id="chapter-gallery-heading"
+              className="mt-1 text-2xl font-semibold tracking-tight text-[var(--foreground)]"
+            >
+              {bookName} {chapter}
+            </h2>
+          </div>
+          <ChapterGalleryNav book={book} chapter={chapter} ariaLabel="Chapter navigation, top" />
         </header>
 
         <div
@@ -642,8 +630,6 @@ export function ChapterGallery({
             {filterSummary}
           </p>
         </div>
-
-        <ChapterGalleryNav book={book} chapter={chapter} ariaLabel="Chapter navigation, top" />
 
         {layoutMode === "all" ? (
           <div

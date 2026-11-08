@@ -60,7 +60,7 @@ function VerseStripBase({
   }));
 
   return (
-    <div className="overflow-x-auto scrollbar-hide">
+    <div className="overflow-x-auto scrollbar-hide [mask-image:linear-gradient(to_right,black_calc(100%-40px),transparent)]">
       <div className="flex gap-1 p-2">
         {verses.map((v) => {
           const isCurrent = v.verse === currentVerse;
@@ -76,13 +76,19 @@ function VerseStripBase({
               aria-current={isCurrent ? "page" : undefined}
             >
               <span className="text-sm font-medium">{v.verse}</span>
-              {v.imageCount > 0 && (
+              {v.imageCount === 1 && (
                 <span
-                  aria-label={`${v.imageCount} image${v.imageCount !== 1 ? "s" : ""}`}
-                  className={`absolute -top-1 -right-1 flex items-center justify-center min-w-4 h-4 rounded-full text-[10px] font-bold leading-none px-0.5 ${
+                  aria-label="1 image"
+                  className={`absolute top-1 right-1 h-1.5 w-1.5 rounded-full ${isCurrent ? "bg-[var(--accent-text)]" : "bg-white/70"}`}
+                />
+              )}
+              {v.imageCount > 1 && (
+                <span
+                  aria-label={`${v.imageCount} images`}
+                  className={`absolute -top-1 -right-1 flex items-center justify-center min-w-4 h-4 rounded-full text-[10px] font-bold leading-none px-1 tabular-nums ${
                     isCurrent
                       ? "bg-[var(--accent-text)] text-[var(--accent)]"
-                      : "bg-[var(--accent)] text-[var(--accent-text)]"
+                      : "bg-white/25 text-white"
                   }`}
                 >
                   {v.imageCount}

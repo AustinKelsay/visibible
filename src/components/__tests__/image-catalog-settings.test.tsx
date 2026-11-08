@@ -74,7 +74,7 @@ it("disables unquoted resolutions in desktop and mobile settings", async () => {
   const container = document.createElement("div");
   const root = createRoot(container);
   try {
-    await act(async () => root.render(createElement("div", null, createElement(HeaderSettingsPopover), createElement(MobileSettingsRows))));
+    await act(async () => root.render(createElement(PreferencesProvider, null, createElement(HeaderSettingsPopover), createElement(MobileSettingsRows))));
     await act(async () => container.querySelector<HTMLButtonElement>('[aria-label="Image settings"]')!.click());
     const missing = [...container.querySelectorAll<HTMLButtonElement>("button")].filter(button => button.textContent!.startsWith("2K"));
     expect(missing).toHaveLength(2);

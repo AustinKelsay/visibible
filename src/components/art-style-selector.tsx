@@ -53,12 +53,12 @@ export function ArtStyleSelector({ variant = "compact", source = "art_style_sele
         aria-label={`Art style: ${current.label}`}
         className={`flex items-center text-sm font-medium transition-colors duration-[var(--motion-fast)] ${
           variant === "compact"
-            ? "min-h-[44px] min-w-[44px] justify-center gap-0.5 text-[var(--muted)] hover:text-[var(--foreground)]"
-            : "gap-1 px-3 py-2 rounded-lg bg-[var(--surface)] hover:bg-[var(--surface-hover)]"
+            ? "min-h-[44px] sm:min-h-[36px] px-2.5 justify-center gap-1.5 text-xs text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)] rounded-[var(--radius-md)]"
+            : "gap-1 px-3 py-2 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)]"
         }`}
       >
-        <Palette size={16} strokeWidth={1.5} />
-        {variant === "full" ? <span>{current.label}</span> : null}
+        <Palette size={variant === "compact" ? 14 : 16} strokeWidth={1.5} />
+        <span>{current.label}</span>
         <ChevronDown size={12} strokeWidth={1.5} className={`transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </button>
       {isOpen ? (

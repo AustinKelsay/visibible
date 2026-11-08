@@ -78,6 +78,11 @@ export function computeCreditsFromActualUsage(
 }
 
 export const DEFAULT_IMAGE_MODEL = "google/gemini-3.1-flash-lite-image";
+
+/** Display label without the "Provider: " prefix and trailing "(…)" detail, e.g. "Nano Banana 2 Lite". */
+export function shortImageModelName(name: string): string {
+  return name.replace(/^[^:]+:\s*/, "").replace(/\s*\(.*\)$/, "");
+}
 export const EMERGENCY_IMAGE_MODEL_PRICING_USD: Record<string, string> = {
   // Legacy placeholder retained for incomplete display state, never catalog admission.
   [DEFAULT_IMAGE_MODEL]: "0.10",

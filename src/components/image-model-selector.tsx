@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronDown, Check, ImageIcon, Loader2 } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import {
+  shortImageModelName,
   ImageModel,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
   getEstimatedCreditsCostForResolution,
@@ -26,9 +27,9 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
   const dropdownRef = useRef<HTMLDivElement>(null);
   const hasFetched = useRef(false);
 
-  // Fetch models when dropdown opens (lazy loading)
+  // Fetch models on mount (for the trigger's label) and again each time the dropdown opens
   useEffect(() => {
-    if (isOpen && !hasFetched.current) {
+    if ((isOpen || models.length === 0) && !hasFetched.current) {
       hasFetched.current = true;
       
       // Defer state updates to avoid synchronous setState in effect
@@ -98,8 +99,9 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
   // Get current model info
   const currentModel = models.find((m) => m.id === imageModel);
   const displayName = currentModel?.name || imageModel.split("/").pop() || "Model";
-  // Compact display: just show a short version
-  const compactName = displayName.length > 15 ? displayName.substring(0, 13) + "…" : displayName;
+  // Trigger label: drop the "Provider: " prefix and trailing "(…)" detail from catalog names
+  const shortName = currentModel ? shortImageModelName(currentModel.name) : null;
+  const compactName = shortName && shortName.length > 20 ? shortName.substring(0, 19) + "…" : shortName;
 
   return (
     <div ref={dropdownRef} className="relative">
@@ -107,18 +109,18 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center text-sm font-medium transition-colors duration-[var(--motion-fast)] ${
           variant === "compact"
-            ? "min-h-[44px] min-w-[44px] justify-center gap-0.5 text-[var(--muted)] hover:text-[var(--foreground)]"
-            : "gap-1 px-3 py-2 rounded-lg bg-[var(--surface)] hover:bg-[var(--surface-hover)]"
+            ? "min-h-[44px] sm:min-h-[36px] px-2.5 justify-center gap-1.5 text-xs text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)] rounded-[var(--radius-md)]"
+            : "gap-1 px-3 py-2 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)]"
         }`}
         aria-label={`Current image model: ${displayName}. Click to change.`}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         title={`Image model: ${displayName}`}
       >
-        <ImageIcon size={variant === "compact" ? 20 : 16} strokeWidth={1.5} className={variant === "compact" ? "" : "opacity-60"} />
-        {variant === "full" && <span>{compactName}</span>}
+        <ImageIcon size={variant === "compact" ? 14 : 16} strokeWidth={1.5} className={variant === "compact" ? "" : "opacity-60"} />
+        {compactName ? <span>{compactName}</span> : null}
         <ChevronDown
-          size={14}
+          size={12}
           className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
         />
       </button>

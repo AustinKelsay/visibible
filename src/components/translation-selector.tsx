@@ -45,18 +45,18 @@ export function TranslationSelector({ variant = "compact" }: TranslationSelector
         }}
         className={`flex items-center text-sm font-medium transition-colors duration-[var(--motion-fast)] ${
           variant === "compact"
-            ? "min-h-[44px] min-w-[44px] justify-center gap-0.5 text-[var(--muted)] hover:text-[var(--foreground)]"
-            : "gap-1 px-3 py-2 rounded-lg bg-[var(--surface)] hover:bg-[var(--surface-hover)]"
+            ? "min-h-[44px] sm:min-h-[36px] px-2.5 justify-center gap-1.5 text-xs text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)] rounded-[var(--radius-md)]"
+            : "gap-1 px-3 py-2 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)]"
         }`}
         aria-label={`Current translation: ${translationInfo.name}. Click to change.`}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         title={`Bible version: ${translationInfo.name}`}
       >
-        <ScrollText size={variant === "compact" ? 20 : 16} strokeWidth={1.5} className={variant === "compact" ? "" : "opacity-60"} />
-        {variant === "full" && <span>{translationInfo.code}</span>}
+        <ScrollText size={variant === "compact" ? 14 : 16} strokeWidth={1.5} className={variant === "compact" ? "" : "opacity-60"} />
+        <span>{translationInfo.code}</span>
         <ChevronDown
-          size={variant === "compact" ? 14 : 14}
+          size={12}
           className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
