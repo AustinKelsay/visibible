@@ -611,7 +611,7 @@ export function BuyCreditsModal() {
                   {/* The verse strip is desktop-only, so phones skip its demo */}
                   <div className="hidden sm:flex flex-col items-center -ml-8">
                     <MiniVerseStrip />
-                    <p className="text-[10px] text-[var(--muted)]/70 tracking-wide">
+                    <p className="text-xs text-[var(--muted)]">
                       A dot means one saved image; a number shows how many
                     </p>
                   </div>
@@ -654,7 +654,7 @@ export function BuyCreditsModal() {
             <div className="mb-4 rounded-[var(--radius-md)] bg-[var(--surface)] px-4 py-3 text-xs">
               <p className="text-[var(--foreground)] font-medium mb-2">Early Access</p>
               <ul className="space-y-1 text-[var(--muted)]">
-                <li>Credits are used for AI image and video generation</li>
+                <li>Credits pay for AI images, videos and chat</li>
                 <li>Pay with any Lightning wallet, including Cash App (no on-chain)</li>
                 <li>Credit purchases are non-refundable during alpha</li>
               </ul>

@@ -9,7 +9,7 @@ import {
   type MouseEvent as ReactMouseEvent,
   type SetStateAction, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import Link from "next/link";
-import { ArrowUpRight, ChevronLeft, ChevronRight, ImageOff, Maximize2, X } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, ImageOff, Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
 import { usePreferences } from "@/context/preferences-context";
 import { api } from "../../convex/_generated/api";
@@ -205,13 +205,15 @@ function GalleryCard({
         ) : null}
       </div>
 
+      {/* Ungrouped cards: the count sits under the reference on phones and beside it from sm up,
+          the same on every card */}
       <div className="px-2.5 py-2 sm:px-3.5 sm:py-3">
         {inGroup ? (
           <p className="text-xs text-[var(--muted)]">
             {item.isPlaceholder ? "No image yet" : `Image ${item.cardIndex + 1} of ${item.imageCount}`}
           </p>
         ) : (
-        <p className="flex flex-wrap items-baseline justify-between gap-x-2 text-sm font-medium text-[var(--foreground)]">
+        <p className="flex flex-col sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-x-2 text-sm font-medium text-[var(--foreground)]">
           <span>{bookName} {chapter}:{item.verse}</span>
           <span className="shrink-0 text-xs font-normal text-[var(--muted)]">
             {/* Every card gets a second line, so cards in a row stay the same height */}
@@ -877,7 +879,7 @@ export function ChapterGallery({
                   className="inline-flex min-h-[36px] items-center gap-1.5 rounded-full border border-white/25 px-3 text-sm text-white/90 hover:bg-white/10 hover:text-white transition-colors duration-[var(--motion-fast)] focus-ring"
                 >
                   Open in reader
-                  <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden="true" />
+                  <ArrowRight size={14} strokeWidth={1.75} aria-hidden="true" />
                 </Link>
               </div>
             </div>

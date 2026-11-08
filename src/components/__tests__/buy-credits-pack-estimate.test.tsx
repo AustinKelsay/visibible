@@ -73,13 +73,13 @@ describe("Get Credits pack estimate", () => {
     vi.stubGlobal("fetch", vi.fn(() => modelsResponse(catalog)));
     await openPacks();
     expect(document.body.textContent).toContain("100 credits");
-    expect(document.body.textContent).not.toContain("images");
+    expect(document.body.textContent).not.toMatch(/About \d+ images/);
   });
 
   it("leaves the estimate out when the generation model has no price", async () => {
     vi.stubGlobal("fetch", vi.fn(() => modelsResponse([])));
     await openPacks();
     expect(document.body.textContent).toContain("100 credits");
-    expect(document.body.textContent).not.toContain("images");
+    expect(document.body.textContent).not.toMatch(/About \d+ images/);
   });
 });
