@@ -598,6 +598,8 @@ function HeroImageBase({
           ? generationPhaseLabel
           : "No images yet";
   const showControls = Boolean(hasImages || isGenerating || isQueryLoading || canGenerate || !pricingPending);
+  const showPhonePager = showControls && totalImages > 1;
+  const phonePagerBelow = isGenerating || Boolean(error);
 
   useEffect(() => {
     const nextSelectedImageId = requestedImageId && requestedImageId.length > 0
@@ -1259,6 +1261,29 @@ function HeroImageBase({
       ? `${currentImage.imageWidth} / ${currentImage.imageHeight}`
       : ASPECT_RATIOS[containerAspectRatio].cssRatio;
 
+  // Phone image pager, shared by the on-image pill and the row under the painting
+  const phonePager = (
+    <div className="flex items-center rounded-full bg-black/55 backdrop-blur-sm border border-white/15 text-white">
+      <button
+        onClick={() => goToNextImage("overlay")}
+        disabled={!canGoNewer}
+        className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/80 disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-all focus-ring"
+        aria-label="Newer image"
+      >
+        <ChevronLeft size={20} strokeWidth={1.5} />
+      </button>
+      <span className="text-xs select-none">Image {displayIndex} of {totalImages}</span>
+      <button
+        onClick={() => goToPrevImage("overlay")}
+        disabled={!canGoOlder}
+        className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/80 disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-all focus-ring"
+        aria-label="Older image"
+      >
+        <ChevronRight size={20} strokeWidth={1.5} />
+      </button>
+    </div>
+  );
+
   return (
     <figure className="relative w-full">
       {/* Image Container - follows the image's shape; capped so the stage fits on screen */}
@@ -1481,29 +1506,12 @@ function HeroImageBase({
         {displayImage?.url ? <div className="hidden sm:block absolute inset-x-0 bottom-0 h-48 md:h-56 bg-gradient-to-t from-[var(--image-stage)]/90 via-[var(--image-stage)]/50 to-transparent pointer-events-none" /> : null}
 
         {/* Phone image navigation: one "‹ Image n of N ›" pill at the bottom of the painting,
-            like the desktop dock, so the counter and its arrows stay together.
-            Hidden while an error shows, so it cannot cover the Try Again button on short stages. */}
-        {showControls && totalImages > 1 && !(error && !isGenerating) && (
+            like the desktop dock, so the counter and its arrows stay together. While an error or a
+            generation is showing it moves under the painting instead (below), so it never covers
+            Try Again or the progress label on short stages but stays available. */}
+        {showPhonePager && !phonePagerBelow && (
           <div className="sm:hidden absolute inset-x-0 bottom-3 z-20 flex justify-center">
-            <div className="flex items-center rounded-full bg-black/55 backdrop-blur-sm border border-white/15 text-white">
-              <button
-                onClick={() => goToNextImage("overlay")}
-                disabled={!canGoNewer}
-                className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/80 disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-all focus-ring"
-                aria-label="Newer image"
-              >
-                <ChevronLeft size={20} strokeWidth={1.5} />
-              </button>
-              <span className="text-xs select-none">Image {displayIndex} of {totalImages}</span>
-              <button
-                onClick={() => goToPrevImage("overlay")}
-                disabled={!canGoOlder}
-                className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/80 disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-all focus-ring"
-                aria-label="Older image"
-              >
-                <ChevronRight size={20} strokeWidth={1.5} />
-              </button>
-            </div>
+            {phonePager}
           </div>
         )}
 
@@ -1551,6 +1559,12 @@ function HeroImageBase({
         )}
 
       </div>
+
+      {showPhonePager && phonePagerBelow && (
+        <div className="sm:hidden flex justify-center bg-[var(--image-stage)] py-2">
+          {phonePager}
+        </div>
+      )}
 
       {/* Caption over the painting - desktop only; ScriptureReader shows the verse below on every size */}
       {caption && displayImage?.url && (
