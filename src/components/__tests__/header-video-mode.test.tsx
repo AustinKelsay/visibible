@@ -110,16 +110,17 @@ describe("Header Video mode", () => {
     }
   }
 
-  it("keeps desktop image controls in place but inert in Video, and restores them in reader", async () => {
+  it("keeps desktop controls in place in Video, with only image settings inert, and restores them in reader", async () => {
     await renderHeader("reader");
     expectReaderControls();
 
     await renderHeader("video");
-    // Desktop: same slots, disabled; mobile menu and generation drop image-only controls.
-    for (const label of ["Art style", "Image settings"]) {
-      expect(buttons(label)).toHaveLength(1);
-      expect(buttons(label)[0].closest("[inert]")).not.toBeNull();
-    }
+    // Desktop: same slots; art style stays usable, image settings are read-only.
+    // The mobile menu and generation drop image-only controls.
+    expect(buttons("Art style")).toHaveLength(1);
+    expect(buttons("Art style")[0].closest("[inert]")).toBeNull();
+    expect(buttons("Image settings")).toHaveLength(1);
+    expect(buttons("Image settings")[0].closest("[inert]")).not.toBeNull();
     for (const label of ["Image model", "Image resolution", "Generate image"]) {
       expect(buttons(label)).toHaveLength(0);
     }

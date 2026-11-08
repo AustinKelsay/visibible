@@ -86,13 +86,14 @@ export function Header() {
           {/* Settings Group */}
           <div className="flex items-center">
             <TranslationSelector variant="compact" />
-            {/* Image controls stay in place on every tab; they only apply to the Images tab */}
+            {/* Same controls on every tab. Art style is a saved preference, so it stays usable in Video;
+                image settings need the image stage and are read-only there. */}
+            <ArtStyleSelector variant="compact" />
             <div
-              className={`flex items-center ${videoOpen ? "opacity-40" : ""}`}
+              className="flex items-center"
               inert={videoOpen}
               title={videoOpen ? "Image settings apply on the Images tab" : undefined}
             >
-              <ArtStyleSelector variant="compact" />
               <HeaderSettingsPopover />
             </div>
           </div>

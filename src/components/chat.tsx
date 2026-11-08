@@ -96,6 +96,9 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
   const passageLabel = context?.book && typeof context.chapter === "number"
     ? `${context.book} ${context.chapter}${context.verseRange ? `:${context.verseRange}` : ""}`
     : null;
+  const starterQuestions = passageLabel
+    ? [`What does ${passageLabel} mean?`, `What is the historical context of ${passageLabel}?`, `How does ${passageLabel} fit the rest of the chapter?`]
+    : ["What does this passage mean?", "What is its historical context?", "How does it fit the rest of the chapter?"];
 
   // Include both context and model in request body
   const requestBody = {
@@ -234,8 +237,20 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
 
           {!hasMessages && !isLoading && (
             canSend ? (
-              <div className="text-center text-[var(--muted)] text-sm py-8">
-                Ask a question about {passageLabel ?? "this passage"}
+              <div className="py-8 text-center">
+                <p className="text-sm text-[var(--muted)]">Ask a question about {passageLabel ?? "this passage"}</p>
+                <div className="mt-4 flex flex-col items-center gap-2">
+                  {starterQuestions.map((question) => (
+                    <button
+                      key={question}
+                      type="button"
+                      onClick={() => setInput(question)}
+                      className="max-w-full rounded-[var(--radius-full)] border border-[var(--divider)] bg-[var(--surface)] px-3 py-1.5 text-xs text-[var(--foreground)] hover:bg-[var(--divider)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                    >
+                      {question}
+                    </button>
+                  ))}
+                </div>
               </div>
             ) : (
               <div className="mx-auto my-8 max-w-xs rounded-[var(--radius-md)] border border-[var(--divider)] bg-[var(--surface)] p-4 text-center">
@@ -251,6 +266,10 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
                 >
                   Get Credits
                 </button>
+                <p className="mt-4 text-[11px] uppercase tracking-wider text-[var(--muted)]">You could ask</p>
+                <ul className="mt-2 space-y-1 text-xs text-[var(--muted)]">
+                  {starterQuestions.map((question) => <li key={question}>“{question}”</li>)}
+                </ul>
               </div>
             )
           )}
