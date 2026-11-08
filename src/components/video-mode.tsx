@@ -358,7 +358,8 @@ function VideoWorkspace({
             <button
               type="button"
               onClick={() => void generation.retrySubmission()}
-              disabled={generation.submitting || checking}
+              // While generation is off the server rejects the retry, which would drop the saved request ID.
+              disabled={generation.submitting || checking || generationOff}
               className="w-full min-h-12 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] font-medium text-sm disabled:opacity-50"
             >
               {generation.submitting
@@ -389,8 +390,9 @@ function VideoWorkspace({
           )}
           {generation.request && (
             <p className="text-xs text-[var(--muted)]">
-              This checks the same request and will not create a duplicate
-              video.
+              {generationOff
+                ? "Video generation is off. Your earlier request is kept and can be checked once it is back on."
+                : "This checks the same request and will not create a duplicate video."}
             </p>
           )}
           {sid && quote && !canAfford && !busy && (
