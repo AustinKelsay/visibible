@@ -9,7 +9,7 @@ import {
   type MouseEvent as ReactMouseEvent,
   type SetStateAction, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, ImageOff, Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
 import { usePreferences } from "@/context/preferences-context";
 import { api } from "../../convex/_generated/api";
@@ -63,6 +63,8 @@ interface GalleryCardProps {
     item: ChapterGalleryFlatItem
   ) => void;
   onImageLoadFailed?: (item: ChapterGalleryFlatItem) => void;
+  /** Hide the verse excerpt (By verse shows it once in the group header). */
+  hideText?: boolean;
 }
 
 function buildReaderHref(href: string, imageId?: string) {
@@ -105,6 +107,7 @@ function GalleryCard({
   onExpand,
   onNavigateToReader,
   onImageLoadFailed,
+  hideText = false,
 }: GalleryCardProps) {
   const isCurrent = item.verse === currentVerse;
   const [isImageReady, setIsImageReady] = useState(false);
@@ -156,11 +159,17 @@ function GalleryCard({
           </>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--background)]/75 via-[var(--surface)] to-[var(--surface)]">
-            <VerseImagePlaceholder
-              compact
-              className="absolute inset-0"
-              description={isLoading ? "Looking for saved images in this chapter" : "This verse has not been illustrated yet"}
-            />
+            {/* Phone cards are too short for the message; the footer already says "No image yet" */}
+            <div className="absolute inset-0 flex items-center justify-center sm:hidden" aria-hidden="true">
+              <ImageOff size={20} strokeWidth={1.5} className="text-[var(--muted)]" />
+            </div>
+            <div className="absolute inset-0 hidden sm:block">
+              <VerseImagePlaceholder
+                compact
+                className="absolute inset-0"
+                description={isLoading ? "Looking for saved images in this chapter" : "This verse has not been illustrated yet"}
+              />
+            </div>
           </div>
         )}
 
@@ -193,15 +202,15 @@ function GalleryCard({
         ) : null}
       </div>
 
-      <div className="px-3.5 py-3">
-        <p className="flex items-baseline justify-between gap-2 text-sm font-medium text-[var(--foreground)]">
+      <div className="px-2.5 py-2 sm:px-3.5 sm:py-3">
+        <p className="flex flex-wrap items-baseline justify-between gap-x-2 text-sm font-medium text-[var(--foreground)]">
           <span>{bookName} {chapter}:{item.verse}</span>
           <span className="shrink-0 text-xs font-normal text-[var(--muted)]">
             {item.isPlaceholder ? "No image yet" : item.imageCount > 1 ? `Image ${item.cardIndex + 1} of ${item.imageCount}` : null}
           </span>
         </p>
-        {item.text ? (
-          <p className="mt-1 min-h-10 text-sm leading-5 text-[var(--muted)] line-clamp-2">
+        {item.text && !hideText ? (
+          <p className="mt-1 min-h-10 text-sm leading-5 text-[var(--muted)] hidden sm:line-clamp-2">
             {item.text}
           </p>
         ) : null}
@@ -655,7 +664,7 @@ export function ChapterGallery({
         {layoutMode === "all" ? (
           <div
             aria-label="All images gallery"
-            className={`grid gap-4 md:gap-5 ${fullScreen ? "sm:grid-cols-2 xl:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-3"}`}
+            className={`grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 ${fullScreen ? "xl:grid-cols-3" : "lg:grid-cols-3"}`}
           >
             {flatItems.map((item) => (
               <GalleryCard
@@ -741,7 +750,7 @@ export function ChapterGallery({
                     <div className="p-4 md:p-5">
                       <div
                         aria-label={`Verse ${item.verse} mini-gallery`}
-                        className={`grid gap-4 ${fullScreen ? "sm:grid-cols-2 2xl:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-3"}`}
+                        className={`grid grid-cols-2 gap-3 sm:gap-4 ${fullScreen ? "2xl:grid-cols-3" : "lg:grid-cols-3"}`}
                       >
                         {item.cards.map((card, cardIndex) => {
                           const flatItem: ChapterGalleryFlatItem = {
@@ -764,6 +773,7 @@ export function ChapterGallery({
                               onNavigateToReader={handleNavigateToReader}
                               onExpand={!card.isPlaceholder && card.imageUrl ? handleExpand : undefined}
                               onImageLoadFailed={handleGalleryImageLoadFailed}
+                              hideText
                             />
                           );
                         })}

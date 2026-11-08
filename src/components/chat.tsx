@@ -87,6 +87,7 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const prevChatIdRef = useRef<string>(chatId);
   const lastTrackedErrorKeyRef = useRef<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const isSidebar = variant === "sidebar";
 
@@ -96,6 +97,9 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
   const passageLabel = context?.book && typeof context.chapter === "number"
     ? `${context.book} ${context.chapter}${context.verseRange ? `:${context.verseRange}` : ""}`
     : null;
+  const starterQuestions = passageLabel
+    ? [`What does ${passageLabel} mean?`, `What is the historical context of ${passageLabel}?`, `How does ${passageLabel} fit the rest of the chapter?`]
+    : ["What is the main message of the Bible?", "How do the Old and New Testaments fit together?", "Where is a good place to start reading?"];
 
   // Include both context and model in request body
   const requestBody = {
@@ -234,15 +238,30 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
 
           {!hasMessages && !isLoading && (
             canSend ? (
-              <div className="text-center text-[var(--muted)] text-sm py-8">
-                Ask a question about {passageLabel ?? "this passage"}
+              <div className="py-8 text-center">
+                <p className="text-sm text-[var(--muted)]">{passageLabel ? `Ask a question about ${passageLabel}` : "Ask a question about Scripture"}</p>
+                <div className="mt-4 flex flex-col items-center gap-2">
+                  {starterQuestions.map((question) => (
+                    <button
+                      key={question}
+                      type="button"
+                      onClick={() => {
+                        setInput(question);
+                        inputRef.current?.focus();
+                      }}
+                      className="max-w-full rounded-[var(--radius-full)] border border-[var(--divider)] bg-[var(--surface)] px-3 py-1.5 text-xs text-[var(--foreground)] hover:bg-[var(--divider)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                    >
+                      {question}
+                    </button>
+                  ))}
+                </div>
               </div>
             ) : (
               <div className="mx-auto my-8 max-w-xs rounded-[var(--radius-md)] border border-[var(--divider)] bg-[var(--surface)] p-4 text-center">
                 <MessageCircle size={20} strokeWidth={1.5} className="mx-auto text-[var(--accent)]" aria-hidden="true" />
                 <p className="mt-2 text-sm font-medium text-[var(--foreground)]">Chat uses credits</p>
                 <p className="mt-1 text-xs text-[var(--muted)]">
-                  Add credits to ask questions about {passageLabel ?? "this passage"}.
+                  Add credits to ask questions about {passageLabel ?? "Scripture"}.
                 </p>
                 <button
                   type="button"
@@ -251,6 +270,10 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
                 >
                   Get Credits
                 </button>
+                <p className="mt-4 text-[11px] uppercase tracking-wider text-[var(--muted)]">You could ask</p>
+                <ul className="mt-2 space-y-1 text-xs text-[var(--muted)]">
+                  {starterQuestions.map((question) => <li key={question}>“{question}”</li>)}
+                </ul>
               </div>
             )
           )}
@@ -379,10 +402,11 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
         {/* Input and send button */}
         <div className="flex gap-3">
           <input
+            ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={!canSend}
-            placeholder={!canSend ? "Add credits to chat" : `Ask about ${passageLabel ?? "this passage"}…`}
+            placeholder={!canSend ? "Add credits to chat" : `Ask about ${passageLabel ?? "Scripture"}…`}
             aria-label="Ask about this scripture"
             className="flex-1 min-h-[44px] px-4 py-2 bg-[var(--surface)] border border-[var(--divider)] rounded-[var(--radius-full)] text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-shadow duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed"
           />
