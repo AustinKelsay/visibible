@@ -102,7 +102,9 @@ export function ScriptureReader({
       </div>
 
       {/* Verse Navigation - Desktop only (mobile has top nav) */}
-      <nav className={`hidden sm:flex items-center ${captionShowsVerse ? "" : "mt-8 pt-6 border-t border-[var(--divider)]"}`}>
+      {/* One labelled row on every desktop layout: "Previous verse · Verse n of N · Next verse",
+          with a divider above it */}
+      <nav className={`hidden sm:flex items-center border-t border-[var(--divider)] ${captionShowsVerse ? "pt-4" : "mt-8 pt-6"}`}>
         <div className="flex-1 flex justify-start">
           {prevUrl ? (
             <Link
@@ -119,17 +121,22 @@ export function ScriptureReader({
                   hasCredits: credits > 0,
                 });
               }}
-              className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] min-h-[44px] px-3 -ml-3"
+              className="flex items-center gap-2 text-[var(--foreground)] hover:text-[var(--accent)] transition-colors duration-[var(--motion-fast)] min-h-[44px] px-3 -ml-3"
               aria-label="Previous verse"
             >
               <ChevronLeft size={20} strokeWidth={1.5} />
-              <span className="text-sm">Previous</span>
+              <span className="text-sm">Previous verse</span>
             </Link>
-          ) : null}
+          ) : (
+            <span className="flex items-center gap-2 text-[var(--muted)] opacity-50 min-h-[44px] px-3 -ml-3" aria-hidden="true">
+              <ChevronLeft size={20} strokeWidth={1.5} />
+              <span className="text-sm">Previous verse</span>
+            </span>
+          )}
         </div>
 
         <span className="text-[var(--muted)] text-sm">
-          {verseNumber} of {totalVerses}
+          Verse {verseNumber} of {totalVerses}
         </span>
 
         <div className="flex-1 flex justify-end">
@@ -148,13 +155,18 @@ export function ScriptureReader({
                   hasCredits: credits > 0,
                 });
               }}
-              className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] min-h-[44px] px-3 -mr-3"
+              className="flex items-center gap-2 text-[var(--foreground)] hover:text-[var(--accent)] transition-colors duration-[var(--motion-fast)] min-h-[44px] px-3 -mr-3"
               aria-label="Next verse"
             >
-              <span className="text-sm">Next</span>
+              <span className="text-sm">Next verse</span>
               <ChevronRight size={20} strokeWidth={1.5} />
             </Link>
-          ) : null}
+          ) : (
+            <span className="flex items-center gap-2 text-[var(--muted)] opacity-50 min-h-[44px] px-3 -mr-3" aria-hidden="true">
+              <span className="text-sm">Next verse</span>
+              <ChevronRight size={20} strokeWidth={1.5} />
+            </span>
+          )}
         </div>
       </nav>
     </article>

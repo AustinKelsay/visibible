@@ -185,7 +185,7 @@ export function Header() {
           >
             <BookOpen size={20} strokeWidth={1.5} className={passage ? "min-[375px]:hidden" : ""} />
             {passage ? (
-              <span className="hidden min-[375px]:inline-flex items-center gap-0.5 rounded-full border border-[var(--divider)] px-2.5 py-1 text-xs font-medium text-[var(--foreground)] whitespace-nowrap">
+              <span className="hidden min-[375px]:inline-flex h-8 items-center gap-0.5 rounded-full border border-[var(--divider)] px-3 text-sm font-medium text-[var(--foreground)] whitespace-nowrap">
                 {passage.short}
                 <ChevronDown size={12} strokeWidth={1.75} className="text-[var(--muted)]" aria-hidden="true" />
               </span>

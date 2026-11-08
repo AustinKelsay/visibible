@@ -145,8 +145,9 @@ function VersePageBody({
     );
   }
 
+  // On phones the reader takes only the height it needs, so the footer follows Details directly
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="sm:flex-1 flex flex-col">
       <div className="relative">
         <HeroImage
           verseText={verseText}
