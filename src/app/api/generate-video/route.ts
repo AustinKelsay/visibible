@@ -139,7 +139,7 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
   if (!isEnabled())
     return Response.json(
-      { error: "Video generation is disabled." },
+      { error: "Video generation is disabled.", code: "generation_disabled" },
       { status: 403, headers: NO_STORE },
     );
 

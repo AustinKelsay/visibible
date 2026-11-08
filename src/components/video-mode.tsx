@@ -393,6 +393,15 @@ function VideoWorkspace({
               {generationOff
                 ? "Video generation is off. Your earlier request is kept and can be checked once it is back on."
                 : "This checks the same request and will not create a duplicate video."}
+              {generationOff ? (
+                <button
+                  type="button"
+                  onClick={generation.refreshConfiguration}
+                  className="ml-1 font-medium text-[var(--accent)] hover:underline"
+                >
+                  Check again
+                </button>
+              ) : null}
             </p>
           )}
           {sid && quote && !canAfford && !busy && (

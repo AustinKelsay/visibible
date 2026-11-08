@@ -11,7 +11,7 @@ Video is a separate verse mode (`?view=video`) with shared public history. It us
 5. Convex claims a lease before provider submission. After the provider ID is persisted, separate scheduled actions poll the provider and download the finished MP4 into Convex storage. Publishing and credit settlement occur in one mutation.
 6. Public queries return only completed clips. Authenticated queries show the current session's pending and failed jobs. The interface loads the latest 50 public clips; older records remain stored.
 
-The browser stores only an unacknowledged request identity for safe retry. It does not own job execution, video history, or a provider credential.
+The browser stores only an unacknowledged request identity for safe retry. It clears that identity after a definite rejection, but keeps it when the server reports generation disabled (`code: "generation_disabled"`), since an earlier attempt may still have created a job; the Video tab disables the retry until generation is back. It does not own job execution, video history, or a provider credential.
 
 ## Pricing and failure handling
 

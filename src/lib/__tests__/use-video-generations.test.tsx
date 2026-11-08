@@ -114,6 +114,17 @@ describe("durable video submission", () => {
     expect(state.request).toBeNull();
   });
 
+  it("keeps the request identity when a retry finds generation disabled", async () => {
+    post.mockResolvedValueOnce(Response.json({ error: "Unavailable" }, { status: 503 }));
+    await mount();
+    await act(async () => { await state.generate(input); });
+    const saved = state.request;
+    expect(saved).not.toBeNull();
+    post.mockResolvedValueOnce(Response.json({ error: "Video generation is disabled.", code: "generation_disabled" }, { status: 403 }));
+    await act(async () => { await state.retrySubmission(); });
+    expect(state.request).toEqual(saved);
+  });
+
   it("handles blocked local storage while keeping safe retries in memory", async () => {
     vi.stubGlobal("localStorage", { getItem: () => { throw new Error("blocked"); }, setItem: () => { throw new Error("blocked"); } });
     post.mockRejectedValueOnce(new Error("Network unavailable"));
