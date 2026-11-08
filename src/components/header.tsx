@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BookOpen, Menu, MessageCircle, X, Zap } from "lucide-react";
 import { useSession } from "@/context/session-context";
-import { trackCreditsInsufficient } from "@/lib/analytics";
+import { DEFAULT_IMAGE_ESTIMATED_CREDITS_COST } from "@/lib/image-models";
 import { useNavigation } from "@/context/navigation-context";
 import { useOptionalVerseView } from "@/context/verse-view-context";
 import { TranslationSelector } from "./translation-selector";
@@ -105,14 +105,11 @@ export function Header() {
               <HeaderGenerateButton />
               <Divider />
             </>
-          ) : isVersePage && tier !== "admin" ? (
+          ) : isVersePage && tier !== "admin" && credits < DEFAULT_IMAGE_ESTIMATED_CREDITS_COST ? (
             <>
               <button
                 type="button"
-                onClick={() => {
-                  trackCreditsInsufficient({ feature: "image", source: "header_get_credits", tier, hasCredits: credits > 0 });
-                  buyCredits();
-                }}
+                onClick={buyCredits}
                 className="inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] text-xs font-medium"
               >
                 <Zap size={14} strokeWidth={2} />

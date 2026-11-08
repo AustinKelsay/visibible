@@ -33,7 +33,7 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
 
   // Fetch models on mount so the indicator shows a readable name, and when the dropdown opens
   useEffect(() => {
-    if (!hasFetched.current && models.length === 0) {
+    if ((isOpen || models.length === 0) && !hasFetched.current) {
       hasFetched.current = true;
       setIsLoading(true);
       setError(null);
@@ -51,6 +51,7 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
         .catch((err) => {
           console.error("Failed to fetch chat models:", err);
           setError("Failed to load models");
+          hasFetched.current = false; // retry on the next open; the fallback list stays meanwhile
           // Set fallback model
           setModels([
             {

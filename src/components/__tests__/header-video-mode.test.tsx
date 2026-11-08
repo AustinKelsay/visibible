@@ -25,10 +25,6 @@ vi.mock("@/context/session-context", () => ({
   useSession: () => ({ tier: "paid", credits: 0, buyCredits: vi.fn() }),
 }));
 
-vi.mock("@/lib/analytics", () => ({
-  trackCreditsInsufficient: vi.fn(),
-}));
-
 vi.mock("@/components/translation-selector", () => ({
   TranslationSelector: () => <button aria-label="Translation">Translation</button>,
 }));
