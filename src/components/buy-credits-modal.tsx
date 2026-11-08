@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, ArrowRight, Users, Info, ImageIcon } from "lucide-react";
+import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, ArrowRight, Users, Info } from "lucide-react";
 import Image from "next/image";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
@@ -115,13 +115,19 @@ function MiniVerseStrip() {
             >
               {v.verse}
             </span>
-            {v.imageCount > 0 && (
+            {v.imageCount === 1 && (
               <span
-                className={`flex items-center gap-0.5 text-[9px] font-medium leading-3 tabular-nums transition-all duration-500 ease-in-out ${
-                  isSelected ? "text-[var(--accent-text)]/85" : "text-[var(--muted)]"
+                className={`mt-1 h-1 w-1 rounded-full transition-all duration-500 ease-in-out ${
+                  isSelected ? "bg-[var(--accent-text)]/90" : "bg-[var(--foreground)]/60"
+                }`}
+              />
+            )}
+            {v.imageCount > 1 && (
+              <span
+                className={`text-[10px] font-semibold leading-3 tabular-nums transition-all duration-500 ease-in-out ${
+                  isSelected ? "text-[var(--accent-text)]/90" : "text-[var(--foreground)]/70"
                 }`}
               >
-                <ImageIcon size={8} strokeWidth={2} aria-hidden="true" />
                 {v.imageCount}
               </span>
             )}
@@ -573,10 +579,11 @@ export function BuyCreditsModal() {
                   <p className="text-xs text-[var(--muted)]">
                     Browse existing images and videos for free, or purchase credits to generate your own.
                   </p>
-                  <div className="flex flex-col items-center -ml-8">
+                  {/* The verse strip is desktop-only, so phones skip its demo */}
+                  <div className="hidden sm:flex flex-col items-center -ml-8">
                     <MiniVerseStrip />
                     <p className="text-[10px] text-[var(--muted)]/70 tracking-wide">
-                      The small count under each verse is its number of images
+                      A dot means one saved image; a number shows how many
                     </p>
                   </div>
                 </div>

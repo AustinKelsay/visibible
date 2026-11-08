@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, ImageIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useQuery } from "convex/react";
 import { usePreferences } from "@/context/preferences-context";
 import { api } from "../../convex/_generated/api";
@@ -97,22 +97,23 @@ function VerseStripBase({
     scroller.scrollBy({ left: direction * scroller.clientWidth * 0.8, behavior: "smooth" });
   };
 
+  // Arrows float over the strip's ends, so the first verse starts at the bar's edge
   const arrowClassName =
-    "shrink-0 self-stretch w-9 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)] focus-ring disabled:opacity-0 disabled:pointer-events-none";
+    "absolute inset-y-0 z-10 w-11 flex items-center justify-center text-white/80 hover:text-white transition-opacity duration-[var(--motion-fast)] focus-ring disabled:opacity-0 disabled:pointer-events-none";
 
   return (
-    <div className="flex items-stretch">
+    <div className="relative">
       <button
         type="button"
         onClick={() => scrollByPage(-1)}
         disabled={!canScroll.back}
-        className={`${arrowClassName} rounded-l-[var(--radius-lg)]`}
+        className={`${arrowClassName} left-0 justify-start pl-1.5 rounded-l-[var(--radius-lg)] bg-gradient-to-r from-black/80 via-black/50 to-transparent`}
         aria-label="Earlier verses"
       >
         <ChevronLeft size={18} strokeWidth={1.75} />
       </button>
-      <div ref={scrollerRef} onScroll={updateScrollState} className="flex-1 min-w-0 overflow-x-auto scrollbar-hide">
-        <div className="flex gap-1 py-2">
+      <div ref={scrollerRef} onScroll={updateScrollState} className="overflow-x-auto scrollbar-hide">
+        <div className="flex gap-1 p-2">
           {verses.map((v) => {
             const isCurrent = v.verse === currentVerse;
             return (
@@ -129,14 +130,20 @@ function VerseStripBase({
                 title={`Verse ${v.verse}${v.imageCount > 0 ? ` · ${v.imageCount} image${v.imageCount !== 1 ? "s" : ""}` : " · no image yet"}`}
               >
                 <span className="text-sm font-medium leading-4">{v.verse}</span>
-                {v.imageCount > 0 && (
+                {/* Saved images: a dot for one, a count for more; the welcome screen explains it */}
+                {v.imageCount === 1 && (
                   <span
-                    aria-label={`${v.imageCount} image${v.imageCount !== 1 ? "s" : ""}`}
-                    className={`mt-0.5 flex items-center gap-0.5 text-[10px] font-medium leading-3 tabular-nums ${
-                      isCurrent ? "text-[var(--accent-text)]/85" : "text-white/60"
+                    aria-label="1 image"
+                    className={`mt-1 h-1 w-1 rounded-full ${isCurrent ? "bg-[var(--accent-text)]/90" : "bg-white/70"}`}
+                  />
+                )}
+                {v.imageCount > 1 && (
+                  <span
+                    aria-label={`${v.imageCount} images`}
+                    className={`mt-0.5 text-[11px] font-semibold leading-3 tabular-nums ${
+                      isCurrent ? "text-[var(--accent-text)]/90" : "text-white/80"
                     }`}
                   >
-                    <ImageIcon size={9} strokeWidth={2} aria-hidden="true" />
                     {v.imageCount}
                   </span>
                 )}
@@ -149,7 +156,7 @@ function VerseStripBase({
         type="button"
         onClick={() => scrollByPage(1)}
         disabled={!canScroll.forward}
-        className={arrowClassName}
+        className={`${arrowClassName} right-0 justify-end pr-1.5 bg-gradient-to-l from-black/80 via-black/50 to-transparent`}
         aria-label="Later verses"
       >
         <ChevronRight size={18} strokeWidth={1.75} />

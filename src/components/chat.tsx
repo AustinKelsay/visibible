@@ -266,8 +266,9 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
                 <button
                   type="button"
                   onClick={buyCredits}
-                  className="mt-3 min-h-[40px] px-4 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] text-sm font-medium hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                  className="mt-3 min-h-[40px] px-4 rounded-[var(--radius-full)] border border-[var(--accent)] bg-[var(--accent)] text-[var(--accent-text)] text-sm font-medium hover:bg-[var(--accent-hover)] md:bg-transparent md:text-[var(--accent)] md:hover:bg-[var(--accent)]/10 transition-colors duration-[var(--motion-fast)] focus-ring"
                 >
+                  {/* Solid on phones; outlined on desktop, where the header already has the blue Get Credits button */}
                   Get Credits
                 </button>
                 <p className="mt-4 text-[11px] uppercase tracking-wider text-[var(--muted)]">You could ask</p>
