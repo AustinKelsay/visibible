@@ -502,7 +502,7 @@ export function BuyCreditsModal() {
       />
 
       {/* Modal */}
-      <div className="relative w-full md:max-w-md bg-[var(--background)] rounded-t-[var(--radius-lg)] md:rounded-[var(--radius-lg)] p-6 animate-in slide-in-from-bottom md:slide-in-from-bottom-0 md:fade-in duration-[var(--motion-base)]">
+      <div className="relative w-full md:max-w-md max-h-[calc(100svh-env(safe-area-inset-top))] overflow-y-auto bg-[var(--background)] rounded-t-[var(--radius-lg)] md:rounded-[var(--radius-lg)] p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] animate-in slide-in-from-bottom md:slide-in-from-bottom-0 md:fade-in duration-[var(--motion-base)]">
         {/* Close button */}
         <button
           onClick={handleClose}

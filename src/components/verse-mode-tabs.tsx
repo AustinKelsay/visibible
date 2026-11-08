@@ -41,7 +41,7 @@ export function VerseModeTabs({ idPrefix }: { idPrefix: string }) {
       aria-label="Verse mode"
     >
       <div
-        className="max-w-5xl mx-auto px-4 flex gap-1"
+        className="max-w-6xl mx-auto px-4 md:px-6 flex gap-1"
         role="tablist"
         aria-label="Verse mode"
         onBlur={(event) => {

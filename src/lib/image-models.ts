@@ -79,6 +79,12 @@ export function computeCreditsFromActualUsage(
 
 export const DEFAULT_IMAGE_MODEL = "google/gemini-3.1-flash-lite-image";
 
+/** Readable fallback from a model id, e.g. "google/gemini-3.1-flash-lite-image" -> "Gemini 3.1 Flash Lite". */
+export function formatModelId(modelId: string): string {
+  const name = modelId.split("/").pop() || modelId;
+  return name.replace(/-image$/i, "").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).trim();
+}
+
 /** Display label without the "Provider: " prefix and trailing "(…)" detail, e.g. "Nano Banana 2 Lite". */
 export function shortImageModelName(name: string): string {
   return name.replace(/^[^:]+:\s*/, "").replace(/\s*\(.*\)$/, "");

@@ -107,6 +107,13 @@ function BookMenuBase({
   const [selectedChapter, setSelectedChapter] = selectedChapterState ?? [localSelectedChapter, setLocalSelectedChapter];
 
   const [view, setView] = useState<MenuView>("books");
+  const [bookQuery, setBookQuery] = useState("");
+  // Current passage from the URL, used to mark where the reader is
+  const [currentSlug, currentChapterRaw, currentVerseRaw] = pathname.split("/").filter(Boolean);
+  const currentChapter = Number(currentChapterRaw) || null;
+  const currentVerse = Number(currentVerseRaw) || null;
+  const query = bookQuery.trim().toLowerCase();
+  const filteredBooks = query ? BIBLE_BOOKS.filter((b) => b.name.toLowerCase().includes(query)) : [];
 
   const oldTestament = BIBLE_BOOKS.filter((b) => b.testament === "old");
   const newTestament = BIBLE_BOOKS.filter((b) => b.testament === "new");
@@ -126,6 +133,7 @@ function BookMenuBase({
 
   const handleVerseSelect = () => {
     closeMenu();
+    setBookQuery("");
     setView("books");
     setSelectedBook(null);
     setSelectedChapter(null);
@@ -155,13 +163,37 @@ function BookMenuBase({
     return "Select Passage";
   };
 
+  const renderBookRow = (book: BibleBook, indent = true) => {
+    const isCurrent = book.slug === currentSlug;
+    return (
+      <button
+        key={book.id}
+        onClick={() => handleBookSelect(book)}
+        aria-current={isCurrent ? "location" : undefined}
+        className={`w-full flex items-center justify-between px-4 py-2.5 ${indent ? "pl-10" : ""} text-left transition-colors ${
+          isCurrent ? "bg-[var(--surface)] font-medium" : "hover:bg-[var(--surface)]"
+        }`}
+      >
+        <span className="flex items-center gap-2">
+          <span>{book.name}</span>
+          {booksWithImagesSet.has(book.slug) && (
+            <span className="w-2 h-2 rounded-full border border-[var(--background)]/30 bg-[var(--accent)]" />
+          )}
+        </span>
+        <span className="text-sm text-[var(--muted)]">
+          {isCurrent && currentChapter ? `Reading ${currentChapter}` : `${book.chapters.length} ch`}
+        </span>
+      </button>
+    );
+  };
+
   const showBackButton = view !== "books";
 
   return (
     <>
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/50 z-[55] transition-opacity duration-300 ${
           isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={closeMenu}
@@ -169,7 +201,7 @@ function BookMenuBase({
 
       {/* Slide-out Panel */}
       <div
-        className={`fixed top-0 right-0 h-full w-full sm:w-80 sm:max-w-[85vw] bg-[var(--background)] z-50 flex flex-col transform transition-transform duration-300 ease-out ${
+        className={`fixed top-0 right-0 h-full w-full sm:w-80 sm:max-w-[85vw] bg-[var(--background)] z-[56] flex flex-col transform transition-transform duration-300 ease-out ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
         style={{ paddingTop: 'env(safe-area-inset-top)' }}
@@ -186,9 +218,17 @@ function BookMenuBase({
               >
                 <ArrowLeft size={20} strokeWidth={1.5} />
               </button>
-              <h2 className="text-lg font-semibold flex-1 text-center pr-8">
+              <h2 className="text-lg font-semibold flex-1 text-center">
                 {getHeaderTitle()}
               </h2>
+              <button
+                onClick={closeMenu}
+                className="min-h-[44px] min-w-[44px] -mr-2 flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
+                aria-label="Close menu"
+                title="Close"
+              >
+                <X size={20} strokeWidth={1.5} />
+              </button>
             </>
           ) : (
             <>
@@ -217,6 +257,16 @@ function BookMenuBase({
                 <span className="text-sm font-medium text-[var(--muted)]">Translation — {translationInfo.code}</span>
                 <TranslationSelector variant="compact" />
               </div>
+              <div className="px-4 py-3 border-b border-[var(--divider)]">
+                <input
+                  type="search"
+                  value={bookQuery}
+                  onChange={(event) => setBookQuery(event.target.value)}
+                  placeholder="Find a book"
+                  aria-label="Find a book"
+                  className="w-full min-h-[40px] px-3 rounded-[var(--radius-md)] bg-[var(--surface)] border border-[var(--divider)] text-sm text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                />
+              </div>
               {booksWithImagesSet.size > 0 && (
                 <p className="flex items-center gap-2 px-4 py-2 text-xs text-[var(--muted)] border-b border-[var(--divider)]">
                   <span className="w-2 h-2 rounded-full bg-[var(--accent)]" aria-hidden="true" />
@@ -224,6 +274,14 @@ function BookMenuBase({
                 </p>
               )}
 
+              {query ? (
+                <div className="py-2">
+                  {filteredBooks.length > 0
+                    ? filteredBooks.map((book) => renderBookRow(book, false))
+                    : <p className="px-4 py-3 text-sm text-[var(--muted)]">No books match “{bookQuery.trim()}”.</p>}
+                </div>
+              ) : (
+              <>
               {/* Old Testament Section */}
               <button
                 onClick={() => toggleTestament("old")}
@@ -249,23 +307,7 @@ function BookMenuBase({
               </button>
               {expandedTestament === "old" && (
                 <div className="pb-2">
-                  {oldTestament.map((book) => (
-                    <button
-                      key={book.id}
-                      onClick={() => handleBookSelect(book)}
-                      className="w-full flex items-center justify-between px-4 py-2.5 pl-10 text-left hover:bg-[var(--surface)] transition-colors"
-                    >
-                      <span className="flex items-center gap-2">
-                        <span>{book.name}</span>
-                        {booksWithImagesSet.has(book.slug) && (
-                          <span className="w-2 h-2 rounded-full border border-[var(--background)]/30 bg-[var(--accent)]" />
-                        )}
-                      </span>
-                      <span className="text-sm text-[var(--muted)]">
-                        {book.chapters.length} ch
-                      </span>
-                    </button>
-                  ))}
+                  {oldTestament.map((book) => renderBookRow(book))}
                 </div>
               )}
 
@@ -294,24 +336,10 @@ function BookMenuBase({
               </button>
               {expandedTestament === "new" && (
                 <div className="pb-2">
-                  {newTestament.map((book) => (
-                    <button
-                      key={book.id}
-                      onClick={() => handleBookSelect(book)}
-                      className="w-full flex items-center justify-between px-4 py-2.5 pl-10 text-left hover:bg-[var(--surface)] transition-colors"
-                    >
-                      <span className="flex items-center gap-2">
-                        <span>{book.name}</span>
-                        {booksWithImagesSet.has(book.slug) && (
-                          <span className="w-2 h-2 rounded-full border border-[var(--background)]/30 bg-[var(--accent)]" />
-                        )}
-                      </span>
-                      <span className="text-sm text-[var(--muted)]">
-                        {book.chapters.length} ch
-                      </span>
-                    </button>
-                  ))}
+                  {newTestament.map((book) => renderBookRow(book))}
                 </div>
+              )}
+              </>
               )}
             </>
           )}
@@ -329,15 +357,17 @@ function BookMenuBase({
                   <button
                     key={chapter}
                     onClick={() => handleChapterSelect(chapter)}
-                    className="flex flex-col items-center justify-center h-12 sm:h-11 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)] transition-colors"
+                    aria-current={selectedBook.slug === currentSlug && chapter === currentChapter ? "location" : undefined}
+                    className={`flex flex-col items-center justify-center h-12 sm:h-11 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)] transition-colors ${
+                      selectedBook.slug === currentSlug && chapter === currentChapter ? "ring-2 ring-[var(--accent)]" : ""
+                    }`}
                   >
                     <span className="text-sm font-medium">{chapter}</span>
                     <span
-                      className={`w-2 h-2 rounded-full border border-[var(--background)]/30 mt-0.5 ${
-                        chaptersWithImagesSet.has(chapter)
-                          ? "bg-[var(--accent)]"
-                          : "bg-[var(--muted)]/30"
+                      className={`w-1.5 h-1.5 rounded-full mt-0.5 ${
+                        chaptersWithImagesSet.has(chapter) ? "bg-[var(--accent)]" : "bg-transparent"
                       }`}
+                      aria-hidden="true"
                     />
                   </button>
                 ))}
@@ -359,7 +389,10 @@ function BookMenuBase({
                     key={verse}
                     href={`/${selectedBook.slug}/${selectedChapter}/${verse}`}
                     onClick={handleVerseSelect}
-                    className="relative flex items-center justify-center h-12 sm:h-11 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)] transition-colors"
+                    aria-current={selectedBook.slug === currentSlug && selectedChapter === currentChapter && verse === currentVerse ? "location" : undefined}
+                    className={`relative flex items-center justify-center h-12 sm:h-11 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)] transition-colors ${
+                      selectedBook.slug === currentSlug && selectedChapter === currentChapter && verse === currentVerse ? "ring-2 ring-[var(--accent)]" : ""
+                    }`}
                   >
                     <span className="text-sm font-medium">{verse}</span>
                     {versesWithImages.has(verse) && (

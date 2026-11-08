@@ -3,7 +3,9 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Menu, MessageCircle, X } from "lucide-react";
+import { BookOpen, Menu, MessageCircle, X, Zap } from "lucide-react";
+import { useSession } from "@/context/session-context";
+import { trackCreditsInsufficient } from "@/lib/analytics";
 import { useNavigation } from "@/context/navigation-context";
 import { useOptionalVerseView } from "@/context/verse-view-context";
 import { TranslationSelector } from "./translation-selector";
@@ -29,6 +31,7 @@ export function Header() {
   const verseView = useOptionalVerseView();
   const { toggleMenu, toggleChat, isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu } = useNavigation();
   const menuRef = useRef<HTMLDivElement>(null);
+  const { tier, credits, buyCredits } = useSession();
   const isBrandLinkPage = pathname === "/about" || pathname === "/api-docs";
   const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname) && verseView !== null;
   const videoOpen = verseView?.effectiveView === "video";
@@ -56,7 +59,7 @@ export function Header() {
       style={{ paddingTop: 'env(safe-area-inset-top)' }}
       ref={menuRef}
     >
-      <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 h-14 flex items-center justify-between">
         {/* Brand */}
         <h1 className="text-base sm:text-lg font-semibold tracking-tight">
           {isBrandLinkPage ? (
@@ -83,12 +86,15 @@ export function Header() {
           {/* Settings Group */}
           <div className="flex items-center">
             <TranslationSelector variant="compact" />
-            {!videoOpen && (
-              <>
-                <ArtStyleSelector variant="compact" />
-                <HeaderSettingsPopover />
-              </>
-            )}
+            {/* Image controls stay in place on every tab; they only apply to the Images tab */}
+            <div
+              className={`flex items-center ${videoOpen ? "opacity-40" : ""}`}
+              inert={videoOpen}
+              title={videoOpen ? "Image settings apply on the Images tab" : undefined}
+            >
+              <ArtStyleSelector variant="compact" />
+              <HeaderSettingsPopover />
+            </div>
           </div>
 
           <Divider />
@@ -97,6 +103,21 @@ export function Header() {
           {isVersePage && readerOpen ? (
             <>
               <HeaderGenerateButton />
+              <Divider />
+            </>
+          ) : isVersePage && tier !== "admin" ? (
+            <>
+              <button
+                type="button"
+                onClick={() => {
+                  trackCreditsInsufficient({ feature: "image", source: "header_get_credits", tier, hasCredits: credits > 0 });
+                  buyCredits();
+                }}
+                className="inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] text-xs font-medium"
+              >
+                <Zap size={14} strokeWidth={2} />
+                <span>Get Credits</span>
+              </button>
               <Divider />
             </>
           ) : null}
@@ -151,6 +172,15 @@ export function Header() {
         </nav>
       </div>
 
+      {/* Mobile settings backdrop: dims the page below the header and closes on tap */}
+      {isHeaderMenuOpen && (
+        <div
+          className="sm:hidden fixed inset-x-0 bottom-0 top-[calc(3.5rem+1px+env(safe-area-inset-top))] z-40 bg-black/40"
+          onClick={closeHeaderMenu}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Mobile Settings Dropdown */}
       {isHeaderMenuOpen && (
         <div className="sm:hidden absolute top-full left-0 right-0 bg-[var(--background)] border-b border-[var(--divider)] shadow-lg z-50">
@@ -167,7 +197,7 @@ export function Header() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium text-[var(--foreground)]">Art Style</span>
-                  <ArtStyleSelector variant="full" source="mobile_header_menu" />
+                  <ArtStyleSelector variant="compact" source="mobile_header_menu" />
                 </div>
               </>
             )}

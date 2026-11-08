@@ -133,7 +133,7 @@ function VideoWorkspace({
 
   return (
     <section
-      className="max-w-5xl mx-auto w-full px-4 py-6 sm:py-8 space-y-6"
+      className="max-w-6xl mx-auto w-full px-4 md:px-6 py-6 sm:py-8 space-y-6"
       aria-label="Verse videos"
     >
       <div className="flex flex-wrap items-start justify-between gap-4">
@@ -173,9 +173,11 @@ function VideoWorkspace({
         </nav>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,1fr)]">
+      <div className={generationOff ? "grid gap-6" : "grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,1fr)]"}>
         <div className="space-y-3">
-          <div className="relative aspect-video overflow-hidden rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] flex items-center justify-center">
+          <div className={`relative aspect-video overflow-hidden rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] flex items-center justify-center ${
+            generationOff && !(selected?.status === "completed" && selected.videoUrl) ? "max-h-80" : ""
+          }`}>
             {selected?.status === "completed" && selected.videoUrl ? (
               <video
                 key={selected.id}
@@ -260,6 +262,7 @@ function VideoWorkspace({
           )}
         </div>
 
+        {!generationOff && (
         <form
           className="space-y-4 rounded-[var(--radius-lg)] border border-[var(--divider)] p-5"
           onSubmit={(event) => {
@@ -420,6 +423,7 @@ function VideoWorkspace({
             </p>
           )}
         </form>
+        )}
       </div>
 
       <div className="border-t border-[var(--divider)] pt-6">
