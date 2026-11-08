@@ -15,11 +15,16 @@ import { CreditsBadge } from "./credits-badge";
 import { HeaderSettingsPopover, MobileSettingsRows } from "./header-settings-popover";
 import { HeaderGenerateButton } from "./header-generate-button";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
+import { bookAbbreviation } from "@/data/book-abbreviations";
 
-function passageLabelFromPath(pathname: string): string | null {
+function passageFromPath(pathname: string): { full: string; short: string } | null {
   const [slug, chapter, verse] = pathname.split("/").filter(Boolean);
   const book = slug ? BOOK_BY_SLUG[slug] : undefined;
-  return book && chapter && verse ? `${book.name} ${chapter}:${verse}` : null;
+  if (!book || !chapter || !verse) return null;
+  return {
+    full: `${book.name} ${chapter}:${verse}`,
+    short: `${bookAbbreviation(book.id, book.name)} ${chapter}:${verse}`,
+  };
 }
 
 function Divider() {
@@ -37,7 +42,8 @@ export function Header() {
   const videoOpen = verseView?.effectiveView === "video";
   // Generate and image settings register only while the reader's image is mounted.
   const readerOpen = verseView?.effectiveView === "reader";
-  const passageLabel = isVersePage ? passageLabelFromPath(pathname) : null;
+  const passage = isVersePage ? passageFromPath(pathname) : null;
+  const passageLabel = passage?.full ?? null;
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -78,6 +84,29 @@ export function Header() {
 
         {/* Desktop Actions - hidden on mobile */}
         <nav className="hidden sm:flex items-center">
+          {/* The passage is the main way to navigate, so it leads the controls and, on wide screens,
+              reads as a button */}
+          <button
+            className={`min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] ${
+              passageLabel
+                ? "lg:min-h-[36px] lg:gap-1.5 lg:px-3 lg:rounded-full lg:border lg:border-[var(--divider)] lg:text-[var(--foreground)] lg:hover:bg-[var(--surface)]"
+                : ""
+            }`}
+            aria-label="Open book navigation"
+            title="Navigate"
+            onClick={toggleMenu}
+          >
+            <BookOpen size={passageLabel ? 18 : 20} strokeWidth={1.5} />
+            {passageLabel ? (
+              <>
+                <span className="hidden lg:inline text-sm font-medium">{passageLabel}</span>
+                <ChevronDown size={14} strokeWidth={1.75} className="hidden lg:block text-[var(--muted)]" aria-hidden="true" />
+              </>
+            ) : null}
+          </button>
+
+          <Divider />
+
           {/* Credits - Primary CTA */}
           <CreditsBadge />
 
@@ -132,25 +161,6 @@ export function Header() {
             >
               <MessageCircle size={20} strokeWidth={1.5} />
             </button>
-            {/* The passage is the main way to navigate, so on wide screens it reads as a button */}
-            <button
-              className={`min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] ${
-                passageLabel
-                  ? "lg:ml-1 lg:min-h-[36px] lg:gap-1.5 lg:px-3 lg:rounded-full lg:border lg:border-[var(--divider)] lg:text-[var(--foreground)] lg:hover:bg-[var(--surface)]"
-                  : ""
-              }`}
-              aria-label="Open book navigation"
-              title="Navigate"
-              onClick={toggleMenu}
-            >
-              <BookOpen size={passageLabel ? 18 : 20} strokeWidth={1.5} />
-              {passageLabel ? (
-                <>
-                  <span className="hidden lg:inline text-sm font-medium">{passageLabel}</span>
-                  <ChevronDown size={14} strokeWidth={1.75} className="hidden lg:block text-[var(--muted)]" aria-hidden="true" />
-                </>
-              ) : null}
-            </button>
           </div>
         </nav>
 
@@ -165,12 +175,21 @@ export function Header() {
           >
             <MessageCircle size={20} strokeWidth={1.5} />
           </button>
+          {/* Phones show where you are ("Gen 1:1"); the narrowest keep the book icon */}
           <button
-            className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
-            aria-label="Open book navigation"
+            className={`min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] ${
+              passage ? "min-[375px]:min-w-0 min-[375px]:px-1" : ""
+            }`}
+            aria-label={passage ? `Open book navigation, ${passage.full}` : "Open book navigation"}
             onClick={toggleMenu}
           >
-            <BookOpen size={20} strokeWidth={1.5} />
+            <BookOpen size={20} strokeWidth={1.5} className={passage ? "min-[375px]:hidden" : ""} />
+            {passage ? (
+              <span className="hidden min-[375px]:inline-flex items-center gap-0.5 rounded-full border border-[var(--divider)] px-2.5 py-1 text-xs font-medium text-[var(--foreground)] whitespace-nowrap">
+                {passage.short}
+                <ChevronDown size={12} strokeWidth={1.75} className="text-[var(--muted)]" aria-hidden="true" />
+              </span>
+            ) : null}
           </button>
           <button
             className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"

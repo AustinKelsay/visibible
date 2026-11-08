@@ -1575,7 +1575,7 @@ function HeroImageBase({
         <p className="sm:hidden px-4 py-2 text-center text-xs text-[var(--muted)]">{pricingUnavailable}</p>
       ) : null}
 
-      {/* Caption over the painting - desktop only; ScriptureReader shows the verse below on every size */}
+      {/* Caption over the painting - desktop only; ScriptureReader repeats the verse below only when it is too long for this caption */}
       {caption && displayImage?.url && (
         <figcaption className="hidden sm:block pointer-events-none absolute inset-x-0 sm:bottom-20 md:bottom-24 z-10 px-4 md:px-6">
           <p className="mb-2 text-center text-xs uppercase tracking-[0.2em] text-white/70">

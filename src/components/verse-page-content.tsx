@@ -163,7 +163,7 @@ function VersePageBody({
           testament={testament}
         />
 
-        <div className="hidden sm:block absolute left-4 md:left-6 right-4 md:right-6 top-4 z-20 rounded-[var(--radius-lg)] liquid-glass">
+        <div className="hidden sm:block absolute left-4 md:left-6 right-4 md:right-6 top-4 z-20 rounded-[var(--radius-lg)] liquid-glass verse-strip-track">
           <VerseStripBar
             book={bookSlug}
             chapter={chapter}

@@ -140,7 +140,7 @@ function VerseStripBase({
                 {v.imageCount > 1 && (
                   <span
                     aria-label={`${v.imageCount} images`}
-                    className={`mt-0.5 text-[11px] font-semibold leading-3 tabular-nums ${
+                    className={`mt-0.5 text-xs font-semibold leading-3 tabular-nums ${
                       isCurrent ? "text-[var(--accent-text)]/90" : "text-white/80"
                     }`}
                   >
