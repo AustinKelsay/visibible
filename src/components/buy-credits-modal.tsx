@@ -5,6 +5,8 @@ import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, 
 import Image from "next/image";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
+import { usePreferences } from "@/context/preferences-context";
+import { getEstimatedCreditsCostForResolution, type ImageModel } from "@/lib/image-models";
 import {
   trackCreditsModalOpened,
   trackCreditsModalClosed,
@@ -179,6 +181,29 @@ export function BuyCreditsModal() {
   const [adminError, setAdminError] = useState<string | null>(null);
   const [adminSubmitting, setAdminSubmitting] = useState(false);
   const [selectedBundle, setSelectedBundle] = useState<CreditBundle>(CREDIT_BUNDLES[1]);
+
+  // What a pack buys: the current image model's estimated cost at the chosen resolution,
+  // from the same catalog the settings menu uses. Left out when pricing is unavailable.
+  const { imageModel, imageResolution } = usePreferences();
+  const [imageCost, setImageCost] = useState<number | null>(null);
+  useEffect(() => {
+    if (!isBuyModalOpen || state !== "selection") return;
+    let cancelled = false;
+    fetch("/api/image-models", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((data: { models?: ImageModel[] }) => {
+        if (cancelled) return;
+        const model = data.models?.find((m) => m.id === imageModel);
+        const cost = model ? getEstimatedCreditsCostForResolution(model, imageResolution) : null;
+        setImageCost(cost && cost > 0 ? cost : null);
+      })
+      .catch(() => {
+        if (!cancelled) setImageCost(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [isBuyModalOpen, state, imageModel, imageResolution]);
 
   /**
    * Creates a new Lightning invoice for purchasing credits.
@@ -552,8 +577,8 @@ export function BuyCreditsModal() {
                   <p className="text-sm font-medium text-[var(--foreground)] mb-1">
                     Generate visuals verse by verse
                   </p>
-                  <p className="text-xs text-[var(--muted)]">
-                    Watch as AI transforms scripture into stunning, real-time imagery. Each verse comes alive with unique visual interpretations.
+                  <p className="text-sm text-[var(--muted)]">
+                    An AI painting for each verse, made as you read.
                   </p>
                 </div>
               </div>
@@ -564,8 +589,8 @@ export function BuyCreditsModal() {
                   <p className="text-sm font-medium text-[var(--foreground)] mb-1">
                     Help build the visual Bible
                   </p>
-                  <p className="text-xs text-[var(--muted)]">
-                    Credits fund new images and videos. Everything created here becomes part of a growing library anyone can explore for free.
+                  <p className="text-sm text-[var(--muted)]">
+                    Credits fund new images and videos, and everything made joins a library anyone can browse for free.
                   </p>
                 </div>
               </div>
@@ -576,8 +601,8 @@ export function BuyCreditsModal() {
                   <p className="text-sm font-medium text-[var(--foreground)] mb-1">
                     Participate in the experience
                   </p>
-                  <p className="text-xs text-[var(--muted)]">
-                    Browse existing images and videos for free, or purchase credits to generate your own.
+                  <p className="text-sm text-[var(--muted)]">
+                    Browse for free, or get credits to make your own.
                   </p>
                   {/* The verse strip is desktop-only, so phones skip its demo */}
                   <div className="hidden sm:flex flex-col items-center -ml-8">
@@ -667,6 +692,11 @@ export function BuyCreditsModal() {
                         <p className="text-xs text-[var(--muted)]">
                           {bundle.credits} credits
                         </p>
+                        {imageCost ? (
+                          <p className="mt-0.5 text-xs text-[var(--foreground)]/80">
+                            About {Math.floor(bundle.credits / imageCost)} images
+                          </p>
+                        ) : null}
                       </button>
                     );
                   })}

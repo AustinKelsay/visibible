@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, type KeyboardEvent } from "react";
-import { Sparkles, Loader2, Zap, X, Layers } from "lucide-react";
+import { Sparkles, Loader2, Zap, X, Layers, SlidersHorizontal } from "lucide-react";
 import { createPortal } from "react-dom";
 import { useGeneration } from "@/context/generation-context";
 import { useSession } from "@/context/session-context";
@@ -172,8 +172,28 @@ export function HeaderGenerateButton() {
           </button>
         </>
       ) : pricingUnavailable ? (
-        <button onClick={() => openGenerateModal("single")} title={pricingUnavailable}
-          className="text-xs px-3 py-2 text-[var(--muted)]">Choose model</button>
+        <>
+          {/* Same icon-on-phone, labelled-on-desktop pattern as the other states, so it fits the phone header */}
+          <button
+            type="button"
+            onClick={() => openGenerateModal("single")}
+            title={pricingUnavailable}
+            className={`${mobileIconBtn} text-[var(--muted)] hover:text-[var(--foreground)]`}
+            aria-label="Choose model"
+          >
+            <SlidersHorizontal size={20} strokeWidth={1.5} />
+          </button>
+          <button
+            type="button"
+            onClick={() => openGenerateModal("single")}
+            title={pricingUnavailable}
+            className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] border border-[var(--divider)] bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--foreground)] text-xs font-medium transition-colors duration-[var(--motion-fast)]"
+            aria-label="Choose model"
+          >
+            <SlidersHorizontal size={14} strokeWidth={2} />
+            <span>Choose model</span>
+          </button>
+        </>
       ) : canGenerate ? (
         <>
           <button

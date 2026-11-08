@@ -185,7 +185,7 @@ function VersePageBody({
         />
       </div>
 
-      <div className="max-w-2xl mx-auto w-full mb-8">
+      <div className="max-w-2xl mx-auto w-full mb-4 sm:mb-8">
         <ScriptureDetails
           book={bookName}
           chapter={chapter}

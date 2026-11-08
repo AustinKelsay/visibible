@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Menu, MessageCircle, X, Zap } from "lucide-react";
+import { BookOpen, ChevronDown, Menu, MessageCircle, X, Zap } from "lucide-react";
 import { useSession } from "@/context/session-context";
 import { DEFAULT_IMAGE_ESTIMATED_CREDITS_COST } from "@/lib/image-models";
 import { useNavigation } from "@/context/navigation-context";
@@ -132,14 +132,24 @@ export function Header() {
             >
               <MessageCircle size={20} strokeWidth={1.5} />
             </button>
+            {/* The passage is the main way to navigate, so on wide screens it reads as a button */}
             <button
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
+              className={`min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] ${
+                passageLabel
+                  ? "lg:ml-1 lg:min-h-[36px] lg:gap-1.5 lg:px-3 lg:rounded-full lg:border lg:border-[var(--divider)] lg:text-[var(--foreground)] lg:hover:bg-[var(--surface)]"
+                  : ""
+              }`}
               aria-label="Open book navigation"
               title="Navigate"
               onClick={toggleMenu}
             >
-              <BookOpen size={20} strokeWidth={1.5} />
-              {passageLabel ? <span className="ml-1.5 hidden lg:inline text-xs font-medium">{passageLabel}</span> : null}
+              <BookOpen size={passageLabel ? 18 : 20} strokeWidth={1.5} />
+              {passageLabel ? (
+                <>
+                  <span className="hidden lg:inline text-sm font-medium">{passageLabel}</span>
+                  <ChevronDown size={14} strokeWidth={1.75} className="hidden lg:block text-[var(--muted)]" aria-hidden="true" />
+                </>
+              ) : null}
             </button>
           </div>
         </nav>

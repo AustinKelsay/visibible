@@ -9,7 +9,7 @@ import {
   type MouseEvent as ReactMouseEvent,
   type SetStateAction, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, ImageOff, Maximize2, X } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, ImageOff, Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
 import { usePreferences } from "@/context/preferences-context";
 import { api } from "../../convex/_generated/api";
@@ -214,7 +214,8 @@ function GalleryCard({
         <p className="flex flex-wrap items-baseline justify-between gap-x-2 text-sm font-medium text-[var(--foreground)]">
           <span>{bookName} {chapter}:{item.verse}</span>
           <span className="shrink-0 text-xs font-normal text-[var(--muted)]">
-            {item.isPlaceholder ? "No image yet" : item.imageCount > 1 ? `Image ${item.cardIndex + 1} of ${item.imageCount}` : null}
+            {/* Every card gets a second line, so cards in a row stay the same height */}
+            {item.isPlaceholder ? "No image yet" : item.imageCount > 1 ? `Image ${item.cardIndex + 1} of ${item.imageCount}` : "1 image"}
           </span>
         </p>
         )}
@@ -531,7 +532,7 @@ export function ChapterGallery({
   const placeholderCount = flatItems.filter((item) => item.isPlaceholder).length;
   const filterSummary = isLoading
     ? "Checking saved art..."
-    : `${savedImageCount} saved image${savedImageCount === 1 ? "" : "s"} · ${placeholderCount} empty`;
+    : `${savedImageCount} saved image${savedImageCount === 1 ? "" : "s"}${placeholderCount > 0 ? ` · ${placeholderCount} without an image` : ""}`;
 
   useEffect(() => {
     if (!isGalleryActive) return;
@@ -873,9 +874,10 @@ export function ChapterGallery({
                 <Link
                   href={buildReaderHref(lightboxItem.href, lightboxItem.imageId)}
                   onClick={(event) => handleNavigateToReader(event, lightboxItem)}
-                  className="text-white/80 underline-offset-2 hover:text-white hover:underline focus-ring"
+                  className="inline-flex min-h-[36px] items-center gap-1.5 rounded-full border border-white/25 px-3 text-sm text-white/90 hover:bg-white/10 hover:text-white transition-colors duration-[var(--motion-fast)] focus-ring"
                 >
                   Open in reader
+                  <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden="true" />
                 </Link>
               </div>
             </div>
