@@ -92,10 +92,11 @@ describe("Header Video mode", () => {
   }
 
   function expectImageControls(visible: boolean) {
-    for (const label of ["Image model", "Art style", "Generate image"]) {
+    for (const label of ["Art style", "Generate image"]) {
       expect(container?.querySelectorAll(`button[aria-label="${label}"]`)).toHaveLength(visible ? 2 : 0);
     }
-    for (const label of ["Image settings", "Image resolution"]) {
+    // Desktop chooses the model inside the image settings popover; mobile keeps its own row.
+    for (const label of ["Image model", "Image settings", "Image resolution"]) {
       expect(container?.querySelectorAll(`button[aria-label="${label}"]`)).toHaveLength(visible ? 1 : 0);
     }
   }

@@ -4,16 +4,42 @@ import { useState, useEffect, useRef } from "react";
 import { Settings, ChevronDown, Zap } from "lucide-react";
 import {
   ASPECT_RATIOS,
+  getEstimatedCreditsCostForResolution,
+  shortImageModelName,
+  type ImageModel,
   RESOLUTIONS,
   type ImageAspectRatio,
   type ImageResolution,
   supportsResolution,
 } from "@/lib/image-models";
 import { useGeneration } from "@/context/generation-context";
+import { usePreferences } from "@/context/preferences-context";
 
 export function HeaderSettingsPopover() {
   const { state, isRegistered, setAspectRatio, setResolution } = useGeneration();
+  const { imageModel, setImageModel } = usePreferences();
   const [isOpen, setIsOpen] = useState(false);
+  const [models, setModels] = useState<ImageModel[]>([]);
+  const [modelsFailed, setModelsFailed] = useState(false);
+
+  // Fresh model list and prices each time the popover opens
+  useEffect(() => {
+    if (!isOpen) return;
+    let cancelled = false;
+    fetch("/api/image-models", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((data) => {
+        if (cancelled) return;
+        const loaded = Array.isArray(data.models) && data.models.length > 0;
+        if (loaded) setModels(data.models);
+        setModelsFailed(!loaded);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch image models:", error);
+        if (!cancelled) setModelsFailed(true);
+      });
+    return () => { cancelled = true; };
+  }, [isOpen]);
   const popoverRef = useRef<HTMLDivElement>(null);
 
   const { aspectRatio, resolution, displayCostByResolution, showCreditsCost, modelId } = state;
@@ -47,7 +73,42 @@ export function HeaderSettingsPopover() {
         />
       </button>
       {isOpen && (
-        <div className="absolute top-full mt-1 right-0 w-56 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
+        <div className="absolute top-full mt-1 right-0 w-64 max-h-[calc(100svh-5rem)] overflow-y-auto rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50">
+          {/* Model Section */}
+          {(models.length > 0 || modelsFailed) && (
+            <div className="px-3 py-2 border-b border-[var(--divider)]/50">
+              <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-1">Model</p>
+              {models.length === 0 && (
+                <p className="px-2 py-1.5 text-xs text-[var(--muted)]">Model list unavailable. Reopen to try again.</p>
+              )}
+              {models.map((model) => {
+                const available = model.availability !== "unavailable" &&
+                  getEstimatedCreditsCostForResolution(model, "1K") !== null;
+                const cost = getEstimatedCreditsCostForResolution(model, resolution);
+                return (
+                  <button
+                    key={model.id}
+                    type="button"
+                    aria-pressed={imageModel === model.id}
+                    onClick={() => available && setImageModel(model.id, "header_settings_popover")}
+                    disabled={!available}
+                    className={`w-full px-2 py-1.5 flex items-center justify-between gap-2 text-left text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
+                      imageModel === model.id ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
+                    } ${!available ? "opacity-60" : ""}`}
+                  >
+                    <span className="truncate">{shortImageModelName(model.name)}</span>
+                    {showCreditsCost && cost !== null && (
+                      <span className="inline-flex shrink-0 items-center gap-1 text-xs text-[var(--muted)]">
+                        <Zap size={12} strokeWidth={2} />
+                        About {cost}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
           {/* Aspect Ratio Section */}
           <div className="px-3 py-2 border-b border-[var(--divider)]/50">
             <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-1">Aspect Ratio</p>

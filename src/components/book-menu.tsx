@@ -217,6 +217,12 @@ function BookMenuBase({
                 <span className="text-sm font-medium text-[var(--muted)]">Translation — {translationInfo.code}</span>
                 <TranslationSelector variant="compact" />
               </div>
+              {booksWithImagesSet.size > 0 && (
+                <p className="flex items-center gap-2 px-4 py-2 text-xs text-[var(--muted)] border-b border-[var(--divider)]">
+                  <span className="w-2 h-2 rounded-full bg-[var(--accent)]" aria-hidden="true" />
+                  Has saved images
+                </p>
+              )}
 
               {/* Old Testament Section */}
               <button

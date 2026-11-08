@@ -12,6 +12,13 @@ import { ArtStyleSelector } from "@/components/art-style-selector";
 import { CreditsBadge } from "./credits-badge";
 import { HeaderSettingsPopover, MobileSettingsRows } from "./header-settings-popover";
 import { HeaderGenerateButton } from "./header-generate-button";
+import { BOOK_BY_SLUG } from "@/data/bible-structure";
+
+function passageLabelFromPath(pathname: string): string | null {
+  const [slug, chapter, verse] = pathname.split("/").filter(Boolean);
+  const book = slug ? BOOK_BY_SLUG[slug] : undefined;
+  return book && chapter && verse ? `${book.name} ${chapter}:${verse}` : null;
+}
 
 function Divider() {
   return <div className="w-px h-6 bg-[var(--divider)] mx-1 sm:mx-2" />;
@@ -25,6 +32,9 @@ export function Header() {
   const isBrandLinkPage = pathname === "/about" || pathname === "/api-docs";
   const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname) && verseView !== null;
   const videoOpen = verseView?.effectiveView === "video";
+  // Generate and image settings register only while the reader's image is mounted.
+  const readerOpen = verseView?.effectiveView === "reader";
+  const passageLabel = isVersePage ? passageLabelFromPath(pathname) : null;
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -46,7 +56,7 @@ export function Header() {
       style={{ paddingTop: 'env(safe-area-inset-top)' }}
       ref={menuRef}
     >
-      <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
+      <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
         {/* Brand */}
         <h1 className="text-base sm:text-lg font-semibold tracking-tight">
           {isBrandLinkPage ? (
@@ -75,7 +85,6 @@ export function Header() {
             <TranslationSelector variant="compact" />
             {!videoOpen && (
               <>
-                <ImageModelSelector variant="compact" />
                 <ArtStyleSelector variant="compact" />
                 <HeaderSettingsPopover />
               </>
@@ -85,7 +94,7 @@ export function Header() {
           <Divider />
 
           {/* Generate Button - hidden in gallery view */}
-          {isVersePage && !videoOpen ? (
+          {isVersePage && readerOpen ? (
             <>
               <HeaderGenerateButton />
               <Divider />
@@ -109,6 +118,7 @@ export function Header() {
               onClick={toggleMenu}
             >
               <BookOpen size={20} strokeWidth={1.5} />
+              {passageLabel ? <span className="ml-1.5 hidden lg:inline text-xs font-medium">{passageLabel}</span> : null}
             </button>
           </div>
         </nav>

@@ -12,6 +12,7 @@ import {
   Globe2,
   ArrowLeft,
   ArrowRight,
+  ChevronDown,
 } from "lucide-react";
 import { api } from "../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
@@ -119,6 +120,8 @@ function VideoWorkspace({
   );
   const maximumCredits = generation.request?.maxCredits ?? quote?.credits;
   const pricingError = generation.configError || generation.config?.error;
+  // A failed quote also reports enabled: false; only call generation off when pricing did not fail.
+  const generationOff = Boolean(generation.config && !generation.config.enabled && !pricingError);
   const busy = generation.submitting || Boolean(active);
   const canAfford =
     tier === "admin" || (maximumCredits !== undefined && credits >= maximumCredits);
@@ -151,6 +154,7 @@ function VideoWorkspace({
             <Link
               href={`${prevUrl}?view=video`}
               aria-label="Previous verse"
+              title="Previous verse"
               className="min-h-11 min-w-11 flex items-center justify-center rounded-full border border-[var(--divider)] hover:bg-[var(--surface)]"
             >
               <ArrowLeft size={18} />
@@ -160,6 +164,7 @@ function VideoWorkspace({
             <Link
               href={`${nextUrl}?view=video`}
               aria-label="Next verse"
+              title="Next verse"
               className="min-h-11 min-w-11 flex items-center justify-center rounded-full border border-[var(--divider)] hover:bg-[var(--surface)]"
             >
               <ArrowRight size={18} />
@@ -205,7 +210,9 @@ function VideoWorkspace({
                     ? "Starting your video…"
                     : selected
                       ? statusLabels[selected.status]
-                      : "Bring this verse to life"}
+                      : generationOff
+                        ? "No video for this verse yet"
+                        : "Bring this verse to life"}
                 </p>
                 <p className="mt-2 text-sm text-[var(--muted)] leading-relaxed">
                   {selected?.status === "failed"
@@ -213,7 +220,9 @@ function VideoWorkspace({
                       "Your reserved credits have been returned. You can try a new generation."
                     : selected && isActiveVideoStatus(selected.status)
                       ? "You can leave this page. Your video will keep generating and appear here when ready."
-                      : "A short cinematic scene, generated directly from this verse and its surrounding context."}
+                      : generationOff
+                        ? "Video generation is off right now. Videos others have made appear below."
+                        : "A short cinematic scene, generated directly from this verse and its surrounding context."}
                 </p>
               </div>
             )}
@@ -270,6 +279,11 @@ function VideoWorkspace({
               {VIDEO_MODEL_NAME} · Widescreen 16:9
             </p>
           </div>
+          {generation.config && !generation.config.enabled && !pricingError && (
+            <p className="rounded-[var(--radius-md)] border border-[var(--divider)] px-3 py-2 text-sm text-[var(--muted)]">
+              Video generation is not currently enabled. You can still watch videos others have made.
+            </p>
+          )}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label
@@ -278,9 +292,10 @@ function VideoWorkspace({
               >
                 Length
               </label>
+              <div className="relative">
               <select
                 id="video-duration"
-                className={inputClass}
+                className={`${inputClass} appearance-none pr-9`}
                 value={displayedDuration}
                 onChange={(event) =>
                   setDuration(event.target.value === "10" ? 10 : 5)
@@ -290,6 +305,8 @@ function VideoWorkspace({
                 <option value={5}>5 seconds</option>
                 <option value={10}>10 seconds</option>
               </select>
+              <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[var(--muted)]" aria-hidden="true" />
+              </div>
             </div>
             <div>
               <label
@@ -298,9 +315,10 @@ function VideoWorkspace({
               >
                 Quality
               </label>
+              <div className="relative">
               <select
                 id="video-resolution"
-                className={inputClass}
+                className={`${inputClass} appearance-none pr-9`}
                 value={displayedResolution}
                 onChange={(event) =>
                   setResolution(event.target.value === "480p" ? "480p" : "768p")
@@ -310,6 +328,8 @@ function VideoWorkspace({
                 <option value="480p">Standard · 480p</option>
                 <option value="768p">High · 768p</option>
               </select>
+              <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[var(--muted)]" aria-hidden="true" />
+              </div>
             </div>
           </div>
           <div className="rounded-[var(--radius-md)] bg-[var(--surface)] p-3 text-sm">
@@ -344,7 +364,7 @@ function VideoWorkspace({
             <button
               type="submit"
               disabled={!configured || !sid || checking || busy || !canAfford}
-              className="w-full min-h-12 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] font-medium text-sm flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--accent-hover)]"
+              className="w-full min-h-12 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] font-medium text-sm flex items-center justify-center gap-2 hover:bg-[var(--accent-hover)] disabled:bg-[var(--surface)] disabled:text-[var(--muted)] disabled:border disabled:border-[var(--divider)] disabled:cursor-not-allowed"
             >
               {busy || checking ? (
                 <Loader2
@@ -382,11 +402,6 @@ function VideoWorkspace({
               {sessionError || "Reload to reconnect before generating a video."}
             </p>
           )}
-          {generation.config && !generation.config.enabled && !pricingError && (
-            <p className="text-sm text-[var(--muted)]">
-              Video generation is not currently enabled.
-            </p>
-          )}
           {pricingError && (
             <div role="alert" className="text-sm text-[var(--muted)]">
               <p>{pricingError}</p>
@@ -418,7 +433,9 @@ function VideoWorkspace({
           <p className="py-8 text-sm text-center text-[var(--muted)]">
             {publicHistory === undefined
               ? "Loading videos…"
-              : "Be the first to create a video for this verse."}
+              : generationOff
+                ? "No videos for this verse yet."
+                : "Be the first to create a video for this verse."}
           </p>
         ) : (
           <>

@@ -77,24 +77,22 @@ export function ScriptureReader({
   return (
     <article className="px-4 md:px-6 py-3 sm:py-6 max-w-2xl mx-auto">
       {/* Verse Header */}
-      <header className="mb-4 sm:mb-8 text-center">
-        <p className="text-[var(--muted)] text-sm uppercase tracking-widest mb-2">
+      <header className="mb-3 sm:mb-6 text-center">
+        <p className="text-[var(--muted)] text-xs sm:text-sm uppercase tracking-widest mb-1 sm:mb-2">
           {book} {chapter}
         </p>
-        <h1 className="text-4xl md:text-5xl font-light tracking-tight">
+        <h1 className="text-xl sm:text-3xl font-light tracking-tight">
           Verse {verseNumber}
         </h1>
       </header>
 
-      {/* Scripture Text - Desktop only (mobile shows overlaid text above) */}
-      <div className="hidden sm:block leading-relaxed text-lg md:text-xl">
-        <p className="text-pretty text-center">
-          <span className="text-[var(--foreground)]">{verse.text}</span>
-        </p>
+      {/* Scripture Text - plain reading copy; desktop also shows it as the image caption */}
+      <div className="text-xl md:text-2xl leading-relaxed">
+        <p className="mx-auto max-w-[60ch] text-pretty text-center text-[var(--foreground)]">{verse.text}</p>
       </div>
 
       {/* Verse Navigation - Desktop only (mobile has top nav) */}
-      <nav className="hidden sm:flex items-center mt-12 pt-6 border-t border-[var(--divider)]">
+      <nav className="hidden sm:flex items-center mt-8 pt-6 border-t border-[var(--divider)]">
         <div className="flex-1 flex justify-start">
           {prevUrl ? (
             <Link

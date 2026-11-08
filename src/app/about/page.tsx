@@ -75,7 +75,7 @@ export default function AboutPage() {
               <h1 className="mt-4 text-4xl sm:text-5xl font-semibold tracking-tight text-[var(--foreground)]">
                 Visualize the Bible, verse by verse.
               </h1>
-              <p className="mt-6 text-base sm:text-lg leading-8 text-[var(--muted)]">
+              <p className="mt-6 text-base sm:text-lg leading-8 text-[var(--foreground)]/80">
                 How Visibible works, what it costs, and why it exists.
               </p>
             </div>
@@ -92,7 +92,7 @@ export default function AboutPage() {
                 <h2 className="text-xl font-semibold tracking-tight text-[var(--foreground)]">
                   {section.title}
                 </h2>
-                <div className="mt-3 space-y-3 text-sm sm:text-base leading-7 text-[var(--muted)]">
+                <div className="mt-3 space-y-3 text-sm sm:text-base leading-7 text-[var(--foreground)]/80">
                   {section.body.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}
@@ -105,7 +105,7 @@ export default function AboutPage() {
             <h2 className="text-xl font-semibold tracking-tight text-[var(--foreground)]">
               Open Source
             </h2>
-            <p className="mt-3 text-sm sm:text-base leading-7 text-[var(--muted)]">
+            <p className="mt-3 text-sm sm:text-base leading-7 text-[var(--foreground)]/80">
               Visibible is open source. The code is on{" "}
               <Link
                 href="https://github.com/AustinKelsay/visibible"

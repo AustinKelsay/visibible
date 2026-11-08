@@ -2,7 +2,7 @@
 
 import { useChat } from "@ai-sdk/react";
 import { useState, useMemo, useEffect, useRef, startTransition } from "react";
-import { ChevronUp, Loader2, Send, Zap } from "lucide-react";
+import { ChevronUp, Loader2, MessageCircle, Send, Zap } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { useSession } from "@/context/session-context";
 import { ChatModelSelector } from "./chat-model-selector";
@@ -93,6 +93,9 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
   // Check if user can send - admin bypasses, otherwise need credits
   const isAdmin = tier === "admin";
   const canSend = isAdmin || credits >= 1;
+  const passageLabel = context?.book && typeof context.chapter === "number"
+    ? `${context.book} ${context.chapter}${context.verseRange ? `:${context.verseRange}` : ""}`
+    : null;
 
   // Include both context and model in request body
   const requestBody = {
@@ -230,9 +233,26 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
           )}
 
           {!hasMessages && !isLoading && (
-            <div className="text-center text-[var(--muted)] text-sm py-8">
-              Ask a question about this passage
-            </div>
+            canSend ? (
+              <div className="text-center text-[var(--muted)] text-sm py-8">
+                Ask a question about {passageLabel ?? "this passage"}
+              </div>
+            ) : (
+              <div className="mx-auto my-8 max-w-xs rounded-[var(--radius-md)] border border-[var(--divider)] bg-[var(--surface)] p-4 text-center">
+                <MessageCircle size={20} strokeWidth={1.5} className="mx-auto text-[var(--accent)]" aria-hidden="true" />
+                <p className="mt-2 text-sm font-medium text-[var(--foreground)]">Chat uses credits</p>
+                <p className="mt-1 text-xs text-[var(--muted)]">
+                  Add credits to ask questions about {passageLabel ?? "this passage"}.
+                </p>
+                <button
+                  type="button"
+                  onClick={buyCredits}
+                  className="mt-3 min-h-[40px] px-4 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] text-sm font-medium hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                >
+                  Get credits
+                </button>
+              </div>
+            )
           )}
         </div>
       ) : (
@@ -343,15 +363,15 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
         </div>
 
         {/* Warning banner when can't send */}
-        {!canSend && !isAdmin && (
-          <div className="mb-2 p-2 bg-amber-50 dark:bg-amber-900/20 rounded-md text-sm text-amber-700 dark:text-amber-400">
-            Insufficient credits.{" "}
+        {!canSend && !isAdmin && hasMessages && (
+          <div className="mb-2 p-2 bg-[var(--surface)] rounded-[var(--radius-md)] text-sm text-[var(--muted)]">
+            Out of credits.{" "}
             <button
               type="button"
               onClick={buyCredits}
-              className="underline font-medium"
+              className="font-medium text-[var(--accent)] hover:underline"
             >
-              Purchase credits
+              Get credits
             </button>
           </div>
         )}
@@ -362,14 +382,14 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={!canSend}
-            placeholder={!canSend ? "Chat limit reached" : "Ask about this passage..."}
+            placeholder={!canSend ? "Add credits to chat" : `Ask about ${passageLabel ?? "this passage"}…`}
             aria-label="Ask about this scripture"
             className="flex-1 min-h-[44px] px-4 py-2 bg-[var(--surface)] border border-[var(--divider)] rounded-[var(--radius-full)] text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-shadow duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed"
           />
           <button
             type="submit"
             disabled={isLoading || !input.trim() || !canSend}
-            className="min-h-[44px] min-w-[44px] px-5 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] hover:bg-[var(--accent-hover)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-[var(--motion-fast)] active:scale-[0.98]"
+            className="min-h-[44px] min-w-[44px] px-5 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] hover:bg-[var(--accent-hover)] disabled:bg-[var(--surface)] disabled:text-[var(--muted)] disabled:border disabled:border-[var(--divider)] disabled:cursor-not-allowed transition-all duration-[var(--motion-fast)] active:scale-[0.98]"
             aria-label="Send message"
             title="Send"
           >

@@ -586,7 +586,8 @@ function HeroImageBase({
   const hasImages = Boolean(displayImage) || totalImages > 0;
   const canGoOlder = totalImages > 0 && currentIndex < totalImages - 1;
   const canGoNewer = totalImages > 0 && currentIndex > 0;
-  const displayIndex = totalImages - currentIndex;
+  // Newest image is 1; the "older" arrow moves forward through the count.
+  const displayIndex = currentIndex + 1;
   const imageCountLabel = totalImages > 0
     ? `${displayIndex} / ${totalImages}${currentIndex === 0 ? " · Latest" : ""}`
       : displayImage
@@ -1260,9 +1261,13 @@ function HeroImageBase({
 
   return (
     <figure className="relative w-full">
-      {/* Image Container - taller 4:5 on mobile, user-selected ratio on desktop */}
+      {/* Image Container - follows the image's shape; capped so the stage fits on screen */}
       <div
-        className="relative w-full overflow-hidden bg-[var(--image-stage)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
+        className={`relative w-full overflow-hidden bg-[var(--image-stage)] [aspect-ratio:var(--ar)] ${
+          !displayImage?.url && !isQueryLoading && !isGenerating
+            ? "max-h-[45svh]"
+            : "max-h-[70svh] sm:max-h-[calc(100svh-6.75rem)]"
+        }`}
         style={{ "--ar": containerAspectRatioCss, touchAction: "pan-y" } as React.CSSProperties}
         data-testid="hero-swipe-overlay"
         onTouchStart={handleSwipeStart}
@@ -1387,9 +1392,8 @@ function HeroImageBase({
             </button>
           </>
         ) : (
-          /* Placeholder with skeleton loader */
-          <div className="absolute inset-0 bg-[var(--surface)]">
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--background)]/80 via-[var(--surface)] to-[var(--surface)]" />
+          /* Placeholder with skeleton loader - stays on the dark stage */
+          <div className="absolute inset-0 bg-[var(--image-stage)]">
 
             {isGenerating && !error && (
               <HeroImageLoadingState
@@ -1436,6 +1440,7 @@ function HeroImageBase({
             {!isQueryLoading && !isGenerating && !error && (
               <VerseImagePlaceholder
                 className="absolute inset-0"
+                theme="dark"
                 action={
                   pricingPending ? (
                     <button
@@ -1472,8 +1477,8 @@ function HeroImageBase({
           </div>
         )}
 
-        {/* Bottom gradient for text readability */}
-        <div className="absolute inset-x-0 bottom-0 h-36 md:h-44 bg-gradient-to-t from-[var(--background)]/90 via-[var(--background)]/40 to-transparent pointer-events-none" />
+        {/* Bottom gradient for the caption - only over a painting */}
+        {displayImage?.url ? <div className="hidden sm:block absolute inset-x-0 bottom-0 h-48 md:h-56 bg-gradient-to-t from-[var(--image-stage)]/90 via-[var(--image-stage)]/50 to-transparent pointer-events-none" /> : null}
 
         {/* Image Browsing Dock - Desktop only, shown when images exist */}
         {totalImages > 0 && (
@@ -1544,27 +1549,19 @@ function HeroImageBase({
 
             {/* Counter pill */}
             <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-xs text-[var(--foreground)]">
-              {displayIndex} / {totalImages}
+              Image {displayIndex} of {totalImages}
             </div>
           </div>
         )}
       </div>
 
-      {/* Mobile Verse Text Overlay - positioned at bottom of image */}
-      {verseText && (
-        <div className="sm:hidden absolute inset-x-0 bottom-0 z-10 px-4 pb-4">
-          <div className="bg-[var(--background)]/50 backdrop-blur-sm rounded-2xl p-4 mx-auto max-w-lg border border-[rgba(255,255,255,0.04)]">
-            <p className="text-pretty text-center text-base leading-relaxed text-[var(--foreground)]">
-              {verseText}
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* Caption - hidden on mobile (redundant with ScriptureReader below) */}
-      {caption && (
+      {/* Caption over the painting - desktop only; ScriptureReader shows the verse below on every size */}
+      {caption && displayImage?.url && (
         <figcaption className="hidden sm:block pointer-events-none absolute inset-x-0 sm:bottom-20 md:bottom-24 z-10 px-4 md:px-6">
-          <p className="text-center text-2xl md:text-3xl lg:text-4xl font-light italic text-[var(--foreground)]/90">
+          <p className="mb-2 text-center text-xs uppercase tracking-[0.2em] text-white/70">
+            {book} {chapter}:{verse}
+          </p>
+          <p className="mx-auto max-w-4xl line-clamp-3 text-pretty text-center text-2xl md:text-3xl lg:text-4xl italic text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
             &ldquo;{caption}&rdquo;
           </p>
         </figcaption>
