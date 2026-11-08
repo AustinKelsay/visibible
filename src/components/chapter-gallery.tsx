@@ -181,7 +181,7 @@ function GalleryCard({
             className={`rounded-full px-2.5 py-1 text-[11px] font-medium backdrop-blur-sm ${
               isCurrent
                 ? "bg-[var(--accent)]/85 text-white"
-                : "bg-black/50 text-white"
+                : "bg-black/70 text-white ring-1 ring-white/30"
             }`}
           >
             {item.verse}

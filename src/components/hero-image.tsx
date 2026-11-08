@@ -1480,6 +1480,32 @@ function HeroImageBase({
         {/* Bottom gradient for the caption - only over a painting */}
         {displayImage?.url ? <div className="hidden sm:block absolute inset-x-0 bottom-0 h-48 md:h-56 bg-gradient-to-t from-[var(--image-stage)]/90 via-[var(--image-stage)]/50 to-transparent pointer-events-none" /> : null}
 
+        {/* Phone image navigation: one "‹ Image n of N ›" pill at the bottom of the painting,
+            like the desktop dock, so the counter and its arrows stay together */}
+        {showControls && totalImages > 1 && (
+          <div className="sm:hidden absolute inset-x-0 bottom-3 z-20 flex justify-center">
+            <div className="flex items-center rounded-full bg-black/55 backdrop-blur-sm border border-white/15 text-white">
+              <button
+                onClick={() => goToNextImage("overlay")}
+                disabled={!canGoNewer}
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/80 disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-all focus-ring"
+                aria-label="Newer image"
+              >
+                <ChevronLeft size={20} strokeWidth={1.5} />
+              </button>
+              <span className="text-xs select-none">Image {displayIndex} of {totalImages}</span>
+              <button
+                onClick={() => goToPrevImage("overlay")}
+                disabled={!canGoOlder}
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/80 disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-all focus-ring"
+                aria-label="Older image"
+              >
+                <ChevronRight size={20} strokeWidth={1.5} />
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Image Browsing Dock - Desktop only, shown when images exist */}
         {totalImages > 0 && (
           <div className="hidden sm:block absolute inset-x-4 md:inset-x-6 bottom-4 z-20">
@@ -1524,30 +1550,6 @@ function HeroImageBase({
         )}
 
       </div>
-
-      {/* Phone image navigation sits in a dark row under the painting, like the desktop dock,
-          so only the fullscreen button is drawn on the art */}
-      {showControls && totalImages > 1 && (
-        <div className="sm:hidden flex items-center justify-center gap-1 bg-[var(--image-stage)] py-1">
-          <button
-            onClick={() => goToNextImage("overlay")}
-            disabled={!canGoNewer}
-            className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-all focus-ring"
-            aria-label="Newer image"
-          >
-            <ChevronLeft size={20} strokeWidth={1.5} />
-          </button>
-          <span className="px-2 text-xs text-white/85 select-none">Image {displayIndex} of {totalImages}</span>
-          <button
-            onClick={() => goToPrevImage("overlay")}
-            disabled={!canGoOlder}
-            className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-all focus-ring"
-            aria-label="Older image"
-          >
-            <ChevronRight size={20} strokeWidth={1.5} />
-          </button>
-        </div>
-      )}
 
       {/* Caption over the painting - desktop only; ScriptureReader shows the verse below on every size */}
       {caption && displayImage?.url && (
