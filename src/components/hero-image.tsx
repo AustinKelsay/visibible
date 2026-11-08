@@ -601,6 +601,11 @@ function HeroImageBase({
   const showPhonePager = showControls && totalImages > 1;
   // Phones explain missing pricing under a saved image (the empty state already says it)
   const showPhonePricingNote = Boolean(pricingUnavailable) && Boolean(displayImage?.url);
+  // When the model is the problem and its reason gives no next step, say how to recover
+  const modelPricingMissing = pricingLoaded && !pricingPending && !pricingAvailable;
+  const phonePricingNote = pricingUnavailable && modelPricingMissing && !/choose/i.test(pricingUnavailable)
+    ? `${pricingUnavailable} Tap the sliders button at the top to choose another model.`
+    : pricingUnavailable;
   // While something sits under or on the stage, the phone pager moves to a row under the painting
   const phonePagerBelow = isGenerating || Boolean(error) || showPhonePricingNote;
 
@@ -1572,7 +1577,7 @@ function HeroImageBase({
       {/* Phones: say why generation is off when a saved image is showing (the empty state already says
           it), since the header's model button can be icon-only on the narrowest screens */}
       {showPhonePricingNote ? (
-        <p className="sm:hidden px-4 py-2 text-center text-xs text-[var(--muted)]">{pricingUnavailable}</p>
+        <p className="sm:hidden px-4 py-2 text-center text-xs text-[var(--muted)]">{phonePricingNote}</p>
       ) : null}
 
       {/* Caption over the painting - desktop only; ScriptureReader shows the verse below on every size */}
