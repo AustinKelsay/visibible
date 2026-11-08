@@ -97,22 +97,22 @@ function VerseStripBase({
     scroller.scrollBy({ left: direction * scroller.clientWidth * 0.8, behavior: "smooth" });
   };
 
-  // Arrows float over the strip's ends, so the first verse starts at the bar's edge
-  const arrowClassName =
-    "absolute inset-y-0 z-10 w-11 flex items-center justify-center text-white/80 hover:text-white transition-opacity duration-[var(--motion-fast)] focus-ring disabled:opacity-0 disabled:pointer-events-none";
+  const hasOverflow = canScroll.back || canScroll.forward;
 
   return (
-    <div className="relative">
+    <div className="relative flex items-stretch">
+      {/* The back arrow floats over the start (it only appears after scrolling), so the first verse
+          starts at the bar's edge. The forward arrow has its own column, so it never covers a verse. */}
       <button
         type="button"
         onClick={() => scrollByPage(-1)}
         disabled={!canScroll.back}
-        className={`${arrowClassName} left-0 justify-start pl-1.5 rounded-l-[var(--radius-lg)] bg-gradient-to-r from-black/80 via-black/50 to-transparent`}
+        className="absolute inset-y-0 left-0 z-10 w-11 flex items-center justify-start pl-1.5 rounded-l-[var(--radius-lg)] bg-gradient-to-r from-black/85 via-black/60 to-transparent text-white/80 hover:text-white transition-opacity duration-[var(--motion-fast)] focus-ring disabled:opacity-0 disabled:pointer-events-none"
         aria-label="Earlier verses"
       >
         <ChevronLeft size={18} strokeWidth={1.75} />
       </button>
-      <div ref={scrollerRef} onScroll={updateScrollState} className="overflow-x-auto scrollbar-hide">
+      <div ref={scrollerRef} onScroll={updateScrollState} className="flex-1 min-w-0 overflow-x-auto scrollbar-hide">
         <div className="flex gap-1 p-2">
           {verses.map((v) => {
             const isCurrent = v.verse === currentVerse;
@@ -156,7 +156,9 @@ function VerseStripBase({
         type="button"
         onClick={() => scrollByPage(1)}
         disabled={!canScroll.forward}
-        className={`${arrowClassName} right-0 justify-end pr-1.5 bg-gradient-to-l from-black/80 via-black/50 to-transparent`}
+        className={`shrink-0 w-9 items-center justify-center text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)] focus-ring disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-default ${
+          hasOverflow ? "flex" : "hidden"
+        }`}
         aria-label="Later verses"
       >
         <ChevronRight size={18} strokeWidth={1.75} />

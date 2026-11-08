@@ -238,9 +238,9 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
 
           {!hasMessages && !isLoading && (
             canSend ? (
-              <div className="py-8 text-center">
-                <p className="text-sm text-[var(--muted)]">{passageLabel ? `Ask a question about ${passageLabel}` : "Ask a question about Scripture"}</p>
-                <div className="mt-4 flex flex-col items-center gap-2">
+              <div className="mx-auto my-8 max-w-sm">
+                <p className="text-center text-sm text-[var(--muted)]">{passageLabel ? `Ask a question about ${passageLabel}` : "Ask a question about Scripture"}</p>
+                <div className="mt-4 flex flex-col gap-2">
                   {starterQuestions.map((question) => (
                     <button
                       key={question}
@@ -249,7 +249,7 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
                         setInput(question);
                         inputRef.current?.focus();
                       }}
-                      className="max-w-full rounded-[var(--radius-full)] border border-[var(--divider)] bg-[var(--surface)] px-3 py-1.5 text-xs text-[var(--foreground)] hover:bg-[var(--divider)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                      className="w-full min-h-[44px] rounded-[var(--radius-md)] border border-[var(--divider)] px-3.5 py-2.5 text-left text-sm text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors duration-[var(--motion-fast)] focus-ring"
                     >
                       {question}
                     </button>
@@ -257,24 +257,36 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
                 </div>
               </div>
             ) : (
-              <div className="mx-auto my-8 max-w-xs rounded-[var(--radius-md)] border border-[var(--divider)] bg-[var(--surface)] p-4 text-center">
+              <div className="mx-auto my-8 max-w-sm rounded-[var(--radius-md)] border border-[var(--divider)] bg-[var(--surface)] p-5 text-center">
                 <MessageCircle size={20} strokeWidth={1.5} className="mx-auto text-[var(--accent)]" aria-hidden="true" />
                 <p className="mt-2 text-sm font-medium text-[var(--foreground)]">Chat uses credits</p>
-                <p className="mt-1 text-xs text-[var(--muted)]">
+                <p className="mt-1 text-sm text-[var(--muted)]">
                   Add credits to ask questions about {passageLabel ?? "Scripture"}.
                 </p>
                 <button
                   type="button"
                   onClick={buyCredits}
-                  className="mt-3 min-h-[40px] px-4 rounded-[var(--radius-full)] border border-[var(--accent)] bg-[var(--accent)] text-[var(--accent-text)] text-sm font-medium hover:bg-[var(--accent-hover)] md:bg-transparent md:text-[var(--foreground)] md:hover:bg-[var(--accent)]/10 transition-colors duration-[var(--motion-fast)] focus-ring"
+                  className="mt-3 min-h-[40px] px-4 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] text-sm font-medium hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
                 >
-                  {/* Solid on phones; outlined on desktop, where the header already has the blue Get Credits button.
-                      Foreground text keeps contrast in dark mode. */}
                   Get Credits
                 </button>
-                <p className="mt-4 text-[11px] uppercase tracking-wider text-[var(--muted)]">You could ask</p>
-                <ul className="mt-2 space-y-1 text-xs text-[var(--muted)]">
-                  {starterQuestions.map((question) => <li key={question}>“{question}”</li>)}
+                <p className="mt-5 text-left text-xs font-medium uppercase tracking-wider text-[var(--muted)]">With credits, you could ask</p>
+                {/* Each example opens Get Credits and waits in the message box for after the purchase */}
+                <ul className="mt-1 divide-y divide-[var(--divider)] text-left text-sm text-[var(--foreground)]/85">
+                  {starterQuestions.map((question) => (
+                    <li key={question}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setInput(question);
+                          buyCredits();
+                        }}
+                        className="w-full min-h-[40px] py-2 text-left hover:text-[var(--foreground)] hover:underline underline-offset-2 focus-ring"
+                      >
+                        {question}
+                      </button>
+                    </li>
+                  ))}
                 </ul>
               </div>
             )

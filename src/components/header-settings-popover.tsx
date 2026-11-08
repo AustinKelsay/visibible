@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Settings, ChevronDown, Zap } from "lucide-react";
+import { Settings, ChevronDown, Zap, Check } from "lucide-react";
 import {
   ASPECT_RATIOS,
   getEstimatedCreditsCostForResolution,
@@ -14,6 +14,16 @@ import {
 } from "@/lib/image-models";
 import { useGeneration } from "@/context/generation-context";
 import { usePreferences } from "@/context/preferences-context";
+
+// Selected rows get the same blue tint as the mobile settings, plus a check, so they differ from hover
+const rowClassName = (selected: boolean) =>
+  `w-full px-2 py-1.5 flex items-center gap-2 text-left text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] ${
+    selected ? "bg-[var(--accent)]/10 text-[var(--foreground)] font-medium" : "text-[var(--muted)] hover:bg-[var(--surface)]"
+  }`;
+
+function SelectedMark({ selected }: { selected: boolean }) {
+  return <Check size={14} strokeWidth={2} aria-hidden="true" className={`shrink-0 text-[var(--accent)] ${selected ? "" : "invisible"}`} />;
+}
 
 export function HeaderSettingsPopover() {
   const { state, isRegistered, setAspectRatio, setResolution } = useGeneration();
@@ -83,7 +93,7 @@ export function HeaderSettingsPopover() {
         />
       </button>
       {isOpen && (
-        <div className="absolute top-full mt-1 right-0 w-64 max-h-[calc(100svh-5rem)] overflow-y-auto rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50">
+        <div className="absolute top-full mt-1 right-0 w-80 max-h-[calc(100svh-5rem)] overflow-y-auto rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50">
           {/* Model Section */}
           {(models.length > 0 || modelsFailed) && (
             <div className="px-3 py-2 border-b border-[var(--divider)]/50">
@@ -102,16 +112,12 @@ export function HeaderSettingsPopover() {
                     aria-pressed={imageModel === model.id}
                     onClick={() => available && setImageModel(model.id, "header_settings_popover")}
                     disabled={!available}
-                    className={`w-full px-2 py-1.5 flex items-center justify-between gap-2 text-left text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
-                      imageModel === model.id ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
-                    } ${!available ? "opacity-60" : ""}`}
+                    className={`${rowClassName(imageModel === model.id)} ${!available ? "opacity-60" : ""}`}
                   >
-                    <span className="truncate">{shortImageModelName(model.name)}</span>
+                    <SelectedMark selected={imageModel === model.id} />
+                    <span className="flex-1 truncate">{shortImageModelName(model.name)}</span>
                     {showCreditsCost && cost !== null && (
-                      <span className="inline-flex shrink-0 items-center gap-1 text-xs text-[var(--muted)]">
-                        <Zap size={12} strokeWidth={2} />
-                        About {cost}
-                      </span>
+                      <span className="shrink-0 text-xs font-normal text-[var(--muted)]">About {cost} credits</span>
                     )}
                   </button>
                 );
@@ -125,11 +131,12 @@ export function HeaderSettingsPopover() {
             {(Object.keys(ASPECT_RATIOS) as ImageAspectRatio[]).map((ratio) => (
               <button
                 key={ratio}
+                type="button"
+                aria-pressed={aspectRatio === ratio}
                 onClick={() => setAspectRatio(ratio, "header_settings_popover")}
-                className={`w-full px-2 py-1.5 text-left text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
-                  aspectRatio === ratio ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
-                }`}
+                className={rowClassName(aspectRatio === ratio)}
               >
+                <SelectedMark selected={aspectRatio === ratio} />
                 {ASPECT_RATIOS[ratio].label}
               </button>
             ))}
@@ -138,11 +145,6 @@ export function HeaderSettingsPopover() {
           {/* Resolution Section */}
           <div className="px-3 py-2">
             <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-1">Resolution</p>
-            {!modelSupportsRes && (
-              <p className="text-[10px] text-[var(--muted)] mb-1.5 opacity-70">
-                Higher resolutions unavailable
-              </p>
-            )}
             {(Object.keys(RESOLUTIONS) as ImageResolution[]).map((res) => {
               const cost = displayCostByResolution?.[res];
               const resolutionAvailable = displayCostByResolution ? cost !== undefined : modelSupportsRes;
@@ -154,22 +156,23 @@ export function HeaderSettingsPopover() {
                       setResolution(res, "header_settings_popover");
                     }
                   }}
+                  type="button"
+                  aria-pressed={resolution === res}
                   disabled={!resolutionAvailable}
                   aria-disabled={!resolutionAvailable}
-                  className={`w-full px-2 py-1.5 flex items-center justify-between text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
-                    resolution === res ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
-                  } ${!resolutionAvailable ? "opacity-60" : ""}`}
+                  className={`${rowClassName(resolution === res)} ${!resolutionAvailable ? "opacity-60" : ""}`}
                 >
-                  <span>{RESOLUTIONS[res].label}</span>
+                  <SelectedMark selected={resolution === res} />
+                  <span className="flex-1">{RESOLUTIONS[res].label}</span>
                   {showCreditsCost && cost !== undefined && (
-                    <span className="inline-flex items-center gap-1 text-xs text-[var(--muted)]">
-                      <Zap size={12} strokeWidth={2} />
-                      About {cost}
-                    </span>
+                    <span className="shrink-0 text-xs font-normal text-[var(--muted)]">About {cost} credits</span>
                   )}
                 </button>
               );
             })}
+            {!modelSupportsRes && (
+              <p className="mt-1.5 px-2 text-xs text-[var(--muted)]">2K and 4K are not available for this model</p>
+            )}
           </div>
         </div>
       )}
