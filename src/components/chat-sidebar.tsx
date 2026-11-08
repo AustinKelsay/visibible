@@ -1,5 +1,6 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
 import { X, MessageSquare, MessageCircleHeart } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -108,6 +109,31 @@ function ChatSidebarBase({
   currentImageId,
   imageHistory,
 }: ChatSidebarBaseProps) {
+  const asideRef = useRef<HTMLElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
+  const wasOpenRef = useRef(isChatOpen);
+
+  // The closed sidebar is inert, which would drop focus to the page body if it was inside.
+  // Return focus to the control that opened it, or else a visible chat toggle.
+  // A layout effect runs before the browser moves focus out of the inert panel.
+  useLayoutEffect(() => {
+    if (isChatOpen === wasOpenRef.current) return;
+    wasOpenRef.current = isChatOpen;
+    const active = document.activeElement;
+    if (isChatOpen) {
+      openerRef.current = active instanceof HTMLElement && active !== document.body ? active : null;
+      return;
+    }
+    if (!asideRef.current?.contains(active) && active !== document.body) return;
+    const isVisible = (element: HTMLElement | null | undefined): element is HTMLElement =>
+      !!element?.isConnected && element.getClientRects().length > 0;
+    const opener = openerRef.current;
+    const fallback = Array.from(document.querySelectorAll<HTMLElement>('button[aria-label="Toggle chat"]'))
+      .find(isVisible);
+    (isVisible(opener) ? opener : fallback)?.focus();
+    openerRef.current = null;
+  }, [isChatOpen]);
+
   // Find the currently displayed image and build imageContext for feedback
   const currentImage = currentImageId && imageHistory
     ? imageHistory.find((img) => img.id === currentImageId)
@@ -145,6 +171,7 @@ function ChatSidebarBase({
 
       {/* Sidebar panel */}
       <aside
+        ref={asideRef}
         className={`
           fixed top-0 right-0 h-full z-50
           w-full md:w-96
