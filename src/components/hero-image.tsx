@@ -1613,8 +1613,9 @@ function HeroImageBase({
           {/* Centered content area */}
           <div className="flex-1 relative flex items-center justify-center min-h-0 px-2">
 
-            {/* Centered column: image + iterator + verse text */}
-            <div className="flex flex-col items-center max-w-full max-h-full min-h-0">
+            {/* Centered column: image, verse text, then image navigation.
+                It scrolls on short screens so a long verse cannot push the controls out of reach. */}
+            <div className="flex flex-col items-center max-w-full max-h-full min-h-0 overflow-y-auto">
               {displayImage?.url ? (
                 <div
                   className="relative max-w-full max-h-[70vh] w-full flex items-center justify-center rounded-[var(--radius-md)] bg-[var(--image-stage)]"
