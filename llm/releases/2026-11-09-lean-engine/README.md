@@ -23,13 +23,13 @@ Both arms drew the same 79 cases of suite `2026-11-01-suite-v3` in each work's i
 
 | Work | Full engine | Lean | Full, small marks accepted | Lean, small marks accepted |
 | --- | --- | --- | --- | --- |
-| Bible (3 styles) | 107 of 144 (74%) | **113 of 144 (78%)** | 109 (76%) | **119 (83%)** |
-| Holmes (2 styles) | 4 of 30 | 10 of 30 | 17 of 30 | 19 of 30 |
-| Alice (2 styles) | **12 of 30** | 7 of 32 | **18 of 30** | 14 of 32 |
-| All | 123 of 204 (60%) | 130 of 206 (63%) | 144 (71%) | 152 (74%) |
-| Holdout | 26 of 49 | 24 of 49 | 30 of 49 | 31 of 49 |
+| Bible (3 styles) | 107 of 144 (74%) | **113 of 144 (78%)** | 111 (77%) | **119 (83%)** |
+| Holmes (2 styles) | 4 of 30 | 10 of 30 | 18 of 30 | 21 of 30 |
+| Alice (2 styles) | **12 of 30** | 7 of 32 | **20 of 30** | 15 of 32 |
+| All | 123 of 204 (60%) | 130 of 206 (63%) | 149 (73%) | 155 (75%) |
+| Holdout | 26 of 49 | 24 of 49 | 33 of 49 | 32 of 49 |
 
-"Small marks accepted" is the launch bar of [ADR 0006 amendment 7](../../../docs/adr/0006-unseen-presence-speakers-and-launch-bar.md): an image whose only fault is lettering nobody can read counts as acceptable.
+"Small marks accepted" is the launch bar of [ADR 0006 amendment 7](../../../docs/adr/0006-unseen-presence-speakers-and-launch-bar.md): an image whose only fault is small or unreadable marks counts as acceptable. Scorers said whether any lettering was readable; the operator then classified, by blind id, the 13 lettering-only images where it was ([classification](scoring/small-marks.json)). Eight are accepted marks (card indices, watch numerals, letter shapes that spell no word) and five stay faults (a readable word, a place name, a signature, a floating question mark).
 
 **The suite gate passes** (lean as candidate, full as baseline, holdout items): no refusal, and no fault rose by more than the allowed 2.45 items.
 
@@ -45,7 +45,7 @@ Both arms drew the same 79 cases of suite `2026-11-01-suite-v3` in each work's i
 
 - **Lean reads the moment better.** Wrong scenes and contradictory scenes fall by more than half: the image model works from the text itself, not a summary of it.
 - **Lean adds figures.** With no planner deciding who is present, it draws a narrator or prophet beside their own words more often (Isaiah 40:29, Romans 8:28, Revelation 4:6).
-- **God figures: 2 of 42 against 1 of 42.** Daniel 7:9 in Watercolor and Isaiah 6:2 in Fresco drew a robed shape on the throne. The lean prompt has an "imagery, not form" rule added after the pilot drew the Ancient of Days outright; the full engine has a vision check and retry for this, and lean has none.
+- **God figures: 2 of 42 against 1 of 42.** Daniel 7:9 in Watercolor and Isaiah 6:2 in Fresco drew a robed shape on the throne. The lean prompt has an "imagery, not form" rule added after the pilot drew the Ancient of Days outright; the full engine has a vision check and retry for this, and lean has none. Review then found that another entry's canon could still name God ("Yahweh's house in Jerusalem" in Isaiah 6). Prompt v5 renames those too; a [six-image check](../2026-11-09-lean-v5-check/) of both scenes in all three styles drew every throne empty, by the operator's own unblinded look, not a scored result.
 - **Alice is worse.** Lean draws lettering on cards and court papers more often (23 images against 16) and breaks the brief's rule that card people are flat cards, drawing them as ordinary humans (10 against 7).
 
 ## Consistency
@@ -102,6 +102,7 @@ That is roughly a quarter of the engine's production code and most of its tests,
 - **The full arm is a second sample, not the committed baseline.** The 7 November baseline's images no longer exist on disk. The full arm is an earlier unrecorded run of the same engine, suite and snapshot from 2 November UTC, found in another checkout with its images intact and verified by hash ([records](full-arm/)). It stopped at its cap two Alice images short.
 - **Scores are not comparable with earlier runs.** Here images were judged against the text, because lean has no plan to judge against. The 7 November baseline scored 112 of 205 against its plans.
 - **The scorers are models, and the two scorers are the same model.** They agreed on 313 of 410 images and 455 of 466 pairs. Several declined to name an actor from a face, so a face-only likeness was ruled no fault for both arms; Holmes's strict counts understate that problem equally.
+- **The scored images are from prompt v4.** The v5 change touches only prompts whose canon or captions name an unseen subject.
 - **The lean prompt was shaped on 12 dev cases** in two pilots ([first](../2026-11-09-lean-pilot/), [unseen presence](../2026-11-09-lean-pilot-effects/)), four of them the God scenes that drove the "imagery, not form" rule.
 - **The holdout is 49 images.** A two-image difference is noise.
 
@@ -112,7 +113,8 @@ That is roughly a quarter of the engine's production code and most of its tests,
 - **Fault scoring.** 20 scorer agents (two per batch of 41) wrote [scores](scoring/); 97 items were disputed and three blind adjudicators ruled on them ([rulings](scoring/operator.json)), which the operator adopted. All 410 blind copies matched their recorded hashes afterwards.
 - **Consistency.** 16 scorer agents judged the pooled pairs; 11 were disputed and the operator ruled on them from the blind composites ([rulings](consistency/pool/operator-rulings.json)). Per-set records are under [consistency/](consistency/).
 - **Cast by name is not enough.** A free check found that matching names in the verse finds only 60% of the cast the planner selects, because verses say "he" and "they" ([comparison](cast-comparison.json)). So lean offers the whole section cast and lets the image model decide.
-- **Spend: $9.58.** The run cost $8.87319 on the production key, which moved by exactly that. The two pilots and two model probes cost $0.70303 on the dev key. The account holds $16.09. No production write.
+- **Spend: $9.84.** The run cost $8.87319 on the production key, which moved by exactly that, and the v5 check $0.261315. The two pilots and two model probes cost $0.70303 on the dev key. The account holds $15.82. No production write.
+- **Review.** An independent review led to three changes after scoring: the runner now reserves each call's catalog price ceiling instead of a fixed $0.08, the launch bar follows the ADR on card indices and clock numerals, and prompt v5 above.
 
 ## Next
 

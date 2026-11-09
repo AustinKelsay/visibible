@@ -1,0 +1,49 @@
+{
+  "capUsd": 0.95,
+  "calls": [
+    {
+      "phase": "isaiah-6-2-seraphim/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0450735
+    },
+    {
+      "phase": "isaiah-6-2-seraphim/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0431715
+    },
+    {
+      "phase": "isaiah-6-2-seraphim/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0424455
+    },
+    {
+      "phase": "daniel-7-9-ancient-of-days/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0441765
+    },
+    {
+      "phase": "daniel-7-9-ancient-of-days/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043137
+    },
+    {
+      "phase": "daniel-7-9-ancient-of-days/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043311
+    }
+  ],
+  "measuredUsd": 0.261315,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 6,
+    "check": 0
+  },
+  "blocked": null
+}
