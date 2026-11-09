@@ -146,7 +146,7 @@ function VideoWorkspace({
             <Film size={14} aria-hidden="true" /> SCRIPTURE IN MOTION
           </div>
           <h2 className="text-2xl font-semibold tracking-tight">{reference}</h2>
-          <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+          <p className="mt-2 text-base leading-relaxed text-[var(--foreground)]/80">
             {verseText}
           </p>
         </div>
@@ -180,7 +180,7 @@ function VideoWorkspace({
       <div className={hideForm ? "grid gap-6" : "grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,1fr)]"}>
         <div className="space-y-3">
           <div className={`relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] flex items-center justify-center ${
-            generationOff && !(selected?.status === "completed" && selected.videoUrl) ? "min-h-56 py-10" : "aspect-video"
+            generationOff && !(selected?.status === "completed" && selected.videoUrl) ? "min-h-56 sm:min-h-80 py-10" : "aspect-video"
           }`}>
             {selected?.status === "completed" && selected.videoUrl ? (
               <video

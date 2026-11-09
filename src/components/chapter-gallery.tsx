@@ -120,7 +120,7 @@ function GalleryCard({
     <Link
       href={readerHref}
       aria-current={isCurrent ? "page" : undefined}
-      aria-label={`${bookName} ${chapter}:${item.verse}${item.isPlaceholder ? " no image yet" : ` image ${item.cardIndex + 1}`}`}
+      aria-label={`${bookName} ${chapter}:${item.verse}${item.isPlaceholder ? ", no image yet" : `, image ${item.cardIndex + 1} of ${item.imageCount}`}`}
       onClick={(event) => onNavigateToReader?.(event, item)}
       className={`group overflow-hidden rounded-[var(--radius-xl)] border bg-[var(--background)] transition-all duration-[var(--motion-base)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] ${
         // The blue verse badge marks the current verse; a blue outline on every one of its cards
@@ -209,25 +209,21 @@ function GalleryCard({
         ) : null}
       </div>
 
-      {/* Ungrouped cards: the count sits under the reference on phones and beside it from sm up,
-          the same on every card */}
-      <div className="px-2.5 py-2 sm:px-3.5 sm:py-3">
-        {inGroup ? (
-          <p className="text-xs text-[var(--muted)]">
-            {item.isPlaceholder ? "No image yet" : `Image ${item.cardIndex + 1} of ${item.imageCount}`}
+      {/* All images cards carry the reference and image position only, the same on phones and
+          desktop; the verse itself is shown once per verse in By verse and in the lightbox.
+          By verse cards have no caption bar: their group header names the verse and the count. */}
+      {!inGroup ? (
+        <div className="px-2.5 py-2 sm:px-3.5 sm:py-3">
+          {/* The count sits under the reference on phones and beside it from sm up */}
+          <p className="flex flex-col sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-x-2 text-sm font-medium text-[var(--foreground)]">
+            <span>{bookName} {chapter}:{item.verse}</span>
+            <span className="shrink-0 text-xs font-normal text-[var(--muted)]">
+              {/* Every card gets a second line, so cards in a row stay the same height */}
+              {item.isPlaceholder ? "No image yet" : item.imageCount > 1 ? `Image ${item.cardIndex + 1} of ${item.imageCount}` : "1 image"}
+            </span>
           </p>
-        ) : (
-        <p className="flex flex-col sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-x-2 text-sm font-medium text-[var(--foreground)]">
-          <span>{bookName} {chapter}:{item.verse}</span>
-          <span className="shrink-0 text-xs font-normal text-[var(--muted)]">
-            {/* Every card gets a second line, so cards in a row stay the same height */}
-            {item.isPlaceholder ? "No image yet" : item.imageCount > 1 ? `Image ${item.cardIndex + 1} of ${item.imageCount}` : "1 image"}
-          </span>
-        </p>
-        )}
-        {/* All images cards carry the reference and image position only, the same on phones and
-            desktop; the verse itself is shown once per verse in By verse and in the lightbox */}
-      </div>
+        </div>
+      ) : null}
     </Link>
   );
 }
@@ -615,10 +611,10 @@ export function ChapterGallery({
 
   return (
     <section
-      className={fullScreen ? "flex-1 py-6 md:py-8" : "pb-10"}
+      className={fullScreen ? "flex-1 py-4 sm:py-6 md:py-8" : "pb-10"}
       aria-labelledby="chapter-gallery-heading"
     >
-      <div className="max-w-6xl mx-auto px-4 md:px-6 space-y-6">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 space-y-4 sm:space-y-6">
         <header className="flex flex-wrap items-end justify-between gap-x-3 gap-y-2">
           <div>
             <p className="text-xs uppercase tracking-widest text-[var(--muted)]">Chapter Gallery</p>
@@ -634,7 +630,7 @@ export function ChapterGallery({
 
         <div
           aria-label="Gallery filters"
-          className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+          className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2"
         >
           <div
             role="radiogroup"
@@ -713,22 +709,11 @@ export function ChapterGallery({
                   }`}
                 >
                   <div className="grid gap-0 lg:grid-cols-[minmax(220px,280px)_minmax(0,1fr)]">
-                    {/* Phones: no "Verse n" pill (the reference says it), the count beside the reference,
-                        and tighter padding, so the images start sooner */}
+                    {/* No "Verse n" pill (the reference says it): the count sits beside the reference,
+                        on phones and desktop alike, so the images start sooner */}
                     <div className="border-b border-[var(--divider)] bg-[var(--surface)]/55 p-3 sm:p-4 md:p-5 lg:border-b-0 lg:border-r">
-                      <div className="space-y-2 lg:space-y-3">
-                        <span
-                          className={`hidden lg:inline-block rounded-full px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] ${
-                            isCurrent
-                              ? "bg-[var(--accent)]/12 text-[var(--accent)]"
-                              : "bg-[var(--surface)] text-[var(--foreground)]"
-                          }`}
-                        >
-                          Verse {item.verse}
-                        </span>
-
-                        <div className="space-y-1 lg:space-y-2">
-                          <div className="flex items-baseline justify-between gap-3">
+                      <div className="space-y-1 lg:space-y-2">
+                        <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
                           <Link
                             href={buildReaderHref(item.href, item.cards[0]?.imageId)}
                             aria-current={isCurrent ? "page" : undefined}
@@ -748,19 +733,16 @@ export function ChapterGallery({
                                 isPlaceholder: !item.hasImages,
                               }),
                             })}
-                            className="block text-lg font-semibold tracking-tight text-[var(--foreground)] hover:text-[var(--accent)] transition-colors duration-[var(--motion-fast)]"
+                            className={`block text-lg font-semibold tracking-tight hover:text-[var(--accent)] transition-colors duration-[var(--motion-fast)] ${
+                              isCurrent ? "text-[var(--accent)]" : "text-[var(--foreground)]"
+                            }`}
                           >
                             {bookName} {chapter}:{item.verse}
                           </Link>
-                          <span className="lg:hidden shrink-0 text-xs text-[var(--muted)]">{statusLabel}</span>
-                          </div>
-                          <p className="text-sm leading-6 text-[var(--foreground)]/75">
-                            {item.text}
-                          </p>
+                          <span className="shrink-0 text-xs text-[var(--muted)]">{statusLabel}</span>
                         </div>
-
-                        <p className="hidden lg:block text-xs text-[var(--muted)]">
-                          {statusLabel}
+                        <p className="text-sm leading-6 text-[var(--foreground)]/75">
+                          {item.text}
                         </p>
                       </div>
                     </div>

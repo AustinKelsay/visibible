@@ -67,7 +67,7 @@ export default function AboutPage() {
 
       <main className="flex-1">
         <section className="border-b border-[var(--divider)]">
-          <div className="max-w-4xl mx-auto px-4 py-16 sm:py-20">
+          <div className="max-w-4xl mx-auto px-4 py-8 sm:py-20">
             <div className="max-w-2xl">
               <p className="text-sm font-medium tracking-[0.14em] uppercase text-[var(--accent)]">
                 About Visibible
@@ -82,7 +82,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="max-w-4xl mx-auto px-4 py-10 sm:py-14">
+        <section className="max-w-4xl mx-auto px-4 py-8 sm:py-14">
           <div className="grid gap-4 sm:gap-5">
             {sections.map((section) => (
               <article

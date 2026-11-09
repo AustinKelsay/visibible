@@ -263,6 +263,7 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
       {isHeaderMenuOpen && (
         <div className="sm:hidden absolute top-full left-0 right-0 bg-[var(--background)] border-b border-[var(--divider)] shadow-lg z-50">
           <div className="px-4 py-3 space-y-4">
+            <h2 className="text-xs font-medium uppercase tracking-wider text-[var(--muted)]">Settings</h2>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-[var(--foreground)]">Translation</span>
               <TranslationSelector variant="compact" />

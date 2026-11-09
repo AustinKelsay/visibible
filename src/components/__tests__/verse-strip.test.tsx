@@ -41,9 +41,13 @@ describe("VerseStrip", () => {
     const links = Array.from(container.querySelectorAll("a"));
     expect(links).toHaveLength(5);
     expect(links[0].getAttribute("aria-current")).toBe("page");
-    expect(links[0].querySelector('[aria-label="4 images"]')).not.toBeNull();
-    expect(links[2].querySelector('[aria-label="1 image"]')).not.toBeNull();
-    expect(links[1].querySelector("[aria-label]")).toBeNull();
+    // One mark for any count (icon + number), and the tile's name says what it means
+    expect(links[0].getAttribute("aria-label")).toBe("Verse 1, 4 saved images");
+    expect(links[0].textContent).toBe("14");
+    expect(links[2].getAttribute("aria-label")).toBe("Verse 3, 1 saved image");
+    expect(links[2].textContent).toBe("31");
+    expect(links[1].getAttribute("aria-label")).toBe("Verse 2, no image yet");
+    expect(links[1].querySelector("svg")).toBeNull();
     expect(container.querySelector('[class*="-top-1.5"]')).toBeNull();
   });
 
@@ -56,5 +60,8 @@ describe("VerseStrip", () => {
     const later = container.querySelector<HTMLButtonElement>('button[aria-label="Later verses"]')!;
     expect(earlier.disabled).toBe(true);
     expect(later.disabled).toBe(false);
+    // The strip fades before the forward arrow instead of cutting a tile
+    const scroller = later.previousElementSibling as HTMLElement;
+    expect(scroller.style.maskImage || scroller.getAttribute("style")).toContain("linear-gradient");
   });
 });

@@ -2,7 +2,7 @@
 
 import { useChat } from "@ai-sdk/react";
 import { useState, useMemo, useEffect, useRef, startTransition } from "react";
-import { ChevronUp, Loader2, MessageCircle, Send, Zap } from "lucide-react";
+import { ChevronRight, ChevronUp, Loader2, MessageCircle, Send, Zap } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { useSession } from "@/context/session-context";
 import { ChatModelSelector } from "./chat-model-selector";
@@ -249,9 +249,10 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
                         setInput(question);
                         inputRef.current?.focus();
                       }}
-                      className="w-full min-h-[44px] rounded-[var(--radius-md)] border border-[var(--divider)] px-3.5 py-2.5 text-left text-sm text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                      className="w-full min-h-[44px] flex items-center gap-2 rounded-[var(--radius-md)] border border-[var(--divider)] px-3.5 py-2.5 text-left text-sm text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors duration-[var(--motion-fast)] focus-ring"
                     >
-                      {question}
+                      <span className="flex-1">{question}</span>
+                      <ChevronRight size={16} strokeWidth={1.75} className="shrink-0 text-[var(--muted)]" aria-hidden="true" />
                     </button>
                   ))}
                 </div>
@@ -263,16 +264,17 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
                 <p className="mt-1 text-sm text-[var(--muted)]">
                   Add credits to ask questions about {passageLabel ?? "Scripture"}.
                 </p>
+                {/* Outlined, so the header's solid Get Credits stays the one primary button on screen */}
                 <button
                   type="button"
                   onClick={buyCredits}
-                  className="mt-3 min-h-[40px] px-4 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] text-sm font-medium hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                  className="mt-3 min-h-[40px] px-4 rounded-[var(--radius-full)] border border-[var(--accent)] text-[var(--accent)] text-sm font-medium hover:bg-[var(--accent)]/10 transition-colors duration-[var(--motion-fast)] focus-ring"
                 >
                   Get Credits
                 </button>
                 <p className="mt-5 text-left text-xs font-medium uppercase tracking-wider text-[var(--muted)]">With credits, you could ask</p>
                 {/* Each example opens Get Credits and waits in the message box for after the purchase */}
-                <ul className="mt-1 divide-y divide-[var(--divider)] text-left text-sm text-[var(--foreground)]/85">
+                <ul className="mt-2 flex flex-col gap-1.5 text-left text-sm text-[var(--foreground)]">
                   {starterQuestions.map((question) => (
                     <li key={question}>
                       <button
@@ -281,9 +283,10 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
                           setInput(question);
                           buyCredits();
                         }}
-                        className="w-full min-h-[40px] py-2 text-left hover:text-[var(--foreground)] hover:underline underline-offset-2 focus-ring"
+                        className="w-full min-h-[44px] flex items-center gap-2 rounded-[var(--radius-md)] border border-[var(--divider)] bg-[var(--background)] px-3 py-2 text-left hover:border-[var(--muted)]/40 hover:bg-[var(--background)]/60 transition-colors duration-[var(--motion-fast)] focus-ring"
                       >
-                        {question}
+                        <span className="flex-1">{question}</span>
+                        <ChevronRight size={16} strokeWidth={1.75} className="shrink-0 text-[var(--muted)]" aria-hidden="true" />
                       </button>
                     </li>
                   ))}

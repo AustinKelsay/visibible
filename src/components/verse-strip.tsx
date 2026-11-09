@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Image as ImageIcon } from "lucide-react";
 import { useQuery } from "convex/react";
 import { usePreferences } from "@/context/preferences-context";
 import { api } from "../../convex/_generated/api";
@@ -15,8 +15,33 @@ interface VerseStripProps {
   totalVerses: number;
 }
 
+const FADE_END = {
+  maskImage: "linear-gradient(to right, #000 calc(100% - 2.5rem), transparent)",
+  WebkitMaskImage: "linear-gradient(to right, #000 calc(100% - 2.5rem), transparent)",
+} as const;
+
 interface VerseStripBaseProps extends VerseStripProps {
   imageStatus: Array<{ verse: number; imageCount: number }> | null | undefined;
+}
+
+/** Accessible name for a verse tile, e.g. "Verse 3, 18 saved images". */
+export function verseTileLabel(verse: number, imageCount: number): string {
+  if (imageCount <= 0) return `Verse ${verse}, no image yet`;
+  return `Verse ${verse}, ${imageCount} saved image${imageCount === 1 ? "" : "s"}`;
+}
+
+/**
+ * Saved-image count under a verse number: a small image icon and the number, so it reads as
+ * "images" without a legend. The same mark is used for one image and for many.
+ */
+export function VerseImageCount({ count, className = "" }: { count: number; className?: string }) {
+  if (count <= 0) return null;
+  return (
+    <span aria-hidden="true" className={`inline-flex items-center gap-0.5 text-xs font-medium leading-3 tabular-nums ${className}`}>
+      <ImageIcon size={10} strokeWidth={2} />
+      {count}
+    </span>
+  );
 }
 
 export function VerseStrip(props: VerseStripProps) {
@@ -112,7 +137,13 @@ function VerseStripBase({
       >
         <ChevronLeft size={18} strokeWidth={1.75} />
       </button>
-      <div ref={scrollerRef} onScroll={updateScrollState} className="flex-1 min-w-0 overflow-x-auto scrollbar-hide">
+      {/* When more verses follow, the strip fades out before the arrow rather than cutting a tile in half */}
+      <div
+        ref={scrollerRef}
+        onScroll={updateScrollState}
+        className="flex-1 min-w-0 overflow-x-auto scrollbar-hide"
+        style={canScroll.forward ? FADE_END : undefined}
+      >
         <div className="flex gap-1 p-2">
           {verses.map((v) => {
             const isCurrent = v.verse === currentVerse;
@@ -127,26 +158,14 @@ function VerseStripBase({
                 }`}
                 aria-current={isCurrent ? "page" : undefined}
                 ref={isCurrent ? currentRef : undefined}
-                title={`Verse ${v.verse}${v.imageCount > 0 ? ` · ${v.imageCount} image${v.imageCount !== 1 ? "s" : ""}` : " · no image yet"}`}
+                aria-label={verseTileLabel(v.verse, v.imageCount)}
+                title={verseTileLabel(v.verse, v.imageCount)}
               >
                 <span className="text-sm font-medium leading-4">{v.verse}</span>
-                {/* Saved images: a dot for one, a count for more; the welcome screen explains it */}
-                {v.imageCount === 1 && (
-                  <span
-                    aria-label="1 image"
-                    className={`mt-1 h-1 w-1 rounded-full ${isCurrent ? "bg-[var(--accent-text)]/90" : "bg-white/70"}`}
-                  />
-                )}
-                {v.imageCount > 1 && (
-                  <span
-                    aria-label={`${v.imageCount} images`}
-                    className={`mt-0.5 text-xs font-semibold leading-3 tabular-nums ${
-                      isCurrent ? "text-[var(--accent-text)]/90" : "text-white/80"
-                    }`}
-                  >
-                    {v.imageCount}
-                  </span>
-                )}
+                <VerseImageCount
+                  count={v.imageCount}
+                  className={`mt-0.5 ${isCurrent ? "text-[var(--accent-text)]/90" : "text-white/65"}`}
+                />
               </Link>
             );
           })}

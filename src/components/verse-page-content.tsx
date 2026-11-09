@@ -145,9 +145,10 @@ function VersePageBody({
     );
   }
 
-  // On phones the reader takes only the height it needs, so the footer follows Details directly
+  // On phones the reader fills the screen under the header and tabs, so the footer starts below
+  // the fold instead of floating mid-screen after a short verse
   return (
-    <div className="sm:flex-1 flex flex-col">
+    <div className="min-h-[calc(100svh-6.75rem)] sm:min-h-0 sm:flex-1 flex flex-col">
       <div className="relative">
         <HeroImage
           verseText={verseText}

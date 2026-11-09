@@ -1303,14 +1303,47 @@ function HeroImageBase({
     </div>
   );
 
+  // Verse links in fullscreen. A missing neighbour keeps its slot (disabled), so "Next verse"
+  // stays in the same place on the first verse.
+  const fullscreenVerseLinkClass =
+    "min-h-[44px] px-3 inline-flex items-center gap-1 rounded-full text-sm text-white/90 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)] focus-ring";
+  const fullscreenVerseLinks = (
+    <>
+      {prevUrl ? (
+        <Link href={prevUrl} className={fullscreenVerseLinkClass} aria-label="Previous verse">
+          <ChevronLeft size={18} strokeWidth={1.5} />
+          <span>Previous verse</span>
+        </Link>
+      ) : (
+        <span className={`${fullscreenVerseLinkClass} opacity-40 sm:hidden`} aria-hidden="true">
+          <ChevronLeft size={18} strokeWidth={1.5} />
+          <span>Previous verse</span>
+        </span>
+      )}
+      {nextUrl ? (
+        <Link href={nextUrl} className={fullscreenVerseLinkClass} aria-label="Next verse">
+          <span>Next verse</span>
+          <ChevronRight size={18} strokeWidth={1.5} />
+        </Link>
+      ) : (
+        <span className={`${fullscreenVerseLinkClass} opacity-40 sm:hidden`} aria-hidden="true">
+          <span>Next verse</span>
+          <ChevronRight size={18} strokeWidth={1.5} />
+        </span>
+      )}
+    </>
+  );
+
   return (
     <figure className="relative w-full">
-      {/* Image Container - follows the image's shape; capped so the stage fits on screen */}
+      {/* Image Container - follows the image's shape. On larger screens it leaves room under it for
+          the labelled verse navigation (header + tabs 6.75rem, navigation row 6rem), so the first
+          screen always shows how to reach the next verse. An empty verse gets a short stage. */}
       <div
         className={`relative w-full overflow-hidden bg-[var(--image-stage)] [aspect-ratio:var(--ar)] ${
           !displayImage?.url && !isQueryLoading && !isGenerating
-            ? "max-h-[45svh]"
-            : "max-h-[70svh] sm:max-h-[calc(100svh-6.75rem)]"
+            ? "max-h-[45svh] sm:max-h-[22rem]"
+            : "max-h-[70svh] sm:max-h-[calc(100svh-12.75rem)]"
         }`}
         style={{ "--ar": containerAspectRatioCss, touchAction: "pan-y" } as React.CSSProperties}
         data-testid="hero-swipe-overlay"
@@ -1483,7 +1516,9 @@ function HeroImageBase({
             {/* Empty state - no image yet */}
             {!isQueryLoading && !isGenerating && !error && (
               <VerseImagePlaceholder
-                className="absolute inset-0"
+                // On larger screens the verse strip floats over the top of the stage, so the
+                // message centres in the space below it
+                className="absolute inset-0 sm:pt-20"
                 theme="dark"
                 action={
                   pricingPending ? (
@@ -1597,7 +1632,7 @@ function HeroImageBase({
           <p className="mb-2 text-center text-xs uppercase tracking-[0.2em] text-white/70">
             {book} {chapter}:{verse}
           </p>
-          <p ref={captionTextRef} className="mx-auto max-w-4xl line-clamp-3 text-pretty text-center text-2xl md:text-3xl lg:text-4xl italic text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
+          <p ref={captionTextRef} className="mx-auto max-w-4xl line-clamp-3 text-pretty text-center text-2xl md:text-3xl lg:text-4xl font-light text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
             &ldquo;{caption}&rdquo;
           </p>
         </figcaption>
@@ -1617,26 +1652,8 @@ function HeroImageBase({
               {currentReference || ""}
             </span>
             <div className="flex items-center gap-1">
-              {prevUrl ? (
-                <Link
-                  href={prevUrl}
-                  className="min-h-[44px] px-3 inline-flex items-center gap-1 rounded-full text-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)] focus-ring"
-                  aria-label="Previous verse"
-                >
-                  <ChevronLeft size={18} strokeWidth={1.5} />
-                  <span className="hidden sm:inline">Previous verse</span>
-                </Link>
-              ) : null}
-              {nextUrl ? (
-                <Link
-                  href={nextUrl}
-                  className="min-h-[44px] px-3 inline-flex items-center gap-1 rounded-full text-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)] focus-ring"
-                  aria-label="Next verse"
-                >
-                  <span>Next verse</span>
-                  <ChevronRight size={18} strokeWidth={1.5} />
-                </Link>
-              ) : null}
+              {/* Phones put verse navigation at the bottom, next to the image controls */}
+              <div className="hidden sm:flex items-center gap-1">{fullscreenVerseLinks}</div>
             <button
               onClick={closeFullscreen}
               className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)]"
@@ -1834,6 +1851,14 @@ function HeroImageBase({
               )}
             </div>
 
+          </div>
+
+          {/* Phones: verse navigation along the bottom edge, within reach of the thumb */}
+          <div
+            className="sm:hidden shrink-0 flex items-center justify-between px-2 pt-2 border-t border-white/10"
+            style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
+          >
+            {fullscreenVerseLinks}
           </div>
         </div>
       )}
