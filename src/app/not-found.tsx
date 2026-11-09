@@ -9,7 +9,7 @@ import { BookMenu } from "@/components/book-menu";
 export default function NotFound() {
   return (
     <LayoutWrapper>
-      <Header />
+      <Header isNotFound />
 
       <main className="flex-1 flex items-center justify-center px-4 py-16">
         <div className="text-center">

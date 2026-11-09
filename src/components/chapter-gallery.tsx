@@ -191,6 +191,8 @@ function GalleryCard({
         </div>
         )}
 
+        {/* Fullscreen button: shown on hover, keyboard focus and touch screens, since the lightbox is
+            where the verse reads alongside its image */}
         {!item.isPlaceholder && item.imageUrl && onExpand ? (
           <button
             type="button"
@@ -199,7 +201,7 @@ function GalleryCard({
               e.stopPropagation();
               onExpand(item);
             }}
-            className="absolute right-3 bottom-3 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-full bg-black/50 text-white/70 opacity-0 group-hover:opacity-100 hover:bg-black/70 hover:text-white backdrop-blur-sm transition-all duration-[var(--motion-base)]"
+            className="absolute right-3 bottom-3 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-full bg-black/50 text-white/70 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 pointer-coarse:opacity-100 hover:bg-black/70 hover:text-white backdrop-blur-sm transition-all duration-[var(--motion-base)]"
             aria-label={`Open fullscreen view for ${bookName} ${chapter}:${item.verse}`}
           >
             <Maximize2 size={16} strokeWidth={1.5} />
