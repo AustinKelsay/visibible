@@ -432,7 +432,8 @@ async function pairing() {
   for (const [arm, rows] of Object.entries(arms)) {
     const dir = path.join(path.resolve(values.out), arm); mkdirSync(dir, { recursive: true });
     const lines: string[] = [];
-    for (const row of rows.filter((r) => r.outcome === "image" && planned.has(r.caseId))) {
+    // Only the run's own cases, so a narrower run pairs against the same cases of a wider baseline.
+    for (const row of rows.filter((r) => r.outcome === "image" && planned.has(r.caseId) && p.cases.some((c) => c.caseId === r.caseId))) {
       const { context } = await caseInputs(snap, p.cases.find((c) => c.caseId === row.caseId)!);
       const scene = `${context.moment.reference}: ${context.moment.text.replace(/\s+/g, " ").slice(0, 300)}`;
       lines.push(JSON.stringify({ case: row.case, caseId: row.caseId, work: row.work, style: row.style, outcome: "image", chosen: row.chosen ?? 1, attempts: row.attempts,

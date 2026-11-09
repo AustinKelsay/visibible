@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-09T22:08:04.224Z",
+  "commit": "3922747c890cf1fca30372fa15295e2bf2870331",
+  "grant": {
+    "authorization": "Owner, 2026-11-09: \"Yep, let's go with the slim pipeline\", in reply to: \"Do you want the Bible switched to the slim pipeline? If so, I'd fix place consistency first, with a roughly $2 test of location sheets or one shared place sentence.\" The 48 images are estimated at $2.07; the $4.00 cap is that plus the room three calls in flight need at their catalog ceiling.",
+    "operationCapUsd": 4,
+    "key": "production …aac"
+  },
+  "capUsd": 1.799116,
+  "balanceUsd": 14.10972978800001,
+  "keyLimitRemaining": 38.85492605,
+  "sources": {
+    "src/lib/engine/lean.ts": "6ee771af1ce78badcb8067de907b4c8e240defe9a23132b9c6e8fea57147ef23",
+    "src/lib/engine/prompt.ts": "dfe33e64074d7ca273654703d39173dc4aafe4b2dab157196f3b5332b94d115b",
+    "src/lib/engine/depiction.ts": "60dbfb9bca1e8cd120d4e8a8dc0ba9d364484eb6bce71528d17d3f0fe3d81f7a",
+    "src/lib/engine/work-inputs.ts": "fb0d94e51f979610332ed538eb5a34f9c70988f1c704f880991d8411af6b0cb4",
+    "src/lib/image-evals/adapters.ts": "6301752cd0c7304c3be44069511fc7f0850f76afc17249a100692c5b5e5bca28",
+    "src/lib/image-evals/suite-run.ts": "d18d1f3fef44447646e5359d9c22e28428f490e3be06dfe9e8f84263649e442c",
+    "scripts/evals/lean.mts": "e9c4be4f3ef46db2fef7463b9686f04fa6ed14e128d32c60e6092ccbb5b169f7",
+    "evals/images/suite.json": "e9c5010f72c3e8fe518e940ef109db6c1e68a431fc08ec0ecd5f8f4cd0bf3250",
+    "evals/images/cases.json": "06bb40f953f7123b55cf2bfab8f153bbd5959c3c937181cdbb7b6b993ac0a224",
+    "evals/images/faults.json": "a909ae9f9399a5cc711b4fb18f4984f3ef9d34404b48f65964d40d0b1c8a15e1"
+  }
+}

@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "instructions": "evals/images/consistency-scoring.md",
+  "pairs": [
+    {
+      "id": "pair001",
+      "file": "composites/pair001.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; ",
+      "right": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+    },
+    {
+      "id": "pair002",
+      "file": "composites/pair002.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; ",
+      "right": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+    },
+    {
+      "id": "pair003",
+      "file": "composites/pair003.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "pair004",
+      "file": "composites/pair004.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair005",
+      "file": "composites/pair005.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+    },
+    {
+      "id": "pair006",
+      "file": "composites/pair006.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair007",
+      "file": "composites/pair007.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; ",
+      "right": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+    },
+    {
+      "id": "pair008",
+      "file": "composites/pair008.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "pair009",
+      "file": "composites/pair009.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+    },
+    {
+      "id": "pair010",
+      "file": "composites/pair010.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+    },
+    {
+      "id": "pair011",
+      "file": "composites/pair011.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+    },
+    {
+      "id": "pair012",
+      "file": "composites/pair012.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "pair013",
+      "file": "composites/pair013.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+    },
+    {
+      "id": "pair014",
+      "file": "composites/pair014.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; ",
+      "right": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+    },
+    {
+      "id": "pair015",
+      "file": "composites/pair015.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair016",
+      "file": "composites/pair016.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair017",
+      "file": "composites/pair017.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+    },
+    {
+      "id": "pair018",
+      "file": "composites/pair018.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; ",
+      "right": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+    },
+    {
+      "id": "pair019",
+      "file": "composites/pair019.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "pair020",
+      "file": "composites/pair020.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair021",
+      "file": "composites/pair021.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; ",
+      "right": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+    },
+    {
+      "id": "pair022",
+      "file": "composites/pair022.jpg",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "question": "Do the left and right images show the same place (the father's house and the road where he meets his son)?",
+      "left": "Luke 15:20: “He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.; ",
+      "right": "Luke 15:22: “But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.; "
+    },
+    {
+      "id": "pair023",
+      "file": "composites/pair023.jpg",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "question": "Do the left and right images show the same place (the father's house and the road where he meets his son)?",
+      "left": "Luke 15:20: “He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.; ",
+      "right": "Luke 15:22: “But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.; "
+    },
+    {
+      "id": "pair024",
+      "file": "composites/pair024.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair025",
+      "file": "composites/pair025.jpg",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "question": "Do the left and right images show the same place (the father's house and the road where he meets his son)?",
+      "left": "Luke 15:22: “But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.; ",
+      "right": "Luke 15:20: “He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.; "
+    },
+    {
+      "id": "pair026",
+      "file": "composites/pair026.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair027",
+      "file": "composites/pair027.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "pair028",
+      "file": "composites/pair028.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "pair029",
+      "file": "composites/pair029.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; ",
+      "right": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+    },
+    {
+      "id": "pair030",
+      "file": "composites/pair030.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+    },
+    {
+      "id": "pair031",
+      "file": "composites/pair031.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; ",
+      "right": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+    },
+    {
+      "id": "pair032",
+      "file": "composites/pair032.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+    },
+    {
+      "id": "pair033",
+      "file": "composites/pair033.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; ",
+      "right": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+    },
+    {
+      "id": "pair034",
+      "file": "composites/pair034.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; ",
+      "right": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+    },
+    {
+      "id": "pair035",
+      "file": "composites/pair035.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair036",
+      "file": "composites/pair036.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; ",
+      "right": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+    },
+    {
+      "id": "pair037",
+      "file": "composites/pair037.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair038",
+      "file": "composites/pair038.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "pair039",
+      "file": "composites/pair039.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    }
+  ]
+}
