@@ -68,7 +68,7 @@ export function HeaderSettingsPopover() {
   if (!isRegistered) {
     return (
       <span
-        className="min-h-[36px] px-2.5 flex items-center gap-1.5 text-xs font-medium text-[var(--muted)] opacity-60 cursor-default"
+        className="min-h-[36px] px-2.5 flex items-center gap-1.5 text-[13px] font-medium text-[var(--muted)] opacity-60 cursor-default"
         title="Image settings apply on the Images tab"
       >
         <Settings size={14} strokeWidth={1.5} />
@@ -81,7 +81,7 @@ export function HeaderSettingsPopover() {
     <div ref={popoverRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="min-h-[36px] px-2.5 flex items-center gap-1.5 text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)] rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)]"
+        className="min-h-[36px] px-2.5 flex items-center gap-1.5 text-[13px] font-medium text-[var(--foreground)]/80 hover:text-[var(--foreground)] hover:bg-[var(--surface)] rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)]"
         aria-label="Image settings"
         aria-expanded={isOpen}
       >

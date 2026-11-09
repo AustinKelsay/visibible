@@ -32,7 +32,7 @@ function Divider() {
   return <div className="w-px h-6 bg-[var(--divider)] mx-1 sm:mx-2" />;
 }
 
-export function Header() {
+export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
   const pathname = usePathname();
   const verseView = useOptionalVerseView();
   const { toggleMenu, toggleChat, isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu } = useNavigation();
@@ -46,7 +46,9 @@ export function Header() {
   const pillMeasureRef = useRef<HTMLSpanElement>(null);
   const [pillFits, setPillFits] = useState(true);
   const { tier, credits, buyCredits, accessStatus } = useSession();
-  const isBrandLinkPage = pathname === "/about" || pathname === "/api-docs";
+  // The brand links home everywhere except verse pages (About, API docs, 404). A verse-shaped
+  // address that does not exist (/genesis/0/1) renders the 404 page, which says so.
+  const isBrandLinkPage = isNotFound || !/^\/[^/]+\/\d+\/\d+$/.test(pathname);
   const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname) && verseView !== null;
   const videoOpen = verseView?.effectiveView === "video";
   // Generate and image settings register only while the reader's image is mounted.
@@ -144,11 +146,6 @@ export function Header() {
 
           <Divider />
 
-          {/* Credits - Primary CTA */}
-          <CreditsBadge />
-
-          <Divider />
-
           {/* Settings Group */}
           <div className="flex items-center">
             <TranslationSelector variant="compact" />
@@ -168,14 +165,14 @@ export function Header() {
 
           <Divider />
 
+          {/* Balance and the credit or generate action sit together */}
+          <div className="flex items-center gap-1.5">
+          <CreditsBadge />
+
           {/* Generate Button - hidden in gallery view */}
           {isVersePage && readerOpen ? (
-            <>
-              <HeaderGenerateButton />
-              <Divider />
-            </>
+            <HeaderGenerateButton />
           ) : isVersePage && accessStatus === "ready" && tier !== "admin" && credits < DEFAULT_IMAGE_ESTIMATED_CREDITS_COST ? (
-            <>
               <button
                 type="button"
                 onClick={buyCredits}
@@ -184,9 +181,10 @@ export function Header() {
                 <Zap size={14} strokeWidth={2} />
                 <span>Get Credits</span>
               </button>
-              <Divider />
-            </>
           ) : null}
+          </div>
+
+          <Divider />
 
           {/* Navigation Group */}
           <div className="flex items-center">

@@ -719,7 +719,7 @@ export function BuyCreditsModal() {
                 <div className="flex items-center justify-center gap-4">
                   <div className="flex items-center gap-2">
                     <CashAppLogo className="w-6 h-6" />
-                    <span className="text-sm font-medium text-[var(--foreground)]">CashApp</span>
+                    <span className="text-sm font-medium text-[var(--foreground)]">Cash App</span>
                   </div>
                   <span className="text-[var(--muted)]">or</span>
                   <div className="flex items-center gap-2">
@@ -823,7 +823,7 @@ export function BuyCreditsModal() {
               <p className="text-sm text-[var(--muted)]">Scan with</p>
               <div className="flex items-center gap-1.5">
                 <CashAppLogo className="w-5 h-5" />
-                <span className="text-sm font-medium text-[var(--foreground)]">CashApp</span>
+                <span className="text-sm font-medium text-[var(--foreground)]">Cash App</span>
               </div>
               <span className="text-sm text-[var(--muted)]">or</span>
               <div className="flex items-center gap-1.5">

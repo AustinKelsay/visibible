@@ -25,7 +25,7 @@ export function VerseImagePlaceholder({
   const iconShellClassName = compact ? "w-12 h-12" : "w-16 h-16";
   const descriptionClassName = compact
     ? "text-[11px] max-w-[14rem]"
-    : "text-xs max-w-[240px]";
+    : "text-sm max-w-[280px]";
 
   return (
     <div
