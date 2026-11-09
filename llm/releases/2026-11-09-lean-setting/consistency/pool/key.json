@@ -1,0 +1,515 @@
+{
+  "run": "2026-11-09-lean-setting",
+  "pairs": [
+    {
+      "id": "c001",
+      "set": "full/bible-web",
+      "pairId": "pair029"
+    },
+    {
+      "id": "c002",
+      "set": "lean/bible-web",
+      "pairId": "pair028"
+    },
+    {
+      "id": "c003",
+      "set": "full/bible-web",
+      "pairId": "pair030"
+    },
+    {
+      "id": "c004",
+      "set": "full/bible-web",
+      "pairId": "pair020"
+    },
+    {
+      "id": "c005",
+      "set": "lean/bible-web",
+      "pairId": "pair020"
+    },
+    {
+      "id": "c006",
+      "set": "full/bible-web",
+      "pairId": "pair004"
+    },
+    {
+      "id": "c007",
+      "set": "lean/bible-web",
+      "pairId": "pair004"
+    },
+    {
+      "id": "c008",
+      "set": "full/bible-web",
+      "pairId": "pair034"
+    },
+    {
+      "id": "c009",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair003"
+    },
+    {
+      "id": "c010",
+      "set": "lean/bible-web",
+      "pairId": "pair022"
+    },
+    {
+      "id": "c011",
+      "set": "lean/bible-web",
+      "pairId": "pair038"
+    },
+    {
+      "id": "c012",
+      "set": "lean/bible-web",
+      "pairId": "pair012"
+    },
+    {
+      "id": "c013",
+      "set": "full/bible-web",
+      "pairId": "pair014"
+    },
+    {
+      "id": "c014",
+      "set": "full/bible-web",
+      "pairId": "pair006"
+    },
+    {
+      "id": "c015",
+      "set": "full/bible-web",
+      "pairId": "pair016"
+    },
+    {
+      "id": "c016",
+      "set": "full/bible-web",
+      "pairId": "pair027"
+    },
+    {
+      "id": "c017",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair009"
+    },
+    {
+      "id": "c018",
+      "set": "full/bible-web",
+      "pairId": "pair009"
+    },
+    {
+      "id": "c019",
+      "set": "full/bible-web",
+      "pairId": "pair012"
+    },
+    {
+      "id": "c020",
+      "set": "lean/bible-web",
+      "pairId": "pair024"
+    },
+    {
+      "id": "c021",
+      "set": "lean/bible-web",
+      "pairId": "pair033"
+    },
+    {
+      "id": "c022",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair007"
+    },
+    {
+      "id": "c023",
+      "set": "lean/bible-web",
+      "pairId": "pair007"
+    },
+    {
+      "id": "c024",
+      "set": "lean/bible-web",
+      "pairId": "pair018"
+    },
+    {
+      "id": "c025",
+      "set": "full/alice-in-wonderland",
+      "pairId": "pair008"
+    },
+    {
+      "id": "c026",
+      "set": "lean/bible-web",
+      "pairId": "pair014"
+    },
+    {
+      "id": "c027",
+      "set": "lean/bible-web",
+      "pairId": "pair015"
+    },
+    {
+      "id": "c028",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair002"
+    },
+    {
+      "id": "c029",
+      "set": "full/alice-in-wonderland",
+      "pairId": "pair004"
+    },
+    {
+      "id": "c030",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair011"
+    },
+    {
+      "id": "c031",
+      "set": "full/bible-web",
+      "pairId": "pair001"
+    },
+    {
+      "id": "c032",
+      "set": "lean/bible-web",
+      "pairId": "pair034"
+    },
+    {
+      "id": "c033",
+      "set": "full/alice-in-wonderland",
+      "pairId": "pair001"
+    },
+    {
+      "id": "c034",
+      "set": "lean/bible-web",
+      "pairId": "pair009"
+    },
+    {
+      "id": "c035",
+      "set": "full/alice-in-wonderland",
+      "pairId": "pair007"
+    },
+    {
+      "id": "c036",
+      "set": "full/bible-web",
+      "pairId": "pair005"
+    },
+    {
+      "id": "c037",
+      "set": "full/bible-web",
+      "pairId": "pair019"
+    },
+    {
+      "id": "c038",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair006"
+    },
+    {
+      "id": "c039",
+      "set": "lean/bible-web",
+      "pairId": "pair029"
+    },
+    {
+      "id": "c040",
+      "set": "full/bible-web",
+      "pairId": "pair002"
+    },
+    {
+      "id": "c041",
+      "set": "full/alice-in-wonderland",
+      "pairId": "pair005"
+    },
+    {
+      "id": "c042",
+      "set": "lean/bible-web",
+      "pairId": "pair031"
+    },
+    {
+      "id": "c043",
+      "set": "full/bible-web",
+      "pairId": "pair023"
+    },
+    {
+      "id": "c044",
+      "set": "lean/bible-web",
+      "pairId": "pair019"
+    },
+    {
+      "id": "c045",
+      "set": "full/bible-web",
+      "pairId": "pair021"
+    },
+    {
+      "id": "c046",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair008"
+    },
+    {
+      "id": "c047",
+      "set": "full/bible-web",
+      "pairId": "pair037"
+    },
+    {
+      "id": "c048",
+      "set": "full/bible-web",
+      "pairId": "pair024"
+    },
+    {
+      "id": "c049",
+      "set": "full/bible-web",
+      "pairId": "pair022"
+    },
+    {
+      "id": "c050",
+      "set": "lean/bible-web",
+      "pairId": "pair030"
+    },
+    {
+      "id": "c051",
+      "set": "lean/bible-web",
+      "pairId": "pair011"
+    },
+    {
+      "id": "c052",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair001"
+    },
+    {
+      "id": "c053",
+      "set": "full/alice-in-wonderland",
+      "pairId": "pair006"
+    },
+    {
+      "id": "c054",
+      "set": "lean/bible-web",
+      "pairId": "pair017"
+    },
+    {
+      "id": "c055",
+      "set": "full/alice-in-wonderland",
+      "pairId": "pair011"
+    },
+    {
+      "id": "c056",
+      "set": "lean/bible-web",
+      "pairId": "pair006"
+    },
+    {
+      "id": "c057",
+      "set": "lean/bible-web",
+      "pairId": "pair032"
+    },
+    {
+      "id": "c058",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair004"
+    },
+    {
+      "id": "c059",
+      "set": "full/bible-web",
+      "pairId": "pair010"
+    },
+    {
+      "id": "c060",
+      "set": "lean/bible-web",
+      "pairId": "pair005"
+    },
+    {
+      "id": "c061",
+      "set": "full/bible-web",
+      "pairId": "pair015"
+    },
+    {
+      "id": "c062",
+      "set": "lean/bible-web",
+      "pairId": "pair025"
+    },
+    {
+      "id": "c063",
+      "set": "lean/bible-web",
+      "pairId": "pair010"
+    },
+    {
+      "id": "c064",
+      "set": "full/bible-web",
+      "pairId": "pair033"
+    },
+    {
+      "id": "c065",
+      "set": "full/bible-web",
+      "pairId": "pair036"
+    },
+    {
+      "id": "c066",
+      "set": "full/bible-web",
+      "pairId": "pair038"
+    },
+    {
+      "id": "c067",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair012"
+    },
+    {
+      "id": "c068",
+      "set": "full/alice-in-wonderland",
+      "pairId": "pair003"
+    },
+    {
+      "id": "c069",
+      "set": "full/alice-in-wonderland",
+      "pairId": "pair012"
+    },
+    {
+      "id": "c070",
+      "set": "full/bible-web",
+      "pairId": "pair013"
+    },
+    {
+      "id": "c071",
+      "set": "full/alice-in-wonderland",
+      "pairId": "pair010"
+    },
+    {
+      "id": "c072",
+      "set": "lean/bible-web",
+      "pairId": "pair039"
+    },
+    {
+      "id": "c073",
+      "set": "full/bible-web",
+      "pairId": "pair028"
+    },
+    {
+      "id": "c074",
+      "set": "full/bible-web",
+      "pairId": "pair032"
+    },
+    {
+      "id": "c075",
+      "set": "full/alice-in-wonderland",
+      "pairId": "pair009"
+    },
+    {
+      "id": "c076",
+      "set": "lean/bible-web",
+      "pairId": "pair037"
+    },
+    {
+      "id": "c077",
+      "set": "lean/bible-web",
+      "pairId": "pair021"
+    },
+    {
+      "id": "c078",
+      "set": "full/alice-in-wonderland",
+      "pairId": "pair002"
+    },
+    {
+      "id": "c079",
+      "set": "full/bible-web",
+      "pairId": "pair025"
+    },
+    {
+      "id": "c080",
+      "set": "full/bible-web",
+      "pairId": "pair007"
+    },
+    {
+      "id": "c081",
+      "set": "full/bible-web",
+      "pairId": "pair026"
+    },
+    {
+      "id": "c082",
+      "set": "full/bible-web",
+      "pairId": "pair031"
+    },
+    {
+      "id": "c083",
+      "set": "lean/bible-web",
+      "pairId": "pair008"
+    },
+    {
+      "id": "c084",
+      "set": "lean/bible-web",
+      "pairId": "pair001"
+    },
+    {
+      "id": "c085",
+      "set": "full/bible-web",
+      "pairId": "pair039"
+    },
+    {
+      "id": "c086",
+      "set": "full/bible-web",
+      "pairId": "pair018"
+    },
+    {
+      "id": "c087",
+      "set": "lean/bible-web",
+      "pairId": "pair023"
+    },
+    {
+      "id": "c088",
+      "set": "lean/bible-web",
+      "pairId": "pair002"
+    },
+    {
+      "id": "c089",
+      "set": "full/bible-web",
+      "pairId": "pair035"
+    },
+    {
+      "id": "c090",
+      "set": "full/bible-web",
+      "pairId": "pair017"
+    },
+    {
+      "id": "c091",
+      "set": "full/bible-web",
+      "pairId": "pair008"
+    },
+    {
+      "id": "c092",
+      "set": "full/bible-web",
+      "pairId": "pair011"
+    },
+    {
+      "id": "c093",
+      "set": "lean/bible-web",
+      "pairId": "pair003"
+    },
+    {
+      "id": "c094",
+      "set": "full/bible-web",
+      "pairId": "pair003"
+    },
+    {
+      "id": "c095",
+      "set": "lean/bible-web",
+      "pairId": "pair026"
+    },
+    {
+      "id": "c096",
+      "set": "lean/bible-web",
+      "pairId": "pair036"
+    },
+    {
+      "id": "c097",
+      "set": "lean/bible-web",
+      "pairId": "pair027"
+    },
+    {
+      "id": "c098",
+      "set": "lean/bible-web",
+      "pairId": "pair016"
+    },
+    {
+      "id": "c099",
+      "set": "lean/bible-web",
+      "pairId": "pair013"
+    },
+    {
+      "id": "c100",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair005"
+    },
+    {
+      "id": "c101",
+      "set": "lean/alice-in-wonderland",
+      "pairId": "pair010"
+    },
+    {
+      "id": "c102",
+      "set": "lean/bible-web",
+      "pairId": "pair035"
+    }
+  ]
+}

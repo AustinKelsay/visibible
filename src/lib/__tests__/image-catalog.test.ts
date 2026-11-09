@@ -12,7 +12,7 @@ const respond = (data: unknown) => ({ ok: true, json: async () => data });
 describe("verified image billing and discovery", () => {
   it("quotes the default from its catalog rates at its only verified resolution", () => {
     const billing = normalizeImageBilling(DEFAULT_IMAGE_MODEL, snapshot.data.find(m => m.id === DEFAULT_IMAGE_MODEL)!.pricing, 1);
-    expect(catalogImageQuote(DEFAULT_IMAGE_MODEL, billing, "1K")).toEqual({ providerUsd: 0.03535, credits: 5 });
+    expect(catalogImageQuote(DEFAULT_IMAGE_MODEL, billing, "1K")).toEqual({ providerUsd: 0.0426, credits: 6 });
     expect(imageCapabilities(DEFAULT_IMAGE_MODEL)?.resolutions).toEqual(["1K"]);
   });
   it("prices Gemini 2.5 Flash Image from output tokens without needing an input-image price", () => {
@@ -47,7 +47,7 @@ describe("verified image billing and discovery", () => {
     const { fetchImageModels } = await import("../image-models");
     const first = await fetchImageModels("test-key");
     expect(first.models.find(m => m.id === id)).toMatchObject({ creditsCost: 6, availability: "available" });
-    expect(first.models.map(m => m.id)).toEqual([id, "google/gemini-3.1-flash-image", DEFAULT_IMAGE_MODEL]);
+    expect(first.models.map(m => m.id)).toEqual([id, "google/gemini-3.1-flash-image", "google/gemini-3.1-flash-lite-image", DEFAULT_IMAGE_MODEL]);
     expect((await fetchImageModels("test-key")).models).toEqual([]);
   });
   it("labels a bounded stale snapshot and disables quotes after it expires", async () => {

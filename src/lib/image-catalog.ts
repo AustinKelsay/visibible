@@ -15,6 +15,8 @@ const OUTPUT_TOKENS: Record<string, Partial<Record<ImageResolution, number>>> = 
   "google/gemini-3.1-flash-image": { "1K": 1120, "2K": 1680, "4K": 2520 },
   "google/gemini-3.1-flash-image-preview": { "1K": 1120, "2K": 1680, "4K": 2520 },
   "google/gemini-3.1-flash-lite-image": { "1K": 1120 },
+  // Measured on 254 calls (9 November 2026); its 2K and 4K counts are not verified, so only 1K is offered.
+  "google/gemini-nano-banana-2.1": { "1K": 1120 },
 };
 
 // Gemini 3's default media resolution uses 1,120 tokens per image. These verified
@@ -23,6 +25,7 @@ const INPUT_IMAGE_TOKENS: Record<string, number> = {
   "google/gemini-3.1-flash-image": 1120,
   "google/gemini-3.1-flash-image-preview": 1120,
   "google/gemini-3.1-flash-lite-image": 1120,
+  "google/gemini-nano-banana-2.1": 1120,
 };
 
 export interface ImageBilling {

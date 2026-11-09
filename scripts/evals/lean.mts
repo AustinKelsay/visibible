@@ -35,7 +35,6 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
 import { parseArgs, parseEnv } from "node:util";
-import { contentVersion } from "../../convex/_helpers/contentVersion";
 import { loadEvalCases } from "@/lib/image-evals/cases";
 import {
   drawFraction, evaluateSuiteGate, expectedHoldoutKeys, faultsFor, loadFaults, loadSuiteConfig, operatorFileSchema, scoreFileSchema, settleScores, suiteCases, summarizeBy,
@@ -45,10 +44,11 @@ import { createLedger, modelPricing, requestCeilingUsd, scrubForLog, type ModelP
 import { imageCapabilities } from "@/lib/image-catalog";
 import { createOfflineOpenRouter } from "@/lib/image-evals/suite-offline";
 import { createOpenRouterEvalImageProvider } from "@/lib/image-evals/adapters";
-import { referenceIsCurrent, type ReferenceRecord } from "@/lib/engine/assemble";
+import type { ReferenceRecord } from "@/lib/engine/assemble";
 import type { AnalysisRecord } from "@/lib/engine/preparation";
 import { applicableRules } from "@/lib/engine/prompt";
-import { buildLeanRendering, leanCastMember, rankLeanCast, LEAN_MAX_SHEETS, LEAN_PROMPT_VERSION, type LeanCastMember, type LeanReference } from "@/lib/engine/lean";
+import { leanCastMember, rankLeanCast, LEAN_MAX_SHEETS, LEAN_PROMPT_VERSION, type LeanCastMember } from "@/lib/engine/lean";
+import { assembleLean } from "@/lib/engine/lean-assemble";
 import { momentContext, readWorkInputs, type WorkInputs } from "@/lib/engine/work-inputs";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
@@ -78,7 +78,7 @@ const RESERVE = { text: 0, image: 0.08, check: 0 };
 /** Output image tokens at 1K, measured, for models the image catalog does not list; a model in neither cannot be bounded and is refused. */
 const IMAGE_TOKENS_1K: Record<string, number> = { "google/gemini-nano-banana-2.1": 1120 };
 const PRODUCTION_HEADROOM_USD = 5;
-const SOURCES = ["src/lib/engine/lean.ts", "src/lib/engine/prompt.ts", "src/lib/engine/depiction.ts", "src/lib/engine/work-inputs.ts", "src/lib/image-evals/adapters.ts",
+const SOURCES = ["src/lib/engine/lean.ts", "src/lib/engine/lean-assemble.ts", "src/lib/engine/prompt.ts", "src/lib/engine/depiction.ts", "src/lib/engine/work-inputs.ts", "src/lib/image-evals/adapters.ts",
   "src/lib/image-evals/suite-run.ts", "scripts/evals/lean.mts", "evals/images/suite.json", "evals/images/cases.json", "evals/images/faults.json"];
 
 type Snapshot = {
@@ -205,8 +205,8 @@ async function run() {
       sources: Object.fromEntries(SOURCES.map((f) => [f, sha256(readFileSync(path.join(root, f)))])) });
   }
   mkdirSync(imageDir, { recursive: true });
-  // A content-filter refusal returns 200 with no image and zero usage; it is that image's failure at no cost, not the
-  // run's, so it reaches the ledger as the moderation refusal it is.
+  // A content-filter refusal returns 200 with no image and zero or no usage; it is that image's failure at no cost, not
+  // the run's, so it reaches the ledger as the moderation refusal it is.
   const upstream = fetchImpl;
   const filtered: typeof fetchImpl = async (url, init) => {
     const response = await upstream(url, init);
@@ -214,7 +214,7 @@ async function run() {
     const body = await response.text();
     try {
       const payload = JSON.parse(body) as { choices?: Array<{ finish_reason?: string }>; usage?: { cost?: number } };
-      if (payload.choices?.[0]?.finish_reason === "content_filter" && payload.usage?.cost === 0)
+      if (payload.choices?.[0]?.finish_reason === "content_filter" && !payload.usage?.cost)
         return new Response(JSON.stringify({ error: { message: "flagged: provider content filter", provider: payload } }), { status: 403, headers: { "Content-Type": "application/json" } });
     } catch { /* a non-JSON body is the ledger's to judge */ }
     return new Response(body, { status: response.status, headers: response.headers });
@@ -237,27 +237,24 @@ async function run() {
     const base = { tier: "image", case: c.unitId, caseId: c.caseId, work: c.work, split: c.split, key, style };
     const started = Date.now();
     try {
-      const { inputs, w, sc, section, context, cast: members } = await caseInputs(snap, c);
-      const styleEntry = inputs.styles[style]; assert.ok(styleEntry, `${c.work} has no ${style} style`);
-      const classical = inputs.styles.classical;
-      // The same currency rule production applies: a reference is used only when it was made from the current inputs.
-      const available: LeanReference[] = [];
-      const styleRef = w.references[`styleReference:${style}`];
-      if (styleRef && referenceIsCurrent(styleRef, [{ kind: "style", recordId: style, version: styleEntry.version }])) available.push({ kind: "styleReference", styleId: style, storageId: styleRef.storageId, version: styleRef.fingerprint });
-      for (const m of members) {
-        const r = w.references[`sheet:${m.entryId}:${m.stageId}`];
-        if (r && referenceIsCurrent(r, [{ kind: "entry", recordId: m.entryId, version: m.version }, { kind: "stage", recordId: `${m.entryId}:${m.stageId}`, version: contentVersion(m.text) },
-          ...(classical ? [{ kind: "style", recordId: "classical", version: classical.version }] : [])])) available.push({ kind: "sheet", entryId: m.entryId, stageId: m.stageId, storageId: r.storageId, version: r.fingerprint });
-      }
-      const rendering = buildLeanRendering({ work: { id: c.work, title: inputs.work.work.title }, moment: { id: sc.momentId, sectionId: sc.sectionId, reference: context.moment.reference, text: context.moment.text },
-        neighbors: { previous: context.previous?.text ?? null, next: context.next?.text ?? null }, brief: inputs.brief, eraId: String(section.payload.era ?? inputs.brief.eras[0].id),
-        style: styleEntry.style, cast: members, references: available, depiction: inputs.depiction, aspectRatio: p.image.aspectRatio });
-      if (!rendering.ok) { record({ ...base, outcome: "refused", stage: "lean", message: rendering.error }); return; }
-      const references = rendering.references.map((r) => {
-        const bytes = new Uint8Array(readFileSync(path.join(refDir, `${r.storageId}.jpg`)));
-        assert.equal(sha256(bytes), w.files[r.storageId].sha256, `Reference ${r.storageId} changed since the snapshot`);
-        return { bytes, mimeType: "image/jpeg" };
-      });
+      // The request path's own assembly, reading the snapshot where production reads Convex.
+      const { inputs, w, sc, context } = await caseInputs(snap, c);
+      const rendering = await assembleLean({
+        inputs,
+        getRecord: async (kind, recordId) => w.records[`${kind}:${recordId}`] ?? null,
+        listMoments: async () => Object.values(w.records).filter((r) => r.kind === "moment").map((r) => ({ id: r.recordId, firstUnit: String(r.payload.firstUnit), lastUnit: String(r.payload.lastUnit) })),
+        getReference: async (kind, recordId) => w.references[`${kind}:${recordId}`] ?? null,
+        loadReference: async (storageId) => {
+          const bytes = new Uint8Array(readFileSync(path.join(refDir, `${storageId}.jpg`)));
+          assert.equal(sha256(bytes), w.files[storageId].sha256, `Reference ${storageId} changed since the snapshot`);
+          return bytes;
+        },
+        // Production drops a reference that will not load; a frozen run must not pay for an image without it.
+        onReferenceUnavailable: (_kind, _id, error) => { throw error; },
+      }, { workId: c.work, unitId: c.unitId, styleId: style, aspectRatio: p.image.aspectRatio });
+      if (!rendering.ok) { record({ ...base, outcome: "refused", stage: "lean", reason: rendering.reason, message: rendering.message }); return; }
+      assert.equal(rendering.momentId, sc.momentId, `${key}: the snapshot names another moment`);
+      const references = rendering.sentReferences.map((r) => ({ bytes: r.bytes, mimeType: "image/jpeg" }));
       const provider = createOpenRouterEvalImageProvider({ apiKey, timeoutMs: 180_000, fetch: ledger.fetchFor("image", () => key) });
       const image = await provider.generate({ label: key, prompt: rendering.prompt, model: p.image.model, aspectRatio: p.image.aspectRatio, resolution: p.image.resolution, references });
       const extension = image.mimeType === "image/jpeg" ? "jpg" : image.mimeType.split("/")[1] ?? "png";
@@ -432,7 +429,8 @@ async function pairing() {
   for (const [arm, rows] of Object.entries(arms)) {
     const dir = path.join(path.resolve(values.out), arm); mkdirSync(dir, { recursive: true });
     const lines: string[] = [];
-    for (const row of rows.filter((r) => r.outcome === "image" && planned.has(r.caseId))) {
+    // Only the run's own cases, so a narrower run pairs against the same cases of a wider baseline.
+    for (const row of rows.filter((r) => r.outcome === "image" && planned.has(r.caseId) && p.cases.some((c) => c.caseId === r.caseId))) {
       const { context } = await caseInputs(snap, p.cases.find((c) => c.caseId === row.caseId)!);
       const scene = `${context.moment.reference}: ${context.moment.text.replace(/\s+/g, " ").slice(0, 300)}`;
       lines.push(JSON.stringify({ case: row.case, caseId: row.caseId, work: row.work, style: row.style, outcome: "image", chosen: row.chosen ?? 1, attempts: row.attempts,

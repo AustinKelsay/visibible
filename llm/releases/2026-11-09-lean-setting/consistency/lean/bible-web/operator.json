@@ -1,0 +1,21 @@
+{
+ "scorer": "operator",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "pair007",
+   "verdict": "same",
+   "notes": "Viewed: the same stormy lake under the same hills, in a single-masted plank boat; only the sternpost differs (plain against scrolled)."
+  },
+  {
+   "id": "pair039",
+   "verdict": "same",
+   "notes": "Viewed: the same lake and hills, storm on the left and the calm the text asks for on the right; the sternpost differs but the place does not."
+  },
+  {
+   "id": "pair008",
+   "verdict": "same",
+   "notes": "Viewed: both show the sandy seabed path between walls of water below red desert bluffs; the night storm on the right is the change the text asks for."
+  }
+ ]
+}

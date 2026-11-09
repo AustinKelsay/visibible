@@ -44,17 +44,13 @@ const STORAGE_KEY = "visibible-preferences";
 const COOKIE_NAME = "visibible-translation";
 const IMAGE_MODEL_COOKIE = "visibible-image-model";
 const CHAT_MODEL_COOKIE = "visibible-chat-model";
-// The default when saved preferences did not yet record which default was current.
-const LEGACY_DEFAULT_IMAGE_MODEL = "google/gemini-2.5-flash-image";
 
 /**
- * Every save writes the image model, whether or not the visitor chose it. A
- * saved model equal to the default current at save time follows the new default.
+ * Generation runs on one model, whatever a visitor saved (ADR 0012), so a saved model follows it. Showing another
+ * would price the image at that model's rate and then charge this one's.
  */
-function resolveSavedImageModel(prefs: { imageModel?: unknown; defaultImageModel?: unknown }): string {
-  if (typeof prefs.imageModel !== "string" || prefs.imageModel.length > 200) return DEFAULT_IMAGE_MODEL;
-  const defaultAtSave = typeof prefs.defaultImageModel === "string" ? prefs.defaultImageModel : LEGACY_DEFAULT_IMAGE_MODEL;
-  return prefs.imageModel === defaultAtSave ? DEFAULT_IMAGE_MODEL : prefs.imageModel;
+function resolveSavedImageModel(): string {
+  return DEFAULT_IMAGE_MODEL;
 }
 
 export function PreferencesProvider({ children }: { children: ReactNode }) {
@@ -81,7 +77,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
             setTranslationState(prefs.translation as Translation);
           }
           // Load image model preference
-          const savedImageModel = resolveSavedImageModel(prefs);
+          const savedImageModel = resolveSavedImageModel();
           setImageModelState(savedImageModel);
           // Load image aspect ratio preference
           if (prefs.imageAspectRatio && isValidAspectRatio(prefs.imageAspectRatio)) {

@@ -4,6 +4,7 @@ import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { BuyCreditsModal } from "@/components/buy-credits-modal";
+import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -58,22 +59,22 @@ describe("Get Credits pack estimate", () => {
   }
 
   const catalog = [
-    { id: "google/gemini-3.1-flash-lite-image", name: "Nano Banana 2 Lite", availability: "available", estimatedCreditsByResolution: { "1K": 5 } },
+    { id: DEFAULT_IMAGE_MODEL, name: "Nano Banana 2.1", availability: "available", estimatedCreditsByResolution: { "1K": 6 } },
     { id: "google/gemini-3.1-flash-image", name: "Nano Banana 2", availability: "available", estimatedCreditsByResolution: { "1K": 9, "2K": 14 } },
   ];
 
   it("estimates with the model generation runs, not the selected one", async () => {
     vi.stubGlobal("fetch", vi.fn(() => modelsResponse(catalog)));
     await openPacks();
-    expect(document.body.textContent).toContain("About 20 images");
-    expect(document.body.textContent).toContain("About 60 images");
+    expect(document.body.textContent).toContain("About 16 images");
+    expect(document.body.textContent).toContain("About 50 images");
   });
 
   it("does not show the last estimate after reopening while new pricing is pending", async () => {
     const fetchMock = vi.fn(() => modelsResponse(catalog));
     vi.stubGlobal("fetch", fetchMock);
     await openPacks();
-    expect(document.body.textContent).toContain("About 20 images");
+    expect(document.body.textContent).toContain("About 16 images");
 
     session.isBuyModalOpen = false;
     await act(async () => root.render(<BuyCreditsModal />));
@@ -94,7 +95,7 @@ describe("Get Credits pack estimate", () => {
 
   it("leaves the estimate out when the price is above the engine's image envelope", async () => {
     vi.stubGlobal("fetch", vi.fn(() => modelsResponse([
-      { id: "google/gemini-3.1-flash-lite-image", name: "Nano Banana 2 Lite", availability: "available", estimatedCreditsByResolution: { "1K": 112 } },
+      { id: DEFAULT_IMAGE_MODEL, name: "Nano Banana 2.1", availability: "available", estimatedCreditsByResolution: { "1K": 112 } },
     ])));
     await openPacks();
     expect(document.body.textContent).toContain("300 credits");

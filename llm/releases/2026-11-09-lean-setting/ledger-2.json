@@ -1,0 +1,61 @@
+{
+  "capUsd": 1.799116,
+  "calls": [
+    {
+      "phase": "alice-tea-party-riddle/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.046629
+    },
+    {
+      "phase": "alice-tea-party-say-what-you-mean/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.045843
+    },
+    {
+      "phase": "alice-cat-grin-appears/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.040239
+    },
+    {
+      "phase": "alice-cat-grin-appears/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.040848
+    },
+    {
+      "phase": "alice-cat-head-talks/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041601
+    },
+    {
+      "phase": "alice-cat-head-talks/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0403725
+    },
+    {
+      "phase": "alice-king-and-cat/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0410775
+    },
+    {
+      "phase": "alice-king-and-cat/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041019
+    }
+  ],
+  "measuredUsd": 0.337629,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 8,
+    "check": 0
+  },
+  "blocked": null
+}

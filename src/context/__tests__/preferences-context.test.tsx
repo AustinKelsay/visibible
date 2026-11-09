@@ -27,23 +27,26 @@ async function hydrate(storage: Map<string, string>) {
   return { preferences: () => current!, unmount: () => act(() => root.unmount()) };
 }
 
-it("moves a visitor saved on the old default to the current one, then keeps a deliberate choice of it", async () => {
-  const storage = new Map([["visibible-preferences", JSON.stringify({ imageModel: OLD_DEFAULT, imageResolution: "1K" })]]);
-  const first = await hydrate(storage);
-  expect(first.preferences().imageModel).toBe(DEFAULT_IMAGE_MODEL);
-  await act(async () => first.preferences().setImageModel(OLD_DEFAULT));
-  first.unmount();
-
-  const second = await hydrate(storage);
-  expect(second.preferences().imageModel).toBe(OLD_DEFAULT);
-  second.unmount();
+// Generation runs on one model (ADR 0012); a saved choice of another would be priced at its rate and charged at this one's.
+it.each([
+  ["the old default", { imageModel: OLD_DEFAULT, imageResolution: "1K" }],
+  ["a model the visitor chose", { imageModel: "google/gemini-3.1-flash-image", imageResolution: "4K", defaultImageModel: OLD_DEFAULT }],
+  ["Nano Banana 2 Lite, the default before the switch", { imageModel: "google/gemini-3.1-flash-lite-image", defaultImageModel: "google/gemini-3.1-flash-lite-image" }],
+])("restores the generation model over %s", async (_label, saved) => {
+  const view = await hydrate(new Map([["visibible-preferences", JSON.stringify(saved)]]));
+  expect(view.preferences()).toMatchObject({ imageModel: DEFAULT_IMAGE_MODEL, imageResolution: "1K" });
+  view.unmount();
 });
 
-it("keeps a saved model the visitor chose over the old default", async () => {
-  const storage = new Map([["visibible-preferences", JSON.stringify({ imageModel: "google/gemini-3.1-flash-image", imageResolution: "4K" })]]);
-  const view = await hydrate(storage);
-  expect(view.preferences()).toMatchObject({ imageModel: "google/gemini-3.1-flash-image", imageResolution: "4K" });
-  view.unmount();
+it("does not keep a model selected in one visit for the next", async () => {
+  const storage = new Map<string, string>();
+  const first = await hydrate(storage);
+  await act(async () => first.preferences().setImageModel("google/gemini-3.1-flash-lite-image"));
+  expect(first.preferences().imageModel).toBe("google/gemini-3.1-flash-lite-image");
+  first.unmount();
+  const second = await hydrate(storage);
+  expect(second.preferences().imageModel).toBe(DEFAULT_IMAGE_MODEL);
+  second.unmount();
 });
 
 it("persists a chosen art style and uses the default for an unknown saved one without rewriting it", async () => {

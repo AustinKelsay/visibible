@@ -53,15 +53,18 @@ describe("lean cast", () => {
 });
 
 describe("lean prompt", () => {
-  it("splits canon into members the text names and members it may refer to", () => {
+  it("gives the passage's places their own setting block, apart from the cast the moment may leave out", () => {
     const result = buildLeanRendering(input("When they had crucified him, they divided his clothing.", [jesus, soldiers, golgotha], [], { previous: "Jesus would not drink." }));
     expect(result.ok).toBe(true);
     if (!result.ok) return;
-    const named = result.prompt.indexOf("CANON, NAMED HERE"), elsewhere = result.prompt.indexOf("CANON, ELSEWHERE");
-    expect(named).toBeGreaterThan(0);
+    const setting = result.prompt.indexOf("SETTING (where this passage happens"), named = result.prompt.indexOf("CANON, NAMED HERE"), elsewhere = result.prompt.indexOf("CANON, ELSEWHERE");
+    expect(setting).toBeGreaterThan(0);
+    expect(named).toBeGreaterThan(setting);
     expect(result.prompt.indexOf("Jesus: a man")).toBeGreaterThan(named);
     expect(result.prompt.indexOf("Jesus: a man")).toBeLessThan(elsewhere);
-    expect(result.prompt.indexOf("Golgotha: a bare")).toBeGreaterThan(elsewhere);
+    expect(result.prompt.indexOf("Golgotha: a bare")).toBeGreaterThan(setting);
+    expect(result.prompt.indexOf("Golgotha: a bare")).toBeLessThan(named);
+    expect(result.prompt.indexOf("The Roman soldiers: men")).toBeGreaterThan(elsewhere);
     expect(result.prompt).not.toMatch(/scene plan/i);
   });
 

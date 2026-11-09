@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-09T22:08:52.193Z",
+  "measuredUsd": 0.337629,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 8,
+    "check": 0
+  },
+  "blocked": null,
+  "outcomes": {
+    "failed": 1,
+    "image": 8
+  },
+  "imageMs": {
+    "median": 9853,
+    "p90": 18601
+  },
+  "productionMutations": 0
+}

@@ -1,0 +1,1139 @@
+{
+  "schemaVersion": 1,
+  "seed": "consistency",
+  "groups": {
+    "file": "evals/images/consistency.json",
+    "sha256": "ea76d7c8780ec8a6ae66dbdc26e7471fc5ff5f0497b52e601770f1b5845ee12f"
+  },
+  "sources": [
+    {
+      "file": "evals/images/runs/2026-11-09-lean-setting/consistency/lean/results.ndjson",
+      "sha256": "aa3a8cb2044239cd8bf53e8bd41862e34d2fbedb8a14430afdf33d3749d8fd19"
+    },
+    {
+      "file": "evals/images/runs/2026-11-09-lean-setting/consistency/lean/snapshot.json",
+      "sha256": "a9d3acbb967270855632739e6007a59634a3943b6ffcc068a7c2248612aaa338"
+    }
+  ],
+  "notRun": {
+    "character": [
+      "matthew-14-29",
+      "matthew-27-35",
+      "john-11-43",
+      "exodus-17-12",
+      "leviticus-11-7",
+      "numbers-20-11",
+      "luke-22-61",
+      "acts-3-7",
+      "1-samuel-16-13",
+      "1-samuel-17-40",
+      "1-samuel-17-49",
+      "1-samuel-18-11",
+      "daniel-5-17",
+      "daniel-7-9"
+    ],
+    "setting": []
+  },
+  "coverage": [
+    {
+      "groupId": "jesus",
+      "style": "classical",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "mark-4-39",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "jesus",
+      "style": "fresco",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "mark-4-39",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "jesus",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "mark-4-39",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "classical",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "fresco",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "moses",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "classical",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "fresco",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "simon-peter",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "classical",
+      "units": 4,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "fresco",
+      "units": 4,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "david",
+      "style": "watercolor",
+      "units": 4,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "classical",
+      "units": 4,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "fresco",
+      "units": 4,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "daniel",
+      "style": "watercolor",
+      "units": 4,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-14-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-14-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "red-sea-crossing",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "exodus-14-21",
+        "exodus-14-22",
+        "exodus-14-23"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "mark-4-37",
+        "mark-4-38",
+        "mark-4-39"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "mark-4-37",
+        "mark-4-38",
+        "mark-4-39"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "storm-on-the-lake",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "mark-4-37",
+        "mark-4-38",
+        "mark-4-39"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "breakfast-on-the-shore",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "john-21-7",
+        "john-21-9"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "luke-15-20",
+        "luke-15-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "luke-15-20",
+        "luke-15-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "prodigal-son-return",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "luke-15-20",
+        "luke-15-22"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "lions-den",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "daniel-6-22",
+        "daniel-6-23"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    }
+  ],
+  "pairs": [
+    {
+      "id": "pair001",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/daniel-6-22-lions__watercolor__a1.jpg",
+        "sha256": "1ff89405dbfeedb2e0a20e9d50c8d55c7a267c0ea40f4fb2ced978358f04d307",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/daniel-6-23__watercolor__a1.jpg",
+        "sha256": "a1e3e45d2f01c6602a258842bae48b59879aa04990b402feb42cab6ff418a831",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      }
+    },
+    {
+      "id": "pair002",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "classical",
+      "left": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-38__classical__a1.jpg",
+        "sha256": "31a429fabb8439a19e282dd1e3e193fc763841c92adc6db74a6903a1d88ee5cf",
+        "scene": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+      },
+      "right": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-37__classical__a1.jpg",
+        "sha256": "6211f205898215a976a1a37af56e566e4c06920b18d4673abe24a107cfa10525",
+        "scene": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+      }
+    },
+    {
+      "id": "pair003",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "classical",
+      "left": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-37__classical__a1.jpg",
+        "sha256": "6211f205898215a976a1a37af56e566e4c06920b18d4673abe24a107cfa10525",
+        "scene": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-39-storm__classical__a1.jpg",
+        "sha256": "f79bf6b60987f70f711af191cd785bee8c02937623f86e2008a8cde2f28aa244",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      }
+    },
+    {
+      "id": "pair004",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-23__watercolor__a1.jpg",
+        "sha256": "4413a6135ce197d6c8db29e5a54849bdd01d96141bdc7df372da862b9d052a03",
+        "scene": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-22-sea-walls__watercolor__a1.jpg",
+        "sha256": "f3d0e599fb582090cd913a9c5ba0a588e72f12f8b7b9f50d87061fce57731344",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair005",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-39-storm__fresco__a1.jpg",
+        "sha256": "b632ba191debf916973406a9efe354a5c3d824d3e1241555de2d9f4ee068e3d6",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-37__fresco__a1.jpg",
+        "sha256": "f0f6c92918f18cd425ef6e0af0b3f5c1348751234bce3bd127d756b893238261",
+        "scene": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+      }
+    },
+    {
+      "id": "pair006",
+      "groupId": "breakfast-on-the-shore",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "style": "watercolor",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-9__watercolor__a1.jpg",
+        "sha256": "e644970bf705f237a147e1efb46bfced1c5b76019015bc28998276837422c9af",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-7-peter-sea__watercolor__a1.jpg",
+        "sha256": "434b8c17104d023093ccecf310ed74bac8ba0455d0308730e6ffe5f0d87fdc4c",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      }
+    },
+    {
+      "id": "pair007",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-37__fresco__a1.jpg",
+        "sha256": "f0f6c92918f18cd425ef6e0af0b3f5c1348751234bce3bd127d756b893238261",
+        "scene": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+      },
+      "right": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-38__fresco__a1.jpg",
+        "sha256": "7b9b51e74ae29c7eb418bed4061c324ff2cdf0d52dba53132671afc4dfca0424",
+        "scene": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+      }
+    },
+    {
+      "id": "pair008",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-22-sea-walls__fresco__a1.jpg",
+        "sha256": "510550841f1dfea90dec8d025104ae49e679b5ddc4cf575d2520a7cbf3d5fefa",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-21-sea-parts__fresco__a1.jpg",
+        "sha256": "20a15f24b2eca07f3e7f87fa789490d1d1a3b637eb8ceeaebdbe8f3c306cf15b",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      }
+    },
+    {
+      "id": "pair009",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-21-sea-parts__fresco__a1.jpg",
+        "sha256": "20a15f24b2eca07f3e7f87fa789490d1d1a3b637eb8ceeaebdbe8f3c306cf15b",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-23__fresco__a1.jpg",
+        "sha256": "e14c9944a396712e3e831f0f2ae99bf1b3a9c9f076ede22fa8e7ddcf7de4eea3",
+        "scene": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+      }
+    },
+    {
+      "id": "pair010",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "classical",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-39-storm__classical__a1.jpg",
+        "sha256": "f79bf6b60987f70f711af191cd785bee8c02937623f86e2008a8cde2f28aa244",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-38__classical__a1.jpg",
+        "sha256": "31a429fabb8439a19e282dd1e3e193fc763841c92adc6db74a6903a1d88ee5cf",
+        "scene": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+      }
+    },
+    {
+      "id": "pair011",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-39-storm__fresco__a1.jpg",
+        "sha256": "b632ba191debf916973406a9efe354a5c3d824d3e1241555de2d9f4ee068e3d6",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-9__fresco__a1.jpg",
+        "sha256": "0f951ebd3ef329ce494bea8aeda82a1e495dd9a36c56250dd9ef985500ada257",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      }
+    },
+    {
+      "id": "pair012",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-22-sea-walls__watercolor__a1.jpg",
+        "sha256": "f3d0e599fb582090cd913a9c5ba0a588e72f12f8b7b9f50d87061fce57731344",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-21-sea-parts__watercolor__a1.jpg",
+        "sha256": "f6cadfedb927e21cd42afd367b9ca348cba058c0ece6df62a21660156d9bb49a",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      }
+    },
+    {
+      "id": "pair013",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-21-sea-parts__watercolor__a1.jpg",
+        "sha256": "f6cadfedb927e21cd42afd367b9ca348cba058c0ece6df62a21660156d9bb49a",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-23__watercolor__a1.jpg",
+        "sha256": "4413a6135ce197d6c8db29e5a54849bdd01d96141bdc7df372da862b9d052a03",
+        "scene": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+      }
+    },
+    {
+      "id": "pair014",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/daniel-6-23__classical__a1.jpg",
+        "sha256": "8f00c8ee0a2b0cc7e19a913702fa706297f3ca9cafd7f565240fb364f22c8ba4",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/daniel-6-22-lions__classical__a1.jpg",
+        "sha256": "c4383eade44e5e69f91056f89f8adb439954b32f8d72a2d9e3c2b3fe7bbbad53",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      }
+    },
+    {
+      "id": "pair015",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "watercolor",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-9__watercolor__a1.jpg",
+        "sha256": "e644970bf705f237a147e1efb46bfced1c5b76019015bc28998276837422c9af",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-7-peter-sea__watercolor__a1.jpg",
+        "sha256": "434b8c17104d023093ccecf310ed74bac8ba0455d0308730e6ffe5f0d87fdc4c",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      }
+    },
+    {
+      "id": "pair016",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-23__fresco__a1.jpg",
+        "sha256": "e14c9944a396712e3e831f0f2ae99bf1b3a9c9f076ede22fa8e7ddcf7de4eea3",
+        "scene": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-22-sea-walls__fresco__a1.jpg",
+        "sha256": "510550841f1dfea90dec8d025104ae49e679b5ddc4cf575d2520a7cbf3d5fefa",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair017",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-22-sea-walls__classical__a1.jpg",
+        "sha256": "8d3cc24508a897ca7e4c15a06d5d8d2b68a2eaaac348e351afb428535fccecd7",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      },
+      "right": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-23__classical__a1.jpg",
+        "sha256": "561dd1e3e41147aa159a0cb8fd1590899b66eebe39feec9095583758887dbec6",
+        "scene": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+      }
+    },
+    {
+      "id": "pair018",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/daniel-6-22-lions__fresco__a1.jpg",
+        "sha256": "e1ce54d45473af973605336774073b7862153de6233984c60a5b6d5cfbbbcba0",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/daniel-6-23__fresco__a1.jpg",
+        "sha256": "59f838d1d568f08a5541781af3cb872f5f576b94dc58bc4d0bbd30aaff8db202",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      }
+    },
+    {
+      "id": "pair019",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-23",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-23__classical__a1.jpg",
+        "sha256": "561dd1e3e41147aa159a0cb8fd1590899b66eebe39feec9095583758887dbec6",
+        "scene": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-21-sea-parts__classical__a1.jpg",
+        "sha256": "e23734cbd01586faec74c8687327dd72518abe710648821ed5c4a45c60e7a1a7",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      }
+    },
+    {
+      "id": "pair020",
+      "groupId": "red-sea-crossing",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-21-sea-parts__classical__a1.jpg",
+        "sha256": "e23734cbd01586faec74c8687327dd72518abe710648821ed5c4a45c60e7a1a7",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-22-sea-walls__classical__a1.jpg",
+        "sha256": "8d3cc24508a897ca7e4c15a06d5d8d2b68a2eaaac348e351afb428535fccecd7",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair021",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "classical",
+      "left": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/daniel-6-23__classical__a1.jpg",
+        "sha256": "8f00c8ee0a2b0cc7e19a913702fa706297f3ca9cafd7f565240fb364f22c8ba4",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      },
+      "right": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/daniel-6-22-lions__classical__a1.jpg",
+        "sha256": "c4383eade44e5e69f91056f89f8adb439954b32f8d72a2d9e3c2b3fe7bbbad53",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      }
+    },
+    {
+      "id": "pair022",
+      "groupId": "prodigal-son-return",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "style": "watercolor",
+      "left": {
+        "unitId": "luke-15-20",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/luke-15-20-prodigal__watercolor__a1.jpg",
+        "sha256": "06a176610202ccab503d1d4b7537cb9e94f88d0409e3a2bc19e2846e96401f7c",
+        "scene": "Luke 15:20: “He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.; "
+      },
+      "right": {
+        "unitId": "luke-15-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/luke-15-22__watercolor__a1.jpg",
+        "sha256": "26011c5c731bb01763115fe9ff6ce9f456f93cc990dae05530ca679817c91aec",
+        "scene": "Luke 15:22: “But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.; "
+      }
+    },
+    {
+      "id": "pair023",
+      "groupId": "prodigal-son-return",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "style": "fresco",
+      "left": {
+        "unitId": "luke-15-20",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/luke-15-20-prodigal__fresco__a1.jpg",
+        "sha256": "617c6b845fdff2a267729edfbcffd9ea356eb8d7ea203441ca139ffb9ffe34bf",
+        "scene": "Luke 15:20: “He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.; "
+      },
+      "right": {
+        "unitId": "luke-15-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/luke-15-22__fresco__a1.jpg",
+        "sha256": "9e43b9332aafa2e9e85c93847b2e379c8cd0e556f9b0310a98a20f1171e8b060",
+        "scene": "Luke 15:22: “But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.; "
+      }
+    },
+    {
+      "id": "pair024",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "fresco",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-21-sea-parts__fresco__a1.jpg",
+        "sha256": "20a15f24b2eca07f3e7f87fa789490d1d1a3b637eb8ceeaebdbe8f3c306cf15b",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-22-sea-walls__fresco__a1.jpg",
+        "sha256": "510550841f1dfea90dec8d025104ae49e679b5ddc4cf575d2520a7cbf3d5fefa",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair025",
+      "groupId": "prodigal-son-return",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "style": "classical",
+      "left": {
+        "unitId": "luke-15-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/luke-15-22__classical__a1.jpg",
+        "sha256": "75f7e60a5800c6cb2c546d26b36ccd26f02a0b9f30acff6c5ff6cdcc8429c88b",
+        "scene": "Luke 15:22: “But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.; "
+      },
+      "right": {
+        "unitId": "luke-15-20",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/luke-15-20-prodigal__classical__a1.jpg",
+        "sha256": "fef79ff1e147f56470bdb9e7c6c0452d9d0090350411a7deb7a0dbc79f388199",
+        "scene": "Luke 15:20: “He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.; "
+      }
+    },
+    {
+      "id": "pair026",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "watercolor",
+      "left": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-21-sea-parts__watercolor__a1.jpg",
+        "sha256": "f6cadfedb927e21cd42afd367b9ca348cba058c0ece6df62a21660156d9bb49a",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      },
+      "right": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-22-sea-walls__watercolor__a1.jpg",
+        "sha256": "f3d0e599fb582090cd913a9c5ba0a588e72f12f8b7b9f50d87061fce57731344",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      }
+    },
+    {
+      "id": "pair027",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-9__classical__a1.jpg",
+        "sha256": "fb7f0a6b0c6002ea07cb7b548488e481a99223f7280717e206f3a0a9dea77009",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-39-storm__classical__a1.jpg",
+        "sha256": "f79bf6b60987f70f711af191cd785bee8c02937623f86e2008a8cde2f28aa244",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      }
+    },
+    {
+      "id": "pair028",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-38__watercolor__a1.jpg",
+        "sha256": "a1d0de668fb7823b0ff32e8f322f4fb5e44829095dc1303922537e8c39e7c06a",
+        "scene": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-39-storm__watercolor__a1.jpg",
+        "sha256": "be8eb789484956f9e46860fc68afaa1dbb1a634d2f412d628beb25ec637d64fe",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      }
+    },
+    {
+      "id": "pair029",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-7-peter-sea__classical__a1.jpg",
+        "sha256": "113558000f2a6445696a57cb2540033234a006060545f1a3543fc918985d1e3b",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-9__classical__a1.jpg",
+        "sha256": "fb7f0a6b0c6002ea07cb7b548488e481a99223f7280717e206f3a0a9dea77009",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      }
+    },
+    {
+      "id": "pair030",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-39-storm__watercolor__a1.jpg",
+        "sha256": "be8eb789484956f9e46860fc68afaa1dbb1a634d2f412d628beb25ec637d64fe",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-37__watercolor__a1.jpg",
+        "sha256": "6f771acc0695be98c435b6d1a66c6bb5bbecc1ac2d14dfb0f5fa3e9aefcd7123",
+        "scene": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+      }
+    },
+    {
+      "id": "pair031",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-37",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-37__watercolor__a1.jpg",
+        "sha256": "6f771acc0695be98c435b6d1a66c6bb5bbecc1ac2d14dfb0f5fa3e9aefcd7123",
+        "scene": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+      },
+      "right": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-38__watercolor__a1.jpg",
+        "sha256": "a1d0de668fb7823b0ff32e8f322f4fb5e44829095dc1303922537e8c39e7c06a",
+        "scene": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+      }
+    },
+    {
+      "id": "pair032",
+      "groupId": "jesus",
+      "kind": "character",
+      "subject": "Jesus",
+      "style": "watercolor",
+      "left": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-39-storm__watercolor__a1.jpg",
+        "sha256": "be8eb789484956f9e46860fc68afaa1dbb1a634d2f412d628beb25ec637d64fe",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-9__watercolor__a1.jpg",
+        "sha256": "e644970bf705f237a147e1efb46bfced1c5b76019015bc28998276837422c9af",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      }
+    },
+    {
+      "id": "pair033",
+      "groupId": "breakfast-on-the-shore",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "style": "classical",
+      "left": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-7-peter-sea__classical__a1.jpg",
+        "sha256": "113558000f2a6445696a57cb2540033234a006060545f1a3543fc918985d1e3b",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      },
+      "right": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-9__classical__a1.jpg",
+        "sha256": "fb7f0a6b0c6002ea07cb7b548488e481a99223f7280717e206f3a0a9dea77009",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      }
+    },
+    {
+      "id": "pair034",
+      "groupId": "daniel",
+      "kind": "character",
+      "subject": "Daniel",
+      "style": "watercolor",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/daniel-6-22-lions__watercolor__a1.jpg",
+        "sha256": "1ff89405dbfeedb2e0a20e9d50c8d55c7a267c0ea40f4fb2ced978358f04d307",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/daniel-6-23__watercolor__a1.jpg",
+        "sha256": "a1e3e45d2f01c6602a258842bae48b59879aa04990b402feb42cab6ff418a831",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      }
+    },
+    {
+      "id": "pair035",
+      "groupId": "breakfast-on-the-shore",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "style": "fresco",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-9__fresco__a1.jpg",
+        "sha256": "0f951ebd3ef329ce494bea8aeda82a1e495dd9a36c56250dd9ef985500ada257",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-7-peter-sea__fresco__a1.jpg",
+        "sha256": "b4ab7548d47c97a5f8246d1cd6222c2b70d0c25a74e64f4b348b05ad59f70f10",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      }
+    },
+    {
+      "id": "pair036",
+      "groupId": "lions-den",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "style": "fresco",
+      "left": {
+        "unitId": "daniel-6-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/daniel-6-22-lions__fresco__a1.jpg",
+        "sha256": "e1ce54d45473af973605336774073b7862153de6233984c60a5b6d5cfbbbcba0",
+        "scene": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+      },
+      "right": {
+        "unitId": "daniel-6-23",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/daniel-6-23__fresco__a1.jpg",
+        "sha256": "59f838d1d568f08a5541781af3cb872f5f576b94dc58bc4d0bbd30aaff8db202",
+        "scene": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+      }
+    },
+    {
+      "id": "pair037",
+      "groupId": "simon-peter",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "style": "fresco",
+      "left": {
+        "unitId": "john-21-9",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-9__fresco__a1.jpg",
+        "sha256": "0f951ebd3ef329ce494bea8aeda82a1e495dd9a36c56250dd9ef985500ada257",
+        "scene": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+      },
+      "right": {
+        "unitId": "john-21-7",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/john-21-7-peter-sea__fresco__a1.jpg",
+        "sha256": "b4ab7548d47c97a5f8246d1cd6222c2b70d0c25a74e64f4b348b05ad59f70f10",
+        "scene": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+      }
+    },
+    {
+      "id": "pair038",
+      "groupId": "moses",
+      "kind": "character",
+      "subject": "Moses",
+      "style": "classical",
+      "left": {
+        "unitId": "exodus-14-22",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-22-sea-walls__classical__a1.jpg",
+        "sha256": "8d3cc24508a897ca7e4c15a06d5d8d2b68a2eaaac348e351afb428535fccecd7",
+        "scene": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+      },
+      "right": {
+        "unitId": "exodus-14-21",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/exodus-14-21-sea-parts__classical__a1.jpg",
+        "sha256": "e23734cbd01586faec74c8687327dd72518abe710648821ed5c4a45c60e7a1a7",
+        "scene": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+      }
+    },
+    {
+      "id": "pair039",
+      "groupId": "storm-on-the-lake",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "style": "fresco",
+      "left": {
+        "unitId": "mark-4-38",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-38__fresco__a1.jpg",
+        "sha256": "7b9b51e74ae29c7eb418bed4061c324ff2cdf0d52dba53132671afc4dfca0424",
+        "scene": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+      },
+      "right": {
+        "unitId": "mark-4-39",
+        "file": "evals/images/runs/2026-11-09-lean-setting/images/mark-4-39-storm__fresco__a1.jpg",
+        "sha256": "b632ba191debf916973406a9efe354a5c3d824d3e1241555de2d9f4ee068e3d6",
+        "scene": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+      }
+    }
+  ]
+}

@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 1,
+  "groups": {
+    "file": "evals/images/consistency.alice-in-wonderland.json",
+    "sha256": "1a1bf661a81e478987cfc58bc3851eb40d6de4206d9165a23138018e260752a5"
+  },
+  "sources": [
+    {
+      "file": "evals/images/runs/2026-11-09-lean-setting/consistency/lean/results.ndjson",
+      "sha256": "aa3a8cb2044239cd8bf53e8bd41862e34d2fbedb8a14430afdf33d3749d8fd19"
+    },
+    {
+      "file": "evals/images/runs/2026-11-09-lean-setting/consistency/lean/snapshot.json",
+      "sha256": "a9d3acbb967270855632739e6007a59634a3943b6ffcc068a7c2248612aaa338"
+    }
+  ],
+  "baseline": null,
+  "scorers": [
+    "scorer-a",
+    "scorer-b"
+  ],
+  "operator": null,
+  "unanimous": 12,
+  "disputed": [],
+  "notRun": {
+    "character": [
+      "down-the-rabbit-hole-16",
+      "advice-from-a-caterpillar-1",
+      "the-queens-croquet-ground-41",
+      "alices-evidence-16",
+      "pig-and-pepper-50",
+      "who-stole-the-tarts-16"
+    ],
+    "setting": []
+  },
+  "coverage": [
+    {
+      "groupId": "alice",
+      "style": "classical",
+      "units": 5,
+      "imaged": 1,
+      "eligible": [
+        "a-mad-tea-party-1"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "alice",
+      "style": "fresco",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "alice",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 1,
+      "eligible": [
+        "a-mad-tea-party-1"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "cheshire-cat",
+      "style": "classical",
+      "units": 2,
+      "imaged": 1,
+      "eligible": [
+        "the-queens-croquet-ground-49"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "cheshire-cat",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "cheshire-cat",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 1,
+      "eligible": [
+        "the-queens-croquet-ground-49"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "hatter",
+      "style": "classical",
+      "units": 2,
+      "imaged": 1,
+      "eligible": [
+        "a-mad-tea-party-1"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "hatter",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "hatter",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 1,
+      "eligible": [
+        "a-mad-tea-party-1"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "tea-table",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "a-mad-tea-party-1",
+        "a-mad-tea-party-7",
+        "a-mad-tea-party-13"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "tea-table",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "tea-table",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "a-mad-tea-party-1",
+        "a-mad-tea-party-7",
+        "a-mad-tea-party-13"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "croquet-ground",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "the-queens-croquet-ground-45",
+        "the-queens-croquet-ground-49",
+        "the-queens-croquet-ground-52"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "croquet-ground",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "croquet-ground",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "the-queens-croquet-ground-45",
+        "the-queens-croquet-ground-49",
+        "the-queens-croquet-ground-52"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    }
+  ],
+  "verdicts": {
+    "pair001": "same",
+    "pair002": "different",
+    "pair003": "different",
+    "pair004": "same",
+    "pair005": "same",
+    "pair006": "same",
+    "pair007": "same",
+    "pair008": "same",
+    "pair009": "different",
+    "pair010": "different",
+    "pair011": "same",
+    "pair012": "same"
+  },
+  "summary": {
+    "character": {
+      "overall": {
+        "pairs": 0,
+        "same": 0,
+        "different": 0,
+        "unclear": 0,
+        "disputed": 0,
+        "rate": null
+      },
+      "byStyle": {},
+      "byGroup": {}
+    },
+    "setting": {
+      "overall": {
+        "pairs": 12,
+        "same": 8,
+        "different": 4,
+        "unclear": 0,
+        "disputed": 0,
+        "rate": 0.6666666666666666
+      },
+      "byStyle": {
+        "watercolor": {
+          "pairs": 6,
+          "same": 4,
+          "different": 2,
+          "unclear": 0,
+          "disputed": 0,
+          "rate": 0.6666666666666666
+        },
+        "classical": {
+          "pairs": 6,
+          "same": 4,
+          "different": 2,
+          "unclear": 0,
+          "disputed": 0,
+          "rate": 0.6666666666666666
+        }
+      },
+      "byGroup": {
+        "croquet-ground": {
+          "watercolor": {
+            "pairs": 3,
+            "same": 3,
+            "different": 0,
+            "unclear": 0,
+            "disputed": 0,
+            "rate": 1
+          },
+          "classical": {
+            "pairs": 3,
+            "same": 3,
+            "different": 0,
+            "unclear": 0,
+            "disputed": 0,
+            "rate": 1
+          }
+        },
+        "tea-table": {
+          "classical": {
+            "pairs": 3,
+            "same": 1,
+            "different": 2,
+            "unclear": 0,
+            "disputed": 0,
+            "rate": 0.3333333333333333
+          },
+          "watercolor": {
+            "pairs": 3,
+            "same": 1,
+            "different": 2,
+            "unclear": 0,
+            "disputed": 0,
+            "rate": 0.3333333333333333
+          }
+        }
+      }
+    }
+  },
+  "gate": {
+    "pass": false,
+    "styles": [
+      "classical",
+      "watercolor"
+    ],
+    "barVersion": "2026-10-29-consistency-v1",
+    "checks": [
+      {
+        "kind": "character",
+        "tally": {
+          "pairs": 0,
+          "same": 0,
+          "different": 0,
+          "unclear": 0,
+          "disputed": 0,
+          "rate": null
+        },
+        "baselineRate": null,
+        "pass": false,
+        "reasons": [
+          "6 group verses never ran: down-the-rabbit-hole-16, advice-from-a-caterpillar-1, the-queens-croquet-ground-41, alices-evidence-16, pig-and-pepper-50, …",
+          "only 0 pairs judged same or different; needs 30"
+        ]
+      },
+      {
+        "kind": "setting",
+        "tally": {
+          "pairs": 12,
+          "same": 8,
+          "different": 4,
+          "unclear": 0,
+          "disputed": 0,
+          "rate": 0.6666666666666666
+        },
+        "baselineRate": null,
+        "pass": false,
+        "reasons": [
+          "only 12 pairs judged same or different; needs 20"
+        ]
+      }
+    ]
+  }
+}

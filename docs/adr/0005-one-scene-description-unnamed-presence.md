@@ -1,5 +1,7 @@
 # One scene description, and an unnamed presence
 
+> Superseded by [ADR 0012](0012-one-image-call-from-the-text.md): since 9 November 2026 the request path makes one image call from the text, and the scene plan described here is no longer run.
+
 On 27 October 2026 the owner approved three general fixes after the [forgiving re-measurement](../../llm/releases/2026-10-27-forgiving-fresh-check/RESULTS.md) and [image re-check](../../llm/releases/2026-10-27-forgiving-image-check/RESULTS.md).
 
 **One scene description.** The planner no longer returns a separate set of moment conditions (place, time, weather, light, clothing) beside its scene fields. That second description was the largest source of flawed plans: its clothing and time values added soldiers, attendants or another moment's time that the scene itself did not have. The scene fields now carry this moment's place, time, light and situational clothing. A generated section look stays a suggestion to the planner and is never rendered. Owner look constraints are still rendered verbatim, and still bind; they are read from the look record rather than restated by the planner. The plan review sees owner constraints only when they are rendered. This supersedes the moment-conditions part of [ADR 0003](0003-resolve-conditions-with-each-moment.md).
