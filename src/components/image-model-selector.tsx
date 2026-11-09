@@ -110,7 +110,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center text-sm font-medium transition-colors duration-[var(--motion-fast)] ${
           variant === "compact"
-            ? "min-h-[44px] sm:min-h-[36px] px-2.5 justify-center gap-1.5 text-xs text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)] rounded-[var(--radius-md)]"
+            ? "min-h-[44px] sm:min-h-[36px] px-2.5 justify-center gap-1.5 text-[13px] text-[var(--foreground)]/80 hover:text-[var(--foreground)] hover:bg-[var(--surface)] rounded-[var(--radius-md)]"
             : "gap-1 px-3 py-2 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)]"
         }`}
         aria-label={`Current image model: ${displayName}. Click to change.`}

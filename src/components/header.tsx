@@ -145,11 +145,6 @@ export function Header() {
 
           <Divider />
 
-          {/* Credits - Primary CTA */}
-          <CreditsBadge />
-
-          <Divider />
-
           {/* Settings Group */}
           <div className="flex items-center">
             <TranslationSelector variant="compact" />
@@ -169,14 +164,14 @@ export function Header() {
 
           <Divider />
 
+          {/* Balance and the credit or generate action sit together */}
+          <div className="flex items-center gap-1.5">
+          <CreditsBadge />
+
           {/* Generate Button - hidden in gallery view */}
           {isVersePage && readerOpen ? (
-            <>
-              <HeaderGenerateButton />
-              <Divider />
-            </>
+            <HeaderGenerateButton />
           ) : isVersePage && accessStatus === "ready" && tier !== "admin" && credits < DEFAULT_IMAGE_ESTIMATED_CREDITS_COST ? (
-            <>
               <button
                 type="button"
                 onClick={buyCredits}
@@ -185,9 +180,10 @@ export function Header() {
                 <Zap size={14} strokeWidth={2} />
                 <span>Get Credits</span>
               </button>
-              <Divider />
-            </>
           ) : null}
+          </div>
+
+          <Divider />
 
           {/* Navigation Group */}
           <div className="flex items-center">

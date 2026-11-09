@@ -223,12 +223,8 @@ function GalleryCard({
           </span>
         </p>
         )}
-        {/* The verse text appears once per verse: on its first card */}
-        {item.text && !inGroup && item.cardIndex === 0 ? (
-          <p className="mt-1 min-h-10 text-sm leading-5 text-[var(--muted)] hidden sm:line-clamp-2">
-            {item.text}
-          </p>
-        ) : null}
+        {/* All images cards carry the reference and image position only, the same on phones and
+            desktop; the verse itself is shown once per verse in By verse and in the lightbox */}
       </div>
     </Link>
   );

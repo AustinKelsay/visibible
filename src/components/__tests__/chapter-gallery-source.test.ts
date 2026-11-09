@@ -132,10 +132,9 @@ describe("chapter gallery behavior", () => {
     expect(markup).toContain("1/2");
     expect(markup).toContain("/genesis/1/1?image=image-1-latest");
     expect(markup).toContain("/genesis/1/2");
-    expect(markup).toContain("In the beginning");
-    // Verse 1 has two images; its text appears once, on the first card
-    expect(markup.split("In the beginning").length - 1).toBe(1);
-    expect(markup).toContain("The earth was formless");
+    // All images cards show the reference and image position, not the verse text
+    expect(markup).not.toContain("In the beginning");
+    expect(markup).not.toContain("The earth was formless");
     expect(markup).toContain("Loading saved image for Genesis 1:1");
     expect(markup).toContain("No image yet");
     expect(markup).not.toContain("Verse 1 mini-gallery");
