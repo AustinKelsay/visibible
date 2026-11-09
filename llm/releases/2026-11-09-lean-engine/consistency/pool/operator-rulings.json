@@ -1,5 +1,5 @@
 {
- "note": "Operator rulings on the 11 disputed pairs, made from the pooled blind composites before looking up which set each came from. Six were viewed (c071, c412, c291, c099, c114, c426); five where the scorers agreed on what is visible and differed only on same versus unclear were ruled unclear from their notes. This file is the source record by pooled id; the per-set operator.json files are what `evals:consistency report --operator` reads.",
+ "note": "Operator rulings on the 11 disputed pairs, made from the pooled blind composites before looking up which set each came from. All 11 composites were viewed. This file is the source record by pooled id; the per-set operator.json files are what `evals:consistency report --operator` reads.",
  "rulings": {
   "c071": {
    "verdict": "different",
@@ -27,23 +27,23 @@
   },
   "c163": {
    "verdict": "unclear",
-   "notes": "Alice is small and seen from behind in one image, as both scorers describe; the face cannot be compared."
+   "notes": "Viewed: Alice stands with her back to the viewer in the court image; only her long light-brown hair and dress show, so the face cannot be compared."
   },
   "c350": {
    "verdict": "unclear",
-   "notes": "Alice is small and seen from behind in one image, as both scorers describe; the face cannot be compared."
+   "notes": "Viewed: Alice is small and seen from behind in the court image; hair and dress agree with the croquet image but the face cannot be compared."
   },
   "c177": {
    "verdict": "unclear",
-   "notes": "One image shows only the station with the fire as a distant glow, as both scorers describe; too little of the place to judge."
+   "notes": "Viewed: one image is set at the station and shows the fire only as distant smoke and glow; the house and grounds cannot be compared."
   },
   "c404": {
    "verdict": "unclear",
-   "notes": "Jesus is a tiny distant figure on the cross in one image, as both scorers describe."
+   "notes": "Viewed: on the cross Jesus is a small distant figure; long dark hair and a beard can be made out and do not conflict, but the face is too small to compare."
   },
   "c466": {
    "verdict": "unclear",
-   "notes": "Moses is seen from behind in one image, as both scorers describe."
+   "notes": "Viewed: Moses stands on the rock turned away from the viewer; white hair, a white beard edge, mantle and crook agree, but the face cannot be compared."
   }
  }
 }
