@@ -311,6 +311,12 @@ html {
     0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* Verse strip over the painting: a darker track, so its tiles keep the same contrast on bright
+   and dark images */
+.liquid-glass.verse-strip-track {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
 /* Responsive variant — applies liquid-glass only at sm (640px) and up */
 @media (min-width: 640px) {
   .liquid-glass-sm {

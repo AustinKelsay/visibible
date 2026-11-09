@@ -63,7 +63,7 @@ export function VerseModeTabs({ idPrefix }: { idPrefix: string }) {
             onFocus={() => setFocusedView(value)}
             onClick={() => setEffectiveView(value, "unknown")}
             onKeyDown={(event) => handleKey(event, value)}
-            className={`min-h-12 px-4 inline-flex items-center justify-center gap-2 text-sm border-b-2 transition-colors ${effectiveView === value ? "border-[var(--accent)] text-[var(--foreground)] font-medium" : "border-transparent text-[var(--muted)] hover:text-[var(--foreground)]"}`}
+            className={`min-h-12 px-3 min-[360px]:px-4 inline-flex items-center justify-center gap-2 text-sm border-b-2 transition-colors ${effectiveView === value ? "border-[var(--accent)] text-[var(--foreground)] font-medium" : "border-transparent text-[var(--muted)] hover:text-[var(--foreground)]"}`}
           >
             <Icon size={16} className={effectiveView === value ? "text-[var(--accent)]" : undefined} />
             {label}
