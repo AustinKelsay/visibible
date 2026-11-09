@@ -21,29 +21,17 @@ const id = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
 const text = z.string().refine((value) => value.trim().length > 0 && !/[\x00-\x1f\x7f\u2028\u2029]/.test(value), "Expected nonempty single-line text");
 
 const effectsSchema = z.object({
-  /** Replaces the subject's names in the image prompt, so the image model never reads a name it would draw as a person. */
+  /** Replaces the subject's names in every text the image prompt carries, so the model never reads a name it would draw as a person. */
   alias: text,
   /** A numbered priority rule in every image prompt of the work. */
   renderRule: text,
-  /** The line added to an image prompt whose scene plan selects such a subject. */
+  /** The line added to an image prompt whose section cast includes such a subject. */
   renderBlock: text,
-  /** Added to the section look's instructions, and the look's five field descriptions, when the section cast includes one. */
-  lookSystem: text,
-  lookFields: z.object({ place: text, timeOfDay: text, weather: text, light: text, clothing: text }).strict(),
-  /** Added to the scene plan's instructions, and to its subject and action field descriptions, when the section cast includes one. */
-  planSystem: text,
-  planField: text,
-  /** What the plan review's `embodied_formless` problem means. */
-  reviewFault: text,
-  /** The finished-image check's `figure_in_light` fault in its direct and describe-first questions, and what the latter lists. */
-  checkFigure: z.object({ direct: text, describe: text, brightAreas: text }).strict(),
 }).strict();
 
 const symbolSchema = z.object({
-  /** Opens the line added to an image prompt whose scene plan selects such a subject; the engine appends their names. */
+  /** Opens the line added to an image prompt whose section cast includes such a subject; the engine appends their names. */
   renderBlock: text,
-  /** Added to the scene plan's instructions when the section cast includes one. */
-  planSystem: text,
 }).strict();
 
 const profileSchema = z.object({
@@ -51,14 +39,8 @@ const profileSchema = z.object({
   workId: id,
   /** Where writing most often appears in this work's scenes, named in the image prompt's no-writing rule. */
   writingSurfaces: text,
-  /** The planner's instruction for this work's written objects, such as "letters and books stay closed". */
-  closedDocuments: text,
-  /** Objects the finished-image check names as typical bearers of inscriptions in this work. */
-  inscribedObjects: text,
   /** Serious subjects this work may show beyond the engine's floor of battles, blood and death. */
   seriousSubjects: z.array(text),
-  /** Examples, in the planner's instructions, of a speaker wrongly drawn as a figure of their own words. */
-  speakerExamples: text.optional(),
   /** Wording for each depiction mode beyond `form` that this work's entries use. */
   modes: z.object({ effects: effectsSchema.optional(), symbol: symbolSchema.optional() }).strict(),
 }).strict();
@@ -66,29 +48,15 @@ const profileSchema = z.object({
 export type EffectsWording = z.infer<typeof effectsSchema>;
 export type SymbolWording = z.infer<typeof symbolSchema>;
 export type DepictionProfile = Readonly<z.infer<typeof profileSchema> & {
-  /** The whole profile; recorded with each rendering packet and saved image. */
+  /** The whole profile, as a content hash; recorded with each rendering packet and saved image. */
   version: string;
-  /** What scene plans and their review read; a plan made under another version is remade. */
-  planVersion: string;
-  /** What looks of sections with an `effects` entry read; such a look made under another version is remade. */
-  lookVersion: string;
-  /** What plans of sections with a `symbol` entry read; such a plan made under another version is remade. */
-  symbolVersion: string;
 }>;
 
-/** Validate a work's depiction profile; the versions are content hashes, so only a wording change remakes looks and plans. */
+/** Validate a work's depiction profile. */
 export function loadDepictionProfile(input: unknown, workId: string): DepictionProfile {
   const profile = profileSchema.parse(input);
   if (profile.workId !== workId) throw new Error(`The depiction profile of ${profile.workId} was given for ${workId}`);
-  const effects = profile.modes.effects;
-  return Object.freeze({
-    ...profile,
-    version: contentVersion(profile),
-    planVersion: contentVersion({ closedDocuments: profile.closedDocuments, speakerExamples: profile.speakerExamples ?? null,
-      effects: effects ? { planSystem: effects.planSystem, planField: effects.planField, reviewFault: effects.reviewFault } : null }),
-    lookVersion: contentVersion(effects ? { lookSystem: effects.lookSystem, lookFields: effects.lookFields } : null),
-    symbolVersion: contentVersion(profile.modes.symbol ? { planSystem: profile.modes.symbol.planSystem } : null),
-  });
+  return Object.freeze({ ...profile, version: contentVersion(profile) });
 }
 
 const fromCheckout = new Map<string, DepictionProfile>();
@@ -126,14 +94,14 @@ export function storedDepiction(mode: DepictionMode): { hasForm: boolean; depict
   return mode === "symbol" ? { hasForm: false, depiction: "symbol" } : { hasForm: mode === "form" };
 }
 
-/** The work's `symbol` wording, or why entries in that mode cannot be prepared or rendered for this work. */
+/** The work's `symbol` wording, or why entries in that mode cannot be rendered for this work. */
 export function symbolWordingFor(profile: DepictionProfile, entryIds: readonly string[]): SymbolWording {
   const symbol = profile.modes.symbol;
   if (!symbol) throw new Error(`${profile.workId} has no wording for subjects shown only as a symbol, so it cannot depict ${entryIds.join(", ")}; set their depiction or add the mode to works/${profile.workId}/depiction.json`);
   return symbol;
 }
 
-/** The work's `effects` wording, or why entries in that mode cannot be prepared or rendered for this work. */
+/** The work's `effects` wording, or why entries in that mode cannot be rendered for this work. */
 export function effectsWordingFor(profile: DepictionProfile, entryIds: readonly string[]): EffectsWording {
   const effects = profile.modes.effects;
   if (!effects) throw new Error(`${profile.workId} has no wording for subjects without form, so it cannot depict ${entryIds.join(", ")}; set their depiction or add the mode to works/${profile.workId}/depiction.json`);

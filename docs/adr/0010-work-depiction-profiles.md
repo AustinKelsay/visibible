@@ -5,6 +5,8 @@ date: 2026-10-30
 
 # Each work words its own depiction, beside its brief
 
+> Amended by [ADR 0012](0012-one-image-call-from-the-text.md): since 9 November 2026 the profiles hold only the image prompt's wording (`writingSurfaces`, `seriousSubjects` and each mode's alias, rule and render line). The look, plan, review and image-check wording, and the golden tests named below, went with that code; [lean-engine-golden.test.ts](../../src/lib/__tests__/lean-engine-golden.test.ts) pins each work's requests now.
+
 The engine is meant to illustrate any work, but its shared instructions had absorbed the Bible's. Every image prompt, for any work, forbade writing on "scrolls, tablets, books, boards or halos", allowed "crucifixion", and kept "a throne or seat" empty. The planner's examples were Bible verses ("the king ready for battle", "the man standing in the gap"). The plan review and the finished-image check always looked for God drawn as a figure, with thrones, chariots and robes in their wording. Those words came from the Bible's God-figure evaluations ([ADR 0005](0005-one-scene-description-unnamed-presence.md), [ADR 0006](0006-unseen-presence-speakers-and-launch-bar.md), [ADR 0007](0007-check-each-finished-image.md)). The one switch behind them, a canon entry's `hasForm`, applied them to any entry the reading pass marked without form. For the Bible that included Nineveh, a city. For Holmes it was Southampton Road, whose name the prompt would have replaced with "the presence".
 
 ## Decision

@@ -1,5 +1,4 @@
 /** Missing cast repair over real storage and ordinary assembly; scripted plans do not prove model compliance. */
-import { withCleanReview } from "../../../tests/fixtures/plan-review";
 import { readFileSync } from "node:fs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { convexTest } from "convex-test";
@@ -10,11 +9,8 @@ import { modules } from "../../../tests/convex/modules";
 import { createWorkReader } from "../work-input";
 import { SHARED_STYLES } from "../work-preparation";
 import { createCorrections, type CastEntryAddition } from "../engine/corrections";
-import { createConvexPreparationStore } from "../engine/preparation";
-import { assembleRendering } from "../engine/assemble";
+import { assembleLean } from "../engine/lean-assemble";
 import { readWorkInputs, type WorkInputs } from "../engine/work-inputs";
-import type { TextModel, TextModelRequest } from "../reading-pass/model";
-import { withGrounding } from "../../../tests/fixtures/scene-grounding";
 import { testDepiction } from "../../../tests/fixtures/depiction";
 
 const SECRET = "s".repeat(40), WORK = "cast-fixture";
@@ -44,7 +40,7 @@ describe("missing cast correction", () => {
   let t: ReturnType<typeof convexTest>;
   let c: ReturnType<typeof createCorrections>;
   let addition: CastEntryAddition;
-  const active = (kind: "entry" | "section" | "look" | "plan", recordId: string) => t.query(api.analysis.getActiveRecord, { workId: WORK, kind, recordId });
+  const active = (kind: "entry" | "section" | "moment", recordId: string) => t.query(api.analysis.getActiveRecord, { workId: WORK, kind, recordId });
   const add = (overrides: Partial<CastEntryAddition> = {}) => c.addCastEntry({ ...addition, ...overrides }, inputs);
   const state = () => t.run(async (ctx) => ({ records: await ctx.db.query("analysisRecords").collect(), generations: await ctx.db.query("analysisGenerations").collect() }));
   const mutate = (overrides: Partial<CastEntryAddition> = {}) => t.mutation(api.analysis.addCastEntry, { serverSecret: SECRET, workId: WORK, ...addition, ...overrides });
@@ -111,52 +107,28 @@ describe("missing cast correction", () => {
     expect(await active("entry", "assembly")).toBeNull();
   });
 
-  it("refreshes affected look/plans lazily, selects group canon only when present, and leaves other sections and saved images alone", async () => {
+  it("puts the added canon in its section's next prompt, and leaves other sections and saved images alone", async () => {
     const storageId = await t.run(async (ctx) => ctx.storage.store(new Blob(["png"], { type: "image/png" })));
     await t.mutation(internal.verseImages.saveImageWithStorage, { verseId: "court-1", storageId, model: "lite", generationId: "saved", verseText: "original", translationId: "web" });
     const saved = await t.run(async (ctx) => ctx.db.query("verseImages").collect());
-    const calls: TextModelRequest[] = [];
-    let corrected = false;
-    const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
-      calls.push(request);
-      const value = request.schemaName === "section_look" ? { place: "court", timeOfDay: "night", weather: "still", light: "lamps", clothing: "robes" }
-        : { missingCast: [], present: corrected && request.user.includes("MOMENT (Court 2)") ? ["watcher", "assembly"] : ["watcher"], primarySubject: "The watcher looks toward the seat", action: "watching", setting: "court", secondaryElements: "lamps", mood: "quiet", timeOfDay: "night", composition: "wide" };
-      return { content: JSON.stringify(value.present ? withGrounding({ ...value, present: value.present }, work.getUnit(request.label.split(":")[1]).text) : value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 1, completionTokens: 1, costUsd: 0 }, elapsedMs: 0 };
-    } });
-    const client = { query: (ref: never, args: never) => t.query(ref, args), mutation: (ref: never, args: never) => t.mutation(ref, args) };
-    const store = createConvexPreparationStore(client as never, api.analysis as never, WORK, SECRET);
-    const render = (n: number, styleId = "classical") => assembleRendering({ inputs, store, model, listMoments: async () => [], getReference: async () => null, loadReference: async () => new Uint8Array() },
-      { workId: WORK, unitId: `court-${n}`, styleId, variationNumber: 1, aspectRatio: "16:9" });
-    for (const n of [1, 2, 3]) expect((await render(n)).ok).toBe(true);
-    const other = await active("plan", "court-3");
-    const cached = await state();
-    calls.length = 0;
-    await add(); corrected = true;
-    expect(calls).toHaveLength(0);
-    expect(await t.query(api.analysis.getPreparationSpend, { workId: WORK })).toMatchObject({ calls: 8 }); // two looks, three plans and their three reviews
+    const render = async (n: number) => {
+      const result = await assembleLean({ inputs, getRecord: (kind, recordId) => active(kind, recordId) as never, listMoments: async () => [],
+        getReference: async () => null, loadReference: async () => new Uint8Array() }, { workId: WORK, unitId: `court-${n}`, styleId: "classical", aspectRatio: "16:9" });
+      if (!result.ok) throw new Error(result.message);
+      return result;
+    };
+    const text = addition.entry.stages[0].text;
+    expect((await render(2)).prompt).not.toContain(text);
+    await add();
     const after = await render(2);
-    if (!after.ok) throw new Error(after.message);
-    expect(calls.map((r) => r.schemaName)).toEqual(["section_look", "scene_plan"]);
-    expect(calls[1].user).toContain("- assembly: The assembly");
-    expect(after.packet.canon.map((c) => c.entryId)).toEqual(["watcher", "assembly"]);
-    expect(after.prompt).toContain(addition.entry.stages[0].text);
-    calls.length = 0;
-    for (const style of ["watercolor", "icon"]) {
-      const styled = await render(2, style);
-      if (!styled.ok) throw new Error(styled.message);
-      expect(styled.packet.planVersion).toBe(after.packet.planVersion);
-    }
-    expect(calls).toHaveLength(0);
-    const alone = await render(1);
-    if (!alone.ok) throw new Error(alone.message);
-    expect(alone.packet.canon.map((c) => c.entryId)).toEqual(["watcher"]);
-    expect(alone.prompt).not.toContain(addition.entry.stages[0].text);
-    calls.length = 0;
-    await render(3);
-    expect(calls).toHaveLength(0);
-    expect(await active("plan", "court-3")).toEqual(other);
+    expect(after.packet.canon.map((c) => c.entryId)).toEqual(["assembly", "watcher"]);
+    expect(after.prompt).toContain(text);
+    // The rest of section 1 sees the whole section's cast; section 3 is not touched.
+    expect((await render(1)).prompt).toContain(text);
+    const other = await render(3);
+    expect(other.packet.canon.map((c) => c.entryId)).toEqual(["watcher"]);
+    expect(other.prompt).not.toContain(text);
     expect(await t.run(async (ctx) => ctx.db.query("verseImages").collect())).toEqual(saved);
-    expect((await state()).records).toEqual(expect.arrayContaining(cached.records.filter((r) => r.kind === "moment")));
   });
 
   it("blocks a reread that would lose the new identity, then carries owner versions when that identity survives", async () => {

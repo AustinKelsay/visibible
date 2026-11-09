@@ -36,7 +36,7 @@ describe("moment context", () => {
 describe("repo inputs", () => {
   const brief = { schemaVersion: 1, workId: "two-books", tone: "Quiet.", depictionRules: [], eras: [{ id: "lake", label: "Lake", people: "Fisherfolk.", dress: "Wool.", buildingsAndObjects: "Boats.", technology: "Sail." }], styleIds: ["classical", "watercolor"] };
   // A work with no subjects without form: no `effects` wording.
-  const depiction = { schemaVersion: 1, workId: "two-books", writingSurfaces: "nets or sails", closedDocuments: "letters stay folded", inscribedObjects: "boats", seriousSubjects: [], modes: {} };
+  const depiction = { schemaVersion: 1, workId: "two-books", writingSurfaces: "nets or sails", seriousSubjects: [], modes: {} };
   async function checkout() {
     const root = await mkdtemp(path.join(tmpdir(), "work-inputs-"));
     await mkdir(path.join(root, "works", "two-books"), { recursive: true });
@@ -57,7 +57,7 @@ describe("repo inputs", () => {
     expect(Object.keys(inputs.styles)).toEqual(["classical", "watercolor"]);
     expect(inputs.styles.classical.version).toBe(sha(await readFile(path.join(root, "styles", "classical.json"), "utf8")));
     expect(inputs.work.getUnit("alpha-1-4").text).toBe("Verse 4.");
-    // The depiction profile is versioned by content and never registered, so whitespace does not remake looks or plans.
+    // The depiction profile is versioned by content and never registered, so whitespace does not change its version.
     expect(inputs.depiction).toMatchObject({ workId: "two-books", writingSurfaces: "nets or sails", modes: {} });
     expect(inputs.depiction.version).toBe(loadDepictionProfile(JSON.parse(JSON.stringify(depiction, null, 2)), "two-books").version);
   });

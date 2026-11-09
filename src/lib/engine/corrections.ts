@@ -191,24 +191,8 @@ export function createCorrections(client: CorrectionClient, api: AnalysisApi, wo
       return { ...result, removed: entryId, cast: payload.cast.map((member) => member.entryId) };
     },
 
-    /** Replace a section look with an owner version. */
-    async editLook(sectionId: string, fields: Partial<{ place: string; timeOfDay: string; weather: string; light: string; clothing: string }>, expectedVersion?: string) {
-      const look = await query<Record_ | null>(api.getActiveRecord, { kind: "look", recordId: sectionId });
-      if (!look) throw new Error(`No current look for section ${sectionId}; it is made when the section is first drawn`);
-      const payload = { ...look.payload, ...Object.fromEntries(Object.entries(fields).filter(([, v]) => v !== undefined)) };
-      const result = await mutate<{ version: string; changed: boolean }>(api.correctRecord, { kind: "look", recordId: sectionId, payload, expectedVersion: expectedVersion ?? look.version });
-      const closed = await mutate<{ closed: number }>(api.closeAttentionFor, { kind: "look", recordId: sectionId, disposition: "source corrected" });
-      const stale = await query<Array<{ kind: string; recordId: string }>>(api.listStaleDependents, { kind: "look", recordId: sectionId });
-      return { ...result, closedAttention: closed.closed, staleDependents: stale };
-    },
-
     async pin(kind: "sheet" | "styleReference", recordId: string, pinned: boolean) {
       return mutate<{ pinned: boolean }>(api.pinReference, { kind, recordId, pinned });
-    },
-
-    /** Plans are never edited: clearing one makes the next image replan. */
-    async clearPlan(momentId: string) {
-      return mutate<{ cleared: boolean }>(api.clearRecord, { kind: "plan", recordId: momentId });
     },
 
     /** Reader image reports with count, latest activity and the image's URL, style and source. */

@@ -11,7 +11,6 @@ import path from "node:path";
 import { createWorkReader, type ReferenceUnit, type WorkReader } from "../work-input";
 import { SHARED_STYLES, validateWorkBrief, type ArtStyle, type WorkBrief } from "../work-preparation";
 import { loadDepictionProfile, type DepictionProfile } from "./depiction";
-import type { MomentContext } from "./preparation";
 
 export type WorkInputs = {
   work: WorkReader;
@@ -65,6 +64,12 @@ export function loadWorkInputs(workId: string, root?: string): Promise<WorkInput
 
 export function clearWorkInputsCache() { cache.clear(); }
 
+/** A moment's reference text and its in-section neighbours. */
+export type MomentContext = {
+  moment: { id: string; reference: string; text: string };
+  previous: { text: string } | null;
+  next: { text: string } | null;
+};
 export type MomentRange = { id: string; firstUnit: string; lastUnit: string };
 export type SectionRange = { firstUnit: string; lastUnit: string };
 

@@ -145,16 +145,7 @@ describe("owner corrections", () => {
     expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" })).not.toBeNull();
   });
 
-  it("edits a look, pins and unpins, and clears a plan rather than editing it", async () => {
-    await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "s1", payload: { kind: "look", sectionId: "s1", place: "shore", timeOfDay: "dawn", weather: "calm", light: "low", clothing: "wool" }, inputs: [] });
-    await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "s1", payload: { kind: "plan", momentId: "s1", entries: [], plan: { primarySubject: "a", action: "b", setting: "c" } }, inputs: [{ kind: "look", recordId: "s1", version: (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "s1" }))!.version }] });
-    await t.mutation(api.analysis.noteAttention, { serverSecret: SECRET, workId: WORK, reason: "canon_check", kind: "look", recordId: "s1", detail: "restates canon" });
-    const edited = await c.editLook("s1", { weather: "storm" });
-    expect(edited.staleDependents).toEqual([expect.objectContaining({ kind: "plan", recordId: "s1" })]);
-    expect(edited.closedAttention).toBe(1);
-    expect((await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "s1" }))?.payload).toMatchObject({ weather: "storm", place: "shore" });
-    expect(await c.clearPlan("s1")).toEqual({ cleared: true });
-    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "s1" })).toBeNull();
+  it("pins and unpins a reference", async () => {
     const storageId = await t.run(async (ctx) => ctx.storage.store(new Blob(["jpeg"], { type: "image/jpeg" })));
     await t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "styleReference", recordId: "icon", storageId, inputs: [{ kind: "style", recordId: "icon", version: "i1" }] });
     await c.pin("styleReference", "icon", true);

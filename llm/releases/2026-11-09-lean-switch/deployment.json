@@ -1,0 +1,25 @@
+{
+  "authorization": [
+    "Owner asked whether the consistency pipeline had grown too bloated and approved a measured comparison (\"Please investigate this and prototype it and get as far as you can systematically end-to-end full send\"), 9 November 2026.",
+    "Comparison: lean 130/206 acceptable against the full engine's 123/204, same person 97% against 86%, same place 76% against 93%; suite gate passes (llm/releases/2026-11-09-lean-engine/README.md, PR #393).",
+    "Owner chose the switch: \"Yep, let's go with the slim pipeline\".",
+    "Place fix measured first: setting block, same place 35/39 against 30/38 (llm/releases/2026-11-09-lean-setting/README.md).",
+    "Owner approved the merge and deploy: \"Merge and deploy (Recommended)\", answering a question that named 6 credits instead of 5 and no faulty-image retry."
+  ],
+  "release": { "pullRequests": [393, 394], "mainCommit": "4a61aeb", "mergedAt": "2026-11-09T23:13:42Z", "decision": "docs/adr/0012-one-image-call-from-the-text.md",
+    "reviewFindings": "Sol (2 rounds): a saved non-default model was priced at its own rate while the engine generated on 2.1; fixed by offering and restoring only the generation model. CodeRabbit: a frozen eval could drop a changed reference; an empty model list when the catalog lacks the default. All fixed before merge." },
+  "deploy": { "deployment": "dpl_8SUBBQn3nzpytGgGQnZ1wy1pNdei", "status": "success", "note": "The production build pushed Convex unchanged: the switch has no Convex change." },
+  "smoke": {
+    "at": "2026-11-09T23:16Z",
+    "health": "ok",
+    "imageModels": { "models": [["google/gemini-nano-banana-2.1", "available", { "1K": 6 }]], "creditRange": { "min": 6, "max": 6 }, "artStyles": [["classical", true], ["watercolor", true], ["fresco", true], ["storybook", true], ["icon", false]] },
+    "zeroCreditGuest": [
+      { "reference": "Mark 4:39", "style": "classical", "status": 402, "required": 6, "available": 0 },
+      { "reference": "Daniel 7:9", "style": "classical", "status": 402, "required": 6, "available": 0 }
+    ],
+    "spend": "none: the production key's usage stayed at $11.48270295 and the newest preparation-ledger row predates the deploy",
+    "note": "The CSRF cookie is named visibible_csrf."
+  },
+  "rollback": "Promote the previous production deployment in Vercel; it runs the full engine, whose Convex functions stay deployed.",
+  "productionWrites": "one guest session; no image, request record, reservation or preparation spend"
+}

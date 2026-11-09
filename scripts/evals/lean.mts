@@ -44,8 +44,8 @@ import { createLedger, modelPricing, requestCeilingUsd, scrubForLog, type ModelP
 import { imageCapabilities } from "@/lib/image-catalog";
 import { createOfflineOpenRouter } from "@/lib/image-evals/suite-offline";
 import { createOpenRouterEvalImageProvider } from "@/lib/image-evals/adapters";
-import type { ReferenceRecord } from "@/lib/engine/assemble";
-import type { AnalysisRecord } from "@/lib/engine/preparation";
+import type { ReferenceRecord } from "@/lib/engine/lean-assemble";
+import type { AnalysisRecord } from "@/lib/engine/analysis-records";
 import { applicableRules } from "@/lib/engine/prompt";
 import { leanCastMember, rankLeanCast, LEAN_MAX_SHEETS, LEAN_PROMPT_VERSION, type LeanCastMember } from "@/lib/engine/lean";
 import { assembleLean } from "@/lib/engine/lean-assemble";
