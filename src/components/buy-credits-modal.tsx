@@ -5,6 +5,7 @@ import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, 
 import Image from "next/image";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
+import { VerseImageCount } from "@/components/verse-strip";
 import { usePreferences } from "@/context/preferences-context";
 import { DEFAULT_IMAGE_MODEL, getEstimatedCreditsCostForResolution, supportsResolution, type ImageModel } from "@/lib/image-models";
 import { IMAGE_ENVELOPE_CREDITS } from "@/lib/engine/quote";
@@ -105,7 +106,7 @@ function MiniVerseStrip() {
         return (
           <div
             key={v.verse}
-            className={`min-h-[40px] min-w-[36px] flex flex-col items-center justify-center rounded-[var(--radius-sm)] transition-all duration-500 ease-in-out ${
+            className={`min-h-[40px] min-w-[40px] px-1 flex flex-col items-center justify-center rounded-[var(--radius-sm)] transition-all duration-500 ease-in-out ${
               isSelected
                 ? "bg-[var(--accent)] scale-110 shadow-lg shadow-[var(--accent)]/25"
                 : "bg-[var(--divider)] opacity-70"
@@ -118,22 +119,12 @@ function MiniVerseStrip() {
             >
               {v.verse}
             </span>
-            {v.imageCount === 1 && (
-              <span
-                className={`mt-1 h-1 w-1 rounded-full transition-all duration-500 ease-in-out ${
-                  isSelected ? "bg-[var(--accent-text)]/90" : "bg-[var(--foreground)]/60"
-                }`}
-              />
-            )}
-            {v.imageCount > 1 && (
-              <span
-                className={`text-[10px] font-semibold leading-3 tabular-nums transition-all duration-500 ease-in-out ${
-                  isSelected ? "text-[var(--accent-text)]/90" : "text-[var(--foreground)]/70"
-                }`}
-              >
-                {v.imageCount}
-              </span>
-            )}
+            <VerseImageCount
+              count={v.imageCount}
+              className={`transition-colors duration-500 ease-in-out ${
+                isSelected ? "text-[var(--accent-text)]/90" : "text-[var(--foreground)]/70"
+              }`}
+            />
           </div>
         );
       })}
@@ -617,7 +608,7 @@ export function BuyCreditsModal() {
                   <div className="hidden sm:flex flex-col items-center -ml-8">
                     <MiniVerseStrip />
                     <p className="text-xs text-[var(--muted)]">
-                      A dot means one saved image; a number shows how many
+                      The image mark shows a verse has saved images, with a count when there are several
                     </p>
                   </div>
                 </div>
@@ -656,11 +647,10 @@ export function BuyCreditsModal() {
               </h2>
             </div>
 
-            <div className="mb-4 rounded-[var(--radius-md)] bg-[var(--surface)] px-4 py-3 text-xs">
-              <p className="text-[var(--foreground)] font-medium mb-2">Early Access</p>
-              <ul className="space-y-1 text-[var(--muted)]">
+            <div className="mb-5 rounded-[var(--radius-md)] bg-[var(--surface)] px-4 py-3 text-sm">
+              <p className="text-[var(--foreground)] font-medium mb-1.5">Early Access</p>
+              <ul className="space-y-1 text-[var(--foreground)]/75">
                 <li>Credits pay for AI images, videos and chat</li>
-                <li>Pay with any Lightning wallet, including Cash App (no on-chain)</li>
                 <li>Credit purchases are non-refundable during alpha</li>
               </ul>
             </div>
@@ -698,11 +688,11 @@ export function BuyCreditsModal() {
                         <p className="text-lg font-semibold text-[var(--foreground)]">
                           ${bundle.amountUsd}
                         </p>
-                        <p className="text-xs text-[var(--muted)]">
+                        <p className="text-sm text-[var(--muted)]">
                           {bundle.credits} credits
                         </p>
                         {imageCost ? (
-                          <p className="mt-0.5 text-xs text-[var(--foreground)]/80">
+                          <p className="mt-0.5 text-sm text-[var(--foreground)]/80">
                             About {Math.floor(bundle.credits / imageCost)} images
                           </p>
                         ) : null}
@@ -713,23 +703,16 @@ export function BuyCreditsModal() {
 
               </div>
 
-              {/* Payment methods info */}
-              <div className="flex flex-col items-center gap-3 py-3">
-                <p className="text-sm text-[var(--muted)]">Pay with</p>
-                <div className="flex items-center justify-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <CashAppLogo className="w-6 h-6" />
-                    <span className="text-sm font-medium text-[var(--foreground)]">Cash App</span>
-                  </div>
-                  <span className="text-[var(--muted)]">or</span>
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center">
-                      <BitcoinLogo className="w-6 h-6" />
-                      <LightningLogo className="w-6 h-6 -ml-2" />
-                    </div>
-                    <span className="text-sm font-medium text-[var(--foreground)]">Lightning</span>
-                  </div>
+              {/* Payment: one instruction; the logos only illustrate it (Cash App pays over Lightning) */}
+              <div className="flex items-center justify-center gap-3 py-2">
+                <div className="flex shrink-0 items-center" aria-hidden="true">
+                  <BitcoinLogo className="w-6 h-6" />
+                  <LightningLogo className="w-6 h-6 -ml-2" />
+                  <CashAppLogo className="w-6 h-6 ml-1" />
                 </div>
+                <p className="text-sm text-[var(--foreground)]/80">
+                  Pay with any Lightning wallet, including Cash App. On-chain bitcoin is not supported.
+                </p>
               </div>
 
               {/* Session-only warning */}
@@ -748,7 +731,7 @@ export function BuyCreditsModal() {
                 onClick={() => createInvoice(selectedBundle)}
                 className="w-full py-3 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] font-medium hover:bg-[var(--accent-hover)] transition-colors"
               >
-                Buy {selectedBundle.credits} Credits
+                Buy {selectedBundle.credits} Credits · ${selectedBundle.amountUsd}
               </button>
 
               {/* Admin Access - only when the page is opened with ?admin */}

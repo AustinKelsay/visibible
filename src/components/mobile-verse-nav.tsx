@@ -80,7 +80,14 @@ export function MobileVerseNav({
               <span className="text-sm font-semibold">Previous verse</span>
             </Link>
           ) : (
-            <div className="min-h-[52px]" aria-hidden="true" />
+            // First verse: the label stays, disabled, so the counter keeps its balance
+            <span
+              className="inline-flex items-center gap-2 min-h-[52px] px-3 -ml-3 text-[var(--muted)] opacity-50"
+              aria-hidden="true"
+            >
+              <ChevronLeft size={22} strokeWidth={2} />
+              <span className="text-sm font-semibold">Previous verse</span>
+            </span>
           )}
         </div>
 
@@ -120,7 +127,13 @@ export function MobileVerseNav({
               <ChevronRight size={22} strokeWidth={2} />
             </Link>
           ) : (
-            <div className="min-h-[52px]" aria-hidden="true" />
+            <span
+              className="inline-flex items-center gap-2 min-h-[52px] px-3 -mr-3 text-[var(--muted)] opacity-50"
+              aria-hidden="true"
+            >
+              <span className="text-sm font-semibold">Next verse</span>
+              <ChevronRight size={22} strokeWidth={2} />
+            </span>
           )}
         </div>
       </div>

@@ -7,6 +7,7 @@ import { HeroImage } from "@/components/hero-image";
 import { ScriptureReader } from "@/components/scripture-reader";
 import { ScriptureDetails } from "@/components/scripture-details";
 import { VerseStripBar } from "@/components/verse-strip-bar";
+import { MOBILE_VERSE_NAV_OFFSET } from "@/lib/mobile-verse-nav";
 import { ChapterGallery } from "@/components/chapter-gallery";
 import { VerseModeTabs } from "@/components/verse-mode-tabs";
 const VideoMode = dynamic(() => import("@/components/video-mode").then((module) => module.VideoMode), {
@@ -145,9 +146,14 @@ function VersePageBody({
     );
   }
 
-  // On phones the reader takes only the height it needs, so the footer follows Details directly
+  // On phones the reader fills the screen between the tabs and the fixed verse bar: the verse sits
+  // under the image, Details rests just above the bar, and the footer starts below the fold instead
+  // of floating mid-screen after a short verse
   return (
-    <div className="sm:flex-1 flex flex-col">
+    <div
+      className="min-h-[var(--reader-min-h)] sm:min-h-0 sm:flex-1 flex flex-col"
+      style={{ "--reader-min-h": `calc(100svh - 6.75rem - ${MOBILE_VERSE_NAV_OFFSET})` } as React.CSSProperties}
+    >
       <div className="relative">
         <HeroImage
           verseText={verseText}
@@ -174,7 +180,6 @@ function VersePageBody({
         </div>
       </div>
 
-      {/* On phones the verse does not stretch to fill the screen, so Details follows it directly */}
       <div className="sm:flex-1 py-4 md:py-8">
         <ScriptureReader
           book={bookName}
@@ -187,7 +192,7 @@ function VersePageBody({
         />
       </div>
 
-      <div className="max-w-2xl mx-auto w-full mb-4 sm:mb-8">
+      <div className="max-w-2xl mx-auto w-full mt-auto sm:mt-0 mb-4 sm:mb-8">
         <ScriptureDetails
           book={bookName}
           chapter={chapter}

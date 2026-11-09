@@ -15,14 +15,28 @@ import {
 import { useGeneration } from "@/context/generation-context";
 import { usePreferences } from "@/context/preferences-context";
 
-// Selected rows get the same blue tint as the mobile settings, plus a check, so they differ from hover
+// Selected rows get the same blue tint as the mobile settings, plus a check, so they differ from hover.
+// Available choices use body text; only unavailable ones are faded.
 const rowClassName = (selected: boolean) =>
   `w-full px-2 py-1.5 flex items-center gap-2 text-left text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] ${
-    selected ? "bg-[var(--accent)]/10 text-[var(--foreground)] font-medium" : "text-[var(--muted)] hover:bg-[var(--surface)]"
+    selected ? "bg-[var(--accent)]/10 text-[var(--foreground)] font-medium" : "text-[var(--foreground)] hover:bg-[var(--surface)]"
   }`;
 
 function SelectedMark({ selected }: { selected: boolean }) {
   return <Check size={14} strokeWidth={2} aria-hidden="true" className={`shrink-0 text-[var(--accent)] ${selected ? "" : "invisible"}`} />;
+}
+
+/**
+ * "Image settings · 16:9 · 1K" on wide screens, the ratio and resolution on medium ones, and just
+ * the gear on small tablets, where the full header would otherwise overflow.
+ */
+function SettingsSummary({ aspectRatio, resolution }: { aspectRatio: string; resolution: string }) {
+  return (
+    <span className="hidden md:inline whitespace-nowrap">
+      <span className="hidden xl:inline">Image settings<span className="text-[var(--muted)]"> · </span></span>
+      {aspectRatio} · {resolution}
+    </span>
+  );
 }
 
 export function HeaderSettingsPopover() {
@@ -65,6 +79,7 @@ export function HeaderSettingsPopover() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // The read-only chip (Video tab) has the same parts as the button, so the header does not shift
   if (!isRegistered) {
     return (
       <span
@@ -72,7 +87,8 @@ export function HeaderSettingsPopover() {
         title="Image settings apply on the Images tab"
       >
         <Settings size={14} strokeWidth={1.5} />
-        <span>{imageAspectRatio} · {imageResolution}</span>
+        <SettingsSummary aspectRatio={imageAspectRatio} resolution={imageResolution} />
+        <ChevronDown size={12} aria-hidden="true" />
       </span>
     );
   }
@@ -86,7 +102,7 @@ export function HeaderSettingsPopover() {
         aria-expanded={isOpen}
       >
         <Settings size={14} strokeWidth={1.5} />
-        <span>{aspectRatio} · {resolution}</span>
+        <SettingsSummary aspectRatio={aspectRatio} resolution={resolution} />
         <ChevronDown
           size={12}
           className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
@@ -220,9 +236,6 @@ export function MobileSettingsRows() {
       <div>
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-[var(--foreground)]">Resolution</span>
-          {!modelSupportsRes && (
-            <span className="text-[10px] text-[var(--muted)]">2K and 4K unavailable for this model</span>
-          )}
         </div>
         <div className="flex gap-2">
           {(Object.keys(RESOLUTIONS) as ImageResolution[]).map((res) => {
@@ -255,6 +268,9 @@ export function MobileSettingsRows() {
             );
           })}
         </div>
+        {!modelSupportsRes && (
+          <p className="mt-1.5 text-xs text-[var(--muted)]">2K and 4K are not available for this model</p>
+        )}
       </div>
     </>
   );

@@ -109,6 +109,19 @@ describe("MobileVerseNav", () => {
     });
   }
 
+  it("keeps a disabled Previous verse label on the first verse, so the counter stays balanced", async () => {
+    await act(async () => {
+      root?.render(
+        <MobileVerseNav book="Genesis" chapter={1} verseNumber={1} totalVerses={31} nextUrl="/genesis/1/2" />
+      );
+    });
+
+    expect(container?.querySelector('a[aria-label="Previous verse"]')).toBeNull();
+    const placeholder = container?.querySelector('span[aria-hidden="true"]');
+    expect(placeholder?.textContent).toBe("Previous verse");
+    expect(container?.querySelector('a[aria-label="Next verse"]')?.getAttribute("href")).toBe("/genesis/1/2");
+  });
+
   it("renders the fixed mobile verse navigation bar and tracks navigation clicks", async () => {
     await renderNav();
 

@@ -94,7 +94,6 @@ function BookMenuBase({
 }: BookMenuBasePropsWithState) {
   const { isMenuOpen, closeMenu } = useNavigation();
   const pathname = usePathname();
-  const { translationInfo } = usePreferences();
   const [expandedTestament, setExpandedTestament] = useState<"old" | "new">(
     () => getExpandedTestamentForPathname(pathname)
   );
@@ -181,7 +180,7 @@ function BookMenuBase({
           )}
         </span>
         <span className="text-sm text-[var(--muted)]">
-          {isCurrent && currentChapter ? `Reading ${currentChapter}` : `${book.chapters.length} ch`}
+          {isCurrent && currentChapter ? `Reading · Ch ${currentChapter}` : `${book.chapters.length} ch`}
         </span>
       </button>
     );
@@ -254,7 +253,7 @@ function BookMenuBase({
             <>
               {/* Translation Selector */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--divider)]">
-                <span className="text-sm font-medium text-[var(--muted)]">Translation — {translationInfo.code}</span>
+                <span className="text-sm font-medium text-[var(--muted)]">Translation</span>
                 <TranslationSelector variant="compact" />
               </div>
               <div className="px-4 py-3 border-b border-[var(--divider)]">
