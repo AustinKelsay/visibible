@@ -12,7 +12,7 @@ import { applicableRules, briefBlock, engineRules } from "./prompt";
 import { depictionModeOf, effectsWordingFor, symbolWordingFor, type DepictionMode, type DepictionProfile } from "./depiction";
 import type { ArtStyle, WorkBrief } from "../work-preparation";
 
-export const LEAN_PROMPT_VERSION = "2026-11-09-lean-v5";
+export const LEAN_PROMPT_VERSION = "2026-11-09-lean-v6";
 /** Sheets beside the style reference; Nano Banana 2.1 takes many more, but each extra sheet risks an extra figure. */
 export const LEAN_MAX_SHEETS = 4;
 export const LEAN_PROMPT_MAX_CHARS = 12000;
@@ -140,6 +140,10 @@ export function buildLeanRendering(input: LeanInput): LeanResult {
   const rules = engineRules(depiction).filter((rule) => !rule.startsWith("Show the SELECTED CHARACTERS")).map(unplanned);
   rules.push("A character you draw from CANON keeps exactly that look. Anyone else the moment needs appears as an unnamed figure with an ordinary, different face.");
   const canonBlock = (title: string, members: LeanRanked[]) => members.length ? [title, ...members.map((m) => `- ${nameless(m.text)}`)].join("\n") : "";
+  // The passage's places get their own block: a verse seldom names where it happens, and a place filed with the cast the
+  // moment may leave out is redrawn from scratch in every image.
+  const places = formed.filter((m) => m.kind === "location");
+  const cast = [...formed.filter((m) => m.kind !== "location"), ...symbols];
   const aspect = { "16:9": "widescreen", "21:9": "ultra-wide", "3:2": "classic wide" }[input.aspectRatio];
   const brief_ = briefBlock(brief, input.eraId, style.id).replace("it outranks the style, the look and the plan", "it outranks the style");
   const prompt = [
@@ -147,14 +151,15 @@ export function buildLeanRendering(input: LeanInput): LeanResult {
     `RULES (they outrank everything below):\n${rules.map((rule, i) => `${i + 1}) ${rule}`).join("\n")}`,
     `MOMENT (${input.moment.reference}): "${nameless(clip(input.moment.text, MOMENT_TEXT_MAX_CHARS))}"`,
     prev || next ? ["CONTEXT (for understanding only; paint the moment above):", ...(prev ? [`- Before: ${prev}`] : []), ...(next ? [`- After: ${next}`] : [])].join("\n") : "",
-    "HOW TO READ IT: choose the single instant that best shows what happens in the moment and paint that, as if the viewer stands inside the scene. When someone speaks, show the speaker and listeners where they are; never paint the content of the speech as a separate scene or as figures beside them. Figures of speech and comparisons are not literal objects. Infer place, time, light and weather from the text and context.",
+    "HOW TO READ IT: choose the single instant that best shows what happens in the moment and paint that, as if the viewer stands inside the scene. When someone speaks, show the speaker and listeners where they are; never paint the content of the speech as a separate scene or as figures beside them. Figures of speech and comparisons are not literal objects. Infer time, light, weather and any place not given under SETTING from the text and context.",
     alias ? nameless(brief_) : brief_,
     effects ? unplanned(effects.renderBlock) : "",
     // The text itself may give the presence a seat, clothes, hair or hands; the planner used to keep those words out.
     alias && formless.some(isNamed) ? `IMAGERY, NOT FORM (binding): wherever the text calls something "${alias}", it has no body. Words that give it a seat, clothing, hair, face, hands, feet or a figure are imagery: paint none of them, not even as light or cloud in that shape. Show the place, the people who witness it, and the light, fire, cloud or wind spread through the place; any throne, seat or chariot stays empty.` : "",
     symbol ? `${symbol.renderBlock} ${symbols.map((m) => nameless(m.name)).join("; ")}.` : "",
-    canonBlock("CANON, NAMED HERE (fixed look; the moment decides pose, expression, clothing changes and action):", [...formed, ...symbols].filter(isNamed)),
-    canonBlock("CANON, ELSEWHERE IN THIS PASSAGE (draw one only when the moment involves them, for example as \"he\" or \"they\"; otherwise leave them out):", [...formed, ...symbols].filter((m) => !isNamed(m))),
+    canonBlock(`SETTING (where this passage happens; set the moment here and keep the place's fixed features, unless the moment is plainly somewhere else${places.length > 1 ? "; of several places, use the one the moment is in" : ""}):`, places),
+    canonBlock("CANON, NAMED HERE (fixed look; the moment decides pose, expression, clothing changes and action):", cast.filter(isNamed)),
+    canonBlock("CANON, ELSEWHERE IN THIS PASSAGE (draw one only when the moment involves them, for example as \"he\" or \"they\"; otherwise leave them out):", cast.filter((m) => !isNamed(m))),
     `ART STYLE: ${style.label}\nRendering: ${style.rendering}\nPalette: ${style.palette}\nLighting: ${style.lighting}\nMaterials and texture: ${style.materials}\nComposition: ${style.composition}\nNegatives: ${style.negatives}`,
     references.length ? ["REFERENCE IMAGES (attached in this order; identity and rendering only, never composition):", ...references.map((r) => `- ${r.caption}`),
       "Render everything in the ART STYLE above, even where a reference is painted differently."].join("\n") : "",
