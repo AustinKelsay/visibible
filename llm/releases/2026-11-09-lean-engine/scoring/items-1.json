@@ -1,0 +1,1282 @@
+{
+  "tier": "image",
+  "items": [
+    {
+      "id": "j001",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j001.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44",
+      "text": "“Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was all ridges and furrows; the balls were live hedgehogs, the mallets live flamingoes, and the soldiers had to double themselves up and to stand on their hands and feet, to make the arches. The chief difficulty Alice found at first was in managing her flamingo: she succeeded in getting its body tucked away, comfortably enough, under her arm, with its legs hanging down, but generally, just as she had got its neck nicely straightened out, and was going to give the hedgehog a blow with its head, it _would_ twist itself round and look up in her face, with such a puzzled expression that she could not help bursting out laughing: and when she had got its head down, and was going to begin again, it was very provoking to find that the hedgehog had unrolled itself, and was in the act of crawling away: besides all this, there was generally a ridge or furrow in the way wherever she wanted to send the hedgehog to, and, as the doubled-up soldiers were always getting up and walking off to other parts of the ground, Alice soon came to the conclusion that it was a very difficult game indeed. The players all played at once without waiting for turns, quarrelling all the while, and fighting for the hedgehogs; and in a very short time the Queen was in a furious passion, and went stamping about, and shouting “Off with his head!” or “Off with her head!” about once in a minute. Alice began to feel very uneasy: to be sure, she had not as yet had any dispute with the Queen, but she knew that it might happen any minute, “and then,” thought she, “what would become of me? They’re dreadfully fond of beheading people here; the great wonder is, that there’s any one left alive!”",
+      "previous": "“She boxed the Queen’s ears—” the Rabbit began. Alice gave a little scream of laughter. “Oh, hush!” the Rabbit whispered in a frightened tone. “The Queen will hear you! You see, she came rather late, and the Queen said—”",
+      "next": null,
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+        "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+        "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j002",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j002.jpg",
+      "work": "The Holy Bible",
+      "reference": "Ezekiel 37:4",
+      "text": "Again he said to me, “Prophesy over these bones, and tell them, ‘You dry bones, hear Yahweh’s word.",
+      "previous": "He said to me, “Son of man, can these bones live?” I answered, “Lord Yahweh, you know.”",
+      "next": "The Lord Yahweh says to these bones: “Behold, I will cause breath to enter into you, and you will live.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j003",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j003.jpg",
+      "work": "The Holy Bible",
+      "reference": "Acts 9:3",
+      "text": "As he traveled, he got close to Damascus, and suddenly a light from the sky shone around him.",
+      "previous": "and asked for letters from him to the synagogues of Damascus, that if he found any who were of the Way, whether men or women, he might bring them bound to Jerusalem.",
+      "next": "He fell on the earth, and heard a voice saying to him, “Saul, Saul, why do you persecute me?”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j004",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j004.jpg",
+      "work": "The Holy Bible",
+      "reference": "Daniel 6:23",
+      "text": "Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.",
+      "previous": "My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”",
+      "next": null,
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j005",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j005.jpg",
+      "work": "The Holy Bible",
+      "reference": "Isaiah 6:2",
+      "text": "Above him stood the seraphim. Each one had six wings. With two he covered his face. With two he covered his feet. With two he flew.",
+      "previous": "In the year that King Uzziah died, I saw the Lord sitting on a throne, high and lifted up; and his train filled the temple.",
+      "next": "One called to another, and said, “Holy, holy, holy, is Yahweh of Armies! The whole earth is full of his glory!”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j006",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j006.jpg",
+      "work": "The Holy Bible",
+      "reference": "Leviticus 11:7",
+      "text": "The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.",
+      "previous": "The hare, because it chews the cud but doesn’t have a parted hoof, is unclean to you.",
+      "next": "You shall not eat their meat. You shall not touch their carcasses. They are unclean to you.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j007",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j007.jpg",
+      "work": "The Holy Bible",
+      "reference": "Ruth 4:22",
+      "text": "and Obed became the father of Jesse, and Jesse became the father of David.",
+      "previous": "and Salmon became the father of Boaz, and Boaz became the father of Obed,",
+      "next": null,
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j008",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j008.jpg",
+      "work": "The Holy Bible",
+      "reference": "Ruth 4:22",
+      "text": "and Obed became the father of Jesse, and Jesse became the father of David.",
+      "previous": "and Salmon became the father of Boaz, and Boaz became the father of Obed,",
+      "next": null,
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j009",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j009.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Adventure of the Engineer’s Thumb ¶170 to The Adventure of the Engineer’s Thumb ¶171",
+      "text": "“That’s it!” cried Hatherley, in intense excitement. “There is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.” “Well, at least,” said Holmes, “you have had your revenge upon them. There can be no question that it was your oil-lamp which, when it was crushed in the press, set fire to the wooden walls, though no doubt they were too excited in the chase after you to observe it at the time. Now keep your eyes open in this crowd for your friends of last night, though I very much fear that they are a good hundred miles off by now.”",
+      "previous": "The station-master had not finished his speech before we were all hastening in the direction of the fire. The road topped a low hill, and there was a great widespread whitewashed building in front of us, spouting fire at every chink and window, while in the garden in front three fire-engines were vainly striving to keep the flames under.",
+      "next": "And Holmes’ fears came to be realised, for from that day to this no word has ever been heard either of the beautiful woman, the sinister German, or the morose Englishman. Early that morning a peasant had met a cart containing several people and some very bulky boxes driving rapidly in the direction of Reading, but there all traces of the fugitives disappeared, and even Holmes’ ingenuity failed ever to discover the least clue as to their whereabouts.",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j010",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j010.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Red-Headed League ¶1 to The Red-Headed League ¶7",
+      "text": "I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and closed the door behind me. “You could not possibly have come at a better time, my dear Watson,” he said cordially. “I was afraid that you were engaged.” “So I am. Very much so.” “Then I can wait in the next room.” “Not at all. This gentleman, Mr. Wilson, has been my partner and helper in many of my most successful cases, and I have no doubt that he will be of the utmost use to me in yours also.” The stout gentleman half rose from his chair and gave a bob of greeting, with a quick little questioning glance from his small fat-encircled eyes.",
+      "previous": null,
+      "next": "“Try the settee,” said Holmes, relapsing into his armchair and putting his fingertips together, as was his custom when in judicial moods. “I know, my dear Watson, that you share my love of all that is bizarre and outside the conventions and humdrum routine of everyday life. You have shown your relish for it by the enthusiasm which has prompted you to chronicle, and, if you will excuse my saying so, somewhat to embellish so many of my own little adventures.”",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j011",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j011.jpg",
+      "work": "The Holy Bible",
+      "reference": "1 Corinthians 13:12",
+      "text": "For now we see in a mirror, dimly, but then face to face. Now I know in part, but then I will know fully, even as I was also fully known.",
+      "previous": "When I was a child, I spoke as a child, I felt as a child, I thought as a child. Now that I have become a man, I have put away childish things.",
+      "next": "But now faith, hope, and love remain—these three. The greatest of these is love.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j012",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j012.jpg",
+      "work": "The Holy Bible",
+      "reference": "John 21:7",
+      "text": "That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.",
+      "previous": "He said to them, “Cast the net on the right side of the boat, and you will find some.” They cast it therefore, and now they weren’t able to draw it in for the multitude of fish.",
+      "next": "But the other disciples came in the little boat (for they were not far from the land, but about two hundred cubits away), dragging the net full of fish.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j013",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j013.jpg",
+      "work": "The Holy Bible",
+      "reference": "2 Chronicles 31:21",
+      "text": "In every work that he began in the service of God’s house, in the law, and in the commandments, to seek his God, he did it with all his heart and prospered.",
+      "previous": "Hezekiah did so throughout all Judah; and he did that which was good, right, and faithful before Yahweh his God.",
+      "next": null,
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j014",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j014.jpg",
+      "work": "The Holy Bible",
+      "reference": "Leviticus 11:7",
+      "text": "The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.",
+      "previous": "The hare, because it chews the cud but doesn’t have a parted hoof, is unclean to you.",
+      "next": "You shall not eat their meat. You shall not touch their carcasses. They are unclean to you.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j015",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j015.jpg",
+      "work": "The Holy Bible",
+      "reference": "Genesis 19:24",
+      "text": "Then Yahweh rained on Sodom and on Gomorrah sulfur and fire from Yahweh out of the sky.",
+      "previous": "The sun had risen on the earth when Lot came to Zoar.",
+      "next": "He overthrew those cities, all the plain, all the inhabitants of the cities, and that which grew on the ground.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j016",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j016.jpg",
+      "work": "The Holy Bible",
+      "reference": "2 Kings 2:23",
+      "text": "He went up from there to Bethel. As he was going up by the way, some youths came out of the city and mocked him, and said to him, “Go up, you baldy! Go up, you baldy!”",
+      "previous": null,
+      "next": "He looked behind him and saw them, and cursed them in Yahweh’s name. Then two female bears came out of the woods and mauled forty-two of those youths.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j017",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j017.jpg",
+      "work": "The Holy Bible",
+      "reference": "Proverbs 8:21",
+      "text": "that I may give wealth to those who love me. I fill their treasuries.",
+      "previous": "I walk in the way of righteousness, in the middle of the paths of justice,",
+      "next": null,
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "Wisdom"
+      ]
+    },
+    {
+      "id": "j018",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j018.jpg",
+      "work": "The Holy Bible",
+      "reference": "Job 38:4",
+      "text": "“Where were you when I laid the foundations of the earth? Declare, if you have understanding.",
+      "previous": "Brace yourself like a man, for I will question you, then you answer me!",
+      "next": "Who determined its measures, if you know? Or who stretched the line on it?",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j019",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j019.jpg",
+      "work": "The Holy Bible",
+      "reference": "Luke 15:22",
+      "text": "“But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.",
+      "previous": "The son said to him, ‘Father, I have sinned against heaven and in your sight. I am no longer worthy to be called your son.’",
+      "next": "Bring the fattened calf, kill it, and let’s eat and celebrate;",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j020",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j020.jpg",
+      "work": "The Holy Bible",
+      "reference": "John 21:9",
+      "text": "So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.",
+      "previous": "But the other disciples came in the little boat (for they were not far from the land, but about two hundred cubits away), dragging the net full of fish.",
+      "next": "Jesus said to them, “Bring some of the fish which you have just caught.”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j021",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j021.jpg",
+      "work": "The Holy Bible",
+      "reference": "Matthew 14:29",
+      "text": "He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.",
+      "previous": "Peter answered him and said, “Lord, if it is you, command me to come to you on the waters.”",
+      "next": "But when he saw that the wind was strong, he was afraid, and beginning to sink, he cried out, saying, “Lord, save me!”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j022",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j022.jpg",
+      "work": "Alice’s Adventures in Wonderland",
+      "reference": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5",
+      "text": "The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly, “I—I hardly know, sir, just at present—at least I know who I _was_ when I got up this morning, but I think I must have been changed several times since then.” “What do you mean by that?” said the Caterpillar sternly. “Explain yourself!” “I can’t explain _myself_, I’m afraid, sir,” said Alice, “because I’m not myself, you see.”",
+      "previous": null,
+      "next": "“I don’t see,” said the Caterpillar.",
+      "depictionRules": [
+        "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+        "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+        "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+        "Threats and executions stay threats or slapstick; no gore or real injury.",
+        "Take no likeness, costume or prop from film or animated adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j023",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j023.jpg",
+      "work": "The Holy Bible",
+      "reference": "Job 38:4",
+      "text": "“Where were you when I laid the foundations of the earth? Declare, if you have understanding.",
+      "previous": "Brace yourself like a man, for I will question you, then you answer me!",
+      "next": "Who determined its measures, if you know? Or who stretched the line on it?",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j024",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j024.jpg",
+      "work": "The Holy Bible",
+      "reference": "Numbers 20:11",
+      "text": "Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.",
+      "previous": "Moses and Aaron gathered the assembly together before the rock, and he said to them, “Hear now, you rebels! Shall we bring water out of this rock for you?”",
+      "next": "Yahweh said to Moses and Aaron, “Because you didn’t believe in me, to sanctify me in the eyes of the children of Israel, therefore you shall not bring this assembly into the land which I have given them.”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j025",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j025.jpg",
+      "work": "The Holy Bible",
+      "reference": "Ruth 4:22",
+      "text": "and Obed became the father of Jesse, and Jesse became the father of David.",
+      "previous": "and Salmon became the father of Boaz, and Boaz became the father of Obed,",
+      "next": null,
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j026",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j026.jpg",
+      "work": "The Holy Bible",
+      "reference": "Numbers 9:22",
+      "text": "Whether it was two days, or a month, or a year that the cloud stayed on the tabernacle, remaining on it, the children of Israel remained encamped, and didn’t travel; but when it was taken up, they traveled.",
+      "previous": "Sometimes the cloud was from evening until morning; and when the cloud was taken up in the morning, they traveled; or by day and by night, when the cloud was taken up, they traveled.",
+      "next": "At the commandment of Yahweh they encamped, and at the commandment of Yahweh they traveled. They kept Yahweh’s command, at the commandment of Yahweh by Moses.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j027",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j027.jpg",
+      "work": "The Holy Bible",
+      "reference": "Daniel 7:9",
+      "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "previous": null,
+      "next": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "The Ancient of Days"
+      ]
+    },
+    {
+      "id": "j028",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j028.jpg",
+      "work": "The Holy Bible",
+      "reference": "Luke 15:22",
+      "text": "“But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.",
+      "previous": "The son said to him, ‘Father, I have sinned against heaven and in your sight. I am no longer worthy to be called your son.’",
+      "next": "Bring the fattened calf, kill it, and let’s eat and celebrate;",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j029",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j029.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Red-Headed League ¶1 to The Red-Headed League ¶7",
+      "text": "I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and closed the door behind me. “You could not possibly have come at a better time, my dear Watson,” he said cordially. “I was afraid that you were engaged.” “So I am. Very much so.” “Then I can wait in the next room.” “Not at all. This gentleman, Mr. Wilson, has been my partner and helper in many of my most successful cases, and I have no doubt that he will be of the utmost use to me in yours also.” The stout gentleman half rose from his chair and gave a bob of greeting, with a quick little questioning glance from his small fat-encircled eyes.",
+      "previous": null,
+      "next": "“Try the settee,” said Holmes, relapsing into his armchair and putting his fingertips together, as was his custom when in judicial moods. “I know, my dear Watson, that you share my love of all that is bizarre and outside the conventions and humdrum routine of everyday life. You have shown your relish for it by the enthusiasm which has prompted you to chronicle, and, if you will excuse my saying so, somewhat to embellish so many of my own little adventures.”",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j030",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j030.jpg",
+      "work": "The Holy Bible",
+      "reference": "Nehemiah 3:9",
+      "text": "Next to them, Rephaiah the son of Hur, the ruler of half the district of Jerusalem, made repairs.",
+      "previous": "Next to him, Uzziel the son of Harhaiah, goldsmiths, made repairs. Next to him, Hananiah, one of the perfumers, made repairs, and they fortified Jerusalem even to the wide wall.",
+      "next": "Next to them, Jedaiah the son of Harumaph made repairs across from his house. Next to him, Hattush the son of Hashabneiah made repairs.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j031",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j031.jpg",
+      "work": "The Holy Bible",
+      "reference": "Mark 4:37",
+      "text": "A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.",
+      "previous": "Leaving the multitude, they took him with them, even as he was, in the boat. Other small boats were also with him.",
+      "next": "He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j032",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j032.jpg",
+      "work": "The Holy Bible",
+      "reference": "Deuteronomy 1:7",
+      "text": "Turn, and take your journey, and go to the hill country of the Amorites and to all the places near there: in the Arabah, in the hill country, in the lowland, in the South, by the seashore, in the land of the Canaanites, and in Lebanon as far as the great river, the river Euphrates.",
+      "previous": "“Yahweh our God spoke to us in Horeb, saying, ‘You have lived long enough at this mountain.",
+      "next": "Behold, I have set the land before you. Go in and possess the land which Yahweh swore to your fathers—to Abraham, to Isaac, and to Jacob—to give to them and to their offspring after them.’”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j033",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j033.jpg",
+      "work": "The Holy Bible",
+      "reference": "Exodus 14:21",
+      "text": "Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.",
+      "previous": null,
+      "next": "The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "God / Yahweh, the Father and God of Israel"
+      ]
+    },
+    {
+      "id": "j034",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j034.jpg",
+      "work": "The Holy Bible",
+      "reference": "Luke 22:61",
+      "text": "The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”",
+      "previous": "But Peter said, “Man, I don’t know what you are talking about!” Immediately, while he was still speaking, a rooster crowed.",
+      "next": "He went out, and wept bitterly.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j035",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j035.jpg",
+      "work": "The Holy Bible",
+      "reference": "John 11:43",
+      "text": "When he had said this, he cried with a loud voice, “Lazarus, come out!”",
+      "previous": "I know that you always listen to me, but because of the multitude standing around I said this, that they may believe that you sent me.”",
+      "next": "He who was dead came out, bound hand and foot with wrappings, and his face was wrapped around with a cloth. Jesus said to them, “Free him, and let him go.”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j036",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j036.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "The Red-Headed League ¶175 to The Red-Headed League ¶182",
+      "text": "“You are not very vulnerable from above,” Holmes remarked as he held up the lantern and gazed about him. “Nor from below,” said Mr. Merryweather, striking his stick upon the flags which lined the floor. “Why, dear me, it sounds quite hollow!” he remarked, looking up in surprise. “I must really ask you to be a little more quiet!” said Holmes severely. “You have already imperilled the whole success of our expedition. Might I beg that you would have the goodness to sit down upon one of those boxes, and not to interfere?” The solemn Mr. Merryweather perched himself upon a crate, with a very injured expression upon his face, while Holmes fell upon his knees upon the floor and, with the lantern and a magnifying lens, began to examine minutely the cracks between the stones. A few seconds sufficed to satisfy him, for he sprang to his feet again and put his glass in his pocket. “We have at least an hour before us,” he remarked, “for they can hardly take any steps until the good pawnbroker is safely in bed. Then they will not lose a minute, for the sooner they do their work the longer time they will have for their escape. We are at present, Doctor—as no doubt you have divined—in the cellar of the City branch of one of the principal London banks. Mr. Merryweather is the chairman of directors, and he will explain to you that there are reasons why the more daring criminals of London should take a considerable interest in this cellar at present.” “It is our French gold,” whispered the director. “We have had several warnings that an attempt might be made upon it.” “Your French gold?” “Yes. We had occasion some months ago to strengthen our resources and borrowed for that purpose 30,000 napoleons from the Bank of France. It has become known that we have never had occasion to unpack the money, and that it is still lying in our cellar. The crate upon which I sit contains 2,000 napoleons packed between layers of lead foil. Our reserve of bullion is much larger at present than is usually kept in a single branch office, and the directors have had misgivings upon the subject.”",
+      "previous": null,
+      "next": "“Which were very well justified,” observed Holmes. “And now it is time that we arranged our little plans. I expect that within an hour matters will come to a head. In the meantime Mr. Merryweather, we must put the screen over that dark lantern.”",
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j037",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j037.jpg",
+      "work": "The Holy Bible",
+      "reference": "Numbers 20:11",
+      "text": "Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.",
+      "previous": "Moses and Aaron gathered the assembly together before the rock, and he said to them, “Hear now, you rebels! Shall we bring water out of this rock for you?”",
+      "next": "Yahweh said to Moses and Aaron, “Because you didn’t believe in me, to sanctify me in the eyes of the children of Israel, therefore you shall not bring this assembly into the land which I have given them.”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j038",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j038.jpg",
+      "work": "The Holy Bible",
+      "reference": "Daniel 6:22",
+      "text": "My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”",
+      "previous": "Then Daniel said to the king, “O king, live forever!",
+      "next": "Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j039",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j039.jpg",
+      "work": "The Adventures of Sherlock Holmes",
+      "reference": "A Case of Identity ¶92 to A Case of Identity ¶101",
+      "text": "I held the little printed slip to the light. “Missing,” it said, “on the morning of the fourteenth, a gentleman named Hosmer Angel. About five ft. seven in. in height; strongly built, sallow complexion, black hair, a little bald in the centre, bushy, black side-whiskers and moustache; tinted glasses, slight infirmity of speech. Was dressed, when last seen, in black frock-coat faced with silk, black waistcoat, gold Albert chain, and grey Harris tweed trousers, with brown gaiters over elastic-sided boots. Known to have been employed in an office in Leadenhall Street. Anybody bringing,” &c, &c. “That will do,” said Holmes. “As to the letters,” he continued, glancing over them, “they are very commonplace. Absolutely no clue in them to Mr. Angel, save that he quotes Balzac once. There is one remarkable point, however, which will no doubt strike you.” “They are typewritten,” I remarked. “Not only that, but the signature is typewritten. Look at the neat little ‘Hosmer Angel’ at the bottom. There is a date, you see, but no superscription except Leadenhall Street, which is rather vague. The point about the signature is very suggestive—in fact, we may call it conclusive.” “Of what?” “My dear fellow, is it possible you do not see how strongly it bears upon the case?” “I cannot say that I do unless it were that he wished to be able to deny his signature if an action for breach of promise were instituted.” “No, that was not the point. However, I shall write two letters, which should settle the matter. One is to a firm in the City, the other is to the young lady’s stepfather, Mr. Windibank, asking him whether he could meet us here at six o’clock to-morrow evening. It is just as well that we should do business with the male relatives. And now, Doctor, we can do nothing until the answers to those letters come, so we may put our little problem upon the shelf for the interim.” I had had so many reasons to believe in my friend’s subtle powers of reasoning and extraordinary energy in action that I felt that he must have some solid grounds for the assured and easy demeanour with which he treated the singular mystery which he had been called upon to fathom. Once only had I known him to fail, in the case of the King of Bohemia and of the Irene Adler photograph; but when I looked back to the weird business of the Sign of Four, and the extraordinary circumstances connected with the Study in Scarlet, I felt that it would be a strange tangle indeed which he could not unravel. I left him then, still puffing at his black clay pipe, with the conviction that when I came again on the next evening I would find that he held in his hands all the clues which would lead up to the identity of the disappearing bridegroom of Miss Mary Sutherland.",
+      "previous": "“I noted, in passing, that she had written a note before leaving home but after being fully dressed. You observed that her right glove was torn at the forefinger, but you did not apparently see that both glove and finger were stained with violet ink. She had written in a hurry and dipped her pen too deep. It must have been this morning, or the mark would not remain clear upon the finger. All this is amusing, though rather elementary, but I must go back to business, Watson. Would you mind reading me the advertised description of Mr. Hosmer Angel?”",
+      "next": null,
+      "depictionRules": [
+        "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+        "Show every person with dignity; avoid racial and ethnic caricatures.",
+        "Do not borrow faces, costumes or props from screen adaptations."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j040",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j040.jpg",
+      "work": "The Holy Bible",
+      "reference": "Judges 19:29",
+      "text": "When he had come into his house, he took a knife and cut up his concubine, and divided her, limb by limb, into twelve pieces, and sent her throughout all the borders of Israel.",
+      "previous": "He said to her, “Get up, and let’s get going!” but no one answered. Then he took her up on the donkey; and the man rose up, and went to his place.",
+      "next": "It was so, that all who saw it said, “Such a deed has not been done or seen from the day that the children of Israel came up out of the land of Egypt to this day! Consider it, take counsel, and speak.”",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": []
+    },
+    {
+      "id": "j041",
+      "ask": [
+        "lettering",
+        "painted_frame",
+        "unpainted_edge",
+        "extra_figures",
+        "incoherent",
+        "scene_mismatch",
+        "anatomy",
+        "rule_violation",
+        "effects_figure",
+        "readable_text"
+      ],
+      "accepted": [
+        "unpainted_edge"
+      ],
+      "file": "evals/images/runs/2026-11-09-lean-engine/blind/j041.jpg",
+      "work": "The Holy Bible",
+      "reference": "Daniel 7:9",
+      "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "previous": null,
+      "next": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+      "depictionRules": [
+        "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+        "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+        "No sexually explicit content; non-sexual nudity may follow the text.",
+        "Show all peoples with dignity, without ethnic or religious caricature.",
+        "Visionary creatures follow the text, strange and fearsome rather than comic."
+      ],
+      "neverDrawn": [
+        "The Ancient of Days"
+      ]
+    }
+  ]
+}

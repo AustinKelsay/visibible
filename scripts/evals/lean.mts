@@ -8,6 +8,9 @@
  *   npm run evals:lean -- run --run <name> --offline|--execute [--resume]
  *   npm run evals:lean -- blind --run <name> --baseline <dir with the full engine's results.ndjson> --baseline-images <dir> [--batches <n>]
  *   npm run evals:lean -- report --run <name> --scores <a>[,…],<b>[,…] [--operator <file>]
+ *   npm run evals:lean -- pairing --run <name> --baseline <dir> --out <dir>
+ *   npm run evals:lean -- pool --run <name> --out <dir> [--batches <n>]
+ *   npm run evals:lean -- unpool --out <dir> --scores <pooled score files>
  *
  * `cast` compares name-based cast selection with the text run's planned casts, free. `plan` writes the cases, the
  * estimate and the cap; `run --execute` needs a committed `funding.json` beside it and ledgers every call. `blind`
@@ -15,6 +18,11 @@
  * plan; the key says which arm each item came from. `report` settles the scores, applies the suite gate to the lean
  * arm with the full arm as its baseline, and also counts each arm at the launch bar, where small unreadable marks
  * are accepted (ADR 0006 amendment 7).
+ *
+ * Consistency (ADR 0008) is paired the same way. `pairing` writes each arm's results in the form `evals:consistency
+ * pairs` reads, made alike: both take the full arm's planned cast as the cast present and describe a scene by its
+ * moment's text, so the two arms get the same pairs and nothing tells them apart. `pool` shuffles every set's pairs
+ * into shared blind chunks; `unpool` returns each scorer's verdicts to the sets for `evals:consistency report`.
  *
  * Paid runs read OPENROUTER_API_KEY from the private env file named by VISIBIBLE_EVAL_ENV_FILE.
  */
@@ -46,7 +54,7 @@ const { values, positionals } = parseArgs({ allowPositionals: true, options: {
   run: { type: "string" }, from: { type: "string" }, model: { type: "string" }, cap: { type: "string" },
   execute: { type: "boolean", default: false }, offline: { type: "boolean", default: false }, resume: { type: "boolean", default: false },
   baseline: { type: "string" }, "baseline-images": { type: "string" }, batches: { type: "string", default: "1" },
-  scores: { type: "string" }, operator: { type: "string" }, concurrency: { type: "string", default: "4" },
+  scores: { type: "string" }, operator: { type: "string" }, out: { type: "string" }, concurrency: { type: "string", default: "4" },
   cases: { type: "string" }, styles: { type: "string" },
 } });
 const command = positionals[0];
@@ -71,7 +79,8 @@ type Snapshot = {
   cases: Array<{ id: string; caseId: string; work: string; momentId: string; sectionId: string; cast: string[] }>;
 };
 /** The fields of a results row that scoring reads. */
-type ResultRow = { key: string; case: string; caseId: string; work: string; style: string; split: "dev" | "holdout"; outcome: string; standsFor?: string[]; chosen?: number; attempts: Array<{ file: string; sha256: string }> };
+type ResultRow = { key: string; case: string; caseId: string; work: string; style: string; split: "dev" | "holdout"; outcome: string; standsFor?: string[]; chosen?: number; attempts: Array<{ file: string; sha256: string }>;
+  prepared?: { plan: { present: string[] } } };
 type Plan = { kind: "lean"; suite: string; faults: string; from: string; promptVersion: string; maxSheets: number;
   image: { model: string; aspectRatio: "16:9"; resolution: "1K" }; cases: SuiteCase[]; evaluation: { estimatedUsd: number; capUsd: number; reserves: typeof RESERVE; limits: Record<"text" | "image" | "check", number> } };
 
@@ -390,6 +399,67 @@ async function report() {
   console.log(gate.pass ? "Gate passes: lean against full." : `Gate FAILS: lean against full:\n  ${gate.reasons.join("\n  ")}`);
 }
 
-const commands: Record<string, () => Promise<void>> = { cast, plan, run, blind, report };
+async function pairing() {
+  assert.ok(values.run && values.baseline && values.out, "--run, --baseline and --out are required");
+  const p = readJson(path.join(releases, values.run, "plan.json")) as Plan;
+  const snap = snapshotOf(p.from);
+  const arms: Record<string, ResultRow[]> = { lean: ndjson(path.join(releases, values.run, "results.ndjson")), full: ndjson(path.join(root, values.baseline, "results.ndjson")) };
+  const planned = new Map(arms.full.filter((r) => r.outcome === "image" && r.prepared).map((r) => [r.caseId, r.prepared!.plan.present]));
+  for (const [arm, rows] of Object.entries(arms)) {
+    const dir = path.join(path.resolve(values.out), arm); mkdirSync(dir, { recursive: true });
+    const lines: string[] = [];
+    for (const row of rows.filter((r) => r.outcome === "image" && planned.has(r.caseId))) {
+      const { context } = await caseInputs(snap, p.cases.find((c) => c.caseId === row.caseId)!);
+      const scene = `${context.moment.reference}: ${context.moment.text.replace(/\s+/g, " ").slice(0, 300)}`;
+      lines.push(JSON.stringify({ case: row.case, caseId: row.caseId, work: row.work, style: row.style, outcome: "image", chosen: row.chosen ?? 1, attempts: row.attempts,
+        prepared: { plan: { present: planned.get(row.caseId), primarySubject: scene, secondaryElements: "" } } }));
+    }
+    writeFileSync(path.join(dir, "results.ndjson"), `${lines.join("\n")}\n`);
+    writeFileSync(path.join(dir, "snapshot.json"), `${JSON.stringify({ from: p.from, cases: snap.cases })}\n`);
+    console.log(`${arm}: ${lines.length} shown image(s) in ${path.relative(root, dir)}`);
+  }
+}
+
+type PooledPair = { id: string; file: string } & Record<string, unknown>;
+/** Every `<set>/pairs.json` under --out, as written by `evals:consistency pairs`; a set is `<arm>/<work>`. */
+const pairSets = (out: string) => ["lean", "full"].flatMap((arm) => Object.keys(config.works).map((work) => `${arm}/${work}`)).filter((set) => existsSync(path.join(out, set, "pairs.json")));
+
+async function pool() {
+  assert.ok(values.run && values.out, "--run and --out are required");
+  const out = path.resolve(values.out);
+  const all = pairSets(out).flatMap((set) => (readJson(path.join(out, set, "pairs.json")) as { pairs: PooledPair[] }).pairs.map((pair) => ({ set, pair })));
+  all.sort((a, b) => drawFraction(`${config.seed}:${values.run}:pool`, `${a.set}/${a.pair.id}`) - drawFraction(`${config.seed}:${values.run}:pool`, `${b.set}/${b.pair.id}`));
+  const pooled = all.map(({ set, pair }, index) => ({ id: `c${String(index + 1).padStart(3, "0")}`, set, pairId: pair.id, pair }));
+  // Chunks name only pooled copies, so no path tells a scorer which set a pair came from.
+  mkdirSync(path.join(out, "pool", "composites"), { recursive: true });
+  for (const { id, set, pair } of pooled) copyFileSync(path.join(out, set, pair.file), path.join(out, "pool", "composites", `${id}.jpg`));
+  const batches = Math.max(1, Number(values.batches)); const size = Math.ceil(pooled.length / batches);
+  for (let b = 0; b < batches; b++) saveOnce(path.join(out, "pool", `pairs-${b + 1}.json`), { schemaVersion: 1, instructions: "evals/images/consistency-scoring.md",
+    pairs: pooled.slice(b * size, (b + 1) * size).map(({ id, pair }) => ({ ...pair, id, file: path.join(out, "pool", "composites", `${id}.jpg`) })) });
+  saveOnce(path.join(out, "pool", "key.json"), { run: values.run, pairs: pooled.map(({ id, set, pairId }) => ({ id, set, pairId })) });
+  console.log(`${pooled.length} pair(s) from ${pairSets(out).length} set(s) in ${batches} chunk(s) under ${path.relative(root, path.join(out, "pool"))}.`);
+}
+
+async function unpool() {
+  assert.ok(values.out && values.scores, "--out and --scores are required");
+  const out = path.resolve(values.out);
+  const key = new Map((readJson(path.join(out, "pool", "key.json")) as { pairs: Array<{ id: string; set: string; pairId: string }> }).pairs.map((x) => [x.id, x]));
+  const bySet = new Map<string, Array<Record<string, unknown>>>();
+  for (const file of list(values.scores)) {
+    const scored = readJson(path.resolve(root, file)) as { scorer: string; scores: Array<{ id: string } & Record<string, unknown>> };
+    for (const score of scored.scores) {
+      const at = key.get(score.id); assert.ok(at, `${file}: unknown pair ${score.id}`);
+      const name = `${at.set}/${scored.scorer}`;
+      bySet.set(name, [...(bySet.get(name) ?? []), { ...score, id: at.pairId }]);
+    }
+  }
+  for (const [name, scores] of bySet) {
+    const scorer = path.basename(name);
+    writeFileSync(path.join(out, `${name}.json`), `${JSON.stringify({ scorer, scoredBeforeUnblinding: true, scores }, null, 1)}\n`);
+    console.log(`${name}: ${scores.length} verdict(s)`);
+  }
+}
+
+const commands: Record<string, () => Promise<void>> = { cast, plan, run, blind, report, pairing, pool, unpool };
 assert.ok(commands[command], `Unknown command: ${command}`);
 await commands[command]();
