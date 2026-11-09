@@ -1,0 +1,865 @@
+{
+ "from": "2026-11-07-suite-v3-text",
+ "cases": 113,
+ "exact": 19,
+ "precision": 0.8674698795180723,
+ "recall": 0.6,
+ "diffs": [
+  {
+   "caseId": "genesis-22-10-abraham-knife",
+   "work": "bible-web",
+   "extra": [
+    "god_yahweh_the_father_and_god_of_israel"
+   ],
+   "missed": [
+    "moriah"
+   ]
+  },
+  {
+   "caseId": "exodus-14-21-sea-parts",
+   "work": "bible-web",
+   "extra": [
+    "the_israelite_people_the_children_of_israel"
+   ],
+   "missed": []
+  },
+  {
+   "caseId": "exodus-14-22-sea-walls",
+   "work": "bible-web",
+   "extra": [
+    "god_yahweh_the_father_and_god_of_israel",
+    "the_egyptians"
+   ],
+   "missed": []
+  },
+  {
+   "caseId": "leviticus-11-7-pig",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "moses",
+    "aaron_brother_of_moses",
+    "the_camp_of_israel",
+    "god_yahweh_the_father_and_god_of_israel"
+   ]
+  },
+  {
+   "caseId": "joshua-6-20-jericho",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "joshua_son_of_nun",
+    "the_priests_and_levites_deuteronomy",
+    "jericho"
+   ]
+  },
+  {
+   "caseId": "judges-19-29-concubine",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_levite_husband_of_the_concubine",
+    "the_levite_s_concubine",
+    "gibeah_of_benjamin_judges"
+   ]
+  },
+  {
+   "caseId": "ruth-4-22-genealogy",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "naomi_s_house_in_bethlehem",
+    "women_of_bethlehem",
+    "naomi",
+    "ruth"
+   ]
+  },
+  {
+   "caseId": "1-samuel-17-49-sling",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "goliath",
+    "philistines",
+    "valley_of_elah"
+   ]
+  },
+  {
+   "caseId": "2-kings-2-23-bears",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "elisha_son_of_shaphat"
+   ]
+  },
+  {
+   "caseId": "job-38-4-foundations",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "job",
+    "god_yahweh_the_father_and_god_of_israel",
+    "the_whirlwind",
+    "the_ash_heap"
+   ]
+  },
+  {
+   "caseId": "psalms-137-1-babylon",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_israelite_people_the_children_of_israel"
+   ]
+  },
+  {
+   "caseId": "isaiah-6-2-seraphim",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "isaiah_son_of_amoz"
+   ]
+  },
+  {
+   "caseId": "isaiah-11-6-wolf-lamb",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "judah_kingdom_and_land"
+   ]
+  },
+  {
+   "caseId": "ezekiel-37-4-dry-bones",
+   "work": "bible-web",
+   "extra": [
+    "god_yahweh_the_father_and_god_of_israel"
+   ],
+   "missed": [
+    "valley_of_dry_bones"
+   ]
+  },
+  {
+   "caseId": "daniel-6-22-lions",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_den_of_lions",
+    "darius_the_mede"
+   ]
+  },
+  {
+   "caseId": "daniel-7-9-ancient-of-days",
+   "work": "bible-web",
+   "extra": [
+    "ministering_assembly_in_daniels_vision"
+   ],
+   "missed": [
+    "daniel_prophet_of_babylon"
+   ]
+  },
+  {
+   "caseId": "matthew-14-29-peter-water",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "sea_of_galilee",
+    "the_twelve_disciples_collective"
+   ]
+  },
+  {
+   "caseId": "john-21-7-peter-sea",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_beloved_disciple"
+   ]
+  },
+  {
+   "caseId": "mark-4-39-storm",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_twelve_disciples_collective"
+   ]
+  },
+  {
+   "caseId": "luke-15-20-prodigal",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_prodigal_s_father",
+    "the_younger_son",
+    "galilee"
+   ]
+  },
+  {
+   "caseId": "john-11-43-lazarus",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "martha"
+   ]
+  },
+  {
+   "caseId": "acts-9-3-damascus",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_men_with_saul"
+   ]
+  },
+  {
+   "caseId": "matthew-27-35-crucified",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_roman_soldiers",
+    "jesus_christ_the_son_of_god_and_lord",
+    "golgotha"
+   ]
+  },
+  {
+   "caseId": "revelation-4-6-living-creatures",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "heavenly_throne_room",
+    "god_yahweh_the_father_and_god_of_israel"
+   ]
+  },
+  {
+   "caseId": "revelation-21-1-new-heaven",
+   "work": "bible-web",
+   "extra": [
+    "new_jerusalem"
+   ],
+   "missed": []
+  },
+  {
+   "caseId": "holmes-scandal-king-arrives",
+   "work": "holmes-adventures",
+   "extra": [
+    "wilhelm_gottsreich_sigismond_von_ormstein_king_of_bohemia"
+   ],
+   "missed": [
+    "holmes_s_rooms_baker_street"
+   ]
+  },
+  {
+   "caseId": "holmes-red-headed-league",
+   "work": "holmes-adventures",
+   "extra": [],
+   "missed": [
+    "baker_street"
+   ]
+  },
+  {
+   "caseId": "john-21-9",
+   "work": "bible-web",
+   "extra": [
+    "jesus_christ_the_son_of_god_and_lord"
+   ],
+   "missed": [
+    "sea_of_galilee",
+    "simon_peter"
+   ]
+  },
+  {
+   "caseId": "exodus-17-12",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "rephidim"
+   ]
+  },
+  {
+   "caseId": "numbers-20-11",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "kadesh_kadesh_barnea"
+   ]
+  },
+  {
+   "caseId": "luke-22-61",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "crowd_in_luke",
+    "the_court_of_the_high_priest_caiaphas"
+   ]
+  },
+  {
+   "caseId": "acts-3-7",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "john_the_apostle_son_of_zebedee",
+    "crowd_in_acts"
+   ]
+  },
+  {
+   "caseId": "1-samuel-16-13",
+   "work": "bible-web",
+   "extra": [
+    "ramah_of_benjamin_ramathaim_zophim"
+   ],
+   "missed": [
+    "jesse",
+    "eliab",
+    "abinadab_son_of_jesse",
+    "shammah",
+    "bethlehem_judah"
+   ]
+  },
+  {
+   "caseId": "1-samuel-17-40",
+   "work": "bible-web",
+   "extra": [
+    "saul"
+   ],
+   "missed": [
+    "goliath",
+    "valley_of_elah"
+   ]
+  },
+  {
+   "caseId": "1-samuel-18-11",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "gibeah_of_saul_1_samuel",
+    "the_evil_spirit_from_god"
+   ]
+  },
+  {
+   "caseId": "daniel-5-17",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "belshazzar",
+    "royal_palace_of_babylon"
+   ]
+  },
+  {
+   "caseId": "daniel-6-23",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "darius_the_mede",
+    "the_den_of_lions"
+   ]
+  },
+  {
+   "caseId": "exodus-14-23",
+   "work": "bible-web",
+   "extra": [
+    "god_yahweh_the_father_and_god_of_israel"
+   ],
+   "missed": []
+  },
+  {
+   "caseId": "mark-4-37",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_twelve_disciples_collective",
+    "sea_of_galilee"
+   ]
+  },
+  {
+   "caseId": "mark-4-38",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_twelve_disciples_collective"
+   ]
+  },
+  {
+   "caseId": "luke-15-22",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_younger_son",
+    "galilee"
+   ]
+  },
+  {
+   "caseId": "hosea-1-7",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "hosea_s_house",
+    "hosea"
+   ]
+  },
+  {
+   "caseId": "2-chronicles-16-9",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "hanani_the_seer",
+    "jerusalem"
+   ]
+  },
+  {
+   "caseId": "job-15-24",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_ash_heap"
+   ]
+  },
+  {
+   "caseId": "romans-2-19",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "paul_the_apostle"
+   ]
+  },
+  {
+   "caseId": "psalms-25-15",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "david_son_of_jesse_king_of_israel"
+   ]
+  },
+  {
+   "caseId": "proverbs-25-3",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "men_of_hezekiah",
+    "the_king_s_court"
+   ]
+  },
+  {
+   "caseId": "leviticus-1-16",
+   "work": "bible-web",
+   "extra": [
+    "god_yahweh_the_father_and_god_of_israel"
+   ],
+   "missed": [
+    "the_tabernacle_portable_sanctuary",
+    "the_israelite_people_the_children_of_israel",
+    "moses"
+   ]
+  },
+  {
+   "caseId": "daniel-6-17",
+   "work": "bible-web",
+   "extra": [
+    "daniel_prophet_of_babylon"
+   ],
+   "missed": [
+    "darius_the_mede"
+   ]
+  },
+  {
+   "caseId": "luke-2-45",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "mary_mother_of_jesus",
+    "joseph_husband_of_mary"
+   ]
+  },
+  {
+   "caseId": "proverbs-8-21",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "wisdom",
+    "the_streets_and_city_gates"
+   ]
+  },
+  {
+   "caseId": "matthew-5-40",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "jesus_christ_the_son_of_god_and_lord",
+    "the_twelve_disciples_collective"
+   ]
+  },
+  {
+   "caseId": "revelation-21-6",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "john_the_seer_revelation",
+    "new_jerusalem"
+   ]
+  },
+  {
+   "caseId": "1-corinthians-13-12",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "paul_the_apostle",
+    "the_corinthian_believers",
+    "corinth"
+   ]
+  },
+  {
+   "caseId": "judges-11-4",
+   "work": "bible-web",
+   "extra": [
+    "god_yahweh_the_father_and_god_of_israel",
+    "elders_of_gilead"
+   ],
+   "missed": []
+  },
+  {
+   "caseId": "ruth-2-22",
+   "work": "bible-web",
+   "extra": [
+    "boaz"
+   ],
+   "missed": [
+    "boaz_s_barley_field",
+    "naomi_s_house_in_bethlehem"
+   ]
+  },
+  {
+   "caseId": "isaiah-40-29",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "jerusalem"
+   ]
+  },
+  {
+   "caseId": "exodus-29-7",
+   "work": "bible-web",
+   "extra": [
+    "god_yahweh_the_father_and_god_of_israel"
+   ],
+   "missed": [
+    "moses",
+    "aaron_brother_of_moses",
+    "horeb_mount_sinai"
+   ]
+  },
+  {
+   "caseId": "1-corinthians-1-30",
+   "work": "bible-web",
+   "extra": [
+    "the_corinthian_believers"
+   ],
+   "missed": [
+    "paul_the_apostle",
+    "corinth"
+   ]
+  },
+  {
+   "caseId": "1-samuel-15-27",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "gilgal_saul_s_coronation_and_rejection"
+   ]
+  },
+  {
+   "caseId": "deuteronomy-1-7",
+   "work": "bible-web",
+   "extra": [
+    "god_yahweh_the_father_and_god_of_israel"
+   ],
+   "missed": [
+    "moses"
+   ]
+  },
+  {
+   "caseId": "nehemiah-3-9",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_israelite_people_the_children_of_israel"
+   ]
+  },
+  {
+   "caseId": "2-chronicles-31-21",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "yahweh_s_house_in_jerusalem_the_temple"
+   ]
+  },
+  {
+   "caseId": "numbers-33-27",
+   "work": "bible-web",
+   "extra": [],
+   "missed": [
+    "the_israelite_people_the_children_of_israel"
+   ]
+  },
+  {
+   "caseId": "hebrews-12-1",
+   "work": "bible-web",
+   "extra": [
+    "jesus_christ_the_son_of_god_and_lord"
+   ],
+   "missed": []
+  },
+  {
+   "caseId": "holmes-saxe-coburg-square",
+   "work": "holmes-adventures",
+   "extra": [
+    "baker_street"
+   ],
+   "missed": []
+  },
+  {
+   "caseId": "holmes-blue-carbuncle-hat",
+   "work": "holmes-adventures",
+   "extra": [],
+   "missed": [
+    "sherlock_holmes"
+   ]
+  },
+  {
+   "caseId": "holmes-speckled-band-vigil",
+   "work": "holmes-adventures",
+   "extra": [],
+   "missed": [
+    "helen_s_bedroom"
+   ]
+  },
+  {
+   "caseId": "holmes-boscombe-train",
+   "work": "holmes-adventures",
+   "extra": [],
+   "missed": [
+    "dr_watson"
+   ]
+  },
+  {
+   "caseId": "holmes-bank-cellar-lantern",
+   "work": "holmes-adventures",
+   "extra": [
+    "dr_watson"
+   ],
+   "missed": []
+  },
+  {
+   "caseId": "holmes-eyford-smoke",
+   "work": "holmes-adventures",
+   "extra": [],
+   "missed": [
+    "sherlock_holmes",
+    "dr_watson",
+    "victor_hatherley"
+   ]
+  },
+  {
+   "caseId": "holmes-eyford-fire",
+   "work": "holmes-adventures",
+   "extra": [
+    "eyford_station"
+   ],
+   "missed": [
+    "sherlock_holmes",
+    "dr_watson",
+    "eyford_house"
+   ]
+  },
+  {
+   "caseId": "holmes-eyford-drive",
+   "work": "holmes-adventures",
+   "extra": [
+    "the_station_master",
+    "eyford_station"
+   ],
+   "missed": [
+    "eyford_house"
+   ]
+  },
+  {
+   "caseId": "the-adventure-of-the-noble-bachelor-176",
+   "work": "holmes-adventures",
+   "extra": [],
+   "missed": [
+    "dr_watson",
+    "baker_street_lodgings"
+   ]
+  },
+  {
+   "caseId": "the-adventure-of-the-noble-bachelor-178",
+   "work": "holmes-adventures",
+   "extra": [],
+   "missed": [
+    "baker_street_lodgings"
+   ]
+  },
+  {
+   "caseId": "the-adventure-of-the-blue-carbuncle-73",
+   "work": "holmes-adventures",
+   "extra": [],
+   "missed": [
+    "dr_watson"
+   ]
+  },
+  {
+   "caseId": "a-case-of-identity-94",
+   "work": "holmes-adventures",
+   "extra": [],
+   "missed": [
+    "holmes_s_lodgings_at_baker_street"
+   ]
+  },
+  {
+   "caseId": "the-adventure-of-the-beryl-coronet-49",
+   "work": "holmes-adventures",
+   "extra": [
+    "fairbank"
+   ],
+   "missed": [
+    "alexander_holder"
+   ]
+  },
+  {
+   "caseId": "the-adventure-of-the-speckled-band-13",
+   "work": "holmes-adventures",
+   "extra": [],
+   "missed": [
+    "baker_street_rooms_2"
+   ]
+  },
+  {
+   "caseId": "alice-drink-me",
+   "work": "alice-in-wonderland",
+   "extra": [],
+   "missed": [
+    "the_long_low_hall"
+   ]
+  },
+  {
+   "caseId": "alice-caterpillar",
+   "work": "alice-in-wonderland",
+   "extra": [],
+   "missed": [
+    "the_mushroom_clearing"
+   ]
+  },
+  {
+   "caseId": "alice-tea-party-arrival",
+   "work": "alice-in-wonderland",
+   "extra": [],
+   "missed": [
+    "tea_table_under_a_tree"
+   ]
+  },
+  {
+   "caseId": "alice-tea-party-riddle",
+   "work": "alice-in-wonderland",
+   "extra": [],
+   "missed": [
+    "the_dormouse",
+    "tea_table_under_a_tree"
+   ]
+  },
+  {
+   "caseId": "alice-tea-party-say-what-you-mean",
+   "work": "alice-in-wonderland",
+   "extra": [],
+   "missed": [
+    "tea_table_under_a_tree"
+   ]
+  },
+  {
+   "caseId": "alice-croquet-game",
+   "work": "alice-in-wonderland",
+   "extra": [
+    "the_white_rabbit"
+   ],
+   "missed": [
+    "the_flamingo"
+   ]
+  },
+  {
+   "caseId": "alice-cat-grin-appears",
+   "work": "alice-in-wonderland",
+   "extra": [
+    "queen_of_hearts"
+   ],
+   "missed": [
+    "the_flamingo",
+    "the_hedgehogs"
+   ]
+  },
+  {
+   "caseId": "alice-cat-head-talks",
+   "work": "alice-in-wonderland",
+   "extra": [
+    "king_of_hearts"
+   ],
+   "missed": [
+    "the_flamingo",
+    "the_hedgehogs"
+   ]
+  },
+  {
+   "caseId": "alice-cheshire-cat-bough",
+   "work": "alice-in-wonderland",
+   "extra": [],
+   "missed": [
+    "the_duchess_s_wood"
+   ]
+  },
+  {
+   "caseId": "alice-hatter-witness",
+   "work": "alice-in-wonderland",
+   "extra": [
+    "alice"
+   ],
+   "missed": [
+    "the_officers_of_the_court"
+   ]
+  },
+  {
+   "caseId": "the-lobster-quadrille-19",
+   "work": "alice-in-wonderland",
+   "extra": [],
+   "missed": [
+    "sea_shore"
+   ]
+  },
+  {
+   "caseId": "alices-evidence-38",
+   "work": "alice-in-wonderland",
+   "extra": [
+    "the_knave_of_hearts"
+   ],
+   "missed": []
+  },
+  {
+   "caseId": "alices-evidence-54",
+   "work": "alice-in-wonderland",
+   "extra": [
+    "the_knave_of_hearts"
+   ],
+   "missed": [
+    "the_pack_of_cards"
+   ]
+  },
+  {
+   "caseId": "a-mad-tea-party-76",
+   "work": "alice-in-wonderland",
+   "extra": [],
+   "missed": [
+    "tea_table_under_a_tree"
+   ]
+  },
+  {
+   "caseId": "advice-from-a-caterpillar-59",
+   "work": "alice-in-wonderland",
+   "extra": [],
+   "missed": [
+    "the_treetops",
+    "the_open_place_with_the_little_house"
+   ]
+  }
+ ]
+}

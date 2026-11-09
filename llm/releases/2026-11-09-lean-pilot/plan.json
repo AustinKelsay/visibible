@@ -1,0 +1,169 @@
+{
+  "kind": "lean",
+  "suite": "2026-11-01-suite-v3",
+  "faults": "2026-10-30-faults-v1",
+  "from": "2026-11-07-suite-v3-text",
+  "promptVersion": "2026-11-09-lean-v3",
+  "maxSheets": 4,
+  "image": {
+    "model": "google/gemini-nano-banana-2.1",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "cases": [
+    {
+      "caseId": "exodus-14-21-sea-parts",
+      "work": "bible-web",
+      "unitId": "exodus-14-21",
+      "reference": "Exodus 14:21",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical"
+      ]
+    },
+    {
+      "caseId": "1-samuel-17-49-sling",
+      "work": "bible-web",
+      "unitId": "1-samuel-17-49",
+      "reference": "1 Samuel 17:49",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical"
+      ]
+    },
+    {
+      "caseId": "daniel-6-22-lions",
+      "work": "bible-web",
+      "unitId": "daniel-6-22",
+      "reference": "Daniel 6:22",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical"
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "work": "bible-web",
+      "unitId": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical"
+      ]
+    },
+    {
+      "caseId": "mark-4-39-storm",
+      "work": "bible-web",
+      "unitId": "mark-4-39",
+      "reference": "Mark 4:39",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical"
+      ]
+    },
+    {
+      "caseId": "luke-15-20-prodigal",
+      "work": "bible-web",
+      "unitId": "luke-15-20",
+      "reference": "Luke 15:20",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical"
+      ]
+    },
+    {
+      "caseId": "matthew-27-35-crucified",
+      "work": "bible-web",
+      "unitId": "matthew-27-35",
+      "reference": "Matthew 27:35",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical"
+      ]
+    },
+    {
+      "caseId": "holmes-red-headed-league",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-1",
+      "reference": "The Red-Headed League ¶1",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical"
+      ]
+    },
+    {
+      "caseId": "holmes-bank-cellar-lantern",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-175",
+      "reference": "The Red-Headed League ¶175",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-cat-head-talks",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-49",
+      "reference": "The Queen’s Croquet-Ground ¶49",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical"
+      ]
+    }
+  ],
+  "evaluation": {
+    "estimatedUsd": 0.37,
+    "capUsd": 0.6,
+    "reserves": {
+      "text": 0,
+      "image": 0.08,
+      "check": 0
+    },
+    "limits": {
+      "text": 0,
+      "image": 20,
+      "check": 0
+    }
+  }
+}
