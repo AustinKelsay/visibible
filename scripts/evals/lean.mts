@@ -69,6 +69,8 @@ type Snapshot = {
   works: Record<string, { records: Record<string, AnalysisRecord>; references: Record<string, ReferenceRecord | null>; files: Record<string, { sha256: string; bytes: number }> }>;
   cases: Array<{ id: string; caseId: string; work: string; momentId: string; sectionId: string; cast: string[] }>;
 };
+/** The fields of a results row that scoring reads. */
+type ResultRow = { key: string; case: string; caseId: string; work: string; style: string; split: "dev" | "holdout"; outcome: string; standsFor?: string[]; chosen?: number; attempts: Array<{ file: string; sha256: string }> };
 type Plan = { kind: "lean"; suite: string; faults: string; from: string; promptVersion: string; maxSheets: number;
   image: { model: string; aspectRatio: "16:9"; resolution: "1K" }; cases: SuiteCase[]; evaluation: { estimatedUsd: number; capUsd: number; reserves: typeof RESERVE; limits: Record<"text" | "image" | "check", number> } };
 
@@ -247,7 +249,7 @@ async function blind() {
     { arm: "lean", rows: ndjson(path.join(runDir, "results.ndjson")), resolve: (file: string) => path.join(root, file) },
     { arm: "full", rows: ndjson(path.join(releases, values.baseline, "results.ndjson")), resolve: (file: string) => path.join(path.resolve(values["baseline-images"]!), path.basename(file)) },
   ];
-  const pool: Array<{ arm: string; row: Record<string, any>; file: string; sha: string }> = [];
+  const pool: Array<{ arm: string; row: ResultRow; file: string; sha: string }> = [];
   for (const { arm, rows, resolve } of arms) for (const row of rows.filter((r) => r.outcome === "image")) {
     const attempt = row.attempts[(row.chosen ?? 1) - 1];
     const file = resolve(attempt.file);
@@ -321,7 +323,7 @@ async function report() {
   writeFileSync(path.join(scoringDir, "scores.json"), `${JSON.stringify({ scorers: [...byScorer.keys()], operator: operator?.scorer ?? null, settled, disputes }, null, 2)}\n`);
   if (disputes.length) { writeFileSync(path.join(scoringDir, "disputes.json"), `${JSON.stringify(disputes, null, 2)}\n`); console.log(`${disputes.length} disputed; rule on scoring/disputes.json, then report again with --operator.`); }
   // Each arm's items: its images scored here, plus its refusals. As in the suite report, a provider failure is not an item.
-  const armItems = (arm: string, rows: Array<Record<string, any>>, styleOf: (c: string) => string[]) => {
+  const armItems = (arm: string, rows: Array<ResultRow>, styleOf: (c: string) => string[]) => {
     const items: JudgedItem[] = [];
     for (const row of rows) {
       if (row.outcome === "image") { const k = key.items.find((i) => i.arm === arm && i.key === row.key)!; items.push({ key: row.key, caseId: row.caseId, work: row.work, style: row.style, split: row.split, refused: false, score: settled[k.id] ?? null }); }
