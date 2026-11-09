@@ -1,0 +1,1275 @@
+{
+  "schemaVersion": 1,
+  "instructions": "evals/images/consistency-scoring.md",
+  "pairs": [
+    {
+      "id": "pair001",
+      "file": "composites/pair001.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; ",
+      "right": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+    },
+    {
+      "id": "pair002",
+      "file": "composites/pair002.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; ",
+      "right": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+    },
+    {
+      "id": "pair003",
+      "file": "composites/pair003.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; ",
+      "right": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+    },
+    {
+      "id": "pair004",
+      "file": "composites/pair004.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "pair005",
+      "file": "composites/pair005.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; ",
+      "right": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; "
+    },
+    {
+      "id": "pair006",
+      "file": "composites/pair006.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair007",
+      "file": "composites/pair007.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; ",
+      "right": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+    },
+    {
+      "id": "pair008",
+      "file": "composites/pair008.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+    },
+    {
+      "id": "pair009",
+      "file": "composites/pair009.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair010",
+      "file": "composites/pair010.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; ",
+      "right": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+    },
+    {
+      "id": "pair011",
+      "file": "composites/pair011.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; ",
+      "right": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; "
+    },
+    {
+      "id": "pair012",
+      "file": "composites/pair012.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; ",
+      "right": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+    },
+    {
+      "id": "pair013",
+      "file": "composites/pair013.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; ",
+      "right": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+    },
+    {
+      "id": "pair014",
+      "file": "composites/pair014.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Leviticus 11:7: The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.; ",
+      "right": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+    },
+    {
+      "id": "pair015",
+      "file": "composites/pair015.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; ",
+      "right": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+    },
+    {
+      "id": "pair016",
+      "file": "composites/pair016.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "pair017",
+      "file": "composites/pair017.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+    },
+    {
+      "id": "pair018",
+      "file": "composites/pair018.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+    },
+    {
+      "id": "pair019",
+      "file": "composites/pair019.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Leviticus 11:7: The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.; ",
+      "right": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+    },
+    {
+      "id": "pair020",
+      "file": "composites/pair020.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair021",
+      "file": "composites/pair021.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; ",
+      "right": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+    },
+    {
+      "id": "pair022",
+      "file": "composites/pair022.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; ",
+      "right": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+    },
+    {
+      "id": "pair023",
+      "file": "composites/pair023.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; ",
+      "right": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+    },
+    {
+      "id": "pair024",
+      "file": "composites/pair024.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; ",
+      "right": "Matthew 27:35: When they had crucified him, they divided his clothing among them, casting lots,; "
+    },
+    {
+      "id": "pair025",
+      "file": "composites/pair025.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Matthew 27:35: When they had crucified him, they divided his clothing among them, casting lots,; ",
+      "right": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+    },
+    {
+      "id": "pair026",
+      "file": "composites/pair026.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; ",
+      "right": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+    },
+    {
+      "id": "pair027",
+      "file": "composites/pair027.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Leviticus 11:7: The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.; ",
+      "right": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+    },
+    {
+      "id": "pair028",
+      "file": "composites/pair028.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "pair029",
+      "file": "composites/pair029.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+    },
+    {
+      "id": "pair030",
+      "file": "composites/pair030.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; ",
+      "right": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+    },
+    {
+      "id": "pair031",
+      "file": "composites/pair031.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; ",
+      "right": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+    },
+    {
+      "id": "pair032",
+      "file": "composites/pair032.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; ",
+      "right": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+    },
+    {
+      "id": "pair033",
+      "file": "composites/pair033.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; ",
+      "right": "Daniel 7:9: “I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.; "
+    },
+    {
+      "id": "pair034",
+      "file": "composites/pair034.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; ",
+      "right": "Matthew 27:35: When they had crucified him, they divided his clothing among them, casting lots,; "
+    },
+    {
+      "id": "pair035",
+      "file": "composites/pair035.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; ",
+      "right": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; "
+    },
+    {
+      "id": "pair036",
+      "file": "composites/pair036.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; ",
+      "right": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+    },
+    {
+      "id": "pair037",
+      "file": "composites/pair037.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; ",
+      "right": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+    },
+    {
+      "id": "pair038",
+      "file": "composites/pair038.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; ",
+      "right": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+    },
+    {
+      "id": "pair039",
+      "file": "composites/pair039.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "pair040",
+      "file": "composites/pair040.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; ",
+      "right": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+    },
+    {
+      "id": "pair041",
+      "file": "composites/pair041.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair042",
+      "file": "composites/pair042.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; ",
+      "right": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+    },
+    {
+      "id": "pair043",
+      "file": "composites/pair043.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; ",
+      "right": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+    },
+    {
+      "id": "pair044",
+      "file": "composites/pair044.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; ",
+      "right": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+    },
+    {
+      "id": "pair045",
+      "file": "composites/pair045.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Leviticus 11:7: The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.; "
+    },
+    {
+      "id": "pair046",
+      "file": "composites/pair046.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; ",
+      "right": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+    },
+    {
+      "id": "pair047",
+      "file": "composites/pair047.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Matthew 27:35: When they had crucified him, they divided his clothing among them, casting lots,; ",
+      "right": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+    },
+    {
+      "id": "pair048",
+      "file": "composites/pair048.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair049",
+      "file": "composites/pair049.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "pair050",
+      "file": "composites/pair050.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; "
+    },
+    {
+      "id": "pair051",
+      "file": "composites/pair051.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; ",
+      "right": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+    },
+    {
+      "id": "pair052",
+      "file": "composites/pair052.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Matthew 27:35: When they had crucified him, they divided his clothing among them, casting lots,; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "pair053",
+      "file": "composites/pair053.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 7:9: “I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.; ",
+      "right": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; "
+    },
+    {
+      "id": "pair054",
+      "file": "composites/pair054.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+    },
+    {
+      "id": "pair055",
+      "file": "composites/pair055.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+    },
+    {
+      "id": "pair056",
+      "file": "composites/pair056.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+    },
+    {
+      "id": "pair057",
+      "file": "composites/pair057.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; ",
+      "right": "Leviticus 11:7: The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.; "
+    },
+    {
+      "id": "pair058",
+      "file": "composites/pair058.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+    },
+    {
+      "id": "pair059",
+      "file": "composites/pair059.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; ",
+      "right": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+    },
+    {
+      "id": "pair060",
+      "file": "composites/pair060.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; ",
+      "right": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+    },
+    {
+      "id": "pair061",
+      "file": "composites/pair061.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "pair062",
+      "file": "composites/pair062.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:23: The Egyptians pursued, and went in after them into the middle of the sea: all of Pharaoh’s horses, his chariots, and his horsemen.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "pair063",
+      "file": "composites/pair063.jpg",
+      "kind": "setting",
+      "subject": "the dry path through the parted Red Sea",
+      "question": "Do the left and right images show the same place (the dry path through the parted Red Sea)?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair064",
+      "file": "composites/pair064.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; ",
+      "right": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+    },
+    {
+      "id": "pair065",
+      "file": "composites/pair065.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; ",
+      "right": "Daniel 7:9: “I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.; "
+    },
+    {
+      "id": "pair066",
+      "file": "composites/pair066.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+    },
+    {
+      "id": "pair067",
+      "file": "composites/pair067.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; ",
+      "right": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+    },
+    {
+      "id": "pair068",
+      "file": "composites/pair068.jpg",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "question": "Do the left and right images show the same place (the father's house and the road where he meets his son)?",
+      "left": "Luke 15:20: “He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.; ",
+      "right": "Luke 15:22: “But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.; "
+    },
+    {
+      "id": "pair069",
+      "file": "composites/pair069.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "pair070",
+      "file": "composites/pair070.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; ",
+      "right": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+    },
+    {
+      "id": "pair071",
+      "file": "composites/pair071.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+    },
+    {
+      "id": "pair072",
+      "file": "composites/pair072.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; ",
+      "right": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+    },
+    {
+      "id": "pair073",
+      "file": "composites/pair073.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; ",
+      "right": "Daniel 7:9: “I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.; "
+    },
+    {
+      "id": "pair074",
+      "file": "composites/pair074.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 7:9: “I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.; ",
+      "right": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+    },
+    {
+      "id": "pair075",
+      "file": "composites/pair075.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair076",
+      "file": "composites/pair076.jpg",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "question": "Do the left and right images show the same place (the father's house and the road where he meets his son)?",
+      "left": "Luke 15:20: “He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.; ",
+      "right": "Luke 15:22: “But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.; "
+    },
+    {
+      "id": "pair077",
+      "file": "composites/pair077.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair078",
+      "file": "composites/pair078.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Leviticus 11:7: The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair079",
+      "file": "composites/pair079.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; ",
+      "right": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+    },
+    {
+      "id": "pair080",
+      "file": "composites/pair080.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; ",
+      "right": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+    },
+    {
+      "id": "pair081",
+      "file": "composites/pair081.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair082",
+      "file": "composites/pair082.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; ",
+      "right": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+    },
+    {
+      "id": "pair083",
+      "file": "composites/pair083.jpg",
+      "kind": "setting",
+      "subject": "the father's house and the road where he meets his son",
+      "question": "Do the left and right images show the same place (the father's house and the road where he meets his son)?",
+      "left": "Luke 15:22: “But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.; ",
+      "right": "Luke 15:20: “He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him.; "
+    },
+    {
+      "id": "pair084",
+      "file": "composites/pair084.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair085",
+      "file": "composites/pair085.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; ",
+      "right": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+    },
+    {
+      "id": "pair086",
+      "file": "composites/pair086.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "pair087",
+      "file": "composites/pair087.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; ",
+      "right": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; "
+    },
+    {
+      "id": "pair088",
+      "file": "composites/pair088.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; ",
+      "right": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+    },
+    {
+      "id": "pair089",
+      "file": "composites/pair089.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+    },
+    {
+      "id": "pair090",
+      "file": "composites/pair090.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair091",
+      "file": "composites/pair091.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 7:9: “I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.; ",
+      "right": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+    },
+    {
+      "id": "pair092",
+      "file": "composites/pair092.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; ",
+      "right": "Leviticus 11:7: The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.; "
+    },
+    {
+      "id": "pair093",
+      "file": "composites/pair093.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+    },
+    {
+      "id": "pair094",
+      "file": "composites/pair094.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; ",
+      "right": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+    },
+    {
+      "id": "pair095",
+      "file": "composites/pair095.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; ",
+      "right": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+    },
+    {
+      "id": "pair096",
+      "file": "composites/pair096.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; "
+    },
+    {
+      "id": "pair097",
+      "file": "composites/pair097.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:37: A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.; ",
+      "right": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; "
+    },
+    {
+      "id": "pair098",
+      "file": "composites/pair098.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; "
+    },
+    {
+      "id": "pair099",
+      "file": "composites/pair099.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; ",
+      "right": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+    },
+    {
+      "id": "pair100",
+      "file": "composites/pair100.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair101",
+      "file": "composites/pair101.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Matthew 27:35: When they had crucified him, they divided his clothing among them, casting lots,; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "pair102",
+      "file": "composites/pair102.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; ",
+      "right": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+    },
+    {
+      "id": "pair103",
+      "file": "composites/pair103.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; ",
+      "right": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+    },
+    {
+      "id": "pair104",
+      "file": "composites/pair104.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; ",
+      "right": "Matthew 27:35: When they had crucified him, they divided his clothing among them, casting lots,; "
+    },
+    {
+      "id": "pair105",
+      "file": "composites/pair105.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; ",
+      "right": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; "
+    },
+    {
+      "id": "pair106",
+      "file": "composites/pair106.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair107",
+      "file": "composites/pair107.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Leviticus 11:7: The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.; ",
+      "right": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; "
+    },
+    {
+      "id": "pair108",
+      "file": "composites/pair108.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair109",
+      "file": "composites/pair109.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; ",
+      "right": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+    },
+    {
+      "id": "pair110",
+      "file": "composites/pair110.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Leviticus 11:7: The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.; "
+    },
+    {
+      "id": "pair111",
+      "file": "composites/pair111.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; ",
+      "right": "Daniel 7:9: “I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.; "
+    },
+    {
+      "id": "pair112",
+      "file": "composites/pair112.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; ",
+      "right": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+    },
+    {
+      "id": "pair113",
+      "file": "composites/pair113.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Leviticus 11:7: The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "pair114",
+      "file": "composites/pair114.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; ",
+      "right": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+    },
+    {
+      "id": "pair115",
+      "file": "composites/pair115.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "John 11:43: When he had said this, he cried with a loud voice, “Lazarus, come out!”; ",
+      "right": "Matthew 27:35: When they had crucified him, they divided his clothing among them, casting lots,; "
+    },
+    {
+      "id": "pair116",
+      "file": "composites/pair116.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; ",
+      "right": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+    },
+    {
+      "id": "pair117",
+      "file": "composites/pair117.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair118",
+      "file": "composites/pair118.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; ",
+      "right": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; "
+    },
+    {
+      "id": "pair119",
+      "file": "composites/pair119.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Leviticus 11:7: The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.; ",
+      "right": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+    },
+    {
+      "id": "pair120",
+      "file": "composites/pair120.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "pair121",
+      "file": "composites/pair121.jpg",
+      "kind": "setting",
+      "subject": "the shore of the Sea of Galilee where Jesus waits",
+      "question": "Do the left and right images show the same place (the shore of the Sea of Galilee where Jesus waits)?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair122",
+      "file": "composites/pair122.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Leviticus 11:7: The pig, because it has a split hoof, and is cloven-footed, but doesn’t chew the cud, is unclean to you.; "
+    },
+    {
+      "id": "pair123",
+      "file": "composites/pair123.jpg",
+      "kind": "setting",
+      "subject": "the den of lions at dawn",
+      "question": "Do the left and right images show the same place (the den of lions at dawn)?",
+      "left": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; ",
+      "right": "Daniel 6:23: Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.; "
+    },
+    {
+      "id": "pair124",
+      "file": "composites/pair124.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; ",
+      "right": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+    },
+    {
+      "id": "pair125",
+      "file": "composites/pair125.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+    },
+    {
+      "id": "pair126",
+      "file": "composites/pair126.jpg",
+      "kind": "character",
+      "subject": "Jesus",
+      "question": "Is Jesus the same person in the left and right images?",
+      "left": "Matthew 27:35: When they had crucified him, they divided his clothing among them, casting lots,; ",
+      "right": "Matthew 14:29: He said, “Come!” Peter stepped down from the boat and walked on the waters to come to Jesus.; "
+    },
+    {
+      "id": "pair127",
+      "file": "composites/pair127.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "John 21:9: So when they got out on the land, they saw a fire of coals there, with fish and bread laid on it.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair128",
+      "file": "composites/pair128.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; ",
+      "right": "Luke 22:61: The Lord turned and looked at Peter. Then Peter remembered the Lord’s word, how he said to him, “Before the rooster crows you will deny me three times.”; "
+    },
+    {
+      "id": "pair129",
+      "file": "composites/pair129.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 7:9: “I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.; ",
+      "right": "Daniel 6:22: My God has sent his angel, and has shut the lions’ mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.”; "
+    },
+    {
+      "id": "pair130",
+      "file": "composites/pair130.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "pair131",
+      "file": "composites/pair131.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; ",
+      "right": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; "
+    },
+    {
+      "id": "pair132",
+      "file": "composites/pair132.jpg",
+      "kind": "character",
+      "subject": "Simon Peter",
+      "question": "Is Simon Peter the same person in the left and right images?",
+      "left": "Acts 3:7: He took him by the right hand and raised him up. Immediately his feet and his ankle bones received strength.; ",
+      "right": "John 21:7: That disciple therefore whom Jesus loved said to Peter, “It’s the Lord!” So when Simon Peter heard that it was the Lord, he wrapped his coat around himself (for he was naked), and threw himself into the sea.; "
+    },
+    {
+      "id": "pair133",
+      "file": "composites/pair133.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:40: He took his staff in his hand, and chose for himself five smooth stones out of the brook, and put them in the pouch of his shepherd’s bag which he had. His sling was in his hand; and he came near to the Philistine.; ",
+      "right": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+    },
+    {
+      "id": "pair134",
+      "file": "composites/pair134.jpg",
+      "kind": "character",
+      "subject": "Daniel",
+      "question": "Is Daniel the same person in the left and right images?",
+      "left": "Daniel 5:17: Then Daniel answered before the king, “Let your gifts be to yourself, and give your rewards to another. Nevertheless, I will read the writing to the king, and make known to him the interpretation.; ",
+      "right": "Daniel 7:9: “I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.; "
+    },
+    {
+      "id": "pair135",
+      "file": "composites/pair135.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; ",
+      "right": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+    },
+    {
+      "id": "pair136",
+      "file": "composites/pair136.jpg",
+      "kind": "setting",
+      "subject": "the disciples' boat on the stormy Sea of Galilee",
+      "question": "Do the left and right images show the same place (the disciples' boat on the stormy Sea of Galilee)?",
+      "left": "Mark 4:38: He himself was in the stern, asleep on the cushion; and they woke him up and asked him, “Teacher, don’t you care that we are dying?”; ",
+      "right": "Mark 4:39: He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm.; "
+    },
+    {
+      "id": "pair137",
+      "file": "composites/pair137.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; ",
+      "right": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; "
+    },
+    {
+      "id": "pair138",
+      "file": "composites/pair138.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:22: The children of Israel went into the middle of the sea on the dry ground; and the waters were a wall to them on their right hand and on their left.; ",
+      "right": "Numbers 20:11: Moses lifted up his hand, and struck the rock with his rod twice, and water came out abundantly. The congregation and their livestock drank.; "
+    },
+    {
+      "id": "pair139",
+      "file": "composites/pair139.jpg",
+      "kind": "character",
+      "subject": "Moses",
+      "question": "Is Moses the same person in the left and right images?",
+      "left": "Exodus 14:21: Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.; ",
+      "right": "Exodus 17:12: But Moses’ hands were heavy; so they took a stone, and put it under him, and he sat on it. Aaron and Hur held up his hands, the one on the one side, and the other on the other side. His hands were steady until sunset.; "
+    },
+    {
+      "id": "pair140",
+      "file": "composites/pair140.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; ",
+      "right": "1 Samuel 18:11: and Saul threw the spear, for he said, “I will pin David to the wall!” David escaped from his presence twice.; "
+    },
+    {
+      "id": "pair141",
+      "file": "composites/pair141.jpg",
+      "kind": "character",
+      "subject": "David",
+      "question": "Is David the same person in the left and right images?",
+      "left": "1 Samuel 16:13: Then Samuel took the horn of oil and anointed him in the middle of his brothers. Then Yahweh’s Spirit came mightily on David from that day forward. So Samuel rose up and went to Ramah.; ",
+      "right": "1 Samuel 17:49: David put his hand in his bag, took a stone and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.; "
+    }
+  ]
+}

@@ -1,0 +1,689 @@
+{
+ "scorer": "scorer-a",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "j165",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Moses with rod raised at the rock, water gushing, people filling jars and drinking, Aaron beside him, sheep, goats, cattle and a donkey drinking; ink-and-wash vignette leaves bare paper along the edges and corners (accepted). Breastplate shows a grid of stones, no lettering."
+  },
+  {
+   "id": "j166",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "yes",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Bald prophet in a hairy mantle walks up the road to the walled city while a crowd of youths jeer and point: scene is right. Centre youth in the red tunic has a clenched fist fused mid-forearm on the raised pointing arm, which then continues to a second pointing hand (about x700,y290). Bare paper at edges (accepted)."
+  },
+  {
+   "id": "j167",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus stands before the open tomb with the round stone rolled aside, arm stretched to the dark doorway as he calls, five onlookers on the path; hands and faces sound. Bare paper at the edges (accepted)."
+  },
+  {
+   "id": "j168",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Moses with rod raised, water pouring from the rock, Aaron in breastplate, congregation filling jars and drinking with sheep, goats and cattle; painted to all edges, no lettering. Moses also holds a second shepherd's crook in his other hand, a redundant prop but not a contradiction."
+  },
+  {
+   "id": "j169",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Storm-tossed boat; a disciple grips and shouts at Jesus, who is just roused on the cushion in the stern, while others haul rope, row and bail. Full bleed, no lettering, limbs trace correctly."
+  },
+  {
+   "id": "j170",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "David stoops at the brook taking a smooth stone, staff and sling in his other hand, shepherd's bag at his hip, the Philistine champion and army in the distance. Saul-like figure and soldiers watching at left are scene-consistent bystanders. No lettering, full bleed."
+  },
+  {
+   "id": "j171",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Moses with crook gestures out across the land to a packed-up crowd with loaded donkeys below dark, cloud-capped Horeb; God is not drawn. No lettering, painted to the edges, crowd anatomy sound."
+  },
+  {
+   "id": "j172",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Table under a tree before the house; March Hare, sleeping Dormouse between, and Hatter crowded at one end, Alice cross in a large arm-chair at the far end, only tea things. Hats carry no ticket or lettering; hands fine; costume is not a film design."
+  },
+  {
+   "id": "j173",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Courtroom with the White Rabbit in spectacles reading the paper, King and Queen on the bench, animal jury with slates, Alice hands on hips: the moment is shown. Lettering: lines of pseudo-script on the Rabbit's paper and on sheets on the floor, plus heart pips on the card soldiers (none readable). Rule: the Queen's heart-shaped red bouffant, tiny crown, white face and heavy blue eyeshadow copy the Red Queen costume and make-up of the 2010 live-action film (a film styling, not judged as an actor's face)."
+  },
+  {
+   "id": "j174",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "yes",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Shows an elder standing in a village courtyard reading from an open (blank) scroll to seated women; none of Obed, Jesse or David is shown, so the genealogy moment is replaced by a reciter/narrator figure. No lettering on the scroll; painted to the edges."
+  },
+  {
+   "id": "j175",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Father runs with arms flung wide toward the ragged son hurrying up the road, the instant before the embrace; four hands all trace to the right arms. No lettering, full bleed."
+  },
+  {
+   "id": "j176",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Watson reads the slip to Holmes in the sitting room, letters and inkwell on the table: scene is right. The slip plainly reads 'Missing' above rows of pseudo-text; also scribbled letters on the table, pseudo-headlines on the newspaper stack at lower right and marks on bottle labels. Painted to all edges (no unpainted edge)."
+  },
+  {
+   "id": "j177",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice wags a reproving finger while the Hatter stares wide-eyed over his cup and the March Hare looks on, long table under the tree before the house. Bare paper vignette at the edges (accepted). No hat ticket or lettering; one twisted jug and crumpled cup at far left of the table is a small object glitch only."
+  },
+  {
+   "id": "j178",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "yes",
+    "rule_violation": "no",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "King with crown, wig and sceptre shelters beside Alice and eyes the grinning Cat, Queen passing in the distance with flamingos and hedgehogs: moment shown (the Cat has a fading body and tail though the text gives only its head). Lettering is only the heart and diamond pips on the distant card soldiers, no letters or numerals. Small background card figure at about x1000,y250 is a garbled mass of several limbs."
+  },
+  {
+   "id": "j179",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "A robed ruler sets a stone among men repairing the city wall, Jerusalem behind; no lettering, full bleed, hands and limbs sound."
+  },
+  {
+   "id": "j180",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Encamped Israelites at their chores around the tabernacle with the pillar of cloud resting on it; curtain panels are pattern only, no lettering. Irregular bare paper at the top corners and sides (accepted)."
+  },
+  {
+   "id": "j181",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Tall masked visitor in the doorway, hand still at his mask, hat in hand, blue cloak lined flame-colour with a green brooch; Holmes seated, Watson in the armchair with his bag: scene is right (no astrakhan bands or fur-topped boots). Only lettering is very faint rows of squiggles on one bottle label at far left (about x75,y520), unreadable. Painted to the edges."
+  },
+  {
+   "id": "j182",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Bald Elisha in a hairy mantle walks the road up from the gate while youths at the gate point and jeer; no lettering, anatomy sound. Bare paper round the edges (accepted)."
+  },
+  {
+   "id": "j183",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "David kneels at the brook with staff, sling and bag, stones in hand, a Philistine soldier small in the distance; no lettering, full bleed, anatomy sound."
+  },
+  {
+   "id": "j184",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Dark bedroom: Holmes with a lit match lashes his cane at the bell-pull hanging from the ventilator while Watson on the bed shields his eyes; no snake shown, no gore, no lettering, full bleed. No screen costume or props."
+  },
+  {
+   "id": "j185",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Saul's arm is flung out just after the throw, the spear in flight toward the wall beside David, who dodges with the harp fallen; no spirit figure is drawn. Right margin and lower left fade to bare paper (accepted). No lettering."
+  },
+  {
+   "id": "j186",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Grinning tabby with long claws and many teeth on a bough, Alice below looking up to ask her way; no lettering, corners fully painted, costume not a film design."
+  },
+  {
+   "id": "j187",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "The whole picture is one prominent bearded man with a rolled scroll and pen case at his belt, eyes lifted, in a village street: the letter-writer drawn as the subject of his own words. The verse is abstract so no scene is contradicted; scroll is blank, full bleed, anatomy sound."
+  },
+  {
+   "id": "j188",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Night storm, waves breaking into the boat, disciples bailing with buckets, other small boats nearby, a figure asleep on a cushion in the stern; no lettering, full bleed, anatomy sound."
+  },
+  {
+   "id": "j189",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Very tall masked man in the doorway, hand at his mask, hat in hand, fur-trimmed blue coat lined flame-colour, green brooch; Holmes seated with pipe and lens, Watson seated: scene is right. Lettering: mantel clock face with tick marks and stacks of newspapers with grey columns of pseudo-text, none readable. No screen costume or props."
+  },
+  {
+   "id": "j190",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Oversized Alice tips the jury-box with her skirt, animal jurors tumble with slates and pencils, the Lizard head-down, King and Queen on the bench, flat card soldiers with heads and limbs: scene is right. Lettering: an ace-of-diamonds card shows readable 'A' index letters, plus card pips, pseudo-script on papers and scratches on slates."
+  },
+  {
+   "id": "j191",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Samuel pours the horn of oil on kneeling David among his brothers with Jesse looking on; soft glowing wisps around David stand for the Spirit, no human form. Bare paper at the edges (accepted). One brother's Roman-style armour is an anachronism, not a fault here; no lettering."
+  },
+  {
+   "id": "j192",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes sits by the lamp with his pipe studying a woman's photograph, which fits the passage; Watson, the narrator, stands prominently by the fire (borderline, not counted as an extra figure). Lettering: open book with lines of pseudo-script at left, mantel clock face and loose written papers, none readable. Full bleed."
+  },
+  {
+   "id": "j193",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Priest holding the bird beside the horned bronze altar with fire, heap of ashes and feathers at its side, tabernacle curtains behind; no gore, God not drawn, no lettering, full bleed."
+  },
+  {
+   "id": "j194",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Peter grips the beggar's right hand and raises him at the temple gate, John and onlookers behind: scene is right, anatomy sound. The golden band above the gate carries a row of glyph-like inscription marks, unreadable. Bare paper at the top corners (accepted)."
+  },
+  {
+   "id": "j195",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Moses on a rock points the way onward to a crowd with packed donkeys and goats, the camp and dark cloud-wrapped Horeb behind; God not drawn, no lettering, full bleed, crowd anatomy sound."
+  },
+  {
+   "id": "j196",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Table under the tree before the thatched house; Hare, sleeping Dormouse and Hatter crowded at one corner, Alice cross in a big arm-chair at the end, only tea things: scene is right. The Hatter's hat carries a price ticket with small glyph marks, unreadable; that is the only fault."
+  },
+  {
+   "id": "j197",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Israelites walk the dry seabed between two towering walls of water, Moses with his staff; God not drawn, no lettering, full bleed, crowd sound."
+  },
+  {
+   "id": "j198",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Father runs with open arms to the ragged son and they meet in an embrace on the road; hands trace correctly, no lettering. Lower-left corner is bare paper (accepted)."
+  },
+  {
+   "id": "j199",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Hezekiah in a blue robe directs work in the temple court, people bringing grain baskets and jars, the bronze sea on its oxen, a man kneeling in prayer; the scroll held is blank, no lettering, full bleed, hands sound."
+  },
+  {
+   "id": "j200",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Father clasps the ragged son on the road, face pressed to his head, servants and house small behind; three visible hands trace correctly, no lettering, full bleed."
+  },
+  {
+   "id": "j201",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Saul still grips a spear cocked back in his right hand while a second spear is already in flight at the wall beside fleeing David: the one spear appears at two moments in one frame. No spirit figure drawn; wall hanging is geometric weave, not lettering; anatomy sound. Bare paper at the margins (accepted)."
+  },
+  {
+   "id": "j202",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Whitewashed house ablaze at night with three horse-drawn fire engines playing hoses, rose-bushes in the garden; the engineer with bandaged hand, the uniformed station-master with lantern, Holmes and two others on the road (walking toward the viewer rather than at the fire). Cap badge is an emblem, no lettering; full bleed; no screen costume."
+  },
+  {
+   "id": "j203",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Courtyard fire with servants; Jesus, bound and held by soldiers, turns to look across at Peter, who clutches his chest, the rooster on the wall; no lettering, full bleed, anatomy sound."
+  },
+  {
+   "id": "j204",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Burning white house with three horse-drawn engines hosing it, the station-master with lantern pointing, the engineer with bandaged hand, Holmes and a companion on the road facing the fire. Painted to every corner, cap badge is an emblem only, anatomy sound."
+  },
+  {
+   "id": "j205",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Peter steps from the boat onto the waves reaching toward Jesus, who stands on the water with hand out, disciples watching from the boat; no lettering, anatomy sound. Pale passages at the right edge read as painted foam, so no unpainted edge recorded (borderline)."
+  }
+ ]
+}

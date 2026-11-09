@@ -1,0 +1,296 @@
+{
+ "scorer": "scorer-a",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "pair001",
+   "verdict": "same",
+   "notes": "Watson in both is the stocky man with brown hair, a brown moustache, dark overcoat, bowler hat and doctor's bag; face and build match."
+  },
+  {
+   "id": "pair006",
+   "verdict": "different",
+   "notes": "Left shows the house ablaze under a dark night sky with firelit grounds; right shows a daytime overcast scene at the station with only a smoke column behind trees, so night conflicts with day and neither passage asks for that change."
+  },
+  {
+   "id": "pair024",
+   "verdict": "same",
+   "notes": "Watson in both is the stocky man with brown hair, a thick brown moustache and ruddy face in a dark coat (left with bowler and doctor's bag, right seated holding the hat); left is small but consistent."
+  },
+  {
+   "id": "pair026",
+   "verdict": "same",
+   "notes": "Both show a white-walled two-storey country house with a red-brown roof and end chimneys in flames after dark, with horse-drawn fire engines on the lawn, rose bushes beside a dirt drive and open fields behind; the facade is drawn a little differently (porch versus central gable) but the place and occasion are compatible."
+  },
+  {
+   "id": "pair039",
+   "verdict": "same",
+   "notes": "Holmes in both is a tall gaunt clean-shaven man with slicked-back dark hair, a high forehead and hawk nose in a long black frock coat; left facing into the room, right stooping in profile."
+  },
+  {
+   "id": "pair053",
+   "verdict": "same",
+   "notes": "Watson in both is a solid man with brown side-parted hair, a thick brown moustache and ruddy face in a dark suit and waistcoat (left seated with the hat, right at the door with bowler and bag)."
+  },
+  {
+   "id": "pair007",
+   "verdict": "same",
+   "notes": "Watson in both is a solid man with brown hair, a brown moustache and a bowler hat, in a dark suit with a doctor's bag (left seated in the carriage, right standing on the pavement); the right figure is small but consistent."
+  },
+  {
+   "id": "pair054",
+   "verdict": "same",
+   "notes": "Holmes is a tall, gaunt, clean-shaven man with a sharp hawkish face and dark hair in both; on the right a bowler hides most of his hair and he is small, but nothing conflicts."
+  },
+  {
+   "id": "pair015",
+   "verdict": "same",
+   "notes": "Holmes is a gaunt, clean-shaven man with dark slicked-back hair, a widow's peak, hollow cheeks and a sharp nose in both, close up with the hat left and seated with a pipe right."
+  },
+  {
+   "id": "pair029",
+   "verdict": "same",
+   "notes": "Holmes is a tall gaunt clean-shaven man with black slicked-back hair, a widow's peak, hollow cheeks and a hooked nose in both, seated in profile left and standing at the door right."
+  },
+  {
+   "id": "pair055",
+   "verdict": "same",
+   "notes": "Holmes is a gaunt clean-shaven man with black slicked-back hair, a widow's peak, sunken cheeks and a hooked nose in both, in profile with the hat left and tossing paper in the carriage right."
+  },
+  {
+   "id": "pair043",
+   "verdict": "same",
+   "notes": "Holmes is a tall, gaunt, clean-shaven man with a sharp hawkish face and dark hair in both; a bowler hides his hair and he is small on the left, but face shape, build and age match the bare-headed profile on the right."
+  },
+  {
+   "id": "pair002",
+   "verdict": "same",
+   "notes": "Watson (seated left in the carriage; standing at the door on the right) has the same brown moustache, clean chin, squarish middle-aged face, fair skin and sturdy build in both; bowler hat and black medical bag recur."
+  },
+  {
+   "id": "pair019",
+   "verdict": "same",
+   "notes": "Watson (at the door on the left; standing behind Holmes on the pavement on the right) has the same thick brown moustache, clean chin, brown hair, fair skin and solid build in both, though smaller under a bowler on the right; medical bag recurs."
+  },
+  {
+   "id": "pair021",
+   "verdict": "same",
+   "notes": "Holmes (stooping with the stick on the left; seated with pipe and photograph on the right) has the same gaunt clean-shaven hawk-nosed face, dark slicked-back hair with high forehead, pale skin and thin build in both."
+  },
+  {
+   "id": "pair011",
+   "verdict": "same",
+   "notes": "Watson (seated on the bed on the left; at the door with hat and bag on the right) has the same brown side-parted hair, thick brown moustache, clean chin, fair skin and sturdy build in both."
+  },
+  {
+   "id": "pair009",
+   "verdict": "same",
+   "notes": "Watson (at the door with hat and bag on the left; seated in a bowler in the carriage on the right) has the same thick brown moustache, clean chin, brown hair, fair ruddy skin, squarish face and sturdy build in both."
+  },
+  {
+   "id": "pair047",
+   "verdict": "same",
+   "notes": "Holmes tossing the paper ball in the carriage (left) and lashing with the cane (right): both gaunt, clean-shaven, hawk-nosed with slicked-back dark hair and a high forehead, tall thin build."
+  },
+  {
+   "id": "pair048",
+   "verdict": "same",
+   "notes": "Holmes seated with pipe and photograph (left) and holding the lens over the hat (right): both gaunt, clean-shaven, sharp-nosed with slicked-back dark hair and receding temples, similar age and thin build."
+  },
+  {
+   "id": "pair004",
+   "verdict": "same",
+   "notes": "Watson seated holding the hat brim (left) and in a bowler in the carriage (right): both a sturdy middle-aged man with brown hair, a full brown moustache, square ruddy face and similar build; the bowler hides some hair but nothing conflicts."
+  },
+  {
+   "id": "pair040",
+   "verdict": "same",
+   "notes": "Holmes stooping with his cane on the pavement (left) and holding the lens (right): both gaunt, clean-shaven, sharp-nosed with slicked-back dark hair and receding temples, tall thin build."
+  },
+  {
+   "id": "pair049",
+   "verdict": "same",
+   "notes": "Watson in a bowler in the carriage (left) and seated by the fire (right): both a solid middle-aged man with brown hair, a thick brown moustache, squarish ruddy face and medium-sturdy build."
+  },
+  {
+   "id": "pair022",
+   "verdict": "same",
+   "notes": "Watson in a bowler beside Holmes on the pavement (left) and seated on the bed (right): both a sturdy middle-aged man with a brown moustache, squarish face and brown hair where visible; hat hides most hair on the left."
+  },
+  {
+   "id": "pair023",
+   "verdict": "same",
+   "notes": "Holmes stooping with cane on the pavement (left) and reaching up with the cane by the bed (right): both gaunt, clean-shaven, hollow-cheeked with slicked-back dark hair and high forehead, tall thin build."
+  },
+  {
+   "id": "pair018",
+   "verdict": "same",
+   "notes": "Holmes with pipe in the armchair (left) and tapping the pavement with his cane in a hat (right, small): both thin, clean-shaven with a long gaunt sharp-nosed face and dark hair; the hat hides the hairline on the right but nothing conflicts."
+  },
+  {
+   "id": "pair046",
+   "verdict": "same",
+   "notes": "Holmes gripping the moustached man's arm at the door (left) and lashing with the cane (right): both tall, gaunt and clean-shaven with slicked-back dark hair, high forehead and hooked nose."
+  },
+  {
+   "id": "pair058",
+   "verdict": "same",
+   "notes": "Holmes gripping the moustached man's arm at the door (left) and holding the lens over the hat (right): both tall, gaunt and clean-shaven with slicked-back dark hair, high forehead and hooked nose."
+  },
+  {
+   "id": "pair037",
+   "verdict": "same",
+   "notes": "Watson at the door with hat and bag (left) and seated by the fire (right): both a middle-aged man with side-parted brown hair, a brown moustache, squarish face and solid build; right is seen closer and ruddier but no cue conflicts."
+  },
+  {
+   "id": "pair028",
+   "verdict": "same",
+   "notes": "Watson is the stocky brown-haired man with a full moustache in both: seated by the fire at left, standing in a bowler with a bag at right; face and build agree."
+  },
+  {
+   "id": "pair005",
+   "verdict": "unclear",
+   "notes": "Left shows the burning white two-storey house close up with its curving gravel drive and rose bushes; right is the railway platform with only a distant smoke column behind trees, so the house and grounds are not visible to compare."
+  },
+  {
+   "id": "pair010",
+   "verdict": "different",
+   "notes": "Left is the railway station in overcast daylight with the fire only a distant smoke column behind trees; right is the white house ablaze at full night under a dark sky, so the time of day conflicts and the house itself is not shown at left."
+  },
+  {
+   "id": "pair044",
+   "verdict": "same",
+   "notes": "Holmes is the same gaunt, clean-shaven man with slicked-back dark hair, high forehead and sharp nose in both, in the railway carriage at left and seated with a pipe at right."
+  },
+  {
+   "id": "pair012",
+   "verdict": "same",
+   "notes": "Holmes is the same tall gaunt clean-shaven man with slicked-back dark hair, widow's peak and hollow cheeks in both, standing at the door at left and seated with a pipe at right."
+  },
+  {
+   "id": "pair050",
+   "verdict": "same",
+   "notes": "Watson has the same side-parted brown hair, full brown moustache, ruddy face and solid build in both, sitting on the bed at left and in the armchair at right."
+  },
+  {
+   "id": "pair045",
+   "verdict": "same",
+   "notes": "Holmes is the tall, thin, clean-shaven man with a gaunt hollow-cheeked face and dark hair in both; a bowler hides most of his hair at left but the face and build agree with the slicked-haired man at right."
+  },
+  {
+   "id": "pair032",
+   "verdict": "different",
+   "notes": "Both show a white two-storey house ablaze with horse-drawn fire engines, but the left is at dark night among bare leafless trees with low side wings on the house, while the right is in grey daylight among leafy trees with blooming rose borders along a curving drive."
+  },
+  {
+   "id": "pair042",
+   "verdict": "same",
+   "notes": "Watson is the same solid brown-haired man with a full moustache and squarish face in both, in a bowler in the carriage at left and bareheaded sitting in the dark bedroom at right."
+  },
+  {
+   "id": "pair027",
+   "verdict": "same",
+   "notes": "Both show the same low brick barrel-vaulted cellar with receding arches, a flagstone floor and stacked wooden crates lit by a single lantern."
+  },
+  {
+   "id": "pair014",
+   "verdict": "same",
+   "notes": "Holmes in both is a gaunt, clean-shaven man with dark slicked-back hair, high forehead and sharp nose (left with cane by the bed, right centre pointing)."
+  },
+  {
+   "id": "pair017",
+   "verdict": "unclear",
+   "notes": "Left shows only the railway station with a smoke column behind distant trees; the house and its grounds are not visible there, so the white burning house, gravel drive and rose bushes on the right cannot be compared."
+  },
+  {
+   "id": "pair008",
+   "verdict": "same",
+   "notes": "Holmes in both is a gaunt clean-shaven man with dark slicked-back hair, high forehead and sharp aquiline profile (left seated tossing the paper, right stooping with the cane)."
+  },
+  {
+   "id": "pair041",
+   "verdict": "same",
+   "notes": "Watson at the door on the left and seated by the bed on the right: same short dark-brown side-parted hair, brown moustache, middle age and solid build."
+  },
+  {
+   "id": "pair020",
+   "verdict": "same",
+   "notes": "Holmes (throwing the paper ball on the left, holding the lens on the right) has the same slicked-back black hair, gaunt clean-shaven face, hooked nose and lean build."
+  },
+  {
+   "id": "pair038",
+   "verdict": "same",
+   "notes": "Holmes (seated right in the carriage; pulling Watson in at the door) has the same slicked-back black hair, gaunt clean-shaven face, hooked nose and thin build."
+  },
+  {
+   "id": "pair056",
+   "verdict": "same",
+   "notes": "Holmes (pointing at the red-haired client on the left, tossing the paper ball on the right) has the same slicked-back black hair with widow's peak, gaunt clean-shaven face and thin build."
+  },
+  {
+   "id": "pair036",
+   "verdict": "same",
+   "notes": "Watson (seated on the bed on the left, in the bowler on the right) has the same brown hair, thick brown moustache, ruddy middle-aged face and sturdy build."
+  },
+  {
+   "id": "pair016",
+   "verdict": "same",
+   "notes": "Holmes (seated with pipe and photograph on the left, pointing at the client on the right) has the same slicked-back black hair, gaunt clean-shaven face, sharp nose and thin frame."
+  },
+  {
+   "id": "pair030",
+   "verdict": "same",
+   "notes": "Holmes (striking with the cane on the left, holding the lens and hat on the right) has the same slicked-back dark hair with widow's peak, hollow-cheeked clean-shaven face and lean build."
+  },
+  {
+   "id": "pair031",
+   "verdict": "same",
+   "notes": "Holmes (reaching with the cane on the left, tossing the paper ball on the right) has the same slicked-back black hair, gaunt clean-shaven face, sharp nose and thin build."
+  },
+  {
+   "id": "pair035",
+   "verdict": "same",
+   "notes": "Holmes (in the armchair with a pipe on the left, throwing the paper ball on the right) has the same slicked-back black hair, hollow clean-shaven face, hooked nose and lean frame."
+  },
+  {
+   "id": "pair057",
+   "verdict": "same",
+   "notes": "Watson (left seated behind the bed in the dark room; right standing in bowler with medical bag) has a dark-brown moustache, short dark hair and sturdy build in both; he looks somewhat older and heavier-faced in the dim left image but no clear cue conflicts."
+  },
+  {
+   "id": "pair003",
+   "verdict": "same",
+   "notes": "Holmes (left seated with pipe reading by the lamp; right striking at the bell-rope with a cane) has the same gaunt clean-shaven face, sharp nose and dark slicked-back hair in both."
+  },
+  {
+   "id": "pair051",
+   "verdict": "same",
+   "notes": "Holmes (left in shirtsleeves lashing at the snake; right seated with pipe by the fire) has the same gaunt clean-shaven face, sharp nose and dark slicked-back hair with a high forehead in both."
+  },
+  {
+   "id": "pair033",
+   "verdict": "same",
+   "notes": "Holmes (left holding the lens over the hat; right in shirtsleeves striking at the snake) has the same gaunt clean-shaven face, sharp nose, high forehead and dark slicked-back hair in both."
+  },
+  {
+   "id": "pair052",
+   "verdict": "same",
+   "notes": "Watson (left standing with medical bag in the street; right seated in the carriage) wears a bowler in both and has the same brown moustache, short brown hair at the sides, squarish middle-aged face and sturdy build."
+  },
+  {
+   "id": "pair034",
+   "verdict": "same",
+   "notes": "Both show a dark cellar of brick vaulted arches on thick brick piers with a flagstone floor and stacked wooden crates, lit by a single lantern; the right looks down a longer vaulted passage, a compatible viewpoint."
+  },
+  {
+   "id": "pair025",
+   "verdict": "same",
+   "notes": "Holmes (left holding the lens over the hat; right tapping the pavement with his stick, in a bowler) has the same gaunt clean-shaven face with sharp nose and hollow cheeks and a tall thin build; the hat hides most of his hair on the right and he is small, but visible cues agree."
+  },
+  {
+   "id": "pair013",
+   "verdict": "same",
+   "notes": "Watson (left seated in the armchair facing Holmes; right seated behind the bed in the dark room) has short brown side-parted hair, a brown moustache, a broad ruddy middle-aged face and sturdy build in both."
+  }
+ ]
+}

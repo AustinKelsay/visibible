@@ -1,0 +1,26 @@
+{
+ "scorer": "operator",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "pair127",
+   "verdict": "different",
+   "notes": "The dripping man on the left has dark curly hair with a greying beard; the diving Peter on the right has clearly grey hair and beard."
+  },
+  {
+   "id": "pair117",
+   "verdict": "different",
+   "notes": "Peter stepping from the boat has dark hair and a dark greying beard; the diving Peter is clearly grey-haired and older."
+  },
+  {
+   "id": "pair024",
+   "verdict": "unclear",
+   "notes": "Jesus is a tiny distant figure on the cross in one image, as both scorers describe."
+  },
+  {
+   "id": "pair130",
+   "verdict": "unclear",
+   "notes": "Moses is seen from behind in one image, as both scorers describe."
+  }
+ ]
+}

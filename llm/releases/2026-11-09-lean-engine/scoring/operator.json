@@ -1,0 +1,782 @@
+{
+ "scorer": "operator",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "j001",
+   "notes": "The six of hearts soldier at lower right carries a clear corner index numeral '6' beside its pips, a real numeral rather than pips alone, so the lettering is readable. Still flawed on the agreed two-necked flamingo.",
+   "faults": {
+    "readable_text": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j009",
+   "notes": "Holmes is bareheaded in a generic black frock coat and waistcoat with swept-back hair; nothing in costume, hair or props reproduces one screen adaptation, and the claimed resemblance rests on the face alone. Scene matches the text, no other fault.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j021",
+   "notes": "Night sea with Peter stepping off the bow toward Jesus standing on the water while the others watch; the image is clearly judgeable and both scorers found no fault, so it is acceptable. The robed man in the stern reads as one of the disciples, not a second Jesus.",
+   "overall": "acceptable"
+  },
+  {
+   "id": "j029",
+   "notes": "Holmes at the door has tousled dark curls but wears a Victorian wing collar, cravat, waistcoat and frock coat, not the modern coat-and-scarf styling of any one adaptation, so the likeness claim rests on hair and face only. Still flawed on the agreed second Watson-like man and newspaper lettering.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j034",
+   "notes": "The pale strip at the left edge is a whitewashed wall with cracks, wash tone and torch glow carried to the edge, and the pot and paving bleed off the bottom-left; no blank paper band is visible.",
+   "faults": {
+    "unpainted_edge": "no"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j044",
+   "notes": "Faint line-drawn glyph-like marks (U- and j-shaped strokes) sit on the stallboard panel under the shop window at about x870-960, y470-520, small and unreadable; the signboards themselves are blank. Holmes wears generic black frock coat and cravat with pipe and lens, so the Cushing claim rests on the face alone.",
+   "faults": {
+    "lettering": "yes",
+    "rule_violation": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j059",
+   "notes": "Moses sits on a stone at sunset above the battle with Aaron steadying the raised staff hand and Hur holding his other arm; judgeable, and both scorers found no fault. The second hand resting low on his knee is a weakness, not a recorded fault.",
+   "overall": "acceptable"
+  },
+  {
+   "id": "j073",
+   "notes": "Holmes tossing the paper ball wears a plain dark suit and wing collar with swept-back hair; no costume or prop is taken from a specific adaptation and the resemblance is facial only. Still flawed on the agreed pseudo-print on the newspapers.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j086",
+   "notes": "A Paul-like teacher with scrolls at his belt stands left of centre gesturing as he addresses a household round a brazier: the epistle's author drawn prominently delivering the words the verse consists of.",
+   "faults": {
+    "extra_figures": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j092",
+   "notes": "Seraphim are conventional robed angels who cover their faces with hands, leave bare feet hanging uncovered, and the right-hand one is bare-faced with about four wings, so the visionary creatures do not follow the text. Isaiah kneeling at lower right is the seer the vision plainly involves; the pale top-centre and right edge are painted radiance and smoke, not bare paper.",
+   "faults": {
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "rule_violation": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j098",
+   "notes": "A Paul-like speaker with crossed scrolls at his belt stands at left preaching to a seated crowd beside a dim bronze mirror: the letter's author drawn prominently delivering his own words. The mirror motif itself is fine.",
+   "faults": {
+    "extra_figures": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j106",
+   "notes": "Newspaper headlines on the desk and floor are set in block Latin capitals with individually legible letters (L, E, T, B, A and the like) though the strings spell no word, so readable. Holmes is in a generic black frock coat and wing collar; the Cushing claim is face only.",
+   "faults": {
+    "rule_violation": "no",
+    "readable_text": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j121",
+   "notes": "Holmes is a small figure in bowler and black frock coat thumping the pavement with his stick; ordinary period dress, nothing reproducing a specific adaptation, and the likeness claim rests on a small face. White paper at edges is accepted for this item.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j135",
+   "notes": "The sea wash stops short of the left edge in a few places (about y555-590, y650, y720 and the bottom-left corner), leaving small off-white paper patches without the ink outline the painted foam has. Small but visible, and accepted for this item.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j153",
+   "notes": "One continuous tea-table scene in a single place and moment; the duplicate dormouse asleep under the table is an extra figure (already agreed) rather than a collage or contradictory pose, object or place. Still flawed on the agreed duplicate and hat-tag scrawl.",
+   "faults": {
+    "incoherent": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j166",
+   "notes": "The capped youth in the red tunic (about x440, y270) has a forearm ending in a clenched fist, and the same arm line continues straight past the fist to a second, pointing hand: one arm with two hands. Small but real.",
+   "faults": {
+    "anatomy": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j185",
+   "notes": "The wall wash thins to near-white irregular paper patches in the last 20px or so of the right edge (about y150-180 and y390-460) and at the left edge and bottom-left corner below y660. Small but visible, and accepted for this item.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j205",
+   "notes": "Sea wash strokes end short of the right edge leaving ragged pure-white paper (about y480-640, x>1360), with similar gaps at the left edge below the boat. Accepted for this item.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j225",
+   "notes": "The top-right corner carries a peach sky wash with orange cloud washes right to the edge, and the palest stretch of the right edge is the same pale sky seen elsewhere, not a blank band. Still flawed on the agreed watch-dial numerals.",
+   "faults": {
+    "unpainted_edge": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j242",
+   "notes": "A small pale disembodied face with eye sockets and nose sits in a black sooty patch of the vault brickwork at about x990, y140, above Watson's head. Dim and small, but a real stray face.",
+   "faults": {
+    "anatomy": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j256",
+   "notes": "The text has Alice grown huge, yet she is the same scale as the seated King and child-sized against the jury-box, bench, windows and vault; only the small animals are smaller, so her size does not read clearly (size rule). Lettering on slates and card pips was already agreed.",
+   "faults": {
+    "rule_violation": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j271",
+   "notes": "The King's card gown carries a clear red corner index letter reading as an 'X' (or inverted 'K') at about x990, y500, a legible letterform beyond the heart pips. The spectator's sheet at lower left is squiggle only.",
+   "faults": {
+    "readable_text": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j279",
+   "notes": "The Queen's black centre-parted hair in a bun, tiny gold crown perched on top, large white stand-up collar, heart-panelled red gown and heart-tipped sceptre together reproduce the 1951 Disney animated Queen of Hearts look; this rests on costume, hair and prop, not the face.",
+   "faults": {
+    "rule_violation": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j288",
+   "notes": "The lake wash strokes end in rounded tips short of the left edge, leaving off-white paper down the left margin of the water (about y430-700); the sky is a near-white tinted wash and was not counted. Accepted for this item, but still flawed on the agreed leap-away-from-Jesus contradiction.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j310",
+   "notes": "Holmes is bareheaded in a plain black suit, waistcoat and wing collar with swept-back hair; no costume or prop from a specific adaptation, and the Cushing claim rests on his profile alone. Still flawed on the agreed pseudo-print newspapers.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j319",
+   "notes": "At the moment the court calls her a mile high, Alice stands at ordinary child height, level with the card soldiers at left and well below the bench and door, so her grown size does not read (size rule). Card pips and slate scribbles were already agreed.",
+   "faults": {
+    "rule_violation": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j333",
+   "notes": "A white robe is draped over the throne seat and armrests in the shape of a seated lap with knees, its train running down the steps and the upper body lost in smoke: God shown as a robed seated form. Only the centre seraph has six wings covering face and feet (left covers its face with a hand, right is bare-faced with tongs), breaking the visionary-creatures rule; the duplicated foreground prophet is an extra figure in one continuous space, not a collage.",
+   "faults": {
+    "incoherent": "no",
+    "rule_violation": "yes",
+    "effects_figure": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j346",
+   "notes": "A single scene: Daniel stands in a man-deep stone pit holding a rope that runs over the near rim, helpers in the pit and men outside haul other ropes, and the king leans over the rim. The rope work is fussy and he is not yet lifted, but nothing is flatly contradictory and it is not a collage.",
+   "faults": {
+    "incoherent": "no"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j362",
+   "notes": "The two card soldiers at left carry five heart pips each (about x110 and x245, y380) and a courtier at right has a pip-patterned doublet; no index letters or words. Card pips count as lettering, unreadable.",
+   "faults": {
+    "lettering": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j373",
+   "notes": "Holmes has dark wavy hair but wears a Victorian black frock coat, high wing collar and cravat and uses a lens, not the modern coat-and-scarf styling of the BBC series or any one adaptation; hair and face alone are not enough. Still flawed on the agreed pseudo-script papers.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j383",
+   "notes": "The open strong box on the desk (about x290, y555) holds a heap of five or so identical blue gems while Holmes holds up the one unique blue stone the passage is about, so the single object is contradicted by duplicates. Small and a borderline call, but real.",
+   "faults": {
+    "incoherent": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j403",
+   "notes": "The sole large subject is a bearded man with a pen case at his belt and a rolled scroll in hand gazing upward in a village street: the letter's author standing in for his own words, with nothing else of the verse shown. Judged the same way as the other author-preaching items.",
+   "faults": {
+    "extra_figures": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j410",
+   "notes": "A standing man at left with scroll and pen case at his belt gestures as he addresses a dozen seated listeners in a house: the letter's author drawn prominently delivering the verse's own words.",
+   "faults": {
+    "extra_figures": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j004",
+   "notes": "Two near-identical bearded men in the same purple gold-trimmed robe and cap lean over the rim side by side at upper right, so the king is drawn twice and one of them is a prominent figure the text does not call for. Daniel hauled up by rope past calm lions is otherwise right.",
+   "faults": {
+    "extra_figures": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j015",
+   "notes": "A 3x crop of the left edge shows the washes ending at ragged boundaries with cream bare paper beyond, about y 390-500 and in the bottom-left corner; small but visible, and accepted for this item.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j025",
+   "notes": "The central, largest figure is an old man reading an open scroll aloud to seated women and children: a reciter delivering the genealogy the verse consists of rather than Obed, Jesse or David. Flawed on the agreed scene_mismatch and lettering as well.",
+   "faults": {
+    "extra_figures": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j032",
+   "notes": "The image is fully judgeable: Israelites with staffs and loaded donkeys on the road below a mountain capped with cloud and radiance, no figure for God. Both scorers answered every fault no apart from the accepted unpainted edge, so the verdict follows as acceptable; the foreground walkers facing the mountain is an oddity neither scored as a fault.",
+   "overall": "acceptable"
+  },
+  {
+   "id": "j039",
+   "notes": "Holmes in profile at the window wears a plain black frock coat with slicked-back hair and a briar pipe, generic Victorian dress with nothing that reproduces one screen adaptation's costume or props; the claimed likeness rests on the gaunt face alone. Flawed on the agreed lettering (pseudo-script on slip, newspaper and letters).",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j052",
+   "notes": "A 3x crop shows a segmented blue caterpillar body carrying a fully human old-man face, fingered human hands, a bowler hat and a buttoned waistcoat the text never gives it, which breaks the rule that talking animals are drawn as animals with dress only where the text gives it. The glyphs on the hookah band are the agreed lettering.",
+   "faults": {
+    "rule_violation": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j060",
+   "notes": "The four courtiers flanking the Queen at upper right (man in ruff and red cape, girl in a blue gown, lady in a blue headdress, man in a gold doublet) are ordinary full-bodied humans, not flat oblong cards. At 14x the corner index on the spade card at right is an elongated oval about 6px tall, not a legible 6, so with the pips the marks stay unreadable.",
+   "faults": {
+    "rule_violation": "yes",
+    "readable_text": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j076",
+   "notes": "Winged, face-veiled seraphim hover above a cloud of glory in the gold temple with Isaiah looking up from below: the right subject, action and place. Their two-wing forms, cloth veils and bare feet are a creature-form failure already carried by the agreed rule_violation, which makes the item flawed.",
+   "faults": {
+    "scene_mismatch": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j088",
+   "notes": "On the central throne robe-like drapery falls over a lap-and-knees form with a white-cored blaze where torso and head would sit, giving the Ancient of Days a seated body against the no-human-body rule. Most white at the edges is ink-outlined cloud, but a 5x crop of the right edge shows the washes ending at a pigment line 2-7px short of the edge with paper white beyond (about y 190-270), and unmodelled paper-white cloud runs off the top and right edges.",
+   "faults": {
+    "unpainted_edge": "yes",
+    "rule_violation": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j093",
+   "notes": "A 4x crop of the falling Lizard juror at centre shows a green scaly tail, legs and clawed hands but a badger-shaped head with the same black-and-cream facial stripes as the badger jurors beside it, a hybrid malformed face. Small but real; the card pips are the agreed lettering.",
+   "faults": {
+    "anatomy": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j099",
+   "notes": "Holmes at centre is bareheaded in a plain black frock coat, waistcoat and wing collar with a hat in hand; nothing in costume, hair or props reproduces a specific screen adaptation, and the claimed likeness rests on the gaunt face alone. Hatherley with bandaged hand pointing at the burning house, engines, drive and rose-bushes match the moment; bare paper at lower left is accepted.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j110",
+   "notes": "Small but measurable: the blue sky wash stops at a visible boundary leaving bare cream paper in the top-left corner and a sliver on the left edge above the wall, and an unwashed band runs to the right edge between the cloud wash and the hill (about y 50-105). Accepted for this item; the father, ragged son and servants with robe and sandals are right.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j127",
+   "notes": "Two court guards, left of the tart table and large in the right foreground, are ordinary full-bodied humans in red coats and tricorns where the court's soldiers should be flat oblong cards. Zoomed crops show a clear figure 8 as the corner index of the heart card behind the Hatter and marks reading 88 on the Hatter's hat tag, which are numerals rather than pips.",
+   "faults": {
+    "rule_violation": "yes",
+    "readable_text": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j150",
+   "notes": "The largest, foreground figure is a grey-bearded elder gesturing outward as if presenting, with a half-unrolled blank scroll on the bench beside him, a family group behind and a Roman soldier down the street. He reads as a narrator presenting the book of the genealogy, not as Jesus, David or Abraham.",
+   "faults": {
+    "extra_figures": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j157",
+   "notes": "Edge crops show the dark wash ending at a ragged boundary with a thin strip of white paper down the right and left edges and a white wedge in the bottom-left corner (the outer columns are 35-45 percent near-white). Accepted for this item; Holmes lashing at the bell-pull with the match lit, snake by the ventilator and Watson on the bed are right.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j176",
+   "notes": "Corner crops show the floor wash under the side table ending at a ragged boundary with cream bare paper along the lower-left edge and bottom-left corner, and the books and hearth stopping short of the right edge and bottom-right corner. Holmes wears a plain dark suit and wing collar with slicked-back hair, no costume or prop of a specific screen adaptation, so the likeness claim rests on the face alone; flawed on the agreed lettering (the slip reads 'Missing').",
+   "faults": {
+    "unpainted_edge": "yes",
+    "rule_violation": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j186",
+   "notes": "A 5x crop of the bottom-right corner shows the green and brown washes ending at a ragged boundary with a sliver of white paper about 3-8px wide along the lower right edge and corner. Small but really there, and accepted for this item; the grinning clawed Cat on the bough and Alice looking up are right.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j210",
+   "notes": "A 4x crop of the open strong box on the desk shows two or three more blue gems inside while Holmes holds the one blue stone to the window light, so the single stone is both in his hand and already in the box, multiplied. Small but a real contradiction; the agreed costume rule break and pseudo-script also make it flawed.",
+   "faults": {
+    "incoherent": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j240",
+   "notes": "In the background group at upper right only the five of hearts is a flat oblong card; the other four (two in pip-marked tunics, a man in green bent over a wire hoop, a man in an orange coat and hat) are ordinary full-bodied humans where the croquet-ground's soldiers and courtiers should be flat cards. Small in the frame but a real break of the card rule.",
+   "faults": {
+    "rule_violation": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j243",
+   "notes": "A bearded man in a dark mantle, the largest figure, leans over scrolls on a stone table addressing a seated group in a Greek town below an acropolis: the letter's author drawn delivering his own words. Nothing of the verse's own image appears, no mirror, dim reflection or face-to-face meeting, so the moment is not shown.",
+   "faults": {
+    "extra_figures": "yes",
+    "scene_mismatch": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j259",
+   "notes": "Edge crops show the wave washes ending in rounded ragged boundaries a few pixels short of the left and right edges, leaving a thin irregular white margin that is not foam (near-white is about a third of the outermost columns against about 5 percent twenty pixels in). Accepted for this item; Jesus asleep on the cushion in the stern with a disciple shaking his shoulder is right.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j274",
+   "notes": "The Mock Turtle and Gryphon rear up either side of Alice on dry shingle, but the sea behind them stands as a see-through green wall up to a waterline under the sky with jellyfish floating at head height inside it, and live coral grows on the dry beach at both sides. The place is at once open-air shore and underwater, a self-contradictory setting.",
+   "faults": {
+    "incoherent": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j281",
+   "notes": "Four soldiers crouch over a heap of garments, one with an open palm, while on the hill the crucified Jesus still wears a full tunic and blue mantle, so his clothing is both on him and being divided on the ground. Ruled the same way as the other image of this verse.",
+   "faults": {
+    "incoherent": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j301",
+   "notes": "A 3x crop shows Peter in the left foreground with hand to chest, but the bound Jesus stands with his back to Peter and his head in profile facing right toward the fire. The Lord turning and looking at Peter, the action that defines the verse, is not shown, though the people and courtyard are right.",
+   "faults": {
+    "scene_mismatch": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j313",
+   "notes": "Holmes at left closes the slide of the dark lantern, bareheaded in a plain black frock coat and wing collar with slicked-back hair; no costume, hairpiece or prop reproduces a specific screen adaptation, and the likeness claim rests on the gaunt face alone. Vault, crates, Watson's revolver, Jones and Merryweather are as narrated, with no lettering and paint to all edges.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j324",
+   "notes": "A 5x crop of the bottom-left corner shows the green grass washes ending in a ragged boundary that leaves a wedge of white paper about 15-20px into the corner and up the lower left edge. Small but really there and accepted; the item is flawed only on the agreed card-pip lettering.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j342",
+   "notes": "The foreground man in a rough cloak with a staff stands back to the viewer watching the throne: the seer witnessing his own vision, not shown speaking or writing the passage, so the context involves him. The four eyed winged creatures, glassy sea, crowned elders and a throne holding only mist and drapery all belong to the moment.",
+   "faults": {
+    "extra_figures": "no"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j347",
+   "notes": "A 3x crop of the stacked crates at the far right shows a small pasted label on the second crate down (about x 1320-1350, y 240-265) carrying two rows of squiggle pseudo-script, unreadable but a writing-like inscription. The image is fully judgeable, so the verdict is flawed rather than uncertain; bare paper at the top-left is accepted.",
+   "faults": {
+    "lettering": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j367",
+   "notes": "Besides the King pointing from the bench in crown, judge's wig and white beard, a second crowned, wigged, white-bearded king with a heart-pip card body stands large in the lower-right foreground, a duplicate the passage does not call for. Ruled the same way as the doubled king in the lions' den image; the hat-tag scribble is the agreed lettering.",
+   "faults": {
+    "extra_figures": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j378",
+   "notes": "The top edge is a pale blue-grey tinted wash, not bare paper, but along the right edge (about y 130-195) the cloud washes end at a pigment line 4-6px short of the edge with near-white paper beyond, and near-white is absent twenty pixels in. A small sliver, accepted for this item; Jesus standing with arm out over a calming sea is right.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j390",
+   "notes": "6x and 20x crops of the cross show the small white plaque carrying a faint row of grey dabs across its middle, a suggested inscription that is tiny and unreadable but present. Jesus hangs on the cross fully dressed in a long tunic and blue mantle while the soldiers divide his garments below, the same contradiction as in the other image of this verse.",
+   "faults": {
+    "lettering": "yes",
+    "incoherent": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j404",
+   "notes": "Two elders, one with a staff and one in a priest's breastplate, stand in the camp looking up at the cloud of light over the tabernacle: they are shown receiving the speech, the 'you' the law addresses, not delivering or writing it. The failure is the missing pig, carried by the agreed scene_mismatch.",
+   "faults": {
+    "extra_figures": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j005",
+   "notes": "Winged seraphim hover above the altar smoke in the gold-panelled temple while the prophet looks up, so the right subject, place and flying are shown. Their two wings and uncovered faces and feet are a creature-form departure already agreed under rule_violation, not a wrong scene.",
+   "faults": {
+    "scene_mismatch": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j018",
+   "notes": "Along the lower left and lower right edges (about y 450-768) the ground and ash washes end in ragged blots short of the edge and cream bare paper shows as a strip beside them. Accepted for this item.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j028",
+   "notes": "Five sandalled feet show under the two servants at lower left: three legs come out from under the front servant's brown tunic (about x 40, 150 and 250, y 700) besides the rear servant's two. That is an extra limb.",
+   "faults": {
+    "anatomy": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j033",
+   "notes": "At the bottom-left corner the blue pool wash and brown ground wash stop at a hard wash edge, leaving a small cream bare-paper patch (roughly 25 px wide) that reaches the corner. Small but real, and accepted for this item.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j041",
+   "notes": "Daniel watches a blinding radiance with streams of fire flowing from it, ranks of white-robed attendants on both sides and two burning wheels at right (about x 1060 and 1300, y 310). No separate throne is drawn, but the fiery court vision with its wheels is the moment and the unseen one is light only, so this is an omission rather than a wrong subject, action or place.",
+   "faults": {
+    "scene_mismatch": "no"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j054",
+   "notes": "The Hatter has three hands: one holding the teacup, one raised with pointing fingers and a third holding the bitten bread at his chest (centre, about x 800-1020, y 330-440).",
+   "faults": {
+    "anatomy": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j067",
+   "notes": "The image is fully judgeable, so not uncertain: both scorers agree lettering is present (faint marks on the notice-board sheets at about x 1150, y 310, and script-like pen strokes at the foot of the wall bottom right) and this item does not accept it.",
+   "overall": "flawed"
+  },
+  {
+   "id": "j085",
+   "notes": "Holmes holds the blue stone to the window light in a plain black frock coat, waistcoat, high collar and dark tie with slicked-back hair: generic Victorian dress with no costume or prop reproducing one screen adaptation. The likeness claim rests on the face alone, which does not count.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j091",
+   "notes": "Holmes wears generic period dress (black frock coat, waistcoat, wing collar) with no adaptation-specific costume or prop, so the face-only likeness claim does not count. The headline row on the open newspaper at right (about x 1215-1280, y 290-310) resolves into block numerals, reading roughly '57 87 56 17 160'; the lap paper, slip and bottle label are pseudo-print.",
+   "faults": {
+    "rule_violation": "no",
+    "readable_text": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j096",
+   "notes": "Holmes at right wears a plain black frock coat, waistcoat, wing collar and cravat with slicked-back hair: generic period dress, nothing reproducing one screen adaptation's costume or props. The likeness claim rests on the face alone; the agreed lettering keeps the item flawed.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j101",
+   "notes": "Holmes wears a generic black frock coat, waistcoat with chain and wing collar, no adaptation-specific costume or prop, so the face-only likeness claim does not count. The folded newspaper at lower left (about x 310-400, y 690-725) has a blackletter masthead whose second word opens with a clear capital B and reads roughly 'Banner'.",
+   "faults": {
+    "rule_violation": "no",
+    "readable_text": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j111",
+   "notes": "Sea, rocks, weed and shingle run off all four edges. The light top and top-right are a pale blue-grey sky wash, and the cream in the sand is the beach's own lightest tone, spread over the whole foreground rather than a margin where the painting stops; I could not find a bare patch at the top or right edge.",
+   "faults": {
+    "unpainted_edge": "no"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j133",
+   "notes": "Holmes kneels with lantern and lens in a plain dark frock coat and wing collar with slicked-back hair; nothing in costume or props reproduces a particular screen adaptation, so the likeness claim rests on the face alone. The agreed stencil marks on the crate keep the item flawed.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j151",
+   "notes": "The king and a lord press signets into wax on a stone slab that only lies across a small barred slot on the rim, while the round pit beside it (lower left) stands wide open with two lions in view: a den shown sealed and open at once. The cream at the bottom corners is the lit rim stone, inked to the edge, and pale sand, not a margin where the painting stops.",
+   "faults": {
+    "unpainted_edge": "no",
+    "incoherent": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j159",
+   "notes": "The dark washes end in a ragged edge with white paper showing at the bottom-left corner (x 0-17, y 745-768), the bottom-right corner (x 1354-1376) and as a thin sliver up the lower right edge. Accepted here; the agreed lettering and rule violation keep the item flawed.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j178",
+   "notes": "The small background card figure left of the hoop-holding soldier (about x 975-1035, y 220-275) is a tangled red-and-white mass with a head and at least five limbs splayed in different directions. It is small but a real malformed figure; the main figures' hands are sound.",
+   "faults": {
+    "anatomy": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j202",
+   "notes": "Holmes walks bareheaded in a plain black frock coat, waistcoat and dark tie beside the engineer, station-master and two bowler-hatted men before the burning house: generic Victorian dress with no adaptation-specific costume or prop. The likeness claim rests on the face alone, which does not count.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j223",
+   "notes": "The top-left corner is covered by a yellow-green sky wash and the paler band above the left hedge is the warm sky tone that continues across the picture; grass and trees are washed to the other edges and no paper-tone patch touches any border. The agreed heart pips keep the item flawed.",
+   "faults": {
+    "unpainted_edge": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j241",
+   "notes": "At the bottom-right corner beside the bag (about x 1345-1376, y 615-768) the grass and gravel washes stop in a ragged boundary 15 to 30 px short of the right edge, leaving a strip of cream bare paper down to the corner. Accepted for this item.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j251",
+   "notes": "One moment is shown: shore, coal fire with fish and bread, Jesus beside it, boat and net behind. The dripping man at centre-left and the man at far right share a face type and a brown cloak over a cream tunic, but the right one is dry, wears his cloak wrapped as a cowl, has a darker beard and holds a rope, so they read as two disciples rather than one figure shown twice.",
+   "faults": {
+    "incoherent": "no"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j265",
+   "notes": "Along the lower half of both side edges (left x 0-15, y 510-650; right x 1360-1376, y 540-710) the blue floor washes stop short in rounded blots and pure white paper runs down the edge. Accepted here; the agreed extra figure keeps the item flawed.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j275",
+   "notes": "On the priest's headband (about x 597-612, y 192-202) sits a small rectangular plate filled with four ruled dark bars where the priestly inscription plate goes: line marks standing in for an inscription, unreadable (so readable_text follows as no). The breastplate stones carry no marks.",
+   "faults": {
+    "lettering": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j282",
+   "notes": "The priest dropping feathers on the ash heap beside the horned altar is the right moment, but the one sanctuary is drawn twice: a second pillared, skin-roofed tabernacle with coloured curtains stands in the left background (about x 260-460, y 360-470) and a second horned altar sits directly behind the first (about x 940-1050, y 410-470).",
+   "faults": {
+    "incoherent": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j304",
+   "notes": "Holmes with lens and battered hat wears a plain dark frock coat, waistcoat, high collar and cravat with swept-back hair: generic period dress with no costume or prop reproducing one screen adaptation. The likeness claim rests on the face alone; the agreed clock-tick lettering keeps the item flawed.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j315",
+   "notes": "A pig with cloven hooves roots in the camp before onlookers, but the two largest figures at right are a white-bearded elder with a staff pointing at it as he speaks and a priest in the jewelled breastplate: the lawgivers drawn prominently delivering the very words the verse consists of, whom neither the verse nor its neighbours name. The image is judgeable, so flawed rather than uncertain.",
+   "faults": {
+    "extra_figures": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j325",
+   "notes": "Holmes at centre has tousled dark hair but wears a Victorian black frock coat, waistcoat, high collar and tie with pipe and lens, which does not reproduce the dress or props of any one screen adaptation; the claim rests on face and hair. The agreed pseudo-print on the station-master's papers keeps the item flawed.",
+   "faults": {
+    "rule_violation": "no"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j344",
+   "notes": "The upper glowing hand on the plaster (about x 1180-1260, y 205-265) has six digits: two long fingers pointing left, three shorter ones hanging below and a thumb. The lower-left glowing hand counts five.",
+   "faults": {
+    "anatomy": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j359",
+   "notes": "The burning whitewashed house and fire engines are there, but the engineer is drawn as a small boy (centre, about x 760-900, chest-high to the station-master) and the whole party strides toward the viewer with the fire behind them instead of hastening to it. A named person is the wrong subject and the action is reversed.",
+   "faults": {
+    "scene_mismatch": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j372",
+   "notes": "The foreground card soldier at bottom left (about x 27-38, y 603-622) carries a corner index above a small diamond that is a real character rather than a pip: an oval with a tail reading as 'Q'. The other cards' corner marks are unreadable squiggles.",
+   "faults": {
+    "readable_text": "yes"
+   },
+   "overall": "flawed"
+  },
+  {
+   "id": "j380",
+   "notes": "Sky and sea are washed to the edges, but along the lower left edge (x 0-20, y 630-768), the bottom-left corner and the lower right edge (about y 557-622) the sand washes and pebble lines end in rounded blots short of the edge, leaving a strip of bare cream paper. Accepted for this item.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "acceptable"
+  },
+  {
+   "id": "j392",
+   "notes": "The image is fully judgeable and both scorers answered every fault no, so it is acceptable. Peter leaps from the boat wrapped in his coat, the others haul the full net and a small robed figure stands by a fire on shore; the long-haired disciple pointing from the boat is the beloved disciple the verse calls for, not a second Jesus.",
+   "overall": "acceptable"
+  },
+  {
+   "id": "j409",
+   "notes": "Down the right edge the washes stop in a ragged line a few pixels short: bare cream paper shows at the top-right corner, below the cut-off picture frame (y 220-260), beside the wall at y 370-410 and as a sliver past the desk and books to the bottom-right corner. Accepted here; the agreed readable tin label keeps the item flawed.",
+   "faults": {
+    "unpainted_edge": "yes"
+   },
+   "overall": "flawed"
+  }
+ ]
+}

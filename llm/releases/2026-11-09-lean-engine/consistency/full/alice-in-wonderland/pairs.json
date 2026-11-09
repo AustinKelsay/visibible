@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "instructions": "evals/images/consistency-scoring.md",
+  "pairs": [
+    {
+      "id": "pair001",
+      "file": "composites/pair001.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; ",
+      "right": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+    },
+    {
+      "id": "pair002",
+      "file": "composites/pair002.jpg",
+      "kind": "character",
+      "subject": "the Cheshire Cat",
+      "question": "Is the Cheshire Cat the same person in the left and right images?",
+      "left": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; ",
+      "right": "Pig and Pepper ¶50 to Pig and Pepper ¶52: The Cat only grinned when it saw Alice. It looked good-natured, she thought: still it had _very_ long claws and a great many teeth, so she felt that it ought to be treated with respect. “Cheshire Puss,” she began, rather timidly, as she did not at all know whether it would like the name: however, it; "
+    },
+    {
+      "id": "pair003",
+      "file": "composites/pair003.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; ",
+      "right": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+    },
+    {
+      "id": "pair004",
+      "file": "composites/pair004.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; ",
+      "right": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+    },
+    {
+      "id": "pair005",
+      "file": "composites/pair005.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; ",
+      "right": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; "
+    },
+    {
+      "id": "pair006",
+      "file": "composites/pair006.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; ",
+      "right": "The Queen’s Croquet-Ground ¶45 to The Queen’s Croquet-Ground ¶48: She was looking about for some way of escape, and wondering whether she could get away without being seen, when she noticed a curious appearance in the air: it puzzled her very much at first, but, after watching it a minute or two, she made it out to be a grin, and she said to herself “It’s the Ches; "
+    },
+    {
+      "id": "pair007",
+      "file": "composites/pair007.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "A Mad Tea-Party ¶13 to A Mad Tea-Party ¶20: “Do you mean that you think you can find out the answer to it?” said the March Hare. “Exactly so,” said Alice. “Then you should say what you mean,” the March Hare went on. “I do,” Alice hastily replied; “at least—at least I mean what I say—that’s the same thing, you know.” “Not the same thing a bit!; ",
+      "right": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+    },
+    {
+      "id": "pair008",
+      "file": "composites/pair008.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; ",
+      "right": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; "
+    },
+    {
+      "id": "pair009",
+      "file": "composites/pair009.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; ",
+      "right": "A Mad Tea-Party ¶13 to A Mad Tea-Party ¶20: “Do you mean that you think you can find out the answer to it?” said the March Hare. “Exactly so,” said Alice. “Then you should say what you mean,” the March Hare went on. “I do,” Alice hastily replied; “at least—at least I mean what I say—that’s the same thing, you know.” “Not the same thing a bit!; "
+    },
+    {
+      "id": "pair010",
+      "file": "composites/pair010.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; ",
+      "right": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+    },
+    {
+      "id": "pair011",
+      "file": "composites/pair011.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; ",
+      "right": "A Mad Tea-Party ¶7 to A Mad Tea-Party ¶12: “It wasn’t very civil of you to sit down without being invited,” said the March Hare. “I didn’t know it was _your_ table,” said Alice; “it’s laid for a great many more than three.” “Your hair wants cutting,” said the Hatter. He had been looking at Alice for some time with great curiosity, and this w; "
+    },
+    {
+      "id": "pair012",
+      "file": "composites/pair012.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; ",
+      "right": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; "
+    },
+    {
+      "id": "pair013",
+      "file": "composites/pair013.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; ",
+      "right": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+    },
+    {
+      "id": "pair014",
+      "file": "composites/pair014.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "A Mad Tea-Party ¶7 to A Mad Tea-Party ¶12: “It wasn’t very civil of you to sit down without being invited,” said the March Hare. “I didn’t know it was _your_ table,” said Alice; “it’s laid for a great many more than three.” “Your hair wants cutting,” said the Hatter. He had been looking at Alice for some time with great curiosity, and this w; ",
+      "right": "A Mad Tea-Party ¶13 to A Mad Tea-Party ¶20: “Do you mean that you think you can find out the answer to it?” said the March Hare. “Exactly so,” said Alice. “Then you should say what you mean,” the March Hare went on. “I do,” Alice hastily replied; “at least—at least I mean what I say—that’s the same thing, you know.” “Not the same thing a bit!; "
+    },
+    {
+      "id": "pair015",
+      "file": "composites/pair015.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; ",
+      "right": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+    },
+    {
+      "id": "pair016",
+      "file": "composites/pair016.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; ",
+      "right": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+    },
+    {
+      "id": "pair017",
+      "file": "composites/pair017.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "The Queen’s Croquet-Ground ¶45 to The Queen’s Croquet-Ground ¶48: She was looking about for some way of escape, and wondering whether she could get away without being seen, when she noticed a curious appearance in the air: it puzzled her very much at first, but, after watching it a minute or two, she made it out to be a grin, and she said to herself “It’s the Ches; ",
+      "right": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; "
+    },
+    {
+      "id": "pair018",
+      "file": "composites/pair018.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; ",
+      "right": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; "
+    },
+    {
+      "id": "pair019",
+      "file": "composites/pair019.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "The Queen’s Croquet-Ground ¶45 to The Queen’s Croquet-Ground ¶48: She was looking about for some way of escape, and wondering whether she could get away without being seen, when she noticed a curious appearance in the air: it puzzled her very much at first, but, after watching it a minute or two, she made it out to be a grin, and she said to herself “It’s the Ches; ",
+      "right": "The Queen’s Croquet-Ground ¶52 to The Queen’s Croquet-Ground ¶61: “Who _are_ you talking to?” said the King, going up to Alice, and looking at the Cat’s head with great curiosity. “It’s a friend of mine—a Cheshire Cat,” said Alice: “allow me to introduce it.” “I don’t like the look of it at all,” said the King: “however, it may kiss my hand if it likes.” “I’d rath; "
+    },
+    {
+      "id": "pair020",
+      "file": "composites/pair020.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; ",
+      "right": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+    },
+    {
+      "id": "pair021",
+      "file": "composites/pair021.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; ",
+      "right": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; "
+    },
+    {
+      "id": "pair022",
+      "file": "composites/pair022.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "The Queen’s Croquet-Ground ¶52 to The Queen’s Croquet-Ground ¶61: “Who _are_ you talking to?” said the King, going up to Alice, and looking at the Cat’s head with great curiosity. “It’s a friend of mine—a Cheshire Cat,” said Alice: “allow me to introduce it.” “I don’t like the look of it at all,” said the King: “however, it may kiss my hand if it likes.” “I’d rath; ",
+      "right": "The Queen’s Croquet-Ground ¶45 to The Queen’s Croquet-Ground ¶48: She was looking about for some way of escape, and wondering whether she could get away without being seen, when she noticed a curious appearance in the air: it puzzled her very much at first, but, after watching it a minute or two, she made it out to be a grin, and she said to herself “It’s the Ches; "
+    },
+    {
+      "id": "pair023",
+      "file": "composites/pair023.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; ",
+      "right": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; "
+    },
+    {
+      "id": "pair024",
+      "file": "composites/pair024.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; ",
+      "right": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; "
+    },
+    {
+      "id": "pair025",
+      "file": "composites/pair025.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "A Mad Tea-Party ¶13 to A Mad Tea-Party ¶20: “Do you mean that you think you can find out the answer to it?” said the March Hare. “Exactly so,” said Alice. “Then you should say what you mean,” the March Hare went on. “I do,” Alice hastily replied; “at least—at least I mean what I say—that’s the same thing, you know.” “Not the same thing a bit!; ",
+      "right": "A Mad Tea-Party ¶7 to A Mad Tea-Party ¶12: “It wasn’t very civil of you to sit down without being invited,” said the March Hare. “I didn’t know it was _your_ table,” said Alice; “it’s laid for a great many more than three.” “Your hair wants cutting,” said the Hatter. He had been looking at Alice for some time with great curiosity, and this w; "
+    },
+    {
+      "id": "pair026",
+      "file": "composites/pair026.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; ",
+      "right": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; "
+    },
+    {
+      "id": "pair027",
+      "file": "composites/pair027.jpg",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "question": "Do the left and right images show the same place (the tea table under a tree before the March Hare's house)?",
+      "left": "A Mad Tea-Party ¶7 to A Mad Tea-Party ¶12: “It wasn’t very civil of you to sit down without being invited,” said the March Hare. “I didn’t know it was _your_ table,” said Alice; “it’s laid for a great many more than three.” “Your hair wants cutting,” said the Hatter. He had been looking at Alice for some time with great curiosity, and this w; ",
+      "right": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+    },
+    {
+      "id": "pair028",
+      "file": "composites/pair028.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; ",
+      "right": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+    },
+    {
+      "id": "pair029",
+      "file": "composites/pair029.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "The Queen’s Croquet-Ground ¶52 to The Queen’s Croquet-Ground ¶61: “Who _are_ you talking to?” said the King, going up to Alice, and looking at the Cat’s head with great curiosity. “It’s a friend of mine—a Cheshire Cat,” said Alice: “allow me to introduce it.” “I don’t like the look of it at all,” said the King: “however, it may kiss my hand if it likes.” “I’d rath; ",
+      "right": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; "
+    },
+    {
+      "id": "pair030",
+      "file": "composites/pair030.jpg",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "question": "Do the left and right images show the same place (the Queen's croquet-ground)?",
+      "left": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; ",
+      "right": "The Queen’s Croquet-Ground ¶52 to The Queen’s Croquet-Ground ¶61: “Who _are_ you talking to?” said the King, going up to Alice, and looking at the Cat’s head with great curiosity. “It’s a friend of mine—a Cheshire Cat,” said Alice: “allow me to introduce it.” “I don’t like the look of it at all,” said the King: “however, it may kiss my hand if it likes.” “I’d rath; "
+    },
+    {
+      "id": "pair031",
+      "file": "composites/pair031.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; ",
+      "right": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+    },
+    {
+      "id": "pair032",
+      "file": "composites/pair032.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; ",
+      "right": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+    },
+    {
+      "id": "pair033",
+      "file": "composites/pair033.jpg",
+      "kind": "character",
+      "subject": "the Cheshire Cat",
+      "question": "Is the Cheshire Cat the same person in the left and right images?",
+      "left": "Pig and Pepper ¶50 to Pig and Pepper ¶52: The Cat only grinned when it saw Alice. It looked good-natured, she thought: still it had _very_ long claws and a great many teeth, so she felt that it ought to be treated with respect. “Cheshire Puss,” she began, rather timidly, as she did not at all know whether it would like the name: however, it; ",
+      "right": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; "
+    },
+    {
+      "id": "pair034",
+      "file": "composites/pair034.jpg",
+      "kind": "character",
+      "subject": "Alice",
+      "question": "Is Alice the same person in the left and right images?",
+      "left": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; ",
+      "right": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+    }
+  ]
+}

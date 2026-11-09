@@ -1,0 +1,528 @@
+{
+  "schemaVersion": 1,
+  "instructions": "evals/images/consistency-scoring.md",
+  "pairs": [
+    {
+      "id": "pair001",
+      "file": "composites/pair001.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; ",
+      "right": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+    },
+    {
+      "id": "pair002",
+      "file": "composites/pair002.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; ",
+      "right": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+    },
+    {
+      "id": "pair003",
+      "file": "composites/pair003.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; ",
+      "right": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+    },
+    {
+      "id": "pair004",
+      "file": "composites/pair004.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; ",
+      "right": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+    },
+    {
+      "id": "pair005",
+      "file": "composites/pair005.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "The Adventure of the Engineer’s Thumb ¶170 to The Adventure of the Engineer’s Thumb ¶171: “That’s it!” cried Hatherley, in intense excitement. “There is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.” “Well, at least,” said Holmes, “you have had your revenge upon them. There can be no question that it was your oil-lamp which; ",
+      "right": "The Adventure of the Engineer’s Thumb ¶160 to The Adventure of the Engineer’s Thumb ¶164: But the inspector was mistaken, for those criminals were not destined to fall into the hands of justice. As we rolled into Eyford Station we saw a gigantic column of smoke which streamed up from behind a small clump of trees in the neighbourhood and hung like an immense ostrich feather over the land; "
+    },
+    {
+      "id": "pair006",
+      "file": "composites/pair006.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "The Adventure of the Engineer’s Thumb ¶165 to The Adventure of the Engineer’s Thumb ¶169: “Whose house is it?” “Dr. Becher’s.” “Tell me,” broke in the engineer, “is Dr. Becher a German, very thin, with a long, sharp nose?” The station-master laughed heartily. “No, sir, Dr. Becher is an Englishman, and there isn’t a man in the parish who has a better-lined waistcoat. But he has a gentlema; ",
+      "right": "The Adventure of the Engineer’s Thumb ¶160 to The Adventure of the Engineer’s Thumb ¶164: But the inspector was mistaken, for those criminals were not destined to fall into the hands of justice. As we rolled into Eyford Station we saw a gigantic column of smoke which streamed up from behind a small clump of trees in the neighbourhood and hung like an immense ostrich feather over the land; "
+    },
+    {
+      "id": "pair007",
+      "file": "composites/pair007.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; ",
+      "right": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+    },
+    {
+      "id": "pair008",
+      "file": "composites/pair008.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; ",
+      "right": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+    },
+    {
+      "id": "pair009",
+      "file": "composites/pair009.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; ",
+      "right": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+    },
+    {
+      "id": "pair010",
+      "file": "composites/pair010.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "The Adventure of the Engineer’s Thumb ¶160 to The Adventure of the Engineer’s Thumb ¶164: But the inspector was mistaken, for those criminals were not destined to fall into the hands of justice. As we rolled into Eyford Station we saw a gigantic column of smoke which streamed up from behind a small clump of trees in the neighbourhood and hung like an immense ostrich feather over the land; ",
+      "right": "The Adventure of the Engineer’s Thumb ¶165 to The Adventure of the Engineer’s Thumb ¶169: “Whose house is it?” “Dr. Becher’s.” “Tell me,” broke in the engineer, “is Dr. Becher a German, very thin, with a long, sharp nose?” The station-master laughed heartily. “No, sir, Dr. Becher is an Englishman, and there isn’t a man in the parish who has a better-lined waistcoat. But he has a gentlema; "
+    },
+    {
+      "id": "pair011",
+      "file": "composites/pair011.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; ",
+      "right": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+    },
+    {
+      "id": "pair012",
+      "file": "composites/pair012.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; ",
+      "right": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+    },
+    {
+      "id": "pair013",
+      "file": "composites/pair013.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; ",
+      "right": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+    },
+    {
+      "id": "pair014",
+      "file": "composites/pair014.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; ",
+      "right": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+    },
+    {
+      "id": "pair015",
+      "file": "composites/pair015.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; ",
+      "right": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+    },
+    {
+      "id": "pair016",
+      "file": "composites/pair016.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; ",
+      "right": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+    },
+    {
+      "id": "pair017",
+      "file": "composites/pair017.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "The Adventure of the Engineer’s Thumb ¶160 to The Adventure of the Engineer’s Thumb ¶164: But the inspector was mistaken, for those criminals were not destined to fall into the hands of justice. As we rolled into Eyford Station we saw a gigantic column of smoke which streamed up from behind a small clump of trees in the neighbourhood and hung like an immense ostrich feather over the land; ",
+      "right": "The Adventure of the Engineer’s Thumb ¶170 to The Adventure of the Engineer’s Thumb ¶171: “That’s it!” cried Hatherley, in intense excitement. “There is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.” “Well, at least,” said Holmes, “you have had your revenge upon them. There can be no question that it was your oil-lamp which; "
+    },
+    {
+      "id": "pair018",
+      "file": "composites/pair018.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; ",
+      "right": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+    },
+    {
+      "id": "pair019",
+      "file": "composites/pair019.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; ",
+      "right": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+    },
+    {
+      "id": "pair020",
+      "file": "composites/pair020.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; ",
+      "right": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+    },
+    {
+      "id": "pair021",
+      "file": "composites/pair021.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; ",
+      "right": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+    },
+    {
+      "id": "pair022",
+      "file": "composites/pair022.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; ",
+      "right": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+    },
+    {
+      "id": "pair023",
+      "file": "composites/pair023.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; ",
+      "right": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+    },
+    {
+      "id": "pair024",
+      "file": "composites/pair024.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; ",
+      "right": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+    },
+    {
+      "id": "pair025",
+      "file": "composites/pair025.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; ",
+      "right": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+    },
+    {
+      "id": "pair026",
+      "file": "composites/pair026.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "The Adventure of the Engineer’s Thumb ¶170 to The Adventure of the Engineer’s Thumb ¶171: “That’s it!” cried Hatherley, in intense excitement. “There is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.” “Well, at least,” said Holmes, “you have had your revenge upon them. There can be no question that it was your oil-lamp which; ",
+      "right": "The Adventure of the Engineer’s Thumb ¶165 to The Adventure of the Engineer’s Thumb ¶169: “Whose house is it?” “Dr. Becher’s.” “Tell me,” broke in the engineer, “is Dr. Becher a German, very thin, with a long, sharp nose?” The station-master laughed heartily. “No, sir, Dr. Becher is an Englishman, and there isn’t a man in the parish who has a better-lined waistcoat. But he has a gentlema; "
+    },
+    {
+      "id": "pair027",
+      "file": "composites/pair027.jpg",
+      "kind": "setting",
+      "subject": "the vault cellar of the City and Suburban Bank",
+      "question": "Do the left and right images show the same place (the vault cellar of the City and Suburban Bank)?",
+      "left": "The Red-Headed League ¶183 to The Red-Headed League ¶190: “Which were very well justified,” observed Holmes. “And now it is time that we arranged our little plans. I expect that within an hour matters will come to a head. In the meantime Mr. Merryweather, we must put the screen over that dark lantern.” “And sit in the dark?” “I am afraid so. I had brought ; ",
+      "right": "The Red-Headed League ¶175 to The Red-Headed League ¶182: “You are not very vulnerable from above,” Holmes remarked as he held up the lantern and gazed about him. “Nor from below,” said Mr. Merryweather, striking his stick upon the flags which lined the floor. “Why, dear me, it sounds quite hollow!” he remarked, looking up in surprise. “I must really ask y; "
+    },
+    {
+      "id": "pair028",
+      "file": "composites/pair028.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; ",
+      "right": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+    },
+    {
+      "id": "pair029",
+      "file": "composites/pair029.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; ",
+      "right": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+    },
+    {
+      "id": "pair030",
+      "file": "composites/pair030.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; ",
+      "right": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+    },
+    {
+      "id": "pair031",
+      "file": "composites/pair031.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; ",
+      "right": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+    },
+    {
+      "id": "pair032",
+      "file": "composites/pair032.jpg",
+      "kind": "setting",
+      "subject": "the burning house at Eyford and its grounds",
+      "question": "Do the left and right images show the same place (the burning house at Eyford and its grounds)?",
+      "left": "The Adventure of the Engineer’s Thumb ¶165 to The Adventure of the Engineer’s Thumb ¶169: “Whose house is it?” “Dr. Becher’s.” “Tell me,” broke in the engineer, “is Dr. Becher a German, very thin, with a long, sharp nose?” The station-master laughed heartily. “No, sir, Dr. Becher is an Englishman, and there isn’t a man in the parish who has a better-lined waistcoat. But he has a gentlema; ",
+      "right": "The Adventure of the Engineer’s Thumb ¶170 to The Adventure of the Engineer’s Thumb ¶171: “That’s it!” cried Hatherley, in intense excitement. “There is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.” “Well, at least,” said Holmes, “you have had your revenge upon them. There can be no question that it was your oil-lamp which; "
+    },
+    {
+      "id": "pair033",
+      "file": "composites/pair033.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; ",
+      "right": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+    },
+    {
+      "id": "pair034",
+      "file": "composites/pair034.jpg",
+      "kind": "setting",
+      "subject": "the vault cellar of the City and Suburban Bank",
+      "question": "Do the left and right images show the same place (the vault cellar of the City and Suburban Bank)?",
+      "left": "The Red-Headed League ¶175 to The Red-Headed League ¶182: “You are not very vulnerable from above,” Holmes remarked as he held up the lantern and gazed about him. “Nor from below,” said Mr. Merryweather, striking his stick upon the flags which lined the floor. “Why, dear me, it sounds quite hollow!” he remarked, looking up in surprise. “I must really ask y; ",
+      "right": "The Red-Headed League ¶183 to The Red-Headed League ¶190: “Which were very well justified,” observed Holmes. “And now it is time that we arranged our little plans. I expect that within an hour matters will come to a head. In the meantime Mr. Merryweather, we must put the screen over that dark lantern.” “And sit in the dark?” “I am afraid so. I had brought ; "
+    },
+    {
+      "id": "pair035",
+      "file": "composites/pair035.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; ",
+      "right": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+    },
+    {
+      "id": "pair036",
+      "file": "composites/pair036.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; ",
+      "right": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+    },
+    {
+      "id": "pair037",
+      "file": "composites/pair037.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; ",
+      "right": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+    },
+    {
+      "id": "pair038",
+      "file": "composites/pair038.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; ",
+      "right": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+    },
+    {
+      "id": "pair039",
+      "file": "composites/pair039.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; ",
+      "right": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+    },
+    {
+      "id": "pair040",
+      "file": "composites/pair040.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; ",
+      "right": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+    },
+    {
+      "id": "pair041",
+      "file": "composites/pair041.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; ",
+      "right": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+    },
+    {
+      "id": "pair042",
+      "file": "composites/pair042.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; ",
+      "right": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+    },
+    {
+      "id": "pair043",
+      "file": "composites/pair043.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; ",
+      "right": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+    },
+    {
+      "id": "pair044",
+      "file": "composites/pair044.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; ",
+      "right": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+    },
+    {
+      "id": "pair045",
+      "file": "composites/pair045.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; ",
+      "right": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+    },
+    {
+      "id": "pair046",
+      "file": "composites/pair046.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; ",
+      "right": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+    },
+    {
+      "id": "pair047",
+      "file": "composites/pair047.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; ",
+      "right": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; "
+    },
+    {
+      "id": "pair048",
+      "file": "composites/pair048.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; ",
+      "right": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+    },
+    {
+      "id": "pair049",
+      "file": "composites/pair049.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; ",
+      "right": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+    },
+    {
+      "id": "pair050",
+      "file": "composites/pair050.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; ",
+      "right": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+    },
+    {
+      "id": "pair051",
+      "file": "composites/pair051.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; ",
+      "right": "A Scandal in Bohemia, Part I ¶1: To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his col; "
+    },
+    {
+      "id": "pair052",
+      "file": "composites/pair052.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; ",
+      "right": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+    },
+    {
+      "id": "pair053",
+      "file": "composites/pair053.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; ",
+      "right": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; "
+    },
+    {
+      "id": "pair054",
+      "file": "composites/pair054.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; ",
+      "right": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+    },
+    {
+      "id": "pair055",
+      "file": "composites/pair055.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; ",
+      "right": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+    },
+    {
+      "id": "pair056",
+      "file": "composites/pair056.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; ",
+      "right": "The Boscombe Valley Mystery ¶9 to The Boscombe Valley Mystery ¶16: We had the carriage to ourselves save for an immense litter of papers which Holmes had brought with him. Among these he rummaged and read, with intervals of note-taking and of meditation, until we were past Reading. Then he suddenly rolled them all into a gigantic ball and tossed them up onto the ra; "
+    },
+    {
+      "id": "pair057",
+      "file": "composites/pair057.jpg",
+      "kind": "character",
+      "subject": "Dr. Watson",
+      "question": "Is Dr. Watson the same person in the left and right images?",
+      "left": "The Adventure of the Speckled Band ¶235 to The Adventure of the Speckled Band ¶240: From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarte; ",
+      "right": "The Red-Headed League ¶138 to The Red-Headed League ¶149: We travelled by the Underground as far as Aldersgate; and a short walk took us to Saxe-Coburg Square, the scene of the singular story which we had listened to in the morning. It was a poky, little, shabby-genteel place, where four lines of dingy two-storied brick houses looked out into a small raile; "
+    },
+    {
+      "id": "pair058",
+      "file": "composites/pair058.jpg",
+      "kind": "character",
+      "subject": "Sherlock Holmes",
+      "question": "Is Sherlock Holmes the same person in the left and right images?",
+      "left": "The Red-Headed League ¶1 to The Red-Headed League ¶7: I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and c; ",
+      "right": "The Adventure of the Blue Carbuncle ¶12 to The Adventure of the Blue Carbuncle ¶23: “Which surely he restored to their owner?” “My dear fellow, there lies the problem. It is true that ‘For Mrs. Henry Baker’ was printed upon a small card which was tied to the bird’s left leg, and it is also true that the initials ‘H. B.’ are legible upon the lining of this hat, but as there are some; "
+    }
+  ]
+}
