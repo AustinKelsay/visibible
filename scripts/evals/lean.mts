@@ -1,7 +1,8 @@
 /**
  * The lean-engine comparison: does one image call from the source text (src/lib/engine/lean.ts, no look, plan, review
  * or image check) on a stronger model match the full engine's suite images? It reuses a suite text run's frozen
- * snapshot (canon, sections and reference sheets), so the two arms differ only in pipeline and model.
+ * snapshot (canon, sections and reference sheets), so against a full-engine run of the same snapshot the two arms
+ * differ only in pipeline and model.
  *
  *   npm run evals:lean -- cast --from <suite text run>
  *   npm run evals:lean -- plan --run <name> --from <suite text run> --model <id> [--cap <usd>] [--cases <ids>] [--styles <ids>]
@@ -351,7 +352,7 @@ Your items file lists illustrations. Each item gives the image file, the moment'
 
 \`${READABLE_TEXT}\` is not a fault of its own: it says how serious any lettering is, so it never changes your \`overall\` verdict. When you answer \`lettering\` \`yes\`, say in \`notes\` what the marks are.
 
-For each item, answer every fault below with \`yes\` (the fault is present), \`no\` or \`na\` (it cannot apply), then give one \`overall\` verdict: \`acceptable\`, \`flawed\` (any fault present that the item does not list under \`accepted\`) or \`uncertain\`, and \`notes\`: one or two sentences naming what drives your answers, with where you saw it.
+For each item, answer every fault its \`ask\` lists with \`yes\` (the fault is present), \`no\` or \`na\` (it cannot apply), then give one \`overall\` verdict: \`acceptable\`, \`flawed\` (any fault present that the item does not list under \`accepted\`) or \`uncertain\`, and \`notes\`: one or two sentences naming what drives your answers, with where you saw it.
 
 ${lines.join("\n")}
 - \`${READABLE_TEXT}\`: Is any of that lettering a readable word in the reader's language, a caption, or an artist's signature, initials or signature-like scrawl? Answer \`no\` when the only marks are small or unreadable: pseudo-script, squiggles on a page, letter shapes that spell no word, clock numerals, playing-card corner indices or pips. Answer \`na\` when \`lettering\` is \`no\`.
@@ -364,7 +365,7 @@ Write JSON to the path you are given, in this shape:
 ] }
 \`\`\`
 
-Score every item you are given exactly once, answering every fault.
+Score every item you are given exactly once, answering every fault its \`ask\` lists.
 `;
 }
 

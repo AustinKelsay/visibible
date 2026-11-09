@@ -15,7 +15,7 @@ The owner asked on 9 November 2026 whether the consistency pipeline had grown to
 | What the image model reads | a seven-field scene plan, canon of the planned cast, up to 3 references | the moment's own text and its neighbours, canon of the whole section cast, up to 5 references |
 | Code | `preparation.ts`, `plan-review.ts`, `scene-grounding.ts`, `scene-check.ts`, `assemble.ts`, `prompt.ts` | [`lean.ts`](../../../src/lib/engine/lean.ts), 180 lines |
 
-Both arms drew the same 79 cases of suite `2026-11-01-suite-v3` in each work's image styles, from the same canon and reference sheets (the [7 November snapshot](../2026-11-07-suite-v3-text/snapshot.json)). The lean arm keeps the reading pass, canon, sheets, briefs, styles and depiction profiles. It drops looks, plans, the plan review and the finished-image check.
+Both arms drew the same 79 cases of suite `2026-11-01-suite-v3` in each work's image styles, from the same canon and reference sheets. The lean arm read the [7 November snapshot](../2026-11-07-suite-v3-text/snapshot.json) and the full arm its own 2 November one; the two are [identical](full-arm/snapshot-comparison.json) in every record, reference sheet and case. The lean arm keeps the reading pass, canon, sheets, briefs, styles and depiction profiles. It drops looks, plans, the plan review and the finished-image check.
 
 ## Image quality
 

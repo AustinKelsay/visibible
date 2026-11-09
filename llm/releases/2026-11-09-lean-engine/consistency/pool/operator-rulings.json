@@ -1,5 +1,5 @@
 {
- "note": "Operator rulings on the 11 disputed pairs, made from the pooled blind composites before looking up which set each came from. Six were viewed (c071, c412, c291, c099, c114, c426); five where the scorers agreed on what is visible and differed only on same versus unclear were ruled unclear from their notes.",
+ "note": "Operator rulings on the 11 disputed pairs, made from the pooled blind composites before looking up which set each came from. Six were viewed (c071, c412, c291, c099, c114, c426); five where the scorers agreed on what is visible and differed only on same versus unclear were ruled unclear from their notes. This file is the source record by pooled id; the per-set operator.json files are what `evals:consistency report --operator` reads.",
  "rulings": {
   "c071": {
    "verdict": "different",

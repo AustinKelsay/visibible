@@ -1,0 +1,44 @@
+{
+  "note": "The full arm drew from the snapshot of its own text run (2026-11-01-suite-v3-text, taken 2 November UTC), which was never committed; the lean arm drew from 2026-11-07-suite-v3-text. Both read the same production records. This compares them field by field: every record's version and payload, every reference record, every reference file's SHA-256 and every case's moment, section and cast.",
+  "fullArmSnapshot": {
+    "run": "2026-11-01-suite-v3-text",
+    "at": "2026-11-02T00:19:14.449Z",
+    "sha256": "6aae6632f74a849342e830a9dc136b3442885cfb49956bc474929f90be473d67",
+    "sha256InFullArmRunStarted": "6aae6632f74a849342e830a9dc136b3442885cfb49956bc474929f90be473d67"
+  },
+  "leanArmSnapshot": {
+    "run": "2026-11-07-suite-v3-text",
+    "at": "2026-11-07T17:27:09.713Z",
+    "sha256": "223a996bde395a451339fadb35645320bb8da5d1e10698d3c20739939d3115c9"
+  },
+  "works": {
+    "bible-web": {
+      "records": 303,
+      "recordsIdentical": true,
+      "references": 161,
+      "referencesIdentical": true,
+      "referenceFiles": 50,
+      "referenceFileHashesIdentical": true
+    },
+    "holmes-adventures": {
+      "records": 73,
+      "recordsIdentical": true,
+      "references": 31,
+      "referencesIdentical": true,
+      "referenceFiles": 5,
+      "referenceFileHashesIdentical": true
+    },
+    "alice-in-wonderland": {
+      "records": 92,
+      "recordsIdentical": true,
+      "references": 36,
+      "referencesIdentical": true,
+      "referenceFiles": 0,
+      "referenceFileHashesIdentical": true
+    }
+  },
+  "cases": {
+    "count": 113,
+    "identical": true
+  }
+}
