@@ -1,0 +1,311 @@
+{
+  "kind": "lean",
+  "suite": "2026-11-01-suite-v3",
+  "faults": "2026-10-30-faults-v1",
+  "from": "2026-11-07-suite-v3-text",
+  "promptVersion": "2026-11-09-lean-v6",
+  "maxSheets": 4,
+  "image": {
+    "model": "google/gemini-nano-banana-2.1",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "cases": [
+    {
+      "caseId": "alice-tea-party-arrival",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-1",
+      "reference": "A Mad Tea-Party ¶1",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "exodus-14-21-sea-parts",
+      "work": "bible-web",
+      "unitId": "exodus-14-21",
+      "reference": "Exodus 14:21",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "work": "bible-web",
+      "unitId": "exodus-14-22",
+      "reference": "Exodus 14:22",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "daniel-6-22-lions",
+      "work": "bible-web",
+      "unitId": "daniel-6-22",
+      "reference": "Daniel 6:22",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "john-21-7-peter-sea",
+      "work": "bible-web",
+      "unitId": "john-21-7",
+      "reference": "John 21:7",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "mark-4-39-storm",
+      "work": "bible-web",
+      "unitId": "mark-4-39",
+      "reference": "Mark 4:39",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "luke-15-20-prodigal",
+      "work": "bible-web",
+      "unitId": "luke-15-20",
+      "reference": "Luke 15:20",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "john-21-9",
+      "work": "bible-web",
+      "unitId": "john-21-9",
+      "reference": "John 21:9",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "daniel-6-23",
+      "work": "bible-web",
+      "unitId": "daniel-6-23",
+      "reference": "Daniel 6:23",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "exodus-14-23",
+      "work": "bible-web",
+      "unitId": "exodus-14-23",
+      "reference": "Exodus 14:23",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "mark-4-37",
+      "work": "bible-web",
+      "unitId": "mark-4-37",
+      "reference": "Mark 4:37",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "mark-4-38",
+      "work": "bible-web",
+      "unitId": "mark-4-38",
+      "reference": "Mark 4:38",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "luke-15-22",
+      "work": "bible-web",
+      "unitId": "luke-15-22",
+      "reference": "Luke 15:22",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "alice-tea-party-riddle",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-7",
+      "reference": "A Mad Tea-Party ¶7",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-tea-party-say-what-you-mean",
+      "work": "alice-in-wonderland",
+      "unitId": "a-mad-tea-party-13",
+      "reference": "A Mad Tea-Party ¶13",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-cat-grin-appears",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-45",
+      "reference": "The Queen’s Croquet-Ground ¶45",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-cat-head-talks",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-49",
+      "reference": "The Queen’s Croquet-Ground ¶49",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    },
+    {
+      "caseId": "alice-king-and-cat",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-52",
+      "reference": "The Queen’s Croquet-Ground ¶52",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor",
+        "classical"
+      ]
+    }
+  ],
+  "evaluation": {
+    "estimatedUsd": 1.776,
+    "capUsd": 4,
+    "reserves": {
+      "text": 0,
+      "image": 0.08,
+      "check": 0
+    },
+    "limits": {
+      "text": 0,
+      "image": 58,
+      "check": 0
+    }
+  }
+}
