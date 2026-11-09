@@ -6,15 +6,15 @@
  *   npm run evals:lean -- cast --from <suite text run>
  *   npm run evals:lean -- plan --run <name> --from <suite text run> --model <id> [--cap <usd>] [--cases <ids>] [--styles <ids>]
  *   npm run evals:lean -- run --run <name> --offline|--execute [--resume]
- *   npm run evals:lean -- blind --run <name> --baseline <suite image run> [--baseline-images <dir>] [--batches <n>]
- *   npm run evals:lean -- report --run <name> --scores <a>[,…],<b>[,…] [--operator <file>] [--small-marks <lean file>,<baseline file>]
+ *   npm run evals:lean -- blind --run <name> --baseline <dir with the full engine's results.ndjson> --baseline-images <dir> [--batches <n>]
+ *   npm run evals:lean -- report --run <name> --scores <a>[,…],<b>[,…] [--operator <file>]
  *
  * `cast` compares name-based cast selection with the text run's planned casts, free. `plan` writes the cases, the
  * estimate and the cap; `run --execute` needs a committed `funding.json` beside it and ledgers every call. `blind`
- * writes scorer packs judged against the moment's text, since the lean arm has no plan; with --baseline-images it
- * mixes the baseline's images in, blind, and the key says which arm each item came from. Without them the baseline
- * keeps its own settled scores (judged against its plans). `report` settles the scores and applies the suite gate to
- * the lean arm against the baseline; --small-marks applies each arm's ADR 0006 amendment 7 classification.
+ * mixes both arms' shown images into one scorer pack judged against the moment's text, since the lean arm has no
+ * plan; the key says which arm each item came from. `report` settles the scores, applies the suite gate to the lean
+ * arm with the full arm as its baseline, and also counts each arm at the launch bar, where small unreadable marks
+ * are accepted (ADR 0006 amendment 7).
  *
  * Paid runs read OPENROUTER_API_KEY from the private env file named by VISIBIBLE_EVAL_ENV_FILE.
  */
@@ -45,7 +45,7 @@ const root = fileURLToPath(new URL("../../", import.meta.url));
 const { values, positionals } = parseArgs({ allowPositionals: true, options: {
   run: { type: "string" }, from: { type: "string" }, model: { type: "string" }, cap: { type: "string" },
   execute: { type: "boolean", default: false }, offline: { type: "boolean", default: false }, resume: { type: "boolean", default: false },
-  baseline: { type: "string" }, "baseline-images": { type: "string" }, "small-marks": { type: "string" }, batches: { type: "string", default: "1" },
+  baseline: { type: "string" }, "baseline-images": { type: "string" }, batches: { type: "string", default: "1" },
   scores: { type: "string" }, operator: { type: "string" }, concurrency: { type: "string", default: "4" },
   cases: { type: "string" }, styles: { type: "string" },
 } });
@@ -263,9 +263,13 @@ async function run() {
   console.log(JSON.stringify({ done: true, outDir: values.offline ? outDir : path.relative(root, outDir), ...finished }));
 }
 
+/** Asked beside the suite's faults: it separates readable writing from the small marks the launch bar accepts. */
+const READABLE_TEXT = "readable_text";
+
 /** Both arms' shown images in one pack, judged against the moment's text; the key keeps each item's arm. */
 async function blind() {
-  assert.ok(values.run && values.baseline, "--run and --baseline are required");
+  assert.ok(values.run && values.baseline && values["baseline-images"], "--run, --baseline and --baseline-images are required");
+  const baseline = path.relative(root, path.resolve(root, values.baseline));
   const runDir = path.join(releases, values.run);
   const p = readJson(path.join(runDir, "plan.json")) as Plan;
   const scoringDir = path.join(runDir, "scoring");
@@ -275,7 +279,7 @@ async function blind() {
   const snap = snapshotOf(p.from);
   const arms = [
     { arm: "lean", rows: ndjson(path.join(runDir, "results.ndjson")), resolve: (file: string) => path.join(root, file) },
-    ...(values["baseline-images"] ? [{ arm: "full", rows: ndjson(path.join(releases, values.baseline, "results.ndjson")), resolve: (file: string) => path.join(path.resolve(values["baseline-images"]!), path.basename(file)) }] : []),
+    { arm: "full", rows: ndjson(path.join(root, baseline, "results.ndjson")), resolve: (file: string) => path.join(path.resolve(values["baseline-images"]!), path.basename(file)) },
   ];
   const pool: Array<{ arm: string; row: ResultRow; file: string; sha: string }> = [];
   for (const { arm, rows, resolve } of arms) for (const row of rows.filter((r) => r.outcome === "image")) {
@@ -291,7 +295,7 @@ async function blind() {
     const inputs = await inputsFor(row.work);
     const c = p.cases.find((x) => x.caseId === row.caseId)!;
     const { context, cast: members } = await caseInputs(snap, c);
-    const ask = faultsFor(faults, "image", { effects: Boolean(inputs.depiction.modes.effects) }).map((f) => f.id);
+    const ask = [...faultsFor(faults, "image", { effects: Boolean(inputs.depiction.modes.effects) }).map((f) => f.id), READABLE_TEXT];
     const accepted = faults.image.filter((f) => ask.includes(f.id) && f.acceptedIn?.includes(row.style)).map((f) => f.id);
     // Arm-neutral: every subject without form in the section may never be drawn, whichever arm selected it.
     const neverDrawn = members.filter((m) => m.depiction === "effects").map((m) => m.name);
@@ -304,7 +308,7 @@ async function blind() {
   const batches = Math.max(1, Number(values.batches)); const size = Math.ceil(items.length / batches);
   for (let b = 0; b < batches; b++) saveOnce(path.join(scoringDir, `items-${b + 1}.json`), { tier: "image", items: items.slice(b * size, (b + 1) * size) });
   writeFileSync(path.join(scoringDir, "SCORING.md"), jointInstructions(), { flag: "wx" });
-  saveOnce(path.join(scoringDir, "key.json"), { run: values.run, baseline: values.baseline, baselineScoredHere: Boolean(values["baseline-images"]), suite: p.suite, faults: p.faults, items: key });
+  saveOnce(path.join(scoringDir, "key.json"), { run: values.run, baseline, suite: p.suite, faults: p.faults, items: key });
   console.log(`${items.length} item(s) (${pool.filter((x) => x.arm === "lean").length} lean, ${pool.filter((x) => x.arm === "full").length} full) in ${batches} batch(es) under ${path.relative(root, scoringDir)}.`);
 }
 
@@ -319,11 +323,12 @@ function jointInstructions() {
 
 Your items file lists illustrations. Each item gives the image file, the moment's text (\`text\`) with the verse or line before and after it for context, the work's depiction rules, \`neverDrawn\` (subjects that may never be drawn as a figure) and under \`accepted\` any fault its style accepts. Judge each image against the moment's text: it should show that moment, with the people and places the text names. View every image file yourself at full resolution and judge only from what you see and its own item. Answer only the faults the item's \`ask\` lists. Do not read \`key.json\` or any other file in the run folder, and do not look at another scorer's answers. Never edit, crop or overwrite an image file; if you need a crop, write it to your own scratch folder.
 
-When you answer \`lettering\` \`yes\`, say in \`notes\` what the marks are and whether any of them can be read as letters, words or numerals.
+\`${READABLE_TEXT}\` is not a fault of its own: it says how serious any lettering is, so it never changes your \`overall\` verdict. When you answer \`lettering\` \`yes\`, say in \`notes\` what the marks are.
 
 For each item, answer every fault below with \`yes\` (the fault is present), \`no\` or \`na\` (it cannot apply), then give one \`overall\` verdict: \`acceptable\`, \`flawed\` (any fault present that the item does not list under \`accepted\`) or \`uncertain\`, and \`notes\`: one or two sentences naming what drives your answers, with where you saw it.
 
 ${lines.join("\n")}
+- \`${READABLE_TEXT}\`: Is any of that lettering readable writing: real letters, words or numerals, a caption, or a signature in a corner? Answer \`no\` when the only marks are small or unreadable (pseudo-script, squiggles on a page, clock-face ticks, card pips), and \`na\` when \`lettering\` is \`no\`.
 
 Write JSON to the path you are given, in this shape:
 
@@ -342,7 +347,7 @@ async function report() {
   const runDir = path.join(releases, values.run);
   const p = readJson(path.join(runDir, "plan.json")) as Plan;
   const scoringDir = path.join(runDir, "scoring");
-  const key = readJson(path.join(scoringDir, "key.json")) as { baseline: string; baselineScoredHere: boolean; items: Array<{ id: string; arm: string; key: string; caseId: string; work: string; style: string; split: string; faults: string[] }> };
+  const key = readJson(path.join(scoringDir, "key.json")) as { baseline: string; items: Array<{ id: string; arm: string; key: string; caseId: string; work: string; style: string; split: string; faults: string[] }> };
   const files = list(values.scores).map((f) => scoreFileSchema.parse(readJson(path.resolve(root, f))));
   const byScorer = new Map<string, ScoreFile>();
   for (const f of files) { const prior = byScorer.get(f.scorer); byScorer.set(f.scorer, prior ? { ...prior, scores: [...prior.scores, ...f.scores] } : f); }
@@ -362,33 +367,20 @@ async function report() {
   };
   const styleOf = (caseId: string): string[] => [...(p.cases.find((c) => c.caseId === caseId)?.styles ?? [])];
   const lean = armItems("lean", ndjson(path.join(runDir, "results.ndjson")), styleOf);
-  // The baseline is either re-scored here, blind beside the lean images, or keeps the settled scores of its own run.
-  const baselineDir = path.join(releases, key.baseline);
-  let full: JudgedItem[];
-  if (key.baselineScoredHere) full = armItems("full", ndjson(path.join(baselineDir, "results.ndjson")), styleOf);
-  else {
-    const own = readJson(path.join(baselineDir, "scoring/key.json")) as { items: Array<{ id: string; key: string }> };
-    const ownSettled = (readJson(path.join(baselineDir, "scoring/scores.json")) as { settled: typeof settled }).settled;
-    const byKey = new Map(own.items.map((i) => [i.key, ownSettled[i.id] ?? null]));
-    full = ndjson(path.join(baselineDir, "results.ndjson")).flatMap((row: ResultRow): JudgedItem[] => row.outcome === "image"
-      ? [{ key: row.key, caseId: row.caseId, work: row.work, style: row.style, split: row.split, refused: false, score: byKey.get(row.key) ?? null }]
-      : row.outcome === "refused" ? (row.standsFor ?? [row.style]).map((style) => ({ key: `${row.caseId}/${style}`, caseId: row.caseId, work: row.work, style, split: row.split, refused: true, score: null })) : []);
-  }
-  // ADR 0006 amendment 7: an operator classification turns a lettering-only image with small, unreadable marks acceptable.
-  const launchBar = (items: JudgedItem[], file: string | undefined) => {
-    if (!file) return null;
-    const accepted = new Set((readJson(path.resolve(root, file)) as { items: Array<{ key: string; classification: string }> }).items.filter((i) => i.classification === "accepted small marks").map((i) => i.key));
-    return items.map((i) => i.score && accepted.has(i.key) ? { ...i, score: { ...i.score, faults: { ...i.score.faults, lettering: "no" as const }, overall: "acceptable" as const } } : i);
-  };
-  const [leanMarks, fullMarks] = list(values["small-marks"]);
+  const full = armItems("full", ndjson(path.join(root, key.baseline, "results.ndjson")), styleOf);
+  // The launch bar (ADR 0006 amendment 7): an image whose only fault is lettering that nobody can read is acceptable.
+  const launchBar = (items: JudgedItem[]) => items.map((i) => {
+    if (!i.score || i.score.overall === "uncertain" || i.score.faults[READABLE_TEXT] === "yes") return i;
+    const present = faults.image.filter((f) => i.score!.faults[f.id] === "yes" && !(i.style && f.acceptedIn?.includes(i.style))).map((f) => f.id);
+    return present.length === 1 && present[0] === "lettering" ? { ...i, score: { ...i.score, overall: "acceptable" as const } } : i;
+  });
   const summary = { lean: summarizeBy(lean, faults.image), full: summarizeBy(full, faults.image) };
-  const leanBar = launchBar(lean, leanMarks), fullBar = launchBar(full, fullMarks);
-  const launch = leanBar && fullBar ? { lean: summarizeBy(leanBar, faults.image), full: summarizeBy(fullBar, faults.image) } : null;
+  const launch = { lean: summarizeBy(launchBar(lean), faults.image), full: summarizeBy(launchBar(full), faults.image) };
   const gate = evaluateSuiteGate({ config, faults: faults.image, expected: expectedHoldoutKeys(config, allCases, "image"),
-    candidate: { suiteVersion: p.suite, items: lean, disputes: disputes.length }, baseline: { suiteVersion: p.suite, items: full, disputes: 0 } });
-  writeFileSync(path.join(runDir, "report.json"), `${JSON.stringify({ run: values.run, baseline: key.baseline, baselineScoredHere: key.baselineScoredHere, disputes: disputes.length, summary, launchBar: launch, gate }, null, 2)}\n`);
+    candidate: { suiteVersion: p.suite, items: lean, disputes: disputes.length }, baseline: { suiteVersion: p.suite, items: full, disputes: disputes.length } });
+  writeFileSync(path.join(runDir, "report.json"), `${JSON.stringify({ run: values.run, baseline: key.baseline, disputes: disputes.length, summary, launchBar: launch, gate }, null, 2)}\n`);
   const pct = (r: { rate: number | null; yes: number; judged: number }) => r.rate === null ? "n/a" : `${(r.rate * 100).toFixed(0)}% (${r.yes}/${r.judged})`;
-  if (launch) for (const [arm, s] of Object.entries(launch)) console.log(`${arm} launch bar (small marks accepted): ${pct(s.overall.acceptable)}; ${Object.entries(s.byWork).map(([w, x]) => `${w} ${pct(x.acceptable)}`).join(", ")}`);
+  for (const [arm, s] of Object.entries(launch)) console.log(`${arm} launch bar (small marks accepted): ${pct(s.overall.acceptable)}; ${Object.entries(s.byWork).map(([w, x]) => `${w} ${pct(x.acceptable)}`).join(", ")}`);
   for (const [arm, s] of Object.entries(summary)) {
     console.log(`${arm}: acceptable ${pct(s.overall.acceptable)}, refused ${pct(s.overall.refused)}`);
     for (const [work, w] of Object.entries(s.byWork)) console.log(`  ${work}: ${pct(w.acceptable)}`);
