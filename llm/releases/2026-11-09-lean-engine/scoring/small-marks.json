@@ -1,0 +1,20 @@
+{
+  "run": "2026-11-09-lean-engine",
+  "rule": "ADR 0006 amendment 7",
+  "method": "Every settled image, of either arm, whose only fault is lettering and whose scorers called some of it readable. The operator classified each by its blind id from both scorers' and the adjudicators' notes, without looking up its arm. Lettering-only images the scorers agreed held no readable writing are accepted without a ruling. The strict scores are unchanged.",
+  "items": [
+    { "id": "j010", "classification": "still a fault", "basis": "A white question mark painted in the air above a figure: a caption-like symbol, not a mark on an object." },
+    { "id": "j089", "classification": "accepted small marks", "basis": "A playing-card corner index ('5') and pips." },
+    { "id": "j091", "classification": "accepted small marks", "basis": "Digit strings in a newspaper headline row; no word." },
+    { "id": "j101", "classification": "still a fault", "basis": "A newspaper masthead that reads roughly as the word 'Banner'." },
+    { "id": "j106", "classification": "accepted small marks", "basis": "Block capitals on newspapers that spell no word." },
+    { "id": "j176", "classification": "still a fault", "basis": "The readable word 'Missing' heads the slip." },
+    { "id": "j190", "classification": "accepted small marks", "basis": "A playing-card corner index ('A') and pips." },
+    { "id": "j207", "classification": "accepted small marks", "basis": "Carved capitals on a milestone that spell no word ('RONAN / AILETE')." },
+    { "id": "j225", "classification": "accepted small marks", "basis": "Numerals on a pocket-watch dial." },
+    { "id": "j269", "classification": "still a fault", "basis": "A milestone reading 'DANASUS', which a reader takes for the place name Damascus." },
+    { "id": "j295", "classification": "accepted small marks", "basis": "Carved pseudo-Latin on a milestone ('MIM / III'); not words in the reader's language." },
+    { "id": "j407", "classification": "still a fault", "basis": "A signature-like scrawl in the bottom-right corner." },
+    { "id": "j409", "classification": "accepted small marks", "basis": "Capitals on a tin label that spell no word." }
+  ]
+}

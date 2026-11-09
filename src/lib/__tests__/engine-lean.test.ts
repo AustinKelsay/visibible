@@ -78,6 +78,16 @@ describe("lean prompt", () => {
     expect(result.prompt).not.toContain("brilliant white radiance");
   });
 
+  it("renames a subject without form inside another entry's canon and sheet caption", () => {
+    const temple = member("temple", "Yahweh's house in Jerusalem", "location", "Yahweh's house in Jerusalem: a stone temple where Yahweh is worshipped.");
+    const result = buildLeanRendering(input("Smoke filled the house.", [temple, god], [sheet(temple)]));
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.prompt).not.toMatch(/Yahweh/);
+    expect(result.prompt).toContain("the presence's house in Jerusalem: a stone temple");
+    expect(result.references[0].caption).toContain("the presence's house in Jerusalem's reference sheet");
+  });
+
   it("adds no presence wording when the section has no subject without form", () => {
     const result = buildLeanRendering(input("Jesus walked.", [jesus]));
     expect(result.ok && result.prompt).not.toContain("IMAGERY, NOT FORM");

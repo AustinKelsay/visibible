@@ -12,7 +12,7 @@ import { applicableRules, briefBlock, engineRules } from "./prompt";
 import { depictionModeOf, effectsWordingFor, symbolWordingFor, type DepictionMode, type DepictionProfile } from "./depiction";
 import type { ArtStyle, WorkBrief } from "../work-preparation";
 
-export const LEAN_PROMPT_VERSION = "2026-11-09-lean-v4";
+export const LEAN_PROMPT_VERSION = "2026-11-09-lean-v5";
 /** Sheets beside the style reference; Nano Banana 2.1 takes many more, but each extra sheet risks an extra figure. */
 export const LEAN_MAX_SHEETS = 4;
 export const LEAN_PROMPT_MAX_CHARS = 12000;
@@ -129,7 +129,8 @@ export function buildLeanRendering(input: LeanInput): LeanResult {
   const unseen = input.cast.filter((m) => m.depiction === "effects").flatMap(leanNames).sort((a, b) => b.length - a.length);
   const alias = depiction.modes.effects?.alias;
   const nameless = (text: string) => alias ? unseen.reduce((t, name) => t.replace(wordPattern(name), alias), text) : text;
-  const references = selectLeanReferences(present, input.references, style.id);
+  // Canon and captions of other entries can name it too ("Yahweh's house in Jerusalem"), so they are renamed as well.
+  const references = selectLeanReferences(present, input.references, style.id).map((r) => ({ ...r, caption: nameless(r.caption) }));
   const prev = input.neighbors?.previous ? nameless(clip(input.neighbors.previous, NEIGHBOR_MAX_CHARS)) : null;
   const next = input.neighbors?.next ? nameless(clip(input.neighbors.next, NEIGHBOR_MAX_CHARS)) : null;
   // The engine's rules, with the planner's cast rule replaced by the text's own.
@@ -138,7 +139,7 @@ export function buildLeanRendering(input: LeanInput): LeanResult {
     .replace(/the scene plan names/gu, "the moment names").replace(/in the scene plan/gu, "in the moment");
   const rules = engineRules(depiction).filter((rule) => !rule.startsWith("Show the SELECTED CHARACTERS")).map(unplanned);
   rules.push("A character you draw from CANON keeps exactly that look. Anyone else the moment needs appears as an unnamed figure with an ordinary, different face.");
-  const canonBlock = (title: string, members: LeanRanked[]) => members.length ? [title, ...members.map((m) => `- ${m.text}`)].join("\n") : "";
+  const canonBlock = (title: string, members: LeanRanked[]) => members.length ? [title, ...members.map((m) => `- ${nameless(m.text)}`)].join("\n") : "";
   const aspect = { "16:9": "widescreen", "21:9": "ultra-wide", "3:2": "classic wide" }[input.aspectRatio];
   const brief_ = briefBlock(brief, input.eraId, style.id).replace("it outranks the style, the look and the plan", "it outranks the style");
   const prompt = [
@@ -151,7 +152,7 @@ export function buildLeanRendering(input: LeanInput): LeanResult {
     effects ? unplanned(effects.renderBlock) : "",
     // The text itself may give the presence a seat, clothes, hair or hands; the planner used to keep those words out.
     alias && formless.some(isNamed) ? `IMAGERY, NOT FORM (binding): wherever the text calls something "${alias}", it has no body. Words that give it a seat, clothing, hair, face, hands, feet or a figure are imagery: paint none of them, not even as light or cloud in that shape. Show the place, the people who witness it, and the light, fire, cloud or wind spread through the place; any throne, seat or chariot stays empty.` : "",
-    symbol ? `${symbol.renderBlock} ${symbols.map((m) => m.name).join("; ")}.` : "",
+    symbol ? `${symbol.renderBlock} ${symbols.map((m) => nameless(m.name)).join("; ")}.` : "",
     canonBlock("CANON, NAMED HERE (fixed look; the moment decides pose, expression, clothing changes and action):", [...formed, ...symbols].filter(isNamed)),
     canonBlock("CANON, ELSEWHERE IN THIS PASSAGE (draw one only when the moment involves them, for example as \"he\" or \"they\"; otherwise leave them out):", [...formed, ...symbols].filter((m) => !isNamed(m))),
     `ART STYLE: ${style.label}\nRendering: ${style.rendering}\nPalette: ${style.palette}\nLighting: ${style.lighting}\nMaterials and texture: ${style.materials}\nComposition: ${style.composition}\nNegatives: ${style.negatives}`,

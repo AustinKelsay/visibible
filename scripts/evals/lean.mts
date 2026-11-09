@@ -40,7 +40,8 @@ import {
   drawFraction, evaluateSuiteGate, expectedHoldoutKeys, faultsFor, loadFaults, loadSuiteConfig, operatorFileSchema, scoreFileSchema, settleScores, suiteCases, summarizeBy,
   type JudgedItem, type ScoreFile, type SuiteCase,
 } from "@/lib/image-evals/suite";
-import { createLedger, scrubForLog } from "@/lib/image-evals/suite-run";
+import { createLedger, modelPricing, requestCeilingUsd, scrubForLog, type ModelPricing } from "@/lib/image-evals/suite-run";
+import { imageCapabilities } from "@/lib/image-catalog";
 import { createOfflineOpenRouter } from "@/lib/image-evals/suite-offline";
 import { createOpenRouterEvalImageProvider } from "@/lib/image-evals/adapters";
 import { referenceIsCurrent, type ReferenceRecord } from "@/lib/engine/assemble";
@@ -50,11 +51,14 @@ import { buildLeanRendering, leanCastMember, rankLeanCast, LEAN_MAX_SHEETS, LEAN
 import { momentContext, readWorkInputs, type WorkInputs } from "@/lib/engine/work-inputs";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
+/** Calls in flight at once by default. The default cap leaves room for that many at their ceiling, since an unaffordable reservation stops the run. */
+const DEFAULT_CONCURRENCY = 4;
+const CEILING_HEADROOM_USD = 0.6;
 const { values, positionals } = parseArgs({ allowPositionals: true, options: {
   run: { type: "string" }, from: { type: "string" }, model: { type: "string" }, cap: { type: "string" },
   execute: { type: "boolean", default: false }, offline: { type: "boolean", default: false }, resume: { type: "boolean", default: false },
   baseline: { type: "string" }, "baseline-images": { type: "string" }, batches: { type: "string", default: "1" },
-  scores: { type: "string" }, operator: { type: "string" }, out: { type: "string" }, concurrency: { type: "string", default: "4" },
+  scores: { type: "string" }, operator: { type: "string" }, out: { type: "string" }, concurrency: { type: "string", default: String(DEFAULT_CONCURRENCY) },
   cases: { type: "string" }, styles: { type: "string" },
 } });
 const command = positionals[0];
@@ -68,8 +72,10 @@ const releases = path.join(root, "llm/releases");
 const config = loadSuiteConfig(readJson(path.join(root, "evals/images/suite.json")));
 const faults = loadFaults(readJson(path.join(root, "evals/images/faults.json")));
 const allCases = loadEvalCases(readJson(path.join(root, "evals/images/cases.json")));
-/** Image calls are bounded by a fixed reserve: Nano Banana 2.1 measured $0.036 at 1K with references. */
+/** Offline rehearsals reserve this; a paid run reserves each call's catalog ceiling instead (see `run`). */
 const RESERVE = { text: 0, image: 0.08, check: 0 };
+/** Output image tokens at 1K, measured, for models the image catalog does not list; a model in neither cannot be bounded and is refused. */
+const IMAGE_TOKENS_1K: Record<string, number> = { "google/gemini-nano-banana-2.1": 1120 };
 const PRODUCTION_HEADROOM_USD = 5;
 const SOURCES = ["src/lib/engine/lean.ts", "src/lib/engine/prompt.ts", "src/lib/engine/depiction.ts", "src/lib/engine/work-inputs.ts", "src/lib/image-evals/adapters.ts",
   "src/lib/image-evals/suite-run.ts", "scripts/evals/lean.mts", "evals/images/suite.json", "evals/images/cases.json", "evals/images/faults.json"];
@@ -143,7 +149,7 @@ async function plan() {
   const cases = [...all.filter((c) => c.split === "holdout"), ...all.filter((c) => c.split === "dev")];
   const shown = cases.reduce((n, c) => n + c.styles.length, 0);
   const estimatedUsd = Math.round(shown * 0.037 * 1e4) / 1e4;
-  const capUsd = values.cap ? Number(values.cap) : Math.ceil(estimatedUsd * 1.25 * 100) / 100;
+  const capUsd = values.cap ? Number(values.cap) : Math.ceil((estimatedUsd * 1.25 + DEFAULT_CONCURRENCY * CEILING_HEADROOM_USD) * 100) / 100;
   assert.ok(Number.isFinite(capUsd) && capUsd > 0);
   const out: Plan = { kind: "lean", suite: config.version, faults: faults.version, from: values.from, promptVersion: LEAN_PROMPT_VERSION, maxSheets: LEAN_MAX_SHEETS,
     image: { model: values.model, aspectRatio: "16:9", resolution: "1K" }, cases,
@@ -175,6 +181,7 @@ async function run() {
   const imageDir = path.join(root, "evals/images/runs", values.run, values.offline ? "offline" : "images");
   let apiKey = "offline-rehearsal";
   let fetchImpl: (url: string, init: RequestInit) => Promise<Response> = (url, init) => fetch(url, init);
+  let pricing: ModelPricing | undefined;
   if (values.offline) fetchImpl = createOfflineOpenRouter().fetch;
   else {
     for (const name of [`run-started${part}.json`, `ledger${part}.json`, ...(part ? [] : ["results.ndjson"])]) assert.ok(!existsSync(path.join(runDir, name)), `One-shot artifact exists: ${name}`);
@@ -184,6 +191,10 @@ async function run() {
     const commit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
     const env = parseEnv(readFileSync(process.env.VISIBIBLE_EVAL_ENV_FILE ?? "", "utf8"));
     apiKey = env.OPENROUTER_API_KEY!; assert.ok(apiKey, "OPENROUTER_API_KEY is missing from the eval env file");
+    const catalog = (await (await fetch("https://openrouter.ai/api/v1/models")).json()).data as Array<{ id: string } & Parameters<typeof modelPricing>[0]>;
+    pricing = modelPricing(catalog.find((m) => m.id === p.image.model));
+    assert.ok(pricing && pricing.imageOutput !== null && (imageCapabilities(p.image.model)?.outputTokens["1K"] ?? IMAGE_TOKENS_1K[p.image.model]),
+      `${p.image.model} has no catalog price or known image size, so its calls cannot be bounded`);
     const credits = (await (await fetch("https://openrouter.ai/api/v1/credits", { headers: { Authorization: `Bearer ${apiKey}` } })).json()).data;
     const balanceUsd = credits.total_credits - credits.total_usage;
     assert.ok(balanceUsd >= capUsd + PRODUCTION_HEADROOM_USD, `The account holds $${balanceUsd.toFixed(2)}; this run needs $${capUsd} plus $${PRODUCTION_HEADROOM_USD} for readers`);
@@ -207,7 +218,13 @@ async function run() {
     } catch { /* a non-JSON body is the ledger's to judge */ }
     return new Response(body, { status: response.status, headers: response.headers });
   };
-  const ledger = createLedger({ capUsd, reserves: p.evaluation.reserves, limits: p.evaluation.limits, fetch: filtered,
+  // The most a call can cost: its text at the suite's ceiling, plus the output image at the model's image price. Reserved
+  // before the call is sent, so spend cannot pass the cap whatever the model.
+  const ceiling = pricing ? (_kind: string, request: Record<string, unknown>) => {
+    const text = requestCeilingUsd("text", request, pricing);
+    return text === null ? null : text + (imageCapabilities(p.image.model)?.outputTokens["1K"] ?? IMAGE_TOKENS_1K[p.image.model]) * pricing!.imageOutput!;
+  } : undefined;
+  const ledger = createLedger({ capUsd, reserves: p.evaluation.reserves, limits: p.evaluation.limits, fetch: filtered, ceiling,
     save: (state) => writeFileSync(path.join(outDir, `ledger${part}.json`), `${JSON.stringify(state, null, 2)}\n`),
     log: (entry) => appendFileSync(path.join(outDir, `provider${part}.ndjson`), `${JSON.stringify(entry)}\n`),
     scrub: (value) => scrubForLog(value, apiKey, sha256) });
@@ -337,7 +354,7 @@ Your items file lists illustrations. Each item gives the image file, the moment'
 For each item, answer every fault below with \`yes\` (the fault is present), \`no\` or \`na\` (it cannot apply), then give one \`overall\` verdict: \`acceptable\`, \`flawed\` (any fault present that the item does not list under \`accepted\`) or \`uncertain\`, and \`notes\`: one or two sentences naming what drives your answers, with where you saw it.
 
 ${lines.join("\n")}
-- \`${READABLE_TEXT}\`: Is any of that lettering readable writing: real letters, words or numerals, a caption, or a signature in a corner? Answer \`no\` when the only marks are small or unreadable (pseudo-script, squiggles on a page, clock-face ticks, card pips), and \`na\` when \`lettering\` is \`no\`.
+- \`${READABLE_TEXT}\`: Is any of that lettering a readable word in the reader's language, a caption, or an artist's signature, initials or signature-like scrawl? Answer \`no\` when the only marks are small or unreadable: pseudo-script, squiggles on a page, letter shapes that spell no word, clock numerals, playing-card corner indices or pips. Answer \`na\` when \`lettering\` is \`no\`.
 
 Write JSON to the path you are given, in this shape:
 
@@ -365,7 +382,7 @@ async function report() {
   writeFileSync(path.join(scoringDir, "scores.json"), `${JSON.stringify({ scorers: [...byScorer.keys()], operator: operator?.scorer ?? null, settled, disputes }, null, 2)}\n`);
   if (disputes.length) { writeFileSync(path.join(scoringDir, "disputes.json"), `${JSON.stringify(disputes, null, 2)}\n`); console.log(`${disputes.length} disputed; rule on scoring/disputes.json, then report again with --operator.`); }
   // Each arm's items: its images scored here, plus its refusals. As in the suite report, a provider failure is not an item.
-  const armItems = (arm: string, rows: Array<ResultRow>, styleOf: (c: string) => string[]) => {
+  const armItems = (arm: string, rows: Array<ResultRow>, styleOf: (c: string) => string[], settled: Record<string, JudgedItem["score"] & object>) => {
     const items: JudgedItem[] = [];
     for (const row of rows) {
       if (row.outcome === "image") { const k = key.items.find((i) => i.arm === arm && i.key === row.key)!; items.push({ key: row.key, caseId: row.caseId, work: row.work, style: row.style, split: row.split, refused: false, score: settled[k.id] ?? null }); }
@@ -375,8 +392,14 @@ async function report() {
     return items;
   };
   const styleOf = (caseId: string): string[] => [...(p.cases.find((c) => c.caseId === caseId)?.styles ?? [])];
-  const lean = armItems("lean", ndjson(path.join(runDir, "results.ndjson")), styleOf);
-  const full = armItems("full", ndjson(path.join(root, key.baseline, "results.ndjson")), styleOf);
+  const [leanRows, fullRows] = [ndjson(path.join(runDir, "results.ndjson")), ndjson(path.join(root, key.baseline, "results.ndjson"))];
+  const lean = armItems("lean", leanRows, styleOf, settled);
+  const full = armItems("full", fullRows, styleOf, settled);
+  // The operator's classification of lettering the scorers called readable (scoring/small-marks.json), made by blind id:
+  // a card index or clock numeral is readable yet accepted by the ADR, so its answer becomes no for the launch bar only.
+  const marksFile = path.join(scoringDir, "small-marks.json");
+  const acceptedMarks = new Set(existsSync(marksFile) ? (readJson(marksFile) as { items: Array<{ id: string; classification: string }> }).items.filter((i) => i.classification === "accepted small marks").map((i) => i.id) : []);
+  const forBar = Object.fromEntries(Object.entries(settled).map(([id, score]) => [id, acceptedMarks.has(id) ? { ...score, faults: { ...score.faults, [READABLE_TEXT]: "no" as const } } : score]));
   // The launch bar (ADR 0006 amendment 7): an image whose only fault is lettering that nobody can read is acceptable.
   const launchBar = (items: JudgedItem[]) => items.map((i) => {
     if (!i.score || i.score.overall === "uncertain" || i.score.faults[READABLE_TEXT] === "yes") return i;
@@ -384,7 +407,7 @@ async function report() {
     return present.length === 1 && present[0] === "lettering" ? { ...i, score: { ...i.score, overall: "acceptable" as const } } : i;
   });
   const summary = { lean: summarizeBy(lean, faults.image), full: summarizeBy(full, faults.image) };
-  const launch = { lean: summarizeBy(launchBar(lean), faults.image), full: summarizeBy(launchBar(full), faults.image) };
+  const launch = { lean: summarizeBy(launchBar(armItems("lean", leanRows, styleOf, forBar)), faults.image), full: summarizeBy(launchBar(armItems("full", fullRows, styleOf, forBar)), faults.image) };
   const gate = evaluateSuiteGate({ config, faults: faults.image, expected: expectedHoldoutKeys(config, allCases, "image"),
     candidate: { suiteVersion: p.suite, items: lean, disputes: disputes.length }, baseline: { suiteVersion: p.suite, items: full, disputes: disputes.length } });
   writeFileSync(path.join(runDir, "report.json"), `${JSON.stringify({ run: values.run, baseline: key.baseline, disputes: disputes.length, summary, launchBar: launch, gate }, null, 2)}\n`);
