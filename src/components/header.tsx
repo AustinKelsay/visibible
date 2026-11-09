@@ -46,7 +46,8 @@ export function Header() {
   const pillMeasureRef = useRef<HTMLSpanElement>(null);
   const [pillFits, setPillFits] = useState(true);
   const { tier, credits, buyCredits, accessStatus } = useSession();
-  const isBrandLinkPage = pathname === "/about" || pathname === "/api-docs";
+  // The brand links home everywhere except verse pages (About, API docs, 404)
+  const isBrandLinkPage = !/^\/[^/]+\/\d+\/\d+$/.test(pathname);
   const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname) && verseView !== null;
   const videoOpen = verseView?.effectiveView === "video";
   // Generate and image settings register only while the reader's image is mounted.

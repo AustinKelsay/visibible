@@ -346,9 +346,16 @@ function BookMenuBase({
 
           {view === "chapters" && selectedBook && (
             <div className="p-4">
-              <p className="text-sm text-[var(--muted)] mb-4">
-                Select a chapter
-              </p>
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+                <p className="text-sm text-[var(--muted)]">Select a chapter</p>
+                {/* Same legend as the book list, so the chapter dots explain themselves */}
+                {chaptersWithImagesSet.size > 0 && (
+                  <p className="flex items-center gap-2 text-xs text-[var(--muted)]">
+                    <span className="w-2 h-2 rounded-full bg-[var(--accent)]" aria-hidden="true" />
+                    Has saved images
+                  </p>
+                )}
+              </div>
               <div className="grid grid-cols-6 sm:grid-cols-5 gap-1.5 sm:gap-2">
                 {Array.from(
                   { length: selectedBook.chapters.length },

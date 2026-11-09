@@ -123,8 +123,10 @@ function GalleryCard({
       aria-label={`${bookName} ${chapter}:${item.verse}${item.isPlaceholder ? " no image yet" : ` image ${item.cardIndex + 1}`}`}
       onClick={(event) => onNavigateToReader?.(event, item)}
       className={`group overflow-hidden rounded-[var(--radius-xl)] border bg-[var(--background)] transition-all duration-[var(--motion-base)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] ${
+        // The blue verse badge marks the current verse; a blue outline on every one of its cards
+        // read as several selected images
         isCurrent
-          ? "border-[var(--accent)]/40 shadow-[var(--shadow-sm)]"
+          ? "border-[var(--divider)] shadow-[var(--shadow-sm)]"
           : "border-[var(--divider)] hover:border-[var(--divider)]"
       }`}
     >
@@ -221,7 +223,8 @@ function GalleryCard({
           </span>
         </p>
         )}
-        {item.text && !inGroup ? (
+        {/* The verse text appears once per verse: on its first card */}
+        {item.text && !inGroup && item.cardIndex === 0 ? (
           <p className="mt-1 min-h-10 text-sm leading-5 text-[var(--muted)] hidden sm:line-clamp-2">
             {item.text}
           </p>
@@ -712,10 +715,12 @@ export function ChapterGallery({
                   }`}
                 >
                   <div className="grid gap-0 lg:grid-cols-[minmax(220px,280px)_minmax(0,1fr)]">
-                    <div className="border-b border-[var(--divider)] bg-[var(--surface)]/55 p-4 md:p-5 lg:border-b-0 lg:border-r">
-                      <div className="space-y-3">
+                    {/* Phones: no "Verse n" pill (the reference says it), the count beside the reference,
+                        and tighter padding, so the images start sooner */}
+                    <div className="border-b border-[var(--divider)] bg-[var(--surface)]/55 p-3 sm:p-4 md:p-5 lg:border-b-0 lg:border-r">
+                      <div className="space-y-2 lg:space-y-3">
                         <span
-                          className={`rounded-full px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] ${
+                          className={`hidden lg:inline-block rounded-full px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] ${
                             isCurrent
                               ? "bg-[var(--accent)]/12 text-[var(--accent)]"
                               : "bg-[var(--surface)] text-[var(--foreground)]"
@@ -724,7 +729,8 @@ export function ChapterGallery({
                           Verse {item.verse}
                         </span>
 
-                        <div className="space-y-2">
+                        <div className="space-y-1 lg:space-y-2">
+                          <div className="flex items-baseline justify-between gap-3">
                           <Link
                             href={buildReaderHref(item.href, item.cards[0]?.imageId)}
                             aria-current={isCurrent ? "page" : undefined}
@@ -748,18 +754,20 @@ export function ChapterGallery({
                           >
                             {bookName} {chapter}:{item.verse}
                           </Link>
+                          <span className="lg:hidden shrink-0 text-xs text-[var(--muted)]">{statusLabel}</span>
+                          </div>
                           <p className="text-sm leading-6 text-[var(--foreground)]/75">
                             {item.text}
                           </p>
                         </div>
 
-                        <p className="text-xs text-[var(--muted)]">
+                        <p className="hidden lg:block text-xs text-[var(--muted)]">
                           {statusLabel}
                         </p>
                       </div>
                     </div>
 
-                    <div className="p-4 md:p-5">
+                    <div className="p-3 sm:p-4 md:p-5">
                       <div
                         aria-label={`Verse ${item.verse} mini-gallery`}
                         className={`grid grid-cols-2 gap-3 sm:gap-4 ${fullScreen ? "2xl:grid-cols-3" : "lg:grid-cols-3"}`}
