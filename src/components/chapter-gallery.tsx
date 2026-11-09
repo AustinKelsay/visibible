@@ -201,11 +201,17 @@ function GalleryCard({
               e.stopPropagation();
               onExpand(item);
             }}
-            // Touch screens always show it, smaller and with a light ring so it reads on dark paintings too
-            className="absolute right-3 bottom-3 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-full bg-black/50 text-white/70 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 pointer-coarse:opacity-100 pointer-coarse:right-2 pointer-coarse:bottom-2 pointer-coarse:min-h-8 pointer-coarse:min-w-8 pointer-coarse:bg-black/40 pointer-coarse:ring-1 pointer-coarse:ring-white/25 hover:bg-black/70 hover:text-white backdrop-blur-sm transition-all duration-[var(--motion-base)]"
+            // A 44px target around a smaller disc. Touch screens always show it, with a smaller disc and a
+            // light ring so it reads on dark paintings too.
+            className="group/expand absolute right-2 bottom-2 min-h-11 min-w-11 flex items-center justify-center rounded-full text-white/70 hover:text-white opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 pointer-coarse:opacity-100 transition-all duration-[var(--motion-base)]"
             aria-label={`Open fullscreen view for ${bookName} ${chapter}:${item.verse}`}
           >
-            <Maximize2 size={16} strokeWidth={1.5} />
+            <span
+              aria-hidden="true"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm group-hover/expand:bg-black/70 pointer-coarse:h-8 pointer-coarse:w-8 pointer-coarse:bg-black/40 pointer-coarse:ring-1 pointer-coarse:ring-white/25 transition-colors duration-[var(--motion-base)]"
+            >
+              <Maximize2 size={16} strokeWidth={1.5} />
+            </span>
           </button>
         ) : null}
       </div>

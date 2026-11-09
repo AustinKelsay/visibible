@@ -264,12 +264,11 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
                 <p className="mt-1 text-sm text-[var(--muted)]">
                   Add credits to ask questions about {passageLabel ?? "Scripture"}.
                 </p>
-                {/* Phones: the chat sheet covers the header, so this is the one filled button. From sm up
-                    the header's filled Get Credits stays visible, so this one is outlined. */}
+                {/* Filled: a tinted outline did not keep the label at readable contrast in both themes */}
                 <button
                   type="button"
                   onClick={buyCredits}
-                  className="mt-3 min-h-[40px] px-4 rounded-[var(--radius-full)] border border-[var(--accent)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] sm:bg-[var(--accent)]/10 sm:text-[var(--accent)] sm:hover:bg-[var(--accent)]/20 text-sm font-medium transition-colors duration-[var(--motion-fast)] focus-ring"
+                  className="mt-3 min-h-[40px] px-4 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] text-sm font-medium transition-colors duration-[var(--motion-fast)] focus-ring"
                 >
                   Get Credits
                 </button>
