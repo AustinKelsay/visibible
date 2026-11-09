@@ -62,7 +62,9 @@ export async function GET(request?: Request) {
   }
   // Only the model generation runs on (ADR 0012): the engine ignores any other choice, so offering one would quote a
   // price the reader is not charged.
-  const models = result.models.filter(model => model.id === DEFAULT_IMAGE_MODEL).map(model => ({ ...model,
+  // A catalog without it reports it unavailable rather than offering nothing.
+  const offered = result.models.filter(model => model.id === DEFAULT_IMAGE_MODEL);
+  const models = (offered.length ? offered : unavailableImageModels(result.error ?? "Image model not in catalog")).map(model => ({ ...model,
     etaSeconds: etas.get(model.id) ?? model.etaSeconds ?? DEFAULT_ETA_SECONDS,
     estimatedCreditsByResolution: quotedSettings(model),
   }));

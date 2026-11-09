@@ -249,6 +249,8 @@ async function run() {
           assert.equal(sha256(bytes), w.files[storageId].sha256, `Reference ${storageId} changed since the snapshot`);
           return bytes;
         },
+        // Production drops a reference that will not load; a frozen run must not pay for an image without it.
+        onReferenceUnavailable: (_kind, _id, error) => { throw error; },
       }, { workId: c.work, unitId: c.unitId, styleId: style, aspectRatio: p.image.aspectRatio });
       if (!rendering.ok) { record({ ...base, outcome: "refused", stage: "lean", reason: rendering.reason, message: rendering.message }); return; }
       assert.equal(rendering.momentId, sc.momentId, `${key}: the snapshot names another moment`);

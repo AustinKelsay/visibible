@@ -135,6 +135,14 @@ describe("Image Models API", () => {
     expect(mockConvex.query).toHaveBeenCalledTimes(1);
   });
 
+  it("reports the generation model unavailable when the catalog does not list it", async () => {
+    mockFetchImageModels.mockResolvedValue({ models: [{ ...imageModelFixture("google/gemini-2.5-flash-image"), creditsCost: 2 }] });
+    const { GET } = await import("../../image-models/route");
+    const body = await (await GET()).json();
+    expect(body.models).toEqual([expect.objectContaining({ id: DEFAULT_IMAGE_MODEL, availability: "unavailable", unavailableReason: "Image model not in catalog", estimatedCreditsByResolution: {} })]);
+    expect(body.creditRange).toBeNull();
+  });
+
   it("falls back cleanly when the OpenRouter API key is missing", async () => {
     delete process.env.OPENROUTER_API_KEY;
 
