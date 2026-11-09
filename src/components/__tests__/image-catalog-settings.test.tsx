@@ -6,6 +6,7 @@ import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { ImageGenerationSettingsPanel } from "../image-generation-settings-panel";
 import { ImageModelSelector } from "../image-model-selector";
 import { PreferencesProvider, usePreferences } from "@/context/preferences-context";
+import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 
 const generationState = { modelId: "google/gemini-2.5-flash-image", baseCost: 0, showCreditsCost: false,
   displayCostByResolution: undefined as Partial<Record<"1K" | "2K" | "4K", number>> | undefined };
@@ -36,7 +37,8 @@ it("labels stale pricing, disables unpriced choices and repairs unsupported save
   try {
     await act(async () => root.render(createElement(PreferencesProvider, null, createElement(Probe))));
     await act(async () => { await new Promise(resolve => setTimeout(resolve, 0)); });
-    expect(current!.imageModel).toBe("removed/model");
+    // A saved model follows the generation model (ADR 0012), which this cached catalog does not list.
+    expect(current!.imageModel).toBe(DEFAULT_IMAGE_MODEL);
     expect(current!.imageResolution).toBe("1K");
     await act(async () => container.querySelector("button")!.click());
     expect(container.textContent).toContain("Saved model unavailable");
@@ -45,7 +47,7 @@ it("labels stale pricing, disables unpriced choices and repairs unsupported save
     const options = container.querySelectorAll<HTMLButtonElement>('button[role="option"]');
     expect(options[1].disabled).toBe(true);
     await act(async () => options[1].click());
-    expect(current!.imageModel).toBe("removed/model");
+    expect(current!.imageModel).toBe(DEFAULT_IMAGE_MODEL);
     await act(async () => options[0].click());
     expect(current!.imageModel).toBe("google/gemini-2.5-flash-image");
     expect(JSON.parse(storage.get("visibible-preferences")!).imageResolution).toBe("1K");

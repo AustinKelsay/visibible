@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { catalogImageQuote, imageCapabilities } from "@/lib/image-catalog";
-import { DEFAULT_ETA_SECONDS, fetchImageModels, unavailableImageModels, type ImageModel } from "@/lib/image-models";
+import { DEFAULT_ETA_SECONDS, DEFAULT_IMAGE_MODEL, fetchImageModels, unavailableImageModels, type ImageModel } from "@/lib/image-models";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
 import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
@@ -60,7 +60,9 @@ export async function GET(request?: Request) {
       }
     } catch (error) { console.error("Failed to fetch image ETAs:", error); }
   }
-  const models = result.models.map(model => ({ ...model,
+  // Only the model generation runs on (ADR 0012): the engine ignores any other choice, so offering one would quote a
+  // price the reader is not charged.
+  const models = result.models.filter(model => model.id === DEFAULT_IMAGE_MODEL).map(model => ({ ...model,
     etaSeconds: etas.get(model.id) ?? model.etaSeconds ?? DEFAULT_ETA_SECONDS,
     estimatedCreditsByResolution: quotedSettings(model),
   }));

@@ -2,7 +2,7 @@
 
 [PreferencesProvider](../../src/context/preferences-context.tsx) stores translation, image model, chat model, image aspect ratio, resolution and art style (`artStyle`, default `classical`) in `visibible-preferences` localStorage. Defaults come from the Bible and model libraries; validation and hydration behavior live in the provider.
 
-Every save writes the image model, whether or not the visitor chose it, along with `defaultImageModel`, the default at save time. On load, a saved image model equal to that default is replaced by the current default, so visitors who never chose a model follow default changes. Preferences saved before `defaultImageModel` existed count as saved under Gemini 2.5 Flash Image.
+Every save writes the image model along with `defaultImageModel`, the default at save time. Since [ADR 0012](../../docs/adr/0012-one-image-call-from-the-text.md) generation runs on one model whatever is saved, so on load the saved image model is always replaced by the current default, and its resolution normalizes to what that model supports. A model picked during a visit lasts only for that visit.
 
 Translation, image model and chat model setters also write cookies. Translation and image model changes refresh the route. Ratio and resolution changes apply to subsequent generation; chat model changes apply to subsequent messages. Selecting a model does not itself guarantee generation or catalog availability.
 

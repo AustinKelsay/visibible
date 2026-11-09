@@ -1,8 +1,10 @@
 import { imageModelFixture } from "../shared/image-model-fixtures";
+import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 import { createHash } from "node:crypto";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const mockFetchImageModels = vi.fn();
+// Hoisted: the test imports the mocked module for its default model id.
+const { mockFetchImageModels } = vi.hoisted(() => ({ mockFetchImageModels: vi.fn() }));
 const mockValidateSession = vi.fn();
 const mockConvex = {
   query: vi.fn(),
@@ -38,8 +40,9 @@ describe("Image Models API", () => {
     };
     mockFetchImageModels.mockResolvedValue({
       models: [
+        { ...imageModelFixture("google/gemini-2.5-flash-image"), name: "Gemini 2.5 Flash Image", creditsCost: 2, etaSeconds: 12 },
         {
-          ...imageModelFixture("google/gemini-2.5-flash-image"),
+          ...imageModelFixture(DEFAULT_IMAGE_MODEL),
           name: "Gemini 2.5 Flash Image",
           provider: "Google",
           creditsCost: 2,
@@ -58,7 +61,7 @@ describe("Image Models API", () => {
     mockConvex.mutation.mockResolvedValue({ processed: 0, skipped: 0, alreadySeeded: true });
     mockConvex.query.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
       if (!("serverSecret" in args)) {
-        return [{ modelId: "google/gemini-2.5-flash-image", etaSeconds: 8 }];
+        return [{ modelId: DEFAULT_IMAGE_MODEL, etaSeconds: 8 }];
       }
       if ("serverSecret" in args) {
         return [
@@ -126,7 +129,8 @@ describe("Image Models API", () => {
     expect(body.creditRange).toEqual({ min: 2, max: 2 });
     expect(body.models[0].etaSeconds).toBe(8);
     expect(body.models[0].estimatedCreditsByResolution).toEqual({ "1K": 2 });
-    expect(body.models[1].estimatedCreditsByResolution).toEqual({});
+    // Only the model generation runs on is offered (ADR 0012): another, priced or not, would quote what is not charged.
+    expect(body.models.map((m: { id: string }) => m.id)).toEqual([DEFAULT_IMAGE_MODEL]);
     expect(mockConvex.mutation).not.toHaveBeenCalled();
     expect(mockConvex.query).toHaveBeenCalledTimes(1);
   });
