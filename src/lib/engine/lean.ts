@@ -12,7 +12,7 @@ import { applicableRules, briefBlock, engineRules } from "./prompt";
 import { depictionModeOf, effectsWordingFor, symbolWordingFor, type DepictionMode, type DepictionProfile } from "./depiction";
 import type { ArtStyle, WorkBrief } from "../work-preparation";
 
-export const LEAN_PROMPT_VERSION = "2026-11-09-lean-v3";
+export const LEAN_PROMPT_VERSION = "2026-11-09-lean-v4";
 /** Sheets beside the style reference; Nano Banana 2.1 takes many more, but each extra sheet risks an extra figure. */
 export const LEAN_MAX_SHEETS = 4;
 export const LEAN_PROMPT_MAX_CHARS = 12000;
@@ -57,11 +57,12 @@ const wordPattern = (name: string) => new RegExp(`(?<![\\p{L}\\p{N}])${escapeReg
  * and lowercase-led words are dropped, so "The men with Saul" never answers to "The".
  */
 export function leanNames(member: Pick<LeanCastMember, "name" | "aliases" | "text">): string[] {
-  const parts = member.name.split(/\s*\/\s*/).flatMap((part) => [part, part.split(/[,(]/)[0]]).map((p) => p.trim());
+  const parts = member.name.split(/\s*\/\s*/).flatMap((part) => [part, part.split(/[,(]/)[0]]).flatMap((p) => [p.trim(), p.trim().replace(/^the\s+/i, "")]);
   const label = member.text.match(/^([^:\n]{1,80}):/)?.[1]?.trim() ?? "";
   const leading = (name: string) => { const words = name.replace(/^the\s+/i, "").split(/\s+/); const end = words.findIndex((w) => !/^\p{Lu}/u.test(w)); return end < 0 ? words : words.slice(0, end); };
   const words = [...parts, label].flatMap(leading).filter((w) => w.length >= 4);
-  return [...new Set([member.name, ...parts, label, ...member.aliases, ...words].map((n) => n.trim()).filter((n) => n.length > 2))].sort((a, b) => b.length - a.length);
+  const aliases = member.aliases.flatMap((a) => [a, a.replace(/^the\s+/i, "")]);
+  return [...new Set([member.name, ...parts, label, ...aliases, ...words].map((n) => n.trim()).filter((n) => n.length > 2))].sort((a, b) => b.length - a.length);
 }
 
 const mentions = (text: string | null | undefined, member: LeanCastMember) =>
@@ -148,6 +149,8 @@ export function buildLeanRendering(input: LeanInput): LeanResult {
     "HOW TO READ IT: choose the single instant that best shows what happens in the moment and paint that, as if the viewer stands inside the scene. When someone speaks, show the speaker and listeners where they are; never paint the content of the speech as a separate scene or as figures beside them. Figures of speech and comparisons are not literal objects. Infer place, time, light and weather from the text and context.",
     alias ? nameless(brief_) : brief_,
     effects ? unplanned(effects.renderBlock) : "",
+    // The text itself may give the presence a seat, clothes, hair or hands; the planner used to keep those words out.
+    alias && formless.some(isNamed) ? `IMAGERY, NOT FORM (binding): wherever the text calls something "${alias}", it has no body. Words that give it a seat, clothing, hair, face, hands, feet or a figure are imagery: paint none of them, not even as light or cloud in that shape. Show the place, the people who witness it, and the light, fire, cloud or wind spread through the place; any throne, seat or chariot stays empty.` : "",
     symbol ? `${symbol.renderBlock} ${symbols.map((m) => m.name).join("; ")}.` : "",
     canonBlock("CANON, NAMED HERE (fixed look; the moment decides pose, expression, clothing changes and action):", [...formed, ...symbols].filter(isNamed)),
     canonBlock("CANON, ELSEWHERE IN THIS PASSAGE (draw one only when the moment involves them, for example as \"he\" or \"they\"; otherwise leave them out):", [...formed, ...symbols].filter((m) => !isNamed(m))),

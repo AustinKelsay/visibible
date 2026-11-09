@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-09T19:05:38.741Z",
+  "measuredUsd": 0.35373,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 8,
+    "check": 0
+  },
+  "blocked": "Evaluation cap or call limit reached",
+  "outcomes": {
+    "image": 8,
+    "failed": 1
+  },
+  "imageMs": {
+    "median": 11299,
+    "p90": 15774
+  },
+  "productionMutations": 0
+}
