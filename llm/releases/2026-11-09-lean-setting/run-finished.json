@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-09T22:07:34.244Z",
+  "measuredUsd": 1.7141025,
+  "uncertainUsd": 0.4867815,
+  "counts": {
+    "text": 0,
+    "image": 41,
+    "check": 0
+  },
+  "blocked": "Missing provider usage",
+  "outcomes": {
+    "image": 40,
+    "failed": 1
+  },
+  "imageMs": {
+    "median": 10132,
+    "p90": 16298
+  },
+  "productionMutations": 0
+}

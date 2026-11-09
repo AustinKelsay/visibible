@@ -205,8 +205,8 @@ async function run() {
       sources: Object.fromEntries(SOURCES.map((f) => [f, sha256(readFileSync(path.join(root, f)))])) });
   }
   mkdirSync(imageDir, { recursive: true });
-  // A content-filter refusal returns 200 with no image and zero usage; it is that image's failure at no cost, not the
-  // run's, so it reaches the ledger as the moderation refusal it is.
+  // A content-filter refusal returns 200 with no image and zero or no usage; it is that image's failure at no cost, not
+  // the run's, so it reaches the ledger as the moderation refusal it is.
   const upstream = fetchImpl;
   const filtered: typeof fetchImpl = async (url, init) => {
     const response = await upstream(url, init);
@@ -214,7 +214,7 @@ async function run() {
     const body = await response.text();
     try {
       const payload = JSON.parse(body) as { choices?: Array<{ finish_reason?: string }>; usage?: { cost?: number } };
-      if (payload.choices?.[0]?.finish_reason === "content_filter" && payload.usage?.cost === 0)
+      if (payload.choices?.[0]?.finish_reason === "content_filter" && !payload.usage?.cost)
         return new Response(JSON.stringify({ error: { message: "flagged: provider content filter", provider: payload } }), { status: 403, headers: { "Content-Type": "application/json" } });
     } catch { /* a non-JSON body is the ledger's to judge */ }
     return new Response(body, { status: response.status, headers: response.headers });
