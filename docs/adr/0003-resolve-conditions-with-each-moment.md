@@ -1,5 +1,7 @@
 # Resolve situational conditions with each moment
 
+> Superseded by [ADR 0012](0012-one-image-call-from-the-text.md): since 9 November 2026 the request path makes one image call from the text, and the moment conditions described here is no longer run.
+
 On 26 October 2026 the owner replied “continue” to the concrete option A proposal: resolve place, time, weather, light and situational clothing together with the moment plan, while preserving canon and explicit owner constraints. The [completed comparison](../../llm/releases/2026-10-25-citation-validation/RESULTS.md) paired palace scenes with sea-shore looks and independent choices of time/light; both arms refused 17 preparations for reported look conflicts, including questionable reports. One literal setting for every moment did not provide usable availability.
 
 A generated section look is now a versioned guide and dependency, retained unchanged for provenance. The scene planner emits five moment conditions in the same response as its scene fields; review and rendering receive the same resolved content and selected full canon. Moment conditions share the plan's content identity and are reused across styles/translations. Conditions and canon cannot be trimmed to fit a rendering prompt. This is a content-ownership change, not evidence that model judgments improved.

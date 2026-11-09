@@ -6,7 +6,7 @@
  * the moment or a neighbouring verse names first, and the image model draws whom the moment involves. Subjects without form keep their work's wording (ADR 0010):
  * their names are replaced in every text the prompt carries, and the effects rule is added.
  *
- * Evaluation candidate only: the request path still uses `assemble.ts`.
+ * `lean-assemble.ts` reads its inputs for the request path (ADR 0012) and for the evaluation command.
  */
 import { applicableRules, briefBlock, engineRules } from "./prompt";
 import { depictionModeOf, effectsWordingFor, symbolWordingFor, type DepictionMode, type DepictionProfile } from "./depiction";

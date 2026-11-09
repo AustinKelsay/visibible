@@ -12,6 +12,8 @@ import { quoteBillableUnits } from "../token-pricing";
 export const PROMPT_CHARS_PER_TOKEN = 4;
 /** Text tokens the model returns alongside the image (captions, refusals); a small fixed allowance. */
 export const RESPONSE_TEXT_TOKENS = 100;
+/** Models that bill reasoning with every image: Nano Banana 2.1 averaged 585 such tokens over 254 calls (median 545, p90 704). */
+const RESPONSE_TEXT_TOKENS_BY_MODEL: Record<string, number> = { "google/gemini-nano-banana-2.1": 600 };
 /** The inherited envelope: a generic image should stay around five credits on Lite and never pass about ten. */
 export const LITE_TARGET_CREDITS = 5;
 export const IMAGE_ENVELOPE_CREDITS = 10;
@@ -39,7 +41,7 @@ export function quoteGenericImage(args: { modelId: string; billing: ImageBilling
   const promptTokens = Math.ceil(args.promptChars / PROMPT_CHARS_PER_TOKEN);
   const quote = quoteBillableUnits([
     { price: billing.textInputUsd, units: promptTokens },
-    { price: billing.textOutputUsd, units: RESPONSE_TEXT_TOKENS },
+    { price: billing.textOutputUsd, units: RESPONSE_TEXT_TOKENS_BY_MODEL[args.modelId] ?? RESPONSE_TEXT_TOKENS },
     { price: billing.imageOutputUsd, units: outputTokens },
     ...(args.referenceImages > 0 && imageInput ? [imageInput] : []),
   ]);

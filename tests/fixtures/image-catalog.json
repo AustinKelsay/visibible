@@ -130,6 +130,29 @@
         "input_cache_read": "0.00000003",
         "input_cache_write": "0.0000000833333333333333"
       }
+    },
+    {
+      "id": "google/gemini-nano-banana-2.1",
+      "name": "Google: Nano Banana 2.1",
+      "architecture": {
+        "modality": "text+image->text+image",
+        "input_modalities": [
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "image",
+          "text"
+        ],
+        "tokenizer": "Gemini",
+        "instruct_type": null
+      },
+      "pricing": {
+        "prompt": "0.0000015",
+        "completion": "0.0000075",
+        "image_output": "0.00003",
+        "web_search": "0.014"
+      }
     }
   ]
 }

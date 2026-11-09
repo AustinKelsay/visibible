@@ -1,29 +1,23 @@
 /**
- * Generic image generation through the request path (#175, spec #165 §5, §6, §7, §9). One
- * admitted request: deployed inputs checked against the registered analysis → the moment and
- * its in-section neighbours from the imported reference text → section look and scene plan
- * (lazy, owner-funded) → selected canon stages → current reference blobs, sent inline as JPEGs
- * → the rendering packet, rejected before any paid call when over budget → a prompt-aware quote
- * → the request record with its engine commitments and the exact packet snapshot → guest
- * reservation → one provider call → the finished-image check, with one owner-funded retry of a faulty image (ADR 0007)
- * → settlement for the image shown, from actual usage or the packet-aware fallback →
- * the saved image with WEB text and full provenance. A scene that cannot be prepared or packed is
- * declined before any request record exists, and the route returns that decline; there is no legacy
- * fallback (#184) and no unplanned prompt, and a replay never pays twice.
+ * Image generation through the request path (ADR 0012). One admitted request: deployed inputs checked against the
+ * registered analysis → the moment and its in-section neighbours from the imported reference text → the section's
+ * cast with its canon stages → current reference blobs, sent inline as JPEGs → one prompt built from the text itself,
+ * rejected before any paid call when over budget → a prompt-aware quote → the request record with its engine
+ * commitments and the exact packet snapshot → guest reservation → one provider call → settlement from actual usage or
+ * the packet-aware fallback → the saved image with WEB text and full provenance. No model is called before the image:
+ * there is no look, plan, review or finished-image check. A scene that cannot be packed is declined before any request
+ * record exists, and a replay never pays twice.
  */
 import { api } from "../../../convex/_generated/api";
 import { fetchImageModels, CREDIT_USD, DEFAULT_IMAGE_MODEL, IMAGE_RESERVATION_HEADROOM_MULTIPLIER, canAffordImageGeneration, getProviderName } from "../image-models";
 import { imageCapabilities, IMAGE_BILLING_VERSION } from "../image-catalog";
 import { extractNoImageText, extractOpenRouterUsageUsd, findResponseImageUrl, summarizeNoImageResponse } from "../image-response";
-import { incrementMetricCounter, logApiFailure, logApiTimeout, logInfo, logSettlementEvent, logWarn, redactSid } from "../observability";
-import { createOpenRouterTextModel, type TextModel } from "../reading-pass/model";
-import { createConvexPreparationStore, type PreparationStore } from "./preparation";
-import { GENERIC_PROMPT_VERSION } from "./prompt";
+import { logApiFailure, logApiTimeout, logInfo, logSettlementEvent, logWarn, redactSid } from "../observability";
+import { LEAN_PROMPT_VERSION } from "./lean";
+import { assembleLean } from "./lean-assemble";
 import { quoteGenericImage } from "./quote";
 import { createReferenceBlobCache } from "./references";
-import { createOpenRouterVisionChecker } from "./reference-adapters";
-import { checkAndRetry, checkScene, SCENE_CHECK_VERSION, SOFT_EDGE_STYLES, type SceneChecker } from "./scene-check";
-import { assembleRendering, type ReferenceRecord } from "./assemble";
+import type { ReferenceRecord } from "./assemble";
 import { loadWorkInputs, type MomentRange, type WorkInputs } from "./work-inputs";
 import type { ConvexClient, GenericEngine, GenericGenerationInput, GenericGenerationOutcome } from "./dispatch";
 import { listAnalysisRecords } from "./analysis-records";
@@ -34,8 +28,6 @@ type Blob = { bytes: Uint8Array; mimeType: string };
 
 export type GenericEngineDeps = {
   loadInputs?: (workId: string) => Promise<WorkInputs>;
-  /** The text model for looks and plans; Claude Haiku 5.5 through OpenRouter by default. */
-  textModel?: (apiKey: string) => TextModel;
   fetch?: FetchLike;
   /** Read a stored reference blob; by default through a short-lived Convex storage URL. */
   loadReferenceBytes?: (runtime: Runtime, storageId: string) => Promise<Blob>;
@@ -44,11 +36,6 @@ export type GenericEngineDeps = {
   modelId?: string;
   imageTimeoutMs?: () => number;
   now?: () => number;
-  /**
-   * The finished-image check (ADR 0007). Claude Haiku 5.5 through OpenRouter by default; null turns it off.
-   * GENERIC_SCENE_CHECK=off also turns it off.
-   */
-  sceneChecker?: (apiKey: string, fetchImpl: FetchLike) => SceneChecker | null;
 };
 
 const DEFAULT_COST_MARKUP_MULTIPLIER = 1.25;
@@ -56,8 +43,6 @@ const COST_EVENT_PERSIST_TIMEOUT_MS = 1500;
 const TIMEOUT_PREFIX = "Image generation timed out after";
 const BIBLE_REFERENCE_TRANSLATION = "web";
 const REFERENCE_FETCH_TIMEOUT_MS = 10_000;
-/** Both check questions run in parallel; a slower check is skipped and the image is shown unchecked. */
-const SCENE_CHECK_TIMEOUT_MS = 30_000;
 
 function imageTimeoutMsFromEnv() {
   const parsed = Number.parseInt(process.env.OPENROUTER_IMAGE_TIMEOUT_MS || "45000", 10);
@@ -89,15 +74,12 @@ export { referenceIsCurrent } from "./assemble";
 
 export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine {
   const loadInputs = deps.loadInputs ?? ((workId: string) => loadWorkInputs(workId));
-  const textModel = deps.textModel ?? ((apiKey: string) => createOpenRouterTextModel({ apiKey }));
   const fetchImpl: FetchLike = deps.fetch ?? ((input, init) => fetch(input, init));
   const loadReferenceBytes = deps.loadReferenceBytes ?? defaultLoadReferenceBytes;
   const toJpeg = deps.toJpeg ?? defaultToJpeg;
   const modelId = deps.modelId ?? DEFAULT_IMAGE_MODEL;
   const imageTimeoutMs = deps.imageTimeoutMs ?? imageTimeoutMsFromEnv;
   const now = deps.now ?? Date.now;
-  const sceneChecker = deps.sceneChecker ?? ((apiKey: string, fetchImpl: FetchLike) => process.env.GENERIC_SCENE_CHECK === "off" ? null
-    : createOpenRouterVisionChecker({ apiKey, fetch: fetchImpl, reasoningEffort: "low", maxTokens: 1500, timeoutMs: SCENE_CHECK_TIMEOUT_MS }));
   // One bounded JPEG cache per Convex client (one per server instance in production).
   const caches = new WeakMap<object, ReturnType<typeof createReferenceBlobCache>>();
   const cacheFor = (runtime: Runtime) => {
@@ -109,10 +91,6 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
     return cache;
   };
   const momentLists = new Map<string, Promise<MomentRange[]>>();
-
-  const storeFor = (convex: ConvexClient, workId: string, serverSecret: string): PreparationStore =>
-    createConvexPreparationStore({ query: (ref, args) => convex.query(ref as never, args as never), mutation: (ref, args) => convex.mutation(ref as never, args as never) },
-      api.analysis as unknown as Record<string, unknown>, workId, serverSecret);
 
   const listMomentsFor = (convex: ConvexClient, workId: string, generation: number) => (): Promise<MomentRange[]> => {
     const key = `${workId}#${generation}`;
@@ -160,18 +138,18 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         logWarn("generic.inputs_mismatch", { requestId: input.requestId, workId, deployedWork: inputs.workVersion, registeredWork: input.readiness.workVersion, deployedBrief: inputs.briefVersion, registeredBrief: input.readiness.briefVersion });
         return preparing("The deployed work or brief differs from the registered analysis.");
       }
-      const store = storeFor(convex, workId, serverSecret);
       const cache = cacheFor(runtime);
       let assembled;
       try {
-        assembled = await assembleRendering({
-          inputs, store, model: textModel(runtime.openRouterApiKey), now,
+        assembled = await assembleLean({
+          inputs,
+          getRecord: (kind, recordId) => convex.query(api.analysis.getActiveRecord, { workId, kind, recordId }) as never,
           listMoments: listMomentsFor(convex, workId, input.readiness.activeGeneration),
           getReference: (kind, recordId) => convex.query(api.analysis.getReference, { workId, kind, recordId }) as Promise<ReferenceRecord | null>,
           loadReference: (storageId) => cache.get(storageId),
           onReferenceSkipped: (kind, id, reason) => logInfo("generic.reference_skipped", { requestId: input.requestId, workId, kind, id, reason }),
           onReferenceUnavailable: (kind, id, error) => logWarn("generic.reference_unavailable", { requestId: input.requestId, workId, kind, id, error: error instanceof Error ? error.message : String(error) }),
-        }, { workId, unitId: input.verseId, styleId: input.styleId, variationNumber: input.generationNumber, aspectRatio: input.aspectRatio });
+        }, { workId, unitId: input.verseId, styleId: input.styleId, aspectRatio: input.aspectRatio });
       } catch (error) {
         logApiFailure({ context: requestContext, stage: "generic_moment_lookup", error, statusCode: 503, sid });
         return preparing("The work's analysis could not be read.");
@@ -181,29 +159,21 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
           case "style": return decline(503, "Art style unavailable", assembled.message, false);
           case "unit": return decline(400, "Invalid or unavailable reference", assembled.message, false);
           case "moment": return preparing(assembled.message);
+          case "canon":
+            logWarn("generic.cast_without_canon", { requestId: input.requestId, workId, momentId: input.verseId, message: assembled.message });
+            return preparing(assembled.message);
           case "context":
             logApiFailure({ context: requestContext, stage: "generic_moment_context", error: assembled.error, statusCode: 503, sid });
             return preparing(assembled.message);
-          case "preparation": {
-            const status = await convex.query(api.analysis.getPreparationStatus, { workId, momentId: input.verseId }).catch(() => null);
-            if (assembled.stage) {
-              logWarn("generic.preparation_unavailable", { requestId: input.requestId, workId, momentId: input.verseId, stage: assembled.stage, message: assembled.message });
-              incrementMetricCounter("generic_preparation", { outcome: "unavailable", stage: assembled.stage });
-            } else {
-              logApiFailure({ context: requestContext, stage: "generic_preparation", error: assembled.error, statusCode: 503, sid });
-            }
-            return preparing(assembled.message, { preparation: status });
-          }
           case "packet":
             await convex.mutation(api.analysis.noteAttention, { serverSecret, workId, reason: "prompt_over_budget", kind: "moment", recordId: assembled.momentId, detail: assembled.message }).catch(() => {});
-            logWarn("generic.prompt_over_budget", { requestId: input.requestId, workId, momentId: assembled.momentId, finalChars: assembled.finalChars });
+            logWarn("generic.prompt_over_budget", { requestId: input.requestId, workId, momentId: assembled.momentId, message: assembled.message });
             return decline(503, "Scene unavailable", assembled.message, false);
         }
       }
-      const { momentId, sectionId, context, prepared, prompt, packet, sentReferences, styleEntry } = assembled;
+      const { momentId, sectionId, context, prompt, packet, sentReferences, styleEntry } = assembled;
       const { style } = styleEntry;
       const unit = inputs.work.getUnit(input.verseId);
-      incrementMetricCounter("generic_preparation", { outcome: prepared.calls > 0 ? "prepared" : "reused" });
 
       // 7. A quote for the actual prompt and the references that will be sent.
       let catalog;
@@ -240,11 +210,11 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       }
 
       // 9. One request identity, bound to the generic engine and its commitments.
-      const commitments = { workId, momentId, briefVersion: inputs.briefVersion, analysisGeneration: input.readiness.activeGeneration, promptVersion: GENERIC_PROMPT_VERSION, billingVersion: IMAGE_BILLING_VERSION };
+      const commitments = { workId, momentId, briefVersion: inputs.briefVersion, analysisGeneration: input.readiness.activeGeneration, promptVersion: LEAN_PROMPT_VERSION, billingVersion: IMAGE_BILLING_VERSION };
       try {
         const admission = await convex.mutation(api.verseImages.createGenerationRequest, {
           requestId, sid, verseId: unit.id, translationId: input.translationId, reference: input.reference, modelId,
-          aspectRatio: input.aspectRatio, resolution: input.resolution, promptVersion: GENERIC_PROMPT_VERSION,
+          aspectRatio: input.aspectRatio, resolution: input.resolution, promptVersion: LEAN_PROMPT_VERSION,
           estimatedCreditsCost, estimatedCostUsd, serverSecret, inputFingerprint: input.inputFingerprint, generationId: crypto.randomUUID(),
           executorVersion: "next-image-v1", billingPolicyVersion: "legacy-image-v1",
           engine: "generic", artStyleId: style.id, engineCommitments: commitments,
@@ -357,37 +327,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         return fail(500, "Model returned no image output", first.noImage);
       }
 
-      // 12b. The scene check (ADR 0007): a faulty first image gets one owner-funded retry, and the better one is shown.
-      // The reader pays for the image shown; the owner pays for the checks and the image not shown.
-      let shown = first;
-      const checker = sceneChecker(runtime.openRouterApiKey, fetchImpl);
-      if (checker) {
-        const checkContext = { people: assembled.canon.filter((c) => c.hasForm && c.kind === "character" && c.depiction !== "symbol").map((c) => c.name),
-          description: `${prepared.plan.payload.primarySubject}; ${prepared.plan.payload.secondaryElements}`, softEdges: SOFT_EDGE_STYLES.includes(style.id), depiction: inputs.depiction };
-        const checked = await checkAndRetry<ImageAttempt>(first, {
-          check: (attempt, n) => {
-            const match = attempt.imageUrl.match(/^data:(image\/[a-z+]+);base64,(.+)$/);
-            if (!match) return Promise.reject(new Error("The image is not an inline data URL"));
-            return withTimeout(checkScene(checker, { bytes: Uint8Array.from(Buffer.from(match[2], "base64")), mimeType: match[1] }, checkContext, `${momentId}:${n}`), SCENE_CHECK_TIMEOUT_MS, "Scene check timeout");
-          },
-          retry: async () => {
-            const data = await callProvider();
-            const attempt = toAttempt(data);
-            if ("noImage" in attempt) throw new Error(attempt.noImage);
-            return attempt;
-          },
-        });
-        shown = checked.attempts[checked.chosen].image;
-        const ownerUsd = checked.attempts.reduce((sum, a, i) => sum + (a.check?.costUsd ?? 0) + (i === checked.chosen ? 0 : extractOpenRouterUsageUsd(a.image.data) ?? 0), 0);
-        const outcome = checked.attempts[0].checkError ? `check unavailable: ${checked.attempts[0].checkError.slice(0, 80)}`
-          : checked.attempts.length === 1 ? (checked.retryError ? `faults ${checked.attempts[0].check!.faults.join(",")}; retry failed` : "clean")
-          : `faults ${checked.attempts[0].check!.faults.join(",")}; retry ${checked.attempts[1].check?.faults.join(",") || (checked.attempts[1].checkError ? "unchecked" : "clean")}; showed ${checked.chosen + 1}`;
-        await store.recordSpend({ kind: "check", recordId: momentId, model: checker.id, outcome: `${SCENE_CHECK_VERSION}: ${outcome}`, costUsd: ownerUsd, promptTokens: null, completionTokens: null, elapsedMs: now() - started })
-          .catch((error) => logWarn("generic.scene_check_spend_failed", { requestId, error: error instanceof Error ? error.message : String(error) }));
-        logInfo("generic.scene_check", { requestId, generationId, momentId, styleId: style.id, outcome, attempts: checked.attempts.length, chosen: checked.chosen + 1, ownerUsd });
-        incrementMetricCounter("generic_scene_check", { outcome: checked.attempts[0].checkError ? "unavailable" : checked.attempts.length === 1 ? (checked.retryError ? "retry_failed" : "clean") : "retried" });
-      }
-      const { data, imageUrl, providerRequestId } = shown;
+      const { data, imageUrl, providerRequestId } = first;
       const durationMs = now() - started;
 
       // 13. Settlement from actual usage, or from the quote that described the request actually made.
@@ -466,7 +406,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       try {
         const saved = await convex.action(api.verseImages.saveImage, {
           verseId: unit.id, imageUrl, model: modelId, prompt, reference: context.moment.reference, verseText: context.moment.text,
-          generationNumber: input.generationNumber ?? undefined, promptVersion: GENERIC_PROMPT_VERSION, translationId: sourceTranslationId,
+          generationNumber: input.generationNumber ?? undefined, promptVersion: LEAN_PROMPT_VERSION, translationId: sourceTranslationId,
           provider: getProviderName(modelId), providerRequestId, creditsCost: chargedCredits, costUsd: chargedCostUsd, durationMs,
           aspectRatio: input.aspectRatio, generationId, engine: "generic", artStyleId: style.id, provenance, serverSecret,
         });
@@ -475,12 +415,12 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         logApiFailure({ context: requestContext, stage: "generic_save_image", error, statusCode: 500, sid, generationId });
       }
       await update("succeeded", { generationId, providerRequestId, usedFallbackEstimate: !usedActual, actualCreditsCost: chargedCredits, actualCostUsd: chargedCostUsd, durationMs }).catch(() => {});
-      logInfo("generic.generated", { requestId, generationId, sid: redactSid(sid), workId, momentId, styleId: style.id, references: sentReferences.length, promptChars: prompt.length, preparationCalls: prepared.calls, credits: chargedCredits, durationMs });
+      logInfo("generic.generated", { requestId, generationId, sid: redactSid(sid), workId, momentId, styleId: style.id, references: sentReferences.length, promptChars: prompt.length, credits: chargedCredits, durationMs });
 
       return respond(200, {
         requestId, engine: "generic", imageUrl, ...(savedImageId ? { savedImageId } : {}),
         model: modelId, provider: getProviderName(modelId), providerRequestId, generationId,
-        prompt, promptVersion: GENERIC_PROMPT_VERSION, reference: context.moment.reference,
+        prompt, promptVersion: LEAN_PROMPT_VERSION, reference: context.moment.reference,
         translationId: sourceTranslationId, requestTranslationId: input.translationId, verseText: context.moment.text,
         generationNumber: input.generationNumber ?? undefined, style: style.id,
         creditsCost: chargedCredits, imageCreditsCost: chargedCredits, scenePlannerCredits: 0, costUsd: chargedCostUsd, imageCostUsd: chargedCostUsd, scenePlannerCostUsd: 0,
@@ -488,7 +428,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         estimatedCreditsCost, estimatedCostUsd, openRouterUsageUsd, usedActualCost: usedActual, usedFallbackEstimate: !usedActual, neutralCostUsedForActual,
         ...(chargeShortfall && { chargeShortfall }), durationMs, aspectRatio: input.aspectRatio, resolution: input.resolution,
         billingVersion: model.billing?.version, catalogEstimatedProviderUsd: quote.providerUsd, resolutionSupported: capabilities.resolutions.length > 1,
-        provenance, preparation: { calls: prepared.calls, referencesSent: sentReferences.length, promptChars: prompt.length },
+        provenance, preparation: { calls: 0, referencesSent: sentReferences.length, promptChars: prompt.length },
         ...(updatedCredits !== undefined && { credits: updatedCredits }),
       });
       } catch (error) {
@@ -499,7 +439,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
           await update("failed", { error: error instanceof Error ? error.message : "Failed to generate image" }).catch(() => {});
           return respond(500, { error: "Failed to generate image", requestId: input.requestId });
         }
-        return decline(503, "Preparing scene", "Scene preparation failed.", true);
+        return decline(503, "Preparing scene", "The scene could not be assembled.", true);
       }
     },
   };

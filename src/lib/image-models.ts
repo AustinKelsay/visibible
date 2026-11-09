@@ -77,7 +77,7 @@ export function computeCreditsFromActualUsage(
   return { credits: fallbackCredits, usedActual: false };
 }
 
-export const DEFAULT_IMAGE_MODEL = "google/gemini-3.1-flash-lite-image";
+export const DEFAULT_IMAGE_MODEL = "google/gemini-nano-banana-2.1";
 
 /** Readable fallback from a model id, e.g. "google/gemini-3.1-flash-lite-image" -> "Gemini 3.1 Flash Lite". */
 export function formatModelId(modelId: string): string {
@@ -91,6 +91,7 @@ const IMAGE_MODEL_DISPLAY_NAMES: Record<string, string> = {
   "google/gemini-2.5-flash-image": "Nano Banana",
   "google/gemini-3.1-flash-image": "Nano Banana 2",
   "google/gemini-3.1-flash-lite-image": "Nano Banana 2 Lite",
+  "google/gemini-nano-banana-2.1": "Nano Banana 2.1",
 };
 
 export function imageModelDisplayName(modelId: string): string {
@@ -304,7 +305,7 @@ function cloneImageModels(models: ImageModel[]): ImageModel[] {
 }
 
 export function unavailableImageModels(reason: string): ImageModel[] {
-  return [{ id: DEFAULT_IMAGE_MODEL, name: "Nano Banana 2 Lite", provider: "Google",
+  return [{ id: DEFAULT_IMAGE_MODEL, name: imageModelDisplayName(DEFAULT_IMAGE_MODEL), provider: "Google",
     availability: "unavailable", unavailableReason: reason, creditsCost: null, reservationCreditsCost: null }];
 }
 

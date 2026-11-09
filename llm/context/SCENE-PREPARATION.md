@@ -1,5 +1,7 @@
 # Scene preparation
 
+> **No longer on the request path.** Since 9 November 2026 a new image is one call built from the text, with no look, plan or review ([ADR 0012](../../docs/adr/0012-one-image-call-from-the-text.md), [Image generation](IMAGE-GENERATION.md#generic-generation-path)). This guide describes the preparation code that remains in the repository until it is removed, and the looks and plans saved images were made from.
+
 [Preparation](../../src/lib/engine/preparation.ts) creates a shared section guide and a scene plan for each moment, then stores them in the work's active analysis generation. The pipeline retains its advisory plan review. The [30 October–1 November simplification investigation is closed](#closed-simplification-investigation); its unactivated candidates are historical evidence.
 
 ## Separate responsibilities

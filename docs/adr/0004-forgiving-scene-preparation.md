@@ -1,5 +1,7 @@
 # Forgiving scene preparation with a legacy fallback
 
+> Superseded by [ADR 0012](0012-one-image-call-from-the-text.md): since 9 November 2026 the request path makes one image call from the text, and the scene preparation described here is no longer run.
+
 On 27 October 2026 the owner approved making scene preparation "less heavy-handed and more forgiving and generic", fixing the prompt-length and Classical style-reference problems, and falling back to the legacy engine when the generic engine cannot prepare a verse. The [fresh measurement](../../llm/releases/2026-10-26-fresh-conditions-check/RESULTS.md) had shown the strict contract refusing 16 of 30 cases (most for an unselected place, missing evidence quotes or missing canon) while still storing flawed plans. Twelve prompt and contract rounds since 23 October had not converged. The [image check](../../llm/releases/2026-10-26-image-check/RESULTS.md) showed Watercolor refusing for prompt length and Classical drawing God as a figure without a style reference.
 
 The planner now gets a short general contract and returns its instant, selected cast with a few words of evidence, seven scene fields and the five moment conditions. Evidence quotes are recorded for audit, not validated. The planner no longer reports missing cast. The plan review advises rather than gates:

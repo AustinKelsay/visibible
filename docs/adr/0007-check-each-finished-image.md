@@ -1,5 +1,7 @@
 # Check each finished image and retry once
 
+> Superseded by [ADR 0012](0012-one-image-call-from-the-text.md): since 9 November 2026 the request path makes one image call from the text, and the finished-image check described here is no longer run.
+
 On 27 October 2026 the owner approved building and testing an automatic image check ("continue"). Prompt rounds had reduced God figures and style faults but kept trading one failure for another: in the [v12 check](../../llm/releases/2026-10-27-v12-image-check/RESULTS.md), 12 of 24 images still had a fault. Each image is now checked after it is made:
 
 - Claude Haiku 5.5 looks at the finished image with the selected characters' names and the plan's subject and secondary elements. It looks for four faults: a figure in light, cloud, fire or on a throne (God drawn as a person), an unpainted edge, a painted frame, and lettering.
