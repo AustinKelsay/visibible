@@ -608,7 +608,7 @@ export function BuyCreditsModal() {
                   <div className="hidden sm:flex flex-col items-center -ml-8">
                     <MiniVerseStrip />
                     <p className="text-xs text-[var(--muted)]">
-                      The number under a verse shows how many images it has
+                      The image mark shows a verse has saved images, with a count when there are several
                     </p>
                   </div>
                 </div>
@@ -731,7 +731,7 @@ export function BuyCreditsModal() {
                 onClick={() => createInvoice(selectedBundle)}
                 className="w-full py-3 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] font-medium hover:bg-[var(--accent-hover)] transition-colors"
               >
-                Buy {selectedBundle.credits} Credits
+                Buy {selectedBundle.credits} Credits · ${selectedBundle.amountUsd}
               </button>
 
               {/* Admin Access - only when the page is opened with ?admin */}

@@ -29,6 +29,9 @@ export function VerseStripBar({ book, chapter, currentVerse, totalVerses }: Vers
         />
       </div>
 
+      {/* Fullscreen needs an image; a verse without one shows just the strip */}
+      {currentImageId ? (
+      <>
       {/* Subtle vertical divider */}
       <div
         className="w-px self-stretch my-2 shrink-0"
@@ -58,6 +61,8 @@ export function VerseStripBar({ book, chapter, currentVerse, totalVerses }: Vers
       >
         <Maximize2 size={20} strokeWidth={1.5} />
       </button>
+      </>
+      ) : null}
     </div>
   );
 }

@@ -31,15 +31,15 @@ export function verseTileLabel(verse: number, imageCount: number): string {
 }
 
 /**
- * Saved-image count under a verse number: a small image icon and the number, so it reads as
- * "images" without a legend. The same mark is used for one image and for many.
+ * Saved images under a verse number: a small image icon, so it reads as "images" without a legend,
+ * plus the number only when there are several. A verse with one image shows just the icon.
  */
 export function VerseImageCount({ count, className = "" }: { count: number; className?: string }) {
   if (count <= 0) return null;
   return (
-    <span aria-hidden="true" className={`inline-flex items-center gap-0.5 text-xs font-medium leading-3 tabular-nums ${className}`}>
-      <ImageIcon size={10} strokeWidth={2} />
-      {count}
+    <span aria-hidden="true" className={`inline-flex h-3 items-center gap-0.5 text-xs font-medium leading-3 tabular-nums ${className}`}>
+      <ImageIcon size={11} strokeWidth={2} />
+      {count > 1 ? count : null}
     </span>
   );
 }
@@ -164,7 +164,7 @@ function VerseStripBase({
                 <span className="text-sm font-medium leading-4">{v.verse}</span>
                 <VerseImageCount
                   count={v.imageCount}
-                  className={`mt-0.5 ${isCurrent ? "text-[var(--accent-text)]/90" : "text-white/65"}`}
+                  className={`mt-0.5 ${isCurrent ? "text-[var(--accent-text)]/90" : "text-white/55"}`}
                 />
               </Link>
             );

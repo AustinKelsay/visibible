@@ -41,11 +41,13 @@ describe("VerseStrip", () => {
     const links = Array.from(container.querySelectorAll("a"));
     expect(links).toHaveLength(5);
     expect(links[0].getAttribute("aria-current")).toBe("page");
-    // One mark for any count (icon + number), and the tile's name says what it means
+    // An image icon marks saved images, with the number only when there are several; the tile's
+    // name gives the exact count
     expect(links[0].getAttribute("aria-label")).toBe("Verse 1, 4 saved images");
     expect(links[0].textContent).toBe("14");
     expect(links[2].getAttribute("aria-label")).toBe("Verse 3, 1 saved image");
-    expect(links[2].textContent).toBe("31");
+    expect(links[2].textContent).toBe("3");
+    expect(links[2].querySelector("svg")).not.toBeNull();
     expect(links[1].getAttribute("aria-label")).toBe("Verse 2, no image yet");
     expect(links[1].querySelector("svg")).toBeNull();
     expect(container.querySelector('[class*="-top-1.5"]')).toBeNull();

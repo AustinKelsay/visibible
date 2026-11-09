@@ -92,7 +92,7 @@ export default function AboutPage() {
                 <h2 className="text-xl font-semibold tracking-tight text-[var(--foreground)]">
                   {section.title}
                 </h2>
-                <div className="mt-3 space-y-3 text-sm sm:text-base leading-7 text-[var(--foreground)]/80">
+                <div className="mt-3 max-w-[65ch] space-y-3 text-sm sm:text-base leading-7 text-[var(--foreground)]/80">
                   {section.body.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}

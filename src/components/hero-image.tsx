@@ -1342,7 +1342,7 @@ function HeroImageBase({
       <div
         className={`relative w-full overflow-hidden bg-[var(--image-stage)] [aspect-ratio:var(--ar)] ${
           !displayImage?.url && !isQueryLoading && !isGenerating
-            ? "max-h-[45svh] sm:max-h-[22rem]"
+            ? "min-h-[17rem] max-h-[45svh] sm:min-h-0 sm:max-h-[22rem]"
             : "max-h-[70svh] sm:max-h-[calc(100svh-12.75rem)]"
         }`}
         style={{ "--ar": containerAspectRatioCss, touchAction: "pan-y" } as React.CSSProperties}

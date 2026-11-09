@@ -201,7 +201,8 @@ function GalleryCard({
               e.stopPropagation();
               onExpand(item);
             }}
-            className="absolute right-3 bottom-3 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-full bg-black/50 text-white/70 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 pointer-coarse:opacity-100 hover:bg-black/70 hover:text-white backdrop-blur-sm transition-all duration-[var(--motion-base)]"
+            // Touch screens always show it, smaller and with a light ring so it reads on dark paintings too
+            className="absolute right-3 bottom-3 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-full bg-black/50 text-white/70 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 pointer-coarse:opacity-100 pointer-coarse:right-2 pointer-coarse:bottom-2 pointer-coarse:min-h-8 pointer-coarse:min-w-8 pointer-coarse:bg-black/40 pointer-coarse:ring-1 pointer-coarse:ring-white/25 hover:bg-black/70 hover:text-white backdrop-blur-sm transition-all duration-[var(--motion-base)]"
             aria-label={`Open fullscreen view for ${bookName} ${chapter}:${item.verse}`}
           >
             <Maximize2 size={16} strokeWidth={1.5} />
@@ -711,7 +712,7 @@ export function ChapterGallery({
                   <div className="grid gap-0 lg:grid-cols-[minmax(220px,280px)_minmax(0,1fr)]">
                     {/* No "Verse n" pill (the reference says it): the count sits beside the reference,
                         on phones and desktop alike, so the images start sooner */}
-                    <div className="border-b border-[var(--divider)] bg-[var(--surface)]/55 p-3 sm:p-4 md:p-5 lg:border-b-0 lg:border-r">
+                    <div className="border-b border-[var(--divider)] bg-[var(--surface)]/55 p-3 sm:p-4 md:p-5 lg:border-b-0 lg:border-r lg:bg-transparent">
                       <div className="space-y-1 lg:space-y-2">
                         <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
                           <Link
