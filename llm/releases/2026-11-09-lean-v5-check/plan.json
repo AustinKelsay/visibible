@@ -1,0 +1,61 @@
+{
+  "kind": "lean",
+  "suite": "2026-11-01-suite-v3",
+  "faults": "2026-10-30-faults-v1",
+  "from": "2026-11-07-suite-v3-text",
+  "promptVersion": "2026-11-09-lean-v5",
+  "maxSheets": 4,
+  "image": {
+    "model": "google/gemini-nano-banana-2.1",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "cases": [
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "work": "bible-web",
+      "unitId": "isaiah-6-2",
+      "reference": "Isaiah 6:2",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "work": "bible-web",
+      "unitId": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor",
+        "fresco"
+      ]
+    }
+  ],
+  "evaluation": {
+    "estimatedUsd": 0.222,
+    "capUsd": 0.95,
+    "reserves": {
+      "text": 0,
+      "image": 0.08,
+      "check": 0
+    },
+    "limits": {
+      "text": 0,
+      "image": 16,
+      "check": 0
+    }
+  }
+}

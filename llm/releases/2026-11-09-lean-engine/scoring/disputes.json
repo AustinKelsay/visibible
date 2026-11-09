@@ -1,0 +1,628 @@
+[
+  {
+    "id": "j001",
+    "fields": [
+      "readable_text"
+    ]
+  },
+  {
+    "id": "j004",
+    "fields": [
+      "extra_figures",
+      "overall"
+    ]
+  },
+  {
+    "id": "j005",
+    "fields": [
+      "scene_mismatch"
+    ]
+  },
+  {
+    "id": "j009",
+    "fields": [
+      "rule_violation",
+      "overall"
+    ]
+  },
+  {
+    "id": "j015",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j018",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j021",
+    "fields": [
+      "overall"
+    ]
+  },
+  {
+    "id": "j025",
+    "fields": [
+      "extra_figures"
+    ]
+  },
+  {
+    "id": "j028",
+    "fields": [
+      "anatomy",
+      "overall"
+    ]
+  },
+  {
+    "id": "j029",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j032",
+    "fields": [
+      "overall"
+    ]
+  },
+  {
+    "id": "j033",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j034",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j039",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j041",
+    "fields": [
+      "scene_mismatch",
+      "overall"
+    ]
+  },
+  {
+    "id": "j044",
+    "fields": [
+      "lettering",
+      "rule_violation",
+      "overall"
+    ]
+  },
+  {
+    "id": "j052",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j054",
+    "fields": [
+      "anatomy"
+    ]
+  },
+  {
+    "id": "j059",
+    "fields": [
+      "overall"
+    ]
+  },
+  {
+    "id": "j060",
+    "fields": [
+      "rule_violation",
+      "readable_text"
+    ]
+  },
+  {
+    "id": "j067",
+    "fields": [
+      "overall"
+    ]
+  },
+  {
+    "id": "j073",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j076",
+    "fields": [
+      "scene_mismatch"
+    ]
+  },
+  {
+    "id": "j085",
+    "fields": [
+      "rule_violation",
+      "overall"
+    ]
+  },
+  {
+    "id": "j086",
+    "fields": [
+      "extra_figures",
+      "overall"
+    ]
+  },
+  {
+    "id": "j088",
+    "fields": [
+      "unpainted_edge",
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j091",
+    "fields": [
+      "rule_violation",
+      "readable_text"
+    ]
+  },
+  {
+    "id": "j092",
+    "fields": [
+      "unpainted_edge",
+      "extra_figures",
+      "rule_violation",
+      "overall"
+    ]
+  },
+  {
+    "id": "j093",
+    "fields": [
+      "anatomy"
+    ]
+  },
+  {
+    "id": "j096",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j098",
+    "fields": [
+      "extra_figures",
+      "overall"
+    ]
+  },
+  {
+    "id": "j099",
+    "fields": [
+      "rule_violation",
+      "overall"
+    ]
+  },
+  {
+    "id": "j101",
+    "fields": [
+      "rule_violation",
+      "readable_text"
+    ]
+  },
+  {
+    "id": "j106",
+    "fields": [
+      "rule_violation",
+      "readable_text"
+    ]
+  },
+  {
+    "id": "j110",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j111",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j121",
+    "fields": [
+      "rule_violation",
+      "overall"
+    ]
+  },
+  {
+    "id": "j127",
+    "fields": [
+      "rule_violation",
+      "readable_text"
+    ]
+  },
+  {
+    "id": "j133",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j135",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j150",
+    "fields": [
+      "extra_figures",
+      "overall"
+    ]
+  },
+  {
+    "id": "j151",
+    "fields": [
+      "unpainted_edge",
+      "incoherent",
+      "overall"
+    ]
+  },
+  {
+    "id": "j153",
+    "fields": [
+      "incoherent"
+    ]
+  },
+  {
+    "id": "j157",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j159",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j166",
+    "fields": [
+      "anatomy",
+      "overall"
+    ]
+  },
+  {
+    "id": "j176",
+    "fields": [
+      "unpainted_edge",
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j178",
+    "fields": [
+      "anatomy"
+    ]
+  },
+  {
+    "id": "j185",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j186",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j202",
+    "fields": [
+      "rule_violation",
+      "overall"
+    ]
+  },
+  {
+    "id": "j205",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j210",
+    "fields": [
+      "incoherent"
+    ]
+  },
+  {
+    "id": "j223",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j225",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j240",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j241",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j242",
+    "fields": [
+      "anatomy",
+      "overall"
+    ]
+  },
+  {
+    "id": "j243",
+    "fields": [
+      "extra_figures",
+      "scene_mismatch",
+      "overall"
+    ]
+  },
+  {
+    "id": "j251",
+    "fields": [
+      "incoherent",
+      "overall"
+    ]
+  },
+  {
+    "id": "j256",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j259",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j265",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j271",
+    "fields": [
+      "readable_text"
+    ]
+  },
+  {
+    "id": "j274",
+    "fields": [
+      "incoherent",
+      "overall"
+    ]
+  },
+  {
+    "id": "j275",
+    "fields": [
+      "lettering"
+    ]
+  },
+  {
+    "id": "j279",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j281",
+    "fields": [
+      "incoherent",
+      "overall"
+    ]
+  },
+  {
+    "id": "j282",
+    "fields": [
+      "incoherent",
+      "overall"
+    ]
+  },
+  {
+    "id": "j288",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j301",
+    "fields": [
+      "scene_mismatch",
+      "overall"
+    ]
+  },
+  {
+    "id": "j304",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j310",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j313",
+    "fields": [
+      "rule_violation",
+      "overall"
+    ]
+  },
+  {
+    "id": "j315",
+    "fields": [
+      "extra_figures",
+      "overall"
+    ]
+  },
+  {
+    "id": "j319",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j324",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j325",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j333",
+    "fields": [
+      "incoherent",
+      "rule_violation",
+      "effects_figure"
+    ]
+  },
+  {
+    "id": "j342",
+    "fields": [
+      "extra_figures",
+      "overall"
+    ]
+  },
+  {
+    "id": "j344",
+    "fields": [
+      "anatomy"
+    ]
+  },
+  {
+    "id": "j346",
+    "fields": [
+      "incoherent",
+      "overall"
+    ]
+  },
+  {
+    "id": "j347",
+    "fields": [
+      "lettering",
+      "overall"
+    ]
+  },
+  {
+    "id": "j359",
+    "fields": [
+      "scene_mismatch"
+    ]
+  },
+  {
+    "id": "j362",
+    "fields": [
+      "lettering"
+    ]
+  },
+  {
+    "id": "j367",
+    "fields": [
+      "extra_figures"
+    ]
+  },
+  {
+    "id": "j372",
+    "fields": [
+      "readable_text"
+    ]
+  },
+  {
+    "id": "j373",
+    "fields": [
+      "rule_violation"
+    ]
+  },
+  {
+    "id": "j378",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j380",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j383",
+    "fields": [
+      "incoherent"
+    ]
+  },
+  {
+    "id": "j390",
+    "fields": [
+      "lettering",
+      "incoherent"
+    ]
+  },
+  {
+    "id": "j392",
+    "fields": [
+      "overall"
+    ]
+  },
+  {
+    "id": "j403",
+    "fields": [
+      "extra_figures",
+      "overall"
+    ]
+  },
+  {
+    "id": "j404",
+    "fields": [
+      "extra_figures"
+    ]
+  },
+  {
+    "id": "j409",
+    "fields": [
+      "unpainted_edge"
+    ]
+  },
+  {
+    "id": "j410",
+    "fields": [
+      "extra_figures",
+      "overall"
+    ]
+  }
+]

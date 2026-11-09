@@ -1,0 +1,690 @@
+{
+ "scorer": "scorer-b",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "j083",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "An elderly man with scrolls on the bench beside him gestures to the viewer like a narrator presenting the family lined up behind him; a Roman soldier and Hellenistic city place him in the first century, so he is not Abraham, David or Jesus. Interpretive call on a title verse; no lettering on the closed scrolls."
+  },
+  {
+   "id": "j084",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Night storm: Peter steps from the boat onto the water toward Jesus, who stands on the waves with a hand out; the other disciples watch from the boat. No faults seen."
+  },
+  {
+   "id": "j085",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Holmes holds the blue stone to the window light with Watson seated nearby, matching the text; papers are blank and the mantel clock shows only hands. Holmes's gaunt face with slicked-back hair and hollow cheeks reads as the actor Peter Cushing (face at centre left)."
+  },
+  {
+   "id": "j086",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "A Paul-like teacher with scrolls at his belt stands preaching to a household around a brazier: the letter's speaker drawn inside his own words. No lettering or anatomy problems."
+  },
+  {
+   "id": "j087",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice, hands clasped, looks up at the grinning Cheshire Cat on a bough with long claws and many teeth; painted to all edges, no lettering."
+  },
+  {
+   "id": "j088",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "yes",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "On the fiery wheeled throne at centre a blaze sits above draped robe-like folds that read as the lap and knees of a seated figure, so the Ancient of Days is given a body. Daniel watching at lower left fits 'I watched'; white areas at the edges are drawn clouds, not bare paper."
+  },
+  {
+   "id": "j089",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Alice with her flamingo talks to the floating Cheshire Cat head on the croquet ground. The bent playing cards used as arches carry corner indices including a legible numeral 5 with spade pips and court-card faces (lower left)."
+  },
+  {
+   "id": "j090",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Daniel gestures before the enthroned king at the banquet. The blue glazed wall behind carries bands of glyph-like marks (rows of circles and wedges, a letter-like band at left, glowing gold signs near Daniel's hand) as the wall writing; none is readable. Painted to the edges."
+  },
+  {
+   "id": "j091",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Watson reads the slip while Holmes sits with the letters. Newspapers on Watson's lap and at right carry headline glyphs that read as real digits and letters (a digit string on the right-hand paper), plus squiggle lines on the slip and a bottle label. Holmes's gaunt face with slicked-back hair and hollow cheeks reads as the actor Peter Cushing (profile at right)."
+  },
+  {
+   "id": "j092",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "The hovering seraphim cover their faces with their hands, not wings, and their bare feet hang uncovered, so the creatures do not follow the text; one carries a coal in tongs from a later verse. Isaiah, the narrator, kneels prominently at lower right. God is shown only as light and smoke; no bare paper at the edges."
+  },
+  {
+   "id": "j093",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Large Alice tips the jury box and the animal jurymen spill with their slates, the Lizard falling head down, while the King points. Lettering is limited to card pips with a tiny malformed corner index on a card courtier (bottom right) and squiggle lines on scattered papers."
+  },
+  {
+   "id": "j094",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "yes",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "In the burst of light at top centre a faint human-shaped figure of light with head and outstretched arms is visible, giving the Ancient of Days a body. The two thrones on the pavement are empty beside wheeled fire bowls; Daniel watching in the foreground fits 'I watched'."
+  },
+  {
+   "id": "j095",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Peter in the foreground turns back as the bound Jesus looks at him from the courtyard gateway, with soldiers and a brazier between them. No faults seen."
+  },
+  {
+   "id": "j096",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Lestrade leans in protesting while Holmes points at the paper, Watson between them. Scribble lines on the held paper and the table papers plus clock ticks are unreadable; bare paper shows at the bottom corners (accepted). Holmes's gaunt face with slicked-back hair and hollow cheeks reads as the actor Peter Cushing (right of centre)."
+  },
+  {
+   "id": "j097",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "David crouches at the stony brook with staff in hand, stones going into his shoulder pouch and the sling looped at his wrist, eyeing a distant figure up the valley. Sky and lower-left corner fade to bare white paper, which this item accepts."
+  },
+  {
+   "id": "j098",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "A Paul-like speaker with crossed scrolls at his belt preaches to a seated crowd beside a dim bronze mirror: the letter's author drawn inside his own words. The mirror motif is present; no lettering."
+  },
+  {
+   "id": "j099",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Hatherley, hand bandaged, points at the burning house across the gravel drive and rose bushes, with engines, crowd and Holmes beside him. White paper shows along the lower-left edge (accepted). Holmes's gaunt face with slicked-back hair and hollow cheeks reads as the actor Peter Cushing (centre)."
+  },
+  {
+   "id": "j100",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus stretches an arm toward the open rock tomb and calls, with the crowd around him. No faults seen."
+  },
+  {
+   "id": "j101",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Holmes pulls Watson in at the door while the stout red-haired client half rises. The folded newspaper at lower left has a blackletter masthead whose second word reads roughly 'Banner'; other papers carry pseudo-lines. Holmes's gaunt face with slicked-back hair and hollow cheeks reads as the actor Peter Cushing (centre left, three-quarter view)."
+  },
+  {
+   "id": "j102",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "The cloud column rests on the tabernacle with the tents of the camp pitched around it. No faults seen."
+  },
+  {
+   "id": "j103",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "The picture splits into two views: an aerial panorama of the walled city on the left and, behind a hard vertical seam, a giant arch framing the same temple again on the right, with the weary man walking a wall-top ledge at the join. The top-left sky fades to bare paper (accepted)."
+  },
+  {
+   "id": "j104",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "A whirlwind bears down on Job, who kneels with his staff at the ash heap and potsherds while three cloaked friends cower; God is only the storm. Bare white paper shows in the sky at the left edge (accepted)."
+  },
+  {
+   "id": "j105",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Fire and brimstone fall from dark cloud onto the two cities of the plain, with tiny fleeing figures. No faults seen."
+  },
+  {
+   "id": "j106",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Lestrade leans over shouting while Holmes studies the paper with a lens. Newspapers on the desk and floor carry headlines in real Latin capitals (letters such as L, E, T, B, A, V) that spell no word. Holmes's gaunt face with slicked-back hair and hollow cheeks reads as the actor Peter Cushing (right of centre)."
+  },
+  {
+   "id": "j107",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Daniel is hauled up out of the round pit on ropes by three men while the glad king reaches toward him. No faults seen."
+  },
+  {
+   "id": "j108",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Fire rains from the sky onto the cities, with small figures in the fields and two robed travellers on the path at right. No faults seen."
+  },
+  {
+   "id": "j109",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Moses sits on the rock while Aaron and Hur each hold up one of his hands above the battle below; hands are well formed. Two crossed rods lie in his lap, a minor oddity."
+  },
+  {
+   "id": "j110",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "The father, ring on his hand and arms open, greets the ragged barefoot son while two servants bring the best robe and sandals. The pale sky is washed to the edges; no lettering."
+  },
+  {
+   "id": "j111",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "The Mock Turtle, in tears, and the Gryphon dance on their hind legs round a timid Alice on the shingle beach, drawn as animals. Painted to all edges; no lettering."
+  },
+  {
+   "id": "j112",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "A weary ragged man walks through a city gate into a shaft of light as townsfolk look on: a fair picture of strength given to the weak. No faults seen."
+  },
+  {
+   "id": "j113",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "The Egyptian chariots and horsemen gallop toward the viewer out of the sea corridor, yet Moses with his staff and the Israelite crowd stand behind them on the far shore, so the pursuit runs the wrong way. No divine figure is drawn."
+  },
+  {
+   "id": "j114",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "The tea table with the Hatter, the March Hare holding the teapot, the Dormouse asleep on a plate and Alice thinking. The hat has no price ticket and nothing else is lettered."
+  },
+  {
+   "id": "j115",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "The disciples come ashore from the boat with the net to find a fire of coals with fish and bread on it. The pale sky fades to bare paper at the top right (accepted)."
+  },
+  {
+   "id": "j116",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "An old scribe writing a scroll by lamplight fills the picture: the evangelist drawn as author instead of anyone the verse names. The scroll carries lines of unreadable pseudo-script."
+  },
+  {
+   "id": "j117",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus points into the open tomb and calls while the crowd watches. No faults seen."
+  },
+  {
+   "id": "j118",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Peter steps off the boat onto the waves toward Jesus, who stands on the water with a hand out; the other disciples watch from the boat. No faults seen."
+  },
+  {
+   "id": "j119",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "The King, behind his spectacles, points at the floating Cheshire Cat head beside Alice and her flamingo while the Queen shouts in the distance. The card soldiers and card arches show suit pips and a court-card face, unreadable marks only."
+  },
+  {
+   "id": "j120",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "The man kneels with the knife poised over the dead woman lying intact on a mat, the donkey outside in the moonlight; grave and without blood or gore."
+  },
+  {
+   "id": "j121",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Holmes thumps the pavement with his stick before the corner pawnbroker's with its three gilt balls, the assistant's face at the door glass; the brown board is blank, so no lettering. Corners are bare white paper (accepted). Under the bowler, holmes's gaunt face with slicked-back hair and hollow cheeks reads as the actor Peter Cushing, though the face is small."
+  },
+  {
+   "id": "j122",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "The Israelites, led by an elder with a staff, walk the dry seabed between towering walls of water. No divine figure and no other faults seen."
+  },
+  {
+   "id": "j123",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Goliath pitches forward with a small red wound on his forehead while David stands with the sling, the armies on the ridges; the blood is slight, not dwelt on. David also holds a second looped cord in his other hand, a minor duplicate prop; the sky is bare white paper (accepted)."
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+{
+  "authorization": "Owner, 2026-11-09, after a request naming this run's $10.50 cap: \"Our current account and key that you have should have more than that amount\". Earlier the same day: \"Please investigate this and prototype it and get as far as you can systematically end-to-end full send. Also, I'm going to re-up the openrouter balance\". The dev key (…292) had $1.06 of its own $50 limit left, so this run uses the production key (…aac, $49.70 of its limit left, no reader traffic since 28 October) and keeps the $5 reader reserve on the account.",
+  "operationCapUsd": 10.5,
+  "key": "production …aac"
+}

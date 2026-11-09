@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-09T19:05:17.228Z",
+  "commit": "494219e0344c20b0b41d15eefd6566cfec0448af",
+  "grant": {
+    "authorization": "Owner, 2026-11-09: \"let's go with a more realistic approach and let's see if that allows us to clean down 90% of this bloat ... Please investigate this and prototype it and get as far as you can systematically end-to-end full send. Also, I'm going to re-up the openrouter balance\". The owner named no amount; the operator capped this dev-case pilot at $0.55.",
+    "operationCapUsd": 0.55
+  },
+  "balanceUsd": 25.487933287999994,
+  "keyLimitRemaining": 1.591659245999999,
+  "sources": {
+    "src/lib/engine/lean.ts": "261e0e9d1428e92949ede0f262c5f1f9e5e2958f58bf7d54d57a9f5d556a79d0",
+    "src/lib/engine/prompt.ts": "dfe33e64074d7ca273654703d39173dc4aafe4b2dab157196f3b5332b94d115b",
+    "src/lib/engine/depiction.ts": "60dbfb9bca1e8cd120d4e8a8dc0ba9d364484eb6bce71528d17d3f0fe3d81f7a",
+    "src/lib/engine/work-inputs.ts": "fb0d94e51f979610332ed538eb5a34f9c70988f1c704f880991d8411af6b0cb4",
+    "src/lib/image-evals/adapters.ts": "6301752cd0c7304c3be44069511fc7f0850f76afc17249a100692c5b5e5bca28",
+    "src/lib/image-evals/suite-run.ts": "d18d1f3fef44447646e5359d9c22e28428f490e3be06dfe9e8f84263649e442c",
+    "scripts/evals/lean.mts": "947ca243c80d841ec2faf88cca94abca754527580a73bf7d2a07d6a5f68f9919",
+    "evals/images/suite.json": "e9c5010f72c3e8fe518e940ef109db6c1e68a431fc08ec0ecd5f8f4cd0bf3250",
+    "evals/images/cases.json": "06bb40f953f7123b55cf2bfab8f153bbd5959c3c937181cdbb7b6b993ac0a224",
+    "evals/images/faults.json": "a909ae9f9399a5cc711b4fb18f4984f3ef9d34404b48f65964d40d0b1c8a15e1"
+  }
+}

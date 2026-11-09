@@ -1,0 +1,61 @@
+{
+  "capUsd": 0.55,
+  "calls": [
+    {
+      "phase": "exodus-14-21-sea-parts/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0425595
+    },
+    {
+      "phase": "1-samuel-17-49-sling/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0474195
+    },
+    {
+      "phase": "daniel-6-22-lions/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0426975
+    },
+    {
+      "phase": "daniel-7-9-ancient-of-days/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044706
+    },
+    {
+      "phase": "mark-4-39-storm/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.045885
+    },
+    {
+      "phase": "luke-15-20-prodigal/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.040791
+    },
+    {
+      "phase": "matthew-27-35-crucified/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0447855
+    },
+    {
+      "phase": "holmes-red-headed-league/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044886
+    }
+  ],
+  "measuredUsd": 0.35373,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 8,
+    "check": 0
+  },
+  "blocked": "Evaluation cap or call limit reached"
+}

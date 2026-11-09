@@ -1,0 +1,2156 @@
+{
+ "disputes": [
+  {
+   "item": {
+    "id": "j004",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j004.jpg",
+    "work": "The Holy Bible",
+    "reference": "Daniel 6:23",
+    "text": "Then the king was exceedingly glad, and commanded that they should take Daniel up out of the den. So Daniel was taken up out of the den, and no kind of harm was found on him, because he had trusted in his God.",
+    "previous": "My God has sent his angel, and has shut the lions\u2019 mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm.\u201d",
+    "next": null,
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "extra_figures",
+    "overall"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "yes",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "Daniel is hauled up by rope, unharmed, past calm lions, but two near-identical men in the same purple gold-trimmed royal robe and cap lean over the wall (upper right), so the king appears twice. White paper at top, left and right edges (accepted)."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Daniel is hauled up on a rope past calm lions while the king rejoices at the rim; the scroll case and stones carry no marks. White paper shows at the top-left and other corners (accepted)."
+   }
+  },
+  {
+   "item": {
+    "id": "j015",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j015.jpg",
+    "work": "The Holy Bible",
+    "reference": "Genesis 19:24",
+    "text": "Then Yahweh rained on Sodom and on Gomorrah sulfur and fire from Yahweh out of the sky.",
+    "previous": "The sun had risen on the earth when Lot came to Zoar.",
+    "next": "He overthrew those cities, all the plain, all the inhabitants of the cities, and that which grew on the ground.",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "unpainted_edge"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Fire and sulfur streak from a black sky onto walled cities burning across the plain, seen from a hillside with tiny fleeing figures; painted to every edge, no lettering."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Fire streaks from a dark cloud onto burning walled cities on the plain. Ragged white paper patches show along the left edge and bottom-left (accepted)."
+   }
+  },
+  {
+   "item": {
+    "id": "j025",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j025.jpg",
+    "work": "The Holy Bible",
+    "reference": "Ruth 4:22",
+    "text": "and Obed became the father of Jesse, and Jesse became the father of David.",
+    "previous": "and Salmon became the father of Boaz, and Boaz became the father of Obed,",
+    "next": null,
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "extra_figures"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "yes",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "An elder reads a scroll aloud to women and two children in a courtyard; no father-and-son line of Obed, Jesse and David is shown, so the genealogy itself is not depicted. The open scroll carries faint unreadable lines of pseudo-writing. Painted to the edges."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "yes",
+     "incoherent": "no",
+     "scene_mismatch": "yes",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "An old man reads a scroll to women and children in a courtyard, a reciter of the genealogy rather than Obed, Jesse and David themselves. The open scroll at centre carries rows of unreadable writing marks."
+   }
+  },
+  {
+   "item": {
+    "id": "j032",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j032.jpg",
+    "work": "The Holy Bible",
+    "reference": "Deuteronomy 1:7",
+    "text": "Turn, and take your journey, and go to the hill country of the Amorites and to all the places near there: in the Arabah, in the hill country, in the lowland, in the South, by the seashore, in the land of the Canaanites, and in Lebanon as far as the great river, the river Euphrates.",
+    "previous": "\u201cYahweh our God spoke to us in Horeb, saying, \u2018You have lived long enough at this mountain.",
+    "next": "Behold, I have set the land before you. Go in and possess the land which Yahweh swore to your fathers\u2014to Abraham, to Isaac, and to Jacob\u2014to give to them and to their offspring after them.\u2019\u201d",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": [
+     "God / Yahweh, the Father and God of Israel"
+    ]
+   },
+   "disputedFields": [
+    "overall"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "no",
+     "readable_text": "na"
+    },
+    "overall": "uncertain",
+    "notes": "Israelites with staffs and loaded donkeys set out on a journey below Horeb, its summit wrapped in cloud and radiance, but the foreground walkers head toward the mountain they are told to leave. The sky fades to bare paper at the left edge (accepted); no figure for God."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "no",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Israelites with staffs and loaded donkeys set out across the plain from the mountain, cloud and radiance at its peak with no figure. A ragged white strip shows at the top-left and left edge (accepted)."
+   }
+  },
+  {
+   "item": {
+    "id": "j039",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j039.jpg",
+    "work": "The Adventures of Sherlock Holmes",
+    "reference": "A Case of Identity \u00b692 to A Case of Identity \u00b6101",
+    "text": "I held the little printed slip to the light. \u201cMissing,\u201d it said, \u201con the morning of the fourteenth, a gentleman named Hosmer Angel. About five ft. seven in. in height; strongly built, sallow complexion, black hair, a little bald in the centre, bushy, black side-whiskers and moustache; tinted glasses, slight infirmity of speech. Was dressed, when last seen, in black frock-coat faced with silk, black waistcoat, gold Albert chain, and grey Harris tweed trousers, with brown gaiters over elastic-sided boots. Known to have been employed in an office in Leadenhall Street. Anybody bringing,\u201d &c, &c. \u201cThat will do,\u201d said Holmes. \u201cAs to the letters,\u201d he continued, glancing over them, \u201cthey are very commonplace. Absolutely no clue in them to Mr. Angel, save that he quotes Balzac once. There is one remarkable point, however, which will no doubt strike you.\u201d \u201cThey are typewritten,\u201d I remarked. \u201cNot only that, but the signature is typewritten. Look at the neat little \u2018Hosmer Angel\u2019 at the bottom. There is a date, you see, but no superscription except Leadenhall Street, which is rather vague. The point about the signature is very suggestive\u2014in fact, we may call it conclusive.\u201d \u201cOf what?\u201d \u201cMy dear fellow, is it possible you do not see how strongly it bears upon the case?\u201d \u201cI cannot say that I do unless it were that he wished to be able to deny his signature if an action for breach of promise were instituted.\u201d \u201cNo, that was not the point. However, I shall write two letters, which should settle the matter. One is to a firm in the City, the other is to the young lady\u2019s stepfather, Mr. Windibank, asking him whether he could meet us here at six o\u2019clock to-morrow evening. It is just as well that we should do business with the male relatives. And now, Doctor, we can do nothing until the answers to those letters come, so we may put our little problem upon the shelf for the interim.\u201d I had had so many reasons to believe in my friend\u2019s subtle powers of reasoning and extraordinary energy in action that I felt that he must have some solid grounds for the assured and easy demeanour with which he treated the singular mystery which he had been called upon to fathom. Once only had I known him to fail, in the case of the King of Bohemia and of the Irene Adler photograph; but when I looked back to the weird business of the Sign of Four, and the extraordinary circumstances connected with the Study in Scarlet, I felt that it would be a strange tangle indeed which he could not unravel. I left him then, still puffing at his black clay pipe, with the conviction that when I came again on the next evening I would find that he held in his hands all the clues which would lead up to the identity of the disappearing bridegroom of Miss Mary Sutherland.",
+    "previous": "\u201cI noted, in passing, that she had written a note before leaving home but after being fully dressed. You observed that her right glove was torn at the forefinger, but you did not apparently see that both glove and finger were stained with violet ink. She had written in a hurry and dipped her pen too deep. It must have been this morning, or the mark would not remain clear upon the finger. All this is amusing, though rather elementary, but I must go back to business, Watson. Would you mind reading me the advertised description of Mr. Hosmer Angel?\u201d",
+    "next": null,
+    "depictionRules": [
+     "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+     "Show every person with dignity; avoid racial and ethnic caricatures.",
+     "Do not borrow faces, costumes or props from screen adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "rule_violation"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Holmes in profile at the window (gaunt, hollow-cheeked, swept-back dark hair) reads as Peter Cushing, though less strongly than a full face would. The slip he holds, a pinned newspaper, the letters on the table and a bottle label carry small unreadable pseudo-script. White paper at left, top and right edges (accepted)."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "A newspaper pinned on the wall right of Watson has a masthead in letter-like forms, and the slip, the letters on the table and the mantel clock carry writing marks and numerals, all small and unreadable. Holmes rather than Watson holds the slip to the light; white paper shows at the left and top-right edges (accepted)."
+   }
+  },
+  {
+   "item": {
+    "id": "j052",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j052.jpg",
+    "work": "Alice\u2019s Adventures in Wonderland",
+    "reference": "Advice from a Caterpillar \u00b61 to Advice from a Caterpillar \u00b65",
+    "text": "The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. \u201cWho are _you?_\u201d said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly, \u201cI\u2014I hardly know, sir, just at present\u2014at least I know who I _was_ when I got up this morning, but I think I must have been changed several times since then.\u201d \u201cWhat do you mean by that?\u201d said the Caterpillar sternly. \u201cExplain yourself!\u201d \u201cI can\u2019t explain _myself_, I\u2019m afraid, sir,\u201d said Alice, \u201cbecause I\u2019m not myself, you see.\u201d",
+    "previous": null,
+    "next": "\u201cI don\u2019t see,\u201d said the Caterpillar.",
+    "depictionRules": [
+     "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+     "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+     "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+     "Threats and executions stay threats or slapstick; no gore or real injury.",
+     "Take no likeness, costume or prop from film or animated adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "rule_violation"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Tiny letter-like engraved glyphs (resembling 'Go') on the band of the hookah base, centre; too small to count as readable. Otherwise the moment is right: Caterpillar on the mushroom with hookah mouthpiece out of its mouth facing a mushroom-height Alice; full bleed, no white edge. Caterpillar wears bowler and waistcoat with an old-man face on a caterpillar body (not counted)."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Caterpillar on the mushroom takes the hookah from its mouth, Alice mushroom-height beside it. The Caterpillar has a fully human old-man face and hands plus a bowler hat, not an animal head (talking-animal rule); small letter-like glyphs on the band of the hookah base."
+   }
+  },
+  {
+   "item": {
+    "id": "j060",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j060.jpg",
+    "work": "Alice\u2019s Adventures in Wonderland",
+    "reference": "The Queen\u2019s Croquet-Ground \u00b641 to The Queen\u2019s Croquet-Ground \u00b644",
+    "text": "\u201cGet to your places!\u201d shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was all ridges and furrows; the balls were live hedgehogs, the mallets live flamingoes, and the soldiers had to double themselves up and to stand on their hands and feet, to make the arches. The chief difficulty Alice found at first was in managing her flamingo: she succeeded in getting its body tucked away, comfortably enough, under her arm, with its legs hanging down, but generally, just as she had got its neck nicely straightened out, and was going to give the hedgehog a blow with its head, it _would_ twist itself round and look up in her face, with such a puzzled expression that she could not help bursting out laughing: and when she had got its head down, and was going to begin again, it was very provoking to find that the hedgehog had unrolled itself, and was in the act of crawling away: besides all this, there was generally a ridge or furrow in the way wherever she wanted to send the hedgehog to, and, as the doubled-up soldiers were always getting up and walking off to other parts of the ground, Alice soon came to the conclusion that it was a very difficult game indeed. The players all played at once without waiting for turns, quarrelling all the while, and fighting for the hedgehogs; and in a very short time the Queen was in a furious passion, and went stamping about, and shouting \u201cOff with his head!\u201d or \u201cOff with her head!\u201d about once in a minute. Alice began to feel very uneasy: to be sure, she had not as yet had any dispute with the Queen, but she knew that it might happen any minute, \u201cand then,\u201d thought she, \u201cwhat would become of me? They\u2019re dreadfully fond of beheading people here; the great wonder is, that there\u2019s any one left alive!\u201d",
+    "previous": "\u201cShe boxed the Queen\u2019s ears\u2014\u201d the Rabbit began. Alice gave a little scream of laughter. \u201cOh, hush!\u201d the Rabbit whispered in a frightened tone. \u201cThe Queen will hear you! You see, she came rather late, and the Queen said\u2014\u201d",
+    "next": null,
+    "depictionRules": [
+     "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+     "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+     "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+     "Threats and executions stay threats or slapstick; no gore or real injury.",
+     "Take no likeness, costume or prop from film or animated adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "rule_violation",
+    "readable_text"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "yes",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "readable_text": "yes"
+    },
+    "overall": "flawed",
+    "notes": "Alice appears several times: besides the foreground Alice with her flamingo, a girl in the same yellow dress runs in the middle distance and blue-pinafore Alice lookalikes play at left and centre (collage of moments). Courtiers beside the Queen (man in ruff, lady in blue gown) are ordinary humans, not flat cards. Lettering: card pips and court-card art on the arch soldiers plus a legible corner index '6' on the standing six of spades at right. Bare paper at top-left/top (accepted)."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "yes",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Croquet ground with Alice hugging her flamingo, hedgehogs, card soldiers doubled into arches and the Queen shouting. Several Alice lookalikes appear at once (blue-dress girl with pinafore and flamingo at left, running girls mid-ground), reading as duplicates of her. Lettering is card pips and tiny index glyphs; white paper at the top edge (accepted)."
+   }
+  },
+  {
+   "item": {
+    "id": "j076",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j076.jpg",
+    "work": "The Holy Bible",
+    "reference": "Isaiah 6:2",
+    "text": "Above him stood the seraphim. Each one had six wings. With two he covered his face. With two he covered his feet. With two he flew.",
+    "previous": "In the year that King Uzziah died, I saw the Lord sitting on a throne, high and lifted up; and his train filled the temple.",
+    "next": "One called to another, and said, \u201cHoly, holy, holy, is Yahweh of Armies! The whole earth is full of his glory!\u201d",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": [
+     "God / Yahweh, the Father and God of Israel"
+    ]
+   },
+   "disputedFields": [
+    "scene_mismatch"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "yes",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "effects_figure": "no",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "The verse is the six-wing description, but the five seraphim are conventional robed angels with a single pair of wings each (the centre one perhaps two pairs), faces veiled by cloth rather than wings and feet bare, so the creatures do not follow the text; the centre one also carries tongs with a coal from a later verse. Isaiah watches from below; God is only cloud and light. No lettering, full bleed."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "effects_figure": "no",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "Seraphim hover above in the gold temple with Isaiah below, but each has only two (one perhaps four) wings, faces veiled with cloth rather than wings and bare feet uncovered, against the text's six wings: visionary creatures do not follow the text. God shown only as light and cloud; wall reliefs carry no lettering."
+   }
+  },
+  {
+   "item": {
+    "id": "j088",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j088.jpg",
+    "work": "The Holy Bible",
+    "reference": "Daniel 7:9",
+    "text": "\u201cI watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+    "previous": null,
+    "next": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": [
+     "The Ancient of Days"
+    ]
+   },
+   "disputedFields": [
+    "unpainted_edge",
+    "rule_violation"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "yes",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "Fiery throne with burning wheels, fiery stream, ring of placed thrones, bowing attendants and Daniel watching at left all fit, but on the central throne seat a robe-like drapery falls over a lap/knee form with a tall white-cored blaze where torso and head would be, which reads as a robed seated presence (borderline, moderate confidence). No face or limbs drawn, so I left rule_violation no; bare-paper cloud and smoke reach the top and right edges (accepted)."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "effects_figure": "yes",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "On the fiery wheeled throne at centre a blaze sits above draped robe-like folds that read as the lap and knees of a seated figure, so the Ancient of Days is given a body. Daniel watching at lower left fits 'I watched'; white areas at the edges are drawn clouds, not bare paper."
+   }
+  },
+  {
+   "item": {
+    "id": "j093",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j093.jpg",
+    "work": "Alice\u2019s Adventures in Wonderland",
+    "reference": "Alice\u2019s Evidence \u00b61 to Alice\u2019s Evidence \u00b64",
+    "text": "\u201cHere!\u201d cried Alice, quite forgetting in the flurry of the moment how large she had grown in the last few minutes, and she jumped up in such a hurry that she tipped over the jury-box with the edge of her skirt, upsetting all the jurymen on to the heads of the crowd below, and there they lay sprawling about, reminding her very much of a globe of goldfish she had accidentally upset the week before. \u201cOh, I _beg_ your pardon!\u201d she exclaimed in a tone of great dismay, and began picking them up again as quickly as she could, for the accident of the goldfish kept running in her head, and she had a vague sort of idea that they must be collected at once and put back into the jury-box, or they would die. \u201cThe trial cannot proceed,\u201d said the King in a very grave voice, \u201cuntil all the jurymen are back in their proper places\u2014_all_,\u201d he repeated with great emphasis, looking hard at Alice as he said so. Alice looked at the jury-box, and saw that, in her haste, she had put the Lizard in head downwards, and the poor little thing was waving its tail about in a melancholy way, being quite unable to move. She soon got it out again, and put it right; \u201cnot that it signifies much,\u201d she said to herself; \u201cI should think it would be _quite_ as much use in the trial one way up as the other.\u201d",
+    "previous": null,
+    "next": "As soon as the jury had a little recovered from the shock of being upset, and their slates and pencils had been found and handed back to them, they set to work very diligently to write out a history of the accident, all except the Lizard, who seemed too much overcome to do anything but sit with its mouth open, gazing up into the roof of the court.",
+    "depictionRules": [
+     "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+     "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+     "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+     "Threats and executions stay threats or slapstick; no gore or real injury.",
+     "Take no likeness, costume or prop from film or animated adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "anatomy"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "yes",
+     "rule_violation": "no",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Giant Alice tips the jury-box and the animal jurors spill out with their slates while the King points from the dais; scene fits. Anatomy: the falling Lizard juror at centre (green tail and legs, head-down) has a badger-striped black-and-white head, a hybrid face. Lettering: heart pips on the card soldiers at lower right only; slates and papers are blank."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Large Alice tips the jury box and the animal jurymen spill with their slates, the Lizard falling head down, while the King points. Lettering is limited to card pips with a tiny malformed corner index on a card courtier (bottom right) and squiggle lines on scattered papers."
+   }
+  },
+  {
+   "item": {
+    "id": "j099",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j099.jpg",
+    "work": "The Adventures of Sherlock Holmes",
+    "reference": "The Adventure of the Engineer\u2019s Thumb \u00b6170 to The Adventure of the Engineer\u2019s Thumb \u00b6171",
+    "text": "\u201cThat\u2019s it!\u201d cried Hatherley, in intense excitement. \u201cThere is the gravel-drive, and there are the rose-bushes where I lay. That second window is the one that I jumped from.\u201d \u201cWell, at least,\u201d said Holmes, \u201cyou have had your revenge upon them. There can be no question that it was your oil-lamp which, when it was crushed in the press, set fire to the wooden walls, though no doubt they were too excited in the chase after you to observe it at the time. Now keep your eyes open in this crowd for your friends of last night, though I very much fear that they are a good hundred miles off by now.\u201d",
+    "previous": "The station-master had not finished his speech before we were all hastening in the direction of the fire. The road topped a low hill, and there was a great widespread whitewashed building in front of us, spouting fire at every chink and window, while in the garden in front three fire-engines were vainly striving to keep the flames under.",
+    "next": "And Holmes\u2019 fears came to be realised, for from that day to this no word has ever been heard either of the beautiful woman, the sinister German, or the morose Englishman. Early that morning a peasant had met a cart containing several people and some very bulky boxes driving rapidly in the direction of Reading, but there all traces of the fugitives disappeared, and even Holmes\u2019 ingenuity failed ever to discover the least clue as to their whereabouts.",
+    "depictionRules": [
+     "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+     "Show every person with dignity; avoid racial and ethnic caricatures.",
+     "Do not borrow faces, costumes or props from screen adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "rule_violation",
+    "overall"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Hatherley with bandaged hand points excitedly at the burning house, Holmes beside him, crowd, fire-engines, gravel drive and rose-bushes; matches the moment. Loose wash leaves bare paper at the bottom-left corner (accepted). No lettering; Holmes is generic."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "Hatherley, hand bandaged, points at the burning house across the gravel drive and rose bushes, with engines, crowd and Holmes beside him. White paper shows along the lower-left edge (accepted). Holmes's gaunt face with slicked-back hair and hollow cheeks reads as the actor Peter Cushing (centre)."
+   }
+  },
+  {
+   "item": {
+    "id": "j110",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j110.jpg",
+    "work": "The Holy Bible",
+    "reference": "Luke 15:22",
+    "text": "\u201cBut the father said to his servants, \u2018Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet.",
+    "previous": "The son said to him, \u2018Father, I have sinned against heaven and in your sight. I am no longer worthy to be called your son.\u2019",
+    "next": "Bring the fattened calf, kill it, and let\u2019s eat and celebrate;",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "unpainted_edge"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "The father with open arms and a ring on his hand faces the ragged barefoot son while two servants bring the robe and sandals; matches the moment. Pale sky leaves patches of bare paper along the top edge (accepted). No lettering, hands fine."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "The father, ring on his hand and arms open, greets the ragged barefoot son while two servants bring the best robe and sandals. The pale sky is washed to the edges; no lettering."
+   }
+  },
+  {
+   "item": {
+    "id": "j127",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j127.jpg",
+    "work": "Alice\u2019s Adventures in Wonderland",
+    "reference": "Who Stole the Tarts? \u00b616 to Who Stole the Tarts? \u00b628",
+    "text": "The first witness was the Hatter. He came in with a teacup in one hand and a piece of bread-and-butter in the other. \u201cI beg pardon, your Majesty,\u201d he began, \u201cfor bringing these in: but I hadn\u2019t quite finished my tea when I was sent for.\u201d \u201cYou ought to have finished,\u201d said the King. \u201cWhen did you begin?\u201d The Hatter looked at the March Hare, who had followed him into the court, arm-in-arm with the Dormouse. \u201cFourteenth of March, I _think_ it was,\u201d he said. \u201cFifteenth,\u201d said the March Hare. \u201cSixteenth,\u201d added the Dormouse. \u201cWrite that down,\u201d the King said to the jury, and the jury eagerly wrote down all three dates on their slates, and then added them up, and reduced the answer to shillings and pence. \u201cTake off your hat,\u201d the King said to the Hatter. \u201cIt isn\u2019t mine,\u201d said the Hatter. \u201c_Stolen!_\u201d the King exclaimed, turning to the jury, who instantly made a memorandum of the fact. \u201cI keep them to sell,\u201d the Hatter added as an explanation; \u201cI\u2019ve none of my own. I\u2019m a hatter.\u201d Here the Queen put on her spectacles, and began staring at the Hatter, who turned pale and fidgeted. \u201cGive your evidence,\u201d said the King; \u201cand don\u2019t be nervous, or I\u2019ll have you executed on the spot.\u201d This did not seem to encourage the witness at all: he kept shifting from one foot to the other, looking uneasily at the Queen, and in his confusion he bit a large piece out of his teacup instead of the bread-and-butter.",
+    "previous": null,
+    "next": "Just at this moment Alice felt a very curious sensation, which puzzled her a good deal until she made out what it was: she was beginning to grow larger again, and she thought at first she would get up and leave the court; but on second thoughts she decided to remain where she was as long as there was room for her.",
+    "depictionRules": [
+     "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+     "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+     "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+     "Threats and executions stay threats or slapstick; no gore or real injury.",
+     "Take no likeness, costume or prop from film or animated adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "rule_violation",
+    "readable_text"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "yes"
+    },
+    "overall": "flawed",
+    "notes": "Courtroom moment is shown (Hatter with teacup facing the pointing King, Queen in spectacles, March Hare arm-in-arm with Dormouse, jury with slates), but the flat card courtier behind the Hatter carries a legible numeral 8 index with heart pips and the Hatter's hat tag bears numeral-like marks (reads as 88); papers on the floor have faint line squiggles. Hatter holds a saucer rather than bread-and-butter (minor)."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Marks: glyphs on the Hatter's hat tag, a tiny corner index on the heart card behind him, heart pips and squiggle lines on the papers on the floor, none readable as words. The court guards (left of the table and right foreground) are ordinary humans in red coats and tricorns rather than flat cards; Hatter, Hare, Dormouse, King, Queen and jurors with slates are otherwise shown."
+   }
+  },
+  {
+   "item": {
+    "id": "j150",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j150.jpg",
+    "work": "The Holy Bible",
+    "reference": "Matthew 1:1",
+    "text": "The book of the genealogy of Jesus Christ, the son of David, the son of Abraham.",
+    "previous": null,
+    "next": "Abraham became the father of Isaac. Isaac became the father of Jacob. Jacob became the father of Judah and his brothers.",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "extra_figures",
+    "overall"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "An elder gestures toward the road and hills before a family group by a wall, a blank scroll resting on a stone bench; the scroll carries no marks, no lettering anywhere, anatomy sound."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "yes",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "The largest figure is an elder gesturing beside an unmarked scroll on the bench, reading as a narrator presenting the family group on the left, with a Roman soldier far right; nobody reads as David or Abraham."
+   }
+  },
+  {
+   "item": {
+    "id": "j157",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j157.jpg",
+    "work": "The Adventures of Sherlock Holmes",
+    "reference": "The Adventure of the Speckled Band \u00b6235 to The Adventure of the Speckled Band \u00b6240",
+    "text": "From outside came the occasional cry of a night-bird, and once at our very window a long drawn catlike whine, which told us that the cheetah was indeed at liberty. Far away we could hear the deep tones of the parish clock, which boomed out every quarter of an hour. How long they seemed, those quarters! Twelve struck, and one and two and three, and still we sat waiting silently for whatever might befall. Suddenly there was the momentary gleam of a light up in the direction of the ventilator, which vanished immediately, but was succeeded by a strong smell of burning oil and heated metal. Someone in the next room had lit a dark-lantern. I heard a gentle sound of movement, and then all was silent once more, though the smell grew stronger. For half an hour I sat with straining ears. Then suddenly another sound became audible\u2014a very gentle, soothing sound, like that of a small jet of steam escaping continually from a kettle. The instant that we heard it, Holmes sprang from the bed, struck a match, and lashed furiously with his cane at the bell-pull. \u201cYou see it, Watson?\u201d he yelled. \u201cYou see it?\u201d But I saw nothing. At the moment when Holmes struck the light I heard a low, clear whistle, but the sudden glare flashing into my weary eyes made it impossible for me to tell what it was at which my friend lashed so savagely. I could, however, see that his face was deadly pale and filled with horror and loathing. He had ceased to strike and was gazing up at the ventilator when suddenly there broke from the silence of the night the most horrible cry to which I have ever listened. It swelled up louder and louder, a hoarse yell of pain and fear and anger all mingled in the one dreadful shriek. They say that away down in the village, and even in the distant parsonage, that cry raised the sleepers from their beds. It struck cold to our hearts, and I stood gazing at Holmes, and he at me, until the last echoes of it had died away into the silence from which it rose. \u201cWhat can it mean?\u201d I gasped. \u201cIt means that it is all over,\u201d Holmes answered. \u201cAnd perhaps, after all, it is for the best. Take your pistol, and we will enter Dr. Roylott\u2019s room.\u201d",
+    "previous": null,
+    "next": null,
+    "depictionRules": [
+     "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+     "Show every person with dignity; avoid racial and ethnic caricatures.",
+     "Do not borrow faces, costumes or props from screen adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "unpainted_edge"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Holmes lunges lashing his cane at the bell-pull with a lit match in his other hand, the speckled snake on the rope below the smoking ventilator, Watson on the bed; dark wash covers the edges, no lettering. Holmes's face is stylised and gaunt, not clearly a specific actor."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Thin band of white paper with a rough inked edge all round (accepted). Holmes lashes his cane at the bell-pull with the snake by the ventilator, match lit, Watson on the bed; the stylised profile does not clearly read as a real actor."
+   }
+  },
+  {
+   "item": {
+    "id": "j176",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j176.jpg",
+    "work": "The Adventures of Sherlock Holmes",
+    "reference": "A Case of Identity \u00b692 to A Case of Identity \u00b6101",
+    "text": "I held the little printed slip to the light. \u201cMissing,\u201d it said, \u201con the morning of the fourteenth, a gentleman named Hosmer Angel. About five ft. seven in. in height; strongly built, sallow complexion, black hair, a little bald in the centre, bushy, black side-whiskers and moustache; tinted glasses, slight infirmity of speech. Was dressed, when last seen, in black frock-coat faced with silk, black waistcoat, gold Albert chain, and grey Harris tweed trousers, with brown gaiters over elastic-sided boots. Known to have been employed in an office in Leadenhall Street. Anybody bringing,\u201d &c, &c. \u201cThat will do,\u201d said Holmes. \u201cAs to the letters,\u201d he continued, glancing over them, \u201cthey are very commonplace. Absolutely no clue in them to Mr. Angel, save that he quotes Balzac once. There is one remarkable point, however, which will no doubt strike you.\u201d \u201cThey are typewritten,\u201d I remarked. \u201cNot only that, but the signature is typewritten. Look at the neat little \u2018Hosmer Angel\u2019 at the bottom. There is a date, you see, but no superscription except Leadenhall Street, which is rather vague. The point about the signature is very suggestive\u2014in fact, we may call it conclusive.\u201d \u201cOf what?\u201d \u201cMy dear fellow, is it possible you do not see how strongly it bears upon the case?\u201d \u201cI cannot say that I do unless it were that he wished to be able to deny his signature if an action for breach of promise were instituted.\u201d \u201cNo, that was not the point. However, I shall write two letters, which should settle the matter. One is to a firm in the City, the other is to the young lady\u2019s stepfather, Mr. Windibank, asking him whether he could meet us here at six o\u2019clock to-morrow evening. It is just as well that we should do business with the male relatives. And now, Doctor, we can do nothing until the answers to those letters come, so we may put our little problem upon the shelf for the interim.\u201d I had had so many reasons to believe in my friend\u2019s subtle powers of reasoning and extraordinary energy in action that I felt that he must have some solid grounds for the assured and easy demeanour with which he treated the singular mystery which he had been called upon to fathom. Once only had I known him to fail, in the case of the King of Bohemia and of the Irene Adler photograph; but when I looked back to the weird business of the Sign of Four, and the extraordinary circumstances connected with the Study in Scarlet, I felt that it would be a strange tangle indeed which he could not unravel. I left him then, still puffing at his black clay pipe, with the conviction that when I came again on the next evening I would find that he held in his hands all the clues which would lead up to the identity of the disappearing bridegroom of Miss Mary Sutherland.",
+    "previous": "\u201cI noted, in passing, that she had written a note before leaving home but after being fully dressed. You observed that her right glove was torn at the forefinger, but you did not apparently see that both glove and finger were stained with violet ink. She had written in a hurry and dipped her pen too deep. It must have been this morning, or the mark would not remain clear upon the finger. All this is amusing, though rather elementary, but I must go back to business, Watson. Would you mind reading me the advertised description of Mr. Hosmer Angel?\u201d",
+    "next": null,
+    "depictionRules": [
+     "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+     "Show every person with dignity; avoid racial and ethnic caricatures.",
+     "Do not borrow faces, costumes or props from screen adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "unpainted_edge",
+    "rule_violation"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "yes"
+    },
+    "overall": "flawed",
+    "notes": "Watson reads the slip to Holmes in the sitting room, letters and inkwell on the table: scene is right. The slip plainly reads 'Missing' above rows of pseudo-text; also scribbled letters on the table, pseudo-headlines on the newspaper stack at lower right and marks on bottle labels. Painted to all edges (no unpainted edge)."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "readable_text": "yes"
+    },
+    "overall": "flawed",
+    "notes": "Watson holds the printed slip headed with the readable word 'Missing' above rows of pseudo-text; also labelled bottles, letters on the table and a newspaper stack with headline-like marks. Holmes's face (gaunt hollow cheeks, hooded eyes, swept-back hair, long upper lip) reads as Peter Cushing. White paper at edges and bottom corners (accepted)."
+   }
+  },
+  {
+   "item": {
+    "id": "j186",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j186.jpg",
+    "work": "Alice\u2019s Adventures in Wonderland",
+    "reference": "Pig and Pepper \u00b650 to Pig and Pepper \u00b652",
+    "text": "The Cat only grinned when it saw Alice. It looked good-natured, she thought: still it had _very_ long claws and a great many teeth, so she felt that it ought to be treated with respect. \u201cCheshire Puss,\u201d she began, rather timidly, as she did not at all know whether it would like the name: however, it only grinned a little wider. \u201cCome, it\u2019s pleased so far,\u201d thought Alice, and she went on. \u201cWould you tell me, please, which way I ought to go from here?\u201d \u201cThat depends a good deal on where you want to get to,\u201d said the Cat.",
+    "previous": null,
+    "next": "\u201cI don\u2019t much care where\u2014\u201d said Alice.",
+    "depictionRules": [
+     "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+     "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+     "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+     "Threats and executions stay threats or slapstick; no gore or real injury.",
+     "Take no likeness, costume or prop from film or animated adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "unpainted_edge"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Grinning tabby with long claws and many teeth on a bough, Alice below looking up to ask her way; no lettering, corners fully painted, costume not a film design."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Grinning Cheshire Cat with long claws on a bough, Alice looking up from below in a yellow dress. Thin sliver of white paper at the right edge and bottom-right corner (accepted); nothing else."
+   }
+  },
+  {
+   "item": {
+    "id": "j210",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j210.jpg",
+    "work": "The Adventures of Sherlock Holmes",
+    "reference": "The Adventure of the Blue Carbuncle \u00b671 to The Adventure of the Blue Carbuncle \u00b678",
+    "text": "When the commissionaire had gone, Holmes took up the stone and held it against the light. \u201cIt\u2019s a bonny thing,\u201d said he. \u201cJust see how it glints and sparkles. Of course it is a nucleus and focus of crime. Every good stone is. They are the devil\u2019s pet baits. In the larger and older jewels every facet may stand for a bloody deed. This stone is not yet twenty years old. It was found in the banks of the Amoy River in southern China and is remarkable in having every characteristic of the carbuncle, save that it is blue in shade instead of ruby red. In spite of its youth, it has already a sinister history. There have been two murders, a vitriol-throwing, a suicide, and several robberies brought about for the sake of this forty-grain weight of crystallised charcoal. Who would think that so pretty a toy would be a purveyor to the gallows and the prison? I\u2019ll lock it up in my strong box now and drop a line to the Countess to say that we have it.\u201d \u201cDo you think that this man Horner is innocent?\u201d \u201cI cannot tell.\u201d \u201cWell, then, do you imagine that this other one, Henry Baker, had anything to do with the matter?\u201d \u201cIt is, I think, much more likely that Henry Baker is an absolutely innocent man, who had no idea that the bird which he was carrying was of considerably more value than if it were made of solid gold. That, however, I shall determine by a very simple test if we have an answer to our advertisement.\u201d \u201cAnd you can do nothing until then?\u201d \u201cNothing.\u201d \u201cIn that case I shall continue my professional round. But I shall come back in the evening at the hour you have mentioned, for I should like to see the solution of so tangled a business.\u201d",
+    "previous": null,
+    "next": null,
+    "depictionRules": [
+     "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+     "Show every person with dignity; avoid racial and ethnic caricatures.",
+     "Do not borrow faces, costumes or props from screen adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "incoherent"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Lettering: rows of squiggle text on the desk papers and on a note pinned by the mantel, none readable. Rule: Holmes is styled with tousled modern curls and a long dark coat with upturned collar and scarf, the costume of the modern television adaptation rather than the period (I name no real person from the face); a panel radiator sits under the window and the open box holds several more blue stones."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "yes",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Holmes holds the blue stone to the window light with Watson by the fire, but the open strong box on the desk already holds several more blue stones, the desk and shelf papers carry rows of unreadable pseudo-script, and Holmes is styled as the modern television Sherlock (tousled dark curls, long dark greatcoat with turned-up collar and scarf). Flagged on costume and styling; I do not name an actor from the face."
+   }
+  },
+  {
+   "item": {
+    "id": "j240",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j240.jpg",
+    "work": "Alice\u2019s Adventures in Wonderland",
+    "reference": "The Queen\u2019s Croquet-Ground \u00b652 to The Queen\u2019s Croquet-Ground \u00b661",
+    "text": "\u201cWho _are_ you talking to?\u201d said the King, going up to Alice, and looking at the Cat\u2019s head with great curiosity. \u201cIt\u2019s a friend of mine\u2014a Cheshire Cat,\u201d said Alice: \u201callow me to introduce it.\u201d \u201cI don\u2019t like the look of it at all,\u201d said the King: \u201chowever, it may kiss my hand if it likes.\u201d \u201cI\u2019d rather not,\u201d the Cat remarked. \u201cDon\u2019t be impertinent,\u201d said the King, \u201cand don\u2019t look at me like that!\u201d He got behind Alice as he spoke. \u201cA cat may look at a king,\u201d said Alice. \u201cI\u2019ve read that in some book, but I don\u2019t remember where.\u201d \u201cWell, it must be removed,\u201d said the King very decidedly, and he called the Queen, who was passing at the moment, \u201cMy dear! I wish you would have this cat removed!\u201d The Queen had only one way of settling all difficulties, great or small. \u201cOff with his head!\u201d she said, without even looking round. \u201cI\u2019ll fetch the executioner myself,\u201d said the King eagerly, and he hurried off. Alice thought she might as well go back, and see how the game was going on, as she heard the Queen\u2019s voice in the distance, screaming with passion. She had already heard her sentence three of the players to be executed for having missed their turns, and she did not like the look of things at all, as the game was in such confusion that she never knew whether it was her turn or not. So she went in search of her hedgehog.",
+    "previous": "The Queen smiled and passed on.",
+    "next": null,
+    "depictionRules": [
+     "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+     "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+     "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+     "Threats and executions stay threats or slapstick; no gore or real injury.",
+     "Take no likeness, costume or prop from film or animated adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "rule_violation"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Lettering: heart, club and spade pips with tiny corner index marks on the background card soldiers, none readable. Rule: of those card figures only one is a flat oblong card; the others, including the man bent over as a hoop, are ordinary human bodies in pip tabards. Top-right corner and sides are bare paper (accepted)."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "The King stands by Alice, who holds her flamingo, gesturing warily at the floating Cat head while the Queen points away and a hedgehog trots past; a background card soldier is a five of hearts with pips and a tiny corner index squiggle and others wear club pips (card pips, unreadable). Two small background attendants read as people in pip tunics rather than flat cards, too minor to call a rule break; top right is bare paper (accepted)."
+   }
+  },
+  {
+   "item": {
+    "id": "j243",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j243.jpg",
+    "work": "The Holy Bible",
+    "reference": "1 Corinthians 13:12",
+    "text": "For now we see in a mirror, dimly, but then face to face. Now I know in part, but then I will know fully, even as I was also fully known.",
+    "previous": "When I was a child, I spoke as a child, I felt as a child, I thought as a child. Now that I have become a man, I have put away childish things.",
+    "next": "But now faith, hope, and love remain\u2014these three. The greatest of these is love.",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "extra_figures",
+    "scene_mismatch",
+    "overall"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "A bearded teacher in a dark mantle with blank scrolls addresses seated men and women at a stone table in a Greek town below an acropolis, showing the letter being delivered rather than the mirror image itself. No lettering, full-bleed paint, hands sound."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "yes",
+     "incoherent": "no",
+     "scene_mismatch": "yes",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "A bearded teacher with blank scrolls addresses a seated group in a Greek city: the letter's author drawn speaking his own words, with no mirror, dim reflection or face-to-face meeting anywhere in the picture; scrolls carry no marks."
+   }
+  },
+  {
+   "item": {
+    "id": "j259",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j259.jpg",
+    "work": "The Holy Bible",
+    "reference": "Mark 4:38",
+    "text": "He himself was in the stern, asleep on the cushion; and they woke him up and asked him, \u201cTeacher, don\u2019t you care that we are dying?\u201d",
+    "previous": "A big wind storm arose, and the waves beat into the boat, so much that the boat was already filled.",
+    "next": "He awoke and rebuked the wind, and said to the sea, \u201cPeace! Be still!\u201d The wind ceased and there was a great calm.",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "unpainted_edge"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Jesus asleep on the cushion in the stern as one disciple shakes his shoulder and another cries out, waves breaking in. White paper shows in the ragged left and right edges (accepted); no lettering."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Jesus asleep on the cushion in the stern as a disciple shakes his shoulder and another cries out, others rowing and bailing in the storm; painted to the edges (white is foam), no lettering. The waking disciple wears a similar blue mantle but is a distinct shorter-haired man."
+   }
+  },
+  {
+   "item": {
+    "id": "j274",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j274.jpg",
+    "work": "Alice\u2019s Adventures in Wonderland",
+    "reference": "The Lobster Quadrille \u00b618 to The Lobster Quadrille \u00b626",
+    "text": "\u201cIt must be a very pretty dance,\u201d said Alice timidly. \u201cWould you like to see a little of it?\u201d said the Mock Turtle. \u201cVery much indeed,\u201d said Alice. \u201cCome, let\u2019s try the first figure!\u201d said the Mock Turtle to the Gryphon. \u201cWe can do without lobsters, you know. Which shall sing?\u201d \u201cOh, _you_ sing,\u201d said the Gryphon. \u201cI\u2019ve forgotten the words.\u201d So they began solemnly dancing round and round Alice, every now and then treading on her toes when they passed too close, and waving their forepaws to mark the time, while the Mock Turtle sang this, very slowly and sadly:\u2014 \u201cWill you walk a little faster?\u201d said a whiting to a snail. \u201cThere\u2019s a porpoise close behind us, and he\u2019s treading on my tail. See how eagerly the lobsters and the turtles all advance! They are waiting on the shingle\u2014will you come and join the dance? Will you, won\u2019t you, will you, won\u2019t you, will you join the dance? Will you, won\u2019t you, will you, won\u2019t you, won\u2019t you join the dance? \u201cYou can really have no notion how delightful it will be When they take us up and throw us, with the lobsters, out to sea!\u201d But the snail replied \u201cToo far, too far!\u201d and gave a look askance\u2014 Said he thanked the whiting kindly, but he would not join the dance. Would not, could not, would not, could not, would not join the dance. Would not, could not, would not, could not, could not join the dance. \u201cWhat matters it how far we go?\u201d his scaly friend replied. \u201cThere is another shore, you know, upon the other side. The further off from England the nearer is to France\u2014 Then turn not pale, beloved snail, but come and join the dance. Will you, won\u2019t you, will you, won\u2019t you, will you join the dance? Will you, won\u2019t you, will you, won\u2019t you, won\u2019t you join the dance?\u201d",
+    "previous": null,
+    "next": null,
+    "depictionRules": [
+     "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+     "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+     "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+     "Threats and executions stay threats or slapstick; no gore or real injury.",
+     "Take no likeness, costume or prop from film or animated adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "incoherent",
+    "overall"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Calf-headed Mock Turtle with a tear and the Gryphon rear up with forepaws raised either side of Alice on the shingle. Full bleed, no lettering; the sea behind is drawn like a transparent tank with jellyfish, odd but not contradictory."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "yes",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "Mock Turtle (calf head, shell, flippers raised) and Gryphon with forepaws up dance either side of Alice on a pebble shore, which is the moment. But the place contradicts itself: the sea behind them is drawn as a see-through underwater wall with jellyfish and submerged rocks at eye level, and coral grows on the dry beach."
+   }
+  },
+  {
+   "item": {
+    "id": "j281",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j281.jpg",
+    "work": "The Holy Bible",
+    "reference": "Matthew 27:35",
+    "text": "When they had crucified him, they divided his clothing among them, casting lots,",
+    "previous": "they gave him sour wine to drink mixed with gall. When he had tasted it, he would not drink.",
+    "next": "and they sat and watched him there.",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "incoherent",
+    "overall"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "yes",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "Four soldiers crouch over a heap of garments, one holding lots in his palm, but on the hill Jesus hangs on the cross still fully dressed in robe, blue mantle and sandals while his clothing is being divided. Plaque on the cross is blank; no gore."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Four soldiers crouch over a pile of garments, one with open palm as lots are cast, three crosses on the hill behind; no blood or gore, blank titulus, no lettering. Oddity only: the small crucified Jesus still wears robe and mantle while his clothes are being divided, and no dice are visible."
+   }
+  },
+  {
+   "item": {
+    "id": "j301",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j301.jpg",
+    "work": "The Holy Bible",
+    "reference": "Luke 22:61",
+    "text": "The Lord turned and looked at Peter. Then Peter remembered the Lord\u2019s word, how he said to him, \u201cBefore the rooster crows you will deny me three times.\u201d",
+    "previous": "But Peter said, \u201cMan, I don\u2019t know what you are talking about!\u201d Immediately, while he was still speaking, a rooster crowed.",
+    "next": "He went out, and wept bitterly.",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "scene_mismatch",
+    "overall"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Night courtyard with a fire: Peter in the foreground, hand to chest, looking back at the bound Jesus among guards. Jesus's head is in profile toward the fire rather than squarely at Peter, a weak rendering of the look but the moment, people and place are right. Painted to all edges, no lettering."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "yes",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "Courtyard, fire, bound Jesus and stricken Peter (hand to chest, left foreground) are all present, but Jesus stands with his back to Peter and his head in profile toward the fire at right, so the look at Peter that defines the verse is not shown. No lettering; edges painted."
+   }
+  },
+  {
+   "item": {
+    "id": "j313",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j313.jpg",
+    "work": "The Adventures of Sherlock Holmes",
+    "reference": "The Red-Headed League \u00b6183 to The Red-Headed League \u00b6190",
+    "text": "\u201cWhich were very well justified,\u201d observed Holmes. \u201cAnd now it is time that we arranged our little plans. I expect that within an hour matters will come to a head. In the meantime Mr. Merryweather, we must put the screen over that dark lantern.\u201d \u201cAnd sit in the dark?\u201d \u201cI am afraid so. I had brought a pack of cards in my pocket, and I thought that, as we were a _partie carr\u00e9e_, you might have your rubber after all. But I see that the enemy\u2019s preparations have gone so far that we cannot risk the presence of a light. And, first of all, we must choose our positions. These are daring men, and though we shall take them at a disadvantage, they may do us some harm unless we are careful. I shall stand behind this crate, and do you conceal yourselves behind those. Then, when I flash a light upon them, close in swiftly. If they fire, Watson, have no compunction about shooting them down.\u201d I placed my revolver, cocked, upon the top of the wooden case behind which I crouched. Holmes shot the slide across the front of his lantern and left us in pitch darkness\u2014such an absolute darkness as I have never before experienced. The smell of hot metal remained to assure us that the light was still there, ready to flash out at a moment\u2019s notice. To me, with my nerves worked up to a pitch of expectancy, there was something depressing and subduing in the sudden gloom, and in the cold dank air of the vault. \u201cThey have but one retreat,\u201d whispered Holmes. \u201cThat is back through the house into Saxe-Coburg Square. I hope that you have done what I asked you, Jones?\u201d \u201cI have an inspector and two officers waiting at the front door.\u201d \u201cThen we have stopped all the holes. And now we must be silent and wait.\u201d What a time it seemed! From comparing notes afterwards it was but an hour and a quarter, yet it appeared to me that the night must have almost gone, and the dawn be breaking above us. My limbs were weary and stiff, for I feared to change my position; yet my nerves were worked up to the highest pitch of tension, and my hearing was so acute that I could not only hear the gentle breathing of my companions, but I could distinguish the deeper, heavier in-breath of the bulky Jones from the thin, sighing note of the bank director. From my position I could look over the case in the direction of the floor. Suddenly my eyes caught the glint of a light.",
+    "previous": "\u201cYes. We had occasion some months ago to strengthen our resources and borrowed for that purpose 30,000 napoleons from the Bank of France. It has become known that we have never had occasion to unpack the money, and that it is still lying in our cellar. The crate upon which I sit contains 2,000 napoleons packed between layers of lead foil. Our reserve of bullion is much larger at present than is usually kept in a single branch office, and the directors have had misgivings upon the subject.\u201d",
+    "next": null,
+    "depictionRules": [
+     "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+     "Show every person with dignity; avoid racial and ethnic caricatures.",
+     "Do not borrow faces, costumes or props from screen adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "rule_violation",
+    "overall"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Bank vault with crates: Holmes closing the slide of the dark lantern behind a crate, Watson with revolver on a case, bulky Jones and elderly Merryweather (he stands in the open rather than hidden, minor). No lettering, no deerstalker, anatomy sound, edges painted. Face-to-actor likeness not assessed (I do not identify real people from faces); rule answer rests on costume and props."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "yes",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "Vault with crates, Holmes shuttering the dark lantern, Watson with revolver on a case, Jones and Merryweather waiting, all as narrated; but Holmes's frontal face (gaunt hollow cheeks, deep-set eyes, swept-back hair) clearly reads as the actor Peter Cushing. No lettering; paint to all edges."
+   }
+  },
+  {
+   "item": {
+    "id": "j324",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j324.jpg",
+    "work": "Alice\u2019s Adventures in Wonderland",
+    "reference": "The Queen\u2019s Croquet-Ground \u00b641 to The Queen\u2019s Croquet-Ground \u00b644",
+    "text": "\u201cGet to your places!\u201d shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was all ridges and furrows; the balls were live hedgehogs, the mallets live flamingoes, and the soldiers had to double themselves up and to stand on their hands and feet, to make the arches. The chief difficulty Alice found at first was in managing her flamingo: she succeeded in getting its body tucked away, comfortably enough, under her arm, with its legs hanging down, but generally, just as she had got its neck nicely straightened out, and was going to give the hedgehog a blow with its head, it _would_ twist itself round and look up in her face, with such a puzzled expression that she could not help bursting out laughing: and when she had got its head down, and was going to begin again, it was very provoking to find that the hedgehog had unrolled itself, and was in the act of crawling away: besides all this, there was generally a ridge or furrow in the way wherever she wanted to send the hedgehog to, and, as the doubled-up soldiers were always getting up and walking off to other parts of the ground, Alice soon came to the conclusion that it was a very difficult game indeed. The players all played at once without waiting for turns, quarrelling all the while, and fighting for the hedgehogs; and in a very short time the Queen was in a furious passion, and went stamping about, and shouting \u201cOff with his head!\u201d or \u201cOff with her head!\u201d about once in a minute. Alice began to feel very uneasy: to be sure, she had not as yet had any dispute with the Queen, but she knew that it might happen any minute, \u201cand then,\u201d thought she, \u201cwhat would become of me? They\u2019re dreadfully fond of beheading people here; the great wonder is, that there\u2019s any one left alive!\u201d",
+    "previous": "\u201cShe boxed the Queen\u2019s ears\u2014\u201d the Rabbit began. Alice gave a little scream of laughter. \u201cOh, hush!\u201d the Rabbit whispered in a frightened tone. \u201cThe Queen will hear you! You see, she came rather late, and the Queen said\u2014\u201d",
+    "next": null,
+    "depictionRules": [
+     "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+     "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+     "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+     "Threats and executions stay threats or slapstick; no gore or real injury.",
+     "Take no likeness, costume or prop from film or animated adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "unpainted_edge"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Alice with the flamingo tucked under her arm looking up at her, hedgehog crawling off, ridges and furrows, Queen stamping and shouting, a card soldier bent as an arch: right moment. Lettering: card pips and tiny corner squiggles, unreadable. Wooden mallets and wire hoops also lie about (noted only, background). Washes reach every edge."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Alice laughs with the flamingo tucked under her arm as a hedgehog crawls into a furrow, card soldiers bend into an arch and the Queen storms about. Lettering is card pips, not readable; white paper shows at the bottom-left corner (accepted). Stray wooden mallets and wire hoops lie about the lawn, a peripheral slip I did not count. Flawed only for the lettering."
+   }
+  },
+  {
+   "item": {
+    "id": "j342",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j342.jpg",
+    "work": "The Holy Bible",
+    "reference": "Revelation 4:6",
+    "text": "Before the throne was something like a sea of glass, similar to crystal. In the middle of the throne, and around the throne were four living creatures full of eyes before and behind.",
+    "previous": null,
+    "next": "The first creature was like a lion, the second creature like a calf, the third creature had a face like a man, and the fourth was like a flying eagle.",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": [
+     "God / Yahweh, the Father and God of Israel"
+    ]
+   },
+   "disputedFields": [
+    "extra_figures",
+    "overall"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "yes",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "no",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "A large man in a rough cloak with a staff stands back-to-viewer in the left foreground (the narrator John), not called for by the verse. The four winged creatures with eyes, glass sea and rainbow throne are shown; the throne holds only green and pink mist and drapery, no face or limbs."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "no",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Four winged creatures covered in eyes stand on a glassy floor around a throne that holds only coloured mist and a veil, no body; the seer in the foreground and crowned elders belong to the vision."
+   }
+  },
+  {
+   "item": {
+    "id": "j347",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j347.jpg",
+    "work": "The Adventures of Sherlock Holmes",
+    "reference": "The Red-Headed League \u00b6183 to The Red-Headed League \u00b6190",
+    "text": "\u201cWhich were very well justified,\u201d observed Holmes. \u201cAnd now it is time that we arranged our little plans. I expect that within an hour matters will come to a head. In the meantime Mr. Merryweather, we must put the screen over that dark lantern.\u201d \u201cAnd sit in the dark?\u201d \u201cI am afraid so. I had brought a pack of cards in my pocket, and I thought that, as we were a _partie carr\u00e9e_, you might have your rubber after all. But I see that the enemy\u2019s preparations have gone so far that we cannot risk the presence of a light. And, first of all, we must choose our positions. These are daring men, and though we shall take them at a disadvantage, they may do us some harm unless we are careful. I shall stand behind this crate, and do you conceal yourselves behind those. Then, when I flash a light upon them, close in swiftly. If they fire, Watson, have no compunction about shooting them down.\u201d I placed my revolver, cocked, upon the top of the wooden case behind which I crouched. Holmes shot the slide across the front of his lantern and left us in pitch darkness\u2014such an absolute darkness as I have never before experienced. The smell of hot metal remained to assure us that the light was still there, ready to flash out at a moment\u2019s notice. To me, with my nerves worked up to a pitch of expectancy, there was something depressing and subduing in the sudden gloom, and in the cold dank air of the vault. \u201cThey have but one retreat,\u201d whispered Holmes. \u201cThat is back through the house into Saxe-Coburg Square. I hope that you have done what I asked you, Jones?\u201d \u201cI have an inspector and two officers waiting at the front door.\u201d \u201cThen we have stopped all the holes. And now we must be silent and wait.\u201d What a time it seemed! From comparing notes afterwards it was but an hour and a quarter, yet it appeared to me that the night must have almost gone, and the dawn be breaking above us. My limbs were weary and stiff, for I feared to change my position; yet my nerves were worked up to the highest pitch of tension, and my hearing was so acute that I could not only hear the gentle breathing of my companions, but I could distinguish the deeper, heavier in-breath of the bulky Jones from the thin, sighing note of the bank director. From my position I could look over the case in the direction of the floor. Suddenly my eyes caught the glint of a light.",
+    "previous": "\u201cYes. We had occasion some months ago to strengthen our resources and borrowed for that purpose 30,000 napoleons from the Bank of France. It has become known that we have never had occasion to unpack the money, and that it is still lying in our cellar. The crate upon which I sit contains 2,000 napoleons packed between layers of lead foil. Our reserve of bullion is much larger at present than is usually kept in a single branch office, and the directors have had misgivings upon the subject.\u201d",
+    "next": null,
+    "depictionRules": [
+     "Follow the narrated moment, including clues and disguises; avoid sensational gore.",
+     "Show every person with dignity; avoid racial and ethnic caricatures.",
+     "Do not borrow faces, costumes or props from screen adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "lettering",
+    "overall"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Vault with Watson crouched behind a crate with his revolver, Holmes by the still-lit dark lantern and two men waiting at the right matches the text; a label on a stacked crate at right carries two lines of squiggle script. Top-left corner is bare white paper (accepted). Holmes's profile is a generic gaunt type, not a clear actor."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "na"
+    },
+    "overall": "uncertain",
+    "notes": "Watson crouches with his revolver on a crate while Holmes stands by the lantern and Jones and Merryweather wait; no lettering. Holmes's gaunt profile at left resembles Peter Cushing but is too stylised to call a clear likeness. Ragged white paper shows at the top-left edge (accepted)."
+   }
+  },
+  {
+   "item": {
+    "id": "j367",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j367.jpg",
+    "work": "Alice\u2019s Adventures in Wonderland",
+    "reference": "Who Stole the Tarts? \u00b616 to Who Stole the Tarts? \u00b628",
+    "text": "The first witness was the Hatter. He came in with a teacup in one hand and a piece of bread-and-butter in the other. \u201cI beg pardon, your Majesty,\u201d he began, \u201cfor bringing these in: but I hadn\u2019t quite finished my tea when I was sent for.\u201d \u201cYou ought to have finished,\u201d said the King. \u201cWhen did you begin?\u201d The Hatter looked at the March Hare, who had followed him into the court, arm-in-arm with the Dormouse. \u201cFourteenth of March, I _think_ it was,\u201d he said. \u201cFifteenth,\u201d said the March Hare. \u201cSixteenth,\u201d added the Dormouse. \u201cWrite that down,\u201d the King said to the jury, and the jury eagerly wrote down all three dates on their slates, and then added them up, and reduced the answer to shillings and pence. \u201cTake off your hat,\u201d the King said to the Hatter. \u201cIt isn\u2019t mine,\u201d said the Hatter. \u201c_Stolen!_\u201d the King exclaimed, turning to the jury, who instantly made a memorandum of the fact. \u201cI keep them to sell,\u201d the Hatter added as an explanation; \u201cI\u2019ve none of my own. I\u2019m a hatter.\u201d Here the Queen put on her spectacles, and began staring at the Hatter, who turned pale and fidgeted. \u201cGive your evidence,\u201d said the King; \u201cand don\u2019t be nervous, or I\u2019ll have you executed on the spot.\u201d This did not seem to encourage the witness at all: he kept shifting from one foot to the other, looking uneasily at the Queen, and in his confusion he bit a large piece out of his teacup instead of the bread-and-butter.",
+    "previous": null,
+    "next": "Just at this moment Alice felt a very curious sensation, which puzzled her a good deal until she made out what it was: she was beginning to grow larger again, and she thought at first she would get up and leave the court; but on second thoughts she decided to remain where she was as long as there was room for her.",
+    "depictionRules": [
+     "Alice's changing size reads clearly against doors, furniture, trees and other figures.",
+     "Talking animals are drawn as animals, with human posture and dress where the text gives it.",
+     "Playing-card courtiers, gardeners and soldiers are flat, oblong cards with heads, arms and legs.",
+     "Threats and executions stay threats or slapstick; no gore or real injury.",
+     "Take no likeness, costume or prop from film or animated adaptations."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "extra_figures"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "yes",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Hatter with teacup and bitten bread, the Hare arm-in-arm with the Dormouse, King and spectacled Queen on the bench and the animal jury with slates are right, but a second crowned white-bearded king with a card body stands large in the right foreground duplicating the King. Marks: an unreadable scribble on the hat tag and suit pips on two card figures; top brightness is a window, not bare paper."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "The tag on the Hatter's hat carries an unreadable glyph and scribbled papers lie on the floor. The Hatter with bitten teacup and bread, Hare arm-in-arm with the Dormouse, King, spectacled Queen and jury with slates match the text; a second crowned card-king stands at lower right."
+   }
+  },
+  {
+   "item": {
+    "id": "j378",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j378.jpg",
+    "work": "The Holy Bible",
+    "reference": "Mark 4:39",
+    "text": "He awoke and rebuked the wind, and said to the sea, \u201cPeace! Be still!\u201d The wind ceased and there was a great calm.",
+    "previous": "He himself was in the stern, asleep on the cushion; and they woke him up and asked him, \u201cTeacher, don\u2019t you care that we are dying?\u201d",
+    "next": "He said to them, \u201cWhy are you so afraid? How is it that you have no faith?\u201d",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "unpainted_edge"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Jesus stands in the stern with arm out over a settling sea while the disciples look up. Wash reaches all four edges, no lettering."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "acceptable",
+    "notes": "Jesus stands at the end of the boat with his arm out over a settling sea, clouds parting, disciples looking up. Bare white-paper sky runs off the top edge and part of the right edge, which this item accepts."
+   }
+  },
+  {
+   "item": {
+    "id": "j390",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [
+     "unpainted_edge"
+    ],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j390.jpg",
+    "work": "The Holy Bible",
+    "reference": "Matthew 27:35",
+    "text": "When they had crucified him, they divided his clothing among them, casting lots,",
+    "previous": "they gave him sour wine to drink mixed with gall. When he had tasted it, he would not drink.",
+    "next": "and they sat and watched him there.",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": []
+   },
+   "disputedFields": [
+    "lettering",
+    "incoherent"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "yes",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "no"
+    },
+    "overall": "flawed",
+    "notes": "Soldiers kneel over the garments with lots in hand below the cross. The white plaque on the cross carries a faint squiggle of pseudo-writing; bare paper shows at the left and top-left (accepted). Jesus is still fully robed on the cross while his clothing is divided, an oddity I did not score."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "yes",
+     "extra_figures": "no",
+     "incoherent": "yes",
+     "scene_mismatch": "no",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "na",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "Four soldiers kneel over the garments, one with a cupped hand as if casting. Jesus on the cross behind is still fully dressed in tunic and blue mantle while his clothing is being divided, which contradicts the moment; the board above him is blank, and the left side and corners fade to cream paper, which this item accepts."
+   }
+  },
+  {
+   "item": {
+    "id": "j404",
+    "ask": [
+     "lettering",
+     "painted_frame",
+     "unpainted_edge",
+     "extra_figures",
+     "incoherent",
+     "scene_mismatch",
+     "anatomy",
+     "rule_violation",
+     "effects_figure",
+     "readable_text"
+    ],
+    "accepted": [],
+    "file": "evals/images/runs/2026-11-09-lean-engine/blind/j404.jpg",
+    "work": "The Holy Bible",
+    "reference": "Leviticus 11:7",
+    "text": "The pig, because it has a split hoof, and is cloven-footed, but doesn\u2019t chew the cud, is unclean to you.",
+    "previous": "The hare, because it chews the cud but doesn\u2019t have a parted hoof, is unclean to you.",
+    "next": "You shall not eat their meat. You shall not touch their carcasses. They are unclean to you.",
+    "depictionRules": [
+     "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.",
+     "Treat battles, death and crucifixion seriously; avoid lingering gore.",
+     "No sexually explicit content; non-sexual nudity may follow the text.",
+     "Show all peoples with dignity, without ethnic or religious caricature.",
+     "Visionary creatures follow the text, strange and fearsome rather than comic."
+    ],
+    "neverDrawn": [
+     "God / Yahweh, the Father and God of Israel"
+    ]
+   },
+   "disputedFields": [
+    "extra_figures"
+   ],
+   "scorer1": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "no",
+     "incoherent": "no",
+     "scene_mismatch": "yes",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "no",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "Two elders, one with a staff and one in a priest's breastplate, look toward a cloud of light over the tabernacle in the camp. No pig appears anywhere, so the verse's subject is missing. God is cloud and light only; no lettering."
+   },
+   "scorer2": {
+    "faults": {
+     "lettering": "no",
+     "painted_frame": "no",
+     "unpainted_edge": "no",
+     "extra_figures": "yes",
+     "incoherent": "no",
+     "scene_mismatch": "yes",
+     "anatomy": "no",
+     "rule_violation": "no",
+     "effects_figure": "no",
+     "readable_text": "na"
+    },
+    "overall": "flawed",
+    "notes": "The verse is about the pig, and no pig or any animal appears. Instead Moses with his staff and Aaron in the breastplate stand large in the foreground of the camp before the tabernacle; the bright cloud above it holds no figure."
+   }
+  }
+ ]
+}

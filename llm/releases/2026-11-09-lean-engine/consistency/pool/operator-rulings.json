@@ -1,0 +1,49 @@
+{
+ "note": "Operator rulings on the 11 disputed pairs, by pooled blind id, before looking up which set each came from. Six (c071, c412, c291, c099, c114, c426) were viewed and then ruled. Five (c163, c350, c177, c404, c466) were first ruled unclear from the scorers' notes alone; after review of the pull request pointed that out, the operator viewed those five composites too, kept each verdict and rewrote its note from what was seen. This file is the source record by pooled id; the per-set operator.json files are what `evals:consistency report --operator` reads.",
+ "rulings": {
+  "c071": {
+   "verdict": "different",
+   "notes": "Left Alice has long straight golden-blonde hair; right has darker brown, wavier, shorter hair: a hair-colour conflict."
+  },
+  "c412": {
+   "verdict": "different",
+   "notes": "Left Holmes has thick black hair with a fringe; right has thin, receding, greying hair and an older face."
+  },
+  "c291": {
+   "verdict": "different",
+   "notes": "Same table and tree, but a plain tan clapboard cottage on the left and a tall ornate Victorian house on the right."
+  },
+  "c099": {
+   "verdict": "different",
+   "notes": "The dripping man on the left has dark curly hair with a greying beard; the diving Peter on the right has clearly grey hair and beard."
+  },
+  "c114": {
+   "verdict": "different",
+   "notes": "Peter stepping from the boat has dark hair and a dark greying beard; the diving Peter is clearly grey-haired and older."
+  },
+  "c426": {
+   "verdict": "different",
+   "notes": "Left Watson is grey-streaked, heavier and older; right Watson is a younger man with a dark moustache."
+  },
+  "c163": {
+   "verdict": "unclear",
+   "notes": "Viewed: Alice stands with her back to the viewer in the court image; only her long light-brown hair and dress show, so the face cannot be compared."
+  },
+  "c350": {
+   "verdict": "unclear",
+   "notes": "Viewed: Alice is small and seen from behind in the court image; hair and dress agree with the croquet image but the face cannot be compared."
+  },
+  "c177": {
+   "verdict": "unclear",
+   "notes": "Viewed: one image is set at the station and shows the fire only as distant smoke and glow; the house and grounds cannot be compared."
+  },
+  "c404": {
+   "verdict": "unclear",
+   "notes": "Viewed: on the cross Jesus is a small distant figure; long dark hair and a beard can be made out and do not conflict, but the face is too small to compare."
+  },
+  "c466": {
+   "verdict": "unclear",
+   "notes": "Viewed: Moses stands on the rock turned away from the viewer; white hair, a white beard edge, mantle and crook agree, but the face cannot be compared."
+  }
+ }
+}

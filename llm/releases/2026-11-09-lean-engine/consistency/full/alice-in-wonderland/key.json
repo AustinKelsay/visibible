@@ -1,0 +1,847 @@
+{
+  "schemaVersion": 1,
+  "seed": "consistency",
+  "groups": {
+    "file": "evals/images/consistency.alice-in-wonderland.json",
+    "sha256": "1a1bf661a81e478987cfc58bc3851eb40d6de4206d9165a23138018e260752a5"
+  },
+  "sources": [
+    {
+      "file": "evals/images/runs/2026-11-09-lean-engine/consistency/full/results.ndjson",
+      "sha256": "3f9050b6f546ae9b4a918510a958466a89223fd24b865237c68fdc5a989ad47a"
+    },
+    {
+      "file": "evals/images/runs/2026-11-09-lean-engine/consistency/full/snapshot.json",
+      "sha256": "a9d3acbb967270855632739e6007a59634a3943b6ffcc068a7c2248612aaa338"
+    }
+  ],
+  "notRun": {
+    "character": [
+      "who-stole-the-tarts-16"
+    ],
+    "setting": []
+  },
+  "coverage": [
+    {
+      "groupId": "alice",
+      "style": "classical",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "down-the-rabbit-hole-16",
+        "advice-from-a-caterpillar-1",
+        "a-mad-tea-party-1",
+        "the-queens-croquet-ground-41",
+        "alices-evidence-16"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "alice",
+      "style": "fresco",
+      "units": 5,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "alice",
+      "style": "watercolor",
+      "units": 5,
+      "imaged": 5,
+      "eligible": [
+        "down-the-rabbit-hole-16",
+        "advice-from-a-caterpillar-1",
+        "a-mad-tea-party-1",
+        "the-queens-croquet-ground-41",
+        "alices-evidence-16"
+      ],
+      "pairs": 10,
+      "otherStage": 0
+    },
+    {
+      "groupId": "cheshire-cat",
+      "style": "classical",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "pig-and-pepper-50",
+        "the-queens-croquet-ground-49"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "cheshire-cat",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "cheshire-cat",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 2,
+      "eligible": [
+        "pig-and-pepper-50",
+        "the-queens-croquet-ground-49"
+      ],
+      "pairs": 1,
+      "otherStage": 0
+    },
+    {
+      "groupId": "hatter",
+      "style": "classical",
+      "units": 2,
+      "imaged": 1,
+      "eligible": [
+        "a-mad-tea-party-1"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "hatter",
+      "style": "fresco",
+      "units": 2,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "hatter",
+      "style": "watercolor",
+      "units": 2,
+      "imaged": 1,
+      "eligible": [
+        "a-mad-tea-party-1"
+      ],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "tea-table",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "a-mad-tea-party-1",
+        "a-mad-tea-party-7",
+        "a-mad-tea-party-13"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "tea-table",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "tea-table",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "a-mad-tea-party-1",
+        "a-mad-tea-party-7",
+        "a-mad-tea-party-13"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "croquet-ground",
+      "style": "classical",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "the-queens-croquet-ground-45",
+        "the-queens-croquet-ground-49",
+        "the-queens-croquet-ground-52"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    },
+    {
+      "groupId": "croquet-ground",
+      "style": "fresco",
+      "units": 3,
+      "imaged": 0,
+      "eligible": [],
+      "pairs": 0,
+      "otherStage": 0
+    },
+    {
+      "groupId": "croquet-ground",
+      "style": "watercolor",
+      "units": 3,
+      "imaged": 3,
+      "eligible": [
+        "the-queens-croquet-ground-45",
+        "the-queens-croquet-ground-49",
+        "the-queens-croquet-ground-52"
+      ],
+      "pairs": 3,
+      "otherStage": 0
+    }
+  ],
+  "pairs": [
+    {
+      "id": "pair001",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-caterpillar__watercolor__a1.jpg",
+        "sha256": "b77cf3dadabcb7841c17ac73c4ec69141878444935ee7c197e1c76ca3256a604",
+        "scene": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; "
+      },
+      "right": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-refuses-to-leave__watercolor__a1.jpg",
+        "sha256": "18427f3edc31bc0a8bb8fe913fbd448b016729712763e4ca2559c26e1ca1350d",
+        "scene": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+      }
+    },
+    {
+      "id": "pair002",
+      "groupId": "cheshire-cat",
+      "kind": "character",
+      "subject": "the Cheshire Cat",
+      "style": "classical",
+      "left": {
+        "unitId": "the-queens-croquet-ground-49",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-cat-head-talks__classical__a1.jpg",
+        "sha256": "efb6d5377c69b4911cf9609aa21cdc0654d09dac35ac0bc2908e1452c0bbc5f9",
+        "scene": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; "
+      },
+      "right": {
+        "unitId": "pig-and-pepper-50",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-cheshire-cat-bough__classical__a1.jpg",
+        "sha256": "0583ef3ddce68f1f5c0165012e8ce47582b150579eb17ad9e6c600123063c0a9",
+        "scene": "Pig and Pepper ¶50 to Pig and Pepper ¶52: The Cat only grinned when it saw Alice. It looked good-natured, she thought: still it had _very_ long claws and a great many teeth, so she felt that it ought to be treated with respect. “Cheshire Puss,” she began, rather timidly, as she did not at all know whether it would like the name: however, it; "
+      }
+    },
+    {
+      "id": "pair003",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-drink-me__watercolor__a1.jpg",
+        "sha256": "f5ec1129f7b25609043a1755a1b78e29e249b82800661d1c451ef1bcd089e72c",
+        "scene": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-arrival__watercolor__a1.jpg",
+        "sha256": "5391599816ec5d421e0d97f527227d78bf16e8bd4ba5afb0c564a37cd138a133",
+        "scene": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+      }
+    },
+    {
+      "id": "pair004",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-arrival__classical__a1.jpg",
+        "sha256": "3679fc0c293bd288e03ae7461ff1cd5e1e33ab5f124300bc98021b666223e2e1",
+        "scene": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+      },
+      "right": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-drink-me__classical__a1.jpg",
+        "sha256": "3827c300b657a372392b481eb5f1cc11177973a7088e40b254d495908030a73c",
+        "scene": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+      }
+    },
+    {
+      "id": "pair005",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-arrival__watercolor__a1.jpg",
+        "sha256": "5391599816ec5d421e0d97f527227d78bf16e8bd4ba5afb0c564a37cd138a133",
+        "scene": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+      },
+      "right": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-caterpillar__watercolor__a1.jpg",
+        "sha256": "b77cf3dadabcb7841c17ac73c4ec69141878444935ee7c197e1c76ca3256a604",
+        "scene": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; "
+      }
+    },
+    {
+      "id": "pair006",
+      "groupId": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-queens-croquet-ground-49",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-cat-head-talks__watercolor__a1.jpg",
+        "sha256": "f1f7dd7989020564a2c633efbe4a55a39b473bcb208478b24d07ed671b7ba825",
+        "scene": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; "
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-45",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-cat-grin-appears__watercolor__a1.jpg",
+        "sha256": "ef1e2a1b29f890fa07e7af027bbeec83fabbfaabb5d36196791496645541c5fb",
+        "scene": "The Queen’s Croquet-Ground ¶45 to The Queen’s Croquet-Ground ¶48: She was looking about for some way of escape, and wondering whether she could get away without being seen, when she noticed a curious appearance in the air: it puzzled her very much at first, but, after watching it a minute or two, she made it out to be a grin, and she said to herself “It’s the Ches; "
+      }
+    },
+    {
+      "id": "pair007",
+      "groupId": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "style": "classical",
+      "left": {
+        "unitId": "a-mad-tea-party-13",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-say-what-you-mean__classical__a1.jpg",
+        "sha256": "423e5b7065b8a8fdb617e0f0fa68b756ce745013afd59c8e583879ba8217a59c",
+        "scene": "A Mad Tea-Party ¶13 to A Mad Tea-Party ¶20: “Do you mean that you think you can find out the answer to it?” said the March Hare. “Exactly so,” said Alice. “Then you should say what you mean,” the March Hare went on. “I do,” Alice hastily replied; “at least—at least I mean what I say—that’s the same thing, you know.” “Not the same thing a bit!; "
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-arrival__classical__a1.jpg",
+        "sha256": "3679fc0c293bd288e03ae7461ff1cd5e1e33ab5f124300bc98021b666223e2e1",
+        "scene": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+      }
+    },
+    {
+      "id": "pair008",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-croquet-game__classical__a1.jpg",
+        "sha256": "075ab12aa5779b5ec22567a68c2fdfa8b64b4db32d1c6cfd8e860f932115f9fd",
+        "scene": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; "
+      },
+      "right": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-caterpillar__classical__a1.jpg",
+        "sha256": "eba82ab14d01556f1c82f7ddc7efbe94e693d2ef09a1b905ea04f209e70b40d3",
+        "scene": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; "
+      }
+    },
+    {
+      "id": "pair009",
+      "groupId": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "style": "watercolor",
+      "left": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-arrival__watercolor__a1.jpg",
+        "sha256": "5391599816ec5d421e0d97f527227d78bf16e8bd4ba5afb0c564a37cd138a133",
+        "scene": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-13",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-say-what-you-mean__watercolor__a1.jpg",
+        "sha256": "40aa8fe45ad18315137a1643226327b1aee7ff440d68edb700686a970c205591",
+        "scene": "A Mad Tea-Party ¶13 to A Mad Tea-Party ¶20: “Do you mean that you think you can find out the answer to it?” said the March Hare. “Exactly so,” said Alice. “Then you should say what you mean,” the March Hare went on. “I do,” Alice hastily replied; “at least—at least I mean what I say—that’s the same thing, you know.” “Not the same thing a bit!; "
+      }
+    },
+    {
+      "id": "pair010",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-croquet-game__watercolor__a1.jpg",
+        "sha256": "a4c88cd621d2b6bb2f0ce25261adb78521f1748f412e106bb581dcb2a81dac9d",
+        "scene": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; "
+      },
+      "right": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-refuses-to-leave__watercolor__a1.jpg",
+        "sha256": "18427f3edc31bc0a8bb8fe913fbd448b016729712763e4ca2559c26e1ca1350d",
+        "scene": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+      }
+    },
+    {
+      "id": "pair011",
+      "groupId": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "style": "classical",
+      "left": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-arrival__classical__a1.jpg",
+        "sha256": "3679fc0c293bd288e03ae7461ff1cd5e1e33ab5f124300bc98021b666223e2e1",
+        "scene": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-7",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-riddle__classical__a1.jpg",
+        "sha256": "7bba27934375a36245c9c4898a82bff3e7a343cb84968cfdf094e69f94e57241",
+        "scene": "A Mad Tea-Party ¶7 to A Mad Tea-Party ¶12: “It wasn’t very civil of you to sit down without being invited,” said the March Hare. “I didn’t know it was _your_ table,” said Alice; “it’s laid for a great many more than three.” “Your hair wants cutting,” said the Hatter. He had been looking at Alice for some time with great curiosity, and this w; "
+      }
+    },
+    {
+      "id": "pair012",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-drink-me__classical__a1.jpg",
+        "sha256": "3827c300b657a372392b481eb5f1cc11177973a7088e40b254d495908030a73c",
+        "scene": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+      },
+      "right": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-caterpillar__classical__a1.jpg",
+        "sha256": "eba82ab14d01556f1c82f7ddc7efbe94e693d2ef09a1b905ea04f209e70b40d3",
+        "scene": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; "
+      }
+    },
+    {
+      "id": "pair013",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-caterpillar__watercolor__a1.jpg",
+        "sha256": "b77cf3dadabcb7841c17ac73c4ec69141878444935ee7c197e1c76ca3256a604",
+        "scene": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; "
+      },
+      "right": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-drink-me__watercolor__a1.jpg",
+        "sha256": "f5ec1129f7b25609043a1755a1b78e29e249b82800661d1c451ef1bcd089e72c",
+        "scene": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+      }
+    },
+    {
+      "id": "pair014",
+      "groupId": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "style": "watercolor",
+      "left": {
+        "unitId": "a-mad-tea-party-7",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-riddle__watercolor__a1.jpg",
+        "sha256": "dba6de8078cc5cbd0dd00ecf8510266093c0e194fae722aa882b5023be10fddd",
+        "scene": "A Mad Tea-Party ¶7 to A Mad Tea-Party ¶12: “It wasn’t very civil of you to sit down without being invited,” said the March Hare. “I didn’t know it was _your_ table,” said Alice; “it’s laid for a great many more than three.” “Your hair wants cutting,” said the Hatter. He had been looking at Alice for some time with great curiosity, and this w; "
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-13",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-say-what-you-mean__watercolor__a1.jpg",
+        "sha256": "40aa8fe45ad18315137a1643226327b1aee7ff440d68edb700686a970c205591",
+        "scene": "A Mad Tea-Party ¶13 to A Mad Tea-Party ¶20: “Do you mean that you think you can find out the answer to it?” said the March Hare. “Exactly so,” said Alice. “Then you should say what you mean,” the March Hare went on. “I do,” Alice hastily replied; “at least—at least I mean what I say—that’s the same thing, you know.” “Not the same thing a bit!; "
+      }
+    },
+    {
+      "id": "pair015",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-croquet-game__watercolor__a1.jpg",
+        "sha256": "a4c88cd621d2b6bb2f0ce25261adb78521f1748f412e106bb581dcb2a81dac9d",
+        "scene": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; "
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-arrival__watercolor__a1.jpg",
+        "sha256": "5391599816ec5d421e0d97f527227d78bf16e8bd4ba5afb0c564a37cd138a133",
+        "scene": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+      }
+    },
+    {
+      "id": "pair016",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-refuses-to-leave__watercolor__a1.jpg",
+        "sha256": "18427f3edc31bc0a8bb8fe913fbd448b016729712763e4ca2559c26e1ca1350d",
+        "scene": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-arrival__watercolor__a1.jpg",
+        "sha256": "5391599816ec5d421e0d97f527227d78bf16e8bd4ba5afb0c564a37cd138a133",
+        "scene": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+      }
+    },
+    {
+      "id": "pair017",
+      "groupId": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "style": "classical",
+      "left": {
+        "unitId": "the-queens-croquet-ground-45",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-cat-grin-appears__classical__a1.jpg",
+        "sha256": "fe84f0ace14d22fc570d26c3b5fba93b456866d4c93634e5601a6dd55ba4eb00",
+        "scene": "The Queen’s Croquet-Ground ¶45 to The Queen’s Croquet-Ground ¶48: She was looking about for some way of escape, and wondering whether she could get away without being seen, when she noticed a curious appearance in the air: it puzzled her very much at first, but, after watching it a minute or two, she made it out to be a grin, and she said to herself “It’s the Ches; "
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-49",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-cat-head-talks__classical__a1.jpg",
+        "sha256": "efb6d5377c69b4911cf9609aa21cdc0654d09dac35ac0bc2908e1452c0bbc5f9",
+        "scene": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; "
+      }
+    },
+    {
+      "id": "pair018",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-refuses-to-leave__classical__a2.jpg",
+        "sha256": "6971e82a093db2a47a369b9826a47ecae2a9684263f8d20258067e4b986940c4",
+        "scene": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-croquet-game__classical__a1.jpg",
+        "sha256": "075ab12aa5779b5ec22567a68c2fdfa8b64b4db32d1c6cfd8e860f932115f9fd",
+        "scene": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; "
+      }
+    },
+    {
+      "id": "pair019",
+      "groupId": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "style": "classical",
+      "left": {
+        "unitId": "the-queens-croquet-ground-45",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-cat-grin-appears__classical__a1.jpg",
+        "sha256": "fe84f0ace14d22fc570d26c3b5fba93b456866d4c93634e5601a6dd55ba4eb00",
+        "scene": "The Queen’s Croquet-Ground ¶45 to The Queen’s Croquet-Ground ¶48: She was looking about for some way of escape, and wondering whether she could get away without being seen, when she noticed a curious appearance in the air: it puzzled her very much at first, but, after watching it a minute or two, she made it out to be a grin, and she said to herself “It’s the Ches; "
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-52",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-king-and-cat__classical__a2.jpg",
+        "sha256": "d45afbb315f98279f7fa8c41ee57b1786c529a1c84b2ae9f80e0160e6a33efd8",
+        "scene": "The Queen’s Croquet-Ground ¶52 to The Queen’s Croquet-Ground ¶61: “Who _are_ you talking to?” said the King, going up to Alice, and looking at the Cat’s head with great curiosity. “It’s a friend of mine—a Cheshire Cat,” said Alice: “allow me to introduce it.” “I don’t like the look of it at all,” said the King: “however, it may kiss my hand if it likes.” “I’d rath; "
+      }
+    },
+    {
+      "id": "pair020",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-croquet-game__watercolor__a1.jpg",
+        "sha256": "a4c88cd621d2b6bb2f0ce25261adb78521f1748f412e106bb581dcb2a81dac9d",
+        "scene": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; "
+      },
+      "right": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-drink-me__watercolor__a1.jpg",
+        "sha256": "f5ec1129f7b25609043a1755a1b78e29e249b82800661d1c451ef1bcd089e72c",
+        "scene": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+      }
+    },
+    {
+      "id": "pair021",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-refuses-to-leave__classical__a2.jpg",
+        "sha256": "6971e82a093db2a47a369b9826a47ecae2a9684263f8d20258067e4b986940c4",
+        "scene": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+      },
+      "right": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-caterpillar__classical__a1.jpg",
+        "sha256": "eba82ab14d01556f1c82f7ddc7efbe94e693d2ef09a1b905ea04f209e70b40d3",
+        "scene": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; "
+      }
+    },
+    {
+      "id": "pair022",
+      "groupId": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-queens-croquet-ground-52",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-king-and-cat__watercolor__a1.jpg",
+        "sha256": "9524527f58bc9db1e60a395513cbc82b20ba1d7cdda3a67e36a0843e719515eb",
+        "scene": "The Queen’s Croquet-Ground ¶52 to The Queen’s Croquet-Ground ¶61: “Who _are_ you talking to?” said the King, going up to Alice, and looking at the Cat’s head with great curiosity. “It’s a friend of mine—a Cheshire Cat,” said Alice: “allow me to introduce it.” “I don’t like the look of it at all,” said the King: “however, it may kiss my hand if it likes.” “I’d rath; "
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-45",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-cat-grin-appears__watercolor__a1.jpg",
+        "sha256": "ef1e2a1b29f890fa07e7af027bbeec83fabbfaabb5d36196791496645541c5fb",
+        "scene": "The Queen’s Croquet-Ground ¶45 to The Queen’s Croquet-Ground ¶48: She was looking about for some way of escape, and wondering whether she could get away without being seen, when she noticed a curious appearance in the air: it puzzled her very much at first, but, after watching it a minute or two, she made it out to be a grin, and she said to herself “It’s the Ches; "
+      }
+    },
+    {
+      "id": "pair023",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-caterpillar__watercolor__a1.jpg",
+        "sha256": "b77cf3dadabcb7841c17ac73c4ec69141878444935ee7c197e1c76ca3256a604",
+        "scene": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; "
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-croquet-game__watercolor__a1.jpg",
+        "sha256": "a4c88cd621d2b6bb2f0ce25261adb78521f1748f412e106bb581dcb2a81dac9d",
+        "scene": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; "
+      }
+    },
+    {
+      "id": "pair024",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-drink-me__classical__a1.jpg",
+        "sha256": "3827c300b657a372392b481eb5f1cc11177973a7088e40b254d495908030a73c",
+        "scene": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-croquet-game__classical__a1.jpg",
+        "sha256": "075ab12aa5779b5ec22567a68c2fdfa8b64b4db32d1c6cfd8e860f932115f9fd",
+        "scene": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; "
+      }
+    },
+    {
+      "id": "pair025",
+      "groupId": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "style": "classical",
+      "left": {
+        "unitId": "a-mad-tea-party-13",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-say-what-you-mean__classical__a1.jpg",
+        "sha256": "423e5b7065b8a8fdb617e0f0fa68b756ce745013afd59c8e583879ba8217a59c",
+        "scene": "A Mad Tea-Party ¶13 to A Mad Tea-Party ¶20: “Do you mean that you think you can find out the answer to it?” said the March Hare. “Exactly so,” said Alice. “Then you should say what you mean,” the March Hare went on. “I do,” Alice hastily replied; “at least—at least I mean what I say—that’s the same thing, you know.” “Not the same thing a bit!; "
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-7",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-riddle__classical__a1.jpg",
+        "sha256": "7bba27934375a36245c9c4898a82bff3e7a343cb84968cfdf094e69f94e57241",
+        "scene": "A Mad Tea-Party ¶7 to A Mad Tea-Party ¶12: “It wasn’t very civil of you to sit down without being invited,” said the March Hare. “I didn’t know it was _your_ table,” said Alice; “it’s laid for a great many more than three.” “Your hair wants cutting,” said the Hatter. He had been looking at Alice for some time with great curiosity, and this w; "
+      }
+    },
+    {
+      "id": "pair026",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-arrival__classical__a1.jpg",
+        "sha256": "3679fc0c293bd288e03ae7461ff1cd5e1e33ab5f124300bc98021b666223e2e1",
+        "scene": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-41",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-croquet-game__classical__a1.jpg",
+        "sha256": "075ab12aa5779b5ec22567a68c2fdfa8b64b4db32d1c6cfd8e860f932115f9fd",
+        "scene": "The Queen’s Croquet-Ground ¶41 to The Queen’s Croquet-Ground ¶44: “Get to your places!” shouted the Queen in a voice of thunder, and people began running about in all directions, tumbling up against each other; however, they got settled down in a minute or two, and the game began. Alice thought she had never seen such a curious croquet-ground in her life; it was a; "
+      }
+    },
+    {
+      "id": "pair027",
+      "groupId": "tea-table",
+      "kind": "setting",
+      "subject": "the tea table under a tree before the March Hare's house",
+      "style": "watercolor",
+      "left": {
+        "unitId": "a-mad-tea-party-7",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-riddle__watercolor__a1.jpg",
+        "sha256": "dba6de8078cc5cbd0dd00ecf8510266093c0e194fae722aa882b5023be10fddd",
+        "scene": "A Mad Tea-Party ¶7 to A Mad Tea-Party ¶12: “It wasn’t very civil of you to sit down without being invited,” said the March Hare. “I didn’t know it was _your_ table,” said Alice; “it’s laid for a great many more than three.” “Your hair wants cutting,” said the Hatter. He had been looking at Alice for some time with great curiosity, and this w; "
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-arrival__watercolor__a1.jpg",
+        "sha256": "5391599816ec5d421e0d97f527227d78bf16e8bd4ba5afb0c564a37cd138a133",
+        "scene": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+      }
+    },
+    {
+      "id": "pair028",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-drink-me__classical__a1.jpg",
+        "sha256": "3827c300b657a372392b481eb5f1cc11177973a7088e40b254d495908030a73c",
+        "scene": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+      },
+      "right": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-refuses-to-leave__classical__a2.jpg",
+        "sha256": "6971e82a093db2a47a369b9826a47ecae2a9684263f8d20258067e4b986940c4",
+        "scene": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+      }
+    },
+    {
+      "id": "pair029",
+      "groupId": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "style": "watercolor",
+      "left": {
+        "unitId": "the-queens-croquet-ground-52",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-king-and-cat__watercolor__a1.jpg",
+        "sha256": "9524527f58bc9db1e60a395513cbc82b20ba1d7cdda3a67e36a0843e719515eb",
+        "scene": "The Queen’s Croquet-Ground ¶52 to The Queen’s Croquet-Ground ¶61: “Who _are_ you talking to?” said the King, going up to Alice, and looking at the Cat’s head with great curiosity. “It’s a friend of mine—a Cheshire Cat,” said Alice: “allow me to introduce it.” “I don’t like the look of it at all,” said the King: “however, it may kiss my hand if it likes.” “I’d rath; "
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-49",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-cat-head-talks__watercolor__a1.jpg",
+        "sha256": "f1f7dd7989020564a2c633efbe4a55a39b473bcb208478b24d07ed671b7ba825",
+        "scene": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; "
+      }
+    },
+    {
+      "id": "pair030",
+      "groupId": "croquet-ground",
+      "kind": "setting",
+      "subject": "the Queen's croquet-ground",
+      "style": "classical",
+      "left": {
+        "unitId": "the-queens-croquet-ground-49",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-cat-head-talks__classical__a1.jpg",
+        "sha256": "efb6d5377c69b4911cf9609aa21cdc0654d09dac35ac0bc2908e1452c0bbc5f9",
+        "scene": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; "
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-52",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-king-and-cat__classical__a2.jpg",
+        "sha256": "d45afbb315f98279f7fa8c41ee57b1786c529a1c84b2ae9f80e0160e6a33efd8",
+        "scene": "The Queen’s Croquet-Ground ¶52 to The Queen’s Croquet-Ground ¶61: “Who _are_ you talking to?” said the King, going up to Alice, and looking at the Cat’s head with great curiosity. “It’s a friend of mine—a Cheshire Cat,” said Alice: “allow me to introduce it.” “I don’t like the look of it at all,” said the King: “however, it may kiss my hand if it likes.” “I’d rath; "
+      }
+    },
+    {
+      "id": "pair031",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "advice-from-a-caterpillar-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-caterpillar__classical__a1.jpg",
+        "sha256": "eba82ab14d01556f1c82f7ddc7efbe94e693d2ef09a1b905ea04f209e70b40d3",
+        "scene": "Advice from a Caterpillar ¶1 to Advice from a Caterpillar ¶5: The Caterpillar and Alice looked at each other for some time in silence: at last the Caterpillar took the hookah out of its mouth, and addressed her in a languid, sleepy voice. “Who are _you?_” said the Caterpillar. This was not an encouraging opening for a conversation. Alice replied, rather shyly,; "
+      },
+      "right": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-arrival__classical__a1.jpg",
+        "sha256": "3679fc0c293bd288e03ae7461ff1cd5e1e33ab5f124300bc98021b666223e2e1",
+        "scene": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+      }
+    },
+    {
+      "id": "pair032",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "classical",
+      "left": {
+        "unitId": "a-mad-tea-party-1",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-tea-party-arrival__classical__a1.jpg",
+        "sha256": "3679fc0c293bd288e03ae7461ff1cd5e1e33ab5f124300bc98021b666223e2e1",
+        "scene": "A Mad Tea-Party ¶1 to A Mad Tea-Party ¶6: There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Do; "
+      },
+      "right": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-refuses-to-leave__classical__a2.jpg",
+        "sha256": "6971e82a093db2a47a369b9826a47ecae2a9684263f8d20258067e4b986940c4",
+        "scene": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+      }
+    },
+    {
+      "id": "pair033",
+      "groupId": "cheshire-cat",
+      "kind": "character",
+      "subject": "the Cheshire Cat",
+      "style": "watercolor",
+      "left": {
+        "unitId": "pig-and-pepper-50",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-cheshire-cat-bough__watercolor__a1.jpg",
+        "sha256": "2b1abbc479ee5f001c7a181e5a9c26a884c9796dc512a9fc562cff784a788d59",
+        "scene": "Pig and Pepper ¶50 to Pig and Pepper ¶52: The Cat only grinned when it saw Alice. It looked good-natured, she thought: still it had _very_ long claws and a great many teeth, so she felt that it ought to be treated with respect. “Cheshire Puss,” she began, rather timidly, as she did not at all know whether it would like the name: however, it; "
+      },
+      "right": {
+        "unitId": "the-queens-croquet-ground-49",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-cat-head-talks__watercolor__a1.jpg",
+        "sha256": "f1f7dd7989020564a2c633efbe4a55a39b473bcb208478b24d07ed671b7ba825",
+        "scene": "The Queen’s Croquet-Ground ¶49 to The Queen’s Croquet-Ground ¶51: “How do you like the Queen?” said the Cat in a low voice. “Not at all,” said Alice: “she’s so extremely—” Just then she noticed that the Queen was close behind her, listening: so she went on, “—likely to win, that it’s hardly worth while finishing the game.” The Queen smiled and passed on.; "
+      }
+    },
+    {
+      "id": "pair034",
+      "groupId": "alice",
+      "kind": "character",
+      "subject": "Alice",
+      "style": "watercolor",
+      "left": {
+        "unitId": "alices-evidence-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-refuses-to-leave__watercolor__a1.jpg",
+        "sha256": "18427f3edc31bc0a8bb8fe913fbd448b016729712763e4ca2559c26e1ca1350d",
+        "scene": "Alice’s Evidence ¶16 to Alice’s Evidence ¶22: “_I’m_ not a mile high,” said Alice. “You are,” said the King. “Nearly two miles high,” added the Queen. “Well, I shan’t go, at any rate,” said Alice: “besides, that’s not a regular rule: you invented it just now.” “It’s the oldest rule in the book,” said the King. “Then it ought to be Number One,” ; "
+      },
+      "right": {
+        "unitId": "down-the-rabbit-hole-16",
+        "file": "evals/images/runs/2026-11-01-suite-v3-image/images/alice-drink-me__watercolor__a1.jpg",
+        "sha256": "f5ec1129f7b25609043a1755a1b78e29e249b82800661d1c451ef1bcd089e72c",
+        "scene": "Down the Rabbit-Hole ¶16 to Down the Rabbit-Hole ¶17: It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry. “No, I’ll look first,” she said, “and see whether it’s marked ‘_poison_’ or not”; for she had read several nice little histories about children who had got burnt, and eaten up by wild beasts and ; "
+      }
+    }
+  ]
+}

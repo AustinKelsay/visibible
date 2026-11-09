@@ -1,0 +1,37 @@
+{
+  "capUsd": 0.23,
+  "calls": [
+    {
+      "phase": "genesis-1-3-light/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.039957
+    },
+    {
+      "phase": "isaiah-6-2-seraphim/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0488535
+    },
+    {
+      "phase": "ezekiel-37-4-dry-bones/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.042864
+    },
+    {
+      "phase": "daniel-7-9-ancient-of-days/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0441915
+    }
+  ],
+  "measuredUsd": 0.175866,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 4,
+    "check": 0
+  },
+  "blocked": null
+}

@@ -1,0 +1,21 @@
+{
+ "scorer": "operator",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "pair004",
+   "verdict": "different",
+   "notes": "Left Alice has long straight golden-blonde hair; right has darker brown, wavier, shorter hair: a hair-colour conflict."
+  },
+  {
+   "id": "pair028",
+   "verdict": "unclear",
+   "notes": "Viewed: Alice stands with her back to the viewer in the court image; only her long light-brown hair and dress show, so the face cannot be compared."
+  },
+  {
+   "id": "pair018",
+   "verdict": "unclear",
+   "notes": "Viewed: Alice is small and seen from behind in the court image; hair and dress agree with the croquet image but the face cannot be compared."
+  }
+ ]
+}

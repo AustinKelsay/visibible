@@ -1,0 +1,985 @@
+{
+  "capUsd": 8.52733,
+  "calls": [
+    {
+      "phase": "alice-croquet-game/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.040878
+    },
+    {
+      "phase": "a-mad-tea-party-76/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043581
+    },
+    {
+      "phase": "a-mad-tea-party-76/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.04074
+    },
+    {
+      "phase": "alices-evidence-2/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.040941
+    },
+    {
+      "phase": "alices-evidence-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0407325
+    },
+    {
+      "phase": "genesis-1-3-light/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.040062
+    },
+    {
+      "phase": "genesis-1-3-light/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.038505
+    },
+    {
+      "phase": "genesis-1-3-light/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.037854
+    },
+    {
+      "phase": "genesis-5-5-adam-days/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0410025
+    },
+    {
+      "phase": "genesis-5-5-adam-days/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.039213
+    },
+    {
+      "phase": "genesis-5-5-adam-days/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0387795
+    },
+    {
+      "phase": "genesis-19-24-sodom/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0428595
+    },
+    {
+      "phase": "genesis-19-24-sodom/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0414
+    },
+    {
+      "phase": "genesis-19-24-sodom/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041424
+    },
+    {
+      "phase": "exodus-14-21-sea-parts/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0422505
+    },
+    {
+      "phase": "exodus-14-21-sea-parts/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0415035
+    },
+    {
+      "phase": "exodus-14-21-sea-parts/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0412875
+    },
+    {
+      "phase": "exodus-14-22-sea-walls/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0429645
+    },
+    {
+      "phase": "exodus-14-22-sea-walls/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0416025
+    },
+    {
+      "phase": "exodus-14-22-sea-walls/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0416265
+    },
+    {
+      "phase": "leviticus-11-7-pig/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.045828
+    },
+    {
+      "phase": "leviticus-11-7-pig/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0447285
+    },
+    {
+      "phase": "leviticus-11-7-pig/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0440775
+    },
+    {
+      "phase": "judges-19-29-concubine/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.04158
+    },
+    {
+      "phase": "judges-19-29-concubine/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.039543
+    },
+    {
+      "phase": "judges-19-29-concubine/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.039042
+    },
+    {
+      "phase": "ruth-4-22-genealogy/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041523
+    },
+    {
+      "phase": "ruth-4-22-genealogy/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0392535
+    },
+    {
+      "phase": "ruth-4-22-genealogy/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0393975
+    },
+    {
+      "phase": "1-samuel-17-49-sling/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.046842
+    },
+    {
+      "phase": "1-samuel-17-49-sling/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0452775
+    },
+    {
+      "phase": "1-samuel-17-49-sling/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.045609
+    },
+    {
+      "phase": "2-kings-2-23-bears/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0448425
+    },
+    {
+      "phase": "2-kings-2-23-bears/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0424005
+    },
+    {
+      "phase": "2-kings-2-23-bears/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.042417
+    },
+    {
+      "phase": "job-38-4-foundations/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0441555
+    },
+    {
+      "phase": "job-38-4-foundations/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0424785
+    },
+    {
+      "phase": "job-38-4-foundations/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.042885
+    },
+    {
+      "phase": "isaiah-6-2-seraphim/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0481035
+    },
+    {
+      "phase": "isaiah-6-2-seraphim/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.048114
+    },
+    {
+      "phase": "isaiah-6-2-seraphim/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043173
+    },
+    {
+      "phase": "ezekiel-37-4-dry-bones/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0429165
+    },
+    {
+      "phase": "ezekiel-37-4-dry-bones/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041247
+    },
+    {
+      "phase": "ezekiel-37-4-dry-bones/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0412035
+    },
+    {
+      "phase": "daniel-6-22-lions/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0427125
+    },
+    {
+      "phase": "daniel-6-22-lions/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0415905
+    },
+    {
+      "phase": "daniel-6-22-lions/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0411795
+    },
+    {
+      "phase": "daniel-7-9-ancient-of-days/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0452115
+    },
+    {
+      "phase": "daniel-7-9-ancient-of-days/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0444795
+    },
+    {
+      "phase": "daniel-7-9-ancient-of-days/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0431985
+    },
+    {
+      "phase": "matthew-1-1-genealogy/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.040023
+    },
+    {
+      "phase": "matthew-1-1-genealogy/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0392535
+    },
+    {
+      "phase": "matthew-1-1-genealogy/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0382725
+    },
+    {
+      "phase": "matthew-14-29-peter-water/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0469875
+    },
+    {
+      "phase": "matthew-14-29-peter-water/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044748
+    },
+    {
+      "phase": "matthew-14-29-peter-water/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.045432
+    },
+    {
+      "phase": "john-21-7-peter-sea/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0472125
+    },
+    {
+      "phase": "john-21-7-peter-sea/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0458055
+    },
+    {
+      "phase": "john-21-7-peter-sea/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044532
+    },
+    {
+      "phase": "mark-4-39-storm/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0449925
+    },
+    {
+      "phase": "mark-4-39-storm/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0442005
+    },
+    {
+      "phase": "mark-4-39-storm/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.042042
+    },
+    {
+      "phase": "luke-15-20-prodigal/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041583
+    },
+    {
+      "phase": "luke-15-20-prodigal/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.039861
+    },
+    {
+      "phase": "luke-15-20-prodigal/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.039015
+    },
+    {
+      "phase": "john-11-43-lazarus/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043584
+    },
+    {
+      "phase": "john-11-43-lazarus/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0412995
+    },
+    {
+      "phase": "john-11-43-lazarus/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0411285
+    },
+    {
+      "phase": "acts-9-3-damascus/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0449895
+    },
+    {
+      "phase": "acts-9-3-damascus/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0447975
+    },
+    {
+      "phase": "acts-9-3-damascus/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044184
+    },
+    {
+      "phase": "romans-8-28-all-things/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.04245
+    },
+    {
+      "phase": "romans-8-28-all-things/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041283
+    },
+    {
+      "phase": "romans-8-28-all-things/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041757
+    },
+    {
+      "phase": "matthew-27-35-crucified/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0448605
+    },
+    {
+      "phase": "matthew-27-35-crucified/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043311
+    },
+    {
+      "phase": "matthew-27-35-crucified/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0478875
+    },
+    {
+      "phase": "revelation-4-6-living-creatures/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.042534
+    },
+    {
+      "phase": "revelation-4-6-living-creatures/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041397
+    },
+    {
+      "phase": "revelation-4-6-living-creatures/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041691
+    },
+    {
+      "phase": "holmes-scandal-the-woman/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0426945
+    },
+    {
+      "phase": "holmes-scandal-the-woman/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0430455
+    },
+    {
+      "phase": "holmes-scandal-king-arrives/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0460485
+    },
+    {
+      "phase": "holmes-scandal-king-arrives/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0460395
+    },
+    {
+      "phase": "holmes-red-headed-league/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0452985
+    },
+    {
+      "phase": "holmes-red-headed-league/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.046032
+    },
+    {
+      "phase": "john-21-9/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.046545
+    },
+    {
+      "phase": "john-21-9/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.045573
+    },
+    {
+      "phase": "john-21-9/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0449895
+    },
+    {
+      "phase": "exodus-17-12/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0473235
+    },
+    {
+      "phase": "exodus-17-12/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0454965
+    },
+    {
+      "phase": "exodus-17-12/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044883
+    },
+    {
+      "phase": "numbers-20-11/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0463905
+    },
+    {
+      "phase": "numbers-20-11/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044946
+    },
+    {
+      "phase": "numbers-20-11/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0441675
+    },
+    {
+      "phase": "luke-22-61/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044652
+    },
+    {
+      "phase": "luke-22-61/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0436125
+    },
+    {
+      "phase": "luke-22-61/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043809
+    },
+    {
+      "phase": "acts-3-7/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0467835
+    },
+    {
+      "phase": "acts-3-7/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0439815
+    },
+    {
+      "phase": "acts-3-7/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044298
+    },
+    {
+      "phase": "1-samuel-16-13/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0478815
+    },
+    {
+      "phase": "1-samuel-16-13/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.046212
+    },
+    {
+      "phase": "1-samuel-16-13/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0449085
+    },
+    {
+      "phase": "1-samuel-17-40/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0461385
+    },
+    {
+      "phase": "1-samuel-17-40/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0445815
+    },
+    {
+      "phase": "1-samuel-17-40/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0449505
+    },
+    {
+      "phase": "1-samuel-18-11/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0462945
+    },
+    {
+      "phase": "1-samuel-18-11/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.04533
+    },
+    {
+      "phase": "1-samuel-18-11/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0446565
+    },
+    {
+      "phase": "daniel-5-17/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0473325
+    },
+    {
+      "phase": "daniel-5-17/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0428205
+    },
+    {
+      "phase": "daniel-5-17/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0465345
+    },
+    {
+      "phase": "daniel-6-23/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0430515
+    },
+    {
+      "phase": "daniel-6-23/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041622
+    },
+    {
+      "phase": "daniel-6-23/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.040866
+    },
+    {
+      "phase": "exodus-14-23/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0431055
+    },
+    {
+      "phase": "exodus-14-23/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0413235
+    },
+    {
+      "phase": "exodus-14-23/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0413325
+    },
+    {
+      "phase": "mark-4-37/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0442695
+    },
+    {
+      "phase": "mark-4-37/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.04257
+    },
+    {
+      "phase": "mark-4-37/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0426915
+    },
+    {
+      "phase": "mark-4-38/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044067
+    },
+    {
+      "phase": "mark-4-38/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.042345
+    },
+    {
+      "phase": "mark-4-38/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.042489
+    },
+    {
+      "phase": "luke-15-22/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041673
+    },
+    {
+      "phase": "luke-15-22/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0402135
+    },
+    {
+      "phase": "luke-15-22/fresco",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.039165
+    },
+    {
+      "phase": "holmes-saxe-coburg-square/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044715
+    },
+    {
+      "phase": "holmes-saxe-coburg-square/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0463335
+    },
+    {
+      "phase": "holmes-blue-carbuncle-hat/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.042912
+    },
+    {
+      "phase": "holmes-blue-carbuncle-hat/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.042513
+    },
+    {
+      "phase": "holmes-speckled-band-vigil/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043287
+    },
+    {
+      "phase": "holmes-speckled-band-vigil/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0451005
+    },
+    {
+      "phase": "holmes-boscombe-train/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0435
+    },
+    {
+      "phase": "holmes-boscombe-train/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043266
+    },
+    {
+      "phase": "holmes-bank-cellar-lantern/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043863
+    },
+    {
+      "phase": "holmes-bank-cellar-lantern/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0437565
+    },
+    {
+      "phase": "holmes-bank-cellar-plans/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044112
+    },
+    {
+      "phase": "holmes-bank-cellar-plans/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0442155
+    },
+    {
+      "phase": "holmes-eyford-smoke/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0447495
+    },
+    {
+      "phase": "holmes-eyford-smoke/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043593
+    },
+    {
+      "phase": "holmes-eyford-drive/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0449685
+    },
+    {
+      "phase": "holmes-eyford-drive/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0441045
+    },
+    {
+      "phase": "alice-drink-me/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.039294
+    },
+    {
+      "phase": "alice-drink-me/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.038808
+    },
+    {
+      "phase": "alice-tea-party-riddle/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0447675
+    },
+    {
+      "phase": "alice-tea-party-riddle/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041049
+    },
+    {
+      "phase": "alice-tea-party-say-what-you-mean/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0444525
+    },
+    {
+      "phase": "alice-tea-party-say-what-you-mean/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0400665
+    },
+    {
+      "phase": "alice-cat-grin-appears/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.040275
+    },
+    {
+      "phase": "alice-cat-grin-appears/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0433815
+    },
+    {
+      "phase": "alice-cat-head-talks/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0395895
+    },
+    {
+      "phase": "alice-cat-head-talks/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043521
+    },
+    {
+      "phase": "alice-king-and-cat/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0408585
+    },
+    {
+      "phase": "alice-king-and-cat/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0417375
+    },
+    {
+      "phase": "alice-refuses-to-leave/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0460785
+    },
+    {
+      "phase": "alice-refuses-to-leave/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0392775
+    },
+    {
+      "phase": "alice-cheshire-cat-bough/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0394065
+    },
+    {
+      "phase": "alice-cheshire-cat-bough/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0393255
+    },
+    {
+      "phase": "alice-hatter-witness/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.041697
+    },
+    {
+      "phase": "alice-hatter-witness/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0415785
+    }
+  ],
+  "measuredUsd": 6.98052,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 162,
+    "check": 0
+  },
+  "blocked": null
+}

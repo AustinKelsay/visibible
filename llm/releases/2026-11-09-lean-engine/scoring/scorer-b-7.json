@@ -1,0 +1,696 @@
+{
+ "scorer": "scorer-b",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "j247",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Tent camp around the courtyard and tabernacle with a large cloud resting on it, people settled by fires and flocks; nothing lettered, framed or malformed."
+  },
+  {
+   "id": "j248",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Peter wraps his coat and leaps from the boat while a disciple points to Jesus by a fire on shore, net full of fish alongside. Sky at top and the left edge fade to bare white paper (accepted for this style)."
+  },
+  {
+   "id": "j249",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Weary crowd with a man helping a youth up under light from the clouds fits the verse, but a large prophet-like man with a staff stands at the right as a speaker/onlooker the text does not call for. Wash fades to white paper on left, right and bottom edges (accepted)."
+  },
+  {
+   "id": "j250",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Peter in his coat plunges from the boat toward Jesus on the far shore while a disciple points and others haul the net of fish; clean throughout."
+  },
+  {
+   "id": "j251",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Shore with coal fire, fish and bread, Jesus beside it and disciples landing is right, but the same wet Peter figure appears twice (centre-left and again at far right, same face and dress)."
+  },
+  {
+   "id": "j252",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "yes",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Shows an elder reading a scroll to women and children in a courtyard rather than the Obed-Jesse-David line of fathers and sons; the reader acts as a narrator figure. Lettering: faint pseudo-script lines on the open scroll, unreadable."
+  },
+  {
+   "id": "j253",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Workers rebuilding the Jerusalem wall with a better-dressed leader carrying stone among them, temple behind; no lettering or anatomy problems."
+  },
+  {
+   "id": "j254",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "A prophet with a staff preaches at the left, a speaker drawn inside his own words; the rest (youth supporting an old man, rays of light over Jerusalem, no figure for God) fits."
+  },
+  {
+   "id": "j255",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Hezekiah in gold headband and blue robe before the temple with bronze pillars and sea, Levites carrying sacks and jars. Near-white unpainted sky band along the top edge (accepted)."
+  },
+  {
+   "id": "j256",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Alice leaps up with swirling skirt and jurors and slates tumble into the crowd, but she is the same scale as the King and ordinary against the bench and room, so her overgrown size does not read (size rule; moderate confidence), and the jury-box itself stays upright. Lettering: squiggle lines on slates and loose papers, heart/diamond pips and tiny corner marks on the card figures, all unreadable."
+  },
+  {
+   "id": "j257",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Priest drops crop and feathers onto the ash heap beside the horned altar, tabernacle with cherub curtain and laver behind, onlookers at right; no figure for God. Wash fades to white paper on all four edges (accepted)."
+  },
+  {
+   "id": "j258",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Night storm with waves breaking into the boat, disciples bailing with buckets, Jesus asleep on the cushion in the stern and other small boats nearby; clean."
+  },
+  {
+   "id": "j259",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus asleep on the cushion in the stern as a disciple shakes his shoulder and another cries out, others rowing and bailing in the storm; painted to the edges (white is foam), no lettering. The waking disciple wears a similar blue mantle but is a distinct shorter-haired man."
+  },
+  {
+   "id": "j260",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Men push a stone slab over the mouth of the pit while the king in purple presses his signet into clay on it and lords stand by with theirs; no glyphs visible on the seals, anatomy fine."
+  },
+  {
+   "id": "j261",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Dark formless sea with light breaking through the cloud, no figure of any kind. Ragged wash edge leaves small white paper patches at the left and right edges (accepted)."
+  },
+  {
+   "id": "j262",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Peter grips the seated lame man's right hand and lifts him at the golden temple gate with John behind and a watching crowd; hands and feet read correctly, no lettering."
+  },
+  {
+   "id": "j263",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "yes",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Shows Paul standing and teaching a seated group in a Greek town courtyard: the letter-writer as speaker inside his own words, with no mirror or dim-reflection/face-to-face image at all. Sky and side edges fade to white paper (accepted); his scrolls are closed, so no lettering."
+  },
+  {
+   "id": "j264",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Station-master with lantern, inspector, train steaming off and a smoke column with fire behind trees match the moment. Lettering: a cursive artist-style signature in the bottom-right corner (readable as a signature) plus unreadable pseudo-print on the timetable and map. Rule: the Holmes figure (tousled dark curls, upturned-collar dark greatcoat and scarf) is styled after a modern television adaptation rather than the story; I do not name an individual from the face, the call rests on the borrowed screen look."
+  },
+  {
+   "id": "j265",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Empty throne in green radiance (no human shape), glass-like sea floor and four winged creatures covered in eyes (lion, calf, man-faced, eagle) follow the text, but John with staff and scroll case stands large in the foreground as the narrator/seer, whom this moment does not call for. Edges are painted cloud, no lettering."
+  },
+  {
+   "id": "j266",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Egyptian chariots and horsemen charge down the path between two walls of water under a dark sky; no pillar figure. Small bare paper patches at the left edge and bottom-left corner (accepted)."
+  },
+  {
+   "id": "j267",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus crouches at a coal fire with fish and flat bread on it as wet Peter walks up from the boat with the net and others land behind; clean."
+  },
+  {
+   "id": "j268",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Peter clasps the beggar's right hand and pulls him half-upright before the temple gate with John and an onlooking crowd; hands, legs and feet are sound, no lettering."
+  },
+  {
+   "id": "j269",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Saul shields his eyes in a burst of light from the sky as companions recoil, Damascus ahead, which fits. Lettering: a roadside milestone at right carved with readable capitals ('DANIASUS'-like word, '3.AI' beneath, more letters on its side face)."
+  },
+  {
+   "id": "j270",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Storm waves pour over the gunwale, disciples bail and strain at the tiller, Jesus asleep on the cushion in the stern, small boats in the distance; clean."
+  },
+  {
+   "id": "j271",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Towering Alice leans over arguing with the pale King, who clutches his note-book beside the Queen, jurors with slates and tarts on the table: scene and size read well. Rule: the guard at bottom right is an ordinary human red-coat soldier with a spear, not a flat playing card. Lettering: card-corner index glyph and heart pips on the King's front, squiggle lines on a spectator's sheet and on slates, small and unreadable."
+  },
+  {
+   "id": "j272",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes alone in his armchair with steepled fingers among books, chemistry glass, pipe and lens suits the cold-reasoner passage; painted to the edges. Lettering (the only fault): squiggle lines on papers on the side table, desk and a note pinned to the wall, plus mantel clock-face ticks, all unreadable."
+  },
+  {
+   "id": "j273",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Saul seated with arm flung out, one spear in flight and another stuck in the cracked wall as young David dodges away, harp left on the floor; no spirit figure, no lettering, hands sound."
+  },
+  {
+   "id": "j274",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Mock Turtle (calf head, shell, flippers raised) and Gryphon with forepaws up dance either side of Alice on a pebble shore, which is the moment. But the place contradicts itself: the sea behind them is drawn as a see-through underwater wall with jellyfish and submerged rocks at eye level, and coral grows on the dry beach."
+  },
+  {
+   "id": "j275",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "yes",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "No pig appears anywhere. The picture instead shows Moses with staff and Aaron in breastplate large in the foreground of the camp with the tabernacle and a glowing cloud column: wrong subject, with law-giver figures the verse does not call for. Bright top is light glow, not bare paper; cloud is not a human shape."
+  },
+  {
+   "id": "j276",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "March Hare pouring tea, Hatter with cup, Dormouse asleep on the table and Alice thinking with chin on hand under the tree before the house. Vignette fades to white paper at left, right and bottom (accepted). A second small furry animal sleeps under a cloth on the empty left chair, minor."
+  },
+  {
+   "id": "j277",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Aged Adam laid out dead on a reed mat with eyes closed, family kneeling and mourning around him by tent and mud houses; dignified, no lettering."
+  },
+  {
+   "id": "j278",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "yes",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "David after the sling release and the Philistine pitching forward on his face before both armies fit the verse, without blood. But the falling giant has two crested helmets/heads, one at his hips and one at his shoulders, a duplicated-head muddle of his torso."
+  },
+  {
+   "id": "j279",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Cheshire Cat's head floats grinning at left, startled Alice holds her flamingo and the Queen stands smiling right behind her, as told; a stray wooden mallet on the grass and a bank of giant mushrooms are oddities. Lettering (the only fault): diamond and heart pips on the small card gardeners in the background, unreadable."
+  },
+  {
+   "id": "j280",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Rays of light burst through storm cloud over a dark sea, with no figure, face or lettering; painted to all edges."
+  },
+  {
+   "id": "j281",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Four soldiers crouch over a pile of garments, one with open palm as lots are cast, three crosses on the hill behind; no blood or gore, blank titulus, no lettering. Oddity only: the small crucified Jesus still wears robe and mantle while his clothes are being divided, and no dice are visible."
+  },
+  {
+   "id": "j282",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Priest in white tosses feathers onto the ash heap beside the horned altar before the cherub-curtained tabernacle, which is right, but a second small tabernacle with its own altar stands in the left background and another horned altar sits behind the first: the sanctuary is duplicated. Top and side edges fade to white paper (accepted)."
+  },
+  {
+   "id": "j283",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus cries out with arm raised toward the opened tomb, stone rolled aside, Lazarus in grave wrappings at the doorway and the crowd reacting; clean, face of Lazarus left unwrapped is minor."
+  },
+  {
+   "id": "j284",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Four seraphim hover in the smoke-filled temple with faces hidden behind wings and tongs holding live coals, no figure for the Lord. Rule (visionary creatures follow the text): only the centre one has six wings, the other three have four and bare uncovered feet. Isaiah stands in the foreground with a staff as the seer/narrator, whom this verse does not call for."
+  },
+  {
+   "id": "j285",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Jesus stands in the boat with hand stretched over the water as the sky breaks and disciples look on, waves still settling at left. Small bare-paper areas at the top-right sky and edges (accepted); no lettering."
+  },
+  {
+   "id": "j286",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "no",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Townspeople fill chests and storerooms with coins, gold vessels, cloth, jars and grain sacks; Wisdom is not personified (the central elder is an ordinary townsman). No lettering, hands sound."
+  },
+  {
+   "id": "j287",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Peter steps off the bow with arms spread toward Jesus standing on the water, disciples and lantern in the boat at night; painted to the edges, no lettering."
+  }
+ ]
+}
