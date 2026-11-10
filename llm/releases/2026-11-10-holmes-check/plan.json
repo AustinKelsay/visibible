@@ -1,0 +1,254 @@
+{
+  "kind": "lean",
+  "suite": "2026-11-01-suite-v3",
+  "faults": "2026-10-30-faults-v1",
+  "from": "2026-11-10-holmes-alice-snapshot",
+  "promptVersion": "2026-11-09-lean-v6",
+  "maxSheets": 4,
+  "image": {
+    "model": "google/gemini-nano-banana-2.1",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "cases": [
+    {
+      "caseId": "holmes-eyford-fire",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-engineers-thumb-165",
+      "reference": "The Adventure of the Engineer’s Thumb ¶165",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "the-adventure-of-the-noble-bachelor-176",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-noble-bachelor-176",
+      "reference": "The Adventure of the Noble Bachelor ¶176",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "the-adventure-of-the-blue-carbuncle-73",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-blue-carbuncle-73",
+      "reference": "The Adventure of the Blue Carbuncle ¶73",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "a-case-of-identity-94",
+      "work": "holmes-adventures",
+      "unitId": "a-case-of-identity-94",
+      "reference": "A Case of Identity ¶94",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "work": "holmes-adventures",
+      "unitId": "a-scandal-in-bohemia-1-1",
+      "reference": "A Scandal in Bohemia, Part I ¶1",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-king-arrives",
+      "work": "holmes-adventures",
+      "unitId": "a-scandal-in-bohemia-1-42",
+      "reference": "A Scandal in Bohemia, Part I ¶42",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-red-headed-league",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-1",
+      "reference": "The Red-Headed League ¶1",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-saxe-coburg-square",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-138",
+      "reference": "The Red-Headed League ¶138",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-blue-carbuncle-hat",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-blue-carbuncle-12",
+      "reference": "The Adventure of the Blue Carbuncle ¶12",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-speckled-band-vigil",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-speckled-band-235",
+      "reference": "The Adventure of the Speckled Band ¶235",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-boscombe-train",
+      "work": "holmes-adventures",
+      "unitId": "the-boscombe-valley-mystery-9",
+      "reference": "The Boscombe Valley Mystery ¶9",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-bank-cellar-lantern",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-175",
+      "reference": "The Red-Headed League ¶175",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-bank-cellar-plans",
+      "work": "holmes-adventures",
+      "unitId": "the-red-headed-league-183",
+      "reference": "The Red-Headed League ¶183",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-eyford-smoke",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-engineers-thumb-160",
+      "reference": "The Adventure of the Engineer’s Thumb ¶160",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "holmes-eyford-drive",
+      "work": "holmes-adventures",
+      "unitId": "the-adventure-of-the-engineers-thumb-170",
+      "reference": "The Adventure of the Engineer’s Thumb ¶170",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "classical",
+        "watercolor"
+      ]
+    }
+  ],
+  "evaluation": {
+    "estimatedUsd": 1.11,
+    "capUsd": 3.79,
+    "reserves": {
+      "text": 0,
+      "image": 0.08,
+      "check": 0
+    },
+    "limits": {
+      "text": 0,
+      "image": 40,
+      "check": 0
+    }
+  }
+}

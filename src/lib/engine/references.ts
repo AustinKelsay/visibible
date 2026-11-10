@@ -13,8 +13,12 @@ import type { ArtStyle, Era, WorkBrief } from "../work-preparation";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
 import { depictionModeOf } from "./depiction";
 
-/** The image model that draws reference sheets and style references (Nano Banana 2 Lite). */
-export const REFERENCE_IMAGE_MODEL = "google/gemini-3.1-flash-lite-image";
+/**
+ * The image model that draws reference sheets and style references: Nano Banana 2.1, the model the images use. Nano Banana 2
+ * Lite drew a famous screen actor for a well-known character from the name alone and ignored most of the canon's face
+ * (November 2026, Sherlock Holmes).
+ */
+export const REFERENCE_IMAGE_MODEL = "google/gemini-nano-banana-2.1";
 /** The cheap vision model that look-checks reference images (#159). */
 export const CHECK_MODEL_ID = "anthropic/claude-haiku-5.5";
 export const MAX_REFERENCE_ATTEMPTS = 3;
