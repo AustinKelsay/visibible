@@ -20,6 +20,6 @@
     "spend": "none: the production key's usage stayed at $11.48270295 and the newest preparation-ledger row predates the deploy",
     "note": "The CSRF cookie is named visibible_csrf."
   },
-  "rollback": "Promote the previous production deployment in Vercel; it runs the full engine, whose Convex functions stay deployed.",
+  "rollback": "Promote dpl_fVVRrsY5DS3kZvetCpPMRUbiJv6W (main b69b40c, PR #393), the last production deployment on the full engine; it was production until this deploy, and its Convex functions stay deployed. Any later deployment runs the lean engine.",
   "productionWrites": "one guest session; no image, request record, reservation or preparation spend"
 }
