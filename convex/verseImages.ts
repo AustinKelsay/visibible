@@ -14,67 +14,6 @@ import { Id, type DataModel, type Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
 import { imageProvenanceValidator, renderingPacketValidator } from "./schema";
 
-const chapterThemeValidator = v.object({
-  setting: v.string(),
-  palette: v.string(),
-  elements: v.string(),
-  style: v.string(),
-});
-
-const verseContextValidator = v.object({
-  number: v.number(),
-  text: v.string(),
-  reference: v.optional(v.string()),
-});
-
-const scenePlanValidator = v.object({
-  primarySubject: v.string(),
-  action: v.string(),
-  setting: v.string(),
-  secondaryElements: v.optional(v.string()),
-  mood: v.optional(v.string()),
-  timeOfDay: v.optional(v.string()),
-  composition: v.optional(v.string()),
-});
-
-const promptInputsValidator = v.object({
-  reference: v.optional(v.string()),
-  aspectRatio: v.optional(v.string()),
-  styleProfileId: v.optional(v.string()),
-  scenePlan: v.optional(scenePlanValidator),
-  generationNumber: v.optional(v.number()),
-  prevVerse: v.optional(verseContextValidator),
-  nextVerse: v.optional(verseContextValidator),
-});
-
-const continuityHintsValidator = v.object({
-  previous: v.optional(v.string()),
-  next: v.optional(v.string()),
-});
-
-const promptPacketValidator = v.object({
-  verseId: v.string(),
-  translationId: v.string(),
-  reference: v.string(),
-  currentVerse: v.string(),
-  styleProfileId: v.string(),
-  aspectRatio: v.string(),
-  resolution: v.string(),
-  chapterTheme: v.optional(chapterThemeValidator),
-  continuity: v.optional(continuityHintsValidator),
-  scenePlan: v.optional(scenePlanValidator),
-  flags: v.object({
-    scenePlannerUsed: v.boolean(),
-    scenePlanFromCache: v.boolean(),
-    narrativeContextIncluded: v.boolean(),
-    generationNoteIncluded: v.boolean(),
-  }),
-  budget: v.object({
-    maxChars: v.number(),
-    finalChars: v.number(),
-  }),
-});
-
 const generationStatusValidator = v.union(
   v.literal("queued"),
   v.literal("planning"),
@@ -372,10 +311,8 @@ export const getLatestImage = query({
         prompt: image.prompt,
         reference: image.reference,
         verseText: image.verseText,
-        chapterTheme: image.chapterTheme,
         generationNumber: image.generationNumber,
         promptVersion: image.promptVersion,
-        promptInputs: image.promptInputs,
         translationId: image.translationId,
         provider: image.provider,
         providerRequestId: image.providerRequestId,
@@ -790,10 +727,8 @@ export const getImageHistory = query({
           prompt: image.prompt,
           reference: image.reference,
           verseText: image.verseText,
-          chapterTheme: image.chapterTheme,
           generationNumber: image.generationNumber,
           promptVersion: image.promptVersion,
-          promptInputs: image.promptInputs,
           translationId: image.translationId,
           provider: image.provider,
           providerRequestId: image.providerRequestId,
@@ -930,7 +865,6 @@ export const createGenerationRequest = mutation({
     aspectRatio: v.optional(v.string()),
     resolution: v.optional(v.string()),
     promptVersion: v.optional(v.string()),
-    scenePlannerModel: v.optional(v.string()),
     estimatedCreditsCost: v.optional(v.number()),
     estimatedCostUsd: v.optional(v.number()),
     serverSecret: v.string(),
@@ -978,7 +912,6 @@ export const createGenerationRequest = mutation({
       resolution: args.resolution,
       status: "queued",
       promptVersion: args.promptVersion,
-      scenePlannerModel: args.scenePlannerModel,
       estimatedCreditsCost: args.estimatedCreditsCost,
       estimatedCostUsd: args.estimatedCostUsd,
       createdAt: now,
@@ -999,10 +932,7 @@ export const updateGenerationRequest = mutation({
     error: v.optional(v.string()),
     generationId: v.optional(v.string()),
     providerRequestId: v.optional(v.string()),
-    scenePlannerUsed: v.optional(v.boolean()),
-    scenePlanFromCache: v.optional(v.boolean()),
     usedFallbackEstimate: v.optional(v.boolean()),
-    promptPacket: v.optional(promptPacketValidator),
     renderingPacket: v.optional(renderingPacketValidator),
     actualCreditsCost: v.optional(v.number()),
     actualCostUsd: v.optional(v.number()),
@@ -1043,10 +973,7 @@ export const updateGenerationRequest = mutation({
     if (args.error !== undefined) patch.error = args.error;
     if (args.generationId !== undefined) patch.generationId = args.generationId;
     if (args.providerRequestId !== undefined) patch.providerRequestId = args.providerRequestId;
-    if (args.scenePlannerUsed !== undefined) patch.scenePlannerUsed = args.scenePlannerUsed;
-    if (args.scenePlanFromCache !== undefined) patch.scenePlanFromCache = args.scenePlanFromCache;
     if (args.usedFallbackEstimate !== undefined) patch.usedFallbackEstimate = args.usedFallbackEstimate;
-    if (args.promptPacket !== undefined) patch.promptPacket = args.promptPacket;
     if (args.renderingPacket !== undefined) patch.renderingPacket = args.renderingPacket;
     if (args.actualCreditsCost !== undefined) patch.actualCreditsCost = args.actualCreditsCost;
     if (args.actualCostUsd !== undefined) patch.actualCostUsd = args.actualCostUsd;
@@ -1095,10 +1022,8 @@ export const saveImageWithStorage = internalMutation({
     prompt: v.optional(v.string()),
     reference: v.optional(v.string()),
     verseText: v.optional(v.string()),
-    chapterTheme: v.optional(chapterThemeValidator),
     generationNumber: v.optional(v.number()),
     promptVersion: v.optional(v.string()),
-    promptInputs: v.optional(promptInputsValidator),
     translationId: v.optional(v.string()),
     provider: v.optional(v.string()),
     providerRequestId: v.optional(v.string()),
@@ -1138,10 +1063,8 @@ export const saveImageWithStorage = internalMutation({
       prompt: args.prompt,
       reference: args.reference,
       verseText: args.verseText,
-      chapterTheme: args.chapterTheme,
       generationNumber: args.generationNumber,
       promptVersion: args.promptVersion,
-      promptInputs: args.promptInputs,
       translationId: args.translationId,
       provider: args.provider,
       providerRequestId: args.providerRequestId,
@@ -1236,10 +1159,8 @@ export const saveImageWithUrl = internalMutation({
     prompt: v.optional(v.string()),
     reference: v.optional(v.string()),
     verseText: v.optional(v.string()),
-    chapterTheme: v.optional(chapterThemeValidator),
     generationNumber: v.optional(v.number()),
     promptVersion: v.optional(v.string()),
-    promptInputs: v.optional(promptInputsValidator),
     translationId: v.optional(v.string()),
     provider: v.optional(v.string()),
     providerRequestId: v.optional(v.string()),
@@ -1270,10 +1191,8 @@ export const saveImageWithUrl = internalMutation({
       prompt: args.prompt,
       reference: args.reference,
       verseText: args.verseText,
-      chapterTheme: args.chapterTheme,
       generationNumber: args.generationNumber,
       promptVersion: args.promptVersion,
-      promptInputs: args.promptInputs,
       translationId: args.translationId,
       provider: args.provider,
       providerRequestId: args.providerRequestId,
@@ -1541,10 +1460,8 @@ export const saveImage = action({
     prompt: v.optional(v.string()),
     reference: v.optional(v.string()),
     verseText: v.optional(v.string()),
-    chapterTheme: v.optional(chapterThemeValidator),
     generationNumber: v.optional(v.number()),
     promptVersion: v.optional(v.string()),
-    promptInputs: v.optional(promptInputsValidator),
     translationId: v.optional(v.string()),
     provider: v.optional(v.string()),
     providerRequestId: v.optional(v.string()),
@@ -1566,10 +1483,8 @@ export const saveImage = action({
       prompt,
       reference,
       verseText,
-      chapterTheme,
       generationNumber,
       promptVersion,
-      promptInputs,
       translationId,
       provider,
       providerRequestId,
@@ -1590,10 +1505,8 @@ export const saveImage = action({
       prompt,
       reference,
       verseText,
-      chapterTheme,
       generationNumber,
       promptVersion,
-      promptInputs,
       translationId,
       provider: resolvedProvider,
       providerRequestId,

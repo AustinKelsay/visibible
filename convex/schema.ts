@@ -468,7 +468,7 @@ export default defineSchema({
     updatedAt: v.number(),
   }).index("by_modelId", ["modelId"]),
 
-  // Learned image-credit estimates based on recent actual generation costs.
+  // Learned image-credit estimates from before November 2026. Nothing reads or writes them any more; the rows are kept.
   modelCostStats: defineTable({
     scopeType: modelCostScopeTypeValidator,
     scopeValue: v.string(), // modelId, provider ID, or "global"

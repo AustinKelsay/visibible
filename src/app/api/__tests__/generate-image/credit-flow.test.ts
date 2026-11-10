@@ -94,7 +94,7 @@ vi.mock("@/lib/session", () => ({
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
     query: vi.fn(async (_apiPath: FunctionReference<"query">, args: Record<string, unknown>) => {
-      if (["modelStats:getAllModelStats", "modelCostStats:getAllEstimates"].includes(getFunctionName(_apiPath))) return [];
+      if (["modelStats:getAllModelStats"].includes(getFunctionName(_apiPath))) return [];
       if (getFunctionName(_apiPath).startsWith("analysis:")) {
         return requestDb.query(_apiPath as never, args as never);
       }
@@ -164,7 +164,6 @@ vi.mock("@/lib/convex-client", () => ({
           generationId: String(args.generationId),
           reference: args.reference as string, verseText: args.verseText as string,
           translationId: args.translationId as string,
-          promptInputs: args.promptInputs as FunctionArgs<typeof internal.verseImages.saveImageWithUrl>["promptInputs"],
           prompt: args.prompt as string | undefined, promptVersion: args.promptVersion as string | undefined,
           creditsCost: args.creditsCost as number | undefined,
           engine: args.engine as "legacy" | "generic" | undefined,
@@ -661,7 +660,8 @@ describe("Image Generation API Credit Flow", () => {
       expect(mockState.sessions.get("test-session")!.credits).toBe(998);
       expect(getCallCount("reserveCredits")).toBe(1);
       expect(getCallCount("recordImageCostEvent")).toBe(1);
-      expect(mockState.callHistory.find((c) => c.action === "recordImageCostEvent")!.args).toMatchObject({ styleProfileId: "watercolor", scenePlannerUsed: false, actualCreditsCost: 2 });
+      expect(mockState.callHistory.find((c) => c.action === "recordImageCostEvent")!.args).toMatchObject({ styleProfileId: "watercolor", actualCreditsCost: 2 });
+      expect(mockState.callHistory.find((c) => c.action === "recordImageCostEvent")!.args).not.toHaveProperty("scenePlannerUsed");
       // The request record carries the engine, its commitments and the exact packet snapshot.
       const [request] = await storedRequests();
       expect(request).toMatchObject({ engine: "generic", artStyleId: "watercolor", status: "succeeded", modelId: engineModelId, promptVersion: LEAN_PROMPT_VERSION,
