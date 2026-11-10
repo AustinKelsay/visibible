@@ -14,7 +14,7 @@ export const PROMPT_CHARS_PER_TOKEN = 4;
 export const RESPONSE_TEXT_TOKENS = 100;
 /** Models that bill reasoning with every image: Nano Banana 2.1 averaged 585 such tokens over 254 calls (median 545, p90 704). */
 const RESPONSE_TEXT_TOKENS_BY_MODEL: Record<string, number> = { "google/gemini-nano-banana-2.1": 600 };
-/** An image never costs more than about ten credits; a prompt quoted above that is refused before any call. */
+/** The quote limit: a prompt quoted above about ten credits is refused before any call. Settlement still follows actual usage. */
 export const IMAGE_ENVELOPE_CREDITS = 10;
 
 export type GenericImageQuote = {
