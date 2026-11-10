@@ -1,5 +1,5 @@
 /**
- * A work's depiction profile (`works/<id>/depiction.json`): the wording the engine's prompts and checks use that
+ * A work's depiction profile (`works/<id>/depiction.json`): the wording the engine's prompts use that
  * belongs to one work rather than to the engine, and the depiction modes its canon entries may have. The engine's
  * own wording is general; everything here was written for, or tuned on, one work (the Bible's thrones, chariots and
  * crucifixion came from its God-figure evaluations and its brief). See ADR 0010.
@@ -9,8 +9,8 @@
  * stand for them, in the wording the profile gives. `symbol` entries are drawn only in the non-human form their
  * canon describes (Satan as a red dragon), never as a person: their canon is in the prompt, but they are not named
  * among the selected characters and get no sheet. A work whose profile has no wording for a mode has no such
- * subjects: its prompts never mention them, its plan review and image check never look for them, and an entry in
- * that mode is refused rather than drawn with another work's wording.
+ * subjects: its prompts never mention them, and an entry in that mode is refused rather than drawn with another
+ * work's wording.
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";

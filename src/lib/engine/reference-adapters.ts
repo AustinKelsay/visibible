@@ -4,7 +4,7 @@
  * action that stores blobs. Tests substitute fakes through the same interfaces.
  */
 import { z } from "zod";
-import { CHECK_MODEL_ID, type ImageMaker, type VisionChecker } from "./references";
+import { CHECK_MODEL_ID, REFERENCE_IMAGE_MODEL, type ImageMaker, type VisionChecker } from "./references";
 import { responseSchema } from "../reading-pass/prompts";
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
@@ -28,7 +28,7 @@ async function postJson<T>(fetchImpl: FetchLike, apiKey: string, body: unknown, 
 }
 
 export function createOpenRouterImageMaker(options: { apiKey: string; model?: string; fetch?: FetchLike; timeoutMs?: number }): ImageMaker {
-  const model = options.model ?? "google/gemini-3.1-flash-lite-image";
+  const model = options.model ?? REFERENCE_IMAGE_MODEL;
   const fetchImpl = options.fetch ?? ((input, init) => fetch(input, init));
   return {
     id: model,

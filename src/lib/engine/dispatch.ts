@@ -1,6 +1,6 @@
 /**
  * The generic engine's seam in the request path (#174, #175). Admission decides the engine; the
- * route hands an admitted generic request to the installed engine, which owns preparation, the
+ * route hands an admitted generic request to the installed engine, which owns the moment's inputs, the
  * rendering packet, the quote, the request record, reservation, the paid call, settlement and
  * persistence, using the same Convex functions that served the removed legacy engine (#184), so one ledger
  * and one request identity cover both engines' records. Tests substitute a fake or install the real engine with fakes.

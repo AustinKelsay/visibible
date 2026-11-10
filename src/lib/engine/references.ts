@@ -13,6 +13,7 @@ import type { ArtStyle, Era, WorkBrief } from "../work-preparation";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
 import { depictionModeOf } from "./depiction";
 
+/** The image model that draws reference sheets and style references (Nano Banana 2 Lite). */
 export const REFERENCE_IMAGE_MODEL = "google/gemini-3.1-flash-lite-image";
 /** The cheap vision model that look-checks reference images (#159). */
 export const CHECK_MODEL_ID = "anthropic/claude-haiku-5.5";

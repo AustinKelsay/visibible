@@ -9,12 +9,12 @@ These guides describe the repository's current behavior. Source links identify t
 | Reader, gallery, menus, keyboard or mobile navigation | [Navigation](context/NAVIGATION.md) |
 | Model, translation, ratio or resolution preferences | [Preferences](context/PREFERENCES.md) |
 | Verse videos, durable jobs, public history or video rollout | [Video generation](context/VIDEO-GENERATION.md) |
-| Image requests, planner cache or progress | [Image generation](context/IMAGE-GENERATION.md) |
+| Image requests, quotes or progress | [Image generation](context/IMAGE-GENERATION.md) |
 | Image prompt construction | [Prompt specification](implementation/IMAGE_PROMPT_SPEC.md) |
 | Work briefs, shared art styles, depiction profiles, draft scope checks or preparation approval | [Work preparation](context/WORK-PREPARATION.md) |
 | Bulk queues, pause/resume or scope selection | [Bulk generation](context/BULK-GENERATION.md) |
 | Saved images, shared history or remote image storage | [Image persistence](context/IMAGE-PERSISTENCE.md) |
-| A work's analysis: generations, canon versions, looks, plans, references and attention | [Analysis storage](context/ANALYSIS-STORAGE.md) |
+| A work's analysis: generations, canon versions, references and attention | [Analysis storage](context/ANALYSIS-STORAGE.md) |
 | Reading a work into sections, moments, a cast and a draft brief | [Work preparation](context/WORK-PREPARATION.md) |
 | The removed per-moment preparation (looks, plans, review, image check) | [Scene preparation](context/SCENE-PREPARATION.md): what it was, what remains and where its history is |
 | Correcting a work's analysis after the fact, attention items, wiping a work | [Owner corrections runbook](workflow/OWNER-CORRECTIONS.md) |
@@ -53,7 +53,7 @@ Exact dependencies and commands: [package.json](../package.json). Environment te
 
 [Scene planner free models](research/2026-10-14-scene-planner-free-models.md) records why the legacy planner used its last model; the planner was removed with the legacy engine (#184).
 
-[Image models](research/2026-10-14-image-models.md) records why Gemini 3.1 Flash Lite Image is the default image model, what the other candidates measured, and how to re-run the comparison.
+[Image models](research/2026-10-14-image-models.md) records why Nano Banana 2 Lite (Gemini 3.1 Flash Lite Image) became the default image model in October 2026, what the other candidates measured, and how to re-run the comparison. Images are now made on Nano Banana 2.1 ([ADR 0012](../docs/adr/0012-one-image-call-from-the-text.md)); Lite still makes reference sheets and style references.
 
 ## Proposed modernization
 

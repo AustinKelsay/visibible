@@ -69,8 +69,6 @@ function withTimeout<T>(promise: Promise<T>, ms: number, message: string): Promi
   return Promise.race([promise, timeout]).finally(() => { if (timer) clearTimeout(timer); });
 }
 
-export { referenceIsCurrent } from "./lean-assemble";
-
 export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine {
   const loadInputs = deps.loadInputs ?? ((workId: string) => loadWorkInputs(workId));
   const fetchImpl: FetchLike = deps.fetch ?? ((input, init) => fetch(input, init));
@@ -334,11 +332,10 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       const usedActual = openRouterUsageUsd !== null;
       let actualCredits = quote.credits;
       let actualCostUsd = quote.credits * CREDIT_USD;
-      let neutralCostUsedForActual = false;
       if (openRouterUsageUsd !== null) {
         try {
           const actual = await convex.action(api.costs.quoteUsdCost, { usd: openRouterUsageUsd, serverSecret });
-          actualCredits = actual.credits; actualCostUsd = actual.billedUsd; neutralCostUsedForActual = true;
+          actualCredits = actual.credits; actualCostUsd = actual.billedUsd;
         } catch (error) {
           logWarn("generic.neutral_quote_failed", { requestId, error: error instanceof Error ? error.message : String(error) });
           actualCostUsd = openRouterUsageUsd * DEFAULT_COST_MARKUP_MULTIPLIER;
@@ -422,12 +419,11 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         prompt, promptVersion: LEAN_PROMPT_VERSION, reference: context.moment.reference,
         translationId: sourceTranslationId, requestTranslationId: input.translationId, verseText: context.moment.text,
         generationNumber: input.generationNumber ?? undefined, style: style.id,
-        creditsCost: chargedCredits, imageCreditsCost: chargedCredits, scenePlannerCredits: 0, costUsd: chargedCostUsd, imageCostUsd: chargedCostUsd, scenePlannerCostUsd: 0,
-        scenePlannerUsed: false, scenePlanFromCache: false,
-        estimatedCreditsCost, estimatedCostUsd, openRouterUsageUsd, usedActualCost: usedActual, usedFallbackEstimate: !usedActual, neutralCostUsedForActual,
+        creditsCost: chargedCredits, costUsd: chargedCostUsd,
+        estimatedCreditsCost, estimatedCostUsd, openRouterUsageUsd, usedActualCost: usedActual, usedFallbackEstimate: !usedActual,
         ...(chargeShortfall && { chargeShortfall }), durationMs, aspectRatio: input.aspectRatio, resolution: input.resolution,
-        billingVersion: model.billing?.version, catalogEstimatedProviderUsd: quote.providerUsd, resolutionSupported: capabilities.resolutions.length > 1,
-        provenance, preparation: { calls: 0, referencesSent: sentReferences.length, promptChars: prompt.length },
+        billingVersion: model.billing?.version, catalogEstimatedProviderUsd: quote.providerUsd,
+        provenance,
         ...(updatedCredits !== undefined && { credits: updatedCredits }),
       });
       } catch (error) {

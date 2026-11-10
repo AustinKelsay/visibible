@@ -50,16 +50,14 @@ describe("canonical reader failures", () => {
     }
     expect(fetch).not.toHaveBeenCalled();
   });
-  it("keeps cross-book navigation without fetching unrelated prompt context", async () => {
+  it("keeps cross-book navigation without fetching the neighbouring book", async () => {
     const fetch = vi.fn(async () => Response.json({
       translation: { identifier: "web", name: "World English Bible" },
       verses: [{ book_id: "EXO", book: "Exodus", chapter: 1, verse: 1, text: "These are the names." }],
     }));
     vi.stubGlobal("fetch", fetch);
     renderToStaticMarkup(await VersePage(params("exodus")));
-    expect(vi.mocked(VersePageContent).mock.calls[0][0]).toMatchObject({
-      prevUrl: "/genesis/50/26", nextUrl: "/exodus/1/2", prevVerse: undefined,
-    });
+    expect(vi.mocked(VersePageContent).mock.calls[0][0]).toMatchObject({ prevUrl: "/genesis/50/26", nextUrl: "/exodus/1/2" });
     expect(fetch).toHaveBeenCalledTimes(1);
   });
 });

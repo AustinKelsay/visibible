@@ -9,7 +9,7 @@
 3. Resolve the required single-verse reference and selected translation through [the canonical passage resolver](../../src/lib/generation-passage.ts). The reference endpoint resolves aliases; a validated canonical chapter supplies the text. Client text, neighboring context and theme are compatibility fields only. Missing or invalid current text and upstream failures stop before reservation or provider work.
 4. Decide the engine at admission ([Engine admission](#engine-admission)). Every new request runs on the generic engine ([Generic generation path](#generic-generation-path)); the legacy engine's code was removed from the route ([#184](https://github.com/AustinKelsay/visibible/issues/184)).
 
-Lifecycle states are `queued`, `planning`, `generating`, `succeeded`, and `failed`. [verseImages.ts](../../convex/verseImages.ts) provides the lifecycle and storage functions; [schema.ts](../../convex/schema.ts) defines their fields. [costs.ts](../../convex/costs.ts) handles Neutral Cost and outbox replay.
+Lifecycle states are `queued`, `generating`, `succeeded`, and `failed`. `planning` remains valid on records from the removed preparation; new requests never enter it. [verseImages.ts](../../convex/verseImages.ts) provides the lifecycle and storage functions; [schema.ts](../../convex/schema.ts) defines their fields. [costs.ts](../../convex/costs.ts) handles Neutral Cost and outbox replay.
 
 ## UI and pricing
 

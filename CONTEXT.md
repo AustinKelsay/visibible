@@ -2,7 +2,7 @@
 
 Visibible supports reading Scripture, generating verse images, discussing passages, and browsing a shared image library.
 
-The image-engine terms below describe the accepted design in [A generic image engine with shared canon and art styles](https://github.com/AustinKelsay/visibible/issues/165), with the Bible as its first work. They do not imply that the engine migration has shipped.
+The image-engine terms below describe the accepted design in [A generic image engine with shared canon and art styles](https://github.com/AustinKelsay/visibible/issues/165), with the Bible as its first work. The engine has served every new image since 28 October 2026; since 9 November it is the lean engine of [ADR 0012](docs/adr/0012-one-image-call-from-the-text.md).
 
 ## Language
 
@@ -13,7 +13,7 @@ _Avoid_: Book (when meaning the whole text)
 
 **Unit**: The smallest numbered piece of a work's text, such as a verse, paragraph or line.
 
-**Reference text**: The one text of a work that its images are planned from, such as the World English Bible. Other translations of the work share those images.
+**Reference text**: The one text of a work that its images are made from, such as the World English Bible. Other translations of the work share those images.
 
 **Moment**: A run of one or more consecutive units, inside one story section, that one image illustrates. In the Bible, each verse is its own moment; a moment can support more than one [depicted instant](GLOSSARY.md#language).
 _Avoid_: Passage, scene (when meaning this span)
@@ -40,8 +40,6 @@ _Avoid_: Brief (for this wording), engine rules
 
 **Shared image library**: Saved verse images available for public browsing and reuse.
 
-**Scene plan**: A description of a moment's subject, action, setting, and composition, shared across art styles and reader translations.
-
 **Art style**: The shared look of images (rendering, palette, lighting, texture), independent of any work and of what any one image depicts.
 _Avoid_: Theme, style profile
 
@@ -63,13 +61,11 @@ _Avoid_: Pericope, chapter (when meaning the episode)
 
 **Section cast**: The characters, locations and objects present in a story section, including those the text does not name in every unit.
 
-**Section look**: What is particular to one story section, such as its time of day, weather, light, and situational clothing, shared by images of that section's moments across translations and art styles. Canon describes how its characters and locations normally appear.
-
 **Reference sheet**: An engine-made, vision-checked picture of a canon entry in fixed views on a plain background: a character or location at one stage, or an object. It is an optional visual reference for images depicting that entry.
 
 **Style reference**: A picture with no people, made for one art style and one work, that shows the style's rendering in that work's world. It is an optional visual reference for images in that style.
 
-**Analysis**: Everything the engine makes for a work from its reading pass onward: story sections, moments, cast, canon, section casts, section looks, scene plans, reference sheets and style references. The owner corrects it after the fact; only the work brief is approved beforehand.
+**Analysis**: Everything the engine makes for a work from its reading pass onward: story sections, moments, cast, canon, section casts, reference sheets and style references. The owner corrects it after the fact; only the work brief is approved beforehand.
 
 **Pin**: An owner's choice of one reference sheet or style reference that the engine keeps, ignoring staleness, until unpinned.
 
@@ -113,3 +109,11 @@ _Avoid_: Actual cost when referring to a quote.
 _Avoid_: Settlement when referring to a paid invoice; settlement belongs to credit reservations.
 
 **Publication**: A verse image and Scripture text shared through Nostr, together with the record of that sharing.
+
+## Retired terms
+
+These terms named parts of the full engine's per-moment preparation, which was removed on 9–10 November 2026 ([ADR 0012](docs/adr/0012-one-image-call-from-the-text.md)). They survive only as the look and plan versions on images saved before then.
+
+**Scene plan**: A description of a moment's subject, action, setting and composition, shared across art styles and reader translations. The image model now reads the moment's text and chooses these itself.
+
+**Section look**: What was particular to one story section, such as its time of day, weather, light and situational clothing, shared by its moments' images. The image model now infers these from the text.

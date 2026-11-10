@@ -243,13 +243,17 @@ describe("HeroImage interactions", () => {
       if (args && typeof args === "object" && "verseId" in args) return imageHistory;
       return null;
     });
-    const generateFetch = vi.fn(async () => new Response(JSON.stringify({ requestId: "existing-request", reused: true, status: "generating" }), { status: 202 }));
+    const generateFetch = vi.fn(async (_init?: RequestInit) => new Response(JSON.stringify({ requestId: "existing-request", reused: true, status: "generating" }), { status: 202 }));
     const catalogFetch = globalThis.fetch;
-    vi.stubGlobal("fetch", async (url: string) => url.includes("generate-image") ? generateFetch() : catalogFetch(url));
+    vi.stubGlobal("fetch", async (url: string, init?: RequestInit) => url.includes("generate-image") ? generateFetch(init) : catalogFetch(url));
     document.cookie = "visibible_csrf=" + "a".repeat(64);
     await renderHeroImage();
     await act(async () => { registerGenerate.mock.lastCall![0](); });
     expect(generateFetch).toHaveBeenCalledTimes(1);
+    // The engine reads the verse and its neighbours from the work itself; the client sends only the reference and settings.
+    const sent = JSON.parse(String(generateFetch.mock.calls[0][0]?.body)) as Record<string, unknown>;
+    expect(sent).toMatchObject({ reference: baseProps.currentReference });
+    for (const field of ["text", "theme", "prevVerse", "nextVerse"]) expect(sent).not.toHaveProperty(field);
     expect(updateState.mock.lastCall?.[0]).toMatchObject({ isGenerating: true });
     expect(container?.textContent).not.toContain("Missing image URL");
     if (outcome === "failure") {
