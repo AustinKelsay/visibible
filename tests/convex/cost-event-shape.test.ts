@@ -1,6 +1,6 @@
 /**
- * Image cost events no longer carry the scene planner's fields or a separate image price (ADR 0012). During the
- * deploy that drops them, a server still on the previous release may send them, so both shapes must be accepted.
+ * Image cost events no longer carry the scene planner's fields or a separate image price (ADR 0012). Since #401 no
+ * server sends them, so the validators no longer know them.
  */
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { convexTest } from "convex-test";
@@ -29,14 +29,12 @@ describe("image cost event shape", () => {
     expect(row.payload).toMatchObject({ actualCreditsCost: 5, requestId: "r" });
   });
 
-  it("accepts an event without planner fields, and one from the previous release with them", async () => {
+  it("accepts an event without the retired fields and refuses one that still carries them", async () => {
     const t = convexTest(schema, modules);
     await t.mutation(internal.costs.enqueueImageCostEventOutboxInternal, { payload: event });
-    await t.mutation(internal.costs.enqueueImageCostEventOutboxInternal, {
-      payload: { ...event, scenePlannerUsed: false, scenePlanFromCache: false, imageCreditsCost: 5, imageCostUsd: 0.05, scenePlannerCredits: 0, scenePlannerCostUsd: 0 },
-    });
-    const rows = await t.run((ctx) => ctx.db.query("costEventOutbox").collect());
-    expect(rows).toHaveLength(2);
-    expect(rows[0].payload).not.toHaveProperty("scenePlannerUsed");
+    await expect(t.mutation(internal.costs.enqueueImageCostEventOutboxInternal, {
+      payload: { ...event, scenePlannerUsed: false } as typeof event,
+    })).rejects.toThrow(/scenePlannerUsed/);
+    expect(await t.run((ctx) => ctx.db.query("costEventOutbox").collect())).toHaveLength(1);
   });
 });
