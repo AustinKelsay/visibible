@@ -1,0 +1,330 @@
+{
+ "scorer": "a",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "c001",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "King and Queen on the dais are humans in heart robes, two extra crowned human kings sit in the foreground and a human guard stands right, so the court is not cards and the extra kings are not called for; Alice reads no larger than the Rabbit. Lettering: the card held by the toad bottom-right shows a readable 'A' index plus pips."
+  },
+  {
+   "id": "c002",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "Alice tipping the jury box with animal jurymen and holding the Lizard fits the text, but the King, Queen and three more crowned royals behind the bar are all humans in robes (no card bodies anywhere), and the extra royals are not called for."
+  },
+  {
+   "id": "c003",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "cards": "none present",
+   "notes": "The Caterpillar has a human old man's face and folded human arms on a blue body (Disney-like colouring), breaking the animal-face rule; Alice and the mushroom otherwise show the moment."
+  },
+  {
+   "id": "c004",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "yes",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "King and Queen are humans in robes and the guards are human soldiers in blue uniforms (top centre, right edge), breaking the card rule; two jurymen on the floor are mice with bird wings (centre bottom). Lettering: a signature-like scrawl ('Hsbn') under the banner left of the throne."
+  },
+  {
+   "id": "c005",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "The King is a human in an ermine robe with a K♥ card behind his back, not a card, and human courtiers stand at left and right (the A♥/♦ soldiers are proper cards); wooden mallets, balls and metal hoops contradict the flamingo/hedgehog/soldier croquet. Lettering: readable 'K' and 'A' card indices; top edge is bare-paper sky (accepted)."
+  },
+  {
+   "id": "c006",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "Hatter with teacup and bread, March Hare with Dormouse and slate-writing animal jury fit the text and the soldiers are card bodies, but the King and Queen are humans in robes. Lettering: readable 'K' on the knave's card at right, pips, marks on the hat tag."
+  },
+  {
+   "id": "c007",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "The Queen is a human in a robe, courtiers and an armoured soldier at left are human, and the card players are boys wearing card sandwich-boards; a wooden mallet sits alongside flamingos, and the full Cheshire head is shown where the text has only the grin appearing. Lettering: card pips and court-card faces only."
+  },
+  {
+   "id": "c008",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "Rabbit reading the verses with Alice beside him fits, but the King and Queen are humans in robes and the guards are humans in plate armour; no card bodies appear. Lettering: pseudo-script on the Rabbit's paper."
+  },
+  {
+   "id": "c009",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "White Rabbit with trumpet, Hatter with cup and bread, March Hare arm-in-arm with Dormouse and the slate-writing jury fit, soldiers are proper card bodies, but the King and Queen are humans in robes. Lettering: letter-like chalk words on the front juror's slate (bottom left), pips on cards."
+  },
+  {
+   "id": "c010",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "The King is a human in a robe with a K♥ card behind him, and at right two Alice-like girls wear card-pip pinafores (humans in card dress), one in a blue dress and white pinafore, a film costume and an extra Alice. Lettering: readable 'A' indices on the ace cards."
+  },
+  {
+   "id": "c011",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "Card soldiers bent as arches and card players are well done, but the King and Queen (right) are humans in robes; Alice holds a wooden mallet as well as her flamingo and players swing wooden mallets, contradicting the flamingo mallets. Lettering: readable 'A' on the club card at left; top edge bare-paper sky (accepted)."
+  },
+  {
+   "id": "c012",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "yes",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "The Queen, prominent at right though not in this moment, is a human body in a heart robe standing in front of a card rather than a card; the arches are green humanoid figures. Alice holds a wooden mallet stick and wooden mallets and balls lie about, contradicting the flamingo croquet. Lettering: card pips and printed court-card faces only; top edge bare-paper sky (accepted)."
+  },
+  {
+   "id": "c013",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "cards": "none present",
+   "notes": "The blue Caterpillar has a human old man's face and folded human arms, breaking the animal-face rule; hookah, mushroom and shy Alice otherwise fit."
+  },
+  {
+   "id": "c014",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "Alice with flamingo and hedgehog fits, but the soldiers are humans in red/green bodysuits with a card on their backs, the players wear card sandwich-boards, and the King and Queen are humans in robes. Lettering: readable 'A' and court-card indices."
+  },
+  {
+   "id": "c015",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "cards": "all cards",
+   "notes": "Two identical Queen-of-Hearts cards flank Alice: flat cards with legs, so no card-rule break, but the Queen is not in this moment and appears twice; arches are green moss humanoids, and Alice still holds the flamingo she has put down by now. Lettering: card pips only."
+  },
+  {
+   "id": "c016",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "Alice confronting the King, who holds his note-book, fits, but the King and Queen are humans in robes, the Knave is a small human in a heart tunic (centre right) and courtiers bottom right are human. Lettering: pseudo-script on loose papers by the jury box."
+  },
+  {
+   "id": "c017",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "The faint grin appearing, uneasy Alice and card soldiers (A♣, 3♥, K♥, leafy bent arches) fit, but the raging Queen is a human in a robe; wooden mallets lie on the ground beside the flamingos. Lettering: readable 'A', '3' and 'K' card indices."
+  },
+  {
+   "id": "c018",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "Towering Alice, King with his book and card-bodied guards fit, but the King and Queen on the thrones are humans in robes, breaking the card rule. No lettering beyond card pips."
+  }
+ ]
+}

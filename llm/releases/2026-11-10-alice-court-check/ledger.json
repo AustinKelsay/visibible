@@ -1,0 +1,121 @@
+{
+  "capUsd": 3.24,
+  "calls": [
+    {
+      "phase": "alice-caterpillar/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0463545
+    },
+    {
+      "phase": "alice-caterpillar/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0465285
+    },
+    {
+      "phase": "alice-croquet-game/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.059736
+    },
+    {
+      "phase": "alice-croquet-game/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0494925
+    },
+    {
+      "phase": "alices-evidence-38/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0500805
+    },
+    {
+      "phase": "alices-evidence-38/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0496695
+    },
+    {
+      "phase": "alices-evidence-2/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0495495
+    },
+    {
+      "phase": "alices-evidence-2/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.053661
+    },
+    {
+      "phase": "alice-cat-grin-appears/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.050319
+    },
+    {
+      "phase": "alice-cat-grin-appears/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.049968
+    },
+    {
+      "phase": "alice-cat-head-talks/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.05031
+    },
+    {
+      "phase": "alice-cat-head-talks/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0495465
+    },
+    {
+      "phase": "alice-king-and-cat/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0500175
+    },
+    {
+      "phase": "alice-king-and-cat/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.053289
+    },
+    {
+      "phase": "alice-refuses-to-leave/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.049671
+    },
+    {
+      "phase": "alice-refuses-to-leave/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.049395
+    },
+    {
+      "phase": "alice-hatter-witness/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0504
+    },
+    {
+      "phase": "alice-hatter-witness/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.050319
+    }
+  ],
+  "measuredUsd": 0.908307,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 18,
+    "check": 0
+  },
+  "blocked": null
+}

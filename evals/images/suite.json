@@ -22,7 +22,7 @@
       "consistency": "evals/images/consistency.holmes-adventures.json"
     },
     "alice-in-wonderland": {
-      "analysis": "evals/images/analyses/alice-in-wonderland-v3.json",
+      "analysis": "convex",
       "imageStyles": [
         "watercolor",
         "classical"

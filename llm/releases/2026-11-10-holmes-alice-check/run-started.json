@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-10T17:01:23.597Z",
+  "commit": "b34ae1a155aa95296e40df5efc624ad5bb11be7b",
+  "grant": {
+    "authorization": "Owner, 2026-11-10: chose \"Up to $10 (Recommended)\" and \"Quality first (Recommended)\" for getting Holmes and Alice ready (\"ok lets go with both\"). About $4.68 of the $10 was spent before this run (Holmes sheet probes and first check, Alice's production preparation and 49 sheets). This check is 62 images estimated at $2.29; the cap is the plan's in-flight ceiling.",
+    "operationCapUsd": 5.27,
+    "key": "production …aac"
+  },
+  "capUsd": 5.27,
+  "balanceUsd": 15.311555537999993,
+  "keyLimitRemaining": 30.0567518,
+  "sources": {
+    "src/lib/engine/lean.ts": "86023d81c990f00cea53cf4145847d94115ec8f7d62bbf80ef2c0d64dc3bf4ed",
+    "src/lib/engine/lean-assemble.ts": "03bd4529616bb94731de3c20d70ed99df039dcb96405d2b02618851282bf8bbf",
+    "src/lib/engine/prompt.ts": "00e7add7e9448cfec34c79e3bc4db6ad15ca1046bde0f1e6074d9b650bf45c2f",
+    "src/lib/engine/depiction.ts": "2333f094899d7500b071224ec5388ccb4847daabd767f3d58372cc9edded00f1",
+    "src/lib/engine/work-inputs.ts": "cb38089438eab631b04eacf18c5f018d45c5efa39216fc6b353144b5d71c6146",
+    "src/lib/image-evals/adapters.ts": "afa189f340ffad1e87fb878cf733e6b58b11b89c20d0b40f56781898a75b919d",
+    "src/lib/image-evals/suite-run.ts": "cb27cc005d13559cf1546ad0c4d0df3135a637ff8aefdfddc94bc28b54cdcf0c",
+    "scripts/evals/lean.mts": "f0aed2294c0d5aa18a78315cd6e0b3e5bd2c8d46aed6533b3d26d41bdb468136",
+    "evals/images/suite.json": "f5952b63deb6ff542800cda34a961504a20676915368a6e34db75280b322636c",
+    "evals/images/cases.json": "06bb40f953f7123b55cf2bfab8f153bbd5959c3c937181cdbb7b6b993ac0a224",
+    "evals/images/faults.json": "a909ae9f9399a5cc711b4fb18f4984f3ef9d34404b48f65964d40d0b1c8a15e1"
+  }
+}

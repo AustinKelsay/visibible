@@ -10,6 +10,7 @@
  *   npm run works:correct -- <work-id> set-kind <entryId> character|location|object [--expect <version>]
  *   npm run works:correct -- <work-id> pin|unpin sheet|style <recordId>
  *   npm run works:correct -- <work-id> redo-sheet <entryId:stageId>            (owner-funded; refuses a pinned sheet)
+ *   npm run works:correct -- <work-id> redo-sheet <entryId:stageId> --image <file.jpg>   (install an owner-chosen sheet; still checked)
  *   npm run works:correct -- <work-id> redo-style <styleId>
  *   npm run works:correct -- <work-id> redraft <entryId>                       (runs works:canon --redraft --activate)
  *   npm run works:correct -- <work-id> dismiss <attentionId> [--disposition ..]
@@ -41,7 +42,7 @@ const { values, positionals } = parseArgs({ allowPositionals: true, options: {
   text: { type: "string" }, expect: { type: "string" },
   disposition: { type: "string" }, correction: { type: "string" }, check: { type: "string" }, closed: { type: "boolean", default: false }, "including-owner": { type: "boolean", default: false }, "confirm-production": { type: "boolean", default: false },
   budget: { type: "string", default: "1.00" }, run: { type: "string", default: "latest" },
-  file: { type: "string" },
+  file: { type: "string" }, image: { type: "string" },
 } });
 const [workId, command, ...rest] = positionals;
 if (!workId || !command) throw new Error("Usage: npm run works:correct -- <work-id> <command> …");
@@ -113,7 +114,27 @@ switch (command) {
     const kind = command === "redo-sheet" ? "sheet" : "styleReference";
     const budgetUsd = Number(values.budget);
     if (!Number.isFinite(budgetUsd) || budgetUsd <= 0) throw new Error("--budget must be a positive USD amount");
-    const result = await runReferences({ workId, workTitle: work.title, brief, store, maker: createOpenRouterImageMaker({ apiKey }), checker: createOpenRouterVisionChecker({ apiKey }), blobs, state,
+    // --image installs an owner-chosen sheet through the same checker and storage instead of drawing a new one.
+    const chosen = values.image ? await readFile(values.image) : null;
+    if (chosen && kind !== "sheet") throw new Error("--image applies to redo-sheet only");
+    if (chosen) {
+      // Decode it, so a file that only starts like a JPEG is refused before the paid check, and keep storage's 4 MiB limit.
+      const sharp = (await import("sharp")).default;
+      // metadata() reads only the header; stats() decodes every pixel, so a truncated or damaged JPEG is refused too.
+      const format = await sharp(chosen, { failOn: "truncated" }).stats().then(() => sharp(chosen).metadata()).then((m) => m.format, () => null);
+      if (format !== "jpeg") throw new Error("--image must be a JPEG file");
+      if (chosen.length > 4 * 1024 * 1024) throw new Error(`--image is ${chosen.length} bytes; reference images are limited to 4 MiB`);
+    }
+    // The chosen image is checked once: a rejected file is never offered again, so a retry cannot pass the same bytes.
+    let offered = false;
+    const maker = chosen
+      ? { id: "owner-chosen", generate: async () => {
+          if (offered) throw new Error("the owner-chosen image was rejected by the sheet check");
+          offered = true;
+          return { bytes: new Uint8Array(chosen), mimeType: "image/jpeg", costUsd: 0, elapsedMs: 0 };
+        } }
+      : createOpenRouterImageMaker({ apiKey });
+    const result = await runReferences({ workId, workTitle: work.title, brief, store, maker, checker: createOpenRouterVisionChecker({ apiKey }), blobs, state,
       saveState: async (next) => { await writeFile(statePath, JSON.stringify(next, null, 1)); }, budgetUsd, styleVersions, only: [rest[0]], log: (line) => console.log(line) });
     const done = result.done[`${kind}:${rest[0]}`];
     if (!done) throw new Error(`${rest[0]} is not a ${kind} this work needs (no entry with that stage in two or more sections, or no such style in the brief)`);

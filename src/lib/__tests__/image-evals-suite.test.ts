@@ -12,7 +12,6 @@ import {
   drawUnits, evaluateSuiteGate, faultsFor, loadFaults, loadSuiteConfig, scoringInstructions, settleScores, splitOf, suiteCases, summarize,
   type JudgedItem, type ScoreFile,
 } from "../image-evals/suite";
-import { depictionModeOf } from "../engine/depiction";
 import { readWorkInputs } from "../engine/work-inputs";
 import { createWorkReader } from "../work-input";
 
@@ -64,14 +63,12 @@ describe("the committed suite", () => {
     }
   });
 
-  it("draws Alice from a committed analysis with no subject marked without form", async () => {
-    const fixture = read(config.works["alice-in-wonderland"].analysis);
-    const inputs = await readWorkInputs("alice-in-wonderland");
-    expect([fixture.workVersion, fixture.briefVersion]).toEqual([inputs.workVersion, inputs.briefVersion]);
-    const entries = fixture.records.filter((r: { kind: string }) => r.kind === "entry");
-    expect(entries.length).toBeGreaterThan(50);
-    expect(entries.filter((e: { payload: object }) => depictionModeOf(e.payload) === "effects")).toEqual([]);
-    const ids = new Set(entries.map((e: { recordId: string }) => e.recordId));
+  it("reads Alice from production like Holmes, and her consistency groups name entries production has", () => {
+    // Alice moved to production on 10 November 2026; the committed fixtures stay only as older runs' inputs.
+    expect(config.works["alice-in-wonderland"].analysis).toBe("convex");
+    const snapshot = read("llm/releases/2026-11-10-holmes-alice-snapshot-2/snapshot.json");
+    const records = Object.values(snapshot.works["alice-in-wonderland"].records) as Array<{ kind: string; recordId: string }>;
+    const ids = new Set(records.filter((r) => r.kind === "entry").map((r) => r.recordId));
     for (const group of loadConsistencyGroups(read(config.works["alice-in-wonderland"].consistency))) if (group.entryId) expect(ids.has(group.entryId), group.id).toBe(true);
   });
 

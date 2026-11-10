@@ -55,15 +55,34 @@ const LAYOUT = {
   object: "Layout: the same object shown twice side by side on one plain, even mid-grey background: left, the whole object from a three-quarter angle; right, a close detail. Neutral, even light. No people, no hands, no animals.",
 };
 
+/** Whole-word, case-insensitive mentions of an entry's own name. */
+function ownNamePattern(subject: SheetSubject) {
+  return new RegExp(`(?<![\\p{L}\\p{N}])${subject.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\p{L}\\p{N}])`, "giu");
+}
+
+/** The canon text without its leading "Name:" label or later mentions of the name, so a character sheet describes a look rather than naming a famous figure. */
+function withoutName(subject: SheetSubject): string {
+  const label = `${subject.name}:`;
+  const text = subject.text.toLowerCase().startsWith(label.toLowerCase()) ? subject.text.slice(label.length).trim() : subject.text;
+  return text.replace(ownNamePattern(subject), "this character");
+}
+
+/**
+ * A character sheet names neither the character nor the work: given "Sherlock Holmes" the image model drew a screen
+ * actor whatever the canon said (November 2026). The face then comes from the canon text alone; the sheet is matched
+ * to the character by its record id, and scenes still name the character beside it.
+ */
 export function sheetPrompt(work: { title: string }, subject: SheetSubject, classical: ArtStyle): string {
-  const world = subject.kind === "character"
-    ? subject.eras.map((e) => `${e.people} ${e.dress}`).join(" ")
+  const character = subject.kind === "character";
+  // A brief's era text may name the work's lead ("a pinafore for Alice"); a character sheet leaves the name out there too.
+  const world = character
+    ? subject.eras.map((e) => `${e.people} ${e.dress}`).join(" ").replace(ownNamePattern(subject), "this character")
     : subject.eras.map((e) => e.buildingsAndObjects).join(" ");
   const head = { character: "Character reference sheet", location: "Location reference sheet", object: "Object reference sheet" }[subject.kind];
-  return `${head} for an illustrated edition of ${work.title}.
+  return `${head} for ${character ? "an illustrated edition of a classic book" : `an illustrated edition of ${work.title}`}.
 Art style: ${classical.label}. ${styleBriefText(classical)}
 World: ${world}
-${subject.kind.charAt(0).toUpperCase()}${subject.kind.slice(1)}: ${subject.text}
+${subject.kind.charAt(0).toUpperCase()}${subject.kind.slice(1)}: ${character ? `${withoutName(subject)} An original, invented face.` : subject.text}
 ${LAYOUT[subject.kind]}
 ${NO_TEXT}
 ${NO_LIKENESS}
@@ -125,6 +144,8 @@ async function makeWithCheck<T extends Verdict>(
   notesOf: (verdict: T) => string[],
   /** A fault the checker must never pass, whatever verdict it gave: returns the fixed retry reason, or null. */
   hardFault: (verdict: T) => string | null = () => null,
+  /** Rewrites the checker's reasons before they reach the next prompt (a character sheet keeps its name out). */
+  redact: (reason: string) => string = (reason) => reason,
 ): Promise<ReferenceOutcome> {
   const attempts: Attempt[] = [];
   let feedback = "";
@@ -172,14 +193,15 @@ async function makeWithCheck<T extends Verdict>(
         continue;
       }
     }
-    feedback = `\n\nA previous attempt was rejected because: ${check.value.reasons.join("; ")}. Fix these.`;
+    feedback = `\n\nA previous attempt was rejected because: ${check.value.reasons.map(redact).join("; ")}. Fix these.`;
   }
   return { ok: false, attempts, notes };
 }
 
 export function makeSheet(work: { title: string }, subject: SheetSubject, classical: ArtStyle, deps: Parameters<typeof makeWithCheck>[4]) {
   return makeWithCheck(`sheet:${subject.entryId}:${subject.stageId}`, sheetPrompt(work, subject, classical), sheetCheckQuestion(subject), sheetCheckSchema, deps, (v) => v.canon_notes,
-    (v) => (v.likeness_present ? LIKENESS_RETRY_REASON : null));
+    (v) => (v.likeness_present ? LIKENESS_RETRY_REASON : null),
+    (reason) => (subject.kind === "character" ? reason.replace(ownNamePattern(subject), "this character") : reason));
 }
 export function makeStyleReference(style: ArtStyle, mainEra: Era, deps: Parameters<typeof makeWithCheck>[4]) {
   return makeWithCheck(`styleref:${style.id}`, styleReferencePrompt(style, mainEra), STYLE_CHECK_QUESTION, styleCheckSchema, deps, () => []);

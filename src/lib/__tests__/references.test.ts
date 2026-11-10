@@ -10,7 +10,8 @@ import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { sheetSubjects, mainEra, sheetPrompt, sheetCheckQuestion, createReferenceBlobCache, LIKENESS_RETRY_REASON, type ImageMaker, type VisionChecker, type ActiveEntry, type ActiveSection } from "../engine/references";
 import { runReferences, planReferences, emptyReferenceState, ReferenceBudgetError, type ReferenceStore } from "../engine/references-run";
-import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
+import { readFileSync } from "node:fs";
+import { SHARED_STYLES, validateWorkBrief, type WorkBrief } from "../work-preparation";
 
 const SECRET = "s".repeat(40);
 process.env.CONVEX_SERVER_SECRET = SECRET;
@@ -91,9 +92,20 @@ describe("reference images", () => {
     expect(mainEra(activeSections, brief).id).toBe("late");
     const prompt = sheetPrompt({ title: "Two Books" }, subjects.find((s) => s.stageId === "young")!, SHARED_STYLES.get("classical"));
     expect(prompt).toContain("World: Fisherfolk. Rough wool.");
-    expect(prompt).toContain("Character: Jonah: young fisherman.");
+    // A character sheet describes the look without naming the character or the work, so no famous likeness is invited.
+    expect(prompt).toContain("Character: young fisherman. An original, invented face.");
+    expect(prompt).not.toContain("Jonah");
     expect(prompt).toContain("No likeness of any real actor");
     expect(prompt).not.toContain("Stone palace");
+  });
+
+  it("leaves a character's name out of its sheet prompt, including the era text of Alice's real brief", () => {
+    const alice = validateWorkBrief(JSON.parse(readFileSync("works/alice-in-wonderland/brief.json", "utf8")));
+    const prompt = sheetPrompt({ title: "Alice's Adventures in Wonderland" }, { entryId: "alice", stageId: "alice", kind: "character", name: "Alice",
+      text: "Alice: a young Victorian English girl of about seven; Alice wears a yellow frock.", version: "v", eras: alice.eras, sections: 30 }, SHARED_STYLES.get("classical"));
+    expect(prompt).not.toMatch(/Alice/);
+    expect(prompt).toContain("Character: a young Victorian English girl of about seven; this character wears a yellow frock. An original, invented face.");
+    expect(prompt).toContain("this character");
   });
 
   it("treats a real-person likeness as a hard fault and retries without naming anyone", async () => {
@@ -106,7 +118,7 @@ describe("reference images", () => {
     });
     const state = await runReferences({ workId: WORK, workTitle: "Two Books", brief, store, maker, checker, blobs, state: emptyReferenceState(WORK), saveState: async () => {}, budgetUsd: 5, styleVersions });
     expect(state.done["sheet:jonah:old"]).toMatchObject({ ok: true, attempts: 2 });
-    const retry = maker.prompts.filter((p) => p.includes("Character: Jonah: weathered sailor."));
+    const retry = maker.prompts.filter((p) => p.includes("Character: weathered sailor."));
     expect(retry).toHaveLength(2);
     expect(retry[1]).toContain(`A previous attempt was rejected because: ${LIKENESS_RETRY_REASON}. Fix these.`);
     expect(retry[1]).not.toContain("Famous Actor");
@@ -119,7 +131,7 @@ describe("reference images", () => {
   it("makes, checks, retries with feedback, records notes, and surfaces exhaustion as attention", async () => {
     const maker = fakeMaker();
     const checker = fakeChecker((key, n) => {
-      if (key === "sheet:jonah:young") return n === 1 ? { ...pass, text_present: true, verdict: "fail", reasons: ["letters on the sleeve"] } : { ...pass, canon_notes: ["beard greyer than canon"] };
+      if (key === "sheet:jonah:young") return n === 1 ? { ...pass, text_present: true, verdict: "fail", reasons: ["Jonah has letters on the sleeve"] } : { ...pass, canon_notes: ["beard greyer than canon"] };
       if (key === "sheet:the_lake:main") return { ...pass, frame_present: true, verdict: "fail", reasons: ["black divider reads as a frame"] };
       if (key.startsWith("styleref:")) return stylePass;
       return pass;
@@ -130,8 +142,10 @@ describe("reference images", () => {
     expect(state.done["sheet:jonah:young"]).toMatchObject({ ok: true, attempts: 2 });
     // Style references come first, since every image of a style uses one; the sheets follow, most-reused first.
     expect(maker.prompts.slice(0, 3).every((p) => p.startsWith("Style reference image"))).toBe(true);
-    expect(maker.prompts[3]).toContain("Character: Jonah: weathered sailor.");
-    expect(maker.prompts[maker.prompts.length - 1]).toContain("A previous attempt was rejected because: letters on the sleeve");
+    expect(maker.prompts[3]).toContain("Character: weathered sailor.");
+    // The checker saw the named canon; its reason reaches the next prompt without the name.
+    expect(maker.prompts[maker.prompts.length - 1]).toContain("A previous attempt was rejected because: this character has letters on the sleeve");
+    expect(maker.prompts[maker.prompts.length - 1]).not.toContain("Jonah");
     expect(state.done["sheet:the_lake:main"]).toMatchObject({ ok: false, attempts: 3 });
     expect(state.done["sheet:jonah:old"]).toMatchObject({ ok: true, attempts: 1 });
     expect(state.done["styleReference:classical"]).toMatchObject({ ok: true, attempts: 1 });
@@ -179,7 +193,7 @@ describe("reference images", () => {
     await t.mutation(api.analysis.pinReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "jonah:young", pinned: true });
     await runReferences({ workId: WORK, workTitle: "Two Books", brief, store, maker, checker, blobs, state: emptyReferenceState(WORK), saveState: async () => {}, budgetUsd: 5, styleVersions });
     expect(maker.prompts).toHaveLength(8);
-    expect(maker.prompts[7]).toContain("Jonah: weathered sailor, scarred.");
+    expect(maker.prompts[7]).toContain("Character: weathered sailor, scarred.");
     // A style file change makes only that style reference stale.
     const plan2 = await planReferences({ workId: WORK, brief, store, state: emptyReferenceState(WORK), styleVersions: { ...styleVersions, icon: "i2" } });
     expect(plan2.styles.map((s) => [s.styleId, s.status])).toEqual([["classical", "fresh"], ["watercolor", "fresh"], ["icon", "stale"]]);
