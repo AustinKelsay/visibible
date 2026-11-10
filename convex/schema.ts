@@ -137,12 +137,6 @@ const bulkGenerationScopeTypeValidator = v.union(
   v.literal("book")
 );
 
-const modelCostScopeTypeValidator = v.union(
-  v.literal("model"),
-  v.literal("provider"),
-  v.literal("global")
-);
-
 // Analysis storage (#168): everything the engine makes for a work, per deployment.
 const analysisSourceValidator = v.union(v.literal("generated"), v.literal("owner"));
 const analysisKindValidator = v.union(v.literal("section"), v.literal("moment"), v.literal("entry"));
@@ -467,18 +461,6 @@ export default defineSchema({
     p50Ms: v.optional(v.number()),
     updatedAt: v.number(),
   }).index("by_modelId", ["modelId"]),
-
-  // Learned image-credit estimates from before November 2026. Nothing reads or writes them any more; the rows are kept.
-  modelCostStats: defineTable({
-    scopeType: modelCostScopeTypeValidator,
-    scopeValue: v.string(), // modelId, provider ID, or "global"
-    resolution: v.string(),
-    sampleCredits: v.array(v.number()),
-    sampleCount: v.number(),
-    estimateCredits: v.number(),
-    lastActualCredits: v.number(),
-    updatedAt: v.number(),
-  }).index("by_scope_resolution", ["scopeType", "scopeValue", "resolution"]),
 
   // Rate limiting for API endpoints
   rateLimits: defineTable({

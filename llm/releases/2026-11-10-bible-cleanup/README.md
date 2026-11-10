@@ -32,7 +32,8 @@ No reader report was open.
 - **#400:** the image response drops planner fields; the reader stops sending theme and neighbouring verses; docs describe the lean engine.
 - **#401:** unused Convex arguments, the dead `modelCostStats` module, and the planner cost fields made optional.
 - **#402:** the engine mode defaults to public; the legacy retirement tooling is removed; a sole model shows as a label.
-- **This change:** drops the six retired cost-event fields, now that no server sends them. The production cost outbox was empty.
+- **#403:** drops the six retired cost-event fields, now that no server sends them. The production cost outbox was empty.
+- **Follow-ups:** the header's fallback button reads "Change settings" instead of "Choose model", and the `modelCostStats` table left the schema. Its 15 production rows are archived in [`model-cost-stats.jsonl`](model-cost-stats.jsonl); Convex refuses to delete a table still in the schema, so the rows are deleted with `delete_tables` once this schema is live.
 
 ## Loss
 

@@ -35,10 +35,6 @@ Server-secret reads are reserved for Next.js after cookie validation and for tru
 | `invoices:confirmPaymentInternal` | internalMutation | Internal | Convex internal dispatch only |
 | `invoices:confirmPayment` | action | Server | CONVEX_SERVER_SECRET |
 | `invoices:expireInvoice` | mutation | Server | CONVEX_SERVER_SECRET |
-| `modelCostStats:recordActualCost` | mutation | Server | CONVEX_SERVER_SECRET |
-| `modelCostStats:backfillFromGenerationRequests` | mutation | Server | CONVEX_SERVER_SECRET |
-| `modelCostStats:getEstimate` | query | Server | CONVEX_SERVER_SECRET |
-| `modelCostStats:getAllEstimates` | query | Server | CONVEX_SERVER_SECRET |
 | `modelStats:getModelStats` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
 | `modelStats:getAllModelStats` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
 | `modelStats:recordGeneration` | mutation | Server | CONVEX_SERVER_SECRET |

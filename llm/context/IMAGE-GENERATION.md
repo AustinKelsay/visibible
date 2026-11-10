@@ -36,7 +36,7 @@ Google documents 1,290 output tokens for Gemini 2.5 Flash Image. Gemini 3.1 Flas
 
 The verified registry covers the default, Nano Banana 2.1 (since [ADR 0012](../../docs/adr/0012-one-image-call-from-the-text.md)); Gemini 3.1 Flash Lite Image; Gemini 2.5 Flash Image; and the Gemini 3.1 Flash stable and preview identifiers. The [image model comparison](../research/2026-10-14-image-models.md) explains the default and why Gemini 3 Pro was removed. The catalog leaves out models outside the registry until their output units and request settings are verified. Explicit unsupported settings fail before reservation/provider work. `/api/image-models` offers only the default, since the engine generates on it whatever model a request names; a saved preference for another model is reset on load ([Preferences](PREFERENCES.md)).
 
-Discovery and admission use the same catalog quote. The learned per-model estimates (`modelCostStats`) are no longer recorded or read; their old rows stay in the table. The model-list GET starts no historical backfill.
+Discovery and admission use the same catalog quote. The learned per-model estimates (`modelCostStats`) were removed with their table on 10 November 2026; the last rows are archived in [the clean-up record](../releases/2026-11-10-bible-cleanup/model-cost-stats.jsonl). The model-list GET starts no historical backfill.
 
 A catalog outage may use a labeled last-known snapshot for at most six hours. Without one, choices are unavailable; the configured default is never inserted into a successful catalog that removed it. Selectors refetch when reopened. Scripture remains available during pricing failure.
 
