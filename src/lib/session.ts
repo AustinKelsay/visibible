@@ -8,7 +8,8 @@ export { getClientIp };
 // Validate all security secrets on module load
 validateSecurityEnv();
 
-const COOKIE_NAME = "visibible_session";
+export const SESSION_COOKIE_NAME = "visibible_session";
+const COOKIE_NAME = SESSION_COOKIE_NAME;
 const MINUTES_PER_DAY = 24 * 60;
 const HOURS_PER_DAY = 24;
 const DEFAULT_SESSION_IDLE_TIMEOUT_MINUTES = 7 * MINUTES_PER_DAY;

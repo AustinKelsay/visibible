@@ -79,6 +79,8 @@ function toEligibleScheduledImage(
   if (image.createdAt < windowStart || image.createdAt >= windowEnd) return null;
   if (!image.storageId || !image.reference || !image.verseText) return null;
   if (image.nostrEventId) return null;
+  // Posts link to a Bible verse page; an image of another work (Holmes, Alice) has no such page.
+  if (image.provenance && image.provenance.workId !== "bible-web") return null;
 
   return {
     imageId: image._id,

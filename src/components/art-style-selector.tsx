@@ -5,6 +5,7 @@ import { Check, ChevronDown, Palette } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { ART_STYLES, type ArtStyleAvailability } from "@/lib/art-styles";
 import type { PreferenceChangeSource } from "@/lib/analytics";
+import { imageModelsUrl, useEffectiveArtStyle, useWorkScope } from "@/context/work-scope-context";
 
 interface ArtStyleSelectorProps {
   variant?: "compact" | "full";
@@ -12,9 +13,15 @@ interface ArtStyleSelectorProps {
   source?: PreferenceChangeSource;
 }
 
-/** The reader's art style, beside the model (#177), in the style library's order; owner-only styles show as unavailable to readers. */
+/**
+ * The reader's art style, beside the model (#177), in the style library's order; owner-only styles show as unavailable to
+ * readers. On a prose work's page only that work's styles are offered.
+ */
 export function ArtStyleSelector({ variant = "compact", source = "art_style_selector" }: ArtStyleSelectorProps) {
-  const { artStyle, setArtStyle } = usePreferences();
+  const { setArtStyle } = usePreferences();
+  const scope = useWorkScope();
+  const { artStyle, offered } = useEffectiveArtStyle();
+  const catalogUrl = imageModelsUrl(scope);
   const [isOpen, setIsOpen] = useState(false);
   const [availability, setAvailability] = useState<ArtStyleAvailability[] | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -26,11 +33,11 @@ export function ArtStyleSelector({ variant = "compact", source = "art_style_sele
     if (!isOpen) { hasFetched.current = false; return; }
     if (hasFetched.current) return;
     hasFetched.current = true;
-    fetch("/api/image-models", { cache: "no-store" })
+    fetch(catalogUrl, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => { if (Array.isArray(data.artStyles)) setAvailability(data.artStyles); })
       .catch(() => { /* availability stays unknown; selection still works */ });
-  }, [isOpen]);
+  }, [isOpen, catalogUrl]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -40,7 +47,8 @@ export function ArtStyleSelector({ variant = "compact", source = "art_style_sele
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const options = availability ?? ART_STYLES.map((style) => ({ ...style, available: true, reason: null }));
+  const all = availability ?? ART_STYLES.map((style) => ({ ...style, available: true, reason: null }));
+  const options = offered ? offered.flatMap((id) => all.filter((style) => style.id === id)) : all;
   const current = options.find((style) => style.id === artStyle) ?? options[0];
 
   return (

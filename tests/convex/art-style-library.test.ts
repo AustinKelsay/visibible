@@ -114,4 +114,17 @@ describe("style-aware library", () => {
     expect([ids.g11Water, ids.g11Icon]).toContain(claim.candidate.imageId);
     expect(claim.candidate.verseText).toBe("WEB text of genesis-1-1");
   });
+
+  it("never selects a prose work's image for Nostr, whose posts link to a verse page", async () => {
+    const t = convexTest(schema, modules);
+    const storageId = await t.run((ctx) => ctx.storage.store(new Blob([new Uint8Array([1, 2, 3])], { type: "image/png" })));
+    const id = await t.mutation(internal.verseImages.saveImageWithStorage, {
+      verseId: "the-pool-of-tears-1", storageId, model: "google/gemini-nano-banana-2.1", reference: "The Pool of Tears ¶1", generationId: "alice-1",
+      verseText: "“Curiouser and curiouser!” cried Alice.", translationId: "alice-in-wonderland", engine: "generic", artStyleId: "watercolor",
+      provenance: { ...provenance("watercolor"), workId: "alice-in-wonderland", momentId: "the-pool-of-tears-1", sectionId: "the-pool-of-tears-1" },
+    });
+    await t.run(async (ctx) => { await ctx.db.patch(id, { createdAt: 2_000 }); });
+    const claim = await t.mutation(internal.nostrScheduler.claimScheduledImageForWindow, { windowStart: 1_500, windowEnd: 2_500, now: 5_000, randomValue: 0.5 });
+    expect(claim.status).toBe("no_candidates");
+  });
 });

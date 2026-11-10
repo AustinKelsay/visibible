@@ -180,4 +180,31 @@ describe("art style availability", () => {
     expect(publicMode.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", true], ["watercolor", true], ["fresco", true], ["storybook", true], ["icon", false]]);
     expect(publicMode.artStyles[4].reason).toMatch(/temporarily unavailable/);
   });
+
+  it("scopes availability to a prose work: its own readiness and styles, and nothing for readers while it is the owner's", async () => {
+    process.env = { ...originalEnv, OPENROUTER_API_KEY: "test-api-key", GENERIC_ENGINE_MODE: "public" };
+    mockFetchImageModels.mockResolvedValue({ models: [imageModelFixture()] });
+    const asked: unknown[] = [];
+    mockConvex.query.mockImplementation(async (_ref: unknown, args: Record<string, unknown>) => {
+      if ("workId" in args) { asked.push(args.workId); return { ready: true, reasons: [], activeGeneration: 4, briefVersion: "bv" }; }
+      return "sid" in args ? { sid: args.sid, tier: "admin" } : [];
+    });
+    const { GET } = await import("../../image-models/route");
+    const styles = async () => (await (await GET(new Request("http://localhost/api/image-models?work=alice-in-wonderland"))).json()).artStyles as Array<{ id: string; available: boolean; reason: string | null }>;
+
+    // A reader: Alice is still the owner's, so nothing is admitted.
+    mockValidateSession.mockResolvedValue({ valid: true, sid: "reader" });
+    mockConvex.query.mockImplementationOnce(async () => ({ sid: "reader", tier: "paid" }));
+    const reader = await styles();
+    expect(reader.every((style) => !style.available)).toBe(true);
+    expect(reader.find((style) => style.id === "watercolor")!.reason).toMatch(/not open to readers/);
+
+    // The owner: Alice's brief styles, read against Alice's analysis; Storybook is not one of them.
+    mockValidateSession.mockResolvedValue({ valid: true, sid: "owner" });
+    const owner = await styles();
+    expect(owner.map((style) => [style.id, style.available])).toEqual([["classical", true], ["watercolor", true], ["fresco", true], ["storybook", false], ["icon", false]]);
+    expect(owner.find((style) => style.id === "storybook")!.reason).toMatch(/not drawn in this style/);
+    expect(asked).toContain("alice-in-wonderland");
+    expect(asked).not.toContain("bible-web");
+  });
 });

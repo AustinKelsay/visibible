@@ -38,6 +38,7 @@ import { resolveHasCreditsAfterGeneration } from "@/lib/analytics-event-utils";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 import { computeImageGenerationProgress } from "@/lib/image-generation-progress";
 import { artStyleLabel, resolveArtStyle, type ArtStyleAvailability } from "@/lib/art-styles";
+import { imageModelsUrl, useEffectiveArtStyle, useWorkScope } from "@/context/work-scope-context";
 
 interface HeroImageProps {
   alt?: string;
@@ -49,7 +50,7 @@ interface HeroImageProps {
   book: string;
   chapter: number;
   verse: number;
-  testament: "old" | "new";
+  testament: "old" | "new" | "prose";
 }
 
 /**
@@ -214,10 +215,11 @@ function HeroImageWithConvex({
   verse,
   testament,
 }: HeroImageProps) {
-  // Create verse ID for Convex query
-  const verseId = currentReference ? createVerseId(currentReference) : null;
+  // Images are kept under the verse, or under a prose moment's first unit.
+  const scope = useWorkScope();
+  const verseId = scope ? scope.unitId : currentReference ? createVerseId(currentReference) : null;
   const [refreshToken, setRefreshToken] = useState(0);
-  const { artStyle } = usePreferences();
+  const { artStyle } = useEffectiveArtStyle();
   // The other-styles view is keyed to the verse and style it was opened for, so changing either returns to the style's own images.
   const [otherStylesViewKey, setOtherStylesViewKey] = useState<string | null>(null);
   const viewKey = `${verseId ?? ""}|${artStyle}`;
@@ -297,7 +299,10 @@ function HeroImageBase({
   showingOtherStyles = false,
   onToggleOtherStyles,
 }: HeroImageBaseProps) {
-  const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation, artStyle } = usePreferences();
+  const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation } = usePreferences();
+  const scope = useWorkScope();
+  const { artStyle, offered: offeredStyles } = useEffectiveArtStyle();
+  const catalogUrl = imageModelsUrl(scope);
   const isConvexEnabled = useConvexEnabled();
   const { tier, credits, buyCredits, isLoading: sessionLoading } = useSession();
   const { setCurrentImageId, setCaptionClamped, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
@@ -326,7 +331,7 @@ function HeroImageBase({
     setPricingLoaded(false);
 
     // Fetch models to get pricing for current model
-    fetch("/api/image-models", { cache: "no-store" })
+    fetch(catalogUrl, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         if (isCancelled) return;
@@ -362,7 +367,7 @@ function HeroImageBase({
     return () => {
       isCancelled = true;
     };
-  }, [imageModel]);
+  }, [imageModel, catalogUrl]);
 
   // Determine if user can generate (has sufficient credits or is admin)
   const baseCost = modelPricing.creditsCost ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
@@ -394,7 +399,7 @@ function HeroImageBase({
   const pricingAvailable = pricingLoaded && modelPricing.modelId === imageModel && modelPricing.creditsCost !== null && modelPricing.availability !== "unavailable";
   const pricingPending = isConvexEnabled && (!pricingLoaded || modelPricing.modelId !== imageModel);
   // An offered style the server is not admitting (rollback) disables generation in it; it is never swapped for Classical.
-  const resolvedStyle = resolveArtStyle(artStyle, styleAvailability);
+  const resolvedStyle = resolveArtStyle(artStyle, styleAvailability, offeredStyles);
   const styleAvailable = resolvedStyle.available !== false;
   const pricingUnavailable = pricingLoaded && !pricingPending && !pricingAvailable
     ? modelPricing.unavailableReason ?? "Image pricing is unavailable right now. Please try again shortly."
@@ -406,8 +411,7 @@ function HeroImageBase({
   const canAutoGenerate = pricingAvailable && styleAvailable && (isAdmin || (tier === "paid" && credits >= effectiveCost));
   const showCreditsCost = isConvexEnabled && !isAdmin && pricingAvailable;
 
-  // Create verse ID for Convex query
-  const verseId = currentReference ? createVerseId(currentReference) : null;
+  const verseId = scope ? scope.unitId : currentReference ? createVerseId(currentReference) : null;
 
   const hasTrackedImagesStateRef = useRef<string | null>(null);
 
@@ -646,6 +650,8 @@ function HeroImageBase({
         resolution: imageResolution,
         style: artStyle,
         requestId: clientRequestId,
+        // A prose moment names its work and unit; the reference is then only a label.
+        ...(scope ? { workId: scope.workId, unitId: scope.unitId } : {}),
       };
 
       // Pass the selected style's image count to add generation diversity
@@ -870,6 +876,7 @@ function HeroImageBase({
   }, [
     verseId,
     currentReference,
+    scope,
     artStyle,
     selectedStyleImageCount,
     imageModel,
@@ -1238,27 +1245,28 @@ function HeroImageBase({
   // stays in the same place on the first verse.
   const fullscreenVerseLinkClass =
     "min-h-[44px] px-3 inline-flex items-center gap-1 rounded-full text-sm text-white/90 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)] focus-ring";
+  const stepNoun = scope ? "passage" : "verse";
   const fullscreenVerseLinks = (
     <>
       {prevUrl ? (
-        <Link href={prevUrl} className={fullscreenVerseLinkClass} aria-label="Previous verse">
+        <Link href={prevUrl} className={fullscreenVerseLinkClass} aria-label={`Previous ${stepNoun}`}>
           <ChevronLeft size={18} strokeWidth={1.5} />
-          <span>Previous verse</span>
+          <span>Previous {stepNoun}</span>
         </Link>
       ) : (
         <span className={`${fullscreenVerseLinkClass} opacity-40 sm:hidden`} aria-hidden="true">
           <ChevronLeft size={18} strokeWidth={1.5} />
-          <span>Previous verse</span>
+          <span>Previous {stepNoun}</span>
         </span>
       )}
       {nextUrl ? (
-        <Link href={nextUrl} className={fullscreenVerseLinkClass} aria-label="Next verse">
-          <span>Next verse</span>
+        <Link href={nextUrl} className={fullscreenVerseLinkClass} aria-label={`Next ${stepNoun}`}>
+          <span>Next {stepNoun}</span>
           <ChevronRight size={18} strokeWidth={1.5} />
         </Link>
       ) : (
         <span className={`${fullscreenVerseLinkClass} opacity-40 sm:hidden`} aria-hidden="true">
-          <span>Next verse</span>
+          <span>Next {stepNoun}</span>
           <ChevronRight size={18} strokeWidth={1.5} />
         </span>
       )}

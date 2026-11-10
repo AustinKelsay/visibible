@@ -5,13 +5,16 @@ import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
 import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
 import { ART_STYLES, type ArtStyleAvailability } from "@/lib/art-styles";
+import { BIBLE_WORK_ID, canViewProseWork, findProseWork, type ProseWork } from "@/lib/works/catalog";
 import { api } from "../../../../convex/_generated/api";
 
 /**
  * Which art styles generation would admit right now (#177): the same decision the image route
  * makes at admission, so the reader is told before paying. Owner-only mode counts the session.
+ * With a prose work, its readiness decides, styles outside its brief are unavailable, and an
+ * owner-only work admits nothing for anyone else.
  */
-async function styleAvailability(request: Request | undefined, convex: ReturnType<typeof getConvexClient>): Promise<ArtStyleAvailability[]> {
+async function styleAvailability(request: Request | undefined, convex: ReturnType<typeof getConvexClient>, work: ProseWork | null): Promise<ArtStyleAvailability[]> {
   const mode = genericEngineMode();
   let isOwner = false;
   let readiness: Parameters<typeof decideEngine>[0]["readiness"] = null;
@@ -23,11 +26,13 @@ async function styleAvailability(request: Request | undefined, convex: ReturnTyp
         const record = await convex.query(api.sessions.getSession, { sid: session.sid, serverSecret: getConvexServerSecret() });
         isOwner = hasOwnerEngineAccess(record);
       }
-      const status = await convex.query(api.analysis.getWorkStatus, { workId: "bible-web" });
+      const status = await convex.query(api.analysis.getWorkStatus, { workId: work?.id ?? BIBLE_WORK_ID });
       readiness = { ready: status.ready, reasons: status.reasons, activeGeneration: status.activeGeneration, briefVersion: status.briefVersion };
     } catch (error) { console.error("Failed to read style availability:", error); }
   }
   return ART_STYLES.map((style) => {
+    if (work && !work.styleIds.includes(style.id)) return { ...style, available: false, reason: `${work.title} is not drawn in this style` };
+    if (work && !canViewProseWork(work, isOwner)) return { ...style, available: false, reason: "This book is not open to readers yet" };
     const decision = decideEngine({ mode, isOwner, styleId: style.id, readiness });
     return { ...style, available: decision.engine !== null, reason: decision.engine === null ? decision.reason : null };
   });
@@ -45,7 +50,10 @@ function quotedSettings(model: ImageModel) {
 export async function GET(request?: Request) {
   const key = process.env.OPENROUTER_API_KEY;
   const convex = getConvexClient();
-  const artStyles = await styleAvailability(request, convex);
+  // An unknown work is answered as the Bible would be, never as an error, so a stale page still prices images.
+  const workParam = request ? new URL(request.url).searchParams.get("work") : null;
+  const work = workParam && workParam !== BIBLE_WORK_ID ? findProseWork(workParam) : null;
+  const artStyles = await styleAvailability(request, convex, work);
   if (!key) {
     return NextResponse.json({ models: unavailableImageModels("Image generation is not configured"), artStyles,
       creditRange: null, error: "Image generation is not configured" },
