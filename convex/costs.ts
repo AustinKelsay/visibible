@@ -33,18 +33,11 @@ const imageCostEventArgs = {
   reference: v.string(),
   aspectRatio: v.string(),
   resolution: v.string(),
-  // Retired with the scene planner and the separate image price (ADR 0012): no longer sent; removed next release.
-  scenePlannerUsed: v.optional(v.boolean()),
-  scenePlanFromCache: v.optional(v.boolean()),
   usedFallbackEstimate: v.boolean(),
   estimatedCreditsCost: v.number(),
   estimatedCostUsd: v.number(),
   reservationCreditsCost: v.number(),
   reservationCostUsd: v.number(),
-  imageCreditsCost: v.optional(v.number()),
-  imageCostUsd: v.optional(v.number()),
-  scenePlannerCredits: v.optional(v.number()),
-  scenePlannerCostUsd: v.optional(v.number()),
   actualCreditsCost: v.number(),
   actualCostUsd: v.number(),
   openRouterUsageUsd: v.optional(v.number()),
@@ -64,17 +57,11 @@ type ImageCostEventPayload = {
   reference: string;
   aspectRatio: string;
   resolution: string;
-  scenePlannerUsed?: boolean;
-  scenePlanFromCache?: boolean;
   usedFallbackEstimate: boolean;
   estimatedCreditsCost: number;
   estimatedCostUsd: number;
   reservationCreditsCost: number;
   reservationCostUsd: number;
-  imageCreditsCost?: number;
-  imageCostUsd?: number;
-  scenePlannerCredits?: number;
-  scenePlannerCostUsd?: number;
   actualCreditsCost: number;
   actualCostUsd: number;
   openRouterUsageUsd?: number;
@@ -168,17 +155,11 @@ async function persistImageCostEvent(
         reference: args.reference,
         aspectRatio: args.aspectRatio,
         resolution: args.resolution,
-        ...(args.scenePlannerUsed !== undefined ? { scenePlannerUsed: args.scenePlannerUsed } : {}),
-        ...(args.scenePlanFromCache !== undefined ? { scenePlanFromCache: args.scenePlanFromCache } : {}),
         usedFallbackEstimate: args.usedFallbackEstimate,
         estimatedCreditsCost: args.estimatedCreditsCost,
         estimatedCostUsd: args.estimatedCostUsd,
         reservationCreditsCost: args.reservationCreditsCost,
         reservationCostUsd: args.reservationCostUsd,
-        ...(args.imageCreditsCost !== undefined ? { imageCreditsCost: args.imageCreditsCost } : {}),
-        ...(args.imageCostUsd !== undefined ? { imageCostUsd: args.imageCostUsd } : {}),
-        ...(args.scenePlannerCredits !== undefined ? { scenePlannerCredits: args.scenePlannerCredits } : {}),
-        ...(args.scenePlannerCostUsd !== undefined ? { scenePlannerCostUsd: args.scenePlannerCostUsd } : {}),
         actualCreditsCost: args.actualCreditsCost,
         actualCostUsd: args.actualCostUsd,
         openRouterUsageUsd: args.openRouterUsageUsd,
@@ -269,17 +250,11 @@ export const enqueueImageCostEventOutbox = action({
         reference: args.reference,
         aspectRatio: args.aspectRatio,
         resolution: args.resolution,
-        ...(args.scenePlannerUsed !== undefined ? { scenePlannerUsed: args.scenePlannerUsed } : {}),
-        ...(args.scenePlanFromCache !== undefined ? { scenePlanFromCache: args.scenePlanFromCache } : {}),
         usedFallbackEstimate: args.usedFallbackEstimate,
         estimatedCreditsCost: args.estimatedCreditsCost,
         estimatedCostUsd: args.estimatedCostUsd,
         reservationCreditsCost: args.reservationCreditsCost,
         reservationCostUsd: args.reservationCostUsd,
-        ...(args.imageCreditsCost !== undefined ? { imageCreditsCost: args.imageCreditsCost } : {}),
-        ...(args.imageCostUsd !== undefined ? { imageCostUsd: args.imageCostUsd } : {}),
-        ...(args.scenePlannerCredits !== undefined ? { scenePlannerCredits: args.scenePlannerCredits } : {}),
-        ...(args.scenePlannerCostUsd !== undefined ? { scenePlannerCostUsd: args.scenePlannerCostUsd } : {}),
         actualCreditsCost: args.actualCreditsCost,
         actualCostUsd: args.actualCostUsd,
         ...(args.openRouterUsageUsd !== undefined
