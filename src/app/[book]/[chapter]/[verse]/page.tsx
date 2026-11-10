@@ -10,7 +10,6 @@ import { VerseAnalytics } from "@/components/verse-analytics";
 import { PassageUnavailable } from "@/components/passage-unavailable";
 import { VersePageContent } from "@/components/verse-page-content";
 import { VerseViewProvider } from "@/context/verse-view-context";
-import { genesis1Theme } from "@/data/genesis-1";
 import { BibleApiLookupError, getChapter, getVerse } from "@/lib/bible-api";
 import { getTranslationFromCookies } from "@/lib/get-translation";
 import { MOBILE_VERSE_NAV_OFFSET } from "@/lib/mobile-verse-nav";
@@ -108,7 +107,7 @@ export default async function VersePage({ params }: VersePageProps) {
   const { prevUrl, nextUrl } = getNavigationUrls(location);
   const totalVerses = chapterData.verses.length;
 
-  // Fetch prev/next verse data for contextual prompts
+  // Neighbouring verses for the chat sidebar's context
   const prevLocation = getPreviousVerse(location);
   const nextLocation = getNextVerse(location);
 
@@ -133,10 +132,6 @@ export default async function VersePage({ params }: VersePageProps) {
     nextVerse,
   };
   const currentReference = `${bookData.name} ${location.chapter}:${location.verse}`;
-  const chapterTheme =
-    location.book.slug === "genesis" && location.chapter === 1
-      ? genesis1Theme
-      : undefined;
 
   return (
     <LayoutWrapper>
@@ -166,10 +161,7 @@ export default async function VersePage({ params }: VersePageProps) {
           totalVerses={totalVerses}
           prevUrl={prevUrl ?? undefined}
           nextUrl={nextUrl ?? undefined}
-          prevVerse={prevVerse}
-          nextVerse={nextVerse}
           currentReference={currentReference}
-          chapterTheme={chapterTheme}
           testament={bookData.testament}
           verses={chapterData.verses.map((item) => ({
             verse: item.verse,

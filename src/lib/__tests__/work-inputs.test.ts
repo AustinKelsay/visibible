@@ -6,7 +6,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { createWorkReader } from "../work-input";
 import { momentContext, momentForUnit, readWorkInputs, loadWorkInputs, clearWorkInputsCache } from "../engine/work-inputs";
-import { referenceIsCurrent } from "../engine/generation";
+import { referenceIsCurrent } from "../engine/lean-assemble";
 import { loadDepictionProfile } from "../engine/depiction";
 
 const workFile = {

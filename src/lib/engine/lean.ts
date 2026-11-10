@@ -1,5 +1,5 @@
 /**
- * The lean rendering candidate: one image prompt built straight from the source text, with no section look, scene
+ * The lean engine (ADR 0012): one image prompt built straight from the source text, with no section look, scene
  * plan, plan review or finished-image check. The image model reads the moment itself and decides the instant and
  * composition; the engine only supplies what the model cannot know: the work brief, the fixed canon of the section's
  * cast, their reference sheets and the art style. No model chooses the cast: every section member is offered, those

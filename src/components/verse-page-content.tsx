@@ -14,19 +14,6 @@ const VideoMode = dynamic(() => import("@/components/video-mode").then((module) 
   loading: () => <p className="p-8 text-center text-[var(--muted)]">Loading videos…</p>,
 });
 
-interface VerseContext {
-  number: number;
-  text: string;
-  reference?: string;
-}
-
-interface ChapterTheme {
-  setting: string;
-  palette: string;
-  elements: string;
-  style: string;
-}
-
 interface VersePageContentProps {
   bookSlug: string;
   bookName: string;
@@ -36,10 +23,7 @@ interface VersePageContentProps {
   totalVerses: number;
   prevUrl?: string;
   nextUrl?: string;
-  prevVerse?: VerseContext;
-  nextVerse?: VerseContext;
   currentReference: string;
-  chapterTheme?: ChapterTheme;
   testament: "old" | "new";
   verses: Array<{
     verse: number;
@@ -91,10 +75,7 @@ function VersePageBody({
   totalVerses,
   prevUrl,
   nextUrl,
-  prevVerse,
-  nextVerse,
   currentReference,
-  chapterTheme,
   testament,
   verses,
 }: VersePageContentProps) {
@@ -158,11 +139,8 @@ function VersePageBody({
         <HeroImage
           verseText={verseText}
           caption={verseText}
-          chapterTheme={chapterTheme}
           prevUrl={prevUrl}
           nextUrl={nextUrl}
-          prevVerse={prevVerse}
-          nextVerse={nextVerse}
           currentReference={currentReference}
           book={bookName}
           chapter={chapter}

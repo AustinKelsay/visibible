@@ -37,50 +37,14 @@ import {
 import { resolveHasCreditsAfterGeneration } from "@/lib/analytics-event-utils";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 import { computeImageGenerationProgress } from "@/lib/image-generation-progress";
-import { DEFAULT_ART_STYLE, artStyleLabel, resolveArtStyle, type ArtStyleAvailability } from "@/lib/art-styles";
-
-interface ChapterTheme {
-  setting: string;
-  palette: string;
-  elements: string;
-  style: string;
-}
-
-interface VerseContext {
-  number: number;
-  text: string;
-  reference?: string;
-}
-
-interface ScenePlan {
-  primarySubject: string;
-  action: string;
-  setting: string;
-  secondaryElements?: string;
-  mood?: string;
-  timeOfDay?: string;
-  composition?: string;
-}
-
-interface PromptInputs {
-  reference?: string;
-  aspectRatio?: string;
-  styleProfileId?: string;
-  scenePlan?: ScenePlan;
-  generationNumber?: number;
-  prevVerse?: VerseContext;
-  nextVerse?: VerseContext;
-}
+import { artStyleLabel, resolveArtStyle, type ArtStyleAvailability } from "@/lib/art-styles";
 
 interface HeroImageProps {
   alt?: string;
   caption?: string;
   verseText?: string;
-  chapterTheme?: ChapterTheme;
   prevUrl?: string;
   nextUrl?: string;
-  prevVerse?: VerseContext;
-  nextVerse?: VerseContext;
   currentReference?: string;
   book: string;
   chapter: number;
@@ -115,11 +79,8 @@ export function HeroImage({
   alt = "Scripture illustration",
   caption = "In the beginning",
   verseText,
-  chapterTheme,
   prevUrl,
   nextUrl,
-  prevVerse,
-  nextVerse,
   currentReference,
   book,
   chapter,
@@ -134,11 +95,8 @@ export function HeroImage({
         alt={alt}
         caption={caption}
         verseText={verseText}
-        chapterTheme={chapterTheme}
         prevUrl={prevUrl}
         nextUrl={nextUrl}
-        prevVerse={prevVerse}
-        nextVerse={nextVerse}
         currentReference={currentReference}
         book={book}
         chapter={chapter}
@@ -156,11 +114,8 @@ export function HeroImage({
       alt={alt}
       caption={caption}
       verseText={verseText}
-      chapterTheme={chapterTheme}
       prevUrl={prevUrl}
       nextUrl={nextUrl}
-      prevVerse={prevVerse}
-      nextVerse={nextVerse}
       currentReference={currentReference}
       book={book}
       chapter={chapter}
@@ -177,10 +132,8 @@ interface ConvexImageData {
   prompt?: string;
   reference?: string;
   verseText?: string;
-  chapterTheme?: ChapterTheme;
   generationNumber?: number;
   promptVersion?: string;
-  promptInputs?: PromptInputs;
   translationId?: string;
   provider?: string;
   providerRequestId?: string;
@@ -253,11 +206,8 @@ function HeroImageWithConvex({
   alt = "Scripture illustration",
   caption = "In the beginning",
   verseText,
-  chapterTheme,
   prevUrl,
   nextUrl,
-  prevVerse,
-  nextVerse,
   currentReference,
   book,
   chapter,
@@ -298,11 +248,8 @@ function HeroImageWithConvex({
       alt={alt}
       caption={caption}
       verseText={verseText}
-      chapterTheme={chapterTheme}
       prevUrl={prevUrl}
       nextUrl={nextUrl}
-      prevVerse={prevVerse}
-      nextVerse={nextVerse}
       currentReference={currentReference}
       book={book}
       chapter={chapter}
@@ -334,11 +281,8 @@ function HeroImageBase({
   alt = "Scripture illustration",
   caption = "In the beginning",
   verseText,
-  chapterTheme,
   prevUrl,
   nextUrl,
-  prevVerse,
-  nextVerse,
   currentReference,
   book,
   chapter,
@@ -556,14 +500,9 @@ function HeroImageBase({
     api.verseImages.recordImageImpression
   );
 
-  const generationPhaseLabel = generationRequestStatus?.status === "planning"
-    ? "Planning scene..."
-    : generationRequestStatus?.status === "generating"
-      ? "Generating image..."
-      : artStyle !== DEFAULT_ART_STYLE
-        // The generic engine prepares the section look and scene plan before a request is recorded.
-        ? "Preparing scene..."
-        : "Generating...";
+  const generationPhaseLabel = generationRequestStatus?.status === "generating"
+    ? "Generating image..."
+    : "Generating...";
 
   // Maximum number of retries before giving up
   const maxLoadAttempts = 3;
@@ -700,10 +639,6 @@ function HeroImageBase({
         ?.slice(csrfCookiePrefix.length);
 
       const payload: Record<string, unknown> = {
-        text: verseText,
-        theme: chapterTheme,
-        prevVerse,
-        nextVerse,
         reference: currentReference,
         model: imageModel,
         translation,
@@ -934,10 +869,6 @@ function HeroImageBase({
     }
   }, [
     verseId,
-    verseText,
-    chapterTheme,
-    prevVerse,
-    nextVerse,
     currentReference,
     artStyle,
     selectedStyleImageCount,

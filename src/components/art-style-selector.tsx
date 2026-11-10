@@ -12,7 +12,7 @@ interface ArtStyleSelectorProps {
   source?: PreferenceChangeSource;
 }
 
-/** The reader's art style, beside the model (#177): Classical, Ink & Watercolor, Byzantine Icon in the brief's order. */
+/** The reader's art style, beside the model (#177), in the style library's order; owner-only styles show as unavailable to readers. */
 export function ArtStyleSelector({ variant = "compact", source = "art_style_selector" }: ArtStyleSelectorProps) {
   const { artStyle, setArtStyle } = usePreferences();
   const [isOpen, setIsOpen] = useState(false);

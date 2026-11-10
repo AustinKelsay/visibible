@@ -1,6 +1,6 @@
 # Imported reference works
 
-[Work input](../../src/lib/work-input.ts) provides the generic engine's offline reference-text boundary. Generic image requests plan from these files and save their reference-text provenance. The Bible reader retains selected-translation fetching through the [Bible API](BIBLE-API.md); the legacy image path also keeps its existing passage fetching while available.
+[Work input](../../src/lib/work-input.ts) provides the generic engine's offline reference-text boundary. Image requests take the moment's text and its neighbours from these files and save their reference-text provenance. The Bible reader retains selected-translation fetching through the [Bible API](BIBLE-API.md), and the image route still resolves and validates the requested reference there before admission ([Image generation](IMAGE-GENERATION.md#request-lifecycle)).
 
 ## Reproduce the files
 
@@ -57,4 +57,4 @@ The selected source has 31,103 verse records. Romans 14:24–26 contains the clo
 
 WEB also leaves Luke 17:36, Acts 8:37, Acts 15:34 and Acts 24:7 blank in its main text. For these four IDs only, the importer uses the readings printed in WEB's own footnotes, explicitly retaining their variant attribution in each unit and moment. [The reading data](../../works/sources/web-footnotes.json) links each exact excerpt to its checked source snapshot. These are footnote variants, not claims about the edition's main text, and no text is borrowed from another translation. The importer requires the four blank markers to exist and rejects a changed arrangement. Any other missing/empty verse, duplicate or extra canonical verse fails instead of silently dropping or inventing text.
 
-Tests compare every output ID and reference against existing navigation helpers, verify the three relocated texts, and verify every reference resolves back to its unit. Existing URLs, saved images and scene-plan keys are untouched by this slice.
+Tests compare every output ID and reference against existing navigation helpers, verify the three relocated texts, and verify every reference resolves back to its unit. Existing URLs and saved images are untouched by this slice.

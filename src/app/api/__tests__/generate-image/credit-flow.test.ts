@@ -654,7 +654,9 @@ describe("Image Generation API Credit Flow", () => {
       expect(parts[2].image_url!.url).toBe(`data:image/jpeg;base64,${Buffer.from(`jpeg:${sheetBlob}`).toString("base64")}`);
       // Settled from actual usage ($0.01 → 2 credits) after a headroom reservation; nothing was prepared before the image.
       expect(result).toMatchObject({ engine: "generic", model: engineModelId, prompt, promptVersion: LEAN_PROMPT_VERSION, translationId: "web", requestTranslationId: "web", verseText: webText[1],
-        creditsCost: 2, usedActualCost: true, credits: 998, style: "watercolor", scenePlannerUsed: false, preparation: { calls: 0, referencesSent: 2, promptChars: prompt.length } });
+        creditsCost: 2, usedActualCost: true, credits: 998, style: "watercolor" });
+      expect(result).not.toHaveProperty("scenePlannerUsed");
+      expect(result).not.toHaveProperty("preparation");
       expect(result.estimatedCreditsCost).toBe(2);
       expect(mockState.sessions.get("test-session")!.credits).toBe(998);
       expect(getCallCount("reserveCredits")).toBe(1);
@@ -725,11 +727,10 @@ describe("Image Generation API Credit Flow", () => {
         expect(call.model).toBe(engineModelId);
         expect(call.modalities).toContain("image");
       }
-      // The engine reads the analysis but never asks for a look or plan's preparation status.
+      // The engine reads the analysis directly.
       const { getConvexClient } = await import("@/lib/convex-client");
       const queries = vi.mocked(getConvexClient).mock.results.flatMap((r) => vi.mocked((r.value as NonNullable<ReturnType<typeof getConvexClient>>).query).mock.calls.map(([ref]) => getFunctionName(ref)));
       expect(queries).toContain("analysis:getActiveRecord");
-      expect(queries).not.toContain("analysis:getPreparationStatus");
     });
 
     it("admits reference-bearing requests with the default model's live catalog shape and settles actual usage separately", async () => {
@@ -740,7 +741,7 @@ describe("Image Generation API Credit Flow", () => {
       const response = await POST(createGenerateImageRequest(body));
       expect(response.status).toBe(200);
       // $0.0336 image output + $0.0045 for 600 response text tokens + $0.00336 for two references + about $0.0017 of prompt = $0.0432, × 1.25 → 6 credits.
-      expect(await response.json()).toMatchObject({ estimatedCreditsCost: 6, creditsCost: 2, usedActualCost: true, preparation: { referencesSent: 2 } });
+      expect(await response.json()).toMatchObject({ estimatedCreditsCost: 6, creditsCost: 2, usedActualCost: true });
       expect(getCallCount("reserveCredits")).toBe(1);
       expect(imageCalls()).toHaveLength(1);
       expect((await storedRequests())[0].engineCommitments?.billingVersion).toBe("google-input-output-tokens-2026-10-20");
