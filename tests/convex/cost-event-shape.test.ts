@@ -2,10 +2,10 @@
  * Image cost events no longer carry the scene planner's fields or a separate image price (ADR 0012). During the
  * deploy that drops them, a server still on the previous release may send them, so both shapes must be accepted.
  */
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { convexTest } from "convex-test";
 import schema from "../../convex/schema";
-import { internal } from "../../convex/_generated/api";
+import { api, internal } from "../../convex/_generated/api";
 import { modules } from "./modules";
 
 const event = {
@@ -14,7 +14,21 @@ const event = {
   estimatedCreditsCost: 6, estimatedCostUsd: 0.06, reservationCreditsCost: 12, reservationCostUsd: 0.12, actualCreditsCost: 5, actualCostUsd: 0.05,
 };
 
+const SECRET = "test-server-secret-with-at-least-32-chars";
+afterEach(() => vi.unstubAllEnvs());
+
 describe("image cost event shape", () => {
+  it("leaves the retired fields out when the server action forwards an event without them", async () => {
+    vi.stubEnv("CONVEX_SERVER_SECRET", SECRET);
+    const t = convexTest(schema, modules);
+    await t.action(api.costs.enqueueImageCostEventOutbox, { ...event, serverSecret: SECRET });
+    const [row] = await t.run((ctx) => ctx.db.query("costEventOutbox").collect());
+    for (const field of ["scenePlannerUsed", "scenePlanFromCache", "imageCreditsCost", "imageCostUsd", "scenePlannerCredits", "scenePlannerCostUsd"]) {
+      expect(row.payload).not.toHaveProperty(field);
+    }
+    expect(row.payload).toMatchObject({ actualCreditsCost: 5, requestId: "r" });
+  });
+
   it("accepts an event without planner fields, and one from the previous release with them", async () => {
     const t = convexTest(schema, modules);
     await t.mutation(internal.costs.enqueueImageCostEventOutboxInternal, { payload: event });
