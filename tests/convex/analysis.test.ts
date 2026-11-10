@@ -171,27 +171,10 @@ describe("analysis generations", () => {
     expect(history.map((h) => [h.generation, h.source, h.status])).toEqual([[first, "owner", "retired"], [first, "generated", "superseded"]]);
   });
 
-  it("finds dependents that named an older input version after an owner edit", async () => {
+  it("finds reference sheets that named an older canon version after an owner edit", async () => {
     const generation = await prepare();
     await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
-    const look = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "a-scandal-in-bohemia-1" });
-    const lookPayload = { kind: "look" as const, sectionId: "a-scandal-in-bohemia-1", place: "Baker Street sitting-room", timeOfDay: "night", weather: "fog", light: "gaslight", clothing: "dressing-gown" };
-    const { version: lookVersion } = await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "a-scandal-in-bohemia-1", payload: lookPayload,
-      inputs: [{ kind: "section", recordId: "a-scandal-in-bohemia-1", version: look!.version }] });
-    const planPayload = { kind: "plan" as const, momentId: "a-scandal-in-bohemia-1", entries: [{ entryId: "sherlock_holmes", stageId: "main" }],
-      plan: { primarySubject: "Holmes by the fire", action: "gazes at the fire", setting: "sitting-room" } };
-    await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "a-scandal-in-bohemia-1", payload: planPayload,
-      inputs: [{ kind: "look", recordId: "a-scandal-in-bohemia-1", version: lookVersion }, { kind: "moment", recordId: "a-scandal-in-bohemia-1", version: "x" }] });
-    expect(await t.query(api.analysis.listStaleDependents, { workId: WORK, kind: "look", recordId: "a-scandal-in-bohemia-1" })).toEqual([]);
-
-    await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "a-scandal-in-bohemia-1", payload: { ...lookPayload, weather: "snow" } });
-    const stale = await t.query(api.analysis.listStaleDependents, { workId: WORK, kind: "look", recordId: "a-scandal-in-bohemia-1" });
-    expect(stale).toEqual([expect.objectContaining({ kind: "plan", recordId: "a-scandal-in-bohemia-1", usedVersion: lookVersion })]);
-
-    await t.mutation(api.analysis.clearRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "a-scandal-in-bohemia-1" });
-    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "a-scandal-in-bohemia-1" })).toBeNull();
-
-    // A sheet made from the old canon version shows up as stale too, with its pin state.
+    // A sheet made from the old canon version shows up as stale, with its pin state.
     const storageId = await t.run(async (ctx) => ctx.storage.store(new Blob(["jpeg"], { type: "image/jpeg" })));
     const holmes = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "sherlock_holmes" });
     await t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main", storageId,
@@ -344,14 +327,10 @@ describe("analysis generations", () => {
       const list = await listAnalysisRecords(t, WORK, first, "moment");
       expect(list).toHaveLength(31102);
       expect(new Set(list.map((r) => r.recordId)).size).toBe(31102);
-      await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "unit-31101", payload: { kind: "plan", momentId: "unit-31101", entries: [{ entryId: "sherlock_holmes", stageId: "main" }], plan: { primarySubject: "Holmes", action: "reads", setting: "room" } }, inputs: [] });
-      expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: first }))?.counts.plan).toBe(1);
-      // Owner corrections list stale dependents on the full Bible: only looks and plans are read, never the moments.
+      // Owner corrections list stale dependents on the full Bible: only references are read, never the moments.
       scanned = 0;
       expect(await t.run((ctx) => staleDependents({ ...ctx, db: bounded(ctx.db) }, { workId: WORK, kind: "entry", recordId: "sherlock_holmes" }))).toEqual([]);
       expect(scanned).toBeLessThan(5000);
-      await t.mutation(api.analysis.clearRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "unit-31101" });
-      expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: first }))?.counts.plan).toBe(0);
       const correction = await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "moment", recordId: "a-scandal-in-bohemia-1", payload: { kind: "moment", sectionId: "a-scandal-in-bohemia-1", firstUnit: "a-scandal-in-bohemia-1", lastUnit: "owner-end" } });
       const second = await prepare();
       const result = await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: second });

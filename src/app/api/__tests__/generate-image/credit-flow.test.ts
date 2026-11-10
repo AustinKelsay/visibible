@@ -564,9 +564,6 @@ describe("Image Generation API Credit Flow", () => {
     const syntheticPricing = { prompt: "0.0000001", completion: "0.0000004", image_output: "0.00001", image: "0.001" };
     const imageCalls = () => mockFetch.mock.calls.filter(([url]) => String(url).includes("chat/completions")).map(([, init]) => JSON.parse(String(init?.body)) as { model: string; modalities?: string[]; messages: Array<{ content: Array<{ type: string; text?: string; image_url?: { url: string } }> }> });
     const promptOf = (call: ReturnType<typeof imageCalls>[number]) => call.messages[0].content[0].text!;
-    const preparationSpend = () => requestDb.run((ctx) => ctx.db.query("preparationLedger").collect());
-    /** Looks and plans, which the lean engine never makes. */
-    const derivedRecords = async () => (await requestDb.run((ctx) => ctx.db.query("analysisRecords").collect())).filter((r) => r.kind === "look" || r.kind === "plan");
     const storedRequests = () => requestDb.run((ctx) => ctx.db.query("imageGenerationRequests").collect());
     const savedImages = () => requestDb.run((ctx) => ctx.db.query("verseImages").collect());
     const body = { requestId: "generic-1", reference: "Genesis 1:1", text: "In the beginning God created.", style: "watercolor" };
@@ -619,7 +616,6 @@ describe("Image Generation API Credit Flow", () => {
       expect(getCallCount("reserveCredits")).toBe(1);
       expect(getCallCount("deductCredits")).toBe(1);
       expect(getCallCount("logAdminUsage")).toBe(0);
-      expect(await preparationSpend()).toEqual([]);
     });
 
     it("renders a moment with references and WEB text, and another style of it", async () => {
@@ -662,8 +658,6 @@ describe("Image Generation API Credit Flow", () => {
       expect(getCallCount("reserveCredits")).toBe(1);
       expect(getCallCount("recordImageCostEvent")).toBe(1);
       expect(mockState.callHistory.find((c) => c.action === "recordImageCostEvent")!.args).toMatchObject({ styleProfileId: "watercolor", scenePlannerUsed: false, actualCreditsCost: 2 });
-      expect(await preparationSpend()).toEqual([]);
-      expect(await derivedRecords()).toEqual([]);
       // The request record carries the engine, its commitments and the exact packet snapshot.
       const [request] = await storedRequests();
       expect(request).toMatchObject({ engine: "generic", artStyleId: "watercolor", status: "succeeded", modelId: engineModelId, promptVersion: LEAN_PROMPT_VERSION,
@@ -692,8 +686,6 @@ describe("Image Generation API Credit Flow", () => {
       expect(classicalPrompt).toContain(`ART STYLE: ${classicalStyle.label}\n`);
       expect(classicalPrompt).not.toContain(`ART STYLE: ${watercolor.label}\n`);
       expect((await savedImages())[1].provenance!.references).toEqual([{ kind: "sheet", id: "adam:main", version: expect.any(String) }]);
-      expect(await preparationSpend()).toEqual([]);
-      expect(await derivedRecords()).toEqual([]);
     });
 
     it("refuses before any charge when a section cast member's canon is missing, since it may be a subject without form", async () => {
@@ -727,8 +719,6 @@ describe("Image Generation API Credit Flow", () => {
         expect(call.model).toBe(engineModelId);
         expect(call.modalities).toContain("image");
       }
-      expect(await preparationSpend()).toEqual([]);
-      expect(await derivedRecords()).toEqual([]);
       // The engine reads the analysis but never asks for a look or plan's preparation status.
       const { getConvexClient } = await import("@/lib/convex-client");
       const queries = vi.mocked(getConvexClient).mock.results.flatMap((r) => vi.mocked((r.value as NonNullable<ReturnType<typeof getConvexClient>>).query).mock.calls.map(([ref]) => getFunctionName(ref)));
@@ -749,7 +739,6 @@ describe("Image Generation API Credit Flow", () => {
       expect(imageCalls()).toHaveLength(1);
       expect((await storedRequests())[0].engineCommitments?.billingVersion).toBe("google-input-output-tokens-2026-10-20");
       expect(mockState.sessions.get("test-session")!.credits).toBe(998);
-      expect(await preparationSpend()).toEqual([]);
     });
 
     it("refuses a job item bound to the removed legacy engine before any record, reservation or provider call", async () => {
@@ -786,8 +775,6 @@ describe("Image Generation API Credit Flow", () => {
       expect((await storedRequests())[1].renderingPacket!.references.map((r) => r.id)).toEqual(["watercolor"]);
       // Nothing is prepared for either request: two image calls, no look or plan, no owner spend.
       expect(imageCalls()).toHaveLength(2);
-      expect(await derivedRecords()).toEqual([]);
-      expect(await preparationSpend()).toEqual([]);
     });
 
     it("rejects an over-budget prompt before any paid call and leaves an attention item", async () => {
@@ -839,7 +826,6 @@ describe("Image Generation API Credit Flow", () => {
       expect(statuses.every((status) => status === 200 || status === 202)).toBe(true);
       expect(imageCalls()).toHaveLength(1);
       expect(getCallCount("reserveCredits")).toBe(1);
-      expect(await preparationSpend()).toEqual([]);
       const replay = await POST(createGenerateImageRequest(body));
       expect(replay.status).toBe(200);
       expect(await replay.json()).toMatchObject({ reused: true, translationId: "web", verseText: webText[1], savedImageId: expect.any(String) });

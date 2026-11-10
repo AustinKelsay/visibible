@@ -1,10 +1,9 @@
 import { KNOWN_STYLE_IDS } from "./_helpers/styleIds";
-import { lookPolicy } from "../src/lib/engine/situation";
 /**
  * Analysis storage and lifecycle (#168, spec #165 §7 and §9).
  *
- * A work's analysis is everything the engine makes for it: story sections, moments, entries
- * (canon with stages), section looks and scene plans. Each record carries a content-hash
+ * A work's analysis is everything the engine makes for it: story sections, moments and entries
+ * (canon with stages). Each record carries a content-hash
  * version, a generated-or-owner source and the generation it belongs to, and names the input
  * versions it was made from. Full rereads are staged as a separate candidate generation and
  * activated only when complete and compatible with the deployed work and brief; until then the
@@ -60,22 +59,6 @@ async function currentKind(ctx: Ctx, workId: string, generation: number, kind: A
   ).collect();
 }
 
-/** Only the records needed to validate this payload, rather than every moment in the work. */
-async function dependencies(ctx: Ctx, workId: string, generation: number, payload: Payload) {
-  const refs: Array<[AnalysisKind, string]> = [];
-  if (payload.kind === "moment" || payload.kind === "look") refs.push(["section", payload.sectionId]);
-  if (payload.kind === "plan") {
-    refs.push(["moment", payload.momentId]);
-    refs.push(...payload.entries.map((e): [AnalysisKind, string] => ["entry", e.entryId]));
-  }
-  const records: Doc<"analysisRecords">[] = [];
-  for (const [kind, recordId] of refs) {
-    const record = await findCurrentRecord(ctx, workId, generation, kind, recordId);
-    if (record) records.push(record);
-  }
-  return records;
-}
-
 async function findCurrentRecord(ctx: Ctx, workId: string, generation: number, kind: AnalysisKind, recordId: string) {
   const matches = await ctx.db
     .query("analysisRecords")
@@ -123,8 +106,8 @@ function key(kind: string, recordId: string) {
 /**
  * The structural rules a generation must satisfy before it may serve: sections and entries
  * exist; sections and moments are anchored to their first unit; every moment names a section;
- * every cast member, look and plan names a record that exists; stage counts respect the kind, and an
- * entry a cast or plan uses has at least one stage (a mentioned-only entry may have none).
+ * every cast member names an entry stage that exists; stage counts respect the kind, and an entry a
+ * cast uses has at least one stage (a mentioned-only entry may have none).
  * Optional references and attention notes are deliberately not checked here (#168).
  */
 export function structuralProblems(records: ReadonlyArray<Pick<Doc<"analysisRecords">, "kind" | "recordId" | "payload">>): string[] {
@@ -139,7 +122,7 @@ export function structuralProblems(records: ReadonlyArray<Pick<Doc<"analysisReco
     if (p.kind === "entry") {
       entries++;
       const cap = p.entryKind === "object" ? 1 : MAX_CHARACTER_STAGES;
-      // An entry nothing draws (mentioned only) may have no stages; one a cast or plan uses must.
+      // An entry nothing draws (mentioned only) may have no stages; one a cast uses must.
       if (p.stages.length > cap) problems.push(`entry ${r.recordId}: ${p.stages.length} stages (allowed 1–${cap})`);
       entryStages.set(r.recordId, new Set(p.stages.map((s) => s.id)));
     }
@@ -158,14 +141,6 @@ export function structuralProblems(records: ReadonlyArray<Pick<Doc<"analysisReco
     } else if (p.kind === "moment") {
       if (r.recordId !== p.firstUnit) problems.push(`moment ${r.recordId}: id must be its first unit ${p.firstUnit}`);
       if (!byKey.has(key("section", p.sectionId))) problems.push(`moment ${r.recordId}: unknown section ${p.sectionId}`);
-    } else if (p.kind === "look") {
-      if (!byKey.has(key("section", p.sectionId))) problems.push(`look ${r.recordId}: unknown section ${p.sectionId}`);
-    } else if (p.kind === "plan") {
-      if (!byKey.has(key("moment", p.momentId))) problems.push(`plan ${r.recordId}: unknown moment ${p.momentId}`);
-      for (const e of p.entries) {
-        const stages = entryStages.get(e.entryId);
-        if (!stages?.has(e.stageId)) problems.push(`plan ${r.recordId}: unknown entry stage ${e.entryId}/${e.stageId}`);
-      }
     }
   }
   if (sections === 0) problems.push("no story sections");
@@ -173,9 +148,7 @@ export function structuralProblems(records: ReadonlyArray<Pick<Doc<"analysisReco
   return problems;
 }
 
-// ---------------------------------------------------------------- attention
-
-// ---------------------------------------------------------------- preparation (server)
+// ---------------------------------------------------------------- works and generations (server)
 
 /** Register a work and the content versions of its deployed repo inputs (work file and brief). */
 export const registerWork = mutation({
@@ -208,10 +181,9 @@ const withoutStyleIds = (text: string) => {
 
 /**
  * Approve a brief change that only changes its approved art styles, without a reread (ADR 0006, amendment 4).
- * Nothing in the analysis reads the style list (readings, canon, looks and plans use the brief's rules and eras),
- * so the active generation stays valid. Both brief files are sent whole: the previous one must hash to the
- * registered and active versions, and the two may differ only in `styleIds`. Cached looks and plans name the
- * brief version, so they refresh lazily afterwards.
+ * Nothing in the analysis reads the style list (readings and canon use the brief's rules and eras), so the
+ * active generation stays valid. Both brief files are sent whole: the previous one must hash to the registered
+ * and active versions, and the two may differ only in `styleIds`.
  */
 export const amendBriefStyles = mutation({
   args: {
@@ -341,7 +313,7 @@ export async function activateCandidate(ctx: MutationCtx, args: { serverSecret: 
   }
   const records = candidate.recordCounts === undefined
     ? await currentRecords(ctx, args.workId, args.generation)
-    : (await Promise.all((["entry", "section", "look", "plan"] as const).map((kind) => currentKind(ctx, args.workId, args.generation, kind)))).flat();
+    : (await Promise.all((["entry", "section"] as const).map((kind) => currentKind(ctx, args.workId, args.generation, kind)))).flat();
   const candidateByKey: RecordMap = new Map(records.map((r) => [key(r.kind, r.recordId), r]));
   // Decide first what would actually serve: candidate records, with owner versions carried in
   // wherever their record id survived the reread. Only that set is checked for structure.
@@ -357,16 +329,7 @@ export async function activateCandidate(ctx: MutationCtx, args: { serverSecret: 
   const unmatchedOwners = previous.filter((r) => !candidateByKey.has(key(r.kind, r.recordId)));
   const effective = new Map(candidateByKey);
   for (const owner of carriedOwners) effective.set(key(owner.kind, owner.recordId), owner);
-  // Plans may name moments omitted from the bulk scan. Validate their exact dependencies;
-  // owner moment replacements themselves are also checked against the effective sections.
-  for (const record of [...effective.values()]) {
-    if (record.payload.kind !== "plan") continue;
-    const id = key("moment", record.payload.momentId);
-    if (!effective.has(id)) {
-      const moment = await findCurrentRecord(ctx, args.workId, args.generation, "moment", record.payload.momentId);
-      if (moment) effective.set(id, moment);
-    }
-  }
+  // Owner moment replacements are checked against the effective sections.
   const problems = structuralProblems([...effective.values()]);
   if (problems.length) throw new Error(`Generation ${args.generation} is not structurally valid: ${problems.join("; ")}`);
 
@@ -530,141 +493,6 @@ export const correctRecord = mutation({
   },
 });
 
-/** Remove a derived record (a plan or look) from the active generation so it is remade lazily. */
-export const clearRecord = mutation({
-  args: { serverSecret: v.string(), workId: v.string(), kind: analysisValidators.derivedKind, recordId: v.string() },
-  handler: async (ctx, args) => {
-    validateServerSecret(args.serverSecret);
-    const work = await requireWork(ctx, args.workId);
-    if (work.activeGeneration === undefined) return { cleared: false };
-    const current = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
-    if (!current) return { cleared: false };
-    await ctx.db.patch(current._id, { status: "superseded" });
-    const generation = await findGeneration(ctx, args.workId, work.activeGeneration);
-    if (generation?.recordCounts) await ctx.db.patch(generation._id, { recordCounts: { ...generation.recordCounts, [args.kind]: (generation.recordCounts[args.kind] ?? 1) - 1 } });
-    return { cleared: true };
-  },
-});
-
-/** Add a derived record (look or plan) to the active generation at image time. */
-export const putDerivedRecord = mutation({
-  args: {
-    serverSecret: v.string(),
-    workId: v.string(),
-    kind: analysisValidators.derivedKind,
-    recordId: v.string(),
-    payload: analysisValidators.payload,
-    inputs: v.array(analysisValidators.input),
-  },
-  handler: async (ctx, args) => {
-    validateServerSecret(args.serverSecret);
-    const work = await requireWork(ctx, args.workId);
-    if (work.activeGeneration === undefined) throw new Error(`Work ${args.workId} has no active generation`);
-    requirePayloadKind(args.kind, args.payload);
-    const records = await dependencies(ctx, args.workId, work.activeGeneration, args.payload);
-    const problems = structuralProblems([...records, { kind: args.kind, recordId: args.recordId, payload: args.payload }]);
-    const own = problems.filter((p) => p.startsWith(`${args.kind} ${args.recordId}:`));
-    if (own.length) throw new Error(own.join("; "));
-    const existing = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
-    if (args.kind === "look" && existing?.source === "owner") throw new Error("Owner look requires explicit correction");
-    const policy = args.inputs.find((input) => input.kind === "prompt" && input.recordId === "scene_plan_look_ownership");
-    if (args.kind === "plan" && policy) {
-      const dependency = args.inputs.find((input) => input.kind === "look");
-      const look = dependency ? await findCurrentRecord(ctx, args.workId, work.activeGeneration, "look", dependency.recordId) : null;
-      if (!look || look.version !== dependency?.version || lookPolicy(look) !== policy.version) throw new Error("Section look changed during preparation");
-    }
-    const version = contentVersion(args.payload);
-    await writeVersion(ctx, existing, {
-      workId: args.workId, generation: work.activeGeneration, kind: args.kind, recordId: args.recordId, version,
-      source: "generated", inputs: args.inputs, payload: args.payload,
-    });
-    const generation = await findGeneration(ctx, args.workId, work.activeGeneration);
-    if (!existing && generation?.recordCounts) await ctx.db.patch(generation._id, { recordCounts: { ...generation.recordCounts, [args.kind]: (generation.recordCounts[args.kind] ?? 0) + 1 } });
-    return { version, generation: work.activeGeneration };
-  },
-});
-
-// ---------------------------------------------------------------- lazy preparation (server)
-
-/**
- * Claim the right to make a look or plan. The first caller holds the claim until it releases it
- * or the claim expires; later callers learn who holds it and wait for the record instead of
- * funding a second call. A claim is not needed for correctness, only to avoid paying twice.
- */
-export const claimPreparation = mutation({
-  args: { serverSecret: v.string(), workId: v.string(), kind: analysisValidators.derivedKind, recordId: v.string(), holder: v.string(), ttlMs: v.number() },
-  handler: async (ctx, args) => {
-    validateServerSecret(args.serverSecret);
-    const now = Date.now();
-    const existing = await ctx.db
-      .query("preparationClaims")
-      .withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId).eq("kind", args.kind).eq("recordId", args.recordId))
-      .collect();
-    const live = existing.find((c) => c.expiresAt > now);
-    for (const stale of existing.filter((c) => c.expiresAt <= now)) await ctx.db.delete(stale._id);
-    if (live) return { held: live.holder === args.holder, holder: live.holder, expiresAt: live.expiresAt };
-    await ctx.db.insert("preparationClaims", { workId: args.workId, kind: args.kind, recordId: args.recordId, holder: args.holder, expiresAt: now + args.ttlMs, createdAt: now });
-    return { held: true, holder: args.holder, expiresAt: now + args.ttlMs };
-  },
-});
-
-export const releasePreparation = mutation({
-  args: { serverSecret: v.string(), workId: v.string(), kind: analysisValidators.derivedKind, recordId: v.string(), holder: v.string() },
-  handler: async (ctx, args) => {
-    validateServerSecret(args.serverSecret);
-    const claims = await ctx.db
-      .query("preparationClaims")
-      .withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId).eq("kind", args.kind).eq("recordId", args.recordId))
-      .collect();
-    for (const claim of claims) if (claim.holder === args.holder) await ctx.db.delete(claim._id);
-    return { released: true };
-  },
-});
-
-/** Owner preparation spend, per call; never a guest charge. */
-export const recordPreparationSpend = mutation({
-  args: {
-    serverSecret: v.string(), workId: v.string(), kind: v.string(), recordId: v.string(), model: v.string(), outcome: v.string(),
-    costUsd: v.optional(v.number()), promptTokens: v.optional(v.number()), completionTokens: v.optional(v.number()), elapsedMs: v.optional(v.number()),
-  },
-  handler: async (ctx, args) => {
-    validateServerSecret(args.serverSecret);
-    const { serverSecret, ...entry } = args;
-    void serverSecret;
-    await ctx.db.insert("preparationLedger", { ...entry, createdAt: Date.now() });
-    return { recorded: true };
-  },
-});
-
-export const getPreparationSpend = query({
-  args: { workId: v.string() },
-  handler: async (ctx, args) => {
-    const entries = await ctx.db.query("preparationLedger").withIndex("by_work_createdAt", (q) => q.eq("workId", args.workId)).collect();
-    return { calls: entries.length, costUsd: entries.reduce((n, e) => n + (e.costUsd ?? 0), 0), byKind: entries.reduce<Record<string, number>>((acc, e) => ({ ...acc, [e.kind]: (acc[e.kind] ?? 0) + (e.costUsd ?? 0) }), {}) };
-  },
-});
-
-/** What a reader waiting on "Preparing scene" can be told: whether the look and plan exist or are being made. */
-export const getPreparationStatus = query({
-  args: { workId: v.string(), momentId: v.string() },
-  handler: async (ctx, args) => {
-    const work = await findWork(ctx, args.workId);
-    if (!work || work.activeGeneration === undefined) return { ready: false, look: "missing" as const, plan: "missing" as const, sectionId: null };
-    const moment = await findCurrentRecord(ctx, args.workId, work.activeGeneration, "moment", args.momentId);
-    const sectionId = moment && moment.payload.kind === "moment" ? moment.payload.sectionId : null;
-    const now = Date.now();
-    const state = async (kind: "look" | "plan", recordId: string | null) => {
-      if (!recordId) return "missing" as const;
-      if (await findCurrentRecord(ctx, args.workId, work.activeGeneration!, kind, recordId)) return "ready" as const;
-      const claims = await ctx.db.query("preparationClaims").withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId).eq("kind", kind).eq("recordId", recordId)).collect();
-      return claims.some((c) => c.expiresAt > now) ? ("preparing" as const) : ("missing" as const);
-    };
-    const look = await state("look", sectionId);
-    const plan = await state("plan", moment ? args.momentId : null);
-    return { ready: look === "ready" && plan === "ready", look, plan, sectionId };
-  },
-});
-
 // ---------------------------------------------------------------- references (server)
 
 /** Record a reference image blob (sheet or style reference) with the exact inputs it was made from. */
@@ -809,9 +637,9 @@ export const closeAttentionFor = mutation({
 });
 
 /**
- * Remove a work's generated analysis: records, generations, references and their blobs, claims
- * and open checker attention. Owner versions stay unless `includingOwner`, and the next activation
- * carries them forward. Saved images, requests and the spend ledger are never touched. The
+ * Remove a work's generated analysis: records, generations, references and their blobs, and open
+ * checker attention. Owner versions stay unless `includingOwner`, and the next activation
+ * carries them forward. Saved images and requests are never touched. The
  * confirmation must repeat the work id, and the command enforces the production flag.
  */
 export const wipeWork = mutation({
@@ -820,7 +648,7 @@ export const wipeWork = mutation({
     validateServerSecret(args.serverSecret);
     if (args.confirmation !== args.workId) throw new Error(`Confirmation must be the work id ${args.workId}`);
     const work = await requireWork(ctx, args.workId);
-    const counts = { records: 0, ownerKept: 0, generations: 0, references: 0, attention: 0, claims: 0 };
+    const counts = { records: 0, ownerKept: 0, generations: 0, references: 0, attention: 0 };
     const generations = await ctx.db.query("analysisGenerations").withIndex("by_work_generation", (q) => q.eq("workId", args.workId)).collect();
     for (const generation of generations) {
       const records = await ctx.db.query("analysisRecords").withIndex("by_work_generation_status", (q) => q.eq("workId", args.workId).eq("generation", generation.generation)).collect();
@@ -837,10 +665,6 @@ export const wipeWork = mutation({
       await ctx.storage.delete(reference.storageId).catch(() => undefined);
       await ctx.db.delete(reference._id);
       counts.references++;
-    }
-    for (const claim of await ctx.db.query("preparationClaims").withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId)).collect()) {
-      await ctx.db.delete(claim._id);
-      counts.claims++;
     }
     for (const item of await ctx.db.query("attentionItems").withIndex("by_work_status", (q) => q.eq("workId", args.workId).eq("status", "open")).collect()) {
       if (item.reason === "reader_report") continue;
@@ -964,31 +788,23 @@ export const listRecordHistory = query({
 });
 
 /**
- * Current records of the active generation, and current reference images, whose inputs name an
- * older version of the given record. Detection only: nothing is remade and saved images are
- * never touched. A pinned reference is listed with its pin so callers can leave it alone.
- */
-/**
- * Current looks, plans and references that name an older version of a record. Only looks and plans name other analysis
- * records as inputs (an entry's `prompt` input is not one), so the work's moments are never read: a full Bible's 31,102
- * moments would pass a transaction's 32,000-document limit.
+ * Current reference images whose inputs name an older version of a record, for targeted remaking. Detection
+ * only: nothing is remade and saved images are never touched. A pinned reference is listed with its pin so
+ * callers can leave it alone. No analysis record names another as an input (an entry's `prompt` input is not
+ * one), so the work's moments are never read: a full Bible's 31,102 moments would pass a transaction's
+ * 32,000-document limit.
  */
 export async function staleDependents(ctx: QueryCtx, args: { workId: string; kind: AnalysisKind; recordId: string }) {
   const work = await findWork(ctx, args.workId);
   if (!work || work.activeGeneration === undefined) return [];
   const current = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
-  const records = [...await currentKind(ctx, args.workId, work.activeGeneration, "look"), ...await currentKind(ctx, args.workId, work.activeGeneration, "plan")];
   // Only current references can be stale; superseded ones are history.
   const references = await ctx.db
     .query("referenceImages")
     .withIndex("by_work_status", (q) => q.eq("workId", args.workId).eq("status", "current"))
     .collect();
-  const stale: Array<{ kind: AnalysisKind | "sheet" | "styleReference"; recordId: string; version: string; usedVersion: string; pinned?: boolean }> = [];
+  const stale: Array<{ kind: "sheet" | "styleReference"; recordId: string; version: string; usedVersion: string; pinned?: boolean }> = [];
   const olderThanCurrent = (used: InputRef | undefined) => used !== undefined && (!current || used.version !== current.version);
-  for (const r of records) {
-    const used = r.inputs.find((i: InputRef) => i.kind === args.kind && i.recordId === args.recordId);
-    if (olderThanCurrent(used)) stale.push({ kind: r.kind, recordId: r.recordId, version: r.version, usedVersion: used!.version });
-  }
   for (const r of references) {
     const used = r.inputs.find((i: InputRef) => i.kind === args.kind && i.recordId === args.recordId);
     if (olderThanCurrent(used)) stale.push({ kind: r.kind, recordId: r.recordId, version: r.fingerprint, usedVersion: used!.version, pinned: r.pinned });

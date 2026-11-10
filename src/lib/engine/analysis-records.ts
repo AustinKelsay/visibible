@@ -10,7 +10,7 @@ export async function listAnalysisRecords(
   client: Pick<ConvexHttpClient, "query">,
   workId: string,
   generation: number,
-  kind: "entry" | "section" | "moment" | "look" | "plan",
+  kind: "entry" | "section" | "moment",
 ) {
   const records: FunctionReturnType<typeof api.analysis.listActiveRecordsPage>["records"] = [];
   let cursor: string | null = null;

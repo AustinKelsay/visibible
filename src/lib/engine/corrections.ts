@@ -229,7 +229,7 @@ export function createCorrections(client: CorrectionClient, api: AnalysisApi, wo
     },
 
     /** Mark a redone or corrected record's checker items closed; reader reports stay open. */
-    async settleAttention(kind: "sheet" | "styleReference" | "entry" | "look", recordId: string) {
+    async settleAttention(kind: "sheet" | "styleReference" | "entry", recordId: string) {
       return mutate<{ closed: number }>(api.closeAttentionFor, { kind, recordId, disposition: "source corrected" });
     },
 
