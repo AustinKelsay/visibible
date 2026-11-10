@@ -16,7 +16,7 @@ On 9 November 2026 the owner asked whether the consistency pipeline had grown to
 - **Subjects without form keep their work's wording** ([ADR 0010](0010-work-depiction-profiles.md)). Their names are replaced in every text the prompt carries, including other entries' canon and captions, and a rule tells the model that words giving such a subject a seat, clothing or a body are imagery.
 - **References:** the style reference and up to four sheets, for the best-ranked character, the best-ranked place, then the rest in rank order. A reference is used only when it is current for its inputs and its bytes load.
 - **Nano Banana 2.1 is the image model.** It follows reference sheets where Nano Banana 2 Lite drifts. Sheets and style references are still made on Lite.
-- **Same engine identity.** Requests stay `engine: "generic"`; the prompt version (`lean-v6` at this decision) tells the pipelines apart. The stored packet and provenance keep their shape, with `lookVersion` and `planVersion` reading `none`.
+- **Same engine identity.** Requests stay `engine: "generic"`; the prompt version (`lean-v6` at this decision) tells the pipelines apart. The stored packet and provenance kept their shape, with `lookVersion` and `planVersion` reading `none`; since 10 November 2026 new packets leave both out.
 
 ## Why
 

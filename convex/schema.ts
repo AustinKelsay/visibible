@@ -77,13 +77,14 @@ export const renderingPacketValidator = v.object({
   styleId: v.string(),
   styleVersion: v.string(),
   briefVersion: v.string(),
-  lookVersion: v.string(),
-  planVersion: v.string(),
+  // The full engine's section look and scene plan; absent since the lean engine stopped writing them (ADR 0012).
+  lookVersion: v.optional(v.string()),
+  planVersion: v.optional(v.string()),
   // The work's depiction profile (ADR 0010); absent on packets accepted before profiles.
   depictionVersion: v.optional(v.string()),
   canon: v.array(engineCanonRefValidator),
   references: v.array(engineReferenceRefValidator),
-  flags: v.object({ variationIncluded: v.boolean(), neighborsIncluded: v.boolean(), styleDetailIncluded: v.boolean(), lookDetailIncluded: v.boolean() }),
+  flags: v.object({ variationIncluded: v.boolean(), neighborsIncluded: v.boolean(), styleDetailIncluded: v.boolean(), lookDetailIncluded: v.optional(v.boolean()) }),
   budget: v.object({ maxChars: v.number(), finalChars: v.number() }),
 });
 export const imageProvenanceValidator = v.object({
@@ -94,8 +95,9 @@ export const imageProvenanceValidator = v.object({
   styleId: v.string(),
   styleVersion: v.string(),
   briefVersion: v.string(),
-  lookVersion: v.string(),
-  planVersion: v.string(),
+  // The full engine's section look and scene plan; absent since the lean engine stopped writing them (ADR 0012).
+  lookVersion: v.optional(v.string()),
+  planVersion: v.optional(v.string()),
   promptVersion: v.string(),
   // The work's depiction profile (ADR 0010); absent on images saved before profiles.
   depictionVersion: v.optional(v.string()),

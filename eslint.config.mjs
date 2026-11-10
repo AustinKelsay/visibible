@@ -16,6 +16,8 @@ const eslintConfig = defineConfig([
     "convex/_generated/**",
     // Test coverage output
     "coverage/**",
+    // Agent worktrees: other checkouts of this repository
+    ".claude/**",
   ]),
 ]);
 
