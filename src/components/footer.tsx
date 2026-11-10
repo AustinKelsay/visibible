@@ -14,6 +14,12 @@ export function Footer() {
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs sm:text-sm text-[var(--muted)]">
             <p>Free &amp; open source software.</p>
             <Link
+              href="/read"
+              className="hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
+            >
+              Library
+            </Link>
+            <Link
               href="/about"
               className="hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             >
