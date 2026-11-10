@@ -243,7 +243,7 @@ describe("HeroImage interactions", () => {
       if (args && typeof args === "object" && "verseId" in args) return imageHistory;
       return null;
     });
-    const generateFetch = vi.fn(async (_init?: RequestInit) => new Response(JSON.stringify({ requestId: "existing-request", reused: true, status: "generating" }), { status: 202 }));
+    const generateFetch = vi.fn<(init?: RequestInit) => Promise<Response>>(async () => new Response(JSON.stringify({ requestId: "existing-request", reused: true, status: "generating" }), { status: 202 }));
     const catalogFetch = globalThis.fetch;
     vi.stubGlobal("fetch", async (url: string, init?: RequestInit) => url.includes("generate-image") ? generateFetch(init) : catalogFetch(url));
     document.cookie = "visibible_csrf=" + "a".repeat(64);
