@@ -12,4 +12,14 @@ Convex checks stored rows against the schema on every deploy, so the schema cann
 1. Ship `convex/retirePreparation.ts`, a one-off internal mutation that deletes the rows above in batches and drops the tallies, then run it once with `npx convex run retirePreparation:run --prod`.
 2. Remove the preparation functions (`putDerivedRecord`, `clearRecord`, `claimPreparation`, `releasePreparation`, `recordPreparationSpend`, `getPreparationSpend`, `getPreparationStatus`), the look and plan record kinds, the two preparation tables, `src/lib/engine/situation.ts` and the cleanup itself.
 
+## Run
+
+Step 1 merged as #397 (`01b9190`). Its production deploy carried the cleanup, and two runs of `npx convex run --prod retirePreparation:run` emptied production (10 November 2026):
+
+- **First run:** `{"done":false,"records":100,"ledger":100,"claims":0}`. Its scheduled follow-ups deleted the rest and dropped the tallies.
+- **Second run:** `{"done":true,"records":0,"ledger":0,"claims":0,"counts":0}`.
+- **Fresh export afterwards:** `analysisRecords` holds only moments, sections and entries. Both preparation tables are empty, and the Bible generation counts `{entry: 1578, moment: 31102, section: 2790}`.
+
+The shared dev deployment held none of these rows; its run finished at once.
+
 Saved images keep their `lookVersion` and `planVersion` provenance; lean images record `none`.
