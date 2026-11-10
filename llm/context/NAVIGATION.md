@@ -26,7 +26,7 @@ The reader's image dock shows the selected style's images of a verse. When the v
 
 - **Who can open a work.** A work is the owner's preview until it is listed in `PUBLIC_PROSE_WORK_IDS` ([proseWorks.ts](../../convex/lib/proseWorks.ts)); the catalog reads that list. The owner here is an admin session ([viewer.ts](../../src/lib/works/viewer.ts)); the configured owner-check session is not enough.
   - For anyone else, an unopened work answers exactly like a work that does not exist: its pages are not found, the library leaves it out, image requests get the same 404, and `/api/image-models?work=` gives the Bible's answer.
-  - Convex's `getImageHistory` and `getLatestImage` leave out an unopened work's saved images unless the caller's guest token belongs to an admin session.
+  - Convex's image reads by verse id (`getImageHistory`, `getLatestImage`, `getChapterGallery`, `getChapterImageStatus`, `getChaptersWithImages`) leave out an unopened work's saved images unless the caller's guest token belongs to an admin session.
   - Holmes and Alice are unopened until the owner opens them.
 - **The passage page** ([prose-reader.tsx](../../src/components/prose-reader.tsx)) shows the image, the passage's paragraphs (Gutenberg's `_underscores_` as italics), and Previous, Contents and Next. The arrow keys and image swipes move between passages across chapters, as they move between verses.
 - **Work scope.** The page provides a [work scope](../../src/context/work-scope-context.tsx), and the shared controls read it:

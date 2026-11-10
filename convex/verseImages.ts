@@ -294,6 +294,13 @@ async function visibleImageFilter(ctx: QueryCtx) {
   };
 }
 
+/** Drop an unopened book's images unless the caller's guest session is an admin. */
+async function onlyVisible(ctx: QueryCtx, images: Doc<"verseImages">[]) {
+  const visible = await visibleImageFilter(ctx);
+  const shown = await Promise.all(images.map(visible));
+  return images.filter((_, index) => shown[index]);
+}
+
 /**
  * Get the most recent image for a verse.
  * Returns the image URL (storage signed URL or direct URL fallback).
@@ -365,12 +372,12 @@ export const getChapterImageStatus = query({
     const prefix = `${args.book.toLowerCase()}-${args.chapter}-`;
 
     // Use a prefix range so the index only scans this chapter's verseIds.
-    const images = await withStyleFilter(ctx.db
+    const images = await onlyVisible(ctx, await withStyleFilter(ctx.db
       .query("verseImages")
       .withIndex("by_verse", (q) =>
         q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
       ), normalizeStyleFilter(args))
-      .collect();
+      .collect());
 
     // Count images per verse for this chapter
     const imageCounts = new Map<number, number>();
@@ -407,12 +414,12 @@ export const getChapterGallery = query({
   handler: async (ctx, args) => {
     const prefix = `${args.book.toLowerCase()}-${args.chapter}-`;
 
-    const images = await withStyleFilter(ctx.db
+    const images = await onlyVisible(ctx, await withStyleFilter(ctx.db
       .query("verseImages")
       .withIndex("by_verse", (q) =>
         q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
       ), normalizeStyleFilter(args))
-      .collect();
+      .collect());
 
     const imageCounts = new Map<number, number>();
     const parsedImages: Array<{ verse: number; image: (typeof images)[number] }> = [];
@@ -522,12 +529,12 @@ export const getChaptersWithImages = query({
     const prefix = `${args.book.toLowerCase()}-`;
 
     // Use prefix range on by_verse index
-    const images = await withStyleFilter(ctx.db
+    const images = await onlyVisible(ctx, await withStyleFilter(ctx.db
       .query("verseImages")
       .withIndex("by_verse", (q) =>
         q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
       ), normalizeStyleFilter(args))
-      .collect();
+      .collect());
 
     const chaptersWithImages = new Set<number>();
 

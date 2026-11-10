@@ -360,8 +360,9 @@ export async function POST(request: Request) {
     aspectRatio, resolution, theme: requestBody.theme ?? null,
     generation: requestBody.generation ?? null, prevVerse: requestBody.prevVerse ?? null,
     nextVerse: requestBody.nextVerse ?? null,
-    // Only prose requests carry these, so Bible fingerprints (and their replays) are unchanged.
-    ...(requestBody.workId ? { workId: requestBody.workId, unitId: requestBody.unitId ?? null } : {}),
+    // Only prose requests carry these, so Bible fingerprints (and their replays) are unchanged, even when a Bible
+    // request names its work.
+    ...(requestBody.workId && requestBody.workId !== BIBLE_WORK_ID ? { workId: requestBody.workId, unitId: requestBody.unitId ?? null } : {}),
   })).digest("hex");
   const existingIntentResponse = (admission: FunctionReturnType<typeof api.verseImages.createGenerationRequest>) => {
     if (admission.conflict) {

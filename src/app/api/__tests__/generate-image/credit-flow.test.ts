@@ -507,6 +507,10 @@ describe("Image Generation API Credit Flow", () => {
         const replay = await POST(createGenerateImageRequest(body));
         expect(replay.status).toBe(200);
         expect(await replay.json()).toMatchObject({ reused: true, engine: "legacy" });
+        // Naming the Bible's own work id leaves the fingerprint, and so the replay, unchanged.
+        const named = await POST(createGenerateImageRequest({ ...body, workId: "bible-web" }));
+        expect(named.status).toBe(200);
+        expect(await named.json()).toMatchObject({ reused: true, engine: "legacy" });
         expect(seen).toHaveLength(0);
         // A new request goes to the generic engine seam.
         const generic = await POST(createGenerateImageRequest({ ...body, requestId: "generic-request", style: "watercolor" }));
