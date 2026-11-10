@@ -6,12 +6,18 @@
  */
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
 import type { ArtStyle } from "../work-preparation";
-import { referenceIsCurrent, type ReferenceRecord } from "./assemble";
 import { buildLeanRendering, leanCastMember, LEAN_PROMPT_MAX_CHARS, LEAN_PROMPT_VERSION, type LeanCastMember, type LeanRanked, type LeanReference, type LeanSelectedReference } from "./lean";
-import type { MomentContext } from "./preparation";
-import { momentContext, momentForUnit, type MomentRange, type WorkInputs } from "./work-inputs";
+import { momentContext, momentForUnit, type MomentContext, type MomentRange, type WorkInputs } from "./work-inputs";
 
 type Record_ = { recordId: string; version: string; payload: Record<string, unknown> & { kind: string } };
+
+/** A stored reference image: the blob, the inputs it was made from and whether the owner pinned it. */
+export type ReferenceRecord = { storageId: string; inputs: Array<{ kind: string; recordId: string; version: string }>; fingerprint: string; pinned: boolean };
+
+/** A reference is usable when pinned or when every input the engine knows about matches the current versions. */
+export function referenceIsCurrent(reference: ReferenceRecord, required: Array<{ kind: string; recordId: string; version: string }>) {
+  return reference.pinned || required.every((r) => reference.inputs.some((i) => i.kind === r.kind && i.recordId === r.recordId && i.version === r.version));
+}
 
 export type LeanAssembleDeps = {
   inputs: WorkInputs;

@@ -37,34 +37,28 @@ Section-to-era assignments are analysis output and are rejected as extra fields 
 
 ## Depiction profile
 
-`works/<work-id>/depiction.json` holds the wording the engine's image instructions and checks need that belongs to one work rather than to the engine ([ADR 0010](../../docs/adr/0010-work-depiction-profiles.md); [depiction.ts](../../src/lib/engine/depiction.ts)). It sits beside the brief but is not part of it: it is deployed with the build, versioned by content, never registered with the analysis, and changing it needs no brief amendment.
+`works/<work-id>/depiction.json` holds the wording the image prompt needs that belongs to one work rather than to the engine ([ADR 0010](../../docs/adr/0010-work-depiction-profiles.md); [depiction.ts](../../src/lib/engine/depiction.ts)). It sits beside the brief but is not part of it: it is deployed with the build, versioned by content, never registered with the analysis, and changing it needs no brief amendment.
 
 ```text
 schemaVersion: 1
 workId
 writingSurfaces      where writing appears, named in the no-writing rule ("scrolls, tablets, books, boards or halos")
-closedDocuments      the planner's instruction for written objects ("letters … stay folded or closed")
-inscribedObjects     the image check's examples of inscriptions ("tablets or scrolls")
 seriousSubjects      serious subjects beyond the floor's battles, blood and death (["crucifixion"])
-speakerExamples?     the planner's examples of a speaker drawn as a figure of their own words
 modes: { effects?, symbol? }  wording for subjects never drawn (effects) and subjects drawn only as their canon's non-human form (symbol)
 ```
 
 Every canon entry has a **depiction mode**. `form` entries are drawn from their canon. `effects` entries are never drawn, and the profile's `effects` wording covers every stage:
 
-- `alias` replaces their names in the image prompt.
-- `renderRule` and `renderBlock` are the rendering rule and the line added when one is selected.
-- `lookSystem`, `lookFields`, `planSystem` and `planField` are the look and plan instructions.
-- `reviewFault` is the review's `embodied_formless` problem.
-- `checkFigure` is the image check's figure-in-light fault.
+- `alias` replaces their names in every text the image prompt carries.
+- `renderRule` is a rule in every prompt of the work, and `renderBlock` the line added when the section's cast includes one.
 
-A work without `effects` wording has no such subjects: its prompts never mention them, its review cannot report them and its image check asks only about edges, frames and lettering. An `effects` entry in such a work stops preparation and rendering before any model call.
+A work without `effects` wording has no such subjects: its prompts never mention them, and an `effects` entry in such a work stops the image before any model call.
 
-`symbol` entries are drawn only in the non-human form their canon describes, such as Satan's red dragon, and never as a person. Their canon stays in the image prompt, but they are not named among the selected characters and get no sheet. The profile's `symbol.renderBlock` opens a line naming them, and `symbol.planSystem` instructs the planner, which sees each one's canon form. Only Satan uses it, by the owner's decision after its check (ADR 0010 amendment).
+`symbol` entries are drawn only in the non-human form their canon describes, such as Satan's red dragon, and never as a person. Their canon stays in the image prompt, but they get no sheet. The profile's `symbol.renderBlock` opens a line naming them. Only Satan uses it, by the owner's decision after its check (ADR 0010 amendment).
 
 The mode is stored as the entry's `hasForm` (`false` is `effects`; absent or `true` is `form`), plus `depiction: "symbol"` with `hasForm: false` for a symbol. `works:correct set-depiction` changes it ([Owner corrections](../workflow/OWNER-CORRECTIONS.md)).
 
-Fields are single-line text and unknown fields fail. Looks and plans record a version of only the wording they read, so a rendering-only change remakes nothing; the rendering packet and saved image record the whole profile's version. The Bible's profile is the engine's former wording verbatim. Holmes has no `effects` wording.
+Fields are single-line text and unknown fields fail. The rendering packet and saved image record the profile's version. The planner's, review's and image check's wording left the profiles with them ([ADR 0012](../../docs/adr/0012-one-image-call-from-the-text.md)). Holmes and Alice have no `effects` wording.
 
 ## Draft scope review and canon hints
 

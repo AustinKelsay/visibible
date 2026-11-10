@@ -5,7 +5,18 @@
  */
 import { extractOpenRouterUsageUsd, findResponseImageUrl } from "../image-response";
 import { supportsResolution } from "../image-models";
-import { EvalProviderError, type EvalImageProvider } from "./runner";
+
+export interface EvalImageProvider {
+  readonly id: string;
+  generate(request: { label: string; prompt: string; model: string; aspectRatio: string; resolution: string; /** Reference images attached after the prompt, in order. */ references?: Array<{ bytes: Uint8Array; mimeType: string }> }): Promise<{ bytes: Uint8Array; mimeType: string; costUsd: number | null; elapsedMs: number; providerRequestId?: string | null }>;
+}
+/** Keep the HTTP status so funding failures never depend on matching provider error text. */
+export class EvalProviderError extends Error {
+  constructor(readonly status: number, message: string) {
+    super(message);
+    this.name = "EvalProviderError";
+  }
+}
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
 

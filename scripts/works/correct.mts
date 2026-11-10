@@ -8,12 +8,10 @@
  *   npm run works:correct -- <work-id> remove-cast <sectionId> <entryId> [--expect <version>]   (wrongly assigned cast member)
  *   npm run works:correct -- <work-id> set-depiction <entryId> form|effects|symbol [--expect <version>]   (how the entry may be drawn; ADR 0010)
  *   npm run works:correct -- <work-id> set-kind <entryId> character|location|object [--expect <version>]
- *   npm run works:correct -- <work-id> edit-look <sectionId> [--place ..] [--time ..] [--weather ..] [--light ..] [--clothing ..] [--expect <version>]
  *   npm run works:correct -- <work-id> pin|unpin sheet|style <recordId>
  *   npm run works:correct -- <work-id> redo-sheet <entryId:stageId>            (owner-funded; refuses a pinned sheet)
  *   npm run works:correct -- <work-id> redo-style <styleId>
  *   npm run works:correct -- <work-id> redraft <entryId>                       (runs works:canon --redraft --activate)
- *   npm run works:correct -- <work-id> clear-plan <momentId>
  *   npm run works:correct -- <work-id> dismiss <attentionId> [--disposition ..]
  *   npm run works:correct -- <work-id> reports [--closed]                        (reader image reports)
  *   npm run works:correct -- <work-id> report <attentionId>                      (messages, history, image provenance)
@@ -40,7 +38,7 @@ import { createOpenRouterImageMaker, createOpenRouterVisionChecker } from "@/lib
 import { emptyReferenceState, runReferences, type ReferenceRunState, type ReferenceStore } from "@/lib/engine/references-run";
 
 const { values, positionals } = parseArgs({ allowPositionals: true, options: {
-  text: { type: "string" }, expect: { type: "string" }, place: { type: "string" }, time: { type: "string" }, weather: { type: "string" }, light: { type: "string" }, clothing: { type: "string" },
+  text: { type: "string" }, expect: { type: "string" },
   disposition: { type: "string" }, correction: { type: "string" }, check: { type: "string" }, closed: { type: "boolean", default: false }, "including-owner": { type: "boolean", default: false }, "confirm-production": { type: "boolean", default: false },
   budget: { type: "string", default: "1.00" }, run: { type: "string", default: "latest" },
   file: { type: "string" },
@@ -88,7 +86,6 @@ switch (command) {
   case "remove-cast": print(await corrections.removeCast(rest[0], rest[1], values.expect)); break;
   case "set-kind": print(await corrections.setKind(rest[0], rest[1], values.expect)); break;
   case "set-depiction": print(await corrections.setDepiction(rest[0], rest[1], (await readWorkInputs(workId, root)).depiction, values.expect)); break;
-  case "edit-look": print(await corrections.editLook(rest[0], { place: values.place, timeOfDay: values.time, weather: values.weather, light: values.light, clothing: values.clothing }, values.expect)); break;
   case "pin": case "unpin": {
     const kind = rest[0] === "style" ? "styleReference" : "sheet";
     print(await corrections.pin(kind, rest[1], command === "pin"));
@@ -131,7 +128,6 @@ switch (command) {
     print(await corrections.settleAttention("entry", rest[0]));
     break;
   }
-  case "clear-plan": print(await corrections.clearPlan(rest[0])); break;
   case "dismiss": print(await corrections.dismiss(rest[0], values.disposition ?? "dismissed")); break;
   case "reports": {
     const rows = await corrections.reports(values.closed ? "closed" : "open");

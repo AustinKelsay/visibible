@@ -133,19 +133,14 @@ export function buildLeanRendering(input: LeanInput): LeanResult {
   const references = selectLeanReferences(present, input.references, style.id).map((r) => ({ ...r, caption: nameless(r.caption) }));
   const prev = input.neighbors?.previous ? nameless(clip(input.neighbors.previous, NEIGHBOR_MAX_CHARS)) : null;
   const next = input.neighbors?.next ? nameless(clip(input.neighbors.next, NEIGHBOR_MAX_CHARS)) : null;
-  // The engine's rules, with the planner's cast rule replaced by the text's own.
-  // The work's effects rule is worded for a scene plan; here the moment stands in its place.
-  const unplanned = (text: string) => text.replace(/Only when it is selected may the (.+?) in the scene plan stand for it/u, "Only the $1 the moment names may stand for it")
-    .replace(/the scene plan names/gu, "the moment names").replace(/in the scene plan/gu, "in the moment");
-  const rules = engineRules(depiction).filter((rule) => !rule.startsWith("Show the SELECTED CHARACTERS")).map(unplanned);
-  rules.push("A character you draw from CANON keeps exactly that look. Anyone else the moment needs appears as an unnamed figure with an ordinary, different face.");
+  const rules = engineRules(depiction);
   const canonBlock = (title: string, members: LeanRanked[]) => members.length ? [title, ...members.map((m) => `- ${nameless(m.text)}`)].join("\n") : "";
   // The passage's places get their own block: a verse seldom names where it happens, and a place filed with the cast the
   // moment may leave out is redrawn from scratch in every image.
   const places = formed.filter((m) => m.kind === "location");
   const cast = [...formed.filter((m) => m.kind !== "location"), ...symbols];
   const aspect = { "16:9": "widescreen", "21:9": "ultra-wide", "3:2": "classic wide" }[input.aspectRatio];
-  const brief_ = briefBlock(brief, input.eraId, style.id).replace("it outranks the style, the look and the plan", "it outranks the style");
+  const brief_ = briefBlock(brief, input.eraId, style.id);
   const prompt = [
     `Paint one illustration of a single moment from ${input.work.title}.`,
     `RULES (they outrank everything below):\n${rules.map((rule, i) => `${i + 1}) ${rule}`).join("\n")}`,
@@ -153,7 +148,7 @@ export function buildLeanRendering(input: LeanInput): LeanResult {
     prev || next ? ["CONTEXT (for understanding only; paint the moment above):", ...(prev ? [`- Before: ${prev}`] : []), ...(next ? [`- After: ${next}`] : [])].join("\n") : "",
     "HOW TO READ IT: choose the single instant that best shows what happens in the moment and paint that, as if the viewer stands inside the scene. When someone speaks, show the speaker and listeners where they are; never paint the content of the speech as a separate scene or as figures beside them. Figures of speech and comparisons are not literal objects. Infer time, light, weather and any place not given under SETTING from the text and context.",
     alias ? nameless(brief_) : brief_,
-    effects ? unplanned(effects.renderBlock) : "",
+    effects ? effects.renderBlock : "",
     // The text itself may give the presence a seat, clothes, hair or hands; the planner used to keep those words out.
     alias && formless.some(isNamed) ? `IMAGERY, NOT FORM (binding): wherever the text calls something "${alias}", it has no body. Words that give it a seat, clothing, hair, face, hands, feet or a figure are imagery: paint none of them, not even as light or cloud in that shape. Show the place, the people who witness it, and the light, fire, cloud or wind spread through the place; any throne, seat or chariot stays empty.` : "",
     symbol ? `${symbol.renderBlock} ${symbols.map((m) => nameless(m.name)).join("; ")}.` : "",

@@ -1,6 +1,6 @@
 # Image evaluation fixtures
 
-The regression suite ([ADR 0011](../../docs/adr/0011-frozen-multi-work-regression-suite.md), `npm run evals:suite`) reads four things here:
+The regression suite ([ADR 0011](../../docs/adr/0011-frozen-multi-work-regression-suite.md), run with `npm run evals:lean` since [ADR 0012](../../docs/adr/0012-one-image-call-from-the-text.md)) reads four things here:
 
 - `suite.json`: the suite's version, seed, holdout share, works (where each analysis comes from, its image styles and consistency groups), random draws and gate.
 - `cases.json`: every case. `tuned` marks a case that shaped the engine before the suite (always dev), `drawn` one picked by a seeded draw, and `tiers` a case that takes part in only one tier.
@@ -15,7 +15,7 @@ Alice revision 3 replaces only the outfit sentence of Alice's own `alice` stage 
 
 The [original fixture](analyses/alice-in-wonderland.json) and frozen runs remain unchanged. Suite `2026-11-01-suite-v3` selects the [corrected fixture](analyses/alice-in-wonderland-v3.json), retaining v1's seed, cases and holdout split; the [v2 fixture](analyses/alice-in-wonderland-v2.json) stays for the runs that name it. A [fresh v2 text reference](../../llm/releases/2026-10-31-suite-v2-baseline-text/REVIEW.md) now exists, but its inspection is unblinded, its holdout exposed and its scorer packs unscored. It is not a quality-approved baseline. New comparisons need compatible v3 snapshots and preparation; do not transplant v1 or v2 guides/plans. The suite-version check rejects v1 and v2 `--from` runs. The v3 baselines are [2026-11-07-suite-v3-text](../../llm/releases/2026-11-07-suite-v3-text/README.md) and [2026-11-07-suite-v3-image](../../llm/releases/2026-11-07-suite-v3-image/README.md). Historical diagnostics that explicitly name the old file still use it. The [simplification investigation is closed](../../llm/context/SCENE-PREPARATION.md#closed-simplification-investigation), with no image follow-up scheduled. The fixture correction affects evaluation inputs only.
 
-`cases.json` is also the committed case set for `npm run evals:images` ([guide](../../llm/workflow/IMAGE_EVAL_AND_RELEASE.md)). Each case fixes a reference, genre, settings and the visual behaviour a reviewer expects; `work`, `unitId` and `styles` describe generic-engine cases. Runs write to `runs/<name>/` (ignored by git): `state.json`, `manifest.json`, `report.json`, `scores.json`, `contact-sheet.html` and `outputs/`. Comparisons write to `compare/`.
+Each case in `cases.json` fixes a reference, genre, settings and the visual behaviour a reviewer expects; `work`, `unitId` and `styles` place it in the suite. Runs write their images to `runs/<name>/` (ignored by git).
 
 Keep the Peter, Red Sea, Genesis and Holmes continuity cases; add cases rather than replacing them so baseline and candidate runs stay comparable.
 

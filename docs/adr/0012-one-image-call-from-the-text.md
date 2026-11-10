@@ -43,5 +43,5 @@ Earlier attempts to simplify removed parts of the full engine while keeping Lite
 - **More narrator figures.** With no planner, a prophet or author appears beside their own words more often (18 images against 13).
 - **Owner looks are no longer read.** Production held none at the switch (52 looks and 65 plans, all generated). Stored looks and plans stay as records of the images made from them.
 - **Bulk jobs** bound to the generic engine continue on the lean pipeline. None was running at the switch.
-- **Rollback** is promoting the previous deployment. The full engine's code stays in the repository until a later change removes it, once the lean engine has run in production.
+- **Rollback:** promote `dpl_fVVRrsY5DS3kZvetCpPMRUbiJv6W` (main `b69b40c`), the last production deployment on the full engine; any deployment made after the switch runs the lean engine. Its Convex functions stay deployed for that; its app code was removed afterwards (PR #395) and is in git history.
 - **What is measured.** The comparison changed pipeline and model together, its scorers were models, and its holdout is 49 images. Holmes and Alice, which are not served, did worse on places and on Alice's card people than the Bible did.

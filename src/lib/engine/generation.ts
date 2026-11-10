@@ -14,10 +14,9 @@ import { imageCapabilities, IMAGE_BILLING_VERSION } from "../image-catalog";
 import { extractNoImageText, extractOpenRouterUsageUsd, findResponseImageUrl, summarizeNoImageResponse } from "../image-response";
 import { logApiFailure, logApiTimeout, logInfo, logSettlementEvent, logWarn, redactSid } from "../observability";
 import { LEAN_PROMPT_VERSION } from "./lean";
-import { assembleLean } from "./lean-assemble";
 import { quoteGenericImage } from "./quote";
 import { createReferenceBlobCache } from "./references";
-import type { ReferenceRecord } from "./assemble";
+import { assembleLean, type ReferenceRecord } from "./lean-assemble";
 import { loadWorkInputs, type MomentRange, type WorkInputs } from "./work-inputs";
 import type { ConvexClient, GenericEngine, GenericGenerationInput, GenericGenerationOutcome } from "./dispatch";
 import { listAnalysisRecords } from "./analysis-records";
@@ -70,7 +69,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number, message: string): Promi
   return Promise.race([promise, timeout]).finally(() => { if (timer) clearTimeout(timer); });
 }
 
-export { referenceIsCurrent } from "./assemble";
+export { referenceIsCurrent } from "./lean-assemble";
 
 export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine {
   const loadInputs = deps.loadInputs ?? ((workId: string) => loadWorkInputs(workId));

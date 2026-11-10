@@ -5,6 +5,8 @@ date: 2026-10-30
 
 # A frozen regression suite across three works, gated fault by fault
 
+> Amended by [ADR 0012](0012-one-image-call-from-the-text.md): since 9 November 2026 there are no looks or plans, so there is no text tier. `npm run evals:lean` renders the suite's image cases through the request path's assembly from a frozen snapshot, scores them blind against a baseline and applies the same gate; `evals:suite`, its runner and the full engine's golden tests were removed, and [lean-engine-golden.test.ts](../../src/lib/__tests__/lean-engine-golden.test.ts) is the free tier. See [Image eval and release requirements](../../llm/workflow/IMAGE_EVAL_AND_RELEASE.md).
+
 On 30 October 2026 the owner approved point four of the engine critique and its quoted costs ("Yes let's go! Full send. Re-upping openrouter budget now."). Point four said:
 
 - Prompts were tuned on the same 33 Bible cases that judged them, so verse-specific fixes such as "the man standing in the gap" looked like progress.

@@ -16,7 +16,7 @@ These guides describe the repository's current behavior. Source links identify t
 | Saved images, shared history or remote image storage | [Image persistence](context/IMAGE-PERSISTENCE.md) |
 | A work's analysis: generations, canon versions, looks, plans, references and attention | [Analysis storage](context/ANALYSIS-STORAGE.md) |
 | Reading a work into sections, moments, a cast and a draft brief | [Work preparation](context/WORK-PREPARATION.md) |
-| Scene consistency, preparation or the closed simplification investigation | [Scene preparation](context/SCENE-PREPARATION.md): current responsibilities and retained decisions |
+| The removed per-moment preparation (looks, plans, review, image check) | [Scene preparation](context/SCENE-PREPARATION.md): what it was, what remains and where its history is |
 | Correcting a work's analysis after the fact, attention items, wiping a work | [Owner corrections runbook](workflow/OWNER-CORRECTIONS.md) |
 | Public image API | [Public API](context/PUBLIC-IMAGE-API.md) |
 | Chat streaming or context | [Chat](context/CHAT.md) |
@@ -40,7 +40,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Vercel deployment](workflow/VERCEL_WORKFLOWS.md)
 - [Proxy trust](workflow/PROXY_CONFIGURATION.md)
 - [Chat eval and release requirements](workflow/CHAT_EVAL_AND_RELEASE.md)
-- [Image eval and release requirements](workflow/IMAGE_EVAL_AND_RELEASE.md): the regression suite across the Bible, Holmes and Alice, its tiers and its per-fault gate
+- [Image eval and release requirements](workflow/IMAGE_EVAL_AND_RELEASE.md): the regression suite across the Bible, Holmes and Alice, run with `evals:lean`, and its per-fault gate
 - [Generic engine release, rollback and retirement runbook](workflow/ENGINE_RELEASE.md)
 - [Release status, closed investigation accounting and dated deployment evidence](releases/STATUS.md)
 - [Historical release records](releases/): consult the named experiment when reproducing a result; dated proposed next steps are not a current task queue.
