@@ -117,7 +117,12 @@ switch (command) {
     // --image installs an owner-chosen sheet through the same checker and storage instead of drawing a new one.
     const chosen = values.image ? await readFile(values.image) : null;
     if (chosen && kind !== "sheet") throw new Error("--image applies to redo-sheet only");
-    if (chosen && !(chosen[0] === 0xff && chosen[1] === 0xd8 && chosen[2] === 0xff)) throw new Error("--image must be a JPEG file");
+    if (chosen) {
+      // Decode it, so a file that only starts like a JPEG is refused before the paid check, and keep storage's 4 MiB limit.
+      const format = await (await import("sharp")).default(chosen).metadata().then((m) => m.format, () => null);
+      if (format !== "jpeg") throw new Error("--image must be a JPEG file");
+      if (chosen.length > 4 * 1024 * 1024) throw new Error(`--image is ${chosen.length} bytes; reference images are limited to 4 MiB`);
+    }
     // The chosen image is checked once: a rejected file is never offered again, so a retry cannot pass the same bytes.
     let offered = false;
     const maker = chosen

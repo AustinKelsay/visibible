@@ -55,10 +55,16 @@ const LAYOUT = {
   object: "Layout: the same object shown twice side by side on one plain, even mid-grey background: left, the whole object from a three-quarter angle; right, a close detail. Neutral, even light. No people, no hands, no animals.",
 };
 
-/** The canon text without its leading "Name:" label, so a character sheet describes a look rather than naming a famous figure. */
+/** Whole-word, case-insensitive mentions of an entry's own name. */
+function ownNamePattern(subject: SheetSubject) {
+  return new RegExp(`(?<![\\p{L}\\p{N}])${subject.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\p{L}\\p{N}])`, "giu");
+}
+
+/** The canon text without its leading "Name:" label or later mentions of the name, so a character sheet describes a look rather than naming a famous figure. */
 function withoutName(subject: SheetSubject): string {
   const label = `${subject.name}:`;
-  return subject.text.toLowerCase().startsWith(label.toLowerCase()) ? subject.text.slice(label.length).trim() : subject.text;
+  const text = subject.text.toLowerCase().startsWith(label.toLowerCase()) ? subject.text.slice(label.length).trim() : subject.text;
+  return text.replace(ownNamePattern(subject), "this character");
 }
 
 /**
@@ -69,9 +75,8 @@ function withoutName(subject: SheetSubject): string {
 export function sheetPrompt(work: { title: string }, subject: SheetSubject, classical: ArtStyle): string {
   const character = subject.kind === "character";
   // A brief's era text may name the work's lead ("a pinafore for Alice"); a character sheet leaves the name out there too.
-  const ownName = new RegExp(`(?<![\\p{L}\\p{N}])${subject.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\p{L}\\p{N}])`, "giu");
   const world = character
-    ? subject.eras.map((e) => `${e.people} ${e.dress}`).join(" ").replace(ownName, "this character")
+    ? subject.eras.map((e) => `${e.people} ${e.dress}`).join(" ").replace(ownNamePattern(subject), "this character")
     : subject.eras.map((e) => e.buildingsAndObjects).join(" ");
   const head = { character: "Character reference sheet", location: "Location reference sheet", object: "Object reference sheet" }[subject.kind];
   return `${head} for ${character ? "an illustrated edition of a classic book" : `an illustrated edition of ${work.title}`}.

@@ -31,7 +31,18 @@ Holmes, Watson and Alice are the same people from image to image in both styles.
 
 ## Spend
 
-$8.85 of the $10, by the production key's usage. That covers Holmes sheet attempts and probes, Alice's preparation and sheets, and three image checks ($1.33, $2.90 and $0.91). Each check's `ledger.json` and `funding.json` sit in its folder.
+**$9.17 of the $10**, by the production key's usage at the end of the phase. It covers:
+
+- Holmes sheet attempts and probes;
+- Alice's preparation, sheets and remakes;
+- the three image checks, ledgered at $1.33, $2.90 and $0.91;
+- the abandoned generation-3 restage, which redrafted some canon and is not separately ledgered.
+
+The "spent before this run" figures in each `funding.json` were running estimates made at the time. The key's usage is the authority.
+
+## Scoring packs
+
+The blind packs (`scoring/items.json` in each run) were built by hand in the suite's rubric format rather than by `evals:lean -- blind`, since there was no second arm to mix in. Image paths are relative to the repository's ignored `evals/images/runs/` folder; copies of the images are kept outside the repository.
 
 ## Next
 

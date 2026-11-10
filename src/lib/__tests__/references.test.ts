@@ -102,9 +102,9 @@ describe("reference images", () => {
   it("leaves a character's name out of its sheet prompt, including the era text of Alice's real brief", () => {
     const alice = validateWorkBrief(JSON.parse(readFileSync("works/alice-in-wonderland/brief.json", "utf8")));
     const prompt = sheetPrompt({ title: "Alice's Adventures in Wonderland" }, { entryId: "alice", stageId: "alice", kind: "character", name: "Alice",
-      text: "Alice: a young Victorian English girl of about seven.", version: "v", eras: alice.eras, sections: 30 }, SHARED_STYLES.get("classical"));
+      text: "Alice: a young Victorian English girl of about seven; Alice wears a yellow frock.", version: "v", eras: alice.eras, sections: 30 }, SHARED_STYLES.get("classical"));
     expect(prompt).not.toMatch(/Alice/);
-    expect(prompt).toContain("Character: a young Victorian English girl of about seven. An original, invented face.");
+    expect(prompt).toContain("Character: a young Victorian English girl of about seven; this character wears a yellow frock. An original, invented face.");
     expect(prompt).toContain("this character");
   });
 
