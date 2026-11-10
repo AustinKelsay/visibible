@@ -10,7 +10,8 @@ import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { sheetSubjects, mainEra, sheetPrompt, sheetCheckQuestion, createReferenceBlobCache, LIKENESS_RETRY_REASON, type ImageMaker, type VisionChecker, type ActiveEntry, type ActiveSection } from "../engine/references";
 import { runReferences, planReferences, emptyReferenceState, ReferenceBudgetError, type ReferenceStore } from "../engine/references-run";
-import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
+import { readFileSync } from "node:fs";
+import { SHARED_STYLES, validateWorkBrief, type WorkBrief } from "../work-preparation";
 
 const SECRET = "s".repeat(40);
 process.env.CONVEX_SERVER_SECRET = SECRET;
@@ -96,6 +97,15 @@ describe("reference images", () => {
     expect(prompt).not.toContain("Jonah");
     expect(prompt).toContain("No likeness of any real actor");
     expect(prompt).not.toContain("Stone palace");
+  });
+
+  it("leaves a character's name out of its sheet prompt, including the era text of Alice's real brief", () => {
+    const alice = validateWorkBrief(JSON.parse(readFileSync("works/alice-in-wonderland/brief.json", "utf8")));
+    const prompt = sheetPrompt({ title: "Alice's Adventures in Wonderland" }, { entryId: "alice", stageId: "alice", kind: "character", name: "Alice",
+      text: "Alice: a young Victorian English girl of about seven.", version: "v", eras: alice.eras, sections: 30 }, SHARED_STYLES.get("classical"));
+    expect(prompt).not.toMatch(/Alice/);
+    expect(prompt).toContain("Character: a young Victorian English girl of about seven. An original, invented face.");
+    expect(prompt).toContain("this character");
   });
 
   it("treats a real-person likeness as a hard fault and retries without naming anyone", async () => {

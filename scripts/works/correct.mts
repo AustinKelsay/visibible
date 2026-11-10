@@ -117,8 +117,15 @@ switch (command) {
     // --image installs an owner-chosen sheet through the same checker and storage instead of drawing a new one.
     const chosen = values.image ? await readFile(values.image) : null;
     if (chosen && kind !== "sheet") throw new Error("--image applies to redo-sheet only");
+    if (chosen && !(chosen[0] === 0xff && chosen[1] === 0xd8 && chosen[2] === 0xff)) throw new Error("--image must be a JPEG file");
+    // The chosen image is checked once: a rejected file is never offered again, so a retry cannot pass the same bytes.
+    let offered = false;
     const maker = chosen
-      ? { id: "owner-chosen", generate: async () => ({ bytes: new Uint8Array(chosen), mimeType: "image/jpeg", costUsd: 0, elapsedMs: 0 }) }
+      ? { id: "owner-chosen", generate: async () => {
+          if (offered) throw new Error("the owner-chosen image was rejected by the sheet check");
+          offered = true;
+          return { bytes: new Uint8Array(chosen), mimeType: "image/jpeg", costUsd: 0, elapsedMs: 0 };
+        } }
       : createOpenRouterImageMaker({ apiKey });
     const result = await runReferences({ workId, workTitle: work.title, brief, store, maker, checker: createOpenRouterVisionChecker({ apiKey }), blobs, state,
       saveState: async (next) => { await writeFile(statePath, JSON.stringify(next, null, 1)); }, budgetUsd, styleVersions, only: [rest[0]], log: (line) => console.log(line) });
