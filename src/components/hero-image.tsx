@@ -397,7 +397,7 @@ function HeroImageBase({
   const resolvedStyle = resolveArtStyle(artStyle, styleAvailability);
   const styleAvailable = resolvedStyle.available !== false;
   const pricingUnavailable = pricingLoaded && !pricingPending && !pricingAvailable
-    ? modelPricing.unavailableReason ?? "Image pricing unavailable. Choose an available model."
+    ? modelPricing.unavailableReason ?? "Image pricing is unavailable right now. Please try again shortly."
     : pricingLoaded && !pricingPending && !styleAvailable
       ? `${artStyleLabel(artStyle)} is temporarily unavailable for new images. Saved images stay available; choose another style to generate.`
       : undefined;
