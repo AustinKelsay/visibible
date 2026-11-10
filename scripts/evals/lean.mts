@@ -1,31 +1,39 @@
 /**
- * The lean-engine comparison: does one image call from the source text (src/lib/engine/lean.ts, no look, plan, review
- * or image check) on a stronger model match the full engine's suite images? It reuses a suite text run's frozen
- * snapshot (canon, sections and reference sheets), so against a full-engine run of the same snapshot the two arms
- * differ only in pipeline and model.
+ * The image regression suite on the lean engine (ADR 0011, ADR 0012): one image call from the source text
+ * (src/lib/engine/lean.ts), rendered through the request path's own assembly from a frozen snapshot of each work's
+ * canon, sections and reference sheets. Against a run of the same snapshot, two arms differ only in what changed.
  *
+ *   npm run evals:lean -- snapshot --run <name>
  *   npm run evals:lean -- cast --from <suite text run>
- *   npm run evals:lean -- plan --run <name> --from <suite text run> --model <id> [--cap <usd>] [--cases <ids>] [--styles <ids>]
+ *   npm run evals:lean -- plan --run <name> --from <snapshot run> --model <id> [--cap <usd>] [--cases <ids>] [--styles <ids>]
  *   npm run evals:lean -- run --run <name> --offline|--execute [--resume]
  *   npm run evals:lean -- blind --run <name> --baseline <dir with the full engine's results.ndjson> --baseline-images <dir> [--batches <n>]
  *   npm run evals:lean -- report --run <name> --scores <a>[,…],<b>[,…] [--operator <file>]
- *   npm run evals:lean -- pairing --run <name> --baseline <dir> --out <dir>
+ *   npm run evals:lean -- pairing --run <name> --out <dir> [--baseline <dir>]
  *   npm run evals:lean -- pool --run <name> --out <dir> [--batches <n>]
  *   npm run evals:lean -- unpool --out <dir> --scores <pooled score files>
  *
- * `cast` compares name-based cast selection with the text run's planned casts, free. `plan` writes the cases, the
- * estimate and the cap; `run --execute` needs a committed `funding.json` beside it and ledgers every call. `blind`
+ * `snapshot` reads each work's analysis once, read-only, from production (Bible, Holmes) or from its committed fixture
+ * (Alice), with the reference images production would attach, into llm/releases/<name>/snapshot.json; the blobs go to
+ * evals/images/runs/<name>/references (ignored). It makes no paid call and no production write, so take a fresh one
+ * whenever canon or sheets have been corrected. A full-engine suite text run's snapshot (2026-11-07-suite-v3-text)
+ * serves as well. `cast` compares name-based cast selection with the text run's planned casts, free. `plan` writes the
+ * cases, the estimate and the cap; `run --execute` needs a committed `funding.json` beside it and ledgers every call. `blind`
  * mixes both arms' shown images into one scorer pack judged against the moment's text, since the lean arm has no
  * plan; the key says which arm each item came from. `report` settles the scores, applies the suite gate to the lean
  * arm with the full arm as its baseline, and also counts each arm at the launch bar, where small unreadable marks
  * are accepted (ADR 0006 amendment 7).
  *
- * Consistency (ADR 0008) is paired the same way. `pairing` writes each arm's results in the form `evals:consistency
- * pairs` reads, made alike: both take the full arm's planned cast as the cast present and describe a scene by its
- * moment's text, so the two arms get the same pairs and nothing tells them apart. `pool` shuffles every set's pairs
- * into shared blind chunks; `unpool` returns each scorer's verdicts to the sets for `evals:consistency report`.
+ * Consistency (ADR 0008): `pairing` writes a run's results in the form `evals:consistency pairs` reads, each scene
+ * described by its moment's text. Alone, it is the release check: an image counts as showing the places and named
+ * members its prompt asked for (`leanDepicted`). With --baseline (a full-engine run) both arms take the full arm's
+ * planned cast instead, so they get the same pairs and nothing tells them apart. Every verse the run attempted is
+ * written, refused or failed ones without an image, so the gate sees them as run, not as missing. `pool` shuffles
+ * every set's pairs into shared blind chunks; `unpool` returns each scorer's verdicts to the sets for
+ * `evals:consistency report`.
  *
- * Paid runs read OPENROUTER_API_KEY from the private env file named by VISIBIBLE_EVAL_ENV_FILE.
+ * Paid runs read OPENROUTER_API_KEY, and snapshots NEXT_PUBLIC_CONVEX_URL and CONVEX_SERVER_SECRET, from the private
+ * env file named by VISIBIBLE_EVAL_ENV_FILE.
  */
 import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
@@ -35,6 +43,9 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
 import { parseArgs, parseEnv } from "node:util";
+import { createRequire } from "node:module";
+import { ConvexHttpClient } from "convex/browser";
+import { contentVersion } from "../../convex/_helpers/contentVersion";
 import { loadEvalCases } from "@/lib/image-evals/cases";
 import {
   drawFraction, evaluateSuiteGate, expectedHoldoutKeys, faultsFor, loadFaults, loadSuiteConfig, operatorFileSchema, scoreFileSchema, settleScores, suiteCases, summarizeBy,
@@ -45,12 +56,14 @@ import { imageCapabilities } from "@/lib/image-catalog";
 import { createOfflineOpenRouter } from "@/lib/image-evals/suite-offline";
 import { createOpenRouterEvalImageProvider } from "@/lib/image-evals/adapters";
 import type { ReferenceRecord } from "@/lib/engine/lean-assemble";
-import type { AnalysisRecord } from "@/lib/engine/analysis-records";
+import { listAnalysisRecords, type AnalysisRecord } from "@/lib/engine/analysis-records";
 import { applicableRules } from "@/lib/engine/prompt";
-import { leanCastMember, rankLeanCast, LEAN_MAX_SHEETS, LEAN_PROMPT_VERSION, type LeanCastMember } from "@/lib/engine/lean";
+import { leanCastMember, leanDepicted, rankLeanCast, LEAN_MAX_SHEETS, LEAN_PROMPT_VERSION, type LeanCastMember } from "@/lib/engine/lean";
 import { assembleLean } from "@/lib/engine/lean-assemble";
-import { momentContext, readWorkInputs, type WorkInputs } from "@/lib/engine/work-inputs";
+import { momentContext, momentForUnit, readWorkInputs, type WorkInputs } from "@/lib/engine/work-inputs";
 
+// Node 20's tsx loader exposes this generated JavaScript through CommonJS.
+const { api } = createRequire(import.meta.url)("../../convex/_generated/api") as typeof import("../../convex/_generated/api");
 const root = fileURLToPath(new URL("../../", import.meta.url));
 /** Calls in flight at once by default. The default cap leaves room for that many at their ceiling, since an unaffordable reservation stops the run. */
 const DEFAULT_CONCURRENCY = 4;
@@ -82,7 +95,10 @@ const SOURCES = ["src/lib/engine/lean.ts", "src/lib/engine/lean-assemble.ts", "s
   "src/lib/image-evals/suite-run.ts", "scripts/evals/lean.mts", "evals/images/suite.json", "evals/images/cases.json", "evals/images/faults.json"];
 
 type Snapshot = {
-  works: Record<string, { records: Record<string, AnalysisRecord>; references: Record<string, ReferenceRecord | null>; files: Record<string, { sha256: string; bytes: number }> }>;
+  /** Set by `snapshot`; a full-engine text run's snapshot has neither and is checked through its plan. */
+  kind?: "lean-snapshot"; suite?: string;
+  works: Record<string, { source?: string; status?: unknown; fixture?: { file: string; sha256: string }; records: Record<string, AnalysisRecord>;
+    references: Record<string, ReferenceRecord | null>; files: Record<string, { sha256: string; bytes: number }> }>;
   cases: Array<{ id: string; caseId: string; work: string; momentId: string; sectionId: string; cast: string[] }>;
 };
 /** The fields of a results row that scoring reads. */
@@ -137,11 +153,130 @@ async function cast() {
   if (values.run) { mkdirSync(path.join(releases, values.run), { recursive: true }); writeFileSync(path.join(releases, values.run, "cast-comparison.json"), `${JSON.stringify(out, null, 1)}\n`); }
 }
 
+/**
+ * The suite's image cases with their moments, sections, the canon of every section cast member and the references
+ * production would consider, read once. Production is only queried; a fixture work's references are none.
+ */
+async function snapshot() {
+  assert.ok(values.run, "--run");
+  const runDir = path.join(releases, values.run); mkdirSync(runDir, { recursive: true });
+  const snapshotFile = path.join(runDir, "snapshot.json");
+  assert.ok(!existsSync(snapshotFile), "Keep the first snapshot");
+  const cases = suiteCases(config, allCases, "image");
+  const needsConvex = Object.values(config.works).some((w) => w.analysis === "convex");
+  let env: Record<string, string | undefined> = {};
+  if (needsConvex) {
+    env = parseEnv(readFileSync(process.env.VISIBIBLE_EVAL_ENV_FILE ?? "", "utf8"));
+    assert.ok(env.NEXT_PUBLIC_CONVEX_URL && env.CONVEX_SERVER_SECRET, "The eval env file needs NEXT_PUBLIC_CONVEX_URL and CONVEX_SERVER_SECRET");
+  }
+  const client = needsConvex ? new ConvexHttpClient(env.NEXT_PUBLIC_CONVEX_URL!) : null;
+  const blobDir = path.join(root, "evals/images/runs", values.run, "references");
+  mkdirSync(blobDir, { recursive: true });
+  let queries = 0;
+  const out: Required<Pick<Snapshot, "kind" | "suite">> & Snapshot = { kind: "lean-snapshot", suite: config.version, works: {}, cases: [] };
+  for (const [workId, settings] of Object.entries(config.works)) {
+    const inputs = await inputsFor(workId);
+    const records: Record<string, AnalysisRecord> = {};
+    const references: Record<string, ReferenceRecord | null> = {};
+    const files: Record<string, { sha256: string; bytes: number }> = {};
+    const entry: Snapshot["works"][string] = { source: settings.analysis, records, references, files };
+    out.works[workId] = entry;
+    let get: (kind: "moment" | "section" | "entry", id: string) => Promise<AnalysisRecord | null>;
+    let moments: Array<{ id: string; firstUnit: string; lastUnit: string }> | null = null;
+    if (settings.analysis === "convex") {
+      const status = await client!.query(api.analysis.getWorkStatus, { workId }); queries++;
+      assert.ok(status.ready, `${workId} is not ready in production`);
+      assert.equal(status.workVersion, inputs.workVersion, `${workId}: production read another work file`);
+      assert.equal(status.briefVersion, inputs.briefVersion, `${workId}: production registered another brief`);
+      entry.status = status;
+      get = async (kind, id) => {
+        const key = `${kind}:${id}`;
+        if (!(key in records)) {
+          queries++;
+          const r = await client!.query(api.analysis.getActiveRecord, { workId, kind, recordId: id }) as AnalysisRecord | null;
+          if (!r) return null;
+          // References are current only when their inputs' versions match, so a version must be its payload's hash.
+          assert.equal(contentVersion(r.payload), r.version, `${key}: stored version is not its payload's content hash`);
+          records[key] = r;
+        }
+        return records[key];
+      };
+      if (inputs.work.momentMode !== "unit") {
+        const all = await listAnalysisRecords(client!, workId, status.activeGeneration!, "moment"); queries++;
+        moments = all.map((r) => { const m = r.payload as { firstUnit: string; lastUnit: string }; return { id: r.recordId, firstUnit: String(m.firstUnit), lastUnit: String(m.lastUnit) }; });
+        for (const r of all) records[`moment:${r.recordId}`] = r as AnalysisRecord;
+      }
+    } else {
+      const fixtureFile = path.join(root, settings.analysis);
+      const text = readFileSync(fixtureFile, "utf8");
+      const fixture = JSON.parse(text) as { workId: string; workVersion: string; briefVersion: string; records: Array<Omit<AnalysisRecord, "version" | "inputs">> };
+      assert.equal(fixture.workId, workId);
+      assert.equal(fixture.workVersion, inputs.workVersion, `${workId}: the fixture was read from another work file`);
+      assert.equal(fixture.briefVersion, inputs.briefVersion, `${workId}: the fixture was drafted against another brief`);
+      entry.fixture = { file: settings.analysis, sha256: sha256(text) };
+      for (const r of fixture.records) records[`${r.kind}:${r.recordId}`] = { ...r, version: contentVersion(r.payload), inputs: [] } as AnalysisRecord;
+      get = async (kind, id) => records[`${kind}:${id}`] ?? null;
+      if (inputs.work.momentMode !== "unit") moments = fixture.records.filter((r) => r.kind === "moment").map((r) => ({ id: r.recordId, firstUnit: String(r.payload.firstUnit), lastUnit: String(r.payload.lastUnit) }));
+    }
+    const reference = async (kind: "sheet" | "styleReference", recordId: string) => {
+      const key = `${kind}:${recordId}`;
+      if (key in references) return;
+      if (settings.analysis !== "convex") { references[key] = null; return; }
+      queries++;
+      const r = await client!.query(api.analysis.getReference, { workId, kind, recordId }) as (ReferenceRecord & { storageId: string }) | null;
+      references[key] = r ? { storageId: r.storageId, inputs: r.inputs, fingerprint: r.fingerprint, pinned: r.pinned } : null;
+      if (!r || files[r.storageId]) return;
+      queries++;
+      const located = await client!.query(api.analysis.getReferenceBlobUrl, { serverSecret: env.CONVEX_SERVER_SECRET!, storageId: r.storageId as never });
+      assert.ok(located?.url, `Reference blob ${r.storageId} is missing`);
+      const response = await fetch(located.url, { signal: AbortSignal.timeout(20_000) });
+      assert.ok(response.ok, `Reference blob ${r.storageId}: HTTP ${response.status}`);
+      let bytes = new Uint8Array(await response.arrayBuffer());
+      // Production sends references as JPEG; the run sends these bytes as JPEG too.
+      if ((located.contentType ?? "") !== "image/jpeg") { const sharp = (await import("sharp")).default; bytes = new Uint8Array(await sharp(Buffer.from(bytes)).jpeg({ quality: 88 }).toBuffer()); }
+      writeFileSync(path.join(blobDir, `${r.storageId}.jpg`), bytes);
+      files[r.storageId] = { sha256: sha256(bytes), bytes: bytes.length };
+    };
+    for (const style of settings.imageStyles) await reference("styleReference", style);
+    for (const c of cases.filter((x) => x.work === workId)) {
+      const momentId = moments ? momentForUnit(inputs.work, c.unitId, moments)?.id : c.unitId;
+      assert.ok(momentId, `${c.caseId}: no moment holds ${c.unitId}`);
+      const moment = await get("moment", momentId); assert.ok(moment, `${c.caseId}: missing moment ${momentId}`);
+      const sectionId = String(moment.payload.sectionId);
+      const section = await get("section", sectionId); assert.ok(section, `${c.caseId}: missing section ${sectionId}`);
+      const cast = section.payload.cast as Array<{ entryId: string; stageId: string }>;
+      for (const member of cast) {
+        assert.ok(await get("entry", member.entryId), `${c.caseId}: missing entry ${member.entryId}`);
+        await reference("sheet", `${member.entryId}:${member.stageId}`);
+      }
+      out.cases.push({ id: c.unitId, caseId: c.caseId, work: workId, momentId, sectionId, cast: cast.map((m) => `${m.entryId}:${m.stageId}`) });
+    }
+    // Keep only what the cases read: their sections' moments, their sections and their casts' entries.
+    const mine = out.cases.filter((c) => c.work === workId);
+    const sections = new Set(mine.map((c) => c.sectionId));
+    const entries = new Set(mine.flatMap((c) => c.cast.map((m) => m.slice(0, m.indexOf(":")))));
+    for (const [key, r] of Object.entries(records)) {
+      const keep = r.kind === "moment" ? sections.has(String(r.payload.sectionId)) : r.kind === "section" ? sections.has(r.recordId) : r.kind === "entry" ? entries.has(r.recordId) : false;
+      if (!keep) delete records[key];
+    }
+  }
+  saveOnce(snapshotFile, { at: new Date().toISOString(), ...out, readOnlyProductionQueries: queries, paidCalls: 0, productionMutations: 0 });
+  const refs = Object.values(out.works).flatMap((w) => Object.values(w.references)).filter(Boolean).length;
+  console.log(JSON.stringify({ cases: out.cases.length, records: Object.values(out.works).reduce((n, w) => n + Object.keys(w.records).length, 0), references: refs, readOnlyProductionQueries: queries, productionMutations: 0 }));
+}
+
+/** A snapshot `plan` may draw from: one `snapshot` took for this suite, or a full-engine suite text run's. */
+function checkSnapshotRun(run: string) {
+  const snap = snapshotOf(run);
+  if (snap.kind === "lean-snapshot") { assert.equal(snap.suite, config.version, `${run} was taken for suite ${snap.suite}`); return; }
+  const fromPlan = readJson(path.join(releases, run, "plan.json")) as { suite: string; tier: string };
+  assert.equal(fromPlan.tier, "text", `${run} is neither a snapshot run nor a suite text run`); assert.equal(fromPlan.suite, config.version);
+}
+
 async function plan() {
   assert.ok(values.run && values.from && values.model, "--run, --from and --model are required");
   const runDir = path.join(releases, values.run); mkdirSync(runDir, { recursive: true });
-  const fromPlan = readJson(path.join(releases, values.from, "plan.json")) as { suite: string; tier: string };
-  assert.equal(fromPlan.tier, "text"); assert.equal(fromPlan.suite, config.version);
+  checkSnapshotRun(values.from);
   // Every image case, including those the full engine refused in its text run: the lean engine has no plan to refuse.
   // --cases and --styles narrow a pilot; a comparison run takes every case in every style.
   const only = new Set(list(values.cases)); const styles = new Set(list(values.styles));
@@ -421,24 +556,38 @@ async function report() {
 }
 
 async function pairing() {
-  assert.ok(values.run && values.baseline && values.out, "--run, --baseline and --out are required");
+  assert.ok(values.run && values.out, "--run and --out are required");
   const p = readJson(path.join(releases, values.run, "plan.json")) as Plan;
   const snap = snapshotOf(p.from);
-  const arms: Record<string, ResultRow[]> = { lean: ndjson(path.join(releases, values.run, "results.ndjson")), full: ndjson(path.join(root, values.baseline, "results.ndjson")) };
-  const planned = new Map(arms.full.filter((r) => r.outcome === "image" && r.prepared).map((r) => [r.caseId, r.prepared!.plan.present]));
+  const arms: Record<string, ResultRow[]> = { lean: ndjson(path.join(releases, values.run, "results.ndjson")) };
+  if (values.baseline) arms.full = ndjson(path.join(root, values.baseline, "results.ndjson"));
+  // Matched against a baseline, both arms take its planned cast; alone, each image takes what its own prompt asked for.
+  const planned = arms.full ? new Map(arms.full.filter((r) => r.outcome === "image" && r.prepared).map((r) => [r.caseId, r.prepared!.plan.present])) : null;
+  const own = async (c: SuiteCase) => {
+    const { context, cast: members } = await caseInputs(snap, c);
+    return leanDepicted(rankLeanCast(members, context.moment.text, { previous: context.previous?.text, next: context.next?.text })).map((m) => m.entryId);
+  };
   for (const [arm, rows] of Object.entries(arms)) {
     const dir = path.join(path.resolve(values.out), arm); mkdirSync(dir, { recursive: true });
     const lines: string[] = [];
-    // Only the run's own cases, so a narrower run pairs against the same cases of a wider baseline.
-    for (const row of rows.filter((r) => r.outcome === "image" && planned.has(r.caseId) && p.cases.some((c) => c.caseId === r.caseId))) {
-      const { context } = await caseInputs(snap, p.cases.find((c) => c.caseId === row.caseId)!);
+    let shown = 0;
+    // Only the run's own cases, so a narrower run pairs against the same cases of a wider baseline. A resumed run can
+    // hold a failed row and a later image for one key; the image stands.
+    const imaged = new Set(rows.filter((r) => r.outcome === "image").map((r) => r.key));
+    for (const row of rows.filter((r) => p.cases.some((c) => c.caseId === r.caseId) && (r.outcome === "image" || !imaged.has(r.key)))) {
+      const c = p.cases.find((x) => x.caseId === row.caseId)!;
+      const present = row.outcome !== "image" ? null : planned ? planned.get(row.caseId) ?? null : await own(c);
+      // A verse with no image here, or none in the baseline to match, was attempted: it counts as run, never as paired.
+      if (!present) { lines.push(JSON.stringify({ case: row.case, caseId: row.caseId, work: row.work, style: row.style, outcome: row.outcome === "image" ? "unmatched" : row.outcome })); continue; }
+      const { context } = await caseInputs(snap, c);
       const scene = `${context.moment.reference}: ${context.moment.text.replace(/\s+/g, " ").slice(0, 300)}`;
       lines.push(JSON.stringify({ case: row.case, caseId: row.caseId, work: row.work, style: row.style, outcome: "image", chosen: row.chosen ?? 1, attempts: row.attempts,
-        prepared: { plan: { present: planned.get(row.caseId), primarySubject: scene, secondaryElements: "" } } }));
+        prepared: { plan: { present, primarySubject: scene, secondaryElements: "" } } }));
+      shown++;
     }
     writeFileSync(path.join(dir, "results.ndjson"), `${lines.join("\n")}\n`);
     writeFileSync(path.join(dir, "snapshot.json"), `${JSON.stringify({ from: p.from, cases: snap.cases })}\n`);
-    console.log(`${arm}: ${lines.length} shown image(s) in ${path.relative(root, dir)}`);
+    console.log(`${arm}: ${shown} shown image(s), ${lines.length - shown} attempted without one, in ${path.relative(root, dir)}`);
   }
 }
 
@@ -482,6 +631,6 @@ async function unpool() {
   }
 }
 
-const commands: Record<string, () => Promise<void>> = { cast, plan, run, blind, report, pairing, pool, unpool };
+const commands: Record<string, () => Promise<void>> = { snapshot, cast, plan, run, blind, report, pairing, pool, unpool };
 assert.ok(commands[command], `Unknown command: ${command}`);
 await commands[command]();
