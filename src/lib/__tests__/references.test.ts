@@ -131,7 +131,7 @@ describe("reference images", () => {
   it("makes, checks, retries with feedback, records notes, and surfaces exhaustion as attention", async () => {
     const maker = fakeMaker();
     const checker = fakeChecker((key, n) => {
-      if (key === "sheet:jonah:young") return n === 1 ? { ...pass, text_present: true, verdict: "fail", reasons: ["letters on the sleeve"] } : { ...pass, canon_notes: ["beard greyer than canon"] };
+      if (key === "sheet:jonah:young") return n === 1 ? { ...pass, text_present: true, verdict: "fail", reasons: ["Jonah has letters on the sleeve"] } : { ...pass, canon_notes: ["beard greyer than canon"] };
       if (key === "sheet:the_lake:main") return { ...pass, frame_present: true, verdict: "fail", reasons: ["black divider reads as a frame"] };
       if (key.startsWith("styleref:")) return stylePass;
       return pass;
@@ -143,7 +143,9 @@ describe("reference images", () => {
     // Style references come first, since every image of a style uses one; the sheets follow, most-reused first.
     expect(maker.prompts.slice(0, 3).every((p) => p.startsWith("Style reference image"))).toBe(true);
     expect(maker.prompts[3]).toContain("Character: weathered sailor.");
-    expect(maker.prompts[maker.prompts.length - 1]).toContain("A previous attempt was rejected because: letters on the sleeve");
+    // The checker saw the named canon; its reason reaches the next prompt without the name.
+    expect(maker.prompts[maker.prompts.length - 1]).toContain("A previous attempt was rejected because: this character has letters on the sleeve");
+    expect(maker.prompts[maker.prompts.length - 1]).not.toContain("Jonah");
     expect(state.done["sheet:the_lake:main"]).toMatchObject({ ok: false, attempts: 3 });
     expect(state.done["sheet:jonah:old"]).toMatchObject({ ok: true, attempts: 1 });
     expect(state.done["styleReference:classical"]).toMatchObject({ ok: true, attempts: 1 });

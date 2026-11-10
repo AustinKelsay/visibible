@@ -144,6 +144,8 @@ async function makeWithCheck<T extends Verdict>(
   notesOf: (verdict: T) => string[],
   /** A fault the checker must never pass, whatever verdict it gave: returns the fixed retry reason, or null. */
   hardFault: (verdict: T) => string | null = () => null,
+  /** Rewrites the checker's reasons before they reach the next prompt (a character sheet keeps its name out). */
+  redact: (reason: string) => string = (reason) => reason,
 ): Promise<ReferenceOutcome> {
   const attempts: Attempt[] = [];
   let feedback = "";
@@ -191,14 +193,15 @@ async function makeWithCheck<T extends Verdict>(
         continue;
       }
     }
-    feedback = `\n\nA previous attempt was rejected because: ${check.value.reasons.join("; ")}. Fix these.`;
+    feedback = `\n\nA previous attempt was rejected because: ${check.value.reasons.map(redact).join("; ")}. Fix these.`;
   }
   return { ok: false, attempts, notes };
 }
 
 export function makeSheet(work: { title: string }, subject: SheetSubject, classical: ArtStyle, deps: Parameters<typeof makeWithCheck>[4]) {
   return makeWithCheck(`sheet:${subject.entryId}:${subject.stageId}`, sheetPrompt(work, subject, classical), sheetCheckQuestion(subject), sheetCheckSchema, deps, (v) => v.canon_notes,
-    (v) => (v.likeness_present ? LIKENESS_RETRY_REASON : null));
+    (v) => (v.likeness_present ? LIKENESS_RETRY_REASON : null),
+    (reason) => (subject.kind === "character" ? reason.replace(ownNamePattern(subject), "this character") : reason));
 }
 export function makeStyleReference(style: ArtStyle, mainEra: Era, deps: Parameters<typeof makeWithCheck>[4]) {
   return makeWithCheck(`styleref:${style.id}`, styleReferencePrompt(style, mainEra), STYLE_CHECK_QUESTION, styleCheckSchema, deps, () => []);
