@@ -34,15 +34,15 @@ export type LeanAssembleDeps = {
 export type LeanAssembleInput = { workId: string; unitId: string; styleId: string; aspectRatio: "16:9" | "21:9" | "3:2" };
 
 /**
- * The snapshot saved with a request and the provenance saved with its image. It keeps the stored packet's shape, so
- * looks and plans, which the lean engine does not make, read "none".
+ * The snapshot saved with a request and the provenance saved with its image. The full engine's look and plan
+ * versions are left out: the lean engine makes neither.
  */
 export type LeanPacket = {
   promptVersion: string; workId: string; momentId: string; sectionId: string; eraId: string; styleId: string; styleVersion: string; briefVersion: string;
-  lookVersion: "none"; planVersion: "none"; depictionVersion: string;
+  depictionVersion: string;
   canon: Array<{ entryId: string; stageId: string; version: string }>;
   references: Array<{ kind: LeanReference["kind"]; id: string; storageId: string; version: string; caption: string }>;
-  flags: { variationIncluded: false; neighborsIncluded: boolean; styleDetailIncluded: true; lookDetailIncluded: false };
+  flags: { variationIncluded: false; neighborsIncluded: boolean; styleDetailIncluded: true };
   budget: { maxChars: number; finalChars: number };
 };
 
@@ -140,10 +140,10 @@ export async function assembleLean(deps: LeanAssembleDeps, input: LeanAssembleIn
       sentReferences: loaded as Array<{ storageId: string; bytes: Uint8Array }>,
       packet: {
         promptVersion: LEAN_PROMPT_VERSION, workId: input.workId, momentId, sectionId, eraId, styleId: styleEntry.style.id, styleVersion: styleEntry.version, briefVersion: inputs.briefVersion,
-        lookVersion: "none", planVersion: "none", depictionVersion: inputs.depiction.version,
+        depictionVersion: inputs.depiction.version,
         canon: rendering.present.map((m) => ({ entryId: m.entryId, stageId: m.stageId, version: m.version })),
         references: rendering.references.map((r) => ({ kind: r.kind, id: r.kind === "sheet" ? `${r.entryId}:${r.stageId}` : r.styleId, storageId: r.storageId, version: r.version, caption: r.caption })),
-        flags: { variationIncluded: false, neighborsIncluded: Boolean(context.previous || context.next), styleDetailIncluded: true, lookDetailIncluded: false },
+        flags: { variationIncluded: false, neighborsIncluded: Boolean(context.previous || context.next), styleDetailIncluded: true },
         budget: { maxChars: LEAN_PROMPT_MAX_CHARS, finalChars: rendering.prompt.length },
       },
     };

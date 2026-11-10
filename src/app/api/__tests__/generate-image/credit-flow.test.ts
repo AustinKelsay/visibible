@@ -662,15 +662,19 @@ describe("Image Generation API Credit Flow", () => {
       const [request] = await storedRequests();
       expect(request).toMatchObject({ engine: "generic", artStyleId: "watercolor", status: "succeeded", modelId: engineModelId, promptVersion: LEAN_PROMPT_VERSION,
         engineCommitments: { workId: WORK, momentId: "genesis-1-1", briefVersion: "bv", analysisGeneration: 1, promptVersion: LEAN_PROMPT_VERSION } });
-      expect(request.renderingPacket).toMatchObject({ promptVersion: LEAN_PROMPT_VERSION, styleId: "watercolor", styleVersion: "sv-watercolor", briefVersion: "bv", eraId: "creation", lookVersion: "none", planVersion: "none",
-        flags: { variationIncluded: false, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: false }, budget: { finalChars: prompt.length } });
+      expect(request.renderingPacket).toMatchObject({ promptVersion: LEAN_PROMPT_VERSION, styleId: "watercolor", styleVersion: "sv-watercolor", briefVersion: "bv", eraId: "creation",
+        flags: { variationIncluded: false, neighborsIncluded: true, styleDetailIncluded: true }, budget: { finalChars: prompt.length } });
+      expect(request.renderingPacket).not.toHaveProperty("lookVersion");
+      expect(request.renderingPacket!.flags).not.toHaveProperty("lookDetailIncluded");
       expect(request.renderingPacket!.references.map((r) => r.id)).toEqual(["watercolor", "adam:main"]);
       // Every section cast member, ranked: God, named in the moment, first; then Adam and Eden in section order.
       expect(request.renderingPacket!.canon.map((c) => c.entryId)).toEqual(["god", "adam", "eden"]);
       // The saved image is WEB text with full provenance; the reader's translation is request context only.
       const [image] = await savedImages();
       expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", artStyleId: "watercolor", prompt, promptVersion: LEAN_PROMPT_VERSION });
-      expect(image.provenance).toMatchObject({ workId: WORK, momentId: "genesis-1-1", sectionId: "genesis-1-1", styleId: "watercolor", lookVersion: "none", planVersion: "none", promptVersion: LEAN_PROMPT_VERSION, requestTranslationId: "web" });
+      expect(image.provenance).toMatchObject({ workId: WORK, momentId: "genesis-1-1", sectionId: "genesis-1-1", styleId: "watercolor", promptVersion: LEAN_PROMPT_VERSION, requestTranslationId: "web" });
+      expect(image.provenance).not.toHaveProperty("lookVersion");
+      expect(image.provenance).not.toHaveProperty("planVersion");
       expect(image.provenance!.canon).toEqual(request.renderingPacket!.canon);
       expect(image.provenance!.references).toEqual([{ kind: "styleReference", id: "watercolor", version: expect.any(String) }, { kind: "sheet", id: "adam:main", version: expect.any(String) }]);
       // The work's depiction profile is recorded with the accepted packet and the saved image (ADR 0010).

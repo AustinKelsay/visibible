@@ -31,7 +31,7 @@ The work's [depiction profile](../context/WORK-PREPARATION.md#depiction-profile)
 
 ## Budget
 
-12,000 characters. Nothing is trimmed: a prompt over the cap returns `ok: false` and no paid call is made. The packet saved on the request (`renderingPacket`) and copied into the image's provenance records the versions, the canon sent and the references attached; `lookVersion` and `planVersion` read `none`. [A golden test](../../src/lib/__tests__/lean-engine-golden.test.ts) pins the exact prompt and references for five suite moments across the three works.
+12,000 characters. Nothing is trimmed: a prompt over the cap returns `ok: false` and no paid call is made. The packet saved on the request (`renderingPacket`) and copied into the image's provenance records the versions, the canon sent and the references attached. `lookVersion` and `planVersion` read `none` until 10 November 2026; newer packets leave them out. [A golden test](../../src/lib/__tests__/lean-engine-golden.test.ts) pins the exact prompt and references for five suite moments across the three works.
 
 ## Quotes
 
