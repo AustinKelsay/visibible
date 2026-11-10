@@ -151,27 +151,20 @@ describe("style-aware library", () => {
       }
       expect((await as("owner").query(api.verseImages.getImageHistory, args)).map((image) => image.reference)).toEqual(["The Pool of Tears ¶1"]);
       expect((await as("owner").query(api.verseImages.getLatestImage, args))?.reference).toBe("The Pool of Tears ¶1");
-      // A story's part ids are chapter-shaped ("a-scandal-in-bohemia-1-1"), so the chapter reads must filter too: an
-      // unopened work's images are hidden, an opened work's (Holmes since 10 November 2026) are shown.
-      const saveChapterShaped = async (workId: string, verseId: string) => {
-        const blob = await t.run((ctx) => ctx.storage.store(new Blob([new Uint8Array([4, 5, 6])], { type: "image/png" })));
-        await t.mutation(internal.verseImages.saveImageWithStorage, {
-          verseId, storageId: blob, model: "google/gemini-nano-banana-2.1", reference: `${verseId} ¶1`, generationId: verseId,
-          verseText: "A passage.", translationId: workId, engine: "generic", artStyleId: "watercolor",
-          provenance: { ...provenance("watercolor"), workId, momentId: verseId, sectionId: verseId },
-        });
-      };
-      await saveChapterShaped("the-hound-of-the-baskervilles", "the-hound-of-the-baskervilles-1-1");
-      await saveChapterShaped("holmes-adventures", "a-scandal-in-bohemia-1-1");
-      const chapter = { book: "the-hound-of-the-baskervilles", chapter: 1 };
+      // Holmes's part ids are chapter-shaped ("a-scandal-in-bohemia-1-1"), so the chapter reads must filter too.
+      const holmesBlob = await t.run((ctx) => ctx.storage.store(new Blob([new Uint8Array([4, 5, 6])], { type: "image/png" })));
+      await t.mutation(internal.verseImages.saveImageWithStorage, {
+        verseId: "a-scandal-in-bohemia-1-1", storageId: holmesBlob, model: "google/gemini-nano-banana-2.1", reference: "A Scandal in Bohemia, Part I ¶1", generationId: "holmes-1",
+        verseText: "To Sherlock Holmes she is always the woman.", translationId: "holmes-adventures", engine: "generic", artStyleId: "watercolor",
+        provenance: { ...provenance("watercolor"), workId: "holmes-adventures", momentId: "a-scandal-in-bohemia-1-1", sectionId: "a-scandal-in-bohemia-1-1" },
+      });
+      const chapter = { book: "a-scandal-in-bohemia", chapter: 1 };
       for (const viewer of [t, as("reader")]) {
         expect(await viewer.query(api.verseImages.getChapterGallery, chapter)).toEqual(await t.query(api.verseImages.getChapterGallery, { book: "moby-dick", chapter: 1 }));
         expect(await viewer.query(api.verseImages.getChapterImageStatus, chapter)).toEqual(await t.query(api.verseImages.getChapterImageStatus, { book: "moby-dick", chapter: 1 }));
-        expect(await viewer.query(api.verseImages.getChaptersWithImages, { book: "the-hound-of-the-baskervilles" })).toEqual([]);
-        expect(await viewer.query(api.verseImages.getChaptersWithImages, { book: "a-scandal-in-bohemia" })).toEqual([1]);
-        expect(await viewer.query(api.verseImages.getImageHistory, { verseId: "a-scandal-in-bohemia-1-1" })).toHaveLength(1);
+        expect(await viewer.query(api.verseImages.getChaptersWithImages, { book: "a-scandal-in-bohemia" })).toEqual([]);
       }
-      expect(await as("owner").query(api.verseImages.getChaptersWithImages, { book: "the-hound-of-the-baskervilles" })).toEqual([1]);
+      expect(await as("owner").query(api.verseImages.getChaptersWithImages, { book: "a-scandal-in-bohemia" })).toEqual([1]);
       // Bible images need no session.
       expect(await t.query(api.verseImages.getImageHistory, { verseId: "genesis-1-1" })).toHaveLength(3);
     } finally {
