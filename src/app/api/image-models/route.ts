@@ -5,7 +5,7 @@ import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
 import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
 import { ART_STYLES, type ArtStyleAvailability } from "@/lib/art-styles";
-import { BIBLE_WORK_ID, canViewProseWork, findProseWork, type ProseWork } from "@/lib/works/catalog";
+import { BIBLE_WORK_ID, findProseWork, isProseOwner, type ProseWork } from "@/lib/works/catalog";
 import { api } from "../../../../convex/_generated/api";
 
 /**
@@ -32,10 +32,20 @@ async function styleAvailability(request: Request | undefined, convex: ReturnTyp
   }
   return ART_STYLES.map((style) => {
     if (work && !work.styleIds.includes(style.id)) return { ...style, available: false, reason: `${work.title} is not drawn in this style` };
-    if (work && !canViewProseWork(work, isOwner)) return { ...style, available: false, reason: "This book is not open to readers yet" };
     const decision = decideEngine({ mode, isOwner, styleId: style.id, readiness });
     return { ...style, available: decision.engine !== null, reason: decision.engine === null ? decision.reason : null };
   });
+}
+
+async function viewerIsProseOwner(request: Request | undefined, convex: ReturnType<typeof getConvexClient>): Promise<boolean> {
+  if (!request || !convex) return false;
+  try {
+    const session = await (await import("@/lib/session")).validateSessionWithIp(request);
+    if (!session?.valid || !session.sid) return false;
+    return isProseOwner(await convex.query(api.sessions.getSession, { sid: session.sid, serverSecret: getConvexServerSecret() }));
+  } catch {
+    return false;
+  }
 }
 
 /** Quotes match generation admission; unversioned historical samples cannot override them. */
@@ -50,9 +60,11 @@ function quotedSettings(model: ImageModel) {
 export async function GET(request?: Request) {
   const key = process.env.OPENROUTER_API_KEY;
   const convex = getConvexClient();
-  // An unknown work is answered as the Bible would be, never as an error, so a stale page still prices images.
+  // An unknown work, and one the viewer may not open, are answered as the Bible would be: never an error, and
+  // nothing that tells an unopened book from a missing one.
   const workParam = request ? new URL(request.url).searchParams.get("work") : null;
-  const work = workParam && workParam !== BIBLE_WORK_ID ? findProseWork(workParam) : null;
+  const listed = workParam && workParam !== BIBLE_WORK_ID ? findProseWork(workParam) : null;
+  const work = listed && (listed.visibility === "public" || await viewerIsProseOwner(request, convex)) ? listed : null;
   const artStyles = await styleAvailability(request, convex, work);
   if (!key) {
     return NextResponse.json({ models: unavailableImageModels("Image generation is not configured"), artStyles,

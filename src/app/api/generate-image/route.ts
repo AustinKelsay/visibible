@@ -22,7 +22,7 @@ import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
 import { SHARED_STYLES } from "@/lib/work-preparation";
 import { getGenericEngine } from "@/lib/engine/dispatch";
 import { loadWorkInputs } from "@/lib/engine/work-inputs";
-import { BIBLE_WORK_ID, canViewProseWork, findProseWork } from "@/lib/works/catalog";
+import { BIBLE_WORK_ID, findProseWork, isProseOwner } from "@/lib/works/catalog";
 import {
   validateSessionWithIp,
   withSessionRefreshCookie,
@@ -404,9 +404,24 @@ export async function POST(request: Request) {
   };
 
   // A prose moment is read from the work's imported text; a Bible verse is verified in the reader's translation.
-  const proseWork = requestBody.workId && requestBody.workId !== BIBLE_WORK_ID ? findProseWork(requestBody.workId) : null;
-  if (requestBody.workId && requestBody.workId !== BIBLE_WORK_ID && (!proseWork || !requestBody.unitId)) {
-    return jsonWithSessionRefresh({ error: "Invalid or unavailable reference", message: "That book is not available." }, { status: 400 });
+  const proseRequested = requestBody.workId !== undefined && requestBody.workId !== BIBLE_WORK_ID;
+  const proseWork = proseRequested ? findProseWork(requestBody.workId!) : null;
+  if (proseRequested) {
+    // An unknown book and one still in the owner's preview get the same answer, before anything about the passage
+    // is checked, so neither the book nor its paragraphs can be probed.
+    const bookUnavailable = () => jsonWithSessionRefresh({ error: "Invalid or unavailable reference", message: "That book is not available." }, { status: 404 });
+    if (!proseWork) return bookUnavailable();
+    if (proseWork.visibility !== "public") {
+      let viewer;
+      try {
+        viewer = await convex.query(api.sessions.getSession, { sid, serverSecret });
+      } catch (error) {
+        logApiFailure({ context: requestContext, stage: "prose_viewer_session", error, statusCode: 503, sid });
+        return jsonWithSessionRefresh({ error: "Unable to verify session", retryable: true }, { status: 503 });
+      }
+      if (!isProseOwner(viewer)) return bookUnavailable();
+    }
+    if (!requestBody.unitId) return jsonWithSessionRefresh({ error: "Invalid or unavailable reference", message: "Name the passage to draw." }, { status: 400 });
   }
   const workId = proseWork?.id ?? BIBLE_WORK_ID;
   let verseId: string;
@@ -421,6 +436,16 @@ export async function POST(request: Request) {
         ? jsonWithSessionRefresh({ error: "Invalid or unavailable reference", message: "That passage is not in this book." }, { status: 400 })
         : jsonWithSessionRefresh({ error: "Preparing scene", message: "The book's text is not available on this server.", retryable: true }, { status: 503 });
     }
+    // Images are kept under a passage's first paragraph, which the reader asks for; any other paragraph would be
+    // drawn as its passage but saved where the passage page never looks.
+    let moment;
+    try {
+      moment = await convex.query(api.analysis.getActiveRecord, { workId: proseWork.id, kind: "moment", recordId: unit.id });
+    } catch (error) {
+      logApiFailure({ context: requestContext, stage: "prose_moment_lookup", error, statusCode: 503, sid });
+      return jsonWithSessionRefresh({ error: "Preparing scene", message: "The book's passages could not be read.", retryable: true }, { status: 503 });
+    }
+    if (!moment) return jsonWithSessionRefresh({ error: "Invalid or unavailable reference", message: "That paragraph does not begin a passage." }, { status: 400 });
     reference = unit.reference;
     verseId = unit.id;
   } else {
@@ -460,12 +485,6 @@ export async function POST(request: Request) {
     return null;
   });
   const isAdminForBilling = sessionForAdmission?.tier === "admin";
-  // A book still kept to the owner is not found for anyone else, before any record or reservation.
-  if (proseWork && !canViewProseWork(proseWork, hasOwnerEngineAccess(sessionForAdmission))) {
-    return sessionLookupFailed
-      ? jsonWithSessionRefresh({ error: "Unable to verify session", retryable: true }, { status: 503 })
-      : jsonWithSessionRefresh({ error: "Invalid or unavailable reference", message: "That book is not available." }, { status: 404 });
-  }
   const readiness = engineMode === "disabled" ? null : await convex.query(api.analysis.getWorkStatus, { workId }).catch(() => null);
   const engineDecision = decideEngine({
     mode: engineMode, isOwner: hasOwnerEngineAccess(sessionForAdmission), styleId: requestedStyleId ?? null,

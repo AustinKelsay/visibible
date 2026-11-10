@@ -13,6 +13,7 @@ import { v } from "convex/values";
 import { Id, type DataModel, type Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
 import { imageProvenanceValidator, renderingPacketValidator } from "./schema";
+import { isOwnerOnlyWork } from "./lib/proseWorks";
 
 const generationStatusValidator = v.union(
   v.literal("queued"),
@@ -281,6 +282,19 @@ const toPublicImageRecord = (image: {
 };
 
 /**
+ * Saved images of a prose work still in the owner's preview are shown only to an admin session (the guest token's
+ * session). The admin check runs once, and only when such an image is found.
+ */
+async function visibleImageFilter(ctx: QueryCtx) {
+  let isAdmin: boolean | undefined;
+  return async (image: Doc<"verseImages">) => {
+    if (!isOwnerOnlyWork(image.provenance?.workId)) return true;
+    isAdmin ??= (await authenticatedGuest(ctx))?.tier === "admin";
+    return isAdmin;
+  };
+}
+
+/**
  * Get the most recent image for a verse.
  * Returns the image URL (storage signed URL or direct URL fallback).
  */
@@ -290,12 +304,13 @@ export const getLatestImage = query({
     ...styleFilterArgs,
   },
   handler: async (ctx, args) => {
-    const image = await withStyleFilter(ctx.db
+    const found = await withStyleFilter(ctx.db
       .query("verseImages")
       .withIndex("by_verse", (q) => q.eq("verseId", args.verseId))
       .order("desc"), normalizeStyleFilter(args))
       .first();
 
+    const image = found && await (await visibleImageFilter(ctx))(found) ? found : null;
     if (!image) return null;
 
     let imageUrl = image.imageUrl;
@@ -707,9 +722,12 @@ export const getImageHistory = query({
       .withIndex("by_verse", (q) => q.eq("verseId", args.verseId))
       .order("desc"), normalizeStyleFilter(args));
 
-    const images = args.limit
+    const found = args.limit
       ? await query.take(args.limit)
       : await query.collect();
+    const visible = await visibleImageFilter(ctx);
+    const shown = await Promise.all(found.map(visible));
+    const images = found.filter((_, index) => shown[index]);
 
     // Resolve storage URLs (fallback to stored imageUrl if storage object is unavailable)
     const results = await Promise.all(

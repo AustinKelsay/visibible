@@ -547,22 +547,34 @@ describe("Image Generation API Credit Flow", () => {
       const seen: Array<Record<string, unknown>> = [];
       setGenericEngine({ id: "fake-generic", async execute(input) { seen.push(input as unknown as Record<string, unknown>); return { kind: "response", status: 200, body: { requestId: input.requestId, engine: "generic" } }; } });
       try {
-        // A reader: not found, with no record, reservation or engine call, and no Bible lookup.
+        // A reader: not found, with no record, reservation or engine call, and no Bible lookup. An unknown book, and
+        // an unknown paragraph of an unopened book, get the very same answer, so neither can be probed.
         const reader = await POST(prose("prose-reader"));
         expect(reader.status).toBe(404);
+        const readerBody = await reader.json();
+        for (const probe of [prose("probe-unit", { unitId: "the-pool-of-tears-999" }), prose("probe-work", { workId: "moby-dick" })]) {
+          const response = await POST(probe);
+          expect(response.status).toBe(404);
+          expect(await response.json()).toEqual(readerBody);
+        }
         expect(seen).toHaveLength(0);
         expect(await requestDb.run((ctx) => ctx.db.query("imageGenerationRequests").collect())).toHaveLength(0);
 
-        // The owner: the unit and its reference come from Alice's text, admitted on Alice's analysis.
+        // The owner (an admin session): the unit and its reference come from Alice's text, admitted on Alice's analysis.
         resetMockState([{ ...fixtures.sessions.admin, sid: "test-session" }]);
         const owner = await POST(prose("prose-owner"));
         expect(owner.status).toBe(200);
         expect(seen).toEqual([expect.objectContaining({ workId: "alice-in-wonderland", verseId: "the-pool-of-tears-1", reference: "The Pool of Tears ¶1", styleId: "watercolor", isOwner: true,
           readiness: expect.objectContaining({ activeGeneration: 1, briefVersion: "bv" }) })]);
 
-        // A unit the book does not have, or a book the catalog does not list, is refused before admission.
-        expect((await POST(prose("prose-unknown-unit", { unitId: "the-pool-of-tears-999" }))).status).toBe(400);
-        expect((await POST(prose("prose-unknown-work", { workId: "moby-dick" }))).status).toBe(400);
+        // For the owner too: a paragraph the book lacks, or one inside a passage (images live under its first
+        // paragraph), is refused before admission.
+        const unknownUnit = await POST(prose("prose-unknown-unit", { unitId: "the-pool-of-tears-999" }));
+        expect(unknownUnit.status).toBe(400);
+        const interior = await POST(prose("prose-interior", { unitId: "the-pool-of-tears-2" }));
+        expect(interior.status).toBe(400);
+        expect((await interior.json()).message).toMatch(/does not begin a passage/);
+        expect((await POST(prose("prose-unknown-work", { workId: "moby-dick" }))).status).toBe(404);
         expect(seen).toHaveLength(1);
         expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("bible-api"))).toHaveLength(0);
       } finally {

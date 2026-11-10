@@ -22,13 +22,17 @@ The reader's image dock shows the selected style's images of a verse. When the v
 
 ## Prose works
 
-`/read` is the library: the Bible, and each prose work in the [catalog](../../src/lib/works/catalog.ts) the viewer may open. `/read/{work}` lists the work's chapters or stories, and `/read/{work}/{moment}` shows one passage. A passage is one moment of the work's active analysis, the same run of paragraphs the image engine draws, and its address is the moment's first unit (`/read/alice-in-wonderland/the-pool-of-tears-1`). [prose-book.ts](../../src/lib/works/prose-book.ts) cuts the imported text (`works/{id}/work.json`) by the active generation's moments, cached per generation on each server instance. A work with no active analysis is not found.
+`/read` is the library: the Bible, and each prose work in the [catalog](../../src/lib/works/catalog.ts) the viewer may open. `/read/{work}` lists the work's chapters or stories, and `/read/{work}/{moment}` shows one passage. A passage is one moment of the work's active analysis, the same run of paragraphs the image engine draws, and its address is the moment's first unit (`/read/alice-in-wonderland/the-pool-of-tears-1`). [prose-book.ts](../../src/lib/works/prose-book.ts) cuts the imported text (`works/{id}/work.json`) by the active generation's moments, cached per generation for up to a minute on each server instance, so an owner correction to a moment reaches the page within a minute. A work with no active analysis is not found.
 
-- **Who can open a work.** The catalog marks each work `owner` or `public`. An `owner` work is shown only to the owner: an admin session, or the configured owner session ([viewer.ts](../../src/lib/works/viewer.ts)). Everyone else gets "not found" for its pages and image requests, and the library leaves it out. Holmes and Alice are `owner` until the owner opens them.
+- **Who can open a work.** A work is the owner's preview until it is listed in `PUBLIC_PROSE_WORK_IDS` ([proseWorks.ts](../../convex/lib/proseWorks.ts)); the catalog reads that list. The owner here is an admin session ([viewer.ts](../../src/lib/works/viewer.ts)); the configured owner-check session is not enough.
+  - For anyone else, an unopened work answers exactly like a work that does not exist: its pages are not found, the library leaves it out, image requests get the same 404, and `/api/image-models?work=` gives the Bible's answer.
+  - Convex's `getImageHistory` and `getLatestImage` leave out an unopened work's saved images unless the caller's guest token belongs to an admin session.
+  - Holmes and Alice are unopened until the owner opens them.
 - **The passage page** ([prose-reader.tsx](../../src/components/prose-reader.tsx)) shows the image, the passage's paragraphs (Gutenberg's `_underscores_` as italics), and Previous, Contents and Next. The arrow keys and image swipes move between passages across chapters, as they move between verses.
 - **Work scope.** The page provides a [work scope](../../src/context/work-scope-context.tsx), and the shared controls read it:
   - The header leads with the passage, its book button opens the contents, and it offers neither translation nor chat.
   - The hero image keeps images under the moment and requests them with the work and unit.
   - The art style controls offer only the work's brief styles. A saved preference the work lacks falls back to the work's first style without being overwritten.
   - Generation is single only, with no bulk.
+- **The library and contents pages** have no passage, so their header is the Bible's, and its book button opens the Bible's book menu.
 - **Not on prose pages:** the chapter gallery, video, chat context, the book menu and the public image API.

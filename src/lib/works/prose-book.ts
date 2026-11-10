@@ -85,17 +85,23 @@ export function buildProseBook(work: ProseWork, reader: WorkReader, momentRecord
   return Object.freeze({ work, chapterLevel, chapters: Object.freeze(chapters), moments: Object.freeze(moments), credit: file.referenceText.credit });
 }
 
-const books = new Map<string, Promise<ProseBook>>();
+/**
+ * How long a server instance reuses a book. An owner correction can change a moment inside the active generation
+ * without a new generation, so the cache also expires: pages catch up within a minute.
+ */
+export const PROSE_BOOK_TTL_MS = 60_000;
+const books = new Map<string, { book: Promise<ProseBook>; at: number }>();
 
 /**
- * The book for the work's active generation, cached per generation on this server. Null while the work has no
- * active analysis, so its pages are not found rather than empty.
+ * The book for the work's active generation, cached briefly per generation on this server. Null while the work has
+ * no active analysis, so its pages are not found rather than empty.
  */
-export async function loadProseBook(work: ProseWork, convex: Pick<ConvexHttpClient, "query">): Promise<ProseBook | null> {
+export async function loadProseBook(work: ProseWork, convex: Pick<ConvexHttpClient, "query">, now: () => number = Date.now): Promise<ProseBook | null> {
   const status = await convex.query(api.analysis.getWorkStatus, { workId: work.id });
   if (status.activeGeneration === null) return null;
   const key = `${work.id}#${status.activeGeneration}`;
-  let book = books.get(key);
+  const cached = books.get(key);
+  let book = cached && now() - cached.at < PROSE_BOOK_TTL_MS ? cached.book : undefined;
   if (!book) {
     const generation = status.activeGeneration;
     book = (async () => {
@@ -103,7 +109,7 @@ export async function loadProseBook(work: ProseWork, convex: Pick<ConvexHttpClie
       const momentRecords = records.flatMap((record) => record.payload.kind === "moment" ? [record.payload as unknown as MomentRecord] : []);
       return buildProseBook(work, inputs.work, momentRecords);
     })().catch((error) => { books.delete(key); throw error; });
-    books.set(key, book);
+    books.set(key, { book, at: now() });
   }
   return book;
 }

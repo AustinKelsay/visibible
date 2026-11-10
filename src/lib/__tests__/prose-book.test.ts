@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { readFileSync } from "node:fs";
 import { createWorkReader } from "@/lib/work-input";
-import { buildProseBook } from "@/lib/works/prose-book";
+import { buildProseBook, loadProseBook, PROSE_BOOK_TTL_MS } from "@/lib/works/prose-book";
 import { canViewProseWork, findProseWork, PROSE_WORKS } from "@/lib/works/catalog";
 
 const reader = (workId: string) => createWorkReader(JSON.parse(readFileSync(`works/${workId}/work.json`, "utf8")));
@@ -49,5 +49,22 @@ describe("prose works", () => {
     const book = buildProseBook(holmes, text, [{ firstUnit: first.id, lastUnit: text.units[1].id }]);
     expect(book.moments[0].reference).toBe("A Scandal in Bohemia, Part I ¶1–2");
     expect(book.moments[0].shortReference).toBe("Story 1 ¶1–2");
+  });
+
+  it("rereads a generation's moments after a minute, so an owner's moment correction reaches the page", async () => {
+    const alice = findProseWork("alice-in-wonderland")!;
+    let lastUnit = "the-pool-of-tears-1";
+    const query = vi.fn(async (_ref: unknown, args: Record<string, unknown>) => "kind" in args
+      ? { records: [{ recordId: "the-pool-of-tears-1", payload: { kind: "moment", firstUnit: "the-pool-of-tears-1", lastUnit } }], nextCursor: null }
+      : { activeGeneration: 7 });
+    let clock = 1_000_000;
+    const load = () => loadProseBook(alice, { query } as never, () => clock);
+    const paragraphs = async () => (await load())!.moments[0].paragraphs.map((p) => p.number);
+    expect(await paragraphs()).toEqual([1]);
+    lastUnit = "the-pool-of-tears-3";
+    clock += PROSE_BOOK_TTL_MS - 1;
+    expect(await paragraphs()).toEqual([1]);
+    clock += 2;
+    expect(await paragraphs()).toEqual([1, 2, 3]);
   });
 });

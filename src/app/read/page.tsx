@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { LayoutWrapper } from "@/components/layout-wrapper";
+import { BookMenu } from "@/components/book-menu";
 import { readerPath, viewableProseWorks } from "@/lib/works/reader-pages";
 
 export const dynamic = "force-dynamic";
@@ -39,6 +40,8 @@ export default async function LibraryPage() {
         </ul>
       </main>
       <Footer />
+      {/* The header's book button opens the Bible's book menu here, as on every page without a prose passage. */}
+      <BookMenu />
     </LayoutWrapper>
   );
 }

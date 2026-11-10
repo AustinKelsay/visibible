@@ -192,12 +192,24 @@ describe("art style availability", () => {
     const { GET } = await import("../../image-models/route");
     const styles = async () => (await (await GET(new Request("http://localhost/api/image-models?work=alice-in-wonderland"))).json()).artStyles as Array<{ id: string; available: boolean; reason: string | null }>;
 
-    // A reader: Alice is still the owner's, so nothing is admitted.
+    // A reader: Alice is still the owner's, so the answer is the Bible's, exactly as for a book that does not exist.
     mockValidateSession.mockResolvedValue({ valid: true, sid: "reader" });
-    mockConvex.query.mockImplementationOnce(async () => ({ sid: "reader", tier: "paid" }));
+    const readerSession = async (_ref: unknown, args: Record<string, unknown>) => {
+      if ("workId" in args) { asked.push(args.workId); return { ready: true, reasons: [], activeGeneration: 4, briefVersion: "bv" }; }
+      return "sid" in args ? { sid: args.sid, tier: "paid" } : [];
+    };
+    mockConvex.query.mockImplementation(readerSession);
     const reader = await styles();
-    expect(reader.every((style) => !style.available)).toBe(true);
-    expect(reader.find((style) => style.id === "watercolor")!.reason).toMatch(/not open to readers/);
+    const missing = (await (await GET(new Request("http://localhost/api/image-models?work=moby-dick"))).json()).artStyles;
+    expect(reader).toEqual(missing);
+    expect(reader.map((style) => [style.id, style.available])).toEqual([["classical", true], ["watercolor", true], ["fresco", true], ["storybook", true], ["icon", false]]);
+    expect(JSON.stringify(reader)).not.toMatch(/Alice/);
+    expect(asked).not.toContain("alice-in-wonderland");
+    asked.length = 0;
+    mockConvex.query.mockImplementation(async (_ref: unknown, args: Record<string, unknown>) => {
+      if ("workId" in args) { asked.push(args.workId); return { ready: true, reasons: [], activeGeneration: 4, briefVersion: "bv" }; }
+      return "sid" in args ? { sid: args.sid, tier: "admin" } : [];
+    });
 
     // The owner: Alice's brief styles, read against Alice's analysis; Storybook is not one of them.
     mockValidateSession.mockResolvedValue({ valid: true, sid: "owner" });

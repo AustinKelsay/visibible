@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { LayoutWrapper } from "@/components/layout-wrapper";
+import { BookMenu } from "@/components/book-menu";
 import { bookForPage, readerPath } from "@/lib/works/reader-pages";
 import { findProseWork } from "@/lib/works/catalog";
 
@@ -58,6 +59,8 @@ export default async function ContentsPage({ params }: ContentsPageProps) {
         <p className="mt-8 text-xs text-[var(--muted)]">{book.credit}</p>
       </main>
       <Footer />
+      {/* The header's book button opens the Bible's book menu here, as on every page without a prose passage. */}
+      <BookMenu />
     </LayoutWrapper>
   );
 }
