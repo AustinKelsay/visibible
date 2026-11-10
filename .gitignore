@@ -65,3 +65,6 @@ function_spec.json
 
 # Local evaluation media and browser evidence
 /output/
+
+# Agent worktrees: other checkouts of this repository
+/.claude/worktrees/
