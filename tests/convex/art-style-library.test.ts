@@ -4,7 +4,7 @@
  * public queries filter and paginate consistently, and Nostr selection spans every style.
  */
 import { convexTest } from "convex-test";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import schema from "../../convex/schema";
 import { api, internal } from "../../convex/_generated/api";
 import { modules } from "./modules";
@@ -113,5 +113,62 @@ describe("style-aware library", () => {
     if (claim.status !== "claimed") return;
     expect([ids.g11Water, ids.g11Icon]).toContain(claim.candidate.imageId);
     expect(claim.candidate.verseText).toBe("WEB text of genesis-1-1");
+  });
+
+  it("never selects a prose work's image for Nostr, whose posts link to a verse page", async () => {
+    const t = convexTest(schema, modules);
+    const storageId = await t.run((ctx) => ctx.storage.store(new Blob([new Uint8Array([1, 2, 3])], { type: "image/png" })));
+    const id = await t.mutation(internal.verseImages.saveImageWithStorage, {
+      verseId: "the-pool-of-tears-1", storageId, model: "google/gemini-nano-banana-2.1", reference: "The Pool of Tears ¶1", generationId: "alice-1",
+      verseText: "“Curiouser and curiouser!” cried Alice.", translationId: "alice-in-wonderland", engine: "generic", artStyleId: "watercolor",
+      provenance: { ...provenance("watercolor"), workId: "alice-in-wonderland", momentId: "the-pool-of-tears-1", sectionId: "the-pool-of-tears-1" },
+    });
+    await t.run(async (ctx) => { await ctx.db.patch(id, { createdAt: 2_000 }); });
+    const claim = await t.mutation(internal.nostrScheduler.claimScheduledImageForWindow, { windowStart: 1_500, windowEnd: 2_500, now: 5_000, randomValue: 0.5 });
+    expect(claim.status).toBe("no_candidates");
+  });
+
+  it("shows an unopened book's saved images to an admin session only, and Bible images to everyone", async () => {
+    vi.stubEnv("GUEST_AUTH_ISSUER", "https://guest.example");
+    try {
+      const { t } = await seed();
+      const storageId = await t.run((ctx) => ctx.storage.store(new Blob([new Uint8Array([1, 2, 3])], { type: "image/png" })));
+      await t.mutation(internal.verseImages.saveImageWithStorage, {
+        verseId: "the-pool-of-tears-1", storageId, model: "google/gemini-nano-banana-2.1", reference: "The Pool of Tears ¶1", generationId: "alice-2",
+        verseText: "“Curiouser and curiouser!” cried Alice.", translationId: "alice-in-wonderland", engine: "generic", artStyleId: "watercolor",
+        provenance: { ...provenance("watercolor"), workId: "alice-in-wonderland", momentId: "the-pool-of-tears-1", sectionId: "the-pool-of-tears-1" },
+      });
+      await t.run(async (ctx) => {
+        for (const [sid, tier] of [["reader", "paid"], ["owner", "admin"]] as const) {
+          await ctx.db.insert("sessions", { sid, tier, credits: 0, createdAt: Date.now(), lastSeenAt: Date.now() });
+        }
+      });
+      const as = (sid: string) => t.withIdentity({ subject: sid, issuer: "https://guest.example", guestExpiresAt: Date.now() / 1000 + 600 });
+      const args = { verseId: "the-pool-of-tears-1" };
+      for (const viewer of [t, as("reader")]) {
+        expect(await viewer.query(api.verseImages.getImageHistory, args)).toEqual([]);
+        expect(await viewer.query(api.verseImages.getLatestImage, args)).toBeNull();
+      }
+      expect((await as("owner").query(api.verseImages.getImageHistory, args)).map((image) => image.reference)).toEqual(["The Pool of Tears ¶1"]);
+      expect((await as("owner").query(api.verseImages.getLatestImage, args))?.reference).toBe("The Pool of Tears ¶1");
+      // Holmes's part ids are chapter-shaped ("a-scandal-in-bohemia-1-1"), so the chapter reads must filter too.
+      const holmesBlob = await t.run((ctx) => ctx.storage.store(new Blob([new Uint8Array([4, 5, 6])], { type: "image/png" })));
+      await t.mutation(internal.verseImages.saveImageWithStorage, {
+        verseId: "a-scandal-in-bohemia-1-1", storageId: holmesBlob, model: "google/gemini-nano-banana-2.1", reference: "A Scandal in Bohemia, Part I ¶1", generationId: "holmes-1",
+        verseText: "To Sherlock Holmes she is always the woman.", translationId: "holmes-adventures", engine: "generic", artStyleId: "watercolor",
+        provenance: { ...provenance("watercolor"), workId: "holmes-adventures", momentId: "a-scandal-in-bohemia-1-1", sectionId: "a-scandal-in-bohemia-1-1" },
+      });
+      const chapter = { book: "a-scandal-in-bohemia", chapter: 1 };
+      for (const viewer of [t, as("reader")]) {
+        expect(await viewer.query(api.verseImages.getChapterGallery, chapter)).toEqual(await t.query(api.verseImages.getChapterGallery, { book: "moby-dick", chapter: 1 }));
+        expect(await viewer.query(api.verseImages.getChapterImageStatus, chapter)).toEqual(await t.query(api.verseImages.getChapterImageStatus, { book: "moby-dick", chapter: 1 }));
+        expect(await viewer.query(api.verseImages.getChaptersWithImages, { book: "a-scandal-in-bohemia" })).toEqual([]);
+      }
+      expect(await as("owner").query(api.verseImages.getChaptersWithImages, { book: "a-scandal-in-bohemia" })).toEqual([1]);
+      // Bible images need no session.
+      expect(await t.query(api.verseImages.getImageHistory, { verseId: "genesis-1-1" })).toHaveLength(3);
+    } finally {
+      vi.unstubAllEnvs();
+    }
   });
 });

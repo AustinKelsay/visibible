@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   // The generic image engine reads the owner-authored work, brief, depiction profile and style files at request time.
   outputFileTracingIncludes: {
     "/api/generate-image": ["./works/*/work.json", "./works/*/brief.json", "./works/*/depiction.json", "./styles/*.json"],
+    // The prose reader's pages read the same imported text and inputs.
+    "/read/[work]": ["./works/*/work.json", "./works/*/brief.json", "./works/*/depiction.json", "./styles/*.json"],
+    "/read/[work]/[moment]": ["./works/*/work.json", "./works/*/brief.json", "./works/*/depiction.json", "./styles/*.json"],
   },
   async headers() {
     const cspDirectives = [

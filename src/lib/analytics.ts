@@ -53,7 +53,8 @@ type VerseImagesStateProps = BaseProps & {
   book: string;
   chapter: number;
   verse: number;
-  testament: "old" | "new";
+  /** "prose" for a prose work's moment: book is the work's title, chapter its division, verse the first paragraph. */
+  testament: "old" | "new" | "prose";
 } & (
   | {
       imageState: "known";

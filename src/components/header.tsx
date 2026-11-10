@@ -2,12 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { BookOpen, ChevronDown, Menu, MessageCircle, X, Zap } from "lucide-react";
 import { useSession } from "@/context/session-context";
 import { DEFAULT_IMAGE_ESTIMATED_CREDITS_COST } from "@/lib/image-models";
 import { useNavigation } from "@/context/navigation-context";
 import { useOptionalVerseView } from "@/context/verse-view-context";
+import { useWorkScope } from "@/context/work-scope-context";
 import { TranslationSelector } from "./translation-selector";
 import { ImageModelSelector } from "./image-model-selector";
 import { ArtStyleSelector } from "@/components/art-style-selector";
@@ -35,7 +36,11 @@ function Divider() {
 export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
   const pathname = usePathname();
   const verseView = useOptionalVerseView();
-  const { toggleMenu, toggleChat, isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu } = useNavigation();
+  // A prose work's page: its passage leads, the book button opens its contents, and the Bible's translation and
+  // chat are not offered.
+  const scope = useWorkScope();
+  const router = useRouter();
+  const { toggleMenu: toggleBookMenu, toggleChat, isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu } = useNavigation();
   const menuRef = useRef<HTMLDivElement>(null);
   // Phone passage pill: shown only when its full label fits beside the other header controls,
   // otherwise the book icon stands in (a long passage plus a paid balance and Generate can crowd it).
@@ -49,11 +54,12 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
   // The brand links home everywhere except verse pages (About, API docs, 404). A verse-shaped
   // address that does not exist (/genesis/0/1) renders the 404 page, which says so.
   const isBrandLinkPage = isNotFound || !/^\/[^/]+\/\d+\/\d+$/.test(pathname);
-  const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname) && verseView !== null;
+  const isVersePage = (/^\/[^/]+\/\d+\/\d+$/.test(pathname) && verseView !== null) || scope !== null;
   const videoOpen = verseView?.effectiveView === "video";
   // Generate and image settings register only while the reader's image is mounted.
-  const readerOpen = verseView?.effectiveView === "reader";
-  const passage = isVersePage ? passageFromPath(pathname) : null;
+  const readerOpen = scope !== null || verseView?.effectiveView === "reader";
+  const passage = scope ? scope.passage : isVersePage ? passageFromPath(pathname) : null;
+  const toggleMenu = scope ? () => router.push(scope.contentsHref) : toggleBookMenu;
   const passageLabel = passage?.full ?? null;
   const passageShort = passage?.short ?? null;
 
@@ -131,8 +137,8 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
                 ? "lg:min-h-[36px] lg:gap-1.5 lg:px-3 lg:rounded-full lg:border lg:border-[var(--divider)] lg:text-[var(--foreground)] lg:hover:bg-[var(--surface)]"
                 : ""
             }`}
-            aria-label="Open book navigation"
-            title="Navigate"
+            aria-label={scope ? "Open contents" : "Open book navigation"}
+            title={scope ? "Contents" : "Navigate"}
             onClick={toggleMenu}
           >
             <BookOpen size={passageLabel ? 18 : 20} strokeWidth={1.5} />
@@ -148,7 +154,7 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
 
           {/* Settings Group */}
           <div className="flex items-center">
-            <TranslationSelector variant="compact" />
+            {scope ? null : <TranslationSelector variant="compact" />}
             {/* Same controls on every tab. Art style is a saved preference, so it stays usable in Video;
                 image settings need the image stage and are read-only there. */}
             <div className="flex items-center" title={videoOpen ? "Art style applies to images, not videos" : undefined}>
@@ -184,10 +190,10 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
           ) : null}
           </div>
 
-          <Divider />
+          {scope ? null : <Divider />}
 
           {/* Navigation Group */}
-          <div className="flex items-center">
+          {scope ? null : <div className="flex items-center">
             <button
               className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
               aria-label="Toggle chat"
@@ -196,7 +202,7 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
             >
               <MessageCircle size={20} strokeWidth={1.5} />
             </button>
-          </div>
+          </div>}
         </nav>
 
         {/* Mobile Actions - Credits + Generate + Chat + Books + Hamburger */}
@@ -204,13 +210,13 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
         <nav ref={mobileNavRef} className="relative flex sm:hidden min-w-0 items-center gap-0.5">
           <CreditsBadge />
           {isVersePage && !videoOpen ? <HeaderGenerateButton /> : null}
-          <button
+          {scope ? null : <button
             className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Toggle chat"
             onClick={toggleChat}
           >
             <MessageCircle size={20} strokeWidth={1.5} />
-          </button>
+          </button>}
           {/* Phones show where you are ("Gen 1:1") when the full label fits; otherwise, and on the
               narrowest phones, the book icon. The pill can also shrink with an ellipsis, so it never
               pushes the menu button out of view. */}
@@ -229,7 +235,7 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
             className={`min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] ${
               passage && pillFits ? "min-[375px]:min-w-0 min-[375px]:px-1" : ""
             }`}
-            aria-label={passage ? `Open book navigation, ${passage.full}` : "Open book navigation"}
+            aria-label={scope ? `Open contents, ${scope.passage.full}` : passage ? `Open book navigation, ${passage.full}` : "Open book navigation"}
             onClick={toggleMenu}
           >
             <BookOpen size={20} strokeWidth={1.5} className={passage && pillFits ? "min-[375px]:hidden" : ""} />
@@ -264,10 +270,10 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
         <div className="sm:hidden absolute top-full left-0 right-0 bg-[var(--background)] border-b border-[var(--divider)] shadow-lg z-50">
           <div className="px-4 py-3 space-y-4">
             <h2 className="text-xs font-medium uppercase tracking-wider text-[var(--muted)]">Settings</h2>
-            <div className="flex items-center justify-between">
+            {scope ? null : <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-[var(--foreground)]">Translation</span>
               <TranslationSelector variant="compact" />
-            </div>
+            </div>}
             {!videoOpen && (
               <>
                 <div className="flex items-center justify-between">

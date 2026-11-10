@@ -507,6 +507,10 @@ describe("Image Generation API Credit Flow", () => {
         const replay = await POST(createGenerateImageRequest(body));
         expect(replay.status).toBe(200);
         expect(await replay.json()).toMatchObject({ reused: true, engine: "legacy" });
+        // Naming the Bible's own work id leaves the fingerprint, and so the replay, unchanged.
+        const named = await POST(createGenerateImageRequest({ ...body, workId: "bible-web" }));
+        expect(named.status).toBe(200);
+        expect(await named.json()).toMatchObject({ reused: true, engine: "legacy" });
         expect(seen).toHaveLength(0);
         // A new request goes to the generic engine seam.
         const generic = await POST(createGenerateImageRequest({ ...body, requestId: "generic-request", style: "watercolor" }));
@@ -518,6 +522,65 @@ describe("Image Generation API Credit Flow", () => {
         expect(icon.status).toBe(503);
         expect(seen).toHaveLength(1);
         expect(getCallCount("reserveCredits")).toBe(0);
+      } finally {
+        setGenericEngine(null);
+      }
+    });
+  });
+
+  describe("prose works", () => {
+    const readyAlice = async () => {
+      const secret = process.env.CONVEX_SERVER_SECRET!;
+      await requestDb.mutation(api.analysis.registerWork, { serverSecret: secret, workId: "alice-in-wonderland", workVersion: "wv", briefVersion: "bv" });
+      const { generation } = await requestDb.mutation(api.analysis.stageGeneration, { serverSecret: secret, workId: "alice-in-wonderland", workVersion: "wv", briefVersion: "bv" });
+      await requestDb.mutation(api.analysis.putRecords, { serverSecret: secret, workId: "alice-in-wonderland", generation, records: [
+        { kind: "entry", recordId: "alice", payload: { kind: "entry", name: "Alice", entryKind: "character", hasForm: true, stages: [{ id: "main", text: "Alice: a girl in a yellow frock." }] } },
+        { kind: "section", recordId: "the-pool-of-tears-1", payload: { kind: "section", title: "Tears", firstUnit: "the-pool-of-tears-1", lastUnit: "the-pool-of-tears-26", cast: [{ entryId: "alice", stageId: "main" }] } },
+        { kind: "moment", recordId: "the-pool-of-tears-1", payload: { kind: "moment", sectionId: "the-pool-of-tears-1", firstUnit: "the-pool-of-tears-1", lastUnit: "the-pool-of-tears-3" } },
+      ] });
+      await requestDb.mutation(api.analysis.activateGeneration, { serverSecret: secret, workId: "alice-in-wonderland", generation });
+    };
+    const prose = (requestId: string, extra: Record<string, unknown> = {}) =>
+      createGenerateImageRequest({ requestId, reference: "ignored label", workId: "alice-in-wonderland", unitId: "the-pool-of-tears-1", style: "watercolor", ...extra });
+
+    it("draws a prose moment from the book's own text for the owner, and is not found for anyone else while the book is the owner's", async () => {
+      process.env.GENERIC_ENGINE_MODE = "public";
+      await readyAlice();
+      const { POST } = await import("../../generate-image/route");
+      const { setGenericEngine } = await import("@/lib/engine/dispatch");
+      const seen: Array<Record<string, unknown>> = [];
+      setGenericEngine({ id: "fake-generic", async execute(input) { seen.push(input as unknown as Record<string, unknown>); return { kind: "response", status: 200, body: { requestId: input.requestId, engine: "generic" } }; } });
+      try {
+        // A reader: not found, with no record, reservation or engine call, and no Bible lookup. An unknown book, and
+        // an unknown paragraph of an unopened book, get the very same answer, so neither can be probed.
+        const reader = await POST(prose("prose-reader"));
+        expect(reader.status).toBe(404);
+        const readerBody = await reader.json();
+        for (const probe of [prose("probe-unit", { unitId: "the-pool-of-tears-999" }), prose("probe-work", { workId: "moby-dick" })]) {
+          const response = await POST(probe);
+          expect(response.status).toBe(404);
+          expect(await response.json()).toEqual(readerBody);
+        }
+        expect(seen).toHaveLength(0);
+        expect(await requestDb.run((ctx) => ctx.db.query("imageGenerationRequests").collect())).toHaveLength(0);
+
+        // The owner (an admin session): the unit and its reference come from Alice's text, admitted on Alice's analysis.
+        resetMockState([{ ...fixtures.sessions.admin, sid: "test-session" }]);
+        const owner = await POST(prose("prose-owner"));
+        expect(owner.status).toBe(200);
+        expect(seen).toEqual([expect.objectContaining({ workId: "alice-in-wonderland", verseId: "the-pool-of-tears-1", reference: "The Pool of Tears ¶1", styleId: "watercolor", isOwner: true,
+          readiness: expect.objectContaining({ activeGeneration: 1, briefVersion: "bv" }) })]);
+
+        // For the owner too: a paragraph the book lacks, or one inside a passage (images live under its first
+        // paragraph), is refused before admission.
+        const unknownUnit = await POST(prose("prose-unknown-unit", { unitId: "the-pool-of-tears-999" }));
+        expect(unknownUnit.status).toBe(400);
+        const interior = await POST(prose("prose-interior", { unitId: "the-pool-of-tears-2" }));
+        expect(interior.status).toBe(400);
+        expect((await interior.json()).message).toMatch(/does not begin a passage/);
+        expect((await POST(prose("prose-unknown-work", { workId: "moby-dick" }))).status).toBe(404);
+        expect(seen).toHaveLength(1);
+        expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("bible-api"))).toHaveLength(0);
       } finally {
         setGenericEngine(null);
       }

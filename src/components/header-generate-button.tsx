@@ -14,20 +14,26 @@ import {
 import { BulkGeneratePanel } from "@/components/bulk-generate-panel";
 import { ImageGenerationSettingsPanel } from "@/components/image-generation-settings-panel";
 import type { ArtStyleAvailability } from "@/lib/art-styles";
+import { imageModelsUrl, useWorkScope } from "@/context/work-scope-context";
 
 /** Compact generate button for the header. Returns null on non-verse pages. */
 export function HeaderGenerateButton() {
   const { state, isRegistered, generate, buyCredits } = useGeneration();
   const { tier, credits } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<"single" | "bulk">("single");
+  const [requestedTab, setActiveTab] = useState<"single" | "bulk">("single");
+  // Bulk queues a Bible chapter's verses; a prose moment is made one at a time.
+  const scope = useWorkScope();
+  const activeTab = scope ? "single" : requestedTab;
+  const catalogUrl = imageModelsUrl(scope);
 
   // Inline model list state (lazy-loaded when modal opens)
   const [models, setModels] = useState<ImageModel[]>([]);
   const [modelsLoading, setModelsLoading] = useState(false);
   const [modelsError, setModelsError] = useState<string | null>(null);
   const [artStyles, setArtStyles] = useState<ArtStyleAvailability[] | null>(null);
-  const hasFetchedModels = useRef(false);
+  /** The catalog the open dialog has fetched; another work's catalog, or a closed dialog, fetches afresh. */
+  const fetchedCatalog = useRef<string | null>(null);
   const singleTabRef = useRef<HTMLButtonElement | null>(null);
   const bulkTabRef = useRef<HTMLButtonElement | null>(null);
 
@@ -64,24 +70,27 @@ export function HeaderGenerateButton() {
   }, [isModalOpen]);
 
   useEffect(() => {
-    if (!isModalOpen) hasFetchedModels.current = false;
+    if (!isModalOpen) fetchedCatalog.current = null;
   }, [isModalOpen]);
 
   // Lazy-fetch models when modal opens
   useEffect(() => {
-    if (isModalOpen && !hasFetchedModels.current) {
-      hasFetchedModels.current = true;
+    if (isModalOpen && fetchedCatalog.current !== catalogUrl) {
+      fetchedCatalog.current = catalogUrl;
+      // An answer for a catalog the dialog has moved on from is dropped.
+      const stale = () => fetchedCatalog.current !== catalogUrl;
 
       queueMicrotask(() => {
         setModelsLoading(true);
         setModelsError(null);
 
-        fetch("/api/image-models", { cache: "no-store" })
+        fetch(catalogUrl, { cache: "no-store" })
           .then((res) => {
             if (!res.ok) throw new Error(`Failed to fetch models (${res.status})`);
             return res.json();
           })
           .then((data) => {
+            if (stale()) return;
             if (data.models) setModels(data.models);
             if (Array.isArray(data.artStyles)) setArtStyles(data.artStyles);
             if (data.error) setModelsError(data.error);
@@ -94,7 +103,7 @@ export function HeaderGenerateButton() {
           .finally(() => setModelsLoading(false));
       });
     }
-  }, [isModalOpen, modelsError]);
+  }, [isModalOpen, modelsError, catalogUrl]);
 
   const openGenerateModal = (tab: "single" | "bulk" = "single") => {
     if (isGenerating) return;
@@ -285,7 +294,7 @@ export function HeaderGenerateButton() {
               </button>
             </div>
 
-            <div
+            {scope ? null : <div
               role="tablist"
               aria-label="Generation mode"
               className="flex gap-1 mx-6 mb-4 p-1 rounded-[var(--radius-md)] bg-[var(--surface)]"
@@ -328,7 +337,7 @@ export function HeaderGenerateButton() {
                 <Layers size={12} strokeWidth={1.5} />
                 Bulk
               </button>
-            </div>
+            </div>}
 
             <div className="flex-1 overflow-y-auto overscroll-contain px-6" style={{ WebkitOverflowScrolling: "touch" }}>
               {activeTab === "bulk" ? (

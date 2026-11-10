@@ -21,6 +21,8 @@ import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
 import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
 import { SHARED_STYLES } from "@/lib/work-preparation";
 import { getGenericEngine } from "@/lib/engine/dispatch";
+import { loadWorkInputs } from "@/lib/engine/work-inputs";
+import { BIBLE_WORK_ID, findProseWork, isProseOwner } from "@/lib/works/catalog";
 import {
   validateSessionWithIp,
   withSessionRefreshCookie,
@@ -105,6 +107,9 @@ const generateImageSchema = z
     requestId: z.string().regex(/^[a-zA-Z0-9_-]{8,80}$/).optional(),
     /** A bulk job's bound engine: the request is refused rather than admitted on another engine (#178). */
     engine: z.enum(["legacy", "generic"]).optional(),
+    /** A prose work's moment: the work and the unit to draw. The reference is then only a label. */
+    workId: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(80).optional(),
+    unitId: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(200).optional(),
   })
   .passthrough();
 
@@ -355,6 +360,9 @@ export async function POST(request: Request) {
     aspectRatio, resolution, theme: requestBody.theme ?? null,
     generation: requestBody.generation ?? null, prevVerse: requestBody.prevVerse ?? null,
     nextVerse: requestBody.nextVerse ?? null,
+    // Only prose requests carry these, so Bible fingerprints (and their replays) are unchanged, even when a Bible
+    // request names its work.
+    ...(requestBody.workId && requestBody.workId !== BIBLE_WORK_ID ? { workId: requestBody.workId, unitId: requestBody.unitId ?? null } : {}),
   })).digest("hex");
   const existingIntentResponse = (admission: FunctionReturnType<typeof api.verseImages.createGenerationRequest>) => {
     if (admission.conflict) {
@@ -396,25 +404,72 @@ export async function POST(request: Request) {
     return Number.isNaN(parsed) ? null : parsed;
   };
 
-  let passage: Awaited<ReturnType<typeof resolveGenerationPassage>>;
-  try {
-    passage = await resolveGenerationPassage(reference, bibleTranslation);
-  } catch (error) {
-    const lookupStatus = error instanceof BibleApiLookupError ? error.statusCode : undefined;
-    return jsonWithSessionRefresh({
-      error: "Reference lookup unavailable",
-      message: `Could not verify "${reference}" in the ${translationId.toUpperCase()} translation right now. Please try again.`,
-      details: { upstreamStatus: lookupStatus ?? null },
-    }, { status: lookupStatus === undefined || lookupStatus === 503 ? 503 : 502 });
+  // A prose moment is read from the work's imported text; a Bible verse is verified in the reader's translation.
+  const proseRequested = requestBody.workId !== undefined && requestBody.workId !== BIBLE_WORK_ID;
+  const proseWork = proseRequested ? findProseWork(requestBody.workId!) : null;
+  if (proseRequested) {
+    // An unknown book and one still in the owner's preview get the same answer, before anything about the passage
+    // is checked, so neither the book nor its paragraphs can be probed.
+    const bookUnavailable = () => jsonWithSessionRefresh({ error: "Invalid or unavailable reference", message: "That book is not available." }, { status: 404 });
+    if (!proseWork) return bookUnavailable();
+    if (proseWork.visibility !== "public") {
+      let viewer;
+      try {
+        viewer = await convex.query(api.sessions.getSession, { sid, serverSecret });
+      } catch (error) {
+        logApiFailure({ context: requestContext, stage: "prose_viewer_session", error, statusCode: 503, sid });
+        return jsonWithSessionRefresh({ error: "Unable to verify session", retryable: true }, { status: 503 });
+      }
+      if (!isProseOwner(viewer)) return bookUnavailable();
+    }
+    if (!requestBody.unitId) return jsonWithSessionRefresh({ error: "Invalid or unavailable reference", message: "Name the passage to draw." }, { status: 400 });
   }
-  if (!passage) {
-    return jsonWithSessionRefresh({
-      error: "Invalid or unavailable reference",
-      message: "Please provide a single verse available in the selected translation, like John 3:16.",
-    }, { status: 400 });
+  const workId = proseWork?.id ?? BIBLE_WORK_ID;
+  let verseId: string;
+  if (proseWork) {
+    let unit;
+    try {
+      unit = (await loadWorkInputs(proseWork.id)).work.getUnit(requestBody.unitId!);
+    } catch (error) {
+      const unknownUnit = error instanceof Error && error.message.startsWith("Unknown unit");
+      if (!unknownUnit) logApiFailure({ context: requestContext, stage: "prose_work_inputs", error, statusCode: 503, sid });
+      return unknownUnit
+        ? jsonWithSessionRefresh({ error: "Invalid or unavailable reference", message: "That passage is not in this book." }, { status: 400 })
+        : jsonWithSessionRefresh({ error: "Preparing scene", message: "The book's text is not available on this server.", retryable: true }, { status: 503 });
+    }
+    // Images are kept under a passage's first paragraph, which the reader asks for; any other paragraph would be
+    // drawn as its passage but saved where the passage page never looks.
+    let moment;
+    try {
+      moment = await convex.query(api.analysis.getActiveRecord, { workId: proseWork.id, kind: "moment", recordId: unit.id });
+    } catch (error) {
+      logApiFailure({ context: requestContext, stage: "prose_moment_lookup", error, statusCode: 503, sid });
+      return jsonWithSessionRefresh({ error: "Preparing scene", message: "The book's passages could not be read.", retryable: true }, { status: 503 });
+    }
+    if (!moment) return jsonWithSessionRefresh({ error: "Invalid or unavailable reference", message: "That paragraph does not begin a passage." }, { status: 400 });
+    reference = unit.reference;
+    verseId = unit.id;
+  } else {
+    let passage: Awaited<ReturnType<typeof resolveGenerationPassage>>;
+    try {
+      passage = await resolveGenerationPassage(reference, bibleTranslation);
+    } catch (error) {
+      const lookupStatus = error instanceof BibleApiLookupError ? error.statusCode : undefined;
+      return jsonWithSessionRefresh({
+        error: "Reference lookup unavailable",
+        message: `Could not verify "${reference}" in the ${translationId.toUpperCase()} translation right now. Please try again.`,
+        details: { upstreamStatus: lookupStatus ?? null },
+      }, { status: lookupStatus === undefined || lookupStatus === 503 ? 503 : 502 });
+    }
+    if (!passage) {
+      return jsonWithSessionRefresh({
+        error: "Invalid or unavailable reference",
+        message: "Please provide a single verse available in the selected translation, like John 3:16.",
+      }, { status: 400 });
+    }
+    reference = passage.reference;
+    verseId = toVerseId(reference);
   }
-  reference = passage.reference;
-  const verseId = toVerseId(reference);
 
   const generationNumber = parseGenerationNumber(requestBody.generation);
   // Engine admission (#174): decided once per new request, persisted with it, never switched later.
@@ -431,8 +486,7 @@ export async function POST(request: Request) {
     return null;
   });
   const isAdminForBilling = sessionForAdmission?.tier === "admin";
-  const bibleWorkId = "bible-web";
-  const readiness = engineMode === "disabled" ? null : await convex.query(api.analysis.getWorkStatus, { workId: bibleWorkId }).catch(() => null);
+  const readiness = engineMode === "disabled" ? null : await convex.query(api.analysis.getWorkStatus, { workId }).catch(() => null);
   const engineDecision = decideEngine({
     mode: engineMode, isOwner: hasOwnerEngineAccess(sessionForAdmission), styleId: requestedStyleId ?? null,
     readiness: readiness ? { ready: readiness.ready, reasons: readiness.reasons, activeGeneration: readiness.activeGeneration, briefVersion: readiness.briefVersion } : null,
@@ -456,7 +510,7 @@ export async function POST(request: Request) {
   }
   const outcome = await getGenericEngine().execute({
     requestId: clientRequestId, sid, isOwner: isAdminForBilling, verseId, reference, translationId, styleId: requestedStyleId ?? "classical", aspectRatio, resolution,
-    workId: bibleWorkId, readiness: { activeGeneration: readiness.activeGeneration, workVersion: readiness.workVersion, briefVersion: readiness.briefVersion },
+    workId, readiness: { activeGeneration: readiness.activeGeneration, workVersion: readiness.workVersion, briefVersion: readiness.briefVersion },
     session: { credits: sessionForAdmission.credits, dailySpendUsd: sessionForAdmission.dailySpendUsd, dailySpendLimitUsd: sessionForAdmission.dailySpendLimitUsd },
     inputFingerprint, generationNumber,
     runtime: { convex, serverSecret, openRouterApiKey, requestContext },

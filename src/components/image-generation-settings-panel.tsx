@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { Check, Loader2, Zap } from "lucide-react";
 import { useGeneration } from "@/context/generation-context";
 import { usePreferences } from "@/context/preferences-context";
+import { useEffectiveArtStyle } from "@/context/work-scope-context";
 import { ART_STYLES, type ArtStyleAvailability } from "@/lib/art-styles";
 import {
   ASPECT_RATIOS,
@@ -38,10 +39,12 @@ export function ImageGenerationSettingsPanel({
     imageAspectRatio,
     imageResolution,
     setImageModel,
-    artStyle,
     setArtStyle,
   } = usePreferences();
-  const styleOptions = artStyles ?? ART_STYLES.map((style) => ({ ...style, available: true, reason: null }));
+  // On a prose work's page, only that work's styles, and the style its images are made in.
+  const { artStyle, offered } = useEffectiveArtStyle();
+  const allStyles = artStyles ?? ART_STYLES.map((style) => ({ ...style, available: true, reason: null }));
+  const styleOptions = offered ? offered.flatMap((id) => allStyles.filter((style) => style.id === id)) : allStyles;
   const selectedStyle = styleOptions.find((style) => style.id === artStyle);
   const {
     baseCost,
