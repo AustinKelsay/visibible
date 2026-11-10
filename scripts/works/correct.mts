@@ -119,7 +119,9 @@ switch (command) {
     if (chosen && kind !== "sheet") throw new Error("--image applies to redo-sheet only");
     if (chosen) {
       // Decode it, so a file that only starts like a JPEG is refused before the paid check, and keep storage's 4 MiB limit.
-      const format = await (await import("sharp")).default(chosen).metadata().then((m) => m.format, () => null);
+      const sharp = (await import("sharp")).default;
+      // metadata() reads only the header; stats() decodes every pixel, so a truncated or damaged JPEG is refused too.
+      const format = await sharp(chosen, { failOn: "truncated" }).stats().then(() => sharp(chosen).metadata()).then((m) => m.format, () => null);
       if (format !== "jpeg") throw new Error("--image must be a JPEG file");
       if (chosen.length > 4 * 1024 * 1024) throw new Error(`--image is ${chosen.length} bytes; reference images are limited to 4 MiB`);
     }
