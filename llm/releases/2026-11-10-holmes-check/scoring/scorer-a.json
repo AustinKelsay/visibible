@@ -1,0 +1,517 @@
+{
+ "scorer": "a",
+ "scoredBeforeUnblinding": true,
+ "holmesConsistency": "Holmes is very consistent across all 30 items: the same lean, dark-haired, slicked-back, gaunt-cheeked face in both styles. That consistency comes from a single face that reads as a dark-haired Peter Cushing wherever it is large enough to see.",
+ "scores": [
+  {
+   "id": "h001",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Lestrade leans and points while Holmes reads the paper, with Watson seated and the bag of garments on the floor; scene fits. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. Lettering is pseudo-script on the note and the mantel clock face, not readable."
+  },
+  {
+   "id": "h002",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Same scene, well matched (Lestrade pointing and holding the bag, Watson at left). Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. The open book/newspaper at right has a letter-like headline ('I DIS DR AID'); thin white margin at top/left (accepted)."
+  },
+  {
+   "id": "h003",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Holmes screens the dark lantern on a crate, Watson crouches with his revolver on a case, Merryweather and Jones behind; matches. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. Ragged white unpainted border (accepted)."
+  },
+  {
+   "id": "h004",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes holds the blue stone to the light with Watson present, but two more blue gems lie on the table, duplicating the unique carbuncle. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. Clock faces only, not readable."
+  },
+  {
+   "id": "h005",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Station-master with lantern, bandaged Hatherley, Bradstreet, Holmes and Watson hurry toward the burning whitewashed house; only two engines shown (minor). Holmes is the same lean, dark-haired, hawk-nosed type but the face is too small or turned to clearly read as one actor."
+  },
+  {
+   "id": "h006",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Hatherley points out the window by the gravel drive and roses, Holmes, Watson and the crowd beside the fire; matches. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. A few tiny glyph-like scribbles near Holmes's shoulder, not readable."
+  },
+  {
+   "id": "h007",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Cellar with Watson crouched with revolver, Merryweather with cane, Holmes at the lantern on a crate and Jones; matches. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. No lettering."
+  },
+  {
+   "id": "h008",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Wilson (red-haired, stout) seated, Holmes at the door with Watson; but a man in a bowler peers in round the door at right, a figure the text does not call for. Newspaper masthead and columns on the mantel are pseudo-text. Holmes is the Cushing-leaning type but not clearly one actor here."
+  },
+  {
+   "id": "h009",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes holds the battered felt hat and Watson holds the lens ('Here is my lens'); matches. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. Clock faces only; white unpainted sides/bottom (accepted)."
+  },
+  {
+   "id": "h010",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes, match lit, lashes at the bell-pull with his cane as the snake appears at the ventilator, Watson seated; matches. Holmes's snarling profile is the same type but does not clearly read as one actor. No lettering."
+  },
+  {
+   "id": "h011",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Station-master leads with lantern, Hatherley bandaged, Holmes and two bowler-hatted men hurry toward the blazing whitewashed house with three engines and roses; matches. Holmes is the same lean, dark-haired, hawk-nosed type but the face is too small or turned to clearly read as one actor."
+  },
+  {
+   "id": "h012",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes pulls Watson in by the arm at the door while Wilson half-rises from his chair; matches well. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. Mantel clock face only; ragged white top edge (accepted)."
+  },
+  {
+   "id": "h013",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Watson holds the printed slip while Holmes, holding the letters, explains; matches. Holmes's face is smoother and fuller here, Cushing-leaning but not clearly one actor. Scribbles on the papers and a clock face, not readable."
+  },
+  {
+   "id": "h014",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Railed weedy enclosure with laurels, three gilt balls on the corner house, Holmes thumping the pavement with his stick, Watson watching; matches (board left blank). Holmes is seen from behind/in profile, so no likeness."
+  },
+  {
+   "id": "h015",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Masked giant in blue cloak lined with flame silk, beryl brooch, astrakhan and fur-topped boots enters; Holmes greets him, Watson in the armchair. He carries a bag the text does not mention (minor); dim figure in the hall is not prominent. Holmes is the same lean, dark-haired, hawk-nosed type but the face is too small or turned to clearly read as one actor. Clock face only."
+  },
+  {
+   "id": "h016",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "At Eyford station the station-master points to the column of smoke over a clump of trees, with Bradstreet, Holmes, Watson and Hatherley in a sling; matches. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair."
+  },
+  {
+   "id": "h017",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "A reflective narrated passage (Watson says he has seen little of Holmes), yet Watson sits prominently opposite Holmes, so the narrator is drawn into a scene that does not exist. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. Clock face and pinned note pseudo-text."
+  },
+  {
+   "id": "h018",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Hatherley points to the window with bandaged hand beside the gravel drive and roses, Holmes and Watson beside him, engines and crowd; matches (blood stains mild, not gore). Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. Faint glyphs on the engine's gold band, not readable."
+  },
+  {
+   "id": "h019",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Holmes with match and cane lashes at the bell-pull, snake at the ventilator, Watson seated; but Holmes's legs pass behind the footboard and stand down through the mattress, a contradictory pose. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair."
+  },
+  {
+   "id": "h020",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Holmes steps out of the carriage while the station-master points to the smoke and Bradstreet holds his map, Watson right; matches. The station-master's paper is headed 'TIOFTABLE' (timetable-like, real letters). Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair."
+  },
+  {
+   "id": "h021",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Watson reads the slip while Holmes points and the letters lie on the table; matches. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. The fender bears a pseudo-script inscription; clock face; not readable."
+  },
+  {
+   "id": "h022",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Masked King in blue coat and orange-lined cloak with fur-topped boots enters; Holmes stands, Watson sits in the armchair; matches (he carries an unmentioned bag, minor). Holmes is the same lean, dark-haired, hawk-nosed type but the face is too small or turned to clearly read as one actor. Clock face only."
+  },
+  {
+   "id": "h023",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes tosses the ball of papers up toward the rack in an otherwise empty compartment, Watson opposite; matches. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. Newspaper columns are pseudo-text."
+  },
+  {
+   "id": "h024",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Clean-shaven assistant at the pawnbroker's door, Holmes with stick asking the way, Watson with bag, three gilt balls and blank board, railed weedy enclosure; matches. Holmes is the same lean, dark-haired, hawk-nosed type but the face is too small or turned to clearly read as one actor. No lettering."
+  },
+  {
+   "id": "h025",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Holmes kneels with lantern and lens at the cracks, Merryweather perched on a crate with his stick, Watson and Jones standing; matches. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. No lettering."
+  },
+  {
+   "id": "h026",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Ball of papers on the rack, Holmes with notebook talking to Watson in an otherwise empty compartment; matches. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. Newspaper pseudo-text; whitish top-left/left margin (accepted)."
+  },
+  {
+   "id": "h027",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes holds the battered felt hat and lens, talking to Watson; matches. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. Mantel clock only."
+  },
+  {
+   "id": "h028",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Holmes holds the stone to the window light, but a second blue stone is in his other hand and a third on the sill, duplicating the unique carbuncle. Newspaper headline letter-like ('Fous Fu Lbuteg'). Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair."
+  },
+  {
+   "id": "h029",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes kneels with lens by the lantern, Merryweather perched on a crate with stick, Watson and Jones behind; matches (open crates of loose gold are a minor liberty). Holmes's face is turned down; Cushing-leaning but not clearly one actor. No lettering."
+  },
+  {
+   "id": "h030",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes sits holding a photograph card with violin and pipe, but Watson stands in the doorway, the narrator drawn into a reflective passage with no scene. Holmes's face clearly reads as Peter Cushing (dark-haired): gaunt hollow cheeks, high cheekbones, thin lips, narrow jaw, receding temples, slicked-back hair. Book pages pseudo-script and clock face."
+  }
+ ]
+}

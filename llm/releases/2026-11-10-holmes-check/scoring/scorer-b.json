@@ -1,0 +1,517 @@
+{
+ "scorer": "b",
+ "scoredBeforeUnblinding": true,
+ "holmesConsistency": "Holmes is clearly the same man in nearly every image, in both styles: gaunt, hollow-cheeked, high-foreheaded, with slicked-back black hair, a sharp nose and thin lips. That consistent face is itself a recognisable Peter Cushing likeness; only in a few small or turned-away views (h011, h014, h015, h024, h027) does it fall back to a generic lean Victorian type.",
+ "scores": [
+  {
+   "id": "h030",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes seated studying a photograph card while Watson stands in the doorway with bowler and bag; Watson is a narrator figure not in this reflective moment. Holmes's gaunt face, hollow cheeks and swept-back hair clearly read as Peter Cushing; open book shows only pseudo-script."
+  },
+  {
+   "id": "h029",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Holmes kneels with lantern and lens at the flagstones, Merryweather on a crate, Jones and Watson standing: the moment is shown. Holmes's profile (hollow cheek, thin mouth, slicked hair) clearly reads as Peter Cushing."
+  },
+  {
+   "id": "h028",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Holmes holds the blue stone to the window while Watson leaves, but three separate blue stones appear (raised hand, other hand, windowsill), duplicating a unique jewel. Fender at lower right carries letter/numeral shapes ('PJ TYIS 9') and the newspaper has a pseudo masthead; Holmes reads as Peter Cushing."
+  },
+  {
+   "id": "h027",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes seated by the fire holding the battered felt hat and lens, Watson opposite with bowler and bag: matches the moment. Holmes is a lean dark-haired Victorian type here, fuller-faced with open mouth, not clearly one actor."
+  },
+  {
+   "id": "h026",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes in the carriage with notebook, crumpled paper ball on the rack and loose papers, Watson opposite: moment shown. Newspapers carry only pseudo-columns; top-left sky fades to white (accepted); Holmes's receding hair and gaunt face clearly read as Peter Cushing."
+  },
+  {
+   "id": "h025",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Holmes kneels with lantern and lens at the cracks, Merryweather sits on a crate with his stick, stout Jones and Watson stand by: correct moment. Holmes's profile is a strong Peter Cushing likeness."
+  },
+  {
+   "id": "h024",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Three gilt balls and a blank brown board on the corner shop, the clean-shaven assistant at the door, Holmes with stick and Watson, railed square with weedy grass: moment shown. Holmes's face is small and generic, not clearly an actor."
+  },
+  {
+   "id": "h023",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes tosses the paper ball toward the rack amid a litter of newspapers, Watson opposite with hat and bag: correct moment. Newspapers show pseudo-text only; Holmes's hollow-cheeked profile reads as Peter Cushing."
+  },
+  {
+   "id": "h022",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Masked King in flame-lined blue cloak, astrakhan bands and fur-topped boots at the door, Holmes standing, Watson seated: moment shown (he carries a bag rather than the hat, minor). Holmes's profile clearly reads as Peter Cushing."
+  },
+  {
+   "id": "h021",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Watson reads the printed slip in an armchair while Holmes leans in over the letters: moment shown. Fender at bottom right carries garbled glyph-like marks; Holmes's profile is a strong Peter Cushing likeness."
+  },
+  {
+   "id": "h020",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Station-master points to the smoke column behind trees while Bradstreet, Holmes and others stand by the carriage: moment shown. The station-master's card is lettered (reads like 'TIOFTABLE'); Holmes's profile reads as Peter Cushing."
+  },
+  {
+   "id": "h019",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Holmes with lit match lashes his cane at the bell-pull with the snake at the ventilator, Watson seated, but Holmes's legs pass through the iron bedstead (footboard in front, mattress behind his thighs), a contradictory pose. His horrified profile clearly reads as Peter Cushing."
+  },
+  {
+   "id": "h018",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Hatherley with bandaged hand points at the burning whitewashed house, rose-bushes and gravel drive, fire-engines, Holmes and Watson beside him: moment shown. Fire-engine side panel has pseudo-lettering; Holmes's three-quarter face is a clear Peter Cushing likeness."
+  },
+  {
+   "id": "h017",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes stands brooding with a pipe while Watson sits in an armchair; Watson is a narrator figure not called for in this reflective passage. Pinned note on the bookcase carries pseudo-script; Holmes's downcast face reads as Peter Cushing."
+  },
+  {
+   "id": "h016",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Station-master with lantern gestures toward the smoke column behind a clump of trees, Bradstreet, Holmes, Watson and Hatherley in a sling by the train: moment shown. Holmes's profile is a strong Peter Cushing likeness."
+  },
+  {
+   "id": "h015",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Masked King with flame-lined blue cloak, beryl brooch, astrakhan bands and fur boots enters, Holmes greets him, Watson seated: moment shown; a dim shadowy figure in the passage is not prominent. Flawed only for pseudo-text on the desk papers; Holmes's younger, smoother profile does not clearly read as one actor."
+  },
+  {
+   "id": "h014",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes thumps the pavement with his stick by the pawnbroker's door under three gilt balls, Watson with bag, railed square with weedy grass: moment shown (fascia blank). Holmes's small downcast profile is the lean Victorian type, not clearly an actor."
+  },
+  {
+   "id": "h013",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Watson reads the printed slip while Holmes, holding the letters, explains: moment shown. Papers carry pseudo-script only; Holmes's profile clearly reads as Peter Cushing."
+  },
+  {
+   "id": "h012",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes pulls Watson in at the door while stout, red-haired Wilson half rises from his chair: moment shown. Wall switch plate by the door has a glyph-like mark; Holmes's smiling gaunt face is a strong Peter Cushing likeness."
+  },
+  {
+   "id": "h011",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "The party hastens along the drive led by the station-master with a lantern toward the burning whitewashed house with three fire-engines: moment shown. Holmes's face is small and only the generic lean type, not clearly an actor."
+  },
+  {
+   "id": "h010",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Holmes with lit match lashes his cane at the bell-pull, snake at the ventilator, Watson seated: moment shown. Holmes's horrified profile is a strong Peter Cushing likeness."
+  },
+  {
+   "id": "h009",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes holds the battered felt hat out to Watson, who holds the lens, by the fire: moment shown. Newspapers on the left show pseudo-text only; Holmes's profile is a strong Peter Cushing likeness."
+  },
+  {
+   "id": "h008",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes pulls Watson in at the door while red-bearded, stout Wilson sits in a chair, but a second mustached man in a bowler peers through the door gap at right, an extra figure. Newspaper on the mantel has a small pseudo-masthead; Holmes reads as Peter Cushing."
+  },
+  {
+   "id": "h007",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Watson crouches with his revolver, Merryweather with stick, Holmes with the lantern on a crate and stout Jones among the crates: moment shown. Holmes's face is a strong Peter Cushing likeness."
+  },
+  {
+   "id": "h006",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Hatherley with bandaged hand points toward the burning house past rose-bushes and gravel drive while Holmes, Watson, the station-master and a crowd look on: moment shown. Holmes's profile is a strong Peter Cushing likeness."
+  },
+  {
+   "id": "h005",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "The station-master with a lantern, Hatherley, Bradstreet, Holmes and Watson hurry along the road toward the burning whitewashed house with fire-engines spraying: moment shown. Holmes's profile reads as Peter Cushing."
+  },
+  {
+   "id": "h004",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Holmes holds the glowing blue stone to the window light with Watson ready to go, but two more blue stones lie on the table, duplicating the single jewel. Holmes's profile is a strong Peter Cushing likeness."
+  },
+  {
+   "id": "h003",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Holmes shuts the lantern slide on a crate while Watson crouches with his revolver on a case, Merryweather and Jones behind: moment shown. Pale unpainted band along the top and right edges (accepted); Holmes's face is a strong Peter Cushing likeness."
+  },
+  {
+   "id": "h002",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Holmes reads the paper while Lestrade points accusingly with his bag and Watson sits by: moment shown. The open book on the right has a capital-letter headline (like '¡DJS DA AGS'); Holmes's profile reads as Peter Cushing."
+  },
+  {
+   "id": "h001",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Holmes reads the paper while Lestrade leans in pointing, Watson seated and the bag of garments on the floor: moment shown. The paper carries small pseudo-script; Holmes's downcast face reads as Peter Cushing."
+  }
+ ]
+}

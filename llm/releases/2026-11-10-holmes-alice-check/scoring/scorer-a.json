@@ -1,0 +1,1062 @@
+{
+ "scorer": "a",
+ "scoredBeforeUnblinding": true,
+ "holmesConsistency": "Holmes is broadly the same man throughout: lean, clean-shaven, dark side-parted hair, long face, brown waistcoat and dark frock coat, and Watson is consistently a brown-haired man with a full moustache, bowler and doctor's bag. The exception is the watercolor Holmes in x016 and x034, where the face shifts into a clear Benedict Cumberbatch likeness.",
+ "aliceConsistency": "Alice is very consistent across both styles: long straight honey-blonde hair, yellow puff-sleeved dress, white pinafore, pale-blue sash, blue-and-white striped stockings and black strap shoes, sometimes with a black or blue headband. Only her apparent age (roughly 9 to 12) drifts slightly.",
+ "scores": [
+  {
+   "id": "x001",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice drinks from the blank-tagged bottle beside the glass table and tiny door; Tenniel-type yellow dress, no film borrowing, no lettering."
+  },
+  {
+   "id": "x002",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Hatherley (bandaged hand) points out the drive and burning house to Holmes amid the crowd and fire-engines; Holmes is a generic lean dark-haired face."
+  },
+  {
+   "id": "x003",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes holds his lens over the battered felt hat while Watson sits by; snowy window, no visible writing."
+  },
+  {
+   "id": "x004",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Cellar among crates with Holmes at the lantern, Watson with revolver, old Merryweather and bulky Jones; matches the plans moment."
+  },
+  {
+   "id": "x005",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Card pips on the soldiers (lettering, unreadable). Rule broken: the Queen is a human woman in a heart gown, and the doubled-up arch soldiers are humans in grey tights with a card over their backs, not flat cards."
+  },
+  {
+   "id": "x006",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice, the March Hare (animal face, tweed), the sleeping Dormouse and the Hatter at the tea table; the Hatter is a generic gaunt man, not a film likeness."
+  },
+  {
+   "id": "x007",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: pseudo-lines on the White Rabbit's scroll and letter shapes on the jurors' slates, some readable. Rule broken: King (judge's wig), Queen and Knave are drawn as humans, not cards."
+  },
+  {
+   "id": "x008",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes in his armchair studies a woman's photograph with a lens while Watson sits by; no lettering, Holmes generic."
+  },
+  {
+   "id": "x009",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: an 'A' index and pips on the guards' tabards, scribbles on slates. Rule broken: guards are humans in card tabards with halberds, King and Queen human; Hatter with teacup and bread is right."
+  },
+  {
+   "id": "x010",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: a tiny price-tag style label in the Hatter's hatband (unreadable at size). Scene is right: Hare, sleeping Dormouse, Hatter crying 'no room', Alice in the big armchair."
+  },
+  {
+   "id": "x011",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Card pips on arch soldiers. Incoherent: Alice holds a wooden mallet though the croquet uses flamingos. Rule broken: the Queen is a human woman standing before a card backing and the arch soldiers are humans with cards on their backs."
+  },
+  {
+   "id": "x012",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Card pips on figures and slate marks. Incoherent: a second crowned, wigged King appears lower left as well as on the dais. Rule broken: King and Queen are humans; Alice's giant size reads well."
+  },
+  {
+   "id": "x013",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: the missing-person slip and a newspaper masthead show letter shapes, partly readable. Watson holds the slip to the light while Holmes points; Holmes is shown in a generic profile."
+  },
+  {
+   "id": "x014",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: a wall plate by the door carries a letter 'B'. Otherwise right: the masked King in furs arrives while Holmes bids Watson stay."
+  },
+  {
+   "id": "x015",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Incoherent: the picture is split by a hard vertical seam into an empty corridor half and an Alice half, reading as a diptych. Alice drinks from the blank-tagged bottle by the glass table and tiny door."
+  },
+  {
+   "id": "x016",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Rule broken: Holmes's face (curly dark hair, long narrow face, pale eyes) clearly reads as Benedict Cumberbatch. Pseudo-script on the slip Watson reads (unreadable)."
+  },
+  {
+   "id": "x017",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: pseudo newspaper columns on the paper on the seat (unreadable). Carriage scene with paper balls on the rack and Holmes explaining to Watson is right."
+  },
+  {
+   "id": "x018",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes strikes a match and lashes his cane at the bell-rope, snake at the ventilator, Watson seated; no lettering (clock ticks only)."
+  },
+  {
+   "id": "x019",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Cellar among crates with Holmes holding the lantern, Watson with revolver, Merryweather with cane and bulky Jones; matches the plans moment."
+  },
+  {
+   "id": "x020",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "The party walks up the drive toward the blazing white house with fire-engines working; Hatherley's bandaged hand, Watson and the station-master present."
+  },
+  {
+   "id": "x021",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Platform with the huge smoke column beyond the trees, station-master pointing, Bradstreet with a map (lines only), Holmes and Watson; Holmes generic."
+  },
+  {
+   "id": "x022",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Shabby Saxe-Coburg Square with railed enclosure, pawnbroker's three gilt balls, Holmes thumping the pavement, Watson and the assistant; signboard blank."
+  },
+  {
+   "id": "x023",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes holds the lens over the battered felt hat while Watson gestures from his chair; papers carry no writing."
+  },
+  {
+   "id": "x024",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice, Hatter, March Hare and sleeping Dormouse at the long tea table under the tree; animal faces kept, no film likeness."
+  },
+  {
+   "id": "x025",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: pseudo text lines on the papers on the right-hand desk (unreadable). Holmes with pipe holding a small portrait of a woman, Watson seated."
+  },
+  {
+   "id": "x026",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Mock Turtle (calf head, shell, coat), Gryphon and Alice on the shingle beach; Tenniel-type creatures with animal faces."
+  },
+  {
+   "id": "x027",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: the paper ball on the rack shows a readable headline fragment and the paper stack has text lines. Otherwise right: Holmes with notebook explaining to Watson in their own carriage."
+  },
+  {
+   "id": "x028",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Card pips and indices on the soldiers. Incoherent: card soldiers swing wooden mallets in a flamingo croquet game. Rule broken: the Queen is a human woman in a gown (soldiers themselves are proper card figures)."
+  },
+  {
+   "id": "x029",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Saxe-Coburg Square with railings and three gilt balls, Holmes knocking at the door with cane, the young assistant and Watson; signboard blank."
+  },
+  {
+   "id": "x030",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: a newspaper masthead with letter shapes on the stack lower left. Holmes pulls Watson in to meet the stout red-haired Wilson as the text says."
+  },
+  {
+   "id": "x031",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Rule broken: the King (wig, spectacles) and Queen are humans, and a human courtier holds a playing card rather than being one. Alice tips the jury box and the animal jurors sprawl as described; slates blank."
+  },
+  {
+   "id": "x032",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: heart pips on the mossy card soldier (unreadable). The Queen is drawn as a card body with head, hands and feet; the Cat's grinning head and Alice with the flamingo set down fit the moment."
+  },
+  {
+   "id": "x033",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice in the armchair, March Hare offering, sleeping Dormouse, and the Hatter staring at her; no lettering, no film likeness."
+  },
+  {
+   "id": "x034",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Rule broken: Holmes in the carriage window clearly reads as Benedict Cumberbatch. Pseudo labels on the map and timetable (unreadable); smoke column, station-master and bandaged Hatherley are right."
+  },
+  {
+   "id": "x035",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: numerals on the Hatter's hat tag and scribbles on slates. Incoherent: two crowned, bewigged Kings (left bench and right dais). Rule broken: King, Queen and a bicorne courtier are humans, not cards."
+  },
+  {
+   "id": "x036",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Card pips on the guards (unreadable); guards are proper card figures. Rule broken: the King and Queen are drawn as humans. Alice large, toppling the jury box, fits the text."
+  },
+  {
+   "id": "x037",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes leads the party up the road to the blazing house with two fire-engines working; Hatherley bandaged, station-master with lantern."
+  },
+  {
+   "id": "x038",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Vaulted cellar among crates; Holmes kneels with lens and lantern at the flagstones, Merryweather with stick, Jones and Watson."
+  },
+  {
+   "id": "x039",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "yes",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Top-left sky fades to bare paper (accepted for this style). Hatherley points out the house and roses to Holmes while the fire-engines work; no lettering."
+  },
+  {
+   "id": "x040",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "The masked King in furs and cape arrives at the door while Holmes waves Watson to stay; no lettering."
+  },
+  {
+   "id": "x041",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: heart and spade pips on the King's card body and the soldiers (unreadable). The King is drawn as a card with head and limbs; Alice introduces the floating grinning Cat's head."
+  },
+  {
+   "id": "x042",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Card pips on the guards' tabards (unreadable). Rule broken: guards are humans in card tabards with helmets, and King and Queen are humans. White Rabbit reads the paper as in the text."
+  },
+  {
+   "id": "x043",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Club and heart pips on the soldiers (unreadable). Rule broken: soldiers are humans in red uniforms with card tabards doubling as arches, and the Queen is human. Alice with flamingo and hedgehog is right."
+  },
+  {
+   "id": "x044",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Hatter, Dormouse, March Hare and Alice at the tea table; animal faces kept; the milk-jug spill is not shown but the conversation reads."
+  },
+  {
+   "id": "x045",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: cursive pseudo-script on the note in Holmes's hand and a pinned paper (unreadable). Holmes examines the note while Lestrade leans in, Watson seated."
+  },
+  {
+   "id": "x046",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Heart pips on a background card courtier (unreadable). Rule broken: the King (with notebook) and Queen are humans. Giant Alice refusing to leave, jurors with slates, fits the moment."
+  },
+  {
+   "id": "x047",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Blue Caterpillar with hookah on the mushroom addressing Alice in the wood; mushroom taller than the text's 'about her height' but acceptable."
+  },
+  {
+   "id": "x048",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Blue Caterpillar with hookah on an Alice-height mushroom, Alice answering shyly; no lettering."
+  },
+  {
+   "id": "x049",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Grinning striped Cheshire Cat with claws on the bough, Alice on the path below; animal face kept."
+  },
+  {
+   "id": "x050",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: newspaper mastheads lower left and a headed notice on the shelf, partly readable. Holmes reads the note while Lestrade leans over pointing; wet clothes bundle on table; Watson seated."
+  },
+  {
+   "id": "x051",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "yes",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "notes": "Anatomy: the Cheshire Cat has two tails (one curled up behind, one hanging below the branch). Otherwise Alice and the grinning cat on the bough fit the text."
+  },
+  {
+   "id": "x052",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Pseudo-script on desk papers (unreadable). Incoherent: Holmes holds two blue stones, one raised to the light and another in his lower hand. Watson leaving with hat and bag fits."
+  },
+  {
+   "id": "x053",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: newspaper mastheads with letter shapes on the stacks lower left. Holmes pulls Watson in to the stout red-bearded Wilson as described."
+  },
+  {
+   "id": "x054",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Card pips and court image on soldiers (unreadable). Rule broken: the Queen and a crowned King are human, and a bending soldier is a human with a card on his back. Cat's head appearing and Alice with flamingo fit."
+  },
+  {
+   "id": "x055",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Mock Turtle (calf head, coat, flippers), Gryphon and Alice on the shingle beach; animal faces kept."
+  },
+  {
+   "id": "x056",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice in the armchair protesting, March Hare, Hatter staring and Dormouse asleep at the long table; no lettering."
+  },
+  {
+   "id": "x057",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Alice pondering the riddle, Hatter, March Hare and sleeping Dormouse at the table under the tree; no lettering."
+  },
+  {
+   "id": "x058",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Vaulted cellar with crates of gold coins; Holmes kneels with lantern and lens, Merryweather seated with stick, Watson and Jones."
+  },
+  {
+   "id": "x059",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes strikes a match and lashes his cane at the bell-pull below the ventilator while Watson sits; no lettering."
+  },
+  {
+   "id": "x060",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Heart pips on background card soldiers (unreadable). Rule broken: the King is a human in robe and wig. The Cat is drawn full-bodied though the text shows only its head."
+  },
+  {
+   "id": "x061",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "notes": "Lettering: tiny marked tag in the Hatter's hatband (unreadable). Hare, sleeping Dormouse, Hatter and Alice in the big armchair fit the arrival moment."
+  },
+  {
+   "id": "x062",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "acceptable",
+   "notes": "Holmes holds the blue stone to the window light with his strong box in hand, Watson leaving with bag; no lettering, Holmes generic."
+  }
+ ]
+}
