@@ -49,7 +49,7 @@ export function ArtStyleSelector({ variant = "compact", source = "art_style_sele
 
   const all = availability ?? ART_STYLES.map((style) => ({ ...style, available: true, reason: null }));
   const options = offered ? offered.flatMap((id) => all.filter((style) => style.id === id)) : all;
-  const current = options.find((style) => style.id === artStyle) ?? options[0];
+  const current = options.find((style) => style.id === artStyle) ?? options[0] ?? all[0];
 
   return (
     <div ref={dropdownRef} className="relative">

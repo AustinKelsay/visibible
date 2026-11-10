@@ -32,7 +32,8 @@ export function HeaderGenerateButton() {
   const [modelsLoading, setModelsLoading] = useState(false);
   const [modelsError, setModelsError] = useState<string | null>(null);
   const [artStyles, setArtStyles] = useState<ArtStyleAvailability[] | null>(null);
-  const hasFetchedModels = useRef(false);
+  /** The catalog the open dialog has fetched; another work's catalog, or a closed dialog, fetches afresh. */
+  const fetchedCatalog = useRef<string | null>(null);
   const singleTabRef = useRef<HTMLButtonElement | null>(null);
   const bulkTabRef = useRef<HTMLButtonElement | null>(null);
 
@@ -69,13 +70,15 @@ export function HeaderGenerateButton() {
   }, [isModalOpen]);
 
   useEffect(() => {
-    if (!isModalOpen) hasFetchedModels.current = false;
+    if (!isModalOpen) fetchedCatalog.current = null;
   }, [isModalOpen]);
 
   // Lazy-fetch models when modal opens
   useEffect(() => {
-    if (isModalOpen && !hasFetchedModels.current) {
-      hasFetchedModels.current = true;
+    if (isModalOpen && fetchedCatalog.current !== catalogUrl) {
+      fetchedCatalog.current = catalogUrl;
+      // An answer for a catalog the dialog has moved on from is dropped.
+      const stale = () => fetchedCatalog.current !== catalogUrl;
 
       queueMicrotask(() => {
         setModelsLoading(true);
@@ -87,6 +90,7 @@ export function HeaderGenerateButton() {
             return res.json();
           })
           .then((data) => {
+            if (stale()) return;
             if (data.models) setModels(data.models);
             if (Array.isArray(data.artStyles)) setArtStyles(data.artStyles);
             if (data.error) setModelsError(data.error);
