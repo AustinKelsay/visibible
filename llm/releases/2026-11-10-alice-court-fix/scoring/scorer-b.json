@@ -1,0 +1,168 @@
+{
+ "scorer": "b",
+ "scoredBeforeUnblinding": true,
+ "scores": [
+  {
+   "id": "f009",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "Cat head and Queen close behind Alice fit, but Alice holds a wooden croquet mallet with a flamingo neck draped on it and other players swing stick-mallets with flamingo lumps; arches are free-standing hoops plus featureless green humanoids, and the left soldier is a man in a heart-card tabard over tunic and hose (card rule broken)."
+  },
+  {
+   "id": "f008",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "Foreground is right (King behind Alice, floating Cat head), but the bent-double arches are men in hose with card-shaped tabards on their backs, a metal hoop stands mid-ground, and the background repeats the cast: a second girl in blue dress and pinafore and a second crowned King. A small upright sign carries unreadable glyph marks."
+  },
+  {
+   "id": "f007",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "yes",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "Alice with a live flamingo, shouting Queen and Cat in the tree fit (though a full head shows where the text has only a grin), but there are three crowned Queens, two Kings and a second pinafored girl; the arch is a man in a card tabard on all fours beside a metal hoop, plain balls lie in the background, and a background player has tangled limbs."
+  },
+  {
+   "id": "f006",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "cards": "all cards",
+   "notes": "Hatter with teacup and bread-and-butter, March Hare, Dormouse, trumpeting Rabbit, enthroned King and Queen and slate-writing jury are all right and the soldiers are flat cards, but Alice appears twice (left by the dais and again in the back between cards) and the foreground cards mix suits on one face (clubs with spades, hearts with diamonds)."
+  },
+  {
+   "id": "f005",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "no"
+   },
+   "overall": "flawed",
+   "cards": "all cards",
+   "notes": "Rabbit in spectacles reading, King gesturing, Queen glaring and Alice protesting match the moment, with Tenniel-style card guards holding halberds; the only fault is a loose sheet on the floor at bottom left covered in rows of pseudo-script."
+  },
+  {
+   "id": "f004",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "no",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "cards": "all cards",
+   "notes": "Card soldiers are flat cards bent double as arches, with live hedgehogs and flamingos, but Alice clutches a flamingo and a wooden croquet mallet at once, two White Rabbits flank the Queen and three crowned kings appear (two running in the background with flamingos); the ace cards show legible 'A' corner indices."
+  },
+  {
+   "id": "f003",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "cards": "none present",
+   "notes": "Alice faces the Caterpillar on a mushroom in a wood, but the Caterpillar has a plainly human old man's face (breaks the animal-face rule) and its hookah has no base: the hose runs to a brass stem floating in mid-air with smoke rising from it."
+  },
+  {
+   "id": "f002",
+   "faults": {
+    "lettering": "yes",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "yes",
+    "incoherent": "yes",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "yes"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "Alice lunging and jurymen spilled on the floor show the upset, but the Lizard is a giant crocodile lying on an upright jury box, a slate is stuck to Alice's apron, and at bottom left two wigged men (one wearing a crown, a second King) have playing cards strapped to their backs while a man in the right crowd wears a spade shirt; the strapped cards show legible '3' and '10' numerals."
+  },
+  {
+   "id": "f001",
+   "faults": {
+    "lettering": "no",
+    "painted_frame": "no",
+    "unpainted_edge": "no",
+    "extra_figures": "no",
+    "incoherent": "no",
+    "scene_mismatch": "no",
+    "anatomy": "no",
+    "rule_violation": "yes",
+    "effects_figure": "na",
+    "readable_text": "na"
+   },
+   "overall": "flawed",
+   "cards": "some human",
+   "notes": "King reading from his note-book, Queen, animal jury and a towering, defiant Alice fit the moment, but the guards are men in tunic sleeves and hose wearing card fronts like sandwich boards, and at bottom left a spear-carrier is a plain human in a patterned tunic with no card at all."
+  }
+ ]
+}

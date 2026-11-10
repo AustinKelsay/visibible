@@ -46,5 +46,5 @@ The blind packs (`scoring/items.json` in each run) were built by hand in the sui
 
 ## Next
 
-1. Alice: correct the card rule to the book (soldiers, courtiers, gardeners and royal children are cards; the King, Queen and Knave dress like court cards) with a fresh reread and canon. Then make croquet mallets flamingos in the croquet-ground canon, and keep the court crowd to birds and beasts.
+1. Alice: correct the card rule to the book. Done without a reread in [Alice's card rule corrected](../2026-11-10-alice-court-fix/README.md); the court and croquet scenes still fail for other reasons.
 2. A reader for prose works. It is needed before either book reaches readers.
