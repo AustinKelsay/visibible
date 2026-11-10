@@ -555,26 +555,7 @@ export const reconcileInterrupted = mutation({
 });
 
 /**
- * Before public activation: bind every job without an engine to legacy and Classical. Idempotent;
- * accepted items keep their own request records and are never reinterpreted.
- */
-export const bindLegacyJobs = mutation({
-  args: { serverSecret: v.string() },
-  handler: async (ctx, args) => {
-    validateServerSecret(args.serverSecret);
-    const jobs = await ctx.db.query("bulkGenerations").collect();
-    let bound = 0;
-    for (const job of jobs) {
-      if (job.engine && job.artStyleId) continue;
-      await ctx.db.patch(job._id, { engine: job.engine ?? "legacy", artStyleId: job.artStyleId ?? DEFAULT_BULK_ART_STYLE, updatedAt: Date.now() });
-      bound++;
-    }
-    return { jobs: jobs.length, bound };
-  },
-});
-
-/**
- * Release and retirement counts over every active or paused job: items never admitted (unstarted),
+ * Release counts over every active or paused job: items never admitted (unstarted),
  * items with an accepted request that has not ended (accepted, never counted as unstarted), and
  * settled items, per engine. Generic jobs that are paused because the engine is unavailable are
  * reported so rollback can confirm nothing of theirs is still starting.

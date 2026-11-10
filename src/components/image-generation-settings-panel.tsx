@@ -15,6 +15,7 @@ import {
   type ImageAspectRatio,
   type ImageModel,
   type ImageResolution,
+  soleImageModel,
 } from "@/lib/image-models";
 
 interface ImageGenerationSettingsPanelProps {
@@ -107,6 +108,12 @@ export function ImageGenerationSettingsPanel({
           </div>
         ) : modelsError && models.length === 0 ? (
           <div className="py-4 text-sm text-red-500 text-center">{modelsError}</div>
+        ) : soleImageModel(models, selectedModelId) ? (
+          // One usable model: name it and its price, with nothing to choose.
+          <p className="mt-1 text-sm text-[var(--foreground)]">
+            {selectedModel!.name}
+            <span className="text-xs text-[var(--muted)]"> · ~{selectedModel!.etaSeconds ?? 12}s · About {getModelDisplayCost(selectedModel!, imageResolution)} credits</span>
+          </p>
         ) : (
           <div className="mt-2 rounded-[var(--radius-md)] border border-[var(--divider)] overflow-hidden">
             <div className="max-h-48 overflow-y-auto overscroll-contain">

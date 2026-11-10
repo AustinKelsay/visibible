@@ -55,6 +55,24 @@ it("labels stale pricing, disables unpriced choices and repairs unsupported save
 });
 
 
+it("names the only usable model without offering a choice, and keeps the picker when that model is unpriced", async () => {
+  vi.stubGlobal("localStorage", { getItem: () => null, setItem: vi.fn() });
+  const render = async (model: Record<string, unknown>) => {
+    vi.stubGlobal("fetch", vi.fn(async () => Response.json({ models: [model] })));
+    const container = document.createElement("div");
+    const root = createRoot(container);
+    await act(async () => root.render(createElement(PreferencesProvider, null, createElement(ImageModelSelector))));
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 0)); });
+    const result = { text: container.textContent, buttons: container.querySelectorAll("button").length };
+    act(() => root.unmount());
+    return result;
+  };
+  const sole = await render({ id: DEFAULT_IMAGE_MODEL, name: "Google: Nano Banana 2.1", provider: "Google", availability: "available", creditsCost: 6 });
+  expect(sole).toEqual({ text: "Nano Banana 2.1", buttons: 0 });
+  const unpriced = await render({ id: DEFAULT_IMAGE_MODEL, name: "Google: Nano Banana 2.1", provider: "Google", availability: "unavailable", creditsCost: null });
+  expect(unpriced.buttons).toBe(1);
+});
+
 it("avoids premature model warnings and renders one catalog failure message", async () => {
   vi.stubGlobal("localStorage", { getItem: () => null, setItem: vi.fn() });
   const container = document.createElement("div");

@@ -11,6 +11,7 @@ import {
   type ImageAspectRatio,
   type ImageResolution,
   supportsResolution,
+  soleImageModel,
 } from "@/lib/image-models";
 import { useGeneration } from "@/context/generation-context";
 import { usePreferences } from "@/context/preferences-context";
@@ -111,7 +112,7 @@ export function HeaderSettingsPopover() {
       {isOpen && (
         <div className="absolute top-full mt-1 right-0 w-80 max-h-[calc(100svh-5rem)] overflow-y-auto rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50">
           {/* Model Section */}
-          {(models.length > 0 || modelsFailed) && (
+          {(models.length > 0 || modelsFailed) && !soleImageModel(models, imageModel) && (
             <div className="px-3 py-2 border-b border-[var(--divider)]/50">
               <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-1">Model</p>
               {models.length === 0 && (

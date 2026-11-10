@@ -6,10 +6,13 @@ const ready = { ready: true, reasons: [], activeGeneration: 3, briefVersion: "bv
 const unready = { ready: false, reasons: ["no active analysis generation"], activeGeneration: null, briefVersion: "bv" };
 
 describe("engine admission", () => {
-  it("is disabled by default and reads only the three known modes", () => {
-    expect(genericEngineMode({})).toBe("disabled");
+  it("is public by default and reads only the three known modes", () => {
+    expect(genericEngineMode({})).toBe("public");
+    expect(genericEngineMode({ GENERIC_ENGINE_MODE: " " })).toBe("public");
     expect(genericEngineMode({ GENERIC_ENGINE_MODE: "Public " })).toBe("public");
     expect(genericEngineMode({ GENERIC_ENGINE_MODE: "owner" })).toBe("owner");
+    expect(genericEngineMode({ GENERIC_ENGINE_MODE: "Disabled" })).toBe("disabled");
+    // A misspelling admits nothing rather than opening the engine, so it is noticed.
     expect(genericEngineMode({ GENERIC_ENGINE_MODE: "yes" })).toBe("disabled");
   });
 

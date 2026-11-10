@@ -8,6 +8,7 @@ import {
   ImageModel,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
   getEstimatedCreditsCostForResolution,
+  soleImageModel,
 } from "@/lib/image-models";
 
 interface ImageModelSelectorProps {
@@ -103,6 +104,11 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
   // Trigger label: drop the "Provider: " prefix and trailing "(…)" detail from catalog names
   const shortName = currentModel ? shortImageModelName(currentModel.name) : null;
   const compactName = shortName && shortName.length > 20 ? shortName.substring(0, 19) + "…" : shortName;
+
+  // One usable model: show which, with nothing to choose.
+  if (soleImageModel(models, imageModel)) {
+    return <span className="text-[13px] font-medium text-[var(--foreground)]/80" title={`Image model: ${displayName}`}>{shortName}</span>;
+  }
 
   return (
     <div ref={dropdownRef} className="relative">
