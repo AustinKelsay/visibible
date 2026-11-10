@@ -83,6 +83,15 @@ export function rankLeanCast(cast: readonly LeanCastMember[], moment: string, ne
 }
 const isNamed = (m: LeanRanked) => m.named.here + m.named.before + m.named.after > 0;
 
+/**
+ * The members the prompt asks the model to draw: every place it lists under SETTING and every character or object it
+ * lists under CANON, NAMED HERE. Evaluation pairs images by these; the rest of the cast is drawn only when the model
+ * reads them into the moment, so no image is expected to show them.
+ */
+export function leanDepicted(present: readonly LeanRanked[]): LeanRanked[] {
+  return present.filter((m) => m.depiction === "form" && (m.kind === "location" || isNamed(m)));
+}
+
 /** The canon's own label ("Jesus" for "Jesus Christ, the Son of God and Lord"), else the name up to a comma. */
 const shortName = (m: Pick<LeanCastMember, "name" | "text">) => m.text.match(/^([^:\n]{1,60}):/)?.[1]?.trim() || m.name.split(/[,(/]/)[0].trim();
 

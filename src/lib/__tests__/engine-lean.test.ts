@@ -1,6 +1,6 @@
 /** The lean rendering candidate: cast ranking, reference slots and subjects without form; pure, no providers. */
 import { describe, expect, it } from "vitest";
-import { buildLeanRendering, leanNames, rankLeanCast, selectLeanReferences, LEAN_MAX_SHEETS, type LeanCastMember, type LeanInput, type LeanReference } from "../engine/lean";
+import { buildLeanRendering, leanDepicted, leanNames, rankLeanCast, selectLeanReferences, LEAN_MAX_SHEETS, type LeanCastMember, type LeanInput, type LeanReference } from "../engine/lean";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
 import { testDepiction } from "../../../tests/fixtures/depiction";
 
@@ -44,6 +44,11 @@ describe("lean cast", () => {
     expect(refs.map((r) => r.kind === "sheet" ? r.entryId : "style")).toEqual(["style", "jesus", "golgotha", "simon", "soldiers"]);
     expect(refs.filter((r) => r.kind === "sheet")).toHaveLength(Math.min(4, LEAN_MAX_SHEETS));
     expect(refs[1].caption).toContain("Jesus's reference sheet");
+  });
+
+  it("expects an image to show the passage's places and the members the text names, never a subject without form", () => {
+    const ranked = rankLeanCast([simon, jesus, soldiers, golgotha, god], "When they had crucified him, God was silent.", { previous: "Jesus would not drink.", next: null });
+    expect(leanDepicted(ranked).map((m) => m.entryId)).toEqual(["jesus", "golgotha"]);
   });
 
   it("passes a slot on when the best character has no sheet", () => {
