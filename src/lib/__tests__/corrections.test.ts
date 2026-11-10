@@ -108,17 +108,16 @@ describe("owner corrections", () => {
   });
 
   it("sets an entry's depiction as an owner version, refusing a mode the work has no wording for, an unknown mode or another work's profile", async () => {
-    const plan = { kind: "plan" as const, momentId: "s1", entries: [{ entryId: "jonah", stageId: "young" }],
-      plan: { primarySubject: "Jonah", action: "rows", setting: "lake", secondaryElements: "", mood: "calm", timeOfDay: "dawn", composition: "wide" } };
     const before = (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!;
-    await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "s1", payload: plan, inputs: [{ kind: "entry", recordId: "jonah", version: before.version }] });
+    const storageId = await t.run(async (ctx) => ctx.storage.store(new Blob(["jpeg"], { type: "image/jpeg" })));
+    await t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "jonah:young", storageId, inputs: [{ kind: "entry", recordId: "jonah", version: before.version }] });
     const withEffects = testDepiction(WORK);
     const withoutEffects = testDepiction(WORK, { withoutEffects: true });
     await expect(c.setDepiction("jonah", "effects", withoutEffects)).rejects.toThrow(/two-books has no wording for subjects without form/);
     await expect(c.setDepiction("jonah", "hidden", withEffects)).rejects.toThrow(/one of form, effects, symbol/);
     await expect(c.setDepiction("jonah", "effects", testDepiction("bible-web"))).rejects.toThrow(/bible-web was given for two-books/);
     const result = await c.setDepiction("jonah", "effects", withEffects);
-    expect(result).toMatchObject({ changed: true, previous: "form", depiction: "effects", staleDependents: [{ kind: "plan", recordId: "s1" }] });
+    expect(result).toMatchObject({ changed: true, previous: "form", depiction: "effects", staleDependents: [expect.objectContaining({ kind: "sheet", recordId: "jonah:young" })] });
     const after = (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!;
     expect(after).toMatchObject({ source: "owner", payload: { ...before.payload, hasForm: false } });
     await expect(c.setDepiction("jonah", "form", withEffects, before.version)).rejects.toThrow(/Stale edit/);
@@ -154,9 +153,8 @@ describe("owner corrections", () => {
     expect((await t.query(api.analysis.getReference, { workId: WORK, kind: "styleReference", recordId: "icon", expectedInputs: [{ kind: "style", recordId: "icon", version: "i2" }] }))?.stale).toBe(true);
   });
 
-  it("wipes generated analysis, keeps owner versions for the next activation unless told otherwise, and leaves saved images and spend alone", async () => {
+  it("wipes generated analysis, keeps owner versions for the next activation unless told otherwise, and leaves saved images alone", async () => {
     const imageId = await t.run(async (ctx) => ctx.db.insert("verseImages", { verseId: "s1", model: "legacy", createdAt: 1, imageUrl: "https://example.test/old.jpg" }));
-    await t.mutation(api.analysis.recordPreparationSpend, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "s1", model: "m", outcome: "ok", costUsd: 0.001 });
     const storageId = await t.run(async (ctx) => ctx.storage.store(new Blob(["jpeg"], { type: "image/jpeg" })));
     await t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "jonah:young", storageId, inputs: [] });
     await t.mutation(api.analysis.noteAttention, { serverSecret: SECRET, workId: WORK, reason: "reader_report", kind: "image", recordId: "img", detail: "r" });
@@ -171,7 +169,6 @@ describe("owner corrections", () => {
     expect(await t.run(async (ctx) => ctx.storage.get(storageId))).toBeNull();
     expect((await t.query(api.analysis.listAttention, { workId: WORK })).map((a) => a.reason)).toEqual(["reader_report"]);
     expect(await t.run(async (ctx) => ctx.db.get(imageId))).toMatchObject({ imageUrl: "https://example.test/old.jpg" });
-    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(1);
     // A reread after the wipe carries the owner version forward.
     const generation = await activate();
     expect(generation).toBe(2);

@@ -24,7 +24,7 @@ export type CorrectionClient = {
 type AnalysisApi = {
   getWorkStatus: FunctionReference<"query">; getActiveRecord: FunctionReference<"query">; listRecordHistory: FunctionReference<"query">;
   listStaleDependents: FunctionReference<"query">; getReference: FunctionReference<"query">; listAttention: FunctionReference<"query">;
-  correctRecord: FunctionReference<"mutation">; clearRecord: FunctionReference<"mutation">; pinReference: FunctionReference<"mutation">;
+  correctRecord: FunctionReference<"mutation">; pinReference: FunctionReference<"mutation">;
   addCastEntry: FunctionReference<"mutation">;
   closeAttention: FunctionReference<"mutation">; closeAttentionFor: FunctionReference<"mutation">; wipeWork: FunctionReference<"mutation">;
   /** Reader image reports (#180): one item with its messages and history. */
@@ -139,7 +139,7 @@ export function createCorrections(client: CorrectionClient, api: AnalysisApi, wo
     /**
      * Set how an entry may be depicted (ADR 0010) as an owner version of the entry: `form` draws it from its canon,
      * `effects` never draws it, and `symbol` draws it only as its canon's non-human form; each of the last two needs the
-     * work's wording for that mode. Its looks and plans are remade lazily.
+     * work's wording for that mode. The next image of each section that assigns it reads the new mode.
      */
     async setDepiction(entryId: string, mode: string, depiction: DepictionProfile, expectedVersion?: string) {
       if (!(DEPICTION_MODES as readonly string[]).includes(mode)) throw new Error(`Depiction must be one of ${DEPICTION_MODES.join(", ")}, got ${mode}`);
@@ -179,7 +179,7 @@ export function createCorrections(client: CorrectionClient, api: AnalysisApi, wo
 
     /**
      * Remove a wrongly assigned cast member from one section as an owner version of the section. The entry and its
-     * other sections are untouched; the section's looks and plans name the old section version and are remade lazily.
+     * other sections are untouched; the section's next image reads the new cast.
      */
     async removeCast(sectionId: string, entryId: string, expectedVersion?: string) {
       const section = await query<Record_ | null>(api.getActiveRecord, { kind: "section", recordId: sectionId });
@@ -229,7 +229,7 @@ export function createCorrections(client: CorrectionClient, api: AnalysisApi, wo
     },
 
     /** Mark a redone or corrected record's checker items closed; reader reports stay open. */
-    async settleAttention(kind: "sheet" | "styleReference" | "entry" | "look", recordId: string) {
+    async settleAttention(kind: "sheet" | "styleReference" | "entry", recordId: string) {
       return mutate<{ closed: number }>(api.closeAttentionFor, { kind, recordId, disposition: "source corrected" });
     },
 

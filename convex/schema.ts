@@ -143,9 +143,7 @@ const modelCostScopeTypeValidator = v.union(
 
 // Analysis storage (#168): everything the engine makes for a work, per deployment.
 const analysisSourceValidator = v.union(v.literal("generated"), v.literal("owner"));
-const analysisKindValidator = v.union(
-  v.literal("section"), v.literal("moment"), v.literal("entry"), v.literal("look"), v.literal("plan"),
-);
+const analysisKindValidator = v.union(v.literal("section"), v.literal("moment"), v.literal("entry"));
 const analysisInputValidator = v.object({
   kind: v.string(),
   recordId: v.string(),
@@ -198,56 +196,11 @@ const entryPayloadValidator = v.object({
     showing: v.optional(v.array(canonShowingValidator)),
   })),
 });
-const lookPayloadValidator = v.object({
-  kind: v.literal("look"),
-  sectionId: v.string(),
-  place: v.string(),
-  timeOfDay: v.string(),
-  weather: v.string(),
-  light: v.string(),
-  clothing: v.string(),
-});
-const planPayloadValidator = v.object({
-  kind: v.literal("plan"),
-  momentId: v.string(),
-  entries: v.array(v.object({ entryId: v.string(), stageId: v.string() })),
-  plan: scenePlanValidator,
-  // Optional for historical plans; new preparation requires reviewed moment conditions.
-  situation: v.optional(v.object({ place: v.string(), timeOfDay: v.string(), weather: v.string(), light: v.string(), clothing: v.string() })),
-  // Audit-only source choice; historical plans remain readable and saved prompts are unchanged.
-  grounding: v.optional(v.object({
-    focusQuote: v.string(),
-    cast: v.array(v.object({
-      entryId: v.string(), momentQuote: v.string(),
-      contextSource: v.union(v.literal("none"), v.literal("previous"), v.literal("next")),
-      contextQuote: v.string(),
-      participation: v.union(v.literal("in_scene"), v.literal("framing"), v.literal("mentioned"), v.literal("separate_event"), v.literal("uncertain")),
-    })),
-    // Stated chosen instant (moment-cast v4); stored v3 plans have none.
-    instant: v.optional(v.string()),
-    singleInstant: v.boolean(),
-  })),
-  // Audit-only plan review (plan-review v2): 1 or 2 rounds, why a first plan was re-planned, and notes.
-  review: v.optional(v.object({
-    rounds: v.number(),
-    evidence: v.optional(v.string()),
-    problems: v.optional(v.array(v.object({
-      kind: v.union(v.literal("unselected_figure"), v.literal("outside_instant"), v.literal("not_one_instant"), v.literal("embodied_formless"), v.literal("look_conflict"), v.literal("canon_conflict"), v.literal("missing_canon")),
-      entryId: v.string(), planQuote: v.string(), reason: v.string(),
-    }))),
-    // Forgiving preparation (moment-cast v11): automatic selections and problems kept after the re-plan.
-    notes: v.optional(v.array(v.string())),
-  })),
-});
-export const analysisPayloadValidator = v.union(
-  sectionPayloadValidator, momentPayloadValidator, entryPayloadValidator, lookPayloadValidator, planPayloadValidator,
-);
+export const analysisPayloadValidator = v.union(sectionPayloadValidator, momentPayloadValidator, entryPayloadValidator);
 const referenceKindValidator = v.union(v.literal("sheet"), v.literal("styleReference"));
-const derivedKindValidator = v.union(v.literal("look"), v.literal("plan"));
 export const analysisValidators = {
   source: analysisSourceValidator,
   kind: analysisKindValidator,
-  derivedKind: derivedKindValidator,
   referenceKind: referenceKindValidator,
   input: analysisInputValidator,
   payload: analysisPayloadValidator,
@@ -682,7 +635,7 @@ export default defineSchema({
     workId: v.string(),
     generation: v.number(),
     kind: analysisKindValidator,
-    // Stable id: entries by slug, sections and moments by their first unit, looks by section, plans by moment.
+    // Stable id: entries by slug, sections and moments by their first unit.
     recordId: v.string(),
     version: v.string(),
     source: analysisSourceValidator,
@@ -714,30 +667,6 @@ export default defineSchema({
   })
     .index("by_work_kind_recordId", ["workId", "kind", "recordId"])
     .index("by_work_status", ["workId", "status"]),
-
-  // Lazy preparation (#171): who is making a look or plan right now, so concurrent misses across
-  // server instances do not each fund the same call, and what owner preparation has cost.
-  preparationClaims: defineTable({
-    workId: v.string(),
-    kind: analysisKindValidator,
-    recordId: v.string(),
-    holder: v.string(),
-    expiresAt: v.number(),
-    createdAt: v.number(),
-  }).index("by_work_kind_recordId", ["workId", "kind", "recordId"]),
-
-  preparationLedger: defineTable({
-    workId: v.string(),
-    kind: v.string(),
-    recordId: v.string(),
-    model: v.string(),
-    costUsd: v.optional(v.number()),
-    promptTokens: v.optional(v.number()),
-    completionTokens: v.optional(v.number()),
-    elapsedMs: v.optional(v.number()),
-    outcome: v.string(),
-    createdAt: v.number(),
-  }).index("by_work_createdAt", ["workId", "createdAt"]),
 
   attentionItems: defineTable({
     workId: v.string(),
