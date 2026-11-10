@@ -41,7 +41,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Proxy trust](workflow/PROXY_CONFIGURATION.md)
 - [Chat eval and release requirements](workflow/CHAT_EVAL_AND_RELEASE.md)
 - [Image eval and release requirements](workflow/IMAGE_EVAL_AND_RELEASE.md): the regression suite across the Bible, Holmes and Alice, run with `evals:lean`, and its per-fault gate
-- [Generic engine release, rollback and retirement runbook](workflow/ENGINE_RELEASE.md)
+- [Image engine release and rollback runbook](workflow/ENGINE_RELEASE.md)
 - [Release status, closed investigation accounting and dated deployment evidence](releases/STATUS.md)
 - [Historical release records](releases/): consult the named experiment when reproducing a result; dated proposed next steps are not a current task queue.
 

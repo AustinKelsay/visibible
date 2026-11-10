@@ -2,9 +2,10 @@
  * Engine admission (#174, spec #165 §6 and §9): whether a new image request is admitted on the generic engine,
  * decided once at admission and persisted with the request so a replay never switches engines or reprices. Replay
  * is answered before admission, so accepted requests, including those of the removed legacy engine (#184), keep
- * their engine. The generic engine is disabled by default; an owner-only mode proves it in production, and one
- * explicit switch sends every new public request in a released style to it. Readiness of the work's analysis gates
- * admission; optional references and attention notes never do.
+ * their engine. `GENERIC_ENGINE_MODE` defaults to public, so every new request in a released style reaches the
+ * engine (`ENABLE_IMAGE_GENERATION` remains the master switch). `owner` limits it to the owner, for previewing a work
+ * or style; `disabled` admits nothing. Readiness of the work's analysis gates admission; optional references and
+ * attention notes never do.
  */
 
 /** The engine a request was accepted on. New requests are only ever generic; `legacy` remains on historical records. */
@@ -13,8 +14,10 @@ export type GenericEngineMode = "disabled" | "owner" | "public";
 export const GENERIC_ENGINE_MODE_ENV = "GENERIC_ENGINE_MODE";
 
 export function genericEngineMode(env: Record<string, string | undefined> = process.env): GenericEngineMode {
-  const raw = (env[GENERIC_ENGINE_MODE_ENV] ?? "disabled").trim().toLowerCase();
-  return raw === "owner" || raw === "public" ? raw : "disabled";
+  const raw = (env[GENERIC_ENGINE_MODE_ENV] ?? "").trim().toLowerCase();
+  // Unset means public; only an explicit "owner" or "disabled" narrows it. A misspelling admits nothing, so it is noticed.
+  if (raw === "" || raw === "public") return "public";
+  return raw === "owner" ? "owner" : "disabled";
 }
 
 export type WorkReadiness = { ready: boolean; reasons: string[]; activeGeneration: number | null; briefVersion: string | null };

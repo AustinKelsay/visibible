@@ -435,7 +435,8 @@ describe("Image Generation API Credit Flow", () => {
       await requestDb.mutation(api.verseImages.updateGenerationRequest, { requestId: body.requestId, status: "succeeded", serverSecret: secret });
     };
 
-    it("disabled by default: no style has an engine, Classical included, before any reservation; an unregistered style stays a 400", async () => {
+    it("disabled: no style has an engine, Classical included, before any reservation; an unregistered style stays a 400", async () => {
+      process.env.GENERIC_ENGINE_MODE = "disabled";
       const { POST } = await import("../../generate-image/route");
       for (const [requestId, style] of [["classical-request", undefined], ["watercolor-request", "watercolor"]]) {
         const unavailable = await POST(createGenerateImageRequest({ ...body, requestId, style }));
@@ -451,6 +452,7 @@ describe("Image Generation API Credit Flow", () => {
     });
 
     it("replays an accepted legacy request but admits no new legacy work", async () => {
+      process.env.GENERIC_ENGINE_MODE = "disabled";
       await seedLegacyRequest();
       const { POST } = await import("../../generate-image/route");
       const replay = await POST(createGenerateImageRequest(body));

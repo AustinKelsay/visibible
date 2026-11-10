@@ -1,6 +1,6 @@
-# Generic engine release, rollback and retirement runbook
+# Image engine release and rollback runbook
 
-How the generic image engine ([spec #165](https://github.com/AustinKelsay/visibible/issues/165)) goes from disabled to public, how it comes back, and what a later retirement of the legacy engine has to account for. Switching engines is a configuration change on the existing request executor; it is not the separate durable-executor migration.
+How a change to the image engine ([ADR 0012](../../docs/adr/0012-one-image-call-from-the-text.md)), a new art style or a new work reaches readers, and how to take it back. The legacy engine was retired on 28 October 2026 and the full engine's preparation removed on 9–10 November 2026; their records are under [History](#history).
 
 ## Rehearsal
 
@@ -13,34 +13,34 @@ How the generic image engine ([spec #165](https://github.com/AustinKelsay/visibi
 | Public API with no filter returns all styles; unknown style is 400; Nostr quotes the saved text across styles | `src/app/api/__tests__/public-images/route.test.ts`, `art-style-library.test.ts` › Nostr |
 | Reports resolve the exact image; dispositions; edits never close a report | `tests/convex/image-reports.test.ts`, `src/lib/__tests__/corrections.test.ts` |
 | Full reread activates; incomplete or invalid reread keeps the old analysis; brief change makes the work not ready | `tests/convex/analysis.test.ts`, `tests/convex/rehearsal.test.ts` › readiness matrix |
-| Disabled, owner-only and public admission; readiness gates; optional references and attention never gate | `src/lib/__tests__/engine-admission.test.ts`, `credit-flow.test.ts` › engine admission, `rehearsal.test.ts` |
+| Public (the default), owner-only and disabled admission; readiness gates; optional references and attention never gate | `src/lib/__tests__/engine-admission.test.ts`, `credit-flow.test.ts` › engine admission, `rehearsal.test.ts` |
 | Owner mode admits only the owner; rollback replays accepted generic work, refuses new work in every style, keeps images; accepted legacy requests replay | `credit-flow.test.ts` › "rehearsal: owner mode admits only the owner…", › engine admission |
 | Duplicate and concurrent delivery, uncertain provider outcomes, interrupted save, thrown settlement: one paid attempt, one settlement, replay | `credit-flow.test.ts` › generic engine generation, `tests/convex/generation-intent.test.ts` |
-| Bulk jobs bound to style and engine; interrupted items reconciled; rollback pauses generic jobs; legacy backfill; release counts | `tests/convex/bulk-binding.test.ts` |
+| Bulk jobs bound to style and engine; interrupted items reconciled; rollback pauses generic jobs; release counts | `tests/convex/bulk-binding.test.ts` |
 | One image call built from the text: the whole section cast's canon, no text-model call, a cast member without canon refused before any reservation or call; each work's exact prompts pinned | `src/lib/__tests__/engine-lean.test.ts`, `src/lib/__tests__/lean-engine-golden.test.ts`, `credit-flow.test.ts` › "makes no text-model call…", › "refuses before any charge when a section cast member's canon is missing…" |
-| Retirement dry run classifies accepted obligations and cancellation candidates without touching data | `tests/convex/rehearsal.test.ts` › retirement inventory |
 | Evaluation spend is reserved at catalog ceilings, stops on missing usage and never logs the key | `src/lib/__tests__/image-evals-ledger.test.ts` |
 
 Not rehearsed by tests: browser screenshots of the reader's style controls, the feedback form and bulk pause states. Click through them on the preview deployment and attach captures to the release PR.
 
-## Before any switch
+## Engine modes
 
-This section records the first rollout (October 2026), when Classical still ran on the legacy engine. Since the legacy engine's removal (#184), disabled mode admits no new image in any style: keep production at `GENERIC_ENGINE_MODE=public`, and never deploy it with the variable unset.
+`ENABLE_IMAGE_GENERATION=true` is the master switch: without it no image is made. `GENERIC_ENGINE_MODE` then decides who is admitted:
 
-1. Merge the engine PRs in order and deploy with `GENERIC_ENGINE_MODE` unset (disabled). Nothing changes for readers except that Watercolor and Icon answer a retryable 503.
-2. Commit the approved Bible brief at `works/bible-web/brief.json` and deploy it; the route reads `works/bible-web/work.json`, the brief and `styles/*.json` at request time.
-3. Prepare the Bible against the production deployment: `npm run works:read -- bible-web`, `npm run works:canon -- bible-web --activate`, then `npm run works:references -- bible-web --budget <usd>`. Readiness (`getWorkStatus`) requires the registered work and brief versions to match the deployed files and a complete, structurally valid active analysis; failed references and open attention do not block.
-4. Run `npx convex run bulkGenerations:bindLegacyJobs '{"serverSecret":"…"}'` once so every existing bulk job is bound to legacy and Classical (idempotent).
-5. Run `npm run engine:retirement-inventory -- --env-file .env.convex.prod` and keep the output: it is the baseline of what legacy owes. The command queries only the deployment named in that file and prints its host; without `--env-file` it uses the shell or `.env.local`, which is the development deployment.
+- **public** (the default when unset): every new request in a released style (`PUBLIC_GENERIC_STYLE_IDS`: Classical, Watercolor, Fresco and Storybook) for a ready work, including bulk items. Icon stays owner-only.
+- **owner**: only owner sessions, in any style. Use it to keep readers out while a work or style is checked in production.
+- **disabled**: nothing new is admitted; accepted requests still replay. Any other value also reads as disabled, so a misspelling is noticed rather than opening the engine.
 
-## Preview → owner production → public
+Production sets `public` explicitly. A work is ready only when `getWorkStatus` reports its registered work and brief versions match the deployed files and a complete active analysis exists; failed references and open attention never gate.
 
-1. **Preview:** set `GENERIC_ENGINE_MODE=public` on a preview deployment whose Convex deployment has the prepared analysis; generate in every released style (`PUBLIC_GENERIC_STYLE_IDS`: Classical, Watercolor, Fresco and Storybook); confirm `/api/image-models` reports each released style available and the saved images carry `engine: "generic"`, `translationId: "web"` and provenance.
-2. **Owner production check:** set `GENERIC_ENGINE_MODE=owner` in production. Admin sessions reach the generic engine. To exercise real guest reservation and settlement, use one fresh, funded non-admin browser session under the release owner's control; set server-only `GENERIC_ENGINE_OWNER_CHECK_SESSION_SHA256` to the SHA-256 hex digest of that session's SID. Only that exact existing, valid session receives additional owner-mode admission. It keeps its normal tier, credits, spend limits, reservations and settlement; the setting grants no admin billing or other admin access. All other readers see every style as temporarily unavailable (before #184, Classical stayed on legacy for them). The setting has no effect when admission is disabled. Do not log or commit the SID or its signed cookie; remove the digest when the check ends.
+## Releasing a work or a style
+
+1. Prepare the work against the production deployment: `npm run works:read -- <work-id>`. It writes `brief.draft.json` for the owner's one-file brief PR at `works/<work-id>/brief.json` ([work preparation](../context/WORK-PREPARATION.md)); merging that PR approves the brief. Deploy it before activating canon, because readiness compares the registered brief version with the deployed file. Then run `npm run works:canon -- <work-id> --activate` and `npm run works:references -- <work-id> --budget <usd>`.
+2. Measure it with `npm run evals:lean` ([image evaluation](IMAGE_EVAL_AND_RELEASE.md)) before readers see it.
+3. **Owner check in production.** Owner sessions reach every style, Icon included, in public mode too; set `GENERIC_ENGINE_MODE=owner` only when readers must be kept out entirely (for example while a work's first analysis is checked). To exercise real guest reservation and settlement, use one fresh, funded non-admin browser session under the release owner's control; set server-only `GENERIC_ENGINE_OWNER_CHECK_SESSION_SHA256` to the SHA-256 hex digest of that session's SID. Only that exact existing, valid session receives additional owner-mode admission. It keeps its normal tier, credits, spend limits, reservations and settlement; the setting grants no admin billing or other admin access. All other readers see every style as temporarily unavailable (before #184, Classical stayed on legacy for them). The setting has no effect when admission is disabled. Do not log or commit the SID or its signed cookie; remove the digest when the check ends.
    The reader automatically generates an empty selected style when the session can cover its estimate. Install and verify the recorder/guard before entering such a reader page, or make explicit requests from a page without generation (such as About). Retain and account for any unrecorded automatic request; exclude it from full-request timing rather than inventing latency or silently replacing the sample.
 
    Make actual image requests through the app in that controlled session, across every released style, within the separate smoke budget. Record wall-clock request latency, sample sizes, quotes versus actual settlement, saved WEB/provenance, and the reservation/debit records. Replaying a completed request must not pay again. Record any bound bulk-job checks as well. The suite run (`npm run evals:lean`, steps in [Image eval and release requirements](IMAGE_EVAL_AND_RELEASE.md#the-regression-suite)) provides separate visual/provider evidence: it does not exercise HTTP admission, guest billing, saving or settlement, and its timings do not prove the full-request latency gates. Admin audit-only requests also do not prove guest reservation. Disclose any target misses; do not infer human acceptance from a report flag.
-3. **Public:** set `GENERIC_ENGINE_MODE=public`. Every new request in a released style (`PUBLIC_GENERIC_STYLE_IDS`: Classical, Watercolor, Fresco and Storybook; Icon is not in it), including bulk items, is admitted on the generic engine, and Icon stays owner-only; accepted legacy requests finish on legacy. Watch `engine_admission`, `generic_preparation`, `engine_binding_refused`, settlement events and the attention list for the first 24 hours; the named owner answers reports with `works:correct reports`.
+4. Release: if step 3 set `GENERIC_ENGINE_MODE=owner`, set it back to `public` and redeploy (an explicit `owner` setting overrides the default), and remove the check session's digest. A new style joins `PUBLIC_GENERIC_STYLE_IDS` and the brief's `styleIds` (below); a new work is served once its readiness passes and the reader links to it.
 
 ## Changing a work's approved styles
 
@@ -48,40 +48,8 @@ A brief change that only adds or removes art styles (`styleIds`) needs no reread
 
 ## Rollback
 
-Set `GENERIC_ENGINE_MODE=disabled` (or `owner`) and redeploy. Accepted generic requests keep their engine, commitments and billing and replay their saved results; in-flight ones finish or are reconciled by their request records. Since the legacy engine's removal (#184), no new request is admitted in any style while the generic engine is off (in owner mode, only the owner's); accepted requests may finish or be reconciled, and every saved image and preference stays. Bulk jobs bound to generic pause with `engine_unavailable` before their next item and resume when the engine is admitted again; nothing is charged twice. No data is migrated in either direction.
-
-## Fresh-quote recovery
-
-An item a retirement closes as unstarted (never admitted) is not lost work: the reader creates a new job for those verses, quoted afresh under the engine admitted at that time. An uncertain paid attempt (a request still `generating`) is never closed as unstarted; it is reconciled from its request record first (`reconcileInterrupted` for bulk, replay for single requests).
-
-## Retirement cutoff (#184)
-
-The first step of retirement is a switch, not a code removal. Setting `LEGACY_ENGINE=retired` in production and redeploying stops every new legacy admission:
-- With the generic engine disabled or owner-only, a reader's new Classical request answers "Art style unavailable" (a retryable 503).
-- A Classical scene the generic engine refuses keeps its retryable decline instead of falling back to legacy.
-- A job item bound to legacy is refused ("Engine binding changed" 409, or 503 when the generic engine is off), so the job pauses.
-
-Accepted legacy requests keep their engine and billing and replay their saved results, because replay is answered before admission. Unsetting `LEGACY_ENGINE` and redeploying undid the cutoff only on builds from before the legacy code was removed (below); it now has no effect.
-
-Before the cutoff:
-1. Run the inventory against production and keep it as evidence ([28 October](../releases/2026-10-28-legacy-retirement/inventory-before-cutoff.json): no accepted legacy obligations, no bulk jobs).
-2. Set the switch and redeploy.
-3. Confirm `/api/image-models` and the logs.
-4. Confirm nothing new was admitted on legacy. After the cutoff time, the production logs must show no `engine_admission` event with `engine: legacy` (`npx vercel logs --environment production --since <cutoff> --json`). The inventory must still show no legacy request in flight or queued. The inventory alone is not proof: it counts current statuses, so a new request that finished would not show.
-
-After the cutoff, `GENERIC_ENGINE_MODE=disabled` is no longer a rollback that keeps Classical working: with both engines closed, no new images are made.
-
-The cutoff went live on 28 October 2026 ([record](../releases/2026-10-28-legacy-retirement/README.md)). The legacy engine's route code was then removed, and both image routes now treat legacy as retired, so the `LEGACY_ENGINE` switch no longer exists and unsetting it restores nothing. The recovery options are to promote a deployment from before the removal (Vercel instant rollback, which keeps that deployment's build-time environment) or to fix forward. Do not rebuild such a commit: `LEGACY_ENGINE` was removed from Vercel on 29 October, so a rebuilt pre-removal build would restore the legacy fallback for refused Classical scenes.
-
-## Retirement (#184)
-
-Legacy execution can be retired only when `npm run engine:retirement-inventory -- --env-file .env.convex.prod` reports no accepted obligations for legacy and nothing unbound. The inventory lists the cancellation candidates (unstarted legacy bulk items) the retirement will close with an explanation to their readers, who may recreate them under a fresh quote. Completed images, metadata, accounting and completed-request replay are kept.
-
-The removal goes in steps:
-1. **Done:** the route's legacy execution and its fallback are removed. The request fingerprint, replay and the `legacy` engine value on records and job bindings stay, because accepted legacy requests replay through them.
-2. **Done:** the planner allowance in quotes and the reader's price displays, then the legacy prompt and planner modules and their evaluation arms.
-3. **Done:** the legacy scene plan cache. Its Convex functions went first; the owner then approved clearing its rows (20 in production, 1 in dev, exported to the [release record](../releases/2026-10-29-legacy-code-removal/README.md)), and the `scenePlanCache` table left the schema.
-4. **Done:** admission's legacy branch. `decideEngine` admits only the generic engine; `legacy` remains only on historical records and bulk bindings.
+- **Code:** promote the previous production deployment (Vercel instant rollback). Accepted requests keep their engine, commitments and billing and replay their saved results. A deployment from before 10 November 2026 no longer runs against today's Convex functions ([record](../releases/2026-10-28-legacy-retirement/README.md) for the legacy engine; [record](../releases/2026-11-10-remove-preparation/README.md) for the full engine).
+- **Stop new images:** set `GENERIC_ENGINE_MODE=disabled` (or `owner`) and redeploy. In-flight requests finish or are reconciled from their request records; bulk jobs pause with an engine-unavailable reason and resume afterwards.
 
 ## Budgets and estimates
 
@@ -98,8 +66,12 @@ Projections, not authorization; each command takes its own `--budget`. Before a 
 ## Release evidence template
 
 - Rehearsal: `evals/rehearsal/latest.json` summary (files, tests, failures) and the commit it ran against.
-- Readiness: `getWorkStatus` output for `bible-web` on the production deployment, with the deployed work and brief versions.
-- Evaluation: `report.json`, scored `scores.json` and the contact sheet for the release run; the comparison sheet against the legacy baseline run; every fail and accepted limitation listed with notes.
-- Measured: mean and p90 latency for prepared and cold requests, mean quoted and actual credits, variance, provider and preparation spend.
-- Retirement inventory before and after the switch.
-- Rollback configuration (the exact env change), the human owner for the first 24 hours, and the known limitations carried into release.
+- Readiness: `getWorkStatus` output for the work on the production deployment, with the deployed work and brief versions.
+- Evaluation: the `evals:lean` report, scores and pairing for the release run, against the previous release's; every fail and accepted limitation listed with notes.
+- Measured: mean and p90 latency, mean quoted and actual credits, provider spend.
+- Rollback (the deployment to promote, or the env change), the human owner for the first 24 hours, and the known limitations carried into release.
+
+## History
+
+- **Legacy engine retired (28 October 2026).** The cutoff, its inventory and the code removal are recorded in [2026-10-28-legacy-retirement](../releases/2026-10-28-legacy-retirement/README.md) and [2026-10-29-legacy-code-removal](../releases/2026-10-29-legacy-code-removal/README.md). `legacy` remains only on historical request records and bulk bindings, so accepted legacy requests still replay; the retirement inventory command and the `bindLegacyJobs` backfill were removed once nothing legacy was left (10 November 2026).
+- **Full engine's preparation removed (9–10 November 2026).** Section looks, scene plans, plan review and the image check were replaced by one image call ([ADR 0012](../../docs/adr/0012-one-image-call-from-the-text.md)); see [2026-11-09-lean-switch](../releases/2026-11-09-lean-switch/deployment.json) and [2026-11-10-remove-preparation](../releases/2026-11-10-remove-preparation/README.md).

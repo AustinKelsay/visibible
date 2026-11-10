@@ -82,12 +82,10 @@ describe("bulk engine and style binding", () => {
     expect(counts.byEngine.legacy).toEqual({ jobs: 1, unstarted: 1, accepted: 1, succeeded: 0, failed: 0 });
   });
 
-  it("backfills jobs without an engine to legacy and Classical, idempotently, and counts paused generic jobs", async () => {
+  it("counts a historical legacy job beside a generic job paused for its engine", async () => {
     const { t, owner, bulkId, job } = await setup();
-    expect(await t.mutation(api.bulkGenerations.bindLegacyJobs, { serverSecret: SECRET })).toEqual({ jobs: 1, bound: 1 });
-    expect(await job()).toMatchObject({ engine: "legacy", artStyleId: "classical" });
-    expect(await t.mutation(api.bulkGenerations.bindLegacyJobs, { serverSecret: SECRET })).toEqual({ jobs: 1, bound: 0 });
-    await expect(t.mutation(api.bulkGenerations.bindLegacyJobs, { serverSecret: "wrong" })).rejects.toThrow();
+    // A job from before the engine binding, as production's backfill left it.
+    await t.run((ctx) => ctx.db.patch(bulkId, { engine: "legacy", artStyleId: "classical" }));
     // A second session's generic job paused for rollback shows up in the counts.
     await t.run(async (ctx) => { await ctx.db.insert("sessions", { sid: "second", tier: "paid", credits: 100, createdAt: Date.now(), lastSeenAt: Date.now() }); });
     const second = t.withIdentity({ subject: "second", issuer, guestExpiresAt: Date.now() / 1000 + 300 });

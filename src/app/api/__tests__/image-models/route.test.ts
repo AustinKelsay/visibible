@@ -37,6 +37,8 @@ describe("Image Models API", () => {
     process.env = {
       ...originalEnv,
       OPENROUTER_API_KEY: "test-api-key",
+      // These tests are about quotes; admission has its own tests below.
+      GENERIC_ENGINE_MODE: "disabled",
     };
     mockFetchImageModels.mockResolvedValue({
       models: [
@@ -161,8 +163,7 @@ describe("Image Models API", () => {
 
 describe("art style availability", () => {
   it("reports every style with the admission decision: none while the generic engine is disabled, Classical, Watercolor, Fresco and Storybook when public and ready", async () => {
-    process.env = { ...originalEnv, OPENROUTER_API_KEY: "test-api-key" };
-    delete process.env.GENERIC_ENGINE_MODE;
+    process.env = { ...originalEnv, OPENROUTER_API_KEY: "test-api-key", GENERIC_ENGINE_MODE: "disabled" };
     mockFetchImageModels.mockResolvedValue({ models: [imageModelFixture()] });
     mockConvex.query.mockResolvedValue([]);
     const { GET } = await import("../../image-models/route");

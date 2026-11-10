@@ -418,3 +418,12 @@ export function getProviderName(modelId: string): string {
   return provider.charAt(0).toUpperCase() + provider.slice(1);
 }
 
+/**
+ * The model in use when the catalog offers only it and it is priced: there is nothing to choose, so pickers show it
+ * as a plain label. Any other state (several models, the saved one missing, no price) keeps the picker and its messages.
+ */
+export function soleImageModel(models: readonly ImageModel[], selectedId: string): ImageModel | null {
+  if (models.length !== 1 || models[0].id !== selectedId) return null;
+  const [model] = models;
+  return model.availability !== "unavailable" && getEstimatedCreditsCostForResolution(model, "1K") !== null ? model : null;
+}
