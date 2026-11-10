@@ -1,0 +1,193 @@
+{
+  "capUsd": 3.79,
+  "calls": [
+    {
+      "phase": "holmes-eyford-fire/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.045621
+    },
+    {
+      "phase": "holmes-eyford-fire/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044277
+    },
+    {
+      "phase": "the-adventure-of-the-noble-bachelor-176/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0434145
+    },
+    {
+      "phase": "the-adventure-of-the-noble-bachelor-176/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0442605
+    },
+    {
+      "phase": "the-adventure-of-the-blue-carbuncle-73/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.042021
+    },
+    {
+      "phase": "the-adventure-of-the-blue-carbuncle-73/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0436095
+    },
+    {
+      "phase": "a-case-of-identity-94/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0434175
+    },
+    {
+      "phase": "a-case-of-identity-94/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.048246
+    },
+    {
+      "phase": "holmes-scandal-the-woman/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043146
+    },
+    {
+      "phase": "holmes-scandal-the-woman/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043707
+    },
+    {
+      "phase": "holmes-scandal-king-arrives/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0457275
+    },
+    {
+      "phase": "holmes-scandal-king-arrives/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0458685
+    },
+    {
+      "phase": "holmes-red-headed-league/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044685
+    },
+    {
+      "phase": "holmes-red-headed-league/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0447285
+    },
+    {
+      "phase": "holmes-saxe-coburg-square/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0434595
+    },
+    {
+      "phase": "holmes-saxe-coburg-square/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044673
+    },
+    {
+      "phase": "holmes-blue-carbuncle-hat/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0432285
+    },
+    {
+      "phase": "holmes-blue-carbuncle-hat/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0436095
+    },
+    {
+      "phase": "holmes-speckled-band-vigil/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043296
+    },
+    {
+      "phase": "holmes-speckled-band-vigil/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043407
+    },
+    {
+      "phase": "holmes-boscombe-train/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.042759
+    },
+    {
+      "phase": "holmes-boscombe-train/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.04953
+    },
+    {
+      "phase": "holmes-bank-cellar-lantern/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0447495
+    },
+    {
+      "phase": "holmes-bank-cellar-lantern/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043893
+    },
+    {
+      "phase": "holmes-bank-cellar-plans/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0436185
+    },
+    {
+      "phase": "holmes-bank-cellar-plans/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043782
+    },
+    {
+      "phase": "holmes-eyford-smoke/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.0442665
+    },
+    {
+      "phase": "holmes-eyford-smoke/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.04353
+    },
+    {
+      "phase": "holmes-eyford-drive/classical",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.043833
+    },
+    {
+      "phase": "holmes-eyford-drive/watercolor",
+      "kind": "image",
+      "status": "200",
+      "measuredUsd": 0.044889
+    }
+  ],
+  "measuredUsd": 1.3292535,
+  "uncertainUsd": 0,
+  "counts": {
+    "text": 0,
+    "image": 30,
+    "check": 0
+  },
+  "blocked": null
+}

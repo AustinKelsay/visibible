@@ -53,7 +53,7 @@ Exact dependencies and commands: [package.json](../package.json). Environment te
 
 [Scene planner free models](research/2026-10-14-scene-planner-free-models.md) records why the legacy planner used its last model; the planner was removed with the legacy engine (#184).
 
-[Image models](research/2026-10-14-image-models.md) records why Nano Banana 2 Lite (Gemini 3.1 Flash Lite Image) became the default image model in October 2026, what the other candidates measured, and how to re-run the comparison. Images are now made on Nano Banana 2.1 ([ADR 0012](../docs/adr/0012-one-image-call-from-the-text.md)); Since 10 November 2026 reference sheets and style references are made on Nano Banana 2.1 too.
+[Image models](research/2026-10-14-image-models.md) records why Nano Banana 2 Lite (Gemini 3.1 Flash Lite Image) became the default image model in October 2026, what the other candidates measured, and how to re-run the comparison. Images are now made on Nano Banana 2.1 ([ADR 0012](../docs/adr/0012-one-image-call-from-the-text.md)); Lite still makes reference sheets and style references.
 
 ## Proposed modernization
 

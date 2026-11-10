@@ -91,7 +91,9 @@ describe("reference images", () => {
     expect(mainEra(activeSections, brief).id).toBe("late");
     const prompt = sheetPrompt({ title: "Two Books" }, subjects.find((s) => s.stageId === "young")!, SHARED_STYLES.get("classical"));
     expect(prompt).toContain("World: Fisherfolk. Rough wool.");
-    expect(prompt).toContain("Character: Jonah: young fisherman.");
+    // A character sheet describes the look without naming the character or the work, so no famous likeness is invited.
+    expect(prompt).toContain("Character: young fisherman. An original, invented face.");
+    expect(prompt).not.toContain("Jonah");
     expect(prompt).toContain("No likeness of any real actor");
     expect(prompt).not.toContain("Stone palace");
   });
@@ -106,7 +108,7 @@ describe("reference images", () => {
     });
     const state = await runReferences({ workId: WORK, workTitle: "Two Books", brief, store, maker, checker, blobs, state: emptyReferenceState(WORK), saveState: async () => {}, budgetUsd: 5, styleVersions });
     expect(state.done["sheet:jonah:old"]).toMatchObject({ ok: true, attempts: 2 });
-    const retry = maker.prompts.filter((p) => p.includes("Character: Jonah: weathered sailor."));
+    const retry = maker.prompts.filter((p) => p.includes("Character: weathered sailor."));
     expect(retry).toHaveLength(2);
     expect(retry[1]).toContain(`A previous attempt was rejected because: ${LIKENESS_RETRY_REASON}. Fix these.`);
     expect(retry[1]).not.toContain("Famous Actor");
@@ -130,7 +132,7 @@ describe("reference images", () => {
     expect(state.done["sheet:jonah:young"]).toMatchObject({ ok: true, attempts: 2 });
     // Style references come first, since every image of a style uses one; the sheets follow, most-reused first.
     expect(maker.prompts.slice(0, 3).every((p) => p.startsWith("Style reference image"))).toBe(true);
-    expect(maker.prompts[3]).toContain("Character: Jonah: weathered sailor.");
+    expect(maker.prompts[3]).toContain("Character: weathered sailor.");
     expect(maker.prompts[maker.prompts.length - 1]).toContain("A previous attempt was rejected because: letters on the sleeve");
     expect(state.done["sheet:the_lake:main"]).toMatchObject({ ok: false, attempts: 3 });
     expect(state.done["sheet:jonah:old"]).toMatchObject({ ok: true, attempts: 1 });
@@ -179,7 +181,7 @@ describe("reference images", () => {
     await t.mutation(api.analysis.pinReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "jonah:young", pinned: true });
     await runReferences({ workId: WORK, workTitle: "Two Books", brief, store, maker, checker, blobs, state: emptyReferenceState(WORK), saveState: async () => {}, budgetUsd: 5, styleVersions });
     expect(maker.prompts).toHaveLength(8);
-    expect(maker.prompts[7]).toContain("Jonah: weathered sailor, scarred.");
+    expect(maker.prompts[7]).toContain("Character: weathered sailor, scarred.");
     // A style file change makes only that style reference stale.
     const plan2 = await planReferences({ workId: WORK, brief, store, state: emptyReferenceState(WORK), styleVersions: { ...styleVersions, icon: "i2" } });
     expect(plan2.styles.map((s) => [s.styleId, s.status])).toEqual([["classical", "fresh"], ["watercolor", "fresh"], ["icon", "stale"]]);

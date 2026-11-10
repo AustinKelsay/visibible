@@ -13,12 +13,8 @@ import type { ArtStyle, Era, WorkBrief } from "../work-preparation";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
 import { depictionModeOf } from "./depiction";
 
-/**
- * The image model that draws reference sheets and style references: Nano Banana 2.1, the model the images use. Nano Banana 2
- * Lite drew a famous screen actor for a well-known character from the name alone and ignored most of the canon's face
- * (November 2026, Sherlock Holmes).
- */
-export const REFERENCE_IMAGE_MODEL = "google/gemini-nano-banana-2.1";
+/** The image model that draws reference sheets and style references (Nano Banana 2 Lite). */
+export const REFERENCE_IMAGE_MODEL = "google/gemini-3.1-flash-lite-image";
 /** The cheap vision model that look-checks reference images (#159). */
 export const CHECK_MODEL_ID = "anthropic/claude-haiku-5.5";
 export const MAX_REFERENCE_ATTEMPTS = 3;
@@ -59,15 +55,27 @@ const LAYOUT = {
   object: "Layout: the same object shown twice side by side on one plain, even mid-grey background: left, the whole object from a three-quarter angle; right, a close detail. Neutral, even light. No people, no hands, no animals.",
 };
 
+/** The canon text without its leading "Name:" label, so a character sheet describes a look rather than naming a famous figure. */
+function withoutName(subject: SheetSubject): string {
+  const label = `${subject.name}:`;
+  return subject.text.toLowerCase().startsWith(label.toLowerCase()) ? subject.text.slice(label.length).trim() : subject.text;
+}
+
+/**
+ * A character sheet names neither the character nor the work: given "Sherlock Holmes" the image model drew a screen
+ * actor whatever the canon said (November 2026). The face then comes from the canon text alone; the sheet is matched
+ * to the character by its record id, and scenes still name the character beside it.
+ */
 export function sheetPrompt(work: { title: string }, subject: SheetSubject, classical: ArtStyle): string {
-  const world = subject.kind === "character"
+  const character = subject.kind === "character";
+  const world = character
     ? subject.eras.map((e) => `${e.people} ${e.dress}`).join(" ")
     : subject.eras.map((e) => e.buildingsAndObjects).join(" ");
   const head = { character: "Character reference sheet", location: "Location reference sheet", object: "Object reference sheet" }[subject.kind];
-  return `${head} for an illustrated edition of ${work.title}.
+  return `${head} for ${character ? "an illustrated edition of a classic book" : `an illustrated edition of ${work.title}`}.
 Art style: ${classical.label}. ${styleBriefText(classical)}
 World: ${world}
-${subject.kind.charAt(0).toUpperCase()}${subject.kind.slice(1)}: ${subject.text}
+${subject.kind.charAt(0).toUpperCase()}${subject.kind.slice(1)}: ${character ? `${withoutName(subject)} An original, invented face.` : subject.text}
 ${LAYOUT[subject.kind]}
 ${NO_TEXT}
 ${NO_LIKENESS}
