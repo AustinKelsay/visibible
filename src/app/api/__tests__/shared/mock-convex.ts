@@ -89,20 +89,6 @@ export function createMockConvexClient(initialSessions: Session[] = []) {
         return session || null;
       }
 
-       if (apiPath._path === "modelCostStats:getEstimate") {
-        return {
-          credits: Math.max(
-            1,
-            Math.round((args as { fallbackCredits?: number }).fallbackCredits ?? 1)
-          ),
-          source: "fallback",
-          sampleCount: 0,
-        };
-      }
-
-      if (apiPath._path === "modelCostStats:getAllEstimates") {
-        return [];
-      }
       return null;
     }),
 
@@ -116,14 +102,6 @@ export function createMockConvexClient(initialSessions: Session[] = []) {
 
         if (apiPath._path === "modelStats:recordGeneration") {
           return;
-        }
-
-        if (apiPath._path === "modelCostStats:recordActualCost") {
-          return;
-        }
-
-        if (apiPath._path === "modelCostStats:backfillFromGenerationRequests") {
-          return { processed: 0, skipped: 0, alreadySeeded: true };
         }
 
         return null;

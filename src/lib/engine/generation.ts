@@ -376,9 +376,8 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       // 14. The cost event, with the outbox when persistence is slow or down.
       const costEvent = {
         sid, requestId, generationId, modelId, verseId: unit.id, translationId: input.translationId, styleProfileId: style.id, reference: input.reference,
-        aspectRatio: input.aspectRatio, resolution: input.resolution, scenePlannerUsed: false, scenePlanFromCache: false, usedFallbackEstimate: !usedActual,
+        aspectRatio: input.aspectRatio, resolution: input.resolution, usedFallbackEstimate: !usedActual,
         estimatedCreditsCost, estimatedCostUsd, reservationCreditsCost, reservationCostUsd,
-        imageCreditsCost: chargedCredits, imageCostUsd: chargedCostUsd, scenePlannerCredits: 0, scenePlannerCostUsd: 0,
         actualCreditsCost: chargedCredits, actualCostUsd: chargedCostUsd, ...(openRouterUsageUsd !== null ? { openRouterUsageUsd } : {}), durationMs,
       };
       try {
