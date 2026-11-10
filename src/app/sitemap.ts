@@ -1,6 +1,5 @@
 import { MetadataRoute } from "next";
 import { BIBLE_BOOKS } from "@/data/bible-structure";
-import { PROSE_WORKS } from "@/lib/works/catalog";
 
 const BASE_URL = "https://visibible.com";
 
@@ -21,12 +20,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly",
     priority: 0.6,
   });
-
-  // The library and each prose work open to readers
-  routes.push({ url: `${BASE_URL}/read`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 });
-  for (const work of PROSE_WORKS.filter((w) => w.visibility === "public")) {
-    routes.push({ url: `${BASE_URL}/read/${work.id}`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 });
-  }
 
   routes.push({
     url: `${BASE_URL}/api-docs`,
