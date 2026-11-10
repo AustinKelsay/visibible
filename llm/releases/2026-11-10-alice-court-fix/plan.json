@@ -1,0 +1,155 @@
+{
+  "kind": "lean",
+  "suite": "2026-11-01-suite-v3",
+  "faults": "2026-10-30-faults-v1",
+  "from": "2026-11-10-alice-court-snapshot",
+  "promptVersion": "2026-11-09-lean-v6",
+  "maxSheets": 4,
+  "image": {
+    "model": "google/gemini-nano-banana-2.1",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "cases": [
+    {
+      "caseId": "alice-caterpillar",
+      "work": "alice-in-wonderland",
+      "unitId": "advice-from-a-caterpillar-1",
+      "reference": "Advice from a Caterpillar ¶1",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "alice-croquet-game",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-41",
+      "reference": "The Queen’s Croquet-Ground ¶41",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "alices-evidence-38",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-38",
+      "reference": "Alice’s Evidence ¶38",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "alices-evidence-2",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-2",
+      "reference": "Alice’s Evidence ¶2",
+      "split": "holdout",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "alice-cat-grin-appears",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-45",
+      "reference": "The Queen’s Croquet-Ground ¶45",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "alice-cat-head-talks",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-49",
+      "reference": "The Queen’s Croquet-Ground ¶49",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "alice-king-and-cat",
+      "work": "alice-in-wonderland",
+      "unitId": "the-queens-croquet-ground-52",
+      "reference": "The Queen’s Croquet-Ground ¶52",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "alice-refuses-to-leave",
+      "work": "alice-in-wonderland",
+      "unitId": "alices-evidence-16",
+      "reference": "Alice’s Evidence ¶16",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor"
+      ]
+    },
+    {
+      "caseId": "alice-hatter-witness",
+      "work": "alice-in-wonderland",
+      "unitId": "who-stole-the-tarts-16",
+      "reference": "Who Stole the Tarts? ¶16",
+      "split": "dev",
+      "tiers": [
+        "text",
+        "image"
+      ],
+      "styles": [
+        "watercolor"
+      ]
+    }
+  ],
+  "evaluation": {
+    "estimatedUsd": 0.333,
+    "capUsd": 2.82,
+    "reserves": {
+      "text": 0,
+      "image": 0.08,
+      "check": 0
+    },
+    "limits": {
+      "text": 0,
+      "image": 19,
+      "check": 0
+    }
+  }
+}
