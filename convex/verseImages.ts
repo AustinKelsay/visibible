@@ -1088,8 +1088,11 @@ const BASE64_LOOKUP = (() => {
 
 const decodeBase64ToBytes = (base64: string) => {
   const cleaned = base64.replace(/[\r\n\s]/g, "");
-  // Padded standard base64 only: anything else would decode to bytes the sender never sent.
-  if (cleaned.length === 0 || cleaned.length % 4 !== 0 || !/^[A-Za-z0-9+/]*={0,2}$/.test(cleaned)) {
+  // Standard base64, padding only at the end (or omitted): anything else would decode to bytes
+  // the sender never sent.
+  const padded = cleaned.length % 4 === 0 && /^[A-Za-z0-9+/]*={0,2}$/.test(cleaned);
+  const unpadded = (cleaned.length % 4 === 2 || cleaned.length % 4 === 3) && /^[A-Za-z0-9+/]+$/.test(cleaned);
+  if (cleaned.length === 0 || !(padded || unpadded)) {
     throw new ImageValidationError("Invalid base64 image data");
   }
 

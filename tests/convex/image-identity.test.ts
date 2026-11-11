@@ -51,6 +51,9 @@ describe("what saveImage stores", () => {
     expect(row?.storageId).toBeDefined();
     expect(row?.imageUrl).toBeUndefined();
     expect(row?.sourceImageUrl).toBeUndefined();
+    // Base64 without its trailing padding is unambiguous and still stored.
+    const unpadded = await t.action(api.verseImages.saveImage, { ...save, generationId: "g2", imageUrl: `data:image/png;base64,${PNG.replace(/=+$/, "")}` });
+    expect((await t.query(internal.verseImages.getImageById, { imageId: unpadded.id }))).toMatchObject({ imageWidth: 1, imageHeight: 1 });
   });
 
   it("refuses a remote image URL without fetching it or saving a record, whatever its host", async () => {
@@ -84,7 +87,7 @@ describe("what saveImage stores", () => {
       // Base64 that would otherwise decode to invented bytes.
       ["data:image/png;base64,AA=A", /Invalid base64 image data/],
       ["data:image/png;base64,\u0100\u0100\u0100\u0100", /Invalid base64 image data/],
-      [`data:image/png;base64,${PNG.replace(/=+$/, "")}`, /Invalid base64 image data/],
+      ["data:image/png;base64,AAAAA", /Invalid base64 image data/],
     ] as const) {
       await expect(t.action(api.verseImages.saveImage, { ...save, imageUrl })).rejects.toThrow(error);
     }
