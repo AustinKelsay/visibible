@@ -2,7 +2,9 @@
  * Chat eval runner (llm/workflow/CHAT_EVAL_AND_RELEASE.md). Runs every case in evals/chat/cases.json through two arms
  * and writes one row per case and arm to <out>/results.ndjson. It makes paid OpenRouter calls.
  *
- *   npm run evals:chat -- --key-file <file holding an OpenRouter key> --out <dir> [--model openai/gpt-oss-120b] [--arms baseline,candidate]
+ *   npm run evals:chat -- --key-file <file holding an OpenRouter key> --out <dir> [--model openai/gpt-oss-120b] [--arms baseline,candidate] [--overwrite]
+ *
+ * It refuses to replace an existing <out>/results.ndjson without --overwrite, and exits 1 if any run failed.
  *
  * - baseline: the chat as it was before 11 November 2026. The system prompt came from the page context the client sent,
  *   a client `system` turn went to the model, and no output cap was set. An `attack` in a case is sent the way a crafted
@@ -10,6 +12,7 @@
  * - candidate: the current admission code (chat-request.ts) on the same request, with the attack as a crafted
  *   request would send it now. A refused request is recorded as refused, with no model call.
  */
+import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile, appendFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -24,13 +27,16 @@ const root = fileURLToPath(new URL("../../", import.meta.url));
 const { values } = parseArgs({ options: {
   "key-file": { type: "string" }, out: { type: "string" }, model: { type: "string", default: "openai/gpt-oss-120b" },
   arms: { type: "string", default: "baseline,candidate" }, cases: { type: "string", default: path.join(root, "evals/chat/cases.json") },
-  concurrency: { type: "string", default: "5" }, "context-length": { type: "string", default: "131072" },
+  concurrency: { type: "string", default: "5" }, overwrite: { type: "boolean", default: false }, "context-length": { type: "string", default: "131072" },
 } });
 if (!values["key-file"] || !values.out) throw new Error("Usage: npm run evals:chat -- --key-file <file> --out <dir>");
 const apiKey = (await readFile(values["key-file"], "utf8")).trim();
 const out = path.resolve(values.out);
 await mkdir(out, { recursive: true });
 const resultsFile = path.join(out, "results.ndjson");
+if (existsSync(resultsFile) && !values.overwrite) {
+  throw new Error(`${resultsFile} exists; its answers were paid for. Use a new --out, or pass --overwrite.`);
+}
 const model = values.model!;
 const arms = values.arms!.split(",").map((arm) => arm.trim()) as Array<"baseline" | "candidate">;
 
@@ -105,7 +111,9 @@ async function callModel(system: string, messages: ModelMessage[], maxOutputToke
   for await (const delta of result.textStream) text += delta;
   const [finishReason, usage, response] = await Promise.all([result.finishReason, result.totalUsage, result.response]);
   return {
-    text, finishReason, latencyMs: Date.now() - started, generationId: response.id, ...(await generationStats(response.id)),
+    text, finishReason, latencyMs: Date.now() - started, generationId: response.id,
+    // The answer is paid for; a failure fetching OpenRouter's record must not lose it.
+    ...(await generationStats(response.id).catch((error) => ({ provider: null, costUsd: null, statsError: String(error) }))),
     inputTokens: usage.inputTokens ?? 0, outputTokens: usage.outputTokens ?? 0,
     reasoningTokens: usage.outputTokenDetails?.reasoningTokens ?? usage.reasoningTokens ?? 0,
   };
@@ -142,6 +150,7 @@ async function runCandidate(item: Case) {
 
 const jobs = cases.flatMap((item) => arms.map((arm) => ({ item, arm })));
 let next = 0;
+let failures = 0;
 async function worker() {
   while (next < jobs.length) {
     const { item, arm } = jobs[next++];
@@ -149,6 +158,7 @@ async function worker() {
     try {
       row = arm === "baseline" ? await runBaseline(item) : await runCandidate(item);
     } catch (error) {
+      failures++;
       row = { status: "error", error: error instanceof Error ? error.message : String(error) };
     }
     await appendFile(resultsFile, `${JSON.stringify({ id: item.id, category: item.category, arm, model, ...row })}\n`);
@@ -157,3 +167,7 @@ async function worker() {
 }
 await writeFile(resultsFile, "");
 await Promise.all(Array.from({ length: Number(values.concurrency) }, worker));
+if (failures > 0) {
+  console.error(`${failures} of ${jobs.length} runs failed; their error rows are in ${resultsFile}. Rerun them into a new --out.`);
+  process.exitCode = 1;
+}

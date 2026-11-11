@@ -63,9 +63,21 @@ type ChatMessageInput = ChatRequest["messages"][number];
 
 export type ModelMessage = { role: "user" | "assistant"; content: string };
 
-/** Rough token count that errs high for English text, so budgets hold for any tokenizer. */
+/**
+ * Token count that errs high for natural text in any script: ASCII at three characters a token (English runs about
+ * four), and every other character at its UTF-8 byte count, which no byte-level tokenizer exceeds (Chinese is about
+ * one or two tokens a character, counted as three). Unnatural ASCII can still run denser; a request that then
+ * overflows the window fails at the provider, which releases the hold.
+ */
 export function estimateTokens(text: string): number {
-  return Math.ceil(text.length / 3);
+  let ascii = 0;
+  let otherBytes = 0;
+  for (const char of text) {
+    const code = char.codePointAt(0)!;
+    if (code < 0x80) ascii++;
+    else otherBytes += code < 0x800 ? 2 : code < 0x10000 ? 3 : 4;
+  }
+  return Math.ceil(ascii / 3) + otherBytes;
 }
 
 function messageText(message: ChatMessageInput): string {
@@ -88,6 +100,12 @@ export function boundHistory(
   messages: ChatMessageInput[],
   options: { systemPrompt: string; contextLength?: number }
 ): BoundedHistory {
+  // The question is the turn the guest just sent; an empty one must not let an earlier question be answered again.
+  const submitted = messages.at(-1);
+  if (!submitted || submitted.role !== "user" || messageText(submitted).trim().length === 0) {
+    return { ok: false, status: 400, error: "Invalid request", message: "The last message must be your question." };
+  }
+
   const withText = messages
     .map((message) => ({ role: message.role, content: messageText(message) }))
     .filter((message) => message.content.trim().length > 0);

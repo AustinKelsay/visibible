@@ -51,7 +51,7 @@ The per-run overall means were 1.55 / 1.46 / 1.41 for the baseline and 1.28 / 1.
 
 **Length cap.**
 - **Answer lengths:** the candidate's median answer is about 1,500 output tokens, and reasoning is usually 50–300 of those. The baseline's longest answers were 4,390, 3,692 and 6,568 tokens, all on the Exodus walk-through.
-- **Material cuts:** the Exodus walk-through lost the rest of the chapter after 3:15–3:18 in every candidate run, although its divine-name explanation came through each time.
+- **Material cuts:** the Exodus walk-through was cut in every candidate run. In run 1 it stopped at the heading of the 3:13–15 divine-name section, the part the guest asked about. In the replicates it stopped at 3:15 and 3:18, after an accurate divine-name explanation, losing the rest of the chapter and all of chapter 4.
 - **Minor and harmless cuts:**
   - 1 Timothy 2:12 lost the end of its summary once.
   - One Matthew 16:18 answer stopped at "Amen".

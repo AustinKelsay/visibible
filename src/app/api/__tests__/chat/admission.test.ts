@@ -228,6 +228,16 @@ describe("chat admission", () => {
 
   it("refuses a request whose last turn is not the guest's question", async () => {
     await refused({ messages: [user("Hello"), assistant("Hi there")] });
+    // An empty final question must not let the earlier one be answered and charged again.
+    await refused({ messages: [user("Hello"), user("   ")] });
+    await refused({ messages: [user("Hello"), assistant("Hi there"), { id: "u2", role: "user", parts: [{ type: "step-start" }] }] });
+  });
+
+  it("counts non-English text conservatively against the budget", async () => {
+    expect(estimateTokens("abc")).toBe(1);
+    expect(estimateTokens("神爱世人")).toBe(12); // three UTF-8 bytes a character
+    const chinese = "神".repeat(3000); // 9,000 estimated tokens: over the 6,000 history budget
+    await refused({ messages: [user(chinese)] });
   });
 
   it("refuses an overlong question before reserving credits", async () => {
