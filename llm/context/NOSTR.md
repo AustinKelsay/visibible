@@ -10,7 +10,7 @@ Eligible images have storage, reference and verse text and no recorded Nostr eve
 - `NOSTR_RELAYS`: optional comma/newline-separated `wss://` URLs; defaults are in [nostr.ts](../../convex/nostr.ts).
 - Image URL base: `NOSTR_IMAGE_BASE_URL`, then `CONVEX_SITE_URL`, then `CONVEX_CLOUD_URL`. Configure a public base that serves `/image/:storageId` through [http.ts](../../convex/http.ts).
 
-These variables belong in the Convex deployment environment. Missing key/base skips publication. URL-only fallback images are excluded because their source URL may expire.
+These variables belong in the Convex deployment environment. Missing key/base skips publication. Images without stored bytes (URL-backed records saved before 10 November 2026) are excluded because their source URL may expire.
 
 ## Publication and failure semantics
 

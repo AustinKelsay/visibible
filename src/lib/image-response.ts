@@ -43,39 +43,28 @@ function buildInlineImageDataUrl(part: unknown): string | null {
   return `data:${mimeType};base64,${data}`;
 }
 
-export function extractImageUrlFromPart(part: unknown): string | null {
-  if (typeof part === "string") {
-    return part.startsWith("data:image/") ? part : null;
-  }
-
-  if (!isRecord(part)) return null;
-
-  const directUrl = getNonEmptyString(part.url);
-  if (directUrl) return directUrl;
-
-  const directImageUrl = getNonEmptyString(part.image_url)
-    ?? getNonEmptyString(part.imageUrl);
-  if (directImageUrl) return directImageUrl;
-
-  const nestedImageUrl = isRecord(part.image_url)
-    ? part.image_url
-    : isRecord(part.imageUrl)
-      ? part.imageUrl
-      : null;
-  if (nestedImageUrl) {
-    const nestedUrl = getNonEmptyString(nestedImageUrl.url);
-    if (nestedUrl) return nestedUrl;
-  }
-
-  const inlineDataUrl = buildInlineImageDataUrl(part);
-  if (inlineDataUrl) return inlineDataUrl;
-
+/** Every image a response part names, in the order the shapes are checked. */
+function imageCandidatesFromPart(part: unknown): string[] {
+  if (typeof part === "string") return part.startsWith("data:image/") ? [part] : [];
+  if (!isRecord(part)) return [];
+  const nested = isRecord(part.image_url) ? part.image_url : isRecord(part.imageUrl) ? part.imageUrl : null;
   const b64Json = getNonEmptyString(part.b64_json);
-  if (b64Json) {
-    return `data:image/png;base64,${b64Json}`;
-  }
+  return [
+    getNonEmptyString(part.url),
+    getNonEmptyString(part.image_url) ?? getNonEmptyString(part.imageUrl),
+    nested ? getNonEmptyString(nested.url) : null,
+    buildInlineImageDataUrl(part),
+    b64Json ? `data:image/png;base64,${b64Json}` : null,
+  ].filter((candidate): candidate is string => candidate !== null);
+}
 
-  return null;
+/** Returned bytes (a data URL) win over a remote URL, which is only stored as a refusal (#80). */
+function preferInline(candidates: string[]): string | null {
+  return candidates.find((candidate) => candidate.startsWith("data:")) ?? candidates[0] ?? null;
+}
+
+export function extractImageUrlFromPart(part: unknown): string | null {
+  return preferInline(imageCandidatesFromPart(part));
 }
 
 export function extractNoImageText(message: unknown): string | null {
@@ -136,22 +125,17 @@ export function summarizeNoImageResponse(data: unknown): Record<string, unknown>
   };
 }
 
-/** The first image in a chat completion's message, from `images` first and content parts second. */
+/**
+ * The image in a chat completion's message, from `images` first and content parts second.
+ * Returned bytes anywhere in the message win over a remote URL, which cannot be stored.
+ */
 export function findResponseImageUrl(message: unknown): string | null {
   if (!isRecord(message)) return null;
-  if (Array.isArray(message.images)) {
-    for (const image of message.images) {
-      const url = extractImageUrlFromPart(image);
-      if (url) return url;
-    }
-  }
-  if (Array.isArray(message.content)) {
-    for (const part of message.content) {
-      const url = extractImageUrlFromPart(part);
-      if (url) return url;
-    }
-  }
-  return null;
+  const parts = [
+    ...(Array.isArray(message.images) ? message.images : []),
+    ...(Array.isArray(message.content) ? message.content : []),
+  ];
+  return preferInline(parts.flatMap(imageCandidatesFromPart));
 }
 
 /**

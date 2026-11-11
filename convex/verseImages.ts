@@ -31,110 +31,12 @@ const ALLOWED_IMAGE_MIME_TYPES = new Set([
   "image/gif",
 ]);
 
-const DEFAULT_IMAGE_FETCH_ALLOWLIST = [
-  "openrouter.ai",
-  "*.openrouter.ai",
-  "openrouterusercontent.com",
-  "*.openrouterusercontent.com",
-  "*.googleusercontent.com",
-  "*.gstatic.com",
-  "*.oaistatic.com",
-  "*.blob.core.windows.net",
-];
-
 class ImageValidationError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "ImageValidationError";
   }
 }
-
-const normalizeHost = (value: string) => value.trim().toLowerCase().replace(/\.$/, "");
-
-const getRemoteImageAllowlist = () => {
-  const configured = (process.env.IMAGE_FETCH_ALLOWLIST ?? "")
-    .split(",")
-    .map((entry) => normalizeHost(entry))
-    .filter((entry) => entry.length > 0);
-
-  const deduped = new Set([
-    ...DEFAULT_IMAGE_FETCH_ALLOWLIST.map((entry) => normalizeHost(entry)),
-    ...configured,
-  ]);
-  return Array.from(deduped);
-};
-
-const isIpv4Address = (host: string) => /^(\d{1,3}\.){3}\d{1,3}$/.test(host);
-
-const isPrivateIpv4 = (host: string) => {
-  if (!isIpv4Address(host)) return false;
-  const parts = host.split(".").map((segment) => Number.parseInt(segment, 10));
-  if (parts.length !== 4 || parts.some((part) => !Number.isFinite(part) || part < 0 || part > 255)) {
-    return false;
-  }
-  const [a, b] = parts;
-  if (a === 10) return true;
-  if (a === 127) return true;
-  if (a === 169 && b === 254) return true;
-  if (a === 172 && b >= 16 && b <= 31) return true;
-  if (a === 192 && b === 168) return true;
-  if (a === 0) return true;
-  return false;
-};
-
-const isPrivateIpv6 = (host: string) => {
-  if (!host.includes(":")) return false;
-  const normalized = host.toLowerCase();
-  if (normalized === "::1" || normalized === "0:0:0:0:0:0:0:1") return true;
-  if (normalized.startsWith("fe80:")) return true;
-  if (normalized.startsWith("fc") || normalized.startsWith("fd")) return true;
-  return false;
-};
-
-const isDisallowedLocalHost = (host: string) => {
-  if (host === "localhost" || host.endsWith(".localhost")) return true;
-  if (host.endsWith(".local")) return true;
-  if (isPrivateIpv4(host) || isPrivateIpv6(host)) return true;
-  return false;
-};
-
-const hostMatchesAllowlist = (host: string, allowedHost: string) => {
-  if (allowedHost.startsWith("*.")) {
-    const suffix = allowedHost.slice(2);
-    return host === suffix || host.endsWith(`.${suffix}`);
-  }
-  return host === allowedHost;
-};
-
-const assertAllowedRemoteImageUrl = (imageUrl: string) => {
-  let parsed: URL;
-  try {
-    parsed = new URL(imageUrl);
-  } catch {
-    throw new ImageValidationError("Invalid image URL");
-  }
-
-  if (parsed.protocol !== "https:") {
-    throw new ImageValidationError("Only HTTPS image URLs are allowed");
-  }
-  if (parsed.username || parsed.password) {
-    throw new ImageValidationError("Image URL auth components are not allowed");
-  }
-
-  const host = normalizeHost(parsed.hostname);
-  if (!host) {
-    throw new ImageValidationError("Image URL host is required");
-  }
-  if (isDisallowedLocalHost(host)) {
-    throw new ImageValidationError("Image URL host is not allowed");
-  }
-
-  const allowlist = getRemoteImageAllowlist();
-  const allowed = allowlist.some((allowedHost) => hostMatchesAllowlist(host, allowedHost));
-  if (!allowed) {
-    throw new ImageValidationError(`Image host "${host}" is not in allowlist`);
-  }
-};
 
 const assertAllowedMimeType = (mimeType?: string) => {
   if (!mimeType) {
@@ -1173,73 +1075,6 @@ export const recordNostrPublication = internalMutation({
   },
 });
 
-/**
- * Internal mutation to save image with direct URL.
- */
-export const saveImageWithUrl = internalMutation({
-  args: {
-    verseId: v.string(),
-    imageUrl: v.string(),
-    model: v.string(),
-    prompt: v.optional(v.string()),
-    reference: v.optional(v.string()),
-    verseText: v.optional(v.string()),
-    generationNumber: v.optional(v.number()),
-    promptVersion: v.optional(v.string()),
-    translationId: v.optional(v.string()),
-    provider: v.optional(v.string()),
-    providerRequestId: v.optional(v.string()),
-    creditsCost: v.optional(v.number()),
-    costUsd: v.optional(v.number()),
-    durationMs: v.optional(v.number()),
-    aspectRatio: v.optional(v.string()),
-    sourceImageUrl: v.optional(v.string()),
-    imageMimeType: v.optional(v.string()),
-    imageSizeBytes: v.optional(v.number()),
-    imageWidth: v.optional(v.number()),
-    imageHeight: v.optional(v.number()),
-    generationId: v.optional(v.string()),
-    engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
-    provenance: v.optional(imageProvenanceValidator),
-    artStyleId: v.optional(v.string()),
-  },
-  handler: async (ctx, args) => {
-    if (args.generationId) {
-      const existing = await ctx.db.query("verseImages")
-        .withIndex("by_generationId", (q) => q.eq("generationId", args.generationId)).first();
-      if (existing) return existing._id;
-    }
-    const id = await ctx.db.insert("verseImages", {
-      verseId: args.verseId,
-      imageUrl: args.imageUrl,
-      model: args.model,
-      prompt: args.prompt,
-      reference: args.reference,
-      verseText: args.verseText,
-      generationNumber: args.generationNumber,
-      promptVersion: args.promptVersion,
-      translationId: args.translationId,
-      provider: args.provider,
-      providerRequestId: args.providerRequestId,
-      creditsCost: args.creditsCost,
-      costUsd: args.costUsd,
-      durationMs: args.durationMs,
-      aspectRatio: args.aspectRatio,
-      sourceImageUrl: args.sourceImageUrl,
-      imageMimeType: args.imageMimeType,
-      imageSizeBytes: args.imageSizeBytes,
-      imageWidth: args.imageWidth,
-      imageHeight: args.imageHeight,
-      generationId: args.generationId,
-      engine: args.engine,
-      provenance: args.provenance,
-      artStyleId: args.artStyleId,
-      createdAt: Date.now(),
-    });
-    return id;
-  },
-});
-
 const BASE64_LOOKUP = (() => {
   const chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -1253,8 +1088,12 @@ const BASE64_LOOKUP = (() => {
 
 const decodeBase64ToBytes = (base64: string) => {
   const cleaned = base64.replace(/[\r\n\s]/g, "");
-  if (cleaned.length % 4 === 1) {
-    throw new Error("Invalid base64 string");
+  // Standard base64, padding only at the end (or omitted): anything else would decode to bytes
+  // the sender never sent.
+  const padded = cleaned.length % 4 === 0 && /^[A-Za-z0-9+/]*={0,2}$/.test(cleaned);
+  const unpadded = (cleaned.length % 4 === 2 || cleaned.length % 4 === 3) && /^[A-Za-z0-9+/]+$/.test(cleaned);
+  if (cleaned.length === 0 || !(padded || unpadded)) {
+    throw new ImageValidationError("Invalid base64 image data");
   }
 
   let bufferLength = (cleaned.length * 3) / 4;
@@ -1455,6 +1294,151 @@ const parseWebpDimensions = (bytes: Uint8Array): ImageDimensions | null => {
   return null;
 };
 
+const readUint32LEAt = (bytes: Uint8Array, offset: number) =>
+  offset + 4 <= bytes.length ? (bytes[offset] | (bytes[offset + 1] << 8) | (bytes[offset + 2] << 16) | (bytes[offset + 3] << 24)) >>> 0 : null;
+
+/** PNG: IHDR first, compressed image data in IDAT, every chunk inside the data, ending in IEND. */
+const isCompletePng = (bytes: Uint8Array) => {
+  let offset = 8;
+  let first = true;
+  let dataBytes = 0;
+  while (offset + 12 <= bytes.length) {
+    const length = readUint32BE(bytes, offset);
+    if (length === null) return false;
+    const type = String.fromCharCode(bytes[offset + 4], bytes[offset + 5], bytes[offset + 6], bytes[offset + 7]);
+    const end = offset + 12 + length;
+    if (end > bytes.length) return false;
+    if (first && (type !== "IHDR" || length !== 13)) return false;
+    first = false;
+    // Single IDAT chunks may be empty, but the image's compressed stream may not.
+    if (type === "IDAT") dataBytes += length;
+    if (type === "IEND") return dataBytes > 0;
+    offset = end;
+  }
+  return false;
+};
+
+/**
+ * JPEG: every marker segment fits, at least one scan, and the walk reaches an end-of-image
+ * marker. Entropy-coded data after each scan header runs to the next marker that is neither a
+ * stuffed 0xFF00 nor a restart; later segments (tables, comments, further scans) are skipped by
+ * their declared lengths, so bytes inside them are never mistaken for the end.
+ */
+const isCompleteJpeg = (bytes: Uint8Array) => {
+  let offset = 2;
+  let sawScan = false;
+  let entropyBytes = 0;
+  while (offset + 2 <= bytes.length) {
+    if (bytes[offset] !== 0xff) return false;
+    const marker = bytes[offset + 1];
+    if (marker === 0xff) { offset += 1; continue; }
+    if (marker === 0xd9) return sawScan && entropyBytes > 0;
+    if ((marker >= 0xd0 && marker <= 0xd7) || marker === 0x01) { offset += 2; continue; }
+    const length = readUint16BE(bytes, offset + 2);
+    if (length === null || length < 2 || offset + 2 + length > bytes.length) return false;
+    offset += 2 + length;
+    if (marker !== 0xda) continue;
+    sawScan = true;
+    while (offset < bytes.length) {
+      if (bytes[offset] !== 0xff) { offset += 1; entropyBytes += 1; continue; }
+      if (offset + 1 >= bytes.length) return false;
+      const next = bytes[offset + 1];
+      if (next === 0x00) { offset += 2; entropyBytes += 1; continue; }
+      if (next >= 0xd0 && next <= 0xd7) { offset += 2; continue; }
+      if (next === 0xff) { offset += 1; continue; }
+      break;
+    }
+  }
+  return false;
+};
+
+/** GIF: every block inside the data, at least one image, ending in the trailer. */
+const isCompleteGif = (bytes: Uint8Array) => {
+  if (!matchesAscii(bytes, 0, "GIF87a") && !matchesAscii(bytes, 0, "GIF89a")) return false;
+  if (bytes.length < 14) return false;
+  let offset = 13;
+  if (bytes[10] & 0x80) offset += 3 * 2 ** ((bytes[10] & 0x07) + 1);
+  const skipSubBlocks = (at: number) => {
+    let position = at;
+    while (position < bytes.length) {
+      const size = bytes[position];
+      position += 1;
+      if (size === 0) return position;
+      position += size;
+    }
+    return -1;
+  };
+  let sawImage = false;
+  while (offset < bytes.length) {
+    const introducer = bytes[offset];
+    if (introducer === 0x3b) return sawImage;
+    if (introducer === 0x21) {
+      offset = skipSubBlocks(offset + 2);
+    } else if (introducer === 0x2c) {
+      if (offset + 10 > bytes.length) return false;
+      const packed = bytes[offset + 9];
+      offset += 10;
+      if (packed & 0x80) offset += 3 * 2 ** ((packed & 0x07) + 1);
+      offset = skipSubBlocks(offset + 1);
+      sawImage = true;
+    } else {
+      return false;
+    }
+    if (offset < 0) return false;
+  }
+  return false;
+};
+
+/** Whether a VP8 or VP8L chunk carries an encoded image header, not just its name. */
+const isWebpImageChunk = (bytes: Uint8Array, type: string, start: number, size: number) => {
+  if (type === "VP8 ") return size >= 10 && bytes[start + 3] === 0x9d && bytes[start + 4] === 0x01 && bytes[start + 5] === 0x2a;
+  if (type === "VP8L") return size >= 5 && bytes[start] === 0x2f;
+  return false;
+};
+
+/**
+ * Walks padded RIFF chunks from `from` to exactly `to`; null when one overruns, else whether an
+ * encoded image was found. Frames are walked one level deep: a frame inside a frame is invalid.
+ */
+const walkWebpChunks = (bytes: Uint8Array, from: number, to: number, insideFrame = false): boolean | null => {
+  let offset = from;
+  let sawImage = false;
+  while (offset + 8 <= to) {
+    const type = String.fromCharCode(bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3]);
+    const size = readUint32LEAt(bytes, offset + 4);
+    if (size === null) return null;
+    const start = offset + 8;
+    const next = start + size + (size % 2);
+    if (next > to) return null;
+    if (isWebpImageChunk(bytes, type, start, size)) sawImage = true;
+    // An animation frame holds its image in nested chunks after a 16-byte frame header.
+    if (type === "ANMF") {
+      if (insideFrame || size < 16) return null;
+      const nested = walkWebpChunks(bytes, start + 16, start + size, true);
+      if (nested === null) return null;
+      if (nested) sawImage = true;
+    }
+    offset = next;
+  }
+  return offset === to ? sawImage : null;
+};
+
+/** WebP: the RIFF size fits the data, its padded chunks fill it exactly, and one holds an encoded image. */
+const isCompleteWebp = (bytes: Uint8Array) => {
+  const riffSize = readUint32LEAt(bytes, 4);
+  if (riffSize === null || riffSize < 4 || riffSize + 8 > bytes.length) return false;
+  return walkWebpChunks(bytes, 12, riffSize + 8) === true;
+};
+
+/** Whether the bytes hold a whole image of the declared type, not just its header (#80). */
+const isCompleteImage = (bytes: Uint8Array, mimeType: string) => {
+  if (mimeType === "image/png") return isCompletePng(bytes);
+  if (mimeType === "image/jpeg") return isCompleteJpeg(bytes);
+  if (mimeType === "image/gif") return isCompleteGif(bytes);
+  if (mimeType === "image/webp") return isCompleteWebp(bytes);
+  return false;
+};
+
 const getImageDimensions = (bytes: Uint8Array, mimeType?: string): ImageDimensions | null => {
   const normalizedType = normalizeMimeType(mimeType);
   if (normalizedType?.includes("png")) return parsePngDimensions(bytes);
@@ -1473,9 +1457,9 @@ const getImageDimensions = (bytes: Uint8Array, mimeType?: string): ImageDimensio
 };
 
 /**
- * Action to save an image. Handles both regular URLs and base64 data URLs.
- * For base64 data URLs, uploads to Convex storage first.
- * For regular URLs, stores in Convex storage when possible with URL fallback.
+ * Action to save an image from the bytes returned with the provider response (a base64 data
+ * URL). The bytes must be a readable image of the declared type; they are stored in Convex
+ * storage before the record is written. Remote URLs and invalid data are refused with nothing saved.
  */
 export const saveImage = action({
   args: {
@@ -1555,128 +1539,61 @@ export const saveImage = action({
       }
     }
 
-    // Check if this is a base64 data URL
-    if (imageUrl.startsWith("data:")) {
-      // Parse the data URL
-      const matches = imageUrl.match(/^data:([^;]+);base64,(.+)$/);
-      if (!matches) {
-        throw new Error("Invalid data URL format");
-      }
-
-      const mimeType = matches[1];
-      const base64Data = matches[2];
-      const maxBase64Length = Math.ceil((MAX_IMAGE_BYTES * 4) / 3) + 4;
-      if (base64Data.length > maxBase64Length) {
-        throw new ImageValidationError(
-          `Image data URL exceeds ${MAX_IMAGE_BYTES} byte limit`
-        );
-      }
-
-      // Decode base64 without relying on atob/Buffer (not available in Convex).
-      const bytes = decodeBase64ToBytes(base64Data);
-      const normalizedMimeType = normalizeMimeType(mimeType);
-      assertAllowedMimeType(normalizedMimeType);
-      assertByteSizeWithinLimit(bytes.length, "data URL");
-      const dimensions = getImageDimensions(bytes, normalizedMimeType);
-      const imageMetadata = {
-        ...baseMetadata,
-        sourceImageUrl: undefined,
-        imageMimeType: normalizedMimeType,
-        imageSizeBytes: bytes.length,
-        imageWidth: dimensions?.width,
-        imageHeight: dimensions?.height,
-      };
-
-      // Create a blob and upload to storage
-      const blob = new Blob([bytes], { type: mimeType });
-      const storageId = await ctx.storage.store(blob);
-
-      // Save to database with storage ID
-      const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithStorage, {
-        verseId,
-        storageId,
-        model,
-        ...imageMetadata,
-        generationId,
-      });
-
-      return { success: true, type: "storage", id };
+    // Only image bytes returned with the response are stored. Convex's runtime cannot resolve a
+    // remote URL's destination, so fetching one could not be kept off private or rebound
+    // addresses; such output is refused here rather than saved as a link that later expires.
+    if (!imageUrl.startsWith("data:")) {
+      throw new ImageValidationError("Only image data returned with the response can be stored; remote image URLs are refused");
     }
 
-    assertAllowedRemoteImageUrl(imageUrl);
+    // Parse the data URL
+    const matches = imageUrl.match(/^data:([^;]+);base64,(.+)$/);
+    if (!matches) {
+      throw new ImageValidationError("Invalid data URL format");
+    }
 
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-      let response: Response;
-      try {
-        response = await fetch(imageUrl, { signal: controller.signal });
-      } finally {
-        clearTimeout(timeoutId);
-      }
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch image: ${response.status}`);
-      }
-
-      const contentLengthHeader = response.headers.get("content-length");
-      if (contentLengthHeader) {
-        const contentLength = Number.parseInt(contentLengthHeader, 10);
-        if (Number.isFinite(contentLength)) {
-          assertByteSizeWithinLimit(contentLength, "remote image response");
-        }
-      }
-
-      const blob = await response.blob();
-      const arrayBuffer = await blob.arrayBuffer();
-      const bytes = new Uint8Array(arrayBuffer);
-      const normalizedMimeType = normalizeMimeType(
-        response.headers.get("content-type") || blob.type
+    const mimeType = matches[1];
+    const base64Data = matches[2];
+    const maxBase64Length = Math.ceil((MAX_IMAGE_BYTES * 4) / 3) + 4;
+    if (base64Data.length > maxBase64Length) {
+      throw new ImageValidationError(
+        `Image data URL exceeds ${MAX_IMAGE_BYTES} byte limit`
       );
-      assertAllowedMimeType(normalizedMimeType);
-      assertByteSizeWithinLimit(bytes.length, "remote image body");
-      const dimensions = getImageDimensions(bytes, normalizedMimeType);
-      const imageMetadata = {
-        ...baseMetadata,
-        sourceImageUrl: imageUrl,
-        imageMimeType: normalizedMimeType,
-        imageSizeBytes: bytes.length,
-        imageWidth: dimensions?.width,
-        imageHeight: dimensions?.height,
-      };
-      const storageId = await ctx.storage.store(blob);
-
-      const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithStorage, {
-        verseId,
-        storageId,
-        model,
-        ...imageMetadata,
-        generationId,
-      });
-
-      return { success: true, type: "storage", id };
-    } catch (error) {
-      if (error instanceof ImageValidationError) {
-        throw error;
-      }
-      console.error("Failed to fetch and store image:", error);
-      const imageMetadata = {
-        ...baseMetadata,
-        sourceImageUrl: imageUrl,
-      };
-      const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithUrl, {
-        verseId,
-        imageUrl,
-        model,
-        ...imageMetadata,
-        generationId,
-      });
-
-      // Skip Nostr publication when storage fails - the original imageUrl may be
-      // temporary and Nostr publications are immutable
-
-      return { success: true, type: "url", id };
     }
+
+    // Decode base64 without relying on atob/Buffer (not available in Convex).
+    const bytes = decodeBase64ToBytes(base64Data);
+    const normalizedMimeType = normalizeMimeType(mimeType);
+    assertAllowedMimeType(normalizedMimeType);
+    assertByteSizeWithinLimit(bytes.length, "data URL");
+    // The declared type's parser must read the bytes, and the file must be whole, so a mislabelled,
+    // non-image or truncated payload is refused.
+    const dimensions = getImageDimensions(bytes, normalizedMimeType);
+    if (!dimensions || !isCompleteImage(bytes, normalizedMimeType ?? "")) {
+      throw new ImageValidationError(`Image data is not a readable ${normalizedMimeType}`);
+    }
+    const imageMetadata = {
+      ...baseMetadata,
+      sourceImageUrl: undefined,
+      imageMimeType: normalizedMimeType,
+      imageSizeBytes: bytes.length,
+      imageWidth: dimensions.width,
+      imageHeight: dimensions.height,
+    };
+
+    // Create a blob and upload to storage
+    const blob = new Blob([bytes], { type: normalizedMimeType });
+    const storageId = await ctx.storage.store(blob);
+
+    // Save to database with storage ID
+    const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithStorage, {
+      verseId,
+      storageId,
+      model,
+      ...imageMetadata,
+      generationId,
+    });
+
+    return { success: true, type: "storage", id };
   },
 });
