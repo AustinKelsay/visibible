@@ -8,6 +8,7 @@ import { useSession } from "@/context/session-context";
 import { ChatModelSelector } from "./chat-model-selector";
 import { ConversationSummary, MessageMetadataDisplay, MessageMetadata } from "./chat-metadata";
 import { MarkdownRenderer } from "./markdown-renderer";
+import { MAX_USER_MESSAGE_CHARS } from "@/lib/chat-limits";
 import {
   trackChatMessageSent,
   trackCreditsInsufficient,
@@ -71,7 +72,7 @@ function getErrorMessage(error: Error | null): string {
 }
 
 export function Chat({ context, variant = "inline" }: ChatProps) {
-  const { chatModel } = usePreferences();
+  const { chatModel, translation } = usePreferences();
   const { tier, credits, buyCredits } = useSession();
 
   const chatId = useMemo(() => {
@@ -101,9 +102,13 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
     ? [`What does ${passageLabel} mean?`, `What is the historical context of ${passageLabel}?`, `How does ${passageLabel} fit the rest of the chapter?`]
     : ["What is the main message of the Bible?", "How do the Old and New Testaments fit together?", "Where is a good place to start reading?"];
 
-  // Include both context and model in request body
+  // The server reads the passage text itself; send only the reference, translation and model.
+  const passage = context?.book && typeof context.chapter === "number" && context.verseRange
+    ? { book: context.book, chapter: context.chapter, verseRange: context.verseRange }
+    : null;
   const requestBody = {
-    ...(context ? { context } : {}),
+    ...(passage ? { context: passage } : {}),
+    translation,
     model: chatModel,
   };
 
@@ -422,6 +427,7 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
             ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            maxLength={MAX_USER_MESSAGE_CHARS}
             disabled={!canSend}
             placeholder={!canSend ? "Add credits to chat" : `Ask about ${passageLabel ?? "Scripture"}…`}
             aria-label="Ask about this scripture"

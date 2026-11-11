@@ -45,7 +45,7 @@ describe("model catalog resilience", () => {
     } = await import("../chat-models");
 
     const pricing = await getChatModelPricing(DEFAULT_CHAT_MODEL, "test-key");
-    expect(pricing).toEqual(EMERGENCY_CHAT_MODEL_PRICING[DEFAULT_CHAT_MODEL]);
+    expect(pricing).toEqual({ ...EMERGENCY_CHAT_MODEL_PRICING[DEFAULT_CHAT_MODEL], contextLength: 131072 });
   });
 
   it("chat models use stale cached snapshot when a later models fetch fails", async () => {

@@ -1,6 +1,6 @@
 # Chat eval and release requirements
 
-Apply this process when changing `buildSystemPrompt()` in [the chat route](../../src/app/api/chat/route.ts), default/model filtering in [chat-models.ts](../../src/lib/chat-models.ts), model context assembly, or AI SDK/provider behavior that can change answers.
+Apply this process when changing `buildSystemPrompt()` in [chat-request.ts](../../src/lib/chat-request.ts), default/model filtering in [chat-models.ts](../../src/lib/chat-models.ts), model context assembly, or AI SDK/provider behavior that can change answers.
 
 This is a manual release requirement. The repository's chat tests cover credit/stream mechanics; it does not include a scored model-quality eval runner or a committed 30-case eval dataset.
 

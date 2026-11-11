@@ -12,6 +12,8 @@ export interface MessageMetadata {
   totalTokens?: number;
   finishReason?: string;
   incomplete?: boolean;
+  /** Older turns left out because the conversation outgrew the history budget. */
+  earlierMessagesOmitted?: number;
   latencyMs?: number;
 }
 
@@ -185,7 +187,8 @@ export function MessageMetadataDisplay({ metadata, modelPricing }: MessageMetada
         aria-expanded={false}
         aria-label="Show message details"
       >
-        {metadata.incomplete && <span>Incomplete response •</span>}
+        {metadata.incomplete && <span>Cut short at the length limit •</span>}
+        {(metadata.earlierMessagesOmitted ?? 0) > 0 && <span>Earlier messages not sent •</span>}
         <Zap size={10} />
         <span>{(metadata.totalTokens || 0).toLocaleString()} tokens</span>
         <span>•</span>
@@ -207,6 +210,9 @@ export function MessageMetadataDisplay({ metadata, modelPricing }: MessageMetada
       </button>
       <div className="px-2 py-1.5 space-y-1">
         {metadata.incomplete && <p>Incomplete response: the model reached its output limit.</p>}
+        {(metadata.earlierMessagesOmitted ?? 0) > 0 && (
+          <p>The conversation is long, so the {metadata.earlierMessagesOmitted} earliest messages were not sent with this question.</p>
+        )}
         <MetadataRow label="Model" value={metadata.model?.split("/").pop() || "Unknown"} />
         <MetadataRow label="Prompt" value={`${(metadata.promptTokens || 0).toLocaleString()} tokens`} />
         <MetadataRow label="Completion" value={`${(metadata.completionTokens || 0).toLocaleString()} tokens`} />
