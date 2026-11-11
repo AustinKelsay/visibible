@@ -15,11 +15,9 @@ import {
 import {
   canAffordImageGeneration,
   computeCreditsCost,
-  computeCreditsFromActualUsage,
   computeAdjustedCreditsCost,
   getEstimatedCreditsCostForResolution,
   normalizeResolutionForModel,
-  resolveLearnedImageCreditsEstimate,
   supportsResolution,
   DEFAULT_CREDITS_COST,
   IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS,
@@ -266,39 +264,6 @@ describe("canAffordImageGeneration", () => {
   });
 });
 
-describe("computeCreditsFromActualUsage", () => {
-  it("should use actual usage when available", () => {
-    // $0.10 actual usage
-    const result = computeCreditsFromActualUsage(0.1, 100);
-    expect(result.usedActual).toBe(true);
-    // 0.1 * 1.25 = 0.125 = 13 credits
-    expect(result.credits).toBe(13);
-  });
-
-  it("should fall back when actual usage is null", () => {
-    const result = computeCreditsFromActualUsage(null, 100);
-    expect(result.usedActual).toBe(false);
-    expect(result.credits).toBe(100);
-  });
-
-  it("should fall back when actual usage is 0", () => {
-    const result = computeCreditsFromActualUsage(0, 100);
-    expect(result.usedActual).toBe(false);
-    expect(result.credits).toBe(100);
-  });
-
-  it("should fall back when actual usage is negative", () => {
-    const result = computeCreditsFromActualUsage(-0.5, 100);
-    expect(result.usedActual).toBe(false);
-    expect(result.credits).toBe(100);
-  });
-
-  it("should return at least 1 credit for actual usage", () => {
-    const result = computeCreditsFromActualUsage(0.0001, 100);
-    expect(result.credits).toBeGreaterThanOrEqual(1);
-  });
-});
-
 describe("supportsResolution", () => {
   it("should detect documented Gemini image preview models as supporting resolution", () => {
     expect(supportsResolution("google/gemini-3.1-flash-image-preview")).toBe(true);
@@ -403,90 +368,6 @@ describe("getDisplayedCreditsCost", () => {
         reservationCreditsCost: null,
       })
     ).toBeNull();
-  });
-});
-
-describe("resolveLearnedImageCreditsEstimate", () => {
-  const estimates = [
-    {
-      scopeType: "model" as const,
-      scopeValue: "google/gemini-2.5-flash-image",
-      resolution: "1K",
-      estimateCredits: 8,
-      sampleCount: 6,
-    },
-    {
-      scopeType: "provider" as const,
-      scopeValue: "openai",
-      resolution: "1K",
-      estimateCredits: 9,
-      sampleCount: 4,
-    },
-    {
-      scopeType: "global" as const,
-      scopeValue: "global",
-      resolution: "2K",
-      estimateCredits: 15,
-      sampleCount: 12,
-    },
-  ];
-
-  it("prefers exact model matches over provider and global estimates", () => {
-    expect(
-      resolveLearnedImageCreditsEstimate({
-        modelId: "google/gemini-2.5-flash-image",
-        resolution: "1K",
-        fallbackCredits: 2,
-        estimates,
-      })
-    ).toEqual({
-      credits: 8,
-      source: "model",
-      sampleCount: 6,
-    });
-  });
-
-  it("falls back to provider then global when no exact model history exists", () => {
-    expect(
-      resolveLearnedImageCreditsEstimate({
-        modelId: "openai/gpt-5-image",
-        resolution: "1K",
-        fallbackCredits: 2,
-        estimates,
-      })
-    ).toEqual({
-      credits: 9,
-      source: "provider",
-      sampleCount: 4,
-    });
-
-    expect(
-      resolveLearnedImageCreditsEstimate({
-        modelId: "anthropic/some-image-model",
-        resolution: "2K",
-        fallbackCredits: 2,
-        estimates,
-      })
-    ).toEqual({
-      credits: 15,
-      source: "global",
-      sampleCount: 12,
-    });
-  });
-
-  it("uses the fallback estimate when there is no learned history", () => {
-    expect(
-      resolveLearnedImageCreditsEstimate({
-        modelId: "anthropic/some-image-model",
-        resolution: "4K",
-        fallbackCredits: 11,
-        estimates,
-      })
-    ).toEqual({
-      credits: 11,
-      source: "fallback",
-      sampleCount: 0,
-    });
   });
 });
 

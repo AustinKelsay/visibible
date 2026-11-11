@@ -2,41 +2,8 @@ import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { validateServerSecret } from "./_helpers/auth";
 
-// Default ETA for unknown models (seconds)
-const DEFAULT_ETA_MS = 12000;
 // EMA smoothing factor (0.2 = 20% new value, 80% old)
 const EMA_ALPHA = 0.2;
-
-/**
- * Get stats for a specific model.
- */
-export const getModelStats = query({
-  args: {
-    modelId: v.string(),
-  },
-  handler: async (ctx, args) => {
-    const stats = await ctx.db
-      .query("modelStats")
-      .withIndex("by_modelId", (q) => q.eq("modelId", args.modelId))
-      .first();
-
-    if (!stats) {
-      return {
-        modelId: args.modelId,
-        count: 0,
-        avgMs: DEFAULT_ETA_MS,
-        etaSeconds: Math.round(DEFAULT_ETA_MS / 1000),
-      };
-    }
-
-    return {
-      modelId: stats.modelId,
-      count: stats.count,
-      avgMs: stats.avgMs,
-      etaSeconds: Math.round(stats.avgMs / 1000),
-    };
-  },
-});
 
 /**
  * Get stats for all models that have been used.

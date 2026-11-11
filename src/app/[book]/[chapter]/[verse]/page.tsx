@@ -16,8 +16,6 @@ import { MOBILE_VERSE_NAV_OFFSET } from "@/lib/mobile-verse-nav";
 import {
   parseVerseUrl,
   getNavigationUrls,
-  getPreviousVerse,
-  getNextVerse,
   formatReference,
 } from "@/lib/navigation";
 
@@ -107,29 +105,11 @@ export default async function VersePage({ params }: VersePageProps) {
   const { prevUrl, nextUrl } = getNavigationUrls(location);
   const totalVerses = chapterData.verses.length;
 
-  // Neighbouring verses for the chat sidebar's context
-  const prevLocation = getPreviousVerse(location);
-  const nextLocation = getNextVerse(location);
-
-  // Adjacent prompt context comes from this exact chapter and translation.
-  const prevVerseData = prevLocation?.book.id === bookData.id && prevLocation.chapter === location.chapter
-    ? chapterData.verses.find((item) => item.verse === prevLocation.verse) : undefined;
-  const nextVerseData = nextLocation?.book.id === bookData.id && nextLocation.chapter === location.chapter
-    ? chapterData.verses.find((item) => item.verse === nextLocation.verse) : undefined;
-  const prevVerse = prevVerseData && prevLocation
-    ? { number: prevLocation.verse, text: prevVerseData.text, reference: formatReference(prevLocation) } : undefined;
-  const nextVerse = nextVerseData && nextLocation
-    ? { number: nextLocation.verse, text: nextVerseData.text, reference: formatReference(nextLocation) } : undefined;
-
   // Build chat context for sidebar
   const chatContext = {
     book: bookData.name,
     chapter: location.chapter,
     verseRange: String(location.verse),
-    heroCaption: verseData.text,
-    verses: [{ number: location.verse, text: verseData.text }],
-    prevVerse,
-    nextVerse,
   };
   const currentReference = `${bookData.name} ${location.chapter}:${location.verse}`;
 

@@ -3,7 +3,7 @@ import { gunzipSync } from "node:zlib";
 import { beforeAll, describe, expect, it } from "vitest";
 import { BIBLE_BOOKS } from "@/data/bible-structure";
 import { formatReference, verseLocationToId, verseToUrl } from "@/lib/navigation";
-import { createMomentReader, createWorkReader } from "@/lib/work-input";
+import { createWorkReader } from "@/lib/work-input";
 import { caseUnitId, caseWork, loadEvalCases } from "@/lib/image-evals/cases";
 import evalCases from "../../evals/images/cases.json";
 import manifest from "../../works/sources/manifest.json";
@@ -74,19 +74,6 @@ describe("WEB import", () => {
     expect(bible.work.referenceText.credit).toContain("eBible.org");
     expect(bible.work.referenceText.sha256).toBe(manifest.web.sha256);
     expect(sha256(JSON.stringify(importWeb(webSource)))).toBe(sha256(JSON.stringify(bible.work)));
-  });
-
-  it("supplies one moment per verse without crossing a supplied section boundary", () => {
-    const sections = BIBLE_BOOKS.flatMap((book) => book.chapters.map((count, index) => ({
-      firstUnitId: `${book.slug}-${index + 1}-1`, lastUnitId: `${book.slug}-${index + 1}-${count}`,
-    })));
-    const reader = createMomentReader(bible, sections);
-    expect(reader.moments.map((moment) => moment.id)).toEqual(bible.units.map((unit) => unit.id));
-    expect(reader.getContext("malachi-4-6").next).toBeNull();
-    expect(reader.getContext("matthew-1-1").previous).toBeNull();
-    expect(reader.getContext("romans-16-25").next?.id).toBe("romans-16-26");
-    expect(reader.getMoment("luke-17-36").sourceNotes[0].note.reference).toBe("Luke 17:36");
-    expect(reader.getMoment("genesis-1-1").sourceNotes).toEqual([]);
   });
 
   it("uses only the four pinned WEB footnote readings and retains their source evidence", () => {

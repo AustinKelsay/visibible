@@ -18,16 +18,6 @@ export interface ImageModel {
   etaSeconds?: number; // estimated generation time
 }
 
-export type ImageCostEstimateScope = "model" | "provider" | "global" | "fallback";
-
-export interface LearnedImageCostEstimate {
-  scopeType: "model" | "provider" | "global";
-  scopeValue: string;
-  resolution: string;
-  estimateCredits: number;
-  sampleCount: number;
-}
-
 // Credit pricing constants
 export const CREDIT_USD = 0.01; // 1 credit = $0.01
 export const PREMIUM_MULTIPLIER = 1.25; // 25% premium over OpenRouter price
@@ -52,29 +42,6 @@ export function computeCreditsCost(pricingImage: string | undefined): number | n
 
   const effectiveUsd = baseUsd * PREMIUM_MULTIPLIER;
   return Math.max(1, Math.ceil(effectiveUsd / CREDIT_USD));
-}
-
-/**
- * Compute credits from actual OpenRouter usage cost.
- * Used post-generation to calculate the real charge based on actual API cost.
- *
- * @param actualUsageUsd - The actual USD cost from OpenRouter response
- * @param fallbackCredits - Credits to use if actual usage is unavailable
- * @returns Object with credits to charge and whether actual usage was used
- */
-export function computeCreditsFromActualUsage(
-  actualUsageUsd: number | null,
-  fallbackCredits: number
-): { credits: number; usedActual: boolean } {
-  if (actualUsageUsd !== null && actualUsageUsd > 0) {
-    const withPremium = actualUsageUsd * PREMIUM_MULTIPLIER;
-    return {
-      credits: Math.max(1, Math.ceil(withPremium / CREDIT_USD)),
-      usedActual: true,
-    };
-  }
-  // Fallback: use provided estimate (ensures we don't undercharge)
-  return { credits: fallbackCredits, usedActual: false };
 }
 
 export const DEFAULT_IMAGE_MODEL = "google/gemini-nano-banana-2.1";
@@ -206,54 +173,6 @@ export function getEstimatedCreditsCostForResolution(
   }
 
   return computeAdjustedCreditsCost(displayBaseCost, resolution, model.id);
-}
-
-export function resolveLearnedImageCreditsEstimate({
-  modelId,
-  resolution,
-  fallbackCredits,
-  estimates,
-}: {
-  modelId: string;
-  resolution: ImageResolution;
-  fallbackCredits: number;
-  estimates: LearnedImageCostEstimate[];
-}): { credits: number; source: ImageCostEstimateScope; sampleCount: number } {
-  const provider = modelId.split("/")[0]?.toLowerCase() || "unknown";
-  const exact =
-    estimates.find(
-      (estimate) =>
-        estimate.scopeType === "model" &&
-        estimate.scopeValue === modelId &&
-        estimate.resolution === resolution
-    ) ??
-    estimates.find(
-      (estimate) =>
-        estimate.scopeType === "provider" &&
-        estimate.scopeValue === provider &&
-        estimate.resolution === resolution
-    ) ??
-    estimates.find(
-      (estimate) =>
-        estimate.scopeType === "global" &&
-        estimate.scopeValue === "global" &&
-        estimate.resolution === resolution
-    ) ??
-    null;
-
-  if (!exact) {
-    return {
-      credits: Math.max(1, Math.round(fallbackCredits)),
-      source: "fallback",
-      sampleCount: 0,
-    };
-  }
-
-  return {
-    credits: Math.max(1, Math.round(exact.estimateCredits)),
-    source: exact.scopeType,
-    sampleCount: exact.sampleCount,
-  };
 }
 
 /**

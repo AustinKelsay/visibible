@@ -25,32 +25,6 @@ interface ScriptureDetailsProps {
   };
 }
 
-interface VerseContext {
-  number: number;
-  text: string;
-  reference?: string;
-}
-
-interface ScenePlan {
-  primarySubject: string;
-  action: string;
-  setting: string;
-  secondaryElements?: string;
-  mood?: string;
-  timeOfDay?: string;
-  composition?: string;
-}
-
-interface PromptInputs {
-  reference?: string;
-  aspectRatio?: string;
-  styleProfileId?: string;
-  scenePlan?: ScenePlan;
-  generationNumber?: number;
-  prevVerse?: VerseContext;
-  nextVerse?: VerseContext;
-}
-
 interface ConvexImageData {
   id: string;
   imageUrl: string | undefined;
@@ -58,15 +32,8 @@ interface ConvexImageData {
   prompt?: string;
   reference?: string;
   verseText?: string;
-  chapterTheme?: {
-    setting: string;
-    palette: string;
-    elements: string;
-    style: string;
-  };
   generationNumber?: number;
   promptVersion?: string;
-  promptInputs?: PromptInputs;
   translationId?: string;
   provider?: string;
   providerRequestId?: string;

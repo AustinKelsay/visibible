@@ -345,4 +345,52 @@ describe("HeroImage interactions", () => {
       totalImages: 2,
     }));
   });
+
+  it("records one impression per saved image the reader actually sees", async () => {
+    const recordImpression = vi.fn(async () => null);
+    useMutationMock.mockReturnValue(recordImpression as never);
+    await renderHeroImage();
+    const image = container?.querySelector<HTMLImageElement>('img[src="https://example.com/latest.png"]');
+    expect(image).toBeTruthy();
+    expect(recordImpression).not.toHaveBeenCalled();
+    await act(async () => { image!.dispatchEvent(new Event("load")); });
+    await act(async () => { image!.dispatchEvent(new Event("load")); });
+    expect(recordImpression.mock.calls).toEqual([[{ imageId: "image-latest" }]]);
+  });
+
+  it("shows the saved-image skeleton, not generation progress, while images load", async () => {
+    useQueryMock.mockImplementation(((_query: unknown, args?: unknown) =>
+      args && typeof args === "object" && "verseId" in args ? undefined : null) as never);
+    await renderHeroImage();
+    const status = [...(container?.querySelectorAll('[role="status"]') ?? [])].map((node) => node.textContent);
+    expect(status).toContain("Loading saved image");
+  });
+
+  it("moves the one phone pager under the painting and explains why generation is off", async () => {
+    const pagerHolder = () => {
+      const holders = [...(container?.querySelectorAll("span") ?? [])]
+        .filter((span) => span.textContent === "Image 1 of 2").map((span) => span.closest("div.sm\\:hidden")).filter(Boolean);
+      expect(holders).toHaveLength(1);
+      return holders[0]!;
+    };
+    await renderHeroImage();
+    expect(pagerHolder().className).toContain("absolute");
+    await act(async () => { root?.unmount(); });
+    root = createRoot(container!);
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ models: [] }) });
+    await renderHeroImage();
+    expect(pagerHolder().className).not.toContain("absolute");
+    const note = [...(container?.querySelectorAll("p") ?? [])].find((p) => p.textContent === "Saved model unavailable. Choose another model.");
+    expect(note?.className).toContain("sm:hidden");
+  });
+
+  it("registers its generate action once, however often it re-renders", async () => {
+    const registerGenerate = vi.fn();
+    useGenerationMock.mockReturnValue({ registerGenerate, unregisterGenerate: vi.fn(), updateState: vi.fn(),
+      registerBuyCredits: vi.fn(), registerSettings: vi.fn() } as never);
+    await renderHeroImage();
+    await act(async () => { root?.render(<HeroImage {...baseProps} caption="Genesis 1:1 (again)" />); });
+    await act(async () => { root?.render(<HeroImage {...baseProps} verseText="Changed text" />); });
+    expect(registerGenerate).toHaveBeenCalledTimes(1);
+  });
 });

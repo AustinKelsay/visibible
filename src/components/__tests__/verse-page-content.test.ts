@@ -49,10 +49,7 @@ const baseProps = {
   totalVerses: 31,
   prevUrl: undefined,
   nextUrl: "/genesis/1/2",
-  prevVerse: undefined,
-  nextVerse: { number: 2, text: "The earth was formless", reference: "Genesis 1:2" },
   currentReference: "Genesis 1:1",
-  chapterTheme: undefined,
   testament: "old" as const,
   verses: [
     { verse: 1, text: "In the beginning" },

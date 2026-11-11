@@ -11,9 +11,6 @@ const text = z.string().refine((value) => value.trim().length > 0 && !/[\x00-\x1
 export const BRIEF_MAX_WORDS = 400;
 export const BRIEF_PROMPT_MAX_CHARS = 1200;
 export const STYLE_PARTS = ["rendering", "palette", "lighting", "materials", "composition", "negatives"] as const;
-export const PROMPT_PRECEDENCE = Object.freeze([
-  "engine-rules", "brief-content-and-depiction", "style-rendering", "section-look", "scene-plan",
-] as const);
 export const COMMON_CONTENT_FLOOR = Object.freeze({
   prohibited: Object.freeze(["Sexually explicit content", "Lingering gore"]),
   /** Shown seriously in every work; a work's depiction profile may name more (the Bible adds crucifixion). */
@@ -45,12 +42,6 @@ export function createStyleLibrary(input: unknown) {
 }
 export type StyleLibrary = ReturnType<typeof createStyleLibrary>;
 export const SHARED_STYLES = createStyleLibrary([classical, watercolor, fresco, storybook, icon]);
-
-/** Metadata helps selection; only the six rendering parts enter prompts. */
-export function formatStylePrompt(input: unknown): string {
-  const style = styleSchema.parse(input);
-  return STYLE_PARTS.map((part) => `${part}: ${style[part]}`).join("\n");
-}
 
 const ruleSchema = z.object({ text, styleIds: z.array(id).min(1).optional() }).strict();
 const eraSchema = z.object({ id, label: text, people: text, dress: text, buildingsAndObjects: text, technology: text }).strict();
@@ -109,32 +100,6 @@ export function formatBriefPrompt(input: unknown, eraId: string, library: StyleL
   const era = brief.eras.find((candidate) => candidate.id === eraId);
   if (!era) throw new Error(`Unknown era: ${eraId}`);
   return promptForm(brief, era);
-}
-
-/** Section assignments are analysis output, never fields in an owner-authored brief. */
-export function selectMainEra(input: unknown, sectionEraIds: readonly string[], library: StyleLibrary = SHARED_STYLES): Era {
-  const brief = validateWorkBrief(input, library);
-  if (!sectionEraIds.length) throw new Error("Main era requires section assignments");
-  const counts = new Map(brief.eras.map((era) => [era.id, 0]));
-  for (const eraId of sectionEraIds) {
-    const count = counts.get(eraId);
-    if (count === undefined) throw new Error(`Unknown section era: ${eraId}`);
-    counts.set(eraId, count + 1);
-  }
-  // Ties retain brief order, independent of the order sections were supplied.
-  return brief.eras.reduce((main, era) => counts.get(era.id)! > counts.get(main.id)! ? era : main);
-}
-
-export function resolveWorkStyle(input: unknown, savedPreference: string | null, availableStyleIds?: readonly string[], library: StyleLibrary = SHARED_STYLES) {
-  const brief = validateWorkBrief(input, library);
-  if (availableStyleIds) for (const styleId of availableStyleIds) library.get(styleId);
-  const selected = savedPreference && brief.styleIds.includes(savedPreference) ? savedPreference : brief.styleIds[0];
-  return {
-    style: library.get(selected),
-    savedPreference,
-    usedDefault: selected !== savedPreference,
-    available: availableStyleIds === undefined || availableStyleIds.includes(selected),
-  };
 }
 
 export type ScopeTerm = { kind: "work" | "person" | "place" | "era"; name: string };

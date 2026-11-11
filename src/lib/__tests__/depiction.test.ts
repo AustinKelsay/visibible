@@ -32,16 +32,8 @@ describe("the repo's depiction profiles", () => {
   it("rejects a profile for another work, unknown fields and multi-line wording", () => {
     expect(() => loadDepictionProfile(bibleDepictionJson, "holmes-adventures")).toThrow(/bible-web was given for holmes-adventures/);
     expect(() => loadDepictionProfile({ ...bibleDepictionJson, extra: "x" }, "bible-web")).toThrow();
-    // The planner's and the image check's wording went with them.
-    expect(() => loadDepictionProfile({ ...bibleDepictionJson, closedDocuments: "letters stay closed" }, "bible-web")).toThrow();
     expect(() => loadDepictionProfile({ ...bibleDepictionJson, writingSurfaces: "scrolls\nand tablets" }, "bible-web")).toThrow(/single-line/);
     expect(() => loadDepictionProfile({ ...bibleDepictionJson, modes: { symbol: {} } }, "bible-web")).toThrow();
-  });
-
-  it("words the rules for a prompt built from the text, with no scene plan", () => {
-    const effects = readDepictionProfile("bible-web").modes.effects!;
-    expect(`${effects.renderRule} ${effects.renderBlock}`).not.toMatch(/scene plan|selected/i);
-    expect(effects.renderRule).toContain("the moment names");
   });
 
   it("reads each entry's depiction from its stored form flag, absent meaning drawn", () => {

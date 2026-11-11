@@ -57,14 +57,11 @@ describe("style-aware library", () => {
     expect(stored?.engine).toBeUndefined();
   });
 
-  it("serves one style or the other styles for history, latest, counts and markers with the same answer", async () => {
+  it("serves one style or the other styles for history, counts and markers with the same answer", async () => {
     const { t, ids } = await seed();
     const only = { verseId: "genesis-1-1", artStyle: "classical" };
     expect((await t.query(api.verseImages.getImageHistory, only)).map((i) => i.id)).toEqual([ids.g11Legacy]);
     expect((await t.query(api.verseImages.getImageHistory, { ...only, otherStyles: true })).map((i) => i.id)).toEqual([ids.g11Icon, ids.g11Water]);
-    expect((await t.query(api.verseImages.getLatestImage, { verseId: "genesis-1-1" }))?.id).toBe(ids.g11Icon);
-    expect((await t.query(api.verseImages.getLatestImage, { verseId: "genesis-1-1", artStyle: "watercolor" }))?.id).toBe(ids.g11Water);
-    expect(await t.query(api.verseImages.getLatestImage, { verseId: "genesis-1-2", artStyle: "icon" })).toBeNull();
     expect(await t.query(api.verseImages.getImageHistory, { verseId: "genesis-1-3", artStyle: "classical" })).toEqual([]);
     // Variation counts per verse follow the selected style; the all-styles answer is unchanged.
     expect(await t.query(api.verseImages.getChapterImageStatus, { book: "genesis", chapter: 1 })).toEqual([{ verse: 1, imageCount: 3 }, { verse: 2, imageCount: 1 }, { verse: 3, imageCount: 1 }]);
@@ -147,10 +144,8 @@ describe("style-aware library", () => {
       const args = { verseId: "the-pool-of-tears-1" };
       for (const viewer of [t, as("reader")]) {
         expect(await viewer.query(api.verseImages.getImageHistory, args)).toEqual([]);
-        expect(await viewer.query(api.verseImages.getLatestImage, args)).toBeNull();
       }
       expect((await as("owner").query(api.verseImages.getImageHistory, args)).map((image) => image.reference)).toEqual(["The Pool of Tears ¶1"]);
-      expect((await as("owner").query(api.verseImages.getLatestImage, args))?.reference).toBe("The Pool of Tears ¶1");
       // Holmes's part ids are chapter-shaped ("a-scandal-in-bohemia-1-1"), so the chapter reads must filter too.
       const holmesBlob = await t.run((ctx) => ctx.storage.store(new Blob([new Uint8Array([4, 5, 6])], { type: "image/png" })));
       await t.mutation(internal.verseImages.saveImageWithStorage, {

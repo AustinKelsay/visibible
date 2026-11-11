@@ -1186,29 +1186,6 @@ export const deductCreditsInternal = internalMutation({
 });
 
 /**
- * Public action to add credits to a session.
- * Validates server secret before calling internal mutation.
- */
-export const addCredits = action({
-  args: {
-    sid: v.string(),
-    amount: v.number(),
-    reason: v.string(),
-    invoiceId: v.optional(v.string()),
-    serverSecret: v.string(),
-  },
-  handler: async (ctx, args): Promise<{ newBalance: number }> => {
-    validateServerSecret(args.serverSecret);
-    return ctx.runMutation(internal.sessions.addCreditsInternal, {
-      sid: args.sid,
-      amount: args.amount,
-      reason: args.reason,
-      invoiceId: args.invoiceId,
-    });
-  },
-});
-
-/**
  * Public action to reserve credits atomically.
  * Validates server secret before calling internal mutation.
  */
@@ -1310,37 +1287,6 @@ export const deductCredits = action({
       actualAmount: args.actualAmount,
       actualCostUsd: args.actualCostUsd,
     });
-  },
-});
-
-/**
- * Get credit ledger history for a session.
- */
-export const getCreditHistory = query({
-  args: {
-    sid: v.string(),
-    serverSecret: v.optional(v.string()),
-    limit: v.optional(v.number()),
-  },
-  handler: async (ctx, args) => {
-    if (args.serverSecret !== undefined) validateServerSecret(args.serverSecret);
-    else if ((await authenticatedGuest(ctx))?.sid !== args.sid) return [];
-    const query = ctx.db
-      .query("creditLedger")
-      .withIndex("by_sid", (q) => q.eq("sid", args.sid))
-      .order("desc");
-
-    const entries = args.limit
-      ? await query.take(args.limit)
-      : await query.collect();
-
-    return entries.map((e) => ({
-      delta: e.delta,
-      reason: e.reason,
-      modelId: e.modelId,
-      generationId: e.generationId,
-      createdAt: e.createdAt,
-    }));
   },
 });
 

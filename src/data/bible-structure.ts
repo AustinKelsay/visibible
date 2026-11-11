@@ -481,15 +481,6 @@ export const BOOK_BY_SLUG: Record<string, BibleBook> = Object.fromEntries(
   BIBLE_BOOKS.map((book) => [book.slug, book])
 );
 
-export const BOOK_BY_ID: Record<string, BibleBook> = Object.fromEntries(
-  BIBLE_BOOKS.map((book) => [book.id, book])
-);
-
-// Helper to get total verses in a book
-export function getTotalVerses(book: BibleBook): number {
-  return book.chapters.reduce((sum, count) => sum + count, 0);
-}
-
 // Helper to check if verse location is valid
 export function isValidLocation(
   book: BibleBook,
