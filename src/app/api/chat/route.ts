@@ -186,7 +186,7 @@ export async function POST(req: Request) {
 
   const { messages, context, translation: requestedTranslation, model: requestedModel } = validationResult.data;
 
-  const translation = resolveTranslation(requestedTranslation);
+  const translation = resolveTranslation(requestedTranslation, req.headers.get("cookie"));
   if (!translation) {
     return withSessionRefresh(Response.json(
       { error: "Invalid translation", message: "Unsupported translation. Please select a supported translation." },

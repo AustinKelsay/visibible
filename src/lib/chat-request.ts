@@ -126,9 +126,21 @@ export function boundHistory(
   return { ok: true, messages: kept, omitted: withText.length - kept.length, emptyDropped, maxOutputTokens };
 }
 
-export function resolveTranslation(requested: string | undefined): Translation | null {
-  if (requested === undefined) return DEFAULT_TRANSLATION;
-  return Object.prototype.hasOwnProperty.call(TRANSLATIONS, requested) ? (requested as Translation) : null;
+const isTranslation = (value: string): value is Translation => Object.prototype.hasOwnProperty.call(TRANSLATIONS, value);
+const TRANSLATION_COOKIE = "visibible-translation";
+
+/**
+ * The translation whose text grounds the answer: the one the request names (refused if unsupported), otherwise the
+ * reader's saved translation cookie (clients from before the request named it), otherwise the default.
+ */
+export function resolveTranslation(requested: string | undefined, cookieHeader: string | null): Translation | null {
+  if (requested !== undefined) return isTranslation(requested) ? requested : null;
+  const saved = cookieHeader?.split(";")
+    .map((pair) => pair.trim())
+    .find((pair) => pair.startsWith(`${TRANSLATION_COOKIE}=`))
+    ?.slice(TRANSLATION_COOKIE.length + 1);
+  const decoded = saved ? (() => { try { return decodeURIComponent(saved); } catch { return undefined; } })() : undefined;
+  return decoded && isTranslation(decoded) ? decoded : DEFAULT_TRANSLATION;
 }
 
 const BASE_PROMPT = "You are Visibible, a reverent guide helping users connect deeply with Scripture.";

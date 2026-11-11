@@ -171,8 +171,8 @@ const { POST } = await import("../../chat/route");
 const { HISTORY_TOKEN_BUDGET, MAX_OUTPUT_TOKENS, estimateTokens } = await import("@/lib/chat-request");
 const { MAX_USER_MESSAGE_CHARS } = await import("@/lib/chat-limits");
 
-const request = () => new Request("http://localhost:3000/api/chat", {
-  method: "POST", headers: { "Content-Type": "application/json" },
+const request = (cookie?: string) => new Request("http://localhost:3000/api/chat", {
+  method: "POST", headers: { "Content-Type": "application/json", ...(cookie ? { Cookie: cookie } : {}) },
 });
 const calls = (action: string) => mockState.callHistory.filter((call) => call.action === action);
 const user = (text: string, id = `u-${text.length}-${Math.random()}`) => ({ id, role: "user", parts: [{ type: "text", text }] });
@@ -265,6 +265,25 @@ describe("chat admission", () => {
     expect(system).toContain('Next (v3): "Server text of verse 3."');
     expect(system).not.toContain("OVERRIDE");
     expect(providerCalls()[0].prompt.filter((message) => message.role === "system")).toHaveLength(1);
+  });
+
+  it("uses the saved translation cookie when an older client names no translation", async () => {
+    const oldClientBody = {
+      messages: [user("What does this mean?")],
+      context: { book: "Genesis", chapter: 1, verseRange: "1", heroCaption: "x", verses: [{ number: 1, text: "x" }] },
+      model: "test/cheap-model",
+    };
+    mockRequestBody.value = oldClientBody;
+    await (await POST(request("other=1; visibible-translation=cuv"))).text();
+    expect(chapterLookup).toHaveBeenLastCalledWith("genesis", 1, "cuv");
+
+    mockRequestBody.value = oldClientBody;
+    await (await POST(request("visibible-translation=unknown"))).text();
+    expect(chapterLookup).toHaveBeenLastCalledWith("genesis", 1, "web");
+
+    mockRequestBody.value = { ...oldClientBody, translation: "kjv" };
+    await (await POST(request("visibible-translation=cuv"))).text();
+    expect(chapterLookup).toHaveBeenLastCalledWith("genesis", 1, "kjv");
   });
 
   it("keeps the passage position when the Scripture text cannot be loaded", async () => {
