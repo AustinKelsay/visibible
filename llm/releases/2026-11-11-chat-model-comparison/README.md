@@ -54,7 +54,9 @@ Guests who chose a model keep it; the rules apply to every model. **Choosing the
 
 **Rollback:** revert the merge, or set `DEFAULT_CHAT_MODEL` back to `openai/gpt-oss-120b`.
 
-**First 24 hours:** watch chat failures, `incomplete` answers and latency in the logs, and read a few live answers.
+**First 24 hours** (owner: the repository owner, from the 11 November 2026 deploy, `03b2fd5`): watch chat failures, `incomplete` answers and latency in the logs, and read a few live answers.
+
+**Still open after release:** the owner merged on 11 November ("merge") knowing the failed and edge cases had only model review. A human review of them is outstanding. Every case's scores and notes are in `<option>/scoring/r*/scores-*.json`, and each option's `scoring/report.json` lists its zero-grounding, safety and cut-off findings.
 
 ## Cost
 

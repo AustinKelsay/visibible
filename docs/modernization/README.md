@@ -30,30 +30,27 @@ GitHub is authoritative for status, scope changes and discussion after publicati
 | [S07: Canonical Scripture and versioned scene plans](https://github.com/AustinKelsay/visibible/issues/51) | T16, T17, T18, T19 | Done |
 | [S08: Reliable shared image storage and bounded library reads](https://github.com/AustinKelsay/visibible/issues/52) | T23, T24, T33, T34 | Open |
 | [S09: Consistent reader controls and preferences](https://github.com/AustinKelsay/visibible/issues/53) | T37, T38, T39, T40, T48 | Open |
-| [S10: Evidence-based model and prompt releases](https://github.com/AustinKelsay/visibible/issues/54) | T41, T42, T43 | Open |
+| [S10: Evidence-based model and prompt releases](https://github.com/AustinKelsay/visibible/issues/54) | T41, T42, T43 | Done |
 | [S11: Trustworthy publication, operations and retention](https://github.com/AustinKelsay/visibible/issues/55) | T35, T36, T45, T46, T47 | Open |
 | [S12: Verified migration and retirement of old implementations](https://github.com/AustinKelsay/visibible/issues/56) | T01, T44, T49, T50, T51, T52, T53, T54, T55 | Open |
 
-## Status on 10 November 2026
+## Status on 11 November 2026
 
-The plan was written before the generic engine replaced the legacy image pipeline (#165, October 2026) and before the lean engine cut image generation to one call from the text ([ADR 0012](../adr/0012-one-image-call-from-the-text.md), 9 November 2026). A triage on 10 November checked every open issue against `main`: of the 55 tickets, **16 are done, 6 are not planned and 33 are open**. Each closed issue carries a note with its evidence, and each open ticket whose text names removed code (the scene planner, LND, the legacy engine) carries an updated problem statement. Read the latest triage comment before starting a ticket.
+The plan was written before the generic engine replaced the legacy image pipeline (#165, October 2026) and before the lean engine cut image generation to one call from the text ([ADR 0012](../adr/0012-one-image-call-from-the-text.md), 9 November 2026). A triage on 10 November checked every open issue against `main`. Since then T20, T24, T41, T43 and T55 have closed. Of the 55 tickets, **21 are done, 6 are not planned and 28 are open**. Each closed issue carries a note with its evidence, and each open ticket whose text names removed code (the scene planner, LND, the legacy engine) carries an updated problem statement. Read the latest triage comment before starting a ticket.
 
 - **Superseded by the engine migrations:** T50 and T51 (the admission switch and rollback rehearsal ran for the engine cutover in #182 and #183), T52 (the legacy executor was retired in #184), T19 and T05 (no scene plans or learned estimates remain), and T54 (its remaining reads are T33 and T34).
 - **Not planned on cost:** T27, image cancellation, since an image now takes about ten seconds. T28 now waits on T26 in its place, and T37 only on T33.
-- **Still the main gaps:** durable server-side image and bulk execution (T25, T26, T28–T32), shown and enforced maximum charges with receipts (T04, T06, T21), invoice recovery without an open tab (T12, T13), bounded library reads (T33, T34), and operations (T45–T47, T49).
+- **Still the main gaps:** durable server-side image and bulk execution (T25, T26, T28–T32), shown and enforced maximum charges with receipts (T04, T06, T21), invoice recovery without an open tab (T12, T13), bounded library reads (T33, T34; measured and deferred on 11 November, at 210 saved images), and operations (T45–T47, T49).
 
 Tickets whose blockers are all closed, so they can start now:
 
 - [T01: Capture existing behavior and expose coverage gaps](https://github.com/AustinKelsay/visibible/issues/57)
 - [T04: Show and enforce a maximum charge for paid work](https://github.com/AustinKelsay/visibible/issues/60)
 - [T12: Recover interrupted invoice creation](https://github.com/AustinKelsay/visibible/issues/68)
-- [T20: Bound chat input and keep system instructions server-owned](https://github.com/AustinKelsay/visibible/issues/76)
-- [T24: Constrain remote image storage fetches](https://github.com/AustinKelsay/visibible/issues/80)
 - [T33: Browse paginated history without breaking image links](https://github.com/AustinKelsay/visibible/issues/89)
 - [T34: Serve image counts and availability from bounded summaries](https://github.com/AustinKelsay/visibible/issues/90)
 - [T36: Keep Nostr publication identity stable through failures](https://github.com/AustinKelsay/visibible/issues/92)
 - [T38: Make preference hydration and persistence consistent](https://github.com/AustinKelsay/visibible/issues/94)
-- [T41: Create repeatable Scripture chat evaluations](https://github.com/AustinKelsay/visibible/issues/97)
 - [T46: Distinguish readiness from observed dependency health](https://github.com/AustinKelsay/visibible/issues/102)
 
 ## Full ticket table
@@ -79,11 +76,11 @@ Tickets whose blockers are all closed, so they can start now:
 | [T17: Bound chapter caching and concurrent lookup work](https://github.com/AustinKelsay/visibible/issues/73) | S07 | T16 | 63 | Done |
 | [T18: Build shared images from verified Scripture text](https://github.com/AustinKelsay/visibible/issues/74) | S07 | T16 | 45 | Done |
 | [T19: Reuse only compatible scene plans](https://github.com/AustinKelsay/visibible/issues/75) | S07 | T18 | 46, 47 | Not planned |
-| [T20: Bound chat input and keep system instructions server-owned](https://github.com/AustinKelsay/visibible/issues/76) | S04 | T16, T15 | 19, 20, 11 | Open |
+| [T20: Bound chat input and keep system instructions server-owned](https://github.com/AustinKelsay/visibible/issues/76) | S04 | T16, T15 | 19, 20, 11 | Done |
 | [T21: Attach durable quotes and receipts to chat turns](https://github.com/AustinKelsay/visibible/issues/77) | S04 | T20, T06 | 8, 10, 20 | Open |
 | [T22: Deduplicate image requests and guard terminal states](https://github.com/AustinKelsay/visibible/issues/78) | S05 | None | 31, 32, 33 | Done |
 | [T23: Save each generation once and retain its image identity](https://github.com/AustinKelsay/visibible/issues/79) | S08 | None | 37, 52 | Done |
-| [T24: Constrain remote image storage fetches](https://github.com/AustinKelsay/visibible/issues/80) | S08 | None | 53 | Open |
+| [T24: Constrain remote image storage fetches](https://github.com/AustinKelsay/visibible/issues/80) | S08 | None | 53 | Done |
 | [T25: Complete one image through a durable Convex workflow](https://github.com/AustinKelsay/visibible/issues/81) | S05 | T07, T22, T23, T24, T19, T06 | 34, 36 | Open |
 | [T26: Recover provider ambiguity and image storage failures](https://github.com/AustinKelsay/visibible/issues/82) | S05 | T25 | 35, 38, 70 | Open |
 | [T27: Resolve image cancellation against durable completion](https://github.com/AustinKelsay/visibible/issues/83) | S05 | T26 | 33, 36 | Not planned |
@@ -100,9 +97,9 @@ Tickets whose blockers are all closed, so they can start now:
 | [T38: Make preference hydration and persistence consistent](https://github.com/AustinKelsay/visibible/issues/94) | S09 | T03 | 60 | Open |
 | [T39: Separate welcome purchase and admin states](https://github.com/AustinKelsay/visibible/issues/95) | S09 | T13, T10 | 61 | Open |
 | [T40: Protect reader interaction through behavior tests](https://github.com/AustinKelsay/visibible/issues/96) | S09 | T37, T38 | 71, 81 | Open |
-| [T41: Create repeatable Scripture chat evaluations](https://github.com/AustinKelsay/visibible/issues/97) | S10 | None | 73 | Open |
+| [T41: Create repeatable Scripture chat evaluations](https://github.com/AustinKelsay/visibible/issues/97) | S10 | None | 73 | Done |
 | [T42: Evaluate image quality and planner value](https://github.com/AustinKelsay/visibible/issues/98) | S10 | None | 74 | Done |
-| [T43: Select model defaults from measured comparisons](https://github.com/AustinKelsay/visibible/issues/99) | S10 | T41, T42, T03 | 75 | Open |
+| [T43: Select model defaults from measured comparisons](https://github.com/AustinKelsay/visibible/issues/99) | S10 | T41, T42, T03 | 75 | Done |
 | [T44: Exercise private and financial Convex handlers directly](https://github.com/AustinKelsay/visibible/issues/100) | S12 | T08, T11, T06 | 24, 69, 70 | Open |
 | [T45: Inspect durable unresolved work and financial outcomes](https://github.com/AustinKelsay/visibible/issues/101) | S11 | T13, T26 | 76, 77 | Open |
 | [T46: Distinguish readiness from observed dependency health](https://github.com/AustinKelsay/visibible/issues/102) | S11 | None | 78 | Open |
@@ -114,7 +111,7 @@ Tickets whose blockers are all closed, so they can start now:
 | [T52: Retire replaced image executors after old work drains](https://github.com/AustinKelsay/visibible/issues/108) | S12 | T51, T32 | 85 | Done |
 | [T53: Retire duplicated pricing and chat settlement paths](https://github.com/AustinKelsay/visibible/issues/109) | S12 | T51, T21, T05 | 85 | Open |
 | [T54: Retire replaced reader state and library queries](https://github.com/AustinKelsay/visibible/issues/110) | S12 | T51, T40, T34 | 85 | Not planned |
-| [T55: Close the modernization traceability and documentation audit](https://github.com/AustinKelsay/visibible/issues/111) | S12 | T52, T53, T54, T45, T46, T36, T35, T48, T17, T43 | 86 | Open |
+| [T55: Close the modernization traceability and documentation audit](https://github.com/AustinKelsay/visibible/issues/111) | S12 | T52, T53, T54, T45, T46, T36, T35, T48, T17, T43 | 86 | Done |
 
 ## Verification and publication
 
@@ -126,4 +123,4 @@ The structured scope lives in [plan.json](plan.json). Publication IDs and relati
 
 ## Triage
 
-The 7 September [triage outcomes and execution briefs](triage/README.md) classify all 67 issues, identify the 15 tickets startable then and record the three removed blockers; the 10 November reconciliation is in the status section above and in each issue's latest triage comment. Model selection T43 is `ready-for-human`; its evaluation prerequisites remain agent work. Read the latest GitHub brief before implementation.
+The 7 September [triage outcomes and execution briefs](triage/README.md) classify all 67 issues, identify the 15 tickets startable then and record the three removed blockers; the 10 November reconciliation is in the status section above and in each issue's latest triage comment. Model selection T43 closed on 11 November 2026 with the owner's choice of Mistral Small 4 and guarded chat rules, measured by T41's `npm run evals:chat`. Two release items are still open: a human review of the failed and edge cases, which only model scorers have read, and the first-24-hour watch, owned by the repository owner. Both are listed in the [comparison record](../../llm/releases/2026-11-11-chat-model-comparison/README.md#decision-and-change). Read the latest GitHub brief before implementation.
