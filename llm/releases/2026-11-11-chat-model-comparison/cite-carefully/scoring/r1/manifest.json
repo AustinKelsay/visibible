@@ -1,0 +1,31 @@
+{
+ "command": "pairs",
+ "cases": {
+  "file": "evals/chat/cases.json",
+  "version": 1,
+  "sha256": "672095528d608247ed0ccdcfd44153496ec6da87077b578f6df565296e360a71"
+ },
+ "runner": {
+  "commit": "3e4c8f8f2e5321f0d0616ded359e18cf3c5d599b",
+  "dirty": false
+ },
+ "seed": "cite-carefully-1",
+ "chunk": 15,
+ "rubric": {
+  "file": "evals/chat/scoring.md",
+  "sha256": "1e1f437c80713003be8c7418447bd1d1827a7710e16ff80c2d7b1b07a30c0344"
+ },
+ "a": {
+  "results": "llm/releases/2026-11-11-chat-admission/run1/results.ndjson",
+  "arm": "candidate",
+  "label": "gpt-oss",
+  "manifest": null
+ },
+ "b": {
+  "results": "llm/releases/2026-11-11-chat-model-comparison/cite-carefully/run1/results.ndjson",
+  "arm": "candidate",
+  "label": "cite-carefully",
+  "manifest": null
+ },
+ "keySha256": "22a09cff511e2503450c109691660ba37c701f6916654b83b2512c2721bda2c4"
+}

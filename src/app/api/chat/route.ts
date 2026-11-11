@@ -33,8 +33,8 @@ import {
 import { api } from "../../../../convex/_generated/api";
 import { boundHistory, buildSystemPrompt, chatRequestSchema, resolveTranslation } from "@/lib/chat-request";
 
-// Allow streaming responses up to 30 seconds
-export const maxDuration = 30;
+// Allow streaming responses up to 60 seconds: on 11 November 2026 about 6% of answers took over 30 (llm/releases/2026-11-11-chat-model-comparison).
+export const maxDuration = 60;
 
 // OpenRouter client via OpenAI-compatible provider.
 const openRouter = createOpenAI({

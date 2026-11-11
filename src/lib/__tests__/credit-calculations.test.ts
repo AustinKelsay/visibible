@@ -181,11 +181,11 @@ describe("getSuggestedChatModels", () => {
     ];
 
     expect(getSuggestedChatModels(models).map((model) => model.id)).toEqual([
+      "mistralai/mistral-small-2603",
       "openai/gpt-oss-120b",
       "openai/gpt-5.4-mini",
       "anthropic/claude-haiku-4.5",
       "deepseek/deepseek-v3.2",
-      "mistralai/mistral-small-2603",
       "qwen/qwen3.5-plus-02-15",
       "google/gemini-2.5-flash",
     ]);

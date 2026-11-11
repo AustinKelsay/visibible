@@ -1,0 +1,332 @@
+[
+ {
+  "id": "single-john-3-16",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Accurate cross-refs (Rom 5:8, 1 Jn 4:9-10, Jn 17:3); quotes v16 as 'shall not perish' vs supplied 'should'; Nicodemus only as a reading tip; 'climax of the biblical narrative' overstated; very long."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Correct houtos 'in this way' and monogenes glosses; good cross-refs; no Nicodemus link; confident doctrinal gloss of 'perish'; odd 'Jesus is both Giver and Gift'. Concise."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-psalm-23-1",
+  "X": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Misattributes 'feed his people with the finest wheat' to Isaiah 55:2 (it is Ps 81:16/147:14); garbled 'cultural-right-handed metaphor'; 'trust the flock's instincts' odd; Gen 48:15 and Ezek 34 correct."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "All refs check out (2 Sam 5:2, Isa 44:28 kings as shepherds, 1 Sam 17:34-36, Ps 77:20, Isa 40:11, Jn 10). Covers David's shepherding and provision; focused."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-genesis-1-3",
+  "X": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Names the question and offers several readings (primordial light, framework/theological, non-24h days); but dubious 'modern physics: light exists independently of its sources' and conflates framework with day-age epochs."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Gives essentially one reading (light created, luminaries appointed later) without noting alternatives; 'John 1:1-5' quote splices in 1:14 and 1:9; Ps 33:6, Ps 27:1, Rev 22:5 fine."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-proverbs-3-5",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Invented Hebrew gloss: 'lean' given as hazaq (it is sha'an); labels the WEB text 'NRSV'; Ps 90:12 misquoted as 'Ask the wise and be wise'; fabricated James 1:5 quote; Abraham 'wanted to keep his son safe' not in text. Core answer (submit, not abandon, thinking) is right."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Clear 'no' with trust vs self-reliance distinction, father-to-son context of Proverbs, Isa 55:8-9 correct; pastoral. Could have used v6."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-micah-6-8",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Practical daily plan for justice, mercy, humility; quotes (Isa 1:17, Mt 5:7, 1 Jn 3:18, Jas 4:10, Prov 3:5) accurate; non-coercive ('not about perfection'). Slip: 'even if it costs you nothing'."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Fabrication: 'Paul writes, Let justice, love, and faithfulness meet together (Psalm 85:10 quoted in Romans 12:17)' - Ps 85:10 misquoted and Rom 12:17 does not quote it; Lev 19:15 loosely paraphrased. Week plan itself is good."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-philippians-4-13",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Corrects the misreading from v12 correctly, but invents Jeremiah 1:19 ('All the nations ... bind them with a rope of iron') - wholly fabricated; Jer 33:16 cited for God as refuge (wrong)."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Corrects misreading from 4:11-12 contentment context; James 4:3, 1 Jn 5:14, Mt 26:39, 2 Cor 12:9-10 accurate; Roman imprisonment hedged 'likely'."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-genesis-1-2",
+  "X": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Uses v1 and v3 accurately; tohu/tehom/ruach fine; but Rev 21:1-4 said to show light 'reappears' (not there); Eph 2:8-10 oddly cited; ex nihilo asserted flatly."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Uses v1/v3 accurately; rachaph with Deut 32:11 correct; Ps 104:30, 2 Cor 4:6 apt; ANE chaos contrast reasonable."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-john-1-14",
+  "X": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Identifies Jesus as Word and walks 1:1-18; but calls hypostatic union 'of the Trinity'; turns 'lived among us' into 'dwells in us'; conflates Jer 31 heart-writing with v14; tenuous 12-13 link."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Accurate Greek (sarx egeneto, eskenosen), glory refs (Jn 2:11, 11:4, 40, 17:5) correct, traces prologue well; minor misref: Exodus 19:9 cited for 'God dwelling with His people'."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-luke-15-20",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Fabricated quotes: 'Psalm 23:4 - I will bless the name of the Lord in the house of the Lord'; 'incarnate kiss of Christ on the cross (John 13:23)'; Isa 49:23 irrelevant; cites 1 Jn 1:9 (confession) to support grace before confession. Does mention three lost parables; edramen correct."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Cultural indignity of running, father watching, splanchnizomai correct, grace/initiative; no fabricated refs. States cultural claim with certainty; omits lost sheep/coin context."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-exodus-3-14",
+  "X": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "material",
+   "note": "Faithful WEB quotations and mostly correct Hebrew (seneh, hineni, ehyeh immakh in v12); a few stretches (Ruth 4 'sandals = defilement', Jn 21 as a double-name call). Cut off at v12 before the divine name itself."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 0,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "material",
+   "note": "Hebrew largely invented: 'el ne' for angel, 'sib'ato', 'va'eheze' = turn aside, 'eshma' glossed 'I will be' (means 'I will hear'), har ha-El; misplaces verse contents (v5 given v6, v11 given 4:10, v12 given v15). Tetragrammaton/hayah/Kyrios section is correct. Cut off at 3:15."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-ruth-1-16-multi",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Fair to Orpah, but quotes Orpah's kiss as Ruth 1:18 (it is 1:14) and puts 'make herself a people of YHWH' in quotation marks as v16; speculative claims about Naomi's motive and Moabite custom."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Uses the conversation, cites 1:7 and 1:14-15 correctly, fair to Orpah ('not necessarily wrong'), Mt 1:5 correct; concise."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "contested-genesis-1-1-age",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Says verse gives no age; explains genealogy-based young-earth reading and day-age/framework readings fairly; Ps 90:4, 2 Pet 3:8 correct; bara 'brought into existence' slightly overstated."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Fair and accurate but thin: notes young- and old-earth readings without detail."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "contested-romans-9-13",
+  "X": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Malachi source, Luke 14:26 and Gen 29:31 'hate' parallels correct; but declares flatly it is 'not a statement about Esau's eternal fate' without naming Calvinist reading; Rom 9:32-33 misused as stumbling over Paul's teaching."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Fabrications: Rom 9:22-23 rendered as animals 'prepared for slaughter, others for the table'; Deut 10:15/Jer 31:3 cited for the Hebrew word 'hate' (not in those verses); 'v33-34' of ch 10-11 muddled. Asserts 'your response, not your birth status, determines your standing' - one side stated as settled."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "contested-1-timothy-2-12",
+  "X": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Outlines both views, but leans egalitarian ('Bible doesn't explicitly forbid'), states Junia 'an apostle' as fact, claims 1 Tim 1:3-7/4:7 show women leading false teaching (they don't)."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 0,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Lays out complementarian/egalitarian fairly and does not declare, but fabricates v15 as 'salvation belongs to all who believe' / 'all will be saved through Christ (1 Tim 2:15)' three times (verse is about childbearing), refers to nonexistent v16, misquotes ESV 'must remain silent'."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "contested-matthew-16-18",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Presents Catholic, Orthodox, Protestant, scholarly readings respectfully, but invents that Mt 16:18-19 is quoted at the Council of Jerusalem (Acts 15) and attributes the Mt 16:18 wording to Psalm 62:2/2 Sam 7:12."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Three readings (Peter, Christ, confession) with accurate refs (1 Cor 10:4, Eph 2:20, Acts 10:25-26, Gal 2:11-14); Orthodox not named; closes leaning Protestant ('less about papal authority', 'no leader is infallible')."
+  },
+  "preferred": "Y"
+ }
+]

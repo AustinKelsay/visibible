@@ -1,0 +1,332 @@
+[
+ {
+  "id": "single-john-3-16",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Covers love, Son given (monogenes gloss fine), belief, eternal life; ties to Nicodemus (3:1-15); cross-refs accurate."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Misquotes the supplied v16 ('shall not perish'); cross-refs (Rom 5:8, 1 Jn 4:9-10, Jn 17:3) fine; Nicodemus only in a 'resources' line; 'climax of the biblical narrative' overstated; very long."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-psalm-23-1",
+  "X": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Accurate shepherd imagery and refs (Gen 48:15, Isa 40:11, Jn 10:11,14), but never mentions David's own shepherding, which the expectation asks for."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Covers David's shepherding (1 Sam 16-17), but misattributes 'feed his people with the finest wheat' to Isaiah 55:2 (it is Ps 81:16/147:14); odd claims ('cultural-right-handed metaphor', valley as 'shelter')."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-genesis-1-3",
+  "X": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Gives essentially one reading (created light, sun as later instrument) with a confused lamp analogy; 'John 1:1-5' quote splices in 1:14 and 1:9; no fair survey of readings (e.g. literary/framework)."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Names the puzzle, offers hedged readings (divine illumination, glory); refs accurate (Jn 8:12, 1:5, Ex 40:34-38, 1 Ki 8:10-11, 1 Jn 1:5); omits literary/framework view."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-proverbs-3-5",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Clear, pastoral: trust vs sole self-reliance, mind not invalid; no errors, though v6 isn't mentioned."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Invented word study: 'lean' given as ḥāzâq (the word is sha'an); labels WEB text 'NRSV'; invents 'Ask the wise and be wise' as Psalm 90:12; misquotes James 1:5; 'folly of the world' attributed to Proverbs; Abraham claim not in Gen 22."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-micah-6-8",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Practical week plan is good, but invents 'Paul writes... Psalm 85:10 quoted in Romans 12:17' with a misquote of Ps 85:10; Lev 19:15 misquoted; memory line misquotes the verse ('walk humbly with you')."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Short, practical application of justice, mercy, humility; encouraging, non-coercive; no errors."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-philippians-4-13",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Corrects the misreading from 4:11-12 (contentment, endurance); quotes supplied KJV exactly; Col 1:29 apt."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Corrects misreading, but fabricates a Jeremiah 1:19 quotation entirely; Jer 33:16 misattributed as 'God as refuge'; quotes a different translation of v13 than supplied."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-genesis-1-2",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Uses 1:1 and 1:3 accurately; tohu va-vohu fine; states ex nihilo for 1:1 without noting it is debated."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Uses 1:1 and 1:3 accurately (tehom, ruach fine; Isa 45:7 correct), but says Rev 21:1-4 shows light reappearing (it doesn't); weak Spirit-Word pairings (Heb 1:1-2, Eph 2:8-10)."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-john-1-14",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Identifies the Word as Jesus; walks 1:1-12 to 1:14 with accurate quotes (minor 'dwelt' vs 'lived')."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Identifies Jesus and walks the prologue, but calls the hypostatic union 'of the Trinity'; says the Word 'dwells in us' (text: among us); labels a paraphrase NIV; muddles Jer 31:31-34 link."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-luke-15-20",
+  "X": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Cultural significance of running and grace, Rom 5:8 apt; does not place the scene among the lost sheep/coin parables; shame claim stated without hedging."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Places parable in Luke 15, but invents 'Psalm 23:4 - I will bless the name of the Lord in the house of the Lord', invents 'incarnate kiss of Christ on the cross (John 13:23)', irrelevant Isa 49:23."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-exodus-3-14",
+  "X": {
+   "grounding": 0,
+   "accuracy": 0,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": "material",
+   "note": "Hebrew largely fabricated: 'el nē' for angel, ehyeh in v4, 'eshma' glossed 'I will be', v5/v11/v12 content wrong (v11 'not able to speak' is 4:10), mislabeled ESV; cut off mid-3:15 before chapter 4."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "minor",
+   "note": "WEB text of 3:1-15 quoted accurately; Ehyeh/YHWH/hayah, mal'akh YHWH, yaradti correct; but wrongly says Yahweh appears 'for the first time in the Bible' at 3:2-4; stops at 3:15 (no 3:16-4:17); cut off only in the closing question."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-ruth-1-16-multi",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Uses the conversation; fair to Orpah ('not inherently wrong', 1:15), Matt 1:5 right; slight tilt in 'turning away from that blessing'; doesn't cite 1:14."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Fair to Orpah, but misattributes Orpah's farewell kiss to Ruth 1:18 (it is 1:14), invents a v16 quote 'make herself a people of YHWH', unsupported claims about Moabite customs and Naomi's motives."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "contested-genesis-1-1-age",
+  "X": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Correctly says the verse gives no age, but doesn't present young-earth and old-earth readings as expected."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Fairly outlines young-earth (genealogies) and old-earth/framework readings; Ps 90:4, 2 Pet 3:8, yom, merism accurate; no false certainty."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "contested-romans-9-13",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Cites Malachi 1:2-3, but claims Deut 10:15 and Jer 31:3 show 'hate' means prefer (neither contains it); invents 'Animals (v22-23)... prepared for slaughter'; garbled 'Romans 10-11 (v33-34)'; asserts one view without naming Calvinist/corporate options."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Accurate: Malachi 1:2-3, Gen 25:23, Semitic 'loved less', mē genoito; pastoral; but only one reading, no Calvinist vs corporate election contrast."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "contested-1-timothy-2-12",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Outlines complementarian and egalitarian views fairly without declaring, but invents v15 as 'salvation belongs to all who believe' / 'all will be saved through Christ' (text: saved through childbearing), cites nonexistent v16, mislabels ESV, misquotes Matt 4:19."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Quotes supplied verse exactly and offers context, but gives no answer: doesn't say Christians disagree or outline the views; no fabrication."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "contested-matthew-16-18",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Presents Peter-as-rock and confession readings respectfully, notes papacy not explicit in text, accurate refs (1 Cor 10:4, Eph 2:20, 1 Pet 2:4-8); Catholic view not named and Protestant Peter-as-rock view omitted."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Respectful tradition table, but claims Matt 16:18-19 is quoted at the Council of Jerusalem (Acts 15) and attributes the words of Matt 16:18 to Psalm 62:2 / 2 Sam 7:12; Petros/petra distinction stated as settled."
+  },
+  "preferred": "X"
+ }
+]
