@@ -40,7 +40,7 @@ The chat route allowed 30 seconds (`maxDuration`). Latency depends on which Open
 
 ## Decision and change
 
-Recommended: Mistral Small 4 as the default, with the guarded rules in every chat's system prompt, and the route allowed 60 seconds. The change ([PR](#)) does three things:
+Recommended: Mistral Small 4 as the default, with the guarded rules in every chat's system prompt, and the route allowed 60 seconds. The change ([#415](https://github.com/AustinKelsay/visibible/pull/415)) does three things:
 - **Default model:** `DEFAULT_CHAT_MODEL` becomes `mistralai/mistral-small-2603`, first among the suggestions. gpt-oss stays in the list and keeps emergency pricing for guests who saved it.
 - **Rules:** `CHAT_RULES` holds [guarded.txt](guarded.txt) word for word, after the guidance in both prompts, exactly as measured. A test checks the match.
 - **Time limit:** `maxDuration` becomes 60 for `/api/chat`.
