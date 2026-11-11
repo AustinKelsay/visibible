@@ -1,6 +1,6 @@
 # Scene planner free models
 
-> Historical. The legacy scene planner was removed with the legacy engine ([#184](https://github.com/AustinKelsay/visibible/issues/184)); the generic engine plans scenes in [scene preparation](../context/SCENE-PREPARATION.md).
+> Historical. The legacy scene planner was removed with the legacy engine ([#184](https://github.com/AustinKelsay/visibible/issues/184)); images are now one call built from the moment's text ([ADR 0012](../../docs/adr/0012-one-image-call-from-the-text.md)).
 
 Investigated October 14, 2026, against commit `bf318e0`. Measurements cited as "live test, 2026-10-14" come from OpenRouter calls made that day with the real planner prompt. OpenRouter behavior is cited from its documentation and public catalog API, fetched the same day.
 

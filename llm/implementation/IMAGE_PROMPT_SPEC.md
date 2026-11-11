@@ -1,6 +1,6 @@
 # Image prompt construction
 
-Since 9 November 2026 an image is one call built from the moment's own text ([ADR 0012](../../docs/adr/0012-one-image-call-from-the-text.md)). [lean.ts](../../src/lib/engine/lean.ts) builds the prompt; [lean-assemble.ts](../../src/lib/engine/lean-assemble.ts) reads its inputs for the request path and for `npm run evals:lean`. `LEAN_PROMPT_VERSION` versions the structure and wording; the brief, style, canon and depiction profile carry their own versions in the packet. Historical images keep the `prompt`, `promptVersion` and packet they were saved with, including the full engine's (`generic-v15` and earlier) and the legacy builder's.
+An image is one call built from the moment's own text ([ADR 0012](../../docs/adr/0012-one-image-call-from-the-text.md)). [lean.ts](../../src/lib/engine/lean.ts) builds the prompt; [lean-assemble.ts](../../src/lib/engine/lean-assemble.ts) reads its inputs for the request path and for `npm run evals:lean`. `LEAN_PROMPT_VERSION` versions the structure and wording; the brief, style, canon and depiction profile carry their own versions in the packet. Historical images keep the `prompt`, `promptVersion` and packet they were saved with, including the full engine's (`generic-v15` and earlier) and the legacy builder's.
 
 ## Inputs
 
@@ -31,7 +31,7 @@ The work's [depiction profile](../context/WORK-PREPARATION.md#depiction-profile)
 
 ## Budget
 
-12,000 characters. Nothing is trimmed: a prompt over the cap returns `ok: false` and no paid call is made. The packet saved on the request (`renderingPacket`) and copied into the image's provenance records the versions, the canon sent and the references attached. `lookVersion` and `planVersion` read `none` until 10 November 2026; newer packets leave them out. [A golden test](../../src/lib/__tests__/lean-engine-golden.test.ts) pins the exact prompt and references for five suite moments across the three works.
+12,000 characters. Nothing is trimmed: a prompt over the cap returns `ok: false` and no paid call is made. The packet saved on the request (`renderingPacket`) and copied into the image's provenance records the versions, the canon sent and the references attached. [A golden test](../../src/lib/__tests__/lean-engine-golden.test.ts) pins the exact prompt and references for five suite moments across the three works.
 
 ## Quotes
 

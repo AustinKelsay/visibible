@@ -1,20 +1,20 @@
 # Convex function access inventory
 
-This inventory covers every registered function in `convex/*.ts` through the T10 checkpoint. Internal helpers and generated component bindings are not client endpoints. Public image API projections remain unchanged. A supplied SID is a compatibility selector, never proof of ownership. Invalid/expired/revoked identities receive no private query data; private controls reject unauthorized calls. Current tier comes from the database.
+This inventory lists the access rule for the session, credit, invoice, image-library and related functions. It is not complete: `convex/*.ts` is the authority, and each function's registration and checks there decide its access. Internal helpers and generated component bindings are not client endpoints. A supplied SID is a compatibility selector, never proof of ownership. Invalid/expired/revoked identities receive no private query data; private controls reject unauthorized calls. Current tier comes from the database.
 
-Server-secret reads are reserved for Next.js after cookie validation and for trusted backend work. Invoice HTTP reads pass `ownerSid` to enforce current, non-revoked ownership before returning data. Settlement remains server/internal so accepted payments can still credit retained records. Bulk outcome writes remain available to the verified owning guest while the legacy browser worker exists; making them worker-only belongs to S06.
+Server-secret reads are reserved for Next.js after cookie validation and for trusted backend work. Invoice HTTP reads pass `ownerSid` to enforce current, non-revoked ownership before returning data. Settlement remains server/internal so accepted payments can still credit retained records. Bulk outcome writes are available to the verified owning guest because the bulk worker runs in the browser.
 
 | Function | Registration | Access | Rule |
 |---|---|---|---|
-| `bulkGenerations:create` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. Legacy worker writes retained until S06. |
-| `bulkGenerations:getActive` | query | Guest-owned | Verified subject matches SID; current session; job ownership. Legacy worker writes retained until S06. |
-| `bulkGenerations:get` | query | Guest-owned | Verified subject matches SID; current session; job ownership. Legacy worker writes retained until S06. |
-| `bulkGenerations:getVerses` | query | Guest-owned | Verified subject matches SID; current session; job ownership. Legacy worker writes retained until S06. |
-| `bulkGenerations:updateVerseStatus` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. Legacy worker writes retained until S06. |
-| `bulkGenerations:updateProgress` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. Legacy worker writes retained until S06. |
-| `bulkGenerations:pause` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. Legacy worker writes retained until S06. |
-| `bulkGenerations:resume` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. Legacy worker writes retained until S06. |
-| `bulkGenerations:cancel` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. Legacy worker writes retained until S06. |
+| `bulkGenerations:create` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. |
+| `bulkGenerations:getActive` | query | Guest-owned | Verified subject matches SID; current session; job ownership. |
+| `bulkGenerations:get` | query | Guest-owned | Verified subject matches SID; current session; job ownership. |
+| `bulkGenerations:getVerses` | query | Guest-owned | Verified subject matches SID; current session; job ownership. |
+| `bulkGenerations:updateVerseStatus` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. |
+| `bulkGenerations:updateProgress` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. |
+| `bulkGenerations:pause` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. |
+| `bulkGenerations:resume` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. |
+| `bulkGenerations:cancel` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. |
 | `cleanup:cleanupExpiredSessions` | internalMutation | Internal | Convex internal dispatch only |
 | `cleanup:cleanupStaleRateLimits` | internalMutation | Internal | Convex internal dispatch only |
 | `cleanup:cleanupAdminLoginAttempts` | internalMutation | Internal | Convex internal dispatch only |
@@ -31,11 +31,9 @@ Server-secret reads are reserved for Next.js after cookie validation and for tru
 | `guestAuth:current` | query | Guest-owned | Verified subject and current session; explicit server secret for HTTP reads where supported |
 | `invoices:createInvoice` | mutation | Server | CONVEX_SERVER_SECRET |
 | `invoices:getInvoice` | query | Guest-owned | Verified subject and current session; explicit server secret for HTTP reads where supported |
-| `invoices:getSessionInvoices` | query | Guest-owned | Verified subject and current session; explicit server secret for HTTP reads where supported |
 | `invoices:confirmPaymentInternal` | internalMutation | Internal | Convex internal dispatch only |
 | `invoices:confirmPayment` | action | Server | CONVEX_SERVER_SECRET |
 | `invoices:expireInvoice` | mutation | Server | CONVEX_SERVER_SECRET |
-| `modelStats:getModelStats` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
 | `modelStats:getAllModelStats` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
 | `modelStats:recordGeneration` | mutation | Server | CONVEX_SERVER_SECRET |
 | `nostr:publishToNostr` | internalAction | Internal | Convex internal dispatch only |
@@ -56,17 +54,14 @@ Server-secret reads are reserved for Next.js after cookie validation and for tru
 | `sessions:reserveCreditsInternal` | internalMutation | Internal | Convex internal dispatch only |
 | `sessions:releaseReservationInternal` | internalMutation | Internal | Convex internal dispatch only |
 | `sessions:deductCreditsInternal` | internalMutation | Internal | Convex internal dispatch only |
-| `sessions:addCredits` | action | Server | CONVEX_SERVER_SECRET |
 | `sessions:reserveCredits` | action | Server | CONVEX_SERVER_SECRET |
 | `sessions:releaseReservation` | action | Server | CONVEX_SERVER_SECRET |
 | `sessions:deductCredits` | action | Server | CONVEX_SERVER_SECRET |
-| `sessions:getCreditHistory` | query | Guest-owned | Verified subject and current session; explicit server secret for HTTP reads where supported |
 | `sessions:upgradeToAdminInternal` | internalMutation | Internal | Convex internal dispatch only |
 | `sessions:upgradeToAdmin` | action | Server | ADMIN_PASSWORD_SECRET; separate admin admission route |
 | `sessions:logAdminUsageInternal` | internalMutation | Internal | Convex internal dispatch only |
 | `sessions:logAdminUsage` | action | Server | CONVEX_SERVER_SECRET |
 | `sessions:getAdminDailySpend` | query | Server | CONVEX_SERVER_SECRET |
-| `verseImages:getLatestImage` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
 | `verseImages:getChapterImageStatus` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
 | `verseImages:getChapterGallery` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
 | `verseImages:getBooksWithImages` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |

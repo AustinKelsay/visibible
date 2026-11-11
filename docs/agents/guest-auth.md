@@ -26,7 +26,7 @@ Only the public values go to Convex. For CLI environment changes, feed values th
 
 ## Revocation and rollout scope
 
-Setting `sessions.revokedAt` denies the new authenticated lookup and future token issuance. Do not delete funded sessions to revoke access. Private session, invoice, credit history, bulk control and generation-status callers now enforce ownership under T08; see [the function inventory](convex-access.md). Server credentials remain separate for backend work. The balance UI consumes that authenticated query under T10.
+Setting `sessions.revokedAt` denies the new authenticated lookup and future token issuance. Do not delete funded sessions to revoke access. Private session, invoice, bulk control and generation-status callers enforce ownership; see [the function inventory](convex-access.md). Server credentials remain separate for backend work. The balance UI reads `guestAuth.current` under that identity.
 
 T07 verification uses real cookie verification, CSRF and origin validation, real Convex handlers, `jose` signature checks, and live dev signature/claim rejection. The temporary dev fixture and test module were removed. No LND or paid provider calls are required for authentication verification.
 

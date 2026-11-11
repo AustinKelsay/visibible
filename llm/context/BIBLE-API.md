@@ -13,7 +13,7 @@
 
 [The verse page](../../src/app/[book]/[chapter]/[verse]/page.tsx) assembles text and adjacent context. Preference persistence is documented in [Preferences](PREFERENCES.md).
 
-[Imported reference works](WORK-INPUT.md) now provide a separate offline WEB input for the generic image engine. Its importer preserves the 31,102 navigation IDs, normalizes WEB's Romans doxology placement, and explicitly attributes four readings taken from WEB footnotes where its main text is blank. This input is not yet connected to generation or reader fetching: selected translations and their upstream coverage behavior below remain unchanged.
+[Imported reference works](WORK-INPUT.md) provide a separate offline WEB input, the generic image engine's text source. Its importer preserves the 31,102 navigation IDs, normalizes WEB's Romans doxology placement, and explicitly attributes four readings taken from WEB footnotes where its main text is blank. The reader's selected translation is still fetched as below; it never feeds image generation.
 
 ## Translation coverage evidence
 

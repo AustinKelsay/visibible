@@ -33,21 +33,13 @@ Reference templates are keyed by the leaf division's level. Named placeholders u
 - Holmes `Part`: `{Story}, Part {Part} ¶{Paragraph}`
 - Alice `Chapter`: `{Chapter} ¶{Paragraph}`, such as `A Mad Tea-Party ¶1` (unit `a-mad-tea-party-1`)
 
-Alice (*Alice's Adventures in Wonderland*) is the regression suite's third work ([ADR 0011](../../docs/adr/0011-frozen-multi-work-regression-suite.md)): imported like Holmes, prepared only for evaluation and never served by the reader. Its twelve chapters become numbered paragraphs; only star separators and the closing "THE END" are dropped.
+Alice (*Alice's Adventures in Wonderland*) is the regression suite's third work ([ADR 0011](../../docs/adr/0011-frozen-multi-work-regression-suite.md)): imported like Holmes and, like Holmes, an owner-only preview at `/read` ([Navigation](NAVIGATION.md#prose-works)). Its twelve chapters become numbered paragraphs; only star separators and the closing "THE END" are dropped.
 
-`createWorkReader(unknown)` validates and indexes a file. `getUnit(id)` and `getUnitByReference(reference)` return the original text and exact formatted reference; unknown identities fail. Reference lookup is exact, not the reader's free-form alias resolver. Text is never truncated to an image-prompt budget.
+`createWorkReader(unknown)` validates and indexes a file. `getUnit(id)` and `getUnitByReference(reference)` return the original text and exact formatted reference; unknown identities fail. Reference lookup is exact, not the reader's free-form alias resolver. Text is never truncated to an image-prompt budget. [Nested prose fixtures](../../tests/fixtures/nested-work.json) exercise optional parts.
 
-## Fixed moments and neighboring context
+## Moments and neighbouring context
 
-The source importer does not invent story sections. A later reading pass supplies a complete ordered section partition using `firstUnitId` and `lastUnitId`. Sections and moments use their first unit's ID as their stable identity.
-
-`createMomentReader(work, sections)` validates the partition:
-
-- In `unit` mode (Bible), each unit becomes one moment; supplied grouped moments are rejected.
-- In `reading-pass` mode (Holmes), every section supplies its fixed `moments`, each an inclusive range of consecutive units. Selecting and sizing these moments belongs to the reading pass.
-- Unknown units, inverted ranges, gaps, overlaps, incomplete coverage and moments crossing their declared section fail validation.
-
-`getMoment(id)` accepts only a registered moment ID. It joins the complete unit text with paragraph breaks and carries any per-unit `sourceNotes`; it accepts no arbitrary request span or replacement client text. `getContext(id)` returns that moment and its preceding/following moments only when they belong to the same section. A section boundary returns `null`, even when another unit is next in the work. [Nested prose fixtures](../../tests/fixtures/nested-work.json) exercise optional parts and multi-unit moments.
+The importer does not invent sections or moments. The [reading pass](WORK-PREPARATION.md#reading-pass) defines both and stages them in the work's Convex analysis ([Analysis storage](ANALYSIS-STORAGE.md)), where each is identified by its first unit and activation rejects a moment without a section. In `unit` mode (the Bible) every unit is its own moment; in `reading-pass` mode (Holmes, Alice) the model proposes runs of units inside each section and code checks that they tile it ([moments.ts](../../src/lib/reading-pass/moments.ts)). At request time `momentContext` ([work-inputs.ts](../../src/lib/engine/work-inputs.ts)) joins the moment's unit text and adds the unit before and after it only when they lie in the same section.
 
 ## Bible normalization
 
@@ -57,4 +49,4 @@ The selected source has 31,103 verse records. Romans 14:24–26 contains the clo
 
 WEB also leaves Luke 17:36, Acts 8:37, Acts 15:34 and Acts 24:7 blank in its main text. For these four IDs only, the importer uses the readings printed in WEB's own footnotes, explicitly retaining their variant attribution in each unit and moment. [The reading data](../../works/sources/web-footnotes.json) links each exact excerpt to its checked source snapshot. These are footnote variants, not claims about the edition's main text, and no text is borrowed from another translation. The importer requires the four blank markers to exist and rejects a changed arrangement. Any other missing/empty verse, duplicate or extra canonical verse fails instead of silently dropping or inventing text.
 
-Tests compare every output ID and reference against existing navigation helpers, verify the three relocated texts, and verify every reference resolves back to its unit. Existing URLs and saved images are untouched by this slice.
+Tests compare every output ID and reference against existing navigation helpers, verify the three relocated texts, and verify every reference resolves back to its unit. Existing URLs and saved images are untouched by the import.
