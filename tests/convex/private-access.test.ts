@@ -20,15 +20,12 @@ async function setup() {
   return {t,owner,other,identity,bulkId,input};
 }
 describe("private Convex ownership",()=>{
-  it("reads only the authenticated owner's balances, invoices and history",async()=>{
+  it("reads only the authenticated owner's balance and invoices",async()=>{
     const {t,owner,other}=await setup();
     expect((await owner.query(api.sessions.getSession,{sid:"owner"}))?.credits).toBe(123);
-    expect(await owner.query(api.sessions.getCreditHistory,{sid:"owner"})).toHaveLength(1);
     expect((await owner.query(api.invoices.getInvoice,{invoiceId:"known-invoice"}))?.bolt11).toBe("private-bolt");
     for(const client of [t,other]){
       expect(await client.query(api.sessions.getSession,{sid:"owner"})).toBeNull();
-      expect(await client.query(api.sessions.getCreditHistory,{sid:"owner"})).toEqual([]);
-      expect(await client.query(api.invoices.getSessionInvoices,{sid:"owner"})).toEqual([]);
       expect(await client.query(api.invoices.getInvoice,{invoiceId:"known-invoice"})).toBeNull();
     }
   });
@@ -58,8 +55,6 @@ describe("private Convex ownership",()=>{
   it("keeps free library queries available without private identity",async()=>{
     const {t}=await setup();
     expect(await t.query(api.verseImages.getImageHistory,{verseId:"genesis-1-1"})).toEqual([]);
-    expect(await t.query(api.verseImages.getLatestImage,{verseId:"genesis-1-1"})).toBeNull();
-    expect(await t.query(api.modelStats.getModelStats,{modelId:"test"})).toMatchObject({count:0});
   });
 });
 

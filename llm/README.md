@@ -16,7 +16,7 @@ These guides describe the repository's current behavior. Source links identify t
 | Saved images, shared history or remote image storage | [Image persistence](context/IMAGE-PERSISTENCE.md) |
 | A work's analysis: generations, canon versions, references and attention | [Analysis storage](context/ANALYSIS-STORAGE.md) |
 | Reading a work into sections, moments, a cast and a draft brief | [Work preparation](context/WORK-PREPARATION.md) |
-| The removed per-moment preparation (looks, plans, review, image check) | [Scene preparation](context/SCENE-PREPARATION.md): what it was, what remains and where its history is |
+| Why each image is one call built from the moment's text | [ADR 0012](../docs/adr/0012-one-image-call-from-the-text.md) |
 | Correcting a work's analysis after the fact, attention items, wiping a work | [Owner corrections runbook](workflow/OWNER-CORRECTIONS.md) |
 | Public image API | [Public API](context/PUBLIC-IMAGE-API.md) |
 | Chat streaming or context | [Chat](context/CHAT.md) |
@@ -50,8 +50,6 @@ Exact dependencies and commands: [package.json](../package.json). Environment te
 ## Research data
 
 [Market research query ideas](market-research/visibible-market-research-search-terms.md) is a brainstorming dataset used by its adjacent JSON generator, not current product requirements or validated demand.
-
-[Scene planner free models](research/2026-10-14-scene-planner-free-models.md) records why the legacy planner used its last model; the planner was removed with the legacy engine (#184).
 
 [Image models](research/2026-10-14-image-models.md) records why Nano Banana 2 Lite (Gemini 3.1 Flash Lite Image) became the default image model in October 2026, what the other candidates measured, and how to re-run the comparison. Images are now made on Nano Banana 2.1 ([ADR 0012](../docs/adr/0012-one-image-call-from-the-text.md)); Lite still makes reference sheets and style references.
 

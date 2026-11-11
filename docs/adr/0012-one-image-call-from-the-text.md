@@ -32,7 +32,7 @@ The [comparison](../../llm/releases/2026-11-09-lean-engine/README.md) scored 206
 
 The suite gate passed with the full engine as baseline. The [setting block](../../llm/releases/2026-11-09-lean-setting/README.md) then raised same place from 30 of 38 pairs to 35 of 39, with the Bible at 27 of 27.
 
-Earlier attempts to simplify removed parts of the full engine while keeping Lite, and failed their gates ([closed investigation](../../llm/context/SCENE-PREPARATION.md#closed-simplification-investigation)). The plan, review and check each worked around what Lite could not do with a long text and several references. A model that can read the passage makes them unnecessary.
+Earlier attempts to simplify removed parts of the full engine while keeping Lite, and failed their gates ([closed investigation](../../llm/releases/2026-11-01-correction-final-review/REVIEW.md)). The plan, review and check each worked around what Lite could not do with a long text and several references. A model that can read the passage makes them unnecessary.
 
 ## Consequences
 

@@ -53,6 +53,6 @@ For the frontend release and matching runtime values, follow [Vercel deployment]
 
 ## Maintenance and troubleshooting
 
-[schema.ts](schema.ts) defines tables; [crons.ts](crons.ts) defines cleanup, stale reservation reconciliation, cost-event replay and Nostr scheduling. These jobs run in each deployment with that deployment's data/environment.
+[schema.ts](schema.ts) defines tables; [crons.ts](crons.ts) defines cleanup, stale reservation reconciliation, cost-event replay, Nostr scheduling and the one-minute recovery of durable video jobs. These jobs run in each deployment with that deployment's data/environment.
 
 Unauthorized actions usually indicate mismatched server secrets. Wrong data usually indicates the wrong runtime URL or CLI target. Missing backend changes warrant checking the watcher and its typecheck/codegen output.

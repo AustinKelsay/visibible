@@ -15,23 +15,7 @@ import {
   trackChatErrorShown,
 } from "@/lib/analytics";
 import { resolveChatErrorType } from "@/lib/analytics-event-utils";
-
-type VerseContext = {
-  number: number;
-  text: string;
-  reference?: string;
-};
-
-type PageContext = {
-  book?: string;
-  chapter?: number;
-  verseRange?: string;
-  heroCaption?: string;
-  imageTitle?: string;
-  verses?: Array<{ number?: number; text?: string }>;
-  prevVerse?: VerseContext;
-  nextVerse?: VerseContext;
-};
+import type { PageContext } from "@/context/navigation-context";
 
 type ChatProps = {
   context?: PageContext;

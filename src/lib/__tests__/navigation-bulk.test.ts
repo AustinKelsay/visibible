@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
   getNextNVerses,
-  getRemainingChapterVerses,
   getVersesInChapterRange,
   getAllVersesInBook,
   verseLocationToId,
@@ -64,21 +63,6 @@ describe("getNextNVerses", () => {
     // 2 before the end
     const result = getNextNVerses(loc("revelation", lastCh, lastV - 2), 5);
     expect(result).toHaveLength(2);
-  });
-});
-
-describe("getRemainingChapterVerses", () => {
-  it("returns remaining verses in the chapter", () => {
-    // Genesis 1 has 31 verses. From v28, remaining should be 29, 30, 31
-    const result = getRemainingChapterVerses(loc("genesis", 1, 28));
-    expect(result).toHaveLength(3);
-    expect(formatReference(result[0])).toBe("Genesis 1:29");
-    expect(formatReference(result[2])).toBe("Genesis 1:31");
-  });
-
-  it("returns empty if at last verse of chapter", () => {
-    const result = getRemainingChapterVerses(loc("genesis", 1, 31));
-    expect(result).toHaveLength(0);
   });
 });
 

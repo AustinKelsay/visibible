@@ -274,23 +274,31 @@ describe("analysis generations", () => {
     await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation })).rejects.toThrow(/unknown section missing/);
   });
 
-  it("activates and serves a 31,102-moment work, then retires it without losing an owner edit", async () => {
+  // The full Bible (31,102 moments, 2,790 sections) against Convex's 32,000-document limit takes about 30 s, so the
+  // default run scales both down tenfold; `npm run rehearse` sets ANALYSIS_FULL_SCALE=1 for the real sizes.
+  const FULL_SCALE = process.env.ANALYSIS_FULL_SCALE === "1";
+  const MOMENTS = FULL_SCALE ? 31102 : 3110;
+  const SECTIONS = FULL_SCALE ? 2790 : 279;
+  const SCAN_LIMIT = FULL_SCALE ? 32000 : 3200;
+  const COUNTS = { moment: MOMENTS, section: SECTIONS, entry: 1 };
+
+  it(`activates and serves a ${MOMENTS.toLocaleString("en")}-moment work, then retires it without losing an owner edit`, async () => {
     vi.useFakeTimers();
     try {
       const first = await prepare();
       // Seed the scale fixture directly: the separate staging test exercises write validation.
-      // 31,102 moments + 2,790 sections exceed a single Convex transaction's scan limit.
+      // Its moments and sections together exceed the (scaled) per-transaction scan limit.
       await t.run(async (ctx) => {
-        for (let i = 1; i < 2790; i++) {
+        for (let i = 1; i < SECTIONS; i++) {
           const record = section(`section-${i}`, `end-${i}`);
           await ctx.db.insert("analysisRecords", { ...record, workId: WORK, generation: first, version: "fixture", source: "generated", inputs: [], status: "current", createdAt: 1 });
         }
-        for (let i = 1; i < 31102; i++) {
+        for (let i = 1; i < MOMENTS; i++) {
           const record = moment(`unit-${i}`, `unit-${i}`, "a-scandal-in-bohemia-1");
           await ctx.db.insert("analysisRecords", { ...record, workId: WORK, generation: first, version: "fixture", source: "generated", inputs: [], status: "current", createdAt: 1 });
         }
         const row = await ctx.db.query("analysisGenerations").first();
-        await ctx.db.patch(row!._id, { recordCounts: { moment: 31102, section: 2790, entry: 1 } });
+        await ctx.db.patch(row!._id, { recordCounts: COUNTS });
       });
       // convex-test does not enforce production scan limits. Apply a read budget to the real
       // activation handler so the old full-generation collect fails this regression.
@@ -304,7 +312,7 @@ describe("analysis generations", () => {
             if (["query", "withIndex", "filter", "order"].includes(String(property))) return bounded(result);
             if (["collect", "take", "unique", "first", "get"].includes(String(property))) return Promise.resolve(result).then((rows) => {
               scanned += Array.isArray(rows) ? rows.length : rows ? 1 : 0;
-              if (scanned > 32000) throw new Error("Transaction scanned more than 32,000 documents");
+              if (scanned > SCAN_LIMIT) throw new Error(`Transaction scanned more than ${SCAN_LIMIT} documents`);
               return rows;
             });
             return result;
@@ -313,24 +321,24 @@ describe("analysis generations", () => {
       });
       const setProtocol = (enabled: boolean) => t.run(async (ctx) => {
         const row = await ctx.db.query("analysisGenerations").first();
-        await ctx.db.patch(row!._id, { recordCounts: enabled ? { moment: 31102, section: 2790, entry: 1 } : undefined });
+        await ctx.db.patch(row!._id, { recordCounts: enabled ? COUNTS : undefined });
       });
       await setProtocol(false);
-      await expect(t.run((ctx) => activateCandidate({ ...ctx, db: bounded(ctx.db) }, { serverSecret: SECRET, workId: WORK, generation: first }))).rejects.toThrow(/32,000 documents/);
+      await expect(t.run((ctx) => activateCandidate({ ...ctx, db: bounded(ctx.db) }, { serverSecret: SECRET, workId: WORK, generation: first }))).rejects.toThrow(/more than \d+ documents/);
       expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).activeGeneration).toBeNull();
       await setProtocol(true);
       scanned = 0;
       await t.run((ctx) => activateCandidate({ ...ctx, db: bounded(ctx.db) }, { serverSecret: SECRET, workId: WORK, generation: first }));
-      expect(scanned).toBeLessThan(5000);
-      expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: first }))?.counts).toEqual({ moment: 31102, section: 2790, entry: 1 });
+      expect(scanned).toBeLessThan(SCAN_LIMIT / 6);
+      expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: first }))?.counts).toEqual(COUNTS);
       expect(await t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" })).toHaveLength(1);
       const list = await listAnalysisRecords(t, WORK, first, "moment");
-      expect(list).toHaveLength(31102);
-      expect(new Set(list.map((r) => r.recordId)).size).toBe(31102);
+      expect(list).toHaveLength(MOMENTS);
+      expect(new Set(list.map((r) => r.recordId)).size).toBe(MOMENTS);
       // Owner corrections list stale dependents on the full Bible: only references are read, never the moments.
       scanned = 0;
       expect(await t.run((ctx) => staleDependents({ ...ctx, db: bounded(ctx.db) }, { workId: WORK, kind: "entry", recordId: "sherlock_holmes" }))).toEqual([]);
-      expect(scanned).toBeLessThan(5000);
+      expect(scanned).toBeLessThan(SCAN_LIMIT / 6);
       const correction = await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "moment", recordId: "a-scandal-in-bohemia-1", payload: { kind: "moment", sectionId: "a-scandal-in-bohemia-1", firstUnit: "a-scandal-in-bohemia-1", lastUnit: "owner-end" } });
       const second = await prepare();
       const result = await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: second });
@@ -342,12 +350,12 @@ describe("analysis generations", () => {
         await t.finishInProgressScheduledFunctions();
       }
       expect(vi.getTimerCount()).toBe(0);
-      expect((await t.query(api.analysis.listRecordHistory, { workId: WORK, kind: "moment", recordId: "unit-31101" }))[0].status).toBe("retired");
-      expect(await t.query(api.analysis.getRecordVersion, { workId: WORK, generation: first, kind: "moment", recordId: "unit-31101", version: "fixture" })).not.toBeNull();
+      expect((await t.query(api.analysis.listRecordHistory, { workId: WORK, kind: "moment", recordId: `unit-${MOMENTS - 1}` }))[0].status).toBe("retired");
+      expect(await t.query(api.analysis.getRecordVersion, { workId: WORK, generation: first, kind: "moment", recordId: `unit-${MOMENTS - 1}`, version: "fixture" })).not.toBeNull();
     } finally {
       vi.useRealTimers();
     }
-  }, 240000); // About 40 s locally; CI with coverage took 100 s after the 28 October schema additions.
+  }, 240000); // At full scale about 40 s locally; CI with coverage took 100 s after the 28 October schema additions.
 });
 
 describe("styles-only brief amendment", () => {

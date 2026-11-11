@@ -9,22 +9,11 @@ import {
 } from "@/lib/analytics";
 import { useSession } from "@/context/session-context";
 
-// Chat context type for verse data
-type VerseContext = {
-  number: number;
-  text: string;
-  reference?: string;
-};
-
+/** The passage the chat sidebar asks about; the server reads the text itself. */
 export type PageContext = {
   book?: string;
   chapter?: number;
   verseRange?: string;
-  heroCaption?: string;
-  imageTitle?: string;
-  verses?: Array<{ number?: number; text?: string }>;
-  prevVerse?: VerseContext;
-  nextVerse?: VerseContext;
 };
 
 export type SidebarTab = "chat" | "feedback";

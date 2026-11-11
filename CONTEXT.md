@@ -15,8 +15,10 @@ _Avoid_: Book (when meaning the whole text)
 
 **Reference text**: The one text of a work that its images are made from, such as the World English Bible. Other translations of the work share those images.
 
-**Moment**: A run of one or more consecutive units, inside one story section, that one image illustrates. In the Bible, each verse is its own moment; a moment can support more than one [depicted instant](GLOSSARY.md#language).
+**Moment**: A run of one or more consecutive units, inside one story section, that one image illustrates. In the Bible, each verse is its own moment; a moment can support more than one depicted instant.
 _Avoid_: Passage, scene (when meaning this span)
+
+**Depicted instant**: The single coherent visual state an image shows, chosen from its moment's text. The image model chooses it.
 
 **Work brief**: The one page describing a work's tone, depiction rules, eras and style set, approved by the owner before the work's first image.
 _Avoid_: World bible, style guide, theme
@@ -117,3 +119,5 @@ These terms named parts of the full engine's per-moment preparation, which was r
 **Scene plan**: A description of a moment's subject, action, setting and composition, shared across art styles and reader translations. The image model now reads the moment's text and chooses these itself.
 
 **Section look**: What was particular to one story section, such as its time of day, weather, light and situational clothing, shared by its moments' images. The image model now infers these from the text.
+
+**Moment conditions**: The place, time, weather, light and situational clothing resolved for one moment ([ADR 0003](docs/adr/0003-resolve-conditions-with-each-moment.md)). The image model now infers these from the text.

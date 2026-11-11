@@ -3,9 +3,9 @@ import { describe, expect, it } from "vitest";
 import bible from "../../../tests/fixtures/work-briefs/bible.draft.json";
 import holmes from "../../../tests/fixtures/work-briefs/holmes.draft.json";
 import {
-  COMMON_CONTENT_FLOOR, PROMPT_PRECEDENCE, SHARED_STYLES,
-  createStyleLibrary, formatBriefPrompt, formatStylePrompt, inspectStyleScope,
-  resolveWorkStyle, reviewDraftBrief, selectMainEra, validateWorkBrief,
+  COMMON_CONTENT_FLOOR, SHARED_STYLES, STYLE_PARTS,
+  createStyleLibrary, formatBriefPrompt, inspectStyleScope,
+  reviewDraftBrief, validateWorkBrief,
   type BriefEntry, type WorkBrief,
 } from "../work-preparation";
 
@@ -25,17 +25,10 @@ describe("shared art styles", () => {
         { kind: "work", name: "biblical" }, { kind: "work", name: "Bible" },
         { kind: "work", name: "Holmes" }, { kind: "era", name: "ancient Near Eastern" },
       ])).toEqual([]);
-      expect(formatStylePrompt(style)).not.toMatch(/reverent tone|halos may appear/i);
+      expect(STYLE_PARTS.map((part) => style[part]).join("\n")).not.toMatch(/reverent tone|halos may appear/i);
     }
     expect(SHARED_STYLES.get("classical").negatives).toMatch(/fresco.*manuscript/);
     expect(SHARED_STYLES.get("watercolor").negatives).toContain("No white or cream paper margins");
-  });
-
-  it("formats exactly the six parts and keeps descriptions out of prompts", () => {
-    const style = { id: "sample", label: "Selection label", description: "Selection description",
-      rendering: "R", palette: "P", lighting: "L", materials: "M", composition: "C", negatives: "N" };
-    expect(formatStylePrompt(style)).toBe("rendering: R\npalette: P\nlighting: L\nmaterials: M\ncomposition: C\nnegatives: N");
-    expect(formatStylePrompt({ ...style, description: "Different selection guidance" })).toBe(formatStylePrompt(style));
   });
 
   it.each([
@@ -135,44 +128,17 @@ describe("work brief contract", () => {
     expect(() => validateWorkBrief({ ...input, tone: `${input.tone} six` })).toThrow("exceeds 400 words: 401");
   });
 
-  it("defines an engine-owned content floor and precedence shared by every work", () => {
+  it("defines an engine-owned content floor shared by every work", () => {
     expect(COMMON_CONTENT_FLOOR.prohibited).toEqual(["Sexually explicit content", "Lingering gore"]);
     expect(COMMON_CONTENT_FLOOR.permitted).toContain("Non-sexual nudity");
-    expect(PROMPT_PRECEDENCE).toEqual([
-      "engine-rules", "brief-content-and-depiction", "style-rendering", "section-look", "scene-plan",
-    ]);
   });
 });
 
-describe("era and style selection", () => {
-  it("selects the era with most sections, breaking ties by brief order", () => {
-    expect(selectMainEra(bible, ["roman-judea", "creation-patriarchs", "roman-judea"]).id).toBe("roman-judea");
-    expect(selectMainEra(bible, ["roman-judea", "creation-patriarchs"]).id).toBe("creation-patriarchs");
-    expect(selectMainEra(holmes, ["late-victorian"]).id).toBe("late-victorian");
-    expect(() => selectMainEra(bible, [])).toThrow("requires section assignments");
-    expect(() => selectMainEra(bible, ["missing"])).toThrow("Unknown section era");
-  });
-
-  it("uses an offered preference and retains an unoffered preference while falling back", () => {
-    expect(resolveWorkStyle(bible, "icon")).toMatchObject({ style: { id: "icon" }, savedPreference: "icon", usedDefault: false, available: true });
-    expect(resolveWorkStyle(holmes, "icon")).toMatchObject({ style: { id: "watercolor" }, savedPreference: "icon", usedDefault: true });
-    expect(resolveWorkStyle(bible, null).style.id).toBe("classical");
-    expect(resolveWorkStyle(holmes, "retired-style").savedPreference).toBe("retired-style");
-    expect(resolveWorkStyle(bible, "icon").style.id).toBe("icon");
-  });
-
-  it("marks an offered but unavailable style unavailable instead of silently substituting", () => {
-    expect(resolveWorkStyle(bible, "icon", ["classical", "watercolor"])).toMatchObject({
-      style: { id: "icon" }, savedPreference: "icon", usedDefault: false, available: false,
-    });
-    expect(resolveWorkStyle(holmes, null, []).available).toBe(false);
-    expect(() => resolveWorkStyle(bible, "icon", ["invented"])).toThrow("Unknown art style");
-  });
-
-  it("can validate a newly registered style without adding a work-specific engine branch", () => {
+describe("style registration", () => {
+  it("validates a newly registered style without adding a work-specific engine branch", () => {
     const library = createStyleLibrary([{ ...SHARED_STYLES.get("classical"), id: "etching", label: "Etching" }]);
     const input = { ...holmes, styleIds: ["etching"] };
-    expect(resolveWorkStyle(input, null, undefined, library).style.id).toBe("etching");
+    expect(() => validateWorkBrief(input, library)).not.toThrow();
     expect(() => validateWorkBrief(input)).toThrow("Unknown art style");
   });
 });

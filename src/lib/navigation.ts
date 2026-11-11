@@ -212,21 +212,6 @@ export function getNextNVerses(
 }
 
 /**
- * Get all remaining verses in the current chapter (after the current verse).
- */
-export function getRemainingChapterVerses(
-  current: VerseLocation
-): VerseLocation[] {
-  const { book, chapter, verse } = current;
-  const versesInChapter = book.chapters[chapter - 1];
-  const verses: VerseLocation[] = [];
-  for (let v = verse + 1; v <= versesInChapter; v++) {
-    verses.push({ book, chapter, verse: v });
-  }
-  return verses;
-}
-
-/**
  * Get all verses across a range of chapters in a book.
  * If startVerse is provided, starts from that verse in the startChapter (exclusive).
  */

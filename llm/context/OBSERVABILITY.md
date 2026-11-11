@@ -1,11 +1,11 @@
 # Operational visibility
 
-[observability.ts](../../src/lib/observability.ts) supplies structured logs, request IDs, elapsed time and in-process counters. Route instrumentation records errors, throttling and settlement outcomes. The image route stopped recording scene planner outcomes (`scene_planner_outcomes_total`, `scene_planner.outcome`) when the legacy engine was removed ([Image generation](IMAGE-GENERATION.md)). Counters are local to the running process and reset with it; they are not a durable aggregate across serverless instances.
+[observability.ts](../../src/lib/observability.ts) supplies structured logs, request IDs, elapsed time and in-process counters. Route instrumentation records errors, throttling and settlement outcomes. Counters are local to the running process and reset with it; they are not a durable aggregate across serverless instances.
 
 | Endpoint | Behavior |
 | --- | --- |
 | [`/api/health`](../../src/app/api/health/route.ts) | Liveness, without probing provider health |
-| [`/api/readiness`](../../src/app/api/readiness/route.ts) | Public ready/not-ready summary; checks required env presence and a Convex query. Authorized callers also receive details. LND is configuration-only and noncritical; this does not make a live OpenRouter/LND request. |
+| [`/api/readiness`](../../src/app/api/readiness/route.ts) | Public ready/not-ready summary; checks required env presence and a Convex query. Authorized callers also receive details. Lightning (`lnd` in the details) only checks that `LNURL_PAY_URL` is set and is noncritical; this does not make a live OpenRouter or Lightning request. |
 | [`/api/metrics`](../../src/app/api/metrics/route.ts) | JSON counter snapshot; disabled with 503 without a policy, 403 for unauthorized requests |
 
 [ops-auth.ts](../../src/lib/ops-auth.ts) uses `READINESS_TOKEN`/`READINESS_IP_ALLOWLIST` and `METRICS_TOKEN`/`METRICS_IP_ALLOWLIST`. Either token or exact-IP policy can be configured; when both are set, both must pass. These allowlists are exact IPs, not CIDRs. Trusted proxy resolution still matters.

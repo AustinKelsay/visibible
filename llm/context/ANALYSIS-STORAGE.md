@@ -1,12 +1,12 @@
 # Analysis storage
 
-A work's **analysis** is everything the engine makes for it: story sections, moments and entries (canon with stages), plus reference images and attention items. Until 10 November 2026 it also held the full engine's section looks and scene plans; those were [archived and deleted](../releases/2026-11-10-remove-preparation/README.md) with their functions. Owner-authored inputs (the work file, the approved brief and the style library) are repo files; the analysis is per-deployment Convex data in [analysis.ts](../../convex/analysis.ts) and never copied between deployments. Saved images and generation requests keep their existing tables.
+A work's **analysis** is everything the engine makes for it: story sections, moments and entries (canon with stages), plus reference images and attention items. Owner-authored inputs (the work file, the approved brief and the style library) are repo files; the analysis is per-deployment Convex data in [analysis.ts](../../convex/analysis.ts) and never copied between deployments. Saved images and generation requests keep their existing tables.
 
 ## Records and versions
 
 Every analysis record carries its work ID, the generation it belongs to, a stable record ID, a content-hash **version** of its payload ([contentVersion.ts](../../convex/_helpers/contentVersion.ts)), a `generated` or `owner` **source**, and the exact input versions it was made from. Stable IDs: entries by slug, sections and moments by their first unit. Records are never edited in place; a new version supersedes the old one, and superseded or retired versions stay readable through `getRecordVersion` and `listRecordHistory` for provenance. Sections and entries name no inputs, since they come from the work file and brief; references name the record versions they were made from.
 
-Newly staged no-form canon also retains each stage's optional structured `showing` choices beside its complete `text`. These choices use the drafter's closed effect/color/brightness vocabulary. [Scene preparation](SCENE-PREPARATION.md) projects only effect names when the choices compile to that exact text; rendering still consumes the complete text. Historical stages remain valid without this field, and mismatched metadata after an owner prose edit is not used for projection. Adding metadata changes the entry's content hash and invalidates its ordinary dependents; no live backfill or automatic redraft is performed.
+Newly staged no-form canon also retains each stage's optional structured `showing` choices beside its complete `text`. These choices use the drafter's closed effect/color/brightness vocabulary. Rendering consumes the complete text. Historical stages remain valid without this field. Adding metadata changes the entry's content hash and invalidates its ordinary dependents; no live backfill or automatic redraft is performed.
 
 ## Generations and activation
 

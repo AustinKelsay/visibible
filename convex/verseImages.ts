@@ -204,61 +204,6 @@ async function onlyVisible(ctx: QueryCtx, images: Doc<"verseImages">[]) {
 }
 
 /**
- * Get the most recent image for a verse.
- * Returns the image URL (storage signed URL or direct URL fallback).
- */
-export const getLatestImage = query({
-  args: {
-    verseId: v.string(),
-    ...styleFilterArgs,
-  },
-  handler: async (ctx, args) => {
-    const found = await withStyleFilter(ctx.db
-      .query("verseImages")
-      .withIndex("by_verse", (q) => q.eq("verseId", args.verseId))
-      .order("desc"), normalizeStyleFilter(args))
-      .first();
-
-    const image = found && await (await visibleImageFilter(ctx))(found) ? found : null;
-    if (!image) return null;
-
-    let imageUrl = image.imageUrl;
-    if (image.storageId) {
-      imageUrl = (await ctx.storage.getUrl(image.storageId)) ?? imageUrl;
-    }
-
-    if (imageUrl) {
-      return {
-        id: image._id,
-        imageUrl,
-        model: image.model,
-        prompt: image.prompt,
-        reference: image.reference,
-        verseText: image.verseText,
-        generationNumber: image.generationNumber,
-        promptVersion: image.promptVersion,
-        translationId: image.translationId,
-        provider: image.provider,
-        providerRequestId: image.providerRequestId,
-        creditsCost: image.creditsCost,
-        costUsd: image.costUsd,
-        durationMs: image.durationMs,
-        aspectRatio: image.aspectRatio,
-        sourceImageUrl: image.sourceImageUrl,
-        imageMimeType: image.imageMimeType,
-        imageSizeBytes: image.imageSizeBytes,
-        imageWidth: image.imageWidth,
-        imageHeight: image.imageHeight,
-        createdAt: image.createdAt,
-        ...imageSourceFields(image),
-      };
-    }
-
-    return null;
-  },
-});
-
-/**
  * Get image status for all verses in a chapter.
  * Returns an array of verse numbers with their image status.
  */

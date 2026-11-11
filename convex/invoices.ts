@@ -111,33 +111,6 @@ export const getInvoice = query({
 });
 
 /**
- * Get all invoices for a session.
- */
-export const getSessionInvoices = query({
-  args: {
-    serverSecret: v.optional(v.string()),
-    sid: v.string(),
-  },
-  handler: async (ctx, args) => {
-    if (args.serverSecret !== undefined) validateServerSecret(args.serverSecret);
-    else if ((await authenticatedGuest(ctx))?.sid !== args.sid) return [];
-    const invoices = await ctx.db
-      .query("invoices")
-      .withIndex("by_sid", (q) => q.eq("sid", args.sid))
-      .order("desc")
-      .collect();
-
-    return invoices.map((inv) => ({
-      invoiceId: inv.invoiceId,
-      status: inv.status,
-      amountUsd: inv.amountUsd,
-      createdAt: inv.createdAt,
-      paidAt: inv.paidAt,
-    }));
-  },
-});
-
-/**
  * Internal mutation to confirm payment and grant credits.
  * Only callable from Convex actions after server secret validation.
  */
