@@ -6,11 +6,9 @@ Verse IDs group history by reference (for example `genesis-1-1`), without transl
 
 ## Storage and fallback
 
-- Data URLs are decoded and validated before Convex storage. Remote URLs are checked against a host allowlist before fetch, then validated for image MIME type and size (10 MiB maximum).
-- `IMAGE_FETCH_ALLOWLIST` extends the built-in host list. Set it in the **Convex deployment environment**, where `saveImage` runs.
-- URL validation checks hostname/IP literals, not DNS resolution. Remote fetch follows redirects without revalidating the destination. These checks are not a complete network-level SSRF boundary.
-- Non-validation fetch/storage failures on the remote URL path fall back to a URL-backed record. Such URLs may expire and are excluded from scheduled Nostr publication. Validation failures are rejected.
-- A generation can succeed even if persistence fails; only successful storage establishes a durable stored image.
+- `saveImage` stores only image bytes returned with the provider response (a data URL), after checking its MIME type (PNG, JPEG, WebP or GIF) and size (10 MiB maximum). Malformed, non-image and oversize data is refused and nothing is saved.
+- A remote image URL is refused without being fetched. Convex's runtime cannot resolve a URL's destination, so a fetch could not be kept off private or DNS-rebound addresses, and every production image since April 2026 arrived as data. Remote fetching, the host allowlist (`IMAGE_FETCH_ALLOWLIST`, now unread) and the URL-backed fallback record were removed on 10 November 2026 (#80). Older URL-backed records still read as before.
+- A refused or failed save throws; it never creates a record. The image route logs it and still answers with the image, without a `savedImageId`; a generation can therefore succeed in the browser without a durable stored image (#81).
 
 [convex/http.ts](../../convex/http.ts) serves stored bytes at `/image/:storageId`. Image link construction uses `NOSTR_IMAGE_BASE_URL`, then `CONVEX_SITE_URL`, then `CONVEX_CLOUD_URL`; configure a base that actually serves that HTTP route. Storage rows can be reused across browser sessions within the same deployment.
 

@@ -30,7 +30,6 @@ Convex actions cannot read Next.js `.env.local`. Configure these in the target C
 
 - `CONVEX_SERVER_SECRET`: matches the corresponding Next.js runtime.
 - `ADMIN_PASSWORD_SECRET`: matches Next.js when admin login is enabled.
-- `IMAGE_FETCH_ALLOWLIST`: optional additional remote-image hosts, read by the storage action.
 - Nostr key, relays and image URL base: see [Nostr](../llm/context/NOSTR.md).
 
 Pass `--env-file .env.convex.dev` or `--env-file .env.convex.prod` on environment commands. The project scripts `convex:env:list:dev` and `convex:env:list:prod` inspect the respective deployment's values; their output can contain secrets.

@@ -31,110 +31,12 @@ const ALLOWED_IMAGE_MIME_TYPES = new Set([
   "image/gif",
 ]);
 
-const DEFAULT_IMAGE_FETCH_ALLOWLIST = [
-  "openrouter.ai",
-  "*.openrouter.ai",
-  "openrouterusercontent.com",
-  "*.openrouterusercontent.com",
-  "*.googleusercontent.com",
-  "*.gstatic.com",
-  "*.oaistatic.com",
-  "*.blob.core.windows.net",
-];
-
 class ImageValidationError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "ImageValidationError";
   }
 }
-
-const normalizeHost = (value: string) => value.trim().toLowerCase().replace(/\.$/, "");
-
-const getRemoteImageAllowlist = () => {
-  const configured = (process.env.IMAGE_FETCH_ALLOWLIST ?? "")
-    .split(",")
-    .map((entry) => normalizeHost(entry))
-    .filter((entry) => entry.length > 0);
-
-  const deduped = new Set([
-    ...DEFAULT_IMAGE_FETCH_ALLOWLIST.map((entry) => normalizeHost(entry)),
-    ...configured,
-  ]);
-  return Array.from(deduped);
-};
-
-const isIpv4Address = (host: string) => /^(\d{1,3}\.){3}\d{1,3}$/.test(host);
-
-const isPrivateIpv4 = (host: string) => {
-  if (!isIpv4Address(host)) return false;
-  const parts = host.split(".").map((segment) => Number.parseInt(segment, 10));
-  if (parts.length !== 4 || parts.some((part) => !Number.isFinite(part) || part < 0 || part > 255)) {
-    return false;
-  }
-  const [a, b] = parts;
-  if (a === 10) return true;
-  if (a === 127) return true;
-  if (a === 169 && b === 254) return true;
-  if (a === 172 && b >= 16 && b <= 31) return true;
-  if (a === 192 && b === 168) return true;
-  if (a === 0) return true;
-  return false;
-};
-
-const isPrivateIpv6 = (host: string) => {
-  if (!host.includes(":")) return false;
-  const normalized = host.toLowerCase();
-  if (normalized === "::1" || normalized === "0:0:0:0:0:0:0:1") return true;
-  if (normalized.startsWith("fe80:")) return true;
-  if (normalized.startsWith("fc") || normalized.startsWith("fd")) return true;
-  return false;
-};
-
-const isDisallowedLocalHost = (host: string) => {
-  if (host === "localhost" || host.endsWith(".localhost")) return true;
-  if (host.endsWith(".local")) return true;
-  if (isPrivateIpv4(host) || isPrivateIpv6(host)) return true;
-  return false;
-};
-
-const hostMatchesAllowlist = (host: string, allowedHost: string) => {
-  if (allowedHost.startsWith("*.")) {
-    const suffix = allowedHost.slice(2);
-    return host === suffix || host.endsWith(`.${suffix}`);
-  }
-  return host === allowedHost;
-};
-
-const assertAllowedRemoteImageUrl = (imageUrl: string) => {
-  let parsed: URL;
-  try {
-    parsed = new URL(imageUrl);
-  } catch {
-    throw new ImageValidationError("Invalid image URL");
-  }
-
-  if (parsed.protocol !== "https:") {
-    throw new ImageValidationError("Only HTTPS image URLs are allowed");
-  }
-  if (parsed.username || parsed.password) {
-    throw new ImageValidationError("Image URL auth components are not allowed");
-  }
-
-  const host = normalizeHost(parsed.hostname);
-  if (!host) {
-    throw new ImageValidationError("Image URL host is required");
-  }
-  if (isDisallowedLocalHost(host)) {
-    throw new ImageValidationError("Image URL host is not allowed");
-  }
-
-  const allowlist = getRemoteImageAllowlist();
-  const allowed = allowlist.some((allowedHost) => hostMatchesAllowlist(host, allowedHost));
-  if (!allowed) {
-    throw new ImageValidationError(`Image host "${host}" is not in allowlist`);
-  }
-};
 
 const assertAllowedMimeType = (mimeType?: string) => {
   if (!mimeType) {
@@ -1173,73 +1075,6 @@ export const recordNostrPublication = internalMutation({
   },
 });
 
-/**
- * Internal mutation to save image with direct URL.
- */
-export const saveImageWithUrl = internalMutation({
-  args: {
-    verseId: v.string(),
-    imageUrl: v.string(),
-    model: v.string(),
-    prompt: v.optional(v.string()),
-    reference: v.optional(v.string()),
-    verseText: v.optional(v.string()),
-    generationNumber: v.optional(v.number()),
-    promptVersion: v.optional(v.string()),
-    translationId: v.optional(v.string()),
-    provider: v.optional(v.string()),
-    providerRequestId: v.optional(v.string()),
-    creditsCost: v.optional(v.number()),
-    costUsd: v.optional(v.number()),
-    durationMs: v.optional(v.number()),
-    aspectRatio: v.optional(v.string()),
-    sourceImageUrl: v.optional(v.string()),
-    imageMimeType: v.optional(v.string()),
-    imageSizeBytes: v.optional(v.number()),
-    imageWidth: v.optional(v.number()),
-    imageHeight: v.optional(v.number()),
-    generationId: v.optional(v.string()),
-    engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
-    provenance: v.optional(imageProvenanceValidator),
-    artStyleId: v.optional(v.string()),
-  },
-  handler: async (ctx, args) => {
-    if (args.generationId) {
-      const existing = await ctx.db.query("verseImages")
-        .withIndex("by_generationId", (q) => q.eq("generationId", args.generationId)).first();
-      if (existing) return existing._id;
-    }
-    const id = await ctx.db.insert("verseImages", {
-      verseId: args.verseId,
-      imageUrl: args.imageUrl,
-      model: args.model,
-      prompt: args.prompt,
-      reference: args.reference,
-      verseText: args.verseText,
-      generationNumber: args.generationNumber,
-      promptVersion: args.promptVersion,
-      translationId: args.translationId,
-      provider: args.provider,
-      providerRequestId: args.providerRequestId,
-      creditsCost: args.creditsCost,
-      costUsd: args.costUsd,
-      durationMs: args.durationMs,
-      aspectRatio: args.aspectRatio,
-      sourceImageUrl: args.sourceImageUrl,
-      imageMimeType: args.imageMimeType,
-      imageSizeBytes: args.imageSizeBytes,
-      imageWidth: args.imageWidth,
-      imageHeight: args.imageHeight,
-      generationId: args.generationId,
-      engine: args.engine,
-      provenance: args.provenance,
-      artStyleId: args.artStyleId,
-      createdAt: Date.now(),
-    });
-    return id;
-  },
-});
-
 const BASE64_LOOKUP = (() => {
   const chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -1555,128 +1390,56 @@ export const saveImage = action({
       }
     }
 
-    // Check if this is a base64 data URL
-    if (imageUrl.startsWith("data:")) {
-      // Parse the data URL
-      const matches = imageUrl.match(/^data:([^;]+);base64,(.+)$/);
-      if (!matches) {
-        throw new Error("Invalid data URL format");
-      }
-
-      const mimeType = matches[1];
-      const base64Data = matches[2];
-      const maxBase64Length = Math.ceil((MAX_IMAGE_BYTES * 4) / 3) + 4;
-      if (base64Data.length > maxBase64Length) {
-        throw new ImageValidationError(
-          `Image data URL exceeds ${MAX_IMAGE_BYTES} byte limit`
-        );
-      }
-
-      // Decode base64 without relying on atob/Buffer (not available in Convex).
-      const bytes = decodeBase64ToBytes(base64Data);
-      const normalizedMimeType = normalizeMimeType(mimeType);
-      assertAllowedMimeType(normalizedMimeType);
-      assertByteSizeWithinLimit(bytes.length, "data URL");
-      const dimensions = getImageDimensions(bytes, normalizedMimeType);
-      const imageMetadata = {
-        ...baseMetadata,
-        sourceImageUrl: undefined,
-        imageMimeType: normalizedMimeType,
-        imageSizeBytes: bytes.length,
-        imageWidth: dimensions?.width,
-        imageHeight: dimensions?.height,
-      };
-
-      // Create a blob and upload to storage
-      const blob = new Blob([bytes], { type: mimeType });
-      const storageId = await ctx.storage.store(blob);
-
-      // Save to database with storage ID
-      const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithStorage, {
-        verseId,
-        storageId,
-        model,
-        ...imageMetadata,
-        generationId,
-      });
-
-      return { success: true, type: "storage", id };
+    // Only image bytes returned with the response are stored. Convex's runtime cannot resolve a
+    // remote URL's destination, so fetching one could not be kept off private or rebound
+    // addresses; such output is refused here rather than saved as a link that later expires.
+    if (!imageUrl.startsWith("data:")) {
+      throw new ImageValidationError("Only image data returned with the response can be stored; remote image URLs are refused");
     }
 
-    assertAllowedRemoteImageUrl(imageUrl);
+    // Parse the data URL
+    const matches = imageUrl.match(/^data:([^;]+);base64,(.+)$/);
+    if (!matches) {
+      throw new ImageValidationError("Invalid data URL format");
+    }
 
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-      let response: Response;
-      try {
-        response = await fetch(imageUrl, { signal: controller.signal });
-      } finally {
-        clearTimeout(timeoutId);
-      }
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch image: ${response.status}`);
-      }
-
-      const contentLengthHeader = response.headers.get("content-length");
-      if (contentLengthHeader) {
-        const contentLength = Number.parseInt(contentLengthHeader, 10);
-        if (Number.isFinite(contentLength)) {
-          assertByteSizeWithinLimit(contentLength, "remote image response");
-        }
-      }
-
-      const blob = await response.blob();
-      const arrayBuffer = await blob.arrayBuffer();
-      const bytes = new Uint8Array(arrayBuffer);
-      const normalizedMimeType = normalizeMimeType(
-        response.headers.get("content-type") || blob.type
+    const mimeType = matches[1];
+    const base64Data = matches[2];
+    const maxBase64Length = Math.ceil((MAX_IMAGE_BYTES * 4) / 3) + 4;
+    if (base64Data.length > maxBase64Length) {
+      throw new ImageValidationError(
+        `Image data URL exceeds ${MAX_IMAGE_BYTES} byte limit`
       );
-      assertAllowedMimeType(normalizedMimeType);
-      assertByteSizeWithinLimit(bytes.length, "remote image body");
-      const dimensions = getImageDimensions(bytes, normalizedMimeType);
-      const imageMetadata = {
-        ...baseMetadata,
-        sourceImageUrl: imageUrl,
-        imageMimeType: normalizedMimeType,
-        imageSizeBytes: bytes.length,
-        imageWidth: dimensions?.width,
-        imageHeight: dimensions?.height,
-      };
-      const storageId = await ctx.storage.store(blob);
-
-      const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithStorage, {
-        verseId,
-        storageId,
-        model,
-        ...imageMetadata,
-        generationId,
-      });
-
-      return { success: true, type: "storage", id };
-    } catch (error) {
-      if (error instanceof ImageValidationError) {
-        throw error;
-      }
-      console.error("Failed to fetch and store image:", error);
-      const imageMetadata = {
-        ...baseMetadata,
-        sourceImageUrl: imageUrl,
-      };
-      const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithUrl, {
-        verseId,
-        imageUrl,
-        model,
-        ...imageMetadata,
-        generationId,
-      });
-
-      // Skip Nostr publication when storage fails - the original imageUrl may be
-      // temporary and Nostr publications are immutable
-
-      return { success: true, type: "url", id };
     }
+
+    // Decode base64 without relying on atob/Buffer (not available in Convex).
+    const bytes = decodeBase64ToBytes(base64Data);
+    const normalizedMimeType = normalizeMimeType(mimeType);
+    assertAllowedMimeType(normalizedMimeType);
+    assertByteSizeWithinLimit(bytes.length, "data URL");
+    const dimensions = getImageDimensions(bytes, normalizedMimeType);
+    const imageMetadata = {
+      ...baseMetadata,
+      sourceImageUrl: undefined,
+      imageMimeType: normalizedMimeType,
+      imageSizeBytes: bytes.length,
+      imageWidth: dimensions?.width,
+      imageHeight: dimensions?.height,
+    };
+
+    // Create a blob and upload to storage
+    const blob = new Blob([bytes], { type: normalizedMimeType });
+    const storageId = await ctx.storage.store(blob);
+
+    // Save to database with storage ID
+    const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithStorage, {
+      verseId,
+      storageId,
+      model,
+      ...imageMetadata,
+      generationId,
+    });
+
+    return { success: true, type: "storage", id };
   },
 });

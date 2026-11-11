@@ -159,8 +159,9 @@ vi.mock("@/lib/convex-client", () => ({
         mockState.callHistory.push({ action: "saveImage", args });
         await saveBarrier;
         if (failSave) throw new Error("storage unavailable");
-        const id = await requestDb.mutation(internal.verseImages.saveImageWithUrl, {
-          verseId: String(args.verseId), imageUrl: String(args.imageUrl), model: String(args.model),
+        const storageId = await requestDb.run((ctx) => ctx.storage.store(new Blob([String(args.imageUrl)], { type: "image/png" })));
+        const id = await requestDb.mutation(internal.verseImages.saveImageWithStorage, {
+          verseId: String(args.verseId), storageId, model: String(args.model),
           generationId: String(args.generationId),
           reference: args.reference as string, verseText: args.verseText as string,
           translationId: args.translationId as string,
@@ -168,9 +169,9 @@ vi.mock("@/lib/convex-client", () => ({
           creditsCost: args.creditsCost as number | undefined,
           engine: args.engine as "legacy" | "generic" | undefined,
           artStyleId: args.artStyleId as string | undefined,
-          provenance: args.provenance as FunctionArgs<typeof internal.verseImages.saveImageWithUrl>["provenance"],
+          provenance: args.provenance as FunctionArgs<typeof internal.verseImages.saveImageWithStorage>["provenance"],
         });
-        return { success: true, type: "url", id };
+        return { success: true, type: "storage", id };
       }
 
       if ("generationId" in args && !("amount" in args)) {
@@ -427,8 +428,9 @@ describe("Image Generation API Credit Flow", () => {
         engine: "legacy", artStyleId: "classical", sid: "test-session", verseId: "genesis-1-1", translationId: "web", reference: "Genesis 1:1", serverSecret: secret,
       });
       await requestDb.mutation(api.verseImages.updateGenerationRequest, { requestId: body.requestId, status: "generating", serverSecret: secret });
-      await requestDb.mutation(internal.verseImages.saveImageWithUrl, {
-        verseId: "genesis-1-1", imageUrl: "https://images.example/legacy.png", model: "google/gemini-2.5-flash-image", generationId: "legacy-generation",
+      const storageId = await requestDb.run((ctx) => ctx.storage.store(new Blob(["legacy"], { type: "image/png" })));
+      await requestDb.mutation(internal.verseImages.saveImageWithStorage, {
+        verseId: "genesis-1-1", storageId, model: "google/gemini-2.5-flash-image", generationId: "legacy-generation",
         engine: "legacy", artStyleId: "classical", reference: "Genesis 1:1", translationId: "web",
       });
       await requestDb.mutation(api.verseImages.updateGenerationRequest, { requestId: body.requestId, status: "succeeded", serverSecret: secret });
@@ -456,7 +458,7 @@ describe("Image Generation API Credit Flow", () => {
       const { POST } = await import("../../generate-image/route");
       const replay = await POST(createGenerateImageRequest(body));
       expect(replay.status).toBe(200);
-      expect(await replay.json()).toMatchObject({ reused: true, engine: "legacy", imageUrl: "https://images.example/legacy.png", savedImageId: expect.any(String) });
+      expect(await replay.json()).toMatchObject({ reused: true, engine: "legacy", imageUrl: expect.stringContaining("/api/storage/"), savedImageId: expect.any(String) });
       // With the generic engine disabled there is no engine for a new Classical request, or for a legacy-bound job item.
       for (const request of [{ ...body, requestId: "new-classical" }, { ...body, requestId: "bulk-legacy", engine: "legacy" as const }]) {
         const refused = await POST(createGenerateImageRequest(request));

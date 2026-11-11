@@ -87,6 +87,5 @@ Server-secret reads are reserved for Next.js after cookie validation and for tru
 | `verseImages:getImageById` | internalQuery | Internal | Convex internal dispatch only |
 | `verseImages:recordImageImpression` | mutation | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
 | `verseImages:recordNostrPublication` | internalMutation | Internal | Convex internal dispatch only |
-| `verseImages:saveImageWithUrl` | internalMutation | Internal | Convex internal dispatch only |
 | `verseImages:saveImage` | action | Server | CONVEX_SERVER_SECRET |
 | `walletMigration:backfillPendingHolds` | internalMutation | Internal | Explicit paginated reservation-projection backfill; no monetary field changes |
