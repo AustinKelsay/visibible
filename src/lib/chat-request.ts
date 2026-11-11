@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { getChapter, TRANSLATIONS, DEFAULT_TRANSLATION, type Translation } from "@/lib/bible-api";
+import { getChapter, TRANSLATIONS, DEFAULT_TRANSLATION, type ChapterData, type Translation } from "@/lib/bible-api";
 import { parseVerseLocation, getPreviousVerse, getNextVerse, formatReference } from "@/lib/navigation";
 import { MAX_USER_MESSAGE_CHARS } from "@/lib/chat-limits";
 
@@ -176,7 +176,8 @@ export type SystemPromptResult =
  */
 export async function buildSystemPrompt(
   passage: ChatRequest["context"],
-  translation: Translation
+  translation: Translation,
+  chapters: (bookSlug: string, chapter: number, translation: Translation) => Promise<ChapterData | null> = getChapter
 ): Promise<SystemPromptResult> {
   if (!passage) {
     return { ok: true, systemPrompt: `${BASE_PROMPT}\n\n${GENERAL_GUIDANCE}`, scripture: "none" };
@@ -190,7 +191,7 @@ export async function buildSystemPrompt(
   let prompt = `${BASE_PROMPT}\n\nCurrent Position: ${formatReference(location)}`;
   let scripture: "included" | "unavailable" = "unavailable";
   try {
-    const chapter = await getChapter(location.book.slug, location.chapter, translation);
+    const chapter = await chapters(location.book.slug, location.chapter, translation);
     const textOf = (verse: number) => chapter?.verses.find((item) => item.verse === verse)?.text;
     const current = textOf(location.verse);
     if (current) {

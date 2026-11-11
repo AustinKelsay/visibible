@@ -2,7 +2,16 @@
 
 Apply this process when changing `buildSystemPrompt()` in [chat-request.ts](../../src/lib/chat-request.ts), default/model filtering in [chat-models.ts](../../src/lib/chat-models.ts), model context assembly, or AI SDK/provider behavior that can change answers.
 
-This is a manual release requirement. The [case set](../../evals/chat/cases.json) (30 cases, first committed 11 November 2026) and its runner, `npm run evals:chat -- --key-file <file> --out <dir>`, run every case through a baseline and a candidate arm and record answers, finish reasons, tokens, provider and cost. Scoring is blind and follows [the scoring instructions](../../evals/chat/scoring.md). Edit the runner's baseline arm so it reproduces what production runs before the change. Answers vary run to run: one run can show a gap that disappears in a replicate, so judge a change on at least three runs. The [first record](../releases/2026-11-11-chat-admission/README.md) is an example.
+This is a manual release requirement. The [case set](../../evals/chat/cases.json) (30 cases, first committed 11 November 2026) and `npm run evals:chat` ([command](../../scripts/evals/chat.mts), logic in [chat-evals.ts](../../src/lib/chat-evals.ts)) make it repeatable:
+
+1. `run --out <dir> --key-file <file>` sends every case through the `baseline` arm (the chat before #413) and the `candidate` arm (the current admission code), and records answers, finish reasons, tokens, provider and cost. The candidate is bounded by the model's catalog context window, as in production. `--arms candidate --model <id>` measures another model, and `--system-suffix <file>` measures a prompt addition before it is made. `--budget-usd` holds each call's worst case (its assembled input and the most output it may write; the baseline gets the model's own maximum) and skips calls that would pass the cap. A failed call with no known cost keeps its whole hold. Errors that arrive mid-stream are error rows, with their partial text kept. `--dry-run` uses a fake model and placeholder Scripture, with no network call. The command refuses to overwrite paid results and exits 1 if any case errored or was skipped.
+2. `pairs --out <dir> --a … --b …` writes blind pairs of two arms' answers, 15 cases per file, and a separate `key.json`.
+3. Blind scorers follow [the scoring instructions](../../evals/chat/scoring.md), one `scores-N.json` per pairs file, without seeing the key.
+4. `report --out <dir> --runs <pairs dir>,… --baseline <label> --candidate <label> --judge "<who scored and how>"` pools one or more scored folders, writes `report.json` and applies the gate below (`safety`, `relative`, `absolute`). Every keyed case must be scored exactly once. A refused request scores all four dimensions as null; any other answer scores all four. Thresholds are compared on exact counts, and only the reported means are rounded.
+
+Each command writes a `manifest.json`: the case set's version and hash, the runner commit, and the settings. `pairs` also records the rubric's hash and the key's. `pairs` and `report` refuse folders made from a different case set; folders from before manifests existed are recorded as unknown.
+
+Answers vary run to run: one run can show a gap that disappears in a replicate, so judge a change on at least three runs and pool them. The [first record](../releases/2026-11-11-chat-admission/README.md) is an example.
 
 ## Required PR artifacts
 

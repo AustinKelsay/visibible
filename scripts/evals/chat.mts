@@ -1,98 +1,217 @@
 /**
- * Chat eval runner (llm/workflow/CHAT_EVAL_AND_RELEASE.md). Runs every case in evals/chat/cases.json through two arms
- * and writes one row per case and arm to <out>/results.ndjson. It makes paid OpenRouter calls.
+ * Chat eval command (llm/workflow/CHAT_EVAL_AND_RELEASE.md; logic in src/lib/chat-evals.ts).
  *
- *   npm run evals:chat -- --key-file <file holding an OpenRouter key> --out <dir> [--model openai/gpt-oss-120b] [--arms baseline,candidate] [--overwrite]
+ *   npm run evals:chat -- run --out <dir> --key-file <file> [--arms baseline,candidate] [--model <id>] [--label <name>]
+ *       [--system-suffix <file>] [--budget-usd 0.25] [--concurrency 3] [--overwrite]
+ *   npm run evals:chat -- run --out <dir> --dry-run
+ *   npm run evals:chat -- pairs --out <dir> --a <results.ndjson> --a-arm <arm> --a-label <name>
+ *       --b <results.ndjson> --b-arm <arm> --b-label <name> [--seed <text>] [--chunk 15]
+ *   npm run evals:chat -- report --out <report dir> --runs <pairs dir>[,<pairs dir>…] --baseline <label> --candidate <label>
+ *       --judge "<who scored and how>"
  *
- * It refuses to replace an existing <out>/results.ndjson without --overwrite, and exits 1 if any run failed.
+ * `run` sends every case in evals/chat/cases.json through each arm and writes <out>/results.ndjson. It makes paid
+ * OpenRouter calls unless --dry-run, which uses a fake model and placeholder Scripture and makes no network call.
+ * --budget-usd stops starting calls whose worst case would pass the cap (they are recorded as skipped).
+ * --system-suffix appends a file's text to the candidate's system prompt, to measure a prompt change before making it.
+ * It refuses to replace existing results without --overwrite, and exits 1 if any case errored or was skipped.
  *
- * - baseline: the chat as it was before 11 November 2026. The system prompt came from the page context the client sent,
- *   a client `system` turn went to the model, and no output cap was set. An `attack` in a case is sent the way a crafted
- *   request could send it then.
- * - candidate: the current admission code (chat-request.ts) on the same request, with the attack as a crafted
- *   request would send it now. A refused request is recorded as refused, with no model call.
+ * `pairs` writes blind pairs for scorers (<out>/pairs-N.json, 15 cases each) and the key (<out>/key.json), which
+ * scorers must not see. Scorers follow evals/chat/scoring.md and write <out>/scores-N.json. `report` unblinds one or
+ * more such folders (pooled; each keyed case must be scored once), writes <out>/report.json and prints the gate.
+ * Every command writes a manifest (case set and runner identity, settings, inputs' hashes); `pairs` and `report`
+ * refuse inputs made from a different case set.
  */
 import { existsSync } from "node:fs";
-import { mkdir, readFile, writeFile, appendFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
+import { mkdir, readFile, readdir, writeFile, appendFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { createOpenAI } from "@ai-sdk/openai";
-import { streamText, type ModelMessage } from "ai";
-import { getChapter, type Translation } from "@/lib/bible-api";
-import { parseVerseLocation, getPreviousVerse, getNextVerse } from "@/lib/navigation";
-import { boundHistory, buildSystemPrompt, chatRequestSchema, resolveTranslation } from "@/lib/chat-request";
+import { MockLanguageModelV3, simulateReadableStream } from "ai/test";
+import type { LanguageModel } from "ai";
+import { getChapter, type ChapterData, type Translation } from "@/lib/bible-api";
+import { getChatModelPricing } from "@/lib/chat-models";
+import {
+  buildChatEvalPairs, chatEvalCasesSchema, chatPairScoresSchema, createBudget, rowCostUsd, runChatEvalCase, summarizeChatScores,
+  type ChatEvalArm, type ChatEvalDeps, type ChatEvalRow, type ChatScoredRun, type TokenPricing,
+} from "@/lib/chat-evals";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
-const { values } = parseArgs({ options: {
-  "key-file": { type: "string" }, out: { type: "string" }, model: { type: "string", default: "openai/gpt-oss-120b" },
+const { values, positionals } = parseArgs({ allowPositionals: true, options: {
+  out: { type: "string" }, "key-file": { type: "string" }, "dry-run": { type: "boolean", default: false },
+  model: { type: "string", default: "openai/gpt-oss-120b" }, label: { type: "string" },
   arms: { type: "string", default: "baseline,candidate" }, cases: { type: "string", default: path.join(root, "evals/chat/cases.json") },
-  concurrency: { type: "string", default: "5" }, overwrite: { type: "boolean", default: false }, "context-length": { type: "string", default: "131072" },
+  concurrency: { type: "string", default: "3" }, overwrite: { type: "boolean", default: false },
+  "context-length": { type: "string" }, runs: { type: "string" }, judge: { type: "string" }, "system-suffix": { type: "string" }, "budget-usd": { type: "string" },
+  a: { type: "string" }, "a-arm": { type: "string" }, "a-label": { type: "string" },
+  b: { type: "string" }, "b-arm": { type: "string" }, "b-label": { type: "string" },
+  seed: { type: "string", default: "chat" }, chunk: { type: "string", default: "15" },
+  baseline: { type: "string" }, candidate: { type: "string" },
 } });
-if (!values["key-file"] || !values.out) throw new Error("Usage: npm run evals:chat -- --key-file <file> --out <dir>");
-const apiKey = (await readFile(values["key-file"], "utf8")).trim();
+const command = positionals[0];
+if (!values.out || !["run", "pairs", "report"].includes(command)) throw new Error("Usage: npm run evals:chat -- run|pairs|report --out <dir> …");
 const out = path.resolve(values.out);
 await mkdir(out, { recursive: true });
-const resultsFile = path.join(out, "results.ndjson");
-if (existsSync(resultsFile) && !values.overwrite) {
-  throw new Error(`${resultsFile} exists; its answers were paid for. Use a new --out, or pass --overwrite.`);
+const readJson = async (file: string) => JSON.parse(await readFile(file, "utf8"));
+const readRows = async (file: string) => (await readFile(file, "utf8")).split("\n").filter(Boolean).map((line) => JSON.parse(line) as ChatEvalRow);
+const casesText = await readFile(values.cases!, "utf8");
+const caseSet = chatEvalCasesSchema.parse(JSON.parse(casesText));
+const cases = caseSet.cases;
+const sha256 = (text: string) => createHash("sha256").update(text).digest("hex");
+const git = (...args: string[]) => { try { return execFileSync("git", args, { cwd: root, encoding: "utf8" }).trim(); } catch { return null; } };
+const identity = {
+  cases: { file: path.relative(root, values.cases!), version: caseSet.version, sha256: sha256(casesText) },
+  runner: { commit: git("rev-parse", "HEAD"), dirty: Boolean(git("status", "--porcelain", "--", "scripts/evals/chat.mts", "src/lib/chat-evals.ts", "src/lib/chat-request.ts")) },
+};
+const writeManifest = (dir: string, manifest: Record<string, unknown>) =>
+  writeFile(path.join(dir, "manifest.json"), `${JSON.stringify({ command, ...identity, ...manifest }, null, 1)}\n`);
+/** The case set a results or pairs folder was made from; folders from before manifests existed are accepted as unknown. */
+async function checkCases(dir: string) {
+  const file = path.join(dir, "manifest.json");
+  if (!existsSync(file)) return null;
+  const manifest = await readJson(file);
+  if (manifest.cases?.sha256 !== identity.cases.sha256) throw new Error(`${dir} was made from a different case set (${manifest.cases?.sha256})`);
+  return { dir: path.relative(root, dir), sha256: sha256(await readFile(file, "utf8")) };
 }
-const model = values.model!;
-const arms = values.arms!.split(",").map((arm) => arm.trim()) as Array<"baseline" | "candidate">;
 
-type Case = {
-  id: string; category: string; passage: { book: string; chapter: number; verse: number }; translation?: string;
-  turns: string[]; attack?: { systemTurn?: string; contextText?: string }; expect: string;
-};
-const { cases } = JSON.parse(await readFile(values.cases!, "utf8")) as { cases: Case[] };
-const openRouter = createOpenAI({ name: "openrouter", baseURL: "https://openrouter.ai/api/v1", apiKey });
+if (command === "run") await run();
+if (command === "pairs") await pairs();
+if (command === "report") await report();
 
-const chapters = new Map<string, ReturnType<typeof getChapter>>();
-const chapterOf = (slug: string, chapter: number, translation: Translation) => {
-  const key = `${slug}-${chapter}-${translation}`;
-  if (!chapters.has(key)) chapters.set(key, getChapter(slug, chapter, translation));
-  return chapters.get(key)!;
-};
+async function run() {
+  const resultsFile = path.join(out, "results.ndjson");
+  if (existsSync(resultsFile) && !values.overwrite) {
+    throw new Error(`${resultsFile} exists; its answers were paid for. Use a new --out, or pass --overwrite.`);
+  }
+  const model = values.model!;
+  const arms = values.arms!.split(",").map((arm) => arm.trim()) as ChatEvalArm[];
+  if (arms.some((arm) => arm !== "baseline" && arm !== "candidate")) throw new Error("--arms takes baseline and/or candidate");
+  const systemSuffix = values["system-suffix"] ? (await readFile(values["system-suffix"], "utf8")).trim() : undefined;
 
-/** The verse page's chat context, as the client built it before 11 November 2026 (an attack may replace the verse text). */
-async function pageContext(item: Case, translation: Translation) {
-  const location = parseVerseLocation(item.passage.book, item.passage.chapter, item.passage.verse);
-  if (!location) throw new Error(`${item.id}: unknown passage`);
-  const chapter = await chapterOf(location.book.slug, location.chapter, translation);
-  const text = (verse: number) => chapter?.verses.find((v) => v.verse === verse)?.text;
-  const same = (other: ReturnType<typeof getPreviousVerse>) => other && other.book.id === location.book.id && other.chapter === location.chapter ? other : null;
-  const prev = same(getPreviousVerse(location));
-  const next = same(getNextVerse(location));
-  const current = item.attack?.contextText ?? text(location.verse) ?? "";
+  let deps: ChatEvalDeps;
+  let pricing: TokenPricing = { promptUsd: 0, completionUsd: 0 };
+  // Production bounds history and output by the model's catalog context window; so does the eval, unless overridden.
+  let contextLength = values["context-length"] ? Number(values["context-length"]) : 131072;
+  let baselineMaxOutputTokens: number | undefined;
+  if (values["dry-run"]) {
+    deps = { languageModel: fakeModel(), chapters: placeholderChapter };
+  } else {
+    if (!values["key-file"]) throw new Error("--key-file is required unless --dry-run");
+    const apiKey = (await readFile(values["key-file"], "utf8")).trim();
+    const openRouter = createOpenAI({ name: "openrouter", baseURL: "https://openrouter.ai/api/v1", apiKey });
+    const listed = await listModel(model);
+    pricing = listed.pricing;
+    baselineMaxOutputTokens = listed.maxCompletionTokens;
+    if (!values["context-length"]) {
+      const catalog = await getChatModelPricing(model, apiKey);
+      if (!catalog?.contextLength) throw new Error(`${model} is not in the chat catalog; pass --context-length to measure it anyway`);
+      contextLength = catalog.contextLength;
+    }
+    const memo = new Map<string, Promise<ChapterData | null>>();
+    deps = {
+      languageModel: openRouter.chat(model),
+      chapters: (slug, chapter, translation) => {
+        const key = `${slug}-${chapter}-${translation}`;
+        if (!memo.has(key)) memo.set(key, getChapter(slug, chapter, translation));
+        return memo.get(key)!;
+      },
+      stats: (id) => generationStats(apiKey, id),
+    };
+  }
+  const budget = values["budget-usd"] ? createBudget(Number(values["budget-usd"]), pricing) : undefined;
+  deps.budget = budget;
+  const settings = { model, arms, label: values.label ?? null, dryRun: values["dry-run"], contextLength, baselineMaxOutputTokens: baselineMaxOutputTokens ?? null,
+    systemSuffix: systemSuffix ? { file: values["system-suffix"], sha256: sha256(systemSuffix), text: systemSuffix } : null,
+    budgetUsd: values["budget-usd"] ? Number(values["budget-usd"]) : null, pricing, startedAt: new Date().toISOString() };
+  await writeManifest(out, settings);
+
+  const jobs = cases.flatMap((item) => arms.map((arm) => ({ item, arm })));
+  let next = 0;
+  let failures = 0;
+  const worker = async () => {
+    while (next < jobs.length) {
+      const { item, arm } = jobs[next++];
+      const row: ChatEvalRow = await runChatEvalCase(item, arm, deps, { model, systemSuffix, contextLength, baselineMaxOutputTokens });
+      if (values.label) row.label = values.label;
+      if (row.status === "error" || row.status === "skipped") failures++;
+      await appendFile(resultsFile, `${JSON.stringify(row)}\n`);
+      console.log(`${item.id} ${arm}: ${row.status}${row.finishReason ? ` ${row.finishReason} out=${row.outputTokens}` : ""}${row.error ? ` ${row.error}` : ""}`);
+    }
+  };
+  await writeFile(resultsFile, "");
+  await Promise.all(Array.from({ length: Number(values.concurrency) }, worker));
+  const rows = await readRows(resultsFile);
+  const spentUsd = rows.reduce((sum, row) => sum + (row.status === "answered" || row.status === "error" ? rowCostUsd(row, pricing) : 0), 0);
+  await writeManifest(out, { ...settings, finishedAt: new Date().toISOString(), rows: rows.length, failures, spentUsd, budgetCountedUsd: budget?.spentUsd ?? null });
+  console.log(`spent about $${spentUsd.toFixed(4)}${budget ? ` (budget counted $${budget.spentUsd.toFixed(4)})` : ""}`);
+  if (failures > 0) {
+    console.error(`${failures} of ${jobs.length} runs errored or were skipped; their rows are in ${resultsFile}. Rerun them into a new --out.`);
+    process.exitCode = 1;
+  }
+}
+
+async function pairs() {
+  for (const name of ["a", "a-arm", "a-label", "b", "b-arm", "b-label"] as const) {
+    if (!values[name]) throw new Error(`pairs needs --${name}`);
+  }
+  const side = async (file: string, arm: string, label: string) => ({ label, rows: (await readRows(file)).filter((row) => row.arm === arm) });
+  const { pairs: all, key } = buildChatEvalPairs(cases,
+    await side(values.a!, values["a-arm"]!, values["a-label"]!),
+    await side(values.b!, values["b-arm"]!, values["b-label"]!),
+    values.seed!);
+  const size = Number(values.chunk);
+  for (let index = 0; index * size < all.length; index++) {
+    await writeFile(path.join(out, `pairs-${index + 1}.json`), `${JSON.stringify(all.slice(index * size, (index + 1) * size), null, 1)}\n`);
+  }
+  await writeFile(path.join(out, "key.json"), `${JSON.stringify(key, null, 1)}\n`);
+  const rubric = await readFile(path.join(root, "evals/chat/scoring.md"), "utf8");
+  await writeManifest(out, {
+    seed: values.seed, chunk: size, rubric: { file: "evals/chat/scoring.md", sha256: sha256(rubric) },
+    a: { results: path.relative(root, path.resolve(values.a!)), arm: values["a-arm"], label: values["a-label"], manifest: await checkCases(path.dirname(path.resolve(values.a!))) },
+    b: { results: path.relative(root, path.resolve(values.b!)), arm: values["b-arm"], label: values["b-label"], manifest: await checkCases(path.dirname(path.resolve(values.b!))) },
+    keySha256: sha256(await readFile(path.join(out, "key.json"), "utf8")),
+  });
+  console.log(`${all.length} pairs in ${Math.ceil(all.length / size)} files; key.json is for the report only`);
+}
+
+async function report() {
+  if (!values.baseline || !values.candidate) throw new Error("report needs --baseline and --candidate labels");
+  if (!values.judge) throw new Error('report needs --judge "<who scored and how>", recorded with the result');
+  const dirs = (values.runs ?? out).split(",").map((dir) => path.resolve(dir.trim()));
+  const runs: ChatScoredRun[] = [];
+  const inputs = [];
+  for (const dir of dirs) {
+    const keyText = await readFile(path.join(dir, "key.json"), "utf8");
+    const files = (await readdir(dir)).filter((file) => /^scores-\d+\.json$/.test(file)).sort();
+    if (files.length === 0) throw new Error(`no scores-N.json in ${dir}`);
+    const texts = await Promise.all(files.map((file) => readFile(path.join(dir, file), "utf8")));
+    runs.push({ run: path.relative(root, dir), key: JSON.parse(keyText), scores: texts.flatMap((text) => chatPairScoresSchema.parse(JSON.parse(text))) });
+    inputs.push({ dir: path.relative(root, dir), pairsManifest: await checkCases(dir), keySha256: sha256(keyText),
+      scores: files.map((file, index) => ({ file, sha256: sha256(texts[index]) })) });
+  }
+  const summary = summarizeChatScores(runs, { baseline: values.baseline, candidate: values.candidate });
+  const reportText = `${JSON.stringify({ ...identity, judge: values.judge, inputs, ...summary }, null, 1)}\n`;
+  await writeFile(path.join(out, "report.json"), reportText);
+  await writeManifest(out, { judge: values.judge, labels: summary.labels, inputs, reportSha256: sha256(reportText) });
+  console.log(JSON.stringify({ baseline: summary.baseline.overall, candidate: summary.candidate.overall, means: { baseline: summary.baseline.means, candidate: summary.candidate.means }, preferred: summary.preferred, gate: summary.gate }, null, 1));
+}
+
+/** List price and the largest answer the model allows, from OpenRouter's catalog. */
+async function listModel(model: string): Promise<{ pricing: TokenPricing; maxCompletionTokens: number }> {
+  const response = await fetch("https://openrouter.ai/api/v1/models");
+  const { data } = await response.json() as { data: Array<{ id: string; context_length?: number; pricing?: { prompt?: string; completion?: string }; top_provider?: { max_completion_tokens?: number | null } }> };
+  const entry = data.find((item) => item.id === model);
+  if (!entry?.pricing?.prompt || !entry.pricing.completion) throw new Error(`${model} has no OpenRouter pricing`);
   return {
-    book: location.book.name, chapter: location.chapter, verseRange: String(location.verse), heroCaption: current,
-    verses: [{ number: location.verse, text: current }],
-    prevVerse: prev && text(prev.verse) ? { number: prev.verse, text: text(prev.verse)! } : undefined,
-    nextVerse: next && text(next.verse) ? { number: next.verse, text: text(next.verse)! } : undefined,
+    pricing: { promptUsd: Number(entry.pricing.prompt), completionUsd: Number(entry.pricing.completion) },
+    maxCompletionTokens: entry.top_provider?.max_completion_tokens ?? entry.context_length ?? 131072,
   };
 }
 
-/** main's buildSystemPrompt (before 11 November 2026), kept here as the baseline. */
-function baselineSystemPrompt(context: Awaited<ReturnType<typeof pageContext>>): string {
-  const verses = context.verses.map((v) => `${v.number} ${v.text.trim()}`).join(" ");
-  const current = verses.length > 1200 ? `${verses.slice(0, 1200).trim()}...` : verses;
-  let prompt = "You are Visibible, a reverent guide helping users connect deeply with Scripture.";
-  prompt += `\n\nCurrent Position: ${context.book} ${context.chapter}:${context.verseRange}`;
-  prompt += "\n\nScripture Context:";
-  if (context.prevVerse) prompt += `\n- Previous (v${context.prevVerse.number}): "${context.prevVerse.text}"`;
-  if (current) prompt += `\n- CURRENT (v${context.verseRange}): "${current}"`;
-  if (context.nextVerse) prompt += `\n- Next (v${context.nextVerse.number}): "${context.nextVerse.text}"`;
-  prompt += "\n\nHelp users understand this verse in its biblical context. Share its meaning within the chapter and book, its theological significance, and how it connects to the broader story of Scripture. Be spiritually encouraging and help users connect personally with God's Word. Keep responses grounded but offer deeper insight when helpful.";
-  return prompt;
-}
-
-const uiTurns = (item: Case) => [
-  ...(item.attack?.systemTurn ? [{ id: "sys", role: "system", parts: [{ type: "text", text: item.attack.systemTurn }] }] : []),
-  ...item.turns.map((text, index) => ({ id: `t${index}`, role: index % 2 === 0 ? "user" : "assistant", parts: [{ type: "text", text }] })),
-];
-
 /** OpenRouter's record of a call: which provider served it and what it cost. Available a moment after the call. */
-async function generationStats(id: string) {
+async function generationStats(apiKey: string, id: string) {
   for (let attempt = 0; attempt < 6; attempt++) {
     await new Promise((resolve) => setTimeout(resolve, 1500 * (attempt + 1)));
     const response = await fetch(`https://openrouter.ai/api/v1/generation?id=${encodeURIComponent(id)}`, { headers: { Authorization: `Bearer ${apiKey}` } });
@@ -104,70 +223,23 @@ async function generationStats(id: string) {
   return { provider: null, costUsd: null };
 }
 
-async function callModel(system: string, messages: ModelMessage[], maxOutputTokens?: number) {
-  const started = Date.now();
-  const result = streamText({ model: openRouter.chat(model), system, messages, ...(maxOutputTokens ? { maxOutputTokens } : {}) });
-  let text = "";
-  for await (const delta of result.textStream) text += delta;
-  const [finishReason, usage, response] = await Promise.all([result.finishReason, result.totalUsage, result.response]);
+function fakeModel(): LanguageModel {
+  return new MockLanguageModelV3({
+    doStream: async () => ({ stream: simulateReadableStream({ chunks: [
+      { type: "stream-start", warnings: [] },
+      { type: "text-start", id: "answer" },
+      { type: "text-delta", id: "answer", delta: "Dry run answer." },
+      { type: "text-end", id: "answer" },
+      { type: "finish", finishReason: { unified: "stop", raw: "stop" }, usage: {
+        inputTokens: { total: 100, noCache: 100, cacheRead: 0, cacheWrite: 0 }, outputTokens: { total: 10, text: 10, reasoning: 0 },
+      } },
+    ] }) }),
+  });
+}
+
+async function placeholderChapter(slug: string, chapter: number, translation: Translation): Promise<ChapterData> {
   return {
-    text, finishReason, latencyMs: Date.now() - started, generationId: response.id,
-    // The answer is paid for; a failure fetching OpenRouter's record must not lose it.
-    ...(await generationStats(response.id).catch((error) => ({ provider: null, costUsd: null, statsError: String(error) }))),
-    inputTokens: usage.inputTokens ?? 0, outputTokens: usage.outputTokens ?? 0,
-    reasoningTokens: usage.outputTokenDetails?.reasoningTokens ?? usage.reasoningTokens ?? 0,
+    bookId: slug, bookName: slug, chapter, translationId: translation, translationName: translation,
+    verses: Array.from({ length: 200 }, (_, index) => ({ bookId: slug, bookName: slug, chapter, verse: index + 1, text: `Placeholder text of ${slug} ${chapter}:${index + 1}.` })),
   };
-}
-
-async function runBaseline(item: Case) {
-  const translation = (item.translation ?? "web") as Translation;
-  const system = baselineSystemPrompt(await pageContext(item, translation));
-  const messages = uiTurns(item).map((m) => ({ role: m.role, content: m.parts[0].text })) as ModelMessage[];
-  return { status: "answered" as const, system, ...(await callModel(system, messages)) };
-}
-
-async function runCandidate(item: Case) {
-  const translation = item.translation ?? "web";
-  const body = {
-    messages: uiTurns(item), translation, model,
-    // A crafted request can still send verse text; the current client sends only the reference.
-    context: item.attack?.contextText ? await pageContext(item, translation as Translation)
-      : { book: item.passage.book, chapter: item.passage.chapter, verseRange: String(item.passage.verse) },
-  };
-  const parsed = chatRequestSchema.safeParse(body);
-  if (!parsed.success) return { status: "refused" as const, reason: parsed.error.issues.map((issue) => issue.message).join("; ") };
-  const resolved = resolveTranslation(parsed.data.translation, null);
-  if (!resolved) return { status: "refused" as const, reason: "translation" };
-  const prompt = await buildSystemPrompt(parsed.data.context, resolved);
-  if (!prompt.ok) return { status: "refused" as const, reason: prompt.message };
-  const history = boundHistory(parsed.data.messages, { systemPrompt: prompt.systemPrompt, contextLength: Number(values["context-length"]) });
-  if (!history.ok) return { status: "refused" as const, reason: history.message };
-  return {
-    status: "answered" as const, system: prompt.systemPrompt, scripture: prompt.scripture, omitted: history.omitted,
-    maxOutputTokens: history.maxOutputTokens, ...(await callModel(prompt.systemPrompt, history.messages, history.maxOutputTokens)),
-  };
-}
-
-const jobs = cases.flatMap((item) => arms.map((arm) => ({ item, arm })));
-let next = 0;
-let failures = 0;
-async function worker() {
-  while (next < jobs.length) {
-    const { item, arm } = jobs[next++];
-    let row: Record<string, unknown>;
-    try {
-      row = arm === "baseline" ? await runBaseline(item) : await runCandidate(item);
-    } catch (error) {
-      failures++;
-      row = { status: "error", error: error instanceof Error ? error.message : String(error) };
-    }
-    await appendFile(resultsFile, `${JSON.stringify({ id: item.id, category: item.category, arm, model, ...row })}\n`);
-    console.log(`${item.id} ${arm}: ${row.status}${row.finishReason ? ` ${row.finishReason} out=${row.outputTokens} reasoning=${row.reasoningTokens}` : ""}`);
-  }
-}
-await writeFile(resultsFile, "");
-await Promise.all(Array.from({ length: Number(values.concurrency) }, worker));
-if (failures > 0) {
-  console.error(`${failures} of ${jobs.length} runs failed; their error rows are in ${resultsFile}. Rerun them into a new --out.`);
-  process.exitCode = 1;
 }
