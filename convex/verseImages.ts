@@ -1297,11 +1297,11 @@ const parseWebpDimensions = (bytes: Uint8Array): ImageDimensions | null => {
 const readUint32LEAt = (bytes: Uint8Array, offset: number) =>
   offset + 4 <= bytes.length ? (bytes[offset] | (bytes[offset + 1] << 8) | (bytes[offset + 2] << 16) | (bytes[offset + 3] << 24)) >>> 0 : null;
 
-/** PNG: IHDR first, at least one IDAT, every chunk inside the data, ending in IEND. */
+/** PNG: IHDR first, compressed image data in IDAT, every chunk inside the data, ending in IEND. */
 const isCompletePng = (bytes: Uint8Array) => {
   let offset = 8;
   let first = true;
-  let sawData = false;
+  let dataBytes = 0;
   while (offset + 12 <= bytes.length) {
     const length = readUint32BE(bytes, offset);
     if (length === null) return false;
@@ -1310,31 +1310,42 @@ const isCompletePng = (bytes: Uint8Array) => {
     if (end > bytes.length) return false;
     if (first && (type !== "IHDR" || length !== 13)) return false;
     first = false;
-    if (type === "IDAT") sawData = true;
-    if (type === "IEND") return sawData;
+    // Single IDAT chunks may be empty, but the image's compressed stream may not.
+    if (type === "IDAT") dataBytes += length;
+    if (type === "IEND") return dataBytes > 0;
     offset = end;
   }
   return false;
 };
 
-/** JPEG: marker segments inside the data up to a scan, then an end-of-image marker after it. */
+/**
+ * JPEG: every marker segment fits, at least one scan, and the walk reaches an end-of-image
+ * marker. Entropy-coded data after each scan header runs to the next marker that is neither a
+ * stuffed 0xFF00 nor a restart; later segments (tables, comments, further scans) are skipped by
+ * their declared lengths, so bytes inside them are never mistaken for the end.
+ */
 const isCompleteJpeg = (bytes: Uint8Array) => {
   let offset = 2;
-  let scanStart = -1;
-  while (offset + 4 <= bytes.length) {
+  let sawScan = false;
+  while (offset + 2 <= bytes.length) {
     if (bytes[offset] !== 0xff) return false;
     const marker = bytes[offset + 1];
     if (marker === 0xff) { offset += 1; continue; }
-    if (marker === 0xd9) return false;
+    if (marker === 0xd9) return sawScan;
+    if ((marker >= 0xd0 && marker <= 0xd7) || marker === 0x01) { offset += 2; continue; }
     const length = readUint16BE(bytes, offset + 2);
     if (length === null || length < 2 || offset + 2 + length > bytes.length) return false;
-    if (marker === 0xda) { scanStart = offset + 2 + length; break; }
     offset += 2 + length;
-  }
-  if (scanStart < 0) return false;
-  // Entropy-coded data stuffs every 0xFF, so 0xFFD9 after the scan header is the real end marker.
-  for (let i = bytes.length - 2; i >= scanStart; i -= 1) {
-    if (bytes[i] === 0xff && bytes[i + 1] === 0xd9) return true;
+    if (marker !== 0xda) continue;
+    sawScan = true;
+    while (offset < bytes.length) {
+      if (bytes[offset] !== 0xff) { offset += 1; continue; }
+      if (offset + 1 >= bytes.length) return false;
+      const next = bytes[offset + 1];
+      if (next === 0x00 || (next >= 0xd0 && next <= 0xd7)) { offset += 2; continue; }
+      if (next === 0xff) { offset += 1; continue; }
+      break;
+    }
   }
   return false;
 };
@@ -1376,23 +1387,42 @@ const isCompleteGif = (bytes: Uint8Array) => {
   return false;
 };
 
-/** WebP: the RIFF size fits the data and its chunks fill it, with image data among them. */
+/** Whether a VP8 or VP8L chunk carries an encoded image header, not just its name. */
+const isWebpImageChunk = (bytes: Uint8Array, type: string, start: number, size: number) => {
+  if (type === "VP8 ") return size >= 10 && bytes[start + 3] === 0x9d && bytes[start + 4] === 0x01 && bytes[start + 5] === 0x2a;
+  if (type === "VP8L") return size >= 5 && bytes[start] === 0x2f;
+  return false;
+};
+
+/** Walks padded RIFF chunks from `from` to exactly `to`; null when one overruns, else whether an encoded image was found. */
+const walkWebpChunks = (bytes: Uint8Array, from: number, to: number): boolean | null => {
+  let offset = from;
+  let sawImage = false;
+  while (offset + 8 <= to) {
+    const type = String.fromCharCode(bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3]);
+    const size = readUint32LEAt(bytes, offset + 4);
+    if (size === null) return null;
+    const start = offset + 8;
+    const next = start + size + (size % 2);
+    if (next > to) return null;
+    if (isWebpImageChunk(bytes, type, start, size)) sawImage = true;
+    // An animation frame holds its image in nested chunks after a 16-byte frame header.
+    if (type === "ANMF") {
+      if (size < 16) return null;
+      const nested = walkWebpChunks(bytes, start + 16, start + size);
+      if (nested === null) return null;
+      if (nested) sawImage = true;
+    }
+    offset = next;
+  }
+  return offset === to ? sawImage : null;
+};
+
+/** WebP: the RIFF size fits the data, its padded chunks fill it exactly, and one holds an encoded image. */
 const isCompleteWebp = (bytes: Uint8Array) => {
   const riffSize = readUint32LEAt(bytes, 4);
   if (riffSize === null || riffSize < 4 || riffSize + 8 > bytes.length) return false;
-  const end = riffSize + 8;
-  let offset = 12;
-  let sawImage = false;
-  while (offset + 8 <= end) {
-    const type = String.fromCharCode(bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3]);
-    const size = readUint32LEAt(bytes, offset + 4);
-    if (size === null) return false;
-    const next = offset + 8 + size + (size % 2);
-    if (offset + 8 + size > end) return false;
-    if (type === "VP8 " || type === "VP8L" || type === "ANMF") sawImage = true;
-    offset = next;
-  }
-  return sawImage && offset >= end;
+  return walkWebpChunks(bytes, 12, riffSize + 8) === true;
 };
 
 /** Whether the bytes hold a whole image of the declared type, not just its header (#80). */

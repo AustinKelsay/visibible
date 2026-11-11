@@ -124,6 +124,42 @@ describe("whole images only", () => {
     expect(await t.run((ctx) => ctx.db.query("verseImages").collect())).toHaveLength(1);
   });
 
+  it("refuses structurally complete-looking files with no image data or a false end", async () => {
+    const t = convexTest(schema, modules);
+    const store = (mime: string, bytes: Uint8Array, generationId: string) =>
+      t.action(api.verseImages.saveImage, { ...save, generationId, imageUrl: `data:${mime};base64,${Buffer.from(bytes).toString("base64")}` });
+    const u32be = (n: number) => [n >>> 24, (n >>> 16) & 255, (n >>> 8) & 255, n & 255];
+    const u32le = (n: number) => [n & 255, (n >>> 8) & 255, (n >>> 16) & 255, n >>> 24];
+    const chunk = (type: string, data: number[]) => [...u32be(data.length), ...Buffer.from(type), ...data, 0, 0, 0, 0];
+
+    // JPEG: a comment after the last scan holding FF D9. Whole, it is stored; cut after that FF D9, it is not.
+    const jpeg = await source().jpeg({ progressive: true }).toBuffer();
+    const body = jpeg.subarray(0, jpeg.length - 2);
+    const comment = [0xff, 0xfe, 0x00, 0x06, 0x41, 0xff, 0xd9, 0x42];
+    await expect(store("image/jpeg", Buffer.concat([body, Buffer.from(comment), Buffer.from([0xff, 0xd9])]), "jpeg-comment")).resolves.toMatchObject({ type: "storage" });
+    await expect(store("image/jpeg", Buffer.concat([body, Buffer.from(comment.slice(0, 7))]), "jpeg-false-end")).rejects.toThrow(/not a readable/);
+
+    // PNG: signature, IHDR, one empty IDAT and IEND, with no compressed stream at all.
+    const ihdr = [...u32be(1), ...u32be(1), 8, 6, 0, 0, 0];
+    const emptyPng = [137, 80, 78, 71, 13, 10, 26, 10, ...chunk("IHDR", ihdr), ...chunk("IDAT", []), ...chunk("IEND", [])];
+    await expect(store("image/png", Uint8Array.from(emptyPng), "png-empty")).rejects.toThrow(/not a readable/);
+
+    // WebP: a VP8X canvas header and an empty VP8L chunk, with a correct RIFF size.
+    const vp8x = [...Buffer.from("VP8X"), ...u32le(10), 0x10, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const vp8l = [...Buffer.from("VP8L"), ...u32le(0)];
+    const webpBody = [...Buffer.from("WEBP"), ...vp8x, ...vp8l];
+    await expect(store("image/webp", Uint8Array.from([...Buffer.from("RIFF"), ...u32le(webpBody.length), ...webpBody]), "webp-empty")).rejects.toThrow(/not a readable/);
+
+    // WebP: an odd-sized final chunk with its padding byte dropped and the RIFF size shrunk to match.
+    const lossless = await source().webp({ lossless: true }).toBuffer();
+    expect(lossless.readUInt32LE(16) % 2).toBe(1);
+    const unpadded = Buffer.from(lossless.subarray(0, lossless.length - 1));
+    unpadded.writeUInt32LE(lossless.readUInt32LE(4) - 1, 4);
+    await expect(store("image/webp", unpadded, "webp-unpadded")).rejects.toThrow(/not a readable/);
+
+    expect(await t.run((ctx) => ctx.db.query("verseImages").collect())).toHaveLength(1);
+  });
+
   it("refuses header-only fragments that carry dimensions but no image", async () => {
     const t = convexTest(schema, modules);
     for (const imageUrl of [
