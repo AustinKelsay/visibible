@@ -12,6 +12,7 @@ import { useNavigation } from "@/context/navigation-context";
 import { useVerseView } from "@/context/verse-view-context";
 import { useGeneration } from "@/context/generation-context";
 import { trackImageBrowsed } from "@/lib/analytics";
+import { useSearchParams } from "next/navigation";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -75,6 +76,7 @@ const useNavigationMock = vi.mocked(useNavigation);
 const useVerseViewMock = vi.mocked(useVerseView);
 const useGenerationMock = vi.mocked(useGeneration);
 const trackImageBrowsedMock = vi.mocked(trackImageBrowsed);
+const useSearchParamsMock = vi.mocked(useSearchParams);
 
 const imageHistory = [
   {
@@ -364,6 +366,21 @@ describe("HeroImage interactions", () => {
     await renderHeroImage();
     const status = [...(container?.querySelectorAll('[role="status"]') ?? [])].map((node) => node.textContent);
     expect(status).toContain("Loading saved image");
+  });
+
+  it("shows the image a gallery link puts in the URL", async () => {
+    let requested: string | null = null;
+    useSearchParamsMock.mockImplementation(() => ({ get: (key: string) => key === "image" ? requested : null }) as never);
+    try {
+      await renderHeroImage();
+      expect(container?.querySelector('img[src="https://example.com/latest.png"]')).toBeTruthy();
+      requested = "image-older";
+      await renderHeroImage();
+      expect(container?.querySelector('img[src="https://example.com/older.png"]')).toBeTruthy();
+      expect(container?.querySelector('img[src="https://example.com/latest.png"]')).toBeNull();
+    } finally {
+      useSearchParamsMock.mockImplementation(() => ({ get: () => null }) as never);
+    }
   });
 
   it("moves the one phone pager under the painting and explains why generation is off", async () => {
