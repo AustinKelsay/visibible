@@ -192,7 +192,9 @@ async function report() {
       scores: files.map((file, index) => ({ file, sha256: sha256(texts[index]) })) });
   }
   const summary = summarizeChatScores(runs, { baseline: values.baseline, candidate: values.candidate });
-  await writeFile(path.join(out, "report.json"), `${JSON.stringify({ ...identity, judge: values.judge, inputs, ...summary }, null, 1)}\n`);
+  const reportText = `${JSON.stringify({ ...identity, judge: values.judge, inputs, ...summary }, null, 1)}\n`;
+  await writeFile(path.join(out, "report.json"), reportText);
+  await writeManifest(out, { judge: values.judge, labels: summary.labels, inputs, reportSha256: sha256(reportText) });
   console.log(JSON.stringify({ baseline: summary.baseline.overall, candidate: summary.candidate.overall, means: { baseline: summary.baseline.means, candidate: summary.candidate.means }, preferred: summary.preferred, gate: summary.gate }, null, 1));
 }
 

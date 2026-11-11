@@ -139,6 +139,12 @@ describe("budget", () => {
     expect(budget.tryHold(1000, 1000)).toBe(11); // 2 spent + 11 held + 11 ≤ 25
     expect(budget.spentUsd).toBe(2);
   });
+  it("keeps the whole hold for an answered call whose cost and usage are both unknown", () => {
+    const budget = createBudget(25, pricing);
+    const hold = budget.tryHold(1000, 1000)!;
+    budget.settle(hold, { costUsd: null, inputTokens: undefined, outputTokens: undefined });
+    expect(budget.spentUsd).toBe(11);
+  });
   it("keeps a failed call's whole hold when its cost is unknown", () => {
     const budget = createBudget(25, pricing);
     const hold = budget.tryHold(1000, 1000)!;

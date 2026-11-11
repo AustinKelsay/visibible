@@ -145,8 +145,9 @@ async function callModel(deps: ChatEvalDeps, options: ChatEvalOptions, system: s
       : { provider: null, costUsd: null };
     partial = {
       text, finishReason, latencyMs: Date.now() - started, generationId: response.id,
-      inputTokens: usage.inputTokens ?? 0, outputTokens: usage.outputTokens ?? 0,
-      reasoningTokens: usage.outputTokenDetails?.reasoningTokens ?? usage.reasoningTokens ?? 0,
+      // Unknown usage stays unknown, so the budget keeps the hold rather than counting a free call.
+      inputTokens: usage.inputTokens, outputTokens: usage.outputTokens,
+      reasoningTokens: usage.outputTokenDetails?.reasoningTokens ?? usage.reasoningTokens,
       ...stats,
     };
     if (streamError || finishReason === "error") throw new ModelCallError(streamError ?? "the model finished with an error", partial);
@@ -242,7 +243,7 @@ export function createBudget(capUsd: number, pricing: TokenPricing) {
     },
     settle(holdUsd: number, row: Pick<ChatEvalRow, "costUsd" | "inputTokens" | "outputTokens">, how: { failed?: boolean } = {}) {
       held -= holdUsd;
-      const known = typeof row.costUsd === "number" || (!how.failed && row.outputTokens !== undefined);
+      const known = typeof row.costUsd === "number" || (!how.failed && row.inputTokens !== undefined && row.outputTokens !== undefined);
       spent += known ? rowCostUsd(row, pricing) : holdUsd;
     },
   };
