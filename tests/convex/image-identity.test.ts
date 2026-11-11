@@ -157,6 +157,23 @@ describe("whole images only", () => {
     unpadded.writeUInt32LE(lossless.readUInt32LE(4) - 1, 4);
     await expect(store("image/webp", unpadded, "webp-unpadded")).rejects.toThrow(/not a readable/);
 
+    // JPEG: a complete scan header followed straight by the end marker, with no scan data.
+    let sos = 2;
+    while (jpeg[sos + 1] !== 0xda) sos += 2 + jpeg.readUInt16BE(sos + 2);
+    const emptyScan = Buffer.concat([jpeg.subarray(0, sos + 2 + jpeg.readUInt16BE(sos + 2)), Buffer.from([0xff, 0xd9])]);
+    await expect(store("image/jpeg", emptyScan, "jpeg-empty-scan")).rejects.toThrow(/not a readable/);
+
+    // WebP: thousands of frames nested inside frames are refused cleanly, not by overflowing the stack.
+    const depth = 10_000;
+    const frames = Buffer.alloc(depth * 24);
+    for (let level = 0; level < depth; level += 1) {
+      frames.write("ANMF", level * 24);
+      frames.writeUInt32LE((depth - level) * 24 - 8, level * 24 + 4);
+    }
+    const nestedBody = Buffer.concat([Buffer.from("WEBP"), Buffer.from(vp8x), frames]);
+    const nested = Buffer.concat([Buffer.from("RIFF"), Buffer.from(u32le(nestedBody.length)), nestedBody]);
+    await expect(store("image/webp", nested, "webp-nested")).rejects.toThrow(/not a readable/);
+
     expect(await t.run((ctx) => ctx.db.query("verseImages").collect())).toHaveLength(1);
   });
 

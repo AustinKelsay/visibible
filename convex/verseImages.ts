@@ -1327,11 +1327,12 @@ const isCompletePng = (bytes: Uint8Array) => {
 const isCompleteJpeg = (bytes: Uint8Array) => {
   let offset = 2;
   let sawScan = false;
+  let entropyBytes = 0;
   while (offset + 2 <= bytes.length) {
     if (bytes[offset] !== 0xff) return false;
     const marker = bytes[offset + 1];
     if (marker === 0xff) { offset += 1; continue; }
-    if (marker === 0xd9) return sawScan;
+    if (marker === 0xd9) return sawScan && entropyBytes > 0;
     if ((marker >= 0xd0 && marker <= 0xd7) || marker === 0x01) { offset += 2; continue; }
     const length = readUint16BE(bytes, offset + 2);
     if (length === null || length < 2 || offset + 2 + length > bytes.length) return false;
@@ -1339,10 +1340,11 @@ const isCompleteJpeg = (bytes: Uint8Array) => {
     if (marker !== 0xda) continue;
     sawScan = true;
     while (offset < bytes.length) {
-      if (bytes[offset] !== 0xff) { offset += 1; continue; }
+      if (bytes[offset] !== 0xff) { offset += 1; entropyBytes += 1; continue; }
       if (offset + 1 >= bytes.length) return false;
       const next = bytes[offset + 1];
-      if (next === 0x00 || (next >= 0xd0 && next <= 0xd7)) { offset += 2; continue; }
+      if (next === 0x00) { offset += 2; entropyBytes += 1; continue; }
+      if (next >= 0xd0 && next <= 0xd7) { offset += 2; continue; }
       if (next === 0xff) { offset += 1; continue; }
       break;
     }
@@ -1394,8 +1396,11 @@ const isWebpImageChunk = (bytes: Uint8Array, type: string, start: number, size: 
   return false;
 };
 
-/** Walks padded RIFF chunks from `from` to exactly `to`; null when one overruns, else whether an encoded image was found. */
-const walkWebpChunks = (bytes: Uint8Array, from: number, to: number): boolean | null => {
+/**
+ * Walks padded RIFF chunks from `from` to exactly `to`; null when one overruns, else whether an
+ * encoded image was found. Frames are walked one level deep: a frame inside a frame is invalid.
+ */
+const walkWebpChunks = (bytes: Uint8Array, from: number, to: number, insideFrame = false): boolean | null => {
   let offset = from;
   let sawImage = false;
   while (offset + 8 <= to) {
@@ -1408,8 +1413,8 @@ const walkWebpChunks = (bytes: Uint8Array, from: number, to: number): boolean | 
     if (isWebpImageChunk(bytes, type, start, size)) sawImage = true;
     // An animation frame holds its image in nested chunks after a 16-byte frame header.
     if (type === "ANMF") {
-      if (size < 16) return null;
-      const nested = walkWebpChunks(bytes, start + 16, start + size);
+      if (insideFrame || size < 16) return null;
+      const nested = walkWebpChunks(bytes, start + 16, start + size, true);
       if (nested === null) return null;
       if (nested) sawImage = true;
     }
