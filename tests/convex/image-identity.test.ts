@@ -69,13 +69,28 @@ describe("what saveImage stores", () => {
     expect(await t.run((ctx) => ctx.db.query("verseImages").collect())).toHaveLength(0);
   });
 
-  it("refuses malformed, non-image and oversize data without saving a record", async () => {
+  it("refuses malformed, non-image, mislabelled and oversize data without saving a record or a blob", async () => {
     const t = convexTest(schema, modules);
     await expect(t.action(api.verseImages.saveImage, { ...save, imageUrl: "data:image/png,not-base64" })).rejects.toThrow(/Invalid data URL format/);
     await expect(t.action(api.verseImages.saveImage, { ...save, imageUrl: `data:text/html;base64,${PNG}` })).rejects.toThrow(/Unsupported image MIME type/);
     await expect(t.action(api.verseImages.saveImage, { ...save, imageUrl: `data:image/svg+xml;base64,${PNG}` })).rejects.toThrow(/Unsupported image MIME type/);
+    const b64 = (bytes: Uint8Array | string) => Buffer.from(bytes).toString("base64");
+    const pngBytes = Buffer.from(PNG, "base64");
+    for (const [imageUrl, error] of [
+      // Disguised and mislabelled bytes: the declared type's parser must read them.
+      [`data:image/png;base64,${b64("<html><script>alert(1)</script></html>")}`, /not a readable image\/png/],
+      [`data:image/jpeg;base64,${PNG}`, /not a readable image\/jpeg/],
+      [`data:image/png;base64,${b64(pngBytes.subarray(0, 12))}`, /not a readable image\/png/],
+      // Base64 that would otherwise decode to invented bytes.
+      ["data:image/png;base64,AA=A", /Invalid base64 image data/],
+      ["data:image/png;base64,\u0100\u0100\u0100\u0100", /Invalid base64 image data/],
+      [`data:image/png;base64,${PNG.replace(/=+$/, "")}`, /Invalid base64 image data/],
+    ] as const) {
+      await expect(t.action(api.verseImages.saveImage, { ...save, imageUrl })).rejects.toThrow(error);
+    }
     const oversize = "A".repeat(Math.ceil((10 * 1024 * 1024 * 4) / 3) + 8);
     await expect(t.action(api.verseImages.saveImage, { ...save, imageUrl: `data:image/png;base64,${oversize}` })).rejects.toThrow(/exceeds/);
     expect(await t.run((ctx) => ctx.db.query("verseImages").collect())).toHaveLength(0);
+    expect(await t.run((ctx) => ctx.db.system.query("_storage").collect())).toHaveLength(0);
   });
 });

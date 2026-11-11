@@ -1088,8 +1088,9 @@ const BASE64_LOOKUP = (() => {
 
 const decodeBase64ToBytes = (base64: string) => {
   const cleaned = base64.replace(/[\r\n\s]/g, "");
-  if (cleaned.length % 4 === 1) {
-    throw new Error("Invalid base64 string");
+  // Padded standard base64 only: anything else would decode to bytes the sender never sent.
+  if (cleaned.length === 0 || cleaned.length % 4 !== 0 || !/^[A-Za-z0-9+/]*={0,2}$/.test(cleaned)) {
+    throw new ImageValidationError("Invalid base64 image data");
   }
 
   let bufferLength = (cleaned.length * 3) / 4;
@@ -1308,9 +1309,9 @@ const getImageDimensions = (bytes: Uint8Array, mimeType?: string): ImageDimensio
 };
 
 /**
- * Action to save an image. Handles both regular URLs and base64 data URLs.
- * For base64 data URLs, uploads to Convex storage first.
- * For regular URLs, stores in Convex storage when possible with URL fallback.
+ * Action to save an image from the bytes returned with the provider response (a base64 data
+ * URL). The bytes must be a readable image of the declared type; they are stored in Convex
+ * storage before the record is written. Remote URLs and invalid data are refused with nothing saved.
  */
 export const saveImage = action({
   args: {
@@ -1417,14 +1418,18 @@ export const saveImage = action({
     const normalizedMimeType = normalizeMimeType(mimeType);
     assertAllowedMimeType(normalizedMimeType);
     assertByteSizeWithinLimit(bytes.length, "data URL");
+    // The declared type's parser must read the bytes, so a mislabelled or non-image payload is refused.
     const dimensions = getImageDimensions(bytes, normalizedMimeType);
+    if (!dimensions) {
+      throw new ImageValidationError(`Image data is not a readable ${normalizedMimeType}`);
+    }
     const imageMetadata = {
       ...baseMetadata,
       sourceImageUrl: undefined,
       imageMimeType: normalizedMimeType,
       imageSizeBytes: bytes.length,
-      imageWidth: dimensions?.width,
-      imageHeight: dimensions?.height,
+      imageWidth: dimensions.width,
+      imageHeight: dimensions.height,
     };
 
     // Create a blob and upload to storage
