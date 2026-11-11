@@ -165,6 +165,8 @@ describe("style-aware library", () => {
         expect(await viewer.query(api.verseImages.getChaptersWithImages, { book: "a-scandal-in-bohemia" })).toEqual([]);
       }
       expect(await as("owner").query(api.verseImages.getChaptersWithImages, { book: "a-scandal-in-bohemia" })).toEqual([1]);
+      expect((await as("owner").query(api.verseImages.getChapterGallery, chapter)).map((e) => [e.verse, e.artStyle, e.imageCount])).toEqual([[1, "watercolor", 1]]);
+      expect(await as("owner").query(api.verseImages.getChapterImageStatus, chapter)).toEqual([{ verse: 1, imageCount: 1 }]);
       // Bible images need no session.
       expect(await t.query(api.verseImages.getImageHistory, { verseId: "genesis-1-1" })).toHaveLength(3);
     } finally {
