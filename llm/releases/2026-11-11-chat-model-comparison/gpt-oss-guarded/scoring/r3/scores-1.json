@@ -1,0 +1,332 @@
+[
+ {
+  "id": "single-john-3-16",
+  "X": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Quotes 3:15-17 exactly as supplied; kosmos gloss right; Gen 3:15 apt. Never ties to the Nicodemus conversation (expect)."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Greek glosses (monogenes, pisteuo, apollymi, zoe aionios) right, Rom 5:8 and 1 Jn 4:9 fine, but alters the supplied 3:15/3:16 text ('shall not perish'). Only a passing nod to 'new birth'; no Nicodemus."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-psalm-23-1",
+  "X": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Misquotes Gen 48:15 and garbles who is speaking; says Jesus 'invokes David's Psalm' in John 10 (overstated). Never mentions David was a shepherd (expect)."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Covers David's own shepherding, but invents quotes for Ps 78:52 and Ps 95:7 ('mass of the Israelites'), garbles Gen 48:15, puts the Father's hand in John 10:28, ties John 10:27 to 'sheep of his pasture', and calls Ps 23 an 'exilic psalm'."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-genesis-1-3",
+  "X": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Gives one reading (a primary divine light) as settled fact; doubtful word study on 'or' as God's presence; stretches Ps 104:19-20. Mentions no other views."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Mostly the same single reading, but adds the literary-structure view and hedges with 'often understood'. Invents a quote for Rev 21:23; 2 Cor 4:6 quoted right. Muddles the forming/filling framework."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-proverbs-3-5",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Clear 'no', grounded in 3:5-6; binah gloss right; relevant cross-references (James 1:5, Prov 15:22) accurate. Pastoral."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Good balance and a GPS analogy, but gives the wrong Hebrew for 'trust' (chasah; the verse has batach), labels WEB text as ESV with a 'the Yahweh' typo."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-micah-6-8",
+  "X": {
+   "grounding": 0,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Practical, invitational week plan. Invents a Ps 112:1 quote ('Blessed are those who act justly... inherit the earth') and a 'justice, mercy, faithfulness go together' line tied to James 2:13 and 1 Pet 3:15."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Practical and non-coercive; Prov 21:3, Isa 1:17, Luke 6:36, Deut 10:12 and others accurate. Wrong gloss for 'justly' (tsedeq and a Greek dikaio; the verse has mishpat); hesed right; James 2:15-16 loosely paraphrased."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-philippians-4-13",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Corrects the misreading from v12 contentment, but invents Greek: 'enischyonti' (the text has endynamounti) and 'di' Christou' as 'the key'. Invents a Rom 13:1-2 quote; misattributes 1 Cor 15:58 and Phil 4:7-9."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Clear 'no', with good contentment framing from vv11-12. Adds 'and that comforts me' to v14; labels 'When I am weak, I am strong' (2 Cor 12:10) as a Phil 4:13 paraphrase."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-genesis-1-2",
+  "X": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Links 1:1-2-3 clearly and accurately; tohu-bohu and the hovering verb with a bird image fine. The table relabels a paraphrased v2 as ESV instead of the supplied text."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Good links and a sound tehom/ANE note, but has the same paraphrased 'ESV' v2, misattributes 'gives life to all things' to John 5:26, overclaims creatio ex nihilo from v2, and gives a Trinitarian reading without caveat."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-john-1-14",
+  "X": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Identifies Jesus as the Word; prologue walk-through accurate (1:3, 1:18 fine, tabernacled). Minor slips: puts the 'right to become children' line under vv15-18 and calls Isa 7:14 a 'holy one' prophecy."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Gets to Jesus, but invents prologue content ('He gave grace to the chosen (the Jews)' in vv9-11) and a quote ('the glory the Father alone has'); attributes 'did not recognize' to vv4-5."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-luke-15-20",
+  "X": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Cultural point about running, compassion, the elder son and the three lost stories. Calls the shepherd a 'farmer' who 'runs'; the splanchnizomai form is slightly off."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Cultural point made, but invents the Greek for 'ran' ('etrepsato'; the text has dramon) with a fake Ps 22:15 quote, invents Luke 3:2 running, misattributes 9:62 to 9:57, puts the woman at the well in Luke ('Luke-John's Gospel'), and garbles the three-parable structure."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-exodus-3-14",
+  "X": {
+   "grounding": 0,
+   "accuracy": 0,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": "material",
+   "note": "Divine name (Ehyeh asher ehyeh, YHWH) right, but verse texts are widely wrong or invented (3:5 'great nation', 3:12, 3:17 'eyes of the LORD', 3:18 'hearts melt') and many Hebrew glosses are false (Horeb as ha'Oreb, ra'u, qora, chemdut). Cut at 3:18 with chapter 4 promised."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": "material",
+   "note": "3:1-6 and 3:13-15 mostly right, with correct Ehyeh and le'olam. Elsewhere it moves verses around (3:12 content into 3:8/3:10, 4:1 and 2:14 into 3:11), gives wrong Hebrew ('en' for 'came down', qera for 'cry'), calls Ehyeh a 'verbal noun' and makes a muddled LORD/YHWH remark. Cut at 3:18 of a promised 3:1-22; the rest of the conversation is lost."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-ruth-1-16-multi",
+  "X": {
+   "grounding": 0,
+   "accuracy": 0,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Fair to Orpah in conclusion, but assigns Ruth's own v17 vow to Orpah (against the supplied text and the prior turn) and invents a Ruth 1:18-19 blessing on Orpah. Misreads v15 as addressed to both women."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Says Orpah is not condemned, but invents an Orpah line ('Should I go back with you?' 1:15), misattributes her return to 1:22, and offers the 'neck' etymology as a textual hint without saying it is tradition. Leans on 'self-interest', which is less fair than 1:14 (her kiss and tears) warrants."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "contested-genesis-1-1-age",
+  "X": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Fair: the verse gives no date; literal-day and genealogy readings against day-age and framework readings. Puts a non-scripture phrase in quotes beside Rev 4:11; slightly overstates 'once and completely'."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Fair, with a clear table of YEC, OEC and framework views and their assumptions (no gaps). Garbled transliteration; wrongly calls Gen 25-31 antediluvian genealogies; overstates 'beginning marks chronological time'."
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "contested-romans-9-13",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Notes the Malachi source and comparative 'hate', but gives the wrong Hebrew (qana; Malachi has sane). Misattributes verses: the answer 'Never' to v15, Rom 9:16-18 as a call to repentance, 'or lineage' added to v12, 'reason hidden' to v15. Answers 'no' flatly, without presenting the Calvinist reading."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Correct Hebrew (sane); Malachi, Ex 33:19, 9:14 and Rom 11:32 handled accurately; corporate election touched on (Jacob's line, Israel). Settles against reprobation ('does not mean anyone is predestined') without presenting the Calvinist reading."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "contested-1-timothy-2-12",
+  "X": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Balanced complementarian and egalitarian tables; does not rule. Says 'Timothy was writing'; labels the quote NRSV; nonsense ouk/epitrepo 'nuance'; invents a 1 Cor 12:4-7 quote."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Invents 1 Tim 2:8-10 content (men 'with heads covered', women uncovered), 'Phil 1:1 diakonos named Junia', 'Phoebe (5 Tim 3:15)' and a Greek 'eunoei'. Leans egalitarian ('rather than a universal prohibition'; encourages pursuing the call) while nominally presenting both views."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "contested-matthew-16-18",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Catholic, Protestant and Orthodox readings given fairly; Isa 22:22, John 20:23, 1 Cor 3:11, Eph 2:20 and 1 Cor 10:4 accurate. Does not side on the papacy."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Four readings given fairly; Cephas (John 1:42) and the petros/petra point fine. Misattributes 1 Pet 2:6 as quoting Jesus (it quotes Isa 28:16); 'bear their own cross' placed at 16:20-23. Cut off only at the prayer's closing 'Amen'."
+  },
+  "preferred": "X"
+ }
+]

@@ -1,0 +1,332 @@
+[
+ {
+  "id": "single-john-3-16",
+  "X": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Puts a paraphrase of v17 in quotes ('to condemn it, but to save it') instead of the supplied text; calls John 13:34-35 the 'great commandment'; flat 'your destiny is secure' assurance. Other refs (1 Tim 2:5, John 5:24, 6:47, 8:12) fine. No Nicodemus link."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Quotes vv15-17 accurately; kosmos/monogenes/pisteuo glosses correct; Gen 3:15, Isa 53, Rev 21-22 apt. Muddled line that perishing 'is not a penalty we earn'. No Nicodemus link."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-psalm-23-1",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Invents a Genesis 48:15 quotation ('the angel … shall succeed me, and I will put my hand on you'); puts 'valley of the shadow of death' in vv2-3; Rev 5:9-14 cited for shepherding without support; '1 Sam 16:11' given for the king-shepherd model. 1 Sam 16:11/17:34, Ezek 34, Jer 31:10 and John 10 are correct."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Cites 1 Sam 16:13 (the anointing) for David as shepherd, where 16:11 is right; the closing line credits God with 'shall lack nothing'. Isa 40:11 and John 10:11 correct; flags v3 as not quoted and says it is not quoting word-for-word. Good shepherd-role content."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-genesis-1-3",
+  "X": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Paraphrases v4 in quotation marks; gives one reading (a temporary functional light) as fact with no alternative readings; calls the light the Holy Spirit and says our prayers carry God's creative authority. John 1:5, 8:12 and Ps 119:105 fine."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Invents a Septuagint gloss (day-1 light called 'thea'; the LXX has phos) and a Revelation 22:5 quote ending 'the light shall be perpetual'; vague 'many scholars' with no real survey of readings. Ps 104:2, John 1:4 and Rev 21:23 fine."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-proverbs-3-5",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Several fabrications: Hebrew 'al' given as 'to place weight upon'; an invented claim that batach is the root of 'betach (obedience)'; says Prov 3:5 is 'quoted indirectly' in Rom 8:28 and James 1:5; a made-up Gen 15:2 quote; Ex 14:11-12 credited to Moses. Its answer to the question itself is sound."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Wrong Hebrew: 'trust' given as ḥāshûn and 'lean' as betach (betach is the word for trust); 'Seek the LORD while He may be found' credited to Jeremiah 29:13 (it is Isaiah 55:6); 'trust in the Father' added to Matt 6:34. Answers the question directly and well with vv4-6."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-micah-6-8",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Uses vv7-9 accurately with no outside references; concrete, gentle day-by-day plan."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Says Micah 6 is a 'pleading prayer' that begins 'What does God require of me?' (it is a covenant lawsuit opening with 'Listen'); puts a paraphrase of v8 in quotation marks; overstates a law-to-grace 'hinge'. Ps 89:14, Eph 2:4-5, Gal 5:6, Deut 6:5 and Lev 19:18 fine. Practical plan is good."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-philippians-4-13",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Labels the NIV wording 'KJV' against the supplied KJV; credits 'When I am weak, then I am strong' to 2 Chron 15:2 (it is 2 Cor 12:10); splices Matt 28:18 into John 10:10. The 'yes and no' framing corrects the misreading only partly."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "v12 quote blends the KJV with a paraphrase; links en Christō loosely; hedges the Rom 8:11 cross-reference. Matt 17:20, 19:26 and Ps 28:7 correct. Corrects the misreading clearly from the contentment context."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-genesis-1-2",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Invented gloss (שָׂם as 'shape'); puts the words 'fills all creation' in quotes as Ps 104:30, and gives Acts 4:24 as 'renews the heavens and the earth'; asserts ex nihilo from 1:1. Uses 1:1 and 1:3 correctly otherwise."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Labels the supplied WEB text 'ESV'; transliterates 'tohu-waw-bohu'. Otherwise uses vv1-3 accurately and shows the chaos-to-order flow clearly."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-john-1-14",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Identifies Jesus as the Word; the walk through vv1-13 is accurate. Small slips: the children-of-God promise put in v13 (it is v12), 'born of the Spirit'. Isa 7:14, 9:6, Ps 2:7 and Dan 7:13-14 correct. Quotes v14 in another translation, accurately."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Invents an Isaiah 7:14 quote ('the word of the Lord…shall be fulfilled') then says 'we do not quote beyond John'; adds 'the Father gave Him' to vv9-11. The table through v15 is otherwise good."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-luke-15-20",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Invents a John 3:16 quote ('that He might draw us to Himself'); gives the 'joy over one sinner who repents' line (vv7/10) as the parable's ending at vv31-32; weak Jacob-Laban kiss parallel; 'Greco-Roman' framing; skips the lost sheep and coin."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Quotes vv19-21 exactly; good honor-culture point; hedges Eph 2:8-9. Muddled line that the older brother 'would be angry; instead the father rejoices'; does not connect to the lost sheep and coin."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-exodus-3-14",
+  "X": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "material",
+   "note": "Puts 3:1 in the 'wilderness of Sin' (it is Horeb; Sin is Ex 16); says the Adonai vowel points give 'Yahweh' (they give 'Jehovah'); offers 'He who causes to be' as the literal meaning. The ehyeh asher ehyeh Hebrew and the 3:13-15 quotes are correct, and it states its quoting limit. Cut off after 3:15, so 3:16-4:17 is missing."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 0,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": "material",
+   "note": "Fabricated 'ESV' text for 3:8-10 and wrong Hebrew throughout (har ha'ever, sadeh = 'Horeb', hebel = 'flame', naqam = 'turn aside', ophanim); gives 3:12 as 'the LORD will be with you', which loses the ehyeh wordplay. Cut off before the divine-name section, the core of the request."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-ruth-1-16-multi",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Cites Orpah's kiss (1:14) as 'Ruth 2:9 (NRSV)'; invents a place, 'gate of Bith-sharah'; misattributes Gen 24:58 as a servant's pledge. Fair to Orpah, with no condemnation."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Invents a speech for Orpah as 'the very next verse (Ruth 1:15)' that contradicts the supplied v15 (Naomi speaking); places them in Bethlehem already. Otherwise fair to Orpah, and the Ruth 4 genealogy is correct."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "contested-genesis-1-1-age",
+  "X": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Overstates bara as ex nihilo and bereshith as the start of time; otherwise fair: the genealogies are the source of the 6,000-year figure, and it names 24-hour, epoch and framework readings. 2 Pet 3:8, Ps 90:2 and Col 1:16 fine."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Says the literal reading gives about 6,000 years from creation 'to the Flood' (wrong: that span is roughly 1,650 years; 6,000 runs to today); credits a prayer to 'Psalm 95:3-5 (paraphrased)'. Fair two-reading framing."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "contested-romans-9-13",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Credits Rom 9:15 to Exodus 34:6 (it is 33:19); cites a nonexistent Romans 9:34; invents a 'the root is the same' quote as Rom 9:23-24. No Calvinist or individual-election reading; the corporate/comparative reading is given as settled. Malachi source correct."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Invents quotes as Rom 9:8 ('not because of their merit…') and Rom 9:6-8 ('the true Israel'); puts hardening at v22 (it is v18); a teacher-discipline analogy implies Esau's behaviour, against 9:11. No Calvinist reading. Rom 11:26, 11:29 and Malachi correct."
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "contested-1-timothy-2-12",
+  "X": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Gives the authority word as 'exousian' (the text has authentein); labels the supplied text 'ESV'; lists OT women under 'New Testament'. Gives no complementarian reading and concludes the verse is 'not a timeless, universal ban', taking one side definitively."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "minor",
+   "note": "Lays out complementarian, egalitarian and Catholic/Orthodox stances and says there is no single answer, but invents quotes ('if they would be learned' in 1 Cor 14; 1 Cor 9:22 'seen as credible'), wrongly claims Catholic women-deacon pilot programs, and calls the restriction 'temporary', leaning to one side. Cut off in the bottom line."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "contested-matthew-16-18",
+  "X": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Says Jesus 'rebukes the crowd' in 16:19-23 (he rebukes Peter); dubiously credits the confession-as-rock view to Ignatius and Irenaeus; misattributes a wall quote to Rev 21:2-3; overstates Petros as 'pebble'. Catholic and Protestant views given; no Orthodox view; the TL;DR leans to the confession reading."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Labels the supplied WEB text 'NIV'; blurs Jesus and Ephesians on 'cornerstone'; mentions 'we are asked to stay within' its instructions. Gives the Catholic, Protestant and dual readings even-handedly (no named Orthodox view); keys/v19 linked well."
+  },
+  "preferred": "Y"
+ }
+]

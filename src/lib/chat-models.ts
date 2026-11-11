@@ -44,16 +44,18 @@ export function isModelFree(model: {
   return false;
 }
 
-export const DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b";
+/** Chosen on the 11 November 2026 comparison (llm/releases/2026-11-11-chat-model-comparison). Rollback: "openai/gpt-oss-120b". */
+export const DEFAULT_CHAT_MODEL = "mistralai/mistral-small-2603";
+const PREVIOUS_DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b";
 
 // Curated value picks for the selector: strong enough for everyday chat,
 // broadly useful, and relatively cost-efficient in the live OpenRouter catalog.
 export const SUGGESTED_CHAT_MODEL_IDS = [
+  "mistralai/mistral-small-2603",
   "openai/gpt-oss-120b",
   "openai/gpt-5.4-mini",
   "anthropic/claude-haiku-4.5",
   "deepseek/deepseek-v3.2",
-  "mistralai/mistral-small-2603",
   "qwen/qwen3.5-plus-02-15",
   "google/gemini-2.5-flash",
 ] as const;
@@ -63,12 +65,12 @@ type ChatModelPricing = {
   completion: string;
 };
 
+// Conservative prices used only when the OpenRouter catalog is unavailable (both list at $0.15 / $0.60 per million).
+// The previous default stays priced so guests who saved it keep working during an outage.
+const CONSERVATIVE_PRICING: ChatModelPricing = { prompt: "0.0000025", completion: "0.00001" };
 export const EMERGENCY_CHAT_MODEL_PRICING: Record<string, ChatModelPricing> = {
-  [DEFAULT_CHAT_MODEL]: {
-    // Conservative baseline used only when OpenRouter model catalog is unavailable.
-    prompt: "0.0000025",
-    completion: "0.00001",
-  },
+  [DEFAULT_CHAT_MODEL]: CONSERVATIVE_PRICING,
+  [PREVIOUS_DEFAULT_CHAT_MODEL]: CONSERVATIVE_PRICING,
 };
 
 interface OpenRouterModel {
@@ -110,11 +112,11 @@ function getDefaultChatModels(): ChatModel[] {
   return [
     {
       id: DEFAULT_CHAT_MODEL,
-      name: "GPT-OSS 120B (Default)",
-      provider: "Openai",
-      contextLength: 131072,
+      name: "Mistral Small 4 (Default)",
+      provider: "Mistralai",
+      contextLength: 262144,
       pricing: fallbackPricing,
-      isFree: false, // gpt-oss-120b is a paid model on OpenRouter
+      isFree: false,
     },
   ];
 }

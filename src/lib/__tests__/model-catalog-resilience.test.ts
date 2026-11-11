@@ -45,7 +45,9 @@ describe("model catalog resilience", () => {
     } = await import("../chat-models");
 
     const pricing = await getChatModelPricing(DEFAULT_CHAT_MODEL, "test-key");
-    expect(pricing).toEqual({ ...EMERGENCY_CHAT_MODEL_PRICING[DEFAULT_CHAT_MODEL], contextLength: 131072 });
+    expect(pricing).toEqual({ ...EMERGENCY_CHAT_MODEL_PRICING[DEFAULT_CHAT_MODEL], contextLength: 262144 });
+    // The previous default stays priced during an outage, for guests who saved it.
+    expect(await getChatModelPricing("openai/gpt-oss-120b", "test-key")).toEqual(EMERGENCY_CHAT_MODEL_PRICING["openai/gpt-oss-120b"]);
   });
 
   it("chat models use stale cached snapshot when a later models fetch fails", async () => {

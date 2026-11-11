@@ -1,0 +1,34 @@
+{
+ "command": "pairs",
+ "cases": {
+  "file": "evals/chat/cases.json",
+  "version": 1,
+  "sha256": "672095528d608247ed0ccdcfd44153496ec6da87077b578f6df565296e360a71"
+ },
+ "runner": {
+  "commit": "3e4c8f8f2e5321f0d0616ded359e18cf3c5d599b",
+  "dirty": false
+ },
+ "seed": "mistral-guarded-2",
+ "chunk": 15,
+ "rubric": {
+  "file": "evals/chat/scoring.md",
+  "sha256": "1e1f437c80713003be8c7418447bd1d1827a7710e16ff80c2d7b1b07a30c0344"
+ },
+ "a": {
+  "results": "llm/releases/2026-11-11-chat-admission/rep2/results.ndjson",
+  "arm": "candidate",
+  "label": "gpt-oss",
+  "manifest": null
+ },
+ "b": {
+  "results": "llm/releases/2026-11-11-chat-model-comparison/mistral-guarded/run2/results.ndjson",
+  "arm": "candidate",
+  "label": "mistral-guarded",
+  "manifest": {
+   "dir": "llm/releases/2026-11-11-chat-model-comparison/mistral-guarded/run2",
+   "sha256": "ebd3ab5f758bfc7bdcc83ef00d35714677468e041a09a97cff218574cf727c3d"
+  }
+ },
+ "keySha256": "19598803c21551fa615135d93674e70dd19a6c5ef19ad7912819e26272b24cb8"
+}

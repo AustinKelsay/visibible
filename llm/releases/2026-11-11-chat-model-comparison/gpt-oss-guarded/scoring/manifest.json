@@ -1,0 +1,74 @@
+{
+ "command": "report",
+ "cases": {
+  "file": "evals/chat/cases.json",
+  "version": 1,
+  "sha256": "672095528d608247ed0ccdcfd44153496ec6da87077b578f6df565296e360a71"
+ },
+ "runner": {
+  "commit": "3e4c8f8f2e5321f0d0616ded359e18cf3c5d599b",
+  "dirty": false
+ },
+ "judge": "six blind Claude Opus 5.5 general-purpose agents, 15 cases each, evals/chat/scoring.md; key withheld",
+ "labels": {
+  "baseline": "gpt-oss",
+  "candidate": "gpt-oss-guarded"
+ },
+ "inputs": [
+  {
+   "dir": "llm/releases/2026-11-11-chat-model-comparison/gpt-oss-guarded/scoring/r1",
+   "pairsManifest": {
+    "dir": "llm/releases/2026-11-11-chat-model-comparison/gpt-oss-guarded/scoring/r1",
+    "sha256": "38e6dfd66d77498931217aa1ab2832936b1728e23b74967d5204358f81f38bea"
+   },
+   "keySha256": "98cba81d07c9a05336f83d2e121c7365aeef07ab6119cd4b50580ab2bf36296c",
+   "scores": [
+    {
+     "file": "scores-1.json",
+     "sha256": "52738d440fd22d54907f5c0930255a75ddc518c55f9154eeee2d4d0c07f0ab1f"
+    },
+    {
+     "file": "scores-2.json",
+     "sha256": "39b931732faf90436cf935853ef33f65f21cd7c53309fad48788d3d714ec83a5"
+    }
+   ]
+  },
+  {
+   "dir": "llm/releases/2026-11-11-chat-model-comparison/gpt-oss-guarded/scoring/r2",
+   "pairsManifest": {
+    "dir": "llm/releases/2026-11-11-chat-model-comparison/gpt-oss-guarded/scoring/r2",
+    "sha256": "10608f55c00ea529fc06bcd3e0edb9894b95ea1a23f1f7cd16ad0cf30a001ba5"
+   },
+   "keySha256": "609536eff8ddd89fb3976562d706460fa4511b63cfb2ae875cd3e1787a16aa13",
+   "scores": [
+    {
+     "file": "scores-1.json",
+     "sha256": "01c003cf6cd59a223be0fd46070bb4bf7a8ee0534b3cd0e3ed156cac98e3586a"
+    },
+    {
+     "file": "scores-2.json",
+     "sha256": "9e51d64c1e1b4326c6505b134cbef2b909ce6a73e0230a64183347c7c179b27f"
+    }
+   ]
+  },
+  {
+   "dir": "llm/releases/2026-11-11-chat-model-comparison/gpt-oss-guarded/scoring/r3",
+   "pairsManifest": {
+    "dir": "llm/releases/2026-11-11-chat-model-comparison/gpt-oss-guarded/scoring/r3",
+    "sha256": "829b4245cb05a76f4c7844b68f8f533c63ee570fe80a7be77177c1bea36ead91"
+   },
+   "keySha256": "98cba81d07c9a05336f83d2e121c7365aeef07ab6119cd4b50580ab2bf36296c",
+   "scores": [
+    {
+     "file": "scores-1.json",
+     "sha256": "97ab7eb177e91dd78b1f98890b886aa686b8e6e2ee36ed6cc99a8b428b0322a4"
+    },
+    {
+     "file": "scores-2.json",
+     "sha256": "b316f37358d3fa5163ea8ca6729974fb45c60ca138856b6b4a95b185b39c4345"
+    }
+   ]
+  }
+ ],
+ "reportSha256": "b156db26873384d4b483cee9438505cc8d45067e5ec1dcf16291877e7b4cd248"
+}

@@ -58,6 +58,18 @@ describe("committed chat eval cases", () => {
   });
 });
 
+describe("the shipped chat rules", () => {
+  it("are the guarded suffix measured on 11 November 2026, appended the same way", async () => {
+    const { CHAT_RULES, buildSystemPrompt } = await import("@/lib/chat-request");
+    const measured = readFileSync("llm/releases/2026-11-11-chat-model-comparison/guarded.txt", "utf8").trim();
+    expect(CHAT_RULES).toBe(measured);
+    const prompt = await buildSystemPrompt({ book: "John", chapter: 3, verseRange: "16" }, "web", chapters);
+    expect(prompt.ok && prompt.systemPrompt.endsWith(`Keep responses grounded but offer deeper insight when helpful.\n\n${measured}`)).toBe(true);
+    const general = await buildSystemPrompt(undefined, "web");
+    expect(general.ok && general.systemPrompt.endsWith(`\n\n${measured}`)).toBe(true);
+  });
+});
+
 describe("running a case", () => {
   it("runs the candidate through the current admission code with the output cap", async () => {
     const { languageModel, calls } = model();
