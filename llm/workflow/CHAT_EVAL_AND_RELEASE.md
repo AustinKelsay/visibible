@@ -2,7 +2,7 @@
 
 Apply this process when changing `buildSystemPrompt()` in [chat-request.ts](../../src/lib/chat-request.ts), default/model filtering in [chat-models.ts](../../src/lib/chat-models.ts), model context assembly, or AI SDK/provider behavior that can change answers.
 
-This is a manual release requirement. The repository's chat tests cover credit/stream mechanics; it does not include a scored model-quality eval runner or a committed 30-case eval dataset.
+This is a manual release requirement. The [case set](../../evals/chat/cases.json) (30 cases, first committed 11 November 2026) and its runner, `npm run evals:chat -- --key-file <file> --out <dir>`, run every case through a baseline and a candidate arm and record answers, finish reasons, tokens, provider and cost. Scoring is blind and follows [the scoring instructions](../../evals/chat/scoring.md). Edit the runner's baseline arm so it reproduces what production runs before the change. Answers vary run to run: one run can show a gap that disappears in a replicate, so judge a change on at least three runs. The [first record](../releases/2026-11-11-chat-admission/README.md) is an example.
 
 ## Required PR artifacts
 

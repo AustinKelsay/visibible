@@ -20,4 +20,4 @@ The charge is still the flat estimate (about 1,000 prompt and 1,000 completion t
 
 ## Changing model behavior
 
-Prompt, model, context, or provider changes must follow [Chat eval and release](../workflow/CHAT_EVAL_AND_RELEASE.md). Existing [admission tests](../../src/app/api/__tests__/chat/admission.test.ts), [credit-flow tests](../../src/app/api/__tests__/chat/credit-flow.test.ts) and [stream tests](../../src/app/api/__tests__/chat/stream-handling.test.ts) exercise mechanics, not theological quality or safety scoring.
+Prompt, model, context, or provider changes must follow [Chat eval and release](../workflow/CHAT_EVAL_AND_RELEASE.md). Existing [admission tests](../../src/app/api/__tests__/chat/admission.test.ts), [credit-flow tests](../../src/app/api/__tests__/chat/credit-flow.test.ts) and [stream tests](../../src/app/api/__tests__/chat/stream-handling.test.ts) exercise mechanics, not theological quality or safety scoring; `npm run evals:chat` runs the [case set](../../evals/chat/cases.json) for that.
