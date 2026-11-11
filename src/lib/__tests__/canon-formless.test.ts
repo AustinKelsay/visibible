@@ -6,7 +6,7 @@ import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 
 // The exact failed provider output, not a cleaned-up approximation of its stage paragraph.
-const evidence = new URL("../../../llm/releases/2026-10-22-daniel-context-candidate/", import.meta.url);
+const evidence = new URL("../../../tests/fixtures/daniel-canon/", import.meta.url);
 const input = JSON.parse(readFileSync(new URL("draft-input.json", evidence), "utf8"));
 const trace = JSON.parse(readFileSync(new URL("text-provider.ndjson", evidence), "utf8").trim());
 const rejected = JSON.parse(trace.response.choices[0].message.content);

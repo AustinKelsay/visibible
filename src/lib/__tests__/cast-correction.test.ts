@@ -146,8 +146,8 @@ describe("missing cast correction", () => {
 
 it("binds the Daniel correction to exact WEB evidence and the retained cast gap without applying it", async () => {
   const inputs = await readWorkInputs("bible-web");
-  const addition: CastEntryAddition = JSON.parse(readFileSync(new URL("../../../llm/releases/2026-10-22-daniel-cast-correction/addition.json", import.meta.url), "utf8"));
-  const before = JSON.parse(readFileSync(new URL("../../../llm/releases/2026-10-22-daniel-effects-v5/before.json", import.meta.url), "utf8"));
+  const addition: CastEntryAddition = JSON.parse(readFileSync(new URL("../../../tests/fixtures/daniel-cast/addition.json", import.meta.url), "utf8"));
+  const before = JSON.parse(readFileSync(new URL("../../../tests/fixtures/daniel-cast/before.json", import.meta.url), "utf8"));
   const section = before.records.find((r: { kind: string; recordId: string }) => r.kind === "section" && r.recordId === addition.sectionId);
   expect(addition.expectedSectionVersion).toBe(section.version);
   const mutation = vi.fn(async () => ({ changed: true }));
