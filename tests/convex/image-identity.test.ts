@@ -1,4 +1,5 @@
 import { convexTest } from "convex-test";
+import sharp from "sharp";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import schema from "../../convex/schema";
 import { api, internal } from "../../convex/_generated/api";
@@ -94,6 +95,44 @@ describe("what saveImage stores", () => {
     const oversize = "A".repeat(Math.ceil((10 * 1024 * 1024 * 4) / 3) + 8);
     await expect(t.action(api.verseImages.saveImage, { ...save, imageUrl: `data:image/png;base64,${oversize}` })).rejects.toThrow(/exceeds/);
     expect(await t.run((ctx) => ctx.db.query("verseImages").collect())).toHaveLength(0);
+    expect(await t.run((ctx) => ctx.db.system.query("_storage").collect())).toHaveLength(0);
+  });
+});
+
+describe("whole images only", () => {
+  const save = { verseId: "genesis-1-1", model: "test-model", serverSecret: SECRET };
+  const source = () => sharp({ create: { width: 48, height: 32, channels: 4, background: { r: 120, g: 60, b: 200, alpha: 0.6 } } });
+  const encodings: [string, string, () => Promise<Buffer>][] = [
+    ["png", "image/png", () => source().png().toBuffer()],
+    ["baseline jpeg", "image/jpeg", () => source().jpeg().toBuffer()],
+    ["progressive jpeg", "image/jpeg", () => source().jpeg({ progressive: true }).toBuffer()],
+    ["gif", "image/gif", () => source().gif().toBuffer()],
+    ["lossy webp", "image/webp", () => source().removeAlpha().webp().toBuffer()],
+    ["lossless webp", "image/webp", () => source().webp({ lossless: true }).toBuffer()],
+    ["webp with alpha (VP8X)", "image/webp", () => source().webp({ alphaQuality: 50 }).toBuffer()],
+  ];
+
+  it.each(encodings)("stores a whole %s and refuses it cut short", async (_name, mime, encode) => {
+    const t = convexTest(schema, modules);
+    const bytes = await encode();
+    const saved = await t.action(api.verseImages.saveImage, { ...save, generationId: "whole", imageUrl: `data:${mime};base64,${bytes.toString("base64")}` });
+    expect(await t.query(internal.verseImages.getImageById, { imageId: saved.id })).toMatchObject({ imageMimeType: mime, imageWidth: 48, imageHeight: 32 });
+    for (const length of new Set([bytes.length - 1, Math.floor(bytes.length / 2), Math.min(40, bytes.length - 2)])) {
+      const cut = bytes.subarray(0, length).toString("base64");
+      await expect(t.action(api.verseImages.saveImage, { ...save, generationId: `cut-${length}`, imageUrl: `data:${mime};base64,${cut}` })).rejects.toThrow(/not a readable/);
+    }
+    expect(await t.run((ctx) => ctx.db.query("verseImages").collect())).toHaveLength(1);
+  });
+
+  it("refuses header-only fragments that carry dimensions but no image", async () => {
+    const t = convexTest(schema, modules);
+    for (const imageUrl of [
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAB",
+      "data:image/gif;base64,R0lGeHh4AQABAA==",
+      "data:image/jpeg;base64,/9j/wAARCAABAAE=",
+    ]) {
+      await expect(t.action(api.verseImages.saveImage, { ...save, generationId: imageUrl, imageUrl })).rejects.toThrow(/not a readable/);
+    }
     expect(await t.run((ctx) => ctx.db.system.query("_storage").collect())).toHaveLength(0);
   });
 });

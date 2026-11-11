@@ -1294,6 +1294,116 @@ const parseWebpDimensions = (bytes: Uint8Array): ImageDimensions | null => {
   return null;
 };
 
+const readUint32LEAt = (bytes: Uint8Array, offset: number) =>
+  offset + 4 <= bytes.length ? (bytes[offset] | (bytes[offset + 1] << 8) | (bytes[offset + 2] << 16) | (bytes[offset + 3] << 24)) >>> 0 : null;
+
+/** PNG: IHDR first, at least one IDAT, every chunk inside the data, ending in IEND. */
+const isCompletePng = (bytes: Uint8Array) => {
+  let offset = 8;
+  let first = true;
+  let sawData = false;
+  while (offset + 12 <= bytes.length) {
+    const length = readUint32BE(bytes, offset);
+    if (length === null) return false;
+    const type = String.fromCharCode(bytes[offset + 4], bytes[offset + 5], bytes[offset + 6], bytes[offset + 7]);
+    const end = offset + 12 + length;
+    if (end > bytes.length) return false;
+    if (first && (type !== "IHDR" || length !== 13)) return false;
+    first = false;
+    if (type === "IDAT") sawData = true;
+    if (type === "IEND") return sawData;
+    offset = end;
+  }
+  return false;
+};
+
+/** JPEG: marker segments inside the data up to a scan, then an end-of-image marker after it. */
+const isCompleteJpeg = (bytes: Uint8Array) => {
+  let offset = 2;
+  let scanStart = -1;
+  while (offset + 4 <= bytes.length) {
+    if (bytes[offset] !== 0xff) return false;
+    const marker = bytes[offset + 1];
+    if (marker === 0xff) { offset += 1; continue; }
+    if (marker === 0xd9) return false;
+    const length = readUint16BE(bytes, offset + 2);
+    if (length === null || length < 2 || offset + 2 + length > bytes.length) return false;
+    if (marker === 0xda) { scanStart = offset + 2 + length; break; }
+    offset += 2 + length;
+  }
+  if (scanStart < 0) return false;
+  // Entropy-coded data stuffs every 0xFF, so 0xFFD9 after the scan header is the real end marker.
+  for (let i = bytes.length - 2; i >= scanStart; i -= 1) {
+    if (bytes[i] === 0xff && bytes[i + 1] === 0xd9) return true;
+  }
+  return false;
+};
+
+/** GIF: every block inside the data, at least one image, ending in the trailer. */
+const isCompleteGif = (bytes: Uint8Array) => {
+  if (!matchesAscii(bytes, 0, "GIF87a") && !matchesAscii(bytes, 0, "GIF89a")) return false;
+  if (bytes.length < 14) return false;
+  let offset = 13;
+  if (bytes[10] & 0x80) offset += 3 * 2 ** ((bytes[10] & 0x07) + 1);
+  const skipSubBlocks = (at: number) => {
+    let position = at;
+    while (position < bytes.length) {
+      const size = bytes[position];
+      position += 1;
+      if (size === 0) return position;
+      position += size;
+    }
+    return -1;
+  };
+  let sawImage = false;
+  while (offset < bytes.length) {
+    const introducer = bytes[offset];
+    if (introducer === 0x3b) return sawImage;
+    if (introducer === 0x21) {
+      offset = skipSubBlocks(offset + 2);
+    } else if (introducer === 0x2c) {
+      if (offset + 10 > bytes.length) return false;
+      const packed = bytes[offset + 9];
+      offset += 10;
+      if (packed & 0x80) offset += 3 * 2 ** ((packed & 0x07) + 1);
+      offset = skipSubBlocks(offset + 1);
+      sawImage = true;
+    } else {
+      return false;
+    }
+    if (offset < 0) return false;
+  }
+  return false;
+};
+
+/** WebP: the RIFF size fits the data and its chunks fill it, with image data among them. */
+const isCompleteWebp = (bytes: Uint8Array) => {
+  const riffSize = readUint32LEAt(bytes, 4);
+  if (riffSize === null || riffSize < 4 || riffSize + 8 > bytes.length) return false;
+  const end = riffSize + 8;
+  let offset = 12;
+  let sawImage = false;
+  while (offset + 8 <= end) {
+    const type = String.fromCharCode(bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3]);
+    const size = readUint32LEAt(bytes, offset + 4);
+    if (size === null) return false;
+    const next = offset + 8 + size + (size % 2);
+    if (offset + 8 + size > end) return false;
+    if (type === "VP8 " || type === "VP8L" || type === "ANMF") sawImage = true;
+    offset = next;
+  }
+  return sawImage && offset >= end;
+};
+
+/** Whether the bytes hold a whole image of the declared type, not just its header (#80). */
+const isCompleteImage = (bytes: Uint8Array, mimeType: string) => {
+  if (mimeType === "image/png") return isCompletePng(bytes);
+  if (mimeType === "image/jpeg") return isCompleteJpeg(bytes);
+  if (mimeType === "image/gif") return isCompleteGif(bytes);
+  if (mimeType === "image/webp") return isCompleteWebp(bytes);
+  return false;
+};
+
 const getImageDimensions = (bytes: Uint8Array, mimeType?: string): ImageDimensions | null => {
   const normalizedType = normalizeMimeType(mimeType);
   if (normalizedType?.includes("png")) return parsePngDimensions(bytes);
@@ -1421,9 +1531,10 @@ export const saveImage = action({
     const normalizedMimeType = normalizeMimeType(mimeType);
     assertAllowedMimeType(normalizedMimeType);
     assertByteSizeWithinLimit(bytes.length, "data URL");
-    // The declared type's parser must read the bytes, so a mislabelled or non-image payload is refused.
+    // The declared type's parser must read the bytes, and the file must be whole, so a mislabelled,
+    // non-image or truncated payload is refused.
     const dimensions = getImageDimensions(bytes, normalizedMimeType);
-    if (!dimensions) {
+    if (!dimensions || !isCompleteImage(bytes, normalizedMimeType ?? "")) {
       throw new ImageValidationError(`Image data is not a readable ${normalizedMimeType}`);
     }
     const imageMetadata = {
