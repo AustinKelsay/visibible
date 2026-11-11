@@ -317,7 +317,7 @@ export function computeActualChatCreditsCost(
 export async function getChatModelPricing(
   modelId: string,
   apiKey: string
-): Promise<{ prompt: string; completion: string } | null> {
+): Promise<{ prompt: string; completion: string; contextLength?: number } | null> {
   const result = await fetchChatModels(apiKey);
 
   const model = result.models.find((m) => m.id === modelId);
@@ -336,5 +336,6 @@ export async function getChatModelPricing(
   return {
     prompt: model.pricing.prompt,
     completion: model.pricing.completion,
+    contextLength: model.contextLength,
   };
 }

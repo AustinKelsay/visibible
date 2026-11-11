@@ -1,6 +1,6 @@
 import { createOpenAI } from "@ai-sdk/openai";
 import { streamText, createUIMessageStreamResponse, type UIMessageChunk } from "ai";
-import { z } from "zod";
+import type { z } from "zod";
 import {
   DEFAULT_CHAT_MODEL,
   getChatModelPricing,
@@ -31,6 +31,7 @@ import {
   redactSid,
 } from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
+import { boundHistory, buildSystemPrompt, chatRequestSchema, resolveTranslation } from "@/lib/chat-request";
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
@@ -40,151 +41,6 @@ const openRouter = createOpenAI({
   name: "openrouter",
   baseURL: "https://openrouter.ai/api/v1",
   apiKey: process.env.OPENROUTER_API_KEY,
-});
-
-// SECURITY: Verse context with length limits to prevent token inflation
-const verseContextSchema = z.object({
-  number: z.number(),
-  text: z.string().max(1200),
-  reference: z.string().max(100).optional(),
-});
-
-// SECURITY: Page context with length limits to prevent token inflation attacks
-const pageContextSchema = z.object({
-  book: z.string().max(100).optional(),
-  chapter: z.number().optional(),
-  verseRange: z.string().max(50).optional(),
-  heroCaption: z.string().max(500).optional(),
-  imageTitle: z.string().max(200).optional(),
-  verses: z
-    .array(
-      z.object({
-        number: z.number().optional(),
-        text: z.string().max(1200).optional(),
-      })
-    )
-    .max(20) // Limit array length to prevent abuse
-    .optional(),
-  prevVerse: verseContextSchema.optional(),
-  nextVerse: verseContextSchema.optional(),
-});
-// Note: Removed .passthrough() to reject unknown fields for security
-
-type PageContext = z.infer<typeof pageContextSchema>;
-
-const formatVerses = (verses?: PageContext["verses"]) => {
-  if (!verses?.length) return null;
-
-  const compact = verses
-    .map((verse) => {
-      if (!verse?.text) return null;
-      const trimmed = verse.text.trim();
-      if (!trimmed) return null;
-      return typeof verse.number === "number" ? `${verse.number} ${trimmed}` : trimmed;
-    })
-    .filter(Boolean)
-    .join(" ");
-
-  if (!compact) return null;
-
-  const maxLength = 1200;
-  return compact.length > maxLength ? `${compact.slice(0, maxLength).trim()}...` : compact;
-};
-
-/**
- * Build a rich, contextual system prompt for the AI.
- * This gives the AI full awareness of where we are in Scripture.
- */
-const buildSystemPrompt = (context?: PageContext | string): string => {
-  const basePrompt = `You are Visibible, a reverent guide helping users connect deeply with Scripture.`;
-
-  if (!context) {
-    return `${basePrompt}\n\nHelp users understand and connect with God's Word. Be spiritually encouraging and keep responses grounded in Scripture.`;
-  }
-
-  if (typeof context === "string") {
-    const trimmed = context.trim();
-    return trimmed.length > 0
-      ? `${basePrompt}\n\nContext: ${trimmed}`
-      : basePrompt;
-  }
-
-  const { book, chapter, verseRange, prevVerse, nextVerse } = context;
-  const currentVerseText = formatVerses(context.verses);
-
-  // Build location string (e.g., "Genesis 1:3")
-  let location = "";
-  if (book) location = book;
-  if (typeof chapter === "number") {
-    location = location ? `${location} ${chapter}` : `Chapter ${chapter}`;
-  }
-  if (verseRange) {
-    location = location ? `${location}:${verseRange}` : `Verse ${verseRange}`;
-  }
-
-  // Build the full system prompt
-  let prompt = basePrompt;
-
-  // Add current position
-  if (location) {
-    prompt += `\n\nCurrent Position: ${location}`;
-  }
-
-  // Add scripture context with prev/current/next
-  prompt += "\n\nScripture Context:";
-  if (prevVerse) {
-    prompt += `\n- Previous (v${prevVerse.number}): "${prevVerse.text}"`;
-  }
-  if (currentVerseText) {
-    prompt += `\n- CURRENT${verseRange ? ` (v${verseRange})` : ""}: "${currentVerseText}"`;
-  }
-  if (nextVerse) {
-    prompt += `\n- Next (v${nextVerse.number}): "${nextVerse.text}"`;
-  }
-
-  // Add guidance
-  prompt += `\n\nHelp users understand this verse in its biblical context. Share its meaning within the chapter and book, its theological significance, and how it connects to the broader story of Scripture. Be spiritually encouraging and help users connect personally with God's Word. Keep responses grounded but offer deeper insight when helpful.`;
-
-  return prompt;
-};
-
-/**
- * Schema for message parts. Each part must have a type and corresponding content.
- * For text parts, the text field is required.
- */
-const messagePartSchema = z.object({
-  type: z.string(),
-  text: z.string().optional(),
-}).passthrough(); // Allow additional fields for extensibility
-
-/**
- * Schema for a single message. Validates id, role (must be one of allowed values),
- * and parts array structure.
- */
-const messageSchema = z.object({
-  id: z.string().min(1, "Message id must be a non-empty string"),
-  role: z.enum(["user", "assistant", "system"], {
-    message: "Role must be one of: user, assistant, system",
-  }),
-  parts: z.array(messagePartSchema).min(1, "Message must have at least one part"),
-});
-
-/**
- * Schema for the request body. Must contain a non-empty messages array.
- * Now includes optional model parameter for model selection.
- */
-const requestBodySchema = z.object({
-  // SECURITY: Limit message count to prevent token inflation attacks
-  // 50 messages allows extended conversations while preventing abuse
-  messages: z
-    .array(messageSchema)
-    .min(1, "Request must include at least one message")
-    .max(50, "Too many messages. Maximum 50 messages per request."),
-  // SECURITY: Limit string context length to prevent token inflation
-  context: z
-    .union([z.string().min(1).max(2000), pageContextSchema])
-    .optional(),
-  model: z.string().optional(),
 });
 
 /**
@@ -313,7 +169,7 @@ export async function POST(req: Request) {
   }
 
   // Validate request body structure and message format
-  const validationResult = requestBodySchema.safeParse(body);
+  const validationResult = chatRequestSchema.safeParse(body);
   if (!validationResult.success) {
     const errors = validationResult.error.issues.map((err: z.ZodIssue) => {
       const path = err.path.join(".");
@@ -328,7 +184,22 @@ export async function POST(req: Request) {
     ));
   }
 
-  const { messages, context, model: requestedModel } = validationResult.data;
+  const { messages, context, translation: requestedTranslation, model: requestedModel } = validationResult.data;
+
+  const translation = resolveTranslation(requestedTranslation, req.headers.get("cookie"));
+  if (!translation) {
+    return withSessionRefresh(Response.json(
+      { error: "Invalid translation", message: "Unsupported translation. Please select a supported translation." },
+      { status: 400 }
+    ));
+  }
+
+  // SECURITY: The system prompt, including the passage text, is built here from the reference alone.
+  const prompt = await buildSystemPrompt(context, translation);
+  if (!prompt.ok) {
+    return withSessionRefresh(Response.json({ error: prompt.error, message: prompt.message }, { status: prompt.status }));
+  }
+  const system = prompt.systemPrompt;
 
   // Use requested model or fall back to default
   const modelId = requestedModel || DEFAULT_CHAT_MODEL;
@@ -349,6 +220,15 @@ export async function POST(req: Request) {
       },
       { status: 400 }
     ));
+  }
+
+  // SECURITY: Bound the history and the answer to the model's context window before reserving credits.
+  const history = boundHistory(messages, { systemPrompt: system, contextLength: modelPricing.contextLength });
+  if (!history.ok) {
+    return withSessionRefresh(Response.json({ error: history.error, message: history.message }, { status: history.status }));
+  }
+  if (history.emptyDropped > 0) {
+    console.warn(`[Chat API] Left out ${history.emptyDropped} message(s) with empty content`);
   }
 
   // Calculate credit cost based on model pricing (estimated ~2000 tokens)
@@ -569,68 +449,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const system = buildSystemPrompt(context);
-
-    // Convert UIMessages to simple model messages for OpenRouter
-    // The AI SDK v6 parts format isn't always properly converted by convertToModelMessages
-    const modelMessagesWithMetadata = messages.map((msg, index) => {
-      const text = msg.parts
-        .filter(
-          (p): p is { type: string; text: string } =>
-            p.type === "text" && typeof p.text === "string"
-        )
-        .map((p) => p.text)
-        .join("");
-
-      return {
-        role: msg.role as "user" | "assistant" | "system",
-        content: text,
-        originalIndex: index,
-        originalId: msg.id,
-      };
-    });
-
-    // Filter out messages with empty content, preserving order
-    const filteredMessages: typeof modelMessagesWithMetadata = [];
-    const droppedMessages: Array<{ index: number; role: string; id: string }> = [];
-
-    for (const msg of modelMessagesWithMetadata) {
-      if (msg.content.trim().length > 0) {
-        filteredMessages.push(msg);
-      } else {
-        droppedMessages.push({
-          index: msg.originalIndex,
-          role: msg.role,
-          id: msg.originalId,
-        });
-      }
-    }
-
-    // Log dropped messages for debugging
-    if (droppedMessages.length > 0) {
-      console.warn(
-        `[Chat API] Filtered out ${droppedMessages.length} message(s) with empty content:`,
-        droppedMessages.map((m) => `[${m.index}] ${m.role} (id: ${m.id})`).join(", ")
-      );
-    }
-
-    // Ensure at least one non-empty message remains
-    if (filteredMessages.length === 0) {
-      await releaseReservedCredits("empty-messages");
-      return withSessionRefresh(Response.json(
-        {
-          error: "Invalid request",
-          message: "All messages have empty content. At least one message with non-empty content is required.",
-        },
-        { status: 400 }
-      ));
-    }
-
-    // Extract clean messages for OpenRouter (remove metadata)
-    const modelMessages = filteredMessages.map(({ role, content }) => ({
-      role,
-      content,
-    }));
+    const modelMessages = history.messages;
 
     if (req.signal.aborted) {
       await settleCredits("release", "request-aborted");
@@ -648,6 +467,7 @@ export async function POST(req: Request) {
       model: openRouter.chat(modelId),
       system,
       messages: modelMessages,
+      maxOutputTokens: history.maxOutputTokens,
       abortSignal: signal,
       onError: async () => {
         failed = true;
@@ -691,6 +511,8 @@ export async function POST(req: Request) {
               billingStatus: creditReserved ? billingStatus : "not_required",
               actualCredits: computeActualChatCreditsCost(modelPricing, promptTokens, completionTokens),
               incomplete: success && finish?.finishReason === "length",
+              earlierMessagesOmitted: history.omitted,
+              maxOutputTokens: history.maxOutputTokens,
             },
           });
         },
