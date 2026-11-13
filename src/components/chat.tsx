@@ -16,6 +16,7 @@ import {
 } from "@/lib/analytics";
 import { resolveChatErrorType } from "@/lib/analytics-event-utils";
 import type { PageContext } from "@/context/navigation-context";
+import { formatQuote, parseQuote, parseStaleQuote, sameQuoteNumbers, type DisplayQuote } from "@/lib/quote-display";
 
 type ChatProps = {
   context?: PageContext;
@@ -28,6 +29,16 @@ interface ChatMessage {
   role: "user" | "assistant" | "system";
   parts: Array<{ type: string; text?: string }>;
   metadata?: MessageMetadata;
+}
+
+/** The fresh quote in a "quote stale" answer, which the chat transport surfaces as an error holding the response text. */
+function staleQuoteOf(error: Error | undefined): DisplayQuote | null {
+  if (!error) return null;
+  try {
+    return parseStaleQuote(409, JSON.parse(error.message));
+  } catch {
+    return null;
+  }
 }
 
 // Get user-friendly error message
@@ -67,7 +78,10 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
     return `${variant}-${book}-${chapter}-${verseRange}`.toLowerCase();
   }, [context, variant]);
 
-  const { messages, sendMessage, status, error } = useChat({ id: chatId });
+  const { messages, sendMessage, regenerate, status, error: chatError } = useChat({ id: chatId });
+  // A stale quote is not a failure to show: the composer asks the guest to confirm the fresh price instead.
+  const staleQuote = useMemo(() => staleQuoteOf(chatError), [chatError]);
+  const error = staleQuote ? undefined : chatError;
   const [input, setInput] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const prevChatIdRef = useRef<string>(chatId);
@@ -76,9 +90,40 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
 
   const isSidebar = variant === "sidebar";
 
-  // Check if user can send - admin bypasses, otherwise need credits
   const isAdmin = tier === "admin";
-  const canSend = isAdmin || credits >= 1;
+
+  // The server's quote for one message with the selected model (#60): the estimate and maximum shown in the
+  // composer, and the id a send accepts. Read again when the model or the balance changes and after each send,
+  // since a quote is accepted once.
+  const [quoteEpoch, setQuoteEpoch] = useState(0);
+  const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote } | null>(null);
+  const quoteKey = JSON.stringify([chatModel, credits, quoteEpoch]);
+  const quote = staleQuote ?? (quoteState && quoteState.key === quoteKey ? quoteState.quote : null);
+  const quoteWanted = !isAdmin && credits >= 1;
+  /** The quote sent with the turn in flight, and whether its fresh replacement was already accepted for the guest. */
+  const sentQuote = useRef<{ quote: DisplayQuote | null; resent: boolean }>({ quote: null, resent: false });
+
+  useEffect(() => {
+    if (!quoteWanted) return;
+    const controller = new AbortController();
+    fetch("/api/chat/quote", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: chatModel }),
+      signal: controller.signal,
+    })
+      .then(async (response) => (response.ok ? parseQuote((await response.json())?.quote) : null))
+      .then((fresh) => {
+        if (!controller.signal.aborted) setQuoteState(fresh ? { key: quoteKey, quote: fresh } : null);
+      })
+      .catch(() => {
+        // No price is shown; sending still asks the server, which answers with the quote to accept.
+      });
+    return () => controller.abort();
+  }, [quoteWanted, chatModel, quoteKey]);
+
+  // Check if user can send - admin bypasses, otherwise the message's maximum must be affordable
+  const canSend = isAdmin || credits >= (quote?.maximumCredits ?? 1);
   const passageLabel = context?.book && typeof context.chapter === "number"
     ? `${context.book} ${context.chapter}${context.verseRange ? `:${context.verseRange}` : ""}`
     : null;
@@ -98,6 +143,24 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
 
   const isLoading = status === "streaming" || status === "submitted";
   const hasMessages = messages.length > 0;
+
+  /** Ask again for the answer to the question already sent, accepting this quote. */
+  const resendWith = (accepted: DisplayQuote, resent: boolean) => {
+    sentQuote.current = { quote: accepted, resent };
+    void regenerate({ body: { ...requestBody, quoteId: accepted.quoteId } });
+    setQuoteEpoch((epoch) => epoch + 1);
+  };
+  // The server refused the quote and sent a fresh one. At the price the guest just accepted (the quote had only
+  // expired) it is accepted for them, once; at any other price the composer shows it and waits.
+  const resendsItself = Boolean(staleQuote) && !sentQuote.current.resent && sameQuoteNumbers(staleQuote, sentQuote.current.quote);
+  const priceToConfirm = staleQuote && !isLoading && !resendsItself
+    ? (sentQuote.current.quote ? "The price changed." : "Please confirm the price.")
+    : null;
+  useEffect(() => {
+    if (staleQuote && resendsItself) resendWith(staleQuote, true);
+    // Only a new stale answer starts a resend.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [staleQuote]);
 
   useEffect(() => {
     if (!error) {
@@ -147,7 +210,9 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
       });
       return;
     }
-    sendMessage({ text: input }, { body: requestBody });
+    sentQuote.current = { quote, resent: false };
+    sendMessage({ text: input }, { body: { ...requestBody, ...(quote ? { quoteId: quote.quoteId } : {}) } });
+    setQuoteEpoch((epoch) => epoch + 1);
     // Track message sent
     trackChatMessageSent({
       variant,
@@ -404,6 +469,22 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
             </button>
           </div>
         )}
+
+        {/* The price of a message: the server's quote, or a fresh one waiting to be confirmed */}
+        {priceToConfirm && staleQuote ? (
+          <div role="status" className="mb-2 p-2 bg-[var(--surface)] rounded-[var(--radius-md)] text-sm text-[var(--muted)]">
+            {priceToConfirm} {formatQuote(staleQuote)}.{" "}
+            <button
+              type="button"
+              onClick={() => resendWith(staleQuote, true)}
+              className="font-medium text-[var(--accent)] hover:underline"
+            >
+              Send at this price
+            </button>
+          </div>
+        ) : !isAdmin && quote && !staleQuote ? (
+          <p className="mb-2 text-xs text-[var(--muted)]">{formatQuote(quote)} per message</p>
+        ) : null}
 
         {/* Input and send button */}
         <div className="flex gap-3">
