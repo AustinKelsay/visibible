@@ -4,6 +4,7 @@ import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { validateServerSecret } from "./_helpers/auth";
 import { recoveryReplacement } from "./sessionRecovery";
+import { scheduleFirstLook } from "./invoiceReconciliation";
 
 function getBundleCredits(amountUsd: number): number {
   if (amountUsd === 1 || amountUsd === 3) {
@@ -175,7 +176,7 @@ export const createInvoice = mutation({
     if (intent) await ctx.db.patch(intent._id, { status: "created", updatedAt: now });
 
     // Create invoice record with real Lightning invoice data
-    await ctx.db.insert("invoices", {
+    const invoice = await ctx.db.insert("invoices", {
       invoiceId,
       sid: args.sid,
       amountUsd: args.amountUsd,
@@ -186,6 +187,8 @@ export const createInvoice = mutation({
       createdAt: now,
       expiresAt,
     });
+    // The server keeps looking for the payment after the buyer's tab closes.
+    await scheduleFirstLook(ctx, invoice, invoiceId, now);
 
     return {
       invoiceId,

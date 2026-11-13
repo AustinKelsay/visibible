@@ -53,6 +53,14 @@ crons.hourly(
   {}
 );
 
+// Schedule unpaid invoices the server has never looked at; each then follows its own chain of looks.
+crons.interval(
+  "schedule unreconciled invoices",
+  { hours: 1 },
+  internal.invoiceReconciliation.sweepUnscheduled,
+  {}
+);
+
 crons.interval("recover durable video jobs", { minutes: 1 }, internal.verseVideos.recover, {});
 
 export default crons;
