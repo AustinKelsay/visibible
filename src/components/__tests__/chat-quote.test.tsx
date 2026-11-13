@@ -137,11 +137,13 @@ describe("Chat composer and the server's quote", () => {
 
   it("does not let a guest send a message whose maximum they cannot afford", async () => {
     session.credits = 5;
-    quoteAnswers.push(() => new Response(JSON.stringify({ quote: quoteOf("dear-quote", 3, 13) })));
+    // The server quotes nothing a guest cannot accept: it names the maximum the model needs.
+    quoteAnswers.push(() => new Response(JSON.stringify({ error: "Insufficient credits", required: 13, available: 5 }), { status: 402 }));
     await render();
     await flush();
     expect(input().disabled).toBe(true);
     expect(input().placeholder).toBe("Add credits to chat");
+    expect(container.textContent).not.toContain("per message");
   });
 
   it("reads no quote and shows no price for the owner", async () => {

@@ -96,9 +96,10 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
   // composer, and the id a send accepts. Read again when the model or the balance changes and after each send,
   // since a quote is accepted once.
   const [quoteEpoch, setQuoteEpoch] = useState(0);
-  const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote } | null>(null);
+  const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote | null; required?: number } | null>(null);
   const quoteKey = JSON.stringify([chatModel, credits, quoteEpoch]);
-  const quote = staleQuote ?? (quoteState && quoteState.key === quoteKey ? quoteState.quote : null);
+  const currentQuote = quoteState && quoteState.key === quoteKey ? quoteState : null;
+  const quote = staleQuote ?? currentQuote?.quote ?? null;
   const quoteWanted = !isAdmin && credits >= 1;
   /** The quote sent with the turn in flight, and whether its fresh replacement was already accepted for the guest. */
   const sentQuote = useRef<{ quote: DisplayQuote | null; resent: boolean }>({ quote: null, resent: false });
@@ -112,9 +113,11 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
       body: JSON.stringify({ model: chatModel }),
       signal: controller.signal,
     })
-      .then(async (response) => (response.ok ? parseQuote((await response.json())?.quote) : null))
-      .then((fresh) => {
-        if (!controller.signal.aborted) setQuoteState(fresh ? { key: quoteKey, quote: fresh } : null);
+      .then(async (response) => {
+        const body = response.ok || response.status === 402 ? await response.json() : null;
+        if (controller.signal.aborted) return;
+        // A 402 names the maximum this model needs, which the balance does not cover.
+        setQuoteState({ key: quoteKey, quote: response.ok ? parseQuote(body?.quote) : null, ...(typeof body?.required === "number" ? { required: body.required } : {}) });
       })
       .catch(() => {
         // No price is shown; sending still asks the server, which answers with the quote to accept.
@@ -123,7 +126,7 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
   }, [quoteWanted, chatModel, quoteKey]);
 
   // Check if user can send - admin bypasses, otherwise the message's maximum must be affordable
-  const canSend = isAdmin || credits >= (quote?.maximumCredits ?? 1);
+  const canSend = isAdmin || credits >= (quote?.maximumCredits ?? currentQuote?.required ?? 1);
   const passageLabel = context?.book && typeof context.chapter === "number"
     ? `${context.book} ${context.chapter}${context.verseRange ? `:${context.verseRange}` : ""}`
     : null;
