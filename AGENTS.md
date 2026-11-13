@@ -28,7 +28,7 @@ Prefer `npm run lint`, `npm run typecheck`, and `npm test` for routine verificat
 ## Secrets
 - Copy `.env.example` to `.env.local` and set `OPENROUTER_API_KEY`.
 - Never commit real API keys.
-- Installs never run lifecycle scripts (`.npmrc`). Do not add `preinstall`, `postinstall` or `prepare` scripts; CI refuses them.
+- Installs never run lifecycle scripts (`.npmrc`). Do not add scripts npm runs on install (`preinstall`, `postinstall`, `prepare`, `dependencies` and their variants); CI refuses them.
 
 ## Engineering Principles
 **1. Think Before Coding**: State assumptions, surface uncertainty, and present tradeoffs.

@@ -30,7 +30,7 @@ jobs:
         run: |
           node -e '
             const scripts = require("./package.json").scripts || {};
-            const hooks = ["preinstall", "install", "postinstall", "prepublish", "preprepare", "prepare", "postprepare"];
+            const hooks = ["preinstall", "install", "postinstall", "prepublish", "preprepare", "prepare", "postprepare", "predependencies", "dependencies", "postdependencies"];
             const found = hooks.filter((name) => name in scripts);
             if (found.length) {
               console.error("package.json must not declare install lifecycle scripts: " + found.join(", "));

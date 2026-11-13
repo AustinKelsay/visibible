@@ -52,7 +52,7 @@ GitHub Actions ran for three of the four commits and none is recorded for the co
 
 - **`main` accepts changes only through a pull request with a passing `quality-gates` check.** The ruleset has no bypass list, blocks deletion and force pushes, and applies to administrators. A direct push of an empty commit was refused on 13 November. A credential with administration rights can still edit the ruleset, so this stops the automated push that happened, not a deliberate attacker.
 - **Installs do not run lifecycle scripts.** The repository `.npmrc` sets `ignore-scripts=true`, CI installs with `--ignore-scripts`, and the Vercel install command is `npm ci --ignore-scripts`.
-- **CI refuses install hooks.** The workflow fails when `package.json` declares `preinstall`, `install`, `postinstall`, `prepare` or their variants, so such a hook cannot pass the required check.
+- **CI refuses install hooks.** The workflow fails when `package.json` declares any script npm runs on install (`preinstall`, `install`, `postinstall`, the `prepare` and `dependencies` families, `prepublish`), so such a hook cannot pass the required check.
 - **CI actions are pinned to commits and the job token is read-only.**
 - **Vercel no longer deploys on push.** Production is released by hand ([Vercel deployment](../../llm/workflow/VERCEL_WORKFLOWS.md)).
 
@@ -60,7 +60,7 @@ GitHub Actions ran for three of the four commits and none is recorded for the co
 
 These need the owner; nothing in the repository can settle them.
 
-1. **How the GitHub credential was taken.** The first use was in another repository 29 hours before this one, so the entry point is outside this repository: any machine or CI job where an infected checkout ran an install while a GitHub credential was readable. Until it is found, credentials on that machine are suspect.
+1. **How the GitHub credential was taken.** Where and how it was captured is unknown. The first malicious use seen was in another repository 29 hours before this one, which dates the theft to 11 November 12:11 at the latest but does not locate it. One hypothesis is an infected checkout that ran an install while a GitHub credential was readable, on a development machine or in a CI job; this repository's own environments are not excluded. Until the source is found, credentials on every machine that held this one are suspect.
 2. **The Nostr identity.** The signing key was within reach and a Nostr key cannot be rotated. Publishing stays off and the key is no longer stored in Convex. The choice is between retiring the identity for a new one and keeping it with the risk that someone else can sign as Visibible.
 3. **Confirm in each dashboard** that the old Convex deploy key and the old GitHub credential are revoked, that the production OpenRouter key was replaced in Vercel as well as Convex, and that its usage shows no spend that the app did not make.
 4. **The script stays in public Git history** at `35f7476a`. Removing it means rewriting `main`, which changes every later commit id. Leaving it is the recommendation: it holds none of this project's secrets.
