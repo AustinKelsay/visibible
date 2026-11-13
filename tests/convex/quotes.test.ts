@@ -117,6 +117,34 @@ describe("quotes", () => {
     expect(await accept()).toMatchObject({ accepted: true, replay: false });
   });
 
+  it("lets only one of two operations presenting the same quote at once accept it", async () => {
+    const { accept, stored } = await setup();
+    const results = await Promise.all([accept({ usedBy: "request-a" }), accept({ usedBy: "request-b" })]);
+    expect(results.filter((result) => result.accepted)).toHaveLength(1);
+    expect(results.find((result) => !result.accepted)).toEqual({ accepted: false, reason: "used" });
+    expect(["request-a", "request-b"]).toContain((await stored())[0].usedBy);
+  });
+
+  it.each(["release", "capped charge"])("keeps the new day's spending intact when a hold of the accepted maximum ends after midnight (%s)", async (ending) => {
+    vi.setSystemTime(Date.parse("2026-11-13T23:58:00Z"));
+    const { t, accept, session } = await setup();
+    const accepted = await accept();
+    if (!accepted.accepted) throw new Error("unreachable");
+    const hold = { sid: "guest", amount: accepted.maximumCredits, modelId: "test", generationId: "before-midnight", costUsd: 0.04 };
+    await t.mutation(internal.sessions.reserveCreditsInternal, hold);
+    vi.setSystemTime(Date.parse("2026-11-14T00:01:00Z"));
+    // Today's own admission resets the daily total and counts only itself.
+    await t.mutation(internal.sessions.reserveCreditsInternal, { ...hold, generationId: "after-midnight", costUsd: 0.03 });
+    if (ending === "release") {
+      await t.mutation(internal.sessions.releaseReservationInternal, { sid: "guest", generationId: "before-midnight" });
+      expect((await session())!).toMatchObject({ credits: 96, dailySpendUsd: 0.03 });
+    } else {
+      // Usage came to more than the maximum: the charge is the maximum, and yesterday's work stays out of today's total.
+      await t.mutation(internal.sessions.deductCreditsInternal, { ...hold, actualAmount: accepted.maximumCredits, actualCostUsd: 0.04 });
+      expect((await session())!).toMatchObject({ credits: 92, dailySpendUsd: 0.03 });
+    }
+  });
+
   it("issues an automatic quote already accepted by its operation", async () => {
     const { t, stored } = await setup();
     const automatic = await t.mutation(api.quotes.create, { ...terms, usedBy: "bulk-1-0", serverSecret: SECRET });

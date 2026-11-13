@@ -1251,6 +1251,20 @@ describe("Image Generation API Credit Flow", () => {
         expect(credits()).toBe(998);
       });
 
+      it("lets only one of two concurrent requests use the same quote: one hold, one provider call", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        const results = await Promise.all([
+          generate({ quoteId: quote.quoteId, requestId: "generic-concurrent-a" }),
+          generate({ quoteId: quote.quoteId, requestId: "generic-concurrent-b" }),
+        ]);
+        expect(results.map((result) => result.status).sort()).toEqual([200, 409]);
+        expect(results.find((result) => result.status === 409)!.body).toMatchObject({ error: "Quote stale", reason: "used" });
+        expect(actionArgs("reserveCredits")).toMatchObject([{ amount: 4 }]);
+        expect(imageCalls()).toHaveLength(1);
+        expect(credits()).toBe(998);
+      });
+
       it("answers a quote request like generation would: 402 with no credits, 429 at the daily limit, nothing to accept for the owner", async () => {
         await prepareWork();
         setCredits(0);
