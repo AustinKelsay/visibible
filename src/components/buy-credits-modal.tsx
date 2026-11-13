@@ -165,6 +165,7 @@ export function BuyCreditsModal() {
   const hasTrackedExpiredRef = useRef(false);
   const expirationCheckRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const modalOpenedAtRef = useRef<number | null>(null);
+  const purchaseIntentRef = useRef<{ amountUsd: number; id: string } | null>(null);
 
   // Admin login state
   const [showAdminInput, setShowAdminInput] = useState(false);
@@ -215,20 +216,31 @@ export function BuyCreditsModal() {
     setError(null);
     hasTrackedExpiredRef.current = false; // Reset expiry tracking for new invoice
 
+    // One intent id per purchase, reused while its outcome is unknown, so a retry after a
+    // lost connection gets the invoice the first attempt saved.
+    const intent = purchaseIntentRef.current?.amountUsd === bundle.amountUsd
+      ? purchaseIntentRef.current
+      : { amountUsd: bundle.amountUsd, id: crypto.randomUUID() };
+    purchaseIntentRef.current = intent;
+
     try {
       const response = await fetch("/api/invoice", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ amountUsd: bundle.amountUsd }),
+        body: JSON.stringify({ amountUsd: bundle.amountUsd, intentId: intent.id }),
       });
       if (!response.ok) {
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
+        // A server error leaves the outcome unknown, like a lost connection. Any other answer
+        // ends this intent, except "still being created".
+        if (response.status < 500 && data.code !== "invoice_in_progress") purchaseIntentRef.current = null;
         throw new Error(data.error || "Failed to create invoice");
       }
 
       const data: Invoice = await response.json();
+      purchaseIntentRef.current = null;
       setInvoice(data);
       setInvoiceCreatedAt(Date.now());
       setState("invoice");

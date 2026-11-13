@@ -59,6 +59,9 @@ describe("Invoice IP Binding", () => {
       if ("endpoint" in args) {
         return { allowed: true, retryAfter: 0 };
       }
+      if ("intentId" in args && !("bolt11" in args)) {
+        return { outcome: "create", invoiceId: args.invoiceId, amountSats: args.amountSats };
+      }
       if ("invoiceId" in args && "bolt11" in args) {
         const amountUsd = typeof args.amountUsd === "number" ? args.amountUsd : 3;
         const amountSats = typeof args.amountSats === "number" ? args.amountSats : amountUsd * 1000;

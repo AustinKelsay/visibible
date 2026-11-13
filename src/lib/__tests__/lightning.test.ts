@@ -73,6 +73,25 @@ describe("createLightningInvoice", () => {
   });
 });
 
+describe("unanswered requests", () => {
+  it("marks a request that never got an answer, since an invoice may still exist", async () => {
+    fetchMock.mockRejectedValue(new TypeError("fetch failed"));
+    await expect(createLightningInvoice(1, "credits a")).rejects.toMatchObject({ unanswered: true });
+  });
+
+  it("marks a success it cannot read", async () => {
+    fetchMock.mockResolvedValue(new Response("<html>gateway</html>", { status: 200 }));
+    await expect(createLightningInvoice(1, "credits a")).rejects.toMatchObject({ unanswered: true });
+  });
+
+  it("does not mark an error the server reported", async () => {
+    fetchMock.mockResolvedValue(reply({ status: "ERROR", reason: "amount out of range" }));
+    const error = await createLightningInvoice(1, "credits a").catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(Error);
+    expect((error as { unanswered?: boolean }).unanswered).toBeUndefined();
+  });
+});
+
 describe("lookupLightningInvoiceState", () => {
   it("checks the payment hash against the node", async () => {
     fetchMock.mockResolvedValue(reply({ status: "SETTLED" }));

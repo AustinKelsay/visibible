@@ -24,13 +24,29 @@ function getPayUrl(): string {
   return payUrl.replace(/\/+$/, "");
 }
 
+/**
+ * The server gave no usable answer (no connection, a timeout, an unreadable success), so
+ * whether it acted on the request is unknown. An error it reports itself is a plain Error.
+ */
+export class LightningUnansweredError extends Error {
+  readonly unanswered = true;
+}
+
 async function getLnurlJson(url: URL): Promise<Record<string, unknown>> {
-  const response = await fetch(url, {
-    cache: "no-store",
-    signal: AbortSignal.timeout(10000),
-  });
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(10000),
+    });
+  } catch (error) {
+    throw new LightningUnansweredError("Lightning request got no answer", { cause: error });
+  }
   const body = await response.json().catch(() => null) as Record<string, unknown> | null;
 
+  if (response.ok && !body) {
+    throw new LightningUnansweredError("Lightning request got an unreadable answer");
+  }
   if (!response.ok || !body || body.status === "ERROR") {
     throw new Error(`Lightning request failed: ${body?.reason ?? response.status}`);
   }

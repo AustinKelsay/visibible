@@ -2,11 +2,30 @@
 
 [BuyCreditsModal](../../src/components/buy-credits-modal.tsx) offers $1/100-credit and $3/300-credit bundles and renders an invoice QR code/BOLT11 string. The app creates Lightning invoices through the LNURL-pay server behind `pay@visibible.com`, which fronts the receiving LND node; it has no direct fiat or on-chain checkout. Wallet compatibility depends on the wallet. Welcome behavior is in [Onboarding](ONBOARDING.md).
 
-1. [POST /api/invoice](../../src/app/api/invoice/route.ts) validates origin, signed session with current-IP tracking and an IP-scoped rate limit, then creates an invoice through the LNURL-pay callback, checks that it requests exactly the bundle's sats, and stores a Convex invoice record whose expiry is the invoice's own.
+1. [POST /api/invoice](../../src/app/api/invoice/route.ts) validates origin, signed session with current-IP tracking and an IP-scoped rate limit. It then saves a purchase intent (owner, bundle, sats quote and the browser's intent id) before it asks the LNURL-pay callback for an invoice, checks that the invoice requests exactly the quoted sats, and stores a Convex invoice record whose expiry is the invoice's own. See [Purchase intents](#purchase-intents).
 2. The client polls [GET /api/invoice/[id]](../../src/app/api/invoice/[id]/route.ts) every three seconds; the route also exposes an explicit POST confirmation handler. Both validate origin, signed session and an IP/session-scoped rate limit, then read the invoice with the cookie's SID as owner, so another or revoked session cannot read it. For any unpaid invoice, they ask the LNURL-pay server's `/check` endpoint for the invoice state before considering local expiry.
 3. A credit purchase requires the LNURL-pay server's `/check` to report `SETTLED` for the record's payment hash. `/check` reports no amount received. The invoice requests exactly the bundle's sats and LND never settles a fixed-amount invoice for less, so the record's requested amount is passed as the amount paid, and the credits come from the bundle; an overpayment is neither measured nor credited ([lightning.ts](../../src/lib/lightning.ts) and [convex/invoices.ts](../../convex/invoices.ts)). A payment observed after local expiry still credits. Marking the invoice paid, adding wallet credits and an invoice-keyed purchase ledger entry commit in one mutation. Repeated confirmation reports `alreadyPaid` without another credit, and a payment hash already credited through another invoice record is rejected. Node-canceled or locally expired unpaid invoices are marked expired. Lookup failures return an error without changing unpaid state. A real $1 production credit purchase on 2026-10-14 added 100 credits through one purchase ledger entry.
 
 The purchase UI communicates session-only access and no refunds during alpha. Losing the session cookie loses access to its balance; [Sessions and credits](SESSIONS_AND_CREDITS.md) documents expiry as well.
+
+## Purchase intents
+
+The browser sends one intent id per purchase and reuses it while the outcome is unknown: after a lost connection, a server error, or the answer that the invoice is still being created. [beginInvoice](../../convex/invoices.ts) decides what a request with that id gets:
+
+| Saved intent | Answer |
+| --- | --- |
+| None | The intent is saved as `creating` and the callback is asked for an invoice. |
+| `created` | The saved invoice, unchanged. The callback is not asked again. |
+| `failed` (the callback answered with an error, or its invoice was refused) | The callback is asked again with the same sats quote. |
+| `creating` for under 30 seconds | 409 `invoice_in_progress`. |
+| `creating` for longer, or `unresolved` | 409 `invoice_unresolved` with the intent id as `reference`. The callback is never asked again for this intent. |
+| Same id, different bundle | 409 `invoice_intent_conflict`. |
+
+An intent becomes `unresolved` when the callback gave no usable answer (no connection, a timeout, an unreadable success) or when the request stopped before its outcome was recorded. The callback's only lookup is `/check` by payment hash, so an invoice whose hash was never saved cannot be found again, and a second request could leave two invoices for one purchase. The buyer is told that nothing was charged and starts a new purchase, which is a new intent.
+
+An unresolved intent cannot have been paid through the app: the buyer receives a BOLT11 string only after its invoice record is saved. To inspect them, run `npx convex run invoices:listOpenInvoiceIntents` against the deployment. Each row gives the intent id the buyer saw as a reference, the invoice id sent to the callback in the comment `credits <invoiceId>`, the session and the sats quote. If a buyer reports paying anyway, find that comment on the LNURL-pay server; no credit is granted automatically.
+
+A request without an intent id is treated as a new purchase each time. A saved invoice must match its intent's invoice id, bundle and sats quote, and a payment hash that already belongs to an invoice record is refused.
 
 ## Configuration
 

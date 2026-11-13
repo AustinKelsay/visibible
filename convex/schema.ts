@@ -451,6 +451,21 @@ export default defineSchema({
     .index("by_invoiceId", ["invoiceId"])
     .index("by_paymentHash", ["paymentHash"]),
 
+  // A purchase the buyer started, saved before the LNURL-pay callback so that a retry
+  // returns the saved invoice instead of asking the node for a second one.
+  invoiceIntents: defineTable({
+    sid: v.string(),
+    intentId: v.string(), // chosen by the browser, kept across its retries
+    invoiceId: v.string(),
+    amountUsd: v.number(),
+    amountSats: v.number(), // the sats quote the callback is asked for
+    status: v.string(), // "creating" | "created" | "failed" | "unresolved"
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_sid_intentId", ["sid", "intentId"])
+    .index("by_status", ["status", "updatedAt"]),
+
   // Credit transaction ledger for auditing
   creditLedger: defineTable({
     pendingReservation: v.optional(v.boolean()), // Indexed read projection; amounts remain immutable.
