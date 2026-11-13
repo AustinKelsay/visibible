@@ -317,6 +317,20 @@ describe("a paid run", () => {
     // The next run counts the request whose result was lost at the ceiling and leaves its verse alone.
     const after = harness({}, { ledger: h.rows });
     expect(await run(after, { limit: 1 })).toMatchObject({ leftAlone: ["Jonah 2:1"], ledgerUsd: 0.18 });
+    // A request that is waiting its turn when the ledger fails is not sent, and one waiting to be sent again is not re-sent.
+    let finishFirst!: () => void;
+    const firstMayFinish = new Promise<void>((resolve) => { finishFirst = resolve; });
+    const waiting = harness({ generate: async (body, nth) => {
+      if (body.reference === "Jonah 2:1") { await firstMayFinish; return rendered(body, nth); }
+      return json(429, { error: "Too many requests", retryAfter: 1 });
+    } });
+    const write = waiting.deps.ledger.append;
+    waiting.deps.ledger.append = (entry) => { if (entry.event === "result") throw new Error("disk full"); write(entry); };
+    // Jonah 2:2 is told to wait; while it waits, Jonah 2:1 finishes and its result cannot be written.
+    const pass = waiting.deps.sleep;
+    waiting.deps.sleep = async (ms) => { finishFirst(); await new Promise((resolve) => setTimeout(resolve, 20)); await pass(ms); };
+    await expect(run(waiting, { concurrency: 2, limit: 2, budgetUsd: 1 })).rejects.toThrow(/The ledger could not be written/);
+    expect(waiting.references()).toEqual(["Jonah 2:1", "Jonah 2:2"]);
     const cannotStart = harness();
     cannotStart.deps.ledger.append = () => { throw new Error("read-only"); };
     await expect(run(cannotStart)).rejects.toThrow(/The ledger could not be written/);

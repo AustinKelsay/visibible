@@ -61,7 +61,14 @@ try {
         }
         writeSync(handle, `pid ${process.pid}, started ${new Date().toISOString()}`);
         closeSync(handle);
-        const release = () => { try { unlinkSync(lockFile); } catch { /* already gone */ } };
+        // Released once: a later run may hold a new lock at the same path, which this one must not remove.
+        let held = true;
+        const release = () => {
+          if (!held) return;
+          held = false;
+          process.off("exit", release);
+          try { unlinkSync(lockFile); } catch { /* already gone */ }
+        };
         process.on("exit", release);
         return release;
       },

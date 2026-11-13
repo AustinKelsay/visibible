@@ -432,6 +432,12 @@ async function seedLocked(options: SeedOptions, deps: SeedDeps, chapters: SeedCh
     const unsettled = (status: number | null, what: string): AttemptResult => ({ outcome: "unresolved", status, retryable: false, usd: CEILING_USD_PER_IMAGE, usdSource: "ceiling", credits: null, imageId: null, durationMs: null, error: what.slice(0, 300) });
     for (let waits = 0, resends = 0; ;) {
       await slot(true);
+      // The ledger failed while this request waited its turn: nothing more is sent, not even a re-send.
+      if (state.ledgerError) {
+        return admissionUnknown
+          ? unsettled(null, "Not asked again: the ledger could not be written")
+          : { outcome: "failed", status: null, retryable: false, usd: 0, usdSource: "none", credits: null, imageId: null, durationMs: null, error: "Not sent: the ledger could not be written" };
+      }
       let reply: Reply | null = null; let thrown = "";
       try { reply = await client.post("/api/generate-image", body); } catch (error) { thrown = error instanceof Error ? error.message : String(error); }
       if (reply?.status === 429 && reply.json?.error !== "Daily spending limit exceeded" && ++waits <= MAX_RATE_LIMIT_WAITS) {
