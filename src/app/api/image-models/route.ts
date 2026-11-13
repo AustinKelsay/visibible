@@ -57,7 +57,7 @@ function quotedSettings(model: ImageModel) {
   }));
 }
 
-export async function GET(request?: Request) {
+export async function GET(request: Request) {
   const key = process.env.OPENROUTER_API_KEY;
   const convex = getConvexClient();
   // An unknown work, and one the viewer may not open, are answered as the Bible would be: never an error, and

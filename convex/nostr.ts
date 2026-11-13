@@ -147,6 +147,11 @@ export const publishToNostr = internalAction({
     imageHeight: v.optional(v.number()),
   },
   handler: async (ctx, args): Promise<NostrPublishResult> => {
+    // Fail closed, including when a private key remains configured after recovery.
+    if (process.env.NOSTR_PUBLISHING_ENABLED !== "true") {
+      return { outcome: "config_missing", reason: "publishing_disabled" };
+    }
+
     const privateKey = process.env.NOSTR_PRIVATE_KEY;
     if (!privateKey) {
       console.log("[Nostr] NOSTR_PRIVATE_KEY not configured, skipping publication");

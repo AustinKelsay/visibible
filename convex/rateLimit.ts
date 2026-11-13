@@ -13,6 +13,7 @@ export const RATE_LIMITS = {
   "generate-video": { windowMs: 60_000, maxRequests: 3 },
   "admin-login": { windowMs: 900_000, maxRequests: 5 }, // 5 attempts per 15 minutes
   "guest-token": { windowMs: 60_000, maxRequests: 30 },
+  "session-recovery": { windowMs: 900_000, maxRequests: 5 },
   session: { windowMs: 60_000, maxRequests: 10 }, // 10 session creates per minute
   invoice: { windowMs: 60_000, maxRequests: 10 }, // 10 invoice creates per minute
   "invoice-status": { windowMs: 60_000, maxRequests: 30 }, // 30 invoice status checks/confirms per minute

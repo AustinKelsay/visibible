@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, ArrowRight, Users, Info } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
 import { VerseImageCount } from "@/components/verse-strip";
@@ -551,6 +552,13 @@ export function BuyCreditsModal() {
             <div className={`h-1.5 rounded-full transition-all ${state === "welcome" ? "w-8 bg-[var(--accent)]" : "w-1.5 bg-[var(--divider)]"}`} />
             <div className={`h-1.5 rounded-full transition-all ${state === "selection" ? "w-8 bg-[var(--accent)]" : "w-1.5 bg-[var(--divider)]"}`} />
           </div>
+        )}
+
+        {(state === "welcome" || state === "selection") && (
+          <p className="mb-5 rounded-[var(--radius-md)] bg-[var(--surface)] p-3 text-sm">
+            Had credits before the security reset? Existing balances were preserved.
+            {" "}<Link href="/recover" onClick={handleClose} className="underline">Recover your previous balance</Link> before buying more.
+          </p>
         )}
 
         {/* Welcome Page */}

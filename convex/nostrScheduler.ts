@@ -51,7 +51,7 @@ type ClaimScheduledImageResult =
 type ScheduledWindowRunResult =
   | {
       windowStart: number;
-      status: "already_processed" | "in_progress" | "no_candidates";
+      status: "disabled" | "already_processed" | "in_progress" | "no_candidates";
     }
   | {
       windowStart: number;
@@ -306,6 +306,10 @@ export const publishTopImageForLatestWindow = internalAction({
   handler: async (ctx, args): Promise<ScheduledWindowRunResult> => {
     const now = args.now ?? Date.now();
     const windowStart = getLatestCompletedWindowStart(now);
+    // Do not claim a window or change scheduler state while publishing is disabled.
+    if (process.env.NOSTR_PUBLISHING_ENABLED !== "true") {
+      return { windowStart, status: "disabled" };
+    }
     const windowEnd = getWindowEnd(windowStart);
 
     const claimResult: ClaimScheduledImageResult = await ctx.runMutation(

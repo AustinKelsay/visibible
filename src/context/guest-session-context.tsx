@@ -54,8 +54,8 @@ export function GuestSessionProvider({ children }: { children: ReactNode }) {
         if (data.status === "invalid") {
           const invalidReasonMessage =
             data.invalidReason === "expired"
-              ? "Your previous session expired. Its balance record is kept on our server, but expired sessions can't be restored here or on another device. Reload to start a new session."
-              : "Your previous session could not be restored. Reload to start a new session.";
+              ? "Your previous session expired. Its balance record is kept on our server. Reload to start a new session, then use balance recovery for earlier credits."
+              : "Your previous session could not be restored. Reload to start a new session, then use balance recovery for earlier credits.";
           setSid(null);
 
           setError(invalidReasonMessage);
@@ -71,9 +71,10 @@ export function GuestSessionProvider({ children }: { children: ReactNode }) {
 
         // Check if we should show onboarding for new session
         const hasSeenOnboarding = localStorage.getItem("visibible_onboarding_seen") === "true";
-        if (!hasSeenOnboarding && newData.tier !== "admin" && !hasShownOnboardingRef.current) {
+        if (!hasSeenOnboarding && newData.tier !== "admin" && !hasShownOnboardingRef.current && window.location.pathname !== "/recover") {
           // Small delay to ensure modal renders properly
           setTimeout(() => {
+            if (window.location.pathname === "/recover") return;
             setIsBuyModalOpen(true);
             localStorage.setItem("visibible_onboarding_seen", "true");
             hasShownOnboardingRef.current = true;
