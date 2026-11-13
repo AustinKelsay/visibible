@@ -8,10 +8,10 @@ import { ImageModelSelector } from "../image-model-selector";
 import { PreferencesProvider, usePreferences } from "@/context/preferences-context";
 import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 
-const generationState = { modelId: "google/gemini-2.5-flash-image", baseCost: 0, showCreditsCost: false,
+const generationState = { modelId: "google/gemini-2.5-flash-image", baseCost: 0, showCreditsCost: false, quoteLabel: null as string | null,
   displayCostByResolution: undefined as Partial<Record<"1K" | "2K" | "4K", number>> | undefined };
 const setResolution = vi.fn();
-beforeEach(() => { generationState.modelId = "google/gemini-2.5-flash-image"; generationState.displayCostByResolution = undefined; setResolution.mockClear(); });
+beforeEach(() => { generationState.modelId = "google/gemini-2.5-flash-image"; generationState.displayCostByResolution = undefined; generationState.quoteLabel = null; setResolution.mockClear(); });
 vi.mock("@/context/generation-context", () => ({ useGeneration: () => ({ state: generationState, isRegistered: true, setAspectRatio: vi.fn(), setResolution }) }));
 vi.mock("next/navigation", () => ({ useRouter: () => ({ refresh: vi.fn() }) }));
 vi.mock("@/context/session-context", () => ({ useSession: () => ({ tier: "paid", credits: 100 }) }));
@@ -71,6 +71,28 @@ it("names the only usable model without offering a choice, and keeps the picker 
   expect(sole).toEqual({ text: "Nano Banana 2.1", buttons: 0 });
   const unpriced = await render({ id: DEFAULT_IMAGE_MODEL, name: "Google: Nano Banana 2.1", provider: "Google", availability: "unavailable", creditsCost: null });
   expect(unpriced.buttons).toBe(1);
+});
+
+it("shows the server's quote for the selected settings in single generation, and the catalog estimate elsewhere", async () => {
+  vi.stubGlobal("localStorage", { getItem: () => null, setItem: vi.fn() });
+  const models = [{ id: DEFAULT_IMAGE_MODEL, name: "Nano Banana 2.1", provider: "Google", availability: "available" as const, creditsCost: 6 }];
+  const container = document.createElement("div");
+  const root = createRoot(container);
+  const render = async (showQuote: boolean) => act(async () => root.render(createElement(PreferencesProvider, null,
+    createElement(ImageGenerationSettingsPanel, { models, modelsLoading: false, modelsError: null, showQuote }))));
+  try {
+    // No quote read yet: the catalog's estimate.
+    await render(true);
+    expect(container.textContent).toContain("About 6 credits");
+    generationState.quoteLabel = "About 2 credits · at most 4";
+    await render(true);
+    expect(container.textContent).toContain("About 2 credits · at most 4");
+    expect(container.textContent).not.toContain("About 6 credits");
+    // The bulk tab prices many verses: one image's quote does not describe it.
+    await render(false);
+    expect(container.textContent).toContain("About 6 credits");
+    expect(container.textContent).not.toContain("at most");
+  } finally { act(() => root.unmount()); }
 });
 
 it("avoids premature model warnings and renders one catalog failure message", async () => {

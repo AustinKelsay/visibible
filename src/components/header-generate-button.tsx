@@ -43,6 +43,8 @@ export function HeaderGenerateButton() {
     pricingPending,
     pricingUnavailable,
     showCreditsCost,
+    quoteLabel,
+    priceChanged,
     generationPhaseLabel,
     aspectRatio,
     resolution,
@@ -155,7 +157,7 @@ export function HeaderGenerateButton() {
     : isGenerating
       ? generationPhaseLabel
       : canGenerate
-        ? "Generate"
+        ? priceChanged ? "Generate at this price" : "Generate"
         : "Not ready";
 
   return (
@@ -235,10 +237,11 @@ export function HeaderGenerateButton() {
               <>
                 <Sparkles size={14} strokeWidth={1.5} />
                 <span>Generate</span>
-                {showCreditsCost && (
-                  <span className="inline-flex items-center gap-0.5 text-[var(--muted)]" title="Unused credits refunded after generation">
+                {/* The server's quote for this image; no number is shown until it is read */}
+                {showCreditsCost && quoteLabel && (
+                  <span className="inline-flex items-center gap-0.5 text-[var(--muted)]" title="You are charged what the image costs, never more than the maximum">
                     <Zap size={10} strokeWidth={2} />
-                    <span>About {displayEffectiveCost}</span>
+                    <span>{quoteLabel}</span>
                   </span>
                 )}
               </>
@@ -363,6 +366,7 @@ export function HeaderGenerateButton() {
                     modelsLoading={modelsLoading}
                     modelsError={modelsError}
                     artStyles={artStyles}
+                    showQuote
                   />
                 </div>
               )}
@@ -370,6 +374,9 @@ export function HeaderGenerateButton() {
 
             {activeTab === "single" && (
               <div className="px-6 pt-4 pb-6 border-t border-[var(--divider)]" style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))" }}>
+                {priceChanged && !isGenerating && (
+                  <p role="status" className="mb-2 text-center text-xs text-[var(--muted)]">Please confirm the price to generate.</p>
+                )}
                 <button
                   type="button"
                   onClick={() => {
@@ -385,10 +392,10 @@ export function HeaderGenerateButton() {
                     <Sparkles size={16} strokeWidth={1.5} />
                   )}
                   <span>{generateButtonLabel}</span>
-                  {!pricingPending && showCreditsCost && (
+                  {!pricingPending && showCreditsCost && quoteLabel && (
                     <span className="inline-flex items-center gap-0.5 opacity-80">
                       <Zap size={12} strokeWidth={2} />
-                      <span>About {displayEffectiveCost}</span>
+                      <span>{quoteLabel}</span>
                     </span>
                   )}
                 </button>

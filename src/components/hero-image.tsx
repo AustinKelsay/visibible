@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useCallback, useRef, type TouchEvent } from "react";
+import { useEffect, useMemo, useState, useCallback, useRef, type TouchEvent } from "react";
 import { useMutation, useQuery, useConvexAuth } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
@@ -39,6 +39,15 @@ import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 import { computeImageGenerationProgress } from "@/lib/image-generation-progress";
 import { artStyleLabel, resolveArtStyle, type ArtStyleAvailability } from "@/lib/art-styles";
 import { imageModelsUrl, useEffectiveArtStyle, useWorkScope } from "@/context/work-scope-context";
+import { formatQuote, parseQuote, parseStaleQuote, sameQuoteNumbers, type DisplayQuote } from "@/lib/quote-display";
+
+/** How long the moment and settings must hold still before their quote is read. */
+const QUOTE_DEBOUNCE_MS = 400;
+
+function readCsrfToken(): string | undefined {
+  const prefix = `${CSRF_COOKIE_NAME}=`;
+  return document.cookie.split("; ").find((row) => row.startsWith(prefix))?.slice(prefix.length);
+}
 
 interface HeroImageProps {
   alt?: string;
@@ -480,6 +489,9 @@ function HeroImageBase({
   const [isFullscreenImageReady, setIsFullscreenImageReady] = useState(false);
   const [isFullscreenImageError, setIsFullscreenImageError] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // A fresh quote is waiting for the guest to accept it: at a different price than the one shown ("changed"), or
+  // because no price was on screen when they clicked ("unconfirmed").
+  const [priceToConfirm, setPriceToConfirm] = useState<"changed" | "unconfirmed" | null>(null);
   const [hasAttemptedGeneration, setHasAttemptedGeneration] = useState(false);
   const [imageLoadAttempts, setImageLoadAttempts] = useState(0);
   const [activeRequestId, setActiveRequestId] = useState<string | null>(null);
@@ -546,7 +558,7 @@ function HeroImageBase({
   // Phones explain missing pricing under a saved image (the empty state already says it)
   const showPhonePricingNote = Boolean(pricingUnavailable) && Boolean(displayImage?.url);
   // While something sits under or on the stage, the phone pager moves to a row under the painting
-  const phonePagerBelow = isGenerating || Boolean(error) || showPhonePricingNote;
+  const phonePagerBelow = isGenerating || Boolean(error) || priceToConfirm !== null || showPhonePricingNote;
 
   useEffect(() => {
     const nextSelectedImageId = requestedImageId && requestedImageId.length > 0
@@ -605,6 +617,57 @@ function HeroImageBase({
     setCurrentImageId(currentImage?.id || null);
   }, [currentImage?.id, setCurrentImageId]);
 
+  // What both the quote and the generation are asked for.
+  const imageRequest = useMemo(() => ({
+    reference: currentReference,
+    model: imageModel,
+    translation,
+    aspectRatio: imageAspectRatio,
+    resolution: imageResolution,
+    style: artStyle,
+    // A prose moment names its work and unit; the reference is then only a label.
+    ...(scope ? { workId: scope.workId, unitId: scope.unitId } : {}),
+  }), [currentReference, imageModel, translation, imageAspectRatio, imageResolution, artStyle, scope]);
+
+  // The server's quote for this image (#60): the estimate and maximum the generate controls show, and the id a click
+  // accepts. It is read again when the moment, a setting or the balance changes, and after each attempt, since a
+  // quote is accepted once.
+  const [quoteEpoch, setQuoteEpoch] = useState(0);
+  const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote } | null>(null);
+  const quoteKey = verseId && currentReference ? JSON.stringify([verseId, imageRequest, credits, quoteEpoch]) : null;
+  const quote = quoteState && quoteState.key === quoteKey ? quoteState.quote : null;
+  // The owner is not charged and a guest without credits cannot accept, so neither is quoted.
+  const quoteWanted = isConvexEnabled && !sessionLoading && tier === "paid" && credits > 0 && pricingAvailable && styleAvailable && !isGenerating;
+  const quoteLabel = quote ? formatQuote(quote) : null;
+  const priceNotice = priceToConfirm && quoteLabel
+    ? `${priceToConfirm === "changed" ? "The price changed." : "Please confirm the price."} ${quoteLabel}.`
+    : null;
+
+  useEffect(() => {
+    if (!quoteKey || !quoteWanted) return;
+    const controller = new AbortController();
+    const timer = window.setTimeout(async () => {
+      const csrfToken = readCsrfToken();
+      if (!csrfToken) return;
+      try {
+        const response = await fetch("/api/generate-image/quote", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", [CSRF_HEADER_NAME]: csrfToken },
+          body: JSON.stringify(imageRequest),
+          signal: controller.signal,
+        });
+        const fresh = response.ok ? parseQuote((await response.json())?.quote) : null;
+        if (!controller.signal.aborted) setQuoteState(fresh ? { key: quoteKey, quote: fresh } : null);
+      } catch {
+        // No price is shown; a click still asks the server, which answers with the quote to accept.
+      }
+    }, QUOTE_DEBOUNCE_MS);
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
+  }, [quoteKey, quoteWanted, imageRequest]);
+
   // Generate new image function
   const generateImage = useCallback(async (source: GenerationTriggerSource = "hero_generate") => {
     if (!verseId || !currentReference) return;
@@ -623,8 +686,12 @@ function HeroImageBase({
     setIsGenerating(true);
     setFollowingRequest(false);
     setError(null);
+    setPriceToConfirm(null);
     setPendingImageId(null);
     setImageLoadAttempts(0);
+    // The quote on screen when the guest clicked: the price they accepted.
+    const acceptedQuote = quote;
+    let keepQuote = false;
 
     // Check if this generation is still current (defined outside try for use in catch)
     const isStale = () => controller.signal.aborted || !isMounted.current || thisGenerationId !== generationIdRef.current;
@@ -636,22 +703,13 @@ function HeroImageBase({
     let followExistingRequest = false;
 
     try {
-      const csrfCookiePrefix = `${CSRF_COOKIE_NAME}=`;
-      const csrfToken = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith(csrfCookiePrefix))
-        ?.slice(csrfCookiePrefix.length);
+      const csrfToken = readCsrfToken();
 
       const payload: Record<string, unknown> = {
-        reference: currentReference,
-        model: imageModel,
-        translation,
-        aspectRatio: imageAspectRatio,
-        resolution: imageResolution,
-        style: artStyle,
+        ...imageRequest,
         requestId: clientRequestId,
-        // A prose moment names its work and unit; the reference is then only a label.
-        ...(scope ? { workId: scope.workId, unitId: scope.unitId } : {}),
+        // A first-visit image has no click to accept a quote; the server then requires the whole estimate.
+        ...(source === "auto_generate" ? { automatic: true } : acceptedQuote ? { quoteId: acceptedQuote.quoteId } : {}),
       };
 
       // Pass the selected style's image count to add generation diversity
@@ -688,7 +746,7 @@ function HeroImageBase({
         hasCredits: credits > 0,
       });
 
-      const response = await fetch("/api/generate-image", {
+      const submit = () => fetch("/api/generate-image", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -697,6 +755,29 @@ function HeroImageBase({
         body: JSON.stringify(payload),
         signal: controller.signal,
       });
+      let response = await submit();
+
+      // A quote that no longer holds: nothing was started, and the answer carries a fresh quote. At the price the
+      // guest just accepted (the quote had only expired) it is accepted for them, once; at any other price, or when
+      // none was on screen, it is shown and waits for another click.
+      let conflictBody: unknown;
+      for (let attempt = 0; response.status === 409; attempt++) {
+        conflictBody = await response.json().catch(() => null);
+        const fresh = parseStaleQuote(response.status, conflictBody);
+        if (!fresh) break;
+        if (isStale()) return;
+        keepQuote = true;
+        if (quoteKey) setQuoteState({ key: quoteKey, quote: fresh });
+        if (attempt > 0 || !sameQuoteNumbers(fresh, acceptedQuote)) {
+          setPriceToConfirm(acceptedQuote ? "changed" : "unconfirmed");
+          setActiveRequestId(null);
+          return;
+        }
+        keepQuote = false;
+        payload.quoteId = fresh.quoteId;
+        conflictBody = undefined;
+        response = await submit();
+      }
 
       if (isStale()) {
         return;
@@ -770,7 +851,7 @@ function HeroImageBase({
         return;
       }
 
-      const data = await response.json();
+      const data = conflictBody !== undefined ? conflictBody as Record<string, unknown> | null : await response.json();
 
       if (isStale()) {
         return;
@@ -871,18 +952,21 @@ function HeroImageBase({
           setActiveRequestId(null);
           setIsGenerating(false);
         }
+        // The quote was used by this attempt (or was never read): read a new one, unless a fresh one is waiting.
+        if (isMounted.current && !keepQuote) setQuoteEpoch((epoch) => epoch + 1);
       }
     }
   }, [
     verseId,
     currentReference,
-    scope,
+    imageRequest,
+    quote,
+    quoteKey,
     artStyle,
     selectedStyleImageCount,
     imageModel,
     imageAspectRatio,
     imageResolution,
-    translation,
     selectedImageId,
     imageHistory,
     tier,
@@ -952,6 +1036,8 @@ function HeroImageBase({
       effectiveCost,
       effectiveEta,
       showCreditsCost,
+      quoteLabel,
+      priceChanged: Boolean(priceNotice),
       generationPhaseLabel,
       aspectRatio: imageAspectRatio,
       resolution: imageResolution,
@@ -968,6 +1054,8 @@ function HeroImageBase({
     effectiveCost,
     effectiveEta,
     showCreditsCost,
+    quoteLabel,
+    priceNotice,
     generationPhaseLabel,
     imageAspectRatio,
     imageResolution,
@@ -1138,6 +1226,7 @@ function HeroImageBase({
     setSelectedImageId(null);
     setGeneratedImage(null);
     setError(null);
+    setPriceToConfirm(null);
     setHasAttemptedGeneration(false);
     setImageLoadAttempts(0);
     setPendingImageId(null);
@@ -1273,6 +1362,16 @@ function HeroImageBase({
     </>
   );
 
+
+  const acceptPriceButton = (
+    <button
+      onClick={() => handleManualRegenerate("hero_generate")}
+      className="min-h-[44px] px-4 flex items-center gap-2 text-sm bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
+    >
+      <Sparkles className="w-4 h-4" />
+      Generate at this price
+    </button>
+  );
   return (
     <figure className="relative w-full">
       {/* Image Container - follows the image's shape. On larger screens it leaves room under it for
@@ -1385,6 +1484,12 @@ function HeroImageBase({
                 </button>
               </div>
             )}
+            {priceNotice && !error && !isGenerating && (
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[var(--image-stage)]/70 backdrop-blur-sm">
+                <div role="status" className="text-white/90 text-sm px-4 text-center">{priceNotice}</div>
+                {acceptPriceButton}
+              </div>
+            )}
 
             {/* Fullscreen toggle button - mobile only (desktop uses VerseStripBar) */}
             <button
@@ -1451,9 +1556,15 @@ function HeroImageBase({
                 </button>
               </div>
             )}
+            {priceNotice && !error && !isGenerating && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+                <div role="status" className="text-white/90 text-sm px-4 text-center">{priceNotice}</div>
+                {acceptPriceButton}
+              </div>
+            )}
 
             {/* Empty state - no image yet */}
-            {!isQueryLoading && !isGenerating && !error && (
+            {!isQueryLoading && !isGenerating && !error && !priceNotice && (
               <VerseImagePlaceholder
                 // On larger screens the verse strip floats over the top of the stage, so the
                 // message centres in the space below it
@@ -1473,13 +1584,16 @@ function HeroImageBase({
                   ) : pricingUnavailable ? (
                     <p className="text-sm text-[var(--muted)] px-4 text-center">{pricingUnavailable}</p>
                   ) : canGenerate ? (
-                    <button
-                      onClick={() => handleManualRegenerate("hero_generate")}
-                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
-                    >
-                      <Sparkles size={18} strokeWidth={1.5} />
-                      <span className="text-sm font-medium">Generate Image</span>
-                    </button>
+                    <div className="flex flex-col items-center gap-2">
+                      <button
+                        onClick={() => handleManualRegenerate("hero_generate")}
+                        className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                      >
+                        <Sparkles size={18} strokeWidth={1.5} />
+                        <span className="text-sm font-medium">Generate Image</span>
+                      </button>
+                      {showCreditsCost && quoteLabel ? <p className="text-xs text-white/70">{quoteLabel}</p> : null}
+                    </div>
                   ) : (
                     <button
                       onClick={buyCredits}
@@ -1729,13 +1843,16 @@ function HeroImageBase({
                     ) : pricingUnavailable ? (
                     <p className="text-sm text-[var(--muted)] px-4 text-center">{pricingUnavailable}</p>
                   ) : canGenerate ? (
-                      <button
-                        onClick={() => handleManualRegenerate("hero_generate")}
-                        className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
-                      >
-                        <Sparkles size={18} strokeWidth={1.5} />
-                        <span className="text-sm font-medium">Generate Image</span>
-                      </button>
+                      <div className="flex flex-col items-center gap-2">
+                        <button
+                          onClick={() => handleManualRegenerate("hero_generate")}
+                          className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
+                        >
+                          <Sparkles size={18} strokeWidth={1.5} />
+                          <span className="text-sm font-medium">Generate Image</span>
+                        </button>
+                        {showCreditsCost && (priceNotice ?? quoteLabel) ? <p role={priceNotice ? "status" : undefined} className="text-xs text-white/70">{priceNotice ?? quoteLabel}</p> : null}
+                      </div>
                     ) : (
                       <button
                         onClick={buyCredits}

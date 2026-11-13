@@ -15,6 +15,10 @@ export interface GenerationState {
   effectiveCost: number;
   effectiveEta: number;
   showCreditsCost: boolean;
+  /** The server's quote for the image as it would be generated now, "About N credits · at most M"; null until read. */
+  quoteLabel: string | null;
+  /** A fresh quote at a different price than the one shown is waiting to be accepted. */
+  priceChanged: boolean;
   generationPhaseLabel: string;
   // Settings state
   aspectRatio: ImageAspectRatio;
@@ -32,6 +36,8 @@ const DEFAULT_STATE: GenerationState = {
   effectiveCost: 0,
   effectiveEta: 12,
   showCreditsCost: false,
+  quoteLabel: null,
+  priceChanged: false,
   generationPhaseLabel: "Generating...",
   aspectRatio: "16:9",
   resolution: "1K",

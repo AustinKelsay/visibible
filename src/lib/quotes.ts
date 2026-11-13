@@ -17,7 +17,7 @@ import { quoteTokenUsage, type TokenPricing } from "./token-pricing";
 export const BILLING_POLICY_VERSION = "accepted-maximum-v1";
 
 /** The answer to an acceptance that no longer holds; it carries a fresh quote for the same request. */
-export const QUOTE_STALE_ERROR = "Quote stale";
+export { QUOTE_STALE_ERROR } from "./quote-display";
 export const QUOTE_STALE_STATUS = 409;
 
 const sha256 = (value: string) => createHash("sha256").update(value).digest("hex");
