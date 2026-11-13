@@ -43,7 +43,9 @@ GitHub Actions ran for three of the four commits and none is recorded for the co
 
 ## What was checked afterwards
 
-- Every Vercel production value listed above as exposed was changed after the injected builds: seven on 12 November between 18:22 and 19:03, and the OpenRouter key on 13 November at 16:43. This reads Vercel's change times only; no value was read. [#418](https://github.com/AustinKelsay/visibible/pull/418) reports that the reset deployment rejected the retired cookie, guest token, server secret and admin password in live checks, which this record did not repeat.
+- Every exposed value that is still a Vercel production variable was changed after the injected builds: seven on 12 November between 18:22 and 19:03, and the OpenRouter key on 13 November at 16:43. This reads Vercel's change times only; no value was read.
+- The production Convex deploy key is no longer a Vercel variable: the project has none for production, has no Git link, and its build command no longer pushes Convex. Whether that key was revoked in Convex was not verified (open item 3).
+- Whether production rejects the retired session cookie, guest token, server secret and admin password was not verified for this record. [#418](https://github.com/AustinKelsay/visibible/pull/418) reports live checks on the reset deployment without listing which retired credentials they covered (open item 3).
 - The four production Convex pushes made by the affected builds added or removed no modules, indexes, scheduled jobs or auth settings. Between the first injected commit and 13 Nov 21:30 the audit log shows only those pushes and the owner's own actions.
 - No injected commit appears in any of the nine repositories after 12 Nov 17:48.
 - `relay.primal.net` and `nos.lol` hold nothing signed by the Visibible key after 10 Nov 16:00. `relay.damus.io` did not answer.
@@ -64,7 +66,7 @@ These need the owner; nothing in the repository can settle them.
 
 1. **How the GitHub credential was taken.** Where and how it was captured is unknown. The first malicious use seen was in another repository 29 hours before this one, which dates the theft to 11 November 12:11 at the latest but does not locate it. One hypothesis is an infected checkout that ran an install while a GitHub credential was readable, on a development machine or in a CI job; this repository's own environments are not excluded. Until the source is found, credentials on every machine that held this one are suspect.
 2. **The Nostr identity.** The signing key was within reach and a Nostr key cannot be rotated. Publishing stays off and the key is no longer stored in Convex. The choice is between retiring the identity for a new one and keeping it with the risk that someone else can sign as Visibible.
-3. **Confirm in each dashboard** that the old Convex deploy key and the old GitHub credential are revoked, that the old OpenRouter key is deleted at OpenRouter and not only replaced here, and that its usage shows no spend that the app did not make.
+3. **Confirm** in each dashboard that the old Convex deploy key and the old GitHub credential are revoked, that the old OpenRouter key is deleted at OpenRouter and not only replaced here, and that its usage shows no spend that the app did not make. Confirm against production that the retired session cookie, guest token, server secret and admin password are refused, as [the recovery guide](../agents/session-recovery.md#deployment-verification-still-required) requires, and note the result here.
 4. **The script stays in public Git history** at `35f7476a`. Removing it means rewriting `main`, which changes every later commit id. Leaving it is the recommendation: it holds none of this project's secrets.
 
 Wallet recovery after the reset is in [Recover a preserved wallet](../agents/session-recovery.md).
