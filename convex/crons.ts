@@ -25,6 +25,13 @@ crons.interval(
   internal.cleanup.cleanupAdminLoginAttempts
 );
 
+// Remove quotes that expired without being accepted; accepted quotes are kept.
+crons.interval(
+  "cleanup unused quotes",
+  { hours: 1 },
+  internal.cleanup.cleanupUnusedQuotes
+);
+
 // Retry image cost events that could not be persisted during request handling.
 crons.interval(
   "process image cost event outbox",

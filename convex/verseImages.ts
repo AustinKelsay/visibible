@@ -723,7 +723,11 @@ export const createGenerationRequest = mutation({
     inputFingerprint: v.string(),
     generationId: v.string(),
     executorVersion: v.literal("next-image-v1"),
-    billingPolicyVersion: v.literal("legacy-image-v1"),
+    // "accepted-maximum-v1" (#60): the hold is the accepted maximum and the charge never passes it. Requests admitted
+    // earlier keep "legacy-image-v1".
+    billingPolicyVersion: v.union(v.literal("legacy-image-v1"), v.literal("accepted-maximum-v1")),
+    quoteId: v.optional(v.string()),
+    maximumCreditsCost: v.optional(v.number()),
     engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
     artStyleId: v.optional(v.string()),
     engineCommitments: v.optional(v.object({
@@ -786,6 +790,8 @@ export const createGenerationRequest = mutation({
       promptVersion: args.promptVersion,
       estimatedCreditsCost: args.estimatedCreditsCost,
       estimatedCostUsd: args.estimatedCostUsd,
+      quoteId: args.quoteId,
+      maximumCreditsCost: args.maximumCreditsCost,
       createdAt: now,
       updatedAt: now,
     });

@@ -369,6 +369,9 @@ export default defineSchema({
     generationId: v.optional(v.string()),
     providerRequestId: v.optional(v.string()),
     estimatedCreditsCost: v.optional(v.number()),
+    // The accepted quote (#60): absent on requests admitted under "legacy-image-v1".
+    quoteId: v.optional(v.string()),
+    maximumCreditsCost: v.optional(v.number()),
     actualCreditsCost: v.optional(v.number()),
     estimatedCostUsd: v.optional(v.number()),
     actualCostUsd: v.optional(v.number()),
@@ -382,6 +385,31 @@ export default defineSchema({
     .index("by_verse_createdAt", ["verseId", "createdAt"])
     .index("by_sid_createdAt", ["sid", "createdAt"])
     .index("by_status_updatedAt", ["status", "updatedAt"]),
+
+  // Quotes (#60): the estimate and maximum charge a guest accepts before paid work starts. The document id is the
+  // quote id. A quote is accepted once, by one operation, within five minutes; accepted quotes are kept as the record
+  // of what was authorized.
+  quotes: defineTable({
+    sid: v.string(),
+    operation: v.union(v.literal("image"), v.literal("chat")),
+    // Hash of everything that determines the price of the specified work.
+    fingerprint: v.string(),
+    policyVersion: v.string(),
+    estimateCredits: v.number(),
+    maximumCredits: v.number(),
+    // "shown": issued to be displayed and accepted by the guest. "automatic": issued and accepted by the server for
+    // automatic or bulk generation.
+    origin: v.union(v.literal("shown"), v.literal("automatic")),
+    createdAt: v.number(),
+    expiresAt: v.number(),
+    usedAt: v.optional(v.number()),
+    // The operation that accepted it: an image request id or a chat generation id.
+    usedBy: v.optional(v.string()),
+    // Final charge of a chat turn, which has no request record of its own. Images record theirs on the request.
+    chargedCredits: v.optional(v.number()),
+    usedFallbackEstimate: v.optional(v.boolean()),
+  })
+    .index("by_usedAt_expiresAt", ["usedAt", "expiresAt"]),
 
   // Durable outbox for image cost events that failed to persist in real-time.
   costEventOutbox: defineTable({

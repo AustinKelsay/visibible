@@ -10,6 +10,9 @@ import { validateServerSecret } from "./_helpers/auth";
 export const RATE_LIMITS = {
   chat: { windowMs: 60_000, maxRequests: 20 }, // 20 requests per minute
   "generate-image": { windowMs: 60_000, maxRequests: 5 }, // 5 images per minute
+  // Quotes are read when a verse or the composer opens; they call no model and reserve nothing.
+  "image-quote": { windowMs: 60_000, maxRequests: 30 },
+  "chat-quote": { windowMs: 60_000, maxRequests: 30 },
   "generate-video": { windowMs: 60_000, maxRequests: 3 },
   "admin-login": { windowMs: 900_000, maxRequests: 5 }, // 5 attempts per 15 minutes
   "guest-token": { windowMs: 60_000, maxRequests: 30 },

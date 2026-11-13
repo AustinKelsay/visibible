@@ -2,18 +2,20 @@
  * Image generation through the request path (ADR 0012). One admitted request: deployed inputs checked against the
  * registered analysis → the moment and its in-section neighbours from the imported reference text → the section's
  * cast with its canon stages → current reference blobs, sent inline as JPEGs → one prompt built from the text itself,
- * rejected before any paid call when over budget → a prompt-aware quote → the request record with its engine
- * commitments and the exact packet snapshot → guest reservation → one provider call → settlement from actual usage or
- * the packet-aware fallback → the saved image with WEB text and full provenance. No model is called before the image:
+ * rejected before any paid call when over budget → a prompt-aware quote, whose estimate and maximum the guest has
+ * accepted (#60) → the request record with its engine commitments and the exact packet snapshot → a hold of exactly
+ * the accepted maximum → one provider call → settlement from actual usage, never above that maximum, or the accepted
+ * estimate when usage is missing → the saved image with WEB text and full provenance. No model is called before the image:
  * there is no look, plan, review or finished-image check. A scene that cannot be packed is declined before any request
  * record exists, and a replay never pays twice.
  */
 import { api } from "../../../convex/_generated/api";
-import { fetchImageModels, CREDIT_USD, DEFAULT_IMAGE_MODEL, IMAGE_RESERVATION_HEADROOM_MULTIPLIER, canAffordImageGeneration, getProviderName } from "../image-models";
+import { fetchImageModels, CREDIT_USD, DEFAULT_IMAGE_MODEL, canAffordImageGeneration, getProviderName } from "../image-models";
 import { imageCapabilities, IMAGE_BILLING_VERSION } from "../image-catalog";
-import { extractNoImageText, extractOpenRouterUsageUsd, findResponseImageUrl, summarizeNoImageResponse } from "../image-response";
+import { extractNoImageText, extractOpenRouterUsageUsd, findResponseImageUrl, reportsZeroUsageUsd, summarizeNoImageResponse } from "../image-response";
 import { logApiFailure, logApiTimeout, logInfo, logSettlementEvent, logWarn, redactSid } from "../observability";
 import { LEAN_PROMPT_VERSION } from "./lean";
+import { BILLING_POLICY_VERSION, QUOTE_STALE_ERROR, QUOTE_STALE_STATUS, imageQuoteAmounts, imageQuoteFingerprint } from "../quotes";
 import { quoteGenericImage } from "./quote";
 import { createReferenceBlobCache } from "./references";
 import { assembleLean, type ReferenceRecord } from "./lean-assemble";
@@ -192,18 +194,58 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         await convex.mutation(api.analysis.noteAttention, { serverSecret, workId, reason: "quote_over_envelope", kind: "moment", recordId: momentId, detail: `Quote of ${quote.credits} credits (${quote.promptTokens} prompt tokens, ${quote.referenceImages} references) passes the image envelope` }).catch(() => {});
         return decline(503, "Scene unavailable", "This scene cannot be rendered within the image price envelope.", false);
       }
-      const estimatedCreditsCost = quote.credits;
-      const estimatedCostUsd = estimatedCreditsCost * CREDIT_USD;
-      const reservationCreditsCost = estimatedCreditsCost * IMAGE_RESERVATION_HEADROOM_MULTIPLIER;
-      const reservationCostUsd = reservationCreditsCost * CREDIT_USD;
       const requestId = input.requestId;
 
-      // 8. Refuse before admission so a refused request id stays usable after a top-up or reset.
-      if (!input.isOwner && !canAffordImageGeneration(input.session.credits, estimatedCreditsCost)) {
-        return respond(402, { error: "Insufficient credits", requestId, required: estimatedCreditsCost, available: input.session.credits });
+      // 8. Refuse before admission so a refused request id stays usable after a top-up or reset. An explicit image
+      // may spend a short balance down; automatic and bulk generation must cover the whole estimate.
+      const explicit = !input.automatic;
+      const affordable = input.isOwner || (explicit ? canAffordImageGeneration(input.session.credits, quote.credits) : input.session.credits >= quote.credits);
+      if (!affordable) {
+        return respond(402, { error: "Insufficient credits", requestId, required: quote.credits, available: input.session.credits });
       }
+      // The estimate and the maximum charge: what a quote shows, and what this request holds and settles within.
+      const { estimateCredits: estimatedCreditsCost, maximumCredits } = imageQuoteAmounts(quote.credits, input.isOwner ? null : input.session.credits);
+      const estimatedCostUsd = estimatedCreditsCost * CREDIT_USD;
+      const reservationCreditsCost = maximumCredits;
+      const reservationCostUsd = reservationCreditsCost * CREDIT_USD;
       if (!input.isOwner && input.session.dailySpendUsd + reservationCostUsd > input.session.dailySpendLimitUsd) {
         return respond(429, { error: "Daily spending limit exceeded", dailyLimit: input.session.dailySpendLimitUsd, dailySpent: input.session.dailySpendUsd, requestId, remaining: Math.max(0, input.session.dailySpendLimitUsd - input.session.dailySpendUsd) });
+      }
+
+      // 8b. The quote. Its terms are recomputed here from the request about to be made, so a quote issued for another
+      // prompt, setting, price or balance is refused, with a fresh one, before any record, hold or model call.
+      const quoteTerms = {
+        sid, operation: "image" as const, policyVersion: BILLING_POLICY_VERSION, estimateCredits: estimatedCreditsCost, maximumCredits,
+        fingerprint: imageQuoteFingerprint({
+          workId, unitId: unit.id, reference: input.reference, translationId: input.translationId, styleId: style.id, modelId,
+          aspectRatio: input.aspectRatio, resolution: input.resolution, prompt, referenceImages: sentReferences.length, billingVersion: model.billing?.version ?? IMAGE_BILLING_VERSION,
+          rates: model.billing,
+        }),
+      };
+      let quoteId: string | undefined;
+      try {
+        if (input.quoteOnly) {
+          // The owner is not charged, so has nothing to accept.
+          return respond(200, { quote: input.isOwner ? null : await convex.mutation(api.quotes.create, { ...quoteTerms, serverSecret }) });
+        }
+        if (!input.isOwner && input.automatic) {
+          quoteId = (await convex.mutation(api.quotes.create, { ...quoteTerms, usedBy: requestId, serverSecret })).quoteId;
+        } else if (!input.isOwner) {
+          const acceptance = input.quoteId
+            ? await convex.mutation(api.quotes.accept, { ...quoteTerms, quoteId: input.quoteId, usedBy: requestId, serverSecret })
+            : { accepted: false as const, reason: "missing" as const };
+          if (!acceptance.accepted) {
+            logInfo("generic.quote_stale", { requestId, sid: redactSid(sid), reason: acceptance.reason });
+            return respond(QUOTE_STALE_STATUS, {
+              error: QUOTE_STALE_ERROR, message: "The price for this image needs to be confirmed again.", reason: acceptance.reason, requestId,
+              quote: await convex.mutation(api.quotes.create, { ...quoteTerms, serverSecret }),
+            });
+          }
+          quoteId = input.quoteId;
+        }
+      } catch (error) {
+        logApiFailure({ context: requestContext, stage: "generic_quote", error, statusCode: 503, sid });
+        return decline(503, "Unable to safely start image generation", "Please try again.", true);
       }
 
       // 9. One request identity, bound to the generic engine and its commitments.
@@ -213,7 +255,8 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
           requestId, sid, verseId: unit.id, translationId: input.translationId, reference: input.reference, modelId,
           aspectRatio: input.aspectRatio, resolution: input.resolution, promptVersion: LEAN_PROMPT_VERSION,
           estimatedCreditsCost, estimatedCostUsd, serverSecret, inputFingerprint: input.inputFingerprint, generationId: crypto.randomUUID(),
-          executorVersion: "next-image-v1", billingPolicyVersion: "legacy-image-v1",
+          executorVersion: "next-image-v1", billingPolicyVersion: BILLING_POLICY_VERSION,
+          ...(quoteId ? { quoteId } : {}), maximumCreditsCost: maximumCredits,
           engine: "generic", artStyleId: style.id, engineCommitments: commitments,
         });
         if (admission.alreadyExists) return { kind: "existing", admission };
@@ -234,11 +277,11 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         return decline(503, "Unable to safely start image generation", "Please try again.", true);
       }
 
-      // 11. Guest reservation, or the owner's audit entry.
+      // 11. The guest's hold, exactly the accepted maximum, or the owner's audit entry.
       let reservedCredits = 0;
       let updatedCredits: number | undefined;
       if (!input.isOwner) {
-        reservedCredits = Math.min(reservationCreditsCost, input.session.credits);
+        reservedCredits = maximumCredits;
         let reserve;
         try {
           reserve = await convex.action(api.sessions.reserveCredits, { sid, amount: reservedCredits, modelId, generationId, costUsd: reservationCostUsd, serverSecret });
@@ -327,11 +370,13 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       const { data, imageUrl, providerRequestId } = first;
       const durationMs = now() - started;
 
-      // 13. Settlement from actual usage, or from the quote that described the request actually made.
+      // 13. Settlement from actual usage, or from the accepted estimate when usage is missing (recorded as estimated).
       const openRouterUsageUsd = extractOpenRouterUsageUsd(data);
-      const usedActual = openRouterUsageUsd !== null;
-      let actualCredits = quote.credits;
-      let actualCostUsd = quote.credits * CREDIT_USD;
+      // A reported cost of zero is known usage, not missing data: it settles at the one-credit minimum.
+      const reportedZero = reportsZeroUsageUsd(data);
+      const usedActual = openRouterUsageUsd !== null || reportedZero;
+      let actualCredits = estimatedCreditsCost;
+      let actualCostUsd = estimatedCostUsd;
       if (openRouterUsageUsd !== null) {
         try {
           const actual = await convex.action(api.costs.quoteUsdCost, { usd: openRouterUsageUsd, serverSecret });
@@ -341,35 +386,39 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
           actualCostUsd = openRouterUsageUsd * DEFAULT_COST_MARKUP_MULTIPLIER;
           actualCredits = Math.max(1, Math.ceil(actualCostUsd / CREDIT_USD));
         }
+      } else if (reportedZero) {
+        actualCredits = 1; actualCostUsd = CREDIT_USD;
       } else {
-        logWarn("generic.usage_missing", { requestId, generationId, fallbackCredits: quote.credits, referenceImages: sentReferences.length });
+        logWarn("generic.usage_missing", { requestId, generationId, fallbackCredits: estimatedCreditsCost, referenceImages: sentReferences.length });
       }
+      // A guest is never charged more than the maximum they accepted; Visibible absorbs the rest. The wallet's daily
+      // limit still counts the image's full cost, so work above the cap is not free of that limit.
       let chargedCredits = actualCredits;
       let chargedCostUsd = actualCostUsd;
-      let chargeShortfall: { wantedCredits: number; chargedCredits: number; shortfall: number } | null = null;
+      let chargeCapped: { wantedCredits: number; chargedCredits: number } | null = null;
+      if (reservationMade && actualCredits > maximumCredits) {
+        chargeCapped = { wantedCredits: actualCredits, chargedCredits: maximumCredits };
+        chargedCredits = maximumCredits;
+        chargedCostUsd = maximumCredits * CREDIT_USD;
+        logSettlementEvent({ context: requestContext, outcome: "capped", sid, generationId, details: { maximumCredits, wantedCredits: actualCredits } });
+      }
       if (reservationMade) {
         let deduct;
         try {
-          deduct = await convex.action(api.sessions.deductCredits, { sid, amount: reservedCredits, modelId, generationId, costUsd: reservationCostUsd, actualAmount: actualCredits, actualCostUsd, serverSecret });
+          deduct = await convex.action(api.sessions.deductCredits, { sid, amount: reservedCredits, modelId, generationId, costUsd: reservationCostUsd, actualAmount: chargedCredits, actualCostUsd, serverSecret });
         } catch (error) {
           // An image we cannot settle is not charged: the hold is released and the request fails.
           logApiFailure({ context: requestContext, stage: "generic_settlement", error, statusCode: 500, sid, generationId });
           return fail(500, "Failed to generate image", "Credit settlement failed");
         }
         if (!deduct.success) {
-          logSettlementEvent({ context: requestContext, outcome: "deduct_failed", sid, generationId, details: { actualCredits } });
+          logSettlementEvent({ context: requestContext, outcome: "deduct_failed", sid, generationId, details: { actualCredits: chargedCredits } });
           await release("generic_release_after_deduct_failure");
           await update("failed", { error: "Insufficient credits", durationMs }).catch(() => {});
-          return respond(402, { error: "Insufficient credits", requestId, required: actualCredits, available: "available" in deduct ? deduct.available : 0 });
+          return respond(402, { error: "Insufficient credits", requestId, required: chargedCredits, available: "available" in deduct ? deduct.available : 0 });
         }
         if ("newBalance" in deduct) updatedCredits = deduct.newBalance;
-        logSettlementEvent({ context: requestContext, outcome: "confirmed", sid, generationId, details: { actualCredits, usedActual } });
-        if ("shortfall" in deduct && deduct.shortfall) {
-          chargeShortfall = { wantedCredits: actualCredits, chargedCredits: reservedCredits, shortfall: deduct.shortfall as number };
-          chargedCredits = reservedCredits;
-          chargedCostUsd = reservedCredits * CREDIT_USD;
-          logSettlementEvent({ context: requestContext, outcome: "shortfall", sid, generationId, details: { reservedCredits, wantedCredits: actualCredits, shortfall: deduct.shortfall } });
-        }
+        logSettlementEvent({ context: requestContext, outcome: "confirmed", sid, generationId, details: { actualCredits: chargedCredits, usedActual } });
       }
       void convex.mutation(api.modelStats.recordGeneration, { modelId, durationMs, serverSecret }).catch(() => {});
 
@@ -419,8 +468,9 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         translationId: sourceTranslationId, requestTranslationId: input.translationId, verseText: context.moment.text,
         generationNumber: input.generationNumber ?? undefined, style: style.id,
         creditsCost: chargedCredits, costUsd: chargedCostUsd,
-        estimatedCreditsCost, estimatedCostUsd, openRouterUsageUsd, usedActualCost: usedActual, usedFallbackEstimate: !usedActual,
-        ...(chargeShortfall && { chargeShortfall }), durationMs, aspectRatio: input.aspectRatio, resolution: input.resolution,
+        estimatedCreditsCost, estimatedCostUsd, maximumCreditsCost: maximumCredits, ...(quoteId ? { quoteId } : {}), billingPolicyVersion: BILLING_POLICY_VERSION,
+        openRouterUsageUsd, usedActualCost: usedActual, usedFallbackEstimate: !usedActual,
+        ...(chargeCapped && { chargeCapped }), durationMs, aspectRatio: input.aspectRatio, resolution: input.resolution,
         billingVersion: model.billing?.version, catalogEstimatedProviderUsd: quote.providerUsd,
         provenance,
         ...(updatedCredits !== undefined && { credits: updatedCredits }),

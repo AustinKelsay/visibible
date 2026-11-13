@@ -106,7 +106,7 @@ vi.mock("@/lib/convex-client", () => ({
       return session || null;
     }),
     mutation: vi.fn(async (_apiPath: FunctionReference<"mutation">, args: Record<string, unknown>) => {
-      if (getFunctionName(_apiPath).startsWith("analysis:")) {
+      if (getFunctionName(_apiPath).startsWith("analysis:") || getFunctionName(_apiPath).startsWith("quotes:")) {
         return requestDb.mutation(_apiPath as never, args as never);
       }
       if ("inputFingerprint" in args) {
@@ -357,8 +357,12 @@ function getCallCount(action: string) {
 
 const TEST_CSRF_TOKEN = "a".repeat(64);
 
-function createGenerateImageRequest(body: Record<string, unknown>) {
-  return new Request("http://localhost:3000/api/generate-image", {
+/**
+ * A generation request. By default it is automatic generation (the bulk and first-visit path), which needs no accepted
+ * quote; the quote tests pass `automatic: undefined` to act as a guest's explicit request.
+ */
+function createGenerateImageRequest(body: Record<string, unknown>, path = "/api/generate-image") {
+  return new Request(`http://localhost:3000${path}`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -366,7 +370,7 @@ function createGenerateImageRequest(body: Record<string, unknown>) {
       "x-csrf-token": TEST_CSRF_TOKEN,
       cookie: `visibible_csrf=${TEST_CSRF_TOKEN}`,
     },
-    body: JSON.stringify({ reference: "Genesis 1:1", ...body }),
+    body: JSON.stringify({ reference: "Genesis 1:1", automatic: true, ...body }),
   });
 }
 
@@ -1017,6 +1021,323 @@ describe("Image Generation API Credit Flow", () => {
       const { POST } = await import("../../generate-image/route");
       expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
       expect(getCallCount("enqueueImageCostEventOutbox")).toBe(1);
+    });
+
+    describe("quotes and the maximum charge (#60)", () => {
+      // A guest's explicit request: no `automatic` flag, so it needs the quote the guest accepted.
+      const explicit = (extra: Record<string, unknown> = {}) => ({ ...body, automatic: undefined, ...extra });
+      const askQuote = async (extra: Record<string, unknown> = {}) => {
+        const { POST } = await import("../../generate-image/quote/route");
+        const response = await POST(createGenerateImageRequest(explicit(extra), "/api/generate-image/quote"));
+        return { status: response.status, body: await response.json() };
+      };
+      const generate = async (extra: Record<string, unknown> = {}) => {
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest(explicit(extra)));
+        return { status: response.status, body: await response.json() };
+      };
+      const storedQuotes = () => requestDb.run((ctx) => ctx.db.query("quotes").collect());
+      const actionArgs = (action: string) => mockState.callHistory.filter((c) => c.action === action).map((c) => c.args as Record<string, unknown>);
+      const credits = () => mockState.sessions.get("test-session")!.credits;
+      const setCredits = (value: number) => resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: value }]);
+      const providerCost = (cost?: number) => {
+        mockFetchResponse = { ok: true, status: 200, json: async () => ({ id: "gen-priced", choices: [{ message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } }], ...(cost === undefined ? {} : { usage: { cost } }) }) };
+      };
+      const expectNothingStarted = async () => {
+        expect(getCallCount("reserveCredits")).toBe(0);
+        expect(imageCalls()).toHaveLength(0);
+        expect(await storedRequests()).toHaveLength(0);
+      };
+      afterEach(() => vi.useRealTimers());
+
+      it("quotes without starting anything: the estimate, the maximum, a five-minute expiry and a stored fingerprint", async () => {
+        await prepareWork();
+        const before = Date.now();
+        const { status, body: answer } = await askQuote();
+        expect(status).toBe(200);
+        expect(answer.quote).toEqual({ quoteId: expect.any(String), operation: "image", policyVersion: "accepted-maximum-v1", estimateCredits: 2, maximumCredits: 4, expiresAt: expect.any(Number) });
+        expect(answer.quote.expiresAt - before).toBeGreaterThanOrEqual(5 * 60 * 1000);
+        expect(answer.quote.expiresAt - before).toBeLessThan(5 * 60 * 1000 + 5000);
+        await expectNothingStarted();
+        expect(credits()).toBe(1000);
+        expect(await storedQuotes()).toMatchObject([{ sid: "test-session", operation: "image", origin: "shown", policyVersion: "accepted-maximum-v1", estimateCredits: 2, maximumCredits: 4, fingerprint: expect.stringMatching(/^[0-9a-f]{64}$/) }]);
+        expect((await storedQuotes())[0].usedAt).toBeUndefined();
+      });
+
+      it("quote → accept → reserve → finish: holds exactly the accepted maximum once and charges actual usage", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        const { status, body: result } = await generate({ quoteId: quote.quoteId });
+        expect(status).toBe(200);
+        // The provider reported $0.01: 2 credits of the 4 held.
+        expect(result).toMatchObject({ creditsCost: 2, estimatedCreditsCost: 2, maximumCreditsCost: 4, quoteId: quote.quoteId, billingPolicyVersion: "accepted-maximum-v1", usedActualCost: true, credits: 998 });
+        expect(actionArgs("reserveCredits")).toMatchObject([{ amount: 4, costUsd: 0.04 }]);
+        expect(actionArgs("deductCredits")).toMatchObject([{ amount: 4, actualAmount: 2 }]);
+        expect(imageCalls()).toHaveLength(1);
+        expect(credits()).toBe(998);
+        expect((await storedRequests())[0]).toMatchObject({ status: "succeeded", billingPolicyVersion: "accepted-maximum-v1", quoteId: quote.quoteId, estimatedCreditsCost: 2, maximumCreditsCost: 4, actualCreditsCost: 2, usedFallbackEstimate: false });
+        expect((await storedQuotes())[0]).toMatchObject({ usedBy: "generic-1", usedAt: expect.any(Number) });
+        expect(actionArgs("recordImageCostEvent")[0]).toMatchObject({ estimatedCreditsCost: 2, reservationCreditsCost: 4, actualCreditsCost: 2, usedFallbackEstimate: false });
+      });
+
+      it("quote → accept → provider failure → release: the hold returns in full and the quote cannot be used again", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        mockFetchResponse = { ok: false, status: 500, json: async () => ({ error: { message: "API error" } }) };
+        const failed = await generate({ quoteId: quote.quoteId });
+        expect(failed.status).toBe(500);
+        expect(actionArgs("reserveCredits")).toMatchObject([{ amount: 4 }]);
+        expect(getCallCount("releaseReservation")).toBe(1);
+        expect(getCallCount("deductCredits")).toBe(0);
+        expect(credits()).toBe(1000);
+        expect((await storedRequests())[0]).toMatchObject({ status: "failed", quoteId: quote.quoteId });
+
+        mockFetchResponse = null;
+        const again = await generate({ quoteId: quote.quoteId, requestId: "generic-retry" });
+        expect(again.status).toBe(409);
+        expect(again.body).toMatchObject({ error: "Quote stale", reason: "used", quote: { estimateCredits: 2, maximumCredits: 4 } });
+        expect(again.body.quote.quoteId).not.toBe(quote.quoteId);
+        expect(getCallCount("reserveCredits")).toBe(1);
+        expect(imageCalls()).toHaveLength(1);
+        // The fresh quote it carried is good for the retry.
+        expect((await generate({ quoteId: again.body.quote.quoteId, requestId: "generic-retry" })).status).toBe(200);
+        expect(credits()).toBe(998);
+      });
+
+      it("refuses an expired quote before any record, hold or provider call, and answers with a fresh one", async () => {
+        await prepareWork();
+        vi.useFakeTimers({ toFake: ["Date"] });
+        vi.setSystemTime(Date.parse("2026-11-13T12:00:00Z"));
+        const { quote } = (await askQuote()).body;
+        vi.setSystemTime(Date.parse("2026-11-13T12:05:00Z"));
+        const stale = await generate({ quoteId: quote.quoteId });
+        expect(stale.status).toBe(409);
+        expect(stale.body).toMatchObject({ error: "Quote stale", reason: "expired", requestId: "generic-1", quote: { estimateCredits: 2, maximumCredits: 4, expiresAt: Date.parse("2026-11-13T12:10:00Z") } });
+        await expectNothingStarted();
+        expect(credits()).toBe(1000);
+        // The request id is still free: accepting the fresh quote runs the same request.
+        expect((await generate({ quoteId: stale.body.quote.quoteId })).status).toBe(200);
+        expect(actionArgs("reserveCredits")).toMatchObject([{ amount: 4 }]);
+      });
+
+      it("refuses a missing, tampered or other-session quote id the same way", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        for (const quoteId of [undefined, "not-a-quote", `${quote.quoteId.slice(0, -1)}${quote.quoteId.endsWith("a") ? "b" : "a"}`]) {
+          const refused = await generate({ quoteId });
+          expect(refused.status).toBe(409);
+          expect(refused.body).toMatchObject({ error: "Quote stale", reason: "missing", quote: { estimateCredits: 2, maximumCredits: 4 } });
+        }
+        // Another guest presents this guest's quote id.
+        const { validateSessionWithIp } = await import("@/lib/session");
+        mockState.sessions.set("other-session", { ...fixtures.sessions.paidWithCredits, sid: "other-session", credits: 1000 });
+        vi.mocked(validateSessionWithIp).mockResolvedValueOnce({ valid: true, sid: "other-session", currentIpHash: "mock-ip-hash" } as never);
+        const other = await generate({ quoteId: quote.quoteId });
+        expect(other.status).toBe(409);
+        expect(other.body).toMatchObject({ error: "Quote stale", reason: "missing" });
+        await expectNothingStarted();
+        // Nobody used it: its owner still can.
+        expect((await storedQuotes()).find((q) => q._id === quote.quoteId)!.usedAt).toBeUndefined();
+        expect((await generate({ quoteId: quote.quoteId })).status).toBe(200);
+      });
+
+      it("refuses acceptance after the catalog price changed, with a fresh quote at the new price", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        fetchImageModelsMock.mockResolvedValue({ models: [catalogModel({ ...syntheticPricing, image_output: "0.00003" })] });
+        const stale = await generate({ quoteId: quote.quoteId });
+        expect(stale.status).toBe(409);
+        expect(stale.body).toMatchObject({ error: "Quote stale", reason: "changed" });
+        expect(stale.body.quote.estimateCredits).toBeGreaterThan(quote.estimateCredits);
+        expect(stale.body.quote.maximumCredits).toBe(stale.body.quote.estimateCredits * 2);
+        await expectNothingStarted();
+        const accepted = await generate({ quoteId: stale.body.quote.quoteId });
+        expect(accepted.status).toBe(200);
+        expect(actionArgs("reserveCredits")).toMatchObject([{ amount: stale.body.quote.maximumCredits }]);
+      });
+
+      it("refuses acceptance after a catalog rate moved, even when the credits shown did not", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        fetchImageModelsMock.mockResolvedValue({ models: [catalogModel({ ...syntheticPricing, image_output: "0.0000101" })] });
+        const stale = await generate({ quoteId: quote.quoteId });
+        expect(stale.status).toBe(409);
+        expect(stale.body).toMatchObject({ error: "Quote stale", reason: "changed" });
+        expect(stale.body.quote).toMatchObject({ estimateCredits: quote.estimateCredits, maximumCredits: quote.maximumCredits });
+        await expectNothingStarted();
+      });
+
+      it("does not let a retried request through at a higher price on the strength of its earlier acceptance", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        // The quote is accepted, then the request cannot be recorded, so nothing starts.
+        failAdmission = true;
+        expect((await generate({ quoteId: quote.quoteId })).status).toBe(503);
+        failAdmission = false;
+        // The same request is retried after the price rose: its acceptance was for the old maximum only.
+        fetchImageModelsMock.mockResolvedValue({ models: [catalogModel({ ...syntheticPricing, image_output: "0.00003" })] });
+        const retry = await generate({ quoteId: quote.quoteId });
+        expect(retry.status).toBe(409);
+        expect(retry.body).toMatchObject({ error: "Quote stale", reason: "changed" });
+        expect(retry.body.quote.maximumCredits).toBeGreaterThan(quote.maximumCredits);
+        await expectNothingStarted();
+      });
+
+      it("lets a retried request through at the price it accepted", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        failAdmission = true;
+        expect((await generate({ quoteId: quote.quoteId })).status).toBe(503);
+        failAdmission = false;
+        expect((await generate({ quoteId: quote.quoteId })).status).toBe(200);
+        expect(actionArgs("reserveCredits")).toMatchObject([{ amount: quote.maximumCredits }]);
+      });
+
+      it("refuses a quote presented with other settings than it was issued for", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        for (const changed of [{ style: "classical" }, { aspectRatio: "21:9" }]) {
+          const stale = await generate({ quoteId: quote.quoteId, ...changed });
+          expect([changed, stale.status, stale.body.error]).toEqual([changed, 409, "Quote stale"]);
+          expect(stale.body).toMatchObject({ error: "Quote stale", reason: "changed" });
+        }
+        await expectNothingStarted();
+        expect((await generate({ quoteId: quote.quoteId })).status).toBe(200);
+      });
+
+      it("grace: a guest short of the estimate still runs an explicit image, with the hold and the maximum capped to the balance", async () => {
+        await prepareWork();
+        setCredits(1);
+        const { status, body: answer } = await askQuote();
+        expect(status).toBe(200);
+        expect(answer.quote).toMatchObject({ estimateCredits: 1, maximumCredits: 1 });
+        const result = await generate({ quoteId: answer.quote.quoteId });
+        expect(result.status).toBe(200);
+        // Usage came to 2 credits; the guest accepted at most 1.
+        expect(actionArgs("reserveCredits")).toMatchObject([{ amount: 1, costUsd: 0.01 }]);
+        expect(actionArgs("deductCredits")).toMatchObject([{ amount: 1, actualAmount: 1 }]);
+        expect(result.body).toMatchObject({ creditsCost: 1, maximumCreditsCost: 1, chargeCapped: { wantedCredits: 2, chargedCredits: 1 }, credits: 0 });
+        expect(credits()).toBe(0);
+      });
+
+      it("caps the maximum to a balance between the estimate and twice the estimate", async () => {
+        await prepareWork();
+        setCredits(3);
+        expect((await askQuote()).body.quote).toMatchObject({ estimateCredits: 2, maximumCredits: 3 });
+      });
+
+      it("automatic generation needs the whole estimate: no grace, and its own quote accepted by the server", async () => {
+        await prepareWork();
+        setCredits(1);
+        const refused = await generate({ automatic: true });
+        expect(refused.status).toBe(402);
+        expect(refused.body).toMatchObject({ error: "Insufficient credits", required: 2, available: 1 });
+        await expectNothingStarted();
+        expect(await storedQuotes()).toHaveLength(0);
+
+        setCredits(2);
+        const result = await generate({ automatic: true });
+        expect(result.status).toBe(200);
+        expect(actionArgs("reserveCredits")).toMatchObject([{ amount: 2 }]);
+        expect(await storedQuotes()).toMatchObject([{ origin: "automatic", usedBy: "generic-1", estimateCredits: 2, maximumCredits: 2 }]);
+        expect((await storedRequests())[0]).toMatchObject({ billingPolicyVersion: "accepted-maximum-v1", quoteId: String((await storedQuotes())[0]._id), maximumCreditsCost: 2 });
+      });
+
+      it("caps settlement at the accepted maximum when usage comes in above it", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        providerCost(0.1); // 13 credits after the markup
+        const { status, body: result } = await generate({ quoteId: quote.quoteId });
+        expect(status).toBe(200);
+        expect(result).toMatchObject({ creditsCost: 4, costUsd: 0.04, maximumCreditsCost: 4, chargeCapped: { wantedCredits: 13, chargedCredits: 4 }, openRouterUsageUsd: 0.1, credits: 996 });
+        // The guest pays the cap; the daily limit counts the image's full cost ($0.10 with the markup).
+        expect(actionArgs("deductCredits")).toMatchObject([{ amount: 4, actualAmount: 4, actualCostUsd: 0.125 }]);
+        expect(credits()).toBe(996);
+        expect((await storedRequests())[0]).toMatchObject({ status: "succeeded", actualCreditsCost: 4, usedFallbackEstimate: false });
+        // Provider spend stays on the record beside the capped charge.
+        expect(actionArgs("recordImageCostEvent")[0]).toMatchObject({ actualCreditsCost: 4, reservationCreditsCost: 4, openRouterUsageUsd: 0.1 });
+        expect((await savedImages())[0]).toMatchObject({ creditsCost: 4 });
+      });
+
+      it("charges the accepted estimate when usage is missing, and records the charge as estimated", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        providerCost(undefined);
+        const { status, body: result } = await generate({ quoteId: quote.quoteId });
+        expect(status).toBe(200);
+        expect(result).toMatchObject({ creditsCost: quote.estimateCredits, usedFallbackEstimate: true, usedActualCost: false, openRouterUsageUsd: null });
+        expect(actionArgs("deductCredits")).toMatchObject([{ amount: 4, actualAmount: 2 }]);
+        expect(credits()).toBe(998);
+        expect((await storedRequests())[0]).toMatchObject({ status: "succeeded", usedFallbackEstimate: true, actualCreditsCost: 2 });
+        expect(actionArgs("recordImageCostEvent")[0]).toMatchObject({ usedFallbackEstimate: true, actualCreditsCost: 2 });
+      });
+
+      it("settles a reported cost of zero as known usage, at the one-credit minimum", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        providerCost(0);
+        const { status, body: result } = await generate({ quoteId: quote.quoteId });
+        expect(status).toBe(200);
+        expect(result).toMatchObject({ creditsCost: 1, usedFallbackEstimate: false, usedActualCost: true });
+        expect(actionArgs("deductCredits")).toMatchObject([{ amount: 4, actualAmount: 1, actualCostUsd: 0.01 }]);
+        expect(credits()).toBe(999);
+        expect((await storedRequests())[0]).toMatchObject({ status: "succeeded", usedFallbackEstimate: false, actualCreditsCost: 1 });
+      });
+
+      it("refuses reuse of a quote id by another request, and replays the request that used it", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        expect((await generate({ quoteId: quote.quoteId })).status).toBe(200);
+        const reused = await generate({ quoteId: quote.quoteId, requestId: "generic-second" });
+        expect(reused.status).toBe(409);
+        expect(reused.body).toMatchObject({ error: "Quote stale", reason: "used" });
+        expect(getCallCount("reserveCredits")).toBe(1);
+        expect(imageCalls()).toHaveLength(1);
+        expect(await storedRequests()).toHaveLength(1);
+        // The same request delivered again is the same generation: its saved result, no second charge.
+        const replay = await generate({ quoteId: quote.quoteId });
+        expect(replay.status).toBe(200);
+        expect(replay.body).toMatchObject({ reused: true, savedImageId: expect.any(String) });
+        expect(credits()).toBe(998);
+      });
+
+      it("lets only one of two concurrent requests use the same quote: one hold, one provider call", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        const results = await Promise.all([
+          generate({ quoteId: quote.quoteId, requestId: "generic-concurrent-a" }),
+          generate({ quoteId: quote.quoteId, requestId: "generic-concurrent-b" }),
+        ]);
+        expect(results.map((result) => result.status).sort()).toEqual([200, 409]);
+        expect(results.find((result) => result.status === 409)!.body).toMatchObject({ error: "Quote stale", reason: "used" });
+        expect(actionArgs("reserveCredits")).toMatchObject([{ amount: 4 }]);
+        expect(imageCalls()).toHaveLength(1);
+        expect(credits()).toBe(998);
+      });
+
+      it("answers a quote request like generation would: 402 with no credits, 429 at the daily limit, nothing to accept for the owner", async () => {
+        await prepareWork();
+        setCredits(0);
+        expect((await askQuote()).status).toBe(402);
+        resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000, dailySpendUsd: 4.99 }]);
+        expect((await askQuote()).status).toBe(429);
+        resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000, tier: "admin" }]);
+        expect(await askQuote()).toEqual({ status: 200, body: { quote: null } });
+        expect(await storedQuotes()).toHaveLength(0);
+        await expectNothingStarted();
+      });
+
+      it("the owner generates without a quote and is never capped or charged", async () => {
+        await prepareWork();
+        resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000, tier: "admin" }]);
+        providerCost(0.1);
+        const { status, body: result } = await generate();
+        expect(status).toBe(200);
+        expect(result.chargeCapped).toBeUndefined();
+        expect(result.creditsCost).toBe(13);
+        expect(getCallCount("reserveCredits")).toBe(0);
+        expect(await storedQuotes()).toHaveLength(0);
+      });
     });
 
     describe("durable HTTP intent admission", () => {

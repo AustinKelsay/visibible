@@ -1,9 +1,9 @@
 /**
  * Image quotes for the generic engine (#173, spec #165 §6): the actual assembled prompt length
- * and every reference image that will be sent are counted, not a flat text estimate. The same
- * function serves as the missing-usage fallback for settlement, since it describes the request
- * that was actually made. Shared preparation (reading, canon, sheets) is never part of a guest's
- * quote.
+ * and every reference image that will be sent are counted, not a flat text estimate. Its credits
+ * are the estimate of the quote a guest accepts (`src/lib/quotes.ts`, #60), which is also the
+ * missing-usage fallback for settlement, since it describes the request that was actually made.
+ * Shared preparation (reading, canon, sheets) is never part of a guest's quote.
  */
 import { imageCapabilities, type ImageBilling, type ImageResolution, IMAGE_BILLING_VERSION } from "../image-catalog";
 import { quoteBillableUnits } from "../token-pricing";
@@ -14,7 +14,7 @@ export const PROMPT_CHARS_PER_TOKEN = 4;
 export const RESPONSE_TEXT_TOKENS = 100;
 /** Models that bill reasoning with every image: Nano Banana 2.1 averaged 585 such tokens over 254 calls (median 545, p90 704). */
 const RESPONSE_TEXT_TOKENS_BY_MODEL: Record<string, number> = { "google/gemini-nano-banana-2.1": 600 };
-/** The quote limit: a prompt quoted above about ten credits is refused before any call. Settlement still follows actual usage. */
+/** The quote limit: a prompt quoted above about ten credits is refused before any call. Settlement follows actual usage, up to the accepted maximum. */
 export const IMAGE_ENVELOPE_CREDITS = 10;
 
 export type GenericImageQuote = {
