@@ -1272,6 +1272,18 @@ describe("Image Generation API Credit Flow", () => {
         expect(actionArgs("recordImageCostEvent")[0]).toMatchObject({ usedFallbackEstimate: true, actualCreditsCost: 2 });
       });
 
+      it("settles a reported cost of zero as known usage, at the one-credit minimum", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        providerCost(0);
+        const { status, body: result } = await generate({ quoteId: quote.quoteId });
+        expect(status).toBe(200);
+        expect(result).toMatchObject({ creditsCost: 1, usedFallbackEstimate: false, usedActualCost: true });
+        expect(actionArgs("deductCredits")).toMatchObject([{ amount: 4, actualAmount: 1, actualCostUsd: 0.01 }]);
+        expect(credits()).toBe(999);
+        expect((await storedRequests())[0]).toMatchObject({ status: "succeeded", usedFallbackEstimate: false, actualCreditsCost: 1 });
+      });
+
       it("refuses reuse of a quote id by another request, and replays the request that used it", async () => {
         await prepareWork();
         const { quote } = (await askQuote()).body;

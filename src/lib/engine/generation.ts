@@ -12,7 +12,7 @@
 import { api } from "../../../convex/_generated/api";
 import { fetchImageModels, CREDIT_USD, DEFAULT_IMAGE_MODEL, canAffordImageGeneration, getProviderName } from "../image-models";
 import { imageCapabilities, IMAGE_BILLING_VERSION } from "../image-catalog";
-import { extractNoImageText, extractOpenRouterUsageUsd, findResponseImageUrl, summarizeNoImageResponse } from "../image-response";
+import { extractNoImageText, extractOpenRouterUsageUsd, findResponseImageUrl, reportsZeroUsageUsd, summarizeNoImageResponse } from "../image-response";
 import { logApiFailure, logApiTimeout, logInfo, logSettlementEvent, logWarn, redactSid } from "../observability";
 import { LEAN_PROMPT_VERSION } from "./lean";
 import { BILLING_POLICY_VERSION, QUOTE_STALE_ERROR, QUOTE_STALE_STATUS, imageQuoteAmounts, imageQuoteFingerprint } from "../quotes";
@@ -372,7 +372,9 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
 
       // 13. Settlement from actual usage, or from the accepted estimate when usage is missing (recorded as estimated).
       const openRouterUsageUsd = extractOpenRouterUsageUsd(data);
-      const usedActual = openRouterUsageUsd !== null;
+      // A reported cost of zero is known usage, not missing data: it settles at the one-credit minimum.
+      const reportedZero = reportsZeroUsageUsd(data);
+      const usedActual = openRouterUsageUsd !== null || reportedZero;
       let actualCredits = estimatedCreditsCost;
       let actualCostUsd = estimatedCostUsd;
       if (openRouterUsageUsd !== null) {
@@ -384,6 +386,8 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
           actualCostUsd = openRouterUsageUsd * DEFAULT_COST_MARKUP_MULTIPLIER;
           actualCredits = Math.max(1, Math.ceil(actualCostUsd / CREDIT_USD));
         }
+      } else if (reportedZero) {
+        actualCredits = 1; actualCostUsd = CREDIT_USD;
       } else {
         logWarn("generic.usage_missing", { requestId, generationId, fallbackCredits: estimatedCreditsCost, referenceImages: sentReferences.length });
       }
