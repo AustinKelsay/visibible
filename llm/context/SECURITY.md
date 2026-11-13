@@ -29,3 +29,7 @@ Browser-callable private functions (`guestAuth.current`, session, invoice, gener
 Image persistence stores only image bytes returned with the provider response, after type and size checks; a remote image URL is refused without being fetched ([Image persistence](IMAGE-PERSISTENCE.md)).
 
 Operational endpoint authorization is described in [Observability](OBSERVABILITY.md). Tests under `src/lib/__tests__` and `src/app/api/__tests__` cover the individual boundaries; passing them is not an exhaustive security audit.
+
+## Supply chain
+
+`main` accepts changes only through a pull request with a passing CI check, installs never run lifecycle scripts (`.npmrc`, CI and the Vercel install command), and CI fails when `package.json` declares an install hook. These follow the [12 November 2026 incident](../../docs/incidents/2026-11-12-injected-install-script.md), in which an injected `postinstall` ran in production builds.

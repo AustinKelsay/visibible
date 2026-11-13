@@ -15,6 +15,8 @@ The `vercel:env:pull:development`, `vercel:env:pull:preview`, and `vercel:env:pu
 
 ## Release
 
+Since 12 November 2026 Vercel does not deploy on push: its Git integration is disconnected, and its install command is `npm ci --ignore-scripts` ([incident record](../../docs/incidents/2026-11-12-injected-install-script.md)). A merge to `main` changes source only; production is released by hand with the commands below.
+
 Run the repository lint, typecheck and non-watch tests before release. For prompt/model/context changes, also satisfy [Chat eval and release](CHAT_EVAL_AND_RELEASE.md).
 
 Preview:
