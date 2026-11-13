@@ -446,10 +446,17 @@ export default defineSchema({
     paidAt: v.optional(v.number()),
     expiresAt: v.number(),
     paymentHash: v.optional(v.string()),
+    // Server reconciliation (convex/invoiceReconciliation.ts). A row with no reconcileAt has never been scheduled.
+    reconcileAt: v.optional(v.number()), // when the server next plans to ask the node; kept once finished
+    reconciledAt: v.optional(v.number()), // the server has finished with this invoice
+    checkFailures: v.optional(v.number()), // looks made after expiry; the first answered one is final
+    lastCheckedAt: v.optional(v.number()), // when the node last answered
+    lastCheckError: v.optional(v.string()),
   })
     .index("by_sid", ["sid"])
     .index("by_invoiceId", ["invoiceId"])
-    .index("by_paymentHash", ["paymentHash"]),
+    .index("by_paymentHash", ["paymentHash"])
+    .index("by_status_reconcileAt", ["status", "reconcileAt"]),
 
   // A purchase the buyer started, saved before the LNURL-pay callback so that a retry
   // returns the saved invoice instead of asking the node for a second one.
