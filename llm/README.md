@@ -42,6 +42,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Chat eval and release requirements](workflow/CHAT_EVAL_AND_RELEASE.md)
 - [Image eval and release requirements](workflow/IMAGE_EVAL_AND_RELEASE.md): the regression suite across the Bible, Holmes and Alice, run with `evals:lean`, and its per-fault gate
 - [Image engine release and rollback runbook](workflow/ENGINE_RELEASE.md)
+- [Seeding images for the most-read chapters](workflow/SEED_IMAGES.md): `seed:images`, its dry run, budget, ledger and resume
 - [Release status, closed investigation accounting and dated deployment evidence](releases/STATUS.md)
 - [Historical release records](releases/): consult the named experiment when reproducing a result; dated proposed next steps are not a current task queue.
 
