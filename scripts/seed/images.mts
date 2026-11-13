@@ -4,20 +4,20 @@
  *
  *   npm run seed:images -- --base-url <origin> --dry-run
  *   SEED_ADMIN_PASSWORD=… npm run seed:images -- --base-url <origin> --budget-usd <usd> [--limit <verses>] [--concurrency 2]
- *     [--style classical] [--translation web] [--max-consecutive-failures 5]
+ *     [--style classical] [--translation web] [--max-consecutive-failures 5] [--redraw-unresolved]
  *
  * `--dry-run` reads which listed verses already have an image, prints what is missing and its projected cost per
  * chapter, and makes no login and no image. A paid run needs `--budget-usd` and the admin password in
- * SEED_ADMIN_PASSWORD; there is no password flag and no default site. It stops before a request that could take
- * spend past the budget, and on Ctrl-C after the requests in flight. Every attempt is appended to
+ * SEED_ADMIN_PASSWORD; there is no password flag and no default site. It stops before a request that, counted at the
+ * price ceiling, would take the ledger past the budget, and on Ctrl-C after the requests in flight. Every attempt is appended to
  * output/seed-images/<site>/ledger.ndjson (ignored by git), which a later run reads to continue: the budget counts
  * what the ledger already records.
  */
-import { appendFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
+import { appendFileSync, closeSync, existsSync, mkdirSync, openSync, readFileSync, unlinkSync, writeSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { parseSeedOptions, runSeed, type LedgerRow } from "@/lib/seed/images";
+import { parseSeedOptions, runSeed } from "@/lib/seed/images";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
 // The password leaves the environment at once, so nothing started from here can inherit it.
@@ -43,9 +43,28 @@ try {
     password,
     stopRequested: () => interrupted,
     ledger: {
-      // An unreadable line could hide a paid request, so it stops the run rather than being skipped.
-      read: () => existsSync(file) ? readFileSync(file, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line) as LedgerRow) : [],
+      // An unreadable line could hide a paid request, so it stops the run rather than being skipped (readLedger checks each one).
+      read: () => existsSync(file) ? readFileSync(file, "utf8").split("\n").filter(Boolean).map((line, index): unknown => {
+        try { return JSON.parse(line); } catch { throw new Error(`Ledger line ${index + 1} of ${file} is not JSON. Nothing is drawn until it is repaired.`); }
+      }) : [],
       append: (row) => { mkdirSync(dir, { recursive: true }); appendFileSync(file, `${JSON.stringify(row)}\n`); },
+      // One paid run per site at a time: two would each count the same remaining budget and draw the same verses.
+      lock: () => {
+        mkdirSync(dir, { recursive: true });
+        const lockFile = path.join(dir, "ledger.lock");
+        let handle: number;
+        try {
+          handle = openSync(lockFile, "wx");
+        } catch {
+          const owner = existsSync(lockFile) ? readFileSync(lockFile, "utf8").trim() : "";
+          throw new Error(`Another seed run holds ${lockFile}${owner ? ` (${owner})` : ""}. If none is running, delete that file and run again.`);
+        }
+        writeSync(handle, `pid ${process.pid}, started ${new Date().toISOString()}`);
+        closeSync(handle);
+        const release = () => { try { unlinkSync(lockFile); } catch { /* already gone */ } };
+        process.on("exit", release);
+        return release;
+      },
     },
   });
   if (summary.kind === "run") {

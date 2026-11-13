@@ -2,8 +2,12 @@
  * Seeding saved images for the most-read chapters (`npm run seed:images`, llm/workflow/SEED_IMAGES.md). Each image is
  * made through the site's own request path as the owner: a guest session, the admin login, then one
  * POST /api/generate-image per verse. The run reads which verses already have an image from the public image API and
- * never asks for those; it holds every request in flight at a price ceiling so spend cannot pass the budget; and it
- * writes each attempt to an append-only ledger before and after the request, so a second run continues the first.
+ * never asks for those; it counts every request in flight, and every request whose cost or outcome it could not
+ * establish, at a price ceiling, and stops before the ledger's total could pass the budget; and it writes each attempt
+ * to an append-only ledger before and after the request, so a second run continues the first.
+ *
+ * The ceiling is above every measured image and above any quote the engine admits, but the provider call itself has no
+ * cost cap, so the budget is this tool's own accounting and not a guarantee. The hard cap is the provider key's limit.
  *
  * Only the Bible is ever targeted: every request names `bible-web` and no unit, and the list is checked against the
  * Bible's own structure. The admin password is sent to /api/admin-login and nowhere else.
@@ -15,13 +19,12 @@ import { ART_STYLE_IDS, DEFAULT_ART_STYLE } from "@/lib/art-styles";
 import { DEFAULT_TRANSLATION, TRANSLATIONS } from "@/lib/bible-api";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 import { scrubForLog } from "@/lib/image-evals/suite-run";
-import { CREDIT_USD } from "@/lib/image-models";
 import { BIBLE_WORK_ID } from "../../../convex/lib/proseWorks";
 import { SEED_CHAPTERS, type SeedChapterEntry } from "./chapters";
 
 /** What the dry run projects per image: the provider's measured price for one image is about $0.043 (ADR 0012). */
 export const ESTIMATE_USD_PER_IMAGE = 0.045;
-/** What a request in flight, or one whose cost was never reported, is counted at: above any quote the engine admits (ten credits). */
+/** What a request in flight, or one whose cost the provider did not report, is counted at: above any quote the engine admits (ten credits). An image reported above it stops the run. */
 export const CEILING_USD_PER_IMAGE = 0.1;
 /** The site admits this many image requests a minute for one session (convex/rateLimit.ts); the run paces itself to it. */
 export const GENERATE_REQUESTS_PER_MINUTE = 5;
@@ -38,15 +41,19 @@ const MAX_RETRY_AFTER_SECONDS = 120;
 export type SeedOptions = {
   baseUrl: string; workId: string; style: string; translation: string;
   budgetUsd: number | null; limit: number | null; concurrency: number; dryRun: boolean; maxFailures: number;
+  /** Draw verses again whose earlier request never got a definite answer. The operator has checked they have no image. */
+  redrawUnresolved: boolean;
 };
 export type SeedVerse = { book: string; chapter: number; verse: number; reference: string };
 export type SeedChapter = { book: string; chapter: number; label: string; verses: SeedVerse[] };
-type UsdSource = "provider" | "billed" | "ceiling" | "none";
+type UsdSource = "provider" | "ceiling" | "none";
+type Outcome = "rendered" | "declined" | "failed" | "unresolved";
 /** One ledger line: `start` before a request is sent, `result` when its answer is known. */
 export type LedgerRow = {
   at: string; event: "start" | "result"; baseUrl: string; reference: string; style: string; translation: string; requestId: string; attempt: number;
-  outcome?: "rendered" | "declined" | "failed"; status?: number | null; credits?: number | null;
-  /** What the attempt is counted at, and where the figure came from: the provider's usage, the billed amount, or the ceiling when nothing was reported. */
+  /** `unresolved`: the request may have made an image, and nothing the site said settled it. Its verse is not drawn again unasked. */
+  outcome?: Outcome; status?: number | null; credits?: number | null;
+  /** What the attempt is counted at, and where the figure came from: the provider's reported usage, or the ceiling when the provider's cost is not known. */
   usd?: number; usdSource?: UsdSource;
   durationMs?: number | null; elapsedMs?: number; imageId?: string | null; error?: string;
 };
@@ -59,12 +66,20 @@ export type SeedDeps = {
   /** The admin password, from SEED_ADMIN_PASSWORD. Only a paid run reads it. */
   password: string | undefined;
   stopRequested: () => boolean;
-  ledger: { read: () => LedgerRow[]; append: (row: LedgerRow) => void };
+  ledger: {
+    /** Every line of the ledger, parsed but not yet checked. */
+    read: () => unknown[];
+    append: (row: LedgerRow) => void;
+    /** Take the ledger for one paid run and answer how to give it back. Throws while another run holds it. */
+    lock: () => () => void;
+  };
 };
-export type StopReason = "complete" | "budget" | "limit" | "interrupted" | "daily-limit" | "consecutive-failures" | "rate-limited" | "not-authorized" | "insufficient-credits" | "site-unreadable";
+export type StopReason = "complete" | "budget" | "limit" | "interrupted" | "daily-limit" | "consecutive-failures" | "rate-limited" | "not-authorized" | "insufficient-credits" | "site-unreadable" | "cost-above-ceiling" | "ledger-error";
 export type DryRunSummary = { kind: "dry-run"; chapters: Array<{ label: string; verses: number; present: number; missing: number; projectedUsd: number }>; listed: number; present: number; missing: number; projectedUsd: number };
 export type RunSummary = {
   kind: "run"; stop: StopReason; rendered: number; skipped: number; declined: number;
+  /** Requests this run could not settle, and verses left alone because an earlier request for them was never settled. */
+  unresolved: number; leftAlone: string[];
   failed: { total: number; http402: number; http429: number; http5xx: number; other: number };
   /** This run's spend as the site reported it; what was held at the ceiling for unreported costs; and the ledger's total against the budget. */
   measuredUsd: number; unconfirmedUsd: number; ledgerUsd: number; budgetUsd: number; remainingUsd: number;
@@ -72,13 +87,13 @@ export type RunSummary = {
 export type SeedSummary = DryRunSummary | RunSummary;
 
 type AttemptResult = {
-  outcome: "rendered" | "declined" | "failed"; status: number | null; retryable: boolean; stop?: StopReason;
+  outcome: Outcome; status: number | null; retryable: boolean; stop?: StopReason;
   usd: number; usdSource: UsdSource; credits: number | null; imageId: string | null; durationMs: number | null; error?: string;
 };
 type Json = Record<string, unknown>;
 type Reply = { status: number; json: Json | null; retryAfterMs: number };
 
-const USAGE = "Usage: npm run seed:images -- --base-url <origin> [--dry-run] [--budget-usd <usd>] [--style classical] [--translation web] [--limit <verses>] [--concurrency 2] [--max-consecutive-failures 5]";
+const USAGE = "Usage: npm run seed:images -- --base-url <origin> [--dry-run] [--budget-usd <usd>] [--style classical] [--translation web] [--limit <verses>] [--concurrency 2] [--max-consecutive-failures 5] [--redraw-unresolved]";
 const round = (usd: number) => Math.round(usd * 1e6) / 1e6;
 const dollars = (usd: number, digits = 2) => `$${usd.toFixed(digits)}`;
 const amount = (value: unknown) => typeof value === "number" && Number.isFinite(value) && value >= 0 ? value : null;
@@ -90,7 +105,7 @@ export function parseSeedOptions(argv: string[]): SeedOptions {
   const { values } = parseArgs({ args: argv, options: {
     "base-url": { type: "string" }, work: { type: "string", default: BIBLE_WORK_ID }, style: { type: "string", default: DEFAULT_ART_STYLE },
     translation: { type: "string", default: DEFAULT_TRANSLATION }, "budget-usd": { type: "string" }, limit: { type: "string" },
-    concurrency: { type: "string", default: "2" }, "max-consecutive-failures": { type: "string", default: "5" }, "dry-run": { type: "boolean", default: false },
+    concurrency: { type: "string", default: "2" }, "max-consecutive-failures": { type: "string", default: "5" }, "dry-run": { type: "boolean", default: false }, "redraw-unresolved": { type: "boolean", default: false },
   } });
   const fail = (message: string): never => { throw new Error(`${message}\n${USAGE}`); };
   const whole = (flag: string, value: string, min: number, max: number) => {
@@ -111,7 +126,7 @@ export function parseSeedOptions(argv: string[]): SeedOptions {
   if (budget !== null && !(Number.isFinite(budget) && budget > 0)) fail("--budget-usd must be a positive number of dollars");
   if (!dryRun && budget === null) fail("--budget-usd is required unless --dry-run is given");
   return {
-    baseUrl: url.origin, workId: values.work, style: values.style, translation: values.translation, budgetUsd: budget, dryRun,
+    baseUrl: url.origin, workId: values.work, style: values.style, translation: values.translation, budgetUsd: budget, dryRun, redrawUnresolved: values["redraw-unresolved"],
     limit: values.limit === undefined ? null : whole("limit", values.limit, 1, 100_000),
     concurrency: whole("concurrency", values.concurrency, 1, 4), maxFailures: whole("max-consecutive-failures", values["max-consecutive-failures"], 1, 1000),
   };
@@ -134,48 +149,66 @@ export function expandSeedList(list: readonly SeedChapterEntry[] = SEED_CHAPTERS
   });
 }
 
-/** What earlier runs against this site left in the ledger: verses rendered, verses whose request never got an answer, and the spend so far. */
-export function readLedger(rows: LedgerRow[], baseUrl: string) {
-  const done = new Set<string>(); const open = new Map<string, LedgerRow>(); let spentUsd = 0;
-  for (const row of rows) {
-    if (row.baseUrl !== baseUrl) continue;
-    if (row.event === "start") { open.set(row.requestId, row); continue; }
-    open.delete(row.requestId);
-    spentUsd += amount(row.usd) ?? 0;
-    if (row.outcome === "rendered") done.add(verseKey(row.style, row.reference));
-  }
-  // A request that was sent and never answered (the run was killed) may have been paid for.
-  const unanswered = new Set([...open.values()].map((row) => verseKey(row.style, row.reference)));
-  return { done, unanswered, spentUsd: round(spentUsd + open.size * CEILING_USD_PER_IMAGE) };
+const OUTCOMES: readonly string[] = ["rendered", "declined", "failed", "unresolved"];
+/**
+ * What earlier runs against this site left in the ledger: verses rendered, verses whose request was never settled, and
+ * the spend so far. A line that cannot be read stops the run: skipping it could hide a paid request.
+ */
+export function readLedger(rows: readonly unknown[], baseUrl: string) {
+  const done = new Set<string>(); const open = new Map<string, string>(); const unsettled = new Set<string>(); let spentUsd = 0;
+  rows.forEach((value, index) => {
+    const row = value as Partial<LedgerRow> | null;
+    const unreadable = (why: string): never => { throw new Error(`Ledger line ${index + 1} cannot be read (${why}). Nothing is drawn until it is repaired.`); };
+    if (!row || typeof row !== "object" || (row.event !== "start" && row.event !== "result")) return unreadable("it is not a start or a result");
+    for (const field of ["baseUrl", "reference", "style", "requestId"] as const) if (typeof row[field] !== "string" || !row[field]) return unreadable(`it has no ${field}`);
+    if (row.baseUrl !== baseUrl) return;
+    const key = verseKey(row.style!, row.reference!);
+    if (row.event === "start") { open.set(row.requestId!, key); return; }
+    if (!OUTCOMES.includes(row.outcome as string)) return unreadable("its outcome is not known");
+    if (amount(row.usd) === null) return unreadable("it has no amount");
+    open.delete(row.requestId!);
+    spentUsd += row.usd!;
+    if (row.outcome === "rendered") done.add(key);
+    if (row.outcome === "unresolved") unsettled.add(key);
+  });
+  // A request that was sent and never answered (the run was killed) may have been paid for, and may have made an image.
+  const unresolved = new Set([...open.values(), ...unsettled].filter((key) => !done.has(key)));
+  return { done, unresolved, spentUsd: round(spentUsd + open.size * CEILING_USD_PER_IMAGE) };
 }
 
-/** What one answer from POST /api/generate-image means for the run (see the route and src/lib/engine/generation.ts). */
+/**
+ * What one answer from POST /api/generate-image means for the run (see the route and src/lib/engine/generation.ts).
+ * Only answers the route gives before it admits a request cost nothing. Everything else is counted at the ceiling
+ * unless the provider's own usage is reported.
+ */
 export function classifyGenerateResponse(status: number, json: Json | null): AttemptResult {
   const body = json ?? {};
   const error = [body.error, body.message].filter((part) => typeof part === "string").join(": ").slice(0, 300) || `HTTP ${status}`;
   const none = { usd: 0, usdSource: "none" as const, credits: null, imageId: null, durationMs: null };
+  const held = { usd: CEILING_USD_PER_IMAGE, usdSource: "ceiling" as const };
   const failed = (extra: Partial<AttemptResult> = {}): AttemptResult => ({ outcome: "failed", status, retryable: false, ...none, error, ...extra });
-  // A failure after the request was admitted may have reached the provider, which reports no cost for it.
-  const unreported = { usd: CEILING_USD_PER_IMAGE, usdSource: "ceiling" as const };
+  // The request may have reached the provider and may have saved an image.
+  const unresolved = (): AttemptResult => ({ outcome: "unresolved", status, retryable: false, ...none, ...held, error });
   if (status === 200 && typeof body.imageUrl === "string") {
-    const credits = amount(body.creditsCost);
-    const provider = amount(body.openRouterUsageUsd); const billed = amount(body.costUsd) ?? (credits === null ? null : credits * CREDIT_USD);
-    const cost = provider !== null ? { usd: provider, usdSource: "provider" as const } : billed !== null ? { usd: billed, usdSource: "billed" as const } : unreported;
-    const paid = { ...cost, credits, durationMs: amount(body.durationMs) };
+    // The billed amount is the engine's own quote when the provider reported no usage, so only the provider's figure counts as measured.
+    const provider = amount(body.openRouterUsageUsd);
+    const paid = { ...(provider !== null ? { usd: provider, usdSource: "provider" as const } : held), credits: amount(body.creditsCost), durationMs: amount(body.durationMs) };
     // The route answers 200 even when the save failed; an image nobody can see is not a seeded verse.
     if (typeof body.savedImageId !== "string") return failed({ ...paid, error: "The image was made but not saved" });
     return { outcome: "rendered", status, retryable: false, ...paid, imageId: body.savedImageId };
   }
+  // A success that is not the route's own (cut short, or rewritten on the way) says nothing about what happened.
+  if (status >= 200 && status < 300) return unresolved();
   if (status === 401 || status === 403) return failed({ stop: "not-authorized" });
   if (status === 402) return failed({ stop: "insufficient-credits" });
   if (status === 429) return failed({ stop: body.error === "Daily spending limit exceeded" ? "daily-limit" : "rate-limited" });
-  // A replay of a request that was admitted and then failed; one admitted under another session or input is a plain conflict.
-  if (status === 409 && body.reused === true) return failed({ retryable: true, ...unreported });
+  // A replay of a request that was admitted and ended without a saved image: no image exists, and its cost is unknown.
+  if (status === 409 && body.reused === true) return failed(held);
   // The engine or admission declined the scene before any request record or charge.
   if (status === 503 && typeof body.retryable === "boolean") return { outcome: "declined", status, retryable: body.retryable, ...none, error };
   // Any other 502 or 503 is answered before admission: a Scripture lookup or a service that is down.
   if (status === 502 || status === 503) return failed({ retryable: true });
-  if (status >= 500) return failed({ retryable: true, ...unreported });
+  if (status >= 500) return unresolved();
   return failed();
 }
 
@@ -220,7 +253,7 @@ export async function runSeed(options: SeedOptions, deps: SeedDeps, list: readon
   const scrub = <T>(value: T): T => scrubForLog(value, password, sha256) as T;
   const log = (line: string) => deps.log(scrub(line));
   try {
-    return await seed(options, { ...deps, log, ledger: { read: deps.ledger.read, append: (row) => deps.ledger.append(scrub(row)) } }, list);
+    return await seed(options, { ...deps, log, ledger: { ...deps.ledger, append: (row) => deps.ledger.append(scrub(row)) } }, list);
   } catch (error) {
     throw new Error(scrub(error instanceof Error ? error.message : String(error)));
   }
@@ -229,8 +262,18 @@ export async function runSeed(options: SeedOptions, deps: SeedDeps, list: readon
 async function seed(options: SeedOptions, deps: SeedDeps, list: readonly SeedChapterEntry[]): Promise<SeedSummary> {
   if (options.workId !== BIBLE_WORK_ID) throw new Error(`Only the Bible (${BIBLE_WORK_ID}) is seeded; "${options.workId}" is refused`);
   const chapters = expandSeedList(list);
+  const client = createClient(options.baseUrl, deps);
+  // A paid run holds the ledger from before it is read until every request has settled, so two runs cannot spend the same budget.
+  const release = options.dryRun ? () => {} : deps.ledger.lock();
+  try {
+    return await seedLocked(options, deps, chapters, client);
+  } finally {
+    release();
+  }
+}
+
+async function seedLocked(options: SeedOptions, deps: SeedDeps, chapters: SeedChapter[], client: ReturnType<typeof createClient>): Promise<SeedSummary> {
   const { baseUrl, style, translation } = options;
-  const client = createClient(baseUrl, deps);
   const prior = readLedger(deps.ledger.read(), baseUrl);
   const styleQuery = `?style=${encodeURIComponent(style)}`;
 
@@ -266,27 +309,29 @@ async function seed(options: SeedOptions, deps: SeedDeps, list: readonly SeedCha
     for (const row of rows) deps.log(`${row.label.padEnd(20)}${String(row.verses).padStart(8)}${String(row.present).padStart(9)}${String(row.missing).padStart(9)}${dollars(row.projectedUsd).padStart(11)}`);
     deps.log(`Total: ${rows.length} chapters, ${summary.listed} verses listed, ${summary.present} already present, ${summary.missing} missing; projected ${dollars(summary.projectedUsd)} at ${dollars(ESTIMATE_USD_PER_IMAGE, 3)} per image.`);
     if (prior.spentUsd > 0) deps.log(`The ledger for this site already records ${dollars(prior.spentUsd)}; --budget-usd counts it.`);
-    if (options.budgetUsd !== null) deps.log(`A budget of ${dollars(options.budgetUsd)} is sure to cover ${Math.max(0, Math.floor((options.budgetUsd - prior.spentUsd) / CEILING_USD_PER_IMAGE + 1e-9))} more images at the ${dollars(CEILING_USD_PER_IMAGE, 3)} ceiling, and about ${Math.max(0, Math.floor((options.budgetUsd - prior.spentUsd) / ESTIMATE_USD_PER_IMAGE + 1e-9))} at the estimate.`);
+    if (options.budgetUsd !== null) deps.log(`A budget of ${dollars(options.budgetUsd)} covers ${Math.max(0, Math.floor((options.budgetUsd - prior.spentUsd) / CEILING_USD_PER_IMAGE + 1e-9))} more images if each is counted at the ${dollars(CEILING_USD_PER_IMAGE, 3)} ceiling, and about ${Math.max(0, Math.floor((options.budgetUsd - prior.spentUsd) / ESTIMATE_USD_PER_IMAGE + 1e-9))} at the estimate.`);
     return summary;
   }
 
   const budgetUsd = options.budgetUsd;
   if (budgetUsd === null) throw new Error("--budget-usd is required unless --dry-run is given");
   if (!deps.password) throw new Error("Set SEED_ADMIN_PASSWORD in the environment for a paid run; it is never read from a flag");
-  const state = { rendered: 0, skipped: 0, declined: 0, failed: { total: 0, http402: 0, http429: 0, http5xx: 0, other: 0 },
-    measuredUsd: 0, unconfirmedUsd: 0, inFlight: 0, consecutiveFailures: 0, verses: 0, stop: null as StopReason | null };
+  const state = { rendered: 0, skipped: 0, declined: 0, unresolved: 0, leftAlone: [] as string[], failed: { total: 0, http402: 0, http429: 0, http5xx: 0, other: 0 },
+    ledgerError: null as unknown, measuredUsd: 0, unconfirmedUsd: 0, inFlight: 0, consecutiveFailures: 0, verses: 0, stop: null as StopReason | null };
   /** Everything the budget must already cover: the ledger, this run, and each request in flight at the ceiling. */
   const committedUsd = () => prior.spentUsd + state.measuredUsd + state.unconfirmedUsd + state.inFlight * CEILING_USD_PER_IMAGE;
   const summarize = (stop: StopReason): RunSummary => {
     const ledgerUsd = round(prior.spentUsd + state.measuredUsd + state.unconfirmedUsd);
-    return { kind: "run", stop, rendered: state.rendered, skipped: state.skipped, declined: state.declined, failed: state.failed,
+    return { kind: "run", stop, rendered: state.rendered, skipped: state.skipped, declined: state.declined, unresolved: state.unresolved, leftAlone: state.leftAlone, failed: state.failed,
       measuredUsd: round(state.measuredUsd), unconfirmedUsd: round(state.unconfirmedUsd), ledgerUsd, budgetUsd, remainingUsd: round(budgetUsd - ledgerUsd) };
   };
   const report = (summary: RunSummary) => {
     const f = summary.failed;
     deps.log(`Stopped: ${summary.stop}.`);
     deps.log(`Rendered ${summary.rendered}, skipped (already present) ${summary.skipped}, declined ${summary.declined}, failed ${f.total} (402: ${f.http402}, 429: ${f.http429}, 5xx: ${f.http5xx}, other: ${f.other}).`);
-    deps.log(`Measured spend this run ${dollars(summary.measuredUsd)}${summary.unconfirmedUsd > 0 ? `, plus ${dollars(summary.unconfirmedUsd)} held at the ceiling for requests whose cost was never reported` : ""}. Ledger total ${dollars(summary.ledgerUsd)} of ${dollars(budgetUsd)}; remaining budget ${dollars(summary.remainingUsd)}.`);
+    if (summary.unresolved > 0) deps.log(`${summary.unresolved} request${summary.unresolved === 1 ? "" : "s"} got no definite answer and may have made an image; ${summary.unresolved === 1 ? "its verse is" : "their verses are"} left alone by later runs.`);
+    if (summary.leftAlone.length) deps.log(`Left alone, because an earlier request never got a definite answer: ${summary.leftAlone.slice(0, 20).join(", ")}${summary.leftAlone.length > 20 ? ` and ${summary.leftAlone.length - 20} more` : ""}. Look at them in the reader; any still without an image after ten minutes can be drawn with --redraw-unresolved.`);
+    deps.log(`Measured spend this run ${dollars(summary.measuredUsd)}${summary.unconfirmedUsd > 0 ? `, plus ${dollars(summary.unconfirmedUsd)} held at the ceiling for requests whose cost the provider did not report` : ""}. Ledger total ${dollars(summary.ledgerUsd)} of ${dollars(budgetUsd)}; remaining budget ${dollars(summary.remainingUsd)}.`);
     return summary;
   };
   if (committedUsd() + CEILING_USD_PER_IMAGE > budgetUsd + 1e-9) {
@@ -311,10 +356,11 @@ async function seed(options: SeedOptions, deps: SeedDeps, list: readonly SeedCha
         const key = verseKey(style, verse.reference);
         if (!prior.done.has(key)) {
           saved ??= await savedVerses(chapter);
-          // A verse whose last request was never answered is asked about on its own, past any cached chapter answer.
-          const present = saved.has(verse.verse) || (prior.unanswered.has(key)
-            && (await publicRead(`/api/public/images/verses/${verse.book}/${verse.chapter}/${verse.verse}${styleQuery}`, verse.reference, [200, 404])).status === 200);
-          if (!present) { yield verse; continue; }
+          if (!saved.has(verse.verse)) {
+            // Its earlier request may still finish, and the public answer may be a cached one: no image seen is not proof of none.
+            if (prior.unresolved.has(key) && !options.redrawUnresolved) { state.leftAlone.push(verse.reference); continue; }
+            yield verse; continue;
+          }
         }
         state.skipped++;
       }
@@ -381,6 +427,9 @@ async function seed(options: SeedOptions, deps: SeedDeps, list: readonly SeedCha
   const send = async (verse: SeedVerse, requestId: string): Promise<AttemptResult> => {
     // Only the Bible: the request names its work and never a unit, so it cannot be read as a prose passage.
     const body = { reference: verse.reference, translation, style, requestId, aspectRatio: "16:9", resolution: "1K", workId: BIBLE_WORK_ID };
+    // Once an answer went missing, the request may have been admitted: only its own image settles it after that.
+    let admissionUnknown = false;
+    const unsettled = (status: number | null, what: string): AttemptResult => ({ outcome: "unresolved", status, retryable: false, usd: CEILING_USD_PER_IMAGE, usdSource: "ceiling", credits: null, imageId: null, durationMs: null, error: what.slice(0, 300) });
     for (let waits = 0, resends = 0; ;) {
       await slot(true);
       let reply: Reply | null = null; let thrown = "";
@@ -393,47 +442,66 @@ async function seed(options: SeedOptions, deps: SeedDeps, list: readonly SeedCha
       // No answer, an answer that is not the route's own, or "still running": the request may yet be paid for and saved.
       if (!reply || reply.status === 202 || (reply.status >= 500 && !reply.json)) {
         const what = reply ? `HTTP ${reply.status}` : thrown;
-        if (++resends > MAX_RESENDS) return { outcome: "failed", status: reply?.status ?? null, retryable: false, usd: CEILING_USD_PER_IMAGE, usdSource: "ceiling", credits: null, imageId: null, durationMs: null, error: `No definite answer (${what}); the request may still finish`.slice(0, 300) };
+        admissionUnknown = true;
+        if (++resends > MAX_RESENDS) return unsettled(reply?.status ?? null, `No definite answer (${what}); the request may still finish`);
         deps.log(`[no answer] ${verse.reference}: ${what}; asking again under the same request id in ${RESEND_DELAY_MS / 1000}s`);
         await deps.sleep(RESEND_DELAY_MS);
         continue;
       }
-      return classifyGenerateResponse(reply.status, reply.json);
+      const result = classifyGenerateResponse(reply.status, reply.json);
+      // An answer the route gives before looking the request up (a failed lookup, a refusal) says nothing about the first attempt.
+      if (admissionUnknown && result.outcome !== "rendered" && !(reply.status === 409 && reply.json?.reused === true)) {
+        return unsettled(reply.status, `After an unanswered request the site said: ${result.error ?? `HTTP ${reply.status}`}`);
+      }
+      return result;
     }
   };
 
   const count = (result: AttemptResult) => {
     if (result.outcome === "declined") { state.declined++; return; }
+    if (result.outcome === "unresolved") { state.unresolved++; return; }
     state.failed.total++;
     if (result.status === 402) state.failed.http402++; else if (result.status === 429) state.failed.http429++;
     else if (result.status !== null && result.status >= 500) state.failed.http5xx++; else state.failed.other++;
   };
+  /** The ledger could not be written: nothing more is sent, the requests in flight settle, and the error is raised at the end. */
+  const ledgerFailed = (error: unknown) => { state.ledgerError ??= error; state.stop ??= "ledger-error"; };
   const worker = async () => {
     for (let task = await next(); task; task = await next()) {
       const { verse, attempt } = task;
       const row = { baseUrl, reference: verse.reference, style, translation, requestId: deps.uuid(), attempt };
-      let result: AttemptResult;
       const startedAt = deps.now();
       try {
         deps.ledger.append({ at: new Date(startedAt).toISOString(), event: "start", ...row });
-        result = await send(verse, row.requestId);
+      } catch (error) {
+        // Nothing was sent for this verse.
+        state.inFlight--; ledgerFailed(error);
+        return;
+      }
+      const result = await send(verse, row.requestId);
+      try {
         deps.ledger.append({ at: new Date(deps.now()).toISOString(), event: "result", ...row, outcome: result.outcome, status: result.status, credits: result.credits,
           usd: result.usd, usdSource: result.usdSource, durationMs: result.durationMs, elapsedMs: deps.now() - startedAt, imageId: result.imageId, ...(result.error ? { error: result.error } : {}) });
-      } finally {
-        state.inFlight--;
+      } catch (error) {
+        // The ledger holds this request's start without its result, which a later run counts at the ceiling; so does this one.
+        state.inFlight--; state.unconfirmedUsd += CEILING_USD_PER_IMAGE; ledgerFailed(error);
+        return;
       }
+      state.inFlight--;
       if (result.usdSource === "ceiling") state.unconfirmedUsd += result.usd; else state.measuredUsd += result.usd;
+      // The ceiling is what every reservation assumed. One image above it means the assumption no longer holds.
+      if (result.usdSource === "provider" && result.usd > CEILING_USD_PER_IMAGE) state.stop ??= "cost-above-ceiling";
       const spent = `${dollars(round(prior.spentUsd + state.measuredUsd + state.unconfirmedUsd))} of ${dollars(budgetUsd)}`;
       if (result.outcome === "rendered") {
         state.rendered++; state.consecutiveFailures = 0;
-        deps.log(`[rendered] ${verse.reference} ${dollars(result.usd, 4)}${result.credits === null ? "" : ` (${result.credits} credits)`} in ${((result.durationMs ?? deps.now() - startedAt) / 1000).toFixed(1)}s, image ${result.imageId}; ${spent}`);
+        deps.log(`[rendered] ${verse.reference} ${dollars(result.usd, 4)}${result.usdSource === "ceiling" ? " (held at the ceiling: no provider cost reported)" : ""}${result.credits === null ? "" : ` (${result.credits} credits)`} in ${((result.durationMs ?? deps.now() - startedAt) / 1000).toFixed(1)}s, image ${result.imageId}; ${spent}`);
         continue;
       }
       state.consecutiveFailures++;
       if (result.stop) state.stop ??= result.stop;
       else if (state.consecutiveFailures >= options.maxFailures) state.stop ??= "consecutive-failures";
-      // A failed verse is tried once more in the same run, under a new request id, and only if the run is going on.
-      const again = result.retryable && attempt === 1 && !state.stop;
+      // A verse the site refused before admitting anything is tried once more in the same run, under a new request id.
+      const again = result.retryable && result.usdSource === "none" && attempt === 1 && !state.stop;
       if (again) retries.push({ verse, attempt: 2, last: result }); else count(result);
       deps.log(`[${result.outcome}${result.status === null ? "" : ` ${result.status}`}] ${verse.reference}: ${result.error ?? "no reason given"}${again ? "; one more try" : ""}; ${spent}`);
     }
@@ -441,5 +509,7 @@ async function seed(options: SeedOptions, deps: SeedDeps, list: readonly SeedCha
   await Promise.all(Array.from({ length: options.concurrency }, worker));
   // A verse whose second try never ran is still a verse that failed.
   for (const task of retries) if (task.last) count(task.last);
-  return report(summarize(state.stop ?? "complete"));
+  const summary = report(summarize(state.stop ?? "complete"));
+  if (state.ledgerError) throw new Error(`The ledger could not be written (${state.ledgerError instanceof Error ? state.ledgerError.message : String(state.ledgerError)}). Requests already sent were allowed to finish; repair the ledger before running again.`);
+  return summary;
 }

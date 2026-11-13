@@ -69,12 +69,15 @@ function fakeSite(config: { saved?: Record<string, number[]>; chapterAnswer?: (p
 
 function harness(config: Parameters<typeof fakeSite>[0] = {}, start: { ledger?: LedgerRow[]; password?: string | undefined } = {}) {
   let clock = 1_800_000_000_000; let ids = 0;
-  const logs: string[] = []; const sleeps: number[] = []; const rows: LedgerRow[] = [...(start.ledger ?? [])];
+  const logs: string[] = []; const sleeps: number[] = []; const rows: LedgerRow[] = [...(start.ledger ?? [])]; let held = false;
   const site = fakeSite({ ...config, now: () => clock });
   const deps = {
     fetch: site.fetch, sleep: async (ms: number) => { sleeps.push(ms); clock += ms; }, now: () => clock, uuid: () => `request-${++ids}`,
     log: (line: string) => { logs.push(line); }, password: "password" in start ? start.password : PASSWORD, stopRequested: () => false,
-    ledger: { read: () => [...rows], append: (row: LedgerRow) => { rows.push(row); } },
+    ledger: {
+      read: (): unknown[] => [...rows], append: (row: LedgerRow) => { rows.push(row); },
+      lock: () => { if (held) throw new Error("Another seed run holds the ledger"); held = true; return () => { held = false; }; },
+    },
   };
   return { site: site.site, deps, logs, sleeps, rows, references: () => site.site.generates.map((call) => call.body?.reference) };
 }
@@ -112,8 +115,9 @@ describe("the command's flags", () => {
     expect(() => parseSeedOptions(["--base-url", SITE])).toThrow(/--budget-usd is required/);
     expect(() => parseSeedOptions(["--base-url", SITE, "--dry-run", "--password", PASSWORD])).toThrow(/password/);
     expect(parseSeedOptions(["--base-url", `${SITE}/`, "--dry-run"])).toEqual({
-      baseUrl: SITE, workId: "bible-web", style: "classical", translation: "web", budgetUsd: null, limit: null, concurrency: 2, dryRun: true, maxFailures: 5,
+      baseUrl: SITE, workId: "bible-web", style: "classical", translation: "web", budgetUsd: null, limit: null, concurrency: 2, dryRun: true, maxFailures: 5, redrawUnresolved: false,
     });
+    expect(parseSeedOptions(["--base-url", SITE, "--budget-usd", "1", "--redraw-unresolved"]).redrawUnresolved).toBe(true);
     expect(parseSeedOptions(["--base-url", SITE, "--budget-usd", "12.5", "--limit", "40", "--concurrency", "4", "--style", "watercolor"]))
       .toMatchObject({ budgetUsd: 12.5, limit: 40, concurrency: 4, style: "watercolor", dryRun: false });
   });
@@ -238,41 +242,122 @@ describe("a paid run", () => {
     expect(h.references()).toEqual(["Jonah 2:1", "Jonah 2:2", "Jonah 2:3"]);
   });
 
-  it("continues from the ledger: rendered verses are skipped, its spend counts, and an unanswered request is checked on the site", async () => {
+  it("continues from the ledger: rendered verses are skipped, its spend counts, and a verse whose request was never answered is left alone", async () => {
     const ledger: LedgerRow[] = [
       row("Jonah 2:1"), row("Jonah 2:2"),
       row("Jonah 2:3", { style: "watercolor" }),
       row("Jonah 2:5", { baseUrl: "https://elsewhere.test", usd: 100 }),
-      row("Jonah 2:6", { outcome: "failed", status: 500, usd: 0, usdSource: "none", imageId: null }),
+      row("Jonah 2:6", { outcome: "failed", status: 400, usd: 0, usdSource: "none", imageId: null }),
       row("Jonah 2:4", { event: "start", requestId: "killed-mid-request", outcome: undefined, status: undefined, usd: undefined, usdSource: undefined, imageId: undefined }),
     ];
-    // The chapter answer is stale and shows nothing; the verse's own answer shows the image the killed run did save.
-    const h = harness({ saved: { "jonah/2/4": [1] } }, { ledger });
+    // The site shows no image for Jonah 2:4. That is not proof: the killed run's request may still finish, and the answer may be cached.
+    const h = harness({}, { ledger });
     const summary = await run(h, { budgetUsd: 0.4 });
     // $0.12 rendered and $0.10 held for the unanswered request leave room for three images at the ceiling.
     expect(h.references()).toEqual(["Jonah 2:3", "Jonah 2:5", "Jonah 2:6"]);
-    expect(h.site.calls.filter((call) => call.path.startsWith("/api/public/images/verses/")).map((call) => call.path)).toEqual(["/api/public/images/verses/jonah/2/4?style=classical"]);
-    expect(summary).toMatchObject({ stop: "budget", rendered: 3, skipped: 3, measuredUsd: 0.12, ledgerUsd: 0.34, remainingUsd: 0.06 });
+    expect(h.site.calls.some((call) => call.path.startsWith("/api/public/images/verses/"))).toBe(false);
+    expect(summary).toMatchObject({ stop: "budget", rendered: 3, skipped: 2, leftAlone: ["Jonah 2:4"], measuredUsd: 0.12, ledgerUsd: 0.34, remainingUsd: 0.06 });
+    expect(h.logs.join("\n")).toMatch(/Left alone, because an earlier request never got a definite answer: Jonah 2:4\..*--redraw-unresolved/);
+    // The same holds for a request the earlier run recorded as unresolved, until the operator says to draw it again.
+    const settledLater = [row("Jonah 2:1", { outcome: "unresolved", status: 500, usd: 0.1, usdSource: "ceiling", imageId: null })];
+    const careful = harness({}, { ledger: settledLater });
+    expect(await run(careful, { limit: 1 })).toMatchObject({ leftAlone: ["Jonah 2:1"] });
+    expect(careful.references()).toEqual(["Jonah 2:2"]);
+    const told = harness({}, { ledger: settledLater });
+    await run(told, { limit: 1, redrawUnresolved: true });
+    expect(told.references()).toEqual(["Jonah 2:1"]);
+    // And it ends when the site shows the image after all.
+    const appeared = harness({ saved: { "jonah/2": [1] } }, { ledger: settledLater });
+    expect(await run(appeared, { limit: 1 })).toMatchObject({ leftAlone: [], skipped: 1 });
     const spent = harness({}, { ledger: [row("Jonah 2:1", { usd: 0.95 })] });
     expect(await run(spent, { budgetUsd: 1 })).toMatchObject({ stop: "budget", rendered: 0, ledgerUsd: 0.95 });
     expect(spent.site.calls).toEqual([]);
   });
 
-  it("tries a failed verse once more under a new request id, and no more", async () => {
-    const h = harness({ generate: (body, nth) => body.reference === "Jonah 2:2" ? json(500, { error: "Failed to generate image", message: "OpenRouter API error: 500", requestId: body.requestId }) : rendered(body, nth) });
+  it("stops on a ledger line it cannot read, before any request", async () => {
+    const lines: unknown[] = [
+      { ...row("Jonah 2:1"), usd: undefined },
+      { ...row("Jonah 2:1"), usd: "0.04" },
+      { ...row("Jonah 2:1"), outcome: "done" },
+      { ...row("Jonah 2:1"), requestId: undefined },
+      "not a row",
+    ];
+    for (const line of lines) {
+      const h = harness({}, { ledger: [row("Jonah 2:2"), line as LedgerRow] });
+      await expect(run(h)).rejects.toThrow(/Ledger line 2 cannot be read/);
+      expect(h.site.calls).toEqual([]);
+    }
+  });
+
+  it("refuses a second paid run while one holds the ledger, and gives it back afterwards", async () => {
+    const h = harness({ generate: async (body, nth) => { await new Promise((resolve) => setTimeout(resolve, 5)); return rendered(body, nth); } });
+    const first = run(h, { limit: 2 });
+    await expect(run(h, { limit: 2 })).rejects.toThrow(/Another seed run holds the ledger/);
+    expect(await first).toMatchObject({ rendered: 2 });
+    expect(h.references()).toEqual(["Jonah 2:1", "Jonah 2:2"]);
+    // Released after a normal end and after a failure, and never taken by a dry run.
+    expect(await run(h, { limit: 1 })).toMatchObject({ rendered: 1 });
+    h.rows.push("broken" as unknown as LedgerRow);
+    await expect(run(h)).rejects.toThrow(/Ledger line/);
+    h.rows.pop();
+    h.deps.ledger.lock();
+    expect((await runSeed(options({ dryRun: true }), h.deps, JONAH_2)).kind).toBe("dry-run");
+  });
+
+  it("stops sending when the ledger cannot be written, lets the requests in flight finish, and keeps their cost", async () => {
+    const h = harness({ generate: async (body, nth) => { await new Promise((resolve) => setTimeout(resolve, nth === 1 ? 5 : 20)); return rendered(body, nth); } });
+    const append = h.deps.ledger.append;
+    let results = 0;
+    h.deps.ledger.append = (entry) => { if (entry.event === "result" && ++results === 1) throw new Error("disk full"); append(entry); };
+    await expect(run(h, { concurrency: 2, budgetUsd: 1 })).rejects.toThrow(/The ledger could not be written \(disk full\)/);
+    // Two were in flight when the first result could not be written; the second finished and nothing else was sent.
+    expect(h.references()).toEqual(["Jonah 2:1", "Jonah 2:2"]);
+    expect(h.rows.map((entry) => `${entry.event} ${entry.reference}`)).toEqual(["start Jonah 2:1", "start Jonah 2:2", "result Jonah 2:2"]);
+    expect(h.logs.join("\n")).toMatch(/Stopped: ledger-error\./);
+    // The next run counts the request whose result was lost at the ceiling and leaves its verse alone.
+    const after = harness({}, { ledger: h.rows });
+    expect(await run(after, { limit: 1 })).toMatchObject({ leftAlone: ["Jonah 2:1"], ledgerUsd: 0.18 });
+    const cannotStart = harness();
+    cannotStart.deps.ledger.append = () => { throw new Error("read-only"); };
+    await expect(run(cannotStart)).rejects.toThrow(/The ledger could not be written/);
+    expect(cannotStart.site.generates).toHaveLength(0);
+  });
+
+  it("tries a verse once more only when the site refused it before admitting anything", async () => {
+    const h = harness({ generate: (body, nth) => {
+      if (body.reference === "Jonah 2:2") return json(503, { error: "Reference lookup unavailable" });
+      if (body.reference === "Jonah 2:3") return json(500, { error: "Failed to generate image", message: "OpenRouter API error: 500", requestId: body.requestId });
+      return rendered(body, nth);
+    } });
     const summary = await run(h);
-    const second = h.site.generates.filter((call) => call.body?.reference === "Jonah 2:2");
-    expect(second).toHaveLength(2);
-    expect(second[0].body?.requestId).not.toBe(second[1].body?.requestId);
-    expect(h.rows.filter((entry) => entry.reference === "Jonah 2:2" && entry.event === "result").map((entry) => [entry.attempt, entry.outcome, entry.status, entry.usdSource])).toEqual([[1, "failed", 500, "ceiling"], [2, "failed", 500, "ceiling"]]);
-    expect(summary).toMatchObject({ stop: "complete", rendered: 9, failed: { total: 1, http5xx: 1 }, measuredUsd: 0.36, unconfirmedUsd: 0.2 });
+    const refused = h.site.generates.filter((call) => call.body?.reference === "Jonah 2:2");
+    expect(refused).toHaveLength(2);
+    expect(refused[0].body?.requestId).not.toBe(refused[1].body?.requestId);
+    // A failure after admission may have been paid for and may have saved an image: one request, held at the ceiling, no second id.
+    expect(h.site.generates.filter((call) => call.body?.reference === "Jonah 2:3")).toHaveLength(1);
+    expect(h.rows.filter((entry) => entry.event === "result" && entry.outcome !== "rendered").map((entry) => [entry.reference, entry.attempt, entry.outcome, entry.status, entry.usd, entry.usdSource])).toEqual([
+      ["Jonah 2:2", 1, "failed", 503, 0, "none"], ["Jonah 2:2", 2, "failed", 503, 0, "none"], ["Jonah 2:3", 1, "unresolved", 500, 0.1, "ceiling"],
+    ]);
+    expect(summary).toMatchObject({ stop: "complete", rendered: 8, unresolved: 1, failed: { total: 1, http5xx: 1 }, measuredUsd: 0.32, unconfirmedUsd: 0.1 });
+  });
+
+  it("counts an image at the ceiling unless the provider reported its cost, and stops when one costs more than the ceiling", async () => {
+    // The billed amount is the engine's quote when the provider reports nothing, so it cannot stand in for what was spent.
+    const quoted = harness({ generate: (body, nth) => json(200, { requestId: body.requestId, imageUrl: "data:image/png;base64,AAAA", savedImageId: `img-${nth}`, creditsCost: 6, costUsd: 0.06 }) });
+    const summary = await run(quoted, { budgetUsd: 0.25 });
+    expect(quoted.references()).toEqual(["Jonah 2:1", "Jonah 2:2"]);
+    expect(summary).toMatchObject({ stop: "budget", rendered: 2, measuredUsd: 0, unconfirmedUsd: 0.2 });
+    expect(quoted.rows.at(-1)).toMatchObject({ outcome: "rendered", usd: 0.1, usdSource: "ceiling" });
+    const dear = harness({ generate: (body, nth) => json(200, { requestId: body.requestId, imageUrl: "data:image/png;base64,AAAA", savedImageId: `img-${nth}`, openRouterUsageUsd: nth === 2 ? 0.11 : IMAGE_USD }) });
+    expect(await run(dear)).toMatchObject({ stop: "cost-above-ceiling", rendered: 2, measuredUsd: 0.15 });
+    expect(dear.references()).toEqual(["Jonah 2:1", "Jonah 2:2"]);
   });
 
   it("stops after the given number of failures in a row, and a success starts the count again", async () => {
     const failing = harness({ generate: (body) => json(500, { error: "Failed to generate image", requestId: body.requestId }) });
     const stopped = await run(failing);
-    expect(failing.references()).toEqual(["Jonah 2:1", "Jonah 2:1", "Jonah 2:2", "Jonah 2:2", "Jonah 2:3"]);
-    expect(stopped).toMatchObject({ stop: "consecutive-failures", rendered: 0, failed: { total: 3, http5xx: 3 }, unconfirmedUsd: 0.5 });
+    expect(failing.references()).toEqual(["Jonah 2:1", "Jonah 2:2", "Jonah 2:3", "Jonah 2:4", "Jonah 2:5"]);
+    expect(stopped).toMatchObject({ stop: "consecutive-failures", rendered: 0, unresolved: 5, failed: { total: 0 }, unconfirmedUsd: 0.5 });
     const alternating = harness({ generate: (body, nth) => nth % 2 ? json(400, { error: "Invalid or unavailable reference" }) : rendered(body, nth) });
     expect(await run(alternating, { maxFailures: 2 })).toMatchObject({ stop: "complete", rendered: 5, failed: { total: 5, other: 5 } });
   });
@@ -320,9 +405,13 @@ describe("a paid run", () => {
     expect(h.references().filter((reference) => reference === "Jonah 2:1")).toHaveLength(1);
     expect(h.references().filter((reference) => reference === "Jonah 2:2")).toHaveLength(2);
     expect(h.references().filter((reference) => reference === "Jonah 2:5")).toHaveLength(1);
-    expect(summary).toMatchObject({ stop: "complete", rendered: 4, declined: 2, failed: { total: 4, http402: 0, http429: 0, http5xx: 2, other: 2 }, measuredUsd: 0.2, unconfirmedUsd: 0.2 });
+    // The 504 came after admission, so it is one unresolved request at the ceiling; the plain 503 came before it and is tried twice.
+    expect(h.references().filter((reference) => reference === "Jonah 2:3")).toHaveLength(1);
+    expect(h.references().filter((reference) => reference === "Jonah 2:6")).toHaveLength(2);
+    expect(summary).toMatchObject({ stop: "complete", rendered: 4, declined: 2, unresolved: 1, failed: { total: 3, http402: 0, http429: 0, http5xx: 1, other: 2 }, measuredUsd: 0.2, unconfirmedUsd: 0.1 });
     expect(h.rows.find((entry) => entry.reference === "Jonah 2:5" && entry.event === "result")).toMatchObject({ outcome: "failed", usd: IMAGE_USD, usdSource: "provider", imageId: null, error: "The image was made but not saved" });
-    expect(h.logs.at(-2)).toBe("Rendered 4, skipped (already present) 0, declined 2, failed 4 (402: 0, 429: 0, 5xx: 2, other: 2).");
+    expect(h.logs).toContain("Rendered 4, skipped (already present) 0, declined 2, failed 3 (402: 0, 429: 0, 5xx: 1, other: 2).");
+    expect(h.logs).toContain("1 request got no definite answer and may have made an image; its verse is left alone by later runs.");
     const broke = harness({ generate: () => json(402, { error: "Insufficient credits", required: 6, available: 0 }) });
     expect(await run(broke)).toMatchObject({ stop: "insufficient-credits", failed: { total: 1, http402: 1 } });
     expect(broke.site.generates).toHaveLength(1);
@@ -337,11 +426,41 @@ describe("a paid run", () => {
     const summary = await run(h, { limit: 1 });
     expect(h.site.generates.map((call) => call.body?.requestId)).toEqual(["request-1", "request-1", "request-1"]);
     expect(h.sleeps).toEqual([15_000, 15_000]);
-    expect(summary).toMatchObject({ rendered: 1, measuredUsd: 0.06, failed: { total: 0 } });
-    expect(h.rows.at(-1)).toMatchObject({ outcome: "rendered", imageId: "img-replayed", usdSource: "billed" });
+    // A replay reports what was billed, not what the provider charged, so the image is held at the ceiling.
+    expect(summary).toMatchObject({ rendered: 1, measuredUsd: 0, unconfirmedUsd: 0.1, unresolved: 0, failed: { total: 0 } });
+    expect(h.rows.at(-1)).toMatchObject({ outcome: "rendered", imageId: "img-replayed", usdSource: "ceiling" });
     const silent = harness({ generate: () => new Response("<html>gateway timeout</html>", { status: 504 }) });
-    expect(await run(silent, { limit: 1 })).toMatchObject({ rendered: 0, failed: { total: 1, http5xx: 1 }, unconfirmedUsd: 0.1 });
+    expect(await run(silent, { limit: 1 })).toMatchObject({ rendered: 0, unresolved: 1, failed: { total: 0 }, unconfirmedUsd: 0.1 });
     expect(new Set(silent.site.generates.map((call) => call.body?.requestId))).toEqual(new Set(["request-1"]));
+  });
+
+  it("never replaces a request whose answer went missing, whatever the site says next", async () => {
+    // The first request was admitted and its answer lost. Each of these later answers is given before the route looks the request up.
+    const laterAnswers: Array<(body: Record<string, unknown>) => Response> = [
+      () => json(503, { error: "Unable to safely check image generation" }),
+      () => json(503, { error: "Preparing scene", message: "The work's analysis is not registered.", retryable: true }),
+      () => json(400, { error: "Invalid or unavailable reference" }),
+      () => new Response('{"requestId":"request-1","imageUrl":"data:image/png;base6', { status: 200 }),
+    ];
+    for (const later of laterAnswers) {
+      const h = harness({ generate: (body, nth) => { if (nth === 1) throw new Error("socket hang up"); return later(body); } });
+      const summary = await run(h, { limit: 1 });
+      expect(h.site.generates.map((call) => call.body?.requestId)).toEqual(["request-1", "request-1"]);
+      expect(summary).toMatchObject({ rendered: 0, unresolved: 1, declined: 0, failed: { total: 0 }, unconfirmedUsd: 0.1 });
+      expect(h.rows.at(-1)).toMatchObject({ outcome: "unresolved", usd: 0.1, usdSource: "ceiling" });
+      // The next run does not draw the verse again.
+      const again = harness({}, { ledger: h.rows });
+      expect(await run(again, { limit: 1 })).toMatchObject({ leftAlone: ["Jonah 2:1"] });
+      expect(again.references()).toEqual(["Jonah 2:2"]);
+    }
+    // A success that was cut short on the first answer is not a free failure either.
+    const cut = harness({ generate: () => new Response('{"requestId":"request-1","imageUrl":"data:image/png;base6', { status: 200 }) });
+    expect(await run(cut, { limit: 1 })).toMatchObject({ rendered: 0, unresolved: 1, unconfirmedUsd: 0.1 });
+    expect(cut.site.generates).toHaveLength(1);
+    // The route's own word that the admitted request ended without an image does settle it: no image exists, its cost is held.
+    const ended = harness({ generate: (body, nth) => { if (nth === 1) throw new Error("socket hang up"); return json(409, { requestId: body.requestId, status: "failed", error: "The original operation ended without an available saved image", reused: true }); } });
+    expect(await run(ended, { limit: 1 })).toMatchObject({ rendered: 0, unresolved: 0, failed: { total: 1 }, unconfirmedUsd: 0.1 });
+    expect(ended.site.generates.map((call) => call.body?.requestId)).toEqual(["request-1", "request-1"]);
   });
 
   it("stops when asked, after the request in flight", async () => {
