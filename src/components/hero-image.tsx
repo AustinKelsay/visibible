@@ -683,6 +683,9 @@ function HeroImageBase({
     const thisGenerationId = ++generationIdRef.current;
 
     pendingFollowLatest.current = selectedImageId === null;
+    // Any attempt for this verse, the guest's own included, ends automatic generation for it: an automatic request
+    // must never follow a click whose price is still waiting to be confirmed.
+    setHasAttemptedGeneration(true);
     setIsGenerating(true);
     setFollowingRequest(false);
     setError(null);

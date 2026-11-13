@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { handleImageRequest } from "./handler";
+import { handleImageRequest } from "@/app/api/generate-image/handler";
 
 // Disable Next.js server-side caching - let browser cache handle it
 export const dynamic = "force-dynamic";

@@ -5,7 +5,7 @@ import { validateSessionWithIp, getClientIp, hashIp, withSessionRefreshCookie } 
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { readJsonBodyWithLimit } from "@/lib/request-body";
 import { createRequestObservabilityContext, logApiFailure } from "@/lib/observability";
-import { BILLING_POLICY_VERSION, chatQuoteTerms } from "@/lib/quotes";
+import { BILLING_POLICY_VERSION, CHAT_MAX_CREDITS_PER_MESSAGE, chatQuoteTerms } from "@/lib/quotes";
 import { api } from "../../../../../convex/_generated/api";
 
 export const dynamic = "force-dynamic";
@@ -61,6 +61,11 @@ export async function POST(req: Request) {
   const terms = pricing ? chatQuoteTerms(modelId, pricing) : null;
   if (!terms) {
     return respond({ error: "Model not available", message: `The model "${modelId}" is not available or cannot be priced. Please select a different model.` }, { status: 400 });
+  }
+
+  // The same limit the chat route applies: no quote is issued for a message that could cost more.
+  if (terms.maximumCredits > CHAT_MAX_CREDITS_PER_MESSAGE) {
+    return respond({ error: "Request too expensive", message: `This model can cost up to ${terms.maximumCredits} credits per message. Maximum is ${CHAT_MAX_CREDITS_PER_MESSAGE} credits ($1.00). Please select a more affordable model.`, maximum: CHAT_MAX_CREDITS_PER_MESSAGE }, { status: 400 });
   }
 
   try {

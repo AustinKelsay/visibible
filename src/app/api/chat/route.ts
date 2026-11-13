@@ -7,7 +7,7 @@ import {
   computeActualChatCreditsCost,
   CREDIT_USD,
 } from "@/lib/chat-models";
-import { BILLING_POLICY_VERSION, CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE, QUOTE_STALE_ERROR, QUOTE_STALE_STATUS, chatQuoteTerms } from "@/lib/quotes";
+import { BILLING_POLICY_VERSION, CHAT_MAX_CREDITS_PER_MESSAGE, CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE, QUOTE_STALE_ERROR, QUOTE_STALE_STATUS, chatQuoteTerms } from "@/lib/quotes";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import {
   validateSessionWithIp,
@@ -251,14 +251,14 @@ export async function POST(req: Request) {
     ));
   }
 
-  // SECURITY: Reject requests that would cost more than reasonable per-request limit
-  // This prevents cost amplification attacks with expensive models
-  const MAX_CREDITS_PER_REQUEST = 100; // $1.00 maximum per single request
-  if (estimatedCredits > MAX_CREDITS_PER_REQUEST) {
+  // SECURITY: Reject requests that could cost more than the per-message limit. The limit applies to the maximum,
+  // which is what a turn can be charged; the estimate is never above it.
+  const MAX_CREDITS_PER_REQUEST = CHAT_MAX_CREDITS_PER_MESSAGE;
+  if (quoteTerms.maximumCredits > MAX_CREDITS_PER_REQUEST) {
     return withSessionRefresh(Response.json(
       {
         error: "Request too expensive",
-        message: `This model costs approximately ${estimatedCredits} credits per message. Maximum is ${MAX_CREDITS_PER_REQUEST} credits ($1.00). Please select a more affordable model.`,
+        message: `This model can cost up to ${quoteTerms.maximumCredits} credits per message. Maximum is ${MAX_CREDITS_PER_REQUEST} credits ($1.00). Please select a more affordable model.`,
         estimated: estimatedCredits,
         maximum: MAX_CREDITS_PER_REQUEST,
       },

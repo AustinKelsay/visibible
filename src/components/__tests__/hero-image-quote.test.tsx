@@ -188,6 +188,24 @@ describe("HeroImage and the server's quote", () => {
     expect(generateRequests[1]).toMatchObject({ quoteId: "first-quote" });
   });
 
+  it("starts no automatic generation after the guest's own click, even while its changed price waits to be confirmed", async () => {
+    // The saved images are still loading when the guest clicks.
+    history = undefined as never;
+    await render();
+    await settle();
+    generateAnswers.push(() => json({ error: "Quote stale", reason: "changed", quote: quoteOf("fresh-quote", 3, 6) }, 409));
+    await clickGenerateFromHeader();
+    await flush();
+    expect(priceNotice()).toBe("The price changed. About 3 credits · at most 6.");
+    // They resolve to none. Without the guard this starts an automatic request, which the server runs without a confirmation.
+    history = [] as never;
+    await render();
+    await flush();
+    expect(generateRequests).toHaveLength(1);
+    expect(generateRequests[0]).not.toHaveProperty("automatic", true);
+    expect(priceNotice()).toBe("The price changed. About 3 credits · at most 6.");
+  });
+
   it("sends a first-visit image as automatic generation, with no quote to accept", async () => {
     history = [];
     await render();

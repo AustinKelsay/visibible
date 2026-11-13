@@ -1,4 +1,4 @@
-import { handleImageRequest } from "../handler";
+import { handleImageRequest } from "@/app/api/generate-image/handler";
 
 export const dynamic = "force-dynamic";
 

@@ -60,6 +60,9 @@ export const CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE = 2000;
 /** The most input one chat turn can send: the bounded history plus the system prompt allowance. */
 export const CHAT_MAX_INPUT_TOKENS = HISTORY_TOKEN_BUDGET + CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE;
 
+/** The most one chat message may cost ($1.00). A model whose maximum passes it is refused, so no accepted quote can. */
+export const CHAT_MAX_CREDITS_PER_MESSAGE = 100;
+
 export type ChatQuoteTerms = { estimateCredits: number; maximumCredits: number; maxInputTokens: number; maxOutputTokens: number; fingerprint: string };
 
 /**

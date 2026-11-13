@@ -239,6 +239,19 @@ describe("chat quotes and the maximum charge (#60)", () => {
     expect(calls("reserveCredits")).toMatchObject([{ amount: 18 }]);
   });
 
+  it("issues no quote and starts no turn for a model whose maximum passes 100 credits, though its estimate does not", async () => {
+    // $100 per million tokens each way: a typical turn is about 25 credits, the bounded maximum about 126.
+    pricing.value = { prompt: "0.0001", completion: "0.0001" };
+    const quote = await askQuote();
+    expect(quote.status).toBe(400);
+    expect(quote.body).toMatchObject({ error: "Request too expensive", maximum: 100 });
+    expect(await storedQuotes()).toHaveLength(0);
+    const turn = await send("any-quote");
+    expect(turn.status).toBe(400);
+    expect(turn.json()).toMatchObject({ error: "Request too expensive", maximum: 100 });
+    expect(calls("reserveCredits")).toHaveLength(0);
+  });
+
   it("refuses a quote issued for another model", async () => {
     const { quote } = (await askQuote("test/model")).body;
     const stale = await send(quote.quoteId, { model: "test/another-model" });
