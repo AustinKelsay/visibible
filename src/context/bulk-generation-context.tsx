@@ -566,6 +566,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               aspectRatio: settings.aspectRatio,
               resolution: settings.resolution,
               style: settings.artStyleId,
+              // No guest accepts a quote for each item: the server quotes it and requires the whole estimate.
+              automatic: true,
               // The bound engine, once known: the route refuses rather than admits on another engine.
               ...(settings.engine ? { engine: settings.engine } : {}),
               requestId: `bulk-${bulkId}-${item.order}`,
