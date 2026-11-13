@@ -1,10 +1,29 @@
 import { internalMutation, mutation } from "./_generated/server";
+import type { QueryCtx } from "./_generated/server";
 import { v } from "convex/values";
 import { validateServerSecret } from "./_helpers/auth";
 
 const MAX_CLAIM_AGE_MS = 24 * 60 * 60 * 1000;
 const SESSION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
 const HASH_PATTERN = /^[a-f0-9]{64}$/;
+
+/**
+ * A redeemed grant permanently links a replaced empty session to its wallet.
+ * Code expiry limits authentication retries, not ownership of late payments.
+ * Self-redemption does not replace a session. Never use this link to authenticate
+ * an old SID as the restored wallet; it is only for payment ownership.
+ */
+export async function recoveryReplacement(ctx: Pick<QueryCtx, "db">, sid: string) {
+  const grant = await ctx.db.query("sessionRecovery")
+    .withIndex("by_redeemer", (q) => q.eq("redeemedBySid", sid))
+    .filter((q) => q.eq(q.field("state"), "redeemed")).unique();
+  if (!grant) return null;
+  const wallet = await ctx.db.get(grant.walletId);
+  if (!wallet) throw new Error("Recovered wallet unavailable; payment needs review");
+  if (wallet.sid === sid) return null;
+  if (wallet.revokedAt !== undefined) throw new Error("Recovered wallet unavailable; payment needs review");
+  return wallet;
+}
 
 /**
  * Control-plane only: independently verify ownership before calling this.
@@ -30,6 +49,9 @@ export const issue = internalMutation({
     if (!wallet || wallet.revokedAt !== undefined || wallet.tier !== "paid" ||
         wallet.credits !== args.expectedCredits) {
       throw new Error("Wallet does not match the reviewed recovery plan");
+    }
+    if (await recoveryReplacement(ctx, wallet.sid)) {
+      throw new Error("Session replaced by recovery; review the restored wallet instead");
     }
     const duplicate = await ctx.db.query("sessionRecovery")
       .withIndex("by_tokenHash", (q) => q.eq("tokenHash", args.tokenHash)).first();
@@ -84,6 +106,7 @@ export const redeem = mutation({
     if (!grant || grant.state === "revoked" || grant.expiresAt <= now) return invalid;
     const wallet = await ctx.db.get(grant.walletId);
     if (!wallet || wallet.revokedAt !== undefined || wallet.tier !== "paid") return invalid;
+    if (await recoveryReplacement(ctx, wallet.sid)) return invalid;
     const requester = await ctx.db.query("sessions")
       .withIndex("by_sid", (q) => q.eq("sid", args.requesterSid)).unique();
     if (!requester || requester.revokedAt !== undefined || requester.tier !== "paid" ||
@@ -96,11 +119,16 @@ export const redeem = mutation({
     } else {
       const priorRedemption = await ctx.db.query("sessionRecovery")
         .withIndex("by_redeemer", (q) => q.eq("redeemedBySid", args.requesterSid)).first();
-      if (priorRedemption) return { ok: false, reason: "use_empty_session" };
+      const priorWalletRecovery = await ctx.db.query("sessionRecovery")
+        .withIndex("by_wallet", (q) => q.eq("walletId", requester._id))
+        .filter((q) => q.eq(q.field("state"), "redeemed")).first();
+      // Keep ownership links one hop, even if a restored wallet has no funds yet.
+      if (priorRedemption || priorWalletRecovery) return { ok: false, reason: "use_empty_session" };
     }
 
-    // Never strand a second balance, payment or financial history by replacing its cookie.
-    if (requester.sid !== wallet.sid) {
+    // Check emptiness before the first redemption. Afterward, any legacy late
+    // invoice belongs to the restored wallet and must not prevent a cookie retry.
+    if (grant.state === "pending" && requester.sid !== wallet.sid) {
       const invoice = await ctx.db.query("invoices")
         .withIndex("by_sid", (q) => q.eq("sid", requester.sid)).first();
       const ledger = await ctx.db.query("creditLedger")

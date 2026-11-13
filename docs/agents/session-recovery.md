@@ -36,7 +36,8 @@ disabled in Convex with NOSTR_PUBLISHING_ENABLED=false.
 
 Open `/recover` in a fresh browser session and enter the private code. Preserve
 the old browser's data separately. The page obtains a new session and CSRF
-cookie, then sends the code only in a POST body. The API validates the current
+cookie after waiting for the guest provider to finish initialization, then sends
+the code only in a POST body. The API validates the current
 cookie, origin and CSRF token, rate-limits attempts, and sends only the code hash
 and authenticated requester SID to Convex. The route never accepts a target SID
 from the client.
@@ -47,6 +48,18 @@ reset guest-auth subscriptions. A lost response can be retried by the same
 requester (or the already-restored wallet), until expiry. Another session cannot
 replay the code. A session with another balance, invoice or ledger history is
 rejected to avoid stranding that wallet; use a fresh private window.
+
+The redeemed grant permanently identifies which empty requester session was
+replaced. Invoice creation rejects that SID, while purchases using the restored
+wallet SID continue normally (including self-redemption). Invoice insertion and
+redemption run as atomic mutations: an inserted invoice prevents recovery, and
+a completed recovery prevents insertion for the replaced SID. If an older
+release already inserted a late invoice, its original invoice record remains
+unchanged; invoice access and settlement use the restored wallet, with new
+purchase ledger entries identifying that wallet. Code expiry does not expire
+this ownership link. Do not delete redeemed grants or use the link to authorize
+old session cookies as the restored wallet. A missing or revoked destination
+requires operator review; settlement must not fall back to the replaced SID.
 
 Recheck the original balance, invoices and ledger after redemption. Retain the
 grant's audit record, including the review reference and redemption time.

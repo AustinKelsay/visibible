@@ -3,15 +3,17 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
+import { useGuestSession } from "@/context/guest-session-context";
 
 export default function RecoverPage() {
+  const { isLoading } = useGuestSession();
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
   async function recover(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (pending) return;
+    if (pending || isLoading) return;
     setPending(true);
     setError(null);
     try {
@@ -50,8 +52,8 @@ export default function RecoverPage() {
           className="w-full rounded border border-[var(--divider)] bg-[var(--surface)] p-3"
           aria-describedby={error ? "recovery-error" : undefined} />
         {error && <p id="recovery-error" role="alert" className="text-sm">{error}</p>}
-        <button type="submit" disabled={pending} className="rounded bg-[var(--accent)] px-4 py-3 text-[var(--background)] disabled:opacity-50">
-          {pending ? "Recovering…" : "Recover balance"}
+        <button type="submit" disabled={pending || isLoading} className="rounded bg-[var(--accent)] px-4 py-3 text-[var(--background)] disabled:opacity-50">
+          {isLoading ? "Starting session…" : pending ? "Recovering…" : "Recover balance"}
         </button>
       </form>
       <Link href="/" className="inline-block underline">Return to Visibible</Link>

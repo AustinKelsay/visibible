@@ -32,6 +32,125 @@ async function setup() {
 }
 
 describe("reviewed balance recovery", () => {
+  const invoiceArgs = {
+    invoiceId: "racing-purchase", sid: "fresh-session", amountUsd: 1 as const,
+    amountSats: 1000, bolt11: "dummy-invoice", paymentHash: "test-payment-hash",
+    expiresAt: Date.now() + 3_600_000, serverSecret: "new-server-secret",
+  };
+  const settlement = {
+    invoiceId: invoiceArgs.invoiceId, paymentHash: invoiceArgs.paymentHash, amountPaidSats: 1000,
+  };
+
+  it("keeps the original session when invoice insertion wins the recovery race", async () => {
+    const { t, walletId, requesterId, issueArgs, redeemArgs } = await setup();
+    await t.mutation(internal.sessionRecovery.issue, issueArgs);
+    await t.mutation(api.invoices.createInvoice, invoiceArgs);
+    expect(await t.mutation(api.sessionRecovery.redeem, redeemArgs)).toEqual({ ok: false, reason: "use_empty_session" });
+    await t.mutation(internal.invoices.confirmPaymentInternal, settlement);
+    expect((await t.run((ctx) => ctx.db.get(requesterId)))?.credits).toBe(100);
+    expect((await t.run((ctx) => ctx.db.get(walletId)))?.credits).toBe(35);
+  });
+
+  it("blocks late invoice insertion after recovery but permits purchases by the restored wallet", async () => {
+    const { t, walletId, requesterId, issueArgs, redeemArgs } = await setup();
+    await t.mutation(internal.sessionRecovery.issue, issueArgs);
+    await t.mutation(api.sessionRecovery.redeem, redeemArgs);
+    await expect(t.mutation(api.invoices.createInvoice, invoiceArgs)).rejects.toThrow("Session replaced by recovery");
+    await t.mutation(api.invoices.createInvoice, { ...invoiceArgs, sid: "preserved-wallet" });
+    await t.mutation(internal.invoices.confirmPaymentInternal, settlement);
+    expect((await t.run((ctx) => ctx.db.get(walletId)))?.credits).toBe(135);
+    expect((await t.run((ctx) => ctx.db.get(requesterId)))?.credits).toBe(0);
+    expect(await t.mutation(api.sessionRecovery.redeem, redeemArgs)).toEqual({ ok: true, sid: "preserved-wallet" });
+  });
+
+  it("does not treat recovery to the requester's own wallet as a replacement", async () => {
+    const { t, walletId, issueArgs, redeemArgs } = await setup();
+    await t.run((ctx) => ctx.db.patch(walletId, { expiresAt: Date.now() + 60_000 }));
+    await t.mutation(internal.sessionRecovery.issue, issueArgs);
+    expect(await t.mutation(api.sessionRecovery.redeem, { ...redeemArgs, requesterSid: "preserved-wallet" }))
+      .toEqual({ ok: true, sid: "preserved-wallet" });
+    await t.mutation(api.invoices.createInvoice, { ...invoiceArgs, sid: "preserved-wallet" });
+    await t.mutation(internal.invoices.confirmPaymentInternal, settlement);
+    expect((await t.run((ctx) => ctx.db.get(walletId)))?.credits).toBe(135);
+  });
+
+  it("settles a legacy late invoice once into the restored wallet, preserving retry and invoice history", async () => {
+    const { t, walletId, requesterId, issueArgs, redeemArgs } = await setup();
+    const grantId = await t.mutation(internal.sessionRecovery.issue, issueArgs);
+    await t.mutation(api.sessionRecovery.redeem, redeemArgs);
+    // Simulate an invoice inserted by the previous implementation after recovery committed.
+    await t.run((ctx) => ctx.db.insert("invoices", {
+      invoiceId: invoiceArgs.invoiceId, sid: invoiceArgs.sid, amountUsd: invoiceArgs.amountUsd,
+      amountSats: invoiceArgs.amountSats, bolt11: invoiceArgs.bolt11, paymentHash: invoiceArgs.paymentHash,
+      expiresAt: invoiceArgs.expiresAt, createdAt: Date.now(), status: "pending",
+    }));
+    expect(await t.mutation(api.sessionRecovery.redeem, redeemArgs)).toEqual({ ok: true, sid: "preserved-wallet" });
+    const restored = await t.query(api.invoices.getInvoice, {
+      invoiceId: invoiceArgs.invoiceId, ownerSid: "preserved-wallet", serverSecret: "new-server-secret",
+    });
+    expect(restored).toMatchObject({ invoiceId: invoiceArgs.invoiceId, sid: "preserved-wallet" });
+    expect(await t.query(api.invoices.getInvoice, {
+      invoiceId: invoiceArgs.invoiceId, ownerSid: "fresh-session", serverSecret: "new-server-secret",
+    })).toBeNull();
+    vi.stubEnv("GUEST_AUTH_ISSUER", "test-issuer");
+    const identity = { issuer: "test-issuer", guestExpiresAt: Date.now() / 1000 + 60 };
+    expect(await t.withIdentity({ ...identity, subject: "fresh-session" })
+      .query(api.invoices.getInvoice, { invoiceId: invoiceArgs.invoiceId })).toBeNull();
+    expect(await t.withIdentity({ ...identity, subject: "preserved-wallet" })
+      .query(api.invoices.getInvoice, { invoiceId: invoiceArgs.invoiceId }))
+      .toMatchObject({ sid: "preserved-wallet" });
+    // The durable ownership link must survive code expiry.
+    await t.run((ctx) => ctx.db.patch(grantId, { expiresAt: Date.now() - 1 }));
+    await t.mutation(internal.invoices.confirmPaymentInternal, settlement);
+    expect(await t.mutation(internal.invoices.confirmPaymentInternal, settlement)).toMatchObject({ alreadyPaid: true });
+    const saved = await t.run(async (ctx) => ({
+      wallet: await ctx.db.get(walletId), requester: await ctx.db.get(requesterId),
+      invoice: await ctx.db.query("invoices").withIndex("by_invoiceId", q => q.eq("invoiceId", invoiceArgs.invoiceId)).unique(),
+      ledger: await ctx.db.query("creditLedger").withIndex("by_invoiceId", q => q.eq("invoiceId", invoiceArgs.invoiceId)).collect(),
+    }));
+    expect(saved.wallet?.credits).toBe(135);
+    expect(saved.requester?.credits).toBe(0);
+    expect(saved.invoice).toMatchObject({ sid: "fresh-session", status: "paid" });
+    expect(saved.ledger).toEqual([expect.objectContaining({ sid: "preserved-wallet", delta: 100 })]);
+  });
+
+  it.each(["deleted", "revoked"])("holds late settlement for review if the restored wallet is %s", async (kind) => {
+    const { t, walletId, requesterId, issueArgs, redeemArgs } = await setup();
+    await t.mutation(internal.sessionRecovery.issue, issueArgs);
+    await t.mutation(api.sessionRecovery.redeem, redeemArgs);
+    const invoiceId = await t.run(async (ctx) => {
+      const id = await ctx.db.insert("invoices", {
+        invoiceId: invoiceArgs.invoiceId, sid: invoiceArgs.sid, amountUsd: invoiceArgs.amountUsd,
+        amountSats: invoiceArgs.amountSats, bolt11: invoiceArgs.bolt11, paymentHash: invoiceArgs.paymentHash,
+        expiresAt: invoiceArgs.expiresAt, createdAt: Date.now(), status: "pending",
+      });
+      if (kind === "deleted") await ctx.db.delete(walletId);
+      else await ctx.db.patch(walletId, { revokedAt: Date.now() });
+      return id;
+    });
+    await expect(t.mutation(internal.invoices.confirmPaymentInternal, settlement)).rejects.toThrow("payment needs review");
+    expect((await t.run((ctx) => ctx.db.get(invoiceId)))?.status).toBe("pending");
+    expect((await t.run((ctx) => ctx.db.get(requesterId)))?.credits).toBe(0);
+    expect(await t.run((ctx) => ctx.db.query("creditLedger").withIndex("by_invoiceId", q => q.eq("invoiceId", invoiceArgs.invoiceId)).collect())).toHaveLength(0);
+  });
+
+  it("does not replace a previously restored empty wallet or issue a grant for its replaced requester", async () => {
+    const { t, requesterId, issueArgs, redeemArgs } = await setup();
+    const emptyWalletId = await t.run(ctx => ctx.db.insert("sessions", {
+      sid: "empty-wallet", tier: "paid", credits: 0, createdAt: Date.now(), lastSeenAt: Date.now(),
+    }));
+    const emptyGrant = { ...issueArgs, walletId: emptyWalletId, expectedCredits: 0 };
+    await t.mutation(internal.sessionRecovery.issue, emptyGrant);
+    await t.mutation(api.sessionRecovery.redeem, redeemArgs);
+    await expect(t.mutation(internal.sessionRecovery.issue, {
+      ...issueArgs, walletId: requesterId, expectedCredits: 0, tokenHash: "b".repeat(64),
+    })).rejects.toThrow("Session replaced by recovery");
+    await t.mutation(internal.sessionRecovery.issue, { ...issueArgs, tokenHash: "b".repeat(64) });
+    expect(await t.mutation(api.sessionRecovery.redeem, {
+      ...redeemArgs, requesterSid: "empty-wallet", tokenHash: "b".repeat(64),
+    })).toEqual({ ok: false, reason: "use_empty_session" });
+  });
+
   it("restores the existing wallet without changing credits, invoices or ledger; retries are idempotent", async () => {
     const { t, walletId, issueArgs, redeemArgs } = await setup();
     const before = await t.run(async (ctx) => ({
