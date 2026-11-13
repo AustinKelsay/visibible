@@ -131,6 +131,38 @@ describe("settlement without a browser", () => {
     expect(after.ledger).toHaveLength(1);
   });
 
+  it("keeps looking after expiry while the node holds a payment, and credits it when it settles", async () => {
+    const expiresAt = START + HOUR;
+    let heldLooks = 0;
+    lookup.mockImplementation(async () => {
+      if (Date.now() <= expiresAt) return "OPEN";
+      return ++heldLooks <= 2 ? "ACCEPTED" : "SETTLED";
+    });
+    await createInvoice();
+    await runToEnd();
+    const after = await saved();
+    expect(heldLooks).toBe(3);
+    expect(after.invoices[0]).toMatchObject({ status: "paid", reconciledAt: expect.any(Number) });
+    expect(after.session?.credits).toBe(100);
+    expect(after.ledger).toHaveLength(1);
+  });
+
+  it("stops after eight looks at a payment the node keeps holding, and still credits a later settlement", async () => {
+    const times = recordLooks(async () => (Date.now() <= START + HOUR ? "OPEN" : "ACCEPTED"));
+    await createInvoice();
+    await runToEnd();
+    // Eight looks after expiry and its two-minute grace.
+    expect(times.filter((at) => at > START + HOUR + 120_000)).toHaveLength(8);
+    expect((await saved()).invoices[0]).toMatchObject({
+      status: "pending", reconciledAt: expect.any(Number), lastCheckError: "Payment accepted by the node but not settled",
+    });
+    // Proof of payment that arrives after the server stopped looking is not discarded.
+    await t.mutation(internal.invoiceReconciliation.recordCheck, { invoiceId: "purchase", state: "SETTLED" });
+    expect((await saved()).session?.credits).toBe(100);
+    await t.mutation(internal.invoiceReconciliation.recordCheck, { invoiceId: "purchase", state: "SETTLED" });
+    expect((await saved()).ledger).toHaveLength(1);
+  });
+
   it("plans the next look before the current one reports back", async () => {
     let answer!: (state: "OPEN") => void;
     lookup.mockImplementationOnce(() => new Promise((resolve) => { answer = resolve; }));

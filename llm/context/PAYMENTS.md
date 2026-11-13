@@ -13,8 +13,9 @@ The purchase UI communicates session-only access and no refunds during alpha. Lo
 A payment credits the wallet even when every tab is closed. When an invoice is saved, [invoiceReconciliation.ts](../../convex/invoiceReconciliation.ts) schedules a chain of looks at the same `/check` endpoint from Convex:
 
 - The first look is 30 seconds after the invoice is saved. Each later one doubles the invoice's age, to at most 15 minutes apart, with one more look two minutes after the invoice's own expiry.
-- `SETTLED` credits through the same `confirmPaymentInternal` the browser path uses, so the two can never credit one invoice twice. `CANCELED`, or any other answer after expiry, marks the invoice expired. Either answer ends the chain.
-- A look the node does not answer changes nothing except the recorded error. After expiry the server retries every 15 minutes and stops after eight unanswered looks (about two hours); the invoice then keeps its status and its last error.
+- `SETTLED` credits through the same `confirmPaymentInternal` the browser path uses, so the two can never credit one invoice twice. `CANCELED`, or `OPEN` after expiry, marks the invoice expired. Either answer ends the chain.
+- `ACCEPTED` means the node is holding a payment, which can still settle after expiry, so the server keeps looking.
+- A look the node does not answer changes nothing except the recorded error. After expiry the server looks every 15 minutes and stops after eight looks (about two hours) that brought neither a settlement nor an expiry; the invoice then keeps its status and its last error. A settlement reported after that is still credited.
 - Each look plans the next one before it asks the node, so a look that never reports back cannot stop the chain.
 
 An hourly job schedules unpaid invoices that were never scheduled, 25 per status per run: invoices saved before this existed, including ones already marked expired, and any saved while Convex had no `LNURL_PAY_URL`. A historical invoice the node reports settled is credited once; one it cannot look up is left as it is after eight tries.

@@ -449,7 +449,7 @@ export default defineSchema({
     // Server reconciliation (convex/invoiceReconciliation.ts). A row with no reconcileAt has never been scheduled.
     reconcileAt: v.optional(v.number()), // when the server next plans to ask the node; kept once finished
     reconciledAt: v.optional(v.number()), // the server has finished with this invoice
-    checkFailures: v.optional(v.number()), // looks made after expiry; the first answered one is final
+    checkFailures: v.optional(v.number()), // looks made after expiry, which stop at a limit
     lastCheckedAt: v.optional(v.number()), // when the node last answered
     lastCheckError: v.optional(v.string()),
   })

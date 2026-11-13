@@ -55,7 +55,7 @@ export const tick = internalMutation({
     }
 
     // Before expiry, double the invoice's age each time and never skip the look just after expiry.
-    // After it, the first answer from the node is final, so every look planned here is a retry.
+    // After it, any answer but a held payment is final, so every look planned here is a retry.
     const gap = Math.min(Math.max(now - invoice.createdAt, FIRST_LOOK_MS), MAX_LOOK_GAP_MS);
     const next = expired ? now + MAX_LOOK_GAP_MS : Math.min(now + gap, lastLookAt + 1000);
     await ctx.db.patch(invoice._id, { reconcileAt: next, ...(expired ? { checkFailures: failures + 1 } : {}) });
@@ -100,7 +100,9 @@ export const recordCheck = internalMutation({
   handler: async (ctx, { invoiceId, state, error }) => {
     const invoice = await ctx.db.query("invoices")
       .withIndex("by_invoiceId", (q) => q.eq("invoiceId", invoiceId)).unique();
-    if (!invoice || invoice.status === "paid" || invoice.reconciledAt !== undefined) return;
+    if (!invoice || invoice.status === "paid") return;
+    // Once the server has finished with an invoice, only proof of payment still counts.
+    if (invoice.reconciledAt !== undefined && state !== "SETTLED") return;
     if (state === undefined) {
       await ctx.db.patch(invoice._id, { lastCheckError: error ?? "Lightning lookup failed" });
       return;
@@ -122,7 +124,13 @@ export const recordCheck = internalMutation({
       }
       return;
     }
-    if (state === "CANCELED" || now > invoice.expiresAt + EXPIRY_GRACE_MS) {
+    const expired = now > invoice.expiresAt + EXPIRY_GRACE_MS;
+    if (state === "ACCEPTED") {
+      // The node is holding a payment, which can still settle after expiry: keep looking, within `tick`'s limit.
+      if (expired) await ctx.db.patch(invoice._id, { lastCheckError: "Payment accepted by the node but not settled" });
+      return;
+    }
+    if (state === "CANCELED" || expired) {
       await ctx.db.patch(invoice._id, { status: "expired", reconciledAt: now });
     }
   },
