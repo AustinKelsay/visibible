@@ -56,6 +56,8 @@ export const chatRequestSchema = z.object({
   context: passageSchema.optional(),
   translation: z.string().optional(),
   model: z.string().optional(),
+  /** The quote the guest accepted for this turn (#60). */
+  quoteId: z.string().max(64).optional(),
 });
 
 export type ChatRequest = z.infer<typeof chatRequestSchema>;
@@ -85,6 +87,13 @@ function messageText(message: ChatMessageInput): string {
     .filter((part): part is typeof part & { text: string } => part.type === "text" && typeof part.text === "string")
     .map((part) => part.text)
     .join("");
+}
+
+const contextTokensFor = (contextLength: number | undefined) => contextLength && contextLength > 0 ? contextLength : DEFAULT_CONTEXT_TOKENS;
+
+/** The output cap for one answer from a model with this context window; a chat quote's maximum is priced from it. */
+export function maxOutputTokensFor(contextLength: number | undefined): number {
+  return Math.max(256, Math.min(MAX_OUTPUT_TOKENS, Math.floor(contextTokensFor(contextLength) / 4)));
 }
 
 export type BoundedHistory =
@@ -122,8 +131,8 @@ export function boundHistory(
     return { ok: false, status: 400, error: "Message too long", message: `Questions can be up to ${MAX_USER_MESSAGE_CHARS.toLocaleString("en-US")} characters.` };
   }
 
-  const contextTokens = options.contextLength && options.contextLength > 0 ? options.contextLength : DEFAULT_CONTEXT_TOKENS;
-  const maxOutputTokens = Math.max(256, Math.min(MAX_OUTPUT_TOKENS, Math.floor(contextTokens / 4)));
+  const contextTokens = contextTokensFor(options.contextLength);
+  const maxOutputTokens = maxOutputTokensFor(options.contextLength);
   const budget = Math.min(
     HISTORY_TOKEN_BUDGET,
     contextTokens - maxOutputTokens - estimateTokens(options.systemPrompt) - CONTEXT_MARGIN_TOKENS

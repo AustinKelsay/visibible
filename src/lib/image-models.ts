@@ -26,8 +26,8 @@ export const DEFAULT_CREDITS_COST = 20; // default credit cost for unpriced mode
 export const IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS = 5;
 const MODEL_CACHE_MAX_STALE_MS = 6 * 60 * 60 * 1000; // 6 hours
 
-// Holds bound settlement variance over a verified quote until accepted maximum
-// charges replace them. The former 35x offset a mis-unit price that is now gone.
+// An image's maximum charge is this multiple of its quote: the guest accepts it, the hold
+// is exactly it, and settlement never passes it (#60).
 export const IMAGE_RESERVATION_HEADROOM_MULTIPLIER = 2;
 
 /**
