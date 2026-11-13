@@ -15,9 +15,10 @@ All times are UTC.
 | 12 Nov 17:49:03–04 | `4cc15d18` and `5eb13e53` remove the hook and the file. Two more production builds follow. | Repository activity |
 | 12 Nov 18:08 | The owner pauses the production Convex deployment, then exports it. | Convex audit log |
 | 12 Nov 18:19–18:20 | `ADMIN_PASSWORD_SECRET`, `CONVEX_SERVER_SECRET` and `GUEST_AUTH_JWKS` are replaced in Convex. | Convex audit log |
+| 12 Nov 18:22–19:03 | `ADMIN_PASSWORD`, `ADMIN_PASSWORD_SECRET`, `CONVEX_SERVER_SECRET`, `GUEST_AUTH_JWKS`, `GUEST_AUTH_PRIVATE_JWK`, `SESSION_SECRET` and `IP_HASH_SECRET` are replaced in Vercel production. | Vercel project API |
 | 12 Nov 20:23 | `NOSTR_PUBLISHING_ENABLED` is created (publishing off). | Convex audit log |
 | 13 Nov 15:52 | `NOSTR_PRIVATE_KEY` is deleted from Convex. | Convex audit log |
-| 13 Nov 16:44–17:03 | `OPENROUTER_API_KEY` is replaced in Convex, the recovery backend is pushed with a different deploy key, and the deployment is unpaused. | Convex audit log |
+| 13 Nov 16:43–17:03 | `OPENROUTER_API_KEY` is replaced in Vercel production and in Convex, the recovery backend is pushed with a different deploy key, and the deployment is unpaused. | Vercel project API, Convex audit log |
 | 13 Nov 18:03 | [#418](https://github.com/AustinKelsay/visibible/pull/418) merges: credential reset, wallet recovery, Nostr publishing off by default. | GitHub |
 | 13 Nov 18:09 | Production is deployed from `main` by hand: Vercel at 18:09:01, Convex at 18:09:43. | Vercel, Convex audit log |
 | 13 Nov 21:24 | A ruleset protects `main`; a direct push is refused. | GitHub |
@@ -42,6 +43,7 @@ GitHub Actions ran for three of the four commits and none is recorded for the co
 
 ## What was checked afterwards
 
+- Every Vercel production value listed above as exposed was changed after the injected builds: seven on 12 November between 18:22 and 19:03, and the OpenRouter key on 13 November at 16:43. This reads Vercel's change times only; no value was read. [#418](https://github.com/AustinKelsay/visibible/pull/418) reports that the reset deployment rejected the retired cookie, guest token, server secret and admin password in live checks, which this record did not repeat.
 - The four production Convex pushes made by the affected builds added or removed no modules, indexes, scheduled jobs or auth settings. Between the first injected commit and 13 Nov 21:30 the audit log shows only those pushes and the owner's own actions.
 - No injected commit appears in any of the nine repositories after 12 Nov 17:48.
 - `relay.primal.net` and `nos.lol` hold nothing signed by the Visibible key after 10 Nov 16:00. `relay.damus.io` did not answer.
@@ -62,7 +64,7 @@ These need the owner; nothing in the repository can settle them.
 
 1. **How the GitHub credential was taken.** Where and how it was captured is unknown. The first malicious use seen was in another repository 29 hours before this one, which dates the theft to 11 November 12:11 at the latest but does not locate it. One hypothesis is an infected checkout that ran an install while a GitHub credential was readable, on a development machine or in a CI job; this repository's own environments are not excluded. Until the source is found, credentials on every machine that held this one are suspect.
 2. **The Nostr identity.** The signing key was within reach and a Nostr key cannot be rotated. Publishing stays off and the key is no longer stored in Convex. The choice is between retiring the identity for a new one and keeping it with the risk that someone else can sign as Visibible.
-3. **Confirm in each dashboard** that the old Convex deploy key and the old GitHub credential are revoked, that the production OpenRouter key was replaced in Vercel as well as Convex, and that its usage shows no spend that the app did not make.
+3. **Confirm in each dashboard** that the old Convex deploy key and the old GitHub credential are revoked, that the old OpenRouter key is deleted at OpenRouter and not only replaced here, and that its usage shows no spend that the app did not make.
 4. **The script stays in public Git history** at `35f7476a`. Removing it means rewriting `main`, which changes every later commit id. Leaving it is the recommendation: it holds none of this project's secrets.
 
 Wallet recovery after the reset is in [Recover a preserved wallet](../agents/session-recovery.md).
