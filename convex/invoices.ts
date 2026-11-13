@@ -1,5 +1,5 @@
 import { authenticatedGuest } from "./guestAuth";
-import { action, internalMutation, mutation, query } from "./_generated/server";
+import { action, internalMutation, internalQuery, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { validateServerSecret } from "./_helpers/auth";
@@ -13,6 +13,114 @@ function getBundleCredits(amountUsd: number): number {
   throw new Error("Unsupported credit bundle");
 }
 
+/** How long an intent may sit in "creating" before a retry stops waiting for the first attempt. */
+const INTENT_IN_PROGRESS_MS = 30_000;
+
+/**
+ * Save a purchase intent before the LNURL-pay callback is asked for an invoice.
+ * A repeated intent gets its saved invoice. One whose first attempt has no known outcome is
+ * reported unresolved and never asks the node again: the callback has no lookup by intent,
+ * so a second request could leave two invoices for one purchase.
+ */
+export const beginInvoice = mutation({
+  args: {
+    sid: v.string(),
+    intentId: v.string(),
+    invoiceId: v.string(),
+    amountUsd: v.union(v.literal(1), v.literal(3)),
+    // The sats quote for a new intent. Without it a new intent answers "quote" and saves nothing,
+    // so a repeated intent can be answered while the price feed is down.
+    amountSats: v.optional(v.number()),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const session = await ctx.db.query("sessions")
+      .withIndex("by_sid", (q) => q.eq("sid", args.sid)).first();
+    if (!session || session.revokedAt !== undefined) throw new Error("Session not found");
+    if (await recoveryReplacement(ctx, args.sid)) {
+      throw new Error("Session replaced by recovery; reload before buying credits");
+    }
+
+    const now = Date.now();
+    const intent = await ctx.db.query("invoiceIntents")
+      .withIndex("by_sid_intentId", (q) => q.eq("sid", args.sid).eq("intentId", args.intentId))
+      .unique();
+    if (!intent) {
+      if (args.amountSats === undefined) return { outcome: "quote" as const };
+      await ctx.db.insert("invoiceIntents", {
+        sid: args.sid, intentId: args.intentId, invoiceId: args.invoiceId,
+        amountUsd: args.amountUsd, amountSats: args.amountSats,
+        status: "creating", createdAt: now, updatedAt: now,
+      });
+      return { outcome: "create" as const, invoiceId: args.invoiceId, amountSats: args.amountSats };
+    }
+    if (intent.amountUsd !== args.amountUsd) return { outcome: "conflict" as const };
+    if (intent.status === "created") {
+      const invoice = await ctx.db.query("invoices")
+        .withIndex("by_invoiceId", (q) => q.eq("invoiceId", intent.invoiceId)).unique();
+      if (!invoice) throw new Error("Saved invoice unavailable");
+      return {
+        outcome: "existing" as const,
+        invoice: {
+          invoiceId: invoice.invoiceId, bolt11: invoice.bolt11, amountUsd: invoice.amountUsd,
+          amountSats: invoice.amountSats, expiresAt: invoice.expiresAt,
+          credits: getBundleCredits(invoice.amountUsd),
+        },
+      };
+    }
+    if (intent.status === "failed") {
+      // The pay server refused the request, so no invoice exists: ask again with the same quote.
+      await ctx.db.patch(intent._id, { status: "creating", updatedAt: now });
+      return { outcome: "create" as const, invoiceId: intent.invoiceId, amountSats: intent.amountSats };
+    }
+    if (intent.status === "creating" && now - intent.updatedAt < INTENT_IN_PROGRESS_MS) {
+      return { outcome: "in_progress" as const };
+    }
+    if (intent.status === "creating") {
+      await ctx.db.patch(intent._id, { status: "unresolved", updatedAt: now });
+    }
+    return { outcome: "unresolved" as const };
+  },
+});
+
+/** Record how an invoice request ended when no invoice was saved. */
+export const closeInvoiceIntent = mutation({
+  args: {
+    sid: v.string(),
+    intentId: v.string(),
+    status: v.union(v.literal("failed"), v.literal("unresolved")),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const intent = await ctx.db.query("invoiceIntents")
+      .withIndex("by_sid_intentId", (q) => q.eq("sid", args.sid).eq("intentId", args.intentId))
+      .unique();
+    if (intent?.status === "creating") {
+      await ctx.db.patch(intent._id, { status: args.status, updatedAt: Date.now() });
+    }
+    return null;
+  },
+});
+
+/** Operator view of purchase intents that did not end in a saved invoice (see PAYMENTS.md). */
+export const listOpenInvoiceIntents = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const rows = [];
+    for (const status of ["unresolved", "creating", "failed"]) {
+      rows.push(...await ctx.db.query("invoiceIntents")
+        .withIndex("by_status", (q) => q.eq("status", status)).order("desc").take(50));
+    }
+    return rows.map((row) => ({
+      intentId: row.intentId, invoiceId: row.invoiceId, sid: row.sid, status: row.status,
+      amountUsd: row.amountUsd, amountSats: row.amountSats,
+      createdAt: row.createdAt, updatedAt: row.updatedAt,
+    }));
+  },
+});
+
 /**
  * Create a new invoice for credit purchase.
  * Accepts pre-computed values from the API route (which creates the Lightning invoice).
@@ -20,6 +128,7 @@ function getBundleCredits(amountUsd: number): number {
 export const createInvoice = mutation({
   args: {
     invoiceId: v.string(),
+    intentId: v.optional(v.string()),
     sid: v.string(),
     amountUsd: v.union(v.literal(1), v.literal(3)),
     amountSats: v.number(),
@@ -49,6 +158,21 @@ export const createInvoice = mutation({
     const expiresAt = args.expiresAt; // from the Lightning invoice, so the UI never hides a payable invoice
     const invoiceId = args.invoiceId;
     const credits = getBundleCredits(args.amountUsd);
+
+    // The invoice must be the one its intent asked for, and each payment hash backs one invoice.
+    const intentId = args.intentId;
+    const intent = intentId === undefined ? null : await ctx.db.query("invoiceIntents")
+      .withIndex("by_sid_intentId", (q) => q.eq("sid", args.sid).eq("intentId", intentId))
+      .unique();
+    if (intentId !== undefined && (!intent || intent.status !== "creating" ||
+        intent.invoiceId !== invoiceId || intent.amountUsd !== args.amountUsd ||
+        intent.amountSats !== args.amountSats)) {
+      throw new Error("Invoice does not match its purchase intent");
+    }
+    const sameHash = await ctx.db.query("invoices")
+      .withIndex("by_paymentHash", (q) => q.eq("paymentHash", args.paymentHash)).first();
+    if (sameHash) throw new Error("Payment hash already belongs to an invoice");
+    if (intent) await ctx.db.patch(intent._id, { status: "created", updatedAt: now });
 
     // Create invoice record with real Lightning invoice data
     await ctx.db.insert("invoices", {

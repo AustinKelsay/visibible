@@ -165,6 +165,7 @@ export function BuyCreditsModal() {
   const hasTrackedExpiredRef = useRef(false);
   const expirationCheckRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const modalOpenedAtRef = useRef<number | null>(null);
+  const purchaseIntentRef = useRef<{ amountUsd: number; id: string } | null>(null);
 
   // Admin login state
   const [showAdminInput, setShowAdminInput] = useState(false);
@@ -215,20 +216,31 @@ export function BuyCreditsModal() {
     setError(null);
     hasTrackedExpiredRef.current = false; // Reset expiry tracking for new invoice
 
+    // One intent id per purchase, reused until the server settles its outcome, so a retry
+    // after a lost connection gets the invoice the first attempt saved.
+    const intent = purchaseIntentRef.current?.amountUsd === bundle.amountUsd
+      ? purchaseIntentRef.current
+      : { amountUsd: bundle.amountUsd, id: crypto.randomUUID() };
+    purchaseIntentRef.current = intent;
+
     try {
       const response = await fetch("/api/invoice", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ amountUsd: bundle.amountUsd }),
+        body: JSON.stringify({ amountUsd: bundle.amountUsd, intentId: intent.id }),
       });
       if (!response.ok) {
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
+        // Only an answer about the intent itself ends it. A rate limit, a server error or any
+        // other refusal says nothing about an earlier attempt whose response was lost.
+        if (data.code === "invoice_unresolved" || data.code === "invoice_intent_conflict") purchaseIntentRef.current = null;
         throw new Error(data.error || "Failed to create invoice");
       }
 
       const data: Invoice = await response.json();
+      purchaseIntentRef.current = null;
       setInvoice(data);
       setInvoiceCreatedAt(Date.now());
       setState("invoice");
