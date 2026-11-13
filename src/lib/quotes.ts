@@ -26,12 +26,20 @@ const sha256 = (value: string) => createHash("sha256").update(value).digest("hex
 export function imageQuoteFingerprint(terms: {
   workId: string; unitId: string; reference: string; translationId: string; styleId: string; modelId: string;
   aspectRatio: string; resolution: string; prompt: string; referenceImages: number; billingVersion: string;
+  /** The catalog rates the quote was priced from. The billing version names the unit scheme and does not change with them. */
+  rates: { unit: string; textInputUsd: string; textOutputUsd: string; imageOutputUsd: string; imageInputUsd?: string; imageInputTokens?: { usdPerToken: string; perImage: number } } | undefined;
 }): string {
+  const rates = terms.rates;
   return sha256(JSON.stringify({
     operation: "image", policyVersion: BILLING_POLICY_VERSION,
     workId: terms.workId, unitId: terms.unitId, reference: terms.reference, translationId: terms.translationId,
     styleId: terms.styleId, modelId: terms.modelId, aspectRatio: terms.aspectRatio, resolution: terms.resolution,
     promptHash: sha256(terms.prompt), referenceImages: terms.referenceImages, billingVersion: terms.billingVersion,
+    rates: rates ? {
+      unit: rates.unit, textInputUsd: rates.textInputUsd, textOutputUsd: rates.textOutputUsd, imageOutputUsd: rates.imageOutputUsd,
+      imageInputUsd: rates.imageInputUsd ?? null,
+      imageInputTokens: rates.imageInputTokens ? { usdPerToken: rates.imageInputTokens.usdPerToken, perImage: rates.imageInputTokens.perImage } : null,
+    } : null,
   }));
 }
 

@@ -325,7 +325,7 @@ export async function POST(req: Request) {
   };
 
   let creditSettlement: Promise<void> | null = null;
-  const settleCredits = (mode: "deduct" | "release", reason: string, usage?: { promptTokens: number; completionTokens: number }) => {
+  const settleCredits = (mode: "deduct" | "release", reason: string, usage?: { promptTokens?: number; completionTokens?: number }) => {
     if (!generationId || !creditReserved) {
       return Promise.resolve();
     }
@@ -337,8 +337,10 @@ export async function POST(req: Request) {
         return;
       }
 
-      // Actual usage, never above the accepted maximum; the accepted estimate when the provider reported none.
-      const actualCredits = usage && usage.promptTokens + usage.completionTokens > 0
+      // Actual usage, never above the accepted maximum; the accepted estimate unless the provider reported both
+      // counts. A reported zero is a count; a missing one is not, and half a report is not usage.
+      const counted = (tokens: number | undefined): tokens is number => typeof tokens === "number" && Number.isFinite(tokens) && tokens >= 0;
+      const actualCredits = usage && counted(usage.promptTokens) && counted(usage.completionTokens)
         ? computeActualChatCreditsCost(modelPricing, usage.promptTokens, usage.completionTokens)
         : null;
       const usedFallbackEstimate = actualCredits === null;
@@ -355,7 +357,8 @@ export async function POST(req: Request) {
           generationId: settledGenerationId,
           costUsd: maximumCostUsd,
           actualAmount: toCharge,
-          actualCostUsd: toCharge * CREDIT_USD,
+          // The daily limit counts what the turn was worth, not only the capped charge.
+          actualCostUsd: (actualCredits ?? toCharge) * CREDIT_USD,
           serverSecret,
         });
 
@@ -558,7 +561,7 @@ export async function POST(req: Request) {
           // A successful turn is charged from its usage; a failed one is released first, whatever its usage.
           let usage = success ? await readUsage() : null;
           await settleCredits(success ? "deduct" : "release", success ? "stream-success" : "stream-failed",
-            { promptTokens: usage?.inputTokens ?? 0, completionTokens: usage?.outputTokens ?? 0 });
+            { promptTokens: usage?.inputTokens, completionTokens: usage?.outputTokens });
           signal.removeEventListener("abort", onAbort);
           if (!success) usage = await readUsage();
           const promptTokens = usage?.inputTokens ?? 0;

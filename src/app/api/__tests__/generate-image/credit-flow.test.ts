@@ -1156,6 +1156,17 @@ describe("Image Generation API Credit Flow", () => {
         expect(actionArgs("reserveCredits")).toMatchObject([{ amount: stale.body.quote.maximumCredits }]);
       });
 
+      it("refuses acceptance after a catalog rate moved, even when the credits shown did not", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        fetchImageModelsMock.mockResolvedValue({ models: [catalogModel({ ...syntheticPricing, image_output: "0.0000101" })] });
+        const stale = await generate({ quoteId: quote.quoteId });
+        expect(stale.status).toBe(409);
+        expect(stale.body).toMatchObject({ error: "Quote stale", reason: "changed" });
+        expect(stale.body.quote).toMatchObject({ estimateCredits: quote.estimateCredits, maximumCredits: quote.maximumCredits });
+        await expectNothingStarted();
+      });
+
       it("does not let a retried request through at a higher price on the strength of its earlier acceptance", async () => {
         await prepareWork();
         const { quote } = (await askQuote()).body;
@@ -1239,7 +1250,8 @@ describe("Image Generation API Credit Flow", () => {
         const { status, body: result } = await generate({ quoteId: quote.quoteId });
         expect(status).toBe(200);
         expect(result).toMatchObject({ creditsCost: 4, costUsd: 0.04, maximumCreditsCost: 4, chargeCapped: { wantedCredits: 13, chargedCredits: 4 }, openRouterUsageUsd: 0.1, credits: 996 });
-        expect(actionArgs("deductCredits")).toMatchObject([{ amount: 4, actualAmount: 4, actualCostUsd: 0.04 }]);
+        // The guest pays the cap; the daily limit counts the image's full cost ($0.10 with the markup).
+        expect(actionArgs("deductCredits")).toMatchObject([{ amount: 4, actualAmount: 4, actualCostUsd: 0.125 }]);
         expect(credits()).toBe(996);
         expect((await storedRequests())[0]).toMatchObject({ status: "succeeded", actualCreditsCost: 4, usedFallbackEstimate: false });
         // Provider spend stays on the record beside the capped charge.

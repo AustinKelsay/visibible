@@ -106,7 +106,7 @@ const { POST: chat } = await import("../../chat/route");
 const { POST: quoteRoute } = await import("../../chat/quote/route");
 
 /** A provider answer with the usage it reports; no usage at all when `usage` is null. */
-function answer(usage: { input: number; output: number } | null = { input: 1000, output: 1000 }, fail = false) {
+function answer(usage: { input?: number; output?: number } | null = { input: 1000, output: 1000 }, fail = false) {
   const chunks: LanguageModelV3StreamPart[] = [
     { type: "stream-start", warnings: [] },
     { type: "text-start", id: "answer" }, { type: "text-delta", id: "answer", delta: "In the beginning." }, { type: "text-end", id: "answer" },
@@ -252,7 +252,8 @@ describe("chat quotes and the maximum charge (#60)", () => {
     providerStreamImpl.mockImplementation(async () => answer({ input: 20_000, output: 5_000 })); // 32 credits at these prices
     const turn = await send(quote.quoteId);
     expect(turn.status).toBe(200);
-    expect(calls("deductCredits")).toMatchObject([{ amount: 13, actualAmount: 13, actualCostUsd: 0.13 }]);
+    // The charge is capped; the daily limit still counts what the turn was worth.
+    expect(calls("deductCredits")).toMatchObject([{ amount: 13, actualAmount: 13, actualCostUsd: 0.32 }]);
     expect(credits()).toBe(87);
     expect(turn.text).toContain('"creditsCharged":13');
     expect(turn.text).toContain('"actualCredits":32');
@@ -267,6 +268,25 @@ describe("chat quotes and the maximum charge (#60)", () => {
     expect(calls("deductCredits")).toMatchObject([{ amount: 13, actualAmount: 3 }]);
     expect(credits()).toBe(97);
     expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 3, usedFallbackEstimate: true });
+  });
+
+  it.each([
+    ["only the input count", { input: 1000 }],
+    ["only the output count", { output: 1000 }],
+  ])("charges the accepted estimate when the provider reports %s", async (_name, usage) => {
+    const { quote } = (await askQuote()).body;
+    providerStreamImpl.mockImplementation(async () => answer(usage));
+    expect((await send(quote.quoteId)).status).toBe(200);
+    expect(calls("deductCredits")).toMatchObject([{ amount: 13, actualAmount: 3 }]);
+    expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 3, usedFallbackEstimate: true });
+  });
+
+  it("charges a reported zero as actual usage, at the one-credit minimum", async () => {
+    const { quote } = (await askQuote()).body;
+    providerStreamImpl.mockImplementation(async () => answer({ input: 0, output: 0 }));
+    expect((await send(quote.quoteId)).status).toBe(200);
+    expect(calls("deductCredits")).toMatchObject([{ amount: 13, actualAmount: 1 }]);
+    expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 1, usedFallbackEstimate: false });
   });
 
   it("refuses reuse of a quote id by a second turn", async () => {

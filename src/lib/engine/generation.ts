@@ -219,6 +219,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         fingerprint: imageQuoteFingerprint({
           workId, unitId: unit.id, reference: input.reference, translationId: input.translationId, styleId: style.id, modelId,
           aspectRatio: input.aspectRatio, resolution: input.resolution, prompt, referenceImages: sentReferences.length, billingVersion: model.billing?.version ?? IMAGE_BILLING_VERSION,
+          rates: model.billing,
         }),
       };
       let quoteId: string | undefined;
@@ -386,7 +387,8 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       } else {
         logWarn("generic.usage_missing", { requestId, generationId, fallbackCredits: estimatedCreditsCost, referenceImages: sentReferences.length });
       }
-      // A guest is never charged more than the maximum they accepted; Visibible absorbs the rest.
+      // A guest is never charged more than the maximum they accepted; Visibible absorbs the rest. The wallet's daily
+      // limit still counts the image's full cost, so work above the cap is not free of that limit.
       let chargedCredits = actualCredits;
       let chargedCostUsd = actualCostUsd;
       let chargeCapped: { wantedCredits: number; chargedCredits: number } | null = null;
@@ -399,7 +401,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       if (reservationMade) {
         let deduct;
         try {
-          deduct = await convex.action(api.sessions.deductCredits, { sid, amount: reservedCredits, modelId, generationId, costUsd: reservationCostUsd, actualAmount: chargedCredits, actualCostUsd: chargedCostUsd, serverSecret });
+          deduct = await convex.action(api.sessions.deductCredits, { sid, amount: reservedCredits, modelId, generationId, costUsd: reservationCostUsd, actualAmount: chargedCredits, actualCostUsd, serverSecret });
         } catch (error) {
           // An image we cannot settle is not charged: the hold is released and the request fails.
           logApiFailure({ context: requestContext, stage: "generic_settlement", error, statusCode: 500, sid, generationId });

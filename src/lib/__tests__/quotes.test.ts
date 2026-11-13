@@ -11,6 +11,7 @@ describe("image quote terms", () => {
     workId: "bible-web", unitId: "genesis-1-1", reference: "Genesis 1:1", translationId: "web", styleId: "classical",
     modelId: "google/gemini-nano-banana-2.1", aspectRatio: "16:9", resolution: "1K", prompt: "Draw the first day.",
     referenceImages: 2, billingVersion: "catalog-v1",
+    rates: { unit: "token", textInputUsd: "0.0000015", textOutputUsd: "0.000009", imageOutputUsd: "0.00003", imageInputTokens: { usdPerToken: "0.0000015", perImage: 1290 } } as Parameters<typeof imageQuoteFingerprint>[0]["rates"],
   };
 
   it("fingerprints every term that determines the price, and nothing else", () => {
@@ -21,6 +22,12 @@ describe("image quote terms", () => {
       { workId: "holmes-adventures" }, { unitId: "genesis-1-2" }, { reference: "Genesis 1:2" }, { translationId: "kjv" },
       { styleId: "watercolor" }, { modelId: "google/other" }, { aspectRatio: "21:9" }, { resolution: "2K" },
       { prompt: "Draw the second day." }, { referenceImages: 3 }, { billingVersion: "catalog-v2" },
+      // A rate can move without the rounded credits moving, so each rate is part of the fingerprint.
+      { rates: { ...terms.rates!, textInputUsd: "0.0000016" } }, { rates: { ...terms.rates!, textOutputUsd: "0.00001" } },
+      { rates: { ...terms.rates!, imageOutputUsd: "0.0000301" } }, { rates: { ...terms.rates!, unit: "image" } },
+      { rates: { ...terms.rates!, imageInputTokens: { usdPerToken: "0.0000016", perImage: 1290 } } },
+      { rates: { ...terms.rates!, imageInputTokens: { usdPerToken: "0.0000015", perImage: 1300 } } },
+      { rates: { ...terms.rates!, imageInputTokens: undefined, imageInputUsd: "0.002" } }, { rates: undefined },
     ];
     const changed = changes.map((change) => imageQuoteFingerprint({ ...terms, ...change }));
     expect(new Set([fingerprint, ...changed]).size).toBe(changes.length + 1);
