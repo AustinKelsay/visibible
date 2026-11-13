@@ -238,6 +238,7 @@ export function logSettlementEvent(args: {
     | "release_failed"
     | "deduct_failed"
     | "shortfall"
+    | "capped"
     | "outbox_enqueued";
   sid?: string;
   generationId?: string;

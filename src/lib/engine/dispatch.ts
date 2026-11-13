@@ -29,6 +29,12 @@ export type GenericGenerationInput = {
   session: { credits: number; dailySpendUsd: number; dailySpendLimitUsd: number };
   inputFingerprint: string;
   generationNumber: number | null;
+  /** Quote the request and stop: no request record, reservation or model call (#60). */
+  quoteOnly?: boolean;
+  /** The quote the guest accepted for this generation. */
+  quoteId?: string;
+  /** Automatic or bulk generation: no guest accepts a quote, so the full estimate must be affordable. */
+  automatic?: boolean;
   runtime: { convex: ConvexClient; serverSecret: string; openRouterApiKey: string; requestContext: RequestObservabilityContext };
 };
 

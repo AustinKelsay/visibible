@@ -49,9 +49,10 @@ import {
 } from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 
-// Disable Next.js server-side caching - let browser cache handle it
-export const dynamic = "force-dynamic";
-
+/**
+ * The image request path, shared by its two routes: `POST /api/generate-image` generates, and
+ * `POST /api/generate-image/quote` runs the same checks, admission and assembly and stops at the quote (#60).
+ */
 const isImageGenerationEnabled =
   process.env.ENABLE_IMAGE_GENERATION === "true";
 
@@ -105,6 +106,10 @@ const generateImageSchema = z
     resolution: z.string().optional(),
     translation: z.string().optional(),
     requestId: z.string().regex(/^[a-zA-Z0-9_-]{8,80}$/).optional(),
+    /** The quote the guest accepted for this generation (#60); without a current one the answer is a fresh quote. */
+    quoteId: z.string().max(64).optional(),
+    /** Automatic and bulk generation: no guest accepts a quote, and the full estimate must be affordable. */
+    automatic: z.boolean().optional(),
     /** A bulk job's bound engine: the request is refused rather than admitted on another engine (#178). */
     engine: z.enum(["legacy", "generic"]).optional(),
     /** A prose work's moment: the work and the unit to draw. The reference is then only a label. */
@@ -132,25 +137,11 @@ function getCookieValue(request: Request, name: string): string | undefined {
   return undefined;
 }
 
-export async function GET() {
-  return NextResponse.json(
-    {
-      error: "Method not allowed",
-      message: "Use POST /api/generate-image for generation requests.",
-    },
-    {
-      status: 405,
-      headers: {
-        Allow: "POST",
-      },
-    }
-  );
-}
-
-export async function POST(request: Request) {
+export async function handleImageRequest(request: Request, mode: "generate" | "quote"): Promise<Response> {
+  const quoteOnly = mode === "quote";
   const requestContext = createRequestObservabilityContext(
     request,
-    "/api/generate-image"
+    quoteOnly ? "/api/generate-image/quote" : "/api/generate-image"
   );
 
   // SECURITY: Strict origin validation for state-changing route.
@@ -233,16 +224,18 @@ export async function POST(request: Request) {
   const ipHash = sessionValidation.currentIpHash ?? await hashIp(getClientIp(request));
   const rateLimitIdentifier = `${ipHash}:${sid}`;
 
+  // Quotes have their own allowance, so reading prices never uses up the guest's generations.
+  const rateLimitEndpoint = quoteOnly ? "image-quote" : "generate-image";
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: rateLimitIdentifier,
-    endpoint: "generate-image",
+    endpoint: rateLimitEndpoint,
     serverSecret,
   });
 
   if (!rateLimitResult.allowed) {
     emitMetric("api_rate_limit_blocks_total", {
       route: requestContext.route,
-      endpoint: "generate-image",
+      endpoint: rateLimitEndpoint,
     });
     logWarn("api.rate_limited", {
       route: requestContext.route,
@@ -383,14 +376,17 @@ export async function POST(request: Request) {
     }
     return jsonWithSessionRefresh({ requestId: clientRequestId, status: admission.status, reused: true, engine: admission.engine ?? "legacy" }, { status: 202 });
   };
-  try {
-    const existing = await convex.query(api.verseImages.getGenerationIntent, {
-      requestId: clientRequestId, sid, inputFingerprint, serverSecret,
-    });
-    if (existing) return existingIntentResponse(existing);
-  } catch (error) {
-    logApiFailure({ context: requestContext, stage: "image_intent_lookup", error, statusCode: 503, sid });
-    return jsonWithSessionRefresh({ error: "Unable to safely check image generation" }, { status: 503 });
+  // A quote is not a generation: it has no request identity to replay.
+  if (!quoteOnly) {
+    try {
+      const existing = await convex.query(api.verseImages.getGenerationIntent, {
+        requestId: clientRequestId, sid, inputFingerprint, serverSecret,
+      });
+      if (existing) return existingIntentResponse(existing);
+    } catch (error) {
+      logApiFailure({ context: requestContext, stage: "image_intent_lookup", error, statusCode: 503, sid });
+      return jsonWithSessionRefresh({ error: "Unable to safely check image generation" }, { status: 503 });
+    }
   }
 
   const parseGenerationNumber = (
@@ -491,8 +487,10 @@ export async function POST(request: Request) {
     mode: engineMode, isOwner: hasOwnerEngineAccess(sessionForAdmission), styleId: requestedStyleId ?? null,
     readiness: readiness ? { ready: readiness.ready, reasons: readiness.reasons, activeGeneration: readiness.activeGeneration, briefVersion: readiness.briefVersion } : null,
   });
-  logInfo("engine_admission", { requestId: clientRequestId, mode: engineMode, engine: engineDecision.engine, reason: engineDecision.engine ? engineDecision.reason : engineDecision.unavailable });
-  incrementMetricCounter("engine_admission", { mode: engineMode, engine: engineDecision.engine ?? "none" });
+  if (!quoteOnly) {
+    logInfo("engine_admission", { requestId: clientRequestId, mode: engineMode, engine: engineDecision.engine, reason: engineDecision.engine ? engineDecision.reason : engineDecision.unavailable });
+    incrementMetricCounter("engine_admission", { mode: engineMode, engine: engineDecision.engine ?? "none" });
+  }
   if (engineDecision.engine === null) {
     return jsonWithSessionRefresh({ error: engineDecision.unavailable === "style" ? "Art style unavailable" : "Preparing scene", message: engineDecision.reason, retryable: engineDecision.retryable, style: requestedStyleId ?? null }, { status: 503 });
   }
@@ -513,10 +511,13 @@ export async function POST(request: Request) {
     workId, readiness: { activeGeneration: readiness.activeGeneration, workVersion: readiness.workVersion, briefVersion: readiness.briefVersion },
     session: { credits: sessionForAdmission.credits, dailySpendUsd: sessionForAdmission.dailySpendUsd, dailySpendLimitUsd: sessionForAdmission.dailySpendLimitUsd },
     inputFingerprint, generationNumber,
+    quoteOnly, quoteId: requestBody.quoteId, automatic: requestBody.automatic === true,
     runtime: { convex, serverSecret, openRouterApiKey, requestContext },
   });
   // A scene the generic engine cannot prepare is refused before any request record or reservation exists.
   if (outcome.kind === "declined") return jsonWithSessionRefresh({ error: outcome.error, message: outcome.message, retryable: outcome.retryable, ...outcome.details }, { status: outcome.status });
   if (outcome.kind === "existing") return existingIntentResponse(outcome.admission as Parameters<typeof existingIntentResponse>[0]);
+  // A quote is never cached: it expires and is accepted once.
+  if (quoteOnly && outcome.status === 200) return jsonWithSessionRefresh(outcome.body, { headers: { "Cache-Control": "no-store" } });
   return jsonWithSessionRefresh(outcome.body, outcome.status === 200 ? { headers: { "Cache-Control": "private, max-age=3600" } } : { status: outcome.status });
 }
