@@ -31,6 +31,9 @@ const originalEnv = { ...process.env };
 // Configurable mock values
 const mockCreditsCost = { value: 2 };
 const useRealPricing = { value: false };
+// $10 per million tokens each way: a typical turn is 3 credits and the maximum (8,000 in, 2,048 out) is 13.
+const DEFAULT_PRICING = { prompt: "0.00001", completion: "0.00001" };
+const mockPricing = { value: DEFAULT_PRICING };
 const mockRequestBody: { value: unknown } = { value: null };
 const mockStreamTextImpl = vi.fn();
 
@@ -61,7 +64,11 @@ vi.mock("@/lib/session", () => ({
 }));
 
 vi.mock("@/lib/request-body", () => ({
-  readJsonBodyWithLimit: vi.fn(async () => mockRequestBody.value),
+  // Every request carries a quote id; these tests stub its acceptance below. The quote protocol has its own tests (quote.test.ts).
+  readJsonBodyWithLimit: vi.fn(async () => {
+    const body = mockRequestBody.value;
+    return body && typeof body === "object" && !Array.isArray(body) ? { quoteId: "accepted-quote", ...body } : body;
+  }),
   PayloadTooLargeError: class PayloadTooLargeError extends Error {
     maxSize: number;
     constructor(maxSize: number) {
@@ -81,7 +88,17 @@ vi.mock("@/lib/convex-client", () => ({
       const session = mockState.sessions.get(sid);
       return session || null;
     }),
-    mutation: vi.fn(async () => {
+    mutation: vi.fn(async (_apiPath: unknown, args: Record<string, unknown> = {}) => {
+      // quotes.accept: the presented quote is accepted with the terms the route computed.
+      if ("quoteId" in args && "usedBy" in args && "fingerprint" in args) {
+        mockState.callHistory.push({ action: "acceptQuote", args });
+        return { accepted: true, replay: false, estimateCredits: args.estimateCredits, maximumCredits: args.maximumCredits };
+      }
+      if ("quoteId" in args && "chargedCredits" in args) {
+        mockState.callHistory.push({ action: "recordQuoteSettlement", args });
+        return { recorded: true };
+      }
+      // Rate limit always passes
       return { allowed: true, retryAfter: 0 };
     }),
     action: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
@@ -176,7 +193,7 @@ vi.mock("@/lib/chat-models", async (importOriginal) => {
   return {
     ...actual,
     DEFAULT_CHAT_MODEL: "test/cheap-model",
-    getChatModelPricing: vi.fn(async () => ({ prompt: "0.00001", completion: "0.00001" })),
+    getChatModelPricing: vi.fn(async () => mockPricing.value),
     computeChatCreditsCost: vi.fn((...args: Parameters<typeof actual.computeChatCreditsCost>) =>
       useRealPricing.value ? actual.computeChatCreditsCost(...args) : mockCreditsCost.value
     ),
@@ -213,6 +230,7 @@ describe("Chat API Credit Flow", () => {
     resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session" }]);
     mockCreditsCost.value = 2;
     useRealPricing.value = false;
+    mockPricing.value = DEFAULT_PRICING;
     mockRequestBody.value = { messages: fixtures.messages.valid };
     mockStreamTextImpl.mockReturnValue(createMockStreamResponse());
   });
@@ -222,7 +240,7 @@ describe("Chat API Credit Flow", () => {
   });
 
   describe("Happy Path", () => {
-    it("reserves and settles the real per-token catalog quote", async () => {
+    it("holds the maximum from the real per-token catalog prices and settles the actual usage", async () => {
       useRealPricing.value = true;
       const response = await POST(new Request("http://localhost:3000/api/chat", {
         method: "POST",
@@ -231,7 +249,10 @@ describe("Chat API Credit Flow", () => {
       expect(response.status).toBe(200);
       await response.text();
       const reservation = mockState.callHistory.find((call) => call.action === "reserveCredits");
-      expect(reservation?.args.amount).toBe(3);
+      expect(reservation?.args.amount).toBe(13);
+      // The provider reported 1,000 tokens each way: 3 credits of the 13 held.
+      const deduction = mockState.callHistory.find((call) => call.action === "deductCredits");
+      expect(deduction?.args).toMatchObject({ amount: 13, actualAmount: 3 });
       expect(getCallCount("deductCredits")).toBe(1);
     });
 
@@ -321,6 +342,8 @@ describe("Chat API Credit Flow", () => {
     it("model-too-expensive: returns 400 if cost > 100 credits", async () => {
       resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session" }]);
       mockCreditsCost.value = 150;
+      // Priced so the maximum is above the estimate; an estimate is never quoted above its maximum.
+      mockPricing.value = { prompt: "0.001", completion: "0.002" };
       mockStreamTextImpl.mockReturnValue(createMockStreamResponse());
 
       const request = new Request("http://localhost:3000/api/chat", {

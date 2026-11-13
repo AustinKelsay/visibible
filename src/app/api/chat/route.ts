@@ -4,10 +4,10 @@ import type { z } from "zod";
 import {
   DEFAULT_CHAT_MODEL,
   getChatModelPricing,
-  computeChatCreditsCost,
   computeActualChatCreditsCost,
   CREDIT_USD,
 } from "@/lib/chat-models";
+import { BILLING_POLICY_VERSION, CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE, QUOTE_STALE_ERROR, QUOTE_STALE_STATUS, chatQuoteTerms } from "@/lib/quotes";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import {
   validateSessionWithIp,
@@ -31,7 +31,7 @@ import {
   redactSid,
 } from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
-import { boundHistory, buildSystemPrompt, chatRequestSchema, resolveTranslation } from "@/lib/chat-request";
+import { boundHistory, buildSystemPrompt, chatRequestSchema, estimateTokens, resolveTranslation } from "@/lib/chat-request";
 
 // Allow streaming responses up to 60 seconds: on 11 November 2026 about 6% of answers took over 30 (llm/releases/2026-11-11-chat-model-comparison).
 export const maxDuration = 60;
@@ -184,7 +184,7 @@ export async function POST(req: Request) {
     ));
   }
 
-  const { messages, context, translation: requestedTranslation, model: requestedModel } = validationResult.data;
+  const { messages, context, translation: requestedTranslation, model: requestedModel, quoteId: presentedQuoteId } = validationResult.data;
 
   const translation = resolveTranslation(requestedTranslation, req.headers.get("cookie"));
   if (!translation) {
@@ -200,6 +200,13 @@ export async function POST(req: Request) {
     return withSessionRefresh(Response.json({ error: prompt.error, message: prompt.message }, { status: prompt.status }));
   }
   const system = prompt.systemPrompt;
+  // The quoted maximum prices the system prompt at a fixed allowance, so a longer one is never sent.
+  if (estimateTokens(system) > CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE) {
+    return withSessionRefresh(Response.json(
+      { error: "Passage too long", message: "This passage is too long to discuss in one message." },
+      { status: 400 }
+    ));
+  }
 
   // Use requested model or fall back to default
   const modelId = requestedModel || DEFAULT_CHAT_MODEL;
@@ -231,9 +238,10 @@ export async function POST(req: Request) {
     console.warn(`[Chat API] Left out ${history.emptyDropped} message(s) with empty content`);
   }
 
-  // Calculate credit cost based on model pricing (estimated ~2000 tokens)
-  const estimatedCredits = computeChatCreditsCost(modelPricing);
-  if (estimatedCredits === null) {
+  // The turn's estimate (a typical 2,000-token exchange) and its maximum charge (the bounded input and output).
+  const quoteTerms = chatQuoteTerms(modelId, modelPricing);
+  const estimatedCredits = quoteTerms?.estimateCredits ?? null;
+  if (!quoteTerms || estimatedCredits === null) {
     return withSessionRefresh(Response.json(
       {
         error: "Model pricing unavailable",
@@ -259,12 +267,17 @@ export async function POST(req: Request) {
   }
 
   const estimatedCostUsd = estimatedCredits * CREDIT_USD;
+  const maximumCredits = quoteTerms.maximumCredits;
+  const maximumCostUsd = maximumCredits * CREDIT_USD;
 
   // Session validation and credit reservation
   const sessionId: string = sid;
   let generationId: string | null = null;
   let creditReserved = false;
-  const creditAmount = estimatedCredits; // Dynamic cost based on model
+  // The hold is the accepted maximum; the charge is actual usage within it.
+  const creditAmount = maximumCredits;
+  let chargedCredits = 0;
+  let acceptedQuoteId: string | null = null;
   let billingStatus: "pending" | "charged" | "released" | "unresolved" = "pending";
 
   // Best-effort cleanup for reserved credits to avoid permanently locking balances.
@@ -312,15 +325,26 @@ export async function POST(req: Request) {
   };
 
   let creditSettlement: Promise<void> | null = null;
-  const settleCredits = (mode: "deduct" | "release", reason: string) => {
+  const settleCredits = (mode: "deduct" | "release", reason: string, usage?: { promptTokens: number; completionTokens: number }) => {
     if (!generationId || !creditReserved) {
       return Promise.resolve();
     }
     if (creditSettlement) return creditSettlement;
+    const settledGenerationId = generationId;
     creditSettlement = (async () => {
       if (mode === "release") {
         await releaseReservedCredits(reason);
         return;
+      }
+
+      // Actual usage, never above the accepted maximum; the accepted estimate when the provider reported none.
+      const actualCredits = usage && usage.promptTokens + usage.completionTokens > 0
+        ? computeActualChatCreditsCost(modelPricing, usage.promptTokens, usage.completionTokens)
+        : null;
+      const usedFallbackEstimate = actualCredits === null;
+      const toCharge = Math.min(actualCredits ?? estimatedCredits, creditAmount);
+      if (actualCredits !== null && actualCredits > creditAmount) {
+        logSettlementEvent({ context: requestContext, outcome: "capped", sid: sessionId, generationId: settledGenerationId, details: { maximumCredits: creditAmount, wantedCredits: actualCredits } });
       }
 
       try {
@@ -328,8 +352,10 @@ export async function POST(req: Request) {
           sid: sessionId,
           amount: creditAmount,
           modelId,
-          generationId,
-          costUsd: estimatedCostUsd,
+          generationId: settledGenerationId,
+          costUsd: maximumCostUsd,
+          actualAmount: toCharge,
+          actualCostUsd: toCharge * CREDIT_USD,
           serverSecret,
         });
 
@@ -347,12 +373,20 @@ export async function POST(req: Request) {
           await releaseReservedCredits("deduct-failed");
         } else {
           billingStatus = "charged";
+          chargedCredits = toCharge;
           logSettlementEvent({
             context: requestContext,
             outcome: "confirmed",
             sid: sessionId,
-            generationId,
+            generationId: settledGenerationId,
+            details: { actualCredits: toCharge, usedActual: !usedFallbackEstimate },
           });
+          // The stored record of the charge says whether it came from usage or from the estimate.
+          if (acceptedQuoteId) {
+            await convex.mutation(api.quotes.recordSettlement, {
+              quoteId: acceptedQuoteId, usedBy: settledGenerationId, chargedCredits: toCharge, usedFallbackEstimate, serverSecret,
+            }).catch((error) => logApiFailure({ context: requestContext, stage: "chat_quote_settlement", error, statusCode: 500, sid: sessionId, generationId: settledGenerationId }));
+          }
         }
       } catch (err) {
         logApiFailure({
@@ -382,14 +416,14 @@ export async function POST(req: Request) {
 
   // Admin bypasses credit check but we log for audit trail
   if (session.tier !== "admin") {
-    // Check if user has enough credits for this model
+    // The whole maximum must be affordable, because the whole maximum is held.
     if (session.credits < creditAmount) {
       return withSessionRefresh(Response.json(
         {
           error: "Insufficient credits",
           required: creditAmount,
           available: session.credits,
-          message: `This model requires ${creditAmount} credits per message.`,
+          message: `This model can use up to ${creditAmount} credits per message.`,
         },
         { status: 402 } // Payment Required
       ));
@@ -398,13 +432,43 @@ export async function POST(req: Request) {
     // Generate unique ID for this chat request
     generationId = `chat-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
-    // Reserve credits based on model cost (will be converted to deduction on success, refunded on failure)
+    // The quote the guest accepted must be theirs, unused, unexpired and issued for these prices and bounds. Otherwise
+    // the answer is a fresh quote, before any hold or model call.
+    const terms = {
+      sid: sessionId, operation: "chat" as const, fingerprint: quoteTerms.fingerprint, policyVersion: BILLING_POLICY_VERSION,
+      estimateCredits: estimatedCredits, maximumCredits,
+    };
+    try {
+      const acceptance = presentedQuoteId
+        ? await convex.mutation(api.quotes.accept, { ...terms, quoteId: presentedQuoteId, usedBy: generationId, serverSecret })
+        : { accepted: false as const, reason: "missing" as const };
+      if (!acceptance.accepted) {
+        return withSessionRefresh(Response.json(
+          {
+            error: QUOTE_STALE_ERROR,
+            message: "The price for this message needs to be confirmed again.",
+            reason: acceptance.reason,
+            quote: await convex.mutation(api.quotes.create, { ...terms, serverSecret }),
+          },
+          { status: QUOTE_STALE_STATUS }
+        ));
+      }
+      acceptedQuoteId = presentedQuoteId ?? null;
+    } catch (error) {
+      logApiFailure({ context: requestContext, stage: "chat_quote", error, statusCode: 503, sid: sessionId });
+      return withSessionRefresh(Response.json(
+        { error: "Service temporarily unavailable", message: "The price for this message could not be confirmed. Please try again.", retryable: true },
+        { status: 503 }
+      ));
+    }
+
+    // Hold exactly the accepted maximum (converted to the final charge on success, released on failure)
     const reserveResult = await convex.action(api.sessions.reserveCredits, {
       sid: sessionId,
       amount: creditAmount,
       modelId,
       generationId,
-      costUsd: estimatedCostUsd,
+      costUsd: maximumCostUsd,
       serverSecret,
     });
 
@@ -490,9 +554,13 @@ export async function POST(req: Request) {
         async flush(controller) {
           const success = !failed && !signal.aborted && hasText &&
             (finish?.finishReason === "stop" || finish?.finishReason === "length");
-          await settleCredits(success ? "deduct" : "release", success ? "stream-success" : "stream-failed");
+          const readUsage = () => Promise.resolve(result.totalUsage).catch(() => null);
+          // A successful turn is charged from its usage; a failed one is released first, whatever its usage.
+          let usage = success ? await readUsage() : null;
+          await settleCredits(success ? "deduct" : "release", success ? "stream-success" : "stream-failed",
+            { promptTokens: usage?.inputTokens ?? 0, completionTokens: usage?.outputTokens ?? 0 });
           signal.removeEventListener("abort", onAbort);
-          const usage = await Promise.resolve(result.totalUsage).catch(() => null);
+          if (!success) usage = await readUsage();
           const promptTokens = usage?.inputTokens ?? 0;
           const completionTokens = usage?.outputTokens ?? 0;
           const finishReason = failed ? "error" : finish?.finishReason ?? "error";
@@ -506,8 +574,10 @@ export async function POST(req: Request) {
               totalTokens: promptTokens + completionTokens,
               finishReason,
               latencyMs: Date.now() - startTime,
-              creditsCharged: billingStatus === "charged" ? creditAmount : 0,
+              creditsCharged: billingStatus === "charged" ? chargedCredits : 0,
               creditsRefunded: billingStatus === "released" ? creditAmount : 0,
+              estimatedCredits,
+              maximumCredits,
               billingStatus: creditReserved ? billingStatus : "not_required",
               actualCredits: computeActualChatCreditsCost(modelPricing, promptTokens, completionTokens),
               incomplete: success && finish?.finishReason === "length",
