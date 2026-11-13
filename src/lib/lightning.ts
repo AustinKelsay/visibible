@@ -24,6 +24,15 @@ function getPayUrl(): string {
   return payUrl.replace(/\/+$/, "");
 }
 
+/**
+ * The LNURL-pay server itself refused the request (`{"status":"ERROR"}`), so it made no
+ * invoice. Every other failure of an invoice request leaves that unknown: no connection, a
+ * timeout, a gateway's error page, or a success that cannot be used.
+ */
+export class LightningRefusedError extends Error {
+  readonly refused = true;
+}
+
 async function getLnurlJson(url: URL): Promise<Record<string, unknown>> {
   const response = await fetch(url, {
     cache: "no-store",
@@ -31,8 +40,11 @@ async function getLnurlJson(url: URL): Promise<Record<string, unknown>> {
   });
   const body = await response.json().catch(() => null) as Record<string, unknown> | null;
 
-  if (!response.ok || !body || body.status === "ERROR") {
-    throw new Error(`Lightning request failed: ${body?.reason ?? response.status}`);
+  if (body?.status === "ERROR") {
+    throw new LightningRefusedError(`Lightning request failed: ${body.reason ?? response.status}`);
+  }
+  if (!response.ok || !body) {
+    throw new Error(`Lightning request failed: ${response.status}`);
   }
 
   return body;
