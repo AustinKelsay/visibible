@@ -66,7 +66,7 @@ export type QuoteRefusal = "missing" | "used" | "expired" | "changed";
  * Accept a quote for one operation. Refused, with nothing changed, when the quote does not exist or belongs to
  * another session ("missing" for both), was already accepted by another operation ("used"), is past its expiry
  * ("expired"), or was issued for different terms than the request about to be made ("changed"). The same operation
- * accepting again is a replay of a repeated delivery, not a second use.
+ * accepting again on the same terms is a replay of a repeated delivery, not a second use.
  */
 export const accept = mutation({
   args: { ...quoteTerms, quoteId: v.string(), usedBy: v.string(), serverSecret: v.string() },
@@ -79,14 +79,16 @@ export const accept = mutation({
     const quote = id ? await ctx.db.get(id) : null;
     if (!quote || quote.sid !== args.sid) return { accepted: false, reason: "missing" };
     const accepted = { accepted: true as const, estimateCredits: quote.estimateCredits, maximumCredits: quote.maximumCredits };
+    // The terms are checked first, for a replay too: an operation that accepted a quote and is retried after the
+    // price moved must not be let through at the new price on the strength of the old acceptance.
+    const sameTerms = quote.operation === args.operation && quote.fingerprint === args.fingerprint && quote.policyVersion === args.policyVersion &&
+      quote.estimateCredits === args.estimateCredits && quote.maximumCredits === args.maximumCredits;
     if (quote.usedAt !== undefined) {
-      return quote.usedBy === args.usedBy ? { ...accepted, replay: true } : { accepted: false, reason: "used" };
+      if (quote.usedBy !== args.usedBy) return { accepted: false, reason: "used" };
+      return sameTerms ? { ...accepted, replay: true } : { accepted: false, reason: "changed" };
     }
     if (Date.now() >= quote.expiresAt) return { accepted: false, reason: "expired" };
-    if (quote.operation !== args.operation || quote.fingerprint !== args.fingerprint || quote.policyVersion !== args.policyVersion ||
-        quote.estimateCredits !== args.estimateCredits || quote.maximumCredits !== args.maximumCredits) {
-      return { accepted: false, reason: "changed" };
-    }
+    if (!sameTerms) return { accepted: false, reason: "changed" };
     await ctx.db.patch(quote._id, { usedAt: Date.now(), usedBy: args.usedBy });
     return { ...accepted, replay: false };
   },

@@ -1156,6 +1156,32 @@ describe("Image Generation API Credit Flow", () => {
         expect(actionArgs("reserveCredits")).toMatchObject([{ amount: stale.body.quote.maximumCredits }]);
       });
 
+      it("does not let a retried request through at a higher price on the strength of its earlier acceptance", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        // The quote is accepted, then the request cannot be recorded, so nothing starts.
+        failAdmission = true;
+        expect((await generate({ quoteId: quote.quoteId })).status).toBe(503);
+        failAdmission = false;
+        // The same request is retried after the price rose: its acceptance was for the old maximum only.
+        fetchImageModelsMock.mockResolvedValue({ models: [catalogModel({ ...syntheticPricing, image_output: "0.00003" })] });
+        const retry = await generate({ quoteId: quote.quoteId });
+        expect(retry.status).toBe(409);
+        expect(retry.body).toMatchObject({ error: "Quote stale", reason: "changed" });
+        expect(retry.body.quote.maximumCredits).toBeGreaterThan(quote.maximumCredits);
+        await expectNothingStarted();
+      });
+
+      it("lets a retried request through at the price it accepted", async () => {
+        await prepareWork();
+        const { quote } = (await askQuote()).body;
+        failAdmission = true;
+        expect((await generate({ quoteId: quote.quoteId })).status).toBe(503);
+        failAdmission = false;
+        expect((await generate({ quoteId: quote.quoteId })).status).toBe(200);
+        expect(actionArgs("reserveCredits")).toMatchObject([{ amount: quote.maximumCredits }]);
+      });
+
       it("refuses a quote presented with other settings than it was issued for", async () => {
         await prepareWork();
         const { quote } = (await askQuote()).body;

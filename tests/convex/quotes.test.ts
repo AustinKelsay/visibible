@@ -83,6 +83,17 @@ describe("quotes", () => {
     expect((await stored())[0].usedBy).toBe("request-1");
   });
 
+  it("refuses the same operation's repeat when the terms it presents are no longer the accepted ones", async () => {
+    const { accept, stored } = await setup();
+    await accept();
+    // The operation accepted at most 4 credits. Retried after the price rose, it presents 8 and must not be let through.
+    for (const changed of [{ maximumCredits: 8 }, { estimateCredits: 3 }, { fingerprint: "fp-2" }, { policyVersion: "other" }, { operation: "chat" as const }]) {
+      expect([changed, await accept(changed)]).toEqual([changed, { accepted: false, reason: "changed" }]);
+    }
+    expect(await accept()).toEqual({ accepted: true, replay: true, estimateCredits: 2, maximumCredits: 4 });
+    expect((await stored())[0]).toMatchObject({ usedBy: "request-1", estimateCredits: 2, maximumCredits: 4 });
+  });
+
   it("refuses an expired quote at the five-minute mark, and accepts just before it", async () => {
     const late = await setup();
     vi.setSystemTime(issuedAt + QUOTE_TTL_MS);
