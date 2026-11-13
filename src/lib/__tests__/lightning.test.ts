@@ -73,22 +73,25 @@ describe("createLightningInvoice", () => {
   });
 });
 
-describe("unanswered requests", () => {
-  it("marks a request that never got an answer, since an invoice may still exist", async () => {
-    fetchMock.mockRejectedValue(new TypeError("fetch failed"));
-    await expect(createLightningInvoice(1, "credits a")).rejects.toMatchObject({ unanswered: true });
+describe("refused requests", () => {
+  it("marks only the pay server's own refusal, which means no invoice was made", async () => {
+    fetchMock.mockResolvedValue(reply({ status: "ERROR", reason: "amount out of range" }, 400));
+    await expect(createLightningInvoice(1, "credits a")).rejects.toMatchObject({
+      refused: true, message: "Lightning request failed: amount out of range",
+    });
   });
 
-  it("marks a success it cannot read", async () => {
-    fetchMock.mockResolvedValue(new Response("<html>gateway</html>", { status: 200 }));
-    await expect(createLightningInvoice(1, "credits a")).rejects.toMatchObject({ unanswered: true });
-  });
-
-  it("does not mark an error the server reported", async () => {
-    fetchMock.mockResolvedValue(reply({ status: "ERROR", reason: "amount out of range" }));
-    const error = await createLightningInvoice(1, "credits a").catch((e: unknown) => e);
+  it.each([
+    ["no answer", () => Promise.reject(new TypeError("fetch failed"))],
+    ["a gateway's error page", () => Promise.resolve(new Response("<html>504 Gateway Time-out</html>", { status: 504 }))],
+    ["a success it cannot read", () => Promise.resolve(new Response("<html>ok</html>", { status: 200 }))],
+    ["a success without an invoice", () => Promise.resolve(reply({ status: "OK", routes: [] }))],
+    ["an invoice for another amount", () => Promise.resolve(reply({ pr: BOLT11, routes: [], status: "OK" }))],
+  ])("does not mark %s, since an invoice may exist", async (_name, answer) => {
+    fetchMock.mockImplementation(answer);
+    const error = await createLightningInvoice(2, "credits a").catch((e: unknown) => e);
     expect(error).toBeInstanceOf(Error);
-    expect((error as { unanswered?: boolean }).unanswered).toBeUndefined();
+    expect((error as { refused?: boolean }).refused).toBeUndefined();
   });
 });
 

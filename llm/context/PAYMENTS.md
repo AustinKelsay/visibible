@@ -10,18 +10,18 @@ The purchase UI communicates session-only access and no refunds during alpha. Lo
 
 ## Purchase intents
 
-The browser sends one intent id per purchase and reuses it while the outcome is unknown: after a lost connection, a server error, or the answer that the invoice is still being created. [beginInvoice](../../convex/invoices.ts) decides what a request with that id gets:
+The browser sends one intent id per purchase and reuses it until the server settles that intent's outcome with an invoice, `invoice_unresolved` or `invoice_intent_conflict`. A lost connection, a rate limit, a server error or the answer that the invoice is still being created all leave it in use. A repeated intent is answered from what was saved, before any price lookup. [beginInvoice](../../convex/invoices.ts) decides what a request with that id gets:
 
 | Saved intent | Answer |
 | --- | --- |
 | None | The intent is saved as `creating` and the callback is asked for an invoice. |
 | `created` | The saved invoice, unchanged. The callback is not asked again. |
-| `failed` (the callback answered with an error, or its invoice was refused) | The callback is asked again with the same sats quote. |
+| `failed` (the pay server itself refused with `{"status":"ERROR"}`, so it made no invoice) | The callback is asked again with the same sats quote. |
 | `creating` for under 30 seconds | 409 `invoice_in_progress`. |
 | `creating` for longer, or `unresolved` | 409 `invoice_unresolved` with the intent id as `reference`. The callback is never asked again for this intent. |
 | Same id, different bundle | 409 `invoice_intent_conflict`. |
 
-An intent becomes `unresolved` when the callback gave no usable answer (no connection, a timeout, an unreadable success) or when the request stopped before its outcome was recorded. The callback's only lookup is `/check` by payment hash, so an invoice whose hash was never saved cannot be found again, and a second request could leave two invoices for one purchase. The buyer is told that nothing was charged and starts a new purchase, which is a new intent.
+An intent becomes `unresolved` after any other failure of the invoice request (no connection, a timeout, a gateway's error page, a success without a usable invoice, an invoice for the wrong amount) or when the request stopped before its outcome was recorded. In each case an invoice may exist on the node. The callback's only lookup is `/check` by payment hash, so an invoice whose hash was never saved cannot be found again, and a second request could leave two invoices for one purchase. The buyer is told that nothing was charged and starts a new purchase, which is a new intent.
 
 An unresolved intent cannot have been paid through the app: the buyer receives a BOLT11 string only after its invoice record is saved. To inspect them, run `npx convex run invoices:listOpenInvoiceIntents` against the deployment. Each row gives the intent id the buyer saw as a reference, the invoice id sent to the callback in the comment `credits <invoiceId>`, the session and the sats quote. If a buyer reports paying anyway, find that comment on the LNURL-pay server; no credit is granted automatically.
 

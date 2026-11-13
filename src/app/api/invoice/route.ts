@@ -158,19 +158,15 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   try {
-    // Get current BTC price and calculate sats
-    const btcPrice = await getBtcPrice();
-    const amountSats = usdToSats(amountUsd, btcPrice);
-
     // Save the intent before the Lightning call. The invoice id goes in the callback's comment for linking.
-    const begun = await convex.mutation(api.invoices.beginInvoice, {
-      sid,
-      intentId,
-      invoiceId: crypto.randomUUID(),
-      amountUsd,
-      amountSats,
-      serverSecret,
-    });
+    // A repeated intent is answered from what was saved, so it needs no fresh price.
+    const intent = { sid, intentId, invoiceId: crypto.randomUUID(), amountUsd, serverSecret };
+    let begun = await convex.mutation(api.invoices.beginInvoice, intent);
+    if (begun.outcome === "quote") {
+      const amountSats = usdToSats(amountUsd, await getBtcPrice());
+      begun = await convex.mutation(api.invoices.beginInvoice, { ...intent, amountSats });
+    }
+    if (begun.outcome === "quote") throw new Error("Purchase intent was not saved");
     if (begun.outcome === "existing") {
       return withSessionRefresh(NextResponse.json(begun.invoice));
     }
@@ -196,13 +192,14 @@ export async function POST(request: Request): Promise<NextResponse> {
     try {
       lightningInvoice = await createLightningInvoice(begun.amountSats, `credits ${invoiceId}`);
     } catch (error) {
-      const unanswered = (error as { unanswered?: unknown } | null)?.unanswered === true;
+      // Only the pay server's own refusal means no invoice exists. Anything else may have made one.
+      const refused = (error as { refused?: unknown } | null)?.refused === true;
       // If this write is lost too, the intent stays "creating" and a later retry reports it unresolved.
       await convex.mutation(api.invoices.closeInvoiceIntent, {
-        sid, intentId, status: unanswered ? "unresolved" : "failed", serverSecret,
+        sid, intentId, status: refused ? "failed" : "unresolved", serverSecret,
       }).catch(() => {});
-      if (!unanswered) throw error;
-      logApiFailure({ context: requestContext, stage: "invoice_create_unanswered", error, statusCode: 409, sid });
+      if (refused) throw error;
+      logApiFailure({ context: requestContext, stage: "invoice_create_unresolved", error, statusCode: 409, sid });
       return withSessionRefresh(unresolvedResponse(intentId));
     }
 

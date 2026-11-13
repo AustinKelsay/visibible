@@ -28,7 +28,9 @@ export const beginInvoice = mutation({
     intentId: v.string(),
     invoiceId: v.string(),
     amountUsd: v.union(v.literal(1), v.literal(3)),
-    amountSats: v.number(),
+    // The sats quote for a new intent. Without it a new intent answers "quote" and saves nothing,
+    // so a repeated intent can be answered while the price feed is down.
+    amountSats: v.optional(v.number()),
     serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
@@ -45,6 +47,7 @@ export const beginInvoice = mutation({
       .withIndex("by_sid_intentId", (q) => q.eq("sid", args.sid).eq("intentId", args.intentId))
       .unique();
     if (!intent) {
+      if (args.amountSats === undefined) return { outcome: "quote" as const };
       await ctx.db.insert("invoiceIntents", {
         sid: args.sid, intentId: args.intentId, invoiceId: args.invoiceId,
         amountUsd: args.amountUsd, amountSats: args.amountSats,
@@ -67,7 +70,7 @@ export const beginInvoice = mutation({
       };
     }
     if (intent.status === "failed") {
-      // The node answered with an error, so no invoice exists: ask again with the same quote.
+      // The pay server refused the request, so no invoice exists: ask again with the same quote.
       await ctx.db.patch(intent._id, { status: "creating", updatedAt: now });
       return { outcome: "create" as const, invoiceId: intent.invoiceId, amountSats: intent.amountSats };
     }

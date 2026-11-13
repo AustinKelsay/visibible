@@ -60,30 +60,32 @@ describe("purchase intent across retries", () => {
   const answer = (status: number, body: unknown) => () =>
     Promise.resolve(new Response(JSON.stringify(body), { status }));
 
-  it("keeps the intent after a lost connection or server error and drops it after a refusal", async () => {
+  it("keeps the intent until the server settles its outcome", async () => {
     await act(async () => root.render(<BuyCreditsModal />));
     const next = Array.from(document.querySelectorAll("button")).find((b) => b.textContent?.includes("Get Credits to Generate"));
     if (next) await act(async () => next.click());
 
     invoiceAnswers.push(
       () => Promise.reject(new TypeError("Failed to fetch")),
+      answer(429, { error: "Too many invoice creation requests" }),
       answer(500, { error: "Failed to create invoice" }),
       answer(409, { error: "Still being created", code: "invoice_in_progress" }),
       answer(409, { error: "Could not confirm", code: "invoice_unresolved" }),
+      answer(409, { error: "Different bundle", code: "invoice_intent_conflict" }),
       answer(400, { error: "Unsupported credit bundle" }),
     );
     await click("Buy 300 Credits");
-    await click("Try Again");
-    await click("Try Again");
-    await click("Try Again");
+    for (let retry = 0; retry < 4; retry++) await click("Try Again");
     expect(document.body.textContent).toContain("Could not confirm");
     await click("Try Again");
+    await click("Try Again");
 
-    expect(sentIntents).toHaveLength(5);
+    expect(sentIntents).toHaveLength(7);
     expect(sentIntents[0]).toMatch(/^[0-9a-f-]{36}$/);
-    // The lost connection, the server error and "still being created" all leave the outcome unknown.
-    expect(sentIntents.slice(1, 4)).toEqual([sentIntents[0], sentIntents[0], sentIntents[0]]);
-    // The unresolved answer ended that intent.
-    expect(sentIntents[4]).not.toBe(sentIntents[0]);
+    // A lost response, a rate limit, a server error and "still being created" settle nothing.
+    expect(sentIntents.slice(1, 5)).toEqual(Array(4).fill(sentIntents[0]));
+    // "Unresolved" ended the first intent, and "conflict" ended the second.
+    expect(sentIntents[5]).not.toBe(sentIntents[0]);
+    expect(sentIntents[6]).not.toBe(sentIntents[5]);
   });
 });

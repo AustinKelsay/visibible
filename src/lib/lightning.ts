@@ -25,30 +25,26 @@ function getPayUrl(): string {
 }
 
 /**
- * The server gave no usable answer (no connection, a timeout, an unreadable success), so
- * whether it acted on the request is unknown. An error it reports itself is a plain Error.
+ * The LNURL-pay server itself refused the request (`{"status":"ERROR"}`), so it made no
+ * invoice. Every other failure of an invoice request leaves that unknown: no connection, a
+ * timeout, a gateway's error page, or a success that cannot be used.
  */
-export class LightningUnansweredError extends Error {
-  readonly unanswered = true;
+export class LightningRefusedError extends Error {
+  readonly refused = true;
 }
 
 async function getLnurlJson(url: URL): Promise<Record<string, unknown>> {
-  let response: Response;
-  try {
-    response = await fetch(url, {
-      cache: "no-store",
-      signal: AbortSignal.timeout(10000),
-    });
-  } catch (error) {
-    throw new LightningUnansweredError("Lightning request got no answer", { cause: error });
-  }
+  const response = await fetch(url, {
+    cache: "no-store",
+    signal: AbortSignal.timeout(10000),
+  });
   const body = await response.json().catch(() => null) as Record<string, unknown> | null;
 
-  if (response.ok && !body) {
-    throw new LightningUnansweredError("Lightning request got an unreadable answer");
+  if (body?.status === "ERROR") {
+    throw new LightningRefusedError(`Lightning request failed: ${body.reason ?? response.status}`);
   }
-  if (!response.ok || !body || body.status === "ERROR") {
-    throw new Error(`Lightning request failed: ${body?.reason ?? response.status}`);
+  if (!response.ok || !body) {
+    throw new Error(`Lightning request failed: ${response.status}`);
   }
 
   return body;

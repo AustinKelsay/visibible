@@ -60,6 +60,7 @@ describe("Invoice IP Binding", () => {
         return { allowed: true, retryAfter: 0 };
       }
       if ("intentId" in args && !("bolt11" in args)) {
+        if (args.amountSats === undefined) return { outcome: "quote" };
         return { outcome: "create", invoiceId: args.invoiceId, amountSats: args.amountSats };
       }
       if ("invoiceId" in args && "bolt11" in args) {

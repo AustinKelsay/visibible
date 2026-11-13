@@ -5,6 +5,7 @@ import { api, internal } from "../../convex/_generated/api";
 import { modules } from "./modules";
 import { POST } from "../../src/app/api/invoice/route";
 import { createLightningInvoice } from "../../src/lib/lightning";
+import { getBtcPrice } from "../../src/lib/btc-price";
 
 let t = convexTest(schema, modules);
 // Set to make the next invoice save fail after the node has already answered.
@@ -29,7 +30,7 @@ vi.mock("@/lib/session", () => ({
 }));
 vi.mock("@/lib/origin", () => ({ validateOrigin: () => true }));
 vi.mock("@/lib/btc-price", () => ({
-  getBtcPrice: async () => 100_000,
+  getBtcPrice: vi.fn(async () => 100_000),
   usdToSats: (usd: number) => usd * 1_000,
 }));
 vi.mock("@/lib/lightning", () => ({
@@ -54,6 +55,7 @@ beforeEach(async () => {
   t = convexTest(schema, modules);
   failNextSave = false;
   vi.stubEnv("CONVEX_SERVER_SECRET", "test-secret");
+  vi.mocked(getBtcPrice).mockReset().mockResolvedValue(100_000);
   vi.mocked(createLightningInvoice).mockReset().mockImplementation(async () => ({
     bolt11: `lnbc-test-${++hashes}`,
     paymentHash: hashes.toString(16).padStart(64, "0"),
@@ -139,8 +141,12 @@ describe("purchase intents", () => {
     expect(createLightningInvoice).not.toHaveBeenCalled();
   });
 
-  it("reports an intent unresolved when the node never answered", async () => {
-    vi.mocked(createLightningInvoice).mockRejectedValueOnce(Object.assign(new Error("no answer"), { unanswered: true }));
+  it.each([
+    ["never answered", new TypeError("fetch failed")],
+    ["answered through a gateway's error page", new Error("Lightning request failed: 504")],
+    ["returned an invoice that was refused", new Error("Lightning invoice amount does not match")],
+  ])("reports an intent unresolved and never asks again when the node %s", async (_name, error) => {
+    vi.mocked(createLightningInvoice).mockRejectedValueOnce(error);
     const first = await buy();
     expect(first.status).toBe(409);
     expect((await first.json()).code).toBe("invoice_unresolved");
@@ -149,8 +155,19 @@ describe("purchase intents", () => {
     expect((await saved()).intents[0].status).toBe("unresolved");
   });
 
-  it("asks the node again, with the same quote, after it answered with an error", async () => {
-    vi.mocked(createLightningInvoice).mockRejectedValueOnce(new Error("Lightning request failed: 500"));
+  it("returns the saved invoice while the price feed is down", async () => {
+    const first = await (await buy()).json();
+    vi.mocked(getBtcPrice).mockRejectedValue(new Error("Price feed unavailable"));
+    const again = await buy();
+    expect(again.status).toBe(200);
+    expect(await again.json()).toEqual(first);
+    // A new purchase still needs a price, and saves nothing without one.
+    expect((await buy({ amountUsd: 1, intentId: "33333333-3333-4333-8333-333333333333" })).status).toBe(500);
+    expect((await saved()).intents).toHaveLength(1);
+  });
+
+  it("asks the node again, with the same quote, after the pay server refused", async () => {
+    vi.mocked(createLightningInvoice).mockRejectedValueOnce(Object.assign(new Error("Lightning request failed: busy"), { refused: true }));
     expect((await buy()).status).toBe(500);
     expect((await saved()).intents[0].status).toBe("failed");
     const retry = await buy();
