@@ -123,7 +123,7 @@ describe("Image Models API", () => {
 
   it("quotes supported settings at the catalog price alone and ignores unversioned global samples", async () => {
     const { GET } = await import("../../image-models/route");
-    const response = await GET();
+    const response = await GET(new Request("https://example.com/api/image-models"));
     expect(response.status).toBe(200);
     const body = await response.json();
     // The legacy scene planner's allowance is gone with the legacy engine (#184).
@@ -140,7 +140,7 @@ describe("Image Models API", () => {
   it("reports the generation model unavailable when the catalog does not list it", async () => {
     mockFetchImageModels.mockResolvedValue({ models: [{ ...imageModelFixture("google/gemini-2.5-flash-image"), creditsCost: 2 }] });
     const { GET } = await import("../../image-models/route");
-    const body = await (await GET()).json();
+    const body = await (await GET(new Request("https://example.com/api/image-models"))).json();
     expect(body.models).toEqual([expect.objectContaining({ id: DEFAULT_IMAGE_MODEL, availability: "unavailable", unavailableReason: "Image model not in catalog", estimatedCreditsByResolution: {} })]);
     expect(body.creditRange).toBeNull();
   });
@@ -150,7 +150,7 @@ describe("Image Models API", () => {
 
     const { GET } = await import("../../image-models/route");
 
-    const response = await GET();
+    const response = await GET(new Request("https://example.com/api/image-models"));
     expect(response.status).toBe(200);
 
     const body = await response.json();
@@ -167,7 +167,7 @@ describe("art style availability", () => {
     mockFetchImageModels.mockResolvedValue({ models: [imageModelFixture()] });
     mockConvex.query.mockResolvedValue([]);
     const { GET } = await import("../../image-models/route");
-    const disabled = await (await GET()).json();
+    const disabled = await (await GET(new Request("https://example.com/api/image-models"))).json();
     // The legacy engine is removed (#184): with the generic engine disabled no style has an engine, Classical included.
     expect(disabled.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", false], ["watercolor", false], ["fresco", false], ["storybook", false], ["icon", false]]);
     expect(disabled.artStyles[1].reason).toMatch(/temporarily unavailable/);
@@ -175,7 +175,7 @@ describe("art style availability", () => {
     process.env.GENERIC_ENGINE_MODE = "public";
     mockConvex.query.mockImplementation(async (_ref: unknown, args: Record<string, unknown>) =>
       "workId" in args ? { ready: true, reasons: [], activeGeneration: 1, briefVersion: "bv" } : []);
-    const publicMode = await (await GET()).json();
+    const publicMode = await (await GET(new Request("https://example.com/api/image-models"))).json();
     // Public mode releases Classical, Watercolor, Fresco and Storybook; Icon stays owner-only (owner decisions, 28 October and 1 November).
     expect(publicMode.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", true], ["watercolor", true], ["fresco", true], ["storybook", true], ["icon", false]]);
     expect(publicMode.artStyles[4].reason).toMatch(/temporarily unavailable/);

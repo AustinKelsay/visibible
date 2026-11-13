@@ -5,7 +5,30 @@ import { afterEach, expect, it, vi } from "vitest";
 import { GuestSessionProvider, useGuestSession } from "../guest-session-context";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals(); window.history.replaceState(null, "", "/"); });
+
+it("does not interrupt balance recovery with a purchase onboarding modal", async () => {
+  vi.useFakeTimers();
+  window.history.replaceState(null, "", "/recover");
+  vi.stubGlobal("localStorage", { getItem: vi.fn(() => null), setItem: vi.fn() });
+  vi.stubGlobal("fetch", vi.fn()
+    .mockResolvedValueOnce(Response.json({ sid: null, status: "missing" }))
+    .mockResolvedValueOnce(Response.json({ sid: "fresh", tier: "paid", credits: 0 })));
+  function Probe() {
+    const guest = useGuestSession();
+    return createElement("span", null, `${guest.sid}:${guest.isBuyModalOpen}`);
+  }
+  const container = document.createElement("div");
+  const root = createRoot(container);
+  try {
+    await act(async () => root.render(createElement(GuestSessionProvider, null, createElement(Probe))));
+    await act(async () => { vi.advanceTimersByTime(1000); });
+    expect(container.textContent).toBe("fresh:false");
+    expect(localStorage.setItem).not.toHaveBeenCalled();
+  } finally {
+    act(() => root.unmount());
+  }
+});
 
 it("keeps established identity available during background renewal and clears it on invalid access", async () => {
   let current: ReturnType<typeof useGuestSession>;

@@ -3,6 +3,7 @@ import { action, internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { validateServerSecret } from "./_helpers/auth";
+import { recoveryReplacement } from "./sessionRecovery";
 
 function getBundleCredits(amountUsd: number): number {
   if (amountUsd === 1 || amountUsd === 3) {
@@ -37,6 +38,11 @@ export const createInvoice = mutation({
 
     if (!session || session.revokedAt !== undefined) {
       throw new Error("Session not found");
+    }
+    // This read and insertion are atomic with redemption's grant write and
+    // invoice check. Whichever commits first prevents the conflicting operation.
+    if (await recoveryReplacement(ctx, args.sid)) {
+      throw new Error("Session replaced by recovery; reload before buying credits");
     }
 
     const now = Date.now();
@@ -91,14 +97,17 @@ export const getInvoice = query({
       .withIndex("by_invoiceId", (q) => q.eq("invoiceId", args.invoiceId))
       .first();
 
-    if (!invoice || (guest && invoice.sid !== guest.sid) ||
-        (args.ownerSid !== undefined && invoice.sid !== args.ownerSid)) {
+    if (!invoice) return null;
+    const replacement = await recoveryReplacement(ctx, invoice.sid);
+    const ownerSid = replacement?.sid ?? invoice.sid;
+    if ((guest && ownerSid !== guest.sid) ||
+        (args.ownerSid !== undefined && ownerSid !== args.ownerSid)) {
       return null;
     }
 
     return {
       invoiceId: invoice.invoiceId,
-      sid: invoice.sid,
+      sid: ownerSid,
       status: invoice.status,
       amountUsd: invoice.amountUsd,
       amountSats: invoice.amountSats,
@@ -155,8 +164,11 @@ export const confirmPaymentInternal = internalMutation({
       paidAt: now,
     });
 
-    // Get session
-    const session = await ctx.db
+    // Old releases could insert an invoice after its empty session was replaced.
+    // Settle those into the restored wallet, retaining the original invoice SID
+    // as history and recording the actual credited wallet in the new ledger row.
+    const replacement = await recoveryReplacement(ctx, invoice.sid);
+    const session = replacement ?? await ctx.db
       .query("sessions")
       .withIndex("by_sid", (q) => q.eq("sid", invoice.sid))
       .first();
@@ -176,7 +188,7 @@ export const confirmPaymentInternal = internalMutation({
 
     // Record in credit ledger
     await ctx.db.insert("creditLedger", {
-      sid: invoice.sid,
+      sid: session.sid,
       delta: creditsToAdd,
       reason: "purchase",
       invoiceId: invoice.invoiceId,

@@ -418,6 +418,22 @@ export default defineSchema({
     .index("by_sid", ["sid"])
     .index("by_expiresAt", ["expiresAt"]),
 
+  // Operator-reviewed recovery grants. Raw bearer codes are never stored here.
+  sessionRecovery: defineTable({
+    walletId: v.id("sessions"),
+    tokenHash: v.string(),
+    verificationReference: v.string(),
+    createdAt: v.number(),
+    expiresAt: v.number(),
+    state: v.union(v.literal("pending"), v.literal("redeemed"), v.literal("revoked")),
+    redeemedAt: v.optional(v.number()),
+    redeemedBySid: v.optional(v.string()),
+    revokedAt: v.optional(v.number()),
+  })
+    .index("by_tokenHash", ["tokenHash"])
+    .index("by_wallet", ["walletId"])
+    .index("by_redeemer", ["redeemedBySid"]),
+
   // Lightning invoices for credit purchases
   invoices: defineTable({
     invoiceId: v.string(),

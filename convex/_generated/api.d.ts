@@ -29,6 +29,7 @@ import type * as nostr from "../nostr.js";
 import type * as nostrScheduler from "../nostrScheduler.js";
 import type * as rateLimit from "../rateLimit.js";
 import type * as sessions from "../sessions.js";
+import type * as sessionRecovery from "../sessionRecovery.js";
 import type * as verseImages from "../verseImages.js";
 import type * as verseVideos from "../verseVideos.js";
 import type * as videoWorker from "../videoWorker.js";
@@ -62,6 +63,7 @@ declare const fullApi: ApiFromModules<{
   nostrScheduler: typeof nostrScheduler;
   rateLimit: typeof rateLimit;
   sessions: typeof sessions;
+  sessionRecovery: typeof sessionRecovery;
   verseImages: typeof verseImages;
   verseVideos: typeof verseVideos;
   videoWorker: typeof videoWorker;
