@@ -21,6 +21,19 @@ async function setup() {
   return { t, session };
 }
 
+describe("capped charges and the daily limit", () => {
+  it("counts the work's full cost toward the daily limit when the charge was capped at the hold", async () => {
+    const { t, session } = await setup();
+    const held = { sid, generationId: "capped", amount: 4, costUsd: 0.04, modelId: "test" };
+    await t.mutation(internal.sessions.reserveCreditsInternal, held);
+    // The guest accepted at most 4 credits; the work was worth 12.
+    await t.mutation(internal.sessions.deductCreditsInternal, { ...held, actualAmount: 4, actualCostUsd: 0.12 });
+    const after = await session();
+    expect(after?.credits).toBe(96);
+    expect(after?.dailySpendUsd).toBeCloseTo(0.12, 10);
+  });
+});
+
 describe("reservation admission day", () => {
   it.each(["release", "cleanup", "cheaper", "exact", "additional"])(
     "keeps today's exposure intact during yesterday's %s", async (mode) => {

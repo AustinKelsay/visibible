@@ -54,7 +54,11 @@ vi.mock("@/lib/session", () => ({
 const mockRequestBody: { value: unknown } = { value: null };
 
 vi.mock("@/lib/request-body", () => ({
-  readJsonBodyWithLimit: vi.fn(async () => mockRequestBody.value),
+  // Every request carries a quote id; these tests stub its acceptance below. The quote protocol has its own tests (quote.test.ts).
+  readJsonBodyWithLimit: vi.fn(async () => {
+    const body = mockRequestBody.value;
+    return body && typeof body === "object" && !Array.isArray(body) ? { quoteId: "accepted-quote", ...body } : body;
+  }),
   PayloadTooLargeError: class PayloadTooLargeError extends Error {
     maxSize: number;
     constructor(maxSize: number) {
@@ -75,7 +79,16 @@ vi.mock("@/lib/convex-client", () => ({
       const session = mockState.sessions.get(sid);
       return session || null;
     }),
-    mutation: vi.fn(async () => {
+    mutation: vi.fn(async (_apiPath: unknown, args: Record<string, unknown> = {}) => {
+      // quotes.accept: the presented quote is accepted with the terms the route computed.
+      if ("quoteId" in args && "usedBy" in args && "fingerprint" in args) {
+        mockState.callHistory.push({ action: "acceptQuote", args });
+        return { accepted: true, replay: false, estimateCredits: args.estimateCredits, maximumCredits: args.maximumCredits };
+      }
+      if ("quoteId" in args && "chargedCredits" in args) {
+        mockState.callHistory.push({ action: "recordQuoteSettlement", args });
+        return { recorded: true };
+      }
       // Rate limit always passes
       return { allowed: true, retryAfter: 0 };
     }),
@@ -153,7 +166,8 @@ vi.mock("@ai-sdk/openai", async () => {
 
 vi.mock("@/lib/chat-models", () => ({
   DEFAULT_CHAT_MODEL: "test/cheap-model",
-  getChatModelPricing: vi.fn(async () => ({ prompt: "0.001", completion: "0.002" })),
+  // $1 and $2 per million tokens: the turn's maximum (8,000 in, 2,048 out) is 2 credits, like its mocked estimate.
+  getChatModelPricing: vi.fn(async () => ({ prompt: "0.000001", completion: "0.000002" })),
   computeChatCreditsCost: vi.fn(() => 2),
   computeActualChatCreditsCost: vi.fn(() => 2),
   CREDIT_USD: 0.01,

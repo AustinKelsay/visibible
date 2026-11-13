@@ -20,7 +20,7 @@ These guides describe the repository's current behavior. Source links identify t
 | Correcting a work's analysis after the fact, attention items, wiping a work | [Owner corrections runbook](workflow/OWNER-CORRECTIONS.md) |
 | Public image API | [Public API](context/PUBLIC-IMAGE-API.md) |
 | Chat streaming or context | [Chat](context/CHAT.md) |
-| Sessions, credit estimates, reservations or settlement | [Sessions and credits](context/SESSIONS_AND_CREDITS.md) |
+| Sessions, quotes, maximum charges, reservations or settlement | [Sessions and credits](context/SESSIONS_AND_CREDITS.md) |
 | Lightning invoices, purchases or admin login setup | [Payments](context/PAYMENTS.md) |
 | Welcome flow | [Onboarding](context/ONBOARDING.md) |
 | Origin, CSRF, IP tracking, rate limits or trust boundaries | [Security](context/SECURITY.md) |

@@ -25,6 +25,8 @@ interface ImageGenerationSettingsPanelProps {
   modelsError: string | null;
   /** Which art styles generation admits right now, from the catalog response; null while unknown. */
   artStyles?: ArtStyleAvailability[] | null;
+  /** Single generation: once the server's quote for the selected settings is read, show it in place of the catalog estimate. */
+  showQuote?: boolean;
 }
 
 export function ImageGenerationSettingsPanel({
@@ -32,6 +34,7 @@ export function ImageGenerationSettingsPanel({
   modelsLoading,
   modelsError,
   artStyles = null,
+  showQuote = false,
 }: ImageGenerationSettingsPanelProps) {
   const { state, setAspectRatio, setResolution } = useGeneration();
   const {
@@ -115,7 +118,7 @@ export function ImageGenerationSettingsPanel({
           // One usable model: name it and its price, with nothing to choose.
           <p className="mt-1 text-sm text-[var(--foreground)]">
             {selectedModel!.name}
-            <span className="text-xs text-[var(--muted)]"> · ~{selectedModel!.etaSeconds ?? 12}s · About {getModelDisplayCost(selectedModel!, imageResolution)} credits</span>
+            <span className="text-xs text-[var(--muted)]"> · ~{selectedModel!.etaSeconds ?? 12}s · {showQuote && state.quoteLabel ? state.quoteLabel : `About ${getModelDisplayCost(selectedModel!, imageResolution)} credits`}</span>
           </p>
         ) : (
           <div className="mt-2 rounded-[var(--radius-md)] border border-[var(--divider)] overflow-hidden">

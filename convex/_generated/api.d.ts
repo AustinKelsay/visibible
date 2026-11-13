@@ -28,6 +28,7 @@ import type * as lib_nostrScheduling from "../lib/nostrScheduling.js";
 import type * as modelStats from "../modelStats.js";
 import type * as nostr from "../nostr.js";
 import type * as nostrScheduler from "../nostrScheduler.js";
+import type * as quotes from "../quotes.js";
 import type * as rateLimit from "../rateLimit.js";
 import type * as sessions from "../sessions.js";
 import type * as sessionRecovery from "../sessionRecovery.js";
@@ -63,6 +64,7 @@ declare const fullApi: ApiFromModules<{
   modelStats: typeof modelStats;
   nostr: typeof nostr;
   nostrScheduler: typeof nostrScheduler;
+  quotes: typeof quotes;
   rateLimit: typeof rateLimit;
   sessions: typeof sessions;
   sessionRecovery: typeof sessionRecovery;

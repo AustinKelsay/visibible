@@ -150,3 +150,13 @@ export function extractOpenRouterUsageUsd(data: unknown): number | null {
   }
   return null;
 }
+
+/**
+ * True when OpenRouter reported a cost and it is zero: known usage, which a charge settles from, as opposed to no
+ * report at all. Read from the same locations, and only when none of them holds a positive cost.
+ */
+export function reportsZeroUsageUsd(data: unknown): boolean {
+  if (!isRecord(data) || extractOpenRouterUsageUsd(data) !== null) return false;
+  const usage = isRecord(data.usage) ? data.usage : null;
+  return [usage?.cost, usage?.total_cost, data.cost, data.total_cost].some((candidate) => candidate === 0);
+}

@@ -141,3 +141,38 @@ export const cleanupAdminLoginAttempts = internalMutation({
     return { deleted, pagesScanned, hasMore };
   },
 });
+
+/**
+ * Delete quotes that expired more than an hour ago without being accepted. Accepted quotes are kept: they record the
+ * maximum a guest authorized for a charge.
+ */
+export const cleanupUnusedQuotes = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const cutoff = Date.now() - 60 * 60 * 1000;
+    let deleted = 0;
+    let pagesScanned = 0;
+    let hasMore = false;
+
+    while (pagesScanned < CLEANUP_MAX_PAGES_PER_RUN) {
+      const batch = await ctx.db
+        .query("quotes")
+        .withIndex("by_usedAt_expiresAt", (q) => q.eq("usedAt", undefined).lt("expiresAt", cutoff))
+        .take(CLEANUP_PAGE_SIZE);
+
+      for (const quote of batch) {
+        await ctx.db.delete(quote._id);
+        deleted += 1;
+      }
+
+      pagesScanned += 1;
+      hasMore = batch.length === CLEANUP_PAGE_SIZE;
+
+      if (batch.length < CLEANUP_PAGE_SIZE) {
+        break;
+      }
+    }
+
+    return { deleted, pagesScanned, hasMore };
+  },
+});
