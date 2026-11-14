@@ -26,10 +26,12 @@ vi.mock("next/navigation", () => ({
   useSearchParams: vi.fn(() => ({ get: vi.fn(() => null) })),
 }));
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => true }));
+// Whether the guest has turned automatic generation on in the image settings.
+let autoGenerate = false;
 vi.mock("@/context/preferences-context", () => ({
   usePreferences: () => ({
     imageModel: "test-model", imageAspectRatio: "16:9", imageResolution: "1K", translation: "web", artStyle: "classical",
-    setImageAspectRatio: preferenceSetter, setImageResolution: preferenceSetter,
+    setImageAspectRatio: preferenceSetter, setImageResolution: preferenceSetter, autoGenerate,
   }),
 }));
 vi.mock("@/context/session-context", () => ({ useSession: vi.fn() }));
@@ -86,6 +88,7 @@ describe("HeroImage and the server's quote", () => {
     root = createRoot(container);
     document.cookie = "visibible_csrf=" + "a".repeat(64);
     history = savedImage;
+    autoGenerate = false;
     quoteAnswers = []; generateAnswers = []; quoteRequests = []; generateRequests = [];
     vi.stubGlobal("fetch", vi.fn(async (url: string, init?: RequestInit) => {
       if (url === "/api/generate-image/quote") {
@@ -206,13 +209,29 @@ describe("HeroImage and the server's quote", () => {
     expect(priceNotice()).toBe("The price changed. About 3 credits · at most 6.");
   });
 
-  it("sends a first-visit image as automatic generation, with no quote to accept", async () => {
+  it("generates nothing on a first visit until the guest turns automatic generation on", async () => {
     history = [];
+    await render();
+    await settle();
+    expect(generateRequests).toHaveLength(0);
+  });
+
+  it("sends a first-visit image as automatic generation, with no quote to accept, once the guest has turned it on", async () => {
+    history = [];
+    autoGenerate = true;
     await render();
     await flush();
     expect(generateRequests).toHaveLength(1);
     expect(generateRequests[0]).toMatchObject({ automatic: true, reference: "Genesis 1:1" });
     expect(generateRequests[0]).not.toHaveProperty("quoteId");
+  });
+
+  it("still generates a first-visit image for the owner, who is not charged", async () => {
+    history = [];
+    session({ tier: "admin", credits: 0 });
+    await render();
+    await flush();
+    expect(generateRequests).toHaveLength(1);
   });
 
   it("reads no quote for the owner or for a guest without credits", async () => {

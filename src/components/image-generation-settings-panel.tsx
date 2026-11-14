@@ -43,6 +43,8 @@ export function ImageGenerationSettingsPanel({
     imageResolution,
     setImageModel,
     setArtStyle,
+    autoGenerate,
+    setAutoGenerate,
   } = usePreferences();
   // On a prose work's page, only that work's styles, and the style its images are made in.
   const { artStyle, offered } = useEffectiveArtStyle();
@@ -268,6 +270,24 @@ export function ImageGenerationSettingsPanel({
           })}
         </div>
       </div>
+
+      {showCreditsCost ? (
+        <label className="flex cursor-pointer items-start gap-3">
+          <input
+            type="checkbox"
+            checked={autoGenerate}
+            onChange={(event) => setAutoGenerate(event.target.checked, "header_generate_modal")}
+            className="mt-0.5 h-4 w-4 flex-shrink-0 accent-[var(--accent)]"
+          />
+          <span>
+            <span className="block text-sm font-medium text-[var(--foreground)]">Generate automatically</span>
+            <span className="block text-xs text-[var(--muted)]">
+              When you open a verse that has no image in this style, generate one without asking
+              {selectedModel ? `, at about ${getModelDisplayCost(selectedModel, imageResolution)} credits each` : ""}. Off unless you turn it on.
+            </span>
+          </span>
+        </label>
+      ) : null}
     </div>
   );
 }

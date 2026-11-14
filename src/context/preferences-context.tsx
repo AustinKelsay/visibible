@@ -36,6 +36,9 @@ interface PreferencesContextType {
   setArtStyle: (styleId: string, source?: PreferenceChangeSource) => void;
   chatModel: string;
   setChatModel: (model: string, source?: PreferenceChangeSource) => void;
+  /** Whether a verse with no image is illustrated as it is opened, at the guest's cost. Off until the guest turns it on. */
+  autoGenerate: boolean;
+  setAutoGenerate: (enabled: boolean, source?: PreferenceChangeSource) => void;
 }
 
 const PreferencesContext = createContext<PreferencesContextType | null>(null);
@@ -60,6 +63,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [imageResolution, setImageResolutionState] = useState<ImageResolution>(DEFAULT_RESOLUTION);
   const [chatModel, setChatModelState] = useState<string>(DEFAULT_CHAT_MODEL);
   const [artStyle, setArtStyleState] = useState<string>(DEFAULT_ART_STYLE);
+  const [autoGenerate, setAutoGenerateState] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const router = useRouter();
   const { tier, credits } = useSession();
@@ -95,6 +99,8 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
           if (isArtStyleId(prefs.artStyle)) {
             setArtStyleState(prefs.artStyle);
           }
+          // Only an explicit saved choice turns automatic generation on.
+          setAutoGenerateState(prefs.autoGenerate === true);
           setIsHydrated(true);
         }, 0);
       } else {
@@ -118,6 +124,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     imageResolution: ImageResolution;
     chatModel: string;
     artStyle?: string;
+    autoGenerate?: boolean;
   }) => {
     try {
       const existingRaw = localStorage.getItem(STORAGE_KEY);
@@ -269,6 +276,22 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  // Save whether verses without an image are illustrated as they are opened
+  const setAutoGenerate = (
+    enabled: boolean,
+    source: PreferenceChangeSource = "unknown"
+  ) => {
+    setAutoGenerateState(enabled);
+    savePreferences({ translation, imageModel, imageAspectRatio, imageResolution, chatModel, autoGenerate: enabled });
+    trackPreferenceChanged({
+      preference: "autoGenerate",
+      value: enabled ? "on" : "off",
+      source,
+      tier,
+      hasCredits: credits > 0,
+    });
+  };
+
   // Save chat model preference (no refresh needed - takes effect on next message)
   const setChatModel = (
     newModel: string,
@@ -310,6 +333,8 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
         setChatModel,
         artStyle: isHydrated ? artStyle : DEFAULT_ART_STYLE,
         setArtStyle,
+        autoGenerate: isHydrated && autoGenerate,
+        setAutoGenerate,
       }}
     >
       {children}

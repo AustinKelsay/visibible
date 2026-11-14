@@ -308,7 +308,7 @@ function HeroImageBase({
   showingOtherStyles = false,
   onToggleOtherStyles,
 }: HeroImageBaseProps) {
-  const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation } = usePreferences();
+  const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation, autoGenerate } = usePreferences();
   const scope = useWorkScope();
   const { artStyle, offered: offeredStyles } = useEffectiveArtStyle();
   const catalogUrl = imageModelsUrl(scope);
@@ -417,7 +417,9 @@ function HeroImageBase({
       : undefined;
   const canGenerate = pricingAvailable && styleAvailable && (isAdmin ||
     (tier === "paid" && canAffordImageGeneration(credits, effectiveCost)));
-  const canAutoGenerate = pricingAvailable && styleAvailable && (isAdmin || (tier === "paid" && credits >= effectiveCost));
+  // A guest is charged for an automatic image without seeing its price, so it runs only once they have turned it on
+  // in the image settings. The owner is not charged.
+  const canAutoGenerate = pricingAvailable && styleAvailable && (isAdmin || (autoGenerate && tier === "paid" && credits >= effectiveCost));
   const showCreditsCost = isConvexEnabled && !isAdmin && pricingAvailable;
 
   const verseId = scope ? scope.unitId : currentReference ? createVerseId(currentReference) : null;
@@ -1167,7 +1169,7 @@ function HeroImageBase({
     swipeStartRef.current = null;
   }, []);
 
-  // Auto-generate on first visit only when the user can strictly cover the estimate.
+  // Auto-generate on first visit only when the guest has turned it on and can strictly cover the estimate.
   // The spend-down grace is reserved for explicit generate actions.
   useEffect(() => {
     // Only auto-generate if:

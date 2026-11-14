@@ -64,3 +64,18 @@ it("persists a chosen art style and uses the default for an unknown saved one wi
   expect(second.preferences().artStyle).toBe("watercolor");
   second.unmount();
 });
+
+// A guest is charged for an automatic image without seeing its price, so only their own saved choice turns it on.
+it("keeps automatic generation off until the guest turns it on, and remembers the choice", async () => {
+  const storage = new Map<string, string>([["visibible-preferences", JSON.stringify({ artStyle: "watercolor", autoGenerate: "yes" })]]);
+  const first = await hydrate(storage);
+  expect(first.preferences().autoGenerate).toBe(false);
+  await act(async () => first.preferences().setAutoGenerate(true));
+  expect(first.preferences().autoGenerate).toBe(true);
+  first.unmount();
+  const second = await hydrate(storage);
+  expect(second.preferences()).toMatchObject({ autoGenerate: true, artStyle: "watercolor" });
+  await act(async () => second.preferences().setAutoGenerate(false));
+  second.unmount();
+  expect((await hydrate(storage)).preferences().autoGenerate).toBe(false);
+});

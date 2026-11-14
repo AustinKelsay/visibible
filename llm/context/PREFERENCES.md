@@ -1,6 +1,6 @@
 # Preferences
 
-[PreferencesProvider](../../src/context/preferences-context.tsx) stores translation, image model, chat model, image aspect ratio, resolution and art style (`artStyle`, default `classical`) in `visibible-preferences` localStorage. Defaults come from the Bible and model libraries; validation and hydration behavior live in the provider.
+[PreferencesProvider](../../src/context/preferences-context.tsx) stores translation, image model, chat model, image aspect ratio, resolution, art style (`artStyle`, default `classical`) and automatic generation (`autoGenerate`) in `visibible-preferences` localStorage. `autoGenerate` is on only when the stored value is exactly `true`: a guest is charged for an automatic image without seeing its price, so nothing but their own choice in the image settings turns it on. Defaults come from the Bible and model libraries; validation and hydration behavior live in the provider.
 
 Every save writes the image model along with `defaultImageModel`, the default at save time. Since [ADR 0012](../../docs/adr/0012-one-image-call-from-the-text.md) generation runs on one model whatever is saved, so on load the saved image model is always replaced by the current default, and its resolution normalizes to what that model supports. A model picked during a visit lasts only for that visit. While the catalog offers one usable model, the header menu and the generate modal name it (with its price) instead of offering a choice, and the settings popover leaves the model section out ([soleImageModel](../../src/lib/image-models.ts)).
 
