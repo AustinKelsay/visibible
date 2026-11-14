@@ -1,6 +1,6 @@
 # Bible text and translations
 
-[The API client](../../src/lib/bible-api.ts) fetches chapter text from `https://bible-api.com/data/{translation}/{bookId}/{chapter}`. `getVerse()` selects a verse from that chapter. `getVerseByReference()` uses the reference endpoint and supports direct lookups used by image generation.
+[The API client](../../src/lib/bible-api.ts) fetches chapter text from `https://bible-api.com/data/{translation}/{bookId}/{chapter}`. `getVerse()` selects a verse from that chapter. `getVerseByReference()` uses the reference endpoint; image and video requests use it only for a reference that is not in the app's own form (see below).
 
 - `TRANSLATIONS` defines selectable translations; `DEFAULT_TRANSLATION` is WEB. A selectable translation does not guarantee upstream coverage for every verse.
 - [Static structure](../../src/data/bible-structure.ts) supplies book slugs and chapter/verse counts for navigation. URL validation uses this structure, not an upstream text lookup.
@@ -20,7 +20,13 @@ Server code reads chapters through [Scripture](../../src/lib/scripture.ts), not 
 - **Missing.** HTTP 404 or no verses.
 - **Different verses.** The service prints the closing doxology at Romans 14:24–26 where the app counts 23 verses.
 
-The imported text is the 2020 classic edition the images are drawn from; the service's WEB is an older edition, so wording differs slightly between the two, psalm titles are part of verse 1, and Psalm 119's Hebrew letter headings sit inside the verse text. Each affected chapter is logged once per server instance (`Scripture service <reason> for <book> <chapter>`). If the imported file cannot be read, the service's own answer or error stands, as before. Other translations never use it. Reference lookup (`getVerseByReference`) has no stand-in: an image request still needs the service to resolve its reference, including Romans 16:26–27, which the service does not have.
+The imported text is the 2020 classic edition the images are drawn from; the service's WEB is an older edition, so wording differs slightly between the two, psalm titles are part of verse 1, and Psalm 119's Hebrew letter headings sit inside the verse text. Each affected chapter is logged once per server instance (`Scripture service <reason> for <book> <chapter>`). If the imported file cannot be read, the service's own answer or error stands, as before. Other translations never use it.
+
+## References in image and video requests
+
+[`resolveGenerationPassage()`](../../src/lib/generation-passage.ts) reads a reference in the app's own form (a full book name, a chapter and one verse, such as "Romans 16:26"; case and spacing are ignored) against the app's static verse list, with no call to the service. The reader always sends this form, so a request from the reader needs only the chapter, which the stand-in above covers for the default translation. That includes Romans 16:26–27, which the service does not have. A known book with a chapter or verse the app does not count is refused without any lookup.
+
+Any other form, such as "Rom 16:25" or "1 Jn 4:8", is identified by the service's reference endpoint, which has no stand-in: it fails when the service does, and is refused when the service names several verses, none, or one the app does not count. Either way the verse text and its neighbours come from the selected translation's chapter.
 
 [The verse page](../../src/app/[book]/[chapter]/[verse]/page.tsx) assembles text and adjacent context. Preference persistence is documented in [Preferences](PREFERENCES.md).
 

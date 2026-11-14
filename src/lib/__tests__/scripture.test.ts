@@ -125,6 +125,79 @@ describe("image requests", () => {
   });
 });
 
+describe("a reference in the app's own form", () => {
+  it("is read against the app's verse list, without asking the service to identify it", async () => {
+    // The service has no Romans 16:26: it prints the doxology at 14:24-26 and answers 404 for this reference.
+    const fetch = vi.fn(async (url: string) => url.includes("/data/")
+      ? serviceChapter("romans", 16, { verses: Array.from({ length: 25 }, (_, index): [number, string] => [index + 1, "Service text."]) })
+      : new Response("Not found", { status: 404 }));
+    vi.stubGlobal("fetch", fetch);
+    expect(await resolveGenerationPassage("Romans 16:26", "web")).toMatchObject({
+      reference: "Romans 16:26",
+      verseText: expect.stringMatching(/revealed/),
+      prevVerse: { number: 25 },
+      nextVerse: { number: 27, text: expect.stringMatching(/Amen/) },
+    });
+    expect(fetch.mock.calls.map(([url]) => url)).toEqual(["https://bible-api.com/data/web/ROM/16"]);
+  });
+
+  it("resolves while the service is down", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("No", { status: 503 })));
+    expect(await resolveGenerationPassage("  john   3:16 ", "web")).toMatchObject({
+      reference: "John 3:16",
+      verseText: expect.stringMatching(/^For God so loved the world/),
+    });
+  });
+
+  it("is refused without any lookup when the app does not count that chapter or verse", async () => {
+    const fetch = vi.fn();
+    vi.stubGlobal("fetch", fetch);
+    expect(await resolveGenerationPassage("Romans 14:24", "web")).toBeNull();
+    expect(await resolveGenerationPassage("Genesis 51:1", "kjv")).toBeNull();
+    expect(await resolveGenerationPassage("Jude 0:1", "web")).toBeNull();
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("takes its text from the selected translation's chapter, with no stand-in for another translation", async () => {
+    const fetch = vi.fn()
+      .mockResolvedValueOnce(serviceChapter("john", 3, { translation: "kjv" }))
+      .mockResolvedValueOnce(new Response("No", { status: 503 }));
+    vi.stubGlobal("fetch", fetch);
+    expect(await resolveGenerationPassage("John 3:16", "kjv")).toMatchObject({ verseText: "Service verse 16." });
+    await expect(resolveGenerationPassage("Acts 24:7", "kjv")).rejects.toMatchObject({ kind: "upstream" });
+    expect(fetch.mock.calls.map(([url]) => url)).toEqual([
+      "https://bible-api.com/data/kjv/JHN/3", "https://bible-api.com/data/kjv/ACT/24",
+    ]);
+  });
+});
+
+describe("any other form of reference", () => {
+  it("is identified by the service, then read from the chapter", async () => {
+    const fetch = vi.fn(async (url: string) => url.includes("/data/")
+      ? serviceChapter("john", 3)
+      : Response.json({ verses: [{ book_id: "JHN", book_name: "John", chapter: 3, verse: 16, text: "Ignored." }] }));
+    vi.stubGlobal("fetch", fetch);
+    expect(await resolveGenerationPassage("Jn 3:16", "web")).toMatchObject({ reference: "John 3:16", verseText: "Service verse 16." });
+    expect(fetch.mock.calls[0][0]).toBe("https://bible-api.com/Jn%203%3A16?translation=web");
+  });
+
+  it("is refused when the service names several verses, none, or one the app does not count", async () => {
+    const verse = (chapter: number, number: number) => ({ book_id: "ROM", book_name: "Romans", chapter, verse: number, text: "Text." });
+    vi.stubGlobal("fetch", vi.fn()
+      .mockResolvedValueOnce(Response.json({ verses: [verse(8, 1), verse(8, 2)] }))
+      .mockResolvedValueOnce(new Response("Not found", { status: 404 }))
+      .mockResolvedValueOnce(Response.json({ verses: [verse(14, 24)] })));
+    expect(await resolveGenerationPassage("Rom 8:1-2", "web")).toBeNull();
+    expect(await resolveGenerationPassage("Nowhere 1:1", "web")).toBeNull();
+    expect(await resolveGenerationPassage("Rom 14:24", "web")).toBeNull();
+  });
+
+  it("passes on the service's failure", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("No", { status: 503 })));
+    await expect(resolveGenerationPassage("Jn 3:16", "web")).rejects.toMatchObject({ name: "BibleApiLookupError", statusCode: 503 });
+  });
+});
+
 describe("when the imported text cannot be read", () => {
   beforeEach(() => { vi.spyOn(process, "cwd").mockReturnValue(os.tmpdir()); });
 

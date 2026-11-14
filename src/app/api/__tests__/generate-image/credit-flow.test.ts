@@ -1433,8 +1433,9 @@ describe("Image Generation API Credit Flow", () => {
       expect(getCallCount("saveImage")).toBe(0);
     });
 
+    // An abbreviated reference is the form the provider still has to identify; "Genesis 1:1" needs no lookup.
     it.each([401, 403, 429, 500, 503])("preserves upstream reference failure %i without charging", async (status) => {
-      setMockFetchBibleApiBypass((url) => decodeURIComponent(url.pathname) === "/Genesis 1:1");
+      setMockFetchBibleApiBypass((url) => decodeURIComponent(url.pathname) === "/Gen 1:1");
       const providerCalls = vi.fn();
       mockFetchImpl = async (input) => {
         if (String(input).includes("bible-api.com")) return { ok: false, status, json: async () => ({}) };
@@ -1442,7 +1443,7 @@ describe("Image Generation API Credit Flow", () => {
         throw new Error("Paid provider must not run");
       };
       const { POST } = await import("../../generate-image/route");
-      const response = await POST(createGenerateImageRequest({}));
+      const response = await POST(createGenerateImageRequest({ reference: "Gen 1:1" }));
       expect(response.status).toBe(status === 503 ? 503 : 502);
       expect((await response.json()).details.upstreamStatus).toBe(status);
       expect(providerCalls).not.toHaveBeenCalled();
@@ -1474,7 +1475,7 @@ describe("Image Generation API Credit Flow", () => {
             ? input.toString()
             : input.url;
 
-        if (url.includes("bible-api.com/Genesis%201%3A2?translation=web")) {
+        if (url.includes("bible-api.com/Gen%201%3A2?translation=web")) {
           return {
             ok: false,
             status: 503,
@@ -1500,7 +1501,7 @@ describe("Image Generation API Credit Flow", () => {
 
       const { POST } = await import("../../generate-image/route");
       const request = createGenerateImageRequest({
-        reference: "Genesis 1:2",
+        reference: "Gen 1:2",
         translation: "web",
       });
       const response = await POST(request);
@@ -1519,7 +1520,7 @@ describe("Image Generation API Credit Flow", () => {
             : input instanceof URL
               ? input.toString()
               : input.url;
-          return url.includes("bible-api.com/Genesis%201%3A2?translation=web");
+          return url.includes("bible-api.com/Gen%201%3A2?translation=web");
         })
       ).toBe(true);
     });
@@ -1532,12 +1533,12 @@ describe("Image Generation API Credit Flow", () => {
             ? input.toString()
             : input.url;
 
-        if (url.includes("bible-api.com/Genesis%201%3A2?translation=web")) {
+        if (url.includes("bible-api.com/Gen%201%3A2?translation=web")) {
           return {
             ok: true,
             status: 200,
             json: async () => ({
-              reference: "Genesis 1:2",
+              reference: "Gen 1:2",
               verses: [],
               text: "",
               translation_id: "web",
@@ -1563,7 +1564,7 @@ describe("Image Generation API Credit Flow", () => {
 
       const { POST } = await import("../../generate-image/route");
       const request = createGenerateImageRequest({
-        reference: "Genesis 1:2",
+        reference: "Gen 1:2",
         translation: "web",
       });
       const response = await POST(request);

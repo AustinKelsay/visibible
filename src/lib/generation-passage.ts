@@ -3,14 +3,41 @@ import { getVerseByReference, type Translation, type VerseData } from "./bible-a
 import { getChapter, getVerse } from "./scripture";
 import { formatReference, getNextVerse, getPreviousVerse, type VerseLocation } from "./navigation";
 
-/** Resolve aliases through the provider, then use the selected canonical chapter as text authority. */
-export async function resolveGenerationPassage(reference: string, translation: Translation) {
+/**
+ * A reference in the app's own form, such as "Romans 16:26": a full book name, a chapter and one verse. Returns null
+ * for any other form; a known book with a chapter or verse the app does not count is `{ location: null }`.
+ */
+function parseOwnReference(reference: string): { location: VerseLocation | null } | null {
+  const match = /^(.+) (\d{1,3}):(\d{1,3})$/.exec(reference.trim().replace(/\s+/g, " "));
+  if (!match) return null;
+  const name = match[1].toLowerCase();
+  const book = BIBLE_BOOKS.find((candidate) => candidate.name.toLowerCase() === name);
+  if (!book) return null;
+  const chapter = Number(match[2]);
+  const verse = Number(match[3]);
+  return { location: isValidLocation(book, chapter, verse) ? { book, chapter, verse } : null };
+}
+
+/** Any other form ("Rom 16:25", "1 Jn 4:8") is identified by the provider, which knows the abbreviations. */
+async function identifyByProvider(reference: string, translation: Translation): Promise<VerseLocation | null> {
   const resolved = await getVerseByReference(reference, translation);
   if (resolved?.length !== 1) return null;
   const identified = resolved[0];
   const book = BIBLE_BOOKS.find((candidate) => candidate.id === identified.bookId);
   if (!book || !isValidLocation(book, identified.chapter, identified.verse)) return null;
-  const location: VerseLocation = { book, chapter: identified.chapter, verse: identified.verse };
+  return { book, chapter: identified.chapter, verse: identified.verse };
+}
+
+/**
+ * The verse an image or video request names, with its neighbours. The app's own reference form is read against the
+ * app's verse list, so it needs no lookup and covers verses the provider numbers differently. The selected
+ * translation's chapter is the text authority either way.
+ */
+export async function resolveGenerationPassage(reference: string, translation: Translation) {
+  const own = parseOwnReference(reference);
+  const location = own ? own.location : await identifyByProvider(reference, translation);
+  if (!location) return null;
+  const { book } = location;
   const chapter = await getChapter(book.slug, location.chapter, translation);
   const current = chapter?.verses.find((verse) => verse.verse === location.verse);
   if (!current) return null;
