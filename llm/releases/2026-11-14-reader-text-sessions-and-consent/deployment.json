@@ -6,9 +6,17 @@
     "Not covered and not done: paid seeding, which needs an OpenRouter top-up and a dollar figure from the owner."
   ],
   "release": {
-    "pullRequests": [426, 427, 428, 429, 430],
+    "pullRequests": [
+      426,
+      427,
+      428,
+      429,
+      430
+    ],
     "mainCommit": "f4809c24",
-    "tickets": { "T48": 104 },
+    "tickets": {
+      "T48": 104
+    },
     "reviewFindings": "Sol reviewed each change (3, 1, 2, 2 and 2 rounds). #426: seven claims in the first draft of the About copy were false or incomplete, among them that a price is always shown first (automatic and bulk images have no per-image confirmation) and that credits in an ended session cannot be recovered. #428: the admin expiry job stopped after one batch; the start-up check still held the old defaults. #429: the switch could be turned on while its price was not showing. #430: the newer package raises the guest token refresh leeway from 2 to 10 seconds, which in a session cookie's last seconds would make the client ask for tokens until the rate limit signed the guest out; the old value is now set explicitly. CodeRabbit on #427: a guide sentence about which text feeds images, and a missing set-up step in the README's test commands. All fixed before merge. One finding on #428 was declined and is listed as a follow-up."
   },
   "deploy": {
@@ -16,14 +24,19 @@
       {
         "at": "2026-11-14T15:23:25Z",
         "commit": "dc5360b2",
-        "carries": [426, 427],
+        "carries": [
+          426,
+          427
+        ],
         "vercel": "dpl_FoCuhPKhhDHaVesrUWd73qMpEhxz",
         "convex": "no change"
       },
       {
         "at": "2026-11-14T15:43:58Z",
         "commit": "adde8052",
-        "carries": [429],
+        "carries": [
+          429
+        ],
         "vercel": "dpl_8qJPzYrYH2q9p1ugxfkBVS496PzP",
         "convex": "no change",
         "why": "#428 was already merged but its Convex push was blocked (see convexCli), so the commit before it was released on its own."
@@ -31,11 +44,16 @@
       {
         "at": "2026-11-14T15:57:05Z",
         "commit": "f4809c24",
-        "carries": [428, 430],
+        "carries": [
+          428,
+          430
+        ],
         "convex": {
           "deployment": "unique-impala-244",
           "functionVersion": "1.31.2 to 1.42.3",
-          "addedIndexes": ["sessions.by_tier_adminUntil"],
+          "addedIndexes": [
+            "sessions.by_tier_adminUntil"
+          ],
           "deletedIndexes": [],
           "newCron": "expire admin sessions, every 15 minutes"
         },
@@ -92,9 +110,9 @@
     "Committed convex/_generated/api.d.ts differs from what the CLI writes on a push; it was restored after the push, as on 13 November."
   ],
   "rollback": {
-    "vercel": "Promote dpl_8qJPzYrYH2q9p1ugxfkBVS496PzP (before #428 and #430) or dpl_4dtHFYTkZvJDpwSpgXVWsSzvyYSA (the 13 November release). Promoting either while Convex keeps the admin window is safe: the window only shortens owner access.",
-    "convex": "No older CLI can push. To go back, revert on main and push with the installed 1.42.3 CLI. The new field and index are additive.",
-    "sessions": "Reverting #428 restores the 7-day and 30-day limits at once, since they are checked on every request."
+    "vercel": "Promoting dpl_8qJPzYrYH2q9p1ugxfkBVS496PzP (before #428 and #430) or dpl_4dtHFYTkZvJDpwSpgXVWsSzvyYSA (the 13 November release) works against the Convex backend as it is now, but neither is a neutral step. Both bring back the 7-day idle and 30-day absolute checks on the session cookie, so a guest away longer than a week, or whose session is older than 30 days, is refused at once. The 13 November deployment also drops #429: funded guests get automatic images again whatever they chose.",
+    "convex": "The CLI of every tested version up to 1.38 failed to push on 14 November; keep convex at 1.42.3 when building a rollback. A plain revert of #428 on main is not enough: once an admin has logged in, session rows carry `adminUntil`, which the reverted schema would reject, so keep the optional field in the schema (or clear it from the rows first). Reverting the backend also removes the expiry job and its cron, which makes admin tier permanent again until the cookie expires.",
+    "sessions": "Reverting #428 in the frontend restores the 7-day and 30-day limits at once, since they are checked on every request."
   },
   "productionWrites": [
     "Three Vercel production deployments and one Convex push, above.",
