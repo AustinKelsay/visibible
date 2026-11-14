@@ -36,7 +36,7 @@ npm run convex:deploy:prod
 npm run vercel:deploy:production
 ```
 
-If the dry run stops at "Uploading functions" with an `Unexpected Error` that lists `childComponents`, the installed `convex` package is too old for Convex's servers: on 14 November 2026 the CLI of 1.38 and earlier could no longer read their answer during a push, and the package was raised from 1.31.2 to 1.42.3 (the first release that both pushes and carries a `ws` without the high-severity advisories). Raise it through a pull request; do not push with a newer CLI than the installed package.
+If the dry run stops at "Uploading functions" with an `Unexpected Error` that lists `childComponents`, the installed `convex` package is too old for Convex's servers: on 14 November 2026 the CLI of 1.38 and earlier could no longer read their answer during a push, and the package was raised from 1.31.2 to 1.42.3 (1.42 is the earliest release series that both pushes and carries a `ws` without the high-severity advisories). Raise it through a pull request; do not push with a newer CLI than the installed package.
 
 Deploy compatible backend changes before the frontend that depends on them. Verify target URLs/secrets before deploying and exercise the affected feature in preview. Readiness confirms only its documented checks, not end-to-end provider/payment health; see [Observability](../context/OBSERVABILITY.md).
 
