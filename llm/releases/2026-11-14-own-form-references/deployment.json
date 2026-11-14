@@ -1,0 +1,46 @@
+{
+  "authorization": [
+    "After the release recorded in ../2026-11-14-reader-text-sessions-and-consent, the owner asked \"Anything else on your side? I can't come into the loop until later\". This closes the first follow-up of that record and spends nothing."
+  ],
+  "release": {
+    "pullRequests": [
+      432
+    ],
+    "mainCommit": "310856f3",
+    "reviewFindings": "Sol reviewed #432 in one round and approved with no findings; it also resolved 2,380 references across all 66 books with the service mocked down. CodeRabbit had no actionable comments."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-14T18:05:52Z",
+        "commit": "310856f3",
+        "carries": [
+          432
+        ],
+        "vercel": "dpl_C7h2rVyZXTL9GSBcbEP93taFN3HP",
+        "convex": "no change (no file under convex/ and no package changed since f4809c24)"
+      }
+    ]
+  },
+  "smoke": {
+    "before": "Production at dpl_EWEWk3mY3tvsXVwSXDbPSpfPeAcC, a guest with no credits, POST /api/generate-image in the default translation: \"Romans 16:25\" and \"John 3:16\" 402 Insufficient credits (required 6); \"Romans 16:26\" and \"Romans 16:27\" 400 Invalid or unavailable reference.",
+    "after": "Same requests at dpl_C7h2rVyZXTL9GSBcbEP93taFN3HP: all four 402 Insufficient credits (required 6, available 0). \"Romans 14:24\", which the app does not count, 400. /api/health ok; /romans/16/27 200.",
+    "afterRateLimit": null
+  },
+  "notExercised": [
+    "A funded image of Romans 16:26 or 16:27: the checks stop at the credit check, which comes after the reference is accepted.",
+    "A video request, which uses the same resolver.",
+    "An image request while the Scripture service is really down; covered by tests only."
+  ],
+  "followUps": [
+    "An abbreviated reference (\"Rom 16:26\") still needs the service and still cannot name Romans 16:26-27; the reader never sends one.",
+    "The other follow-ups of ../2026-11-14-reader-text-sessions-and-consent stand."
+  ],
+  "rollback": {
+    "vercel": "Promote dpl_EWEWk3mY3tvsXVwSXDbPSpfPeAcC (main f4809c24). It only brings back the reference lookup; nothing stored differs."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "Two throwaway guest sessions created by the smoke checks, with no balance."
+  ]
+}
