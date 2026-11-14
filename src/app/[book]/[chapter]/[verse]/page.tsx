@@ -10,7 +10,8 @@ import { VerseAnalytics } from "@/components/verse-analytics";
 import { PassageUnavailable } from "@/components/passage-unavailable";
 import { VersePageContent } from "@/components/verse-page-content";
 import { VerseViewProvider } from "@/context/verse-view-context";
-import { BibleApiLookupError, getChapter, getVerse } from "@/lib/bible-api";
+import { BibleApiLookupError } from "@/lib/bible-api";
+import { getChapter, getVerse } from "@/lib/scripture";
 import { getTranslationFromCookies } from "@/lib/get-translation";
 import { MOBILE_VERSE_NAV_OFFSET } from "@/lib/mobile-verse-nav";
 import {

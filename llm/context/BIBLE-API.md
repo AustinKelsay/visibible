@@ -8,12 +8,23 @@
 - The small active table remains because the installed Next.js `dedupe-fetch` bypasses React memoization for requests with an explicit abort signal, and image HTTP handlers are outside the React render tree. Successful response lifetime belongs to Next; the optional 256-completed-entry/24-hour process cache from the spec is unnecessary.
 - Invalid static chapter/verse locations, HTTP 404 and absent verses return `null`. Chapter network, timeout, invalid-payload and other HTTP failures raise a retryable `BibleApiLookupError`; unsuccessful lookups are removed from the active table. Reference lookup returns `null` for HTTP 400/404 and raises with upstream status for other HTTP failures, including 401/403, as well as network errors. Both endpoints have a 10-second timeout.
 - The chapter endpoint has nested `translation.identifier`/`translation.name` metadata and verse `book` fields; the reference endpoint uses `translation_id`/`translation_name` and `book_name`. The adapter validates chapter identity and maps canonical book names from the static structure. See the [provider endpoint](https://bible-api.com/data/web/JHN/3) and [implementation](https://github.com/seven1m/bible_api/blob/master/app.rb).
-- Reader failures stay at the requested URL with retry and translation controls. Invalid URLs use the not-found screen. The page's adjacent chat context uses only the loaded chapter; image generation resolves its own neighbors ([Image generation](IMAGE-GENERATION.md)), and navigation still crosses book boundaries.
+- Reader failures stay at the requested URL with retry and translation controls. For WEB they are reached only when the imported text is also unreadable. Invalid URLs use the not-found screen. The page's adjacent chat context uses only the loaded chapter; image generation resolves its own neighbors ([Image generation](IMAGE-GENERATION.md)), and navigation still crosses book boundaries.
 - [The translation helper](../../src/lib/get-translation.ts) reads the translation cookie and accepts only own keys of `TRANSLATIONS`, falling back to the default.
+
+## Default translation: imported text as stand-in
+
+Server code reads chapters through [Scripture](../../src/lib/scripture.ts), not the client above. For every translation but the default it calls the client unchanged. For WEB it uses the service's chapter only when it arrives within 2 seconds and holds exactly the verses the static structure counts, in order. Otherwise it serves the same chapter from the [imported World English Bible](WORK-INPUT.md) (`works/bible-web/work.json`, traced into the reader, chat and video routes in [next.config.ts](../../next.config.ts)). That covers four cases:
+
+- **Slow.** The reader stops waiting after 2 seconds. The lookup is not cancelled, so a late answer can still fill the fetch cache.
+- **Failed.** Network errors, non-404 statuses and rejected payloads. The service returns a blank verse in Luke 17, Acts 8, Acts 15, Acts 24 and Romans 16, which the client rejects for the whole chapter; before this stand-in those five chapters showed "temporarily unavailable" in the default translation.
+- **Missing.** HTTP 404 or no verses.
+- **Different verses.** The service prints the closing doxology at Romans 14:24–26 where the app counts 23 verses.
+
+The imported text is the 2020 classic edition the images are drawn from; the service's WEB is an older edition, so wording differs slightly between the two, psalm titles are part of verse 1, and Psalm 119's Hebrew letter headings sit inside the verse text. Each affected chapter is logged once per server instance (`Scripture service <reason> for <book> <chapter>`). If the imported file cannot be read, the service's own answer or error stands, as before. Other translations never use it. Reference lookup (`getVerseByReference`) has no stand-in: an image request still needs the service to resolve its reference, including Romans 16:26–27, which the service does not have.
 
 [The verse page](../../src/app/[book]/[chapter]/[verse]/page.tsx) assembles text and adjacent context. Preference persistence is documented in [Preferences](PREFERENCES.md).
 
-[Imported reference works](WORK-INPUT.md) provide a separate offline WEB input, the generic image engine's text source. Its importer preserves the 31,102 navigation IDs, normalizes WEB's Romans doxology placement, and explicitly attributes four readings taken from WEB footnotes where its main text is blank. The reader's selected translation is still fetched as below; it never feeds image generation.
+[Imported reference works](WORK-INPUT.md) provide a separate offline WEB input, the generic image engine's text source. Its importer preserves the 31,102 navigation IDs, normalizes WEB's Romans doxology placement, and explicitly attributes four readings taken from WEB footnotes where its main text is blank. The reader's selected translation is still fetched from the service, with that import standing in for a WEB chapter the service cannot supply (above); it never feeds image generation.
 
 ## Translation coverage evidence
 

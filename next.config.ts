@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
     // The prose reader's pages read the same imported text and inputs.
     "/read/[work]": ["./works/*/work.json", "./works/*/brief.json", "./works/*/depiction.json", "./styles/*.json"],
     "/read/[work]/[moment]": ["./works/*/work.json", "./works/*/brief.json", "./works/*/depiction.json", "./styles/*.json"],
+    // The Bible reader, chat and video routes fall back to the imported World English Bible (src/lib/scripture.ts).
+    "/[book]/[chapter]/[verse]": ["./works/bible-web/work.json"],
+    "/api/chat": ["./works/bible-web/work.json"],
+    "/api/chat/quote": ["./works/bible-web/work.json"],
+    "/api/generate-video": ["./works/bible-web/work.json"],
   },
   async headers() {
     const cspDirectives = [

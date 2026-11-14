@@ -189,8 +189,8 @@ vi.mock("@ai-sdk/openai", async () => {
 
 // The passage text comes from this stand-in, never the live Bible service: with that service slow, the one test
 // that names a passage waited out its ten-second timeout and failed.
-vi.mock("@/lib/bible-api", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("@/lib/bible-api")>()),
+vi.mock("@/lib/scripture", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/lib/scripture")>()),
   getChapter: vi.fn(async () => ({
     bookId: "GEN", bookName: "Genesis", chapter: 1, translationId: "web", translationName: "World English Bible",
     verses: [1, 2, 3].map((verse) => ({ bookId: "GEN", bookName: "Genesis", chapter: 1, verse, text: `Server text of verse ${verse}.` })),
