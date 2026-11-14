@@ -24,24 +24,29 @@ const sections = [
     title: "How It Works",
     body: [
       "Pick a translation, navigate to any verse, and generate an image from it. You can also chat about the passage if you want to dig into the meaning.",
-      "You choose which models power the chat and image generation. Different models have different strengths and costs.",
+      "You choose the art style for images and the model for chat. Chat models differ in strengths and cost.",
       "There are no accounts. Everything runs through an anonymous browser session.",
-      "Saved verse images also become part of a public read-only library, with simple API docs for browsing and reusing what has already been generated.",
+      "Every image and video you generate is saved and public: anyone can browse them, and the images have simple API docs for reuse. Chat answers are not saved.",
     ],
   },
   {
     title: "Credits",
     body: [
-      "Visibible uses credits, not subscriptions. $1 for 100 credits or $3 for 300, paid over Lightning.",
-      "Chat and image generation both cost credits. The amount depends on the model you pick.",
-      "Credits are tied to your browser session. If you clear site data or switch devices, they won't carry over yet.",
+      "Visibible uses credits, not subscriptions. $1 for 100 credits or $3 for 300, paid over Lightning. Purchases are non-refundable during alpha.",
+      "You see the price before anything is generated. Images and chat show an estimate and a maximum, such as “About 6 credits · at most 12”; a video shows one price, which is its maximum. The maximum is set aside from your balance while the request runs. You are then charged what the request cost, never more than the maximum, and the rest goes back to your balance. A request that fails or returns nothing is not charged.",
+      "A new image usually costs about 6 credits and a five-second video about 32. Chat is priced by the model you pick and the length of the conversation. If a price changes after you have seen it, you are shown the new price and asked to confirm.",
+      "Credits belong to one browser session and cannot be moved to another browser or device. A session ends after 7 days without use and, at the latest, 30 days after it began. Clearing your cookies ends it too. Credits left in a session that has ended cannot be recovered, so buy what you expect to use within that time.",
     ],
   },
   {
     title: "Privacy",
     body: [
-      "No accounts, no profiles. The app stores your session, preferences, and generated images — nothing more.",
-      "Basic analytics help us understand what's working. They don't track who you are.",
+      "No accounts, no profiles, no email address. A cookie identifies your browser session. Your translation, model and style preferences are kept in your browser.",
+      "Our database holds your session and its credit balance, a salted hash of your IP address rather than the address itself (for rate limits and abuse checks), your purchases and charges, and each image or video request with the prompt built for it. A purchase is stored as its Lightning invoice and whether it was paid, with nothing about your wallet.",
+      "Chat conversations are not kept on our servers. To answer, each message is sent with its passage to the AI provider, OpenRouter. Image and video prompts go to the same provider.",
+      "Images and videos you generate are public. The library does not show who generated them.",
+      "Feedback you send is stored with the verse or image it concerns, your session and your browser’s user agent.",
+      "Vercel Analytics counts page views and events such as a verse viewed or an image generated. Those events carry no session ID and no message text.",
     ],
   },
   {
