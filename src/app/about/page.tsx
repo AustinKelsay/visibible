@@ -24,24 +24,30 @@ const sections = [
     title: "How It Works",
     body: [
       "Pick a translation, navigate to any verse, and generate an image from it. You can also chat about the passage if you want to dig into the meaning.",
-      "You choose which models power the chat and image generation. Different models have different strengths and costs.",
+      "You choose the art style for images and the model for chat. Chat models differ in strengths and cost.",
       "There are no accounts. Everything runs through an anonymous browser session.",
-      "Saved verse images also become part of a public read-only library, with simple API docs for browsing and reusing what has already been generated.",
+      "Images and videos are saved when they are generated, and saved ones are public: anyone can browse them, and the images have simple API docs for reuse. Chat answers are not saved. An image that could not be saved stays on your screen only until you leave the page.",
     ],
   },
   {
     title: "Credits",
     body: [
-      "Visibible uses credits, not subscriptions. $1 for 100 credits or $3 for 300, paid over Lightning.",
-      "Chat and image generation both cost credits. The amount depends on the model you pick.",
-      "Credits are tied to your browser session. If you clear site data or switch devices, they won't carry over yet.",
+      "Visibible uses credits, not subscriptions. $1 for 100 credits or $3 for 300, paid over Lightning. Purchases are non-refundable during alpha.",
+      "When you ask for a single image, a video or a chat answer, you see the price first. Images and chat show an estimate and a maximum, such as “About 6 credits · at most 12”; a video shows one price, which is its maximum. The maximum is set aside from your balance while the request runs. You are then charged what the provider reports the request cost, or the estimate when it reports nothing, never more than the maximum, and the rest goes back to your balance. A request that fails or returns nothing is not charged.",
+      "Two cases have no price confirmation for each image. If you have enough credits and open a verse that has no image in your chosen style, one is generated for it automatically. If you generate images for several verses at once, you see an estimated total first. In both, each image is charged the same way.",
+      "A new image usually costs about 6 credits. A video costs more, depending on its length and resolution. Chat is priced by the model you pick and the length of the conversation. If the price of something you asked for rises above the maximum you saw, you are shown the new price and asked to confirm.",
+      "Credits belong to one browser session and cannot be moved to another browser or device. A session ends after 7 days without use and, at the latest, 30 days after it began. Clearing your cookies ends it too. When a session ends you lose access to the credits left in it, and you should not count on getting them back, so buy what you expect to use within that time.",
     ],
   },
   {
     title: "Privacy",
     body: [
-      "No accounts, no profiles. The app stores your session, preferences, and generated images — nothing more.",
-      "Basic analytics help us understand what's working. They don't track who you are.",
+      "No accounts, no profiles, no email address. A cookie identifies your browser session. Your translation, model and style preferences are kept in your browser.",
+      "Our database holds your session and its credit balance, a salted hash of your IP address rather than the address itself (for rate limits and abuse checks), your purchases and charges, and a record of each image or video request. The prompt is kept with each saved image and each video request. A purchase is stored as its Lightning invoice and whether it was paid, with nothing about your wallet.",
+      "Chat conversations are not kept on our servers. To answer, each message is sent with its passage to the AI provider, OpenRouter. Image and video prompts go to the same provider.",
+      "Images and videos you generate are public once saved. The library does not show who generated them.",
+      "Feedback you send is stored with the verse or image it concerns, your session and your browser’s user agent.",
+      "Vercel Analytics counts page views and events such as a verse viewed or an image generated. Those events carry no session ID and no message text.",
     ],
   },
   {

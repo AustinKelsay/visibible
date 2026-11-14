@@ -38,9 +38,10 @@ GitHub is authoritative for status, scope changes and discussion after publicati
 
 The plan was written before the generic engine replaced the legacy image pipeline (#165, October 2026) and before the lean engine cut image generation to one call from the text ([ADR 0012](../adr/0012-one-image-call-from-the-text.md), 9 November 2026). A triage on 10 November checked every open issue against `main`, and each closed issue carries a note with its evidence.
 
-On 13 November the owner chose to stop working the backlog as a program: finish the three tickets that protect a paying stranger, and park the rest until real use asks for them. Of the 55 tickets, **24 are done, 6 are not planned and 25 are parked. None is open.**
+On 13 November the owner chose to stop working the backlog as a program: finish the three tickets that protect a paying stranger, and park the rest until real use asks for them. Of the 55 tickets, **25 are done, 6 are not planned and 24 are parked. None is open.**
 
 - **Done on 13 November:** T04, a shown and enforced maximum charge ([#423](https://github.com/AustinKelsay/visibible/pull/423)); T12, a retried purchase returns its saved invoice ([#420](https://github.com/AustinKelsay/visibible/pull/420)); T13, a payment is credited with every tab closed ([#421](https://github.com/AustinKelsay/visibible/pull/421)). S03 is complete. All three were released on 13 November at 23:32 UTC ([record](../../llm/releases/2026-11-13-max-charge-and-invoices/deployment.json)); production is deployed by hand ([Vercel deployment](../../llm/workflow/VERCEL_WORKFLOWS.md)).
+- **Done on 14 November, from the parked list:** T48, the About page's credits and privacy copy matches what the app charges and stores ([#426](https://github.com/AustinKelsay/visibible/pull/426)).
 - **Superseded by the engine migrations:** T50 and T51 (the admission switch and rollback rehearsal ran for the engine cutover in #182 and #183), T52 (the legacy executor was retired in #184), T19 and T05 (no scene plans or learned estimates remain), and T54 (its remaining reads are T33 and T34).
 - **Not planned on cost:** T27, image cancellation, since an image now takes about ten seconds.
 
@@ -65,7 +66,6 @@ A parked ticket is closed as not planned with its labels kept, and its last comm
 | T45 | #101 | There are paying readers to support and an unresolved request or charge has to be found by hand. T12 and T13 added operator views for invoices. |
 | T46 | #102 | An outage of OpenRouter, Convex or the pay server is discovered late because readiness looked healthy. |
 | T47 | #103 | A table's size becomes a cost, or the privacy copy promises a retention period. |
-| T48 | #104 | Before the site is promoted to new readers. The About page's privacy and credits copy is out of date; this is the first parked ticket worth doing. |
 | T49 | #105 | Before the first migration that rewrites financial rows, or when readers other than the owner hold balances. |
 
 ## Full ticket table
@@ -119,7 +119,7 @@ A parked ticket is closed as not planned with its labels kept, and its last comm
 | [T45: Inspect durable unresolved work and financial outcomes](https://github.com/AustinKelsay/visibible/issues/101) | S11 | T13, T26 | 76, 77 | Parked |
 | [T46: Distinguish readiness from observed dependency health](https://github.com/AustinKelsay/visibible/issues/102) | S11 | None | 78 | Parked |
 | [T47: Apply bounded retention without losing financial evidence](https://github.com/AustinKelsay/visibible/issues/103) | S11 | T09, T06 | 80 | Parked |
-| [T48: Align privacy credits and storage copy with behavior](https://github.com/AustinKelsay/visibible/issues/104) | S09 | T39, T47 | 79 | Parked |
+| [T48: Align privacy credits and storage copy with behavior](https://github.com/AustinKelsay/visibible/issues/104) | S09 | T39, T47 | 79 | Done |
 | [T49: Prove data export restore and reconciliation](https://github.com/AustinKelsay/visibible/issues/105) | S12 | T01 | 82 | Parked |
 | [T50: Switch new admissions without duplicating paid work](https://github.com/AustinKelsay/visibible/issues/106) | S12 | T49, T25 | 83 | Not planned |
 | [T51: Rehearse rollback with active jobs and payments](https://github.com/AustinKelsay/visibible/issues/107) | S12 | T50, T31, T13, T44 | 70, 84 | Not planned |
