@@ -11,7 +11,7 @@ import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 const generationState = { modelId: "google/gemini-2.5-flash-image", baseCost: 0, showCreditsCost: false, quoteLabel: null as string | null,
   displayCostByResolution: undefined as Partial<Record<"1K" | "2K" | "4K", number>> | undefined };
 const setResolution = vi.fn();
-beforeEach(() => { generationState.modelId = "google/gemini-2.5-flash-image"; generationState.displayCostByResolution = undefined; generationState.quoteLabel = null; setResolution.mockClear(); });
+beforeEach(() => { generationState.showCreditsCost = false; generationState.modelId = "google/gemini-2.5-flash-image"; generationState.displayCostByResolution = undefined; generationState.quoteLabel = null; setResolution.mockClear(); });
 vi.mock("@/context/generation-context", () => ({ useGeneration: () => ({ state: generationState, isRegistered: true, setAspectRatio: vi.fn(), setResolution }) }));
 vi.mock("next/navigation", () => ({ useRouter: () => ({ refresh: vi.fn() }) }));
 vi.mock("@/context/session-context", () => ({ useSession: () => ({ tier: "paid", credits: 100 }) }));
@@ -163,4 +163,55 @@ it("offers the three art styles in order, keeps an unavailable selection without
   } finally {
     await act(async () => root.unmount());
   }
+});
+
+it("offers a charged guest the automatic generation switch, off, with its price, and saves their choice", async () => {
+  const storage = new Map<string, string>();
+  vi.stubGlobal("localStorage", { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) });
+  const models = [{ id: DEFAULT_IMAGE_MODEL, name: "Image model", provider: "Google", creditsCost: 6, estimatedCreditsByResolution: { "1K": 6 } }];
+  const render = async () => {
+    const container = document.createElement("div");
+    const root = createRoot(container);
+    await act(async () => root.render(createElement(PreferencesProvider, null,
+      createElement(ImageGenerationSettingsPanel, { models: models as never, modelsLoading: false, modelsError: null }))));
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 0)); });
+    return { container, unmount: () => act(async () => root.unmount()) };
+  };
+
+  // The owner is not charged and is not asked.
+  const owner = await render();
+  expect(owner.container.querySelector('input[type="checkbox"]')).toBeNull();
+  await owner.unmount();
+
+  generationState.showCreditsCost = true;
+  const guest = await render();
+  const box = guest.container.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
+  expect(box.checked).toBe(false);
+  expect(box.closest("label")!.textContent).toContain("Generate automatically");
+  expect(box.closest("label")!.textContent).toContain("at about 6 credits each");
+  expect(box.disabled).toBe(false);
+  await act(async () => box.click());
+  expect(box.checked).toBe(true);
+  expect(JSON.parse(storage.get("visibible-preferences")!).autoGenerate).toBe(true);
+  await guest.unmount();
+
+  // With no price to show (the catalog has not loaded or failed), it cannot be turned on, only off.
+  models.length = 0;
+  const unpriced = await render();
+  const on = unpriced.container.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
+  expect(on.checked).toBe(true);
+  expect(on.disabled).toBe(false);
+  await act(async () => on.click());
+  expect(JSON.parse(storage.get("visibible-preferences")!).autoGenerate).toBe(false);
+  expect(on.disabled).toBe(true);
+  expect(on.closest("label")!.textContent).toContain("The price is not available right now");
+  await unpriced.unmount();
+
+  // The price already loaded for the page stands in for a catalog that has not answered.
+  generationState.displayCostByResolution = { "1K": 7 };
+  const loaded = await render();
+  const off = loaded.container.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
+  expect(off.disabled).toBe(false);
+  expect(off.closest("label")!.textContent).toContain("at about 7 credits each");
+  await loaded.unmount();
 });

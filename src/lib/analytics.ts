@@ -160,6 +160,7 @@ type PreferenceChangedProps = BaseProps & {
     | "imageAspectRatio"
     | "imageResolution"
     | "artStyle"
+    | "autoGenerate"
     | "chapterGallery";
   value: string;
   source: PreferenceChangeSource;
