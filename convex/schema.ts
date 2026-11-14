@@ -431,6 +431,8 @@ export default defineSchema({
     sid: v.string(),
     revokedAt: v.optional(v.number()),
     tier: v.string(), // "paid" | "admin"
+    // When admin tier ends; set at each admin login. An admin session without it is returned to "paid".
+    adminUntil: v.optional(v.number()),
     credits: v.number(),
     createdAt: v.number(),
     lastSeenAt: v.number(),
@@ -444,6 +446,7 @@ export default defineSchema({
     expiresAt: v.optional(v.number()),
   })
     .index("by_sid", ["sid"])
+    .index("by_tier_adminUntil", ["tier", "adminUntil"])
     .index("by_expiresAt", ["expiresAt"]),
 
   // Operator-reviewed recovery grants. Raw bearer codes are never stored here.

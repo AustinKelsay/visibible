@@ -12,6 +12,9 @@ export const DEFAULT_DAILY_SPEND_LIMIT_USD = 5.0;
 
 // Session TTL: 90 days from last activity
 export const SESSION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
+// Admin tier lasts this long after an admin login. Guest sessions live far longer (src/lib/session.ts), and owner
+// access must not ride along with them.
+export const ADMIN_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 const DEFAULT_STALE_RESERVATION_AGE_MS = 30 * 60 * 1000;
 const DEFAULT_STALE_RESERVATION_BATCH_LIMIT = 50;
 const MAX_STALE_RESERVATION_BATCH_LIMIT = 200;
@@ -1311,9 +1314,25 @@ export const upgradeToAdminInternal = internalMutation({
       throw new Error("Session not found");
     }
 
-    await ctx.db.patch(session._id, { tier: "admin" });
+    await ctx.db.patch(session._id, { tier: "admin", adminUntil: Date.now() + ADMIN_WINDOW_MS });
 
     return { success: true };
+  },
+});
+
+/**
+ * Returns admin sessions whose window has passed to "paid". Also returns admin sessions that have no window: those
+ * were upgraded before windows existed, when the session cookie's own expiry limited them. Every 15 minutes.
+ */
+export const expireAdminSessions = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    // A missing window sorts before every number, so this range holds exactly the sessions to return.
+    const due = await ctx.db.query("sessions")
+      .withIndex("by_tier_adminUntil", (q) => q.eq("tier", "admin").lte("adminUntil", Date.now()))
+      .take(100);
+    for (const session of due) await ctx.db.patch(session._id, { tier: "paid", adminUntil: undefined });
+    return { expired: due.length };
   },
 });
 

@@ -2,7 +2,7 @@
 
 [session.ts](../../src/lib/session.ts) signs the `visibible_session` JWT cookie and verifies session expiry. IP changes are logged and rotate the cookie; they do not invalidate the session by themselves. Session records and balances live in [convex/sessions.ts](../../convex/sessions.ts), not in browser storage. The browser cookie provides access to that anonymous session; clearing it or changing browsers does not transfer the balance.
 
-New sessions are `paid` tier with zero credits. Admin tier is sticky and bypasses credit/spending checks; admin usage is audited. Admins still pass the routes' rate limits. Default expiry is seven days idle with a thirty-day absolute cap; activity refreshes are bounded by that cap. Timeout overrides and valid ranges are in [.env.example](../../.env.example).
+New sessions are `paid` tier with zero credits. Admin tier bypasses credit/spending checks and lasts seven days from each admin login (`adminUntil`, `ADMIN_WINDOW_MS` in [sessions.ts](../../convex/sessions.ts)); a job every 15 minutes returns a session past its window, or an admin session with no window, to `paid` without touching its balance. Admin usage is audited. Admins still pass the routes' rate limits. Default expiry is 60 days idle with a 365-day absolute cap; activity refreshes are bounded by that cap. These were seven and thirty days until 14 November 2026, when they were lengthened because the session is a guest's only key to prepaid credits; the idle limit stays under the 90 days a stored session record lasts, and the admin window keeps owner access short. Timeout overrides and valid ranges are in [.env.example](../../.env.example).
 
 ## Reservation and settlement
 

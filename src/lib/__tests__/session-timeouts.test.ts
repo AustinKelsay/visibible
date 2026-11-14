@@ -118,3 +118,39 @@ describe("session timeout policy", () => {
     expect(cookieOptions.maxAge).toBe(5 * 60);
   });
 });
+
+describe("default session lifetime", () => {
+  const DAY_MS = 24 * 60 * 60 * 1000;
+  beforeEach(() => {
+    process.env = { ...originalEnv, SESSION_SECRET: "a".repeat(32), IP_HASH_SECRET: "b".repeat(32) };
+    delete process.env.SESSION_IDLE_TIMEOUT_MINUTES;
+    delete process.env.SESSION_ABSOLUTE_TIMEOUT_HOURS;
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-01-01T00:00:00.000Z"));
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+    process.env = originalEnv;
+  });
+
+  it("keeps a guest's session through 60 days without use", async () => {
+    const { createSessionToken, verifySessionToken } = await importSessionModule();
+    const start = Date.now();
+    const token = await createSessionToken("sid-5", "iphash-5");
+    vi.setSystemTime(start + 60 * DAY_MS - 60_000);
+    expect(await verifySessionToken(token)).not.toBeNull();
+    vi.setSystemTime(start + 60 * DAY_MS + 60_000);
+    expect(await verifySessionToken(token)).toBeNull();
+  });
+
+  it("ends a session a year after it began, however recently it was used", async () => {
+    const { createSessionToken, verifySessionToken } = await importSessionModule();
+    const start = Date.now();
+    const sessionStartedAt = Math.floor(start / 1000);
+    vi.setSystemTime(start + 364 * DAY_MS);
+    const renewed = await createSessionToken("sid-6", "iphash-6", { sessionStartedAt });
+    expect(await verifySessionToken(renewed)).not.toBeNull();
+    vi.setSystemTime(start + 365 * DAY_MS + 60_000);
+    expect(await verifySessionToken(renewed)).toBeNull();
+  });
+});

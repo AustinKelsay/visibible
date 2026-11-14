@@ -74,9 +74,9 @@ describe("guest token HTTP admission", () => {
     expect((await post()).status).toBe(401);
     cookieJar.set("visibible_session", { value: "forged" });
     expect((await post()).status).toBe(401);
-    const { createSessionToken } = await import("@/lib/session");
+    const { createSessionToken, SESSION_ABSOLUTE_TIMEOUT_SECONDS } = await import("@/lib/session");
     cookieJar.set("visibible_session", { value: await createSessionToken("existing-sid", undefined, {
-      sessionStartedAt: Math.floor(Date.now() / 1000) - 40 * 86400,
+      sessionStartedAt: Math.floor(Date.now() / 1000) - SESSION_ABSOLUTE_TIMEOUT_SECONDS - 86400,
     }) });
     expect((await post()).status).toBe(401);
   });
