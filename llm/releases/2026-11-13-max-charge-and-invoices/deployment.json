@@ -1,0 +1,40 @@
+{
+  "authorization": [
+    "Owner asked for three things end to end on 13 November 2026 (\"let's do 1, 2, and 3 systematically end to end full send\"): finish the 12 November incident, seed the most-read passages, and do tickets #60, #68 and #69 while parking the rest of the backlog.",
+    "Owner approved the release when asked, with the order and checks named: \"Release and verify (Recommended)\" (push Convex, set LNURL_PAY_URL in Convex, deploy Vercel, check an image quote, a zero-credit refusal and the invoice status view)."
+  ],
+  "release": {
+    "pullRequests": [419, 420, 421, 422, 423, 424],
+    "mainCommit": "4d4bdd21",
+    "tickets": { "T04": 60, "T12": 68, "T13": 69 },
+    "reviewFindings": "Sol reviewed each change (2, 2, 2, 3, 5 and 1 rounds). #420: a gateway error page was treated as a safe failure, and a rate-limited retry dropped the purchase intent; both could leave two invoices for one purchase. #421: a payment held by the node at expiry stopped the server from looking. #423: a retried request rode on an earlier acceptance at a higher price; chat charged from half a usage report; a catalog rate could move without the quote being refused; a capped charge undercounted the daily limit; a reported zero image cost was treated as missing. CodeRabbit on #423: an automatic image request could follow a click whose changed price was waiting for confirmation; the chat per-message limit applied to the estimate, not the maximum. All fixed before merge."
+  },
+  "deploy": {
+    "convex": { "deployment": "unique-impala-244", "pushedAt": "2026-11-13T23:32:12Z", "addedIndexes": ["invoiceIntents.by_sid_intentId", "invoiceIntents.by_status", "invoices.by_status_reconcileAt", "quotes.by_usedAt_expiresAt"], "deletedIndexes": [], "environment": "LNURL_PAY_URL set after the push, to the same pay server Next.js uses" },
+    "vercel": { "deployment": "dpl_4dtHFYTkZvJDpwSpgXVWsSzvyYSA", "createdAt": "2026-11-13T23:32:44Z", "status": "ready", "aliases": ["visibible.com", "www.visibible.com"] },
+    "order": "Convex first, then Vercel, by hand. Vercel's Git integration is disconnected (docs/incidents/2026-11-12-injected-install-script.md).",
+    "betweenTheTwo": "With the new Convex functions and the previous frontend, health was ok and a zero-credit guest's image request for John 1:1 was refused with 402, required 6."
+  },
+  "smoke": {
+    "at": "2026-11-13T23:34Z",
+    "health": "ok",
+    "newRoutes": { "POST /api/chat/quote without a session": 401, "POST /api/generate-image/quote without a session": 403, "before the release": 404 },
+    "imageModels": { "artStyles": [["classical", true], ["watercolor", true], ["fresco", true], ["storybook", true], ["icon", false]] },
+    "zeroCreditGuest": [
+      { "route": "/api/generate-image/quote", "reference": "John 1:1", "style": "classical", "status": 402, "required": 6, "available": 0 },
+      { "route": "/api/generate-image", "reference": "John 1:1", "style": "classical", "status": 402, "required": 6, "available": 0 },
+      { "route": "/api/chat/quote", "status": 402, "required": 1, "available": 0 }
+    ],
+    "purchaseIntent": "Two POST /api/invoice requests with one intent id returned the same unpaid $1 invoice (1,468 sats, 100 credits). It was left unpaid.",
+    "reconciliation": {
+      "sweep": { "configured": true, "scheduled": 12 },
+      "after45Seconds": "The new invoice is watched and the pay server answered Convex for it. Of the 12 never-checked invoices, the node answered for four (three moved from pending to expired, one was already expired); eight it could not look up, and those stop after eight tries. No historical invoice was reported settled and no credit was granted (22 paid before and after).",
+      "invoicesByStatus": { "before": { "paid": 22, "pending": 10, "expired": 2 }, "after": { "paid": 22, "pending": 8, "expired": 5 } },
+      "openPurchaseIntents": 0
+    },
+    "spend": "none: no image or chat call was made in production",
+    "notExercised": "A funded guest accepting an image quote and being charged, and a paid chat turn, in production. The chat path ran end to end against a local Convex backend before the merge (#423)."
+  },
+  "rollback": "Promote dpl_7FKM9E8BZDM8YeYwtmF7rby3pUHJ, production until this deploy. The Convex changes are additive and the previous frontend ran against them, so Convex can stay as it is.",
+  "productionWrites": "two guest sessions; one unpaid invoice with its purchase intent; LNURL_PAY_URL in the Convex environment; reconciliation fields on 13 invoices, three of which moved from pending to expired"
+}
