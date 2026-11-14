@@ -53,7 +53,7 @@ const sections = [
   {
     title: "Sources",
     body: [
-      "The reader uses your selected translation. Illustrations generated with shared character and scene preparation use the World English Bible (public domain), imported from eBible.org. Saved images keep their original text and translation when available. Some older images lack this information.",
+      "The reader uses your selected translation. When the World English Bible is selected and the Scripture service cannot supply a chapter, the reader shows the imported edition below, whose wording differs slightly. Illustrations generated with shared character and scene preparation use the World English Bible (public domain), imported from eBible.org. Saved images keep their original text and translation when available. Some older images lack this information.",
       "Story sections for the Bible draw on the pericope data published by Clear.Bible, licensed CC BY 4.0.",
       "Same-name hints for the Bible draw on STEPBible's TIPNR (Translators Individualised Proper Names with all References), by Tyndale House, Cambridge, licensed CC BY 4.0.",
     ],

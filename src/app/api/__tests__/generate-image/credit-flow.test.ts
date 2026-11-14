@@ -1450,7 +1450,8 @@ describe("Image Generation API Credit Flow", () => {
     });
 
     it("rejects absent canonical chapter text even when the reference endpoint and client supply text", async () => {
-      setMockFetchBibleApiBypass((url) => url.pathname === "/data/web/GEN/1");
+      // Another translation than the default, whose missing chapters the imported World English Bible fills.
+      setMockFetchBibleApiBypass((url) => url.pathname === "/data/kjv/GEN/1");
       const providerCalls = vi.fn();
       mockFetchImpl = async (input) => {
         if (String(input).includes("bible-api.com")) return { ok: false, status: 404, json: async () => ({}) };
@@ -1458,7 +1459,7 @@ describe("Image Generation API Credit Flow", () => {
         throw new Error("Paid provider must not run");
       };
       const { POST } = await import("../../generate-image/route");
-      expect((await POST(createGenerateImageRequest({ text: "FORGED_CURRENT" }))).status).toBe(400);
+      expect((await POST(createGenerateImageRequest({ text: "FORGED_CURRENT", translation: "kjv" }))).status).toBe(400);
       expect(providerCalls).not.toHaveBeenCalled();
       expect(getCallCount("sessions:reserveCredits")).toBe(0);
     });

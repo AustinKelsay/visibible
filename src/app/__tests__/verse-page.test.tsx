@@ -22,9 +22,20 @@ vi.mock("@/components/verse-page-content", () => ({ VersePageContent: vi.fn(() =
 vi.mock("@/components/translation-selector", () => ({ TranslationSelector: () => <button>Choose translation</button> }));
 const params = (book = "genesis", chapter = "1", verse = "1") => ({ params: Promise.resolve({ book, chapter, verse }) });
 beforeEach(() => { clearBibleApiCache(); vi.clearAllMocks(); translation = "web"; });
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks(); });
 describe("canonical reader failures", () => {
+  it("shows the imported World English Bible when the service fails for the default translation", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    vi.stubGlobal("fetch", vi.fn(async () => { throw new DOMException("Timed out", "TimeoutError"); }));
+    const html = renderToStaticMarkup(await VersePage(params("acts", "24", "7")));
+    expect(html).toContain("Passage loaded");
+    expect(vi.mocked(VersePageContent).mock.calls[0][0]).toMatchObject({
+      verseNumber: 7, totalVerses: 27, verseText: expect.stringMatching(/Lysias/),
+    });
+    expect((await generateMetadata(params("acts", "24", "7"))).description).toMatch(/Lysias/);
+  });
   it("renders a retryable outage at the requested reference and preserves metadata", async () => {
+    translation = "kjv";
     vi.stubGlobal("fetch", vi.fn(async () => { throw new DOMException("Timed out", "TimeoutError"); }));
     const html = renderToStaticMarkup(await VersePage(params("exodus", "2", "3")));
     expect(html).toContain("Exodus 2:3");
