@@ -25,7 +25,8 @@
   "smoke": {
     "before": "Production at dpl_EWEWk3mY3tvsXVwSXDbPSpfPeAcC, a guest with no credits, POST /api/generate-image in the default translation: \"Romans 16:25\" and \"John 3:16\" 402 Insufficient credits (required 6); \"Romans 16:26\" and \"Romans 16:27\" 400 Invalid or unavailable reference.",
     "after": "Same requests at dpl_C7h2rVyZXTL9GSBcbEP93taFN3HP: all four 402 Insufficient credits (required 6, available 0). \"Romans 14:24\", which the app does not count, 400. /api/health ok; /romans/16/27 200.",
-    "afterRateLimit": null
+    "otherForms": "Unchanged: \"Rom 8:1\" (abbreviated, identified by the service) 402; \"Rom 16:26\" 400, since the service has no such verse; \"Genesis 51:1\" 400; \"Romans 16:27\" in kjv 402.",
+    "note": "The image route allows a guest five requests a minute; the last four checks were repeated after the limit cleared."
   },
   "notExercised": [
     "A funded image of Romans 16:26 or 16:27: the checks stop at the credit check, which comes after the reference is accepted.",
