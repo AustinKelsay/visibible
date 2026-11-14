@@ -1,0 +1,122 @@
+{
+  "authorization": [
+    "After the 13 November release the owner said \"do what you can on your side for now\": the About page copy (#104) and the slow text service were named.",
+    "Shown four decisions (release the two merged fixes; automatic images charged without a price confirmation; credits lost when a session ends 30 days after it began; whether to serve the imported World English Bible for every default-translation page), the owner answered \"You make the calls and continue\".",
+    "Calls made on that answer: release; automatic images off by default for guests (#429); guest sessions 60 days idle and 365 days at most with a 7-day admin window (#428); the imported text stays a stand-in only (no change).",
+    "Not covered and not done: paid seeding, which needs an OpenRouter top-up and a dollar figure from the owner."
+  ],
+  "release": {
+    "pullRequests": [
+      426,
+      427,
+      428,
+      429,
+      430
+    ],
+    "mainCommit": "f4809c24",
+    "tickets": {
+      "T48": 104
+    },
+    "reviewFindings": "Sol reviewed each change (3, 1, 2, 2 and 2 rounds). #426: seven claims in the first draft of the About copy were false or incomplete, among them that a price is always shown first (automatic and bulk images have no per-image confirmation) and that credits in an ended session cannot be recovered. #428: the admin expiry job stopped after one batch; the start-up check still held the old defaults. #429: the switch could be turned on while its price was not showing. #430: the newer package raises the guest token refresh leeway from 2 to 10 seconds, which in a session cookie's last seconds would make the client ask for tokens until the rate limit signed the guest out; the old value is now set explicitly. CodeRabbit on #427: a guide sentence about which text feeds images, and a missing set-up step in the README's test commands. All fixed before merge. One finding on #428 was declined and is listed as a follow-up."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-14T15:23:25Z",
+        "commit": "dc5360b2",
+        "carries": [
+          426,
+          427
+        ],
+        "vercel": "dpl_FoCuhPKhhDHaVesrUWd73qMpEhxz",
+        "convex": "no change"
+      },
+      {
+        "at": "2026-11-14T15:43:58Z",
+        "commit": "adde8052",
+        "carries": [
+          429
+        ],
+        "vercel": "dpl_8qJPzYrYH2q9p1ugxfkBVS496PzP",
+        "convex": "no change",
+        "why": "#428 was already merged but its Convex push was blocked (see convexCli), so the commit before it was released on its own."
+      },
+      {
+        "at": "2026-11-14T15:57:05Z",
+        "commit": "f4809c24",
+        "carries": [
+          428,
+          430
+        ],
+        "convex": {
+          "deployment": "unique-impala-244",
+          "functionVersion": "1.31.2 to 1.42.3",
+          "addedIndexes": [
+            "sessions.by_tier_adminUntil"
+          ],
+          "deletedIndexes": [],
+          "newCron": "expire admin sessions, every 15 minutes"
+        },
+        "vercel": "dpl_EWEWk3mY3tvsXVwSXDbPSpfPeAcC",
+        "vercelCreatedAt": "2026-11-14T15:57:29Z",
+        "order": "Convex first, then Vercel, by hand.",
+        "betweenTheTwo": "With the new Convex functions and the previous frontend, health was ok."
+      }
+    ],
+    "convexCli": "On 14 November `convex deploy --dry-run` with the installed convex 1.31.2 stopped at \"Uploading functions\" with `Unexpected Error … childComponents[0].args: Required`; the same dry run had passed on 13 November. Dry runs with 1.32.0, 1.36.0 and 1.38.0 failed the same way; 1.39.1 and later passed. 1.39.1 to 1.41.0 depend on a ws inside high-severity advisory ranges, so #430 raised the package to 1.42.3. Nothing was pushed with a CLI newer than the installed package."
+  },
+  "smoke": {
+    "at": "2026-11-14T15:58Z",
+    "health": "ok",
+    "readerText": {
+      "before": "/acts/24/1, /romans/16/1, /luke/17/36, /acts/8/37 and /acts/15/34 rendered \"Scripture is temporarily unavailable\" in the default translation (14 November, 01:30 UTC).",
+      "after": {
+        "/acts/24/7": "but the commanding officer, Lysias, came by and with great violence took him out…",
+        "/romans/16/26": "but now is revealed, and by the Scriptures of the prophets…",
+        "/luke/17/36": "Two will be in the field: the one taken, and the other left.",
+        "/acts/8/37": "Philip said, “If you believe with all your heart, you may.” …",
+        "/acts/15/34": "But it seemed good to Silas to stay there.",
+        "/romans/14/23": "23 verses, where the service sends 26"
+      }
+    },
+    "aboutPage": [
+      "A session ends after 60 days without use and, at the latest, a year after it began.",
+      "If you turn on “Generate automatically” in the image settings, a verse that has no image in your chosen style is illustrated when you open it, as long as you have enough credits."
+    ],
+    "session": {
+      "POST /api/session": 200,
+      "cookie": "visibible_session; Max-Age=5184000 (60 days); Secure; HttpOnly; SameSite=lax"
+    },
+    "zeroCreditGuest": {
+      "POST /api/generate-image/quote for John 1:1": "402, required 6",
+      "POST /api/generate-image for John 1:1": "402, required 6",
+      "POST /api/chat/quote for John 1:1": "402, required 1"
+    },
+    "websocketClient": "With convex 1.42.3 from Node, as a fresh guest: the public image history for John 1:1 returned one image, and after setAuth with a guest token the private wallet query returned credits 0, tier paid. Run before the upgrade merged and again after the release.",
+    "adminSessions": "sessions:expireAdminSessions, run by hand after the push, returned expired 0 twice; none of the 400 newest session rows is admin. The owner has to log in again.",
+    "invoiceStatus": "invoiceReconciliation:status answers: 8 rows, none still watched."
+  },
+  "notExercised": [
+    "A funded guest accepting an image price, a paid chat turn and a payment credited with the tab closed are still unproven in production; they need one real purchase.",
+    "An admin login after the release, which sets the first 7-day window.",
+    "The settings switch and the empty-verse state were not looked at in a browser; they are covered by component tests.",
+    "The reader's stand-in during a real outage of the text service; it was checked on a local build with the service blocked and hanging."
+  ],
+  "followUps": [
+    "Reference lookup has no stand-in, so Romans 16:26–27 cannot be drawn in the default translation.",
+    "Paid requests renew the cookie but only /api/session renews the stored session row's 90-day deadline (declined on #428 as too rare).",
+    "Bulk generation shows an estimated total and no per-image confirmation.",
+    "Move convex from 1.42.3 to the current release with time to watch it.",
+    "Committed convex/_generated/api.d.ts differs from what the CLI writes on a push; it was restored after the push, as on 13 November."
+  ],
+  "rollback": {
+    "vercel": "Promoting dpl_8qJPzYrYH2q9p1ugxfkBVS496PzP (before #428 and #430) or dpl_4dtHFYTkZvJDpwSpgXVWsSzvyYSA (the 13 November release) works against the Convex backend as it is now, but neither is a neutral step. Both bring back the 7-day idle and 30-day absolute checks on the session cookie, so a guest away longer than a week, or whose session is older than 30 days, is refused at once. The 13 November deployment also drops #429: funded guests get automatic images again whatever they chose.",
+    "convex": "The CLI of every tested version up to 1.38 failed to push on 14 November; keep convex at 1.42.3 when building a rollback. A plain revert of #428 on main is not enough: once an admin has logged in, session rows carry `adminUntil`, which the reverted schema would reject, so keep the optional field in the schema (or clear it from the rows first). Reverting the backend also removes the expiry job and its cron, which makes admin tier permanent again until the cookie expires.",
+    "sessions": "Reverting #428 in the frontend restores the 7-day and 30-day limits at once, since they are checked on every request."
+  },
+  "productionWrites": [
+    "Three Vercel production deployments and one Convex push, above.",
+    "sessions:expireAdminSessions run twice by hand; it changed nothing.",
+    "Three throwaway guest sessions created by the smoke checks, with no balance; the cleanup job removes them when they expire."
+  ]
+}
