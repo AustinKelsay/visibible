@@ -26,6 +26,7 @@ npm run convex:dev
 ```bash
 npm run lint
 npm run typecheck
+npm run works:import   # writes works/*/work.json, which several tests read
 npm test -- --run
 ```
 

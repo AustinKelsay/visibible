@@ -175,8 +175,8 @@ vi.mock("@/lib/chat-models", () => ({
 }));
 
 const chapterLookup = vi.fn();
-vi.mock("@/lib/bible-api", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("@/lib/bible-api")>()),
+vi.mock("@/lib/scripture", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/lib/scripture")>()),
   getChapter: (...args: unknown[]) => chapterLookup(...args),
 }));
 

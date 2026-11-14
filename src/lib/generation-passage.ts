@@ -1,5 +1,6 @@
 import { BIBLE_BOOKS, isValidLocation } from "@/data/bible-structure";
-import { getChapter, getVerse, getVerseByReference, type Translation, type VerseData } from "./bible-api";
+import { getVerseByReference, type Translation, type VerseData } from "./bible-api";
+import { getChapter, getVerse } from "./scripture";
 import { formatReference, getNextVerse, getPreviousVerse, type VerseLocation } from "./navigation";
 
 /** Resolve aliases through the provider, then use the selected canonical chapter as text authority. */

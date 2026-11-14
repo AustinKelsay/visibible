@@ -13,7 +13,7 @@
 - `npm run typecheck`
 - `npm test`
 
-Prefer `npm run lint`, `npm run typecheck`, and `npm test` for routine verification instead of a full build.
+Prefer `npm run lint`, `npm run typecheck`, and `npm test` for routine verification instead of a full build. In a fresh checkout run `npm run works:import` once first: several tests read the generated `works/*/work.json`.
 
 ## Conventions
 - TypeScript + React in strict mode.

@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { getChapter, TRANSLATIONS, DEFAULT_TRANSLATION, type ChapterData, type Translation } from "@/lib/bible-api";
+import { TRANSLATIONS, DEFAULT_TRANSLATION, type ChapterData, type Translation } from "@/lib/bible-api";
+import { getChapter } from "@/lib/scripture";
 import { parseVerseLocation, getPreviousVerse, getNextVerse, formatReference } from "@/lib/navigation";
 import { MAX_USER_MESSAGE_CHARS } from "@/lib/chat-limits";
 

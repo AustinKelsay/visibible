@@ -1,6 +1,6 @@
 # Imported reference works
 
-[Work input](../../src/lib/work-input.ts) provides the generic engine's offline reference-text boundary. Image requests take the moment's text and its neighbours from these files and save their reference-text provenance. The Bible reader retains selected-translation fetching through the [Bible API](BIBLE-API.md), and the image route still resolves and validates the requested reference there before admission ([Image generation](IMAGE-GENERATION.md#request-lifecycle)).
+[Work input](../../src/lib/work-input.ts) provides the generic engine's offline reference-text boundary. Image requests take the moment's text and its neighbours from these files and save their reference-text provenance. The Bible reader retains selected-translation fetching through the [Bible API](BIBLE-API.md), with the imported WEB standing in for a default-translation chapter the service cannot supply ([stand-in](BIBLE-API.md#default-translation-imported-text-as-stand-in)), and the image route still resolves and validates the requested reference there before admission ([Image generation](IMAGE-GENERATION.md#request-lifecycle)).
 
 ## Reproduce the files
 
