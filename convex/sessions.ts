@@ -15,6 +15,7 @@ export const SESSION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
 // Admin tier lasts this long after an admin login. Guest sessions live far longer (src/lib/session.ts), and owner
 // access must not ride along with them.
 export const ADMIN_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
+const ADMIN_EXPIRY_BATCH = 100;
 const DEFAULT_STALE_RESERVATION_AGE_MS = 30 * 60 * 1000;
 const DEFAULT_STALE_RESERVATION_BATCH_LIMIT = 50;
 const MAX_STALE_RESERVATION_BATCH_LIMIT = 200;
@@ -1330,8 +1331,10 @@ export const expireAdminSessions = internalMutation({
     // A missing window sorts before every number, so this range holds exactly the sessions to return.
     const due = await ctx.db.query("sessions")
       .withIndex("by_tier_adminUntil", (q) => q.eq("tier", "admin").lte("adminUntil", Date.now()))
-      .take(100);
+      .take(ADMIN_EXPIRY_BATCH);
     for (const session of due) await ctx.db.patch(session._id, { tier: "paid", adminUntil: undefined });
+    // A full batch may leave more behind: carry on now rather than at the next cron run.
+    if (due.length === ADMIN_EXPIRY_BATCH) await ctx.scheduler.runAfter(0, internal.sessions.expireAdminSessions, {});
     return { expired: due.length };
   },
 });

@@ -133,6 +133,14 @@ describe("validateSessionTimeoutConfig", () => {
     expect(() => validateSessionTimeoutConfig()).not.toThrow();
   });
 
+  it("accepts the documented idle default as the only override", async () => {
+    process.env.SESSION_IDLE_TIMEOUT_MINUTES = "86400";
+    delete process.env.SESSION_ABSOLUTE_TIMEOUT_HOURS;
+    const { validateSessionTimeoutConfig } = await importValidateEnv();
+
+    expect(() => validateSessionTimeoutConfig()).not.toThrow();
+  });
+
   it("should throw when idle timeout is below minimum", async () => {
     process.env.SESSION_IDLE_TIMEOUT_MINUTES = "4";
     const { validateSessionTimeoutConfig } = await importValidateEnv();

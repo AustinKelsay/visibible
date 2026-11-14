@@ -54,4 +54,20 @@ describe("admin window", () => {
     expect(await t.mutation(internal.sessions.expireAdminSessions, {})).toEqual({ expired: 1 });
     expect((await tiers())["legacy-admin"].tier).toBe("paid");
   });
+
+  it("works through more due sessions than one batch holds, and spares one still in its window", async () => {
+    const { t, tiers } = await setup();
+    await t.mutation(internal.sessions.upgradeToAdminInternal, { sid: "owner" });
+    await t.run(async (ctx) => {
+      for (let index = 0; index < 120; index++) {
+        await ctx.db.insert("sessions", { sid: `old-${index}`, tier: "admin", credits: 0, createdAt: 1, lastSeenAt: 1, adminUntil: index % 2 ? 1 : undefined });
+      }
+    });
+    vi.useFakeTimers();
+    await t.mutation(internal.sessions.expireAdminSessions, {});
+    await t.finishAllScheduledFunctions(() => void vi.advanceTimersToNextTimer());
+    const after = await tiers();
+    expect(Object.values(after).filter((session) => session.tier === "admin")).toHaveLength(1);
+    expect(after.owner.tier).toBe("admin");
+  });
 });
