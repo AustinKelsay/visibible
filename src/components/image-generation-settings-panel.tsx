@@ -103,6 +103,11 @@ export function ImageGenerationSettingsPanel({
     );
   };
 
+  // The price beside the automatic generation switch: the selected model's, or the loaded generation state's.
+  const autoGeneratePrice = selectedModel
+    ? getModelDisplayCost(selectedModel, imageResolution)
+    : displayCostByResolution?.[imageResolution] ?? null;
+
   return (
     <div className="space-y-5">
       <div>
@@ -272,18 +277,21 @@ export function ImageGenerationSettingsPanel({
       </div>
 
       {showCreditsCost ? (
-        <label className="flex cursor-pointer items-start gap-3">
+        <label className={`flex items-start gap-3 ${autoGenerate || autoGeneratePrice !== null ? "cursor-pointer" : "opacity-60"}`}>
           <input
             type="checkbox"
             checked={autoGenerate}
+            // It can be turned on only beside its price, and turned off at any time.
+            disabled={!autoGenerate && autoGeneratePrice === null}
             onChange={(event) => setAutoGenerate(event.target.checked, "header_generate_modal")}
             className="mt-0.5 h-4 w-4 flex-shrink-0 accent-[var(--accent)]"
           />
           <span>
             <span className="block text-sm font-medium text-[var(--foreground)]">Generate automatically</span>
             <span className="block text-xs text-[var(--muted)]">
-              When you open a verse that has no image in this style, generate one without asking
-              {selectedModel ? `, at about ${getModelDisplayCost(selectedModel, imageResolution)} credits each` : ""}. Off unless you turn it on.
+              {autoGeneratePrice !== null
+                ? `Verses that have no image in this style are illustrated as you read, without asking, at about ${autoGeneratePrice} credits each. Off unless you turn it on.`
+                : "Verses that have no image in this style are illustrated as you read, without asking. The price is not available right now."}
             </span>
           </span>
         </label>

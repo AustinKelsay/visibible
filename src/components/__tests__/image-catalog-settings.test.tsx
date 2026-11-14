@@ -189,8 +189,29 @@ it("offers a charged guest the automatic generation switch, off, with its price,
   expect(box.checked).toBe(false);
   expect(box.closest("label")!.textContent).toContain("Generate automatically");
   expect(box.closest("label")!.textContent).toContain("at about 6 credits each");
+  expect(box.disabled).toBe(false);
   await act(async () => box.click());
   expect(box.checked).toBe(true);
   expect(JSON.parse(storage.get("visibible-preferences")!).autoGenerate).toBe(true);
   await guest.unmount();
+
+  // With no price to show (the catalog has not loaded or failed), it cannot be turned on, only off.
+  models.length = 0;
+  const unpriced = await render();
+  const on = unpriced.container.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
+  expect(on.checked).toBe(true);
+  expect(on.disabled).toBe(false);
+  await act(async () => on.click());
+  expect(JSON.parse(storage.get("visibible-preferences")!).autoGenerate).toBe(false);
+  expect(on.disabled).toBe(true);
+  expect(on.closest("label")!.textContent).toContain("The price is not available right now");
+  await unpriced.unmount();
+
+  // The price already loaded for the page stands in for a catalog that has not answered.
+  generationState.displayCostByResolution = { "1K": 7 };
+  const loaded = await render();
+  const off = loaded.container.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
+  expect(off.disabled).toBe(false);
+  expect(off.closest("label")!.textContent).toContain("at about 7 credits each");
+  await loaded.unmount();
 });

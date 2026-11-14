@@ -192,7 +192,8 @@ describe("HeroImage and the server's quote", () => {
   });
 
   it("starts no automatic generation after the guest's own click, even while its changed price waits to be confirmed", async () => {
-    // The saved images are still loading when the guest clicks.
+    // The saved images are still loading when the guest clicks. The guest has automatic generation on.
+    autoGenerate = true;
     history = undefined as never;
     await render();
     await settle();
