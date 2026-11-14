@@ -14,7 +14,6 @@ const nextConfig: NextConfig = {
     // The Bible reader, chat and video routes fall back to the imported World English Bible (src/lib/scripture.ts).
     "/[book]/[chapter]/[verse]": ["./works/bible-web/work.json"],
     "/api/chat": ["./works/bible-web/work.json"],
-    "/api/chat/quote": ["./works/bible-web/work.json"],
     "/api/generate-video": ["./works/bible-web/work.json"],
   },
   async headers() {
