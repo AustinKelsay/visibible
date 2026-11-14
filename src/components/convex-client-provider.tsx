@@ -11,6 +11,10 @@ const placeholderConvexUrl = "https://placeholder.convex.invalid";
 const convexClientUrl = normalizedConvexUrl || placeholderConvexUrl;
 const convex = new ConvexReactClient(convexClientUrl, {
   skipConvexDeploymentUrlCheck: convexClientUrl === placeholderConvexUrl,
+  // A guest token never outlives the session cookie, so in the cookie's last seconds each new token is as short as the
+  // time left. The client asks for another as soon as a token is within this leeway of expiring: at the newer default
+  // of 10 seconds it would ask again and again until /api/convex-token's rate limit signed the guest out early.
+  authRefreshTokenLeewaySeconds: 2,
 });
 const ConvexAvailabilityContext = createContext(false);
 
