@@ -127,7 +127,7 @@
     "notExercised": "A funded guest accepting an image quote and being charged, and a paid chat turn, in production. The chat path ran end to end against a local Convex backend before the merge (#423)."
   },
   "seedTrial": {
-    "at": "2026-11-13T23:50Z",
+    "at": "2026-11-14T00:16Z",
     "command": "npm run seed:images -- --base-url https://visibible.com --budget-usd 2 --limit 20",
     "verses": "John 1:1 to John 1:20, Classical; Genesis 1's 31 verses were skipped as already present",
     "rendered": 20,
