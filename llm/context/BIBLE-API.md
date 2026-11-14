@@ -24,7 +24,7 @@ The imported text is the 2020 classic edition the images are drawn from; the ser
 
 [The verse page](../../src/app/[book]/[chapter]/[verse]/page.tsx) assembles text and adjacent context. Preference persistence is documented in [Preferences](PREFERENCES.md).
 
-[Imported reference works](WORK-INPUT.md) provide a separate offline WEB input, the generic image engine's text source. Its importer preserves the 31,102 navigation IDs, normalizes WEB's Romans doxology placement, and explicitly attributes four readings taken from WEB footnotes where its main text is blank. The reader's selected translation is still fetched from the service, with that import standing in for a WEB chapter the service cannot supply (above); it never feeds image generation.
+[Imported reference works](WORK-INPUT.md) provide a separate offline WEB input, the generic image engine's text source. Its importer preserves the 31,102 navigation IDs, normalizes WEB's Romans doxology placement, and explicitly attributes four readings taken from WEB footnotes where its main text is blank. The reader's selected translation is still fetched from the service, with that import standing in for a WEB chapter the service cannot supply (above). The image is always drawn from the imported text, never from the selected translation; the passage check before admission reads the selected translation through the same stand-in.
 
 ## Translation coverage evidence
 
