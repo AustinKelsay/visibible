@@ -6,6 +6,9 @@ Eligible images have storage, reference and verse text and no recorded Nostr eve
 
 ## Convex configuration
 
+Publishing has been off since 12 November 2026, and the identity it used was retired on 13 November: its key was within reach of the [injected install script](../../docs/incidents/2026-11-12-injected-install-script.md) and a Nostr key cannot be rotated. Turning publishing back on needs a new identity, never the old key.
+
+- `NOSTR_PUBLISHING_ENABLED`: nothing is published unless this is exactly `true`.
 - `NOSTR_PRIVATE_KEY`: hex or nsec key, required to publish.
 - `NOSTR_RELAYS`: optional comma/newline-separated `wss://` URLs; defaults are in [nostr.ts](../../convex/nostr.ts).
 - Image URL base: `NOSTR_IMAGE_BASE_URL`, then `CONVEX_SITE_URL`, then `CONVEX_CLOUD_URL`. Configure a public base that serves `/image/:storageId` through [http.ts](../../convex/http.ts).
