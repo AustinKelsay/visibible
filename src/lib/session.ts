@@ -12,10 +12,13 @@ export const SESSION_COOKIE_NAME = "visibible_session";
 const COOKIE_NAME = SESSION_COOKIE_NAME;
 const MINUTES_PER_DAY = 24 * 60;
 const HOURS_PER_DAY = 24;
-const DEFAULT_SESSION_IDLE_TIMEOUT_MINUTES = 7 * MINUTES_PER_DAY;
+// A session is a guest's only key to prepaid credits, so it outlives a long pause in reading. The idle limit stays
+// under the 90 days the stored session record lasts (SESSION_TTL_MS in convex/sessions.ts). Owner access is limited
+// separately: ADMIN_WINDOW_MS there.
+const DEFAULT_SESSION_IDLE_TIMEOUT_MINUTES = 60 * MINUTES_PER_DAY;
 const MIN_SESSION_IDLE_TIMEOUT_MINUTES = 5;
 const MAX_SESSION_IDLE_TIMEOUT_MINUTES = 90 * MINUTES_PER_DAY;
-const DEFAULT_SESSION_ABSOLUTE_TIMEOUT_HOURS = 30 * HOURS_PER_DAY;
+const DEFAULT_SESSION_ABSOLUTE_TIMEOUT_HOURS = 365 * HOURS_PER_DAY;
 const MIN_SESSION_ABSOLUTE_TIMEOUT_HOURS = 4;
 const MAX_SESSION_ABSOLUTE_TIMEOUT_HOURS = 365 * HOURS_PER_DAY;
 const SESSION_REFRESH_MIN_INTERVAL_SECONDS = 60;

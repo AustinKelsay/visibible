@@ -11,6 +11,14 @@ crons.interval(
   {}
 );
 
+// End owner access seven days after each admin login.
+crons.interval(
+  "expire admin sessions",
+  { minutes: 15 },
+  internal.sessions.expireAdminSessions,
+  {}
+);
+
 // Clean up stale rate-limit records frequently for high-churn protection.
 crons.interval(
   "cleanup stale rate limits",
