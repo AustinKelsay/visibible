@@ -10,10 +10,6 @@ vi.mock("next/navigation", () => ({
   notFound: () => { throw new Error("NEXT_NOT_FOUND"); },
   useRouter: () => ({ refresh: vi.fn() }),
 }));
-vi.mock("@/components/layout-wrapper", () => ({ LayoutWrapper: ({ children }: { children: React.ReactNode }) => <div>{children}</div> }));
-vi.mock("@/components/header", () => ({ Header: () => <header /> }));
-vi.mock("@/components/footer", () => ({ Footer: () => <footer /> }));
-vi.mock("@/components/book-menu", () => ({ BookMenu: () => null }));
 vi.mock("@/components/verse-analytics", () => ({ VerseAnalytics: () => null }));
 vi.mock("@/components/spread/spread", () => ({ Spread: vi.fn(() => <p>Passage loaded</p>) }));
 vi.mock("@/components/translation-selector", () => ({ TranslationSelector: () => <button>Choose translation</button> }));
@@ -39,6 +35,7 @@ describe("canonical reader failures", () => {
     expect(html).toContain("Scripture is temporarily unavailable");
     expect(html).toContain("Try again");
     expect(html).toContain("Choose translation");
+    expect(html).toContain("Back to reading");
     expect((await generateMetadata(params("exodus", "2", "3"))).title).toBe("Exodus 2:3 - Visibible");
   });
   it("distinguishes missing translation coverage from an outage", async () => {

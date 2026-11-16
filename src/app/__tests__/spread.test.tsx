@@ -71,9 +71,10 @@ vi.mock("@/context/preferences-context", () => ({
     setAutoGenerate,
   }),
 }));
+type TestSession = { tier: "paid" | "admin"; credits: number; pendingCredits: number; isLoading: boolean; accessStatus: "loading" | "ready" | "unavailable"; buyCredits: () => void };
 const buyCredits = vi.fn();
-let session: { tier: "paid" | "admin"; credits: number } = { tier: "paid", credits: 0 };
-vi.mock("@/context/session-context", () => ({ useSession: () => ({ ...session, isLoading: false, buyCredits }) }));
+let session: TestSession;
+vi.mock("@/context/session-context", () => ({ useSession: () => session }));
 vi.mock("@/lib/analytics");
 
 type SavedPicture = { id: string; imageUrl: string; thumbnailUrl?: string | null; artStyle: string; createdAt: number };
@@ -130,8 +131,8 @@ beforeEach(() => {
   translation = "web";
   artStyle = "classical";
   savedPictures = [];
+  session = { tier: "paid", credits: 0, pendingCredits: 0, isLoading: false, accessStatus: "ready", buyCredits };
   requestStatus = null;
-  session = { tier: "paid", credits: 0 };
   autoGenerate = false;
   quoteRequests = [];
   paintRequests = [];
@@ -281,7 +282,7 @@ describe("an unpainted verse", () => {
   });
 
   it("offers to paint at the quoted price and paints when the balance covers it", async () => {
-    session = { tier: "paid", credits: 10 };
+    session = { ...session, tier: "paid", credits: 10 };
     await openVerse("john", "1", "6");
     await settle();
 
@@ -293,7 +294,7 @@ describe("an unpainted verse", () => {
   });
 
   it("asks a reader whose balance cannot cover it to get credits, and opens the credits dialog only when pressed", async () => {
-    session = { tier: "paid", credits: 0 };
+    session = { ...session, tier: "paid", credits: 0 };
     await openVerse("john", "1", "6");
     await settle();
 
@@ -307,7 +308,7 @@ describe("an unpainted verse", () => {
   });
 
   it("shows the owner the button without a price", async () => {
-    session = { tier: "admin", credits: 0 };
+    session = { ...session, tier: "admin", credits: 0 };
     await openVerse("john", "1", "6");
     await settle();
 
@@ -319,7 +320,7 @@ describe("an unpainted verse", () => {
   });
 
   it("shows progress while painting, keeps the words readable, and shows the picture when it is saved", async () => {
-    session = { tier: "paid", credits: 10 };
+    session = { ...session, tier: "paid", credits: 10 };
     let finish!: (response: Response) => void;
     paintAnswers.push(() => new Promise<Response>((resolve) => { finish = resolve; }));
     await openVerse("john", "1", "6");
@@ -345,7 +346,7 @@ describe("an unpainted verse", () => {
   });
 
   it("shows why painting failed and paints again on retry", async () => {
-    session = { tier: "paid", credits: 10 };
+    session = { ...session, tier: "paid", credits: 10 };
     paintAnswers.push(() => json({ error: "Preparing scene", retryable: true, message: "This scene is still being prepared." }, 503));
     await openVerse("john", "1", "6");
     await settle();
@@ -359,7 +360,7 @@ describe("an unpainted verse", () => {
   });
 
   it("has an automatic-painting switch, off by default, that the reader turns on", async () => {
-    session = { tier: "paid", credits: 10 };
+    session = { ...session, tier: "paid", credits: 10 };
     await openVerse("john", "1", "6");
     await settle();
 
@@ -376,14 +377,14 @@ describe("an unpainted verse", () => {
 
   it("when on, paints an unpainted verse once, as automatic, only when the balance covers the full estimate", async () => {
     autoGenerate = true;
-    session = { tier: "paid", credits: 3 }; // short of the catalog's 5
+    session = { ...session, tier: "paid", credits: 3 }; // short of the catalog's 5
     await openVerse("john", "1", "6");
     await settle();
     expect(paintRequests).toHaveLength(0);
 
     act(() => root.unmount());
     root = createRoot(container);
-    session = { tier: "paid", credits: 10 };
+    session = { ...session, tier: "paid", credits: 10 };
     paintAnswers.push(() => json({ error: "Image provider failed" }, 500));
     await openVerse("john", "1", "7");
     await settle();
@@ -394,7 +395,7 @@ describe("an unpainted verse", () => {
   });
 
   it("paints automatically for the owner only when the switch is on", async () => {
-    session = { tier: "admin", credits: 0 };
+    session = { ...session, tier: "admin", credits: 0 };
     await openVerse("john", "1", "6");
     await settle();
     expect(paintRequests).toHaveLength(0);
@@ -624,5 +625,132 @@ describe("what the verse page no longer shows", () => {
     expect(container.textContent).not.toMatch(/Gallery|Video|Details|Chat|Generate|Get credits/i);
     expect([...container.querySelectorAll("nav")].map((nav) => nav.getAttribute("aria-label")).sort()).toEqual(["Reader", "Turn the page", "Verses of Genesis 1"]);
     expect(container.querySelector("main")?.style.colorScheme).toBe("dark");
+  });
+});
+
+describe("the corner menu", () => {
+  function cornerName() {
+    return container.querySelector<HTMLButtonElement>('button[aria-label="Visibible menu"]')!;
+  }
+
+  function openMenu() {
+    act(() => { cornerName().focus(); cornerName().click(); });
+    return container.querySelector<HTMLElement>('[role="dialog"][aria-label="Visibible menu"]');
+  }
+
+  it("opens from the Visibible name with the balance, credits, feedback and site links", async () => {
+    session.credits = 42;
+    await openVerse("john", "1", "5");
+    expect(cornerName().textContent).toBe("Visibible");
+    expect(container.querySelector('[role="dialog"]')).toBeNull();
+
+    const menu = openMenu();
+    expect(menu).not.toBeNull();
+    expect(cornerName().getAttribute("aria-expanded")).toBe("true");
+    expect(menu!.textContent).toContain("42 credits");
+    const names = [...menu!.querySelectorAll("a, button")].map((item) => item.getAttribute("aria-label") ?? item.textContent?.trim());
+    expect(names).toEqual(expect.arrayContaining([
+      "Get credits", "Recover credits", "Send feedback", "About", "API documentation",
+      "View source on GitHub", "Follow on X", "Follow on Nostr", "Email",
+    ]));
+    const href = (name: string) => [...menu!.querySelectorAll("a")].find((link) => link.textContent?.trim() === name)?.getAttribute("href");
+    expect(href("Recover credits")).toBe("/recover");
+    expect(href("About")).toBe("/about");
+    expect(href("API documentation")).toBe("/api-docs");
+  });
+
+  it("shows the new balance after a purchase without a reload", async () => {
+    session.credits = 0;
+    await openVerse("john", "1", "5");
+    const menu = openMenu();
+    expect(menu!.textContent).toContain("0 credits");
+
+    session = { ...session, credits: 300 };
+    await act(async () => { root.render(await VersePage(params("john", "1", "5"))); });
+    expect(container.querySelector('[role="dialog"]')!.textContent).toContain("300 credits");
+  });
+
+  it("opens the credits dialog only when the reader asks for credits", async () => {
+    await openVerse("john", "1", "5");
+    expect(buyCredits).not.toHaveBeenCalled();
+    const menu = openMenu();
+    const getCredits = [...menu!.querySelectorAll("button")].find((button) => button.textContent === "Get credits")!;
+    act(() => { getCredits.click(); });
+    expect(buyCredits).toHaveBeenCalledTimes(1);
+    expect(container.querySelector('[role="dialog"]')).toBeNull();
+  });
+
+  it("shows an admin their admin state, and a visitor no admin entry without the address parameter", async () => {
+    await openVerse("john", "1", "5");
+    expect(openMenu()!.textContent).not.toMatch(/admin/i);
+
+    act(() => root.unmount());
+    root = createRoot(container);
+    window.history.replaceState(null, "", "/john/1/5?admin");
+    await openVerse("john", "1", "5");
+    const signIn = [...openMenu()!.querySelectorAll("button")].find((button) => button.textContent === "Admin sign-in");
+    expect(signIn).toBeDefined();
+    act(() => { signIn!.click(); });
+    expect(buyCredits).toHaveBeenCalledTimes(1);
+    window.history.replaceState(null, "", "/");
+
+    act(() => root.unmount());
+    root = createRoot(container);
+    session.tier = "admin";
+    await openVerse("john", "1", "5");
+    const menu = openMenu()!;
+    expect(menu.textContent).toContain("Admin · not charged");
+    expect(menu.textContent).not.toContain("Get credits");
+  });
+
+  it("closes on Escape and returns focus to the name", async () => {
+    await openVerse("john", "1", "5");
+    openMenu();
+    expect(container.querySelector('[role="dialog"]')!.contains(document.activeElement)).toBe(true);
+
+    pressKey("Escape", document.activeElement!);
+    await act(async () => {});
+    expect(container.querySelector('[role="dialog"]')).toBeNull();
+    expect(document.activeElement).toBe(cornerName());
+    expect(cornerName().getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("sends feedback with the verse and the picture on screen attached, then returns focus to the name", async () => {
+    savedPictures = [{ id: "john-1-5:painting", imageUrl: "https://img.test/painting.png", artStyle: "classical", createdAt: 2 }];
+    const fetch = vi.fn(async (url: string) => {
+      if (url === "/api/feedback") return new Response(JSON.stringify({ success: true }), { status: 200 });
+      throw new DOMException("Timed out", "TimeoutError");
+    });
+    vi.stubGlobal("fetch", fetch);
+    await openVerse("john", "1", "5");
+    const menu = openMenu()!;
+    act(() => { [...menu.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Send feedback")!.click(); });
+
+    const form = container.querySelector<HTMLElement>('[role="dialog"][aria-label="Send feedback"]')!;
+    expect(form).not.toBeNull();
+    expect(container.querySelector('[role="dialog"][aria-label="Visibible menu"]')).toBeNull();
+    expect(form.textContent).toContain("John 1:5");
+    const message = form.querySelector<HTMLTextAreaElement>('textarea[aria-label="Feedback message"]')!;
+    expect(document.activeElement).toBe(message);
+
+    act(() => {
+      Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, "value")!.set!.call(message, "The sky is the wrong colour");
+      message.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    await act(async () => { form.querySelector<HTMLButtonElement>('button[aria-label="Submit feedback"]')!.click(); });
+
+    const [, request] = fetch.mock.calls.find(([url]) => url === "/api/feedback") as unknown as [string, RequestInit];
+    expect(JSON.parse(request.body as string)).toMatchObject({
+      kind: "general",
+      message: "The sky is the wrong colour",
+      verseContext: { book: "John", chapter: 1, verseRange: "5" },
+      imageContext: { imageId: "john-1-5:painting", artStyle: "classical" },
+    });
+    expect(form.textContent).toContain("Your feedback has been submitted");
+
+    pressKey("Escape", document.activeElement!);
+    await act(async () => {});
+    expect(container.querySelector('[role="dialog"]')).toBeNull();
+    expect(document.activeElement).toBe(cornerName());
   });
 });
