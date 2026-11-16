@@ -340,6 +340,51 @@ html {
   background-color: rgba(0, 0, 0, 0.55);
 }
 
+/* Spread controls that fade on a computer while the reader is idle (src/components/spread/idle-fade.ts):
+   a control joins by carrying data-fades. They leave slowly and come back quickly. The phone never fades. */
+[data-fades] {
+  transition: opacity 200ms ease-out;
+}
+@media (min-width: 768px) {
+  [data-idle="true"] [data-fades] {
+    opacity: 0;
+    transition: opacity 700ms ease-in;
+  }
+}
+
+/* A turned page arrives from the side it was turned towards (src/components/spread/page-turn.tsx). */
+@keyframes spread-turn-in-next {
+  from { opacity: 0; transform: translateX(1.5rem); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes spread-turn-in-prev {
+  from { opacity: 0; transform: translateX(-1.5rem); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes spread-turn-in-fade {
+  from { opacity: 0.35; }
+  to { opacity: 1; }
+}
+[data-arrival="next"] [data-turn-in="slide"] {
+  animation: spread-turn-in-next 260ms ease-out;
+}
+[data-arrival="prev"] [data-turn-in="slide"] {
+  animation: spread-turn-in-prev 260ms ease-out;
+}
+[data-arrival] [data-turn-in="fade"] {
+  animation: spread-turn-in-fade 260ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-fades],
+  [data-idle="true"] [data-fades] {
+    transition: none;
+  }
+  [data-arrival] [data-turn-in] {
+    animation: none;
+  }
+}
+
 /* Responsive variant — applies liquid-glass only at sm (640px) and up */
 @media (min-width: 640px) {
   .liquid-glass-sm {

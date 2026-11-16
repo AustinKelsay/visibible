@@ -44,8 +44,9 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber }: CornerMe
         aria-label="Visibible menu"
         aria-haspopup="dialog"
         aria-expanded={menu.isOpen}
+        data-fades
         onClick={(event) => menu.toggle(event.currentTarget)}
-        className="absolute left-3 top-3 z-30 rounded-full px-3 py-1.5 text-[15px] font-semibold tracking-tight text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] transition-colors duration-[var(--motion-fast)] hover:bg-black/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:left-5 md:top-6"
+        className="absolute left-3 top-6 z-30 rounded-full px-3 py-1.5 text-[15px] font-semibold tracking-tight text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] transition-colors duration-[var(--motion-fast)] hover:bg-black/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:left-5 md:top-8"
       >
         Visibible
       </button>
@@ -57,7 +58,7 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber }: CornerMe
       <LayerPanel
         id="corner"
         label="Visibible menu"
-        className="absolute left-3 top-14 z-40 w-[min(20rem,calc(100vw-1.5rem))] rounded-2xl border border-white/10 bg-[rgba(14,14,16,0.9)] p-2 text-white shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:left-5 md:top-[4.25rem]"
+        className="absolute left-3 top-[4.25rem] z-40 w-[min(20rem,calc(100vw-1.5rem))] rounded-2xl border border-white/10 bg-[rgba(14,14,16,0.9)] p-2 text-white shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:left-5 md:top-[4.75rem]"
       >
         <Balance onGetCredits={menu.close} />
         <Divider />
@@ -79,7 +80,7 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber }: CornerMe
       <LayerPanel
         id="feedback"
         label="Send feedback"
-        className="reader-dark fixed inset-x-0 bottom-0 z-40 flex max-h-[85svh] flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-[#0e0e10] shadow-2xl outline-none md:absolute md:inset-x-auto md:bottom-auto md:left-5 md:top-[4.25rem] md:max-h-[calc(100svh-6rem)] md:w-[26rem] md:rounded-2xl"
+        className="reader-dark fixed inset-x-0 bottom-0 z-40 flex max-h-[85svh] flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-[#0e0e10] shadow-2xl outline-none md:absolute md:inset-x-auto md:bottom-auto md:left-5 md:top-[4.75rem] md:max-h-[calc(100svh-6rem)] md:w-[26rem] md:rounded-2xl"
       >
         <FeedbackForm verseId={verseId} bookName={bookName} chapter={chapter} verseNumber={verseNumber} onClose={feedback.close} />
       </LayerPanel>
