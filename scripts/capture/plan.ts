@@ -12,8 +12,30 @@ export const CAPTURE_SIZES: Record<CaptureSize, { width: number; height: number;
   phone: { width: 390, height: 844, phone: true },
 };
 
-/** One reader state: the name its pictures carry, the address it opens and the steps that reach it. */
-export type CaptureState = { name: string; path: string; steps?: string[]; sizes?: CaptureSize[] };
+/**
+ * A canned answer the browser gets instead of the app's, for a state that needs a price or a job a local app without
+ * an OpenRouter key cannot give. It answers in the browser, so a stubbed post never reaches the app. `method` defaults
+ * to GET; `path` must match exactly.
+ */
+export type CaptureStub = { method?: "GET" | "POST"; path: string; status?: number; json: unknown };
+
+/**
+ * One reader state: the name its pictures carry, the address it opens and the steps that reach it, with any `stubs`
+ * it needs. A stubbed state's pictures say so in a corner label.
+ */
+export type CaptureState = { name: string; path: string; steps?: string[]; sizes?: CaptureSize[]; stubs?: CaptureStub[] };
+
+/** The state's stub for this request, if any. */
+export function stubFor(state: CaptureState, method: string, address: string): CaptureStub | undefined {
+  const { pathname } = new URL(address);
+  return state.stubs?.find((stub) => (stub.method ?? "GET") === method && stub.path === pathname);
+}
+
+/** The label a stubbed state's pictures carry, so nobody mistakes a faked price or job for the real service. */
+export function stubLabel(state: CaptureState): string | null {
+  if (!state.stubs?.length) return null;
+  return `Stubbed: ${state.stubs.map((stub) => `${stub.method ?? "GET"} ${stub.path}`).join(", ")}`;
+}
 
 const LOOPBACK_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]"]);
 

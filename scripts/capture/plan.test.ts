@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { allowsRequest, findBrowser, localBase, parseStep, selectStates, shotFile } from "./plan";
+import { allowsRequest, findBrowser, localBase, parseStep, selectStates, shotFile, stubFor, stubLabel } from "./plan";
 import { READER_STATES } from "./states";
 
 describe("reader capture plan", () => {
@@ -25,6 +25,18 @@ describe("reader capture plan", () => {
     expect(allowsRequest("GET", "wss://example.convex.cloud/api/sync")).toBe(false);
     expect(allowsRequest("GET", "https://openrouter.ai/api/v1/models")).toBe(false);
     expect(allowsRequest("GET", "https://fonts.googleapis.com/css")).toBe(false);
+  });
+
+  it("answers a stubbed route itself, by method and path, and names the stubs on the picture", () => {
+    const pricing = { path: "/api/generate-video", json: { enabled: true } };
+    const making = { method: "POST" as const, path: "/api/generate-video", json: { id: "job" } };
+    const state = { name: "make-video", path: "/john/1/5", stubs: [pricing, making] };
+    expect(stubFor(state, "GET", "http://localhost:3101/api/generate-video?x=1")).toBe(pricing);
+    expect(stubFor(state, "POST", "http://localhost:3101/api/generate-video")).toBe(making);
+    expect(stubFor(state, "GET", "http://localhost:3101/api/generate-video/other")).toBeUndefined();
+    expect(stubFor({ name: "reading", path: "/john/1/5" }, "GET", "http://localhost:3101/api/generate-video")).toBeUndefined();
+    expect(stubLabel(state)).toBe("Stubbed: GET /api/generate-video, POST /api/generate-video");
+    expect(stubLabel({ name: "reading", path: "/john/1/5" })).toBeNull();
   });
 
   it("reads a state's steps, keeping colons inside names and selectors", () => {

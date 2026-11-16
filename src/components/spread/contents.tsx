@@ -7,6 +7,7 @@ import { BookOpen, ChevronDown, Layers, Paintbrush, X } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { LayerPanel, useLayer } from "@/components/spread/layers";
+import { PlayMark } from "@/components/spread/play-mark";
 import { useSession } from "@/context/session-context";
 import { useEffectiveArtStyle } from "@/context/work-scope-context";
 import { BIBLE_BOOKS, BOOK_BY_SLUG, type BibleBook } from "@/data/bible-structure";
@@ -245,6 +246,7 @@ type Tile = {
   picture: { id: string; imageUrl: string; thumbnailUrl: string | null; artStyle: string } | null;
   pictureCount: number;
   morePictures: boolean;
+  hasVideo: boolean;
 };
 
 interface ChapterWallProps {
@@ -300,11 +302,12 @@ function VerseTile({ verse, href, tile, loading, isCurrent, onChoose }: {
   const source = tile?.picture ? previewSource(tile.picture) : null;
   const unpainted = !loading && !source;
   const count = tile && tile.pictureCount > 1 ? (tile.morePictures ? `${tile.pictureCount}+` : `${tile.pictureCount}`) : null;
-  const label = unpainted
+  const pictures = unpainted
     ? `Verse ${verse}, not painted yet`
     : count
       ? `Verse ${verse}, ${tile?.morePictures ? `more than ${tile.pictureCount}` : count} pictures`
       : `Verse ${verse}`;
+  const label = tile?.hasVideo ? `${pictures}, has a video` : pictures;
 
   return (
     <Link
@@ -330,6 +333,11 @@ function VerseTile({ verse, href, tile, loading, isCurrent, onChoose }: {
       <span aria-hidden="true" className={`absolute bottom-2 left-2.5 text-sm font-semibold tabular-nums ${source ? "text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.7)]" : "text-white/45"}`}>
         {verse}
       </span>
+      {tile?.hasVideo ? (
+        <span className="absolute top-2 left-2">
+          <PlayMark />
+        </span>
+      ) : null}
       {count ? (
         <span aria-hidden="true" className="absolute top-2 right-2 inline-flex items-center gap-1 rounded-full bg-black/55 px-2 py-0.5 text-[11px] font-medium tabular-nums text-white backdrop-blur-sm">
           <Layers size={11} strokeWidth={2} />

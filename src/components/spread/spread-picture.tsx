@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { X } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
@@ -9,12 +10,17 @@ import { useEffectiveArtStyle } from "@/context/work-scope-context";
 import { UnpaintedPicture } from "@/components/spread/unpainted-picture";
 import { PictureMenu } from "@/components/spread/picture-menu";
 import { useChosenPicture } from "@/components/spread/chosen-picture";
+import { PlayMark } from "@/components/spread/play-mark";
 
 interface SpreadPictureProps {
   verseId: string;
   reference: string;
   /** Called when the reader opens the whole-picture view from the picture. */
   onShowWhole?: (imageId: string) => void;
+  /** Whether the whole-picture view is playing this verse's video instead of showing its picture (#447). */
+  playing?: boolean;
+  /** Called when the reader presses the play mark: the spread opens the whole-picture view and plays. */
+  onPlay?: () => void;
 }
 
 /**
@@ -37,11 +43,16 @@ export function SpreadPicture(props: SpreadPictureProps) {
 const FILL = "absolute inset-0 h-full w-full";
 const WHOLE_IN_FLOW = "block h-auto max-h-[58svh] w-full md:absolute md:inset-0 md:h-full md:max-h-none";
 
-function SavedPicture({ verseId, reference, onShowWhole }: SpreadPictureProps) {
+function SavedPicture({ verseId, reference, onShowWhole, playing = false, onPlay }: SpreadPictureProps) {
   const { artStyle } = useEffectiveArtStyle();
   // The same query and arguments the picture menu will read, so both share one subscription.
   const pictures = useQuery(api.verseImages.getImageHistory, { verseId, artStyle });
   const { chosen } = useChosenPicture();
+  // The verse's newest finished video (#447), if any: the play mark shows for it.
+  const videos = useQuery(api.verseVideos.getHistory, { verseId, limit: 1 });
+  const video = videos?.[0]?.videoUrl ? videos[0] : null;
+  const playButton = useRef<HTMLButtonElement>(null);
+  const player = useRef<HTMLVideoElement>(null);
   const recordImpression = useMutation(api.verseImages.recordImageImpression);
   const recordedRef = useRef(new Set<string>());
   const [loadedId, setLoadedId] = useState<string | null>(null);
@@ -50,6 +61,11 @@ function SavedPicture({ verseId, reference, onShowWhole }: SpreadPictureProps) {
   const newest = pictures?.[0];
   const hasPicture = Boolean(newest?.imageUrl);
   const { isOpen: wholeIsOpen, close: closeWhole } = whole;
+  const showVideo = playing && wholeIsOpen && video !== null;
+
+  useEffect(() => {
+    if (showVideo) player.current?.focus();
+  }, [showVideo]);
 
   // A spread turned to from the whole-picture view opens in it; with no picture to show, the words return.
   useEffect(() => {
@@ -59,15 +75,21 @@ function SavedPicture({ verseId, reference, onShowWhole }: SpreadPictureProps) {
   // Leaving the view puts focus on the picture when nothing else holds it (the view was opened on an
   // earlier spread, so there is no opener on this one to return to).
   const wasOpen = useRef(wholeIsOpen);
+  const wasPlaying = useRef(false);
   useEffect(() => {
     if (wasOpen.current && !wholeIsOpen) {
+      // The play mark was hidden while its video played, so focus could not return to it.
+      const target = wasPlaying.current ? playButton.current : button.current;
       queueMicrotask(() => {
         const focused = document.activeElement;
-        if (!focused || focused === document.body) button.current?.focus();
+        if (!focused || focused === document.body) target?.focus();
       });
     }
     wasOpen.current = wholeIsOpen;
   }, [wholeIsOpen]);
+  useEffect(() => {
+    if (wholeIsOpen) wasPlaying.current = showVideo;
+  }, [wholeIsOpen, showVideo]);
 
   if (pictures === undefined) return null;
   if (!newest?.imageUrl) return <UnpaintedPicture key={verseId} verseId={verseId} reference={reference} artStyle={artStyle} />;
@@ -83,6 +105,30 @@ function SavedPicture({ verseId, reference, onShowWhole }: SpreadPictureProps) {
   /* eslint-disable @next/next/no-img-element */
   return (
     <>
+      {showVideo ? (
+        <>
+          <video
+            ref={player}
+            key={video.id}
+            src={video.videoUrl ?? undefined}
+            aria-label={`Video of ${reference}`}
+            autoPlay
+            muted
+            controls
+            playsInline
+            tabIndex={0}
+            className="relative mt-auto block aspect-video w-full shrink-0 bg-black outline-none md:mt-0 md:aspect-auto md:min-h-0 md:flex-1 md:bg-transparent"
+          />
+          <button
+            type="button"
+            aria-label="Back to the words"
+            onClick={closeWhole}
+            className="liquid-glass spread-dock absolute top-6 right-3 z-20 flex h-9 w-9 items-center justify-center rounded-full text-white/90 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:top-8 md:right-8 md:h-11 md:w-11"
+          >
+            <X aria-hidden="true" className="h-4 w-4" />
+          </button>
+        </>
+      ) : (
       <button
         ref={button}
         type="button"
@@ -116,8 +162,28 @@ function SavedPicture({ verseId, reference, onShowWhole }: SpreadPictureProps) {
           }}
         />
       </button>
+      )}
       {/* Beside the picture's button, not in it, so its taps never open the whole-picture view. Kept mounted in that
           view (only its chip hides), so a painting started from it carries on. */}
+      {video ? (
+        <button
+          ref={playButton}
+          hidden={showVideo}
+          type="button"
+          aria-label={`Play the video of ${reference}`}
+          data-fades
+          onClick={() => {
+            whole.open(playButton.current);
+            onPlay?.();
+          }}
+          className={`liquid-glass spread-dock absolute right-3 bottom-3 z-20 flex min-h-9 items-center gap-2 rounded-full py-1 pr-3 pl-1 text-[13px] font-medium text-white/90 transition-colors duration-[var(--motion-fast)] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-8 md:min-h-11 md:pr-4 md:text-sm ${
+            wholeIsOpen ? "max-md:hidden md:right-5" : "md:right-[calc(var(--words-page-width)+1.25rem)]"
+          }`}
+        >
+          <PlayMark />
+          Play
+        </button>
+      ) : null}
       <PictureMenu key={verseId} verseId={verseId} reference={reference} pictures={pictures} shown={picture} chipHidden={wholeIsOpen} />
     </>
   );

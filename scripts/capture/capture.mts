@@ -25,7 +25,10 @@ import {
   parseStep,
   selectStates,
   shotFile,
+  stubFor,
+  stubLabel,
   type CaptureSize,
+  type CaptureState,
   type Step,
 } from "./plan";
 import { READER_STATES } from "./states";
@@ -141,6 +144,32 @@ async function guard(context: BrowserContext) {
   );
 }
 
+/**
+ * A state's stubs answer in the browser. Registered after the guard, so they are asked first: a stubbed post is
+ * answered here and never reaches the app; everything else falls through to the guard.
+ */
+async function stubs(context: BrowserContext, state: CaptureState) {
+  if (!state.stubs?.length) return;
+  await context.route("**/*", (route) => {
+    const request = route.request();
+    const stub = stubFor(state, request.method(), request.url());
+    if (!stub) return route.fallback();
+    return route.fulfill({ status: stub.status ?? 200, json: stub.json });
+  });
+}
+
+/** Put the stub label in the picture's corner. */
+async function label(page: Page, state: CaptureState) {
+  const text = stubLabel(state);
+  if (!text) return;
+  await page.evaluate((content) => {
+    const tag = document.createElement("div");
+    tag.textContent = content;
+    tag.setAttribute("style", "position:fixed;right:8px;top:8px;z-index:2147483647;pointer-events:none;padding:2px 6px;border-radius:4px;background:rgba(255,200,0,0.9);color:#000;font:600 11px/1.4 system-ui,sans-serif");
+    document.body.appendChild(tag);
+  }, text);
+}
+
 async function main() {
   const options = parseArgs(process.argv.slice(2));
   const states = selectStates(READER_STATES, options.only);
@@ -172,6 +201,7 @@ async function main() {
           hasTouch: phone,
         });
         await guard(context);
+        await stubs(context, state);
         const page = await context.newPage();
         page.on("pageerror", (error) => console.warn(`  page error in ${state.name}: ${error.message}`));
         const file = path.join(options.out, shotFile(state, size));
@@ -183,6 +213,7 @@ async function main() {
             await page.waitForTimeout(400);
           }
           await settle(page);
+          await label(page, state);
           await page.screenshot({ path: file });
           console.log(`wrote ${file}`);
           storageState = await context.storageState();

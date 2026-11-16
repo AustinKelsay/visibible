@@ -156,7 +156,7 @@ describe("style-aware library", () => {
       const chapter = { book: "a-scandal-in-bohemia", chapter: 1 };
       const contents = { verseIds: ["a-scandal-in-bohemia-1-1"], styles: ["watercolor"] };
       for (const viewer of [t, as("reader")]) {
-        expect(await viewer.query(api.verseImages.getChapterContents, contents)).toEqual([{ verseId: "a-scandal-in-bohemia-1-1", picture: null, pictureCount: 0, morePictures: false }]);
+        expect(await viewer.query(api.verseImages.getChapterContents, contents)).toEqual([{ verseId: "a-scandal-in-bohemia-1-1", picture: null, pictureCount: 0, morePictures: false, hasVideo: false }]);
         expect(await viewer.query(api.verseImages.getChapterImageStatus, chapter)).toEqual(await t.query(api.verseImages.getChapterImageStatus, { book: "moby-dick", chapter: 1 }));
         expect(await viewer.query(api.verseImages.getChaptersWithImages, { book: "a-scandal-in-bohemia" })).toEqual([]);
       }

@@ -56,6 +56,8 @@ vi.mock("@/lib/analytics");
 
 type SavedPicture = { id: string; imageUrl: string; thumbnailUrl: string | null; artStyle: string; createdAt: number };
 let savedPictures: SavedPicture[] = [];
+/** Verses with a finished video. */
+let videoVerses = new Set<string>();
 const contentsReads: Array<{ verseIds: string[]; styles: string[] }> = [];
 
 const picture = (verseId: string, name: string, createdAt: number, style = "classical", thumbnail = true): SavedPicture => ({
@@ -82,6 +84,7 @@ function fakeQuery(query: FunctionReference<"query">, args: unknown) {
         picture: shown ? { id: shown.id, imageUrl: shown.imageUrl, thumbnailUrl: shown.thumbnailUrl, artStyle: shown.artStyle } : null,
         pictureCount: Math.min(mine.length, 9),
         morePictures: mine.length > 9,
+        hasVideo: videoVerses.has(verseId),
       };
     });
   }
@@ -126,6 +129,7 @@ beforeEach(() => {
   vi.clearAllMocks();
   artStyle = "classical";
   savedPictures = [];
+  videoVerses = new Set();
   contentsReads.length = 0;
   vi.spyOn(console, "warn").mockImplementation(() => {});
   vi.stubGlobal("fetch", vi.fn(async () => { throw new DOMException("Timed out", "TimeoutError"); }));
@@ -187,6 +191,20 @@ describe("Contents", () => {
 
     const wallSources = [...dialog()!.querySelectorAll("img")].map((img) => img.getAttribute("src"));
     expect(wallSources.filter((src) => src?.includes("/full/"))).toEqual(["https://img.test/full/john-1-4-nothumb.png"]);
+  });
+
+  it("puts a play mark on the tile of a verse with a video, painted or not, and none on the others", async () => {
+    savedPictures = [picture("john-1-1", "a", 1), picture("john-1-2", "old", 1), picture("john-1-2", "new", 2), picture("john-1-3", "b", 1)];
+    videoVerses = new Set(["john-1-1", "john-1-2", "john-1-6"]);
+    await openVerse("john", "1", "5");
+    await openContents();
+
+    expect(tile(1).getAttribute("aria-label")).toBe("Verse 1, has a video");
+    expect(tile(2).getAttribute("aria-label")).toBe("Verse 2, 2 pictures, has a video");
+    expect(tile(6).getAttribute("aria-label")).toBe("Verse 6, not painted yet, has a video");
+    expect(tile(3).getAttribute("aria-label")).toBe("Verse 3");
+    const playMarks = tiles().filter((link) => link.querySelector('[data-play-mark]'));
+    expect(playMarks).toEqual([tile(1), tile(2), tile(6)]);
   });
 
   it("opens the chosen verse and closes", async () => {
