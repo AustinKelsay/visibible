@@ -105,7 +105,7 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle }: { verse
   } else {
     body = (
       <>
-        <p className="text-sm leading-snug text-white/85">
+        <p className="text-[13px] leading-snug text-white/80 md:text-sm">
           <span className="font-medium text-white">Shown in {artStyleLabel(shownStyle)}.</span>{" "}
           No {chosenLabel} picture of this verse yet.
         </p>
@@ -114,11 +114,13 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle }: { verse
     );
   }
 
+  // The offer fades with the other controls while the reader is idle; progress, a failure or a price to confirm stays.
+  const idleOffer = !paint.painting && !generation.error && !generation.priceNotice;
   return (
     <section
       aria-label="Other art style"
-      data-fades
-      className="liquid-glass spread-dock absolute inset-x-3 bottom-3 z-10 flex max-w-sm flex-col items-start gap-2.5 rounded-2xl p-3.5 text-left md:inset-x-auto md:bottom-auto md:left-5 md:top-20"
+      data-fades={idleOffer ? "" : undefined}
+      className="absolute inset-x-3 bottom-3 z-10 flex max-w-sm flex-col items-start gap-2 rounded-2xl border border-white/10 bg-[rgba(12,12,14,0.82)] p-3 text-left shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:inset-x-auto md:bottom-auto md:left-5 md:top-20 md:gap-2.5 md:p-3.5"
     >
       {body}
     </section>

@@ -129,7 +129,7 @@ function ArtStyleChoice({ verseId }: { verseId: string }) {
                 className="peer sr-only"
               />
               <span
-                className={`relative block aspect-[4/3] overflow-hidden rounded-xl bg-white/[0.06] ring-offset-2 ring-offset-[#100f0e] transition-shadow peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-white ${
+                className={`relative block aspect-[16/10] overflow-hidden rounded-xl sm:aspect-[4/3] bg-white/[0.06] ring-offset-2 ring-offset-[#100f0e] transition-shadow peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-white ${
                   checked ? "ring-2 ring-white" : "ring-1 ring-white/10 group-hover:ring-white/40"
                 }`}
               >
