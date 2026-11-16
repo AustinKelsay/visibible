@@ -25,6 +25,7 @@ export type PreferenceChangeSource =
   | "header_settings_popover"
   | "mobile_header_menu"
   | "spread_paint_switch"
+  | "look"
   | "unknown";
 
 export type GenerationTriggerSource =
@@ -175,6 +176,7 @@ type PreferenceChangedProps = BaseProps & {
     | "imageAspectRatio"
     | "imageResolution"
     | "artStyle"
+    | "textSize"
     | "autoGenerate";
   value: string;
   source: PreferenceChangeSource;
