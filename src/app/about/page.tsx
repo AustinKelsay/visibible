@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header } from "@/components/header";
+import { SiteHeader } from "@/components/site-header";
 import { Footer } from "@/components/footer";
-import { LayoutWrapper } from "@/components/layout-wrapper";
-import { BookMenu } from "@/components/book-menu";
 
 export const metadata: Metadata = {
   title: "About - Visibible",
@@ -68,8 +66,8 @@ const sections = [
 
 export default function AboutPage() {
   return (
-    <LayoutWrapper>
-      <Header />
+    <div className="flex min-h-screen flex-col bg-[var(--background)]">
+      <SiteHeader />
 
       <main className="flex-1">
         <section className="border-b border-[var(--divider)]">
@@ -128,7 +126,6 @@ export default function AboutPage() {
       </main>
 
       <Footer />
-      <BookMenu />
-    </LayoutWrapper>
+    </div>
   );
 }

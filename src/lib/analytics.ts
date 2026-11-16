@@ -242,7 +242,7 @@ type ApiDocsViewedProps = BaseProps & {
 };
 
 type ApiDocsLinkClickedProps = BaseProps & {
-  source: "hero_cta" | "quick_link" | "footer";
+  source: "hero_cta" | "quick_link" | "footer" | "corner_menu";
   href: string;
   target: "internal" | "external" | "api";
 };

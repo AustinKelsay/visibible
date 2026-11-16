@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Header } from "@/components/header";
-import { BookMenu } from "@/components/book-menu";
-import { LayoutWrapper } from "@/components/layout-wrapper";
-import { Footer } from "@/components/footer";
+import { SiteHeader } from "@/components/site-header";
 import { VerseAnalytics } from "@/components/verse-analytics";
 import { PassageUnavailable } from "@/components/passage-unavailable";
 import { Spread } from "@/components/spread/spread";
@@ -90,12 +87,10 @@ export default async function VersePage({ params }: VersePageProps) {
   const verseData = chapterData?.verses.find((item) => item.verse === location.verse);
   if (!chapterData || !verseData) {
     return (
-      <LayoutWrapper>
-        <Header />
+      <div className="flex min-h-screen flex-col bg-[var(--background)]">
+        <SiteHeader />
         <PassageUnavailable reference={formatReference(location)} translation={translation} retryable={retryable} />
-        <Footer />
-        <BookMenu />
-      </LayoutWrapper>
+      </div>
     );
   }
 

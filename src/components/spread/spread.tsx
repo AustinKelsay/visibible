@@ -1,5 +1,6 @@
 "use client";
 
+import { CornerMenu } from "@/components/spread/corner-menu";
 import { LayerProvider } from "@/components/spread/layers";
 import { PageTurnLink, usePageTurn } from "@/components/spread/page-turn";
 import { SpreadPicture } from "@/components/spread/spread-picture";
@@ -37,6 +38,8 @@ export function Spread({ verseId, bookName, chapter, verseNumber, verseText, tot
         <div className="relative aspect-square max-h-[52svh] w-full shrink-0 overflow-hidden md:absolute md:inset-0 md:aspect-auto md:max-h-none">
           <SpreadPicture verseId={verseId} reference={reference} />
         </div>
+
+        <CornerMenu verseId={verseId} bookName={bookName} chapter={chapter} verseNumber={verseNumber} />
 
         <WordsPage
           bookName={bookName}
