@@ -6,6 +6,6 @@ When an image is on screen the form offers **This image** and **General feedback
 
 [convex/feedback.ts](../../convex/feedback.ts) stores submissions through a server-authenticated mutation. Records can include verse/image context, session ID, user agent and timestamp; review them in the Convex dashboard. Feedback storage contains more identifying context than the client analytics event payload.
 
-[FeedbackPrompt](../../src/components/feedback-prompt.tsx) is a desktop CTA suppressed while the sidebar is open. Its localStorage state (`visibible_feedback_prompt`) controls a random 5–15 visit threshold, a 24-hour cooldown after interaction, and an eight-second auto-dismiss.
+[FeedbackPrompt](../../src/components/feedback-prompt.tsx) is a desktop CTA on the pages that keep the old shell ([LayoutWrapper](../../src/components/layout-wrapper.tsx)); verse pages do not show it. It is suppressed while the sidebar is open. Its localStorage state (`visibible_feedback_prompt`) controls a random 5–15 visit threshold, a 24-hour cooldown after interaction, and an eight-second auto-dismiss.
 
 The form emits `feedback_submitted` after success, with `kind` and, for image reports, the image's `artStyle`; the prompt emits shown/clicked/dismissed interactions. [Analytics](ANALYTICS.md) covers event interpretation. [Navigation](NAVIGATION.md) owns opening the Feedback tab.

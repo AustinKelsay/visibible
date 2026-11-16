@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { EB_Garamond, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
@@ -9,9 +9,7 @@ import { NavigationProvider } from "@/context/navigation-context";
 import { PreferencesProvider } from "@/context/preferences-context";
 import { GenerationProvider } from "@/context/generation-context";
 import { BulkGenerationProvider } from "@/context/bulk-generation-context";
-import { ChatSidebar } from "@/components/chat-sidebar";
 import { BuyCreditsModal } from "@/components/buy-credits-modal";
-import { FeedbackPrompt } from "@/components/feedback-prompt";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,6 +18,12 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+// The words page sets the verse in this serif face.
+const ebGaramond = EB_Garamond({
+  variable: "--font-eb-garamond",
   subsets: ["latin"],
 });
 
@@ -40,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond.variable} antialiased`}
       >
         <GuestSessionProvider>
           <ConvexClientProvider>
@@ -50,8 +54,6 @@ export default function RootLayout({
                   <GenerationProvider>
                     <BulkGenerationProvider>
                       {children}
-                      <ChatSidebar />
-                      <FeedbackPrompt />
                       <BuyCreditsModal />
                     </BulkGenerationProvider>
                   </GenerationProvider>

@@ -1,12 +1,11 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, ArrowRight, Users, Info } from "lucide-react";
+import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, ArrowRight, Users, Info, Image as ImageIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
-import { VerseImageCount } from "@/components/verse-strip";
 import { usePreferences } from "@/context/preferences-context";
 import { DEFAULT_IMAGE_MODEL, getEstimatedCreditsCostForResolution, supportsResolution, type ImageModel } from "@/lib/image-models";
 import { IMAGE_ENVELOPE_CREDITS } from "@/lib/engine/quote";
@@ -23,6 +22,20 @@ import {
   resolveCreditsModalClosedStep,
   resolveCreditsModalOpenedStep,
 } from "@/lib/analytics-event-utils";
+
+/**
+ * Saved images under a verse number: a small image icon, so it reads as "images" without a legend,
+ * plus the number only when there are several. A verse with one image shows just the icon.
+ */
+function VerseImageCount({ count, className = "" }: { count: number; className?: string }) {
+  if (count <= 0) return null;
+  return (
+    <span aria-hidden="true" className={`inline-flex h-3 items-center gap-0.5 text-xs font-medium leading-3 tabular-nums ${className}`}>
+      <ImageIcon size={11} strokeWidth={2} />
+      {count > 1 ? count : null}
+    </span>
+  );
+}
 
 function CashAppLogo({ className }: { className?: string }) {
   return (

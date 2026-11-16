@@ -7,9 +7,9 @@ import { GuestSessionProvider, useGuestSession } from "../guest-session-context"
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals(); window.history.replaceState(null, "", "/"); });
 
-it("does not interrupt balance recovery with a purchase onboarding modal", async () => {
+it("lets a new visitor land on the page without opening the credits dialog", async () => {
   vi.useFakeTimers();
-  window.history.replaceState(null, "", "/recover");
+  window.history.replaceState(null, "", "/genesis/1/1");
   vi.stubGlobal("localStorage", { getItem: vi.fn(() => null), setItem: vi.fn() });
   vi.stubGlobal("fetch", vi.fn()
     .mockResolvedValueOnce(Response.json({ sid: null, status: "missing" }))

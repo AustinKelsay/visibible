@@ -1,6 +1,6 @@
 # Video generation
 
-Video is a separate verse mode (`?view=video`) with shared public history. It uses `minimax/hailuo-3-max` directly from canonical Scripture; it does not require or animate a selected image. Every saved result is public. Videos play muted initially, with standard player controls for sound, fullscreen, and seeking.
+Video was a separate verse mode (`?view=video`) with shared public history. The spread ([Navigation](NAVIGATION.md)) no longer shows that mode; video returns from the picture menu in a later ticket of #434, and the flow below is unchanged. It uses `minimax/hailuo-3-max` directly from canonical Scripture; it does not require or animate a selected image. Every saved result is public. Videos play muted initially, with standard player controls for sound, fullscreen, and seeking.
 
 ## Flow and boundaries
 

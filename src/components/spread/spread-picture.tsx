@@ -1,0 +1,47 @@
+"use client";
+
+import { useRef } from "react";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { useConvexEnabled } from "@/components/convex-client-provider";
+import { useEffectiveArtStyle } from "@/context/work-scope-context";
+
+interface SpreadPictureProps {
+  verseId: string;
+  reference: string;
+}
+
+/**
+ * The spread's picture: the newest saved picture of the verse in the stored art style, cropped from
+ * its centre to cover its frame. A verse without one leaves the frame plain dark.
+ */
+export function SpreadPicture(props: SpreadPictureProps) {
+  const isConvexEnabled = useConvexEnabled();
+  return isConvexEnabled ? <SavedPicture {...props} /> : null;
+}
+
+function SavedPicture({ verseId, reference }: SpreadPictureProps) {
+  const { artStyle } = useEffectiveArtStyle();
+  // The same query and arguments the picture menu will read, so both share one subscription.
+  const pictures = useQuery(api.verseImages.getImageHistory, { verseId, artStyle });
+  const recordImpression = useMutation(api.verseImages.recordImageImpression);
+  const recordedRef = useRef(new Set<string>());
+  const picture = pictures?.[0];
+  if (!picture?.imageUrl) return null;
+
+  return (
+    // Saved pictures come from Convex storage at their full size; there is no resizing service.
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      key={picture.id}
+      src={picture.imageUrl}
+      alt={`Picture of ${reference}`}
+      className="absolute inset-0 h-full w-full object-cover object-center"
+      onLoad={() => {
+        if (recordedRef.current.has(picture.id)) return;
+        recordedRef.current.add(picture.id);
+        void recordImpression({ imageId: picture.id }).catch(() => recordedRef.current.delete(picture.id));
+      }}
+    />
+  );
+}

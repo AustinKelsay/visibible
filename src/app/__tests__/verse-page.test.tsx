@@ -2,7 +2,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import VersePage, { generateMetadata } from "../[book]/[chapter]/[verse]/page";
 import { clearBibleApiCache, type Translation } from "@/lib/bible-api";
-import { VersePageContent } from "@/components/verse-page-content";
+import { Spread } from "@/components/spread/spread";
 
 let translation: Translation = "web";
 vi.mock("@/lib/get-translation", () => ({ getTranslationFromCookies: async () => translation }));
@@ -11,14 +11,11 @@ vi.mock("next/navigation", () => ({
   useRouter: () => ({ refresh: vi.fn() }),
 }));
 vi.mock("@/components/layout-wrapper", () => ({ LayoutWrapper: ({ children }: { children: React.ReactNode }) => <div>{children}</div> }));
-vi.mock("@/context/verse-view-context", () => ({ VerseViewProvider: ({ children }: { children: React.ReactNode }) => <div>{children}</div> }));
 vi.mock("@/components/header", () => ({ Header: () => <header /> }));
 vi.mock("@/components/footer", () => ({ Footer: () => <footer /> }));
 vi.mock("@/components/book-menu", () => ({ BookMenu: () => null }));
-vi.mock("@/components/chat-context-setter", () => ({ ChatContextSetter: () => null }));
-vi.mock("@/components/mobile-verse-nav", () => ({ MobileVerseNav: () => null }));
 vi.mock("@/components/verse-analytics", () => ({ VerseAnalytics: () => null }));
-vi.mock("@/components/verse-page-content", () => ({ VersePageContent: vi.fn(() => <p>Passage loaded</p>) }));
+vi.mock("@/components/spread/spread", () => ({ Spread: vi.fn(() => <p>Passage loaded</p>) }));
 vi.mock("@/components/translation-selector", () => ({ TranslationSelector: () => <button>Choose translation</button> }));
 const params = (book = "genesis", chapter = "1", verse = "1") => ({ params: Promise.resolve({ book, chapter, verse }) });
 beforeEach(() => { clearBibleApiCache(); vi.clearAllMocks(); translation = "web"; });
@@ -29,8 +26,8 @@ describe("canonical reader failures", () => {
     vi.stubGlobal("fetch", vi.fn(async () => { throw new DOMException("Timed out", "TimeoutError"); }));
     const html = renderToStaticMarkup(await VersePage(params("acts", "24", "7")));
     expect(html).toContain("Passage loaded");
-    expect(vi.mocked(VersePageContent).mock.calls[0][0]).toMatchObject({
-      verseNumber: 7, totalVerses: 27, verseText: expect.stringMatching(/Lysias/),
+    expect(vi.mocked(Spread).mock.calls[0][0]).toMatchObject({
+      verseId: "acts-24-7", verseNumber: 7, totalVerses: 27, verseText: expect.stringMatching(/Lysias/),
     });
     expect((await generateMetadata(params("acts", "24", "7"))).description).toMatch(/Lysias/);
   });
@@ -68,7 +65,7 @@ describe("canonical reader failures", () => {
     }));
     vi.stubGlobal("fetch", fetch);
     renderToStaticMarkup(await VersePage(params("exodus")));
-    expect(vi.mocked(VersePageContent).mock.calls[0][0]).toMatchObject({ prevUrl: "/genesis/50/26", nextUrl: "/exodus/1/2" });
+    expect(vi.mocked(Spread).mock.calls[0][0]).toMatchObject({ prevUrl: "/genesis/50/26", nextUrl: "/exodus/1/2" });
     expect(fetch).toHaveBeenCalledTimes(1);
   });
 });
