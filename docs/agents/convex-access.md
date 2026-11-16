@@ -10,6 +10,7 @@ Server-secret reads are reserved for Next.js after cookie validation and for tru
 | `bulkGenerations:getActive` | query | Guest-owned | Verified subject matches SID; current session; job ownership. |
 | `bulkGenerations:get` | query | Guest-owned | Verified subject matches SID; current session; job ownership. |
 | `bulkGenerations:getVerses` | query | Guest-owned | Verified subject matches SID; current session; job ownership. |
+| `bulkGenerations:getVerseStatuses` | query | Guest-owned | Verified subject matches SID; job ownership; at most 200 verse ids. |
 | `bulkGenerations:updateVerseStatus` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. |
 | `bulkGenerations:updateProgress` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. |
 | `bulkGenerations:pause` | mutation | Guest-owned | Verified subject matches SID; current session; job ownership. |

@@ -64,6 +64,18 @@ vi.mock("@/context/preferences-context", () => ({
 }));
 vi.mock("@/context/session-context", () => ({ useSession: () => session }));
 vi.mock("@/lib/analytics");
+// No chapter job is running (the bulk provider sits in the root layout, outside the page).
+const startBulkGeneration = vi.fn(async () => {});
+vi.mock("@/context/bulk-generation-context", () => ({
+  useBulkGeneration: () => ({
+    state: { status: "idle", bulkId: null, totalVerses: 0, completedCount: 0, failedCount: 0, skippedCount: 0, totalCreditsUsed: 0, currentVerseReference: null, errorMessage: null },
+    startBulkGeneration,
+    pauseBulkGeneration: vi.fn(),
+    resumeBulkGeneration: vi.fn(),
+    cancelBulkGeneration: vi.fn(),
+    dismissBulkGeneration: vi.fn(),
+  }),
+}));
 // The module is cut: its one mount renders nothing, and none of its items is loaded.
 vi.mock("@/components/spread/advanced", () => ({ Advanced: () => null }));
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { AskProvider } from "@/components/spread/ask";
+import { ChosenPictureProvider } from "@/components/spread/chosen-picture";
 import { ContentsButton, ContentsLayer } from "@/components/spread/contents";
 import { CornerMenu } from "@/components/spread/corner-menu";
 import { LayerProvider, useLayer, useLayers } from "@/components/spread/layers";
@@ -45,7 +46,9 @@ export function Spread(props: SpreadProps) {
   const arrivesWhole = useArrivesInWholePicture(`/${props.bookSlug}/${props.chapter}/${props.verseNumber}`);
   return (
     <LayerProvider initialLayer={arrivesWhole ? "whole-picture" : null}>
-      <SpreadScreen {...props} />
+      <ChosenPictureProvider verseId={props.verseId}>
+        <SpreadScreen {...props} />
+      </ChosenPictureProvider>
     </LayerProvider>
   );
 }

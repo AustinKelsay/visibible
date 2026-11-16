@@ -55,13 +55,15 @@ export function imageContextOf(image: SavedImageSummary | null | undefined): Ima
 type FeedbackProps = {
   context?: PageContext;
   imageContext?: ImageContext;
+  /** What the form starts out reporting; "image" only takes effect with an attached picture. */
+  defaultKind?: "general" | "image";
 };
 
-export function Feedback({ context, imageContext }: FeedbackProps) {
+export function Feedback({ context, imageContext, defaultKind = "general" }: FeedbackProps) {
   const { tier, credits } = useSession();
   const [message, setMessage] = useState("");
   // "This picture" reports the saved image on screen; the server resolves its style and source itself.
-  const [kind, setKind] = useState<"general" | "image">("general");
+  const [kind, setKind] = useState<"general" | "image">(defaultKind);
   const canReportImage = Boolean(imageContext?.imageId);
   const effectiveKind = canReportImage ? kind : "general";
   const [isSubmitting, setIsSubmitting] = useState(false);

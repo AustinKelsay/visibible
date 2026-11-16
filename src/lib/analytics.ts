@@ -35,13 +35,15 @@ export type GenerationTriggerSource =
   | "hero_retry"
   | "fullscreen_retry"
   | "spread_paint"
-  | "spread_retry";
+  | "spread_retry"
+  | "picture_menu_paint"
+  | "picture_menu_retry";
 
 export type CreditsFrictionSource =
   | GenerationTriggerSource
   | "chat_submit"
   | "ask_submit"
-  | "header_get_credits";
+  | "contents_paint";
 
 // Event-specific property types
 type VerseViewProps = BaseProps & {
@@ -195,6 +197,11 @@ type FeedbackSubmittedProps = BaseProps & {
 type FeedbackPromptInteractionProps = BaseProps & {
   action: "shown" | "clicked" | "dismissed";
   visitCount: number;
+};
+
+type PictureMenuOpenedProps = BaseProps & {
+  /** The verse's pictures in the chosen art style. */
+  pictureCount: number;
 };
 
 type ContentsOpenedProps = BaseProps & {
@@ -390,6 +397,11 @@ export function trackFeedbackPromptInteraction(props: FeedbackPromptInteractionP
 // Track Contents, the chapter wall opened from the passage name
 export function trackContentsOpened(props: ContentsOpenedProps) {
   track("contents_opened", props);
+}
+
+// Track an opening of the picture menu on the spread (#441)
+export function trackPictureMenuOpened(props: PictureMenuOpenedProps) {
+  track("picture_menu_opened", props);
 }
 
 // Track fullscreen image opens across the new image surfaces
