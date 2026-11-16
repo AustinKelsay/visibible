@@ -197,7 +197,7 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
         <hr className="mx-3 my-1.5 border-ink/10" />
         <PaintAnother generation={generation} onGetCredits={() => { layer.close(); buyCredits(); }} />
         {offersVideo ? (
-          <MakeVideo verseId={verseId} reference={reference} myJobs={myJobs} className={ROW} onGetCredits={() => { layer.close(); buyCredits(); }} onMakingChange={onMakingVideoChange} />
+          <MakeVideo verseId={verseId} imageId={shown.id} reference={reference} myJobs={myJobs} className={ROW} onGetCredits={() => { layer.close(); buyCredits(); }} onMakingChange={onMakingVideoChange} />
         ) : null}
 
         <button type="button" className={ROW} aria-expanded={detailsOpen} onClick={() => setDetailsOpen((open) => !open)}>

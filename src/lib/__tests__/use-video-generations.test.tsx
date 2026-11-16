@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useVideoGenerations } from "../use-video-generations";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
-const input = { duration: 5 as const, resolution: "768p" as const, maxCredits: 50 };
+const input = { imageId: "picture-1", duration: 5 as const, resolution: "768p" as const, maxCredits: 50 };
 const props = { sid: "session-a", verseId: "genesis-1-1", reference: "Genesis 1:1", translation: "web" };
 const config = { enabled: true, model: "minimax/hailuo-3-max", modelName: "Hailuo 3 Max", quotes: [{ ...input, credits: 50, providerCostUsd: 0.4 }] };
 const accepted = { id: "job-1", requestId: "request", status: "queued", ...input, ...props, createdAt: 1, estimatedCredits: 50 };

@@ -316,6 +316,10 @@ export default defineSchema({
     lease: v.number(),
     leaseUntil: v.number(),
     attempts: v.number(),
+    // The saved picture the video starts from, and its art style copied at acceptance (#479). Absent on videos made
+    // from the verse text alone before then; readers never see those.
+    sourceImageId: v.optional(v.id("verseImages")),
+    sourceArtStyle: v.optional(v.string()),
   })
     .index("by_request", ["sid", "requestId"])
     .index("by_sid_active", ["sid", "active"])
@@ -323,7 +327,8 @@ export default defineSchema({
     .index("by_sid_createdAt", ["sid", "createdAt"])
     .index("by_verse_status", ["verseId", "status", "createdAt"])
     .index("by_generationId", ["generationId"])
-    .index("by_active_nextRun", ["active", "nextRunAt"]),
+    .index("by_active_nextRun", ["active", "nextRunAt"])
+    .index("by_source_status", ["sourceImageId", "status", "createdAt"]),
 
   // Singleton scheduler state for recurring Nostr publishing windows.
   nostrPublishingState: defineTable({

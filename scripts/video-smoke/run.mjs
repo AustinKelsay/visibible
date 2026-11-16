@@ -9,6 +9,11 @@ loadEnvConfig(process.cwd(), true, { info() {}, error() {} });
 if (!process.env.CONVEX_DEPLOYMENT?.startsWith("local:") || !process.env.NEXT_PUBLIC_CONVEX_URL?.startsWith("http://127.0.0.1:")) {
   throw new Error("This paid smoke test only runs against an isolated local Convex deployment.");
 }
+// A video starts from a saved 16:9 picture of the verse (#479). The provider fetches it from the picture's public
+// address, so the local deployment's NOSTR_IMAGE_BASE_URL must point at an address the provider can reach.
+const imageId = process.env.VIDEO_SMOKE_IMAGE_ID;
+const reference = process.env.VIDEO_SMOKE_REFERENCE ?? "Psalms 23:2";
+if (!imageId) throw new Error("Set VIDEO_SMOKE_IMAGE_ID to a saved 16:9 picture of VIDEO_SMOKE_REFERENCE (default Psalms 23:2).");
 const origin = "http://localhost:3000";
 const cookieJar = new Map();
 async function request(path, body) {
@@ -38,7 +43,7 @@ const config = await request("/api/generate-video");
 const quote = config.quotes.find((q) => q.duration === 5 && q.resolution === "768p");
 if (!config.enabled || !quote || quote.providerCostUsd > 0.40) throw new Error("Expected enabled H3 Max quote at no more than $0.40");
 const access = await request("/api/convex-token", {});
-const input = { requestId: crypto.randomUUID(), reference: "Psalms 23:2", translation: "web", duration: 5, resolution: "768p", maxCredits: quote.credits };
+const input = { requestId: crypto.randomUUID(), imageId, reference, translation: "web", duration: 5, resolution: "768p", maxCredits: quote.credits };
 const started = Date.now();
 const accepted = await request("/api/generate-video", input);
 const replay = await request("/api/generate-video", input);

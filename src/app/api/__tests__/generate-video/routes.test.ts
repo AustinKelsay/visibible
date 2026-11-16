@@ -29,15 +29,16 @@ const calls = (name: string) => [...convex.query.mock.calls, ...convex.mutation.
 const catalog = {
   data: [{
     id: "minimax/hailuo-3-max", supported_resolutions: ["768p", "480p"], supported_aspect_ratios: ["16:9"],
-    supported_durations: [5, 10], pricing_skus: { duration_seconds_480p: "0.05", duration_seconds_768p: "0.08" },
+    supported_durations: [5, 10], supported_frame_images: ["first_frame"], pricing_skus: { duration_seconds_480p: "0.05", duration_seconds_768p: "0.08" },
   }],
 };
 const job = (overrides = {}) => ({
   id: "job1", requestId: REQUEST_ID, verseId: "john-3-16", reference: "John 3:16", status: "queued",
   duration: 5, resolution: "768p", createdAt: 1, estimatedCredits: 50, ...overrides,
 });
+const PICTURE = "picture-1";
 const body = (overrides: Record<string, unknown> = {}) => ({
-  requestId: REQUEST_ID, reference: "john 3:16", translation: "web", duration: 5, resolution: "768p", maxCredits: 50, ...overrides,
+  requestId: REQUEST_ID, imageId: PICTURE, reference: "john 3:16", translation: "web", duration: 5, resolution: "768p", maxCredits: 50, ...overrides,
 });
 const post = (payload: unknown, headers: Record<string, string> = {}) => POST(new NextRequest(`${ORIGIN}/api/generate-video`, {
   method: "POST", body: typeof payload === "string" ? payload : JSON.stringify(payload),
@@ -56,7 +57,8 @@ beforeEach(() => {
     prevVerse: { number: 15, text: "that whoever believes...", reference: "John 3:15" },
     nextVerse: { number: 17, text: "For God didn't send his Son...", reference: "John 3:17" },
   });
-  convex.query.mockResolvedValue(null);
+  // No earlier request with this ID; the picture is a Storybook picture of the verse.
+  convex.query.mockImplementation(async (ref) => getFunctionName(ref) === "verseVideos:checkVideoSource" ? { imageId: PICTURE, artStyle: "storybook" } : null);
   convex.mutation.mockImplementation(async (ref) => getFunctionName(ref) === "rateLimit:checkRateLimit" ? { allowed: true } : job());
 });
 afterEach(() => {
@@ -119,7 +121,9 @@ describe("POST /api/generate-video", () => {
     ["unsupported resolution", body({ resolution: "720p" })],
     ["unknown translation", body({ translation: "niv" })],
     ["client prompt", body({ prompt: "anything" })],
-    ["image input", body({ imageUrl: "https://example.com/a.png" })],
+    ["image address instead of a saved picture", body({ imageUrl: "https://example.com/a.png" })],
+    ["no picture", body({ imageId: undefined })],
+    ["empty picture", body({ imageId: "" })],
     ["invalid JSON", "{"],
   ])("rejects %s", async (_name, payload) => {
     expect((await post(payload)).status).toBe(400);
@@ -139,10 +143,30 @@ describe("POST /api/generate-video", () => {
       serverSecret: "server-secret", sid: "sid-1", requestId: REQUEST_ID, verseId: "john-3-16", reference: "John 3:16",
       translation: "web", duration: 5, resolution: "768p", estimatedCostUsd: 0.4, estimatedCredits: 50,
     });
+    expect(args.prompt).toMatch(/^Animate this painting/);
+    expect(args.prompt).toContain("Storybook");
     expect(args.prompt).toContain("For God so loved the world");
     expect(args.prompt).toContain("John 3:17");
+    expect(args.prompt).not.toMatch(/live-action/i);
+    expect(args.sourceImageId).toBe(PICTURE);
+    expect(calls("verseVideos:checkVideoSource")).toEqual([{ serverSecret: "server-secret", sid: "sid-1", verseId: "john-3-16", imageId: PICTURE }]);
     expect(args.inputFingerprint).toMatch(/^[a-f0-9]{64}$/);
     expect(resolveGenerationPassage).toHaveBeenCalledWith("john 3:16", "web");
+  });
+
+  it.each([
+    ["another verse's picture, or one in a style the reader may not see", "PICTURE_UNAVAILABLE", /picture of this verse/],
+    ["a picture that is not 16:9", "PICTURE_SHAPE", /16:9/],
+  ])("refuses %s before quoting or holding credits", async (_name, code, message) => {
+    convex.query.mockImplementation(async (ref) => {
+      if (getFunctionName(ref) === "verseVideos:checkVideoSource") throw new ConvexError({ code, message: "x" });
+      return null;
+    });
+    const response = await post(body());
+    expect(response.status).toBe(400);
+    expect((await response.json()).error).toMatch(message);
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(calls("verseVideos:enqueue")).toHaveLength(0);
   });
 
   it("returns an existing job before any passage lookup or requote", async () => {
@@ -161,6 +185,13 @@ describe("POST /api/generate-video", () => {
     expect(first.inputFingerprint).toBe(second.inputFingerprint);
     await post(body({ resolution: "480p" }));
     expect((calls("verseVideos:findRequest")[2] as { inputFingerprint: string }).inputFingerprint).not.toBe(first.inputFingerprint);
+  });
+
+  it("gives two requests that differ only by picture different fingerprints", async () => {
+    await post(body());
+    await post(body({ imageId: "picture-2" }));
+    const [first, second] = calls("verseVideos:findRequest") as Array<{ inputFingerprint: string }>;
+    expect(second.inputFingerprint).not.toBe(first.inputFingerprint);
   });
 
   it("maps a request ID conflict to 409", async () => {

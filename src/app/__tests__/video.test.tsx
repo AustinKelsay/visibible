@@ -350,7 +350,7 @@ describe("making a video from the picture menu", () => {
     expect(makeVideo()?.textContent).toBe("Make a video · about 50 credits");
     await act(async () => { makeVideo()!.click(); });
     expect(videoRequests).toEqual([{
-      requestId: expect.any(String), reference: "John 1:5", translation: "web", duration: 5, resolution: "768p", maxCredits: 50,
+      requestId: expect.any(String), imageId: "john-1-5:classical", reference: "John 1:5", translation: "web", duration: 5, resolution: "768p", maxCredits: 50,
     }]);
     expect(menu()!.textContent).toContain("Starting your video…");
 

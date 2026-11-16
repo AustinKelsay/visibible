@@ -27,7 +27,7 @@ const mp4 = (size = 32) => {
 const catalog = (overrides: Record<string, unknown> = {}) => ({
   data: [{
     id: "minimax/hailuo-3-max", supported_resolutions: ["768p", "480p"], supported_aspect_ratios: ["16:9"],
-    supported_durations: [5, 6, 10], pricing_skus: { duration_seconds: "0.08", duration_seconds_480p: "0.05", duration_seconds_768p: "0.08" },
+    supported_durations: [5, 6, 10], supported_frame_images: ["first_frame", "last_frame"], pricing_skus: { duration_seconds: "0.08", duration_seconds_480p: "0.05", duration_seconds_768p: "0.08" },
     ...overrides,
   }],
 });
@@ -60,15 +60,16 @@ describe("parseVideoJob", () => {
 });
 
 describe("submitVideo", () => {
-  const input = { prompt: "A dove returns", duration: 5 as const, resolution: "768p" as const };
+  const input = { prompt: "A dove returns", duration: 5 as const, resolution: "768p" as const, firstFrameUrl: "https://media.example/image/abc" };
 
-  it("posts the canonical text-to-video payload with no image or audio fields", async () => {
+  it("posts the picture as the first frame, with no audio or other image fields", async () => {
     fetchMock.mockResolvedValue(Response.json({ id: "gen-vid-1", status: "pending" }, { status: 202 }));
     await expect(submitVideo(input)).resolves.toEqual({ id: "gen-vid-1", status: "queued" });
     const [url, init] = fetchMock.mock.calls[0];
     expect(url).toBe("https://openrouter.ai/api/v1/videos");
     expect(JSON.parse(String(init?.body))).toEqual({
       model: "minimax/hailuo-3-max", prompt: "A dove returns", duration: 5, resolution: "768p", aspect_ratio: "16:9",
+      frame_images: [{ type: "image_url", image_url: { url: "https://media.example/image/abc" }, frame_type: "first_frame" }],
     });
     expect(authOf(0)).toBe(`Bearer ${KEY}`);
     expect(init?.redirect).toBe("error");
@@ -92,6 +93,8 @@ describe("submitVideo", () => {
   it("rejects unsupported settings before calling the provider", async () => {
     await rejection(submitVideo({ ...input, duration: 6 as never }));
     await rejection(submitVideo({ ...input, resolution: "1080p" as never }));
+    await rejection(submitVideo({ ...input, firstFrameUrl: "" }));
+    await rejection(submitVideo({ ...input, firstFrameUrl: "javascript:alert(1)" }));
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
@@ -203,6 +206,8 @@ describe("video quotes", () => {
     ["unsupported duration", catalog({ supported_durations: [5] })],
     ["unsupported resolution", catalog({ supported_resolutions: ["768p"] })],
     ["unsupported aspect ratio", catalog({ supported_aspect_ratios: ["9:16"] })],
+    ["no first-frame support", catalog({ supported_frame_images: ["last_frame"] })],
+    ["unlisted frame support", catalog({ supported_frame_images: undefined })],
   ])("fails closed on %s", (_name, data) => {
     expect(quotesFromCatalog(data)).toBeNull();
   });

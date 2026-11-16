@@ -17,6 +17,8 @@ export function activeVideoJob(jobs: readonly VideoJobResponse[] | undefined) {
 
 interface MakeVideoProps {
   verseId: string;
+  /** The picture on the spread, which the video starts from (#479). */
+  imageId: string;
   reference: string;
   /** The reader's own video jobs (`verseVideos.getMyJobs`), or undefined while they load. */
   myJobs: readonly VideoJobResponse[] | undefined;
@@ -32,7 +34,7 @@ interface MakeVideoProps {
  * credits), one job at a time, and the browser-held request ID that lets an unconfirmed request be checked again
  * without making a second video. It shows nothing while video generation is off.
  */
-export function MakeVideo({ verseId, reference, myJobs, className, onGetCredits, onMakingChange }: MakeVideoProps) {
+export function MakeVideo({ verseId, imageId, reference, myJobs, className, onGetCredits, onMakingChange }: MakeVideoProps) {
   const { sid, tier, credits } = useSession();
   const { translation } = usePreferences();
   const generation = useVideoGenerations({ sid, verseId, reference, translation });
@@ -99,7 +101,7 @@ export function MakeVideo({ verseId, reference, myJobs, className, onGetCredits,
           type="button"
           className={className}
           disabled={!generation.ready || myJobs === undefined}
-          onClick={() => void generation.generate({ ...MENU_VIDEO, maxCredits: quote.credits })}
+          onClick={() => void generation.generate({ ...MENU_VIDEO, imageId, maxCredits: quote.credits })}
         >
           <Clapperboard aria-hidden="true" className="h-4 w-4 text-ink/(--quiet-60)" />
           <span>

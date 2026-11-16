@@ -43,6 +43,8 @@ const NO_STORE = { "Cache-Control": "private, no-store" };
 const requestSchema = z
   .object({
     requestId: z.string().uuid(),
+    // The saved picture the video starts from (#479); the server decides whether it may and what its style is.
+    imageId: z.string().trim().min(1).max(100),
     reference: z.string().trim().min(1).max(100),
     translation: z
       .string()
@@ -75,6 +77,7 @@ function inputFingerprint(input: z.infer<typeof requestSchema>) {
     .update(
       JSON.stringify({
         model: VIDEO_MODEL_ID,
+        imageId: input.imageId,
         reference: input.reference.replace(/\s+/g, " ").toLowerCase(),
         translation: input.translation,
         duration: input.duration,
@@ -103,6 +106,11 @@ const CONVEX_ERRORS: Record<string, [number, string]> = {
   SPEND_LIMIT: [402, "This video would exceed your spending limit."],
   UNAUTHORIZED: [401, "Your session has expired."],
   INVALID_REQUEST: [400, "Invalid video request."],
+  PICTURE_UNAVAILABLE: [
+    400,
+    "Choose a picture of this verse to start the video from.",
+  ],
+  PICTURE_SHAPE: [400, "Only a widescreen (16:9) picture can start a video."],
 };
 
 export async function GET(): Promise<Response> {
@@ -214,7 +222,7 @@ export async function POST(request: NextRequest): Promise<Response> {
       return json(
         {
           error:
-            "Provide a request ID, a verse reference, a supported translation, duration 5 or 10, resolution 480p or 768p, and maxCredits.",
+            "Provide a request ID, a saved picture, a verse reference, a supported translation, duration 5 or 10, resolution 480p or 768p, and maxCredits.",
         },
         400,
       );
@@ -260,6 +268,20 @@ export async function POST(request: NextRequest): Promise<Response> {
       400,
     );
 
+  const verseId = toVerseId(passage.reference);
+  // The picture is checked before any price is quoted or credits held (#479); its style comes from the server.
+  let source: { imageId: string; artStyle: string };
+  try {
+    source = await convex.query(api.verseVideos.checkVideoSource, {
+      serverSecret,
+      sid,
+      verseId,
+      imageId: input.imageId,
+    });
+  } catch (error) {
+    return convexFailure(error);
+  }
+
   let quote;
   try {
     quote = (await fetchVideoQuotes()).find(
@@ -297,10 +319,11 @@ export async function POST(request: NextRequest): Promise<Response> {
       serverSecret,
       sid,
       requestId: input.requestId,
-      verseId: toVerseId(passage.reference),
+      verseId,
       reference: passage.reference,
       translation,
-      prompt: buildVideoPrompt(passage, input.duration),
+      prompt: buildVideoPrompt(passage, input.duration, source.artStyle),
+      sourceImageId: source.imageId,
       duration: input.duration,
       resolution: input.resolution,
       estimatedCostUsd: quote.providerCostUsd,

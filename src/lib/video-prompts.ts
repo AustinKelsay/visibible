@@ -1,4 +1,5 @@
 import type { VideoDuration } from "./video-generation";
+import { SHARED_STYLES } from "./work-preparation";
 
 interface PassageVerse {
   number: number;
@@ -14,11 +15,17 @@ export interface VideoPassage {
   nextVerse: PassageVerse | null;
 }
 
-/** One continuous shot illustrating the verse, with neighbors for context only. */
+/**
+ * The image-to-video prompt (#479): the saved picture is the first frame, so the prompt asks to animate that painting
+ * in its own art style (the shared style description's rendering, palette and materials) and composition, with
+ * restrained motion. The verse and its neighbours are context for what moves, never a new scene.
+ */
 export function buildVideoPrompt(
   passage: VideoPassage,
   duration: VideoDuration,
+  artStyleId: string,
 ): string {
+  const style = SHARED_STYLES.get(artStyleId);
   const context = [
     passage.prevVerse &&
       `Preceding verse (${passage.prevVerse.reference}): "${passage.prevVerse.text}"`,
@@ -26,13 +33,13 @@ export function buildVideoPrompt(
       `Following verse (${passage.nextVerse.reference}): "${passage.nextVerse.text}"`,
   ].filter(Boolean);
   return [
-    `A reverent, cinematic live-action depiction of ${passage.reference}: "${passage.verseText}"`,
+    `Animate this painting. The first frame is a ${style.label} picture of ${passage.reference}: "${passage.verseText}"`,
     context.length
-      ? `Surrounding context, for understanding only; depict only the focal verse:\n${context.join("\n")}`
+      ? `Surrounding context, for understanding only; animate only what the painting shows:\n${context.join("\n")}`
       : null,
-    "Historically grounded: ancient Near Eastern people, clothing, architecture, tools, and landscape appropriate to the passage's time and place. Naturalistic anatomy and faces. No modern objects.",
-    `One continuous ${duration}-second shot with no cuts. Restrained, deliberate motion: a slow, steady camera move and natural movement of people, cloth, light, water, or weather. No sudden action, no morphing, no fantasy effects unless the verse describes them.`,
-    "Soft natural or atmospheric light, muted earth tones, quiet dignity.",
+    `Keep the painting's ${style.label} art style in every frame. Rendering: ${style.rendering} Palette: ${style.palette} Materials: ${style.materials} It stays a painting throughout and never turns photographic.`,
+    "Keep the same composition, framing, setting and subjects as the first frame: the same people with the same faces and clothing, in the same places. Nothing new enters the scene.",
+    `One continuous ${duration}-second shot with no cuts. Restrained, gentle motion: a slow, steady camera drift and quiet natural movement of people, cloth, light, water, smoke, leaves or weather. No sudden action, no morphing, no change of style.`,
     "No on-screen text, captions, subtitles, letters, logos, or watermarks.",
   ]
     .filter(Boolean)

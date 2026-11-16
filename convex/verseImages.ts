@@ -72,7 +72,8 @@ const getPublicStorageImageBaseUrl = () => {
   return baseUrl.replace(/\/+$/, "");
 };
 
-const getPublicImageUrl = (image: {
+/** A saved picture's stable public address, served without a session (Nostr posts and video first frames use it). */
+export const getPublicImageUrl = (image: {
   storageId?: Id<"_storage">;
   imageUrl?: string;
 }) => {
@@ -341,9 +342,9 @@ export const getStyleExamples = query({
 
 /**
  * Contents (#445): per verse, the tile picture (by the picture rule, as the spread shows it) with its thumbnail, how
- * many pictures the verse has in any style, counted up to CONTENTS_COUNT_CAP, and whether it has a finished video
- * (#447). Reads at most CONTENTS_COUNT_CAP + 1 + one picture per style form + one video for each verse, however many
- * are saved.
+ * many pictures the verse has in any style, counted up to CONTENTS_COUNT_CAP, and whether that picture has a finished
+ * video (#447, #479). Reads at most CONTENTS_COUNT_CAP + 1 + one picture per style form + one video for each verse,
+ * however many are saved.
  */
 export async function readChapterContents(ctx: QueryCtx, args: { verseIds: string[]; styles: string[] }) {
   if (args.verseIds.length > CONTENTS_MAX_VERSES) throw new Error(`verseIds cannot exceed ${CONTENTS_MAX_VERSES} items`);
@@ -351,12 +352,15 @@ export async function readChapterContents(ctx: QueryCtx, args: { verseIds: strin
   const visible = await visibleImageFilter(ctx);
 
   return Promise.all(args.verseIds.map(async (verseId) => {
-    const [window, newest, video] = await Promise.all([
+    const [window, newest] = await Promise.all([
       ctx.db.query("verseImages").withIndex("by_verse", (q) => q.eq("verseId", verseId)).order("desc").take(CONTENTS_COUNT_CAP + 1),
       newestPictureInStyles(ctx, verseId, styles),
-      // Only a finished video is public (#447): one row says whether the verse has one.
-      ctx.db.query("videoJobs").withIndex("by_verse_status", (q) => q.eq("verseId", verseId).eq("status", "completed")).first(),
     ]);
+    // The play mark follows the tile's own picture (#479): one finished video of that picture says it has one. Its
+    // style is one the reader may see, since the picture rule chose it from `readerStyles`.
+    const video = newest
+      ? await ctx.db.query("videoJobs").withIndex("by_source_status", (q) => q.eq("sourceImageId", newest._id).eq("status", "completed")).first()
+      : null;
     // A verse's pictures all belong to one work, so the newest one stands for the verse's visibility.
     if (!(await visible(window[0] ?? newest ?? ({} as Doc<"verseImages">)))) {
       return { verseId, picture: null, pictureCount: 0, morePictures: false, hasVideo: false };
