@@ -1,13 +1,16 @@
 "use client";
 
-import { LayerProvider } from "@/components/spread/layers";
-import { PageTurnLink, useArrival, usePageTurn } from "@/components/spread/page-turn";
+import { LayerProvider, useLayer } from "@/components/spread/layers";
+import { PageTurnLink, useArrival, useArrivesInWholePicture, usePageTurn } from "@/components/spread/page-turn";
 import { VerseMarks } from "@/components/spread/verse-marks";
 import { useIdle } from "@/components/spread/idle-fade";
 import { useSwipeTurn } from "@/components/spread/swipe-turn";
 import { PrefetchNextSpread } from "@/components/spread/prefetch-next";
 import { SpreadPicture } from "@/components/spread/spread-picture";
 import { WordsPage } from "@/components/spread/words-page";
+import { WholePictureCaption } from "@/components/spread/whole-picture";
+import { useSession } from "@/context/session-context";
+import { trackWholePictureOpened } from "@/lib/analytics";
 
 export interface SpreadProps {
   /** Where the verse's pictures are kept ("genesis-1-1"). */
@@ -33,8 +36,10 @@ export interface SpreadProps {
  * system setting is.
  */
 export function Spread(props: SpreadProps) {
+  // A page turned from the whole-picture view opens in it, so a reader can stay there for a chapter.
+  const arrivesWhole = useArrivesInWholePicture(`/${props.bookSlug}/${props.chapter}/${props.verseNumber}`);
   return (
-    <LayerProvider>
+    <LayerProvider initialLayer={arrivesWhole ? "whole-picture" : null}>
       <SpreadScreen {...props} />
     </LayerProvider>
   );
@@ -46,6 +51,10 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
   const swipe = useSwipeTurn({ prevUrl, nextUrl, onTurn });
   const idle = useIdle();
   const arrival = useArrival(`/${bookSlug}/${chapter}/${verseNumber}`);
+  const whole = useLayer("whole-picture").isOpen;
+  const { tier, credits } = useSession();
+  const onShowWhole = (imageId: string) =>
+    trackWholePictureOpened({ book: bookName, chapter, verse: verseNumber, imageId, tier, hasCredits: credits > 0 });
 
   return (
     <main
@@ -53,11 +62,28 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
       style={{ colorScheme: "dark" }}
       data-idle={idle}
       data-arrival={arrival ?? undefined}
+      data-whole-picture={whole || undefined}
       {...swipe}
     >
-      <div data-turn-in="fade" className="relative aspect-square max-h-[52svh] w-full shrink-0 overflow-hidden md:absolute md:inset-0 md:aspect-auto md:max-h-none">
-        <SpreadPicture verseId={verseId} reference={reference} />
-      </div>
+      {/* In the whole-picture view the frame takes the whole window; on a phone the picture and its caption
+          sit centred above the page-turn row. */}
+      <figure
+        data-turn-in="fade"
+        className={`relative w-full overflow-hidden md:absolute md:inset-0 md:block md:aspect-auto md:max-h-none ${
+          whole ? "flex min-h-0 flex-1 flex-col pt-8 md:pt-0" : "aspect-square max-h-[52svh] shrink-0"
+        }`}
+      >
+        <SpreadPicture verseId={verseId} reference={reference} onShowWhole={onShowWhole} />
+        <WholePictureCaption
+          reference={reference}
+          verseText={verseText}
+          verseNumber={verseNumber}
+          totalVerses={totalVerses}
+          prevUrl={prevUrl}
+          nextUrl={nextUrl}
+          onTurn={onTurn}
+        />
+      </figure>
       <PrefetchNextSpread nextUrl={nextUrl} nextVerseId={nextVerseId} />
 
       <VerseMarks
@@ -81,7 +107,7 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
         onTurn={onTurn}
       />
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-8 hidden justify-center md:right-[var(--words-page-width)] md:flex">
+      <div className={`pointer-events-none absolute inset-x-0 bottom-8 hidden justify-center md:flex ${whole ? "md:right-0" : "md:right-[var(--words-page-width)]"}`}>
         <nav
           aria-label="Turn the page"
           data-fades

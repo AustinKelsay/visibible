@@ -7,7 +7,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useQuery } from "convex/react";
 import VersePage from "../[book]/[chapter]/[verse]/page";
 import { clearBibleApiCache, type Translation } from "@/lib/bible-api";
-import { trackVerseNavigation } from "@/lib/analytics";
+import { trackVerseNavigation, trackWholePictureOpened } from "@/lib/analytics";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -154,6 +154,127 @@ describe("the spread for a painted verse", () => {
 
     expect(container.querySelector("img")).toBeNull();
     expect(container.querySelector("article h1")?.textContent).toBe("Genesis 1:1");
+  });
+});
+
+describe("the whole-picture view", () => {
+  const pictureButton = () => container.querySelector<HTMLButtonElement>("button:has(img)");
+  const caption = () => container.querySelector("figcaption");
+
+  beforeEach(() => {
+    savedPictures = [
+      { id: "john-1-5:a", imageUrl: "https://img.test/5.png", artStyle: "classical", createdAt: 1 },
+      { id: "john-1-6:a", imageUrl: "https://img.test/6.png", artStyle: "classical", createdAt: 1 },
+    ];
+  });
+
+  it("shows the picture uncropped with the verse as a caption when the picture is activated", async () => {
+    await openVerse("john", "1", "5");
+    const button = within(pictureButton()) as HTMLButtonElement;
+    expect(button.getAttribute("aria-label")).toBe("Show the whole picture of John 1:5");
+    expect(container.querySelector("img")?.style.objectFit).toBe("cover");
+    expect(caption()).toBeNull();
+
+    act(() => { button.click(); });
+
+    expect(container.querySelector("img")?.style.objectFit).toBe("contain");
+    expect(caption()?.textContent).toContain("John 1:5");
+    expect(caption()?.textContent).toContain("The light shines in the darkness");
+    // The words page is put aside: out of reach of the keyboard and screen readers.
+    expect(container.querySelector("article")?.hasAttribute("inert")).toBe(true);
+    expect(pictureButton()?.getAttribute("aria-label")).toBe("Back to the words");
+    expect(trackWholePictureOpened).toHaveBeenCalledWith(expect.objectContaining({ book: "John", chapter: 1, verse: 5 }));
+  });
+
+  it("returns to the spread when the picture is activated again, with focus on the picture", async () => {
+    await openVerse("john", "1", "5");
+    const button = within(pictureButton()) as HTMLButtonElement;
+    act(() => { button.focus(); button.click(); });
+    act(() => { pictureButton()?.click(); });
+
+    expect(caption()).toBeNull();
+    expect(container.querySelector("img")?.style.objectFit).toBe("cover");
+    expect(container.querySelector("article")?.hasAttribute("inert")).toBe(false);
+    expect(document.activeElement).toBe(pictureButton());
+  });
+
+  it("closes on Escape and returns focus to the picture", async () => {
+    await openVerse("john", "1", "5");
+    act(() => { pictureButton()?.focus(); pictureButton()?.click(); });
+    // The reader moves on to the dock before leaving the view.
+    act(() => { links("Next verse").at(-1)?.focus(); });
+
+    pressKey("Escape");
+    await act(async () => {});
+
+    expect(caption()).toBeNull();
+    expect(document.activeElement).toBe(pictureButton());
+  });
+
+  it("can be opened from the keyboard", async () => {
+    await openVerse("john", "1", "5");
+    const button = within(pictureButton()) as HTMLButtonElement;
+    expect(button.tagName).toBe("BUTTON");
+    expect(button.tabIndex).toBe(0);
+    act(() => { button.focus(); });
+    expect(document.activeElement).toBe(button);
+  });
+
+  it("stays open while the reader turns pages", async () => {
+    await openVerse("john", "1", "5");
+    act(() => { pictureButton()?.click(); });
+
+    pressKey("ArrowRight");
+    expect(push).toHaveBeenLastCalledWith("/john/1/6");
+    // The next verse's page opens in the view.
+    act(() => root.unmount());
+    root = createRoot(container);
+    await openVerse("john", "1", "6");
+    expect(caption()?.textContent).toContain("John 1:6");
+    expect(container.querySelector("img")?.style.objectFit).toBe("contain");
+
+    // Its own previous and next are on hand, phone included.
+    const previous = within(caption()?.parentElement?.querySelector('a[aria-label="Previous verse"]') ?? null) as HTMLAnchorElement;
+    act(() => { previous.click(); });
+    expect(push).toHaveBeenLastCalledWith("/john/1/5");
+    act(() => root.unmount());
+    root = createRoot(container);
+    await openVerse("john", "1", "5");
+    expect(caption()?.textContent).toContain("John 1:5");
+
+    // Escape still leaves it, and focus lands on the picture.
+    pressKey("Escape");
+    await act(async () => {});
+    expect(caption()).toBeNull();
+    expect(document.activeElement).toBe(pictureButton());
+  });
+
+  it("gives the words back when the reader turns to a verse with no picture", async () => {
+    await openVerse("john", "1", "6");
+    act(() => { pictureButton()?.click(); });
+    pressKey("ArrowRight");
+    act(() => root.unmount());
+    root = createRoot(container);
+    await openVerse("john", "1", "7");
+
+    expect(caption()).toBeNull();
+    expect(container.querySelector("article")?.hasAttribute("inert")).toBe(false);
+  });
+
+  it("opens fresh, with the words, when the reader arrives any other way", async () => {
+    await openVerse("john", "1", "5");
+    act(() => { pictureButton()?.click(); });
+    act(() => root.unmount());
+    root = createRoot(container);
+    await openVerse("john", "1", "6");
+    expect(caption()).toBeNull();
+  });
+
+  it("is not offered for an unpainted verse, and the old fullscreen view is gone", async () => {
+    await openVerse("john", "1", "7");
+    expect(pictureButton()).toBeNull();
+    expect(container.textContent).not.toMatch(/fullscreen/i);
+    expect(container.querySelector('[aria-label*="ullscreen" i]')).toBeNull();
   });
 });
 
@@ -309,6 +430,17 @@ describe("controls fading while reading", () => {
     expect(faded(marks())).toBe(true);
     pressKey("Shift");
     expect(faded(marks())).toBe(false);
+  });
+
+  it("fades them in the whole-picture view too, leaving the caption", async () => {
+    savedPictures = [{ id: "john-1-5:a", imageUrl: "https://img.test/5.png", artStyle: "classical", createdAt: 1 }];
+    await openVerse("john", "1", "5");
+    act(() => { container.querySelector<HTMLButtonElement>("button:has(img)")?.click(); });
+
+    act(() => { vi.advanceTimersByTime(3500); });
+    expect(faded(dock())).toBe(true);
+    expect(faded(marks())).toBe(true);
+    expect(faded(container.querySelector("figcaption"))).toBe(false);
   });
 
   it("never fades while one of the controls has keyboard focus", async () => {

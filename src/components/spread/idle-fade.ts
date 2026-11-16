@@ -14,8 +14,8 @@ const ACTIVITY_EVENTS = ["pointermove", "pointerdown", "keydown", "wheel", "touc
 /**
  * Whether the spread is idle: no pointer or keyboard activity for IDLE_FADE_MS. The spread puts the answer
  * on its root as `data-idle`, and the CSS in globals.css fades every element marked `data-fades` inside it
- * on a computer (768 px and wider). It is never idle while a layer is open or while focus is inside a
- * fading control, and any activity ends it.
+ * on a computer (768 px and wider). It is never idle while a layer other than the whole-picture view is
+ * open or while focus is inside a fading control, and any activity ends it.
  */
 export function useIdle(): boolean {
   const { openLayer } = useLayers();
@@ -27,8 +27,11 @@ export function useIdle(): boolean {
     setIdle(false);
   }
 
+  // The whole-picture view is for looking, so its controls fade like the spread's.
+  const layerHoldsControls = openLayer !== null && openLayer !== "whole-picture";
+
   useEffect(() => {
-    if (openLayer !== null) return;
+    if (layerHoldsControls) return;
 
     let timer: ReturnType<typeof setTimeout> | undefined;
     const wait = () => {
@@ -52,7 +55,7 @@ export function useIdle(): boolean {
       clearTimeout(timer);
       for (const type of ACTIVITY_EVENTS) window.removeEventListener(type, onActivity, { capture: true });
     };
-  }, [openLayer]);
+  }, [layerHoldsControls]);
 
   return idle;
 }
