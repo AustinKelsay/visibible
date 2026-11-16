@@ -22,6 +22,8 @@ export interface PictureMenuProps {
   pictures: readonly ChosenPicture[];
   /** The picture on the spread: the chosen version, or the newest. */
   shown: ChosenPicture;
+  /** Hide the chip (in the whole-picture view) without ending a painting started from the menu. */
+  chipHidden?: boolean;
 }
 
 /** A tap on the chip or inside its menu is not a tap on the picture (which opens the whole-picture view). */
@@ -41,7 +43,7 @@ const formatDate = (timestamp: number) =>
  *
  * Mount it with `key={verseId}`, so a page turn starts afresh.
  */
-export function PictureMenu({ verseId, reference, pictures, shown }: PictureMenuProps) {
+export function PictureMenu({ verseId, reference, pictures, shown, chipHidden = false }: PictureMenuProps) {
   const layer = useLayer("picture");
   const { tier, credits } = useSession();
   // Painting and its price are read only once the reader has opened the menu on this verse, then kept, so a painting
@@ -69,7 +71,7 @@ export function PictureMenu({ verseId, reference, pictures, shown }: PictureMenu
           if (!layer.isOpen) trackPictureMenuOpened({ pictureCount: pictures.length, tier, hasCredits: credits > 0 });
           layer.toggle(event.currentTarget);
         }}
-        className="liquid-glass spread-dock absolute bottom-3 left-3 z-20 flex min-h-9 items-center gap-2 rounded-full px-3 text-[13px] font-medium text-white/90 transition-colors duration-[var(--motion-fast)] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-8 md:left-5 md:min-h-11 md:px-4 md:text-sm"
+        className={`liquid-glass spread-dock absolute bottom-3 left-3 z-20 ${chipHidden ? "hidden" : "flex"} min-h-9 items-center gap-2 rounded-full px-3 text-[13px] font-medium text-white/90 transition-colors duration-[var(--motion-fast)] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-8 md:left-5 md:min-h-11 md:px-4 md:text-sm`}
       >
         {painting ? (
           <Loader2 aria-hidden="true" className="h-3.5 w-3.5 motion-safe:animate-spin" />

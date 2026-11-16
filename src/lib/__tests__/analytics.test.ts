@@ -37,6 +37,7 @@ import {
   trackVerseImagesState,
   trackVerseNavigation,
   trackVerseView,
+  trackWholePictureOpened,
 } from "@/lib/analytics";
 
 // Each wrapper forwards its props unchanged; what can drift is the event name a dashboard filters on.
@@ -75,6 +76,7 @@ describe("analytics event wrappers", () => {
     [trackVerseImagesState, "verse_images_state"],
     [trackVerseNavigation, "verse_navigation"],
     [trackVerseView, "verse_view"],
+    [trackWholePictureOpened, "whole_picture_opened"],
   ] as [(props: never) => void, string][])("%#: sends %s with its props", (wrapper, eventName) => {
     const props = { tier: "paid", hasCredits: true, marker: eventName };
     wrapper(props as never);

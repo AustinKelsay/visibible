@@ -402,4 +402,13 @@ describe("the picture menu", () => {
     expect(container.querySelector('[role="dialog"]')).toBeNull();
     expect(document.activeElement).toBe(chip());
   });
+
+  it("keeps taps on the chip and in its menu off the picture's whole-picture view", async () => {
+    savedPictures = john5();
+    await openVerse("john", "1", "5");
+    await openMenu();
+    act(() => { versions()[1].click(); });
+    expect(container.querySelector('button[aria-label="Back to the words"]')).toBeNull();
+    expect(container.querySelector('button[aria-label="Show the whole picture of John 1:5"]')).not.toBeNull();
+  });
 });

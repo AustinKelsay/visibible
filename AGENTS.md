@@ -23,7 +23,7 @@ Prefer `npm run lint`, `npm run typecheck`, and `npm test` for routine verificat
 ## PR Rules
 - Keep commits short and imperative.
 - Unless instructed otherwise, attempt to run the CodeRabbit CLI on unstaged changes before committing and pushing.
-- PRs should include test notes and screenshots or GIFs for visible UI changes.
+- PRs should include test notes and screenshots or GIFs for visible UI changes. Reader screenshots come from `npm run capture:reader` ([guide](llm/workflow/READER_CAPTURE.md)).
 
 ## Secrets
 - Copy `.env.example` to `.env.local` and set `OPENROUTER_API_KEY`.

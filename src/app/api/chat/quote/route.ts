@@ -6,16 +6,19 @@ import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { readJsonBodyWithLimit } from "@/lib/request-body";
 import { createRequestObservabilityContext, logApiFailure } from "@/lib/observability";
 import { BILLING_POLICY_VERSION, CHAT_MAX_CREDITS_PER_MESSAGE, chatQuoteTerms } from "@/lib/quotes";
+import { chatSystemPrompt, passageSchema } from "@/lib/chat-request";
 import { api } from "../../../../../convex/_generated/api";
 
 export const dynamic = "force-dynamic";
 
-const quoteRequestSchema = z.object({ model: z.string().max(200).optional() });
+const quoteRequestSchema = z.object({ model: z.string().max(200).optional(), context: passageSchema.optional(), translation: z.string().max(20).optional() });
 const MAX_QUOTE_BODY_SIZE = 4 * 1024;
 
 /**
- * The estimate and maximum charge for one chat turn with the selected model (#60), shown in the composer and accepted
- * by sending. It calls no model and holds nothing. The answer is `{ quote }`; the owner, who is not charged, gets
+ * The estimate and maximum charge for one chat turn with the selected model about the passage the composer is on
+ * (#60), shown in the composer and accepted by sending. It is priced from the system prompt the turn would send (the
+ * chapter so far grows it), and the passage and translation must be the ones the turn names. It calls no model and
+ * holds nothing. The answer is `{ quote }`; the owner, who is not charged, gets
  * `{ quote: null }`.
  */
 export async function POST(req: Request) {
@@ -56,9 +59,11 @@ export async function POST(req: Request) {
   }
   if (!parsed.success) return respond({ error: "Invalid request" }, { status: 400 });
   const modelId = parsed.data.model || DEFAULT_CHAT_MODEL;
+  const prompt = await chatSystemPrompt(parsed.data.context, parsed.data.translation, req.headers.get("cookie"));
+  if (!prompt.ok) return respond({ error: prompt.error, message: prompt.message }, { status: prompt.status });
 
   const pricing = await getChatModelPricing(modelId, openRouterApiKey);
-  const terms = pricing ? chatQuoteTerms(modelId, pricing) : null;
+  const terms = pricing ? chatQuoteTerms(modelId, pricing, prompt.tokens) : null;
   if (!terms) {
     return respond({ error: "Model not available", message: `The model "${modelId}" is not available or cannot be priced. Please select a different model.` }, { status: 400 });
   }
