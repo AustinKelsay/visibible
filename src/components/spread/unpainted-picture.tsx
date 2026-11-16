@@ -5,72 +5,45 @@ import { useQuery } from "convex/react";
 import { Brush, RefreshCw } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { usePreferences } from "@/context/preferences-context";
-import { useSession } from "@/context/session-context";
 import { previewSource } from "@/lib/picture-source";
-import { useVerseGeneration } from "@/lib/use-verse-generation";
+import { PaintButton, PaintProgress, PRIMARY, usePaintVerse } from "@/components/spread/paint-verse";
 
 interface UnpaintedPictureProps {
   verseId: string;
   reference: string;
-  artStyle: string;
+  /** The picture rule's style order (`usePictureStyles().order`): the glow is chosen by the same rule as the spread. */
+  styles: string[];
 }
 
-const PILL = "inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-colors focus-ring";
-const PRIMARY = `${PILL} bg-white text-black hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60`;
-
 /**
- * The picture area of a verse with no picture in the stored art style. It glows with the nearest earlier picture of
- * the chapter (plain dark when there is none) and offers one button to paint the verse, priced by the server's quote,
- * with the automatic-painting switch under it. Painting runs the existing generation flow; the words page is untouched
- * while it runs, and the saved picture replaces this area as soon as the verse's picture list has it.
+ * The picture area of a verse with no picture the reader can be shown (in the chosen style or any other visible one).
+ * It glows with the nearest earlier picture of the chapter (plain dark when there is none) and offers one button to
+ * paint the verse, priced by the server's quote, with the automatic-painting switch under it. Painting runs the
+ * existing generation flow; the words page is untouched while it runs, and the saved picture replaces this area as
+ * soon as the verse's picture is read.
  *
  * Mount it with `key={verseId}`, so turning the page starts it afresh.
  */
-export function UnpaintedPicture({ verseId, reference, artStyle }: UnpaintedPictureProps) {
-  const glow = useQuery(api.verseImages.getNearestEarlierPicture, { verseId, artStyle });
+export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictureProps) {
+  const glow = useQuery(api.verseImages.getNearestEarlierPicture, { verseId, styles });
   const glowSource = glow ? previewSource(glow) : null;
-  const { buyCredits } = useSession();
   const { autoGenerate, setAutoGenerate } = usePreferences();
-  // A made picture: saved (shown once the verse's pictures include it), or only at a URL when nothing persists it.
-  const [made, setMade] = useState<{ saved: boolean; url: string } | null>(null);
   // Turning the switch on here paints from the next page on, never the verse on screen by surprise.
   const [switchedHere, setSwitchedHere] = useState(false);
-  const generation = useVerseGeneration({
-    verseId,
-    reference,
-    // Only mounted once the verse's pictures in this style have loaded and there are none.
-    styleImageCount: 0,
-    autoGenerateBlocked: switchedHere,
-    // The switch is the only way automatic painting starts, for the owner too.
-    ownerNeedsNoOptIn: false,
-    onAttemptStart: () => setMade(null),
-    onImage: ({ savedImageId, url }) => setMade({ saved: savedImageId !== null, url }),
-  });
+  const paint = usePaintVerse({ verseId, reference, autoGenerateBlocked: switchedHere });
+  const { generation, made } = paint;
 
   if (made && !made.saved) {
     // eslint-disable-next-line @next/next/no-img-element
     return <img src={made.url} alt={`Picture of ${reference}`} className="absolute inset-0 h-full w-full object-cover object-center" />;
   }
 
-  const painting = generation.isGenerating || made !== null;
-  const quote = generation.showCreditsCost ? generation.quote : null;
-
   let body;
-  if (painting) {
-    const percent = made ? 100 : Math.round(generation.progress * 100);
+  if (paint.painting) {
     body = (
       <div className="w-full max-w-[280px] space-y-3">
         <p className="font-serif text-xl text-white/90">Painting {reference}</p>
-        <div
-          role="progressbar"
-          aria-label={`Painting ${reference}`}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-valuenow={percent}
-          className="h-1 overflow-hidden rounded-full bg-white/15"
-        >
-          <div className="h-full rounded-full bg-white/80 motion-safe:transition-[width] motion-safe:duration-300" style={{ width: `${percent}%` }} />
-        </div>
+        <PaintProgress paint={paint} reference={reference} />
         <p className="text-xs text-white/60">
           {generation.phase === "generating" ? "The picture is being painted." : "Getting the scene ready."} Keep reading; it appears here when it is done.
         </p>
@@ -102,27 +75,7 @@ export function UnpaintedPicture({ verseId, reference, artStyle }: UnpaintedPict
           <Brush aria-hidden="true" className="h-5 w-5 text-white/85" />
         </span>
         <p className="font-serif text-xl text-white/90 md:text-2xl">No picture for {reference} yet</p>
-        {generation.pricingUnavailable ? (
-          <p className="max-w-sm text-sm text-white/60">{generation.pricingUnavailable}</p>
-        ) : generation.canGenerate || generation.pricingPending ? (
-          <button
-            type="button"
-            className={PRIMARY}
-            disabled={generation.pricingPending}
-            onClick={() => generation.generate("spread_paint")}
-          >
-            <span>Paint this verse</span>
-            {quote ? (
-              <span className="font-normal text-black/55">
-                {` · about ${quote.estimateCredits} ${quote.estimateCredits === 1 ? "credit" : "credits"}`}
-              </span>
-            ) : null}
-          </button>
-        ) : (
-          <button type="button" className={PRIMARY} onClick={buyCredits}>
-            Get credits to paint
-          </button>
-        )}
+        <PaintButton paint={paint} label="Paint this verse" />
         <button
           type="button"
           role="switch"

@@ -4,6 +4,7 @@ import { AskProvider } from "@/components/spread/ask";
 import { ContentsButton, ContentsLayer } from "@/components/spread/contents";
 import { CornerMenu } from "@/components/spread/corner-menu";
 import { LayerProvider } from "@/components/spread/layers";
+import { LookButton, LookLayer } from "@/components/spread/look";
 import { PageTurnLink, useArrival, usePageTurn } from "@/components/spread/page-turn";
 import { VerseMarks } from "@/components/spread/verse-marks";
 import { useIdle } from "@/components/spread/idle-fade";
@@ -33,7 +34,7 @@ export interface SpreadProps {
  * The reader's one screen for one verse. On a computer the picture covers the window and the words
  * page lies over its right side as dark glass, with a floating dock on the picture. On a phone the
  * picture sits above in a square frame and the words page fills the rest. It is dark whatever the
- * system setting is.
+ * system setting is. "Aa" in the dock opens Look.
  */
 export function Spread(props: SpreadProps) {
   return (
@@ -99,10 +100,12 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
           <PageTurnLink direction="prev" href={prevUrl} onTurn={onTurn} />
           <ContentsButton reference={reference} variant="dock" />
           <PageTurnLink direction="next" href={nextUrl} onTurn={onTurn} />
+          <LookButton variant="dock" />
         </nav>
       </div>
 
       <ContentsLayer bookSlug={bookSlug} chapter={chapter} verse={verseNumber} />
+      <LookLayer verseId={verseId} />
     </main>
   );
 }

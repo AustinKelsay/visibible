@@ -1,0 +1,82 @@
+"use client";
+
+import { useState } from "react";
+import { useSession } from "@/context/session-context";
+import { useVerseGeneration } from "@/lib/use-verse-generation";
+
+export const PILL = "inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-colors focus-ring";
+export const PRIMARY = `${PILL} bg-white text-black hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60`;
+
+/**
+ * Painting a verse in the chosen art style from the spread: the existing generation flow for a verse with no picture
+ * in that style (the unpainted verse, and a verse shown in another style). Automatic painting follows the reader's
+ * switch only, for the owner too. `made` holds a finished picture until the verse's pictures include it.
+ */
+export function usePaintVerse({ verseId, reference, autoGenerateBlocked = false }: { verseId: string; reference: string; autoGenerateBlocked?: boolean }) {
+  // A made picture: saved (shown once the verse's pictures include it), or only at a URL when nothing persists it.
+  const [made, setMade] = useState<{ saved: boolean; url: string } | null>(null);
+  const generation = useVerseGeneration({
+    verseId,
+    reference,
+    // Only used once the verse's pictures in the chosen style have loaded and there are none.
+    styleImageCount: 0,
+    autoGenerateBlocked,
+    // The switch is the only way automatic painting starts, for the owner too.
+    ownerNeedsNoOptIn: false,
+    onAttemptStart: () => setMade(null),
+    onImage: ({ savedImageId, url }) => setMade({ saved: savedImageId !== null, url }),
+  });
+  const painting = generation.isGenerating || made !== null;
+  return {
+    generation,
+    made,
+    painting,
+    percent: made ? 100 : Math.round(generation.progress * 100),
+    quote: generation.showCreditsCost ? generation.quote : null,
+  };
+}
+
+export type PaintVerse = ReturnType<typeof usePaintVerse>;
+
+/**
+ * The one paid control: "{label} · about N credits" from the server's quote (no price for an admin), "Get credits to
+ * paint" when the balance cannot cover it, or the reason painting is unavailable.
+ */
+export function PaintButton({ paint, label, className = PRIMARY }: { paint: PaintVerse; label: string; className?: string }) {
+  const { buyCredits } = useSession();
+  const { generation, quote } = paint;
+  if (generation.pricingUnavailable) return <p className="max-w-sm text-sm text-white/60">{generation.pricingUnavailable}</p>;
+  if (!generation.canGenerate && !generation.pricingPending) {
+    return (
+      <button type="button" className={className} onClick={buyCredits}>
+        Get credits to paint
+      </button>
+    );
+  }
+  return (
+    <button type="button" className={className} disabled={generation.pricingPending} onClick={() => generation.generate("spread_paint")}>
+      <span>{label}</span>
+      {quote ? (
+        <span className="font-normal text-black/55">
+          {` · about ${quote.estimateCredits} ${quote.estimateCredits === 1 ? "credit" : "credits"}`}
+        </span>
+      ) : null}
+    </button>
+  );
+}
+
+/** The progress line while a verse is painted. */
+export function PaintProgress({ paint, reference }: { paint: PaintVerse; reference: string }) {
+  return (
+    <div
+      role="progressbar"
+      aria-label={`Painting ${reference}`}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={paint.percent}
+      className="h-1 overflow-hidden rounded-full bg-white/15"
+    >
+      <div className="h-full rounded-full bg-white/80 motion-safe:transition-[width] motion-safe:duration-300" style={{ width: `${paint.percent}%` }} />
+    </div>
+  );
+}
