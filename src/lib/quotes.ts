@@ -4,8 +4,9 @@
  * shows them (`quote-display.ts`). Server only: the fingerprint uses Node's crypto.
  */
 import { createHash } from "node:crypto";
-import { computeChatCreditsCost } from "./chat-models";
-import { HISTORY_TOKEN_BUDGET, maxOutputTokensFor } from "./chat-request";
+import { CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE, HISTORY_TOKEN_BUDGET, maxOutputTokensFor } from "./chat-request";
+
+export { CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE };
 import { IMAGE_RESERVATION_HEADROOM_MULTIPLIER } from "./image-models";
 import { quoteTokenUsage, type TokenPricing } from "./token-pricing";
 
@@ -55,33 +56,35 @@ export function imageQuoteAmounts(quotedCredits: number, balance: number | null)
   return { estimateCredits: Math.min(quotedCredits, maximumCredits), maximumCredits };
 }
 
-/** Tokens allowed for the system prompt (guidance, rules and three verses) in a chat turn's maximum; a turn whose prompt estimates higher is refused. */
-export const CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE = 2000;
-/** The most input one chat turn can send: the bounded history plus the system prompt allowance. */
-export const CHAT_MAX_INPUT_TOKENS = HISTORY_TOKEN_BUDGET + CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE;
-
 /** The most one chat message may cost ($1.00). A model whose maximum passes it is refused, so no accepted quote can. */
 export const CHAT_MAX_CREDITS_PER_MESSAGE = 100;
 
 export type ChatQuoteTerms = { estimateCredits: number; maximumCredits: number; maxInputTokens: number; maxOutputTokens: number; fingerprint: string };
 
+/** A typical question and the conversation before it, in tokens, on top of the system prompt. */
+const TYPICAL_CONVERSATION_TOKENS = 300;
+/** A typical answer, in tokens. */
+const TYPICAL_ANSWER_TOKENS = 1000;
+
 /**
- * One chat turn's estimate and maximum from the model's prices. The estimate is a typical turn (1,000 tokens in,
- * 1,000 out); the maximum is the most the server will send and accept back (the bounded history and system prompt
- * in, the output cap out). Null when the model cannot be priced.
+ * One chat turn's estimate and maximum from the model's prices and the turn's system prompt (its estimated tokens),
+ * so both grow with the Scripture the prompt carries. The estimate is a typical turn (the system prompt and a short
+ * question in, 1,000 tokens out); the maximum is the most the server will send and accept back (the system prompt and
+ * the bounded history in, the output cap out). Null when the model cannot be priced.
  */
-export function chatQuoteTerms(modelId: string, pricing: TokenPricing & { contextLength?: number }): ChatQuoteTerms | null {
+export function chatQuoteTerms(modelId: string, pricing: TokenPricing & { contextLength?: number }, systemPromptTokens: number): ChatQuoteTerms | null {
   const maxOutputTokens = maxOutputTokensFor(pricing.contextLength);
-  const maximum = quoteTokenUsage(pricing, CHAT_MAX_INPUT_TOKENS, maxOutputTokens);
-  const typical = computeChatCreditsCost(pricing);
-  if (!maximum || typical === null) return null;
+  const maxInputTokens = HISTORY_TOKEN_BUDGET + systemPromptTokens;
+  const maximum = quoteTokenUsage(pricing, maxInputTokens, maxOutputTokens);
+  const typical = quoteTokenUsage(pricing, systemPromptTokens + TYPICAL_CONVERSATION_TOKENS, TYPICAL_ANSWER_TOKENS);
+  if (!maximum || !typical) return null;
   return {
-    estimateCredits: Math.min(typical, maximum.credits), maximumCredits: maximum.credits,
-    maxInputTokens: CHAT_MAX_INPUT_TOKENS, maxOutputTokens,
+    estimateCredits: Math.min(typical.credits, maximum.credits), maximumCredits: maximum.credits,
+    maxInputTokens, maxOutputTokens,
     fingerprint: sha256(JSON.stringify({
       operation: "chat", policyVersion: BILLING_POLICY_VERSION, modelId,
       promptPrice: pricing.prompt ?? null, completionPrice: pricing.completion ?? null,
-      maxInputTokens: CHAT_MAX_INPUT_TOKENS, maxOutputTokens,
+      maxInputTokens, maxOutputTokens,
     })),
   };
 }

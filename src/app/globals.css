@@ -70,6 +70,23 @@
   }
 }
 
+/* The dark reader's tokens, for surfaces that open over the spread (the credits dialog, feedback) so
+   they stay dark whatever the system setting is. */
+.reader-dark {
+  color-scheme: dark;
+  --background: #0e0e10;
+  --foreground: #f2f2f0;
+  --surface: rgba(255, 255, 255, 0.06);
+  --muted: rgba(255, 255, 255, 0.6);
+  --divider: rgba(255, 255, 255, 0.12);
+  --accent: #f2f2f0;
+  --accent-hover: #ffffff;
+  --accent-text: #0a0a0a;
+  --error: #f87171;
+  --success: #4ade80;
+  color: var(--foreground);
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -388,5 +405,27 @@ html {
       inset 0 0 16px rgba(255, 255, 255, 0.03),
       0 8px 32px rgba(0, 0, 0, 0.25),
       0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* The whole-picture view (spread.tsx): the words page slides off to the right on a computer and the marks
+   run the full width of the picture. Reduced motion makes the slide instant. */
+.spread-words {
+  transition: transform 320ms ease-out, visibility 0s;
+}
+@media (min-width: 768px) {
+  [data-whole-picture] .spread-words {
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 320ms ease-in, visibility 0s 320ms;
+  }
+  [data-whole-picture] .spread-marks {
+    right: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spread-words,
+  [data-whole-picture] .spread-words {
+    transition: none;
   }
 }

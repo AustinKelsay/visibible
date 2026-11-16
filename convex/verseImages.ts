@@ -256,73 +256,67 @@ export const getChapterImageStatus = query({
   },
 });
 
+/** Contents counts at most this many pictures per verse; a verse with more reports `morePictures`. */
+export const CONTENTS_COUNT_CAP = 9;
+const CONTENTS_MAX_VERSES = 200;
+const CONTENTS_MAX_STYLES = 12;
+
 /**
- * Get all saved images for a chapter, sorted by verse and newest-first within each verse.
- * Used by the optional chapter gallery view to render mini-galleries per verse.
+ * The picture rule's database half (spec #434, "Which picture a spread shows"): the newest picture of a verse in the
+ * first of `styles` that has one, read from the verse-and-style index, so other pictures of the verse are never read.
+ * Classical also covers pictures saved before styles existed. The caller orders `styles`: the chosen style, then any
+ * fallbacks.
  */
-export const getChapterGallery = query({
-  args: {
-    book: v.string(),
-    chapter: v.number(),
-    ...styleFilterArgs,
-  },
-  handler: async (ctx, args) => {
-    const prefix = `${args.book.toLowerCase()}-${args.chapter}-`;
+export async function newestPictureInStyles(ctx: QueryCtx, verseId: string, styles: readonly string[]): Promise<Doc<"verseImages"> | null> {
+  for (const style of styles) {
+    const stored: Array<string | undefined> = style === DEFAULT_ART_STYLE_ID ? [DEFAULT_ART_STYLE_ID, undefined] : [style];
+    const found = await Promise.all(stored.map((value) => ctx.db.query("verseImages")
+      .withIndex("by_verse_artStyle", (q) => q.eq("verseId", verseId).eq("artStyleId", value))
+      .order("desc")
+      .first()));
+    const newest = found.reduce<Doc<"verseImages"> | null>((best, image) => (image && (!best || image.createdAt > best.createdAt) ? image : best), null);
+    if (newest) return newest;
+  }
+  return null;
+}
 
-    const images = await onlyVisible(ctx, await withStyleFilter(ctx.db
-      .query("verseImages")
-      .withIndex("by_verse", (q) =>
-        q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
-      ), normalizeStyleFilter(args))
-      .collect());
+/**
+ * Contents (#445): per verse, the tile picture (by `newestPictureInStyles`) with its thumbnail, and how many pictures
+ * the verse has in any style, counted up to CONTENTS_COUNT_CAP. Reads at most CONTENTS_COUNT_CAP + 1 + one picture
+ * per style form for each verse, however many pictures are saved.
+ */
+export async function readChapterContents(ctx: QueryCtx, args: { verseIds: string[]; styles: string[] }) {
+  if (args.verseIds.length > CONTENTS_MAX_VERSES) throw new Error(`verseIds cannot exceed ${CONTENTS_MAX_VERSES} items`);
+  if (args.styles.length === 0 || args.styles.length > CONTENTS_MAX_STYLES) throw new Error(`Give between 1 and ${CONTENTS_MAX_STYLES} art styles`);
+  for (const style of args.styles) normalizeStyleFilter({ artStyle: style });
+  const visible = await visibleImageFilter(ctx);
 
-    const imageCounts = new Map<number, number>();
-    const parsedImages: Array<{ verse: number; image: (typeof images)[number] }> = [];
-
-    for (const image of images) {
-      const verseStr = image.verseId.slice(prefix.length);
-      const verseNum = parseInt(verseStr, 10);
-      if (Number.isNaN(verseNum)) {
-        continue;
-      }
-
-      imageCounts.set(verseNum, (imageCounts.get(verseNum) ?? 0) + 1);
-      parsedImages.push({ verse: verseNum, image });
+  return Promise.all(args.verseIds.map(async (verseId) => {
+    const [window, newest] = await Promise.all([
+      ctx.db.query("verseImages").withIndex("by_verse", (q) => q.eq("verseId", verseId)).order("desc").take(CONTENTS_COUNT_CAP + 1),
+      newestPictureInStyles(ctx, verseId, args.styles),
+    ]);
+    // A verse's pictures all belong to one work, so the newest one stands for the verse's visibility.
+    if (!(await visible(window[0] ?? newest ?? ({} as Doc<"verseImages">)))) {
+      return { verseId, picture: null, pictureCount: 0, morePictures: false };
     }
+    let picture = null;
+    if (newest) {
+      const imageUrl = (newest.storageId ? await ctx.storage.getUrl(newest.storageId) : null) ?? newest.imageUrl ?? null;
+      picture = imageUrl ? { id: newest._id, imageUrl, thumbnailUrl: await thumbnailUrlOf(ctx, newest), artStyle: artStyleOf(newest) } : null;
+    }
+    return {
+      verseId,
+      picture,
+      pictureCount: Math.min(window.length, CONTENTS_COUNT_CAP),
+      morePictures: window.length > CONTENTS_COUNT_CAP,
+    };
+  }));
+}
 
-    const entries = await Promise.all(
-      parsedImages
-        .sort((a, b) => {
-          if (a.verse !== b.verse) {
-            return a.verse - b.verse;
-          }
-          return b.image.createdAt - a.image.createdAt;
-        })
-        .map(async ({ verse, image }, index, allImages) => {
-          let imageUrl = image.imageUrl;
-          if (image.storageId) {
-            imageUrl = (await ctx.storage.getUrl(image.storageId)) ?? imageUrl;
-          }
-
-          const previous = allImages[index - 1];
-          const isLatest = !previous || previous.verse !== verse;
-
-          return {
-            verse,
-            imageCount: imageCounts.get(verse) ?? 0,
-            imageId: image._id,
-            imageUrl,
-            thumbnailUrl: await thumbnailUrlOf(ctx, image),
-            model: image.model,
-            artStyle: artStyleOf(image),
-            createdAt: image.createdAt,
-            isLatest,
-          };
-        })
-    );
-
-    return entries;
-  },
+export const getChapterContents = query({
+  args: { verseIds: v.array(v.string()), styles: v.array(v.string()) },
+  handler: (ctx, args) => readChapterContents(ctx, args),
 });
 
 // All 66 Bible book slugs for efficient existence checks
@@ -630,6 +624,36 @@ export const getImageHistory = query({
     );
 
     return results.filter((r) => r.imageUrl);
+  },
+});
+
+/**
+ * The glow behind an unpainted verse (#439): the newest picture in the style of the nearest earlier verse of the same
+ * chapter that has one, or null. One indexed read per earlier verse, stopping at the first hit, so it never reads the
+ * whole chapter. Verse ids are compared exactly ("john-1-1"), never as a prefix, so "john-1-10" and "john-11-1" never
+ * count for John 1:1.
+ */
+export const getNearestEarlierPicture = query({
+  args: { verseId: v.string(), artStyle: v.string() },
+  handler: async (ctx, args) => {
+    const match = /^(.+-\d+)-(\d+)$/.exec(args.verseId);
+    if (!match) return null;
+    const chapterId = match[1];
+    const filter = normalizeStyleFilter({ artStyle: args.artStyle });
+    const visible = await visibleImageFilter(ctx);
+    for (let verse = Number(match[2]) - 1; verse >= 1; verse--) {
+      const candidates = withStyleFilter(ctx.db
+        .query("verseImages")
+        .withIndex("by_verse", (q) => q.eq("verseId", `${chapterId}-${verse}`))
+        .order("desc"), filter);
+      for await (const image of candidates) {
+        if (!(await visible(image))) continue;
+        const imageUrl = (image.storageId ? await ctx.storage.getUrl(image.storageId) : null) ?? image.imageUrl;
+        if (!imageUrl) continue;
+        return { verse, id: image._id, imageUrl, thumbnailUrl: await thumbnailUrlOf(ctx, image) };
+      }
+    }
+    return null;
   },
 });
 

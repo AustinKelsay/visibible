@@ -19,7 +19,7 @@ function Divider() {
   return <div className="w-px h-6 bg-[var(--divider)] mx-1 sm:mx-2" />;
 }
 
-export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
+export function Header() {
   const pathname = usePathname();
   // A prose work's page: its passage leads, the book button opens its contents, and the Bible's translation and
   // chat are not offered.
@@ -36,9 +36,8 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
   const pillMeasureRef = useRef<HTMLSpanElement>(null);
   const [pillFits, setPillFits] = useState(true);
   const { tier, credits, buyCredits, accessStatus } = useSession();
-  // The brand links home everywhere except verse pages (About, API docs, 404). A verse-shaped
-  // address that does not exist (/genesis/0/1) renders the 404 page, which says so.
-  const isBrandLinkPage = isNotFound || !/^\/[^/]+\/\d+\/\d+$/.test(pathname);
+  // The brand links home everywhere except verse-shaped addresses.
+  const isBrandLinkPage = !/^\/[^/]+\/\d+\/\d+$/.test(pathname);
   // Verse pages are the spread now; the only reader left in this header is a prose work's page.
   const isVersePage = scope !== null;
   const passage = scope ? scope.passage : null;

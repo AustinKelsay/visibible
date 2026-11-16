@@ -24,8 +24,7 @@ export type PreferenceChangeSource =
   | "header_generate_modal"
   | "header_settings_popover"
   | "mobile_header_menu"
-  | "header_gallery_toggle"
-  | "chapter_gallery_card"
+  | "spread_paint_switch"
   | "unknown";
 
 export type GenerationTriggerSource =
@@ -33,11 +32,14 @@ export type GenerationTriggerSource =
   | "hero_generate"
   | "header_generate"
   | "hero_retry"
-  | "fullscreen_retry";
+  | "fullscreen_retry"
+  | "spread_paint"
+  | "spread_retry";
 
 export type CreditsFrictionSource =
   | GenerationTriggerSource
   | "chat_submit"
+  | "ask_submit"
   | "header_get_credits";
 
 // Event-specific property types
@@ -78,8 +80,21 @@ type ChatMessageSentProps = BaseProps & {
   hasContext: boolean;
 };
 
+/** Where Ask was opened: by sending from the words page's foot, or from the phone dock. */
+export type AskOpenSource = "words_page" | "dock";
+
+type AskOpenedProps = BaseProps & {
+  source: AskOpenSource;
+};
+
+type AskQuestionSentProps = BaseProps & {
+  source: "suggestion" | "field";
+  /** Turns in the conversation including this question: 1 for the first, 3 for the first follow-up. */
+  messageCount: number;
+};
+
 type ChatErrorShownProps = BaseProps & {
-  variant: "sidebar" | "inline";
+  variant: "sidebar" | "inline" | "ask";
   chatModel: string;
   errorType: ChatErrorType;
   hasContext: boolean;
@@ -180,38 +195,17 @@ type FeedbackPromptInteractionProps = BaseProps & {
   visitCount: number;
 };
 
-type ChapterGalleryViewedProps = BaseProps & {
+type ContentsOpenedProps = BaseProps & {
   book: string;
   chapter: number;
-  currentVerse: number;
-  layoutMode: "all" | "byVerse";
-  savedImageCount: number;
-  placeholderCount: number;
-};
-
-type ChapterGalleryLayoutChangedProps = BaseProps & {
-  book: string;
-  chapter: number;
-  currentVerse: number;
-  layoutMode: "all" | "byVerse";
-};
-
-type ChapterGalleryItemOpenedProps = BaseProps & {
-  book: string;
-  chapter: number;
-  currentVerse: number;
   verse: number;
-  layoutMode: "all" | "byVerse";
-  hasImage: boolean;
-  imageCount: number;
-  imageId?: string;
 };
 
 type ImageFullscreenOpenedProps = BaseProps & {
   book: string;
   chapter: number;
   verse: number;
-  source: "hero_mobile" | "verse_strip" | "chapter_gallery_card";
+  source: "hero_mobile";
   imageId?: string;
   totalImages?: number;
 };
@@ -231,7 +225,7 @@ type SavedImageLoadFailedProps = BaseProps & {
   book: string;
   chapter: number;
   verse: number;
-  surface: "hero" | "fullscreen" | "chapter_gallery_card" | "chapter_gallery_lightbox";
+  surface: "hero" | "fullscreen";
   imageId?: string;
   imageUrl?: string;
   attempt?: number;
@@ -242,24 +236,32 @@ type ApiDocsViewedProps = BaseProps & {
 };
 
 type ApiDocsLinkClickedProps = BaseProps & {
-  source: "hero_cta" | "quick_link" | "footer";
+  source: "hero_cta" | "quick_link" | "footer" | "corner_menu";
   href: string;
   target: "internal" | "external" | "api";
 };
 
-/** How the reader turned the page. Swipes, marks and Contents join as their tickets land. */
-export type VerseNavigationSource = "keyboard" | "dock" | "swipe" | "mark";
+/** How the reader turned the page. */
+export type VerseNavigationSource = "keyboard" | "dock" | "swipe" | "mark" | "contents";
 
 type VerseNavigationProps = BaseProps & {
   book: string;
   chapter: number;
   verse: number;
-  direction: "prev" | "next";
+  /** "jump" is a move to any verse, such as a Contents tile. */
+  direction: "prev" | "next" | "jump";
   source: VerseNavigationSource;
   targetUrl: string;
 };
 
 type SettingsMenuOpenedProps = BaseProps;
+
+type WholePictureOpenedProps = BaseProps & {
+  book: string;
+  chapter: number;
+  verse: number;
+  imageId?: string;
+};
 
 function sanitizeImageUrl(imageUrl?: string): string | undefined {
   if (!imageUrl) return undefined;
@@ -291,6 +293,16 @@ export function trackChatOpened(props: ChatOpenedProps) {
 // Track chat message sent
 export function trackChatMessageSent(props: ChatMessageSentProps) {
   track("chat_message_sent", props);
+}
+
+// Track the turned-over words page opening for Ask
+export function trackAskOpened(props: AskOpenedProps) {
+  track("ask_opened", props);
+}
+
+// Track a question sent from the spread's Ask
+export function trackAskQuestionSent(props: AskQuestionSentProps) {
+  track("ask_question_sent", props);
 }
 
 // Track chat error surfaced to user
@@ -373,19 +385,9 @@ export function trackFeedbackPromptInteraction(props: FeedbackPromptInteractionP
   track("feedback_prompt_interaction", props);
 }
 
-// Track chapter gallery view
-export function trackChapterGalleryViewed(props: ChapterGalleryViewedProps) {
-  track("chapter_gallery_viewed", props);
-}
-
-// Track gallery layout changes
-export function trackChapterGalleryLayoutChanged(props: ChapterGalleryLayoutChangedProps) {
-  track("chapter_gallery_layout_changed", props);
-}
-
-// Track navigation from gallery cards into the reader
-export function trackChapterGalleryItemOpened(props: ChapterGalleryItemOpenedProps) {
-  track("chapter_gallery_item_opened", props);
+// Track Contents, the chapter wall opened from the passage name
+export function trackContentsOpened(props: ContentsOpenedProps) {
+  track("contents_opened", props);
 }
 
 // Track fullscreen image opens across the new image surfaces
@@ -419,6 +421,11 @@ export function trackApiDocsLinkClicked(props: ApiDocsLinkClickedProps) {
 // Track explicit verse navigation interactions
 export function trackVerseNavigation(props: VerseNavigationProps) {
   track("verse_navigation", props);
+}
+
+// Track the spread's whole-picture view being opened from its picture
+export function trackWholePictureOpened(props: WholePictureOpenedProps) {
+  track("whole_picture_opened", props);
 }
 
 // Track the mobile settings menu

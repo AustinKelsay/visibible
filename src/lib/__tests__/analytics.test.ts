@@ -8,9 +8,9 @@ import { track } from "@vercel/analytics";
 import {
   trackApiDocsLinkClicked,
   trackApiDocsViewed,
-  trackChapterGalleryItemOpened,
-  trackChapterGalleryLayoutChanged,
-  trackChapterGalleryViewed,
+  trackAskOpened,
+  trackAskQuestionSent,
+  trackContentsOpened,
   trackChatErrorShown,
   trackChatMessageSent,
   trackChatOpened,
@@ -36,6 +36,7 @@ import {
   trackVerseImagesState,
   trackVerseNavigation,
   trackVerseView,
+  trackWholePictureOpened,
 } from "@/lib/analytics";
 
 // Each wrapper forwards its props unchanged; what can drift is the event name a dashboard filters on.
@@ -46,9 +47,9 @@ describe("analytics event wrappers", () => {
   it.each([
     [trackApiDocsLinkClicked, "api_docs_link_clicked"],
     [trackApiDocsViewed, "api_docs_viewed"],
-    [trackChapterGalleryItemOpened, "chapter_gallery_item_opened"],
-    [trackChapterGalleryLayoutChanged, "chapter_gallery_layout_changed"],
-    [trackChapterGalleryViewed, "chapter_gallery_viewed"],
+    [trackAskOpened, "ask_opened"],
+    [trackAskQuestionSent, "ask_question_sent"],
+    [trackContentsOpened, "contents_opened"],
     [trackChatErrorShown, "chat_error_shown"],
     [trackChatMessageSent, "chat_message_sent"],
     [trackChatOpened, "chat_opened"],
@@ -73,6 +74,7 @@ describe("analytics event wrappers", () => {
     [trackVerseImagesState, "verse_images_state"],
     [trackVerseNavigation, "verse_navigation"],
     [trackVerseView, "verse_view"],
+    [trackWholePictureOpened, "whole_picture_opened"],
   ] as [(props: never) => void, string][])("%#: sends %s with its props", (wrapper, eventName) => {
     const props = { tier: "paid", hasCredits: true, marker: eventName };
     wrapper(props as never);
