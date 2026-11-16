@@ -11,10 +11,10 @@
   "deploy": {
     "steps": [
       { "at": "2026-11-16T22:45:58Z", "convex": "Shared dev coordinated-shepherd-515 synced to main 8d8faf8b." },
-      { "at": "2026-11-16T22:46:30Z", "convex": "Shared dev reset: dry run 80 pictures, 1 video, 161 files; two pages deleted all of them and the Nostr scheduler state. It had no reference sheets." },
+      { "at": "2026-11-16T22:46Z", "convex": "Shared dev reset: dry run 80 pictures, 1 video, 161 files; two pages deleted all of them and the Nostr scheduler state. It had no reference sheets." },
       { "at": "2026-11-16T22:46:41Z", "commit": "8d8faf8b", "convex": "Deployed to unique-impala-244 after a dry run: new internal mutation libraryReset:resetLibraryPage; no schema change." },
       { "at": "2026-11-16T22:47:03Z", "convex": "Production reset: no video running; dry run 230 pictures, 2 videos, 462 files, not truncated; five pages deleted all of them (48+50+50+50+32 pictures) and the scheduler state. Afterwards verseImages 0, videoJobs 0, referenceImages 290." },
-      { "at": "2026-11-16T22:48:30Z", "commit": "8d8faf8b", "carries": [485], "vercel": "dpl_5WHHBJdJNNJRkDQdvNAYQvWGkwqS" }
+      { "at": "2026-11-16T22:47:42Z", "commit": "8d8faf8b", "carries": [485], "vercel": "dpl_5WHHBJdJNNJRkDQdvNAYQvWGkwqS (created; ready about a minute later)" }
     ]
   },
   "nostr": {
