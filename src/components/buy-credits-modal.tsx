@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
+import { tabbableIn, trapTab } from "@/lib/focus-trap";
 import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { DEFAULT_IMAGE_MODEL, getEstimatedCreditsCostForResolution, supportsResolution, type ImageModel } from "@/lib/image-models";
 import { IMAGE_ENVELOPE_CREDITS } from "@/lib/engine/quote";
@@ -113,7 +114,24 @@ export function BuyCreditsModal() {
   const modalOpenedAtRef = useRef<number | null>(null);
   const purchaseIntentRef = useRef<{ amountUsd: number; id: string } | null>(null);
 
-  // Admin login state
+  // The dialog opens over the reader and any layer: it takes focus, and gives it back where it was when it closes.
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!isBuyModalOpen) return;
+    let returnTo: HTMLElement | null = null;
+    // After a layer closed to open it has returned focus to its opener (also in a microtask), so that is kept.
+    queueMicrotask(() => {
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+      returnTo = document.activeElement instanceof HTMLElement && !dialog.contains(document.activeElement) ? document.activeElement : null;
+      (tabbableIn(dialog)[0] ?? dialog).focus();
+    });
+    return () => {
+      const target = returnTo;
+      if (target) queueMicrotask(() => target.isConnected && target.focus());
+    };
+  }, [isBuyModalOpen]);
+
   const [showAdminInput, setShowAdminInput] = useState(false);
   // Owner sign-in stays out of the purchase flow unless the page URL asks for it.
   const showAdminEntry = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("admin");
@@ -470,7 +488,22 @@ export function BuyCreditsModal() {
       />
 
       {/* Modal */}
-      <div role="dialog" aria-modal="true" aria-label="Credits" className="relative w-full md:max-w-md max-h-[calc(100svh-env(safe-area-inset-top))] overflow-y-auto bg-[var(--background)] border border-[var(--divider)] shadow-2xl rounded-t-[var(--radius-2xl)] md:rounded-[var(--radius-2xl)] p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] animate-in slide-in-from-bottom md:slide-in-from-bottom-0 md:fade-in duration-[var(--motion-base)]">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Credits"
+        tabIndex={-1}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") {
+            // Handled here, so a layer under the dialog (its own Escape handler checks this) stays open.
+            event.preventDefault();
+            handleClose();
+            return;
+          }
+          if (dialogRef.current) trapTab(event, dialogRef.current);
+        }}
+        className="relative w-full md:max-w-md max-h-[calc(100svh-env(safe-area-inset-top))] overflow-y-auto bg-[var(--background)] border border-[var(--divider)] shadow-2xl rounded-t-[var(--radius-2xl)] md:rounded-[var(--radius-2xl)] p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] animate-in slide-in-from-bottom md:slide-in-from-bottom-0 md:fade-in duration-[var(--motion-base)]">
         {/* Close button */}
         <button
           onClick={handleClose}
