@@ -217,7 +217,8 @@ describe("Contents", () => {
     await openVerse("john", "1", "5");
     await openContents();
 
-    expect(contentsReads.at(-1)).toEqual({ verseIds: Array.from({ length: 51 }, (_, i) => `john-1-${i + 1}`), styles: ["classical"] });
+    // Tiles follow the spread's picture rule: the chosen style, then the other public styles in the style set's order.
+    expect(contentsReads.at(-1)).toEqual({ verseIds: Array.from({ length: 51 }, (_, i) => `john-1-${i + 1}`), styles: ["classical", "watercolor", "fresco", "storybook"] });
     expect(tile(1).querySelector("img")?.getAttribute("src")).toBe("https://img.test/thumb/john-1-1-a.webp");
     expect(tile(1).getAttribute("aria-label")).toBe("Verse 1");
     expect(tile(2).querySelector("img")?.getAttribute("src")).toBe("https://img.test/thumb/john-1-2-new.webp");
@@ -225,9 +226,9 @@ describe("Contents", () => {
     expect(tile(2).textContent).toContain("3");
     expect(tile(9).getAttribute("aria-label")).toBe("Verse 9, more than 9 pictures");
     expect(tile(9).textContent).toContain("9+");
-    // Watercolor only, in Classical: unpainted until Look's fallback lands (#440).
-    expect(tile(3).querySelector("img")).toBeNull();
-    expect(tile(3).getAttribute("aria-label")).toBe("Verse 3, not painted yet");
+    // Watercolor only, in Classical: the tile shows the Watercolor picture, as the spread does.
+    expect(tile(3).querySelector("img")?.getAttribute("src")).toBe("https://img.test/thumb/john-1-3-water.webp");
+    expect(tile(3).getAttribute("aria-label")).toBe("Verse 3");
     expect(tile(6).getAttribute("aria-label")).toBe("Verse 6, not painted yet");
     // A picture saved before thumbnails existed falls back to the full picture.
     expect(tile(4).querySelector("img")?.getAttribute("src")).toBe("https://img.test/full/john-1-4-nothumb.png");

@@ -10,8 +10,10 @@ import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { getFunctionName, type FunctionReference } from "convex/server";
 import { useQuery } from "convex/react";
+import { answerPictureRead } from "./fake-picture-reads";
 import VersePage from "../[book]/[chapter]/[verse]/page";
-import { clearBibleApiCache, TRANSLATIONS } from "@/lib/bible-api";
+import { clearBibleApiCache } from "@/lib/bible-api";
+import { PreferencesProvider } from "@/context/preferences-context";
 import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
 import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 import { resetAdvancedSettingsForTests } from "@/lib/advanced-settings";
@@ -47,20 +49,6 @@ vi.mock("convex/react", () => ({
   useConvexAuth: () => ({ isAuthenticated: true, isLoading: false }),
 }));
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => true }));
-// The old saved settings are not what the reader paints or asks with.
-vi.mock("@/context/preferences-context", () => ({
-  usePreferences: () => ({
-    artStyle: "classical",
-    translation: "web",
-    translationInfo: TRANSLATIONS.web,
-    chatModel: "saved/old-pick",
-    imageModel: "saved/old-image-pick",
-    imageAspectRatio: "3:2",
-    imageResolution: "4K",
-    autoGenerate: false,
-    setAutoGenerate: vi.fn(),
-  }),
-}));
 vi.mock("@/context/session-context", () => ({ useSession: () => session }));
 vi.mock("@/lib/analytics");
 
@@ -98,7 +86,9 @@ const params = (book: string, chapter: string, verse: string) => ({ params: Prom
 const flush = (ms = 0) => act(async () => { await new Promise((resolve) => setTimeout(resolve, ms)); });
 async function openVerse(book = "john", chapter = "1", verse = "6") {
   const page = await VersePage(params(book, chapter, verse));
-  await act(async () => { root.render(page); });
+  await act(async () => { root.render(<PreferencesProvider>{page}</PreferencesProvider>); });
+  // The stored settings load just after the first render.
+  await flush();
   await flush();
 }
 /** Let the catalog, the quote's debounce and its answer arrive. */
@@ -138,6 +128,7 @@ beforeEach(() => {
   clearBibleApiCache();
   vi.clearAllMocks();
   vi.stubGlobal("localStorage", memoryStorage());
+  document.cookie = "visibible-translation=; path=/; max-age=0";
   resetAdvancedSettingsForTests();
   Object.assign(session, { tier: "paid", credits: 100 });
   savedPictures = [];
@@ -173,12 +164,7 @@ beforeEach(() => {
     const name = getFunctionName(query);
     if (name === "verseImages:getGenerationRequestStatus") return null;
     if (name === "verseImages:getChapterImageStatus") return [];
-    if (name === "verseImages:getNearestEarlierPicture") return null;
-    const { verseId, artStyle } = args as { verseId?: string; artStyle?: string };
-    if (!verseId) return [];
-    return savedPictures
-      .filter((picture) => picture.id.startsWith(`${verseId}:`) && (!artStyle || picture.artStyle === artStyle))
-      .sort((a, b) => b.createdAt - a.createdAt);
+    return answerPictureRead(savedPictures, query, args, null);
   }) as typeof useQuery);
   container = document.createElement("div");
   document.body.appendChild(container);

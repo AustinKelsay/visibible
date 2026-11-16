@@ -25,6 +25,7 @@ export type PreferenceChangeSource =
   | "header_settings_popover"
   | "mobile_header_menu"
   | "spread_paint_switch"
+  | "look"
   | "advanced"
   | "unknown";
 
@@ -178,6 +179,7 @@ type PreferenceChangedProps = BaseProps & {
     | "imageAspectRatio"
     | "imageResolution"
     | "artStyle"
+    | "textSize"
     | "autoGenerate"
     | "feedbackPrompts";
   value: string;
@@ -197,6 +199,11 @@ type FeedbackSubmittedProps = BaseProps & {
 type FeedbackPromptInteractionProps = BaseProps & {
   action: "shown" | "clicked" | "dismissed";
   visitCount: number;
+};
+
+type LookOpenedProps = BaseProps & {
+  /** The control that opened Look: the dock's "Aa" (computer or phone) or the translation name on the words page. */
+  source: "dock" | "translation_name";
 };
 
 type PictureMenuOpenedProps = BaseProps & {
@@ -397,6 +404,11 @@ export function trackFeedbackPromptInteraction(props: FeedbackPromptInteractionP
 // Track Contents, the chapter wall opened from the passage name
 export function trackContentsOpened(props: ContentsOpenedProps) {
   track("contents_opened", props);
+}
+
+// Track Look, the panel for art style, translation and text size
+export function trackLookOpened(props: LookOpenedProps) {
+  track("look_opened", props);
 }
 
 // Track an opening of the picture menu on the spread (#441)

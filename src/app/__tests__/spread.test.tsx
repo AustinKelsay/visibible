@@ -10,6 +10,7 @@ import VersePage from "../[book]/[chapter]/[verse]/page";
 import { clearBibleApiCache, type Translation } from "@/lib/bible-api";
 import { trackVerseNavigation, trackWholePictureOpened } from "@/lib/analytics";
 import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
+import { answerPictureRead, type SavedPicture } from "./fake-picture-reads";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -75,23 +76,8 @@ let session: TestSession;
 vi.mock("@/context/session-context", () => ({ useSession: () => session }));
 vi.mock("@/lib/analytics");
 
-type SavedPicture = { id: string; imageUrl: string; thumbnailUrl?: string | null; artStyle: string; createdAt: number };
 let savedPictures: SavedPicture[] = [];
 let requestStatus: { status: string; error?: string } | null = null;
-
-const verseOf = (picture: SavedPicture) => picture.id.split(":")[0];
-
-/** The nearest earlier picture of the chapter in the style, as the Convex read answers it. */
-function nearestEarlierPicture(verseId: string, style: string) {
-  const [, chapterId, verse] = /^(.+-\d+)-(\d+)$/.exec(verseId)!;
-  for (let earlier = Number(verse) - 1; earlier >= 1; earlier--) {
-    const newest = savedPictures
-      .filter((picture) => verseOf(picture) === `${chapterId}-${earlier}` && picture.artStyle === style)
-      .sort((a, b) => b.createdAt - a.createdAt)[0];
-    if (newest) return { verse: earlier, id: newest.id, imageUrl: newest.imageUrl, thumbnailUrl: newest.thumbnailUrl ?? null };
-  }
-  return null;
-}
 
 // The image service: the catalog prices an image at 5 credits, a quote at about 2 (at most 4).
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
@@ -158,22 +144,7 @@ beforeEach(() => {
     if (args === "skip") return undefined;
     const name = getFunctionName(query);
     if (name === "verseImages:getGenerationRequestStatus") return requestStatus;
-    if (name === "verseImages:getChapterImageStatus") {
-      // The chapter's painted status: the verses with a picture in the style, and how many.
-      const { book, chapter, artStyle: style } = args as { book: string; chapter: number; artStyle: string };
-      const counts = new Map<number, number>();
-      for (const picture of savedPictures) {
-        const match = picture.id.match(/^([a-z0-9-]+?)-(\d+)-(\d+):/);
-        if (!match || match[1] !== book || Number(match[2]) !== chapter || picture.artStyle !== style) continue;
-        counts.set(Number(match[3]), (counts.get(Number(match[3])) ?? 0) + 1);
-      }
-      return [...counts].sort((a, b) => a[0] - b[0]).map(([verse, imageCount]) => ({ verse, imageCount }));
-    }
-    const { verseId, artStyle: style, otherStyles } = args as { verseId: string; artStyle: string; otherStyles?: boolean };
-    if (name === "verseImages:getNearestEarlierPicture") return nearestEarlierPicture(verseId, style);
-    return savedPictures
-      .filter((picture) => verseOf(picture) === verseId && (otherStyles ? picture.artStyle !== style : picture.artStyle === style))
-      .sort((a, b) => b.createdAt - a.createdAt);
+    return answerPictureRead(savedPictures, query, args);
   }) as typeof useQuery);
   container = document.createElement("div");
   document.body.appendChild(container);
@@ -233,9 +204,10 @@ describe("the spread for a painted verse", () => {
     expect(html).toContain("5 / 51");
   });
 
-  it("shows the words page over plain dark when the stored style has no picture", async () => {
+  it("shows the words page over the unpainted verse when no style the reader may see has a picture", async () => {
+    // Byzantine Icon is owner-only: a public reader is never shown it.
     savedPictures = [
-      { id: "genesis-1-1:watercolor", imageUrl: "https://img.test/watercolor.png", artStyle: "watercolor", createdAt: 1 },
+      { id: "genesis-1-1:icon", imageUrl: "https://img.test/icon.png", artStyle: "icon", createdAt: 1 },
     ];
     await openVerse("genesis", "1", "1");
 
@@ -374,11 +346,12 @@ describe("an unpainted verse", () => {
   const autoSwitch = () => container.querySelector<HTMLButtonElement>('[role="switch"]');
   const pictureArea = () => container.querySelector<HTMLElement>('[aria-label="Picture"]');
 
-  it("glows with the nearest earlier picture in the chapter, in the stored style", async () => {
+  it("glows with the nearest earlier picture in the chapter, chosen by the spread's rule", async () => {
     savedPictures = [
       { id: "john-1-2:classical", imageUrl: "https://img.test/2.png", artStyle: "classical", createdAt: 1 },
+      { id: "john-1-3:watercolor", imageUrl: "https://img.test/3w.png", artStyle: "watercolor", createdAt: 1 },
       { id: "john-1-3:classical", imageUrl: "https://img.test/3.png", thumbnailUrl: "https://img.test/3-small.webp", artStyle: "classical", createdAt: 2 },
-      { id: "john-1-4:watercolor", imageUrl: "https://img.test/4.png", artStyle: "watercolor", createdAt: 3 },
+      { id: "john-1-4:icon", imageUrl: "https://img.test/4.png", artStyle: "icon", createdAt: 3 },
       { id: "john-1-9:classical", imageUrl: "https://img.test/9.png", artStyle: "classical", createdAt: 4 },
     ];
     await openVerse("john", "1", "5");
@@ -393,7 +366,7 @@ describe("an unpainted verse", () => {
   it("is plain dark when no earlier verse of the chapter has a picture", async () => {
     savedPictures = [
       { id: "john-1-9:classical", imageUrl: "https://img.test/9.png", artStyle: "classical", createdAt: 1 },
-      { id: "john-1-2:watercolor", imageUrl: "https://img.test/2.png", artStyle: "watercolor", createdAt: 2 },
+      { id: "john-1-2:icon", imageUrl: "https://img.test/2.png", artStyle: "icon", createdAt: 2 },
     ];
     await openVerse("john", "1", "5");
 
@@ -710,11 +683,12 @@ describe("controls fading while reading", () => {
 });
 
 describe("the verse marks", () => {
-  it("shows one mark per verse of the chapter, brighter where painted, marking the current verse", async () => {
+  it("shows one mark per verse of the chapter, brighter where painted (by the spread's rule), marking the current verse", async () => {
     savedPictures = [
       { id: "john-1-1:a", imageUrl: "https://img.test/1.png", artStyle: "classical", createdAt: 1 },
       { id: "john-1-3:a", imageUrl: "https://img.test/3.png", artStyle: "classical", createdAt: 1 },
-      { id: "john-1-4:a", imageUrl: "https://img.test/4w.png", artStyle: "watercolor", createdAt: 1 },
+      { id: "john-1-4:a", imageUrl: "https://img.test/4i.png", artStyle: "icon", createdAt: 1 },
+      { id: "john-1-5:a", imageUrl: "https://img.test/5w.png", artStyle: "watercolor", createdAt: 1 },
     ];
     await openVerse("john", "1", "3");
 
@@ -723,7 +697,9 @@ describe("the verse marks", () => {
     expect(all).toHaveLength(51);
     expect(all[0].getAttribute("aria-label")).toBe("Verse 1, painted");
     expect(all[1].getAttribute("aria-label")).toBe("Verse 2, unpainted");
+    // Owner-only for a public reader: unpainted. Another public style: painted, as the spread shows it.
     expect(all[3].getAttribute("aria-label")).toBe("Verse 4, unpainted");
+    expect(all[4].getAttribute("aria-label")).toBe("Verse 5, painted");
     expect(all[50].getAttribute("href")).toBe("/john/1/51");
 
     const current = marks.querySelectorAll('[aria-current="page"]');
@@ -844,6 +820,28 @@ describe("the corner menu", () => {
     expect(container.querySelector('[role="dialog"]')).toBeNull();
     expect(document.activeElement).toBe(cornerName());
     expect(cornerName().getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("attaches a picture shown from another art style, as the spread shows it", async () => {
+    savedPictures = [{ id: "john-1-5:watercolor", imageUrl: "https://img.test/watercolor.png", artStyle: "watercolor", createdAt: 2 }];
+    const fetch = vi.fn(async (url: string) => {
+      if (url === "/api/feedback") return new Response(JSON.stringify({ success: true }), { status: 200 });
+      throw new DOMException("Timed out", "TimeoutError");
+    });
+    vi.stubGlobal("fetch", fetch);
+    await openVerse("john", "1", "5");
+    expect(container.querySelector('img[alt="Picture of John 1:5"]')?.getAttribute("src")).toBe("https://img.test/watercolor.png");
+    const menu = openMenu()!;
+    act(() => { [...menu.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Send feedback")!.click(); });
+    const form = container.querySelector<HTMLElement>('[role="dialog"][aria-label="Send feedback"]')!;
+    const message = form.querySelector<HTMLTextAreaElement>('textarea[aria-label="Feedback message"]')!;
+    act(() => {
+      Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, "value")!.set!.call(message, "Wrong well");
+      message.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    await act(async () => { form.querySelector<HTMLButtonElement>('button[aria-label="Submit feedback"]')!.click(); });
+    const [, request] = fetch.mock.calls.find(([url]) => url === "/api/feedback") as unknown as [string, RequestInit];
+    expect(JSON.parse(request.body as string)).toMatchObject({ imageContext: { imageId: "john-1-5:watercolor", artStyle: "watercolor" } });
   });
 
   it("sends feedback with the verse and the picture on screen attached, then returns focus to the name", async () => {

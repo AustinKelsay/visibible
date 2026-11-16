@@ -11,11 +11,13 @@ import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { getFunctionName, type FunctionReference } from "convex/server";
 import { useQuery } from "convex/react";
+import { answerPictureRead } from "./fake-picture-reads";
 import VersePage from "../[book]/[chapter]/[verse]/page";
-import { clearBibleApiCache, TRANSLATIONS } from "@/lib/bible-api";
+import { clearBibleApiCache } from "@/lib/bible-api";
+import { PreferencesProvider } from "@/context/preferences-context";
 import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
 import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
-import { ADVANCED_STORAGE_KEY, resetAdvancedSettingsForTests } from "@/lib/advanced-settings";
+import { READER_SETTINGS_KEY, resetAdvancedSettingsForTests } from "@/lib/advanced-settings";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -48,20 +50,6 @@ vi.mock("convex/react", () => ({
   useConvexAuth: () => ({ isAuthenticated: true, isLoading: false }),
 }));
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => true }));
-// The old saved settings are not what the reader paints or asks with.
-vi.mock("@/context/preferences-context", () => ({
-  usePreferences: () => ({
-    artStyle: "classical",
-    translation: "web",
-    translationInfo: TRANSLATIONS.web,
-    chatModel: "saved/old-pick",
-    imageModel: "saved/old-image-pick",
-    imageAspectRatio: "3:2",
-    imageResolution: "4K",
-    autoGenerate: false,
-    setAutoGenerate: vi.fn(),
-  }),
-}));
 vi.mock("@/context/session-context", () => ({ useSession: () => session }));
 vi.mock("@/lib/analytics");
 // No chapter job is running (the bulk provider sits in the root layout, outside the page).
@@ -109,7 +97,9 @@ const params = (book: string, chapter: string, verse: string) => ({ params: Prom
 const flush = (ms = 0) => act(async () => { await new Promise((resolve) => setTimeout(resolve, ms)); });
 async function openVerse(book = "john", chapter = "1", verse = "6") {
   const page = await VersePage(params(book, chapter, verse));
-  await act(async () => { root.render(page); });
+  await act(async () => { root.render(<PreferencesProvider>{page}</PreferencesProvider>); });
+  // The stored settings load just after the first render.
+  await flush();
   await flush();
 }
 /** Let the catalog, the quote's debounce and its answer arrive. */
@@ -133,8 +123,12 @@ beforeEach(() => {
   clearBibleApiCache();
   vi.clearAllMocks();
   vi.stubGlobal("localStorage", memoryStorage());
+  document.cookie = "visibible-translation=; path=/; max-age=0";
   // Chosen while Advanced was still there.
-  localStorage.setItem(ADVANCED_STORAGE_KEY, JSON.stringify({ aspectRatio: "21:9", resolution: "2K", answeringModel: "openai/gpt-oss-120b", feedbackPrompts: true }));
+  localStorage.setItem(READER_SETTINGS_KEY, JSON.stringify({
+    version: 1,
+    advanced: { imageAspectRatio: "21:9", imageResolution: "2K", chatModel: "openai/gpt-oss-120b", feedbackPrompts: true },
+  }));
   resetAdvancedSettingsForTests();
   Object.assign(session, { tier: "paid", credits: 100 });
   savedPictures = [];
@@ -169,19 +163,7 @@ beforeEach(() => {
     const name = getFunctionName(query);
     if (name === "verseImages:getGenerationRequestStatus") return null;
     if (name === "verseImages:getChapterImageStatus") return [];
-    if (name === "verseImages:getNearestEarlierPicture") return null;
-    if (name === "verseImages:getChapterContents") {
-      const { verseIds } = args as { verseIds: string[] };
-      return verseIds.map((verseId) => {
-        const picture = savedPictures.find((saved) => saved.id.startsWith(`${verseId}:`));
-        return { verseId, picture: picture ? { id: picture.id, imageUrl: picture.imageUrl, thumbnailUrl: null, artStyle: picture.artStyle } : null, pictureCount: picture ? 1 : 0, morePictures: false };
-      });
-    }
-    const { verseId, artStyle } = args as { verseId?: string; artStyle?: string };
-    if (!verseId) return [];
-    return savedPictures
-      .filter((picture) => picture.id.startsWith(`${verseId}:`) && (!artStyle || picture.artStyle === artStyle))
-      .sort((a, b) => b.createdAt - a.createdAt);
+    return answerPictureRead(savedPictures, query, args, null);
   }) as typeof useQuery);
   container = document.createElement("div");
   document.body.appendChild(container);
@@ -233,6 +215,16 @@ describe("the reader without Advanced", () => {
     const tile = contents.querySelector<HTMLAnchorElement>('a[aria-label="Verse 9, not painted yet"]')!;
     await click(tile);
     expect(push).toHaveBeenCalledWith("/john/1/9");
+  });
+
+  it("opens Look and changes the text size", async () => {
+    await openVerse("john", "1", "5");
+    await click(container.querySelector<HTMLButtonElement>('nav[aria-label="Turn the page"] button[aria-label="Look"]')!);
+    const look = container.querySelector<HTMLElement>('[role="dialog"][aria-label="Look"]')!;
+    expect(look).not.toBeNull();
+    const large = [...look.querySelectorAll<HTMLInputElement>('input[type="radio"]')].find((input) => /large/i.test(input.getAttribute("aria-label") ?? input.closest("label")?.textContent ?? ""))!;
+    await click(large);
+    expect(JSON.parse(localStorage.getItem(READER_SETTINGS_KEY)!).look).toMatchObject({ textSize: "large" });
   });
 
   it("never shows the feedback prompt", async () => {

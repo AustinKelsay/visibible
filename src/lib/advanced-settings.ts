@@ -14,8 +14,8 @@ import {
 } from "@/lib/image-models";
 
 /**
- * The reader's Advanced settings: their own stored group, apart from the Look record, with defaults. The reader reads
- * them here (painting, Ask, bulk painting, the feedback prompt) and never from the Advanced module itself.
+ * The reader's Advanced settings: their own group (`advanced`) in the reader's stored settings record, with defaults.
+ * The reader reads them here (painting, Ask, bulk painting, the feedback prompt) and never from the Advanced module.
  *
  * A setting counts only while an Advanced item offers it: each item calls `offerAdvancedSettings` when its module
  * loads. A setting nobody offers reads as its default whatever is stored, so cutting the Advanced module, or one item,
@@ -42,10 +42,16 @@ export const ADVANCED_DEFAULTS: Readonly<AdvancedSettings> = Object.freeze({
   feedbackPrompts: false,
 });
 
-export const ADVANCED_STORAGE_KEY = "visibible-advanced";
+/** The reader's settings record; PreferencesProvider keeps Look and automatic painting in the same record. */
+export const READER_SETTINGS_KEY = "visibible-reader-settings";
 
-/** Settings kept only in memory, for this visit. */
-const VISIT_ONLY: ReadonlySet<AdvancedSettingKey> = new Set(["imageModel"]);
+/** Each stored setting's name inside the record's `advanced` group (shared with the old header's controls). */
+const STORED_NAME: Record<Exclude<AdvancedSettingKey, "imageModel">, string> = {
+  aspectRatio: "imageAspectRatio",
+  resolution: "imageResolution",
+  answeringModel: "chatModel",
+  feedbackPrompts: "feedbackPrompts",
+};
 
 const offered = new Set<AdvancedSettingKey>();
 const listeners = new Set<() => void>();
@@ -58,21 +64,31 @@ export function offerAdvancedSettings(...keys: AdvancedSettingKey[]) {
   snapshot = null;
 }
 
-function readStored(): Partial<AdvancedSettings> {
+function asObject(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
+}
+
+function readRecord(): Record<string, unknown> {
   try {
-    const raw = localStorage.getItem(ADVANCED_STORAGE_KEY);
-    const parsed: unknown = raw ? JSON.parse(raw) : null;
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return {};
-    const stored = parsed as Record<string, unknown>;
-    const valid: Partial<AdvancedSettings> = {};
-    if (typeof stored.aspectRatio === "string" && isValidAspectRatio(stored.aspectRatio)) valid.aspectRatio = stored.aspectRatio;
-    if (typeof stored.resolution === "string" && isValidResolution(stored.resolution)) valid.resolution = stored.resolution;
-    if (typeof stored.answeringModel === "string" && stored.answeringModel.includes("/")) valid.answeringModel = stored.answeringModel;
-    if (stored.feedbackPrompts === true) valid.feedbackPrompts = true;
-    return valid;
+    const raw = localStorage.getItem(READER_SETTINGS_KEY);
+    return asObject(raw ? JSON.parse(raw) : null);
   } catch {
     return {};
   }
+}
+
+/** The stored group's valid values. Anything unknown is left out, so it reads as its default. */
+function readStored(): Partial<AdvancedSettings> {
+  const stored = asObject(readRecord().advanced);
+  const valid: Partial<AdvancedSettings> = {};
+  const aspectRatio = stored[STORED_NAME.aspectRatio];
+  const resolution = stored[STORED_NAME.resolution];
+  const answeringModel = stored[STORED_NAME.answeringModel];
+  if (typeof aspectRatio === "string" && isValidAspectRatio(aspectRatio)) valid.aspectRatio = aspectRatio;
+  if (typeof resolution === "string" && isValidResolution(resolution)) valid.resolution = resolution;
+  if (typeof answeringModel === "string" && answeringModel.includes("/")) valid.answeringModel = answeringModel;
+  if (stored[STORED_NAME.feedbackPrompts] === true) valid.feedbackPrompts = true;
+  return valid;
 }
 
 function compute(): AdvancedSettings {
@@ -98,7 +114,7 @@ function getServerSnapshot(): AdvancedSettings {
 function subscribe(listener: () => void) {
   listeners.add(listener);
   const onStorage = (event: StorageEvent) => {
-    if (event.key !== ADVANCED_STORAGE_KEY) return;
+    if (event.key !== READER_SETTINGS_KEY) return;
     snapshot = null;
     listener();
   };
@@ -116,14 +132,14 @@ export function useAdvancedSettings(): AdvancedSettings {
 
 /** Change one Advanced setting. It is stored on this device, except the image model, which lasts for this visit. */
 export function setAdvancedSetting<K extends AdvancedSettingKey>(key: K, value: AdvancedSettings[K]) {
-  if (VISIT_ONLY.has(key)) {
+  if (key === "imageModel") {
     visit = { ...visit, [key]: value };
   } else {
     try {
-      const raw = localStorage.getItem(ADVANCED_STORAGE_KEY);
-      const parsed: unknown = raw ? JSON.parse(raw) : null;
-      const existing = parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
-      localStorage.setItem(ADVANCED_STORAGE_KEY, JSON.stringify({ ...existing, [key]: value }));
+      // Write over what is stored, keeping the rest of the record and of the group.
+      const record = readRecord();
+      const name = STORED_NAME[key as Exclude<K, "imageModel">];
+      localStorage.setItem(READER_SETTINGS_KEY, JSON.stringify({ ...record, version: 1, advanced: { ...asObject(record.advanced), [name]: value } }));
       // A value kept in memory after an earlier failed write must not shadow this one.
       if (key in visit) {
         const rest = { ...visit };

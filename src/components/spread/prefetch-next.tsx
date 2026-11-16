@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
-import { useEffectiveArtStyle } from "@/context/work-scope-context";
+import { usePictureStyles } from "@/context/work-scope-context";
 
 interface PrefetchNextSpreadProps {
   nextUrl?: string;
@@ -16,8 +16,8 @@ interface PrefetchNextSpreadProps {
 
 /**
  * Fetches the next spread ahead so turning the page is immediate: the page itself, the next verse's
- * pictures (the same query and arguments SpreadPicture reads, so the next spread finds them already
- * loaded) and the picture it will show. Renders nothing.
+ * picture by the picture rule (the same query and arguments SpreadPicture reads, so the next spread finds
+ * it already loaded) and that picture's file. Renders nothing.
  */
 export function PrefetchNextSpread({ nextUrl, nextVerseId }: PrefetchNextSpreadProps) {
   const router = useRouter();
@@ -31,9 +31,9 @@ export function PrefetchNextSpread({ nextUrl, nextVerseId }: PrefetchNextSpreadP
 }
 
 function NextPicture({ verseId }: { verseId: string }) {
-  const { artStyle } = useEffectiveArtStyle();
-  const pictures = useQuery(api.verseImages.getImageHistory, { verseId, artStyle });
-  const imageUrl = pictures?.[0]?.imageUrl;
-  if (imageUrl) preload(imageUrl, { as: "image" });
+  const { order } = usePictureStyles();
+  const picture = useQuery(api.verseImages.getSpreadPicture, { verseId, styles: order });
+  if (picture?.thumbnailUrl) preload(picture.thumbnailUrl, { as: "image" });
+  if (picture?.imageUrl) preload(picture.imageUrl, { as: "image" });
   return null;
 }
