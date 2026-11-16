@@ -1,0 +1,50 @@
+{
+  "authorization": [
+    "The owner chose direction A (\"The picture comes alive\") from a five-seat council review and two-step visual comparison, said the existing videos will be reset, declined a paid trial (\"Not now\"), and confirmed \"Build and ship A, no test\"."
+  ],
+  "release": {
+    "spec": 478,
+    "pullRequests": [481],
+    "closes": [479, 480],
+    "mainCommit": "5c1376be",
+    "reviewFindings": "sol-loop, 3 rounds with GPT-6.1 Sol on xhigh: S1 fixed (a source-less job finishing at deploy releases its hold instead of charging); S2 declined (a former admin session can still read its own owner-only-style job; both reads are scoped to that session) and Sol accepted the disagreement. CodeRabbit: the make-a-video offer now uses the uncapped per-picture read (fixed); thumbnail badges from the 50-capped verse history stay a follow-up. CI quality-gates passed."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-16T20:06:08Z",
+        "commit": "5c1376be",
+        "convex": "Deployed to unique-impala-244 after a dry run. Added index videoJobs.by_source_status; no index deleted. New optional fields videoJobs.sourceImageId and videoJobs.sourceArtStyle."
+      },
+      {
+        "at": "2026-11-16T20:06:14Z",
+        "commit": "5c1376be",
+        "carries": [481],
+        "vercel": "dpl_FEGmjBCe3WXoRsyHLx88f7vaSK6z"
+      }
+    ]
+  },
+  "smoke": {
+    "pages": "/john/1/5, /john/1/40 and /api/health 200.",
+    "firstFrame": "A production picture's public address (https://unique-impala-244.convex.site/image/<storageId>) returns 200 image/jpeg without a session, so the provider can fetch it.",
+    "route": "A new guest with no credits: POST /api/generate-video with John 1:5's picture 402 \"Not enough credits for this video.\"; John 1:5's picture sent for John 1:6 400 \"Choose a picture of this verse to start the video from.\". GET /api/generate-video lists Hailuo 3 Max, 5 s 768p at 50 credits.",
+    "screens": "Playwright at 1440x900 on John 1:5: the picture menu's \"Make this picture move\" review with the source thumbnail, \"Classical · 5 seconds · starts from this picture\", the shared-library note and \"Get credits · needs 50 credits\"; no Play on the picture, since the old text-only video is no longer shown."
+  },
+  "notExercised": [
+    "A real image-to-video job: no paid trial, by the owner's choice. The first funded request is the first real call; a failure refunds.",
+    "Whether each art style holds up in motion."
+  ],
+  "followUps": [
+    "Watch the first real moving pictures for style drift toward photo-realism.",
+    "Picture-menu thumbnail badges come from a verse's 50 newest finished videos.",
+    "Existing text-only videos are hidden, not deleted, until the planned reset."
+  ],
+  "rollback": {
+    "vercel": "Promote dpl_AYsY2RXFR3apg2oaDzipmyxTfKri (main 5b8ce815). Its reader would show old videos again but its video requests send no picture, which the new Convex enqueue refuses: roll Convex back too, or keep video generation off, if the site is rolled back."
+  },
+  "productionWrites": [
+    "One Convex production deploy (one new index).",
+    "One Vercel production deployment.",
+    "Throwaway guest sessions from the smoke checks and screenshots, with no balance; no video job was created."
+  ]
+}
