@@ -214,6 +214,8 @@ describe("Look", () => {
     // Each style is shown by a small picture of it.
     const watercolor = radio("Ink & Watercolor")!;
     expect(watercolor.closest("label")?.querySelector("img")?.getAttribute("src")).toBe("https://img.test/watercolor-small.webp");
+    // A style with no saved picture of this verse or of Genesis 1:1 shows the small example shipped with the app.
+    expect(radio("Fresco")!.closest("label")?.querySelector("img")?.getAttribute("src")).toBe("/style-examples/fresco.webp");
     click(watercolor);
     expect(picture()?.getAttribute("src")).toBe("https://img.test/watercolor.png");
     expect(container.querySelector('[aria-label="Other art style"]')).toBeNull();
@@ -280,6 +282,8 @@ describe("the picture rule", () => {
     expect(note.textContent).toContain("No Classical picture of this verse yet.");
     const offer = button(/^Paint in Classical/)!;
     expect(offer.textContent).toBe("Paint in Classical · about 2 credits · at most 4");
+    // On a phone narrower than 390px the price goes on its own line under the action, so it is an element of its own.
+    expect([...offer.querySelectorAll("span")].map((part) => part.textContent)).toContain("about 2 credits · at most 4");
 
     await act(async () => { offer.click(); });
     expect(paintRequests).toEqual([expect.objectContaining({ reference: "Genesis 1:1", style: "classical", quoteId: "quote-1" })]);

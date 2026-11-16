@@ -98,6 +98,9 @@ export function LookLayer({ verseId }: { verseId: string }) {
   );
 }
 
+/** The styles with a small example picture shipped in public/style-examples (its README names each source verse). */
+const SHIPPED_EXAMPLES = new Set(["classical", "watercolor", "fresco", "storybook", "icon"]);
+
 const SECTION_LABEL = "text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)";
 
 function ArtStyleChoice({ verseId }: { verseId: string }) {
@@ -115,7 +118,8 @@ function ArtStyleChoice({ verseId }: { verseId: string }) {
       <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {visible.map((style) => {
           const picture = exampleOf(style);
-          const source = picture ? previewSource(picture) : null;
+          // The last fallback is the shipped example; a style without one shows its initial.
+          const source = picture ? previewSource(picture) : SHIPPED_EXAMPLES.has(style) ? `/style-examples/${style}.webp` : null;
           const checked = style === artStyle;
           return (
             <label key={style} className="group relative block cursor-pointer">
@@ -135,7 +139,8 @@ function ArtStyleChoice({ verseId }: { verseId: string }) {
                 }`}
               >
                 {source ? (
-                  // A small saved picture of this verse (or the example verse) in the style. Decorative: the label names it.
+                  // A small saved picture of this verse (or the example verse, or the shipped example) in the style.
+                  // Decorative: the label names it.
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={source} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
                 ) : (

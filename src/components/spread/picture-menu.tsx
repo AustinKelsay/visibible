@@ -7,6 +7,7 @@ import { api } from "../../../convex/_generated/api";
 import { LayerPanel, useLayer, useLayers } from "@/components/spread/layers";
 import { useChosenPicture, type ChosenPicture } from "@/components/spread/chosen-picture";
 import { MakeVideo, activeVideoJob } from "@/components/spread/make-video";
+import { PRICE_SEPARATOR } from "@/components/spread/paint-verse";
 import { useSession } from "@/context/session-context";
 import { useEffectiveArtStyle, useVisibleArtStyles, useWorkScope } from "@/context/work-scope-context";
 import { artStyleLabel } from "@/lib/art-styles";
@@ -262,9 +263,14 @@ function PaintAnother({ generation, onGetCredits }: { generation: Generation; on
     const quote = generation.showCreditsCost ? generation.quote : null;
     return (
       <button type="button" className={ROW} disabled={generation.pricingPending} onClick={() => generation.generate("picture_menu_paint")}>
-        <span>
+        <span className="max-[389px]:flex max-[389px]:flex-col">
           Paint another
-          {quote ? <span className="text-ink/(--quiet-55)">{` · ${quotePhrase(quote)}`}</span> : null}
+          {quote ? (
+            <span className="text-ink/(--quiet-55)">
+              <span className={PRICE_SEPARATOR}>{" · "}</span>
+              <span>{quotePhrase(quote)}</span>
+            </span>
+          ) : null}
         </span>
       </button>
     );

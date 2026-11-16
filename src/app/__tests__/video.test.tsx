@@ -310,6 +310,25 @@ describe("the play mark", () => {
     expect(document.activeElement).toBe(playMark());
   });
 
+  it("keeps playing, with focus, when an unpainted verse's picture arrives while its video plays", async () => {
+    savedPictures = john().filter((picture) => !picture.id.startsWith("john-1-5"));
+    publicVideos = [job()];
+    await openVerse("john", "1", "5");
+    await act(async () => { playMark()!.click(); });
+    const player = video()!;
+    expect(document.activeElement).toBe(player);
+
+    // The verse's saved picture arrives (someone painted it) while the video plays.
+    savedPictures = john();
+    await openVerse("john", "1", "5");
+    expect(video()).toBe(player);
+    expect(document.activeElement).toBe(player);
+
+    pressKey("Escape", player);
+    await act(async () => {});
+    expect(spreadPicture()?.getAttribute("src")).toBe("https://img.test/john-5.png");
+  });
+
   it("shows no play mark while the verse's videos are still being made or have failed", async () => {
     savedPictures = john();
     myJobs = [job({ id: "mine", status: "processing" })];
