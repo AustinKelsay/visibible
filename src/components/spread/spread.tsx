@@ -131,6 +131,8 @@ function SpreadScreen({
         }`}
       >
         <SpreadPicture verseId={verseId} reference={reference} onShowWhole={onShowWhole} playing={playing} onPlay={() => setPlayingVerse(verseId)} />
+        {/* A soft shade along the top keeps the white corner name and verse marks legible on a bright sky. */}
+        {playing ? null : <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/45 to-transparent" />}
         <WholePictureCaption
           playing={playing}
           reference={reference}

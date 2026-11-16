@@ -66,6 +66,17 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber, verseText,
         label="Visibible menu"
         className="absolute left-3 top-[4.25rem] z-40 max-h-[calc(100svh-5rem)] w-[min(20rem,calc(100vw-1.5rem))] overflow-y-auto overscroll-contain rounded-2xl border border-ink/10 bg-reader-glass p-2 text-ink shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:left-5 md:top-[4.75rem]"
       >
+        {/* On a phone the menu also closes by a tap outside; this is the visible way. */}
+        <div className="flex justify-end md:hidden">
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={menu.close}
+            className="flex h-11 w-11 items-center justify-center rounded-full text-ink/70 hover:bg-ink/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-ink"
+          >
+            <X size={18} strokeWidth={1.75} aria-hidden="true" />
+          </button>
+        </div>
         <Balance onGetCredits={menu.close} />
         <Divider />
         <Link href="/recover" className={ROW}>Recover credits</Link>

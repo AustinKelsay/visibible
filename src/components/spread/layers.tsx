@@ -79,6 +79,16 @@ const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), selec
  * A panel for a layer: a labelled dialog that renders only while its layer is open, moves focus inside on
  * open and keeps Tab inside while open. Position and look come from `className`.
  */
+/** The panel's controls a reader can reach now: a control hidden at this size (a phone-only close button on a computer) is skipped. */
+function focusableIn(panel: HTMLElement): HTMLElement[] {
+  return Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE)).filter((item) => {
+    for (let node: HTMLElement | null = item; node && node !== panel; node = node.parentElement) {
+      if (getComputedStyle(node).display === "none") return false;
+    }
+    return true;
+  });
+}
+
 export function LayerPanel({ id, label, className, children }: { id: LayerId; label: string; className?: string; children: ReactNode }) {
   const { isOpen } = useLayer(id);
   const panel = useRef<HTMLDivElement>(null);
@@ -87,7 +97,7 @@ export function LayerPanel({ id, label, className, children }: { id: LayerId; la
     if (!isOpen) return;
     const node = panel.current;
     if (!node) return;
-    const first = node.querySelector<HTMLElement>("[data-autofocus]") ?? node.querySelector<HTMLElement>(FOCUSABLE) ?? node;
+    const first = node.querySelector<HTMLElement>("[data-autofocus]") ?? focusableIn(node)[0] ?? node;
     first.focus();
   }, [isOpen]);
 
@@ -95,7 +105,7 @@ export function LayerPanel({ id, label, className, children }: { id: LayerId; la
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== "Tab" || !panel.current) return;
-    const items = Array.from(panel.current.querySelectorAll<HTMLElement>(FOCUSABLE));
+    const items = focusableIn(panel.current);
     if (items.length === 0) {
       event.preventDefault();
       return;

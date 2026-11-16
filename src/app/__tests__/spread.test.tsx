@@ -7,7 +7,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useQuery } from "convex/react";
 import { getFunctionName, type FunctionReference } from "convex/server";
 import VersePage from "../[book]/[chapter]/[verse]/page";
-import { clearBibleApiCache, type Translation } from "@/lib/bible-api";
+import { TRANSLATIONS, clearBibleApiCache, type Translation } from "@/lib/bible-api";
 import { trackVerseNavigation, trackWholePictureOpened } from "@/lib/analytics";
 import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 import { answerPictureRead, type SavedPicture } from "./fake-picture-reads";
@@ -59,9 +59,15 @@ const setAutoGenerate = vi.fn((enabled: boolean) => {
   autoGenerateListeners.forEach((listener) => listener());
 });
 vi.mock("@/context/preferences-context", () => ({
+  TEXT_SIZES: ["small", "medium", "large"],
   usePreferences: () => ({
     artStyle,
     translation,
+    translationInfo: TRANSLATIONS[translation],
+    textSize: "medium",
+    setArtStyle: vi.fn(),
+    setTextSize: vi.fn(),
+    setTranslation: vi.fn(),
     autoGenerate: useSyncExternalStore(
       (listener) => { autoGenerateListeners.add(listener); return () => autoGenerateListeners.delete(listener); },
       () => autoGenerate,
@@ -933,5 +939,76 @@ describe("the corner menu", () => {
     await act(async () => {});
     expect(container.querySelector('[role="dialog"]')).toBeNull();
     expect(document.activeElement).toBe(cornerName());
+  });
+});
+
+describe("accessibility", () => {
+  /** The name a screen reader announces for a control, by the parts of the accessible-name rules the reader uses. */
+  function accessibleName(element: Element): string {
+    const labelledBy = element.getAttribute("aria-labelledby");
+    if (labelledBy) return labelledBy.split(" ").map((id) => document.getElementById(id)?.textContent ?? "").join(" ").trim();
+    const label = element.getAttribute("aria-label") ?? element.getAttribute("title");
+    if (label?.trim()) return label.trim();
+    if (element.id) {
+      const forLabel = document.querySelector(`label[for="${element.id}"]`);
+      if (forLabel?.textContent?.trim()) return forLabel.textContent.trim();
+    }
+    const wrapping = element.closest("label");
+    if (wrapping?.textContent?.trim()) return wrapping.textContent.trim();
+    const text = element.textContent?.trim();
+    if (text) return text;
+    return [...element.querySelectorAll("img[alt]")].map((img) => img.getAttribute("alt")).join(" ").trim();
+  }
+
+  function unnamedControls() {
+    const controls = container.querySelectorAll('button, a[href], input:not([type="hidden"]), select, textarea, [role="switch"], [role="radio"]');
+    return [...controls].filter((control) => !control.closest('[aria-hidden="true"]') && !accessibleName(control)).map((control) => control.outerHTML.slice(0, 120));
+  }
+
+  function clickNamed(name: string) {
+    const control = within(container.querySelector<HTMLElement>(`button[aria-label^="${name}"]`));
+    act(() => { control.focus(); control.click(); });
+    return control;
+  }
+
+  beforeEach(() => {
+    savedPictures = [
+      { id: "john-1-5:b", imageUrl: "https://img.test/b.png", thumbnailUrl: "https://img.test/b-small.webp", artStyle: "classical", createdAt: 2 },
+      { id: "john-1-5:a", imageUrl: "https://img.test/a.png", thumbnailUrl: null, artStyle: "classical", createdAt: 1 },
+    ];
+  });
+
+  it("names every control on the spread and in each of its layers", async () => {
+    await openVerse("john", "1", "5");
+    expect(unnamedControls()).toEqual([]);
+
+    for (const opener of ["Picture menu", "Visibible menu", "Look", "Show the whole picture"]) {
+      const control = clickNamed(opener);
+      await act(async () => {});
+      expect(unnamedControls(), opener).toEqual([]);
+      pressKey("Escape", document.activeElement!);
+      await act(async () => {});
+      expect(document.activeElement, opener).toBe(control);
+    }
+  });
+
+  it("names every control of an unpainted verse", async () => {
+    await openVerse("john", "1", "6");
+    await act(async () => {});
+    expect(unnamedControls()).toEqual([]);
+  });
+
+  it("gives the picture menu and the corner menu a visible close button that returns focus to their opener", async () => {
+    await openVerse("john", "1", "5");
+    for (const [opener, close] of [["Picture menu", "Close picture menu"], ["Visibible menu", "Close menu"]]) {
+      const control = clickNamed(opener);
+      const dialog = within(container.querySelector('[role="dialog"]'));
+      const closeButton = [...dialog.querySelectorAll("button")].find((button) => accessibleName(button) === close);
+      expect(closeButton, close).toBeDefined();
+      act(() => closeButton!.click());
+      await act(async () => {});
+      expect(container.querySelector('[role="dialog"]')).toBeNull();
+      expect(document.activeElement).toBe(control);
+    }
   });
 });

@@ -195,9 +195,19 @@ html {
   text-size-adjust: 100%;
 }
 
+/* Reduced motion: slides, fades and spinners become instant everywhere, including the reader's layers, the
+   dock's fade and the thumbnail-to-picture swap. Loading states keep their words. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
   }
 }
 
