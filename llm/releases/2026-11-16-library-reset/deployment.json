@@ -1,0 +1,39 @@
+{
+  "authorization": [
+    "The owner asked \"Ok lets now clear out and reset ALL images and videos and nostr account so we can start FRESH\", then chose: production and shared dev both; a new Nostr account with posting left off; leave the retired account's 78 posts. They asked whether reference sheets need remaking; they were kept (made 20 Oct–10 Nov, all passed, current for their inputs). Spends nothing."
+  ],
+  "release": {
+    "pullRequests": [485],
+    "mainCommit": "8d8faf8b",
+    "reviewFindings": "CodeRabbit raised four findings over two rounds (truncated dry-run counts, pictures saved during a reset, a loop that did not stop on failure, the video cutoff wording); all fixed. Its third review hit the hourly limit on a one-sentence docs change and was not bought. CI quality-gates passed on every commit."
+  },
+  "backup": "Full exports with stored files before any deletion: output/backups/2026-11-16-library-reset/prod-unique-impala-244.zip (349 MB, 230 pictures, 755 files) and dev-coordinated-shepherd-515.zip (367 MB) in the owner's primary checkout (git-ignored, mode 600). The seed:images ledger was moved beside them so a new seeding budget starts from zero.",
+  "deploy": {
+    "steps": [
+      { "at": "2026-11-16T22:45:58Z", "convex": "Shared dev coordinated-shepherd-515 synced to main 8d8faf8b." },
+      { "at": "2026-11-16T22:46:30Z", "convex": "Shared dev reset: dry run 80 pictures, 1 video, 161 files; two pages deleted all of them and the Nostr scheduler state. It had no reference sheets." },
+      { "at": "2026-11-16T22:46:41Z", "commit": "8d8faf8b", "convex": "Deployed to unique-impala-244 after a dry run: new internal mutation libraryReset:resetLibraryPage; no schema change." },
+      { "at": "2026-11-16T22:47:03Z", "convex": "Production reset: no video running; dry run 230 pictures, 2 videos, 462 files, not truncated; five pages deleted all of them (48+50+50+50+32 pictures) and the scheduler state. Afterwards verseImages 0, videoJobs 0, referenceImages 290." },
+      { "at": "2026-11-16T22:48:30Z", "commit": "8d8faf8b", "carries": [485], "vercel": "dpl_5WHHBJdJNNJRkDQdvNAYQvWGkwqS" }
+    ]
+  },
+  "nostr": {
+    "identity": "npub1twv27clwyzsdy2kjffuqgk5ph6hmflsnclnq92gwaupclyxfq2vswjgc86 (hex 5b98af63ee20a0d22ad24a78045a81beafb4fe13c7e602a90eef038f90c90299), generated locally on 2026-11-16. The private key is in a mode-600 file in the owner's home directory and in production Convex NOSTR_PRIVATE_KEY (checked to derive this public key); NOSTR_PUBLISHING_ENABLED stays false.",
+    "published": "Kind 0 profile 89b76bbb…cb0c (copied from the retired account: name, about, picture, banner, website, nip05 visibible@visibible.com, lud16 pay@visibible.com) and kind 10002 relay list 1d350555…8f03 (primal, nos.lol, damus). Accepted by relay.primal.net, nos.lol and purplepag.es and read back; relay.damus.io and relay.nostr.band were unreachable from this machine.",
+    "retired": "eeee7822… keeps its 78 picture posts by the owner's choice; their image links now return 404."
+  },
+  "smoke": {
+    "after": "/.well-known/nostr.json names the new public key; /john/1/5 and /api/health 200; an old picture URL returns 404. Playwright on production: John 1:5 shows \"No picture for John 1:5 yet\" with Get credits to paint."
+  },
+  "rollback": {
+    "data": "Not reversible in place. Restoring means importing the backup zip, which replaces tables; ask the owner first.",
+    "vercel": "Promote dpl_FSPHsrtsEzjGrooEbV4c9EQKeTgV to name the retired key in nostr.json again (not advised)."
+  },
+  "productionWrites": [
+    "One Convex production deploy (functions only) and one environment variable (NOSTR_PRIVATE_KEY).",
+    "Deleted 230 verse images, 2 video jobs, 462 stored files and the Nostr scheduler state.",
+    "One Vercel production deployment.",
+    "Two Nostr events signed by the new identity.",
+    "The browser session of the screenshot run, with no balance."
+  ]
+}
