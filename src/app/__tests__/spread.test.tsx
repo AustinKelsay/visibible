@@ -198,7 +198,7 @@ describe("the spread for a painted verse", () => {
     ];
     await openVerse("genesis", "1", "1");
 
-    const picture = container.querySelector<HTMLImageElement>("img");
+    const picture = container.querySelector<HTMLImageElement>('img[alt^="Picture of"]');
     expect(picture?.getAttribute("src")).toBe("https://img.test/new-watercolor.png");
     expect(picture?.alt).toBe("Picture of Genesis 1:1");
 
@@ -208,6 +208,23 @@ describe("the spread for a painted verse", () => {
     expect(words?.textContent).toContain("In the beginning, God created the heavens and the earth.");
     expect(words?.textContent).toContain("World English Bible");
     expect(words?.textContent).toContain("1 / 31");
+  });
+
+  it("shows the picture's thumbnail first and replaces it with the full picture once that has loaded", async () => {
+    savedPictures = [
+      { id: "genesis-1-1:a", imageUrl: "https://img.test/full.png", thumbnailUrl: "https://img.test/thumb.webp", artStyle: "classical", createdAt: 1 },
+    ];
+    await openVerse("genesis", "1", "1");
+    const sources = () => [...container.querySelectorAll("img")].map((img) => img.getAttribute("src"));
+    expect(sources()).toEqual(["https://img.test/thumb.webp", "https://img.test/full.png"]);
+    const full = container.querySelector<HTMLImageElement>('img[alt="Picture of Genesis 1:1"]')!;
+    expect(full.getAttribute("src")).toBe("https://img.test/full.png");
+    // Until it loads, the full picture is invisible over its thumbnail.
+    expect(full.style.opacity).toBe("0");
+
+    act(() => { full.dispatchEvent(new Event("load")); });
+    expect(sources()).toEqual(["https://img.test/full.png"]);
+    expect(full.style.opacity).toBe("");
   });
 
   it("keeps the verse text in the server-rendered page", async () => {
@@ -605,7 +622,7 @@ describe("what the verse page no longer shows", () => {
     }
     expect(container.querySelector("header, body > footer, aside")).toBeNull();
     expect(container.textContent).not.toMatch(/Gallery|Video|Details|Chat|Generate|Get credits/i);
-    expect(container.querySelectorAll("nav")).toHaveLength(2);
+    expect([...container.querySelectorAll("nav")].map((nav) => nav.getAttribute("aria-label")).sort()).toEqual(["Reader", "Turn the page", "Verses of Genesis 1"]);
     expect(container.querySelector("main")?.style.colorScheme).toBe("dark");
   });
 });

@@ -15,7 +15,7 @@ const small = async () => dataUrl(await sharp({ create: { width: 32, height: 18,
 const save = { verseId: "genesis-1-1", model: "test-model", generationId: "g1", serverSecret: SECRET };
 
 describe("thumbnails saved with new pictures", () => {
-  it("saves the small copy beside the picture, and history, gallery and replay reads return its address", async () => {
+  it("saves the small copy beside the picture, and history, Contents and replay reads return its address", async () => {
     const t = convexTest(schema, modules);
     const saved = await t.action(api.verseImages.saveImage, { ...save, imageUrl: await picture(), thumbnailUrl: await small() });
 
@@ -23,8 +23,8 @@ describe("thumbnails saved with new pictures", () => {
     expect(entry.id).toBe(saved.id);
     expect(entry.thumbnailUrl).toEqual(expect.any(String));
     expect(entry.thumbnailUrl).not.toBe(entry.imageUrl);
-    const [tile] = await t.query(api.verseImages.getChapterGallery, { book: "genesis", chapter: 1 });
-    expect(tile.thumbnailUrl).toBe(entry.thumbnailUrl);
+    const [tile] = await t.query(api.verseImages.getChapterContents, { verseIds: ["genesis-1-1"], styles: ["classical"] });
+    expect(tile.picture?.thumbnailUrl).toBe(entry.thumbnailUrl);
 
     // The small copy is a real stored WebP.
     const row = await t.query(internal.verseImages.getImageById, { imageId: saved.id });
@@ -57,8 +57,8 @@ describe("thumbnails saved with new pictures", () => {
       expect(entry.imageUrl).toEqual(expect.any(String));
       expect(entry.thumbnailUrl).toBeNull();
     }
-    const [tile] = await t.query(api.verseImages.getChapterGallery, { book: "genesis", chapter: 1 });
-    expect(tile.thumbnailUrl).toBeNull();
+    const [tile] = await t.query(api.verseImages.getChapterContents, { verseIds: ["genesis-1-1"], styles: ["classical"] });
+    expect(tile.picture?.thumbnailUrl).toBeNull();
     // No stray blobs: one stored picture per record, nothing else.
     const blobs = await t.run((ctx) => ctx.db.system.query("_storage").collect());
     expect(blobs).toHaveLength(history.length);

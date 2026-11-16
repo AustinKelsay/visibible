@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
@@ -14,8 +14,9 @@ interface SpreadPictureProps {
 
 /**
  * The spread's picture: the newest saved picture of the verse in the stored art style, cropped from
- * its centre to cover its frame. A verse without one is unpainted: it glows with an earlier picture
- * and offers to paint it. While the verse's pictures load the frame stays plain dark.
+ * its centre to cover its frame. Its thumbnail shows first and the full picture replaces it once
+ * loaded. A verse without one is unpainted: it glows with an earlier picture and offers to paint
+ * it. While the verse's pictures load the frame stays plain dark.
  */
 export function SpreadPicture(props: SpreadPictureProps) {
   const isConvexEnabled = useConvexEnabled();
@@ -28,23 +29,32 @@ function SavedPicture({ verseId, reference }: SpreadPictureProps) {
   const pictures = useQuery(api.verseImages.getImageHistory, { verseId, artStyle });
   const recordImpression = useMutation(api.verseImages.recordImageImpression);
   const recordedRef = useRef(new Set<string>());
+  const [loadedId, setLoadedId] = useState<string | null>(null);
   const picture = pictures?.[0];
   if (pictures === undefined) return null;
   if (!picture?.imageUrl) return <UnpaintedPicture key={verseId} verseId={verseId} reference={reference} artStyle={artStyle} />;
+  const showThumbnail = Boolean(picture.thumbnailUrl) && loadedId !== picture.id;
+  const cover = "absolute inset-0 h-full w-full object-cover object-center";
 
+  // Saved pictures come from Convex storage at their full size; there is no resizing service.
+  /* eslint-disable @next/next/no-img-element */
   return (
-    // Saved pictures come from Convex storage at their full size; there is no resizing service.
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      key={picture.id}
-      src={picture.imageUrl}
-      alt={`Picture of ${reference}`}
-      className="absolute inset-0 h-full w-full object-cover object-center"
-      onLoad={() => {
-        if (recordedRef.current.has(picture.id)) return;
-        recordedRef.current.add(picture.id);
-        void recordImpression({ imageId: picture.id }).catch(() => recordedRef.current.delete(picture.id));
-      }}
-    />
+    <>
+      {showThumbnail ? <img key={`${picture.id}-thumbnail`} src={picture.thumbnailUrl!} alt="" aria-hidden="true" className={cover} /> : null}
+      <img
+        key={picture.id}
+        src={picture.imageUrl}
+        alt={`Picture of ${reference}`}
+        className={`${cover} transition-opacity duration-300 motion-reduce:transition-none`}
+        style={showThumbnail ? { opacity: 0 } : undefined}
+        onLoad={() => {
+          setLoadedId(picture.id);
+          if (recordedRef.current.has(picture.id)) return;
+          recordedRef.current.add(picture.id);
+          void recordImpression({ imageId: picture.id }).catch(() => recordedRef.current.delete(picture.id));
+        }}
+      />
+    </>
   );
+  /* eslint-enable @next/next/no-img-element */
 }

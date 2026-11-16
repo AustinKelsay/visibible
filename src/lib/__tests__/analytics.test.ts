@@ -8,9 +8,7 @@ import { track } from "@vercel/analytics";
 import {
   trackApiDocsLinkClicked,
   trackApiDocsViewed,
-  trackChapterGalleryItemOpened,
-  trackChapterGalleryLayoutChanged,
-  trackChapterGalleryViewed,
+  trackContentsOpened,
   trackChatErrorShown,
   trackChatMessageSent,
   trackChatOpened,
@@ -46,9 +44,7 @@ describe("analytics event wrappers", () => {
   it.each([
     [trackApiDocsLinkClicked, "api_docs_link_clicked"],
     [trackApiDocsViewed, "api_docs_viewed"],
-    [trackChapterGalleryItemOpened, "chapter_gallery_item_opened"],
-    [trackChapterGalleryLayoutChanged, "chapter_gallery_layout_changed"],
-    [trackChapterGalleryViewed, "chapter_gallery_viewed"],
+    [trackContentsOpened, "contents_opened"],
     [trackChatErrorShown, "chat_error_shown"],
     [trackChatMessageSent, "chat_message_sent"],
     [trackChatOpened, "chat_opened"],

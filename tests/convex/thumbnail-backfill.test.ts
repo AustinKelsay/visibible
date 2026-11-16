@@ -32,8 +32,8 @@ async function seed() {
   };
   const deps = { client: t, serverSecret: SECRET, fetchPicture, log: () => {} };
   const thumbnails = async () => {
-    const tiles = await t.query(api.verseImages.getChapterGallery, { book: "genesis", chapter: 1 });
-    return tiles.map((tile) => tile.thumbnailUrl);
+    const tiles = await t.query(api.verseImages.getChapterContents, { verseIds: [1, 2, 3, 4].map((verse) => `genesis-1-${verse}`), styles: ["classical"] });
+    return tiles.map((tile) => tile.picture?.thumbnailUrl);
   };
   const blobCount = () => t.run(async (ctx) => (await ctx.db.system.query("_storage").collect()).length);
   const urlOf = async (verse: number) => (await t.query(api.verseImages.getImageHistory, { verseId: `genesis-1-${verse}` }))[0].imageUrl!;
