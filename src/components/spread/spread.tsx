@@ -1,6 +1,7 @@
 "use client";
 
 import { AskProvider } from "@/components/spread/ask";
+import { ChosenPictureProvider } from "@/components/spread/chosen-picture";
 import { ContentsButton, ContentsLayer } from "@/components/spread/contents";
 import { CornerMenu } from "@/components/spread/corner-menu";
 import { LayerProvider } from "@/components/spread/layers";
@@ -38,7 +39,9 @@ export interface SpreadProps {
 export function Spread(props: SpreadProps) {
   return (
     <LayerProvider>
-      <SpreadScreen {...props} />
+      <ChosenPictureProvider verseId={props.verseId}>
+        <SpreadScreen {...props} />
+      </ChosenPictureProvider>
     </LayerProvider>
   );
 }
