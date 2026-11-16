@@ -8,6 +8,7 @@ These guides describe the repository's current behavior. Source links identify t
 | Imported reference works, unit identities, moment ranges or source refreshes | [Work input](context/WORK-INPUT.md) |
 | Reader, gallery, menus, keyboard or mobile navigation | [Navigation](context/NAVIGATION.md) |
 | Model, translation, ratio or resolution preferences | [Preferences](context/PREFERENCES.md) |
+| Advanced: image settings, answering model, passage details, welcome, feedback prompts, and how to cut them | [Advanced](context/ADVANCED.md) |
 | Verse videos, durable jobs, public history or video rollout | [Video generation](context/VIDEO-GENERATION.md) |
 | Image requests, quotes or progress | [Image generation](context/IMAGE-GENERATION.md) |
 | Image prompt construction | [Prompt specification](implementation/IMAGE_PROMPT_SPEC.md) |

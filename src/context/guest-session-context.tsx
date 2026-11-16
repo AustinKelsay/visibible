@@ -15,7 +15,11 @@ interface GuestSessionContextType {
   error: string | null;
   refetch: () => Promise<void>;
   buyCredits: () => void;
+  /** Open the credits dialog at its welcome step. The welcome opens only this way, never by itself. */
+  showWelcome: () => void;
   isBuyModalOpen: boolean;
+  /** Whether the open credits dialog was asked to start at the welcome. */
+  welcomeRequested: boolean;
   closeBuyModal: () => void;
 }
 
@@ -34,6 +38,7 @@ export function GuestSessionProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
+  const [welcomeRequested, setWelcomeRequested] = useState(false);
 
   const fetchSession = useCallback(async () => {
     try {
@@ -89,11 +94,18 @@ export function GuestSessionProvider({ children }: { children: ReactNode }) {
   }, [fetchSession]);
 
   const buyCredits = useCallback(() => {
+    setWelcomeRequested(false);
+    setIsBuyModalOpen(true);
+  }, []);
+
+  const showWelcome = useCallback(() => {
+    setWelcomeRequested(true);
     setIsBuyModalOpen(true);
   }, []);
 
   const closeBuyModal = useCallback(() => {
     setIsBuyModalOpen(false);
+    setWelcomeRequested(false);
   }, []);
 
   return (
@@ -104,7 +116,9 @@ export function GuestSessionProvider({ children }: { children: ReactNode }) {
         error,
         refetch,
         buyCredits,
+        showWelcome,
         isBuyModalOpen,
+        welcomeRequested,
         closeBuyModal,
       }}
     >

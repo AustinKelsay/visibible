@@ -14,8 +14,8 @@ export type ChatErrorType =
 
 interface ResolveCreditsModalOpenedStepArgs {
   hasActiveInvoice: boolean;
-  hasSeenWelcome: boolean;
-  hasShownWelcomeInSession: boolean;
+  /** The reader asked for the welcome (Advanced). It never opens by itself. */
+  welcomeRequested: boolean;
 }
 
 /**
@@ -23,14 +23,10 @@ interface ResolveCreditsModalOpenedStepArgs {
  */
 export function resolveCreditsModalOpenedStep({
   hasActiveInvoice,
-  hasSeenWelcome,
-  hasShownWelcomeInSession,
+  welcomeRequested,
 }: ResolveCreditsModalOpenedStepArgs): CreditsModalOpenedStep {
-  if (hasActiveInvoice) {
-    return "invoice";
-  }
-
-  return !hasSeenWelcome && !hasShownWelcomeInSession ? "welcome" : "selection";
+  if (welcomeRequested) return "welcome";
+  return hasActiveInvoice ? "invoice" : "selection";
 }
 
 interface ResolveHasCreditsAfterGenerationArgs {

@@ -15,6 +15,7 @@ import type { Doc, Id } from "../../convex/_generated/dataModel";
 import { useSession } from "@/context/session-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
+import { useAdvancedSettings } from "@/lib/advanced-settings";
 import type { BulkScope, BulkQueueItem } from "@/lib/bulk-generation";
 
 // ---------------------------------------------------------------------------
@@ -58,9 +59,10 @@ interface BulkGenerationContextType {
     scopeLabel: string;
     queue: BulkQueueItem[];
     estimatedTotalCredits: number;
-    modelId: string;
-    aspectRatio: string;
-    resolution: string;
+    /** The model, ratio and resolution for every item. Default: the reader's Advanced settings. */
+    modelId?: string;
+    aspectRatio?: string;
+    resolution?: string;
     translation: string;
     /** The art style for every item; Classical until the reader can choose one. */
     artStyleId?: string;
@@ -124,6 +126,12 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const lostLockRef = useRef(false);
   const pausedResolverRef = useRef<(() => void) | null>(null);
   const queueRef = useRef<BulkQueueItem[]>([]);
+  // Bulk painting uses the reader's Advanced image settings unless the caller names its own.
+  const advanced = useAdvancedSettings();
+  const advancedRef = useRef(advanced);
+  useEffect(() => {
+    advancedRef.current = advanced;
+  });
   const runLockBulkIdRef = useRef<Id<"bulkGenerations"> | null>(null);
   const runLockHeartbeatRef = useRef<number | null>(null);
   const runLockLeaseCheckRef = useRef<number | null>(null);
@@ -870,13 +878,17 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       scopeLabel: string;
       queue: BulkQueueItem[];
       estimatedTotalCredits: number;
-      modelId: string;
-      aspectRatio: string;
-      resolution: string;
+      modelId?: string;
+      aspectRatio?: string;
+      resolution?: string;
       translation: string;
       artStyleId?: string;
     }) => {
       if (!sid || !convexEnabled || !isAuthenticated) return;
+      const advanced = advancedRef.current;
+      const modelId = params.modelId ?? advanced.imageModel;
+      const aspectRatio = params.aspectRatio ?? advanced.aspectRatio;
+      const resolution = params.resolution ?? advanced.resolution;
       if (params.queue.length === 0) {
         throw new Error("Cannot start bulk generation with an empty queue");
       }
@@ -887,9 +899,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         scopeLabel: params.scopeLabel,
         startVerseId: params.queue[0]?.verseId ?? "",
         estimatedTotalCredits: params.estimatedTotalCredits,
-        modelId: params.modelId,
-        aspectRatio: params.aspectRatio,
-        resolution: params.resolution,
+        modelId,
+        aspectRatio,
+        resolution,
         translation: params.translation,
         artStyleId: params.artStyleId ?? "classical",
         verses: params.queue.map((v) => ({
@@ -921,9 +933,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       isCancelledRef.current = false;
       queueRef.current = params.queue;
       settingsRef.current = {
-        modelId: params.modelId,
-        aspectRatio: params.aspectRatio,
-        resolution: params.resolution,
+        modelId,
+        aspectRatio,
+        resolution,
         translation: params.translation,
         artStyleId: params.artStyleId ?? "classical",
       };

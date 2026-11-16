@@ -9,7 +9,7 @@ import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { chatErrorMessage, usePaidChat } from "@/components/use-paid-chat";
 import { trackAskOpened, trackAskQuestionSent, trackChatErrorShown, trackCreditsInsufficient, type AskOpenSource } from "@/lib/analytics";
 import { resolveChatErrorType } from "@/lib/analytics-event-utils";
-import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
+import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { MAX_USER_MESSAGE_CHARS } from "@/lib/chat-limits";
 import { formatQuote } from "@/lib/quote-display";
 
@@ -33,10 +33,11 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
   const { translation } = usePreferences();
   const { buyCredits } = useSession();
   const reference = `${bookName} ${chapter}:${verseNumber}`;
-  // The answering model is the default; the Advanced ticket may let a reader override it.
+  // The answering model is the default unless Advanced overrides it.
+  const { answeringModel } = useAdvancedSettings();
   const chat = usePaidChat({
     id: `ask-${reference}`.toLowerCase().replace(/[\s:]+/g, "-"),
-    model: DEFAULT_CHAT_MODEL,
+    model: answeringModel,
     passage: { book: bookName, chapter, verseRange: String(verseNumber) },
     translation,
   });
@@ -84,7 +85,7 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
     verseNumber > 1 ? `Summarize ${bookName} ${chapter} so far` : `What is the historical context of ${reference}?`,
   ];
 
-  return { reference, verseText, chat, input, setInput, ask, openAsk, footField, suggestions, close: layer.close };
+  return { reference, verseText, chat, answeringModel, input, setInput, ask, openAsk, footField, suggestions, close: layer.close };
 }
 
 /**
@@ -149,7 +150,7 @@ const DARK_TEXT = { "--foreground": "rgba(255,255,255,0.9)", "--muted": "rgba(25
  * A layer, so Escape also turns it back and focus returns to the control that opened it.
  */
 export function AskPage() {
-  const { reference, verseText, chat, suggestions, ask, close } = useAsk();
+  const { reference, verseText, chat, answeringModel, suggestions, ask, close } = useAsk();
   const { messages, isLoading, error, tier, credits } = chat;
   const conversation = useRef<HTMLDivElement>(null);
   const lastTrackedError = useRef<string | null>(null);
@@ -167,8 +168,8 @@ export function AskPage() {
     const key = error && errorType ? `${errorType}:${error.message}` : null;
     if (key === lastTrackedError.current) return;
     lastTrackedError.current = key;
-    if (errorType) trackChatErrorShown({ variant: "ask", chatModel: DEFAULT_CHAT_MODEL, errorType, hasContext: true, tier, hasCredits: credits > 0 });
-  }, [error, tier, credits]);
+    if (errorType) trackChatErrorShown({ variant: "ask", chatModel: answeringModel, errorType, hasContext: true, tier, hasCredits: credits > 0 });
+  }, [error, answeringModel, tier, credits]);
 
   return (
     <LayerPanel

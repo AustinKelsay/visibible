@@ -28,6 +28,9 @@ export const READER_STATES: CaptureState[] = [
   { name: "other-style", path: "/john/4/7", stubs: ["priced"], steps: ["waitfor:img:Picture of John 4:7", "waitfor:region:Other art style", "hover:css:article p:nth-of-type(2)"] },
   { name: "corner-menu", path: "/john/1/5", steps: ["click:button:Visibible menu", "waitfor:dialog:Visibible menu"] },
   { name: "feedback", path: "/john/1/5", steps: ["click:button:Visibible menu", "click:button:Send feedback", "wait:600"] },
+  // Advanced opened in the corner menu; priced, so the image model is named as it is on the live site.
+  { name: "advanced", path: "/john/1/5", stubs: ["priced"], steps: ["click:button:Visibible menu", "click:button:Advanced", "waitfor:radiogroup:Aspect ratio", "wait:600"] },
+  { name: "welcome", path: "/john/1/5", steps: ["click:button:Visibible menu", "click:button:Advanced", "click:button:Show the welcome", "waitfor:dialog:Credits", "wait:400"] },
   { name: "picture-menu", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "waitfor:dialog:Picture menu", "wait:600"] },
   { name: "picture-details", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "click:button:Details", "wait:400"] },
   { name: "report-picture", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "click:button:Report this picture", "wait:600"] },

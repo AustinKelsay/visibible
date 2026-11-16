@@ -26,6 +26,7 @@ export type PreferenceChangeSource =
   | "mobile_header_menu"
   | "spread_paint_switch"
   | "look"
+  | "advanced"
   | "unknown";
 
 export type GenerationTriggerSource =
@@ -179,7 +180,8 @@ type PreferenceChangedProps = BaseProps & {
     | "imageResolution"
     | "artStyle"
     | "textSize"
-    | "autoGenerate";
+    | "autoGenerate"
+    | "feedbackPrompts";
   value: string;
   source: PreferenceChangeSource;
 };

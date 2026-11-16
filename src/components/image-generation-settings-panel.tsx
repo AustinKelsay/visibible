@@ -17,6 +17,7 @@ import {
   type ImageModel,
   type ImageResolution,
   soleImageModel,
+  isImageModelSelectable,
 } from "@/lib/image-models";
 
 interface ImageGenerationSettingsPanelProps {
@@ -137,8 +138,7 @@ export function ImageGenerationSettingsPanel({
                   </div>
                   {providerModels.map((model) => {
                     const isSelected = selectedModelId === model.id;
-                    const isPricingAvailable = model.availability !== "unavailable" &&
-                      getEstimatedCreditsCostForResolution(model, "1K") !== null;
+                    const isPricingAvailable = isImageModelSelectable(model);
 
                     return (
                       <button

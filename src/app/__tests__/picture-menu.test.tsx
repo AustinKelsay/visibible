@@ -9,6 +9,7 @@ import { useQuery } from "convex/react";
 import { getFunctionName, type FunctionReference } from "convex/server";
 import { answerPictureRead } from "./fake-picture-reads";
 import VersePage from "../[book]/[chapter]/[verse]/page";
+import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 import { clearBibleApiCache, type Translation } from "@/lib/bible-api";
 import { trackPictureMenuOpened } from "@/lib/analytics";
 
@@ -63,9 +64,6 @@ vi.mock("@/context/preferences-context", () => ({
   usePreferences: () => ({
     artStyle,
     translation,
-    imageModel: "test-model",
-    imageAspectRatio: "16:9",
-    imageResolution: "1K",
     autoGenerate: useSyncExternalStore(
       (listener) => { autoGenerateListeners.add(listener); return () => autoGenerateListeners.delete(listener); },
       () => autoGenerate,
@@ -102,7 +100,7 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
 let quoteRequests: Array<Record<string, unknown>> = [];
 let paintRequests: Array<Record<string, unknown>> = [];
 let paintAnswers: Array<() => Response | Promise<Response>> = [];
-const painted = (savedImageId: string) => json({ requestId: "r", imageUrl: "https://img.test/new.png", savedImageId, model: "test-model" });
+const painted = (savedImageId: string) => json({ requestId: "r", imageUrl: "https://img.test/new.png", savedImageId, model: DEFAULT_IMAGE_MODEL });
 
 const params = (book = "genesis", chapter = "1", verse = "1") => ({ params: Promise.resolve({ book, chapter, verse }) });
 
@@ -136,7 +134,7 @@ beforeEach(() => {
   vi.spyOn(console, "error").mockImplementation(() => {});
   vi.stubGlobal("fetch", vi.fn(async (url: string, init?: RequestInit) => {
     if (url === "/api/image-models") {
-      return json({ models: [{ id: "test-model", creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] });
+      return json({ models: [{ id: DEFAULT_IMAGE_MODEL, creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] });
     }
     if (url === "/api/generate-image/quote") {
       quoteRequests.push(JSON.parse(String(init?.body)));
