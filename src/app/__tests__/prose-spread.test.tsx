@@ -142,6 +142,10 @@ beforeEach(() => {
       catalogRequests.push(url);
       return json({ models: [{ id: DEFAULT_IMAGE_MODEL, creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] });
     }
+    if (url === "/api/generate-video") {
+      // Video generation is on, as it may be in production: a prose moment still offers no video.
+      return json({ enabled: true, model: "minimax/hailuo-3-max", modelName: "Hailuo 3 Max", quotes: [{ duration: 5, resolution: "768p", providerCostUsd: 0.4, credits: 50 }] });
+    }
     if (url === "/api/generate-image") {
       paintRequests.push(JSON.parse(String(init?.body)));
       return new Promise<Response>(() => {});
@@ -262,10 +266,18 @@ describe("a prose moment on the spread", () => {
     ]);
   });
 
-  it("shows the whole picture with the moment as its caption, and the picture menu on the picture", async () => {
+  it("shows the picture menu on the picture without Make a video, and the whole picture with the moment as its caption", async () => {
     savedPictures = [{ id: "down-the-rabbit-hole-1:a", imageUrl: "https://img.test/alice-1.png", artStyle: "watercolor", createdAt: 1 }];
     await openMoment("down-the-rabbit-hole-1");
     expect(container.querySelector('button[aria-label^="Picture menu"]')).not.toBeNull();
+
+    await act(async () => { container.querySelector<HTMLButtonElement>('button[aria-label^="Picture menu"]')!.click(); });
+    await settle();
+    const menu = container.querySelector('[role="dialog"][aria-label="Picture menu"]')!;
+    expect(menu.textContent).toContain("Paint another");
+    expect(menu.textContent).not.toMatch(/Make a video/);
+    pressKey("Escape");
+    await act(async () => {});
 
     act(() => { button("Show the whole picture of Down the Rabbit-Hole ¶1–2")!.click(); });
     expect(container.querySelector("img")?.style.objectFit).toBe("contain");

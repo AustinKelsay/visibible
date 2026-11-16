@@ -118,10 +118,16 @@ export function WordsPage({
       </div>
       <footer className="flex items-center gap-2 border-t border-white/10 md:border-t-0 px-3 pt-1 pb-[max(0.25rem,var(--safe-area-inset-bottom))] text-[11px] font-medium uppercase tracking-[0.18em] text-white/50 md:mx-12 md:gap-4 md:px-0 md:py-5 lg:mx-14">
         <PageTurnLink direction="prev" href={prevUrl} onTurn={onTurn} className="md:hidden" />
-        <span className="flex min-w-0 flex-1 justify-center md:justify-start">
-          {translationName ? <LookTranslationButton translationName={translationName} /> : null}
-        </span>
-        <span aria-label={`${paragraphs ? "Passage" : "Verse"} ${verseNumber} of ${totalVerses}`} className="tabular-nums">
+        {translationName ? (
+          <span className="flex min-w-0 flex-1 justify-center md:justify-start">
+            <LookTranslationButton translationName={translationName} />
+          </span>
+        ) : null}
+        {/* With no translation beside it (a prose moment), the position takes the middle of the line. */}
+        <span
+          aria-label={`${paragraphs ? "Passage" : "Verse"} ${verseNumber} of ${totalVerses}`}
+          className={`tabular-nums ${translationName ? "" : "flex-1 text-center md:text-right"}`}
+        >
           {verseNumber} / {totalVerses}
         </span>
         <PageTurnLink direction="next" href={nextUrl} onTurn={onTurn} className="md:hidden" />
