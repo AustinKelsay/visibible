@@ -39,7 +39,7 @@ export function answerPictureRead(saved: readonly SavedPicture[], query: Functio
     const { verseIds, styles } = args as { verseIds: string[]; styles: string[] };
     return verseIds.map((verseId) => {
       const count = saved.filter((picture) => verseOf(picture) === verseId).length;
-      return { verseId, picture: spreadPicture(saved, verseId, styles), pictureCount: Math.min(count, 9), morePictures: count > 9 };
+      return { verseId, picture: spreadPicture(saved, verseId, styles), pictureCount: Math.min(count, 9), morePictures: count > 9, hasVideo: false };
     });
   }
   if (name === "verseImages:getNearestEarlierPicture") {

@@ -1,6 +1,7 @@
 /**
  * Contents (#445): one bounded read per chapter that returns, per verse, the tile picture (the newest picture in the
- * first of the given styles that has one), its thumbnail, and how many pictures the verse has.
+ * first of the given styles that has one), its thumbnail, how many pictures the verse has, and whether it has a video
+ * (#447).
  */
 import { convexTest } from "convex-test";
 import { describe, expect, it, vi } from "vitest";
@@ -35,7 +36,18 @@ function setup() {
     await t.run(async (ctx) => { await ctx.db.patch(id, { createdAt }); });
     return id;
   };
-  return { t, save };
+  /** Store a video job for a verse in the given state; only a completed one is a video readers can watch. */
+  const video = async (verseId: string, status: "completed" | "processing" | "failed" = "completed") => {
+    n += 1;
+    const storageId = status === "completed" ? await blob("video/mp4") : undefined;
+    await t.run((ctx) => ctx.db.insert("videoJobs", {
+      sid: "maker", requestId: `v${n}`, inputFingerprint: `f${n}`, generationId: `video:maker:v${n}`, verseId,
+      reference: verseId, translation: "web", prompt: "p", duration: 5, resolution: "768p", status,
+      active: status === "processing", admin: false, estimatedCostUsd: 0.4, estimatedCredits: 50,
+      ...(storageId ? { storageId } : {}), createdAt: at++, updatedAt: at, nextRunAt: at, lease: 0, leaseUntil: 0, attempts: 0,
+    }));
+  };
+  return { t, save, video };
 }
 
 const chapter = (count: number, book = "genesis", number = 1) => Array.from({ length: count }, (_, i) => `${book}-${number}-${i + 1}`);
@@ -58,11 +70,25 @@ describe("the chapter contents read", () => {
     expect(first.picture?.thumbnailUrl).not.toBe(first.picture?.imageUrl);
     expect(first).toMatchObject({ pictureCount: 3, morePictures: false });
 
-    expect(second).toEqual({ verseId: "genesis-1-2", picture: null, pictureCount: 0, morePictures: false });
+    expect(second).toEqual({ verseId: "genesis-1-2", picture: null, pictureCount: 0, morePictures: false, hasVideo: false });
 
     expect(third.picture?.thumbnailUrl).toBeNull();
     expect(third.picture?.imageUrl).toEqual(expect.any(String));
     expect(third.pictureCount).toBe(1);
+  });
+
+  it("says which verses have a video readers can watch: a finished one, not one being made or failed", async () => {
+    const { t, save, video } = setup();
+    await save("genesis-1-1", "classical");
+    await video("genesis-1-1");
+    await video("genesis-1-1");
+    await video("genesis-1-2", "processing");
+    await video("genesis-1-3", "failed");
+    // A video needs no picture.
+    await video("genesis-1-4");
+
+    const tiles = await t.query(api.verseImages.getChapterContents, { verseIds: chapter(5), styles: ["classical"] });
+    expect(tiles.map((tile) => tile.hasVideo)).toEqual([true, false, false, true, false]);
   });
 
   it("reads a picture saved before styles existed as Classical, and takes the newer of the two forms", async () => {
@@ -98,22 +124,25 @@ describe("the chapter contents read", () => {
 
   it("is bounded: the documents it reads do not grow with the number of saved pictures per verse", async () => {
     const readsFor = async (perVerse: number) => {
-      const { t, save } = setup();
+      const { t, save, video } = setup();
       for (const verseId of chapter(4)) {
-        for (let i = 0; i < perVerse; i += 1) await save(verseId, i % 2 ? "watercolor" : "classical");
+        for (let i = 0; i < perVerse; i += 1) {
+          await save(verseId, i % 2 ? "watercolor" : "classical");
+          await video(verseId);
+        }
       }
       return t.run(async (ctx) => {
         const counter = { documents: 0 };
         const tiles = await readChapterContents({ ...ctx, db: countingReader(ctx.db, counter) } as QueryCtx, { verseIds: chapter(4), styles: ["classical", "watercolor"] });
-        expect(tiles.every((tile) => tile.picture !== null)).toBe(true);
+        expect(tiles.every((tile) => tile.picture !== null && tile.hasVideo)).toBe(true);
         return counter.documents;
       });
     };
     const few = await readsFor(CONTENTS_COUNT_CAP + 1);
     const many = await readsFor(CONTENTS_COUNT_CAP * 4);
     expect(many).toBe(few);
-    // Per verse: the counted window plus at most one picture per style form (Classical has two).
-    expect(many).toBeLessThanOrEqual(4 * (CONTENTS_COUNT_CAP + 1 + 3));
+    // Per verse: the counted window, at most one picture per style form (Classical has two) and one video.
+    expect(many).toBeLessThanOrEqual(4 * (CONTENTS_COUNT_CAP + 1 + 3 + 1));
   });
 
   it("hides an unopened work's pictures from readers, as the other library reads do", async () => {
@@ -122,7 +151,7 @@ describe("the chapter contents read", () => {
       const { t, save } = setup();
       await save("a-scandal-in-bohemia-1-1", "watercolor", { workId: "holmes-adventures" });
       const [tile] = await t.query(api.verseImages.getChapterContents, { verseIds: chapter(1, "a-scandal-in-bohemia"), styles: ["watercolor"] });
-      expect(tile).toEqual({ verseId: "a-scandal-in-bohemia-1-1", picture: null, pictureCount: 0, morePictures: false });
+      expect(tile).toEqual({ verseId: "a-scandal-in-bohemia-1-1", picture: null, pictureCount: 0, morePictures: false, hasVideo: false });
     } finally {
       vi.unstubAllEnvs();
     }

@@ -30,8 +30,11 @@ import {
   readerSettingsIn,
   selectStates,
   shotFile,
+  stubLabel,
+  VIDEO_PRICING,
   type CaptureAppearance,
   type CaptureSize,
+  type CaptureState,
   type CaptureStub,
   type Step,
 } from "./plan";
@@ -176,6 +179,23 @@ async function stub(page: Page, stubs: CaptureStub[]) {
       await route.fulfill({ response, json: pricedCatalog(await response.json()) });
     });
   }
+  if (stubs.includes("video-priced")) {
+    // Only the price: a post (making a video) falls through to the guard, which refuses it.
+    await page.route((url) => url.pathname === "/api/generate-video", (route) =>
+      route.request().method() === "GET" ? route.fulfill({ json: VIDEO_PRICING }) : route.fallback());
+  }
+}
+
+/** Put a stubbed state's label in the picture's corner. */
+async function label(page: Page, state: CaptureState) {
+  const text = stubLabel(state);
+  if (!text) return;
+  await page.evaluate((content) => {
+    const tag = document.createElement("div");
+    tag.textContent = content;
+    tag.setAttribute("style", "position:fixed;right:8px;top:8px;z-index:2147483647;pointer-events:none;padding:2px 6px;border-radius:4px;background:rgba(255,200,0,0.9);color:#000;font:600 11px/1.4 system-ui,sans-serif");
+    document.body.appendChild(tag);
+  }, text);
 }
 
 async function main() {
@@ -222,6 +242,7 @@ async function main() {
             await page.waitForTimeout(400);
           }
           await settle(page);
+          await label(page, state);
           await page.screenshot({ path: file });
           console.log(`wrote ${file}`);
           storageState = await context.storageState();

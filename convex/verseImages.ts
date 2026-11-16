@@ -340,9 +340,10 @@ export const getStyleExamples = query({
 });
 
 /**
- * Contents (#445): per verse, the tile picture (by the picture rule, as the spread shows it) with its thumbnail, and
- * how many pictures the verse has in any style, counted up to CONTENTS_COUNT_CAP. Reads at most CONTENTS_COUNT_CAP + 1
- * + one picture per style form for each verse, however many pictures are saved.
+ * Contents (#445): per verse, the tile picture (by the picture rule, as the spread shows it) with its thumbnail, how
+ * many pictures the verse has in any style, counted up to CONTENTS_COUNT_CAP, and whether it has a finished video
+ * (#447). Reads at most CONTENTS_COUNT_CAP + 1 + one picture per style form + one video for each verse, however many
+ * are saved.
  */
 export async function readChapterContents(ctx: QueryCtx, args: { verseIds: string[]; styles: string[] }) {
   if (args.verseIds.length > CONTENTS_MAX_VERSES) throw new Error(`verseIds cannot exceed ${CONTENTS_MAX_VERSES} items`);
@@ -350,19 +351,22 @@ export async function readChapterContents(ctx: QueryCtx, args: { verseIds: strin
   const visible = await visibleImageFilter(ctx);
 
   return Promise.all(args.verseIds.map(async (verseId) => {
-    const [window, newest] = await Promise.all([
+    const [window, newest, video] = await Promise.all([
       ctx.db.query("verseImages").withIndex("by_verse", (q) => q.eq("verseId", verseId)).order("desc").take(CONTENTS_COUNT_CAP + 1),
       newestPictureInStyles(ctx, verseId, styles),
+      // Only a finished video is public (#447): one row says whether the verse has one.
+      ctx.db.query("videoJobs").withIndex("by_verse_status", (q) => q.eq("verseId", verseId).eq("status", "completed")).first(),
     ]);
     // A verse's pictures all belong to one work, so the newest one stands for the verse's visibility.
     if (!(await visible(window[0] ?? newest ?? ({} as Doc<"verseImages">)))) {
-      return { verseId, picture: null, pictureCount: 0, morePictures: false };
+      return { verseId, picture: null, pictureCount: 0, morePictures: false, hasVideo: false };
     }
     return {
       verseId,
       picture: newest ? await pictureSummary(ctx, newest) : null,
       pictureCount: Math.min(window.length, CONTENTS_COUNT_CAP),
       morePictures: window.length > CONTENTS_COUNT_CAP,
+      hasVideo: video !== null,
     };
   }));
 }
