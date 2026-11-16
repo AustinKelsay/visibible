@@ -32,11 +32,15 @@ vi.mock("next/link", () => ({
     <a href={href} {...props} onClick={(event) => { onClick?.(event); event.preventDefault(); push(href); }}>{children}</a>
   ),
 }));
-vi.mock("convex/react", () => ({
-  useQuery: () => [],
-  useMutation: () => vi.fn(async () => ({ success: true })),
-  useConvexAuth: () => ({ isAuthenticated: true, isLoading: false }),
-}));
+// No saved pictures: every verse is unpainted.
+vi.mock("convex/react", async () => {
+  const { answerPictureRead } = await import("./fake-picture-reads");
+  return {
+    useQuery: (query: Parameters<typeof answerPictureRead>[1], args: unknown) => (args === "skip" ? undefined : answerPictureRead([], query, args, null)),
+    useMutation: () => vi.fn(async () => ({ success: true })),
+    useConvexAuth: () => ({ isAuthenticated: true, isLoading: false }),
+  };
+});
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => true }));
 // A model saved by the old chat picker is not used: the reader asks the default model.
 vi.mock("@/context/preferences-context", () => ({ usePreferences: () => ({ artStyle: "classical", translation: "web", chatModel: "saved/old-pick", imageModel: "test-model", imageAspectRatio: "16:9", imageResolution: "1K", autoGenerate: false, setAutoGenerate: vi.fn() }) }));
