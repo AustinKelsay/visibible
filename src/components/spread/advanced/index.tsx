@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { AppearanceItem } from "@/components/spread/advanced/appearance";
 import { AnsweringModelItem } from "@/components/spread/advanced/answering-model";
 import { FeedbackPromptsItem } from "@/components/spread/advanced/feedback-prompts";
 import { ImageSettingsItem } from "@/components/spread/advanced/image-settings";
@@ -38,17 +39,18 @@ export function Advanced(verse: AdvancedVerse) {
         aria-expanded={isOpen}
         aria-controls={regionId}
         onClick={() => setIsOpen(!isOpen)}
-        className="flex min-h-11 w-full items-center rounded-xl px-3 text-left text-[15px] text-white/90 transition-colors duration-[var(--motion-fast)] hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-white"
+        className="flex min-h-11 w-full items-center rounded-xl px-3 text-left text-[15px] text-ink/90 transition-colors duration-[var(--motion-fast)] hover:bg-ink/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ink"
       >
         <span className="flex-1">Advanced</span>
         <ChevronDown
           size={16}
           aria-hidden="true"
-          className={`text-white/60 transition-transform duration-[var(--motion-fast)] motion-reduce:transition-none ${isOpen ? "rotate-180" : ""}`}
+          className={`text-ink/(--quiet-60) transition-transform duration-[var(--motion-fast)] motion-reduce:transition-none ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
       {isOpen ? (
-        <div id={regionId} role="group" aria-label="Advanced" className="reader-dark space-y-1 pb-1 pt-1">
+        <div id={regionId} role="group" aria-label="Advanced" className="space-y-1 pb-1 pt-1">
+          <AppearanceItem />
           <ImageSettingsItem />
           <AnsweringModelItem />
           <PassageDetailsItem {...verse} />

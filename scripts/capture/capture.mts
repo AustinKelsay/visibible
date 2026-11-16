@@ -6,8 +6,9 @@
  *
  * Options: `--base` the app's origin (default CAPTURE_BASE_URL, else http://localhost:3000; only localhost is
  * accepted), `--out` the folder (default output/captures, git-ignored), `--only` a comma-separated list of state
- * names, `--sizes desktop|phone|desktop,phone`. The states are listed in states.ts; pictures are written as
- * `<state>-<size>.png`, and a state that fails leaves `<state>-<size>-ERROR.png` and makes the run exit 1.
+ * names, `--sizes desktop|phone|desktop,phone`, `--appearances dark|light|dark,light` (default both). The states are
+ * listed in states.ts; pictures are written as `<state>-<size>.png` (dark) and `<state>-<size>-light.png`, and a state
+ * that fails leaves `<state>-<size>[-light]-ERROR.png` and makes the run exit 1.
  *
  * It drives a Chrome or Chromium already on the machine (CAPTURE_BROWSER, else found; see `findBrowser`) and never
  * downloads one. It refuses an app that has an OpenRouter key, and the page it opens can reach nothing off this
@@ -18,27 +19,46 @@ import { homedir } from "node:os";
 import path from "node:path";
 import { chromium, type BrowserContext, type Page } from "playwright-core";
 import {
+  CAPTURE_APPEARANCES,
   CAPTURE_SIZES,
+  READER_SETTINGS_KEY,
   allowsRequest,
   findBrowser,
   localBase,
   parseStep,
   pricedCatalog,
+  readerSettingsIn,
   selectStates,
   shotFile,
+  type CaptureAppearance,
   type CaptureSize,
   type CaptureStub,
   type Step,
 } from "./plan";
 import { READER_STATES } from "./states";
 
-type Options = { base: URL; out: string; only: string[]; sizes: CaptureSize[] };
+type StorageState = Awaited<ReturnType<BrowserContext["storageState"]>>;
+
+/** The session carried from shot to shot, with the reader's appearance chosen for the next one. */
+function inAppearance(state: StorageState | undefined, base: URL, appearance: CaptureAppearance): StorageState {
+  const origins = state?.origins ?? [];
+  const site = origins.find((entry) => entry.origin === base.origin) ?? { origin: base.origin, localStorage: [] };
+  const stored = site.localStorage.find((item) => item.name === READER_SETTINGS_KEY)?.value ?? null;
+  const localStorage = [
+    ...site.localStorage.filter((item) => item.name !== READER_SETTINGS_KEY),
+    { name: READER_SETTINGS_KEY, value: readerSettingsIn(stored, appearance) },
+  ];
+  return { cookies: state?.cookies ?? [], origins: [...origins.filter((entry) => entry !== site), { ...site, localStorage }] };
+}
+
+type Options = { base: URL; out: string; only: string[]; sizes: CaptureSize[]; appearances: CaptureAppearance[] };
 
 function parseArgs(argv: string[]): Options {
   let base = process.env.CAPTURE_BASE_URL || "http://localhost:3000";
   let out = "output/captures";
   let only: string[] = [];
   let sizes: CaptureSize[] = ["desktop", "phone"];
+  let appearances: CaptureAppearance[] = CAPTURE_APPEARANCES;
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     const value = () => {
@@ -52,9 +72,14 @@ function parseArgs(argv: string[]): Options {
     else if (arg === "--sizes") {
       sizes = value().split(",") as CaptureSize[];
       for (const size of sizes) if (!(size in CAPTURE_SIZES)) throw new Error(`Unknown size ${size}: use desktop or phone`);
+    } else if (arg === "--appearances") {
+      appearances = value().split(",") as CaptureAppearance[];
+      for (const appearance of appearances) {
+        if (!CAPTURE_APPEARANCES.includes(appearance)) throw new Error(`Unknown appearance ${appearance}: use dark or light`);
+      }
     } else throw new Error(`Unknown option ${arg}`);
   }
-  return { base: localBase(base), out, only, sizes };
+  return { base: localBase(base), out, only, sizes, appearances };
 }
 
 /** The app must be up and unable to pay for a model: its chat models list says when no OpenRouter key is set. */
@@ -170,14 +195,15 @@ async function main() {
   const browser = await chromium.launch({ executablePath, headless: true });
   let failed = 0;
   // One guest session for the whole run: /api/session allows only 10 new ones a minute.
-  let storageState: Awaited<ReturnType<BrowserContext["storageState"]>> | undefined;
+  let storageState: StorageState | undefined;
   try {
-    for (const size of options.sizes) {
+    for (const appearance of options.appearances) for (const size of options.sizes) {
       const { width, height, phone } = CAPTURE_SIZES[size];
       for (const state of states) {
         if (state.sizes && !state.sizes.includes(size)) continue;
         const context = await browser.newContext({
-          storageState,
+          // The appearance is stored before the page opens, so the reader paints in it from the first frame.
+          storageState: inAppearance(storageState, options.base, appearance),
           viewport: { width, height },
           deviceScaleFactor: phone ? 2 : 1,
           isMobile: phone,
@@ -187,7 +213,7 @@ async function main() {
         const page = await context.newPage();
         await stub(page, state.stubs ?? []);
         page.on("pageerror", (error) => console.warn(`  page error in ${state.name}: ${error.message}`));
-        const file = path.join(options.out, shotFile(state, size));
+        const file = path.join(options.out, shotFile(state, size, appearance));
         try {
           await page.goto(new URL(state.path, options.base).href, { waitUntil: "domcontentloaded", timeout: 60_000 });
           await settle(page);
@@ -202,7 +228,7 @@ async function main() {
         } catch (error) {
           failed += 1;
           await page.screenshot({ path: file.replace(/\.png$/, "-ERROR.png") }).catch(() => {});
-          console.error(`FAILED ${state.name} ${size}: ${(error as Error).message.split("\n")[0]}`);
+          console.error(`FAILED ${state.name} ${size} ${appearance}: ${(error as Error).message.split("\n")[0]}`);
         }
         await context.close();
       }

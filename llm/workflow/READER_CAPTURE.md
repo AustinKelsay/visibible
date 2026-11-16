@@ -1,6 +1,6 @@
 # Capturing the reader
 
-`npm run capture:reader` ([capture.mts](../../scripts/capture/capture.mts)) screenshots every reader state at desktop (1440×900) and phone (390×844, a touch screen at twice the density) size, from an app running on this machine. Its pictures are the ones interface pull requests attach and the set the owner approves at the reader's cutover ([#434](https://github.com/AustinKelsay/visibible/issues/434)). It is not part of the test suite: `npm test` never runs it.
+`npm run capture:reader` ([capture.mts](../../scripts/capture/capture.mts)) screenshots every reader state at desktop (1440×900) and phone (390×844, a touch screen at twice the density) size, in the dark and the light appearance, from an app running on this machine. Its pictures are the ones interface pull requests attach and the set the owner approves at the reader's cutover ([#434](https://github.com/AustinKelsay/visibible/issues/434)). It is not part of the test suite: `npm test` never runs it.
 
 ## What it expects
 
@@ -16,11 +16,12 @@ npm run capture:reader -- --base http://localhost:3101 --only reading,marks --si
 ```
 
 - `--base`: the app's origin. Default `CAPTURE_BASE_URL`, else `http://localhost:3000`. Only `localhost`, `127.0.0.1` and `[::1]` are accepted.
-- `--out`: default `output/captures`, which git ignores. Pictures are `<state>-desktop.png` and `<state>-phone.png`, overwritten on each run.
+- `--out`: default `output/captures`, which git ignores. Pictures are `<state>-desktop.png` and `<state>-phone.png` (dark) and the same with `-light` before `.png`, overwritten on each run.
 - `--only`: comma-separated state names. `--sizes`: `desktop`, `phone` or both.
-- A state that fails writes `<state>-<size>-ERROR.png`, the run goes on to the next, and the command exits 1. A step that finds nothing fails the state, and so does a picture still loading 15 seconds after a page or step.
+- `--appearances`: `dark`, `light` or both (the default). Each shot stores the appearance in the reader's settings record before the page opens (`readerSettingsIn` in [plan.ts](../../scripts/capture/plan.ts)), so the reader paints in it from the first frame, as a returning reader's would. Light pictures are `<state>-<size>-light.png`; the whole-picture view is dark in both.
+- A state that fails writes `<state>-<size>[-light]-ERROR.png`, the run goes on to the next, and the command exits 1. A step that finds nothing fails the state, and so does a picture still loading 15 seconds after a page or step.
 - One run creates one guest session and reuses it for every picture, because `/api/session` allows ten new sessions a minute.
-- The run takes about 5 seconds a picture. Open the pictures and look at them: a state that loaded is not necessarily a state that looks right.
+- The run takes about 5 seconds a picture, so the whole set in both appearances takes about six minutes. Open the pictures and look at them: a state that loaded is not necessarily a state that looks right.
 
 ## It cannot spend
 

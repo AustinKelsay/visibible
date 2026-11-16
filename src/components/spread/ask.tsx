@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import { ArrowUp, ChevronLeft, Sparkles } from "lucide-react";
 import { useSession } from "@/context/session-context";
 import { usePreferences } from "@/context/preferences-context";
@@ -104,8 +104,8 @@ export function AskProvider({ verse, children }: { verse: AskVerse; children: Re
 export function AskFoot() {
   const { reference, suggestions, ask, footField } = useAsk();
   return (
-    <section aria-label="Ask about this verse" className="hidden shrink-0 border-t border-white/10 pt-5 md:mx-12 md:block lg:mx-14">
-      <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-white/55">
+    <section aria-label="Ask about this verse" className="hidden shrink-0 border-t border-ink/10 pt-5 md:mx-12 md:block lg:mx-14">
+      <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)">
         <Sparkles size={12} strokeWidth={1.75} aria-hidden="true" />
         Ask about this verse
       </p>
@@ -115,7 +115,7 @@ export function AskFoot() {
             <button
               type="button"
               onClick={() => ask(question, "suggestion", "words_page")}
-              className="rounded text-left font-serif text-lg italic text-white/80 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white hover:decoration-white/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
+              className="rounded text-left font-serif text-lg italic text-ink/80 underline decoration-ink/30 underline-offset-4 transition-colors hover:text-ink hover:decoration-ink/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink/70"
             >
               {question}
             </button>
@@ -134,16 +134,13 @@ export function AskDockButton() {
     <button
       type="button"
       onClick={(event) => openAsk("dock", event.currentTarget)}
-      className="flex min-h-11 flex-1 items-center gap-2 rounded-full bg-white/10 px-4 text-sm font-medium text-white/90 transition-colors hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-white/70"
+      className="flex min-h-11 flex-1 items-center gap-2 rounded-full bg-ink/10 px-4 text-sm font-medium text-ink/90 transition-colors hover:bg-ink/15 focus-visible:outline-2 focus-visible:outline-ink/70"
     >
       <Sparkles size={16} strokeWidth={1.75} aria-hidden="true" />
       Ask a question…
     </button>
   );
 }
-
-// The shared markdown renderer reads the site's colour variables; the spread is dark whatever the system says.
-const DARK_TEXT = { "--foreground": "rgba(255,255,255,0.9)", "--muted": "rgba(255,255,255,0.55)", "--surface": "rgba(255,255,255,0.07)", "--divider": "rgba(255,255,255,0.12)", "--accent": "#9ec5ff" } as CSSProperties;
 
 /**
  * The other side of the words page: the verse as a short quote, the conversation, the field and "Back to the verse".
@@ -175,28 +172,28 @@ export function AskPage() {
     <LayerPanel
       id="ask"
       label={`Ask about ${reference}`}
-      className="absolute inset-0 z-20 flex flex-col bg-[#0b0b0c] outline-none md:bg-[#0d0d0f]"
+      className="absolute inset-0 z-20 flex flex-col bg-reader-page outline-none md:bg-reader-sheet"
     >
-      <div data-ask-page style={DARK_TEXT} className="flex min-h-0 flex-1 flex-col">
+      <div data-ask-page className="reader-answer flex min-h-0 flex-1 flex-col">
         <div className="flex items-center justify-between gap-4 px-4 pt-3 md:px-12 md:pt-12 lg:px-14">
           <button
             type="button"
             onClick={close}
-            className="-ml-1 flex min-h-11 items-center gap-1 rounded-full pr-2 text-sm text-white/75 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-white/70"
+            className="-ml-1 flex min-h-11 items-center gap-1 rounded-full pr-2 text-sm text-ink/75 transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-ink/70"
           >
             <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
             Back to the verse
           </button>
-          <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/55">{reference}</span>
+          <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)">{reference}</span>
         </div>
-        <blockquote className="mx-4 line-clamp-3 border-b border-white/10 pt-1 pb-4 font-serif text-lg leading-snug text-white/70 md:mx-12 md:pt-3 md:pb-6 md:text-xl lg:mx-14">
+        <blockquote className="mx-4 line-clamp-3 border-b border-ink/10 pt-1 pb-4 font-serif text-lg leading-snug text-ink/70 md:mx-12 md:pt-3 md:pb-6 md:text-xl lg:mx-14">
           {verseText}
         </blockquote>
 
         <div ref={conversation} className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4 md:px-12 md:py-6 lg:px-14">
           {messages.length === 0 && !isLoading ? (
             <div>
-              <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-white/55">
+              <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)">
                 <Sparkles size={12} strokeWidth={1.75} aria-hidden="true" />
                 Ask about this verse
               </p>
@@ -206,7 +203,7 @@ export function AskPage() {
                     <button
                       type="button"
                       onClick={() => ask(question, "suggestion", "ask_page")}
-                      className="w-full rounded-2xl bg-white/[0.06] px-4 py-3 text-left text-[15px] text-white/85 ring-1 ring-white/10 transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white/70"
+                      className="w-full rounded-2xl bg-ink/[0.06] px-4 py-3 text-left text-[15px] text-ink/85 ring-1 ring-ink/10 transition-colors hover:bg-ink/10 focus-visible:outline-2 focus-visible:outline-ink/70"
                     >
                       {question}
                     </button>
@@ -220,32 +217,32 @@ export function AskPage() {
                 const text = message.parts.map((part) => (part.type === "text" ? part.text ?? "" : "")).join("");
                 if (message.role === "user") {
                   return (
-                    <li key={message.id} data-turn="user" className="max-w-[85%] self-end rounded-2xl bg-white/[0.12] px-4 py-2.5 text-[15px] text-white">
+                    <li key={message.id} data-turn="user" className="max-w-[85%] self-end rounded-2xl bg-ink/[0.12] px-4 py-2.5 text-[15px] text-ink">
                       {text}
                     </li>
                   );
                 }
                 return (
-                  <li key={message.id} data-turn="assistant" className="text-white/90 [&_p:last-child]:mb-0">
+                  <li key={message.id} data-turn="assistant" className="text-ink/90 [&_p:last-child]:mb-0">
                     <MarkdownRenderer content={text} />
-                    {message.metadata?.incomplete && <p className="mt-2 text-xs text-white/50">The answer was cut short at the length limit.</p>}
+                    {message.metadata?.incomplete && <p className="mt-2 text-xs text-ink/(--quiet-50)">The answer was cut short at the length limit.</p>}
                     {(message.metadata?.earlierMessagesOmitted ?? 0) > 0 && (
-                      <p className="mt-2 text-xs text-white/50">The conversation is long, so its earliest messages were not sent with this question.</p>
+                      <p className="mt-2 text-xs text-ink/(--quiet-50)">The conversation is long, so its earliest messages were not sent with this question.</p>
                     )}
                   </li>
                 );
               })}
               {waiting && (
                 <li aria-label="Answering" className="flex gap-1.5 py-2">
-                  <span className="size-1.5 animate-bounce rounded-full bg-white/50" />
-                  <span className="size-1.5 animate-bounce rounded-full bg-white/50 [animation-delay:0.15s]" />
-                  <span className="size-1.5 animate-bounce rounded-full bg-white/50 [animation-delay:0.3s]" />
+                  <span className="size-1.5 animate-bounce rounded-full bg-ink/50" />
+                  <span className="size-1.5 animate-bounce rounded-full bg-ink/50 [animation-delay:0.15s]" />
+                  <span className="size-1.5 animate-bounce rounded-full bg-ink/50 [animation-delay:0.3s]" />
                 </li>
               )}
             </ol>
           )}
           {error && (
-            <div role="alert" className="mt-4 rounded-xl bg-amber-400/10 px-4 py-3 text-sm text-amber-200 ring-1 ring-amber-300/20">
+            <div role="alert" className="mt-4 rounded-xl bg-amber-400/10 px-4 py-3 text-sm text-reader-warning ring-1 ring-amber-300/20">
               {chatErrorMessage(error)}
             </div>
           )}
@@ -285,14 +282,14 @@ function AskForm({ from, label, placeholder, fieldRef, autoFocus, className }: {
       }}
     >
       {from === "ask_page" && priceToConfirm && staleQuote && (
-        <p role="status" className="mb-2 text-sm text-white/70">
+        <p role="status" className="mb-2 text-sm text-ink/70">
           {priceToConfirm} {formatQuote(staleQuote)}.{" "}
-          <button type="button" onClick={confirmPrice} className="font-medium text-white underline underline-offset-2">
+          <button type="button" onClick={confirmPrice} className="font-medium text-ink underline underline-offset-2">
             Send at this price
           </button>
         </p>
       )}
-      <div className="flex items-center gap-2 rounded-full bg-white/[0.07] py-1.5 pr-1.5 pl-5 ring-1 ring-white/10 focus-within:ring-white/30">
+      <div className="flex items-center gap-2 rounded-full bg-ink/[0.07] py-1.5 pr-1.5 pl-5 ring-1 ring-ink/10 focus-within:ring-ink/30">
         <input
           ref={fieldRef}
           value={input}
@@ -301,14 +298,14 @@ function AskForm({ from, label, placeholder, fieldRef, autoFocus, className }: {
           aria-label={label}
           placeholder={placeholder}
           data-autofocus={autoFocus || undefined}
-          className="min-w-0 flex-1 bg-transparent py-1.5 text-[15px] text-white placeholder:text-white/40 focus:outline-none"
+          className="min-w-0 flex-1 bg-transparent py-1.5 text-[15px] text-ink placeholder:text-ink/(--quiet-40) focus:outline-none"
         />
         <button
           type="submit"
           disabled={isLoading || !input.trim()}
           aria-label={price ? `Send question · ${formatQuote(price)}` : "Send question"}
           title={price ? `${formatQuote(price)} per question` : undefined}
-          className="flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-white pr-1 pl-1 text-xs font-medium text-black transition-opacity disabled:opacity-40 data-[price]:pl-3"
+          className="flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-ink pr-1 pl-1 text-xs font-medium text-paper transition-opacity disabled:opacity-40 data-[price]:pl-3"
           data-price={price ? "" : undefined}
         >
           {price && <span className="tabular-nums">{price.estimateCredits} {price.estimateCredits === 1 ? "credit" : "credits"}</span>}

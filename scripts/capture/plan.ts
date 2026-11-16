@@ -12,6 +12,29 @@ export const CAPTURE_SIZES: Record<CaptureSize, { width: number; height: number;
   phone: { width: 390, height: 844, phone: true },
 };
 
+/** The reader's appearances (Advanced → Appearance). Every state is shot in each, dark first. */
+export type CaptureAppearance = "dark" | "light";
+export const CAPTURE_APPEARANCES: CaptureAppearance[] = ["dark", "light"];
+
+/** Where the reader keeps its settings in the browser (`READER_SETTINGS_KEY` in src/lib/advanced-settings.ts). */
+export const READER_SETTINGS_KEY = "visibible-reader-settings";
+
+/**
+ * The reader's stored settings record (as the browser holds it, or null) with Advanced's appearance set, keeping every
+ * other setting. The capture stores it before the page opens, so the reader paints in that appearance from the start.
+ */
+export function readerSettingsIn(stored: string | null, appearance: CaptureAppearance): string {
+  let record: Record<string, unknown> = {};
+  try {
+    const parsed = stored ? JSON.parse(stored) : null;
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) record = parsed;
+  } catch {
+    // An unreadable record is replaced.
+  }
+  const advanced = record.advanced && typeof record.advanced === "object" ? record.advanced : {};
+  return JSON.stringify({ ...record, version: 1, advanced: { ...advanced, appearance } });
+}
+
 /**
  * Responses a state may stub, because a local app without an OpenRouter key cannot give them. `priced`: the image
  * catalog answers as an app with a key would (see `pricedCatalog`), so prices show; nothing can be painted with it.
@@ -156,9 +179,9 @@ export function findBrowser({ env, platform, home, exists, list }: Machine): str
   throw new Error("No Chrome or Chromium found. Install one, or set CAPTURE_BROWSER to the browser's executable");
 }
 
-/** The picture's file name: `<state>-<size>.png`. */
-export function shotFile(state: CaptureState, size: CaptureSize): string {
-  return `${state.name}-${size}.png`;
+/** The picture's file name: `<state>-<size>.png` in dark, `<state>-<size>-light.png` in light. */
+export function shotFile(state: CaptureState, size: CaptureSize, appearance: CaptureAppearance = "dark"): string {
+  return appearance === "dark" ? `${state.name}-${size}.png` : `${state.name}-${size}-${appearance}.png`;
 }
 
 /** The states to shoot, in list order: all of them, or only those named. */

@@ -139,7 +139,7 @@ function SavedPicture({ verseId, reference, onShowWhole }: SpreadPictureProps) {
   /* eslint-enable @next/next/no-img-element */
 }
 
-const NOTE_BUTTON = `${PILL} min-h-[40px] px-4 bg-white text-black hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60`;
+const NOTE_BUTTON = `${PILL} min-h-[40px] px-4 bg-ink text-paper hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-60`;
 
 /**
  * A verse painted only in another style: a note naming the style shown, and an offer to paint the verse in the chosen
@@ -154,14 +154,14 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle }: { verse
   if (paint.painting) {
     body = (
       <div className="w-full space-y-2">
-        <p className="text-sm text-white/90">Painting {reference} in {chosenLabel}…</p>
+        <p className="text-sm text-ink/90">Painting {reference} in {chosenLabel}…</p>
         <PaintProgress paint={paint} reference={reference} />
       </div>
     );
   } else if (generation.error) {
     body = (
       <>
-        <p role="alert" className="text-sm text-red-200">{generation.error}</p>
+        <p role="alert" className="text-sm text-reader-alert">{generation.error}</p>
         <button type="button" className={NOTE_BUTTON} onClick={() => generation.generate("spread_retry")}>
           <RefreshCw aria-hidden="true" className="h-4 w-4" />
           Try again
@@ -171,7 +171,7 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle }: { verse
   } else if (generation.priceNotice) {
     body = (
       <>
-        <p role="status" className="text-sm text-white/85">{generation.priceNotice}</p>
+        <p role="status" className="text-sm text-ink/85">{generation.priceNotice}</p>
         <button type="button" className={NOTE_BUTTON} onClick={() => generation.generate("spread_paint")}>
           Paint at this price
         </button>
@@ -180,8 +180,8 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle }: { verse
   } else {
     body = (
       <>
-        <p className="text-[13px] leading-snug text-white/80 md:text-sm">
-          <span className="font-medium text-white">Shown in {artStyleLabel(shownStyle)}.</span>{" "}
+        <p className="text-[13px] leading-snug text-ink/80 md:text-sm">
+          <span className="font-medium text-ink">Shown in {artStyleLabel(shownStyle)}.</span>{" "}
           No {chosenLabel} picture of this verse yet.
         </p>
         <PaintButton paint={paint} label={`Paint in ${chosenLabel}`} className={NOTE_BUTTON} />
@@ -196,7 +196,7 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle }: { verse
       aria-label="Other art style"
       data-fades={idleOffer ? "" : undefined}
       // Above the picture menu's chip on a phone; under the corner name on a computer.
-      className="absolute inset-x-3 bottom-14 z-10 flex max-w-sm flex-col items-start gap-2 rounded-2xl border border-white/10 bg-[rgba(12,12,14,0.82)] p-3 text-left shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:inset-x-auto md:bottom-auto md:left-5 md:top-20 md:gap-2.5 md:p-3.5"
+      className="absolute inset-x-3 bottom-14 z-10 flex max-w-sm flex-col items-start gap-2 rounded-2xl border border-ink/10 bg-reader-page-glass p-3 text-left shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:inset-x-auto md:bottom-auto md:left-5 md:top-20 md:gap-2.5 md:p-3.5"
     >
       {body}
     </section>

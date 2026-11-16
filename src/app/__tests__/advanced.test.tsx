@@ -7,6 +7,7 @@
 
 import { act, type ReactNode } from "react";
 import { createRoot, type Root } from "react-dom/client";
+import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { getFunctionName, type FunctionReference } from "convex/server";
 import { useQuery } from "convex/react";
@@ -16,7 +17,7 @@ import { clearBibleApiCache } from "@/lib/bible-api";
 import { PreferencesProvider } from "@/context/preferences-context";
 import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
 import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
-import { resetAdvancedSettingsForTests } from "@/lib/advanced-settings";
+import { READER_SETTINGS_KEY, resetAdvancedSettingsForTests } from "@/lib/advanced-settings";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -175,6 +176,7 @@ afterEach(() => {
   act(() => root.unmount());
   container.remove();
   document.body.innerHTML = "";
+  document.documentElement.removeAttribute("data-reader-appearance");
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
 });
@@ -194,7 +196,7 @@ describe("Advanced in the corner menu", () => {
     await click(row);
     expect(row.getAttribute("aria-expanded")).toBe("true");
     const headings = [...advanced()!.querySelectorAll("h3")].map((heading) => heading.textContent);
-    expect(headings).toEqual(["Image settings", "Answering model", "Passage details", "Welcome", "Feedback prompts"]);
+    expect(headings).toEqual(["Appearance", "Image settings", "Answering model", "Passage details", "Welcome", "Feedback prompts"]);
   });
 });
 
@@ -325,5 +327,122 @@ describe("feedback prompts", () => {
     expect(prompt()).toBeDefined();
     await click(prompt()!);
     expect(container.querySelector('[role="dialog"][aria-label="Send feedback"]')).not.toBeNull();
+  });
+});
+
+describe("appearance", () => {
+  /** The appearance the reader's surfaces are drawn in: the document carries it for the stylesheet. */
+  const shownAppearance = () => (document.documentElement.getAttribute("data-reader-appearance") === "light" ? "light" : "dark");
+  const stored = () => JSON.parse(localStorage.getItem(READER_SETTINGS_KEY) ?? "{}").advanced?.appearance;
+
+  it("offers dark, light and the system's, and is dark by default", async () => {
+    await openVerse("john", "1", "5");
+    expect(shownAppearance()).toBe("dark");
+    const items = await openAdvanced();
+    expect(radio("Appearance", "Dark", items).getAttribute("aria-checked")).toBe("true");
+    expect(radio("Appearance", "Light", items).getAttribute("aria-checked")).toBe("false");
+    expect(radio("Appearance", "Follow the system", items).getAttribute("aria-checked")).toBe("false");
+  });
+
+  it("turns the reader light, remembers it, and turns it dark again", async () => {
+    await openVerse("john", "1", "5");
+    await click(radio("Appearance", "Light", await openAdvanced()));
+    expect(shownAppearance()).toBe("light");
+    expect(stored()).toBe("light");
+
+    act(() => root.unmount());
+    resetAdvancedSettingsForTests();
+    document.documentElement.removeAttribute("data-reader-appearance");
+    root = createRoot(container);
+    await openVerse("john", "1", "6");
+    expect(shownAppearance()).toBe("light");
+
+    await click(radio("Appearance", "Dark", await openAdvanced()));
+    expect(shownAppearance()).toBe("dark");
+    expect(stored()).toBe("dark");
+  });
+
+  it("keeps the whole-picture view dark in light", async () => {
+    savedPictures = [{ id: "john-1-5:painting", imageUrl: "https://img.test/5.png", artStyle: "classical", createdAt: 1 }];
+    await openVerse("john", "1", "5");
+    await click(radio("Appearance", "Light", await openAdvanced()));
+    pressEscape();
+    const main = container.querySelector("main")!;
+    expect(main.classList.contains("reader-appearance")).toBe(true);
+
+    await click(button("Show the whole picture of John 1:5"));
+    expect(main.classList.contains("reader-dark")).toBe(true);
+    expect(main.classList.contains("reader-appearance")).toBe(false);
+    await click(button("Back to the words"));
+    expect(main.classList.contains("reader-appearance")).toBe(true);
+  });
+
+  it("follows the system, switching when the system setting does", async () => {
+    // The system is set to dark, then to light.
+    const listeners = new Set<() => void>();
+    const system = { matches: false };
+    vi.stubGlobal("matchMedia", (query: string) => ({
+      media: query,
+      get matches() { return query === "(prefers-color-scheme: light)" ? system.matches : false; },
+      addEventListener: (_type: string, listener: () => void) => listeners.add(listener),
+      removeEventListener: (_type: string, listener: () => void) => listeners.delete(listener),
+    }));
+    const setSystem = (light: boolean) => act(() => { system.matches = light; listeners.forEach((listener) => listener()); });
+
+    await openVerse("john", "1", "5");
+    await click(radio("Appearance", "Follow the system", await openAdvanced()));
+    expect(stored()).toBe("system");
+    expect(shownAppearance()).toBe("dark");
+    setSystem(true);
+    expect(shownAppearance()).toBe("light");
+    setSystem(false);
+    expect(shownAppearance()).toBe("dark");
+
+    // Choosing dark stops following it.
+    await click(radio("Appearance", "Dark", advanced()!));
+    setSystem(true);
+    expect(shownAppearance()).toBe("dark");
+  });
+
+  it("is dark whatever the system setting is until the reader chooses otherwise", async () => {
+    vi.stubGlobal("matchMedia", (query: string) => ({
+      media: query, matches: query === "(prefers-color-scheme: light)", addEventListener: () => {}, removeEventListener: () => {},
+    }));
+    await openVerse("john", "1", "5");
+    expect(shownAppearance()).toBe("dark");
+  });
+
+  describe("before the first paint", () => {
+    /** The server's page for a verse, and the document as its scripts leave it once they have run. */
+    async function loadServerPage(stored: string | null) {
+      if (stored) localStorage.setItem(READER_SETTINGS_KEY, JSON.stringify({ version: 1, advanced: { appearance: stored } }));
+      const html = renderToString(<PreferencesProvider>{await VersePage(params("john", "1", "5"))}</PreferencesProvider>);
+      const scripts = [...new DOMParser().parseFromString(html, "text/html").querySelectorAll("script")];
+      scripts.forEach((script) => new Function(script.textContent ?? "")());
+      return html;
+    }
+
+    it("draws a stored light reader light", async () => {
+      await loadServerPage("light");
+      expect(shownAppearance()).toBe("light");
+    });
+
+    it("draws a reader following a light system light, and a dark one dark", async () => {
+      vi.stubGlobal("matchMedia", (query: string) => ({ media: query, matches: query === "(prefers-color-scheme: light)" }));
+      await loadServerPage("system");
+      expect(shownAppearance()).toBe("light");
+
+      document.documentElement.removeAttribute("data-reader-appearance");
+      vi.stubGlobal("matchMedia", (query: string) => ({ media: query, matches: false }));
+      await loadServerPage("system");
+      expect(shownAppearance()).toBe("dark");
+    });
+
+    it("leaves a dark or new reader dark", async () => {
+      await loadServerPage("dark");
+      expect(shownAppearance()).toBe("dark");
+      await loadServerPage(null);
+      expect(shownAppearance()).toBe("dark");
+    });
   });
 });

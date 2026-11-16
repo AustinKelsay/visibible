@@ -53,7 +53,7 @@ export function WordsPage({
     <article
       inert={aside}
       data-text-size={textSize}
-      className={`spread-words relative flex min-h-0 flex-1 flex-col bg-[#0b0b0c] md:absolute md:inset-y-0 md:right-0 md:w-[var(--words-page-width)] md:border-l md:border-white/10 md:bg-[rgba(12,12,14,0.78)] md:backdrop-blur-2xl md:backdrop-saturate-150 ${aside ? "max-md:hidden" : ""}`}
+      className={`spread-words relative flex min-h-0 flex-1 flex-col bg-reader-page md:absolute md:inset-y-0 md:right-0 md:w-[var(--words-page-width)] md:border-l md:border-ink/10 md:bg-reader-page-glass md:backdrop-blur-2xl md:backdrop-saturate-150 ${aside ? "max-md:hidden" : ""}`}
     >
       {/* A long verse fades into the foot line rather than stopping at a hard edge; the bottom padding
           lets its last line scroll clear of the fade. */}
@@ -62,13 +62,13 @@ export function WordsPage({
         className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 pt-6 pb-8 md:px-12 md:pt-16 lg:px-14"
         style={{ maskImage: FADE_INTO_FOOT, WebkitMaskImage: FADE_INTO_FOOT }}
       >
-        <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/55">
+        <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)">
           {bookName} · Chapter {chapter}
         </p>
-        <h1 className="mt-3 font-serif text-6xl leading-none text-white/60 md:mt-8 md:text-8xl">
+        <h1 className="mt-3 font-serif text-6xl leading-none text-ink/(--quiet-60) md:mt-8 md:text-8xl">
           <span className="sr-only">{bookName} {chapter}:</span>{verseNumber}
         </h1>
-        <p className={`mt-4 max-w-[30ch] font-serif text-pretty text-white/95 md:mt-8 ${VERSE_SIZE[textSize]}`}>
+        <p className={`mt-4 max-w-[30ch] font-serif text-pretty text-ink/95 md:mt-8 ${VERSE_SIZE[textSize]}`}>
           {verseText}
         </p>
       </div>
@@ -80,7 +80,7 @@ export function WordsPage({
           <LookButton variant="phone" />
         </nav>
       </div>
-      <footer className="flex items-center gap-2 border-t border-white/10 md:border-t-0 px-3 pt-1 pb-[max(0.25rem,var(--safe-area-inset-bottom))] text-[11px] font-medium uppercase tracking-[0.18em] text-white/50 md:mx-12 md:gap-4 md:px-0 md:py-5 lg:mx-14">
+      <footer className="flex items-center gap-2 border-t border-ink/10 md:border-t-0 px-3 pt-1 pb-[max(0.25rem,var(--safe-area-inset-bottom))] text-[11px] font-medium uppercase tracking-[0.18em] text-ink/(--quiet-50) md:mx-12 md:gap-4 md:px-0 md:py-5 lg:mx-14">
         <PageTurnLink direction="prev" href={prevUrl} onTurn={onTurn} className="md:hidden" />
         <span className="flex min-w-0 flex-1 justify-center md:justify-start">
           <LookTranslationButton translationName={translationName} />

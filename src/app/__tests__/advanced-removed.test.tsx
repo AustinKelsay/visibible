@@ -8,6 +8,7 @@
 
 import { act, type ReactNode } from "react";
 import { createRoot, type Root } from "react-dom/client";
+import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { getFunctionName, type FunctionReference } from "convex/server";
 import { useQuery } from "convex/react";
@@ -127,7 +128,7 @@ beforeEach(() => {
   // Chosen while Advanced was still there.
   localStorage.setItem(READER_SETTINGS_KEY, JSON.stringify({
     version: 1,
-    advanced: { imageAspectRatio: "21:9", imageResolution: "2K", chatModel: "openai/gpt-oss-120b", feedbackPrompts: true },
+    advanced: { imageAspectRatio: "21:9", imageResolution: "2K", chatModel: "openai/gpt-oss-120b", feedbackPrompts: true, appearance: "light" },
   }));
   resetAdvancedSettingsForTests();
   Object.assign(session, { tier: "paid", credits: 100 });
@@ -174,6 +175,7 @@ afterEach(() => {
   act(() => root.unmount());
   container.remove();
   document.body.innerHTML = "";
+  document.documentElement.removeAttribute("data-reader-appearance");
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
 });
@@ -231,5 +233,12 @@ describe("the reader without Advanced", () => {
     for (let verse = 1; verse <= 17; verse++) await openVerse("john", "1", String(verse));
     await flush(2100);
     expect(container.textContent).not.toContain("Have feedback?");
+  });
+
+  it("is dark, from the first paint on", async () => {
+    const html = renderToString(<PreferencesProvider>{await VersePage(params("john", "1", "5"))}</PreferencesProvider>);
+    expect(html).not.toContain("<script");
+    await openVerse("john", "1", "5");
+    expect(document.documentElement.hasAttribute("data-reader-appearance")).toBe(false);
   });
 });

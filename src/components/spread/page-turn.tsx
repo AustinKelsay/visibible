@@ -105,7 +105,7 @@ export function PageTurnLink({ direction, href, onTurn, className = "" }: PageTu
   const shape = `inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${className}`;
   if (!href) {
     return (
-      <span aria-hidden="true" className={`${shape} text-white/25`}>
+      <span aria-hidden="true" className={`${shape} text-ink/(--quiet-25)`}>
         <Icon size={20} strokeWidth={1.5} />
       </span>
     );
@@ -115,7 +115,7 @@ export function PageTurnLink({ direction, href, onTurn, className = "" }: PageTu
       href={href}
       aria-label={direction === "prev" ? "Previous verse" : "Next verse"}
       onClick={() => onTurn(direction, "dock")}
-      className={`${shape} text-white/85 transition-colors duration-[var(--motion-fast)] hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white`}
+      className={`${shape} text-ink/85 transition-colors duration-[var(--motion-fast)] hover:bg-ink/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink`}
     >
       <Icon size={20} strokeWidth={1.5} />
     </Link>
