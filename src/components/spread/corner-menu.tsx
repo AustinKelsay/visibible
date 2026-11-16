@@ -80,7 +80,7 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber }: CornerMe
         </div>
       </LayerPanel>
 
-      <LayerPanel id={report.isOpen ? "report-picture" : "feedback"} label={report.isOpen ? "Report this picture" : "Send feedback"} className={FEEDBACK_PANEL}>
+      <LayerPanel id={report.isOpen ? "report-picture" : "feedback"} label={report.isOpen ? "Report this picture" : "Send feedback"} className={`${FEEDBACK_PANEL} ${report.isOpen ? REPORT_PLACE : FEEDBACK_PLACE}`}>
         <FeedbackForm
           verseId={verseId}
           bookName={bookName}
@@ -95,7 +95,10 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber }: CornerMe
 }
 
 const FEEDBACK_PANEL =
-  "reader-dark fixed inset-x-0 bottom-0 z-40 flex max-h-[85svh] flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-[#0e0e10] shadow-2xl outline-none md:absolute md:inset-x-auto md:bottom-auto md:left-5 md:top-[4.75rem] md:max-h-[calc(100svh-6rem)] md:w-[26rem] md:rounded-2xl";
+  "reader-dark fixed inset-x-0 bottom-0 z-40 flex max-h-[85svh] flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-[#0e0e10] shadow-2xl outline-none md:absolute md:inset-x-auto md:left-5 md:max-h-[calc(100svh-6rem)] md:w-[26rem] md:rounded-2xl";
+/** Feedback opens under the name; a picture report opens over the picture menu's chip. */
+const FEEDBACK_PLACE = "md:bottom-auto md:top-[4.75rem]";
+const REPORT_PLACE = "md:bottom-[5.5rem] md:top-auto";
 
 function Divider() {
   return <hr className="mx-3 my-1.5 border-white/10" />;

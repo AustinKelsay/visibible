@@ -134,7 +134,7 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, onPaintin
       <LayerPanel
         id="picture"
         label="Picture menu"
-        className="fixed inset-x-0 bottom-0 z-40 flex max-h-[80svh] flex-col overflow-y-auto rounded-t-2xl border border-white/10 bg-[rgba(14,14,16,0.92)] p-2 text-white shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:absolute md:inset-x-auto md:bottom-[5.5rem] md:left-5 md:max-h-[calc(100svh-9rem)] md:w-[22rem] md:rounded-2xl"
+        className="fixed inset-x-0 bottom-0 z-40 flex max-h-[80svh] flex-col overflow-y-auto rounded-t-2xl border border-white/10 bg-[rgba(14,14,16,0.92)] p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] text-white shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:absolute md:inset-x-auto md:bottom-[5.5rem] md:left-5 md:max-h-[calc(100svh-9rem)] md:w-[22rem] md:rounded-2xl"
       >
         <h2 className="px-3 pt-2 pb-1 text-xs font-medium tracking-[0.12em] text-white/55 uppercase">Pictures of {reference}</h2>
         {groups.map((group) => (
