@@ -144,6 +144,8 @@ function SavedPicture({ verseId, reference, onShowWhole, playing = false, onPlay
   ) : null;
 
   if (rulePicture === undefined) return null;
+  // The player and the play mark keep their places whether the verse is painted or not, so a picture arriving while
+  // the video plays leaves them mounted: playback and focus carry on.
   if (!rulePicture?.imageUrl) {
     // A verse can have a video and no saved picture (the video route makes video from text): it still plays. The
     // unpainted area stays mounted while it plays, so a painting started from it carries on.
@@ -172,9 +174,7 @@ function SavedPicture({ verseId, reference, onShowWhole, playing = false, onPlay
   /* eslint-disable @next/next/no-img-element */
   return (
     <>
-      {showVideo ? (
-        playerView
-      ) : (
+      {showVideo ? null : (
       <button
         ref={button}
         type="button"
@@ -209,6 +209,7 @@ function SavedPicture({ verseId, reference, onShowWhole, playing = false, onPlay
         />
       </button>
       )}
+      {playerView}
       {/* Beside the picture's button, not in it, so its taps never open the whole-picture view. Kept mounted in that
           view (only its chip hides), so a painting started from it carries on. */}
       {playMark}

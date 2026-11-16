@@ -7,6 +7,10 @@ import { useVerseGeneration } from "@/lib/use-verse-generation";
 
 export const PILL = "inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-colors focus-ring";
 export const PRIMARY = `${PILL} bg-ink text-paper hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-60`;
+/** On a phone narrower than 390px a priced action stacks its price on its own line under the action. */
+const PRICE_STACK = "max-[389px]:flex-col max-[389px]:gap-0 max-[389px]:py-1.5 max-[389px]:leading-snug";
+/** The " · " before the price: kept for screen readers when the price stacks under the action. */
+export const PRICE_SEPARATOR = "max-[389px]:sr-only";
 
 /**
  * Painting a verse in the chosen art style from the spread: the existing generation flow for a verse with no picture
@@ -53,11 +57,12 @@ export function PaintButton({ paint, label, className = PRIMARY }: { paint: Pain
     );
   }
   return (
-    <button type="button" className={className} disabled={generation.pricingPending} onClick={() => generation.generate("spread_paint")}>
+    <button type="button" className={`${className} ${PRICE_STACK}`} disabled={generation.pricingPending} onClick={() => generation.generate("spread_paint")}>
       <span>{label}</span>
       {quote ? (
         <span className="font-normal text-paper/(--quiet-55)">
-          {` · ${quotePhrase(quote)}`}
+          <span className={PRICE_SEPARATOR}>{" · "}</span>
+          <span>{quotePhrase(quote)}</span>
         </span>
       ) : null}
     </button>
