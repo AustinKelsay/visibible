@@ -3,8 +3,20 @@
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSession } from "@/context/session-context";
-import type { MessageMetadata } from "@/components/chat-metadata";
 import { parseQuote, parseStaleQuote, sameQuoteNumbers, type DisplayQuote } from "@/lib/quote-display";
+
+/** What the chat route attaches to an answer; Ask shows the notices for an answer cut short or earlier turns left out. */
+export interface MessageMetadata {
+  model?: string;
+  promptTokens?: number;
+  completionTokens?: number;
+  totalTokens?: number;
+  finishReason?: string;
+  incomplete?: boolean;
+  /** Older turns left out because the conversation outgrew the history budget. */
+  earlierMessagesOmitted?: number;
+  latencyMs?: number;
+}
 
 /** One turn of a conversation, with the answer's metadata. */
 export interface ChatMessage {

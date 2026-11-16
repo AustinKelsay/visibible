@@ -966,7 +966,7 @@ describe("accessibility", () => {
   }
 
   function clickNamed(name: string) {
-    const control = within(container.querySelector<HTMLElement>(`button[aria-label^="${name}"]`));
+    const control = within(container.querySelector<HTMLElement>(`button[aria-label^="${name}"]`)) as HTMLElement;
     act(() => { control.focus(); control.click(); });
     return control;
   }
