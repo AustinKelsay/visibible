@@ -22,6 +22,8 @@ A verse page is the **spread** ([spread.tsx](../../src/components/spread/spread.
 
 Contents, Look, Ask, the picture menu, the whole-picture view and unpainted verses arrive with the later tickets of #434.
 
+`npm run capture:reader` screenshots each state of the spread at desktop and phone size from a local app ([Capturing the reader](../workflow/READER_CAPTURE.md)). A change that adds a state adds its one-line entry to [states.ts](../../scripts/capture/states.ts).
+
 ## The old shell
 
 About, API documentation, the not-found page, the library and the prose reader keep the old [header](../../src/components/header.tsx), [footer](../../src/components/footer.tsx) and [LayoutWrapper](../../src/components/layout-wrapper.tsx), which now also carries the [chat sidebar](../../src/components/chat-sidebar.tsx) and the feedback prompt. The recovery page has neither.
