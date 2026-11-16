@@ -823,6 +823,28 @@ describe("the corner menu", () => {
     expect(cornerName().getAttribute("aria-expanded")).toBe("false");
   });
 
+  it("attaches a picture shown from another art style, as the spread shows it", async () => {
+    savedPictures = [{ id: "john-1-5:watercolor", imageUrl: "https://img.test/watercolor.png", artStyle: "watercolor", createdAt: 2 }];
+    const fetch = vi.fn(async (url: string) => {
+      if (url === "/api/feedback") return new Response(JSON.stringify({ success: true }), { status: 200 });
+      throw new DOMException("Timed out", "TimeoutError");
+    });
+    vi.stubGlobal("fetch", fetch);
+    await openVerse("john", "1", "5");
+    expect(container.querySelector('img[alt="Picture of John 1:5"]')?.getAttribute("src")).toBe("https://img.test/watercolor.png");
+    const menu = openMenu()!;
+    act(() => { [...menu.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Send feedback")!.click(); });
+    const form = container.querySelector<HTMLElement>('[role="dialog"][aria-label="Send feedback"]')!;
+    const message = form.querySelector<HTMLTextAreaElement>('textarea[aria-label="Feedback message"]')!;
+    act(() => {
+      Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, "value")!.set!.call(message, "Wrong well");
+      message.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    await act(async () => { form.querySelector<HTMLButtonElement>('button[aria-label="Submit feedback"]')!.click(); });
+    const [, request] = fetch.mock.calls.find(([url]) => url === "/api/feedback") as unknown as [string, RequestInit];
+    expect(JSON.parse(request.body as string)).toMatchObject({ imageContext: { imageId: "john-1-5:watercolor", artStyle: "watercolor" } });
+  });
+
   it("sends feedback with the verse and the picture on screen attached, then returns focus to the name", async () => {
     savedPictures = [{ id: "john-1-5:painting", imageUrl: "https://img.test/painting.png", artStyle: "classical", createdAt: 2 }];
     const fetch = vi.fn(async (url: string) => {
