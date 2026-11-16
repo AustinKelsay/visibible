@@ -117,11 +117,8 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
     api.verseImages.getImageHistory,
     layer.isOpen ? { verseId, artStyle, otherStyles: true } : "skip",
   );
-  // The verse's finished videos, each with the picture it belongs to: those pictures carry the play badge.
-  const verseVideos = useQuery(api.verseVideos.getHistory, offersVideo ? { verseId, limit: 50 } : "skip");
-  const picturesWithVideo = verseVideos ? new Set(verseVideos.map((video) => video.sourceImageId)) : undefined;
-  // Whether the shown picture already has a video comes from its own uncapped read, so the menu never offers
-  // to make (and charge for) a second one when the verse has more videos than the history above returns.
+  // Whether the shown picture already has a video comes from its own read, so the menu never offers to make (and
+  // charge for) a second one.
   const shownVideo = useQuery(api.verseVideos.getPictureVideo, offersVideo ? { imageId: shown.id } : "skip");
   const [detailsOpen, setDetailsOpen] = useState(false);
 
@@ -145,6 +142,11 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
       pictures: (otherStylePictures ?? []).filter((picture) => picture.artStyle === style),
     })),
   ].filter((group) => group.pictures.length > 0);
+  // The listed pictures with a finished video carry the play badge: one read per picture, however many videos the
+  // verse has.
+  const listedIds = groups.flatMap((group) => group.pictures.map((picture) => picture.id));
+  const videoIds = useQuery(api.verseVideos.getPicturesWithVideo, offersVideo && listedIds.length > 0 ? { imageIds: listedIds } : "skip");
+  const picturesWithVideo = videoIds ? new Set(videoIds) : undefined;
 
   const showVersion = (picture: ChosenPicture) => {
     // The newest picture in the chosen style is what the spread shows without a choice.

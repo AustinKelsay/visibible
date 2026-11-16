@@ -515,6 +515,8 @@ describe("an unpainted verse", () => {
 
     expect(autoSwitch()?.getAttribute("aria-checked")).toBe("false");
     expect(autoSwitch()?.textContent).toBe("Paint verses automatically as I read");
+    // On a phone narrower than 390px the label is set smaller and closer to the switch, so it stays on one line at 320px.
+    expect(autoSwitch()?.className.split(" ")).toEqual(expect.arrayContaining(["max-[389px]:text-[13px]", "max-[389px]:gap-2", "max-[389px]:px-1"]));
     expect(paintRequests).toHaveLength(0);
     act(() => { autoSwitch()!.click(); });
     expect(setAutoGenerate).toHaveBeenCalledWith(true, "spread_paint_switch");
