@@ -447,7 +447,12 @@ export const finish = internalMutation({
       job.estimatedCredits,
       videoCreditsForCost(actualCostUsd),
     );
-    if (!job.admin) {
+    // A job accepted before videos came from a picture (#479) has no source picture, so no reader can
+    // see it: release its hold instead of charging for it, and Visibible absorbs the provider's cost.
+    const unseen = !job.sourceImageId;
+    if (!job.admin && unseen) {
+      await releaseReservationInTransaction(ctx, job);
+    } else if (!job.admin) {
       const entries = await ctx.db
         .query("creditLedger")
         .withIndex("by_generationId", (q) =>
@@ -472,8 +477,8 @@ export const finish = internalMutation({
       active: false,
       storageId: args.storageId,
       actualCostUsd,
-      actualCredits: job.admin ? 0 : actualCredits,
-      absorbedCostUsd: Math.max(0, actualCostUsd - job.estimatedCostUsd),
+      actualCredits: job.admin || unseen ? 0 : actualCredits,
+      absorbedCostUsd: unseen ? actualCostUsd : Math.max(0, actualCostUsd - job.estimatedCostUsd),
       updatedAt: Date.now(),
       leaseUntil: 0,
     });

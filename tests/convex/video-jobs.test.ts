@@ -106,6 +106,21 @@ describe("durable video intent and settlement", () => {
     expect((await t.run(ctx => ctx.db.get(sessionId)))?.dailySpendUsd).toBe(1.5);
   });
 
+  it("releases instead of charging when a job from before source pictures finishes", async () => {
+    const { t, sessionId } = await setup();
+    const result = await t.mutation(api.verseVideos.enqueue, input);
+    const id = result.id as Id<"videoJobs">;
+    const claim = (await t.mutation(internal.verseVideos.claim, { id }))!;
+    await t.mutation(internal.verseVideos.advance, { id, lease: claim.lease, providerId: "video", costUsd: 0.8, ready: true });
+    // Accepted by the code before #479: no source picture.
+    await t.run(ctx => ctx.db.patch(id, { sourceImageId: undefined, sourceArtStyle: undefined }));
+    const stored = (await t.mutation(internal.verseVideos.claim, { id }))!;
+    const storageId = await t.run(ctx => ctx.storage.store(new Blob(["video"])));
+    expect(await t.mutation(internal.verseVideos.finish, { id, lease: stored.lease, storageId })).toBe(true);
+    expect((await t.run(ctx => ctx.db.get(sessionId)))?.credits).toBe(500);
+    expect(await t.run(ctx => ctx.db.get(id))).toMatchObject({ status: "completed", actualCredits: 0, absorbedCostUsd: 0.8 });
+  });
+
   it("refunds excess actual credits and keeps settlement idempotent", async () => {
     const { t, sessionId } = await setup();
     const result = await t.mutation(api.verseVideos.enqueue, input);
