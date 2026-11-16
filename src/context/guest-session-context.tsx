@@ -6,7 +6,6 @@ import {
   useState,
   useEffect,
   useCallback,
-  useRef,
   ReactNode,
 } from "react";
 
@@ -16,7 +15,11 @@ interface GuestSessionContextType {
   error: string | null;
   refetch: () => Promise<void>;
   buyCredits: () => void;
+  /** Open the credits dialog at its welcome step. The welcome opens only this way, never by itself. */
+  showWelcome: () => void;
   isBuyModalOpen: boolean;
+  /** Whether the open credits dialog was asked to start at the welcome. */
+  welcomeRequested: boolean;
   closeBuyModal: () => void;
 }
 
@@ -35,7 +38,7 @@ export function GuestSessionProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
-  const hasShownOnboardingRef = useRef(false);
+  const [welcomeRequested, setWelcomeRequested] = useState(false);
 
   const fetchSession = useCallback(async () => {
     try {
@@ -68,18 +71,7 @@ export function GuestSessionProvider({ children }: { children: ReactNode }) {
         }
         const newData: SessionResponse = await postResponse.json();
         setSid(newData.sid);
-
-        // Check if we should show onboarding for new session
-        const hasSeenOnboarding = localStorage.getItem("visibible_onboarding_seen") === "true";
-        if (!hasSeenOnboarding && newData.tier !== "admin" && !hasShownOnboardingRef.current && window.location.pathname !== "/recover") {
-          // Small delay to ensure modal renders properly
-          setTimeout(() => {
-            if (window.location.pathname === "/recover") return;
-            setIsBuyModalOpen(true);
-            localStorage.setItem("visibible_onboarding_seen", "true");
-            hasShownOnboardingRef.current = true;
-          }, 500);
-        }
+        // A new visitor lands on the page; the credits dialog opens only when asked for.
       } else {
         setSid(data.sid);
       }
@@ -102,11 +94,18 @@ export function GuestSessionProvider({ children }: { children: ReactNode }) {
   }, [fetchSession]);
 
   const buyCredits = useCallback(() => {
+    setWelcomeRequested(false);
+    setIsBuyModalOpen(true);
+  }, []);
+
+  const showWelcome = useCallback(() => {
+    setWelcomeRequested(true);
     setIsBuyModalOpen(true);
   }, []);
 
   const closeBuyModal = useCallback(() => {
     setIsBuyModalOpen(false);
+    setWelcomeRequested(false);
   }, []);
 
   return (
@@ -117,7 +116,9 @@ export function GuestSessionProvider({ children }: { children: ReactNode }) {
         error,
         refetch,
         buyCredits,
+        showWelcome,
         isBuyModalOpen,
+        welcomeRequested,
         closeBuyModal,
       }}
     >

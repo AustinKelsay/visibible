@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Header } from "@/components/header";
+import { SiteHeader } from "@/components/site-header";
 import { Footer } from "@/components/footer";
-import { LayoutWrapper } from "@/components/layout-wrapper";
-import { BookMenu } from "@/components/book-menu";
 import { bookForPage, readerPath } from "@/lib/works/reader-pages";
 import { findProseWork } from "@/lib/works/catalog";
 
@@ -28,8 +26,8 @@ export default async function ContentsPage({ params }: ContentsPageProps) {
   const { book, ownerPreview } = found;
   const first = book.moments[0];
   return (
-    <LayoutWrapper>
-      <Header />
+    <div className="flex min-h-screen flex-col bg-[var(--background)]">
+      <SiteHeader />
       <main className="flex-1 px-4 md:px-6 py-8 sm:py-12 max-w-2xl w-full mx-auto">
         <p className="text-xs uppercase tracking-widest text-[var(--muted)]">
           <Link href="/read" className="hover:text-[var(--foreground)]">Library</Link>
@@ -59,8 +57,6 @@ export default async function ContentsPage({ params }: ContentsPageProps) {
         <p className="mt-8 text-xs text-[var(--muted)]">{book.credit}</p>
       </main>
       <Footer />
-      {/* The header's book button opens the Bible's book menu here, as on every page without a prose passage. */}
-      <BookMenu />
-    </LayoutWrapper>
+    </div>
   );
 }

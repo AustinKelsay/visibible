@@ -6,14 +6,15 @@ These guides describe the repository's current behavior. Source links identify t
 | --- | --- |
 | Scripture fetching, translations, lookup errors | [Bible API](context/BIBLE-API.md) |
 | Imported reference works, unit identities, moment ranges or source refreshes | [Work input](context/WORK-INPUT.md) |
-| Reader, gallery, menus, keyboard or mobile navigation | [Navigation](context/NAVIGATION.md) |
+| Reader (the spread), Contents, Look, the picture and corner menus, keyboard or mobile navigation | [Navigation](context/NAVIGATION.md) |
 | Model, translation, ratio or resolution preferences | [Preferences](context/PREFERENCES.md) |
+| Advanced: image settings, answering model, passage details, welcome, feedback prompts, and how to cut them | [Advanced](context/ADVANCED.md) |
 | Verse videos, durable jobs, public history or video rollout | [Video generation](context/VIDEO-GENERATION.md) |
 | Image requests, quotes or progress | [Image generation](context/IMAGE-GENERATION.md) |
 | Image prompt construction | [Prompt specification](implementation/IMAGE_PROMPT_SPEC.md) |
 | Work briefs, shared art styles, depiction profiles, draft scope checks or preparation approval | [Work preparation](context/WORK-PREPARATION.md) |
 | Bulk queues, pause/resume or scope selection | [Bulk generation](context/BULK-GENERATION.md) |
-| Saved images, shared history or remote image storage | [Image persistence](context/IMAGE-PERSISTENCE.md) |
+| Saved images, thumbnails, shared history or remote image storage | [Image persistence](context/IMAGE-PERSISTENCE.md) |
 | A work's analysis: generations, canon versions, references and attention | [Analysis storage](context/ANALYSIS-STORAGE.md) |
 | Reading a work into sections, moments, a cast and a draft brief | [Work preparation](context/WORK-PREPARATION.md) |
 | Why each image is one call built from the moment's text | [ADR 0012](../docs/adr/0012-one-image-call-from-the-text.md) |
@@ -42,6 +43,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Chat eval and release requirements](workflow/CHAT_EVAL_AND_RELEASE.md)
 - [Image eval and release requirements](workflow/IMAGE_EVAL_AND_RELEASE.md): the regression suite across the Bible, Holmes and Alice, run with `evals:lean`, and its per-fault gate
 - [Image engine release and rollback runbook](workflow/ENGINE_RELEASE.md)
+- [Capturing the reader](workflow/READER_CAPTURE.md): `capture:reader` screenshots every reader state at desktop and phone size from a local app, and spends nothing
 - [Seeding images for the most-read chapters](workflow/SEED_IMAGES.md): `seed:images`, its dry run, budget, ledger and resume
 - [Release status, closed investigation accounting and dated deployment evidence](releases/STATUS.md)
 - [Historical release records](releases/): consult the named experiment when reproducing a result; dated proposed next steps are not a current task queue.

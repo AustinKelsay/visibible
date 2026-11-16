@@ -5,6 +5,8 @@ import {
   internalQuery,
   mutation,
   query,
+  type ActionCtx,
+  type MutationCtx,
   type QueryCtx,
 } from "./_generated/server";
 import { paginationOptsValidator, type OrderedQuery } from "convex/server";
@@ -14,6 +16,7 @@ import { Id, type DataModel, type Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
 import { imageProvenanceValidator, renderingPacketValidator } from "./schema";
 import { isOwnerOnlyWork } from "./lib/proseWorks";
+import { PUBLIC_GENERIC_STYLE_IDS } from "../src/lib/engine/admission";
 
 const generationStatusValidator = v.union(
   v.literal("queued"),
@@ -24,6 +27,8 @@ const generationStatusValidator = v.union(
 );
 
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024; // 10 MiB hard cap per image
+// A thumbnail is a few tens of KiB; anything near this cap is not one.
+const MAX_THUMBNAIL_BYTES = 512 * 1024;
 const ALLOWED_IMAGE_MIME_TYPES = new Set([
   "image/png",
   "image/jpeg",
@@ -47,13 +52,13 @@ const assertAllowedMimeType = (mimeType?: string) => {
   }
 };
 
-const assertByteSizeWithinLimit = (bytes: number, source: string) => {
+const assertByteSizeWithinLimit = (bytes: number, source: string, maxBytes = MAX_IMAGE_BYTES) => {
   if (!Number.isFinite(bytes) || bytes <= 0) {
     throw new ImageValidationError(`Invalid image size from ${source}`);
   }
-  if (bytes > MAX_IMAGE_BYTES) {
+  if (bytes > maxBytes) {
     throw new ImageValidationError(
-      `Image from ${source} exceeds ${MAX_IMAGE_BYTES} byte limit`
+      `Image from ${source} exceeds ${maxBytes} byte limit`
     );
   }
 };
@@ -83,6 +88,10 @@ const getPublicImageUrl = (image: {
 
   throw new Error("Verse image is missing a public image URL.");
 };
+
+/** The address of a picture's small copy, or null when it has none; readers then use the full picture (#444). */
+const thumbnailUrlOf = async (ctx: QueryCtx, image: Pick<Doc<"verseImages">, "thumbnailStorageId">) =>
+  image.thumbnailStorageId ? await ctx.storage.getUrl(image.thumbnailStorageId) : null;
 
 // ---------------------------------------------------------------- art styles (#176)
 
@@ -248,72 +257,123 @@ export const getChapterImageStatus = query({
   },
 });
 
+/** Contents counts at most this many pictures per verse; a verse with more reports `morePictures`. */
+export const CONTENTS_COUNT_CAP = 9;
+const CONTENTS_MAX_VERSES = 200;
+
 /**
- * Get all saved images for a chapter, sorted by verse and newest-first within each verse.
- * Used by the optional chapter gallery view to render mini-galleries per verse.
+ * The picture rule's database half (spec #434, "Which picture a spread shows"): the newest picture of a verse in the
+ * first of `styles` that has one, read from the verse-and-style index, so other pictures of the verse are never read.
+ * Classical also covers pictures saved before styles existed. The caller orders `styles`: the chosen style, then any
+ * fallbacks, already narrowed by `readerStyles`.
  */
-export const getChapterGallery = query({
-  args: {
-    book: v.string(),
-    chapter: v.number(),
-    ...styleFilterArgs,
-  },
+export async function newestPictureInStyles(ctx: QueryCtx, verseId: string, styles: readonly string[]): Promise<Doc<"verseImages"> | null> {
+  for (const style of styles) {
+    const stored: Array<string | undefined> = style === DEFAULT_ART_STYLE_ID ? [DEFAULT_ART_STYLE_ID, undefined] : [style];
+    const found = await Promise.all(stored.map((value) => ctx.db.query("verseImages")
+      .withIndex("by_verse_artStyle", (q) => q.eq("verseId", verseId).eq("artStyleId", value))
+      .order("desc")
+      .first()));
+    const newest = found.reduce<Doc<"verseImages"> | null>((best, image) => (image && (!best || image.createdAt > best.createdAt) ? image : best), null);
+    if (newest) return newest;
+  }
+  return null;
+}
+
+const PICTURE_RULE_MAX_STYLES = 12;
+
+/**
+ * The styles of `requested` (in its order) this caller may be shown pictures in: the public styles for everyone, and
+ * owner-only styles only for an admin session, whatever the client asks for. The admin check runs only when an
+ * owner-only style is asked for.
+ */
+export async function readerStyles(ctx: QueryCtx, requested: readonly string[]): Promise<string[]> {
+  if (requested.length === 0 || requested.length > PICTURE_RULE_MAX_STYLES) throw new Error(`Give between 1 and ${PICTURE_RULE_MAX_STYLES} art styles`);
+  for (const style of requested) normalizeStyleFilter({ artStyle: style });
+  const unique = [...new Set(requested)];
+  if (unique.every((style) => PUBLIC_GENERIC_STYLE_IDS.includes(style))) return unique;
+  const isAdmin = (await authenticatedGuest(ctx))?.tier === "admin";
+  return isAdmin ? unique : unique.filter((style) => PUBLIC_GENERIC_STYLE_IDS.includes(style));
+}
+
+/** What the reader needs to show a picture: its full and small URLs and its style. Null when its file is gone. */
+async function pictureSummary(ctx: QueryCtx, image: Doc<"verseImages">) {
+  const imageUrl = (image.storageId ? await ctx.storage.getUrl(image.storageId) : null) ?? image.imageUrl ?? null;
+  return imageUrl ? { id: image._id, imageUrl, thumbnailUrl: await thumbnailUrlOf(ctx, image), artStyle: artStyleOf(image) } : null;
+}
+
+/** The picture a verse's spread shows under `styles` (already narrowed by `readerStyles`), or null when it is unpainted. */
+async function spreadPictureOf(ctx: QueryCtx, verseId: string, styles: readonly string[], visible: (image: Doc<"verseImages">) => Promise<boolean>) {
+  const newest = await newestPictureInStyles(ctx, verseId, styles);
+  if (!newest || !(await visible(newest))) return null;
+  return pictureSummary(ctx, newest);
+}
+
+/**
+ * The spread's picture (#440): the newest picture of the verse in the first of `styles` (the chosen style, then the
+ * other styles the reader may see, in the style set's order) that has one, or null when the verse is unpainted.
+ * The next spread's prefetch reads it with the same arguments.
+ */
+export const getSpreadPicture = query({
+  args: { verseId: v.string(), styles: v.array(v.string()) },
+  handler: async (ctx, args) => spreadPictureOf(ctx, args.verseId, await readerStyles(ctx, args.styles), await visibleImageFilter(ctx)),
+});
+
+/** Where Look's style examples come from when the verse on screen has no picture in a style. */
+export const STYLE_EXAMPLE_VERSE_ID = "genesis-1-1";
+
+/**
+ * Look's art style examples (#440): for each style the reader may see, in order, the verse's own newest picture in it,
+ * else the example verse's, else null. One indexed read per style form and verse.
+ */
+export const getStyleExamples = query({
+  args: { verseId: v.string(), styles: v.array(v.string()) },
   handler: async (ctx, args) => {
-    const prefix = `${args.book.toLowerCase()}-${args.chapter}-`;
-
-    const images = await onlyVisible(ctx, await withStyleFilter(ctx.db
-      .query("verseImages")
-      .withIndex("by_verse", (q) =>
-        q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
-      ), normalizeStyleFilter(args))
-      .collect());
-
-    const imageCounts = new Map<number, number>();
-    const parsedImages: Array<{ verse: number; image: (typeof images)[number] }> = [];
-
-    for (const image of images) {
-      const verseStr = image.verseId.slice(prefix.length);
-      const verseNum = parseInt(verseStr, 10);
-      if (Number.isNaN(verseNum)) {
-        continue;
-      }
-
-      imageCounts.set(verseNum, (imageCounts.get(verseNum) ?? 0) + 1);
-      parsedImages.push({ verse: verseNum, image });
-    }
-
-    const entries = await Promise.all(
-      parsedImages
-        .sort((a, b) => {
-          if (a.verse !== b.verse) {
-            return a.verse - b.verse;
-          }
-          return b.image.createdAt - a.image.createdAt;
-        })
-        .map(async ({ verse, image }, index, allImages) => {
-          let imageUrl = image.imageUrl;
-          if (image.storageId) {
-            imageUrl = (await ctx.storage.getUrl(image.storageId)) ?? imageUrl;
-          }
-
-          const previous = allImages[index - 1];
-          const isLatest = !previous || previous.verse !== verse;
-
-          return {
-            verse,
-            imageCount: imageCounts.get(verse) ?? 0,
-            imageId: image._id,
-            imageUrl,
-            model: image.model,
-            artStyle: artStyleOf(image),
-            createdAt: image.createdAt,
-            isLatest,
-          };
-        })
-    );
-
-    return entries;
+    const styles = await readerStyles(ctx, args.styles);
+    const visible = await visibleImageFilter(ctx);
+    return Promise.all(styles.map(async (style) => ({
+      style,
+      picture: (await spreadPictureOf(ctx, args.verseId, [style], visible))
+        ?? (args.verseId === STYLE_EXAMPLE_VERSE_ID ? null : await spreadPictureOf(ctx, STYLE_EXAMPLE_VERSE_ID, [style], visible)),
+    })));
   },
+});
+
+/**
+ * Contents (#445): per verse, the tile picture (by the picture rule, as the spread shows it) with its thumbnail, how
+ * many pictures the verse has in any style, counted up to CONTENTS_COUNT_CAP, and whether it has a finished video
+ * (#447). Reads at most CONTENTS_COUNT_CAP + 1 + one picture per style form + one video for each verse, however many
+ * are saved.
+ */
+export async function readChapterContents(ctx: QueryCtx, args: { verseIds: string[]; styles: string[] }) {
+  if (args.verseIds.length > CONTENTS_MAX_VERSES) throw new Error(`verseIds cannot exceed ${CONTENTS_MAX_VERSES} items`);
+  const styles = await readerStyles(ctx, args.styles);
+  const visible = await visibleImageFilter(ctx);
+
+  return Promise.all(args.verseIds.map(async (verseId) => {
+    const [window, newest, video] = await Promise.all([
+      ctx.db.query("verseImages").withIndex("by_verse", (q) => q.eq("verseId", verseId)).order("desc").take(CONTENTS_COUNT_CAP + 1),
+      newestPictureInStyles(ctx, verseId, styles),
+      // Only a finished video is public (#447): one row says whether the verse has one.
+      ctx.db.query("videoJobs").withIndex("by_verse_status", (q) => q.eq("verseId", verseId).eq("status", "completed")).first(),
+    ]);
+    // A verse's pictures all belong to one work, so the newest one stands for the verse's visibility.
+    if (!(await visible(window[0] ?? newest ?? ({} as Doc<"verseImages">)))) {
+      return { verseId, picture: null, pictureCount: 0, morePictures: false, hasVideo: false };
+    }
+    return {
+      verseId,
+      picture: newest ? await pictureSummary(ctx, newest) : null,
+      pictureCount: Math.min(window.length, CONTENTS_COUNT_CAP),
+      morePictures: window.length > CONTENTS_COUNT_CAP,
+      hasVideo: video !== null,
+    };
+  }));
+}
+
+export const getChapterContents = query({
+  args: { verseIds: v.array(v.string()), styles: v.array(v.string()) },
+  handler: (ctx, args) => readChapterContents(ctx, args),
 });
 
 // All 66 Bible book slugs for efficient existence checks
@@ -595,6 +655,7 @@ export const getImageHistory = query({
         return {
           id: image._id,
           imageUrl,
+          thumbnailUrl: await thumbnailUrlOf(ctx, image),
           model: image.model,
           prompt: image.prompt,
           reference: image.reference,
@@ -620,6 +681,45 @@ export const getImageHistory = query({
     );
 
     return results.filter((r) => r.imageUrl);
+  },
+});
+
+/**
+ * The glow behind an unpainted verse (#439): the spread picture (by the picture rule, under `styles`) of the nearest
+ * earlier verse of the same chapter that has one, or null. A few indexed reads per earlier verse, stopping at the
+ * first hit, so it never reads the whole chapter. Verse ids are compared exactly ("john-1-1"), never as a prefix, so
+ * "john-1-10" and "john-11-1" never count for John 1:1. A prose moment (#451) names its division's earlier moments.
+ */
+/** The most moments the unpainted glow looks back through when it is given them. */
+const EARLIER_MOMENTS_CAP = 200;
+
+export const getNearestEarlierPicture = query({
+  args: {
+    verseId: v.string(),
+    styles: v.array(v.string()),
+    // A prose moment's earlier moments in its division, nearest first: their ids say nothing of their order. Without
+    // it, the Bible verse's earlier verses in its chapter.
+    earlier: v.optional(v.array(v.string())),
+  },
+  handler: async (ctx, args) => {
+    const styles = await readerStyles(ctx, args.styles);
+    let candidates: string[];
+    if (args.earlier) {
+      if (args.earlier.length > EARLIER_MOMENTS_CAP) throw new Error(`At most ${EARLIER_MOMENTS_CAP} earlier moments can be looked through`);
+      candidates = args.earlier;
+    } else {
+      const match = /^(.+-\d+)-(\d+)$/.exec(args.verseId);
+      if (!match) return null;
+      // No chapter has more verses than the cap (Psalm 119 has 176), so a larger number looks back only that far.
+      const verse = Number(match[2]);
+      candidates = Array.from({ length: Math.min(verse - 1, EARLIER_MOMENTS_CAP) }, (_, index) => `${match[1]}-${verse - 1 - index}`);
+    }
+    const visible = await visibleImageFilter(ctx);
+    for (const verseId of candidates) {
+      const picture = await spreadPictureOf(ctx, verseId, styles, visible);
+      if (picture) return { verseId, id: picture.id, imageUrl: picture.imageUrl, thumbnailUrl: picture.thumbnailUrl };
+    }
+    return null;
   },
 });
 
@@ -697,7 +797,7 @@ async function existingIntentResult(
     engine: existing.engine ?? ("legacy" as const), artStyleId: existing.artStyleId, engineCommitments: existing.engineCommitments,
     ...(image ? { savedImage: {
       id: image._id, imageUrl: image.storageId ? await ctx.storage.getUrl(image.storageId) : image.imageUrl ?? null,
-      model: image.model, creditsCost: image.creditsCost, durationMs: image.durationMs,
+      thumbnailUrl: await thumbnailUrlOf(ctx, image), model: image.model, creditsCost: image.creditsCost, durationMs: image.durationMs,
       reference: image.reference, translationId: image.translationId, verseText: image.verseText, promptInputs: image.promptInputs,
     } } : {}),
   };
@@ -755,7 +855,7 @@ export const createGenerationRequest = mutation({
     artStyleId?: string;
     engineCommitments?: { workId: string; momentId: string; briefVersion: string; analysisGeneration: number; promptVersion: string; billingVersion: string };
     error?: string;
-    savedImage?: { id: Id<"verseImages">; imageUrl: string | null; model: string; creditsCost?: number; durationMs?: number; reference?: string; translationId?: string; verseText?: string; promptInputs?: Doc<"verseImages">["promptInputs"] };
+    savedImage?: { id: Id<"verseImages">; imageUrl: string | null; thumbnailUrl: string | null; model: string; creditsCost?: number; durationMs?: number; reference?: string; translationId?: string; verseText?: string; promptInputs?: Doc<"verseImages">["promptInputs"] };
   }> => {
     validateServerSecret(args.serverSecret);
     const existing = await ctx.db
@@ -889,6 +989,14 @@ export const getImageByGenerationId = internalQuery({
   },
 });
 
+/** Delete a thumbnail blob that lost a race, unless it is the kept one or another picture uses it. */
+async function deleteUnreferencedThumbnail(ctx: MutationCtx, candidate: Id<"_storage"> | undefined, kept: Id<"_storage"> | undefined) {
+  if (!candidate || candidate === kept) return;
+  const referenced = await ctx.db.query("verseImages")
+    .withIndex("by_thumbnailStorageId", (q) => q.eq("thumbnailStorageId", candidate)).first();
+  if (!referenced) await ctx.storage.delete(candidate);
+}
+
 /**
  * Internal mutation to save image with storage ID.
  */
@@ -896,6 +1004,7 @@ export const saveImageWithStorage = internalMutation({
   args: {
     verseId: v.string(),
     storageId: v.id("_storage"),
+    thumbnailStorageId: v.optional(v.id("_storage")),
     model: v.string(),
     prompt: v.optional(v.string()),
     reference: v.optional(v.string()),
@@ -930,13 +1039,17 @@ export const saveImageWithStorage = internalMutation({
             .withIndex("by_storageId", (q) => q.eq("storageId", args.storageId)).first();
           if (!referenced) await ctx.storage.delete(args.storageId);
         }
+        await deleteUnreferencedThumbnail(ctx, args.thumbnailStorageId, existing.thumbnailStorageId);
         return existing._id;
       }
     }
     if (!await ctx.db.system.get(args.storageId)) throw new Error("Image blob not found");
+    // A missing thumbnail blob only costs the picture its small copy.
+    const thumbnailStorageId = args.thumbnailStorageId && await ctx.db.system.get(args.thumbnailStorageId) ? args.thumbnailStorageId : undefined;
     const id = await ctx.db.insert("verseImages", {
       verseId: args.verseId,
       storageId: args.storageId,
+      thumbnailStorageId,
       model: args.model,
       prompt: args.prompt,
       reference: args.reference,
@@ -1408,6 +1521,55 @@ const getImageDimensions = (bytes: Uint8Array, mimeType?: string): ImageDimensio
 };
 
 /**
+ * Decode image bytes sent as a base64 data URL and check they are one whole image of the declared type. Remote URLs,
+ * malformed, mislabelled, truncated and oversize data throw ImageValidationError.
+ */
+function decodeImageDataUrl(dataUrl: string, maxBytes = MAX_IMAGE_BYTES) {
+  // Only image bytes returned with the response are stored. Convex's runtime cannot resolve a
+  // remote URL's destination, so fetching one could not be kept off private or rebound
+  // addresses; such output is refused here rather than saved as a link that later expires.
+  if (!dataUrl.startsWith("data:")) {
+    throw new ImageValidationError("Only image data returned with the response can be stored; remote image URLs are refused");
+  }
+  const matches = dataUrl.match(/^data:([^;]+);base64,(.+)$/);
+  if (!matches) {
+    throw new ImageValidationError("Invalid data URL format");
+  }
+  const base64Data = matches[2];
+  const maxBase64Length = Math.ceil((maxBytes * 4) / 3) + 4;
+  if (base64Data.length > maxBase64Length) {
+    throw new ImageValidationError(`Image data URL exceeds ${maxBytes} byte limit`);
+  }
+  // Decode base64 without relying on atob/Buffer (not available in Convex).
+  const bytes = decodeBase64ToBytes(base64Data);
+  const mimeType = normalizeMimeType(matches[1]);
+  assertAllowedMimeType(mimeType);
+  assertByteSizeWithinLimit(bytes.length, "data URL", maxBytes);
+  // The declared type's parser must read the bytes, and the file must be whole, so a mislabelled,
+  // non-image or truncated payload is refused.
+  const dimensions = getImageDimensions(bytes, mimeType);
+  if (!dimensions || !isCompleteImage(bytes, mimeType ?? "")) {
+    throw new ImageValidationError(`Image data is not a readable ${mimeType}`);
+  }
+  return { bytes, mimeType: mimeType as string, dimensions };
+}
+
+/**
+ * Store a picture's small copy. It is optional: a missing, unusable or unstorable thumbnail is logged and left out,
+ * and the picture is saved without one (#444).
+ */
+async function storeThumbnail(ctx: ActionCtx, thumbnailUrl: string | undefined): Promise<Id<"_storage"> | undefined> {
+  if (!thumbnailUrl) return undefined;
+  try {
+    const { bytes, mimeType } = decodeImageDataUrl(thumbnailUrl, MAX_THUMBNAIL_BYTES);
+    return await ctx.storage.store(new Blob([bytes], { type: mimeType }));
+  } catch (error) {
+    console.warn("[verseImages] thumbnail not saved:", error instanceof Error ? error.message : String(error));
+    return undefined;
+  }
+}
+
+/**
  * Action to save an image from the bytes returned with the provider response (a base64 data
  * URL). The bytes must be a readable image of the declared type; they are stored in Convex
  * storage before the record is written. Remote URLs and invalid data are refused with nothing saved.
@@ -1416,6 +1578,8 @@ export const saveImage = action({
   args: {
     verseId: v.string(),
     imageUrl: v.string(),
+    // The picture's small copy as a data URL, made by the caller; optional, and never a reason to refuse the picture.
+    thumbnailUrl: v.optional(v.string()),
     model: v.string(),
     prompt: v.optional(v.string()),
     reference: v.optional(v.string()),
@@ -1439,6 +1603,7 @@ export const saveImage = action({
     const {
       verseId,
       imageUrl,
+      thumbnailUrl,
       model,
       prompt,
       reference,
@@ -1490,61 +1655,90 @@ export const saveImage = action({
       }
     }
 
-    // Only image bytes returned with the response are stored. Convex's runtime cannot resolve a
-    // remote URL's destination, so fetching one could not be kept off private or rebound
-    // addresses; such output is refused here rather than saved as a link that later expires.
-    if (!imageUrl.startsWith("data:")) {
-      throw new ImageValidationError("Only image data returned with the response can be stored; remote image URLs are refused");
-    }
-
-    // Parse the data URL
-    const matches = imageUrl.match(/^data:([^;]+);base64,(.+)$/);
-    if (!matches) {
-      throw new ImageValidationError("Invalid data URL format");
-    }
-
-    const mimeType = matches[1];
-    const base64Data = matches[2];
-    const maxBase64Length = Math.ceil((MAX_IMAGE_BYTES * 4) / 3) + 4;
-    if (base64Data.length > maxBase64Length) {
-      throw new ImageValidationError(
-        `Image data URL exceeds ${MAX_IMAGE_BYTES} byte limit`
-      );
-    }
-
-    // Decode base64 without relying on atob/Buffer (not available in Convex).
-    const bytes = decodeBase64ToBytes(base64Data);
-    const normalizedMimeType = normalizeMimeType(mimeType);
-    assertAllowedMimeType(normalizedMimeType);
-    assertByteSizeWithinLimit(bytes.length, "data URL");
-    // The declared type's parser must read the bytes, and the file must be whole, so a mislabelled,
-    // non-image or truncated payload is refused.
-    const dimensions = getImageDimensions(bytes, normalizedMimeType);
-    if (!dimensions || !isCompleteImage(bytes, normalizedMimeType ?? "")) {
-      throw new ImageValidationError(`Image data is not a readable ${normalizedMimeType}`);
-    }
+    const { bytes, mimeType, dimensions } = decodeImageDataUrl(imageUrl);
     const imageMetadata = {
       ...baseMetadata,
       sourceImageUrl: undefined,
-      imageMimeType: normalizedMimeType,
+      imageMimeType: mimeType,
       imageSizeBytes: bytes.length,
       imageWidth: dimensions.width,
       imageHeight: dimensions.height,
     };
 
     // Create a blob and upload to storage
-    const blob = new Blob([bytes], { type: normalizedMimeType });
-    const storageId = await ctx.storage.store(blob);
+    const storageId = await ctx.storage.store(new Blob([bytes], { type: mimeType }));
+    const thumbnailStorageId = await storeThumbnail(ctx, thumbnailUrl);
 
     // Save to database with storage ID
     const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithStorage, {
       verseId,
       storageId,
+      thumbnailStorageId,
       model,
       ...imageMetadata,
       generationId,
     });
 
     return { success: true, type: "storage", id };
+  },
+});
+
+// ---------------------------------------------------------------- thumbnail backfill (#444)
+
+const MAX_BACKFILL_PAGE = 100;
+
+/**
+ * One page of saved pictures without a thumbnail, oldest first, for the owner's backfill. `after` is the last
+ * page's final creation time, so a run walks past pictures it could not finish; a new run starts over from the
+ * pictures still without one, which is what makes the backfill resumable. Server-only.
+ */
+export const listPicturesWithoutThumbnail = query({
+  args: { serverSecret: v.string(), after: v.optional(v.number()), limit: v.number() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const limit = Math.max(1, Math.min(MAX_BACKFILL_PAGE, Math.floor(args.limit)));
+    const rows = await ctx.db.query("verseImages")
+      .withIndex("by_thumbnailStorageId", (q) => {
+        const missing = q.eq("thumbnailStorageId", undefined);
+        return args.after === undefined ? missing : missing.gt("_creationTime", args.after);
+      })
+      .take(limit);
+    return Promise.all(rows.map(async (image) => ({
+      id: image._id,
+      verseId: image.verseId,
+      creationTime: image._creationTime,
+      imageUrl: image.storageId ? (await ctx.storage.getUrl(image.storageId)) ?? image.imageUrl ?? null : image.imageUrl ?? null,
+    })));
+  },
+});
+
+/**
+ * Give one saved picture the small copy the backfill made. Safe to repeat: a picture that already has a thumbnail
+ * keeps it, and the copy sent is not stored (or is removed when another run stored one first). Server-only.
+ */
+export const attachThumbnail = action({
+  args: { serverSecret: v.string(), imageId: v.id("verseImages"), thumbnailUrl: v.string() },
+  handler: async (ctx, args): Promise<{ status: "attached" | "already" | "missing" }> => {
+    validateServerSecret(args.serverSecret);
+    const image = await ctx.runQuery(internal.verseImages.getImageById, { imageId: args.imageId });
+    if (!image) return { status: "missing" };
+    if (image.thumbnailStorageId) return { status: "already" };
+    const { bytes, mimeType } = decodeImageDataUrl(args.thumbnailUrl, MAX_THUMBNAIL_BYTES);
+    const thumbnailStorageId = await ctx.storage.store(new Blob([bytes], { type: mimeType }));
+    const status: "attached" | "already" | "missing" = await ctx.runMutation(internal.verseImages.setThumbnail, { imageId: args.imageId, thumbnailStorageId });
+    return { status };
+  },
+});
+
+export const setThumbnail = internalMutation({
+  args: { imageId: v.id("verseImages"), thumbnailStorageId: v.id("_storage") },
+  handler: async (ctx, args) => {
+    const image = await ctx.db.get(args.imageId);
+    if (!image || image.thumbnailStorageId) {
+      await deleteUnreferencedThumbnail(ctx, args.thumbnailStorageId, image?.thumbnailStorageId);
+      return image ? "already" as const : "missing" as const;
+    }
+    await ctx.db.patch(args.imageId, { thumbnailStorageId: args.thumbnailStorageId });
+    return "attached" as const;
   },
 });

@@ -6,8 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
-import { VerseImageCount } from "@/components/verse-strip";
-import { usePreferences } from "@/context/preferences-context";
+import { tabbableIn, trapTab } from "@/lib/focus-trap";
+import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { DEFAULT_IMAGE_MODEL, getEstimatedCreditsCostForResolution, supportsResolution, type ImageModel } from "@/lib/image-models";
 import { IMAGE_ENVELOPE_CREDITS } from "@/lib/engine/quote";
 import {
@@ -80,59 +80,6 @@ function LightningLogo({ className }: { className?: string }) {
   );
 }
 
-function MiniVerseStrip() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  // Cycle through verses every 2.5 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSelectedIndex((prev) => (prev + 1) % 5);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Sample verse data: verse number and image count
-  const verses = [
-    { verse: 1, imageCount: 2 },
-    { verse: 2, imageCount: 0 },
-    { verse: 3, imageCount: 1 },
-    { verse: 4, imageCount: 3 },
-    { verse: 5, imageCount: 0 },
-  ];
-
-  return (
-    <div className="flex justify-center items-center gap-1.5 py-4 mt-4 mb-2">
-      {verses.map((v, index) => {
-        const isSelected = index === selectedIndex;
-        return (
-          <div
-            key={v.verse}
-            className={`min-h-[40px] min-w-[40px] px-1 flex flex-col items-center justify-center rounded-[var(--radius-sm)] transition-all duration-500 ease-in-out ${
-              isSelected
-                ? "bg-[var(--accent)] scale-110 shadow-lg shadow-[var(--accent)]/25"
-                : "bg-[var(--divider)] opacity-70"
-            }`}
-          >
-            <span
-              className={`text-xs font-medium leading-4 transition-all duration-500 ease-in-out ${
-                isSelected ? "text-[var(--accent-text)]" : "text-[var(--muted)]"
-              }`}
-            >
-              {v.verse}
-            </span>
-            <VerseImageCount
-              count={v.imageCount}
-              className={`transition-colors duration-500 ease-in-out ${
-                isSelected ? "text-[var(--accent-text)]/90" : "text-[var(--foreground)]/70"
-              }`}
-            />
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
 interface Invoice {
   invoiceId: string;
   bolt11: string;
@@ -152,8 +99,8 @@ const CREDIT_BUNDLES = [
 type CreditBundle = (typeof CREDIT_BUNDLES)[number];
 
 export function BuyCreditsModal() {
-  const { isBuyModalOpen, closeBuyModal, credits, tier } = useSession();
-  const [state, setState] = useState<ModalState>("welcome");
+  const { isBuyModalOpen, welcomeRequested, closeBuyModal, credits, tier } = useSession();
+  const [state, setState] = useState<ModalState>("selection");
   const [invoice, setInvoice] = useState<Invoice | null>(null);
   const [invoiceCreatedAt, setInvoiceCreatedAt] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
@@ -167,7 +114,35 @@ export function BuyCreditsModal() {
   const modalOpenedAtRef = useRef<number | null>(null);
   const purchaseIntentRef = useRef<{ amountUsd: number; id: string } | null>(null);
 
-  // Admin login state
+  // The dialog opens over the reader and any layer: it takes focus, and gives it back where it was when it closes.
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!isBuyModalOpen) return;
+    let returnTo: HTMLElement | null = null;
+    // After a layer closed to open it has returned focus to its opener (also in a microtask), so that is kept.
+    queueMicrotask(() => {
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+      returnTo = document.activeElement instanceof HTMLElement && !dialog.contains(document.activeElement) ? document.activeElement : null;
+      (tabbableIn(dialog)[0] ?? dialog).focus();
+    });
+    return () => {
+      const target = returnTo;
+      if (target) queueMicrotask(() => target.isConnected && target.focus());
+    };
+  }, [isBuyModalOpen]);
+
+  // A step change can remove the focused control (Buy turns into the loading step, an error replaces it):
+  // focus goes back inside, so Tab and Escape stay with the dialog and not the layer under it.
+  useEffect(() => {
+    if (!isBuyModalOpen) return;
+    queueMicrotask(() => {
+      const dialog = dialogRef.current;
+      if (!dialog || dialog.contains(document.activeElement)) return;
+      (tabbableIn(dialog)[0] ?? dialog).focus();
+    });
+  }, [isBuyModalOpen, state]);
+
   const [showAdminInput, setShowAdminInput] = useState(false);
   // Owner sign-in stays out of the purchase flow unless the page URL asks for it.
   const showAdminEntry = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("admin");
@@ -180,7 +155,7 @@ export function BuyCreditsModal() {
   // (the engine always uses DEFAULT_IMAGE_MODEL) at the reader's resolution. Left out when that
   // model cannot make the resolution or pricing is unavailable. The result is tied to the
   // resolution it was computed for, so a stale count never shows after a change.
-  const { imageResolution } = usePreferences();
+  const { resolution: imageResolution } = useAdvancedSettings();
   const estimateSupported = imageResolution === "1K" || supportsResolution(DEFAULT_IMAGE_MODEL);
   const [estimate, setEstimate] = useState<{ resolution: string; cost: number } | null>(null);
   useEffect(() => {
@@ -290,43 +265,21 @@ export function BuyCreditsModal() {
     if (!modalJustOpened) return;
     modalOpenedAtRef.current = Date.now();
 
-    // Check invoice expiry once when modal opens
-    if (invoice && invoice.expiresAt > Date.now()) {
-      // Resume existing valid invoice
-      setState("invoice");
-      trackCreditsModalOpened({
-        step: resolveCreditsModalOpenedStep({
-          hasActiveInvoice: true,
-          hasSeenWelcome: true,
-          hasShownWelcomeInSession: hasSeenWelcomeRef.current,
-        }),
-        tier,
-        hasCredits: credits > 0,
-      });
-    } else {
-      // Check if user has seen welcome before
-      const hasSeenWelcome = localStorage.getItem("visibible_welcome_seen") === "true";
-      const step = resolveCreditsModalOpenedStep({
-        hasActiveInvoice: false,
-        hasSeenWelcome,
-        hasShownWelcomeInSession: hasSeenWelcomeRef.current,
-      });
-
-      if (step === "welcome") {
-        setState("welcome");
-        hasSeenWelcomeRef.current = true;
-      } else {
-        setState("selection");
-      }
-      trackCreditsModalOpened({
-        step,
-        tier,
-        hasCredits: credits > 0,
-      });
+    // The welcome shows only when it was asked for (Advanced); otherwise resume a valid invoice or start at the packs.
+    const hasActiveInvoice = Boolean(invoice && invoice.expiresAt > Date.now());
+    const step = resolveCreditsModalOpenedStep({ hasActiveInvoice, welcomeRequested });
+    setState(step);
+    if (step === "welcome") hasSeenWelcomeRef.current = true;
+    if (!hasActiveInvoice) {
       setInvoice(null);
       setQrDataUrl("");
     }
-  }, [isBuyModalOpen, invoice, tier, credits]);
+    trackCreditsModalOpened({
+      step,
+      tier,
+      hasCredits: credits > 0,
+    });
+  }, [isBuyModalOpen, welcomeRequested, invoice, tier, credits]);
 
   // Reset state when modal closes (preserve invoice for persistence)
   useEffect(() => {
@@ -504,7 +457,7 @@ export function BuyCreditsModal() {
 
     if (currentState === "success") {
       // Reset state fully on success close
-      setState("welcome");
+      setState("selection");
       setInvoice(null);
       setQrDataUrl("");
       closeBuyModal();
@@ -515,12 +468,10 @@ export function BuyCreditsModal() {
   };
 
   const handleWelcomeNext = () => {
-    localStorage.setItem("visibible_welcome_seen", "true");
     setState("selection");
   };
 
   const handleBrowseFree = () => {
-    localStorage.setItem("visibible_welcome_seen", "true");
     trackModalClosed("welcome");
     closeBuyModal();
   };
@@ -539,15 +490,31 @@ export function BuyCreditsModal() {
   if (!isBuyModalOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-end md:items-center justify-center">
+    // Dark like the reader it opens over, whatever the system setting is.
+    <div className="reader-appearance fixed inset-0 z-[70] flex items-end md:items-center justify-center">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={handleClose}
       />
 
       {/* Modal */}
-      <div className="relative w-full md:max-w-md max-h-[calc(100svh-env(safe-area-inset-top))] overflow-y-auto bg-[var(--background)] rounded-t-[var(--radius-lg)] md:rounded-[var(--radius-lg)] p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] animate-in slide-in-from-bottom md:slide-in-from-bottom-0 md:fade-in duration-[var(--motion-base)]">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Credits"
+        tabIndex={-1}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") {
+            // Handled here, so a layer under the dialog (its own Escape handler checks this) stays open.
+            event.preventDefault();
+            handleClose();
+            return;
+          }
+          if (dialogRef.current) trapTab(event, dialogRef.current);
+        }}
+        className="relative w-full md:max-w-md max-h-[calc(100svh-env(safe-area-inset-top))] overflow-y-auto bg-[var(--background)] border border-[var(--divider)] shadow-2xl rounded-t-[var(--radius-2xl)] md:rounded-[var(--radius-2xl)] p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] animate-in slide-in-from-bottom md:slide-in-from-bottom-0 md:fade-in duration-[var(--motion-base)]">
         {/* Close button */}
         <button
           onClick={handleClose}
@@ -624,13 +591,6 @@ export function BuyCreditsModal() {
                   <p className="text-sm text-[var(--muted)]">
                     Browse for free, or get credits to make your own.
                   </p>
-                  {/* The verse strip is desktop-only, so phones skip its demo */}
-                  <div className="hidden sm:flex flex-col items-center -ml-8">
-                    <MiniVerseStrip />
-                    <p className="text-xs text-[var(--muted)]">
-                      The image mark shows a verse has saved images, with a count when there are several
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>

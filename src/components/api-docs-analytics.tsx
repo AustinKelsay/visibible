@@ -29,7 +29,7 @@ interface TrackedApiDocsLinkProps {
   href: string;
   children: ReactNode;
   className?: string;
-  source: "hero_cta" | "quick_link" | "footer";
+  source: "hero_cta" | "quick_link" | "footer" | "corner_menu";
   target?: "_blank" | "_self";
   rel?: string;
 }

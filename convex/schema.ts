@@ -217,6 +217,8 @@ export default defineSchema({
     imageUrl: v.optional(v.string()),
     // Convex storage ID (for uploaded images, including base64 data)
     storageId: v.optional(v.id("_storage")),
+    // A small copy for walls and previews (#444); absent until made, and readers then use the full picture.
+    thumbnailStorageId: v.optional(v.id("_storage")),
     // Prompt used for generating the image
     prompt: v.optional(v.string()),
     // Reference and inputs used for generation
@@ -270,7 +272,11 @@ export default defineSchema({
     .index("by_verse", ["verseId", "createdAt"])
     // Style-leading discovery (#176): does a book or chapter have any image in one style?
     .index("by_artStyle_verse", ["artStyleId", "verseId"])
+    // Contents (#445): a verse's newest picture in one style, without reading its other pictures.
+    .index("by_verse_artStyle", ["verseId", "artStyleId", "createdAt"])
     .index("by_storageId", ["storageId"])
+    // The thumbnail backfill reads pictures without one; also checks whether a thumbnail blob is referenced.
+    .index("by_thumbnailStorageId", ["thumbnailStorageId"])
     .index("by_generationId", ["generationId"])
     .index("by_createdAt", ["createdAt"]),
 

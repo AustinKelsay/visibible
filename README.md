@@ -1,6 +1,6 @@
 # Visibible
 
-Read and visualize the Bible verse by verse, browse shared images, and discuss Scripture with AI chat. Browsing is free; AI requests use credits associated with an anonymous browser session.
+Read the Bible like a picture book: each verse is a spread, its painting filling the window with the verse on a glass page beside it. Turn the page with the dock, the arrow keys or a swipe; open the chapter as a wall of pictures from the passage name, choose how the book looks with Aa, and ask about the verse at the foot of its page. Reading is free; painting, videos and questions use credits associated with an anonymous browser session. The [reader guide](llm/context/NAVIGATION.md) describes every part of the spread.
 
 ## Local setup
 
@@ -34,10 +34,11 @@ npm test -- --run
 
 ## Documentation
 
+- [Reader screenshots](llm/workflow/READER_CAPTURE.md): `npm run capture:reader` captures every state of the reader at desktop and phone size, in both appearances, from a local app.
 - [Documentation index](llm/README.md): feature behavior and source entry points.
 - [Vercel deployment](llm/workflow/VERCEL_WORKFLOWS.md): environment mapping and release commands.
 - Public read-only image API: `/api/public/images`; the app serves its API reference at `/api-docs`.
 
-## Video mode
+## Video
 
-Choose **Video** on a verse to generate a short scene with Hailuo 3 Max. Jobs continue on the server, use existing credits, and save completed videos to public verse history. See [Video generation](llm/context/VIDEO-GENERATION.md) for configuration, verification, and rollout.
+Choose **Make a video** in a picture's menu to generate a short scene with Hailuo 3 Max. Jobs continue on the server, use existing credits, and save completed videos to public verse history; a verse with a video shows a play mark on its picture and its Contents tile. See [Video generation](llm/context/VIDEO-GENERATION.md) for configuration, verification, and rollout.

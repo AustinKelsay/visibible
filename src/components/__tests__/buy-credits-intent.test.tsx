@@ -9,7 +9,6 @@ import { BuyCreditsModal } from "@/components/buy-credits-modal";
 
 const session = vi.hoisted(() => ({ isBuyModalOpen: true, closeBuyModal: () => {}, credits: 0, tier: "free" }));
 vi.mock("@/context/session-context", () => ({ useSession: () => session }));
-vi.mock("@/context/preferences-context", () => ({ usePreferences: () => ({ imageModel: "m", imageResolution: "1K" }) }));
 vi.mock("@/lib/analytics", () => ({
   trackCreditsModalOpened: vi.fn(),
   trackCreditsModalClosed: vi.fn(),
@@ -62,8 +61,6 @@ describe("purchase intent across retries", () => {
 
   it("keeps the intent until the server settles its outcome", async () => {
     await act(async () => root.render(<BuyCreditsModal />));
-    const next = Array.from(document.querySelectorAll("button")).find((b) => b.textContent?.includes("Get Credits to Generate"));
-    if (next) await act(async () => next.click());
 
     invoiceAnswers.push(
       () => Promise.reject(new TypeError("Failed to fetch")),

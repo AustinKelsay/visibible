@@ -1,20 +1,34 @@
 // @vitest-environment jsdom
 import { act, createElement, useLayoutEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { afterEach, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { PreferencesProvider, usePreferences } from "@/context/preferences-context";
-import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 
-vi.mock("next/navigation", () => ({ useRouter: () => ({ refresh: vi.fn() }) }));
+const refresh = vi.fn();
+vi.mock("next/navigation", () => ({ useRouter: () => ({ refresh }) }));
 vi.mock("@/context/session-context", () => ({ useSession: () => ({ tier: "paid", credits: 100 }) }));
 vi.mock("@/lib/analytics", () => ({ trackPreferenceChanged: vi.fn() }));
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
-afterEach(() => vi.unstubAllGlobals());
 
-const OLD_DEFAULT = "google/gemini-2.5-flash-image";
+const RECORD = "visibible-reader-settings";
+const OLD_RECORD = "visibible-preferences";
+
+function clearCookies() {
+  for (const cookie of document.cookie.split("; ")) {
+    const name = cookie.split("=")[0];
+    if (name) document.cookie = `${name}=; path=/; max-age=0`;
+  }
+}
+
+beforeEach(() => { clearCookies(); refresh.mockClear(); });
+afterEach(() => { vi.unstubAllGlobals(); clearCookies(); });
 
 async function hydrate(storage: Map<string, string>) {
-  vi.stubGlobal("localStorage", { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) });
+  vi.stubGlobal("localStorage", {
+    getItem: (key: string) => storage.get(key) ?? null,
+    setItem: (key: string, value: string) => storage.set(key, value),
+    removeItem: (key: string) => storage.delete(key),
+  });
   let current: ReturnType<typeof usePreferences> | undefined;
   function Probe() {
     const preferences = usePreferences();
@@ -27,55 +41,79 @@ async function hydrate(storage: Map<string, string>) {
   return { preferences: () => current!, unmount: () => act(() => root.unmount()) };
 }
 
-// Generation runs on one model (ADR 0012); a saved choice of another would be priced at its rate and charged at this one's.
-it.each([
-  ["the old default", { imageModel: OLD_DEFAULT, imageResolution: "1K" }],
-  ["a model the visitor chose", { imageModel: "google/gemini-3.1-flash-image", imageResolution: "4K", defaultImageModel: OLD_DEFAULT }],
-  ["Nano Banana 2 Lite, the default before the switch", { imageModel: "google/gemini-3.1-flash-lite-image", defaultImageModel: "google/gemini-3.1-flash-lite-image" }],
-])("restores the generation model over %s", async (_label, saved) => {
-  const view = await hydrate(new Map([["visibible-preferences", JSON.stringify(saved)]]));
-  expect(view.preferences()).toMatchObject({ imageModel: DEFAULT_IMAGE_MODEL, imageResolution: "1K" });
+const stored = (storage: Map<string, string>) => JSON.parse(storage.get(RECORD)!);
+
+it("starts a fresh device from the defaults", async () => {
+  const view = await hydrate(new Map());
+  expect(view.preferences()).toMatchObject({
+    artStyle: "classical",
+    textSize: "medium",
+    translation: "web",
+    autoGenerate: false,
+  });
   view.unmount();
 });
 
-it("does not keep a model selected in one visit for the next", async () => {
+// Spec #434, "Stored settings": the old record is ignored and removed, and nothing is migrated.
+it("ignores the old settings record, removes it and starts from the defaults", async () => {
+  const storage = new Map([[OLD_RECORD, JSON.stringify({
+    translation: "kjv", artStyle: "watercolor", autoGenerate: true, imageAspectRatio: "1:1", chatModel: "some/model",
+  })]]);
+  const view = await hydrate(storage);
+  expect(view.preferences()).toMatchObject({ artStyle: "classical", translation: "web", autoGenerate: false });
+  expect(storage.has(OLD_RECORD)).toBe(false);
+  view.unmount();
+});
+
+it("remembers the art style, text size and automatic painting in the new record", async () => {
   const storage = new Map<string, string>();
   const first = await hydrate(storage);
-  await act(async () => first.preferences().setImageModel("google/gemini-3.1-flash-lite-image"));
-  expect(first.preferences().imageModel).toBe("google/gemini-3.1-flash-lite-image");
-  first.unmount();
-  const second = await hydrate(storage);
-  expect(second.preferences().imageModel).toBe(DEFAULT_IMAGE_MODEL);
-  second.unmount();
-});
-
-it("persists a chosen art style and uses the default for an unknown saved one without rewriting it", async () => {
-  const storage = new Map([["visibible-preferences", JSON.stringify({ imageModel: DEFAULT_IMAGE_MODEL, artStyle: "oil-pastel" })]]);
-  const first = await hydrate(storage);
-  expect(first.preferences().artStyle).toBe("classical");
-  expect(JSON.parse(storage.get("visibible-preferences")!).artStyle).toBe("oil-pastel");
   await act(async () => first.preferences().setArtStyle("watercolor"));
-  expect(first.preferences().artStyle).toBe("watercolor");
-  await act(async () => first.preferences().setArtStyle("not-a-style"));
-  expect(first.preferences().artStyle).toBe("watercolor");
+  await act(async () => first.preferences().setTextSize("large"));
+  await act(async () => first.preferences().setAutoGenerate(true));
+  expect(first.preferences()).toMatchObject({ artStyle: "watercolor", textSize: "large", autoGenerate: true });
+  expect(stored(storage)).toMatchObject({ look: { artStyle: "watercolor", textSize: "large" }, autoGenerate: true });
+  expect(storage.has(OLD_RECORD)).toBe(false);
   first.unmount();
 
   const second = await hydrate(storage);
-  expect(second.preferences().artStyle).toBe("watercolor");
+  expect(second.preferences()).toMatchObject({ artStyle: "watercolor", textSize: "large", autoGenerate: true });
   second.unmount();
 });
 
-// A guest is charged for an automatic image without seeing its price, so only their own saved choice turns it on.
-it("keeps automatic generation off until the guest turns it on, and remembers the choice", async () => {
-  const storage = new Map<string, string>([["visibible-preferences", JSON.stringify({ artStyle: "watercolor", autoGenerate: "yes" })]]);
-  const first = await hydrate(storage);
-  expect(first.preferences().autoGenerate).toBe(false);
-  await act(async () => first.preferences().setAutoGenerate(true));
-  expect(first.preferences().autoGenerate).toBe(true);
-  first.unmount();
-  const second = await hydrate(storage);
-  expect(second.preferences()).toMatchObject({ autoGenerate: true, artStyle: "watercolor" });
-  await act(async () => second.preferences().setAutoGenerate(false));
-  second.unmount();
-  expect((await hydrate(storage)).preferences().autoGenerate).toBe(false);
+it("uses the default for anything unknown in the record without rewriting it", async () => {
+  const storage = new Map([[RECORD, JSON.stringify({ version: 1, look: { artStyle: "oil-pastel", textSize: "huge" }, autoGenerate: "yes" })]]);
+  const view = await hydrate(storage);
+  expect(view.preferences()).toMatchObject({ artStyle: "classical", textSize: "medium", autoGenerate: false });
+  expect(stored(storage).look.artStyle).toBe("oil-pastel");
+  await act(async () => view.preferences().setArtStyle("not-a-style"));
+  expect(view.preferences().artStyle).toBe("classical");
+  view.unmount();
+});
+
+// The server renders the verse in the cookie's translation, so the cookie stays its only home.
+it("keeps the translation in its cookie, not in the record", async () => {
+  document.cookie = "visibible-translation=kjv; path=/";
+  const storage = new Map<string, string>();
+  const view = await hydrate(storage);
+  expect(view.preferences().translation).toBe("kjv");
+  expect(view.preferences().translationInfo.name).toBe("King James Version");
+
+  await act(async () => view.preferences().setTranslation("asv"));
+  expect(document.cookie).toContain("visibible-translation=asv");
+  expect(view.preferences().translation).toBe("asv");
+  expect(refresh).toHaveBeenCalled();
+  expect(storage.get(RECORD) ?? "").not.toContain("asv");
+  view.unmount();
+});
+
+// Advanced's group lives in the same record but belongs to src/lib/advanced-settings.ts; Look's writes keep it intact.
+it("keeps the Advanced group untouched when Look's choices are written", async () => {
+  const advanced = { imageAspectRatio: "3:2", chatModel: "some/model", appearance: "light" };
+  const storage = new Map([[RECORD, JSON.stringify({ version: 1, advanced })]]);
+  const view = await hydrate(storage);
+  await act(async () => view.preferences().setArtStyle("watercolor"));
+  await act(async () => view.preferences().setAutoGenerate(true));
+  expect(stored(storage)).toEqual({ version: 1, look: { artStyle: "watercolor" }, autoGenerate: true, advanced });
+  view.unmount();
 });

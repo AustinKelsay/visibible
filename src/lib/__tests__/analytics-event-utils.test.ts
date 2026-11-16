@@ -8,43 +8,16 @@ import {
 
 describe("resolveCreditsModalOpenedStep", () => {
   it("returns invoice when reopening into a valid active invoice", () => {
-    const step = resolveCreditsModalOpenedStep({
-      hasActiveInvoice: true,
-      hasSeenWelcome: false,
-      hasShownWelcomeInSession: false,
-    });
-
-    expect(step).toBe("invoice");
+    expect(resolveCreditsModalOpenedStep({ hasActiveInvoice: true, welcomeRequested: false })).toBe("invoice");
   });
 
-  it("returns welcome for first-time users without a seen welcome", () => {
-    const step = resolveCreditsModalOpenedStep({
-      hasActiveInvoice: false,
-      hasSeenWelcome: false,
-      hasShownWelcomeInSession: false,
-    });
-
-    expect(step).toBe("welcome");
+  it("returns selection for a first-time visitor: the welcome never opens by itself", () => {
+    expect(resolveCreditsModalOpenedStep({ hasActiveInvoice: false, welcomeRequested: false })).toBe("selection");
   });
 
-  it("returns selection when welcome was already seen", () => {
-    const step = resolveCreditsModalOpenedStep({
-      hasActiveInvoice: false,
-      hasSeenWelcome: true,
-      hasShownWelcomeInSession: false,
-    });
-
-    expect(step).toBe("selection");
-  });
-
-  it("returns selection when welcome was shown in current session", () => {
-    const step = resolveCreditsModalOpenedStep({
-      hasActiveInvoice: false,
-      hasSeenWelcome: false,
-      hasShownWelcomeInSession: true,
-    });
-
-    expect(step).toBe("selection");
+  it("returns welcome only when the welcome was asked for", () => {
+    expect(resolveCreditsModalOpenedStep({ hasActiveInvoice: false, welcomeRequested: true })).toBe("welcome");
+    expect(resolveCreditsModalOpenedStep({ hasActiveInvoice: true, welcomeRequested: true })).toBe("welcome");
   });
 });
 

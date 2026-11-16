@@ -9,6 +9,8 @@ import { act, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { BulkGenerationProvider, useBulkGeneration } from "@/context/bulk-generation-context";
+import { offerAdvancedSettings, resetAdvancedSettingsForTests, setAdvancedSetting } from "@/lib/advanced-settings";
+import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -71,5 +73,25 @@ it("submits each bulk item as automatic generation with its stable request id, a
     { automatic: true, reference: "Genesis 1:2", requestId: "bulk-bulk-1-1", engine: "generic" },
   ]);
   for (const request of sent) expect(request).not.toHaveProperty("quoteId");
+  await act(async () => root.unmount());
+});
+
+it("paints with the reader's Advanced image settings when the caller names none", async () => {
+  resetAdvancedSettingsForTests();
+  offerAdvancedSettings("aspectRatio");
+  const container = document.createElement("div");
+  const root = createRoot(container);
+  await act(async () => root.render(<BulkGenerationProvider><Probe /></BulkGenerationProvider>));
+  await act(async () => { setAdvancedSetting("aspectRatio", "21:9"); });
+  await act(async () => {
+    await start({
+      scope: { type: "chapters", count: 1 }, scopeLabel: "Unpainted verses of Genesis 1", estimatedTotalCredits: 4,
+      queue: [{ verseId: "genesis-1-1", reference: "Genesis 1:1", order: 0 }, { verseId: "genesis-1-2", reference: "Genesis 1:2", order: 1 }],
+      translation: "web",
+    });
+  });
+  expect(mutation).toHaveBeenCalledWith(expect.objectContaining({ modelId: DEFAULT_IMAGE_MODEL, aspectRatio: "21:9", resolution: "1K" }));
+  await vi.waitFor(() => expect(sent).toHaveLength(2));
+  expect(sent[0]).toMatchObject({ model: DEFAULT_IMAGE_MODEL, aspectRatio: "21:9", resolution: "1K" });
   await act(async () => root.unmount());
 });

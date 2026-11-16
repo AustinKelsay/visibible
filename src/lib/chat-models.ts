@@ -256,24 +256,6 @@ export function getSuggestedChatModels(models: ChatModel[]): ChatModel[] {
   );
 }
 
-// Calculate estimated cost for a message
-export function estimateCost(
-  promptTokens: number,
-  completionTokens: number,
-  pricing?: { prompt?: string; completion?: string }
-): number | null {
-  return quoteTokenUsage(pricing, promptTokens, completionTokens)?.providerUsd ?? null;
-}
-
-// Format cost for display (e.g., 0.00012 -> "$0.00012")
-export function formatCost(cost: number | null): string {
-  if (cost === null) return "N/A";
-  if (cost < 0.01) {
-    return `$${cost.toFixed(6)}`;
-  }
-  return `$${cost.toFixed(4)}`;
-}
-
 /**
  * Compute the credit cost for a chat message based on OpenRouter pricing.
  * Uses estimated token count since we don't know actual usage until after streaming.

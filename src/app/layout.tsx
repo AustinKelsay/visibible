@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { EB_Garamond, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { GuestSessionProvider } from "@/context/guest-session-context";
 import { SessionProvider } from "@/context/session-context";
-import { NavigationProvider } from "@/context/navigation-context";
 import { PreferencesProvider } from "@/context/preferences-context";
-import { GenerationProvider } from "@/context/generation-context";
 import { BulkGenerationProvider } from "@/context/bulk-generation-context";
-import { ChatSidebar } from "@/components/chat-sidebar";
 import { BuyCreditsModal } from "@/components/buy-credits-modal";
-import { FeedbackPrompt } from "@/components/feedback-prompt";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,6 +16,12 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+// The words page sets the verse in this serif face.
+const ebGaramond = EB_Garamond({
+  variable: "--font-eb-garamond",
   subsets: ["latin"],
 });
 
@@ -38,24 +40,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // The reader marks <html> with its appearance before React loads (src/components/spread/reader-appearance.tsx).
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond.variable} antialiased`}
       >
         <GuestSessionProvider>
           <ConvexClientProvider>
             <SessionProvider>
               <PreferencesProvider>
-                <NavigationProvider>
-                  <GenerationProvider>
-                    <BulkGenerationProvider>
-                      {children}
-                      <ChatSidebar />
-                      <FeedbackPrompt />
-                      <BuyCreditsModal />
-                    </BulkGenerationProvider>
-                  </GenerationProvider>
-                </NavigationProvider>
+                <BulkGenerationProvider>
+                  {children}
+                  <BuyCreditsModal />
+                </BulkGenerationProvider>
               </PreferencesProvider>
             </SessionProvider>
           </ConvexClientProvider>

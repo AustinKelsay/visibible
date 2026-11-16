@@ -3,7 +3,6 @@
 :root {
   /* Colors */
   --background: #ffffff;
-  --image-stage: #050505;
   --foreground: #171717;
   --surface: #f5f5f5;
   --muted: #737373;
@@ -57,6 +56,17 @@
   --color-accent-text: var(--accent-text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-eb-garamond), Georgia, "Times New Roman", serif;
+  /* The reader's tokens; their values come from the reader's scopes below. */
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-reader-page: var(--reader-page);
+  --color-reader-page-glass: var(--reader-page-glass);
+  --color-reader-sheet: var(--reader-sheet);
+  --color-reader-glass: var(--reader-glass);
+  --color-reader-raised: var(--reader-raised);
+  --color-reader-alert: var(--reader-alert);
+  --color-reader-warning: var(--reader-warning);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -66,6 +76,98 @@
     --surface: #171717;
     --muted: #a3a3a3;
     --divider: #262626;
+  }
+}
+
+/* The reader's colours (src/components/spread). Two parallel token scopes:
+   - .reader-dark: always dark. The whole-picture view and the unpainted picture area use it.
+   - .reader-light: always light.
+   - .reader-appearance: the reader's chosen appearance (Advanced → Appearance). Dark, unless <html> carries
+     data-reader-appearance="light", which src/components/spread/reader-appearance.tsx sets before the first paint.
+   Reader surfaces draw with these tokens, never with literal white or black: `ink` (text, lines and tints, with
+   Tailwind's opacity modifier), `paper` (text on an ink button), the `reader-*` surfaces, and the `--quiet-*`
+   steps for quiet text (`text-ink/(--quiet-55)`), which light raises so quiet text keeps its contrast over glass.
+   Text drawn straight on a picture (verse marks, the corner name, the whole-picture caption) stays white.
+   Each scope also sets the site's semantic tokens, for token-styled surfaces over the spread (the credits
+   dialog, feedback, the answers in Ask). In a layer so a utility on the same element still wins. */
+@layer base {
+  .reader-dark,
+  .reader-appearance {
+    color-scheme: dark;
+    --ink: #ffffff;
+    --paper: #000000;
+    --quiet-25: 25%;
+    --quiet-40: 40%;
+    --quiet-45: 45%;
+    --quiet-50: 50%;
+    --quiet-55: 55%;
+    --quiet-60: 60%;
+    --reader-page: #0b0b0c;
+    --reader-page-glass: rgba(12, 12, 14, 0.78);
+    --reader-sheet: #0e0e10;
+    --reader-glass: rgba(14, 14, 16, 0.92);
+    --reader-raised: #141415;
+    --reader-dock: rgba(0, 0, 0, 0.55);
+    --reader-dock-edge: rgba(255, 255, 255, 0.1);
+    --reader-dock-top: rgba(255, 255, 255, 0.25);
+    --reader-alert: #fecaca;
+    --reader-warning: #fde68a;
+    --reader-link: #9ec5ff;
+    --background: #0e0e10;
+    --foreground: #f2f2f0;
+    --surface: rgba(255, 255, 255, 0.06);
+    --muted: rgba(255, 255, 255, 0.6);
+    --divider: rgba(255, 255, 255, 0.12);
+    --accent: #f2f2f0;
+    --accent-hover: #ffffff;
+    --accent-text: #0a0a0a;
+    --error: #f87171;
+    --success: #4ade80;
+    color: var(--foreground);
+  }
+
+  .reader-light,
+  :root[data-reader-appearance="light"] .reader-appearance {
+    color-scheme: light;
+    --ink: #16140f;
+    --paper: #ffffff;
+    --quiet-25: 45%;
+    --quiet-40: 62%;
+    --quiet-45: 64%;
+    --quiet-50: 66%;
+    --quiet-55: 68%;
+    --quiet-60: 70%;
+    --reader-page: #f6f4ef;
+    --reader-page-glass: rgba(247, 245, 240, 0.9);
+    --reader-sheet: #faf9f6;
+    --reader-glass: rgba(250, 249, 246, 0.95);
+    --reader-raised: #ecebe5;
+    --reader-dock: rgba(250, 249, 246, 0.84);
+    --reader-dock-edge: rgba(22, 20, 15, 0.1);
+    --reader-dock-top: rgba(255, 255, 255, 0.9);
+    --reader-alert: #b91c1c;
+    --reader-warning: #92400e;
+    --reader-link: #1d4ed8;
+    --background: #faf9f6;
+    --foreground: #16140f;
+    --surface: rgba(22, 20, 15, 0.05);
+    --muted: rgba(22, 20, 15, 0.68);
+    --divider: rgba(22, 20, 15, 0.12);
+    --accent: #16140f;
+    --accent-hover: #000000;
+    --accent-text: #ffffff;
+    --error: #b91c1c;
+    --success: #15803d;
+    color: var(--foreground);
+  }
+
+  /* Answers in Ask: the shared markdown renderer reads the site's tokens. */
+  .reader-answer {
+    --foreground: color-mix(in oklab, var(--ink) 90%, transparent);
+    --muted: color-mix(in oklab, var(--ink) var(--quiet-55), transparent);
+    --surface: color-mix(in oklab, var(--ink) 7%, transparent);
+    --divider: color-mix(in oklab, var(--ink) 12%, transparent);
+    --accent: var(--reader-link);
   }
 }
 
@@ -93,15 +195,19 @@ html {
   text-size-adjust: 100%;
 }
 
-/* Improved touch scrolling */
-.touch-scroll {
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-}
-
+/* Reduced motion: slides, fades and spinners become instant everywhere, including the reader's layers, the
+   dock's fade and the thumbnail-to-picture swap. Loading states keep their words. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
   }
 }
 
@@ -117,60 +223,6 @@ html {
 }
 .focus-ring:focus-visible {
   box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--accent);
-}
-
-/* Skeleton loading animations */
-@keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-
-@keyframes image-skeleton-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.skeleton {
-  animation: pulse 1.5s ease-in-out infinite;
-  background: var(--surface);
-  border-radius: var(--radius-sm);
-}
-
-.image-skeleton-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.04) 40%,
-    rgba(255, 255, 255, 0.07) 50%,
-    rgba(255, 255, 255, 0.04) 60%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: image-skeleton-shimmer 1.8s ease-in-out infinite;
-}
-
-.image-skeleton-shimmer-light {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(0, 0, 0, 0.03) 40%,
-    rgba(0, 0, 0, 0.05) 50%,
-    rgba(0, 0, 0, 0.03) 60%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: image-skeleton-shimmer 1.8s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .image-skeleton-shimmer,
-  .image-skeleton-shimmer-light {
-    animation: none;
-  }
 }
 
 /* Markdown content styling */
@@ -311,31 +363,77 @@ html {
     0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Verse strip over the painting: a darker track, so its tiles keep the same contrast on bright
-   and dark images */
-.liquid-glass.verse-strip-track {
-  background-color: rgba(0, 0, 0, 0.6);
+/* The spread's dock and picture chip over the painting: denser glass in the reader's appearance (dark, or light),
+   so its labels stay readable on bright and dark pictures */
+.liquid-glass.spread-dock {
+  background-color: var(--reader-dock);
+  border-color: var(--reader-dock-edge);
+  border-top-color: var(--reader-dock-top);
 }
 
-/* Responsive variant — applies liquid-glass only at sm (640px) and up */
-@media (min-width: 640px) {
-  .liquid-glass-sm {
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.12),
-        rgba(255, 255, 255, 0.05) 50%,
-        rgba(255, 255, 255, 0.02)
-      ),
-      rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-top-color: rgba(255, 255, 255, 0.25);
-    box-shadow:
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
-      inset 0 0 16px rgba(255, 255, 255, 0.03),
-      0 8px 32px rgba(0, 0, 0, 0.25),
-      0 2px 8px rgba(0, 0, 0, 0.15);
+/* Spread controls that fade on a computer while the reader is idle (src/components/spread/idle-fade.ts):
+   a control joins by carrying data-fades. They leave slowly and come back quickly. The phone never fades. */
+[data-fades] {
+  transition: opacity 200ms ease-out;
+}
+@media (min-width: 768px) {
+  [data-idle="true"] [data-fades] {
+    opacity: 0;
+    transition: opacity 700ms ease-in;
+  }
+}
+
+/* A turned page arrives from the side it was turned towards (src/components/spread/page-turn.tsx). */
+@keyframes spread-turn-in-next {
+  from { opacity: 0; transform: translateX(1.5rem); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes spread-turn-in-prev {
+  from { opacity: 0; transform: translateX(-1.5rem); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes spread-turn-in-fade {
+  from { opacity: 0.35; }
+  to { opacity: 1; }
+}
+[data-arrival="next"] [data-turn-in="slide"] {
+  animation: spread-turn-in-next 260ms ease-out;
+}
+[data-arrival="prev"] [data-turn-in="slide"] {
+  animation: spread-turn-in-prev 260ms ease-out;
+}
+[data-arrival] [data-turn-in="fade"] {
+  animation: spread-turn-in-fade 260ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-fades],
+  [data-idle="true"] [data-fades] {
+    transition: none;
+  }
+  [data-arrival] [data-turn-in] {
+    animation: none;
+  }
+}
+
+/* The whole-picture view (spread.tsx): the words page slides off to the right on a computer and the marks
+   run the full width of the picture. Reduced motion makes the slide instant. */
+.spread-words {
+  transition: transform 320ms ease-out, visibility 0s;
+}
+@media (min-width: 768px) {
+  [data-whole-picture] .spread-words {
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 320ms ease-in, visibility 0s 320ms;
+  }
+  [data-whole-picture] .spread-marks {
+    right: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spread-words,
+  [data-whole-picture] .spread-words {
+    transition: none;
   }
 }

@@ -181,7 +181,7 @@ vi.mock("@/lib/scripture", async (importOriginal) => ({
 }));
 
 const { POST } = await import("../../chat/route");
-const { HISTORY_TOKEN_BUDGET, MAX_OUTPUT_TOKENS, estimateTokens } = await import("@/lib/chat-request");
+const { CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE, HISTORY_TOKEN_BUDGET, MAX_OUTPUT_TOKENS, estimateTokens } = await import("@/lib/chat-request");
 const { MAX_USER_MESSAGE_CHARS } = await import("@/lib/chat-limits");
 
 const request = (cookie?: string) => new Request("http://localhost:3000/api/chat", {
@@ -266,8 +266,8 @@ describe("chat admission", () => {
   });
 
   it("refuses a passage whose system prompt would pass the allowance the quoted maximum is priced on", async () => {
-    // Three verses of 3,000 characters: about 3,000 estimated tokens, over the 2,000 allowed for the system prompt.
-    chapterLookup.mockResolvedValue({ ...genesisOne, verses: genesisOne.verses.map((verse) => ({ ...verse, text: "word ".repeat(600) })) });
+    // The current and next verse are always sent; at 9,000 characters each they are 6,000 estimated tokens, over the allowance.
+    chapterLookup.mockResolvedValue({ ...genesisOne, verses: genesisOne.verses.map((verse) => ({ ...verse, text: "word ".repeat(1800) })) });
     const body = await refused({ messages: [user("What does this mean?")], context: { book: "Genesis", chapter: 1, verseRange: "2" } });
     expect(body.error).toBe("Passage too long");
   });
@@ -290,11 +290,62 @@ describe("chat admission", () => {
     expect(chapterLookup).toHaveBeenCalledWith("genesis", 1, "kjv");
     const system = systemPromptSent();
     expect(system).toContain("Current Position: Genesis 1:2");
-    expect(system).toContain('Previous (v1): "Server text of verse 1."');
+    expect(system).toContain('v1: "Server text of verse 1."');
     expect(system).toContain('CURRENT (v2): "2 Server text of verse 2."');
     expect(system).toContain('Next (v3): "Server text of verse 3."');
     expect(system).not.toContain("OVERRIDE");
     expect(providerCalls()[0].prompt.filter((message) => message.role === "system")).toHaveLength(1);
+  });
+
+  describe("the chapter so far", () => {
+    const chapterOf = (count: number, text: (verse: number) => string = (verse) => `Server text of verse ${verse}.`) => ({
+      ...genesisOne,
+      verses: Array.from({ length: count }, (_, index) => ({ bookId: "GEN", bookName: "Genesis", chapter: 1, verse: index + 1, text: text(index + 1) })),
+    });
+    async function contextFor(verse: number, book = "Genesis", chapter = 1) {
+      mockRequestBody.value = { messages: [user(`Summarize ${book} ${chapter} so far`)], context: { book, chapter, verseRange: String(verse) } };
+      const response = await POST(request());
+      expect(response.status).toBe(200);
+      await response.text();
+      return systemPromptSent();
+    }
+    const versesIn = (system: string) => [...system.matchAll(/Server text of verse (\d+)\./g)].map((match) => Number(match[1]));
+
+    it("sends a mid-chapter verse with every verse before it and the next verse", async () => {
+      chapterLookup.mockResolvedValue(chapterOf(31));
+      const system = await contextFor(5);
+      expect(versesIn(system)).toEqual([1, 2, 3, 4, 5, 6]);
+      expect(system).toContain('v1: "Server text of verse 1."');
+      expect(system).toContain('CURRENT (v5): "5 Server text of verse 5."');
+      expect(system).toContain('Next (v6): "Server text of verse 6."');
+      expect(system).not.toMatch(/left out/i);
+    });
+
+    it("sends the first verse of a chapter with only the next verse", async () => {
+      chapterLookup.mockResolvedValue(chapterOf(31));
+      const system = await contextFor(1);
+      expect(versesIn(system)).toEqual([1, 2]);
+      expect(system).toContain('CURRENT (v1): "1 Server text of verse 1."');
+    });
+
+    it("sends no next verse from the following chapter after the last verse", async () => {
+      chapterLookup.mockResolvedValue(chapterOf(31));
+      expect(versesIn(await contextFor(31))).toEqual(Array.from({ length: 31 }, (_, index) => index + 1));
+    });
+
+    it("drops the earliest verses of a long chapter, keeps the current one and tells the model", async () => {
+      // 176 verses of about 100 estimated tokens: far over the Scripture budget.
+      chapterLookup.mockResolvedValue(chapterOf(176, (verse) => `Server text of verse ${verse}. ${"word ".repeat(60)}`));
+      const system = await contextFor(150, "Psalms", 119);
+      const sent = versesIn(system);
+      expect(sent.at(-2)).toBe(150);
+      expect(sent.at(-1)).toBe(151);
+      expect(sent[0]).toBeGreaterThan(1);
+      // What was sent is one unbroken run ending at the next verse.
+      expect(sent).toEqual(Array.from({ length: sent.length }, (_, index) => sent[0] + index));
+      expect(system).toContain(`verses 1–${sent[0] - 1} were left out`);
+      expect(estimateTokens(system)).toBeLessThanOrEqual(CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE);
+    });
   });
 
   it("uses the saved translation cookie when an older client names no translation", async () => {

@@ -1,19 +1,8 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useRef, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { Translation, DEFAULT_TRANSLATION, TRANSLATIONS } from "@/lib/bible-api";
-import {
-  DEFAULT_IMAGE_MODEL,
-  DEFAULT_ASPECT_RATIO,
-  DEFAULT_RESOLUTION,
-  ImageAspectRatio,
-  ImageResolution,
-  isValidAspectRatio,
-  isValidResolution,
-  normalizeResolutionForModel,
-} from "@/lib/image-models";
-import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
 import { DEFAULT_ART_STYLE, isArtStyleId } from "@/lib/art-styles";
 import {
   trackPreferenceChanged,
@@ -21,319 +10,187 @@ import {
 } from "@/lib/analytics";
 import { useSession } from "@/context/session-context";
 
+/** The words page's text size (Look): three steps, applied to the words page only. */
+export type TextSize = "small" | "medium" | "large";
+export const TEXT_SIZES: readonly TextSize[] = ["small", "medium", "large"];
+export const DEFAULT_TEXT_SIZE: TextSize = "medium";
+
 interface PreferencesContextType {
+  /** The translation the server renders, read from its cookie. */
   translation: Translation;
   setTranslation: (translation: Translation, source?: PreferenceChangeSource) => void;
   translationInfo: typeof TRANSLATIONS[Translation];
-  imageModel: string;
-  setImageModel: (model: string, source?: PreferenceChangeSource) => void;
-  imageAspectRatio: ImageAspectRatio;
-  setImageAspectRatio: (ratio: ImageAspectRatio, source?: PreferenceChangeSource) => void;
-  imageResolution: ImageResolution;
-  setImageResolution: (resolution: ImageResolution, source?: PreferenceChangeSource) => void;
-  /** The art style to generate and browse in (#177); stored like the model, never rewritten by what a work offers. */
+  /** The art style to paint and show in (Look); stored as chosen, never rewritten by what a work offers. */
   artStyle: string;
   setArtStyle: (styleId: string, source?: PreferenceChangeSource) => void;
-  chatModel: string;
-  setChatModel: (model: string, source?: PreferenceChangeSource) => void;
-  /** Whether a verse with no image is illustrated as it is opened, at the guest's cost. Off until the guest turns it on. */
+  /** The words page's text size (Look). */
+  textSize: TextSize;
+  setTextSize: (size: TextSize, source?: PreferenceChangeSource) => void;
+  /** Whether a verse with no picture is painted as it is opened, at the guest's cost. Off until the guest turns it on. */
   autoGenerate: boolean;
   setAutoGenerate: (enabled: boolean, source?: PreferenceChangeSource) => void;
 }
 
 const PreferencesContext = createContext<PreferencesContextType | null>(null);
 
-const STORAGE_KEY = "visibible-preferences";
-const COOKIE_NAME = "visibible-translation";
-const IMAGE_MODEL_COOKIE = "visibible-image-model";
-const CHAT_MODEL_COOKIE = "visibible-chat-model";
-
 /**
- * Generation runs on one model, whatever a visitor saved (ADR 0012), so a saved model follows it. Showing another
- * would price the image at that model's rate and then charge this one's.
+ * The reader's settings on this device (spec #434, "Stored settings"): Look's choices and automatic painting, each
+ * with defaults. The same record holds the Advanced group, which only `src/lib/advanced-settings.ts` reads and writes.
+ * Translation is not here: the server reads it from its cookie to render the verse.
  */
-function resolveSavedImageModel(): string {
-  return DEFAULT_IMAGE_MODEL;
+const SETTINGS_KEY = "visibible-reader-settings";
+/** The old reader's record: ignored and removed, never migrated. */
+const OLD_SETTINGS_KEY = "visibible-preferences";
+const TRANSLATION_COOKIE = "visibible-translation";
+const YEAR_SECONDS = 31536000;
+
+interface ReaderSettings {
+  look: { artStyle: string; textSize: TextSize };
+  autoGenerate: boolean;
+}
+
+const DEFAULT_SETTINGS: ReaderSettings = {
+  look: { artStyle: DEFAULT_ART_STYLE, textSize: DEFAULT_TEXT_SIZE },
+  autoGenerate: false,
+};
+
+function objectAt(value: unknown, key: string): Record<string, unknown> {
+  const found = value && typeof value === "object" ? (value as Record<string, unknown>)[key] : undefined;
+  return found && typeof found === "object" && !Array.isArray(found) ? (found as Record<string, unknown>) : {};
+}
+
+/** Each stored value is checked on its own; anything unknown reads as its default and stays in storage untouched. */
+function readSettings(raw: string | null): ReaderSettings {
+  let parsed: unknown = null;
+  try {
+    parsed = raw ? JSON.parse(raw) : null;
+  } catch {
+    parsed = null;
+  }
+  const look = objectAt(parsed, "look");
+  const textSize = TEXT_SIZES.find((size) => size === look.textSize);
+  return {
+    look: {
+      artStyle: isArtStyleId(look.artStyle) ? look.artStyle : DEFAULT_SETTINGS.look.artStyle,
+      textSize: textSize ?? DEFAULT_SETTINGS.look.textSize,
+    },
+    // Only an explicit saved choice turns automatic painting on.
+    autoGenerate: Boolean(parsed && typeof parsed === "object" && (parsed as Record<string, unknown>).autoGenerate === true),
+  };
+}
+
+/** Write one change over what is stored, keeping the Advanced group and values this version did not understand. */
+function writeSettings(change: { look?: Partial<ReaderSettings["look"]>; autoGenerate?: boolean }) {
+  try {
+    let existing: Record<string, unknown> = {};
+    try {
+      const parsed = JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? "null");
+      if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) existing = parsed;
+    } catch {
+      existing = {};
+    }
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify({
+      ...existing,
+      version: 1,
+      look: { ...objectAt(existing, "look"), ...change.look },
+      ...(change.autoGenerate === undefined ? {} : { autoGenerate: change.autoGenerate }),
+    }));
+  } catch {
+    // Storage may be unavailable (private window); the choice still applies for this visit.
+  }
+}
+
+function readTranslationCookie(): Translation {
+  const prefix = `${TRANSLATION_COOKIE}=`;
+  const value = document.cookie.split("; ").find((row) => row.startsWith(prefix))?.slice(prefix.length);
+  return value && Object.prototype.hasOwnProperty.call(TRANSLATIONS, value) ? (value as Translation) : DEFAULT_TRANSLATION;
 }
 
 export function PreferencesProvider({ children }: { children: ReactNode }) {
+  const [settings, setSettings] = useState<ReaderSettings>(DEFAULT_SETTINGS);
   const [translation, setTranslationState] = useState<Translation>(DEFAULT_TRANSLATION);
-  const [imageModel, setImageModelState] = useState<string>(DEFAULT_IMAGE_MODEL);
-  const [imageAspectRatio, setImageAspectRatioState] = useState<ImageAspectRatio>(DEFAULT_ASPECT_RATIO);
-  const [imageResolution, setImageResolutionState] = useState<ImageResolution>(DEFAULT_RESOLUTION);
-  const [chatModel, setChatModelState] = useState<string>(DEFAULT_CHAT_MODEL);
-  const [artStyle, setArtStyleState] = useState<string>(DEFAULT_ART_STYLE);
-  const [autoGenerate, setAutoGenerateState] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+  const settingsRef = useRef(settings);
   const router = useRouter();
   const { tier, credits } = useSession();
 
-  // Load from localStorage on mount
   useEffect(() => {
+    let loaded = DEFAULT_SETTINGS;
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const prefs = JSON.parse(stored);
-        // Use setTimeout to avoid synchronous setState in effect
-        setTimeout(() => {
-          // Validate that the stored translation is a valid key in TRANSLATIONS
-          if (prefs.translation && Object.prototype.hasOwnProperty.call(TRANSLATIONS, prefs.translation)) {
-            setTranslationState(prefs.translation as Translation);
-          }
-          // Load image model preference
-          const savedImageModel = resolveSavedImageModel();
-          setImageModelState(savedImageModel);
-          // Load image aspect ratio preference
-          if (prefs.imageAspectRatio && isValidAspectRatio(prefs.imageAspectRatio)) {
-            setImageAspectRatioState(prefs.imageAspectRatio);
-          }
-          // Load image resolution preference
-          if (prefs.imageResolution && isValidResolution(prefs.imageResolution)) {
-            setImageResolutionState(normalizeResolutionForModel(savedImageModel, prefs.imageResolution));
-          }
-          // Load chat model preference
-          if (prefs.chatModel) {
-            setChatModelState(prefs.chatModel);
-          }
-          // Load the art style; an unknown saved id is left in storage and the default is used.
-          if (isArtStyleId(prefs.artStyle)) {
-            setArtStyleState(prefs.artStyle);
-          }
-          // Only an explicit saved choice turns automatic generation on.
-          setAutoGenerateState(prefs.autoGenerate === true);
-          setIsHydrated(true);
-        }, 0);
-      } else {
-        setTimeout(() => {
-          setIsHydrated(true);
-        }, 0);
-      }
+      loaded = readSettings(localStorage.getItem(SETTINGS_KEY));
     } catch {
-      // Ignore localStorage errors
-      setTimeout(() => {
-        setIsHydrated(true);
-      }, 0);
+      // Storage unavailable: defaults.
     }
+    try {
+      localStorage.removeItem(OLD_SETTINGS_KEY);
+    } catch {
+      // Nothing to remove, or storage unavailable.
+    }
+    const cookieTranslation = readTranslationCookie();
+    // Deferred so hydration renders the server's defaults first.
+    const timer = setTimeout(() => {
+      settingsRef.current = loaded;
+      setSettings(loaded);
+      setTranslationState(cookieTranslation);
+      setIsHydrated(true);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
-  // Helper to save all preferences
-  const savePreferences = (prefs: {
-    translation: Translation;
-    imageModel: string;
-    imageAspectRatio: ImageAspectRatio;
-    imageResolution: ImageResolution;
-    chatModel: string;
-    artStyle?: string;
-    autoGenerate?: boolean;
-  }) => {
-    try {
-      const existingRaw = localStorage.getItem(STORAGE_KEY);
-      let existing: Record<string, unknown> = {};
-
-      if (existingRaw && typeof existingRaw === "string") {
-        try {
-          const parsed = JSON.parse(existingRaw);
-          if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
-            existing = parsed as Record<string, unknown>;
-          }
-        } catch {
-          existing = {};
-        }
-      }
-
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        ...existing,
-        ...prefs,
-        defaultImageModel: DEFAULT_IMAGE_MODEL,
-      }));
-    } catch {
-      // Ignore errors
-    }
+  const update = (change: Parameters<typeof writeSettings>[0]) => {
+    const current = settingsRef.current;
+    const next: ReaderSettings = {
+      look: { ...current.look, ...change.look },
+      autoGenerate: change.autoGenerate ?? current.autoGenerate,
+    };
+    settingsRef.current = next;
+    setSettings(next);
+    writeSettings(change);
   };
 
-  // Save to localStorage and cookie when translation changes, then refresh page
-  const setTranslation = (
-    newTranslation: Translation,
-    source: PreferenceChangeSource = "unknown"
-  ) => {
-    setTranslationState(newTranslation);
-    savePreferences({
-      translation: newTranslation,
-      imageModel,
-      imageAspectRatio,
-      imageResolution,
-      chatModel,
-    });
-    // Set cookie for server-side reading (expires in 1 year)
-    document.cookie = `${COOKIE_NAME}=${newTranslation}; path=/; max-age=31536000; SameSite=Lax`;
-    // Track preference change
-    trackPreferenceChanged({
-      preference: "translation",
-      value: newTranslation,
-      source,
-      tier,
-      hasCredits: credits > 0,
-    });
-    // Refresh the page to get new translation from server
+  const track = (preference: Parameters<typeof trackPreferenceChanged>[0]["preference"], value: string, source: PreferenceChangeSource) => {
+    trackPreferenceChanged({ preference, value, source, tier, hasCredits: credits > 0 });
+  };
+
+  // The cookie is what the server renders from; refresh so the words page shows the new translation.
+  const setTranslation = (next: Translation, source: PreferenceChangeSource = "unknown") => {
+    setTranslationState(next);
+    document.cookie = `${TRANSLATION_COOKIE}=${next}; path=/; max-age=${YEAR_SECONDS}; SameSite=Lax`;
+    track("translation", next, source);
     router.refresh();
   };
 
-  // Save image model preference
-  const setImageModel = (
-    newModel: string,
-    source: PreferenceChangeSource = "unknown"
-  ) => {
-    const nextResolution = normalizeResolutionForModel(newModel, imageResolution);
-    setImageResolutionState(nextResolution);
-    setImageModelState(newModel);
-    savePreferences({
-      translation,
-      imageModel: newModel,
-      imageAspectRatio,
-      imageResolution: nextResolution,
-      chatModel,
-    });
-    // Set cookie for server-side reading (expires in 1 year)
-    document.cookie = `${IMAGE_MODEL_COOKIE}=${encodeURIComponent(newModel)}; path=/; max-age=31536000; SameSite=Lax`;
-    // Track preference change
-    trackPreferenceChanged({
-      preference: "imageModel",
-      value: newModel,
-      source,
-      tier,
-      hasCredits: credits > 0,
-    });
-    // Refresh to regenerate image with new model
-    router.refresh();
-  };
-
-  // Save image aspect ratio preference (no refresh needed - takes effect on next generation)
-  const setImageAspectRatio = (
-    newRatio: ImageAspectRatio,
-    source: PreferenceChangeSource = "unknown"
-  ) => {
-    setImageAspectRatioState(newRatio);
-    savePreferences({
-      translation,
-      imageModel,
-      imageAspectRatio: newRatio,
-      imageResolution,
-      chatModel,
-    });
-    trackPreferenceChanged({
-      preference: "imageAspectRatio",
-      value: newRatio,
-      source,
-      tier,
-      hasCredits: credits > 0,
-    });
-  };
-
-  // Save image resolution preference (no refresh needed - takes effect on next generation)
-  const setImageResolution = (
-    newResolution: ImageResolution,
-    source: PreferenceChangeSource = "unknown"
-  ) => {
-    newResolution = normalizeResolutionForModel(imageModel, newResolution);
-    setImageResolutionState(newResolution);
-    savePreferences({
-      translation,
-      imageModel,
-      imageAspectRatio,
-      imageResolution: newResolution,
-      chatModel,
-    });
-    trackPreferenceChanged({
-      preference: "imageResolution",
-      value: newResolution,
-      source,
-      tier,
-      hasCredits: credits > 0,
-    });
-  };
-
-  // Save the art style (no refresh needed: generation and library reads follow it reactively)
-  const setArtStyle = (
-    styleId: string,
-    source: PreferenceChangeSource = "unknown"
-  ) => {
+  // Painting and the picture rule follow it reactively.
+  const setArtStyle = (styleId: string, source: PreferenceChangeSource = "unknown") => {
     if (!isArtStyleId(styleId)) return;
-    setArtStyleState(styleId);
-    savePreferences({
-      translation,
-      imageModel,
-      imageAspectRatio,
-      imageResolution,
-      chatModel,
-      artStyle: styleId,
-    });
-    trackPreferenceChanged({
-      preference: "artStyle",
-      value: styleId,
-      source,
-      tier,
-      hasCredits: credits > 0,
-    });
+    update({ look: { artStyle: styleId } });
+    track("artStyle", styleId, source);
   };
 
-  // Save whether verses without an image are illustrated as they are opened
-  const setAutoGenerate = (
-    enabled: boolean,
-    source: PreferenceChangeSource = "unknown"
-  ) => {
-    setAutoGenerateState(enabled);
-    savePreferences({ translation, imageModel, imageAspectRatio, imageResolution, chatModel, autoGenerate: enabled });
-    trackPreferenceChanged({
-      preference: "autoGenerate",
-      value: enabled ? "on" : "off",
-      source,
-      tier,
-      hasCredits: credits > 0,
-    });
+  const setTextSize = (size: TextSize, source: PreferenceChangeSource = "unknown") => {
+    if (!TEXT_SIZES.includes(size)) return;
+    update({ look: { textSize: size } });
+    track("textSize", size, source);
   };
 
-  // Save chat model preference (no refresh needed - takes effect on next message)
-  const setChatModel = (
-    newModel: string,
-    source: PreferenceChangeSource = "unknown"
-  ) => {
-    setChatModelState(newModel);
-    savePreferences({
-      translation,
-      imageModel,
-      imageAspectRatio,
-      imageResolution,
-      chatModel: newModel,
-    });
-    // Set cookie for server-side reading (expires in 1 year)
-    document.cookie = `${CHAT_MODEL_COOKIE}=${encodeURIComponent(newModel)}; path=/; max-age=31536000; SameSite=Lax`;
-    // Track preference change
-    trackPreferenceChanged({
-      preference: "chatModel",
-      value: newModel,
-      source,
-      tier,
-      hasCredits: credits > 0,
-    });
+  const setAutoGenerate = (enabled: boolean, source: PreferenceChangeSource = "unknown") => {
+    update({ autoGenerate: enabled });
+    track("autoGenerate", enabled ? "on" : "off", source);
   };
 
+  const shown = isHydrated ? settings : DEFAULT_SETTINGS;
+  const shownTranslation = isHydrated ? translation : DEFAULT_TRANSLATION;
   return (
     <PreferencesContext.Provider
       value={{
-        translation: isHydrated ? translation : DEFAULT_TRANSLATION,
+        translation: shownTranslation,
         setTranslation,
-        translationInfo: TRANSLATIONS[isHydrated ? translation : DEFAULT_TRANSLATION],
-        imageModel: isHydrated ? imageModel : DEFAULT_IMAGE_MODEL,
-        setImageModel,
-        imageAspectRatio: isHydrated ? imageAspectRatio : DEFAULT_ASPECT_RATIO,
-        setImageAspectRatio,
-        imageResolution: isHydrated ? imageResolution : DEFAULT_RESOLUTION,
-        setImageResolution,
-        chatModel: isHydrated ? chatModel : DEFAULT_CHAT_MODEL,
-        setChatModel,
-        artStyle: isHydrated ? artStyle : DEFAULT_ART_STYLE,
+        translationInfo: TRANSLATIONS[shownTranslation],
+        artStyle: shown.look.artStyle,
         setArtStyle,
-        autoGenerate: isHydrated && autoGenerate,
+        textSize: shown.look.textSize,
+        setTextSize,
+        autoGenerate: shown.autoGenerate,
         setAutoGenerate,
       }}
     >

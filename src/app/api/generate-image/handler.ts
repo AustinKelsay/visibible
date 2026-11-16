@@ -365,7 +365,7 @@ export async function handleImageRequest(request: Request, mode: "generate" | "q
     if (saved?.imageUrl) return jsonWithSessionRefresh({
       requestId: clientRequestId, generationId: admission.generationId, engine: admission.engine ?? "legacy",
       status: admission.status, reused: true, savedImageId: saved.id,
-      imageUrl: saved.imageUrl, reference: saved.reference, translationId: saved.translationId,
+      imageUrl: saved.imageUrl, thumbnailUrl: saved.thumbnailUrl, reference: saved.reference, translationId: saved.translationId,
       verseText: saved.verseText, promptInputs: saved.promptInputs,
       model: saved.model, creditsCost: saved.creditsCost, durationMs: saved.durationMs,
     });

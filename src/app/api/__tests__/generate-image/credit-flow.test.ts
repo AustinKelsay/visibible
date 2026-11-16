@@ -160,8 +160,11 @@ vi.mock("@/lib/convex-client", () => ({
         await saveBarrier;
         if (failSave) throw new Error("storage unavailable");
         const storageId = await requestDb.run((ctx) => ctx.storage.store(new Blob([String(args.imageUrl)], { type: "image/png" })));
+        const thumbnailStorageId = typeof args.thumbnailUrl === "string"
+          ? await requestDb.run((ctx) => ctx.storage.store(new Blob([String(args.thumbnailUrl)], { type: "image/webp" })))
+          : undefined;
         const id = await requestDb.mutation(internal.verseImages.saveImageWithStorage, {
-          verseId: String(args.verseId), storageId, model: String(args.model),
+          verseId: String(args.verseId), storageId, thumbnailStorageId, model: String(args.model),
           generationId: String(args.generationId),
           reference: args.reference as string, verseText: args.verseText as string,
           translationId: args.translationId as string,
@@ -625,6 +628,13 @@ describe("Image Generation API Credit Flow", () => {
       return { bytes: new TextEncoder().encode(`jpeg:${storageId}`), mimeType: "image/jpeg" };
     };
     let tone = brief.tone;
+    let thumbnailFailure: Error | null = null;
+    let thumbnailInputs: string[] = [];
+    const makeThumbnail = async (imageUrl: string) => {
+      thumbnailInputs.push(imageUrl);
+      if (thumbnailFailure) throw thumbnailFailure;
+      return "data:image/webp;base64,dGh1bWI=";
+    };
     const styleOf = (id: string) => SHARED_STYLES.styles.find((style) => style.id === id)!;
     const watercolor = styleOf("watercolor");
     const classicalStyle = styleOf("classical");
@@ -670,7 +680,8 @@ describe("Image Generation API Credit Flow", () => {
       fetchImageModelsMock.mockResolvedValue({ models: [catalogModel(syntheticPricing)] });
       const { createGenericEngine } = await import("@/lib/engine/generation");
       const { setGenericEngine } = await import("@/lib/engine/dispatch");
-      setGenericEngine(createGenericEngine({ loadInputs: async () => workInputs(tone), loadReferenceBytes, toJpeg: async (blob) => blob }));
+      thumbnailFailure = null; thumbnailInputs = [];
+      setGenericEngine(createGenericEngine({ loadInputs: async () => workInputs(tone), loadReferenceBytes, toJpeg: async (blob) => blob, makeThumbnail }));
     });
     afterEach(async () => { (await import("@/lib/engine/dispatch")).setGenericEngine(null); });
 
@@ -763,6 +774,26 @@ describe("Image Generation API Credit Flow", () => {
       expect(classicalPrompt).toContain(`ART STYLE: ${classicalStyle.label}\n`);
       expect(classicalPrompt).not.toContain(`ART STYLE: ${watercolor.label}\n`);
       expect((await savedImages())[1].provenance!.references).toEqual([{ kind: "sheet", id: "adam:main", version: expect.any(String) }]);
+    });
+
+    it("saves a thumbnail with the picture, and when making it fails saves and shows the picture alone at the same charge", async () => {
+      await prepareWork();
+      const { POST } = await import("../../generate-image/route");
+      const saves = () => mockState.callHistory.filter((c) => c.action === "saveImage").map((c) => c.args);
+      const first = await POST(createGenerateImageRequest(body));
+      expect(first.status).toBe(200);
+      const made = await first.json();
+      expect(thumbnailInputs).toEqual([made.imageUrl]);
+      expect(saves()[0]).toMatchObject({ imageUrl: made.imageUrl, thumbnailUrl: "data:image/webp;base64,dGh1bWI=" });
+
+      thumbnailFailure = new Error("unsupported image format");
+      const second = await POST(createGenerateImageRequest({ ...body, requestId: "generic-thumb-fails" }));
+      expect(second.status).toBe(200);
+      const alone = await second.json();
+      expect(saves()).toHaveLength(2);
+      expect(saves()[1]).not.toHaveProperty("thumbnailUrl");
+      expect(alone).toMatchObject({ imageUrl: made.imageUrl, savedImageId: expect.any(String), creditsCost: made.creditsCost, credits: made.credits - made.creditsCost });
+      expect(await savedImages()).toHaveLength(2);
     });
 
     it("refuses before any charge when a section cast member's canon is missing, since it may be a subject without form", async () => {
@@ -904,7 +935,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(getCallCount("reserveCredits")).toBe(1);
       const replay = await POST(createGenerateImageRequest(body));
       expect(replay.status).toBe(200);
-      expect(await replay.json()).toMatchObject({ reused: true, translationId: "web", verseText: webText[1], savedImageId: expect.any(String) });
+      expect(await replay.json()).toMatchObject({ reused: true, translationId: "web", verseText: webText[1], savedImageId: expect.any(String), thumbnailUrl: expect.stringContaining("/api/storage/") });
       expect(imageCalls()).toHaveLength(1);
       expect(mockState.sessions.get("test-session")!.credits).toBe(998);
     });

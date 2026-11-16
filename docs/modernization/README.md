@@ -58,7 +58,7 @@ A parked ticket is closed as not planned with its labels kept, and its last comm
 | T33, T34 | #89, #90 | One book holds about 1,000 saved images. Recheck after the most-read passages are seeded. |
 | T35 | #91 | Nostr publishing is back on and readers are producing impressions. |
 | T36 | #92 | Before Nostr publishing is turned back on: this is a precondition for it. |
-| T37 | #93 | A reader reports the gallery or header generating differently from the reader page, or the image stage is next reworked. |
+| T37 | #93 | Overtaken by the reader redesign ([#434](https://github.com/AustinKelsay/visibible/issues/434)): the gallery, header and image stage are gone, and the spread, picture menu and Contents paint through one hook (`useVerseGeneration`). Close it at the redesign's cutover. |
 | T38 | #94 | A reader reports a translation or model choice that does not stick, or preferences are next changed. |
 | T39 | #95 | The purchase dialog is next reworked, or a reader gets stuck between the welcome and purchase steps. |
 | T40 | #96 | A refactor of the reader page is planned; these tests are its precondition. |

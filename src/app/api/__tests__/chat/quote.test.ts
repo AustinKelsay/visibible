@@ -28,9 +28,12 @@ const state = {
   rateLimited: [] as string[],
 };
 const sid = { value: "test-session" };
-// $10 per million tokens each way: a typical turn (1,000 in, 1,000 out) is 3 credits, the maximum (8,000 in, 2,048 out) is 13.
+// $10 per million tokens each way. With no passage the system prompt is about 409 tokens: a typical turn (709 in, 1,000
+// out) is 3 credits, the maximum (6,000 of history and the prompt in, 2,048 out) is 11.
 const DEFAULT_PRICING = { prompt: "0.00001", completion: "0.00001", contextLength: 200_000 };
 const pricing: { value: { prompt: string; completion: string; contextLength?: number } | null } = { value: DEFAULT_PRICING };
+/** Prices of other models, by id; any model not named here costs `pricing.value`. */
+const otherModelPricing = new Map<string, { prompt: string; completion: string }>();
 const requestBody: { value: unknown } = { value: null };
 const providerStreamImpl = vi.fn();
 
@@ -99,7 +102,16 @@ vi.mock("@ai-sdk/openai", async () => {
 vi.mock("@/lib/chat-models", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@/lib/chat-models")>()),
   DEFAULT_CHAT_MODEL: "test/model",
-  getChatModelPricing: vi.fn(async () => pricing.value),
+  getChatModelPricing: vi.fn(async (model: string) => otherModelPricing.get(model) ?? pricing.value),
+}));
+
+// Scripture from the server's reader, controlled: every chapter has 176 verses of about 100 estimated tokens.
+vi.mock("@/lib/scripture", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/lib/scripture")>()),
+  getChapter: vi.fn(async (bookId: string, chapter: number, translationId: string) => ({
+    bookId, bookName: bookId, chapter, translationId, translationName: translationId,
+    verses: Array.from({ length: 176 }, (_, index) => ({ bookId, bookName: bookId, chapter, verse: index + 1, text: `Verse ${index + 1}. ${"word ".repeat(60)}` })),
+  })),
 }));
 
 const { POST: chat } = await import("../../chat/route");
@@ -120,8 +132,9 @@ function answer(usage: { input?: number; output?: number } | null = { input: 100
 }
 
 const post = (route: typeof chat, path: string) => route(new Request(`http://localhost:3000${path}`, { method: "POST", headers: { "Content-Type": "application/json" } }));
-async function askQuote(model?: string) {
-  requestBody.value = model ? { model } : {};
+type Passage = { book: string; chapter: number; verseRange: string };
+async function askQuote(model?: string, context?: Passage) {
+  requestBody.value = { ...(model ? { model } : {}), ...(context ? { context, translation: "web" } : {}) };
   const response = await post(quoteRoute, "/api/chat/quote");
   return { status: response.status, body: await response.json() };
 }
@@ -148,6 +161,7 @@ describe("chat quotes and the maximum charge (#60)", () => {
     state.sessions.clear(); state.calls.length = 0; state.holds.clear(); state.rateLimited.length = 0;
     sid.value = "test-session";
     pricing.value = DEFAULT_PRICING;
+    otherModelPricing.clear();
     setSession();
     providerStreamImpl.mockImplementation(async () => answer());
   });
@@ -157,9 +171,9 @@ describe("chat quotes and the maximum charge (#60)", () => {
     const before = Date.now();
     const { status, body } = await askQuote();
     expect(status).toBe(200);
-    expect(body.quote).toEqual({ quoteId: expect.any(String), operation: "chat", policyVersion: "accepted-maximum-v1", estimateCredits: 3, maximumCredits: 13, expiresAt: expect.any(Number) });
+    expect(body.quote).toEqual({ quoteId: expect.any(String), operation: "chat", policyVersion: "accepted-maximum-v1", estimateCredits: 3, maximumCredits: 11, expiresAt: expect.any(Number) });
     expect(body.quote.expiresAt - before).toBeGreaterThanOrEqual(5 * 60 * 1000);
-    expect(await storedQuotes()).toMatchObject([{ sid: "test-session", operation: "chat", origin: "shown", estimateCredits: 3, maximumCredits: 13 }]);
+    expect(await storedQuotes()).toMatchObject([{ sid: "test-session", operation: "chat", origin: "shown", estimateCredits: 3, maximumCredits: 11 }]);
     expect(state.rateLimited).toEqual(["chat-quote"]);
     expect(credits()).toBe(100);
     expectNothingStarted();
@@ -169,12 +183,12 @@ describe("chat quotes and the maximum charge (#60)", () => {
     const { quote } = (await askQuote()).body;
     const turn = await send(quote.quoteId);
     expect(turn.status).toBe(200);
-    expect(calls("reserveCredits")).toMatchObject([{ amount: 13, costUsd: 0.13 }]);
-    // 1,000 tokens each way: 3 credits of the 13 held.
-    expect(calls("deductCredits")).toMatchObject([{ amount: 13, actualAmount: 3, actualCostUsd: 0.03 }]);
+    expect(calls("reserveCredits")).toMatchObject([{ amount: 11, costUsd: 0.11 }]);
+    // 1,000 tokens each way: 3 credits of the 11 held.
+    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualAmount: 3, actualCostUsd: 0.03 }]);
     expect(credits()).toBe(97);
     expect(turn.text).toContain('"creditsCharged":3');
-    expect(turn.text).toContain('"maximumCredits":13');
+    expect(turn.text).toContain('"maximumCredits":11');
     expect(await storedQuotes()).toMatchObject([{ usedBy: expect.stringMatching(/^chat-/), chargedCredits: 3, usedFallbackEstimate: false }]);
   });
 
@@ -183,17 +197,17 @@ describe("chat quotes and the maximum charge (#60)", () => {
     providerStreamImpl.mockImplementation(async () => answer({ input: 1000, output: 1000 }, true));
     const failed = await send(quote.quoteId);
     expect(failed.status).toBe(200);
-    expect(calls("reserveCredits")).toMatchObject([{ amount: 13 }]);
+    expect(calls("reserveCredits")).toMatchObject([{ amount: 11 }]);
     expect(calls("releaseReservation")).toHaveLength(1);
     expect(calls("deductCredits")).toHaveLength(0);
     expect(credits()).toBe(100);
-    expect(failed.text).toContain('"creditsRefunded":13');
+    expect(failed.text).toContain('"creditsRefunded":11');
     expect((await storedQuotes())[0].chargedCredits).toBeUndefined();
 
     providerStreamImpl.mockImplementation(async () => answer());
     const again = await send(quote.quoteId);
     expect(again.status).toBe(409);
-    expect(again.json()).toMatchObject({ error: "Quote stale", reason: "used", quote: { estimateCredits: 3, maximumCredits: 13 } });
+    expect(again.json()).toMatchObject({ error: "Quote stale", reason: "used", quote: { estimateCredits: 3, maximumCredits: 11 } });
     expect(calls("reserveCredits")).toHaveLength(1);
   });
 
@@ -204,10 +218,10 @@ describe("chat quotes and the maximum charge (#60)", () => {
     vi.setSystemTime(Date.parse("2026-11-13T12:05:00Z"));
     const stale = await send(quote.quoteId);
     expect(stale.status).toBe(409);
-    expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "expired", quote: { estimateCredits: 3, maximumCredits: 13, expiresAt: Date.parse("2026-11-13T12:10:00Z") } });
+    expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "expired", quote: { estimateCredits: 3, maximumCredits: 11, expiresAt: Date.parse("2026-11-13T12:10:00Z") } });
     expectNothingStarted();
     expect((await send(stale.json().quote.quoteId)).status).toBe(200);
-    expect(calls("reserveCredits")).toMatchObject([{ amount: 13 }]);
+    expect(calls("reserveCredits")).toMatchObject([{ amount: 11 }]);
   });
 
   it("refuses a missing, tampered or other-session quote id the same way", async () => {
@@ -215,7 +229,7 @@ describe("chat quotes and the maximum charge (#60)", () => {
     for (const quoteId of [undefined, "not-a-quote", `${quote.quoteId.slice(0, -1)}${quote.quoteId.endsWith("a") ? "b" : "a"}`]) {
       const refused = await send(quoteId);
       expect(refused.status).toBe(409);
-      expect(refused.json()).toMatchObject({ error: "Quote stale", reason: "missing", quote: { estimateCredits: 3, maximumCredits: 13 } });
+      expect(refused.json()).toMatchObject({ error: "Quote stale", reason: "missing", quote: { estimateCredits: 3, maximumCredits: 11 } });
     }
     state.sessions.set("other-session", { ...fixtures.sessions.paidWithCredits, sid: "other-session", credits: 100 });
     sid.value = "other-session";
@@ -232,15 +246,15 @@ describe("chat quotes and the maximum charge (#60)", () => {
     pricing.value = { ...DEFAULT_PRICING, completion: "0.00003" };
     const stale = await send(quote.quoteId);
     expect(stale.status).toBe(409);
-    // Typical turn: $0.04 → 5 credits. Maximum: (8,000 × $0.00001 + 2,048 × $0.00003) × 1.25 → 18 credits.
-    expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "changed", quote: { estimateCredits: 5, maximumCredits: 18 } });
+    // Typical turn: (709 × $0.00001 + 1,000 × $0.00003) × 1.25 → 5 credits. Maximum: (6,409 × $0.00001 + 2,048 × $0.00003) × 1.25 → 16 credits.
+    expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "changed", quote: { estimateCredits: 5, maximumCredits: 16 } });
     expectNothingStarted();
     expect((await send(stale.json().quote.quoteId)).status).toBe(200);
-    expect(calls("reserveCredits")).toMatchObject([{ amount: 18 }]);
+    expect(calls("reserveCredits")).toMatchObject([{ amount: 16 }]);
   });
 
   it("issues no quote and starts no turn for a model whose maximum passes 100 credits, though its estimate does not", async () => {
-    // $100 per million tokens each way: a typical turn is about 25 credits, the bounded maximum about 126.
+    // $100 per million tokens each way: a typical turn is about 22 credits, the bounded maximum about 106.
     pricing.value = { prompt: "0.0001", completion: "0.0001" };
     const quote = await askQuote();
     expect(quote.status).toBe(400);
@@ -260,17 +274,36 @@ describe("chat quotes and the maximum charge (#60)", () => {
     expectNothingStarted();
   });
 
+  it("never lets a cheap model's quote pay for a dearer model: the turn is refused with a quote at the dearer price", async () => {
+    // The answering model can change in Advanced after the composer was quoted.
+    otherModelPricing.set("test/dearer-model", { prompt: "0.00003", completion: "0.00003" });
+    const cheap = (await askQuote("test/model")).body.quote;
+    expect(cheap).toMatchObject({ estimateCredits: 3, maximumCredits: 11 });
+
+    const stale = await send(cheap.quoteId, { model: "test/dearer-model" });
+    expect(stale.status).toBe(409);
+    // At $30 per million each way: typical (709 in, 1,000 out) × 1.25 → 7 credits; maximum (6,409 in, 2,048 out) × 1.25 → 32.
+    expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "changed", quote: { estimateCredits: 7, maximumCredits: 32 } });
+    expectNothingStarted();
+    // The cheap quote is still unused, and still cannot be spent on the dearer model.
+    expect((await send(cheap.quoteId, { model: "test/dearer-model" })).status).toBe(409);
+    expectNothingStarted();
+
+    expect((await send(stale.json().quote.quoteId, { model: "test/dearer-model" })).status).toBe(200);
+    expect(calls("reserveCredits")).toMatchObject([{ amount: 32 }]);
+  });
+
   it("caps settlement at the accepted maximum when usage comes in above it", async () => {
     const { quote } = (await askQuote()).body;
     providerStreamImpl.mockImplementation(async () => answer({ input: 20_000, output: 5_000 })); // 32 credits at these prices
     const turn = await send(quote.quoteId);
     expect(turn.status).toBe(200);
     // The charge is capped; the daily limit still counts what the turn was worth.
-    expect(calls("deductCredits")).toMatchObject([{ amount: 13, actualAmount: 13, actualCostUsd: 0.32 }]);
-    expect(credits()).toBe(87);
-    expect(turn.text).toContain('"creditsCharged":13');
+    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualAmount: 11, actualCostUsd: 0.32 }]);
+    expect(credits()).toBe(89);
+    expect(turn.text).toContain('"creditsCharged":11');
     expect(turn.text).toContain('"actualCredits":32');
-    expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 13, usedFallbackEstimate: false });
+    expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 11, usedFallbackEstimate: false });
   });
 
   it("charges the accepted estimate when the provider reports no usage, and records the charge as estimated", async () => {
@@ -278,7 +311,7 @@ describe("chat quotes and the maximum charge (#60)", () => {
     providerStreamImpl.mockImplementation(async () => answer(null));
     const turn = await send(quote.quoteId);
     expect(turn.status).toBe(200);
-    expect(calls("deductCredits")).toMatchObject([{ amount: 13, actualAmount: 3 }]);
+    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualAmount: 3 }]);
     expect(credits()).toBe(97);
     expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 3, usedFallbackEstimate: true });
   });
@@ -290,7 +323,7 @@ describe("chat quotes and the maximum charge (#60)", () => {
     const { quote } = (await askQuote()).body;
     providerStreamImpl.mockImplementation(async () => answer(usage));
     expect((await send(quote.quoteId)).status).toBe(200);
-    expect(calls("deductCredits")).toMatchObject([{ amount: 13, actualAmount: 3 }]);
+    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualAmount: 3 }]);
     expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 3, usedFallbackEstimate: true });
   });
 
@@ -298,7 +331,7 @@ describe("chat quotes and the maximum charge (#60)", () => {
     const { quote } = (await askQuote()).body;
     providerStreamImpl.mockImplementation(async () => answer({ input: 0, output: 0 }));
     expect((await send(quote.quoteId)).status).toBe(200);
-    expect(calls("deductCredits")).toMatchObject([{ amount: 13, actualAmount: 1 }]);
+    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualAmount: 1 }]);
     expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 1, usedFallbackEstimate: false });
   });
 
@@ -314,13 +347,13 @@ describe("chat quotes and the maximum charge (#60)", () => {
   });
 
   it("requires the whole maximum to be affordable, when quoting and when sending", async () => {
-    setSession({ credits: 12 });
+    setSession({ credits: 10 });
     const quoted = await askQuote();
     expect(quoted.status).toBe(402);
-    expect(quoted.body).toMatchObject({ error: "Insufficient credits", required: 13, available: 12 });
+    expect(quoted.body).toMatchObject({ error: "Insufficient credits", required: 11, available: 10 });
     const turn = await send("any");
     expect(turn.status).toBe(402);
-    expect(turn.json()).toMatchObject({ error: "Insufficient credits", required: 13, available: 12 });
+    expect(turn.json()).toMatchObject({ error: "Insufficient credits", required: 11, available: 10 });
     expect(await storedQuotes()).toHaveLength(0);
     expectNothingStarted();
   });
@@ -332,6 +365,51 @@ describe("chat quotes and the maximum charge (#60)", () => {
     expect(calls("reserveCredits")).toHaveLength(0);
     expect(calls("logAdminUsage")).toHaveLength(1);
     expect(await storedQuotes()).toHaveLength(0);
+  });
+
+  describe("with the chapter so far", () => {
+    const firstVerse: Passage = { book: "Psalms", chapter: 119, verseRange: "1" };
+    const deepVerse: Passage = { book: "Psalms", chapter: 119, verseRange: "40" };
+
+    it("quotes more for a question deep in a chapter than at its first verse, and the turn accepts that quote", async () => {
+      const first = (await askQuote(undefined, firstVerse)).body.quote;
+      const deep = (await askQuote(undefined, deepVerse)).body.quote;
+      expect(deep.maximumCredits).toBeGreaterThan(first.maximumCredits);
+      expect(deep.estimateCredits).toBeGreaterThan(first.estimateCredits);
+
+      const turn = await send(deep.quoteId, { context: deepVerse, translation: "web" });
+      expect(turn.status).toBe(200);
+      expect(calls("reserveCredits")).toMatchObject([{ amount: deep.maximumCredits }]);
+    });
+
+    it("refuses a quote issued for a shorter context, with a fresh quote for this one", async () => {
+      const first = (await askQuote(undefined, firstVerse)).body.quote;
+      const deep = (await askQuote(undefined, deepVerse)).body.quote;
+      const stale = await send(first.quoteId, { context: deepVerse, translation: "web" });
+      expect(stale.status).toBe(409);
+      expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "changed", quote: { maximumCredits: deep.maximumCredits } });
+      expectNothingStarted();
+    });
+
+    it("still refuses a question whose larger context passes the 100-credit cap, when quoting and when sending", async () => {
+      // $100 per million input tokens: about 82 credits at the first verse, over 100 with the chapter so far.
+      pricing.value = { prompt: "0.0001", completion: "0", contextLength: 200_000 };
+      expect((await askQuote(undefined, firstVerse)).status).toBe(200);
+      const quoted = await askQuote(undefined, deepVerse);
+      expect(quoted.status).toBe(400);
+      expect(quoted.body).toMatchObject({ error: "Request too expensive", maximum: 100 });
+      const turn = await send("any-quote", { context: deepVerse, translation: "web" });
+      expect(turn.status).toBe(400);
+      expect(turn.json()).toMatchObject({ error: "Request too expensive", maximum: 100 });
+      expect(calls("reserveCredits")).toHaveLength(0);
+    });
+
+    it("refuses to quote an unknown passage or translation", async () => {
+      expect((await askQuote(undefined, { book: "Psalms", chapter: 119, verseRange: "200" })).status).toBe(400);
+      requestBody.value = { context: firstVerse, translation: "not-a-translation" };
+      expect((await post(quoteRoute, "/api/chat/quote")).status).toBe(400);
+      expect(await storedQuotes()).toHaveLength(0);
+    });
   });
 
   it("does not quote a model that cannot be priced", async () => {

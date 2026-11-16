@@ -18,27 +18,22 @@ type BaseProps = {
 
 export type PreferenceChangeSource =
   | "translation_selector"
-  | "image_model_selector"
-  | "art_style_selector"
-  | "chat_model_selector"
-  | "header_generate_modal"
-  | "header_settings_popover"
-  | "mobile_header_menu"
-  | "header_gallery_toggle"
-  | "chapter_gallery_card"
+  | "spread_paint_switch"
+  | "look"
+  | "advanced"
   | "unknown";
 
 export type GenerationTriggerSource =
   | "auto_generate"
-  | "hero_generate"
-  | "header_generate"
-  | "hero_retry"
-  | "fullscreen_retry";
+  | "spread_paint"
+  | "spread_retry"
+  | "picture_menu_paint"
+  | "picture_menu_retry";
 
 export type CreditsFrictionSource =
   | GenerationTriggerSource
-  | "chat_submit"
-  | "header_get_credits";
+  | "ask_submit"
+  | "contents_paint";
 
 // Event-specific property types
 type VerseViewProps = BaseProps & {
@@ -49,37 +44,21 @@ type VerseViewProps = BaseProps & {
   translation: string;
 };
 
-type VerseImagesStateProps = BaseProps & {
-  book: string;
-  chapter: number;
-  verse: number;
-  /** "prose" for a prose work's moment: book is the work's title, chapter its division, verse the first paragraph. */
-  testament: "old" | "new" | "prose";
-} & (
-  | {
-      imageState: "known";
-      imageCount: number;
-      hasImages: boolean;
-    }
-  | {
-      imageState: "unknown";
-    }
-);
+/** Where Ask was opened: by sending from the words page's foot, or from the phone dock. */
+export type AskOpenSource = "words_page" | "dock";
 
-type ChatOpenedProps = BaseProps & {
-  variant: "sidebar";
-  hasContext: boolean;
+type AskOpenedProps = BaseProps & {
+  source: AskOpenSource;
 };
 
-type ChatMessageSentProps = BaseProps & {
-  variant: "sidebar" | "inline";
-  chatModel: string;
+type AskQuestionSentProps = BaseProps & {
+  source: "suggestion" | "field";
+  /** Turns in the conversation including this question: 1 for the first, 3 for the first follow-up. */
   messageCount: number;
-  hasContext: boolean;
 };
 
 type ChatErrorShownProps = BaseProps & {
-  variant: "sidebar" | "inline";
+  variant: "ask";
   chatModel: string;
   errorType: ChatErrorType;
   hasContext: boolean;
@@ -150,8 +129,6 @@ type InvoiceCancelledProps = BaseProps & {
   invoiceAgeSeconds: number;
 };
 
-type MenuOpenedProps = BaseProps;
-
 type PreferenceChangedProps = BaseProps & {
   preference:
     | "translation"
@@ -160,8 +137,10 @@ type PreferenceChangedProps = BaseProps & {
     | "imageAspectRatio"
     | "imageResolution"
     | "artStyle"
+    | "textSize"
     | "autoGenerate"
-    | "chapterGallery";
+    | "feedbackPrompts"
+    | "appearance";
   value: string;
   source: PreferenceChangeSource;
 };
@@ -169,7 +148,6 @@ type PreferenceChangedProps = BaseProps & {
 type FeedbackSubmittedProps = BaseProps & {
   hasContext: boolean;
   hasImageContext: boolean;
-  sidebarTab: "feedback";
   /** "image" reports one saved image; "general" is everything else. */
   kind?: "general" | "image";
   /** The reported image's art style as the library reports it (historical images are Classical). */
@@ -181,61 +159,20 @@ type FeedbackPromptInteractionProps = BaseProps & {
   visitCount: number;
 };
 
-type ChapterGalleryViewedProps = BaseProps & {
-  book: string;
-  chapter: number;
-  currentVerse: number;
-  layoutMode: "all" | "byVerse";
-  savedImageCount: number;
-  placeholderCount: number;
+type LookOpenedProps = BaseProps & {
+  /** The control that opened Look: the dock's "Aa" (computer or phone) or the translation name on the words page. */
+  source: "dock" | "translation_name";
 };
 
-type ChapterGalleryLayoutChangedProps = BaseProps & {
-  book: string;
-  chapter: number;
-  currentVerse: number;
-  layoutMode: "all" | "byVerse";
+type PictureMenuOpenedProps = BaseProps & {
+  /** The verse's pictures in the chosen art style. */
+  pictureCount: number;
 };
 
-type ChapterGalleryItemOpenedProps = BaseProps & {
-  book: string;
-  chapter: number;
-  currentVerse: number;
-  verse: number;
-  layoutMode: "all" | "byVerse";
-  hasImage: boolean;
-  imageCount: number;
-  imageId?: string;
-};
-
-type ImageFullscreenOpenedProps = BaseProps & {
+type ContentsOpenedProps = BaseProps & {
   book: string;
   chapter: number;
   verse: number;
-  source: "hero_mobile" | "verse_strip" | "chapter_gallery_card";
-  imageId?: string;
-  totalImages?: number;
-};
-
-type ImageBrowsedProps = BaseProps & {
-  book: string;
-  chapter: number;
-  verse: number;
-  direction: "older" | "newer";
-  surface: "desktop_dock" | "overlay" | "fullscreen";
-  currentIndex: number;
-  totalImages: number;
-  imageId?: string;
-};
-
-type SavedImageLoadFailedProps = BaseProps & {
-  book: string;
-  chapter: number;
-  verse: number;
-  surface: "hero" | "fullscreen" | "chapter_gallery_card" | "chapter_gallery_lightbox";
-  imageId?: string;
-  imageUrl?: string;
-  attempt?: number;
 };
 
 type ApiDocsViewedProps = BaseProps & {
@@ -243,52 +180,44 @@ type ApiDocsViewedProps = BaseProps & {
 };
 
 type ApiDocsLinkClickedProps = BaseProps & {
-  source: "hero_cta" | "quick_link" | "footer";
+  source: "hero_cta" | "quick_link" | "footer" | "corner_menu";
   href: string;
   target: "internal" | "external" | "api";
 };
+
+/** How the reader turned the page. */
+export type VerseNavigationSource = "keyboard" | "dock" | "swipe" | "mark" | "contents";
 
 type VerseNavigationProps = BaseProps & {
   book: string;
   chapter: number;
   verse: number;
-  direction: "prev" | "next";
-  source: "keyboard" | "mobile_nav" | "desktop_nav";
+  /** "jump" is a move to any verse, such as a Contents tile. */
+  direction: "prev" | "next" | "jump";
+  source: VerseNavigationSource;
   targetUrl: string;
 };
 
-type SettingsMenuOpenedProps = BaseProps;
-
-function sanitizeImageUrl(imageUrl?: string): string | undefined {
-  if (!imageUrl) return undefined;
-
-  try {
-    const url = new URL(imageUrl);
-    return url.pathname || undefined;
-  } catch {
-    const sanitized = imageUrl.split("#", 1)[0]?.split("?", 1)[0]?.trim();
-    return sanitized || undefined;
-  }
-}
+type WholePictureOpenedProps = BaseProps & {
+  book: string;
+  chapter: number;
+  verse: number;
+  imageId?: string;
+};
 
 // Track verse page view
 export function trackVerseView(props: VerseViewProps) {
   track("verse_view", props);
 }
 
-// Track verse image inventory state (known vs unknown)
-export function trackVerseImagesState(props: VerseImagesStateProps) {
-  track("verse_images_state", props);
+// Track the turned-over words page opening for Ask
+export function trackAskOpened(props: AskOpenedProps) {
+  track("ask_opened", props);
 }
 
-// Track chat sidebar opened
-export function trackChatOpened(props: ChatOpenedProps) {
-  track("chat_opened", props);
-}
-
-// Track chat message sent
-export function trackChatMessageSent(props: ChatMessageSentProps) {
-  track("chat_message_sent", props);
+// Track a question sent from the spread's Ask
+export function trackAskQuestionSent(props: AskQuestionSentProps) {
+  track("ask_question_sent", props);
 }
 
 // Track chat error surfaced to user
@@ -351,11 +280,6 @@ export function trackInvoiceCancelled(props: InvoiceCancelledProps) {
   track("invoice_cancelled", props);
 }
 
-// Track menu opened
-export function trackMenuOpened(props: MenuOpenedProps) {
-  track("menu_opened", props);
-}
-
 // Track preference changes
 export function trackPreferenceChanged(props: PreferenceChangedProps) {
   track("preference_changed", props);
@@ -371,37 +295,19 @@ export function trackFeedbackPromptInteraction(props: FeedbackPromptInteractionP
   track("feedback_prompt_interaction", props);
 }
 
-// Track chapter gallery view
-export function trackChapterGalleryViewed(props: ChapterGalleryViewedProps) {
-  track("chapter_gallery_viewed", props);
+// Track Contents, the chapter wall opened from the passage name
+export function trackContentsOpened(props: ContentsOpenedProps) {
+  track("contents_opened", props);
 }
 
-// Track gallery layout changes
-export function trackChapterGalleryLayoutChanged(props: ChapterGalleryLayoutChangedProps) {
-  track("chapter_gallery_layout_changed", props);
+// Track Look, the panel for art style, translation and text size
+export function trackLookOpened(props: LookOpenedProps) {
+  track("look_opened", props);
 }
 
-// Track navigation from gallery cards into the reader
-export function trackChapterGalleryItemOpened(props: ChapterGalleryItemOpenedProps) {
-  track("chapter_gallery_item_opened", props);
-}
-
-// Track fullscreen image opens across the new image surfaces
-export function trackImageFullscreenOpened(props: ImageFullscreenOpenedProps) {
-  track("image_fullscreen_opened", props);
-}
-
-// Track older/newer image browsing
-export function trackImageBrowsed(props: ImageBrowsedProps) {
-  track("image_browsed", props);
-}
-
-// Track saved-image load failures that surface in the UI
-export function trackSavedImageLoadFailed(props: SavedImageLoadFailedProps) {
-  track("saved_image_load_failed", {
-    ...props,
-    imageUrl: sanitizeImageUrl(props.imageUrl),
-  });
+// Track an opening of the picture menu on the spread (#441)
+export function trackPictureMenuOpened(props: PictureMenuOpenedProps) {
+  track("picture_menu_opened", props);
 }
 
 // Track API docs page views
@@ -419,7 +325,8 @@ export function trackVerseNavigation(props: VerseNavigationProps) {
   track("verse_navigation", props);
 }
 
-// Track the mobile settings menu
-export function trackSettingsMenuOpened(props: SettingsMenuOpenedProps) {
-  track("settings_menu_opened", props);
+// Track the spread's whole-picture view being opened from its picture
+export function trackWholePictureOpened(props: WholePictureOpenedProps) {
+  track("whole_picture_opened", props);
 }
+

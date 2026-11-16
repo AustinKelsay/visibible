@@ -2,7 +2,6 @@
 
 import { X, MessageCircleHeart } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import { useNavigation } from "@/context/navigation-context";
 import { useSession } from "@/context/session-context";
 import { trackFeedbackPromptInteraction } from "@/lib/analytics";
 
@@ -15,6 +14,8 @@ interface FeedbackPromptState {
   lastDismissed: number | null;
   visitCount: number;
   showAtVisit: number;
+  /** The page last counted. */
+  lastVisitKey?: string;
 }
 
 function getStoredState(): FeedbackPromptState {
@@ -60,219 +61,122 @@ function buildDismissedState(previous: FeedbackPromptState): FeedbackPromptState
   };
 }
 
+export interface FeedbackPromptProps {
+  /** The page being read ("john-1-5"). Each new one counts as a visit. */
+  visitKey: string;
+  /** Open the feedback form. */
+  onOpen: () => void;
+  /** Keep the prompt hidden, for example while a layer is open over the page. */
+  suppressed?: boolean;
+  /** Where it sits. */
+  className?: string;
+}
+
 /**
- * Feedback prompt CTA that appears occasionally to ask for user feedback.
- * Shows after a random number of verse visits (5-15) and respects a 24-hour cooldown.
+ * The occasional "Have feedback?" prompt. It shows after a random number of verse visits (5–15), for 8 seconds, and
+ * not again for 24 hours after it is dismissed or used. The reader turns it on in Advanced; it is off by default.
  */
-export function FeedbackPrompt() {
-  const { isChatOpen, chatContext, openFeedback } = useNavigation();
+export function FeedbackPrompt({ visitKey, onOpen, suppressed = false, className = "" }: FeedbackPromptProps) {
   const { tier, credits, isLoading } = useSession();
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
   const [promptState, setPromptState] = useState<FeedbackPromptState>(() => getStoredState());
   const hasReachedThreshold =
     !isCooldownActive(promptState.lastDismissed) && promptState.visitCount >= promptState.showAtVisit;
-  const lastContextKeyRef = useRef<string>("");
-  const showTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const dismissTimerRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Track verse visits and determine when to show
+  const analytics = useRef({ tier, hasCredits: credits > 0, isLoading });
   useEffect(() => {
-    if (!chatContext) return;
+    analytics.current = { tier, hasCredits: credits > 0, isLoading };
+  });
 
-    const currentContextKey = `${chatContext.book}-${chatContext.chapter}-${chatContext.verseRange}`;
-
-    // Only count if this is a new verse (not initial load of same verse)
-    if (currentContextKey !== lastContextKeyRef.current && lastContextKeyRef.current !== "") {
-      // Defer state update to avoid synchronous setState in effect
-      requestAnimationFrame(() => {
-        setPromptState((prev) => {
-          const nextState = { ...prev, visitCount: prev.visitCount + 1 };
-          saveState(nextState);
-          return nextState;
-        });
-      });
-    }
-
-    lastContextKeyRef.current = currentContextKey;
-  }, [chatContext?.book, chatContext?.chapter, chatContext?.verseRange, chatContext]);
-
-  // Show/hide logic - now depends on hasReachedThreshold
+  // Count a visit each time a new page is read. The last page is stored, so a remount does not count it again.
   useEffect(() => {
-    /**
-     * Determines if the prompt should be shown based on current state.
-     */
-    function checkShouldShow(): boolean {
-      // Don't show if sidebar is open or already dismissed this session
-      if (isChatOpen || isDismissed) {
-        return false;
-      }
-      // Don't show if threshold not reached
-      if (!hasReachedThreshold) {
-        return false;
-      }
-      return true;
-    }
-
-    // Hide immediately if we shouldn't show
-    if (!checkShouldShow()) {
-      requestAnimationFrame(() => {
-        setIsVisible(false);
-      });
-      return () => {
-        // Clear any existing timers
-        if (showTimerRef.current) {
-          clearTimeout(showTimerRef.current);
-          showTimerRef.current = null;
-        }
-        if (dismissTimerRef.current) {
-          clearTimeout(dismissTimerRef.current);
-          dismissTimerRef.current = null;
-        }
-      };
-    }
-
-    // Show prompt after a brief delay so it does not compete with first paint.
-    showTimerRef.current = setTimeout(() => {
-      setIsVisible(true);
-      if (!isLoading) {
-        trackFeedbackPromptInteraction({
-          action: "shown",
-          visitCount: promptState.visitCount,
-          tier,
-          hasCredits: credits > 0,
-        });
-      }
-      // Start auto-dismiss timer only after we've actually shown the prompt
-      dismissTimerRef.current = setTimeout(() => {
-        setIsVisible(false);
-        setIsDismissed(true);
-        if (!isLoading) {
-          trackFeedbackPromptInteraction({
-            action: "dismissed",
-            visitCount: promptState.visitCount,
-            tier,
-            hasCredits: credits > 0,
-          });
-        }
-        setPromptState((prev) => {
-          const nextState = buildDismissedState(prev);
-          saveState(nextState);
-          return nextState;
-        });
-      }, 8000); // 8 seconds visible
-    }, 2000);
-
-    return () => {
-      // Clear both timers on cleanup
-      if (showTimerRef.current) {
-        clearTimeout(showTimerRef.current);
-        showTimerRef.current = null;
-      }
-      if (dismissTimerRef.current) {
-        clearTimeout(dismissTimerRef.current);
-        dismissTimerRef.current = null;
-      }
+    const stored = getStoredState();
+    if (stored.lastVisitKey === visitKey) return;
+    const nextState = {
+      ...stored,
+      visitCount: stored.lastVisitKey === undefined ? stored.visitCount : stored.visitCount + 1,
+      lastVisitKey: visitKey,
     };
-  }, [isChatOpen, isDismissed, hasReachedThreshold, promptState.visitCount, tier, credits, isLoading]);
+    saveState(nextState);
+    // Defer state update to avoid synchronous setState in effect
+    requestAnimationFrame(() => setPromptState(nextState));
+  }, [visitKey]);
 
-  const handleDismiss = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const track = (action: "shown" | "dismissed" | "clicked") => {
+    const { tier, hasCredits, isLoading } = analytics.current;
+    if (!isLoading) trackFeedbackPromptInteraction({ action, visitCount: promptState.visitCount, tier, hasCredits });
+  };
+  const trackRef = useRef(track);
+  useEffect(() => {
+    trackRef.current = track;
+  });
+
+  const finish = () => {
     setIsVisible(false);
     setIsDismissed(true);
-    if (!isLoading) {
-      trackFeedbackPromptInteraction({
-        action: "dismissed",
-        visitCount: promptState.visitCount,
-        tier,
-        hasCredits: credits > 0,
-      });
-    }
-
-    // Update stored state with dismissal time and reset visit count
     setPromptState((prev) => {
       const nextState = buildDismissedState(prev);
       saveState(nextState);
       return nextState;
     });
   };
+  const finishRef = useRef(finish);
+  useEffect(() => {
+    finishRef.current = finish;
+  });
 
-  const handleClick = () => {
-    if (!isLoading) {
-      trackFeedbackPromptInteraction({
-        action: "clicked",
-        visitCount: promptState.visitCount,
-        tier,
-        hasCredits: credits > 0,
-      });
+  // Show after a brief delay so it does not compete with the page, then dismiss itself after 8 seconds.
+  useEffect(() => {
+    if (suppressed || isDismissed || !hasReachedThreshold) {
+      requestAnimationFrame(() => setIsVisible(false));
+      return;
     }
-    openFeedback();
-    setIsVisible(false);
-    setIsDismissed(true);
+    let dismissTimer: ReturnType<typeof setTimeout> | null = null;
+    const showTimer = setTimeout(() => {
+      setIsVisible(true);
+      trackRef.current("shown");
+      dismissTimer = setTimeout(() => {
+        trackRef.current("dismissed");
+        finishRef.current();
+      }, 8000);
+    }, 2000);
+    return () => {
+      clearTimeout(showTimer);
+      if (dismissTimer) clearTimeout(dismissTimer);
+    };
+  }, [suppressed, isDismissed, hasReachedThreshold]);
 
-    // Update stored state
-    setPromptState((prev) => {
-      const nextState = buildDismissedState(prev);
-      saveState(nextState);
-      return nextState;
-    });
-  };
-
-  // Don't render if sidebar is open or dismissed
-  if (isChatOpen || isDismissed) return null;
+  if (suppressed || isDismissed || !isVisible) return null;
 
   return (
     <div
-      role="button"
-      tabIndex={0}
-      onClick={handleClick}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          handleClick();
-        }
-      }}
+      role="status"
       style={{ marginBottom: "env(safe-area-inset-bottom)" }}
-      className={`
-        hidden md:fixed z-30
-        bottom-[160px] right-6
-        md:bottom-6 md:right-[88px]
-        max-w-[calc(100vw-3rem)] sm:max-w-[240px] md:max-w-[280px]
-        px-3 py-2.5 sm:px-4 sm:py-3
-        bg-[var(--surface)] border border-[var(--divider)]
-        rounded-[var(--radius-md)] shadow-md
-        text-left
-        text-xs sm:text-sm text-[var(--foreground)]
-        hover:bg-[var(--divider)]
-        transition-all duration-[var(--motion-base)] ease-out
-        cursor-pointer
-        ${isVisible ? "opacity-100 translate-y-0 md:translate-x-0" : "opacity-0 translate-y-4 md:translate-y-0 md:translate-x-4 pointer-events-none"}
-      `}
-      aria-label="Share your feedback"
+      className={`z-30 flex max-w-[min(20rem,calc(100vw-1.5rem))] items-center gap-1 rounded-2xl border border-ink/10 bg-reader-glass p-1 text-ink shadow-2xl backdrop-blur-2xl animate-in fade-in duration-[var(--motion-base)] ${className}`}
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2 flex-1">
-          <MessageCircleHeart
-            size={16}
-            strokeWidth={1.5}
-            className="shrink-0 text-[var(--accent)]"
-          />
-          <span className="leading-relaxed">Have feedback? We&apos;d love to hear from you!</span>
-        </div>
-        <button
-          onClick={handleDismiss}
-          className="
-            shrink-0 min-h-[20px] min-w-[20px]
-            flex items-center justify-center
-            text-[var(--muted)] hover:text-[var(--foreground)]
-            transition-colors duration-[var(--motion-fast)]
-          "
-          aria-label="Dismiss prompt"
-          title="Dismiss"
-        >
-          <X size={14} strokeWidth={2} />
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={() => {
+          track("clicked");
+          onOpen();
+          finish();
+        }}
+        className="flex min-h-11 flex-1 items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-ink/90 hover:bg-ink/10 focus-visible:outline-2 focus-visible:outline-ink"
+      >
+        <MessageCircleHeart size={16} strokeWidth={1.5} aria-hidden="true" className="shrink-0" />
+        <span>Have feedback? We&apos;d love to hear from you!</span>
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          track("dismissed");
+          finish();
+        }}
+        aria-label="Dismiss prompt"
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-ink/(--quiet-60) hover:bg-ink/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-ink"
+      >
+        <X size={14} strokeWidth={2} />
+      </button>
     </div>
   );
 }

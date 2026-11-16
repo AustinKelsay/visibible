@@ -1,23 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Header } from "@/components/header";
-import { BookMenu } from "@/components/book-menu";
-import { LayoutWrapper } from "@/components/layout-wrapper";
-import { ChatContextSetter } from "@/components/chat-context-setter";
-import { Footer } from "@/components/footer";
-import { MobileVerseNav } from "@/components/mobile-verse-nav";
+import { SiteHeader } from "@/components/site-header";
 import { VerseAnalytics } from "@/components/verse-analytics";
 import { PassageUnavailable } from "@/components/passage-unavailable";
-import { VersePageContent } from "@/components/verse-page-content";
-import { VerseViewProvider } from "@/context/verse-view-context";
-import { BibleApiLookupError } from "@/lib/bible-api";
+import { Spread } from "@/components/spread/spread";
+import { BibleApiLookupError, TRANSLATIONS } from "@/lib/bible-api";
 import { getChapter, getVerse } from "@/lib/scripture";
 import { getTranslationFromCookies } from "@/lib/get-translation";
-import { MOBILE_VERSE_NAV_OFFSET } from "@/lib/mobile-verse-nav";
 import {
   parseVerseUrl,
   getNavigationUrls,
+  getNextVerse,
   formatReference,
+  verseLocationToId,
 } from "@/lib/navigation";
 
 interface VersePageProps {
@@ -93,81 +88,40 @@ export default async function VersePage({ params }: VersePageProps) {
   const verseData = chapterData?.verses.find((item) => item.verse === location.verse);
   if (!chapterData || !verseData) {
     return (
-      <LayoutWrapper>
-        <Header />
+      <div className="flex min-h-screen flex-col bg-[var(--background)]">
+        <SiteHeader />
         <PassageUnavailable reference={formatReference(location)} translation={translation} retryable={retryable} />
-        <Footer />
-        <BookMenu />
-      </LayoutWrapper>
+      </div>
     );
   }
 
-  // Calculate navigation URLs
   const { prevUrl, nextUrl } = getNavigationUrls(location);
-  const totalVerses = chapterData.verses.length;
-
-  // Build chat context for sidebar
-  const chatContext = {
-    book: bookData.name,
-    chapter: location.chapter,
-    verseRange: String(location.verse),
-  };
-  const currentReference = `${bookData.name} ${location.chapter}:${location.verse}`;
+  const nextVerse = getNextVerse(location);
 
   return (
-    <LayoutWrapper>
-      <VerseViewProvider
-      >
-        {/* Analytics tracking */}
-        <VerseAnalytics
-          book={bookData.name}
-          chapter={location.chapter}
-          verse={location.verse}
-          testament={bookData.testament}
-          translation={translation}
-        />
-
-        {/* Set chat context for sidebar */}
-        <ChatContextSetter context={chatContext} />
-
-        {/* Header */}
-        <Header />
-
-        <VersePageContent
-          bookSlug={location.book.slug}
-          bookName={bookData.name}
-          chapter={location.chapter}
-          verseNumber={location.verse}
-          verseText={verseData.text}
-          totalVerses={totalVerses}
-          prevUrl={prevUrl ?? undefined}
-          nextUrl={nextUrl ?? undefined}
-          currentReference={currentReference}
-          testament={bookData.testament}
-          verses={chapterData.verses.map((item) => ({
-            verse: item.verse,
-            text: item.text,
-          }))}
-        />
-
-        {/* Footer */}
-        <Footer />
-
-        {/* Spacer so sticky mobile verse nav bar doesn't cover footer */}
-        <div className="sm:hidden" style={{ height: MOBILE_VERSE_NAV_OFFSET }} aria-hidden="true" />
-
-        <MobileVerseNav
-          book={bookData.name}
-          chapter={location.chapter}
-          verseNumber={location.verse}
-          totalVerses={totalVerses}
-          prevUrl={prevUrl ?? undefined}
-          nextUrl={nextUrl ?? undefined}
-        />
-
-        {/* Book Menu */}
-        <BookMenu />
-      </VerseViewProvider>
-    </LayoutWrapper>
+    <>
+      <VerseAnalytics
+        book={bookData.name}
+        chapter={location.chapter}
+        verse={location.verse}
+        testament={bookData.testament}
+        translation={translation}
+      />
+      <Spread
+        verseId={verseLocationToId(location)}
+        path={`/${bookData.slug}/${location.chapter}/${location.verse}`}
+        bookSlug={bookData.slug}
+        bookName={bookData.name}
+        chapter={location.chapter}
+        verseNumber={location.verse}
+        reference={`${bookData.name} ${location.chapter}:${location.verse}`}
+        verseText={verseData.text}
+        totalVerses={chapterData.verses.length}
+        translationName={TRANSLATIONS[translation].name}
+        prevUrl={prevUrl ?? undefined}
+        nextUrl={nextUrl ?? undefined}
+        nextVerseId={nextVerse ? verseLocationToId(nextVerse) : undefined}
+      />
+    </>
   );
 }
