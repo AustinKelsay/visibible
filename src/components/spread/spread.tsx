@@ -1,5 +1,6 @@
 "use client";
 
+import { AskProvider } from "@/components/spread/ask";
 import { LayerProvider } from "@/components/spread/layers";
 import { PageTurnLink, usePageTurn } from "@/components/spread/page-turn";
 import { SpreadPicture } from "@/components/spread/spread-picture";
@@ -38,17 +39,20 @@ export function Spread({ verseId, bookName, chapter, verseNumber, verseText, tot
           <SpreadPicture verseId={verseId} reference={reference} />
         </div>
 
-        <WordsPage
-          bookName={bookName}
-          chapter={chapter}
-          verseNumber={verseNumber}
-          verseText={verseText}
-          totalVerses={totalVerses}
-          translationName={translationName}
-          prevUrl={prevUrl}
-          nextUrl={nextUrl}
-          onTurn={onTurn}
-        />
+        {/* Keyed by the verse: turning the page clears the conversation. */}
+        <AskProvider key={verseId} verse={{ bookName, chapter, verseNumber, verseText }}>
+          <WordsPage
+            bookName={bookName}
+            chapter={chapter}
+            verseNumber={verseNumber}
+            verseText={verseText}
+            totalVerses={totalVerses}
+            translationName={translationName}
+            prevUrl={prevUrl}
+            nextUrl={nextUrl}
+            onTurn={onTurn}
+          />
+        </AskProvider>
 
         <div className="pointer-events-none absolute inset-x-0 bottom-8 hidden justify-center md:right-[var(--words-page-width)] md:flex">
           <nav

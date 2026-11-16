@@ -38,6 +38,7 @@ export type GenerationTriggerSource =
 export type CreditsFrictionSource =
   | GenerationTriggerSource
   | "chat_submit"
+  | "ask_submit"
   | "header_get_credits";
 
 // Event-specific property types
@@ -78,8 +79,21 @@ type ChatMessageSentProps = BaseProps & {
   hasContext: boolean;
 };
 
+/** Where Ask was opened: by sending from the words page's foot, or from the phone dock. */
+export type AskOpenSource = "words_page" | "dock";
+
+type AskOpenedProps = BaseProps & {
+  source: AskOpenSource;
+};
+
+type AskQuestionSentProps = BaseProps & {
+  source: "suggestion" | "field";
+  /** Turns in the conversation including this question: 1 for the first, 3 for the first follow-up. */
+  messageCount: number;
+};
+
 type ChatErrorShownProps = BaseProps & {
-  variant: "sidebar" | "inline";
+  variant: "sidebar" | "inline" | "ask";
   chatModel: string;
   errorType: ChatErrorType;
   hasContext: boolean;
@@ -291,6 +305,16 @@ export function trackChatOpened(props: ChatOpenedProps) {
 // Track chat message sent
 export function trackChatMessageSent(props: ChatMessageSentProps) {
   track("chat_message_sent", props);
+}
+
+// Track the turned-over words page opening for Ask
+export function trackAskOpened(props: AskOpenedProps) {
+  track("ask_opened", props);
+}
+
+// Track a question sent from the spread's Ask
+export function trackAskQuestionSent(props: AskQuestionSentProps) {
+  track("ask_question_sent", props);
 }
 
 // Track chat error surfaced to user

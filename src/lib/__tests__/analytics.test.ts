@@ -8,6 +8,8 @@ import { track } from "@vercel/analytics";
 import {
   trackApiDocsLinkClicked,
   trackApiDocsViewed,
+  trackAskOpened,
+  trackAskQuestionSent,
   trackChapterGalleryItemOpened,
   trackChapterGalleryLayoutChanged,
   trackChapterGalleryViewed,
@@ -46,6 +48,8 @@ describe("analytics event wrappers", () => {
   it.each([
     [trackApiDocsLinkClicked, "api_docs_link_clicked"],
     [trackApiDocsViewed, "api_docs_viewed"],
+    [trackAskOpened, "ask_opened"],
+    [trackAskQuestionSent, "ask_question_sent"],
     [trackChapterGalleryItemOpened, "chapter_gallery_item_opened"],
     [trackChapterGalleryLayoutChanged, "chapter_gallery_layout_changed"],
     [trackChapterGalleryViewed, "chapter_gallery_viewed"],
