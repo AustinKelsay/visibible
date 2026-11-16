@@ -318,6 +318,11 @@ html {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
+/* The spread's dock over the painting: darker glass, so its label stays readable on bright pictures */
+.liquid-glass.spread-dock {
+  background-color: rgba(0, 0, 0, 0.55);
+}
+
 /* Responsive variant — applies liquid-glass only at sm (640px) and up */
 @media (min-width: 640px) {
   .liquid-glass-sm {

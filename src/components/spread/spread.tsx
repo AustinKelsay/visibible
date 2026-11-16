@@ -51,7 +51,7 @@ export function Spread({ verseId, bookName, chapter, verseNumber, verseText, tot
       <div className="pointer-events-none absolute inset-x-0 bottom-8 hidden justify-center md:right-[var(--words-page-width)] md:flex">
         <nav
           aria-label="Turn the page"
-          className="liquid-glass pointer-events-auto flex items-center gap-1 rounded-full p-1.5"
+          className="liquid-glass spread-dock pointer-events-auto flex items-center gap-1 rounded-full p-1.5"
         >
           <PageTurnLink direction="prev" href={prevUrl} onTurn={onTurn} />
           <span className="px-3 text-sm font-medium text-white/90">{reference}</span>
