@@ -47,7 +47,7 @@ function MarksRow({ bookSlug, bookName, chapter, verseNumber, totalVerses, onTur
         {verses.map((verse) => {
           const href = `/${bookSlug}/${chapter}/${verse}`;
           const isCurrent = verse === verseNumber;
-          const tone = isCurrent ? "bg-white" : painted.has(verse) ? "bg-white/70" : "bg-white/20";
+          const tone = isCurrent ? "bg-white" : painted.has(verse) ? "bg-white/60" : "bg-white/20";
           return (
             <li key={verse} className="flex min-w-0 flex-1">
               <Link
