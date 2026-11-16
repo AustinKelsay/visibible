@@ -39,7 +39,7 @@ export const READER_STATES: CaptureState[] = [
   // Moving pictures (#447, #480). Play needs a finished video of John 1:5's picture, made from that picture, in the
   // local data (READER_CAPTURE.md says how); the picture menu then shows that thumbnail's play badge. Video generation
   // is off locally, so "Make this picture move…" shows only with its pricing stubbed, on John 1:4, whose picture has no
-  // video. The run's guest has no credits, so the review's confirm reads "Get credits to make the video".
+  // video. The run's guest has no credits, so the review's confirm reads "Get credits · needs 50 credits".
   { name: "play-mark", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "waitfor:button:Play the video of John 1:5", "hover:css:article p:nth-of-type(2)"] },
   { name: "video-playing", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Play the video of John 1:5", "waitfor:css:video", "wait:1500"] },
   { name: "make-video", path: "/john/1/4", stubs: ["video-priced"], steps: ["waitfor:img:Picture of John 1:4", "click:button:Picture menu", "waitfor:text:Make this picture move", "wait:400"] },

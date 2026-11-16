@@ -33,14 +33,14 @@ interface MakeVideoProps {
   onMakingChange?: (making: boolean) => void;
 }
 
-const CHOICE = "inline-flex min-h-11 items-center justify-center rounded-full px-4 text-sm font-medium transition-colors duration-[var(--motion-fast)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-60";
+const CHOICE = "inline-flex min-h-11 items-center justify-center rounded-full px-4 py-1.5 text-center text-sm leading-tight font-medium transition-colors duration-[var(--motion-fast)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-60";
 
 /**
  * "Make this picture move…" in the picture menu (#447, #480). The row opens a short review of the picture the video
  * starts from: its thumbnail, "<Style> · 5 seconds · starts from this picture", a note that the video joins the shared
  * library, "Not now", and "Make the video · N credits", which authorises exactly that price. It keeps the old Video
  * tab's flow: the live quote from `GET /api/generate-video`, the credit rules (admins see no price, a balance that
- * cannot cover the quote is sent to get credits), one job at a time, and the browser-held request ID that lets an
+ * cannot cover the quote turns the confirm into "Get credits · needs N credits"), one job at a time, and the browser-held request ID that lets an
  * unconfirmed request be checked again without making a second video.
  *
  * It shows nothing while video generation is off, for a picture that is not 16:9, or for a picture that already has a
@@ -139,13 +139,13 @@ export function MakeVideo({ verseId, reference, picture, pictureHasVideo, myJobs
           <p className="mt-2.5 text-[13px] leading-snug text-ink/(--quiet-60)">
             The video is added to the shared library: anyone reading {reference} in {style} can watch it.
           </p>
-          <div className="mt-3 flex flex-wrap items-center justify-end gap-2">
-            <button type="button" className={`${CHOICE} text-ink/85 hover:bg-ink/10`} onClick={() => setReviewing(false)}>
+          <div className="mt-3 flex items-center gap-2">
+            <button type="button" className={`${CHOICE} shrink-0 text-ink/85 hover:bg-ink/10`} onClick={() => setReviewing(false)}>
               Not now
             </button>
             <button
               type="button"
-              className={`${CHOICE} bg-ink text-paper hover:bg-ink/90`}
+              className={`${CHOICE} min-w-0 flex-1 bg-ink text-paper hover:bg-ink/90`}
               disabled={!short && (!generation.ready || myJobs === undefined)}
               onClick={() => {
                 if (short) {
@@ -155,7 +155,16 @@ export function MakeVideo({ verseId, reference, picture, pictureHasVideo, myJobs
                 void generation.generate({ ...MENU_VIDEO, imageId: picture.id, maxCredits: quote.credits });
               }}
             >
-              {short ? `Get credits to make the video · ${price}` : isAdmin ? "Make the video" : `Make the video · ${price}`}
+              {/* The action, then its price on a line of its own (read as one name: "Make the video · 50 credits"). */}
+              <span className="flex flex-col items-center">
+                <span>{short ? "Get credits" : "Make the video"}</span>
+                {isAdmin ? null : (
+                  <span className="text-xs font-normal opacity-70">
+                    <span className="sr-only"> · </span>
+                    {short ? `needs ${price}` : price}
+                  </span>
+                )}
+              </span>
             </button>
           </div>
         </div>

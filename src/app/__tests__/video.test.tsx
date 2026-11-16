@@ -420,7 +420,7 @@ describe("making this picture move from the picture menu", () => {
     await openVerse("john", "1", "5");
     await openReview();
 
-    expect(confirm()?.textContent).toBe("Get credits to make the video · 50 credits");
+    expect(confirm()?.textContent).toBe("Get credits · needs 50 credits");
     await act(async () => { confirm()!.click(); });
     expect(buyCredits).toHaveBeenCalledTimes(1);
     expect(menu()).toBeNull();
