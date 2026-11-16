@@ -1,7 +1,7 @@
 import { ConvexError, v } from "convex/values";
-import { internalMutation, mutation, query } from "./_generated/server";
+import { internalMutation, internalQuery, mutation, query } from "./_generated/server";
 import type { QueryCtx } from "./_generated/server";
-import type { Doc } from "./_generated/dataModel";
+import type { Doc, Id } from "./_generated/dataModel";
 import { internal } from "./_generated/api";
 import { validateServerSecret } from "./_helpers/auth";
 import { authenticatedGuest } from "./guestAuth";
@@ -11,11 +11,14 @@ import {
   deductCreditsInTransaction,
   summarizeGenerationSettlement,
 } from "./sessions";
+import { artStyleOf, getPublicImageUrl } from "./verseImages";
 import {
   VIDEO_MODEL_ID,
+  isVideoFrame,
   videoCreditsForCost,
   type VideoJobResponse,
 } from "../src/lib/video-generation";
+import { PUBLIC_GENERIC_STYLE_IDS } from "../src/lib/engine/admission";
 
 const LEASE_MS = 3 * 60_000;
 const MAX_AGE_MS = 45 * 60_000;
@@ -35,6 +38,9 @@ async function response(
     resolution: job.resolution,
     createdAt: job.createdAt,
     estimatedCredits: job.estimatedCredits,
+    ...(job.sourceImageId
+      ? { sourceImageId: job.sourceImageId, artStyle: job.sourceArtStyle ?? artStyleOf({}) }
+      : {}),
     ...(job.actualCredits !== undefined
       ? { actualCredits: job.actualCredits }
       : {}),
@@ -42,6 +48,71 @@ async function response(
       ? { videoUrl: await ctx.storage.getUrl(job.storageId) }
       : {}),
     ...(job.error ? { error: job.error } : {}),
+  };
+}
+
+/**
+ * The picture a video may start from (#479): a saved picture of the verse, in a style the session may see (owner-only
+ * styles for admins only), and 16:9, the video's frame. Throws a coded error otherwise. A picture the reader may not
+ * see reads as missing, so a refusal says nothing about it.
+ */
+async function videoSourceFor(
+  ctx: QueryCtx,
+  args: { imageId: string; verseId: string; admin: boolean },
+): Promise<Doc<"verseImages">> {
+  const id = ctx.db.normalizeId("verseImages", args.imageId);
+  const image = id ? await ctx.db.get(id) : null;
+  if (
+    !image ||
+    image.verseId !== args.verseId ||
+    !(args.admin || PUBLIC_GENERIC_STYLE_IDS.includes(artStyleOf(image)))
+  )
+    throw new ConvexError({
+      code: "PICTURE_UNAVAILABLE",
+      message: "Choose a picture of this verse to start the video from.",
+    });
+  if (!isVideoFrame(image))
+    throw new ConvexError({
+      code: "PICTURE_SHAPE",
+      message: "Only a widescreen (16:9) picture can start a video.",
+    });
+  return image;
+}
+
+async function isAdminSid(ctx: QueryCtx, sid: string) {
+  const session = await ctx.db
+    .query("sessions")
+    .withIndex("by_sid", (q) => q.eq("sid", sid))
+    .unique();
+  return session?.tier === "admin" && session.revokedAt === undefined;
+}
+
+/** The route's check of the requested picture, before any price is quoted or credits held (#479). Server-only. */
+export const checkVideoSource = query({
+  args: {
+    serverSecret: v.string(),
+    sid: v.string(),
+    verseId: v.string(),
+    imageId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const image = await videoSourceFor(ctx, {
+      ...args,
+      admin: await isAdminSid(ctx, args.sid),
+    });
+    return { imageId: image._id, artStyle: artStyleOf(image) };
+  },
+});
+
+/** Whether the caller may see videos of a style: public styles for everyone, owner-only styles for an admin. */
+async function styleVisibility(ctx: QueryCtx) {
+  let isAdmin: boolean | undefined;
+  return async (style: string | undefined) => {
+    if (style === undefined) return false;
+    if (PUBLIC_GENERIC_STYLE_IDS.includes(style)) return true;
+    isAdmin ??= (await authenticatedGuest(ctx))?.tier === "admin";
+    return isAdmin;
   };
 }
 
@@ -78,6 +149,7 @@ export const enqueue = mutation({
     reference: v.string(),
     translation: v.string(),
     prompt: v.string(),
+    sourceImageId: v.string(),
     duration: v.union(v.literal(5), v.literal(10)),
     resolution: v.union(v.literal("480p"), v.literal("768p")),
     estimatedCostUsd: v.number(),
@@ -128,6 +200,12 @@ export const enqueue = mutation({
         code: "UNAUTHORIZED",
         message: "Session expired.",
       });
+    // The picture is checked again here, in the same transaction that holds credits, and its style copied.
+    const source = await videoSourceFor(ctx, {
+      imageId: args.sourceImageId,
+      verseId: args.verseId,
+      admin: session.tier === "admin",
+    });
     const active = await ctx.db
       .query("videoJobs")
       .withIndex("by_sid_active", (q) =>
@@ -168,10 +246,13 @@ export const enqueue = mutation({
           message: hold.error ?? "Unable to reserve credits.",
         });
     }
-    const { serverSecret: _secret, ...inputs } = args;
+    const { serverSecret: _secret, sourceImageId: _source, ...inputs } = args;
     void _secret;
+    void _source;
     const id = await ctx.db.insert("videoJobs", {
       ...inputs,
+      sourceImageId: source._id,
+      sourceArtStyle: artStyleOf(source),
       generationId,
       admin,
       active: true,
@@ -220,6 +301,10 @@ export const getMyJobs = query({
     return Promise.all(jobs.map((job) => response(ctx, job)));
   },
 });
+/**
+ * A verse's finished videos, newest first, each with the picture it belongs to (#479): the picture menu badges those
+ * pictures. Videos without a source picture, and videos of a style the caller may not see, are never returned.
+ */
 export const getHistory = query({
   args: { verseId: v.string(), limit: v.optional(v.number()) },
   handler: async (ctx, args): Promise<VideoJobResponse[]> => {
@@ -230,8 +315,50 @@ export const getHistory = query({
         q.eq("verseId", args.verseId).eq("status", "completed"),
       )
       .order("desc")
+      .filter((q) => q.neq(q.field("sourceImageId"), undefined))
       .take(limit);
-    return Promise.all(jobs.map((job) => response(ctx, job)));
+    const visible = await styleVisibility(ctx);
+    const shown = await Promise.all(jobs.map((job) => visible(job.sourceArtStyle)));
+    return Promise.all(
+      jobs.filter((_, index) => shown[index]).map((job) => response(ctx, job)),
+    );
+  },
+});
+
+/** The newest finished video of one saved picture (#479), or null; the spread's Play shows for it. */
+export async function newestPictureVideo(ctx: QueryCtx, imageId: Id<"verseImages">) {
+  return ctx.db
+    .query("videoJobs")
+    .withIndex("by_source_status", (q) =>
+      q.eq("sourceImageId", imageId).eq("status", "completed"),
+    )
+    .order("desc")
+    .first();
+}
+
+export const getPictureVideo = query({
+  args: { imageId: v.string() },
+  handler: async (ctx, args): Promise<VideoJobResponse | null> => {
+    const id = ctx.db.normalizeId("verseImages", args.imageId);
+    const job = id ? await newestPictureVideo(ctx, id) : null;
+    if (!job || !(await (await styleVisibility(ctx))(job.sourceArtStyle)))
+      return null;
+    return response(ctx, job);
+  },
+});
+
+/** The first frame the provider is sent: the source picture's public address, or null when the picture is gone. */
+export const firstFrameUrl = internalQuery({
+  args: { id: v.id("videoJobs") },
+  handler: async (ctx, args): Promise<string | null> => {
+    const job = await ctx.db.get(args.id);
+    const image = job?.sourceImageId ? await ctx.db.get(job.sourceImageId) : null;
+    if (!image) return null;
+    try {
+      return getPublicImageUrl(image);
+    } catch {
+      return null;
+    }
   },
 });
 
@@ -320,7 +447,12 @@ export const finish = internalMutation({
       job.estimatedCredits,
       videoCreditsForCost(actualCostUsd),
     );
-    if (!job.admin) {
+    // A job accepted before videos came from a picture (#479) has no source picture, so no reader can
+    // see it: release its hold instead of charging for it, and Visibible absorbs the provider's cost.
+    const unseen = !job.sourceImageId;
+    if (!job.admin && unseen) {
+      await releaseReservationInTransaction(ctx, job);
+    } else if (!job.admin) {
       const entries = await ctx.db
         .query("creditLedger")
         .withIndex("by_generationId", (q) =>
@@ -345,8 +477,8 @@ export const finish = internalMutation({
       active: false,
       storageId: args.storageId,
       actualCostUsd,
-      actualCredits: job.admin ? 0 : actualCredits,
-      absorbedCostUsd: Math.max(0, actualCostUsd - job.estimatedCostUsd),
+      actualCredits: job.admin || unseen ? 0 : actualCredits,
+      absorbedCostUsd: unseen ? actualCostUsd : Math.max(0, actualCostUsd - job.estimatedCostUsd),
       updatedAt: Date.now(),
       leaseUntil: 0,
     });

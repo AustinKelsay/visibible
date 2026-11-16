@@ -266,7 +266,7 @@ describe("a prose moment on the spread", () => {
     ]);
   });
 
-  it("shows the picture menu on the picture without Make a video, and the whole picture with the moment as its caption", async () => {
+  it("shows the picture menu on the picture without making it move, and the whole picture with the moment as its caption", async () => {
     savedPictures = [{ id: "down-the-rabbit-hole-1:a", imageUrl: "https://img.test/alice-1.png", artStyle: "watercolor", createdAt: 1 }];
     await openMoment("down-the-rabbit-hole-1");
     expect(container.querySelector('button[aria-label^="Picture menu"]')).not.toBeNull();
@@ -275,7 +275,7 @@ describe("a prose moment on the spread", () => {
     await settle();
     const menu = container.querySelector('[role="dialog"][aria-label="Picture menu"]')!;
     expect(menu.textContent).toContain("Paint another");
-    expect(menu.textContent).not.toMatch(/Make a video/);
+    expect(menu.textContent).not.toMatch(/Make this picture move|video/i);
     pressKey("Escape");
     await act(async () => {});
 

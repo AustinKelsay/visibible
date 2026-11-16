@@ -8,7 +8,9 @@ import type { Id } from "../../convex/_generated/dataModel";
 const provider = vi.hoisted(() => ({ submitVideo: vi.fn(), pollVideo: vi.fn(), downloadVideo: vi.fn() }));
 vi.mock("../../src/lib/video-provider", () => provider);
 
-const input = {
+// Every video starts from a saved picture of its verse (#479); setup saves one and names it here.
+let input = {
+  sourceImageId: "",
   serverSecret: "server-only", sid: "viewer", requestId: "request-1", verseId: "genesis-1-1",
   reference: "Genesis 1:1", translation: "KJV", prompt: "A dawn over the waters",
   duration: 5 as const, resolution: "480p" as const, estimatedCostUsd: 0.8,
@@ -19,10 +21,16 @@ beforeEach(() => {
   vi.resetAllMocks();
   vi.stubEnv("CONVEX_SERVER_SECRET", "server-only");
   vi.stubEnv("GUEST_AUTH_ISSUER", "https://guest.example");
+  vi.stubEnv("CONVEX_SITE_URL", "https://actions.example.com");
 });
 afterEach(() => { vi.useRealTimers(); vi.unstubAllEnvs(); });
+async function savePicture(t: ReturnType<typeof convexTest>, verseId: string) {
+  const storageId = await t.run(ctx => ctx.storage.store(new Blob(["jpeg"], { type: "image/jpeg" })));
+  return t.mutation(internal.verseImages.saveImageWithStorage, { verseId, storageId, model: "m", aspectRatio: "16:9" });
+}
 async function setup(admin = false) {
   const t = convexTest(schema, modules);
+  input = { ...input, sourceImageId: await savePicture(t, input.verseId) };
   const sessionId = await t.run(ctx => ctx.db.insert("sessions", { sid: "viewer", tier: admin ? "admin" : "paid", credits: admin ? 0 : 500, createdAt: Date.now(), lastSeenAt: Date.now() }));
   return { t, sessionId };
 }
@@ -42,7 +50,7 @@ describe("durable video intent and settlement", () => {
     expect(await t.mutation(api.verseVideos.enqueue, input)).toEqual(first);
     await expect(t.mutation(api.verseVideos.enqueue, { ...input, inputFingerprint: "different" })).rejects.toThrow("different video settings");
     await expect(t.query(api.verseVideos.findRequest, { serverSecret: input.serverSecret, sid: input.sid, requestId: input.requestId, inputFingerprint: "different" })).rejects.toThrow("different video settings");
-    await expect(t.mutation(api.verseVideos.enqueue, { ...input, requestId: "request-2", verseId: "genesis-1-2" })).rejects.toThrow("already generating");
+    await expect(t.mutation(api.verseVideos.enqueue, { ...input, requestId: "request-2", verseId: "genesis-1-2", sourceImageId: await savePicture(t, "genesis-1-2") })).rejects.toThrow("already generating");
     expect((await t.run(ctx => ctx.db.get(sessionId)))?.credits).toBe(400);
     expect(await t.run(ctx => ctx.db.query("creditLedger").collect())).toHaveLength(1);
   });
@@ -96,6 +104,21 @@ describe("durable video intent and settlement", () => {
     expect(history[0]).not.toHaveProperty("prompt");
     expect((await t.run(ctx => ctx.db.get(id)))?.absorbedCostUsd).toBe(0.7);
     expect((await t.run(ctx => ctx.db.get(sessionId)))?.dailySpendUsd).toBe(1.5);
+  });
+
+  it("releases instead of charging when a job from before source pictures finishes", async () => {
+    const { t, sessionId } = await setup();
+    const result = await t.mutation(api.verseVideos.enqueue, input);
+    const id = result.id as Id<"videoJobs">;
+    const claim = (await t.mutation(internal.verseVideos.claim, { id }))!;
+    await t.mutation(internal.verseVideos.advance, { id, lease: claim.lease, providerId: "video", costUsd: 0.8, ready: true });
+    // Accepted by the code before #479: no source picture.
+    await t.run(ctx => ctx.db.patch(id, { sourceImageId: undefined, sourceArtStyle: undefined }));
+    const stored = (await t.mutation(internal.verseVideos.claim, { id }))!;
+    const storageId = await t.run(ctx => ctx.storage.store(new Blob(["video"])));
+    expect(await t.mutation(internal.verseVideos.finish, { id, lease: stored.lease, storageId })).toBe(true);
+    expect((await t.run(ctx => ctx.db.get(sessionId)))?.credits).toBe(500);
+    expect(await t.run(ctx => ctx.db.get(id))).toMatchObject({ status: "completed", actualCredits: 0, absorbedCostUsd: 0.8 });
   });
 
   it("refunds excess actual credits and keeps settlement idempotent", async () => {

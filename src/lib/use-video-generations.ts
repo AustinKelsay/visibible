@@ -49,6 +49,7 @@ export function useVideoGenerations({
         if (
           saved &&
           typeof saved.requestId === "string" &&
+          typeof saved.imageId === "string" &&
           saved.reference === reference &&
           typeof saved.translation === "string" &&
           [5, 10].includes(saved.duration) &&

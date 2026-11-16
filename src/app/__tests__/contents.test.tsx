@@ -88,7 +88,7 @@ vi.mock("@/context/bulk-generation-context", () => ({
 
 type SavedPicture = { id: string; imageUrl: string; thumbnailUrl: string | null; artStyle: string; createdAt: number };
 let savedPictures: SavedPicture[] = [];
-/** Verses with a finished video. */
+/** Verses whose tile picture has a finished video (the server's `hasVideo`). */
 let videoVerses = new Set<string>();
 const contentsReads: Array<{ verseIds: string[]; styles: string[] }> = [];
 
@@ -241,7 +241,7 @@ describe("Contents", () => {
     expect(wallSources.filter((src) => src?.includes("/full/"))).toEqual(["https://img.test/full/john-1-4-nothumb.png"]);
   });
 
-  it("puts a play mark on the tile of a verse with a video, painted or not, and none on the others", async () => {
+  it("puts a play mark on a tile whose picture has a video, and none on the others or on an unpainted tile", async () => {
     savedPictures = [picture("john-1-1", "a", 1), picture("john-1-2", "old", 1), picture("john-1-2", "new", 2), picture("john-1-3", "b", 1)];
     videoVerses = new Set(["john-1-1", "john-1-2", "john-1-6"]);
     await openVerse("john", "1", "5");
@@ -249,10 +249,10 @@ describe("Contents", () => {
 
     expect(tile(1).getAttribute("aria-label")).toBe("Verse 1, has a video");
     expect(tile(2).getAttribute("aria-label")).toBe("Verse 2, 2 pictures, has a video");
-    expect(tile(6).getAttribute("aria-label")).toBe("Verse 6, not painted yet, has a video");
+    expect(tile(6).getAttribute("aria-label")).toBe("Verse 6, not painted yet");
     expect(tile(3).getAttribute("aria-label")).toBe("Verse 3");
     const playMarks = tiles().filter((link) => link.querySelector('[data-play-mark]'));
-    expect(playMarks).toEqual([tile(1), tile(2), tile(6)]);
+    expect(playMarks).toEqual([tile(1), tile(2)]);
   });
 
   it("opens the chosen verse and closes", async () => {

@@ -16,6 +16,8 @@ export type VideoJobStatus =
   | "failed";
 export interface VideoGenerationRequest {
   requestId: string;
+  /** The saved picture the video starts from (#479). */
+  imageId: string;
   reference: string;
   translation: string;
   duration: VideoDuration;
@@ -32,6 +34,9 @@ export interface VideoJobResponse {
   resolution: VideoResolution;
   createdAt: number;
   estimatedCredits: number;
+  /** The picture the video starts from and its art style (#479); absent on videos made from text alone. */
+  sourceImageId?: string;
+  artStyle?: string;
   actualCredits?: number;
   videoUrl?: string | null;
   error?: string;
@@ -58,4 +63,18 @@ export function videoCreditsForCost(providerCostUsd: number): number {
 
 export function isActiveVideoStatus(status: VideoJobStatus): boolean {
   return status !== "completed" && status !== "failed";
+}
+
+/** How far a picture's shape may be from 16:9 and still be a video's first frame (1376 × 768 is about 0.8% wide). */
+const FRAME_TOLERANCE = 0.02;
+
+/**
+ * Whether a saved picture can be a video's first frame (#479): it is 16:9, the video's frame. Its recorded aspect
+ * ratio decides; a picture without one counts by its size; a picture with neither cannot.
+ */
+export function isVideoFrame(picture: { aspectRatio?: string | null; imageWidth?: number | null; imageHeight?: number | null }): boolean {
+  if (picture.aspectRatio) return picture.aspectRatio === VIDEO_ASPECT_RATIO;
+  const { imageWidth: width, imageHeight: height } = picture;
+  if (!width || !height || width <= 0 || height <= 0) return false;
+  return Math.abs(width / height / (16 / 9) - 1) <= FRAME_TOLERANCE;
 }

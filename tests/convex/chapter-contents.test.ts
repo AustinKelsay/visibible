@@ -1,7 +1,7 @@
 /**
  * Contents (#445): one bounded read per chapter that returns, per verse, the tile picture (the newest picture in the
- * first of the given styles that has one), its thumbnail, how many pictures the verse has, and whether it has a video
- * (#447).
+ * first of the given styles that has one), its thumbnail, how many pictures the verse has, and whether the tile's own
+ * picture has a video (#447, #479).
  */
 import { convexTest } from "convex-test";
 import { describe, expect, it, vi } from "vitest";
@@ -9,6 +9,7 @@ import schema from "../../convex/schema";
 import { api, internal } from "../../convex/_generated/api";
 import { CONTENTS_COUNT_CAP, readChapterContents } from "../../convex/verseImages";
 import type { QueryCtx } from "../../convex/_generated/server";
+import type { Id } from "../../convex/_generated/dataModel";
 import { modules } from "./modules";
 
 process.env.CONVEX_SITE_URL = "https://actions.example.com";
@@ -36,14 +37,19 @@ function setup() {
     await t.run(async (ctx) => { await ctx.db.patch(id, { createdAt }); });
     return id;
   };
-  /** Store a video job for a verse in the given state; only a completed one is a video readers can watch. */
-  const video = async (verseId: string, status: "completed" | "processing" | "failed" = "completed") => {
+  /**
+   * Store a video job for a verse in the given state, made from `source` (a saved picture) or, as before #479, from the
+   * verse text alone; only a completed one is a video readers can watch.
+   */
+  const video = async (verseId: string, source: Id<"verseImages"> | null, status: "completed" | "processing" | "failed" = "completed") => {
     n += 1;
     const storageId = status === "completed" ? await blob("video/mp4") : undefined;
+    const image = source ? await t.run((ctx) => ctx.db.get(source)) : null;
     await t.run((ctx) => ctx.db.insert("videoJobs", {
       sid: "maker", requestId: `v${n}`, inputFingerprint: `f${n}`, generationId: `video:maker:v${n}`, verseId,
       reference: verseId, translation: "web", prompt: "p", duration: 5, resolution: "768p", status,
       active: status === "processing", admin: false, estimatedCostUsd: 0.4, estimatedCredits: 50,
+      ...(image ? { sourceImageId: image._id, sourceArtStyle: image.artStyleId ?? "classical" } : {}),
       ...(storageId ? { storageId } : {}), createdAt: at++, updatedAt: at, nextRunAt: at, lease: 0, leaseUntil: 0, attempts: 0,
     }));
   };
@@ -77,18 +83,27 @@ describe("the chapter contents read", () => {
     expect(third.pictureCount).toBe(1);
   });
 
-  it("says which verses have a video readers can watch: a finished one, not one being made or failed", async () => {
+  it("marks a tile only when the tile's own picture has a finished video", async () => {
     const { t, save, video } = setup();
-    await save("genesis-1-1", "classical");
-    await video("genesis-1-1");
-    await video("genesis-1-1");
-    await video("genesis-1-2", "processing");
-    await video("genesis-1-3", "failed");
-    // A video needs no picture.
-    await video("genesis-1-4");
+    // 1: the tile's picture has a video. 2: being made. 3: failed. 4: only an older version has one.
+    // 5: only the Watercolor picture has one. 6: a video made from text alone, without a picture. 7: no picture.
+    const first = await save("genesis-1-1", "classical");
+    await video("genesis-1-1", first);
+    await video("genesis-1-2", await save("genesis-1-2", "classical"), "processing");
+    await video("genesis-1-3", await save("genesis-1-3", "classical"), "failed");
+    await video("genesis-1-4", await save("genesis-1-4", "classical"));
+    await save("genesis-1-4", "classical");
+    await save("genesis-1-5", "classical");
+    await video("genesis-1-5", await save("genesis-1-5", "watercolor"));
+    await save("genesis-1-6", "classical");
+    await video("genesis-1-6", null);
+    await video("genesis-1-7", null);
 
-    const tiles = await t.query(api.verseImages.getChapterContents, { verseIds: chapter(5), styles: ["classical"] });
-    expect(tiles.map((tile) => tile.hasVideo)).toEqual([true, false, false, true, false]);
+    const tiles = await t.query(api.verseImages.getChapterContents, { verseIds: chapter(7), styles: ["classical", "watercolor"] });
+    expect(tiles.map((tile) => tile.hasVideo)).toEqual([true, false, false, false, false, false, false]);
+    // Choosing Watercolor moves the tile, and its mark, to the Watercolor picture.
+    const [, , , , watercolor] = await t.query(api.verseImages.getChapterContents, { verseIds: chapter(7), styles: ["watercolor", "classical"] });
+    expect(watercolor.hasVideo).toBe(true);
   });
 
   it("reads a picture saved before styles existed as Classical, and takes the newer of the two forms", async () => {
@@ -127,8 +142,7 @@ describe("the chapter contents read", () => {
       const { t, save, video } = setup();
       for (const verseId of chapter(4)) {
         for (let i = 0; i < perVerse; i += 1) {
-          await save(verseId, i % 2 ? "watercolor" : "classical");
-          await video(verseId);
+          await video(verseId, await save(verseId, i % 2 ? "watercolor" : "classical"));
         }
       }
       return t.run(async (ctx) => {

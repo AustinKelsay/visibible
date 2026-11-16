@@ -197,16 +197,30 @@ function assertJobId(id: string) {
   if (!JOB_ID.test(id)) throw new VideoRequestError("Invalid video job.", 400);
 }
 
-/** Submits exactly once. Never retry on an ambiguous error: the job may exist. */
+function isFrameUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return (url.protocol === "https:" || url.protocol === "http:") && !url.username && !url.password;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Submits exactly once. Never retry on an ambiguous error: the job may exist. The video starts from the saved picture
+ * at `firstFrameUrl` (#479), a public address the provider fetches without a session.
+ */
 export async function submitVideo(input: {
   prompt: string;
   duration: VideoDuration;
   resolution: VideoResolution;
+  firstFrameUrl: string;
 }): Promise<ProviderVideoJob> {
   if (
     !VIDEO_DURATIONS.includes(input.duration) ||
     !VIDEO_RESOLUTIONS.includes(input.resolution) ||
-    !input.prompt.trim()
+    !input.prompt.trim() ||
+    !isFrameUrl(input.firstFrameUrl)
   ) {
     throw new VideoRequestError("Unsupported video settings.", 400);
   }
@@ -218,6 +232,13 @@ export async function submitVideo(input: {
       duration: input.duration,
       resolution: input.resolution,
       aspect_ratio: VIDEO_ASPECT_RATIO,
+      frame_images: [
+        {
+          type: "image_url",
+          image_url: { url: input.firstFrameUrl },
+          frame_type: "first_frame",
+        },
+      ],
     }),
   });
   return parseVideoJob(data);
@@ -335,6 +356,8 @@ export function quotesFromCatalog(data: unknown): VideoQuote[] | null {
   const listIncludes = (field: string, value: unknown) =>
     Array.isArray(entry[field]) && (entry[field] as unknown[]).includes(value);
   if (!listIncludes("supported_aspect_ratios", VIDEO_ASPECT_RATIO)) return null;
+  // Every video starts from a picture (#479): a model that cannot take a first frame cannot make one.
+  if (!listIncludes("supported_frame_images", "first_frame")) return null;
   const skus =
     entry.pricing_skus && typeof entry.pricing_skus === "object"
       ? (entry.pricing_skus as Record<string, unknown>)

@@ -36,11 +36,14 @@ export const READER_STATES: CaptureState[] = [
   { name: "picture-menu", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "waitfor:dialog:Picture menu", "wait:600"] },
   { name: "picture-details", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "click:button:Details", "wait:400"] },
   { name: "report-picture", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "click:button:Report this picture", "wait:600"] },
-  // Video (#447). The play mark needs a finished video of John 1:5 in the local data (READER_CAPTURE.md says how);
-  // video generation is off locally, so "Make a video" shows only with its pricing stubbed.
+  // Moving pictures (#447, #480). Play needs a finished video of John 1:5's picture, made from that picture, in the
+  // local data (READER_CAPTURE.md says how); the picture menu then shows that thumbnail's play badge. Video generation
+  // is off locally, so "Make this picture move…" shows only with its pricing stubbed, on John 1:4, whose picture has no
+  // video. The run's guest has no credits, so the review's confirm reads "Get credits · needs 50 credits".
   { name: "play-mark", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "waitfor:button:Play the video of John 1:5", "hover:css:article p:nth-of-type(2)"] },
   { name: "video-playing", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Play the video of John 1:5", "waitfor:css:video", "wait:1500"] },
-  { name: "make-video", path: "/john/1/5", stubs: ["video-priced"], steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "waitfor:text:make a video", "wait:400"] },
+  { name: "make-video", path: "/john/1/4", stubs: ["video-priced"], steps: ["waitfor:img:Picture of John 1:4", "click:button:Picture menu", "waitfor:text:Make this picture move", "wait:400"] },
+  { name: "make-video-review", path: "/john/1/4", stubs: ["video-priced"], steps: ["waitfor:img:Picture of John 1:4", "click:button:Picture menu", "click:button:Make this picture move", "waitfor:group:Make this picture move", "wait:400"] },
   // The owner's prose reader (#451): a moment on the spread, its whole picture, its Contents of the work's divisions,
   // Look without translation, and an unpainted moment.
   { name: "prose", path: "/read/alice-in-wonderland/down-the-rabbit-hole-1", owner: true, steps: ["waitfor:img:Picture of Down the Rabbit-Hole ¶1–2", "hover:css:article h1"] },

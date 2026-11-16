@@ -27,14 +27,30 @@ export const process = internalAction({
         });
         return;
       }
-      const result =
-        job.status === "submitting"
-          ? await submitVideo({
-              prompt: job.prompt,
-              duration: job.duration,
-              resolution: job.resolution,
-            })
-          : await pollVideo(job.providerId!);
+      let result;
+      if (job.status === "submitting") {
+        // The picture the video starts from (#479). Gone before it was sent: nothing reached the provider, so refund.
+        const firstFrameUrl = await ctx.runQuery(
+          internal.verseVideos.firstFrameUrl,
+          { id: job._id },
+        );
+        if (!firstFrameUrl) {
+          await ctx.runMutation(internal.verseVideos.retryOrFail, {
+            ...ownership,
+            terminal: true,
+            failureKind: "source_missing",
+          });
+          return;
+        }
+        result = await submitVideo({
+          prompt: job.prompt,
+          duration: job.duration,
+          resolution: job.resolution,
+          firstFrameUrl,
+        });
+      } else {
+        result = await pollVideo(job.providerId!);
+      }
       if (result.status === "failed") {
         await ctx.runMutation(internal.verseVideos.retryOrFail, {
           ...ownership,
