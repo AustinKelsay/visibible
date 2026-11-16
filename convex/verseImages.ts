@@ -16,6 +16,7 @@ import { Id, type DataModel, type Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
 import { imageProvenanceValidator, renderingPacketValidator } from "./schema";
 import { isOwnerOnlyWork } from "./lib/proseWorks";
+import { PUBLIC_GENERIC_STYLE_IDS } from "../src/lib/engine/admission";
 
 const generationStatusValidator = v.union(
   v.literal("queued"),
@@ -259,13 +260,12 @@ export const getChapterImageStatus = query({
 /** Contents counts at most this many pictures per verse; a verse with more reports `morePictures`. */
 export const CONTENTS_COUNT_CAP = 9;
 const CONTENTS_MAX_VERSES = 200;
-const CONTENTS_MAX_STYLES = 12;
 
 /**
  * The picture rule's database half (spec #434, "Which picture a spread shows"): the newest picture of a verse in the
  * first of `styles` that has one, read from the verse-and-style index, so other pictures of the verse are never read.
  * Classical also covers pictures saved before styles existed. The caller orders `styles`: the chosen style, then any
- * fallbacks.
+ * fallbacks, already narrowed by `readerStyles`.
  */
 export async function newestPictureInStyles(ctx: QueryCtx, verseId: string, styles: readonly string[]): Promise<Doc<"verseImages"> | null> {
   for (const style of styles) {
@@ -280,21 +280,80 @@ export async function newestPictureInStyles(ctx: QueryCtx, verseId: string, styl
   return null;
 }
 
+const PICTURE_RULE_MAX_STYLES = 12;
+
 /**
- * Contents (#445): per verse, the tile picture (by `newestPictureInStyles`) with its thumbnail, and how many pictures
- * the verse has in any style, counted up to CONTENTS_COUNT_CAP, and whether it has a finished video (#447). Reads at
- * most CONTENTS_COUNT_CAP + 1 + one picture per style form + one video for each verse, however many are saved.
+ * The styles of `requested` (in its order) this caller may be shown pictures in: the public styles for everyone, and
+ * owner-only styles only for an admin session, whatever the client asks for. The admin check runs only when an
+ * owner-only style is asked for.
+ */
+export async function readerStyles(ctx: QueryCtx, requested: readonly string[]): Promise<string[]> {
+  if (requested.length === 0 || requested.length > PICTURE_RULE_MAX_STYLES) throw new Error(`Give between 1 and ${PICTURE_RULE_MAX_STYLES} art styles`);
+  for (const style of requested) normalizeStyleFilter({ artStyle: style });
+  const unique = [...new Set(requested)];
+  if (unique.every((style) => PUBLIC_GENERIC_STYLE_IDS.includes(style))) return unique;
+  const isAdmin = (await authenticatedGuest(ctx))?.tier === "admin";
+  return isAdmin ? unique : unique.filter((style) => PUBLIC_GENERIC_STYLE_IDS.includes(style));
+}
+
+/** What the reader needs to show a picture: its full and small URLs and its style. Null when its file is gone. */
+async function pictureSummary(ctx: QueryCtx, image: Doc<"verseImages">) {
+  const imageUrl = (image.storageId ? await ctx.storage.getUrl(image.storageId) : null) ?? image.imageUrl ?? null;
+  return imageUrl ? { id: image._id, imageUrl, thumbnailUrl: await thumbnailUrlOf(ctx, image), artStyle: artStyleOf(image) } : null;
+}
+
+/** The picture a verse's spread shows under `styles` (already narrowed by `readerStyles`), or null when it is unpainted. */
+async function spreadPictureOf(ctx: QueryCtx, verseId: string, styles: readonly string[], visible: (image: Doc<"verseImages">) => Promise<boolean>) {
+  const newest = await newestPictureInStyles(ctx, verseId, styles);
+  if (!newest || !(await visible(newest))) return null;
+  return pictureSummary(ctx, newest);
+}
+
+/**
+ * The spread's picture (#440): the newest picture of the verse in the first of `styles` (the chosen style, then the
+ * other styles the reader may see, in the style set's order) that has one, or null when the verse is unpainted.
+ * The next spread's prefetch reads it with the same arguments.
+ */
+export const getSpreadPicture = query({
+  args: { verseId: v.string(), styles: v.array(v.string()) },
+  handler: async (ctx, args) => spreadPictureOf(ctx, args.verseId, await readerStyles(ctx, args.styles), await visibleImageFilter(ctx)),
+});
+
+/** Where Look's style examples come from when the verse on screen has no picture in a style. */
+export const STYLE_EXAMPLE_VERSE_ID = "genesis-1-1";
+
+/**
+ * Look's art style examples (#440): for each style the reader may see, in order, the verse's own newest picture in it,
+ * else the example verse's, else null. One indexed read per style form and verse.
+ */
+export const getStyleExamples = query({
+  args: { verseId: v.string(), styles: v.array(v.string()) },
+  handler: async (ctx, args) => {
+    const styles = await readerStyles(ctx, args.styles);
+    const visible = await visibleImageFilter(ctx);
+    return Promise.all(styles.map(async (style) => ({
+      style,
+      picture: (await spreadPictureOf(ctx, args.verseId, [style], visible))
+        ?? (args.verseId === STYLE_EXAMPLE_VERSE_ID ? null : await spreadPictureOf(ctx, STYLE_EXAMPLE_VERSE_ID, [style], visible)),
+    })));
+  },
+});
+
+/**
+ * Contents (#445): per verse, the tile picture (by the picture rule, as the spread shows it) with its thumbnail, how
+ * many pictures the verse has in any style, counted up to CONTENTS_COUNT_CAP, and whether it has a finished video
+ * (#447). Reads at most CONTENTS_COUNT_CAP + 1 + one picture per style form + one video for each verse, however many
+ * are saved.
  */
 export async function readChapterContents(ctx: QueryCtx, args: { verseIds: string[]; styles: string[] }) {
   if (args.verseIds.length > CONTENTS_MAX_VERSES) throw new Error(`verseIds cannot exceed ${CONTENTS_MAX_VERSES} items`);
-  if (args.styles.length === 0 || args.styles.length > CONTENTS_MAX_STYLES) throw new Error(`Give between 1 and ${CONTENTS_MAX_STYLES} art styles`);
-  for (const style of args.styles) normalizeStyleFilter({ artStyle: style });
+  const styles = await readerStyles(ctx, args.styles);
   const visible = await visibleImageFilter(ctx);
 
   return Promise.all(args.verseIds.map(async (verseId) => {
     const [window, newest, video] = await Promise.all([
       ctx.db.query("verseImages").withIndex("by_verse", (q) => q.eq("verseId", verseId)).order("desc").take(CONTENTS_COUNT_CAP + 1),
-      newestPictureInStyles(ctx, verseId, args.styles),
+      newestPictureInStyles(ctx, verseId, styles),
       // Only a finished video is public (#447): one row says whether the verse has one.
       ctx.db.query("videoJobs").withIndex("by_verse_status", (q) => q.eq("verseId", verseId).eq("status", "completed")).first(),
     ]);
@@ -302,14 +361,9 @@ export async function readChapterContents(ctx: QueryCtx, args: { verseIds: strin
     if (!(await visible(window[0] ?? newest ?? ({} as Doc<"verseImages">)))) {
       return { verseId, picture: null, pictureCount: 0, morePictures: false, hasVideo: false };
     }
-    let picture = null;
-    if (newest) {
-      const imageUrl = (newest.storageId ? await ctx.storage.getUrl(newest.storageId) : null) ?? newest.imageUrl ?? null;
-      picture = imageUrl ? { id: newest._id, imageUrl, thumbnailUrl: await thumbnailUrlOf(ctx, newest), artStyle: artStyleOf(newest) } : null;
-    }
     return {
       verseId,
-      picture,
+      picture: newest ? await pictureSummary(ctx, newest) : null,
       pictureCount: Math.min(window.length, CONTENTS_COUNT_CAP),
       morePictures: window.length > CONTENTS_COUNT_CAP,
       hasVideo: video !== null,
@@ -631,30 +685,21 @@ export const getImageHistory = query({
 });
 
 /**
- * The glow behind an unpainted verse (#439): the newest picture in the style of the nearest earlier verse of the same
- * chapter that has one, or null. One indexed read per earlier verse, stopping at the first hit, so it never reads the
- * whole chapter. Verse ids are compared exactly ("john-1-1"), never as a prefix, so "john-1-10" and "john-11-1" never
- * count for John 1:1.
+ * The glow behind an unpainted verse (#439): the spread picture (by the picture rule, under `styles`) of the nearest
+ * earlier verse of the same chapter that has one, or null. A few indexed reads per earlier verse, stopping at the
+ * first hit, so it never reads the whole chapter. Verse ids are compared exactly ("john-1-1"), never as a prefix, so
+ * "john-1-10" and "john-11-1" never count for John 1:1.
  */
 export const getNearestEarlierPicture = query({
-  args: { verseId: v.string(), artStyle: v.string() },
+  args: { verseId: v.string(), styles: v.array(v.string()) },
   handler: async (ctx, args) => {
+    const styles = await readerStyles(ctx, args.styles);
     const match = /^(.+-\d+)-(\d+)$/.exec(args.verseId);
     if (!match) return null;
-    const chapterId = match[1];
-    const filter = normalizeStyleFilter({ artStyle: args.artStyle });
     const visible = await visibleImageFilter(ctx);
     for (let verse = Number(match[2]) - 1; verse >= 1; verse--) {
-      const candidates = withStyleFilter(ctx.db
-        .query("verseImages")
-        .withIndex("by_verse", (q) => q.eq("verseId", `${chapterId}-${verse}`))
-        .order("desc"), filter);
-      for await (const image of candidates) {
-        if (!(await visible(image))) continue;
-        const imageUrl = (image.storageId ? await ctx.storage.getUrl(image.storageId) : null) ?? image.imageUrl;
-        if (!imageUrl) continue;
-        return { verse, id: image._id, imageUrl, thumbnailUrl: await thumbnailUrlOf(ctx, image) };
-      }
+      const picture = await spreadPictureOf(ctx, `${match[1]}-${verse}`, styles, visible);
+      if (picture) return { verse, id: picture.id, imageUrl: picture.imageUrl, thumbnailUrl: picture.thumbnailUrl };
     }
     return null;
   },

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { allowsRequest, findBrowser, localBase, parseStep, selectStates, shotFile, stubFor, stubLabel } from "./plan";
+import { CAPTURE_STUBS, VIDEO_PRICING, allowsRequest, findBrowser, localBase, parseStep, pricedCatalog, selectStates, shotFile, stubLabel } from "./plan";
 import { READER_STATES } from "./states";
 
 describe("reader capture plan", () => {
@@ -25,18 +25,6 @@ describe("reader capture plan", () => {
     expect(allowsRequest("GET", "wss://example.convex.cloud/api/sync")).toBe(false);
     expect(allowsRequest("GET", "https://openrouter.ai/api/v1/models")).toBe(false);
     expect(allowsRequest("GET", "https://fonts.googleapis.com/css")).toBe(false);
-  });
-
-  it("answers a stubbed route itself, by method and path, and names the stubs on the picture", () => {
-    const pricing = { path: "/api/generate-video", json: { enabled: true } };
-    const making = { method: "POST" as const, path: "/api/generate-video", json: { id: "job" } };
-    const state = { name: "make-video", path: "/john/1/5", stubs: [pricing, making] };
-    expect(stubFor(state, "GET", "http://localhost:3101/api/generate-video?x=1")).toBe(pricing);
-    expect(stubFor(state, "POST", "http://localhost:3101/api/generate-video")).toBe(making);
-    expect(stubFor(state, "GET", "http://localhost:3101/api/generate-video/other")).toBeUndefined();
-    expect(stubFor({ name: "reading", path: "/john/1/5" }, "GET", "http://localhost:3101/api/generate-video")).toBeUndefined();
-    expect(stubLabel(state)).toBe("Stubbed: GET /api/generate-video, POST /api/generate-video");
-    expect(stubLabel({ name: "reading", path: "/john/1/5" })).toBeNull();
   });
 
   it("reads a state's steps, keeping colons inside names and selectors", () => {
@@ -89,7 +77,33 @@ describe("reader capture plan", () => {
       expect(state.name).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
       expect(state.path).toMatch(/^\//);
       for (const step of state.steps ?? []) expect(() => parseStep(step)).not.toThrow();
+      for (const stub of state.stubs ?? []) expect(CAPTURE_STUBS).toContain(stub);
     }
+  });
+
+  it("can price the image catalog as an app with a key would, without opening owner-only styles", () => {
+    const local = {
+      models: [{ id: "m", availability: "unavailable", unavailableReason: "Image generation is not configured", creditsCost: null }],
+      artStyles: [
+        { id: "classical", available: false, reason: "Temporarily unavailable for generation" },
+        { id: "icon", available: false, reason: "Owner only" },
+      ],
+    };
+    expect(pricedCatalog(local)).toEqual({
+      models: [{ id: "m", availability: "available", creditsCost: 6, reservationCreditsCost: 9, estimatedCreditsByResolution: { "1K": 6 }, etaSeconds: 20 }],
+      artStyles: [
+        { id: "classical", available: true },
+        { id: "icon", available: false, reason: "Owner only" },
+      ],
+    });
+  });
+
+  it("labels a stubbed state's pictures with what was faked, and fakes video as switched on with the menu's clip priced", () => {
+    expect(stubLabel({ name: "make-video", path: "/john/1/5", stubs: ["video-priced"] })).toBe("Stubbed: video pricing");
+    expect(stubLabel({ name: "both", path: "/john/1/5", stubs: ["priced", "video-priced"] })).toBe("Stubbed: image prices, video pricing");
+    expect(stubLabel({ name: "reading", path: "/john/1/5" })).toBeNull();
+    expect(VIDEO_PRICING.enabled).toBe(true);
+    expect(VIDEO_PRICING.quotes).toContainEqual(expect.objectContaining({ duration: 5, resolution: "768p" }));
   });
 
   it("names each picture after its state and size, and can shoot only some states", () => {

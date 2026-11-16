@@ -1,20 +1,4 @@
-import type { CaptureState, CaptureStub } from "./plan";
-
-/** Video generation on, at the prices of a 5- and 10-second clip (a local app has it off). */
-const VIDEO_PRICING: CaptureStub = {
-  path: "/api/generate-video",
-  json: {
-    enabled: true,
-    model: "minimax/hailuo-3-max",
-    modelName: "Hailuo 3 Max",
-    quotes: [
-      { duration: 5, resolution: "480p", providerCostUsd: 0.25, credits: 32 },
-      { duration: 5, resolution: "768p", providerCostUsd: 0.4, credits: 50 },
-      { duration: 10, resolution: "480p", providerCostUsd: 0.5, credits: 63 },
-      { duration: 10, resolution: "768p", providerCostUsd: 0.8, credits: 100 },
-    ],
-  },
-};
+import type { CaptureState } from "./plan";
 
 /**
  * Every reader state the capture command shoots, at desktop (1440×900) and phone (390×844) size unless `sizes` says
@@ -23,7 +7,8 @@ const VIDEO_PRICING: CaptureStub = {
  * them hovers the words page last. A state that shows a picture waits for it by its name ("Picture of John 1:5"), so
  * a slow read never leaves a blank where the picture belongs.
  *
- * Addresses assume the seeded local data: John 1:1–5, 9 and 14 painted in Classical, the rest of John 1 unpainted.
+ * Addresses assume the seeded local data: John 1:1–5, 9 and 14 painted in Classical, the rest of John 1 unpainted, and
+ * John 4:7 painted only in Watercolor.
  */
 export const READER_STATES: CaptureState[] = [
   { name: "reading", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "hover:css:article p:nth-of-type(2)"] },
@@ -34,6 +19,13 @@ export const READER_STATES: CaptureState[] = [
   { name: "whole-picture", path: "/john/1/5", steps: ["click:button:Show the whole picture of John 1:5", "wait:600"] },
   { name: "ask", path: "/john/1/5", steps: ["click:button:Ask a question…", "waitfor:dialog:Ask about John 1:5"], sizes: ["phone"] },
   { name: "contents", path: "/john/1/5", steps: ["click:button:Contents", "waitfor:dialog:Contents", "wait:1200"] },
+  // Priced by the `priced` stub. The run's guest has no credits, so the balance note shows; a running job needs a
+  // guest with credits and stubbed paintings, which this command cannot give (llm/workflow/READER_CAPTURE.md).
+  { name: "paint-chapter", path: "/john/1/5", stubs: ["priced"], steps: ["click:button:Contents", "waitfor:dialog:Contents", "waitfor:button:Paint the", "wait:600"] },
+  { name: "look", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Look", "waitfor:dialog:Look", "wait:800"] },
+  // Painted only in Watercolor while Classical is chosen: the picture rule's note and its offer (priced by the stub; the
+  // run's guest has no credits, so it reads "Get credits to paint").
+  { name: "other-style", path: "/john/4/7", stubs: ["priced"], steps: ["waitfor:img:Picture of John 4:7", "waitfor:region:Other art style", "hover:css:article p:nth-of-type(2)"] },
   { name: "corner-menu", path: "/john/1/5", steps: ["click:button:Visibible menu", "waitfor:dialog:Visibible menu"] },
   { name: "feedback", path: "/john/1/5", steps: ["click:button:Visibible menu", "click:button:Send feedback", "wait:600"] },
   { name: "picture-menu", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "waitfor:dialog:Picture menu", "wait:600"] },
@@ -43,5 +35,5 @@ export const READER_STATES: CaptureState[] = [
   // video generation is off locally, so "Make a video" shows only with its pricing stubbed.
   { name: "play-mark", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "waitfor:button:Play the video of John 1:5", "hover:css:article p:nth-of-type(2)"] },
   { name: "video-playing", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Play the video of John 1:5", "waitfor:css:video", "wait:1500"] },
-  { name: "make-video", path: "/john/1/5", stubs: [VIDEO_PRICING], steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "waitfor:text:make a video", "wait:400"] },
+  { name: "make-video", path: "/john/1/5", stubs: ["video-priced"], steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "waitfor:text:make a video", "wait:400"] },
 ];

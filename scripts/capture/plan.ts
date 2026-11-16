@@ -13,28 +13,60 @@ export const CAPTURE_SIZES: Record<CaptureSize, { width: number; height: number;
 };
 
 /**
- * A canned answer the browser gets instead of the app's, for a state that needs a price or a job a local app without
- * an OpenRouter key cannot give. It answers in the browser, so a stubbed post never reaches the app. `method` defaults
- * to GET; `path` must match exactly.
+ * Responses a state may stub, because a local app without an OpenRouter key cannot give them. `priced`: the image
+ * catalog answers as an app with a key would (see `pricedCatalog`), so prices show; nothing can be painted with it.
+ * `video-priced`: video generation answers as switched on, with `VIDEO_PRICING` (#447); making a video stays refused.
  */
-export type CaptureStub = { method?: "GET" | "POST"; path: string; status?: number; json: unknown };
+export const CAPTURE_STUBS = ["priced", "video-priced"] as const;
+export type CaptureStub = (typeof CAPTURE_STUBS)[number];
 
-/**
- * One reader state: the name its pictures carry, the address it opens and the steps that reach it, with any `stubs`
- * it needs. A stubbed state's pictures say so in a corner label.
- */
-export type CaptureState = { name: string; path: string; steps?: string[]; sizes?: CaptureSize[]; stubs?: CaptureStub[] };
+/** What each stub fakes, for the label a stubbed state's pictures carry. */
+const STUB_LABELS: Record<CaptureStub, string> = { priced: "image prices", "video-priced": "video pricing" };
 
-/** The state's stub for this request, if any. */
-export function stubFor(state: CaptureState, method: string, address: string): CaptureStub | undefined {
-  const { pathname } = new URL(address);
-  return state.stubs?.find((stub) => (stub.method ?? "GET") === method && stub.path === pathname);
-}
-
-/** The label a stubbed state's pictures carry, so nobody mistakes a faked price or job for the real service. */
+/** The label a stubbed state's pictures carry, so nobody mistakes a faked price for the real service. */
 export function stubLabel(state: CaptureState): string | null {
   if (!state.stubs?.length) return null;
-  return `Stubbed: ${state.stubs.map((stub) => `${stub.method ?? "GET"} ${stub.path}`).join(", ")}`;
+  return `Stubbed: ${state.stubs.map((stub) => STUB_LABELS[stub]).join(", ")}`;
+}
+
+/** `GET /api/generate-video` as an app with video generation on answers: a 5- and 10-second clip at two qualities. */
+export const VIDEO_PRICING = {
+  enabled: true,
+  model: "minimax/hailuo-3-max",
+  modelName: "Hailuo 3 Max",
+  quotes: [
+    { duration: 5, resolution: "480p", providerCostUsd: 0.25, credits: 32 },
+    { duration: 5, resolution: "768p", providerCostUsd: 0.4, credits: 50 },
+    { duration: 10, resolution: "480p", providerCostUsd: 0.5, credits: 63 },
+    { duration: 10, resolution: "768p", providerCostUsd: 0.8, credits: 100 },
+  ],
+};
+
+/** One reader state: the name its pictures carry, the address it opens, the steps that reach it and its stubs. */
+export type CaptureState = { name: string; path: string; steps?: string[]; sizes?: CaptureSize[]; stubs?: CaptureStub[] };
+
+type CatalogModel = Record<string, unknown> & { id: string };
+type CatalogStyle = Record<string, unknown> & { id: string; available?: boolean; reason?: string };
+
+/**
+ * The `/api/image-models` answer with every model available at about 6 credits a picture (at most 9) and every style
+ * the app offers open for painting, except the owner-only Byzantine Icon, which stays as the app says.
+ */
+export function pricedCatalog<T extends { models?: CatalogModel[]; artStyles?: CatalogStyle[] }>(body: T): T {
+  return {
+    ...body,
+    models: body.models?.map((model) => {
+      const priced: CatalogModel = { ...model, availability: "available", creditsCost: 6, reservationCreditsCost: 9, estimatedCreditsByResolution: { "1K": 6 }, etaSeconds: 20 };
+      delete priced.unavailableReason;
+      return priced;
+    }),
+    artStyles: body.artStyles?.map((style) => {
+      if (style.id === "icon") return style;
+      const open: CatalogStyle = { ...style, available: true };
+      delete open.reason;
+      return open;
+    }),
+  };
 }
 
 const LOOPBACK_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]"]);

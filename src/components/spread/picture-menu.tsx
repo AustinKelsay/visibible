@@ -8,8 +8,8 @@ import { LayerPanel, useLayer, useLayers } from "@/components/spread/layers";
 import { useChosenPicture, type ChosenPicture } from "@/components/spread/chosen-picture";
 import { MakeVideo, activeVideoJob } from "@/components/spread/make-video";
 import { useSession } from "@/context/session-context";
-import { useEffectiveArtStyle } from "@/context/work-scope-context";
-import { ART_STYLE_IDS, artStyleLabel } from "@/lib/art-styles";
+import { useEffectiveArtStyle, useVisibleArtStyles } from "@/context/work-scope-context";
+import { artStyleLabel } from "@/lib/art-styles";
 import { trackPictureMenuOpened } from "@/lib/analytics";
 import { imageModelDisplayName } from "@/lib/image-models";
 import { pictureStyleOrder } from "@/lib/picture-rule";
@@ -104,9 +104,9 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
   const { openLayerById } = useLayers();
   const { choose } = useChosenPicture();
   const { buyCredits } = useSession();
-  const { artStyle, offered } = useEffectiveArtStyle();
-  // #440 (Look) owns the list of styles the reader may see; until it lands this is the public style set.
-  const visibleStyles = offered ?? ART_STYLE_IDS;
+  const { artStyle } = useEffectiveArtStyle();
+  // The styles the reader may see (public, plus owner-only for an admin), as Look offers them.
+  const visibleStyles = useVisibleArtStyles();
   const otherStylePictures = useQuery(
     api.verseImages.getImageHistory,
     layer.isOpen ? { verseId, artStyle, otherStyles: true } : "skip",

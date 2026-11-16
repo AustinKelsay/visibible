@@ -44,10 +44,6 @@ vi.mock("@/components/header-settings-popover", () => ({
   MobileSettingsRows: () => <button aria-label="Image resolution">Image resolution</button>,
 }));
 
-vi.mock("@/components/header-generate-button", () => ({
-  HeaderGenerateButton: () => <button aria-label="Generate image">Generate image</button>,
-}));
-
 const useNavigationMock = vi.mocked(useNavigation);
 
 describe("Header", () => {
@@ -92,7 +88,8 @@ describe("Header", () => {
     expect(container?.textContent).toContain("The Pool of Tears ¶1–3");
     expect(buttons("Translation")).toHaveLength(0);
     expect(buttons("Toggle chat")).toHaveLength(0);
-    expect(buttons("Generate image")).toHaveLength(2);
+    // Painting lives on the page itself now (#446): the header has no generate dialog and no Bulk tab.
+    expect([...container!.querySelectorAll("button")].filter((b) => /generate|bulk/i.test(`${b.getAttribute("aria-label") ?? ""} ${b.textContent}`))).toEqual([]);
     const contents = buttons("Open contents");
     expect(contents).toHaveLength(1);
     await act(async () => { contents[0].click(); });

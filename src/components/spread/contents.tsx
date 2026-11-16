@@ -3,16 +3,16 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
 import { useQuery } from "convex/react";
-import { BookOpen, ChevronDown, Layers, Paintbrush, X } from "lucide-react";
+import { AlertCircle, BookOpen, Check, ChevronDown, Clock, Layers, Loader2, Paintbrush, X } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { LayerPanel, useLayer } from "@/components/spread/layers";
+import { ChapterPaint, useChapterJob, type TileJobStatus } from "@/components/spread/chapter-paint";
 import { PlayMark } from "@/components/spread/play-mark";
 import { useSession } from "@/context/session-context";
-import { useEffectiveArtStyle } from "@/context/work-scope-context";
+import { usePictureStyles } from "@/context/work-scope-context";
 import { BIBLE_BOOKS, BOOK_BY_SLUG, type BibleBook } from "@/data/bible-structure";
 import { trackContentsOpened, trackVerseNavigation } from "@/lib/analytics";
-import { pictureStyleOrder } from "@/lib/picture-rule";
 import { previewSource } from "@/lib/picture-source";
 
 /** Where the reader is: the verse the spread shows. */
@@ -263,18 +263,32 @@ function ChapterWall(props: ChapterWallProps) {
 }
 
 function SavedWall(props: ChapterWallProps) {
-  const { artStyle } = useEffectiveArtStyle();
+  const { chosen, order } = usePictureStyles();
   const verseCount = props.book.chapters[props.chapter - 1] ?? 0;
   const verseIds = useMemo(
     () => Array.from({ length: verseCount }, (_, index) => `${props.book.slug}-${props.chapter}-${index + 1}`),
     [props.book.slug, props.chapter, verseCount],
   );
-  // One bounded read for the whole chapter; #440 passes the visible styles so tiles fall back like the spread.
-  const tiles = useQuery(api.verseImages.getChapterContents, { verseIds, styles: pictureStyleOrder(artStyle) });
-  return <Wall {...props} tiles={tiles} />;
+  // One bounded read for the whole chapter, by the spread's picture rule (the verse marks read the same).
+  const tiles = useQuery(api.verseImages.getChapterContents, { verseIds, styles: order });
+  const jobStatus = useChapterJob(verseIds);
+  // Unpainted means no picture in the chosen style, even when a tile falls back to another style's picture.
+  const unpainted = useMemo(
+    () => (tiles ? tiles.flatMap((tile, index) => (tile.picture?.artStyle === chosen ? [] : [index + 1])) : undefined),
+    [tiles, chosen],
+  );
+  return (
+    <>
+      <ChapterPaint book={props.book} chapter={props.chapter} unpaintedVerses={unpainted} />
+      <Wall {...props} tiles={tiles} jobStatus={jobStatus} />
+    </>
+  );
 }
 
-function Wall({ book, chapter, currentVerse, onChoose, tiles }: ChapterWallProps & { tiles: Tile[] | undefined }) {
+function Wall({ book, chapter, currentVerse, onChoose, tiles, jobStatus }: ChapterWallProps & {
+  tiles: Tile[] | undefined;
+  jobStatus?: ReadonlyMap<string, TileJobStatus>;
+}) {
   const verseCount = book.chapters[chapter - 1] ?? 0;
   return (
     <ol className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:gap-4 lg:grid-cols-5 xl:grid-cols-6">
@@ -283,7 +297,15 @@ function Wall({ book, chapter, currentVerse, onChoose, tiles }: ChapterWallProps
         const href = `/${book.slug}/${chapter}/${verse}`;
         return (
           <li key={href}>
-            <VerseTile verse={verse} href={href} tile={tiles?.[index]} loading={tiles === undefined} isCurrent={verse === currentVerse} onChoose={onChoose} />
+            <VerseTile
+              verse={verse}
+              href={href}
+              tile={tiles?.[index]}
+              loading={tiles === undefined}
+              isCurrent={verse === currentVerse}
+              job={jobStatus?.get(`${book.slug}-${chapter}-${verse}`)}
+              onChoose={onChoose}
+            />
           </li>
         );
       })}
@@ -291,23 +313,35 @@ function Wall({ book, chapter, currentVerse, onChoose, tiles }: ChapterWallProps
   );
 }
 
-function VerseTile({ verse, href, tile, loading, isCurrent, onChoose }: {
+const JOB_LABELS: Record<TileJobStatus, string> = {
+  queued: "queued",
+  generating: "painting",
+  completed: "just painted",
+  failed: "painting failed",
+};
+
+function VerseTile({ verse, href, tile, loading, isCurrent, job, onChoose }: {
   verse: number;
   href: string;
   tile: Tile | undefined;
   loading: boolean;
   isCurrent: boolean;
+  /** Where the verse stands in the reader's chapter painting job, when the job holds it. */
+  job?: TileJobStatus;
   onChoose: (targetUrl: string) => void;
 }) {
   const source = tile?.picture ? previewSource(tile.picture) : null;
   const unpainted = !loading && !source;
   const count = tile && tile.pictureCount > 1 ? (tile.morePictures ? `${tile.pictureCount}+` : `${tile.pictureCount}`) : null;
-  const pictures = unpainted
-    ? `Verse ${verse}, not painted yet`
-    : count
-      ? `Verse ${verse}, ${tile?.morePictures ? `more than ${tile.pictureCount}` : count} pictures`
-      : `Verse ${verse}`;
+  const pictures = job
+    ? `Verse ${verse}, ${JOB_LABELS[job]}`
+    : unpainted
+      ? `Verse ${verse}, not painted yet`
+      : count
+        ? `Verse ${verse}, ${tile?.morePictures ? `more than ${tile.pictureCount}` : count} pictures`
+        : `Verse ${verse}`;
   const label = tile?.hasVideo ? `${pictures}, has a video` : pictures;
+  const waiting = unpainted && (job === "queued" || job === "generating" || job === "failed");
 
   return (
     <Link
@@ -326,8 +360,17 @@ function VerseTile({ verse, href, tile, loading, isCurrent, onChoose }: {
         // eslint-disable-next-line @next/next/no-img-element
         <img src={source} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:transition-none" />
       ) : null}
-      {unpainted ? (
+      {job === "generating" ? (
+        // A soft breathing light while the verse is being painted.
+        <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/[0.10] via-white/[0.03] to-transparent motion-safe:animate-pulse" />
+      ) : null}
+      {waiting ? <TileJobMark status={job} /> : unpainted ? (
         <Paintbrush aria-hidden="true" size={18} strokeWidth={1.5} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/25" />
+      ) : null}
+      {job === "completed" ? (
+        <span aria-hidden="true" className="absolute top-2 left-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-black shadow">
+          <Check size={12} strokeWidth={2.5} />
+        </span>
       ) : null}
       {source ? <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent" /> : null}
       <span aria-hidden="true" className={`absolute bottom-2 left-2.5 text-sm font-semibold tabular-nums ${source ? "text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.7)]" : "text-white/45"}`}>
@@ -345,5 +388,19 @@ function VerseTile({ verse, href, tile, loading, isCurrent, onChoose }: {
         </span>
       ) : null}
     </Link>
+  );
+}
+
+function TileJobMark({ status }: { status: TileJobStatus }) {
+  const [Icon, text, tone] = status === "generating"
+    ? [Loader2, "Painting", "text-white/85"]
+    : status === "failed"
+      ? [AlertCircle, "Failed", "text-red-200/90"]
+      : [Clock, "Queued", "text-white/50"];
+  return (
+    <span aria-hidden="true" className={`absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-[11px] font-medium tracking-wide ${tone}`}>
+      <Icon size={18} strokeWidth={1.5} className={status === "generating" ? "motion-safe:animate-spin" : undefined} />
+      {text}
+    </span>
   );
 }

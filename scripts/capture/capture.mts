@@ -23,12 +23,14 @@ import {
   findBrowser,
   localBase,
   parseStep,
+  pricedCatalog,
   selectStates,
   shotFile,
-  stubFor,
   stubLabel,
+  VIDEO_PRICING,
   type CaptureSize,
   type CaptureState,
+  type CaptureStub,
   type Step,
 } from "./plan";
 import { READER_STATES } from "./states";
@@ -144,21 +146,22 @@ async function guard(context: BrowserContext) {
   );
 }
 
-/**
- * A state's stubs answer in the browser. Registered after the guard, so they are asked first: a stubbed post is
- * answered here and never reaches the app; everything else falls through to the guard.
- */
-async function stubs(context: BrowserContext, state: CaptureState) {
-  if (!state.stubs?.length) return;
-  await context.route("**/*", (route) => {
-    const request = route.request();
-    const stub = stubFor(state, request.method(), request.url());
-    if (!stub) return route.fallback();
-    return route.fulfill({ status: stub.status ?? 200, json: stub.json });
-  });
+/** A state's stubs, answered in the page; registered after the guard, so they are asked first. */
+async function stub(page: Page, stubs: CaptureStub[]) {
+  if (stubs.includes("priced")) {
+    await page.route((url) => url.pathname === "/api/image-models", async (route) => {
+      const response = await route.fetch();
+      await route.fulfill({ response, json: pricedCatalog(await response.json()) });
+    });
+  }
+  if (stubs.includes("video-priced")) {
+    // Only the price: a post (making a video) falls through to the guard, which refuses it.
+    await page.route((url) => url.pathname === "/api/generate-video", (route) =>
+      route.request().method() === "GET" ? route.fulfill({ json: VIDEO_PRICING }) : route.fallback());
+  }
 }
 
-/** Put the stub label in the picture's corner. */
+/** Put a stubbed state's label in the picture's corner. */
 async function label(page: Page, state: CaptureState) {
   const text = stubLabel(state);
   if (!text) return;
@@ -201,8 +204,8 @@ async function main() {
           hasTouch: phone,
         });
         await guard(context);
-        await stubs(context, state);
         const page = await context.newPage();
+        await stub(page, state.stubs ?? []);
         page.on("pageerror", (error) => console.warn(`  page error in ${state.name}: ${error.message}`));
         const file = path.join(options.out, shotFile(state, size));
         try {
