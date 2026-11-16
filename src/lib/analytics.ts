@@ -24,6 +24,7 @@ export type PreferenceChangeSource =
   | "header_generate_modal"
   | "header_settings_popover"
   | "mobile_header_menu"
+  | "spread_paint_switch"
   | "unknown";
 
 export type GenerationTriggerSource =
@@ -31,7 +32,9 @@ export type GenerationTriggerSource =
   | "hero_generate"
   | "header_generate"
   | "hero_retry"
-  | "fullscreen_retry";
+  | "fullscreen_retry"
+  | "spread_paint"
+  | "spread_retry";
 
 export type CreditsFrictionSource =
   | GenerationTriggerSource
@@ -233,7 +236,7 @@ type ApiDocsViewedProps = BaseProps & {
 };
 
 type ApiDocsLinkClickedProps = BaseProps & {
-  source: "hero_cta" | "quick_link" | "footer";
+  source: "hero_cta" | "quick_link" | "footer" | "corner_menu";
   href: string;
   target: "internal" | "external" | "api";
 };

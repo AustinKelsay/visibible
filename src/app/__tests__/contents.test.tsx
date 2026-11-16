@@ -4,6 +4,7 @@ import { act, type ReactNode } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useQuery } from "convex/react";
+import { getFunctionName, type FunctionReference } from "convex/server";
 import VersePage from "../[book]/[chapter]/[verse]/page";
 import { clearBibleApiCache } from "@/lib/bible-api";
 import { trackContentsOpened, trackVerseNavigation } from "@/lib/analytics";
@@ -47,8 +48,10 @@ vi.mock("convex/react", () => ({
   useConvexAuth: () => ({ isAuthenticated: true, isLoading: false }),
 }));
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => true }));
-vi.mock("@/context/preferences-context", () => ({ usePreferences: () => ({ artStyle, translation: "web" }) }));
-vi.mock("@/context/session-context", () => ({ useSession: () => ({ tier: "paid", credits: 0, isLoading: false }) }));
+vi.mock("@/context/preferences-context", () => ({
+  usePreferences: () => ({ artStyle, translation: "web", imageModel: "test-model", imageAspectRatio: "16:9", imageResolution: "1K", autoGenerate: false, setAutoGenerate: vi.fn() }),
+}));
+vi.mock("@/context/session-context", () => ({ useSession: () => ({ tier: "paid", credits: 0, isLoading: false, buyCredits: vi.fn() }) }));
 vi.mock("@/lib/analytics");
 
 type SavedPicture = { id: string; imageUrl: string; thumbnailUrl: string | null; artStyle: string; createdAt: number };
@@ -63,9 +66,10 @@ const picture = (verseId: string, name: string, createdAt: number, style = "clas
   createdAt,
 });
 
-/** A fake of the two reads the reader makes: a verse's history and a chapter's Contents tiles. */
-function fakeQuery(_query: unknown, args: unknown) {
+/** A fake of the reads the reader makes: a verse's history and a chapter's Contents tiles (an unpainted verse's glow finds nothing). */
+function fakeQuery(query: FunctionReference<"query">, args: unknown) {
   if (args === "skip") return undefined;
+  if (getFunctionName(query) === "verseImages:getNearestEarlierPicture") return null;
   if (typeof args === "object" && args && "verseIds" in args) {
     const read = args as { verseIds: string[]; styles: string[] };
     contentsReads.push(read);

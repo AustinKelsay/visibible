@@ -2,7 +2,7 @@
 
 [globals.css](../../src/app/globals.css) is the source for semantic color, spacing, typography, radius, motion and shadow tokens. Tailwind v4 imports and `@theme inline` mappings live there; there is no separate Tailwind config. Motion variables contain durations, so easing belongs in the CSS/class using them.
 
-[The root layout](../../src/app/layout.tsx) loads Geist Sans, Geist Mono and EB Garamond (`font-serif`, the words page's verse face). Dark colors follow `prefers-color-scheme`, except on the spread ([Navigation](NAVIGATION.md)), which is dark whatever the system setting is and declares `color-scheme: dark`. The image stage has its own dark background token.
+[The root layout](../../src/app/layout.tsx) loads Geist Sans, Geist Mono and EB Garamond (`font-serif`, the words page's verse face). Dark colors follow `prefers-color-scheme`, except on the spread ([Navigation](NAVIGATION.md)), which is dark whatever the system setting is and declares `color-scheme: dark`. Surfaces that open over the spread and reuse the semantic tokens (the credits dialog, the feedback form) add the `.reader-dark` class, which redefines those tokens with the reader's dark values and a light accent. The image stage has its own dark background token.
 
 ## Conventions for changes
 
