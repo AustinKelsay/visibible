@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { tabbableIn, trapTab } from "@/lib/focus-trap";
 
 /**
  * Everything that opens over a spread: Look, Contents, the corner menu, the picture menu, the turned-over
@@ -73,22 +74,10 @@ export function useLayer(id: LayerId) {
 
 const CLOSED: LayerState = { openLayer: null, openLayerById: () => {}, closeLayer: () => {} };
 
-const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
 /**
  * A panel for a layer: a labelled dialog that renders only while its layer is open, moves focus inside on
  * open and keeps Tab inside while open. Position and look come from `className`.
  */
-/** The panel's controls a reader can reach now: a control hidden at this size (a phone-only close button on a computer) is skipped. */
-function focusableIn(panel: HTMLElement): HTMLElement[] {
-  return Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE)).filter((item) => {
-    for (let node: HTMLElement | null = item; node && node !== panel; node = node.parentElement) {
-      if (getComputedStyle(node).display === "none") return false;
-    }
-    return true;
-  });
-}
-
 export function LayerPanel({ id, label, className, children }: { id: LayerId; label: string; className?: string; children: ReactNode }) {
   const { isOpen } = useLayer(id);
   const panel = useRef<HTMLDivElement>(null);
@@ -97,28 +86,14 @@ export function LayerPanel({ id, label, className, children }: { id: LayerId; la
     if (!isOpen) return;
     const node = panel.current;
     if (!node) return;
-    const first = node.querySelector<HTMLElement>("[data-autofocus]") ?? focusableIn(node)[0] ?? node;
+    const first = node.querySelector<HTMLElement>("[data-autofocus]") ?? tabbableIn(node)[0] ?? node;
     first.focus();
   }, [isOpen]);
 
   if (!isOpen) return null;
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key !== "Tab" || !panel.current) return;
-    const items = focusableIn(panel.current);
-    if (items.length === 0) {
-      event.preventDefault();
-      return;
-    }
-    const first = items[0];
-    const last = items[items.length - 1];
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
+    if (panel.current) trapTab(event, panel.current);
   };
 
   return (
