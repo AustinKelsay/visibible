@@ -7,6 +7,7 @@ import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useQuery } from "convex/react";
 import { getFunctionName, type FunctionReference } from "convex/server";
+import { answerPictureRead } from "./fake-picture-reads";
 import VersePage from "../[book]/[chapter]/[verse]/page";
 import { clearBibleApiCache, type Translation } from "@/lib/bible-api";
 import { trackPictureMenuOpened } from "@/lib/analytics";
@@ -94,19 +95,7 @@ type SavedPicture = {
 let savedPictures: SavedPicture[] = [];
 let requestStatus: { status: string; error?: string } | null = null;
 
-const verseOf = (picture: SavedPicture) => picture.id.split(":")[0];
 
-/** The nearest earlier picture of the chapter in the style, as the Convex read answers it. */
-function nearestEarlierPicture(verseId: string, style: string) {
-  const [, chapterId, verse] = /^(.+-\d+)-(\d+)$/.exec(verseId)!;
-  for (let earlier = Number(verse) - 1; earlier >= 1; earlier--) {
-    const newest = savedPictures
-      .filter((picture) => verseOf(picture) === `${chapterId}-${earlier}` && picture.artStyle === style)
-      .sort((a, b) => b.createdAt - a.createdAt)[0];
-    if (newest) return { verse: earlier, id: newest.id, imageUrl: newest.imageUrl, thumbnailUrl: newest.thumbnailUrl ?? null };
-  }
-  return null;
-}
 
 // The image service: the catalog prices an image at 5 credits, a quote at about 2 (at most 4).
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
@@ -164,22 +153,7 @@ beforeEach(() => {
     if (args === "skip") return undefined;
     const name = getFunctionName(query);
     if (name === "verseImages:getGenerationRequestStatus") return requestStatus;
-    if (name === "verseImages:getChapterImageStatus") {
-      // The chapter's painted status: the verses with a picture in the style, and how many.
-      const { book, chapter, artStyle: style } = args as { book: string; chapter: number; artStyle: string };
-      const counts = new Map<number, number>();
-      for (const picture of savedPictures) {
-        const match = picture.id.match(/^([a-z0-9-]+?)-(\d+)-(\d+):/);
-        if (!match || match[1] !== book || Number(match[2]) !== chapter || picture.artStyle !== style) continue;
-        counts.set(Number(match[3]), (counts.get(Number(match[3])) ?? 0) + 1);
-      }
-      return [...counts].sort((a, b) => a[0] - b[0]).map(([verse, imageCount]) => ({ verse, imageCount }));
-    }
-    const { verseId, artStyle: style, otherStyles } = args as { verseId: string; artStyle: string; otherStyles?: boolean };
-    if (name === "verseImages:getNearestEarlierPicture") return nearestEarlierPicture(verseId, style);
-    return savedPictures
-      .filter((picture) => verseOf(picture) === verseId && (otherStyles ? picture.artStyle !== style : picture.artStyle === style))
-      .sort((a, b) => b.createdAt - a.createdAt);
+    return answerPictureRead(savedPictures, query, args);
   }) as typeof useQuery);
   container = document.createElement("div");
   document.body.appendChild(container);

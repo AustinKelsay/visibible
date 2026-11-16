@@ -20,7 +20,7 @@ vi.mock("@/lib/analytics", () => ({ trackPreferenceChanged: vi.fn() }));
 afterEach(() => vi.unstubAllGlobals());
 
 it("labels stale pricing, disables unpriced choices and repairs unsupported saved resolution on selection", async () => {
-  const storage = new Map([["visibible-preferences", JSON.stringify({ imageModel: "removed/model", imageResolution: "4K" })]]);
+  const storage = new Map([["visibible-reader-settings", JSON.stringify({ advanced: { imageResolution: "4K" } })]]);
   vi.stubGlobal("localStorage", { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) });
   vi.stubGlobal("fetch", vi.fn(async () => Response.json({ models: [
     { id: "google/gemini-2.5-flash-image", name: "Default image", provider: "Google", availability: "stale", creditsCost: 6, estimatedCreditsByResolution: { "1K": 7 } },
@@ -50,7 +50,7 @@ it("labels stale pricing, disables unpriced choices and repairs unsupported save
     expect(current!.imageModel).toBe(DEFAULT_IMAGE_MODEL);
     await act(async () => options[0].click());
     expect(current!.imageModel).toBe("google/gemini-2.5-flash-image");
-    expect(JSON.parse(storage.get("visibible-preferences")!).imageResolution).toBe("1K");
+    expect(JSON.parse(storage.get("visibible-reader-settings")!).advanced.imageResolution).toBe("1K");
   } finally { act(() => root.unmount()); }
 });
 
@@ -133,7 +133,7 @@ it("disables unquoted resolutions in desktop and mobile settings", async () => {
 });
 
 it("offers the three art styles in order, keeps an unavailable selection without swapping it, and saves a choice", async () => {
-  const storage = new Map([["visibible-preferences", JSON.stringify({ imageModel: "google/gemini-2.5-flash-image", artStyle: "watercolor" })]]);
+  const storage = new Map([["visibible-reader-settings", JSON.stringify({ look: { artStyle: "watercolor" } })]]);
   vi.stubGlobal("localStorage", { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) });
   const artStyles = [
     { id: "classical", label: "Classical", description: "Oil painting.", available: true, reason: null },
@@ -159,7 +159,7 @@ it("offers the three art styles in order, keeps an unavailable selection without
     expect(current!.artStyle).toBe("watercolor");
     await act(async () => radios[2].click());
     expect(current!.artStyle).toBe("icon");
-    expect(JSON.parse(storage.get("visibible-preferences")!).artStyle).toBe("icon");
+    expect(JSON.parse(storage.get("visibible-reader-settings")!).look.artStyle).toBe("icon");
   } finally {
     await act(async () => root.unmount());
   }
@@ -192,7 +192,7 @@ it("offers a charged guest the automatic generation switch, off, with its price,
   expect(box.disabled).toBe(false);
   await act(async () => box.click());
   expect(box.checked).toBe(true);
-  expect(JSON.parse(storage.get("visibible-preferences")!).autoGenerate).toBe(true);
+  expect(JSON.parse(storage.get("visibible-reader-settings")!).autoGenerate).toBe(true);
   await guest.unmount();
 
   // With no price to show (the catalog has not loaded or failed), it cannot be turned on, only off.
@@ -202,7 +202,7 @@ it("offers a charged guest the automatic generation switch, off, with its price,
   expect(on.checked).toBe(true);
   expect(on.disabled).toBe(false);
   await act(async () => on.click());
-  expect(JSON.parse(storage.get("visibible-preferences")!).autoGenerate).toBe(false);
+  expect(JSON.parse(storage.get("visibible-reader-settings")!).autoGenerate).toBe(false);
   expect(on.disabled).toBe(true);
   expect(on.closest("label")!.textContent).toContain("The price is not available right now");
   await unpriced.unmount();

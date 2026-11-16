@@ -9,10 +9,9 @@ import { useConvexEnabled } from "@/components/convex-client-provider";
 import { LayerPanel, useLayer } from "@/components/spread/layers";
 import { ChapterPaint, useChapterJob, type TileJobStatus } from "@/components/spread/chapter-paint";
 import { useSession } from "@/context/session-context";
-import { useEffectiveArtStyle } from "@/context/work-scope-context";
+import { usePictureStyles } from "@/context/work-scope-context";
 import { BIBLE_BOOKS, BOOK_BY_SLUG, type BibleBook } from "@/data/bible-structure";
 import { trackContentsOpened, trackVerseNavigation } from "@/lib/analytics";
-import { pictureStyleOrder } from "@/lib/picture-rule";
 import { previewSource } from "@/lib/picture-source";
 
 /** Where the reader is: the verse the spread shows. */
@@ -262,19 +261,19 @@ function ChapterWall(props: ChapterWallProps) {
 }
 
 function SavedWall(props: ChapterWallProps) {
-  const { artStyle } = useEffectiveArtStyle();
+  const { chosen, order } = usePictureStyles();
   const verseCount = props.book.chapters[props.chapter - 1] ?? 0;
   const verseIds = useMemo(
     () => Array.from({ length: verseCount }, (_, index) => `${props.book.slug}-${props.chapter}-${index + 1}`),
     [props.book.slug, props.chapter, verseCount],
   );
-  // One bounded read for the whole chapter; #440 passes the visible styles so tiles fall back like the spread.
-  const tiles = useQuery(api.verseImages.getChapterContents, { verseIds, styles: pictureStyleOrder(artStyle) });
+  // One bounded read for the whole chapter, by the spread's picture rule (the verse marks read the same).
+  const tiles = useQuery(api.verseImages.getChapterContents, { verseIds, styles: order });
   const jobStatus = useChapterJob(verseIds);
   // Unpainted means no picture in the chosen style, even when a tile falls back to another style's picture.
   const unpainted = useMemo(
-    () => (tiles ? tiles.flatMap((tile, index) => (tile.picture?.artStyle === artStyle ? [] : [index + 1])) : undefined),
-    [tiles, artStyle],
+    () => (tiles ? tiles.flatMap((tile, index) => (tile.picture?.artStyle === chosen ? [] : [index + 1])) : undefined),
+    [tiles, chosen],
   );
   return (
     <>

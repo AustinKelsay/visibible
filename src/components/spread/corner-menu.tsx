@@ -12,7 +12,7 @@ import { useChosenPicture } from "@/components/spread/chosen-picture";
 import { SocialLinks } from "@/components/site-links";
 import { LayerPanel, useLayer, useLayers } from "@/components/spread/layers";
 import { useSession } from "@/context/session-context";
-import { useEffectiveArtStyle } from "@/context/work-scope-context";
+import { usePictureStyles } from "@/context/work-scope-context";
 
 export interface CornerMenuProps {
   /** Where the verse's pictures are kept ("genesis-1-1"); feedback attaches the one on screen. */
@@ -161,10 +161,12 @@ function Balance({ onGetCredits }: { onGetCredits: () => void }) {
  */
 function FeedbackForm({ verseId, bookName, chapter, verseNumber, reportPicture, onClose }: CornerMenuProps & { reportPicture: boolean; onClose: () => void }) {
   const isConvexEnabled = useConvexEnabled();
-  const { artStyle } = useEffectiveArtStyle();
+  const { chosen: chosenStyle, order } = usePictureStyles();
   const { chosen } = useChosenPicture();
-  // The spread's picture query, so the form attaches the picture the spread shows.
-  const pictures = useQuery(api.verseImages.getImageHistory, isConvexEnabled ? { verseId, artStyle } : "skip");
+  // The picture rule's choice (the spread's own query), then that style's pictures: its newest is the one on screen.
+  const rulePicture = useQuery(api.verseImages.getSpreadPicture, isConvexEnabled ? { verseId, styles: order } : "skip");
+  const shownStyle = rulePicture?.artStyle ?? chosenStyle;
+  const pictures = useQuery(api.verseImages.getImageHistory, isConvexEnabled ? { verseId, artStyle: shownStyle } : "skip");
   const title = reportPicture ? "Report this picture" : "Send feedback";
 
   return (

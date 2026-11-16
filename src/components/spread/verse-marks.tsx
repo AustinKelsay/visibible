@@ -1,10 +1,11 @@
 "use client";
 
+import { useMemo } from "react";
 import Link from "next/link";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
-import { useEffectiveArtStyle } from "@/context/work-scope-context";
+import { usePictureStyles } from "@/context/work-scope-context";
 import type { TrackPageTurn } from "@/components/spread/page-turn";
 
 export interface VerseMarksProps {
@@ -19,8 +20,9 @@ export interface VerseMarksProps {
 const NONE_PAINTED: ReadonlySet<number> = new Set();
 
 /**
- * A thin row of marks along the top of the spread, one per verse of the chapter. A verse with a picture
- * in the stored art style is brighter, the current verse is marked, and each mark opens its verse.
+ * A thin row of marks along the top of the spread, one per verse of the chapter. A painted verse (one the
+ * picture rule finds a picture for, in the chosen style or another visible one) is brighter, the current
+ * verse is marked, and each mark opens its verse.
  */
 export function VerseMarks(props: VerseMarksProps) {
   const isConvexEnabled = useConvexEnabled();
@@ -28,10 +30,14 @@ export function VerseMarks(props: VerseMarksProps) {
 }
 
 function MarksWithStatus(props: VerseMarksProps) {
-  const { artStyle } = useEffectiveArtStyle();
-  // The same chapter read the book menu uses: the verses with a picture in the style, and how many.
-  const status = useQuery(api.verseImages.getChapterImageStatus, { book: props.bookSlug, chapter: props.chapter, artStyle });
-  const painted = status ? new Set(status.map((verse) => verse.verse)) : NONE_PAINTED;
+  const { order } = usePictureStyles();
+  const verseIds = useMemo(
+    () => Array.from({ length: props.totalVerses }, (_, index) => `${props.bookSlug}-${props.chapter}-${index + 1}`),
+    [props.bookSlug, props.chapter, props.totalVerses],
+  );
+  // The chapter read Contents makes, with the same arguments, so opening Contents finds its wall already loaded.
+  const tiles = useQuery(api.verseImages.getChapterContents, { verseIds, styles: order });
+  const painted = tiles ? new Set(tiles.flatMap((tile, index) => (tile.picture ? [index + 1] : []))) : NONE_PAINTED;
   return <MarksRow {...props} painted={painted} />;
 }
 
