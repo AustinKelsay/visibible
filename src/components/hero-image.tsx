@@ -9,7 +9,6 @@ import { useEffect, useState, useCallback, useRef, type TouchEvent } from "react
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
-import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Maximize2, X } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
@@ -290,7 +289,6 @@ function HeroImageBase({
   const { tier, credits, buyCredits, isLoading: sessionLoading } = useSession();
   const { setCurrentImageId, setCaptionClamped, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
   const captionTextRef = useRef<HTMLParagraphElement>(null);
-  const searchParams = useSearchParams();
   const {
     registerGenerate,
     unregisterGenerate,
@@ -354,7 +352,6 @@ function HeroImageBase({
   const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
   const [pendingImageId, setPendingImageId] = useState<string | null>(null);
   const pendingFollowLatest = useRef(true);
-  const requestedImageId = searchParams.get("image");
 
   // Local state for newly generated image (before it's saved and reflected in query)
   const [generatedImage, setGeneratedImage] = useState<{
@@ -452,16 +449,13 @@ function HeroImageBase({
   // While something sits under or on the stage, the phone pager moves to a row under the painting
   const phonePagerBelow = isGenerating || Boolean(error) || Boolean(priceNotice) || showPhonePricingNote;
 
+  // A moment opens on its newest image; a version is never part of the address (`?image=` is retired, #441).
   useEffect(() => {
-    const nextSelectedImageId = requestedImageId && requestedImageId.length > 0
-      ? requestedImageId
-      : null;
-
-    setSelectedImageId(nextSelectedImageId);
+    setSelectedImageId(null);
     setError(null);
     setImageLoadAttempts(0);
-    pendingFollowLatest.current = nextSelectedImageId === null;
-  }, [requestedImageId, verseId, setError]);
+    pendingFollowLatest.current = true;
+  }, [verseId, setError]);
 
   // Tell ScriptureReader whether the desktop caption shows the whole verse or is cut off by its
   // three-line clamp, so the text below is hidden only when nothing is lost. Hidden (phones): unknown.
