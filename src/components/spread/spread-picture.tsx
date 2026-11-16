@@ -19,9 +19,9 @@ interface SpreadPictureProps {
   reference: string;
   /** Called when the reader opens the whole-picture view from the picture. */
   onShowWhole?: (imageId: string) => void;
-  /** Whether the whole-picture view is playing this verse's video instead of showing its picture (#447). */
+  /** Whether the whole-picture view is playing the shown picture's video instead of the picture (#447, #480). */
   playing?: boolean;
-  /** Called when the reader presses the play mark: the spread opens the whole-picture view and plays. */
+  /** Called when the reader presses Play: the spread opens the whole-picture view and plays. */
   onPlay?: () => void;
 }
 
@@ -55,9 +55,11 @@ function SavedPicture({ verseId, reference, onShowWhole, playing = false, onPlay
   // The full record of a picture shown from another style, for the picture menu's details.
   const otherStylePictures = useQuery(api.verseImages.getImageHistory, otherStyle ? { verseId, artStyle: otherStyle } : "skip");
   const { chosen } = useChosenPicture();
-  // The verse's newest finished video (#447), if any: the play mark shows for it.
-  const videos = useQuery(api.verseVideos.getHistory, { verseId, limit: 1 });
-  const video = videos?.[0]?.videoUrl ? videos[0] : null;
+  // The picture on screen (a version chosen in the picture menu, else the rule's) and its own newest finished video
+  // (#480): Play shows only for that. An unpainted verse has neither.
+  const shownPicture = rulePicture?.imageUrl ? chosen ?? rulePicture : null;
+  const pictureVideo = useQuery(api.verseVideos.getPictureVideo, shownPicture ? { imageId: shownPicture.id } : "skip");
+  const video = shownPicture && pictureVideo?.videoUrl ? pictureVideo : null;
   const playButton = useRef<HTMLButtonElement>(null);
   const player = useRef<HTMLVideoElement>(null);
   const recordImpression = useMutation(api.verseImages.recordImageImpression);
@@ -97,13 +99,14 @@ function SavedPicture({ verseId, reference, onShowWhole, playing = false, onPlay
     if (wholeIsOpen) wasPlaying.current = showVideo;
   }, [wholeIsOpen, showVideo]);
 
-  // The verse's video, played in the whole-picture view in place of its picture (or of the unpainted area).
+  // The picture's video, played in the whole-picture view in place of it, starting from the picture itself.
   const playerView = showVideo ? (
     <>
       <video
         ref={player}
         key={video.id}
         src={video.videoUrl ?? undefined}
+        poster={shownPicture?.imageUrl}
         aria-label={`Video of ${reference}`}
         autoPlay
         muted
@@ -144,21 +147,8 @@ function SavedPicture({ verseId, reference, onShowWhole, playing = false, onPlay
   ) : null;
 
   if (rulePicture === undefined) return null;
-  // The player and the play mark keep their places whether the verse is painted or not, so a picture arriving while
-  // the video plays leaves them mounted: playback and focus carry on.
-  if (!rulePicture?.imageUrl) {
-    // A verse can have a video and no saved picture (the video route makes video from text): it still plays. The
-    // unpainted area stays mounted while it plays, so a painting started from it carries on.
-    return (
-      <>
-        <div className={showVideo ? "hidden" : "contents"}>
-          <UnpaintedPicture key={verseId} verseId={verseId} reference={reference} styles={order} />
-        </div>
-        {playerView}
-        {playMark}
-      </>
-    );
-  }
+  // An unpainted verse offers painting first: no Play and no video (#480).
+  if (!rulePicture?.imageUrl) return <UnpaintedPicture key={verseId} verseId={verseId} reference={reference} styles={order} />;
   const ruleRecord = (otherStyle ? otherStylePictures : pictures)?.find((picture) => picture.id === rulePicture.id);
   const picture = chosen ?? ruleRecord ?? rulePicture;
   const showThumbnail = Boolean(picture.thumbnailUrl) && loadedId !== picture.id;

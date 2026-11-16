@@ -139,6 +139,9 @@ _Avoid_: Chat
 
 **Unpainted**: A moment with no verse image the reader can be shown.
 
+**Moving picture**: A short video made from one verse image, which is its first frame, sharing that image's art style ([#478](https://github.com/AustinKelsay/visibible/issues/478)). Screens say "moving picture" and "Play".
+_Avoid_: Video of a verse (a video belongs to one verse image, not to the verse)
+
 **Picture, paint**: The words the reader's screens use for a verse image and for requesting its generation. Specifications and code keep verse image and generation.
 
 ## Retired terms

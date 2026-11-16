@@ -418,7 +418,9 @@ function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, onChoose 
       : count
         ? `${noun} ${verse}, ${tile?.morePictures ? `more than ${tile.pictureCount}` : count} pictures`
         : `${noun} ${verse}`;
-  const label = tile?.hasVideo ? `${pictures}, has a video` : pictures;
+  // The play mark follows the tile's own picture (#480): an unpainted tile has none.
+  const hasVideo = Boolean(source && tile?.hasVideo);
+  const label = hasVideo ? `${pictures}, has a video` : pictures;
   const waiting = unpainted && (job === "queued" || job === "generating" || job === "failed");
 
   return (
@@ -454,7 +456,7 @@ function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, onChoose 
       <span aria-hidden="true" className={`absolute bottom-2 left-2.5 text-sm font-semibold tabular-nums ${source ? "text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.7)]" : "text-ink/(--quiet-45)"}`}>
         {verse}
       </span>
-      {tile?.hasVideo ? (
+      {hasVideo ? (
         <span className="absolute top-2 left-2">
           <PlayMark />
         </span>

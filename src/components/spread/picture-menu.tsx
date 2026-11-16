@@ -8,6 +8,7 @@ import { LayerPanel, useLayer, useLayers } from "@/components/spread/layers";
 import { useChosenPicture, type ChosenPicture } from "@/components/spread/chosen-picture";
 import { MakeVideo, activeVideoJob } from "@/components/spread/make-video";
 import { PRICE_SEPARATOR } from "@/components/spread/paint-verse";
+import { PlayMark } from "@/components/spread/play-mark";
 import { useSession } from "@/context/session-context";
 import { useEffectiveArtStyle, useVisibleArtStyles, useWorkScope } from "@/context/work-scope-context";
 import { artStyleLabel } from "@/lib/art-styles";
@@ -42,9 +43,10 @@ const formatDate = (timestamp: number) =>
 /**
  * The picture menu (#441): a small chip on a painted verse's picture, and the layer it opens. The layer lists the
  * verse's pictures, the chosen art style first and then the other styles the reader may see, newest first, as
- * thumbnails; choosing one shows it on the spread until the page turns. Under the list sit the actions on the picture
- * shown: Paint another (the paint button's quote and credit rules), Make a video when video generation is on (#447),
- * its Details, and Report this picture.
+ * thumbnails, a thumbnail with a finished video carrying a small play badge (#480); choosing one shows it on the spread
+ * until the page turns, with its own Play. Under the list sit the actions on the picture shown: Paint another (the
+ * paint button's quote and credit rules), "Make this picture move…" when video generation is on (#447, #480), its
+ * Details, and Report this picture.
  *
  * Mount it with `key={verseId}`, so a page turn starts afresh.
  */
@@ -115,6 +117,9 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
     api.verseImages.getImageHistory,
     layer.isOpen ? { verseId, artStyle, otherStyles: true } : "skip",
   );
+  // The verse's finished videos, each with the picture it belongs to: those pictures carry the play badge.
+  const verseVideos = useQuery(api.verseVideos.getHistory, offersVideo ? { verseId, limit: 50 } : "skip");
+  const picturesWithVideo = verseVideos ? new Set(verseVideos.map((video) => video.sourceImageId)) : undefined;
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   const generation = useVerseGeneration({
@@ -172,11 +177,12 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
             <ul className="grid grid-cols-4 gap-1.5">
               {group.pictures.map((picture) => {
                 const isShown = picture.id === shown.id;
+                const hasVideo = picturesWithVideo?.has(picture.id) ?? false;
                 return (
                   <li key={picture.id}>
                     <button
                       type="button"
-                      aria-label={`${artStyleLabel(picture.artStyle)} picture, ${formatDate(picture.createdAt)}`}
+                      aria-label={`${artStyleLabel(picture.artStyle)} picture, ${formatDate(picture.createdAt)}${hasVideo ? ", has a video" : ""}`}
                       aria-pressed={isShown}
                       data-autofocus={isShown ? true : undefined}
                       onClick={() => showVersion(picture)}
@@ -185,6 +191,7 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
                       {/* Thumbnails come from Convex storage; there is no resizing service. */}
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={previewSource(picture) ?? undefined} alt="" className="h-full w-full object-cover object-center" />
+                      {hasVideo ? <span className="absolute right-1 bottom-1"><PlayMark size="badge" /></span> : null}
                     </button>
                   </li>
                 );
@@ -197,7 +204,7 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
         <hr className="mx-3 my-1.5 border-ink/10" />
         <PaintAnother generation={generation} onGetCredits={() => { layer.close(); buyCredits(); }} />
         {offersVideo ? (
-          <MakeVideo verseId={verseId} imageId={shown.id} reference={reference} myJobs={myJobs} className={ROW} onGetCredits={() => { layer.close(); buyCredits(); }} onMakingChange={onMakingVideoChange} />
+          <MakeVideo verseId={verseId} reference={reference} picture={shown} pictureHasVideo={picturesWithVideo?.has(shown.id)} myJobs={myJobs} className={ROW} onGetCredits={() => { layer.close(); buyCredits(); }} onMakingChange={onMakingVideoChange} />
         ) : null}
 
         <button type="button" className={ROW} aria-expanded={detailsOpen} onClick={() => setDetailsOpen((open) => !open)}>
