@@ -1,0 +1,37 @@
+{
+ "command": "pairs",
+ "cases": {
+  "file": "evals/chat/cases.json",
+  "version": 1,
+  "sha256": "672095528d608247ed0ccdcfd44153496ec6da87077b578f6df565296e360a71"
+ },
+ "runner": {
+  "commit": "933d00514cf4cc12be0cf2d0338ee7fb3567b8db",
+  "dirty": false
+ },
+ "seed": "chapter-context-2",
+ "chunk": 15,
+ "rubric": {
+  "file": "evals/chat/scoring.md",
+  "sha256": "1e1f437c80713003be8c7418447bd1d1827a7710e16ff80c2d7b1b07a30c0344"
+ },
+ "a": {
+  "results": "llm/releases/2026-11-16-chapter-context/three-verse-2/results.ndjson",
+  "arm": "candidate",
+  "label": "three-verse",
+  "manifest": {
+   "dir": "llm/releases/2026-11-16-chapter-context/three-verse-2",
+   "sha256": "21c33275b8a35952c59a17f2cf678a21faa24a21d05341b7942cdc1360eac6b1"
+  }
+ },
+ "b": {
+  "results": "llm/releases/2026-11-16-chapter-context/chapter-2/results.ndjson",
+  "arm": "candidate",
+  "label": "chapter-so-far",
+  "manifest": {
+   "dir": "llm/releases/2026-11-16-chapter-context/chapter-2",
+   "sha256": "a1b30106cf3c120fc4ce33f0b9d088ddec173505a21623ab6f57418401558105"
+  }
+ },
+ "keySha256": "cb00ec26338f96981d6e6ed229c4e0cf1c8dcc8bbe47f8d955565af9627067ca"
+}

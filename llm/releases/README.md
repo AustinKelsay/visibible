@@ -12,3 +12,4 @@ These folders are kept whole (apart from runner scripts) because current workflo
 - [2026-11-10-lean-snapshot](2026-11-10-lean-snapshot/README.md): the snapshot the [image eval runbook](../workflow/IMAGE_EVAL_AND_RELEASE.md) suggests reusing as `--from`.
 - [2026-11-10-holmes-alice-snapshot-2](2026-11-10-holmes-alice-snapshot-2/): the snapshot the suite test checks consistency groups against.
 - [2026-11-11-chat-admission](2026-11-11-chat-admission/README.md) and [2026-11-11-chat-model-comparison](2026-11-11-chat-model-comparison/README.md): the chat eval records; the chat code and tests cite the comparison's `guarded.txt`.
+- [2026-11-16-chapter-context](2026-11-16-chapter-context/README.md): the chat eval of chapter-so-far answers (#462), with its results, scores and pooled report.
