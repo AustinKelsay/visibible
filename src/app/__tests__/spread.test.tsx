@@ -9,6 +9,7 @@ import { getFunctionName, type FunctionReference } from "convex/server";
 import VersePage from "../[book]/[chapter]/[verse]/page";
 import { clearBibleApiCache, type Translation } from "@/lib/bible-api";
 import { trackVerseNavigation, trackWholePictureOpened } from "@/lib/analytics";
+import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 import { answerPictureRead, type SavedPicture } from "./fake-picture-reads";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -61,9 +62,6 @@ vi.mock("@/context/preferences-context", () => ({
   usePreferences: () => ({
     artStyle,
     translation,
-    imageModel: "test-model",
-    imageAspectRatio: "16:9",
-    imageResolution: "1K",
     autoGenerate: useSyncExternalStore(
       (listener) => { autoGenerateListeners.add(listener); return () => autoGenerateListeners.delete(listener); },
       () => autoGenerate,
@@ -90,7 +88,7 @@ let quoteAnswers: Array<() => Response> = [];
 const quoteOf = (quoteId: string, estimateCredits: number, maximumCredits: number) =>
   ({ quoteId, operation: "image", policyVersion: "accepted-maximum-v1", estimateCredits, maximumCredits, expiresAt: Date.now() + 300_000 });
 const staleQuote = (reason: string, quote: ReturnType<typeof quoteOf>) => json({ error: "Quote stale", reason, quote }, 409);
-const painted = (savedImageId: string) => json({ requestId: "r", imageUrl: "https://img.test/new.png", savedImageId, model: "test-model" });
+const painted = (savedImageId: string) => json({ requestId: "r", imageUrl: "https://img.test/new.png", savedImageId, model: DEFAULT_IMAGE_MODEL });
 
 const params = (book = "genesis", chapter = "1", verse = "1") => ({ params: Promise.resolve({ book, chapter, verse }) });
 
@@ -133,7 +131,8 @@ beforeEach(() => {
   vi.spyOn(console, "error").mockImplementation(() => {});
   vi.stubGlobal("fetch", vi.fn(async (url: string, init?: RequestInit) => {
     if (url === "/api/image-models") {
-      return json({ models: [{ id: "test-model", creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] });
+      // The reader paints with the default model unless Advanced changes it.
+      return json({ models: [{ id: DEFAULT_IMAGE_MODEL, creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] });
     }
     if (url === "/api/generate-image/quote") {
       quoteRequests.push(JSON.parse(String(init?.body)));

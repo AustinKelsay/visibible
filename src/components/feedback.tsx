@@ -2,9 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Send, Loader2, CheckCircle, ImageIcon } from "lucide-react";
-import type { PageContext } from "@/context/navigation-context";
 import { useSession } from "@/context/session-context";
 import { trackFeedbackSubmitted } from "@/lib/analytics";
+
+/** The passage feedback was sent from. */
+export type PageContext = {
+  book?: string;
+  chapter?: number;
+  verseRange?: string;
+};
 
 // Image context for feedback - which image the user was viewing
 export type ImageContext = {

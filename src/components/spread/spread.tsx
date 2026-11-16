@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { AskProvider } from "@/components/spread/ask";
 import { ChosenPictureProvider } from "@/components/spread/chosen-picture";
 import { ContentsButton, ContentsLayer } from "@/components/spread/contents";
 import { CornerMenu } from "@/components/spread/corner-menu";
-import { LayerProvider, useLayer } from "@/components/spread/layers";
+import { LayerProvider, useLayer, useLayers } from "@/components/spread/layers";
 import { LookButton, LookLayer } from "@/components/spread/look";
 import { PageTurnLink, useArrival, useArrivesInWholePicture, usePageTurn } from "@/components/spread/page-turn";
 import { bibleChapterPlaces, VerseMarks } from "@/components/spread/verse-marks";
@@ -15,8 +15,10 @@ import { PrefetchNextSpread } from "@/components/spread/prefetch-next";
 import { SpreadPicture } from "@/components/spread/spread-picture";
 import { WordsPage } from "@/components/spread/words-page";
 import { WholePictureCaption } from "@/components/spread/whole-picture";
+import { FeedbackPrompt } from "@/components/feedback-prompt";
 import { useSession } from "@/context/session-context";
 import { useMomentWord, useWorkScope } from "@/context/work-scope-context";
+import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { trackWholePictureOpened } from "@/lib/analytics";
 
 export interface SpreadProps {
@@ -89,11 +91,19 @@ function SpreadScreen({
   const idle = useIdle();
   const arrival = useArrival(path);
   const whole = useLayer("whole-picture").isOpen;
+  // The whole-picture view plays this verse's video instead of showing its picture (#447). Leaving the view or turning
+  // the page stops it.
+  const [playingVerse, setPlayingVerse] = useState<string | null>(null);
+  if (playingVerse !== null && !whole) setPlayingVerse(null);
+  const playing = whole && playingVerse === verseId;
   const { tier, credits } = useSession();
   const words = {
     bookName, chapter, chapterLabel, reference, verseNumber, verseText, paragraphs, totalVerses, translationName,
     prevUrl, nextUrl, onTurn,
   };
+  const { openLayer, openLayerById } = useLayers();
+  // The occasional feedback prompt, only when the reader turned it on in Advanced.
+  const { feedbackPrompts } = useAdvancedSettings();
   const onShowWhole = (imageId: string) =>
     trackWholePictureOpened({ book: bookName, chapter, verse: verseNumber, imageId, tier, hasCredits: credits > 0 });
 
@@ -111,14 +121,17 @@ function SpreadScreen({
           more room. */}
       <figure
         data-turn-in="fade"
-        className={`relative w-full overflow-hidden md:absolute md:inset-0 md:block md:aspect-auto md:max-h-none ${
-          whole
-            ? "flex min-h-0 flex-1 flex-col pt-8 md:pt-0"
-            : "aspect-square max-h-[52svh] shrink-0 transition-[max-height] duration-300 motion-reduce:transition-none max-md:[main:has([data-ask-page])_&]:max-h-[30svh]"
+        className={`relative w-full overflow-hidden md:absolute md:inset-0 md:aspect-auto md:max-h-none ${
+          playing
+            ? "flex min-h-0 flex-1 flex-col pt-8 md:pt-24 md:pb-28"
+            : whole
+            ? "flex min-h-0 flex-1 flex-col pt-8 md:block md:pt-0"
+            : "md:block aspect-square max-h-[52svh] shrink-0 transition-[max-height] duration-300 motion-reduce:transition-none max-md:[main:has([data-ask-page])_&]:max-h-[30svh]"
         }`}
       >
-        <SpreadPicture verseId={verseId} reference={reference} onShowWhole={onShowWhole} />
+        <SpreadPicture verseId={verseId} reference={reference} onShowWhole={onShowWhole} playing={playing} onPlay={() => setPlayingVerse(verseId)} />
         <WholePictureCaption
+          playing={playing}
           reference={reference}
           verseText={verseText}
           verseNumber={verseNumber}
@@ -137,7 +150,14 @@ function SpreadScreen({
         onTurn={onTurn}
       />
 
-      <CornerMenu verseId={verseId} bookName={bookName} chapter={chapter} verseNumber={verseNumber} />
+      <CornerMenu
+        verseId={verseId}
+        bookName={bookName}
+        chapter={chapter}
+        verseNumber={verseNumber}
+        verseText={verseText}
+        totalVerses={totalVerses}
+      />
 
       {offersAsk ? (
         // Keyed by the verse: turning the page clears the conversation.
@@ -163,6 +183,15 @@ function SpreadScreen({
 
       <ContentsLayer bookSlug={bookSlug ?? ""} chapter={chapter} verse={verseNumber} />
       <LookLayer verseId={verseId} />
+
+      {feedbackPrompts ? (
+        <FeedbackPrompt
+          visitKey={verseId}
+          suppressed={openLayer !== null}
+          onOpen={() => openLayerById("feedback")}
+          className="absolute left-3 top-[4.25rem] md:left-5 md:top-[4.75rem]"
+        />
+      ) : null}
     </main>
   );
 }

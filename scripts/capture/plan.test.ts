@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CAPTURE_STUBS, allowsRequest, findBrowser, localBase, parseStep, pricedCatalog, selectStates, shotFile } from "./plan";
+import { CAPTURE_STUBS, VIDEO_PRICING, allowsRequest, findBrowser, localBase, parseStep, pricedCatalog, selectStates, shotFile, stubLabel } from "./plan";
 import { READER_STATES } from "./states";
 
 describe("reader capture plan", () => {
@@ -96,6 +96,14 @@ describe("reader capture plan", () => {
         { id: "icon", available: false, reason: "Owner only" },
       ],
     });
+  });
+
+  it("labels a stubbed state's pictures with what was faked, and fakes video as switched on with the menu's clip priced", () => {
+    expect(stubLabel({ name: "make-video", path: "/john/1/5", stubs: ["video-priced"] })).toBe("Stubbed: video pricing");
+    expect(stubLabel({ name: "both", path: "/john/1/5", stubs: ["priced", "video-priced"] })).toBe("Stubbed: image prices, video pricing");
+    expect(stubLabel({ name: "reading", path: "/john/1/5" })).toBeNull();
+    expect(VIDEO_PRICING.enabled).toBe(true);
+    expect(VIDEO_PRICING.quotes).toContainEqual(expect.objectContaining({ duration: 5, resolution: "768p" }));
   });
 
   it("names each picture after its state and size, and can shoot only some states", () => {

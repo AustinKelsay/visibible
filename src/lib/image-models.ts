@@ -346,3 +346,22 @@ export function soleImageModel(models: readonly ImageModel[], selectedId: string
   const [model] = models;
   return model.availability !== "unavailable" && getEstimatedCreditsCostForResolution(model, "1K") !== null ? model : null;
 }
+
+/** Whether a reader may pick this catalog model: the server offers it and can price it. */
+export function isImageModelSelectable(model: ImageModel): boolean {
+  return model.availability !== "unavailable" && getEstimatedCreditsCostForResolution(model, "1K") !== null;
+}
+
+/**
+ * One resolution for a model, as the settings offer it: unavailable when the model cannot make it, or when the
+ * catalog has it (`model`) and the server will not price it. `cost` is the catalog estimate where there is one.
+ */
+export function resolutionChoice(
+  modelId: string,
+  model: ImageModel | undefined,
+  resolution: ImageResolution
+): { available: boolean; cost: number | null } {
+  const makes = imageCapabilities(modelId)?.resolutions.includes(resolution) ?? resolution === DEFAULT_RESOLUTION;
+  const cost = makes && model ? getEstimatedCreditsCostForResolution(model, resolution) : null;
+  return { available: makes && (!model || cost !== null), cost };
+}

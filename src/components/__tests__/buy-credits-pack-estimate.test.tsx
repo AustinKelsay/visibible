@@ -10,8 +10,8 @@ import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 
 const session = vi.hoisted(() => ({ isBuyModalOpen: true, closeBuyModal: () => {}, credits: 0, tier: "free" }));
 vi.mock("@/context/session-context", () => ({ useSession: () => session }));
-const prefs = vi.hoisted(() => ({ imageModel: "google/gemini-3.1-flash-image", imageResolution: "1K" }));
-vi.mock("@/context/preferences-context", () => ({ usePreferences: () => prefs }));
+const advanced = vi.hoisted(() => ({ imageModel: "google/gemini-3.1-flash-image", resolution: "1K" }));
+vi.mock("@/lib/advanced-settings", () => ({ useAdvancedSettings: () => advanced }));
 vi.mock("@/lib/analytics", () => ({
   trackCreditsModalOpened: vi.fn(),
   trackCreditsModalClosed: vi.fn(),
@@ -31,7 +31,7 @@ describe("Get Credits pack estimate", () => {
   let root: Root;
 
   beforeEach(() => {
-    prefs.imageResolution = "1K";
+    advanced.resolution = "1K";
     session.isBuyModalOpen = true;
     const memoryStorage = () => {
       const store = new Map<string, string>();
@@ -52,9 +52,6 @@ describe("Get Credits pack estimate", () => {
 
   async function openPacks() {
     await act(async () => root.render(<BuyCreditsModal />));
-    const next = Array.from(document.querySelectorAll("button")).find((b) => b.textContent?.includes("Get Credits to Generate"));
-    // A reopened modal can skip the welcome step and land on the packs directly
-    if (next) await act(async () => next.click());
     await act(async () => { await new Promise((resolve) => setTimeout(resolve, 0)); });
   }
 
@@ -86,7 +83,7 @@ describe("Get Credits pack estimate", () => {
   });
 
   it("leaves the estimate out at a resolution the generation model cannot make", async () => {
-    prefs.imageResolution = "2K";
+    advanced.resolution = "2K";
     vi.stubGlobal("fetch", vi.fn(() => modelsResponse(catalog)));
     await openPacks();
     expect(document.body.textContent).toContain("100 credits");

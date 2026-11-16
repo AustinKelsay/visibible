@@ -9,6 +9,7 @@ import VersePage from "../[book]/[chapter]/[verse]/page";
 import { clearBibleApiCache } from "@/lib/bible-api";
 import { trackContentsOpened, trackCreditsInsufficient, trackVerseNavigation } from "@/lib/analytics";
 import type { BulkGenerationState } from "@/context/bulk-generation-context";
+import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -50,7 +51,7 @@ vi.mock("convex/react", () => ({
 }));
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => true }));
 vi.mock("@/context/preferences-context", () => ({
-  usePreferences: () => ({ artStyle, translation: "web", imageModel: "test-model", imageAspectRatio: "16:9", imageResolution: "1K", autoGenerate: false, setAutoGenerate: vi.fn() }),
+  usePreferences: () => ({ artStyle, translation: "web", autoGenerate: false, setAutoGenerate: vi.fn() }),
 }));
 const buyCredits = vi.fn();
 let session = { sid: "guest", tier: "paid", credits: 0, isLoading: false, buyCredits };
@@ -87,6 +88,8 @@ vi.mock("@/context/bulk-generation-context", () => ({
 
 type SavedPicture = { id: string; imageUrl: string; thumbnailUrl: string | null; artStyle: string; createdAt: number };
 let savedPictures: SavedPicture[] = [];
+/** Verses with a finished video. */
+let videoVerses = new Set<string>();
 const contentsReads: Array<{ verseIds: string[]; styles: string[] }> = [];
 
 const picture = (verseId: string, name: string, createdAt: number, style = "classical", thumbnail = true): SavedPicture => ({
@@ -117,6 +120,7 @@ function fakeQuery(query: FunctionReference<"query">, args: unknown) {
         picture: shown ? { id: shown.id, imageUrl: shown.imageUrl, thumbnailUrl: shown.thumbnailUrl, artStyle: shown.artStyle } : null,
         pictureCount: Math.min(mine.length, 9),
         morePictures: mine.length > 9,
+        hasVideo: videoVerses.has(verseId),
       };
     });
   }
@@ -163,6 +167,7 @@ beforeEach(() => {
   vi.clearAllMocks();
   artStyle = "classical";
   savedPictures = [];
+  videoVerses = new Set();
   contentsReads.length = 0;
   session = { sid: "guest", tier: "paid", credits: 0, isLoading: false, buyCredits };
   bulk.state = idleJob;
@@ -171,7 +176,7 @@ beforeEach(() => {
   vi.stubGlobal("fetch", vi.fn(async (url: string) => {
     // The image catalog prices a picture at about 5 credits; the Bible service is unreachable.
     if (url === "/api/image-models") {
-      return new Response(JSON.stringify({ models: [{ id: "test-model", creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] }), { headers: { "Content-Type": "application/json" } });
+      return new Response(JSON.stringify({ models: [{ id: DEFAULT_IMAGE_MODEL, creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] }), { headers: { "Content-Type": "application/json" } });
     }
     throw new DOMException("Timed out", "TimeoutError");
   }));
@@ -234,6 +239,20 @@ describe("Contents", () => {
 
     const wallSources = [...dialog()!.querySelectorAll("img")].map((img) => img.getAttribute("src"));
     expect(wallSources.filter((src) => src?.includes("/full/"))).toEqual(["https://img.test/full/john-1-4-nothumb.png"]);
+  });
+
+  it("puts a play mark on the tile of a verse with a video, painted or not, and none on the others", async () => {
+    savedPictures = [picture("john-1-1", "a", 1), picture("john-1-2", "old", 1), picture("john-1-2", "new", 2), picture("john-1-3", "b", 1)];
+    videoVerses = new Set(["john-1-1", "john-1-2", "john-1-6"]);
+    await openVerse("john", "1", "5");
+    await openContents();
+
+    expect(tile(1).getAttribute("aria-label")).toBe("Verse 1, has a video");
+    expect(tile(2).getAttribute("aria-label")).toBe("Verse 2, 2 pictures, has a video");
+    expect(tile(6).getAttribute("aria-label")).toBe("Verse 6, not painted yet, has a video");
+    expect(tile(3).getAttribute("aria-label")).toBe("Verse 3");
+    const playMarks = tiles().filter((link) => link.querySelector('[data-play-mark]'));
+    expect(playMarks).toEqual([tile(1), tile(2), tile(6)]);
   });
 
   it("opens the chosen verse and closes", async () => {
@@ -392,12 +411,11 @@ describe("Painting the chapter from Contents", () => {
         expect.objectContaining({ verseId: "john-1-51", reference: "John 1:51", order: 2 }),
       ],
       estimatedTotalCredits: 15,
-      modelId: "test-model",
-      aspectRatio: "16:9",
-      resolution: "1K",
       translation: "web",
       artStyleId: "classical",
     }));
+    // The model, ratio and resolution are left to the bulk provider, which uses the reader's Advanced image settings.
+    expect(bulk.startBulkGeneration.mock.calls[0]).toEqual([expect.not.objectContaining({ modelId: expect.anything() })]);
     expect(buyCredits).not.toHaveBeenCalled();
   });
 

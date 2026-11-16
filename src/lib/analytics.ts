@@ -26,6 +26,7 @@ export type PreferenceChangeSource =
   | "mobile_header_menu"
   | "spread_paint_switch"
   | "look"
+  | "advanced"
   | "unknown";
 
 export type GenerationTriggerSource =
@@ -52,35 +53,6 @@ type VerseViewProps = BaseProps & {
   verse: number;
   testament: "old" | "new";
   translation: string;
-};
-
-type VerseImagesStateProps = BaseProps & {
-  book: string;
-  chapter: number;
-  verse: number;
-  /** "prose" for a prose work's moment: book is the work's title, chapter its division, verse the first paragraph. */
-  testament: "old" | "new" | "prose";
-} & (
-  | {
-      imageState: "known";
-      imageCount: number;
-      hasImages: boolean;
-    }
-  | {
-      imageState: "unknown";
-    }
-);
-
-type ChatOpenedProps = BaseProps & {
-  variant: "sidebar";
-  hasContext: boolean;
-};
-
-type ChatMessageSentProps = BaseProps & {
-  variant: "sidebar" | "inline";
-  chatModel: string;
-  messageCount: number;
-  hasContext: boolean;
 };
 
 /** Where Ask was opened: by sending from the words page's foot, or from the phone dock. */
@@ -168,8 +140,6 @@ type InvoiceCancelledProps = BaseProps & {
   invoiceAgeSeconds: number;
 };
 
-type MenuOpenedProps = BaseProps;
-
 type PreferenceChangedProps = BaseProps & {
   preference:
     | "translation"
@@ -179,7 +149,8 @@ type PreferenceChangedProps = BaseProps & {
     | "imageResolution"
     | "artStyle"
     | "textSize"
-    | "autoGenerate";
+    | "autoGenerate"
+    | "feedbackPrompts";
   value: string;
   source: PreferenceChangeSource;
 };
@@ -215,36 +186,6 @@ type ContentsOpenedProps = BaseProps & {
   verse: number;
 };
 
-type ImageFullscreenOpenedProps = BaseProps & {
-  book: string;
-  chapter: number;
-  verse: number;
-  source: "hero_mobile";
-  imageId?: string;
-  totalImages?: number;
-};
-
-type ImageBrowsedProps = BaseProps & {
-  book: string;
-  chapter: number;
-  verse: number;
-  direction: "older" | "newer";
-  surface: "desktop_dock" | "overlay" | "fullscreen";
-  currentIndex: number;
-  totalImages: number;
-  imageId?: string;
-};
-
-type SavedImageLoadFailedProps = BaseProps & {
-  book: string;
-  chapter: number;
-  verse: number;
-  surface: "hero" | "fullscreen";
-  imageId?: string;
-  imageUrl?: string;
-  attempt?: number;
-};
-
 type ApiDocsViewedProps = BaseProps & {
   page: "api-docs";
 };
@@ -268,8 +209,6 @@ type VerseNavigationProps = BaseProps & {
   targetUrl: string;
 };
 
-type SettingsMenuOpenedProps = BaseProps;
-
 type WholePictureOpenedProps = BaseProps & {
   book: string;
   chapter: number;
@@ -277,36 +216,9 @@ type WholePictureOpenedProps = BaseProps & {
   imageId?: string;
 };
 
-function sanitizeImageUrl(imageUrl?: string): string | undefined {
-  if (!imageUrl) return undefined;
-
-  try {
-    const url = new URL(imageUrl);
-    return url.pathname || undefined;
-  } catch {
-    const sanitized = imageUrl.split("#", 1)[0]?.split("?", 1)[0]?.trim();
-    return sanitized || undefined;
-  }
-}
-
 // Track verse page view
 export function trackVerseView(props: VerseViewProps) {
   track("verse_view", props);
-}
-
-// Track verse image inventory state (known vs unknown)
-export function trackVerseImagesState(props: VerseImagesStateProps) {
-  track("verse_images_state", props);
-}
-
-// Track chat sidebar opened
-export function trackChatOpened(props: ChatOpenedProps) {
-  track("chat_opened", props);
-}
-
-// Track chat message sent
-export function trackChatMessageSent(props: ChatMessageSentProps) {
-  track("chat_message_sent", props);
 }
 
 // Track the turned-over words page opening for Ask
@@ -379,11 +291,6 @@ export function trackInvoiceCancelled(props: InvoiceCancelledProps) {
   track("invoice_cancelled", props);
 }
 
-// Track menu opened
-export function trackMenuOpened(props: MenuOpenedProps) {
-  track("menu_opened", props);
-}
-
 // Track preference changes
 export function trackPreferenceChanged(props: PreferenceChangedProps) {
   track("preference_changed", props);
@@ -414,24 +321,6 @@ export function trackPictureMenuOpened(props: PictureMenuOpenedProps) {
   track("picture_menu_opened", props);
 }
 
-// Track fullscreen image opens across the new image surfaces
-export function trackImageFullscreenOpened(props: ImageFullscreenOpenedProps) {
-  track("image_fullscreen_opened", props);
-}
-
-// Track older/newer image browsing
-export function trackImageBrowsed(props: ImageBrowsedProps) {
-  track("image_browsed", props);
-}
-
-// Track saved-image load failures that surface in the UI
-export function trackSavedImageLoadFailed(props: SavedImageLoadFailedProps) {
-  track("saved_image_load_failed", {
-    ...props,
-    imageUrl: sanitizeImageUrl(props.imageUrl),
-  });
-}
-
 // Track API docs page views
 export function trackApiDocsViewed(props: ApiDocsViewedProps) {
   track("api_docs_viewed", props);
@@ -452,7 +341,3 @@ export function trackWholePictureOpened(props: WholePictureOpenedProps) {
   track("whole_picture_opened", props);
 }
 
-// Track the mobile settings menu
-export function trackSettingsMenuOpened(props: SettingsMenuOpenedProps) {
-  track("settings_menu_opened", props);
-}

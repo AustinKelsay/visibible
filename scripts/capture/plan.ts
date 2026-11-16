@@ -15,9 +15,32 @@ export const CAPTURE_SIZES: Record<CaptureSize, { width: number; height: number;
 /**
  * Responses a state may stub, because a local app without an OpenRouter key cannot give them. `priced`: the image
  * catalog answers as an app with a key would (see `pricedCatalog`), so prices show; nothing can be painted with it.
+ * `video-priced`: video generation answers as switched on, with `VIDEO_PRICING` (#447); making a video stays refused.
  */
-export const CAPTURE_STUBS = ["priced"] as const;
+export const CAPTURE_STUBS = ["priced", "video-priced"] as const;
 export type CaptureStub = (typeof CAPTURE_STUBS)[number];
+
+/** What each stub fakes, for the label a stubbed state's pictures carry. */
+const STUB_LABELS: Record<CaptureStub, string> = { priced: "image prices", "video-priced": "video pricing" };
+
+/** The label a stubbed state's pictures carry, so nobody mistakes a faked price for the real service. */
+export function stubLabel(state: CaptureState): string | null {
+  if (!state.stubs?.length) return null;
+  return `Stubbed: ${state.stubs.map((stub) => STUB_LABELS[stub]).join(", ")}`;
+}
+
+/** `GET /api/generate-video` as an app with video generation on answers: a 5- and 10-second clip at two qualities. */
+export const VIDEO_PRICING = {
+  enabled: true,
+  model: "minimax/hailuo-3-max",
+  modelName: "Hailuo 3 Max",
+  quotes: [
+    { duration: 5, resolution: "480p", providerCostUsd: 0.25, credits: 32 },
+    { duration: 5, resolution: "768p", providerCostUsd: 0.4, credits: 50 },
+    { duration: 10, resolution: "480p", providerCostUsd: 0.5, credits: 63 },
+    { duration: 10, resolution: "768p", providerCostUsd: 0.8, credits: 100 },
+  ],
+};
 
 /** One reader state: the name its pictures carry, the address it opens, the steps that reach it and its stubs. */
 export type CaptureState = { name: string; path: string; steps?: string[]; sizes?: CaptureSize[]; stubs?: CaptureStub[] };

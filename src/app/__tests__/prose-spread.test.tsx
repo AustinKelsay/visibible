@@ -18,6 +18,7 @@ import MomentPage from "../read/[work]/[moment]/page";
 import WorkPage from "../read/[work]/page";
 import LibraryPage from "../read/page";
 import { createWorkReader } from "@/lib/work-input";
+import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 import { answerPictureRead, type SavedPicture } from "./fake-picture-reads";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -84,9 +85,6 @@ vi.mock("@/context/preferences-context", () => ({
     translation: "web",
     translationInfo: { name: "World English Bible", code: "WEB", year: null },
     setTranslation: vi.fn(),
-    imageModel: "test-model",
-    imageAspectRatio: "16:9",
-    imageResolution: "1K",
     autoGenerate: false,
     setAutoGenerate: vi.fn(),
   }),
@@ -142,7 +140,7 @@ beforeEach(() => {
   vi.stubGlobal("fetch", vi.fn(async (url: string, init?: RequestInit) => {
     if (url.startsWith("/api/image-models")) {
       catalogRequests.push(url);
-      return json({ models: [{ id: "test-model", creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] });
+      return json({ models: [{ id: DEFAULT_IMAGE_MODEL, creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] });
     }
     if (url === "/api/generate-image") {
       paintRequests.push(JSON.parse(String(init?.body)));
@@ -336,5 +334,17 @@ describe("Contents on a prose moment", () => {
     act(() => { (contents()!.querySelector("ol a") as HTMLAnchorElement).click(); });
     expect(push).toHaveBeenLastCalledWith("/read/alice-in-wonderland/the-pool-of-tears-1");
     expect(contents()).toBeNull();
+  });
+});
+
+describe("the corner menu on a prose moment", () => {
+  it("keeps Advanced without the answering model or the Bible's passage details", async () => {
+    await openMoment("down-the-rabbit-hole-1");
+    act(() => { button("Visibible menu")!.click(); });
+    act(() => { buttonWithText(/^Advanced$/)!.click(); });
+    const advanced = container.querySelector('[role="group"][aria-label="Advanced"]')!;
+    expect(advanced.textContent).toContain("Image settings");
+    expect(advanced.textContent).not.toContain("Answering model");
+    expect(advanced.textContent).not.toContain("Passage details");
   });
 });
