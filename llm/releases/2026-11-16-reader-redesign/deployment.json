@@ -1,0 +1,87 @@
+{
+  "authorization": [
+    "The owner asked for the reader redesign (spec #434) to be built end to end, approved the Vercel preview of the integration branch on 2026-11-16 (\"Approved: merge #473\"), and then said \"Let's get this all shipped end to end full send\"."
+  ],
+  "release": {
+    "pullRequests": [
+      473
+    ],
+    "ticketPullRequests": [
+      454,
+      455,
+      456,
+      457,
+      458,
+      459,
+      460,
+      461,
+      462,
+      463,
+      464,
+      465,
+      466,
+      467,
+      468,
+      469,
+      470,
+      471,
+      472
+    ],
+    "mainCommit": "933d0051",
+    "reviewFindings": "sol-loop, 3 rounds with GPT-6.1 Sol on xhigh: six findings, five fixed with tests (automatic-painting switch reachable while painting; paid buttons show the maximum; credits dialog keeps focus over a layer and through its steps; play control on a verse with a video but no picture; focus trap counts a radio group once), one declined as a rare path (a playing video restarts if the same verse's painting lands). Approved. CodeRabbit did not review #473: its review limit was reached and the owner declined the paid on-demand run.",
+    "chatEvaluation": "../2026-11-16-chapter-context (#474): chapter-so-far passes every gate against the three-verse prompt (overall 1.905 vs 1.871), $0.0479."
+  },
+  "preview": {
+    "vercel": "https://visibible-ddbept6u2-austin-kelsays-projects.vercel.app",
+    "convex": "Shared dev coordinated-shepherd-515 received the branch's functions; thumbnail backfill: dry run found 80, run attached 80, repeat dry run found 0."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-16T17:57:44Z",
+        "commit": "933d0051",
+        "convex": "Deployed to unique-impala-244 after a dry run. Added indexes verseImages.by_thumbnailStorageId and verseImages.by_verse_artStyle; no index deleted. New optional field verseImages.thumbnailStorageId."
+      },
+      {
+        "at": "2026-11-16T17:58:04Z",
+        "backfill": "npm run thumbnails:backfill against https://unique-impala-244.convex.cloud: dry run found 230; run attached 230, 0 failed; repeat dry run found 0."
+      },
+      {
+        "at": "2026-11-16T18:01:31Z",
+        "commit": "933d0051",
+        "carries": [
+          473
+        ],
+        "vercel": "dpl_46ZwHN9GrDQbvoPzTTkigfoKt4PJ"
+      }
+    ]
+  },
+  "smoke": {
+    "pages": "On https://visibible.com after the deploy: /john/1/1, /john/1/5, /about, /api-docs, /recover, /read, /api/health and /api/public/images/chapters/john/1 all 200; /john/1/5?view=gallery 200 (the retired parameter is ignored); /read/alice-in-wonderland 404 for a visitor (owner-only kept). The John 1:5 page carries the verse text, the dock (\"Turn the page\") and the Contents button.",
+    "credits": "A new guest with no credits: POST /api/generate-image for John 1:6 402 Insufficient credits (required 6, available 0); POST /api/chat/quote for \"Summarize John 1 so far\" at John 1:14 402 Insufficient credits.",
+    "screens": "Playwright against production at 1440x900 and 390x844: the John 1:5 spread with its picture and the Summarize suggestion; Contents for John 1 showing thumbnails for verses 1-20, the current verse ringed and \"Paint the 31 unpainted verses · about 186 credits\" with \"You have 0 credits.\"; John 1:40 unpainted on a phone with \"Get credits to paint\" and the automatic-painting switch off."
+  },
+  "notExercised": [
+    "A funded paint, Ask turn, chapter job or video in production: the smoke guest has no credits.",
+    "The owner-only prose reader on production (checked on the preview and locally).",
+    "The Light appearance on production (Advanced; checked locally)."
+  ],
+  "followUps": [
+    "A playing video restarts if the same unpainted verse's painting finishes during playback (Sol, declined as rare).",
+    "Look's style examples fall back to a letter tile for a style with no picture of the current verse or Genesis 1:1.",
+    "The longer paint price label may wrap on phones narrower than 390px.",
+    "Chat: a long walk-through answer (the burning-bush case) now hits the 2,048-token output cap earlier with the chapter in the prompt; raising the cap for passage turns or adding guidance needs its own eval (../2026-11-16-chapter-context).",
+    "The image-only branch assets/reader-redesign-screenshots holds the screenshots shown in #473; deleting it breaks them."
+  ],
+  "rollback": {
+    "vercel": "Promote dpl_C7h2rVyZXTL9GSBcbEP93taFN3HP (main 310856f3). The old reader then runs on the new Convex functions, except its Gallery tab: this release removed verseImages.getChapterGallery, so that tab would fail.",
+    "convex": "Pushing the old functions back as they were would fail schema validation, because 230 pictures now carry verseImages.thumbnailStorageId. A rollback that needs the Gallery tab must push 310856f3's functions with that optional field (and getChapterGallery) added to its schema.",
+    "settings": "Readers' saved settings were reset by the hard cut and do not come back."
+  },
+  "productionWrites": [
+    "One Convex production deploy (two new indexes).",
+    "230 thumbnail files and their verseImages.thumbnailStorageId links.",
+    "One Vercel production deployment.",
+    "One throwaway guest session from the smoke checks, with no balance, plus the browser sessions of the screenshot run."
+  ]
+}
