@@ -112,6 +112,7 @@ export default async function VersePage({ params }: VersePageProps) {
       />
       <Spread
         verseId={verseLocationToId(location)}
+        bookSlug={bookData.slug}
         bookName={bookData.name}
         chapter={location.chapter}
         verseNumber={location.verse}
