@@ -78,6 +78,26 @@ describe("the credits dialog over an open layer", () => {
     expect(field().value).toBe("What does it mean?");
   });
 
+  it("keeps focus inside when Buy gives way to the loading step", async () => {
+    await render();
+    field().focus();
+    act(() => session.setOpen(true));
+    await flush();
+    const buy = [...dialog()!.querySelectorAll("button")].find((button) => /^Buy /.test(button.textContent ?? ""))!;
+    buy.focus();
+    await act(async () => { buy.click(); });
+    await flush();
+
+    expect(buy.isConnected).toBe(false);
+    expect(dialog()!.contains(document.activeElement)).toBe(true);
+    // Escape belongs to the dialog (which stays open while the invoice loads), never to the layer under it.
+    expect(press("Escape")).toBe(true);
+    await flush();
+    expect(dialog()).not.toBeNull();
+    expect(ask()).not.toBeNull();
+    expect(dialog()!.contains(document.activeElement)).toBe(true);
+  });
+
   it("keeps focus when the layer that opened it closes as it opens, as the picture menu's Get credits does", async () => {
     await act(async () => root.render(<LayerProvider><PictureMenu /><BuyCreditsModal /></LayerProvider>));
     const chip = document.querySelector<HTMLButtonElement>('button[aria-label="Picture menu chip"]')!;

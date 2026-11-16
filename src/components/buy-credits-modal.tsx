@@ -132,6 +132,17 @@ export function BuyCreditsModal() {
     };
   }, [isBuyModalOpen]);
 
+  // A step change can remove the focused control (Buy turns into the loading step, an error replaces it):
+  // focus goes back inside, so Tab and Escape stay with the dialog and not the layer under it.
+  useEffect(() => {
+    if (!isBuyModalOpen) return;
+    queueMicrotask(() => {
+      const dialog = dialogRef.current;
+      if (!dialog || dialog.contains(document.activeElement)) return;
+      (tabbableIn(dialog)[0] ?? dialog).focus();
+    });
+  }, [isBuyModalOpen, state]);
+
   const [showAdminInput, setShowAdminInput] = useState(false);
   // Owner sign-in stays out of the purchase flow unless the page URL asks for it.
   const showAdminEntry = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("admin");
