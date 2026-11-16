@@ -7,7 +7,7 @@ Bulk painting starts from Contents (#446). [ChapterPaint](../../src/components/s
 - **Progress on the tiles.** `getVerseStatuses({ sid, bulkGenerationId, verseIds ≤ 200 })` in [bulkGenerations.ts](../../convex/bulkGenerations.ts) returns, per shown verse the job holds, its item status (one `by_bulk_verse` lookup per verse; nothing for another guest). Tiles read "Verse N, queued", "…, painting", "…, painting failed" and "…, just painted" (with a check), and a finished picture appears on its tile from the reactive Contents read, without a reload.
 - **The job's controls.** While a job exists (from this chapter or any other) the wall shows it instead of the button: "Painting John 1:7 · 2 of 4" with a progress bar, Pause or Resume, and Stop; a finished or stopped job shows how it ended (painted, failed, credits used) until "Done" dismisses it, after which the button offers whatever is still unpainted.
 
-The header's generate dialog and its Bulk tab (next N verses, chapter ranges, whole book) are gone; the old header on the prose reader keeps its balance and settings.
+The header's generate dialog and its Bulk tab (next N verses, chapter ranges, whole book) are gone with the old header. A prose work's Contents offers no chapter painting.
 
 The coordinator below is unchanged.
 

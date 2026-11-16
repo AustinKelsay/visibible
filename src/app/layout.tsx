@@ -5,9 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { GuestSessionProvider } from "@/context/guest-session-context";
 import { SessionProvider } from "@/context/session-context";
-import { NavigationProvider } from "@/context/navigation-context";
 import { PreferencesProvider } from "@/context/preferences-context";
-import { GenerationProvider } from "@/context/generation-context";
 import { BulkGenerationProvider } from "@/context/bulk-generation-context";
 import { BuyCreditsModal } from "@/components/buy-credits-modal";
 
@@ -50,14 +48,10 @@ export default function RootLayout({
           <ConvexClientProvider>
             <SessionProvider>
               <PreferencesProvider>
-                <NavigationProvider>
-                  <GenerationProvider>
-                    <BulkGenerationProvider>
-                      {children}
-                      <BuyCreditsModal />
-                    </BulkGenerationProvider>
-                  </GenerationProvider>
-                </NavigationProvider>
+                <BulkGenerationProvider>
+                  {children}
+                  <BuyCreditsModal />
+                </BulkGenerationProvider>
               </PreferencesProvider>
             </SessionProvider>
           </ConvexClientProvider>

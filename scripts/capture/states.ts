@@ -8,7 +8,9 @@ import type { CaptureState } from "./plan";
  * a slow read never leaves a blank where the picture belongs.
  *
  * Addresses assume the seeded local data: John 1:1–5, 9 and 14 painted in Classical, the rest of John 1 unpainted, and
- * John 4:7 painted only in Watercolor.
+ * John 4:7 painted only in Watercolor. The prose states (owner-only, `owner: true`) also assume an active analysis of
+ * Alice whose moments are two paragraphs long in its first chapters, with ¶1 and ¶3 of "Down the Rabbit-Hole" painted
+ * and ¶5 not (llm/workflow/READER_CAPTURE.md).
  */
 export const READER_STATES: CaptureState[] = [
   { name: "reading", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "hover:css:article p:nth-of-type(2)"] },
@@ -39,4 +41,11 @@ export const READER_STATES: CaptureState[] = [
   { name: "play-mark", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "waitfor:button:Play the video of John 1:5", "hover:css:article p:nth-of-type(2)"] },
   { name: "video-playing", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Play the video of John 1:5", "waitfor:css:video", "wait:1500"] },
   { name: "make-video", path: "/john/1/5", stubs: ["video-priced"], steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "waitfor:text:make a video", "wait:400"] },
+  // The owner's prose reader (#451): a moment on the spread, its whole picture, its Contents of the work's divisions,
+  // Look without translation, and an unpainted moment.
+  { name: "prose", path: "/read/alice-in-wonderland/down-the-rabbit-hole-1", owner: true, steps: ["waitfor:img:Picture of Down the Rabbit-Hole ¶1–2", "hover:css:article h1"] },
+  { name: "prose-whole-picture", path: "/read/alice-in-wonderland/down-the-rabbit-hole-1", owner: true, steps: ["click:button:Show the whole picture of Down the Rabbit-Hole ¶1–2", "wait:600"] },
+  { name: "prose-contents", path: "/read/alice-in-wonderland/down-the-rabbit-hole-1", owner: true, steps: ["click:button:Contents", "waitfor:dialog:Contents", "wait:1200"] },
+  { name: "prose-look", path: "/read/alice-in-wonderland/down-the-rabbit-hole-1", owner: true, steps: ["waitfor:img:Picture of Down the Rabbit-Hole ¶1–2", "click:button:Look", "waitfor:dialog:Look", "wait:800"] },
+  { name: "prose-unpainted", path: "/read/alice-in-wonderland/down-the-rabbit-hole-5", owner: true, steps: ["waitfor:region:Picture", "hover:css:article h1"] },
 ];

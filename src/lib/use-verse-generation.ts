@@ -12,7 +12,6 @@ import {
   canAffordImageGeneration,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
   getEstimatedCreditsCostForResolution,
-  type ImageAspectRatio,
   type ImageResolution,
 } from "@/lib/image-models";
 import {
@@ -55,14 +54,10 @@ export interface VerseGenerationOptions {
   styleImageCount: number | undefined;
   /** Hold automatic generation back (for example while other styles' images are on view). */
   autoGenerateBlocked?: boolean;
-  /** The owner, who is not charged, gets automatic images without turning them on. False makes the opt-in apply to the owner too. */
-  ownerNeedsNoOptIn?: boolean;
   /** An attempt is starting. */
   onAttemptStart?: () => void;
   /** The image was made: saved under `savedImageId`, or (without persistence) only at `url`. */
   onImage?: (image: { savedImageId: string | null; url: string; model: string }) => void;
-  /** The model, ratio and resolution to paint with. Default: the reader's Advanced settings (their defaults when Advanced is absent). */
-  imageSettings?: { imageModel: string; imageAspectRatio: ImageAspectRatio; imageResolution: ImageResolution };
 }
 
 /**
@@ -75,18 +70,13 @@ export function useVerseGeneration({
   reference,
   styleImageCount,
   autoGenerateBlocked = false,
-  ownerNeedsNoOptIn = true,
   onAttemptStart,
   onImage,
-  imageSettings,
 }: VerseGenerationOptions) {
   const { translation, autoGenerate } = usePreferences();
   const advanced = useAdvancedSettings();
-  const {
-    imageModel,
-    imageAspectRatio,
-    imageResolution,
-  } = imageSettings ?? { imageModel: advanced.imageModel, imageAspectRatio: advanced.aspectRatio, imageResolution: advanced.resolution };
+  // The reader's Advanced settings (their defaults when Advanced is absent).
+  const { imageModel, aspectRatio: imageAspectRatio, resolution: imageResolution } = advanced;
   const scope = useWorkScope();
   const { artStyle, offered: offeredStyles } = useEffectiveArtStyle();
   const catalogUrl = imageModelsUrl(scope);
@@ -175,9 +165,9 @@ export function useVerseGeneration({
   const canGenerate = pricingAvailable && styleAvailable && (isAdmin ||
     (tier === "paid" && canAffordImageGeneration(credits, effectiveCost)));
   // A guest is charged for an automatic image without seeing its price, so it runs only once they have turned it on
-  // themselves, and only when the balance strictly covers the estimate. The owner is not charged.
+  // themselves, and only when the balance strictly covers the estimate. The owner is not charged, but turns it on too.
   const canAutoGenerate = pricingAvailable && styleAvailable &&
-    (isAdmin ? ownerNeedsNoOptIn || autoGenerate : autoGenerate && tier === "paid" && credits >= effectiveCost);
+    (isAdmin ? autoGenerate : autoGenerate && tier === "paid" && credits >= effectiveCost);
   const showCreditsCost = isConvexEnabled && !isAdmin && pricingAvailable;
 
   const [isGenerating, setIsGenerating] = useState(false);

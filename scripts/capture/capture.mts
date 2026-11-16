@@ -22,6 +22,7 @@ import {
   allowsRequest,
   findBrowser,
   localBase,
+  ownerPassword,
   parseStep,
   pricedCatalog,
   selectStates,
@@ -161,6 +162,34 @@ async function stub(page: Page, stubs: CaptureStub[]) {
   }
 }
 
+/**
+ * Sign the page's guest in as the owner through the local app's own admin sign-in, as the welcome dialog's admin form
+ * does. Its next page is rendered for the owner.
+ */
+async function signInAsOwner(page: Page, base: URL) {
+  const password = ownerPassword(process.env);
+  await page.goto(new URL("/about", base).href, { waitUntil: "domcontentloaded", timeout: 60_000 });
+  // The page makes the guest session (and its CSRF cookie) shortly after it loads; until then the sign-in answers
+  // "Session required". Nothing else is retried: the app locks sign-in after repeated wrong passwords.
+  let answer = { status: 0, error: "Session required" };
+  for (let attempt = 0; attempt < 20 && answer.error === "Session required"; attempt += 1) {
+    await page.waitForTimeout(500);
+    answer = await page.evaluate(async (secret) => {
+      const csrf = document.cookie.split("; ").find((row) => row.startsWith("visibible_csrf="))?.split("=")[1];
+      if (!csrf) return { status: 0, error: "Session required" };
+      const response = await fetch("/api/admin-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-csrf-token": csrf },
+        body: JSON.stringify({ password: secret }),
+      });
+      const body = await response.json().catch(() => ({}));
+      return { status: response.status, error: response.ok ? "" : String(body.error ?? "") };
+    }, password);
+  }
+  const status = answer.status;
+  if (status !== 200) throw new Error(`Owner sign-in failed with ${status}: ${answer.error}`);
+}
+
 /** Put a stubbed state's label in the picture's corner. */
 async function label(page: Page, state: CaptureState) {
   const text = stubLabel(state);
@@ -189,15 +218,18 @@ async function main() {
 
   const browser = await chromium.launch({ executablePath, headless: true });
   let failed = 0;
-  // One guest session for the whole run: /api/session allows only 10 new ones a minute.
+  // One guest session for the whole run: /api/session allows only 10 new ones a minute. Owner-only states share a
+  // second one, signed in as the owner, so the guest's states stay a guest's.
   let storageState: Awaited<ReturnType<BrowserContext["storageState"]>> | undefined;
+  let ownerState: typeof storageState;
+  let ownerRefused: string | null = null;
   try {
     for (const size of options.sizes) {
       const { width, height, phone } = CAPTURE_SIZES[size];
       for (const state of states) {
         if (state.sizes && !state.sizes.includes(size)) continue;
         const context = await browser.newContext({
-          storageState,
+          storageState: state.owner ? ownerState : storageState,
           viewport: { width, height },
           deviceScaleFactor: phone ? 2 : 1,
           isMobile: phone,
@@ -209,6 +241,16 @@ async function main() {
         page.on("pageerror", (error) => console.warn(`  page error in ${state.name}: ${error.message}`));
         const file = path.join(options.out, shotFile(state, size));
         try {
+          if (state.owner && ownerRefused) throw new Error(`Owner sign-in was refused earlier in this run: ${ownerRefused}`);
+          if (state.owner && !ownerState) {
+            try {
+              await signInAsOwner(page, options.base);
+            } catch (error) {
+              // Never sign in again this run: the app locks sign-in after repeated wrong passwords.
+              ownerRefused = (error as Error).message;
+              throw error;
+            }
+          }
           await page.goto(new URL(state.path, options.base).href, { waitUntil: "domcontentloaded", timeout: 60_000 });
           await settle(page);
           for (const step of state.steps ?? []) {
@@ -219,7 +261,8 @@ async function main() {
           await label(page, state);
           await page.screenshot({ path: file });
           console.log(`wrote ${file}`);
-          storageState = await context.storageState();
+          if (state.owner) ownerState = await context.storageState();
+          else storageState = await context.storageState();
         } catch (error) {
           failed += 1;
           await page.screenshot({ path: file.replace(/\.png$/, "-ERROR.png") }).catch(() => {});

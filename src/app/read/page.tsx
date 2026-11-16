@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header } from "@/components/header";
+import { SiteHeader } from "@/components/site-header";
 import { Footer } from "@/components/footer";
-import { LayoutWrapper } from "@/components/layout-wrapper";
-import { BookMenu } from "@/components/book-menu";
 import { readerPath, viewableProseWorks } from "@/lib/works/reader-pages";
 
 export const dynamic = "force-dynamic";
@@ -17,8 +15,8 @@ export default async function LibraryPage() {
   const { works } = await viewableProseWorks();
   const card = "block rounded-[var(--radius-lg)] border border-[var(--divider)] p-5 hover:bg-[var(--surface)] transition-colors duration-[var(--motion-fast)]";
   return (
-    <LayoutWrapper>
-      <Header />
+    <div className="flex min-h-screen flex-col bg-[var(--background)]">
+      <SiteHeader />
       <main className="flex-1 px-4 md:px-6 py-8 sm:py-12 max-w-2xl w-full mx-auto">
         <h1 className="text-2xl sm:text-3xl font-light tracking-tight mb-6">Library</h1>
         <ul className="space-y-3">
@@ -40,8 +38,6 @@ export default async function LibraryPage() {
         </ul>
       </main>
       <Footer />
-      {/* The header's book button opens the Bible's book menu here, as on every page without a prose passage. */}
-      <BookMenu />
-    </LayoutWrapper>
+    </div>
   );
 }

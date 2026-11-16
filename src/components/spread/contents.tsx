@@ -10,10 +10,11 @@ import { LayerPanel, useLayer } from "@/components/spread/layers";
 import { ChapterPaint, useChapterJob, type TileJobStatus } from "@/components/spread/chapter-paint";
 import { PlayMark } from "@/components/spread/play-mark";
 import { useSession } from "@/context/session-context";
-import { usePictureStyles } from "@/context/work-scope-context";
+import { useMomentWord, usePictureStyles, useWorkScope, type WorkScope } from "@/context/work-scope-context";
 import { BIBLE_BOOKS, BOOK_BY_SLUG, type BibleBook } from "@/data/bible-structure";
 import { trackContentsOpened, trackVerseNavigation } from "@/lib/analytics";
 import { previewSource } from "@/lib/picture-source";
+import { bibleChapterPlaces, type ChapterPlace } from "@/components/spread/verse-marks";
 
 /** Where the reader is: the verse the spread shows. */
 export interface ContentsPlace {
@@ -57,16 +58,19 @@ export function ContentsButton({ reference, variant }: { reference: string; vari
 
 /**
  * Contents: the chapter as a wall of pictures, one tile per verse, with book and chapter pickers at the top. Choosing a
- * chapter shows its wall here; choosing a tile opens that verse. It is the spread's "contents" layer.
+ * chapter shows its wall here; choosing a tile opens that verse. It is the spread's "contents" layer. For a prose work
+ * (a work scope) it shows the work's divisions and their moments instead; `place` then numbers the division and the
+ * moment in it, from 1.
  */
 export function ContentsLayer(place: ContentsPlace) {
+  const scope = useWorkScope();
   return (
     <LayerPanel
       id="contents"
       label="Contents"
       className="fixed inset-0 z-50 flex flex-col bg-[#0a0a0b] text-white outline-none md:inset-6 md:overflow-hidden md:rounded-[28px] md:border md:border-white/10 md:bg-[#0c0c0d]/95 md:shadow-[0_40px_120px_rgba(0,0,0,0.6)] md:backdrop-blur-2xl"
     >
-      <ContentsBody {...place} />
+      {scope ? <WorkContentsBody scope={scope} division={place.chapter} moment={place.verse} /> : <ContentsBody {...place} />}
     </LayerPanel>
   );
 }
@@ -100,11 +104,6 @@ function ContentsBody(place: ContentsPlace) {
     close();
   };
 
-  // The arrow keys move the caret or do nothing here; they never turn the page under Contents.
-  const keepArrowKeys = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "ArrowLeft" || event.key === "ArrowRight") event.stopPropagation();
-  };
-
   return (
     <div className="flex min-h-0 flex-1 flex-col" onKeyDown={keepArrowKeys}>
       <div className="flex items-center gap-3 px-5 pt-[max(1.25rem,var(--safe-area-inset-top))] md:px-10 md:pt-8">
@@ -119,14 +118,7 @@ function ContentsBody(place: ContentsPlace) {
           <ChevronDown size={22} strokeWidth={1.5} aria-hidden="true" className={`shrink-0 text-white/60 transition-transform ${choosingBook ? "rotate-180" : ""}`} />
         </button>
         <span className="flex-1" />
-        <button
-          type="button"
-          aria-label="Close contents"
-          onClick={close}
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/85 hover:bg-white/15 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
-        >
-          <X size={20} strokeWidth={1.5} />
-        </button>
+        <CloseContents onClose={close} />
       </div>
 
       {choosingBook ? (
@@ -139,17 +131,90 @@ function ContentsBody(place: ContentsPlace) {
         />
       ) : (
         <>
-          <ChapterPicker book={book} chapter={shown.chapter} onChoose={(chapter) => setShown({ bookSlug: shown.bookSlug, chapter })} />
+          <ChapterPicker
+            level="Chapter"
+            count={book.chapters.length}
+            chosen={shown.chapter}
+            onChoose={(chapter) => setShown({ bookSlug: shown.bookSlug, chapter })}
+          />
           <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pt-4 pb-[max(2rem,var(--safe-area-inset-bottom))] md:px-10 md:pt-6">
             <ChapterWall
-              book={book}
-              chapter={shown.chapter}
-              currentVerse={shown.bookSlug === place.bookSlug && shown.chapter === place.chapter ? place.verse : null}
+              places={bibleChapterPlaces(book.slug, shown.chapter, book.chapters[shown.chapter - 1] ?? 0)}
+              paintable={{ book, chapter: shown.chapter }}
+              current={shown.bookSlug === place.bookSlug && shown.chapter === place.chapter ? place.verse : null}
               onChoose={onChoose}
             />
           </div>
         </>
       )}
+    </div>
+  );
+}
+
+// The arrow keys move the caret or do nothing here; they never turn the page under Contents.
+function keepArrowKeys(event: KeyboardEvent<HTMLDivElement>) {
+  if (event.key === "ArrowLeft" || event.key === "ArrowRight") event.stopPropagation();
+}
+
+function CloseContents({ onClose }: { onClose: () => void }) {
+  return (
+    <button
+      type="button"
+      aria-label="Close contents"
+      onClick={onClose}
+      className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/85 hover:bg-white/15 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
+    >
+      <X size={20} strokeWidth={1.5} />
+    </button>
+  );
+}
+
+/**
+ * A prose work's Contents: its title, its divisions (by number, each named), and the chosen division's moments as a
+ * wall of tiles. A prose work has no chapter painting job.
+ */
+function WorkContentsBody({ scope, division, moment }: { scope: WorkScope; division: number; moment: number }) {
+  const { close } = useLayer("contents");
+  const { tier, credits } = useSession();
+  const [shown, setShown] = useState(division);
+  const opened = useRef(false);
+  const shownDivision = scope.divisions[shown - 1];
+  const places = useMemo(
+    () => (shownDivision?.moments ?? []).map((entry) => ({ verseId: entry.id, href: entry.href })),
+    [shownDivision],
+  );
+
+  useEffect(() => {
+    if (opened.current) return;
+    opened.current = true;
+    trackContentsOpened({ book: scope.title, chapter: division, verse: moment, tier, hasCredits: credits > 0 });
+  }, [scope.title, division, moment, tier, credits]);
+
+  const onChoose = (targetUrl: string) => {
+    trackVerseNavigation({
+      book: scope.title, chapter: division, verse: moment, direction: "jump", source: "contents", targetUrl, tier, hasCredits: credits > 0,
+    });
+    close();
+  };
+
+  return (
+    <div className="flex min-h-0 flex-1 flex-col" onKeyDown={keepArrowKeys}>
+      <div className="flex items-center gap-3 px-5 pt-[max(1.25rem,var(--safe-area-inset-top))] md:px-10 md:pt-8">
+        <h2 className="min-w-0 truncate font-serif text-3xl leading-tight text-white md:text-5xl">{scope.title}</h2>
+        <span className="flex-1" />
+        <CloseContents onClose={close} />
+      </div>
+      <ChapterPicker
+        level={scope.level}
+        count={scope.divisions.length}
+        labels={scope.divisions.map((entry) => entry.label)}
+        chosen={shown}
+        onChoose={setShown}
+      />
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pt-4 pb-[max(2rem,var(--safe-area-inset-bottom))] md:px-10 md:pt-6">
+        <h3 className="mb-3 font-serif text-xl text-white/85 md:mb-4 md:text-2xl">{shownDivision?.label}</h3>
+        <ChapterWall places={places} current={shown === division ? moment : null} onChoose={onChoose} />
+      </div>
     </div>
   );
 }
@@ -209,25 +274,38 @@ function BookPicker({ currentSlug, onChoose }: { currentSlug: string; onChoose: 
   );
 }
 
-function ChapterPicker({ book, chapter, onChoose }: { book: BibleBook; chapter: number; onChoose: (chapter: number) => void }) {
+/**
+ * The chapter numbers of a Bible book, or a prose work's divisions by number (each named by its label, which shows as
+ * the button's title).
+ */
+function ChapterPicker({ level, count, labels, chosen, onChoose }: {
+  /** The division's name in labels ("Chapter", "Story"). */
+  level: string;
+  count: number;
+  labels?: readonly string[];
+  chosen: number;
+  onChoose: (chapter: number) => void;
+}) {
   const pressed = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     pressed.current?.scrollIntoView?.({ block: "nearest", inline: "center" });
-  }, [book.slug, chapter]);
+  }, [count, chosen]);
 
   return (
     <div className="mt-3 flex items-center gap-4 pl-5 md:mt-5 md:pl-10">
-      <span aria-hidden="true" className="shrink-0 text-[11px] font-medium uppercase tracking-[0.22em] text-white/55">Chapter</span>
-      <div role="group" aria-label="Chapter" className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto px-1 py-1 pr-5 [mask-image:linear-gradient(to_right,transparent,#000_12px,#000_calc(100%-24px),transparent)] [scrollbar-width:none] md:pr-10">
-        {book.chapters.map((_, index) => {
+      <span aria-hidden="true" className="shrink-0 text-[11px] font-medium uppercase tracking-[0.22em] text-white/55">{level}</span>
+      <div role="group" aria-label={level} className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto px-1 py-1 pr-5 [mask-image:linear-gradient(to_right,transparent,#000_12px,#000_calc(100%-24px),transparent)] [scrollbar-width:none] md:pr-10">
+        {Array.from({ length: count }, (_, index) => {
           const number = index + 1;
-          const isShown = number === chapter;
+          const isShown = number === chosen;
+          const label = labels?.[index];
           return (
             <button
               key={number}
               ref={isShown ? pressed : undefined}
               type="button"
-              aria-label={`Chapter ${number}`}
+              aria-label={label ? `${level} ${number}, ${label}` : `${level} ${number}`}
+              title={label}
               aria-pressed={isShown}
               onClick={() => onChoose(number)}
               className={`inline-flex h-10 min-w-10 shrink-0 items-center justify-center rounded-full px-2 text-sm tabular-nums focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${isShown ? "bg-white font-semibold text-black" : "bg-white/[0.07] text-white/80 hover:bg-white/15"}`}
@@ -250,10 +328,12 @@ type Tile = {
 };
 
 interface ChapterWallProps {
-  book: BibleBook;
-  chapter: number;
-  /** The verse the spread shows, when it is in this chapter. */
-  currentVerse: number | null;
+  /** The chapter's verses, or a prose division's moments, in order. */
+  places: readonly ChapterPlace[];
+  /** A Bible chapter, whose unpainted verses can be painted in one job. A prose division has none. */
+  paintable?: { book: BibleBook; chapter: number };
+  /** The place the spread shows (from 1), when it is in this chapter. */
+  current: number | null;
   onChoose: (targetUrl: string) => void;
 }
 
@@ -264,11 +344,7 @@ function ChapterWall(props: ChapterWallProps) {
 
 function SavedWall(props: ChapterWallProps) {
   const { chosen, order } = usePictureStyles();
-  const verseCount = props.book.chapters[props.chapter - 1] ?? 0;
-  const verseIds = useMemo(
-    () => Array.from({ length: verseCount }, (_, index) => `${props.book.slug}-${props.chapter}-${index + 1}`),
-    [props.book.slug, props.chapter, verseCount],
-  );
+  const verseIds = useMemo(() => props.places.map((place) => place.verseId), [props.places]);
   // One bounded read for the whole chapter, by the spread's picture rule (the verse marks read the same).
   const tiles = useQuery(api.verseImages.getChapterContents, { verseIds, styles: order });
   const jobStatus = useChapterJob(verseIds);
@@ -279,31 +355,31 @@ function SavedWall(props: ChapterWallProps) {
   );
   return (
     <>
-      <ChapterPaint book={props.book} chapter={props.chapter} unpaintedVerses={unpainted} />
+      {props.paintable ? <ChapterPaint book={props.paintable.book} chapter={props.paintable.chapter} unpaintedVerses={unpainted} /> : null}
       <Wall {...props} tiles={tiles} jobStatus={jobStatus} />
     </>
   );
 }
 
-function Wall({ book, chapter, currentVerse, onChoose, tiles, jobStatus }: ChapterWallProps & {
+function Wall({ places, current, onChoose, tiles, jobStatus }: ChapterWallProps & {
   tiles: Tile[] | undefined;
   jobStatus?: ReadonlyMap<string, TileJobStatus>;
 }) {
-  const verseCount = book.chapters[chapter - 1] ?? 0;
+  const noun = useMomentWord() === "verse" ? "Verse" : "Passage";
   return (
     <ol className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:gap-4 lg:grid-cols-5 xl:grid-cols-6">
-      {Array.from({ length: verseCount }, (_, index) => {
+      {places.map(({ verseId, href }, index) => {
         const verse = index + 1;
-        const href = `/${book.slug}/${chapter}/${verse}`;
         return (
           <li key={href}>
             <VerseTile
+              noun={noun}
               verse={verse}
               href={href}
               tile={tiles?.[index]}
               loading={tiles === undefined}
-              isCurrent={verse === currentVerse}
-              job={jobStatus?.get(`${book.slug}-${chapter}-${verse}`)}
+              isCurrent={verse === current}
+              job={jobStatus?.get(verseId)}
               onChoose={onChoose}
             />
           </li>
@@ -320,7 +396,9 @@ const JOB_LABELS: Record<TileJobStatus, string> = {
   failed: "painting failed",
 };
 
-function VerseTile({ verse, href, tile, loading, isCurrent, job, onChoose }: {
+function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, onChoose }: {
+  /** "Verse", or "Passage" for a prose moment. */
+  noun: string;
   verse: number;
   href: string;
   tile: Tile | undefined;
@@ -334,12 +412,12 @@ function VerseTile({ verse, href, tile, loading, isCurrent, job, onChoose }: {
   const unpainted = !loading && !source;
   const count = tile && tile.pictureCount > 1 ? (tile.morePictures ? `${tile.pictureCount}+` : `${tile.pictureCount}`) : null;
   const pictures = job
-    ? `Verse ${verse}, ${JOB_LABELS[job]}`
+    ? `${noun} ${verse}, ${JOB_LABELS[job]}`
     : unpainted
-      ? `Verse ${verse}, not painted yet`
+      ? `${noun} ${verse}, not painted yet`
       : count
-        ? `Verse ${verse}, ${tile?.morePictures ? `more than ${tile.pictureCount}` : count} pictures`
-        : `Verse ${verse}`;
+        ? `${noun} ${verse}, ${tile?.morePictures ? `more than ${tile.pictureCount}` : count} pictures`
+        : `${noun} ${verse}`;
   const label = tile?.hasVideo ? `${pictures}, has a video` : pictures;
   const waiting = unpainted && (job === "queued" || job === "generating" || job === "failed");
 

@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "convex/react";
 import { Brush, RefreshCw } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { usePreferences } from "@/context/preferences-context";
+import { useMomentWord, useWorkScope } from "@/context/work-scope-context";
 import { previewSource } from "@/lib/picture-source";
 import { PaintButton, PaintProgress, PRIMARY, usePaintVerse } from "@/components/spread/paint-verse";
 
@@ -25,7 +26,15 @@ interface UnpaintedPictureProps {
  * Mount it with `key={verseId}`, so turning the page starts it afresh.
  */
 export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictureProps) {
-  const glow = useQuery(api.verseImages.getNearestEarlierPicture, { verseId, styles });
+  const scope = useWorkScope();
+  const word = useMomentWord();
+  // A prose moment's id says nothing of its place, so it names its division's earlier moments, nearest first.
+  const earlier = useMemo(() => {
+    if (!scope) return undefined;
+    const moments = scope.divisions.find((division) => division.moments.some((moment) => moment.id === verseId))?.moments ?? [];
+    return moments.slice(0, moments.findIndex((moment) => moment.id === verseId)).map((moment) => moment.id).reverse();
+  }, [scope, verseId]);
+  const glow = useQuery(api.verseImages.getNearestEarlierPicture, earlier ? { verseId, styles, earlier } : { verseId, styles });
   const glowSource = glow ? previewSource(glow) : null;
   const { autoGenerate, setAutoGenerate } = usePreferences();
   // Turning the switch on here paints from the next page on, never the verse on screen by surprise.
@@ -75,7 +84,7 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
           <Brush aria-hidden="true" className="h-5 w-5 text-white/85" />
         </span>
         <p className="font-serif text-xl text-white/90 md:text-2xl">No picture for {reference} yet</p>
-        <PaintButton paint={paint} label="Paint this verse" />
+        <PaintButton paint={paint} label={`Paint this ${word}`} />
         <button
           type="button"
           role="switch"
@@ -94,7 +103,7 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
               className={`absolute top-0.5 h-5 w-5 rounded-full shadow motion-safe:transition-[left] ${autoGenerate ? "left-[18px] bg-black" : "left-0.5 bg-white"}`}
             />
           </span>
-          Paint verses automatically as I read
+          Paint {word}s automatically as I read
         </button>
       </>
     );

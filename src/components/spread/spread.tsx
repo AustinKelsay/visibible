@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { AskProvider } from "@/components/spread/ask";
 import { ChosenPictureProvider } from "@/components/spread/chosen-picture";
 import { ContentsButton, ContentsLayer } from "@/components/spread/contents";
@@ -8,7 +8,7 @@ import { CornerMenu } from "@/components/spread/corner-menu";
 import { LayerProvider, useLayer, useLayers } from "@/components/spread/layers";
 import { LookButton, LookLayer } from "@/components/spread/look";
 import { PageTurnLink, useArrival, useArrivesInWholePicture, usePageTurn } from "@/components/spread/page-turn";
-import { VerseMarks } from "@/components/spread/verse-marks";
+import { bibleChapterPlaces, VerseMarks } from "@/components/spread/verse-marks";
 import { useIdle } from "@/components/spread/idle-fade";
 import { useSwipeTurn } from "@/components/spread/swipe-turn";
 import { PrefetchNextSpread } from "@/components/spread/prefetch-next";
@@ -17,35 +17,52 @@ import { WordsPage } from "@/components/spread/words-page";
 import { WholePictureCaption } from "@/components/spread/whole-picture";
 import { FeedbackPrompt } from "@/components/feedback-prompt";
 import { useSession } from "@/context/session-context";
+import { useMomentWord, useWorkScope } from "@/context/work-scope-context";
 import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { trackWholePictureOpened } from "@/lib/analytics";
 
 export interface SpreadProps {
-  /** Where the verse's pictures are kept ("genesis-1-1"). */
+  /** Where the verse's pictures are kept ("genesis-1-1"), or a prose moment's (its first unit's id). */
   verseId: string;
-  /** The book's address segment ("genesis"). */
-  bookSlug: string;
+  /** This spread's address ("/genesis/1/1", "/read/<work>/<moment>"). */
+  path: string;
+  /** The Bible book's address segment ("genesis"). A prose moment has none: its work scope lists its places. */
+  bookSlug?: string;
+  /** The Bible book, or the prose work's title. */
   bookName: string;
+  /** The chapter's number (a prose work's division, from 1). */
   chapter: number;
+  /** A prose division's name ("The Pool of Tears"). */
+  chapterLabel?: string;
+  /** The verse's number, or the moment's place in its division, from 1. */
   verseNumber: number;
+  /** "John 1:5", or "The Pool of Tears ¶3–6". */
+  reference: string;
+  /** The verse; for a prose moment, its first paragraph (the whole-picture caption). */
   verseText: string;
+  /** A prose moment's paragraphs, which its words page shows in place of a verse. */
+  paragraphs?: readonly string[];
+  /** How many verses (or moments) the chapter has. */
   totalVerses: number;
-  translationName: string;
+  /** The Bible translation; a prose moment has none. */
+  translationName?: string;
   prevUrl?: string;
   nextUrl?: string;
-  /** Where the next verse's pictures are kept, so the next spread can be fetched ahead. */
+  /** Where the next verse's (or moment's) pictures are kept, so the next spread can be fetched ahead. */
   nextVerseId?: string;
 }
 
 /**
- * The reader's one screen for one verse. On a computer the picture covers the window and the words
+ * The reader's one screen for one verse, or for one moment of a prose work: render it inside a `WorkScopeProvider`
+ * for the work, and the same spread offers that work's styles, Contents of its divisions, Look without translation,
+ * and no Ask. On a computer the picture covers the window and the words
  * page lies over its right side as dark glass, with a floating dock on the picture. On a phone the
  * picture sits above in a square frame and the words page fills the rest. It is dark whatever the
  * system setting is. "Aa" in the dock opens Look.
  */
 export function Spread(props: SpreadProps) {
   // A page turned from the whole-picture view opens in it, so a reader can stay there for a chapter.
-  const arrivesWhole = useArrivesInWholePicture(`/${props.bookSlug}/${props.chapter}/${props.verseNumber}`);
+  const arrivesWhole = useArrivesInWholePicture(props.path);
   return (
     <LayerProvider initialLayer={arrivesWhole ? "whole-picture" : null}>
       <ChosenPictureProvider verseId={props.verseId}>
@@ -55,12 +72,24 @@ export function Spread(props: SpreadProps) {
   );
 }
 
-function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verseText, totalVerses, translationName, prevUrl, nextUrl, nextVerseId }: SpreadProps) {
-  const reference = `${bookName} ${chapter}:${verseNumber}`;
+function SpreadScreen({
+  verseId, path, bookSlug, bookName, chapter, chapterLabel, verseNumber, reference, verseText, paragraphs, totalVerses,
+  translationName, prevUrl, nextUrl, nextVerseId,
+}: SpreadProps) {
+  const scope = useWorkScope();
+  const word = useMomentWord();
+  // Ask is the Bible's: a prose work offers none.
+  const offersAsk = scope === null;
+  const places = useMemo(
+    () => scope
+      ? scope.divisions[chapter - 1]?.moments.map((moment) => ({ verseId: moment.id, href: moment.href })) ?? []
+      : bibleChapterPlaces(bookSlug ?? "", chapter, totalVerses),
+    [scope, bookSlug, chapter, totalVerses],
+  );
   const onTurn = usePageTurn({ bookName, chapter, verseNumber, prevUrl, nextUrl });
   const swipe = useSwipeTurn({ prevUrl, nextUrl, onTurn });
   const idle = useIdle();
-  const arrival = useArrival(`/${bookSlug}/${chapter}/${verseNumber}`);
+  const arrival = useArrival(path);
   const whole = useLayer("whole-picture").isOpen;
   // The whole-picture view plays this verse's video instead of showing its picture (#447). Leaving the view or turning
   // the page stops it.
@@ -68,6 +97,10 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
   if (playingVerse !== null && !whole) setPlayingVerse(null);
   const playing = whole && playingVerse === verseId;
   const { tier, credits } = useSession();
+  const words = {
+    bookName, chapter, chapterLabel, reference, verseNumber, verseText, paragraphs, totalVerses, translationName,
+    prevUrl, nextUrl, onTurn,
+  };
   const { openLayer, openLayerById } = useLayers();
   // The occasional feedback prompt, only when the reader turned it on in Advanced.
   const { feedbackPrompts } = useAdvancedSettings();
@@ -111,11 +144,9 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
       <PrefetchNextSpread nextUrl={nextUrl} nextVerseId={nextVerseId} />
 
       <VerseMarks
-        bookSlug={bookSlug}
-        bookName={bookName}
-        chapter={chapter}
-        verseNumber={verseNumber}
-        totalVerses={totalVerses}
+        label={`${word === "verse" ? "Verses" : "Passages"} of ${chapterLabel ?? `${bookName} ${chapter}`}`}
+        places={places}
+        current={verseNumber}
         onTurn={onTurn}
       />
 
@@ -128,20 +159,15 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
         totalVerses={totalVerses}
       />
 
-      {/* Keyed by the verse: turning the page clears the conversation. */}
-      <AskProvider key={verseId} verse={{ bookName, chapter, verseNumber, verseText }}>
-        <WordsPage
-          bookName={bookName}
-          chapter={chapter}
-          verseNumber={verseNumber}
-          verseText={verseText}
-          totalVerses={totalVerses}
-          translationName={translationName}
-          prevUrl={prevUrl}
-          nextUrl={nextUrl}
-          onTurn={onTurn}
-        />
-      </AskProvider>
+      {offersAsk ? (
+        // Keyed by the verse: turning the page clears the conversation.
+        <AskProvider key={verseId} verse={{ bookName, chapter, verseNumber, verseText }}>
+          <WordsPage {...words} offersAsk />
+        </AskProvider>
+      ) : (
+        // Keyed by the moment, so each one opens at the top of its text.
+        <WordsPage key={verseId} {...words} offersAsk={false} />
+      )}
 
       <div className={`pointer-events-none absolute inset-x-0 bottom-8 hidden justify-center md:flex ${whole ? "md:right-0" : "md:right-[var(--words-page-width)]"}`}>
         <nav
@@ -156,7 +182,7 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
         </nav>
       </div>
 
-      <ContentsLayer bookSlug={bookSlug} chapter={chapter} verse={verseNumber} />
+      <ContentsLayer bookSlug={bookSlug ?? ""} chapter={chapter} verse={verseNumber} />
       <LookLayer verseId={verseId} />
 
       {feedbackPrompts ? (

@@ -688,18 +688,36 @@ export const getImageHistory = query({
  * The glow behind an unpainted verse (#439): the spread picture (by the picture rule, under `styles`) of the nearest
  * earlier verse of the same chapter that has one, or null. A few indexed reads per earlier verse, stopping at the
  * first hit, so it never reads the whole chapter. Verse ids are compared exactly ("john-1-1"), never as a prefix, so
- * "john-1-10" and "john-11-1" never count for John 1:1.
+ * "john-1-10" and "john-11-1" never count for John 1:1. A prose moment (#451) names its division's earlier moments.
  */
+/** The most moments the unpainted glow looks back through when it is given them. */
+const EARLIER_MOMENTS_CAP = 200;
+
 export const getNearestEarlierPicture = query({
-  args: { verseId: v.string(), styles: v.array(v.string()) },
+  args: {
+    verseId: v.string(),
+    styles: v.array(v.string()),
+    // A prose moment's earlier moments in its division, nearest first: their ids say nothing of their order. Without
+    // it, the Bible verse's earlier verses in its chapter.
+    earlier: v.optional(v.array(v.string())),
+  },
   handler: async (ctx, args) => {
     const styles = await readerStyles(ctx, args.styles);
-    const match = /^(.+-\d+)-(\d+)$/.exec(args.verseId);
-    if (!match) return null;
+    let candidates: string[];
+    if (args.earlier) {
+      if (args.earlier.length > EARLIER_MOMENTS_CAP) throw new Error(`At most ${EARLIER_MOMENTS_CAP} earlier moments can be looked through`);
+      candidates = args.earlier;
+    } else {
+      const match = /^(.+-\d+)-(\d+)$/.exec(args.verseId);
+      if (!match) return null;
+      // No chapter has more verses than the cap (Psalm 119 has 176), so a larger number looks back only that far.
+      const verse = Number(match[2]);
+      candidates = Array.from({ length: Math.min(verse - 1, EARLIER_MOMENTS_CAP) }, (_, index) => `${match[1]}-${verse - 1 - index}`);
+    }
     const visible = await visibleImageFilter(ctx);
-    for (let verse = Number(match[2]) - 1; verse >= 1; verse--) {
-      const picture = await spreadPictureOf(ctx, `${match[1]}-${verse}`, styles, visible);
-      if (picture) return { verse, id: picture.id, imageUrl: picture.imageUrl, thumbnailUrl: picture.thumbnailUrl };
+    for (const verseId of candidates) {
+      const picture = await spreadPictureOf(ctx, verseId, styles, visible);
+      if (picture) return { verseId, id: picture.id, imageUrl: picture.imageUrl, thumbnailUrl: picture.thumbnailUrl };
     }
     return null;
   },

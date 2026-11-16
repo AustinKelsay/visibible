@@ -19,7 +19,7 @@ The server builds the context from the chapter so far (#443), so a follow-up or 
 
 ## The old shell's sidebar
 
-The [chat sidebar](../../src/components/chat-sidebar.tsx) and the header's toggle remain only in the old page shell ([LayoutWrapper](../../src/components/layout-wrapper.tsx): About, API documentation, the prose reader, not-found and the unavailable-passage page), with the model picker. Its passage comes through NavigationContext's chat context, which no page sets now, so it asks without a passage. The corner-menu and sweep tickets of #434 remove it.
+The old chat sidebar, its header toggle and NavigationContext's chat context are deleted (#451); Ask is the only place to ask.
 
 [chat-request.ts](../../src/lib/chat-request.ts) owns what a request may contain and what the model receives:
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
-import { withItalics } from "@/components/prose-reader";
+import { withItalics } from "@/components/spread/prose-text";
 
 describe("prose text", () => {
   it("shows Gutenberg's _underscored_ words as italics", () => {

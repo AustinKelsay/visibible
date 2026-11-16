@@ -101,9 +101,24 @@ describe("the nearest earlier picture (the unpainted glow)", () => {
     const watercolor = await save("john-1-3", "watercolor");
     await save("john-1-4", "icon");
     const glow = await t.query(api.verseImages.getNearestEarlierPicture, { verseId: "john-1-5", styles: ["classical", "watercolor"] });
-    expect(glow).toMatchObject({ verse: 3, id: watercolor, imageUrl: expect.any(String), thumbnailUrl: null });
+    expect(glow).toMatchObject({ verseId: "john-1-3", id: watercolor, imageUrl: expect.any(String), thumbnailUrl: null });
     expect(await t.query(api.verseImages.getNearestEarlierPicture, { verseId: "john-1-5", styles: ["classical"] }))
-      .toMatchObject({ verse: 2 });
+      .toMatchObject({ verseId: "john-1-2" });
+  });
+
+  it("follows the moments it is given, nearest first, for a prose work whose ids say nothing of their order", async () => {
+    const { t, save } = setup();
+    await save("down-the-rabbit-hole-1", "watercolor");
+    const nearer = await save("down-the-rabbit-hole-4", "watercolor");
+    await save("down-the-rabbit-hole-9", "watercolor");
+    const glow = await t.query(api.verseImages.getNearestEarlierPicture, {
+      verseId: "down-the-rabbit-hole-9", styles: ["watercolor"], earlier: ["down-the-rabbit-hole-6", "down-the-rabbit-hole-4", "down-the-rabbit-hole-1"],
+    });
+    expect(glow).toMatchObject({ verseId: "down-the-rabbit-hole-4", id: nearer });
+    expect(await t.query(api.verseImages.getNearestEarlierPicture, { verseId: "down-the-rabbit-hole-1", styles: ["watercolor"], earlier: [] })).toBeNull();
+    await expect(t.query(api.verseImages.getNearestEarlierPicture, {
+      verseId: "x-1", styles: ["watercolor"], earlier: Array.from({ length: 201 }, (_, index) => `x-${index}`),
+    })).rejects.toThrow(/200/);
   });
 
   it("is nothing when only later verses, other chapters or unseen styles are painted", async () => {
@@ -113,6 +128,9 @@ describe("the nearest earlier picture (the unpainted glow)", () => {
     await save("john-1-1", "icon");
     expect(await t.query(api.verseImages.getNearestEarlierPicture, { verseId: "john-1-2", styles: ["icon", "classical"] })).toBeNull();
     expect(await t.query(api.verseImages.getNearestEarlierPicture, { verseId: "not a verse", styles: ["classical"] })).toBeNull();
+    // A verse number no chapter has looks back no further than the cap, never through millions of ids.
+    await save("john-1-1", "classical");
+    expect(await t.query(api.verseImages.getNearestEarlierPicture, { verseId: "john-1-10000000", styles: ["classical"] })).toBeNull();
   });
 });
 
