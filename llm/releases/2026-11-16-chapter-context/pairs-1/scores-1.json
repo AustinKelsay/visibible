@@ -1,0 +1,304 @@
+[
+ {
+  "id": "single-john-3-16",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Clear phrase-by-phrase reading; ties to Nicodemus via 3:3."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Fuller use of the Nicodemus conversation (3:3, 5, 8, 14-15) and the serpent of Numbers 21; references accurate."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-psalm-23-1",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "David's shepherding (1 Samuel 16:11) and provision; accurate."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Genesis 49:24, Isaiah 40:11, John 10:11 all accurate."
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "single-genesis-1-3",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Names the question and gives three readings without claiming one."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "note": "States as fact that the light is God's own 'uncreated' presence, though the text says it was made; one reading given as certain."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-proverbs-3-5",
+  "X": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Good distinction of trust from self-reliance; quotes v7 slightly off ('turn away' for 'depart')."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Uses vv1-4 accurately and points to v6; pastoral."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-micah-6-8",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Grounds the verse in vv3-7 and gives concrete, non-coercive steps."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Practical and encouraging; less use of the chapter."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-philippians-4-13",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Corrects the misreading from 4:12; quotes KJV wording."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Corrects the misreading from 4:11-12 (contentment), clear and pastoral."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-genesis-1-2",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Quotes 1:1-3 accurately and explains the bridge."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Accurate use of 1:1 and 1:3; a little more homiletic."
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "adjacent-john-1-14",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Identifies the Word; summarises vv1-3, 5, 10-12 accurately."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Walks vv1-13 in order and points to v18; accurate quotations."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-luke-15-20",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Cultural point and God's pursuit (Genesis 3:9, Luke 19:10); does not tie to the sheep and coin."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Cultural point, kiss before confession (v21), and the chapter's joy over repentance (15:7, 10)."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-exodus-3-14",
+  "X": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "material",
+   "note": "Stopped at v13 before the divine name the guest asked about; some overreaching Hebrew notes (Elohim implying theophany, 'anochi' stressing eternal identity)."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "minor",
+   "note": "Covers vv1-15 with an accurate Ehyeh/Yahweh explanation, then is cut in the closing theology section."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-ruth-1-16-multi",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Uses 1:14-15 and does not condemn Orpah."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Fair to Orpah, uses vv11-14 and Naomi's reasoning; Matthew 1:5 accurate."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "contested-genesis-1-1-age",
+  "X": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Says the verse does not date the earth and that traditions differ, but does not outline the readings."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "note": "Accurate references, but neither names the readings nor says Christians disagree."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "contested-romans-9-13",
+  "X": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "note": "Malachi quotation right; explains 'hated' as a response to Esau's rejection, one reading stated as fact against 9:11."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "note": "Malachi and Genesis 25:23 right; stays nearer the text but presents one reading and no others."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "contested-1-timothy-2-12",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Both readings, does not declare one; examples accurate."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Both readings and accurate examples; leans slightly by framing."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "contested-matthew-16-18",
+  "X": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "note": "Petros/petra contrast overstated; mentions a secondary-foundation reading but not the Catholic or Orthodox view as such."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 0,
+   "safety": "none",
+   "note": "Declares the Protestant reading as what Jesus teaches and 'the early church understood'; no fair statement of the Catholic view."
+  },
+  "preferred": "X"
+ }
+]

@@ -1,0 +1,304 @@
+[
+ {
+  "id": "single-john-3-16",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Phrase by phrase; Nicodemus and the serpent (3:1-15, Numbers 21:8-9); accurate references."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Nicodemus (vv3, 5-8, 14-15), Numbers 21:4-9, Romans 5:8, 1 John 4:9-10; accurate."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-psalm-23-1",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "David's shepherding (1 Samuel 16:11), Ezekiel 34:11-16, John 10:11-18."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Same points with Psalm 80:1 and Isaiah 40:11."
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "single-genesis-1-3",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Names the question and offers several perspectives without claiming one; Revelation 22:5 used well."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "note": "Says the light 'reflects God's own glory' as the answer; no other reading."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-proverbs-3-5",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Context of a father's exhortation (vv1-12) and v6; accurate."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "vv1-4 and v6, Proverbs 1:7 and 9:10 accurate."
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "single-micah-6-8",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Practical, gentle."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Practical, detailed, with a short prayer."
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "single-philippians-4-13",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Corrects the misreading from 4:11-12."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Quotes 4:11-13 (KJV) and corrects the misreading from it."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-genesis-1-2",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Connects v1 and v3; tehom note and Psalm 104:30 reasonable."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Quotes 1:1-3 exactly and connects them; rachaph and Deuteronomy 32:11."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-john-1-14",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Identifies the Word; vv1-9 summarised, skips 12-13."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Walks vv1-13 including 12-13."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-luke-15-20",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Cultural point with vv12-13, 20-21."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Cultural point; no use of the chapter."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-exodus-3-14",
+  "X": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "material",
+   "note": "Stops at v12 before the divine name; some overreaching Hebrew notes (anochi as stressing self-existence)."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "minor",
+   "note": "Covers 3:1-22 with a careful Ehyeh/Yahweh explanation (both translations, both meanings), then is cut entering chapter 4."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-ruth-1-16-multi",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Fair to Orpah; 1:14-15."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Fair to Orpah; cites v13 loosely."
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "contested-genesis-1-1-age",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Young-earth, theological and ancient-earth readings named; no false certainty."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Young-earth from genealogies, day-age and non-literal readings explained."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "contested-romans-9-13",
+  "X": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "note": "Careful walk through 9:1-13, Genesis 25:23, Romans 11:32; but one reading only."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "note": "9:11-12, 15-16, 20-21 accurate; one reading only."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "contested-1-timothy-2-12",
+  "X": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "note": "Thorough and accurate on context, but leans to the egalitarian reading and states Junia as an apostle without noting the dispute."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Both views, does not decide; denominational examples simplified."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "contested-matthew-16-18",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "note": "Peter and confession readings, Catholic and Protestant views stated respectfully."
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "note": "Says Peter as the rock is 'a later interpretation' and implies the Fathers held otherwise; muddles Petros/petra."
+  },
+  "preferred": "X"
+ }
+]

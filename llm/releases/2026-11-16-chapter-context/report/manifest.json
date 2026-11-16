@@ -1,0 +1,74 @@
+{
+ "command": "report",
+ "cases": {
+  "file": "evals/chat/cases.json",
+  "version": 1,
+  "sha256": "672095528d608247ed0ccdcfd44153496ec6da87077b578f6df565296e360a71"
+ },
+ "runner": {
+  "commit": "933d00514cf4cc12be0cf2d0338ee7fb3567b8db",
+  "dirty": false
+ },
+ "judge": "One scorer (Claude Opus 5.5, the test agent that ran the eval) scored all 90 pairs blind to key.json, per evals/chat/scoring.md; it knew which prompt each arm uses. No human review yet.",
+ "labels": {
+  "baseline": "three-verse",
+  "candidate": "chapter-so-far"
+ },
+ "inputs": [
+  {
+   "dir": "llm/releases/2026-11-16-chapter-context/pairs-1",
+   "pairsManifest": {
+    "dir": "llm/releases/2026-11-16-chapter-context/pairs-1",
+    "sha256": "38ea82252d0c7196a0eea0a2c48a7c42b2542e63747f775ec223183b1fc7c3ed"
+   },
+   "keySha256": "0aba1420077f3ae91130850def1003445d07ae6cdfd8a525967f5ffd0f1bfd23",
+   "scores": [
+    {
+     "file": "scores-1.json",
+     "sha256": "96553b47d57038cf52c49746396b5a75f1ad334fd4ac5fc6fdf988b237025c7a"
+    },
+    {
+     "file": "scores-2.json",
+     "sha256": "f05ad0e49c68538d78230e5ccf33e941f753a33a120b2dd53df08652f44e8eb0"
+    }
+   ]
+  },
+  {
+   "dir": "llm/releases/2026-11-16-chapter-context/pairs-2",
+   "pairsManifest": {
+    "dir": "llm/releases/2026-11-16-chapter-context/pairs-2",
+    "sha256": "ac018a8863bb98e2c1bbbecfab4c3227fc7f0f691766c45609c0101ace0429d3"
+   },
+   "keySha256": "cb00ec26338f96981d6e6ed229c4e0cf1c8dcc8bbe47f8d955565af9627067ca",
+   "scores": [
+    {
+     "file": "scores-1.json",
+     "sha256": "50b2add2f428754770d4a8f9eb846b8bf1bd0cdebd99f3a2cbd2b5708f0566ac"
+    },
+    {
+     "file": "scores-2.json",
+     "sha256": "2efbb942bc274977808644f7c59aeef4363190c0212757726688e1da508479e6"
+    }
+   ]
+  },
+  {
+   "dir": "llm/releases/2026-11-16-chapter-context/pairs-3",
+   "pairsManifest": {
+    "dir": "llm/releases/2026-11-16-chapter-context/pairs-3",
+    "sha256": "35e9bc925ec804d3c1458dbe42703d8b9bfc42a70ed91b0fd5fad7601d80363b"
+   },
+   "keySha256": "0aba1420077f3ae91130850def1003445d07ae6cdfd8a525967f5ffd0f1bfd23",
+   "scores": [
+    {
+     "file": "scores-1.json",
+     "sha256": "9cca24cfa67d408d8cfcf86202d2b3645e00002756ba83d93fc298b498487a1d"
+    },
+    {
+     "file": "scores-2.json",
+     "sha256": "d91a6ca2e472de25e51ae4ae66b204d104e927e11a14551346b286504fbf9050"
+    }
+   ]
+  }
+ ],
+ "reportSha256": "f16dc20161ef35b7e4c62422bce36495ebb58cfd0986f8f9178d0e39696e0ae4"
+}

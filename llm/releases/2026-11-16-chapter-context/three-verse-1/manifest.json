@@ -1,0 +1,32 @@
+{
+ "command": "run",
+ "cases": {
+  "file": "evals/chat/cases.json",
+  "version": 1,
+  "sha256": "672095528d608247ed0ccdcfd44153496ec6da87077b578f6df565296e360a71"
+ },
+ "runner": {
+  "commit": "ce8139d4643237fdffcc27e237d45e7375209b03",
+  "dirty": false
+ },
+ "model": "mistralai/mistral-small-2603",
+ "arms": [
+  "candidate"
+ ],
+ "label": "three-verse",
+ "dryRun": false,
+ "contextLength": 262144,
+ "baselineMaxOutputTokens": 209715,
+ "systemSuffix": null,
+ "budgetUsd": 0.5,
+ "pricing": {
+  "promptUsd": 1.5e-7,
+  "completionUsd": 6e-7
+ },
+ "startedAt": "2026-11-16T17:32:49.770Z",
+ "finishedAt": "2026-11-16T17:35:08.949Z",
+ "rows": 30,
+ "failures": 0,
+ "spentUsd": 0.006830204999999999,
+ "budgetCountedUsd": 0.006830204999999999
+}
