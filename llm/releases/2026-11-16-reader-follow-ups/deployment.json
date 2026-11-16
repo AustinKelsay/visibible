@@ -1,0 +1,36 @@
+{
+  "authorization": [
+    "After the reader release (../2026-11-16-reader-redesign), the owner said \"Finish what YOU can do now and i will come in the loop at the end to check things\". This ships three of that record's follow-ups and spends nothing."
+  ],
+  "release": {
+    "pullRequests": [476],
+    "mainCommit": "5b8ce815",
+    "reviewFindings": "Sol reviewed #476 in one round and approved with no findings. CodeRabbit skipped (review limit). CI quality-gates passed."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-16T18:38:53Z",
+        "commit": "5b8ce815",
+        "carries": [476],
+        "vercel": "dpl_AYsY2RXFR3apg2oaDzipmyxTfKri",
+        "convex": "no change (no file under convex/ changed since 933d0051)"
+      }
+    ]
+  },
+  "changes": [
+    "A video playing in the whole-picture view keeps playing and keeps focus when the verse's painting lands.",
+    "Look's art-style examples fall back to a fixed small picture per style (public/style-examples/, made from production pictures) instead of a letter tile.",
+    "Below 390px wide the paint buttons put their price on its own line instead of breaking it mid-phrase."
+  ],
+  "smoke": {
+    "after": "https://visibible.com: /john/1/5, /john/1/40 and /api/health 200; /style-examples/storybook.webp and /style-examples/classical.webp 200 image/webp. Playwright at 1440x900 shows Look on John 1:40 with a picture for all four public styles."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_46ZwHN9GrDQbvoPzTTkigfoKt4PJ (main 933d0051). Nothing stored differs."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "The browser sessions of the screenshot run, with no balance."
+  ]
+}
