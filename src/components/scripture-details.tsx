@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ChevronDown, Info } from "lucide-react";
 import { useQuery } from "convex/react";
 import { usePreferences } from "@/context/preferences-context";
+import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { api } from "../../convex/_generated/api";
 
@@ -113,7 +114,8 @@ function ScriptureDetailsBase({
   displayedImageId: currentImageId = null,
 }: ScriptureDetailsBaseProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { translationInfo, imageModel } = usePreferences();
+  const { translationInfo } = usePreferences();
+  const { imageModel } = useAdvancedSettings();
 
   const wordCount = countWords(verseText);
   const charCount = verseText.trim().length;

@@ -129,7 +129,6 @@ export function Feedback({ context, imageContext, defaultKind = "general" }: Fee
       trackFeedbackSubmitted({
         hasContext: Boolean(context),
         hasImageContext: Boolean(imageContext?.imageId),
-        sidebarTab: "feedback",
         kind: effectiveKind,
         ...(effectiveKind === "image" && imageContext?.artStyle ? { artStyle: imageContext.artStyle } : {}),
         tier,

@@ -9,7 +9,6 @@ import { BuyCreditsModal } from "@/components/buy-credits-modal";
 
 const session = vi.hoisted(() => ({ isBuyModalOpen: true, closeBuyModal: () => {}, credits: 0, tier: "free" }));
 vi.mock("@/context/session-context", () => ({ useSession: () => session }));
-vi.mock("@/context/preferences-context", () => ({ usePreferences: () => ({ imageModel: "m", imageResolution: "1K" }) }));
 vi.mock("@/lib/analytics", () => ({
   trackCreditsModalOpened: vi.fn(),
   trackCreditsModalClosed: vi.fn(),

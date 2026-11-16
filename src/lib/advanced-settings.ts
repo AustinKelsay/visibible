@@ -52,7 +52,7 @@ export const ADVANCED_DEFAULTS: Readonly<AdvancedSettings> = Object.freeze({
 /** The reader's settings record; PreferencesProvider keeps Look and automatic painting in the same record. */
 export const READER_SETTINGS_KEY = "visibible-reader-settings";
 
-/** Each stored setting's name inside the record's `advanced` group (shared with the old header's controls). */
+/** Each stored setting's name inside the record's `advanced` group. */
 const STORED_NAME: Record<Exclude<AdvancedSettingKey, "imageModel">, string> = {
   aspectRatio: "imageAspectRatio",
   resolution: "imageResolution",

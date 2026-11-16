@@ -17,7 +17,6 @@ export function AnsweringModelItem() {
   return (
     <AdvancedItem title="Answering model">
       <ChatModelSelector
-        variant="inline"
         value={answeringModel}
         onChange={(model) => {
           setAdvancedSetting("answeringModel", model);

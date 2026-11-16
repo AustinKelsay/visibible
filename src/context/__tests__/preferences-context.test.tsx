@@ -3,7 +3,6 @@ import { act, createElement, useLayoutEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { PreferencesProvider, usePreferences } from "@/context/preferences-context";
-import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 
 const refresh = vi.fn();
 vi.mock("next/navigation", () => ({ useRouter: () => ({ refresh }) }));
@@ -51,9 +50,6 @@ it("starts a fresh device from the defaults", async () => {
     textSize: "medium",
     translation: "web",
     autoGenerate: false,
-    imageModel: DEFAULT_IMAGE_MODEL,
-    imageAspectRatio: "16:9",
-    imageResolution: "1K",
   });
   view.unmount();
 });
@@ -64,7 +60,7 @@ it("ignores the old settings record, removes it and starts from the defaults", a
     translation: "kjv", artStyle: "watercolor", autoGenerate: true, imageAspectRatio: "1:1", chatModel: "some/model",
   })]]);
   const view = await hydrate(storage);
-  expect(view.preferences()).toMatchObject({ artStyle: "classical", translation: "web", autoGenerate: false, imageAspectRatio: "16:9" });
+  expect(view.preferences()).toMatchObject({ artStyle: "classical", translation: "web", autoGenerate: false });
   expect(storage.has(OLD_RECORD)).toBe(false);
   view.unmount();
 });
@@ -111,24 +107,13 @@ it("keeps the translation in its cookie, not in the record", async () => {
   view.unmount();
 });
 
-it("keeps the image settings as their own group with defaults", async () => {
-  const storage = new Map<string, string>();
+// Advanced's group lives in the same record but belongs to src/lib/advanced-settings.ts; Look's writes keep it intact.
+it("keeps the Advanced group untouched when Look's choices are written", async () => {
+  const advanced = { imageAspectRatio: "3:2", chatModel: "some/model", appearance: "light" };
+  const storage = new Map([[RECORD, JSON.stringify({ version: 1, advanced })]]);
   const view = await hydrate(storage);
-  await act(async () => view.preferences().setImageAspectRatio("3:2"));
-  expect(stored(storage).advanced).toEqual({ imageAspectRatio: "3:2" });
-  expect(view.preferences().imageResolution).toBe("1K");
+  await act(async () => view.preferences().setArtStyle("watercolor"));
+  await act(async () => view.preferences().setAutoGenerate(true));
+  expect(stored(storage)).toEqual({ version: 1, look: { artStyle: "watercolor" }, autoGenerate: true, advanced });
   view.unmount();
-  expect((await hydrate(storage)).preferences().imageAspectRatio).toBe("3:2");
-});
-
-// Generation runs on one model (ADR 0012); a saved choice of another would be priced at its rate and charged at this one's.
-it("does not keep a model selected in one visit for the next", async () => {
-  const storage = new Map<string, string>();
-  const first = await hydrate(storage);
-  await act(async () => first.preferences().setImageModel("google/gemini-3.1-flash-lite-image"));
-  expect(first.preferences().imageModel).toBe("google/gemini-3.1-flash-lite-image");
-  first.unmount();
-  const second = await hydrate(storage);
-  expect(second.preferences().imageModel).toBe(DEFAULT_IMAGE_MODEL);
-  second.unmount();
 });

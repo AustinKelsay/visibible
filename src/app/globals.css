@@ -3,7 +3,6 @@
 :root {
   /* Colors */
   --background: #ffffff;
-  --image-stage: #050505;
   --foreground: #171717;
   --surface: #f5f5f5;
   --muted: #737373;
@@ -196,12 +195,6 @@ html {
   text-size-adjust: 100%;
 }
 
-/* Improved touch scrolling */
-.touch-scroll {
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -220,60 +213,6 @@ html {
 }
 .focus-ring:focus-visible {
   box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--accent);
-}
-
-/* Skeleton loading animations */
-@keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-
-@keyframes image-skeleton-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.skeleton {
-  animation: pulse 1.5s ease-in-out infinite;
-  background: var(--surface);
-  border-radius: var(--radius-sm);
-}
-
-.image-skeleton-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.04) 40%,
-    rgba(255, 255, 255, 0.07) 50%,
-    rgba(255, 255, 255, 0.04) 60%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: image-skeleton-shimmer 1.8s ease-in-out infinite;
-}
-
-.image-skeleton-shimmer-light {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(0, 0, 0, 0.03) 40%,
-    rgba(0, 0, 0, 0.05) 50%,
-    rgba(0, 0, 0, 0.03) 60%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: image-skeleton-shimmer 1.8s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .image-skeleton-shimmer,
-  .image-skeleton-shimmer-light {
-    animation: none;
-  }
 }
 
 /* Markdown content styling */
@@ -414,12 +353,6 @@ html {
     0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Verse strip over the painting: a darker track, so its tiles keep the same contrast on bright
-   and dark images */
-.liquid-glass.verse-strip-track {
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
 /* The spread's dock and picture chip over the painting: denser glass in the reader's appearance (dark, or light),
    so its labels stay readable on bright and dark pictures */
 .liquid-glass.spread-dock {
@@ -470,29 +403,6 @@ html {
   }
   [data-arrival] [data-turn-in] {
     animation: none;
-  }
-}
-
-/* Responsive variant — applies liquid-glass only at sm (640px) and up */
-@media (min-width: 640px) {
-  .liquid-glass-sm {
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.12),
-        rgba(255, 255, 255, 0.05) 50%,
-        rgba(255, 255, 255, 0.02)
-      ),
-      rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-top-color: rgba(255, 255, 255, 0.25);
-    box-shadow:
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
-      inset 0 0 16px rgba(255, 255, 255, 0.03),
-      0 8px 32px rgba(0, 0, 0, 0.25),
-      0 2px 8px rgba(0, 0, 0, 0.15);
   }
 }
 

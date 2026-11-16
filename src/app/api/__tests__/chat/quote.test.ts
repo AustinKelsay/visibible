@@ -32,6 +32,8 @@ const sid = { value: "test-session" };
 // out) is 3 credits, the maximum (6,000 of history and the prompt in, 2,048 out) is 11.
 const DEFAULT_PRICING = { prompt: "0.00001", completion: "0.00001", contextLength: 200_000 };
 const pricing: { value: { prompt: string; completion: string; contextLength?: number } | null } = { value: DEFAULT_PRICING };
+/** Prices of other models, by id; any model not named here costs `pricing.value`. */
+const otherModelPricing = new Map<string, { prompt: string; completion: string }>();
 const requestBody: { value: unknown } = { value: null };
 const providerStreamImpl = vi.fn();
 
@@ -100,7 +102,7 @@ vi.mock("@ai-sdk/openai", async () => {
 vi.mock("@/lib/chat-models", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@/lib/chat-models")>()),
   DEFAULT_CHAT_MODEL: "test/model",
-  getChatModelPricing: vi.fn(async () => pricing.value),
+  getChatModelPricing: vi.fn(async (model: string) => otherModelPricing.get(model) ?? pricing.value),
 }));
 
 // Scripture from the server's reader, controlled: every chapter has 176 verses of about 100 estimated tokens.
@@ -159,6 +161,7 @@ describe("chat quotes and the maximum charge (#60)", () => {
     state.sessions.clear(); state.calls.length = 0; state.holds.clear(); state.rateLimited.length = 0;
     sid.value = "test-session";
     pricing.value = DEFAULT_PRICING;
+    otherModelPricing.clear();
     setSession();
     providerStreamImpl.mockImplementation(async () => answer());
   });
@@ -269,6 +272,25 @@ describe("chat quotes and the maximum charge (#60)", () => {
     expect(stale.status).toBe(409);
     expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "changed" });
     expectNothingStarted();
+  });
+
+  it("never lets a cheap model's quote pay for a dearer model: the turn is refused with a quote at the dearer price", async () => {
+    // The answering model can change in Advanced after the composer was quoted.
+    otherModelPricing.set("test/dearer-model", { prompt: "0.00003", completion: "0.00003" });
+    const cheap = (await askQuote("test/model")).body.quote;
+    expect(cheap).toMatchObject({ estimateCredits: 3, maximumCredits: 11 });
+
+    const stale = await send(cheap.quoteId, { model: "test/dearer-model" });
+    expect(stale.status).toBe(409);
+    // At $30 per million each way: typical (709 in, 1,000 out) × 1.25 → 7 credits; maximum (6,409 in, 2,048 out) × 1.25 → 32.
+    expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "changed", quote: { estimateCredits: 7, maximumCredits: 32 } });
+    expectNothingStarted();
+    // The cheap quote is still unused, and still cannot be spent on the dearer model.
+    expect((await send(cheap.quoteId, { model: "test/dearer-model" })).status).toBe(409);
+    expectNothingStarted();
+
+    expect((await send(stale.json().quote.quoteId, { model: "test/dearer-model" })).status).toBe(200);
+    expect(calls("reserveCredits")).toMatchObject([{ amount: 32 }]);
   });
 
   it("caps settlement at the accepted maximum when usage comes in above it", async () => {
