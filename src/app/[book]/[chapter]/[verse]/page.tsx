@@ -13,6 +13,7 @@ import { getTranslationFromCookies } from "@/lib/get-translation";
 import {
   parseVerseUrl,
   getNavigationUrls,
+  getNextVerse,
   formatReference,
   verseLocationToId,
 } from "@/lib/navigation";
@@ -100,6 +101,7 @@ export default async function VersePage({ params }: VersePageProps) {
   }
 
   const { prevUrl, nextUrl } = getNavigationUrls(location);
+  const nextVerse = getNextVerse(location);
 
   return (
     <>
@@ -121,6 +123,7 @@ export default async function VersePage({ params }: VersePageProps) {
         translationName={TRANSLATIONS[translation].name}
         prevUrl={prevUrl ?? undefined}
         nextUrl={nextUrl ?? undefined}
+        nextVerseId={nextVerse ? verseLocationToId(nextVerse) : undefined}
       />
     </>
   );

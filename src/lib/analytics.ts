@@ -224,8 +224,8 @@ type ApiDocsLinkClickedProps = BaseProps & {
   target: "internal" | "external" | "api";
 };
 
-/** How the reader turned the page. Swipes and marks join as their tickets land. */
-export type VerseNavigationSource = "keyboard" | "dock" | "contents";
+/** How the reader turned the page. */
+export type VerseNavigationSource = "keyboard" | "dock" | "swipe" | "mark" | "contents";
 
 type VerseNavigationProps = BaseProps & {
   book: string;
