@@ -17,22 +17,36 @@ export interface PageTurnTargets {
   nextUrl?: string;
 }
 
-/** Records a turn. `targetUrl` defaults to the previous or next verse; a verse mark passes its own. */
-/** The last turn on this tab, so the spread it opens can arrive from the side it was turned towards. */
-let lastTurn: { direction: VerseNavigationDirection; targetUrl: string; at: number } | null = null;
+/**
+ * The last turn on this tab, so the spread it opens can arrive from the side it was turned towards, and in
+ * the whole-picture view when it was turned from there.
+ */
+let lastTurn: { direction: VerseNavigationDirection; targetUrl: string; at: number; wholePicture: boolean } | null = null;
 const ARRIVAL_WINDOW_MS = 5000;
+
+function turnedTo(url: string) {
+  return lastTurn && lastTurn.targetUrl === url && Date.now() - lastTurn.at < ARRIVAL_WINDOW_MS ? lastTurn : null;
+}
 
 /**
  * The direction this spread was turned to from the previous one, or null when the reader arrived any other
  * way (a link, a reload, the browser's back button). Read once when the spread mounts.
  */
 export function useArrival(url: string): VerseNavigationDirection | null {
-  const [arrival] = useState(() =>
-    lastTurn && lastTurn.targetUrl === url && Date.now() - lastTurn.at < ARRIVAL_WINDOW_MS ? lastTurn.direction : null,
-  );
+  const [arrival] = useState(() => turnedTo(url)?.direction ?? null);
   return arrival;
 }
 
+/**
+ * Whether this spread was turned to from the whole-picture view, so it opens in that view too. Read once
+ * when the spread mounts; arriving any other way opens the spread with its words.
+ */
+export function useArrivesInWholePicture(url: string): boolean {
+  const [whole] = useState(() => turnedTo(url)?.wholePicture ?? false);
+  return whole;
+}
+
+/** Records a turn. `targetUrl` defaults to the previous or next verse; a verse mark passes its own. */
 export type TrackPageTurn = (direction: VerseNavigationDirection, source: VerseNavigationSource, targetUrl?: string) => void;
 
 /**
@@ -49,7 +63,7 @@ export function usePageTurn({ bookName, chapter, verseNumber, prevUrl, nextUrl }
   const trackTurn = useCallback<TrackPageTurn>((direction, source, target) => {
     const targetUrl = target ?? (direction === "prev" ? prevUrl : nextUrl);
     if (!targetUrl) return;
-    lastTurn = { direction, targetUrl, at: Date.now() };
+    lastTurn = { direction, targetUrl, at: Date.now(), wholePicture: openLayer === "whole-picture" };
     trackVerseNavigation({
       book: bookName,
       chapter,
@@ -60,7 +74,7 @@ export function usePageTurn({ bookName, chapter, verseNumber, prevUrl, nextUrl }
       tier,
       hasCredits: credits > 0,
     });
-  }, [bookName, chapter, verseNumber, prevUrl, nextUrl, tier, credits]);
+  }, [bookName, chapter, verseNumber, prevUrl, nextUrl, tier, credits, openLayer]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {

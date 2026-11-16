@@ -1,5 +1,6 @@
 import { AskDockButton, AskFoot, AskPage } from "@/components/spread/ask";
 import { ContentsButton } from "@/components/spread/contents";
+import { useLayer } from "@/components/spread/layers";
 import { PageTurnLink, type TrackPageTurn } from "@/components/spread/page-turn";
 
 const FADE_INTO_FOOT = "linear-gradient(to bottom, #000 calc(100% - 2rem), transparent)";
@@ -21,6 +22,7 @@ export interface WordsPageProps {
  * foot line with the translation and position. A long verse scrolls inside the page; the foot line stays
  * put. On a phone previous and next sit beside the foot line and the dock's "Ask a question…" replaces
  * the suggestions; on a computer previous and next live in the dock. Asking turns the page over (AskPage).
+ * The whole-picture view puts it aside: it slides off to the right on a computer and is hidden on a phone.
  */
 export function WordsPage({
   bookName,
@@ -33,8 +35,12 @@ export function WordsPage({
   nextUrl,
   onTurn,
 }: WordsPageProps) {
+  const aside = useLayer("whole-picture").isOpen;
   return (
-    <article className="relative flex min-h-0 flex-1 flex-col bg-[#0b0b0c] md:absolute md:inset-y-0 md:right-0 md:w-[var(--words-page-width)] md:border-l md:border-white/10 md:bg-[rgba(12,12,14,0.78)] md:backdrop-blur-2xl md:backdrop-saturate-150">
+    <article
+      inert={aside}
+      className={`spread-words relative flex min-h-0 flex-1 flex-col bg-[#0b0b0c] md:absolute md:inset-y-0 md:right-0 md:w-[var(--words-page-width)] md:border-l md:border-white/10 md:bg-[rgba(12,12,14,0.78)] md:backdrop-blur-2xl md:backdrop-saturate-150 ${aside ? "max-md:hidden" : ""}`}
+    >
       {/* A long verse fades into the foot line rather than stopping at a hard edge; the bottom padding
           lets its last line scroll clear of the fade. */}
       <div

@@ -256,6 +256,13 @@ type VerseNavigationProps = BaseProps & {
 
 type SettingsMenuOpenedProps = BaseProps;
 
+type WholePictureOpenedProps = BaseProps & {
+  book: string;
+  chapter: number;
+  verse: number;
+  imageId?: string;
+};
+
 function sanitizeImageUrl(imageUrl?: string): string | undefined {
   if (!imageUrl) return undefined;
 
@@ -414,6 +421,11 @@ export function trackApiDocsLinkClicked(props: ApiDocsLinkClickedProps) {
 // Track explicit verse navigation interactions
 export function trackVerseNavigation(props: VerseNavigationProps) {
   track("verse_navigation", props);
+}
+
+// Track the spread's whole-picture view being opened from its picture
+export function trackWholePictureOpened(props: WholePictureOpenedProps) {
+  track("whole_picture_opened", props);
 }
 
 // Track the mobile settings menu
