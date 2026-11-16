@@ -8,6 +8,7 @@ import { api } from "../../../convex/_generated/api";
 import { TrackedApiDocsLink } from "@/components/api-docs-analytics";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { Feedback, imageContextOf } from "@/components/feedback";
+import { useChosenPicture } from "@/components/spread/chosen-picture";
 import { SocialLinks } from "@/components/site-links";
 import { LayerPanel, useLayer, useLayers } from "@/components/spread/layers";
 import { useSession } from "@/context/session-context";
@@ -34,6 +35,8 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber }: CornerMe
   const name = useRef<HTMLButtonElement>(null);
   const menu = useLayer("corner");
   const feedback = useLayer("feedback");
+  // The picture menu's "Report this picture" opens the same form, about the picture, with focus returning to its chip.
+  const report = useLayer("report-picture");
   const { openLayerById } = useLayers();
 
   return (
@@ -51,8 +54,8 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber }: CornerMe
         Visibible
       </button>
 
-      {menu.isOpen || feedback.isOpen ? (
-        <div aria-hidden="true" className="fixed inset-0 z-30" onClick={() => (menu.isOpen ? menu.close() : feedback.close())} />
+      {menu.isOpen || feedback.isOpen || report.isOpen ? (
+        <div aria-hidden="true" className="fixed inset-0 z-30" onClick={() => (menu.isOpen ? menu.close() : feedback.isOpen ? feedback.close() : report.close())} />
       ) : null}
 
       <LayerPanel
@@ -77,16 +80,25 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber }: CornerMe
         </div>
       </LayerPanel>
 
-      <LayerPanel
-        id="feedback"
-        label="Send feedback"
-        className="reader-dark fixed inset-x-0 bottom-0 z-40 flex max-h-[85svh] flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-[#0e0e10] shadow-2xl outline-none md:absolute md:inset-x-auto md:bottom-auto md:left-5 md:top-[4.75rem] md:max-h-[calc(100svh-6rem)] md:w-[26rem] md:rounded-2xl"
-      >
-        <FeedbackForm verseId={verseId} bookName={bookName} chapter={chapter} verseNumber={verseNumber} onClose={feedback.close} />
+      <LayerPanel id={report.isOpen ? "report-picture" : "feedback"} label={report.isOpen ? "Report this picture" : "Send feedback"} className={`${FEEDBACK_PANEL} ${report.isOpen ? REPORT_PLACE : FEEDBACK_PLACE}`}>
+        <FeedbackForm
+          verseId={verseId}
+          bookName={bookName}
+          chapter={chapter}
+          verseNumber={verseNumber}
+          reportPicture={report.isOpen}
+          onClose={report.isOpen ? report.close : feedback.close}
+        />
       </LayerPanel>
     </>
   );
 }
+
+const FEEDBACK_PANEL =
+  "reader-dark fixed inset-x-0 bottom-0 z-40 flex max-h-[85svh] flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-[#0e0e10] shadow-2xl outline-none md:absolute md:inset-x-auto md:left-5 md:max-h-[calc(100svh-6rem)] md:w-[26rem] md:rounded-2xl";
+/** Feedback opens under the name; a picture report opens over the picture menu's chip. */
+const FEEDBACK_PLACE = "md:bottom-auto md:top-[4.75rem]";
+const REPORT_PLACE = "md:bottom-[5.5rem] md:top-auto";
 
 function Divider() {
   return <hr className="mx-3 my-1.5 border-white/10" />;
@@ -143,17 +155,22 @@ function Balance({ onGetCredits }: { onGetCredits: () => void }) {
   );
 }
 
-/** The feedback form with the verse and the picture on screen attached. Mounted only while open. */
-function FeedbackForm({ verseId, bookName, chapter, verseNumber, onClose }: CornerMenuProps & { onClose: () => void }) {
+/**
+ * The feedback form with the verse and the picture on screen attached: the version chosen in the picture menu, or the
+ * newest. Reporting a picture starts it out about that picture. Mounted only while open.
+ */
+function FeedbackForm({ verseId, bookName, chapter, verseNumber, reportPicture, onClose }: CornerMenuProps & { reportPicture: boolean; onClose: () => void }) {
   const isConvexEnabled = useConvexEnabled();
   const { artStyle } = useEffectiveArtStyle();
+  const { chosen } = useChosenPicture();
   // The spread's picture query, so the form attaches the picture the spread shows.
   const pictures = useQuery(api.verseImages.getImageHistory, isConvexEnabled ? { verseId, artStyle } : "skip");
+  const title = reportPicture ? "Report this picture" : "Send feedback";
 
   return (
     <>
       <div className="flex shrink-0 items-center justify-between border-b border-white/10 py-1.5 pr-1.5 pl-4">
-        <h2 className="text-sm font-medium text-white/90">Send feedback</h2>
+        <h2 className="text-sm font-medium text-white/90">{title}</h2>
         <button
           type="button"
           aria-label="Close feedback"
@@ -166,7 +183,8 @@ function FeedbackForm({ verseId, bookName, chapter, verseNumber, onClose }: Corn
       <div className="min-h-0 flex-1 overflow-y-auto">
         <Feedback
           context={{ book: bookName, chapter, verseRange: String(verseNumber) }}
-          imageContext={imageContextOf(pictures?.[0])}
+          imageContext={imageContextOf(chosen ?? pictures?.[0])}
+          defaultKind={reportPicture ? "image" : "general"}
         />
       </div>
     </>

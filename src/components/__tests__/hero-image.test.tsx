@@ -361,16 +361,12 @@ describe("HeroImage interactions", () => {
     expect(status).toContain("Loading saved image");
   });
 
-  it("shows the image a gallery link puts in the URL", async () => {
-    let requested: string | null = null;
-    useSearchParamsMock.mockImplementation(() => ({ get: (key: string) => key === "image" ? requested : null }) as never);
+  it("ignores an image in the address and shows the newest", async () => {
+    useSearchParamsMock.mockImplementation(() => ({ get: (key: string) => key === "image" ? "image-older" : null }) as never);
     try {
       await renderHeroImage();
       expect(container?.querySelector('img[src="https://example.com/latest.png"]')).toBeTruthy();
-      requested = "image-older";
-      await renderHeroImage();
-      expect(container?.querySelector('img[src="https://example.com/older.png"]')).toBeTruthy();
-      expect(container?.querySelector('img[src="https://example.com/latest.png"]')).toBeNull();
+      expect(container?.querySelector('img[src="https://example.com/older.png"]')).toBeNull();
     } finally {
       useSearchParamsMock.mockImplementation(() => ({ get: () => null }) as never);
     }
