@@ -35,10 +35,23 @@ function parseArgs(argv: string[]) {
 
 async function fetchPicture(url: string): Promise<Uint8Array> {
   const response = await fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  const bytes = new Uint8Array(await response.arrayBuffer());
-  if (bytes.length === 0 || bytes.length > MAX_PICTURE_BYTES) throw new Error(`Unexpected picture size ${bytes.length}`);
-  return bytes;
+  if (!response.ok || !response.body) throw new Error(`HTTP ${response.status}`);
+  // Count while reading, so an oversized remote picture is refused without buffering all of it.
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  const reader = response.body.getReader();
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.length;
+    if (size > MAX_PICTURE_BYTES) {
+      await reader.cancel();
+      throw new Error(`Picture larger than ${MAX_PICTURE_BYTES} bytes`);
+    }
+    chunks.push(value);
+  }
+  if (size === 0) throw new Error("Empty picture");
+  return Buffer.concat(chunks);
 }
 
 try {
