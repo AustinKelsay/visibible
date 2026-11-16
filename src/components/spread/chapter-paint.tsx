@@ -75,7 +75,7 @@ function PaintChapterButton({ book, chapter, unpaintedVerses, pricing }: Chapter
 }) {
   const { startBulkGeneration } = useBulkGeneration();
   const { tier, credits: balance, buyCredits } = useSession();
-  const { imageModel, imageAspectRatio, imageResolution, translation } = usePreferences();
+  const { translation } = usePreferences();
   const { artStyle } = useEffectiveArtStyle();
   const [starting, setStarting] = useState(false);
   const [startError, setStartError] = useState<string | null>(null);
@@ -106,9 +106,7 @@ function PaintChapterButton({ book, chapter, unpaintedVerses, pricing }: Chapter
         scopeLabel: `Unpainted verses of ${book.name} ${chapter}`,
         queue,
         estimatedTotalCredits: estimate.totalCredits,
-        modelId: imageModel,
-        aspectRatio: imageAspectRatio,
-        resolution: imageResolution,
+        // The model, ratio and resolution are the reader's Advanced image settings, which the provider fills in.
         translation: translation || "web",
         artStyleId: artStyle,
       });

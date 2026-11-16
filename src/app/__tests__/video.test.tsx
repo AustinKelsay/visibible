@@ -3,6 +3,7 @@
 // Video without a tab (#447), tested on the whole verse page: the play mark, playback in the whole-picture view and
 // "Make a video" in the picture menu. The harness follows picture-menu.test.tsx; the video service is faked.
 
+import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 import { act, useSyncExternalStore, type ReactNode } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -64,9 +65,6 @@ vi.mock("@/context/preferences-context", () => ({
   usePreferences: () => ({
     artStyle,
     translation,
-    imageModel: "test-model",
-    imageAspectRatio: "16:9",
-    imageResolution: "1K",
     autoGenerate: useSyncExternalStore(
       (listener) => { autoGenerateListeners.add(listener); return () => autoGenerateListeners.delete(listener); },
       () => autoGenerate,
@@ -163,7 +161,7 @@ beforeEach(() => {
   vi.spyOn(console, "error").mockImplementation(() => {});
   vi.stubGlobal("fetch", vi.fn(async (url: string, init?: RequestInit) => {
     if (url === "/api/image-models") {
-      return json({ models: [{ id: "test-model", creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] });
+      return json({ models: [{ id: DEFAULT_IMAGE_MODEL, creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] });
     }
     if (url === "/api/generate-image/quote") {
       quoteRequests.push(JSON.parse(String(init?.body)));

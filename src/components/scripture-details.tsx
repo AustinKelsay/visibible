@@ -5,10 +5,8 @@ import { useState } from "react";
 import { ChevronDown, Info } from "lucide-react";
 import { useQuery } from "convex/react";
 import { usePreferences } from "@/context/preferences-context";
-import { useNavigation } from "@/context/navigation-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { api } from "../../convex/_generated/api";
-import { TranslationSelector } from "./translation-selector";
 
 interface ScriptureDetailsProps {
   book: string;
@@ -23,6 +21,8 @@ interface ScriptureDetailsProps {
     artist?: string;
     source?: string;
   };
+  /** The picture on screen, when it is not the newest in the art style. */
+  displayedImageId?: string | null;
 }
 
 interface ConvexImageData {
@@ -110,10 +110,10 @@ function ScriptureDetailsBase({
   imageHistory,
   allImageHistory,
   isQueryLoading,
+  displayedImageId: currentImageId = null,
 }: ScriptureDetailsBaseProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const { translationInfo, imageModel } = usePreferences();
-  const { currentImageId } = useNavigation();
 
   const wordCount = countWords(verseText);
   const charCount = verseText.trim().length;
@@ -136,7 +136,7 @@ function ScriptureDetailsBase({
     ? `${currentVerseNumber} of ${chapterVerseCount}`
     : "-";
 
-  // Image data - use currently displayed image (synced from HeroImage via context)
+  // Image data: the picture on screen, else the newest in the art style
   const displayedImage = currentImageId && imageHistory
     ? imageHistory.find((img) => img.id === currentImageId)
       || allImageHistory?.find((img) => img.id === currentImageId)
@@ -258,11 +258,10 @@ function ScriptureDetailsBase({
         <div className="px-4 pb-4 space-y-4">
           {/* Version Section */}
           <div className="bg-[var(--surface)] rounded-[var(--radius-md)] overflow-hidden">
-            <div className="px-4 py-2 border-b border-[var(--divider)] flex items-center justify-between">
+            <div className="px-4 py-2 border-b border-[var(--divider)]">
               <p className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
                 Translation
               </p>
-              <TranslationSelector variant="full" />
             </div>
             <div className="divide-y divide-[var(--divider)]">
               <DetailRow label="Version" value={translationInfo.code} />

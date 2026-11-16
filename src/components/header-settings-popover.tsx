@@ -12,6 +12,7 @@ import {
   type ImageResolution,
   supportsResolution,
   soleImageModel,
+  isImageModelSelectable,
 } from "@/lib/image-models";
 import { useGeneration } from "@/context/generation-context";
 import { usePreferences } from "@/context/preferences-context";
@@ -119,8 +120,7 @@ export function HeaderSettingsPopover() {
                 <p className="px-2 py-1.5 text-xs text-[var(--muted)]">Model list unavailable. Reopen to try again.</p>
               )}
               {models.map((model) => {
-                const available = model.availability !== "unavailable" &&
-                  getEstimatedCreditsCostForResolution(model, "1K") !== null;
+                const available = isImageModelSelectable(model);
                 const cost = getEstimatedCreditsCostForResolution(model, resolution);
                 return (
                   <button

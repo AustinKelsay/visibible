@@ -9,6 +9,7 @@ import VersePage from "../[book]/[chapter]/[verse]/page";
 import { clearBibleApiCache } from "@/lib/bible-api";
 import { trackContentsOpened, trackCreditsInsufficient, trackVerseNavigation } from "@/lib/analytics";
 import type { BulkGenerationState } from "@/context/bulk-generation-context";
+import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -50,7 +51,7 @@ vi.mock("convex/react", () => ({
 }));
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => true }));
 vi.mock("@/context/preferences-context", () => ({
-  usePreferences: () => ({ artStyle, translation: "web", imageModel: "test-model", imageAspectRatio: "16:9", imageResolution: "1K", autoGenerate: false, setAutoGenerate: vi.fn() }),
+  usePreferences: () => ({ artStyle, translation: "web", autoGenerate: false, setAutoGenerate: vi.fn() }),
 }));
 const buyCredits = vi.fn();
 let session = { sid: "guest", tier: "paid", credits: 0, isLoading: false, buyCredits };
@@ -175,7 +176,7 @@ beforeEach(() => {
   vi.stubGlobal("fetch", vi.fn(async (url: string) => {
     // The image catalog prices a picture at about 5 credits; the Bible service is unreachable.
     if (url === "/api/image-models") {
-      return new Response(JSON.stringify({ models: [{ id: "test-model", creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] }), { headers: { "Content-Type": "application/json" } });
+      return new Response(JSON.stringify({ models: [{ id: DEFAULT_IMAGE_MODEL, creditsCost: 5, reservationCreditsCost: 10, estimatedCreditsByResolution: { "1K": 5 }, etaSeconds: 12 }] }), { headers: { "Content-Type": "application/json" } });
     }
     throw new DOMException("Timed out", "TimeoutError");
   }));
@@ -410,12 +411,11 @@ describe("Painting the chapter from Contents", () => {
         expect.objectContaining({ verseId: "john-1-51", reference: "John 1:51", order: 2 }),
       ],
       estimatedTotalCredits: 15,
-      modelId: "test-model",
-      aspectRatio: "16:9",
-      resolution: "1K",
       translation: "web",
       artStyleId: "classical",
     }));
+    // The model, ratio and resolution are left to the bulk provider, which uses the reader's Advanced image settings.
+    expect(bulk.startBulkGeneration.mock.calls[0]).toEqual([expect.not.objectContaining({ modelId: expect.anything() })]);
     expect(buyCredits).not.toHaveBeenCalled();
   });
 

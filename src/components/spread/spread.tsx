@@ -5,7 +5,7 @@ import { AskProvider } from "@/components/spread/ask";
 import { ChosenPictureProvider } from "@/components/spread/chosen-picture";
 import { ContentsButton, ContentsLayer } from "@/components/spread/contents";
 import { CornerMenu } from "@/components/spread/corner-menu";
-import { LayerProvider, useLayer } from "@/components/spread/layers";
+import { LayerProvider, useLayer, useLayers } from "@/components/spread/layers";
 import { LookButton, LookLayer } from "@/components/spread/look";
 import { PageTurnLink, useArrival, useArrivesInWholePicture, usePageTurn } from "@/components/spread/page-turn";
 import { VerseMarks } from "@/components/spread/verse-marks";
@@ -15,7 +15,9 @@ import { PrefetchNextSpread } from "@/components/spread/prefetch-next";
 import { SpreadPicture } from "@/components/spread/spread-picture";
 import { WordsPage } from "@/components/spread/words-page";
 import { WholePictureCaption } from "@/components/spread/whole-picture";
+import { FeedbackPrompt } from "@/components/feedback-prompt";
 import { useSession } from "@/context/session-context";
+import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { trackWholePictureOpened } from "@/lib/analytics";
 
 export interface SpreadProps {
@@ -66,6 +68,9 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
   if (playingVerse !== null && !whole) setPlayingVerse(null);
   const playing = whole && playingVerse === verseId;
   const { tier, credits } = useSession();
+  const { openLayer, openLayerById } = useLayers();
+  // The occasional feedback prompt, only when the reader turned it on in Advanced.
+  const { feedbackPrompts } = useAdvancedSettings();
   const onShowWhole = (imageId: string) =>
     trackWholePictureOpened({ book: bookName, chapter, verse: verseNumber, imageId, tier, hasCredits: credits > 0 });
 
@@ -114,7 +119,14 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
         onTurn={onTurn}
       />
 
-      <CornerMenu verseId={verseId} bookName={bookName} chapter={chapter} verseNumber={verseNumber} />
+      <CornerMenu
+        verseId={verseId}
+        bookName={bookName}
+        chapter={chapter}
+        verseNumber={verseNumber}
+        verseText={verseText}
+        totalVerses={totalVerses}
+      />
 
       {/* Keyed by the verse: turning the page clears the conversation. */}
       <AskProvider key={verseId} verse={{ bookName, chapter, verseNumber, verseText }}>
@@ -146,6 +158,15 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
 
       <ContentsLayer bookSlug={bookSlug} chapter={chapter} verse={verseNumber} />
       <LookLayer verseId={verseId} />
+
+      {feedbackPrompts ? (
+        <FeedbackPrompt
+          visitKey={verseId}
+          suppressed={openLayer !== null}
+          onOpen={() => openLayerById("feedback")}
+          className="absolute left-3 top-[4.25rem] md:left-5 md:top-[4.75rem]"
+        />
+      ) : null}
     </main>
   );
 }
