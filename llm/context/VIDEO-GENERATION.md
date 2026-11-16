@@ -1,6 +1,6 @@
 # Video generation
 
-Video has no tab (#447): `?view=video` is ignored. A verse with a finished video shows a play mark on its picture on the spread and on its Contents tile, and pressing it plays the video in the whole-picture view ([Navigation](NAVIGATION.md)). Videos are made from the picture menu (below). The flow below is unchanged. It uses `minimax/hailuo-3-max` directly from canonical Scripture; it does not require or animate a selected image. Every saved result is public. Videos play muted initially, with standard player controls for sound, fullscreen, and seeking.
+A verse with a finished video shows a play mark on its picture on the spread and on its Contents tile, and pressing it plays the video in the whole-picture view ([Navigation](NAVIGATION.md)). Videos are made from the picture menu (below). It uses `minimax/hailuo-3-max` directly from canonical Scripture; it does not require or animate a selected image. Every saved result is public. Videos play muted initially, with standard player controls for sound, fullscreen, and seeking.
 
 ## Flow and boundaries
 

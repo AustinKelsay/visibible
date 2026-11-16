@@ -76,4 +76,32 @@ describe("spread layers", () => {
     act(() => { panel.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true })); });
     expect(document.activeElement).toBe(button("Look first"));
   });
+
+  it("skips controls not shown at this size when focusing and trapping Tab", () => {
+    act(() => root.render(
+      <LayerProvider>
+        <PhoneCloseOpener />
+      </LayerProvider>,
+    ));
+    act(() => button("Open Menu").click());
+    // The phone-only close button is not displayed on a computer: focus starts at the first shown control.
+    expect(document.activeElement).toBe(button("Menu first"));
+    const panel = container.querySelector('[role="dialog"]')!;
+    act(() => { panel.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", shiftKey: true, bubbles: true })); });
+    expect(document.activeElement).toBe(button("Menu last"));
+  });
 });
+
+function PhoneCloseOpener() {
+  const layer = useLayer("corner");
+  return (
+    <>
+      <button type="button" onClick={(event) => layer.toggle(event.currentTarget)}>Open Menu</button>
+      <LayerPanel id="corner" label="Menu">
+        <div style={{ display: "none" }}><button type="button">Close</button></div>
+        <button type="button">Menu first</button>
+        <button type="button">Menu last</button>
+      </LayerPanel>
+    </>
+  );
+}

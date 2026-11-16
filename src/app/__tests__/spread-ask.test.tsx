@@ -43,7 +43,7 @@ vi.mock("convex/react", async () => {
 });
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => true }));
 // A model saved by the old chat picker is not used: the reader asks the default model.
-vi.mock("@/context/preferences-context", () => ({ usePreferences: () => ({ artStyle: "classical", translation: "web", chatModel: "saved/old-pick", autoGenerate: false, setAutoGenerate: vi.fn() }) }));
+vi.mock("@/context/preferences-context", () => ({ usePreferences: () => ({ artStyle: "classical", translation: "web", autoGenerate: false, setAutoGenerate: vi.fn() }) }));
 vi.mock("@/context/session-context", () => ({ useSession: () => session }));
 vi.mock("@/lib/analytics");
 

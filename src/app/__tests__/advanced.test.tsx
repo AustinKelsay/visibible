@@ -324,6 +324,8 @@ describe("feedback prompts", () => {
     pressEscape();
 
     await readVerses(17);
+    // The prompt shows 2 seconds after the visit that reaches its threshold; a loaded machine can run that timer late.
+    for (let wait = 0; wait < 30 && !prompt(); wait++) await flush(100);
     expect(prompt()).toBeDefined();
     await click(prompt()!);
     expect(container.querySelector('[role="dialog"][aria-label="Send feedback"]')).not.toBeNull();

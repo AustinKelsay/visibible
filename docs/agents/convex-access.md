@@ -64,7 +64,15 @@ Server-secret reads are reserved for Next.js after cookie validation and for tru
 | `sessions:logAdminUsage` | action | Server | CONVEX_SERVER_SECRET |
 | `sessions:getAdminDailySpend` | query | Server | CONVEX_SERVER_SECRET |
 | `verseImages:getChapterImageStatus` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
-| `verseImages:getChapterGallery` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
+| `verseImages:getChapterContents` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records; at most 200 verse ids, owner-only styles only for an admin |
+| `verseImages:getSpreadPicture` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records; owner-only styles only for an admin |
+| `verseImages:getStyleExamples` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records; owner-only styles only for an admin |
+| `verseImages:getNearestEarlierPicture` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records; owner-only styles only for an admin |
+| `verseImages:listPicturesWithoutThumbnail` | query | Server | CONVEX_SERVER_SECRET |
+| `verseImages:attachThumbnail` | action | Server | CONVEX_SERVER_SECRET |
+| `verseImages:setThumbnail` | internalMutation | Internal | Convex internal dispatch only |
+| `verseImages:getImageProvenance` | query | Server | CONVEX_SERVER_SECRET |
+| `verseImages:getPublicImageBase` | query | Server | CONVEX_SERVER_SECRET |
 | `verseImages:getBooksWithImages` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
 | `verseImages:getChaptersWithImages` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
 | `verseImages:getPublicApiIndex` | query | Server | CONVEX_SERVER_SECRET |

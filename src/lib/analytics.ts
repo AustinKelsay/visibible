@@ -18,12 +18,6 @@ type BaseProps = {
 
 export type PreferenceChangeSource =
   | "translation_selector"
-  | "image_model_selector"
-  | "art_style_selector"
-  | "chat_model_selector"
-  | "header_generate_modal"
-  | "header_settings_popover"
-  | "mobile_header_menu"
   | "spread_paint_switch"
   | "look"
   | "advanced"
@@ -31,10 +25,6 @@ export type PreferenceChangeSource =
 
 export type GenerationTriggerSource =
   | "auto_generate"
-  | "hero_generate"
-  | "header_generate"
-  | "hero_retry"
-  | "fullscreen_retry"
   | "spread_paint"
   | "spread_retry"
   | "picture_menu_paint"
@@ -42,7 +32,6 @@ export type GenerationTriggerSource =
 
 export type CreditsFrictionSource =
   | GenerationTriggerSource
-  | "chat_submit"
   | "ask_submit"
   | "contents_paint";
 
@@ -69,7 +58,7 @@ type AskQuestionSentProps = BaseProps & {
 };
 
 type ChatErrorShownProps = BaseProps & {
-  variant: "sidebar" | "inline" | "ask";
+  variant: "ask";
   chatModel: string;
   errorType: ChatErrorType;
   hasContext: boolean;
@@ -159,7 +148,6 @@ type PreferenceChangedProps = BaseProps & {
 type FeedbackSubmittedProps = BaseProps & {
   hasContext: boolean;
   hasImageContext: boolean;
-  sidebarTab: "feedback";
   /** "image" reports one saved image; "general" is everything else. */
   kind?: "general" | "image";
   /** The reported image's art style as the library reports it (historical images are Classical). */

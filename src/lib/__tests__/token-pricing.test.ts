@@ -3,7 +3,6 @@ import { quoteTokenUsage } from "../token-pricing";
 import {
   computeActualChatCreditsCost,
   computeChatCreditsCost,
-  estimateCost,
   EMERGENCY_CHAT_MODEL_PRICING,
   DEFAULT_CHAT_MODEL,
 } from "../chat-models";
@@ -15,7 +14,6 @@ afterEach(() => { vi.unstubAllGlobals(); vi.resetModules(); });
 describe("provider token pricing", () => {
   it("uses catalog per-token units consistently for quotes and actual usage", () => {
     expect(quoteTokenUsage(pricing, 1000, 1000)).toEqual({ providerUsd: 0.02, credits: 3 });
-    expect(estimateCost(1000, 1000, pricing)).toBe(0.02);
     expect(computeChatCreditsCost(pricing, 2000)).toBe(3);
     expect(computeActualChatCreditsCost(pricing, 1000, 1000)).toBe(3);
   });
@@ -58,7 +56,7 @@ describe("provider token pricing", () => {
     const models = await import("../chat-models");
     vi.stubGlobal("fetch", vi.fn(async () => ({ ok: false, status: 503 })));
     const fallback = await models.getChatModelPricing(models.DEFAULT_CHAT_MODEL, "fake");
-    expect(models.estimateCost(1000, 1000, fallback!)).toBe(0.0125);
+    expect(quoteTokenUsage(fallback!, 1000, 1000)?.providerUsd).toBe(0.0125);
     vi.stubGlobal("fetch", vi.fn(async () => ({ ok: true, json: async () => ({ data: [{
       id: "fixture/model", name: "Fixture", architecture: { input_modalities: ["text"], output_modalities: ["text"] },
       pricing: fallback,

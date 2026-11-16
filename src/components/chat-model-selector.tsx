@@ -3,8 +3,6 @@
 import { formatModelId } from "@/lib/image-models";
 import { useState, useRef, useEffect, useMemo } from "react";
 import { ChevronDown, Check, MessageSquare, Loader2, Search } from "lucide-react";
-import { usePreferences } from "@/context/preferences-context";
-import { useSession } from "@/context/session-context";
 import {
   ChatModel,
   DEFAULT_CHAT_MODEL,
@@ -13,21 +11,17 @@ import {
 } from "@/lib/chat-models";
 
 interface ChatModelSelectorProps {
-  /** "inline" opens the list in the flow of the page, for use inside a menu. */
-  variant?: "compact" | "indicator" | "inline";
-  /** The chosen model and how to change it. Default: the old chat's saved preference. */
-  value?: string;
-  onChange?: (modelId: string) => void;
+  /** The chosen model and how to change it. */
+  value: string;
+  onChange: (modelId: string) => void;
 }
 
 interface GroupedModels {
   [provider: string]: ChatModel[];
 }
 
-export function ChatModelSelector({ variant = "compact", value, onChange }: ChatModelSelectorProps) {
-  const preferences = usePreferences();
-  const chatModel = value ?? preferences.chatModel;
-  const { tier } = useSession();
+/** Advanced's answering-model choice: a button whose list opens below it, in the flow of the menu. */
+export function ChatModelSelector({ value: chatModel, onChange }: ChatModelSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [models, setModels] = useState<ChatModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -94,8 +88,7 @@ export function ChatModelSelector({ variant = "compact", value, onChange }: Chat
   }, [isOpen]);
 
   const handleSelect = (modelId: string) => {
-    if (onChange) onChange(modelId);
-    else preferences.setChatModel(modelId, "chat_model_selector");
+    onChange(modelId);
     setIsOpen(false);
   };
 
@@ -138,100 +131,30 @@ export function ChatModelSelector({ variant = "compact", value, onChange }: Chat
   const displayName = currentModel
     ? currentModel.name.replace(/^[^:]+:\s*/, "").replace(/\s*\(Default\)$/i, "")
     : formatModelId(chatModel);
-  // Compact display: just show a short version
-  const compactName = displayName.length > 15 ? displayName.substring(0, 13) + "…" : displayName;
   const hasVisibleModels = suggestedModels.length > 0 || Object.keys(groupedModels).length > 0;
 
-  // Indicator variant - minimal display for chat input area
-  if (variant === "indicator") {
-    return (
-      <div ref={dropdownRef} className="relative">
-        <button
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-1.5 px-2 py-1 text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] rounded-md hover:bg-[var(--surface)]"
-          aria-label={`Current chat model: ${displayName}. Click to change.`}
-          aria-expanded={isOpen}
-          aria-haspopup="listbox"
-        >
-          <MessageSquare size={12} className="opacity-60" />
-          <span className="max-w-[120px] truncate">{compactName}</span>
-          <ChevronDown
-            size={12}
-            className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
-          />
-        </button>
-
-        {isOpen && (
-          <div
-            className="absolute left-0 bottom-full mb-1 w-[calc(100vw-2rem)] sm:w-80 max-h-[60vh] sm:max-h-80 overflow-y-auto rounded-lg bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50"
-            role="listbox"
-            aria-label="Select chat model"
-          >
-            {renderDropdownContent()}
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  // Inline variant - the list opens below the button, in the flow (inside a menu)
-  if (variant === "inline") {
-    return (
-      <div ref={dropdownRef}>
-        <button
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex min-h-11 w-full items-center gap-2 rounded-xl px-3 text-left text-sm text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--foreground)]"
-          aria-label={`Answering model: ${displayName}. Change it.`}
-          aria-expanded={isOpen}
-          aria-haspopup="listbox"
-        >
-          <MessageSquare size={14} aria-hidden="true" className="shrink-0 opacity-60" />
-          <span className="min-w-0 flex-1 truncate">{displayName}</span>
-          <ChevronDown
-            size={14}
-            aria-hidden="true"
-            className={`shrink-0 transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
-          />
-        </button>
-        {isOpen && (
-          <div
-            className="mt-1 max-h-72 overflow-y-auto overscroll-contain rounded-xl border border-[var(--divider)] bg-[var(--background)]"
-            role="listbox"
-            aria-label="Select chat model"
-          >
-            {renderDropdownContent()}
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  // Compact variant - for header
   return (
-    <div ref={dropdownRef} className="relative">
+    <div ref={dropdownRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 text-sm font-medium transition-colors duration-[var(--motion-fast)] min-h-[44px] px-2 text-[var(--muted)] hover:text-[var(--foreground)]"
-        aria-label={`Current chat model: ${displayName}. Click to change.`}
+        className="flex min-h-11 w-full items-center gap-2 rounded-xl px-3 text-left text-sm text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--foreground)]"
+        aria-label={`Answering model: ${displayName}. Change it.`}
         aria-expanded={isOpen}
-        aria-haspopup="listbox"
       >
-        <MessageSquare size={16} className="opacity-60" />
-        <span className="hidden sm:inline">{compactName}</span>
+        <MessageSquare size={14} aria-hidden="true" className="shrink-0 opacity-60" />
+        <span className="min-w-0 flex-1 truncate">{displayName}</span>
         <ChevronDown
           size={14}
-          className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
+          aria-hidden="true"
+          className={`shrink-0 transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
-
       {isOpen && (
         <div
-          className="absolute right-0 top-full mt-1 w-[calc(100vw-2rem)] sm:w-80 max-h-[60vh] sm:max-h-96 overflow-y-auto rounded-lg bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50"
-          role="listbox"
-          aria-label="Select chat model"
+          className="mt-1 max-h-72 overflow-y-auto overscroll-contain rounded-xl border border-[var(--divider)] bg-[var(--background)]"
+          role="group"
+          aria-label="Answering models"
         >
           {renderDropdownContent()}
         </div>
@@ -259,22 +182,6 @@ export function ChatModelSelector({ variant = "compact", value, onChange }: Chat
             />
           </div>
         </div>
-
-        {/* Credits Info (the inline list sits in a menu that already shows the balance) */}
-        {tier !== "admin" && variant !== "inline" && (
-          <div className="px-3 py-2 border-b border-[var(--divider)] text-xs text-[var(--muted)] space-y-1">
-            <div className="font-medium text-[var(--foreground)]">Early Access</div>
-            <div>Credits are used for AI chats and image generation</div>
-            <div>Lightning payments only (no on-chain)</div>
-            <div>No refunds during alpha</div>
-            <div className="font-medium text-[var(--foreground)] mt-2 pt-2 border-t border-[var(--divider)]">
-              ⚠️ No account: Credits are session-only
-            </div>
-            <div>
-              Credits are stored in this browser. If you clear cookies or site data, or use a different browser, your credits will be lost.
-            </div>
-          </div>
-        )}
 
         {/* Loading State */}
         {isLoading && (
@@ -324,12 +231,12 @@ export function ChatModelSelector({ variant = "compact", value, onChange }: Chat
     return (
       <button
         key={model.id}
+        type="button"
         onClick={() => handleSelect(model.id)}
         className={`w-full flex items-center justify-between px-3 py-2.5 text-left hover:bg-[var(--surface)] transition-colors duration-[var(--motion-fast)] ${
           isSelected ? "bg-[var(--surface)]" : ""
         }`}
-        role="option"
-        aria-selected={isSelected}
+        aria-pressed={isSelected}
       >
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">

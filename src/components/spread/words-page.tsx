@@ -99,7 +99,7 @@ export function WordsPage({
             <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)">
               {bookName} · Chapter {chapter}
             </p>
-            <h1 className="mt-3 font-serif text-6xl leading-none text-ink/(--quiet-60) md:mt-8 md:text-8xl">
+            <h1 className="mt-3 font-serif text-6xl leading-none lining-nums text-ink/(--quiet-60) md:mt-8 md:text-8xl">
               <span className="sr-only">{bookName} {chapter}:</span>{verseNumber}
             </h1>
             <p className={`mt-4 max-w-[30ch] font-serif text-pretty text-ink/95 md:mt-8 ${VERSE_SIZE[textSize]}`}>

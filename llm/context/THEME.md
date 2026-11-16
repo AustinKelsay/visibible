@@ -27,4 +27,4 @@ Use the existing semantic variables, restrained decoration and Lucide icons. Pre
 
 Use existing components as references: the [spread](../../src/components/spread/spread.tsx) and its [words page](../../src/components/spread/words-page.tsx), the [site header](../../src/components/site-header.tsx), the [buy-credits modal](../../src/components/buy-credits-modal.tsx). Check the actual component breakpoints and safe-area rules instead of assuming one fixed desktop/mobile layout.
 
-Reader, Contents, sidebar and fullscreen behavior are documented in [Navigation](NAVIGATION.md). Token values should change in CSS, without maintaining duplicate value tables here.
+The spread, its layers, Contents and the whole-picture view are documented in [Navigation](NAVIGATION.md). Token values should change in CSS, without maintaining duplicate value tables here.
