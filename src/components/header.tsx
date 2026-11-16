@@ -3,9 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { BookOpen, ChevronDown, Menu, MessageCircle, X, Zap } from "lucide-react";
-import { useSession } from "@/context/session-context";
-import { DEFAULT_IMAGE_ESTIMATED_CREDITS_COST } from "@/lib/image-models";
+import { BookOpen, ChevronDown, Menu, MessageCircle, X } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
 import { useWorkScope } from "@/context/work-scope-context";
 import { TranslationSelector } from "./translation-selector";
@@ -13,7 +11,6 @@ import { ImageModelSelector } from "./image-model-selector";
 import { ArtStyleSelector } from "@/components/art-style-selector";
 import { CreditsBadge } from "./credits-badge";
 import { HeaderSettingsPopover, MobileSettingsRows } from "./header-settings-popover";
-import { HeaderGenerateButton } from "./header-generate-button";
 
 function Divider() {
   return <div className="w-px h-6 bg-[var(--divider)] mx-1 sm:mx-2" />;
@@ -28,18 +25,15 @@ export function Header() {
   const { toggleMenu: toggleBookMenu, toggleChat, isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu } = useNavigation();
   const menuRef = useRef<HTMLDivElement>(null);
   // Phone passage pill: shown only when its full label fits beside the other header controls,
-  // otherwise the book icon stands in (a long passage plus a paid balance and Generate can crowd it).
+  // otherwise the book icon stands in (a long passage plus a paid balance can crowd it).
   const headerRowRef = useRef<HTMLDivElement>(null);
   const brandRef = useRef<HTMLHeadingElement>(null);
   const mobileNavRef = useRef<HTMLElement>(null);
   const passageButtonRef = useRef<HTMLButtonElement>(null);
   const pillMeasureRef = useRef<HTMLSpanElement>(null);
   const [pillFits, setPillFits] = useState(true);
-  const { tier, credits, buyCredits, accessStatus } = useSession();
   // The brand links home everywhere except verse-shaped addresses.
   const isBrandLinkPage = !/^\/[^/]+\/\d+\/\d+$/.test(pathname);
-  // Verse pages are the spread now; the only reader left in this header is a prose work's page.
-  const isVersePage = scope !== null;
   const passage = scope ? scope.passage : null;
   const toggleMenu = scope ? () => router.push(scope.contentsHref) : toggleBookMenu;
   const passageLabel = passage?.full ?? null;
@@ -147,24 +141,7 @@ export function Header() {
 
           <Divider />
 
-          {/* Balance and the credit or generate action sit together */}
-          <div className="flex items-center gap-1.5">
           <CreditsBadge />
-
-          {/* Generate Button - hidden in gallery view */}
-          {isVersePage ? (
-            <HeaderGenerateButton />
-          ) : isVersePage && accessStatus === "ready" && tier !== "admin" && credits < DEFAULT_IMAGE_ESTIMATED_CREDITS_COST ? (
-              <button
-                type="button"
-                onClick={buyCredits}
-                className="inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] text-xs font-medium"
-              >
-                <Zap size={14} strokeWidth={2} />
-                <span>Get Credits</span>
-              </button>
-          ) : null}
-          </div>
 
           {scope ? null : <Divider />}
 
@@ -181,11 +158,10 @@ export function Header() {
           </div>}
         </nav>
 
-        {/* Mobile Actions - Credits + Generate + Chat + Books + Hamburger */}
+        {/* Mobile Actions - Credits + Chat + Books + Hamburger */}
         {/* min-w-0 lets the passage pill give way on narrow phones instead of pushing the menu off-screen */}
         <nav ref={mobileNavRef} className="relative flex sm:hidden min-w-0 items-center gap-0.5">
           <CreditsBadge />
-          {isVersePage ? <HeaderGenerateButton /> : null}
           {scope ? null : <button
             className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Toggle chat"

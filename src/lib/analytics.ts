@@ -42,7 +42,7 @@ export type CreditsFrictionSource =
   | GenerationTriggerSource
   | "chat_submit"
   | "ask_submit"
-  | "header_get_credits";
+  | "contents_paint";
 
 // Event-specific property types
 type VerseViewProps = BaseProps & {

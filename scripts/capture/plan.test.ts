@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { allowsRequest, findBrowser, localBase, parseStep, selectStates, shotFile } from "./plan";
+import { CAPTURE_STUBS, allowsRequest, findBrowser, localBase, parseStep, pricedCatalog, selectStates, shotFile } from "./plan";
 import { READER_STATES } from "./states";
 
 describe("reader capture plan", () => {
@@ -77,7 +77,25 @@ describe("reader capture plan", () => {
       expect(state.name).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
       expect(state.path).toMatch(/^\//);
       for (const step of state.steps ?? []) expect(() => parseStep(step)).not.toThrow();
+      for (const stub of state.stubs ?? []) expect(CAPTURE_STUBS).toContain(stub);
     }
+  });
+
+  it("can price the image catalog as an app with a key would, without opening owner-only styles", () => {
+    const local = {
+      models: [{ id: "m", availability: "unavailable", unavailableReason: "Image generation is not configured", creditsCost: null }],
+      artStyles: [
+        { id: "classical", available: false, reason: "Temporarily unavailable for generation" },
+        { id: "icon", available: false, reason: "Owner only" },
+      ],
+    };
+    expect(pricedCatalog(local)).toEqual({
+      models: [{ id: "m", availability: "available", creditsCost: 6, reservationCreditsCost: 9, estimatedCreditsByResolution: { "1K": 6 }, etaSeconds: 20 }],
+      artStyles: [
+        { id: "classical", available: true },
+        { id: "icon", available: false, reason: "Owner only" },
+      ],
+    });
   });
 
   it("names each picture after its state and size, and can shoot only some states", () => {

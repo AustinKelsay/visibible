@@ -12,8 +12,39 @@ export const CAPTURE_SIZES: Record<CaptureSize, { width: number; height: number;
   phone: { width: 390, height: 844, phone: true },
 };
 
-/** One reader state: the name its pictures carry, the address it opens and the steps that reach it. */
-export type CaptureState = { name: string; path: string; steps?: string[]; sizes?: CaptureSize[] };
+/**
+ * Responses a state may stub, because a local app without an OpenRouter key cannot give them. `priced`: the image
+ * catalog answers as an app with a key would (see `pricedCatalog`), so prices show; nothing can be painted with it.
+ */
+export const CAPTURE_STUBS = ["priced"] as const;
+export type CaptureStub = (typeof CAPTURE_STUBS)[number];
+
+/** One reader state: the name its pictures carry, the address it opens, the steps that reach it and its stubs. */
+export type CaptureState = { name: string; path: string; steps?: string[]; sizes?: CaptureSize[]; stubs?: CaptureStub[] };
+
+type CatalogModel = Record<string, unknown> & { id: string };
+type CatalogStyle = Record<string, unknown> & { id: string; available?: boolean; reason?: string };
+
+/**
+ * The `/api/image-models` answer with every model available at about 6 credits a picture (at most 9) and every style
+ * the app offers open for painting, except the owner-only Byzantine Icon, which stays as the app says.
+ */
+export function pricedCatalog<T extends { models?: CatalogModel[]; artStyles?: CatalogStyle[] }>(body: T): T {
+  return {
+    ...body,
+    models: body.models?.map((model) => {
+      const priced: CatalogModel = { ...model, availability: "available", creditsCost: 6, reservationCreditsCost: 9, estimatedCreditsByResolution: { "1K": 6 }, etaSeconds: 20 };
+      delete priced.unavailableReason;
+      return priced;
+    }),
+    artStyles: body.artStyles?.map((style) => {
+      if (style.id === "icon") return style;
+      const open: CatalogStyle = { ...style, available: true };
+      delete open.reason;
+      return open;
+    }),
+  };
+}
 
 const LOOPBACK_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]"]);
 
