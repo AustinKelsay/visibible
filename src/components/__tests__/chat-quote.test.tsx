@@ -75,7 +75,7 @@ describe("Chat composer and the server's quote", () => {
   it("shows the server's estimate and maximum for a message and sends the quote's id", async () => {
     await render();
     await flush();
-    expect(quoteRequests).toEqual([{ model: "test/model" }]);
+    expect(quoteRequests).toEqual([{ model: "test/model", context: { book: "Genesis", chapter: 1, verseRange: "1" }, translation: "web" }]);
     expect(container.textContent).toContain("About 3 credits · at most 13 per message");
 
     await ask("What does this mean?");

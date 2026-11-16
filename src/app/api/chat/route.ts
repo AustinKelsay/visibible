@@ -7,7 +7,7 @@ import {
   computeActualChatCreditsCost,
   CREDIT_USD,
 } from "@/lib/chat-models";
-import { BILLING_POLICY_VERSION, CHAT_MAX_CREDITS_PER_MESSAGE, CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE, QUOTE_STALE_ERROR, QUOTE_STALE_STATUS, chatQuoteTerms } from "@/lib/quotes";
+import { BILLING_POLICY_VERSION, CHAT_MAX_CREDITS_PER_MESSAGE, QUOTE_STALE_ERROR, QUOTE_STALE_STATUS, chatQuoteTerms } from "@/lib/quotes";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import {
   validateSessionWithIp,
@@ -31,7 +31,7 @@ import {
   redactSid,
 } from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
-import { boundHistory, buildSystemPrompt, chatRequestSchema, estimateTokens, resolveTranslation } from "@/lib/chat-request";
+import { boundHistory, chatRequestSchema, chatSystemPrompt } from "@/lib/chat-request";
 
 // Allow streaming responses up to 60 seconds: on 11 November 2026 about 6% of answers took over 30 (llm/releases/2026-11-11-chat-model-comparison).
 export const maxDuration = 60;
@@ -186,27 +186,13 @@ export async function POST(req: Request) {
 
   const { messages, context, translation: requestedTranslation, model: requestedModel, quoteId: presentedQuoteId } = validationResult.data;
 
-  const translation = resolveTranslation(requestedTranslation, req.headers.get("cookie"));
-  if (!translation) {
-    return withSessionRefresh(Response.json(
-      { error: "Invalid translation", message: "Unsupported translation. Please select a supported translation." },
-      { status: 400 }
-    ));
-  }
-
-  // SECURITY: The system prompt, including the passage text, is built here from the reference alone.
-  const prompt = await buildSystemPrompt(context, translation);
+  // SECURITY: The system prompt, including the passage text, is built here from the reference alone. The quoted
+  // maximum is priced from this prompt, and a prompt over the allowance is refused.
+  const prompt = await chatSystemPrompt(context, requestedTranslation, req.headers.get("cookie"));
   if (!prompt.ok) {
     return withSessionRefresh(Response.json({ error: prompt.error, message: prompt.message }, { status: prompt.status }));
   }
   const system = prompt.systemPrompt;
-  // The quoted maximum prices the system prompt at a fixed allowance, so a longer one is never sent.
-  if (estimateTokens(system) > CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE) {
-    return withSessionRefresh(Response.json(
-      { error: "Passage too long", message: "This passage is too long to discuss in one message." },
-      { status: 400 }
-    ));
-  }
 
   // Use requested model or fall back to default
   const modelId = requestedModel || DEFAULT_CHAT_MODEL;
@@ -238,8 +224,8 @@ export async function POST(req: Request) {
     console.warn(`[Chat API] Left out ${history.emptyDropped} message(s) with empty content`);
   }
 
-  // The turn's estimate (a typical 2,000-token exchange) and its maximum charge (the bounded input and output).
-  const quoteTerms = chatQuoteTerms(modelId, modelPricing);
+  // The turn's estimate (a typical exchange over this system prompt) and its maximum charge (the bounded input and output).
+  const quoteTerms = chatQuoteTerms(modelId, modelPricing, prompt.tokens);
   const estimatedCredits = quoteTerms?.estimateCredits ?? null;
   if (!quoteTerms || estimatedCredits === null) {
     return withSessionRefresh(Response.json(
