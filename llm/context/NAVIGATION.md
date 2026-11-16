@@ -8,13 +8,14 @@ A verse page is the **spread** ([spread.tsx](../../src/components/spread/spread.
 
 - **Computer (768 px and wider).** The [picture](../../src/components/spread/spread-picture.tsx) covers the window, cropped from its centre. The [words page](../../src/components/spread/words-page.tsx) lies over the right side as dark glass: a line naming the book and chapter, the verse number large, the verse in a serif face, and a foot line with the translation name and the position ("5 / 51"). A floating dock on the picture holds previous, the passage name and next.
 - **Phone.** The picture sits above in a square frame (at most about half the screen) and the words page fills the rest. Previous and next sit beside the position line; there is no dock yet.
-- **The picture** is the newest saved picture of the verse in the stored art style (`getImageHistory` with the style). A verse without one shows the words page over plain dark. Loading a picture records one impression for it.
+- **The picture** is the newest saved picture of the verse in the stored art style (`getImageHistory` with the style). Loading a picture records one impression for it. While the verse's pictures load the frame is plain dark.
+- **An unpainted verse** (no picture in the stored style) shows [the unpainted picture area](../../src/components/spread/unpainted-picture.tsx): a blurred glow of the nearest earlier picture of the chapter in that style (`getNearestEarlierPicture`, its thumbnail when it has one), or plain dark when no earlier verse has one, then "No picture for John 1:6 yet", one paint button and the switch "Paint verses automatically as I read". [Image generation](IMAGE-GENERATION.md#painting-on-the-spread) describes the button, painting and the switch.
 - **A long verse** scrolls inside the words page; the picture and the foot line stay put.
 - **Turning pages** ([page-turn.tsx](../../src/components/spread/page-turn.tsx)): previous and next move one verse across chapter and book boundaries ([navigation.ts](../../src/lib/navigation.ts)). The left and right arrow keys do the same unless the reader is typing in a field ([keyboard helper](../../src/lib/verse-keyboard-navigation.ts)). The dock and phone controls are links, so the next spread is prefetched. Each turn reports `verse_navigation` with source `keyboard` or `dock`.
 - **Not on a verse page:** the old header, tabs, verse strip, details panel, footer, phone navigation bar, chat sidebar and feedback prompt. No dialog opens by itself. `?view=` and `?image=` are ignored.
 - **The server-rendered page** keeps the verse text, title and description. A passage the translation lacks, or an outage, still renders the old header and book menu with [PassageUnavailable](../../src/components/passage-unavailable.tsx).
 
-Contents, Look, Ask, the picture menu, the whole-picture view, unpainted verses, verse marks, swipes and fading controls arrive with the later tickets of #434.
+Contents, Look, Ask, the picture menu, the whole-picture view, verse marks, swipes and fading controls arrive with the later tickets of #434.
 
 ## The old shell
 
