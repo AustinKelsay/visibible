@@ -222,6 +222,7 @@ async function main() {
   // second one, signed in as the owner, so the guest's states stay a guest's.
   let storageState: Awaited<ReturnType<BrowserContext["storageState"]>> | undefined;
   let ownerState: typeof storageState;
+  let ownerRefused: string | null = null;
   try {
     for (const size of options.sizes) {
       const { width, height, phone } = CAPTURE_SIZES[size];
@@ -240,7 +241,16 @@ async function main() {
         page.on("pageerror", (error) => console.warn(`  page error in ${state.name}: ${error.message}`));
         const file = path.join(options.out, shotFile(state, size));
         try {
-          if (state.owner && !ownerState) await signInAsOwner(page, options.base);
+          if (state.owner && ownerRefused) throw new Error(`Owner sign-in was refused earlier in this run: ${ownerRefused}`);
+          if (state.owner && !ownerState) {
+            try {
+              await signInAsOwner(page, options.base);
+            } catch (error) {
+              // Never sign in again this run: the app locks sign-in after repeated wrong passwords.
+              ownerRefused = (error as Error).message;
+              throw error;
+            }
+          }
           await page.goto(new URL(state.path, options.base).href, { waitUntil: "domcontentloaded", timeout: 60_000 });
           await settle(page);
           for (const step of state.steps ?? []) {

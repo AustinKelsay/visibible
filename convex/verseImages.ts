@@ -710,7 +710,9 @@ export const getNearestEarlierPicture = query({
     } else {
       const match = /^(.+-\d+)-(\d+)$/.exec(args.verseId);
       if (!match) return null;
-      candidates = Array.from({ length: Number(match[2]) - 1 }, (_, index) => `${match[1]}-${Number(match[2]) - 1 - index}`);
+      // No chapter has more verses than the cap (Psalm 119 has 176), so a larger number looks back only that far.
+      const verse = Number(match[2]);
+      candidates = Array.from({ length: Math.min(verse - 1, EARLIER_MOMENTS_CAP) }, (_, index) => `${match[1]}-${verse - 1 - index}`);
     }
     const visible = await visibleImageFilter(ctx);
     for (const verseId of candidates) {

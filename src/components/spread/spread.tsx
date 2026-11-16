@@ -165,7 +165,8 @@ function SpreadScreen({
           <WordsPage {...words} offersAsk />
         </AskProvider>
       ) : (
-        <WordsPage {...words} offersAsk={false} />
+        // Keyed by the moment, so each one opens at the top of its text.
+        <WordsPage key={verseId} {...words} offersAsk={false} />
       )}
 
       <div className={`pointer-events-none absolute inset-x-0 bottom-8 hidden justify-center md:flex ${whole ? "md:right-0" : "md:right-[var(--words-page-width)]"}`}>

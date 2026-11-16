@@ -128,6 +128,9 @@ describe("the nearest earlier picture (the unpainted glow)", () => {
     await save("john-1-1", "icon");
     expect(await t.query(api.verseImages.getNearestEarlierPicture, { verseId: "john-1-2", styles: ["icon", "classical"] })).toBeNull();
     expect(await t.query(api.verseImages.getNearestEarlierPicture, { verseId: "not a verse", styles: ["classical"] })).toBeNull();
+    // A verse number no chapter has looks back no further than the cap, never through millions of ids.
+    await save("john-1-1", "classical");
+    expect(await t.query(api.verseImages.getNearestEarlierPicture, { verseId: "john-1-10000000", styles: ["classical"] })).toBeNull();
   });
 });
 
