@@ -45,4 +45,4 @@ Steps run in order after the page and its pictures load ([parseStep](../../scrip
 - On a computer the dock and verse marks fade after 3 seconds without activity, so a state that shows them ends by hovering the words page (`hover:css:article p:nth-of-type(2)`); `wait:4200` shoots them faded.
 - `plan.test.ts` checks that every entry's name is unique and its steps parse.
 
-States so far: `reading`, `marks` (a chapter with painted and unpainted verses), `idle-faded` and `long-verse` (scrolled inside the words page).
+States so far: `reading`, `marks` (a chapter with painted and unpainted verses), `idle-faded`, `long-verse` (scrolled inside the words page), `unpainted` (as a local app without an OpenRouter key shows it), `whole-picture`, `ask` (phone: the turned-over words page), `contents`, `corner-menu` and `feedback`. States that need a price, credits, an answer or a painting in progress are not listed yet: the command has no response stubs, and the first state that needs one adds them.

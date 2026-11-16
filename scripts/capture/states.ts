@@ -14,4 +14,10 @@ export const READER_STATES: CaptureState[] = [
   { name: "marks", path: "/john/1/14", steps: ["waitfor:img:Picture of John 1:14", "hover:css:article p:nth-of-type(2)"] },
   { name: "idle-faded", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "wait:4200"] },
   { name: "long-verse", path: "/esther/8/9", steps: ["hover:css:article p:nth-of-type(2)", "scroll:2000"] },
+  { name: "unpainted", path: "/john/1/6", steps: ["waitfor:region:Picture", "hover:css:article p:nth-of-type(2)"] },
+  { name: "whole-picture", path: "/john/1/5", steps: ["click:button:Show the whole picture of John 1:5", "wait:600"] },
+  { name: "ask", path: "/john/1/5", steps: ["click:button:Ask a question…", "waitfor:dialog:Ask about John 1:5"], sizes: ["phone"] },
+  { name: "contents", path: "/john/1/5", steps: ["click:button:Contents", "waitfor:dialog:Contents", "wait:1200"] },
+  { name: "corner-menu", path: "/john/1/5", steps: ["click:button:Visibible menu", "waitfor:dialog:Visibible menu"] },
+  { name: "feedback", path: "/john/1/5", steps: ["click:button:Visibible menu", "click:button:Send feedback", "wait:600"] },
 ];
