@@ -1,0 +1,34 @@
+{
+  "authorization": [
+    "The owner asked \"What else can we clear up and continue on from your side before I come into the loop?\". This ships the last two reader follow-ups and spends nothing."
+  ],
+  "release": {
+    "pullRequests": [483],
+    "mainCommit": "3da6a126",
+    "reviewFindings": "Sol approved #483 in one round; one nit declined (the badge query checks at most 200 picture ids per call). CodeRabbit had no actionable comments. CI quality-gates passed."
+  },
+  "deploy": {
+    "steps": [
+      { "at": "2026-11-16T20:36:04Z", "commit": "3da6a126", "convex": "Deployed to unique-impala-244 after a dry run: new read-only query verseVideos.getPicturesWithVideo; no schema or index change." },
+      { "at": "2026-11-16T20:36:25Z", "commit": "3da6a126", "carries": [483], "vercel": "dpl_FSPHsrtsEzjGrooEbV4c9EQKeTgV" }
+    ]
+  },
+  "changes": [
+    "Picture-menu thumbnail badges come from a per-picture read instead of a verse history capped at 50 videos.",
+    "Below 390px the automatic-painting switch label stays on one line beside its switch."
+  ],
+  "smoke": {
+    "after": "/john/1/5, /john/1/40 and /api/health 200. Playwright on production: John 1:40 at 320x700 shows \"Paint verses automatically as I read\" on one line; John 1:5's picture menu opens with its rows."
+  },
+  "alsoDone": [
+    "Shared dev Convex (coordinated-shepherd-515) synced to main 3da6a126 (it gained videoJobs.by_source_status), so Vercel previews match production."
+  ],
+  "rollback": {
+    "vercel": "Promote dpl_FEGmjBCe3WXoRsyHLx88f7vaSK6z (main 5c1376be). The added query is unused by it; nothing stored differs."
+  },
+  "productionWrites": [
+    "One Convex production deploy (functions only).",
+    "One Vercel production deployment.",
+    "The browser sessions of the screenshot run, with no balance."
+  ]
+}
