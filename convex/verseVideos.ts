@@ -347,6 +347,27 @@ export const getPictureVideo = query({
   },
 });
 
+/** The most pictures `getPicturesWithVideo` answers for at once: far more than a verse's picture menu lists. */
+const MAX_PICTURES_ASKED = 200;
+
+/**
+ * Which of the given saved pictures have a finished video the caller may see, one indexed read per picture: the
+ * picture menu badges those thumbnails. Unlike `getHistory` it has no cap on the verse's videos.
+ */
+export const getPicturesWithVideo = query({
+  args: { imageIds: v.array(v.string()) },
+  handler: async (ctx, args): Promise<string[]> => {
+    const visible = await styleVisibility(ctx);
+    const asked = [...new Set(args.imageIds)].slice(0, MAX_PICTURES_ASKED);
+    const found = await Promise.all(asked.map(async (imageId) => {
+      const id = ctx.db.normalizeId("verseImages", imageId);
+      const job = id ? await newestPictureVideo(ctx, id) : null;
+      return job && (await visible(job.sourceArtStyle)) ? imageId : null;
+    }));
+    return found.filter((imageId): imageId is string => imageId !== null);
+  },
+});
+
 /** The first frame the provider is sent: the source picture's public address, or null when the picture is gone. */
 export const firstFrameUrl = internalQuery({
   args: { id: v.id("videoJobs") },

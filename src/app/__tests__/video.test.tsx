@@ -96,7 +96,7 @@ let savedPictures: SavedPicture[] = [];
 let requestStatus: { status: string; error?: string } | null = null;
 /**
  * Videos (each from its source picture, or from text alone without one) as the server holds them, read as
- * verseVideos.getPictureVideo and getHistory do, and the reader's own jobs (verseVideos.getMyJobs).
+ * verseVideos.getPictureVideo, getPicturesWithVideo and getHistory do, and the reader's own jobs (verseVideos.getMyJobs).
  */
 let publicVideos: VideoJobResponse[] = [];
 let myJobs: VideoJobResponse[] = [];
@@ -194,6 +194,7 @@ beforeEach(() => {
     if (name === "verseImages:getGenerationRequestStatus") return requestStatus;
     const finished = publicVideos.filter((video) => video.status === "completed" && video.sourceImageId !== undefined).sort((a, b) => b.createdAt - a.createdAt);
     if (name === "verseVideos:getPictureVideo") return finished.find((video) => video.sourceImageId === (args as { imageId: string }).imageId) ?? null;
+    if (name === "verseVideos:getPicturesWithVideo") return (args as { imageIds: string[] }).imageIds.filter((id) => finished.some((video) => video.sourceImageId === id));
     if (name === "verseVideos:getHistory") return historyCapped ? [] : finished.filter((video) => video.verseId === (args as { verseId: string }).verseId);
     if (name === "verseVideos:getMyJobs") return myJobs;
     return answerPictureRead(savedPictures, query, args);
@@ -275,6 +276,16 @@ describe("Play on the spread", () => {
     await act(async () => { older.click(); });
     expect(spreadPicture()?.getAttribute("src")).toBe("https://img.test/john-5-older.png");
     expect(playMark()).not.toBeNull();
+  });
+
+  it("badges a thumbnail whose video the capped verse history left out", async () => {
+    savedPictures = [...john(), { id: "john-1-5:older", imageUrl: "https://img.test/john-5-older.png", artStyle: "classical", createdAt: noon(2), aspectRatio: "16:9" }];
+    publicVideos = [job({ sourceImageId: "john-1-5:older" })];
+    historyCapped = true;
+    await openVerse("john", "1", "5");
+    await openMenu();
+    const older = thumbnail(/^Classical picture, Nov 2, 2026, has a video$/);
+    expect(older?.querySelector("[data-play-mark]")).toBeInstanceOf(HTMLElement);
   });
 
   it("follows the art style chosen in Look: another style's picture brings its own video, or none", async () => {

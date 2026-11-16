@@ -113,7 +113,8 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
             setSwitchedHere(true);
             setAutoGenerate(!autoGenerate, "spread_paint_switch");
           }}
-          className="mt-1 inline-flex min-h-[44px] items-center gap-3 rounded-full px-2 text-sm text-ink/70 hover:text-ink focus-ring"
+          // Under 390px the label is set smaller and closer to the switch, so it fits on one line at 320px.
+          className="mt-1 inline-flex min-h-[44px] items-center gap-3 rounded-full px-2 text-sm text-ink/70 hover:text-ink focus-ring max-[389px]:gap-2 max-[389px]:px-1 max-[389px]:text-[13px]"
         >
           <span
             aria-hidden="true"

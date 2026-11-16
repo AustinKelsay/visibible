@@ -176,6 +176,16 @@ describe("reading a picture's video", () => {
     expect(history.map((item) => [item.sourceImageId, item.artStyle])).toEqual([[watercolor, "watercolor"], [classical, "classical"]]);
   });
 
+  it("tells which of the given pictures have a finished video, each read on its own", async () => {
+    const { t, picture, video } = setup();
+    const withVideo = await picture("john-1-5", "classical");
+    const beingMade = await picture("john-1-5", "classical");
+    const without = await picture("john-1-5", "watercolor");
+    await video("john-1-5", withVideo);
+    await video("john-1-5", beingMade, "processing");
+    expect(await t.query(api.verseVideos.getPicturesWithVideo, { imageIds: [withVideo, beingMade, without, "not-an-id"] })).toEqual([withVideo]);
+  });
+
   it("hides a video of an owner-only style from visitors and shows it to an admin", async () => {
     const visitor = setup();
     await visitor.session();
@@ -184,6 +194,7 @@ describe("reading a picture's video", () => {
     expect(await visitor.t.query(api.verseVideos.getPictureVideo, { imageId: icon })).toBeNull();
     expect(await visitor.asGuest().query(api.verseVideos.getPictureVideo, { imageId: icon })).toBeNull();
     expect(await visitor.t.query(api.verseVideos.getHistory, { verseId: "john-1-5" })).toEqual([]);
+    expect(await visitor.asGuest().query(api.verseVideos.getPicturesWithVideo, { imageIds: [icon] })).toEqual([]);
 
     const owner = setup({ admin: true });
     await owner.session();
@@ -191,5 +202,6 @@ describe("reading a picture's video", () => {
     await owner.video("john-1-5", ownerIcon);
     expect(await owner.asGuest().query(api.verseVideos.getPictureVideo, { imageId: ownerIcon })).toMatchObject({ artStyle: "icon" });
     expect(await owner.asGuest().query(api.verseVideos.getHistory, { verseId: "john-1-5" })).toHaveLength(1);
+    expect(await owner.asGuest().query(api.verseVideos.getPicturesWithVideo, { imageIds: [ownerIcon] })).toEqual([ownerIcon]);
   });
 });
