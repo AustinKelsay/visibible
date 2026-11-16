@@ -1,13 +1,13 @@
 "use client";
 
-import { useChat } from "@ai-sdk/react";
 import { useState, useMemo, useEffect, useRef, startTransition } from "react";
 import { ChevronRight, ChevronUp, Loader2, MessageCircle, Send, Zap } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { useSession } from "@/context/session-context";
 import { ChatModelSelector } from "./chat-model-selector";
-import { ConversationSummary, MessageMetadataDisplay, MessageMetadata } from "./chat-metadata";
+import { ConversationSummary, MessageMetadataDisplay } from "./chat-metadata";
 import { MarkdownRenderer } from "./markdown-renderer";
+import { chatErrorMessage as getErrorMessage, usePaidChat } from "./use-paid-chat";
 import { MAX_USER_MESSAGE_CHARS } from "@/lib/chat-limits";
 import {
   trackChatMessageSent,
@@ -16,59 +16,17 @@ import {
 } from "@/lib/analytics";
 import { resolveChatErrorType } from "@/lib/analytics-event-utils";
 import type { PageContext } from "@/context/navigation-context";
-import { formatQuote, parseQuote, parseStaleQuote, sameQuoteNumbers, type DisplayQuote } from "@/lib/quote-display";
+import { formatQuote } from "@/lib/quote-display";
 
 type ChatProps = {
   context?: PageContext;
   variant?: "inline" | "sidebar";
 };
 
-// Extended message type to include metadata
-interface ChatMessage {
-  id: string;
-  role: "user" | "assistant" | "system";
-  parts: Array<{ type: string; text?: string }>;
-  metadata?: MessageMetadata;
-}
-
-/** The fresh quote in a "quote stale" answer, which the chat transport surfaces as an error holding the response text. */
-function staleQuoteOf(error: Error | undefined): DisplayQuote | null {
-  if (!error) return null;
-  try {
-    return parseStaleQuote(409, JSON.parse(error.message));
-  } catch {
-    return null;
-  }
-}
-
-// Get user-friendly error message
-function getErrorMessage(error: Error | null): string {
-  if (!error) return "";
-
-  const msg = error.message?.toLowerCase() ?? "";
-
-  // Rate limit errors
-  if (msg.includes("rate limit") || msg.includes("429") || msg.includes("rate-limited")) {
-    return "We're experiencing high demand right now. Please wait a moment and try again.";
-  }
-
-  // Model unavailable
-  if (msg.includes("no endpoints") || msg.includes("temporarily unavailable") || msg.includes("503")) {
-    return "This model is temporarily unavailable. Please try a different model or wait a few minutes.";
-  }
-
-  // Service busy
-  if (msg.includes("retry") || msg.includes("busy") || msg.includes("traffic")) {
-    return "The AI service is busy. Please try again in a moment.";
-  }
-
-  // Fallback to actual message or generic
-  return error.message || "Something went wrong. Please try again.";
-}
-
+/** The old page shell's chat, in the sidebar. The spread asks on its words page instead (spread/ask.tsx). */
 export function Chat({ context, variant = "inline" }: ChatProps) {
   const { chatModel, translation } = usePreferences();
-  const { tier, credits, buyCredits } = useSession();
+  const { buyCredits } = useSession();
 
   const chatId = useMemo(() => {
     if (!context) return `${variant}-global`;
@@ -78,10 +36,13 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
     return `${variant}-${book}-${chapter}-${verseRange}`.toLowerCase();
   }, [context, variant]);
 
-  const { messages, sendMessage, regenerate, status, error: chatError } = useChat({ id: chatId });
-  // A stale quote is not a failure to show: the composer asks the guest to confirm the fresh price instead.
-  const staleQuote = useMemo(() => staleQuoteOf(chatError), [chatError]);
-  const error = staleQuote ? undefined : chatError;
+  // The server reads the passage text itself; send only the reference, translation and model.
+  const passage = context?.book && typeof context.chapter === "number" && context.verseRange
+    ? { book: context.book, chapter: context.chapter, verseRange: context.verseRange }
+    : null;
+  const {
+    messages: typedMessages, isLoading, error, isAdmin, tier, credits, quote, staleQuote, priceToConfirm, canSend, send, confirmPrice,
+  } = usePaidChat({ id: chatId, model: chatModel, passage, translation });
   const [input, setInput] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const prevChatIdRef = useRef<string>(chatId);
@@ -89,81 +50,13 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const isSidebar = variant === "sidebar";
-
-  const isAdmin = tier === "admin";
-
-  // The server's quote for one message with the selected model (#60): the estimate and maximum shown in the
-  // composer, and the id a send accepts. Read again when the model or the balance changes and after each send,
-  // since a quote is accepted once.
-  const [quoteEpoch, setQuoteEpoch] = useState(0);
-  const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote | null; required?: number } | null>(null);
-  const quoteKey = JSON.stringify([chatModel, credits, quoteEpoch]);
-  const currentQuote = quoteState && quoteState.key === quoteKey ? quoteState : null;
-  const quote = staleQuote ?? currentQuote?.quote ?? null;
-  const quoteWanted = !isAdmin && credits >= 1;
-  /** The quote sent with the turn in flight, and whether its fresh replacement was already accepted for the guest. */
-  const sentQuote = useRef<{ quote: DisplayQuote | null; resent: boolean }>({ quote: null, resent: false });
-
-  useEffect(() => {
-    if (!quoteWanted) return;
-    const controller = new AbortController();
-    fetch("/api/chat/quote", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model: chatModel }),
-      signal: controller.signal,
-    })
-      .then(async (response) => {
-        const body = response.ok || response.status === 402 ? await response.json() : null;
-        if (controller.signal.aborted) return;
-        // A 402 names the maximum this model needs, which the balance does not cover.
-        setQuoteState({ key: quoteKey, quote: response.ok ? parseQuote(body?.quote) : null, ...(typeof body?.required === "number" ? { required: body.required } : {}) });
-      })
-      .catch(() => {
-        // No price is shown; sending still asks the server, which answers with the quote to accept.
-      });
-    return () => controller.abort();
-  }, [quoteWanted, chatModel, quoteKey]);
-
-  // Check if user can send - admin bypasses, otherwise the message's maximum must be affordable
-  const canSend = isAdmin || credits >= (quote?.maximumCredits ?? currentQuote?.required ?? 1);
   const passageLabel = context?.book && typeof context.chapter === "number"
     ? `${context.book} ${context.chapter}${context.verseRange ? `:${context.verseRange}` : ""}`
     : null;
   const starterQuestions = passageLabel
     ? [`What does ${passageLabel} mean?`, `What is the historical context of ${passageLabel}?`, `How does ${passageLabel} fit the rest of the chapter?`]
     : ["What is the main message of the Bible?", "How do the Old and New Testaments fit together?", "Where is a good place to start reading?"];
-
-  // The server reads the passage text itself; send only the reference, translation and model.
-  const passage = context?.book && typeof context.chapter === "number" && context.verseRange
-    ? { book: context.book, chapter: context.chapter, verseRange: context.verseRange }
-    : null;
-  const requestBody = {
-    ...(passage ? { context: passage } : {}),
-    translation,
-    model: chatModel,
-  };
-
-  const isLoading = status === "streaming" || status === "submitted";
-  const hasMessages = messages.length > 0;
-
-  /** Ask again for the answer to the question already sent, accepting this quote. */
-  const resendWith = (accepted: DisplayQuote, resent: boolean) => {
-    sentQuote.current = { quote: accepted, resent };
-    void regenerate({ body: { ...requestBody, quoteId: accepted.quoteId } });
-    setQuoteEpoch((epoch) => epoch + 1);
-  };
-  // The server refused the quote and sent a fresh one. At the price the guest just accepted (the quote had only
-  // expired) it is accepted for them, once; at any other price the composer shows it and waits.
-  const resendsItself = Boolean(staleQuote) && !sentQuote.current.resent && sameQuoteNumbers(staleQuote, sentQuote.current.quote);
-  const priceToConfirm = staleQuote && !isLoading && !resendsItself
-    ? (sentQuote.current.quote ? "The price changed." : "Please confirm the price.")
-    : null;
-  useEffect(() => {
-    if (staleQuote && resendsItself) resendWith(staleQuote, true);
-    // Only a new stale answer starts a resend.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [staleQuote]);
+  const hasMessages = typedMessages.length > 0;
 
   useEffect(() => {
     if (!error) {
@@ -213,14 +106,12 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
       });
       return;
     }
-    sentQuote.current = { quote, resent: false };
-    sendMessage({ text: input }, { body: { ...requestBody, ...(quote ? { quoteId: quote.quoteId } : {}) } });
-    setQuoteEpoch((epoch) => epoch + 1);
+    send(input);
     // Track message sent
     trackChatMessageSent({
       variant,
       chatModel,
-      messageCount: messages.length + 1,
+      messageCount: typedMessages.length + 1,
       hasContext: Boolean(context),
       tier,
       hasCredits: credits > 0,
@@ -228,9 +119,6 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
     setInput("");
     setIsExpanded(true);
   };
-
-  // Cast messages to include metadata
-  const typedMessages = messages as ChatMessage[];
 
   return (
     <section
@@ -479,7 +367,7 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
             {priceToConfirm} {formatQuote(staleQuote)}.{" "}
             <button
               type="button"
-              onClick={() => resendWith(staleQuote, true)}
+              onClick={confirmPrice}
               className="font-medium text-[var(--accent)] hover:underline"
             >
               Send at this price

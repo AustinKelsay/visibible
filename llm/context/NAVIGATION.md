@@ -8,7 +8,7 @@ A verse page is the **spread** ([spread.tsx](../../src/components/spread/spread.
 
 - **Computer (768 px and wider).** The [picture](../../src/components/spread/spread-picture.tsx) covers the window, cropped from its centre. The [words page](../../src/components/spread/words-page.tsx) lies over the right side as dark glass: a line naming the book and chapter, the verse number large, the verse in a serif face, and a foot line with the translation name and the position ("5 / 51"). A floating dock on the picture holds previous, the passage name (it opens Contents) and next.
 - **Verse marks** ([verse-marks.tsx](../../src/components/spread/verse-marks.tsx)): a thin row along the top of the picture, one mark per verse of the chapter. A verse with a picture in the stored art style is brighter (`getChapterImageStatus` with the style, the same read the old book menu used), the current verse is white, thicker and `aria-current="page"`, and each mark is a link named "Verse 7, painted" or "Verse 8, unpainted". Marks are not prefetched (the whole chapter is on screen).
-- **Phone.** The picture sits above in a square frame (at most about half the screen) and the words page fills the rest. Previous and next sit beside the position line; a dock under the words page holds the Contents button.
+- **Phone.** The picture sits above in a square frame (at most about half the screen) and the words page fills the rest. Previous and next sit beside the position line; a dock under the verse holds the Contents button and "Ask a question…".
 - **The picture** is the newest saved picture of the verse in the stored art style (`getImageHistory` with the style). Its thumbnail shows first and the full picture replaces it once loaded. A verse without one shows the words page over plain dark. Loading the full picture records one impression for it.
 - **A long verse** scrolls inside the words page; the picture and the foot line stay put.
 - **Turning pages** ([page-turn.tsx](../../src/components/spread/page-turn.tsx)): previous and next move one verse across chapter and book boundaries ([navigation.ts](../../src/lib/navigation.ts)). The left and right arrow keys do the same unless the reader is typing in a field ([keyboard helper](../../src/lib/verse-keyboard-navigation.ts)). Each turn reports `verse_navigation` with source `keyboard`, `dock`, `swipe` or `mark`.
@@ -23,7 +23,7 @@ A verse page is the **spread** ([spread.tsx](../../src/components/spread/spread.
 - **Not on a verse page:** the old header, tabs, Gallery, verse strip, book menu, details panel, footer, phone navigation bar, chat sidebar and feedback prompt. No dialog opens by itself. `?view=` (including the retired `?view=gallery`) and `?image=` are ignored.
 - **The server-rendered page** keeps the verse text, title and description. A passage the translation lacks, or an outage, still renders the old header and book menu with [PassageUnavailable](../../src/components/passage-unavailable.tsx).
 
-Look, Ask, the picture menu, the whole-picture view and unpainted verses arrive with the later tickets of #434.
+Look, the picture menu, the whole-picture view and unpainted verses arrive with the later tickets of #434.
 
 ## The old shell
 
