@@ -53,6 +53,8 @@ export interface VerseGenerationOptions {
   styleImageCount: number | undefined;
   /** Hold automatic generation back (for example while other styles' images are on view). */
   autoGenerateBlocked?: boolean;
+  /** The owner, who is not charged, gets automatic images without turning them on. False makes the opt-in apply to the owner too. */
+  ownerNeedsNoOptIn?: boolean;
   /** An attempt is starting. */
   onAttemptStart?: () => void;
   /** The image was made: saved under `savedImageId`, or (without persistence) only at `url`. */
@@ -69,6 +71,7 @@ export function useVerseGeneration({
   reference,
   styleImageCount,
   autoGenerateBlocked = false,
+  ownerNeedsNoOptIn = true,
   onAttemptStart,
   onImage,
 }: VerseGenerationOptions) {
@@ -162,7 +165,8 @@ export function useVerseGeneration({
     (tier === "paid" && canAffordImageGeneration(credits, effectiveCost)));
   // A guest is charged for an automatic image without seeing its price, so it runs only once they have turned it on
   // themselves, and only when the balance strictly covers the estimate. The owner is not charged.
-  const canAutoGenerate = pricingAvailable && styleAvailable && (isAdmin || (autoGenerate && tier === "paid" && credits >= effectiveCost));
+  const canAutoGenerate = pricingAvailable && styleAvailable &&
+    (isAdmin ? ownerNeedsNoOptIn || autoGenerate : autoGenerate && tier === "paid" && credits >= effectiveCost);
   const showCreditsCost = isConvexEnabled && !isAdmin && pricingAvailable;
 
   const [isGenerating, setIsGenerating] = useState(false);

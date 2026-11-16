@@ -633,6 +633,36 @@ export const getImageHistory = query({
   },
 });
 
+/**
+ * The glow behind an unpainted verse (#439): the newest picture in the style of the nearest earlier verse of the same
+ * chapter that has one, or null. One indexed read per earlier verse, stopping at the first hit, so it never reads the
+ * whole chapter. Verse ids are compared exactly ("john-1-1"), never as a prefix, so "john-1-10" and "john-11-1" never
+ * count for John 1:1.
+ */
+export const getNearestEarlierPicture = query({
+  args: { verseId: v.string(), artStyle: v.string() },
+  handler: async (ctx, args) => {
+    const match = /^(.+-\d+)-(\d+)$/.exec(args.verseId);
+    if (!match) return null;
+    const chapterId = match[1];
+    const filter = normalizeStyleFilter({ artStyle: args.artStyle });
+    const visible = await visibleImageFilter(ctx);
+    for (let verse = Number(match[2]) - 1; verse >= 1; verse--) {
+      const candidates = withStyleFilter(ctx.db
+        .query("verseImages")
+        .withIndex("by_verse", (q) => q.eq("verseId", `${chapterId}-${verse}`))
+        .order("desc"), filter);
+      for await (const image of candidates) {
+        if (!(await visible(image))) continue;
+        const imageUrl = (image.storageId ? await ctx.storage.getUrl(image.storageId) : null) ?? image.imageUrl;
+        if (!imageUrl) continue;
+        return { verse, id: image._id, imageUrl, thumbnailUrl: await thumbnailUrlOf(ctx, image) };
+      }
+    }
+    return null;
+  },
+});
+
 /** Everything the owner needs to review one saved image: its source, style, provenance and URL. Server-only. */
 /** The base of public image links, for owner tools whose Convex URL is a custom domain that serves no HTTP actions. */
 export const getPublicImageBase = query({

@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useEffectiveArtStyle } from "@/context/work-scope-context";
+import { UnpaintedPicture } from "@/components/spread/unpainted-picture";
 
 interface SpreadPictureProps {
   verseId: string;
@@ -13,7 +14,8 @@ interface SpreadPictureProps {
 
 /**
  * The spread's picture: the newest saved picture of the verse in the stored art style, cropped from
- * its centre to cover its frame. A verse without one leaves the frame plain dark.
+ * its centre to cover its frame. A verse without one is unpainted: it glows with an earlier picture
+ * and offers to paint it. While the verse's pictures load the frame stays plain dark.
  */
 export function SpreadPicture(props: SpreadPictureProps) {
   const isConvexEnabled = useConvexEnabled();
@@ -27,7 +29,8 @@ function SavedPicture({ verseId, reference }: SpreadPictureProps) {
   const recordImpression = useMutation(api.verseImages.recordImageImpression);
   const recordedRef = useRef(new Set<string>());
   const picture = pictures?.[0];
-  if (!picture?.imageUrl) return null;
+  if (pictures === undefined) return null;
+  if (!picture?.imageUrl) return <UnpaintedPicture key={verseId} verseId={verseId} reference={reference} artStyle={artStyle} />;
 
   return (
     // Saved pictures come from Convex storage at their full size; there is no resizing service.
