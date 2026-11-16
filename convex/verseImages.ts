@@ -5,6 +5,8 @@ import {
   internalQuery,
   mutation,
   query,
+  type ActionCtx,
+  type MutationCtx,
   type QueryCtx,
 } from "./_generated/server";
 import { paginationOptsValidator, type OrderedQuery } from "convex/server";
@@ -24,6 +26,8 @@ const generationStatusValidator = v.union(
 );
 
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024; // 10 MiB hard cap per image
+// A thumbnail is a few tens of KiB; anything near this cap is not one.
+const MAX_THUMBNAIL_BYTES = 512 * 1024;
 const ALLOWED_IMAGE_MIME_TYPES = new Set([
   "image/png",
   "image/jpeg",
@@ -47,13 +51,13 @@ const assertAllowedMimeType = (mimeType?: string) => {
   }
 };
 
-const assertByteSizeWithinLimit = (bytes: number, source: string) => {
+const assertByteSizeWithinLimit = (bytes: number, source: string, maxBytes = MAX_IMAGE_BYTES) => {
   if (!Number.isFinite(bytes) || bytes <= 0) {
     throw new ImageValidationError(`Invalid image size from ${source}`);
   }
-  if (bytes > MAX_IMAGE_BYTES) {
+  if (bytes > maxBytes) {
     throw new ImageValidationError(
-      `Image from ${source} exceeds ${MAX_IMAGE_BYTES} byte limit`
+      `Image from ${source} exceeds ${maxBytes} byte limit`
     );
   }
 };
@@ -83,6 +87,10 @@ const getPublicImageUrl = (image: {
 
   throw new Error("Verse image is missing a public image URL.");
 };
+
+/** The address of a picture's small copy, or null when it has none; readers then use the full picture (#444). */
+const thumbnailUrlOf = async (ctx: QueryCtx, image: Pick<Doc<"verseImages">, "thumbnailStorageId">) =>
+  image.thumbnailStorageId ? await ctx.storage.getUrl(image.thumbnailStorageId) : null;
 
 // ---------------------------------------------------------------- art styles (#176)
 
@@ -304,6 +312,7 @@ export const getChapterGallery = query({
             imageCount: imageCounts.get(verse) ?? 0,
             imageId: image._id,
             imageUrl,
+            thumbnailUrl: await thumbnailUrlOf(ctx, image),
             model: image.model,
             artStyle: artStyleOf(image),
             createdAt: image.createdAt,
@@ -595,6 +604,7 @@ export const getImageHistory = query({
         return {
           id: image._id,
           imageUrl,
+          thumbnailUrl: await thumbnailUrlOf(ctx, image),
           model: image.model,
           prompt: image.prompt,
           reference: image.reference,
@@ -697,7 +707,7 @@ async function existingIntentResult(
     engine: existing.engine ?? ("legacy" as const), artStyleId: existing.artStyleId, engineCommitments: existing.engineCommitments,
     ...(image ? { savedImage: {
       id: image._id, imageUrl: image.storageId ? await ctx.storage.getUrl(image.storageId) : image.imageUrl ?? null,
-      model: image.model, creditsCost: image.creditsCost, durationMs: image.durationMs,
+      thumbnailUrl: await thumbnailUrlOf(ctx, image), model: image.model, creditsCost: image.creditsCost, durationMs: image.durationMs,
       reference: image.reference, translationId: image.translationId, verseText: image.verseText, promptInputs: image.promptInputs,
     } } : {}),
   };
@@ -755,7 +765,7 @@ export const createGenerationRequest = mutation({
     artStyleId?: string;
     engineCommitments?: { workId: string; momentId: string; briefVersion: string; analysisGeneration: number; promptVersion: string; billingVersion: string };
     error?: string;
-    savedImage?: { id: Id<"verseImages">; imageUrl: string | null; model: string; creditsCost?: number; durationMs?: number; reference?: string; translationId?: string; verseText?: string; promptInputs?: Doc<"verseImages">["promptInputs"] };
+    savedImage?: { id: Id<"verseImages">; imageUrl: string | null; thumbnailUrl: string | null; model: string; creditsCost?: number; durationMs?: number; reference?: string; translationId?: string; verseText?: string; promptInputs?: Doc<"verseImages">["promptInputs"] };
   }> => {
     validateServerSecret(args.serverSecret);
     const existing = await ctx.db
@@ -889,6 +899,14 @@ export const getImageByGenerationId = internalQuery({
   },
 });
 
+/** Delete a thumbnail blob that lost a race, unless it is the kept one or another picture uses it. */
+async function deleteUnreferencedThumbnail(ctx: MutationCtx, candidate: Id<"_storage"> | undefined, kept: Id<"_storage"> | undefined) {
+  if (!candidate || candidate === kept) return;
+  const referenced = await ctx.db.query("verseImages")
+    .withIndex("by_thumbnailStorageId", (q) => q.eq("thumbnailStorageId", candidate)).first();
+  if (!referenced) await ctx.storage.delete(candidate);
+}
+
 /**
  * Internal mutation to save image with storage ID.
  */
@@ -896,6 +914,7 @@ export const saveImageWithStorage = internalMutation({
   args: {
     verseId: v.string(),
     storageId: v.id("_storage"),
+    thumbnailStorageId: v.optional(v.id("_storage")),
     model: v.string(),
     prompt: v.optional(v.string()),
     reference: v.optional(v.string()),
@@ -930,13 +949,17 @@ export const saveImageWithStorage = internalMutation({
             .withIndex("by_storageId", (q) => q.eq("storageId", args.storageId)).first();
           if (!referenced) await ctx.storage.delete(args.storageId);
         }
+        await deleteUnreferencedThumbnail(ctx, args.thumbnailStorageId, existing.thumbnailStorageId);
         return existing._id;
       }
     }
     if (!await ctx.db.system.get(args.storageId)) throw new Error("Image blob not found");
+    // A missing thumbnail blob only costs the picture its small copy.
+    const thumbnailStorageId = args.thumbnailStorageId && await ctx.db.system.get(args.thumbnailStorageId) ? args.thumbnailStorageId : undefined;
     const id = await ctx.db.insert("verseImages", {
       verseId: args.verseId,
       storageId: args.storageId,
+      thumbnailStorageId,
       model: args.model,
       prompt: args.prompt,
       reference: args.reference,
@@ -1408,6 +1431,55 @@ const getImageDimensions = (bytes: Uint8Array, mimeType?: string): ImageDimensio
 };
 
 /**
+ * Decode image bytes sent as a base64 data URL and check they are one whole image of the declared type. Remote URLs,
+ * malformed, mislabelled, truncated and oversize data throw ImageValidationError.
+ */
+function decodeImageDataUrl(dataUrl: string, maxBytes = MAX_IMAGE_BYTES) {
+  // Only image bytes returned with the response are stored. Convex's runtime cannot resolve a
+  // remote URL's destination, so fetching one could not be kept off private or rebound
+  // addresses; such output is refused here rather than saved as a link that later expires.
+  if (!dataUrl.startsWith("data:")) {
+    throw new ImageValidationError("Only image data returned with the response can be stored; remote image URLs are refused");
+  }
+  const matches = dataUrl.match(/^data:([^;]+);base64,(.+)$/);
+  if (!matches) {
+    throw new ImageValidationError("Invalid data URL format");
+  }
+  const base64Data = matches[2];
+  const maxBase64Length = Math.ceil((maxBytes * 4) / 3) + 4;
+  if (base64Data.length > maxBase64Length) {
+    throw new ImageValidationError(`Image data URL exceeds ${maxBytes} byte limit`);
+  }
+  // Decode base64 without relying on atob/Buffer (not available in Convex).
+  const bytes = decodeBase64ToBytes(base64Data);
+  const mimeType = normalizeMimeType(matches[1]);
+  assertAllowedMimeType(mimeType);
+  assertByteSizeWithinLimit(bytes.length, "data URL", maxBytes);
+  // The declared type's parser must read the bytes, and the file must be whole, so a mislabelled,
+  // non-image or truncated payload is refused.
+  const dimensions = getImageDimensions(bytes, mimeType);
+  if (!dimensions || !isCompleteImage(bytes, mimeType ?? "")) {
+    throw new ImageValidationError(`Image data is not a readable ${mimeType}`);
+  }
+  return { bytes, mimeType: mimeType as string, dimensions };
+}
+
+/**
+ * Store a picture's small copy. It is optional: a missing, unusable or unstorable thumbnail is logged and left out,
+ * and the picture is saved without one (#444).
+ */
+async function storeThumbnail(ctx: ActionCtx, thumbnailUrl: string | undefined): Promise<Id<"_storage"> | undefined> {
+  if (!thumbnailUrl) return undefined;
+  try {
+    const { bytes, mimeType } = decodeImageDataUrl(thumbnailUrl, MAX_THUMBNAIL_BYTES);
+    return await ctx.storage.store(new Blob([bytes], { type: mimeType }));
+  } catch (error) {
+    console.warn("[verseImages] thumbnail not saved:", error instanceof Error ? error.message : String(error));
+    return undefined;
+  }
+}
+
+/**
  * Action to save an image from the bytes returned with the provider response (a base64 data
  * URL). The bytes must be a readable image of the declared type; they are stored in Convex
  * storage before the record is written. Remote URLs and invalid data are refused with nothing saved.
@@ -1416,6 +1488,8 @@ export const saveImage = action({
   args: {
     verseId: v.string(),
     imageUrl: v.string(),
+    // The picture's small copy as a data URL, made by the caller; optional, and never a reason to refuse the picture.
+    thumbnailUrl: v.optional(v.string()),
     model: v.string(),
     prompt: v.optional(v.string()),
     reference: v.optional(v.string()),
@@ -1439,6 +1513,7 @@ export const saveImage = action({
     const {
       verseId,
       imageUrl,
+      thumbnailUrl,
       model,
       prompt,
       reference,
@@ -1490,61 +1565,90 @@ export const saveImage = action({
       }
     }
 
-    // Only image bytes returned with the response are stored. Convex's runtime cannot resolve a
-    // remote URL's destination, so fetching one could not be kept off private or rebound
-    // addresses; such output is refused here rather than saved as a link that later expires.
-    if (!imageUrl.startsWith("data:")) {
-      throw new ImageValidationError("Only image data returned with the response can be stored; remote image URLs are refused");
-    }
-
-    // Parse the data URL
-    const matches = imageUrl.match(/^data:([^;]+);base64,(.+)$/);
-    if (!matches) {
-      throw new ImageValidationError("Invalid data URL format");
-    }
-
-    const mimeType = matches[1];
-    const base64Data = matches[2];
-    const maxBase64Length = Math.ceil((MAX_IMAGE_BYTES * 4) / 3) + 4;
-    if (base64Data.length > maxBase64Length) {
-      throw new ImageValidationError(
-        `Image data URL exceeds ${MAX_IMAGE_BYTES} byte limit`
-      );
-    }
-
-    // Decode base64 without relying on atob/Buffer (not available in Convex).
-    const bytes = decodeBase64ToBytes(base64Data);
-    const normalizedMimeType = normalizeMimeType(mimeType);
-    assertAllowedMimeType(normalizedMimeType);
-    assertByteSizeWithinLimit(bytes.length, "data URL");
-    // The declared type's parser must read the bytes, and the file must be whole, so a mislabelled,
-    // non-image or truncated payload is refused.
-    const dimensions = getImageDimensions(bytes, normalizedMimeType);
-    if (!dimensions || !isCompleteImage(bytes, normalizedMimeType ?? "")) {
-      throw new ImageValidationError(`Image data is not a readable ${normalizedMimeType}`);
-    }
+    const { bytes, mimeType, dimensions } = decodeImageDataUrl(imageUrl);
     const imageMetadata = {
       ...baseMetadata,
       sourceImageUrl: undefined,
-      imageMimeType: normalizedMimeType,
+      imageMimeType: mimeType,
       imageSizeBytes: bytes.length,
       imageWidth: dimensions.width,
       imageHeight: dimensions.height,
     };
 
     // Create a blob and upload to storage
-    const blob = new Blob([bytes], { type: normalizedMimeType });
-    const storageId = await ctx.storage.store(blob);
+    const storageId = await ctx.storage.store(new Blob([bytes], { type: mimeType }));
+    const thumbnailStorageId = await storeThumbnail(ctx, thumbnailUrl);
 
     // Save to database with storage ID
     const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithStorage, {
       verseId,
       storageId,
+      thumbnailStorageId,
       model,
       ...imageMetadata,
       generationId,
     });
 
     return { success: true, type: "storage", id };
+  },
+});
+
+// ---------------------------------------------------------------- thumbnail backfill (#444)
+
+const MAX_BACKFILL_PAGE = 100;
+
+/**
+ * One page of saved pictures without a thumbnail, oldest first, for the owner's backfill. `after` is the last
+ * page's final creation time, so a run walks past pictures it could not finish; a new run starts over from the
+ * pictures still without one, which is what makes the backfill resumable. Server-only.
+ */
+export const listPicturesWithoutThumbnail = query({
+  args: { serverSecret: v.string(), after: v.optional(v.number()), limit: v.number() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const limit = Math.max(1, Math.min(MAX_BACKFILL_PAGE, Math.floor(args.limit)));
+    const rows = await ctx.db.query("verseImages")
+      .withIndex("by_thumbnailStorageId", (q) => {
+        const missing = q.eq("thumbnailStorageId", undefined);
+        return args.after === undefined ? missing : missing.gt("_creationTime", args.after);
+      })
+      .take(limit);
+    return Promise.all(rows.map(async (image) => ({
+      id: image._id,
+      verseId: image.verseId,
+      creationTime: image._creationTime,
+      imageUrl: image.storageId ? (await ctx.storage.getUrl(image.storageId)) ?? image.imageUrl ?? null : image.imageUrl ?? null,
+    })));
+  },
+});
+
+/**
+ * Give one saved picture the small copy the backfill made. Safe to repeat: a picture that already has a thumbnail
+ * keeps it, and the copy sent is not stored (or is removed when another run stored one first). Server-only.
+ */
+export const attachThumbnail = action({
+  args: { serverSecret: v.string(), imageId: v.id("verseImages"), thumbnailUrl: v.string() },
+  handler: async (ctx, args): Promise<{ status: "attached" | "already" | "missing" }> => {
+    validateServerSecret(args.serverSecret);
+    const image = await ctx.runQuery(internal.verseImages.getImageById, { imageId: args.imageId });
+    if (!image) return { status: "missing" };
+    if (image.thumbnailStorageId) return { status: "already" };
+    const { bytes, mimeType } = decodeImageDataUrl(args.thumbnailUrl, MAX_THUMBNAIL_BYTES);
+    const thumbnailStorageId = await ctx.storage.store(new Blob([bytes], { type: mimeType }));
+    const status: "attached" | "already" | "missing" = await ctx.runMutation(internal.verseImages.setThumbnail, { imageId: args.imageId, thumbnailStorageId });
+    return { status };
+  },
+});
+
+export const setThumbnail = internalMutation({
+  args: { imageId: v.id("verseImages"), thumbnailStorageId: v.id("_storage") },
+  handler: async (ctx, args) => {
+    const image = await ctx.db.get(args.imageId);
+    if (!image || image.thumbnailStorageId) {
+      await deleteUnreferencedThumbnail(ctx, args.thumbnailStorageId, image?.thumbnailStorageId);
+      return image ? "already" as const : "missing" as const;
+    }
+    await ctx.db.patch(args.imageId, { thumbnailStorageId: args.thumbnailStorageId });
+    return "attached" as const;
   },
 });
