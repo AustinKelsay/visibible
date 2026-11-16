@@ -37,8 +37,11 @@ export function ImageSettingsItem() {
   const { imageModel, aspectRatio, resolution } = useAdvancedSettings();
   const { tier, credits } = useSession();
   const catalogUrl = imageModelsUrl(useWorkScope());
-  const [models, setModels] = useState<ImageModel[] | null>(null);
-  const [failed, setFailed] = useState(false);
+  // The catalog as read for one address, so another work's catalog never shows while this one loads.
+  const [catalog, setCatalog] = useState<{ url: string; models: ImageModel[]; failed: boolean } | null>(null);
+  const current = catalog?.url === catalogUrl ? catalog : null;
+  const models = current ? current.models : null;
+  const failed = current?.failed ?? false;
 
   // A fresh model list and prices each time the item opens.
   useEffect(() => {
@@ -48,11 +51,10 @@ export function ImageSettingsItem() {
       .then((data) => {
         if (cancelled) return;
         const loaded = Array.isArray(data.models) && data.models.length > 0;
-        setModels(loaded ? data.models : []);
-        setFailed(!loaded);
+        setCatalog({ url: catalogUrl, models: loaded ? data.models : [], failed: !loaded });
       })
       .catch(() => {
-        if (!cancelled) setFailed(true);
+        if (!cancelled) setCatalog({ url: catalogUrl, models: [], failed: true });
       });
     return () => {
       cancelled = true;

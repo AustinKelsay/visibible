@@ -124,6 +124,12 @@ export function setAdvancedSetting<K extends AdvancedSettingKey>(key: K, value: 
       const parsed: unknown = raw ? JSON.parse(raw) : null;
       const existing = parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
       localStorage.setItem(ADVANCED_STORAGE_KEY, JSON.stringify({ ...existing, [key]: value }));
+      // A value kept in memory after an earlier failed write must not shadow this one.
+      if (key in visit) {
+        const rest = { ...visit };
+        delete rest[key];
+        visit = rest;
+      }
     } catch {
       // Storage can be unavailable; the change then lasts for this visit.
       visit = { ...visit, [key]: value };

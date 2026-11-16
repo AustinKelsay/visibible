@@ -22,7 +22,7 @@ export interface AdvancedVerse {
  * Advanced: the reader choices kept out of Look because few readers need them. It is the last row of the corner menu,
  * collapsed until opened.
  *
- * Every item is self-contained: to cut one, delete its line below and its file. To cut the whole module, delete the
+ * Every item is self-contained: to cut one, delete its import above, its line below and its file. To cut the whole module, delete the
  * `<Advanced …/>` line in corner-menu.tsx and this folder. The reader reads the settings from
  * `@/lib/advanced-settings`, which answers with the defaults for any setting no mounted item offers, so nothing else
  * changes ([guide](../../../../llm/context/ADVANCED.md)).
