@@ -6,6 +6,7 @@ import { ChevronDown, Flag, Images, Loader2, RefreshCw } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { LayerPanel, useLayer, useLayers } from "@/components/spread/layers";
 import { useChosenPicture, type ChosenPicture } from "@/components/spread/chosen-picture";
+import { MakeVideo, activeVideoJob } from "@/components/spread/make-video";
 import { useSession } from "@/context/session-context";
 import { useEffectiveArtStyle, useVisibleArtStyles } from "@/context/work-scope-context";
 import { artStyleLabel } from "@/lib/art-styles";
@@ -14,6 +15,7 @@ import { imageModelDisplayName } from "@/lib/image-models";
 import { pictureStyleOrder } from "@/lib/picture-rule";
 import { previewSource } from "@/lib/picture-source";
 import { useVerseGeneration } from "@/lib/use-verse-generation";
+import type { VideoJobResponse } from "@/lib/video-generation";
 
 export interface PictureMenuProps {
   verseId: string;
@@ -39,13 +41,18 @@ const formatDate = (timestamp: number) =>
  * The picture menu (#441): a small chip on a painted verse's picture, and the layer it opens. The layer lists the
  * verse's pictures, the chosen art style first and then the other styles the reader may see, newest first, as
  * thumbnails; choosing one shows it on the spread until the page turns. Under the list sit the actions on the picture
- * shown: Paint another (the paint button's quote and credit rules), its Details, and Report this picture.
+ * shown: Paint another (the paint button's quote and credit rules), Make a video when video generation is on (#447),
+ * its Details, and Report this picture.
  *
  * Mount it with `key={verseId}`, so a page turn starts afresh.
  */
 export function PictureMenu({ verseId, reference, pictures, shown, chipHidden = false }: PictureMenuProps) {
   const layer = useLayer("picture");
-  const { tier, credits } = useSession();
+  const { sid, tier, credits } = useSession();
+  // The reader's video jobs, so a video still being made of this verse shows on the chip, after a reload too.
+  const myJobs = useQuery(api.verseVideos.getMyJobs, sid ? {} : "skip");
+  const [makingFromMenu, setMakingFromMenu] = useState(false);
+  const makingVideo = makingFromMenu || activeVideoJob(myJobs)?.verseId === verseId;
   // Painting and its price are read only once the reader has opened the menu on this verse, then kept, so a painting
   // carries on after the menu is closed.
   const [engaged, setEngaged] = useState(false);
@@ -63,7 +70,7 @@ export function PictureMenu({ verseId, reference, pictures, shown, chipHidden = 
       <button
         ref={chip}
         type="button"
-        aria-label={`Picture menu, ${label}${painting ? ", painting another" : ""}`}
+        aria-label={`Picture menu, ${label}${painting ? ", painting another" : ""}${makingVideo ? ", making a video" : ""}`}
         aria-haspopup="dialog"
         aria-expanded={layer.isOpen}
         data-fades
@@ -73,7 +80,7 @@ export function PictureMenu({ verseId, reference, pictures, shown, chipHidden = 
         }}
         className={`liquid-glass spread-dock absolute bottom-3 left-3 z-20 ${chipHidden ? "hidden" : "flex"} min-h-9 items-center gap-2 rounded-full px-3 text-[13px] font-medium text-white/90 transition-colors duration-[var(--motion-fast)] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-8 md:left-5 md:min-h-11 md:px-4 md:text-sm`}
       >
-        {painting ? (
+        {painting || makingVideo ? (
           <Loader2 aria-hidden="true" className="h-3.5 w-3.5 motion-safe:animate-spin" />
         ) : (
           <Images aria-hidden="true" className="h-3.5 w-3.5 text-white/70" />
@@ -81,15 +88,17 @@ export function PictureMenu({ verseId, reference, pictures, shown, chipHidden = 
         <span>{label}</span>
       </button>
       {engaged ? (
-        <PictureMenuLayer verseId={verseId} reference={reference} pictures={pictures} shown={shown} chip={chip} onPaintingChange={setPainting} />
+        <PictureMenuLayer verseId={verseId} reference={reference} pictures={pictures} shown={shown} chip={chip} myJobs={myJobs} onPaintingChange={setPainting} onMakingVideoChange={setMakingFromMenu} />
       ) : null}
     </div>
   );
 }
 
-function PictureMenuLayer({ verseId, reference, pictures, shown, chip, onPaintingChange }: PictureMenuProps & {
+function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, onPaintingChange, onMakingVideoChange }: PictureMenuProps & {
   chip: RefObject<HTMLButtonElement | null>;
+  myJobs: VideoJobResponse[] | undefined;
   onPaintingChange: (painting: boolean) => void;
+  onMakingVideoChange: (making: boolean) => void;
 }) {
   const layer = useLayer("picture");
   const { openLayerById } = useLayers();
@@ -172,6 +181,7 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, onPaintin
 
         <hr className="mx-3 my-1.5 border-white/10" />
         <PaintAnother generation={generation} onGetCredits={() => { layer.close(); buyCredits(); }} />
+        <MakeVideo verseId={verseId} reference={reference} myJobs={myJobs} className={ROW} onGetCredits={() => { layer.close(); buyCredits(); }} onMakingChange={onMakingVideoChange} />
 
         <button type="button" className={ROW} aria-expanded={detailsOpen} onClick={() => setDetailsOpen((open) => !open)}>
           <span className="flex-1">Details</span>

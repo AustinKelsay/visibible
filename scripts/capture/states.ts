@@ -34,4 +34,9 @@ export const READER_STATES: CaptureState[] = [
   { name: "picture-menu", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "waitfor:dialog:Picture menu", "wait:600"] },
   { name: "picture-details", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "click:button:Details", "wait:400"] },
   { name: "report-picture", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "click:button:Report this picture", "wait:600"] },
+  // Video (#447). The play mark needs a finished video of John 1:5 in the local data (READER_CAPTURE.md says how);
+  // video generation is off locally, so "Make a video" shows only with its pricing stubbed.
+  { name: "play-mark", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "waitfor:button:Play the video of John 1:5", "hover:css:article p:nth-of-type(2)"] },
+  { name: "video-playing", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Play the video of John 1:5", "waitfor:css:video", "wait:1500"] },
+  { name: "make-video", path: "/john/1/5", stubs: ["video-priced"], steps: ["waitfor:img:Picture of John 1:5", "click:button:Picture menu", "waitfor:text:make a video", "wait:400"] },
 ];

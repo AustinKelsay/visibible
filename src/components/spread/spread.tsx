@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { AskProvider } from "@/components/spread/ask";
 import { ChosenPictureProvider } from "@/components/spread/chosen-picture";
 import { ContentsButton, ContentsLayer } from "@/components/spread/contents";
@@ -61,6 +62,11 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
   const idle = useIdle();
   const arrival = useArrival(`/${bookSlug}/${chapter}/${verseNumber}`);
   const whole = useLayer("whole-picture").isOpen;
+  // The whole-picture view plays this verse's video instead of showing its picture (#447). Leaving the view or turning
+  // the page stops it.
+  const [playingVerse, setPlayingVerse] = useState<string | null>(null);
+  if (playingVerse !== null && !whole) setPlayingVerse(null);
+  const playing = whole && playingVerse === verseId;
   const { tier, credits } = useSession();
   const { openLayer, openLayerById } = useLayers();
   // The occasional feedback prompt, only when the reader turned it on in Advanced.
@@ -82,14 +88,17 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
           more room. */}
       <figure
         data-turn-in="fade"
-        className={`relative w-full overflow-hidden md:absolute md:inset-0 md:block md:aspect-auto md:max-h-none ${
-          whole
-            ? "flex min-h-0 flex-1 flex-col pt-8 md:pt-0"
-            : "aspect-square max-h-[52svh] shrink-0 transition-[max-height] duration-300 motion-reduce:transition-none max-md:[main:has([data-ask-page])_&]:max-h-[30svh]"
+        className={`relative w-full overflow-hidden md:absolute md:inset-0 md:aspect-auto md:max-h-none ${
+          playing
+            ? "flex min-h-0 flex-1 flex-col pt-8 md:pt-24 md:pb-28"
+            : whole
+            ? "flex min-h-0 flex-1 flex-col pt-8 md:block md:pt-0"
+            : "md:block aspect-square max-h-[52svh] shrink-0 transition-[max-height] duration-300 motion-reduce:transition-none max-md:[main:has([data-ask-page])_&]:max-h-[30svh]"
         }`}
       >
-        <SpreadPicture verseId={verseId} reference={reference} onShowWhole={onShowWhole} />
+        <SpreadPicture verseId={verseId} reference={reference} onShowWhole={onShowWhole} playing={playing} onPlay={() => setPlayingVerse(verseId)} />
         <WholePictureCaption
+          playing={playing}
           reference={reference}
           verseText={verseText}
           verseNumber={verseNumber}
