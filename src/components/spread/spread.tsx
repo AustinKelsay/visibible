@@ -35,7 +35,8 @@ export function Spread({ verseId, bookName, chapter, verseNumber, verseText, tot
         className="fixed inset-0 flex flex-col overflow-hidden bg-[#050505] text-white [--words-page-width:min(40vw,600px)] md:block"
         style={{ colorScheme: "dark" }}
       >
-        <div className="relative aspect-square max-h-[52svh] w-full shrink-0 overflow-hidden md:absolute md:inset-0 md:aspect-auto md:max-h-none">
+        {/* On a phone the picture gives the turned-over words page (Ask) more room. */}
+        <div className="relative aspect-square max-h-[52svh] w-full shrink-0 overflow-hidden transition-[max-height] duration-300 motion-reduce:transition-none max-md:[main:has([data-ask-page])_&]:max-h-[30svh] md:absolute md:inset-0 md:aspect-auto md:max-h-none">
           <SpreadPicture verseId={verseId} reference={reference} />
         </div>
 

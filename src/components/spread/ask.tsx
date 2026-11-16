@@ -172,7 +172,7 @@ export function AskPage() {
       label={`Ask about ${reference}`}
       className="absolute inset-0 z-20 flex flex-col bg-[#0b0b0c] outline-none md:bg-[#0d0d0f]"
     >
-      <div style={DARK_TEXT} className="flex min-h-0 flex-1 flex-col">
+      <div data-ask-page style={DARK_TEXT} className="flex min-h-0 flex-1 flex-col">
         <div className="flex items-center justify-between gap-4 px-4 pt-3 md:px-12 md:pt-12 lg:px-14">
           <button
             type="button"

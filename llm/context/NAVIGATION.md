@@ -6,15 +6,15 @@ Verse URLs are `/{book}/{chapter}/{verse}`. [navigation.ts](../../src/lib/naviga
 
 A verse page is the **spread** ([spread.tsx](../../src/components/spread/spread.tsx)), the reader's one screen for one verse, built for the redesign in [#434](https://github.com/AustinKelsay/visibible/issues/434). It is dark whatever the system setting is.
 
-- **Computer (768 px and wider).** The [picture](../../src/components/spread/spread-picture.tsx) covers the window, cropped from its centre. The [words page](../../src/components/spread/words-page.tsx) lies over the right side as dark glass: a line naming the book and chapter, the verse number large, the verse in a serif face, and a foot line with the translation name and the position ("5 / 51"). A floating dock on the picture holds previous, the passage name and next.
-- **Phone.** The picture sits above in a square frame (at most about half the screen) and the words page fills the rest. Previous and next sit beside the position line; there is no dock yet.
+- **Computer (768 px and wider).** The [picture](../../src/components/spread/spread-picture.tsx) covers the window, cropped from its centre. The [words page](../../src/components/spread/words-page.tsx) lies over the right side as dark glass: a line naming the book and chapter, the verse number large, the verse in a serif face, and a foot line with the translation name and the position ("5 / 51"). Below the verse, the foot of the words page holds Ask ([Chat](CHAT.md#ask-on-the-spread)). A floating dock on the picture holds previous, the passage name and next.
+- **Phone.** The picture sits above in a square frame (at most about half the screen) and the words page fills the rest. Previous and next sit beside the position line. A dock under the verse holds "Ask a question…".
 - **The picture** is the newest saved picture of the verse in the stored art style (`getImageHistory` with the style). A verse without one shows the words page over plain dark. Loading a picture records one impression for it.
 - **A long verse** scrolls inside the words page; the picture and the foot line stay put.
 - **Turning pages** ([page-turn.tsx](../../src/components/spread/page-turn.tsx)): previous and next move one verse across chapter and book boundaries ([navigation.ts](../../src/lib/navigation.ts)). The left and right arrow keys do the same unless the reader is typing in a field ([keyboard helper](../../src/lib/verse-keyboard-navigation.ts)). The dock and phone controls are links, so the next spread is prefetched. Each turn reports `verse_navigation` with source `keyboard` or `dock`.
 - **Not on a verse page:** the old header, tabs, verse strip, details panel, footer, phone navigation bar, chat sidebar and feedback prompt. No dialog opens by itself. `?view=` and `?image=` are ignored.
 - **The server-rendered page** keeps the verse text, title and description. A passage the translation lacks, or an outage, still renders the old header and book menu with [PassageUnavailable](../../src/components/passage-unavailable.tsx).
 
-Contents, Look, Ask, the picture menu, the whole-picture view, unpainted verses, verse marks, swipes and fading controls arrive with the later tickets of #434.
+Contents, Look, the picture menu, the whole-picture view, unpainted verses, verse marks, swipes and fading controls arrive with the later tickets of #434.
 
 ## The old shell
 
