@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useEffectiveArtStyle } from "@/context/work-scope-context";
+import { UnpaintedPicture } from "@/components/spread/unpainted-picture";
 
 interface SpreadPictureProps {
   verseId: string;
@@ -14,7 +15,8 @@ interface SpreadPictureProps {
 /**
  * The spread's picture: the newest saved picture of the verse in the stored art style, cropped from
  * its centre to cover its frame. Its thumbnail shows first and the full picture replaces it once
- * loaded. A verse without one leaves the frame plain dark.
+ * loaded. A verse without one is unpainted: it glows with an earlier picture and offers to paint
+ * it. While the verse's pictures load the frame stays plain dark.
  */
 export function SpreadPicture(props: SpreadPictureProps) {
   const isConvexEnabled = useConvexEnabled();
@@ -29,7 +31,8 @@ function SavedPicture({ verseId, reference }: SpreadPictureProps) {
   const recordedRef = useRef(new Set<string>());
   const [loadedId, setLoadedId] = useState<string | null>(null);
   const picture = pictures?.[0];
-  if (!picture?.imageUrl) return null;
+  if (pictures === undefined) return null;
+  if (!picture?.imageUrl) return <UnpaintedPicture key={verseId} verseId={verseId} reference={reference} artStyle={artStyle} />;
   const showThumbnail = Boolean(picture.thumbnailUrl) && loadedId !== picture.id;
   const cover = "absolute inset-0 h-full w-full object-cover object-center";
 
