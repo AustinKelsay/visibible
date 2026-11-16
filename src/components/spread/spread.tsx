@@ -155,7 +155,7 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
           visitKey={verseId}
           suppressed={openLayer !== null}
           onOpen={() => openLayerById("feedback")}
-          className="absolute left-3 top-[4.25rem] md:bottom-8 md:left-6 md:top-auto"
+          className="absolute left-3 top-[4.25rem] md:left-5 md:top-[4.75rem]"
         />
       ) : null}
     </main>
