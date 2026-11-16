@@ -60,11 +60,13 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
   const error = staleQuote ? undefined : chatError;
   const isAdmin = tier === "admin";
 
-  // The server's quote for one message with this model: the estimate and maximum shown, and the id a send accepts.
-  // Read again when the model or the balance changes and after each send, since a quote is accepted once.
+  // The server's quote for one message with this model about this passage (priced from the context the server will
+  // send): the estimate and maximum shown, and the id a send accepts. Read again when the model, passage, translation
+  // or balance changes and after each send, since a quote is accepted once.
   const [quoteEpoch, setQuoteEpoch] = useState(0);
   const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote | null; required?: number } | null>(null);
-  const quoteKey = JSON.stringify([model, credits, quoteEpoch]);
+  const passageKey = passage ? `${passage.book}|${passage.chapter}|${passage.verseRange}` : null;
+  const quoteKey = JSON.stringify([model, passageKey, translation, credits, quoteEpoch]);
   const currentQuote = quoteState && quoteState.key === quoteKey ? quoteState : null;
   const quote = staleQuote ?? currentQuote?.quote ?? null;
   const quoteWanted = !isAdmin && credits >= 1;
@@ -77,7 +79,7 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
     fetch("/api/chat/quote", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model }),
+      body: JSON.stringify({ model, ...(passage ? { context: passage } : {}), translation }),
       signal: controller.signal,
     })
       .then(async (response) => {
@@ -90,7 +92,9 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
         // No price is shown; sending still asks the server, which answers with the quote to accept.
       });
     return () => controller.abort();
-  }, [quoteWanted, model, quoteKey]);
+    // The passage is read through `quoteKey`, so a new object for the same verse asks no new quote.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quoteWanted, model, translation, quoteKey]);
 
   /** Admins bypass; otherwise the message's maximum must be affordable. */
   const canSend = isAdmin || credits >= (quote?.maximumCredits ?? currentQuote?.required ?? 1);

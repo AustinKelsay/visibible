@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { TRANSLATIONS, DEFAULT_TRANSLATION, type ChapterData, type Translation } from "@/lib/bible-api";
 import { getChapter } from "@/lib/scripture";
-import { parseVerseLocation, getPreviousVerse, getNextVerse, formatReference } from "@/lib/navigation";
+import { parseVerseLocation, getNextVerse, formatReference } from "@/lib/navigation";
 import { MAX_USER_MESSAGE_CHARS } from "@/lib/chat-limits";
 
 export { MAX_USER_MESSAGE_CHARS };
@@ -16,6 +16,18 @@ export { MAX_USER_MESSAGE_CHARS };
 export const MAX_OUTPUT_TOKENS = 2048;
 /** History sent to the model, at most, in estimated tokens. */
 export const HISTORY_TOKEN_BUDGET = 6000;
+/**
+ * Scripture sent with a question, at most, in estimated tokens: the chapter from its first verse through the current
+ * verse, plus the next verse. A longer chapter loses its earliest verses. 3,000 holds every chapter of the World English
+ * Bible whole except about a dozen read near their end, and Psalm 119.
+ */
+export const CHAT_SCRIPTURE_TOKEN_BUDGET = 3000;
+/**
+ * Tokens allowed for the whole system prompt (guidance, rules and the Scripture above). A turn's quoted maximum is
+ * priced from its actual system prompt, which can never be longer; a passage whose prompt still estimates higher (its
+ * current and next verse alone over the budget) is refused.
+ */
+export const CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE = CHAT_SCRIPTURE_TOKEN_BUDGET + 1000;
 /** Context window assumed when the model's is unknown. */
 const DEFAULT_CONTEXT_TOKENS = 8192;
 /** Room kept free for message framing and tokenizer differences. */
@@ -43,7 +55,7 @@ const messageSchema = z.object({
  * The passage the guest is reading. Older clients also send the verse text and captions; those fields are ignored
  * (and stripped), because the server reads the text itself.
  */
-const passageSchema = z.object({
+export const passageSchema = z.object({
   book: z.string().min(1).max(100),
   chapter: z.number().int().positive(),
   verseRange: z.string().regex(/^\d{1,3}$/, "verseRange must be a verse number"),
@@ -173,7 +185,7 @@ export function resolveTranslation(requested: string | undefined, cookieHeader: 
 
 const BASE_PROMPT = "You are Visibible, a reverent guide helping users connect deeply with Scripture.";
 const GENERAL_GUIDANCE = "Help users understand and connect with God's Word. Be spiritually encouraging and keep responses grounded in Scripture.";
-const PASSAGE_GUIDANCE = "Help users understand this verse in its biblical context. Share its meaning within the chapter and book, its theological significance, and how it connects to the broader story of Scripture. Be spiritually encouraging and help users connect personally with God's Word. Keep responses grounded but offer deeper insight when helpful.";
+const PASSAGE_GUIDANCE = "Help users understand this verse in its biblical context. Share its meaning within the chapter and book, its theological significance, and how it connects to the broader story of Scripture. Be spiritually encouraging and help users connect personally with God's Word. Keep responses grounded but offer deeper insight when helpful. When asked to summarize the chapter so far, summarize the verses given through the current verse.";
 
 /**
  * Rules every chat follows, appended to both prompts. Measured on 11 November 2026 as the "guarded" suffix
@@ -186,9 +198,10 @@ export type SystemPromptResult =
   | { ok: false; status: 400; error: string; message: string };
 
 /**
- * The system prompt for a chat: general guidance without a passage, or the passage's position with the previous,
- * current and next verse of the same chapter, read by the server in the requested translation. If the Scripture text
- * cannot be loaded, the prompt keeps the position without the text.
+ * The system prompt for a chat: general guidance without a passage, or the passage's position with the chapter so far
+ * (its first verse through the current one) and the next verse of the same chapter, read by the server in the
+ * requested translation. A chapter over the Scripture budget loses its earliest verses, and the prompt says which were
+ * left out. If the Scripture text cannot be loaded, the prompt keeps the position without the text.
  */
 export async function buildSystemPrompt(
   passage: ChatRequest["context"],
@@ -211,17 +224,29 @@ export async function buildSystemPrompt(
     const textOf = (verse: number) => chapter?.verses.find((item) => item.verse === verse)?.text;
     const current = textOf(location.verse);
     if (current) {
-      const sameChapter = (other: ReturnType<typeof getPreviousVerse>) =>
-        other && other.book.id === location.book.id && other.chapter === location.chapter ? other : null;
-      const previous = sameChapter(getPreviousVerse(location));
-      const next = sameChapter(getNextVerse(location));
-      const previousText = previous ? textOf(previous.verse) : undefined;
-      const nextText = next ? textOf(next.verse) : undefined;
-
-      prompt += "\n\nScripture Context:";
-      if (previous && previousText) prompt += `\n- Previous (v${previous.verse}): "${previousText}"`;
-      prompt += `\n- CURRENT (v${location.verse}): "${location.verse} ${current}"`;
-      if (next && nextText) prompt += `\n- Next (v${next.verse}): "${nextText}"`;
+      const next = getNextVerse(location);
+      const nextText = next && next.book.id === location.book.id && next.chapter === location.chapter ? textOf(next.verse) : undefined;
+      // The current and next verse always go; earlier verses are added newest first while they fit the budget.
+      const lines = [`- CURRENT (v${location.verse}): "${location.verse} ${current}"`];
+      if (next && nextText) lines.push(`- Next (v${next.verse}): "${nextText}"`);
+      let used = estimateTokens(lines.join("\n"));
+      let first = location.verse;
+      for (let verse = location.verse - 1; verse >= 1; verse--) {
+        const text = textOf(verse);
+        if (!text) continue;
+        const line = `- v${verse}: "${text}"`;
+        const cost = estimateTokens(line) + 1;
+        if (used + cost > CHAT_SCRIPTURE_TOKEN_BUDGET) break;
+        used += cost;
+        lines.unshift(line);
+        first = verse;
+      }
+      const trimmed = first > 1 && chapter!.verses.some((item) => item.verse < first && item.text);
+      const book = `${location.book.name} ${location.chapter}`;
+      prompt += trimmed
+        ? `\n\nScripture Context (${book} from verse ${first} through the current verse, then the next verse; verses 1–${first - 1} were left out to keep this short, so you have not seen them, and anything you say about the chapter as a whole must say it covers only verses ${first}–${location.verse}):`
+        : `\n\nScripture Context (${book} from its first verse through the current verse, then the next verse):`;
+      prompt += `\n${lines.join("\n")}`;
       scripture = "included";
     }
   } catch {
@@ -229,4 +254,31 @@ export async function buildSystemPrompt(
   }
 
   return { ok: true, systemPrompt: `${prompt}\n\n${PASSAGE_GUIDANCE}\n\n${CHAT_RULES}`, scripture };
+}
+
+export type ChatPromptResult =
+  | { ok: true; systemPrompt: string; tokens: number }
+  | { ok: false; status: 400; error: string; message: string };
+
+/**
+ * The system prompt a chat turn is answered with, and its estimated tokens, which price the turn's quote. The quote
+ * route and the chat route both build it here from the passage and translation, so a quote is for the prompt sent.
+ * Refused for an unsupported translation, an unknown passage, or a prompt over the allowance.
+ */
+export async function chatSystemPrompt(
+  passage: ChatRequest["context"],
+  requestedTranslation: string | undefined,
+  cookieHeader: string | null,
+): Promise<ChatPromptResult> {
+  const translation = resolveTranslation(requestedTranslation, cookieHeader);
+  if (!translation) {
+    return { ok: false, status: 400, error: "Invalid translation", message: "Unsupported translation. Please select a supported translation." };
+  }
+  const prompt = await buildSystemPrompt(passage, translation);
+  if (!prompt.ok) return prompt;
+  const tokens = estimateTokens(prompt.systemPrompt);
+  if (tokens > CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE) {
+    return { ok: false, status: 400, error: "Passage too long", message: "This passage is too long to discuss in one message." };
+  }
+  return { ok: true, systemPrompt: prompt.systemPrompt, tokens };
 }
