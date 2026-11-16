@@ -77,8 +77,12 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
     if (from === "words_page") openAsk("words_page", footField.current);
   };
 
-  // Two questions about the verse on screen. #443 makes one of them a summary of the chapter so far.
-  const suggestions = [`What does ${reference} mean?`, `What is the historical context of ${reference}?`];
+  // Two questions about the verse on screen. From the chapter's second verse one is always a summary of the chapter so
+  // far, which the server answers from the chapter's text up to this verse.
+  const suggestions = [
+    `What does ${reference} mean?`,
+    verseNumber > 1 ? `Summarize ${bookName} ${chapter} so far` : `What is the historical context of ${reference}?`,
+  ];
 
   return { reference, verseText, chat, input, setInput, ask, openAsk, footField, suggestions, close: layer.close };
 }
