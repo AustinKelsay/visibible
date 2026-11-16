@@ -13,7 +13,7 @@ These guides describe the repository's current behavior. Source links identify t
 | Image prompt construction | [Prompt specification](implementation/IMAGE_PROMPT_SPEC.md) |
 | Work briefs, shared art styles, depiction profiles, draft scope checks or preparation approval | [Work preparation](context/WORK-PREPARATION.md) |
 | Bulk queues, pause/resume or scope selection | [Bulk generation](context/BULK-GENERATION.md) |
-| Saved images, shared history or remote image storage | [Image persistence](context/IMAGE-PERSISTENCE.md) |
+| Saved images, thumbnails, shared history or remote image storage | [Image persistence](context/IMAGE-PERSISTENCE.md) |
 | A work's analysis: generations, canon versions, references and attention | [Analysis storage](context/ANALYSIS-STORAGE.md) |
 | Reading a work into sections, moments, a cast and a draft brief | [Work preparation](context/WORK-PREPARATION.md) |
 | Why each image is one call built from the moment's text | [ADR 0012](../docs/adr/0012-one-image-call-from-the-text.md) |

@@ -18,6 +18,22 @@ The engine's analysis (sections, moments, canon and references) lives in separat
 
 Reference sheets and style references for the generic engine are image blobs in the same file storage, written by the `storeReferenceBlob` action in the format the model returned and recorded in `referenceImages` with their input versions ([Reference images](WORK-PREPARATION.md#reference-images)). At request time the engine reads them through the server-only `getReferenceBlobUrl` query, converts them to JPEG with sharp, and keeps the JPEG bytes in a bounded per-instance cache (`createReferenceBlobCache`) before sending them inline; they are never fetched from a browser.
 
+## Thumbnails
+
+Each saved picture can have a small copy, `thumbnailStorageId`, so walls of pictures and previews do not download full paintings (#444).
+
+- New pictures: the generic engine makes the copy in the request that saves the picture, after settlement ([generation.ts](../../src/lib/engine/generation.ts) with [thumbnails.ts](../../src/lib/thumbnails.ts)): a WebP whose shorter side is at most 384 pixels, never enlarged, at quality 70. It is sent to `saveImage` as `thumbnailUrl`, a data URL checked like the picture (whole image, allowed type) but capped at 512 KiB, and stored beside the picture in the same action. Making, checking or storing it can fail (a five-second limit applies to making it): the failure is logged, the picture is saved without a thumbnail, and the charge is unchanged because it is settled before the save. When saves of one generation race, the losing upload's thumbnail is deleted with its picture.
+- Resizing runs in the Next.js server with sharp, which the engine already loads for reference sheets. sharp 0.35 ships prebuilt binaries as optional platform packages and has no install script, so it works with the repository's `ignore-scripts`. Convex's default runtime cannot run it, and no image-resizing service is used.
+- Reads: `getImageHistory`, `getChapterGallery` and the replay of a finished request (`savedImage`, and the image route's replay response) return `thumbnailUrl`, a storage address, or `null` when the picture has none. Readers then use the full picture; [picture-source.ts](../../src/lib/picture-source.ts) `previewSource` picks one. The public image API does not return thumbnails, and its responses are unchanged.
+- Existing pictures: the owner runs the one-time backfill, against development first and against production at cutover, before the new reader ships:
+
+  ```bash
+  CONVEX_SERVER_SECRET=… npm run thumbnails:backfill -- --convex-url <deployment URL> --dry-run
+  CONVEX_SERVER_SECRET=… npm run thumbnails:backfill -- --convex-url <deployment URL> [--limit <pictures>]
+  ```
+
+  [The script](../../scripts/thumbnails/backfill.mts) pages through the server-only `listPicturesWithoutThumbnail` query (the `by_thumbnailStorageId` index, oldest first), downloads each picture from its storage address, makes the thumbnail locally and sends it to the server-only `attachThumbnail` action. A dry run lists what it would do and changes nothing. A run is resumable and safe to repeat: it reads only pictures still without a thumbnail, `attachThumbnail` keeps a thumbnail a picture already has (and deletes a copy that lost a race), and Ctrl-C stops after the picture in hand. A picture it cannot read is reported in the final JSON report and retried by the next run.
+
 ## Art style at read time
 
 Images rendered by the generic engine store `artStyleId`; historical images have none and every library read ([verseImages.ts](../../convex/verseImages.ts)) reports them as `classical` through `artStyleOf`. The style-aware queries (`getImageHistory`, `getChapterImageStatus`, `getChapterGallery`, `getBooksWithImages`, `getChaptersWithImages` and the public queries) take an optional `artStyle`, and the browser queries also `otherStyles: true` for an "other styles" view; the filter runs inside the database read so history, counts, markers, existence checks and pages agree. Book and chapter existence checks for one style read the style-leading `by_artStyle_verse` index (Classical also checks images with no stored style); the "other styles" form has no bounded index and scans the range. Omitting the style preserves the previous all-styles behavior. Each record also reports `engine` and `requestTranslationId` (the reader's translation at request time) beside the saved `translationId`, which names the image's own source text.

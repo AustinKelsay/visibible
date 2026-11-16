@@ -22,6 +22,7 @@ import { assembleLean, type ReferenceRecord } from "./lean-assemble";
 import { loadWorkInputs, type MomentRange, type WorkInputs } from "./work-inputs";
 import type { ConvexClient, GenericEngine, GenericGenerationInput, GenericGenerationOutcome } from "./dispatch";
 import { listAnalysisRecords } from "./analysis-records";
+import { makeThumbnail as makeThumbnailFromBytes } from "../thumbnails";
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
 type Runtime = GenericGenerationInput["runtime"];
@@ -34,6 +35,8 @@ export type GenericEngineDeps = {
   loadReferenceBytes?: (runtime: Runtime, storageId: string) => Promise<Blob>;
   /** Convert a stored blob to the JPEG that is sent inline; sharp by default. */
   toJpeg?: (blob: Blob) => Promise<Blob>;
+  /** The saved picture's small copy as a data URL, from the picture's data URL; sharp by default (#444). */
+  makeThumbnail?: (imageUrl: string) => Promise<string>;
   modelId?: string;
   imageTimeoutMs?: () => number;
   now?: () => number;
@@ -44,6 +47,8 @@ const COST_EVENT_PERSIST_TIMEOUT_MS = 1500;
 const TIMEOUT_PREFIX = "Image generation timed out after";
 const BIBLE_REFERENCE_TRANSLATION = "web";
 const REFERENCE_FETCH_TIMEOUT_MS = 10_000;
+// A thumbnail takes well under a second; past this the picture is saved without one.
+const THUMBNAIL_TIMEOUT_MS = 5_000;
 
 function imageTimeoutMsFromEnv() {
   const parsed = Number.parseInt(process.env.OPENROUTER_IMAGE_TIMEOUT_MS || "45000", 10);
@@ -65,6 +70,12 @@ async function defaultToJpeg(blob: Blob): Promise<Blob> {
   return { bytes: new Uint8Array(out), mimeType: "image/jpeg" };
 }
 
+async function defaultMakeThumbnail(imageUrl: string): Promise<string> {
+  const match = imageUrl.match(/^data:[^;]+;base64,(.+)$/);
+  if (!match) throw new Error("The picture is not image data");
+  return makeThumbnailFromBytes(new Uint8Array(Buffer.from(match[1], "base64")));
+}
+
 function withTimeout<T>(promise: Promise<T>, ms: number, message: string): Promise<T> {
   let timer: ReturnType<typeof setTimeout> | undefined;
   const timeout = new Promise<never>((_, reject) => { timer = setTimeout(() => reject(new Error(message)), ms); });
@@ -76,6 +87,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
   const fetchImpl: FetchLike = deps.fetch ?? ((input, init) => fetch(input, init));
   const loadReferenceBytes = deps.loadReferenceBytes ?? defaultLoadReferenceBytes;
   const toJpeg = deps.toJpeg ?? defaultToJpeg;
+  const makeThumbnail = deps.makeThumbnail ?? defaultMakeThumbnail;
   const modelId = deps.modelId ?? DEFAULT_IMAGE_MODEL;
   const imageTimeoutMs = deps.imageTimeoutMs ?? imageTimeoutMsFromEnv;
   const now = deps.now ?? Date.now;
@@ -446,10 +458,18 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         canon: packet.canon, references: packet.references.map((r) => ({ kind: r.kind, id: r.id, version: r.version })), requestTranslationId: input.translationId,
       };
       const sourceTranslationId = workId === "bible-web" ? BIBLE_REFERENCE_TRANSLATION : workId;
+      // The small copy is saved with the picture. Making it can fail; the picture is then saved alone and readers use
+      // the full picture. The charge above is already settled and does not depend on it.
+      let thumbnailUrl: string | undefined;
+      try {
+        thumbnailUrl = await withTimeout(makeThumbnail(imageUrl), THUMBNAIL_TIMEOUT_MS, "Thumbnail timed out");
+      } catch (error) {
+        logWarn("generic.thumbnail_failed", { requestId, generationId, error: error instanceof Error ? error.message : String(error) });
+      }
       let savedImageId: string | undefined;
       try {
         const saved = await convex.action(api.verseImages.saveImage, {
-          verseId: unit.id, imageUrl, model: modelId, prompt, reference: context.moment.reference, verseText: context.moment.text,
+          verseId: unit.id, imageUrl, ...(thumbnailUrl ? { thumbnailUrl } : {}), model: modelId, prompt, reference: context.moment.reference, verseText: context.moment.text,
           generationNumber: input.generationNumber ?? undefined, promptVersion: LEAN_PROMPT_VERSION, translationId: sourceTranslationId,
           provider: getProviderName(modelId), providerRequestId, creditsCost: chargedCredits, costUsd: chargedCostUsd, durationMs,
           aspectRatio: input.aspectRatio, generationId, engine: "generic", artStyleId: style.id, provenance, serverSecret,
