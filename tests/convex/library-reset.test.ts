@@ -9,6 +9,8 @@ import type { Id } from "../../convex/_generated/dataModel";
 const store = (t: ReturnType<typeof convexTest>, body: string) =>
   t.run(ctx => ctx.storage.store(new Blob([body], { type: "image/jpeg" })));
 
+const RESET_STARTED = 1_000_000;
+
 async function library(pictures: number) {
   const t = convexTest(schema, modules);
   const imageIds: Id<"verseImages">[] = [];
@@ -38,7 +40,7 @@ async function library(pictures: number) {
 async function resetUntilDone(t: ReturnType<typeof convexTest>) {
   const pages = [];
   for (;;) {
-    const page = await t.mutation(internal.libraryReset.resetLibraryPage, { confirm: CONFIRM_RESET });
+    const page = await t.mutation(internal.libraryReset.resetLibraryPage, { confirm: CONFIRM_RESET, before: RESET_STARTED });
     pages.push(page);
     if (page.done) return pages;
   }
@@ -47,14 +49,14 @@ async function resetUntilDone(t: ReturnType<typeof convexTest>) {
 describe("library reset", () => {
   it("refuses without the confirmation phrase", async () => {
     const { t } = await library(1);
-    await expect(t.mutation(internal.libraryReset.resetLibraryPage, { confirm: "yes" })).rejects.toThrow(CONFIRM_RESET);
+    await expect(t.mutation(internal.libraryReset.resetLibraryPage, { confirm: "yes", before: RESET_STARTED })).rejects.toThrow(CONFIRM_RESET);
     expect(await t.run(ctx => ctx.db.query("verseImages").collect())).toHaveLength(1);
   });
 
   it("counts without deleting on a dry run", async () => {
     const { t } = await library(70);
-    const page = await t.mutation(internal.libraryReset.resetLibraryPage, { confirm: CONFIRM_RESET, dryRun: true });
-    expect(page).toMatchObject({ videos: 1, images: 70, files: 141, done: true, dryRun: true });
+    const page = await t.mutation(internal.libraryReset.resetLibraryPage, { confirm: CONFIRM_RESET, before: RESET_STARTED, dryRun: true });
+    expect(page).toMatchObject({ videos: 1, images: 70, files: 141, done: true, truncated: false, dryRun: true });
     expect(await t.run(ctx => ctx.db.query("verseImages").collect())).toHaveLength(70);
     expect(await t.run(ctx => ctx.db.system.query("_storage").collect())).toHaveLength(142);
   });
@@ -80,6 +82,17 @@ describe("library reset", () => {
       const job = await ctx.db.query("videoJobs").first();
       await ctx.db.patch(job!._id, { active: true, status: "processing" });
     });
-    await expect(t.mutation(internal.libraryReset.resetLibraryPage, { confirm: CONFIRM_RESET })).rejects.toThrow("still running");
+    await expect(t.mutation(internal.libraryReset.resetLibraryPage, { confirm: CONFIRM_RESET, before: RESET_STARTED })).rejects.toThrow("still running");
+  });
+
+  it("keeps a picture saved after the reset started", async () => {
+    const { t } = await library(2);
+    const fresh = await store(t, "fresh");
+    await t.run(ctx => ctx.db.insert("verseImages", { verseId: "john-1-1", storageId: fresh, model: "m", createdAt: RESET_STARTED + 1 }));
+    await resetUntilDone(t);
+    await t.run(async ctx => {
+      expect((await ctx.db.query("verseImages").collect()).map(image => image.verseId)).toEqual(["john-1-1"]);
+      expect(await ctx.db.system.get(fresh)).not.toBeNull();
+    });
   });
 });

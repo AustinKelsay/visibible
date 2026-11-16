@@ -12,15 +12,19 @@ From a checkout without a `.env.local` (the Convex CLI's deployment flags break 
 CONVEX_DEPLOYMENT=dev:coordinated-shepherd-515 npx convex export --prod --include-file-storage --path output/backups/<date>/prod.zip
 ```
 
-Check what would go (the dry run counts everything), then run pages of 50 until one reports `done: true`:
+Check what would go with a dry run, then run pages of 50 until one reports `done: true`:
 
 ```bash
-npx convex run libraryReset:resetLibraryPage '{"confirm":"delete every picture and video","dryRun":true}' --prod
-ARGS='{"confirm":"delete every picture and video"}'
-until npx convex run libraryReset:resetLibraryPage "$ARGS" --prod | grep -q '"done": true'; do :; done
+BEFORE=$(($(date +%s) * 1000))
+npx convex run libraryReset:resetLibraryPage "{\"confirm\":\"delete every picture and video\",\"before\":$BEFORE,\"dryRun\":true}" --prod
+while out=$(npx convex run libraryReset:resetLibraryPage "{\"confirm\":\"delete every picture and video\",\"before\":$BEFORE}" --prod); do
+  echo "$out"; grep -q '"done": true' <<<"$out" && break
+done
 ```
 
-Use `--deployment <name>` instead of `--prod` for another deployment. A page refuses while a video is still being made; wait for it to finish. An image being painted during the reset is saved after it, as a new picture.
+`before` is when the reset started: anything made after it is kept. A dry run counts up to 2,000 rows and says `truncated: true` if there are more. The loop stops on the first page that fails.
+
+Use `--deployment <name>` instead of `--prod` for another deployment. A page refuses while a video is still being made; wait for it to finish. A picture or video that finishes during the reset is kept, because it was made after `before`.
 
 ## Afterwards
 
