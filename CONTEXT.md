@@ -112,6 +112,35 @@ _Avoid_: Settlement when referring to a paid invoice; settlement belongs to cred
 
 **Publication**: A verse image and Scripture text shared through Nostr, together with the record of that sharing.
 
+### The reader
+
+These terms describe the accepted design in [A picture-book reader built on one spread](https://github.com/AustinKelsay/visibible/issues/434). It is not built yet.
+
+**Spread**: The reader's one screen for one moment: its picture with its words beside it, or below it on a phone.
+_Avoid_: Verse page, reader view
+
+**Words page**: The half of a spread that holds the moment's text and the place to ask about it.
+
+**Whole-picture view**: A spread with its words put aside so the picture shows uncropped, with the text as its caption.
+_Avoid_: Stage (a period of a character's life), fullscreen, lightbox
+
+**Contents**: A division shown as one tile per moment, used to move around a work.
+_Avoid_: Gallery, book menu, place (a location is a place in a story)
+
+**Look**: A reader's choices of art style, translation and text size.
+_Avoid_: Settings, preferences (for these three choices)
+
+**Ask**: A reader's question about the moment on screen, answered beside its text.
+_Avoid_: Chat
+
+**Picture menu**: A moment's other verse images, with the actions on the one shown.
+
+**Advanced**: Reader choices kept out of Look because few readers need them. Each can be removed without changing the rest of the reader.
+
+**Unpainted**: A moment with no verse image the reader can be shown.
+
+**Picture, paint**: The words the reader's screens use for a verse image and for requesting its generation. Specifications and code keep verse image and generation.
+
 ## Retired terms
 
 These terms named parts of the full engine's per-moment preparation, which was removed on 9–10 November 2026 ([ADR 0012](docs/adr/0012-one-image-call-from-the-text.md)). They survive only as the look and plan versions on images saved before then.
