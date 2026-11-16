@@ -170,7 +170,8 @@ function BookPicker({ currentSlug, onChoose }: { currentSlug: string; onChoose: 
     <div className="flex min-h-0 flex-1 flex-col px-5 pt-4 md:px-10 md:pt-6">
       <input
         ref={field}
-        type="search"
+        type="text"
+        enterKeyHint="go"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
         onKeyDown={(event) => {
@@ -216,7 +217,7 @@ function ChapterPicker({ book, chapter, onChoose }: { book: BibleBook; chapter: 
   return (
     <div className="mt-3 flex items-center gap-4 pl-5 md:mt-5 md:pl-10">
       <span aria-hidden="true" className="shrink-0 text-[11px] font-medium uppercase tracking-[0.22em] text-white/55">Chapter</span>
-      <div role="group" aria-label="Chapter" className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto py-1 pr-5 [scrollbar-width:none] md:pr-10">
+      <div role="group" aria-label="Chapter" className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto px-1 py-1 pr-5 [mask-image:linear-gradient(to_right,transparent,#000_12px,#000_calc(100%-24px),transparent)] [scrollbar-width:none] md:pr-10">
         {book.chapters.map((_, index) => {
           const number = index + 1;
           const isShown = number === chapter;
