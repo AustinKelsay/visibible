@@ -6,7 +6,6 @@ import {
   useState,
   useEffect,
   useCallback,
-  useRef,
   ReactNode,
 } from "react";
 
@@ -35,7 +34,6 @@ export function GuestSessionProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
-  const hasShownOnboardingRef = useRef(false);
 
   const fetchSession = useCallback(async () => {
     try {
@@ -68,18 +66,7 @@ export function GuestSessionProvider({ children }: { children: ReactNode }) {
         }
         const newData: SessionResponse = await postResponse.json();
         setSid(newData.sid);
-
-        // Check if we should show onboarding for new session
-        const hasSeenOnboarding = localStorage.getItem("visibible_onboarding_seen") === "true";
-        if (!hasSeenOnboarding && newData.tier !== "admin" && !hasShownOnboardingRef.current && window.location.pathname !== "/recover") {
-          // Small delay to ensure modal renders properly
-          setTimeout(() => {
-            if (window.location.pathname === "/recover") return;
-            setIsBuyModalOpen(true);
-            localStorage.setItem("visibible_onboarding_seen", "true");
-            hasShownOnboardingRef.current = true;
-          }, 500);
-        }
+        // A new visitor lands on the page; the credits dialog opens only when asked for.
       } else {
         setSid(data.sid);
       }

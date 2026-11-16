@@ -9,7 +9,6 @@ import { useConvexEnabled } from "@/components/convex-client-provider";
 import { usePreferences } from "@/context/preferences-context";
 import { useSession } from "@/context/session-context";
 import { useNavigation } from "@/context/navigation-context";
-import { useVerseView } from "@/context/verse-view-context";
 import { useGeneration } from "@/context/generation-context";
 import { trackImageBrowsed } from "@/lib/analytics";
 import { useSearchParams } from "next/navigation";
@@ -48,10 +47,6 @@ vi.mock("@/context/navigation-context", () => ({
   useNavigation: vi.fn(),
 }));
 
-vi.mock("@/context/verse-view-context", () => ({
-  useVerseView: vi.fn(),
-}));
-
 vi.mock("@/context/generation-context", () => ({
   useGeneration: vi.fn(),
 }));
@@ -73,7 +68,6 @@ const useConvexEnabledMock = vi.mocked(useConvexEnabled);
 const usePreferencesMock = vi.mocked(usePreferences);
 const useSessionMock = vi.mocked(useSession);
 const useNavigationMock = vi.mocked(useNavigation);
-const useVerseViewMock = vi.mocked(useVerseView);
 const useGenerationMock = vi.mocked(useGeneration);
 const trackImageBrowsedMock = vi.mocked(trackImageBrowsed);
 const useSearchParamsMock = vi.mocked(useSearchParams);
@@ -170,7 +164,6 @@ describe("HeroImage interactions", () => {
       openFullscreen: vi.fn(),
       closeFullscreen: vi.fn(),
     } as never);
-    useVerseViewMock.mockReturnValue({} as never);
     useGenerationMock.mockReturnValue({
       registerGenerate: vi.fn(),
       unregisterGenerate: vi.fn(),

@@ -2,7 +2,7 @@
 
 [The chat route](../../src/app/api/chat/route.ts) uses the AI SDK OpenAI adapter pointed at OpenRouter, with `streamText()` and a UI message stream response. [The client](../../src/components/chat.tsx) uses `useChat()` from `@ai-sdk/react`; messages use `parts` and may contain metadata.
 
-Each request sends the conversation, the passage reference (book, chapter, verse), the reader's translation and the model. The server does not maintain conversation history. [ChatContextSetter](../../src/components/chat-context-setter.tsx) supplies the passage through NavigationContext.
+Each request sends the conversation, the passage reference (book, chapter, verse), the reader's translation and the model. The server does not maintain conversation history. The passage comes through NavigationContext's chat context. Verse pages no longer set it or show the chat sidebar (the spread's Ask arrives in a later ticket of #434), so the sidebar on the pages that keep the old shell asks without a passage.
 
 [chat-request.ts](../../src/lib/chat-request.ts) owns what a request may contain and what the model receives:
 

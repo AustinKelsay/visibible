@@ -160,8 +160,7 @@ type PreferenceChangedProps = BaseProps & {
     | "imageAspectRatio"
     | "imageResolution"
     | "artStyle"
-    | "autoGenerate"
-    | "chapterGallery";
+    | "autoGenerate";
   value: string;
   source: PreferenceChangeSource;
 };
@@ -248,12 +247,15 @@ type ApiDocsLinkClickedProps = BaseProps & {
   target: "internal" | "external" | "api";
 };
 
+/** How the reader turned the page. Swipes, marks and Contents join as their tickets land. */
+export type VerseNavigationSource = "keyboard" | "dock";
+
 type VerseNavigationProps = BaseProps & {
   book: string;
   chapter: number;
   verse: number;
   direction: "prev" | "next";
-  source: "keyboard" | "mobile_nav" | "desktop_nav";
+  source: VerseNavigationSource;
   targetUrl: string;
 };
 

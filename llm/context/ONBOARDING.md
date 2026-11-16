@@ -1,6 +1,6 @@
 # Welcome flow
 
-[GuestSessionProvider](../../src/context/guest-session-context.tsx) opens the credits modal after creating a new session for non-admin visitors who lack `visibible_onboarding_seen=true` in localStorage. It schedules the open after 500 ms and marks that flag when opening.
+A new visitor lands straight on the page: [GuestSessionProvider](../../src/context/guest-session-context.tsx) creates the session and opens nothing. The credits modal opens only when a control asks for it. A leftover `visibible_onboarding_seen` flag in localStorage is no longer read.
 
 [BuyCreditsModal](../../src/components/buy-credits-modal.tsx) separately reads `visibible_welcome_seen` to choose welcome versus bundle selection. Buy Credits and Browse for Free mark the welcome as seen; the former enters selection and the latter closes the modal.
 

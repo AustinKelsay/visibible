@@ -7,7 +7,6 @@ import { BookOpen, ChevronDown, Menu, MessageCircle, X, Zap } from "lucide-react
 import { useSession } from "@/context/session-context";
 import { DEFAULT_IMAGE_ESTIMATED_CREDITS_COST } from "@/lib/image-models";
 import { useNavigation } from "@/context/navigation-context";
-import { useOptionalVerseView } from "@/context/verse-view-context";
 import { useWorkScope } from "@/context/work-scope-context";
 import { TranslationSelector } from "./translation-selector";
 import { ImageModelSelector } from "./image-model-selector";
@@ -15,19 +14,6 @@ import { ArtStyleSelector } from "@/components/art-style-selector";
 import { CreditsBadge } from "./credits-badge";
 import { HeaderSettingsPopover, MobileSettingsRows } from "./header-settings-popover";
 import { HeaderGenerateButton } from "./header-generate-button";
-import { BOOK_BY_SLUG } from "@/data/bible-structure";
-import { bookAbbreviation } from "@/data/book-abbreviations";
-
-function passageFromPath(pathname: string): { full: string; short: string } | null {
-  const [slug, chapter, verse] = pathname.split("/").filter(Boolean);
-  // Own keys only, so a path like /constructor/1/1 is not read as a book
-  const book = slug && Object.hasOwn(BOOK_BY_SLUG, slug) ? BOOK_BY_SLUG[slug] : undefined;
-  if (!book || !chapter || !verse) return null;
-  return {
-    full: `${book.name} ${chapter}:${verse}`,
-    short: `${bookAbbreviation(book.id, book.name)} ${chapter}:${verse}`,
-  };
-}
 
 function Divider() {
   return <div className="w-px h-6 bg-[var(--divider)] mx-1 sm:mx-2" />;
@@ -35,7 +21,6 @@ function Divider() {
 
 export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
   const pathname = usePathname();
-  const verseView = useOptionalVerseView();
   // A prose work's page: its passage leads, the book button opens its contents, and the Bible's translation and
   // chat are not offered.
   const scope = useWorkScope();
@@ -54,11 +39,9 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
   // The brand links home everywhere except verse pages (About, API docs, 404). A verse-shaped
   // address that does not exist (/genesis/0/1) renders the 404 page, which says so.
   const isBrandLinkPage = isNotFound || !/^\/[^/]+\/\d+\/\d+$/.test(pathname);
-  const isVersePage = (/^\/[^/]+\/\d+\/\d+$/.test(pathname) && verseView !== null) || scope !== null;
-  const videoOpen = verseView?.effectiveView === "video";
-  // Generate and image settings register only while the reader's image is mounted.
-  const readerOpen = scope !== null || verseView?.effectiveView === "reader";
-  const passage = scope ? scope.passage : isVersePage ? passageFromPath(pathname) : null;
+  // Verse pages are the spread now; the only reader left in this header is a prose work's page.
+  const isVersePage = scope !== null;
+  const passage = scope ? scope.passage : null;
   const toggleMenu = scope ? () => router.push(scope.contentsHref) : toggleBookMenu;
   const passageLabel = passage?.full ?? null;
   const passageShort = passage?.short ?? null;
@@ -155,16 +138,10 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
           {/* Settings Group */}
           <div className="flex items-center">
             {scope ? null : <TranslationSelector variant="compact" />}
-            {/* Same controls on every tab. Art style is a saved preference, so it stays usable in Video;
-                image settings need the image stage and are read-only there. */}
-            <div className="flex items-center" title={videoOpen ? "Art style applies to images, not videos" : undefined}>
+            <div className="flex items-center">
               <ArtStyleSelector variant="compact" />
             </div>
-            <div
-              className="flex items-center"
-              inert={videoOpen}
-              title={videoOpen ? "Image settings apply on the Images tab" : undefined}
-            >
+            <div className="flex items-center">
               <HeaderSettingsPopover />
             </div>
           </div>
@@ -176,7 +153,7 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
           <CreditsBadge />
 
           {/* Generate Button - hidden in gallery view */}
-          {isVersePage && readerOpen ? (
+          {isVersePage ? (
             <HeaderGenerateButton />
           ) : isVersePage && accessStatus === "ready" && tier !== "admin" && credits < DEFAULT_IMAGE_ESTIMATED_CREDITS_COST ? (
               <button
@@ -209,7 +186,7 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
         {/* min-w-0 lets the passage pill give way on narrow phones instead of pushing the menu off-screen */}
         <nav ref={mobileNavRef} className="relative flex sm:hidden min-w-0 items-center gap-0.5">
           <CreditsBadge />
-          {isVersePage && !videoOpen ? <HeaderGenerateButton /> : null}
+          {isVersePage ? <HeaderGenerateButton /> : null}
           {scope ? null : <button
             className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Toggle chat"
@@ -274,19 +251,15 @@ export function Header({ isNotFound = false }: { isNotFound?: boolean } = {}) {
               <span className="text-sm font-medium text-[var(--foreground)]">Translation</span>
               <TranslationSelector variant="compact" />
             </div>}
-            {!videoOpen && (
-              <>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-[var(--foreground)]">Image Model</span>
-                  <ImageModelSelector variant="compact" />
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-[var(--foreground)]">Art Style</span>
-                  <ArtStyleSelector variant="compact" source="mobile_header_menu" />
-                </div>
-              </>
-            )}
-            {!videoOpen && <MobileSettingsRows />}
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-[var(--foreground)]">Image Model</span>
+              <ImageModelSelector variant="compact" />
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-[var(--foreground)]">Art Style</span>
+              <ArtStyleSelector variant="compact" source="mobile_header_menu" />
+            </div>
+            <MobileSettingsRows />
           </div>
         </div>
       )}

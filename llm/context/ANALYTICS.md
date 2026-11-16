@@ -7,8 +7,8 @@ Payloads use `tier` and `hasCredits` for segmentation, without session IDs or me
 ## Interpretation
 
 - `verse_images_state` can be `unknown` without resolved Convex data; exclude unknown inventory from image-coverage calculations.
-- Purchase events measure modal opening/closing, invoice creation/copy/cancellation/expiry, and confirmed payment. A modal can open from onboarding or a purchase CTA, so event-count ratios are not a strict sequential user funnel.
-- Generation/navigation/preference events carry a source to distinguish the originating control. Gallery and fullscreen events distinguish their surfaces.
+- Purchase events measure modal opening/closing, invoice creation/copy/cancellation/expiry, and confirmed payment. A modal opens from a purchase CTA (it no longer opens by itself for new visitors), so event-count ratios are not a strict sequential user funnel.
+- Generation/navigation/preference events carry a source to distinguish the originating control; verse navigation on the spread reports `keyboard` or `dock`. Gallery and fullscreen events distinguish their surfaces.
 - `image_generated.hasCredits` prefers the server-returned balance; most other events use the client balance. Admins can have `hasCredits=false` while still being allowed to generate.
 - [analytics-event-utils.ts](../../src/lib/analytics-event-utils.ts) normalizes modal steps, chat errors and post-generation credit state. Preserve deduplication in the calling components when changing effects.
 

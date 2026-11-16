@@ -38,7 +38,6 @@ vi.mock("@/context/session-context", () => ({ useSession: vi.fn() }));
 vi.mock("@/context/navigation-context", () => ({
   useNavigation: () => navigation,
 }));
-vi.mock("@/context/verse-view-context", () => ({ useVerseView: () => ({}) }));
 vi.mock("@/context/generation-context", () => ({ useGeneration: vi.fn() }));
 vi.mock("@/lib/analytics", () => ({
   trackImageGenerated: vi.fn(), trackImageGenerationStarted: vi.fn(), trackGenerationError: vi.fn(),

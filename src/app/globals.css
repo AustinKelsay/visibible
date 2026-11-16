@@ -57,6 +57,7 @@
   --color-accent-text: var(--accent-text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-eb-garamond), Georgia, "Times New Roman", serif;
 }
 
 @media (prefers-color-scheme: dark) {

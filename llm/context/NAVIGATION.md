@@ -2,23 +2,29 @@
 
 Verse URLs are `/{book}/{chapter}/{verse}`. [navigation.ts](../../src/lib/navigation.ts) validates locations and computes adjacent verses across chapter/book boundaries, stopping at the ends of the Bible. The root and `/verse/[number]` routes provide redirects.
 
-[NavigationContext](../../src/context/navigation-context.tsx) owns the book menu, chat/feedback sidebar, header settings menu, fullscreen state, current image ID, and chat context. Route changes close the book and settings menus; chat and fullscreen state persist. Escape closes fullscreen before chat. Fullscreen locks body scrolling.
+## The spread
 
-- [Book menu](../../src/components/book-menu.tsx): book → chapter → verse selection, with image availability indicators from Convex.
-- [Verse strip](../../src/components/verse-strip.tsx): chapter navigation with scroll arrows; each verse tile shows its saved-image count inside the tile.
-- [Hero image](../../src/components/hero-image.tsx) and [scripture reader](../../src/components/scripture-reader.tsx): verse controls and image-history browsing.
-- [Mobile navigation](../../src/components/mobile-verse-nav.tsx) and [keyboard helper](../../src/lib/verse-keyboard-navigation.ts): responsive and keyboard behavior.
-- [Chat sidebar](../../src/components/chat-sidebar.tsx): chat and feedback tabs.
+A verse page is the **spread** ([spread.tsx](../../src/components/spread/spread.tsx)), the reader's one screen for one verse, built for the redesign in [#434](https://github.com/AustinKelsay/visibible/issues/434). It is dark whatever the system setting is.
 
-## Verse modes and selected images
+- **Computer (768 px and wider).** The [picture](../../src/components/spread/spread-picture.tsx) covers the window, cropped from its centre. The [words page](../../src/components/spread/words-page.tsx) lies over the right side as dark glass: a line naming the book and chapter, the verse number large, the verse in a serif face, and a foot line with the translation name and the position ("5 / 51"). A floating dock on the picture holds previous, the passage name and next.
+- **Phone.** The picture sits above in a square frame (at most about half the screen) and the words page fills the rest. Previous and next sit beside the position line; there is no dock yet.
+- **The picture** is the newest saved picture of the verse in the stored art style (`getImageHistory` with the style). A verse without one shows the words page over plain dark. Loading a picture records one impression for it.
+- **A long verse** scrolls inside the words page; the picture and the foot line stay put.
+- **Turning pages** ([page-turn.tsx](../../src/components/spread/page-turn.tsx)): previous and next move one verse across chapter and book boundaries ([navigation.ts](../../src/lib/navigation.ts)). The left and right arrow keys do the same unless the reader is typing in a field ([keyboard helper](../../src/lib/verse-keyboard-navigation.ts)). The dock and phone controls are links, so the next spread is prefetched. Each turn reports `verse_navigation` with source `keyboard` or `dock`.
+- **Not on a verse page:** the old header, tabs, verse strip, details panel, footer, phone navigation bar, chat sidebar and feedback prompt. No dialog opens by itself. `?view=` and `?image=` are ignored.
+- **The server-rendered page** keeps the verse text, title and description. A passage the translation lacks, or an outage, still renders the old header and book menu with [PassageUnavailable](../../src/components/passage-unavailable.tsx).
 
-[VerseViewProvider](../../src/context/verse-view-context.tsx) reads `?view=gallery` and `?view=video`; other values default to the reader. The Images / Gallery / Video switcher updates the URL with `replaceState`, so refresh preserves the selected mode. It is not a localStorage preference. Video unmounts when another mode is selected, stopping playback. Its desktop and mobile adjacent-verse links preserve `?view=video`; see [Video generation](VIDEO-GENERATION.md).
+Contents, Look, Ask, the picture menu, the whole-picture view, unpainted verses, verse marks, swipes and fading controls arrive with the later tickets of #434.
 
-[ChapterGallery](../../src/components/chapter-gallery.tsx) shows the saved images in the selected art style or groups them by verse, with placeholders where art is missing; existing images count as Classical. Chapter navigation preserves `?view=gallery`. Cards return to the reader; a saved-image card adds `?image=<id>` so the reader can select that image. A separate fullscreen action opens the gallery lightbox, which steps through the chapter's saved images with on-screen buttons or the arrow keys and links back to the reader. Reader fullscreen keeps verse navigation in its top bar and image navigation under the image.
+## The old shell
 
-[VersePageContent](../../src/components/verse-page-content.tsx) coordinates reader, gallery, and video rendering. On desktop the header keeps the same controls on every tab so nothing shifts: art style stays usable in Video mode (it applies to the next image) while image settings are read-only there, the image settings chip is read-only outside the Images tab, and Gallery and Video show Get Credits, where the Images tab shows the generate button, when the balance is below a typical image cost. The image model is chosen inside the image settings popover, beside ratio and resolution; while only one model is offered the popover leaves the model section out ([Preferences](PREFERENCES.md)). The mobile settings menu keeps its own model row, which then names the model, and drops image controls in Video mode. The book menu marks the current book, chapter and verse and can filter books by name. The mobile verse bar is hidden in the gallery, which has its own chapter navigation. Keep the generation callback registration intact when changing which surface is visible: header generation uses [GenerationContext](../../src/context/generation-context.tsx), with state supplied by HeroImage.
+About, API documentation, the not-found page, the library and the prose reader keep the old [header](../../src/components/header.tsx), [footer](../../src/components/footer.tsx) and [LayoutWrapper](../../src/components/layout-wrapper.tsx), which now also carries the [chat sidebar](../../src/components/chat-sidebar.tsx) and the feedback prompt. The recovery page has neither.
 
-The reader's image dock shows the selected style's images of a verse. When the verse has images in other styles, an "N in other styles" control opens a deliberate other-styles view for that verse and style; changing the style or verse returns to the style's own images, and auto-generation never fires while that view is open.
+[NavigationContext](../../src/context/navigation-context.tsx) owns the book menu, chat/feedback sidebar, header settings menu, fullscreen state, current image ID, and chat context for those pages. Route changes close the book and settings menus; chat and fullscreen state persist. Escape closes fullscreen before chat. Fullscreen locks body scrolling. The [book menu](../../src/components/book-menu.tsx) offers book → chapter → verse selection with image availability indicators.
+
+The [hero image](../../src/components/hero-image.tsx), now used only by the prose reader, shows the selected style's images of a moment. When the moment has images in other styles, an "N in other styles" control opens a deliberate other-styles view for that moment and style; changing the style or moment returns to the style's own images, and auto-generation never fires while that view is open. Header generation uses [GenerationContext](../../src/context/generation-context.tsx), with state supplied by HeroImage.
+
+[VideoMode](../../src/components/video-mode.tsx) and [ScriptureDetails](../../src/components/scripture-details.tsx) are not shown anywhere until their tickets (video from the picture menu, passage details in Advanced) bring them back.
 
 ## Prose works
 
