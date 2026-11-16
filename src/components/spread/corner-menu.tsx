@@ -57,7 +57,7 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber }: CornerMe
       <LayerPanel
         id="corner"
         label="Visibible menu"
-        className="liquid-glass spread-dock absolute left-3 top-14 z-40 w-[min(20rem,calc(100vw-1.5rem))] rounded-2xl p-2 text-white outline-none md:left-5 md:top-[4.25rem]"
+        className="absolute left-3 top-14 z-40 w-[min(20rem,calc(100vw-1.5rem))] rounded-2xl border border-white/10 bg-[rgba(14,14,16,0.9)] p-2 text-white shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:left-5 md:top-[4.25rem]"
       >
         <Balance onGetCredits={menu.close} />
         <Divider />

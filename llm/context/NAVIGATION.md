@@ -11,14 +11,20 @@ A verse page is the **spread** ([spread.tsx](../../src/components/spread/spread.
 - **The picture** is the newest saved picture of the verse in the stored art style (`getImageHistory` with the style). A verse without one shows the words page over plain dark. Loading a picture records one impression for it.
 - **A long verse** scrolls inside the words page; the picture and the foot line stay put.
 - **Turning pages** ([page-turn.tsx](../../src/components/spread/page-turn.tsx)): previous and next move one verse across chapter and book boundaries ([navigation.ts](../../src/lib/navigation.ts)). The left and right arrow keys do the same unless the reader is typing in a field ([keyboard helper](../../src/lib/verse-keyboard-navigation.ts)). The dock and phone controls are links, so the next spread is prefetched. Each turn reports `verse_navigation` with source `keyboard` or `dock`.
+- **The corner menu** ([corner-menu.tsx](../../src/components/spread/corner-menu.tsx)): the Visibible name in the top-left corner opens one menu, the `corner` layer. It holds the credit balance (with held credits) and **Get credits**, or "Admin · not charged" for an admin; **Recover credits** (`/recover`); **Send feedback**; **About**; **API documentation**; and the social links ([site-links.tsx](../../src/components/site-links.tsx)). A page opened with `?admin` also shows **Admin sign-in**, which opens the credits dialog at its Admin Access section; without the parameter a visitor sees nothing about admin. **Send feedback** replaces the menu with the feedback form, the `feedback` layer ([Feedback](FEEDBACK.md)). Both are [layers](../../src/components/spread/layers.tsx): one open at a time, Escape or a click outside closes them, and focus returns to the name.
+- **The credits dialog** opens only when the reader asks for it (Get credits or Admin sign-in here, and later paint or ask). It is dark like the reader ([Theme](THEME.md)).
 - **Not on a verse page:** the old header, tabs, verse strip, details panel, footer, phone navigation bar, chat sidebar and feedback prompt. No dialog opens by itself. `?view=` and `?image=` are ignored.
-- **The server-rendered page** keeps the verse text, title and description. A passage the translation lacks, or an outage, still renders the old header and book menu with [PassageUnavailable](../../src/components/passage-unavailable.tsx).
+- **The server-rendered page** keeps the verse text, title and description. A passage the translation lacks, or an outage, renders [PassageUnavailable](../../src/components/passage-unavailable.tsx) under the plain site header.
 
 Contents, Look, Ask, the picture menu, the whole-picture view, unpainted verses, verse marks, swipes and fading controls arrive with the later tickets of #434.
 
+## The pages around the reader
+
+About, API documentation, recovery, the not-found page and an unavailable passage show the plain [site header](../../src/components/site-header.tsx): the Visibible name and "Back to reading", both linking to `/`. They follow the system's light or dark setting. About, API documentation and not-found keep the old [footer](../../src/components/footer.tsx).
+
 ## The old shell
 
-About, API documentation, the not-found page, the library and the prose reader keep the old [header](../../src/components/header.tsx), [footer](../../src/components/footer.tsx) and [LayoutWrapper](../../src/components/layout-wrapper.tsx), which now also carries the [chat sidebar](../../src/components/chat-sidebar.tsx) and the feedback prompt. The recovery page has neither.
+The library and the prose reader keep the old [header](../../src/components/header.tsx), [footer](../../src/components/footer.tsx) and [LayoutWrapper](../../src/components/layout-wrapper.tsx), which also carries the [chat sidebar](../../src/components/chat-sidebar.tsx) and the feedback prompt, until the prose reader moves to the spread (#451).
 
 [NavigationContext](../../src/context/navigation-context.tsx) owns the book menu, chat/feedback sidebar, header settings menu, fullscreen state, current image ID, and chat context for those pages. Route changes close the book and settings menus; chat and fullscreen state persist. Escape closes fullscreen before chat. Fullscreen locks body scrolling. The [book menu](../../src/components/book-menu.tsx) offers book → chapter → verse selection with image availability indicators.
 

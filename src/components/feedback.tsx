@@ -60,7 +60,7 @@ type FeedbackProps = {
 export function Feedback({ context, imageContext }: FeedbackProps) {
   const { tier, credits } = useSession();
   const [message, setMessage] = useState("");
-  // "This image" reports the saved image on screen; the server resolves its style and source itself.
+  // "This picture" reports the saved image on screen; the server resolves its style and source itself.
   const [kind, setKind] = useState<"general" | "image">("general");
   const canReportImage = Boolean(imageContext?.imageId);
   const effectiveKind = canReportImage ? kind : "general";
@@ -173,7 +173,7 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
         {/* What the feedback is about */}
         {canReportImage && (
           <div role="radiogroup" aria-label="What is this feedback about?" className="mb-4 grid grid-cols-2 gap-2">
-            {([["general", "General feedback"], ["image", "This image"]] as const).map(([value, label]) => (
+            {([["general", "General feedback"], ["image", "This picture"]] as const).map(([value, label]) => (
               <button
                 key={value}
                 type="button"
@@ -244,7 +244,7 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             disabled={isSubmitting}
-            placeholder={effectiveKind === "image" ? "What is wrong with this image?" : "Your feedback..."}
+            placeholder={effectiveKind === "image" ? "What is wrong with this picture?" : "Your feedback..."}
             aria-label="Feedback message"
             data-autofocus
             rows={3}
