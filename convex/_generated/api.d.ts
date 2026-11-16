@@ -24,6 +24,7 @@ import type * as guestAuth from "../guestAuth.js";
 import type * as http from "../http.js";
 import type * as invoiceReconciliation from "../invoiceReconciliation.js";
 import type * as invoices from "../invoices.js";
+import type * as libraryReset from "../libraryReset.js";
 import type * as lib_nostrScheduling from "../lib/nostrScheduling.js";
 import type * as modelStats from "../modelStats.js";
 import type * as nostr from "../nostr.js";
@@ -60,6 +61,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   invoiceReconciliation: typeof invoiceReconciliation;
   invoices: typeof invoices;
+  libraryReset: typeof libraryReset;
   "lib/nostrScheduling": typeof lib_nostrScheduling;
   modelStats: typeof modelStats;
   nostr: typeof nostr;
