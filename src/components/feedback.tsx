@@ -20,6 +20,38 @@ export type ImageContext = {
   createdAt?: number;
 };
 
+/** A saved verse image as the image history query returns it. */
+export interface SavedImageSummary {
+  id: string;
+  model: string;
+  artStyle?: string;
+  provider?: string;
+  aspectRatio?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  creditsCost?: number;
+  costUsd?: number;
+  durationMs?: number;
+  createdAt: number;
+}
+
+/** What feedback attaches about the picture on screen. */
+export function imageContextOf(image: SavedImageSummary | null | undefined): ImageContext | undefined {
+  if (!image) return undefined;
+  return {
+    imageId: image.id,
+    artStyle: image.artStyle,
+    model: image.model,
+    provider: image.provider,
+    aspectRatio: image.aspectRatio,
+    dimensions: image.imageWidth && image.imageHeight ? `${image.imageWidth} × ${image.imageHeight}` : undefined,
+    creditsCost: image.creditsCost,
+    costUsd: image.costUsd,
+    durationMs: image.durationMs,
+    createdAt: image.createdAt,
+  };
+}
+
 type FeedbackProps = {
   context?: PageContext;
   imageContext?: ImageContext;
@@ -28,7 +60,7 @@ type FeedbackProps = {
 export function Feedback({ context, imageContext }: FeedbackProps) {
   const { tier, credits } = useSession();
   const [message, setMessage] = useState("");
-  // "This image" reports the saved image on screen; the server resolves its style and source itself.
+  // "This picture" reports the saved image on screen; the server resolves its style and source itself.
   const [kind, setKind] = useState<"general" | "image">("general");
   const canReportImage = Boolean(imageContext?.imageId);
   const effectiveKind = canReportImage ? kind : "general";
@@ -141,7 +173,7 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
         {/* What the feedback is about */}
         {canReportImage && (
           <div role="radiogroup" aria-label="What is this feedback about?" className="mb-4 grid grid-cols-2 gap-2">
-            {([["general", "General feedback"], ["image", "This image"]] as const).map(([value, label]) => (
+            {([["general", "General feedback"], ["image", "This picture"]] as const).map(([value, label]) => (
               <button
                 key={value}
                 type="button"
@@ -181,12 +213,12 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
 
         {/* Success message */}
         {isSuccess && (
-          <div className="mb-4 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-[var(--radius-md)] flex items-center gap-2">
+          <div className="mb-4 p-3 bg-[var(--success)]/10 border border-[var(--success)]/30 rounded-[var(--radius-md)] flex items-center gap-2">
             <CheckCircle
               size={16}
-              className="text-green-600 dark:text-green-400 shrink-0"
+              className="text-[var(--success)] shrink-0"
             />
-            <span className="text-sm text-green-700 dark:text-green-400">
+            <span role="status" className="text-sm text-[var(--foreground)]">
               Thank you! Your feedback has been submitted.
             </span>
           </div>
@@ -194,8 +226,8 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
 
         {/* Error message */}
         {error && (
-          <div className="mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-[var(--radius-md)]">
-            <p className="text-sm text-amber-700 dark:text-amber-400">
+          <div className="mb-4 p-3 bg-[var(--error)]/10 border border-[var(--error)]/30 rounded-[var(--radius-md)]">
+            <p role="alert" className="text-sm text-[var(--foreground)]">
               {error}
             </p>
           </div>
@@ -212,8 +244,9 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             disabled={isSubmitting}
-            placeholder={effectiveKind === "image" ? "What is wrong with this image?" : "Your feedback..."}
+            placeholder={effectiveKind === "image" ? "What is wrong with this picture?" : "Your feedback..."}
             aria-label="Feedback message"
+            data-autofocus
             rows={3}
             maxLength={5000}
             className="flex-1 min-h-[88px] px-4 py-3 bg-[var(--surface)] border border-[var(--divider)] rounded-[var(--radius-md)] text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-shadow duration-[var(--motion-fast)] resize-none disabled:opacity-50 disabled:cursor-not-allowed"

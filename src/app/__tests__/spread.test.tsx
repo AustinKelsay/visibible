@@ -49,10 +49,13 @@ vi.mock("convex/react", () => ({
 }));
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => true }));
 vi.mock("@/context/preferences-context", () => ({ usePreferences: () => ({ artStyle, translation }) }));
-vi.mock("@/context/session-context", () => ({ useSession: () => ({ tier: "paid", credits: 0, isLoading: false }) }));
+type TestSession = { tier: "paid" | "admin"; credits: number; pendingCredits: number; isLoading: boolean; accessStatus: "loading" | "ready" | "unavailable"; buyCredits: () => void };
+const buyCredits = vi.fn();
+let session: TestSession;
+vi.mock("@/context/session-context", () => ({ useSession: () => session }));
 vi.mock("@/lib/analytics");
 
-type SavedPicture = { id: string; imageUrl: string; artStyle: string; createdAt: number };
+type SavedPicture = { id: string; imageUrl: string; thumbnailUrl?: string | null; artStyle: string; createdAt: number };
 let savedPictures: SavedPicture[] = [];
 
 const params = (book = "genesis", chapter = "1", verse = "1") => ({ params: Promise.resolve({ book, chapter, verse }) });
@@ -84,6 +87,7 @@ beforeEach(() => {
   translation = "web";
   artStyle = "classical";
   savedPictures = [];
+  session = { tier: "paid", credits: 0, pendingCredits: 0, isLoading: false, accessStatus: "ready", buyCredits };
   // The Bible service is unreachable, so the reader uses the imported World English Bible.
   vi.spyOn(console, "warn").mockImplementation(() => {});
   vi.stubGlobal("fetch", vi.fn(async () => { throw new DOMException("Timed out", "TimeoutError"); }));
@@ -128,7 +132,7 @@ describe("the spread for a painted verse", () => {
     ];
     await openVerse("genesis", "1", "1");
 
-    const picture = container.querySelector<HTMLImageElement>("img");
+    const picture = container.querySelector<HTMLImageElement>('img[alt^="Picture of"]');
     expect(picture?.getAttribute("src")).toBe("https://img.test/new-watercolor.png");
     expect(picture?.alt).toBe("Picture of Genesis 1:1");
 
@@ -138,6 +142,23 @@ describe("the spread for a painted verse", () => {
     expect(words?.textContent).toContain("In the beginning, God created the heavens and the earth.");
     expect(words?.textContent).toContain("World English Bible");
     expect(words?.textContent).toContain("1 / 31");
+  });
+
+  it("shows the picture's thumbnail first and replaces it with the full picture once that has loaded", async () => {
+    savedPictures = [
+      { id: "genesis-1-1:a", imageUrl: "https://img.test/full.png", thumbnailUrl: "https://img.test/thumb.webp", artStyle: "classical", createdAt: 1 },
+    ];
+    await openVerse("genesis", "1", "1");
+    const sources = () => [...container.querySelectorAll("img")].map((img) => img.getAttribute("src"));
+    expect(sources()).toEqual(["https://img.test/thumb.webp", "https://img.test/full.png"]);
+    const full = container.querySelector<HTMLImageElement>('img[alt="Picture of Genesis 1:1"]')!;
+    expect(full.getAttribute("src")).toBe("https://img.test/full.png");
+    // Until it loads, the full picture is invisible over its thumbnail.
+    expect(full.style.opacity).toBe("0");
+
+    act(() => { full.dispatchEvent(new Event("load")); });
+    expect(sources()).toEqual(["https://img.test/full.png"]);
+    expect(full.style.opacity).toBe("");
   });
 
   it("keeps the verse text in the server-rendered page", async () => {
@@ -503,7 +524,134 @@ describe("what the verse page no longer shows", () => {
     }
     expect(container.querySelector("header, body > footer, aside")).toBeNull();
     expect(container.textContent).not.toMatch(/Gallery|Video|Details|Chat|Generate|Get credits/i);
-    expect(container.querySelectorAll("nav")).toHaveLength(2);
+    expect([...container.querySelectorAll("nav")].map((nav) => nav.getAttribute("aria-label")).sort()).toEqual(["Reader", "Turn the page", "Verses of Genesis 1"]);
     expect(container.querySelector("main")?.style.colorScheme).toBe("dark");
+  });
+});
+
+describe("the corner menu", () => {
+  function cornerName() {
+    return container.querySelector<HTMLButtonElement>('button[aria-label="Visibible menu"]')!;
+  }
+
+  function openMenu() {
+    act(() => { cornerName().focus(); cornerName().click(); });
+    return container.querySelector<HTMLElement>('[role="dialog"][aria-label="Visibible menu"]');
+  }
+
+  it("opens from the Visibible name with the balance, credits, feedback and site links", async () => {
+    session.credits = 42;
+    await openVerse("john", "1", "5");
+    expect(cornerName().textContent).toBe("Visibible");
+    expect(container.querySelector('[role="dialog"]')).toBeNull();
+
+    const menu = openMenu();
+    expect(menu).not.toBeNull();
+    expect(cornerName().getAttribute("aria-expanded")).toBe("true");
+    expect(menu!.textContent).toContain("42 credits");
+    const names = [...menu!.querySelectorAll("a, button")].map((item) => item.getAttribute("aria-label") ?? item.textContent?.trim());
+    expect(names).toEqual(expect.arrayContaining([
+      "Get credits", "Recover credits", "Send feedback", "About", "API documentation",
+      "View source on GitHub", "Follow on X", "Follow on Nostr", "Email",
+    ]));
+    const href = (name: string) => [...menu!.querySelectorAll("a")].find((link) => link.textContent?.trim() === name)?.getAttribute("href");
+    expect(href("Recover credits")).toBe("/recover");
+    expect(href("About")).toBe("/about");
+    expect(href("API documentation")).toBe("/api-docs");
+  });
+
+  it("shows the new balance after a purchase without a reload", async () => {
+    session.credits = 0;
+    await openVerse("john", "1", "5");
+    const menu = openMenu();
+    expect(menu!.textContent).toContain("0 credits");
+
+    session = { ...session, credits: 300 };
+    await act(async () => { root.render(await VersePage(params("john", "1", "5"))); });
+    expect(container.querySelector('[role="dialog"]')!.textContent).toContain("300 credits");
+  });
+
+  it("opens the credits dialog only when the reader asks for credits", async () => {
+    await openVerse("john", "1", "5");
+    expect(buyCredits).not.toHaveBeenCalled();
+    const menu = openMenu();
+    const getCredits = [...menu!.querySelectorAll("button")].find((button) => button.textContent === "Get credits")!;
+    act(() => { getCredits.click(); });
+    expect(buyCredits).toHaveBeenCalledTimes(1);
+    expect(container.querySelector('[role="dialog"]')).toBeNull();
+  });
+
+  it("shows an admin their admin state, and a visitor no admin entry without the address parameter", async () => {
+    await openVerse("john", "1", "5");
+    expect(openMenu()!.textContent).not.toMatch(/admin/i);
+
+    act(() => root.unmount());
+    root = createRoot(container);
+    window.history.replaceState(null, "", "/john/1/5?admin");
+    await openVerse("john", "1", "5");
+    const signIn = [...openMenu()!.querySelectorAll("button")].find((button) => button.textContent === "Admin sign-in");
+    expect(signIn).toBeDefined();
+    act(() => { signIn!.click(); });
+    expect(buyCredits).toHaveBeenCalledTimes(1);
+    window.history.replaceState(null, "", "/");
+
+    act(() => root.unmount());
+    root = createRoot(container);
+    session.tier = "admin";
+    await openVerse("john", "1", "5");
+    const menu = openMenu()!;
+    expect(menu.textContent).toContain("Admin · not charged");
+    expect(menu.textContent).not.toContain("Get credits");
+  });
+
+  it("closes on Escape and returns focus to the name", async () => {
+    await openVerse("john", "1", "5");
+    openMenu();
+    expect(container.querySelector('[role="dialog"]')!.contains(document.activeElement)).toBe(true);
+
+    pressKey("Escape", document.activeElement!);
+    await act(async () => {});
+    expect(container.querySelector('[role="dialog"]')).toBeNull();
+    expect(document.activeElement).toBe(cornerName());
+    expect(cornerName().getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("sends feedback with the verse and the picture on screen attached, then returns focus to the name", async () => {
+    savedPictures = [{ id: "john-1-5:painting", imageUrl: "https://img.test/painting.png", artStyle: "classical", createdAt: 2 }];
+    const fetch = vi.fn(async (url: string) => {
+      if (url === "/api/feedback") return new Response(JSON.stringify({ success: true }), { status: 200 });
+      throw new DOMException("Timed out", "TimeoutError");
+    });
+    vi.stubGlobal("fetch", fetch);
+    await openVerse("john", "1", "5");
+    const menu = openMenu()!;
+    act(() => { [...menu.querySelectorAll("button")].find((button) => button.textContent?.trim() === "Send feedback")!.click(); });
+
+    const form = container.querySelector<HTMLElement>('[role="dialog"][aria-label="Send feedback"]')!;
+    expect(form).not.toBeNull();
+    expect(container.querySelector('[role="dialog"][aria-label="Visibible menu"]')).toBeNull();
+    expect(form.textContent).toContain("John 1:5");
+    const message = form.querySelector<HTMLTextAreaElement>('textarea[aria-label="Feedback message"]')!;
+    expect(document.activeElement).toBe(message);
+
+    act(() => {
+      Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, "value")!.set!.call(message, "The sky is the wrong colour");
+      message.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    await act(async () => { form.querySelector<HTMLButtonElement>('button[aria-label="Submit feedback"]')!.click(); });
+
+    const [, request] = fetch.mock.calls.find(([url]) => url === "/api/feedback") as unknown as [string, RequestInit];
+    expect(JSON.parse(request.body as string)).toMatchObject({
+      kind: "general",
+      message: "The sky is the wrong colour",
+      verseContext: { book: "John", chapter: 1, verseRange: "5" },
+      imageContext: { imageId: "john-1-5:painting", artStyle: "classical" },
+    });
+    expect(form.textContent).toContain("Your feedback has been submitted");
+
+    pressKey("Escape", document.activeElement!);
+    await act(async () => {});
+    expect(container.querySelector('[role="dialog"]')).toBeNull();
+    expect(document.activeElement).toBe(cornerName());
   });
 });

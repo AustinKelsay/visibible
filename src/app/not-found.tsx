@@ -1,15 +1,12 @@
 import Link from "next/link";
-import { Header } from "@/components/header";
+import { SiteHeader } from "@/components/site-header";
 import { Footer } from "@/components/footer";
-import { LayoutWrapper } from "@/components/layout-wrapper";
-import { BookMenu } from "@/components/book-menu";
 
-// Same header and footer as the rest of the site, so a wrong link still leaves the brand,
-// the book menu and a way back
+// The plain site header and footer, so a wrong link still leaves the name and a way back to reading
 export default function NotFound() {
   return (
-    <LayoutWrapper>
-      <Header isNotFound />
+    <div className="flex min-h-screen flex-col bg-[var(--background)]">
+      <SiteHeader />
 
       <main className="flex-1 flex items-center justify-center px-4 py-16">
         <div className="text-center">
@@ -30,7 +27,6 @@ export default function NotFound() {
       </main>
 
       <Footer />
-      <BookMenu />
-    </LayoutWrapper>
+    </div>
   );
 }

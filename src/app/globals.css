@@ -70,6 +70,23 @@
   }
 }
 
+/* The dark reader's tokens, for surfaces that open over the spread (the credits dialog, feedback) so
+   they stay dark whatever the system setting is. */
+.reader-dark {
+  color-scheme: dark;
+  --background: #0e0e10;
+  --foreground: #f2f2f0;
+  --surface: rgba(255, 255, 255, 0.06);
+  --muted: rgba(255, 255, 255, 0.6);
+  --divider: rgba(255, 255, 255, 0.12);
+  --accent: #f2f2f0;
+  --accent-hover: #ffffff;
+  --accent-text: #0a0a0a;
+  --error: #f87171;
+  --success: #4ade80;
+  color: var(--foreground);
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

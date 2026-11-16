@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Header } from "@/components/header";
+import { SiteHeader } from "@/components/site-header";
 import { Footer } from "@/components/footer";
-import { LayoutWrapper } from "@/components/layout-wrapper";
-import { BookMenu } from "@/components/book-menu";
 import {
   ApiDocsViewAnalytics,
   TrackedApiDocsLink,
@@ -30,9 +28,9 @@ export default async function ApiDocsPage() {
   const docsContent = buildPublicApiDocsMarkdown(apiBaseUrl, pageBaseUrl);
 
   return (
-    <LayoutWrapper>
+    <div className="flex min-h-screen flex-col bg-[var(--background)]">
       <ApiDocsViewAnalytics />
-      <Header />
+      <SiteHeader />
 
       <main className="flex-1">
         <section className="border-b border-[var(--divider)]">
@@ -101,7 +99,6 @@ export default async function ApiDocsPage() {
       </main>
 
       <Footer />
-      <BookMenu />
-    </LayoutWrapper>
+    </div>
   );
 }
