@@ -261,7 +261,7 @@ describe("the picture rule", () => {
     expect(note.textContent).toContain("Shown in Fresco.");
     expect(note.textContent).toContain("No Classical picture of this verse yet.");
     const offer = button(/^Paint in Classical/)!;
-    expect(offer.textContent).toBe("Paint in Classical · about 2 credits");
+    expect(offer.textContent).toBe("Paint in Classical · about 2 credits · at most 4");
 
     await act(async () => { offer.click(); });
     expect(paintRequests).toEqual([expect.objectContaining({ reference: "Genesis 1:1", style: "classical", quoteId: "quote-1" })]);

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSession } from "@/context/session-context";
+import { quotePhrase } from "@/lib/quote-display";
 import { useVerseGeneration } from "@/lib/use-verse-generation";
 
 export const PILL = "inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-colors focus-ring";
@@ -37,7 +38,7 @@ export function usePaintVerse({ verseId, reference, autoGenerateBlocked = false 
 export type PaintVerse = ReturnType<typeof usePaintVerse>;
 
 /**
- * The one paid control: "{label} · about N credits" from the server's quote (no price for an admin), "Get credits to
+ * The one paid control: "{label} · about N credits · at most M" from the server's quote (no price for an admin), "Get credits to
  * paint" when the balance cannot cover it, or the reason painting is unavailable.
  */
 export function PaintButton({ paint, label, className = PRIMARY }: { paint: PaintVerse; label: string; className?: string }) {
@@ -56,7 +57,7 @@ export function PaintButton({ paint, label, className = PRIMARY }: { paint: Pain
       <span>{label}</span>
       {quote ? (
         <span className="font-normal text-paper/(--quiet-55)">
-          {` · about ${quote.estimateCredits} ${quote.estimateCredits === 1 ? "credit" : "credits"}`}
+          {` · ${quotePhrase(quote)}`}
         </span>
       ) : null}
     </button>

@@ -293,7 +293,7 @@ describe("the picture menu", () => {
     act(() => { versions()[1].click(); });
     await settle();
 
-    expect(menuButton(/^Paint another/)?.textContent).toBe("Paint another · about 2 credits");
+    expect(menuButton(/^Paint another/)?.textContent).toBe("Paint another · about 2 credits · at most 4");
     await act(async () => { menuButton(/^Paint another/)!.click(); });
     expect(paintRequests).toEqual([expect.objectContaining({ reference: "John 1:5", style: "classical", quoteId: "quote-1", generation: 3 })]);
     expect(paintRequests[0]).not.toHaveProperty("automatic");

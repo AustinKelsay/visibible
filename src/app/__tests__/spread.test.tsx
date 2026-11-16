@@ -390,7 +390,7 @@ describe("an unpainted verse", () => {
     await openVerse("john", "1", "6");
     await settle();
 
-    expect(button(/^Paint this verse/)?.textContent).toBe("Paint this verse · about 2 credits");
+    expect(button(/^Paint this verse/)?.textContent).toBe("Paint this verse · about 2 credits · at most 4");
     await act(async () => { button(/^Paint this verse/)!.click(); });
     expect(paintRequests).toEqual([expect.objectContaining({ reference: "John 1:6", style: "classical", quoteId: "quote-1" })]);
     expect(paintRequests[0]).not.toHaveProperty("automatic");
