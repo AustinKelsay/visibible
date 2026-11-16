@@ -1,5 +1,6 @@
 "use client";
 
+import { LayerProvider } from "@/components/spread/layers";
 import { PageTurnLink, usePageTurn } from "@/components/spread/page-turn";
 import { SpreadPicture } from "@/components/spread/spread-picture";
 import { WordsPage } from "@/components/spread/words-page";
@@ -28,36 +29,38 @@ export function Spread({ verseId, bookName, chapter, verseNumber, verseText, tot
   const onTurn = usePageTurn({ bookName, chapter, verseNumber, prevUrl, nextUrl });
 
   return (
-    <main
-      className="fixed inset-0 flex flex-col overflow-hidden bg-[#050505] text-white [--words-page-width:min(40vw,600px)] md:block"
-      style={{ colorScheme: "dark" }}
-    >
-      <div className="relative aspect-square max-h-[52svh] w-full shrink-0 overflow-hidden md:absolute md:inset-0 md:aspect-auto md:max-h-none">
-        <SpreadPicture verseId={verseId} reference={reference} />
-      </div>
+    <LayerProvider>
+      <main
+        className="fixed inset-0 flex flex-col overflow-hidden bg-[#050505] text-white [--words-page-width:min(40vw,600px)] md:block"
+        style={{ colorScheme: "dark" }}
+      >
+        <div className="relative aspect-square max-h-[52svh] w-full shrink-0 overflow-hidden md:absolute md:inset-0 md:aspect-auto md:max-h-none">
+          <SpreadPicture verseId={verseId} reference={reference} />
+        </div>
 
-      <WordsPage
-        bookName={bookName}
-        chapter={chapter}
-        verseNumber={verseNumber}
-        verseText={verseText}
-        totalVerses={totalVerses}
-        translationName={translationName}
-        prevUrl={prevUrl}
-        nextUrl={nextUrl}
-        onTurn={onTurn}
-      />
+        <WordsPage
+          bookName={bookName}
+          chapter={chapter}
+          verseNumber={verseNumber}
+          verseText={verseText}
+          totalVerses={totalVerses}
+          translationName={translationName}
+          prevUrl={prevUrl}
+          nextUrl={nextUrl}
+          onTurn={onTurn}
+        />
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-8 hidden justify-center md:right-[var(--words-page-width)] md:flex">
-        <nav
-          aria-label="Turn the page"
-          className="liquid-glass spread-dock pointer-events-auto flex items-center gap-1 rounded-full p-1.5"
-        >
-          <PageTurnLink direction="prev" href={prevUrl} onTurn={onTurn} />
-          <span className="px-3 text-sm font-medium text-white/90">{reference}</span>
-          <PageTurnLink direction="next" href={nextUrl} onTurn={onTurn} />
-        </nav>
-      </div>
-    </main>
+        <div className="pointer-events-none absolute inset-x-0 bottom-8 hidden justify-center md:right-[var(--words-page-width)] md:flex">
+          <nav
+            aria-label="Turn the page"
+            className="liquid-glass spread-dock pointer-events-auto flex items-center gap-1 rounded-full p-1.5"
+          >
+            <PageTurnLink direction="prev" href={prevUrl} onTurn={onTurn} />
+            <span className="px-3 text-sm font-medium text-white/90">{reference}</span>
+            <PageTurnLink direction="next" href={nextUrl} onTurn={onTurn} />
+          </nav>
+        </div>
+      </main>
+    </LayerProvider>
   );
 }
