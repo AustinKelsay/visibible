@@ -33,6 +33,8 @@ Look and the picture menu arrive with the later tickets of #434.
 
 About, API documentation, recovery, the not-found page and an unavailable passage show the plain [site header](../../src/components/site-header.tsx): the Visibible name and "Back to reading", both linking to `/`. They follow the system's light or dark setting. About, API documentation and not-found keep the old [footer](../../src/components/footer.tsx).
 
+`npm run capture:reader` screenshots each state of the spread at desktop and phone size from a local app ([Capturing the reader](../workflow/READER_CAPTURE.md)). A change that adds a state adds its one-line entry to [states.ts](../../scripts/capture/states.ts).
+
 ## The old shell
 
 The library and the prose reader keep the old [header](../../src/components/header.tsx), [footer](../../src/components/footer.tsx) and [LayoutWrapper](../../src/components/layout-wrapper.tsx), which also carries the [chat sidebar](../../src/components/chat-sidebar.tsx) and the feedback prompt, until the prose reader moves to the spread (#451).
