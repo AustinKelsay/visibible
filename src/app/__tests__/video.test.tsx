@@ -100,6 +100,8 @@ let requestStatus: { status: string; error?: string } | null = null;
  */
 let publicVideos: VideoJobResponse[] = [];
 let myJobs: VideoJobResponse[] = [];
+/** When true, the verse history leaves out every video, as its 50-video cap would on a busy verse. */
+let historyCapped = false;
 
 
 // The image service: the catalog prices an image at 5 credits, a quote at about 2 (at most 4).
@@ -133,6 +135,7 @@ function pressKey(key: string, target: EventTarget = document.body) {
 }
 
 beforeEach(() => {
+  historyCapped = false;
   clearBibleApiCache();
   vi.clearAllMocks();
   translation = "web";
@@ -191,7 +194,7 @@ beforeEach(() => {
     if (name === "verseImages:getGenerationRequestStatus") return requestStatus;
     const finished = publicVideos.filter((video) => video.status === "completed" && video.sourceImageId !== undefined).sort((a, b) => b.createdAt - a.createdAt);
     if (name === "verseVideos:getPictureVideo") return finished.find((video) => video.sourceImageId === (args as { imageId: string }).imageId) ?? null;
-    if (name === "verseVideos:getHistory") return finished.filter((video) => video.verseId === (args as { verseId: string }).verseId);
+    if (name === "verseVideos:getHistory") return historyCapped ? [] : finished.filter((video) => video.verseId === (args as { verseId: string }).verseId);
     if (name === "verseVideos:getMyJobs") return myJobs;
     return answerPictureRead(savedPictures, query, args);
   }) as typeof useQuery);
@@ -444,6 +447,17 @@ describe("making this picture move from the picture menu", () => {
     await flush();
     expect(makeVideo()).toBeUndefined();
     expect(menuButton(/^Paint another/)).toBeDefined();
+  });
+
+  it("is absent when the picture shown has a video the capped verse history left out", async () => {
+    savedPictures = john();
+    session = { ...session, credits: 80 };
+    publicVideos = [job()];
+    historyCapped = true;
+    await openVerse("john", "1", "5");
+    await openMenu();
+    await flush();
+    expect(makeVideo()).toBeUndefined();
   });
 
   it("is absent for a picture that is not 16:9", async () => {

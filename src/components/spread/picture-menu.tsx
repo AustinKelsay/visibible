@@ -120,6 +120,9 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
   // The verse's finished videos, each with the picture it belongs to: those pictures carry the play badge.
   const verseVideos = useQuery(api.verseVideos.getHistory, offersVideo ? { verseId, limit: 50 } : "skip");
   const picturesWithVideo = verseVideos ? new Set(verseVideos.map((video) => video.sourceImageId)) : undefined;
+  // Whether the shown picture already has a video comes from its own uncapped read, so the menu never offers
+  // to make (and charge for) a second one when the verse has more videos than the history above returns.
+  const shownVideo = useQuery(api.verseVideos.getPictureVideo, offersVideo ? { imageId: shown.id } : "skip");
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   const generation = useVerseGeneration({
@@ -204,7 +207,7 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
         <hr className="mx-3 my-1.5 border-ink/10" />
         <PaintAnother generation={generation} onGetCredits={() => { layer.close(); buyCredits(); }} />
         {offersVideo ? (
-          <MakeVideo verseId={verseId} reference={reference} picture={shown} pictureHasVideo={picturesWithVideo?.has(shown.id)} myJobs={myJobs} className={ROW} onGetCredits={() => { layer.close(); buyCredits(); }} onMakingChange={onMakingVideoChange} />
+          <MakeVideo verseId={verseId} reference={reference} picture={shown} pictureHasVideo={shownVideo === undefined ? undefined : shownVideo !== null} myJobs={myJobs} className={ROW} onGetCredits={() => { layer.close(); buyCredits(); }} onMakingChange={onMakingVideoChange} />
         ) : null}
 
         <button type="button" className={ROW} aria-expanded={detailsOpen} onClick={() => setDetailsOpen((open) => !open)}>
