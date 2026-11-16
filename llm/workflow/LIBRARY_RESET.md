@@ -24,7 +24,7 @@ done
 
 `before` is when the reset started: anything made after it is kept. A dry run counts up to 2,000 rows and says `truncated: true` if there are more. The loop stops on the first page that fails.
 
-Use `--deployment <name>` instead of `--prod` for another deployment. A page refuses while a video is still being made; wait for it to finish. A picture or video that finishes during the reset is kept, because it was made after `before`.
+Use `--deployment <name>` instead of `--prod` for another deployment. A page refuses while a video is still being made; wait for it to finish. A picture saved during the reset is kept, because it was saved after `before`. A video counts from when it was requested, so one requested before `before` that finishes during the reset is still deleted; let running videos finish before the backup and the cutoff if they should be in the backup.
 
 ## Afterwards
 
