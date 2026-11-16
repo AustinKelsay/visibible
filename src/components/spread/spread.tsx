@@ -2,6 +2,7 @@
 
 import { AskProvider } from "@/components/spread/ask";
 import { ContentsButton, ContentsLayer } from "@/components/spread/contents";
+import { CornerMenu } from "@/components/spread/corner-menu";
 import { LayerProvider } from "@/components/spread/layers";
 import { PageTurnLink, useArrival, usePageTurn } from "@/components/spread/page-turn";
 import { VerseMarks } from "@/components/spread/verse-marks";
@@ -71,6 +72,8 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
         totalVerses={totalVerses}
         onTurn={onTurn}
       />
+
+      <CornerMenu verseId={verseId} bookName={bookName} chapter={chapter} verseNumber={verseNumber} />
 
       {/* Keyed by the verse: turning the page clears the conversation. */}
       <AskProvider key={verseId} verse={{ bookName, chapter, verseNumber, verseText }}>

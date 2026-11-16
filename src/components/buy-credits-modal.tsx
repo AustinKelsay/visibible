@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, ArrowRight, Users, Info, Image as ImageIcon } from "lucide-react";
+import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, ArrowRight, Users, Info } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import QRCode from "qrcode";
@@ -22,20 +22,6 @@ import {
   resolveCreditsModalClosedStep,
   resolveCreditsModalOpenedStep,
 } from "@/lib/analytics-event-utils";
-
-/**
- * Saved images under a verse number: a small image icon, so it reads as "images" without a legend,
- * plus the number only when there are several. A verse with one image shows just the icon.
- */
-function VerseImageCount({ count, className = "" }: { count: number; className?: string }) {
-  if (count <= 0) return null;
-  return (
-    <span aria-hidden="true" className={`inline-flex h-3 items-center gap-0.5 text-xs font-medium leading-3 tabular-nums ${className}`}>
-      <ImageIcon size={11} strokeWidth={2} />
-      {count > 1 ? count : null}
-    </span>
-  );
-}
 
 function CashAppLogo({ className }: { className?: string }) {
   return (
@@ -90,59 +76,6 @@ function LightningLogo({ className }: { className?: string }) {
         d="M17.5 6L10 17h5.5l-1 9L22 15h-5.5l1-9z"
       />
     </svg>
-  );
-}
-
-function MiniVerseStrip() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  // Cycle through verses every 2.5 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSelectedIndex((prev) => (prev + 1) % 5);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Sample verse data: verse number and image count
-  const verses = [
-    { verse: 1, imageCount: 2 },
-    { verse: 2, imageCount: 0 },
-    { verse: 3, imageCount: 1 },
-    { verse: 4, imageCount: 3 },
-    { verse: 5, imageCount: 0 },
-  ];
-
-  return (
-    <div className="flex justify-center items-center gap-1.5 py-4 mt-4 mb-2">
-      {verses.map((v, index) => {
-        const isSelected = index === selectedIndex;
-        return (
-          <div
-            key={v.verse}
-            className={`min-h-[40px] min-w-[40px] px-1 flex flex-col items-center justify-center rounded-[var(--radius-sm)] transition-all duration-500 ease-in-out ${
-              isSelected
-                ? "bg-[var(--accent)] scale-110 shadow-lg shadow-[var(--accent)]/25"
-                : "bg-[var(--divider)] opacity-70"
-            }`}
-          >
-            <span
-              className={`text-xs font-medium leading-4 transition-all duration-500 ease-in-out ${
-                isSelected ? "text-[var(--accent-text)]" : "text-[var(--muted)]"
-              }`}
-            >
-              {v.verse}
-            </span>
-            <VerseImageCount
-              count={v.imageCount}
-              className={`transition-colors duration-500 ease-in-out ${
-                isSelected ? "text-[var(--accent-text)]/90" : "text-[var(--foreground)]/70"
-              }`}
-            />
-          </div>
-        );
-      })}
-    </div>
   );
 }
 
@@ -552,15 +485,16 @@ export function BuyCreditsModal() {
   if (!isBuyModalOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-end md:items-center justify-center">
+    // Dark like the reader it opens over, whatever the system setting is.
+    <div className="reader-dark fixed inset-0 z-[70] flex items-end md:items-center justify-center">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={handleClose}
       />
 
       {/* Modal */}
-      <div className="relative w-full md:max-w-md max-h-[calc(100svh-env(safe-area-inset-top))] overflow-y-auto bg-[var(--background)] rounded-t-[var(--radius-lg)] md:rounded-[var(--radius-lg)] p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] animate-in slide-in-from-bottom md:slide-in-from-bottom-0 md:fade-in duration-[var(--motion-base)]">
+      <div role="dialog" aria-modal="true" aria-label="Credits" className="relative w-full md:max-w-md max-h-[calc(100svh-env(safe-area-inset-top))] overflow-y-auto bg-[var(--background)] border border-[var(--divider)] shadow-2xl rounded-t-[var(--radius-2xl)] md:rounded-[var(--radius-2xl)] p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] animate-in slide-in-from-bottom md:slide-in-from-bottom-0 md:fade-in duration-[var(--motion-base)]">
         {/* Close button */}
         <button
           onClick={handleClose}
@@ -637,13 +571,6 @@ export function BuyCreditsModal() {
                   <p className="text-sm text-[var(--muted)]">
                     Browse for free, or get credits to make your own.
                   </p>
-                  {/* The verse strip is desktop-only, so phones skip its demo */}
-                  <div className="hidden sm:flex flex-col items-center -ml-8">
-                    <MiniVerseStrip />
-                    <p className="text-xs text-[var(--muted)]">
-                      The image mark shows a verse has saved images, with a count when there are several
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
