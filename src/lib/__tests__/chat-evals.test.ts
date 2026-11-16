@@ -64,7 +64,7 @@ describe("the shipped chat rules", () => {
     const measured = readFileSync("llm/releases/2026-11-11-chat-model-comparison/guarded.txt", "utf8").trim();
     expect(CHAT_RULES).toBe(measured);
     const prompt = await buildSystemPrompt({ book: "John", chapter: 3, verseRange: "16" }, "web", chapters);
-    expect(prompt.ok && prompt.systemPrompt.endsWith(`Keep responses grounded but offer deeper insight when helpful.\n\n${measured}`)).toBe(true);
+    expect(prompt.ok && prompt.systemPrompt.endsWith(`When asked to summarize the chapter so far, summarize the verses given through the current verse.\n\n${measured}`)).toBe(true);
     const general = await buildSystemPrompt(undefined, "web");
     expect(general.ok && general.systemPrompt.endsWith(`\n\n${measured}`)).toBe(true);
   });

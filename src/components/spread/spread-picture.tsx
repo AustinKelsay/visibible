@@ -1,63 +1,138 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { RefreshCw } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
+import { useLayer } from "@/components/spread/layers";
 import { usePictureStyles } from "@/context/work-scope-context";
 import { artStyleLabel } from "@/lib/art-styles";
 import { UnpaintedPicture } from "@/components/spread/unpainted-picture";
+import { PictureMenu } from "@/components/spread/picture-menu";
+import { useChosenPicture } from "@/components/spread/chosen-picture";
 import { PaintButton, PaintProgress, PILL, usePaintVerse } from "@/components/spread/paint-verse";
 
 interface SpreadPictureProps {
   verseId: string;
   reference: string;
+  /** Called when the reader opens the whole-picture view from the picture. */
+  onShowWhole?: (imageId: string) => void;
 }
 
 /**
  * The spread's picture, chosen by the picture rule (src/lib/picture-rule.ts): the newest saved picture in the chosen
  * art style, otherwise the newest in another style the reader may see (with a note naming it and an offer to paint the
  * verse in the chosen style), otherwise the unpainted verse. It is cropped from its centre to cover its frame; its
- * thumbnail shows first and the full picture replaces it once loaded. While the picture is read the frame stays dark.
+ * thumbnail shows first and the full picture replaces it once loaded. The picture menu's chip sits on it; a version
+ * chosen there shows instead until the page turns. While the picture is read the frame stays plain dark.
+ *
+ * The picture is the button for the whole-picture view: activating it puts the words aside and shows
+ * the picture uncropped; activating it again (or Escape) brings the words back.
  */
 export function SpreadPicture(props: SpreadPictureProps) {
   const isConvexEnabled = useConvexEnabled();
   return isConvexEnabled ? <SavedPicture {...props} /> : null;
 }
 
-function SavedPicture({ verseId, reference }: SpreadPictureProps) {
-  const { chosen, order } = usePictureStyles();
-  // The next spread's prefetch reads the same query with the same arguments (prefetch-next.tsx).
-  const picture = useQuery(api.verseImages.getSpreadPicture, { verseId, styles: order });
+// On the spread a picture fills its frame. In the whole-picture view it fills the window on a computer;
+// on a phone it keeps its own shape (in the page flow) above its caption.
+const FILL = "absolute inset-0 h-full w-full";
+const WHOLE_IN_FLOW = "block h-auto max-h-[58svh] w-full md:absolute md:inset-0 md:h-full md:max-h-none";
+
+function SavedPicture({ verseId, reference, onShowWhole }: SpreadPictureProps) {
+  const { chosen: chosenStyle, order } = usePictureStyles();
+  // The picture rule. The next spread's prefetch reads the same query with the same arguments (prefetch-next.tsx).
+  const rulePicture = useQuery(api.verseImages.getSpreadPicture, { verseId, styles: order });
+  const otherStyle = rulePicture && rulePicture.artStyle !== chosenStyle ? rulePicture.artStyle : null;
+  // The verse's pictures in the chosen style, newest first: the picture menu's own list (empty when the rule fell back).
+  const pictures = useQuery(api.verseImages.getImageHistory, rulePicture ? { verseId, artStyle: chosenStyle } : "skip");
+  // The full record of a picture shown from another style, for the picture menu's details.
+  const otherStylePictures = useQuery(api.verseImages.getImageHistory, otherStyle ? { verseId, artStyle: otherStyle } : "skip");
+  const { chosen } = useChosenPicture();
   const recordImpression = useMutation(api.verseImages.recordImageImpression);
   const recordedRef = useRef(new Set<string>());
   const [loadedId, setLoadedId] = useState<string | null>(null);
-  if (picture === undefined) return null;
-  if (picture === null) return <UnpaintedPicture key={verseId} verseId={verseId} reference={reference} styles={order} />;
+  const button = useRef<HTMLButtonElement>(null);
+  const whole = useLayer("whole-picture");
+  const hasPicture = Boolean(rulePicture?.imageUrl);
+  const { isOpen: wholeIsOpen, close: closeWhole } = whole;
+
+  // A spread turned to from the whole-picture view opens in it; with no picture to show, the words return.
+  useEffect(() => {
+    if (wholeIsOpen && rulePicture !== undefined && !hasPicture) closeWhole();
+  }, [wholeIsOpen, rulePicture, hasPicture, closeWhole]);
+
+  // Leaving the view puts focus on the picture when nothing else holds it (the view was opened on an
+  // earlier spread, so there is no opener on this one to return to).
+  const wasOpen = useRef(wholeIsOpen);
+  useEffect(() => {
+    if (wasOpen.current && !wholeIsOpen) {
+      queueMicrotask(() => {
+        const focused = document.activeElement;
+        if (!focused || focused === document.body) button.current?.focus();
+      });
+    }
+    wasOpen.current = wholeIsOpen;
+  }, [wholeIsOpen]);
+
+  if (rulePicture === undefined) return null;
+  if (!rulePicture?.imageUrl) return <UnpaintedPicture key={verseId} verseId={verseId} reference={reference} styles={order} />;
+  const ruleRecord = (otherStyle ? otherStylePictures : pictures)?.find((picture) => picture.id === rulePicture.id);
+  const picture = chosen ?? ruleRecord ?? rulePicture;
   const showThumbnail = Boolean(picture.thumbnailUrl) && loadedId !== picture.id;
-  const cover = "absolute inset-0 h-full w-full object-cover object-center";
+  // Cropped from the centre on the spread; whole, on dark, in the whole-picture view.
+  const fit = { objectFit: wholeIsOpen ? "contain" : "cover", objectPosition: "center" } as const;
+  // While the thumbnail stands in, it holds the picture's place in the phone's whole-picture flow.
+  const thumbnailClass = wholeIsOpen ? WHOLE_IN_FLOW : FILL;
+  const pictureClass = wholeIsOpen && !showThumbnail ? WHOLE_IN_FLOW : FILL;
+  // The menu's shown picture needs the full record; the chip waits for it.
+  const shown = chosen ?? ruleRecord;
 
   // Saved pictures come from Convex storage at their full size; there is no resizing service.
   /* eslint-disable @next/next/no-img-element */
   return (
     <>
-      {showThumbnail ? <img key={`${picture.id}-thumbnail`} src={picture.thumbnailUrl!} alt="" aria-hidden="true" className={cover} /> : null}
-      <img
-        key={picture.id}
-        src={picture.imageUrl}
-        alt={`Picture of ${reference}`}
-        className={`${cover} transition-opacity duration-300 motion-reduce:transition-none`}
-        style={showThumbnail ? { opacity: 0 } : undefined}
-        onLoad={() => {
-          setLoadedId(picture.id);
-          if (recordedRef.current.has(picture.id)) return;
-          recordedRef.current.add(picture.id);
-          void recordImpression({ imageId: picture.id }).catch(() => recordedRef.current.delete(picture.id));
+      <button
+        ref={button}
+        type="button"
+        aria-label={wholeIsOpen ? "Back to the words" : `Show the whole picture of ${reference}`}
+        onClick={() => {
+          if (wholeIsOpen) {
+            closeWhole();
+            return;
+          }
+          whole.open(button.current);
+          onShowWhole?.(picture.id);
         }}
-      />
-      {picture.artStyle !== chosen ? (
-        <OtherStyleNote key={`${verseId}:${chosen}`} verseId={verseId} reference={reference} shownStyle={picture.artStyle} chosenStyle={chosen} />
+        className={`block cursor-pointer focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-white ${
+          wholeIsOpen ? "relative mt-auto w-full shrink-0 md:absolute md:inset-0 md:mt-0" : "absolute inset-0"
+        }`}
+      >
+        {showThumbnail ? (
+          <img key={`${picture.id}-thumbnail`} src={picture.thumbnailUrl!} alt="" aria-hidden="true" className={thumbnailClass} style={fit} />
+        ) : null}
+        <img
+          key={picture.id}
+          src={picture.imageUrl}
+          alt={`Picture of ${reference}`}
+          className={`${pictureClass} transition-opacity duration-300 motion-reduce:transition-none`}
+          style={showThumbnail ? { ...fit, opacity: 0 } : fit}
+          onLoad={() => {
+            setLoadedId(picture.id);
+            if (recordedRef.current.has(picture.id)) return;
+            recordedRef.current.add(picture.id);
+            void recordImpression({ imageId: picture.id }).catch(() => recordedRef.current.delete(picture.id));
+          }}
+        />
+      </button>
+      {/* Beside the picture's button, not in it, so its taps never open the whole-picture view. Kept mounted in that
+          view (only its chip hides), so a painting started from it carries on. */}
+      {shown && pictures ? (
+        <PictureMenu key={verseId} verseId={verseId} reference={reference} pictures={pictures} shown={shown} chipHidden={wholeIsOpen} />
+      ) : null}
+      {otherStyle && !wholeIsOpen ? (
+        <OtherStyleNote key={`${verseId}:${chosenStyle}`} verseId={verseId} reference={reference} shownStyle={otherStyle} chosenStyle={chosenStyle} />
       ) : null}
     </>
   );
@@ -78,7 +153,7 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle }: { verse
   let body;
   if (paint.painting) {
     body = (
-      <div className="space-y-2">
+      <div className="w-full space-y-2">
         <p className="text-sm text-white/90">Painting {reference} in {chosenLabel}…</p>
         <PaintProgress paint={paint} reference={reference} />
       </div>
@@ -120,7 +195,8 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle }: { verse
     <section
       aria-label="Other art style"
       data-fades={idleOffer ? "" : undefined}
-      className="absolute inset-x-3 bottom-3 z-10 flex max-w-sm flex-col items-start gap-2 rounded-2xl border border-white/10 bg-[rgba(12,12,14,0.82)] p-3 text-left shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:inset-x-auto md:bottom-auto md:left-5 md:top-20 md:gap-2.5 md:p-3.5"
+      // Above the picture menu's chip on a phone; under the corner name on a computer.
+      className="absolute inset-x-3 bottom-14 z-10 flex max-w-sm flex-col items-start gap-2 rounded-2xl border border-white/10 bg-[rgba(12,12,14,0.82)] p-3 text-left shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:inset-x-auto md:bottom-auto md:left-5 md:top-20 md:gap-2.5 md:p-3.5"
     >
       {body}
     </section>

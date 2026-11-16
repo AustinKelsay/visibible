@@ -31,7 +31,7 @@ const originalEnv = { ...process.env };
 // Configurable mock values
 const mockCreditsCost = { value: 2 };
 const useRealPricing = { value: false };
-// $10 per million tokens each way: a typical turn is 3 credits and the maximum (8,000 in, 2,048 out) is 13.
+// $10 per million tokens each way: a typical turn is 3 credits and the maximum (6,000 of history and a 409-token prompt in, 2,048 out) is 11.
 const DEFAULT_PRICING = { prompt: "0.00001", completion: "0.00001" };
 const mockPricing = { value: DEFAULT_PRICING };
 const mockRequestBody: { value: unknown } = { value: null };
@@ -259,10 +259,10 @@ describe("Chat API Credit Flow", () => {
       expect(response.status).toBe(200);
       await response.text();
       const reservation = mockState.callHistory.find((call) => call.action === "reserveCredits");
-      expect(reservation?.args.amount).toBe(13);
-      // The provider reported 1,000 tokens each way: 3 credits of the 13 held.
+      expect(reservation?.args.amount).toBe(11);
+      // The provider reported 1,000 tokens each way: 3 credits of the 11 held.
       const deduction = mockState.callHistory.find((call) => call.action === "deductCredits");
-      expect(deduction?.args).toMatchObject({ amount: 13, actualAmount: 3 });
+      expect(deduction?.args).toMatchObject({ amount: 11, actualAmount: 3 });
       expect(getCallCount("deductCredits")).toBe(1);
     });
 

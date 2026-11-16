@@ -20,8 +20,9 @@ interface LayerState {
 
 const LayerContext = createContext<LayerState | null>(null);
 
-export function LayerProvider({ children }: { children: ReactNode }) {
-  const [openLayer, setOpenLayer] = useState<LayerId | null>(null);
+/** `initialLayer` opens a layer from the first render, with no opener to return focus to. */
+export function LayerProvider({ initialLayer = null, children }: { initialLayer?: LayerId | null; children: ReactNode }) {
+  const [openLayer, setOpenLayer] = useState<LayerId | null>(initialLayer);
   const opener = useRef<HTMLElement | null>(null);
 
   const openLayerById = useCallback((id: LayerId, from?: HTMLElement | null) => {

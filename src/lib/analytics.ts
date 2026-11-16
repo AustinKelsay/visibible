@@ -35,13 +35,15 @@ export type GenerationTriggerSource =
   | "hero_retry"
   | "fullscreen_retry"
   | "spread_paint"
-  | "spread_retry";
+  | "spread_retry"
+  | "picture_menu_paint"
+  | "picture_menu_retry";
 
 export type CreditsFrictionSource =
   | GenerationTriggerSource
   | "chat_submit"
   | "ask_submit"
-  | "header_get_credits";
+  | "contents_paint";
 
 // Event-specific property types
 type VerseViewProps = BaseProps & {
@@ -202,6 +204,11 @@ type LookOpenedProps = BaseProps & {
   source: "dock" | "translation_name";
 };
 
+type PictureMenuOpenedProps = BaseProps & {
+  /** The verse's pictures in the chosen art style. */
+  pictureCount: number;
+};
+
 type ContentsOpenedProps = BaseProps & {
   book: string;
   chapter: number;
@@ -262,6 +269,13 @@ type VerseNavigationProps = BaseProps & {
 };
 
 type SettingsMenuOpenedProps = BaseProps;
+
+type WholePictureOpenedProps = BaseProps & {
+  book: string;
+  chapter: number;
+  verse: number;
+  imageId?: string;
+};
 
 function sanitizeImageUrl(imageUrl?: string): string | undefined {
   if (!imageUrl) return undefined;
@@ -395,6 +409,11 @@ export function trackLookOpened(props: LookOpenedProps) {
   track("look_opened", props);
 }
 
+// Track an opening of the picture menu on the spread (#441)
+export function trackPictureMenuOpened(props: PictureMenuOpenedProps) {
+  track("picture_menu_opened", props);
+}
+
 // Track fullscreen image opens across the new image surfaces
 export function trackImageFullscreenOpened(props: ImageFullscreenOpenedProps) {
   track("image_fullscreen_opened", props);
@@ -426,6 +445,11 @@ export function trackApiDocsLinkClicked(props: ApiDocsLinkClickedProps) {
 // Track explicit verse navigation interactions
 export function trackVerseNavigation(props: VerseNavigationProps) {
   track("verse_navigation", props);
+}
+
+// Track the spread's whole-picture view being opened from its picture
+export function trackWholePictureOpened(props: WholePictureOpenedProps) {
+  track("whole_picture_opened", props);
 }
 
 // Track the mobile settings menu

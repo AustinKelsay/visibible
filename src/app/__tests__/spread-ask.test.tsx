@@ -171,9 +171,10 @@ describe("asking at the foot of the words page", () => {
     const words = wordsPage();
     expect(words.textContent).toContain("Ask about this verse");
     expect(button("What does John 1:5 mean?", words)).toBeTruthy();
-    expect(button("What is the historical context of John 1:5?", words)).toBeTruthy();
+    expect(button("Summarize John 1 so far", words)).toBeTruthy();
     expect(field("Ask about John 1:5")).toBeTruthy();
-    expect(quoteRequests).toEqual([{ model: DEFAULT_CHAT_MODEL }]);
+    // The quote is for a question about this verse, whose context is the chapter so far.
+    expect(quoteRequests).toEqual([{ model: DEFAULT_CHAT_MODEL, context: { book: "John", chapter: 1, verseRange: "5" }, translation: "web" }]);
     const send = button(/^Send question/, words);
     expect(send.getAttribute("aria-label")).toBe("Send question · About 3 credits · at most 13");
     expect(send.textContent).toContain("3 credits");
@@ -208,6 +209,25 @@ describe("asking at the foot of the words page", () => {
 
     expect(trackAskOpened).toHaveBeenCalledWith(expect.objectContaining({ source: "words_page" }));
     expect(trackAskQuestionSent).toHaveBeenCalledWith(expect.objectContaining({ source: "suggestion", messageCount: 1 }));
+  });
+});
+
+describe("the chapter so far", () => {
+  it("offers no summary at a chapter's first verse", async () => {
+    await openVerse("john", "1", "1");
+    const words = wordsPage();
+    expect(button("What does John 1:1 mean?", words)).toBeTruthy();
+    expect(button("What is the historical context of John 1:1?", words)).toBeTruthy();
+    expect(words.textContent).not.toContain("so far");
+  });
+
+  it("asks for a summary of the chapter so far about the verse on screen, at its own quote", async () => {
+    await openVerse("john", "1", "2");
+    await click(button("Summarize John 1 so far", wordsPage()));
+    expect(chatRequests).toHaveLength(1);
+    expect(chatRequests[0]).toMatchObject({ context: { book: "John", chapter: 1, verseRange: "2" }, translation: "web", quoteId: "quote-1" });
+    expect(chatRequests[0].messages.map((message) => message.parts.map((part) => part.text).join(""))).toEqual(["Summarize John 1 so far"]);
+    expect(quoteRequests[0]).toMatchObject({ context: { book: "John", chapter: 1, verseRange: "2" } });
   });
 });
 
