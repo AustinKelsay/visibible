@@ -23,9 +23,11 @@ import {
   findBrowser,
   localBase,
   parseStep,
+  pricedCatalog,
   selectStates,
   shotFile,
   type CaptureSize,
+  type CaptureStub,
   type Step,
 } from "./plan";
 import { READER_STATES } from "./states";
@@ -141,6 +143,16 @@ async function guard(context: BrowserContext) {
   );
 }
 
+/** A state's stubs, answered in the page; registered after the guard, so they are asked first. */
+async function stub(page: Page, stubs: CaptureStub[]) {
+  if (stubs.includes("priced")) {
+    await page.route((url) => url.pathname === "/api/image-models", async (route) => {
+      const response = await route.fetch();
+      await route.fulfill({ response, json: pricedCatalog(await response.json()) });
+    });
+  }
+}
+
 async function main() {
   const options = parseArgs(process.argv.slice(2));
   const states = selectStates(READER_STATES, options.only);
@@ -173,6 +185,7 @@ async function main() {
         });
         await guard(context);
         const page = await context.newPage();
+        await stub(page, state.stubs ?? []);
         page.on("pageerror", (error) => console.warn(`  page error in ${state.name}: ${error.message}`));
         const file = path.join(options.out, shotFile(state, size));
         try {

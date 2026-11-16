@@ -125,7 +125,7 @@ function PaintChapterButton({ book, chapter, unpaintedVerses, pricing }: Chapter
       <button type="button" className={`${PRIMARY} py-2 max-md:w-full`} disabled={!priced || starting} onClick={paint}>
         <Brush aria-hidden="true" size={16} strokeWidth={1.75} className="shrink-0" />
         {/* On a phone the price takes its own line rather than wrapping mid-phrase. */}
-        <span className="flex flex-col items-start text-left leading-snug md:flex-row md:items-baseline">
+        <span className="flex flex-col items-start text-left leading-snug md:block">
           <span>{`Paint the ${count} unpainted ${count === 1 ? "verse" : "verses"}`}</span>
           {priced && !isAdmin ? (
             <span className="font-normal text-black/55">
