@@ -45,6 +45,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Image engine release and rollback runbook](workflow/ENGINE_RELEASE.md)
 - [Capturing the reader](workflow/READER_CAPTURE.md): `capture:reader` screenshots every reader state at desktop and phone size from a local app, and spends nothing
 - [Seeding images for the most-read chapters](workflow/SEED_IMAGES.md): `seed:images`, its dry run, budget, ledger and resume
+- [Resetting the image library](workflow/LIBRARY_RESET.md): deleting every picture and video with their files, keeping reference sheets
 - [Release status, closed investigation accounting and dated deployment evidence](releases/STATUS.md)
 - [Historical release records](releases/): consult the named experiment when reproducing a result; dated proposed next steps are not a current task queue.
 

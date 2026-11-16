@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 const VISIBIBLE_NIP05_NAME = "visibible";
 const VISIBIBLE_NOSTR_PUBKEY =
-  "eeee78227f04eae05d1cf338dbf39d462af360389b8d09cf7b7b32d216a976bf";
+  "5b98af63ee20a0d22ad24a78045a81beafb4fe13c7e602a90eef038f90c90299";
 const VISIBIBLE_NOSTR_RELAYS = [
   "wss://relay.nostr.band",
   "wss://nos.lol",

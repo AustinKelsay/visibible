@@ -6,7 +6,7 @@ Eligible images have storage, reference and verse text and no recorded Nostr eve
 
 ## Convex configuration
 
-Publishing has been off since 12 November 2026, and the identity it used was retired on 13 November: its key was within reach of the [injected install script](../../docs/incidents/2026-11-12-injected-install-script.md) and a Nostr key cannot be rotated. Turning publishing back on needs a new identity, never the old key.
+Publishing has been off since 12 November 2026, and the identity it used (`eeee7822…`) was retired on 13 November: its key was within reach of the [injected install script](../../docs/incidents/2026-11-12-injected-install-script.md) and a Nostr key cannot be rotated. Its key must never publish again. The new identity, made on 16 November 2026 with the [library reset](../workflow/LIBRARY_RESET.md), is `npub1twv27clwyzsdy2kjffuqgk5ph6hmflsnclnq92gwaupclyxfq2vswjgc86` (hex `5b98af63…0299`); [nostr.json](../../src/app/.well-known/nostr.json/route.ts) names it as `visibible@visibible.com`. Its key is in production Convex, and publishing stays off until the owner turns it on.
 
 - `NOSTR_PUBLISHING_ENABLED`: nothing is published unless this is exactly `true`.
 - `NOSTR_PRIVATE_KEY`: hex or nsec key, required to publish.
