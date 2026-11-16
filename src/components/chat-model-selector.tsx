@@ -260,8 +260,8 @@ export function ChatModelSelector({ variant = "compact", value, onChange }: Chat
           </div>
         </div>
 
-        {/* Credits Info */}
-        {tier !== "admin" && (
+        {/* Credits Info (the inline list sits in a menu that already shows the balance) */}
+        {tier !== "admin" && variant !== "inline" && (
           <div className="px-3 py-2 border-b border-[var(--divider)] text-xs text-[var(--muted)] space-y-1">
             <div className="font-medium text-[var(--foreground)]">Early Access</div>
             <div>Credits are used for AI chats and image generation</div>
