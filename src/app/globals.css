@@ -58,6 +58,16 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-eb-garamond), Georgia, "Times New Roman", serif;
+  /* The reader's tokens; their values come from the reader's scopes below. */
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-reader-page: var(--reader-page);
+  --color-reader-page-glass: var(--reader-page-glass);
+  --color-reader-sheet: var(--reader-sheet);
+  --color-reader-glass: var(--reader-glass);
+  --color-reader-raised: var(--reader-raised);
+  --color-reader-alert: var(--reader-alert);
+  --color-reader-warning: var(--reader-warning);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -70,21 +80,96 @@
   }
 }
 
-/* The dark reader's tokens, for surfaces that open over the spread (the credits dialog, feedback) so
-   they stay dark whatever the system setting is. */
-.reader-dark {
-  color-scheme: dark;
-  --background: #0e0e10;
-  --foreground: #f2f2f0;
-  --surface: rgba(255, 255, 255, 0.06);
-  --muted: rgba(255, 255, 255, 0.6);
-  --divider: rgba(255, 255, 255, 0.12);
-  --accent: #f2f2f0;
-  --accent-hover: #ffffff;
-  --accent-text: #0a0a0a;
-  --error: #f87171;
-  --success: #4ade80;
-  color: var(--foreground);
+/* The reader's colours (src/components/spread). Two parallel token scopes:
+   - .reader-dark: always dark. The whole-picture view and the unpainted picture area use it.
+   - .reader-light: always light.
+   - .reader-appearance: the reader's chosen appearance (Advanced → Appearance). Dark, unless <html> carries
+     data-reader-appearance="light", which src/components/spread/reader-appearance.tsx sets before the first paint.
+   Reader surfaces draw with these tokens, never with literal white or black: `ink` (text, lines and tints, with
+   Tailwind's opacity modifier), `paper` (text on an ink button), the `reader-*` surfaces, and the `--quiet-*`
+   steps for quiet text (`text-ink/(--quiet-55)`), which light raises so quiet text keeps its contrast over glass.
+   Text drawn straight on a picture (verse marks, the corner name, the whole-picture caption) stays white.
+   Each scope also sets the site's semantic tokens, for token-styled surfaces over the spread (the credits
+   dialog, feedback, the answers in Ask). In a layer so a utility on the same element still wins. */
+@layer base {
+  .reader-dark,
+  .reader-appearance {
+    color-scheme: dark;
+    --ink: #ffffff;
+    --paper: #000000;
+    --quiet-25: 25%;
+    --quiet-40: 40%;
+    --quiet-45: 45%;
+    --quiet-50: 50%;
+    --quiet-55: 55%;
+    --quiet-60: 60%;
+    --reader-page: #0b0b0c;
+    --reader-page-glass: rgba(12, 12, 14, 0.78);
+    --reader-sheet: #0e0e10;
+    --reader-glass: rgba(14, 14, 16, 0.92);
+    --reader-raised: #141415;
+    --reader-dock: rgba(0, 0, 0, 0.55);
+    --reader-dock-edge: rgba(255, 255, 255, 0.1);
+    --reader-dock-top: rgba(255, 255, 255, 0.25);
+    --reader-alert: #fecaca;
+    --reader-warning: #fde68a;
+    --reader-link: #9ec5ff;
+    --background: #0e0e10;
+    --foreground: #f2f2f0;
+    --surface: rgba(255, 255, 255, 0.06);
+    --muted: rgba(255, 255, 255, 0.6);
+    --divider: rgba(255, 255, 255, 0.12);
+    --accent: #f2f2f0;
+    --accent-hover: #ffffff;
+    --accent-text: #0a0a0a;
+    --error: #f87171;
+    --success: #4ade80;
+    color: var(--foreground);
+  }
+
+  .reader-light,
+  :root[data-reader-appearance="light"] .reader-appearance {
+    color-scheme: light;
+    --ink: #16140f;
+    --paper: #ffffff;
+    --quiet-25: 45%;
+    --quiet-40: 62%;
+    --quiet-45: 64%;
+    --quiet-50: 66%;
+    --quiet-55: 68%;
+    --quiet-60: 70%;
+    --reader-page: #f6f4ef;
+    --reader-page-glass: rgba(247, 245, 240, 0.9);
+    --reader-sheet: #faf9f6;
+    --reader-glass: rgba(250, 249, 246, 0.95);
+    --reader-raised: #ecebe5;
+    --reader-dock: rgba(250, 249, 246, 0.84);
+    --reader-dock-edge: rgba(22, 20, 15, 0.1);
+    --reader-dock-top: rgba(255, 255, 255, 0.9);
+    --reader-alert: #b91c1c;
+    --reader-warning: #92400e;
+    --reader-link: #1d4ed8;
+    --background: #faf9f6;
+    --foreground: #16140f;
+    --surface: rgba(22, 20, 15, 0.05);
+    --muted: rgba(22, 20, 15, 0.68);
+    --divider: rgba(22, 20, 15, 0.12);
+    --accent: #16140f;
+    --accent-hover: #000000;
+    --accent-text: #ffffff;
+    --error: #b91c1c;
+    --success: #15803d;
+    color: var(--foreground);
+  }
+
+  /* Answers in Ask: the shared markdown renderer reads the site's tokens. */
+  .reader-answer {
+    --foreground: color-mix(in oklab, var(--ink) 90%, transparent);
+    --muted: color-mix(in oklab, var(--ink) var(--quiet-55), transparent);
+    --surface: color-mix(in oklab, var(--ink) 7%, transparent);
+    --divider: color-mix(in oklab, var(--ink) 12%, transparent);
+    --accent: var(--reader-link);
+  }
 }
 
 body {
@@ -335,9 +420,12 @@ html {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* The spread's dock over the painting: darker glass, so its label stays readable on bright pictures */
+/* The spread's dock and picture chip over the painting: denser glass in the reader's appearance (dark, or light),
+   so its labels stay readable on bright and dark pictures */
 .liquid-glass.spread-dock {
-  background-color: rgba(0, 0, 0, 0.55);
+  background-color: var(--reader-dock);
+  border-color: var(--reader-dock-edge);
+  border-top-color: var(--reader-dock-top);
 }
 
 /* Spread controls that fade on a computer while the reader is idle (src/components/spread/idle-fade.ts):

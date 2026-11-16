@@ -150,7 +150,8 @@ type PreferenceChangedProps = BaseProps & {
     | "artStyle"
     | "textSize"
     | "autoGenerate"
-    | "feedbackPrompts";
+    | "feedbackPrompts"
+    | "appearance";
   value: string;
   source: PreferenceChangeSource;
 };

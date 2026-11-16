@@ -32,7 +32,7 @@ export interface PictureMenuProps {
 const keepOffPicture = (event: SyntheticEvent) => event.stopPropagation();
 
 const ROW =
-  "flex min-h-11 w-full items-center gap-3 rounded-xl px-3 text-left text-[15px] text-white/90 transition-colors duration-[var(--motion-fast)] hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-white disabled:cursor-not-allowed disabled:opacity-60";
+  "flex min-h-11 w-full items-center gap-3 rounded-xl px-3 text-left text-[15px] text-ink/90 transition-colors duration-[var(--motion-fast)] hover:bg-ink/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-60";
 
 const formatDate = (timestamp: number) =>
   new Date(timestamp).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
@@ -78,12 +78,12 @@ export function PictureMenu({ verseId, reference, pictures, shown, chipHidden = 
           if (!layer.isOpen) trackPictureMenuOpened({ pictureCount: pictures.length, tier, hasCredits: credits > 0 });
           layer.toggle(event.currentTarget);
         }}
-        className={`liquid-glass spread-dock absolute bottom-3 left-3 z-20 ${chipHidden ? "hidden" : "flex"} min-h-9 items-center gap-2 rounded-full px-3 text-[13px] font-medium text-white/90 transition-colors duration-[var(--motion-fast)] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-8 md:left-5 md:min-h-11 md:px-4 md:text-sm`}
+        className={`liquid-glass spread-dock absolute bottom-3 left-3 z-20 ${chipHidden ? "hidden" : "flex"} min-h-9 items-center gap-2 rounded-full px-3 text-[13px] font-medium text-ink/90 transition-colors duration-[var(--motion-fast)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:bottom-8 md:left-5 md:min-h-11 md:px-4 md:text-sm`}
       >
         {painting || makingVideo ? (
           <Loader2 aria-hidden="true" className="h-3.5 w-3.5 motion-safe:animate-spin" />
         ) : (
-          <Images aria-hidden="true" className="h-3.5 w-3.5 text-white/70" />
+          <Images aria-hidden="true" className="h-3.5 w-3.5 text-ink/70" />
         )}
         <span>{label}</span>
       </button>
@@ -147,14 +147,14 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
       <LayerPanel
         id="picture"
         label="Picture menu"
-        className="fixed inset-x-0 bottom-0 z-40 flex max-h-[80svh] flex-col overflow-y-auto rounded-t-2xl border border-white/10 bg-[rgba(14,14,16,0.92)] p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] text-white shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:absolute md:inset-x-auto md:bottom-[5.5rem] md:left-5 md:max-h-[calc(100svh-9rem)] md:w-[22rem] md:rounded-2xl"
+        className="fixed inset-x-0 bottom-0 z-40 flex max-h-[80svh] flex-col overflow-y-auto rounded-t-2xl border border-ink/10 bg-reader-glass p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] text-ink shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:absolute md:inset-x-auto md:bottom-[5.5rem] md:left-5 md:max-h-[calc(100svh-9rem)] md:w-[22rem] md:rounded-2xl"
       >
-        <h2 className="px-3 pt-2 pb-1 text-xs font-medium tracking-[0.12em] text-white/55 uppercase">Pictures of {reference}</h2>
+        <h2 className="px-3 pt-2 pb-1 text-xs font-medium tracking-[0.12em] text-ink/(--quiet-55) uppercase">Pictures of {reference}</h2>
         {groups.map((group) => (
           <section key={group.style} aria-label={artStyleLabel(group.style)} className="px-3 py-1.5">
-            <h3 className="pb-1.5 text-[13px] text-white/70">
+            <h3 className="pb-1.5 text-[13px] text-ink/70">
               {artStyleLabel(group.style)}
-              {group.style !== artStyle ? <span className="text-white/45"> · other style</span> : null}
+              {group.style !== artStyle ? <span className="text-ink/(--quiet-45)"> · other style</span> : null}
             </h3>
             <ul className="grid grid-cols-4 gap-1.5">
               {group.pictures.map((picture) => {
@@ -167,7 +167,7 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
                       aria-pressed={isShown}
                       data-autofocus={isShown ? true : undefined}
                       onClick={() => showVersion(picture)}
-                      className={`relative block aspect-square w-full overflow-hidden rounded-lg bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${isShown ? "ring-2 ring-white" : "opacity-80 hover:opacity-100"}`}
+                      className={`relative block aspect-square w-full overflow-hidden rounded-lg bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${isShown ? "ring-2 ring-ink" : "opacity-80 hover:opacity-100"}`}
                     >
                       {/* Thumbnails come from Convex storage; there is no resizing service. */}
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -179,9 +179,9 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
             </ul>
           </section>
         ))}
-        {otherStylePictures === undefined ? <p className="px-3 py-1 text-xs text-white/45">Looking for other styles…</p> : null}
+        {otherStylePictures === undefined ? <p className="px-3 py-1 text-xs text-ink/(--quiet-45)">Looking for other styles…</p> : null}
 
-        <hr className="mx-3 my-1.5 border-white/10" />
+        <hr className="mx-3 my-1.5 border-ink/10" />
         <PaintAnother generation={generation} onGetCredits={() => { layer.close(); buyCredits(); }} />
         {offersVideo ? (
           <MakeVideo verseId={verseId} reference={reference} myJobs={myJobs} className={ROW} onGetCredits={() => { layer.close(); buyCredits(); }} onMakingChange={onMakingVideoChange} />
@@ -189,7 +189,7 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
 
         <button type="button" className={ROW} aria-expanded={detailsOpen} onClick={() => setDetailsOpen((open) => !open)}>
           <span className="flex-1">Details</span>
-          <ChevronDown aria-hidden="true" className={`h-4 w-4 text-white/60 transition-transform ${detailsOpen ? "rotate-180" : ""}`} />
+          <ChevronDown aria-hidden="true" className={`h-4 w-4 text-ink/(--quiet-60) transition-transform ${detailsOpen ? "rotate-180" : ""}`} />
         </button>
         {detailsOpen ? <Details picture={shown} /> : null}
 
@@ -199,7 +199,7 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
           // The feedback form takes the place of this menu; focus returns to the chip when it closes.
           onClick={() => openLayerById("report-picture", chip.current)}
         >
-          <Flag aria-hidden="true" className="h-4 w-4 text-white/60" />
+          <Flag aria-hidden="true" className="h-4 w-4 text-ink/(--quiet-60)" />
           Report this picture
         </button>
       </LayerPanel>
@@ -215,9 +215,9 @@ function PaintAnother({ generation, onGetCredits }: { generation: Generation; on
     const percent = Math.round(generation.progress * 100);
     return (
       <div className="space-y-2 px-3 py-2.5">
-        <p className="text-sm text-white/85">Painting another picture…</p>
-        <div role="progressbar" aria-label="Painting another picture" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent} className="h-1 overflow-hidden rounded-full bg-white/15">
-          <div className="h-full rounded-full bg-white/80 motion-safe:transition-[width] motion-safe:duration-300" style={{ width: `${percent}%` }} />
+        <p className="text-sm text-ink/85">Painting another picture…</p>
+        <div role="progressbar" aria-label="Painting another picture" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent} className="h-1 overflow-hidden rounded-full bg-ink/15">
+          <div className="h-full rounded-full bg-ink/80 motion-safe:transition-[width] motion-safe:duration-300" style={{ width: `${percent}%` }} />
         </div>
       </div>
     );
@@ -225,9 +225,9 @@ function PaintAnother({ generation, onGetCredits }: { generation: Generation; on
   if (generation.error) {
     return (
       <div className="px-3 py-1.5">
-        <p role="alert" className="pb-1 text-sm text-red-200">{generation.error}</p>
+        <p role="alert" className="pb-1 text-sm text-reader-alert">{generation.error}</p>
         <button type="button" className={`${ROW} -mx-3 w-[calc(100%+1.5rem)]`} onClick={() => generation.generate("picture_menu_retry")}>
-          <RefreshCw aria-hidden="true" className="h-4 w-4 text-white/60" />
+          <RefreshCw aria-hidden="true" className="h-4 w-4 text-ink/(--quiet-60)" />
           Try again
         </button>
       </div>
@@ -236,7 +236,7 @@ function PaintAnother({ generation, onGetCredits }: { generation: Generation; on
   if (generation.priceNotice) {
     return (
       <div className="px-3 py-1.5">
-        <p role="status" className="pb-1 text-sm text-white/85">{generation.priceNotice}</p>
+        <p role="status" className="pb-1 text-sm text-ink/85">{generation.priceNotice}</p>
         <button type="button" className={`${ROW} -mx-3 w-[calc(100%+1.5rem)]`} onClick={() => generation.generate("picture_menu_paint")}>
           Paint at this price
         </button>
@@ -244,7 +244,7 @@ function PaintAnother({ generation, onGetCredits }: { generation: Generation; on
     );
   }
   if (generation.pricingUnavailable) {
-    return <p className="px-3 py-2.5 text-sm text-white/55">{generation.pricingUnavailable}</p>;
+    return <p className="px-3 py-2.5 text-sm text-ink/(--quiet-55)">{generation.pricingUnavailable}</p>;
   }
   if (generation.canGenerate || generation.pricingPending) {
     const quote = generation.showCreditsCost ? generation.quote : null;
@@ -252,7 +252,7 @@ function PaintAnother({ generation, onGetCredits }: { generation: Generation; on
       <button type="button" className={ROW} disabled={generation.pricingPending} onClick={() => generation.generate("picture_menu_paint")}>
         <span>
           Paint another
-          {quote ? <span className="text-white/55">{` · about ${quote.estimateCredits} ${quote.estimateCredits === 1 ? "credit" : "credits"}`}</span> : null}
+          {quote ? <span className="text-ink/(--quiet-55)">{` · about ${quote.estimateCredits} ${quote.estimateCredits === 1 ? "credit" : "credits"}`}</span> : null}
         </span>
       </button>
     );
@@ -278,8 +278,8 @@ function Details({ picture }: { picture: ChosenPicture }) {
     <dl aria-label="Picture details" className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 px-3 pt-0.5 pb-2.5 text-sm">
       {rows.map(([term, value]) => (
         <div key={term} className="contents">
-          <dt className="text-white/50">{term}</dt>
-          <dd className="text-white/85">{value}</dd>
+          <dt className="text-ink/(--quiet-50)">{term}</dt>
+          <dd className="text-ink/85">{value}</dd>
         </div>
       ))}
     </dl>

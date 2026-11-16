@@ -40,9 +40,9 @@ export function useChapterJob(verseIds: string[]): ReadonlyMap<string, TileJobSt
   );
 }
 
-const PILL = "inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
-const PRIMARY = `${PILL} bg-white text-black hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60`;
-const QUIET = `${PILL} bg-white/10 text-white/90 hover:bg-white/15`;
+const PILL = "inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
+const PRIMARY = `${PILL} bg-ink text-paper hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-60`;
+const QUIET = `${PILL} bg-ink/10 text-ink/90 hover:bg-ink/15`;
 
 const credits = (n: number) => `${n} ${n === 1 ? "credit" : "credits"}`;
 
@@ -126,7 +126,7 @@ function PaintChapterButton({ book, chapter, unpaintedVerses, pricing }: Chapter
         <span className="flex flex-col items-start text-left leading-snug md:block">
           <span>{`Paint the ${count} unpainted ${count === 1 ? "verse" : "verses"}`}</span>
           {priced && !isAdmin ? (
-            <span className="font-normal text-black/55">
+            <span className="font-normal text-paper/(--quiet-55)">
               <span className="max-md:sr-only">{" · "}</span>
               {`about ${credits(estimate.totalCredits)}`}
             </span>
@@ -134,11 +134,11 @@ function PaintChapterButton({ book, chapter, unpaintedVerses, pricing }: Chapter
         </span>
       </button>
       {pricing.pricingUnavailable ? (
-        <p className="text-sm text-white/55">{pricing.pricingUnavailable}</p>
+        <p className="text-sm text-ink/(--quiet-55)">{pricing.pricingUnavailable}</p>
       ) : priced && !affordable ? (
-        <p className="text-sm text-white/55">{`You have ${credits(balance)}.`}</p>
+        <p className="text-sm text-ink/(--quiet-55)">{`You have ${credits(balance)}.`}</p>
       ) : null}
-      {startError ? <p role="alert" className="text-sm text-red-200">{startError}</p> : null}
+      {startError ? <p role="alert" className="text-sm text-reader-alert">{startError}</p> : null}
     </div>
   );
 }
@@ -168,12 +168,12 @@ function JobControls() {
 
   return (
     // Sticky, so pause and stop stay in reach while the reader scrolls the wall.
-    <div role="group" aria-label="Painting the chapter" className="sticky top-0 z-10 mb-4 rounded-2xl border border-white/10 bg-[#141415]/90 px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-xl md:mb-6 md:px-5">
+    <div role="group" aria-label="Painting the chapter" className="sticky top-0 z-10 mb-4 rounded-2xl border border-ink/10 bg-reader-raised/90 px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-xl md:mb-6 md:px-5">
       <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
         <div className="min-w-0 flex-1 basis-56">
-          <p className="text-sm font-medium text-white/90 tabular-nums" aria-live="polite">{summary}</p>
+          <p className="text-sm font-medium text-ink/90 tabular-nums" aria-live="polite">{summary}</p>
           {details || note ? (
-            <p className="mt-0.5 text-xs text-white/55">{[details, note].filter(Boolean).join(" · ")}</p>
+            <p className="mt-0.5 text-xs text-ink/(--quiet-55)">{[details, note].filter(Boolean).join(" · ")}</p>
           ) : null}
           {finished ? null : (
             <div
@@ -182,9 +182,9 @@ function JobControls() {
               aria-valuemin={0}
               aria-valuemax={100}
               aria-valuenow={percent}
-              className="mt-2 h-1 overflow-hidden rounded-full bg-white/15"
+              className="mt-2 h-1 overflow-hidden rounded-full bg-ink/15"
             >
-              <div className="h-full rounded-full bg-white/80 motion-safe:transition-[width] motion-safe:duration-300" style={{ width: `${percent}%` }} />
+              <div className="h-full rounded-full bg-ink/80 motion-safe:transition-[width] motion-safe:duration-300" style={{ width: `${percent}%` }} />
             </div>
           )}
         </div>

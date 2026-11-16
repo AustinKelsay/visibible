@@ -26,7 +26,7 @@ export interface CornerMenuProps {
 }
 
 const ROW =
-  "flex min-h-11 w-full items-center rounded-xl px-3 text-left text-[15px] text-white/90 transition-colors duration-[var(--motion-fast)] hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-white";
+  "flex min-h-11 w-full items-center rounded-xl px-3 text-left text-[15px] text-ink/90 transition-colors duration-[var(--motion-fast)] hover:bg-ink/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ink";
 
 /**
  * The Visibible name in the spread's top-left corner and the one menu it opens: the credit balance and
@@ -64,7 +64,7 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber, verseText,
       <LayerPanel
         id="corner"
         label="Visibible menu"
-        className="absolute left-3 top-[4.25rem] z-40 max-h-[calc(100svh-5rem)] w-[min(20rem,calc(100vw-1.5rem))] overflow-y-auto overscroll-contain rounded-2xl border border-white/10 bg-[rgba(14,14,16,0.9)] p-2 text-white shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:left-5 md:top-[4.75rem]"
+        className="absolute left-3 top-[4.25rem] z-40 max-h-[calc(100svh-5rem)] w-[min(20rem,calc(100vw-1.5rem))] overflow-y-auto overscroll-contain rounded-2xl border border-ink/10 bg-reader-glass p-2 text-ink shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:left-5 md:top-[4.75rem]"
       >
         <Balance onGetCredits={menu.close} />
         <Divider />
@@ -78,7 +78,7 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber, verseText,
         <div className="flex items-center gap-1 px-1 pt-1">
           <SocialLinks
             iconSize={18}
-            className="flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors duration-[var(--motion-fast)] hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
+            className="flex h-11 w-11 items-center justify-center rounded-full text-ink/70 transition-colors duration-[var(--motion-fast)] hover:bg-ink/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-ink"
           />
         </div>
         <Divider />
@@ -107,13 +107,13 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber, verseText,
 }
 
 const FEEDBACK_PANEL =
-  "reader-dark fixed inset-x-0 bottom-0 z-40 flex max-h-[85svh] flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-[#0e0e10] shadow-2xl outline-none md:absolute md:inset-x-auto md:left-5 md:max-h-[calc(100svh-6rem)] md:w-[26rem] md:rounded-2xl";
+  "fixed inset-x-0 bottom-0 z-40 flex max-h-[85svh] flex-col overflow-hidden rounded-t-2xl border border-ink/10 bg-reader-sheet shadow-2xl outline-none md:absolute md:inset-x-auto md:left-5 md:max-h-[calc(100svh-6rem)] md:w-[26rem] md:rounded-2xl";
 /** Feedback opens under the name; a picture report opens over the picture menu's chip. */
 const FEEDBACK_PLACE = "md:bottom-auto md:top-[4.75rem]";
 const REPORT_PLACE = "md:bottom-[5.5rem] md:top-auto";
 
 function Divider() {
-  return <hr className="mx-3 my-1.5 border-white/10" />;
+  return <hr className="mx-3 my-1.5 border-ink/10" />;
 }
 
 /** The balance row: credits and Get credits, or the admin state, which is never charged. */
@@ -123,7 +123,7 @@ function Balance({ onGetCredits }: { onGetCredits: () => void }) {
   const showAdminEntry = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("admin");
 
   if (accessStatus === "loading") {
-    return <p className="px-3 py-2.5 text-sm text-white/60">Loading balance…</p>;
+    return <p className="px-3 py-2.5 text-sm text-ink/(--quiet-60)">Loading balance…</p>;
   }
   if (accessStatus === "unavailable") {
     return (
@@ -134,7 +134,7 @@ function Balance({ onGetCredits }: { onGetCredits: () => void }) {
   }
   if (tier === "admin") {
     return (
-      <p className="flex items-center gap-2 px-3 py-2.5 text-sm text-white/90">
+      <p className="flex items-center gap-2 px-3 py-2.5 text-sm text-ink/90">
         <Shield size={16} strokeWidth={2} aria-hidden="true" />
         <span>Admin · not charged</span>
       </p>
@@ -148,14 +148,14 @@ function Balance({ onGetCredits }: { onGetCredits: () => void }) {
   return (
     <>
       <div className="flex items-center gap-3 px-3 py-1.5">
-        <p className="min-w-0 flex-1 text-sm text-white/90">
+        <p className="min-w-0 flex-1 text-sm text-ink/90">
           <span className="font-semibold tabular-nums">{credits}</span> credits
-          {pendingCredits > 0 ? <span className="text-white/55"> · {pendingCredits} held</span> : null}
+          {pendingCredits > 0 ? <span className="text-ink/(--quiet-55)"> · {pendingCredits} held</span> : null}
         </p>
         <button
           type="button"
           onClick={getCredits}
-          className="min-h-9 shrink-0 rounded-full bg-white px-3.5 text-sm font-medium text-black transition-colors duration-[var(--motion-fast)] hover:bg-white/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          className="min-h-9 shrink-0 rounded-full bg-ink px-3.5 text-sm font-medium text-paper transition-colors duration-[var(--motion-fast)] hover:bg-ink/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
         >
           Get credits
         </button>
@@ -183,13 +183,13 @@ function FeedbackForm({ verseId, bookName, chapter, verseNumber, reportPicture, 
 
   return (
     <>
-      <div className="flex shrink-0 items-center justify-between border-b border-white/10 py-1.5 pr-1.5 pl-4">
-        <h2 className="text-sm font-medium text-white/90">{title}</h2>
+      <div className="flex shrink-0 items-center justify-between border-b border-ink/10 py-1.5 pr-1.5 pl-4">
+        <h2 className="text-sm font-medium text-ink/90">{title}</h2>
         <button
           type="button"
           aria-label="Close feedback"
           onClick={onClose}
-          className="flex h-11 w-11 items-center justify-center rounded-full text-white/70 hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
+          className="flex h-11 w-11 items-center justify-center rounded-full text-ink/70 hover:bg-ink/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-ink"
         >
           <X size={18} strokeWidth={1.75} />
         </button>

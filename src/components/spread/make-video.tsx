@@ -52,9 +52,9 @@ export function MakeVideo({ verseId, reference, myJobs, className, onGetCredits,
   if (config?.error) {
     return (
       <div className="px-3 py-1.5">
-        <p role="alert" className="pb-1 text-sm text-white/55">{config.error}</p>
+        <p role="alert" className="pb-1 text-sm text-ink/(--quiet-55)">{config.error}</p>
         <button type="button" className={`${className} -mx-3 w-[calc(100%+1.5rem)]`} onClick={generation.refreshConfiguration}>
-          <RefreshCw aria-hidden="true" className="h-4 w-4 text-white/60" />
+          <RefreshCw aria-hidden="true" className="h-4 w-4 text-ink/(--quiet-60)" />
           Reload video pricing
         </button>
       </div>
@@ -68,7 +68,7 @@ export function MakeVideo({ verseId, reference, myJobs, className, onGetCredits,
   }
   if (active) {
     return (
-      <p role="status" className="px-3 py-2.5 text-sm text-white/55">
+      <p role="status" className="px-3 py-2.5 text-sm text-ink/(--quiet-55)">
         Your video of {active.reference} is still being made. You can make another when it finishes.
       </p>
     );
@@ -76,11 +76,11 @@ export function MakeVideo({ verseId, reference, myJobs, className, onGetCredits,
   if (generation.request) {
     return (
       <div className="px-3 py-1.5">
-        <p className="pb-1 text-sm text-white/55">
+        <p className="pb-1 text-sm text-ink/(--quiet-55)">
           {generation.error ?? "Your last video request was not confirmed."} Checking it again will not make a second video.
         </p>
         <button type="button" className={`${className} -mx-3 w-[calc(100%+1.5rem)]`} disabled={!generation.ready} onClick={() => void generation.retrySubmission()}>
-          <RefreshCw aria-hidden="true" className="h-4 w-4 text-white/60" />
+          <RefreshCw aria-hidden="true" className="h-4 w-4 text-ink/(--quiet-60)" />
           Check the video request again
         </button>
       </div>
@@ -93,7 +93,7 @@ export function MakeVideo({ verseId, reference, myJobs, className, onGetCredits,
   const notice = failed ? failed.error || "This video could not be made. Your credits were returned." : generation.error;
   return (
     <>
-      {notice ? <p role="alert" className="px-3 pt-1.5 text-sm text-red-200">{notice}</p> : null}
+      {notice ? <p role="alert" className="px-3 pt-1.5 text-sm text-reader-alert">{notice}</p> : null}
       {isAdmin || credits >= quote.credits ? (
         <button
           type="button"
@@ -101,15 +101,15 @@ export function MakeVideo({ verseId, reference, myJobs, className, onGetCredits,
           disabled={!generation.ready || myJobs === undefined}
           onClick={() => void generation.generate({ ...MENU_VIDEO, maxCredits: quote.credits })}
         >
-          <Clapperboard aria-hidden="true" className="h-4 w-4 text-white/60" />
+          <Clapperboard aria-hidden="true" className="h-4 w-4 text-ink/(--quiet-60)" />
           <span>
             Make a video
-            {isAdmin ? null : <span className="text-white/55">{` · about ${quote.credits} ${quote.credits === 1 ? "credit" : "credits"}`}</span>}
+            {isAdmin ? null : <span className="text-ink/(--quiet-55)">{` · about ${quote.credits} ${quote.credits === 1 ? "credit" : "credits"}`}</span>}
           </span>
         </button>
       ) : (
         <button type="button" className={className} onClick={onGetCredits}>
-          <Clapperboard aria-hidden="true" className="h-4 w-4 text-white/60" />
+          <Clapperboard aria-hidden="true" className="h-4 w-4 text-ink/(--quiet-60)" />
           Get credits to make a video
         </button>
       )}
@@ -119,8 +119,8 @@ export function MakeVideo({ verseId, reference, myJobs, className, onGetCredits,
 
 function Progress({ text }: { text: string }) {
   return (
-    <p role="status" className="flex items-start gap-3 px-3 py-2.5 text-sm text-white/85">
-      <Loader2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-white/60 motion-safe:animate-spin" />
+    <p role="status" className="flex items-start gap-3 px-3 py-2.5 text-sm text-ink/85">
+      <Loader2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-ink/(--quiet-60) motion-safe:animate-spin" />
       <span>{text}</span>
     </p>
   );

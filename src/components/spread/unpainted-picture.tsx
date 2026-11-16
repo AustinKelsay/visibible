@@ -51,9 +51,9 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
   if (paint.painting) {
     body = (
       <div className="w-full max-w-[280px] space-y-3">
-        <p className="font-serif text-xl text-white/90">Painting {reference}</p>
+        <p className="font-serif text-xl text-ink/90">Painting {reference}</p>
         <PaintProgress paint={paint} reference={reference} />
-        <p className="text-xs text-white/60">
+        <p className="text-xs text-ink/(--quiet-60)">
           {generation.phase === "generating" ? "The picture is being painted." : "Getting the scene ready."} Keep reading; it appears here when it is done.
         </p>
       </div>
@@ -61,7 +61,7 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
   } else if (generation.error) {
     body = (
       <>
-        <p role="alert" className="max-w-sm text-sm text-red-200">{generation.error}</p>
+        <p role="alert" className="max-w-sm text-sm text-reader-alert">{generation.error}</p>
         <button type="button" className={PRIMARY} onClick={() => generation.generate("spread_retry")}>
           <RefreshCw aria-hidden="true" className="h-4 w-4" />
           Try again
@@ -71,7 +71,7 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
   } else if (generation.priceNotice) {
     body = (
       <>
-        <p role="status" className="max-w-sm text-sm text-white/85">{generation.priceNotice}</p>
+        <p role="status" className="max-w-sm text-sm text-ink/85">{generation.priceNotice}</p>
         <button type="button" className={PRIMARY} onClick={() => generation.generate("spread_paint")}>
           Paint at this price
         </button>
@@ -80,10 +80,10 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
   } else {
     body = (
       <>
-        <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-black/40 backdrop-blur-md md:h-14 md:w-14">
-          <Brush aria-hidden="true" className="h-5 w-5 text-white/85" />
+        <span className="flex h-12 w-12 items-center justify-center rounded-full border border-ink/10 bg-paper/40 backdrop-blur-md md:h-14 md:w-14">
+          <Brush aria-hidden="true" className="h-5 w-5 text-ink/85" />
         </span>
-        <p className="font-serif text-xl text-white/90 md:text-2xl">No picture for {reference} yet</p>
+        <p className="font-serif text-xl text-ink/90 md:text-2xl">No picture for {reference} yet</p>
         <PaintButton paint={paint} label={`Paint this ${word}`} />
         <button
           type="button"
@@ -93,14 +93,14 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
             setSwitchedHere(true);
             setAutoGenerate(!autoGenerate, "spread_paint_switch");
           }}
-          className="mt-1 inline-flex min-h-[44px] items-center gap-3 rounded-full px-2 text-sm text-white/70 hover:text-white focus-ring"
+          className="mt-1 inline-flex min-h-[44px] items-center gap-3 rounded-full px-2 text-sm text-ink/70 hover:text-ink focus-ring"
         >
           <span
             aria-hidden="true"
-            className={`relative h-6 w-10 shrink-0 rounded-full transition-colors ${autoGenerate ? "bg-white/85" : "bg-white/20"}`}
+            className={`relative h-6 w-10 shrink-0 rounded-full transition-colors ${autoGenerate ? "bg-ink/85" : "bg-ink/20"}`}
           >
             <span
-              className={`absolute top-0.5 h-5 w-5 rounded-full shadow motion-safe:transition-[left] ${autoGenerate ? "left-[18px] bg-black" : "left-0.5 bg-white"}`}
+              className={`absolute top-0.5 h-5 w-5 rounded-full shadow motion-safe:transition-[left] ${autoGenerate ? "left-[18px] bg-paper" : "left-0.5 bg-ink"}`}
             />
           </span>
           Paint {word}s automatically as I read
@@ -110,7 +110,7 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
   }
 
   return (
-    <section aria-label="Picture" className="absolute inset-0 overflow-hidden bg-[#050505]">
+    <section aria-label="Picture" className="reader-dark absolute inset-0 overflow-hidden bg-[#050505]">
       {glowSource ? (
         // A soft, darkened memory of the last painting, so the book never goes blank. Decorative.
         // eslint-disable-next-line @next/next/no-img-element
@@ -121,7 +121,7 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
           className="absolute inset-0 h-full w-full scale-125 object-cover object-center opacity-60 blur-3xl saturate-75"
         />
       ) : null}
-      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-paper/30 via-paper/20 to-paper/50" />
       <div className="relative flex h-full flex-col items-center justify-center gap-3 px-6 pt-8 pb-6 text-center md:gap-4 md:pr-[calc(var(--words-page-width)+1.5rem)] md:pb-28">
         {body}
       </div>

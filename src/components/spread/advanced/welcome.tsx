@@ -17,7 +17,7 @@ export function WelcomeItem() {
           closeLayer();
           showWelcome();
         }}
-        className="flex min-h-11 w-full items-center rounded-xl px-3 text-left text-sm text-white/90 transition-colors duration-[var(--motion-fast)] hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-white"
+        className="flex min-h-11 w-full items-center rounded-xl px-3 text-left text-sm text-ink/90 transition-colors duration-[var(--motion-fast)] hover:bg-ink/10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ink"
       >
         Show the welcome
       </button>

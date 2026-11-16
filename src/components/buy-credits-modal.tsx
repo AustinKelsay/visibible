@@ -462,7 +462,7 @@ export function BuyCreditsModal() {
 
   return (
     // Dark like the reader it opens over, whatever the system setting is.
-    <div className="reader-dark fixed inset-0 z-[70] flex items-end md:items-center justify-center">
+    <div className="reader-appearance fixed inset-0 z-[70] flex items-end md:items-center justify-center">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"

@@ -11,6 +11,7 @@ import { PageTurnLink, useArrival, useArrivesInWholePicture, usePageTurn } from 
 import { bibleChapterPlaces, VerseMarks } from "@/components/spread/verse-marks";
 import { useIdle } from "@/components/spread/idle-fade";
 import { useSwipeTurn } from "@/components/spread/swipe-turn";
+import { ReaderAppearance } from "@/components/spread/reader-appearance";
 import { PrefetchNextSpread } from "@/components/spread/prefetch-next";
 import { SpreadPicture } from "@/components/spread/spread-picture";
 import { WordsPage } from "@/components/spread/words-page";
@@ -109,13 +110,13 @@ function SpreadScreen({
 
   return (
     <main
-      className="fixed inset-0 flex flex-col overflow-hidden bg-[#050505] text-white [--words-page-width:min(40vw,600px)] md:block"
-      style={{ colorScheme: "dark" }}
+      className={`${whole ? "reader-dark" : "reader-appearance"} fixed inset-0 flex flex-col overflow-hidden bg-[#050505] text-ink [--words-page-width:min(40vw,600px)] md:block`}
       data-idle={idle}
       data-arrival={arrival ?? undefined}
       data-whole-picture={whole || undefined}
       {...swipe}
     >
+      <ReaderAppearance />
       {/* In the whole-picture view the frame takes the whole window; on a phone the picture and its caption
           sit centred above the page-turn row. On a phone the picture gives the turned-over words page (Ask)
           more room. */}

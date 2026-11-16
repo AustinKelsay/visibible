@@ -5,7 +5,7 @@ import { useSession } from "@/context/session-context";
 import { useVerseGeneration } from "@/lib/use-verse-generation";
 
 export const PILL = "inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-colors focus-ring";
-export const PRIMARY = `${PILL} bg-white text-black hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60`;
+export const PRIMARY = `${PILL} bg-ink text-paper hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-60`;
 
 /**
  * Painting a verse in the chosen art style from the spread: the existing generation flow for a verse with no picture
@@ -43,7 +43,7 @@ export type PaintVerse = ReturnType<typeof usePaintVerse>;
 export function PaintButton({ paint, label, className = PRIMARY }: { paint: PaintVerse; label: string; className?: string }) {
   const { buyCredits } = useSession();
   const { generation, quote } = paint;
-  if (generation.pricingUnavailable) return <p className="max-w-sm text-sm text-white/60">{generation.pricingUnavailable}</p>;
+  if (generation.pricingUnavailable) return <p className="max-w-sm text-sm text-ink/(--quiet-60)">{generation.pricingUnavailable}</p>;
   if (!generation.canGenerate && !generation.pricingPending) {
     return (
       <button type="button" className={className} onClick={buyCredits}>
@@ -55,7 +55,7 @@ export function PaintButton({ paint, label, className = PRIMARY }: { paint: Pain
     <button type="button" className={className} disabled={generation.pricingPending} onClick={() => generation.generate("spread_paint")}>
       <span>{label}</span>
       {quote ? (
-        <span className="font-normal text-black/55">
+        <span className="font-normal text-paper/(--quiet-55)">
           {` · about ${quote.estimateCredits} ${quote.estimateCredits === 1 ? "credit" : "credits"}`}
         </span>
       ) : null}
@@ -72,9 +72,9 @@ export function PaintProgress({ paint, reference }: { paint: PaintVerse; referen
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={paint.percent}
-      className="h-1 overflow-hidden rounded-full bg-white/15"
+      className="h-1 overflow-hidden rounded-full bg-ink/15"
     >
-      <div className="h-full rounded-full bg-white/80 motion-safe:transition-[width] motion-safe:duration-300" style={{ width: `${paint.percent}%` }} />
+      <div className="h-full rounded-full bg-ink/80 motion-safe:transition-[width] motion-safe:duration-300" style={{ width: `${paint.percent}%` }} />
     </div>
   );
 }

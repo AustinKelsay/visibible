@@ -152,7 +152,7 @@ export function FeedbackPrompt({ visitKey, onOpen, suppressed = false, className
     <div
       role="status"
       style={{ marginBottom: "env(safe-area-inset-bottom)" }}
-      className={`z-30 flex max-w-[min(20rem,calc(100vw-1.5rem))] items-center gap-1 rounded-2xl border border-white/10 bg-[rgba(14,14,16,0.88)] p-1 text-white shadow-2xl backdrop-blur-2xl animate-in fade-in duration-[var(--motion-base)] ${className}`}
+      className={`z-30 flex max-w-[min(20rem,calc(100vw-1.5rem))] items-center gap-1 rounded-2xl border border-ink/10 bg-reader-glass p-1 text-ink shadow-2xl backdrop-blur-2xl animate-in fade-in duration-[var(--motion-base)] ${className}`}
     >
       <button
         type="button"
@@ -161,7 +161,7 @@ export function FeedbackPrompt({ visitKey, onOpen, suppressed = false, className
           onOpen();
           finish();
         }}
-        className="flex min-h-11 flex-1 items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-white/90 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white"
+        className="flex min-h-11 flex-1 items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-ink/90 hover:bg-ink/10 focus-visible:outline-2 focus-visible:outline-ink"
       >
         <MessageCircleHeart size={16} strokeWidth={1.5} aria-hidden="true" className="shrink-0" />
         <span>Have feedback? We&apos;d love to hear from you!</span>
@@ -173,7 +173,7 @@ export function FeedbackPrompt({ visitKey, onOpen, suppressed = false, className
           finish();
         }}
         aria-label="Dismiss prompt"
-        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-white/60 hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-ink/(--quiet-60) hover:bg-ink/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-ink"
       >
         <X size={14} strokeWidth={2} />
       </button>

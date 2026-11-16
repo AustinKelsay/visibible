@@ -21,6 +21,10 @@ import {
  * loads. A setting nobody offers reads as its default whatever is stored, so cutting the Advanced module, or one item,
  * leaves the reader exactly as if that item were at its default.
  */
+/** How the reader's surfaces are drawn: dark, light, or as the system is set. */
+export type ReaderAppearance = "dark" | "light" | "system";
+export const READER_APPEARANCES: readonly ReaderAppearance[] = ["dark", "light", "system"];
+
 export interface AdvancedSettings {
   /** The model new pictures are painted with. Kept for this visit only: generation runs on one model (ADR 0012). */
   imageModel: string;
@@ -30,6 +34,8 @@ export interface AdvancedSettings {
   answeringModel: string;
   /** Whether the occasional "Have feedback?" prompt shows. */
   feedbackPrompts: boolean;
+  /** The reader's appearance. The whole-picture view is dark in every appearance. */
+  appearance: ReaderAppearance;
 }
 
 export type AdvancedSettingKey = keyof AdvancedSettings;
@@ -40,6 +46,7 @@ export const ADVANCED_DEFAULTS: Readonly<AdvancedSettings> = Object.freeze({
   resolution: DEFAULT_RESOLUTION,
   answeringModel: DEFAULT_CHAT_MODEL,
   feedbackPrompts: false,
+  appearance: "dark",
 });
 
 /** The reader's settings record; PreferencesProvider keeps Look and automatic painting in the same record. */
@@ -51,6 +58,7 @@ const STORED_NAME: Record<Exclude<AdvancedSettingKey, "imageModel">, string> = {
   resolution: "imageResolution",
   answeringModel: "chatModel",
   feedbackPrompts: "feedbackPrompts",
+  appearance: "appearance",
 };
 
 const offered = new Set<AdvancedSettingKey>();
@@ -88,6 +96,8 @@ function readStored(): Partial<AdvancedSettings> {
   if (typeof resolution === "string" && isValidResolution(resolution)) valid.resolution = resolution;
   if (typeof answeringModel === "string" && answeringModel.includes("/")) valid.answeringModel = answeringModel;
   if (stored[STORED_NAME.feedbackPrompts] === true) valid.feedbackPrompts = true;
+  const appearance = stored[STORED_NAME.appearance];
+  if (READER_APPEARANCES.includes(appearance as ReaderAppearance)) valid.appearance = appearance as ReaderAppearance;
   return valid;
 }
 
@@ -100,6 +110,16 @@ function compute(): AdvancedSettings {
   // A resolution the model cannot make falls back, as it always has.
   settings.resolution = normalizeResolutionForModel(settings.imageModel, settings.resolution);
   return settings;
+}
+
+/** Whether a loaded Advanced item offers this setting (otherwise it reads as its default). */
+export function isAdvancedSettingOffered(key: AdvancedSettingKey): boolean {
+  return offered.has(key);
+}
+
+/** The settings in force right now, outside React (what `useAdvancedSettings` answers after hydration). */
+export function readAdvancedSettings(): AdvancedSettings {
+  return getSnapshot();
 }
 
 function getSnapshot(): AdvancedSettings {

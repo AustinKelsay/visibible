@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CAPTURE_STUBS, VIDEO_PRICING, allowsRequest, findBrowser, localBase, ownerPassword, parseStep, pricedCatalog, selectStates, shotFile, stubLabel } from "./plan";
+import { CAPTURE_STUBS, VIDEO_PRICING, allowsRequest, findBrowser, localBase, ownerPassword, parseStep, pricedCatalog, readerSettingsIn, selectStates, shotFile, stubLabel } from "./plan";
 import { READER_STATES } from "./states";
 
 describe("reader capture plan", () => {
@@ -118,5 +118,18 @@ describe("reader capture plan", () => {
     expect(selectStates(states, []).map((state) => state.name)).toEqual(["reading", "marks", "idle-faded"]);
     expect(selectStates(states, ["idle-faded", "reading"]).map((state) => state.name)).toEqual(["reading", "idle-faded"]);
     expect(() => selectStates(states, ["contents"])).toThrow(/No state named contents/);
+  });
+
+  it("shoots each state in both appearances, naming the light pictures apart", () => {
+    const state = { name: "reading", path: "/john/1/5" };
+    expect(shotFile(state, "desktop", "dark")).toBe("reading-desktop.png");
+    expect(shotFile(state, "phone", "light")).toBe("reading-phone-light.png");
+  });
+
+  it("chooses the appearance in the reader's stored settings, keeping the rest", () => {
+    expect(JSON.parse(readerSettingsIn(null, "light"))).toEqual({ version: 1, advanced: { appearance: "light" } });
+    const stored = JSON.stringify({ version: 1, look: { textSize: "large" }, advanced: { chatModel: "a/b", appearance: "light" } });
+    expect(JSON.parse(readerSettingsIn(stored, "dark"))).toEqual({ version: 1, look: { textSize: "large" }, advanced: { chatModel: "a/b", appearance: "dark" } });
+    expect(JSON.parse(readerSettingsIn("not json", "light"))).toEqual({ version: 1, advanced: { appearance: "light" } });
   });
 });

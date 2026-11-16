@@ -35,10 +35,10 @@ export function ContentsButton({ reference, variant }: { reference: string; vari
     "aria-expanded": isOpen,
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => toggle(event.currentTarget),
   };
-  const focusRing = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
+  const focusRing = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
   if (variant === "phone") {
     return (
-      <button {...shared} aria-label="Contents" className={`inline-flex h-11 w-11 items-center justify-center rounded-full text-white/85 hover:bg-white/10 ${focusRing}`}>
+      <button {...shared} aria-label="Contents" className={`inline-flex h-11 w-11 items-center justify-center rounded-full text-ink/85 hover:bg-ink/10 ${focusRing}`}>
         <BookOpen size={20} strokeWidth={1.5} />
       </button>
     );
@@ -47,11 +47,11 @@ export function ContentsButton({ reference, variant }: { reference: string; vari
     <button
       {...shared}
       aria-label={`${reference}, Contents`}
-      className={`inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm font-medium text-white/90 transition-colors duration-[var(--motion-fast)] hover:bg-white/10 hover:text-white ${focusRing}`}
+      className={`inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm font-medium text-ink/90 transition-colors duration-[var(--motion-fast)] hover:bg-ink/10 hover:text-ink ${focusRing}`}
     >
       <BookOpen size={16} strokeWidth={1.5} aria-hidden="true" />
       {reference}
-      <ChevronDown size={14} strokeWidth={1.5} aria-hidden="true" className="text-white/60" />
+      <ChevronDown size={14} strokeWidth={1.5} aria-hidden="true" className="text-ink/(--quiet-60)" />
     </button>
   );
 }
@@ -68,7 +68,7 @@ export function ContentsLayer(place: ContentsPlace) {
     <LayerPanel
       id="contents"
       label="Contents"
-      className="fixed inset-0 z-50 flex flex-col bg-[#0a0a0b] text-white outline-none md:inset-6 md:overflow-hidden md:rounded-[28px] md:border md:border-white/10 md:bg-[#0c0c0d]/95 md:shadow-[0_40px_120px_rgba(0,0,0,0.6)] md:backdrop-blur-2xl"
+      className="fixed inset-0 z-50 flex flex-col bg-reader-page text-ink outline-none md:inset-6 md:overflow-hidden md:rounded-[28px] md:border md:border-ink/10 md:bg-reader-sheet/95 md:shadow-[0_40px_120px_rgba(0,0,0,0.6)] md:backdrop-blur-2xl"
     >
       {scope ? <WorkContentsBody scope={scope} division={place.chapter} moment={place.verse} /> : <ContentsBody {...place} />}
     </LayerPanel>
@@ -112,10 +112,10 @@ function ContentsBody(place: ContentsPlace) {
           aria-expanded={choosingBook}
           aria-label={`${book.name}, choose a book`}
           onClick={() => setChoosingBook((open) => !open)}
-          className="-ml-2 inline-flex min-w-0 items-center gap-2 rounded-xl px-2 py-1 font-serif text-4xl leading-tight text-white hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-white md:text-5xl"
+          className="-ml-2 inline-flex min-w-0 items-center gap-2 rounded-xl px-2 py-1 font-serif text-4xl leading-tight text-ink hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-ink md:text-5xl"
         >
           <span className="truncate">{book.name}</span>
-          <ChevronDown size={22} strokeWidth={1.5} aria-hidden="true" className={`shrink-0 text-white/60 transition-transform ${choosingBook ? "rotate-180" : ""}`} />
+          <ChevronDown size={22} strokeWidth={1.5} aria-hidden="true" className={`shrink-0 text-ink/(--quiet-60) transition-transform ${choosingBook ? "rotate-180" : ""}`} />
         </button>
         <span className="flex-1" />
         <CloseContents onClose={close} />
@@ -162,7 +162,7 @@ function CloseContents({ onClose }: { onClose: () => void }) {
       type="button"
       aria-label="Close contents"
       onClick={onClose}
-      className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/85 hover:bg-white/15 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
+      className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink/10 text-ink/85 hover:bg-ink/15 hover:text-ink focus-visible:outline-2 focus-visible:outline-ink"
     >
       <X size={20} strokeWidth={1.5} />
     </button>
@@ -200,7 +200,7 @@ function WorkContentsBody({ scope, division, moment }: { scope: WorkScope; divis
   return (
     <div className="flex min-h-0 flex-1 flex-col" onKeyDown={keepArrowKeys}>
       <div className="flex items-center gap-3 px-5 pt-[max(1.25rem,var(--safe-area-inset-top))] md:px-10 md:pt-8">
-        <h2 className="min-w-0 truncate font-serif text-3xl leading-tight text-white md:text-5xl">{scope.title}</h2>
+        <h2 className="min-w-0 truncate font-serif text-3xl leading-tight text-ink md:text-5xl">{scope.title}</h2>
         <span className="flex-1" />
         <CloseContents onClose={close} />
       </div>
@@ -212,7 +212,7 @@ function WorkContentsBody({ scope, division, moment }: { scope: WorkScope; divis
         onChoose={setShown}
       />
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pt-4 pb-[max(2rem,var(--safe-area-inset-bottom))] md:px-10 md:pt-6">
-        <h3 className="mb-3 font-serif text-xl text-white/85 md:mb-4 md:text-2xl">{shownDivision?.label}</h3>
+        <h3 className="mb-3 font-serif text-xl text-ink/85 md:mb-4 md:text-2xl">{shownDivision?.label}</h3>
         <ChapterWall places={places} current={shown === division ? moment : null} onChoose={onChoose} />
       </div>
     </div>
@@ -246,13 +246,13 @@ function BookPicker({ currentSlug, onChoose }: { currentSlug: string; onChoose: 
         placeholder="Find a book…"
         aria-label="Find a book"
         autoComplete="off"
-        className="h-12 w-full max-w-md rounded-full border border-white/10 bg-white/[0.06] px-5 text-base text-white placeholder:text-white/40 focus:border-white/30 focus:outline-none"
+        className="h-12 w-full max-w-md rounded-full border border-ink/10 bg-ink/[0.06] px-5 text-base text-ink placeholder:text-ink/(--quiet-40) focus:border-ink/30 focus:outline-none"
       />
       <div role="group" aria-label="Books" className="mt-4 min-h-0 flex-1 overflow-y-auto overscroll-contain pb-[max(2rem,var(--safe-area-inset-bottom))]">
-        {matches.length === 0 ? <p className="py-6 text-white/55">No book matches “{query.trim()}”.</p> : null}
+        {matches.length === 0 ? <p className="py-6 text-ink/(--quiet-55)">No book matches “{query.trim()}”.</p> : null}
         {groups.map((group) => (
           <section key={group.title ?? "matches"} className="mb-6">
-            {group.title ? <h2 className="mb-2 text-[11px] font-medium uppercase tracking-[0.22em] text-white/50">{group.title}</h2> : null}
+            {group.title ? <h2 className="mb-2 text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-50)">{group.title}</h2> : null}
             <ul className="grid grid-cols-2 gap-x-4 sm:grid-cols-3 lg:grid-cols-5">
               {group.books.map((book) => (
                 <li key={book.slug}>
@@ -260,7 +260,7 @@ function BookPicker({ currentSlug, onChoose }: { currentSlug: string; onChoose: 
                     type="button"
                     aria-current={book.slug === currentSlug ? "true" : undefined}
                     onClick={() => onChoose(book.slug)}
-                    className={`w-full truncate rounded-lg px-2 py-2 text-left font-serif text-lg hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white ${book.slug === currentSlug ? "text-white" : "text-white/75"}`}
+                    className={`w-full truncate rounded-lg px-2 py-2 text-left font-serif text-lg hover:bg-ink/10 focus-visible:outline-2 focus-visible:outline-ink ${book.slug === currentSlug ? "text-ink" : "text-ink/75"}`}
                   >
                     {book.name}
                   </button>
@@ -293,7 +293,7 @@ function ChapterPicker({ level, count, labels, chosen, onChoose }: {
 
   return (
     <div className="mt-3 flex items-center gap-4 pl-5 md:mt-5 md:pl-10">
-      <span aria-hidden="true" className="shrink-0 text-[11px] font-medium uppercase tracking-[0.22em] text-white/55">{level}</span>
+      <span aria-hidden="true" className="shrink-0 text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)">{level}</span>
       <div role="group" aria-label={level} className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto px-1 py-1 pr-5 [mask-image:linear-gradient(to_right,transparent,#000_12px,#000_calc(100%-24px),transparent)] [scrollbar-width:none] md:pr-10">
         {Array.from({ length: count }, (_, index) => {
           const number = index + 1;
@@ -308,7 +308,7 @@ function ChapterPicker({ level, count, labels, chosen, onChoose }: {
               title={label}
               aria-pressed={isShown}
               onClick={() => onChoose(number)}
-              className={`inline-flex h-10 min-w-10 shrink-0 items-center justify-center rounded-full px-2 text-sm tabular-nums focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${isShown ? "bg-white font-semibold text-black" : "bg-white/[0.07] text-white/80 hover:bg-white/15"}`}
+              className={`inline-flex h-10 min-w-10 shrink-0 items-center justify-center rounded-full px-2 text-sm tabular-nums focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${isShown ? "bg-ink font-semibold text-paper" : "bg-ink/[0.07] text-ink/80 hover:bg-ink/15"}`}
             >
               {number}
             </button>
@@ -429,9 +429,9 @@ function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, onChoose 
       aria-current={isCurrent ? "page" : undefined}
       data-autofocus={isCurrent ? "" : undefined}
       onClick={() => onChoose(href)}
-      className={`group relative block aspect-video overflow-hidden rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
-        unpainted ? "border border-dashed border-white/15 bg-white/[0.025]" : "bg-white/[0.05]"
-      } ${isCurrent ? "ring-2 ring-white ring-offset-2 ring-offset-[#0a0a0b]" : ""}`}
+      className={`group relative block aspect-video overflow-hidden rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${
+        unpainted ? "border border-dashed border-ink/15 bg-ink/[0.025]" : "bg-ink/[0.05]"
+      } ${isCurrent ? "ring-2 ring-ink ring-offset-2 ring-offset-reader-page" : ""}`}
     >
       {source ? (
         // Tiles load the small copy (#444); there is no resizing service.
@@ -440,18 +440,18 @@ function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, onChoose 
       ) : null}
       {job === "generating" ? (
         // A soft breathing light while the verse is being painted.
-        <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/[0.10] via-white/[0.03] to-transparent motion-safe:animate-pulse" />
+        <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-ink/[0.10] via-ink/[0.03] to-transparent motion-safe:animate-pulse" />
       ) : null}
       {waiting ? <TileJobMark status={job} /> : unpainted ? (
-        <Paintbrush aria-hidden="true" size={18} strokeWidth={1.5} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/25" />
+        <Paintbrush aria-hidden="true" size={18} strokeWidth={1.5} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-ink/(--quiet-25)" />
       ) : null}
       {job === "completed" ? (
-        <span aria-hidden="true" className="absolute top-2 left-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-black shadow">
+        <span aria-hidden="true" className="absolute top-2 left-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-ink text-paper shadow">
           <Check size={12} strokeWidth={2.5} />
         </span>
       ) : null}
       {source ? <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent" /> : null}
-      <span aria-hidden="true" className={`absolute bottom-2 left-2.5 text-sm font-semibold tabular-nums ${source ? "text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.7)]" : "text-white/45"}`}>
+      <span aria-hidden="true" className={`absolute bottom-2 left-2.5 text-sm font-semibold tabular-nums ${source ? "text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.7)]" : "text-ink/(--quiet-45)"}`}>
         {verse}
       </span>
       {tile?.hasVideo ? (
@@ -471,10 +471,10 @@ function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, onChoose 
 
 function TileJobMark({ status }: { status: TileJobStatus }) {
   const [Icon, text, tone] = status === "generating"
-    ? [Loader2, "Painting", "text-white/85"]
+    ? [Loader2, "Painting", "text-ink/85"]
     : status === "failed"
-      ? [AlertCircle, "Failed", "text-red-200/90"]
-      : [Clock, "Queued", "text-white/50"];
+      ? [AlertCircle, "Failed", "text-reader-alert/90"]
+      : [Clock, "Queued", "text-ink/(--quiet-50)"];
   return (
     <span aria-hidden="true" className={`absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-[11px] font-medium tracking-wide ${tone}`}>
       <Icon size={18} strokeWidth={1.5} className={status === "generating" ? "motion-safe:animate-spin" : undefined} />

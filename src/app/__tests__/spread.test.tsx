@@ -781,7 +781,9 @@ describe("what the verse page no longer shows", () => {
     expect(container.querySelector("header, body > footer, aside")).toBeNull();
     expect(container.textContent).not.toMatch(/Gallery|Video|Details|Chat|Generate|Get credits/i);
     expect([...container.querySelectorAll("nav")].map((nav) => nav.getAttribute("aria-label")).sort()).toEqual(["Reader", "Turn the page", "Verses of Genesis 1"]);
-    expect(container.querySelector("main")?.style.colorScheme).toBe("dark");
+    // Drawn in the reader's appearance, which is dark until the reader chooses light in Advanced.
+    expect(container.querySelector("main")?.classList.contains("reader-appearance")).toBe(true);
+    expect(document.documentElement.hasAttribute("data-reader-appearance")).toBe(false);
   });
 });
 
