@@ -272,6 +272,8 @@ export default defineSchema({
     .index("by_verse", ["verseId", "createdAt"])
     // Style-leading discovery (#176): does a book or chapter have any image in one style?
     .index("by_artStyle_verse", ["artStyleId", "verseId"])
+    // Contents (#445): a verse's newest picture in one style, without reading its other pictures.
+    .index("by_verse_artStyle", ["verseId", "artStyleId", "createdAt"])
     .index("by_storageId", ["storageId"])
     // The thumbnail backfill reads pictures without one; also checks whether a thumbnail blob is referenced.
     .index("by_thumbnailStorageId", ["thumbnailStorageId"])

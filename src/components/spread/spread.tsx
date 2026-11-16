@@ -1,5 +1,7 @@
 "use client";
 
+import { AskProvider } from "@/components/spread/ask";
+import { ContentsButton, ContentsLayer } from "@/components/spread/contents";
 import { CornerMenu } from "@/components/spread/corner-menu";
 import { LayerProvider } from "@/components/spread/layers";
 import { PageTurnLink, useArrival, usePageTurn } from "@/components/spread/page-turn";
@@ -56,7 +58,8 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
       data-arrival={arrival ?? undefined}
       {...swipe}
     >
-      <div data-turn-in="fade" className="relative aspect-square max-h-[52svh] w-full shrink-0 overflow-hidden md:absolute md:inset-0 md:aspect-auto md:max-h-none">
+      {/* On a phone the picture gives the turned-over words page (Ask) more room. */}
+      <div data-turn-in="fade" className="relative aspect-square max-h-[52svh] w-full shrink-0 overflow-hidden transition-[max-height] duration-300 motion-reduce:transition-none max-md:[main:has([data-ask-page])_&]:max-h-[30svh] md:absolute md:inset-0 md:aspect-auto md:max-h-none">
         <SpreadPicture verseId={verseId} reference={reference} />
       </div>
       <PrefetchNextSpread nextUrl={nextUrl} nextVerseId={nextVerseId} />
@@ -72,17 +75,20 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
 
       <CornerMenu verseId={verseId} bookName={bookName} chapter={chapter} verseNumber={verseNumber} />
 
-      <WordsPage
-        bookName={bookName}
-        chapter={chapter}
-        verseNumber={verseNumber}
-        verseText={verseText}
-        totalVerses={totalVerses}
-        translationName={translationName}
-        prevUrl={prevUrl}
-        nextUrl={nextUrl}
-        onTurn={onTurn}
-      />
+      {/* Keyed by the verse: turning the page clears the conversation. */}
+      <AskProvider key={verseId} verse={{ bookName, chapter, verseNumber, verseText }}>
+        <WordsPage
+          bookName={bookName}
+          chapter={chapter}
+          verseNumber={verseNumber}
+          verseText={verseText}
+          totalVerses={totalVerses}
+          translationName={translationName}
+          prevUrl={prevUrl}
+          nextUrl={nextUrl}
+          onTurn={onTurn}
+        />
+      </AskProvider>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-8 hidden justify-center md:right-[var(--words-page-width)] md:flex">
         <nav
@@ -91,10 +97,12 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
           className="liquid-glass spread-dock pointer-events-auto flex items-center gap-1 rounded-full p-1.5"
         >
           <PageTurnLink direction="prev" href={prevUrl} onTurn={onTurn} />
-          <span className="px-3 text-sm font-medium text-white/90">{reference}</span>
+          <ContentsButton reference={reference} variant="dock" />
           <PageTurnLink direction="next" href={nextUrl} onTurn={onTurn} />
         </nav>
       </div>
+
+      <ContentsLayer bookSlug={bookSlug} chapter={chapter} verse={verseNumber} />
     </main>
   );
 }

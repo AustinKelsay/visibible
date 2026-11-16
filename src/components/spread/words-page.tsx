@@ -1,3 +1,5 @@
+import { AskDockButton, AskFoot, AskPage } from "@/components/spread/ask";
+import { ContentsButton } from "@/components/spread/contents";
 import { PageTurnLink, type TrackPageTurn } from "@/components/spread/page-turn";
 
 const FADE_INTO_FOOT = "linear-gradient(to bottom, #000 calc(100% - 2rem), transparent)";
@@ -15,9 +17,10 @@ export interface WordsPageProps {
 }
 
 /**
- * The words page: the book and chapter, the verse number, the verse, and a foot line with the
- * translation and position. A long verse scrolls inside the page; the foot line stays put.
- * On a phone previous and next sit beside the foot line; on a computer they live in the dock.
+ * The words page: the book and chapter, the verse number, the verse, the place to ask about it, and a
+ * foot line with the translation and position. A long verse scrolls inside the page; the foot line stays
+ * put. On a phone previous and next sit beside the foot line and the dock's "Ask a question…" replaces
+ * the suggestions; on a computer previous and next live in the dock. Asking turns the page over (AskPage).
  */
 export function WordsPage({
   bookName,
@@ -49,7 +52,14 @@ export function WordsPage({
           {verseText}
         </p>
       </div>
-      <footer className="flex items-center gap-2 border-t border-white/10 px-3 pt-1 pb-[max(0.25rem,var(--safe-area-inset-bottom))] text-[11px] font-medium uppercase tracking-[0.18em] text-white/50 md:mx-12 md:gap-4 md:px-0 md:py-5 lg:mx-14">
+      <AskFoot />
+      <div className="flex justify-center px-3 pb-2 md:hidden">
+        <nav aria-label="Reader" className="liquid-glass spread-dock flex w-full max-w-sm items-center gap-1 rounded-full p-1.5">
+          <ContentsButton reference={`${bookName} ${chapter}:${verseNumber}`} variant="phone" />
+          <AskDockButton />
+        </nav>
+      </div>
+      <footer className="flex items-center gap-2 border-t border-white/10 md:border-t-0 px-3 pt-1 pb-[max(0.25rem,var(--safe-area-inset-bottom))] text-[11px] font-medium uppercase tracking-[0.18em] text-white/50 md:mx-12 md:gap-4 md:px-0 md:py-5 lg:mx-14">
         <PageTurnLink direction="prev" href={prevUrl} onTurn={onTurn} className="md:hidden" />
         <span className="min-w-0 flex-1 truncate text-center md:text-left">{translationName}</span>
         <span aria-label={`Verse ${verseNumber} of ${totalVerses}`} className="tabular-nums">
@@ -57,6 +67,7 @@ export function WordsPage({
         </span>
         <PageTurnLink direction="next" href={nextUrl} onTurn={onTurn} className="md:hidden" />
       </footer>
+      <AskPage />
     </article>
   );
 }

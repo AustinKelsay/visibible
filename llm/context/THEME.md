@@ -10,4 +10,4 @@ Use the existing semantic variables, restrained decoration and Lucide icons. Pre
 
 Use existing components as references: [header](../../src/components/header.tsx), [book menu](../../src/components/book-menu.tsx), [buy-credits modal](../../src/components/buy-credits-modal.tsx), [image skeleton](../../src/components/image-loading-skeleton.tsx). Check the actual component breakpoints and safe-area rules instead of assuming one fixed desktop/mobile layout.
 
-Reader, gallery, sidebar and fullscreen behavior are documented in [Navigation](NAVIGATION.md). Token values should change in CSS, without maintaining duplicate value tables here.
+Reader, Contents, sidebar and fullscreen behavior are documented in [Navigation](NAVIGATION.md). Token values should change in CSS, without maintaining duplicate value tables here.
