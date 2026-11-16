@@ -1,8 +1,12 @@
 "use client";
 
+/* eslint-disable react-hooks/set-state-in-effect -- The stage's own effects are unchanged; the compiler skipped this
+   component while it held the generation flow (now useVerseGeneration). It serves only the owner's prose reader
+   until that reader moves onto the spread (#451) and this file is deleted. */
+
 import Link from "next/link";
-import { useEffect, useMemo, useState, useCallback, useRef, type TouchEvent } from "react";
-import { useMutation, useQuery, useConvexAuth } from "convex/react";
+import { useEffect, useState, useCallback, useRef, type TouchEvent } from "react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { useSearchParams } from "next/navigation";
@@ -17,37 +21,18 @@ import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 import {
   ASPECT_RATIOS,
   ImageAspectRatio,
-  canAffordImageGeneration,
-  DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
-  getEstimatedCreditsCostForResolution,
   isValidAspectRatio,
-  type ImageResolution,
 } from "@/lib/image-models";
 import {
   type GenerationTriggerSource,
-  trackImageGenerated,
-  trackImageGenerationStarted,
-  trackGenerationError,
-  trackCreditsInsufficient,
   trackImageBrowsed,
   trackImageFullscreenOpened,
   trackSavedImageLoadFailed,
   trackVerseImagesState,
 } from "@/lib/analytics";
-import { resolveHasCreditsAfterGeneration } from "@/lib/analytics-event-utils";
-import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
-import { computeImageGenerationProgress } from "@/lib/image-generation-progress";
-import { artStyleLabel, resolveArtStyle, type ArtStyleAvailability } from "@/lib/art-styles";
-import { imageModelsUrl, useEffectiveArtStyle, useWorkScope } from "@/context/work-scope-context";
-import { formatQuote, parseQuote, parseStaleQuote, sameQuoteNumbers, type DisplayQuote } from "@/lib/quote-display";
-
-/** How long the moment and settings must hold still before their quote is read. */
-const QUOTE_DEBOUNCE_MS = 400;
-
-function readCsrfToken(): string | undefined {
-  const prefix = `${CSRF_COOKIE_NAME}=`;
-  return document.cookie.split("; ").find((row) => row.startsWith(prefix))?.slice(prefix.length);
-}
+import { artStyleLabel } from "@/lib/art-styles";
+import { useEffectiveArtStyle, useWorkScope } from "@/context/work-scope-context";
+import { useVerseGeneration } from "@/lib/use-verse-generation";
 
 interface HeroImageProps {
   alt?: string;
@@ -278,16 +263,6 @@ function HeroImageWithConvex({
   );
 }
 
-interface ModelPricing {
-  modelId?: string;
-  availability?: "available" | "stale" | "unavailable";
-  unavailableReason?: string;
-  creditsCost: number | null;
-  reservationCreditsCost: number | null;
-  estimatedCreditsByResolution?: Partial<Record<ImageResolution, number>>;
-  etaSeconds: number;
-}
-
 function HeroImageBase({
   alt = "Scripture illustration",
   caption = "In the beginning",
@@ -308,10 +283,9 @@ function HeroImageBase({
   showingOtherStyles = false,
   onToggleOtherStyles,
 }: HeroImageBaseProps) {
-  const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation, autoGenerate } = usePreferences();
+  const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution } = usePreferences();
   const scope = useWorkScope();
-  const { artStyle, offered: offeredStyles } = useEffectiveArtStyle();
-  const catalogUrl = imageModelsUrl(scope);
+  const { artStyle } = useEffectiveArtStyle();
   const isConvexEnabled = useConvexEnabled();
   const { tier, credits, buyCredits, isLoading: sessionLoading } = useSession();
   const { setCurrentImageId, setCaptionClamped, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
@@ -324,103 +298,6 @@ function HeroImageBase({
     registerBuyCredits,
     registerSettings,
   } = useGeneration();
-
-  // Fetch model pricing info
-  const [modelPricing, setModelPricing] = useState<ModelPricing>({
-    creditsCost: null,
-    reservationCreditsCost: null,
-    estimatedCreditsByResolution: undefined,
-    etaSeconds: 12,
-  });
-  const [pricingLoaded, setPricingLoaded] = useState(false);
-  const [styleAvailability, setStyleAvailability] = useState<ArtStyleAvailability[] | null>(null);
-
-  useEffect(() => {
-    let isCancelled = false;
-    setPricingLoaded(false);
-
-    // Fetch models to get pricing for current model
-    fetch(catalogUrl, { cache: "no-store" })
-      .then((res) => res.json())
-      .then((data) => {
-        if (isCancelled) return;
-        if (Array.isArray(data.artStyles)) setStyleAvailability(data.artStyles);
-        if (Array.isArray(data.models)) {
-          // Set current model pricing
-          const current = data.models.find((m: { id: string }) => m.id === imageModel);
-          if (current) {
-            setModelPricing({
-              modelId: imageModel,
-              availability: current.availability,
-              unavailableReason: current.unavailableReason,
-              creditsCost: current.creditsCost,
-              reservationCreditsCost: current.reservationCreditsCost ?? null,
-              estimatedCreditsByResolution: current.estimatedCreditsByResolution,
-              etaSeconds: current.etaSeconds ?? 12,
-            });
-          } else {
-            setModelPricing({ modelId: imageModel, creditsCost: null, reservationCreditsCost: null, etaSeconds: 12, availability: "unavailable", unavailableReason: "Saved model unavailable. Choose another model." });
-          }
-        } else {
-          throw new Error("Invalid image catalog");
-        }
-      })
-      .catch(() => {
-        if (!isCancelled) setModelPricing({ modelId: imageModel, creditsCost: null, reservationCreditsCost: null, etaSeconds: 12, availability: "unavailable", unavailableReason: "Image pricing unavailable. Reopen the reader to retry." });
-      })
-      .finally(() => {
-        if (!isCancelled) {
-          setPricingLoaded(true);
-        }
-      });
-    return () => {
-      isCancelled = true;
-    };
-  }, [imageModel, catalogUrl]);
-
-  // Determine if user can generate (has sufficient credits or is admin)
-  const baseCost = modelPricing.creditsCost ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
-  const effectiveCost =
-    getEstimatedCreditsCostForResolution(
-      {
-        id: imageModel,
-        creditsCost: modelPricing.creditsCost,
-        reservationCreditsCost: modelPricing.reservationCreditsCost,
-        estimatedCreditsByResolution: modelPricing.estimatedCreditsByResolution,
-      },
-      imageResolution
-    ) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
-  const displayBaseCost =
-    modelPricing.estimatedCreditsByResolution?.["1K"] ??
-    getEstimatedCreditsCostForResolution(
-      {
-        id: imageModel,
-        creditsCost: modelPricing.creditsCost,
-        reservationCreditsCost: modelPricing.reservationCreditsCost,
-        estimatedCreditsByResolution: modelPricing.estimatedCreditsByResolution,
-      },
-      "1K"
-    ) ??
-    DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
-  const displayCostByResolution = modelPricing.estimatedCreditsByResolution;
-  const effectiveEta = modelPricing.etaSeconds;
-  const isAdmin = tier === "admin";
-  const pricingAvailable = pricingLoaded && modelPricing.modelId === imageModel && modelPricing.creditsCost !== null && modelPricing.availability !== "unavailable";
-  const pricingPending = isConvexEnabled && (!pricingLoaded || modelPricing.modelId !== imageModel);
-  // An offered style the server is not admitting (rollback) disables generation in it; it is never swapped for Classical.
-  const resolvedStyle = resolveArtStyle(artStyle, styleAvailability, offeredStyles);
-  const styleAvailable = resolvedStyle.available !== false;
-  const pricingUnavailable = pricingLoaded && !pricingPending && !pricingAvailable
-    ? modelPricing.unavailableReason ?? "Image pricing is unavailable right now. Please try again shortly."
-    : pricingLoaded && !pricingPending && !styleAvailable
-      ? `${artStyleLabel(artStyle)} is temporarily unavailable for new images. Saved images stay available; choose another style to generate.`
-      : undefined;
-  const canGenerate = pricingAvailable && styleAvailable && (isAdmin ||
-    (tier === "paid" && canAffordImageGeneration(credits, effectiveCost)));
-  // A guest is charged for an automatic image without seeing its price, so it runs only once they have turned it on
-  // in the image settings. The owner is not charged.
-  const canAutoGenerate = pricingAvailable && styleAvailable && (isAdmin || (autoGenerate && tier === "paid" && credits >= effectiveCost));
-  const showCreditsCost = isConvexEnabled && !isAdmin && pricingAvailable;
 
   const verseId = scope ? scope.unitId : currentReference ? createVerseId(currentReference) : null;
 
@@ -485,42 +362,55 @@ function HeroImageBase({
     model: string;
     id?: string;
   } | null>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [isDisplayImageReady, setIsDisplayImageReady] = useState(false);
   const [isFullscreenImageReady, setIsFullscreenImageReady] = useState(false);
   const [isFullscreenImageError, setIsFullscreenImageError] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  // A fresh quote is waiting for the guest to accept it: at a different price than the one shown ("changed"), or
-  // because no price was on screen when they clicked ("unconfirmed").
-  const [priceToConfirm, setPriceToConfirm] = useState<"changed" | "unconfirmed" | null>(null);
-  const [hasAttemptedGeneration, setHasAttemptedGeneration] = useState(false);
   const [imageLoadAttempts, setImageLoadAttempts] = useState(0);
-  const [activeRequestId, setActiveRequestId] = useState<string | null>(null);
-  const [followingRequest, setFollowingRequest] = useState(false);
-  const [generationProgress, setGenerationProgress] = useState(0);
-  const activeRequest = useRef<AbortController | null>(null);
-  const isMounted = useRef(true);
   const lastDisplayImageKeyRef = useRef<string | null>(null);
-  const generationIdRef = useRef(0);
-  const generationStartedAtRef = useRef<number | null>(null);
   const imageElementRef = useRef<HTMLImageElement | null>(null);
   const swipeStartRef = useRef<{ x: number; y: number; ignore: boolean } | null>(null);
   const handleManualRegenerateRef = useRef<((source?: GenerationTriggerSource) => void) | null>(null);
   const trackedImageIdsRef = useRef<Set<Id<"verseImages">>>(new Set());
 
-  const { isAuthenticated } = useConvexAuth();
-  const generationRequestStatus = useQuery(
-    api.verseImages.getGenerationRequestStatus,
-    isAuthenticated && activeRequestId ? { requestId: activeRequestId } : "skip"
-  );
   const recordImageImpression = useMutation(
     api.verseImages.recordImageImpression
   );
 
-  const generationPhaseLabel = generationRequestStatus?.status === "generating"
-    ? "Generating image..."
-    : "Generating...";
+  const {
+    canGenerate,
+    pricingPending,
+    pricingUnavailable,
+    effectiveCost,
+    effectiveEta,
+    baseCost,
+    displayBaseCost,
+    displayCostByResolution,
+    showCreditsCost,
+    quoteLabel,
+    priceNotice,
+    isGenerating,
+    progress: generationProgress,
+    phaseLabel: generationPhaseLabel,
+    error,
+    setError,
+    generate,
+  } = useVerseGeneration({
+    verseId,
+    reference: currentReference,
+    styleImageCount: selectedStyleImageCount ?? imageHistory?.length,
+    autoGenerateBlocked: showingOtherStyles,
+    onAttemptStart: () => {
+      pendingFollowLatest.current = selectedImageId === null;
+      setPendingImageId(null);
+      setImageLoadAttempts(0);
+    },
+    onImage: ({ savedImageId, url, model }) => {
+      if (savedImageId) setPendingImageId(savedImageId);
+      // No Convex persistence; show the generated URL immediately.
+      else setGeneratedImage({ url, model });
+    },
+  });
 
   // Maximum number of retries before giving up
   const maxLoadAttempts = 3;
@@ -560,7 +450,7 @@ function HeroImageBase({
   // Phones explain missing pricing under a saved image (the empty state already says it)
   const showPhonePricingNote = Boolean(pricingUnavailable) && Boolean(displayImage?.url);
   // While something sits under or on the stage, the phone pager moves to a row under the painting
-  const phonePagerBelow = isGenerating || Boolean(error) || priceToConfirm !== null || showPhonePricingNote;
+  const phonePagerBelow = isGenerating || Boolean(error) || Boolean(priceNotice) || showPhonePricingNote;
 
   useEffect(() => {
     const nextSelectedImageId = requestedImageId && requestedImageId.length > 0
@@ -571,33 +461,7 @@ function HeroImageBase({
     setError(null);
     setImageLoadAttempts(0);
     pendingFollowLatest.current = nextSelectedImageId === null;
-  }, [requestedImageId, verseId]);
-
-  useEffect(() => {
-    if (!isGenerating) {
-      generationStartedAtRef.current = null;
-      setGenerationProgress(0);
-      return;
-    }
-
-    if (generationStartedAtRef.current === null) {
-      generationStartedAtRef.current = Date.now();
-    }
-
-    const updateProgress = () => {
-      const startedAt = generationStartedAtRef.current;
-      if (startedAt === null) return;
-
-      setGenerationProgress(
-        computeImageGenerationProgress(Date.now() - startedAt, effectiveEta)
-      );
-    };
-
-    updateProgress();
-    const intervalId = window.setInterval(updateProgress, 200);
-
-    return () => window.clearInterval(intervalId);
-  }, [isGenerating, effectiveEta]);
+  }, [requestedImageId, verseId, setError]);
 
   // Tell ScriptureReader whether the desktop caption shows the whole verse or is cut off by its
   // three-line clamp, so the text below is hidden only when nothing is lost. Hidden (phones): unknown.
@@ -619,375 +483,14 @@ function HeroImageBase({
     setCurrentImageId(currentImage?.id || null);
   }, [currentImage?.id, setCurrentImageId]);
 
-  // What both the quote and the generation are asked for.
-  const imageRequest = useMemo(() => ({
-    reference: currentReference,
-    model: imageModel,
-    translation,
-    aspectRatio: imageAspectRatio,
-    resolution: imageResolution,
-    style: artStyle,
-    // A prose moment names its work and unit; the reference is then only a label.
-    ...(scope ? { workId: scope.workId, unitId: scope.unitId } : {}),
-  }), [currentReference, imageModel, translation, imageAspectRatio, imageResolution, artStyle, scope]);
-
-  // The server's quote for this image (#60): the estimate and maximum the generate controls show, and the id a click
-  // accepts. It is read again when the moment, a setting or the balance changes, and after each attempt, since a
-  // quote is accepted once.
-  const [quoteEpoch, setQuoteEpoch] = useState(0);
-  const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote } | null>(null);
-  const quoteKey = verseId && currentReference ? JSON.stringify([verseId, imageRequest, credits, quoteEpoch]) : null;
-  const quote = quoteState && quoteState.key === quoteKey ? quoteState.quote : null;
-  // The owner is not charged and a guest without credits cannot accept, so neither is quoted.
-  const quoteWanted = isConvexEnabled && !sessionLoading && tier === "paid" && credits > 0 && pricingAvailable && styleAvailable && !isGenerating;
-  const quoteLabel = quote ? formatQuote(quote) : null;
-  const priceNotice = priceToConfirm && quoteLabel
-    ? `${priceToConfirm === "changed" ? "The price changed." : "Please confirm the price."} ${quoteLabel}.`
-    : null;
-
-  useEffect(() => {
-    if (!quoteKey || !quoteWanted) return;
-    const controller = new AbortController();
-    const timer = window.setTimeout(async () => {
-      const csrfToken = readCsrfToken();
-      if (!csrfToken) return;
-      try {
-        const response = await fetch("/api/generate-image/quote", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", [CSRF_HEADER_NAME]: csrfToken },
-          body: JSON.stringify(imageRequest),
-          signal: controller.signal,
-        });
-        const fresh = response.ok ? parseQuote((await response.json())?.quote) : null;
-        if (!controller.signal.aborted) setQuoteState(fresh ? { key: quoteKey, quote: fresh } : null);
-      } catch {
-        // No price is shown; a click still asks the server, which answers with the quote to accept.
-      }
-    }, QUOTE_DEBOUNCE_MS);
-    return () => {
-      window.clearTimeout(timer);
-      controller.abort();
-    };
-  }, [quoteKey, quoteWanted, imageRequest]);
-
-  // Generate new image function
-  const generateImage = useCallback(async (source: GenerationTriggerSource = "hero_generate") => {
-    if (!verseId || !currentReference) return;
-
-    if (activeRequest.current) {
-      activeRequest.current.abort();
-    }
-
-    const controller = new AbortController();
-    activeRequest.current = controller;
-
-    // Track this generation with a unique ID
-    const thisGenerationId = ++generationIdRef.current;
-
-    pendingFollowLatest.current = selectedImageId === null;
-    // Any attempt for this verse, the guest's own included, ends automatic generation for it: an automatic request
-    // must never follow a click whose price is still waiting to be confirmed.
-    setHasAttemptedGeneration(true);
-    setIsGenerating(true);
-    setFollowingRequest(false);
-    setError(null);
-    setPriceToConfirm(null);
-    setPendingImageId(null);
-    setImageLoadAttempts(0);
-    // The quote on screen when the guest clicked: the price they accepted.
-    const acceptedQuote = quote;
-    let keepQuote = false;
-
-    // Check if this generation is still current (defined outside try for use in catch)
-    const isStale = () => controller.signal.aborted || !isMounted.current || thisGenerationId !== generationIdRef.current;
-
-    const clientRequestId = typeof crypto !== "undefined" && "randomUUID" in crypto
-      ? crypto.randomUUID()
-      : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    setActiveRequestId(clientRequestId);
-    let followExistingRequest = false;
-
-    try {
-      const csrfToken = readCsrfToken();
-
-      const payload: Record<string, unknown> = {
-        ...imageRequest,
-        requestId: clientRequestId,
-        // A first-visit image has no click to accept a quote; the server then requires the whole estimate.
-        ...(source === "auto_generate" ? { automatic: true } : acceptedQuote ? { quoteId: acceptedQuote.quoteId } : {}),
-      };
-
-      // Pass the selected style's image count to add generation diversity
-      const existingImageCount = selectedStyleImageCount ?? imageHistory?.length ?? 0;
-      const generationNumber = existingImageCount + 1;
-      if (existingImageCount > 0) {
-        payload.generation = generationNumber;
-      }
-
-      if (!csrfToken) {
-        if (isMounted.current) {
-          setActiveRequestId(null);
-          setError("Security check failed. Please refresh the page and try again.");
-          trackGenerationError({
-            imageModel,
-            artStyle,
-            errorType: "csrf_missing",
-            source,
-            tier,
-            hasCredits: credits > 0,
-          });
-        }
-        return;
-      }
-
-      trackImageGenerationStarted({
-        imageModel: imageModel || "unknown",
-        aspectRatio: imageAspectRatio,
-        resolution: imageResolution,
-        artStyle,
-        generationNumber,
-        source,
-        tier,
-        hasCredits: credits > 0,
-      });
-
-      const submit = () => fetch("/api/generate-image", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          [CSRF_HEADER_NAME]: csrfToken,
-        },
-        body: JSON.stringify(payload),
-        signal: controller.signal,
-      });
-      let response = await submit();
-
-      // A quote that no longer holds: nothing was started, and the answer carries a fresh quote. At the price the
-      // guest just accepted (the quote had only expired) it is accepted for them, once; at any other price, or when
-      // none was on screen, it is shown and waits for another click.
-      let conflictBody: unknown;
-      for (let attempt = 0; response.status === 409; attempt++) {
-        conflictBody = await response.json().catch(() => null);
-        const fresh = parseStaleQuote(response.status, conflictBody);
-        if (!fresh) break;
-        if (isStale()) return;
-        keepQuote = true;
-        if (quoteKey) setQuoteState({ key: quoteKey, quote: fresh });
-        if (attempt > 0 || !sameQuoteNumbers(fresh, acceptedQuote)) {
-          setPriceToConfirm(acceptedQuote ? "changed" : "unconfirmed");
-          setActiveRequestId(null);
-          return;
-        }
-        keepQuote = false;
-        payload.quoteId = fresh.quoteId;
-        conflictBody = undefined;
-        response = await submit();
-      }
-
-      if (isStale()) {
-        return;
-      }
-
-      if (response.status === 403) {
-        let errorMessage = "Request blocked. Please refresh the page and try again.";
-        let errorType = "forbidden";
-        try {
-          const responseData = await response.json() as {
-            error?: string;
-            message?: string;
-          };
-          const combinedMessage =
-            `${responseData.error || ""} ${responseData.message || ""}`.toLowerCase();
-          if (combinedMessage.includes("csrf")) {
-            errorMessage = "Security check failed. Please refresh the page and try again.";
-            errorType = "csrf_failed";
-          } else if (combinedMessage.includes("disabled")) {
-            errorMessage = "Image generation is disabled";
-            errorType = "disabled";
-          }
-        } catch {
-          // Keep the generic forbidden message when error JSON is unavailable.
-        }
-
-        if (isMounted.current) {
-          setActiveRequestId(null);
-          setError(errorMessage);
-          trackGenerationError({
-            imageModel,
-            artStyle,
-            errorType,
-            source,
-            tier,
-            hasCredits: credits > 0,
-          });
-        }
-        return;
-      }
-
-      if (response.status === 401) {
-        if (isMounted.current) {
-          setActiveRequestId(null);
-          setError("Session required - please refresh the page");
-          trackGenerationError({
-            imageModel,
-            artStyle,
-            errorType: "unauthorized",
-            source,
-            tier,
-            hasCredits: credits > 0,
-          });
-        }
-        return;
-      }
-
-      if (response.status === 402) {
-        // Insufficient credits
-        if (isMounted.current) {
-          setActiveRequestId(null);
-          setError("Insufficient credits");
-          trackCreditsInsufficient({
-            feature: "image",
-            source,
-            requiredCredits: effectiveCost,
-            tier,
-            hasCredits: credits > 0,
-          });
-        }
-        return;
-      }
-
-      const data = conflictBody !== undefined ? conflictBody as Record<string, unknown> | null : await response.json();
-
-      if (isStale()) {
-        return;
-      }
-
-      if (typeof data?.requestId === "string") {
-        setActiveRequestId(data.requestId);
-      }
-
-      if (!response.ok) {
-        // A retryable refusal (a scene still preparing, a style not admitted) carries its own explanation.
-        const retryableDetail = response.status === 503 && data?.retryable && typeof data?.message === "string" ? data.message : null;
-        throw new Error(retryableDetail ? `${data?.error || "Preparing scene"}: ${retryableDetail}` : data?.error || "Failed to generate image");
-      }
-
-      if (response.status === 202 && data?.reused) {
-        followExistingRequest = true;
-        setFollowingRequest(true);
-        return;
-      }
-
-      if (data?.imageUrl) {
-        const modelUsed = data.model || imageModel || "unknown";
-
-        if (isStale()) {
-          return;
-        }
-
-        const savedImageId =
-          typeof data.savedImageId === "string" ? data.savedImageId : null;
-        if (savedImageId) {
-          setPendingImageId(savedImageId);
-        }
-
-        if (isStale()) {
-          return;
-        }
-
-        // Track successful image generation (fires regardless of Convex persistence)
-        const hasCreditsAfterGeneration = resolveHasCreditsAfterGeneration({
-          returnedCredits: data.credits,
-          currentCredits: credits,
-        });
-        trackImageGenerated({
-          imageModel: modelUsed,
-          aspectRatio: data.aspectRatio || imageAspectRatio,
-          resolution: imageResolution,
-          artStyle: typeof data.style === "string" ? data.style : artStyle,
-          generationNumber: data.generationNumber || generationNumber,
-          source,
-          durationMs: data.durationMs,
-          tier,
-          hasCredits: hasCreditsAfterGeneration,
-        });
-
-        if (!savedImageId) {
-          // No Convex persistence; show the generated URL immediately.
-          setGeneratedImage({
-            url: data.imageUrl,
-            model: modelUsed,
-          });
-        }
-      } else {
-        throw new Error("Missing image URL");
-      }
-    } catch (err) {
-      if (err instanceof DOMException && err.name === "AbortError") {
-        if (isMounted.current) {
-          setActiveRequestId(null);
-        }
-        return;
-      }
-      if (isStale()) {
-        return;
-      }
-      const errorMessage = err instanceof Error ? err.message : "Failed to generate image";
-      setError(errorMessage);
-      console.error("Image generation error:", err);
-      // Sanitize error type for analytics (avoid leaking sensitive details)
-      const errorType =
-        err instanceof TypeError ? "network_error" :
-        errorMessage.includes("Missing image URL") ? "missing_url" :
-        errorMessage.includes("timed out") ? "timeout" :
-        "generation_failed";
-      trackGenerationError({
-        imageModel,
-        artStyle,
-        errorType,
-        source,
-        tier,
-        hasCredits: credits > 0,
-      });
-    } finally {
-      // Always clean up if this is still the current generation
-      if (thisGenerationId === generationIdRef.current) {
-        activeRequest.current = null;
-        if (isMounted.current && !followExistingRequest) {
-          setActiveRequestId(null);
-          setIsGenerating(false);
-        }
-        // The quote was used by this attempt (or was never read): read a new one, unless a fresh one is waiting.
-        if (isMounted.current && !keepQuote) setQuoteEpoch((epoch) => epoch + 1);
-      }
-    }
-  }, [
-    verseId,
-    currentReference,
-    imageRequest,
-    quote,
-    quoteKey,
-    artStyle,
-    selectedStyleImageCount,
-    imageModel,
-    imageAspectRatio,
-    imageResolution,
-    selectedImageId,
-    imageHistory,
-    tier,
-    credits,
-    effectiveCost,
-  ]);
-
   // Manual regenerate function - resets load attempts and queues a new image
   const handleManualRegenerate = useCallback((source: GenerationTriggerSource = "hero_retry") => {
     if (pricingPending || pricingUnavailable) return;
     setImageLoadAttempts(0);
-    setError(null);
     setGeneratedImage(null);
     setPendingImageId(null);
-    generateImage(source);
-  }, [generateImage, pricingPending, pricingUnavailable]);
+    generate(source);
+  }, [generate, pricingPending, pricingUnavailable]);
 
   useEffect(() => {
     handleManualRegenerateRef.current = handleManualRegenerate;
@@ -1002,7 +505,7 @@ function HeroImageBase({
       return;
     }
     handleManualRegenerate(source);
-  }, [onRefreshImages, handleManualRegenerate]);
+  }, [onRefreshImages, handleManualRegenerate, setError]);
 
   const handleFullscreenImageReload = useCallback(() => {
     setIsFullscreenImageError(false);
@@ -1096,7 +599,7 @@ function HeroImageBase({
         hasCredits: credits > 0,
       });
     }
-  }, [selectedImageId, imageHistory, book, chapter, verse, tier, credits]);
+  }, [selectedImageId, imageHistory, book, chapter, verse, tier, credits, setError]);
 
   const goToNextImage = useCallback((surface: "desktop_dock" | "overlay" | "fullscreen") => {
     if (!imageHistory || imageHistory.length === 0) return;
@@ -1122,7 +625,7 @@ function HeroImageBase({
         hasCredits: credits > 0,
       });
     }
-  }, [selectedImageId, imageHistory, book, chapter, verse, tier, credits]);
+  }, [selectedImageId, imageHistory, book, chapter, verse, tier, credits, setError]);
 
   const handleSwipeStart = useCallback((event: TouchEvent<HTMLDivElement>) => {
     if (event.touches.length !== 1) {
@@ -1169,33 +672,6 @@ function HeroImageBase({
     swipeStartRef.current = null;
   }, []);
 
-  // Auto-generate on first visit only when the guest has turned it on and can strictly cover the estimate.
-  // The spend-down grace is reserved for explicit generate actions.
-  useEffect(() => {
-    // Only auto-generate if:
-    // 1. Convex query has loaded (imageHistory is not undefined)
-    // 2. No existing images found (empty array)
-    // 3. Not already generating
-    // 4. Haven't already attempted generation for this verse
-    // 5. User has sufficient credits (paid tier)
-    // 6. Session has loaded
-    const selectedStyleEmpty = selectedStyleImageCount !== undefined ? selectedStyleImageCount === 0 : imageHistory !== undefined && imageHistory.length === 0;
-    if (
-      imageHistory !== undefined &&
-      selectedStyleEmpty &&
-      !showingOtherStyles &&
-      !isGenerating &&
-      !hasAttemptedGeneration &&
-      verseId &&
-      canAutoGenerate &&
-      !sessionLoading
-    ) {
-      setHasAttemptedGeneration(true);
-      pendingFollowLatest.current = true;
-      generateImage("auto_generate");
-    }
-  }, [imageHistory, selectedStyleImageCount, showingOtherStyles, isGenerating, hasAttemptedGeneration, verseId, generateImage, canAutoGenerate, sessionLoading]);
-
   // When a new image is saved, navigate only after it exists in history
   useEffect(() => {
     if (!pendingImageId || !imageHistory) return;
@@ -1209,40 +685,14 @@ function HeroImageBase({
     setPendingImageId(null);
   }, [pendingImageId, imageHistory]);
 
-  useEffect(() => {
-    if (!activeRequestId) return;
-    if (
-      generationRequestStatus?.status === "succeeded" ||
-      generationRequestStatus?.status === "failed"
-    ) {
-      setActiveRequestId(null);
-      if (followingRequest) {
-        setIsGenerating(false);
-        setFollowingRequest(false);
-        if (generationRequestStatus.status === "failed") {
-          setError(generationRequestStatus.error || "The original generation failed");
-        }
-      }
-    }
-  }, [activeRequestId, generationRequestStatus?.status, generationRequestStatus?.error, followingRequest]);
-
-  // Reset state when verse changes
+  // Reset state when verse changes (the generation resets its own)
   useEffect(() => {
     setSelectedImageId(null);
     setGeneratedImage(null);
-    setError(null);
-    setPriceToConfirm(null);
-    setHasAttemptedGeneration(false);
     setImageLoadAttempts(0);
     setPendingImageId(null);
-    setActiveRequestId(null);
-    setIsGenerating(false);
-    setFollowingRequest(false);
     setIsImageLoading(false);
     pendingFollowLatest.current = true;
-    if (activeRequest.current) {
-      activeRequest.current.abort();
-    }
   }, [verseId]);
 
   // If selected image no longer exists in history, reset to newest
@@ -1279,7 +729,7 @@ function HeroImageBase({
     lastDisplayImageKeyRef.current = displayImageKey;
     setImageLoadAttempts(0);
     setError(null);
-  }, [displayImage?.id, displayImage?.url, verseId]);
+  }, [displayImage?.id, displayImage?.url, verseId, setError]);
 
   useEffect(() => {
     if (!isFullscreen || !displayImage?.url) {
@@ -1290,17 +740,6 @@ function HeroImageBase({
     setIsFullscreenImageReady(false);
     setIsFullscreenImageError(false);
   }, [displayImage?.id, displayImage?.url, isFullscreen]);
-
-  useEffect(() => {
-    // Ensure isMounted is reset correctly in React Strict Mode (dev double-invokes effects)
-    isMounted.current = true;
-    return () => {
-      isMounted.current = false;
-      if (activeRequest.current) {
-        activeRequest.current.abort();
-      }
-    };
-  }, []);
 
   // Use the displayed image's aspect ratio when available, fall back to user preference
   const containerAspectRatio: ImageAspectRatio =
