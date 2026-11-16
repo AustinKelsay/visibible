@@ -291,6 +291,25 @@ describe("the play mark", () => {
     expect(playMark()?.getAttribute("aria-label")).toBe("Play the video of John 1:6");
   });
 
+  it("plays the video of a verse with no picture from its unpainted picture area", async () => {
+    savedPictures = john().filter((picture) => !picture.id.startsWith("john-1-5"));
+    publicVideos = [job()];
+    await openVerse("john", "1", "5");
+    expect(spreadPicture()).toBeNull();
+    expect(container.querySelector('[aria-label="Picture"]')?.textContent).toContain("No picture for John 1:5 yet");
+
+    await act(async () => { playMark()!.click(); });
+    await act(async () => {});
+    expect(video()?.getAttribute("src")).toBe("https://media.test/clip.mp4");
+    expect(container.querySelector("main")?.hasAttribute("data-whole-picture")).toBe(true);
+
+    pressKey("Escape", video()!);
+    await act(async () => {});
+    expect(video()).toBeNull();
+    expect(container.querySelector('[aria-label="Picture"]')?.textContent).toContain("No picture for John 1:5 yet");
+    expect(document.activeElement).toBe(playMark());
+  });
+
   it("shows no play mark while the verse's videos are still being made or have failed", async () => {
     savedPictures = john();
     myJobs = [job({ id: "mine", status: "processing" })];

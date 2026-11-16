@@ -85,6 +85,26 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
         </span>
         <p className="font-serif text-xl text-ink/90 md:text-2xl">No picture for {reference} yet</p>
         <PaintButton paint={paint} label={`Paint this ${word}`} />
+      </>
+    );
+  }
+
+  return (
+    <section aria-label="Picture" className="reader-dark absolute inset-0 overflow-hidden bg-[#050505]">
+      {glowSource ? (
+        // A soft, darkened memory of the last painting, so the book never goes blank. Decorative.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={glowSource}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full scale-125 object-cover object-center opacity-60 blur-3xl saturate-75"
+        />
+      ) : null}
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-paper/30 via-paper/20 to-paper/50" />
+      <div className="relative flex h-full flex-col items-center justify-center gap-3 px-6 pt-8 pb-6 text-center md:gap-4 md:pr-[calc(var(--words-page-width)+1.5rem)] md:pb-28">
+        {body}
+        {/* In every state, painting included: a reader who turned it on can always turn it off. */}
         <button
           type="button"
           role="switch"
@@ -105,25 +125,6 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
           </span>
           Paint {word}s automatically as I read
         </button>
-      </>
-    );
-  }
-
-  return (
-    <section aria-label="Picture" className="reader-dark absolute inset-0 overflow-hidden bg-[#050505]">
-      {glowSource ? (
-        // A soft, darkened memory of the last painting, so the book never goes blank. Decorative.
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={glowSource}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full scale-125 object-cover object-center opacity-60 blur-3xl saturate-75"
-        />
-      ) : null}
-      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-paper/30 via-paper/20 to-paper/50" />
-      <div className="relative flex h-full flex-col items-center justify-center gap-3 px-6 pt-8 pb-6 text-center md:gap-4 md:pr-[calc(var(--words-page-width)+1.5rem)] md:pb-28">
-        {body}
       </div>
     </section>
   );

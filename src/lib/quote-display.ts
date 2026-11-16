@@ -9,9 +9,15 @@ export const QUOTE_STALE_ERROR = "Quote stale";
 
 export type DisplayQuote = { quoteId: string; estimateCredits: number; maximumCredits: number; expiresAt: number };
 
-/** "About 2 credits · at most 4": the estimate, then the most the guest can be charged. */
+/** "about 2 credits · at most 4": the estimate, then the most the guest can be charged, for after a paid button's name. */
+export function quotePhrase(quote: Pick<DisplayQuote, "estimateCredits" | "maximumCredits">): string {
+  return `about ${quote.estimateCredits} ${quote.estimateCredits === 1 ? "credit" : "credits"} · at most ${quote.maximumCredits}`;
+}
+
+/** "About 2 credits · at most 4": the quote phrase on its own. */
 export function formatQuote(quote: Pick<DisplayQuote, "estimateCredits" | "maximumCredits">): string {
-  return `About ${quote.estimateCredits} ${quote.estimateCredits === 1 ? "credit" : "credits"} · at most ${quote.maximumCredits}`;
+  const phrase = quotePhrase(quote);
+  return phrase[0].toUpperCase() + phrase.slice(1);
 }
 
 export function parseQuote(value: unknown): DisplayQuote | null {

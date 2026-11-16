@@ -14,6 +14,7 @@ import { trackPictureMenuOpened } from "@/lib/analytics";
 import { imageModelDisplayName } from "@/lib/image-models";
 import { pictureStyleOrder } from "@/lib/picture-rule";
 import { previewSource } from "@/lib/picture-source";
+import { quotePhrase } from "@/lib/quote-display";
 import { useVerseGeneration } from "@/lib/use-verse-generation";
 import type { VideoJobResponse } from "@/lib/video-generation";
 
@@ -263,7 +264,7 @@ function PaintAnother({ generation, onGetCredits }: { generation: Generation; on
       <button type="button" className={ROW} disabled={generation.pricingPending} onClick={() => generation.generate("picture_menu_paint")}>
         <span>
           Paint another
-          {quote ? <span className="text-ink/(--quiet-55)">{` · about ${quote.estimateCredits} ${quote.estimateCredits === 1 ? "credit" : "credits"}`}</span> : null}
+          {quote ? <span className="text-ink/(--quiet-55)">{` · ${quotePhrase(quote)}`}</span> : null}
         </span>
       </button>
     );

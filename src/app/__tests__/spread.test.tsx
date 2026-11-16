@@ -390,7 +390,7 @@ describe("an unpainted verse", () => {
     await openVerse("john", "1", "6");
     await settle();
 
-    expect(button(/^Paint this verse/)?.textContent).toBe("Paint this verse · about 2 credits");
+    expect(button(/^Paint this verse/)?.textContent).toBe("Paint this verse · about 2 credits · at most 4");
     await act(async () => { button(/^Paint this verse/)!.click(); });
     expect(paintRequests).toEqual([expect.objectContaining({ reference: "John 1:6", style: "classical", quoteId: "quote-1" })]);
     expect(paintRequests[0]).not.toHaveProperty("automatic");
@@ -541,6 +541,26 @@ describe("an unpainted verse", () => {
     await settle();
     expect(paintRequests).toEqual([expect.objectContaining({ reference: "John 1:7", automatic: true })]);
     expect(paintRequests[0]).not.toHaveProperty("quoteId");
+  });
+
+  it("keeps the switch while a verse it painted automatically is painting, and after it fails, so the reader can turn it off", async () => {
+    autoGenerate = true;
+    session = { ...session, tier: "paid", credits: 10 };
+    let fail!: (response: Response) => void;
+    paintAnswers.push(() => new Promise<Response>((resolve) => { fail = resolve; }));
+    await openVerse("john", "1", "7");
+    await settle();
+
+    expect(paintRequests).toEqual([expect.objectContaining({ reference: "John 1:7", automatic: true })]);
+    expect(container.querySelector('[role="progressbar"]')).not.toBeNull();
+    expect(autoSwitch()?.getAttribute("aria-checked")).toBe("true");
+
+    await act(async () => { fail(json({ error: "Image provider failed" }, 500)); });
+    await flush();
+    expect(pictureArea()?.querySelector('[role="alert"]')).not.toBeNull();
+    act(() => { autoSwitch()!.click(); });
+    expect(setAutoGenerate).toHaveBeenCalledWith(false, "spread_paint_switch");
+    expect(autoSwitch()?.getAttribute("aria-checked")).toBe("false");
   });
 
   it("paints automatically for the owner only when the switch is on", async () => {

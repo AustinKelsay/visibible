@@ -166,6 +166,24 @@ describe("Look", () => {
     expect(document.activeElement).toBe(dockAa());
   });
 
+  it("keeps Tab inside, counting each radio group as one stop at its checked radio", async () => {
+    await openVerse();
+    click(dockAa());
+    const tab = (from: HTMLElement, shiftKey = false) => {
+      const event = new KeyboardEvent("keydown", { key: "Tab", shiftKey, bubbles: true, cancelable: true });
+      act(() => { from.dispatchEvent(event); });
+      return event.defaultPrevented;
+    };
+    const done = [...look()!.querySelectorAll("button")].find((candidate) => candidate.textContent === "Done")!;
+
+    // The stops: Done, Classical (the checked style), the translation, Medium (the checked size). Large is not one.
+    radio("Medium")!.focus();
+    expect(tab(radio("Medium")!)).toBe(true);
+    expect(document.activeElement).toBe(done);
+    expect(tab(done, true)).toBe(true);
+    expect(document.activeElement).toBe(radio("Medium"));
+  });
+
   it("opens from the phone dock's \"Aa\" and from the translation name on the words page", async () => {
     await openVerse();
     click(phoneAa());
@@ -261,7 +279,7 @@ describe("the picture rule", () => {
     expect(note.textContent).toContain("Shown in Fresco.");
     expect(note.textContent).toContain("No Classical picture of this verse yet.");
     const offer = button(/^Paint in Classical/)!;
-    expect(offer.textContent).toBe("Paint in Classical · about 2 credits");
+    expect(offer.textContent).toBe("Paint in Classical · about 2 credits · at most 4");
 
     await act(async () => { offer.click(); });
     expect(paintRequests).toEqual([expect.objectContaining({ reference: "Genesis 1:1", style: "classical", quoteId: "quote-1" })]);

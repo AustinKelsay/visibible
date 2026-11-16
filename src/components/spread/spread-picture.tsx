@@ -73,10 +73,10 @@ function SavedPicture({ verseId, reference, onShowWhole, playing = false, onPlay
     if (showVideo) player.current?.focus();
   }, [showVideo]);
 
-  // A spread turned to from the whole-picture view opens in it; with no picture to show, the words return.
+  // A spread turned to from the whole-picture view opens in it; with no picture (or video playing) to show, the words return.
   useEffect(() => {
-    if (wholeIsOpen && rulePicture !== undefined && !hasPicture) closeWhole();
-  }, [wholeIsOpen, rulePicture, hasPicture, closeWhole]);
+    if (wholeIsOpen && rulePicture !== undefined && !hasPicture && !showVideo) closeWhole();
+  }, [wholeIsOpen, rulePicture, hasPicture, showVideo, closeWhole]);
 
   // Leaving the view puts focus on the picture when nothing else holds it (the view was opened on an
   // earlier spread, so there is no opener on this one to return to).
@@ -97,8 +97,66 @@ function SavedPicture({ verseId, reference, onShowWhole, playing = false, onPlay
     if (wholeIsOpen) wasPlaying.current = showVideo;
   }, [wholeIsOpen, showVideo]);
 
+  // The verse's video, played in the whole-picture view in place of its picture (or of the unpainted area).
+  const playerView = showVideo ? (
+    <>
+      <video
+        ref={player}
+        key={video.id}
+        src={video.videoUrl ?? undefined}
+        aria-label={`Video of ${reference}`}
+        autoPlay
+        muted
+        controls
+        playsInline
+        tabIndex={0}
+        className="relative mt-auto block aspect-video w-full shrink-0 bg-paper outline-none md:mt-0 md:aspect-auto md:min-h-0 md:flex-1 md:bg-transparent"
+      />
+      <button
+        type="button"
+        aria-label="Back to the words"
+        onClick={closeWhole}
+        className="liquid-glass spread-dock absolute top-6 right-3 z-20 flex h-9 w-9 items-center justify-center rounded-full text-ink/90 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:top-8 md:right-8 md:h-11 md:w-11"
+      >
+        <X aria-hidden="true" className="h-4 w-4" />
+      </button>
+    </>
+  ) : null;
+  // Kept mounted in that view (only hidden while its video plays), so focus can return to it.
+  const playMark = video ? (
+    <button
+      ref={playButton}
+      hidden={showVideo}
+      type="button"
+      aria-label={`Play the video of ${reference}`}
+      data-fades
+      onClick={() => {
+        whole.open(playButton.current);
+        onPlay?.();
+      }}
+      className={`liquid-glass spread-dock absolute right-3 bottom-3 z-20 flex min-h-9 items-center gap-2 rounded-full py-1 pr-3 pl-1 text-[13px] font-medium text-ink/90 transition-colors duration-[var(--motion-fast)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:bottom-8 md:min-h-11 md:pr-4 md:text-sm ${
+        wholeIsOpen ? "max-md:hidden md:right-5" : "md:right-[calc(var(--words-page-width)+1.25rem)]"
+      }`}
+    >
+      <PlayMark />
+      Play
+    </button>
+  ) : null;
+
   if (rulePicture === undefined) return null;
-  if (!rulePicture?.imageUrl) return <UnpaintedPicture key={verseId} verseId={verseId} reference={reference} styles={order} />;
+  if (!rulePicture?.imageUrl) {
+    // A verse can have a video and no saved picture (the video route makes video from text): it still plays. The
+    // unpainted area stays mounted while it plays, so a painting started from it carries on.
+    return (
+      <>
+        <div className={showVideo ? "hidden" : "contents"}>
+          <UnpaintedPicture key={verseId} verseId={verseId} reference={reference} styles={order} />
+        </div>
+        {playerView}
+        {playMark}
+      </>
+    );
+  }
   const ruleRecord = (otherStyle ? otherStylePictures : pictures)?.find((picture) => picture.id === rulePicture.id);
   const picture = chosen ?? ruleRecord ?? rulePicture;
   const showThumbnail = Boolean(picture.thumbnailUrl) && loadedId !== picture.id;
@@ -115,28 +173,7 @@ function SavedPicture({ verseId, reference, onShowWhole, playing = false, onPlay
   return (
     <>
       {showVideo ? (
-        <>
-          <video
-            ref={player}
-            key={video.id}
-            src={video.videoUrl ?? undefined}
-            aria-label={`Video of ${reference}`}
-            autoPlay
-            muted
-            controls
-            playsInline
-            tabIndex={0}
-            className="relative mt-auto block aspect-video w-full shrink-0 bg-paper outline-none md:mt-0 md:aspect-auto md:min-h-0 md:flex-1 md:bg-transparent"
-          />
-          <button
-            type="button"
-            aria-label="Back to the words"
-            onClick={closeWhole}
-            className="liquid-glass spread-dock absolute top-6 right-3 z-20 flex h-9 w-9 items-center justify-center rounded-full text-ink/90 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:top-8 md:right-8 md:h-11 md:w-11"
-          >
-            <X aria-hidden="true" className="h-4 w-4" />
-          </button>
-        </>
+        playerView
       ) : (
       <button
         ref={button}
@@ -174,25 +211,7 @@ function SavedPicture({ verseId, reference, onShowWhole, playing = false, onPlay
       )}
       {/* Beside the picture's button, not in it, so its taps never open the whole-picture view. Kept mounted in that
           view (only its chip hides), so a painting started from it carries on. */}
-      {video ? (
-        <button
-          ref={playButton}
-          hidden={showVideo}
-          type="button"
-          aria-label={`Play the video of ${reference}`}
-          data-fades
-          onClick={() => {
-            whole.open(playButton.current);
-            onPlay?.();
-          }}
-          className={`liquid-glass spread-dock absolute right-3 bottom-3 z-20 flex min-h-9 items-center gap-2 rounded-full py-1 pr-3 pl-1 text-[13px] font-medium text-ink/90 transition-colors duration-[var(--motion-fast)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:bottom-8 md:min-h-11 md:pr-4 md:text-sm ${
-            wholeIsOpen ? "max-md:hidden md:right-5" : "md:right-[calc(var(--words-page-width)+1.25rem)]"
-          }`}
-        >
-          <PlayMark />
-          Play
-        </button>
-      ) : null}
+      {playMark}
       {shown && pictures ? (
         <PictureMenu key={verseId} verseId={verseId} reference={reference} pictures={pictures} shown={shown} chipHidden={wholeIsOpen} />
       ) : null}
