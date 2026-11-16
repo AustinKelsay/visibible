@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLayers } from "@/components/spread/layers";
 import { useSession } from "@/context/session-context";
+import { useMomentWord } from "@/context/work-scope-context";
 import { trackVerseNavigation, type VerseNavigationSource } from "@/lib/analytics";
 import { getVerseNavigationDirection, type VerseNavigationDirection } from "@/lib/verse-keyboard-navigation";
 
@@ -99,8 +100,9 @@ interface PageTurnLinkProps {
   className?: string;
 }
 
-/** Previous or next verse. At either end of the Bible it keeps its place but cannot be used. */
+/** Previous or next verse (or prose passage). At either end of the book it keeps its place but cannot be used. */
 export function PageTurnLink({ direction, href, onTurn, className = "" }: PageTurnLinkProps) {
+  const word = useMomentWord();
   const Icon = direction === "prev" ? ChevronLeft : ChevronRight;
   const shape = `inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${className}`;
   if (!href) {
@@ -113,7 +115,7 @@ export function PageTurnLink({ direction, href, onTurn, className = "" }: PageTu
   return (
     <Link
       href={href}
-      aria-label={direction === "prev" ? "Previous verse" : "Next verse"}
+      aria-label={`${direction === "prev" ? "Previous" : "Next"} ${word}`}
       onClick={() => onTurn(direction, "dock")}
       className={`${shape} text-white/85 transition-colors duration-[var(--motion-fast)] hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white`}
     >

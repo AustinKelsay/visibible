@@ -86,6 +86,10 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
 let quoteRequests: Array<Record<string, unknown>> = [];
 let paintRequests: Array<Record<string, unknown>> = [];
 let paintAnswers: Array<() => Response | Promise<Response>> = [];
+let quoteAnswers: Array<() => Response> = [];
+const quoteOf = (quoteId: string, estimateCredits: number, maximumCredits: number) =>
+  ({ quoteId, operation: "image", policyVersion: "accepted-maximum-v1", estimateCredits, maximumCredits, expiresAt: Date.now() + 300_000 });
+const staleQuote = (reason: string, quote: ReturnType<typeof quoteOf>) => json({ error: "Quote stale", reason, quote }, 409);
 const painted = (savedImageId: string) => json({ requestId: "r", imageUrl: "https://img.test/new.png", savedImageId, model: "test-model" });
 
 const params = (book = "genesis", chapter = "1", verse = "1") => ({ params: Promise.resolve({ book, chapter, verse }) });
@@ -123,6 +127,7 @@ beforeEach(() => {
   quoteRequests = [];
   paintRequests = [];
   paintAnswers = [];
+  quoteAnswers = [];
   document.cookie = "visibible_csrf=" + "a".repeat(64);
   vi.spyOn(console, "warn").mockImplementation(() => {});
   vi.spyOn(console, "error").mockImplementation(() => {});
@@ -132,7 +137,7 @@ beforeEach(() => {
     }
     if (url === "/api/generate-image/quote") {
       quoteRequests.push(JSON.parse(String(init?.body)));
-      return json({ quote: { quoteId: `quote-${quoteRequests.length}`, operation: "image", policyVersion: "accepted-maximum-v1", estimateCredits: 2, maximumCredits: 4, expiresAt: Date.now() + 300_000 } });
+      return (quoteAnswers.shift() ?? (() => json({ quote: quoteOf(`quote-${quoteRequests.length}`, 2, 4) })))();
     }
     if (url === "/api/generate-image") {
       paintRequests.push(JSON.parse(String(init?.body)));
@@ -451,6 +456,51 @@ describe("an unpainted verse", () => {
     await settle();
     await act(async () => { button("Try again")!.click(); });
     expect(paintRequests).toHaveLength(2);
+  });
+
+  it("waits for the reader to accept a fresh quote at a changed price, then paints with that quote", async () => {
+    session = { ...session, tier: "paid", credits: 10 };
+    paintAnswers.push(() => staleQuote("changed", quoteOf("fresh-quote", 3, 6)));
+    await openVerse("john", "1", "6");
+    await settle();
+    await act(async () => { button(/^Paint this verse/)!.click(); });
+    await flush();
+
+    expect(paintRequests).toHaveLength(1);
+    expect(pictureArea()?.querySelector('[role="status"]')?.textContent).toBe("The price changed. About 3 credits · at most 6.");
+    expect(pictureArea()?.textContent).not.toContain("Quote stale");
+    await act(async () => { button("Paint at this price")!.click(); });
+    await flush();
+    expect(paintRequests).toHaveLength(2);
+    expect(paintRequests[1]).toMatchObject({ quoteId: "fresh-quote" });
+  });
+
+  it("accepts a fresh quote for the reader when only the old one expired at the price they accepted", async () => {
+    session = { ...session, tier: "paid", credits: 10 };
+    paintAnswers.push(() => staleQuote("expired", quoteOf("renewed-quote", 2, 4)));
+    await openVerse("john", "1", "6");
+    await settle();
+    await act(async () => { button(/^Paint this verse/)!.click(); });
+    await flush();
+
+    expect(paintRequests.map((request) => request.quoteId)).toEqual(["quote-1", "renewed-quote"]);
+    expect(paintRequests[1].requestId).toBe(paintRequests[0].requestId);
+    expect(pictureArea()?.querySelector('[role="status"]')).toBeNull();
+  });
+
+  it("asks the reader to confirm when no price was on screen at the click", async () => {
+    session = { ...session, tier: "paid", credits: 10 };
+    quoteAnswers.push(() => json({ error: "Preparing scene", retryable: true }, 503));
+    paintAnswers.push(() => staleQuote("missing", quoteOf("first-quote", 2, 4)));
+    await openVerse("john", "1", "6");
+    await settle();
+    await act(async () => { button(/^Paint this verse/)!.click(); });
+    await flush();
+
+    expect(paintRequests[0]).not.toHaveProperty("quoteId");
+    expect(pictureArea()?.querySelector('[role="status"]')?.textContent).toBe("Please confirm the price. About 2 credits · at most 4.");
+    await act(async () => { button("Paint at this price")!.click(); });
+    expect(paintRequests[1]).toMatchObject({ quoteId: "first-quote" });
   });
 
   it("has an automatic-painting switch, off by default, that the reader turns on", async () => {

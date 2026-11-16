@@ -109,10 +109,12 @@ export default async function VersePage({ params }: VersePageProps) {
       />
       <Spread
         verseId={verseLocationToId(location)}
+        path={`/${bookData.slug}/${location.chapter}/${location.verse}`}
         bookSlug={bookData.slug}
         bookName={bookData.name}
         chapter={location.chapter}
         verseNumber={location.verse}
+        reference={`${bookData.name} ${location.chapter}:${location.verse}`}
         verseText={verseData.text}
         totalVerses={chapterData.verses.length}
         translationName={TRANSLATIONS[translation].name}

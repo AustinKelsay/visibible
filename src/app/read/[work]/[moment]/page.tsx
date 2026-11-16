@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
-import { LayoutWrapper } from "@/components/layout-wrapper";
-import { ProseReader } from "@/components/prose-reader";
-import { WorkScopeProvider } from "@/context/work-scope-context";
+import { Spread } from "@/components/spread/spread";
+import { WorkScopeProvider, type WorkScope } from "@/context/work-scope-context";
 import { bookForPage, readerPath } from "@/lib/works/reader-pages";
 import { findProseWork } from "@/lib/works/catalog";
 
@@ -21,39 +18,47 @@ export async function generateMetadata({ params }: MomentPageProps): Promise<Met
   };
 }
 
+/**
+ * One moment of a prose work on the spread, as a verse is: its picture, its paragraphs on the words page, Look without
+ * translation, Contents of the work's divisions, and no Ask. A work the viewer may not open is not found.
+ */
 export default async function MomentPage({ params }: MomentPageProps) {
   const { work: workId, moment: momentId } = await params;
   const found = await bookForPage(workId);
   const moment = found?.book.moments.find((m) => m.id === momentId);
   if (!found || !moment) notFound();
-  const { book, ownerPreview } = found;
+  const { book } = found;
   const chapter = book.chapters[moment.chapterIndex];
   const prev = book.moments[moment.index - 1];
   const next = book.moments[moment.index + 1];
-  const scope = {
+  const scope: WorkScope = {
     workId: book.work.id,
+    title: book.work.title,
     unitId: moment.id,
     styleIds: [...book.work.styleIds],
-    passage: { full: moment.reference, short: moment.shortReference },
-    contentsHref: readerPath(book.work.id),
+    level: book.chapterLevel,
+    divisions: book.chapters.map((division) => ({
+      label: division.label,
+      moments: division.moments.map((m) => ({ id: m.id, href: readerPath(book.work.id, m.id) })),
+    })),
   };
   return (
-    <LayoutWrapper>
-      <WorkScopeProvider scope={scope}>
-      <Header />
-      <ProseReader
-        scope={scope}
-        workTitle={book.work.title}
+    <WorkScopeProvider scope={scope}>
+      <Spread
+        verseId={moment.id}
+        path={readerPath(book.work.id, moment.id)}
+        bookName={book.work.title}
+        chapter={moment.chapterIndex + 1}
         chapterLabel={chapter.label}
-        chapterNumber={moment.chapterIndex + 1}
-        position={{ index: chapter.moments.indexOf(moment), total: chapter.moments.length }}
-        paragraphs={moment.paragraphs}
+        verseNumber={chapter.moments.indexOf(moment) + 1}
+        reference={moment.reference}
+        verseText={moment.paragraphs[0]?.text ?? ""}
+        paragraphs={moment.paragraphs.map((paragraph) => paragraph.text)}
+        totalVerses={chapter.moments.length}
         prevUrl={prev ? readerPath(book.work.id, prev.id) : undefined}
         nextUrl={next ? readerPath(book.work.id, next.id) : undefined}
-        ownerPreview={ownerPreview}
+        nextVerseId={next?.id}
       />
-      </WorkScopeProvider>
-      <Footer />
-    </LayoutWrapper>
+    </WorkScopeProvider>
   );
 }

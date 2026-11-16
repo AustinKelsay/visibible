@@ -43,11 +43,13 @@ export function answerPictureRead(saved: readonly SavedPicture[], query: Functio
     });
   }
   if (name === "verseImages:getNearestEarlierPicture") {
-    const { verseId, styles } = args as { verseId: string; styles: string[] };
-    const [, chapterId, verse] = /^(.+-\d+)-(\d+)$/.exec(verseId)!;
-    for (let earlier = Number(verse) - 1; earlier >= 1; earlier--) {
-      const picture = spreadPicture(saved, `${chapterId}-${earlier}`, styles);
-      if (picture) return { verse: earlier, id: picture.id, imageUrl: picture.imageUrl, thumbnailUrl: picture.thumbnailUrl };
+    const { verseId, styles, earlier } = args as { verseId: string; styles: string[]; earlier?: string[] };
+    const match = /^(.+-\d+)-(\d+)$/.exec(verseId);
+    const candidates = earlier
+      ?? (match ? Array.from({ length: Number(match[2]) - 1 }, (_, index) => `${match[1]}-${Number(match[2]) - 1 - index}`) : []);
+    for (const candidate of candidates) {
+      const picture = spreadPicture(saved, candidate, styles);
+      if (picture) return { verseId: candidate, id: picture.id, imageUrl: picture.imageUrl, thumbnailUrl: picture.thumbnailUrl };
     }
     return null;
   }

@@ -8,7 +8,7 @@ import { useConvexEnabled } from "@/components/convex-client-provider";
 import { LayerPanel, useLayer } from "@/components/spread/layers";
 import { TEXT_SIZES, usePreferences, type TextSize } from "@/context/preferences-context";
 import { useSession } from "@/context/session-context";
-import { useEffectiveArtStyle, useVisibleArtStyles } from "@/context/work-scope-context";
+import { useEffectiveArtStyle, useVisibleArtStyles, useWorkScope } from "@/context/work-scope-context";
 import { artStyleLabel } from "@/lib/art-styles";
 import { TRANSLATION_GROUPS, TRANSLATIONS, type Translation } from "@/lib/bible-api";
 import { trackLookOpened } from "@/lib/analytics";
@@ -73,10 +73,11 @@ export function LookTranslationButton({ translationName, className = "" }: { tra
 /**
  * Look: the one place for how the book appears. Art style by example pictures (the styles the reader may see),
  * translation with its notice, and text size in three steps for the words page. The spread's "look" layer: above the
- * dock on a computer, a sheet from the bottom on a phone.
+ * dock on a computer, a sheet from the bottom on a phone. A prose work offers its own styles and no translation.
  */
 export function LookLayer({ verseId }: { verseId: string }) {
   const { close } = useLayer("look");
+  const scope = useWorkScope();
   return (
     <LayerPanel
       id="look"
@@ -91,7 +92,7 @@ export function LookLayer({ verseId }: { verseId: string }) {
         </button>
       </div>
       <ArtStyleChoice verseId={verseId} />
-      <TranslationChoice />
+      {scope ? null : <TranslationChoice />}
       <TextSizeChoice />
     </LayerPanel>
   );

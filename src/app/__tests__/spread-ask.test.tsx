@@ -54,6 +54,10 @@ const quoteOf = (quoteId: string, estimateCredits = 3, maximumCredits = 13): Quo
 let quoteRequests: Array<Record<string, unknown>>;
 let chatRequests: Array<{ messages: Array<{ role: string; parts: Array<{ type: string; text?: string }> }>; [key: string]: unknown }>;
 let quoteAnswer: () => Response;
+/** Answers /api/chat gives before it streams (a refusal, say); empty means stream an answer. */
+let chatAnswers: Array<() => Response>;
+const staleAnswer = (reason: string, quote: Quote) =>
+  new Response(JSON.stringify({ error: "Quote stale", message: "The price for this message needs to be confirmed again.", reason, quote }), { status: 409 });
 let answers: Array<ReadableStreamDefaultController<UIMessageChunk>>;
 
 function startAnswer(): Response {
@@ -136,6 +140,7 @@ beforeEach(() => {
   quoteRequests = [];
   chatRequests = [];
   answers = [];
+  chatAnswers = [];
   let quotes = 0;
   quoteAnswer = () => new Response(JSON.stringify({ quote: quoteOf(`quote-${++quotes}`) }));
   vi.spyOn(console, "warn").mockImplementation(() => {});
@@ -147,7 +152,7 @@ beforeEach(() => {
     }
     if (url.endsWith("/api/chat")) {
       chatRequests.push(JSON.parse(String(init?.body)));
-      return startAnswer();
+      return (chatAnswers.shift() ?? startAnswer)();
     }
     // The Bible service is unreachable, so the reader uses the imported World English Bible.
     throw new DOMException("Timed out", "TimeoutError");
@@ -336,6 +341,36 @@ describe("asking without enough credits", () => {
     expect(session.buyCredits).toHaveBeenCalledTimes(1);
     expect(chatRequests).toHaveLength(0);
     expect(field("Ask about John 1:5").value).toBe("What is the darkness?");
+  });
+});
+
+describe("a question whose quote went stale", () => {
+  it("waits for the reader to accept a fresh quote at a changed price, then sends with it", async () => {
+    await openVerse();
+    chatAnswers.push(() => staleAnswer("changed", quoteOf("fresh-quote", 5, 18)));
+    await type(field("Ask about John 1:5"), "What is the darkness?");
+    await submit(field("Ask about John 1:5"));
+    await flush();
+
+    const notice = askPage()!.querySelector('[role="status"]');
+    expect(notice?.textContent).toBe("The price changed. About 5 credits · at most 18. Send at this price");
+    expect(askPage()!.textContent).not.toContain("Quote stale");
+    expect(chatRequests).toHaveLength(1);
+
+    await click(button("Send at this price", askPage()!));
+    expect(chatRequests).toHaveLength(2);
+    expect(chatRequests[1]).toMatchObject({ quoteId: "fresh-quote" });
+  });
+
+  it("accepts a fresh quote for the reader once when only the old one expired at the price they accepted", async () => {
+    await openVerse();
+    chatAnswers.push(() => staleAnswer("expired", quoteOf("renewed-quote")));
+    await type(field("Ask about John 1:5"), "What is the darkness?");
+    await submit(field("Ask about John 1:5"));
+    await flush();
+
+    expect(chatRequests.map((request) => request.quoteId)).toEqual(["quote-1", "renewed-quote"]);
+    expect(askPage()!.querySelector('[role="status"]')).toBeNull();
   });
 });
 
