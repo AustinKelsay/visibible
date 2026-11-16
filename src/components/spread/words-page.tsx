@@ -35,6 +35,7 @@ export function WordsPage({
       {/* A long verse fades into the foot line rather than stopping at a hard edge; the bottom padding
           lets its last line scroll clear of the fade. */}
       <div
+        data-turn-in="slide"
         className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 pt-6 pb-8 md:px-12 md:pt-16 lg:px-14"
         style={{ maskImage: FADE_INTO_FOOT, WebkitMaskImage: FADE_INTO_FOOT }}
       >

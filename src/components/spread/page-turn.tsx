@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useLayers } from "@/components/spread/layers";
 import { useSession } from "@/context/session-context";
 import { trackVerseNavigation, type VerseNavigationSource } from "@/lib/analytics";
 import { getVerseNavigationDirection, type VerseNavigationDirection } from "@/lib/verse-keyboard-navigation";
@@ -16,19 +17,39 @@ export interface PageTurnTargets {
   nextUrl?: string;
 }
 
-export type TrackPageTurn = (direction: VerseNavigationDirection, source: VerseNavigationSource) => void;
+/** Records a turn. `targetUrl` defaults to the previous or next verse; a verse mark passes its own. */
+/** The last turn on this tab, so the spread it opens can arrive from the side it was turned towards. */
+let lastTurn: { direction: VerseNavigationDirection; targetUrl: string; at: number } | null = null;
+const ARRIVAL_WINDOW_MS = 5000;
 
 /**
- * Turns the page with the left and right arrow keys (never while the reader types in a field) and
+ * The direction this spread was turned to from the previous one, or null when the reader arrived any other
+ * way (a link, a reload, the browser's back button). Read once when the spread mounts.
+ */
+export function useArrival(url: string): VerseNavigationDirection | null {
+  const [arrival] = useState(() =>
+    lastTurn && lastTurn.targetUrl === url && Date.now() - lastTurn.at < ARRIVAL_WINDOW_MS ? lastTurn.direction : null,
+  );
+  return arrival;
+}
+
+export type TrackPageTurn = (direction: VerseNavigationDirection, source: VerseNavigationSource, targetUrl?: string) => void;
+
+/**
+ * Turns the page with the left and right arrow keys (never while the reader types in a field, or while a
+ * layer other than the whole-picture view is open) and
  * returns the tracker the page's own previous and next controls report through.
  */
 export function usePageTurn({ bookName, chapter, verseNumber, prevUrl, nextUrl }: PageTurnTargets): TrackPageTurn {
   const router = useRouter();
   const { tier, credits } = useSession();
+  const { openLayer } = useLayers();
+  const layerBlocksKeys = openLayer !== null && openLayer !== "whole-picture";
 
-  const trackTurn = useCallback<TrackPageTurn>((direction, source) => {
-    const targetUrl = direction === "prev" ? prevUrl : nextUrl;
+  const trackTurn = useCallback<TrackPageTurn>((direction, source, target) => {
+    const targetUrl = target ?? (direction === "prev" ? prevUrl : nextUrl);
     if (!targetUrl) return;
+    lastTurn = { direction, targetUrl, at: Date.now() };
     trackVerseNavigation({
       book: bookName,
       chapter,
@@ -45,14 +66,14 @@ export function usePageTurn({ bookName, chapter, verseNumber, prevUrl, nextUrl }
     const onKeyDown = (event: KeyboardEvent) => {
       const direction = getVerseNavigationDirection(event);
       const targetUrl = direction === "prev" ? prevUrl : direction === "next" ? nextUrl : undefined;
-      if (!direction || !targetUrl) return;
+      if (!direction || !targetUrl || layerBlocksKeys) return;
       event.preventDefault();
       trackTurn(direction, "keyboard");
       router.push(targetUrl);
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [prevUrl, nextUrl, router, trackTurn]);
+  }, [prevUrl, nextUrl, router, trackTurn, layerBlocksKeys]);
 
   return trackTurn;
 }
