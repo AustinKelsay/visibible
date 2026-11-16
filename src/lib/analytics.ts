@@ -24,8 +24,6 @@ export type PreferenceChangeSource =
   | "header_generate_modal"
   | "header_settings_popover"
   | "mobile_header_menu"
-  | "header_gallery_toggle"
-  | "chapter_gallery_card"
   | "unknown";
 
 export type GenerationTriggerSource =
@@ -180,38 +178,17 @@ type FeedbackPromptInteractionProps = BaseProps & {
   visitCount: number;
 };
 
-type ChapterGalleryViewedProps = BaseProps & {
+type ContentsOpenedProps = BaseProps & {
   book: string;
   chapter: number;
-  currentVerse: number;
-  layoutMode: "all" | "byVerse";
-  savedImageCount: number;
-  placeholderCount: number;
-};
-
-type ChapterGalleryLayoutChangedProps = BaseProps & {
-  book: string;
-  chapter: number;
-  currentVerse: number;
-  layoutMode: "all" | "byVerse";
-};
-
-type ChapterGalleryItemOpenedProps = BaseProps & {
-  book: string;
-  chapter: number;
-  currentVerse: number;
   verse: number;
-  layoutMode: "all" | "byVerse";
-  hasImage: boolean;
-  imageCount: number;
-  imageId?: string;
 };
 
 type ImageFullscreenOpenedProps = BaseProps & {
   book: string;
   chapter: number;
   verse: number;
-  source: "hero_mobile" | "verse_strip" | "chapter_gallery_card";
+  source: "hero_mobile";
   imageId?: string;
   totalImages?: number;
 };
@@ -231,7 +208,7 @@ type SavedImageLoadFailedProps = BaseProps & {
   book: string;
   chapter: number;
   verse: number;
-  surface: "hero" | "fullscreen" | "chapter_gallery_card" | "chapter_gallery_lightbox";
+  surface: "hero" | "fullscreen";
   imageId?: string;
   imageUrl?: string;
   attempt?: number;
@@ -247,14 +224,15 @@ type ApiDocsLinkClickedProps = BaseProps & {
   target: "internal" | "external" | "api";
 };
 
-/** How the reader turned the page. Swipes, marks and Contents join as their tickets land. */
-export type VerseNavigationSource = "keyboard" | "dock" | "swipe" | "mark";
+/** How the reader turned the page. */
+export type VerseNavigationSource = "keyboard" | "dock" | "swipe" | "mark" | "contents";
 
 type VerseNavigationProps = BaseProps & {
   book: string;
   chapter: number;
   verse: number;
-  direction: "prev" | "next";
+  /** "jump" is a move to any verse, such as a Contents tile. */
+  direction: "prev" | "next" | "jump";
   source: VerseNavigationSource;
   targetUrl: string;
 };
@@ -373,19 +351,9 @@ export function trackFeedbackPromptInteraction(props: FeedbackPromptInteractionP
   track("feedback_prompt_interaction", props);
 }
 
-// Track chapter gallery view
-export function trackChapterGalleryViewed(props: ChapterGalleryViewedProps) {
-  track("chapter_gallery_viewed", props);
-}
-
-// Track gallery layout changes
-export function trackChapterGalleryLayoutChanged(props: ChapterGalleryLayoutChangedProps) {
-  track("chapter_gallery_layout_changed", props);
-}
-
-// Track navigation from gallery cards into the reader
-export function trackChapterGalleryItemOpened(props: ChapterGalleryItemOpenedProps) {
-  track("chapter_gallery_item_opened", props);
+// Track Contents, the chapter wall opened from the passage name
+export function trackContentsOpened(props: ContentsOpenedProps) {
+  track("contents_opened", props);
 }
 
 // Track fullscreen image opens across the new image surfaces

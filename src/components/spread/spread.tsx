@@ -1,5 +1,6 @@
 "use client";
 
+import { ContentsButton, ContentsLayer } from "@/components/spread/contents";
 import { LayerProvider } from "@/components/spread/layers";
 import { PageTurnLink, useArrival, usePageTurn } from "@/components/spread/page-turn";
 import { VerseMarks } from "@/components/spread/verse-marks";
@@ -88,10 +89,18 @@ function SpreadScreen({ verseId, bookSlug, bookName, chapter, verseNumber, verse
           className="liquid-glass spread-dock pointer-events-auto flex items-center gap-1 rounded-full p-1.5"
         >
           <PageTurnLink direction="prev" href={prevUrl} onTurn={onTurn} />
-          <span className="px-3 text-sm font-medium text-white/90">{reference}</span>
+          <ContentsButton reference={reference} variant="dock" />
           <PageTurnLink direction="next" href={nextUrl} onTurn={onTurn} />
         </nav>
       </div>
+
+      <div className="flex shrink-0 justify-center bg-[#0b0b0c] px-4 pt-1 pb-[max(0.75rem,var(--safe-area-inset-bottom))] md:hidden">
+        <nav aria-label="Reader" className="liquid-glass spread-dock flex items-center gap-1 rounded-full p-1">
+          <ContentsButton reference={reference} variant="phone" />
+        </nav>
+      </div>
+
+      <ContentsLayer bookSlug={bookSlug} chapter={chapter} verse={verseNumber} />
     </main>
   );
 }
