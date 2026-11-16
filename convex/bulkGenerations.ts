@@ -293,6 +293,30 @@ export const getVerses = query({
   },
 });
 
+const VERSE_STATUS_MAX_VERSES = 200;
+
+/**
+ * Where each of the given verses (one chapter's wall in Contents) stands in the guest's job: one indexed lookup per
+ * verse, so a long job is never scanned. Verses the job does not hold are left out.
+ */
+export const getVerseStatuses = query({
+  args: {
+    sid: v.string(),
+    bulkGenerationId: v.id("bulkGenerations"),
+    verseIds: v.array(v.string()),
+  },
+  handler: async (ctx, args) => {
+    if (args.verseIds.length > VERSE_STATUS_MAX_VERSES) throw new Error(`verseIds can hold at most ${VERSE_STATUS_MAX_VERSES} items`);
+    if ((await authenticatedGuest(ctx))?.sid !== args.sid) return [];
+    if ((await ctx.db.get(args.bulkGenerationId))?.sid !== args.sid) return [];
+    const rows = await Promise.all(args.verseIds.map((verseId) => ctx.db
+      .query("bulkGenerationVerses")
+      .withIndex("by_bulk_verse", (q) => q.eq("bulkGenerationId", args.bulkGenerationId).eq("verseId", verseId))
+      .first()));
+    return rows.flatMap((row) => (row ? [{ verseId: row.verseId, status: row.status }] : []));
+  },
+});
+
 /**
  * Update a single verse entry's status.
  */
