@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
-import { usePreferences } from "@/context/preferences-context";
+import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { DEFAULT_IMAGE_MODEL, getEstimatedCreditsCostForResolution, supportsResolution, type ImageModel } from "@/lib/image-models";
 import { IMAGE_ENVELOPE_CREDITS } from "@/lib/engine/quote";
 import {
@@ -98,8 +98,8 @@ const CREDIT_BUNDLES = [
 type CreditBundle = (typeof CREDIT_BUNDLES)[number];
 
 export function BuyCreditsModal() {
-  const { isBuyModalOpen, closeBuyModal, credits, tier } = useSession();
-  const [state, setState] = useState<ModalState>("welcome");
+  const { isBuyModalOpen, welcomeRequested, closeBuyModal, credits, tier } = useSession();
+  const [state, setState] = useState<ModalState>("selection");
   const [invoice, setInvoice] = useState<Invoice | null>(null);
   const [invoiceCreatedAt, setInvoiceCreatedAt] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
@@ -126,7 +126,7 @@ export function BuyCreditsModal() {
   // (the engine always uses DEFAULT_IMAGE_MODEL) at the reader's resolution. Left out when that
   // model cannot make the resolution or pricing is unavailable. The result is tied to the
   // resolution it was computed for, so a stale count never shows after a change.
-  const { imageResolution } = usePreferences();
+  const { resolution: imageResolution } = useAdvancedSettings();
   const estimateSupported = imageResolution === "1K" || supportsResolution(DEFAULT_IMAGE_MODEL);
   const [estimate, setEstimate] = useState<{ resolution: string; cost: number } | null>(null);
   useEffect(() => {
@@ -236,43 +236,21 @@ export function BuyCreditsModal() {
     if (!modalJustOpened) return;
     modalOpenedAtRef.current = Date.now();
 
-    // Check invoice expiry once when modal opens
-    if (invoice && invoice.expiresAt > Date.now()) {
-      // Resume existing valid invoice
-      setState("invoice");
-      trackCreditsModalOpened({
-        step: resolveCreditsModalOpenedStep({
-          hasActiveInvoice: true,
-          hasSeenWelcome: true,
-          hasShownWelcomeInSession: hasSeenWelcomeRef.current,
-        }),
-        tier,
-        hasCredits: credits > 0,
-      });
-    } else {
-      // Check if user has seen welcome before
-      const hasSeenWelcome = localStorage.getItem("visibible_welcome_seen") === "true";
-      const step = resolveCreditsModalOpenedStep({
-        hasActiveInvoice: false,
-        hasSeenWelcome,
-        hasShownWelcomeInSession: hasSeenWelcomeRef.current,
-      });
-
-      if (step === "welcome") {
-        setState("welcome");
-        hasSeenWelcomeRef.current = true;
-      } else {
-        setState("selection");
-      }
-      trackCreditsModalOpened({
-        step,
-        tier,
-        hasCredits: credits > 0,
-      });
+    // The welcome shows only when it was asked for (Advanced); otherwise resume a valid invoice or start at the packs.
+    const hasActiveInvoice = Boolean(invoice && invoice.expiresAt > Date.now());
+    const step = resolveCreditsModalOpenedStep({ hasActiveInvoice, welcomeRequested });
+    setState(step);
+    if (step === "welcome") hasSeenWelcomeRef.current = true;
+    if (!hasActiveInvoice) {
       setInvoice(null);
       setQrDataUrl("");
     }
-  }, [isBuyModalOpen, invoice, tier, credits]);
+    trackCreditsModalOpened({
+      step,
+      tier,
+      hasCredits: credits > 0,
+    });
+  }, [isBuyModalOpen, welcomeRequested, invoice, tier, credits]);
 
   // Reset state when modal closes (preserve invoice for persistence)
   useEffect(() => {
@@ -450,7 +428,7 @@ export function BuyCreditsModal() {
 
     if (currentState === "success") {
       // Reset state fully on success close
-      setState("welcome");
+      setState("selection");
       setInvoice(null);
       setQrDataUrl("");
       closeBuyModal();
@@ -461,12 +439,10 @@ export function BuyCreditsModal() {
   };
 
   const handleWelcomeNext = () => {
-    localStorage.setItem("visibible_welcome_seen", "true");
     setState("selection");
   };
 
   const handleBrowseFree = () => {
-    localStorage.setItem("visibible_welcome_seen", "true");
     trackModalClosed("welcome");
     closeBuyModal();
   };

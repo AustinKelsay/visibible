@@ -49,7 +49,7 @@ vi.mock("convex/react", () => ({
 }));
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => true }));
 vi.mock("@/context/preferences-context", () => ({
-  usePreferences: () => ({ artStyle, translation: "web", imageModel: "test-model", imageAspectRatio: "16:9", imageResolution: "1K", autoGenerate: false, setAutoGenerate: vi.fn() }),
+  usePreferences: () => ({ artStyle, translation: "web", autoGenerate: false, setAutoGenerate: vi.fn() }),
 }));
 vi.mock("@/context/session-context", () => ({ useSession: () => ({ tier: "paid", credits: 0, isLoading: false, buyCredits: vi.fn() }) }));
 vi.mock("@/lib/analytics");

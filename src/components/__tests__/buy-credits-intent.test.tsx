@@ -62,8 +62,6 @@ describe("purchase intent across retries", () => {
 
   it("keeps the intent until the server settles its outcome", async () => {
     await act(async () => root.render(<BuyCreditsModal />));
-    const next = Array.from(document.querySelectorAll("button")).find((b) => b.textContent?.includes("Get Credits to Generate"));
-    if (next) await act(async () => next.click());
 
     invoiceAnswers.push(
       () => Promise.reject(new TypeError("Failed to fetch")),

@@ -400,6 +400,8 @@ function HeroImageBase({
     reference: currentReference,
     styleImageCount: selectedStyleImageCount ?? imageHistory?.length,
     autoGenerateBlocked: showingOtherStyles,
+    // The owner's prose reader keeps the old header's image settings until it moves to the spread (#451).
+    imageSettings: { imageModel, imageAspectRatio, imageResolution },
     onAttemptStart: () => {
       pendingFollowLatest.current = selectedImageId === null;
       setPendingImageId(null);

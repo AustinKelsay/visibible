@@ -13,15 +13,20 @@ import {
 } from "@/lib/chat-models";
 
 interface ChatModelSelectorProps {
-  variant?: "compact" | "indicator";
+  /** "inline" opens the list in the flow of the page, for use inside a menu. */
+  variant?: "compact" | "indicator" | "inline";
+  /** The chosen model and how to change it. Default: the old chat's saved preference. */
+  value?: string;
+  onChange?: (modelId: string) => void;
 }
 
 interface GroupedModels {
   [provider: string]: ChatModel[];
 }
 
-export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProps) {
-  const { chatModel, setChatModel } = usePreferences();
+export function ChatModelSelector({ variant = "compact", value, onChange }: ChatModelSelectorProps) {
+  const preferences = usePreferences();
+  const chatModel = value ?? preferences.chatModel;
   const { tier } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [models, setModels] = useState<ChatModel[]>([]);
@@ -89,7 +94,8 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
   }, [isOpen]);
 
   const handleSelect = (modelId: string) => {
-    setChatModel(modelId, "chat_model_selector");
+    if (onChange) onChange(modelId);
+    else preferences.setChatModel(modelId, "chat_model_selector");
     setIsOpen(false);
   };
 
@@ -159,6 +165,39 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
         {isOpen && (
           <div
             className="absolute left-0 bottom-full mb-1 w-[calc(100vw-2rem)] sm:w-80 max-h-[60vh] sm:max-h-80 overflow-y-auto rounded-lg bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50"
+            role="listbox"
+            aria-label="Select chat model"
+          >
+            {renderDropdownContent()}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Inline variant - the list opens below the button, in the flow (inside a menu)
+  if (variant === "inline") {
+    return (
+      <div ref={dropdownRef}>
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex min-h-11 w-full items-center gap-2 rounded-xl px-3 text-left text-sm text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--foreground)]"
+          aria-label={`Answering model: ${displayName}. Change it.`}
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+        >
+          <MessageSquare size={14} aria-hidden="true" className="shrink-0 opacity-60" />
+          <span className="min-w-0 flex-1 truncate">{displayName}</span>
+          <ChevronDown
+            size={14}
+            aria-hidden="true"
+            className={`shrink-0 transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
+          />
+        </button>
+        {isOpen && (
+          <div
+            className="mt-1 max-h-72 overflow-y-auto overscroll-contain rounded-xl border border-[var(--divider)] bg-[var(--background)]"
             role="listbox"
             aria-label="Select chat model"
           >

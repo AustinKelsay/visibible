@@ -5,12 +5,14 @@ import { useConvexAuth, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { usePreferences } from "@/context/preferences-context";
+import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { useSession } from "@/context/session-context";
 import { imageModelsUrl, useEffectiveArtStyle, useWorkScope } from "@/context/work-scope-context";
 import {
   canAffordImageGeneration,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
   getEstimatedCreditsCostForResolution,
+  type ImageAspectRatio,
   type ImageResolution,
 } from "@/lib/image-models";
 import {
@@ -59,6 +61,8 @@ export interface VerseGenerationOptions {
   onAttemptStart?: () => void;
   /** The image was made: saved under `savedImageId`, or (without persistence) only at `url`. */
   onImage?: (image: { savedImageId: string | null; url: string; model: string }) => void;
+  /** The model, ratio and resolution to paint with. Default: the reader's Advanced settings (their defaults when Advanced is absent). */
+  imageSettings?: { imageModel: string; imageAspectRatio: ImageAspectRatio; imageResolution: ImageResolution };
 }
 
 /**
@@ -74,8 +78,15 @@ export function useVerseGeneration({
   ownerNeedsNoOptIn = true,
   onAttemptStart,
   onImage,
+  imageSettings,
 }: VerseGenerationOptions) {
-  const { imageModel, imageAspectRatio, imageResolution, translation, autoGenerate } = usePreferences();
+  const { translation, autoGenerate } = usePreferences();
+  const advanced = useAdvancedSettings();
+  const {
+    imageModel,
+    imageAspectRatio,
+    imageResolution,
+  } = imageSettings ?? { imageModel: advanced.imageModel, imageAspectRatio: advanced.aspectRatio, imageResolution: advanced.resolution };
   const scope = useWorkScope();
   const { artStyle, offered: offeredStyles } = useEffectiveArtStyle();
   const catalogUrl = imageModelsUrl(scope);

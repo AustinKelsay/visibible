@@ -9,6 +9,7 @@ import { TrackedApiDocsLink } from "@/components/api-docs-analytics";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { Feedback, imageContextOf } from "@/components/feedback";
 import { SocialLinks } from "@/components/site-links";
+import { Advanced } from "@/components/spread/advanced";
 import { LayerPanel, useLayer, useLayers } from "@/components/spread/layers";
 import { useSession } from "@/context/session-context";
 import { useEffectiveArtStyle } from "@/context/work-scope-context";
@@ -19,6 +20,8 @@ export interface CornerMenuProps {
   bookName: string;
   chapter: number;
   verseNumber: number;
+  verseText: string;
+  totalVerses: number;
 }
 
 const ROW =
@@ -26,11 +29,11 @@ const ROW =
 
 /**
  * The Visibible name in the spread's top-left corner and the one menu it opens: the credit balance and
- * Get credits, Recover credits, Send feedback, About, API documentation and social links. Send feedback
+ * Get credits, Recover credits, Send feedback, About, API documentation, social links and Advanced. Send feedback
  * replaces the menu with the feedback form. Both are layers, so Escape closes them and focus returns to
  * the name.
  */
-export function CornerMenu({ verseId, bookName, chapter, verseNumber }: CornerMenuProps) {
+export function CornerMenu({ verseId, bookName, chapter, verseNumber, verseText, totalVerses }: CornerMenuProps) {
   const name = useRef<HTMLButtonElement>(null);
   const menu = useLayer("corner");
   const feedback = useLayer("feedback");
@@ -58,7 +61,7 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber }: CornerMe
       <LayerPanel
         id="corner"
         label="Visibible menu"
-        className="absolute left-3 top-[4.25rem] z-40 w-[min(20rem,calc(100vw-1.5rem))] rounded-2xl border border-white/10 bg-[rgba(14,14,16,0.9)] p-2 text-white shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:left-5 md:top-[4.75rem]"
+        className="absolute left-3 top-[4.25rem] z-40 max-h-[calc(100svh-5rem)] w-[min(20rem,calc(100vw-1.5rem))] overflow-y-auto overscroll-contain rounded-2xl border border-white/10 bg-[rgba(14,14,16,0.9)] p-2 text-white shadow-2xl outline-none backdrop-blur-2xl backdrop-saturate-150 md:left-5 md:top-[4.75rem]"
       >
         <Balance onGetCredits={menu.close} />
         <Divider />
@@ -75,6 +78,15 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber }: CornerMe
             className="flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors duration-[var(--motion-fast)] hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
           />
         </div>
+        <Divider />
+        <Advanced
+          verseId={verseId}
+          bookName={bookName}
+          chapter={chapter}
+          verseNumber={verseNumber}
+          verseText={verseText}
+          totalVerses={totalVerses}
+        />
       </LayerPanel>
 
       <LayerPanel
@@ -144,7 +156,7 @@ function Balance({ onGetCredits }: { onGetCredits: () => void }) {
 }
 
 /** The feedback form with the verse and the picture on screen attached. Mounted only while open. */
-function FeedbackForm({ verseId, bookName, chapter, verseNumber, onClose }: CornerMenuProps & { onClose: () => void }) {
+function FeedbackForm({ verseId, bookName, chapter, verseNumber, onClose }: Pick<CornerMenuProps, "verseId" | "bookName" | "chapter" | "verseNumber"> & { onClose: () => void }) {
   const isConvexEnabled = useConvexEnabled();
   const { artStyle } = useEffectiveArtStyle();
   // The spread's picture query, so the form attaches the picture the spread shows.
