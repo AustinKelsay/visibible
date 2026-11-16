@@ -6,7 +6,7 @@ import { RefreshCw, X } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useLayer } from "@/components/spread/layers";
-import { usePictureStyles } from "@/context/work-scope-context";
+import { useMomentWord, usePictureStyles } from "@/context/work-scope-context";
 import { artStyleLabel } from "@/lib/art-styles";
 import { UnpaintedPicture } from "@/components/spread/unpainted-picture";
 import { PictureMenu } from "@/components/spread/picture-menu";
@@ -126,7 +126,7 @@ function SavedPicture({ verseId, reference, onShowWhole, playing = false, onPlay
             controls
             playsInline
             tabIndex={0}
-            className="relative mt-auto block aspect-video w-full shrink-0 bg-black outline-none md:mt-0 md:aspect-auto md:min-h-0 md:flex-1 md:bg-transparent"
+            className="relative mt-auto block aspect-video w-full shrink-0 bg-paper outline-none md:mt-0 md:aspect-auto md:min-h-0 md:flex-1 md:bg-transparent"
           />
           <button
             type="button"
@@ -214,6 +214,7 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle }: { verse
   const paint = usePaintVerse({ verseId, reference });
   const { generation } = paint;
   const chosenLabel = artStyleLabel(chosenStyle);
+  const word = useMomentWord();
 
   let body;
   if (paint.painting) {
@@ -247,7 +248,7 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle }: { verse
       <>
         <p className="text-[13px] leading-snug text-ink/80 md:text-sm">
           <span className="font-medium text-ink">Shown in {artStyleLabel(shownStyle)}.</span>{" "}
-          No {chosenLabel} picture of this verse yet.
+          No {chosenLabel} picture of this {word} yet.
         </p>
         <PaintButton paint={paint} label={`Paint in ${chosenLabel}`} className={NOTE_BUTTON} />
       </>

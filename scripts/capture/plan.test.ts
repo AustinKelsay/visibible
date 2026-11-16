@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CAPTURE_STUBS, VIDEO_PRICING, allowsRequest, findBrowser, localBase, parseStep, pricedCatalog, readerSettingsIn, selectStates, shotFile, stubLabel } from "./plan";
+import { CAPTURE_STUBS, VIDEO_PRICING, allowsRequest, findBrowser, localBase, ownerPassword, parseStep, pricedCatalog, readerSettingsIn, selectStates, shotFile, stubLabel } from "./plan";
 import { READER_STATES } from "./states";
 
 describe("reader capture plan", () => {
@@ -104,6 +104,12 @@ describe("reader capture plan", () => {
     expect(stubLabel({ name: "reading", path: "/john/1/5" })).toBeNull();
     expect(VIDEO_PRICING.enabled).toBe(true);
     expect(VIDEO_PRICING.quotes).toContainEqual(expect.objectContaining({ duration: 5, resolution: "768p" }));
+  });
+
+  it("signs an owner-only state in with the password it is given, and says how to give one", () => {
+    expect(ownerPassword({ CAPTURE_ADMIN_PASSWORD: "local-secret" })).toBe("local-secret");
+    expect(() => ownerPassword({})).toThrow(/CAPTURE_ADMIN_PASSWORD/);
+    expect(READER_STATES.filter((state) => state.owner).map((state) => state.name)).toContain("prose");
   });
 
   it("names each picture after its state and size, and can shoot only some states", () => {

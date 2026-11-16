@@ -2,7 +2,7 @@
 
 [The image route](../../src/app/api/generate-image/route.ts) calls server-secret-protected `saveImage` in [verseImages.ts](../../convex/verseImages.ts). Browser components query history; they do not call this write action directly.
 
-Verse IDs group history by reference (for example `genesis-1-1`), without translation. Records retain translation and generation metadata, so shared history may include multiple translations. [HeroImage](../../src/components/hero-image.tsx) defaults to the latest image and supports older/newer selection; [Navigation](NAVIGATION.md) describes the spread and Contents.
+Verse IDs group history by reference (for example `genesis-1-1`), without translation. Records retain translation and generation metadata, so shared history may include multiple translations. The spread shows the newest by the picture rule and the picture menu lists the others; [Navigation](NAVIGATION.md) describes the spread and Contents. A prose moment's images are kept under its first unit's id.
 
 ## Storage and fallback
 

@@ -8,6 +8,7 @@ import { FeedbackPromptsItem } from "@/components/spread/advanced/feedback-promp
 import { ImageSettingsItem } from "@/components/spread/advanced/image-settings";
 import { PassageDetailsItem } from "@/components/spread/advanced/passage-details";
 import { WelcomeItem } from "@/components/spread/advanced/welcome";
+import { useWorkScope } from "@/context/work-scope-context";
 
 /** The verse on screen, for the items that describe it. */
 export interface AdvancedVerse {
@@ -30,6 +31,8 @@ export interface AdvancedVerse {
  */
 export function Advanced(verse: AdvancedVerse) {
   const [isOpen, setIsOpen] = useState(false);
+  // A prose moment (the owner's prose reader) has no Ask to answer and no Bible passage to describe.
+  const bible = useWorkScope() === null;
   const regionId = useId();
 
   return (
@@ -52,8 +55,8 @@ export function Advanced(verse: AdvancedVerse) {
         <div id={regionId} role="group" aria-label="Advanced" className="space-y-1 pb-1 pt-1">
           <AppearanceItem />
           <ImageSettingsItem />
-          <AnsweringModelItem />
-          <PassageDetailsItem {...verse} />
+          {bible ? <AnsweringModelItem /> : null}
+          {bible ? <PassageDetailsItem {...verse} /> : null}
           <WelcomeItem />
           <FeedbackPromptsItem />
         </div>

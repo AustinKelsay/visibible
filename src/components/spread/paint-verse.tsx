@@ -21,8 +21,6 @@ export function usePaintVerse({ verseId, reference, autoGenerateBlocked = false 
     // Only used once the verse's pictures in the chosen style have loaded and there are none.
     styleImageCount: 0,
     autoGenerateBlocked,
-    // The switch is the only way automatic painting starts, for the owner too.
-    ownerNeedsNoOptIn: false,
     onAttemptStart: () => setMade(null),
     onImage: ({ savedImageId, url }) => setMade({ saved: savedImageId !== null, url }),
   });

@@ -8,7 +8,7 @@ import { LayerPanel, useLayer, useLayers } from "@/components/spread/layers";
 import { useChosenPicture, type ChosenPicture } from "@/components/spread/chosen-picture";
 import { MakeVideo, activeVideoJob } from "@/components/spread/make-video";
 import { useSession } from "@/context/session-context";
-import { useEffectiveArtStyle, useVisibleArtStyles } from "@/context/work-scope-context";
+import { useEffectiveArtStyle, useVisibleArtStyles, useWorkScope } from "@/context/work-scope-context";
 import { artStyleLabel } from "@/lib/art-styles";
 import { trackPictureMenuOpened } from "@/lib/analytics";
 import { imageModelDisplayName } from "@/lib/image-models";
@@ -105,6 +105,8 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
   const { choose } = useChosenPicture();
   const { buyCredits } = useSession();
   const { artStyle } = useEffectiveArtStyle();
+  // Videos are made of Bible verses only; a prose moment's menu has no Make a video.
+  const offersVideo = useWorkScope() === null;
   // The styles the reader may see (public, plus owner-only for an admin), as Look offers them.
   const visibleStyles = useVisibleArtStyles();
   const otherStylePictures = useQuery(
@@ -181,7 +183,9 @@ function PictureMenuLayer({ verseId, reference, pictures, shown, chip, myJobs, o
 
         <hr className="mx-3 my-1.5 border-ink/10" />
         <PaintAnother generation={generation} onGetCredits={() => { layer.close(); buyCredits(); }} />
-        <MakeVideo verseId={verseId} reference={reference} myJobs={myJobs} className={ROW} onGetCredits={() => { layer.close(); buyCredits(); }} onMakingChange={onMakingVideoChange} />
+        {offersVideo ? (
+          <MakeVideo verseId={verseId} reference={reference} myJobs={myJobs} className={ROW} onGetCredits={() => { layer.close(); buyCredits(); }} onMakingChange={onMakingVideoChange} />
+        ) : null}
 
         <button type="button" className={ROW} aria-expanded={detailsOpen} onClick={() => setDetailsOpen((open) => !open)}>
           <span className="flex-1">Details</span>

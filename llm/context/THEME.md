@@ -25,6 +25,6 @@ Text drawn straight on a picture (verse marks, the corner name, the whole-pictur
 
 Use the existing semantic variables, restrained decoration and Lucide icons. Preserve visible keyboard focus, labeled icon controls, readable contrast, mobile touch targets and reduced-motion behavior. These are implementation criteria to verify, not an assertion that every current component meets every accessibility target.
 
-Use existing components as references: [header](../../src/components/header.tsx), [book menu](../../src/components/book-menu.tsx), [buy-credits modal](../../src/components/buy-credits-modal.tsx), [image skeleton](../../src/components/image-loading-skeleton.tsx). Check the actual component breakpoints and safe-area rules instead of assuming one fixed desktop/mobile layout.
+Use existing components as references: the [spread](../../src/components/spread/spread.tsx) and its [words page](../../src/components/spread/words-page.tsx), the [site header](../../src/components/site-header.tsx), the [buy-credits modal](../../src/components/buy-credits-modal.tsx). Check the actual component breakpoints and safe-area rules instead of assuming one fixed desktop/mobile layout.
 
 Reader, Contents, sidebar and fullscreen behavior are documented in [Navigation](NAVIGATION.md). Token values should change in CSS, without maintaining duplicate value tables here.

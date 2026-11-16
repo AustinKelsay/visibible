@@ -66,7 +66,25 @@ export const VIDEO_PRICING = {
 };
 
 /** One reader state: the name its pictures carry, the address it opens, the steps that reach it and its stubs. */
-export type CaptureState = { name: string; path: string; steps?: string[]; sizes?: CaptureSize[]; stubs?: CaptureStub[] };
+export type CaptureState = {
+  name: string;
+  path: string;
+  steps?: string[];
+  sizes?: CaptureSize[];
+  stubs?: CaptureStub[];
+  /** The state needs the owner (an admin session), as the prose reader does: the run signs in (`ownerPassword`). */
+  owner?: true;
+};
+
+/**
+ * The admin password an owner-only state signs in with: `CAPTURE_ADMIN_PASSWORD`, the local app's `ADMIN_PASSWORD`.
+ * The run posts it to the local app's /api/admin-login and nowhere else.
+ */
+export function ownerPassword(env: Record<string, string | undefined>): string {
+  const password = env.CAPTURE_ADMIN_PASSWORD;
+  if (!password) throw new Error("This state needs the owner: set CAPTURE_ADMIN_PASSWORD to the local app's ADMIN_PASSWORD");
+  return password;
+}
 
 type CatalogModel = Record<string, unknown> & { id: string };
 type CatalogStyle = Record<string, unknown> & { id: string; available?: boolean; reason?: string };
