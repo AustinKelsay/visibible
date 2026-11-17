@@ -1,5 +1,12 @@
 # Generic engine release status
 
+**Stored answers for Ask's suggested questions (17 November 2026, 23:50 UTC).** Spec #505, on the owner's "systematically end to end full send" and "Release now". `main` at `ad90ce8e` (#507, #509) went out Convex first (a new storedAnswers table), then Vercel `dpl_AGR8MRsK4fkS24dpFerAXkizbpLt`.
+- The first complete answer to a suggested question is stored and served to later readers instantly, for nothing.
+- "Get a fresh answer" asks again and replaces it for everyone. Answers also expire after 30 days, follow model, rule, translation and context changes, and the owner can remove them.
+- A question asked before the free standing loads now waits for it, and a used-up refusal lifts at midnight UTC.
+- Smoke on John 1:6: one guest's free answer was stored. A second guest got it from storage in 88 ms with all 20 free answers left, and their fresh answer replaced it for a third.
+- About $0.0003 on the free key ([record](2026-11-17-stored-answers/deployment.json)).
+
 **Moving pictures' last edges (17 November 2026, 23:29 UTC).** #508 (`main` at `ba6412a7`; deployed as its own commit `66d34831`, Vercel `dpl_CaSDMeuRq39GXH1bR9igYMw9Cv7G`, so the unreleased #507 stays out): Pause on a phone in the whole-picture view, on the picture's corner; the clip's edges fade into the picture on wide frames; the phone chip shortens its label only beside Play; one source for the words page's width. Frontend only, no spend ([record](2026-11-17-moving-picture-polish/deployment.json)).
 
 **Play on survives new-tab clicks; a paint survives the whole-picture view (17 November 2026, 22:39 UTC).** #504 (`main` at `1b9d8e06`, Vercel `dpl_E7hzZRENZfUgmfzTnHcWdTsr1pkR`): a click that opens a verse in another tab no longer ends a Play on run on this tab, and the other-style note stays mounted (hidden) in the whole-picture view so its paint carries on. Frontend only, no spend ([record](2026-11-17-play-on-edges/deployment.json)).

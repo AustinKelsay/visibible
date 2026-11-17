@@ -1,0 +1,34 @@
+{
+  "authorization": [
+    "After Free Ask's release the owner asked to do the stored answers for suggested questions and the two small Free Ask follow-ups \"systematically end to end full send\", adding: \"there should be some way to regenerate it as well so we don't get stuck with the same cached answer forever\".",
+    "Asked before release, the owner chose \"Release now\"."
+  ],
+  "release": {
+    "pullRequests": [507, 509],
+    "mainCommit": "ad90ce8e",
+    "spec": 505,
+    "reviewFindings": "GPT-6.1 Sol (xhigh) approved #507 in 2 rounds (a waiting question the reader edited; a refresh after a failed standing read) and #509 in 3 (the stored bypass limited to a first question; a fresh answer waiting for the standing; the session checked before serving; a fresh answer and a follow-up never racing). The CodeRabbit CLI found one minor in #507 (declined: a refusal crossing midnight in flight) and three in #509 (fixed). CodeRabbit's PR review on #509 raised three: two fixed (the verse recorded as readers see it; translation in the key, no storing without Scripture) and one declined (stored suggestions in the over-cap 400; none can exist). CI quality-gates passed on both and on main."
+  },
+  "deploy": {
+    "steps": [
+      { "at": "2026-11-17T23:48:34Z", "convex": "Pushed main at ad90ce8e to prod unique-impala-244: the storedAnswers table with three indexes, an hourly cleanup, and the stored-answer reads and writes. No deletions." },
+      { "at": "about 2026-11-17T23:50Z", "commit": "ad90ce8e", "carries": [507, 509], "vercel": "dpl_AGR8MRsK4fkS24dpFerAXkizbpLt" }
+    ]
+  },
+  "changes": [
+    "The first complete answer to a suggested question (\"What does John 1:5 mean?\", \"Summarize John 1 so far\", or the historical context at a first verse) is stored and served to later readers instantly, with no model call, no free answer and no credits.",
+    "A stored answer shows \"Saved answer · Get a fresh answer\": the fresh answer is asked like any question and replaces the stored one for everyone. Stored answers expire after 30 days, change with the model, rules, translation or chapter-so-far context (the key), and the owner can remove a verse's with storedAnswers:removeForReference.",
+    "A question asked before the free standing loads waits for it instead of opening the credits dialog; a failed standing read lets the server decide; a used-up refusal is read again just after midnight UTC."
+  ],
+  "smoke": {
+    "after": "Production, John 1:6, translation web. A new guest's quote listed no stored suggestion and 20 free answers; \"What does John 1:6 mean?\" was answered by openai/gpt-6-luna in 3.3 s, billed free, and then the quote listed it as stored (19 left). A second new guest's quote listed it as stored with 20 free answers; the question came back from storage (stored: true, billingStatus stored, 88 ms on the server, identical text) and the guest still had 20. That guest's fresh: true request was answered by the model (free) and replaced the stored text, which a third new guest then received from storage."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_CaSDMeuRq39GXH1bR9igYMw9Cv7G (#508's 23:29 UTC deployment, before #507 and #509). Stored answers stop being served; the rows can stay.",
+    "convex": "Additive; the storedAnswers table can stay."
+  },
+  "productionWrites": [
+    "One Convex push and one Vercel production deployment.",
+    "Three smoke guest sessions, two free answers on the free key (about $0.0003), and one stored answer for John 1:6 (web), replaced once."
+  ]
+}
