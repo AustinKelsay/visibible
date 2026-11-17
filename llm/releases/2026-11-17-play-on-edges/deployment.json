@@ -1,0 +1,29 @@
+{
+  "authorization": [
+    "The owner asked to fix two follow-ups from #500 (a new-tab click ending a Play on run; the whole-picture view cutting off the other-style note's paint) and to remove the task's worktrees, \"end to end full send\". Spends nothing."
+  ],
+  "release": {
+    "pullRequests": [504],
+    "mainCommit": "1b9d8e06",
+    "reviewFindings": "GPT-6.1 Sol (xhigh) approved in one round with no findings. CodeRabbit had no actionable comments. CI quality-gates passed."
+  },
+  "deploy": {
+    "steps": [
+      { "at": "2026-11-17T22:39:18Z", "commit": "1b9d8e06", "carries": [504], "vercel": "dpl_E7hzZRENZfUgmfzTnHcWdTsr1pkR", "convex": "Unchanged; frontend only. Since the previous production commit f1ee85fa, main gained only release records and #504." }
+    ]
+  },
+  "changes": [
+    "A click that opens the next verse or a verse mark in another tab is not a turn on this tab, so a Play on run carries on (opensElsewhere in page-turn.tsx, shared with Contents).",
+    "The other-style note stays mounted, hidden, in the whole-picture view, so a paint it started is not cut off."
+  ],
+  "smoke": {
+    "after": "/genesis/1/15, /john/4/7 and /api/health 200. Playwright on production: Genesis 1:15 plays in place; a Cmd-click on Next opened one new tab while the page stayed on /genesis/1/15, still playing."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_BCLwLiYHewaLeB5btfnYReTbpGw9 (main f1ee85fa, the Free Ask release). Nothing stored differs."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "The browser session of the smoke run, with no balance."
+  ]
+}

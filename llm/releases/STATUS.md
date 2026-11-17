@@ -1,5 +1,7 @@
 # Generic engine release status
 
+**Play on survives new-tab clicks; a paint survives the whole-picture view (17 November 2026, 22:39 UTC).** #504 (`main` at `1b9d8e06`, Vercel `dpl_E7hzZRENZfUgmfzTnHcWdTsr1pkR`): a click that opens a verse in another tab no longer ends a Play on run on this tab, and the other-style note stays mounted (hidden) in the whole-picture view so its paint carries on. Frontend only, no spend ([record](2026-11-17-play-on-edges/deployment.json)).
+
 **Free Ask released (17 November 2026, 22:12 UTC).** Spec #493, on the owner's "execute this systematically end to end full send" and "Release and turn free on". Main at `f1ee85fa` (#497, #498, #499, #501, also carrying #500) went out Convex first, then Vercel `dpl_BCLwLiYHewaLeB5btfnYReTbpGw9`, with `FREE_ASK_ENABLED` and a dedicated free-answers OpenRouter key ($1.50 daily limit) set.
 - Every reader now gets free Ask answers: 20 a session and 100 a network each UTC day, inside $1 a day and $30 a month of free spend.
 - Ask answers with GPT-6 Luna, reasoning off ([gate](2026-11-17-chat-luna/README.md)).
