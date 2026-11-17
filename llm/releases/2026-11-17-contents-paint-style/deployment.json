@@ -1,0 +1,29 @@
+{
+  "authorization": [
+    "The owner reported that after switching style, Contents offered to paint every verse as if none were painted, though the tiles showed their pictures; then said \"ok ship it!\". Spends nothing."
+  ],
+  "release": {
+    "pullRequests": [487],
+    "mainCommit": "ac5e23bc",
+    "reviewFindings": "CodeRabbit had no actionable comments. CI quality-gates passed."
+  },
+  "deploy": {
+    "steps": [
+      { "at": "2026-11-17T00:50:20Z", "commit": "ac5e23bc", "carries": [487], "vercel": "dpl_GLYUVzuKdWpTZyHfiPfiKnBuxoDc", "convex": "Unchanged functions; the Vercel build's convex deploy pushes the same code." }
+    ]
+  },
+  "changes": [
+    "When verses to paint already show another style's picture, Contents' button reads \"Paint N verses in <Style>\" instead of \"Paint the N unpainted verses\"; the bulk job is labelled \"<Book> <chapter> in <Style>\".",
+    "A tile showing another style's picture names that style in its label."
+  ],
+  "smoke": {
+    "after": "/genesis/1/1, /john/1/5 and /api/health 200. Playwright on production as a new guest (Classical): Genesis 1, painted in Storybook, shows its 31 Storybook tiles and \"Paint 31 verses in Classical · about 186 credits\"."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_5WHHBJdJNNJRkDQdvNAYQvWGkwqS (main 8d8faf8b). Nothing stored differs."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "The browser session of the screenshot run, with no balance."
+  ]
+}
