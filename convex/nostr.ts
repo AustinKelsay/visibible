@@ -6,7 +6,6 @@ import { v } from "convex/values";
 import type { Doc } from "./_generated/dataModel";
 
 const DEFAULT_NOSTR_RELAYS = [
-  "wss://relay.nostr.band",
   "wss://nos.lol",
   "wss://relay.damus.io",
   "wss://relay.primal.net"
