@@ -8,7 +8,7 @@ import { CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE, HISTORY_TOKEN_BUDGET, maxOutputToke
 
 export { CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE };
 import { IMAGE_RESERVATION_HEADROOM_MULTIPLIER } from "./image-models";
-import { quoteTokenUsage, type TokenPricing } from "./token-pricing";
+import { MICRO_CREDITS_PER_CREDIT, quoteTokenMicroCredits, quoteTokenUsage, type TokenPricing } from "./token-pricing";
 
 /**
  * The billing policy of every operation admitted with an accepted quote: the hold is the accepted maximum, and the
@@ -69,17 +69,19 @@ const TYPICAL_ANSWER_TOKENS = 1000;
 /**
  * One chat turn's estimate and maximum from the model's prices and the turn's system prompt (its estimated tokens),
  * so both grow with the Scripture the prompt carries. The estimate is a typical turn (the system prompt and a short
- * question in, 1,000 tokens out); the maximum is the most the server will send and accept back (the system prompt and
- * the bounded history in, the output cap out). Null when the model cannot be priced.
+ * question in, 1,000 tokens out), in hundredths of a credit since a turn is charged its fraction (#493); the maximum is
+ * the most the server will send and accept back (the system prompt and the bounded history in, the output cap out), in
+ * whole credits, since that is what is held. Null when the model cannot be priced.
  */
 export function chatQuoteTerms(modelId: string, pricing: TokenPricing & { contextLength?: number }, systemPromptTokens: number): ChatQuoteTerms | null {
   const maxOutputTokens = maxOutputTokensFor(pricing.contextLength);
   const maxInputTokens = HISTORY_TOKEN_BUDGET + systemPromptTokens;
   const maximum = quoteTokenUsage(pricing, maxInputTokens, maxOutputTokens);
-  const typical = quoteTokenUsage(pricing, systemPromptTokens + TYPICAL_CONVERSATION_TOKENS, TYPICAL_ANSWER_TOKENS);
-  if (!maximum || !typical) return null;
+  const typicalMicro = quoteTokenMicroCredits(pricing, systemPromptTokens + TYPICAL_CONVERSATION_TOKENS, TYPICAL_ANSWER_TOKENS);
+  if (!maximum || typicalMicro === null) return null;
+  const typicalCredits = Math.max(1, Math.ceil(typicalMicro / (MICRO_CREDITS_PER_CREDIT / 100))) / 100;
   return {
-    estimateCredits: Math.min(typical.credits, maximum.credits), maximumCredits: maximum.credits,
+    estimateCredits: Math.min(typicalCredits, maximum.credits), maximumCredits: maximum.credits,
     maxInputTokens, maxOutputTokens,
     fingerprint: sha256(JSON.stringify({
       operation: "chat", policyVersion: BILLING_POLICY_VERSION, modelId,

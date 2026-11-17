@@ -5,7 +5,6 @@ import {
   DEFAULT_CHAT_MODEL,
   chatModelReasoningEffort,
   getChatModelPricing,
-  computeActualChatCreditsCost,
   CREDIT_USD,
 } from "@/lib/chat-models";
 import { BILLING_POLICY_VERSION, CHAT_MAX_CREDITS_PER_MESSAGE, QUOTE_STALE_ERROR, QUOTE_STALE_STATUS, chatQuoteTerms } from "@/lib/quotes";
@@ -33,6 +32,7 @@ import {
 } from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 import { boundHistory, chatRequestSchema, chatSystemPrompt } from "@/lib/chat-request";
+import { MICRO_CREDITS_PER_CREDIT, quoteTokenMicroCredits } from "@/lib/token-pricing";
 import { freeAnswerCostUsd, freeAnswerInputTokenBound, freeAnswerNetwork, freeAnswersKey } from "@/lib/free-answers";
 import { freeAnswersUsedMessage, type FreeAnswerRefusal } from "@/lib/free-answer-display";
 
@@ -373,15 +373,19 @@ export async function POST(req: Request) {
       }
 
       // Actual usage, never above the accepted maximum; the accepted estimate unless the provider reported both
-      // counts. A reported zero is a count; a missing one is not, and half a report is not usage.
+      // counts. A reported zero is a count; a missing one is not, and half a report is not usage. The charge is the
+      // turn's fraction of a credit, in millionths (#493): Convex adds it to the session's carried fraction and takes
+      // only whole credits from the hold, so there is no one-credit minimum.
       const counted = (tokens: number | undefined): tokens is number => typeof tokens === "number" && Number.isFinite(tokens) && tokens >= 0;
-      const actualCredits = usage && counted(usage.promptTokens) && counted(usage.completionTokens)
-        ? computeActualChatCreditsCost(modelPricing, usage.promptTokens, usage.completionTokens)
+      const actualMicro = usage && counted(usage.promptTokens) && counted(usage.completionTokens)
+        ? quoteTokenMicroCredits(modelPricing, usage.promptTokens, usage.completionTokens)
         : null;
-      const usedFallbackEstimate = actualCredits === null;
-      const toCharge = Math.min(actualCredits ?? estimatedCredits, creditAmount);
-      if (actualCredits !== null && actualCredits > creditAmount) {
-        logSettlementEvent({ context: requestContext, outcome: "capped", sid: sessionId, generationId: settledGenerationId, details: { maximumCredits: creditAmount, wantedCredits: actualCredits } });
+      const usedFallbackEstimate = actualMicro === null;
+      const wantedMicro = actualMicro ?? Math.round(estimatedCredits * MICRO_CREDITS_PER_CREDIT);
+      const chargeMicro = Math.min(wantedMicro, creditAmount * MICRO_CREDITS_PER_CREDIT);
+      const toCharge = chargeMicro / MICRO_CREDITS_PER_CREDIT;
+      if (actualMicro !== null && actualMicro > chargeMicro) {
+        logSettlementEvent({ context: requestContext, outcome: "capped", sid: sessionId, generationId: settledGenerationId, details: { maximumCredits: creditAmount, wantedCredits: actualMicro / MICRO_CREDITS_PER_CREDIT } });
       }
 
       try {
@@ -391,9 +395,10 @@ export async function POST(req: Request) {
           modelId,
           generationId: settledGenerationId,
           costUsd: maximumCostUsd,
-          actualAmount: toCharge,
+          actualAmount: Math.ceil(toCharge),
+          actualMicroCredits: chargeMicro,
           // The daily limit counts what the turn was worth, not only the capped charge.
-          actualCostUsd: (actualCredits ?? toCharge) * CREDIT_USD,
+          actualCostUsd: (wantedMicro / MICRO_CREDITS_PER_CREDIT) * CREDIT_USD,
           serverSecret,
         });
 
@@ -667,7 +672,7 @@ export async function POST(req: Request) {
               maximumCredits,
               billingStatus: freeTurn ? "free" : creditReserved ? billingStatus : "not_required",
               free: Boolean(freeTurn),
-              actualCredits: computeActualChatCreditsCost(modelPricing, promptTokens, completionTokens),
+              actualCredits: (quoteTokenMicroCredits(modelPricing, promptTokens, completionTokens) ?? 0) / MICRO_CREDITS_PER_CREDIT,
               incomplete: success && finish?.finishReason === "length",
               earlierMessagesOmitted: history.omitted,
               maxOutputTokens: history.maxOutputTokens,

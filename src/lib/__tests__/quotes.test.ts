@@ -51,16 +51,16 @@ describe("chat quote terms", () => {
   it("prices the maximum from the server's bounds and the estimate from a typical turn with this system prompt", () => {
     const terms = chatQuoteTerms("test/model", pricing, 2000)!;
     // (6,000 + 2,000 in × $0.000001 + 2,048 out × $0.000005) × 1.25 = $0.0228: 3 credits.
-    // A typical turn (2,000 + 300 in, 1,000 out) is $0.0073 × 1.25: 1 credit.
-    expect(terms).toMatchObject({ estimateCredits: 1, maximumCredits: 3, maxInputTokens: HISTORY_TOKEN_BUDGET + 2000, maxOutputTokens: MAX_OUTPUT_TOKENS });
+    // A typical turn (2,000 + 300 in, 1,000 out) is $0.0073 × 1.25: 0.92 of a credit, in hundredths (#493).
+    expect(terms).toMatchObject({ estimateCredits: 0.92, maximumCredits: 3, maxInputTokens: HISTORY_TOKEN_BUDGET + 2000, maxOutputTokens: MAX_OUTPUT_TOKENS });
   });
 
   it("grows the estimate and the maximum with the system prompt", () => {
     const dear = { prompt: "0.0001", completion: "0" };
-    // In at $0.0001 a token × 1.25: a typical turn of 500 + 300 tokens is 10 credits, of 3,500 + 300 is 48;
+    // In at $0.0001 a token × 1.25: a typical turn of 500 + 300 tokens is 10 credits, of 3,500 + 300 is 47.5;
     // the maximum adds the 6,000-token history: 82 and 119.
     expect(chatQuoteTerms("test/model", dear, 500)).toMatchObject({ estimateCredits: 10, maximumCredits: 82, maxInputTokens: 6500 });
-    expect(chatQuoteTerms("test/model", dear, 3500)).toMatchObject({ estimateCredits: 48, maximumCredits: 119, maxInputTokens: 9500 });
+    expect(chatQuoteTerms("test/model", dear, 3500)).toMatchObject({ estimateCredits: 47.5, maximumCredits: 119, maxInputTokens: 9500 });
   });
 
   it("uses the smaller output cap of a small context window, and never quotes an estimate above the maximum", () => {

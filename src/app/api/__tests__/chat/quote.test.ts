@@ -25,6 +25,7 @@ const state = {
   sessions: new Map<string, Session>(),
   calls: [] as Array<{ action: string; args: Record<string, unknown> }>,
   holds: new Map<string, number>(),
+  carry: new Map<string, number>(),
   rateLimited: [] as string[],
 };
 const sid = { value: "test-session" };
@@ -81,9 +82,17 @@ vi.mock("@/lib/convex-client", () => ({
       if (state.holds.has(generationId)) {
         state.calls.push({ action: "deductCredits", args });
         // The hold converts to the actual charge; the rest returns to the balance.
-        session.credits += state.holds.get(generationId)! - ((args.actualAmount as number | undefined) ?? amount);
+        // A chat turn's fraction joins the session's carried fraction, and only whole credits are taken (#493).
+        const micro = args.actualMicroCredits as number | undefined;
+        let charged = (args.actualAmount as number | undefined) ?? amount;
+        if (micro !== undefined) {
+          const total = (state.carry.get(session.sid) ?? 0) + micro;
+          charged = Math.floor(total / 1_000_000);
+          state.carry.set(session.sid, total - charged * 1_000_000);
+        }
+        session.credits += state.holds.get(generationId)! - charged;
         state.holds.delete(generationId);
-        return { success: true, newBalance: session.credits };
+        return { success: true, newBalance: session.credits, chargedCredits: charged };
       }
       state.calls.push({ action: "reserveCredits", args });
       if (session.credits < amount) return { success: false, error: "Insufficient credits", required: amount, available: session.credits };
@@ -159,7 +168,7 @@ describe("chat quotes and the maximum charge (#60)", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     quoteDb = convexTest(schema, modules);
-    state.sessions.clear(); state.calls.length = 0; state.holds.clear(); state.rateLimited.length = 0;
+    state.sessions.clear(); state.calls.length = 0; state.holds.clear(); state.carry.clear(); state.rateLimited.length = 0;
     sid.value = "test-session";
     pricing.value = DEFAULT_PRICING;
     otherModelPricing.clear();
@@ -172,9 +181,9 @@ describe("chat quotes and the maximum charge (#60)", () => {
     const before = Date.now();
     const { status, body } = await askQuote();
     expect(status).toBe(200);
-    expect(body.quote).toEqual({ quoteId: expect.any(String), operation: "chat", policyVersion: "accepted-maximum-v1", estimateCredits: 3, maximumCredits: 11, expiresAt: expect.any(Number) });
+    expect(body.quote).toEqual({ quoteId: expect.any(String), operation: "chat", policyVersion: "accepted-maximum-v1", estimateCredits: 2.14, maximumCredits: 11, expiresAt: expect.any(Number) });
     expect(body.quote.expiresAt - before).toBeGreaterThanOrEqual(5 * 60 * 1000);
-    expect(await storedQuotes()).toMatchObject([{ sid: "test-session", operation: "chat", origin: "shown", estimateCredits: 3, maximumCredits: 11 }]);
+    expect(await storedQuotes()).toMatchObject([{ sid: "test-session", operation: "chat", origin: "shown", estimateCredits: 2.14, maximumCredits: 11 }]);
     expect(state.rateLimited).toEqual(["chat-quote"]);
     expect(credits()).toBe(100);
     expectNothingStarted();
@@ -185,12 +194,13 @@ describe("chat quotes and the maximum charge (#60)", () => {
     const turn = await send(quote.quoteId);
     expect(turn.status).toBe(200);
     expect(calls("reserveCredits")).toMatchObject([{ amount: 11, costUsd: 0.11 }]);
-    // 1,000 tokens each way: 3 credits of the 11 held.
-    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualAmount: 3, actualCostUsd: 0.03 }]);
-    expect(credits()).toBe(97);
-    expect(turn.text).toContain('"creditsCharged":3');
+    // 1,000 tokens each way: 2.5 credits of the 11 held. Two whole credits are taken and half a credit is carried.
+    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualMicroCredits: 2_500_000, actualCostUsd: 0.025 }]);
+    expect(credits()).toBe(98);
+    expect(state.carry.get("test-session")).toBe(500_000);
+    expect(turn.text).toContain('"creditsCharged":2.5');
     expect(turn.text).toContain('"maximumCredits":11');
-    expect(await storedQuotes()).toMatchObject([{ usedBy: expect.stringMatching(/^chat-/), chargedCredits: 3, usedFallbackEstimate: false }]);
+    expect(await storedQuotes()).toMatchObject([{ usedBy: expect.stringMatching(/^chat-/), chargedCredits: 2.5, usedFallbackEstimate: false }]);
   });
 
   it("quote → accept → provider failure → release: the whole hold returns and the quote cannot be used again", async () => {
@@ -208,7 +218,7 @@ describe("chat quotes and the maximum charge (#60)", () => {
     providerStreamImpl.mockImplementation(async () => answer());
     const again = await send(quote.quoteId);
     expect(again.status).toBe(409);
-    expect(again.json()).toMatchObject({ error: "Quote stale", reason: "used", quote: { estimateCredits: 3, maximumCredits: 11 } });
+    expect(again.json()).toMatchObject({ error: "Quote stale", reason: "used", quote: { estimateCredits: 2.14, maximumCredits: 11 } });
     expect(calls("reserveCredits")).toHaveLength(1);
   });
 
@@ -219,7 +229,7 @@ describe("chat quotes and the maximum charge (#60)", () => {
     vi.setSystemTime(Date.parse("2026-11-13T12:05:00Z"));
     const stale = await send(quote.quoteId);
     expect(stale.status).toBe(409);
-    expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "expired", quote: { estimateCredits: 3, maximumCredits: 11, expiresAt: Date.parse("2026-11-13T12:10:00Z") } });
+    expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "expired", quote: { estimateCredits: 2.14, maximumCredits: 11, expiresAt: Date.parse("2026-11-13T12:10:00Z") } });
     expectNothingStarted();
     expect((await send(stale.json().quote.quoteId)).status).toBe(200);
     expect(calls("reserveCredits")).toMatchObject([{ amount: 11 }]);
@@ -230,7 +240,7 @@ describe("chat quotes and the maximum charge (#60)", () => {
     for (const quoteId of [undefined, "not-a-quote", `${quote.quoteId.slice(0, -1)}${quote.quoteId.endsWith("a") ? "b" : "a"}`]) {
       const refused = await send(quoteId);
       expect(refused.status).toBe(409);
-      expect(refused.json()).toMatchObject({ error: "Quote stale", reason: "missing", quote: { estimateCredits: 3, maximumCredits: 11 } });
+      expect(refused.json()).toMatchObject({ error: "Quote stale", reason: "missing", quote: { estimateCredits: 2.14, maximumCredits: 11 } });
     }
     state.sessions.set("other-session", { ...fixtures.sessions.paidWithCredits, sid: "other-session", credits: 100 });
     sid.value = "other-session";
@@ -247,8 +257,8 @@ describe("chat quotes and the maximum charge (#60)", () => {
     pricing.value = { ...DEFAULT_PRICING, completion: "0.00003" };
     const stale = await send(quote.quoteId);
     expect(stale.status).toBe(409);
-    // Typical turn: (709 × $0.00001 + 1,000 × $0.00003) × 1.25 → 5 credits. Maximum: (6,409 × $0.00001 + 2,048 × $0.00003) × 1.25 → 16 credits.
-    expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "changed", quote: { estimateCredits: 5, maximumCredits: 16 } });
+    // Typical turn: (709 × $0.00001 + 1,000 × $0.00003) × 1.25 → 4.64 credits. Maximum: (6,409 × $0.00001 + 2,048 × $0.00003) × 1.25 → 16 credits.
+    expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "changed", quote: { estimateCredits: 4.64, maximumCredits: 16 } });
     expectNothingStarted();
     expect((await send(stale.json().quote.quoteId)).status).toBe(200);
     expect(calls("reserveCredits")).toMatchObject([{ amount: 16 }]);
@@ -279,12 +289,12 @@ describe("chat quotes and the maximum charge (#60)", () => {
     // The answering model can change in Advanced after the composer was quoted.
     otherModelPricing.set("test/dearer-model", { prompt: "0.00003", completion: "0.00003" });
     const cheap = (await askQuote("test/model")).body.quote;
-    expect(cheap).toMatchObject({ estimateCredits: 3, maximumCredits: 11 });
+    expect(cheap).toMatchObject({ estimateCredits: 2.14, maximumCredits: 11 });
 
     const stale = await send(cheap.quoteId, { model: "test/dearer-model" });
     expect(stale.status).toBe(409);
-    // At $30 per million each way: typical (709 in, 1,000 out) × 1.25 → 7 credits; maximum (6,409 in, 2,048 out) × 1.25 → 32.
-    expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "changed", quote: { estimateCredits: 7, maximumCredits: 32 } });
+    // At $30 per million each way: typical (709 in, 1,000 out) × 1.25 → 6.41 credits; maximum (6,409 in, 2,048 out) × 1.25 → 32.
+    expect(stale.json()).toMatchObject({ error: "Quote stale", reason: "changed", quote: { estimateCredits: 6.41, maximumCredits: 32 } });
     expectNothingStarted();
     // The cheap quote is still unused, and still cannot be spent on the dearer model.
     expect((await send(cheap.quoteId, { model: "test/dearer-model" })).status).toBe(409);
@@ -296,14 +306,14 @@ describe("chat quotes and the maximum charge (#60)", () => {
 
   it("caps settlement at the accepted maximum when usage comes in above it", async () => {
     const { quote } = (await askQuote()).body;
-    providerStreamImpl.mockImplementation(async () => answer({ input: 20_000, output: 5_000 })); // 32 credits at these prices
+    providerStreamImpl.mockImplementation(async () => answer({ input: 20_000, output: 5_000 })); // 31.25 credits at these prices
     const turn = await send(quote.quoteId);
     expect(turn.status).toBe(200);
     // The charge is capped; the daily limit still counts what the turn was worth.
-    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualAmount: 11, actualCostUsd: 0.32 }]);
+    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualMicroCredits: 11_000_000, actualCostUsd: 0.3125 }]);
     expect(credits()).toBe(89);
     expect(turn.text).toContain('"creditsCharged":11');
-    expect(turn.text).toContain('"actualCredits":32');
+    expect(turn.text).toContain('"actualCredits":31.25');
     expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 11, usedFallbackEstimate: false });
   });
 
@@ -312,9 +322,9 @@ describe("chat quotes and the maximum charge (#60)", () => {
     providerStreamImpl.mockImplementation(async () => answer(null));
     const turn = await send(quote.quoteId);
     expect(turn.status).toBe(200);
-    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualAmount: 3 }]);
-    expect(credits()).toBe(97);
-    expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 3, usedFallbackEstimate: true });
+    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualMicroCredits: 2_140_000 }]);
+    expect(credits()).toBe(98);
+    expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 2.14, usedFallbackEstimate: true });
   });
 
   it.each([
@@ -324,16 +334,17 @@ describe("chat quotes and the maximum charge (#60)", () => {
     const { quote } = (await askQuote()).body;
     providerStreamImpl.mockImplementation(async () => answer(usage));
     expect((await send(quote.quoteId)).status).toBe(200);
-    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualAmount: 3 }]);
-    expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 3, usedFallbackEstimate: true });
+    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualMicroCredits: 2_140_000 }]);
+    expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 2.14, usedFallbackEstimate: true });
   });
 
-  it("charges a reported zero as actual usage, at the one-credit minimum", async () => {
+  it("charges a reported zero as actual usage: nothing, with no one-credit minimum", async () => {
     const { quote } = (await askQuote()).body;
     providerStreamImpl.mockImplementation(async () => answer({ input: 0, output: 0 }));
     expect((await send(quote.quoteId)).status).toBe(200);
-    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualAmount: 1 }]);
-    expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 1, usedFallbackEstimate: false });
+    expect(calls("deductCredits")).toMatchObject([{ amount: 11, actualMicroCredits: 0 }]);
+    expect(credits()).toBe(100);
+    expect((await storedQuotes())[0]).toMatchObject({ chargedCredits: 0, usedFallbackEstimate: false });
   });
 
   it("refuses reuse of a quote id by a second turn", async () => {
@@ -344,7 +355,7 @@ describe("chat quotes and the maximum charge (#60)", () => {
     expect(reused.json()).toMatchObject({ error: "Quote stale", reason: "used" });
     expect(calls("reserveCredits")).toHaveLength(1);
     expect(providerStreamImpl).toHaveBeenCalledTimes(1);
-    expect(credits()).toBe(97);
+    expect(credits()).toBe(98);
   });
 
   it("requires the whole maximum to be affordable, when quoting and when sending", async () => {
