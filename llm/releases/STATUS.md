@@ -1,5 +1,7 @@
 # Generic engine release status
 
+**Credits beside the name (17 November 2026, 20:42 UTC).** The owner found their purchased credits hard to find. #494 and #495 (`main` at `fb54b15e`, Vercel `dpl_H7vrsRhHAjQrnKCMp2TpEYhutYwv`) put a glass account chip with the available balance beside the Visibible name on every spread, and open the corner menu on the guest account (balance, Get credits, Recover credits), the placeholder for a future profile. Designed by a five-seat council (3-2 for the corner over a separate account control). No spend ([record](2026-11-17-credits-chip/deployment.json)).
+
 **Chapter row keeps chapter 1 in view (17 November 2026, 18:35 UTC).** #491 (`main` at `63597732`, Vercel `dpl_HyVat44MCnCXKY1pHUBYAGJTDyjY`): on a phone, Contents no longer scrolls the chapter row to centre a chapter that already fits, which had left chapter 1 half under the left fade. The faint corner name over bright pictures needed no change. No spend ([record](2026-11-17-chapter-row/deployment.json)).
 
 **Look and phone layout paper cuts (17 November 2026, 05:10 UTC).** The owner found Look's translation dropdown off-center and asked for other small cuts. #489 (`main` at `b525836f`, Vercel `dpl_7F4EjHKBZ1ynKh7bZwn1rMn1is1t`) makes the translation a pill sized to the chosen name, moves the phone corner menu's close button beside the balance, aligns its social icons, and centres the phone foot line. No spend ([record](2026-11-17-ui-paper-cuts/deployment.json)).

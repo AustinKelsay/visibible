@@ -1,0 +1,30 @@
+{
+  "authorization": [
+    "The owner found it hard to see their purchased credits and asked for a simple, elegant place to see and add credits with a placeholder for a future profile, designed with the council, \"end-to-end full send\"; then asked to finish the lane, deploy included, \"end to end full send\". Spends nothing."
+  ],
+  "release": {
+    "pullRequests": [494, 495],
+    "mainCommit": "fb54b15e",
+    "reviewFindings": "#494: five-seat council chose the design 3-2 and approved two code-review rounds (scores 8-9); CodeRabbit had no actionable comments. #495: GPT-6.2 Sol (xhigh) approved in one round with nits; CodeRabbit skipped (review limit). CI quality-gates passed on both."
+  },
+  "deploy": {
+    "steps": [
+      { "at": "2026-11-17T20:42:38Z", "commit": "fb54b15e", "carries": [494, 495], "vercel": "dpl_H7vrsRhHAjQrnKCMp2TpEYhutYwv", "convex": "Unchanged; frontend only." }
+    ]
+  },
+  "changes": [
+    "A glass account chip beside the Visibible name shows a person and the available balance on every spread; an admin sees a shield, and loading or unavailable shows the person alone. It is the button's description, not its name, and hides in the whole-picture view.",
+    "The corner menu opens on the account: \"Guest · Kept in this browser\" (\"Admin\" for an admin, \"Account\" until the session is read), the balance with Get credits (focused when the menu opens), Recover credits, then Admin sign-in with ?admin.",
+    "The name and the chip fade on their own so the chip's glass keeps its blur; focus on the name still holds the fade, and the button's hover fill clears while idle."
+  ],
+  "smoke": {
+    "after": "/john/1/5 and /api/health 200. Playwright on production as a new guest, desktop 1440x900 and phone 390x844, spending routes refused: the chip shows 0 with description \"0 credits\"; the menu starts \"Guest · Kept in this browser · 0 credits · Get credits · Recover credits\" with focus on Get credits."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_HyVat44MCnCXKY1pHUBYAGJTDyjY (main 63597732). Nothing stored differs."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "The browser sessions of the two smoke runs, with no balance."
+  ]
+}
