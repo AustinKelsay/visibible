@@ -82,14 +82,15 @@ export function PictureMenu({ verseId, reference, pictures, shown, chipHidden = 
           if (!layer.isOpen) trackPictureMenuOpened({ pictureCount: pictures.length, tier, hasCredits: credits > 0 });
           layer.toggle(event.currentTarget);
         }}
-        className={`liquid-glass spread-dock absolute bottom-3 left-3 z-20 ${chipHidden ? "hidden" : "flex"} min-h-9 items-center gap-2 rounded-full px-3 text-[13px] font-medium text-ink/90 transition-colors duration-[var(--motion-fast)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:bottom-8 md:left-5 md:min-h-11 md:px-4 md:text-sm`}
+        className={`liquid-glass spread-dock absolute bottom-3 left-3 z-20 ${chipHidden ? "hidden" : "flex"} min-h-9 min-w-0 max-md:max-w-[calc(100%-9.5rem)] items-center gap-2 rounded-full px-3 text-[13px] font-medium text-ink/90 transition-colors duration-[var(--motion-fast)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:bottom-8 md:left-5 md:min-h-11 md:px-4 md:text-sm`}
       >
         {painting || makingVideo ? (
           <Loader2 aria-hidden="true" className="h-3.5 w-3.5 motion-safe:animate-spin" />
         ) : (
           <Images aria-hidden="true" className="h-3.5 w-3.5 text-ink/70" />
         )}
-        <span>{label}</span>
+        {/* On a phone a long label gives way to Play at the other corner; the button's name keeps it whole. */}
+        <span className="truncate">{label}</span>
       </button>
       {engaged ? (
         <PictureMenuLayer verseId={verseId} reference={reference} pictures={pictures} shown={shown} chip={chip} myJobs={myJobs} onPaintingChange={setPainting} onMakingVideoChange={setMakingFromMenu} />
