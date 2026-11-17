@@ -1,0 +1,39 @@
+{
+  "authorization": [
+    "The owner asked for free, rate-limited Ask answers and summaries with a fixed cost ceiling, chose the limits (20 per reader, 100 per network, $1 a day, $30 a month) and GPT-6 Luna, and said to \"execute this systematically end to end full send\" for spec #493.",
+    "Asked before release, the owner chose \"Release and turn free on\" and supplied a dedicated OpenRouter key for free answers with a $1.50 daily limit and no automatic top-up."
+  ],
+  "release": {
+    "pullRequests": [497, 498, 499, 501],
+    "alsoCarried": [500],
+    "mainCommit": "f1ee85fa",
+    "reviewFindings": "GPT-6.1 Sol (xhigh) approved each PR: #497 in 1 round, #498 in 5 (a true worst-case input bound, a stale Free label, settlement at OpenRouter's reported charge, incomplete usage reports, and a CodeRabbit finding on empty answers with reported usage), #499 in 1, #501 in 1. CodeRabbit reviewed #497 and #498 (one and three findings: four fixed or answered, two minors declined as follow-ups); it skipped #499 and #501 at its review limit, and the CodeRabbit CLI found nothing in #501. CI quality-gates passed on each PR and on main at f1ee85fa. #499 passed the chat release gate (llm/releases/2026-11-17-chat-luna)."
+  },
+  "deploy": {
+    "steps": [
+      { "at": "about 2026-11-17T22:10Z", "convex": "Pushed main at f1ee85fa to prod unique-impala-244: three new tables (freeAnswerCounts, freeAnswerBudget, freeAnswers) with five indexes, an hourly cleanup, the optional sessions.chatCreditCarryMicro field and fractional chat settlement. No deletions." },
+      { "at": "about 2026-11-17T22:11Z", "vercelEnv": "Added FREE_ASK_ENABLED=true and OPENROUTER_FREE_ASK_API_KEY (sensitive) to Production." },
+      { "at": "2026-11-17T22:12:12Z", "commit": "f1ee85fa", "carries": [497, 498, 499, 500, 501], "vercel": "dpl_BCLwLiYHewaLeB5btfnYReTbpGw9" }
+    ]
+  },
+  "changes": [
+    "Free Ask answers: a guest's question on the default model is free while the session has fewer than 20 and its network (IPv4, or IPv6 /64) fewer than 100 today, and the site's free spend stays within $1 a UTC day and $30 a month. Each turn's worst case is reserved in Convex before the call and settled at OpenRouter's reported charge. The send control reads \"Free\"; used-up allowances show a reason and \"Continue with credits\".",
+    "Ask answers with openai/gpt-6-luna, reasoning off (it scored 1.99 against Mistral Small 4's 1.75 on the gate, at about $0.00017 an answer). Mistral Small 4 is the rollback and keeps emergency pricing.",
+    "Paid chat turns are charged their fraction of a credit, carried per session, so one credit pays for about 50 answers. Quote estimates show hundredths (\"0.08 credits\").",
+    "The chat eval reads Scripture as the site does, fails a run that loses a passage, and times answers to their first text and end.",
+    "Also carried: #500 (another session's merged moving-picture playback change), which that session deployed at 22:04 UTC as dpl_99vJApXjLyQtZhE6ecrJzprAwcbZ."
+  ],
+  "smoke": {
+    "after": "/john/1/5 200. A new production guest (0 credits): POST /api/chat/quote for John 1:5 answered {\"quote\":null,\"free\":{\"available\":true,\"remaining\":20}}. \"What does John 1:5 mean?\" streamed a grounded answer from openai/gpt-6-luna in 3.0 s with billingStatus \"free\", 462 tokens in and 163 out. The next quote said remaining 19. freeAnswers:report: 1 answer, $0.0001277 spent, matching the free key's usage exactly. Not exercised in production: a paid turn's fractional charge (no funded guest)."
+  },
+  "rollback": {
+    "freeAnswersOnly": "Remove FREE_ASK_ENABLED from Vercel Production and redeploy (or promote a deployment built before it was set); paid Ask is unaffected.",
+    "vercel": "Promote dpl_99vJApXjLyQtZhE6ecrJzprAwcbZ (#500 on fb54b15e, built before the free-answer variables were set; its site sends whole-credit chat charges, which the new Convex settlement still accepts) or dpl_H7vrsRhHAjQrnKCMp2TpEYhutYwv (main fb54b15e).",
+    "convex": "Additive; the new tables and the carry field can stay. Rolling Convex back would return chat settlement to whole credits."
+  },
+  "productionWrites": [
+    "One Convex push and one Vercel production deployment.",
+    "Two Vercel production environment variables.",
+    "One smoke guest session and its one free answer ($0.0001277 on the free key)."
+  ]
+}
