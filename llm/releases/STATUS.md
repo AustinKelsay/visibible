@@ -1,5 +1,7 @@
 # Generic engine release status
 
+**Chapter row keeps chapter 1 in view (17 November 2026, 18:35 UTC).** #491 (`main` at `63597732`, Vercel `dpl_HyVat44MCnCXKY1pHUBYAGJTDyjY`): on a phone, Contents no longer scrolls the chapter row to centre a chapter that already fits, which had left chapter 1 half under the left fade. The faint corner name over bright pictures needed no change. No spend ([record](2026-11-17-chapter-row/deployment.json)).
+
 **Look and phone layout paper cuts (17 November 2026, 05:10 UTC).** The owner found Look's translation dropdown off-center and asked for other small cuts. #489 (`main` at `b525836f`, Vercel `dpl_7F4EjHKBZ1ynKh7bZwn1rMn1is1t`) makes the translation a pill sized to the chosen name, moves the phone corner menu's close button beside the balance, aligns its social icons, and centres the phone foot line. No spend ([record](2026-11-17-ui-paper-cuts/deployment.json)).
 
 **Contents names the style it would paint in (17 November 2026, 00:50 UTC).** The owner painted Genesis 1 in Storybook, switched style and found Contents offering "Paint the 31 unpainted verses" over 31 pictured tiles. #487 (`main` at `ac5e23bc`, Vercel `dpl_GLYUVzuKdWpTZyHfiPfiKnBuxoDc`) makes the button read "Paint 31 verses in Classical" when those verses show another style's picture, and still "unpainted" when no style has one. No spend ([record](2026-11-17-contents-paint-style/deployment.json)).

@@ -1,0 +1,29 @@
+{
+  "authorization": [
+    "The owner asked to check and fix two polish items (faint corner name and verse marks over bright pictures; the Contents chapter row's left fade cutting into the \"1\") and said \"end to end full send\". Spends nothing."
+  ],
+  "release": {
+    "pullRequests": [491],
+    "mainCommit": "63597732",
+    "reviewFindings": "GPT-6.1 Sol (xhigh) approved in one round with no findings. CodeRabbit had no actionable comments. CI quality-gates passed."
+  },
+  "deploy": {
+    "steps": [
+      { "at": "2026-11-17T18:35:18Z", "commit": "63597732", "carries": [491], "vercel": "dpl_HyVat44MCnCXKY1pHUBYAGJTDyjY", "convex": "Unchanged; frontend only." }
+    ]
+  },
+  "changes": [
+    "Contents' chapter row scrolls only as far as needed to show the current chapter clear of its edge fades, so on a phone a chapter that already fits (John 4) leaves chapter 1 fully in view.",
+    "The corner name and verse marks over bright pictures needed no change: both already sit on a dark top gradient."
+  ],
+  "smoke": {
+    "after": "/john/4/7, /genesis/1/1 and /api/health 200. Playwright on production (390x844): Contents on John 4 shows chapters 1 to 6 unscrolled."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_7F4EjHKBZ1ynKh7bZwn1rMn1is1t (main b525836f). Nothing stored differs."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "The browser session of the screenshot run, with no balance."
+  ]
+}
