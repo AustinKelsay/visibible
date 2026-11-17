@@ -1,0 +1,38 @@
+{
+  "authorization": [
+    "The owner asked for the four follow-ups left from #500 \"end to end full send ... with thorough review and verification\". Spends nothing."
+  ],
+  "release": {
+    "pullRequests": [508],
+    "mainCommit": "ba6412a7",
+    "reviewFindings": "GPT-6.1 Sol (xhigh) approved in 2 rounds. A second independent review by Claude Fable 5.2 found a layout shift in the phone's whole-picture view (F1) and the controls' column cost (F2), both fixed and approved in its round 2, plus a wording nit (F3) fixed. CodeRabbit's on-demand review (up to $2.00) was not run. CI quality-gates passed."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-17T23:29:03Z",
+        "commit": "66d34831 (#508's branch tip, a fast-forward of production's 1b9d8e06; reachable from main)",
+        "carries": [508],
+        "vercel": "dpl_CaSDMeuRq39GXH1bR9igYMw9Cv7G",
+        "convex": "Unchanged; frontend only.",
+        "note": "Built from #508's own commit rather than main, so #507 (merged to main, not yet released by its session) stays out: none of its commits (84bb879c, e9b7360e, ef8977b2) is an ancestor of 66d34831, and src/components/spread/ask.tsx differs from main only by #507's change."
+      }
+    ]
+  },
+  "changes": [
+    "The phone's whole-picture view offers Play, Pause, Play on and sound in one row on the picture's corner (it hid them); pressing Play moves nothing.",
+    "Where the frame is wider than the clip (a very wide window, the whole-picture view), the clip's side edges fade into the picture instead of a hard seam.",
+    "The phone picture chip shortens a long label only when Play stands beside it.",
+    "The words page's width comes from one place (words-page-width.ts) for the CSS variable and for the clip that stops at its edge."
+  ],
+  "smoke": {
+    "after": "/genesis/1/15, /john/4/7 and /api/health 200. Playwright on production, Genesis 1:15: at 390x844 in the whole-picture view Pause is offered, the picture moves 0 px on Play and Pause lies inside the picture; at 2560x1080 the clip's edges are masked and its visible right edge is at 1960 px, the words page's left edge."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_E7hzZRENZfUgmfzTnHcWdTsr1pkR (main 1b9d8e06). Nothing stored differs."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "The browser sessions of the smoke runs, with no balance."
+  ]
+}

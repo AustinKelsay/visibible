@@ -1,5 +1,7 @@
 # Generic engine release status
 
+**Moving pictures' last edges (17 November 2026, 23:29 UTC).** #508 (`main` at `ba6412a7`; deployed as its own commit `66d34831`, Vercel `dpl_CaSDMeuRq39GXH1bR9igYMw9Cv7G`, so the unreleased #507 stays out): Pause on a phone in the whole-picture view, on the picture's corner; the clip's edges fade into the picture on wide frames; the phone chip shortens its label only beside Play; one source for the words page's width. Frontend only, no spend ([record](2026-11-17-moving-picture-polish/deployment.json)).
+
 **Play on survives new-tab clicks; a paint survives the whole-picture view (17 November 2026, 22:39 UTC).** #504 (`main` at `1b9d8e06`, Vercel `dpl_E7hzZRENZfUgmfzTnHcWdTsr1pkR`): a click that opens a verse in another tab no longer ends a Play on run on this tab, and the other-style note stays mounted (hidden) in the whole-picture view so its paint carries on. Frontend only, no spend ([record](2026-11-17-play-on-edges/deployment.json)).
 
 **Free Ask released (17 November 2026, 22:12 UTC).** Spec #493, on the owner's "execute this systematically end to end full send" and "Release and turn free on". Main at `f1ee85fa` (#497, #498, #499, #501, also carrying #500) went out Convex first, then Vercel `dpl_BCLwLiYHewaLeB5btfnYReTbpGw9`, with `FREE_ASK_ENABLED` and a dedicated free-answers OpenRouter key ($1.50 daily limit) set.
