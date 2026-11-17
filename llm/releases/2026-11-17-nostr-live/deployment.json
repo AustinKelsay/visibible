@@ -1,0 +1,37 @@
+{
+  "authorization": [
+    "The owner: \"I want you to get the Nostr posting activated now. Also, ensure that account is in good order and is able to receive zaps, etc.\" The owner supplied tower's sudo password through the secret prompt for the zap fix. Spends nothing."
+  ],
+  "release": {
+    "pullRequests": [512],
+    "mainCommit": "e254c9db",
+    "reviewFindings": "CI quality-gates passed. CodeRabbit's on-demand review was not run (review limit)."
+  },
+  "deploy": {
+    "steps": [
+      { "at": "about 2026-11-17T23:44Z", "convexEnv": "Production NOSTR_RELAYS changed from wss://relay.primal.net,wss://relay.damus.io,wss://relay.nos.lol (relay.nos.lol does not resolve) to wss://relay.primal.net,wss://nos.lol,wss://relay.damus.io; NOSTR_PUBLISHING_ENABLED set to true. NOSTR_PRIVATE_KEY was checked to derive 5b98af63…0299 without printing it." },
+      { "at": "2026-11-17T23:44:25Z", "action": "One run of nostrScheduler:publishTopImageForLatestWindow with now = 2026-11-17T04:01Z (the 00:00-04:00 UTC window, which held the newest pictures) published Genesis 1:15 as event 7ed64f2df1e27514df3592d7a2b8c2abe53c6c1234c03fa880bd1831e6859746 to relay.primal.net, nos.lol and relay.damus.io." },
+      { "at": "about 2026-11-17T23:50Z", "tower": "lnurl-server-main's zapRecipientPubkey (/etc/nixos/hosts/tower/configuration.nix, backup .bak-zap-recipient-20261117) changed from the retired eeee7822…76bf to 5b98af63…0299. nixos-rebuild dry-activate showed only lnurl-server-main restarting; nixos-rebuild switch did that, and lnd stayed up. Tower's /etc/nixos is ahead of the local-swarm repo, so it was edited in place rather than synced; the same line was changed in the local repo working tree (uncommitted)." },
+      { "at": "2026-11-17T23:56:43Z", "commit": "e254c9db", "carries": [512], "vercel": "dpl_EduxUtEvYds43FW5BWJvbkALbgVh", "convex": "Not pushed: #512's change to convex/nostr.ts only alters the default relays, unused while NOSTR_RELAYS is set. Since production's ad90ce8e, main added only release records and #512." }
+    ]
+  },
+  "changes": [
+    "Nostr posting is on: the hourly scheduler posts at most one picture from the last completed four-hour window.",
+    "pay@visibible.com accepts zap requests for the account (signed zap request for 21 sats returns an invoice; before the fix: 400 'zap request p tag does not match recipient').",
+    "nostr.json lists nos.lol, relay.damus.io and relay.primal.net; relay.nostr.band (no longer answering) is gone from it and from the code's defaults."
+  ],
+  "smoke": {
+    "after": "Profile (kind 0) and relay list (kind 10002) served by relay.primal.net, nos.lol and purplepag.es; picture and banner load; nostr.json returns the account with the three relays; the first post is served by Primal and nos.lol with its image (200, image/jpeg) and verse link (200); LNURL advertises allowsNostr with the server's receipt key 0c68…5f60; /genesis/1/15 and /api/health 200."
+  },
+  "rollback": {
+    "posting": "Set Convex prod NOSTR_PUBLISHING_ENABLED=false.",
+    "zaps": "Restore tower's configuration.nix from .bak-zap-recipient-20261117 and nixos-rebuild switch (only lnurl-server-main restarts); that would refuse the account's zaps again.",
+    "vercel": "Promote dpl_AGR8MRsK4fkS24dpFerAXkizbpLt (main ad90ce8e). Nothing stored differs."
+  },
+  "productionWrites": [
+    "Two Convex production environment variables.",
+    "One Nostr post (Genesis 1:15) and the scheduler state for its window.",
+    "One tower NixOS generation (lnurl-server-main config).",
+    "One unpaid 21-sat invoice from the zap check, and one Vercel production deployment."
+  ]
+}
