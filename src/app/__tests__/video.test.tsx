@@ -458,6 +458,21 @@ describe("Play on the spread", () => {
     pressKey("Escape");
   });
 
+  it("keeps the other-style note mounted while a video plays, so a paint it started carries on", async () => {
+    savedPictures = [{ id: "john-1-5:watercolor", imageUrl: "https://img.test/john-5-watercolor.png", artStyle: "watercolor", createdAt: noon(4), aspectRatio: "16:9" }];
+    publicVideos = [job({ id: "watercolor-clip", sourceImageId: "john-1-5:watercolor", artStyle: "watercolor" })];
+    await openVerse("john", "1", "5");
+    const note = container.querySelector<HTMLElement>('section[aria-label="Other art style"]')!;
+    expect(note.className).not.toContain("max-md:hidden");
+    await act(async () => { playMark()!.click(); });
+    // The same element, only out of the way of Play's controls on a phone.
+    expect(container.querySelector('section[aria-label="Other art style"]')).toBe(note);
+    expect(note.className).toContain("max-md:hidden");
+    pressKey("Escape");
+    expect(container.querySelector('section[aria-label="Other art style"]')).toBe(note);
+    expect(note.className).not.toContain("max-md:hidden");
+  });
+
   it("leaves the picture and Play when the browser refuses to start the video", async () => {
     savedPictures = john();
     publicVideos = [job()];
@@ -570,6 +585,9 @@ describe("Play on", () => {
     act(() => noteTurnAway());
     fire(video()!, "ended");
     expect(push).not.toHaveBeenCalled();
+    // Play on declined, so its toggle still answers.
+    await act(async () => { playOn()!.click(); });
+    expect(playOn()?.getAttribute("aria-pressed")).toBe("false");
   });
 
   it("is not offered when the next verse's picture has no video, and a clip that ends there stays", async () => {

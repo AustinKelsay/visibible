@@ -97,13 +97,14 @@ function SpreadScreen({
   const arrivesPlaying = useArrivesPlaying(path);
   const router = useRouter();
   const turnedAway = useTurnedAway();
+  // Turns the page for Play on, unless the reader already turned it by hand (that turn stands); says whether it did.
   const onPlayOn = nextUrl
     ? () => {
-        // The reader already turned the page by hand: that turn stands.
-        if (turnedAway()) return;
+        if (turnedAway()) return false;
         onTurn("next", "play_on");
         markPlayOnTurn();
         router.push(nextUrl);
+        return true;
       }
     : undefined;
   const { tier, credits } = useSession();

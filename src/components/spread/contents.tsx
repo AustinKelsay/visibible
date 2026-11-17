@@ -92,7 +92,7 @@ function ContentsBody(place: ContentsPlace) {
     trackContentsOpened({ book: currentBook.name, chapter: place.chapter, verse: place.verse, tier, hasCredits: credits > 0 });
   }, [currentBook.name, place.chapter, place.verse, tier, credits]);
 
-  const onChoose = (targetUrl: string) => {
+  const onChoose = (targetUrl: string, staysHere = false) => {
     trackVerseNavigation({
       book: currentBook.name,
       chapter: place.chapter,
@@ -103,7 +103,8 @@ function ContentsBody(place: ContentsPlace) {
       tier,
       hasCredits: credits > 0,
     });
-    noteTurnAway();
+    // Leaving this spread counts as a turn, so Play on does not turn the page as well.
+    if (!staysHere) noteTurnAway();
     close();
   };
 
@@ -193,11 +194,12 @@ function WorkContentsBody({ scope, division, moment }: { scope: WorkScope; divis
     trackContentsOpened({ book: scope.title, chapter: division, verse: moment, tier, hasCredits: credits > 0 });
   }, [scope.title, division, moment, tier, credits]);
 
-  const onChoose = (targetUrl: string) => {
+  const onChoose = (targetUrl: string, staysHere = false) => {
     trackVerseNavigation({
       book: scope.title, chapter: division, verse: moment, direction: "jump", source: "contents", targetUrl, tier, hasCredits: credits > 0,
     });
-    noteTurnAway();
+    // Leaving this spread counts as a turn, so Play on does not turn the page as well.
+    if (!staysHere) noteTurnAway();
     close();
   };
 
@@ -340,7 +342,8 @@ interface ChapterWallProps {
   paintable?: { book: BibleBook; chapter: number };
   /** The place the spread shows (from 1), when it is in this chapter. */
   current: number | null;
-  onChoose: (targetUrl: string) => void;
+  /** `staysHere`: the reader stays on this spread (the current verse, or a click that opens another tab). */
+  onChoose: (targetUrl: string, staysHere?: boolean) => void;
 }
 
 function ChapterWall(props: ChapterWallProps) {
@@ -420,7 +423,8 @@ function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, chosen, o
   /** Where the verse stands in the reader's chapter painting job, when the job holds it. */
   job?: TileJobStatus;
   chosen?: string;
-  onChoose: (targetUrl: string) => void;
+  /** `staysHere`: the reader stays on this spread (the current verse, or a click that opens another tab). */
+  onChoose: (targetUrl: string, staysHere?: boolean) => void;
 }) {
   const source = tile?.picture ? previewSource(tile.picture) : null;
   const unpainted = !loading && !source;
@@ -445,7 +449,7 @@ function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, chosen, o
       aria-label={label}
       aria-current={isCurrent ? "page" : undefined}
       data-autofocus={isCurrent ? "" : undefined}
-      onClick={() => onChoose(href)}
+      onClick={(event) => onChoose(href, isCurrent || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0)}
       className={`group relative block aspect-video overflow-hidden rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${
         unpainted ? "border border-dashed border-ink/15 bg-ink/[0.025]" : "bg-ink/[0.05]"
       } ${isCurrent ? "ring-2 ring-ink ring-offset-2 ring-offset-reader-page" : ""}`}

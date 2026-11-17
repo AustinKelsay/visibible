@@ -271,6 +271,15 @@ describe("Contents", () => {
     expect(noteTurnAway).toHaveBeenCalledTimes(1);
   });
 
+  it("does not count the current verse, or a click that opens another tab, as leaving the spread", async () => {
+    await openVerse("john", "1", "5");
+    await openContents();
+    click(tile(5));
+    await openContents();
+    act(() => { tile(7).dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, metaKey: true })); });
+    expect(noteTurnAway).not.toHaveBeenCalled();
+  });
+
   it("filters the book list as the reader types, then shows the chosen book and chapter without leaving Contents", async () => {
     await openVerse("john", "1", "5");
     await openContents();

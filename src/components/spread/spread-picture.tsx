@@ -21,8 +21,8 @@ interface SpreadPictureProps {
   onShowWhole?: (imageId: string) => void;
   /** The next verse, for Play on: whether its picture has a video too. */
   nextVerseId?: string;
-  /** Called when Play on turns the page at the end of this picture's video; absent where there is no next verse. */
-  onPlayOn?: () => void;
+  /** Turns the page for Play on at the end of this picture's video (false when it declines); absent at the last verse. */
+  onPlayOn?: () => boolean;
   /** Play on turned to this spread: its picture's video starts at once and Play on stays on. */
   arrivesPlaying?: boolean;
 }
@@ -155,8 +155,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
   // arrive after the clip ends). A reader busy at the end ends the run instead (see the video's onEnded).
   useEffect(() => {
     if (phase !== "ended" || !continues || turning.current) return;
-    turning.current = true;
-    onPlayOn?.();
+    turning.current = onPlayOn?.() ?? false;
   }, [phase, continues, onPlayOn]);
 
   // Escape stops the video and brings the picture back, when no layer is open to take it first.
@@ -385,8 +384,9 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
       {shown && pictures ? (
         <PictureMenu key={verseId} verseId={verseId} reference={reference} pictures={pictures} shown={shown} chipHidden={wholeIsOpen} />
       ) : null}
-      {otherStyle && !wholeIsOpen && phase === null ? (
-        <OtherStyleNote key={`${verseId}:${chosenStyle}`} verseId={verseId} reference={reference} shownStyle={otherStyle} chosenStyle={chosenStyle} />
+      {otherStyle && !wholeIsOpen ? (
+        // Kept mounted while a video is pressed (a paint it started carries on); on a phone it gives way to Play's controls.
+        <OtherStyleNote key={`${verseId}:${chosenStyle}`} verseId={verseId} reference={reference} shownStyle={otherStyle} chosenStyle={chosenStyle} covered={phase !== null} />
       ) : null}
     </>
   );
@@ -435,7 +435,7 @@ const NOTE_BUTTON = `${PILL} min-h-[40px] px-4 bg-ink text-paper hover:bg-ink/90
  * A verse painted only in another style: a note naming the style shown, and an offer to paint the verse in the chosen
  * style, priced like the paint button. The new picture replaces this one once saved, and the note goes with it.
  */
-function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle }: { verseId: string; reference: string; shownStyle: string; chosenStyle: string }) {
+function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle, covered = false }: { verseId: string; reference: string; shownStyle: string; chosenStyle: string; covered?: boolean }) {
   const paint = usePaintVerse({ verseId, reference });
   const { generation } = paint;
   const chosenLabel = artStyleLabel(chosenStyle);
@@ -487,7 +487,7 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle }: { verse
       aria-label="Other art style"
       data-fades={idleOffer ? "" : undefined}
       // Above the picture menu's chip on a phone; under the corner name on a computer.
-      className="absolute inset-x-3 bottom-14 z-10 flex max-w-sm flex-col items-start gap-2 rounded-2xl border border-ink/10 bg-reader-page-glass p-3 text-left shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:inset-x-auto md:bottom-auto md:left-5 md:top-20 md:gap-2.5 md:p-3.5"
+      className={`absolute inset-x-3 bottom-14 z-10 ${covered ? "max-md:hidden" : ""} flex max-w-sm flex-col items-start gap-2 rounded-2xl border border-ink/10 bg-reader-page-glass p-3 text-left shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:inset-x-auto md:bottom-auto md:left-5 md:top-20 md:gap-2.5 md:p-3.5`}
     >
       {body}
     </section>
