@@ -238,7 +238,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
   };
   // Kept up when the computer's controls fade, so a reader passing by still sees the picture moves; in the
   // whole-picture view it sits at the window's corner on a computer and on the picture's corner on a phone. Play on and the
-  // sound stand above Play; below a wide window the group sits above the spread's dock row, so it never covers the dock.
+  // sound stand above Play (beside it, in one row, in the phone's whole-picture view); below a wide window the group sits above the spread's dock row, so it never covers the dock.
   const playControls = video ? (
     <div
       className={`absolute right-3 bottom-3 z-20 flex flex-col items-end gap-2 ${
