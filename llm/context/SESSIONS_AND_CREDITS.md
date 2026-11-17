@@ -8,7 +8,7 @@ New sessions are `paid` tier with zero credits. Admin tier bypasses credit/spend
 
 Credits are reserved atomically before paid generation. Each generation ID has a one-way settlement: reserved → charged or released. Duplicate terminal operations must not create another charge/refund, and released IDs cannot be reserved again. Crons reconcile stale reservation-only generations after thirty minutes; [crons.ts](../../convex/crons.ts) is the schedule source.
 
-- **Chat:** one turn holds its accepted maximum and is charged only for a successful model outcome, from the tokens the provider reports, never above that maximum; [Chat](CHAT.md) defines success and the reported settlement metadata. Errors, empty output and cancellation release the whole hold.
+- **Chat:** one turn holds its accepted maximum and is charged only for a successful model outcome, from the tokens the provider reports, never above that maximum; [Chat](CHAT.md) defines success and the reported settlement metadata. Errors, empty output and cancellation release the whole hold. A [free answer](CHAT.md#free-answers) holds no credits and never touches the balance; its worst-case provider cost is held against the site's free budget instead.
 - **Images:** the engine quotes the actual assembled prompt and every reference image sent ([prompt spec](../implementation/IMAGE_PROMPT_SPEC.md#quotes)). The hold is the accepted maximum, and a successful image is charged from reported usage, never above that maximum; the rest of the hold returns. A refused quote (over the envelope) costs the guest nothing and records no request. Reading, canon and sheets are owner spend made ahead of time and never enter a guest's quote.
 
 ## Quotes and the maximum charge

@@ -18,6 +18,8 @@ Chat/image generation and invoice polling use the combined IP hash and session I
 
 Model validation, reservation, daily-spend checks and admin audit are described in [Sessions and credits](SESSIONS_AND_CREDITS.md). Admin credit exemptions do not exempt requests from rate limits.
 
+Free answers (#493, [free answers](CHAT.md#free-answers)) are counted by network (an IPv4 address or an IPv6 /64, hashed) as well as by session, so new sessions on one network share one allowance; a request whose address cannot be read gets none. Rotating networks can still collect allowances, so the site's free budget is what bounds the owner's spend: a Convex reservation of each turn's worst case before the call, and a separate provider key with its own limit behind it. A free turn ignores the requested model and is sent once, without retries.
+
 ## Convex authorization
 
 Credit/ledger writes, invoice writes, feedback submission, image persistence, rate-limit status and admin-lockout reads, and other server-facing operations validate `CONVEX_SERVER_SECRET` via [auth.ts](../../convex/_helpers/auth.ts). Internal functions are invoked within Convex.

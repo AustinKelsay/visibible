@@ -12,6 +12,7 @@ import { resolveChatErrorType } from "@/lib/analytics-event-utils";
 import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { MAX_USER_MESSAGE_CHARS } from "@/lib/chat-limits";
 import { formatQuote } from "@/lib/quote-display";
+import { freeAnswersUsedMessage } from "@/lib/free-answer-display";
 
 export interface AskVerse {
   bookName: string;
@@ -85,7 +86,7 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
     verseNumber > 1 ? `Summarize ${bookName} ${chapter} so far` : `What is the historical context of ${reference}?`,
   ];
 
-  return { reference, verseText, chat, answeringModel, input, setInput, ask, openAsk, footField, suggestions, close: layer.close };
+  return { reference, verseText, chat, answeringModel, input, setInput, ask, openAsk, footField, suggestions, buyCredits, close: layer.close };
 }
 
 /**
@@ -260,7 +261,10 @@ export function AskPage() {
   );
 }
 
-/** A question field with its send control, which shows the quoted price before sending (admins see none). */
+/**
+ * A question field with its send control, which shows the quoted price before sending, or "Free" while the guest's
+ * next answer is free (admins see neither). When free answers are used up and the balance cannot pay, it says so.
+ */
 function AskForm({ from, label, placeholder, fieldRef, autoFocus, className }: {
   from: "words_page" | "ask_page";
   label: string;
@@ -269,9 +273,11 @@ function AskForm({ from, label, placeholder, fieldRef, autoFocus, className }: {
   autoFocus?: boolean;
   className?: string;
 }) {
-  const { input, setInput, ask, chat } = useAsk();
-  const { quote, staleQuote, priceToConfirm, isAdmin, isLoading, confirmPrice } = chat;
+  const { input, setInput, ask, chat, buyCredits } = useAsk();
+  const { quote, staleQuote, priceToConfirm, isAdmin, isLoading, confirmPrice, free, canSend } = chat;
   const price = !isAdmin && quote && !staleQuote ? quote : null;
+  const freeNow = !isAdmin && !price && free?.available === true;
+  const freeUsed = !isAdmin && free?.available === false && !canSend ? freeAnswersUsedMessage(free.reason) : null;
 
   return (
     <form
@@ -289,6 +295,14 @@ function AskForm({ from, label, placeholder, fieldRef, autoFocus, className }: {
           </button>
         </p>
       )}
+      {freeUsed && (
+        <p role="status" className="mb-2 text-sm text-ink/70">
+          {freeUsed}{" "}
+          <button type="button" onClick={buyCredits} className="font-medium text-ink underline underline-offset-2">
+            Continue with credits
+          </button>
+        </p>
+      )}
       <div className="flex items-center gap-2 rounded-full bg-ink/[0.07] py-1.5 pr-1.5 pl-5 ring-1 ring-ink/10 focus-within:ring-ink/30">
         <input
           ref={fieldRef}
@@ -303,12 +317,13 @@ function AskForm({ from, label, placeholder, fieldRef, autoFocus, className }: {
         <button
           type="submit"
           disabled={isLoading || !input.trim()}
-          aria-label={price ? `Send question · ${formatQuote(price)}` : "Send question"}
-          title={price ? `${formatQuote(price)} per question` : undefined}
+          aria-label={price ? `Send question · ${formatQuote(price)}` : freeNow ? "Send question · Free" : "Send question"}
+          title={price ? `${formatQuote(price)} per question` : freeNow ? "Free question" : undefined}
           className="flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-ink pr-1 pl-1 text-xs font-medium text-paper transition-opacity disabled:opacity-40 data-[price]:pl-3"
-          data-price={price ? "" : undefined}
+          data-price={price || freeNow ? "" : undefined}
         >
           {price && <span className="tabular-nums">{price.estimateCredits} {price.estimateCredits === 1 ? "credit" : "credits"}</span>}
+          {freeNow && <span>Free</span>}
           <span className="flex size-7 items-center justify-center">
             <ArrowUp size={16} strokeWidth={2.25} aria-hidden="true" />
           </span>
