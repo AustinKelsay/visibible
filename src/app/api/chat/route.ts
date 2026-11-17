@@ -3,6 +3,7 @@ import { streamText, createUIMessageStreamResponse, type UIMessageChunk } from "
 import type { z } from "zod";
 import {
   DEFAULT_CHAT_MODEL,
+  chatModelReasoningEffort,
   getChatModelPricing,
   computeActualChatCreditsCost,
   CREDIT_USD,
@@ -516,11 +517,14 @@ export async function POST(req: Request) {
       void settleCredits("release", "stream-cancel");
     };
     signal.addEventListener("abort", onAbort, { once: true });
+    // The reasoning effort the model was measured with, where one is set (the default model reasons by default).
+    const reasoningEffort = chatModelReasoningEffort(modelId);
     const result = streamText({
       model: openRouter.chat(modelId),
       system,
       messages: modelMessages,
       maxOutputTokens: history.maxOutputTokens,
+      ...(reasoningEffort ? { providerOptions: { openai: { reasoningEffort } } } : {}),
       abortSignal: signal,
       onError: async () => {
         failed = true;

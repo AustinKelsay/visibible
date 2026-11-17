@@ -102,6 +102,7 @@ vi.mock("@ai-sdk/openai", async () => {
 vi.mock("@/lib/chat-models", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@/lib/chat-models")>()),
   DEFAULT_CHAT_MODEL: "test/model",
+  chatModelReasoningEffort: vi.fn(() => undefined),
   getChatModelPricing: vi.fn(async (model: string) => otherModelPricing.get(model) ?? pricing.value),
 }));
 

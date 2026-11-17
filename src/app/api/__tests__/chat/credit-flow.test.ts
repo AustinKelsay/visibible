@@ -203,6 +203,7 @@ vi.mock("@/lib/chat-models", async (importOriginal) => {
   return {
     ...actual,
     DEFAULT_CHAT_MODEL: "test/cheap-model",
+    chatModelReasoningEffort: vi.fn(() => undefined),
     getChatModelPricing: vi.fn(async () => mockPricing.value),
     computeChatCreditsCost: vi.fn((...args: Parameters<typeof actual.computeChatCreditsCost>) =>
       useRealPricing.value ? actual.computeChatCreditsCost(...args) : mockCreditsCost.value

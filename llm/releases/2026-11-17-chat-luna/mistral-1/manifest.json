@@ -1,0 +1,34 @@
+{
+ "command": "run",
+ "cases": {
+  "file": "evals/chat/cases.json",
+  "version": 2,
+  "sha256": "b910b3eb2f2391c456ff3b5c2cb023d9fdf590975fda297434c854656d9e5639"
+ },
+ "runner": {
+  "commit": "fd02752409bed0cbd6e81d04b5e20d8d6347d0b0",
+  "dirty": false
+ },
+ "model": "mistralai/mistral-small-2603",
+ "arms": [
+  "candidate"
+ ],
+ "label": "mistral",
+ "dryRun": false,
+ "contextLength": 262144,
+ "baselineMaxOutputTokens": 209715,
+ "reasoningEffort": null,
+ "providerRouting": "openrouter-default",
+ "systemSuffix": null,
+ "budgetUsd": 0.25,
+ "pricing": {
+  "promptUsd": 1.5e-7,
+  "completionUsd": 6e-7
+ },
+ "startedAt": "2026-11-17T20:56:07.402Z",
+ "finishedAt": "2026-11-17T20:58:29.248Z",
+ "rows": 34,
+ "failures": 0,
+ "spentUsd": 0.010261905,
+ "budgetCountedUsd": 0.010261905
+}
