@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 const VISIBIBLE_NIP05_NAME = "visibible";
 const VISIBIBLE_NOSTR_PUBKEY =
   "5b98af63ee20a0d22ad24a78045a81beafb4fe13c7e602a90eef038f90c90299";
+// The relays the account's posts go to (Convex NOSTR_RELAYS) and its kind-10002 relay list names.
 const VISIBIBLE_NOSTR_RELAYS = [
-  "wss://relay.nostr.band",
   "wss://nos.lol",
   "wss://relay.damus.io",
   "wss://relay.primal.net",
