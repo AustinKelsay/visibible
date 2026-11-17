@@ -1,0 +1,39 @@
+{
+  "authorization": [
+    "The owner found going from a picture to its video too jarring, asked for a seamless, elegant transition that stays explicit for a reader scrolling by, and a seamless flow of short scenes back to back for someone making them; \"Use the council ... end to end full send\". Spends nothing."
+  ],
+  "release": {
+    "pullRequests": [500],
+    "mainCommit": "134597a3",
+    "reviewFindings": "Design council (5 seats) unanimous on in-place play, Play visible at rest and opt-in Play on. Code council 4 rounds: Fable 6/6/6/9, Opus 6/6/6/9, Astra 7/4/7/10, Sol 6/7/7/10, Grok 6/6/6/10; all approve, nits listed as follow-ups in the PR. CodeRabbit's on-demand review (up to $3.75) was not run. CI quality-gates passed."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-17T22:04:11Z",
+        "commit": "9ff55bcb (fb54b15e merged with d5247f17; branch release-build/2026-11-17-moving-picture)",
+        "carries": [500],
+        "vercel": "dpl_99vJApXjLyQtZhE6ecrJzprAwcbZ",
+        "convex": "Unchanged; frontend only.",
+        "note": "Built from the previous production commit fb54b15e with #500's branch merged in, so #497-#499 (merged to main, not yet released; #498 needs a Convex push) stay out of production. No #498 commit is reachable from 9ff55bcb, and its src/components/spread/ask.tsx is identical to fb54b15e's; ask.tsx differs from main only because main carries #498's change. `git diff --name-only fb54b15e 9ff55bcb` lists only #500's 15 files."
+      }
+    ]
+  },
+  "changes": [
+    "Play makes the picture move in its own place: the video lies over the picture at the picture's scale, centred like it, and fades in on its first frame; the words, layout and focus stay. Play becomes Pause, Play again on the held last frame; Escape brings the picture back.",
+    "Play stays up when the computer's controls fade; nothing autoplays.",
+    "A sound button beside Play (the clips carry sound; the browser controls that offered it are gone).",
+    "Play on, offered while a clip plays when the next verse's picture has a video: the next clip is fetched ahead, the page turns at the end (verse_navigation source play_on) and the next spread arrives playing. It ends at a verse without a video, on a hand turn or a Contents choice, on Escape, or when the reader is busy with a layer or typing.",
+    "Opening the whole-picture view keeps the same video playing, uncropped."
+  ],
+  "smoke": {
+    "after": "/genesis/1/15, /john/1/1 and /api/health 200. Playwright on production, Genesis 1:15 (the real clip): plays in place with Pause and the sound button, ends on Play again; first-frame pixel difference against the still 6.37 (1440x900) and 6.91 (390x844), against 12.5/18.1 when shifted 8 px."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_H7vrsRhHAjQrnKCMp2TpEYhutYwv (main fb54b15e). Nothing stored differs."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "The browser session of the screenshot runs, with no balance."
+  ]
+}

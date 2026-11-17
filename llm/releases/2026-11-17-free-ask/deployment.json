@@ -28,7 +28,7 @@
   },
   "rollback": {
     "freeAnswersOnly": "Remove FREE_ASK_ENABLED from Vercel Production and redeploy (or promote a deployment built before it was set); paid Ask is unaffected.",
-    "vercel": "Promote dpl_99vJApXjLyQtZhE6ecrJzprAwcbZ (another session's 22:04 UTC production deployment, built before the free-answer variables were set) or dpl_H7vrsRhHAjQrnKCMp2TpEYhutYwv (main fb54b15e).",
+    "vercel": "Promote dpl_99vJApXjLyQtZhE6ecrJzprAwcbZ (#500 on fb54b15e, built before the free-answer variables were set; its site sends whole-credit chat charges, which the new Convex settlement still accepts) or dpl_H7vrsRhHAjQrnKCMp2TpEYhutYwv (main fb54b15e).",
     "convex": "Additive; the new tables and the carry field can stay. Rolling Convex back would return chat settlement to whole credits."
   },
   "productionWrites": [
