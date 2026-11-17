@@ -237,13 +237,15 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
     if (player.current) player.current.muted = !on;
   };
   // Kept up when the computer's controls fade, so a reader passing by still sees the picture moves; in the
-  // whole-picture view it sits at the window's corner on a computer and just under the picture on a phone. Play on and the
+  // whole-picture view it sits at the window's corner on a computer and on the picture's corner on a phone. Play on and the
   // sound stand above Play; below a wide window the group sits above the spread's dock row, so it never covers the dock.
   const playControls = video ? (
     <div
       className={`absolute right-3 bottom-3 z-20 flex flex-col items-end gap-2 ${
         wholeIsOpen
-          ? "max-md:static max-md:mt-3 max-md:mr-3 max-md:self-end md:right-5 md:bottom-8"
+          ? // On a phone, one row over the picture's bottom-right corner (as on the spread), taking no room in the view's
+            // column, so pressing Play moves neither the picture nor the caption.
+            "max-md:relative max-md:inset-auto max-md:-mt-12 max-md:mr-3 max-md:mb-3 max-md:flex-row max-md:items-center max-md:self-end md:right-5 md:bottom-8"
           : "md:right-[calc(var(--words-page-width)+1.25rem)] md:bottom-24 xl:bottom-8"
       }`}
     >
