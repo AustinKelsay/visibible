@@ -13,7 +13,7 @@ import { boundHistory, buildSystemPrompt, chatRequestSchema, estimateTokens, res
 
 export const chatEvalCaseSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
-  category: z.enum(["single-verse", "adjacent-context", "contested-interpretation", "off-topic", "prompt-injection", "harm-sensitive"]),
+  category: z.enum(["single-verse", "adjacent-context", "chapter-summary", "contested-interpretation", "off-topic", "prompt-injection", "harm-sensitive"]),
   passage: z.object({ book: z.string(), chapter: z.number().int().positive(), verse: z.number().int().positive() }),
   translation: z.string().optional(),
   turns: z.array(z.string().min(1)).min(1).refine((turns) => turns.length % 2 === 1, "turns must end with the guest's question"),
@@ -62,6 +62,8 @@ export type ChatEvalOptions = {
   baselineMaxOutputTokens?: number;
   /** Evaluation-only text appended to the candidate's system prompt, to measure a prompt change before making it. */
   systemSuffix?: string;
+  /** The reasoning effort sent to the provider, as production sends it for the model; omitted sends none. */
+  reasoningEffort?: string;
   timeoutMs?: number;
 };
 
@@ -70,7 +72,8 @@ export type ChatEvalRow = {
   status: "answered" | "refused" | "error" | "skipped";
   reason?: string; error?: string;
   system?: string; scripture?: string; omitted?: number; maxOutputTokens?: number; systemSuffix?: string;
-  text?: string; finishReason?: string; latencyMs?: number; generationId?: string;
+  /** `firstTextMs`: from the call to its first text. `latencyMs`: to the end of the answer, before any cost lookup. */
+  text?: string; finishReason?: string; firstTextMs?: number; latencyMs?: number; generationId?: string;
   inputTokens?: number; outputTokens?: number; reasoningTokens?: number;
   provider?: string | null; costUsd?: number | null; statsError?: string; note?: string;
 };
@@ -81,11 +84,13 @@ async function legacyPageContext(item: ChatEvalCase, translation: Translation, d
   if (!location) throw new Error(`${item.id}: unknown passage`);
   const chapter = await deps.chapters(location.book.slug, location.chapter, translation);
   const text = (verse: number) => chapter?.verses.find((v) => v.verse === verse)?.text;
+  const verseText = text(location.verse);
+  if (!verseText?.trim()) throw new Error(`${item.id}: Scripture unavailable`);
   const same = (other: ReturnType<typeof getPreviousVerse>) =>
     other && other.book.id === location.book.id && other.chapter === location.chapter ? other : null;
   const prev = same(getPreviousVerse(location));
   const next = same(getNextVerse(location));
-  const current = item.attack?.contextText ?? text(location.verse) ?? "";
+  const current = item.attack?.contextText ?? verseText;
   return {
     book: location.book.name, chapter: location.chapter, verseRange: String(location.verse), heroCaption: current,
     verses: [{ number: location.verse, text: current }],
@@ -124,6 +129,7 @@ async function callModel(deps: ChatEvalDeps, options: ChatEvalOptions, system: s
 
   const started = Date.now();
   let text = "";
+  let firstTextMs: number | undefined;
   let streamError: string | undefined;
   let partial: Partial<ChatEvalRow> = {};
   try {
@@ -131,20 +137,26 @@ async function callModel(deps: ChatEvalDeps, options: ChatEvalOptions, system: s
       model: deps.languageModel, system, messages,
       abortSignal: AbortSignal.timeout(options.timeoutMs ?? 180_000),
       ...(maxOutputTokens ? { maxOutputTokens } : {}),
+      ...(options.reasoningEffort ? { providerOptions: { openai: { reasoningEffort: options.reasoningEffort } } } : {}),
       onError: ({ error }) => { streamError ??= error instanceof Error ? error.message : String(error); },
     });
     // Errors can arrive as stream parts without throwing; read the full stream so none is missed.
     for await (const part of result.fullStream) {
-      if (part.type === "text-delta") text += part.text;
+      if (part.type === "text-delta") {
+        if (firstTextMs === undefined && part.text) firstTextMs = Date.now() - started;
+        text += part.text;
+      }
       if (part.type === "error") streamError ??= part.error instanceof Error ? part.error.message : String(part.error);
     }
+    // The answer is over here; OpenRouter's cost record is looked up afterwards and is not part of its latency.
+    const latencyMs = Date.now() - started;
     const [finishReason, usage, response] = await Promise.all([result.finishReason, result.totalUsage, result.response]);
     // The answer is paid for; a failure fetching OpenRouter's record must not lose it.
     const stats = deps.stats
       ? await deps.stats(response.id).catch((error) => ({ provider: null, costUsd: null, statsError: String(error) }))
       : { provider: null, costUsd: null };
     partial = {
-      text, finishReason, latencyMs: Date.now() - started, generationId: response.id,
+      text, finishReason, firstTextMs, latencyMs, generationId: response.id,
       // Unknown usage stays unknown, so the budget keeps the hold rather than counting a free call.
       inputTokens: usage.inputTokens, outputTokens: usage.outputTokens,
       reasoningTokens: usage.outputTokenDetails?.reasoningTokens ?? usage.reasoningTokens,
@@ -154,7 +166,7 @@ async function callModel(deps: ChatEvalDeps, options: ChatEvalOptions, system: s
     deps.budget?.settle(hold, partial);
     return partial;
   } catch (error) {
-    const known = error instanceof ModelCallError ? error.partial : { ...partial, text: text || undefined, latencyMs: Date.now() - started };
+    const known = error instanceof ModelCallError ? error.partial : { ...partial, text: text || undefined, firstTextMs, latencyMs: Date.now() - started };
     // A failed call may still have cost money; without OpenRouter's figure it keeps its whole hold.
     deps.budget?.settle(hold, known, { failed: true });
     throw new ModelCallError(error instanceof Error ? error.message : String(error), known);
@@ -187,6 +199,9 @@ async function runCandidate(item: ChatEvalCase, deps: ChatEvalDeps, options: Cha
   if (!resolved) return { status: "refused" as const, reason: "translation" };
   const prompt = await buildSystemPrompt(parsed.data.context, resolved, deps.chapters);
   if (!prompt.ok) return { status: "refused" as const, reason: prompt.message };
+  // Production can answer without the passage when its text cannot be loaded; a case measured that way is not the
+  // case, so it fails before any call.
+  if (prompt.scripture === "unavailable") throw new Error(`${item.id}: Scripture unavailable`);
   const system = options.systemSuffix ? `${prompt.systemPrompt}\n\n${options.systemSuffix}` : prompt.systemPrompt;
   const history = boundHistory(parsed.data.messages, { systemPrompt: system, contextLength: options.contextLength ?? 131072 });
   if (!history.ok) return { status: "refused" as const, reason: history.message };
