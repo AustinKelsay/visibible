@@ -690,7 +690,7 @@ export async function POST(req: Request) {
           if (success && finish?.finishReason === "stop" && storedKey && storableAsked && context) {
             await convex.mutation(api.storedAnswers.save, {
               key: storedKey, reference: `${context.book} ${context.chapter}:${context.verseRange}`,
-              translation: requestedTranslation ?? "web", question: storableAsked, model: modelId, answer: answerText.trim(), serverSecret,
+              translation: prompt.translation, question: storableAsked, model: modelId, answer: answerText.trim(), serverSecret,
             }).catch((error) => logApiFailure({ context: requestContext, stage: "chat_stored_answer_save", error, statusCode: 500, sid }));
           }
           signal.removeEventListener("abort", onAbort);

@@ -38,7 +38,7 @@ Answers to the two suggested questions are stored (#505) and served to later rea
   - A complete answer (`stop`, non-empty) to a storable question is stored, free, paid or the owner's, replacing any answer under its key.
   - A stored answer shows "Saved answer · Get a fresh answer", priced like any question ("Free" or its credits). Without either, it opens the credits dialog.
   - Getting a fresh answer sends the question again with `fresh: true`. That skips the stored answer, and the new complete answer replaces it for everyone.
-  - Stored answers older than 30 days are not served and are deleted daily (`STORED_ANSWER_MAX_AGE_MS` in [convex/storedAnswers.ts](../../convex/storedAnswers.ts)).
+  - Stored answers older than 30 days are not served and are deleted hourly, in batches of 500 (`STORED_ANSWER_MAX_AGE_MS` in [convex/storedAnswers.ts](../../convex/storedAnswers.ts)).
   - The owner removes a verse's stored answers with `convex run --prod storedAnswers:removeForReference '{"reference": "John 1:5", "serverSecret": "…"}'`.
 
 ## What a request may contain

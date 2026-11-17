@@ -95,6 +95,21 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
   /** "Get a fresh answer" pressed before the standing was read: it is pressed again once the standing arrives. */
   const freshWaiting = useRef(false);
 
+  /** Ask the model again in place of a stored answer, priced like any question, or open the credits dialog. */
+  const askFresh = () => {
+    if (chat.isLoading) return;
+    if (!chat.canSend && chat.standingPending) {
+      freshWaiting.current = true;
+      return;
+    }
+    if (!chat.canSend) {
+      trackCreditsInsufficient({ feature: "chat", source: "ask_submit", requiredCredits: chat.quote?.maximumCredits ?? 1, ...analytics });
+      buyCredits();
+      return;
+    }
+    chat.askFresh();
+  };
+
   useEffect(() => {
     if (!chat.standingPending && freshWaiting.current) {
       // One answer at a time: the fresh answer goes first, and a question typed meanwhile stays in the field.
@@ -117,20 +132,6 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
   // far, which the server answers from the chapter's text up to this verse. Their answers are stored (#505).
   const suggestions = suggestedQuestions(bookName, chapter, verseNumber).map((suggestion) => suggestion.text);
 
-  /** Ask the model again in place of a stored answer, priced like any question, or open the credits dialog. */
-  const askFresh = () => {
-    if (chat.isLoading) return;
-    if (!chat.canSend && chat.standingPending) {
-      freshWaiting.current = true;
-      return;
-    }
-    if (!chat.canSend) {
-      trackCreditsInsufficient({ feature: "chat", source: "ask_submit", requiredCredits: chat.quote?.maximumCredits ?? 1, ...analytics });
-      buyCredits();
-      return;
-    }
-    chat.askFresh();
-  };
 
   return { reference, verseText, chat, answeringModel, input, setInput, ask, askFresh, openAsk, footField, suggestions, buyCredits, close: layer.close };
 }
