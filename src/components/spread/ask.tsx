@@ -92,6 +92,8 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
     const waiting = waitingForStanding.current;
     if (chat.standingPending || !waiting) return;
     waitingForStanding.current = null;
+    // A question the reader edited or cleared while it waited is theirs to send again.
+    if (input !== waiting.text) return;
     ask(waiting.text, waiting.source, waiting.from);
     // Only the standing's arrival asks the waiting question.
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -183,7 +183,8 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
   /** Send a question with the current quote. The caller checks `canSend` first. */
   const send = (text: string) => {
     sentQuote.current = { quote, resent: false };
-    sentFree.current = free?.available === true;
+    // A turn sent free, or sent while the standing could not be read (it may have been free), reads it again after.
+    sentFree.current = free?.available === true || currentQuote?.failed === true;
     void sendMessage({ text }, { body: { ...requestBody, ...(quote ? { quoteId: quote.quoteId } : {}) } });
     setQuoteEpoch((epoch) => epoch + 1);
   };

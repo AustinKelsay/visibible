@@ -452,13 +452,33 @@ describe("free answers (#493)", () => {
     expect(field("Ask about John 1:5").value).toBe("What does John 1:5 mean?");
   });
 
-  it("lets the server decide when the standing cannot be read", async () => {
+  it("lets the server decide when the standing cannot be read, and reads it again after that answer", async () => {
     session.credits = 0;
     quoteAnswer = () => new Response("Service unavailable", { status: 503 });
     await openVerse();
     await click(button("What does John 1:5 mean?", wordsPage()));
     expect(session.buyCredits).not.toHaveBeenCalled();
     expect(chatRequests).toHaveLength(1);
+    const reads = quoteRequests.length;
+    quoteAnswer = freeAnswer({ available: false, reason: "session" }, { error: "Insufficient credits", required: 1, available: 0 }, 402);
+    await beginAnswer();
+    await writeAnswer("The last free answer.", { finish: true });
+    await flush();
+    expect(quoteRequests.length).toBe(reads + 1);
+    expect(askPage()!.querySelector('[role="status"]')?.textContent).toContain("You've used today's free answers.");
+  });
+
+  it("drops a waiting question the reader cleared or changed before the standing arrived", async () => {
+    session.credits = 0;
+    let release!: (response: Response) => void;
+    quoteAnswer = () => new Promise<Response>((resolve) => { release = resolve; });
+    await openVerse();
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    await type(field("Ask about John 1:5"), "Something else");
+    await act(async () => { release(new Response(JSON.stringify({ quote: null, free: { available: true, remaining: 20 } }))); });
+    await flush();
+    expect(chatRequests).toHaveLength(0);
+    expect(field("Ask about John 1:5").value).toBe("Something else");
   });
 
   it("reads a refused standing again just after midnight UTC", async () => {
