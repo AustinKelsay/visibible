@@ -14,9 +14,9 @@ export async function GET() {
       models: [
         {
           id: DEFAULT_CHAT_MODEL,
-          name: "GPT-OSS 120B (Default)",
+          name: "GPT-6 Luna (Default)",
           provider: "Openai",
-          contextLength: 131072,
+          contextLength: 1050000,
           pricing: EMERGENCY_CHAT_MODEL_PRICING[DEFAULT_CHAT_MODEL],
           isFree: false,
         },

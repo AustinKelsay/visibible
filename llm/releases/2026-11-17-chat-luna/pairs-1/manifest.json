@@ -1,0 +1,37 @@
+{
+ "command": "pairs",
+ "cases": {
+  "file": "evals/chat/cases.json",
+  "version": 2,
+  "sha256": "b910b3eb2f2391c456ff3b5c2cb023d9fdf590975fda297434c854656d9e5639"
+ },
+ "runner": {
+  "commit": "fd02752409bed0cbd6e81d04b5e20d8d6347d0b0",
+  "dirty": false
+ },
+ "seed": "gate-luna-1",
+ "chunk": 15,
+ "rubric": {
+  "file": "evals/chat/scoring.md",
+  "sha256": "1e1f437c80713003be8c7418447bd1d1827a7710e16ff80c2d7b1b07a30c0344"
+ },
+ "a": {
+  "results": "../../../../../../../../private/tmp/claude-501/-Users-plebdev-Desktop-Projects-visibible/e2a3be78-970f-4f14-a150-0b672955457b/scratchpad/gate/luna-1/results.ndjson",
+  "arm": "candidate",
+  "label": "luna",
+  "manifest": {
+   "dir": "../../../../../../../../private/tmp/claude-501/-Users-plebdev-Desktop-Projects-visibible/e2a3be78-970f-4f14-a150-0b672955457b/scratchpad/gate/luna-1",
+   "sha256": "ebb55fe1552cf878ea009807c6cbd715eda72662ddef42c8d1a2a49acc790259"
+  }
+ },
+ "b": {
+  "results": "../../../../../../../../private/tmp/claude-501/-Users-plebdev-Desktop-Projects-visibible/e2a3be78-970f-4f14-a150-0b672955457b/scratchpad/gate/mistral-1/results.ndjson",
+  "arm": "candidate",
+  "label": "mistral",
+  "manifest": {
+   "dir": "../../../../../../../../private/tmp/claude-501/-Users-plebdev-Desktop-Projects-visibible/e2a3be78-970f-4f14-a150-0b672955457b/scratchpad/gate/mistral-1",
+   "sha256": "27384f4abb4ea1647a61736461ca7744ee96e440cd348e137f5ec1c5a3e07598"
+  }
+ },
+ "keySha256": "def4db40368632af30397dfa775be7fecd25a1c2735ee5cd687ca1fdc1bf522a"
+}

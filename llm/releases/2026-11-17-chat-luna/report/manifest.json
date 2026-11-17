@@ -1,0 +1,86 @@
+{
+ "command": "report",
+ "cases": {
+  "file": "evals/chat/cases.json",
+  "version": 2,
+  "sha256": "b910b3eb2f2391c456ff3b5c2cb023d9fdf590975fda297434c854656d9e5639"
+ },
+ "runner": {
+  "commit": "27eb266ecdbb1d9cbf192b5c21936520f98d5752",
+  "dirty": false
+ },
+ "judge": "Claude Opus 5.5 subagents: nine blind scorers, one per pairs file, following evals/chat/scoring.md without access to key.json; no judge model call",
+ "labels": {
+  "baseline": "mistral",
+  "candidate": "luna"
+ },
+ "inputs": [
+  {
+   "dir": "llm/releases/2026-11-17-chat-luna/pairs-1",
+   "pairsManifest": {
+    "dir": "llm/releases/2026-11-17-chat-luna/pairs-1",
+    "sha256": "5e68f3fe2981512253775b81ed6349680e0018f49f8d76e04252c66eeff559db"
+   },
+   "keySha256": "def4db40368632af30397dfa775be7fecd25a1c2735ee5cd687ca1fdc1bf522a",
+   "scores": [
+    {
+     "file": "scores-1.json",
+     "sha256": "7737cf48d0c57772456e510db19a4e7bec1a6ee92e21fa8152efe403863170ef"
+    },
+    {
+     "file": "scores-2.json",
+     "sha256": "1504b4444b0d8270f86a8a7ddcf23b4dbe77442688c1c5c2afd9062e336f9013"
+    },
+    {
+     "file": "scores-3.json",
+     "sha256": "7d273d059555388e11e9bd996ee3c063c6801a3bdc0b59c315f235b612490718"
+    }
+   ]
+  },
+  {
+   "dir": "llm/releases/2026-11-17-chat-luna/pairs-2",
+   "pairsManifest": {
+    "dir": "llm/releases/2026-11-17-chat-luna/pairs-2",
+    "sha256": "dd861865a916315289d6ffd3581735dea616615dda77e74762c8123a176eadfa"
+   },
+   "keySha256": "793dda4f6c829999eba9ffb0d83b25812a0bd39ec22e73c31df8dcc4df46a8f1",
+   "scores": [
+    {
+     "file": "scores-1.json",
+     "sha256": "884158e98d64cbc329795854519a70cc30bb98c686cb87c33fdf893976c63f3c"
+    },
+    {
+     "file": "scores-2.json",
+     "sha256": "7f2d1169dfedcbcc3700732f595a74495b0bef7679f20d8f48c49da6f3291aff"
+    },
+    {
+     "file": "scores-3.json",
+     "sha256": "e8427f9b348259d7b02645db18a0fc1cbc5681578487d9a5adac04dcc8dec360"
+    }
+   ]
+  },
+  {
+   "dir": "llm/releases/2026-11-17-chat-luna/pairs-3",
+   "pairsManifest": {
+    "dir": "llm/releases/2026-11-17-chat-luna/pairs-3",
+    "sha256": "7463f7134e956c9a118f1d1148698ceb50c65eae5fe447e400c049a08b612ea0"
+   },
+   "keySha256": "def4db40368632af30397dfa775be7fecd25a1c2735ee5cd687ca1fdc1bf522a",
+   "scores": [
+    {
+     "file": "scores-1.json",
+     "sha256": "64a3f8a24a2bcc071b807cbd945f1056808854efb231a3ebb23a8b91e19d7a89"
+    },
+    {
+     "file": "scores-2.json",
+     "sha256": "14165a38e519ce3c7e98fe9853f66f6d8c831125d834816e5f28398240e1d3f8"
+    },
+    {
+     "file": "scores-3.json",
+     "sha256": "a6de74fee3340e0bf09783ee02f506ea3764fea2364fb6c5b4497b07f8595126"
+    }
+   ]
+  }
+ ],
+ "reportSha256": "79fc7da5059faa6efe9e974323fea7f83a79c1e0d5667b4248462a95bcd66c62"
+}

@@ -35,6 +35,13 @@ describe("model catalog resilience", () => {
     process.env = { ...originalEnv };
   });
 
+  it("asks the default answering model for no reasoning, as the release gate measured it", async () => {
+    const { DEFAULT_CHAT_MODEL, chatModelReasoningEffort } = await import("../chat-models");
+    expect(DEFAULT_CHAT_MODEL).toBe("openai/gpt-6-luna");
+    expect(chatModelReasoningEffort(DEFAULT_CHAT_MODEL)).toBe("none");
+    expect(chatModelReasoningEffort("mistralai/mistral-small-2603")).toBeUndefined();
+  });
+
   it("chat pricing falls back to emergency default during models API outage", async () => {
     mockFetchSequence([{ ok: false, status: 503 }]);
 
@@ -45,9 +52,9 @@ describe("model catalog resilience", () => {
     } = await import("../chat-models");
 
     const pricing = await getChatModelPricing(DEFAULT_CHAT_MODEL, "test-key");
-    expect(pricing).toEqual({ ...EMERGENCY_CHAT_MODEL_PRICING[DEFAULT_CHAT_MODEL], contextLength: 262144 });
+    expect(pricing).toEqual({ ...EMERGENCY_CHAT_MODEL_PRICING[DEFAULT_CHAT_MODEL], contextLength: 1050000 });
     // The previous default stays priced during an outage, for guests who saved it.
-    expect(await getChatModelPricing("openai/gpt-oss-120b", "test-key")).toEqual(EMERGENCY_CHAT_MODEL_PRICING["openai/gpt-oss-120b"]);
+    expect(await getChatModelPricing("mistralai/mistral-small-2603", "test-key")).toEqual(EMERGENCY_CHAT_MODEL_PRICING["mistralai/mistral-small-2603"]);
   });
 
   it("chat models use stale cached snapshot when a later models fetch fails", async () => {

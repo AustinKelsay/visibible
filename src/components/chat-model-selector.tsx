@@ -56,9 +56,9 @@ export function ChatModelSelector({ value: chatModel, onChange }: ChatModelSelec
           setModels([
             {
               id: DEFAULT_CHAT_MODEL,
-              name: "GPT-OSS 120B (Default)",
+              name: "GPT-6 Luna (Default)",
               provider: "Openai",
-              contextLength: 131072,
+              contextLength: 1050000,
               isFree: false,
             },
           ]);

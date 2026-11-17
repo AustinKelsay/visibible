@@ -168,6 +168,7 @@ const pricing: { value: { prompt: string; completion: string; contextLength?: nu
 };
 vi.mock("@/lib/chat-models", () => ({
   DEFAULT_CHAT_MODEL: "test/cheap-model",
+  chatModelReasoningEffort: vi.fn(() => undefined),
   getChatModelPricing: vi.fn(async () => pricing.value),
   computeChatCreditsCost: vi.fn(() => 2),
   computeActualChatCreditsCost: vi.fn(() => 2),
@@ -376,6 +377,17 @@ describe("chat admission", () => {
     expect(systemPromptSent()).toContain("Current Position: Genesis 1:1");
     expect(systemPromptSent()).not.toContain("Scripture Context");
     expect(calls("deductCredits")).toHaveLength(1);
+  });
+
+  it("sends the model's reasoning effort when one is set for it, and nothing otherwise", async () => {
+    const { chatModelReasoningEffort } = await import("@/lib/chat-models");
+    vi.mocked(chatModelReasoningEffort).mockReturnValueOnce("none");
+    mockRequestBody.value = { messages: [user("What does this verse mean?")], context: { book: "Genesis", chapter: 1, verseRange: "2" } };
+    await (await POST(request())).text();
+    mockRequestBody.value = { messages: [user("What does this verse mean?")], context: { book: "Genesis", chapter: 1, verseRange: "2" } };
+    await (await POST(request())).text();
+    const sent = mockStreamTextImpl.mock.calls.map(([options]) => (options as { providerOptions?: unknown }).providerOptions);
+    expect(sent).toEqual([{ openai: { reasoningEffort: "none" } }, undefined]);
   });
 
   it("caps the answer at 2048 tokens, less for a small context window", async () => {

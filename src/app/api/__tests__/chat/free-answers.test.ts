@@ -110,6 +110,7 @@ vi.mock("@ai-sdk/openai", async () => {
 
 vi.mock("@/lib/chat-models", () => ({
   DEFAULT_CHAT_MODEL: "test/default-model",
+  chatModelReasoningEffort: vi.fn(() => undefined),
   getChatModelPricing: vi.fn(async () => ({ prompt: "0.000001", completion: "0.000002", contextLength: 131072 })),
   computeChatCreditsCost: vi.fn(() => 2),
   computeActualChatCreditsCost: vi.fn(() => 2),
