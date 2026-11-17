@@ -10,6 +10,7 @@ import { useSession } from "@/context/session-context";
 import { useEffectiveArtStyle } from "@/context/work-scope-context";
 import type { BibleBook } from "@/data/bible-structure";
 import { trackCreditsInsufficient } from "@/lib/analytics";
+import { artStyleLabel } from "@/lib/art-styles";
 import { estimateBulkCost, type BulkQueueItem } from "@/lib/bulk-generation";
 import { canAffordImageGeneration } from "@/lib/image-models";
 import { useVerseGeneration } from "@/lib/use-verse-generation";
@@ -51,10 +52,14 @@ interface ChapterPaintProps {
   chapter: number;
   /** The chapter's verses with no picture in the chosen style, in order; undefined while the wall loads. */
   unpaintedVerses: number[] | undefined;
+  /** Some verses on the wall show another style's picture, so the button names the chosen style instead of calling
+   * the verses unpainted. */
+  someInOtherStyles?: boolean;
 }
 
 /**
- * The wall's one painting control. With no job, "Paint the N unpainted verses · about X credits" starts the existing
+ * The wall's one painting control. With no job, "Paint the N unpainted verses · about X credits" (or "Paint N verses
+ * in Watercolor" when some already have another style's picture) starts the existing
  * bulk job for exactly those verses (its limits and charging unchanged), or opens the credits dialog when the balance
  * cannot cover the estimate. While a job exists it shows the job instead: progress and pause, resume and stop, then
  * how it ended until the reader dismisses it.
@@ -69,7 +74,7 @@ export function ChapterPaint(props: ChapterPaintProps) {
   return <PaintChapterButton {...props} unpaintedVerses={props.unpaintedVerses} pricing={pricing} />;
 }
 
-function PaintChapterButton({ book, chapter, unpaintedVerses, pricing }: ChapterPaintProps & {
+function PaintChapterButton({ book, chapter, unpaintedVerses, someInOtherStyles = false, pricing }: ChapterPaintProps & {
   unpaintedVerses: number[];
   pricing: Pick<ReturnType<typeof useVerseGeneration>, "effectiveCost" | "pricingPending" | "pricingUnavailable">;
 }) {
@@ -81,6 +86,8 @@ function PaintChapterButton({ book, chapter, unpaintedVerses, pricing }: Chapter
   const [startError, setStartError] = useState<string | null>(null);
 
   const count = unpaintedVerses.length;
+  const verses = count === 1 ? "verse" : "verses";
+  const label = someInOtherStyles ? `Paint ${count} ${verses} in ${artStyleLabel(artStyle)}` : `Paint the ${count} unpainted ${verses}`;
   const estimate = estimateBulkCost(count, pricing.effectiveCost);
   const isAdmin = tier === "admin";
   const priced = !pricing.pricingPending && !pricing.pricingUnavailable;
@@ -103,7 +110,7 @@ function PaintChapterButton({ book, chapter, unpaintedVerses, pricing }: Chapter
     try {
       await startBulkGeneration({
         scope: { type: "chapters", count: 1 },
-        scopeLabel: `Unpainted verses of ${book.name} ${chapter}`,
+        scopeLabel: someInOtherStyles ? `${book.name} ${chapter} in ${artStyleLabel(artStyle)}` : `Unpainted verses of ${book.name} ${chapter}`,
         queue,
         estimatedTotalCredits: estimate.totalCredits,
         // The model, ratio and resolution are the reader's Advanced image settings, which the provider fills in.
@@ -124,7 +131,7 @@ function PaintChapterButton({ book, chapter, unpaintedVerses, pricing }: Chapter
         <Brush aria-hidden="true" size={16} strokeWidth={1.75} className="shrink-0" />
         {/* On a phone the price takes its own line rather than wrapping mid-phrase. */}
         <span className="flex flex-col items-start text-left leading-snug md:block">
-          <span>{`Paint the ${count} unpainted ${count === 1 ? "verse" : "verses"}`}</span>
+          <span>{label}</span>
           {priced && !isAdmin ? (
             <span className="font-normal text-paper/(--quiet-55)">
               <span className="max-md:sr-only">{" · "}</span>

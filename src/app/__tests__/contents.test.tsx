@@ -232,7 +232,7 @@ describe("Contents", () => {
     expect(tile(9).textContent).toContain("9+");
     // Watercolor only, in Classical: the tile shows the Watercolor picture, as the spread does.
     expect(tile(3).querySelector("img")?.getAttribute("src")).toBe("https://img.test/thumb/john-1-3-water.webp");
-    expect(tile(3).getAttribute("aria-label")).toBe("Verse 3");
+    expect(tile(3).getAttribute("aria-label")).toBe("Verse 3, Ink & Watercolor picture");
     expect(tile(6).getAttribute("aria-label")).toBe("Verse 6, not painted yet");
     // A picture saved before thumbnails existed falls back to the full picture.
     expect(tile(4).querySelector("img")?.getAttribute("src")).toBe("https://img.test/full/john-1-4-nothumb.png");
@@ -352,7 +352,7 @@ function paintJohnOneExcept(...unpainted: number[]) {
     .map((verse) => picture(`john-1-${verse}`, "a", verse));
 }
 
-const paintButton = () => [...(dialog()?.querySelectorAll<HTMLButtonElement>("button") ?? [])].find((b) => /^Paint the /.test(b.textContent?.trim() ?? ""));
+const paintButton = () => [...(dialog()?.querySelectorAll<HTMLButtonElement>("button") ?? [])].find((b) => /^Paint (the )?\d+ /.test(b.textContent?.trim() ?? ""));
 const painting = () => dialog()!.querySelector<HTMLElement>('[role="group"][aria-label="Painting the chapter"]');
 
 describe("Painting the chapter from Contents", () => {
@@ -364,8 +364,28 @@ describe("Painting the chapter from Contents", () => {
     await openVerse("john", "1", "5");
     await openContents();
 
-    expect(paintButton()?.textContent).toBe("Paint the 3 unpainted verses · about 15 credits");
+    // Verse 7 has a picture, in another style, so the button names the style rather than calling it unpainted.
+    expect(paintButton()?.textContent).toBe("Paint 3 verses in Classical · about 15 credits");
     expect(paintButton()?.disabled).toBe(false);
+  });
+
+  it("names the chosen style when every verse shows another style's picture", async () => {
+    session = { ...session, credits: 500 };
+    savedPictures = Array.from({ length: 51 }, (_, i) => picture(`john-1-${i + 1}`, "w", i + 1, "watercolor"));
+    await openVerse("john", "1", "5");
+    await openContents();
+    expect(paintButton()?.textContent).toBe("Paint 51 verses in Classical · about 255 credits");
+    expect(tiles()[0].getAttribute("aria-label")).toBe("Verse 1, Ink & Watercolor picture");
+    await act(async () => { paintButton()!.click(); });
+    expect(bulk.startBulkGeneration).toHaveBeenCalledWith(expect.objectContaining({ scopeLabel: "John 1 in Classical", artStyleId: "classical" }));
+  });
+
+  it("calls verses unpainted when no style has a picture of them", async () => {
+    session = { ...session, credits: 500 };
+    paintJohnOneExcept(3, 51);
+    await openVerse("john", "1", "5");
+    await openContents();
+    expect(paintButton()?.textContent).toBe("Paint the 2 unpainted verses · about 10 credits");
   });
 
   it("names a single verse in the singular", async () => {
