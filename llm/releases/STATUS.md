@@ -1,5 +1,12 @@
 # Generic engine release status
 
+**Free Ask released (17 November 2026, 22:12 UTC).** Spec #493, on the owner's "execute this systematically end to end full send" and "Release and turn free on". Main at `f1ee85fa` (#497, #498, #499, #501, also carrying #500) went out Convex first, then Vercel `dpl_BCLwLiYHewaLeB5btfnYReTbpGw9`, with `FREE_ASK_ENABLED` and a dedicated free-answers OpenRouter key ($1.50 daily limit) set.
+- Every reader now gets free Ask answers: 20 a session and 100 a network each UTC day, inside $1 a day and $30 a month of free spend.
+- Ask answers with GPT-6 Luna, reasoning off ([gate](2026-11-17-chat-luna/README.md)).
+- A paid turn is charged its fraction of a credit, so one credit pays for about 50 answers.
+- Smoke: a zero-credit production guest was told the answer was free (20 left), got a GPT-6 Luna answer in 3 s billed as free, then had 19 left. The owner report matched the free key's $0.0001277 exactly.
+- A paid fractional charge is not yet exercised in production. $0.0001277 on the free key ([record](2026-11-17-free-ask/deployment.json)).
+
 **GPT-6 Luna passes the chat gate (17 November 2026).** For Free Ask (#493), the owner chose `openai/gpt-6-luna` after a first-look screen of eight models. Three runs of the 34 cases each against Mistral Small 4, scored blind by nine Claude scorers: 1.992 against 1.747, no zero in grounding or accuracy (Mistral had 4), no safety issue (Mistral had 5 minor), preferred 72 to 2, about $0.00017 an answer against $0.00030, whole answers in a median 2.5 s. The switch is its own PR with reasoning off. $0.046 on the dev key, after $0.33 of screening ([record](2026-11-17-chat-luna/README.md)).
 
 **Credits beside the name (17 November 2026, 20:42 UTC).** The owner found their purchased credits hard to find. #494 and #495 (`main` at `fb54b15e`, Vercel `dpl_H7vrsRhHAjQrnKCMp2TpEYhutYwv`) put a glass account chip with the available balance beside the Visibible name on every spread, and open the corner menu on the guest account (balance, Get credits, Recover credits), the placeholder for a future profile. Designed by a five-seat council (3-2 for the corner over a separate account control). No spend ([record](2026-11-17-credits-chip/deployment.json)).
