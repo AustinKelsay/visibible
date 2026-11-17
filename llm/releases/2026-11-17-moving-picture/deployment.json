@@ -11,11 +11,11 @@
     "steps": [
       {
         "at": "2026-11-17T22:04:11Z",
-        "commit": "fb54b15e + d5247f17 (local merge 9ff55bcb, not pushed)",
+        "commit": "9ff55bcb (fb54b15e merged with d5247f17; branch release-build/2026-11-17-moving-picture)",
         "carries": [500],
         "vercel": "dpl_99vJApXjLyQtZhE6ecrJzprAwcbZ",
         "convex": "Unchanged; frontend only.",
-        "note": "Built from the previous production commit fb54b15e with #500's branch merged in, so #497-#499 (merged to main, not yet released; #498 needs a Convex push) stay out of production. The only difference from main in the touched paths is src/components/spread/ask.tsx, which belongs to #498."
+        "note": "Built from the previous production commit fb54b15e with #500's branch merged in, so #497-#499 (merged to main, not yet released; #498 needs a Convex push) stay out of production. No #498 commit is reachable from 9ff55bcb, and its src/components/spread/ask.tsx is identical to fb54b15e's; ask.tsx differs from main only because main carries #498's change. `git diff --name-only fb54b15e 9ff55bcb` lists only #500's 15 files."
       }
     ]
   },
