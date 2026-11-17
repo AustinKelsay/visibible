@@ -2,7 +2,7 @@
 
 import { useId } from "react";
 import { useQuery } from "convex/react";
-import { Check } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { LayerPanel, useLayer } from "@/components/spread/layers";
@@ -170,21 +170,27 @@ function TranslationChoice() {
     <div className="mt-5 border-t border-ink/10 pt-4">
       <div className="flex items-center justify-between gap-4">
         <label htmlFor={id} className="text-[15px] text-ink/90">Translation</label>
-        <select
-          id={id}
-          value={translation}
-          onChange={(event) => setTranslation(event.target.value as Translation, "look")}
-          aria-describedby={`${id}-notice`}
-          className={`min-h-11 min-w-0 max-w-[65%] cursor-pointer truncate rounded-lg border border-ink/10 bg-ink/[0.06] px-3 text-right text-[15px] text-ink/80 hover:bg-ink/10 ${FOCUS_RING}`}
-        >
-          {Object.entries(TRANSLATION_GROUPS).map(([group, keys]) => (
-            <optgroup key={group} label={group}>
-              {keys.map((key) => (
-                <option key={key} value={key}>{TRANSLATIONS[key].name}</option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
+        {/* A pill as wide as the chosen name, the height of the text size control, with the chevron a set gap after the
+            name. The native select lies transparent over it, so the list, keys and screen readers stay the browser's. */}
+        <span className="relative inline-flex min-h-12 min-w-0 max-w-[65%] items-center gap-2 rounded-full bg-ink/[0.06] pl-4 pr-3.5 text-[15px] text-ink/85 transition-colors duration-[var(--motion-fast)] hover:bg-ink/10 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ink">
+          <span aria-hidden="true" className="truncate">{TRANSLATIONS[translation].name}</span>
+          <ChevronDown size={16} strokeWidth={2} aria-hidden="true" className="shrink-0 text-ink/60" />
+          <select
+            id={id}
+            value={translation}
+            onChange={(event) => setTranslation(event.target.value as Translation, "look")}
+            aria-describedby={`${id}-notice`}
+            className="absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-full opacity-0"
+          >
+            {Object.entries(TRANSLATION_GROUPS).map(([group, keys]) => (
+              <optgroup key={group} label={group}>
+                {keys.map((key) => (
+                  <option key={key} value={key}>{TRANSLATIONS[key].name}</option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+        </span>
       </div>
       <p id={`${id}-notice`} className="mt-2 text-xs leading-relaxed text-ink/(--quiet-50)">
         Scripture quotations are from the {translationInfo.name} ({translationInfo.code}){translationInfo.year ? `, ${translationInfo.year}` : ""}.
