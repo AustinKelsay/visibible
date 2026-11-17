@@ -381,6 +381,10 @@ html {
     opacity: 0;
     transition: opacity 700ms ease-in;
   }
+  /* A control whose parts fade (the corner name and its chip) drops its hover fill too, so no empty pill stays. */
+  [data-idle="true"] button:has(> [data-fades]):hover {
+    background-color: transparent;
+  }
 }
 
 /* A turned page arrives from the side it was turned towards (src/components/spread/page-turn.tsx). */
