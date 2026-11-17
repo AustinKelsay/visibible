@@ -85,6 +85,7 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber, verseText,
         </div>
         <Balance onGetCredits={menu.close} />
         <Link href="/recover" className={ROW}>Recover credits</Link>
+        <AdminSignIn onOpen={menu.close} />
         <Divider />
         <button type="button" className={ROW} onClick={() => openLayerById("feedback", name.current)}>
           Send feedback
@@ -157,16 +158,20 @@ function AccountChip({ descriptionId }: { descriptionId: string }) {
   );
 }
 
-/** The head of the menu: who the reader is. Today every reader is a guest whose credits live with this browser. */
+/**
+ * The head of the menu: who the reader is. Today every reader is a guest whose credits live with this browser, or the
+ * admin; until the session is read it says only "Account".
+ */
 function Account() {
   const { tier, accessStatus } = useSession();
-  const admin = accessStatus === "ready" && tier === "admin";
+  const ready = accessStatus === "ready";
+  const admin = ready && tier === "admin";
   return (
     <div className="flex min-w-0 flex-1 items-center gap-3 px-3 py-2">
       <CircleUserRound size={22} strokeWidth={1.5} aria-hidden="true" className="shrink-0 text-ink/70" />
       <div className="min-w-0">
-        <p className="text-sm font-medium text-ink/90">{admin ? "Admin" : "Guest"}</p>
-        {admin ? null : <p className="text-xs text-ink/(--quiet-60)">Kept in this browser</p>}
+        <p className="text-sm font-medium text-ink/90">{!ready ? "Account" : admin ? "Admin" : "Guest"}</p>
+        {ready && !admin ? <p className="text-xs text-ink/(--quiet-60)">Kept in this browser</p> : null}
       </div>
     </div>
   );
@@ -175,8 +180,6 @@ function Account() {
 /** The balance row: credits and Get credits, or the admin state, which is never charged. */
 function Balance({ onGetCredits }: { onGetCredits: () => void }) {
   const { tier, credits, pendingCredits, accessStatus, buyCredits } = useSession();
-  // Owner sign-in stays behind the existing address parameter; the credits dialog holds it.
-  const showAdminEntry = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("admin");
 
   if (accessStatus === "loading") {
     return <p className="px-3 py-2.5 text-sm text-ink/(--quiet-60)">Loading balance…</p>;
@@ -202,25 +205,30 @@ function Balance({ onGetCredits }: { onGetCredits: () => void }) {
     buyCredits();
   };
   return (
-    <>
-      <div className="flex items-center gap-3 px-3 py-1.5">
-        <p className="min-w-0 flex-1 text-sm text-ink/90">
-          <span className="font-semibold tabular-nums">{credits.toLocaleString("en-US")}</span> credits
-          {pendingCredits > 0 ? <span className="text-ink/(--quiet-55)"> · {pendingCredits.toLocaleString("en-US")} held</span> : null}
-        </p>
-        <button
-          type="button"
-          data-autofocus
-          onClick={getCredits}
-          className="min-h-9 shrink-0 rounded-full bg-ink px-3.5 text-sm font-medium text-paper transition-colors duration-[var(--motion-fast)] hover:bg-ink/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-        >
-          Get credits
-        </button>
-      </div>
-      {showAdminEntry ? (
-        <button type="button" className={ROW} onClick={getCredits}>Admin sign-in</button>
-      ) : null}
-    </>
+    <div className="flex items-center gap-3 px-3 py-1.5">
+      <p className="min-w-0 flex-1 text-sm text-ink/90">
+        <span className="font-semibold tabular-nums">{credits.toLocaleString("en-US")}</span> credits
+        {pendingCredits > 0 ? <span className="text-ink/(--quiet-55)"> · {pendingCredits.toLocaleString("en-US")} held</span> : null}
+      </p>
+      <button
+        type="button"
+        data-autofocus
+        onClick={getCredits}
+        className="min-h-9 shrink-0 rounded-full bg-ink px-3.5 text-sm font-medium text-paper transition-colors duration-[var(--motion-fast)] hover:bg-ink/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+      >
+        Get credits
+      </button>
+    </div>
+  );
+}
+
+/** Owner sign-in, after the account's own rows, only behind the existing address parameter; the credits dialog holds it. */
+function AdminSignIn({ onOpen }: { onOpen: () => void }) {
+  const { tier, accessStatus, buyCredits } = useSession();
+  const asked = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("admin");
+  if (!asked || accessStatus !== "ready" || tier === "admin") return null;
+  return (
+    <button type="button" className={ROW} onClick={() => { onOpen(); buyCredits(); }}>Admin sign-in</button>
   );
 }
 
