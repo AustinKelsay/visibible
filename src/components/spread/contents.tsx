@@ -7,6 +7,7 @@ import { AlertCircle, BookOpen, Check, ChevronDown, Clock, Layers, Loader2, Pain
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { LayerPanel, useLayer } from "@/components/spread/layers";
+import { artStyleLabel } from "@/lib/art-styles";
 import { ChapterPaint, useChapterJob, type TileJobStatus } from "@/components/spread/chapter-paint";
 import { PlayMark } from "@/components/spread/play-mark";
 import { useSession } from "@/context/session-context";
@@ -348,22 +349,28 @@ function SavedWall(props: ChapterWallProps) {
   // One bounded read for the whole chapter, by the spread's picture rule (the verse marks read the same).
   const tiles = useQuery(api.verseImages.getChapterContents, { verseIds, styles: order });
   const jobStatus = useChapterJob(verseIds);
-  // Unpainted means no picture in the chosen style, even when a tile falls back to another style's picture.
-  const unpainted = useMemo(
+  // To paint means no picture in the chosen style, even when a tile falls back to another style's picture; the
+  // button then names the style rather than calling those verses unpainted.
+  const toPaint = useMemo(
     () => (tiles ? tiles.flatMap((tile, index) => (tile.picture?.artStyle === chosen ? [] : [index + 1])) : undefined),
     [tiles, chosen],
   );
+  const inOtherStyles = useMemo(() => (tiles ?? []).some((tile) => tile.picture && tile.picture.artStyle !== chosen), [tiles, chosen]);
   return (
     <>
-      {props.paintable ? <ChapterPaint book={props.paintable.book} chapter={props.paintable.chapter} unpaintedVerses={unpainted} /> : null}
-      <Wall {...props} tiles={tiles} jobStatus={jobStatus} />
+      {props.paintable ? (
+        <ChapterPaint book={props.paintable.book} chapter={props.paintable.chapter} unpaintedVerses={toPaint} someInOtherStyles={inOtherStyles} />
+      ) : null}
+      <Wall {...props} tiles={tiles} jobStatus={jobStatus} chosen={chosen} />
     </>
   );
 }
 
-function Wall({ places, current, onChoose, tiles, jobStatus }: ChapterWallProps & {
+function Wall({ places, current, onChoose, tiles, jobStatus, chosen }: ChapterWallProps & {
   tiles: Tile[] | undefined;
   jobStatus?: ReadonlyMap<string, TileJobStatus>;
+  /** The chosen art style; a tile showing another style's picture says which. */
+  chosen?: string;
 }) {
   const noun = useMomentWord() === "verse" ? "Verse" : "Passage";
   return (
@@ -380,6 +387,7 @@ function Wall({ places, current, onChoose, tiles, jobStatus }: ChapterWallProps 
               loading={tiles === undefined}
               isCurrent={verse === current}
               job={jobStatus?.get(verseId)}
+              chosen={chosen}
               onChoose={onChoose}
             />
           </li>
@@ -396,7 +404,7 @@ const JOB_LABELS: Record<TileJobStatus, string> = {
   failed: "painting failed",
 };
 
-function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, onChoose }: {
+function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, chosen, onChoose }: {
   /** "Verse", or "Passage" for a prose moment. */
   noun: string;
   verse: number;
@@ -406,6 +414,7 @@ function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, onChoose 
   isCurrent: boolean;
   /** Where the verse stands in the reader's chapter painting job, when the job holds it. */
   job?: TileJobStatus;
+  chosen?: string;
   onChoose: (targetUrl: string) => void;
 }) {
   const source = tile?.picture ? previewSource(tile.picture) : null;
@@ -418,9 +427,10 @@ function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, onChoose 
       : count
         ? `${noun} ${verse}, ${tile?.morePictures ? `more than ${tile.pictureCount}` : count} pictures`
         : `${noun} ${verse}`;
+  const otherStyle = source && chosen && tile?.picture && tile.picture.artStyle !== chosen ? `, ${artStyleLabel(tile.picture.artStyle)} picture` : "";
   // The play mark follows the tile's own picture (#480): an unpainted tile has none.
   const hasVideo = Boolean(source && tile?.hasVideo);
-  const label = hasVideo ? `${pictures}, has a video` : pictures;
+  const label = `${pictures}${otherStyle}${hasVideo ? ", has a video" : ""}`;
   const waiting = unpainted && (job === "queued" || job === "generating" || job === "failed");
 
   return (
