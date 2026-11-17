@@ -86,7 +86,7 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
   // send): the estimate and maximum shown, and the id a send accepts. Read again when the model, passage, translation
   // or balance changes and after each send, since a quote is accepted once.
   const [quoteEpoch, setQuoteEpoch] = useState(0);
-  const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote | null; required?: number; free?: FreeAnswerStanding | null } | null>(null);
+  const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote | null; required?: number; free?: FreeAnswerStanding | null; failed?: boolean } | null>(null);
   const passageKey = passage ? `${passage.book}|${passage.chapter}|${passage.verseRange}` : null;
   const quoteKey = JSON.stringify([model, passageKey, translation, credits, quoteEpoch]);
   const currentQuote = quoteState && quoteState.key === quoteKey ? quoteState : null;
@@ -108,6 +108,10 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
       .then(async (response) => {
         const body = response.ok || response.status === 402 ? await response.json() : null;
         if (controller.signal.aborted) return;
+        if (!body) {
+          setQuoteState({ key: quoteKey, quote: null, failed: true });
+          return;
+        }
         // A 402 names the maximum this model needs, which the balance does not cover.
         setQuoteState({
           key: quoteKey,
@@ -118,6 +122,7 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
       })
       .catch(() => {
         // No price is shown; sending still asks the server, which answers with the quote to accept.
+        if (!controller.signal.aborted) setQuoteState({ key: quoteKey, quote: null, failed: true });
       });
     return () => controller.abort();
     // The passage is read through `quoteKey`, so a new object for the same verse asks no new quote.
@@ -126,8 +131,26 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
 
   /** The guest's free-answer standing for the next message, when free answers are on. */
   const free = staleQuote ? null : currentQuote?.free ?? null;
-  /** Admins bypass and a free answer needs no credits; otherwise the message's maximum must be affordable. */
-  const canSend = isAdmin || free?.available === true || credits >= (quote?.maximumCredits ?? currentQuote?.required ?? 1);
+  /** The standing for the next message is still being read: a question asked now waits for it. */
+  const standingPending = quoteWanted && !staleQuote && !currentQuote;
+  /**
+   * Admins bypass and a free answer needs no credits; otherwise the message's maximum must be affordable. When the
+   * standing could not be read, the server decides: it answers free, charges, or says why not.
+   */
+  const canSend = isAdmin || free?.available === true || currentQuote?.failed === true ||
+    credits >= (quote?.maximumCredits ?? currentQuote?.required ?? 1);
+
+  // A refused allowance or budget can return at midnight UTC: read the standing again then, a little after, spread
+  // over a minute so open tabs do not all ask at once.
+  const refusal = free?.available === false ? free.reason : null;
+  useEffect(() => {
+    if (!refusal) return;
+    const now = Date.now();
+    const midnight = new Date(now);
+    midnight.setUTCHours(24, 0, 0, 0);
+    const timer = setTimeout(() => setQuoteEpoch((epoch) => epoch + 1), midnight.getTime() - now + 1000 + Math.random() * 60_000);
+    return () => clearTimeout(timer);
+  }, [refusal, quoteKey]);
   const requestBody = { ...(passage ? { context: passage } : {}), translation, model };
   const isLoading = status === "streaming" || status === "submitted";
 
@@ -160,7 +183,8 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
   /** Send a question with the current quote. The caller checks `canSend` first. */
   const send = (text: string) => {
     sentQuote.current = { quote, resent: false };
-    sentFree.current = free?.available === true;
+    // A turn sent free, or sent while the standing could not be read (it may have been free), reads it again after.
+    sentFree.current = free?.available === true || currentQuote?.failed === true;
     void sendMessage({ text }, { body: { ...requestBody, ...(quote ? { quoteId: quote.quoteId } : {}) } });
     setQuoteEpoch((epoch) => epoch + 1);
   };
@@ -176,6 +200,7 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
     /** The price of the next message, when the server quoted one. */
     quote,
     free,
+    standingPending,
     staleQuote,
     priceToConfirm,
     canSend,

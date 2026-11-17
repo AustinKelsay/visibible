@@ -54,9 +54,13 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
     trackAskOpened({ source, ...analytics });
   };
 
+  /** A question asked before the free-answer standing was read: it is asked again once the standing arrives. */
+  const waitingForStanding = useRef<{ text: string; source: "suggestion" | "field"; from: "words_page" | "ask_page" } | null>(null);
+
   /**
    * Send a question, from the words page's foot or its turned-over side. A balance that cannot cover the quote opens
-   * the credits dialog instead and leaves the question in the field, unsent.
+   * the credits dialog instead and leaves the question in the field, unsent; while the standing is still being read
+   * the question waits in the field for it, since the answer may be free.
    */
   const ask = (text: string, source: "suggestion" | "field", from: "words_page" | "ask_page") => {
     const question = text.trim();
@@ -65,6 +69,11 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
       // One answer at a time: show the one being written and keep this question for after it.
       setInput(text);
       if (from === "words_page") openAsk("words_page", footField.current);
+      return;
+    }
+    if (!chat.canSend && chat.standingPending) {
+      setInput(text);
+      waitingForStanding.current = { text, source, from };
       return;
     }
     if (!chat.canSend) {
@@ -78,6 +87,17 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
     setInput("");
     if (from === "words_page") openAsk("words_page", footField.current);
   };
+
+  useEffect(() => {
+    const waiting = waitingForStanding.current;
+    if (chat.standingPending || !waiting) return;
+    waitingForStanding.current = null;
+    // A question the reader edited or cleared while it waited is theirs to send again.
+    if (input !== waiting.text) return;
+    ask(waiting.text, waiting.source, waiting.from);
+    // Only the standing's arrival asks the waiting question.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chat.standingPending]);
 
   // Two questions about the verse on screen. From the chapter's second verse one is always a summary of the chapter so
   // far, which the server answers from the chapter's text up to this verse.
