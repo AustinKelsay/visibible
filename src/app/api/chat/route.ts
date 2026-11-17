@@ -32,7 +32,7 @@ import {
 } from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 import { boundHistory, chatRequestSchema, chatSystemPrompt } from "@/lib/chat-request";
-import { freeAnswerCostUsd, freeAnswerNetwork, freeAnswersKey } from "@/lib/free-answers";
+import { freeAnswerCostUsd, freeAnswerInputTokenBound, freeAnswerNetwork, freeAnswersKey } from "@/lib/free-answers";
 import { freeAnswersUsedMessage, type FreeAnswerRefusal } from "@/lib/free-answer-display";
 
 // Allow streaming responses up to 60 seconds: on 11 November 2026 about 6% of answers took over 30 (llm/releases/2026-11-11-chat-model-comparison).
@@ -447,7 +447,9 @@ export async function POST(req: Request) {
   // request is not used: any other model is paid for with credits. If the count cannot be kept, the turn is not free.
   const freeKey = session.tier !== "admin" && modelId === DEFAULT_CHAT_MODEL ? freeAnswersKey() : null;
   const freeNetwork = freeKey ? await freeAnswerNetwork(req) : null;
-  const freeWorstCaseUsd = freeNetwork ? freeAnswerCostUsd(modelPricing, quoteTerms.maxInputTokens, quoteTerms.maxOutputTokens) : null;
+  const freeWorstCaseUsd = freeNetwork
+    ? freeAnswerCostUsd(modelPricing, freeAnswerInputTokenBound(quoteTerms.maxInputTokens, history.messages.length), quoteTerms.maxOutputTokens)
+    : null;
   if (freeKey && freeNetwork && freeWorstCaseUsd) {
     const freeGenerationId = `chat-free-${Date.now()}-${Math.random().toString(36).slice(2)}`;
     try {

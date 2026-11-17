@@ -28,6 +28,16 @@ export async function freeAnswerNetwork(req: Request): Promise<string | null> {
  */
 export const FREE_SPEND_MARGIN = 1.1;
 
+/**
+ * The most input tokens a free turn can be billed for. Input is counted in estimated tokens (ASCII characters ÷ 3,
+ * other characters by their UTF-8 bytes; `estimateTokens`), so the text is at most three bytes per estimated token,
+ * and a byte-level tokenizer never makes more tokens than bytes: a history of digits, say, is about one token per
+ * character. Each message adds a few tokens of framing.
+ */
+export function freeAnswerInputTokenBound(estimatedInputTokens: number, messages: number): number {
+  return 3 * estimatedInputTokens + 8 * (messages + 1) + 64;
+}
+
 /** Provider cost of the given tokens at the model's prices, with the margin; null when the prices are unusable. */
 export function freeAnswerCostUsd(pricing: TokenPricing, inputTokens: number, outputTokens: number): number | null {
   const usage = quoteTokenUsage(pricing, inputTokens, outputTokens);

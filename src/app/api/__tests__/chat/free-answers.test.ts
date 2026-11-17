@@ -177,6 +177,16 @@ describe("a free answer", () => {
     expect(settle.costUsd).toBeCloseTo((1000 * 0.000001 + 1000 * 0.000002) * 1.1, 10);
   });
 
+  it("holds enough for a history a tokenizer splits one token per character", async () => {
+    // Digits count as a third of a token each in the estimate, but many tokenizers make one token of each.
+    const digits = (n: number) => "1234567890".repeat(n);
+    const turns = [digits(400), digits(400), digits(400), digits(400), digits(100)];
+    await ask({ ...question(), messages: turns.map((text, i) => ({ id: `m${i}`, role: i % 2 ? "assistant" : "user", parts: [{ type: "text", text }] })) });
+    const [reserve] = calls("freeReserve");
+    const characters = turns.join("").length;
+    expect(reserve.worstCaseUsd as number).toBeGreaterThan(characters * 0.000001 + 2048 * 0.000002);
+  });
+
   it("is the default model's: a guest who names another model pays for it with credits", async () => {
     mockState.sessions.get("test-session")!.credits = 100;
     const { response } = await ask(question("other/model", "accepted-quote"));

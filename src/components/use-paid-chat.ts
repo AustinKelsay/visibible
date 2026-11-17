@@ -131,6 +131,15 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
   const requestBody = { ...(passage ? { context: passage } : {}), translation, model };
   const isLoading = status === "streaming" || status === "submitted";
 
+  // A free answer uses up the standing without changing the balance, and the read after sending can land before the
+  // server counts the turn; read it again once a free answer is over.
+  const sentFree = useRef(false);
+  const wasLoading = useRef(false);
+  useEffect(() => {
+    if (wasLoading.current && !isLoading && sentFree.current) setQuoteEpoch((epoch) => epoch + 1);
+    wasLoading.current = isLoading;
+  }, [isLoading]);
+
   /** Ask again for the answer to the question already sent, accepting this quote. */
   const resendWith = (accepted: DisplayQuote, resent: boolean) => {
     sentQuote.current = { quote: accepted, resent };
@@ -151,6 +160,7 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
   /** Send a question with the current quote. The caller checks `canSend` first. */
   const send = (text: string) => {
     sentQuote.current = { quote, resent: false };
+    sentFree.current = free?.available === true;
     void sendMessage({ text }, { body: { ...requestBody, ...(quote ? { quoteId: quote.quoteId } : {}) } });
     setQuoteEpoch((epoch) => epoch + 1);
   };

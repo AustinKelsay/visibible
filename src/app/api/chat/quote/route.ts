@@ -6,8 +6,8 @@ import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { readJsonBodyWithLimit } from "@/lib/request-body";
 import { createRequestObservabilityContext, logApiFailure } from "@/lib/observability";
 import { BILLING_POLICY_VERSION, CHAT_MAX_CREDITS_PER_MESSAGE, chatQuoteTerms } from "@/lib/quotes";
-import { chatSystemPrompt, passageSchema } from "@/lib/chat-request";
-import { freeAnswerCostUsd, freeAnswerNetwork, freeAnswersKey } from "@/lib/free-answers";
+import { MAX_CHAT_MESSAGES, chatSystemPrompt, passageSchema } from "@/lib/chat-request";
+import { freeAnswerCostUsd, freeAnswerInputTokenBound, freeAnswerNetwork, freeAnswersKey } from "@/lib/free-answers";
 import type { FreeAnswerStanding } from "@/lib/free-answer-display";
 import { api } from "../../../../../convex/_generated/api";
 
@@ -86,7 +86,9 @@ export async function POST(req: Request) {
     let free: FreeAnswerStanding | null = null;
     const freeKey = modelId === DEFAULT_CHAT_MODEL ? freeAnswersKey() : null;
     const network = freeKey ? await freeAnswerNetwork(req) : null;
-    const worstCaseUsd = network && pricing ? freeAnswerCostUsd(pricing, terms.maxInputTokens, terms.maxOutputTokens) : null;
+    const worstCaseUsd = network && pricing
+      ? freeAnswerCostUsd(pricing, freeAnswerInputTokenBound(terms.maxInputTokens, MAX_CHAT_MESSAGES), terms.maxOutputTokens)
+      : null;
     if (network && worstCaseUsd) {
       free = await convex.query(api.freeAnswers.status, { sid, network, worstCaseUsd, serverSecret })
         .catch((error) => { logApiFailure({ context: requestContext, stage: "chat_free_status", error, statusCode: 503, sid }); return null; });

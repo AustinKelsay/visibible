@@ -397,6 +397,29 @@ describe("free answers (#493)", () => {
     expect(wordsPage().querySelector('[role="status"]')?.textContent).toBe("Free answers are paused. Continue with credits");
   });
 
+  it("reads the standing again after the last free answer, so the next question is kept and credits offered", async () => {
+    session.credits = 0;
+    quoteAnswer = freeAnswer({ available: true, remaining: 1 });
+    await openVerse();
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    // The read right after sending can land before the server counts the turn.
+    expect(quoteRequests).toHaveLength(2);
+    quoteAnswer = freeAnswer({ available: false, reason: "session" }, { error: "Insufficient credits", required: 1, available: 0 }, 402);
+    await beginAnswer();
+    await writeAnswer("The last free answer.", { finish: true });
+    await flush();
+
+    expect(quoteRequests).toHaveLength(3);
+    expect(button(/^Send question/, askPage()!).getAttribute("aria-label")).toBe("Send question");
+    expect(askPage()!.querySelector('[role="status"]')?.textContent).toBe("You've used today's free answers. They return at midnight UTC. Continue with credits");
+    const followup = field("Ask a follow-up about John 1:5");
+    await type(followup, "Explain the light further");
+    await submit(followup);
+    expect(chatRequests).toHaveLength(1);
+    expect(followup.value).toBe("Explain the light further");
+    expect(session.buyCredits).toHaveBeenCalledTimes(1);
+  });
+
   it("shows the price as usual once free answers are used up and the balance can pay", async () => {
     quoteAnswer = () => new Response(JSON.stringify({ quote: quoteOf("paid-quote"), free: { available: false, reason: "network" } }));
     await openVerse();
