@@ -61,11 +61,14 @@ export const passageSchema = z.object({
   verseRange: z.string().regex(/^\d{1,3}$/, "verseRange must be a verse number"),
 });
 
+/** The most messages one request may carry. */
+export const MAX_CHAT_MESSAGES = 50;
+
 export const chatRequestSchema = z.object({
   messages: z
     .array(messageSchema)
     .min(1, "Request must include at least one message")
-    .max(50, "Too many messages. Maximum 50 messages per request."),
+    .max(MAX_CHAT_MESSAGES, `Too many messages. Maximum ${MAX_CHAT_MESSAGES} messages per request.`),
   context: passageSchema.optional(),
   translation: z.string().optional(),
   model: z.string().optional(),

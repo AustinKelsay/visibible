@@ -542,6 +542,40 @@ export default defineSchema({
     updatedAt: v.number(),
   }).index("by_modelId", ["modelId"]),
 
+  // Free answers (#493; convex/freeAnswers.ts). How many free Ask answers a guest session or a network had on one UTC
+  // day. A network is an IPv4 address or an IPv6 /64, hashed.
+  freeAnswerCounts: defineTable({
+    scope: v.union(v.literal("session"), v.literal("network")),
+    key: v.string(),
+    day: v.string(), // "YYYY-MM-DD", UTC
+    count: v.number(),
+  })
+    .index("by_scope_key_day", ["scope", "key", "day"])
+    .index("by_day", ["day"]),
+
+  // The free budget for one UTC day ("YYYY-MM-DD") or calendar month ("YYYY-MM"): provider spend on free answers,
+  // counting the worst case of answers not yet settled, and the number of free answers given.
+  freeAnswerBudget: defineTable({
+    period: v.string(),
+    spentUsd: v.number(),
+    answers: v.number(),
+  }).index("by_period", ["period"]),
+
+  // One free answer: its reserved worst case and, once settled, the cost counted for it.
+  freeAnswers: defineTable({
+    generationId: v.string(),
+    sid: v.string(),
+    network: v.string(),
+    day: v.string(),
+    month: v.string(),
+    reservedUsd: v.number(),
+    status: v.union(v.literal("reserved"), v.literal("settled"), v.literal("returned")),
+    costUsd: v.optional(v.number()),
+    createdAt: v.number(),
+  })
+    .index("by_generationId", ["generationId"])
+    .index("by_createdAt", ["createdAt"]),
+
   // Rate limiting for API endpoints
   rateLimits: defineTable({
     identifier: v.string(), // Session ID or IP hash

@@ -94,6 +94,12 @@ _Avoid_: Image request when referring to each network delivery as separate paid 
 
 **Credit reservation**: Credits held for accepted work before its final charge is known.
 
+**Free answer**: An Ask answer the guest is not charged for.
+
+**Free allowance**: The free answers a guest session and a network may have in one UTC day.
+
+**Free budget**: The provider spend the site allows for free answers in one UTC day and one calendar month.
+
 **Quote**: The estimated charge and maximum authorized charge for specified work.
 _Avoid_: Actual cost when referring to a quote.
 

@@ -758,6 +758,23 @@ describe("controls fading while reading", () => {
     act(() => { vi.advanceTimersByTime(3500); });
     expect(faded(dock())).toBe(true);
   });
+
+  it("fades the corner name and its account chip, each on its own, but not while the name has focus", async () => {
+    await openVerse("john", "1", "5");
+    const name = container.querySelector<HTMLButtonElement>('button[aria-label="Visibible menu"]')!;
+    // The fading parts are inside the button (glass in a fading parent loses its blur), and both fade.
+    const parts = [...name.querySelectorAll("[data-fades]")];
+    expect(parts).toHaveLength(2);
+    expect(parts[0].textContent).toBe("Visibible");
+    expect(parts[1].classList.contains("liquid-glass")).toBe(true);
+    act(() => { vi.advanceTimersByTime(3500); });
+    expect(parts.every(faded)).toBe(true);
+
+    act(() => { name.focus(); });
+    act(() => { vi.advanceTimersByTime(30_000); });
+    expect(faded(dock())).toBe(false);
+    expect(parts.some(faded)).toBe(false);
+  });
 });
 
 describe("the verse marks", () => {
@@ -825,25 +842,79 @@ describe("the corner menu", () => {
     return container.querySelector<HTMLElement>('[role="dialog"][aria-label="Visibible menu"]');
   }
 
-  it("opens from the Visibible name with the balance, credits, feedback and site links", async () => {
+  /** The words the account chip gives the name (its description), and the number it shows. */
+  function chip() {
+    const element = document.getElementById(cornerName().getAttribute("aria-describedby") ?? "");
+    // The description is read, not shown: the chip shows only the number.
+    if (element) expect(element.hidden).toBe(true);
+    const description = element?.textContent ?? null;
+    return { description, shown: cornerName().textContent!.replace("Visibible", "").replace(description ?? "", "") };
+  }
+
+  it("opens from the Visibible name with the guest account, the balance, credits, feedback and site links", async () => {
     session.credits = 42;
     await openVerse("john", "1", "5");
-    expect(cornerName().textContent).toBe("Visibible");
+    expect(cornerName().textContent).toMatch(/^Visibible/);
     expect(container.querySelector('[role="dialog"]')).toBeNull();
 
     const menu = openMenu();
     expect(menu).not.toBeNull();
     expect(cornerName().getAttribute("aria-expanded")).toBe("true");
+    expect(menu!.textContent).toMatch(/^Guest\s*Kept in this browser/);
     expect(menu!.textContent).toContain("42 credits");
     const names = [...menu!.querySelectorAll("a, button")].map((item) => item.getAttribute("aria-label") ?? item.textContent?.trim());
     expect(names).toEqual(expect.arrayContaining([
       "Get credits", "Recover credits", "Send feedback", "About", "API documentation",
       "View source on GitHub", "Follow on X", "Follow on Nostr", "Email",
     ]));
+    // The account's actions come first, together: Get credits, then Recover credits, then the rest.
+    const actions = names.filter((name) => name !== "Close menu");
+    expect(actions.slice(0, 3)).toEqual(["Get credits", "Recover credits", "Send feedback"]);
     const href = (name: string) => [...menu!.querySelectorAll("a")].find((link) => link.textContent?.trim() === name)?.getAttribute("href");
     expect(href("Recover credits")).toBe("/recover");
     expect(href("About")).toBe("/about");
     expect(href("API documentation")).toBe("/api-docs");
+  });
+
+  it("shows the available balance beside the name on the spread, without opening anything", async () => {
+    session = { ...session, credits: 1240, pendingCredits: 12 };
+    await openVerse("john", "1", "5");
+    expect(container.querySelector('[role="dialog"]')).toBeNull();
+    expect(chip()).toEqual({ shown: "1,240", description: "1,240 credits, 12 held" });
+
+    session = { ...session, credits: 0, pendingCredits: 0 };
+    await act(async () => { root.render(await VersePage(params("john", "1", "5"))); });
+    expect(chip()).toEqual({ shown: "0", description: "0 credits" });
+  });
+
+  it("shows no number while the balance loads or cannot be read, and a shield for an admin", async () => {
+    session = { ...session, credits: 0, accessStatus: "loading" };
+    await openVerse("john", "1", "5");
+    expect(chip()).toEqual({ shown: "", description: "Loading balance" });
+    // Until the session is read the menu names no guest or admin; the menu stays open through each update.
+    const menu = openMenu()!;
+    expect(menu.textContent).toMatch(/^Account\s*Loading balance…/);
+
+    session = { ...session, accessStatus: "unavailable" };
+    await act(async () => { root.render(await VersePage(params("john", "1", "5"))); });
+    expect(chip()).toEqual({ shown: "", description: "Balance unavailable" });
+    expect(menu.textContent).toMatch(/^Account\s*Reconnect to see your balance/);
+
+    session = { ...session, accessStatus: "ready", tier: "admin" };
+    await act(async () => { root.render(await VersePage(params("john", "1", "5"))); });
+    expect(chip()).toEqual({ shown: "", description: "Admin, not charged" });
+    expect(menu.textContent).toMatch(/^Admin\s*Admin · not charged/);
+    expect(cornerName().querySelector("svg.lucide-shield")).not.toBeNull();
+  });
+
+  it("puts the account chip aside in the whole-picture view and keeps the name", async () => {
+    session.credits = 42;
+    savedPictures = [{ id: "john-1-5:a", imageUrl: "https://img.test/5.png", artStyle: "classical", createdAt: 1 }];
+    await openVerse("john", "1", "5");
+    expect(chip()).toEqual({ shown: "42", description: "42 credits" });
+    act(() => { container.querySelector<HTMLButtonElement>('button[aria-label="Show the whole picture of John 1:5"]')!.click(); });
+    expect(cornerName().textContent).toBe("Visibible");
+    expect(cornerName().hasAttribute("aria-describedby")).toBe(false);
   });
 
   it("shows the new balance after a purchase without a reload", async () => {
@@ -875,10 +946,14 @@ describe("the corner menu", () => {
     root = createRoot(container);
     window.history.replaceState(null, "", "/john/1/5?admin");
     await openVerse("john", "1", "5");
-    const signIn = [...openMenu()!.querySelectorAll("button")].find((button) => button.textContent === "Admin sign-in");
+    const items = [...openMenu()!.querySelectorAll("a, button")].map((item) => item.textContent?.trim()).filter(Boolean);
+    // After the account's own rows, not between Get credits and Recover credits.
+    expect(items.slice(0, 4)).toEqual(["Get credits", "Recover credits", "Admin sign-in", "Send feedback"]);
+    const signIn = [...container.querySelectorAll<HTMLButtonElement>('[role="dialog"] button')].find((button) => button.textContent === "Admin sign-in");
     expect(signIn).toBeDefined();
     act(() => { signIn!.click(); });
     expect(buyCredits).toHaveBeenCalledTimes(1);
+    expect(container.querySelector('[role="dialog"][aria-label="Visibible menu"]')).toBeNull();
     window.history.replaceState(null, "", "/");
 
     act(() => root.unmount());

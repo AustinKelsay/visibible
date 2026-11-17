@@ -33,6 +33,9 @@ crons.interval(
   internal.cleanup.cleanupAdminLoginAttempts
 );
 
+// Drop old free-answer counts and records; the free budget rows are kept.
+crons.interval("cleanup free answers", { hours: 1 }, internal.freeAnswers.cleanup, {});
+
 // Remove quotes that expired without being accepted; accepted quotes are kept.
 crons.interval(
   "cleanup unused quotes",
