@@ -289,13 +289,15 @@ function ChapterPicker({ level, count, labels, chosen, onChoose }: {
 }) {
   const pressed = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    pressed.current?.scrollIntoView?.({ block: "nearest", inline: "center" });
+    // Scroll only when the chosen number is hidden or under an edge fade (the scroll padding matches the fades), so a
+    // chapter that already fits leaves the row at its start instead of half-hiding chapter 1.
+    pressed.current?.scrollIntoView?.({ block: "nearest", inline: "nearest" });
   }, [count, chosen]);
 
   return (
     <div className="mt-3 flex items-center gap-4 pl-5 md:mt-5 md:pl-10">
       <span aria-hidden="true" className="shrink-0 text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)">{level}</span>
-      <div role="group" aria-label={level} className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto py-1 pr-5 pl-3 [mask-image:linear-gradient(to_right,transparent,#000_12px,#000_calc(100%-24px),transparent)] [scrollbar-width:none] md:pr-10">
+      <div role="group" aria-label={level} className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto scroll-pr-6 scroll-pl-3 py-1 pr-6 pl-3 [mask-image:linear-gradient(to_right,transparent,#000_12px,#000_calc(100%-24px),transparent)] [scrollbar-width:none] md:pr-10">
         {Array.from({ length: count }, (_, index) => {
           const number = index + 1;
           const isShown = number === chosen;
