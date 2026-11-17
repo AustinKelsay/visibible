@@ -13,6 +13,7 @@ import { PictureMenu } from "@/components/spread/picture-menu";
 import { useChosenPicture } from "@/components/spread/chosen-picture";
 import { PaintButton, PaintProgress, PILL, usePaintVerse } from "@/components/spread/paint-verse";
 import { PlayMark } from "@/components/spread/play-mark";
+import { wordsPageWidthPx } from "@/components/spread/words-page-width";
 
 interface SpreadPictureProps {
   verseId: string;
@@ -236,12 +237,14 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
     if (player.current) player.current.muted = !on;
   };
   // Kept up when the computer's controls fade, so a reader passing by still sees the picture moves; in the
-  // whole-picture view it sits at the window's corner on a computer and is not offered on a phone. Play on and the
+  // whole-picture view it sits at the window's corner on a computer and just under the picture on a phone. Play on and the
   // sound stand above Play; below a wide window the group sits above the spread's dock row, so it never covers the dock.
   const playControls = video ? (
     <div
       className={`absolute right-3 bottom-3 z-20 flex flex-col items-end gap-2 ${
-        wholeIsOpen ? "max-md:hidden md:right-5 md:bottom-8" : "md:right-[calc(var(--words-page-width)+1.25rem)] md:bottom-24 xl:bottom-8"
+        wholeIsOpen
+          ? "max-md:static max-md:mt-3 max-md:mr-3 max-md:self-end md:right-5 md:bottom-8"
+          : "md:right-[calc(var(--words-page-width)+1.25rem)] md:bottom-24 xl:bottom-8"
       }`}
     >
       {phase !== null ? (
@@ -382,7 +385,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
       {/* Play on fetches the next clip ahead, so the next verse starts to move without a wait. */}
       {continues && nextVideoUrl ? <video src={nextVideoUrl} preload="auto" muted aria-hidden="true" tabIndex={-1} className="hidden" /> : null}
       {shown && pictures ? (
-        <PictureMenu key={verseId} verseId={verseId} reference={reference} pictures={pictures} shown={shown} chipHidden={wholeIsOpen} />
+        <PictureMenu key={verseId} verseId={verseId} reference={reference} pictures={pictures} shown={shown} chipHidden={wholeIsOpen} besidePlay={video !== null} />
       ) : null}
       {otherStyle ? (
         // Kept mounted in the whole-picture view and while a video is pressed, so a paint it started carries on: hidden in
@@ -421,10 +424,16 @@ export function videoPlacement({ frame, pictureSize, videoSize, cover, wordsPage
   const left = (frame.width - width) / 2;
   const top = (frame.height - height) / 2;
   const style: React.CSSProperties = { left, top, width, height, maxWidth: "none", objectFit: "fill" };
+  // In a frame wider than the clip (a very wide window, or the whole-picture view), the picture shows a little past
+  // the clip's sides; the clip's edges fade into it, so no hard seam runs between moving and still.
+  const pictureWidth = pictureSize.width * scale;
+  if (left > 0.5 && pictureWidth > width + 1) {
+    const edge = Math.round(Math.min(48, Math.max(16, pictureWidth - width)));
+    style.maskImage = style.WebkitMaskImage = `linear-gradient(to right, transparent, #000 ${edge}px, #000 calc(100% - ${edge}px), transparent)`;
+  }
   if (wordsPageCovers && window.matchMedia?.("(min-width: 768px)").matches) {
-    // The words page is min(40vw, 600px) wide at the frame's right edge (--words-page-width in spread.tsx).
-    const wordsPage = Math.min(window.innerWidth * 0.4, 600);
-    const hidden = left + width - (frame.width - wordsPage);
+    // The words page lies over the frame's right edge.
+    const hidden = left + width - (frame.width - wordsPageWidthPx(window.innerWidth));
     if (hidden > 0) style.clipPath = `inset(0 ${hidden}px 0 0)`;
   }
   return style;

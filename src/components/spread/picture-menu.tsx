@@ -29,6 +29,8 @@ export interface PictureMenuProps {
   shown: ChosenPicture;
   /** Hide the chip (in the whole-picture view) without ending a painting started from the menu. */
   chipHidden?: boolean;
+  /** Play stands at the picture's other corner: on a phone a long label gives way to it. */
+  besidePlay?: boolean;
 }
 
 /** A tap on the chip or inside its menu is not a tap on the picture (which opens the whole-picture view). */
@@ -50,7 +52,7 @@ const formatDate = (timestamp: number) =>
  *
  * Mount it with `key={verseId}`, so a page turn starts afresh.
  */
-export function PictureMenu({ verseId, reference, pictures, shown, chipHidden = false }: PictureMenuProps) {
+export function PictureMenu({ verseId, reference, pictures, shown, chipHidden = false, besidePlay = false }: PictureMenuProps) {
   const layer = useLayer("picture");
   const { sid, tier, credits } = useSession();
   // The reader's video jobs, so a video still being made of this verse shows on the chip, after a reload too.
@@ -82,7 +84,7 @@ export function PictureMenu({ verseId, reference, pictures, shown, chipHidden = 
           if (!layer.isOpen) trackPictureMenuOpened({ pictureCount: pictures.length, tier, hasCredits: credits > 0 });
           layer.toggle(event.currentTarget);
         }}
-        className={`liquid-glass spread-dock absolute bottom-3 left-3 z-20 ${chipHidden ? "hidden" : "flex"} min-h-9 min-w-0 max-md:max-w-[calc(100%-9.5rem)] items-center gap-2 rounded-full px-3 text-[13px] font-medium text-ink/90 transition-colors duration-[var(--motion-fast)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:bottom-8 md:left-5 md:min-h-11 md:px-4 md:text-sm`}
+        className={`liquid-glass spread-dock absolute bottom-3 left-3 z-20 ${chipHidden ? "hidden" : "flex"} min-h-9 min-w-0 ${besidePlay ? "max-md:max-w-[calc(100%-9.5rem)]" : ""} items-center gap-2 rounded-full px-3 text-[13px] font-medium text-ink/90 transition-colors duration-[var(--motion-fast)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:bottom-8 md:left-5 md:min-h-11 md:px-4 md:text-sm`}
       >
         {painting || makingVideo ? (
           <Loader2 aria-hidden="true" className="h-3.5 w-3.5 motion-safe:animate-spin" />

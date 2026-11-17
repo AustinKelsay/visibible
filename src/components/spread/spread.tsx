@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { AskProvider } from "@/components/spread/ask";
 import { ChosenPictureProvider } from "@/components/spread/chosen-picture";
@@ -15,6 +15,7 @@ import { useSwipeTurn } from "@/components/spread/swipe-turn";
 import { ReaderAppearance } from "@/components/spread/reader-appearance";
 import { PrefetchNextSpread } from "@/components/spread/prefetch-next";
 import { SpreadPicture } from "@/components/spread/spread-picture";
+import { WORDS_PAGE_WIDTH_CSS } from "@/components/spread/words-page-width";
 import { WordsPage } from "@/components/spread/words-page";
 import { WholePictureCaption } from "@/components/spread/whole-picture";
 import { FeedbackPrompt } from "@/components/feedback-prompt";
@@ -120,7 +121,8 @@ function SpreadScreen({
 
   return (
     <main
-      className={`${whole ? "reader-dark" : "reader-appearance"} fixed inset-0 flex flex-col overflow-hidden bg-[#050505] text-ink [--words-page-width:min(40vw,600px)] md:block`}
+      className={`${whole ? "reader-dark" : "reader-appearance"} fixed inset-0 flex flex-col overflow-hidden bg-[#050505] text-ink md:block`}
+      style={{ "--words-page-width": WORDS_PAGE_WIDTH_CSS } as CSSProperties}
       data-idle={idle}
       data-arrival={arrival ?? undefined}
       data-whole-picture={whole || undefined}

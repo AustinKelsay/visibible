@@ -520,6 +520,30 @@ describe("Play on the spread", () => {
     expect(note.className.split(/\s+/)).not.toContain("hidden");
   });
 
+  it("offers Play and Pause in the whole-picture view on a phone too, just under the picture", async () => {
+    savedPictures = john();
+    publicVideos = [job()];
+    await openVerse("john", "1", "5");
+    await act(async () => { container.querySelector<HTMLButtonElement>('button[aria-label="Show the whole picture of John 1:5"]')!.click(); });
+    const controls = playMark()!.closest("div.absolute")!;
+    expect(controls.className.split(/\s+/)).not.toContain("max-md:hidden");
+    expect(controls.className.split(/\s+/)).toContain("max-md:static");
+    await act(async () => { playMark()!.click(); });
+    fire(video()!, "playing");
+    expect(button("Pause the video of John 1:5")).not.toBeNull();
+    // The same element plays on in the view; the words stay put aside.
+    expect(container.querySelector("main")?.hasAttribute("data-whole-picture")).toBe(true);
+  });
+
+  it("caps the picture chip's label on a phone only when Play stands beside it", async () => {
+    savedPictures = john();
+    publicVideos = [job()];
+    await openVerse("john", "1", "5");
+    expect(chip()!.className).toContain("max-md:max-w-");
+    await openVerse("john", "1", "3");
+    expect(chip()!.className).not.toContain("max-md:max-w-");
+  });
+
   it("leaves the picture and Play when the browser refuses to start the video", async () => {
     savedPictures = john();
     publicVideos = [job()];
