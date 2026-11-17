@@ -891,18 +891,19 @@ describe("the corner menu", () => {
     session = { ...session, credits: 0, accessStatus: "loading" };
     await openVerse("john", "1", "5");
     expect(chip()).toEqual({ shown: "", description: "Loading balance" });
-    // Until the session is read the menu names no guest or admin.
-    expect(openMenu()!.textContent).toMatch(/^Account\s*Loading balance…/);
-    pressKey("Escape", document.activeElement!);
-    await act(async () => {});
+    // Until the session is read the menu names no guest or admin; the menu stays open through each update.
+    const menu = openMenu()!;
+    expect(menu.textContent).toMatch(/^Account\s*Loading balance…/);
 
     session = { ...session, accessStatus: "unavailable" };
     await act(async () => { root.render(await VersePage(params("john", "1", "5"))); });
     expect(chip()).toEqual({ shown: "", description: "Balance unavailable" });
+    expect(menu.textContent).toMatch(/^Account\s*Reconnect to see your balance/);
 
     session = { ...session, accessStatus: "ready", tier: "admin" };
     await act(async () => { root.render(await VersePage(params("john", "1", "5"))); });
     expect(chip()).toEqual({ shown: "", description: "Admin, not charged" });
+    expect(menu.textContent).toMatch(/^Admin\s*Admin · not charged/);
     expect(cornerName().querySelector("svg.lucide-shield")).not.toBeNull();
   });
 
@@ -952,6 +953,7 @@ describe("the corner menu", () => {
     expect(signIn).toBeDefined();
     act(() => { signIn!.click(); });
     expect(buyCredits).toHaveBeenCalledTimes(1);
+    expect(container.querySelector('[role="dialog"][aria-label="Visibible menu"]')).toBeNull();
     window.history.replaceState(null, "", "/");
 
     act(() => root.unmount());
