@@ -7,6 +7,8 @@ import { readJsonBodyWithLimit } from "@/lib/request-body";
 import { createRequestObservabilityContext, logApiFailure } from "@/lib/observability";
 import { BILLING_POLICY_VERSION, CHAT_MAX_CREDITS_PER_MESSAGE, chatQuoteTerms } from "@/lib/quotes";
 import { chatSystemPrompt, passageSchema } from "@/lib/chat-request";
+import { freeAnswerCostUsd, freeAnswerNetwork, freeAnswersKey } from "@/lib/free-answers";
+import type { FreeAnswerStanding } from "@/lib/free-answer-display";
 import { api } from "../../../../../convex/_generated/api";
 
 export const dynamic = "force-dynamic";
@@ -19,7 +21,9 @@ const MAX_QUOTE_BODY_SIZE = 4 * 1024;
  * (#60), shown in the composer and accepted by sending. It is priced from the system prompt the turn would send (the
  * chapter so far grows it), and the passage and translation must be the ones the turn names. It calls no model and
  * holds nothing. The answer is `{ quote }`; the owner, who is not charged, gets
- * `{ quote: null }`.
+ * `{ quote: null }`. When the guest's next answer on the default model would be free (#493) the answer is
+ * `{ quote: null, free: { available: true, remaining } }`; when free answers are on but used up, `free` says why
+ * beside the usual answer.
  */
 export async function POST(req: Request) {
   const requestContext = createRequestObservabilityContext(req, "/api/chat/quote");
@@ -77,14 +81,26 @@ export async function POST(req: Request) {
     const session = await convex.query(api.sessions.getSession, { sid, serverSecret });
     if (!session) return respond({ error: "Session not found" }, { status: 401 });
     if (session.tier === "admin") return respond({ quote: null });
+
+    // The same standing the chat route reserves against; reading it reserves nothing. Unreadable counts mean no free answer.
+    let free: FreeAnswerStanding | null = null;
+    const freeKey = modelId === DEFAULT_CHAT_MODEL ? freeAnswersKey() : null;
+    const network = freeKey ? await freeAnswerNetwork(req) : null;
+    const worstCaseUsd = network && pricing ? freeAnswerCostUsd(pricing, terms.maxInputTokens, terms.maxOutputTokens) : null;
+    if (network && worstCaseUsd) {
+      free = await convex.query(api.freeAnswers.status, { sid, network, worstCaseUsd, serverSecret })
+        .catch((error) => { logApiFailure({ context: requestContext, stage: "chat_free_status", error, statusCode: 503, sid }); return null; });
+    }
+    if (free?.available) return respond({ quote: null, free });
+
     if (session.credits < terms.maximumCredits) {
-      return respond({ error: "Insufficient credits", required: terms.maximumCredits, available: session.credits }, { status: 402 });
+      return respond({ error: "Insufficient credits", required: terms.maximumCredits, available: session.credits, ...(free ? { free } : {}) }, { status: 402 });
     }
     const quote = await convex.mutation(api.quotes.create, {
       sid, operation: "chat", fingerprint: terms.fingerprint, policyVersion: BILLING_POLICY_VERSION,
       estimateCredits: terms.estimateCredits, maximumCredits: terms.maximumCredits, serverSecret,
     });
-    return respond({ quote });
+    return respond({ quote, ...(free ? { free } : {}) });
   } catch (error) {
     logApiFailure({ context: requestContext, stage: "chat_quote", error, statusCode: 503, sid });
     return respond({ error: "Service temporarily unavailable", retryable: true }, { status: 503 });

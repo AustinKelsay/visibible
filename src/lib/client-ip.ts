@@ -50,6 +50,22 @@ export function getClientIp(request: Request): string {
 }
 
 /**
+ * The network a client address belongs to, for counting free answers (#493): an IPv4 address itself, or the /64 an
+ * IPv6 address is in, since one subscriber is usually given a whole /64. An IPv4-mapped IPv6 address counts as its
+ * IPv4 address. Null when the address is unknown or not an address.
+ */
+export function clientNetwork(ip: string): string | null {
+  const parsed = parseIp(ip);
+  if (!parsed) return null;
+  const bytes = parsed.bytes;
+  if (parsed.version === 4) return bytes.join(".");
+  const mapped = bytes.slice(0, 10).every((byte) => byte === 0) && bytes[10] === 0xff && bytes[11] === 0xff;
+  if (mapped) return bytes.slice(12).join(".");
+  const hextets = [0, 2, 4, 6].map((index) => ((bytes[index] << 8) | bytes[index + 1]).toString(16));
+  return `${hextets.join(":")}::/64`;
+}
+
+/**
  * Log when proxy trust is used to determine client IP.
  * Only logs in development or when DEBUG_PROXY is set to avoid log noise in production.
  */

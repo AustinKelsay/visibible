@@ -32,6 +32,8 @@ import {
 } from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 import { boundHistory, chatRequestSchema, chatSystemPrompt } from "@/lib/chat-request";
+import { freeAnswerCostUsd, freeAnswerNetwork, freeAnswersKey } from "@/lib/free-answers";
+import { freeAnswersUsedMessage, type FreeAnswerRefusal } from "@/lib/free-answer-display";
 
 // Allow streaming responses up to 60 seconds: on 11 November 2026 about 6% of answers took over 30 (llm/releases/2026-11-11-chat-model-comparison).
 export const maxDuration = 60;
@@ -310,8 +312,45 @@ export async function POST(req: Request) {
     }
   };
 
+  // A free answer (#493) holds no credits: its worst-case provider cost is held against the free budget instead.
+  let freeTurn: { generationId: string; apiKey: string } | null = null;
+  let freeRefusal: FreeAnswerRefusal | null = null;
+  let answerStarted = false;
+  let freeSettlement: Promise<void> | null = null;
+  const settleFreeAnswer = (mode: "deduct" | "release", reason: string, usage?: { promptTokens?: number; completionTokens?: number }) => {
+    if (!freeTurn) return Promise.resolve();
+    if (freeSettlement) return freeSettlement;
+    const turn = freeTurn;
+    freeSettlement = (async () => {
+      // A call that failed before any text is given back; a cancelled one, or one that failed after text, keeps its
+      // worst case, since the provider may have charged for it. A request aborted before the call was never sent.
+      const giveBack = mode === "release" && (reason === "request-aborted" || (reason !== "stream-cancel" && !answerStarted));
+      const counted = (tokens: number | undefined): tokens is number => typeof tokens === "number" && Number.isFinite(tokens) && tokens >= 0;
+      const costUsd = mode === "deduct" && usage && counted(usage.promptTokens) && counted(usage.completionTokens)
+        ? freeAnswerCostUsd(modelPricing, usage.promptTokens, usage.completionTokens)
+        : null;
+      try {
+        const settled = await convex.mutation(api.freeAnswers.settle, {
+          generationId: turn.generationId,
+          outcome: giveBack ? "returned" : "settled",
+          ...(costUsd !== null ? { costUsd } : {}),
+          serverSecret,
+        });
+        logSettlementEvent({ context: requestContext, outcome: giveBack ? "free_returned" : "free_settled", sid: sessionId, generationId: turn.generationId, details: { reason, costUsd } });
+        if (settled.monthWarning) {
+          logWarn("free_answers.month_budget_warning", { route: requestContext.route, requestId: requestContext.requestId, monthSpentUsd: settled.monthSpentUsd });
+        }
+      } catch (error) {
+        // An unsettled free answer keeps its worst case counted, so a failure here can only overcount.
+        logApiFailure({ context: requestContext, stage: "chat_free_settle", error, statusCode: 500, sid: sessionId, generationId: turn.generationId });
+      }
+    })();
+    return freeSettlement;
+  };
+
   let creditSettlement: Promise<void> | null = null;
   const settleCredits = (mode: "deduct" | "release", reason: string, usage?: { promptTokens?: number; completionTokens?: number }) => {
+    if (freeTurn) return settleFreeAnswer(mode, reason, usage);
     if (!generationId || !creditReserved) {
       return Promise.resolve();
     }
@@ -403,8 +442,33 @@ export async function POST(req: Request) {
     ));
   }
 
+  // A guest's turn on the default model is free while the session's and the network's allowances and the site's free
+  // budget all have room (#493). It needs the free key and a readable client address, and the model named in the
+  // request is not used: any other model is paid for with credits. If the count cannot be kept, the turn is not free.
+  const freeKey = session.tier !== "admin" && modelId === DEFAULT_CHAT_MODEL ? freeAnswersKey() : null;
+  const freeNetwork = freeKey ? await freeAnswerNetwork(req) : null;
+  const freeWorstCaseUsd = freeNetwork ? freeAnswerCostUsd(modelPricing, quoteTerms.maxInputTokens, quoteTerms.maxOutputTokens) : null;
+  if (freeKey && freeNetwork && freeWorstCaseUsd) {
+    const freeGenerationId = `chat-free-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    try {
+      const reservation = await convex.mutation(api.freeAnswers.reserve, {
+        sid: sessionId, network: freeNetwork, worstCaseUsd: freeWorstCaseUsd, generationId: freeGenerationId, serverSecret,
+      });
+      if (reservation.allowed) {
+        freeTurn = { generationId: freeGenerationId, apiKey: freeKey };
+        generationId = freeGenerationId;
+      } else {
+        freeRefusal = reservation.reason;
+      }
+    } catch (error) {
+      logApiFailure({ context: requestContext, stage: "chat_free_reserve", error, statusCode: 503, sid: sessionId });
+    }
+  }
+
   // Admin bypasses credit check but we log for audit trail
-  if (session.tier !== "admin") {
+  if (freeTurn) {
+    // Nothing to quote or hold: the free answer's worst case is already held against the free budget.
+  } else if (session.tier !== "admin") {
     // The whole maximum must be affordable, because the whole maximum is held.
     if (session.credits < creditAmount) {
       return withSessionRefresh(Response.json(
@@ -412,7 +476,8 @@ export async function POST(req: Request) {
           error: "Insufficient credits",
           required: creditAmount,
           available: session.credits,
-          message: `This model can use up to ${creditAmount} credits per message.`,
+          message: freeRefusal ? freeAnswersUsedMessage(freeRefusal) : `This model can use up to ${creditAmount} credits per message.`,
+          ...(freeRefusal ? { free: { available: false, reason: freeRefusal } } : {}),
         },
         { status: 402 } // Payment Required
       ));
@@ -516,11 +581,16 @@ export async function POST(req: Request) {
       void settleCredits("release", "stream-cancel");
     };
     signal.addEventListener("abort", onAbort, { once: true });
+    // A free answer goes out on its own key, once: a retry would spend outside its reservation.
+    const provider = freeTurn
+      ? createOpenAI({ name: "openrouter", baseURL: "https://openrouter.ai/api/v1", apiKey: freeTurn.apiKey })
+      : openRouter;
     const result = streamText({
-      model: openRouter.chat(modelId),
+      model: provider.chat(modelId),
       system,
       messages: modelMessages,
       maxOutputTokens: history.maxOutputTokens,
+      ...(freeTurn ? { maxRetries: 0 } : {}),
       abortSignal: signal,
       onError: async () => {
         failed = true;
@@ -536,6 +606,7 @@ export async function POST(req: Request) {
       new TransformStream<UIMessageChunk, UIMessageChunk>({
         transform(chunk, controller) {
           if (chunk.type === "text-delta" && chunk.delta.trim()) hasText = true;
+          if (chunk.type === "text-delta" && chunk.delta) answerStarted = true;
           if (chunk.type === "error" || chunk.type === "abort") failed = true;
           if (chunk.type === "finish") finish = chunk;
           else controller.enqueue(chunk);
@@ -567,7 +638,8 @@ export async function POST(req: Request) {
               creditsRefunded: billingStatus === "released" ? creditAmount : 0,
               estimatedCredits,
               maximumCredits,
-              billingStatus: creditReserved ? billingStatus : "not_required",
+              billingStatus: freeTurn ? "free" : creditReserved ? billingStatus : "not_required",
+              free: Boolean(freeTurn),
               actualCredits: computeActualChatCreditsCost(modelPricing, promptTokens, completionTokens),
               incomplete: success && finish?.finishReason === "length",
               earlierMessagesOmitted: history.omitted,
@@ -612,8 +684,9 @@ export async function POST(req: Request) {
     });
     console.error("Chat API error:", error);
 
-    // Release reserved credit on failure (refund)
+    // Release reserved credit on failure (refund); a free answer that never streamed is given back.
     await releaseReservedCredits("chat-error");
+    await settleFreeAnswer("release", "chat-error");
 
     // Extract error details for user-friendly messages
     const errorObj = error as {

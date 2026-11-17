@@ -4,6 +4,7 @@ import { useChat } from "@ai-sdk/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSession } from "@/context/session-context";
 import { parseQuote, parseStaleQuote, sameQuoteNumbers, type DisplayQuote } from "@/lib/quote-display";
+import { parseFreeAnswerStanding, type FreeAnswerStanding } from "@/lib/free-answer-display";
 
 /** What the chat route attaches to an answer; Ask shows the notices for an answer cut short or earlier turns left out. */
 export interface MessageMetadata {
@@ -56,6 +57,13 @@ export function chatErrorMessage(error: Error | null | undefined): string {
   if (msg.includes("retry") || msg.includes("busy") || msg.includes("traffic")) {
     return "The AI service is busy. Please try again in a moment.";
   }
+  // A refused request's body is the error's message; show its own words rather than the JSON.
+  try {
+    const body = JSON.parse(error.message) as { message?: unknown };
+    if (typeof body?.message === "string" && body.message) return body.message;
+  } catch {
+    // Not JSON: the message is already words.
+  }
   return error.message || "Something went wrong. Please try again.";
 }
 
@@ -63,6 +71,8 @@ export function chatErrorMessage(error: Error | null | undefined): string {
  * A paid conversation with the chat route (#60): the server's quote for the next message, whether the balance covers
  * it, sending with the quote's id, and the "quote stale" answer. A fresh quote at the price just accepted (the old
  * one had only expired) is accepted for the guest once; any other price waits for `confirmPrice`. Admins read no quote.
+ * While the guest's next answer is free (#493) the quote route says so instead of quoting, and the turn is sent
+ * without a quote; free answers are used before credits.
  */
 export function usePaidChat({ id, model, passage, translation }: { id: string; model: string; passage: ChatPassage | null; translation: string }) {
   const { tier, credits } = useSession();
@@ -76,12 +86,13 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
   // send): the estimate and maximum shown, and the id a send accepts. Read again when the model, passage, translation
   // or balance changes and after each send, since a quote is accepted once.
   const [quoteEpoch, setQuoteEpoch] = useState(0);
-  const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote | null; required?: number } | null>(null);
+  const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote | null; required?: number; free?: FreeAnswerStanding | null } | null>(null);
   const passageKey = passage ? `${passage.book}|${passage.chapter}|${passage.verseRange}` : null;
   const quoteKey = JSON.stringify([model, passageKey, translation, credits, quoteEpoch]);
   const currentQuote = quoteState && quoteState.key === quoteKey ? quoteState : null;
   const quote = staleQuote ?? currentQuote?.quote ?? null;
-  const quoteWanted = !isAdmin && credits >= 1;
+  // Asked even with no credits, since the answer may be free.
+  const quoteWanted = !isAdmin;
   /** The quote sent with the turn in flight, and whether its fresh replacement was already accepted for the guest. */
   const sentQuote = useRef<{ quote: DisplayQuote | null; resent: boolean }>({ quote: null, resent: false });
 
@@ -98,7 +109,12 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
         const body = response.ok || response.status === 402 ? await response.json() : null;
         if (controller.signal.aborted) return;
         // A 402 names the maximum this model needs, which the balance does not cover.
-        setQuoteState({ key: quoteKey, quote: response.ok ? parseQuote(body?.quote) : null, ...(typeof body?.required === "number" ? { required: body.required } : {}) });
+        setQuoteState({
+          key: quoteKey,
+          quote: response.ok ? parseQuote(body?.quote) : null,
+          free: parseFreeAnswerStanding(body?.free),
+          ...(typeof body?.required === "number" ? { required: body.required } : {}),
+        });
       })
       .catch(() => {
         // No price is shown; sending still asks the server, which answers with the quote to accept.
@@ -108,8 +124,10 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quoteWanted, model, translation, quoteKey]);
 
-  /** Admins bypass; otherwise the message's maximum must be affordable. */
-  const canSend = isAdmin || credits >= (quote?.maximumCredits ?? currentQuote?.required ?? 1);
+  /** The guest's free-answer standing for the next message, when free answers are on. */
+  const free = staleQuote ? null : currentQuote?.free ?? null;
+  /** Admins bypass and a free answer needs no credits; otherwise the message's maximum must be affordable. */
+  const canSend = isAdmin || free?.available === true || credits >= (quote?.maximumCredits ?? currentQuote?.required ?? 1);
   const requestBody = { ...(passage ? { context: passage } : {}), translation, model };
   const isLoading = status === "streaming" || status === "submitted";
 
@@ -147,6 +165,7 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
     credits,
     /** The price of the next message, when the server quoted one. */
     quote,
+    free,
     staleQuote,
     priceToConfirm,
     canSend,

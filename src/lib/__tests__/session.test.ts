@@ -46,6 +46,7 @@ import {
   _ipMatchesCidr,
   _stripIpv6Zone,
   _parseIp,
+  clientNetwork,
 } from "../client-ip";
 
 afterAll(() => {
@@ -224,6 +225,21 @@ describe("parseIp", () => {
   it("should return null for invalid IPs", () => {
     expect(_parseIp("not-an-ip")).toBeNull();
     expect(_parseIp("")).toBeNull();
+  });
+});
+
+describe("clientNetwork", () => {
+  it("is an IPv4 address itself and the /64 of an IPv6 address", () => {
+    expect(clientNetwork("203.0.113.9")).toBe("203.0.113.9");
+    expect(clientNetwork("2001:db8:1:2:3:4:5:6")).toBe("2001:db8:1:2::/64");
+    expect(clientNetwork("2001:0db8:0001:0002:ffff::1")).toBe("2001:db8:1:2::/64");
+    expect(clientNetwork("fe80::1%en0")).toBe("fe80:0:0:0::/64");
+  });
+
+  it("counts an IPv4-mapped IPv6 address as its IPv4 address, and has no network for an unknown address", () => {
+    expect(clientNetwork("::ffff:203.0.113.9")).toBe("203.0.113.9");
+    expect(clientNetwork("unknown")).toBeNull();
+    expect(clientNetwork("")).toBeNull();
   });
 });
 
