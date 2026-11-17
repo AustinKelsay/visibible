@@ -1,0 +1,30 @@
+{
+  "authorization": [
+    "The owner said the Look panel's translation dropdown looked off-center, asked for a review that also fixes other small UI paper cuts, and said \"End to end full send\". Spends nothing."
+  ],
+  "release": {
+    "pullRequests": [489],
+    "mainCommit": "b525836f",
+    "reviewFindings": "GPT-6.1 Sol (xhigh) approved in one round with no findings. CodeRabbit had no actionable comments. CI quality-gates passed."
+  },
+  "deploy": {
+    "steps": [
+      { "at": "2026-11-17T05:10:19Z", "commit": "b525836f", "carries": [489], "vercel": "dpl_7F4EjHKBZ1ynKh7bZwn1rMn1is1t", "convex": "Unchanged; frontend only." }
+    ]
+  },
+  "changes": [
+    "Look's translation control is a pill sized to the chosen name with a chevron, as tall as the text size control, with the native select transparent over it.",
+    "On a phone, the corner menu's close button sits beside the balance instead of on its own row; the social icons line up with the menu text.",
+    "On a phone, the foot line centres the translation name and the position together between the arrows."
+  ],
+  "smoke": {
+    "after": "/john/1/1, /genesis/1/1 and /api/health 200. Playwright on production: Look shows the translation pill (1440x900) and the phone corner menu has the close button beside the balance (390x844)."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_GLYUVzuKdWpTZyHfiPfiKnBuxoDc (main ac5e23bc). Nothing stored differs."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "The browser session of the screenshot run, with no balance."
+  ]
+}
