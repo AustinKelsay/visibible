@@ -33,6 +33,7 @@ import {
 import { api } from "../../../../convex/_generated/api";
 import { boundHistory, chatRequestSchema, chatSystemPrompt } from "@/lib/chat-request";
 import { MICRO_CREDITS_PER_CREDIT, quoteTokenMicroCredits } from "@/lib/token-pricing";
+import { storableQuestion, storedAnswerKey, storedAnswerReference } from "@/lib/stored-answers";
 import { freeAnswerCostUsd, freeAnswerInputTokenBound, freeAnswerNetwork, freeAnswersKey } from "@/lib/free-answers";
 import { freeAnswersUsedMessage, type FreeAnswerRefusal } from "@/lib/free-answer-display";
 
@@ -187,7 +188,7 @@ export async function POST(req: Request) {
     ));
   }
 
-  const { messages, context, translation: requestedTranslation, model: requestedModel, quoteId: presentedQuoteId } = validationResult.data;
+  const { messages, context, translation: requestedTranslation, model: requestedModel, quoteId: presentedQuoteId, fresh } = validationResult.data;
 
   // SECURITY: The system prompt, including the passage text, is built here from the reference alone. The quoted
   // maximum is priced from this prompt, and a prompt over the allowance is refused.
@@ -225,6 +226,50 @@ export async function POST(req: Request) {
   }
   if (history.emptyDropped > 0) {
     console.warn(`[Chat API] Left out ${history.emptyDropped} message(s) with empty content`);
+  }
+
+  // Get session to check tier and credits; a revoked or missing session gets nothing, stored answers included.
+  const session = await convex.query(api.sessions.getSession, { sid, serverSecret: getConvexServerSecret() });
+
+  if (!session) {
+    return withSessionRefresh(Response.json(
+      { error: "Session not found" },
+      { status: 401 }
+    ));
+  }
+
+  // A first turn asking one of the passage's suggested questions has its answer stored (#505): a current stored answer
+  // is served as it is, costing nothing and calling no model, unless the reader asked for a fresh one. A complete
+  // answer generated for it below replaces what is stored.
+  // An answer written without the passage's text (the Scripture could not be loaded) is neither served nor stored.
+  const storableAsked = prompt.scripture === "included" ? storableQuestion(messages, context) : null;
+  const storedReference = context ? storedAnswerReference(context) : null;
+  const storedKey = storableAsked && storedReference ? storedAnswerKey(modelId, prompt.translation, system, storableAsked) : null;
+  if (storedKey && !fresh) {
+    const stored = await convex.query(api.storedAnswers.get, { key: storedKey, serverSecret }).catch((error) => {
+      logApiFailure({ context: requestContext, stage: "chat_stored_answer_read", error, statusCode: 503, sid });
+      return null;
+    });
+    if (stored) {
+      const stream = new ReadableStream<UIMessageChunk>({
+        start(controller) {
+          controller.enqueue({ type: "start" });
+          controller.enqueue({ type: "text-start", id: "stored" });
+          controller.enqueue({ type: "text-delta", id: "stored", delta: stored.answer });
+          controller.enqueue({ type: "text-end", id: "stored" });
+          controller.enqueue({
+            type: "finish",
+            finishReason: "stop",
+            messageMetadata: {
+              model: modelId, finishReason: "stop", latencyMs: Date.now() - startTime,
+              stored: true, storedAt: stored.createdAt, billingStatus: "stored", creditsCharged: 0, creditsRefunded: 0,
+            },
+          });
+          controller.close();
+        },
+      });
+      return withSessionRefresh(createUIMessageStreamResponse({ stream }));
+    }
   }
 
   // The turn's estimate (a typical exchange over this system prompt) and its maximum charge (the bounded input and output).
@@ -447,16 +492,6 @@ export async function POST(req: Request) {
     return creditSettlement;
   };
 
-  // Get session to check tier and credits
-  const session = await convex.query(api.sessions.getSession, { sid: sessionId, serverSecret: getConvexServerSecret() });
-
-  if (!session) {
-    return withSessionRefresh(Response.json(
-      { error: "Session not found" },
-      { status: 401 }
-    ));
-  }
-
   // A guest's turn on the default model is free while the session's and the network's allowances and the site's free
   // budget all have room (#493). It needs the free key and a readable client address, and the model named in the
   // request is not used: any other model is paid for with credits. If the count cannot be kept, the turn is not free.
@@ -631,6 +666,7 @@ export async function POST(req: Request) {
     });
 
     let hasText = false;
+    let answerText = "";
     let finish: Extract<UIMessageChunk, { type: "finish" }> | null = null;
     // Defer the UI finish chunk until the SDK has fully completed and settlement
     // is known. Error chunks are data, not necessarily thrown stream exceptions.
@@ -639,6 +675,7 @@ export async function POST(req: Request) {
         transform(chunk, controller) {
           if (chunk.type === "text-delta" && chunk.delta.trim()) hasText = true;
           if (chunk.type === "text-delta" && chunk.delta) answerStarted = true;
+          if (chunk.type === "text-delta") answerText += chunk.delta;
           if (chunk.type === "error" || chunk.type === "abort") failed = true;
           if (chunk.type === "finish") finish = chunk;
           else controller.enqueue(chunk);
@@ -651,6 +688,13 @@ export async function POST(req: Request) {
           let usage = success ? await readUsage() : null;
           await settleCredits(success ? "deduct" : "release", success ? "stream-success" : "stream-failed",
             { promptTokens: usage?.inputTokens, completionTokens: usage?.outputTokens });
+          // A complete answer to a suggested question is stored for the readers after this one (#505).
+          if (success && finish?.finishReason === "stop" && storedKey && storableAsked && storedReference) {
+            await convex.mutation(api.storedAnswers.save, {
+              key: storedKey, reference: storedReference,
+              translation: prompt.translation, question: storableAsked, model: modelId, answer: answerText.trim(), serverSecret,
+            }).catch((error) => logApiFailure({ context: requestContext, stage: "chat_stored_answer_save", error, statusCode: 500, sid }));
+          }
           signal.removeEventListener("abort", onAbort);
           if (!success) usage = await readUsage();
           const promptTokens = usage?.inputTokens ?? 0;

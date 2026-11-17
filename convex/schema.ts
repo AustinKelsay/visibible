@@ -579,6 +579,21 @@ export default defineSchema({
     .index("by_generationId", ["generationId"])
     .index("by_createdAt", ["createdAt"]),
 
+  // Stored answers to Ask's suggested questions (#505; convex/storedAnswers.ts). The key hashes the model, the system
+  // prompt and the question; reference is "John 1:5".
+  storedAnswers: defineTable({
+    key: v.string(),
+    reference: v.string(),
+    translation: v.string(),
+    question: v.string(),
+    model: v.string(),
+    answer: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_key", ["key"])
+    .index("by_reference", ["reference"])
+    .index("by_createdAt", ["createdAt"]),
+
   // Rate limiting for API endpoints
   rateLimits: defineTable({
     identifier: v.string(), // Session ID or IP hash

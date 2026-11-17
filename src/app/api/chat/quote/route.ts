@@ -9,6 +9,7 @@ import { BILLING_POLICY_VERSION, CHAT_MAX_CREDITS_PER_MESSAGE, chatQuoteTerms } 
 import { MAX_CHAT_MESSAGES, chatSystemPrompt, passageSchema } from "@/lib/chat-request";
 import { freeAnswerCostUsd, freeAnswerInputTokenBound, freeAnswerNetwork, freeAnswersKey } from "@/lib/free-answers";
 import type { FreeAnswerStanding } from "@/lib/free-answer-display";
+import { passageSuggestions, storedAnswerKey } from "@/lib/stored-answers";
 import { api } from "../../../../../convex/_generated/api";
 
 export const dynamic = "force-dynamic";
@@ -82,6 +83,17 @@ export async function POST(req: Request) {
     if (!session) return respond({ error: "Session not found" }, { status: 401 });
     if (session.tier === "admin") return respond({ quote: null });
 
+    // The passage's suggested questions whose answers are stored (#505): asking one costs nothing.
+    const context = parsed.data.context;
+    const suggestions = context && prompt.scripture === "included" ? passageSuggestions(context) : [];
+    const keys = suggestions.map((question) => storedAnswerKey(modelId, prompt.translation, prompt.systemPrompt, question));
+    const present = keys.length
+      ? await convex.query(api.storedAnswers.present, { keys, serverSecret })
+        .catch((error) => { logApiFailure({ context: requestContext, stage: "chat_stored_answers", error, statusCode: 503, sid }); return [] as string[]; })
+      : [];
+    const stored = suggestions.filter((_question, index) => present.includes(keys[index]));
+    const answer = (body: Record<string, unknown>, init?: ResponseInit) => respond(stored.length ? { ...body, stored } : body, init);
+
     // The same standing the chat route reserves against; reading it reserves nothing. Unreadable counts mean no free answer.
     let free: FreeAnswerStanding | null = null;
     const freeKey = modelId === DEFAULT_CHAT_MODEL ? freeAnswersKey() : null;
@@ -93,16 +105,16 @@ export async function POST(req: Request) {
       free = await convex.query(api.freeAnswers.status, { sid, network, worstCaseUsd, serverSecret })
         .catch((error) => { logApiFailure({ context: requestContext, stage: "chat_free_status", error, statusCode: 503, sid }); return null; });
     }
-    if (free?.available) return respond({ quote: null, free });
+    if (free?.available) return answer({ quote: null, free });
 
     if (session.credits < terms.maximumCredits) {
-      return respond({ error: "Insufficient credits", required: terms.maximumCredits, available: session.credits, ...(free ? { free } : {}) }, { status: 402 });
+      return answer({ error: "Insufficient credits", required: terms.maximumCredits, available: session.credits, ...(free ? { free } : {}) }, { status: 402 });
     }
     const quote = await convex.mutation(api.quotes.create, {
       sid, operation: "chat", fingerprint: terms.fingerprint, policyVersion: BILLING_POLICY_VERSION,
       estimateCredits: terms.estimateCredits, maximumCredits: terms.maximumCredits, serverSecret,
     });
-    return respond({ quote, ...(free ? { free } : {}) });
+    return answer({ quote, ...(free ? { free } : {}) });
   } catch (error) {
     logApiFailure({ context: requestContext, stage: "chat_quote", error, statusCode: 503, sid });
     return respond({ error: "Service temporarily unavailable", retryable: true }, { status: 503 });
