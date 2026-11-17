@@ -226,6 +226,20 @@ describe("a free answer", () => {
     expect(calls("freeSettle")).toEqual([expect.objectContaining({ outcome: "returned" })]);
   });
 
+  it("keeps a failed answer counted, at its reported charge, when the provider reported usage without any text", async () => {
+    mockStreamTextImpl.mockImplementation(async (options: { includeRawChunks?: boolean }) => {
+      const { stream } = providerStream("", "stop");
+      return { stream: options.includeRawChunks ? stream.pipeThrough(new TransformStream({
+        transform(chunk, controller) {
+          if (chunk.type === "finish") controller.enqueue({ type: "raw", rawValue: { usage: { prompt_tokens: 900, completion_tokens: 40, cost: 0.0002 } } });
+          controller.enqueue(chunk);
+        },
+      })) : stream };
+    });
+    await ask();
+    expect(calls("freeSettle")).toEqual([expect.objectContaining({ outcome: "settled", costUsd: 0.0002 })]);
+  });
+
   it("keeps the worst case counted when the call fails after text arrived", async () => {
     mockStreamTextImpl.mockImplementation(async () => providerStream("Partial answer", "stop", true));
     await ask();

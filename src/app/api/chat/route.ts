@@ -328,13 +328,16 @@ export async function POST(req: Request) {
     if (freeSettlement) return freeSettlement;
     const turn = freeTurn;
     freeSettlement = (async () => {
-      // A call that failed before any text is given back; a cancelled one, or one that failed after text, keeps its
-      // worst case, since the provider may have charged for it. A request aborted before the call was never sent.
-      const giveBack = mode === "release" && (reason === "request-aborted" || (reason !== "stream-cancel" && !answerStarted));
-      // Settled at the provider's reported charge, or else at both reported token counts at list price with the margin;
-      // with neither, the whole hold stays counted.
-      const costUsd = mode !== "deduct" ? null
-        : reportedCostUsd ?? (reportedTokens ? freeAnswerCostUsd(modelPricing, reportedTokens.input, reportedTokens.output) : null);
+      // A call that failed before any text, with no usage reported, is given back. A cancelled one, one that failed
+      // after text, or one the provider reported usage for (an empty or reasoning-only answer, say) stays counted,
+      // since the provider may have charged for it. A request aborted before the call was never sent.
+      const usageReported = reportedCostUsd !== null || reportedTokens !== null;
+      const giveBack = mode === "release" && !usageReported &&
+        (reason === "request-aborted" || (reason !== "stream-cancel" && !answerStarted));
+      // Settled at the provider's reported charge; for a successful answer without one, at both reported token counts
+      // at list price with the margin; otherwise the whole hold stays counted.
+      const costUsd = reportedCostUsd
+        ?? (mode === "deduct" && reportedTokens ? freeAnswerCostUsd(modelPricing, reportedTokens.input, reportedTokens.output) : null);
       try {
         const settled = await convex.mutation(api.freeAnswers.settle, {
           generationId: turn.generationId,
