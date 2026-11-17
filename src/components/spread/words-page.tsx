@@ -118,17 +118,13 @@ export function WordsPage({
       </div>
       <footer className="flex items-center gap-2 border-t border-ink/10 md:border-t-0 px-3 pt-1 pb-[max(0.25rem,var(--safe-area-inset-bottom))] text-[11px] font-medium uppercase tracking-[0.18em] text-ink/(--quiet-50) md:mx-12 md:gap-4 md:px-0 md:py-5 lg:mx-14">
         <PageTurnLink direction="prev" href={prevUrl} onTurn={onTurn} className="md:hidden" />
-        {translationName ? (
-          <span className="flex min-w-0 flex-1 justify-center md:justify-start">
-            <LookTranslationButton translationName={translationName} />
+        {/* On a phone the translation and the position sit together in the middle, between the arrows; on a computer
+            they take the two ends of the line. With no translation (a prose moment), the position stands alone. */}
+        <span className={`flex min-w-0 flex-1 items-center justify-center gap-4 ${translationName ? "md:justify-between" : "md:justify-end"}`}>
+          {translationName ? <LookTranslationButton translationName={translationName} className="min-w-0" /> : null}
+          <span aria-label={`${paragraphs ? "Passage" : "Verse"} ${verseNumber} of ${totalVerses}`} className="shrink-0 tabular-nums">
+            {verseNumber} / {totalVerses}
           </span>
-        ) : null}
-        {/* With no translation beside it (a prose moment), the position takes the middle of the line. */}
-        <span
-          aria-label={`${paragraphs ? "Passage" : "Verse"} ${verseNumber} of ${totalVerses}`}
-          className={`tabular-nums ${translationName ? "" : "flex-1 text-center md:text-right"}`}
-        >
-          {verseNumber} / {totalVerses}
         </span>
         <PageTurnLink direction="next" href={nextUrl} onTurn={onTurn} className="md:hidden" />
       </footer>

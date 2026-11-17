@@ -228,6 +228,9 @@ describe("Look", () => {
     click(dockAa());
     const select = look()!.querySelector("select")!;
     expect(select.value).toBe("web");
+    // The pill shows the chosen name; the transparent select over it keeps the browser's list.
+    const shownName = () => select.parentElement!.querySelector('span[aria-hidden="true"]')!.textContent;
+    expect(shownName()).toBe("World English Bible");
     expect(look()!.textContent).toContain("Scripture quotations are from the World English Bible (WEB)");
 
     act(() => {
@@ -238,6 +241,7 @@ describe("Look", () => {
     expect(document.cookie).toContain("visibible-translation=kjv");
     expect(refresh).toHaveBeenCalled();
     expect(look()!.textContent).toContain("Scripture quotations are from the King James Version (KJV)");
+    expect(shownName()).toBe("King James Version");
     expect(storage.get("visibible-reader-settings") ?? "").not.toContain("kjv");
 
     serverTranslation = "kjv";
