@@ -383,6 +383,24 @@ html {
   }
 }
 
+/* A pressed video's loading ring on the play mark (src/components/spread/play-mark.tsx): it shows only when the
+   first frame takes a moment, so a quick start shows none. */
+@keyframes video-loading-in {
+  to { opacity: 1; }
+}
+@keyframes video-loading-spin {
+  to { transform: rotate(360deg); }
+}
+.video-loading-ring {
+  opacity: 0;
+  animation: video-loading-in 0s linear 300ms forwards, video-loading-spin 900ms linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .video-loading-ring {
+    animation: video-loading-in 0s linear 300ms forwards;
+  }
+}
+
 /* A turned page arrives from the side it was turned towards (src/components/spread/page-turn.tsx). */
 @keyframes spread-turn-in-next {
   from { opacity: 0; transform: translateX(1.5rem); }

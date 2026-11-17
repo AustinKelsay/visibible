@@ -1,7 +1,8 @@
 /* @vitest-environment jsdom */
 
 // Moving pictures (#447, #480), tested on the whole verse page: Play on a picture with its own video, playback in the
-// whole-picture view, the play badge on picture-menu thumbnails, and "Make this picture move…" with its inline review.
+// picture's own place, Play on into the next verse's video, the play badge on picture-menu thumbnails, and "Make this
+// picture move…" with its inline review.
 // The harness follows picture-menu.test.tsx; the video service is faked.
 
 import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
@@ -134,7 +135,16 @@ function pressKey(key: string, target: EventTarget = document.body) {
   act(() => { target.dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true, cancelable: true })); });
 }
 
+// jsdom does not play media: play() and pause() are stubbed, and tests fire the events a browser would.
+const play = vi.fn(() => Promise.resolve());
+let pauseCalls = 0;
+
 beforeEach(() => {
+  play.mockReset();
+  play.mockImplementation(() => Promise.resolve());
+  pauseCalls = 0;
+  vi.spyOn(HTMLMediaElement.prototype, "play").mockImplementation(play);
+  vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => { pauseCalls += 1; });
   historyCapped = false;
   clearBibleApiCache();
   vi.clearAllMocks();
@@ -232,7 +242,9 @@ const job = (fields: Partial<VideoJobResponse> = {}): VideoJobResponse => ({
 });
 const playMark = () => container.querySelector<HTMLButtonElement>('button[aria-label^="Play the video"]:not([hidden])');
 const video = () => container.querySelector<HTMLVideoElement>("video");
-const wholeView = () => container.querySelector('button[aria-label="Back to the words"]');
+const button = (label: string) => container.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`);
+/** Fires a media event on the video, as the browser would while it plays. */
+const fire = (element: HTMLElement, type: string) => act(() => { element.dispatchEvent(new Event(type)); });
 const makeVideo = () => menu() && menuButton(/make this picture move/i);
 const review = () => menu()?.querySelector<HTMLElement>('[role="group"][aria-label="Make this picture move"]') ?? null;
 const confirm = () => review() && [...review()!.querySelectorAll("button")].find((button) => /^(Make the video|Get credits)/.test(button.textContent ?? ""));
@@ -310,36 +322,87 @@ describe("Play on the spread", () => {
     expect(chip()).toBeNull();
   });
 
-  it("plays the video from its picture, muted with its controls, in the whole-picture view; Escape returns to the spread", async () => {
+  it("makes the picture move where it is: muted, without controls, faded in once it has a frame; the words stay", async () => {
     savedPictures = john();
     publicVideos = [job()];
     await openVerse("john", "1", "5");
     expect(video()).toBeNull();
 
+    playMark()!.focus();
     await act(async () => { playMark()!.click(); });
     const player = video()!;
     expect(player.getAttribute("src")).toBe("https://media.test/clip.mp4");
-    // It starts from its own picture, so the painting appears to come alive.
-    expect(player.getAttribute("poster")).toBe("https://img.test/john-5.png");
-    expect(player.getAttribute("aria-label")).toBe("Video of John 1:5");
-    expect(player.autoplay).toBe(true);
+    expect(play).toHaveBeenCalledTimes(1);
     expect(player.muted).toBe(true);
-    expect(player.controls).toBe(true);
-    expect(document.activeElement).toBe(player);
-    // The whole-picture view: the words are put aside and the verse is the caption.
-    expect(container.querySelector("main")?.hasAttribute("data-whole-picture")).toBe(true);
-    expect(container.querySelector("figcaption")?.textContent).toContain("John 1:5");
-    expect(playMark()).toBeNull();
-    expect(wholeView()).not.toBeNull();
-
-    pressKey("Escape", player);
-    await act(async () => {});
-    expect(video()).toBeNull();
+    expect(player.controls).toBe(false);
+    expect(player.getAttribute("aria-hidden")).toBe("true");
+    // It sits over the picture, inside the picture's own button, and stays hidden until its first frame.
+    expect(player.closest("button")?.getAttribute("aria-label")).toBe("Show the whole picture of John 1:5");
+    expect(player.className).toContain("opacity-0");
+    // Nothing else moves: no whole-picture view, the words page stays.
     expect(container.querySelector("main")?.hasAttribute("data-whole-picture")).toBe(false);
+    expect(container.querySelector("article")?.textContent).toContain("John");
+    // A first frame shows it, and the same button now pauses; focus stays on it.
+    fire(player, "playing");
+    expect(player.className).toContain("opacity-100");
+    expect(playMark()).toBeNull();
+    const pause = button("Pause the video of John 1:5")!;
+    expect(pause.textContent).toBe("Pause");
+    expect(document.activeElement).toBe(pause);
+  });
+
+  it("pauses, resumes, holds the last frame with Play again, and Escape brings the picture back", async () => {
+    savedPictures = john();
+    publicVideos = [job()];
+    await openVerse("john", "1", "5");
+    await act(async () => { playMark()!.click(); });
+    fire(video()!, "playing");
+
+    await act(async () => { button("Pause the video of John 1:5")!.click(); });
+    expect(pauseCalls).toBe(1);
+    fire(video()!, "pause");
+    expect(playMark()?.textContent).toBe("Play");
+    await act(async () => { playMark()!.click(); });
+    expect(play).toHaveBeenCalledTimes(2);
+    fire(video()!, "playing");
+
+    // The clip ends on its last frame; Play again starts it over from the picture.
+    Object.defineProperty(video()!, "ended", { configurable: true, value: true });
+    fire(video()!, "pause");
+    fire(video()!, "ended");
+    expect(video()).not.toBeNull();
+    const again = button("Play the video of John 1:5 again")!;
+    expect(again.textContent).toBe("Play again");
+    video()!.currentTime = 4;
+    await act(async () => { again.click(); });
+    expect(video()!.currentTime).toBe(0);
+
+    pressKey("Escape");
+    expect(video()).toBeNull();
     expect(document.activeElement).toBe(playMark());
   });
 
-  it("stops playing when the page turns in the whole-picture view, and the next verse shows its picture", async () => {
+  it("keeps Play up when the computer's controls fade, so a reader passing by sees the picture moves", async () => {
+    savedPictures = john();
+    publicVideos = [job()];
+    await openVerse("john", "1", "5");
+    expect(playMark()!.closest("[data-fades]")).toBeNull();
+    // The picture menu's chip still fades with the others.
+    expect(chip()!.closest("[data-fades]")).not.toBeNull();
+  });
+
+  it("leaves the picture and Play when the browser refuses to start the video", async () => {
+    savedPictures = john();
+    publicVideos = [job()];
+    play.mockImplementationOnce(() => Promise.reject(new DOMException("Not allowed", "NotAllowedError")));
+    await openVerse("john", "1", "5");
+    await act(async () => { playMark()!.click(); });
+    await flush();
+    expect(video()).toBeNull();
+    expect(playMark()).not.toBeNull();
+  });
+
+  it("opens the next verse on its still picture when the reader turns the page by hand while a video plays", async () => {
     savedPictures = john();
     savedPictures.push({ id: "john-1-6:classical", imageUrl: "https://img.test/john-6.png", artStyle: "classical", createdAt: noon(6), aspectRatio: "16:9" });
     publicVideos = [job(), job({ id: "clip-6", verseId: "john-1-6", reference: "John 1:6", sourceImageId: "john-1-6:classical" })];
@@ -348,6 +411,8 @@ describe("Play on the spread", () => {
     await act(async () => { container.querySelector<HTMLAnchorElement>('a[aria-label="Next verse"]')!.click(); });
     expect(push).toHaveBeenCalledWith("/john/1/6");
 
+    act(() => root.unmount());
+    root = createRoot(container);
     await openVerse("john", "1", "6");
     expect(video()).toBeNull();
     expect(spreadPicture()?.getAttribute("src")).toBe("https://img.test/john-6.png");
@@ -360,6 +425,60 @@ describe("Play on the spread", () => {
     publicVideos = [job({ id: "broken", status: "failed" })];
     await openVerse("john", "1", "5");
     expect(playMark()).toBeNull();
+  });
+});
+
+describe("Play on", () => {
+  const johnSix = (): SavedPicture => ({ id: "john-1-6:classical", imageUrl: "https://img.test/john-6.png", artStyle: "classical", createdAt: noon(6), aspectRatio: "16:9" });
+  const clipSix = () => job({ id: "clip-6", verseId: "john-1-6", reference: "John 1:6", sourceImageId: "john-1-6:classical", videoUrl: "https://media.test/clip-6.mp4" });
+  const playOn = () => button("Play on into the next verse's video");
+
+  it("is offered while a video plays when the next verse's picture has a video too, and carries on into it at the end", async () => {
+    savedPictures = [...john(), johnSix()];
+    publicVideos = [job(), clipSix()];
+    await openVerse("john", "1", "5");
+    expect(playOn()).toBeNull();
+    await act(async () => { playMark()!.click(); });
+    fire(video()!, "playing");
+    expect(playOn()?.getAttribute("aria-pressed")).toBe("false");
+
+    await act(async () => { playOn()!.click(); });
+    expect(playOn()?.getAttribute("aria-pressed")).toBe("true");
+    // The next clip is fetched ahead.
+    expect(container.querySelector('video[src="https://media.test/clip-6.mp4"]')?.getAttribute("preload")).toBe("auto");
+    fire(video()!, "ended");
+    expect(push).toHaveBeenCalledWith("/john/1/6");
+
+    // The next verse arrives (a new page, as the router mounts it) already playing its picture's video.
+    play.mockClear();
+    act(() => root.unmount());
+    root = createRoot(container);
+    await openVerse("john", "1", "6");
+    expect(video()?.getAttribute("src")).toBe("https://media.test/clip-6.mp4");
+    expect(play).toHaveBeenCalledTimes(1);
+    expect(container.textContent).toContain("Playing on: John 1:6");
+  });
+
+  it("is not offered when the next verse's picture has no video, and a clip that ends there stays", async () => {
+    savedPictures = [...john(), johnSix()];
+    publicVideos = [job()];
+    await openVerse("john", "1", "5");
+    await act(async () => { playMark()!.click(); });
+    fire(video()!, "playing");
+    expect(playOn()).toBeNull();
+    fire(video()!, "ended");
+    expect(push).not.toHaveBeenCalled();
+    expect(button("Play the video of John 1:5 again")).not.toBeNull();
+  });
+
+  it("is not offered to a reader who asked for less motion", async () => {
+    savedPictures = [...john(), johnSix()];
+    publicVideos = [job(), clipSix()];
+    vi.stubGlobal("matchMedia", (query: string) => ({ matches: query.includes("reduce"), addEventListener: () => {}, removeEventListener: () => {} }));
+    await openVerse("john", "1", "5");
+    await act(async () => { playMark()!.click(); });
+    fire(video()!, "playing");
+    expect(playOn()).toBeNull();
   });
 });
 

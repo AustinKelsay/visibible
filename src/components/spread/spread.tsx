@@ -1,13 +1,14 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { AskProvider } from "@/components/spread/ask";
 import { ChosenPictureProvider } from "@/components/spread/chosen-picture";
 import { ContentsButton, ContentsLayer } from "@/components/spread/contents";
 import { CornerMenu } from "@/components/spread/corner-menu";
 import { LayerProvider, useLayer, useLayers } from "@/components/spread/layers";
 import { LookButton, LookLayer } from "@/components/spread/look";
-import { PageTurnLink, useArrival, useArrivesInWholePicture, usePageTurn } from "@/components/spread/page-turn";
+import { markPlayOnTurn, PageTurnLink, useArrival, useArrivesInWholePicture, useArrivesPlaying, usePageTurn } from "@/components/spread/page-turn";
 import { bibleChapterPlaces, VerseMarks } from "@/components/spread/verse-marks";
 import { useIdle } from "@/components/spread/idle-fade";
 import { useSwipeTurn } from "@/components/spread/swipe-turn";
@@ -92,11 +93,16 @@ function SpreadScreen({
   const idle = useIdle();
   const arrival = useArrival(path);
   const whole = useLayer("whole-picture").isOpen;
-  // The whole-picture view plays this verse's video instead of showing its picture (#447). Leaving the view or turning
-  // the page stops it.
-  const [playingVerse, setPlayingVerse] = useState<string | null>(null);
-  if (playingVerse !== null && !whole) setPlayingVerse(null);
-  const playing = whole && playingVerse === verseId;
+  // Play on turned to this spread at the end of the previous verse's video, so its own starts at once.
+  const arrivesPlaying = useArrivesPlaying(path);
+  const router = useRouter();
+  const onPlayOn = nextUrl
+    ? () => {
+        onTurn("next", "play_on");
+        markPlayOnTurn();
+        router.push(nextUrl);
+      }
+    : undefined;
   const { tier, credits } = useSession();
   const words = {
     bookName, chapter, chapterLabel, reference, verseNumber, verseText, paragraphs, totalVerses, translationName,
@@ -123,18 +129,23 @@ function SpreadScreen({
       <figure
         data-turn-in="fade"
         className={`relative w-full overflow-hidden md:absolute md:inset-0 md:aspect-auto md:max-h-none ${
-          playing
-            ? "flex min-h-0 flex-1 flex-col pt-8 md:pt-24 md:pb-28"
-            : whole
+          whole
             ? "flex min-h-0 flex-1 flex-col pt-8 md:block md:pt-0"
             : "md:block aspect-square max-h-[52svh] shrink-0 transition-[max-height] duration-300 motion-reduce:transition-none max-md:[main:has([data-ask-page])_&]:max-h-[30svh]"
         }`}
       >
-        <SpreadPicture verseId={verseId} reference={reference} onShowWhole={onShowWhole} playing={playing} onPlay={() => setPlayingVerse(verseId)} />
+        <SpreadPicture
+          key={verseId}
+          verseId={verseId}
+          reference={reference}
+          onShowWhole={onShowWhole}
+          nextVerseId={nextVerseId}
+          onPlayOn={onPlayOn}
+          arrivesPlaying={arrivesPlaying}
+        />
         {/* A soft shade along the top keeps the white corner name and verse marks legible on a bright sky. */}
-        {playing ? null : <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/45 to-transparent" />}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/45 to-transparent" />
         <WholePictureCaption
-          playing={playing}
           reference={reference}
           verseText={verseText}
           verseNumber={verseNumber}
