@@ -891,14 +891,19 @@ describe("the corner menu", () => {
     session = { ...session, credits: 0, accessStatus: "loading" };
     await openVerse("john", "1", "5");
     expect(chip()).toEqual({ shown: "", description: "Loading balance" });
+    // Until the session is read the menu names no guest or admin; the menu stays open through each update.
+    const menu = openMenu()!;
+    expect(menu.textContent).toMatch(/^Account\s*Loading balance…/);
 
     session = { ...session, accessStatus: "unavailable" };
     await act(async () => { root.render(await VersePage(params("john", "1", "5"))); });
     expect(chip()).toEqual({ shown: "", description: "Balance unavailable" });
+    expect(menu.textContent).toMatch(/^Account\s*Reconnect to see your balance/);
 
     session = { ...session, accessStatus: "ready", tier: "admin" };
     await act(async () => { root.render(await VersePage(params("john", "1", "5"))); });
     expect(chip()).toEqual({ shown: "", description: "Admin, not charged" });
+    expect(menu.textContent).toMatch(/^Admin\s*Admin · not charged/);
     expect(cornerName().querySelector("svg.lucide-shield")).not.toBeNull();
   });
 
@@ -941,10 +946,14 @@ describe("the corner menu", () => {
     root = createRoot(container);
     window.history.replaceState(null, "", "/john/1/5?admin");
     await openVerse("john", "1", "5");
-    const signIn = [...openMenu()!.querySelectorAll("button")].find((button) => button.textContent === "Admin sign-in");
+    const items = [...openMenu()!.querySelectorAll("a, button")].map((item) => item.textContent?.trim()).filter(Boolean);
+    // After the account's own rows, not between Get credits and Recover credits.
+    expect(items.slice(0, 4)).toEqual(["Get credits", "Recover credits", "Admin sign-in", "Send feedback"]);
+    const signIn = [...container.querySelectorAll<HTMLButtonElement>('[role="dialog"] button')].find((button) => button.textContent === "Admin sign-in");
     expect(signIn).toBeDefined();
     act(() => { signIn!.click(); });
     expect(buyCredits).toHaveBeenCalledTimes(1);
+    expect(container.querySelector('[role="dialog"][aria-label="Visibible menu"]')).toBeNull();
     window.history.replaceState(null, "", "/");
 
     act(() => root.unmount());
