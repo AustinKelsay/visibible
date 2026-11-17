@@ -167,6 +167,7 @@ vi.mock("@ai-sdk/openai", async () => {
 vi.mock("@/lib/chat-models", () => ({
   DEFAULT_CHAT_MODEL: "test/cheap-model",
   // $1 and $2 per million tokens: the turn's maximum (8,000 in, 2,048 out) is 2 credits, like its mocked estimate.
+  chatModelReasoningEffort: vi.fn(() => undefined),
   getChatModelPricing: vi.fn(async () => ({ prompt: "0.000001", completion: "0.000002" })),
   computeChatCreditsCost: vi.fn(() => 2),
   computeActualChatCreditsCost: vi.fn(() => 2),

@@ -3,6 +3,7 @@ import { streamText, createUIMessageStreamResponse, type UIMessageChunk } from "
 import type { z } from "zod";
 import {
   DEFAULT_CHAT_MODEL,
+  chatModelReasoningEffort,
   getChatModelPricing,
   computeActualChatCreditsCost,
   CREDIT_USD,
@@ -592,6 +593,8 @@ export async function POST(req: Request) {
       void settleCredits("release", "stream-cancel");
     };
     signal.addEventListener("abort", onAbort, { once: true });
+    // The reasoning effort the model was measured with, where one is set (the default model reasons by default).
+    const reasoningEffort = chatModelReasoningEffort(modelId);
     // A free answer goes out on its own key, once: a retry would spend outside its reservation.
     const provider = freeTurn
       ? createOpenAI({ name: "openrouter", baseURL: "https://openrouter.ai/api/v1", apiKey: freeTurn.apiKey })
@@ -601,6 +604,7 @@ export async function POST(req: Request) {
       system,
       messages: modelMessages,
       maxOutputTokens: history.maxOutputTokens,
+      ...(reasoningEffort ? { providerOptions: { openai: { reasoningEffort } } } : {}),
       ...(freeTurn ? {
         maxRetries: 0,
         includeRawChunks: true,

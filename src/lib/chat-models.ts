@@ -44,13 +44,17 @@ export function isModelFree(model: {
   return false;
 }
 
-/** Chosen on the 11 November 2026 comparison (llm/releases/2026-11-11-chat-model-comparison). Rollback: "openai/gpt-oss-120b". */
-export const DEFAULT_CHAT_MODEL = "mistralai/mistral-small-2603";
-const PREVIOUS_DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b";
+/**
+ * Chosen on the 17 November 2026 release gate (llm/releases/2026-11-17-chat-luna), with reasoning off
+ * (CHAT_MODEL_REASONING_EFFORT). Rollback: "mistralai/mistral-small-2603", chosen on 11 November.
+ */
+export const DEFAULT_CHAT_MODEL = "openai/gpt-6-luna";
+const PREVIOUS_DEFAULT_CHAT_MODEL = "mistralai/mistral-small-2603";
 
 // Curated value picks for the selector: strong enough for everyday chat,
 // broadly useful, and relatively cost-efficient in the live OpenRouter catalog.
 export const SUGGESTED_CHAT_MODEL_IDS = [
+  "openai/gpt-6-luna",
   "mistralai/mistral-small-2603",
   "openai/gpt-oss-120b",
   "openai/gpt-5.4-mini",
@@ -65,7 +69,10 @@ export const SUGGESTED_CHAT_MODEL_IDS = [
  * which on 17 November 2026 multiplied their answers' cost and time (#493). Models not listed get no setting. The eval
  * runner sends the same value, so a measured model is the model readers get.
  */
-const CHAT_MODEL_REASONING_EFFORT: Record<string, string> = {};
+const CHAT_MODEL_REASONING_EFFORT: Record<string, string> = {
+  // It reasons by default; the gate measured it with reasoning off (0 reasoning tokens in 99 answers).
+  "openai/gpt-6-luna": "none",
+};
 
 export function chatModelReasoningEffort(modelId: string): string | undefined {
   return CHAT_MODEL_REASONING_EFFORT[modelId];
@@ -76,7 +83,8 @@ type ChatModelPricing = {
   completion: string;
 };
 
-// Conservative prices used only when the OpenRouter catalog is unavailable (both list at $0.15 / $0.60 per million).
+// Conservative prices used only when the OpenRouter catalog is unavailable (GPT-6 Luna lists at $0.10 / $0.50 per
+// million, Mistral Small 4 at $0.15 / $0.60).
 // The previous default stays priced so guests who saved it keep working during an outage.
 const CONSERVATIVE_PRICING: ChatModelPricing = { prompt: "0.0000025", completion: "0.00001" };
 export const EMERGENCY_CHAT_MODEL_PRICING: Record<string, ChatModelPricing> = {
@@ -123,9 +131,9 @@ function getDefaultChatModels(): ChatModel[] {
   return [
     {
       id: DEFAULT_CHAT_MODEL,
-      name: "Mistral Small 4 (Default)",
-      provider: "Mistralai",
-      contextLength: 262144,
+      name: "GPT-6 Luna (Default)",
+      provider: "Openai",
+      contextLength: 1050000,
       pricing: fallbackPricing,
       isFree: false,
     },

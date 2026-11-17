@@ -1,0 +1,332 @@
+[
+ {
+  "id": "single-john-3-16",
+  "X": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Quotes 'born again' where the supplied text says 'born anew'; says faith is the only requirement."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Grounded in vv14-15."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-psalm-23-1",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Quotes accurately; Psalm 80:1 and Isaiah 40:11 are real."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Accurate, adds David's shepherd background."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-genesis-1-3",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Honest about what the text leaves unstated."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Asserts God is the source of light and Christ foreshadowing with certainty; references are real."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-proverbs-3-5",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Quotes v6 correctly; toddler analogy is loose."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Accurate and grounded in v6."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-micah-6-8",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Ties application to the chapter's offerings context."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Practical and encouraging."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-philippians-4-13",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Adds that Paul was in prison, not in the supplied text but well attested."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Grounded in 4:11-12."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-john-1-5-suggested",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Notes overcome/comprehend without a word study."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Accurate; omits the overcome/understand note."
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "adjacent-genesis-1-2",
+  "X": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Hebrew tohu vavohu is correct, but asserts creation out of nothing and 'judgment' with confidence."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Uses vv1 and 3 accurately."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-john-1-14",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Logos and Exodus 40 and 34:6 echoes are real."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Accurate walk through the prologue."
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "adjacent-luke-15-20",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "States the ankle-exposing cultural detail with certainty."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Hedged cultural note, ties to Luke 15:1-3."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-exodus-3-14",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Accurate, hedged Hebrew on 'ehyeh and Yahweh, complete."
+  },
+  "Y": {
+   "grounding": 0,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "minor",
+   "note": "Wrong word studies: says yarad is repeated in v9 and glosses v7 'sorrows' as 'oni; hineni given as hinneh."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-ruth-1-16-multi",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Matthew 1:5 correct; confidently says Orpah's choice was not wrong."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Admits the text does not give Orpah's reason."
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "summary-john-1-14",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Covers John the witness and stops at v14."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Omits John's witness role."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "summary-genesis-1-5",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Accurate to vv1-5."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "Accurate to vv1-5."
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "summary-psalm-119-150",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "States the 48-150 limit and uses v151 as next."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": "none",
+   "note": "States the 48-150 range; lamp and gold are in range."
+  },
+  "preferred": "X"
+ }
+]
