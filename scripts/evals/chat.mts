@@ -2,7 +2,7 @@
  * Chat eval command (llm/workflow/CHAT_EVAL_AND_RELEASE.md; logic in src/lib/chat-evals.ts).
  *
  *   npm run evals:chat -- run --out <dir> --key-file <file> [--arms baseline,candidate] [--model <id>] [--label <name>]
- *       [--system-suffix <file>] [--budget-usd 0.25] [--concurrency 3] [--overwrite]
+ *       [--system-suffix <file>] [--reasoning <effort>] [--budget-usd 0.25] [--concurrency 3] [--overwrite]
  *   npm run evals:chat -- run --out <dir> --dry-run
  *   npm run evals:chat -- pairs --out <dir> --a <results.ndjson> --a-arm <arm> --a-label <name>
  *       --b <results.ndjson> --b-arm <arm> --b-label <name> [--seed <text>] [--chunk 15]
@@ -13,6 +13,9 @@
  * OpenRouter calls unless --dry-run, which uses a fake model and placeholder Scripture and makes no network call.
  * --budget-usd stops starting calls whose worst case would pass the cap (they are recorded as skipped).
  * --system-suffix appends a file's text to the candidate's system prompt, to measure a prompt change before making it.
+ * --reasoning sends that reasoning effort (none, minimal, low, …); without it the run sends what production sends for
+ * the model (chatModelReasoningEffort). Scripture is read the way the chat route reads it (src/lib/scripture.ts), and a
+ * case whose passage text cannot be loaded is an error row, so the run fails rather than measure an answer without it.
  * It refuses to replace existing results without --overwrite, and exits 1 if any case errored or was skipped.
  *
  * `pairs` writes blind pairs for scorers (<out>/pairs-N.json, 15 cases each) and the key (<out>/key.json), which
@@ -31,8 +34,9 @@ import { parseArgs } from "node:util";
 import { createOpenAI } from "@ai-sdk/openai";
 import { MockLanguageModelV3, simulateReadableStream } from "ai/test";
 import type { LanguageModel } from "ai";
-import { getChapter, type ChapterData, type Translation } from "@/lib/bible-api";
-import { getChatModelPricing } from "@/lib/chat-models";
+import type { ChapterData, Translation } from "@/lib/bible-api";
+import { getChapter } from "@/lib/scripture";
+import { chatModelReasoningEffort, getChatModelPricing } from "@/lib/chat-models";
 import {
   buildChatEvalPairs, chatEvalCasesSchema, chatPairScoresSchema, createBudget, rowCostUsd, runChatEvalCase, summarizeChatScores,
   type ChatEvalArm, type ChatEvalDeps, type ChatEvalRow, type ChatScoredRun, type TokenPricing,
@@ -45,6 +49,7 @@ const { values, positionals } = parseArgs({ allowPositionals: true, options: {
   arms: { type: "string", default: "baseline,candidate" }, cases: { type: "string", default: path.join(root, "evals/chat/cases.json") },
   concurrency: { type: "string", default: "3" }, overwrite: { type: "boolean", default: false },
   "context-length": { type: "string" }, runs: { type: "string" }, judge: { type: "string" }, "system-suffix": { type: "string" }, "budget-usd": { type: "string" },
+  reasoning: { type: "string" },
   a: { type: "string" }, "a-arm": { type: "string" }, "a-label": { type: "string" },
   b: { type: "string" }, "b-arm": { type: "string" }, "b-label": { type: "string" },
   seed: { type: "string", default: "chat" }, chunk: { type: "string", default: "15" },
@@ -122,7 +127,10 @@ async function run() {
   }
   const budget = values["budget-usd"] ? createBudget(Number(values["budget-usd"]), pricing) : undefined;
   deps.budget = budget;
+  const reasoningEffort = values.reasoning ?? chatModelReasoningEffort(model);
   const settings = { model, arms, label: values.label ?? null, dryRun: values["dry-run"], contextLength, baselineMaxOutputTokens: baselineMaxOutputTokens ?? null,
+    // What the provider was asked for: OpenRouter routes to any of the model's endpoints, as production does.
+    reasoningEffort: reasoningEffort ?? null, providerRouting: "openrouter-default",
     systemSuffix: systemSuffix ? { file: values["system-suffix"], sha256: sha256(systemSuffix), text: systemSuffix } : null,
     budgetUsd: values["budget-usd"] ? Number(values["budget-usd"]) : null, pricing, startedAt: new Date().toISOString() };
   await writeManifest(out, settings);
@@ -133,7 +141,7 @@ async function run() {
   const worker = async () => {
     while (next < jobs.length) {
       const { item, arm } = jobs[next++];
-      const row: ChatEvalRow = await runChatEvalCase(item, arm, deps, { model, systemSuffix, contextLength, baselineMaxOutputTokens });
+      const row: ChatEvalRow = await runChatEvalCase(item, arm, deps, { model, systemSuffix, contextLength, baselineMaxOutputTokens, reasoningEffort });
       if (values.label) row.label = values.label;
       if (row.status === "error" || row.status === "skipped") failures++;
       await appendFile(resultsFile, `${JSON.stringify(row)}\n`);
