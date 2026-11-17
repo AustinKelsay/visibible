@@ -6,7 +6,7 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useMomentWord, usePictureStyles } from "@/context/work-scope-context";
-import type { TrackPageTurn } from "@/components/spread/page-turn";
+import { opensElsewhere, type TrackPageTurn } from "@/components/spread/page-turn";
 
 /** One page of a chapter: where its pictures are kept and its address. */
 export type ChapterPlace = { verseId: string; href: string };
@@ -71,8 +71,8 @@ function MarksRow({ label, places, current, onTurn, painted }: VerseMarksProps &
                 prefetch={false}
                 aria-label={`${noun} ${number}, ${painted.has(number) ? "painted" : "unpainted"}`}
                 aria-current={isCurrent ? "page" : undefined}
-                onClick={() => {
-                  if (!isCurrent) onTurn(number < current ? "prev" : "next", "mark", href);
+                onClick={(event) => {
+                  if (!isCurrent && !opensElsewhere(event)) onTurn(number < current ? "prev" : "next", "mark", href);
                 }}
                 className="group flex w-full py-2 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-white"
               >

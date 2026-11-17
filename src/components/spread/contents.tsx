@@ -10,7 +10,7 @@ import { LayerPanel, useLayer } from "@/components/spread/layers";
 import { artStyleLabel } from "@/lib/art-styles";
 import { ChapterPaint, useChapterJob, type TileJobStatus } from "@/components/spread/chapter-paint";
 import { PlayMark } from "@/components/spread/play-mark";
-import { noteTurnAway } from "@/components/spread/page-turn";
+import { noteTurnAway, opensElsewhere } from "@/components/spread/page-turn";
 import { useSession } from "@/context/session-context";
 import { useMomentWord, usePictureStyles, useWorkScope, type WorkScope } from "@/context/work-scope-context";
 import { BIBLE_BOOKS, BOOK_BY_SLUG, type BibleBook } from "@/data/bible-structure";
@@ -449,7 +449,7 @@ function VerseTile({ noun, verse, href, tile, loading, isCurrent, job, chosen, o
       aria-label={label}
       aria-current={isCurrent ? "page" : undefined}
       data-autofocus={isCurrent ? "" : undefined}
-      onClick={(event) => onChoose(href, isCurrent || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0)}
+      onClick={(event) => onChoose(href, isCurrent || opensElsewhere(event))}
       className={`group relative block aspect-video overflow-hidden rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${
         unpainted ? "border border-dashed border-ink/15 bg-ink/[0.025]" : "bg-ink/[0.05]"
       } ${isCurrent ? "ring-2 ring-ink ring-offset-2 ring-offset-reader-page" : ""}`}

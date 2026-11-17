@@ -47,6 +47,14 @@ export function useArrivesInWholePicture(url: string): boolean {
   return whole;
 }
 
+/**
+ * Whether a click on a link opens it somewhere else (a new tab or window) rather than turning this page: the reader
+ * stays on this spread, so it is not a turn.
+ */
+export function opensElsewhere(event: { metaKey: boolean; ctrlKey: boolean; shiftKey: boolean; altKey: boolean; button: number }): boolean {
+  return event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0;
+}
+
 /** How many turns this tab has recorded, so a spread can tell whether the reader already turned away from it. */
 let turnsRecorded = 0;
 
@@ -148,7 +156,9 @@ export function PageTurnLink({ direction, href, onTurn, className = "" }: PageTu
     <Link
       href={href}
       aria-label={`${direction === "prev" ? "Previous" : "Next"} ${word}`}
-      onClick={() => onTurn(direction, "dock")}
+      onClick={(event) => {
+        if (!opensElsewhere(event)) onTurn(direction, "dock");
+      }}
       className={`${shape} text-ink/85 transition-colors duration-[var(--motion-fast)] hover:bg-ink/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink`}
     >
       <Icon size={20} strokeWidth={1.5} />
