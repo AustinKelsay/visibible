@@ -135,6 +135,19 @@ const question = (model?: string, quoteId?: string) => ({
   ...(model ? { model } : {}),
   ...(quoteId ? { quoteId } : {}),
 });
+/** The provider's raw usage chunk for the next answers; the adapter passes it on as a raw part only when asked. */
+function reportUsage(usage: Record<string, unknown>) {
+  mockStreamTextImpl.mockImplementation(async (options: { includeRawChunks?: boolean }) => {
+    const { stream } = providerStream();
+    return { stream: options.includeRawChunks ? stream.pipeThrough(new TransformStream({
+      transform(chunk, controller) {
+        if (chunk.type === "finish") controller.enqueue({ type: "raw", rawValue: { usage } });
+        controller.enqueue(chunk);
+      },
+    })) : stream };
+  });
+}
+
 async function ask(body: unknown = question()) {
   mockRequestBody.value = body;
   const response = await POST(request());
@@ -158,6 +171,7 @@ afterEach(() => { process.env = { ...originalEnv }; });
 
 describe("a free answer", () => {
   it("answers a guest with no credits on the default model, holding no credits, on the free key", async () => {
+    reportUsage({ prompt_tokens: 1000, completion_tokens: 1000 });
     const { response, text } = await ask();
     expect(response.status).toBe(200);
     expect(text).toContain("Hello world!");
@@ -171,23 +185,19 @@ describe("a free answer", () => {
     expect(calls("reserveCredits")).toHaveLength(0);
     expect(providerKeys).toEqual(["free-key"]);
 
-    // Settled at the reported usage (1,000 tokens each way) at list price, plus 10%.
+    // No charge reported: settled at both reported token counts (1,000 each way) at list price, plus 10%.
     const [settle] = calls("freeSettle");
     expect(settle).toMatchObject({ generationId: reserve.generationId, outcome: "settled" });
     expect(settle.costUsd).toBeCloseTo((1000 * 0.000001 + 1000 * 0.000002) * 1.1, 10);
   });
 
-  it("settles at the charge OpenRouter reports, when it reports one", async () => {
-    mockStreamTextImpl.mockImplementation(async (options: { includeRawChunks?: boolean }) => {
-      const { stream } = providerStream();
-      // The adapter passes provider chunks through as raw parts only when asked; the parsed usage has no cost.
-      const raw = { type: "raw", rawValue: { usage: { prompt_tokens: 1000, completion_tokens: 1000, cost: 0.0005 } } };
-      return { stream: options.includeRawChunks ? stream.pipeThrough(new TransformStream({
-        transform(chunk, controller) { if (chunk.type === "finish") controller.enqueue(raw); controller.enqueue(chunk); },
-      })) : stream };
-    });
-    await ask();
-    expect(calls("freeSettle")).toEqual([expect.objectContaining({ outcome: "settled", costUsd: 0.0005 })]);
+  it("settles at the charge OpenRouter reports, and keeps the hold when its usage report is incomplete", async () => {
+    await ask(); // no usage chunk at all
+    for (const usage of [{ prompt_tokens: 1000, completion_tokens: 1000, cost: 0.0005 }, { cost: 0 }, {}, { prompt_tokens: 1000 }, { completion_tokens: 1000 }]) {
+      reportUsage(usage);
+      await ask();
+    }
+    expect(calls("freeSettle").map((settle) => settle.costUsd)).toEqual([undefined, 0.0005, 0, undefined, undefined, undefined]);
   });
 
   it("holds enough for a history a tokenizer splits one token per character", async () => {

@@ -316,10 +316,14 @@ export async function POST(req: Request) {
   let freeTurn: { generationId: string; apiKey: string } | null = null;
   let freeRefusal: FreeAnswerRefusal | null = null;
   let answerStarted = false;
-  /** OpenRouter's own charge for a free answer, from its raw usage chunk; the adapter's parsed usage drops it. */
+  /**
+   * What OpenRouter reported for a free answer, read from its raw usage chunk: its own charge, which the adapter's
+   * parsed usage drops, and the token counts only when both were reported (the adapter fills missing counts with zero).
+   */
   let reportedCostUsd: number | null = null;
+  let reportedTokens: { input: number; output: number } | null = null;
   let freeSettlement: Promise<void> | null = null;
-  const settleFreeAnswer = (mode: "deduct" | "release", reason: string, usage?: { promptTokens?: number; completionTokens?: number }) => {
+  const settleFreeAnswer = (mode: "deduct" | "release", reason: string) => {
     if (!freeTurn) return Promise.resolve();
     if (freeSettlement) return freeSettlement;
     const turn = freeTurn;
@@ -327,13 +331,10 @@ export async function POST(req: Request) {
       // A call that failed before any text is given back; a cancelled one, or one that failed after text, keeps its
       // worst case, since the provider may have charged for it. A request aborted before the call was never sent.
       const giveBack = mode === "release" && (reason === "request-aborted" || (reason !== "stream-cancel" && !answerStarted));
-      // Settled at the provider's reported charge, or else at the reported tokens at list price with the margin; with
-      // neither, the whole hold stays counted.
-      const counted = (tokens: number | undefined): tokens is number => typeof tokens === "number" && Number.isFinite(tokens) && tokens >= 0;
+      // Settled at the provider's reported charge, or else at both reported token counts at list price with the margin;
+      // with neither, the whole hold stays counted.
       const costUsd = mode !== "deduct" ? null
-        : reportedCostUsd ?? (usage && counted(usage.promptTokens) && counted(usage.completionTokens)
-          ? freeAnswerCostUsd(modelPricing, usage.promptTokens, usage.completionTokens)
-          : null);
+        : reportedCostUsd ?? (reportedTokens ? freeAnswerCostUsd(modelPricing, reportedTokens.input, reportedTokens.output) : null);
       try {
         const settled = await convex.mutation(api.freeAnswers.settle, {
           generationId: turn.generationId,
@@ -355,7 +356,7 @@ export async function POST(req: Request) {
 
   let creditSettlement: Promise<void> | null = null;
   const settleCredits = (mode: "deduct" | "release", reason: string, usage?: { promptTokens?: number; completionTokens?: number }) => {
-    if (freeTurn) return settleFreeAnswer(mode, reason, usage);
+    if (freeTurn) return settleFreeAnswer(mode, reason);
     if (!generationId || !creditReserved) {
       return Promise.resolve();
     }
@@ -602,8 +603,12 @@ export async function POST(req: Request) {
         includeRawChunks: true,
         onChunk: ({ chunk }: { chunk: { type: string; rawValue?: unknown } }) => {
           if (chunk.type !== "raw") return;
-          const cost = (chunk.rawValue as { usage?: { cost?: unknown } } | null)?.usage?.cost;
-          if (typeof cost === "number" && Number.isFinite(cost) && cost >= 0) reportedCostUsd = cost;
+          const usage = (chunk.rawValue as { usage?: { cost?: unknown; prompt_tokens?: unknown; completion_tokens?: unknown } } | null)?.usage;
+          const reported = (value: unknown): value is number => typeof value === "number" && Number.isFinite(value) && value >= 0;
+          if (reported(usage?.cost)) reportedCostUsd = usage.cost;
+          if (reported(usage?.prompt_tokens) && reported(usage?.completion_tokens)) {
+            reportedTokens = { input: usage.prompt_tokens, output: usage.completion_tokens };
+          }
         },
       } : {}),
       abortSignal: signal,
