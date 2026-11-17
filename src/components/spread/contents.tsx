@@ -10,6 +10,7 @@ import { LayerPanel, useLayer } from "@/components/spread/layers";
 import { artStyleLabel } from "@/lib/art-styles";
 import { ChapterPaint, useChapterJob, type TileJobStatus } from "@/components/spread/chapter-paint";
 import { PlayMark } from "@/components/spread/play-mark";
+import { noteTurnAway } from "@/components/spread/page-turn";
 import { useSession } from "@/context/session-context";
 import { useMomentWord, usePictureStyles, useWorkScope, type WorkScope } from "@/context/work-scope-context";
 import { BIBLE_BOOKS, BOOK_BY_SLUG, type BibleBook } from "@/data/bible-structure";
@@ -102,6 +103,7 @@ function ContentsBody(place: ContentsPlace) {
       tier,
       hasCredits: credits > 0,
     });
+    noteTurnAway();
     close();
   };
 
@@ -195,6 +197,7 @@ function WorkContentsBody({ scope, division, moment }: { scope: WorkScope; divis
     trackVerseNavigation({
       book: scope.title, chapter: division, verse: moment, direction: "jump", source: "contents", targetUrl, tier, hasCredits: credits > 0,
     });
+    noteTurnAway();
     close();
   };
 

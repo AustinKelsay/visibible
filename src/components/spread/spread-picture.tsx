@@ -127,6 +127,8 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
   const continues = playOn && nextVideoUrl !== null;
   // Once Play on has turned the page, the toggle no longer changes anything.
   const turning = useRef(false);
+  // When the pressed video began loading: after the ring shows, a press cancels a clip that is slow to arrive.
+  const loadingSince = useRef(0);
   // Sound: the clips carry sound and start muted; the reader's choice holds for the tab, through Play on.
   const [sound, setSound] = useState(soundChosen);
 
@@ -135,11 +137,14 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
     if (phase !== "loading") return;
     const element = player.current;
     if (!element || !element.paused) return;
-    element.play()?.catch(() => {
-      // A browser that will not play sound by itself may still play the clip muted; otherwise the picture stays.
-      if (!element.muted) {
+    loadingSince.current = Date.now();
+    element.play()?.catch((error: unknown) => {
+      // The clip was taken away while it loaded (Escape, a turn, another version): nothing to do.
+      if (!element.isConnected || (error instanceof DOMException && error.name === "AbortError")) return;
+      // A browser that will not start sound by itself (Play on has no tap) may still play this clip muted; the
+      // reader's choice stays for the next press. Otherwise the picture stays.
+      if (!element.muted && error instanceof DOMException && error.name === "NotAllowedError") {
         element.muted = true;
-        soundChosen = false;
         setSound(false);
         element.play()?.catch(() => stop());
       } else stop();
@@ -147,16 +152,12 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
   }, [phase]);
 
   // At the end of a clip with Play on on, the page turns to the next verse's video, once its address is known (it may
-  // arrive after the clip ends). While the reader is busy with a layer (Contents, Look, a menu) or typing, the clip
-  // holds its last frame; closing the layer carries on.
+  // arrive after the clip ends). A reader busy at the end ends the run instead (see the video's onEnded).
   useEffect(() => {
     if (phase !== "ended" || !continues || turning.current) return;
-    if (openLayer !== null && openLayer !== "whole-picture") return;
-    const focused = document.activeElement;
-    if (focused instanceof HTMLElement && (focused.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(focused.tagName))) return;
     turning.current = true;
     onPlayOn?.();
-  }, [phase, continues, openLayer, onPlayOn]);
+  }, [phase, continues, onPlayOn]);
 
   // Escape stops the video and brings the picture back, when no layer is open to take it first.
   useEffect(() => {
@@ -208,9 +209,15 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
   const onPress = () => {
     if (!video) return;
     const element = player.current;
-    // While the first frame loads the press is ignored (Escape cancels), so a second tap cannot undo the first.
-    if (phase === null) setPhase("loading");
-    else if (phase === "loading") return;
+    // While the first frame loads, a quick second tap is ignored so it cannot undo the first; once the ring shows, a
+    // press cancels a clip that is slow to arrive (Escape always does).
+    if (phase === null) {
+      // A fresh press takes the visit's sound choice again (a refused start may have muted the last clip).
+      setSound(soundChosen);
+      setPhase("loading");
+    } else if (phase === "loading") {
+      if (Date.now() - loadingSince.current > 300) stop();
+    }
     else if (phase === "playing") element?.pause();
     else if (phase === "paused") element?.play()?.catch(() => undefined);
     else if (element) {
@@ -230,14 +237,16 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
     if (player.current) player.current.muted = !on;
   };
   // Kept up when the computer's controls fade, so a reader passing by still sees the picture moves; in the
-  // whole-picture view it sits at the window's corner on a computer and is not offered on a phone. Play on stands
-  // above Play; below a wide window the group sits above the dock's row, so it never covers the dock.
+  // whole-picture view it sits at the window's corner on a computer and is not offered on a phone. Play on and the
+  // sound stand above Play; below a wide window the group sits above the spread's dock row, so it never covers the dock.
   const playControls = video ? (
     <div
-      className={`absolute right-3 bottom-3 z-20 flex flex-col items-end gap-2 md:bottom-24 xl:bottom-8 ${
-        wholeIsOpen ? "max-md:hidden md:right-5" : "md:right-[calc(var(--words-page-width)+1.25rem)]"
+      className={`absolute right-3 bottom-3 z-20 flex flex-col items-end gap-2 ${
+        wholeIsOpen ? "max-md:hidden md:right-5 md:bottom-8" : "md:right-[calc(var(--words-page-width)+1.25rem)] md:bottom-24 xl:bottom-8"
       }`}
     >
+      {phase !== null ? (
+      <div className="flex items-center gap-2">
       {offersPlayOn && nextVideoUrl ? (
         <button
           type="button"
@@ -254,8 +263,6 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
           Play on
         </button>
       ) : null}
-      <div className="flex items-center gap-2">
-      {phase !== null ? (
         <button
           type="button"
           aria-pressed={sound}
@@ -265,6 +272,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
         >
           {sound ? <Volume2 aria-hidden="true" className="h-4 w-4" /> : <VolumeX aria-hidden="true" className="h-4 w-4" />}
         </button>
+      </div>
       ) : null}
       <button
         ref={playButton}
@@ -276,7 +284,6 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
         <PlayMark glyph={phase === "playing" ? "pause" : phase === "ended" ? "again" : "play"} loading={phase === "loading"} />
         {action}
       </button>
-      </div>
     </div>
   ) : null;
 
@@ -355,7 +362,13 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
             onPause={(event) => {
               if (!event.currentTarget.ended) setPhase("paused");
             }}
-            onEnded={() => setPhase("ended")}
+            onEnded={() => {
+              setPhase("ended");
+              // A reader busy with a layer (Contents, Look, a menu) or typing is not carried away: the run ends here.
+              const focused = document.activeElement;
+              const typing = focused instanceof HTMLElement && (focused.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(focused.tagName));
+              if ((openLayer !== null && openLayer !== "whole-picture") || typing) setPlayOn(false);
+            }}
             onError={() => stop()}
             className={`pointer-events-none absolute transition-opacity duration-300 motion-reduce:transition-none ${
               phase === "loading" ? "opacity-0" : "opacity-100"
@@ -366,13 +379,13 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
       </button>
       {playControls}
       {/* Play on carried the reader into this verse: said once its video plays, without taking focus. */}
-      {arrivesPlaying ? <span role="status" className="sr-only">{phase === "playing" || phase === "ended" ? `Playing on: ${reference}` : ""}</span> : null}
+      {arrivesPlaying ? <span role="status" className="sr-only">{phase !== null && phase !== "loading" ? `Playing on: ${reference}` : ""}</span> : null}
       {/* Play on fetches the next clip ahead, so the next verse starts to move without a wait. */}
       {continues && nextVideoUrl ? <video src={nextVideoUrl} preload="auto" muted aria-hidden="true" tabIndex={-1} className="hidden" /> : null}
       {shown && pictures ? (
         <PictureMenu key={verseId} verseId={verseId} reference={reference} pictures={pictures} shown={shown} chipHidden={wholeIsOpen} />
       ) : null}
-      {otherStyle && !wholeIsOpen ? (
+      {otherStyle && !wholeIsOpen && phase === null ? (
         <OtherStyleNote key={`${verseId}:${chosenStyle}`} verseId={verseId} reference={reference} shownStyle={otherStyle} chosenStyle={chosenStyle} />
       ) : null}
     </>

@@ -13,6 +13,7 @@ import { useQuery } from "convex/react";
 import { getFunctionName, type FunctionReference } from "convex/server";
 import { answerPictureRead } from "./fake-picture-reads";
 import VersePage from "../[book]/[chapter]/[verse]/page";
+import { noteTurnAway } from "@/components/spread/page-turn";
 import { clearBibleApiCache, type Translation } from "@/lib/bible-api";
 import type { VideoJobResponse } from "@/lib/video-generation";
 
@@ -406,14 +407,18 @@ describe("Play on the spread", () => {
     expect(playMark()?.textContent).toBe("Play");
   });
 
-  it("ignores a second press while the first frame loads", async () => {
+  it("ignores a quick second press while the first frame loads, and cancels a clip slow to arrive", async () => {
     savedPictures = john();
     publicVideos = [job()];
+    const now = vi.spyOn(Date, "now").mockReturnValue(1_000);
     await openVerse("john", "1", "5");
     await act(async () => { playMark()!.click(); });
     await act(async () => { playMark()!.click(); });
     expect(video()).not.toBeNull();
     expect(play).toHaveBeenCalledTimes(1);
+    now.mockReturnValue(1_400);
+    await act(async () => { playMark()!.click(); });
+    expect(video()).toBeNull();
   });
 
   it("offers the clip's sound, muted at first; a browser that refuses sound plays it muted", async () => {
@@ -429,7 +434,7 @@ describe("Play on the spread", () => {
     expect(sound.getAttribute("aria-pressed")).toBe("true");
     expect(video()!.muted).toBe(false);
 
-    // The choice holds on the next clip; a refusal to play it with sound retries it muted.
+    // The choice holds on the next clip; a refusal to start it with sound plays it muted, keeping the choice.
     play.mockClear();
     play.mockImplementationOnce(() => Promise.reject(new DOMException("Not allowed", "NotAllowedError")));
     pressKey("Escape");
@@ -438,6 +443,19 @@ describe("Play on the spread", () => {
     expect(play).toHaveBeenCalledTimes(2);
     expect(video()!.muted).toBe(true);
     expect(button("Sound of the video of John 1:5")!.getAttribute("aria-pressed")).toBe("false");
+    pressKey("Escape");
+    await act(async () => { playMark()!.click(); });
+    expect(video()!.muted).toBe(false);
+    // A load cut short (the clip taken away) is not a refusal: nothing changes.
+    play.mockImplementationOnce(() => Promise.reject(new DOMException("Aborted", "AbortError")));
+    pressKey("Escape");
+    await act(async () => { playMark()!.click(); });
+    await flush();
+    expect(video()!.muted).toBe(false);
+    expect(play).toHaveBeenCalledTimes(4);
+    // Sound off again, so the visit's choice does not carry into the next test.
+    await act(async () => { button("Sound of the video of John 1:5")!.click(); });
+    pressKey("Escape");
   });
 
   it("leaves the picture and Play when the browser refuses to start the video", async () => {
@@ -525,7 +543,7 @@ describe("Play on", () => {
     expect(push).toHaveBeenCalledWith("/john/1/4");
   });
 
-  it("holds the last frame while the reader has a layer open, and carries on once it closes", async () => {
+  it("ends the run, holding the last frame, when the reader is busy with a layer as the clip ends", async () => {
     savedPictures = [...john(), johnSix()];
     publicVideos = [job(), clipSix()];
     await openVerse("john", "1", "5");
@@ -534,10 +552,24 @@ describe("Play on", () => {
     await act(async () => { playOn()!.click(); });
     await openMenu();
     fire(video()!, "ended");
-    expect(push).not.toHaveBeenCalled();
     pressKey("Escape");
     expect(menu()).toBeNull();
-    expect(push).toHaveBeenCalledWith("/john/1/6");
+    expect(push).not.toHaveBeenCalled();
+    expect(playOn()?.getAttribute("aria-pressed")).toBe("false");
+    expect(button("Play the video of John 1:5 again")).not.toBeNull();
+  });
+
+  it("lets a verse chosen in Contents stand when the clip ends before that page arrives", async () => {
+    savedPictures = [...john(), johnSix()];
+    publicVideos = [job(), clipSix()];
+    await openVerse("john", "1", "5");
+    await act(async () => { playMark()!.click(); });
+    fire(video()!, "playing");
+    await act(async () => { playOn()!.click(); });
+    // What choosing a tile in Contents does (contents.test.tsx checks the tile calls it) before its link navigates.
+    act(() => noteTurnAway());
+    fire(video()!, "ended");
+    expect(push).not.toHaveBeenCalled();
   });
 
   it("is not offered when the next verse's picture has no video, and a clip that ends there stays", async () => {

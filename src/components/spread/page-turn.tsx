@@ -59,6 +59,11 @@ export function useTurnedAway(): () => boolean {
   return () => turnsRecorded !== atMount;
 }
 
+/** Records that the reader is leaving this spread another way (a Contents tile), so Play on does not turn as well. */
+export function noteTurnAway() {
+  turnsRecorded += 1;
+}
+
 /**
  * Whether Play on turned to this spread at the end of the previous verse's video, so its picture's video starts at
  * once and Play on stays on. Read once when the spread mounts; any other turn arrives on the still picture.

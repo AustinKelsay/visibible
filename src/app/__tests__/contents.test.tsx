@@ -8,6 +8,7 @@ import { getFunctionName, type FunctionReference } from "convex/server";
 import VersePage from "../[book]/[chapter]/[verse]/page";
 import { clearBibleApiCache } from "@/lib/bible-api";
 import { trackContentsOpened, trackCreditsInsufficient, trackVerseNavigation } from "@/lib/analytics";
+import { noteTurnAway } from "@/components/spread/page-turn";
 import type { BulkGenerationState } from "@/context/bulk-generation-context";
 import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
 
@@ -57,6 +58,10 @@ const buyCredits = vi.fn();
 let session = { sid: "guest", tier: "paid", credits: 0, isLoading: false, buyCredits };
 vi.mock("@/context/session-context", () => ({ useSession: () => session }));
 vi.mock("@/lib/analytics");
+vi.mock("@/components/spread/page-turn", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/components/spread/page-turn")>()),
+  noteTurnAway: vi.fn(),
+}));
 
 // The reader's bulk job is faked: nothing is ever painted or charged. Changing it re-renders its readers, as the real
 // provider does when the job's Convex rows change.
@@ -262,6 +267,8 @@ describe("Contents", () => {
     expect(push).toHaveBeenLastCalledWith("/john/1/7");
     expect(dialog()).toBeNull();
     expect(trackVerseNavigation).toHaveBeenLastCalledWith(expect.objectContaining({ source: "contents", direction: "jump", targetUrl: "/john/1/7", book: "John", chapter: 1, verse: 5 }));
+    // It counts as leaving the spread, so Play on does not turn the page as well.
+    expect(noteTurnAway).toHaveBeenCalledTimes(1);
   });
 
   it("filters the book list as the reader types, then shows the chosen book and chapter without leaving Contents", async () => {
