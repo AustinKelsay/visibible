@@ -53,7 +53,7 @@ const quoteOf = (quoteId: string, estimateCredits = 3, maximumCredits = 13): Quo
 /** What the fake server was asked, and the answer streams it is still writing. */
 let quoteRequests: Array<Record<string, unknown>>;
 let chatRequests: Array<{ messages: Array<{ role: string; parts: Array<{ type: string; text?: string }> }>; [key: string]: unknown }>;
-let quoteAnswer: () => Response;
+let quoteAnswer: () => Response | Promise<Response>;
 /** Answers /api/chat gives before it streams (a refusal, say); empty means stream an answer. */
 let chatAnswers: Array<() => Response>;
 const staleAnswer = (reason: string, quote: Quote) =>
@@ -418,6 +418,64 @@ describe("free answers (#493)", () => {
     expect(chatRequests).toHaveLength(1);
     expect(followup.value).toBe("Explain the light further");
     expect(session.buyCredits).toHaveBeenCalledTimes(1);
+  });
+
+  it("lets a question asked before the standing arrives wait for it, then sends it free", async () => {
+    session.credits = 0;
+    let release!: (response: Response) => void;
+    quoteAnswer = () => new Promise<Response>((resolve) => { release = resolve; });
+    await openVerse();
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    expect(session.buyCredits).not.toHaveBeenCalled();
+    expect(chatRequests).toHaveLength(0);
+    expect(field("Ask about John 1:5").value).toBe("What does John 1:5 mean?");
+
+    await act(async () => { release(new Response(JSON.stringify({ quote: null, free: { available: true, remaining: 20 } }))); });
+    await flush();
+    expect(chatRequests).toHaveLength(1);
+    expect(chatRequests[0]).not.toHaveProperty("quoteId");
+    expect(session.buyCredits).not.toHaveBeenCalled();
+  });
+
+  it("opens the credits dialog for a waiting question once the standing says free answers are used up", async () => {
+    session.credits = 0;
+    let release!: (response: Response) => void;
+    quoteAnswer = () => new Promise<Response>((resolve) => { release = resolve; });
+    await openVerse();
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    await act(async () => {
+      release(new Response(JSON.stringify({ error: "Insufficient credits", required: 1, available: 0, free: { available: false, reason: "session" } }), { status: 402 }));
+    });
+    await flush();
+    expect(chatRequests).toHaveLength(0);
+    expect(session.buyCredits).toHaveBeenCalledTimes(1);
+    expect(field("Ask about John 1:5").value).toBe("What does John 1:5 mean?");
+  });
+
+  it("lets the server decide when the standing cannot be read", async () => {
+    session.credits = 0;
+    quoteAnswer = () => new Response("Service unavailable", { status: 503 });
+    await openVerse();
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    expect(session.buyCredits).not.toHaveBeenCalled();
+    expect(chatRequests).toHaveLength(1);
+  });
+
+  it("reads a refused standing again just after midnight UTC", async () => {
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(Date.UTC(2026, 10, 17, 23, 59, 59, 900));
+    vi.spyOn(Math, "random").mockReturnValue(0);
+    session.credits = 0;
+    quoteAnswer = freeAnswer({ available: false, reason: "session" }, { error: "Insufficient credits", required: 1, available: 0 }, 402);
+    await openVerse();
+    expect(quoteRequests).toHaveLength(1);
+    quoteAnswer = freeAnswer({ available: true, remaining: 20 });
+    // Midnight is 100 ms away; the read comes a second after it.
+    await act(async () => { await new Promise((resolve) => setTimeout(resolve, 1300)); });
+    await flush();
+    expect(quoteRequests).toHaveLength(2);
+    expect(button(/^Send question/, wordsPage()).getAttribute("aria-label")).toBe("Send question · Free");
+    vi.useRealTimers();
   });
 
   it("shows the price as usual once free answers are used up and the balance can pay", async () => {
