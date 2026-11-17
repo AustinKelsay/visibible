@@ -44,8 +44,13 @@ export const create = mutation({
   handler: async (ctx, args): Promise<PublicQuote> => {
     validateServerSecret(args.serverSecret);
     const whole = (credits: number) => Number.isSafeInteger(credits) && credits >= 1;
-    if (!whole(args.estimateCredits) || !whole(args.maximumCredits) || args.estimateCredits > args.maximumCredits) {
-      throw new Error("A quote needs a whole estimate of at least one credit that does not exceed its maximum");
+    // A chat turn is charged its fraction of a credit (#493), so its estimate is in hundredths; the maximum, which is
+    // held, is whole.
+    const hundredths = (credits: number) => Number.isFinite(credits) && credits >= 0.01 &&
+      Math.abs(credits * 100 - Math.round(credits * 100)) < 1e-9;
+    const estimateValid = args.operation === "chat" ? hundredths(args.estimateCredits) : whole(args.estimateCredits);
+    if (!estimateValid || !whole(args.maximumCredits) || args.estimateCredits > args.maximumCredits) {
+      throw new Error("A quote needs an estimate (whole credits, or hundredths for chat) that does not exceed its whole maximum");
     }
     const now = Date.now();
     const terms = {

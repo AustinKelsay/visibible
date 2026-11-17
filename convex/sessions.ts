@@ -5,6 +5,7 @@ import { action, internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { validateServerSecret } from "./_helpers/auth";
+import { MICRO_CREDITS_PER_CREDIT } from "../src/lib/token-pricing";
 
 // Default daily spending limit per session (in USD)
 // This prevents API cost abuse by capping how much a single session can spend per day
@@ -944,7 +945,7 @@ export const releaseReservationInternal = internalMutation({
  * - If actualAmount > reserved: charges actualAmount (may deduct additional credits)
  * - If actualAmount not provided: uses reserved amount (backward compatible)
  */
-export async function deductCreditsInTransaction(ctx: MutationCtx, args: { sid: string; amount: number; modelId: string; generationId: string; costUsd?: number; actualAmount?: number; actualCostUsd?: number }) {
+export async function deductCreditsInTransaction(ctx: MutationCtx, args: { sid: string; amount: number; modelId: string; generationId: string; costUsd?: number; actualAmount?: number; actualCostUsd?: number; actualMicroCredits?: number }) {
   const session = await ctx.db
     .query("sessions")
     .withIndex("by_sid", (q) => q.eq("sid", args.sid))
@@ -963,7 +964,7 @@ export async function deductCreditsInTransaction(ctx: MutationCtx, args: { sid: 
     .collect();
 
   // Use actualAmount if provided, otherwise fall back to reserved amount
-  const chargeAmount = args.actualAmount ?? args.amount;
+  let chargeAmount = args.actualAmount ?? args.amount;
   const chargeCostUsd = args.actualCostUsd ?? args.costUsd;
 
   const settlement = summarizeGenerationSettlement(ledgerEntries);
@@ -987,6 +988,16 @@ export async function deductCreditsInTransaction(ctx: MutationCtx, args: { sid: 
   if (settlement.state === "reserved") {
     const reservedAmount = settlement.reservedAmount;
     const reservationCostUsd = settlement.reservationCostUsd;
+    // A chat turn (#493) is charged its fraction of a credit: it joins the session's carried fraction, the whole credits
+    // in the sum are taken from the hold, and the rest is carried. The carry stays under one credit, so the credits
+    // taken never pass the hold when the fraction is capped at it.
+    let carryMicro: number | undefined;
+    if (args.actualMicroCredits !== undefined) {
+      const turnMicro = Math.max(0, Math.min(Math.ceil(args.actualMicroCredits), reservedAmount * MICRO_CREDITS_PER_CREDIT));
+      const totalMicro = (session.chatCreditCarryMicro ?? 0) + turnMicro;
+      chargeAmount = Math.min(Math.floor(totalMicro / MICRO_CREDITS_PER_CREDIT), reservedAmount);
+      carryMicro = Math.min(totalMicro - chargeAmount * MICRO_CREDITS_PER_CREDIT, MICRO_CREDITS_PER_CREDIT - 1);
+    }
     const settlementOutcome = computeReservedChargeOutcome({
       currentCredits: session.credits,
       currentDailySpendUsd: session.dailySpendUsd ?? 0,
@@ -1005,6 +1016,7 @@ export async function deductCreditsInTransaction(ctx: MutationCtx, args: { sid: 
     }
 
     await closePendingHolds(ctx, ledgerEntries);
+    if (carryMicro !== undefined) await ctx.db.patch(session._id, { chatCreditCarryMicro: carryMicro });
 
     if (settlementOutcome.mode === "refund_excess") {
       // Actual was less than reserved - refund the excess
@@ -1038,6 +1050,7 @@ export async function deductCreditsInTransaction(ctx: MutationCtx, args: { sid: 
         newBalance: settlementOutcome.newBalance,
         converted: true,
         refunded: settlementOutcome.refunded,
+        chargedCredits: chargeAmount,
       };
     }
 
@@ -1139,6 +1152,7 @@ export async function deductCreditsInTransaction(ctx: MutationCtx, args: { sid: 
       success: true,
       newBalance: settlementOutcome.newBalance,
       converted: true,
+      chargedCredits: chargeAmount,
     };
   }
 
@@ -1185,6 +1199,7 @@ export const deductCreditsInternal = internalMutation({
     costUsd: v.optional(v.number()), // Original estimated cost
     actualAmount: v.optional(v.number()), // Actual amount to charge (may differ from reserved)
     actualCostUsd: v.optional(v.number()), // Actual USD cost from OpenRouter
+    actualMicroCredits: v.optional(v.number()), // A chat turn's fractional charge, carried on the session (#493)
   },
   handler: deductCreditsInTransaction,
 });
@@ -1267,11 +1282,13 @@ export const deductCredits = action({
     costUsd: v.optional(v.number()),
     actualAmount: v.optional(v.number()), // Actual credits to charge (may differ from reserved)
     actualCostUsd: v.optional(v.number()), // Actual USD cost from OpenRouter
+    actualMicroCredits: v.optional(v.number()), // A chat turn's fractional charge, carried on the session (#493)
     serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{
     success: boolean;
     newBalance?: number;
+    chargedCredits?: number;
     error?: string;
     converted?: boolean;
     alreadyCharged?: boolean;
@@ -1290,6 +1307,7 @@ export const deductCredits = action({
       costUsd: args.costUsd,
       actualAmount: args.actualAmount,
       actualCostUsd: args.actualCostUsd,
+      actualMicroCredits: args.actualMicroCredits,
     });
   },
 });

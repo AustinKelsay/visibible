@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { quoteTokenUsage } from "../token-pricing";
+import { MICRO_CREDITS_PER_CREDIT, quoteTokenMicroCredits, quoteTokenUsage } from "../token-pricing";
 import {
   computeActualChatCreditsCost,
   computeChatCreditsCost,
@@ -10,6 +10,18 @@ import {
 const pricing = { prompt: "0.00001", completion: "0.00001" };
 
 afterEach(() => { vi.unstubAllGlobals(); vi.resetModules(); });
+
+describe("chat's fractional credit price (#493)", () => {
+  it("prices usage in millionths of a credit after the markup, rounded up once, with no one-credit minimum", () => {
+    expect(MICRO_CREDITS_PER_CREDIT).toBe(1_000_000);
+    // GPT-6 Luna at $0.10 / $0.50 per million: 770 in and 158 out is $0.000156 → ×1.25 → 0.0195 credits.
+    expect(quoteTokenMicroCredits({ prompt: "0.0000001", completion: "0.0000005" }, 770, 158)).toBe(19_500);
+    expect(quoteTokenMicroCredits({ prompt: "0.0000001", completion: "0.0000005" }, 0, 0)).toBe(0);
+    expect(quoteTokenMicroCredits({ prompt: "0.000000123", completion: "0" }, 1, 0)).toBe(16); // 15.375 millionths rounds up
+    expect(quoteTokenMicroCredits({ prompt: "free", completion: "0" }, 1, 1)).toBeNull();
+    expect(quoteTokenMicroCredits({ prompt: "0.0000001", completion: "0.0000005" }, -1, 1)).toBeNull();
+  });
+});
 
 describe("provider token pricing", () => {
   it("uses catalog per-token units consistently for quotes and actual usage", () => {

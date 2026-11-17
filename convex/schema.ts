@@ -455,6 +455,9 @@ export default defineSchema({
     lastDayReset: v.optional(v.number()), // Timestamp of last daily reset (UTC midnight)
     // Session expiration (90 days from last activity)
     expiresAt: v.optional(v.number()),
+    // Chat charges not yet taken, in millionths of a credit, always under one credit (#493): a turn is charged its
+    // fraction, and whole credits are taken from its hold as the fractions add up.
+    chatCreditCarryMicro: v.optional(v.number()),
   })
     .index("by_sid", ["sid"])
     .index("by_tier_adminUntil", ["tier", "adminUntil"])

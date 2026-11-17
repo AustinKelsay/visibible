@@ -44,8 +44,13 @@ describe("quotes", () => {
 
   it("refuses to issue a quote whose estimate passes its maximum, or without the server secret", async () => {
     const { t } = await setup();
-    await expect(t.mutation(api.quotes.create, { ...terms, estimateCredits: 5, serverSecret: SECRET })).rejects.toThrow(/does not exceed its maximum/);
+    await expect(t.mutation(api.quotes.create, { ...terms, estimateCredits: 5, serverSecret: SECRET })).rejects.toThrow(/does not exceed its whole maximum/);
     await expect(t.mutation(api.quotes.create, { ...terms, maximumCredits: 0.5, estimateCredits: 0.5, serverSecret: SECRET })).rejects.toThrow();
+    // A chat estimate may be hundredths of a credit (#493); an image estimate is whole, and no estimate is below 0.01.
+    expect(await t.mutation(api.quotes.create, { ...terms, operation: "chat", estimateCredits: 0.06, serverSecret: SECRET })).toMatchObject({ estimateCredits: 0.06 });
+    await expect(t.mutation(api.quotes.create, { ...terms, operation: "image", estimateCredits: 0.06, serverSecret: SECRET })).rejects.toThrow();
+    await expect(t.mutation(api.quotes.create, { ...terms, operation: "chat", estimateCredits: 0.065, serverSecret: SECRET })).rejects.toThrow();
+    await expect(t.mutation(api.quotes.create, { ...terms, operation: "chat", estimateCredits: 0.001, serverSecret: SECRET })).rejects.toThrow();
     await expect(t.mutation(api.quotes.create, { ...terms, serverSecret: "wrong" })).rejects.toThrow();
     await expect(t.mutation(api.quotes.accept, { ...terms, quoteId: "x", usedBy: "r", serverSecret: "wrong" })).rejects.toThrow();
   });

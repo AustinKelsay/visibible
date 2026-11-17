@@ -219,7 +219,9 @@ describe("chat SDK outcomes and settlement", () => {
     const body = await response.text();
     expect(calls("deductCredits")).toHaveLength(1);
     expect(calls("releaseReservation")).toHaveLength(0);
-    expect(body).toContain('"creditsCharged":2');
+    // 1,000 tokens each way at $1 and $2 per million, with the markup: 0.375 of a credit (#493: no one-credit minimum).
+    expect(body).toContain('"creditsCharged":0.375');
+    expect(calls("deductCredits")[0].args).toMatchObject({ actualMicroCredits: 375_000 });
     expect(body).toContain('"incomplete":' + (reason === "length"));
     expect(mockState.sessions.get("test-session")?.credits).toBe(98);
   });
