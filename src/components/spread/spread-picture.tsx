@@ -482,12 +482,15 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle, covered =
 
   // The offer fades with the other controls while the reader is idle; progress, a failure or a price to confirm stays.
   const idleOffer = !paint.painting && !generation.error && !generation.priceNotice;
+  // While a video is pressed, on a phone the idle offer gives way to Play's controls; progress, a failure or a price to
+  // confirm stays in sight, above them.
+  const coverClass = covered ? (idleOffer ? "max-md:hidden" : "max-md:bottom-[6.5rem]") : "";
   return (
     <section
       aria-label="Other art style"
       data-fades={idleOffer ? "" : undefined}
       // Above the picture menu's chip on a phone; under the corner name on a computer.
-      className={`absolute inset-x-3 bottom-14 z-10 ${covered ? "max-md:hidden" : ""} flex max-w-sm flex-col items-start gap-2 rounded-2xl border border-ink/10 bg-reader-page-glass p-3 text-left shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:inset-x-auto md:bottom-auto md:left-5 md:top-20 md:gap-2.5 md:p-3.5`}
+      className={`absolute inset-x-3 bottom-14 z-10 ${coverClass} flex max-w-sm flex-col items-start gap-2 rounded-2xl border border-ink/10 bg-reader-page-glass p-3 text-left shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:inset-x-auto md:bottom-auto md:left-5 md:top-20 md:gap-2.5 md:p-3.5`}
     >
       {body}
     </section>

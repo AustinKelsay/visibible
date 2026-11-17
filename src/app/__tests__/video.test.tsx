@@ -473,6 +473,39 @@ describe("Play on the spread", () => {
     expect(note.className).not.toContain("max-md:hidden");
   });
 
+  it("keeps a paint's failure from the other-style note in sight on a phone while the video holds its last frame", async () => {
+    session = { ...session, credits: 10 };
+    savedPictures = [
+      { id: "john-1-3:classical", imageUrl: "https://img.test/john-3.png", artStyle: "classical", createdAt: noon(1), aspectRatio: "16:9" },
+      { id: "john-1-5:watercolor", imageUrl: "https://img.test/john-5-wc.png", artStyle: "watercolor", createdAt: noon(4), aspectRatio: "16:9" },
+    ];
+    publicVideos = [job({ id: "wc-clip", sourceImageId: "john-1-5:watercolor", artStyle: "watercolor" })];
+    let answer: (response: Response) => void = () => {};
+    const base = globalThis.fetch;
+    vi.stubGlobal("fetch", vi.fn((url: string, init?: RequestInit) => {
+      if (url === "/api/generate-image") {
+        paintRequests.push(JSON.parse(String(init?.body)));
+        return new Promise<Response>((resolve) => { answer = resolve; });
+      }
+      return base(url, init);
+    }));
+    const note = () => container.querySelector<HTMLElement>('section[aria-label="Other art style"]');
+    const noteButton = (name: RegExp) => [...(note()?.querySelectorAll("button") ?? [])].find((candidate) => name.test(candidate.textContent ?? ""));
+    await openVerse("john", "1", "5");
+    for (let i = 0; i < 5; i++) await flush();
+    await act(async () => { noteButton(/^Paint in Classical/)!.click(); });
+    // While it paints, the reader plays the shown picture's video to its end; the paint then fails.
+    await act(async () => { playMark()!.click(); });
+    fire(video()!, "playing");
+    fire(video()!, "ended");
+    await act(async () => { answer(json({ error: "Image provider failed" }, 500)); });
+    for (let i = 0; i < 5; i++) await flush();
+    expect(note()?.querySelector('[role="alert"]')?.textContent).toBe("Image provider failed");
+    expect(noteButton(/Try again/)).toBeTruthy();
+    expect(note()!.className.split(/\s+/)).not.toContain("max-md:hidden");
+    expect(paintRequests).toHaveLength(1);
+  });
+
   it("leaves the picture and Play when the browser refuses to start the video", async () => {
     savedPictures = john();
     publicVideos = [job()];
