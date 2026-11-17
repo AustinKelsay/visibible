@@ -384,9 +384,10 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
       {shown && pictures ? (
         <PictureMenu key={verseId} verseId={verseId} reference={reference} pictures={pictures} shown={shown} chipHidden={wholeIsOpen} />
       ) : null}
-      {otherStyle && !wholeIsOpen ? (
-        // Kept mounted while a video is pressed (a paint it started carries on); on a phone it gives way to Play's controls.
-        <OtherStyleNote key={`${verseId}:${chosenStyle}`} verseId={verseId} reference={reference} shownStyle={otherStyle} chosenStyle={chosenStyle} covered={phase !== null} />
+      {otherStyle ? (
+        // Kept mounted in the whole-picture view and while a video is pressed, so a paint it started carries on: hidden in
+        // that view, and on a phone giving way to Play's controls.
+        <OtherStyleNote key={`${verseId}:${chosenStyle}`} verseId={verseId} reference={reference} shownStyle={otherStyle} chosenStyle={chosenStyle} covered={phase !== null} concealed={wholeIsOpen} />
       ) : null}
     </>
   );
@@ -435,7 +436,7 @@ const NOTE_BUTTON = `${PILL} min-h-[40px] px-4 bg-ink text-paper hover:bg-ink/90
  * A verse painted only in another style: a note naming the style shown, and an offer to paint the verse in the chosen
  * style, priced like the paint button. The new picture replaces this one once saved, and the note goes with it.
  */
-function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle, covered = false }: { verseId: string; reference: string; shownStyle: string; chosenStyle: string; covered?: boolean }) {
+function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle, covered = false, concealed = false }: { verseId: string; reference: string; shownStyle: string; chosenStyle: string; covered?: boolean; concealed?: boolean }) {
   const paint = usePaintVerse({ verseId, reference });
   const { generation } = paint;
   const chosenLabel = artStyleLabel(chosenStyle);
@@ -490,7 +491,7 @@ function OtherStyleNote({ verseId, reference, shownStyle, chosenStyle, covered =
       aria-label="Other art style"
       data-fades={idleOffer ? "" : undefined}
       // Above the picture menu's chip on a phone; under the corner name on a computer.
-      className={`absolute inset-x-3 bottom-14 z-10 ${coverClass} flex max-w-sm flex-col items-start gap-2 rounded-2xl border border-ink/10 bg-reader-page-glass p-3 text-left shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:inset-x-auto md:bottom-auto md:left-5 md:top-20 md:gap-2.5 md:p-3.5`}
+      className={`absolute inset-x-3 bottom-14 z-10 ${concealed ? "hidden" : `${coverClass} flex`} max-w-sm flex-col items-start gap-2 rounded-2xl border border-ink/10 bg-reader-page-glass p-3 text-left shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl md:inset-x-auto md:bottom-auto md:left-5 md:top-20 md:gap-2.5 md:p-3.5`}
     >
       {body}
     </section>

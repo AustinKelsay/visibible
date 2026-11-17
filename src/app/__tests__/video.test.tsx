@@ -14,6 +14,7 @@ import { getFunctionName, type FunctionReference } from "convex/server";
 import { answerPictureRead } from "./fake-picture-reads";
 import VersePage from "../[book]/[chapter]/[verse]/page";
 import { noteTurnAway } from "@/components/spread/page-turn";
+import { trackVerseNavigation } from "@/lib/analytics";
 import { clearBibleApiCache, type Translation } from "@/lib/bible-api";
 import type { VideoJobResponse } from "@/lib/video-generation";
 
@@ -506,6 +507,19 @@ describe("Play on the spread", () => {
     expect(paintRequests).toHaveLength(1);
   });
 
+  it("keeps the other-style note mounted, hidden, in the whole-picture view, so a paint it started carries on", async () => {
+    savedPictures = [{ id: "john-1-5:watercolor", imageUrl: "https://img.test/john-5-watercolor.png", artStyle: "watercolor", createdAt: noon(4), aspectRatio: "16:9" }];
+    await openVerse("john", "1", "5");
+    const note = container.querySelector<HTMLElement>('section[aria-label="Other art style"]')!;
+    expect(note.className.split(/\s+/)).toContain("flex");
+    await act(async () => { container.querySelector<HTMLButtonElement>('button[aria-label="Show the whole picture of John 1:5"]')!.click(); });
+    expect(container.querySelector('section[aria-label="Other art style"]')).toBe(note);
+    expect(note.className.split(/\s+/)).toContain("hidden");
+    await act(async () => { container.querySelector<HTMLButtonElement>('button[aria-label="Back to the words"]')!.click(); });
+    expect(container.querySelector('section[aria-label="Other art style"]')).toBe(note);
+    expect(note.className.split(/\s+/)).not.toContain("hidden");
+  });
+
   it("leaves the picture and Play when the browser refuses to start the video", async () => {
     savedPictures = john();
     publicVideos = [job()];
@@ -621,6 +635,21 @@ describe("Play on", () => {
     // Play on declined, so its toggle still answers.
     await act(async () => { playOn()!.click(); });
     expect(playOn()?.getAttribute("aria-pressed")).toBe("false");
+  });
+
+  it("carries on after the reader opens the next verse or a mark in another tab, which is not a turn here", async () => {
+    savedPictures = [...john(), johnSix()];
+    publicVideos = [job(), clipSix()];
+    await openVerse("john", "1", "5");
+    await act(async () => { playMark()!.click(); });
+    fire(video()!, "playing");
+    await act(async () => { playOn()!.click(); });
+    const newTab = (link: Element) => act(() => { link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, metaKey: true })); });
+    newTab(container.querySelector('a[aria-label="Next verse"]')!);
+    newTab(container.querySelector('a[aria-label^="Verse 7,"]')!);
+    expect(trackVerseNavigation).not.toHaveBeenCalled();
+    fire(video()!, "ended");
+    expect(trackVerseNavigation).toHaveBeenCalledWith(expect.objectContaining({ source: "play_on", targetUrl: "/john/1/6" }));
   });
 
   it("is not offered when the next verse's picture has no video, and a clip that ends there stays", async () => {
