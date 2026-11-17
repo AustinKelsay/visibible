@@ -54,11 +54,11 @@ export function CornerMenu({ verseId, bookName, chapter, verseNumber, verseText,
         aria-describedby={whole ? undefined : describedBy}
         aria-haspopup="dialog"
         aria-expanded={menu.isOpen}
-        data-fades
         onClick={(event) => menu.toggle(event.currentTarget)}
-        className="absolute left-3 top-6 z-30 flex items-center gap-2 rounded-full py-1 pr-1 pl-3 text-[15px] font-semibold tracking-tight text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] transition-colors duration-[var(--motion-fast)] hover:bg-black/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:left-5 md:top-8"
+        className={`absolute left-3 top-6 z-30 flex items-center gap-2 rounded-full ${whole ? "px-3 py-1.5" : "py-1 pr-1 pl-3"} text-[15px] font-semibold tracking-tight text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] transition-colors duration-[var(--motion-fast)] hover:bg-black/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:left-5 md:top-8`}
       >
-        Visibible
+        {/* The name and the chip fade each on their own: glass inside a fading parent loses its blur in Chromium. */}
+        <span data-fades>Visibible</span>
         {whole ? null : <AccountChip descriptionId={describedBy} />}
       </button>
 
@@ -149,7 +149,7 @@ function AccountChip({ descriptionId }: { descriptionId: string }) {
     : `${credits.toLocaleString("en-US")} credits${pendingCredits > 0 ? `, ${pendingCredits.toLocaleString("en-US")} held` : ""}`;
   const Icon = admin ? Shield : CircleUserRound;
   return (
-    <span className="liquid-glass spread-dock flex h-7 items-center gap-1.5 rounded-full px-2 text-[13px] font-medium tabular-nums tracking-normal text-ink/90 [text-shadow:none]">
+    <span data-fades className="liquid-glass spread-dock flex h-7 items-center gap-1.5 rounded-full px-2 text-[13px] font-medium tabular-nums tracking-normal text-ink/90 [text-shadow:none]">
       <Icon size={15} strokeWidth={1.75} aria-hidden="true" />
       {ready && !admin ? <span aria-hidden="true" className="pr-0.5">{credits.toLocaleString("en-US")}</span> : null}
       <span id={descriptionId} hidden>{description}</span>
@@ -166,7 +166,7 @@ function Account() {
       <CircleUserRound size={22} strokeWidth={1.5} aria-hidden="true" className="shrink-0 text-ink/70" />
       <div className="min-w-0">
         <p className="text-sm font-medium text-ink/90">{admin ? "Admin" : "Guest"}</p>
-        <p className="text-xs text-ink/(--quiet-60)">Kept in this browser</p>
+        {admin ? null : <p className="text-xs text-ink/(--quiet-60)">Kept in this browser</p>}
       </div>
     </div>
   );
@@ -210,6 +210,7 @@ function Balance({ onGetCredits }: { onGetCredits: () => void }) {
         </p>
         <button
           type="button"
+          data-autofocus
           onClick={getCredits}
           className="min-h-9 shrink-0 rounded-full bg-ink px-3.5 text-sm font-medium text-paper transition-colors duration-[var(--motion-fast)] hover:bg-ink/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
         >

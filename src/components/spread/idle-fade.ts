@@ -40,7 +40,8 @@ export function useIdle(): boolean {
         const focused = document.activeElement;
         // Focus stays put without further events, so a focused control keeps the controls shown until
         // focus leaves it (focusout starts the wait again).
-        if (focused instanceof Element && focused.closest(`[${FADES_ATTRIBUTE}]`)) return;
+        // A control whose own parts fade (the corner name and its chip) counts as fading.
+        if (focused instanceof Element && (focused.closest(`[${FADES_ATTRIBUTE}]`) ?? focused.querySelector(`:scope > [${FADES_ATTRIBUTE}]`))) return;
         setIdle(true);
       }, IDLE_FADE_MS);
     };

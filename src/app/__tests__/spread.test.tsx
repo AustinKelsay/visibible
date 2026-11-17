@@ -758,6 +758,23 @@ describe("controls fading while reading", () => {
     act(() => { vi.advanceTimersByTime(3500); });
     expect(faded(dock())).toBe(true);
   });
+
+  it("fades the corner name and its account chip, each on its own, but not while the name has focus", async () => {
+    await openVerse("john", "1", "5");
+    const name = container.querySelector<HTMLButtonElement>('button[aria-label="Visibible menu"]')!;
+    // The fading parts are inside the button (glass in a fading parent loses its blur), and both fade.
+    const parts = [...name.querySelectorAll("[data-fades]")];
+    expect(parts).toHaveLength(2);
+    expect(parts[0].textContent).toBe("Visibible");
+    expect(parts[1].classList.contains("liquid-glass")).toBe(true);
+    act(() => { vi.advanceTimersByTime(3500); });
+    expect(parts.every(faded)).toBe(true);
+
+    act(() => { name.focus(); });
+    act(() => { vi.advanceTimersByTime(30_000); });
+    expect(faded(dock())).toBe(false);
+    expect(parts.some(faded)).toBe(false);
+  });
 });
 
 describe("the verse marks", () => {
@@ -827,7 +844,10 @@ describe("the corner menu", () => {
 
   /** The words the account chip gives the name (its description), and the number it shows. */
   function chip() {
-    const description = document.getElementById(cornerName().getAttribute("aria-describedby") ?? "")?.textContent ?? null;
+    const element = document.getElementById(cornerName().getAttribute("aria-describedby") ?? "");
+    // The description is read, not shown: the chip shows only the number.
+    if (element) expect(element.hidden).toBe(true);
+    const description = element?.textContent ?? null;
     return { description, shown: cornerName().textContent!.replace("Visibible", "").replace(description ?? "", "") };
   }
 
@@ -886,6 +906,7 @@ describe("the corner menu", () => {
     session.credits = 42;
     savedPictures = [{ id: "john-1-5:a", imageUrl: "https://img.test/5.png", artStyle: "classical", createdAt: 1 }];
     await openVerse("john", "1", "5");
+    expect(chip()).toEqual({ shown: "42", description: "42 credits" });
     act(() => { container.querySelector<HTMLButtonElement>('button[aria-label="Show the whole picture of John 1:5"]')!.click(); });
     expect(cornerName().textContent).toBe("Visibible");
     expect(cornerName().hasAttribute("aria-describedby")).toBe(false);
