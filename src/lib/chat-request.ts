@@ -262,7 +262,7 @@ export async function buildSystemPrompt(
 }
 
 export type ChatPromptResult =
-  | { ok: true; systemPrompt: string; tokens: number; translation: string }
+  | { ok: true; systemPrompt: string; tokens: number; translation: string; scripture: "included" | "unavailable" | "none" }
   | { ok: false; status: 400; error: string; message: string };
 
 /**
@@ -285,5 +285,5 @@ export async function chatSystemPrompt(
   if (tokens > CHAT_SYSTEM_PROMPT_TOKEN_ALLOWANCE) {
     return { ok: false, status: 400, error: "Passage too long", message: "This passage is too long to discuss in one message." };
   }
-  return { ok: true, systemPrompt: prompt.systemPrompt, tokens, translation };
+  return { ok: true, systemPrompt: prompt.systemPrompt, tokens, translation, scripture: prompt.scripture };
 }

@@ -3,6 +3,7 @@
  */
 import { createHash } from "node:crypto";
 import { suggestedQuestions } from "./ask-suggestions";
+import { formatReference, parseVerseLocation } from "./navigation";
 
 type Turn = { role: string; parts: Array<{ type: string; text?: string }> };
 type Passage = { book: string; chapter: number; verseRange: string };
@@ -20,9 +21,15 @@ export function passageSuggestions(passage: Passage): string[] {
 }
 
 /**
- * The key of a stored answer: the model, the whole system prompt (rules and the Scripture given) and the question, so
- * a change to any of them asks the model afresh.
+ * The key of a stored answer: the model, the translation, the whole system prompt (rules and the Scripture given) and
+ * the question, so a change to any of them asks the model afresh.
  */
-export function storedAnswerKey(modelId: string, systemPrompt: string, question: string): string {
-  return createHash("sha256").update(JSON.stringify([modelId, systemPrompt, question])).digest("hex");
+export function storedAnswerKey(modelId: string, translation: string, systemPrompt: string, question: string): string {
+  return createHash("sha256").update(JSON.stringify([modelId, translation, systemPrompt, question])).digest("hex");
+}
+
+/** The passage's reference as the reader sees it ("John 1:5"), which the owner's removal matches; null if unknown. */
+export function storedAnswerReference(passage: Passage): string | null {
+  const location = parseVerseLocation(passage.book, passage.chapter, passage.verseRange);
+  return location ? formatReference(location) : null;
 }

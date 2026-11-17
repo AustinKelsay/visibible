@@ -33,7 +33,7 @@ import {
 import { api } from "../../../../convex/_generated/api";
 import { boundHistory, chatRequestSchema, chatSystemPrompt } from "@/lib/chat-request";
 import { MICRO_CREDITS_PER_CREDIT, quoteTokenMicroCredits } from "@/lib/token-pricing";
-import { storableQuestion, storedAnswerKey } from "@/lib/stored-answers";
+import { storableQuestion, storedAnswerKey, storedAnswerReference } from "@/lib/stored-answers";
 import { freeAnswerCostUsd, freeAnswerInputTokenBound, freeAnswerNetwork, freeAnswersKey } from "@/lib/free-answers";
 import { freeAnswersUsedMessage, type FreeAnswerRefusal } from "@/lib/free-answer-display";
 
@@ -241,8 +241,10 @@ export async function POST(req: Request) {
   // A first turn asking one of the passage's suggested questions has its answer stored (#505): a current stored answer
   // is served as it is, costing nothing and calling no model, unless the reader asked for a fresh one. A complete
   // answer generated for it below replaces what is stored.
-  const storableAsked = storableQuestion(messages, context);
-  const storedKey = storableAsked ? storedAnswerKey(modelId, system, storableAsked) : null;
+  // An answer written without the passage's text (the Scripture could not be loaded) is neither served nor stored.
+  const storableAsked = prompt.scripture === "included" ? storableQuestion(messages, context) : null;
+  const storedReference = context ? storedAnswerReference(context) : null;
+  const storedKey = storableAsked && storedReference ? storedAnswerKey(modelId, prompt.translation, system, storableAsked) : null;
   if (storedKey && !fresh) {
     const stored = await convex.query(api.storedAnswers.get, { key: storedKey, serverSecret }).catch((error) => {
       logApiFailure({ context: requestContext, stage: "chat_stored_answer_read", error, statusCode: 503, sid });
@@ -687,9 +689,9 @@ export async function POST(req: Request) {
           await settleCredits(success ? "deduct" : "release", success ? "stream-success" : "stream-failed",
             { promptTokens: usage?.inputTokens, completionTokens: usage?.outputTokens });
           // A complete answer to a suggested question is stored for the readers after this one (#505).
-          if (success && finish?.finishReason === "stop" && storedKey && storableAsked && context) {
+          if (success && finish?.finishReason === "stop" && storedKey && storableAsked && storedReference) {
             await convex.mutation(api.storedAnswers.save, {
-              key: storedKey, reference: `${context.book} ${context.chapter}:${context.verseRange}`,
+              key: storedKey, reference: storedReference,
               translation: prompt.translation, question: storableAsked, model: modelId, answer: answerText.trim(), serverSecret,
             }).catch((error) => logApiFailure({ context: requestContext, stage: "chat_stored_answer_save", error, statusCode: 500, sid }));
           }

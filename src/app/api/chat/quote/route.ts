@@ -85,8 +85,8 @@ export async function POST(req: Request) {
 
     // The passage's suggested questions whose answers are stored (#505): asking one costs nothing.
     const context = parsed.data.context;
-    const suggestions = context ? passageSuggestions(context) : [];
-    const keys = suggestions.map((question) => storedAnswerKey(modelId, prompt.systemPrompt, question));
+    const suggestions = context && prompt.scripture === "included" ? passageSuggestions(context) : [];
+    const keys = suggestions.map((question) => storedAnswerKey(modelId, prompt.translation, prompt.systemPrompt, question));
     const present = keys.length
       ? await convex.query(api.storedAnswers.present, { keys, serverSecret })
         .catch((error) => { logApiFailure({ context: requestContext, stage: "chat_stored_answers", error, statusCode: 503, sid }); return [] as string[]; })

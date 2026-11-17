@@ -133,6 +133,7 @@ vi.mock("@/lib/scripture", async (importOriginal) => ({
 }));
 
 const { POST } = await import("../../chat/route");
+const { getChapter } = await import("@/lib/scripture");
 const { POST: QUOTE } = await import("../../chat/quote/route");
 
 const request = (path = "/api/chat") => new Request(`http://localhost:3000${path}`, { method: "POST", headers: { "Content-Type": "application/json" } });
@@ -212,6 +213,30 @@ describe("a suggested question", () => {
     await ask(turn("What does John 1:5 mean?"));
     mockStreamTextImpl.mockImplementation(async () => providerStream("Partial", "stop", true));
     await ask(turn("What does John 1:5 mean?"));
+    expect(calls("storedSave")).toHaveLength(0);
+  });
+});
+
+describe("what is stored", () => {
+  it("names the verse as readers see it, whatever spelling of the book the request used", async () => {
+    mockState.freeAnswer = { allowed: true, remaining: 19 };
+    await ask({ ...turn("What does john 1:5 mean?"), context: { ...passage, book: "john" } });
+    expect(calls("storedSave")).toEqual([expect.objectContaining({ reference: "John 1:5", question: "What does john 1:5 mean?" })]);
+  });
+
+  it("keeps answers to the same question in different translations apart", async () => {
+    mockState.freeAnswer = { allowed: true, remaining: 19 };
+    await ask(turn("What does John 1:5 mean?"));
+    await ask({ ...turn("What does John 1:5 mean?"), translation: "kjv" });
+    const keys = calls("storedSave").map((save) => save.key);
+    expect(new Set(keys).size).toBe(2);
+  });
+
+  it("neither serves nor stores an answer written without the passage's text", async () => {
+    mockState.freeAnswer = { allowed: true, remaining: 19 };
+    vi.mocked(getChapter).mockResolvedValueOnce(null);
+    await ask(turn("What does John 1:5 mean?"));
+    expect(calls("storedGet")).toHaveLength(0);
     expect(calls("storedSave")).toHaveLength(0);
   });
 });
