@@ -72,8 +72,9 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
       if (from === "words_page") openAsk("words_page", footField.current);
       return;
     }
-    // A suggested question whose answer is stored costs nothing, whatever the balance (#505).
-    const stored = source === "suggestion" && chat.storedSuggestions.includes(question);
+    // A suggested question whose answer is stored costs nothing, whatever the balance (#505), as the conversation's
+    // first question; asked again later it carries the conversation and is a question like any other.
+    const stored = source === "suggestion" && chat.messages.length === 0 && chat.storedSuggestions.includes(question);
     if (!stored && !chat.canSend && chat.standingPending) {
       setInput(text);
       waitingForStanding.current = { text, source, from };
@@ -91,7 +92,14 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
     if (from === "words_page") openAsk("words_page", footField.current);
   };
 
+  /** "Get a fresh answer" pressed before the standing was read: it is pressed again once the standing arrives. */
+  const freshWaiting = useRef(false);
+
   useEffect(() => {
+    if (!chat.standingPending && freshWaiting.current) {
+      freshWaiting.current = false;
+      askFresh();
+    }
     const waiting = waitingForStanding.current;
     if (chat.standingPending || !waiting) return;
     waitingForStanding.current = null;
@@ -109,6 +117,10 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
   /** Ask the model again in place of a stored answer, priced like any question, or open the credits dialog. */
   const askFresh = () => {
     if (chat.isLoading) return;
+    if (!chat.canSend && chat.standingPending) {
+      freshWaiting.current = true;
+      return;
+    }
     if (!chat.canSend) {
       trackCreditsInsufficient({ feature: "chat", source: "ask_submit", requiredCredits: chat.quote?.maximumCredits ?? 1, ...analytics });
       buyCredits();

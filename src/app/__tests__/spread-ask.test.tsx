@@ -524,6 +524,49 @@ describe("stored answers to suggested questions (#505)", () => {
     expect(chatRequests).toHaveLength(1);
   });
 
+  it("treats a stored suggestion asked again later in the conversation like any question", async () => {
+    session.credits = 0;
+    quoteAnswer = () => new Response(JSON.stringify({
+      error: "Insufficient credits", required: 1, available: 0, free: { available: false, reason: "session" }, stored: ["What does John 1:5 mean?"],
+    }), { status: 402 });
+    await openVerse();
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    await beginAnswer();
+    await writeAnswer("A saved answer.", { finish: true });
+    await flush();
+    await click(button("Back to the verse", askPage()!));
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    expect(chatRequests).toHaveLength(1);
+    expect(session.buyCredits).toHaveBeenCalledTimes(1);
+  });
+
+  it("lets a fresh answer pressed before the standing arrives wait for it", async () => {
+    session.credits = 0;
+    let release: ((response: Response) => void) | null = null;
+    quoteAnswer = () => new Response(JSON.stringify({ quote: null, free: { available: true, remaining: 20 }, stored: ["What does John 1:5 mean?"] }));
+    await openVerse();
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    // The read after this send is slow.
+    quoteAnswer = () => new Promise<Response>((resolve) => { release = resolve; });
+    await beginAnswer();
+    const controller = answers[answers.length - 1];
+    await act(async () => {
+      controller.enqueue({ type: "text-delta", id: "answer", delta: "A saved answer." });
+      controller.enqueue({ type: "text-end", id: "answer" });
+      controller.enqueue({ type: "finish", messageMetadata: { stored: true, storedAt: 1 } });
+      controller.close();
+      await new Promise((resolve) => setTimeout(resolve, 20));
+    });
+    await flush();
+    await click(button(/^Get a fresh answer/, askPage()!));
+    expect(session.buyCredits).not.toHaveBeenCalled();
+    expect(chatRequests).toHaveLength(1);
+    await act(async () => { release?.(new Response(JSON.stringify({ quote: null, free: { available: true, remaining: 19 }, stored: ["What does John 1:5 mean?"] }))); });
+    await flush();
+    expect(chatRequests).toHaveLength(2);
+    expect(chatRequests[1]).toMatchObject({ fresh: true });
+  });
+
   it("offers a fresh answer in place of a stored one, priced like any question, and asks again with fresh", async () => {
     session.credits = 0;
     quoteAnswer = () => new Response(JSON.stringify({ quote: null, free: { available: true, remaining: 20 }, stored: ["What does John 1:5 mean?"] }));

@@ -228,6 +228,16 @@ export async function POST(req: Request) {
     console.warn(`[Chat API] Left out ${history.emptyDropped} message(s) with empty content`);
   }
 
+  // Get session to check tier and credits; a revoked or missing session gets nothing, stored answers included.
+  const session = await convex.query(api.sessions.getSession, { sid, serverSecret: getConvexServerSecret() });
+
+  if (!session) {
+    return withSessionRefresh(Response.json(
+      { error: "Session not found" },
+      { status: 401 }
+    ));
+  }
+
   // A first turn asking one of the passage's suggested questions has its answer stored (#505): a current stored answer
   // is served as it is, costing nothing and calling no model, unless the reader asked for a fresh one. A complete
   // answer generated for it below replaces what is stored.
@@ -479,16 +489,6 @@ export async function POST(req: Request) {
     })();
     return creditSettlement;
   };
-
-  // Get session to check tier and credits
-  const session = await convex.query(api.sessions.getSession, { sid: sessionId, serverSecret: getConvexServerSecret() });
-
-  if (!session) {
-    return withSessionRefresh(Response.json(
-      { error: "Session not found" },
-      { status: 401 }
-    ));
-  }
 
   // A guest's turn on the default model is free while the session's and the network's allowances and the site's free
   // budget all have room (#493). It needs the free key and a readable client address, and the model named in the

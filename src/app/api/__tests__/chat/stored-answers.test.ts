@@ -216,6 +216,18 @@ describe("a suggested question", () => {
   });
 });
 
+describe("a stored answer and the session", () => {
+  it("is not served to a session the server no longer has", async () => {
+    mockState.freeAnswer = { allowed: true, remaining: 19 };
+    await ask(turn("What does John 1:5 mean?"));
+    mockState.sessions.clear();
+    mockState.calls.length = 0;
+    const { response } = await ask(turn("What does John 1:5 mean?"));
+    expect(response.status).toBe(401);
+    expect(calls("storedGet")).toHaveLength(0);
+  });
+});
+
 describe("other questions", () => {
   it("are never served from storage or stored: a typed question, another verse's suggestion, or a follow-up", async () => {
     mockState.freeAnswer = { allowed: true, remaining: 19 };
