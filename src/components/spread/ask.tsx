@@ -97,8 +97,11 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
 
   useEffect(() => {
     if (!chat.standingPending && freshWaiting.current) {
+      // One answer at a time: the fresh answer goes first, and a question typed meanwhile stays in the field.
       freshWaiting.current = false;
+      waitingForStanding.current = null;
       askFresh();
+      return;
     }
     const waiting = waitingForStanding.current;
     if (chat.standingPending || !waiting) return;

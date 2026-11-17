@@ -561,10 +561,14 @@ describe("stored answers to suggested questions (#505)", () => {
     await click(button(/^Get a fresh answer/, askPage()!));
     expect(session.buyCredits).not.toHaveBeenCalled();
     expect(chatRequests).toHaveLength(1);
+    // A follow-up typed meanwhile waits in the field rather than racing the fresh answer.
+    await type(field("Ask a follow-up about John 1:5"), "And the darkness?");
+    await submit(field("Ask a follow-up about John 1:5"));
     await act(async () => { release?.(new Response(JSON.stringify({ quote: null, free: { available: true, remaining: 19 }, stored: ["What does John 1:5 mean?"] }))); });
     await flush();
     expect(chatRequests).toHaveLength(2);
     expect(chatRequests[1]).toMatchObject({ fresh: true });
+    expect(field("Ask a follow-up about John 1:5").value).toBe("And the darkness?");
   });
 
   it("offers a fresh answer in place of a stored one, priced like any question, and asks again with fresh", async () => {
