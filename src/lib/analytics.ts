@@ -186,7 +186,7 @@ type ApiDocsLinkClickedProps = BaseProps & {
 };
 
 /** How the reader turned the page. */
-export type VerseNavigationSource = "keyboard" | "dock" | "swipe" | "mark" | "contents";
+export type VerseNavigationSource = "keyboard" | "dock" | "swipe" | "mark" | "contents" | "play_on";
 
 type VerseNavigationProps = BaseProps & {
   book: string;
