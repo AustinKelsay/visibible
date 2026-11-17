@@ -16,7 +16,7 @@ Each scope sets `color-scheme`, the reader's own tokens and the site's semantic 
 
 - `ink` (text, lines and tints, with Tailwind's opacity modifier: `text-ink/90`, `bg-ink/10`) and `paper` (text on an ink button: `bg-ink text-paper`).
 - Quiet text uses the `--quiet-*` steps, `text-ink/(--quiet-55)`: the same percentage in dark, raised in light so quiet text keeps at least 4.5:1 over light glass whatever picture lies under it (the 25 step is only for disabled and decorative marks).
-- Surfaces: `bg-reader-page` (the words page and Ask on a phone, Contents), `bg-reader-page-glass` (the words page on a computer, the other-style note), `bg-reader-sheet` (the corner menu sheet, Ask on a computer), `bg-reader-glass` (Look, the picture menu, the corner popover, the feedback prompt), `bg-reader-raised` (the chapter job bar); the dock and the picture chip's `.liquid-glass.spread-dock` read `--reader-dock*`.
+- Surfaces: `bg-reader-page` (the words page and Ask on a phone, Contents), `bg-reader-page-glass` (the words page on a computer, the other-style note), `bg-reader-sheet` (the corner menu sheet, Ask on a computer), `bg-reader-glass` (Look, the picture menu, the corner popover, the feedback prompt), `bg-reader-raised` (the chapter job bar); the dock, the picture chip and the account chip's `.liquid-glass.spread-dock` read `--reader-dock*`.
 - `text-reader-alert` and `text-reader-warning` for errors and warnings.
 
 Text drawn straight on a picture (verse marks, the corner name, the whole-picture caption, a Contents tile's number and count) stays literal white over its dark scrim in every appearance.
