@@ -143,6 +143,12 @@ describe("running a case", () => {
       expect(row).toMatchObject({ status: "error", error: "single-john-3-16: Scripture unavailable" });
       expect(calls).toHaveLength(0);
     }
+    // A chapter that lacks the verse asked about is no better.
+    const withoutVerse = async (slug: string, chapter: number) => ({ ...(await chapters(slug, chapter)), verses: [] });
+    const { languageModel, calls } = model();
+    expect(await runChatEvalCase(caseById("single-john-3-16"), "baseline", deps(languageModel, { chapters: withoutVerse }), options))
+      .toMatchObject({ status: "error", error: "single-john-3-16: Scripture unavailable" });
+    expect(calls).toHaveLength(0);
   });
 
   it("times the answer to its first text and its end, not to OpenRouter's cost record", async () => {

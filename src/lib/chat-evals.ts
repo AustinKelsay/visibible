@@ -83,13 +83,14 @@ async function legacyPageContext(item: ChatEvalCase, translation: Translation, d
   const location = parseVerseLocation(item.passage.book, item.passage.chapter, item.passage.verse);
   if (!location) throw new Error(`${item.id}: unknown passage`);
   const chapter = await deps.chapters(location.book.slug, location.chapter, translation);
-  if (!chapter) throw new Error(`${item.id}: Scripture unavailable`);
   const text = (verse: number) => chapter?.verses.find((v) => v.verse === verse)?.text;
+  const verseText = text(location.verse);
+  if (!verseText?.trim()) throw new Error(`${item.id}: Scripture unavailable`);
   const same = (other: ReturnType<typeof getPreviousVerse>) =>
     other && other.book.id === location.book.id && other.chapter === location.chapter ? other : null;
   const prev = same(getPreviousVerse(location));
   const next = same(getNextVerse(location));
-  const current = item.attack?.contextText ?? text(location.verse) ?? "";
+  const current = item.attack?.contextText ?? verseText;
   return {
     book: location.book.name, chapter: location.chapter, verseRange: String(location.verse), heroCaption: current,
     verses: [{ number: location.verse, text: current }],
