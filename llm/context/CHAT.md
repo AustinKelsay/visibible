@@ -27,6 +27,20 @@ Free answers (#493) let a guest ask without credits. They are off unless `FREE_A
 - **What the reader sees.** The standing is read again after each free answer ends, since the read made when sending can land before the server counts the turn, and just after midnight UTC (spread over a minute) while it is a refusal. A question asked before the standing has been read waits in the field and is asked when it arrives; when it cannot be read at all, the question is sent and the server decides. `POST /api/chat/quote` answers `{ quote: null, free: { available: true, remaining } }` while the next answer is free, reserving nothing; the send control then reads "Free". Free answers are used before credits. When they are used up, `free` says why (`session`, `network`, `day` or `month`) beside the usual quote or 402. With credits, the price shows and Ask continues as before. Without, the field shows "You've used today's free answers. They return at midnight UTC." (session or network), "Free answers are used up across Visibible today." (day) or "Free answers are paused." (month), each with "Continue with credits", and sending opens the credits dialog with the question kept.
 - **What the owner sees.** `freeAnswers:report` (a server-secret query; `convex run --prod freeAnswers:report '{"serverSecret": "…"}'`) gives a UTC day's free answers and spend, how many sessions and networks used their whole allowance, and the month's spend against its budget, with `monthWarning` from 80%. Settlement past 80% also logs `free_answers.month_budget_warning`, and each free settlement logs a `settlement.event` with outcome `free_settled` or `free_returned`. Allowance counts are dropped after a day and answer records after 35 days; the budget rows are kept.
 
+## Stored answers
+
+Answers to the two suggested questions are stored (#505) and served to later readers, so the common case is instant and costs nothing.
+
+- **Which turns.** Only a first turn whose one question is exactly a suggested question for its passage, as the page builds them ([ask-suggestions.ts](../../src/lib/ask-suggestions.ts)). Typed questions, follow-ups and anything with history are never stored or served from storage.
+- **The key** ([stored-answers.ts](../../src/lib/stored-answers.ts)) hashes the model, the whole system prompt (rules and the Scripture given) and the question. A new model, new rules, another translation or a longer chapter so far is a new key.
+- **Serving.** After the origin, session and rate-limit checks, a current stored answer streams back as one answer with `stored: true`, `storedAt` and `billingStatus: "stored"`. It makes no model call, no free reservation and no credit hold. `/api/chat/quote` lists the passage's suggestions that have one (`stored`), and the page then asks them whatever the balance or the free standing.
+- **Storing and replacing.**
+  - A complete answer (`stop`, non-empty) to a storable question is stored, free, paid or the owner's, replacing any answer under its key.
+  - A stored answer shows "Saved answer · Get a fresh answer", priced like any question ("Free" or its credits). Without either, it opens the credits dialog.
+  - Getting a fresh answer sends the question again with `fresh: true`. That skips the stored answer, and the new complete answer replaces it for everyone.
+  - Stored answers older than 30 days are not served and are deleted daily (`STORED_ANSWER_MAX_AGE_MS` in [convex/storedAnswers.ts](../../convex/storedAnswers.ts)).
+  - The owner removes a verse's stored answers with `convex run --prod storedAnswers:removeForReference '{"reference": "John 1:5", "serverSecret": "…"}'`.
+
 ## What a request may contain
 
 Ask is the only place to ask. [chat-request.ts](../../src/lib/chat-request.ts) owns what a request may contain and what the model receives:

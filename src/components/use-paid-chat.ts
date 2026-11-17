@@ -16,6 +16,9 @@ export interface MessageMetadata {
   incomplete?: boolean;
   /** Older turns left out because the conversation outgrew the history budget. */
   earlierMessagesOmitted?: number;
+  /** A stored answer to a suggested question (#505), and when it was stored. */
+  stored?: boolean;
+  storedAt?: number;
   latencyMs?: number;
 }
 
@@ -86,7 +89,7 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
   // send): the estimate and maximum shown, and the id a send accepts. Read again when the model, passage, translation
   // or balance changes and after each send, since a quote is accepted once.
   const [quoteEpoch, setQuoteEpoch] = useState(0);
-  const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote | null; required?: number; free?: FreeAnswerStanding | null; failed?: boolean } | null>(null);
+  const [quoteState, setQuoteState] = useState<{ key: string; quote: DisplayQuote | null; required?: number; free?: FreeAnswerStanding | null; stored?: string[]; failed?: boolean } | null>(null);
   const passageKey = passage ? `${passage.book}|${passage.chapter}|${passage.verseRange}` : null;
   const quoteKey = JSON.stringify([model, passageKey, translation, credits, quoteEpoch]);
   const currentQuote = quoteState && quoteState.key === quoteKey ? quoteState : null;
@@ -117,6 +120,7 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
           key: quoteKey,
           quote: response.ok ? parseQuote(body?.quote) : null,
           free: parseFreeAnswerStanding(body?.free),
+          stored: Array.isArray(body?.stored) ? body.stored.filter((item: unknown): item is string => typeof item === "string") : [],
           ...(typeof body?.required === "number" ? { required: body.required } : {}),
         });
       })
@@ -154,6 +158,11 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
   const requestBody = { ...(passage ? { context: passage } : {}), translation, model };
   const isLoading = status === "streaming" || status === "submitted";
 
+  /** The passage's suggested questions with a stored answer (#505), which cost nothing to ask. */
+  const storedSuggestions = currentQuote?.stored ?? [];
+  /** Whether the turn in flight asked for a fresh answer in place of a stored one, so a re-send keeps asking. */
+  const sentFresh = useRef(false);
+
   // A free answer uses up the standing without changing the balance, and the read after sending can land before the
   // server counts the turn; read it again once a free answer is over.
   const sentFree = useRef(false);
@@ -166,7 +175,7 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
   /** Ask again for the answer to the question already sent, accepting this quote. */
   const resendWith = (accepted: DisplayQuote, resent: boolean) => {
     sentQuote.current = { quote: accepted, resent };
-    void regenerate({ body: { ...requestBody, quoteId: accepted.quoteId } });
+    void regenerate({ body: { ...requestBody, quoteId: accepted.quoteId, ...(sentFresh.current ? { fresh: true } : {}) } });
     setQuoteEpoch((epoch) => epoch + 1);
   };
   const resendsItself = Boolean(staleQuote) && !sentQuote.current.resent && sameQuoteNumbers(staleQuote, sentQuote.current.quote);
@@ -185,7 +194,20 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
     sentQuote.current = { quote, resent: false };
     // A turn sent free, or sent while the standing could not be read (it may have been free), reads it again after.
     sentFree.current = free?.available === true || currentQuote?.failed === true;
+    sentFresh.current = false;
     void sendMessage({ text }, { body: { ...requestBody, ...(quote ? { quoteId: quote.quoteId } : {}) } });
+    setQuoteEpoch((epoch) => epoch + 1);
+  };
+
+  /**
+   * Ask the model again for the last answer, a stored one, priced like any question; the fresh answer replaces the
+   * stored one for every reader (#505). The caller checks `canSend` first.
+   */
+  const askFresh = () => {
+    sentQuote.current = { quote, resent: false };
+    sentFree.current = free?.available === true || currentQuote?.failed === true;
+    sentFresh.current = true;
+    void regenerate({ body: { ...requestBody, fresh: true, ...(quote ? { quoteId: quote.quoteId } : {}) } });
     setQuoteEpoch((epoch) => epoch + 1);
   };
 
@@ -201,6 +223,8 @@ export function usePaidChat({ id, model, passage, translation }: { id: string; m
     quote,
     free,
     standingPending,
+    storedSuggestions,
+    askFresh,
     staleQuote,
     priceToConfirm,
     canSend,

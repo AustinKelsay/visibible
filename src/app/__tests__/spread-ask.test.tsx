@@ -508,6 +508,47 @@ describe("free answers (#493)", () => {
   });
 });
 
+describe("stored answers to suggested questions (#505)", () => {
+  it("asks a suggestion whose answer is stored even with no credits and no free answers left", async () => {
+    session.credits = 0;
+    quoteAnswer = () => new Response(JSON.stringify({
+      error: "Insufficient credits", required: 1, available: 0, free: { available: false, reason: "session" }, stored: ["What does John 1:5 mean?"],
+    }), { status: 402 });
+    await openVerse();
+    // The other suggestion has no stored answer, so it still needs credits.
+    await click(button("Summarize John 1 so far", wordsPage()));
+    expect(session.buyCredits).toHaveBeenCalledTimes(1);
+    expect(chatRequests).toHaveLength(0);
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    expect(session.buyCredits).toHaveBeenCalledTimes(1);
+    expect(chatRequests).toHaveLength(1);
+  });
+
+  it("offers a fresh answer in place of a stored one, priced like any question, and asks again with fresh", async () => {
+    session.credits = 0;
+    quoteAnswer = () => new Response(JSON.stringify({ quote: null, free: { available: true, remaining: 20 }, stored: ["What does John 1:5 mean?"] }));
+    await openVerse();
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    await beginAnswer();
+    const controller = answers[answers.length - 1];
+    await act(async () => {
+      controller.enqueue({ type: "text-delta", id: "answer", delta: "A saved answer." });
+      controller.enqueue({ type: "text-end", id: "answer" });
+      controller.enqueue({ type: "finish", messageMetadata: { stored: true, storedAt: Date.parse("2026-11-17T12:00:00Z") } });
+      controller.close();
+      await new Promise((resolve) => setTimeout(resolve, 20));
+    });
+    await flush();
+    const note = askPage()!.querySelector('[data-turn="assistant"]')!.textContent;
+    expect(note).toContain("Saved answer · Get a fresh answer · Free");
+
+    await click(button("Get a fresh answer · Free", askPage()!));
+    expect(chatRequests).toHaveLength(2);
+    expect(chatRequests[1]).toMatchObject({ fresh: true, context: { book: "John", chapter: 1, verseRange: "5" } });
+    expect(chatRequests[1].messages.filter((message) => message.role === "user")).toHaveLength(1);
+  });
+});
+
 describe("a question whose quote went stale", () => {
   it("waits for the reader to accept a fresh quote at a changed price, then sends with it", async () => {
     await openVerse();

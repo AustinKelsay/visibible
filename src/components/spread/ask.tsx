@@ -13,6 +13,7 @@ import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { MAX_USER_MESSAGE_CHARS } from "@/lib/chat-limits";
 import { formatQuote } from "@/lib/quote-display";
 import { freeAnswersUsedMessage } from "@/lib/free-answer-display";
+import { suggestedQuestions } from "@/lib/ask-suggestions";
 
 export interface AskVerse {
   bookName: string;
@@ -71,12 +72,14 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
       if (from === "words_page") openAsk("words_page", footField.current);
       return;
     }
-    if (!chat.canSend && chat.standingPending) {
+    // A suggested question whose answer is stored costs nothing, whatever the balance (#505).
+    const stored = source === "suggestion" && chat.storedSuggestions.includes(question);
+    if (!stored && !chat.canSend && chat.standingPending) {
       setInput(text);
       waitingForStanding.current = { text, source, from };
       return;
     }
-    if (!chat.canSend) {
+    if (!stored && !chat.canSend) {
       setInput(text);
       trackCreditsInsufficient({ feature: "chat", source: "ask_submit", requiredCredits: chat.quote?.maximumCredits ?? 1, ...analytics });
       buyCredits();
@@ -100,13 +103,21 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
   }, [chat.standingPending]);
 
   // Two questions about the verse on screen. From the chapter's second verse one is always a summary of the chapter so
-  // far, which the server answers from the chapter's text up to this verse.
-  const suggestions = [
-    `What does ${reference} mean?`,
-    verseNumber > 1 ? `Summarize ${bookName} ${chapter} so far` : `What is the historical context of ${reference}?`,
-  ];
+  // far, which the server answers from the chapter's text up to this verse. Their answers are stored (#505).
+  const suggestions = suggestedQuestions(bookName, chapter, verseNumber).map((suggestion) => suggestion.text);
 
-  return { reference, verseText, chat, answeringModel, input, setInput, ask, openAsk, footField, suggestions, buyCredits, close: layer.close };
+  /** Ask the model again in place of a stored answer, priced like any question, or open the credits dialog. */
+  const askFresh = () => {
+    if (chat.isLoading) return;
+    if (!chat.canSend) {
+      trackCreditsInsufficient({ feature: "chat", source: "ask_submit", requiredCredits: chat.quote?.maximumCredits ?? 1, ...analytics });
+      buyCredits();
+      return;
+    }
+    chat.askFresh();
+  };
+
+  return { reference, verseText, chat, answeringModel, input, setInput, ask, askFresh, openAsk, footField, suggestions, buyCredits, close: layer.close };
 }
 
 /**
@@ -168,11 +179,13 @@ export function AskDockButton() {
  * A layer, so Escape also turns it back and focus returns to the control that opened it.
  */
 export function AskPage() {
-  const { reference, verseText, chat, answeringModel, suggestions, ask, close } = useAsk();
+  const { reference, verseText, chat, answeringModel, suggestions, ask, askFresh, close } = useAsk();
   const { messages, isLoading, error, tier, credits } = chat;
   const conversation = useRef<HTMLDivElement>(null);
   const lastTrackedError = useRef<string | null>(null);
   const waiting = isLoading && messages[messages.length - 1]?.role !== "assistant";
+  // A fresh answer is priced like any question.
+  const freshPrice = chat.isAdmin ? "" : chat.free?.available ? " · Free" : chat.quote && !chat.staleQuote ? ` · ${chat.quote.estimateCredits} ${chat.quote.estimateCredits === 1 ? "credit" : "credits"}` : "";
 
   // Keep the newest words in view while an answer streams in.
   const lastText = messages[messages.length - 1]?.parts.map((part) => part.text ?? "").join("");
@@ -249,6 +262,14 @@ export function AskPage() {
                     {message.metadata?.incomplete && <p className="mt-2 text-xs text-ink/(--quiet-50)">The answer was cut short at the length limit.</p>}
                     {(message.metadata?.earlierMessagesOmitted ?? 0) > 0 && (
                       <p className="mt-2 text-xs text-ink/(--quiet-50)">The conversation is long, so its earliest messages were not sent with this question.</p>
+                    )}
+                    {message.metadata?.stored && message === messages[messages.length - 1] && !isLoading && (
+                      <p className="mt-2 text-xs text-ink/(--quiet-50)">
+                        Saved answer ·{" "}
+                        <button type="button" onClick={askFresh} className="font-medium text-ink/80 underline underline-offset-2 hover:text-ink">
+                          Get a fresh answer{freshPrice}
+                        </button>
+                      </p>
                     )}
                   </li>
                 );

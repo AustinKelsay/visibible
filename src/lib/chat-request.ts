@@ -74,6 +74,8 @@ export const chatRequestSchema = z.object({
   model: z.string().optional(),
   /** The quote the guest accepted for this turn (#60). */
   quoteId: z.string().max(64).optional(),
+  /** Ask the model again for a suggested question whose answer is stored, replacing it (#505). */
+  fresh: z.boolean().optional(),
 });
 
 export type ChatRequest = z.infer<typeof chatRequestSchema>;

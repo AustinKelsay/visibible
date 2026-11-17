@@ -49,6 +49,8 @@ const record = (action: string, args: Record<string, unknown>) => { mockState.ca
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
     query: vi.fn(async (_path: unknown, args: Record<string, unknown>) => {
+      if ("keys" in args) return [];
+      if ("key" in args) return null;
       if ("worstCaseUsd" in args) {
         record("freeStatus", args);
         if (mockState.freeFails) throw new Error("Convex unavailable");

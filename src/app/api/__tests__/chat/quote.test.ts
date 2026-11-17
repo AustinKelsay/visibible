@@ -60,7 +60,7 @@ vi.mock("@/lib/request-body", () => ({
 }));
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
-    query: vi.fn(async (_ref: unknown, args: Record<string, unknown>) => state.sessions.get(args.sid as string) ?? null),
+    query: vi.fn(async (_ref: unknown, args: Record<string, unknown>) => ("keys" in args ? [] : state.sessions.get(args.sid as string) ?? null)),
     mutation: vi.fn(async (ref: FunctionReference<"mutation">, args: Record<string, unknown>) => {
       // Quotes are the real Convex functions.
       if (getFunctionName(ref).startsWith("quotes:")) return quoteDb.mutation(ref as never, args as never);

@@ -36,6 +36,9 @@ crons.interval(
 // Drop old free-answer counts and records; the free budget rows are kept.
 crons.interval("cleanup free answers", { hours: 1 }, internal.freeAnswers.cleanup, {});
 
+// Drop stored answers past their age (#505).
+crons.interval("cleanup stored answers", { hours: 24 }, internal.storedAnswers.cleanup, {});
+
 // Remove quotes that expired without being accepted; accepted quotes are kept.
 crons.interval(
   "cleanup unused quotes",
