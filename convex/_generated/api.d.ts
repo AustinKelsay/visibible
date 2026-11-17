@@ -20,6 +20,7 @@ import type * as cleanup from "../cleanup.js";
 import type * as costs from "../costs.js";
 import type * as crons from "../crons.js";
 import type * as feedback from "../feedback.js";
+import type * as freeAnswers from "../freeAnswers.js";
 import type * as guestAuth from "../guestAuth.js";
 import type * as http from "../http.js";
 import type * as invoiceReconciliation from "../invoiceReconciliation.js";
@@ -57,6 +58,7 @@ declare const fullApi: ApiFromModules<{
   costs: typeof costs;
   crons: typeof crons;
   feedback: typeof feedback;
+  freeAnswers: typeof freeAnswers;
   guestAuth: typeof guestAuth;
   http: typeof http;
   invoiceReconciliation: typeof invoiceReconciliation;

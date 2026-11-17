@@ -239,7 +239,9 @@ export function logSettlementEvent(args: {
     | "deduct_failed"
     | "shortfall"
     | "capped"
-    | "outbox_enqueued";
+    | "outbox_enqueued"
+    | "free_settled"
+    | "free_returned";
   sid?: string;
   generationId?: string;
   invoiceId?: string;

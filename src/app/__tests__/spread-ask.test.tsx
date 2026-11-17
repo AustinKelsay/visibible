@@ -314,9 +314,12 @@ describe("turning back to the verse", () => {
 describe("asking without enough credits", () => {
   it("opens the credits dialog from a suggestion and keeps the question in the field, unsent after a purchase", async () => {
     session.credits = 0;
+    quoteAnswer = () => new Response(JSON.stringify({ error: "Insufficient credits", required: 13, available: 0 }), { status: 402 });
     await openVerse();
-    expect(quoteRequests).toHaveLength(0);
+    // Asked even with no credits, since the answer could be free; free answers are off here.
+    expect(quoteRequests).toHaveLength(1);
     expect(button(/^Send question/, wordsPage()).getAttribute("aria-label")).toBe("Send question");
+    expect(wordsPage().querySelector('[role="status"]')).toBeNull();
 
     await click(button("What does John 1:5 mean?", wordsPage()));
     expect(session.buyCredits).toHaveBeenCalledTimes(1);
@@ -326,6 +329,7 @@ describe("asking without enough credits", () => {
 
     // The purchase lands; the question waits for the reader.
     session.credits = 100;
+    quoteAnswer = () => new Response(JSON.stringify({ quote: quoteOf("quote-after-purchase") }));
     await openVerse();
     expect(chatRequests).toHaveLength(0);
     expect(field("Ask about John 1:5").value).toBe("What does John 1:5 mean?");
@@ -341,6 +345,88 @@ describe("asking without enough credits", () => {
     expect(session.buyCredits).toHaveBeenCalledTimes(1);
     expect(chatRequests).toHaveLength(0);
     expect(field("Ask about John 1:5").value).toBe("What is the darkness?");
+  });
+});
+
+describe("free answers (#493)", () => {
+  const freeAnswer = (free: Record<string, unknown>, extra: Record<string, unknown> = {}, status = 200) =>
+    () => new Response(JSON.stringify({ quote: null, free, ...extra }), { status });
+
+  it("sends a question with no credits and no quote while the guest's free answers last", async () => {
+    session.credits = 0;
+    quoteAnswer = freeAnswer({ available: true, remaining: 20 });
+    await openVerse();
+    const send = button(/^Send question/, wordsPage());
+    expect(send.getAttribute("aria-label")).toBe("Send question · Free");
+    expect(send.textContent).toBe("Free");
+
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    expect(session.buyCredits).not.toHaveBeenCalled();
+    expect(chatRequests).toHaveLength(1);
+    expect(chatRequests[0]).toMatchObject({ model: DEFAULT_CHAT_MODEL, context: { book: "John", chapter: 1, verseRange: "5" } });
+    expect(chatRequests[0]).not.toHaveProperty("quoteId");
+    // The standing is read again for the next question.
+    expect(quoteRequests).toHaveLength(2);
+  });
+
+  it("says when the guest's free answers are used up and offers credits, keeping the question", async () => {
+    session.credits = 0;
+    quoteAnswer = freeAnswer({ available: false, reason: "session" }, { error: "Insufficient credits", required: 1, available: 0 }, 402);
+    await openVerse();
+    const notice = wordsPage().querySelector('[role="status"]');
+    expect(notice?.textContent).toBe("You've used today's free answers. They return at midnight UTC. Continue with credits");
+    expect(button(/^Send question/, wordsPage()).getAttribute("aria-label")).toBe("Send question");
+
+    await type(field("Ask about John 1:5"), "What is the darkness?");
+    await submit(field("Ask about John 1:5"));
+    expect(chatRequests).toHaveLength(0);
+    expect(session.buyCredits).toHaveBeenCalledTimes(1);
+    expect(field("Ask about John 1:5").value).toBe("What is the darkness?");
+    await click(button("Continue with credits", wordsPage()));
+    expect(session.buyCredits).toHaveBeenCalledTimes(2);
+  });
+
+  it("says when the site's free answers are used up for the day or paused for the month", async () => {
+    session.credits = 0;
+    quoteAnswer = freeAnswer({ available: false, reason: "day" }, { error: "Insufficient credits", required: 1, available: 0 }, 402);
+    await openVerse();
+    expect(wordsPage().querySelector('[role="status"]')?.textContent).toBe("Free answers are used up across Visibible today. Continue with credits");
+
+    quoteAnswer = freeAnswer({ available: false, reason: "month" }, { error: "Insufficient credits", required: 1, available: 0 }, 402);
+    await openVerse("john", "1", "6");
+    expect(wordsPage().querySelector('[role="status"]')?.textContent).toBe("Free answers are paused. Continue with credits");
+  });
+
+  it("reads the standing again after the last free answer, so the next question is kept and credits offered", async () => {
+    session.credits = 0;
+    quoteAnswer = freeAnswer({ available: true, remaining: 1 });
+    await openVerse();
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    // The read right after sending can land before the server counts the turn.
+    expect(quoteRequests).toHaveLength(2);
+    quoteAnswer = freeAnswer({ available: false, reason: "session" }, { error: "Insufficient credits", required: 1, available: 0 }, 402);
+    await beginAnswer();
+    await writeAnswer("The last free answer.", { finish: true });
+    await flush();
+
+    expect(quoteRequests).toHaveLength(3);
+    expect(button(/^Send question/, askPage()!).getAttribute("aria-label")).toBe("Send question");
+    expect(askPage()!.querySelector('[role="status"]')?.textContent).toBe("You've used today's free answers. They return at midnight UTC. Continue with credits");
+    const followup = field("Ask a follow-up about John 1:5");
+    await type(followup, "Explain the light further");
+    await submit(followup);
+    expect(chatRequests).toHaveLength(1);
+    expect(followup.value).toBe("Explain the light further");
+    expect(session.buyCredits).toHaveBeenCalledTimes(1);
+  });
+
+  it("shows the price as usual once free answers are used up and the balance can pay", async () => {
+    quoteAnswer = () => new Response(JSON.stringify({ quote: quoteOf("paid-quote"), free: { available: false, reason: "network" } }));
+    await openVerse();
+    expect(button(/^Send question/, wordsPage()).getAttribute("aria-label")).toBe("Send question · About 3 credits · at most 13");
+    expect(wordsPage().querySelector('[role="status"]')).toBeNull();
+    await click(button("What does John 1:5 mean?", wordsPage()));
+    expect(chatRequests[0]).toMatchObject({ quoteId: "paid-quote" });
   });
 });
 
