@@ -391,6 +391,55 @@ describe("Play on the spread", () => {
     expect(chip()!.closest("[data-fades]")).not.toBeNull();
   });
 
+  it("starts from Play again on a picture shown anew after another version was chosen mid-clip", async () => {
+    savedPictures = [...john(), { id: "john-1-5:older", imageUrl: "https://img.test/john-5-older.png", artStyle: "classical", createdAt: noon(2), aspectRatio: "16:9" }];
+    publicVideos = [job()];
+    await openVerse("john", "1", "5");
+    await act(async () => { playMark()!.click(); });
+    fire(video()!, "playing");
+    await openMenu();
+    await act(async () => { thumbnail(/Nov 2, 2026/)!.click(); });
+    expect(video()).toBeNull();
+    await act(async () => { thumbnail(/Nov 5, 2026/)!.click(); });
+    // Back on the picture with the video: Play, not a Pause for a clip that is not playing.
+    expect(video()).toBeNull();
+    expect(playMark()?.textContent).toBe("Play");
+  });
+
+  it("ignores a second press while the first frame loads", async () => {
+    savedPictures = john();
+    publicVideos = [job()];
+    await openVerse("john", "1", "5");
+    await act(async () => { playMark()!.click(); });
+    await act(async () => { playMark()!.click(); });
+    expect(video()).not.toBeNull();
+    expect(play).toHaveBeenCalledTimes(1);
+  });
+
+  it("offers the clip's sound, muted at first; a browser that refuses sound plays it muted", async () => {
+    savedPictures = john();
+    publicVideos = [job()];
+    await openVerse("john", "1", "5");
+    expect(button("Sound of the video of John 1:5")).toBeNull();
+    await act(async () => { playMark()!.click(); });
+    const sound = button("Sound of the video of John 1:5")!;
+    expect(sound.getAttribute("aria-pressed")).toBe("false");
+    expect(video()!.muted).toBe(true);
+    await act(async () => { sound.click(); });
+    expect(sound.getAttribute("aria-pressed")).toBe("true");
+    expect(video()!.muted).toBe(false);
+
+    // The choice holds on the next clip; a refusal to play it with sound retries it muted.
+    play.mockClear();
+    play.mockImplementationOnce(() => Promise.reject(new DOMException("Not allowed", "NotAllowedError")));
+    pressKey("Escape");
+    await act(async () => { playMark()!.click(); });
+    await flush();
+    expect(play).toHaveBeenCalledTimes(2);
+    expect(video()!.muted).toBe(true);
+    expect(button("Sound of the video of John 1:5")!.getAttribute("aria-pressed")).toBe("false");
+  });
+
   it("leaves the picture and Play when the browser refuses to start the video", async () => {
     savedPictures = john();
     publicVideos = [job()];
@@ -456,7 +505,39 @@ describe("Play on", () => {
     await openVerse("john", "1", "6");
     expect(video()?.getAttribute("src")).toBe("https://media.test/clip-6.mp4");
     expect(play).toHaveBeenCalledTimes(1);
-    expect(container.textContent).toContain("Playing on: John 1:6");
+    // Said once it moves, from a status region that was there already.
+    const status = container.querySelector('[role="status"].sr-only')!;
+    expect(status.textContent).toBe("");
+    fire(video()!, "playing");
+    expect(status.textContent).toBe("Playing on: John 1:6");
+  });
+
+  it("lets a page turned by hand stand: a clip ending before that page arrives does not turn again", async () => {
+    savedPictures = [...john(), johnSix()];
+    publicVideos = [job(), clipSix()];
+    await openVerse("john", "1", "5");
+    await act(async () => { playMark()!.click(); });
+    fire(video()!, "playing");
+    await act(async () => { playOn()!.click(); });
+    await act(async () => { container.querySelector<HTMLAnchorElement>('a[aria-label="Previous verse"]')!.click(); });
+    fire(video()!, "ended");
+    expect(push).toHaveBeenCalledTimes(1);
+    expect(push).toHaveBeenCalledWith("/john/1/4");
+  });
+
+  it("holds the last frame while the reader has a layer open, and carries on once it closes", async () => {
+    savedPictures = [...john(), johnSix()];
+    publicVideos = [job(), clipSix()];
+    await openVerse("john", "1", "5");
+    await act(async () => { playMark()!.click(); });
+    fire(video()!, "playing");
+    await act(async () => { playOn()!.click(); });
+    await openMenu();
+    fire(video()!, "ended");
+    expect(push).not.toHaveBeenCalled();
+    pressKey("Escape");
+    expect(menu()).toBeNull();
+    expect(push).toHaveBeenCalledWith("/john/1/6");
   });
 
   it("is not offered when the next verse's picture has no video, and a clip that ends there stays", async () => {

@@ -8,7 +8,7 @@ import { ContentsButton, ContentsLayer } from "@/components/spread/contents";
 import { CornerMenu } from "@/components/spread/corner-menu";
 import { LayerProvider, useLayer, useLayers } from "@/components/spread/layers";
 import { LookButton, LookLayer } from "@/components/spread/look";
-import { markPlayOnTurn, PageTurnLink, useArrival, useArrivesInWholePicture, useArrivesPlaying, usePageTurn } from "@/components/spread/page-turn";
+import { markPlayOnTurn, PageTurnLink, useArrival, useArrivesInWholePicture, useArrivesPlaying, usePageTurn, useTurnedAway } from "@/components/spread/page-turn";
 import { bibleChapterPlaces, VerseMarks } from "@/components/spread/verse-marks";
 import { useIdle } from "@/components/spread/idle-fade";
 import { useSwipeTurn } from "@/components/spread/swipe-turn";
@@ -96,8 +96,11 @@ function SpreadScreen({
   // Play on turned to this spread at the end of the previous verse's video, so its own starts at once.
   const arrivesPlaying = useArrivesPlaying(path);
   const router = useRouter();
+  const turnedAway = useTurnedAway();
   const onPlayOn = nextUrl
     ? () => {
+        // The reader already turned the page by hand: that turn stands.
+        if (turnedAway()) return;
         onTurn("next", "play_on");
         markPlayOnTurn();
         router.push(nextUrl);

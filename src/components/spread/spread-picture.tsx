@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useMutation, useQuery } from "convex/react";
-import { RefreshCw } from "lucide-react";
+import { RefreshCw, Volume2, VolumeX } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useLayer, useLayers } from "@/components/spread/layers";
@@ -55,6 +55,9 @@ const WHOLE_IN_FLOW = "block h-auto max-h-[58svh] w-full md:absolute md:inset-0 
 /** Where a pressed video is: waiting for its first frame, moving, paused, or held on its last frame. */
 type Phase = "loading" | "playing" | "paused" | "ended";
 
+/** Whether the reader turned the clips' sound on, for the rest of the visit (a page turn mounts a new picture). */
+let soundChosen = false;
+
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 function subscribeReducedMotion(onChange: () => void) {
   const query = window.matchMedia?.(REDUCED_MOTION);
@@ -92,12 +95,18 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
   const hasPicture = Boolean(rulePicture?.imageUrl);
   const { isOpen: wholeIsOpen, close: closeWhole } = whole;
   const reducedMotion = useReducedMotion();
+  const word = useMomentWord();
 
+  const [playOn, setPlayOn] = useState(arrivesPlaying);
   // The pressed video, tied to its id: choosing another version or style (another video, or none) ends it.
   const [playback, setPlayback] = useState<{ videoId: string; phase: Phase } | null>(null);
+  if (playback && playback.videoId !== video?.id) {
+    // Another picture (or none) is shown now: its video, if any, starts from Play again, and the run ends.
+    setPlayback(null);
+    setPlayOn(false);
+  }
   const phase = video && playback?.videoId === video.id ? playback.phase : null;
   const setPhase = (next: Phase) => setPlayback(video ? { videoId: video.id, phase: next } : null);
-  const [playOn, setPlayOn] = useState(arrivesPlaying);
   // Arriving by Play on starts the picture's video as soon as it is known; a verse without one ends the run.
   const [arrivalPending, setArrivalPending] = useState(arrivesPlaying);
   if (arrivalPending && rulePicture !== undefined && (!shownPicture || pictureVideo !== undefined)) {
@@ -116,22 +125,45 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
   const nextVideo = useQuery(api.verseVideos.getPictureVideo, offersPlayOn && nextPicture?.imageUrl ? { imageId: nextPicture.id } : "skip");
   const nextVideoUrl = offersPlayOn && nextPicture?.imageUrl ? nextVideo?.videoUrl ?? null : null;
   const continues = playOn && nextVideoUrl !== null;
+  // Once Play on has turned the page, the toggle no longer changes anything.
+  const turning = useRef(false);
+  // Sound: the clips carry sound and start muted; the reader's choice holds for the tab, through Play on.
+  const [sound, setSound] = useState(soundChosen);
 
   // A pressed video starts from its first frame; a refusal (a phone saving power) leaves the picture and Play.
   useEffect(() => {
     if (phase !== "loading") return;
     const element = player.current;
     if (!element || !element.paused) return;
-    element.play()?.catch(() => setPlayback(null));
+    element.play()?.catch(() => {
+      // A browser that will not play sound by itself may still play the clip muted; otherwise the picture stays.
+      if (!element.muted) {
+        element.muted = true;
+        soundChosen = false;
+        setSound(false);
+        element.play()?.catch(() => stop());
+      } else stop();
+    });
   }, [phase]);
+
+  // At the end of a clip with Play on on, the page turns to the next verse's video, once its address is known (it may
+  // arrive after the clip ends). While the reader is busy with a layer (Contents, Look, a menu) or typing, the clip
+  // holds its last frame; closing the layer carries on.
+  useEffect(() => {
+    if (phase !== "ended" || !continues || turning.current) return;
+    if (openLayer !== null && openLayer !== "whole-picture") return;
+    const focused = document.activeElement;
+    if (focused instanceof HTMLElement && (focused.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(focused.tagName))) return;
+    turning.current = true;
+    onPlayOn?.();
+  }, [phase, continues, openLayer, onPlayOn]);
 
   // Escape stops the video and brings the picture back, when no layer is open to take it first.
   useEffect(() => {
     if (phase === null || openLayer !== null) return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Escape" || event.defaultPrevented) return;
-      setPlayback(null);
-      setPlayOn(false);
+      stop();
       playButton.current?.focus();
     };
     document.addEventListener("keydown", onKeyDown);
@@ -176,8 +208,9 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
   const onPress = () => {
     if (!video) return;
     const element = player.current;
+    // While the first frame loads the press is ignored (Escape cancels), so a second tap cannot undo the first.
     if (phase === null) setPhase("loading");
-    else if (phase === "loading") stop();
+    else if (phase === "loading") return;
     else if (phase === "playing") element?.pause();
     else if (phase === "paused") element?.play()?.catch(() => undefined);
     else if (element) {
@@ -190,11 +223,18 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
   const playLabel = phase === "playing"
     ? `Pause the video of ${reference}`
     : phase === "ended" ? `Play the video of ${reference} again` : `Play the video of ${reference}`;
+  const toggleSound = () => {
+    const on = !sound;
+    soundChosen = on;
+    setSound(on);
+    if (player.current) player.current.muted = !on;
+  };
   // Kept up when the computer's controls fade, so a reader passing by still sees the picture moves; in the
-  // whole-picture view it sits at the window's corner on a computer and is not offered on a phone.
+  // whole-picture view it sits at the window's corner on a computer and is not offered on a phone. Play on stands
+  // above Play; below a wide window the group sits above the dock's row, so it never covers the dock.
   const playControls = video ? (
     <div
-      className={`absolute right-3 bottom-3 z-20 flex items-center gap-2 md:bottom-8 ${
+      className={`absolute right-3 bottom-3 z-20 flex flex-col items-end gap-2 md:bottom-24 xl:bottom-8 ${
         wholeIsOpen ? "max-md:hidden md:right-5" : "md:right-[calc(var(--words-page-width)+1.25rem)]"
       }`}
     >
@@ -202,12 +242,9 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
         <button
           type="button"
           aria-pressed={playOn}
-          aria-label="Play on into the next verse's video"
+          aria-label={`Play on into the next ${word}'s video`}
           onClick={() => {
-            const on = !playOn;
-            setPlayOn(on);
-            // A clip already held on its last frame carries on at once.
-            if (on && phase === "ended") onPlayOn?.();
+            if (!turning.current) setPlayOn(!playOn);
           }}
           className={`liquid-glass spread-dock flex min-h-9 items-center rounded-full px-3 text-[13px] font-medium transition-colors duration-[var(--motion-fast)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:min-h-11 md:px-4 md:text-sm ${
             playOn ? "text-ink" : "text-ink/70 hover:text-ink"
@@ -215,6 +252,18 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
         >
           <span aria-hidden="true" className={`mr-2 h-1.5 w-1.5 rounded-full ${playOn ? "bg-ink" : "bg-ink/35"}`} />
           Play on
+        </button>
+      ) : null}
+      <div className="flex items-center gap-2">
+      {phase !== null ? (
+        <button
+          type="button"
+          aria-pressed={sound}
+          aria-label={`Sound of the video of ${reference}`}
+          onClick={toggleSound}
+          className="liquid-glass spread-dock flex h-9 w-9 items-center justify-center rounded-full text-ink/85 transition-colors duration-[var(--motion-fast)] hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:h-11 md:w-11"
+        >
+          {sound ? <Volume2 aria-hidden="true" className="h-4 w-4" /> : <VolumeX aria-hidden="true" className="h-4 w-4" />}
         </button>
       ) : null}
       <button
@@ -227,8 +276,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
         <PlayMark glyph={phase === "playing" ? "pause" : phase === "ended" ? "again" : "play"} loading={phase === "loading"} />
         {action}
       </button>
-      {/* Play on carried the reader into this verse: say so, without taking focus. */}
-      {arrivesPlaying ? <span role="status" className="sr-only">Playing on: {reference}</span> : null}
+      </div>
     </div>
   ) : null;
 
@@ -293,7 +341,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
             key={video.id}
             src={video.videoUrl ?? undefined}
             data-picture-video
-            muted
+            muted={!sound}
             playsInline
             preload="auto"
             disablePictureInPicture
@@ -307,11 +355,8 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
             onPause={(event) => {
               if (!event.currentTarget.ended) setPhase("paused");
             }}
-            onEnded={() => {
-              setPhase("ended");
-              if (continues) onPlayOn?.();
-            }}
-            onError={() => setPlayback(null)}
+            onEnded={() => setPhase("ended")}
+            onError={() => stop()}
             className={`pointer-events-none absolute transition-opacity duration-300 motion-reduce:transition-none ${
               phase === "loading" ? "opacity-0" : "opacity-100"
             } ${placement ? "" : FILL}`}
@@ -320,6 +365,8 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
         ) : null}
       </button>
       {playControls}
+      {/* Play on carried the reader into this verse: said once its video plays, without taking focus. */}
+      {arrivesPlaying ? <span role="status" className="sr-only">{phase === "playing" || phase === "ended" ? `Playing on: ${reference}` : ""}</span> : null}
       {/* Play on fetches the next clip ahead, so the next verse starts to move without a wait. */}
       {continues && nextVideoUrl ? <video src={nextVideoUrl} preload="auto" muted aria-hidden="true" tabIndex={-1} className="hidden" /> : null}
       {shown && pictures ? (
@@ -344,7 +391,7 @@ interface Size {
  * On a computer's spread it stops at the words page, so the glass over the picture is not redrawn for every frame.
  * Null until the frame and both sizes are known; the video then simply fills the frame like the picture.
  */
-function videoPlacement({ frame, pictureSize, videoSize, cover, wordsPageCovers }: {
+export function videoPlacement({ frame, pictureSize, videoSize, cover, wordsPageCovers }: {
   frame: Size | null;
   pictureSize: Size | null;
   videoSize: Size | null;
@@ -354,13 +401,14 @@ function videoPlacement({ frame, pictureSize, videoSize, cover, wordsPageCovers 
   if (!frame?.width || !frame.height || !pictureSize || !videoSize) return null;
   const fitScale = cover ? Math.max : Math.min;
   const scale = fitScale(frame.width / pictureSize.width, frame.height / pictureSize.height);
-  const width = videoSize.width * scale;
-  const height = videoSize.height * scale;
+  // The clip has the picture's full height whatever their pixel sizes (a 2K picture still makes a 768p clip).
+  const height = pictureSize.height * scale;
+  const width = videoSize.width * (height / videoSize.height);
   const left = (frame.width - width) / 2;
   const top = (frame.height - height) / 2;
   const style: React.CSSProperties = { left, top, width, height, maxWidth: "none", objectFit: "fill" };
-  if (wordsPageCovers && typeof window !== "undefined" && window.matchMedia?.("(min-width: 768px)").matches) {
-    // The words page is min(40vw, 600px) wide at the frame's right edge.
+  if (wordsPageCovers && window.matchMedia?.("(min-width: 768px)").matches) {
+    // The words page is min(40vw, 600px) wide at the frame's right edge (--words-page-width in spread.tsx).
     const wordsPage = Math.min(window.innerWidth * 0.4, 600);
     const hidden = left + width - (frame.width - wordsPage);
     if (hidden > 0) style.clipPath = `inset(0 ${hidden}px 0 0)`;
