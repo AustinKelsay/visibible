@@ -53,8 +53,14 @@ describe("committed chat eval cases", () => {
   it("has at least 30 cases covering every category the release guide names", () => {
     expect(committed.cases.length).toBeGreaterThanOrEqual(30);
     expect(new Set(committed.cases.map((item) => item.category))).toEqual(new Set([
-      "single-verse", "adjacent-context", "contested-interpretation", "off-topic", "prompt-injection", "harm-sensitive",
+      "single-verse", "adjacent-context", "chapter-summary", "contested-interpretation", "off-topic", "prompt-injection", "harm-sensitive",
     ]));
+  });
+
+  it("asks both questions Ask suggests (#493)", () => {
+    const questions = committed.cases.map((item) => item.turns[item.turns.length - 1]);
+    expect(questions).toContain("What does John 1:5 mean?");
+    expect(questions.filter((question) => /^Summarize .+ so far$/.test(question)).length).toBeGreaterThanOrEqual(3);
   });
 });
 
@@ -128,6 +134,34 @@ describe("running a case", () => {
     const { languageModel, calls } = model();
     await runChatEvalCase(caseById("single-john-3-16"), "baseline", deps(languageModel), { ...options, baselineMaxOutputTokens: 65536 });
     expect(calls[0].maxOutputTokens).toBe(65536);
+  });
+
+  it("fails a case whose passage text cannot be loaded, before any call", async () => {
+    for (const arm of ["candidate", "baseline"] as const) {
+      const { languageModel, calls } = model();
+      const row = await runChatEvalCase(caseById("single-john-3-16"), arm, deps(languageModel, { chapters: async () => null }), options);
+      expect(row).toMatchObject({ status: "error", error: "single-john-3-16: Scripture unavailable" });
+      expect(calls).toHaveLength(0);
+    }
+  });
+
+  it("times the answer to its first text and its end, not to OpenRouter's cost record", async () => {
+    const { languageModel } = model();
+    const slowStats = () => new Promise<{ provider: string; costUsd: number }>((resolve) => setTimeout(() => resolve({ provider: "P", costUsd: 0.001 }), 300));
+    const row = await runChatEvalCase(caseById("single-john-3-16"), "candidate", deps(languageModel, { stats: slowStats }), options);
+    expect(row).toMatchObject({ status: "answered", provider: "P", costUsd: 0.001 });
+    expect(row.firstTextMs).toBeGreaterThanOrEqual(0);
+    expect(row.latencyMs).toBeGreaterThanOrEqual(row.firstTextMs!);
+    expect(row.latencyMs).toBeLessThan(250);
+  });
+
+  it("sends the reasoning effort it is given, and none otherwise", async () => {
+    const withEffort = model();
+    await runChatEvalCase(caseById("single-john-3-16"), "candidate", deps(withEffort.languageModel), { ...options, reasoningEffort: "none" });
+    expect(withEffort.calls[0].providerOptions).toEqual({ openai: { reasoningEffort: "none" } });
+    const without = model();
+    await runChatEvalCase(caseById("single-john-3-16"), "candidate", deps(without.languageModel), options);
+    expect(without.calls[0].providerOptions).toBeUndefined();
   });
 
   it("keeps a paid answer when OpenRouter's record cannot be fetched", async () => {

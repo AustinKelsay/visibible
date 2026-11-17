@@ -60,6 +60,17 @@ export const SUGGESTED_CHAT_MODEL_IDS = [
   "google/gemini-2.5-flash",
 ] as const;
 
+/**
+ * The reasoning effort the chat sends for a model, where it must be set: several current models reason by default,
+ * which on 17 November 2026 multiplied their answers' cost and time (#493). Models not listed get no setting. The eval
+ * runner sends the same value, so a measured model is the model readers get.
+ */
+const CHAT_MODEL_REASONING_EFFORT: Record<string, string> = {};
+
+export function chatModelReasoningEffort(modelId: string): string | undefined {
+  return CHAT_MODEL_REASONING_EFFORT[modelId];
+}
+
 type ChatModelPricing = {
   prompt: string;
   completion: string;
