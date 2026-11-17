@@ -177,6 +177,19 @@ describe("a free answer", () => {
     expect(settle.costUsd).toBeCloseTo((1000 * 0.000001 + 1000 * 0.000002) * 1.1, 10);
   });
 
+  it("settles at the charge OpenRouter reports, when it reports one", async () => {
+    mockStreamTextImpl.mockImplementation(async (options: { includeRawChunks?: boolean }) => {
+      const { stream } = providerStream();
+      // The adapter passes provider chunks through as raw parts only when asked; the parsed usage has no cost.
+      const raw = { type: "raw", rawValue: { usage: { prompt_tokens: 1000, completion_tokens: 1000, cost: 0.0005 } } };
+      return { stream: options.includeRawChunks ? stream.pipeThrough(new TransformStream({
+        transform(chunk, controller) { if (chunk.type === "finish") controller.enqueue(raw); controller.enqueue(chunk); },
+      })) : stream };
+    });
+    await ask();
+    expect(calls("freeSettle")).toEqual([expect.objectContaining({ outcome: "settled", costUsd: 0.0005 })]);
+  });
+
   it("holds enough for a history a tokenizer splits one token per character", async () => {
     // Digits count as a third of a token each in the estimate, but many tokenizers make one token of each.
     const digits = (n: number) => "1234567890".repeat(n);
