@@ -1,5 +1,7 @@
 # Generic engine release status
 
+**Play on is now Continuous play (18 November 2026, 01:07 UTC).** The owner found "Play on" confusing. #514 (`main` at `c6885916`, Vercel `dpl_52YxaygZin96RkRnrRh6WTawTeYd`) renames the toggle to "Continuous play" and announces an arrival as "Now playing Genesis 1:16"; the `play_on` analytics source stays. Frontend only, no spend ([record](2026-11-18-continuous-play/deployment.json)).
+
 **Nostr posting on, zaps working (17 November 2026, 23:44-23:57 UTC).** On the owner's word: Convex prod `NOSTR_PUBLISHING_ENABLED=true` and `NOSTR_RELAYS` fixed (a dead `relay.nos.lol` became `nos.lol`); the first post is Genesis 1:15. `pay@visibible.com` refused zaps for the new account because tower's LNURL server still named the retired one as zap recipient; that one line was changed on tower and only `lnurl-server-main` restarted. #512 (`main` at `e254c9db`, Vercel `dpl_EduxUtEvYds43FW5BWJvbkALbgVh`) drops the silent relay.nostr.band from nostr.json. No spend ([record](2026-11-17-nostr-live/deployment.json)).
 
 **Stored answers for Ask's suggested questions (17 November 2026, 23:50 UTC).** Spec #505, on the owner's "systematically end to end full send" and "Release now". `main` at `ad90ce8e` (#507, #509) went out Convex first (a new storedAnswers table), then Vercel `dpl_AGR8MRsK4fkS24dpFerAXkizbpLt`.
