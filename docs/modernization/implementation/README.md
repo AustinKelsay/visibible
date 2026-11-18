@@ -76,7 +76,7 @@ Added the RS256 token broker, public-key Convex configuration, memory-only clien
 
 Local tests cover token claims/signatures, cookie deadlines, rotation overlap/removal, HTTP admission/rate limits, revoked/deleted sessions, stale admin claims, concurrent browser requests and subject changes. Live development checks rejected invalid signatures/issuer/audience/expiry, returned the synthetic existing balance and denied the same token after revocation. Fixtures and temporary modules were removed. The browser issued a token and read its own Convex record with no persisted bearer and no initial console errors.
 
-Configuration and rotation: [guest auth](../../agents/guest-auth.md). Private-call migration and reactive balance conversion remain T08/T10. Hosted preview and production signing environments are not configured by this checkpoint.
+Configuration and rotation: [guest auth](../../agents/guest-auth.md). Private-call migration and reactive balance conversion remain T08/T10. Hosted preview and production signing environments were not configured by this checkpoint; production signing has since been installed (the `recovery-2026-11-12` key, see [guest auth](../../agents/guest-auth.md)), and hosted preview still has none.
 
 T07 checkpoint: 529 tests in 56 files pass, with lint and TypeScript checks passing. Invalid-cookie browser verification retained Scripture and returned 401 for token issuance. The JWT includes a unique ID so same-second refreshes remain distinct for the installed Convex SDK.
 
