@@ -281,15 +281,13 @@ export function BuyCreditsModal() {
     });
   }, [isBuyModalOpen, welcomeRequested, invoice, tier, credits]);
 
-  // Reset state when modal closes (preserve invoice for persistence)
-  useEffect(() => {
-    if (!isBuyModalOpen) {
-      setCopied(false);
-      setShowAdminInput(false);
-      setAdminPassword("");
-      setAdminError(null);
-    }
-  }, [isBuyModalOpen]);
+  // Reset state when modal closes (preserve invoice for persistence). Adjusted during render, guarded so it settles.
+  if (!isBuyModalOpen && (copied || showAdminInput || adminPassword !== "" || adminError !== null)) {
+    setCopied(false);
+    setShowAdminInput(false);
+    setAdminPassword("");
+    setAdminError(null);
+  }
 
   const handleAdminLogin = async () => {
     if (!adminPassword.trim()) {
