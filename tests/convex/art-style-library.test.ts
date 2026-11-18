@@ -71,10 +71,10 @@ describe("style-aware library", () => {
     const tiles = await t.query(api.verseImages.getChapterContents, { verseIds: ["genesis-1-1", "genesis-1-2", "genesis-1-3"], styles: ["watercolor"] });
     expect(tiles.map((e) => [e.verseId, e.picture?.id ?? null, e.picture?.artStyle ?? null, e.pictureCount])).toEqual([["genesis-1-1", ids.g11Water, "watercolor", 3], ["genesis-1-2", null, null, 1], ["genesis-1-3", ids.g13Water, "watercolor", 1]]);
     // Book and chapter markers.
-    expect(await t.query(api.verseImages.getBooksWithImages, {})).toEqual(["genesis", "john"]);
-    expect(await t.query(api.verseImages.getBooksWithImages, { artStyle: "classical" })).toEqual(["genesis"]);
-    expect(await t.query(api.verseImages.getBooksWithImages, { artStyle: "icon" })).toEqual(["genesis", "john"]);
-    expect(await t.query(api.verseImages.getBooksWithImages, { artStyle: "classical", otherStyles: true })).toEqual(["genesis", "john"]);
+    expect(await t.query(internal.verseImages.getBooksWithImages, {})).toEqual(["genesis", "john"]);
+    expect(await t.query(internal.verseImages.getBooksWithImages, { artStyle: "classical" })).toEqual(["genesis"]);
+    expect(await t.query(internal.verseImages.getBooksWithImages, { artStyle: "icon" })).toEqual(["genesis", "john"]);
+    expect(await t.query(internal.verseImages.getBooksWithImages, { artStyle: "classical", otherStyles: true })).toEqual(["genesis", "john"]);
     expect(await t.query(internal.verseImages.getChaptersWithImages, { book: "genesis" })).toEqual([1, 2]);
     expect(await t.query(internal.verseImages.getChaptersWithImages, { book: "genesis", artStyle: "watercolor" })).toEqual([1]);
     expect(await t.query(internal.verseImages.getChaptersWithImages, { book: "genesis", artStyle: "classical" })).toEqual([1, 2]);

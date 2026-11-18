@@ -73,7 +73,7 @@ Server-secret reads are reserved for Next.js after cookie validation and for tru
 | `verseImages:setThumbnail` | internalMutation | Internal | Convex internal dispatch only |
 | `verseImages:getImageProvenance` | query | Server | CONVEX_SERVER_SECRET |
 | `verseImages:getPublicImageBase` | query | Server | CONVEX_SERVER_SECRET |
-| `verseImages:getBooksWithImages` | query | Public | Shared image/library metadata, aggregate ETA, or anonymous impression increment; no private session records |
+| `verseImages:getBooksWithImages` | internalQuery | Internal | Convex internal dispatch only; no client calls it |
 | `verseImages:getChaptersWithImages` | internalQuery | Internal | Convex internal dispatch only; no client calls it |
 | `verseImages:getPublicApiIndex` | query | Server | CONVEX_SERVER_SECRET |
 | `verseImages:getPublicBooksWithImages` | query | Server | CONVEX_SERVER_SECRET |

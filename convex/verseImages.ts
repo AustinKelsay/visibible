@@ -423,7 +423,7 @@ async function findBooksWithImages(ctx: QueryCtx, filter: StyleFilter | null = n
  * Performance: Uses parallel prefix scans on the by_verse index instead of
  * a full table scan. Each book check uses the index to find just one record.
  */
-export const getBooksWithImages = query({
+export const getBooksWithImages = internalQuery({
   args: { ...styleFilterArgs },
   handler: async (ctx, args) => {
     return findBooksWithImages(ctx, normalizeStyleFilter(args));
