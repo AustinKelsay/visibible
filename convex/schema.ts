@@ -264,6 +264,9 @@ export default defineSchema({
     nostrEventId: v.optional(v.string()),
     nostrPublishedAt: v.optional(v.number()),
     nostrRelays: v.optional(v.array(v.string())),
+    // created_at (seconds) of the first publish attempt. A retry after a partial publish reuses it, so
+    // the rebuilt event has the same id and relays that already took it drop the copy.
+    nostrAttemptAt: v.optional(v.number()),
     // Local impression data used for scheduled Nostr ranking
     impressionCount: v.optional(v.number()),
     lastImpressionAt: v.optional(v.number()),
