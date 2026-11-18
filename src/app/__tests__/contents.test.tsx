@@ -267,7 +267,7 @@ describe("Contents", () => {
     expect(push).toHaveBeenLastCalledWith("/john/1/7");
     expect(dialog()).toBeNull();
     expect(trackVerseNavigation).toHaveBeenLastCalledWith(expect.objectContaining({ source: "contents", direction: "jump", targetUrl: "/john/1/7", book: "John", chapter: 1, verse: 5 }));
-    // It counts as leaving the spread, so Play on does not turn the page as well.
+    // It counts as leaving the spread, so Continuous play does not turn the page as well.
     expect(noteTurnAway).toHaveBeenCalledTimes(1);
   });
 

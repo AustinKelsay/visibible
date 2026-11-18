@@ -1,7 +1,7 @@
 /* @vitest-environment jsdom */
 
 // Moving pictures (#447, #480), tested on the whole verse page: Play on a picture with its own video, playback in the
-// picture's own place, Play on into the next verse's video, the play badge on picture-menu thumbnails, and "Make this
+// picture's own place, Continuous play into the next verse's video, the play badge on picture-menu thumbnails, and "Make this
 // picture move…" with its inline review.
 // The harness follows picture-menu.test.tsx; the video service is faked.
 
@@ -582,10 +582,10 @@ describe("Play on the spread", () => {
   });
 });
 
-describe("Play on", () => {
+describe("Continuous play", () => {
   const johnSix = (): SavedPicture => ({ id: "john-1-6:classical", imageUrl: "https://img.test/john-6.png", artStyle: "classical", createdAt: noon(6), aspectRatio: "16:9" });
   const clipSix = () => job({ id: "clip-6", verseId: "john-1-6", reference: "John 1:6", sourceImageId: "john-1-6:classical", videoUrl: "https://media.test/clip-6.mp4" });
-  const playOn = () => button("Play on into the next verse's video");
+  const playOn = () => button("Continuous play: carry on into the next verse's video");
 
   it("is offered while a video plays when the next verse's picture has a video too, and carries on into it at the end", async () => {
     savedPictures = [...john(), johnSix()];
@@ -614,7 +614,7 @@ describe("Play on", () => {
     const status = container.querySelector('[role="status"].sr-only')!;
     expect(status.textContent).toBe("");
     fire(video()!, "playing");
-    expect(status.textContent).toBe("Playing on: John 1:6");
+    expect(status.textContent).toBe("Now playing John 1:6");
   });
 
   it("lets a page turned by hand stand: a clip ending before that page arrives does not turn again", async () => {
@@ -657,7 +657,7 @@ describe("Play on", () => {
     act(() => noteTurnAway());
     fire(video()!, "ended");
     expect(push).not.toHaveBeenCalled();
-    // Play on declined, so its toggle still answers.
+    // Continuous play declined, so its toggle still answers.
     await act(async () => { playOn()!.click(); });
     expect(playOn()?.getAttribute("aria-pressed")).toBe("false");
   });

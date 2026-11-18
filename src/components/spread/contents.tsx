@@ -103,7 +103,7 @@ function ContentsBody(place: ContentsPlace) {
       tier,
       hasCredits: credits > 0,
     });
-    // Leaving this spread counts as a turn, so Play on does not turn the page as well.
+    // Leaving this spread counts as a turn, so Continuous play does not turn the page as well.
     if (!staysHere) noteTurnAway();
     close();
   };
@@ -198,7 +198,7 @@ function WorkContentsBody({ scope, division, moment }: { scope: WorkScope; divis
     trackVerseNavigation({
       book: scope.title, chapter: division, verse: moment, direction: "jump", source: "contents", targetUrl, tier, hasCredits: credits > 0,
     });
-    // Leaving this spread counts as a turn, so Play on does not turn the page as well.
+    // Leaving this spread counts as a turn, so Continuous play does not turn the page as well.
     if (!staysHere) noteTurnAway();
     close();
   };

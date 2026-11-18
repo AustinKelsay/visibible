@@ -94,11 +94,11 @@ function SpreadScreen({
   const idle = useIdle();
   const arrival = useArrival(path);
   const whole = useLayer("whole-picture").isOpen;
-  // Play on turned to this spread at the end of the previous verse's video, so its own starts at once.
+  // Continuous play turned to this spread at the end of the previous verse's video, so its own starts at once.
   const arrivesPlaying = useArrivesPlaying(path);
   const router = useRouter();
   const turnedAway = useTurnedAway();
-  // Turns the page for Play on, unless the reader already turned it by hand (that turn stands); says whether it did.
+  // Turns the page for Continuous play, unless the reader already turned it by hand (that turn stands); says whether it did.
   const onPlayOn = nextUrl
     ? () => {
         if (turnedAway()) return false;

@@ -20,7 +20,7 @@ export interface PageTurnTargets {
 
 /**
  * The last turn on this tab, so the spread it opens can arrive from the side it was turned towards, in
- * the whole-picture view when it was turned from there, and playing its picture's video when Play on turned it.
+ * the whole-picture view when it was turned from there, and playing its picture's video when Continuous play turned it.
  */
 let lastTurn: { direction: VerseNavigationDirection; targetUrl: string; at: number; wholePicture: boolean; playOn: boolean } | null = null;
 const ARRIVAL_WINDOW_MS = 5000;
@@ -60,28 +60,28 @@ let turnsRecorded = 0;
 
 /**
  * Whether a turn has been recorded since this spread mounted: the reader is already on the way to another spread, so
- * Play on must not turn the page as well when the clip ends before that page arrives.
+ * Continuous play must not turn the page as well when the clip ends before that page arrives.
  */
 export function useTurnedAway(): () => boolean {
   const [atMount] = useState(() => turnsRecorded);
   return () => turnsRecorded !== atMount;
 }
 
-/** Records that the reader is leaving this spread another way (a Contents tile), so Play on does not turn as well. */
+/** Records that the reader is leaving this spread another way (a Contents tile), so Continuous play does not turn as well. */
 export function noteTurnAway() {
   turnsRecorded += 1;
 }
 
 /**
- * Whether Play on turned to this spread at the end of the previous verse's video, so its picture's video starts at
- * once and Play on stays on. Read once when the spread mounts; any other turn arrives on the still picture.
+ * Whether Continuous play turned to this spread at the end of the previous verse's video, so its picture's video starts at
+ * once and Continuous play stays on. Read once when the spread mounts; any other turn arrives on the still picture.
  */
 export function useArrivesPlaying(url: string): boolean {
   const [playing] = useState(() => turnedTo(url)?.playOn ?? false);
   return playing;
 }
 
-/** Marks the turn just recorded as made by Play on, so the next spread arrives playing. */
+/** Marks the turn just recorded as made by Continuous play, so the next spread arrives playing. */
 export function markPlayOnTurn() {
   if (lastTurn) lastTurn.playOn = true;
 }
