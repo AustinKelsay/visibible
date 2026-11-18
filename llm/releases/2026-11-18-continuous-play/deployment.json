@@ -1,0 +1,36 @@
+{
+  "authorization": [
+    "The owner found the \"Play on\" copy confusing and asked for something like \"continue playing or continuous play or movie mode\", \"end to end full send\". Spends nothing."
+  ],
+  "release": {
+    "pullRequests": [514],
+    "mainCommit": "c6885916",
+    "reviewFindings": "GPT-6.2 Sol (xhigh) approved in 1 round. CodeRabbit: no actionable comments. CI quality-gates passed."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-18T01:07Z",
+        "commit": "c6885916 (main; since production's e254c9db it adds only the #513 record and #514)",
+        "carries": [514],
+        "vercel": "dpl_52YxaygZin96RkRnrRh6WTawTeYd",
+        "convex": "Unchanged; frontend only."
+      }
+    ]
+  },
+  "changes": [
+    "The toggle that carries a run of moving pictures from verse to verse reads \"Continuous play\" (it read \"Play on\"), named \"Continuous play: carry on into the next verse's video\".",
+    "A verse it carries the reader into is announced to screen readers as \"Now playing Genesis 1:16\" (it was \"Playing on: Genesis 1:16\").",
+    "Internal names and the play_on analytics source are unchanged."
+  ],
+  "smoke": {
+    "after": "/api/health and /genesis/1/16 200, serving dpl_52Yx. Playwright on production: at 1440x900, Play on Genesis 1:15 offers \"Continuous play\"; pressing it carried the reader to /genesis/1/16, playing, with status \"Now playing Genesis 1:16\". At 390x844 the label fits on the spread and in the whole-picture row."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_EduxUtEvYds43FW5BWJvbkALbgVh (main e254c9db). Nothing stored differs."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "The browser sessions of the smoke runs, with no balance."
+  ]
+}
