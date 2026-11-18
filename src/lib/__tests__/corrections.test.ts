@@ -54,7 +54,7 @@ describe("owner corrections", () => {
     expect(full.image).toMatchObject({ artStyle: "icon", provenance: { workId: WORK, styleId: "icon" } });
     await expect(c.resolve(rows[0].id, { disposition: "fixed it" })).rejects.toThrow(/one of/);
     await expect(c.resolve(rows[0].id, { disposition: "source corrected" })).rejects.toThrow(/must link/);
-    const entry = (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!;
+    const entry = (await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah" }))!;
     expect(await c.resolve(rows[0].id, { disposition: "source corrected", correction: { kind: "entry", recordId: "jonah", version: entry.version }, check: "two regenerations clean" })).toEqual({ closed: true });
     expect(await c.reports()).toEqual([]);
     expect((await c.reports("closed"))[0]).toMatchObject({ disposition: "source corrected" });
@@ -81,14 +81,14 @@ describe("owner corrections", () => {
     await t.mutation(api.analysis.noteAttention, { serverSecret: SECRET, workId: WORK, reason: "quote_check_failed", kind: "entry", recordId: "jonah", detail: "x" });
     await t.mutation(api.analysis.noteAttention, { serverSecret: SECRET, workId: WORK, reason: "reader_report", kind: "entry", recordId: "jonah", detail: "looks wrong" });
     const storageId = await t.run(async (ctx) => ctx.storage.store(new Blob(["jpeg"], { type: "image/jpeg" })));
-    const before = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" });
+    const before = await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah" });
     await t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "jonah:young", storageId, inputs: [{ kind: "entry", recordId: "jonah", version: before!.version }] });
 
     const result = await c.editStage("jonah", "young", "Jonah: young, owner-edited.");
     expect(result.changed).toBe(true);
     expect(result.closedAttention).toBe(1);
     expect(result.staleDependents).toEqual([expect.objectContaining({ kind: "sheet", recordId: "jonah:young" })]);
-    const after = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" });
+    const after = await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah" });
     expect(after).toMatchObject({ source: "owner", payload: { stages: [{ id: "young", text: "Jonah: young, owner-edited." }, { id: "old", text: "Jonah: old." }] } });
     expect((await c.attention()).map((a) => a.reason)).toEqual(["reader_report"]);
     // A command that saw the older version is refused; a retry of the same edit is harmless.
@@ -98,17 +98,17 @@ describe("owner corrections", () => {
   });
 
   it("corrects an entry's kind as an owner version, refusing an unknown kind, a multi-stage object or a stale edit", async () => {
-    const before = (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!;
+    const before = (await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah" }))!;
     await expect(c.setKind("jonah", "city")).rejects.toThrow(/one of character, location, object/);
     // Jonah has two stages; an object has one.
     await expect(c.setKind("jonah", "object")).rejects.toThrow(/An object has one stage; jonah has 2/);
     expect(await c.setKind("jonah", "location")).toMatchObject({ changed: true, previous: "character", entryKind: "location", staleDependents: [] });
-    expect((await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))).toMatchObject({ source: "owner", payload: { ...before.payload, entryKind: "location" } });
+    expect((await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah" }))).toMatchObject({ source: "owner", payload: { ...before.payload, entryKind: "location" } });
     await expect(c.setKind("jonah", "character", before.version)).rejects.toThrow(/Stale edit/);
   });
 
   it("sets an entry's depiction as an owner version, refusing a mode the work has no wording for, an unknown mode or another work's profile", async () => {
-    const before = (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!;
+    const before = (await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah" }))!;
     const storageId = await t.run(async (ctx) => ctx.storage.store(new Blob(["jpeg"], { type: "image/jpeg" })));
     await t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "jonah:young", storageId, inputs: [{ kind: "entry", recordId: "jonah", version: before.version }] });
     const withEffects = testDepiction(WORK);
@@ -118,39 +118,39 @@ describe("owner corrections", () => {
     await expect(c.setDepiction("jonah", "effects", testDepiction("bible-web"))).rejects.toThrow(/bible-web was given for two-books/);
     const result = await c.setDepiction("jonah", "effects", withEffects);
     expect(result).toMatchObject({ changed: true, previous: "form", depiction: "effects", staleDependents: [expect.objectContaining({ kind: "sheet", recordId: "jonah:young" })] });
-    const after = (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!;
+    const after = (await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah" }))!;
     expect(after).toMatchObject({ source: "owner", payload: { ...before.payload, hasForm: false } });
     await expect(c.setDepiction("jonah", "form", withEffects, before.version)).rejects.toThrow(/Stale edit/);
     // A symbol keeps hasForm false for older deployments and stores the mode; a work without symbol wording refuses it.
     await expect(c.setDepiction("jonah", "symbol", withoutEffects)).rejects.toThrow(/no wording for subjects shown only as a symbol/);
     expect(await c.setDepiction("jonah", "symbol", withEffects)).toMatchObject({ previous: "effects", depiction: "symbol" });
-    expect((await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!.payload).toMatchObject({ hasForm: false, depiction: "symbol" });
+    expect((await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah" }))!.payload).toMatchObject({ hasForm: false, depiction: "symbol" });
     // Back to drawn: a work without such subjects can always draw an entry from its canon, and the symbol marker goes.
     expect(await c.setDepiction("jonah", "form", withoutEffects)).toMatchObject({ previous: "symbol", depiction: "form" });
-    const drawn = (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!.payload;
+    const drawn = (await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah" }))!.payload;
     expect(drawn).toMatchObject({ hasForm: true });
     expect(drawn).not.toHaveProperty("depiction");
   });
 
   it("removes a wrongly assigned cast member as an owner section version, refusing an unassigned entry or a stale edit", async () => {
-    const before = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "s1" });
+    const before = await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "section", recordId: "s1" });
     await expect(c.removeCast("s1", "nineveh")).rejects.toThrow(/does not assign nineveh/);
     await expect(c.removeCast("s1", "jonah", "stale-version")).rejects.toThrow(/Stale edit/);
     const removed = await c.removeCast("s1", "jonah");
     expect(removed).toMatchObject({ changed: true, previousVersion: before!.version, removed: "jonah", cast: [] });
-    const after = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "s1" });
+    const after = await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "section", recordId: "s1" });
     expect(after).toMatchObject({ source: "owner", payload: { cast: [] } });
     // The entry itself is untouched.
-    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" })).not.toBeNull();
+    expect(await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah" })).not.toBeNull();
   });
 
   it("pins and unpins a reference", async () => {
     const storageId = await t.run(async (ctx) => ctx.storage.store(new Blob(["jpeg"], { type: "image/jpeg" })));
     await t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "styleReference", recordId: "icon", storageId, inputs: [{ kind: "style", recordId: "icon", version: "i1" }] });
     await c.pin("styleReference", "icon", true);
-    expect((await t.query(api.analysis.getReference, { workId: WORK, kind: "styleReference", recordId: "icon", expectedInputs: [{ kind: "style", recordId: "icon", version: "i2" }] }))?.stale).toBe(false);
+    expect((await t.query(api.analysis.getReference, { serverSecret: SECRET, workId: WORK, kind: "styleReference", recordId: "icon", expectedInputs: [{ kind: "style", recordId: "icon", version: "i2" }] }))?.stale).toBe(false);
     await c.pin("styleReference", "icon", false);
-    expect((await t.query(api.analysis.getReference, { workId: WORK, kind: "styleReference", recordId: "icon", expectedInputs: [{ kind: "style", recordId: "icon", version: "i2" }] }))?.stale).toBe(true);
+    expect((await t.query(api.analysis.getReference, { serverSecret: SECRET, workId: WORK, kind: "styleReference", recordId: "icon", expectedInputs: [{ kind: "style", recordId: "icon", version: "i2" }] }))?.stale).toBe(true);
   });
 
   it("wipes generated analysis, keeps owner versions for the next activation unless told otherwise, and leaves saved images alone", async () => {
@@ -165,19 +165,19 @@ describe("owner corrections", () => {
     expect(counts).toMatchObject({ ownerKept: 1, references: 1, attention: 1 });
     expect(counts.records).toBeGreaterThan(0);
     expect((await c.status()).ready).toBe(false);
-    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "s1" })).toBeNull();
+    expect(await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "section", recordId: "s1" })).toBeNull();
     expect(await t.run(async (ctx) => ctx.storage.get(storageId))).toBeNull();
     expect((await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET })).map((a) => a.reason)).toEqual(["reader_report"]);
     expect(await t.run(async (ctx) => ctx.db.get(imageId))).toMatchObject({ imageUrl: "https://example.test/old.jpg" });
     // A reread after the wipe carries the owner version forward.
     const generation = await activate();
     expect(generation).toBe(2);
-    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" })).toMatchObject({ source: "owner", payload: { stages: [expect.anything(), { id: "old", text: "Jonah: old, owner-edited." }] } });
+    expect(await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah" })).toMatchObject({ source: "owner", payload: { stages: [expect.anything(), { id: "old", text: "Jonah: old, owner-edited." }] } });
     expect((await c.status()).ready).toBe(true);
     // Wiping with owner versions included leaves nothing to carry.
     await c.wipe({ includingOwner: true });
     await activate();
-    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" })).toMatchObject({ source: "generated" });
+    expect(await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah" })).toMatchObject({ source: "generated" });
     await expect(t.mutation(api.analysis.wipeWork, { serverSecret: SECRET, workId: WORK, confirmation: "wrong", includingOwner: false })).rejects.toThrow(/Confirmation/);
     await expect(t.mutation(api.analysis.wipeWork, { serverSecret: "nope", workId: WORK, confirmation: WORK, includingOwner: false })).rejects.toThrow();
   });

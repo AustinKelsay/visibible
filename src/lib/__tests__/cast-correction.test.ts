@@ -40,7 +40,7 @@ describe("missing cast correction", () => {
   let t: ReturnType<typeof convexTest>;
   let c: ReturnType<typeof createCorrections>;
   let addition: CastEntryAddition;
-  const active = (kind: "entry" | "section" | "moment", recordId: string) => t.query(api.analysis.getActiveRecord, { workId: WORK, kind, recordId });
+  const active = (kind: "entry" | "section" | "moment", recordId: string) => t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind, recordId });
   const add = (overrides: Partial<CastEntryAddition> = {}) => c.addCastEntry({ ...addition, ...overrides }, inputs);
   const state = () => t.run(async (ctx) => ({ records: await ctx.db.query("analysisRecords").collect(), generations: await ctx.db.query("analysisGenerations").collect() }));
   const mutate = (overrides: Partial<CastEntryAddition> = {}) => t.mutation(api.analysis.addCastEntry, { serverSecret: SECRET, workId: WORK, ...addition, ...overrides });
@@ -66,7 +66,7 @@ describe("missing cast correction", () => {
     expect(await active("entry", "assembly")).toMatchObject({ source: "owner", version: result.entryVersion, payload: addition.entry });
     expect(await active("section", "court-1")).toMatchObject({ source: "owner", version: result.sectionVersion,
       payload: { cast: [{ entryId: "watcher", stageId: "main" }, { entryId: "assembly", stageId: "main", named: false }] } });
-    expect(await t.query(api.analysis.getWorkStatus, { workId: WORK })).toMatchObject({ ready: true, activeGeneration: 1 });
+    expect(await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK })).toMatchObject({ ready: true, activeGeneration: 1 });
     const after = await state();
     expect(after.generations[0].recordCounts).toEqual({ ...before.generations[0].recordCounts, entry: 2 });
     expect(after.records.filter((r) => r.kind === "section" && r.recordId === "court-1")).toContainEqual(expect.objectContaining({ status: "superseded", version: addition.expectedSectionVersion }));
@@ -136,7 +136,7 @@ describe("missing cast correction", () => {
     const { generation } = await t.mutation(api.analysis.stageGeneration, { serverSecret: SECRET, workId: WORK, workVersion: "wv", briefVersion: "bv" });
     await t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation, records });
     await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation })).rejects.toThrow(/unknown entry assembly/);
-    expect(await t.query(api.analysis.getWorkStatus, { workId: WORK })).toMatchObject({ ready: true, activeGeneration: 1 });
+    expect(await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK })).toMatchObject({ ready: true, activeGeneration: 1 });
     await t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation, records: [{ kind: "entry", recordId: "assembly", payload: { ...addition.entry, name: "Generated name" } }] });
     await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
     expect(await active("entry", "assembly")).toMatchObject({ source: "owner", version: result.entryVersion, payload: addition.entry });

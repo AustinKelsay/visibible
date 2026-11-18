@@ -30,6 +30,7 @@ import {
   hashIp,
 } from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
+import { analysisAccess } from "@/lib/engine/analysis-records";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { validateCsrfToken, CSRF_COOKIE_NAME } from "@/lib/csrf";
 import {
@@ -437,7 +438,7 @@ export async function handleImageRequest(request: Request, mode: "generate" | "q
     // drawn as its passage but saved where the passage page never looks.
     let moment;
     try {
-      moment = await convex.query(api.analysis.getActiveRecord, { workId: proseWork.id, kind: "moment", recordId: unit.id });
+      moment = await convex.query(api.analysis.getActiveRecord, { workId: proseWork.id, kind: "moment", recordId: unit.id, ...analysisAccess(proseWork.id) });
     } catch (error) {
       logApiFailure({ context: requestContext, stage: "prose_moment_lookup", error, statusCode: 503, sid });
       return jsonWithSessionRefresh({ error: "Preparing scene", message: "The book's passages could not be read.", retryable: true }, { status: 503 });
@@ -482,7 +483,7 @@ export async function handleImageRequest(request: Request, mode: "generate" | "q
     return null;
   });
   const isAdminForBilling = sessionForAdmission?.tier === "admin";
-  const readiness = engineMode === "disabled" ? null : await convex.query(api.analysis.getWorkStatus, { workId }).catch(() => null);
+  const readiness = engineMode === "disabled" ? null : await convex.query(api.analysis.getWorkStatus, { workId, ...analysisAccess(workId) }).catch(() => null);
   const engineDecision = decideEngine({
     mode: engineMode, isOwner: hasOwnerEngineAccess(sessionForAdmission), styleId: requestedStyleId ?? null,
     readiness: readiness ? { ready: readiness.ready, reasons: readiness.reasons, activeGeneration: readiness.activeGeneration, briefVersion: readiness.briefVersion } : null,

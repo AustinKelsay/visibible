@@ -5,7 +5,7 @@
  */
 import type { ConvexHttpClient } from "convex/browser";
 import { api } from "../../../convex/_generated/api";
-import { listAnalysisRecords } from "../engine/analysis-records";
+import { analysisAccess, listAnalysisRecords } from "../engine/analysis-records";
 import { loadWorkInputs } from "../engine/work-inputs";
 import type { ReferenceUnit, WorkReader } from "../work-input";
 import type { ProseWork } from "./catalog";
@@ -97,7 +97,7 @@ const books = new Map<string, { book: Promise<ProseBook>; at: number }>();
  * no active analysis, so its pages are not found rather than empty.
  */
 export async function loadProseBook(work: ProseWork, convex: Pick<ConvexHttpClient, "query">, now: () => number = Date.now): Promise<ProseBook | null> {
-  const status = await convex.query(api.analysis.getWorkStatus, { workId: work.id });
+  const status = await convex.query(api.analysis.getWorkStatus, { workId: work.id, ...analysisAccess(work.id) });
   if (status.activeGeneration === null) return null;
   const key = `${work.id}#${status.activeGeneration}`;
   const cached = books.get(key);

@@ -52,22 +52,48 @@ describe("analysis generations", () => {
 
   it("serves only the active generation after a complete candidate is activated", async () => {
     const generation = await prepare();
-    const before = await t.query(api.analysis.getWorkStatus, { workId: WORK });
+    const before = await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK });
     expect(before.ready).toBe(false);
     expect(before.activeGeneration).toBeNull();
-    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "a-scandal-in-bohemia-1" })).toBeNull();
+    expect(await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "section", recordId: "a-scandal-in-bohemia-1" })).toBeNull();
 
     await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
 
-    const after = await t.query(api.analysis.getWorkStatus, { workId: WORK });
+    const after = await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK });
     expect(after.ready).toBe(true);
     expect(after.activeGeneration).toBe(generation);
-    const record = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "a-scandal-in-bohemia-1" });
+    const record = await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "section", recordId: "a-scandal-in-bohemia-1" });
     expect(record?.payload).toMatchObject({ title: "Section a-scandal-in-bohemia-1" });
     expect(record?.source).toBe("generated");
     expect(record?.version).toMatch(/^[0-9a-f]{32}$/);
     expect(record?.generation).toBe(generation);
-    expect((await t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" })).map((r) => r.recordId)).toEqual(["sherlock_holmes"]);
+    expect((await t.query(api.analysis.listActiveRecords, { serverSecret: SECRET, workId: WORK, kind: "entry" })).map((r) => r.recordId)).toEqual(["sherlock_holmes"]);
+  });
+
+  it("keeps an owner preview's analysis and reference reads behind the server secret, and the Bible's public", async () => {
+    const generation = await prepare();
+    await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
+    const read = { workId: WORK, kind: "entry" as const, recordId: "sherlock_holmes" };
+    const anonymous = [
+      t.query(api.analysis.getWorkStatus, { workId: WORK }),
+      t.query(api.analysis.getGeneration, { workId: WORK, generation }),
+      t.query(api.analysis.getActiveRecord, read),
+      t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" }),
+      t.query(api.analysis.listActiveRecordsPage, { workId: WORK, generation, kind: "entry", cursor: null }),
+      t.query(api.analysis.getRecordVersion, { ...read, generation, version: "x" }),
+      t.query(api.analysis.listRecordHistory, read),
+      t.query(api.analysis.listStaleDependents, read),
+      t.query(api.analysis.getReference, { workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main" }),
+      t.query(api.analysis.getWorkStatus, { workId: WORK, serverSecret: "wrong" }),
+    ];
+    for (const call of anonymous) await expect(call).rejects.toThrow(/Unauthorized/);
+    expect((await t.query(api.analysis.getWorkStatus, { workId: WORK, serverSecret: SECRET })).ready).toBe(true);
+    expect(await t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry", serverSecret: SECRET })).toHaveLength(1);
+
+    await t.mutation(api.analysis.registerWork, { serverSecret: SECRET, workId: "bible-web", workVersion: WORK_V1, briefVersion: BRIEF_V1 });
+    expect((await t.query(api.analysis.getWorkStatus, { workId: "bible-web" })).exists).toBe(true);
+    expect(await t.query(api.analysis.getActiveRecord, { workId: "bible-web", kind: "entry", recordId: "adam" })).toBeNull();
+    expect(await t.query(api.analysis.listActiveRecords, { workId: "bible-web", kind: "entry" })).toEqual([]);
   });
 
   it("bounds the unpaged reads: no moment list, a capped entry list, and a legacy count from a bounded read", async () => {
@@ -114,11 +140,11 @@ describe("analysis generations", () => {
     ] })).rejects.toThrow(/unknown section/);
     await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: reread })).rejects.toThrow(/unknown section|no story sections/);
 
-    const status = await t.query(api.analysis.getWorkStatus, { workId: WORK });
+    const status = await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK });
     expect(status.activeGeneration).toBe(first);
     expect(status.candidateGeneration).toBe(reread);
     expect(status.ready).toBe(true);
-    const section = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "a-scandal-in-bohemia-1" });
+    const section = await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "section", recordId: "a-scandal-in-bohemia-1" });
     expect(section?.generation).toBe(first);
   });
 
@@ -126,26 +152,26 @@ describe("analysis generations", () => {
     const generation = await prepare(minimalRecords(), { workVersion: WORK_V1, briefVersion: "brief-v0" });
     await t.mutation(api.analysis.registerWork, { serverSecret: SECRET, workId: WORK, workVersion: WORK_V1, briefVersion: BRIEF_V1 });
     await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation })).rejects.toThrow(/brief brief-v0/);
-    expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).ready).toBe(false);
+    expect((await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK })).ready).toBe(false);
 
     const { generation: again } = await t.mutation(api.analysis.stageGeneration, { serverSecret: SECRET, workId: WORK, workVersion: "work-v0", briefVersion: BRIEF_V1 });
     await t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation: again, records: minimalRecords() });
     await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: again })).rejects.toThrow(/work work-v0/);
     await t.mutation(api.analysis.abandonGeneration, { serverSecret: SECRET, workId: WORK, generation: again, note: "read against a stale work file" });
-    expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).candidateGeneration).toBeNull();
-    expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: again }))?.status).toBe("abandoned");
+    expect((await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK })).candidateGeneration).toBeNull();
+    expect((await t.query(api.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation: again }))?.status).toBe("abandoned");
   });
 
   it("marks a work not ready when the deployed brief changes after activation", async () => {
     const generation = await prepare();
     await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
     await t.mutation(api.analysis.registerWork, { serverSecret: SECRET, workId: WORK, workVersion: WORK_V1, briefVersion: "brief-v2" });
-    const status = await t.query(api.analysis.getWorkStatus, { workId: WORK });
+    const status = await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK });
     expect(status.ready).toBe(false);
     expect(status.reasons.join(" ")).toMatch(/brief/);
     // The old generation still serves while a compatible reread is prepared.
     expect(status.activeGeneration).toBe(generation);
-    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "sherlock_holmes" })).not.toBeNull();
+    expect(await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "sherlock_holmes" })).not.toBeNull();
   });
 
   it("lets only the latest candidate activate when two rereads compete", async () => {
@@ -156,10 +182,10 @@ describe("analysis generations", () => {
     expect(b).toBe(a + 1);
     await expect(t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation: a, records: minimalRecords() })).rejects.toThrow(/not an open candidate/);
     await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: a })).rejects.toThrow(/not the open candidate/);
-    expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: a }))?.status).toBe("abandoned");
+    expect((await t.query(api.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation: a }))?.status).toBe("abandoned");
     await t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation: b, records: minimalRecords() });
     await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: b });
-    expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).activeGeneration).toBe(b);
+    expect((await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK })).activeGeneration).toBe(b);
   });
 
   it("keeps owner versions across a reread and lists the ones whose record vanished", async () => {
@@ -181,21 +207,21 @@ describe("analysis generations", () => {
     expect(result.carriedOwnerVersions).toEqual(["entry/sherlock_holmes"]);
     expect(result.unmatchedOwnerVersions).toEqual(["entry/dr_watson"]);
 
-    const holmes = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "sherlock_holmes" });
+    const holmes = await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "sherlock_holmes" });
     expect(holmes?.source).toBe("owner");
     expect(holmes?.version).toBe(correction.version);
     expect(holmes?.payload).toMatchObject({ stages: [{ text: expect.stringContaining("dressing-gown") }] });
-    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "dr_watson" })).toBeNull();
+    expect(await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "dr_watson" })).toBeNull();
 
     const attention = await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET });
     expect(attention).toHaveLength(1);
     expect(attention[0]).toMatchObject({ reason: "unmatched_owner_edit", kind: "entry", recordId: "dr_watson", generation: first });
 
     // The retired generation stays readable for provenance.
-    const old = await t.query(api.analysis.getRecordVersion, { workId: WORK, generation: first, kind: "entry", recordId: "dr_watson", version: attention[0].detail!.match(/version ([0-9a-f]+)/)![1] });
+    const old = await t.query(api.analysis.getRecordVersion, { serverSecret: SECRET, workId: WORK, generation: first, kind: "entry", recordId: "dr_watson", version: attention[0].detail!.match(/version ([0-9a-f]+)/)![1] });
     expect(old?.payload).toMatchObject({ name: "Dr. Watson" });
-    expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: first }))?.status).toBe("retired");
-    const history = await t.query(api.analysis.listRecordHistory, { workId: WORK, kind: "entry", recordId: "dr_watson" });
+    expect((await t.query(api.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation: first }))?.status).toBe("retired");
+    const history = await t.query(api.analysis.listRecordHistory, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "dr_watson" });
     expect(history.map((h) => [h.generation, h.source, h.status])).toEqual([[first, "owner", "retired"], [first, "generated", "superseded"]]);
   });
 
@@ -204,13 +230,13 @@ describe("analysis generations", () => {
     await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
     // A sheet made from the old canon version shows up as stale, with its pin state.
     const storageId = await t.run(async (ctx) => ctx.storage.store(new Blob(["jpeg"], { type: "image/jpeg" })));
-    const holmes = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "sherlock_holmes" });
+    const holmes = await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "sherlock_holmes" });
     await t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main", storageId,
       inputs: [{ kind: "entry", recordId: "sherlock_holmes", version: holmes!.version }] });
-    expect(await t.query(api.analysis.listStaleDependents, { workId: WORK, kind: "entry", recordId: "sherlock_holmes" })).toEqual([]);
+    expect(await t.query(api.analysis.listStaleDependents, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "sherlock_holmes" })).toEqual([]);
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "sherlock_holmes",
       payload: { kind: "entry", name: "Sherlock Holmes", entryKind: "character", hasForm: true, stages: [{ id: "main", text: "Sherlock Holmes: corrected." }] } });
-    expect(await t.query(api.analysis.listStaleDependents, { workId: WORK, kind: "entry", recordId: "sherlock_holmes" })).toEqual([
+    expect(await t.query(api.analysis.listStaleDependents, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "sherlock_holmes" })).toEqual([
       expect.objectContaining({ kind: "sheet", recordId: "sherlock_holmes:main", usedVersion: holmes!.version, pinned: false }),
     ]);
   });
@@ -234,12 +260,12 @@ describe("analysis generations", () => {
     const storageId = await t.run(async (ctx) => ctx.storage.store(new Blob(["jpeg-bytes"], { type: "image/jpeg" })));
     const inputs = [{ kind: "entry", recordId: "sherlock_holmes", version: "v-old" }];
     await t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main", storageId, inputs, verdict: "pass" });
-    const fresh = await t.query(api.analysis.getReference, { workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main", expectedInputs: inputs });
+    const fresh = await t.query(api.analysis.getReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main", expectedInputs: inputs });
     expect(fresh).toMatchObject({ storageId, stale: false, pinned: false });
     const newer = [{ kind: "entry", recordId: "sherlock_holmes", version: "v-new" }];
-    expect((await t.query(api.analysis.getReference, { workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main", expectedInputs: newer }))?.stale).toBe(true);
+    expect((await t.query(api.analysis.getReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main", expectedInputs: newer }))?.stale).toBe(true);
     await t.mutation(api.analysis.pinReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main", pinned: true });
-    expect((await t.query(api.analysis.getReference, { workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main", expectedInputs: newer }))?.stale).toBe(false);
+    expect((await t.query(api.analysis.getReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main", expectedInputs: newer }))?.stale).toBe(false);
     await expect(t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main", storageId, inputs: newer })).rejects.toThrow(/pinned/);
   });
 
@@ -248,7 +274,7 @@ describe("analysis generations", () => {
     await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
     const { id } = await t.mutation(api.analysis.noteAttention, { serverSecret: SECRET, workId: WORK, reason: "sheet_failed", kind: "sheet", recordId: "sherlock_holmes:main", detail: "three tries" });
     await t.mutation(api.analysis.noteAttention, { serverSecret: SECRET, workId: WORK, reason: "sheet_failed", kind: "sheet", recordId: "sherlock_holmes:main" });
-    expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).ready).toBe(true);
+    expect((await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK })).ready).toBe(true);
     const open = await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET });
     expect(open).toEqual([expect.objectContaining({ id, count: 2, status: "open" })]);
     await t.mutation(api.analysis.closeAttention, { serverSecret: SECRET, id, disposition: "dismissed" });
@@ -278,7 +304,7 @@ describe("analysis generations", () => {
       moment("a-scandal-in-bohemia-1", "a-scandal-in-bohemia-2", "a-scandal-in-bohemia-1"),
     ] });
     await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: reread })).rejects.toThrow(/no stage young/);
-    const status = await t.query(api.analysis.getWorkStatus, { workId: WORK });
+    const status = await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK });
     expect(status.activeGeneration).toBe(first);
     expect(status.candidateGeneration).toBe(reread);
     expect(await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET })).toEqual([]);
@@ -293,7 +319,7 @@ describe("analysis generations", () => {
     // The section may follow the moment within the same atomic batch.
     await put([moment("first", "end", "section"), section("section", "end"), entry("holmes", "Holmes")]);
     await put([moment("first", "other-end", "section")]);
-    expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation }))?.counts).toEqual({ moment: 1, section: 1, entry: 1 });
+    expect((await t.query(api.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation }))?.counts).toEqual({ moment: 1, section: 1, entry: 1 });
     await t.run(async (ctx) => {
       const row = await ctx.db.query("analysisGenerations").first();
       await ctx.db.patch(row!._id, { recordCounts: undefined });
@@ -353,13 +379,13 @@ describe("analysis generations", () => {
       });
       await setProtocol(false);
       await expect(t.run((ctx) => activateCandidate({ ...ctx, db: bounded(ctx.db) }, { serverSecret: SECRET, workId: WORK, generation: first }))).rejects.toThrow(/more than \d+ documents/);
-      expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).activeGeneration).toBeNull();
+      expect((await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK })).activeGeneration).toBeNull();
       await setProtocol(true);
       scanned = 0;
       await t.run((ctx) => activateCandidate({ ...ctx, db: bounded(ctx.db) }, { serverSecret: SECRET, workId: WORK, generation: first }));
       expect(scanned).toBeLessThan(SCAN_LIMIT / 6);
-      expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: first }))?.counts).toEqual(COUNTS);
-      expect(await t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" })).toHaveLength(1);
+      expect((await t.query(api.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation: first }))?.counts).toEqual(COUNTS);
+      expect(await t.query(api.analysis.listActiveRecords, { serverSecret: SECRET, workId: WORK, kind: "entry" })).toHaveLength(1);
       const list = await listAnalysisRecords(t, WORK, first, "moment");
       expect(list).toHaveLength(MOMENTS);
       expect(new Set(list.map((r) => r.recordId)).size).toBe(MOMENTS);
@@ -371,15 +397,15 @@ describe("analysis generations", () => {
       const second = await prepare();
       const result = await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: second });
       expect(result.carriedOwnerVersions).toEqual(["moment/a-scandal-in-bohemia-1"]);
-      expect((await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "moment", recordId: "a-scandal-in-bohemia-1" }))?.version).toBe(correction.version);
-      await expect(t.query(api.analysis.listActiveRecordsPage, { workId: WORK, generation: first, kind: "moment", cursor: null })).rejects.toThrow(/generation changed/);
+      expect((await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "moment", recordId: "a-scandal-in-bohemia-1" }))?.version).toBe(correction.version);
+      await expect(t.query(api.analysis.listActiveRecordsPage, { serverSecret: SECRET, workId: WORK, generation: first, kind: "moment", cursor: null })).rejects.toThrow(/generation changed/);
       for (let page = 0; page < 150 && vi.getTimerCount() > 0; page++) {
         vi.runAllTimers();
         await t.finishInProgressScheduledFunctions();
       }
       expect(vi.getTimerCount()).toBe(0);
-      expect((await t.query(api.analysis.listRecordHistory, { workId: WORK, kind: "moment", recordId: `unit-${MOMENTS - 1}` }))[0].status).toBe("retired");
-      expect(await t.query(api.analysis.getRecordVersion, { workId: WORK, generation: first, kind: "moment", recordId: `unit-${MOMENTS - 1}`, version: "fixture" })).not.toBeNull();
+      expect((await t.query(api.analysis.listRecordHistory, { serverSecret: SECRET, workId: WORK, kind: "moment", recordId: `unit-${MOMENTS - 1}` }))[0].status).toBe("retired");
+      expect(await t.query(api.analysis.getRecordVersion, { serverSecret: SECRET, workId: WORK, generation: first, kind: "moment", recordId: `unit-${MOMENTS - 1}`, version: "fixture" })).not.toBeNull();
     } finally {
       vi.useRealTimers();
     }
@@ -404,10 +430,10 @@ describe("styles-only brief amendment", () => {
   it("moves the registered and active brief versions together, keeping the work ready", async () => {
     const result = await t.mutation(api.analysis.amendBriefStyles, { serverSecret: SECRET, workId: WORK, previousBrief: briefA, nextBrief: briefB });
     expect(result).toEqual({ previousVersion: sha(briefA), nextVersion: sha(briefB), styleIds: ["classical", "watercolor", "fresco"], changed: true });
-    const status = await t.query(api.analysis.getWorkStatus, { workId: WORK });
+    const status = await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK });
     expect(status).toMatchObject({ ready: true, reasons: [], briefVersion: sha(briefB), activeVersions: { briefVersion: sha(briefB) } });
     // The active records are untouched: the same generation serves them.
-    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "a-scandal-in-bohemia-1" })).not.toBeNull();
+    expect(await t.query(api.analysis.getActiveRecord, { serverSecret: SECRET, workId: WORK, kind: "section", recordId: "a-scandal-in-bohemia-1" })).not.toBeNull();
   });
 
   it("refuses a wrong secret, a stale previous brief, any change beyond styles, and an empty style list", async () => {
@@ -421,6 +447,6 @@ describe("styles-only brief amendment", () => {
     await expect(t.mutation(api.analysis.amendBriefStyles, { serverSecret: SECRET, workId: WORK, previousBrief: briefA, nextBrief: unknownStyle })).rejects.toThrow(/unknown art styles: neon/);
     const duplicate = briefWith(["classical", "watercolor", "classical"]);
     await expect(t.mutation(api.analysis.amendBriefStyles, { serverSecret: SECRET, workId: WORK, previousBrief: briefA, nextBrief: duplicate })).rejects.toThrow(/twice/);
-    expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).briefVersion).toBe(sha(briefA));
+    expect((await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK })).briefVersion).toBe(sha(briefA));
   });
 });

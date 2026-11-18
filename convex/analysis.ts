@@ -16,6 +16,7 @@ import { action, internalMutation, mutation, query, type MutationCtx, type Query
 import { internal } from "./_generated/api";
 import type { Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
+import { isOwnerOnlyWork } from "./lib/proseWorks";
 import { contentVersion } from "./_helpers/contentVersion";
 import { analysisValidators } from "./schema";
 import { openAttention, READER_REPORT_DISPOSITIONS, READER_REPORT_REASON } from "./_helpers/attention";
@@ -682,13 +683,23 @@ export const wipeWork = mutation({
 // ---------------------------------------------------------------- reads
 
 /**
+ * The Bible's analysis is public. Any other work is the owner's preview, so its analysis and reference reads need the
+ * server secret: they are called only by Next routes and owner tooling, never by a browser.
+ */
+function requireReadAccess(workId: string, serverSecret: string | undefined) {
+  if (isOwnerOnlyWork(workId)) validateServerSecret(serverSecret ?? "");
+}
+const readSecret = { serverSecret: v.optional(v.string()) };
+
+/**
  * Readiness and generation lookup for routing. A work is ready when an active generation exists
  * and was read against the deployed work and brief versions. The brief alone is not enough;
  * missing references and open attention items do not block.
  */
 export const getWorkStatus = query({
-  args: { workId: v.string() },
+  args: { workId: v.string(), ...readSecret },
   handler: async (ctx, args) => {
+    requireReadAccess(args.workId, args.serverSecret);
     const work = await findWork(ctx, args.workId);
     if (!work) return { exists: false, ready: false, reasons: ["work is not registered"], workVersion: null, briefVersion: null, activeGeneration: null, candidateGeneration: null, activeVersions: null };
     const reasons: string[] = [];
@@ -715,8 +726,9 @@ export const getWorkStatus = query({
 const COUNT_FALLBACK_MAX = 2000;
 
 export const getGeneration = query({
-  args: { workId: v.string(), generation: v.number() },
+  args: { workId: v.string(), generation: v.number(), ...readSecret },
   handler: async (ctx, args) => {
+    requireReadAccess(args.workId, args.serverSecret);
     const generation = await findGeneration(ctx, args.workId, args.generation);
     if (!generation) return null;
     const counts: Record<string, number> = { ...generation.recordCounts };
@@ -736,8 +748,9 @@ export const getGeneration = query({
 
 /** The current record of the active generation, or null. Candidate records are never served. */
 export const getActiveRecord = query({
-  args: { workId: v.string(), kind: analysisValidators.kind, recordId: v.string() },
+  args: { workId: v.string(), kind: analysisValidators.kind, recordId: v.string(), ...readSecret },
   handler: async (ctx, args) => {
+    requireReadAccess(args.workId, args.serverSecret);
     const work = await findWork(ctx, args.workId);
     if (!work || work.activeGeneration === undefined) return null;
     const record = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
@@ -752,8 +765,9 @@ export const getActiveRecord = query({
 export const LIST_ACTIVE_MAX = 1000;
 
 export const listActiveRecords = query({
-  args: { workId: v.string(), kind: analysisValidators.kind },
+  args: { workId: v.string(), kind: analysisValidators.kind, ...readSecret },
   handler: async (ctx, args) => {
+    requireReadAccess(args.workId, args.serverSecret);
     const work = await findWork(ctx, args.workId);
     if (!work || work.activeGeneration === undefined) return [];
     if (args.kind === "moment") throw new Error("Moments are not listed in one call; page them with listActiveRecordsPage");
@@ -767,8 +781,9 @@ export const listActiveRecords = query({
 
 /** Bounded enumeration, pinned to the generation the caller admitted. */
 export const listActiveRecordsPage = query({
-  args: { workId: v.string(), generation: v.number(), kind: analysisValidators.kind, cursor: v.union(v.string(), v.null()) },
+  args: { workId: v.string(), generation: v.number(), kind: analysisValidators.kind, cursor: v.union(v.string(), v.null()), ...readSecret },
   handler: async (ctx, args) => {
+    requireReadAccess(args.workId, args.serverSecret);
     const work = await requireWork(ctx, args.workId);
     if (work.activeGeneration !== args.generation) throw new Error("Analysis generation changed during enumeration; retry admission");
     const page = await ctx.db.query("analysisRecords").withIndex("by_work_generation_kind_status", (q) =>
@@ -780,8 +795,9 @@ export const listActiveRecordsPage = query({
 
 /** A historical record by generation, readable after retirement for provenance. */
 export const getRecordVersion = query({
-  args: { workId: v.string(), generation: v.number(), kind: analysisValidators.kind, recordId: v.string(), version: v.string() },
+  args: { workId: v.string(), generation: v.number(), kind: analysisValidators.kind, recordId: v.string(), version: v.string(), ...readSecret },
   handler: async (ctx, args) => {
+    requireReadAccess(args.workId, args.serverSecret);
     const matches = await ctx.db
       .query("analysisRecords")
       .withIndex("by_work_generation_kind_recordId", (q) =>
@@ -795,8 +811,9 @@ export const getRecordVersion = query({
 
 /** Every stored version of a record across generations, newest first: retired ids stay readable by id alone. */
 export const listRecordHistory = query({
-  args: { workId: v.string(), kind: analysisValidators.kind, recordId: v.string() },
+  args: { workId: v.string(), kind: analysisValidators.kind, recordId: v.string(), ...readSecret },
   handler: async (ctx, args) => {
+    requireReadAccess(args.workId, args.serverSecret);
     const matches = await ctx.db
       .query("analysisRecords")
       .withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId).eq("kind", args.kind).eq("recordId", args.recordId))
@@ -833,8 +850,11 @@ export async function staleDependents(ctx: QueryCtx, args: { workId: string; kin
 }
 
 export const listStaleDependents = query({
-  args: { workId: v.string(), kind: analysisValidators.kind, recordId: v.string() },
-  handler: staleDependents,
+  args: { workId: v.string(), kind: analysisValidators.kind, recordId: v.string(), ...readSecret },
+  handler: async (ctx, args) => {
+    requireReadAccess(args.workId, args.serverSecret);
+    return staleDependents(ctx, args);
+  },
 });
 
 /** The current reference and whether it is stale against the inputs it should have been made from. */
@@ -842,8 +862,10 @@ export const getReference = query({
   args: {
     workId: v.string(), kind: analysisValidators.referenceKind, recordId: v.string(),
     expectedInputs: v.optional(v.array(analysisValidators.input)),
+    ...readSecret,
   },
   handler: async (ctx, args) => {
+    requireReadAccess(args.workId, args.serverSecret);
     const reference = await findReference(ctx, args.workId, args.kind, args.recordId);
     if (!reference) return null;
     const expected = args.expectedInputs ? referenceFingerprint(args.expectedInputs) : null;

@@ -72,8 +72,8 @@ describe("reference images", () => {
     await t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation, records });
     await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
     store = {
-      listActiveRecords: (kind) => t.query(api.analysis.listActiveRecords, { workId: WORK, kind }) as never,
-      getReference: async (kind, recordId, expectedInputs) => { const r = await t.query(api.analysis.getReference, { workId: WORK, kind, recordId, expectedInputs }); return r ? { storageId: r.storageId, stale: r.stale, pinned: r.pinned } : null; },
+      listActiveRecords: (kind) => t.query(api.analysis.listActiveRecords, { serverSecret: SECRET, workId: WORK, kind }) as never,
+      getReference: async (kind, recordId, expectedInputs) => { const r = await t.query(api.analysis.getReference, { serverSecret: SECRET, workId: WORK, kind, recordId, expectedInputs }); return r ? { storageId: r.storageId, stale: r.stale, pinned: r.pinned } : null; },
       putReference: async (args) => { await t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, ...args, storageId: args.storageId as never }); },
       noteAttention: async (item) => { await t.mutation(api.analysis.noteAttention, { serverSecret: SECRET, workId: WORK, ...item }); },
     };
@@ -157,11 +157,11 @@ describe("reference images", () => {
     expect(attention.map((a) => [a.reason, a.recordId])).toEqual(expect.arrayContaining([["canon_note", "jonah:young"], ["sheet_failed", "the_lake:main"]]));
     expect(attention).toHaveLength(2);
     // Stored references are readable with their inputs; the failed one is absent and nothing blocks readiness.
-    const young = await t.query(api.analysis.getReference, { workId: WORK, kind: "sheet", recordId: "jonah:young" });
+    const young = await t.query(api.analysis.getReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "jonah:young" });
     expect(young?.inputs.map((i) => i.kind)).toEqual(["entry", "stage", "style", "era"]);
     expect(await t.run(async (ctx) => (await ctx.storage.get(young!.storageId))?.size)).toBeGreaterThan(0);
-    expect(await t.query(api.analysis.getReference, { workId: WORK, kind: "sheet", recordId: "the_lake:main" })).toBeNull();
-    expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).ready).toBe(true);
+    expect(await t.query(api.analysis.getReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "the_lake:main" })).toBeNull();
+    expect((await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK })).ready).toBe(true);
     // A second run with the same state makes nothing.
     const again = await runReferences({ workId: WORK, workTitle: "Two Books", brief, store, maker, checker, blobs, state, saveState: async () => {}, budgetUsd: 5, styleVersions });
     expect(maker.prompts).toHaveLength(9);

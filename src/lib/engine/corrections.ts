@@ -67,7 +67,7 @@ export function imageUrl(siteUrl: string | null, storageId: string): string | nu
 }
 
 export function createCorrections(client: CorrectionClient, api: AnalysisApi, workId: string, serverSecret: string, siteUrl: string | null, extras: CorrectionExtras = {}) {
-  const query = <T>(ref: FunctionReference<"query">, args: Record<string, unknown>) => client.query(ref, { workId, ...args }) as Promise<T>;
+  const query = <T>(ref: FunctionReference<"query">, args: Record<string, unknown>) => client.query(ref, { serverSecret, workId, ...args }) as Promise<T>;
   const mutate = <T>(ref: FunctionReference<"mutation">, args: Record<string, unknown>) => client.mutation(ref, { serverSecret, workId, ...args }) as Promise<T>;
   type Record_ = { kind: string; recordId: string; version: string; source: string; generation: number; payload: Record<string, unknown> };
 

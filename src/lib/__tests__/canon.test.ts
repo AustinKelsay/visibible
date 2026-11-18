@@ -211,8 +211,8 @@ describe("canon", () => {
     const { generation } = await convexStore.stageGeneration({ workId: "two-books", workVersion: "wv1", briefVersion: "bv1" });
     await convexStore.putRecords({ workId: "two-books", generation, records });
     await convexStore.activateGeneration({ workId: "two-books", generation });
-    expect((await t.query(api.analysis.getWorkStatus, { workId: "two-books" })).ready).toBe(true);
-    const savedVoice = await t.query(api.analysis.getActiveRecord, { workId: "two-books", kind: "entry", recordId: "the_voice_from_the_sky" });
+    expect((await t.query(api.analysis.getWorkStatus, { serverSecret: "s".repeat(40), workId: "two-books" })).ready).toBe(true);
+    const savedVoice = await t.query(api.analysis.getActiveRecord, { serverSecret: "s".repeat(40), workId: "two-books", kind: "entry", recordId: "the_voice_from_the_sky" });
     expect(savedVoice?.inputs).toEqual(voice.inputs);
     expect(savedVoice?.payload).toEqual(voice.payload);
     expect(savedVoice?.payload).toMatchObject({ stages: [{ text: state.entries.the_voice_from_the_sky.stages[0].text,
@@ -224,7 +224,7 @@ describe("canon", () => {
     await convexStore.putRecords({ workId: "two-books", generation: next.generation, records });
     const activation = await convexStore.activateGeneration({ workId: "two-books", generation: next.generation });
     expect(activation.carriedOwnerVersions).toEqual(["entry/amos"]);
-    expect((await t.query(api.analysis.getActiveRecord, { workId: "two-books", kind: "entry", recordId: "amos" }))?.payload).toMatchObject({ stages: [{ text: "Amos: owner-edited look." }] });
+    expect((await t.query(api.analysis.getActiveRecord, { serverSecret: "s".repeat(40), workId: "two-books", kind: "entry", recordId: "amos" }))?.payload).toMatchObject({ stages: [{ text: "Amos: owner-edited look." }] });
   });
 
   it("re-asks once for over-long text, resumes without redrafting, and reserves in-flight estimates against the budget", async () => {
