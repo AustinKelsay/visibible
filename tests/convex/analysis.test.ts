@@ -78,7 +78,7 @@ describe("analysis generations", () => {
       t.query(api.analysis.getWorkStatus, { workId: WORK }),
       t.query(internal.analysis.getGeneration, { workId: WORK, generation }),
       t.query(api.analysis.getActiveRecord, read),
-      t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" }),
+      t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry", serverSecret: "wrong" }),
       t.query(api.analysis.listActiveRecordsPage, { workId: WORK, generation, kind: "entry", cursor: null }),
       t.query(api.analysis.getRecordVersion, { ...read, generation, version: "x" }),
       t.query(api.analysis.listRecordHistory, read),
@@ -93,7 +93,8 @@ describe("analysis generations", () => {
     await t.mutation(api.analysis.registerWork, { serverSecret: SECRET, workId: "bible-web", workVersion: WORK_V1, briefVersion: BRIEF_V1 });
     expect((await t.query(api.analysis.getWorkStatus, { workId: "bible-web" })).exists).toBe(true);
     expect(await t.query(api.analysis.getActiveRecord, { workId: "bible-web", kind: "entry", recordId: "adam" })).toBeNull();
-    expect(await t.query(api.analysis.listActiveRecords, { workId: "bible-web", kind: "entry" })).toEqual([]);
+    await expect(t.query(api.analysis.listActiveRecords, { workId: "bible-web", kind: "entry", serverSecret: "wrong" })).rejects.toThrow(/Unauthorized/);
+    expect(await t.query(api.analysis.listActiveRecords, { workId: "bible-web", kind: "entry", serverSecret: SECRET })).toEqual([]);
   });
 
   it("rejects an unauthenticated preparation write", async () => {

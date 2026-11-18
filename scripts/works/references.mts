@@ -51,7 +51,7 @@ const secret = process.env.CONVEX_SERVER_SECRET;
 if (!url || !secret) throw new Error("NEXT_PUBLIC_CONVEX_URL and CONVEX_SERVER_SECRET are needed");
 const client = new ConvexHttpClient(url);
 const store: ReferenceStore = {
-  listActiveRecords: (kind) => client.query(api.analysis.listActiveRecords, { workId, kind, ...analysisAccess(workId, secret) }) as Promise<Array<{ recordId: string; version: string; payload: Record<string, unknown> }>>,
+  listActiveRecords: (kind) => client.query(api.analysis.listActiveRecords, { workId, kind, serverSecret: secret }) as Promise<Array<{ recordId: string; version: string; payload: Record<string, unknown> }>>,
   getReference: async (kind, recordId, expectedInputs) => {
     const r = await client.query(api.analysis.getReference, { workId, kind, recordId, expectedInputs, ...analysisAccess(workId, secret) });
     return r ? { storageId: r.storageId, stale: r.stale, pinned: r.pinned } : null;

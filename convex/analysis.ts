@@ -749,10 +749,11 @@ export const getActiveRecord = query({
   },
 });
 
+/** Whole-kind read for owner tooling; secret-gated for every work, since the Bible's moments run to megabytes. */
 export const listActiveRecords = query({
-  args: { workId: v.string(), kind: analysisValidators.kind, ...readSecret },
+  args: { workId: v.string(), kind: analysisValidators.kind, serverSecret: v.string() },
   handler: async (ctx, args) => {
-    requireReadAccess(args.workId, args.serverSecret);
+    validateServerSecret(args.serverSecret);
     const work = await findWork(ctx, args.workId);
     if (!work || work.activeGeneration === undefined) return [];
     return (await currentKind(ctx, args.workId, work.activeGeneration, args.kind)).map(publicRecord);
