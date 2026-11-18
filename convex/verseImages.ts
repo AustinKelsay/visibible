@@ -652,7 +652,8 @@ export const getImageHistory = query({
       .withIndex("by_verse", (q) => q.eq("verseId", args.verseId))
       .order("desc"), normalizeStyleFilter(args));
 
-    // Newest first, so the cap drops only a verse's oldest pictures.
+    // Newest first, so the cap drops only a verse's oldest pictures. A verse's pictures all belong to one work, so the
+    // visibility filter below keeps or drops them together and private pictures never crowd out public ones.
     const found = await query.take(Math.min(IMAGE_HISTORY_MAX, Math.max(1, Math.floor(args.limit ?? IMAGE_HISTORY_MAX))));
     const visible = await visibleImageFilter(ctx);
     const shown = await Promise.all(found.map(visible));

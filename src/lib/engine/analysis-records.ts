@@ -15,6 +15,12 @@ export function analysisAccess(workId: string, serverSecret?: string): { serverS
 /** One stored analysis record as Convex returns it. */
 export type AnalysisRecord = { source?: "generated" | "owner"; kind: string; recordId: string; version: string; inputs: Array<{ kind: string; recordId: string; version: string }>; payload: Record<string, unknown> & { kind: string } };
 
+/** Every active entry or section, read through the paged query so a large work never meets the one-call cap. */
+export async function listActiveKind(client: Pick<ConvexHttpClient, "query">, workId: string, kind: "entry" | "section", serverSecret?: string) {
+  const status = await client.query(api.analysis.getWorkStatus, { workId, ...analysisAccess(workId, serverSecret) });
+  return status.activeGeneration === null ? [] : listAnalysisRecords(client, workId, status.activeGeneration, kind, serverSecret);
+}
+
 /** A work can have more moments than Convex allows in one query or returned array. */
 export async function listAnalysisRecords(
   client: Pick<ConvexHttpClient, "query">,
@@ -30,5 +36,6 @@ export async function listAnalysisRecords(
     records.push(...page.records);
     cursor = page.nextCursor;
   } while (cursor !== null);
-  return records;
+  // An owner correction between pages can return a record twice; the later row is its replacement.
+  return [...new Map(records.map((record) => [record.recordId, record])).values()];
 }

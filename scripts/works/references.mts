@@ -18,7 +18,7 @@ import path from "node:path";
 import { parseArgs } from "node:util";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../convex/_generated/api";
-import { analysisAccess } from "@/lib/engine/analysis-records";
+import { analysisAccess, listActiveKind } from "@/lib/engine/analysis-records";
 import { validateWorkBrief, SHARED_STYLES } from "@/lib/work-preparation";
 import { createOpenRouterImageMaker, createOpenRouterVisionChecker } from "@/lib/engine/reference-adapters";
 import { emptyReferenceState, planReferences, runReferences, type ReferenceRunState, type ReferenceStore } from "@/lib/engine/references-run";
@@ -51,7 +51,7 @@ const secret = process.env.CONVEX_SERVER_SECRET;
 if (!url || !secret) throw new Error("NEXT_PUBLIC_CONVEX_URL and CONVEX_SERVER_SECRET are needed");
 const client = new ConvexHttpClient(url);
 const store: ReferenceStore = {
-  listActiveRecords: (kind) => client.query(api.analysis.listActiveRecords, { workId, kind, ...analysisAccess(workId, secret) }) as Promise<Array<{ recordId: string; version: string; payload: Record<string, unknown> }>>,
+  listActiveRecords: (kind) => listActiveKind(client, workId, kind, secret) as Promise<Array<{ recordId: string; version: string; payload: Record<string, unknown> }>>,
   getReference: async (kind, recordId, expectedInputs) => {
     const r = await client.query(api.analysis.getReference, { workId, kind, recordId, expectedInputs, ...analysisAccess(workId, secret) });
     return r ? { storageId: r.storageId, stale: r.stale, pinned: r.pinned } : null;

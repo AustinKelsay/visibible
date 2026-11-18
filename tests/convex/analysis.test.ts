@@ -99,8 +99,8 @@ describe("analysis generations", () => {
   it("bounds the unpaged reads: no moment list, a capped entry list, and a legacy count from a bounded read", async () => {
     const generation = await prepare();
     await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
-    await expect(t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "moment" })).rejects.toThrow(/listActiveRecordsPage/);
-    expect(await t.query(api.analysis.listActiveRecordsPage, { workId: WORK, generation, kind: "moment", cursor: null })).toMatchObject({ nextCursor: null });
+    await expect(t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "moment", serverSecret: SECRET })).rejects.toThrow(/listActiveRecordsPage/);
+    expect(await t.query(api.analysis.listActiveRecordsPage, { workId: WORK, generation, kind: "moment", cursor: null, serverSecret: SECRET })).toMatchObject({ nextCursor: null });
 
     // A legacy generation (no maintained counts) is counted by a read that stops at its cap.
     await t.run(async (ctx) => {
@@ -114,14 +114,14 @@ describe("analysis generations", () => {
         });
       }
     });
-    expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation }))?.counts).toEqual({ entry: 1002, section: 1, moment: 1 });
-    await expect(t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" })).rejects.toThrow(/More than 1000/);
+    expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation, serverSecret: SECRET }))?.counts).toEqual({ entry: 1002, section: 1, moment: 1 });
+    await expect(t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry", serverSecret: SECRET })).rejects.toThrow(/More than 1000/);
     await t.run(async (ctx) => {
       for (const row of await ctx.db.query("analysisRecords").collect()) {
         if (row.recordId.startsWith("bulk-")) await ctx.db.delete(row._id);
       }
     });
-    expect(await t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" })).toHaveLength(1);
+    expect(await t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry", serverSecret: SECRET })).toHaveLength(1);
   });
 
   it("rejects an unauthenticated preparation write", async () => {
