@@ -12,7 +12,7 @@ import { KNOWN_STYLE_IDS } from "./_helpers/styleIds";
  * Writes are server-secret protected (the same boundary as saveImage); reads are public.
  */
 import { v } from "convex/values";
-import { action, internalMutation, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
+import { action, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import { internal } from "./_generated/api";
 import type { Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
@@ -723,7 +723,7 @@ export const getWorkStatus = query({
   },
 });
 
-export const getGeneration = query({
+export const getGeneration = internalQuery({
   args: { workId: v.string(), generation: v.number(), ...readSecret },
   handler: async (ctx, args) => {
     requireReadAccess(args.workId, args.serverSecret);
@@ -749,10 +749,11 @@ export const getActiveRecord = query({
   },
 });
 
+/** Whole-kind read for owner tooling; secret-gated for every work, since the Bible's moments run to megabytes. */
 export const listActiveRecords = query({
-  args: { workId: v.string(), kind: analysisValidators.kind, ...readSecret },
+  args: { workId: v.string(), kind: analysisValidators.kind, serverSecret: v.string() },
   handler: async (ctx, args) => {
-    requireReadAccess(args.workId, args.serverSecret);
+    validateServerSecret(args.serverSecret);
     const work = await findWork(ctx, args.workId);
     if (!work || work.activeGeneration === undefined) return [];
     return (await currentKind(ctx, args.workId, work.activeGeneration, args.kind)).map(publicRecord);

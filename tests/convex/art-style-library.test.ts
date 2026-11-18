@@ -64,20 +64,20 @@ describe("style-aware library", () => {
     expect((await t.query(api.verseImages.getImageHistory, { ...only, otherStyles: true })).map((i) => i.id)).toEqual([ids.g11Icon, ids.g11Water]);
     expect(await t.query(api.verseImages.getImageHistory, { verseId: "genesis-1-3", artStyle: "classical" })).toEqual([]);
     // Variation counts per verse follow the selected style; the all-styles answer is unchanged.
-    expect(await t.query(api.verseImages.getChapterImageStatus, { book: "genesis", chapter: 1 })).toEqual([{ verse: 1, imageCount: 3 }, { verse: 2, imageCount: 1 }, { verse: 3, imageCount: 1 }]);
-    expect(await t.query(api.verseImages.getChapterImageStatus, { book: "genesis", chapter: 1, artStyle: "classical" })).toEqual([{ verse: 1, imageCount: 1 }, { verse: 2, imageCount: 1 }]);
-    expect(await t.query(api.verseImages.getChapterImageStatus, { book: "genesis", chapter: 1, artStyle: "watercolor" })).toEqual([{ verse: 1, imageCount: 1 }, { verse: 3, imageCount: 1 }]);
-    expect(await t.query(api.verseImages.getChapterImageStatus, { book: "genesis", chapter: 1, artStyle: "classical", otherStyles: true })).toEqual([{ verse: 1, imageCount: 2 }, { verse: 3, imageCount: 1 }]);
+    expect(await t.query(internal.verseImages.getChapterImageStatus, { book: "genesis", chapter: 1 })).toEqual([{ verse: 1, imageCount: 3 }, { verse: 2, imageCount: 1 }, { verse: 3, imageCount: 1 }]);
+    expect(await t.query(internal.verseImages.getChapterImageStatus, { book: "genesis", chapter: 1, artStyle: "classical" })).toEqual([{ verse: 1, imageCount: 1 }, { verse: 2, imageCount: 1 }]);
+    expect(await t.query(internal.verseImages.getChapterImageStatus, { book: "genesis", chapter: 1, artStyle: "watercolor" })).toEqual([{ verse: 1, imageCount: 1 }, { verse: 3, imageCount: 1 }]);
+    expect(await t.query(internal.verseImages.getChapterImageStatus, { book: "genesis", chapter: 1, artStyle: "classical", otherStyles: true })).toEqual([{ verse: 1, imageCount: 2 }, { verse: 3, imageCount: 1 }]);
     const tiles = await t.query(api.verseImages.getChapterContents, { verseIds: ["genesis-1-1", "genesis-1-2", "genesis-1-3"], styles: ["watercolor"] });
     expect(tiles.map((e) => [e.verseId, e.picture?.id ?? null, e.picture?.artStyle ?? null, e.pictureCount])).toEqual([["genesis-1-1", ids.g11Water, "watercolor", 3], ["genesis-1-2", null, null, 1], ["genesis-1-3", ids.g13Water, "watercolor", 1]]);
     // Book and chapter markers.
-    expect(await t.query(api.verseImages.getBooksWithImages, {})).toEqual(["genesis", "john"]);
-    expect(await t.query(api.verseImages.getBooksWithImages, { artStyle: "classical" })).toEqual(["genesis"]);
-    expect(await t.query(api.verseImages.getBooksWithImages, { artStyle: "icon" })).toEqual(["genesis", "john"]);
-    expect(await t.query(api.verseImages.getBooksWithImages, { artStyle: "classical", otherStyles: true })).toEqual(["genesis", "john"]);
-    expect(await t.query(api.verseImages.getChaptersWithImages, { book: "genesis" })).toEqual([1, 2]);
-    expect(await t.query(api.verseImages.getChaptersWithImages, { book: "genesis", artStyle: "watercolor" })).toEqual([1]);
-    expect(await t.query(api.verseImages.getChaptersWithImages, { book: "genesis", artStyle: "classical" })).toEqual([1, 2]);
+    expect(await t.query(internal.verseImages.getBooksWithImages, {})).toEqual(["genesis", "john"]);
+    expect(await t.query(internal.verseImages.getBooksWithImages, { artStyle: "classical" })).toEqual(["genesis"]);
+    expect(await t.query(internal.verseImages.getBooksWithImages, { artStyle: "icon" })).toEqual(["genesis", "john"]);
+    expect(await t.query(internal.verseImages.getBooksWithImages, { artStyle: "classical", otherStyles: true })).toEqual(["genesis", "john"]);
+    expect(await t.query(internal.verseImages.getChaptersWithImages, { book: "genesis" })).toEqual([1, 2]);
+    expect(await t.query(internal.verseImages.getChaptersWithImages, { book: "genesis", artStyle: "watercolor" })).toEqual([1]);
+    expect(await t.query(internal.verseImages.getChaptersWithImages, { book: "genesis", artStyle: "classical" })).toEqual([1, 2]);
     await expect(t.query(api.verseImages.getImageHistory, { verseId: "genesis-1-1", otherStyles: true })).rejects.toThrow(/needs an artStyle/);
     await expect(t.query(api.verseImages.getImageHistory, { verseId: "genesis-1-1", artStyle: "Water Colour" })).rejects.toThrow(/Invalid art style/);
   });
@@ -157,12 +157,12 @@ describe("style-aware library", () => {
       const contents = { verseIds: ["a-scandal-in-bohemia-1-1"], styles: ["watercolor"] };
       for (const viewer of [t, as("reader")]) {
         expect(await viewer.query(api.verseImages.getChapterContents, contents)).toEqual([{ verseId: "a-scandal-in-bohemia-1-1", picture: null, pictureCount: 0, morePictures: false, hasVideo: false }]);
-        expect(await viewer.query(api.verseImages.getChapterImageStatus, chapter)).toEqual(await t.query(api.verseImages.getChapterImageStatus, { book: "moby-dick", chapter: 1 }));
-        expect(await viewer.query(api.verseImages.getChaptersWithImages, { book: "a-scandal-in-bohemia" })).toEqual([]);
+        expect(await viewer.query(internal.verseImages.getChapterImageStatus, chapter)).toEqual(await t.query(internal.verseImages.getChapterImageStatus, { book: "moby-dick", chapter: 1 }));
+        expect(await viewer.query(internal.verseImages.getChaptersWithImages, { book: "a-scandal-in-bohemia" })).toEqual([]);
       }
-      expect(await as("owner").query(api.verseImages.getChaptersWithImages, { book: "a-scandal-in-bohemia" })).toEqual([1]);
+      expect(await as("owner").query(internal.verseImages.getChaptersWithImages, { book: "a-scandal-in-bohemia" })).toEqual([1]);
       expect((await as("owner").query(api.verseImages.getChapterContents, contents)).map((e) => [e.verseId, e.picture?.artStyle, e.pictureCount])).toEqual([["a-scandal-in-bohemia-1-1", "watercolor", 1]]);
-      expect(await as("owner").query(api.verseImages.getChapterImageStatus, chapter)).toEqual([{ verse: 1, imageCount: 1 }]);
+      expect(await as("owner").query(internal.verseImages.getChapterImageStatus, chapter)).toEqual([{ verse: 1, imageCount: 1 }]);
       // Bible images need no session.
       expect(await t.query(api.verseImages.getImageHistory, { verseId: "genesis-1-1" })).toHaveLength(3);
     } finally {

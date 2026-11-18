@@ -101,7 +101,7 @@ switch (command) {
     const brief = validateWorkBrief(JSON.parse(await readFile(path.join(workDir, "brief.json"), "utf8")));
     const styleVersions = Object.fromEntries(await Promise.all(SHARED_STYLES.styles.map(async (s) => [s.id, createHash("sha256").update(await readFile(path.join(root, "styles", `${s.id}.json`), "utf8")).digest("hex")])));
     const store: ReferenceStore = {
-      listActiveRecords: (kind) => client.query(api.analysis.listActiveRecords, { workId, kind, ...analysisAccess(workId, secret) }) as never,
+      listActiveRecords: (kind) => client.query(api.analysis.listActiveRecords, { workId, kind, serverSecret: secret }) as never,
       getReference: async (kind, recordId, expectedInputs) => { const r = await client.query(api.analysis.getReference, { workId, kind, recordId, expectedInputs, ...analysisAccess(workId, secret) }); return r ? { storageId: r.storageId, stale: r.stale, pinned: r.pinned } : null; },
       putReference: async (args) => { await client.mutation(api.analysis.putReference, { serverSecret: secret, workId, ...args, storageId: args.storageId as never }); },
       noteAttention: async (item) => { await client.mutation(api.analysis.noteAttention, { serverSecret: secret, workId, ...item }); },

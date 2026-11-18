@@ -220,7 +220,7 @@ async function onlyVisible(ctx: QueryCtx, images: Doc<"verseImages">[]) {
  * Get image status for all verses in a chapter.
  * Returns an array of verse numbers with their image status.
  */
-export const getChapterImageStatus = query({
+export const getChapterImageStatus = internalQuery({
   args: {
     book: v.string(),
     chapter: v.number(),
@@ -423,7 +423,7 @@ async function findBooksWithImages(ctx: QueryCtx, filter: StyleFilter | null = n
  * Performance: Uses parallel prefix scans on the by_verse index instead of
  * a full table scan. Each book check uses the index to find just one record.
  */
-export const getBooksWithImages = query({
+export const getBooksWithImages = internalQuery({
   args: { ...styleFilterArgs },
   handler: async (ctx, args) => {
     return findBooksWithImages(ctx, normalizeStyleFilter(args));
@@ -434,7 +434,7 @@ export const getBooksWithImages = query({
  * Get all chapter numbers that have at least one image for a given book.
  * Used for showing image indicators in the book menu chapter grid.
  */
-export const getChaptersWithImages = query({
+export const getChaptersWithImages = internalQuery({
   args: {
     book: v.string(),
     ...styleFilterArgs,
