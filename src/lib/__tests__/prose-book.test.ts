@@ -52,6 +52,7 @@ describe("prose works", () => {
   });
 
   it("rereads a generation's moments after a minute, so an owner's moment correction reaches the page", async () => {
+    process.env.CONVEX_SERVER_SECRET = "s".repeat(40);
     const alice = findProseWork("alice-in-wonderland")!;
     let lastUnit = "the-pool-of-tears-1";
     const query = vi.fn(async (_ref: unknown, args: Record<string, unknown>) => "kind" in args
@@ -66,5 +67,7 @@ describe("prose works", () => {
     expect(await paragraphs()).toEqual([1]);
     clock += 2;
     expect(await paragraphs()).toEqual([1, 2, 3]);
+    // The work is an owner preview, so every read carries the server secret.
+    for (const [, args] of query.mock.calls) expect(args.serverSecret).toBe("s".repeat(40));
   });
 });

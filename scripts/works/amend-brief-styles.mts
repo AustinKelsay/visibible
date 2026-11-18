@@ -36,10 +36,10 @@ if (existsSync(envFile)) for (const line of (await readFile(envFile, "utf8")).sp
 const url = process.env.NEXT_PUBLIC_CONVEX_URL, serverSecret = process.env.CONVEX_SERVER_SECRET;
 if (!url || !serverSecret) throw new Error("NEXT_PUBLIC_CONVEX_URL and CONVEX_SERVER_SECRET are required");
 const client = new ConvexHttpClient(url);
-const before = await client.query(api.analysis.getWorkStatus, { workId });
+const before = await client.query(api.analysis.getWorkStatus, { workId, serverSecret });
 console.log(JSON.stringify({ deployment: new URL(url).host, workId, previous: { ref: values.previous, version: sha(previousBrief), styleIds: styles(previousBrief) },
   next: { version: sha(nextBrief), styleIds: styles(nextBrief) }, before: { ready: before.ready, briefVersion: before.briefVersion, reasons: before.reasons } }, null, 2));
 if (values["dry-run"]) process.exit(0);
 const result = await client.mutation(api.analysis.amendBriefStyles, { serverSecret, workId, previousBrief, nextBrief });
-const after = await client.query(api.analysis.getWorkStatus, { workId });
+const after = await client.query(api.analysis.getWorkStatus, { workId, serverSecret });
 console.log(JSON.stringify({ result, after: { ready: after.ready, briefVersion: after.briefVersion, reasons: after.reasons } }, null, 2));
