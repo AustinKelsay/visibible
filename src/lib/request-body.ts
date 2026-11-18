@@ -121,3 +121,33 @@ export async function readJsonBodyWithLimit<T = unknown>(
  * This is generous for JSON payloads while protecting against abuse.
  */
 export const DEFAULT_MAX_BODY_SIZE = 100_000;
+
+/**
+ * Read a text body with an enforced byte limit. An absent or empty body is `""`, unlike the JSON helper.
+ */
+export async function readTextBodyWithLimit(
+  req: Request,
+  maxSize: number
+): Promise<string> {
+  const reader = req.body?.getReader();
+  if (!reader) return "";
+  const decoder = new TextDecoder();
+  let text = "";
+  let totalSize = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      totalSize += value.length;
+      if (totalSize > maxSize) {
+        await reader.cancel("Body too large");
+        throw new PayloadTooLargeError(maxSize);
+      }
+      text += decoder.decode(value, { stream: true });
+    }
+    text += decoder.decode();
+  } finally {
+    reader.releaseLock();
+  }
+  return text;
+}

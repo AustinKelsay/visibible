@@ -6,6 +6,8 @@ import schema from "../../convex/schema";
 import { api, internal } from "../../convex/_generated/api";
 import { modules } from "./modules";
 
+const assertSave = <T>(p: Promise<T | null>) => p.then((value) => value!);
+
 const SECRET = "s".repeat(40);
 process.env.CONVEX_SERVER_SECRET = SECRET;
 
@@ -77,9 +79,9 @@ describe("thumbnails saved with new pictures", () => {
     const t = convexTest(schema, modules);
     const store = () => t.run((ctx) => ctx.storage.store(new Blob(["bytes"])));
     const uploads = await Promise.all(Array.from({ length: 3 }, async () => ({ storageId: await store(), thumbnailStorageId: await store() })));
-    const ids = await Promise.all(uploads.map((upload) => t.mutation(internal.verseImages.saveImageWithStorage, { verseId: "genesis-1-1", model: "m", generationId: "g1", ...upload })));
+    const ids = await Promise.all(uploads.map((upload) => assertSave(t.mutation(internal.verseImages.saveImageWithStorage, { verseId: "genesis-1-1", model: "m", generationId: "g1", ...upload }))));
     expect(new Set(ids).size).toBe(1);
-    const row = await t.query(internal.verseImages.getImageById, { imageId: ids[0] });
+    const row = await t.query(internal.verseImages.getImageById, { imageId: ids[0]! });
     const remaining = await t.run(async (ctx) => (await ctx.db.system.query("_storage").collect()).map((blob) => blob._id));
     expect(remaining.sort()).toEqual([row!.storageId, row!.thumbnailStorageId].sort());
   });

@@ -4,6 +4,7 @@ import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateSessionWithIp, withSessionRefreshCookie } from "@/lib/session";
 import { RATE_LIMITS } from "../../../../convex/rateLimit";
 import { DEFAULT_DAILY_SPEND_LIMIT_USD } from "../../../../convex/sessions";
+import { checkIpRateLimit, rateLimitedResponse } from "@/lib/route-rate-limit";
 
 interface EndpointStatus {
   remaining: number;
@@ -32,6 +33,14 @@ interface RateLimitStatusResponse {
  * not exposed for security/simplicity.
  */
 export async function GET(request: Request): Promise<NextResponse<RateLimitStatusResponse>> {
+  const response = await handleRateLimitStatusGet(request);
+  response.headers.set("Cache-Control", "private, no-store");
+  return response;
+}
+
+async function handleRateLimitStatusGet(request: Request): Promise<NextResponse<RateLimitStatusResponse>> {
+  const limit = await checkIpRateLimit(request, "session-read");
+  if (!limit.allowed) return rateLimitedResponse(limit.retryAfter) as NextResponse<RateLimitStatusResponse>;
   const convex = getConvexClient();
   const sessionValidation = await validateSessionWithIp(request);
   const withSessionRefresh = (response: Response) =>

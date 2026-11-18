@@ -25,6 +25,13 @@ export const RATE_LIMITS = {
   "public-images-verse": { windowMs: 60_000, maxRequests: 60 }, // 60 verse lookups per minute
   "public-images-history": { windowMs: 60_000, maxRequests: 30 }, // 30 history requests per minute
   "public-images-chapter": { windowMs: 60_000, maxRequests: 20 }, // 20 chapter requests per minute
+  // Cheap reads and catalog lookups that run before, or without, a session.
+  "session-read": { windowMs: 60_000, maxRequests: 60 },
+  "image-models": { windowMs: 60_000, maxRequests: 30 },
+  "chat-models": { windowMs: 60_000, maxRequests: 30 },
+  "video-config": { windowMs: 60_000, maxRequests: 30 },
+  readiness: { windowMs: 60_000, maxRequests: 120 },
+  lnurlp: { windowMs: 60_000, maxRequests: 120 },
 } as const;
 
 export type RateLimitEndpoint = keyof typeof RATE_LIMITS;

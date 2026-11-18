@@ -4,7 +4,7 @@ import type { MutationCtx } from "./_generated/server";
 import { action, internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
-import { validateServerSecret } from "./_helpers/auth";
+import { timingSafeCompare, validateServerSecret } from "./_helpers/auth";
 import { MICRO_CREDITS_PER_CREDIT } from "../src/lib/token-pricing";
 
 // Default daily spending limit per session (in USD)
@@ -977,27 +977,48 @@ export async function deductCreditsInTransaction(ctx: MutationCtx, args: { sid: 
     };
   }
 
+  // A chat turn (#493) is charged its fraction of a credit: it joins the session's carried fraction, the whole credits
+  // in the sum are taken from the hold, and the rest is carried. The carry stays under one credit, so the credits
+  // taken never pass the hold when the fraction is capped at it.
+  let carryMicro: number | undefined;
+  if (args.actualMicroCredits !== undefined && settlement.state !== "none") {
+    const turnMicro = Math.max(0, Math.min(Math.ceil(args.actualMicroCredits), settlement.reservedAmount * MICRO_CREDITS_PER_CREDIT));
+    const totalMicro = (session.chatCreditCarryMicro ?? 0) + turnMicro;
+    chargeAmount = Math.min(Math.floor(totalMicro / MICRO_CREDITS_PER_CREDIT), settlement.reservedAmount);
+    carryMicro = Math.min(totalMicro - chargeAmount * MICRO_CREDITS_PER_CREDIT, MICRO_CREDITS_PER_CREDIT - 1);
+  }
+
   if (settlement.state === "released") {
-    return {
-      success: true,
-      newBalance: session.credits,
-      alreadyCharged: true,
-    };
+    // The hold was refunded before settlement (for example by the stale-reservation sweep, or a late
+    // success after a release). Charge what the wallet can still cover and mark the work charged.
+    const chargedNow = Math.min(chargeAmount, session.credits);
+    const newBalance = session.credits - chargedNow;
+    const chargedCostUsd = args.actualCostUsd ?? chargeCostUsd;
+    const sameSpendDay = reservationMatchesSpendDay(ledgerEntries, session.lastDayReset);
+    await ctx.db.insert("creditLedger", {
+      sid: args.sid,
+      delta: -chargedNow,
+      reason: "generation",
+      modelId: args.modelId,
+      costUsd: chargedCostUsd,
+      generationId: args.generationId,
+      createdAt: Date.now(),
+    });
+    await ctx.db.patch(session._id, {
+      credits: newBalance,
+      dailySpendUsd: sameSpendDay
+        ? (session.dailySpendUsd ?? 0) + (chargedCostUsd ?? 0)
+        : session.dailySpendUsd ?? 0,
+      ...(carryMicro !== undefined ? { chatCreditCarryMicro: carryMicro } : {}),
+    });
+    return chargedNow < chargeAmount
+      ? { success: true, newBalance, converted: true, shortfall: chargeAmount - chargedNow }
+      : { success: true, newBalance, converted: true };
   }
 
   if (settlement.state === "reserved") {
     const reservedAmount = settlement.reservedAmount;
     const reservationCostUsd = settlement.reservationCostUsd;
-    // A chat turn (#493) is charged its fraction of a credit: it joins the session's carried fraction, the whole credits
-    // in the sum are taken from the hold, and the rest is carried. The carry stays under one credit, so the credits
-    // taken never pass the hold when the fraction is capped at it.
-    let carryMicro: number | undefined;
-    if (args.actualMicroCredits !== undefined) {
-      const turnMicro = Math.max(0, Math.min(Math.ceil(args.actualMicroCredits), reservedAmount * MICRO_CREDITS_PER_CREDIT));
-      const totalMicro = (session.chatCreditCarryMicro ?? 0) + turnMicro;
-      chargeAmount = Math.min(Math.floor(totalMicro / MICRO_CREDITS_PER_CREDIT), reservedAmount);
-      carryMicro = Math.min(totalMicro - chargeAmount * MICRO_CREDITS_PER_CREDIT, MICRO_CREDITS_PER_CREDIT - 1);
-    }
     const settlementOutcome = computeReservedChargeOutcome({
       currentCredits: session.credits,
       currentDailySpendUsd: session.dailySpendUsd ?? 0,
@@ -1374,7 +1395,7 @@ export const upgradeToAdmin = action({
   handler: async (ctx, args) => {
     const expectedSecret = process.env.ADMIN_PASSWORD_SECRET;
 
-    if (!expectedSecret || args.serverSecret !== expectedSecret) {
+    if (!expectedSecret || !timingSafeCompare(args.serverSecret, expectedSecret)) {
       throw new Error("Unauthorized");
     }
 

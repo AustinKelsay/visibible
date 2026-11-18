@@ -26,6 +26,22 @@ describe("atomic image identity", () => {
     expect(retry).toBe(ids[0]);
     expect((await t.query(internal.verseImages.getImageById, { imageId: retry }))?.prompt).toBe("Original provenance");
   });
+  it("refuses a save that lands after its generation failed and removes the blobs", async () => {
+    const t = convexTest(schema, modules);
+    const requestId = "late-request";
+    await t.mutation(api.verseImages.createGenerationRequest, {
+      requestId, inputFingerprint: "fp", generationId: "late-generation", executorVersion: "next-image-v1",
+      billingPolicyVersion: "accepted-maximum-v1", sid: "s", verseId: "genesis-1-1", serverSecret: SECRET,
+    });
+    await t.mutation(api.verseImages.updateGenerationRequest, { requestId, status: "failed", serverSecret: SECRET });
+    await expect(t.action(api.verseImages.saveImage, {
+      ...image, generationId: "late-generation", requestId,
+      imageUrl: `data:image/png;base64,${PNG}`, serverSecret: SECRET,
+    })).rejects.toThrow(/failed before the image was saved/);
+    expect(await t.run((ctx) => ctx.db.query("verseImages").collect())).toHaveLength(0);
+    expect(await t.run((ctx) => ctx.db.system.query("_storage").collect())).toHaveLength(0);
+  });
+
   it("preserves a losing upload referenced by a different generation", async () => {
     const t = convexTest(schema, modules);
     const own = await t.run((ctx) => ctx.storage.store(new Blob(["own"])));

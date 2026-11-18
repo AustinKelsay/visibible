@@ -844,8 +844,9 @@ export const getReferenceBlobUrl = query({
 });
 
 export const listAttention = query({
-  args: { workId: v.string(), status: v.optional(v.union(v.literal("open"), v.literal("closed"))) },
+  args: { workId: v.string(), status: v.optional(v.union(v.literal("open"), v.literal("closed"))), serverSecret: v.string() },
   handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
     const items = await ctx.db
       .query("attentionItems")
       .withIndex("by_work_status", (q) => q.eq("workId", args.workId).eq("status", args.status ?? "open"))

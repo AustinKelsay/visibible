@@ -127,6 +127,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       // Shared with the outer guard: once a request record exists, any unexpected throw must release the hold and fail it.
       let generationId: string | undefined;
       let reservationMade = false;
+      let started = 0;
       const update = (status: "generating" | "succeeded" | "failed", updates: Record<string, unknown> = {}) =>
         convex.mutation(api.verseImages.updateGenerationRequest, { requestId: input.requestId, status, serverSecret, ...updates } as never);
       const release = async (stage: string) => {
@@ -319,14 +320,20 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         await convex.action(api.sessions.logAdminUsage, { sid, endpoint: "generate-image", modelId, estimatedCredits: reservationCreditsCost, estimatedCostUsd: reservationCostUsd, serverSecret })
           .catch((error) => logWarn("generic.admin_audit_failed", { requestId, error: error instanceof Error ? error.message : String(error) }));
       }
-      const fail = async (status: number, error: string, message: string) => {
+      const fail = async (status: number, error: string, message: string, discardImage = false) => {
+        // Marking failed first lets a save still in flight observe it and clean up its own blobs.
+        // Without a confirmed mark the hold stays held, since a save may still commit.
+        const marked = await update("failed", { error: message, ...(started ? { durationMs: now() - started } : {}) }).catch(() => null);
+        if (!marked?.success) return respond(status, { error, message, requestId });
+        if (discardImage && generationId) {
+          await convex.action(api.verseImages.discardImageByGenerationId, { generationId, serverSecret }).catch(() => {});
+        }
         await release("generic_release_on_failure");
-        await update("failed", { error: message, durationMs: now() - started }).catch(() => {});
         return respond(status, { error, message, requestId });
       };
 
       // 12. One provider call, references inline after the prompt in packet order.
-      const started = now();
+      started = now();
       const timeoutMs = imageTimeoutMs();
       const callProvider = async (): Promise<Record<string, unknown>> => {
         const controller = new AbortController();
@@ -382,7 +389,15 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       const { data, imageUrl, providerRequestId } = first;
       const durationMs = now() - started;
 
-      // 13. Settlement from actual usage, or from the accepted estimate when usage is missing (recorded as estimated).
+      // 13. The saved image: the work's reference text, never the reader's translation, with full provenance.
+      const provenance = {
+        workId, momentId, sectionId, eraId: packet.eraId, styleId: packet.styleId, styleVersion: packet.styleVersion, briefVersion: packet.briefVersion,
+        promptVersion: packet.promptVersion, depictionVersion: packet.depictionVersion, analysisGeneration: input.readiness.activeGeneration,
+        canon: packet.canon, references: packet.references.map((r) => ({ kind: r.kind, id: r.id, version: r.version })), requestTranslationId: input.translationId,
+      };
+      const sourceTranslationId = workId === "bible-web" ? BIBLE_REFERENCE_TRANSLATION : workId;
+      // The small copy is saved with the picture. Making it can fail; the picture is then saved alone and readers use
+      // the full picture.
       const openRouterUsageUsd = extractOpenRouterUsageUsd(data);
       // A reported cost of zero is known usage, not missing data: it settles at the one-credit minimum.
       const reportedZero = reportsZeroUsageUsd(data);
@@ -414,27 +429,64 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         chargedCostUsd = maximumCredits * CREDIT_USD;
         logSettlementEvent({ context: requestContext, outcome: "capped", sid, generationId, details: { maximumCredits, wantedCredits: actualCredits } });
       }
+      let thumbnailUrl: string | undefined;
+      try {
+        thumbnailUrl = await withTimeout(makeThumbnail(imageUrl), THUMBNAIL_TIMEOUT_MS, "Thumbnail timed out");
+      } catch (error) {
+        logWarn("generic.thumbnail_failed", { requestId, generationId, error: error instanceof Error ? error.message : String(error) });
+      }
+      let savedImageId: string | undefined;
+      try {
+        const saved = await convex.action(api.verseImages.saveImage, {
+          verseId: unit.id, imageUrl, ...(thumbnailUrl ? { thumbnailUrl } : {}), model: modelId, prompt, reference: context.moment.reference, verseText: context.moment.text,
+          generationNumber: input.generationNumber ?? undefined, promptVersion: LEAN_PROMPT_VERSION, translationId: sourceTranslationId,
+          provider: getProviderName(modelId), providerRequestId, creditsCost: chargedCredits, costUsd: chargedCostUsd, durationMs,
+          aspectRatio: input.aspectRatio, generationId, requestId, engine: "generic", artStyleId: style.id, provenance, serverSecret,
+        });
+        if (saved && typeof saved.id === "string") savedImageId = saved.id;
+      } catch (error) {
+        logApiFailure({ context: requestContext, stage: "generic_save_image", error, statusCode: 500, sid, generationId });
+        // The save may have committed before its response was lost; the discard happens after the failure mark.
+        return fail(500, "Failed to generate image", "The image could not be saved", true);
+      }
+      // Settlement follows persistence: a picture that could not be saved releases its hold instead of charging.
+      // 14. Settlement from actual usage, or from the accepted estimate when usage is missing (recorded as estimated).
+      let settlementPending = false;
       if (reservationMade) {
-        let deduct;
-        try {
-          deduct = await convex.action(api.sessions.deductCredits, { sid, amount: reservedCredits, modelId, generationId, costUsd: reservationCostUsd, actualAmount: chargedCredits, actualCostUsd, serverSecret });
-        } catch (error) {
-          // An image we cannot settle is not charged: the hold is released and the request fails.
-          logApiFailure({ context: requestContext, stage: "generic_settlement", error, statusCode: 500, sid, generationId });
-          return fail(500, "Failed to generate image", "Credit settlement failed");
+        let deduct: Awaited<ReturnType<typeof convex.action<typeof api.sessions.deductCredits>>> | undefined;
+        let settleError: unknown;
+        // A lost response is ambiguous. A retry is safe: the second call sees the charge and reports it.
+        for (let attempt = 0; attempt < 2 && deduct === undefined; attempt++) {
+          try {
+            deduct = await convex.action(api.sessions.deductCredits, { sid, amount: reservedCredits, modelId, generationId, costUsd: reservationCostUsd, actualAmount: chargedCredits, actualCostUsd, serverSecret });
+          } catch (error) {
+            settleError = error;
+          }
         }
-        if (!deduct.success) {
+        if (!deduct) {
+          logApiFailure({ context: requestContext, stage: "generic_settlement", error: settleError, statusCode: 500, sid, generationId });
+          const settledState = await convex.query(api.verseImages.getSettlementState, { generationId, sid, serverSecret }).catch(() => null);
+          if (settledState === "charged") {
+            // The post-reservation balance is stale; omit it rather than report a wrong number.
+            updatedCredits = undefined;
+            logSettlementEvent({ context: requestContext, outcome: "confirmed", sid, generationId, details: { actualCredits: chargedCredits, usedActual, recovered: true } });
+          } else {
+            // Unknown or not charged: keep the image and its hold. The stale sweep releases the hold if the
+            // debit never lands; a later landing charges while the picture still exists.
+            settlementPending = true;
+            logSettlementEvent({ context: requestContext, outcome: "pending", sid, generationId, details: { actualCredits: chargedCredits, settledState } });
+          }
+        }
+        if (deduct && !deduct.success) {
           logSettlementEvent({ context: requestContext, outcome: "deduct_failed", sid, generationId, details: { actualCredits: chargedCredits } });
-          await release("generic_release_after_deduct_failure");
-          await update("failed", { error: "Insufficient credits", durationMs }).catch(() => {});
-          return respond(402, { error: "Insufficient credits", requestId, required: chargedCredits, available: "available" in deduct ? deduct.available : 0 });
+          return fail(402, "Insufficient credits", "Insufficient credits", true);
         }
-        if ("newBalance" in deduct) updatedCredits = deduct.newBalance;
-        logSettlementEvent({ context: requestContext, outcome: "confirmed", sid, generationId, details: { actualCredits: chargedCredits, usedActual } });
+        if (deduct && "newBalance" in deduct) updatedCredits = deduct.newBalance;
+        if (deduct) logSettlementEvent({ context: requestContext, outcome: "confirmed", sid, generationId, details: { actualCredits: chargedCredits, usedActual } });
       }
       void convex.mutation(api.modelStats.recordGeneration, { modelId, durationMs, serverSecret }).catch(() => {});
 
-      // 14. The cost event, with the outbox when persistence is slow or down.
+      // 15. The cost event, with the outbox when persistence is slow or down.
       const costEvent = {
         sid, requestId, generationId, modelId, verseId: unit.id, translationId: input.translationId, styleProfileId: style.id, reference: input.reference,
         aspectRatio: input.aspectRatio, resolution: input.resolution, usedFallbackEstimate: !usedActual,
@@ -451,33 +503,6 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         });
       }
 
-      // 15. The saved image: the work's reference text, never the reader's translation, with full provenance.
-      const provenance = {
-        workId, momentId, sectionId, eraId: packet.eraId, styleId: packet.styleId, styleVersion: packet.styleVersion, briefVersion: packet.briefVersion,
-        promptVersion: packet.promptVersion, depictionVersion: packet.depictionVersion, analysisGeneration: input.readiness.activeGeneration,
-        canon: packet.canon, references: packet.references.map((r) => ({ kind: r.kind, id: r.id, version: r.version })), requestTranslationId: input.translationId,
-      };
-      const sourceTranslationId = workId === "bible-web" ? BIBLE_REFERENCE_TRANSLATION : workId;
-      // The small copy is saved with the picture. Making it can fail; the picture is then saved alone and readers use
-      // the full picture. The charge above is already settled and does not depend on it.
-      let thumbnailUrl: string | undefined;
-      try {
-        thumbnailUrl = await withTimeout(makeThumbnail(imageUrl), THUMBNAIL_TIMEOUT_MS, "Thumbnail timed out");
-      } catch (error) {
-        logWarn("generic.thumbnail_failed", { requestId, generationId, error: error instanceof Error ? error.message : String(error) });
-      }
-      let savedImageId: string | undefined;
-      try {
-        const saved = await convex.action(api.verseImages.saveImage, {
-          verseId: unit.id, imageUrl, ...(thumbnailUrl ? { thumbnailUrl } : {}), model: modelId, prompt, reference: context.moment.reference, verseText: context.moment.text,
-          generationNumber: input.generationNumber ?? undefined, promptVersion: LEAN_PROMPT_VERSION, translationId: sourceTranslationId,
-          provider: getProviderName(modelId), providerRequestId, creditsCost: chargedCredits, costUsd: chargedCostUsd, durationMs,
-          aspectRatio: input.aspectRatio, generationId, engine: "generic", artStyleId: style.id, provenance, serverSecret,
-        });
-        if (saved && typeof saved.id === "string") savedImageId = saved.id;
-      } catch (error) {
-        logApiFailure({ context: requestContext, stage: "generic_save_image", error, statusCode: 500, sid, generationId });
-      }
       await update("succeeded", { generationId, providerRequestId, usedFallbackEstimate: !usedActual, actualCreditsCost: chargedCredits, actualCostUsd: chargedCostUsd, durationMs }).catch(() => {});
       logInfo("generic.generated", { requestId, generationId, sid: redactSid(sid), workId, momentId, styleId: style.id, references: sentReferences.length, promptChars: prompt.length, credits: chargedCredits, durationMs });
 
@@ -494,13 +519,16 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         billingVersion: model.billing?.version, catalogEstimatedProviderUsd: quote.providerUsd,
         provenance,
         ...(updatedCredits !== undefined && { credits: updatedCredits }),
+        ...(settlementPending && { billingPending: true }),
       });
       } catch (error) {
         // Anything unexpected: never leave a request in `generating` with a hold behind it.
         logApiFailure({ context: requestContext, stage: "generic_unexpected", error, statusCode: 500, sid, generationId });
         if (generationId) {
-          await release("generic_release_after_unexpected_error");
-          await update("failed", { error: error instanceof Error ? error.message : "Failed to generate image" }).catch(() => {});
+          const message = error instanceof Error ? error.message : "Failed to generate image";
+          const marked = await update("failed", { error: message, ...(started ? { durationMs: now() - started } : {}) }).catch(() => null);
+          // A confirmed mark releases the hold; an existing picture stays and survives as the replay result.
+          if (marked?.success) await release("generic_release_after_unexpected_error");
           return respond(500, { error: "Failed to generate image", requestId: input.requestId });
         }
         return decline(503, "Preparing scene", "The scene could not be assembled.", true);

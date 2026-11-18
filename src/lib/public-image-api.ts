@@ -216,7 +216,11 @@ export function buildPublicVersePageUrl(
   request: Request,
   location: Pick<PublicVerseLocation, "book" | "chapter" | "verse">
 ): string {
-  const appBaseUrl = (process.env.NEXT_PUBLIC_APP_URL || new URL(request.url).origin).replace(/\/+$/, "");
+  const configured = process.env.NEXT_PUBLIC_APP_URL;
+  if (!configured && process.env.NODE_ENV === "production") {
+    throw new Error("NEXT_PUBLIC_APP_URL is required in production");
+  }
+  const appBaseUrl = (configured || new URL(request.url).origin).replace(/\/+$/, "");
   return `${appBaseUrl}/${location.book.slug}/${location.chapter}/${location.verse}`;
 }
 

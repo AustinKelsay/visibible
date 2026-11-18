@@ -94,7 +94,7 @@ export function createCorrections(client: CorrectionClient, api: AnalysisApi, wo
 
     /** Open attention items with reason, state, latest activity and image links, checker items apart from reader reports. */
     async attention(status: "open" | "closed" = "open") {
-      const items = await query<Array<{ id: string; reason: string; kind?: string; recordId?: string; count: number; status: string; detail?: string; lastActivityAt: number; disposition?: string }>>(api.listAttention, { status });
+      const items = await client.query(api.listAttention, { workId, status, serverSecret }) as Array<{ id: string; reason: string; kind?: string; recordId?: string; count: number; status: string; detail?: string; lastActivityAt: number; disposition?: string }>;
       const rows = [];
       for (const item of items) {
         let link: string | null = null;

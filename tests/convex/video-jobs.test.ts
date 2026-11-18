@@ -26,7 +26,7 @@ beforeEach(() => {
 afterEach(() => { vi.useRealTimers(); vi.unstubAllEnvs(); });
 async function savePicture(t: ReturnType<typeof convexTest>, verseId: string) {
   const storageId = await t.run(ctx => ctx.storage.store(new Blob(["jpeg"], { type: "image/jpeg" })));
-  return t.mutation(internal.verseImages.saveImageWithStorage, { verseId, storageId, model: "m", aspectRatio: "16:9" });
+  return (await t.mutation(internal.verseImages.saveImageWithStorage, { verseId, storageId, model: "m", aspectRatio: "16:9" }))!;
 }
 async function setup(admin = false) {
   const t = convexTest(schema, modules);
@@ -83,6 +83,22 @@ describe("durable video intent and settlement", () => {
     expect(await t.query(api.verseVideos.getHistory, { verseId: input.verseId })).toEqual([]);
   });
 
+  it("records only the credits a released job could actually debit", async () => {
+    const { t, sessionId } = await setup();
+    const result = await t.mutation(api.verseVideos.enqueue, input);
+    const id = result.id as Id<"videoJobs">;
+    const submitting = (await t.mutation(internal.verseVideos.claim, { id }))!;
+    await t.mutation(internal.verseVideos.advance, { id, lease: submitting.lease, providerId: "provider", costUsd: 0.8, ready: true });
+    const storing = (await t.mutation(internal.verseVideos.claim, { id }))!;
+    await t.mutation(internal.sessions.releaseReservationInternal, { sid: input.sid, generationId: `video:${input.sid}:${input.requestId}` });
+    // Other work spent the refunded hold down before finalization.
+    await t.run(ctx => ctx.db.patch(sessionId, { credits: 20 }));
+    const storageId = await t.run(ctx => ctx.storage.store(new Blob(["video"], { type: "video/mp4" })));
+    expect(await t.mutation(internal.verseVideos.finish, { id, lease: storing.lease, storageId })).toBe(true);
+    expect((await t.run(ctx => ctx.db.get(sessionId)))?.credits).toBe(0);
+    expect((await t.run(ctx => ctx.db.get(id)))?.actualCredits).toBe(20);
+  });
+
   it("publishes only stored completed assets, caps overruns and ignores late failures", async () => {
     const { t, sessionId } = await setup();
     const result = await t.mutation(api.verseVideos.enqueue, input);
@@ -104,6 +120,28 @@ describe("durable video intent and settlement", () => {
     expect(history[0]).not.toHaveProperty("prompt");
     expect((await t.run(ctx => ctx.db.get(id)))?.absorbedCostUsd).toBe(0.7);
     expect((await t.run(ctx => ctx.db.get(sessionId)))?.dailySpendUsd).toBe(1.5);
+  });
+
+  it("charges a released hold at finish and completes an already charged retry without charging twice", async () => {
+    const { t, sessionId } = await setup();
+    const result = await t.mutation(api.verseVideos.enqueue, input);
+    const id = result.id as Id<"videoJobs">;
+    const submitting = (await t.mutation(internal.verseVideos.claim, { id }))!;
+    await t.mutation(internal.verseVideos.advance, { id, lease: submitting.lease, providerId: "provider", costUsd: 0.8, ready: true });
+    const storing = (await t.mutation(internal.verseVideos.claim, { id }))!;
+    // A stale sweep or an earlier release returns the hold before the file lands.
+    await t.mutation(internal.sessions.releaseReservationInternal, { sid: input.sid, generationId: `video:${input.sid}:${input.requestId}` });
+    expect((await t.run(ctx => ctx.db.get(sessionId)))?.credits).toBe(500);
+    const storageId = await t.run(ctx => ctx.storage.store(new Blob(["video"], { type: "video/mp4" })));
+
+    expect(await t.mutation(internal.verseVideos.finish, { id, lease: storing.lease, storageId })).toBe(true);
+    expect((await t.run(ctx => ctx.db.get(sessionId)))?.credits).toBe(400);
+
+    // Simulate a lost completion write after the charge: the retry must finish without a second debit.
+    await t.run(ctx => ctx.db.patch(id, { active: true, status: "storing", storageId: undefined, leaseUntil: 0 }));
+    expect(await t.mutation(internal.verseVideos.finish, { id, lease: storing.lease, storageId })).toBe(true);
+    expect((await t.run(ctx => ctx.db.get(sessionId)))?.credits).toBe(400);
+    expect(await t.query(api.verseVideos.getHistory, { verseId: input.verseId })).toHaveLength(1);
   });
 
   it("releases instead of charging when a job from before source pictures finishes", async () => {

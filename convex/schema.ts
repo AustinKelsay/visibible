@@ -267,6 +267,9 @@ export default defineSchema({
     // Local impression data used for scheduled Nostr ranking
     impressionCount: v.optional(v.number()),
     lastImpressionAt: v.optional(v.number()),
+    // Minute bucket that caps impression writes; the count itself stays a soft ranking hint.
+    impressionWindowStart: v.optional(v.number()),
+    impressionWindowCount: v.optional(v.number()),
   })
     // Index for querying all images for a verse sorted by creation time
     .index("by_verse", ["verseId", "createdAt"])

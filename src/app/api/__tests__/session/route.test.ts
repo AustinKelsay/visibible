@@ -81,6 +81,7 @@ describe("Session API", () => {
       new Request("http://localhost:3000/api/session", { method: "GET" })
     );
 
+    expect(response.headers.get("cache-control")).toBe("private, no-store");
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({
       sid: null,

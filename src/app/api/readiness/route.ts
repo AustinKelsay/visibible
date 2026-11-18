@@ -3,6 +3,7 @@ import { api } from "../../../../convex/_generated/api";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { isLightningConfigured } from "@/lib/lightning";
 import { authorizeOpsRequest } from "@/lib/ops-auth";
+import { checkIpRateLimit, rateLimitedResponse } from "@/lib/route-rate-limit";
 import {
   createRequestObservabilityContext,
   elapsedMs,
@@ -66,6 +67,8 @@ function toErrorMessage(error: unknown): string {
 export async function GET(
   request: Request
 ): Promise<NextResponse<ReadinessResponse>> {
+  const limit = await checkIpRateLimit(request, "readiness");
+  if (!limit.allowed) return rateLimitedResponse(limit.retryAfter) as NextResponse<ReadinessResponse>;
   const context = createRequestObservabilityContext(request, "/api/readiness");
   const startedAt = Date.now();
   const opsAuth = authorizeOpsRequest(request, {

@@ -21,6 +21,7 @@ type SessionDoc = {
   dailySpendUsd?: number;
   dailySpendLimitUsd?: number;
   lastDayReset?: number;
+  chatCreditCarryMicro?: number;
 };
 
 type LedgerDoc = {
@@ -253,6 +254,7 @@ type DeductArgs = {
   costUsd?: number;
   actualAmount?: number;
   actualCostUsd?: number;
+  actualMicroCredits?: number;
 };
 
 type ReconcileArgs = {
@@ -507,6 +509,65 @@ describe("internal mutation settlement invariants", () => {
           entry.reason === "refund"
       )
     ).toHaveLength(1);
+  });
+
+  it("charges a released hold when settlement arrives late, instead of settling free", async () => {
+    const { sid, db, ctx, session } = createHarness({ credits: 100, dailySpendUsd: 0 });
+
+    await reserveHandler(ctx, { sid, amount: 10, modelId: "test/model", generationId: "gen-late", costUsd: 0.5 });
+    await releaseHandler(ctx, { sid, generationId: "gen-late" });
+    expect(session.credits).toBe(100);
+
+    const late = await deductHandler(ctx, {
+      sid,
+      amount: 10,
+      modelId: "test/model",
+      generationId: "gen-late",
+      costUsd: 0.5,
+      actualAmount: 10,
+      actualCostUsd: 0.5,
+    });
+    expect(late).toMatchObject({ success: true, converted: true, newBalance: 90 });
+    expect(session.credits).toBe(90);
+    expect(session.dailySpendUsd).toBeCloseTo(0.5);
+    expect(db.creditLedger.filter((entry) => entry.generationId === "gen-late" && entry.reason === "generation")).toHaveLength(1);
+  });
+
+  it("keeps amount-based debits for a direct debit with a micro-credit figure", async () => {
+    const { sid, ctx, session } = createHarness({ credits: 100, dailySpendUsd: 0 });
+    await deductHandler(ctx, {
+      sid, amount: 3, modelId: "test/model", generationId: "gen-direct-micro",
+      costUsd: 0.3, actualAmount: 3, actualCostUsd: 0.3, actualMicroCredits: 2_500_000,
+    });
+    expect(session.credits).toBe(97);
+  });
+
+  it("carries a chat fraction when its released hold is settled late", async () => {
+    const { sid, ctx, session } = createHarness({ credits: 100, dailySpendUsd: 0 });
+    await reserveHandler(ctx, { sid, amount: 10, modelId: "test/model", generationId: "gen-late-chat", costUsd: 0.5 });
+    await releaseHandler(ctx, { sid, generationId: "gen-late-chat" });
+    await deductHandler(ctx, {
+      sid, amount: 10, modelId: "test/model", generationId: "gen-late-chat",
+      costUsd: 0.5, actualAmount: 10, actualCostUsd: 0.5, actualMicroCredits: 1_500_000,
+    });
+    expect(session.credits).toBe(99);
+    expect(session.chatCreditCarryMicro).toBe(500_000);
+  });
+
+  it("does not move a previous day's late settlement cost into the current day", async () => {
+    const { sid, ctx, session } = createHarness({ credits: 100, dailySpendUsd: 0 });
+    await reserveHandler(ctx, { sid, amount: 10, modelId: "test/model", generationId: "gen-old-day", costUsd: 0.5 });
+    await releaseHandler(ctx, { sid, generationId: "gen-old-day" });
+    // The reservation belongs to yesterday; today already holds 0.2.
+    session.lastDayReset = Date.now() - 24 * 60 * 60 * 1000;
+    session.dailySpendUsd = 0.2;
+
+    await deductHandler(ctx, {
+      sid, amount: 10, modelId: "test/model", generationId: "gen-old-day",
+      costUsd: 0.5, actualAmount: 10, actualCostUsd: 0.5,
+    });
+    expect(session.credits).toBe(90);
+    expect(session.dailySpendUsd).toBeCloseTo(0.2);
   });
 
   it("reserve -> deduct exact is one-way settled and replay-safe", async () => {

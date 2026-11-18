@@ -18,6 +18,7 @@ let saveBarrier: Promise<void> | null = null;
 let failSave = false;
 let failReserve = false;
 let failDeduct = false;
+let deductCommitsThenThrows = false;
 import { fixtures, type Session } from "../shared/test-fixtures";
 import { clearBibleApiCache } from "@/lib/bible-api";
 import { contentVersion } from "../../../../../convex/_helpers/contentVersion";
@@ -100,6 +101,15 @@ vi.mock("@/lib/convex-client", () => ({
       }
       if ("inputFingerprint" in args) return requestDb.query(api.verseImages.getGenerationIntent, args as FunctionArgs<typeof api.verseImages.getGenerationIntent>);
 
+      if ("generationId" in args && "sid" in args && "serverSecret" in args) {
+        const entries = mockState.ledger.filter((entry) => entry.sid === args.sid && entry.generationId === args.generationId);
+        return entries.some((entry) => entry.reason === "generation")
+          ? "charged"
+          : entries.some((entry) => entry.reason === "refund")
+            ? "released"
+            : entries.length ? "reserved" : "none";
+      }
+
       // Query for session data
       const sid = args.sid as string;
       const session = mockState.sessions.get(sid);
@@ -177,6 +187,14 @@ vi.mock("@/lib/convex-client", () => ({
         return { success: true, type: "storage", id };
       }
 
+      if ("generationId" in args && !("sid" in args)) {
+        // discardImageByGenerationId
+        const image = await requestDb.run((ctx) => ctx.db.query("verseImages")
+          .withIndex("by_generationId", (q) => q.eq("generationId", String(args.generationId))).first());
+        if (image) await requestDb.mutation(internal.verseImages.deleteImageRow, { id: image._id });
+        return { deleted: Boolean(image) };
+      }
+
       if ("generationId" in args && !("amount" in args)) {
         // releaseReservation
         mockState.callHistory.push({ action: "releaseReservation", args });
@@ -208,6 +226,9 @@ vi.mock("@/lib/convex-client", () => ({
         if (!session) return { success: false, error: "Session not found" };
         const actualAmount = (args.actualAmount as number) ?? (args.amount as number);
         const generationId = args.generationId as string;
+        if (mockState.ledger.some((entry) => entry.generationId === generationId && entry.reason === "generation")) {
+          return { success: true, alreadyCharged: true, newBalance: session.credits };
+        }
         const reservation = [...mockState.ledger].reverse().find(
           (entry) =>
             entry.sid === sid &&
@@ -241,6 +262,8 @@ vi.mock("@/lib/convex-client", () => ({
           reason: "generation",
           generationId,
         });
+
+        if (deductCommitsThenThrows) throw new Error("settlement response lost");
 
         if (actualAmount > reservedAmount && !chargeAdditional) {
           const shortfall = actualAmount - reservedAmount;
@@ -386,6 +409,7 @@ describe("Image Generation API Credit Flow", () => {
     failSave = false;
     failReserve = false;
     failDeduct = false;
+    deductCommitsThenThrows = false;
     clearBibleApiCache();
     fetchImageModelsMock.mockReset();
     fetchImageModelsMock.mockResolvedValue({
@@ -894,7 +918,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(imageCalls()).toHaveLength(0);
       expect(getCallCount("reserveCredits")).toBe(0);
       expect(await storedRequests()).toHaveLength(0);
-      expect(await requestDb.query(api.analysis.listAttention, { workId: WORK, status: "open" })).toMatchObject([{ reason: "prompt_over_budget", recordId: "genesis-1-1" }]);
+      expect(await requestDb.query(api.analysis.listAttention, { workId: WORK, status: "open", serverSecret: process.env.CONVEX_SERVER_SECRET! })).toMatchObject([{ reason: "prompt_over_budget", recordId: "genesis-1-1" }]);
     });
 
     it("releases the reservation and fails the request when the model returns no image", async () => {
@@ -945,20 +969,20 @@ describe("Image Generation API Credit Flow", () => {
       const { POST } = await import("../../generate-image/route");
       failSave = true;
       const response = await POST(createGenerateImageRequest(body));
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(500);
       expect((await response.json()).savedImageId).toBeUndefined();
-      expect((await storedRequests())[0]).toMatchObject({ status: "succeeded" });
+      expect((await storedRequests())[0]).toMatchObject({ status: "failed" });
       failSave = false;
       const replay = await POST(createGenerateImageRequest(body));
       expect(replay.status).toBe(409);
-      expect(await replay.json()).toMatchObject({ reused: true, status: "succeeded" });
+      expect(await replay.json()).toMatchObject({ reused: true, status: "failed" });
       expect(imageCalls()).toHaveLength(1);
-      expect(mockState.sessions.get("test-session")!.credits).toBe(998);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
       // A timeout after the attempt began: the hold is released, the request is failed and a retry is a replay, not a second attempt.
       mockFetchImpl = async (_input, init) => new Promise((_, reject) => { init?.signal?.addEventListener("abort", () => reject(new DOMException("Request aborted", "AbortError")), { once: true }); });
       const timedOut = await POST(createGenerateImageRequest({ ...body, requestId: "generic-timeout" }));
       expect(timedOut.status).toBe(504);
-      expect(mockState.sessions.get("test-session")!.credits).toBe(998);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
       expect((await storedRequests())[1]).toMatchObject({ status: "failed", engine: "generic" });
       mockFetchImpl = null;
       const retry = await POST(createGenerateImageRequest({ ...body, requestId: "generic-timeout" }));
@@ -980,16 +1004,33 @@ describe("Image Generation API Credit Flow", () => {
       failReserve = false;
       failDeduct = true;
       const settlementFailed = await POST(createGenerateImageRequest({ ...body, requestId: "generic-settle" }));
-      expect(settlementFailed.status).toBe(500);
+      // The debit result is unknown: the picture and its hold stay, and the request succeeds pending billing.
+      expect(settlementFailed.status).toBe(200);
+      expect(await settlementFailed.json()).toMatchObject({ billingPending: true, savedImageId: expect.any(String) });
       expect(imageCalls()).toHaveLength(1);
-      expect(getCallCount("releaseReservation")).toBe(2);
-      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
-      expect((await storedRequests())[1]).toMatchObject({ status: "failed", engine: "generic" });
-      expect(await savedImages()).toHaveLength(0);
+      expect(getCallCount("releaseReservation")).toBe(1);
+      expect(mockState.sessions.get("test-session")!.credits).toBeLessThan(1000);
+      expect((await storedRequests())[1]).toMatchObject({ status: "succeeded", engine: "generic" });
+      expect(await savedImages()).toHaveLength(1);
       failDeduct = false;
       const retry = await POST(createGenerateImageRequest({ ...body, requestId: "generic-settle" }));
-      expect(retry.status).toBe(409);
+      expect(retry.status).toBe(200);
+      expect(await retry.json()).toMatchObject({ reused: true, savedImageId: expect.any(String) });
       expect(imageCalls()).toHaveLength(1);
+    });
+
+    it("keeps the picture and the charge when the debit commits but its response is lost", async () => {
+      await prepareWork();
+      const { POST } = await import("../../generate-image/route");
+      deductCommitsThenThrows = true;
+      const response = await POST(createGenerateImageRequest({ ...body, requestId: "generic-lost-settlement" }));
+      expect(response.status).toBe(200);
+      const recovered = await response.json();
+      expect(recovered.savedImageId).toEqual(expect.any(String));
+      expect(recovered.billingPending).toBeUndefined();
+      expect(recovered.credits).toBe(998);
+      expect(await savedImages()).toHaveLength(1);
+      expect(mockState.sessions.get("test-session")!.credits).toBeLessThan(1000);
     });
 
     it("rehearsal: owner mode admits only the owner, and a rollback keeps accepted work replayable while refusing new work in every style", async () => {

@@ -38,6 +38,16 @@ async function setup(artStyleId?: string) {
 }
 
 describe("bulk engine and style binding", () => {
+  it("refuses an empty job and one past the argument array limit", async () => {
+    const t = convexTest(schema, modules);
+    await t.run(async (ctx) => { await ctx.db.insert("sessions", { sid: "owner", tier: "paid", credits: 100, createdAt: Date.now(), lastSeenAt: Date.now() }); });
+    const owner = t.withIdentity({ subject: "owner", issuer, guestExpiresAt: Date.now() / 1000 + 300 });
+    const make = (count: number) => Array.from({ length: count }, (_, order) => ({ verseId: `genesis-1-${order + 1}`, reference: `Genesis 1:${order + 1}`, order }));
+    const args = { sid: "owner", scopeType: "verses" as const, scopeLabel: "big", startVerseId: "genesis-1-1", estimatedTotalCredits: 1, modelId: "lite", aspectRatio: "16:9", resolution: "1K", translation: "kjv" };
+    await expect(owner.mutation(api.bulkGenerations.create, { ...args, verses: [] })).rejects.toThrow(/at least one verse/);
+    await expect(owner.mutation(api.bulkGenerations.create, { ...args, verses: make(8_193) })).rejects.toThrow(/at most 8192 verses/);
+  });
+
   it("records the chosen style, binds the engine once, and refuses a different engine on resume", async () => {
     const { owner, bulkId, job } = await setup();
     expect(await job()).toMatchObject({ artStyleId: "classical" });

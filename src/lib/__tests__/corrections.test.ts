@@ -167,7 +167,7 @@ describe("owner corrections", () => {
     expect((await c.status()).ready).toBe(false);
     expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "section", recordId: "s1" })).toBeNull();
     expect(await t.run(async (ctx) => ctx.storage.get(storageId))).toBeNull();
-    expect((await t.query(api.analysis.listAttention, { workId: WORK })).map((a) => a.reason)).toEqual(["reader_report"]);
+    expect((await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET })).map((a) => a.reason)).toEqual(["reader_report"]);
     expect(await t.run(async (ctx) => ctx.db.get(imageId))).toMatchObject({ imageUrl: "https://example.test/old.jpg" });
     // A reread after the wipe carries the owner version forward.
     const generation = await activate();

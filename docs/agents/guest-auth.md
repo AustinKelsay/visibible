@@ -13,7 +13,7 @@ The token expires at the earlier of five minutes and the cookie's existing expir
 
 The Convex auth config projects only public RSA fields into a data URI, as supported by [Convex custom JWT authentication](https://docs.convex.dev/auth/advanced/custom-jwt). This avoids making local Next.js reachable from the deployment. Issuer and audience must match exactly. Convex requires referenced auth environment variables to be configured before deployment. An explicitly empty public configuration disables guest authentication for a deployment while leaving public queries available.
 
-Development (`coordinated-shepherd-515`) is configured and verified. Production and hosted preview signing configuration have not been installed. Use separate keys/audiences per environment. Existing application/session secrets have not been rotated.
+Development (`coordinated-shepherd-515`) is configured and verified. Production is configured and verified too (the `recovery-2026-11-12` key); hosted preview still needs its own keys. Use separate keys/audiences per environment. Existing application/session secrets have not been rotated.
 
 ## Key rotation
 

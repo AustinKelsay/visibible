@@ -471,6 +471,7 @@ export const finish = internalMutation({
     // A job accepted before videos came from a picture (#479) has no source picture, so no reader can
     // see it: release its hold instead of charging for it, and Visibible absorbs the provider's cost.
     const unseen = !job.sourceImageId;
+    let debitedCredits = actualCredits;
     if (!job.admin && unseen) {
       await releaseReservationInTransaction(ctx, job);
     } else if (!job.admin) {
@@ -480,25 +481,31 @@ export const finish = internalMutation({
           q.eq("generationId", job.generationId).eq("sid", job.sid),
         )
         .collect();
-      if (summarizeGenerationSettlement(entries).state !== "reserved")
+      const settlementState = summarizeGenerationSettlement(entries).state;
+      if (settlementState === "none")
         throw new Error("Video reservation is no longer available");
-      const settled = await deductCreditsInTransaction(ctx, {
-        sid: job.sid,
-        generationId: job.generationId,
-        modelId: VIDEO_MODEL_ID,
-        amount: job.estimatedCredits,
-        costUsd: job.estimatedCostUsd,
-        actualAmount: actualCredits,
-        actualCostUsd,
-      });
-      if (!settled.success) throw new Error("Video settlement failed");
+      // A hold released before this point (stale sweep or a prior ambiguous failure) is charged now.
+      // An already charged job is a retried finish whose completion write was lost: keep the charge.
+      if (settlementState !== "charged") {
+        const settled = await deductCreditsInTransaction(ctx, {
+          sid: job.sid,
+          generationId: job.generationId,
+          modelId: VIDEO_MODEL_ID,
+          amount: job.estimatedCredits,
+          costUsd: job.estimatedCostUsd,
+          actualAmount: actualCredits,
+          actualCostUsd,
+        });
+        if (!settled.success) throw new Error("Video settlement failed");
+        debitedCredits = Math.max(0, actualCredits - (settled.shortfall ?? 0));
+      }
     }
     await ctx.db.patch(job._id, {
       status: "completed",
       active: false,
       storageId: args.storageId,
       actualCostUsd,
-      actualCredits: job.admin || unseen ? 0 : actualCredits,
+      actualCredits: job.admin || unseen ? 0 : debitedCredits,
       absorbedCostUsd: unseen ? actualCostUsd : Math.max(0, actualCostUsd - job.estimatedCostUsd),
       updatedAt: Date.now(),
       leaseUntil: 0,

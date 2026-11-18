@@ -146,6 +146,45 @@ export const cleanupAdminLoginAttempts = internalMutation({
  * Delete quotes that expired more than an hour ago without being accepted. Accepted quotes are kept: they record the
  * maximum a guest authorized for a charge.
  */
+/** Remove processed cost-event outbox rows after a week; processed rows keep their nextRetryAt. */
+export const cleanupProcessedCostEvents = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
+    const rows = await ctx.db.query("costEventOutbox")
+      .withIndex("by_status_nextRetryAt", (q) => q.eq("status", "processed").lt("nextRetryAt", cutoff))
+      .take(250);
+    for (const row of rows) await ctx.db.delete(row._id);
+    return { deleted: rows.length };
+  },
+});
+
+/** Remove feedback bodies after a year; attention items keep the report history. */
+export const cleanupOldFeedback = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const cutoff = Date.now() - 365 * 24 * 60 * 60 * 1000;
+    const rows = await ctx.db.query("feedback")
+      .withIndex("by_createdAt", (q) => q.lt("createdAt", cutoff))
+      .take(250);
+    for (const row of rows) await ctx.db.delete(row._id);
+    return { deleted: rows.length };
+  },
+});
+
+/** Remove admin audit rows after a year; daily spend totals are read from the current day only. */
+export const cleanupAdminAuditLog = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const cutoff = Date.now() - 365 * 24 * 60 * 60 * 1000;
+    const rows = await ctx.db.query("adminAuditLog")
+      .withIndex("by_createdAt", (q) => q.lt("createdAt", cutoff))
+      .take(250);
+    for (const row of rows) await ctx.db.delete(row._id);
+    return { deleted: rows.length };
+  },
+});
+
 export const cleanupUnusedQuotes = internalMutation({
   args: {},
   handler: async (ctx) => {
