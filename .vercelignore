@@ -1,0 +1,7 @@
+# Agent worktrees are full checkouts with their own node_modules and eval media.
+.claude/**
+# Local captures, security evidence and build output are not runtime assets.
+output/**
+coverage/**
+.next/**
+SECURITY-REVIEW.md
