@@ -1,0 +1,55 @@
+{
+  "authorization": [
+    "Released on 18 November by the session that wrote #518, from the owner's accounts. That session wrote no authorization note; this record was written afterwards from the Vercel deployment list, production headers and the session's local review notes."
+  ],
+  "release": {
+    "pullRequests": [518, 519, 520],
+    "mainCommit": "df77402d",
+    "summary": "Fixes from a full security review (F1-F19). #519 and #520 only unblock the Vercel build: agent worktrees out of the upload, and the coverage package matched to vitest.",
+    "residual": [
+      "Direct Convex library and analysis reads are not metered (F2).",
+      "Owner-preview analysis content is readable through public analysis reads (F3, F21).",
+      "Dev-only audit findings in the Vitest/Vite toolchain; production audit is 0.",
+      "19 lint warnings from two new react-hooks rules."
+    ],
+    "reviewFindings": "CodeRabbit CLI ran seven passes on the diff; every finding was fixed except one false positive. CI quality-gates and CodeRabbit on the PR passed."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-18 (time not recorded)",
+        "convex": "Production backend pushed first: listAttention needs the server secret, impression cap, nightly cleanup cron, settlement changes."
+      },
+      {
+        "at": "2026-11-18, about 19:00 and 19:06 UTC",
+        "vercel": "Two attempts failed: the upload hit the symlink in .claude/worktrees and the 15k-file limit, then npm ci refused the lock. Fixed by #519 and #520."
+      },
+      {
+        "at": "2026-11-18T19:11:21Z",
+        "commit": "df77402d (main)",
+        "carries": [518, 519, 520],
+        "vercel": "dpl_AjWth2XSCpxkEpz7EycFWe1foQZE"
+      }
+    ]
+  },
+  "changes": [
+    "Client IP: x-vercel-forwarded-for under platform trust; the forwarding header is trusted only with declared proxies.",
+    "Per-IP limits on session reads (60/min), rate-limit status, image and chat catalogs, video config, readiness and the LNURL proxy; impressions capped at 300/min per image.",
+    "listAttention needs the server secret, so reader feedback is no longer public.",
+    "Invoice bodies capped at 10 KiB; bulk jobs at 8,192 verses; the public app URL is required in production.",
+    "Timing-safe compares for ops tokens and the Convex admin upgrade; nosniff and a sandbox CSP on stored blobs; COOP and CORP.",
+    "Settlement: a late charge against a released hold is debited; the picture is saved before charging; an uncertain debit keeps the picture and hold (billingPending). A video retry after a charge completes and records only what was debited.",
+    "Cookie-dependent GETs are private, no-store.",
+    "Nightly cleanup: feedback and admin audit after a year, processed outbox rows after 7 days."
+  ],
+  "smoke": {
+    "after": "Production sends COOP, CORP and nosniff, and GET /api/session sends private, no-store. A 50 MB invoice gets the platform's 413 and a 20 KB one the app's (exceeds 10000 bytes). image-models gave 30 x 200 then 429; readiness and lnurlp 120 x 200 then 429; session reads count in the session-read bucket. A call to analysis:listAttention without the server secret is refused."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_2HQPTpLF8QRJq3DZuDaAVCbGkruR (main f9a19c35). The Convex functions would stay on the new version; push the old ones from f9a19c35 only if they must go too."
+  },
+  "productionWrites": [
+    "One Convex push and three Vercel production deployments (two failed builds).",
+    "Rate-limit rows from the smoke checks."
+  ]
+}

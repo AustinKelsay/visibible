@@ -80,12 +80,10 @@ export function ChatModelSelector({ value: chatModel, onChange }: ChatModelSelec
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Reset search when dropdown closes
-  useEffect(() => {
-    if (!isOpen) {
-      setSearchQuery("");
-    }
-  }, [isOpen]);
+  // Reset search when dropdown closes. Adjusted during render, guarded so it settles.
+  if (!isOpen && searchQuery !== "") {
+    setSearchQuery("");
+  }
 
   const handleSelect = (modelId: string) => {
     onChange(modelId);
