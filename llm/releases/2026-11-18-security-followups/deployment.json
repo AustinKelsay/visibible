@@ -1,0 +1,39 @@
+{
+  "authorization": [
+    "The owner asked for every follow-up of the #518 security review up to the point they were needed, then said: \"I give you release approval\"."
+  ],
+  "release": {
+    "pullRequests": [522, 524, 525],
+    "docsOnly": [521, 523],
+    "mainCommit": "6d252958",
+    "summary": "Owner-preview analysis reads need the server secret; the bulk Convex reads nothing calls are internal; listActiveRecords needs the secret for every work; two react-hooks resets.",
+    "reviewFindings": "GPT-6.2 Sol (xhigh): #524 approved in 1 round. #525 took 3 rounds: its first version capped rows, which still allowed multi-MB replies and would have repeated generation numbers past 200 pictures. It was rebuilt to make uncalled reads internal, and getBooksWithImages was added in round 3. #523 lost its F22 and F23 fixes, which Sol showed opened worse failures (a possible double charge during rollout; unsent Nostr posts recorded as published); both are deferred. CodeRabbit skipped every PR (hourly limit). CI quality-gates passed on all."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-18T20:39:05Z-20:39:22Z",
+        "convex": "Production unique-impala-244 from main 6d252958. Dry run first: no index deletions, schema valid, and the known blank 'Node.js actions' line."
+      },
+      {
+        "at": "2026-11-18T20:40:38Z",
+        "commit": "6d252958 (main; since production's df77402d it adds only #521-#525)",
+        "vercel": "dpl_8YVV6buRctNGQW6JUrmjcqPXJ79S"
+      }
+    ]
+  },
+  "smoke": {
+    "before": "Anonymous calls on the production Convex URL to verseImages:getBooksWithImages, analysis:getWorkStatus for holmes-adventures, and analysis:listActiveRecords for bible-web sections all returned success.",
+    "after": "The same three calls are refused, while anonymous analysis:getWorkStatus for bible-web still succeeds. /genesis/1/1, /john/3/16, /about, /api/health, /.well-known/nostr.json and /api/image-models answer 200, / redirects, and POST then GET /api/session works. Headless Chromium on /genesis/1/1 renders the verse picture from Convex storage with no failed Convex request.",
+    "notRegressions": "A first visit logs one 401 from POST /api/chat/quote: the quote is requested before the session cookie exists, and the second load gets 200. No chat code changed in this release.",
+    "notExercised": "Owner preview pages (admin-only) were not opened."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_AjWth2XSCpxkEpz7EycFWe1foQZE (main df77402d).",
+    "convex": "Push the functions from df77402d. Old Next code works against the new Convex functions except owner-preview analysis reads, which then need the secret it does not send."
+  },
+  "productionWrites": [
+    "One Convex push and one Vercel production deployment.",
+    "Guest sessions from the smoke checks, with no balance."
+  ]
+}
