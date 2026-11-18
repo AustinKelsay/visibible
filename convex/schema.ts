@@ -682,6 +682,9 @@ export default defineSchema({
     artStyleId: v.optional(v.string()),
     // Why the job is paused when the coordinator did it (engine or style unavailable, limits).
     pausedReason: v.optional(v.string()),
+    // Random per-job part of every item request id, so the ids cannot be guessed from the bulk id.
+    // Jobs created before it existed lack it and keep the old id form.
+    requestNonce: v.optional(v.string()),
     createdAt: v.number(),
     updatedAt: v.number(),
     completedAt: v.optional(v.number()),

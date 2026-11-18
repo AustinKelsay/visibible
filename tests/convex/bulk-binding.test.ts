@@ -9,6 +9,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import schema from "../../convex/schema";
 import { api } from "../../convex/_generated/api";
 import { modules } from "./modules";
+import { bulkItemRequestId } from "../../convex/_helpers/bulkRequestId";
 
 const SECRET = "server-only";
 const issuer = "https://guest.example";
@@ -22,7 +23,7 @@ async function setup(artStyleId?: string) {
   const verses = [0, 1, 2, 3].map((order) => ({ verseId: `genesis-1-${order + 1}`, reference: `Genesis 1:${order + 1}`, order }));
   const { bulkId } = await owner.mutation(api.bulkGenerations.create, { sid: "owner", scopeType: "verses", scopeLabel: "Genesis 1", startVerseId: "genesis-1-1", estimatedTotalCredits: 8, modelId: "lite", aspectRatio: "16:9", resolution: "1K", translation: "kjv", verses, ...(artStyleId ? { artStyleId } : {}) });
   const requestFor = async (order: number, status: "generating" | "succeeded" | "failed", engine: "legacy" | "generic" = "legacy", actualCreditsCost?: number) => {
-    const requestId = `bulk-${bulkId}-${order}`;
+    const requestId = bulkItemRequestId(bulkId, order, (await t.run((ctx) => ctx.db.get(bulkId)))?.requestNonce);
     await t.mutation(api.verseImages.createGenerationRequest, { requestId, sid: "owner", verseId: `genesis-1-${order + 1}`, inputFingerprint: "fp", generationId: `g-${order}`, executorVersion: "next-image-v1", billingPolicyVersion: "legacy-image-v1", serverSecret: SECRET, engine, ...(engine === "generic" ? { engineCommitments: { workId: "bible-web", momentId: "m", briefVersion: "b", analysisGeneration: 1, promptVersion: "p", billingVersion: "v" } } : {}) });
     if (status !== "generating") {
       await t.mutation(api.verseImages.updateGenerationRequest, { requestId, status: "generating", serverSecret: SECRET });

@@ -21,6 +21,8 @@ These variables belong in the Convex deployment environment. Missing key/base sk
 
 [nostr.ts](../../convex/nostr.ts) runs in the Node action runtime and dynamically imports `snstr`. It creates/signs the event, connects to relays, publishes, and disconnects in `finally`. Posts include Scripture text/reference, the image URL, a verse-page URL and available `imeta` image metadata.
 
+A publish that reaches some relays and then throws is `publish_failed`, and the window may retry it. The first attempt stores its `created_at` on the image (`nostrAttemptAt`), and every retry rebuilds the event from the same content, tags, key and time, so it has the same id and relays that already took it ignore the copy. This holds only while the image text, URL base and key are unchanged between attempts; a changed key or base would produce a different event.
+
 Successful recording writes event ID, publication time and relays to the image row. Existing event IDs and scheduler state provide duplicate guards, not a transaction spanning relays and Convex. A publish that succeeds externally but fails to record locally is treated as a terminal scheduler outcome to avoid automatic republishing that window.
 
 Publishing failures do not block image generation. [Scheduler tests](../../convex/lib/__tests__/nostrScheduling.test.ts) cover window, ranking and lock helpers. Impression data is separate from Vercel client analytics.

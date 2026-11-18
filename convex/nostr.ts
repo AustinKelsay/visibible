@@ -229,9 +229,20 @@ export const publishToNostr = internalAction({
       // Get public key from private key
       const pubkey = getPublicKey(hexKey);
 
+      // A retry after a partial publish must rebuild the identical event (same id), so created_at is
+      // fixed by the first attempt rather than taken from the clock each time.
+      const createdAt = await ctx.runMutation(internal.verseImages.claimNostrEventTime, {
+        imageId: args.imageId,
+        nowSeconds: Math.floor(Date.now() / 1000),
+      });
+      if (createdAt === null) {
+        return { outcome: "image_missing" as const, reason: "image_not_found" };
+      }
+
       // Create unsigned event with imeta tag for image rendering
       const unsignedEvent = createEvent({
         kind: 1,
+        created_at: createdAt,
         content,
         tags: [["imeta", ...imetaParts]],
       }, pubkey);

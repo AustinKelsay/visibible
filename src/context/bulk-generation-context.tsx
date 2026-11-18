@@ -15,6 +15,7 @@ import type { Doc, Id } from "../../convex/_generated/dataModel";
 import { useSession } from "@/context/session-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
+import { bulkItemRequestId } from "../../convex/_helpers/bulkRequestId";
 import { useAdvancedSettings } from "@/lib/advanced-settings";
 import type { BulkScope, BulkQueueItem } from "@/lib/bulk-generation";
 
@@ -147,6 +148,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     /** The job's art style and, once the first item is accepted, its bound engine (#178). */
     artStyleId: string;
     engine?: "legacy" | "generic";
+    /** Random part of the item request ids; absent on jobs made before it existed. */
+    requestNonce?: string;
   } | null>(null);
   const reconciledBulkIdRef = useRef<Id<"bulkGenerations"> | null>(null);
   const sessionCreditsRef = useRef(credits);
@@ -409,6 +412,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       translation: bulkForState.translation,
       artStyleId: bulkForState.artStyleId ?? "classical",
       engine: bulkForState.engine ?? settingsRef.current?.engine,
+      requestNonce: bulkForState.requestNonce,
     };
 
     setState((prev) => ({
@@ -578,7 +582,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               automatic: true,
               // The bound engine, once known: the route refuses rather than admits on another engine.
               ...(settings.engine ? { engine: settings.engine } : {}),
-              requestId: `bulk-${bulkId}-${item.order}`,
+              requestId: bulkItemRequestId(bulkId, item.order, settings.requestNonce),
             };
             const csrfToken = readCsrfToken();
             if (!csrfToken) {
@@ -938,6 +942,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         resolution,
         translation: params.translation,
         artStyleId: params.artStyleId ?? "classical",
+        requestNonce: bulk.requestNonce,
       };
 
       if (acquireRunLock(bulk.bulkId)) {
