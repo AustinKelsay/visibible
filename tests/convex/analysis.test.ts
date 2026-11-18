@@ -70,6 +70,34 @@ describe("analysis generations", () => {
     expect((await t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" })).map((r) => r.recordId)).toEqual(["sherlock_holmes"]);
   });
 
+  it("bounds the unpaged reads: no moment list, a capped entry list, and a legacy count from a bounded read", async () => {
+    const generation = await prepare();
+    await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
+    await expect(t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "moment" })).rejects.toThrow(/listActiveRecordsPage/);
+    expect(await t.query(api.analysis.listActiveRecordsPage, { workId: WORK, generation, kind: "moment", cursor: null })).toMatchObject({ nextCursor: null });
+
+    // A legacy generation (no maintained counts) is counted by a read that stops at its cap.
+    await t.run(async (ctx) => {
+      const row = (await ctx.db.query("analysisGenerations").first())!;
+      await ctx.db.patch(row._id, { recordCounts: undefined });
+      for (let i = 0; i < 1001; i++) {
+        await ctx.db.insert("analysisRecords", {
+          workId: WORK, generation, kind: "entry", recordId: `bulk-${i}`, version: "v", source: "generated", inputs: [],
+          payload: { kind: "entry", name: `Bulk ${i}`, entryKind: "character", hasForm: true, stages: [{ id: "main", text: "x" }] },
+          status: "current", createdAt: 0,
+        });
+      }
+    });
+    expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation }))?.counts).toEqual({ entry: 1002, section: 1, moment: 1 });
+    await expect(t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" })).rejects.toThrow(/More than 1000/);
+    await t.run(async (ctx) => {
+      for (const row of await ctx.db.query("analysisRecords").collect()) {
+        if (row.recordId.startsWith("bulk-")) await ctx.db.delete(row._id);
+      }
+    });
+    expect(await t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" })).toHaveLength(1);
+  });
+
   it("rejects an unauthenticated preparation write", async () => {
     await expect(t.mutation(api.analysis.registerWork, { serverSecret: "wrong", workId: WORK, workVersion: WORK_V1, briefVersion: BRIEF_V1 })).rejects.toThrow();
   });

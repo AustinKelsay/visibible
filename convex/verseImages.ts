@@ -217,6 +217,12 @@ async function onlyVisible(ctx: QueryCtx, images: Doc<"verseImages">[]) {
 }
 
 /**
+ * Most saved pictures one chapter or book indicator reads. Library resets and the Bible's size keep real data far below
+ * it; past it the indicator covers the first pictures rather than one anonymous call reading without bound.
+ */
+const IMAGE_RANGE_SCAN_MAX = 4000;
+
+/**
  * Get image status for all verses in a chapter.
  * Returns an array of verse numbers with their image status.
  */
@@ -237,7 +243,7 @@ export const getChapterImageStatus = query({
       .withIndex("by_verse", (q) =>
         q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
       ), normalizeStyleFilter(args))
-      .collect());
+      .take(IMAGE_RANGE_SCAN_MAX));
 
     // Count images per verse for this chapter
     const imageCounts = new Map<number, number>();
@@ -448,7 +454,7 @@ export const getChaptersWithImages = query({
       .withIndex("by_verse", (q) =>
         q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
       ), normalizeStyleFilter(args))
-      .collect());
+      .take(IMAGE_RANGE_SCAN_MAX));
 
     const chaptersWithImages = new Set<number>();
 
@@ -626,6 +632,9 @@ export const getPublicChapterLatestImages = query({
   },
 });
 
+/** Most pictures one history read returns; each carries its prompt and verse text, so an unbounded read is megabytes. */
+export const IMAGE_HISTORY_MAX = 200;
+
 /**
  * Get all images for a verse (for future history feature).
  */
@@ -643,9 +652,8 @@ export const getImageHistory = query({
       .withIndex("by_verse", (q) => q.eq("verseId", args.verseId))
       .order("desc"), normalizeStyleFilter(args));
 
-    const found = args.limit
-      ? await query.take(args.limit)
-      : await query.collect();
+    // Newest first, so the cap drops only a verse's oldest pictures.
+    const found = await query.take(Math.min(IMAGE_HISTORY_MAX, Math.max(1, Math.floor(args.limit ?? IMAGE_HISTORY_MAX))));
     const visible = await visibleImageFilter(ctx);
     const shown = await Promise.all(found.map(visible));
     const images = found.filter((_, index) => shown[index]);
