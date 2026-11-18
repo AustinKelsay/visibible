@@ -3,10 +3,13 @@ import { mutation, query, type MutationCtx, type QueryCtx } from "./_generated/s
 import { v } from "convex/values";
 import type { Doc, Id } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
-import { bulkItemRequestId, newBulkRequestNonce } from "./_helpers/bulkRequestId";
 
 const engineValidator = v.union(v.literal("legacy"), v.literal("generic"));
 export const DEFAULT_BULK_ART_STYLE = "classical";
+/** The request id every item is submitted under; stable across resume so the route replays instead of repeating. */
+export function bulkItemRequestId(bulkId: Id<"bulkGenerations">, order: number) {
+  return `bulk-${bulkId}-${order}`;
+}
 
 const bulkGenerationVerseStatusValidator = v.union(
   v.literal("queued"),
@@ -131,7 +134,6 @@ export const create = mutation({
       };
     }
 
-    const requestNonce = newBulkRequestNonce();
     const bulkId = await ctx.db.insert("bulkGenerations", {
       sid: args.sid,
       status: "active",
@@ -149,7 +151,6 @@ export const create = mutation({
       resolution: args.resolution,
       translation: args.translation,
       artStyleId,
-      requestNonce,
       createdAt: now,
       updatedAt: now,
     });
@@ -172,7 +173,6 @@ export const create = mutation({
 
     return {
       bulkId,
-      requestNonce,
       created: true,
       status: "active" as const,
       totalVerses: args.verses.length,
@@ -531,7 +531,7 @@ type RequestState = "unstarted" | "accepted" | "succeeded" | "failed";
 
 /** What the authoritative request record says about one item; absent means nothing was ever admitted. */
 async function requestStateFor(ctx: BulkGenerationCtx, bulk: Doc<"bulkGenerations">, order: number) {
-  const request = await ctx.db.query("imageGenerationRequests").withIndex("by_requestId", (q) => q.eq("requestId", bulkItemRequestId(bulk._id, order, bulk.requestNonce))).first();
+  const request = await ctx.db.query("imageGenerationRequests").withIndex("by_requestId", (q) => q.eq("requestId", bulkItemRequestId(bulk._id, order))).first();
   if (!request || request.sid !== bulk.sid) return { state: "unstarted" as RequestState, request: null };
   if (request.status === "succeeded") return { state: "succeeded" as RequestState, request };
   if (request.status === "failed") return { state: "failed" as RequestState, request };

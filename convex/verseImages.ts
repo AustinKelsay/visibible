@@ -1188,22 +1188,6 @@ export const recordImageImpression = mutation({
 });
 
 /**
- * The created_at (seconds) every publish attempt of this image's event uses: set by the first
- * attempt, returned unchanged afterwards. Same content, tags, key and time give the same event id,
- * so a retry after a publish that reached only some relays cannot create a second distinct event.
- */
-export const claimNostrEventTime = internalMutation({
-  args: { imageId: v.id("verseImages"), nowSeconds: v.number() },
-  handler: async (ctx, args) => {
-    const image = await ctx.db.get(args.imageId);
-    if (!image) return null;
-    if (image.nostrAttemptAt !== undefined) return image.nostrAttemptAt;
-    await ctx.db.patch(args.imageId, { nostrAttemptAt: args.nowSeconds });
-    return args.nowSeconds;
-  },
-});
-
-/**
  * Internal mutation to record a published Nostr event.
  */
 export const recordNostrPublication = internalMutation({
