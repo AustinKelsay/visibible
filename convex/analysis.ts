@@ -12,7 +12,7 @@ import { KNOWN_STYLE_IDS } from "./_helpers/styleIds";
  * Writes are server-secret protected (the same boundary as saveImage); reads are public.
  */
 import { v } from "convex/values";
-import { action, internalMutation, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
+import { action, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import { internal } from "./_generated/api";
 import type { Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
@@ -723,26 +723,17 @@ export const getWorkStatus = query({
   },
 });
 
-const COUNT_FALLBACK_MAX = 2000;
-
-export const getGeneration = query({
+export const getGeneration = internalQuery({
   args: { workId: v.string(), generation: v.number(), ...readSecret },
   handler: async (ctx, args) => {
     requireReadAccess(args.workId, args.serverSecret);
     const generation = await findGeneration(ctx, args.workId, args.generation);
     if (!generation) return null;
     const counts: Record<string, number> = { ...generation.recordCounts };
-    let countsCapped = false;
     if (generation.recordCounts === undefined) {
-      // A generation without maintained counts is counted by a bounded read; past the cap the counts are lower bounds.
-      const records = await ctx.db
-        .query("analysisRecords")
-        .withIndex("by_work_generation_status", (q) => q.eq("workId", args.workId).eq("generation", args.generation).eq("status", "current"))
-        .take(COUNT_FALLBACK_MAX + 1);
-      countsCapped = records.length > COUNT_FALLBACK_MAX;
-      for (const r of records.slice(0, COUNT_FALLBACK_MAX)) counts[r.kind] = (counts[r.kind] ?? 0) + 1;
+      for (const r of await currentRecords(ctx, args.workId, args.generation)) counts[r.kind] = (counts[r.kind] ?? 0) + 1;
     }
-    return { ...withoutInternals(generation), counts, ...(countsCapped ? { countsCapped } : {}) };
+    return { ...withoutInternals(generation), counts };
   },
 });
 
@@ -758,24 +749,13 @@ export const getActiveRecord = query({
   },
 });
 
-/**
- * One call's most entries or sections. Moments run to tens of thousands, so they come only from `listActiveRecordsPage`,
- * and a larger set must page too: one anonymous call can no longer return megabytes.
- */
-export const LIST_ACTIVE_MAX = 1000;
-
 export const listActiveRecords = query({
   args: { workId: v.string(), kind: analysisValidators.kind, ...readSecret },
   handler: async (ctx, args) => {
     requireReadAccess(args.workId, args.serverSecret);
     const work = await findWork(ctx, args.workId);
     if (!work || work.activeGeneration === undefined) return [];
-    if (args.kind === "moment") throw new Error("Moments are not listed in one call; page them with listActiveRecordsPage");
-    const records = await ctx.db.query("analysisRecords").withIndex("by_work_generation_kind_status", (q) =>
-      q.eq("workId", args.workId).eq("generation", work.activeGeneration!).eq("kind", args.kind).eq("status", "current"),
-    ).take(LIST_ACTIVE_MAX + 1);
-    if (records.length > LIST_ACTIVE_MAX) throw new Error(`More than ${LIST_ACTIVE_MAX} ${args.kind} records; page them with listActiveRecordsPage`);
-    return records.map(publicRecord);
+    return (await currentKind(ctx, args.workId, work.activeGeneration, args.kind)).map(publicRecord);
   },
 });
 

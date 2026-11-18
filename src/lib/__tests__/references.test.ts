@@ -4,7 +4,6 @@
  * canon notes, exhaustion, staleness, pinning, readable stored versions, budget and resume.
  */
 import { describe, it, expect, beforeEach } from "vitest";
-import { listActiveKind } from "@/lib/engine/analysis-records";
 import { convexTest } from "convex-test";
 import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
@@ -73,7 +72,7 @@ describe("reference images", () => {
     await t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation, records });
     await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
     store = {
-      listActiveRecords: (kind) => listActiveKind(t, WORK, kind) as never,
+      listActiveRecords: (kind) => t.query(api.analysis.listActiveRecords, { serverSecret: SECRET, workId: WORK, kind }) as never,
       getReference: async (kind, recordId, expectedInputs) => { const r = await t.query(api.analysis.getReference, { serverSecret: SECRET, workId: WORK, kind, recordId, expectedInputs }); return r ? { storageId: r.storageId, stale: r.stale, pinned: r.pinned } : null; },
       putReference: async (args) => { await t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, ...args, storageId: args.storageId as never }); },
       noteAttention: async (item) => { await t.mutation(api.analysis.noteAttention, { serverSecret: SECRET, workId: WORK, ...item }); },

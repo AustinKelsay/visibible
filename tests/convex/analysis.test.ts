@@ -7,7 +7,7 @@ import { createHash } from "node:crypto";
 import { convexTest } from "convex-test";
 import type { FunctionArgs } from "convex/server";
 import schema from "../../convex/schema";
-import { api } from "../../convex/_generated/api";
+import { api, internal } from "../../convex/_generated/api";
 import { modules } from "./modules";
 import { listAnalysisRecords } from "../../src/lib/engine/analysis-records";
 import { activateCandidate, staleDependents } from "../../convex/analysis";
@@ -76,7 +76,7 @@ describe("analysis generations", () => {
     const read = { workId: WORK, kind: "entry" as const, recordId: "sherlock_holmes" };
     const anonymous = [
       t.query(api.analysis.getWorkStatus, { workId: WORK }),
-      t.query(api.analysis.getGeneration, { workId: WORK, generation }),
+      t.query(internal.analysis.getGeneration, { workId: WORK, generation }),
       t.query(api.analysis.getActiveRecord, read),
       t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" }),
       t.query(api.analysis.listActiveRecordsPage, { workId: WORK, generation, kind: "entry", cursor: null }),
@@ -94,34 +94,6 @@ describe("analysis generations", () => {
     expect((await t.query(api.analysis.getWorkStatus, { workId: "bible-web" })).exists).toBe(true);
     expect(await t.query(api.analysis.getActiveRecord, { workId: "bible-web", kind: "entry", recordId: "adam" })).toBeNull();
     expect(await t.query(api.analysis.listActiveRecords, { workId: "bible-web", kind: "entry" })).toEqual([]);
-  });
-
-  it("bounds the unpaged reads: no moment list, a capped entry list, and a legacy count from a bounded read", async () => {
-    const generation = await prepare();
-    await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
-    await expect(t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "moment", serverSecret: SECRET })).rejects.toThrow(/listActiveRecordsPage/);
-    expect(await t.query(api.analysis.listActiveRecordsPage, { workId: WORK, generation, kind: "moment", cursor: null, serverSecret: SECRET })).toMatchObject({ nextCursor: null });
-
-    // A legacy generation (no maintained counts) is counted by a read that stops at its cap.
-    await t.run(async (ctx) => {
-      const row = (await ctx.db.query("analysisGenerations").first())!;
-      await ctx.db.patch(row._id, { recordCounts: undefined });
-      for (let i = 0; i < 1001; i++) {
-        await ctx.db.insert("analysisRecords", {
-          workId: WORK, generation, kind: "entry", recordId: `bulk-${i}`, version: "v", source: "generated", inputs: [],
-          payload: { kind: "entry", name: `Bulk ${i}`, entryKind: "character", hasForm: true, stages: [{ id: "main", text: "x" }] },
-          status: "current", createdAt: 0,
-        });
-      }
-    });
-    expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation, serverSecret: SECRET }))?.counts).toEqual({ entry: 1002, section: 1, moment: 1 });
-    await expect(t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry", serverSecret: SECRET })).rejects.toThrow(/More than 1000/);
-    await t.run(async (ctx) => {
-      for (const row of await ctx.db.query("analysisRecords").collect()) {
-        if (row.recordId.startsWith("bulk-")) await ctx.db.delete(row._id);
-      }
-    });
-    expect(await t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry", serverSecret: SECRET })).toHaveLength(1);
   });
 
   it("rejects an unauthenticated preparation write", async () => {
@@ -159,7 +131,7 @@ describe("analysis generations", () => {
     await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: again })).rejects.toThrow(/work work-v0/);
     await t.mutation(api.analysis.abandonGeneration, { serverSecret: SECRET, workId: WORK, generation: again, note: "read against a stale work file" });
     expect((await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK })).candidateGeneration).toBeNull();
-    expect((await t.query(api.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation: again }))?.status).toBe("abandoned");
+    expect((await t.query(internal.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation: again }))?.status).toBe("abandoned");
   });
 
   it("marks a work not ready when the deployed brief changes after activation", async () => {
@@ -182,7 +154,7 @@ describe("analysis generations", () => {
     expect(b).toBe(a + 1);
     await expect(t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation: a, records: minimalRecords() })).rejects.toThrow(/not an open candidate/);
     await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: a })).rejects.toThrow(/not the open candidate/);
-    expect((await t.query(api.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation: a }))?.status).toBe("abandoned");
+    expect((await t.query(internal.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation: a }))?.status).toBe("abandoned");
     await t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation: b, records: minimalRecords() });
     await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: b });
     expect((await t.query(api.analysis.getWorkStatus, { serverSecret: SECRET, workId: WORK })).activeGeneration).toBe(b);
@@ -220,7 +192,7 @@ describe("analysis generations", () => {
     // The retired generation stays readable for provenance.
     const old = await t.query(api.analysis.getRecordVersion, { serverSecret: SECRET, workId: WORK, generation: first, kind: "entry", recordId: "dr_watson", version: attention[0].detail!.match(/version ([0-9a-f]+)/)![1] });
     expect(old?.payload).toMatchObject({ name: "Dr. Watson" });
-    expect((await t.query(api.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation: first }))?.status).toBe("retired");
+    expect((await t.query(internal.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation: first }))?.status).toBe("retired");
     const history = await t.query(api.analysis.listRecordHistory, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "dr_watson" });
     expect(history.map((h) => [h.generation, h.source, h.status])).toEqual([[first, "owner", "retired"], [first, "generated", "superseded"]]);
   });
@@ -319,7 +291,7 @@ describe("analysis generations", () => {
     // The section may follow the moment within the same atomic batch.
     await put([moment("first", "end", "section"), section("section", "end"), entry("holmes", "Holmes")]);
     await put([moment("first", "other-end", "section")]);
-    expect((await t.query(api.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation }))?.counts).toEqual({ moment: 1, section: 1, entry: 1 });
+    expect((await t.query(internal.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation }))?.counts).toEqual({ moment: 1, section: 1, entry: 1 });
     await t.run(async (ctx) => {
       const row = await ctx.db.query("analysisGenerations").first();
       await ctx.db.patch(row!._id, { recordCounts: undefined });
@@ -384,7 +356,7 @@ describe("analysis generations", () => {
       scanned = 0;
       await t.run((ctx) => activateCandidate({ ...ctx, db: bounded(ctx.db) }, { serverSecret: SECRET, workId: WORK, generation: first }));
       expect(scanned).toBeLessThan(SCAN_LIMIT / 6);
-      expect((await t.query(api.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation: first }))?.counts).toEqual(COUNTS);
+      expect((await t.query(internal.analysis.getGeneration, { serverSecret: SECRET, workId: WORK, generation: first }))?.counts).toEqual(COUNTS);
       expect(await t.query(api.analysis.listActiveRecords, { serverSecret: SECRET, workId: WORK, kind: "entry" })).toHaveLength(1);
       const list = await listAnalysisRecords(t, WORK, first, "moment");
       expect(list).toHaveLength(MOMENTS);

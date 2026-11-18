@@ -217,16 +217,10 @@ async function onlyVisible(ctx: QueryCtx, images: Doc<"verseImages">[]) {
 }
 
 /**
- * Most saved pictures one chapter or book indicator reads. Library resets and the Bible's size keep real data far below
- * it; past it the indicator covers the first pictures rather than one anonymous call reading without bound.
- */
-const IMAGE_RANGE_SCAN_MAX = 4000;
-
-/**
  * Get image status for all verses in a chapter.
  * Returns an array of verse numbers with their image status.
  */
-export const getChapterImageStatus = query({
+export const getChapterImageStatus = internalQuery({
   args: {
     book: v.string(),
     chapter: v.number(),
@@ -243,7 +237,7 @@ export const getChapterImageStatus = query({
       .withIndex("by_verse", (q) =>
         q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
       ), normalizeStyleFilter(args))
-      .take(IMAGE_RANGE_SCAN_MAX));
+      .collect());
 
     // Count images per verse for this chapter
     const imageCounts = new Map<number, number>();
@@ -440,7 +434,7 @@ export const getBooksWithImages = query({
  * Get all chapter numbers that have at least one image for a given book.
  * Used for showing image indicators in the book menu chapter grid.
  */
-export const getChaptersWithImages = query({
+export const getChaptersWithImages = internalQuery({
   args: {
     book: v.string(),
     ...styleFilterArgs,
@@ -454,7 +448,7 @@ export const getChaptersWithImages = query({
       .withIndex("by_verse", (q) =>
         q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
       ), normalizeStyleFilter(args))
-      .take(IMAGE_RANGE_SCAN_MAX));
+      .collect());
 
     const chaptersWithImages = new Set<number>();
 
@@ -632,9 +626,6 @@ export const getPublicChapterLatestImages = query({
   },
 });
 
-/** Most pictures one history read returns; each carries its prompt and verse text, so an unbounded read is megabytes. */
-export const IMAGE_HISTORY_MAX = 200;
-
 /**
  * Get all images for a verse (for future history feature).
  */
@@ -652,9 +643,9 @@ export const getImageHistory = query({
       .withIndex("by_verse", (q) => q.eq("verseId", args.verseId))
       .order("desc"), normalizeStyleFilter(args));
 
-    // Newest first, so the cap drops only a verse's oldest pictures. A verse's pictures all belong to one work, so the
-    // visibility filter below keeps or drops them together and private pictures never crowd out public ones.
-    const found = await query.take(Math.min(IMAGE_HISTORY_MAX, Math.max(1, Math.floor(args.limit ?? IMAGE_HISTORY_MAX))));
+    const found = args.limit
+      ? await query.take(args.limit)
+      : await query.collect();
     const visible = await visibleImageFilter(ctx);
     const shown = await Promise.all(found.map(visible));
     const images = found.filter((_, index) => shown[index]);
