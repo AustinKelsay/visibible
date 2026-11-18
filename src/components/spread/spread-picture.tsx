@@ -20,11 +20,11 @@ interface SpreadPictureProps {
   reference: string;
   /** Called when the reader opens the whole-picture view from the picture. */
   onShowWhole?: (imageId: string) => void;
-  /** The next verse, for Play on: whether its picture has a video too. */
+  /** The next verse, for Continuous play: whether its picture has a video too. */
   nextVerseId?: string;
-  /** Turns the page for Play on at the end of this picture's video (false when it declines); absent at the last verse. */
+  /** Turns the page for Continuous play at the end of this picture's video (false when it declines); absent at the last verse. */
   onPlayOn?: () => boolean;
-  /** Play on turned to this spread: its picture's video starts at once and Play on stays on. */
+  /** Continuous play turned to this spread: its picture's video starts at once and Continuous play stays on. */
   arrivesPlaying?: boolean;
 }
 
@@ -41,7 +41,7 @@ interface SpreadPictureProps {
  * A picture with its own video shows Play, which makes the picture move where it is (#447, #480): the video, whose
  * first frame is the picture, fades in over it in the same crop once it has a frame, and nothing else on the spread
  * moves. Play becomes Pause, and Play again once the clip ends on its last frame. While it plays and the next verse's
- * picture has a video too, Play on offers to carry on into it when the clip ends.
+ * picture has a video too, Continuous play offers to carry on into it when the clip ends.
  */
 export function SpreadPicture(props: SpreadPictureProps) {
   const isConvexEnabled = useConvexEnabled();
@@ -65,7 +65,7 @@ function subscribeReducedMotion(onChange: () => void) {
   query?.addEventListener?.("change", onChange);
   return () => query?.removeEventListener?.("change", onChange);
 }
-/** Whether the reader asked for less motion; Play on, which turns pages by itself, is not offered then. */
+/** Whether the reader asked for less motion; Continuous play, which turns pages by itself, is not offered then. */
 function useReducedMotion() {
   return useSyncExternalStore(subscribeReducedMotion, () => window.matchMedia?.(REDUCED_MOTION).matches ?? false, () => false);
 }
@@ -108,7 +108,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
   }
   const phase = video && playback?.videoId === video.id ? playback.phase : null;
   const setPhase = (next: Phase) => setPlayback(video ? { videoId: video.id, phase: next } : null);
-  // Arriving by Play on starts the picture's video as soon as it is known; a verse without one ends the run.
+  // Arriving by Continuous play starts the picture's video as soon as it is known; a verse without one ends the run.
   const [arrivalPending, setArrivalPending] = useState(arrivesPlaying);
   if (arrivalPending && rulePicture !== undefined && (!shownPicture || pictureVideo !== undefined)) {
     setArrivalPending(false);
@@ -120,17 +120,17 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
     setPlayOn(false);
   };
 
-  // Play on: offered while a video is pressed and the next verse's picture (by the same rule) has a video too.
+  // Continuous play: offered while a video is pressed and the next verse's picture (by the same rule) has a video too.
   const offersPlayOn = phase !== null && !reducedMotion && Boolean(nextVerseId && onPlayOn);
   const nextPicture = useQuery(api.verseImages.getSpreadPicture, offersPlayOn && nextVerseId ? { verseId: nextVerseId, styles: order } : "skip");
   const nextVideo = useQuery(api.verseVideos.getPictureVideo, offersPlayOn && nextPicture?.imageUrl ? { imageId: nextPicture.id } : "skip");
   const nextVideoUrl = offersPlayOn && nextPicture?.imageUrl ? nextVideo?.videoUrl ?? null : null;
   const continues = playOn && nextVideoUrl !== null;
-  // Once Play on has turned the page, the toggle no longer changes anything.
+  // Once Continuous play has turned the page, the toggle no longer changes anything.
   const turning = useRef(false);
   // When the pressed video began loading: after the ring shows, a press cancels a clip that is slow to arrive.
   const loadingSince = useRef(0);
-  // Sound: the clips carry sound and start muted; the reader's choice holds for the tab, through Play on.
+  // Sound: the clips carry sound and start muted; the reader's choice holds for the tab, through Continuous play.
   const [sound, setSound] = useState(soundChosen);
 
   // A pressed video starts from its first frame; a refusal (a phone saving power) leaves the picture and Play.
@@ -142,7 +142,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
     element.play()?.catch((error: unknown) => {
       // The clip was taken away while it loaded (Escape, a turn, another version): nothing to do.
       if (!element.isConnected || (error instanceof DOMException && error.name === "AbortError")) return;
-      // A browser that will not start sound by itself (Play on has no tap) may still play this clip muted; the
+      // A browser that will not start sound by itself (Continuous play has no tap) may still play this clip muted; the
       // reader's choice stays for the next press. Otherwise the picture stays.
       if (!element.muted && error instanceof DOMException && error.name === "NotAllowedError") {
         element.muted = true;
@@ -152,7 +152,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
     });
   }, [phase]);
 
-  // At the end of a clip with Play on on, the page turns to the next verse's video, once its address is known (it may
+  // At the end of a clip with Continuous play on, the page turns to the next verse's video, once its address is known (it may
   // arrive after the clip ends). A reader busy at the end ends the run instead (see the video's onEnded).
   useEffect(() => {
     if (phase !== "ended" || !continues || turning.current) return;
@@ -237,7 +237,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
     if (player.current) player.current.muted = !on;
   };
   // Kept up when the computer's controls fade, so a reader passing by still sees the picture moves; in the
-  // whole-picture view it sits at the window's corner on a computer and on the picture's corner on a phone. Play on and the
+  // whole-picture view it sits at the window's corner on a computer and on the picture's corner on a phone. Continuous play and the
   // sound stand above Play (beside it, in one row, in the phone's whole-picture view); below a wide window the group sits above the spread's dock row, so it never covers the dock.
   const playControls = video ? (
     <div
@@ -255,7 +255,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
         <button
           type="button"
           aria-pressed={playOn}
-          aria-label={`Play on into the next ${word}'s video`}
+          aria-label={`Continuous play: carry on into the next ${word}'s video`}
           onClick={() => {
             if (!turning.current) setPlayOn(!playOn);
           }}
@@ -264,7 +264,7 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
           }`}
         >
           <span aria-hidden="true" className={`mr-2 h-1.5 w-1.5 rounded-full ${playOn ? "bg-ink" : "bg-ink/35"}`} />
-          Play on
+          Continuous play
         </button>
       ) : null}
         <button
@@ -382,9 +382,9 @@ function SavedPicture({ verseId, reference, onShowWhole, nextVerseId, onPlayOn, 
         ) : null}
       </button>
       {playControls}
-      {/* Play on carried the reader into this verse: said once its video plays, without taking focus. */}
-      {arrivesPlaying ? <span role="status" className="sr-only">{phase !== null && phase !== "loading" ? `Playing on: ${reference}` : ""}</span> : null}
-      {/* Play on fetches the next clip ahead, so the next verse starts to move without a wait. */}
+      {/* Continuous play carried the reader into this verse: said once its video plays, without taking focus. */}
+      {arrivesPlaying ? <span role="status" className="sr-only">{phase !== null && phase !== "loading" ? `Now playing ${reference}` : ""}</span> : null}
+      {/* Continuous play fetches the next clip ahead, so the next verse starts to move without a wait. */}
       {continues && nextVideoUrl ? <video src={nextVideoUrl} preload="auto" muted aria-hidden="true" tabIndex={-1} className="hidden" /> : null}
       {shown && pictures ? (
         <PictureMenu key={verseId} verseId={verseId} reference={reference} pictures={pictures} shown={shown} chipHidden={wholeIsOpen} besidePlay={video !== null} />

@@ -1,6 +1,6 @@
 # Video generation
 
-A video is a **moving picture** ([#478](https://github.com/AustinKelsay/visibible/issues/478)): it is made from one saved picture, which is its first frame, and belongs to that picture, sharing its art style. The reader still opens on the still picture. Play shows on the spread only when the picture on screen has its own finished video, and pressing it makes the picture move in its own place, starting from the picture; Play on carries on into the next verse's video ([Navigation](NAVIGATION.md)). Videos are made from the picture menu (below) with `minimax/hailuo-3-max`. Every saved result is public to readers who may see its style. Clips carry sound (Hailuo adds it) and start muted, without browser controls: Play, Pause, Play again and a sound button are the reader's controls, and the whole-picture view shows the clip uncropped.
+A video is a **moving picture** ([#478](https://github.com/AustinKelsay/visibible/issues/478)): it is made from one saved picture, which is its first frame, and belongs to that picture, sharing its art style. The reader still opens on the still picture. Play shows on the spread only when the picture on screen has its own finished video, and pressing it makes the picture move in its own place, starting from the picture; Continuous play carries on into the next verse's video ([Navigation](NAVIGATION.md)). Videos are made from the picture menu (below) with `minimax/hailuo-3-max`. Every saved result is public to readers who may see its style. Clips carry sound (Hailuo adds it) and start muted, without browser controls: Play, Pause, Play again and a sound button are the reader's controls, and the whole-picture view shows the clip uncropped.
 
 Videos made before #479 came from the verse text alone and have no source picture. Readers never see them (spread, Contents, picture menu); their rows and files stay untouched, and no migration is planned because the owner will reset pictures and videos.
 
@@ -57,7 +57,7 @@ If a worker crashes after uploading an MP4 but before finalizing the database mu
 - `src/app/api/generate-video/route.ts`: admission, the picture check, and canonical passage authority.
 - `convex/verseVideos.ts`: the picture check (`checkVideoSource`), durable state, per-picture reads, publication, and settlement.
 - `convex/videoWorker.ts`: scheduled provider work in the Node runtime, with enough memory for bounded MP4 downloads. See [Convex action runtime limits](https://docs.convex.dev/functions/actions#limits).
-- `src/components/spread/spread-picture.tsx` and `src/components/spread/play-mark.tsx`: Play for the shown picture and playback in the picture's own place, with Play on.
+- `src/components/spread/spread-picture.tsx` and `src/components/spread/play-mark.tsx`: Play for the shown picture and playback in the picture's own place, with Continuous play.
 - `src/components/spread/make-video.tsx`: "Make this picture move…", its review, progress and recovery.
 - `convex/verseImages.ts` `readChapterContents`: `hasVideo` per tile picture for Contents.
 - `src/lib/use-video-generations.ts`: configuration and idempotent browser submission.
