@@ -21,7 +21,7 @@ import { createReferenceBlobCache } from "./references";
 import { assembleLean, type ReferenceRecord } from "./lean-assemble";
 import { loadWorkInputs, type MomentRange, type WorkInputs } from "./work-inputs";
 import type { ConvexClient, GenericEngine, GenericGenerationInput, GenericGenerationOutcome } from "./dispatch";
-import { listAnalysisRecords } from "./analysis-records";
+import { analysisAccess, listAnalysisRecords } from "./analysis-records";
 import { makeThumbnail as makeThumbnailFromBytes } from "../thumbnails";
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
@@ -155,9 +155,9 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       try {
         assembled = await assembleLean({
           inputs,
-          getRecord: (kind, recordId) => convex.query(api.analysis.getActiveRecord, { workId, kind, recordId }) as never,
+          getRecord: (kind, recordId) => convex.query(api.analysis.getActiveRecord, { workId, kind, recordId, ...analysisAccess(workId) }) as never,
           listMoments: listMomentsFor(convex, workId, input.readiness.activeGeneration),
-          getReference: (kind, recordId) => convex.query(api.analysis.getReference, { workId, kind, recordId }) as Promise<ReferenceRecord | null>,
+          getReference: (kind, recordId) => convex.query(api.analysis.getReference, { workId, kind, recordId, ...analysisAccess(workId) }) as Promise<ReferenceRecord | null>,
           loadReference: (storageId) => cache.get(storageId),
           onReferenceSkipped: (kind, id, reason) => logInfo("generic.reference_skipped", { requestId: input.requestId, workId, kind, id, reason }),
           onReferenceUnavailable: (kind, id, error) => logWarn("generic.reference_unavailable", { requestId: input.requestId, workId, kind, id, error: error instanceof Error ? error.message : String(error) }),

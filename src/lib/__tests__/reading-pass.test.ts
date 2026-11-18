@@ -268,7 +268,7 @@ describe("reading pass", () => {
     const { generation } = await convexStore.stageGeneration({ workId: "two-books", workVersion: "wv1", briefVersion: "draft" });
     await convexStore.putRecords({ workId: "two-books", generation, records: analysisRecords(state) });
     await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: "s".repeat(40), workId: "two-books", generation })).rejects.toThrow(/stages/);
-    expect((await t.query(api.analysis.getWorkStatus, { workId: "two-books" })).ready).toBe(false);
+    expect((await t.query(api.analysis.getWorkStatus, { serverSecret: "s".repeat(40), workId: "two-books" })).ready).toBe(false);
   });
 
   it("retries an empty division coarser and malformed ranges with feedback, within three attempts", async () => {

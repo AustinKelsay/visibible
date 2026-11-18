@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { catalogImageQuote, imageCapabilities } from "@/lib/image-catalog";
 import { DEFAULT_ETA_SECONDS, DEFAULT_IMAGE_MODEL, fetchImageModels, unavailableImageModels, type ImageModel } from "@/lib/image-models";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
+import { analysisAccess } from "@/lib/engine/analysis-records";
 import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
 import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
 import { ART_STYLES, type ArtStyleAvailability } from "@/lib/art-styles";
@@ -27,7 +28,7 @@ async function styleAvailability(request: Request | undefined, convex: ReturnTyp
         const record = await convex.query(api.sessions.getSession, { sid: session.sid, serverSecret: getConvexServerSecret() });
         isOwner = hasOwnerEngineAccess(record);
       }
-      const status = await convex.query(api.analysis.getWorkStatus, { workId: work?.id ?? BIBLE_WORK_ID });
+      const status = await convex.query(api.analysis.getWorkStatus, { workId: work?.id ?? BIBLE_WORK_ID, ...analysisAccess(work?.id ?? BIBLE_WORK_ID) });
       readiness = { ready: status.ready, reasons: status.reasons, activeGeneration: status.activeGeneration, briefVersion: status.briefVersion };
     } catch (error) { console.error("Failed to read style availability:", error); }
   }

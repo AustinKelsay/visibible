@@ -56,7 +56,7 @@ import { imageCapabilities } from "@/lib/image-catalog";
 import { createOfflineOpenRouter } from "@/lib/image-evals/suite-offline";
 import { createOpenRouterEvalImageProvider } from "@/lib/image-evals/adapters";
 import type { ReferenceRecord } from "@/lib/engine/lean-assemble";
-import { listAnalysisRecords, type AnalysisRecord } from "@/lib/engine/analysis-records";
+import { analysisAccess, listAnalysisRecords, type AnalysisRecord } from "@/lib/engine/analysis-records";
 import { applicableRules } from "@/lib/engine/prompt";
 import { leanCastMember, leanDepicted, rankLeanCast, LEAN_MAX_SHEETS, LEAN_PROMPT_VERSION, type LeanCastMember } from "@/lib/engine/lean";
 import { assembleLean } from "@/lib/engine/lean-assemble";
@@ -184,7 +184,7 @@ async function snapshot() {
     let get: (kind: "moment" | "section" | "entry", id: string) => Promise<AnalysisRecord | null>;
     let moments: Array<{ id: string; firstUnit: string; lastUnit: string }> | null = null;
     if (settings.analysis === "convex") {
-      const status = await client!.query(api.analysis.getWorkStatus, { workId }); queries++;
+      const status = await client!.query(api.analysis.getWorkStatus, { workId, ...analysisAccess(workId, env.CONVEX_SERVER_SECRET) }); queries++;
       assert.ok(status.ready, `${workId} is not ready in production`);
       assert.equal(status.workVersion, inputs.workVersion, `${workId}: production read another work file`);
       assert.equal(status.briefVersion, inputs.briefVersion, `${workId}: production registered another brief`);
@@ -193,7 +193,7 @@ async function snapshot() {
         const key = `${kind}:${id}`;
         if (!(key in records)) {
           queries++;
-          const r = await client!.query(api.analysis.getActiveRecord, { workId, kind, recordId: id }) as AnalysisRecord | null;
+          const r = await client!.query(api.analysis.getActiveRecord, { workId, kind, recordId: id, ...analysisAccess(workId, env.CONVEX_SERVER_SECRET) }) as AnalysisRecord | null;
           if (!r) return null;
           // References are current only when their inputs' versions match, so a version must be its payload's hash.
           assert.equal(contentVersion(r.payload), r.version, `${key}: stored version is not its payload's content hash`);
@@ -202,7 +202,7 @@ async function snapshot() {
         return records[key];
       };
       if (inputs.work.momentMode !== "unit") {
-        const all = await listAnalysisRecords(client!, workId, status.activeGeneration!, "moment"); queries++;
+        const all = await listAnalysisRecords(client!, workId, status.activeGeneration!, "moment", env.CONVEX_SERVER_SECRET); queries++;
         moments = all.map((r) => { const m = r.payload as { firstUnit: string; lastUnit: string }; return { id: r.recordId, firstUnit: String(m.firstUnit), lastUnit: String(m.lastUnit) }; });
         for (const r of all) records[`moment:${r.recordId}`] = r as AnalysisRecord;
       }
@@ -223,7 +223,7 @@ async function snapshot() {
       if (key in references) return;
       if (settings.analysis !== "convex") { references[key] = null; return; }
       queries++;
-      const r = await client!.query(api.analysis.getReference, { workId, kind, recordId }) as (ReferenceRecord & { storageId: string }) | null;
+      const r = await client!.query(api.analysis.getReference, { workId, kind, recordId, ...analysisAccess(workId, env.CONVEX_SERVER_SECRET) }) as (ReferenceRecord & { storageId: string }) | null;
       references[key] = r ? { storageId: r.storageId, inputs: r.inputs, fingerprint: r.fingerprint, pinned: r.pinned } : null;
       if (!r || files[r.storageId]) return;
       queries++;
