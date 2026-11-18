@@ -1,0 +1,36 @@
+{
+  "authorization": [
+    "Next.js warned that 16.4.3 has a known vulnerability; the owner said \"yes\" to upgrading it as its own PR and release. Spends nothing beyond one free Ask answer in the smoke run."
+  ],
+  "release": {
+    "pullRequests": [516],
+    "mainCommit": "f9a19c35",
+    "advisories": ["GHSA-mfr8-8qww-v76h", "GHSA-vc7v-qv4w-wrv8"],
+    "exposure": "Not exposed: the app uses neither 'use cache' nor unstable_cache. The upgrade clears the warning and npm audit (1 moderate -> 0).",
+    "reviewFindings": "GPT-6.2 Sol (xhigh) approved in 1 round with no findings, after checking all ten tarballs' registry URLs, integrity hashes, npm signatures and Sigstore provenance, peer and engine ranges, the webpack build, NIP-05 headers and chat streaming. CodeRabbit hit its hourly limit; its paid on-demand review ($0.25) was not run. CI quality-gates passed."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-18T01:43:15Z",
+        "commit": "f9a19c35 (main; since production's c6885916 it adds only the #515 record and #516)",
+        "carries": [516],
+        "vercel": "dpl_2HQPTpLF8QRJq3DZuDaAVCbGkruR",
+        "convex": "Unchanged; frontend only."
+      }
+    ]
+  },
+  "changes": [
+    "next 16.4.3 -> 16.4.6 (exact pin); the lockfile changes only next and its nine @next/* packages."
+  ],
+  "smoke": {
+    "after": "/, /genesis/1/15, /john/3/16, /api/health, /about and /.well-known/nostr.json answer as before (/ redirects), serving dpl_2HQP. Playwright on production: window.next.version is 16.4.6; GET and POST /api/session 200; no page errors; Genesis 1:15's video plays and Continuous play turns to 1:16 (\"Now playing Genesis 1:16\"); an Ask on John 3:16 streamed \"Jesus is speaking to Nicodemus.\" billed as free."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_52YxaygZin96RkRnrRh6WTawTeYd (main c6885916, Next 16.4.3). Nothing stored differs."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "The browser sessions of the smoke runs, with no balance, and one free Ask answer (about $0.0001 on the free key)."
+  ]
+}

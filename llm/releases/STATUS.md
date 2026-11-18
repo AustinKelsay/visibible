@@ -1,5 +1,7 @@
 # Generic engine release status
 
+**Next.js 16.4.6 (18 November 2026, 01:43 UTC).** #516 (`main` at `f9a19c35`, Vercel `dpl_2HQPTpLF8QRJq3DZuDaAVCbGkruR`) upgrades Next.js from 16.4.3 for two moderate cache advisories (GHSA-mfr8-8qww-v76h, GHSA-vc7v-qv4w-wrv8). The app uses no `'use cache'`, so it was not exposed; `npm audit` is now clean. Smoke: sessions, video, Continuous play and a free Ask answer all work. Frontend only, about $0.0001 on the free key ([record](2026-11-18-next-16-4-6/deployment.json)).
+
 **Play on is now Continuous play (18 November 2026, 01:07 UTC).** The owner found "Play on" confusing. #514 (`main` at `c6885916`, Vercel `dpl_52YxaygZin96RkRnrRh6WTawTeYd`) renames the toggle to "Continuous play" and announces an arrival as "Now playing Genesis 1:16"; the `play_on` analytics source stays. Frontend only, no spend ([record](2026-11-18-continuous-play/deployment.json)).
 
 **Nostr posting on, zaps working (17 November 2026, 23:44-23:57 UTC).** On the owner's word: Convex prod `NOSTR_PUBLISHING_ENABLED=true` and `NOSTR_RELAYS` fixed (a dead `relay.nos.lol` became `nos.lol`); the first post is Genesis 1:15. `pay@visibible.com` refused zaps for the new account because tower's LNURL server still named the retired one as zap recipient; that one line was changed on tower and only `lnurl-server-main` restarted. #512 (`main` at `e254c9db`, Vercel `dpl_EduxUtEvYds43FW5BWJvbkALbgVh`) drops the silent relay.nostr.band from nostr.json. No spend ([record](2026-11-17-nostr-live/deployment.json)).
