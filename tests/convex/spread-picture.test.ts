@@ -9,6 +9,8 @@ import schema from "../../convex/schema";
 import { api, internal } from "../../convex/_generated/api";
 import { modules } from "./modules";
 
+const assertSave = <T>(p: Promise<T | null>) => p.then((value) => value!);
+
 const issuer = "https://guest.example";
 beforeEach(() => {
   vi.stubEnv("GUEST_AUTH_ISSUER", issuer);
@@ -24,10 +26,10 @@ function setup() {
   const save = async (verseId: string, style: string) => {
     n += 1;
     const storageId = await t.run((ctx) => ctx.storage.store(new Blob([new Uint8Array([n % 256, 2, 3])], { type: "image/png" })));
-    const id = await t.mutation(internal.verseImages.saveImageWithStorage, {
+    const id = await assertSave(t.mutation(internal.verseImages.saveImageWithStorage, {
       verseId, storageId, model: "m", generationId: `g${n}`,
       ...(style === "legacy" ? {} : { artStyleId: style }),
-    });
+    }));
     const createdAt = at++;
     await t.run(async (ctx) => { await ctx.db.patch(id, { createdAt }); });
     return id;

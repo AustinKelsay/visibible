@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
+import { checkIpRateLimit, rateLimitedResponse } from "@/lib/route-rate-limit";
 import {
   DEFAULT_CHAT_MODEL,
   EMERGENCY_CHAT_MODEL_PRICING,
   fetchChatModels,
 } from "@/lib/chat-models";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const limit = await checkIpRateLimit(request, "chat-models");
+  if (!limit.allowed) return rateLimitedResponse(limit.retryAfter);
   const openRouterApiKey = process.env.OPENROUTER_API_KEY;
 
   if (!openRouterApiKey) {

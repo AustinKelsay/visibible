@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "node:crypto";
 import { getClientIp } from "@/lib/client-ip";
 
 type OpsAuthOptions = {
@@ -23,6 +24,12 @@ function getBearerToken(request: Request): string | null {
   return token;
 }
 
+function safeEqual(a: string, b: string): boolean {
+  const left = Buffer.from(a, "utf8");
+  const right = Buffer.from(b, "utf8");
+  return left.length === right.length && timingSafeEqual(left, right);
+}
+
 function getIpAllowlist(envName: string): string[] {
   const raw = process.env[envName] ?? "";
   return raw
@@ -45,7 +52,7 @@ export function authorizeOpsRequest(
   const tokenAuthorized =
     tokenPolicyEnabled &&
     typeof providedToken === "string" &&
-    providedToken === configuredToken;
+    safeEqual(providedToken, configuredToken);
 
   const requestIp = getClientIp(request);
   const ipAuthorized =

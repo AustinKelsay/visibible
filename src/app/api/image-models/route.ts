@@ -7,6 +7,7 @@ import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
 import { ART_STYLES, type ArtStyleAvailability } from "@/lib/art-styles";
 import { BIBLE_WORK_ID, findProseWork, isProseOwner, type ProseWork } from "@/lib/works/catalog";
 import { api } from "../../../../convex/_generated/api";
+import { checkIpRateLimit, rateLimitedResponse } from "@/lib/route-rate-limit";
 
 /**
  * Which art styles generation would admit right now (#177): the same decision the image route
@@ -58,6 +59,8 @@ function quotedSettings(model: ImageModel) {
 }
 
 export async function GET(request: Request) {
+  const limit = await checkIpRateLimit(request, "image-models");
+  if (!limit.allowed) return rateLimitedResponse(limit.retryAfter);
   const key = process.env.OPENROUTER_API_KEY;
   const convex = getConvexClient();
   // An unknown work, and one the viewer may not open, are answered as the Bible would be: never an error, and

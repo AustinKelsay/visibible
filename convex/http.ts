@@ -48,6 +48,8 @@ http.route({
       headers: {
         "Content-Type": blob.type || "image/png",
         "Cache-Control": "public, max-age=31536000, immutable",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "default-src 'none'; sandbox",
       },
     });
   }),

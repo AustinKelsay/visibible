@@ -14,6 +14,7 @@ import { internal } from "./_generated/api";
 import { v } from "convex/values";
 import { Id, type DataModel, type Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
+import { summarizeGenerationSettlement } from "./sessions";
 import { imageProvenanceValidator, renderingPacketValidator } from "./schema";
 import { isOwnerOnlyWork } from "./lib/proseWorks";
 import { PUBLIC_GENERIC_STYLE_IDS } from "../src/lib/engine/admission";
@@ -29,6 +30,8 @@ const generationStatusValidator = v.union(
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024; // 10 MiB hard cap per image
 // A thumbnail is a few tens of KiB; anything near this cap is not one.
 const MAX_THUMBNAIL_BYTES = 512 * 1024;
+/** Most impression writes one image takes per minute; further views in that minute are dropped. */
+const MAX_IMPRESSIONS_PER_MINUTE = 300;
 const ALLOWED_IMAGE_MIME_TYPES = new Set([
   "image/png",
   "image/jpeg",
@@ -976,6 +979,42 @@ export const updateGenerationRequest = mutation({
   },
 });
 
+/** The authoritative settlement state of one generation; a lost deduct response can be resolved. */
+export const getSettlementState = query({
+  args: { generationId: v.string(), sid: v.string(), serverSecret: v.string() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const entries = await ctx.db.query("creditLedger")
+      .withIndex("by_generationId", (q) => q.eq("generationId", args.generationId).eq("sid", args.sid))
+      .collect();
+    return summarizeGenerationSettlement(entries).state;
+  },
+});
+
+/** Delete a saved picture and its files; used when settlement after persistence fails. */
+export const discardImageByGenerationId = action({
+  args: { generationId: v.string(), serverSecret: v.string() },
+  handler: async (ctx, args): Promise<{ deleted: boolean }> => {
+    validateServerSecret(args.serverSecret);
+    const image = await ctx.runQuery(internal.verseImages.getImageByGenerationId, { generationId: args.generationId });
+    if (!image) return { deleted: false };
+    // Row first: a failed blob delete then leaves only an orphan, never a row pointing at a missing file.
+    await ctx.runMutation(internal.verseImages.deleteImageRow, { id: image._id });
+    for (const storageId of [image.storageId, image.thumbnailStorageId]) {
+      if (storageId) await ctx.storage.delete(storageId).catch(() => {});
+    }
+    return { deleted: true };
+  },
+});
+
+export const deleteImageRow = internalMutation({
+  args: { id: v.id("verseImages") },
+  handler: async (ctx, args) => {
+    const image = await ctx.db.get(args.id);
+    if (image) await ctx.db.delete(args.id);
+  },
+});
+
 /**
  * Internal lookup to enforce generationId idempotency.
  */
@@ -1028,11 +1067,23 @@ export const saveImageWithStorage = internalMutation({
     imageWidth: v.optional(v.number()),
     imageHeight: v.optional(v.number()),
     generationId: v.optional(v.string()),
+    /** The request that owns this generation: a failed request refuses a late save. */
+    requestId: v.optional(v.string()),
     engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
     provenance: v.optional(imageProvenanceValidator),
     artStyleId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    // A save can finish after the engine gave up. The request is marked failed before the discard runs,
+    // so checking it here closes the race: a later save must not recreate a picture nobody paid for.
+    if (args.requestId && args.generationId) {
+      const request = await ctx.db.query("imageGenerationRequests")
+        .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId!)).first();
+      if (request?.generationId === args.generationId && request.status === "failed") {
+        // The action deletes the blobs outside this transaction, where the throw cannot roll the deletes back.
+        throw new Error("Generation failed before the image was saved");
+      }
+    }
     if (args.generationId) {
       const existing = await ctx.db.query("verseImages")
         .withIndex("by_generationId", (q) => q.eq("generationId", args.generationId)).first();
@@ -1115,12 +1166,24 @@ export const recordImageImpression = mutation({
       return { success: false };
     }
 
+    // At most `MAX_IMPRESSIONS_PER_MINUTE` writes per image each minute: a burst cannot spin the
+    // document or the write budget, and the count remains a soft ranking hint.
+    const now = Date.now();
+    const minute = Math.floor(now / 60_000);
+    const sameMinute = image.impressionWindowStart === minute;
+    const inWindow = sameMinute ? image.impressionWindowCount ?? 0 : 0;
+    if (inWindow >= MAX_IMPRESSIONS_PER_MINUTE) {
+      return { success: true, counted: false };
+    }
+
     await ctx.db.patch(args.imageId, {
       impressionCount: (image.impressionCount ?? 0) + 1,
-      lastImpressionAt: Date.now(),
+      lastImpressionAt: now,
+      impressionWindowStart: minute,
+      impressionWindowCount: inWindow + 1,
     });
 
-    return { success: true };
+    return { success: true, counted: true };
   },
 });
 
@@ -1598,6 +1661,8 @@ export const saveImage = action({
     durationMs: v.optional(v.number()),
     aspectRatio: v.optional(v.string()),
     generationId: v.optional(v.string()),
+    /** The request that owns this generation: a failed request refuses a late save. */
+    requestId: v.optional(v.string()),
     engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
     provenance: v.optional(imageProvenanceValidator),
     artStyleId: v.optional(v.string()),
@@ -1622,6 +1687,7 @@ export const saveImage = action({
       durationMs,
       aspectRatio,
       generationId,
+      requestId,
       engine,
       provenance,
       artStyleId,
@@ -1674,14 +1740,23 @@ export const saveImage = action({
     const thumbnailStorageId = await storeThumbnail(ctx, thumbnailUrl);
 
     // Save to database with storage ID
-    const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithStorage, {
-      verseId,
-      storageId,
-      thumbnailStorageId,
-      model,
-      ...imageMetadata,
-      generationId,
-    });
+    let id: Id<"verseImages">;
+    try {
+      id = await ctx.runMutation(internal.verseImages.saveImageWithStorage, {
+        verseId,
+        storageId,
+        thumbnailStorageId,
+        model,
+        ...imageMetadata,
+        generationId,
+        requestId,
+      });
+    } catch (error) {
+      // A failed mutation inserted no row: its blobs are unreferenced and safe to remove.
+      await ctx.storage.delete(storageId).catch(() => {});
+      if (thumbnailStorageId) await ctx.storage.delete(thumbnailStorageId).catch(() => {});
+      throw error;
+    }
 
     return { success: true, type: "storage", id };
   },

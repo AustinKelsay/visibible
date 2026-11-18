@@ -153,6 +153,36 @@ describe("ops endpoints", () => {
     expect(Array.isArray(body.counters)).toBe(true);
   });
 
+  it("metrics endpoint trusts the forwarding header when the runtime has no peer address", async () => {
+    const metricsGET = await importMetricsGET();
+    delete process.env.METRICS_TOKEN;
+    process.env.METRICS_IP_ALLOWLIST = "10.0.0.5";
+
+    const response = await metricsGET(
+      new Request("http://localhost:3000/api/metrics", {
+        method: "GET",
+        headers: { "x-forwarded-for": "10.0.0.5, 198.51.100.7" },
+      })
+    );
+    expect(response.status).toBe(200);
+  });
+
+  it("metrics endpoint reads Vercel's own forwarding header first", async () => {
+    const metricsGET = await importMetricsGET();
+    delete process.env.METRICS_TOKEN;
+    process.env.METRICS_IP_ALLOWLIST = "10.0.0.5";
+    process.env.TRUST_PROXY_PLATFORM = "vercel";
+    process.env.VERCEL = "1";
+
+    const response = await metricsGET(
+      new Request("http://localhost:3000/api/metrics", {
+        method: "GET",
+        headers: { "x-forwarded-for": "198.51.100.7", "x-vercel-forwarded-for": "10.0.0.5" },
+      })
+    );
+    expect(response.status).toBe(200);
+  });
+
   it("metrics endpoint rejects spoofed forwarded IP from untrusted peer", async () => {
     const metricsGET = await importMetricsGET();
     delete process.env.METRICS_TOKEN;

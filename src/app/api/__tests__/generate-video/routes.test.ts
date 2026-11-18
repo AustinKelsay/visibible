@@ -71,19 +71,19 @@ afterEach(() => {
 describe("GET /api/generate-video", () => {
   it("reports disabled without calling the provider", async () => {
     vi.stubEnv("ENABLE_VIDEO_GENERATION", "false");
-    expect(await (await GET()).json()).toEqual({ enabled: false, model: "minimax/hailuo-3-max", modelName: "Hailuo 3 Max", quotes: [] });
+    expect(await (await GET(new Request("http://localhost/api/generate-video"))).json()).toEqual({ enabled: false, model: "minimax/hailuo-3-max", modelName: "Hailuo 3 Max", quotes: [] });
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("returns live quotes when enabled", async () => {
-    const config = await (await GET()).json();
+    const config = await (await GET(new Request("http://localhost/api/generate-video"))).json();
     expect(config.enabled).toBe(true);
     expect(config.quotes).toContainEqual({ duration: 10, resolution: "768p", providerCostUsd: 0.8, credits: 100 });
   });
 
   it("fails closed when pricing is unavailable", async () => {
     fetchMock.mockResolvedValue(Response.json({ data: [] }));
-    const config = await (await GET()).json();
+    const config = await (await GET(new Request("http://localhost/api/generate-video"))).json();
     expect(config).toMatchObject({ enabled: false, quotes: [], error: expect.any(String) });
   });
 });

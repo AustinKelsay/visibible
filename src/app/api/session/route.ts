@@ -13,6 +13,7 @@ import {
 } from "@/lib/session";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { generateCsrfToken, getCsrfCookieOptions } from "@/lib/csrf";
+import { checkIpRateLimit, rateLimitedResponse } from "@/lib/route-rate-limit";
 
 interface SessionResponse {
   sid: string | null;
@@ -59,6 +60,14 @@ function clearSessionCookie(response: NextResponse): void {
  * Refreshes token on activity without exceeding the absolute timeout cap.
  */
 export async function GET(request: Request): Promise<NextResponse<SessionResponse>> {
+  const response = await handleSessionGet(request);
+  response.headers.set("Cache-Control", "private, no-store");
+  return response;
+}
+
+async function handleSessionGet(request: Request): Promise<NextResponse<SessionResponse>> {
+  const limit = await checkIpRateLimit(request, "session-read");
+  if (!limit.allowed) return rateLimitedResponse(limit.retryAfter) as NextResponse<SessionResponse>;
   const convex = getConvexClient();
   if (!convex) {
     return NextResponse.json({

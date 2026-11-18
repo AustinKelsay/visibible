@@ -26,6 +26,16 @@ export function getClientIp(request: Request): string {
     return peerIp ?? "unknown";
   }
 
+  // Vercel's own header is the trusted client address; the older headers remain for other platforms.
+  if (isTrustedPlatformProxy()) {
+    const vercelForwarded = headers.get("x-vercel-forwarded-for");
+    const vercelIp = vercelForwarded ? getFirstValidIp(vercelForwarded) : null;
+    if (vercelIp) {
+      logProxyTrust(peerIp, vercelIp, "x-vercel-forwarded-for");
+      return vercelIp;
+    }
+  }
+
   // X-Forwarded-For can contain multiple IPs; take the first valid IP (original client)
   const forwarded = headers.get("x-forwarded-for");
   const forwardedIp = forwarded ? getFirstValidIp(forwarded) : null;
@@ -101,8 +111,14 @@ function isTrustedProxy(request: Request, peerIp: string | null): boolean {
 
   const trustedProxyEntries = getTrustedProxyEntries();
 
-  if (!peerIp || trustedProxyEntries.length === 0) {
+  if (trustedProxyEntries.length === 0) {
     return false;
+  }
+
+  // Next 16 no longer exposes the peer address. When an operator has declared trusted proxies, the
+  // forwarding headers are the only available source, and the proxy contract must sanitize them.
+  if (!peerIp) {
+    return true;
   }
 
   const parsed = parseIp(peerIp);

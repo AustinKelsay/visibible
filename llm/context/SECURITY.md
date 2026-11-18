@@ -6,7 +6,7 @@ The main protected resources are provider spend, credit balances, session access
 
 - [origin.ts](../../src/lib/origin.ts) accepts a matching request origin or configured allowlisted origin; its general helper also accepts a missing Origin. Image generation adds a strict missing-Origin rejection.
 - [csrf.ts](../../src/lib/csrf.ts) implements cookie/header double-submit checks, enforced by image generation, admin login and the Convex token exchange.
-- [session.ts](../../src/lib/session.ts) verifies the signed session and hashes the current client IP for quotas/telemetry. An IP change triggers cookie rotation rather than session rejection. [Proxy configuration](../workflow/PROXY_CONFIGURATION.md) determines whether the client IP is meaningful. An unknown IP does not establish a distinct client identity.
+- [session.ts](../../src/lib/session.ts) verifies the signed session and hashes the current client IP for quotas/telemetry. An IP change triggers cookie rotation rather than session rejection. Next 16 exposes no peer address, so [client-ip.ts](../../src/lib/client-ip.ts) uses `x-vercel-forwarded-for` under platform trust and the forwarding header when trusted proxies are declared; [Proxy configuration](../workflow/PROXY_CONFIGURATION.md) is the contract. An unknown IP does not establish a distinct client identity.
 - [request-body.ts](../../src/lib/request-body.ts) bounds streamed bodies. Route Zod schemas define field limits; chat and images use 100 KiB, feedback 10 KiB.
 - [validate-env.ts](../../src/lib/validate-env.ts) validates session/IP secrets, conditional Convex/admin secrets, session timeout bounds and production proxy settings. It does not apply a universal length rule to every environment secret.
 

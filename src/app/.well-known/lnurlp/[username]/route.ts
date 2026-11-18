@@ -1,3 +1,5 @@
+import { checkIpRateLimit } from "@/lib/route-rate-limit";
+
 const LNURLP_UPSTREAM_ORIGIN = "https://tower.taila60b27.ts.net:10000";
 const LNURLP_UPSTREAM_TIMEOUT_MS = 10_000;
 
@@ -18,6 +20,10 @@ function lnurlpResponse(body: string, status: number) {
 
 // Vercel reserves /.well-known, so LUD-16 discovery is proxied here instead of in vercel.json.
 export async function GET(request: Request, { params }: RouteParams) {
+  const limit = await checkIpRateLimit(request, "lnurlp");
+  if (!limit.allowed) {
+    return lnurlpResponse(JSON.stringify({ status: "ERROR", reason: "Too many requests" }), 429);
+  }
   const { username } = await params;
   const { search } = new URL(request.url);
   const upstreamUrl = `${LNURLP_UPSTREAM_ORIGIN}/.well-known/lnurlp/${encodeURIComponent(username)}${search}`;

@@ -124,7 +124,7 @@ describe("reference images", () => {
     expect(retry[1]).not.toContain("Famous Actor");
     // The question asks the checker to fail on a likeness and to keep the person's name out of the reasons that feed the next prompt.
     expect(sheetCheckQuestion(sheetSubjects(activeEntries, activeSections, brief).find((s) => s.stageId === "old")!)).toContain("do not name the person");
-    const attention = await t.query(api.analysis.listAttention, { workId: WORK });
+    const attention = await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET });
     expect(attention.filter((a) => a.recordId === "jonah:old")).toHaveLength(0);
   });
 
@@ -153,7 +153,7 @@ describe("reference images", () => {
     expect(state.done["styleReference:icon"]).toMatchObject({ ok: true, attempts: 1 });
     expect(state.spentUsd).toBeCloseTo(9 * 0.034 + 9 * 0.0004, 6);
     expect(saved).toHaveLength(6);
-    const attention = await t.query(api.analysis.listAttention, { workId: WORK });
+    const attention = await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET });
     expect(attention.map((a) => [a.reason, a.recordId])).toEqual(expect.arrayContaining([["canon_note", "jonah:young"], ["sheet_failed", "the_lake:main"]]));
     expect(attention).toHaveLength(2);
     // Stored references are readable with their inputs; the failed one is absent and nothing blocks readiness.
@@ -225,7 +225,7 @@ describe("reference images", () => {
     await expect(runReferences({ workId: WORK, workTitle: "Two Books", brief, store, maker, checker, blobs, state: emptyReferenceState(WORK), saveState: async (s) => { saved.push(s.spentUsd); }, budgetUsd: 0.05, styleVersions })).rejects.toThrow(ReferenceBudgetError);
     expect(maker.prompts).toHaveLength(1);
     expect(saved[saved.length - 1]).toBeCloseTo(0.034 + 0.0004, 6);
-    expect(await t.query(api.analysis.listAttention, { workId: WORK })).toEqual([]);
+    expect(await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET })).toEqual([]);
   });
 
   it("caches reference bytes per instance within bounds", async () => {

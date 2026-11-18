@@ -11,9 +11,14 @@ import {
   logWarn,
   redactSid,
 } from "@/lib/observability";
+import {
+  readTextBodyWithLimit,
+  PayloadTooLargeError,
+} from "@/lib/request-body";
 import { api } from "../../../../convex/_generated/api";
 
 const DEFAULT_BUNDLE_USD = 3;
+const MAX_INVOICE_BODY_SIZE = 10_000;
 
 function isSupportedBundleAmountUsd(value: unknown): value is 1 | 3 {
   return value === 1 || value === 3;
@@ -40,7 +45,18 @@ function unresolvedResponse(intentId: string): NextResponse {
 export async function POST(request: Request): Promise<NextResponse> {
   const requestContext = createRequestObservabilityContext(request, "/api/invoice");
 
-  const rawBody = await request.text();
+  let rawBody: string;
+  try {
+    rawBody = await readTextBodyWithLimit(request, MAX_INVOICE_BODY_SIZE);
+  } catch (error) {
+    if (error instanceof PayloadTooLargeError) {
+      return NextResponse.json(
+        { error: `Invoice request body exceeds ${MAX_INVOICE_BODY_SIZE} bytes.` },
+        { status: 413 }
+      );
+    }
+    return NextResponse.json({ error: "Failed to read request body" }, { status: 400 });
+  }
   let amountUsd: 1 | 3 = DEFAULT_BUNDLE_USD;
   // The browser keeps one intent id across retries of a purchase. A caller that sends none
   // gets a fresh one, which behaves as a new purchase every time.

@@ -239,6 +239,7 @@ export function logSettlementEvent(args: {
     | "deduct_failed"
     | "shortfall"
     | "capped"
+    | "pending"
     | "outbox_enqueued"
     | "free_settled"
     | "free_returned";

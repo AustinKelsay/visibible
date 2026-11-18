@@ -56,6 +56,15 @@ const nextConfig: NextConfig = {
         value: "camera=(), microphone=(), geolocation=()",
       },
       {
+        // Isolate the browsing context; resources stay embeddable for the public API and images.
+        key: "Cross-Origin-Opener-Policy",
+        value: "same-origin",
+      },
+      {
+        key: "Cross-Origin-Resource-Policy",
+        value: "cross-origin",
+      },
+      {
         // Content Security Policy
         key: "Content-Security-Policy",
         value: cspDirectives.join("; "),

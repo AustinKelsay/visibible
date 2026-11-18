@@ -32,7 +32,7 @@ The browser stores only an unacknowledged request identity for safe retry. It cl
 
 Quotes use OpenRouter's resolution-specific duration SKUs and a 1.25 markup, converted to credits at $0.01 each. A missing or invalid live price disables new generation. The client sends the maximum credits it accepted; a higher quote requires an explicit new click after refreshing the price.
 
-The job locks its quote. Actual provider usage determines settlement when available; otherwise the estimate is used. User charges are capped at the reserved credits. The job records any provider cost above the quote as absorbed cost. Existing daily spend accounting uses actual provider cost. Admin generations incur provider cost but do not charge a wallet.
+The job locks its quote. Actual provider usage determines settlement when available; otherwise the estimate is used. User charges are capped at the reserved credits. The job records any provider cost above the quote as absorbed cost. Existing daily spend accounting uses actual provider cost. Admin generations incur provider cost but do not charge a wallet. A released hold is charged at finalization, and an already charged job whose completion write was lost completes on retry rather than wedging.
 
 A one-minute cron finds overdue jobs in bounded batches. A lease prevents overlapping workers from completing the same job twice. Poll/download failures back off up to two minutes, with bounded attempts and an overall 45-minute job deadline. The general stale-credit reconciler leaves active video holds to this lifecycle.
 

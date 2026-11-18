@@ -34,6 +34,8 @@ const BULK_VERSE_STATUS_ORDER = {
 } as const;
 
 const BULK_VERSE_INSERT_CHUNK_SIZE = 300;
+/** Convex caps one argument array at 8,192; reject rather than fail mid-write. */
+const MAX_BULK_VERSES = 8_192;
 const DEFAULT_BULK_VERSE_QUERY_LIMIT = 100;
 const BULK_GENERATION_AUTH_ERROR = "Unauthorized bulk generation access.";
 
@@ -88,6 +90,8 @@ export const create = mutation({
   },
   handler: async (ctx, args) => {
     await requireValidBulkSession(ctx, args.sid);
+    if (args.verses.length === 0) throw new Error("A bulk job needs at least one verse");
+    if (args.verses.length > MAX_BULK_VERSES) throw new Error(`A bulk job holds at most ${MAX_BULK_VERSES} verses; split it`);
     const artStyleId = args.artStyleId ?? DEFAULT_BULK_ART_STYLE;
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(artStyleId)) throw new Error("Invalid art style id");
 

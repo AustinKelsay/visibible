@@ -56,16 +56,16 @@ describe("reader image reports", () => {
     const general = (await t.run((ctx) => ctx.db.query("feedback").collect()))[2];
     expect(general).toMatchObject({ kind: "general", imageContext: { imageId: generic, model: "lite" } });
     expect(general.attentionId).toBeUndefined();
-    expect(await t.query(api.analysis.listAttention, { workId: WORK })).toHaveLength(2);
+    expect(await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET })).toHaveLength(2);
   });
 
   it("groups every message for one image in one item, counts concurrent first reports once, and reopens with history", async () => {
     const { t, generic } = await seed();
     await Promise.all([submit(t, { kind: "image", imageContext: { imageId: generic }, message: "first" }), submit(t, { kind: "image", imageContext: { imageId: generic }, message: "second" })]);
-    const [item] = await t.query(api.analysis.listAttention, { workId: WORK });
+    const [item] = await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET });
     expect(item).toMatchObject({ reason: "reader_report", kind: "image", recordId: generic, count: 2, imageId: generic });
     expect(item.reports!.map((r) => r.message).sort()).toEqual(["first", "second"]);
-    expect(await t.query(api.analysis.listAttention, { workId: WORK })).toHaveLength(1);
+    expect(await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET })).toHaveLength(1);
     await t.mutation(api.analysis.closeAttention, { serverSecret: SECRET, id: item.id, disposition: "accepted limitation" });
     const again = await submit(t, { kind: "image", imageContext: { imageId: generic }, message: "third" });
     expect(again).toMatchObject({ attentionId: item.id, reopened: true });
@@ -79,7 +79,7 @@ describe("reader image reports", () => {
   it("closes only with a valid disposition; source corrected needs an existing version and a check; edits never close a report", async () => {
     const { t, generic, adamVersion } = await seed();
     await submit(t, { kind: "image", imageContext: { imageId: generic } });
-    const [item] = await t.query(api.analysis.listAttention, { workId: WORK });
+    const [item] = await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET });
     const close = (args: Record<string, unknown>) => t.mutation(api.analysis.closeAttention, { serverSecret: SECRET, id: item.id, ...args } as never);
     await expect(close({ disposition: "fixed" })).rejects.toThrow(/one of/);
     await expect(close({ disposition: "source corrected" })).rejects.toThrow(/must link/);
@@ -87,7 +87,7 @@ describe("reader image reports", () => {
     // An owner edit creates the new version but leaves the report open.
     const edited = await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "adam", expectedVersion: adamVersion, payload: { kind: "entry", name: "Adam", entryKind: "character", hasForm: true, stages: [{ id: "main", text: "Adam: young, bareheaded." }] } });
     await t.mutation(api.analysis.closeAttentionFor, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "adam", disposition: "source corrected" });
-    expect((await t.query(api.analysis.listAttention, { workId: WORK }))).toHaveLength(1);
+    expect((await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET }))).toHaveLength(1);
     expect(await close({ disposition: "source corrected", correction: { kind: "entry", recordId: "adam", version: edited.version }, check: "Regenerated Genesis 1:1 twice; no hat" })).toEqual({ closed: true });
     const closed = await t.query(api.analysis.getAttentionItem, { serverSecret: SECRET, id: item.id });
     expect(closed).toMatchObject({ status: "closed", closure: { disposition: "source corrected", correction: { kind: "entry", recordId: "adam", version: edited.version }, check: "Regenerated Genesis 1:1 twice; no hat" } });

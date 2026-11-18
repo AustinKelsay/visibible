@@ -33,6 +33,7 @@ import {
 } from "@/lib/video-generation";
 import { buildVideoPrompt } from "@/lib/video-prompts";
 import { fetchVideoQuotes, VideoRequestError } from "@/lib/video-provider";
+import { checkIpRateLimit, rateLimitedResponse } from "@/lib/route-rate-limit";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -113,7 +114,9 @@ const CONVEX_ERRORS: Record<string, [number, string]> = {
   PICTURE_SHAPE: [400, "Only a widescreen (16:9) picture can start a video."],
 };
 
-export async function GET(): Promise<Response> {
+export async function GET(request: Request): Promise<Response> {
+  const limit = await checkIpRateLimit(request, "video-config");
+  if (!limit.allowed) return rateLimitedResponse(limit.retryAfter);
   const config: VideoConfiguration = {
     enabled: false,
     model: VIDEO_MODEL_ID,

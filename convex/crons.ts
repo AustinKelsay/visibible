@@ -84,4 +84,8 @@ crons.interval(
 
 crons.interval("recover durable video jobs", { minutes: 1 }, internal.verseVideos.recover, {});
 
+crons.daily("clean up processed cost events", { hourUTC: 3, minuteUTC: 10 }, internal.cleanup.cleanupProcessedCostEvents, {});
+crons.daily("clean up old admin audit rows", { hourUTC: 3, minuteUTC: 20 }, internal.cleanup.cleanupAdminAuditLog, {});
+crons.daily("clean up old feedback", { hourUTC: 3, minuteUTC: 30 }, internal.cleanup.cleanupOldFeedback, {});
+
 export default crons;

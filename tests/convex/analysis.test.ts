@@ -159,7 +159,7 @@ describe("analysis generations", () => {
     expect(holmes?.payload).toMatchObject({ stages: [{ text: expect.stringContaining("dressing-gown") }] });
     expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "dr_watson" })).toBeNull();
 
-    const attention = await t.query(api.analysis.listAttention, { workId: WORK });
+    const attention = await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET });
     expect(attention).toHaveLength(1);
     expect(attention[0]).toMatchObject({ reason: "unmatched_owner_edit", kind: "entry", recordId: "dr_watson", generation: first });
 
@@ -221,11 +221,11 @@ describe("analysis generations", () => {
     const { id } = await t.mutation(api.analysis.noteAttention, { serverSecret: SECRET, workId: WORK, reason: "sheet_failed", kind: "sheet", recordId: "sherlock_holmes:main", detail: "three tries" });
     await t.mutation(api.analysis.noteAttention, { serverSecret: SECRET, workId: WORK, reason: "sheet_failed", kind: "sheet", recordId: "sherlock_holmes:main" });
     expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).ready).toBe(true);
-    const open = await t.query(api.analysis.listAttention, { workId: WORK });
+    const open = await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET });
     expect(open).toEqual([expect.objectContaining({ id, count: 2, status: "open" })]);
     await t.mutation(api.analysis.closeAttention, { serverSecret: SECRET, id, disposition: "dismissed" });
-    expect(await t.query(api.analysis.listAttention, { workId: WORK })).toEqual([]);
-    expect(await t.query(api.analysis.listAttention, { workId: WORK, status: "closed" })).toEqual([expect.objectContaining({ id, disposition: "dismissed" })]);
+    expect(await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET })).toEqual([]);
+    expect(await t.query(api.analysis.listAttention, { workId: WORK, status: "closed", serverSecret: SECRET })).toEqual([expect.objectContaining({ id, disposition: "dismissed" })]);
   });
 
   it("drops extra object stages at the structural check rather than serving them", async () => {
@@ -253,7 +253,7 @@ describe("analysis generations", () => {
     const status = await t.query(api.analysis.getWorkStatus, { workId: WORK });
     expect(status.activeGeneration).toBe(first);
     expect(status.candidateGeneration).toBe(reread);
-    expect(await t.query(api.analysis.listAttention, { workId: WORK })).toEqual([]);
+    expect(await t.query(api.analysis.listAttention, { workId: WORK, serverSecret: SECRET })).toEqual([]);
   });
 
   it("validates moments while staging, counts rewrites once, and still checks legacy candidates", async () => {

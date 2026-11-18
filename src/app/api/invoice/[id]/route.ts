@@ -74,6 +74,15 @@ export async function GET(
   request: Request,
   { params }: RouteParams
 ): Promise<NextResponse> {
+  const response = await handleInvoiceGet(request, { params });
+  response.headers.set("Cache-Control", "private, no-store");
+  return response;
+}
+
+async function handleInvoiceGet(
+  request: Request,
+  { params }: RouteParams
+): Promise<NextResponse> {
   const requestContext = createRequestObservabilityContext(
     request,
     "/api/invoice/:id"
@@ -200,6 +209,15 @@ export async function GET(
  * Confirms payment for an invoice after verifying settlement on the receiving node.
  */
 export async function POST(
+  request: Request,
+  { params }: RouteParams
+): Promise<NextResponse> {
+  const response = await handleInvoicePost(request, { params });
+  response.headers.set("Cache-Control", "private, no-store");
+  return response;
+}
+
+async function handleInvoicePost(
   request: Request,
   { params }: RouteParams
 ): Promise<NextResponse> {
