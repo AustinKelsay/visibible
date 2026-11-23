@@ -6,7 +6,7 @@ The chosen approach is staged replacement of the unreliable execution and accoun
 
 GitHub is authoritative for status, scope changes and discussion after publication. These files are publication snapshots, not a live status dashboard; the status columns and the section below were last reconciled on 13 November 2026. Specs are planning parents; tickets are the units of implementation. A `ready-for-agent` label does not override open blockers.
 
-**Start here:** [complete source-item mapping](coverage.md), [domain vocabulary](../../CONTEXT.md), [original investigation](../../llm/research/2026-09-07-rebuild-assessment.md), [tracker conventions](../agents/issue-tracker.md).
+**Start here:** [complete source-item mapping](coverage.md), [domain vocabulary](../../GLOSSARY.md), [original investigation](../../llm/research/2026-09-07-rebuild-assessment.md), [tracker conventions](../agents/issue-tracker.md).
 
 ## Decisions carried through the program
 
