@@ -63,7 +63,7 @@ async function renderReader(verseSettingValue: VerseSetting | null, hidden = fal
   );
 }
 
-const map = () => container.querySelector('svg[role="img"]');
+const map = () => container.querySelector('svg[role="group"]');
 
 describe("the map link", () => {
   it("offers the map under a verse with a setting and reports being shown once", async () => {
@@ -202,6 +202,36 @@ describe("the map", () => {
     expect(frame.y).toBeGreaterThanOrEqual(north - 1e-6);
     expect(frame.x + frame.width).toBeLessThanOrEqual(east + 1e-6);
     expect(frame.y + frame.height).toBeLessThanOrEqual(south + 1e-6);
+  });
+
+  it("tells about a proposed site when a ring is hovered, focused or tapped", async () => {
+    await view(setting("EXO", 15, 4));
+    const card = () => container.querySelector("[data-marker-card]");
+    const [first, second] = Array.from(container.querySelectorAll<SVGGElement>('[data-rings="Red Sea"]'));
+    expect(first.getAttribute("aria-label")).toBe("Red Sea: proposed at Gulf of Suez, the most favoured of 5 proposed sites");
+    expect(card()).toBeNull();
+
+    await act(async () => first.dispatchEvent(new PointerEvent("pointerover", { bubbles: true })));
+    expect(card()?.textContent).toBe("Red SeaProposed at Gulf of SuezThe most favoured of 5 proposed sites");
+    await act(async () => first.dispatchEvent(new PointerEvent("pointerout", { bubbles: true })));
+    expect(card()).toBeNull();
+
+    await act(async () => second.focus());
+    expect(card()?.textContent).toContain("Proposed at Bitter Lakes");
+    await act(async () => second.blur());
+    await act(async () => second.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()?.textContent).toContain("Proposed at Bitter Lakes");
+    // A tap on the open map puts it away.
+    await act(async () => container.querySelector("svg path")!.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+    expect(card()).toBeNull();
+  });
+
+  it("says a pinned place's site is settled", async () => {
+    await view(setting("JHN", 1, 19));
+    const pin = container.querySelector<SVGGElement>('[data-pin="Jerusalem"]')!;
+    expect(pin.getAttribute("aria-label")).toBe("Jerusalem");
+    await act(async () => pin.focus());
+    expect(container.querySelector("[data-marker-card]")?.textContent).toBe("JerusalemIts site is settled");
   });
 
   it("labels a region instead of pinning it", async () => {

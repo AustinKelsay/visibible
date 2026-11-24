@@ -95,7 +95,7 @@ const button = (label: string) => [...host.querySelectorAll("button")].find(
 );
 const open = async () => {
   await act(async () => button("See where this happened")!.click());
-  await vi.waitFor(() => expect(host.querySelector("svg[role=img]")).not.toBeNull());
+  await vi.waitFor(() => expect(host.querySelector("svg[role=group]")).not.toBeNull());
 };
 
 it("hides the picture under the map without unmounting it, and stops its video", async () => {
@@ -115,7 +115,7 @@ it("hides the picture under the map without unmounting it, and stops its video",
   expect(fixture.push).not.toHaveBeenCalled();
 
   await act(async () => button("Back to the picture")!.click());
-  expect(host.querySelector('svg[role="img"]')).toBeNull();
+  expect(host.querySelector('svg[role="group"]')).toBeNull();
   expect(button("Play the video of Exodus 15:23")).toBe(play);
   expect(play.closest(".hidden")).toBeNull();
   expect(host.querySelector("[data-picture-video]")).toBeNull();
