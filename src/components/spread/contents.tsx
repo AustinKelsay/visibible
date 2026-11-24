@@ -17,6 +17,7 @@ import { BIBLE_BOOKS, BOOK_BY_SLUG, type BibleBook } from "@/data/bible-structur
 import { trackContentsOpened, trackVerseNavigation } from "@/lib/analytics";
 import { previewSource } from "@/lib/picture-source";
 import { bibleChapterPlaces, type ChapterPlace } from "@/components/spread/verse-marks";
+import { readableReference } from "@/lib/readable-reference";
 
 /** Where the reader is: the verse the spread shows. */
 export interface ContentsPlace {
@@ -48,11 +49,11 @@ export function ContentsButton({ reference, variant }: { reference: string; vari
   return (
     <button
       {...shared}
-      aria-label={`${reference}, Contents`}
+      aria-label={`${readableReference(reference)}, Contents`}
       className={`inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm font-medium text-ink/90 transition-colors duration-[var(--motion-fast)] hover:bg-ink/10 hover:text-ink ${focusRing}`}
     >
       <BookOpen size={16} strokeWidth={1.5} aria-hidden="true" />
-      {reference}
+      {readableReference(reference)}
       <ChevronDown size={14} strokeWidth={1.5} aria-hidden="true" className="text-ink/(--quiet-60)" />
     </button>
   );

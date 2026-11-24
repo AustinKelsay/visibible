@@ -9,6 +9,7 @@ import { artStyleLabel } from "@/lib/art-styles";
 import { previewSource } from "@/lib/picture-source";
 import { useVideoGenerations } from "@/lib/use-video-generations";
 import { isActiveVideoStatus, isVideoFrame, type VideoJobResponse } from "@/lib/video-generation";
+import { readableReference } from "@/lib/readable-reference";
 
 /** The clip the menu makes: the shortest length at the higher quality, as the old Video tab started with. */
 export const MENU_VIDEO = { duration: 5, resolution: "768p" } as const;
@@ -90,7 +91,7 @@ export function MakeVideo({ verseId, reference, picture, pictureHasVideo, myJobs
   if (active) {
     return (
       <p role="status" className="px-3 py-2.5 text-sm text-ink/(--quiet-55)">
-        Your video of {active.reference} is still being made. You can make another when it finishes.
+        Your video of {readableReference(active.reference)} is still being made. You can make another when it finishes.
       </p>
     );
   }
@@ -137,7 +138,7 @@ export function MakeVideo({ verseId, reference, picture, pictureHasVideo, myJobs
             </div>
           </div>
           <p className="mt-2.5 text-[13px] leading-snug text-ink/(--quiet-60)">
-            The video is added to the shared library: anyone reading {reference} in {style} can watch it.
+            The video is added to the shared library: anyone reading {readableReference(reference)} in {style} can watch it.
           </p>
           <div className="mt-3 flex items-center gap-2">
             <button type="button" className={`${CHOICE} shrink-0 text-ink/85 hover:bg-ink/10`} onClick={() => setReviewing(false)}>

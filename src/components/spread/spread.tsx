@@ -23,6 +23,7 @@ import { useSession } from "@/context/session-context";
 import { useMomentWord, useWorkScope } from "@/context/work-scope-context";
 import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { trackWholePictureOpened } from "@/lib/analytics";
+import { readableReference } from "@/lib/readable-reference";
 
 export interface SpreadProps {
   /** Where the verse's pictures are kept ("genesis-1-1"), or a prose moment's (its first unit's id). */
@@ -164,7 +165,7 @@ function SpreadScreen({
       <PrefetchNextSpread nextUrl={nextUrl} nextVerseId={nextVerseId} />
 
       <VerseMarks
-        label={`${word === "verse" ? "Verses" : "Passages"} of ${chapterLabel ?? `${bookName} ${chapter}`}`}
+        label={`${word === "verse" ? "Verses" : "Passages"} of ${chapterLabel ?? readableReference(`${bookName} ${chapter}`)}`}
         places={places}
         current={verseNumber}
         onTurn={onTurn}
