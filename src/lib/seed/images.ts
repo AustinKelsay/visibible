@@ -204,7 +204,8 @@ export function classifyGenerateResponse(status: number, json: Json | null): Att
   if (status === 429) return failed({ stop: body.error === "Daily spending limit exceeded" ? "daily-limit" : "rate-limited" });
   // A replay of a request that was admitted and ended without a saved image: no image exists, and its cost is unknown.
   if (status === 409 && body.reused === true) return failed(held);
-  // The engine or admission declined the scene before any request record or charge.
+  // The engine or admission declined the scene before any request record or charge, or the provider could not take it
+  // ("Images are temporarily unavailable", `retryable: false`) and the hold was released.
   if (status === 503 && typeof body.retryable === "boolean") return { outcome: "declined", status, retryable: body.retryable, ...none, error };
   // Any other 502 or 503 is answered before admission: a Scripture lookup or a service that is down.
   if (status === 502 || status === 503) return failed({ retryable: true });

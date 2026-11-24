@@ -45,6 +45,34 @@ export type GenericEngineDeps = {
 const DEFAULT_COST_MARKUP_MULTIPLIER = 1.25;
 const COST_EVENT_PERSIST_TIMEOUT_MS = 1500;
 const TIMEOUT_PREFIX = "Image generation timed out after";
+
+/**
+ * Provider answers that say nothing is wrong with this request, only that images cannot be made now: the key is
+ * refused or out of credit (401, 402), the call timed out or was rate limited (408, 429), or the provider is down.
+ */
+const PROVIDER_UNAVAILABLE_STATUSES = new Set([401, 402, 408, 429]);
+/** The most of the provider's reason kept in a log line. */
+const PROVIDER_REASON_LIMIT = 300;
+
+/** A provider answer other than success, with the reason it gave. */
+class ProviderError extends Error {
+  constructor(readonly status: number, reason: string) {
+    super(`OpenRouter API error ${status}: ${reason}`);
+    this.name = "ProviderError";
+  }
+
+  get unavailable(): boolean {
+    return PROVIDER_UNAVAILABLE_STATUSES.has(this.status) || this.status >= 500;
+  }
+}
+
+/** The provider's reason from its error body (`{ error: { message } }`), or a placeholder when it gave none. */
+async function providerReason(response: Response): Promise<string> {
+  const body = (await response.json().catch(() => null)) as { error?: unknown } | null;
+  const error = body?.error;
+  const message = error && typeof error === "object" ? (error as { message?: unknown }).message : error;
+  return typeof message === "string" && message.trim() ? message.trim().slice(0, PROVIDER_REASON_LIMIT) : "no reason given";
+}
 const BIBLE_REFERENCE_TRANSLATION = "web";
 const REFERENCE_FETCH_TIMEOUT_MS = 10_000;
 // A thumbnail takes well under a second; past this the picture is saved without one.
@@ -320,16 +348,16 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         await convex.action(api.sessions.logAdminUsage, { sid, endpoint: "generate-image", modelId, estimatedCredits: reservationCreditsCost, estimatedCostUsd: reservationCostUsd, serverSecret })
           .catch((error) => logWarn("generic.admin_audit_failed", { requestId, error: error instanceof Error ? error.message : String(error) }));
       }
-      const fail = async (status: number, error: string, message: string, discardImage = false) => {
+      const fail = async (status: number, error: string, message: string, discardImage = false, extra: Record<string, unknown> = {}) => {
         // Marking failed first lets a save still in flight observe it and clean up its own blobs.
         // Without a confirmed mark the hold stays held, since a save may still commit.
         const marked = await update("failed", { error: message, ...(started ? { durationMs: now() - started } : {}) }).catch(() => null);
-        if (!marked?.success) return respond(status, { error, message, requestId });
+        if (!marked?.success) return respond(status, { error, message, requestId, ...extra });
         if (discardImage && generationId) {
           await convex.action(api.verseImages.discardImageByGenerationId, { generationId, serverSecret }).catch(() => {});
         }
         await release("generic_release_on_failure");
-        return respond(status, { error, message, requestId });
+        return respond(status, { error, message, requestId, ...extra });
       };
 
       // 12. One provider call, references inline after the prompt in packet order.
@@ -354,7 +382,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
             }),
             signal: controller.signal,
           });
-          if (!response.ok) throw new Error(`OpenRouter API error: ${response.status}`);
+          if (!response.ok) throw new ProviderError(response.status, await providerReason(response));
           return (await response.json()) as Record<string, unknown>;
         } finally {
           clearTimeout(timer);
@@ -376,6 +404,12 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         if (timedOut) {
           logApiTimeout({ context: requestContext, stage: "openrouter_generation", timeoutMs, sid, generationId });
           return fail(504, "Image generation timed out", `${TIMEOUT_PREFIX} ${timeoutMs}ms`);
+        }
+        if (error instanceof ProviderError && error.unavailable) {
+          // Nothing was made, so nothing is charged; the reader is told to come back rather than shown a failure. This
+          // request id is spent (a retry under it replays the failure), so it is not `retryable`; a new request may succeed.
+          logApiFailure({ context: requestContext, stage: "openrouter_unavailable", error, statusCode: 503, sid, generationId });
+          return fail(503, "Images are temporarily unavailable", "No credits were used. Please try again later.", false, { retryable: false });
         }
         logApiFailure({ context: requestContext, stage: "generate_image_handler", error, statusCode: 500, sid, generationId });
         return fail(500, "Failed to generate image", error instanceof Error ? error.message : "Failed to generate image");

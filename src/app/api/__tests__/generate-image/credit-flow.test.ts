@@ -1074,17 +1074,70 @@ describe("Image Generation API Credit Flow", () => {
       expect((await savedImages())[0]).toMatchObject({ engine: "generic", translationId: "web" });
     });
 
+    /** The structured error lines the route logged, as one string. */
+    const loggedErrors = (spy: { mock: { calls: unknown[][] } }) => spy.mock.calls.map((call) => String(call[0])).join("\n");
+
     it("releases the reservation and fails the request when the provider returns an error", async () => {
       await prepareWork();
       mockFetchResponse = { ok: false, status: 500, json: async () => ({ error: { message: "API error" } }) };
       const { POST } = await import("../../generate-image/route");
       const response = await POST(createGenerateImageRequest(body));
-      expect(response.status).toBe(500);
-      expect(await response.json()).toMatchObject({ error: "Failed to generate image" });
+      expect(response.status).toBe(503);
+      expect(await response.json()).toMatchObject({ error: "Images are temporarily unavailable", retryable: false });
       expect(getCallCount("releaseReservation")).toBe(1);
       expect(getCallCount("deductCredits")).toBe(0);
       expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
       expect((await storedRequests())[0]).toMatchObject({ status: "failed", engine: "generic" });
+    });
+
+    it("tells the reader images are unavailable when the provider cannot take the request, and logs the provider's reason", async () => {
+      const errorLog = vi.spyOn(console, "error").mockImplementation(() => {});
+      try {
+        await prepareWork();
+        for (const [index, status] of [402, 401, 408, 429, 502, 503].entries()) {
+          const reason = `Key limit reached (${status})`;
+          mockFetchResponse = { ok: false, status, json: async () => ({ error: { code: status, message: reason } }) };
+          const { POST } = await import("../../generate-image/route");
+          const response = await POST(createGenerateImageRequest({ ...body, requestId: `unavailable-${index}` }));
+          expect(response.status).toBe(503);
+          expect(await response.json()).toMatchObject({
+            error: "Images are temporarily unavailable", message: "No credits were used. Please try again later.", retryable: false, requestId: expect.any(String),
+          });
+          expect(loggedErrors(errorLog)).toContain(`OpenRouter API error ${status}: ${reason}`);
+          // The request id is spent: sent again, it replays the failure and never calls the provider twice.
+          const replay = await POST(createGenerateImageRequest({ ...body, requestId: `unavailable-${index}` }));
+          expect(replay.status).toBe(409);
+        }
+        expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("openrouter.ai/api/v1/chat")).length).toBe(6);
+        expect(getCallCount("releaseReservation")).toBe(6);
+        expect(getCallCount("deductCredits")).toBe(0);
+        expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
+        expect((await storedRequests()).map((request) => request.status)).toEqual(Array(6).fill("failed"));
+      } finally {
+        errorLog.mockRestore();
+      }
+    });
+
+    it("keeps a provider refusal of the request itself a failure, logging the provider's reason, and survives an unreadable error body", async () => {
+      const errorLog = vi.spyOn(console, "error").mockImplementation(() => {});
+      try {
+        await prepareWork();
+        mockFetchResponse = { ok: false, status: 400, json: async () => ({ error: { code: 400, message: "image_config.aspect_ratio is invalid" } }) };
+        const { POST } = await import("../../generate-image/route");
+        const refused = await POST(createGenerateImageRequest(body));
+        expect(refused.status).toBe(500);
+        expect(await refused.json()).toMatchObject({ error: "Failed to generate image" });
+        expect(loggedErrors(errorLog)).toContain("OpenRouter API error 400: image_config.aspect_ratio is invalid");
+
+        mockFetchResponse = { ok: false, status: 402, json: async () => { throw new SyntaxError("Unexpected token <"); } };
+        const unreadable = await POST(createGenerateImageRequest({ ...body, requestId: "unreadable" }));
+        expect(unreadable.status).toBe(503);
+        expect(loggedErrors(errorLog)).toContain("OpenRouter API error 402: no reason given");
+        expect(getCallCount("releaseReservation")).toBe(2);
+        expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
+      } finally {
+        errorLog.mockRestore();
+      }
     });
 
     it("still delivers the image when its cost event cannot be recorded, and queues the event instead", async () => {
@@ -1157,7 +1210,7 @@ describe("Image Generation API Credit Flow", () => {
         const { quote } = (await askQuote()).body;
         mockFetchResponse = { ok: false, status: 500, json: async () => ({ error: { message: "API error" } }) };
         const failed = await generate({ quoteId: quote.quoteId });
-        expect(failed.status).toBe(500);
+        expect(failed.status).toBe(503);
         expect(actionArgs("reserveCredits")).toMatchObject([{ amount: 4 }]);
         expect(getCallCount("releaseReservation")).toBe(1);
         expect(getCallCount("deductCredits")).toBe(0);
