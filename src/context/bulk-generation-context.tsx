@@ -12,6 +12,8 @@ import {
 import { useConvex, useConvexAuth, useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Doc, Id } from "../../convex/_generated/dataModel";
+import { bulkItemRequestId } from "../../convex/_helpers/bulkRequestId";
+import { IMAGES_UNAVAILABLE } from "@/lib/image-errors";
 import { useSession } from "@/context/session-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
@@ -50,6 +52,8 @@ interface BulkGenerationCounters {
 }
 
 type BulkGenerationVerse = Doc<"bulkGenerationVerses">;
+/** What a job paused for an image outage tells the reader, here and after a reload (pausedReason images_unavailable). */
+const IMAGES_UNAVAILABLE_PAUSE = `${IMAGES_UNAVAILABLE}. The job is paused; resume when painting is back.`;
 
 interface BulkGenerationContextType {
   state: BulkGenerationState;
@@ -423,7 +427,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       errorMessage:
         bulkForState.status === "paused" && prev.status === "blocked"
           ? prev.errorMessage
-          : null,
+          : bulkForState.status === "paused" && bulkForState.pausedReason === "images_unavailable"
+            ? IMAGES_UNAVAILABLE_PAUSE
+            : null,
     }));
   }, [bulkForState]);
 
@@ -578,7 +584,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               automatic: true,
               // The bound engine, once known: the route refuses rather than admits on another engine.
               ...(settings.engine ? { engine: settings.engine } : {}),
-              requestId: `bulk-${bulkId}-${item.order}`,
+              requestId: bulkItemRequestId(bulkId, item.order, item.attempt),
             };
             const csrfToken = readCsrfToken();
             if (!csrfToken) {
@@ -693,6 +699,18 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               const errData = await response.json().catch(() => null) as { error?: string; message?: string; retryable?: boolean } | null;
               const errorMsg = errData?.error || errData?.message || `HTTP ${response.status}`;
               const bindingChanged = response.status === 409 && errData?.error === "Engine binding changed";
+              if (response.status === 503 && errData?.error === IMAGES_UNAVAILABLE) {
+                // The provider could not take any request. Nothing was charged, and the next verse would fail the
+                // same way, so the job waits. This request id is spent (sent again it replays the failure), so the
+                // verse goes back to the queue with its next one.
+                isPausedRef.current = true;
+                shouldMarkComplete = false;
+                await updateVerseStatus({ sid, bulkGenerationId: bulkId, verseId: item.verseId, status: "queued", expectedCurrentStatus: "generating", spentRequest: true });
+                // A job stopped meanwhile stays stopped: only a job this pause reached shows as blocked.
+                const paused = await pauseBulk({ id: bulkId, sid, reason: "images_unavailable" });
+                if (paused?.updated) setState((prev) => ({ ...prev, status: "blocked", errorMessage: IMAGES_UNAVAILABLE_PAUSE }));
+                break;
+              }
               const stillRetryable = response.status === 503 && errData?.retryable === true;
               if (bindingChanged || stillRetryable) {
                 // The job keeps its configuration and completed outcomes; nothing was charged. It
@@ -827,6 +845,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             verseId: verse.verseId,
             reference: verse.reference,
             order: verse.order,
+            attempt: verse.attempt,
           }));
 
         queueRef.current = pendingQueue;
