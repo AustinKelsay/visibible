@@ -1,5 +1,11 @@
 # Generic engine release status
 
+**Ask question topics (24 November 2026, 20:38 UTC).** On the owner's "lets get this live and finished!", `main` at `7b501d58` (#533, #538) went out Convex first, then Vercel `dpl_2TLot1u1wJvdiyxg12jNorZRwqkx`.
+- Under "Ask about this verse", five question topics (Meaning, Context, People & places, Words, For today) choose which of a verse's 12 suggested questions show. The phone's Ask page has them too.
+- Every suggested question's answer is now stored and served free, as the first two were. Their answers score 1.94 of 2 in the chat eval ([record](2026-11-24-ask-topics-eval/README.md)).
+- Smoke on John 1:7: one guest's free answer to "How can I apply John 1:7 today?" was stored, and a second guest got it as a saved answer with all 20 free answers left.
+- About $0.0002 on the free key ([record](2026-11-24-ask-question-topics/deployment.json)).
+
 **Every kind of suggested question answers well (24 November 2026).** Ask now suggests about a dozen questions per verse under question topics (#529, merged in #533, not yet released). Case set version 3 adds a case for each new kind (#535). Two runs of the 45 cases with GPT-6 Luna were scored blind by three Claude scorers. The new cases average 1.94 with no zero and no safety issue (all cases 1.97). The only lost points are on contested wording (John 1:1 *theos*, Isaiah 7:14 *almah*): four for uncertainty and one for accuracy. The chat rules are unchanged. $0.015 on the dev key ([record](2026-11-24-ask-topics-eval/README.md)).
 
 **Seamless glow on unpainted verses (24 November 2026, 20:12 UTC).** The owner saw rectangular seams in the blurred glow behind "Painting Acts 13:4" in Zen. #536 (deployed as `7fc1c406`: production's `dae431ca` plus #536, Vercel `dpl_3wygUD843j28Y7zPDMcS7m7LuP3c`, frontend only; main's unreleased #533 stays out) draws the glow once into a canvas instead of a live CSS blur, which Firefox redrew in patches around the progress bar. Earlier that day the image OpenRouter key was replaced after 402s (`dpl_FRvJ6tkqDKJLm3uYU3GrgFaVLUqr`, same code). No spend ([deployment](2026-11-24-glow-seams/deployment.json)).
