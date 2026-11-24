@@ -37,27 +37,32 @@ function useAsk(): AskState {
  * Meaning in a new tab. When the tab cannot store it, it lasts while the page stays open.
  */
 const TOPIC_KEY = "visibible-ask-topic";
-/** The topic chosen while the tab could not store it; null while storage works. */
-let topicWithoutStorage: QuestionTopic | null = null;
+/** The topic last chosen on this page, for when storage cannot be read or was not written. */
+let lastChosen: QuestionTopic | null = null;
+/** Whether the last choice failed to reach storage, so storage holds an older topic or none. */
+let unstored = false;
 const topicListeners = new Set<() => void>();
 
+/** Storage that can be read and holds the last choice is the truth; otherwise the page's own copy is. */
 function chosenTopic(): QuestionTopic {
+  let stored: string | null;
   try {
-    // A topic chosen after a write failed is newer than whatever storage still holds.
-    const stored = sessionStorage.getItem(TOPIC_KEY);
-    return topicWithoutStorage ?? (isQuestionTopic(stored) ? stored : "meaning");
+    stored = sessionStorage.getItem(TOPIC_KEY);
   } catch {
-    return topicWithoutStorage ?? "meaning";
+    return lastChosen ?? "meaning";
   }
+  if (unstored && lastChosen) return lastChosen;
+  return isQuestionTopic(stored) ? stored : "meaning";
 }
 
 function chooseTopic(topic: QuestionTopic) {
+  lastChosen = topic;
   try {
     sessionStorage.setItem(TOPIC_KEY, topic);
-    topicWithoutStorage = null;
+    unstored = false;
   } catch {
-    // A tab that can read storage but not write it (a full quota, say) keeps the topic here instead.
-    topicWithoutStorage = topic;
+    // A full quota, say: the page keeps the topic instead.
+    unstored = true;
   }
   topicListeners.forEach((listener) => listener());
 }

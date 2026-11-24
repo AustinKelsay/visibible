@@ -255,9 +255,15 @@ describe("question topics (#529)", () => {
     await openVerse();
     expect(topicStates(askFoot())[0]).toBe("Meaning (chosen)");
 
-    // Storage that holds a topic but can no longer be written (a full quota), then cannot be read at all.
+    // A topic stored, then storage that can no longer be read.
     await click(button("People & places", askFoot()));
     expect(sessionStorage.getItem("visibible-ask-topic")).toBe("people-places");
+    const unreadable = vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => { throw new DOMException("Denied", "SecurityError"); });
+    await openVerse("john", "1", "7");
+    expect(topicStates(askFoot())[2]).toBe("People & places (chosen)");
+    unreadable.mockRestore();
+
+    // Storage that holds a topic but can no longer be written (a full quota), then cannot be read at all.
     const write = vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => { throw new DOMException("Full", "QuotaExceededError"); });
     await click(button("Context", askFoot()));
     expect(topicStates(askFoot())[1]).toBe("Context (chosen)");
@@ -266,7 +272,7 @@ describe("question topics (#529)", () => {
     await openVerse("john", "1", "6");
     expect(topicStates(askFoot())[3]).toBe("Words (chosen)");
 
-    // Once storage works again it holds the topic, and the tab's own copy is dropped.
+    // Once storage works again it holds the topic.
     write.mockRestore();
     read.mockRestore();
     await click(button("Meaning", askFoot()));
