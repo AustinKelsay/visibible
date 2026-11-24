@@ -1,0 +1,38 @@
+{
+  "authorization": [
+    "After #543, two follow-ups were proposed: pause chapter painting during an image outage, and show readers the whole outage message. The owner said: \"Yep, let's get both of these in\"."
+  ],
+  "release": {
+    "pullRequests": [547],
+    "issue": 546,
+    "commit": "d6ce2dfa (main)",
+    "summary": "A chapter (bulk) job that gets 503 \"Images are temporarily unavailable\" pauses (images_unavailable) with the verse back in the queue instead of failing it and the rest. Its request id is spent only when the request is recorded failed (bulkGenerationVerses.attempt + 1, next id bulk-<job>-<order>-a<attempt>). Resume sends that verse under the new id, and every other verse keeps its own. Readers now see \"Images are temporarily unavailable: No credits were used. Please try again later.\"",
+    "leftOut": "Nothing: production was main e9995af5 (#544), and main since then is #548 (docs) and #547."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-24T21:43:00Z",
+        "convex": "Pushed d6ce2dfa to prod unique-impala-244 (dry run first; no index deleted). It adds the optional bulkGenerationVerses.attempt, updateVerseStatus's spentRequest, and pause recording a reason on an already-paused job."
+      },
+      {
+        "at": "2026-11-24T21:44:58Z",
+        "commit": "d6ce2dfa",
+        "vercel": "dpl_H2xMSp1Krc76LM1snWa7bZ46p9dw"
+      }
+    ]
+  },
+  "smoke": {
+    "after": "visibible.com/john/1/7 and /psalms/23/4 answer 200 (#544's \"Psalm 23:4\" still served); /api/image-models answers 200 with Classical, Watercolor, Fresco and Storybook available; no errors in the new deployment's logs. Nothing was painted (that would spend OpenRouter credit), and the outage path cannot be exercised without breaking the production key. It is covered by bulk-generation-outage, bulk-generation-automatic, chapter-paint-outage, bulk-binding and spread tests.",
+    "beforeRelease": "tsc, eslint (pre-existing warnings only), npm test 143 files / 1525 tests after merging main; CI quality-gates on aa67fac8; sol-loop approved in 3 rounds. CodeRabbit's on-demand review (up to $4.00) was not run, since paid runs are the owner's call."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_H8NzDXFNgFHuq2L92VhXsyaZ6x86 (e9995af5, the previous production).",
+    "convex": "Not needed for a Vercel rollback: the schema field is optional, and the old client neither sends spentRequest nor reads attempt. A verse whose id was spent while the new client ran would replay its failure under the old client."
+  },
+  "productionWrites": [
+    "One Convex production push.",
+    "One Vercel production deployment."
+  ],
+  "spend": "None."
+}
