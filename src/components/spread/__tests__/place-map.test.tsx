@@ -5,6 +5,7 @@ import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { trackMapLinkShown, trackMapOpened } from "@/lib/analytics";
 import { verseSetting, type VerseSetting } from "@/lib/verse-setting";
+import { LayerProvider } from "../layers";
 import { MapLink, PlaceMapStage, resetMapMode } from "../place-map";
 import { project } from "@/lib/bible-map-projection";
 import PlaceMapView, { frameSetting, settingNote } from "../place-map-view";
@@ -81,6 +82,17 @@ describe("the map link", () => {
     session.isLoading = false;
     await renderReader(setting("EXO", 14, 2));
     expect(trackMapLinkShown).toHaveBeenCalledTimes(1);
+  });
+
+  it("is not counted as shown while the whole-picture view puts the words page aside", async () => {
+    await act(async () =>
+      root.render(
+        <LayerProvider initialLayer="whole-picture">
+          <MapLink setting={setting("EXO", 14, 2)} bookName="Exodus" chapter={14} verseNumber={2} />
+        </LayerProvider>,
+      ),
+    );
+    expect(trackMapLinkShown).not.toHaveBeenCalled();
   });
 
   it("puts the map in the picture's place and turns into the way back", async () => {

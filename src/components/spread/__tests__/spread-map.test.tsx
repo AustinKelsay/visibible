@@ -98,21 +98,25 @@ const open = async () => {
   await vi.waitFor(() => expect(host.querySelector("svg[role=img]")).not.toBeNull());
 };
 
-it("takes the picture, its controls and any video away while the map shows, and gives the picture back", async () => {
+it("hides the picture under the map without unmounting it, and stops its video", async () => {
   await render();
-  await act(async () => button("Play the video of Exodus 15:23")!.click());
+  const play = button("Play the video of Exodus 15:23")!;
+  await act(async () => play.click());
   const video = host.querySelector<HTMLVideoElement>("[data-picture-video]")!;
   act(() => video.dispatchEvent(new Event("playing")));
   await act(async () => button("Continuous play: carry on into the next verse's video")!.click());
 
   await open();
-  // The video stops with the picture, so Continuous play cannot turn the page under the map.
+  // Hidden with its controls, but the same picture: its painting state carries on.
+  expect(play.isConnected).toBe(true);
+  expect(play.closest(".hidden")).not.toBeNull();
+  // The video stops, so Continuous play cannot turn the page under the map.
   expect(video.isConnected).toBe(false);
-  expect(button("Play the video of Exodus 15:23")).toBeUndefined();
   expect(fixture.push).not.toHaveBeenCalled();
 
   await act(async () => button("Back to the picture")!.click());
   expect(host.querySelector('svg[role="img"]')).toBeNull();
-  expect(button("Play the video of Exodus 15:23")).toBeDefined();
+  expect(button("Play the video of Exodus 15:23")).toBe(play);
+  expect(play.closest(".hidden")).toBeNull();
   expect(host.querySelector("[data-picture-video]")).toBeNull();
 });

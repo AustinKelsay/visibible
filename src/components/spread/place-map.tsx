@@ -6,7 +6,7 @@ import { Image as ImageIcon, MapPin } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useChosenPicture } from "@/components/spread/chosen-picture";
-import { useLayers } from "@/components/spread/layers";
+import { useLayer, useLayers } from "@/components/spread/layers";
 import { useSession } from "@/context/session-context";
 import { usePictureStyles } from "@/context/work-scope-context";
 import { trackMapLinkShown, trackMapOpened } from "@/lib/analytics";
@@ -75,17 +75,19 @@ export function MapLink({ setting, bookName, chapter, verseNumber }: {
 }) {
   const { on, open, close } = useMapMode();
   const { tier, credits, isLoading } = useSession();
+  // The words page is put aside in the whole-picture view, so the link is not offered there.
+  const wordsAside = useLayer("whole-picture").isOpen;
   const props = { book: bookName, chapter, verse: verseNumber, ...settingKind(setting), tier, hasCredits: credits > 0 };
   // Shown once per spread, when the link offers the map (not while it reads "Back to the picture"), and reported once the
   // session is known, so its tier and credits are the reader's.
   const shown = useRef<"no" | "offered" | "reported">("no");
   useEffect(() => {
-    if (!on && shown.current === "no") shown.current = "offered";
+    if (!on && !wordsAside && shown.current === "no") shown.current = "offered";
     if (shown.current !== "offered" || isLoading) return;
     shown.current = "reported";
     trackMapLinkShown(props);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- reported once, with the props of that moment
-  }, [on, isLoading]);
+  }, [on, wordsAside, isLoading]);
 
   // The map's close button and painting window leave with the map; focus comes back to this link rather than the page.
   const link = useRef<HTMLButtonElement>(null);
