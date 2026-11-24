@@ -26,6 +26,7 @@ import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 import { computeImageGenerationProgress } from "@/lib/image-generation-progress";
 import { artStyleLabel, resolveArtStyle, type ArtStyleAvailability } from "@/lib/art-styles";
 import { formatQuote, parseQuote, parseStaleQuote, sameQuoteNumbers, type DisplayQuote } from "@/lib/quote-display";
+import { IMAGES_UNAVAILABLE } from "@/lib/image-errors";
 
 /** How long the moment and settings must hold still before their quote is read. */
 const QUOTE_DEBOUNCE_MS = 400;
@@ -405,9 +406,10 @@ export function useVerseGeneration({
       if (typeof data?.requestId === "string") setActiveRequestId(data.requestId);
 
       if (!response.ok) {
-        // A retryable refusal (a scene still preparing, a style not admitted) carries its own explanation.
-        const retryableDetail = response.status === 503 && data?.retryable && typeof data?.message === "string" ? data.message : null;
-        throw new Error(retryableDetail ? `${data?.error || "Preparing scene"}: ${retryableDetail}` : String(data?.error || "Failed to generate image"));
+        // A retryable refusal (a scene still preparing, a style not admitted) and an outage carry their own explanation.
+        const explained = data?.retryable || data?.error === IMAGES_UNAVAILABLE;
+        const detail = response.status === 503 && explained && typeof data?.message === "string" ? data.message : null;
+        throw new Error(detail ? `${data?.error || "Preparing scene"}: ${detail}` : String(data?.error || "Failed to generate image"));
       }
 
       if (response.status === 202 && data?.reused) {

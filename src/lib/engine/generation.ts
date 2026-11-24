@@ -23,6 +23,7 @@ import { loadWorkInputs, type MomentRange, type WorkInputs } from "./work-inputs
 import type { ConvexClient, GenericEngine, GenericGenerationInput, GenericGenerationOutcome } from "./dispatch";
 import { analysisAccess, listAnalysisRecords } from "./analysis-records";
 import { makeThumbnail as makeThumbnailFromBytes } from "../thumbnails";
+import { IMAGES_UNAVAILABLE } from "../image-errors";
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
 type Runtime = GenericGenerationInput["runtime"];
@@ -426,7 +427,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
           // Nothing was made, so nothing is charged; the reader is told to come back rather than shown a failure. This
           // request id is spent (a retry under it replays the failure), so it is not `retryable`; a new request may succeed.
           logApiFailure({ context: requestContext, stage: "openrouter_unavailable", error, statusCode: 503, sid, generationId });
-          return fail(503, "Images are temporarily unavailable", "No credits were used. Please try again later.", { retryable: false, recorded: `OpenRouter API error ${error.status}` });
+          return fail(503, IMAGES_UNAVAILABLE, "No credits were used. Please try again later.", { retryable: false, recorded: `OpenRouter API error ${error.status}` });
         }
         logApiFailure({ context: requestContext, stage: "generate_image_handler", error, statusCode: 500, sid, generationId });
         // The provider's reason stays in the log: the request record and the answer carry only its status.

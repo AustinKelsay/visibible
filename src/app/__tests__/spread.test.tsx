@@ -474,7 +474,7 @@ describe("an unpainted verse", () => {
     await act(async () => { button(/^Paint this verse/)!.click(); });
     await flush();
 
-    expect(pictureArea()?.querySelector('[role="alert"]')?.textContent).toBe("Images are temporarily unavailable");
+    expect(pictureArea()?.querySelector('[role="alert"]')?.textContent).toBe("Images are temporarily unavailable: No credits were used. Please try again later.");
     await settle();
     await act(async () => { button("Try again")!.click(); });
     expect(paintRequests).toHaveLength(2);

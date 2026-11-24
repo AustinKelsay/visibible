@@ -8,6 +8,7 @@ import { convexTest } from "convex-test";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import schema from "../../convex/schema";
 import { api } from "../../convex/_generated/api";
+import { bulkItemRequestId } from "../../convex/_helpers/bulkRequestId";
 import { modules } from "./modules";
 
 const SECRET = "server-only";
@@ -90,6 +91,28 @@ describe("bulk engine and style binding", () => {
     // The release counts tell the accepted attempt (order 2) apart from the unstarted one (order 3).
     const counts = await owner.query(api.bulkGenerations.countItems, { serverSecret: SECRET });
     expect(counts.byEngine.legacy).toEqual({ jobs: 1, unstarted: 1, accepted: 1, succeeded: 0, failed: 0 });
+  });
+
+  it("gives an item whose request was spent by a provider outage a new request id, which recovery and the counts read", async () => {
+    const { t, owner, bulkId, claim, items } = await setup();
+    await claim("genesis-1-1");
+    // The provider could not take order 0's request: the coordinator requeues it with its request id spent.
+    expect(await owner.mutation(api.bulkGenerations.updateVerseStatus, { sid: "owner", bulkGenerationId: bulkId, verseId: "genesis-1-1", status: "queued", expectedCurrentStatus: "generating", spentRequest: true })).toMatchObject({ updated: true });
+    const attempt = () => t.run(async (ctx) => (await ctx.db.query("bulkGenerationVerses").withIndex("by_bulk_verse", (q) => q.eq("bulkGenerationId", bulkId).eq("verseId", "genesis-1-1")).unique())!.attempt);
+    expect(await attempt()).toBe(1);
+    expect(bulkItemRequestId(bulkId, 0)).toBe(`bulk-${bulkId}-0`);
+    expect(bulkItemRequestId(bulkId, 0, 1)).toBe(`bulk-${bulkId}-0-a1`);
+    // Only a requeue spends an id: a forward move with the flag is refused.
+    expect(await owner.mutation(api.bulkGenerations.updateVerseStatus, { sid: "owner", bulkGenerationId: bulkId, verseId: "genesis-1-2", status: "generating", expectedCurrentStatus: "queued", spentRequest: true })).toMatchObject({ updated: false });
+
+    // Claimed again and interrupted after its new request was admitted and succeeded: recovery reads the new id.
+    await claim("genesis-1-1");
+    await t.mutation(api.verseImages.createGenerationRequest, { requestId: bulkItemRequestId(bulkId, 0, 1), sid: "owner", verseId: "genesis-1-1", inputFingerprint: "fp", generationId: "g-0-a1", executorVersion: "next-image-v1", billingPolicyVersion: "legacy-image-v1", serverSecret: SECRET, engine: "legacy" });
+    await t.mutation(api.verseImages.updateGenerationRequest, { requestId: bulkItemRequestId(bulkId, 0, 1), status: "generating", serverSecret: SECRET });
+    expect((await owner.query(api.bulkGenerations.countItems, { serverSecret: SECRET })).byEngine.unbound).toMatchObject({ accepted: 1, unstarted: 3 });
+    await t.mutation(api.verseImages.updateGenerationRequest, { requestId: bulkItemRequestId(bulkId, 0, 1), status: "succeeded", serverSecret: SECRET, actualCreditsCost: 2 });
+    expect(await owner.mutation(api.bulkGenerations.reconcileInterrupted, { sid: "owner", id: bulkId })).toEqual({ completed: 1, failed: 0, requeued: 0 });
+    expect((await items())[0]).toEqual([0, "completed", 2]);
   });
 
   it("counts a historical legacy job beside a generic job paused for its engine", async () => {
