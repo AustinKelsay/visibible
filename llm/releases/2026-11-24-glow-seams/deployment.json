@@ -1,0 +1,38 @@
+{
+  "authorization": [
+    "The owner reported rectangular seams in the unpainted verse's glow (Zen, Acts 13:4) and, offered a fix shipped to production, said: \"Okay, let's get this fixed and verified in its own work tree systematically end-to-end full send matt style\"."
+  ],
+  "release": {
+    "pullRequests": [536],
+    "issue": 531,
+    "commit": "7fc1c406 (branch release/glow-seams: production's dae431ca plus #536's four commits, the same diff as merge 9b3c944e)",
+    "summary": "The unpainted verse's glow is drawn once into a canvas (halving and doubling with drawImage, sized to the picture area) instead of a live CSS blur-3xl, which Firefox redrew in patches around the paint progress bar.",
+    "leftOut": "main's #533 (Ask question topics) is still not in this build; it needs its own release with a Convex push."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-24T15:05:00Z",
+        "note": "Earlier the same day, before this release: production images failed with OpenRouter 402 on the old key's cap. The owner made a new production OpenRouter key; OPENROUTER_API_KEY (Production) was updated and dpl_8YVV6buRctNGQW6JUrmjcqPXJ79S redeployed unchanged as dpl_FRvJ6tkqDKJLm3uYU3GrgFaVLUqr."
+      },
+      {
+        "at": "2026-11-24T20:12:00Z",
+        "commit": "7fc1c406",
+        "vercel": "dpl_3wygUD843j28Y7zPDMcS7m7LuP3c",
+        "convex": "Not pushed: no Convex change."
+      }
+    ]
+  },
+  "smoke": {
+    "after": "visibible.com/acts/13/50 answers 200 and serves the canvas glow. A fresh zero-credit guest in Chrome for Testing (paint, chat and invoice posts blocked; none were attempted) saw the glow drawn: canvas 576x321 at 1440x900, 250x139 at 390x844.",
+    "beforeRelease": "Zen (Firefox engine): seam box reproduced with the old CSS, none with the canvas, locally and in next dev reading production pictures. Safari 27 and Chrome draw the same soft glow. lint, tsc and 1502 tests on the release commit."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_FzN54iivvYbP3ScxFWHgh45aBhA3 (dae431ca, the previous production)."
+  },
+  "productionWrites": [
+    "One Vercel production deployment (plus the earlier key redeploy noted above).",
+    "Two guest sessions from the smoke check, with no balance."
+  ],
+  "spend": "None."
+}
