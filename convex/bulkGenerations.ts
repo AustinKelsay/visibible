@@ -394,7 +394,11 @@ export const updateVerseStatus = mutation({
     if (args.error !== undefined) {
       patch.error = args.error;
     }
-    if (args.spentRequest) patch.attempt = (verse.attempt ?? 0) + 1;
+    // Only a request that ended failed is spent. One still accepted (its failure was not recorded) keeps the item's
+    // id, so the next submission replays it rather than starting a second attempt beside it.
+    if (args.spentRequest && (await requestStateFor(ctx, bulkGeneration, verse)).state === "failed") {
+      patch.attempt = (verse.attempt ?? 0) + 1;
+    }
 
     if (Object.keys(patch).length === 0) return { updated: false };
     await ctx.db.patch(verse._id, patch);

@@ -52,6 +52,8 @@ interface BulkGenerationCounters {
 }
 
 type BulkGenerationVerse = Doc<"bulkGenerationVerses">;
+/** What a job paused for an image outage tells the reader, here and after a reload (pausedReason images_unavailable). */
+const IMAGES_UNAVAILABLE_PAUSE = `${IMAGES_UNAVAILABLE}. The job is paused; resume when painting is back.`;
 
 interface BulkGenerationContextType {
   state: BulkGenerationState;
@@ -425,7 +427,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       errorMessage:
         bulkForState.status === "paused" && prev.status === "blocked"
           ? prev.errorMessage
-          : null,
+          : bulkForState.status === "paused" && bulkForState.pausedReason === "images_unavailable"
+            ? IMAGES_UNAVAILABLE_PAUSE
+            : null,
     }));
   }, [bulkForState]);
 
@@ -702,8 +706,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 isPausedRef.current = true;
                 shouldMarkComplete = false;
                 await updateVerseStatus({ sid, bulkGenerationId: bulkId, verseId: item.verseId, status: "queued", expectedCurrentStatus: "generating", spentRequest: true });
-                await pauseBulk({ id: bulkId, sid, reason: "images_unavailable" });
-                setState((prev) => ({ ...prev, status: "blocked", errorMessage: `${IMAGES_UNAVAILABLE}. The job is paused; resume when painting is back.` }));
+                // A job stopped meanwhile stays stopped: only a job this pause reached shows as blocked.
+                const paused = await pauseBulk({ id: bulkId, sid, reason: "images_unavailable" });
+                if (paused?.updated) setState((prev) => ({ ...prev, status: "blocked", errorMessage: IMAGES_UNAVAILABLE_PAUSE }));
                 break;
               }
               const stillRetryable = response.status === 503 && errData?.retryable === true;

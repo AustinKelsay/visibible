@@ -94,12 +94,20 @@ describe("bulk engine and style binding", () => {
   });
 
   it("gives an item whose request was spent by a provider outage a new request id, which recovery and the counts read", async () => {
-    const { t, owner, bulkId, claim, items } = await setup();
+    const { t, owner, bulkId, requestFor, claim, items } = await setup();
+    const requeueSpent = (verseId: string) => owner.mutation(api.bulkGenerations.updateVerseStatus, { sid: "owner", bulkGenerationId: bulkId, verseId, status: "queued", expectedCurrentStatus: "generating", spentRequest: true });
+    const attempt = (verseId: string) => t.run(async (ctx) => (await ctx.db.query("bulkGenerationVerses").withIndex("by_bulk_verse", (q) => q.eq("bulkGenerationId", bulkId).eq("verseId", verseId)).unique())!.attempt);
+    // The provider could not take order 0's request, which ended failed: the coordinator requeues it with its id spent.
     await claim("genesis-1-1");
-    // The provider could not take order 0's request: the coordinator requeues it with its request id spent.
-    expect(await owner.mutation(api.bulkGenerations.updateVerseStatus, { sid: "owner", bulkGenerationId: bulkId, verseId: "genesis-1-1", status: "queued", expectedCurrentStatus: "generating", spentRequest: true })).toMatchObject({ updated: true });
-    const attempt = () => t.run(async (ctx) => (await ctx.db.query("bulkGenerationVerses").withIndex("by_bulk_verse", (q) => q.eq("bulkGenerationId", bulkId).eq("verseId", "genesis-1-1")).unique())!.attempt);
-    expect(await attempt()).toBe(1);
+    await requestFor(0, "failed");
+    expect(await requeueSpent("genesis-1-1")).toMatchObject({ updated: true });
+    expect(await attempt("genesis-1-1")).toBe(1);
+    // Order 2's failure was never recorded, so its request is still accepted: it is requeued under the same id, which
+    // replays it, and the counts keep seeing the accepted attempt.
+    await claim("genesis-1-3");
+    await requestFor(2, "generating");
+    expect(await requeueSpent("genesis-1-3")).toMatchObject({ updated: true });
+    expect((await attempt("genesis-1-3")) ?? 0).toBe(0);
     expect(bulkItemRequestId(bulkId, 0)).toBe(`bulk-${bulkId}-0`);
     expect(bulkItemRequestId(bulkId, 0, 1)).toBe(`bulk-${bulkId}-0-a1`);
     // Only a requeue spends an id: a forward move with the flag is refused.
@@ -109,7 +117,7 @@ describe("bulk engine and style binding", () => {
     await claim("genesis-1-1");
     await t.mutation(api.verseImages.createGenerationRequest, { requestId: bulkItemRequestId(bulkId, 0, 1), sid: "owner", verseId: "genesis-1-1", inputFingerprint: "fp", generationId: "g-0-a1", executorVersion: "next-image-v1", billingPolicyVersion: "legacy-image-v1", serverSecret: SECRET, engine: "legacy" });
     await t.mutation(api.verseImages.updateGenerationRequest, { requestId: bulkItemRequestId(bulkId, 0, 1), status: "generating", serverSecret: SECRET });
-    expect((await owner.query(api.bulkGenerations.countItems, { serverSecret: SECRET })).byEngine.unbound).toMatchObject({ accepted: 1, unstarted: 3 });
+    expect((await owner.query(api.bulkGenerations.countItems, { serverSecret: SECRET })).byEngine.unbound).toMatchObject({ accepted: 2, unstarted: 2 });
     await t.mutation(api.verseImages.updateGenerationRequest, { requestId: bulkItemRequestId(bulkId, 0, 1), status: "succeeded", serverSecret: SECRET, actualCreditsCost: 2 });
     expect(await owner.mutation(api.bulkGenerations.reconcileInterrupted, { sid: "owner", id: bulkId })).toEqual({ completed: 1, failed: 0, requeued: 0 });
     expect((await items())[0]).toEqual([0, "completed", 2]);
