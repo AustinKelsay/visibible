@@ -17,7 +17,7 @@ export function engineRules(depiction: DepictionProfile): string[] {
   return [
     `No text or symbols anywhere: no letters, numbers, signage, logos or inscriptions, no writing on ${depiction.writingSurfaces}, and no artist's signature or initials in a corner.`,
     "One scene painted to every edge of the frame: no panels, collage, border, frame, margin, visible paper or blank backdrop, and never a photographed painting or mockup.",
-    "Nothing from outside the moment's era.",
+    "Nothing from outside the era of what is painted.",
     "Natural anatomy: no extra or malformed limbs, hands or faces.",
     `${COMMON_CONTENT_FLOOR.prohibited.join(" and ").toLowerCase()} are never shown; serious depictions of ${listed([...COMMON_CONTENT_FLOOR.seriousSubjects, ...depiction.seriousSubjects])} and ${COMMON_CONTENT_FLOOR.permitted.join(" and ").toLowerCase()} may be, treated seriously.`,
     "No likeness of any real actor, performer or public figure.",
