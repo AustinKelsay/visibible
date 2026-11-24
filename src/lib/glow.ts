@@ -7,9 +7,12 @@
  * neighbouring pixels. Canvas filters would be simpler, but Safari accepts `context.filter` without applying it.
  */
 
-/** The canvas's shorter side, in pixels: the thumbnail's size (THUMBNAIL_SHORT_EDGE), so a thumbnail is never resized. */
+/**
+ * The canvas's shorter side, in pixels: the thumbnail's (THUMBNAIL_SHORT_EDGE in src/lib/thumbnails.ts, a server module
+ * this client code does not import), so a thumbnail is drawn at its own size. Were they to differ, it is only resized.
+ */
 export const GLOW_SHORT_EDGE = 384;
-/** Halvings (and as many doublings): five, down to 12 pixels, match the softness of the old `blur-3xl`. */
+/** Halvings (and as many doublings): five, down to 12 pixels, give the softness of a 64-pixel CSS blur on a screen. */
 export const GLOW_STEPS = 5;
 
 type Size = { width: number; height: number };
@@ -30,10 +33,10 @@ export function drawGlow(
   const scratch = makeCanvas();
   canvas.width = scratch.width = full.width;
   canvas.height = scratch.height = full.height;
-  const target = canvas.getContext("2d");
-  const other = scratch.getContext("2d");
-  if (!target || !other) return;
-  for (const context of [target, other]) {
+  const onScreen = canvas.getContext("2d");
+  const offScreen = scratch.getContext("2d");
+  if (!onScreen || !offScreen) return;
+  for (const context of [onScreen, offScreen]) {
     context.imageSmoothingEnabled = true;
     context.imageSmoothingQuality = "high";
   }
@@ -43,14 +46,14 @@ export function drawGlow(
     const last = sizes[sizes.length - 1];
     sizes.push({ width: Math.max(1, Math.round(last.width / 2)), height: Math.max(1, Math.round(last.height / 2)) });
   }
-  // Down to the smallest and back up through the same sizes. An even number of draws ends in the target canvas.
-  const path = [...sizes, ...sizes.slice(0, -1).reverse()];
-  target.drawImage(picture, 0, 0, full.width, full.height);
-  const contexts = [target, other];
-  for (let step = 1; step < path.length; step += 1) {
+  // Down to the smallest and back up through the same sizes, alternating canvases. An even number of steps ends on screen.
+  const steps = [...sizes, ...sizes.slice(0, -1).reverse()];
+  onScreen.drawImage(picture, 0, 0, full.width, full.height);
+  const contexts = [onScreen, offScreen];
+  for (let step = 1; step < steps.length; step += 1) {
     const from = contexts[(step - 1) % 2];
     const to = contexts[step % 2];
     to.clearRect(0, 0, full.width, full.height);
-    to.drawImage(from.canvas, 0, 0, path[step - 1].width, path[step - 1].height, 0, 0, path[step].width, path[step].height);
+    to.drawImage(from.canvas, 0, 0, steps[step - 1].width, steps[step - 1].height, 0, 0, steps[step].width, steps[step].height);
   }
 }
