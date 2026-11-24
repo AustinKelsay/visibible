@@ -1,0 +1,34 @@
+{
+ "command": "run",
+ "cases": {
+  "file": "evals/chat/cases.json",
+  "version": 3,
+  "sha256": "c0872847e457096639c4727abd28ff445795d676dd63879fe1cd404766882da3"
+ },
+ "runner": {
+  "commit": "76eeaf8a02f1f5ff3f725ecd40ead2d82576d4db",
+  "dirty": false
+ },
+ "model": "openai/gpt-6-luna",
+ "arms": [
+  "candidate"
+ ],
+ "label": "luna",
+ "dryRun": false,
+ "contextLength": 1050000,
+ "baselineMaxOutputTokens": 128000,
+ "reasoningEffort": "none",
+ "providerRouting": "openrouter-default",
+ "systemSuffix": null,
+ "budgetUsd": 0.25,
+ "pricing": {
+  "promptUsd": 1e-7,
+  "completionUsd": 5e-7
+ },
+ "startedAt": "2026-11-24T20:02:01.809Z",
+ "finishedAt": "2026-11-24T20:05:39.103Z",
+ "rows": 45,
+ "failures": 0,
+ "spentUsd": 0.00721939,
+ "budgetCountedUsd": 0.00721939
+}

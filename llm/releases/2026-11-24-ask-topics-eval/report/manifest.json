@@ -1,0 +1,42 @@
+{
+ "command": "report",
+ "cases": {
+  "file": "evals/chat/cases.json",
+  "version": 3,
+  "sha256": "c0872847e457096639c4727abd28ff445795d676dd63879fe1cd404766882da3"
+ },
+ "runner": {
+  "commit": "76eeaf8a02f1f5ff3f725ecd40ead2d82576d4db",
+  "dirty": false
+ },
+ "judge": "Three Claude Opus 5.5 subagents, one per blind pairs file, reading only that file and evals/chat/scoring.md",
+ "labels": {
+  "baseline": "luna-1",
+  "candidate": "luna-2"
+ },
+ "inputs": [
+  {
+   "dir": "llm/releases/2026-11-24-ask-topics-eval/pairs",
+   "pairsManifest": {
+    "dir": "llm/releases/2026-11-24-ask-topics-eval/pairs",
+    "sha256": "11f47fc43cf050f24ff2f1f96b6f2948d1c18927d359e0ef86044aabea4f84f1"
+   },
+   "keySha256": "e11dfc9195a9f701d665bc6f8210c148345439deacbfabf871d83690a52ef570",
+   "scores": [
+    {
+     "file": "scores-1.json",
+     "sha256": "a961f086785b9b7a021b4ede96928b3399df01564dd19aa05e2acf4c0a6721e6"
+    },
+    {
+     "file": "scores-2.json",
+     "sha256": "68f3ca11d83c5928121fc80a84a28f9efc7e696c7a3dfaf41b857ad4df507636"
+    },
+    {
+     "file": "scores-3.json",
+     "sha256": "df86dd346ec090b11be5dd86292327f0527083e8a3b850d01038244101934962"
+    }
+   ]
+  }
+ ],
+ "reportSha256": "1e1a7089d873656dca65745c5eabd41098b78adb8ea182d7a6caa185fd8601b8"
+}
