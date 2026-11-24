@@ -1107,12 +1107,15 @@ describe("Image Generation API Credit Flow", () => {
           // The request id is spent: sent again, it replays the failure and never calls the provider twice.
           const replay = await POST(createGenerateImageRequest({ ...body, requestId: `unavailable-${index}` }));
           expect(replay.status).toBe(409);
+          expect(await replay.json()).toMatchObject({ error: `OpenRouter API error ${status}` });
         }
         expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("openrouter.ai/api/v1/chat")).length).toBe(6);
         expect(getCallCount("releaseReservation")).toBe(6);
         expect(getCallCount("deductCredits")).toBe(0);
         expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
-        expect((await storedRequests()).map((request) => request.status)).toEqual(Array(6).fill("failed"));
+        expect((await storedRequests()).map((request) => [request.status, request.error])).toEqual(
+          [402, 401, 408, 429, 502, 503].map((status) => ["failed", `OpenRouter API error ${status}`]),
+        );
       } finally {
         errorLog.mockRestore();
       }
@@ -1130,11 +1133,18 @@ describe("Image Generation API Credit Flow", () => {
         expect((await storedRequests())[0]).toMatchObject({ status: "failed", error: "OpenRouter API error 400" });
         expect(loggedErrors(errorLog)).toContain("OpenRouter API error 400: image_config.aspect_ratio is invalid");
 
+        // OpenRouter passing on a model provider's failure puts the provider's own answer in metadata.raw.
+        mockFetchResponse = { ok: false, status: 429, json: async () => ({ error: { code: 429, message: "Provider returned error", metadata: {
+          provider_name: "Google", raw: "Resource exhausted for key sk-or-v1-0123456789abcdef",
+        } } }) };
+        expect((await POST(createGenerateImageRequest({ ...body, requestId: "wrapped-provider" }))).status).toBe(503);
+        expect(loggedErrors(errorLog)).toContain("OpenRouter API error 429: Provider returned error | Google: Resource exhausted for key [redacted]");
+
         mockFetchResponse = { ok: false, status: 402, json: async () => { throw new SyntaxError("Unexpected token <"); } };
         const unreadable = await POST(createGenerateImageRequest({ ...body, requestId: "unreadable" }));
         expect(unreadable.status).toBe(503);
         expect(loggedErrors(errorLog)).toContain("OpenRouter API error 402: no reason given");
-        expect(getCallCount("releaseReservation")).toBe(2);
+        expect(getCallCount("releaseReservation")).toBe(3);
         expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
       } finally {
         errorLog.mockRestore();

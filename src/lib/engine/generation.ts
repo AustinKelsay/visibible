@@ -71,12 +71,20 @@ class ProviderError extends Error {
   }
 }
 
-/** The provider's reason from its error body (`{ error: { message } }`), or a placeholder when it gave none. */
+/**
+ * The provider's reason from its error body (`{ error: { message, metadata } }`), or a placeholder when it gave none.
+ * When OpenRouter passes on a model provider's failure its message is generic ("Provider returned error") and the
+ * provider's own answer is in `metadata.raw`, so that follows. Anything shaped like a key is masked.
+ */
 async function providerReason(response: Response): Promise<string> {
   const body = (await response.json().catch(() => null)) as { error?: unknown } | null;
   const error = body?.error;
-  const message = error && typeof error === "object" ? (error as { message?: unknown }).message : error;
-  return typeof message === "string" && message.trim() ? message.trim().slice(0, PROVIDER_REASON_LIMIT) : "no reason given";
+  const text = (value: unknown) => typeof value === "string" ? value.trim() : value === undefined || value === null ? "" : JSON.stringify(value);
+  const fields = error && typeof error === "object" ? error as { message?: unknown; metadata?: { raw?: unknown; provider_name?: unknown } } : { message: error };
+  const raw = text(fields.metadata?.raw);
+  const provider = text(fields.metadata?.provider_name);
+  const reason = [text(fields.message), raw && (provider ? `${provider}: ${raw}` : raw)].filter(Boolean).join(" | ");
+  return reason ? reason.replace(/\b(sk-[\w-]{8,}|Bearer\s+\S+)/g, "[redacted]").slice(0, PROVIDER_REASON_LIMIT) : "no reason given";
 }
 
 function imageTimeoutMsFromEnv() {
@@ -349,10 +357,11 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         await convex.action(api.sessions.logAdminUsage, { sid, endpoint: "generate-image", modelId, estimatedCredits: reservationCreditsCost, estimatedCostUsd: reservationCostUsd, serverSecret })
           .catch((error) => logWarn("generic.admin_audit_failed", { requestId, error: error instanceof Error ? error.message : String(error) }));
       }
-      const fail = async (status: number, error: string, message: string, { discardImage = false, retryable }: { discardImage?: boolean; retryable?: boolean } = {}) => {
+      // `recorded` is what the request record keeps (and a replay answers with) when it differs from what the reader is told.
+      const fail = async (status: number, error: string, message: string, { discardImage = false, retryable, recorded = message }: { discardImage?: boolean; retryable?: boolean; recorded?: string } = {}) => {
         // Marking failed first lets a save still in flight observe it and clean up its own blobs.
         // Without a confirmed mark the hold stays held, since a save may still commit.
-        const marked = await update("failed", { error: message, ...(started ? { durationMs: now() - started } : {}) }).catch(() => null);
+        const marked = await update("failed", { error: recorded, ...(started ? { durationMs: now() - started } : {}) }).catch(() => null);
         const body = { error, message, requestId, ...(retryable !== undefined ? { retryable } : {}) };
         if (!marked?.success) return respond(status, body);
         if (discardImage && generationId) {
@@ -411,7 +420,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
           // Nothing was made, so nothing is charged; the reader is told to come back rather than shown a failure. This
           // request id is spent (a retry under it replays the failure), so it is not `retryable`; a new request may succeed.
           logApiFailure({ context: requestContext, stage: "openrouter_unavailable", error, statusCode: 503, sid, generationId });
-          return fail(503, "Images are temporarily unavailable", "No credits were used. Please try again later.", { retryable: false });
+          return fail(503, "Images are temporarily unavailable", "No credits were used. Please try again later.", { retryable: false, recorded: `OpenRouter API error ${error.status}` });
         }
         logApiFailure({ context: requestContext, stage: "generate_image_handler", error, statusCode: 500, sid, generationId });
         // The provider's reason stays in the log: the request record and the answer carry only its status.
