@@ -338,14 +338,14 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         }
         if (!reserve.success) {
           // Nothing was held or attempted: withdraw the request so its id can be sent again (#530). Should that fail,
-          // it ends failed as before.
+          // it ends failed as before, but only if it is still this admission's: a retry may already own the id.
           const withdrawn = await convex.mutation(api.verseImages.withdrawRefusedRequest, { requestId, generationId, serverSecret })
             .then((result) => result.withdrawn, () => false);
           if ("dailyLimit" in reserve) {
-            if (!withdrawn) await update("failed", { error: "Daily spending limit exceeded" }).catch(() => {});
+            if (!withdrawn) await update("failed", { error: "Daily spending limit exceeded", generationId }).catch(() => {});
             return respond(429, { error: "Daily spending limit exceeded", dailyLimit: reserve.dailyLimit, dailySpent: reserve.dailySpent, requestId, remaining: reserve.remaining });
           }
-          if (!withdrawn) await update("failed", { error: "Insufficient credits" }).catch(() => {});
+          if (!withdrawn) await update("failed", { error: "Insufficient credits", generationId }).catch(() => {});
           return respond(402, { error: "Insufficient credits", requestId, required: estimatedCreditsCost, available: "available" in reserve ? reserve.available : 0 });
         }
         reservationMade = true;

@@ -19,6 +19,8 @@ let failSave = false;
 let failReserve = false;
 // The losing side of a race: the balance read before admission covered the image, the hold itself is refused.
 let refuseReserve: "credits" | "daily" | null = null;
+// Runs after a withdrawal commits, before its reply reaches the route; throwing loses the reply.
+let afterWithdraw: (() => Promise<void>) | null = null;
 let failDeduct = false;
 let deductCommitsThenThrows = false;
 let rateLimited = false;
@@ -128,7 +130,9 @@ vi.mock("@/lib/convex-client", () => ({
         return requestDb.mutation(api.verseImages.createGenerationRequest, args as FunctionArgs<typeof api.verseImages.createGenerationRequest>);
       }
       if (getFunctionName(_apiPath) === "verseImages:withdrawRefusedRequest") {
-        return requestDb.mutation(api.verseImages.withdrawRefusedRequest, args as FunctionArgs<typeof api.verseImages.withdrawRefusedRequest>);
+        const result = await requestDb.mutation(api.verseImages.withdrawRefusedRequest, args as FunctionArgs<typeof api.verseImages.withdrawRefusedRequest>);
+        await afterWithdraw?.();
+        return result;
       }
       if ("requestId" in args && "status" in args) {
         return requestDb.mutation(api.verseImages.updateGenerationRequest, args as FunctionArgs<typeof api.verseImages.updateGenerationRequest>);
@@ -419,6 +423,7 @@ describe("Image Generation API Credit Flow", () => {
     failSave = false;
     failReserve = false;
     refuseReserve = null;
+    afterWithdraw = null;
     failDeduct = false;
     deductCommitsThenThrows = false;
     rateLimited = false;
@@ -1509,6 +1514,42 @@ describe("Image Generation API Credit Flow", () => {
         expect(retried.status).toBe(200);
         expect(await retried.json()).not.toHaveProperty("reused");
         expect(imageCalls()).toHaveLength(1);
+      });
+
+      it("leaves the retried request alone when a withdrawal commits but its reply is lost (#530)", async () => {
+        await prepareWork();
+        const { POST } = await import("../../generate-image/route");
+        const withdrawn = Promise.withResolvers<void>();
+        const loseReply = Promise.withResolvers<void>();
+        const imageStarted = Promise.withResolvers<void>();
+        const finishImage = Promise.withResolvers<void>();
+        refuseReserve = "credits";
+        afterWithdraw = async () => {
+          withdrawn.resolve();
+          await loseReply.promise;
+          throw new Error("Withdrawal committed; its reply was lost");
+        };
+        const refused = POST(createGenerateImageRequest(body));
+        await withdrawn.promise;
+        refuseReserve = null;
+        afterWithdraw = null;
+        mockFetchImpl = async () => {
+          imageStarted.resolve();
+          await finishImage.promise;
+          return Response.json({
+            id: "gen-123",
+            choices: [{ message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } }],
+            usage: { cost: 0.01 },
+          });
+        };
+        const retried = POST(createGenerateImageRequest(body));
+        await imageStarted.promise;
+        loseReply.resolve();
+        expect((await refused).status).toBe(402);
+        expect((await storedRequests())[0].status).toBe("generating");
+        finishImage.resolve();
+        expect((await retried).status).toBe(200);
+        expect((await storedRequests())[0].status).toBe("succeeded");
       });
 
       it("answers a replay of the session's own request without spending the rate limit, while a new request is limited (#530)", async () => {

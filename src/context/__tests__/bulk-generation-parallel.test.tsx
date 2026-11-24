@@ -247,3 +247,71 @@ it("keeps a pause's message through the progress that verses still painting writ
   await act(async () => fourth.resolve(success()));
   await act(async () => root.unmount());
 });
+
+// Fires the coordinator's wait of `delay` ms only when the test says so.
+function holdTimer(delay: number) {
+  const fire = deferred<void>();
+  const started = deferred<void>();
+  const originalTimeout = window.setTimeout.bind(window);
+  vi.spyOn(window, "setTimeout").mockImplementation(((fn: () => void, ms?: number, ...args: unknown[]) => {
+    if (ms === delay) {
+      started.resolve();
+      void fire.promise.then(() => fn());
+      return 0;
+    }
+    return originalTimeout(fn, ms, ...args);
+  }) as typeof window.setTimeout);
+  return { started: started.promise, fire: () => fire.resolve() };
+}
+
+it("sends no further poll for a verse still running elsewhere once Stop is pressed", async () => {
+  const poll = holdTimer(3000);
+  spyFetch(() => sent.length === 1 ? Response.json({ status: "generating", reused: true, engine: "generic" }, { status: 202 }) : success());
+  const root = await started(2);
+  await act(async () => poll.started);
+  await act(async () => bulk.cancelBulkGeneration());
+  await act(async () => poll.fire());
+  await act(async () => {});
+  expect(orders()).toEqual([0]);
+  await act(async () => root.unmount());
+});
+
+it("leaves a verse alone after the run lock passes to another tab during a rate-limit wait", async () => {
+  const rateWait = holdTimer(12345);
+  const updates: Record<string, unknown>[] = [];
+  onMutation = (args) => { if (args.verseId === "verse-0") updates.push(args); };
+  spyFetch(() => refuse(429, "Rate limit exceeded", { retryAfter: 12.345 }));
+  const root = await started(2);
+  await act(async () => rateWait.started);
+  // The replacement tab takes the expired lock, reconciles the verse and claims it.
+  localStorage.setItem("bulk-gen-lock-bulk-1", JSON.stringify({ owner: "replacement-tab", expiresAt: Date.now() + 15000 }));
+  const before = updates.length;
+  await act(async () => rateWait.fire());
+  await act(async () => {});
+  expect(orders()).toEqual([0]);
+  expect(updates.slice(before)).toEqual([]);
+  await act(async () => root.unmount());
+});
+
+it("finishes a paused run whose worker failed, releasing the lock, and paints the rest on Resume", async () => {
+  const result = deferred<Response>();
+  const claim = deferred<void>();
+  mocks.client.query.mockResolvedValue([5].map((order) => ({ verseId: `verse-${order}`, reference: `Genesis 1:${order + 1}`, order, status: "queued" })));
+  onMutation = (args) => {
+    if (args.verseId === "verse-2" && args.status === "generating") return claim.promise.then(() => { throw new Error("Claim network error"); });
+  };
+  vi.spyOn(console, "error").mockImplementation(() => {});
+  spyFetch((order) => order === 0 ? success() : result.promise.then(() => success()));
+  const root = await started(6);
+  await wait(() => expect(orders()).toEqual([0, 1, 3, 4]));
+  await act(async () => bulk.pauseBulkGeneration());
+  await act(async () => result.resolve(success()));
+  await act(async () => claim.resolve());
+  // The failure wakes the workers waiting for Resume, so the run ends and lets go of its lock.
+  await wait(() => expect(lock()).toBeNull());
+  await act(async () => bulk.resumeBulkGeneration());
+  await act(async () => publishServerJob({ status: "active", totalVerses: 6, completedCount: 4, failedCount: 0, totalCreditsUsed: 8, pausedReason: undefined }));
+  await wait(() => expect(orders()).toContain(5));
+  await act(async () => root.unmount());
+  mocks.client.query.mockReset();
+});

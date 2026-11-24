@@ -489,6 +489,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       if (!sid) return;
       if (isRunningRef.current) return;
       isRunningRef.current = true;
+      // A worker failed while the job was paused: a Resume that arrives before the run drains finds no runner.
+      let failedWhilePaused = false;
 
       try {
         let completed = initialCounters.completedCount;
@@ -638,6 +640,11 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             // A refusal before admission started nothing: after its wait the verse goes back to the queue rather than
             // being sent once the job is stopped, paused or handed to another tab.
             const putBack = async () => {
+              // After losing the run lock the new owner reconciles this verse: writing it back could undo that owner's claim.
+              if (lostLockRef.current || !ownsRunLock(bulkId)) {
+                lostLockRef.current = true;
+                return false;
+              }
               await updateVerseStatus({ sid, bulkGenerationId: bulkId, verseId: item.verseId, status: "queued", expectedCurrentStatus: "generating" });
               pending.unshift(item);
               return true;
@@ -662,6 +669,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             }
             for (let waited = 0; waited < IN_FLIGHT_WAIT_LIMIT && response.status === 202; waited++) {
               await sleep(IN_FLIGHT_WAIT_DELAY_MS);
+              // A poll is a fresh admission once the earlier attempt is gone, so it too waits for a run that wants it.
+              if (!stillWanted()) return await putBack();
               response = await submit();
             }
 
@@ -816,8 +825,11 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             try {
               if (!(await paintItem(item))) return;
             } catch (error) {
-              // A failed write stops new claims; the run lock is released only once every worker has settled.
+              // A failed write stops new claims; the run lock is released only once every worker has settled, so
+              // workers waiting for Resume are woken to finish.
               workerFailed = true;
+              failedWhilePaused ||= isPausedRef.current;
+              pausedResolverRef.current?.();
               throw error;
             } finally {
               inFlight.delete(item.order);
@@ -860,6 +872,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         pausedResolverRef.current = null;
         isRunningRef.current = false;
         releaseRunLock(bulkId);
+        if (failedWhilePaused && !isPausedRef.current && !isCancelledRef.current) {
+          setRunLoopTrigger((value) => value + 1);
+        }
       }
     },
     [
