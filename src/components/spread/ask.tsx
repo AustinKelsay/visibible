@@ -13,7 +13,7 @@ import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { MAX_USER_MESSAGE_CHARS } from "@/lib/chat-limits";
 import { formatQuote } from "@/lib/quote-display";
 import { freeAnswersUsedMessage } from "@/lib/free-answer-display";
-import { suggestedQuestions } from "@/lib/ask-suggestions";
+import { QUESTION_TOPICS, suggestedQuestions, type QuestionTopic } from "@/lib/ask-suggestions";
 
 export interface AskVerse {
   bookName: string;
@@ -128,12 +128,15 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chat.standingPending]);
 
-  // Two questions about the verse on screen. From the chapter's second verse one is always a summary of the chapter so
-  // far, which the server answers from the chapter's text up to this verse. Their answers are stored (#505).
-  const suggestions = suggestedQuestions(bookName, chapter, verseNumber).map((suggestion) => suggestion.text);
+  // The chosen topic's questions about the verse on screen (#529), Meaning first. From the chapter's second verse
+  // Meaning holds a summary of the chapter so far, which the server answers from the chapter's text up to this verse.
+  // Their answers are stored (#505).
+  const [topic, setTopic] = useState<QuestionTopic>("meaning");
+  const suggestions = suggestedQuestions(bookName, chapter, verseNumber)
+    .filter((suggestion) => suggestion.topic === topic)
+    .map((suggestion) => suggestion.text);
 
-
-  return { reference, verseText, chat, answeringModel, input, setInput, ask, askFresh, openAsk, footField, suggestions, buyCredits, close: layer.close };
+  return { reference, verseText, chat, answeringModel, input, setInput, ask, askFresh, openAsk, footField, topic, setTopic, suggestions, buyCredits, close: layer.close };
 }
 
 /**
@@ -148,7 +151,30 @@ export function AskProvider({ verse, children }: { verse: AskVerse; children: Re
   return <AskContext.Provider value={state}>{children}</AskContext.Provider>;
 }
 
-/** The foot of the words page on a computer: two suggested questions and a field. Sending turns the page over. */
+/** The topics of the suggested questions (#529): choosing one shows its questions, on both sides of the words page. */
+function QuestionTopics({ className }: { className?: string }) {
+  const { topic, setTopic } = useAsk();
+  return (
+    <div role="group" aria-label="Question topics" className={`flex flex-wrap gap-1.5 ${className ?? ""}`}>
+      {QUESTION_TOPICS.map(({ id, label }) => (
+        <button
+          key={id}
+          type="button"
+          aria-pressed={topic === id}
+          onClick={() => setTopic(id)}
+          className="rounded-full px-3 py-1.5 text-[13px] leading-none text-ink/75 ring-1 ring-ink/15 transition-colors hover:text-ink hover:ring-ink/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink/70 aria-pressed:bg-ink/90 aria-pressed:text-paper aria-pressed:ring-transparent"
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * The foot of the words page on a computer: the question topics, the chosen topic's suggested questions and a field.
+ * The questions keep the height of three, so changing topic does not move the verse. Sending turns the page over.
+ */
 export function AskFoot() {
   const { reference, suggestions, ask, footField } = useAsk();
   return (
@@ -157,7 +183,8 @@ export function AskFoot() {
         <Sparkles size={12} strokeWidth={1.75} aria-hidden="true" />
         Ask about this verse
       </p>
-      <ul className="mt-2.5 flex flex-col items-start gap-1.5">
+      <QuestionTopics className="mt-3" />
+      <ul data-suggestions className="mt-2.5 flex min-h-24 flex-col items-start gap-1.5">
         {suggestions.map((question) => (
           <li key={question}>
             <button
@@ -247,7 +274,8 @@ export function AskPage() {
                 <Sparkles size={12} strokeWidth={1.75} aria-hidden="true" />
                 Ask about this verse
               </p>
-              <ul className="mt-3 flex flex-col gap-2">
+              <QuestionTopics className="mt-3" />
+              <ul data-suggestions className="mt-3 flex flex-col gap-2">
                 {suggestions.map((question) => (
                   <li key={question}>
                     <button

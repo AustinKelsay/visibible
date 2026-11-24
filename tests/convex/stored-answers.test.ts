@@ -43,6 +43,13 @@ describe("stored answers (#505)", () => {
     expect(await t.mutation(internal.storedAnswers.cleanup, {})).toEqual({ deleted: 1 });
   });
 
+  it("says which of up to 16 keys have a current answer, enough for every question Ask suggests for a verse (#529)", async () => {
+    const t = convexTest(schema, modules);
+    const keys = Array.from({ length: 17 }, (_, index) => `k${index}`);
+    for (const key of keys) await t.mutation(api.storedAnswers.save, answer(key, `${key}.`));
+    expect(await t.query(api.storedAnswers.present, { keys, serverSecret: SECRET })).toEqual(keys.slice(0, 16));
+  });
+
   it("lets the owner remove a verse's stored answers, and refuses callers without the secret or text", async () => {
     const t = convexTest(schema, modules);
     await t.mutation(api.storedAnswers.save, answer("a", "A."));

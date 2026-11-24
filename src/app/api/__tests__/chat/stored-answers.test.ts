@@ -253,6 +253,28 @@ describe("a stored answer and the session", () => {
   });
 });
 
+describe("a question from another topic (#529)", () => {
+  it("is stored like the first two suggestions and then served free from storage", async () => {
+    mockState.freeAnswer = { allowed: true, remaining: 19 };
+    await ask(turn("How can I apply John 1:5 today?"));
+    expect(calls("storedSave")).toEqual([expect.objectContaining({ reference: "John 1:5", question: "How can I apply John 1:5 today?" })]);
+    vi.clearAllMocks();
+    mockState.calls.length = 0;
+    mockState.freeAnswer = { allowed: false, reason: "session" };
+    const { response, text } = await ask(turn("How can I apply John 1:5 today?"));
+    expect(response.status).toBe(200);
+    expect(text).toContain('"billingStatus":"stored"');
+    expect(mockStreamTextImpl).not.toHaveBeenCalled();
+  });
+
+  it("is not stored when typed with any other wording", async () => {
+    mockState.freeAnswer = { allowed: true, remaining: 19 };
+    await ask(turn("How can I apply John 1:5 today"));
+    await ask(turn("Who is in John 1:6?"));
+    expect(calls("storedSave")).toHaveLength(0);
+  });
+});
+
 describe("other questions", () => {
   it("are never served from storage or stored: a typed question, another verse's suggestion, or a follow-up", async () => {
     mockState.freeAnswer = { allowed: true, remaining: 19 };
@@ -275,5 +297,14 @@ describe("the quote route", () => {
     mockRequestBody.value = { context: passage, translation: "web" };
     const response = await QUOTE(request("/api/chat/quote"));
     expect(await response.json()).toMatchObject({ quote: null, free: { available: true }, stored: ["Summarize John 1 so far"] });
+  });
+
+  it("lists stored answers from every topic, not just the first two suggestions (#529)", async () => {
+    mockState.freeAnswer = { allowed: true, remaining: 19 };
+    await ask(turn("Who is in John 1:5?"));
+    await ask(turn("What can I pray about from John 1:5?"));
+    mockRequestBody.value = { context: passage, translation: "web" };
+    const response = await QUOTE(request("/api/chat/quote"));
+    expect((await response.json()).stored).toEqual(["Who is in John 1:5?", "What can I pray about from John 1:5?"]);
   });
 });
