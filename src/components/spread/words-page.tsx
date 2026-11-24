@@ -7,6 +7,8 @@ import { LookButton, LookTranslationButton } from "@/components/spread/look";
 import { usePreferences, type TextSize } from "@/context/preferences-context";
 import { PageTurnLink, type TrackPageTurn } from "@/components/spread/page-turn";
 import { withItalics } from "@/components/spread/prose-text";
+import { MapLink } from "@/components/spread/place-map";
+import type { VerseSetting } from "@/lib/verse-setting";
 
 /** The verse's size on the words page for each of Look's text sizes, phone then computer. */
 const VERSE_SIZE: Record<TextSize, string> = {
@@ -42,6 +44,8 @@ export interface WordsPageProps {
   onTurn: TrackPageTurn;
   /** Whether the page offers Ask (the Bible does; a prose work does not). Ask needs an `AskProvider` around it. */
   offersAsk: boolean;
+  /** Where the verse happens, for the map link (#532); a verse without one, and a prose moment, have none. */
+  setting?: VerseSetting | null;
 }
 
 /**
@@ -50,7 +54,8 @@ export interface WordsPageProps {
  * put. On a phone previous and next sit beside the foot line and the dock's "Ask a question…" replaces
  * the suggestions; on a computer previous and next live in the dock. Asking turns the page over (AskPage).
  * The whole-picture view puts it aside: it slides off to the right on a computer and is hidden on a phone.
- * The verse is set in Look's text size, and the translation name opens Look.
+ * The verse is set in Look's text size, and the translation name opens Look. A verse with a setting has the map link
+ * under it (place-map.tsx).
  *
  * A prose moment's page names the work and its division, then its paragraphs; it has no translation and no Ask.
  */
@@ -68,6 +73,7 @@ export function WordsPage({
   nextUrl,
   onTurn,
   offersAsk,
+  setting,
 }: WordsPageProps) {
   const aside = useLayer("whole-picture").isOpen;
   const { textSize } = usePreferences();
@@ -105,6 +111,7 @@ export function WordsPage({
             <p className={`mt-4 max-w-[30ch] font-serif text-pretty text-ink/95 md:mt-8 ${VERSE_SIZE[textSize]}`}>
               {verseText}
             </p>
+            {setting ? <MapLink setting={setting} bookName={bookName} chapter={chapter} verseNumber={verseNumber} /> : null}
           </>
         )}
       </div>

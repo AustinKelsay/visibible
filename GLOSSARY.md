@@ -38,6 +38,11 @@ _Avoid_: Brief (for this wording), engine rules
 
 **Translation**: A named rendering of Scripture in a particular language.
 
+**Setting**: The real-world places a Bible verse happens at, as the map shows them. They are the places the verse names or, when it names none, those of the nearest earlier verse of its chapter that names one. Not a canon location, which is how a place looks in pictures.
+_Avoid_: location (a canon entry), place (also a verse's address in the reader's code)
+
+**Site**: A modern location proposed for a setting's ancient place, scored by how widely sources favour it. A place with more than one site is debated.
+
 **Verse image**: The Bible app's name for an illustration of one moment, associated with a verse reference and the reference text and generation that produced it.
 
 **Shared image library**: Saved verse images available for public browsing and reuse.

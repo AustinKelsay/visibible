@@ -44,6 +44,10 @@ export const READER_STATES: CaptureState[] = [
   { name: "video-playing", path: "/john/1/5", steps: ["waitfor:img:Picture of John 1:5", "click:button:Play the video of John 1:5", "waitfor:css:video", "wait:1500"] },
   { name: "make-video", path: "/john/1/4", stubs: ["video-priced"], steps: ["waitfor:img:Picture of John 1:4", "click:button:Picture menu", "waitfor:text:Make this picture move", "wait:400"] },
   { name: "make-video-review", path: "/john/1/4", stubs: ["video-priced"], steps: ["waitfor:img:Picture of John 1:4", "click:button:Picture menu", "click:button:Make this picture move", "waitfor:group:Make this picture move", "wait:400"] },
+  // The map experiment (#532): the words page's link puts the map in the picture's place. John 1:28 names Bethany and the
+  // Jordan; Exodus 14:2 names three places whose sites are debated.
+  { name: "map", path: "/john/1/28", steps: ["click:button:See where this happened", "waitfor:img:Map of", "wait:600"] },
+  { name: "map-debated", path: "/exodus/14/2", steps: ["click:button:See where this happened", "waitfor:img:Map of", "wait:600"] },
   // The owner's prose reader (#451): a moment on the spread, its whole picture, its Contents of the work's divisions,
   // Look without translation, and an unpainted moment.
   { name: "prose", path: "/read/alice-in-wonderland/down-the-rabbit-hole-1", owner: true, steps: ["waitfor:img:Picture of Down the Rabbit-Hole ¶1–2", "hover:css:article h1"] },

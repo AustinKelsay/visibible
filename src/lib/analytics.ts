@@ -198,6 +198,17 @@ type VerseNavigationProps = BaseProps & {
   targetUrl: string;
 };
 
+/** The map experiment (#532): which verse, and what kind of setting its map shows. */
+type MapLinkProps = BaseProps & {
+  book: string;
+  chapter: number;
+  verse: number;
+  /** The setting was carried from an earlier verse of the chapter. */
+  inherited: boolean;
+  /** A place in the setting has more than one proposed site. */
+  debated: boolean;
+};
+
 type WholePictureOpenedProps = BaseProps & {
   book: string;
   chapter: number;
@@ -330,3 +341,12 @@ export function trackWholePictureOpened(props: WholePictureOpenedProps) {
   track("whole_picture_opened", props);
 }
 
+// Track the words page's map link being shown on a spread (once per spread)
+export function trackMapLinkShown(props: MapLinkProps) {
+  track("map_link_shown", props);
+}
+
+// Track the reader opening the map from the words page's link
+export function trackMapOpened(props: MapLinkProps) {
+  track("map_opened", props);
+}
