@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, type CSSProperties } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { AskProvider } from "@/components/spread/ask";
 import { ChosenPictureProvider } from "@/components/spread/chosen-picture";
@@ -117,8 +117,11 @@ function SpreadScreen({
     bookName, chapter, chapterLabel, reference, verseNumber, verseText, paragraphs, totalVerses, translationName,
     prevUrl, nextUrl, onTurn, setting,
   };
-  // The map experiment (#532): while it shows, it takes the picture's place and the picture under it is inert.
+  // The map experiment (#532): while it shows, it takes the picture's place. The picture leaves with its controls and
+  // any video (and its Continuous play), and comes back still when the map closes.
   const mapShows = useMapShows(setting, whole);
+  const [mapCovered, setMapCovered] = useState(false);
+  if (mapShows && !mapCovered) setMapCovered(true);
   const { openLayer, openLayerById } = useLayers();
   // The occasional feedback prompt, only when the reader turned it on in Advanced.
   const { feedbackPrompts } = useAdvancedSettings();
@@ -146,7 +149,7 @@ function SpreadScreen({
             : "md:block aspect-square max-h-[52svh] shrink-0 transition-[max-height] duration-300 motion-reduce:transition-none max-md:[main:has([data-ask-page])_&]:max-h-[30svh]"
         }`}
       >
-        <div inert={mapShows} className="contents">
+        {mapShows ? null : (
           <SpreadPicture
             key={verseId}
             verseId={verseId}
@@ -154,9 +157,9 @@ function SpreadScreen({
             onShowWhole={onShowWhole}
             nextVerseId={nextVerseId}
             onPlayOn={onPlayOn}
-            arrivesPlaying={arrivesPlaying}
+            arrivesPlaying={arrivesPlaying && !mapCovered}
           />
-        </div>
+        )}
         <PlaceMapStage setting={setting} verseId={verseId} reference={reference} hidden={whole} />
         {/* A soft shade along the top keeps the white corner name and verse marks legible on a bright sky. */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/45 to-transparent" />

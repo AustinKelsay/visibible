@@ -31,6 +31,11 @@ async function* jsonLines(path: string): AsyncGenerator<Record<string, unknown>>
   }
 }
 
+type Point = [number, number];
+type Geometry = { type: string; coordinates: unknown };
+const { west, south, east, north } = MAP_BOUNDS;
+const inside = ([lon, lat]: Point) => lon >= west && lon <= east && lat >= south && lat <= north;
+
 // ---- Places ----
 
 interface Association { modern_id: string; name: string; score: number }
@@ -48,7 +53,8 @@ const verses: Record<string, Record<string, string[]>> = {};
 for await (const place of jsonLines(join(values.openbible, "data", "ancient.jsonl"))) {
   const id = String(place.id);
   const extra = JSON.parse(String(place.extra)) as { associations?: Association[] };
-  const associations = (extra.associations ?? []).filter((a) => a.score > 0 && modern.has(a.modern_id));
+  // Only sites on the map outline: the Ganges (Pishon) and Sofala (Ophir) lie beyond it.
+  const associations = (extra.associations ?? []).filter((a) => a.score > 0 && modern.has(a.modern_id) && inside(modern.get(a.modern_id)!));
   const top = Math.max(0, ...associations.map((a) => a.score));
   const sites = associations
     .filter((a) => a.score >= top * MIN_SHARE)
@@ -78,11 +84,6 @@ for await (const place of jsonLines(join(values.openbible, "data", "ancient.json
 }
 
 // ---- Outline ----
-
-type Point = [number, number];
-type Geometry = { type: string; coordinates: unknown };
-const { west, south, east, north } = MAP_BOUNDS;
-const inside = ([lon, lat]: Point) => lon >= west && lon <= east && lat >= south && lat <= north;
 
 /** Sutherland–Hodgman: a ring clipped to the outline's bounds. */
 function clipRing(ring: Point[]): Point[] {

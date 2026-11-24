@@ -9,8 +9,8 @@
 
 ## What the build keeps
 
-- **Places.** Every place OpenBible locates and the verses that name it, by USX book code ("EXO 14" → verse → place ids). For each place it keeps the name without OpenBible's disambiguating number ("Migdol 1" becomes "Migdol"), whether OpenBible writes "the" before it, whether it is a region, and up to six proposed modern sites. A site is kept when its score is positive and at least a tenth of the place's top score. Places with no such site, or named in no verse, are left out.
-- **Outline.** The land, lakes and great rivers (Natural Earth scalerank 6 and above, no canals) between 12°W and 65°E and 3°N and 50°N. They are clipped to that box, simplified (Douglas–Peucker, about 1.5 km for land), stripped of islands and lakes too small to see, and projected with [bible-map-projection.ts](../../src/lib/bible-map-projection.ts) into relative SVG path data.
+- **Places.** Every place OpenBible locates and the verses that name it, by USX book code ("EXO 14" → verse → place ids). For each place it keeps the name without OpenBible's disambiguating number ("Migdol 1" becomes "Migdol"), whether OpenBible writes "the" before it, whether it is a region, and up to six proposed modern sites. A site is kept when it lies on the map outline (below), its score is positive and it is at least a tenth of the place's top score. Places with no such site, or named in no verse, are left out.
+- **Outline.** The land, lakes and great rivers (Natural Earth scalerank 6 and above, no canals) between 12°W and 80°E and 2°N and 50°N (Spain to India, Ethiopia to the Black Sea). They are clipped to that box, simplified (Douglas–Peucker, about 1.5 km for land), stripped of islands and lakes too small to see, and projected with [bible-map-projection.ts](../../src/lib/bible-map-projection.ts) into relative SVG path data.
 
 ## Rebuilding
 
@@ -24,4 +24,4 @@ done
 npm run places:build -- --openbible /tmp/openbible --natural-earth /tmp/natural-earth
 ```
 
-The first build (24 November 2026) kept 1,275 places across 852 chapters. The outline came to about 80 KB.
+The first build (24 November 2026) kept 1,275 places across 852 chapters. The outline came to about 97 KB.

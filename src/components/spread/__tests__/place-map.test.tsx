@@ -6,11 +6,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { trackMapLinkShown, trackMapOpened } from "@/lib/analytics";
 import { verseSetting, type VerseSetting } from "@/lib/verse-setting";
 import { MapLink, PlaceMapStage, resetMapMode } from "../place-map";
-import PlaceMapView, { settingNote } from "../place-map-view";
+import { project } from "@/lib/bible-map-projection";
+import PlaceMapView, { frameSetting, settingNote } from "../place-map-view";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
-vi.mock("@/context/session-context", () => ({ useSession: () => ({ tier: "paid", credits: 0 }) }));
+const session = vi.hoisted(() => ({ tier: "paid" as const, credits: 0, isLoading: false }));
+vi.mock("@/context/session-context", () => ({ useSession: () => session }));
 const convex = vi.hoisted(() => ({ enabled: false, picture: null as { imageUrl: string; thumbnailUrl: string } | null }));
 vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => convex.enabled }));
 vi.mock("convex/react", () => ({ useQuery: () => convex.picture }));
@@ -34,6 +36,7 @@ beforeEach(() => {
   resetMapMode();
   convex.enabled = false;
   convex.picture = null;
+  session.isLoading = false;
   container = document.createElement("div");
   document.body.appendChild(container);
   root = createRoot(container);
@@ -68,6 +71,16 @@ describe("the map link", () => {
     expect(map()).toBeNull();
     expect(trackMapLinkShown).toHaveBeenCalledTimes(1);
     expect(trackMapLinkShown).toHaveBeenCalledWith(expect.objectContaining({ book: "Exodus", chapter: 14, verse: 2, inherited: false, debated: true }));
+  });
+
+  it("reports being shown once the session is known, even if the map was opened first", async () => {
+    session.isLoading = true;
+    await renderReader(setting("EXO", 14, 2));
+    expect(trackMapLinkShown).not.toHaveBeenCalled();
+    await act(async () => button("See where this happened")!.click());
+    session.isLoading = false;
+    await renderReader(setting("EXO", 14, 2));
+    expect(trackMapLinkShown).toHaveBeenCalledTimes(1);
   });
 
   it("puts the map in the picture's place and turns into the way back", async () => {
@@ -153,6 +166,19 @@ describe("the map", () => {
     // A lone debated place names each of its sites on the map.
     const labels = Array.from(container.querySelectorAll("svg text"), (text) => text.textContent);
     expect(labels).toEqual(expect.arrayContaining(["Gulf of Suez", "Bitter Lakes"]));
+  });
+
+  it("frames every site, even at the far edge of the Bible world", () => {
+    // Esther 1:1: "from India to Ethiopia".
+    const far = setting("EST", 1, 1);
+    const frame = frameSetting(far);
+    for (const site of far.places.flatMap((place) => place.sites)) {
+      const [x, y] = project(site.lon, site.lat);
+      expect(x).toBeGreaterThanOrEqual(frame.x);
+      expect(x).toBeLessThanOrEqual(frame.x + frame.width);
+      expect(y).toBeGreaterThanOrEqual(frame.y);
+      expect(y).toBeLessThanOrEqual(frame.y + frame.height);
+    }
   });
 
   it("labels a region instead of pinning it", async () => {

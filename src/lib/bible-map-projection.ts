@@ -4,8 +4,11 @@
  */
 export const MAP_X_SCALE = Math.cos((33 * Math.PI) / 180);
 
-/** The part of the world the map outline covers: Spain to Persia, Ethiopia to the Black Sea. */
-export const MAP_BOUNDS = { west: -12, south: 3, east: 65, north: 50 } as const;
+/**
+ * The part of the world the map outline covers: Spain to India, Ethiopia to the Black Sea. Sites outside it are left
+ * out of the places data, so every site the map frames has land drawn around it.
+ */
+export const MAP_BOUNDS = { west: -12, south: 2, east: 80, north: 50 } as const;
 
 /** A longitude and latitude in map units: x east, y south. */
 export function project(lon: number, lat: number): [number, number] {
