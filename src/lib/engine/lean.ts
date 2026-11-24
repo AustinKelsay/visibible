@@ -86,7 +86,8 @@ const isNamed = (m: LeanRanked) => m.named.here + m.named.before + m.named.after
 /**
  * The members the prompt asks the model to draw: every place it lists under SETTING and every character or object it
  * lists under CANON, NAMED HERE. Evaluation pairs images by these; the rest of the cast is drawn only when the model
- * reads them into the moment, so no image is expected to show them.
+ * reads them into the moment, so no image is expected to show them. A moment whose words tell of another time or place
+ * is painted as what they tell, so it may show none of these.
  */
 export function leanDepicted(present: readonly LeanRanked[]): LeanRanked[] {
   return present.filter((m) => m.depiction === "form" && (m.kind === "location" || isNamed(m)));

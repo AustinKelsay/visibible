@@ -210,8 +210,8 @@
  },
  {
   "unit": "acts-11-5",
-  "label": "told",
-  "pass": false,
+  "label": "told-self",
+  "pass": true,
   "description": "Simon Peter stands on a flat, stone rooftop in Joppa at midday, his weathered face turned upward in awe as he experiences a trance. Above him, a vast, luminous white sheet descends from a break in the clouds, its four corners held by unseen forces as it lowers toward the terrace. The surrounding city of Joppa, with its sun-baked limestone walls and narrow alleys, stretches out beneath the bright, clear Mediterranean sky.",
   "speaker": "Simon Peter",
   "speakerVisible": true,
@@ -221,8 +221,8 @@
  },
  {
   "unit": "acts-22-6",
-  "label": "told",
-  "pass": false,
+  "label": "told-self",
+  "pass": true,
   "description": "Saul, a wiry man in a travel-worn ochre tunic and dark brown cloak, stands on a dusty, sun-baked road near Damascus at high noon. He is shielding his eyes with one hand as a blinding, ethereal radiance descends from the cloudless sky, engulfing him and the surrounding arid landscape in intense, supernatural light.",
   "speaker": "Saul",
   "speakerVisible": true,
@@ -243,7 +243,7 @@
  },
  {
   "unit": "genesis-41-17",
-  "label": "told",
+  "label": "told-self",
   "pass": false,
   "description": "Pharaoh, dressed in a white pleated linen kilt and a broad golden collar, gestures toward the Nile visible through the tall, columned hall of his palace. Joseph, wearing a clean white linen robe and a gold chain, stands attentively beside him, listening as the king recounts his dream. The scene is set in a grand, sun-drenched Egyptian hall with papyrus-bud columns, looking out over the lush green riverbanks.",
   "speaker": "Pharaoh",
@@ -254,7 +254,7 @@
  },
  {
   "unit": "genesis-40-9",
-  "label": "told",
+  "label": "told-self",
   "pass": false,
   "description": "In the dim, sun-drenched interior of an Egyptian prison cell with rough limestone walls, the chief cup bearer sits on a low stone bench, gesturing with his hands as he speaks to Joseph. Joseph, dressed in a clean white linen robe, leans forward with a steady, attentive expression, listening intently to the man's account. The chief baker stands nearby in the shadows, watching the exchange with a somber, weathered face.",
   "speaker": "the chief cup bearer",
@@ -310,7 +310,7 @@
  {
   "unit": "luke-15-13",
   "label": "told",
-  "pass": false,
+  "pass": true,
   "description": "The younger son stands in a bustling, sun-drenched marketplace of a foreign Gentile city, his expression one of reckless abandon as he tosses a gold coin into the air. He is surrounded by a crowd of revelers in colorful, unfamiliar tunics, with stone arches and ornate Roman-style columns rising in the background under a hazy, golden afternoon sky.",
   "speaker": null,
   "speakerVisible": false,
