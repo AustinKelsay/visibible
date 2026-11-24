@@ -131,6 +131,11 @@ async function click(target: HTMLElement) {
 function pressEscape() {
   act(() => { document.activeElement!.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true })); });
 }
+/** The question topics (#529) and the suggested questions shown, on the words page's foot or the Ask page. */
+const topics = (within: ParentNode) => within.querySelector<HTMLElement>('[role="group"][aria-label="Question topics"]');
+const topicStates = (within: ParentNode) => [...topics(within)!.querySelectorAll("button")].map((chip) => `${chip.textContent}${chip.getAttribute("aria-pressed") === "true" ? " (chosen)" : ""}`);
+const shownQuestions = (within: ParentNode) => [...within.querySelectorAll<HTMLButtonElement>("[data-suggestions] button")].map((item) => item.textContent);
+const askFoot = () => wordsPage().querySelector<HTMLElement>('section[aria-label="Ask about this verse"]')!;
 const turnTexts = () => [...(askPage()?.querySelectorAll("[data-turn]") ?? [])].map((turn) => `${turn.getAttribute("data-turn")}: ${turn.textContent}`);
 
 beforeEach(() => {
@@ -171,12 +176,12 @@ afterEach(() => {
 });
 
 describe("asking at the foot of the words page", () => {
-  it("offers two suggested questions and a field, with the quoted price on the send control", async () => {
+  it("offers question topics, opening on Meaning with the two usual questions first, and a field with the quoted price", async () => {
     await openVerse();
     const words = wordsPage();
     expect(words.textContent).toContain("Ask about this verse");
-    expect(button("What does John 1:5 mean?", words)).toBeTruthy();
-    expect(button("Summarize John 1 so far", words)).toBeTruthy();
+    expect(topicStates(askFoot())).toEqual(["Meaning (chosen)", "Context", "People & places", "Words", "For today"]);
+    expect(shownQuestions(askFoot())).toEqual(["What does John 1:5 mean?", "Summarize John 1 so far", "Why does John 1:5 matter?"]);
     expect(field("Ask about John 1:5")).toBeTruthy();
     // The quote is for a question about this verse, whose context is the chapter so far.
     expect(quoteRequests).toEqual([{ model: DEFAULT_CHAT_MODEL, context: { book: "John", chapter: 1, verseRange: "5" }, translation: "web" }]);
@@ -214,6 +219,61 @@ describe("asking at the foot of the words page", () => {
 
     expect(trackAskOpened).toHaveBeenCalledWith(expect.objectContaining({ source: "words_page" }));
     expect(trackAskQuestionSent).toHaveBeenCalledWith(expect.objectContaining({ source: "suggestion", messageCount: 1 }));
+  });
+});
+
+describe("question topics (#529)", () => {
+  it("shows a chosen topic's questions in place of Meaning's, asks one, and opens on Meaning again at the next verse", async () => {
+    await openVerse();
+    await click(button("People & places", askFoot()));
+    expect(topicStates(askFoot())).toEqual(["Meaning", "Context", "People & places (chosen)", "Words", "For today"]);
+    expect(shownQuestions(askFoot())).toEqual(["Who is in John 1:5?", "Where does John 1:5 take place?"]);
+    await click(button("Where does John 1:5 take place?", askFoot()));
+    expect(chatRequests[0].messages.map((message) => message.parts.map((part) => part.text).join(""))).toEqual(["Where does John 1:5 take place?"]);
+    expect(trackAskQuestionSent).toHaveBeenCalledWith(expect.objectContaining({ source: "suggestion", messageCount: 1 }));
+
+    await openVerse("john", "1", "6");
+    expect(topicStates(askFoot())[0]).toBe("Meaning (chosen)");
+  });
+
+  it("offers every topic's questions, with a first verse's historical context only once", async () => {
+    await openVerse("john", "1", "1");
+    const all: string[] = [];
+    for (const topic of ["Meaning", "Context", "People & places", "Words", "For today"]) {
+      await click(button(topic, askFoot()));
+      all.push(...shownQuestions(askFoot()).map(String));
+    }
+    expect(all).toEqual([
+      "What does John 1:1 mean?", "What is the historical context of John 1:1?", "Why does John 1:1 matter?",
+      "What leads up to John 1:1?", "Who wrote John, and for whom?",
+      "Who is in John 1:1?", "Where does John 1:1 take place?",
+      "What do the key words in John 1:1 mean in the original language?", "How do other translations word John 1:1?",
+      "How can I apply John 1:1 today?", "What can I pray about from John 1:1?",
+    ]);
+  });
+
+  it("asks a stored question from any topic with no credits and no free answers left", async () => {
+    session.credits = 0;
+    quoteAnswer = () => new Response(JSON.stringify({
+      error: "Insufficient credits", required: 1, available: 0, free: { available: false, reason: "session" }, stored: ["How can I apply John 1:5 today?"],
+    }), { status: 402 });
+    await openVerse();
+    await click(button("For today", askFoot()));
+    await click(button("How can I apply John 1:5 today?", askFoot()));
+    expect(session.buyCredits).not.toHaveBeenCalled();
+    expect(chatRequests).toHaveLength(1);
+  });
+
+  it("offers the same topics on the Ask page before the first question", async () => {
+    await openVerse();
+    await click(button("Ask a question…"));
+    const back = askPage()!;
+    expect(topicStates(back)).toEqual(["Meaning (chosen)", "Context", "People & places", "Words", "For today"]);
+    await click(button("Words", back));
+    expect(shownQuestions(back)).toEqual(["What do the key words in John 1:5 mean in the original language?", "How do other translations word John 1:5?"]);
+    await click(button("How do other translations word John 1:5?", back));
+    expect(chatRequests).toHaveLength(1);
+    expect(topics(back)).toBeNull();
   });
 });
 

@@ -139,6 +139,11 @@ _Avoid_: Settings, preferences (for these three choices)
 **Ask**: A reader's question about the moment on screen, answered beside its text.
 _Avoid_: Chat
 
+**Suggested question**: A fixed question Ask offers for the verse on screen, grouped under a question topic; its first complete answer is stored and served to later readers.
+_Avoid_: Canned question, prompt
+
+**Question topic**: One of the groups of suggested questions (Meaning, Context, People & places, Words, For today).
+
 **Picture menu**: A moment's other verse images, with the actions on the one shown.
 
 **Advanced**: Reader choices kept out of Look because few readers need them. Each can be removed without changing the rest of the reader.
