@@ -4,7 +4,7 @@
 - Told events rose from 7 and 6 of 26 to 23 and 22 (raw). With the same reading of descriptions applied to every round, that is 7 and 8 to 24 and 24.
 - Speeches to the people present kept the speaker in every round.
 
-Six real images came out as intended, apart from one depiction fault (below). The rule was tuned on these same 40 verses. A further 14 untouched verses were previewed afterwards. The work spent $0.4979 of the owner's $0.50 OpenRouter budget on the dev key, with no production write. **Not released:** see [Before release](#before-release).
+Six real images came out as intended, apart from one depiction fault (below). The rule was tuned on these same 40 verses. A further 14 untouched verses were previewed afterwards. The work spent $0.4979 of the owner's $0.50 OpenRouter budget on the dev key, with no production write. Released on the owner's waiver of the suite gate (see [Before release](#before-release)).
 
 ![Acts 13 before (production) and after (v7)](before-after.jpg)
 
@@ -134,7 +134,7 @@ That is the operator's unblinded look, not a blind score, and six images cannot 
 
 ## Before release
 
-[The image eval workflow](../../workflow/IMAGE_EVAL_AND_RELEASE.md) requires, for a prompt change, an image run of the regression suite (about $9) that passes its gate, the consistency pairing, and the owner's sign-off. None was done: the budget for this work was $0.50. Releasing v7 waits for those gates or for the owner to waive them. The new line is in every prompt; suite cases whose pictures it is most likely to change include:
+[The image eval workflow](../../workflow/IMAGE_EVAL_AND_RELEASE.md) requires, for a prompt change, an image run of the regression suite (about $9) that passes its gate, the consistency pairing, and the owner's sign-off. None was done: the budget for this work was $0.50. On 24 November 2026, after reading these results and the open items, the owner waived them: "ok lets ship it!". The suite run, consistency pairing and the open wording items (Genesis 40:9, Mark 13:2, Acts 7:56) stay follow-ups. The new line is in every prompt; suite cases whose pictures it is most likely to change include:
 - Luke 15:20 and 15:22, Deuteronomy 1:7, Matthew 5:40
 - Daniel 7:9 (a golden case), Isaiah 6:2, Isaiah 40:29
 - Revelation 4:6 and 21:6, Job 15:24, Romans 8:28, 1 Corinthians 13:12, Hebrews 12:1, Proverbs 8:21, Daniel 11:14
