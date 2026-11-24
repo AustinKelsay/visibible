@@ -4,6 +4,7 @@ import schema from "../../convex/schema";
 import { api, internal } from "../../convex/_generated/api";
 import { STORED_ANSWER_MAX_AGE_MS } from "../../convex/storedAnswers";
 import { modules } from "./modules";
+import { suggestedQuestions } from "../../src/lib/ask-suggestions";
 
 const SECRET = "stored-answers-secret";
 const start = Date.parse("2026-11-17T12:00:00Z");
@@ -41,6 +42,17 @@ describe("stored answers (#505)", () => {
     expect(await t.query(api.storedAnswers.get, { key: "old", serverSecret: SECRET })).toBeNull();
     expect(await t.query(api.storedAnswers.present, { keys: ["old", "new"], serverSecret: SECRET })).toEqual(["new"]);
     expect(await t.mutation(internal.storedAnswers.cleanup, {})).toEqual({ deleted: 1 });
+  });
+
+  it("says in one read which of a verse's suggested questions have a current answer, in every topic (#529)", async () => {
+    const t = convexTest(schema, modules);
+    const keys = suggestedQuestions("John", 1, 5).map((question) => question.text);
+    for (const key of keys) await t.mutation(api.storedAnswers.save, answer(key, `${key} answered.`));
+    expect(await t.query(api.storedAnswers.present, { keys, serverSecret: SECRET })).toEqual(keys);
+    // A longer list is read only so far.
+    const many = Array.from({ length: 20 }, (_, index) => `k${index}`);
+    for (const key of many) await t.mutation(api.storedAnswers.save, answer(key, `${key}.`));
+    expect(await t.query(api.storedAnswers.present, { keys: many, serverSecret: SECRET })).toEqual(many.slice(0, 16));
   });
 
   it("lets the owner remove a verse's stored answers, and refuses callers without the secret or text", async () => {

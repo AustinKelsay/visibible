@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "convex/react";
 import { Brush, RefreshCw } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { usePreferences } from "@/context/preferences-context";
 import { useMomentWord, useWorkScope } from "@/context/work-scope-context";
+import { drawGlow } from "@/lib/glow";
 import { previewSource } from "@/lib/picture-source";
 import { PaintButton, PaintProgress, PRIMARY, usePaintVerse } from "@/components/spread/paint-verse";
 
@@ -91,16 +92,8 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
 
   return (
     <section aria-label="Picture" className="reader-dark absolute inset-0 overflow-hidden bg-[#050505]">
-      {glowSource ? (
-        // A soft, darkened memory of the last painting, so the book never goes blank. Decorative.
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={glowSource}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full scale-125 object-cover object-center opacity-60 blur-3xl saturate-75"
-        />
-      ) : null}
+      {/* A soft, darkened memory of the last painting, so the book never goes blank. Decorative. */}
+      {glowSource ? <Glow src={glowSource} /> : null}
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-paper/30 via-paper/20 to-paper/50" />
       <div className="relative flex h-full flex-col items-center justify-center gap-3 px-6 pt-8 pb-6 text-center md:gap-4 md:pr-[calc(var(--words-page-width)+1.5rem)] md:pb-28">
         {body}
@@ -128,5 +121,38 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
         </button>
       </div>
     </section>
+  );
+}
+
+/** The glow, blurred once into a canvas rather than by a live CSS blur, which Firefox redraws in visible patches (#531). */
+function Glow({ src }: { src: string }) {
+  const canvas = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const element = canvas.current;
+    if (!element) return;
+    const picture = new Image();
+    const draw = () => drawGlow(element, picture);
+    picture.onload = draw;
+    // A picture that cannot load leaves no glow, as the old <img> did, rather than the previous one.
+    picture.onerror = () => {
+      element.width = 0;
+    };
+    picture.src = src;
+    // The canvas is sized to the area it covers, so a resized area is drawn again.
+    const resized = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(draw);
+    resized?.observe(element);
+    return () => {
+      picture.onload = null;
+      picture.onerror = null;
+      resized?.disconnect();
+    };
+  }, [src]);
+  return (
+    <canvas
+      ref={canvas}
+      data-glow={src}
+      aria-hidden="true"
+      className="absolute inset-0 h-full w-full scale-125 object-cover object-center opacity-60 saturate-75"
+    />
   );
 }

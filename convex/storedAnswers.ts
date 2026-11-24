@@ -22,6 +22,9 @@ export const get = query({
   },
 });
 
+/** The most keys one presence read looks up: more than the questions Ask suggests for a verse (#529). */
+const PRESENT_MAX_KEYS = 16;
+
 /** Which of these keys have a current stored answer, for the price shown before asking. */
 export const present = query({
   args: { keys: v.array(v.string()), serverSecret: v.string() },
@@ -29,7 +32,7 @@ export const present = query({
     validateServerSecret(args.serverSecret);
     const now = Date.now();
     const found: string[] = [];
-    for (const key of args.keys.slice(0, 4)) {
+    for (const key of args.keys.slice(0, PRESENT_MAX_KEYS)) {
       const row = await ctx.db.query("storedAnswers").withIndex("by_key", (q) => q.eq("key", key)).unique();
       if (row && current(row.createdAt, now)) found.push(key);
     }

@@ -1,0 +1,33 @@
+{
+  "authorization": [
+    "After the told-events results and their open items were reported, the owner said: \"ok lets ship it!\". That waives the suite image run and consistency pairing the image eval workflow requires for a prompt change."
+  ],
+  "release": {
+    "pullRequests": [534],
+    "commit": "dae431ca (branch feat/told-events-rule: main 1219b77a plus #534)",
+    "summary": "Lean prompt 2026-11-24-lean-v7: words that tell of another time or place are painted as what they tell; words about the people present keep the speaker. Rule 3 reads 'Nothing from outside the era of what is painted'.",
+    "leftOut": "main's #533 (Ask question topics, merged at 10161d17) is not in this build; it needs its own release with a Convex push.",
+    "reviewFindings": "Five-seat council, 2 rounds: Fable 8 then 9, Opus 8 then 9, Astra 7 then 6, Sol 6 then 4 (Grok non-blocking, cancelled). Open and left to the owner: Genesis 40:9 keeps the prison scene (Sol blocker), Mark 13:2 wording (Astra should), Acts 7:56 regression in preview. CI quality-gates passed."
+  },
+  "deploy": {
+    "steps": [
+      {
+        "at": "2026-11-24T20:01:25Z",
+        "commit": "dae431ca; production's code was 6d252958, and 1219b77a adds only docs (#526, #528) to it, so this build changes only the image prompt",
+        "vercel": "dpl_FzN54iivvYbP3ScxFWHgh45aBhA3",
+        "convex": "Not pushed: no Convex change since 6d252958."
+      }
+    ]
+  },
+  "smoke": {
+    "after": "/acts/13/17 answers 200; POST /api/session works; a zero-credit guest's POST /api/generate-image for Acts 13:17 assembled the prompt and stopped at 402 with required 6, as before. No paid image was made.",
+    "notExercised": "No production image was drawn with v7; the six v7 images in this folder were made on the dev key."
+  },
+  "rollback": {
+    "vercel": "Promote dpl_FRvJ6tkqDKJLm3uYU3GrgFaVLUqr (6d252958, the previous production)."
+  },
+  "productionWrites": [
+    "One Vercel production deployment.",
+    "One guest session from the smoke check, with no balance."
+  ]
+}
