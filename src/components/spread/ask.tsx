@@ -132,11 +132,10 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
   // Meaning holds a summary of the chapter so far, which the server answers from the chapter's text up to this verse.
   // Their answers are stored (#505).
   const [topic, setTopic] = useState<QuestionTopic>("meaning");
-  const suggestions = suggestedQuestions(bookName, chapter, verseNumber)
-    .filter((suggestion) => suggestion.topic === topic)
-    .map((suggestion) => suggestion.text);
+  const questions = suggestedQuestions(bookName, chapter, verseNumber);
+  const suggestions = questions.filter((suggestion) => suggestion.topic === topic).map((suggestion) => suggestion.text);
 
-  return { reference, verseText, chat, answeringModel, input, setInput, ask, askFresh, openAsk, footField, topic, setTopic, suggestions, buyCredits, close: layer.close };
+  return { reference, verseText, chat, answeringModel, input, setInput, ask, askFresh, openAsk, footField, topic, setTopic, questions, suggestions, buyCredits, close: layer.close };
 }
 
 /**
@@ -173,10 +172,11 @@ function QuestionTopics({ className }: { className?: string }) {
 
 /**
  * The foot of the words page on a computer: the question topics, the chosen topic's suggested questions and a field.
- * The questions keep the height of three, so changing topic does not move the verse. Sending turns the page over.
+ * Every topic's questions share one grid cell and only the chosen topic's show, so the foot is as tall as its tallest
+ * topic at this width and changing topic does not move the verse. Sending turns the page over.
  */
 export function AskFoot() {
-  const { reference, suggestions, ask, footField } = useAsk();
+  const { reference, topic, questions, ask, footField } = useAsk();
   return (
     <section aria-label="Ask about this verse" className="hidden shrink-0 border-t border-ink/10 pt-5 md:mx-12 md:block lg:mx-14">
       <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)">
@@ -184,19 +184,27 @@ export function AskFoot() {
         Ask about this verse
       </p>
       <QuestionTopics className="mt-3" />
-      <ul data-suggestions className="mt-2.5 flex min-h-24 flex-col items-start gap-1.5">
-        {suggestions.map((question) => (
-          <li key={question}>
-            <button
-              type="button"
-              onClick={() => ask(question, "suggestion", "words_page")}
-              className="rounded text-left font-serif text-lg italic text-ink/80 underline decoration-ink/30 underline-offset-4 transition-colors hover:text-ink hover:decoration-ink/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink/70"
-            >
-              {question}
-            </button>
-          </li>
+      <div className="mt-2.5 grid">
+        {QUESTION_TOPICS.map(({ id }) => (
+          <ul
+            key={id}
+            data-suggestions={id === topic ? "" : undefined}
+            className={`col-start-1 row-start-1 flex flex-col items-start gap-1.5 ${id === topic ? "" : "invisible"}`}
+          >
+            {questions.filter((question) => question.topic === id).map(({ text }) => (
+              <li key={text}>
+                <button
+                  type="button"
+                  onClick={() => ask(text, "suggestion", "words_page")}
+                  className="rounded text-left font-serif text-lg italic text-ink/80 underline decoration-ink/30 underline-offset-4 transition-colors hover:text-ink hover:decoration-ink/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink/70"
+                >
+                  {text}
+                </button>
+              </li>
+            ))}
+          </ul>
         ))}
-      </ul>
+      </div>
       <AskForm from="words_page" fieldRef={footField} label={`Ask about ${reference}`} placeholder="Ask your own question…" className="mt-4" />
     </section>
   );
