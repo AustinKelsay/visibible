@@ -19,6 +19,8 @@ let failSave = false;
 let failReserve = false;
 let failDeduct = false;
 let deductCommitsThenThrows = false;
+let rateLimited = false;
+const rateLimitChecks: string[] = [];
 import { fixtures, type Session } from "../shared/test-fixtures";
 import { clearBibleApiCache } from "@/lib/bible-api";
 import { contentVersion } from "../../../../../convex/_helpers/contentVersion";
@@ -126,8 +128,9 @@ vi.mock("@/lib/convex-client", () => ({
       if ("requestId" in args && "status" in args) {
         return requestDb.mutation(api.verseImages.updateGenerationRequest, args as FunctionArgs<typeof api.verseImages.updateGenerationRequest>);
       }
-      // Rate limit always passes
-      return { allowed: true, retryAfter: 0 };
+      // Rate limit passes unless a test spends the allowance
+      if ("endpoint" in args) rateLimitChecks.push(args.endpoint as string);
+      return rateLimited ? { allowed: false, retryAfter: 42 } : { allowed: true, retryAfter: 0 };
     }),
     action: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
       if ("usd" in args && !("generationId" in args)) {
@@ -410,6 +413,8 @@ describe("Image Generation API Credit Flow", () => {
     failReserve = false;
     failDeduct = false;
     deductCommitsThenThrows = false;
+    rateLimited = false;
+    rateLimitChecks.length = 0;
     clearBibleApiCache();
     fetchImageModelsMock.mockReset();
     fetchImageModelsMock.mockResolvedValue({
@@ -654,6 +659,7 @@ describe("Image Generation API Credit Flow", () => {
     let tone = brief.tone;
     let thumbnailFailure: Error | null = null;
     let thumbnailInputs: string[] = [];
+    let sleeps: number[] = [];
     const makeThumbnail = async (imageUrl: string) => {
       thumbnailInputs.push(imageUrl);
       if (thumbnailFailure) throw thumbnailFailure;
@@ -704,8 +710,8 @@ describe("Image Generation API Credit Flow", () => {
       fetchImageModelsMock.mockResolvedValue({ models: [catalogModel(syntheticPricing)] });
       const { createGenericEngine } = await import("@/lib/engine/generation");
       const { setGenericEngine } = await import("@/lib/engine/dispatch");
-      thumbnailFailure = null; thumbnailInputs = [];
-      setGenericEngine(createGenericEngine({ loadInputs: async () => workInputs(tone), loadReferenceBytes, toJpeg: async (blob) => blob, makeThumbnail }));
+      thumbnailFailure = null; thumbnailInputs = []; sleeps = [];
+      setGenericEngine(createGenericEngine({ loadInputs: async () => workInputs(tone), loadReferenceBytes, toJpeg: async (blob) => blob, makeThumbnail, sleep: async (ms) => { sleeps.push(ms); } }));
     });
     afterEach(async () => { (await import("@/lib/engine/dispatch")).setGenericEngine(null); });
 
@@ -1087,6 +1093,60 @@ describe("Image Generation API Credit Flow", () => {
       expect((await storedRequests())[0]).toMatchObject({ status: "failed", engine: "generic" });
     });
 
+    describe("provider refusals (#530)", () => {
+      const refusal = (status: number, metadata: Record<string, unknown> = {}, retryAfter?: string) => ({
+        ok: false, status, headers: new Headers(retryAfter ? { "retry-after": retryAfter } : {}),
+        json: async () => ({ error: { code: status, message: "refused", metadata } }),
+      });
+      const image = { ok: true, status: 200, headers: new Headers(), json: async () => ({ id: "gen-ok", choices: [{ message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } }], usage: { cost: 0.01 } }) };
+      const providerAnswers = (...answers: unknown[]) => {
+        mockFetchImpl = async (input) => {
+          if (!String(input).includes("chat/completions")) throw new Error(`unexpected fetch ${String(input)}`);
+          return answers.length > 1 ? answers.shift() : answers[0];
+        };
+      };
+
+      it("sends a call the provider refused for rate again after its Retry-After, and charges for the one image", async () => {
+        await prepareWork();
+        providerAnswers(refusal(429, { provider_code: 429 }, "3"), image);
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest(body));
+        expect(response.status).toBe(200);
+        expect(imageCalls()).toHaveLength(2);
+        expect(sleeps).toEqual([3000]);
+        expect(getCallCount("deductCredits")).toBe(1);
+        expect((await storedRequests())[0]).toMatchObject({ status: "succeeded" });
+      });
+
+      it("gives up on a full in-flight budget after two more tries: busy, the hold released, the request ended", async () => {
+        await prepareWork();
+        providerAnswers(refusal(402, { limit_source: "openrouter_in_flight_budget" }));
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest(body));
+        expect(response.status).toBe(503);
+        expect(await response.json()).toMatchObject({ error: "Image service busy" });
+        expect(imageCalls()).toHaveLength(3);
+        expect(sleeps).toEqual([2000, 4000]);
+        expect(getCallCount("releaseReservation")).toBe(1);
+        expect(getCallCount("deductCredits")).toBe(0);
+        expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
+        expect((await storedRequests())[0]).toMatchObject({ status: "failed" });
+      });
+
+      it("does not retry a used-up key cap and says pictures can't be made right now", async () => {
+        await prepareWork();
+        providerAnswers(refusal(402, { limit_source: "openrouter_key_limit" }));
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest(body));
+        expect(response.status).toBe(503);
+        expect(await response.json()).toMatchObject({ error: "Image service unavailable", message: "Pictures can't be made right now. Please try again later." });
+        expect(imageCalls()).toHaveLength(1);
+        expect(sleeps).toEqual([]);
+        expect(getCallCount("releaseReservation")).toBe(1);
+        expect((await storedRequests())[0]).toMatchObject({ status: "failed" });
+      });
+    });
+
     it("still delivers the image when its cost event cannot be recorded, and queues the event instead", async () => {
       await prepareWork();
       forceRecordImageCostEventFailure = true;
@@ -1425,6 +1485,22 @@ describe("Image Generation API Credit Flow", () => {
         expect(await retry.json()).toMatchObject({ reused: true, savedImageId: expect.any(String) });
         expect(getCallCount("reserveCredits")).toBe(1);
         expect(getCallCount("saveImage")).toBe(1);
+        expect(imageCalls()).toHaveLength(1);
+      });
+
+      it("answers a replay of the session's own request without spending the rate limit, while a new request is limited (#530)", async () => {
+        await prepareWork();
+        const { POST } = await import("../../generate-image/route");
+        expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
+        expect(rateLimitChecks).toEqual(["generate-image"]);
+        rateLimited = true;
+        const replay = await POST(createGenerateImageRequest(body));
+        expect(replay.status).toBe(200);
+        expect(await replay.json()).toMatchObject({ reused: true });
+        expect(rateLimitChecks).toEqual(["generate-image"]);
+        const fresh = await POST(createGenerateImageRequest({ ...body, requestId: "generic-2" }));
+        expect(fresh.status).toBe(429);
+        expect(fresh.headers.get("Retry-After")).toBe("42");
         expect(imageCalls()).toHaveLength(1);
       });
 

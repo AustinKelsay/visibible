@@ -40,6 +40,8 @@ export type GenericEngineDeps = {
   modelId?: string;
   imageTimeoutMs?: () => number;
   now?: () => number;
+  /** Waits before a refused provider call is sent again; a timer by default. */
+  sleep?: (ms: number) => Promise<void>;
 };
 
 const DEFAULT_COST_MARKUP_MULTIPLIER = 1.25;
@@ -49,6 +51,33 @@ const BIBLE_REFERENCE_TRANSLATION = "web";
 const REFERENCE_FETCH_TIMEOUT_MS = 10_000;
 // A thumbnail takes well under a second; past this the picture is saved without one.
 const THUMBNAIL_TIMEOUT_MS = 5_000;
+
+// A provider refusal made before any work is not billed, so sending the call again keeps one paid call per image (ADR 0012).
+const PROVIDER_RETRIES = 2;
+const PROVIDER_RETRY_DELAYS_MS = [2000, 4000];
+const PROVIDER_RETRY_AFTER_CAP_MS = 10_000;
+
+/** A non-OK provider answer, read for which limit refused it (OpenRouter's `error.metadata.limit_source`). */
+class ProviderRefusal extends Error {
+  constructor(readonly status: number, readonly limitSource: string | null, readonly providerCode: unknown, readonly retryAfterMs: number | null) {
+    super(`OpenRouter API error: ${status}`);
+  }
+  /** Rate limits and a full in-flight budget clear on their own; a used-up key cap or balance does not. */
+  get temporary() { return this.status === 429 || (this.status === 402 && this.limitSource === "openrouter_in_flight_budget"); }
+  get stop() { return !this.temporary && [401, 402, 403].includes(this.status); }
+}
+
+async function readProviderRefusal(response: Response): Promise<ProviderRefusal> {
+  const body = await response.json().catch(() => null) as { error?: { metadata?: { limit_source?: unknown; provider_code?: unknown } } } | null;
+  const metadata = body?.error?.metadata;
+  const retryAfter = Number.parseFloat(response.headers?.get("retry-after") ?? "");
+  return new ProviderRefusal(
+    response.status,
+    typeof metadata?.limit_source === "string" ? metadata.limit_source : null,
+    metadata?.provider_code ?? null,
+    Number.isFinite(retryAfter) && retryAfter >= 0 ? Math.min(retryAfter * 1000, PROVIDER_RETRY_AFTER_CAP_MS) : null,
+  );
+}
 
 function imageTimeoutMsFromEnv() {
   const parsed = Number.parseInt(process.env.OPENROUTER_IMAGE_TIMEOUT_MS || "45000", 10);
@@ -91,6 +120,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
   const modelId = deps.modelId ?? DEFAULT_IMAGE_MODEL;
   const imageTimeoutMs = deps.imageTimeoutMs ?? imageTimeoutMsFromEnv;
   const now = deps.now ?? Date.now;
+  const sleep = deps.sleep ?? ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)));
   // One bounded JPEG cache per Convex client (one per server instance in production).
   const caches = new WeakMap<object, ReturnType<typeof createReferenceBlobCache>>();
   const cacheFor = (runtime: Runtime) => {
@@ -354,7 +384,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
             }),
             signal: controller.signal,
           });
-          if (!response.ok) throw new Error(`OpenRouter API error: ${response.status}`);
+          if (!response.ok) throw await readProviderRefusal(response);
           return (await response.json()) as Record<string, unknown>;
         } finally {
           clearTimeout(timer);
@@ -370,12 +400,30 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       };
       let firstData: Record<string, unknown>;
       try {
-        firstData = await callProvider();
+        for (let attempt = 0; ; attempt++) {
+          try {
+            firstData = await callProvider();
+            break;
+          } catch (error) {
+            if (!(error instanceof ProviderRefusal)) throw error;
+            const retrying = error.temporary && attempt < PROVIDER_RETRIES;
+            logWarn("generic.provider_refused", { requestId, generationId, status: error.status, limitSource: error.limitSource, providerCode: error.providerCode, attempt: attempt + 1, retrying });
+            if (!retrying) throw error;
+            await sleep(error.retryAfterMs ?? PROVIDER_RETRY_DELAYS_MS[attempt]);
+          }
+        }
       } catch (error) {
         const timedOut = error instanceof Error && error.name === "AbortError";
         if (timedOut) {
           logApiTimeout({ context: requestContext, stage: "openrouter_generation", timeoutMs, sid, generationId });
           return fail(504, "Image generation timed out", `${TIMEOUT_PREFIX} ${timeoutMs}ms`);
+        }
+        if (error instanceof ProviderRefusal && error.temporary) {
+          return fail(503, "Image service busy", "The image service is busy. Please try again in a minute.");
+        }
+        if (error instanceof ProviderRefusal && error.stop) {
+          logApiFailure({ context: requestContext, stage: "generate_image_provider_stop", error, statusCode: 503, sid, generationId });
+          return fail(503, "Image service unavailable", "Pictures can't be made right now. Please try again later.");
         }
         logApiFailure({ context: requestContext, stage: "generate_image_handler", error, statusCode: 500, sid, generationId });
         return fail(500, "Failed to generate image", error instanceof Error ? error.message : "Failed to generate image");

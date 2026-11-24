@@ -219,46 +219,6 @@ export async function handleImageRequest(request: Request, mode: "generate" | "q
   const jsonWithSessionRefresh = (...args: Parameters<typeof NextResponse.json>) =>
     withSessionRefresh(NextResponse.json(...args));
 
-  // SECURITY: Rate limiting - use IP hash as primary identifier to prevent multi-session bypass
-  // Combined with sid for granular tracking per IP+session pair
-  // Use currentIpHash from validation when available, otherwise compute it
-  const ipHash = sessionValidation.currentIpHash ?? await hashIp(getClientIp(request));
-  const rateLimitIdentifier = `${ipHash}:${sid}`;
-
-  // Quotes have their own allowance, so reading prices never uses up the guest's generations.
-  const rateLimitEndpoint = quoteOnly ? "image-quote" : "generate-image";
-  const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
-    identifier: rateLimitIdentifier,
-    endpoint: rateLimitEndpoint,
-    serverSecret,
-  });
-
-  if (!rateLimitResult.allowed) {
-    emitMetric("api_rate_limit_blocks_total", {
-      route: requestContext.route,
-      endpoint: rateLimitEndpoint,
-    });
-    logWarn("api.rate_limited", {
-      route: requestContext.route,
-      requestId: requestContext.requestId,
-      sid: redactSid(sid),
-      retryAfter: rateLimitResult.retryAfter,
-    });
-    return jsonWithSessionRefresh(
-      {
-        error: "Rate limit exceeded",
-        message: "Too many image generation requests. Please wait before generating more.",
-        retryAfter: rateLimitResult.retryAfter,
-      },
-      {
-        status: 429,
-        headers: {
-          "Retry-After": String(rateLimitResult.retryAfter || 60),
-        },
-      }
-    );
-  }
-
   let requestBody: GenerateImageRequestBody;
   try {
     const parsed = await readJsonBodyWithLimit<unknown>(
@@ -388,6 +348,48 @@ export async function handleImageRequest(request: Request, mode: "generate" | "q
       logApiFailure({ context: requestContext, stage: "image_intent_lookup", error, statusCode: 503, sid });
       return jsonWithSessionRefresh({ error: "Unable to safely check image generation" }, { status: 503 });
     }
+  }
+
+  // SECURITY: Rate limiting, after the replay lookup so it counts new work only: a replay of this session's own request
+  // (same id, same inputs) is answered from its record above (#530). Use IP hash as primary identifier to prevent
+  // multi-session bypass
+  // Combined with sid for granular tracking per IP+session pair
+  // Use currentIpHash from validation when available, otherwise compute it
+  const ipHash = sessionValidation.currentIpHash ?? await hashIp(getClientIp(request));
+  const rateLimitIdentifier = `${ipHash}:${sid}`;
+
+  // Quotes have their own allowance, so reading prices never uses up the guest's generations.
+  const rateLimitEndpoint = quoteOnly ? "image-quote" : "generate-image";
+  const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
+    identifier: rateLimitIdentifier,
+    endpoint: rateLimitEndpoint,
+    serverSecret,
+  });
+
+  if (!rateLimitResult.allowed) {
+    emitMetric("api_rate_limit_blocks_total", {
+      route: requestContext.route,
+      endpoint: rateLimitEndpoint,
+    });
+    logWarn("api.rate_limited", {
+      route: requestContext.route,
+      requestId: requestContext.requestId,
+      sid: redactSid(sid),
+      retryAfter: rateLimitResult.retryAfter,
+    });
+    return jsonWithSessionRefresh(
+      {
+        error: "Rate limit exceeded",
+        message: "Too many image generation requests. Please wait before generating more.",
+        retryAfter: rateLimitResult.retryAfter,
+      },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(rateLimitResult.retryAfter || 60),
+        },
+      }
+    );
   }
 
   const parseGenerationNumber = (
