@@ -57,6 +57,12 @@ const THUMBNAIL_TIMEOUT_MS = 5_000;
 const PROVIDER_UNAVAILABLE_STATUSES = new Set([401, 402, 408, 429]);
 /** The most of the provider's reason kept in a log line. */
 const PROVIDER_REASON_LIMIT = 300;
+/**
+ * What a provider's reason may echo that must not reach a log: known key shapes (OpenRouter `sk-`, Google `AIza` and
+ * `AQ.`), a bearer credential in any case, and any unbroken run of 32 or more letters, digits or underscores, the shape
+ * of other providers' keys. Model names and request ids are broken by hyphens and stay readable.
+ */
+const CREDENTIAL_PATTERN = /\b(sk-[\w-]{8,}|AIza[\w-]{30,}|AQ\.[\w.-]{20,}|bearer\s+\S+|\w{32,})/gi;
 
 /** A provider answer other than success, with the reason it gave. */
 class ProviderError extends Error {
@@ -74,7 +80,7 @@ class ProviderError extends Error {
 /**
  * The provider's reason from its error body (`{ error: { message, metadata } }`), or a placeholder when it gave none.
  * When OpenRouter passes on a model provider's failure its message is generic ("Provider returned error") and the
- * provider's own answer is in `metadata.raw`, so that follows. Anything shaped like a key is masked.
+ * provider's own answer is in `metadata.raw`, so that follows. Anything shaped like a credential is masked.
  */
 async function providerReason(response: Response): Promise<string> {
   const body = (await response.json().catch(() => null)) as { error?: unknown } | null;
@@ -84,7 +90,7 @@ async function providerReason(response: Response): Promise<string> {
   const raw = text(fields.metadata?.raw);
   const provider = text(fields.metadata?.provider_name);
   const reason = [text(fields.message), raw && (provider ? `${provider}: ${raw}` : raw)].filter(Boolean).join(" | ");
-  return reason ? reason.replace(/\b(sk-[\w-]{8,}|AIza[\w-]{30,}|bearer\s+\S+)/gi, "[redacted]").slice(0, PROVIDER_REASON_LIMIT) : "no reason given";
+  return reason ? reason.replace(CREDENTIAL_PATTERN, "[redacted]").slice(0, PROVIDER_REASON_LIMIT) : "no reason given";
 }
 
 function imageTimeoutMsFromEnv() {

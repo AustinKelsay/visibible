@@ -1135,10 +1135,10 @@ describe("Image Generation API Credit Flow", () => {
 
         // OpenRouter passing on a model provider's failure puts the provider's own answer in metadata.raw.
         mockFetchResponse = { ok: false, status: 429, json: async () => ({ error: { code: 429, message: "Provider returned error", metadata: {
-          provider_name: "Google", raw: "Resource exhausted for key sk-or-v1-0123456789abcdef or AIzaSyA0123456789abcdefghijklmnopqrstu; bearer abc.def",
+          provider_name: "Google", raw: `Resource exhausted for google/gemini-3.1-flash-image-preview, key sk-or-v1-0123456789abcdef or AIzaSyA0123456789abcdefghijklmnopqrstu or AQ.Ab8RN6Lk0123456789abcdefghij or ${"f0e1d2c3".repeat(5)}; bearer abc.def`,
         } } }) };
         expect((await POST(createGenerateImageRequest({ ...body, requestId: "wrapped-provider" }))).status).toBe(503);
-        expect(loggedErrors(errorLog)).toContain("OpenRouter API error 429: Provider returned error | Google: Resource exhausted for key [redacted] or [redacted]; [redacted]");
+        expect(loggedErrors(errorLog)).toContain("OpenRouter API error 429: Provider returned error | Google: Resource exhausted for google/gemini-3.1-flash-image-preview, key [redacted] or [redacted] or [redacted] or [redacted]; [redacted]");
 
         mockFetchResponse = { ok: false, status: 402, json: async () => { throw new SyntaxError("Unexpected token <"); } };
         const unreadable = await POST(createGenerateImageRequest({ ...body, requestId: "unreadable" }));
