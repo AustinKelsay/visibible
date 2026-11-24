@@ -43,8 +43,9 @@ const topicListeners = new Set<() => void>();
 
 function chosenTopic(): QuestionTopic {
   try {
+    // A topic chosen after a write failed is newer than whatever storage still holds.
     const stored = sessionStorage.getItem(TOPIC_KEY);
-    return isQuestionTopic(stored) ? stored : topicWithoutStorage ?? "meaning";
+    return topicWithoutStorage ?? (isQuestionTopic(stored) ? stored : "meaning");
   } catch {
     return topicWithoutStorage ?? "meaning";
   }

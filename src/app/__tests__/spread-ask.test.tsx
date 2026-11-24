@@ -255,7 +255,9 @@ describe("question topics (#529)", () => {
     await openVerse();
     expect(topicStates(askFoot())[0]).toBe("Meaning (chosen)");
 
-    // Storage that cannot be written (a full quota), then cannot be read at all.
+    // Storage that holds a topic but can no longer be written (a full quota), then cannot be read at all.
+    await click(button("People & places", askFoot()));
+    expect(sessionStorage.getItem("visibible-ask-topic")).toBe("people-places");
     const write = vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => { throw new DOMException("Full", "QuotaExceededError"); });
     await click(button("Context", askFoot()));
     expect(topicStates(askFoot())[1]).toBe("Context (chosen)");
