@@ -1519,10 +1519,15 @@ describe("Image Generation API Credit Flow", () => {
       it("leaves the retried request alone when a withdrawal commits but its reply is lost (#530)", async () => {
         await prepareWork();
         const { POST } = await import("../../generate-image/route");
-        const withdrawn = Promise.withResolvers<void>();
-        const loseReply = Promise.withResolvers<void>();
-        const imageStarted = Promise.withResolvers<void>();
-        const finishImage = Promise.withResolvers<void>();
+        const signal = () => {
+          let resolve!: () => void;
+          const promise = new Promise<void>((done) => { resolve = done; });
+          return { promise, resolve };
+        };
+        const withdrawn = signal();
+        const loseReply = signal();
+        const imageStarted = signal();
+        const finishImage = signal();
         refuseReserve = "credits";
         afterWithdraw = async () => {
           withdrawn.resolve();
