@@ -130,6 +130,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const cancellingRef = useRef(false);
   // A Resume that lands while a run is still draining finds no runner to start, so that run restarts once it ends.
   const resumedDuringRunRef = useRef(false);
+  // Bumped by each run and by Dismiss; a run whose number is stale leaves shared run state to its successor.
+  const runGenerationRef = useRef(0);
   const isRunningRef = useRef(false);
   const lostLockRef = useRef(false);
   const pausedResolverRef = useRef<(() => void) | null>(null);
@@ -496,6 +498,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       if (!sid) return;
       if (isRunningRef.current) return;
       isRunningRef.current = true;
+      const generation = ++runGenerationRef.current;
 
       try {
         let completed = initialCounters.completedCount;
@@ -873,13 +876,16 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       } catch (error) {
         console.error("Bulk generation loop failed:", error);
       } finally {
-        pausedResolverRef.current = null;
-        isRunningRef.current = false;
-        releaseRunLock(bulkId);
-        const resumed = resumedDuringRunRef.current;
-        resumedDuringRunRef.current = false;
-        if (resumed && !isPausedRef.current && !isCancelledRef.current) {
-          setRunLoopTrigger((value) => value + 1);
+        // Dismiss already released this job's lock; the heartbeat now belongs to the successor.
+        if (runGenerationRef.current === generation) {
+          releaseRunLock(bulkId);
+          pausedResolverRef.current = null;
+          isRunningRef.current = false;
+          const resumed = resumedDuringRunRef.current;
+          resumedDuringRunRef.current = false;
+          if (resumed && !isPausedRef.current && !isCancelledRef.current) {
+            setRunLoopTrigger((value) => value + 1);
+          }
         }
       }
     },
@@ -1147,6 +1153,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   }, [sid, state.bulkId, state.currentVerseReference, state.status, cancelBulk, releaseRunLock]);
 
   const dismissBulkGeneration = useCallback(() => {
+    runGenerationRef.current++;
+    resumedDuringRunRef.current = false;
     isPausedRef.current = false;
     isCancelledRef.current = false;
     isRunningRef.current = false;

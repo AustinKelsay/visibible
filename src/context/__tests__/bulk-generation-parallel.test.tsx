@@ -427,3 +427,71 @@ it.each(["same tab", "another tab"])(
     }
   },
 );
+
+it("leaves the next chapter alone when a stopped and dismissed run finally drains", async () => {
+  const oldImage = deferred<Response>();
+  const newImage = deferred<Response>();
+  const reconcileNextJob = vi.fn();
+  const states = new Map([["bulk-1", ["queued", "queued"]], ["bulk-2", ["queued", "queued"]]]);
+  let creates = 0;
+  mocks.mutation.mockImplementation(async (args) => {
+    if ("verses" in args) {
+      creates++;
+      return {
+        created: true, status: "active", bulkId: `bulk-${creates}`, totalVerses: 2,
+        completedCount: 0, failedCount: 0, skippedCount: 0, totalCreditsUsed: 0,
+      };
+    }
+    if ("verseId" in args) {
+      const statuses = states.get(args.bulkGenerationId)!;
+      const order = Number(String(args.verseId).at(-1));
+      if (statuses[order] !== args.expectedCurrentStatus) return { updated: false };
+      statuses[order] = args.status;
+    }
+    if (args.id === "bulk-2" && Object.keys(args).sort().join(",") === "id,sid") {
+      reconcileNextJob();
+      // Mirror reconcileInterrupted's accepted-but-unfinished branch. The first image request
+      // is still live, so repairing its status opens it to a second runner's claim.
+      expect(states.get("bulk-2")![0]).toBe("generating");
+      states.get("bulk-2")![0] = "queued";
+      return { completed: 0, failed: 0, requeued: 1 };
+    }
+    return { updated: true };
+  });
+  mocks.client.query.mockImplementation(async (_fn, args) =>
+    states.get(args.bulkGenerationId)!.map((status, order) => ({
+      verseId: `verse-${order}`, reference: `Genesis 1:${order + 1}`, order, status,
+    })),
+  );
+  spyFetch(() => sent.at(-1)?.requestId.startsWith("bulk-bulk-1-") ? oldImage.promise : newImage.promise);
+  const root = await started(2);
+  vi.spyOn(console, "error").mockImplementation(() => {});
+  try {
+    await wait(() => expect(sent.map(({ requestId }) => requestId)).toEqual(["bulk-bulk-1-0"]));
+    await act(async () => bulk.pauseBulkGeneration());
+    await act(async () => bulk.resumeBulkGeneration());
+    await act(async () => bulk.cancelBulkGeneration());
+    expect(bulk.state.status).toBe("cancelled");
+    await act(async () => bulk.dismissBulkGeneration());
+
+    await act(async () => bulk.startBulkGeneration({
+      scope: { type: "chapters", count: 1 }, scopeLabel: "Genesis 2",
+      estimatedTotalCredits: 4, translation: "web",
+      queue: [0, 1].map((order) => ({ verseId: `verse-${order}`, reference: `Genesis 2:${order + 1}`, order })),
+    }));
+    await wait(() => expect(sent.map(({ requestId }) => requestId)).toEqual(["bulk-bulk-1-0", "bulk-bulk-2-0"]));
+    await act(async () => publishServerJob({
+      _id: "bulk-2", status: "active", totalVerses: 2, completedCount: 0,
+      failedCount: 0, totalCreditsUsed: 0, pausedReason: undefined, engine: undefined,
+    }));
+    expect(reconcileNextJob).not.toHaveBeenCalled();
+
+    await act(async () => oldImage.resolve(success()));
+    expect(sent.map(({ requestId }) => requestId)).toEqual(["bulk-bulk-1-0", "bulk-bulk-2-0"]);
+    expect(reconcileNextJob).not.toHaveBeenCalled();
+  } finally {
+    await act(async () => { oldImage.resolve(success()); newImage.resolve(success()); });
+    await act(async () => root.unmount());
+    mocks.client.query.mockReset();
+  }
+});
