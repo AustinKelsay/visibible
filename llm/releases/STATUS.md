@@ -1,5 +1,7 @@
 # Generic engine release status
 
+**Images unavailable instead of a 500 (24 November 2026, 21:12 UTC).** After the day's image outage (OpenRouter 402 on the old key's cap) the owner asked for the follow-ups "end to end". #543 (`main` at `9cb39d3f`, Vercel `dpl_BV6NJVDFDc1KCSX3iMz2JFR6ogj5`, frontend only) answers readers 503 "Images are temporarily unavailable" when OpenRouter cannot take any request (401, 402, 408, 429, 5xx), and logs the provider's status and reason, credentials masked. Other provider answers stay 500. Smoke: the reader and the image catalog answer; nothing painted. No spend ([deployment](2026-11-24-provider-errors/deployment.json)).
+
 **Ask question topics (24 November 2026, 20:38 UTC).** On the owner's "lets get this live and finished!", `main` at `7b501d58` (#533, #538) went out Convex first, then Vercel `dpl_2TLot1u1wJvdiyxg12jNorZRwqkx`.
 - Under "Ask about this verse", five question topics (Meaning, Context, People & places, Words, For today) choose which of a verse's 12 suggested questions show. The phone's Ask page has them too.
 - Every suggested question's answer is now stored and served free, as the first two were. Their answers score 1.94 of 2 in the chat eval ([record](2026-11-24-ask-topics-eval/README.md)).
