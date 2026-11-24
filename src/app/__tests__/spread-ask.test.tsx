@@ -140,6 +140,7 @@ const turnTexts = () => [...(askPage()?.querySelectorAll("[data-turn]") ?? [])].
 
 beforeEach(() => {
   clearBibleApiCache();
+  sessionStorage.clear();
   vi.clearAllMocks();
   Object.assign(session, { tier: "paid", credits: 100 });
   quoteRequests = [];
@@ -223,7 +224,7 @@ describe("asking at the foot of the words page", () => {
 });
 
 describe("question topics (#529)", () => {
-  it("shows a chosen topic's questions in place of Meaning's, asks one, and opens on Meaning again at the next verse", async () => {
+  it("shows a chosen topic's questions in place of Meaning's and asks one", async () => {
     await openVerse();
     await click(button("People & places", askFoot()));
     expect(topicStates(askFoot())).toEqual(["Meaning", "Context", "People & places (chosen)", "Words", "For today"]);
@@ -231,9 +232,49 @@ describe("question topics (#529)", () => {
     await click(button("Where does John 1:5 take place?", askFoot()));
     expect(chatRequests[0].messages.map((message) => message.parts.map((part) => part.text).join(""))).toEqual(["Where does John 1:5 take place?"]);
     expect(trackAskQuestionSent).toHaveBeenCalledWith(expect.objectContaining({ source: "suggestion", messageCount: 1 }));
+  });
+
+  it("keeps the chosen topic as the reader turns to other verses, on both sides of the words page", async () => {
+    await openVerse();
+    await click(button("Words", askFoot()));
 
     await openVerse("john", "1", "6");
+    expect(topicStates(askFoot())).toEqual(["Meaning", "Context", "People & places", "Words (chosen)", "For today"]);
+    expect(shownQuestions(askFoot())).toEqual(["What do the key words in John 1:6 mean in the original language?", "How do other translations word John 1:6?"]);
+    await click(button("Ask a question…"));
+    expect(topicStates(askPage()!)).toEqual(["Meaning", "Context", "People & places", "Words (chosen)", "For today"]);
+    await click(button("For today", askPage()!));
+
+    await openVerse("romans", "8", "28");
+    expect(topicStates(askFoot())[4]).toBe("For today (chosen)");
+    expect(shownQuestions(askFoot())).toEqual(["How can I apply Romans 8:28 today?", "What can I pray about from Romans 8:28?"]);
+  });
+
+  it("opens on Meaning in a new tab, and when the tab cannot store the topic it still keeps it while open", async () => {
+    sessionStorage.setItem("visibible-ask-topic", "not-a-topic");
+    await openVerse();
     expect(topicStates(askFoot())[0]).toBe("Meaning (chosen)");
+
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => { throw new DOMException("Full", "QuotaExceededError"); });
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => { throw new DOMException("Denied", "SecurityError"); });
+    await click(button("Context", askFoot()));
+    await openVerse("john", "1", "6");
+    expect(topicStates(askFoot())[1]).toBe("Context (chosen)");
+  });
+
+  it("names a verse or chapter of Psalms as one psalm, and the book as Psalms", async () => {
+    await openVerse("psalms", "23", "4");
+    expect(shownQuestions(askFoot())).toEqual(["What does Psalm 23:4 mean?", "Summarize Psalm 23 so far", "Why does Psalm 23:4 matter?"]);
+    await click(button("Context", askFoot()));
+    expect(shownQuestions(askFoot())).toEqual(["What leads up to Psalm 23:4?", "What is the historical context of Psalm 23:4?", "Who wrote Psalms, and for whom?"]);
+    expect(field("Ask about Psalm 23:4")).toBeTruthy();
+    // The request still names the book as the app stores it.
+    expect(quoteRequests[0]).toMatchObject({ context: { book: "Psalms", chapter: 23, verseRange: "4" } });
+    // Nothing the reader reads or hears on the page says "Psalms 23", while the book is still named Psalms.
+    const labels = [...container.querySelectorAll("[aria-label], [alt]")].map((node) => `${node.getAttribute("aria-label") ?? ""} ${node.getAttribute("alt") ?? ""}`);
+    expect([container.textContent, ...labels].filter((text) => /Psalms \d/.test(text ?? ""))).toEqual([]);
+    expect(button("Psalm 23:4, Contents")).toBeTruthy();
+    expect(wordsPage().textContent).toContain("Psalms · Chapter 23");
   });
 
   it("offers every topic's questions, with a first verse's historical context only once", async () => {

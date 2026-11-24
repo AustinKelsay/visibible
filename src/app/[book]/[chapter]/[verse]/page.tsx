@@ -14,6 +14,7 @@ import {
   formatReference,
   verseLocationToId,
 } from "@/lib/navigation";
+import { readableReference } from "@/lib/readable-reference";
 
 interface VersePageProps {
   params: Promise<{
@@ -38,7 +39,7 @@ export async function generateMetadata({
     };
   }
 
-  const reference = `${bookData.name} ${location.chapter}:${location.verse}`;
+  const reference = readableReference(`${bookData.name} ${location.chapter}:${location.verse}`);
 
   // Fetch verse text for description
   const translation = await getTranslationFromCookies();
@@ -90,7 +91,7 @@ export default async function VersePage({ params }: VersePageProps) {
     return (
       <div className="flex min-h-screen flex-col bg-[var(--background)]">
         <SiteHeader />
-        <PassageUnavailable reference={formatReference(location)} translation={translation} retryable={retryable} />
+        <PassageUnavailable reference={readableReference(formatReference(location))} translation={translation} retryable={retryable} />
       </div>
     );
   }
