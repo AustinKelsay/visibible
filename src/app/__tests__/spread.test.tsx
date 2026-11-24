@@ -368,9 +368,11 @@ describe("an unpainted verse", () => {
     await openVerse("john", "1", "5");
 
     expect(container.querySelector('img[alt^="Picture of"]')).toBeNull();
-    const glow = pictureArea()?.querySelector("img");
-    expect(glow?.getAttribute("src")).toBe("https://img.test/3-small.webp");
-    expect(glow?.getAttribute("alt")).toBe("");
+    // Blurred once into a canvas, never by a live CSS blur, which Firefox redraws in visible patches (#531).
+    const glow = pictureArea()?.querySelector("canvas");
+    expect(glow?.getAttribute("data-glow")).toBe("https://img.test/3-small.webp");
+    expect(glow?.getAttribute("aria-hidden")).toBe("true");
+    expect(glow?.className).not.toMatch(/blur/);
     expect(pictureArea()?.textContent).toContain("No picture for John 1:5 yet");
   });
 
@@ -382,6 +384,7 @@ describe("an unpainted verse", () => {
     await openVerse("john", "1", "5");
 
     expect(container.querySelector("img")).toBeNull();
+    expect(pictureArea()?.querySelector("canvas")).toBeNull();
     expect(pictureArea()?.textContent).toContain("No picture for John 1:5 yet");
   });
 
