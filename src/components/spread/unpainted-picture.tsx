@@ -128,13 +128,23 @@ export function UnpaintedPicture({ verseId, reference, styles }: UnpaintedPictur
 function Glow({ src }: { src: string }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
+    const element = canvas.current;
+    if (!element) return;
     const picture = new Image();
-    picture.onload = () => {
-      if (canvas.current) drawGlow(canvas.current, picture);
+    const draw = () => drawGlow(element, picture);
+    picture.onload = draw;
+    // A picture that cannot load leaves no glow, as the old <img> did, rather than the previous one.
+    picture.onerror = () => {
+      element.width = 0;
     };
     picture.src = src;
+    // The canvas is sized to the area it covers, so a resized area is drawn again.
+    const resized = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(draw);
+    resized?.observe(element);
     return () => {
       picture.onload = null;
+      picture.onerror = null;
+      resized?.disconnect();
     };
   }, [src]);
   return (

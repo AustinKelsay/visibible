@@ -1,13 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { drawGlow, GLOW_SHORT_EDGE, GLOW_STEPS } from "@/lib/glow";
+import { drawGlow, GLOW_CSS_PIXELS, GLOW_SHORT_EDGE, GLOW_STEPS } from "@/lib/glow";
 
 type Draw = { into: string; source: unknown; to: [number, number] };
 
-/** Canvases whose 2D contexts record each draw: which canvas it lands in, what it reads, and the size it draws at. */
-function fakeCanvases() {
+/**
+ * Canvases whose 2D contexts record each draw: which canvas it lands in, what it reads, and the size it draws at. `area`
+ * is the CSS box the on-screen canvas covers (0×0 before layout).
+ */
+function fakeCanvases(area = { width: 0, height: 0 }) {
   const draws: Draw[] = [];
   const make = (name: string) => {
-    const canvas = { name, width: 300, height: 150 } as unknown as HTMLCanvasElement & { name: string };
+    const canvas = { name, width: 300, height: 150, clientWidth: area.width, clientHeight: area.height } as unknown as HTMLCanvasElement & { name: string };
     const context = {
       canvas,
       imageSmoothingEnabled: false,
@@ -44,6 +47,23 @@ describe("drawGlow", () => {
     for (let step = 1; step < draws.length; step += 1) expect(draws[step].source).toBe(draws[step - 1].into);
     expect(draws.at(-1)?.into).toBe("target");
     expect(target.context.imageSmoothingEnabled && scratch.context.imageSmoothingEnabled).toBe(true);
+  });
+
+  it("keeps the thumbnail's size over a large screen's picture area", () => {
+    const { target, makeCanvas } = fakeCanvases({ width: 1920, height: 1200 });
+    drawGlow(target.canvas, picture, makeCanvas);
+
+    expect([target.canvas.width, target.canvas.height]).toEqual([688, GLOW_SHORT_EDGE]);
+  });
+
+  it("draws smaller over a phone's picture area, so the same steps blur as much of the screen as before", () => {
+    const { target, draws, makeCanvas } = fakeCanvases({ width: 390, height: 390 });
+    drawGlow(target.canvas, picture, makeCanvas);
+
+    // The picture covers 390 CSS pixels on its shorter side, so the canvas's shorter side is 390 / GLOW_CSS_PIXELS.
+    expect(target.canvas.height).toBe(Math.round(390 / GLOW_CSS_PIXELS));
+    expect(target.canvas.width).toBe(Math.round((1376 * 390) / 768 / GLOW_CSS_PIXELS));
+    expect(draws.at(-1)?.to).toEqual([target.canvas.width, target.canvas.height]);
   });
 
   it("never enlarges a picture smaller than the thumbnail", () => {

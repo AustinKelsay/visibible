@@ -12,14 +12,21 @@
  * this client code does not import), so a thumbnail is drawn at its own size. Were they to differ, it is only resized.
  */
 export const GLOW_SHORT_EDGE = 384;
-/** Halvings (and as many doublings): five, down to 12 pixels, give the softness of a 64-pixel CSS blur on a screen. */
+/** Halvings, and as many doublings. */
 export const GLOW_STEPS = 5;
+/**
+ * The CSS pixels one canvas pixel covers once the canvas is stretched over the picture area. After five halvings the
+ * smallest copy's pixels then span about 90 CSS pixels, the softness of the old 64-pixel CSS blur on any screen: a
+ * phone's smaller picture area gets a smaller canvas, so its glow stays as soft as before.
+ */
+export const GLOW_CSS_PIXELS = 2.8;
 
 type Size = { width: number; height: number };
 
 /**
- * Draws the picture, blurred, into the canvas, sizing the canvas to it. `makeCanvas` gives the scratch canvas the steps
- * alternate with. Does nothing before the picture has a size or without a 2D context.
+ * Draws the picture, blurred, into the canvas, sizing the canvas to the picture and to the area the canvas covers (its
+ * CSS box, which it fills as `object-fit: cover`). `makeCanvas` gives the scratch canvas the steps alternate with. Does
+ * nothing before the picture has a size or without a 2D context.
  */
 export function drawGlow(
   canvas: HTMLCanvasElement,
@@ -28,7 +35,9 @@ export function drawGlow(
 ): void {
   const shortEdge = Math.min(picture.naturalWidth, picture.naturalHeight);
   if (shortEdge <= 0) return;
-  const scale = Math.min(1, GLOW_SHORT_EDGE / shortEdge);
+  // The picture's shorter side as stretched over the area, in CSS pixels; before layout, the canvas takes the cap.
+  const coveredShortEdge = Math.max(canvas.clientWidth / picture.naturalWidth, canvas.clientHeight / picture.naturalHeight) * shortEdge;
+  const scale = Math.min(1, GLOW_SHORT_EDGE / shortEdge, coveredShortEdge > 0 ? coveredShortEdge / GLOW_CSS_PIXELS / shortEdge : 1);
   const full: Size = { width: Math.max(1, Math.round(picture.naturalWidth * scale)), height: Math.max(1, Math.round(picture.naturalHeight * scale)) };
   const scratch = makeCanvas();
   canvas.width = scratch.width = full.width;
