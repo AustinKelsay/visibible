@@ -466,6 +466,21 @@ describe("an unpainted verse", () => {
     expect(paintRequests).toHaveLength(2);
   });
 
+  it("says images are unavailable when the provider cannot paint, and tries again under a new request", async () => {
+    session = { ...session, tier: "paid", credits: 10 };
+    paintAnswers.push(() => json({ error: "Images are temporarily unavailable", message: "No credits were used. Please try again later.", retryable: false, requestId: "r" }, 503));
+    await openVerse("john", "1", "6");
+    await settle();
+    await act(async () => { button(/^Paint this verse/)!.click(); });
+    await flush();
+
+    expect(pictureArea()?.querySelector('[role="alert"]')?.textContent).toBe("Images are temporarily unavailable");
+    await settle();
+    await act(async () => { button("Try again")!.click(); });
+    expect(paintRequests).toHaveLength(2);
+    expect(paintRequests[1].requestId).not.toBe(paintRequests[0].requestId);
+  });
+
   it("waits for the reader to accept a fresh quote at a changed price, then paints with that quote", async () => {
     session = { ...session, tier: "paid", credits: 10 };
     paintAnswers.push(() => staleQuote("changed", quoteOf("fresh-quote", 3, 6)));
