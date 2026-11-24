@@ -315,3 +315,39 @@ it("finishes a paused run whose worker failed, releasing the lock, and paints th
   await act(async () => root.unmount());
   mocks.client.query.mockReset();
 });
+
+it("keeps Stop in force when an older progress snapshot arrives before the cancel lands", async () => {
+  const poll = holdTimer(3000);
+  const finishCancel = deferred<void>();
+  const cancelSent = deferred<void>();
+  const otherImage = deferred<Response>();
+  spyFetch((order) => order === 0
+    ? success()
+    : order === 1 && orders().filter((seen) => seen === 1).length === 1
+      ? Response.json({ status: "generating", reused: true, engine: "generic" }, { status: 202 })
+      : order === 2 ? otherImage.promise : success());
+  mocks.client.query.mockResolvedValue([]);
+  const root = await started(3);
+  await act(async () => poll.started);
+  await wait(() => expect(orders()).toEqual([0, 1, 2]));
+  await act(async () => otherImage.resolve(success()));
+  onMutation = (args) => {
+    if (Object.keys(args).sort().join(",") === "id,sid") {
+      cancelSent.resolve();
+      return finishCancel.promise;
+    }
+  };
+  let cancel: Promise<void> | undefined;
+  await act(async () => {
+    cancel = bulk.cancelBulkGeneration();
+    await cancelSent.promise;
+  });
+  // A snapshot from before the cancel reaches the subscription while the cancel is on its way.
+  await act(async () => publishServerJob({ status: "active", totalVerses: 3, completedCount: 2, failedCount: 0, totalCreditsUsed: 4, pausedReason: undefined }));
+  await act(async () => poll.fire());
+  await act(async () => {});
+  expect(orders()).toEqual([0, 1, 2]);
+  await act(async () => { finishCancel.resolve(); await cancel; });
+  await act(async () => root.unmount());
+  mocks.client.query.mockReset();
+});

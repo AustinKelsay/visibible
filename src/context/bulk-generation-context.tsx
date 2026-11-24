@@ -126,6 +126,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const [runLoopTrigger, setRunLoopTrigger] = useState(0);
   const isPausedRef = useRef(false);
   const isCancelledRef = useRef(false);
+  // Set while a Stop is on its way to Convex, so an older "active" snapshot can't undo it.
+  const cancellingRef = useRef(false);
   const isRunningRef = useRef(false);
   const lostLockRef = useRef(false);
   const pausedResolverRef = useRef<(() => void) | null>(null);
@@ -400,7 +402,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     if (!bulkForState) return;
 
     isPausedRef.current = bulkForState.status === "paused";
-    isCancelledRef.current = bulkForState.status === "cancelled";
+    isCancelledRef.current = bulkForState.status === "cancelled" || cancellingRef.current;
     if (bulkForState.status !== "paused") {
       pausedResolverRef.current?.();
       pausedResolverRef.current = null;
@@ -1107,6 +1109,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     const previousStatus = state.status;
     const previousCurrentVerseReference = state.currentVerseReference;
     isCancelledRef.current = true;
+    cancellingRef.current = true;
     isPausedRef.current = false;
     pausedResolverRef.current?.();
     pausedResolverRef.current = null;
@@ -1133,6 +1136,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         status: previousStatus,
         currentVerseReference: previousCurrentVerseReference,
       }));
+    } finally {
+      cancellingRef.current = false;
     }
   }, [sid, state.bulkId, state.currentVerseReference, state.status, cancelBulk, releaseRunLock]);
 
