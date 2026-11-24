@@ -1,0 +1,37 @@
+{
+ "command": "pairs",
+ "cases": {
+  "file": "evals/chat/cases.json",
+  "version": 3,
+  "sha256": "c0872847e457096639c4727abd28ff445795d676dd63879fe1cd404766882da3"
+ },
+ "runner": {
+  "commit": "76eeaf8a02f1f5ff3f725ecd40ead2d82576d4db",
+  "dirty": false
+ },
+ "seed": "ask-topics-535",
+ "chunk": 15,
+ "rubric": {
+  "file": "evals/chat/scoring.md",
+  "sha256": "1e1f437c80713003be8c7418447bd1d1827a7710e16ff80c2d7b1b07a30c0344"
+ },
+ "a": {
+  "results": "llm/releases/2026-11-24-ask-topics-eval/luna-1/results.ndjson",
+  "arm": "candidate",
+  "label": "luna-1",
+  "manifest": {
+   "dir": "llm/releases/2026-11-24-ask-topics-eval/luna-1",
+   "sha256": "45a8d647ebfa6dcbc53137b298bb0bd5e4b5dbebc08d47957cfed651412b429e"
+  }
+ },
+ "b": {
+  "results": "llm/releases/2026-11-24-ask-topics-eval/luna-2/results.ndjson",
+  "arm": "candidate",
+  "label": "luna-2",
+  "manifest": {
+   "dir": "llm/releases/2026-11-24-ask-topics-eval/luna-2",
+   "sha256": "e01643ffd8f84624c4e511621ba2fa2c9cb3942ff9acdbe1c68f305c85b6b22b"
+  }
+ },
+ "keySha256": "e11dfc9195a9f701d665bc6f8210c148345439deacbfabf871d83690a52ef570"
+}

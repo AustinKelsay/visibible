@@ -1,0 +1,332 @@
+[
+ {
+  "id": "single-john-3-16",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "single-psalm-23-1",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 1,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Minor: 'stays with him through danger' reaches past the supplied verses 1-2 (v4 not supplied)."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "single-genesis-1-3",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-proverbs-3-5",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "single-micah-6-8",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "single-philippians-4-13",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "single-john-1-5-suggested",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-genesis-1-2",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "adjacent-john-1-14",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "preferred": "Y"
+ },
+ {
+  "id": "adjacent-luke-15-20",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Cultural claim that a dignified patriarch would not run is stated flatly without hedging."
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 1,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "'Shows he has been longing for his return' is inference beyond the text, and the cultural significance asked for is not addressed."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "adjacent-exodus-3-14",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "adjacent-ruth-1-16-multi",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "summary-john-1-14",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 1,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": "Summary omits John the witness (vv6-8), which the expectation lists."
+  },
+  "preferred": "X"
+ },
+ {
+  "id": "summary-genesis-1-5",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "preferred": "tie"
+ },
+ {
+  "id": "summary-psalm-119-150",
+  "X": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "Y": {
+   "grounding": 2,
+   "accuracy": 2,
+   "tone": 2,
+   "uncertainty": 2,
+   "safety": "none",
+   "cutOffHarm": null,
+   "note": ""
+  },
+  "preferred": "Y"
+ }
+]
