@@ -1,7 +1,7 @@
 # Told events: paint what a speech tells, not the speaker again
 
 **Prompt `2026-11-24-lean-v7` paints words that tell of another time or place as what they tell.** It keeps the speaker scene for words addressed to the people present. A text preview read 40 verses:
-- Told events rose from 7 and 6 of 26 to 23 and 22 (raw). With the same reading of descriptions applied to every round, that is 8 and 8 to 24 and 24.
+- Told events rose from 7 and 6 of 26 to 23 and 22 (raw). With the same reading of descriptions applied to every round, that is 7 and 8 to 24 and 24.
 - Speeches to the people present kept the speaker in every round.
 
 Six real images came out as intended, apart from one depiction fault (below). The rule was tuned on these same 40 verses. A further 14 untouched verses were previewed afterwards. The work spent $0.4979 of the owner's $0.50 OpenRouter budget on the dev key, with no production write. **Not released:** see [Before release](#before-release).
@@ -24,7 +24,7 @@ In HOW TO READ IT ([lean.ts](../../../src/lib/engine/lean.ts)):
 
 Rule 3 now reads "Nothing from outside the era of what is painted" (was "the moment's era"), so the rules no longer require a told event to take the section's era. That is intent: the preview cannot see dress, and rule 3 was changed in every round, never alone.
 
-A full picture was chosen over a bubble or inset. Rule 2 already forbids collage, a bubble reads as a comic in the painterly styles, and the reader sees the verse beside the picture, so the speech frame is not lost. The "never both" clause guards a fault seen in no preview or image. It stays because the owner raised bubbles.
+A full picture was chosen over a bubble or inset. Rule 2 already forbids collage, a bubble reads as a comic in the painterly styles, and the reader sees the verse beside the picture, so the speech frame is not lost. The "never both" clause guards a fault seen once, at baseline (Matthew 13:4 in run 0a: Jesus and his crowd beside the sower), and never under the new rule. It stays because the owner raised bubbles.
 
 ## Method
 
@@ -40,6 +40,18 @@ The climb had a fixed evidence set and metric. The harness was scratch code outs
   - A `present` case passes when the speaker is visible.
   - Any inset fails. Controls were read by hand.
 
+  The call sent the full prompt as the user message, with `temperature: 0.2`, reasoning disabled and `max_tokens: 500`, under this system message, verbatim:
+
+  ```text
+  You are previewing an illustration before painting it. Do not paint. Read the brief and decide exactly what single picture you would paint, then reply with only this JSON:
+  {"description": "two or three sentences: who and what is visible, where and when",
+   "speaker": "the person in the story who is saying or writing the MOMENT's words (for example the one giving the speech, prayer or story they belong to), or null if the MOMENT is plain narration",
+   "speakerVisible": true or false (is that speaker visible in your picture),
+   "listenersVisible": true or false (are people listening to that speaker visible),
+   "showsToldEvent": true or false (does your picture show events, people or places the words tell about, from another time or place than where the words are spoken),
+   "insetOrBubble": true or false (does the picture contain a second scene, inset, bubble, vision cloud or panel)}
+  ```
+
   One call costs about $0.0006. On the baseline it reproduced production's choices on Acts 13. Nano Banana 2.1 in text mode cost $0.0115 a call, because it reasons first, which was too much for the budget.
 - **Real images:** v7 prompts on `google/gemini-nano-banana-2.1` at 16:9, 1K, with production's reference sheets attached as production attaches them. They sit beside production's existing lean-v6 images, which cost nothing.
 
@@ -47,7 +59,7 @@ The climb had a fixed evidence set and metric. The harness was scratch code outs
 
 | Round | Change | Told, raw (of 26) | Told, adjudicated | Present (of 10) |
 | --- | --- | --- | --- | --- |
-| 0, lean-v6 | | 7, 6 (two runs) | 8, 8 | 10, 10 |
+| 0, lean-v6 | | 7, 6 (two runs) | 7, 8 | 10, 10 |
 | 1 | The rule as first proposed | 19 | 21 | 10 |
 | 2 | + a speech begun earlier; "even when the words also address the listeners" | 21 | 21 | 10 |
 | **3, kept** | + "judge what these words do, not their neighbours"; quoted people belong to the told scene | **23, 22** | **24, 24** | 10, 10 |
@@ -56,8 +68,8 @@ The climb had a fixed evidence set and metric. The harness was scratch code outs
 
 Rounds 4 and 5 were reverted. Each [proxy file](proxy/) holds every case's answer, graded by the rule above.
 
-**Adjudication** reads each failing told case's description. It counts the case as a pass when the description shows the told scene with no teller and nobody listening to the teller. The flags failed there because the preview named a person quoted inside the telling as "the speaker":
-- Matthew 13:4, the sower alone: round 0, both runs.
+**Adjudication** reads each failing told case's description. It counts the case as a pass when the description shows the told scene with no teller and nobody listening to the teller. The flags failed there because the preview counted a quoted person, or the told scene's own crowd, as the speaker or listeners, or flagged a speaker its description does not show:
+- Matthew 13:4, the sower alone: round 0b. In run 0a Jesus and his crowd stand beside the sower, so it stays a fail.
 - Acts 13:24, John at the Jordan: round 0b and round 1.
 - Genesis 41:17, Pharaoh at the Nile in his dream: round 1 and round 3b.
 - Acts 13:25, John at the Jordan: round 3, both runs.
@@ -75,14 +87,26 @@ Rounds 4 and 5 were reverted. Each [proxy file](proxy/) holds every case's answe
 
 ## Held-out preview
 
-After the review, 14 verses no round had seen were previewed under v6 and v7 ([holdout-cases.json](holdout-cases.json), [v6](proxy/holdout-v6.json), [v7](proxy/holdout-v7.json)). Read by hand:
+After the review, 14 verses no round had seen were previewed once each under v6 and v7 ([holdout-cases.json](holdout-cases.json), [v6](proxy/holdout-v6.json), [v7](proxy/holdout-v7.json)). They were read by hand, not graded; with one preview per version, a difference may be noise. Listeners were flagged visible in 11 of the 14 under v6 and in 4 under v7.
 
-- **Letters, psalms, wisdom, oracle** (Romans 8:28, 1 Corinthians 13:12, Proverbs 25:3, Psalm 23:2, Isaiah 40:29): the same pictures under both. The author still appears beside their words, as under v6. No regression, and no gain.
+- **Letters, wisdom, oracle and psalm:**
+  - Romans 8:28 moves from Paul addressing a group to Paul alone in a prison cell.
+  - Proverbs 25:3 loses the scribe and shows the king alone.
+  - Isaiah 40:29 loses the weary labourer receiving strength.
+  - 1 Corinthians 13:12 and Psalm 23:2 are much the same.
+  - In four of the five the author still appears beside their words, as under v6.
 - **Throne visions told in a speech:**
   - Micaiah's vision (1 Kings 22:19): v6 put a radiance "in the shape of a throne" behind the kings. v7 paints the heavenly court around an empty seat.
-  - Daniel 7:9 and Revelation 4:6: an empty throne under both.
-- **Acts 7:56** ("I see the heavens opened…"): v6 showed Stephen looking up. v7 paints the opened heavens with Jesus standing and no Stephen, though the text puts him there, seeing it. That is a regression on a vision the teller sees as he speaks.
-- **Short replies that recount** (Genesis 3:13, Daniel 6:22), **Job 38:4**, the **opening of Stephen's speech** (Acts 7:2) and **a prophecy about the same place** (Mark 13:2, the temple shown intact): unchanged.
+  - Daniel 7:9: v7 drops Daniel and the Babylonian hall and paints the empty fiery throne.
+  - Revelation 4:6: an empty throne under both.
+- **Told scenes with the teller inside:** Daniel 6:22 moves from Daniel answering Darius at the pit to Daniel in the den, with the lions' mouths shut under a descending light.
+- **Regression:** Acts 7:56 ("I see the heavens opened…"). v6 showed Stephen looking up. In the preview, v7 paints the opened heavens with Jesus standing and no Stephen, though the text puts him there, seeing it.
+- **Misses under the rule:**
+  - Acts 7:2 ("Brothers and fathers, listen. The God of glory appeared to our father Abraham…") is history inside a speech, the rule's core case, yet v7 kept Stephen before the Sanhedrin.
+  - Mark 13:2, a prophecy about the same temple, keeps Jesus and the intact temple. The rule says "away from where they are said", which does not plainly cover the same place at another time; "at another time or place" is the wording to test next.
+- **Unchanged:** Genesis 3:13 (Eve in the garden) and Job 38:4 (Job on the ash heap).
+
+So beyond the tuning set, the rule changed told scenes in four of the 14 (one of them a regression), and missed its core case once.
 
 ## Real images
 
@@ -102,15 +126,15 @@ That is the operator's unblinded look, not a blind score, and six images cannot 
 ## Known gaps
 
 - The 40 verses were both the tuning set and the measure. The 14 held-out verses were only read, not graded, and the real images cover Acts 13 and one parable.
-- Acts 7:56: a vision the teller sees as he speaks loses the teller.
+- Held out: Acts 7:56 (in the preview) loses the teller of a vision he sees as he speaks; Acts 7:2 and Mark 13:2 keep the speaker scene.
 - People only told of (David, Moses, Samuel) are not in the section's cast. They are drawn as unnamed figures and will not match their look in their own books.
 - Name matching offers Paul's canon and sheet ("Saul/Paul") as "named here" for King Saul in Acts 13:20-22.
-- The SETTING block and the work brief still describe the section's place and era unconditionally. Rule 3 outranks the brief, and no told preview or image took the section's dress or place, but the cue is still there.
+- The SETTING block and the work brief still describe the section's place and era unconditionally. Rule 3 outranks the brief. The six images took neither the section's dress nor its place. In the previews, which cannot show dress, only Judges 9:8 took a place from its section: Jotham's fable is set on Mount Gerizim, where he tells it.
 - Every prompt grows by about 670 characters against a 12,000-character cap that refuses rather than trims. Reviewers built every moment of the committed suite snapshot: the Bible's longest prompt is 9,528 characters, and Alice's court scenes reach about 11,500. Production sections with larger casts were not checked.
 
 ## Before release
 
-[The image eval workflow](../../workflow/IMAGE_EVAL_AND_RELEASE.md) requires an image run of the regression suite (about $9) and the consistency pairing for a prompt change. Neither was run: the budget for this work was $0.50. Releasing v7 waits for that run or for the owner to waive it. Suite cases whose prompts this changes include:
+[The image eval workflow](../../workflow/IMAGE_EVAL_AND_RELEASE.md) requires, for a prompt change, an image run of the regression suite (about $9) that passes its gate, the consistency pairing, and the owner's sign-off. None was done: the budget for this work was $0.50. Releasing v7 waits for those gates or for the owner to waive them. The new line is in every prompt; suite cases whose pictures it is most likely to change include:
 - Luke 15:20 and 15:22, Deuteronomy 1:7, Matthew 5:40
 - Daniel 7:9 (a golden case), Isaiah 6:2, Isaiah 40:29
 - Revelation 4:6 and 21:6, Job 15:24, Romans 8:28, 1 Corinthians 13:12, Hebrews 12:1, Proverbs 8:21, Daniel 11:14
