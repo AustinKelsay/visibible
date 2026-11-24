@@ -459,6 +459,11 @@ export const pause = mutation({
   },
   handler: async (ctx, args) => {
     const bulk = await requireOwnedBulkGeneration(ctx, args.sid, args.id);
+    // The reader may have paused while a request was out; the reason it then came back with still says why.
+    if (bulk.status === "paused" && args.reason) {
+      await ctx.db.patch(args.id, { pausedReason: args.reason, updatedAt: Date.now() });
+      return { updated: true };
+    }
     if (bulk.status !== "active") return { updated: false };
 
     await ctx.db.patch(args.id, {

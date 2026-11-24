@@ -73,6 +73,14 @@ describe("bulk engine and style binding", () => {
     const resumed = await job();
     expect(resumed!.status).toBe("active");
     expect(resumed!.pausedReason).toBeUndefined();
+    // Paused by the reader while a request was out, which came back with a reason: the reason is kept.
+    await owner.mutation(api.bulkGenerations.pause, { sid: "owner", id: bulkId });
+    expect(await owner.mutation(api.bulkGenerations.pause, { sid: "owner", id: bulkId, reason: "images_unavailable" })).toEqual({ updated: true });
+    expect(await job()).toMatchObject({ status: "paused", pausedReason: "images_unavailable" });
+    // A stopped job is not paused again.
+    await owner.mutation(api.bulkGenerations.cancel, { sid: "owner", id: bulkId });
+    expect(await owner.mutation(api.bulkGenerations.pause, { sid: "owner", id: bulkId, reason: "images_unavailable" })).toEqual({ updated: false });
+    expect(await job()).toMatchObject({ status: "cancelled" });
   });
 
   it("settles interrupted items from request state: saved outcomes kept, accepted work replayed, nothing repeated", async () => {
