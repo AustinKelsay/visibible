@@ -7,7 +7,7 @@ import { trackMapLinkShown, trackMapOpened } from "@/lib/analytics";
 import { verseSetting, type VerseSetting } from "@/lib/verse-setting";
 import { LayerProvider } from "../layers";
 import { MapLink, PlaceMapStage, resetMapMode } from "../place-map";
-import { project } from "@/lib/bible-map-projection";
+import { MAP_BOUNDS, project } from "@/lib/bible-map-projection";
 import PlaceMapView, { frameSetting, settingNote } from "../place-map-view";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -191,6 +191,17 @@ describe("the map", () => {
       expect(y).toBeGreaterThanOrEqual(frame.y);
       expect(y).toBeLessThanOrEqual(frame.y + frame.height);
     }
+  });
+
+  it("never frames more than the outline, even for a setting across the Bible world", () => {
+    // 1 Kings 22:48: ships of Tarshish to go to Ophir for gold.
+    const frame = frameSetting(setting("1KI", 22, 48));
+    const [west, north] = project(MAP_BOUNDS.west, MAP_BOUNDS.north);
+    const [east, south] = project(MAP_BOUNDS.east, MAP_BOUNDS.south);
+    expect(frame.x).toBeGreaterThanOrEqual(west - 1e-6);
+    expect(frame.y).toBeGreaterThanOrEqual(north - 1e-6);
+    expect(frame.x + frame.width).toBeLessThanOrEqual(east + 1e-6);
+    expect(frame.y + frame.height).toBeLessThanOrEqual(south + 1e-6);
   });
 
   it("labels a region instead of pinning it", async () => {

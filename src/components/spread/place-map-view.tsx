@@ -28,8 +28,9 @@ export function frameSetting(setting: VerseSetting): MapFrame {
   const lats = sites.map((site) => site.lat);
   const minSpan = setting.places.every((place) => place.region) ? MIN_REGION_SPAN : MIN_SPAN;
   const centre = { lon: (Math.min(...lons) + Math.max(...lons)) / 2, lat: (Math.min(...lats) + Math.max(...lats)) / 2 };
-  const latSpan = Math.max(minSpan, (Math.max(...lats) - Math.min(...lats)) * 1.5);
-  const lonSpan = Math.max(minSpan, (Math.max(...lons) - Math.min(...lons)) * 1.5);
+  // Never wider than the outline: a setting spanning the Bible world (Tarshish to Ophir) shows all of it.
+  const latSpan = Math.min(MAP_BOUNDS.north - MAP_BOUNDS.south, Math.max(minSpan, (Math.max(...lats) - Math.min(...lats)) * 1.5));
+  const lonSpan = Math.min(MAP_BOUNDS.east - MAP_BOUNDS.west, Math.max(minSpan, (Math.max(...lons) - Math.min(...lons)) * 1.5));
   const clamp = (value: number, low: number, high: number) => Math.min(Math.max(value, low), high);
   const west = clamp(centre.lon - lonSpan / 2, MAP_BOUNDS.west, MAP_BOUNDS.east - lonSpan);
   const north = clamp(centre.lat + latSpan / 2, MAP_BOUNDS.south + latSpan, MAP_BOUNDS.north);
