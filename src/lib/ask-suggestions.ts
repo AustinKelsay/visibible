@@ -20,19 +20,18 @@ export function suggestedQuestions(bookName: string, chapter: number, verse: num
   const reference = `${bookName} ${chapter}:${verse}`;
   const historicalContext = `What is the historical context of ${reference}?`;
   const firstVerse = verse <= 1;
-  const questions: [QuestionTopic, string][] = [
-    ["meaning", `What does ${reference} mean?`],
-    ["meaning", firstVerse ? historicalContext : `Summarize ${bookName} ${chapter} so far`],
-    ["meaning", `Why does ${reference} matter?`],
-    ["context", `What leads up to ${reference}?`],
-    ...(firstVerse ? [] : [["context", historicalContext] as [QuestionTopic, string]]),
-    ["context", `Who wrote ${bookName}, and for whom?`],
-    ["people", `Who is in ${reference}?`],
-    ["people", `Where does ${reference} take place?`],
-    ["words", `What do the key words in ${reference} mean in the original language?`],
-    ["words", `How do other translations word ${reference}?`],
-    ["today", `How can I apply ${reference} today?`],
-    ["today", `What can I pray about from ${reference}?`],
+  return [
+    { topic: "meaning", text: `What does ${reference} mean?` },
+    { topic: "meaning", text: firstVerse ? historicalContext : `Summarize ${bookName} ${chapter} so far` },
+    { topic: "meaning", text: `Why does ${reference} matter?` },
+    { topic: "context", text: `What leads up to ${reference}?` },
+    ...(firstVerse ? [] : [{ topic: "context" as const, text: historicalContext }]),
+    { topic: "context", text: `Who wrote ${bookName}, and for whom?` },
+    { topic: "people", text: `Who is in ${reference}?` },
+    { topic: "people", text: `Where does ${reference} take place?` },
+    { topic: "words", text: `What do the key words in ${reference} mean in the original language?` },
+    { topic: "words", text: `How do other translations word ${reference}?` },
+    { topic: "today", text: `How can I apply ${reference} today?` },
+    { topic: "today", text: `What can I pray about from ${reference}?` },
   ];
-  return questions.map(([topic, text]) => ({ topic, text }));
 }
