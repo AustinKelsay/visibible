@@ -11,7 +11,10 @@ import PlaceMapView, { settingNote } from "../place-map-view";
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
 vi.mock("@/context/session-context", () => ({ useSession: () => ({ tier: "paid", credits: 0 }) }));
-vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => false }));
+const convex = vi.hoisted(() => ({ enabled: false, picture: null as { imageUrl: string; thumbnailUrl: string } | null }));
+vi.mock("@/components/convex-client-provider", () => ({ useConvexEnabled: () => convex.enabled }));
+vi.mock("convex/react", () => ({ useQuery: () => convex.picture }));
+vi.mock("@/context/work-scope-context", () => ({ usePictureStyles: () => ({ chosen: "classical", visible: ["classical"], order: ["classical"] }) }));
 vi.mock("@/lib/analytics", () => ({ trackMapLinkShown: vi.fn(), trackMapOpened: vi.fn() }));
 
 globalThis.ResizeObserver ??= class {
@@ -29,6 +32,8 @@ beforeEach(() => {
   vi.mocked(trackMapLinkShown).mockClear();
   vi.mocked(trackMapOpened).mockClear();
   resetMapMode();
+  convex.enabled = false;
+  convex.picture = null;
   container = document.createElement("div");
   document.body.appendChild(container);
   root = createRoot(container);
@@ -97,6 +102,33 @@ describe("the map link", () => {
     await renderReader(null);
     expect(map()).toBeNull();
     expect(button("Back to the picture")).toBeUndefined();
+  });
+
+  it("hands focus back to the link when the map's own close button goes", async () => {
+    await renderReader(setting("EXO", 14, 2));
+    await act(async () => button("See where this happened")!.click());
+    button("Close the map")!.focus();
+    await act(async () => button("Close the map")!.click());
+    expect(document.activeElement).toBe(button("See where this happened"));
+  });
+
+  it("shrinks the verse's picture to a window that brings it back", async () => {
+    convex.enabled = true;
+    convex.picture = { imageUrl: "https://example.test/full.jpg", thumbnailUrl: "https://example.test/thumb.jpg" };
+    await renderReader(setting("EXO", 14, 2));
+    await act(async () => button("See where this happened")!.click());
+    const painting = button("Back to the picture of Exodus 14:2");
+    expect(painting?.querySelector("img")?.getAttribute("src")).toBe("https://example.test/thumb.jpg");
+    await act(async () => painting!.click());
+    expect(map()).toBeNull();
+  });
+
+  it("has no picture window for an unpainted verse", async () => {
+    convex.enabled = true;
+    await renderReader(setting("EXO", 14, 2));
+    await act(async () => button("See where this happened")!.click());
+    expect(map()).not.toBeNull();
+    expect(button("Back to the picture of Exodus 14:2")).toBeUndefined();
   });
 
   it("gives way to the whole-picture view", async () => {

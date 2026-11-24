@@ -18,7 +18,7 @@ import { SpreadPicture } from "@/components/spread/spread-picture";
 import { WORDS_PAGE_WIDTH_CSS } from "@/components/spread/words-page-width";
 import { WordsPage } from "@/components/spread/words-page";
 import { WholePictureCaption } from "@/components/spread/whole-picture";
-import { PlaceMapStage, useMapMode } from "@/components/spread/place-map";
+import { PlaceMapStage, useMapShows } from "@/components/spread/place-map";
 import { FeedbackPrompt } from "@/components/feedback-prompt";
 import { useSession } from "@/context/session-context";
 import { useMomentWord, useWorkScope } from "@/context/work-scope-context";
@@ -118,7 +118,7 @@ function SpreadScreen({
     prevUrl, nextUrl, onTurn, setting,
   };
   // The map experiment (#532): while it shows, it takes the picture's place and the picture under it is inert.
-  const mapShows = useMapMode().on && Boolean(setting) && !whole;
+  const mapShows = useMapShows(setting, whole);
   const { openLayer, openLayerById } = useLayers();
   // The occasional feedback prompt, only when the reader turned it on in Advanced.
   const { feedbackPrompts } = useAdvancedSettings();

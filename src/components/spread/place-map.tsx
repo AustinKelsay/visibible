@@ -35,10 +35,18 @@ function subscribe(listener: () => void) {
   };
 }
 
+const openMap = () => setMapOn(true);
+const closeMap = () => setMapOn(false);
+
 /** Whether the map is on, and functions to turn it on and off. */
 export function useMapMode() {
   const on = useSyncExternalStore(subscribe, () => mapOn, () => false);
-  return { on, open: () => setMapOn(true), close: () => setMapOn(false) };
+  return { on, open: openMap, close: closeMap };
+}
+
+/** Whether the map shows in the picture's place: it is on, the verse has a setting and the whole picture is not open. */
+export function useMapShows(setting: VerseSetting | null | undefined, wholePicture: boolean): boolean {
+  return useMapMode().on && Boolean(setting) && !wholePicture;
 }
 
 /** Turns the map off; for tests, which share this module's state. */
@@ -46,7 +54,8 @@ export function resetMapMode() {
   setMapOn(false);
 }
 
-function summary(setting: VerseSetting) {
+/** What analytics records about a setting. */
+function settingKind(setting: VerseSetting) {
   return { inherited: setting.fromVerse !== null, debated: setting.places.some((place) => place.debated) };
 }
 
@@ -66,34 +75,43 @@ export function MapLink({ setting, bookName, chapter, verseNumber }: {
 }) {
   const { on, open, close } = useMapMode();
   const { tier, credits } = useSession();
-  const props = { book: bookName, chapter, verse: verseNumber, ...summary(setting), tier, hasCredits: credits > 0 };
+  const props = { book: bookName, chapter, verse: verseNumber, ...settingKind(setting), tier, hasCredits: credits > 0 };
   // Shown once per spread, when the link offers the map (not while it reads "Back to the picture").
   const reported = useRef(false);
   useEffect(() => {
     if (on || reported.current) return;
     reported.current = true;
     trackMapLinkShown(props);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- reported once, with the props of that moment
+  }, [on]);
 
-  if (on) {
-    return (
-      <button type="button" onClick={close} className={LINK}>
-        <ImageIcon size={15} strokeWidth={1.75} aria-hidden="true" className="shrink-0 not-italic" />
-        Back to the picture
-      </button>
-    );
-  }
+  // The map's close button and painting window leave with the map; focus comes back to this link rather than the page.
+  const link = useRef<HTMLButtonElement>(null);
+  const wasOn = useRef(on);
+  useEffect(() => {
+    if (wasOn.current && !on && (document.activeElement === null || document.activeElement === document.body)) {
+      link.current?.focus();
+    }
+    wasOn.current = on;
+  }, [on]);
+
   return (
     <button
+      ref={link}
       type="button"
       onClick={() => {
+        if (on) return close();
         trackMapOpened(props);
         open();
       }}
       className={LINK}
     >
-      <MapPin size={15} strokeWidth={1.75} aria-hidden="true" className="shrink-0" />
-      See where this happened
+      {on ? (
+        <ImageIcon size={15} strokeWidth={1.75} aria-hidden="true" className="shrink-0 not-italic" />
+      ) : (
+        <MapPin size={15} strokeWidth={1.75} aria-hidden="true" className="shrink-0" />
+      )}
+      {on ? "Back to the picture" : "See where this happened"}
     </button>
   );
 }
@@ -109,9 +127,9 @@ export function PlaceMapStage({ setting, verseId, reference, hidden }: {
   /** The whole-picture view is open, which shows the picture. */
   hidden: boolean;
 }) {
-  const { on, close } = useMapMode();
+  const { close } = useMapMode();
   const { openLayer } = useLayers();
-  const shows = on && Boolean(setting) && !hidden;
+  const shows = useMapShows(setting, hidden);
 
   useEffect(() => {
     if (!shows || openLayer !== null) return;

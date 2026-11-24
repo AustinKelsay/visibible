@@ -111,8 +111,8 @@ export default function PlaceMapView({ setting, reference, onClose, picture }: {
         <path d={outline.lakes} fill={SEA} stroke={COAST} strokeWidth={0.8} vectorEffect="non-scaling-stroke" />
         <path d={outline.rivers} fill="none" stroke={RIVER} strokeWidth={1.2} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
         {setting.places.map((place) => {
+          const [x, y] = project(place.sites[0].lon, place.sites[0].lat);
           if (place.region && !place.debated) {
-            const [x, y] = project(place.sites[0].lon, place.sites[0].lat);
             return (
               <text key={place.id} data-region={place.name} x={x} y={y} textAnchor="middle" fontSize={px(17)} letterSpacing={px(5)} fill={INK} fillOpacity={0.7} className="font-serif uppercase">
                 {place.name}
@@ -120,7 +120,6 @@ export default function PlaceMapView({ setting, reference, onClose, picture }: {
             );
           }
           if (!place.debated) {
-            const [x, y] = project(place.sites[0].lon, place.sites[0].lat);
             return (
               <g key={place.id} data-pin={place.name}>
                 <circle cx={x} cy={y} r={px(5)} fill={INK} stroke={SEA} strokeWidth={px(1.5)} />
