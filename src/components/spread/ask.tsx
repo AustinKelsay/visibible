@@ -13,7 +13,7 @@ import { useAdvancedSettings } from "@/lib/advanced-settings";
 import { MAX_USER_MESSAGE_CHARS } from "@/lib/chat-limits";
 import { formatQuote } from "@/lib/quote-display";
 import { freeAnswersUsedMessage } from "@/lib/free-answer-display";
-import { QUESTION_TOPICS, suggestedQuestions, type QuestionTopic } from "@/lib/ask-suggestions";
+import { questionsByTopic, type QuestionTopic } from "@/lib/ask-suggestions";
 
 export interface AskVerse {
   bookName: string;
@@ -132,10 +132,10 @@ function useAskState({ bookName, chapter, verseNumber, verseText }: AskVerse) {
   // Meaning holds a summary of the chapter so far, which the server answers from the chapter's text up to this verse.
   // Their answers are stored (#505).
   const [topic, setTopic] = useState<QuestionTopic>("meaning");
-  const questions = suggestedQuestions(bookName, chapter, verseNumber);
-  const suggestions = questions.filter((suggestion) => suggestion.topic === topic).map((suggestion) => suggestion.text);
+  const topics = questionsByTopic(bookName, chapter, verseNumber);
+  const suggestions = topics.find((item) => item.id === topic)?.questions ?? [];
 
-  return { reference, verseText, chat, answeringModel, input, setInput, ask, askFresh, openAsk, footField, topic, setTopic, questions, suggestions, buyCredits, close: layer.close };
+  return { reference, verseText, chat, answeringModel, input, setInput, ask, askFresh, openAsk, footField, topics, topic, setTopic, suggestions, buyCredits, close: layer.close };
 }
 
 /**
@@ -152,10 +152,10 @@ export function AskProvider({ verse, children }: { verse: AskVerse; children: Re
 
 /** The topics of the suggested questions (#529): choosing one shows its questions, on both sides of the words page. */
 function QuestionTopics({ className }: { className?: string }) {
-  const { topic, setTopic } = useAsk();
+  const { topics, topic, setTopic } = useAsk();
   return (
     <div role="group" aria-label="Question topics" className={`flex flex-wrap gap-1.5 ${className ?? ""}`}>
-      {QUESTION_TOPICS.map(({ id, label }) => (
+      {topics.map(({ id, label }) => (
         <button
           key={id}
           type="button"
@@ -176,7 +176,7 @@ function QuestionTopics({ className }: { className?: string }) {
  * topic at this width and changing topic does not move the verse. Sending turns the page over.
  */
 export function AskFoot() {
-  const { reference, topic, questions, ask, footField } = useAsk();
+  const { reference, topics, topic, ask, footField } = useAsk();
   return (
     <section aria-label="Ask about this verse" className="hidden shrink-0 border-t border-ink/10 pt-5 md:mx-12 md:block lg:mx-14">
       <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-ink/(--quiet-55)">
@@ -185,13 +185,13 @@ export function AskFoot() {
       </p>
       <QuestionTopics className="mt-3" />
       <div className="mt-2.5 grid">
-        {QUESTION_TOPICS.map(({ id }) => (
+        {topics.map(({ id, questions }) => (
           <ul
             key={id}
             data-suggestions={id === topic ? "" : undefined}
             className={`col-start-1 row-start-1 flex flex-col items-start gap-1.5 ${id === topic ? "" : "invisible"}`}
           >
-            {questions.filter((question) => question.topic === id).map(({ text }) => (
+            {questions.map((text) => (
               <li key={text}>
                 <button
                   type="button"

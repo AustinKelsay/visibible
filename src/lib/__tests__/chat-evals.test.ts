@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { MockLanguageModelV3, simulateReadableStream } from "ai/test";
 import type { LanguageModelV3CallOptions } from "@ai-sdk/provider";
 import type { ChapterData } from "@/lib/bible-api";
+import { suggestedQuestions } from "@/lib/ask-suggestions";
 import {
   buildChatEvalPairs, chatEvalCasesSchema, chatPairScoresSchema, createBudget, rowCostUsd, runChatEvalCase, summarizeChatScores,
   type ChatEvalCase, type ChatEvalDeps, type ChatEvalRow, type ChatPairScore,
@@ -55,6 +56,18 @@ describe("committed chat eval cases", () => {
     expect(new Set(committed.cases.map((item) => item.category))).toEqual(new Set([
       "single-verse", "adjacent-context", "chapter-summary", "contested-interpretation", "off-topic", "prompt-injection", "harm-sensitive",
     ]));
+  });
+
+  it("asks every kind of question Ask suggests, in some case (#535)", () => {
+    // A question kind is a suggested question with its verse, chapter and book written as placeholders.
+    const kind = (text: string, book: string, chapter: number, verse: number) =>
+      text.replace(`${book} ${chapter}:${verse}`, "{verse}").replace(`${book} ${chapter}`, "{chapter}").replace(book, "{book}");
+    const asked = new Set(committed.cases.flatMap(({ passage: { book, chapter, verse }, turns }) =>
+      suggestedQuestions(book, chapter, verse).filter((question) => question.text === turns[turns.length - 1])
+        .map((question) => kind(question.text, book, chapter, verse))));
+    // A chapter's first verse and a later one, since the first asks for historical context in place of a summary.
+    const kinds = new Set([1, 5].flatMap((verse) => suggestedQuestions("John", 1, verse).map((question) => kind(question.text, "John", 1, verse))));
+    expect([...kinds].filter((item) => !asked.has(item))).toEqual([]);
   });
 
   it("asks both questions Ask suggests (#493)", () => {
