@@ -45,6 +45,10 @@ export type GenericEngineDeps = {
 const DEFAULT_COST_MARKUP_MULTIPLIER = 1.25;
 const COST_EVENT_PERSIST_TIMEOUT_MS = 1500;
 const TIMEOUT_PREFIX = "Image generation timed out after";
+const BIBLE_REFERENCE_TRANSLATION = "web";
+const REFERENCE_FETCH_TIMEOUT_MS = 10_000;
+// A thumbnail takes well under a second; past this the picture is saved without one.
+const THUMBNAIL_TIMEOUT_MS = 5_000;
 
 /**
  * Provider answers that say nothing is wrong with this request, only that images cannot be made now: the key is
@@ -61,7 +65,8 @@ class ProviderError extends Error {
     this.name = "ProviderError";
   }
 
-  get unavailable(): boolean {
+  /** True when the provider could take no request now, whatever was asked. */
+  get providerUnavailable(): boolean {
     return PROVIDER_UNAVAILABLE_STATUSES.has(this.status) || this.status >= 500;
   }
 }
@@ -73,10 +78,6 @@ async function providerReason(response: Response): Promise<string> {
   const message = error && typeof error === "object" ? (error as { message?: unknown }).message : error;
   return typeof message === "string" && message.trim() ? message.trim().slice(0, PROVIDER_REASON_LIMIT) : "no reason given";
 }
-const BIBLE_REFERENCE_TRANSLATION = "web";
-const REFERENCE_FETCH_TIMEOUT_MS = 10_000;
-// A thumbnail takes well under a second; past this the picture is saved without one.
-const THUMBNAIL_TIMEOUT_MS = 5_000;
 
 function imageTimeoutMsFromEnv() {
   const parsed = Number.parseInt(process.env.OPENROUTER_IMAGE_TIMEOUT_MS || "45000", 10);
@@ -348,16 +349,17 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         await convex.action(api.sessions.logAdminUsage, { sid, endpoint: "generate-image", modelId, estimatedCredits: reservationCreditsCost, estimatedCostUsd: reservationCostUsd, serverSecret })
           .catch((error) => logWarn("generic.admin_audit_failed", { requestId, error: error instanceof Error ? error.message : String(error) }));
       }
-      const fail = async (status: number, error: string, message: string, discardImage = false, extra: Record<string, unknown> = {}) => {
+      const fail = async (status: number, error: string, message: string, { discardImage = false, retryable }: { discardImage?: boolean; retryable?: boolean } = {}) => {
         // Marking failed first lets a save still in flight observe it and clean up its own blobs.
         // Without a confirmed mark the hold stays held, since a save may still commit.
         const marked = await update("failed", { error: message, ...(started ? { durationMs: now() - started } : {}) }).catch(() => null);
-        if (!marked?.success) return respond(status, { error, message, requestId, ...extra });
+        const body = { error, message, requestId, ...(retryable !== undefined ? { retryable } : {}) };
+        if (!marked?.success) return respond(status, body);
         if (discardImage && generationId) {
           await convex.action(api.verseImages.discardImageByGenerationId, { generationId, serverSecret }).catch(() => {});
         }
         await release("generic_release_on_failure");
-        return respond(status, { error, message, requestId, ...extra });
+        return respond(status, body);
       };
 
       // 12. One provider call, references inline after the prompt in packet order.
@@ -405,14 +407,16 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
           logApiTimeout({ context: requestContext, stage: "openrouter_generation", timeoutMs, sid, generationId });
           return fail(504, "Image generation timed out", `${TIMEOUT_PREFIX} ${timeoutMs}ms`);
         }
-        if (error instanceof ProviderError && error.unavailable) {
+        if (error instanceof ProviderError && error.providerUnavailable) {
           // Nothing was made, so nothing is charged; the reader is told to come back rather than shown a failure. This
           // request id is spent (a retry under it replays the failure), so it is not `retryable`; a new request may succeed.
           logApiFailure({ context: requestContext, stage: "openrouter_unavailable", error, statusCode: 503, sid, generationId });
-          return fail(503, "Images are temporarily unavailable", "No credits were used. Please try again later.", false, { retryable: false });
+          return fail(503, "Images are temporarily unavailable", "No credits were used. Please try again later.", { retryable: false });
         }
         logApiFailure({ context: requestContext, stage: "generate_image_handler", error, statusCode: 500, sid, generationId });
-        return fail(500, "Failed to generate image", error instanceof Error ? error.message : "Failed to generate image");
+        // The provider's reason stays in the log: the request record and the answer carry only its status.
+        const detail = error instanceof ProviderError ? `OpenRouter API error ${error.status}` : error instanceof Error ? error.message : "Failed to generate image";
+        return fail(500, "Failed to generate image", detail);
       }
       const first = toAttempt(firstData);
       if ("noImage" in first) {
@@ -481,7 +485,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
       } catch (error) {
         logApiFailure({ context: requestContext, stage: "generic_save_image", error, statusCode: 500, sid, generationId });
         // The save may have committed before its response was lost; the discard happens after the failure mark.
-        return fail(500, "Failed to generate image", "The image could not be saved", true);
+        return fail(500, "Failed to generate image", "The image could not be saved", { discardImage: true });
       }
       // Settlement follows persistence: a picture that could not be saved releases its hold instead of charging.
       // 14. Settlement from actual usage, or from the accepted estimate when usage is missing (recorded as estimated).
@@ -513,7 +517,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         }
         if (deduct && !deduct.success) {
           logSettlementEvent({ context: requestContext, outcome: "deduct_failed", sid, generationId, details: { actualCredits: chargedCredits } });
-          return fail(402, "Insufficient credits", "Insufficient credits", true);
+          return fail(402, "Insufficient credits", "Insufficient credits", { discardImage: true });
         }
         if (deduct && "newBalance" in deduct) updatedCredits = deduct.newBalance;
         if (deduct) logSettlementEvent({ context: requestContext, outcome: "confirmed", sid, generationId, details: { actualCredits: chargedCredits, usedActual } });

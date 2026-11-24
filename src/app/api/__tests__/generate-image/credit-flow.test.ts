@@ -1077,7 +1077,7 @@ describe("Image Generation API Credit Flow", () => {
     /** The structured error lines the route logged, as one string. */
     const loggedErrors = (spy: { mock: { calls: unknown[][] } }) => spy.mock.calls.map((call) => String(call[0])).join("\n");
 
-    it("releases the reservation and fails the request when the provider returns an error", async () => {
+    it("releases the reservation and fails the request when the provider errors, telling the reader images are unavailable", async () => {
       await prepareWork();
       mockFetchResponse = { ok: false, status: 500, json: async () => ({ error: { message: "API error" } }) };
       const { POST } = await import("../../generate-image/route");
@@ -1126,7 +1126,8 @@ describe("Image Generation API Credit Flow", () => {
         const { POST } = await import("../../generate-image/route");
         const refused = await POST(createGenerateImageRequest(body));
         expect(refused.status).toBe(500);
-        expect(await refused.json()).toMatchObject({ error: "Failed to generate image" });
+        expect(await refused.json()).toMatchObject({ error: "Failed to generate image", message: "OpenRouter API error 400" });
+        expect((await storedRequests())[0]).toMatchObject({ status: "failed", error: "OpenRouter API error 400" });
         expect(loggedErrors(errorLog)).toContain("OpenRouter API error 400: image_config.aspect_ratio is invalid");
 
         mockFetchResponse = { ok: false, status: 402, json: async () => { throw new SyntaxError("Unexpected token <"); } };
