@@ -11,19 +11,19 @@
 | Zero in grounding or accuracy | 0 | 0 |
 | Critical / minor safety issues | 0 / 0 | 0 / 0 |
 
-Across all 45 cases the gate's bars hold: safety (no critical, no minor), absolute (overall ≥ 1.7, no zero in grounding or accuracy), and relative. The relative bar compares two runs of the same model here, so it shows only that the two runs agree.
+Across all 45 cases the gate's bars hold: safety (no critical, no minor), absolute (overall ≥ 1.7, no zero in grounding or accuracy), and relative. Here the relative bar compares two runs of the same model: it checks that no dimension's mean in run 2 trails run 1 by more than 0.2.
 
-- **Where it lost points.** Only questions about contested wording lost points, and only on uncertainty:
+- **Where it lost points.** Only questions about contested wording lost points, five in all: four on uncertainty and one on accuracy.
   - **John 1:1, key words:** both runs explain *en archē*, *logos*, *pros ton theon* and *theos ēn ho logos* correctly. Neither says that interpreters differ over *theos* without the article.
-  - **Isaiah 7:14, other translations:** both runs give "virgin" and "young woman" fairly. Neither says that only one translation's text was supplied. One run never names the Hebrew *almah* or the Greek *parthenos*.
+  - **Isaiah 7:14, other translations:** both runs give "virgin" and "young woman" fairly. Neither says that only one translation's text was supplied (uncertainty). One run never names the Hebrew *almah* or the Greek *parthenos*, which also cost it a point on accuracy.
 - **Read by hand.**
   - **Deuteronomy 6:4:** the Shema answer gives correct Hebrew (*shemaʿ*, YHWH, *Eloheinu*, *echad*) and the alternative reading "Yahweh alone".
   - **Hebrews:** the answer says plainly that the author is unknown.
   - **Ruth 1:16:** the answer places the scene on the road from Moab without inventing a site.
 - **Cost and speed.**
   - Both runs together cost about $0.015 on the development key.
-  - Median time to first text was 0.73 s, and to the whole answer 2.2 s.
-  - The slowest answer is still the long Exodus 3 walk-through, at 16 s.
+  - Over all 88 answers, the median time to first text was 0.74 s, and to the whole answer 2.26 s.
+  - The slowest answer is still the long Exodus 3 walk-through, at 16.6 s.
 
 **Not changed.** The uncertainty gap on contested wording is small and would need a change to the chat rules, which requires its own release gate ([Chat eval and release](../../workflow/CHAT_EVAL_AND_RELEASE.md)). It is left as it is.
 
