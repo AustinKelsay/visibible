@@ -8,7 +8,13 @@ Each request sends the conversation, the passage reference (book, chapter, verse
 
 The verse page asks on its words page ([ask.tsx](../../src/components/spread/ask.tsx), #442). Bible only; the prose reader does not offer Ask.
 
-- **Where.** On a computer the foot of the words page shows "Ask about this verse", two suggested questions and a field. The first is "What does John 1:5 mean?"; from a chapter's second verse onward the second is always "Summarize John 1 so far", and at a first verse it is "What is the historical context of John 1:1?". On a phone that foot is hidden and the dock under the verse holds "Ask a question…", which turns the page over to the same suggestions and field.
+- **Where.** On a computer the foot of the words page shows "Ask about this verse", a row of question topics, the chosen topic's suggested questions and a field. On a phone that foot is hidden and the dock under the verse holds "Ask a question…", which turns the page over to the same topics, suggestions and field (shown there until the first question).
+- **Suggested questions** (#529, [ask-suggestions.ts](../../src/lib/ask-suggestions.ts)) are grouped under five topics, buttons in a "Question topics" group with `aria-pressed`. Ask opens on Meaning for every verse; the chosen topic is shared by both sides of the page and resets on a page turn. The foot's question list keeps the height of three questions, so changing topic does not move the verse. For John 1:5:
+  - **Meaning:** "What does John 1:5 mean?", "Summarize John 1 so far" (at a chapter's first verse "What is the historical context of John 1:1?" instead), "Why does John 1:5 matter?"
+  - **Context:** "What leads up to John 1:5?", "What is the historical context of John 1:5?" (left out at a first verse, where Meaning holds it), "Who wrote John, and for whom?"
+  - **People & places:** "Who is in John 1:5?", "Where does John 1:5 take place?"
+  - **Words:** "What do the key words in John 1:5 mean in the original language?", "How do other translations word John 1:5?"
+  - **For today:** "How can I apply John 1:5 today?", "What can I pray about from John 1:5?"
 - **Turning the page over.** Sending a question, or tapping a suggestion (which sends it), turns the words page over: the `ask` layer ([layers.tsx](../../src/components/spread/layers.tsx)). Its other side shows "Back to the verse", the reference, the verse as a short quote (three lines at most), the conversation with answers streaming in, and a field ("Ask a follow-up…"). On a phone the picture shrinks to give it room. Escape or "Back to the verse" turns it back and focus returns to the control that opened it: the words page's field on a computer, the dock button on a phone. While an answer is still being written, a new question from the words page only turns the page over to it and waits in the field.
 - **The conversation** lasts while the reader stays on the verse; follow-ups send the earlier turns as usual. The conversation is keyed by the verse, so a page turn clears it and closes the turned-over page. Nothing is saved.
 - **Model.** The default (`DEFAULT_CHAT_MODEL`) unless the reader chose another under Advanced's **Answering model** (`answeringModel` in [advanced-settings.ts](../../src/lib/advanced-settings.ts); [Advanced](ADVANCED.md)); the next quote and question use it.
@@ -29,11 +35,11 @@ Free answers (#493) let a guest ask without credits. They are off unless `FREE_A
 
 ## Stored answers
 
-Answers to the two suggested questions are stored (#505) and served to later readers, so the common case is instant and costs nothing.
+Answers to the suggested questions, in every topic, are stored (#505, #529) and served to later readers, so the common case is instant and costs nothing.
 
 - **Which turns.** Only a first turn whose one question is exactly a suggested question for its passage, as the page builds them ([ask-suggestions.ts](../../src/lib/ask-suggestions.ts)). Typed questions, follow-ups and anything with history are never stored or served from storage.
 - **The key** ([stored-answers.ts](../../src/lib/stored-answers.ts)) hashes the model, the translation, the whole system prompt (rules and the Scripture given) and the question. A new model, new rules, another translation or a longer chapter so far is a new key. A prompt without the passage's text (the Scripture could not be loaded) is never served from storage or stored. Answers are recorded under the verse as readers see it ("John 1:5"), whatever spelling of the book the request used.
-- **Serving.** After the origin, session and rate-limit checks, a current stored answer streams back as one answer with `stored: true`, `storedAt` and `billingStatus: "stored"`. It makes no model call, no free reservation and no credit hold. `/api/chat/quote` lists the passage's suggestions that have one (`stored`), and the page then asks them whatever the balance or the free standing.
+- **Serving.** After the origin, session and rate-limit checks, a current stored answer streams back as one answer with `stored: true`, `storedAt` and `billingStatus: "stored"`. It makes no model call, no free reservation and no credit hold. `/api/chat/quote` lists the passage's suggestions that have one (`stored`; the Convex presence read looks up at most 16 keys, more than a verse's 12 questions), and the page then asks them whatever the balance or the free standing.
 - **Storing and replacing.**
   - A complete answer (`stop`, non-empty) to a storable question is stored, free, paid or the owner's, replacing any answer under its key.
   - A stored answer shows "Saved answer · Get a fresh answer", priced like any question ("Free" or its credits). Without either, it opens the credits dialog.

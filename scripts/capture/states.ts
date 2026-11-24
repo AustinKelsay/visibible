@@ -20,6 +20,8 @@ export const READER_STATES: CaptureState[] = [
   { name: "unpainted", path: "/john/1/6", steps: ["waitfor:region:Picture", "hover:css:article p:nth-of-type(2)"] },
   { name: "whole-picture", path: "/john/1/5", steps: ["click:button:Show the whole picture of John 1:5", "wait:600"] },
   { name: "ask", path: "/john/1/5", steps: ["click:button:Ask a question…", "waitfor:dialog:Ask about John 1:5"], sizes: ["phone"] },
+  // The words page's foot with another question topic chosen (#529).
+  { name: "ask-topics", path: "/john/1/6", steps: ["waitfor:region:Picture", "click:button:People & places", "hover:css:article p:nth-of-type(2)"], sizes: ["desktop"] },
   { name: "contents", path: "/john/1/5", steps: ["click:button:Contents", "waitfor:dialog:Contents", "wait:1200"] },
   // Priced by the `priced` stub. The run's guest has no credits, so the balance note shows; a running job needs a
   // guest with credits and stubbed paintings, which this command cannot give (llm/workflow/READER_CAPTURE.md).
